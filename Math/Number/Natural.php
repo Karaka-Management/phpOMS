@@ -1,0 +1,2 @@
+class Natural implements Number {
+}

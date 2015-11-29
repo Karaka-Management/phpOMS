@@ -1,0 +1,2 @@
+class Irrational implements Number {
+}

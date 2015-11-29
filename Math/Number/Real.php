@@ -1,0 +1,2 @@
+class Real implements Number {
+}

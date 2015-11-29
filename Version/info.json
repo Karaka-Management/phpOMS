@@ -1,0 +1,10 @@
+{
+    "framework": "1.0.0",
+    "db": "1.0.0",
+    "db_mysql": "5.0.27",
+    "db_sqlite": "3.0.0",
+    "php": "5.4.0",
+    "fontawesome": "4.1.0",
+    "dthree": "3.4.11",
+    "jquery": "2.1.1"
+}

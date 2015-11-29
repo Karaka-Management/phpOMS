@@ -1,0 +1,53 @@
+<?php
+/**
+ * Orange Management
+ *
+ * PHP Version 7.0
+ *
+ * @category   TBD
+ * @package    TBD
+ * @author     OMS Development Team <dev@oms.com>
+ * @author     Dennis Eichhorn <d.eichhorn@oms.com>
+ * @copyright  2013 Dennis Eichhorn
+ * @license    OMS License 1.0
+ * @version    1.0.0
+ * @link       http://orange-management.com
+ */
+namespace phpOMS\Utils\IO\Csv;
+
+/**
+ * Options trait.
+ *
+ * @category   Framework
+ * @package    phpOMS\Config
+ * @since      1.0.0
+ */
+trait CsvSettingsTrait
+{
+    private function getFileDelimiter($file, int $checkLines = 2, array $delimiters = [',', '\t', ';', '|', ':']) : \string
+    {
+        $results = [];
+
+        $i = 0;
+        while (($line = fgets($file)) !== false && $i < $checkLines) {
+            $i++;
+
+            foreach ($delimiters as $delimiter) {
+                $regExp = '/[' . $delimiter . ']/';
+                $fields = preg_split($regExp, $line);
+
+                if (count($fields) > 1) {
+                    if (!empty($results[$delimiter])) {
+                        $results[$delimiter]++;
+                    } else {
+                        $results[$delimiter] = 1;
+                    }
+                }
+            }
+        }
+
+        $results = array_keys($results, max($results));
+
+        return $results[0];
+    }
+}
