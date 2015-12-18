@@ -55,15 +55,18 @@ class SystemUtils
     {
         $countSize = 0;
         $count     = 0;
-        $dir_array = scandir($dir);
 
-        foreach ($dir_array as $key => $filename) {
-            if ($filename != ".." && $filename != ".") {
-                if (is_dir($dir . "/" . $filename)) {
-                    $countSize += self::getFolderSize($dir . "/" . $filename);
-                } else if (is_file($dir . "/" . $filename)) {
-                    $countSize += filesize($dir . "/" . $filename);
-                    $count++;
+        if(is_readable($dir)) {
+            $dir_array = scandir($dir);
+
+            foreach ($dir_array as $key => $filename) {
+                if ($filename != ".." && $filename != ".") {
+                    if (is_dir($dir . "/" . $filename)) {
+                        $countSize += self::getFolderSize($dir . "/" . $filename);
+                    } else if (is_file($dir . "/" . $filename)) {
+                        $countSize += filesize($dir . "/" . $filename);
+                        $count++;
+                    }
                 }
             }
         }

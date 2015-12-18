@@ -250,7 +250,7 @@ class ModuleManager
 
                 if (file_exists($path)) {
                     if(strpos($path, self::MODULE_PATH) === false) {
-                        throw new FilePathException($path);
+                        throw new FilePathException(self::MODULE_PATH . '/' . $files[$i] . '/info.json');
                     }
 
                     $json                                 = json_decode(file_get_contents($path), true);
@@ -300,7 +300,7 @@ class ModuleManager
 
         if ($path !== false) {
             if(strpos($path, self::MODULE_PATH) === false) {
-                throw new FilePathException($path);
+                throw new FilePathException(self::MODULE_PATH . '/' . $module . '/' . 'info.json');
             }
 
             $info = json_decode(file_get_contents($path), true);

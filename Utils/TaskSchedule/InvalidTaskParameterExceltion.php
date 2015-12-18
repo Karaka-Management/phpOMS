@@ -13,26 +13,25 @@
  * @version    1.0.0
  * @link       http://orange-management.com
  */
-namespace phpOMS\Asset;
-
-use phpOMS\Datatypes\Enum;
+namespace phpOMS\Utils\TaskSchedule;
 
 /**
- * Login return types enum.
+ * Filesystem class.
  *
- * These are possible answers to authentications.
+ * Performing operations on the file system
  *
- * @category   Framework
- * @package    phpOMS\Auth
+ * @category   System
+ * @package    Framework
  * @author     OMS Development Team <dev@oms.com>
  * @author     Dennis Eichhorn <d.eichhorn@oms.com>
  * @license    OMS License 1.0
  * @link       http://orange-management.com
  * @since      1.0.0
  */
-abstract class AssetType extends Enum
+class InvalidTaskParameterException extends \UnexpectedValueException
 {
-    const CSS    = 'css';
-    const JS     = 'js';
-    const JSLATE = 'jslate';
+    public function __construct($message, $code = 0, \Exception $previous = null)
+    {
+        parent::__construct('The parameter "' . $message . '" is not valid for this task.', $code, $previous);
+    }
 }

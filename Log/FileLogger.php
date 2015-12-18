@@ -32,6 +32,7 @@ use phpOMS\System\FilePathException;
 class FileLogger implements LoggerInterface
 {
     const MSG_BACKTRACE = '{datetime}; {level}; {ip}; {message}; {backtrace}';
+    const MSG_FULL      = '{datetime}; {level}; {ip}; {line}; {version}; {os}; {message}; {file}; {backtrace}';
     const MSG_SIMPLE    = '{datetime}; {level}; {ip}; {message};';
 
     /**
@@ -76,21 +77,21 @@ class FileLogger implements LoggerInterface
      *
      * Creates the logging object and overwrites all default values.
      *
-     * @param \string $path Path for logging
+     * @param \string $lpath Path for logging
      *
      * @since  1.0.0
      * @author Dennis Eichhorn
      */
-    public function __construct(\string $path)
+    public function __construct(\string $lpath)
     {
-        if(!file_exists($path)) {
-            mkdir($path);
+        if (!file_exists($lpath)) {
+            mkdir($lpath);
         }
 
-        $path = realpath($path);
+        $path = realpath($lpath);
 
         if (strpos($path, ROOT_PATH) === false) {
-            throw new FilePathException($path);
+            throw new FilePathException($lpath);
         }
 
         if (!file_exists($path)) {
@@ -223,12 +224,11 @@ class FileLogger implements LoggerInterface
 
         $backtrace = debug_backtrace();
 
-        if (isset($backtrace[0])) {
-            unset($backtrace[0]);
-        }
-
-        if (isset($backtrace[1])) {
-            unset($backtrace[1]);
+        // Removing sensitive config data from logging
+        foreach ($backtrace as $key => $value) {
+            if (isset($value['args'])) {
+                unset($backtrace[$key]['args']);
+            }
         }
 
         $backtrace = json_encode($backtrace);
@@ -237,6 +237,8 @@ class FileLogger implements LoggerInterface
         $replace['{datetime}']  = sprintf('%--19s', (new \DateTime('NOW'))->format('Y-m-d H:i:s'));
         $replace['{level}']     = sprintf('%--12s', $level);
         $replace['{ip}']        = sprintf('%--15s', $_SERVER['REMOTE_ADDR']);
+        $replace['{version}']   = sprintf('%--15s', PHP_VERSION);
+        $replace['{os}']        = sprintf('%--15s', PHP_OS);
 
         return strtr($message, $replace);
     }
@@ -261,6 +263,16 @@ class FileLogger implements LoggerInterface
         return ($a['time'] > $b['time']) ? -1 : 1;
     }
 
+    /**
+     * Write to file.
+     *
+     * @param \string $message
+     *
+     * @return void
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn
+     */
     private function write(\string $message)
     {
         $this->fp = fopen($this->path, 'a');
@@ -275,6 +287,9 @@ class FileLogger implements LoggerInterface
      * @param array   $context
      *
      * @return null
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn
      */
     public function emergency(\string $message, array $context = [])
     {
@@ -291,7 +306,10 @@ class FileLogger implements LoggerInterface
      * @param \string $message
      * @param array   $context
      *
-     * @return null
+     * @return void
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn
      */
     public function alert(\string $message, array $context = [])
     {
@@ -307,7 +325,10 @@ class FileLogger implements LoggerInterface
      * @param \string $message
      * @param array   $context
      *
-     * @return null
+     * @return void
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn
      */
     public function critical(\string $message, array $context = [])
     {
@@ -322,7 +343,10 @@ class FileLogger implements LoggerInterface
      * @param \string $message
      * @param array   $context
      *
-     * @return null
+     * @return void
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn
      */
     public function error(\string $message, array $context = [])
     {
@@ -339,7 +363,10 @@ class FileLogger implements LoggerInterface
      * @param \string $message
      * @param array   $context
      *
-     * @return null
+     * @return void
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn
      */
     public function warning(\string $message, array $context = [])
     {
@@ -353,7 +380,10 @@ class FileLogger implements LoggerInterface
      * @param \string $message
      * @param array   $context
      *
-     * @return null
+     * @return void
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn
      */
     public function notice(\string $message, array $context = [])
     {
@@ -369,7 +399,10 @@ class FileLogger implements LoggerInterface
      * @param \string $message
      * @param array   $context
      *
-     * @return null
+     * @return void
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn
      */
     public function info(\string $message, array $context = [])
     {
@@ -383,7 +416,10 @@ class FileLogger implements LoggerInterface
      * @param \string $message
      * @param array   $context
      *
-     * @return null
+     * @return void
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn
      */
     public function debug(\string $message, array $context = [])
     {
@@ -398,7 +434,10 @@ class FileLogger implements LoggerInterface
      * @param \string $message
      * @param array   $context
      *
-     * @return null
+     * @return void
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn
      */
     public function log(\string $level, \string $message, array $context = [])
     {
@@ -530,8 +569,12 @@ class FileLogger implements LoggerInterface
                 $log['datetime']  = $line[0] ?? '';
                 $log['level']     = $line[1] ?? '';
                 $log['ip']        = $line[2] ?? '';
-                $log['message']   = $line[3] ?? '';
-                $log['backtrace'] = $line[4] ?? '';
+                $log['line']      = $line[3] ?? '';
+                $log['version']   = $line[4] ?? '';
+                $log['os']        = $line[5] ?? '';
+                $log['message']   = $line[6] ?? '';
+                $log['file']      = $line[7] ?? '';
+                $log['backtrace'] = $line[8] ?? '';
 
                 break;
             }

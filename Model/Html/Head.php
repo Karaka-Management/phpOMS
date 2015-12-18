@@ -315,4 +315,24 @@ class Head implements RenderableInterface
 
         return $asset;
     }
+
+    /**
+     * Render assets.
+     *
+     * @return \string
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+    public function renderAssetsLate() : \string
+    {
+        $asset = '';
+        foreach ($this->assets as $uri => $type) {
+            if ($type === AssetType::JSLATE) {
+                $asset .= '<script src="' . $uri . '"></script>';
+            }
+        }
+
+        return $asset;
+    }
 }

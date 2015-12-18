@@ -64,19 +64,19 @@ class Version
     /**
      * Loading version file.
      *
-     * @param \string $path Path to version file
+     * @param \string $jpath Path to version file
      *
      * @return \string[]
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public static function getVersion(\string $path) : array
+    public static function getVersion(\string $jpath) : array
     {
-        $path = realpath($path);
+        $path = realpath($jpath);
 
         if(strpos($path, ROOT_PATH) === false || strpos($path, 'config.php') !== false) {
-            throw new FilePathException($path);
+            throw new FilePathException($jpath);
         }
 
         return json_decode(file_get_contents($path), true);

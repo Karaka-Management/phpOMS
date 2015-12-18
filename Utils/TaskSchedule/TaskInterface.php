@@ -13,26 +13,21 @@
  * @version    1.0.0
  * @link       http://orange-management.com
  */
-namespace phpOMS\Asset;
-
-use phpOMS\Datatypes\Enum;
+namespace phpOMS\Utils\TaskSchedule;
 
 /**
- * Login return types enum.
- *
- * These are possible answers to authentications.
+ * Array utils.
  *
  * @category   Framework
- * @package    phpOMS\Auth
+ * @package    Utils
  * @author     OMS Development Team <dev@oms.com>
  * @author     Dennis Eichhorn <d.eichhorn@oms.com>
  * @license    OMS License 1.0
  * @link       http://orange-management.com
  * @since      1.0.0
  */
-abstract class AssetType extends Enum
+interface TaskInterface
 {
-    const CSS    = 'css';
-    const JS     = 'js';
-    const JSLATE = 'jslate';
+    public function setInterval(Interval $interval);
+    public function setCommand(\string $command);
 }
