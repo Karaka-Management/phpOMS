@@ -14,6 +14,7 @@
  * @link       http://orange-management.com
  */
 namespace phpOMS\Module;
+use phpOMS\System\FilePathException;
 
 
 /**
@@ -91,8 +92,6 @@ abstract class ModuleAbstract
      *
      * @param \phpOMS\ApplicationAbstract $app Application instance
      *
-     * @return void
-     *
      * @since  1.0.0
      * @author Dennis Eichhorn
      */
@@ -134,6 +133,10 @@ abstract class ModuleAbstract
         $lang = [];
         if (isset(static::$localization[$destination])) {
             foreach (static::$localization[$destination] as $file) {
+                if(($path = $path = realpath(__DIR__ . '/../../Modules/' . static::$module . '/Theme/lang/' . $file . '.' . $language . '.lang.php')) === false) {
+                    throw new FilePathException(__DIR__ . '/../../Modules/' . static::$module . '/Theme/lang/' . $file . '.' . $language . '.lang.php');
+                }
+
                 /** @noinspection PhpIncludeInspection */
                 include realpath(__DIR__ . '/../../Modules/' . static::$module . '/Theme/lang/' . $file . '.' . $language . '.lang.php');
                 /** @var array $MODLANG */
