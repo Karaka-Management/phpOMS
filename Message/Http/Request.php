@@ -62,6 +62,14 @@ class Request extends RequestAbstract
     protected $path = null;
 
     /**
+     * Uploaded files.
+     *
+     * @var array
+     * @since 1.0.0
+     */
+    protected $files = [];
+
+    /**
      * Request information.
      *
      * @var \string[]
@@ -93,6 +101,8 @@ class Request extends RequestAbstract
      *
      * @return void
      *
+     * @throws
+     *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
@@ -103,10 +113,16 @@ class Request extends RequestAbstract
 
             if (isset($_SERVER['CONTENT_TYPE'])) {
                 if (strpos($_SERVER['CONTENT_TYPE'], 'application/json') !== false) {
-                    $this->data += json_decode(file_get_contents('php://input'), true);
+                    if(($json = json_decode(($input = file_get_contents('php://input')), true)) === false || $json === null) {
+                        throw new \Exception('Is not valid json ' . $input);
+                    }
+
+                    $this->data += $json;
                 } elseif (strpos($_SERVER['CONTENT_TYPE'], 'application/x-www-form-urlencoded') !== false) {
                     parse_str(file_get_contents('php://input'), $temp);
                     $this->data += $temp;
+                } elseif (strpos($_SERVER['CONTENT_TYPE'], 'multipart/form-data') !== false) {
+                    $this->files = $_FILES;
                 }
             }
 
@@ -368,6 +384,11 @@ class Request extends RequestAbstract
     public function getRequestTarget() : \string
     {
         return '/';
+    }
+
+    public function getFiles() : array
+    {
+        return $this->files;
     }
 
     public function setHeader($key, \string $header, \bool $overwrite = true)
