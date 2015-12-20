@@ -113,7 +113,7 @@ class Request extends RequestAbstract
 
             if (isset($_SERVER['CONTENT_TYPE'])) {
                 if (strpos($_SERVER['CONTENT_TYPE'], 'application/json') !== false) {
-                    if(($json = json_decode(($input = file_get_contents('php://input')), true)) === false || $json === null) {
+                    if (($json = json_decode(($input = file_get_contents('php://input')), true)) === false || $json === null) {
                         throw new \Exception('Is not valid json ' . $input);
                     }
 
@@ -131,6 +131,12 @@ class Request extends RequestAbstract
             $this->setMethod($uri['type']); // TODO: is this correct?
             $this->uri->set($uri['uri']);
         }
+
+        unset($_FILES);
+        unset($_GET);
+        unset($_POST);
+        unset($_PUT);
+        unset($_HEAD);
 
         $this->path = explode('/', $this->uri->getPath());
         $this->l11n->setLanguage($this->path[0]);
