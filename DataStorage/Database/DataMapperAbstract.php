@@ -249,7 +249,9 @@ abstract class DataMapperAbstract implements DataMapperInterface
 
         foreach ($properties as $property) {
             foreach (static::$columns as $key => $column) {
-                if ($column['internal'] === $property) {
+                if ($column['internal'] === $property->getName()) {
+                    $property->setAccessible(true);
+
                     $value = $property->getValue($obj);
 
                     if ($column['type'] === 'DateTime') {
@@ -257,7 +259,9 @@ abstract class DataMapperAbstract implements DataMapperInterface
                     }
 
                     $query->insert($column['name'])
-                        ->values($value);
+                          ->value($value);
+
+                    // todo: do i have to reverse the accessibility or is there no risk involved here?
 
                     break;
                 }
@@ -381,11 +385,11 @@ abstract class DataMapperAbstract implements DataMapperInterface
 
         $query = new Builder($this->db);
         $query->prefix($this->db->getPrefix())
-            ->select('*')
-            ->from(static::$table)
-            ->limit(1);
+              ->select('*')
+              ->from(static::$table)
+              ->limit(1);
 
-        if(isset(static::$createdAt)) {
+        if (isset(static::$createdAt)) {
             $query->orderBy(static::$table . '.' . static::$columns[static::$createdAt]['name'], 'DESC');
         } else {
             $query->orderBy(static::$table . '.' . static::$columns[static::$primaryField]['name'], 'DESC');
@@ -481,9 +485,9 @@ abstract class DataMapperAbstract implements DataMapperInterface
     {
         $query = new Builder($this->db);
         $query->prefix($this->db->getPrefix())
-            ->select('*')
-            ->from(static::$table)
-            ->where(static::$table . '.' . static::$primaryField, '=', $primaryKey);
+              ->select('*')
+              ->from(static::$table)
+              ->where(static::$table . '.' . static::$primaryField, '=', $primaryKey);
 
         $sth = $this->db->con->prepare($query->toSql());
         $sth->execute();
@@ -522,9 +526,9 @@ abstract class DataMapperAbstract implements DataMapperInterface
             if (!isset($value['mapper'])) {
                 $query = new Builder($this->db);
                 $query->prefix($this->db->getPrefix())
-                    ->select($value['table'] . '.' . $value['src'])
-                    ->from($value['table'])
-                    ->where($value['table'] . '.' . $value['dst'], '=', $primaryKey);
+                      ->select($value['table'] . '.' . $value['src'])
+                      ->from($value['table'])
+                      ->where($value['table'] . '.' . $value['dst'], '=', $primaryKey);
 
                 $sth = $this->db->con->prepare($query->toSql());
                 $sth->execute();
@@ -560,8 +564,8 @@ abstract class DataMapperAbstract implements DataMapperInterface
     {
         $query = new Builder($this->db);
         $query->prefix($this->db->getPrefix())
-            ->select('*')
-            ->from(static::$table);
+              ->select('*')
+              ->from(static::$table);
 
         $sth = $this->db->con->prepare($query->toSql());
         $sth->execute();

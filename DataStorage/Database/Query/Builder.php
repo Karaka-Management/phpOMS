@@ -17,6 +17,7 @@
 namespace phpOMS\DataStorage\Database\Query;
 
 use phpOMS\DataStorage\Database\Connection\ConnectionAbstract;
+use phpOMS\DataStorage\Database\Query;
 
 /**
  * Database query builder.
@@ -174,7 +175,7 @@ class Builder
      * @var QueryType
      * @since 1.0.0
      */
-    protected $type = null;
+    protected $type = QueryType::INSERT;
 
     protected $unionLimit = null;
 
@@ -792,6 +793,26 @@ class Builder
         return $this;
     }
 
+    /**
+     * Values to insert.
+     *
+     * @param mixed $value Values
+     *
+     * @return Builder
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+    public function value($value) : Builder
+    {
+        end($this->values);
+        $key                  = key($this->values);
+        $this->values[$key][] = $value;
+        reset($this->values);
+
+        return $this;
+    }
+
     public function update() : Builder
     {
         $this->type = QueryType::UPDATE;
@@ -877,7 +898,8 @@ class Builder
         return $this->type;
     }
 
-    public function merge($query) : Builder {
+    public function merge($query) : Builder
+    {
         return clone($this);
     }
 }

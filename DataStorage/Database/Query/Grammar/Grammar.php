@@ -169,10 +169,10 @@ class Grammar extends \phpOMS\DataStorage\Database\Grammar
                 $components = $this->insertComponents;
                 break;
             case QueryType::UPDATE:
-                $components = null;
+                $components = [];
                 break;
             case QueryType::DELETE:
-                $components = null;
+                $components = [];
                 break;
             default:
                 throw new \InvalidArgumentException('Unknown query type.');
