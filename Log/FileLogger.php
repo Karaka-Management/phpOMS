@@ -16,6 +16,8 @@
 namespace phpOMS\Log;
 
 use phpOMS\Datatypes\Exception\InvalidEnumValue;
+use phpOMS\Message\Http\Rest;
+use phpOMS\Message\RequestMethod;
 use phpOMS\System\FilePathException;
 
 /**
@@ -32,7 +34,7 @@ use phpOMS\System\FilePathException;
 class FileLogger implements LoggerInterface
 {
     const MSG_BACKTRACE = '{datetime}; {level}; {ip}; {message}; {backtrace}';
-    const MSG_FULL      = '{datetime}; {level}; {ip}; {line}; {version}; {os}; {message}; {file}; {backtrace}';
+    const MSG_FULL      = '{datetime}; {level}; {ip}; {line}; {version}; {os}; {path}; {message}; {file}; {backtrace}';
     const MSG_SIMPLE    = '{datetime}; {level}; {ip}; {message};';
 
     /**
@@ -236,6 +238,7 @@ class FileLogger implements LoggerInterface
         $replace['{backtrace}'] = str_replace(str_replace('\\', '\\\\', ROOT_PATH), '', $backtrace);
         $replace['{datetime}']  = sprintf('%--19s', (new \DateTime('NOW'))->format('Y-m-d H:i:s'));
         $replace['{level}']     = sprintf('%--12s', $level);
+        $replace['{path}']      = $_SERVER['REQUEST_URI'];
         $replace['{ip}']        = sprintf('%--15s', $_SERVER['REMOTE_ADDR']);
         $replace['{version}']   = sprintf('%--15s', PHP_VERSION);
         $replace['{os}']        = sprintf('%--15s', PHP_OS);
@@ -512,7 +515,15 @@ class FileLogger implements LoggerInterface
         return array_slice($connection, 0, $limit);
     }
 
-    public function get($limit = 25, $offset = 0)
+    /**
+     * Get logging messages from file.
+     *
+     * @param \int $limit  Amout of perpetrators
+     * @param \int $offset Offset
+     *
+     * @return array
+     */
+    public function get(\int $limit = 25, \int $offset = 0) : array
     {
         $logs = [];
         $id   = 0;
@@ -550,7 +561,14 @@ class FileLogger implements LoggerInterface
         return $logs;
     }
 
-    public function getByLine(\int $id = 1)
+    /**
+     * Get single logging message from file.
+     *
+     * @param \int $id Id/Line number of the logging message
+     *
+     * @return array
+     */
+    public function getByLine(\int $id = 1) : array
     {
         $log     = [];
         $current = 0;
@@ -572,9 +590,10 @@ class FileLogger implements LoggerInterface
                 $log['line']      = $line[3] ?? '';
                 $log['version']   = $line[4] ?? '';
                 $log['os']        = $line[5] ?? '';
-                $log['message']   = $line[6] ?? '';
-                $log['file']      = $line[7] ?? '';
-                $log['backtrace'] = $line[8] ?? '';
+                $log['path']      = $line[6] ?? '';
+                $log['message']   = $line[7] ?? '';
+                $log['file']      = $line[8] ?? '';
+                $log['backtrace'] = $line[9] ?? '';
 
                 break;
             }
