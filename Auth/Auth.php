@@ -108,7 +108,7 @@ class Auth implements OptionsInterface
                 case DatabaseType::MYSQL:
 
                     $sth = $this->connection->con->prepare(
-                    'SELECT
+                        'SELECT
                             `' . $this->connection->prefix . 'account`.*
                         FROM
                             `' . $this->connection->prefix . 'account`
@@ -119,7 +119,7 @@ class Auth implements OptionsInterface
                     $sth->execute();
 
                     $result = $sth->fetchAll();
-break;
+                    break;
             }
 
             // TODO: check if user is allowed to login on THIS page (backend|frontend|etc...)

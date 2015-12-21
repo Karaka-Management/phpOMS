@@ -392,6 +392,14 @@ class Request extends RequestAbstract
         return '/';
     }
 
+    /**
+     * Get files passed in request.
+     *
+     * @return array
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
     public function getFiles() : array
     {
         return $this->files;
@@ -402,6 +410,14 @@ class Request extends RequestAbstract
         // NOT Required for Http request
     }
 
+    /**
+     * Get request route.
+     *
+     * @return string
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
     public function getRoutify() : \string
     {
         return $this->uri->__toString();

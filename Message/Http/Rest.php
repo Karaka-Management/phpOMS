@@ -20,7 +20,7 @@ use phpOMS\Message\RequestMethod;
 use phpOMS\Uri\InvalidUriException;
 
 /**
- * Request class.
+ * Rest request class.
  *
  * @category   Framework
  * @package    phpOMS\Request
@@ -32,10 +32,30 @@ use phpOMS\Uri\InvalidUriException;
  */
 class Rest
 {
+    /**
+     * Url.
+     *
+     * @var string
+     * @since 1.0.0
+     */
     private $url = '';
 
-    private $method = '';
+    /**
+     * Method.
+     *
+     * @var string
+     * @since 1.0.0
+     */
+    private $method = RequestMethod::POST;
 
+    /**
+     * Set url.
+     *
+     * @param \string $url Url
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn
+     */
     public function setUrl(\string $url) {
         if (filter_var($url, FILTER_VALIDATE_URL) === false) {
             throw new InvalidUriException('$url');
@@ -44,6 +64,14 @@ class Rest
         $this->url = $url;
     }
 
+    /**
+     * Set method.
+     *
+     * @param \string $method Method
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn
+     */
     public function setMethod(\string $method) {
         if(!RequestMethod::isValidValue($method)) {
             throw new InvalidEnumValue($method);
@@ -52,7 +80,17 @@ class Rest
         $this->method = $method;
     }
 
-    public function callApi($data = false)
+    /**
+     * Make request.
+     *
+     * @param mixed $data Data to pass
+     *
+     * @return \string
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn
+     */
+    public function callApi($data = false) : \string
     {
         $curl = curl_init();
 
