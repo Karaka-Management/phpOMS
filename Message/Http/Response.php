@@ -243,7 +243,7 @@ class Response extends ResponseAbstract implements RenderableInterface
         foreach ($this->response as $key => $response) {
             if (is_object($response)) {
                 $render .= $response->render();
-            } elseif (is_string($response)) {
+            } elseif (is_string($response) || is_numeric($response)) {
                 $render .= $response;
             } elseif (is_array($response)) {
                 $render .= json_encode($response);
