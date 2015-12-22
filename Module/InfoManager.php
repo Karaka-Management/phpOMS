@@ -52,8 +52,6 @@ class InfoManager
      *
      * @param \string $module Module name
      *
-     * @return void
-     *
      * @since  1.0.0
      * @author Dennis Eichhorn
      */
