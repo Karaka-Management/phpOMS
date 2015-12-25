@@ -13,7 +13,7 @@
  * @version    1.0.0
  * @link       http://orange-management.com
  */
-namespace phpOMS\Math\Algebra;
+namespace phpOMS\Math\Shape\D3;
 
 class Sphere
 {
@@ -42,13 +42,73 @@ class Sphere
         $latDelta = $latTo - $latFrom;
         $lonDelta = $lonTo - $lonFrom;
 
-        $a        = pow(cos($latTo) * sin($lonDelta), 2) + pow(cos($latFrom) * sin($latTo) - sin($latFrom) * cos($latTo) * cos($lonDelta), 2);
-        $b        = sin($latFrom) * sin($latTo) + cos($latFrom) * cos($latTo) * cos($lonDelta);
+        $a = pow(cos($latTo) * sin($lonDelta), 2) + pow(cos($latFrom) * sin($latTo) - sin($latFrom) * cos($latTo) * cos($lonDelta), 2);
+        $b = sin($latFrom) * sin($latTo) + cos($latFrom) * cos($latTo) * cos($lonDelta);
 
         $angle = atan2(sqrt($a), $b);
         // Approximation (very good for short distances)
         // $angle = 2 * asin(sqrt(pow(sin($latDelta / 2), 2) + cos($latFrom) * cos($latTo) * pow(sin($lonDelta / 2), 2)));
 
         return $angle * $radius;
+    }
+
+    /**
+     * Volume
+     *
+     * @param float $r Radius
+     *
+     * @return float
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+    public static function getVolume(\float $r)
+    {
+        return 4 / 3 * pi() * $r ** 3;
+    }
+
+    /**
+     * Radius
+     *
+     * @param float $V Volume
+     *
+     * @return float
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+    public static function getRadiusByVolume(\float $V)
+    {
+        return pow($V * 3 / (4 * pi()), 1 / 3);
+    }
+
+    /**
+     * Surface area
+     *
+     * @param float $r Radius
+     *
+     * @return float
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+    public static function getSurface(\float $r)
+    {
+        return 4 * pi() * $r ** 2;
+    }
+
+    /**
+     * Radius
+     *
+     * @param float $S Surface
+     *
+     * @return float
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+    public static function getRadiusBySurface(\float $S)
+    {
+        return sqrt($S / (4 * pi()));
     }
 }
