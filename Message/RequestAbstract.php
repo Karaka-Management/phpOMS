@@ -175,6 +175,7 @@ abstract class RequestAbstract implements RequestInterface
      */
     public function getData($key = null)
     {
+        $key = mb_strtolower($key);
         return !isset($key) ? $this->data : $this->data[$key] ?? null;
     }
 
@@ -183,6 +184,7 @@ abstract class RequestAbstract implements RequestInterface
      */
     public function setData($key, $value, $overwrite = true)
     {
+        $key = mb_strtolower($key);
         if ($overwrite || !isset($this->data[$key])) {
             $this->data[$key] = $value;
         }

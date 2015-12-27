@@ -132,11 +132,12 @@ class Request extends RequestAbstract
             $this->uri->set($uri['uri']);
         }
 
+        $this->data = array_change_key_case($this->data, CASE_LOWER);
+
         unset($_FILES);
         unset($_GET);
         unset($_POST);
-        unset($_PUT);
-        unset($_HEAD);
+        unset($_REQUEST);
 
         $this->path = explode('/', $this->uri->getPath());
         $this->l11n->setLanguage($this->path[0]);
