@@ -14,6 +14,8 @@
  * @link       http://orange-management.com
  */
 namespace phpOMS\DataStorage\Session;
+use phpOMS\Uri\UriFactory;
+use phpOMS\Utils\RnG\StringUtils;
 
 /**
  * Http session class.
@@ -54,12 +56,17 @@ class HttpSession implements SessionInterface
             session_id($sid);
         }
 
-        session_set_cookie_params($liftetime);
+        session_set_cookie_params($liftetime, '/', null, false, true);
         session_start();
         $this->sessionData = $_SESSION;
+        $_SESSION = null;
 
         $this->sid = session_id();
         session_write_close();
+
+        $CSRF = StringUtils::generateString(10, 16);
+        $this->set('CSRF', $CSRF, false);
+        UriFactory::setQuery('$CSRF', $CSRF);
     }
 
     /**
