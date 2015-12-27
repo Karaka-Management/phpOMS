@@ -62,7 +62,7 @@ class HttpSession implements SessionInterface
         $_SESSION = null;
 
         $this->sid = session_id();
-        session_write_close();
+        $this->set('UID', 0, false);
 
         if(($CSRF = $this->get('CSRF')) === null) {
             $CSRF = StringUtils::generateString(10, 16);
@@ -99,10 +99,7 @@ class HttpSession implements SessionInterface
      */
     public function save()
     {
-        session_id($this->sid);
-        session_start();
-        $_SESSION = $this->sessionData;
-        session_write_close();
+
     }
 
     /**
@@ -133,6 +130,12 @@ class HttpSession implements SessionInterface
     public function setSID($sid)
     {
         $this->sid = $sid;
+    }
+
+    public function __destruct()
+    {
+        $_SESSION = $this->sessionData;
+        session_write_close();
     }
 
 }
