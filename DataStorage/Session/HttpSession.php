@@ -64,8 +64,11 @@ class HttpSession implements SessionInterface
         $this->sid = session_id();
         session_write_close();
 
-        $CSRF = StringUtils::generateString(10, 16);
-        $this->set('CSRF', $CSRF, false);
+        if(($CSRF = $this->get('CSRF')) === null) {
+            $CSRF = StringUtils::generateString(10, 16);
+            $this->set('CSRF', $CSRF, false);
+        }
+
         UriFactory::setQuery('$CSRF', $CSRF);
     }
 
