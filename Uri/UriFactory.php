@@ -105,7 +105,7 @@ class UriFactory
      */
     public static function build(\string $uri, array $toMatch = [], \int $scheme = UriScheme::HTTP)
     {
-        $uri = preg_replace_callback('(\{[\/#\?@\.][a-zA-Z0-9]*\})', function ($match) use ($toMatch) {
+        $uri = preg_replace_callback('(\{[\/#\?@\.\$][a-zA-Z0-9]*\})', function ($match) use ($toMatch) {
             $match = substr($match[0], 1, strlen($match[0]) - 2);
 
             return $toMatch[$match] ?? self::$uri[$match] ?? $match;
