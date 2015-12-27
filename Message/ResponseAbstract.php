@@ -125,6 +125,7 @@ abstract class ResponseAbstract implements ResponseInterface, ArrayableInterface
     public function setStatusCode(\string $status)
     {
         $this->status = $status;
+        $this->generateHeader($status);
     }
 
     /**

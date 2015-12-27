@@ -102,6 +102,31 @@ class Response extends ResponseAbstract implements RenderableInterface
     }
 
     /**
+     * Generate header automatically based on code.
+     *
+     * @param \int $code HTTP status code
+     *
+     * @return \bool
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+    public function generateHeader(\int $code)
+    {
+        if ($code === 403) {
+            $this->setHeader('HTTP', 'HTTP/1.0 403 Forbidden');
+            $this->setHeader('Status', 'Status: HTTP/1.0 403 Forbidden');
+        } elseif ($code === 406) {
+            $this->setHeader('HTTP', 'HTTP/1.0 406 Not acceptable');
+            $this->setHeader('Status', 'Status:406 Not acceptable');
+        } elseif ($code === 503) {
+            $this->setHeader('HTTP', 'HTTP/1.0 503 Service Temporarily Unavailable');
+            $this->setHeader('Status', 'Status: 503 Service Temporarily Unavailable');
+            $this->setHeader('Retry-After', 'Retry-After: 300');
+        }
+    }
+
+    /**
      * Set response.
      *
      * @param \string $response Response to set
