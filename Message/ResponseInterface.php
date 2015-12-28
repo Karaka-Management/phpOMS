@@ -16,7 +16,6 @@
 namespace phpOMS\Message;
 
 
-
 /**
  * Response interface.
  *
@@ -30,4 +29,15 @@ namespace phpOMS\Message;
  */
 interface ResponseInterface extends MessageInterface
 {
+    /**
+     * Generate header automatically based on code.
+     *
+     * @param \int $code HTTP status code
+     *
+     * @return void
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+    public function generateHeader(\int $code);
 }
