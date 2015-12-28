@@ -106,7 +106,7 @@ class Response extends ResponseAbstract implements RenderableInterface
      *
      * @param \int $code HTTP status code
      *
-     * @return \bool
+     * @return void
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
