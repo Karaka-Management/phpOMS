@@ -246,11 +246,11 @@ class ModuleManager
             $c     = count($files);
 
             for ($i = 0; $i < $c; $i++) {
-                $path = realpath(self::MODULE_PATH . '/' . $files[$i] . '/info.json');
+                $path = realpath($oldPath = self::MODULE_PATH . '/' . $files[$i] . '/info.json');
 
                 if (file_exists($path)) {
                     if(strpos($path, self::MODULE_PATH) === false) {
-                        throw new FilePathException(self::MODULE_PATH . '/' . $files[$i] . '/info.json');
+                        throw new FilePathException($oldPath);
                     }
 
                     $json                                 = json_decode(file_get_contents($path), true);
@@ -296,11 +296,11 @@ class ModuleManager
             // todo download;
         }
 
-        $path = realpath(self::MODULE_PATH . '/' . $module . '/' . 'info.json');
+        $path = realpath($oldPath = self::MODULE_PATH . '/' . $module . '/' . 'info.json');
 
         if ($path !== false) {
             if(strpos($path, self::MODULE_PATH) === false) {
-                throw new FilePathException(self::MODULE_PATH . '/' . $module . '/' . 'info.json');
+                throw new FilePathException($oldPath);
             }
 
             $info = json_decode(file_get_contents($path), true);

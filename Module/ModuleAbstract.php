@@ -133,12 +133,12 @@ abstract class ModuleAbstract
         $lang = [];
         if (isset(static::$localization[$destination])) {
             foreach (static::$localization[$destination] as $file) {
-                if(($path = $path = realpath(__DIR__ . '/../../Modules/' . static::$module . '/Theme/lang/' . $file . '.' . $language . '.lang.php')) === false) {
-                    throw new FilePathException(__DIR__ . '/../../Modules/' . static::$module . '/Theme/lang/' . $file . '.' . $language . '.lang.php');
+                if(($path = realpath($oldPath = __DIR__ . '/../../Modules/' . static::$module . '/Theme/lang/' . $file . '.' . $language . '.lang.php')) === false) {
+                    throw new FilePathException($oldPath);
                 }
 
                 /** @noinspection PhpIncludeInspection */
-                include realpath(__DIR__ . '/../../Modules/' . static::$module . '/Theme/lang/' . $file . '.' . $language . '.lang.php');
+                include realpath($path);
                 /** @var array $MODLANG */
                 $lang += $MODLANG;
             }

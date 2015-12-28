@@ -279,10 +279,10 @@ class View implements RenderableInterface
     public function render() : \string
     {
         $this->l11n->setLang($this->app->l11nManager->getLanguage($this->response->getL11n()->getLanguage()));
-        $path = realpath(__DIR__ . '/../..' . $this->template . '.tpl.php');
+        $path = realpath($oldPath = __DIR__ . '/../..' . $this->template . '.tpl.php');
 
         if (strpos($path, ROOT_PATH) === false) {
-            throw new FilePathException(__DIR__ . '/../..' . $this->template . '.tpl.php');
+            throw new FilePathException($oldPath);
         }
 
         ob_start();
