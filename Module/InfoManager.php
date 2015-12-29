@@ -14,6 +14,8 @@
  * @link       http://orange-management.com
  */
 namespace phpOMS\Module;
+use phpOMS\System\FilePathException;
+use phpOMS\Validation\Validator;
 
 /**
  * InfoManager class.
@@ -45,7 +47,7 @@ class InfoManager
      * @var \string
      * @since 1.0.0
      */
-    private static $module_path = __DIR__ . '/../../Modules/';
+    const MODULE_PATH = __DIR__ . '/../../Modules/';
 
     /**
      * Object constructor.
@@ -57,9 +59,11 @@ class InfoManager
      */
     public function __construct(\string $module)
     {
-        if (file_exists(self::$module_path . $module . '/info.json')) {
-            $this->fp = fopen(self::$module_path . $module . '/info.json', 'r');
+        if (($path = realpath($oldPath = self::MODULE_PATH . $module . '/info.json')) === false || Validator::startsWith($path, self::MODULE_PATH)) {
+            throw new FilePathException($oldPath);
         }
+
+        $this->fp = fopen($oldPath, 'r');
     }
 
     public function update()
