@@ -15,6 +15,7 @@
  */
 namespace phpOMS\Version;
 use phpOMS\System\FilePathException;
+use phpOMS\Validation\Validator;
 
 /**
  * Version class.
@@ -75,7 +76,7 @@ class Version
     {
         $path = realpath($jpath);
 
-        if(strpos($path, ROOT_PATH) === false || strpos($path, 'config.php') !== false) {
+        if($path === false || Validator::startsWith($path, ROOT_PATH) === false || strpos($path, 'config.php') !== false) {
             throw new FilePathException($jpath);
         }
 

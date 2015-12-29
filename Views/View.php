@@ -21,6 +21,7 @@ use phpOMS\Localization\Localization;
 use phpOMS\Message\RequestAbstract;
 use phpOMS\Message\ResponseAbstract;
 use phpOMS\System\FilePathException;
+use phpOMS\Validation\Validator;
 
 /**
  * List view.
@@ -281,7 +282,7 @@ class View implements RenderableInterface
         $this->l11n->setLang($this->app->l11nManager->getLanguage($this->response->getL11n()->getLanguage()));
         $path = realpath($oldPath = __DIR__ . '/../..' . $this->template . '.tpl.php');
 
-        if (strpos($path, ROOT_PATH) === false) {
+        if ($path === false || Validator::startsWith($path, ROOT_PATH) === false) {
             throw new FilePathException($oldPath);
         }
 
