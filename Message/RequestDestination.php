@@ -32,21 +32,21 @@ use phpOMS\Datatypes\Enum;
  */
 abstract class RequestDestination extends Enum
 {
-    const WEBSITE  = 'website';     /* Website */
-    const API      = 'api';         /* API */
-    const SHOP     = 'shop';        /* Shop */
-    const BACKEND  = 'backend';     /* Backend */
-    const STATICP  = 'static';      /* Static content */
-    const FORUM    = 'forum';       /* Forum */
-    const TICKET   = 'ticket';      /* ???? */
-    const SUPPORT  = 'support';     /* Support center */
-    const SURVEY   = 'survey';      /* Survey page */
-    const BLOG     = 'blog';        /* Blog */
-    const CHART    = 'chart';       /* Chart view */
-    const CALENDAR = 'calendar';    /* Calendar */
-    const PROFILE  = 'profile';     /* User profile page */
-    const CHAT     = 'chat';        /* Chat page */
-    const GALLERY  = 'gallery';     /* Chat page */
-    const REPORTER = 'reporter';    /* Reporter page */
+    const WEBSITE  = 'Website';     /* Website */
+    const API      = 'Api';         /* API */
+    const SHOP     = 'Shop';        /* Shop */
+    const BACKEND  = 'Backend';     /* Backend */
+    const STATICP  = 'Static';      /* Static content */
+    const FORUM    = 'Forum';       /* Forum */
+    const TICKET   = 'Ticket';      /* ???? */
+    const SUPPORT  = 'Support';     /* Support center */
+    const SURVEY   = 'Survey';      /* Survey page */
+    const BLOG     = 'Blog';        /* Blog */
+    const CHART    = 'Chart';       /* Chart view */
+    const CALENDAR = 'Calendar';    /* Calendar */
+    const PROFILE  = 'Profile';     /* User profile page */
+    const CHAT     = 'Chat';        /* Chat page */
+    const GALLERY  = 'Gallery';     /* Chat page */
+    const REPORTER = 'Reporter';    /* Reporter page */
     // This or let api handle this const GUI = 'gui';     /* Request GUI elements */
 }

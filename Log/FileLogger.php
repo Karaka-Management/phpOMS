@@ -16,8 +16,6 @@
 namespace phpOMS\Log;
 
 use phpOMS\Datatypes\Exception\InvalidEnumValue;
-use phpOMS\Message\Http\Rest;
-use phpOMS\Message\RequestMethod;
 use phpOMS\System\FilePathException;
 use phpOMS\Validation\Validator;
 

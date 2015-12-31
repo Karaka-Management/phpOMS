@@ -30,6 +30,14 @@ class ApplicationAbstract
 {
 
     /**
+     * App name.
+     *
+     * @var \phpOMS\DataStorage\Database\Pool
+     * @since 1.0.0
+     */
+    public $appName = '';
+
+    /**
      * Database object.
      *
      * @var \phpOMS\DataStorage\Database\Pool

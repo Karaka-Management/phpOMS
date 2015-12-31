@@ -55,7 +55,7 @@ class ModuleManager
     private $running = [];
 
     /**
-     * FileCache instance.
+     * Application instance.
      *
      * @var ApplicationAbstract
      * @since 1.0.0
@@ -200,7 +200,7 @@ class ModuleManager
         $lang = [];
         if (isset($files[5])) {
             foreach ($files[5] as $module) {
-                $lang[] = '/Modules/' . $module['module_load_from'] . '/Theme/lang/' . $module['module_load_file'];
+                $lang[] = '/Modules/' . $module['module_load_from'] . '/Theme/' . $this->app->appName . '/Lang/' . $module['module_load_file'];
             }
         }
 
@@ -353,6 +353,7 @@ class ModuleManager
             }
 
             $class = '\\Modules\\' . $module . '\\Admin\\Installer';
+            /** @var $class InstallerAbstract */
             $class::install($this->app->dbPool, $info);
 
             // TODO: change this
@@ -409,6 +410,7 @@ class ModuleManager
     {
         if (file_exists(self::MODULE_PATH . '/' . $from . '/Admin/Install/' . $for . '.php')) {
             $class = '\\Modules\\' . $from . '\\Admin\\Install\\' . $for;
+            /** @var $class InstallerAbstract */
             $class::install($this->app->dbPool, null);
         }
     }
@@ -465,9 +467,9 @@ class ModuleManager
      */
     public function loadLanguage(\string $language, \string $destination)
     {
-        foreach ($this->running as $name => $m) {
-            /** @var ModuleAbstract $m */
-            $file = $m->getLocalization($language, $destination);
+        foreach ($this->running as $name => $module) {
+            /** @var ModuleAbstract $module */
+            $file = $module->getLocalization($language, $destination);
             if (!empty($file)) {
                 $this->app->l11nManager->loadLanguage($language, $name, $file);
             }

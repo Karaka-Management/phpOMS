@@ -53,7 +53,7 @@ abstract class ModuleAbstract
      * @var \string
      * @since 1.0.0
      */
-    protected static $module = '';
+    const MODULE_NAME = '';
 
     /**
      * Localization files.
@@ -133,7 +133,7 @@ abstract class ModuleAbstract
         $lang = [];
         if (isset(static::$localization[$destination])) {
             foreach (static::$localization[$destination] as $file) {
-                if(($path = realpath($oldPath = __DIR__ . '/../../Modules/' . static::$module . '/Theme/lang/' . $file . '.' . $language . '.lang.php')) === false) {
+                if(($path = realpath($oldPath = __DIR__ . '/../../Modules/' . static::MODULE_NAME . '/Theme/' . $destination . '/Lang/' . $language . '.lang.php')) === false) {
                     throw new FilePathException($oldPath);
                 }
 
@@ -170,7 +170,7 @@ abstract class ModuleAbstract
     public function getName() : \string
     {
         /** @noinspection PhpUndefinedFieldInspection */
-        return static::$module;
+        return static::MODULE_NAME;
     }
 
     /**
