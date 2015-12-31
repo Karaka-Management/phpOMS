@@ -15,6 +15,8 @@
  */
 namespace phpOMS\System;
 
+use phpOMS\Validation\Validator;
+
 /**
  * Filesystem class.
  *
@@ -87,8 +89,30 @@ class FileSystem
     {
     }
 
-    public function delete()
+    public static function deletePath($path) : \bool
     {
+        $path = realpath($oldPath = $path);
+        if ($path === false || !is_dir($path) || Validator::startsWith($path, ROOT_PATH)) {
+            return false;
+        }
+
+        $files = scandir($path);
+
+        /* Removing . and .. */
+        unset($files[1]);
+        unset($files[0]);
+
+        foreach ($files as $file) {
+            if (is_dir($file)) {
+                self::deletePath($file);
+            } else {
+                unlink($file);
+            }
+        }
+
+        rmdir($path);
+
+        return true;
     }
 
     public function touch()
