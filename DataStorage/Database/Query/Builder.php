@@ -350,19 +350,6 @@ class Builder
     }
 
     /**
-     * Executing.
-     *
-     * @return mixed
-     *
-     * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
-     */
-    public function execute()
-    {
-        // todo: handle different query types (select, insert etc)
-    }
-
-    /**
      * Make raw column selection.
      *
      * @param \string|\Closure $expression Raw expression
@@ -733,11 +720,6 @@ class Builder
     {
     }
 
-    public function get()
-    {
-        return $this;
-    }
-
     /**
      * Insert into columns.
      *
@@ -813,9 +795,13 @@ class Builder
         return $this;
     }
 
-    public function update() : Builder
+    public function update(...$columns) : Builder
     {
         $this->type = QueryType::UPDATE;
+
+        foreach ($columns as $key => $column) {
+            $this->inserts[] = $column;
+        }
 
         return $this;
     }
@@ -826,28 +812,6 @@ class Builder
 
     public function decrement()
     {
-    }
-
-    public function delete()
-    {
-        $this->type = QueryType::DELETE;
-
-        return $this;
-    }
-
-    public function create($table)
-    {
-        return $this;
-    }
-
-    public function drop()
-    {
-        return $this;
-    }
-
-    public function raw()
-    {
-        return $this;
     }
 
     public function join($table1, $table2, $column1, $opperator, $column2)
@@ -880,9 +844,9 @@ class Builder
         return $this;
     }
 
-    public function commit() : Builder
+    public function on()
     {
-        return $this;
+
     }
 
     /**
@@ -898,7 +862,19 @@ class Builder
         return $this->type;
     }
 
-    public function merge($query) : Builder
+    /**
+     * Merging query.
+     *
+     * Merging query in order to remove database query volume
+     *
+     * @param Builder $query Query
+     *
+     * @return Builder
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+    public function merge(Builder $query) : Builder
     {
         return clone($this);
     }

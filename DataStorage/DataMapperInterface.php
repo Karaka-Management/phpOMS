@@ -34,14 +34,28 @@ interface DataMapperInterface
 {
 
     /**
+     * Create data.
+     *
+     * @param mixed $obj Object reference (gets filled with insert id)
+     *
+     * @return mixed
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+    public function create($obj);
+
+    /**
      * Update data.
+     *
+     * @param mixed $obj Object reference (gets filled with insert id)
      *
      * @return void
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function update();
+    public function update($obj);
 
     /**
      * Save data.

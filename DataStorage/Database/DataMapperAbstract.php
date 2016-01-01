@@ -182,16 +182,6 @@ abstract class DataMapperAbstract implements DataMapperInterface
     }
 
     /**
-     * Update data.
-     *
-     * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
-     */
-    public function update()
-    {
-    }
-
-    /**
      * Save data.
      *
      * @since  1.0.0
@@ -234,14 +224,14 @@ abstract class DataMapperAbstract implements DataMapperInterface
      *
      * @param mixed $obj Object reference (gets filled with insert id)
      *
-     * @return Builder
+     * @return mixed
      *
      * @throws
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function create(&$obj)
+    public function create($obj)
     {
         $query = new Builder($this->db);
         $query->prefix($this->db->getPrefix())
@@ -334,6 +324,57 @@ abstract class DataMapperAbstract implements DataMapperInterface
         }
 
         return $objId;
+    }
+
+    /**
+     * Create object in db.
+     *
+     * @param mixed $obj Object reference (gets filled with insert id)
+     *
+     * @return void
+     *
+     * @throws
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+    public function update($obj)
+    {
+        // todo: relations handling (needs to be done first)... updating, deleting or inserting are possible
+
+        $query = new Builder($this->db);
+        $query->prefix($this->db->getPrefix())
+              ->into(static::$table);
+
+        $reflectionClass = new \ReflectionClass(get_class($obj));
+        $properties      = $reflectionClass->getProperties();
+
+        foreach ($properties as $property) {
+            $property->setAccessible(true);
+
+            if (isset(static::$hasMany[($pname = $property->getName())])) {
+                continue;
+            } else {
+                /* is not a has many property */
+                foreach (static::$columns as $key => $column) {
+                    if ($column['internal'] === $pname) {
+                        $value = $property->getValue($obj);
+
+                        if ($column['type'] === 'DateTime') {
+                            $value = isset($value) ? $value->format('Y-m-d H:i:s') : null;
+                        }
+
+                        $query->update($column['name'])
+                              ->value($value);
+                        break;
+                    }
+                }
+            }
+
+            // todo: do i have to reverse the accessibility or is there no risk involved here?
+        }
+
+        $this->db->con->prepare($query->toSql())->execute();
     }
 
     /**

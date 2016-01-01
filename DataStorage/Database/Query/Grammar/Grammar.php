@@ -412,6 +412,17 @@ class Grammar extends \phpOMS\DataStorage\Database\Grammar
         return '';
     }
 
+    /**
+     * Compile offset.
+     *
+     * @param Builder $query  Builder
+     * @param array   $groups Groups
+     *
+     * @return \string
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
     private function compileGroups(Builder $query, array $groups)
     {
         $expression = '';
