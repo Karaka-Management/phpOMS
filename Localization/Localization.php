@@ -95,10 +95,6 @@ class Localization
      */
     public function __construct()
     {
-        // TODO: implement!!!
-        setlocale(LC_TIME, '');
-        setlocale(LC_NUMERIC, '');
-        setlocale(LC_MONETARY, '');
     }
 
     /**
