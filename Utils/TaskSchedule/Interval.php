@@ -29,82 +29,251 @@ namespace phpOMS\Utils\TaskSchedule;
 class Interval
 {
 
-    private $minute     = [];
-    private $hour       = [];
-    private $dayOfMonth = [];
-    private $month      = [];
-    private $dayOfWeek  = [];
-    private $year       = [];
+    /**
+     * Minute.
+     *
+     * @var array
+     * @since 1.0.0
+     */
+    private $minute = [];
 
-    public function __construct(\string $interval)
+    /**
+     * Hour.
+     *
+     * @var array
+     * @since 1.0.0
+     */
+    private $hour = [];
+
+    /**
+     * Day of month.
+     *
+     * @var array
+     * @since 1.0.0
+     */
+    private $dayOfMonth = [];
+
+    /**
+     * Month.
+     *
+     * @var array
+     * @since 1.0.0
+     */
+    private $month = [];
+
+    /**
+     * Day of week.
+     *
+     * @var array
+     * @since 1.0.0
+     */
+    private $dayOfWeek = [];
+
+    /**
+     * Year.
+     *
+     * @var array
+     * @since 1.0.0
+     */
+    private $year = [];
+
+    /**
+     * Constructor.
+     *
+     * @param \string $interval Interval to parse
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+    public function __construct(\string $interval = null)
     {
-        $this->parse($interval);
+        if (isset($interval)) {
+            $this->parse($interval);
+        }
     }
 
-    public function parse(\string $interval)
+    /**
+     * Parse interval.
+     *
+     * @param \string $interval Interval to parse
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+    private function parse(\string $interval)
     {
         $elements = explode(' ', $interval);
     }
 
-    public function parseMinute(\string $minute) : array
+    /**
+     * Parse element.
+     *
+     * @param \string $minute Minute
+     *
+     * @return array
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+    private function parseMinute(\string $minute) : array
     {
 
     }
 
-    public function parseHour(\string $hour) : array
+    /**
+     * Parse element.
+     *
+     * @param \string $hour Hour
+     *
+     * @return array
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+    private function parseHour(\string $hour) : array
     {
 
     }
 
-    public function parseDayOfMonth(\string $dayOfMonth) : array
+    /**
+     * Parse element.
+     *
+     * @param \string $dayOfMonth Day of month
+     *
+     * @return array
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+    private function parseDayOfMonth(\string $dayOfMonth) : array
     {
 
     }
 
-    public function parseMonth(\string $month) : array
+    /**
+     * Parse element.
+     *
+     * @param \string $month Month
+     *
+     * @return array
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+    private function parseMonth(\string $month) : array
     {
 
     }
 
-    public function parseDayOfWeek(\string $dayOfWeek) : array
+    /**
+     * Parse element.
+     *
+     * @param \string $dayOfWeek Day of week
+     *
+     * @return array
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+    private function parseDayOfWeek(\string $dayOfWeek) : array
     {
 
     }
 
-    public function parseYear(\string $year) : array
+    /**
+     * Parse element.
+     *
+     * @param \string $year Year
+     *
+     * @return array
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+    private function parseYear(\string $year) : array
     {
 
     }
 
-    public function setMinute(array $min, \int $start = 0, \int $end = 0, \int $step = 0, \bool $any = false)
+    /**
+     * Set mintue.
+     *
+     * @param array $minute Minute
+     * @param \int  $start  Start/first
+     * @param \int  $end    End/last
+     * @param \int  $step   Step
+     * @param bool  $any    Any
+     *
+     * @throws
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+    public function setMinute(array $minute, \int $start = 0, \int $end = 0, \int $step = 0, \bool $any = false)
     {
-        $this->minute = [
-            'minutes' => $min,
+        if ($this->validateMinute($arr = [
+            'minutes' => $minute,
             'start'   => $start,
             'end'     => $end,
             'step'    => $step,
             'any'     => $any,
-        ];
-
-        $this->validateMinute();
+        ])
+        ) {
+            $this->hour = $arr;
+        } else {
+            throw new \Exception('Invalid format.');
+        }
     }
 
+    /**
+     * Set hour.
+     *
+     * @param array $hour  Hour
+     * @param \int  $start Start/first
+     * @param \int  $end   End/last
+     * @param \int  $step  Step
+     * @param bool  $any   Any
+     *
+     * @throws
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
     public function setHour(array $hour, \int $start = 0, \int $end = 0, \int $step = 0, \bool $any = false)
     {
-        $this->hour = [
+        if ($this->validateHour($arr = [
             'hours' => $hour,
             'start' => $start,
             'end'   => $end,
             'step'  => $step,
             'any'   => $any,
-        ];
-
-        $this->validateHour();
+        ])
+        ) {
+            $this->hour = $arr;
+        } else {
+            throw new \Exception('Invalid format.');
+        }
     }
 
+    /**
+     * Set day of month.
+     *
+     * @param array $dayOfMonth Day of month
+     * @param \int  $start      Start/first
+     * @param \int  $end        End/last
+     * @param \int  $step       Step
+     * @param bool  $any        Any
+     * @param bool  $last       Last
+     * @param \int  $nearest    Nearest day
+     *
+     * @throws
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
     public function setDayOfMonth(array $dayOfMonth, \int $start = 0, \int $end = 0, \int $step = 0, \bool $any = false, \bool $last = false, \int $nearest = 0)
     {
-        $this->dayOfMonth = [
+        if ($this->validateDayOfMonth($arr = [
             'dayOfMonth' => $dayOfMonth,
             'start'      => $start,
             'end'        => $end,
@@ -112,165 +281,324 @@ class Interval
             'any'        => $any,
             'last'       => $last,
             'nearest'    => $nearest,
-        ];
-
-        $this->validateDayOfMonth();
+        ])
+        ) {
+            $this->hour = $arr;
+        } else {
+            throw new \Exception('Invalid format.');
+        }
     }
 
+    /**
+     * Set month.
+     *
+     * @param array $month Month
+     * @param \int  $start Start/first
+     * @param \int  $end   End/last
+     * @param \int  $step  Step
+     * @param bool  $any   Any
+     *
+     * @throws
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
     public function setMonth(array $month, \int $start = 0, \int $end = 0, \int $step = 0, \bool $any = false)
     {
-        $this->month = [
+        if ($this->validateMonth($arr = [
             'month' => $month,
             'start' => $start,
             'end'   => $end,
             'step'  => $step,
             'any'   => $any,
-        ];
-
-        $this->validateMonth();
+        ])
+        ) {
+            $this->hour = $arr;
+        } else {
+            throw new \Exception('Invalid format.');
+        }
     }
 
+    /**
+     * Set day of week.
+     *
+     * @param array $dayOfWeek Day of week
+     * @param \int  $start     Start/first
+     * @param \int  $end       End/last
+     * @param \int  $step      Step
+     * @param bool  $any       Any
+     * @param bool  $last      Last
+     *
+     * @throws
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
     public function setDayOfWeek(array $dayOfWeek, \int $start = 0, \int $end = 0, \int $step = 0, \bool $any = false, \bool $last = false)
     {
-        $this->dayOfWeek = [
+        if ($this->validateDayOfWeek($arr = [
             'dayOfWeek' => $dayOfWeek,
             'start'     => $start,
             'end'       => $end,
             'step'      => $step,
             'any'       => $any,
             'last'      => $last,
-        ];
-
-        $this->validateDayOfWeek();
+        ])
+        ) {
+            $this->hour = $arr;
+        } else {
+            throw new \Exception('Invalid format.');
+        }
     }
 
+    /**
+     * Set yaer.
+     *
+     * @param array $year  Year
+     * @param \int  $start Start/first
+     * @param \int  $end   End/last
+     * @param \int  $step  Step
+     * @param bool  $any   Any
+     *
+     * @throws
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
     public function setYear(array $year, \int $start = 0, \int $end = 0, \int $step = 0, \bool $any = false)
     {
-        $this->year = [
+        if ($this->validateYear($arr = [
             'year'  => $year,
             'start' => $start,
             'end'   => $end,
             'step'  => $step,
             'any'   => $any,
-        ];
-
-        $this->validateYear();
+        ])
+        ) {
+            $this->hour = $arr;
+        } else {
+            throw new \Exception('Invalid format.');
+        }
     }
 
+    /**
+     * Get minute.
+     *
+     * @return array
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
     public function getMinute() : array
     {
         return $this->minute;
     }
 
+    /**
+     * Get hour.
+     *
+     * @return array
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
     public function getHour() : array
     {
         return $this->hour;
     }
 
+    /**
+     * Get day of month.
+     *
+     * @return array
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
     public function getDayOfMonth() : array
     {
         return $this->dayOfMonth;
     }
 
+    /**
+     * Get day of week.
+     *
+     * @return array
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
     public function getDayOfWeek() : array
     {
         return $this->dayOfWeek;
     }
 
+    /**
+     * Get month.
+     *
+     * @return array
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
     public function getMonth() : array
     {
         return $this->month;
     }
 
+    /**
+     * Get year.
+     *
+     * @return array
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
     public function getYear() : array
     {
         return $this->year;
     }
 
-    public function validate() : \bool
+    /**
+     * Validate minute.
+     *
+     * @param array $array Element to validate
+     *
+     * @return \bool
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+    private function validateMinute(array $array) : \bool
     {
-        if (!$this->validateMinute()) return false;
-        if (!$this->validateHour()) return false;
-        if (!$this->validateDayOfMonth()) return false;
-        if (!$this->validateMonth()) return false;
-        if (!$this->validateDayOfWeek()) return false;
-        if (!$this->validateYear()) return false;
-
-        return true;
-    }
-
-    private function validateMinute() : \bool
-    {
-        foreach ($this->minute['minutes'] as $minute) {
+        foreach ($array['minutes'] as $minute) {
             if ($minute > 59 || $minute < 0) return false;
         }
 
-        if ($this->minute['start'] > 59 || $this->minute['start'] < 0) return false;
-        if ($this->minute['end'] > 59 || $this->minute['end'] < 0) return false;
-        if ($this->minute['step'] > 59 || $this->minute['step'] < 0) return false;
+        if ($array['start'] > 59 || $array['start'] < 0) return false;
+        if ($array['end'] > 59 || $array['end'] < 0) return false;
+        if ($array['step'] > 59 || $array['step'] < 0) return false;
 
         return true;
     }
 
-    private function validateHour() : \bool
+    /**
+     * Validate hour.
+     *
+     * @param array $array Element to validate
+     *
+     * @return \bool
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+    private function validateHour(array $array) : \bool
     {
-        foreach ($this->hour['hours'] as $hour) {
+        foreach ($array['hours'] as $hour) {
             if ($hour > 23 || $hour < 0) return false;
         }
 
-        if ($this->hour['start'] > 23 || $this->hour['start'] < 0) return false;
-        if ($this->hour['end'] > 23 || $this->hour['end'] < 0) return false;
-        if ($this->hour['step'] > 23 || $this->hour['step'] < 0) return false;
+        if ($array['start'] > 23 || $array['start'] < 0) return false;
+        if ($array['end'] > 23 || $array['end'] < 0) return false;
+        if ($array['step'] > 23 || $array['step'] < 0) return false;
 
         return true;
     }
 
-    private function validateDayOfMonth() : \bool
+    /**
+     * Validate day of month.
+     *
+     * @param array $array Element to validate
+     *
+     * @return \bool
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+    private function validateDayOfMonth(array $array) : \bool
     {
-        foreach ($this->dayOfMonth['dayOfMonth'] as $dayOfMonth) {
+        foreach ($array['dayOfMonth'] as $dayOfMonth) {
             if ($dayOfMonth > 31 || $dayOfMonth < 1) return false;
         }
 
-        if ($this->dayOfMonth['start'] > 31 || $this->dayOfMonth['start'] < 1) return false;
-        if ($this->dayOfMonth['end'] > 31 || $this->dayOfMonth['end'] < 1) return false;
-        if ($this->dayOfMonth['step'] > 31 || $this->dayOfMonth['step'] < 1) return false;
-        if ($this->dayOfMonth['nearest'] > 31 || $this->dayOfMonth['nearest'] < 1) return false;
+        if ($array['start'] > 31 || $array['start'] < 1) return false;
+        if ($array['end'] > 31 || $array['end'] < 1) return false;
+        if ($array['step'] > 31 || $array['step'] < 1) return false;
+        if ($array['nearest'] > 31 || $array['nearest'] < 1) return false;
 
         return true;
     }
 
-    private function validateMonth() : \bool
+    /**
+     * Validate month.
+     *
+     * @param array $array Element to validate
+     *
+     * @return \bool
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+    private function validateMonth(array $array) : \bool
     {
-        foreach ($this->month['month'] as $month) {
+        foreach ($array['month'] as $month) {
             if ($month > 12 || $month < 1) return false;
         }
 
-        if ($this->month['start'] > 12 || $this->month['start'] < 1) return false;
-        if ($this->month['end'] > 12 || $this->month['end'] < 1) return false;
-        if ($this->month['step'] > 12 || $this->month['step'] < 1) return false;
+        if ($array['start'] > 12 || $array['start'] < 1) return false;
+        if ($array['end'] > 12 || $array['end'] < 1) return false;
+        if ($array['step'] > 12 || $array['step'] < 1) return false;
 
         return true;
     }
 
-    private function validateDayOfWeek() : \bool
+    /**
+     * Validate day of week.
+     *
+     * @param array $array Element to validate
+     *
+     * @return \bool
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+    private function validateDayOfWeek(array $array) : \bool
     {
-        foreach ($this->dayOfWeek['dayOfWeek'] as $dayOfWeek) {
+        foreach ($array['dayOfWeek'] as $dayOfWeek) {
             if ($dayOfWeek > 7 || $dayOfWeek < 1) return false;
         }
 
-        if ($this->dayOfWeek['start'] > 7 || $this->dayOfWeek['start'] < 1) return false;
-        if ($this->dayOfWeek['end'] > 7 || $this->dayOfWeek['end'] < 1) return false;
-        if ($this->dayOfWeek['step'] > 5 || $this->dayOfWeek['step'] < 1) return false;
+        if ($array['start'] > 7 || $array['start'] < 1) return false;
+        if ($array['end'] > 7 || $array['end'] < 1) return false;
+        if ($array['step'] > 5 || $array['step'] < 1) return false;
 
         return true;
     }
 
-    private function validateYear() : \bool
+    /**
+     * Validate year.
+     *
+     * @param array $array Element to validate
+     *
+     * @return \bool
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+    private function validateYear(array $array) : \bool
     {
         return true;
     }
 
-    public function __toString()
+    /**
+     * Create string representation.
+     *
+     * @return string
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+    public function __toString() : \string
     {
         /* Parsing minutes */
         if (($count = count($this->minute['minutes'])) > 0) {
