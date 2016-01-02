@@ -15,6 +15,17 @@
  */
 namespace phpOMS\Math\Shape\D3;
 
+/**
+ * Sphere shape.
+ *
+ * @category   Framework
+ * @package    phpOMS\DataStorage\Database
+ * @author     OMS Development Team <dev@oms.com>
+ * @author     Dennis Eichhorn <d.eichhorn@oms.com>
+ * @license    OMS License 1.0
+ * @link       http://orange-management.com
+ * @since      1.0.0
+ */
 class Sphere
 {
 
@@ -25,7 +36,7 @@ class Sphere
      * @param float $longStart Longitude of start point in deg
      * @param float $latEnd    Latitude of target point in deg
      * @param float $longEnd   Longitude of target point in deg
-     * @param float $radius    Sphere radius
+     * @param float $radius    Sphere radius (6371000 = earth)
      *
      * @return float Distance between points in meter
      *

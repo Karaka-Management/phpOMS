@@ -15,11 +15,8 @@
  */
 namespace phpOMS\Uri;
 
-
 /**
- * Uri interface.
- *
- * Used in order to create and evaluate a uri
+ * Uri exception.
  *
  * @category   Uri
  * @package    Framework

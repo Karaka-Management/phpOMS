@@ -30,6 +30,12 @@ namespace phpOMS\DataStorage\Database\Query;
 class Column
 {
 
+    /**
+     * Column name.
+     *
+     * @var string
+     * @since 1.0.0
+     */
     private $column = '';
 
     /**
@@ -45,6 +51,14 @@ class Column
         $this->column = $column;
     }
 
+    /**
+     * Get column string.
+     *
+     * @return string
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
     public function getColumn() : \string
     {
         return $this->column;

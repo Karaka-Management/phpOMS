@@ -1,30 +1,108 @@
 <?php
+/**
+ * Orange Management
+ *
+ * PHP Version 7.0
+ *
+ * @category   TBD
+ * @package    TBD
+ * @author     OMS Development Team <dev@oms.com>
+ * @author     Dennis Eichhorn <d.eichhorn@oms.com>
+ * @copyright  2013 Dennis Eichhorn
+ * @license    OMS License 1.0
+ * @version    1.0.0
+ * @link       http://orange-management.com
+ */
 
 namespace phpOMS\Math\Optimization\TSP;
 
+/**
+ * Tour class.
+ *
+ * @category   Framework
+ * @package    phpOMS\DataStorage\Database
+ * @author     OMS Development Team <dev@oms.com>
+ * @author     Dennis Eichhorn <d.eichhorn@oms.com>
+ * @license    OMS License 1.0
+ * @link       http://orange-management.com
+ * @since      1.0.0
+ */
 class Tour implements \Countable
 {
-    private $cities   = [];
-    private $fitness  = 0.0;
+    /**
+     * Cities
+     *
+     * @var City[]
+     * @since 1.0.0
+     */
+    private $cities = [];
+
+    /**
+     * Tour fitness
+     *
+     * @var City[]
+     * @since 1.0.0
+     */
+    private $fitness = 0.0;
+
+    /**
+     * Tour distance
+     *
+     * @var City[]
+     * @since 1.0.0
+     */
     private $distance = 0.0;
 
+    /**
+     * City pool
+     *
+     * @var CityPool
+     * @since 1.0.0
+     */
     private $cityPool = null;
 
-    public function __construct(CityPool $pool, \bool $initialise = false)
+    /**
+     * Constructor.
+     *
+     * @param CityPool $pool       City pool
+     * @param bool     $initialize Initialize with random tours
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+    public function __construct(CityPool $pool, \bool $initialize = false)
     {
         $this->cityPool = $pool;
 
-        if ($initialise) {
+        if ($initialize) {
             $this->cities = $this->cityPool->getCities();
             shuffle($this->cities);
         }
     }
 
+    /**
+     * Get city.
+     *
+     * @param int $index Index
+     *
+     * @return null|City
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
     public function getCity($index)
     {
         return array_values($this->cities)[$index] ?? null;
     }
 
+    /**
+     * Get fitness.
+     *
+     * @return float
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
     public function getFitness() : \float
     {
         if ($this->fitness === 0.0 && ($distance = $this->getDistance()) !== 0.0) {
@@ -34,6 +112,14 @@ class Tour implements \Countable
         return $this->fitness;
     }
 
+    /**
+     * Add city to tour.
+     *
+     * @param City $city City
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
     public function addCity(City $city)
     {
         $this->cities[] = $city;
@@ -42,6 +128,15 @@ class Tour implements \Countable
         $this->distance = 0.0;
     }
 
+    /**
+     * Set city
+     *
+     * @param int $index Index to set/replace
+     * @param City $city City
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
     public function setCity(\int $index, City $city)
     {
         $this->cities[$index] = $city;
@@ -51,6 +146,14 @@ class Tour implements \Countable
         $this->distance = 0.0;
     }
 
+    /**
+     * Get tour distance
+     *
+     * @return float
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
     public function getDistance() : \float
     {
         if ($this->distance === 0.0) {
@@ -70,6 +173,16 @@ class Tour implements \Countable
         return $this->distance;
     }
 
+    /**
+     * Has city.
+     *
+     * @param City $city City
+     *
+     * @return \bool
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
     public function hasCity(City $city) : \bool
     {
         foreach ($this->cities as $c) {
@@ -81,6 +194,14 @@ class Tour implements \Countable
         return false;
     }
 
+    /**
+     * Get city count
+     *
+     * @return int
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
     public function count() : \int
     {
         return count($this->cities);

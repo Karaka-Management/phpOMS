@@ -15,7 +15,18 @@
  */
 namespace phpOMS\Math\Algebra;
 
-class Rectangle
+/**
+ * Trapezoid shape.
+ *
+ * @category   Framework
+ * @package    phpOMS\DataStorage\Database
+ * @author     OMS Development Team <dev@oms.com>
+ * @author     Dennis Eichhorn <d.eichhorn@oms.com>
+ * @license    OMS License 1.0
+ * @link       http://orange-management.com
+ * @since      1.0.0
+ */
+class Trapezoid
 {
 
     /**

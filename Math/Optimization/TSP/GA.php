@@ -1,20 +1,89 @@
 <?php
+/**
+ * Orange Management
+ *
+ * PHP Version 7.0
+ *
+ * @category   TBD
+ * @package    TBD
+ * @author     OMS Development Team <dev@oms.com>
+ * @author     Dennis Eichhorn <d.eichhorn@oms.com>
+ * @copyright  2013 Dennis Eichhorn
+ * @license    OMS License 1.0
+ * @version    1.0.0
+ * @link       http://orange-management.com
+ */
 
 namespace phpOMS\Math\Optimization\TSP;
 
+/**
+ * TSP solution by genetic algorithm.
+ *
+ * @category   Framework
+ * @package    phpOMS\DataStorage\Database
+ * @author     OMS Development Team <dev@oms.com>
+ * @author     Dennis Eichhorn <d.eichhorn@oms.com>
+ * @license    OMS License 1.0
+ * @link       http://orange-management.com
+ * @since      1.0.0
+ */
 class GA
 {
-    const MUTATION   = 15; /* 1000 = 100% */
-    const TOURNAMENT = 5;
-    const ELITISM    = true;
+    /**
+     * Mutation percentage
+     *
+     * @var int
+     * @since 1.0.0
+     */
+    const MUTATION = 15; /* 1000 = 100% */
 
+    /**
+     * Tournaments
+     *
+     * @var int
+     * @since 1.0.0
+     */
+    const TOURNAMENT = 5;
+
+    /**
+     * Elitism
+     *
+     * @var bool
+     * @since 1.0.0
+     */
+    const ELITISM = true;
+
+    /**
+     * City pool
+     *
+     * @var CityPool
+     * @since 1.0.0
+     */
     private $cityPool = null;
 
+    /**
+     * Constructor.
+     *
+     * @param CityPool $pool City pool
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
     public function __construct(CityPool $pool)
     {
         $this->cityPool = $pool;
     }
 
+    /**
+     * Evolve population.
+     *
+     * @param Population $population Population to eveolve
+     *
+     * @return Population
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
     public function evolvePopulation(Population $population) : Population
     {
         $shift         = self::ELITISM ? 1 : 0;
@@ -39,6 +108,17 @@ class GA
         return $newPopulation;
     }
 
+    /**
+     * Crossover tours
+     *
+     * @param Tour $tour1 Tour 1
+     * @param Tour $tour2 Tour 2
+     *
+     * @return Tour
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
     public function crossover(Tour $tour1, Tour $tour2) : Tour
     {
         $child = new Tour($this->cityPool, false);
@@ -72,6 +152,16 @@ class GA
         return $child;
     }
 
+    /**
+     * Mutate tour
+     *
+     * @param Tour $tour Tour to mutate
+     *
+     * @return void
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
     private function mutate(Tour $tour)
     {
         $count = $tour->count();
@@ -91,6 +181,16 @@ class GA
         }
     }
 
+    /**
+     * Find fittest
+     *
+     * @param Population $population Population to evaluate
+     *
+     * @return Tour
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
     private function tournamentSelection(Population $population) : Tour
     {
         $tournament     = new Population($this->cityPool, self::TOURNAMENT, false);
