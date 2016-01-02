@@ -17,7 +17,7 @@
 namespace phpOMS\Math\Stochastic\Distribution;
 
 /**
- * Uniform (continuous) distribution.
+ * Normal distribution.
  *
  * @category   Framework
  * @package    phpOMS\DataStorage\Database
@@ -27,86 +27,101 @@ namespace phpOMS\Math\Stochastic\Distribution;
  * @link       http://orange-management.com
  * @since      1.0.0
  */
-class UniformDistributionContinuous
+class NormalDistribution
 {
-
-    /**
-     * Get mode.
-     *
-     * @param float $a
-     * @param float $b
-     *
-     * @return float
-     *
-     * @throws
-     *
-     * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
-     */
-    public static function getMode(\float $a, \float $b) : \float
-    {
-        return ($a + $b) / 2;
-    }
 
     /**
      * Get probability density function.
      *
      * @param float $x
-     * @param float $a
-     * @param float $b
+     * @param float $mu
+     * @param float $sig
      *
      * @return float
-     *
-     * @throws
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public static function getPdf(\float $x, \float $a, \float $b) : \float
+    public static function getPdf(\float $x, \float $mu, \float $sig) : \float
     {
-        return $x > $a && $x < $b ? 1 / ($b - $a) : 0;
+        return 1 / ($sig * sqrt(2 * pi())) * exp(-($x - $mu) ** 2 / (2 * $sig ** 2));
     }
 
     /**
-     * Get cumulative distribution function.
+     * Get mode.
      *
-     * @param float $x
-     * @param float $a
-     * @param float $b
+     * @param \float $mu
      *
      * @return float
-     *
-     * @throws
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public static function getCdf(\float $x, \float $a, \float $b) : \float
+    public static function getMode(\float $mu) : \float
     {
-        if ($x < $a) {
-            return 0;
-        } elseif ($x >= $a && $x < $b) {
-            return ($x - $a) / ($b - $a);
-        } else {
-            return 1;
-        }
+        return $mu;
+    }
+
+    /**
+     * Get expected value.
+     *
+     * @param \float $mu
+     *
+     * @return float
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+    public static function getMean(\float $mu) : \float
+    {
+        return $mu;
+    }
+
+    /**
+     * Get expected value.
+     *
+     * @param \float $mu
+     *
+     * @return float
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+    public static function getMedian(\float $mu) : \float
+    {
+        return $mu;
+    }
+
+    /**
+     * Get variance.
+     *
+     * @param \float $sig
+     *
+     * @return float
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+    public static function getVariance(\float $sig) : \float
+    {
+        return $sig ** 2;
     }
 
     /**
      * Get moment generating function.
      *
-     * @param int   $t
-     * @param float $a
-     * @param float $b
+     * @param float $t
+     * @param float $mu
+     * @param float $sig
      *
      * @return float
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public static function getMgf(\int $t, \float $a, \float $b) : \float
+    public static function getMgf(\float $t, \float $mu, \float $sig) : \float
     {
-        return $t === 0 ? 1 : (exp($t * $b) - exp($t * $a)) / ($t * ($b - $a));
+        return exp($mu * $t + ($sig ** 2 * $t ** 2) / 2);
     }
 
     /**
@@ -119,7 +134,22 @@ class UniformDistributionContinuous
      */
     public static function getSkewness() : \float
     {
-        return 0.0;
+        return 0;
+    }
+
+    /**
+     * Get Fisher information.
+     *
+     * @param float $sig
+     *
+     * @return float
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+    public static function getFisherInformation(\float $sig) : \float
+    {
+        return [[1 / $sig ** 2, 0], [0, 1 / (2 * $sig ** 4)]];
     }
 
     /**
@@ -132,55 +162,7 @@ class UniformDistributionContinuous
      */
     public static function getExKurtosis() : \float
     {
-        return -6 / 5;
-    }
-
-    /**
-     * Get expected value.
-     *
-     * @param float $a
-     * @param float $b
-     *
-     * @return float
-     *
-     * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
-     */
-    public static function getMedian(\float $a, \float $b) : \float
-    {
-        return ($a + $b) / 2;
-    }
-
-    /**
-     * Get expected value.
-     *
-     * @param float $a
-     * @param float $b
-     *
-     * @return float
-     *
-     * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
-     */
-    public static function getMean(\float $a, \float $b) : \float
-    {
-        return ($a + $b) / 2;
-    }
-
-    /**
-     * Get variance.
-     *
-     * @param float $a
-     * @param float $b
-     *
-     * @return float
-     *
-     * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
-     */
-    public static function getVariance(\float $a, \float $b) : \float
-    {
-        return 1 / 12 * ($b - $a) ** 2;
+        return 0;
     }
 
     public static function getRandom()

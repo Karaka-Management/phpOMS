@@ -1,9 +1,48 @@
 <?php
+/**
+ * Orange Management
+ *
+ * PHP Version 7.0
+ *
+ * @category   TBD
+ * @package    TBD
+ * @author     OMS Development Team <dev@oms.com>
+ * @author     Dennis Eichhorn <d.eichhorn@oms.com>
+ * @copyright  2013 Dennis Eichhorn
+ * @license    OMS License 1.0
+ * @version    1.0.0
+ * @link       http://orange-management.com
+ */
+
 namespace phpOMS\Math\Statistic;
 
+/**
+ * Basic statistic functions.
+ *
+ * @category   Framework
+ * @package    phpOMS\DataStorage\Database
+ * @author     OMS Development Team <dev@oms.com>
+ * @author     Dennis Eichhorn <d.eichhorn@oms.com>
+ * @license    OMS License 1.0
+ * @link       http://orange-management.com
+ * @since      1.0.0
+ */
 class Basic
 {
-    public static function freaquency(array $values) : \float
+
+    /**
+     * Calculate frequency.
+     *
+     * Example: ([4, 5, 9, 1, 3])
+     *
+     * @param array $values Values
+     *
+     * @return array
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+    public static function freaquency(array $values) : array
     {
         $freaquency = [];
 

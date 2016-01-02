@@ -1,7 +1,42 @@
 <?php
+/**
+ * Orange Management
+ *
+ * PHP Version 7.0
+ *
+ * @category   TBD
+ * @package    TBD
+ * @author     OMS Development Team <dev@oms.com>
+ * @author     Dennis Eichhorn <d.eichhorn@oms.com>
+ * @copyright  2013 Dennis Eichhorn
+ * @license    OMS License 1.0
+ * @version    1.0.0
+ * @link       http://orange-management.com
+ */
 
-class ChiSquareDistribution
+namespace phpOMS\Math\Stochastic\Distribution;
+use phpOMS\Math\Functions;
+
+/**
+ * Chi squared distribution.
+ *
+ * @category   Framework
+ * @package    phpOMS\DataStorage\Database
+ * @author     OMS Development Team <dev@oms.com>
+ * @author     Dennis Eichhorn <d.eichhorn@oms.com>
+ * @license    OMS License 1.0
+ * @link       http://orange-management.com
+ * @since      1.0.0
+ */
+class ChiSquaredDistribution
 {
+
+    /**
+     * Chi square table.
+     *
+     * @var array<int, array>
+     * @since 1.0.0
+     */
     const TABLE = [
         1   => ['0.995' => 0.000, '0.99' => 0.000, '0.975' => 0.001, '0.95' => 0.004, '0.90' => 0.016, '0.10' => 2.706, '0.05' => 3.841, '0.025' => 5.024, '0.01' => 6.635, '0.005' => 7.879],
         2   => ['0.995' => 0.010, '0.99' => 0.020, '0.975' => 0.051, '0.95' => 0.103, '0.90' => 0.211, '0.10' => 4.605, '0.05' => 5.991, '0.025' => 7.378, '0.01' => 9.210, '0.005' => 10.597],
@@ -42,6 +77,16 @@ class ChiSquareDistribution
         100 => ['0.995' => 67.328, '0.99' => 70.065, '0.975' => 74.222, '0.95' => 77.929, '0.90' => 82.358, '0.10' => 118.498, '0.05' => 124.342, '0.025' => 129.561, '0.01' => 135.807, '0.005' => 140.169],
     ];
 
+    /**
+     * Get degrees of freedom of array.
+     *
+     * @param array $values Value matrix or vector (N or NxM)
+     *
+     * @return int
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
     public static function getDegreesOfFreedom(array $values) : \int
     {
         if (is_array($first = reset($values))) {
@@ -51,7 +96,22 @@ class ChiSquareDistribution
         }
     }
 
-    public static function hypothesis(array $dataset, array $expected, \float $significance = 0.05, \int $df = 0) : array
+    /**
+     * Test hypthesis.
+     *
+     * @param array $dataset      Values
+     * @param array $expected     Expected values based on probability
+     * @param float $significance Significance
+     * @param int   $df           Degrees of freedom (optional)
+     *
+     * @return array
+     *
+     * @throws
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+    public static function testHypothesis(array $dataset, array $expected, \float $significance = 0.05, \int $df = 0) : array
     {
         if (($count = count($dataset)) !== count($expected)) {
             throw new \Exception('Dimension');
@@ -83,5 +143,144 @@ class ChiSquareDistribution
         $P = 1 - ($P ?? key(end(self::TABLE[$df])));
 
         return ['P' => $P, 'H0' => ($P > $significance), 'df' => $df];
+    }
+
+    /**
+     * Get probability density function.
+     *
+     * @param float $x
+     * @param int   $df Degreegs of freedom
+     *
+     * @return float
+     *
+     * @throws
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+    public static function getPdf(\float $x, \int $df) : \float
+    {
+        if ($x < 0) {
+            throw new \Exception('Out of bounds');
+        }
+
+        return 1 / (pow(2, $df / 2) * (Functions::getGammaInteger((int) $df / 2))) * pow($x, $df / 2 - 1) * exp(-$x / 2);
+    }
+
+    /**
+     * Get mode.
+     *
+     * @param \int $df Degrees of freedom
+     *
+     * @return int
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+    public static function getMode(\int $df) : \int
+    {
+        return max([$df - 2, 0]);
+    }
+
+    /**
+     * Get expected value.
+     *
+     * @param \int $df Degrees of freedom
+     *
+     * @return float
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+    public static function getMean(\int $df) : \float
+    {
+        return $df;
+    }
+
+    /**
+     * Get expected value.
+     *
+     * @param \int $df Degrees of freedom
+     *
+     * @return float
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+    public static function getMedian(\int $df) : \float
+    {
+        return $df * (1 - 2 / (9 * $df)) ** 3;
+    }
+
+    /**
+     * Get variance.
+     *
+     * @param \int $df Degrees of freedom
+     *
+     * @return float
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+    public static function getVariance(\int $df) : \float
+    {
+        return 2 * $df;
+    }
+
+    /**
+     * Get moment generating function.
+     *
+     * @param int   $df Degrees of freedom
+     * @param float $t
+     *
+     * @return float
+     *
+     * @throws
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+    public static function getMgf(\int $df, \float $t) : \float
+    {
+        if ($t > 0.5) {
+            throw new \Exception('Out of bounds');
+        }
+
+        return pow(1 - 2 * $t, -$df / 2);
+    }
+
+    /**
+     * Get skewness.
+     *
+     * @param int $df
+     *
+     * @return float
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+    public static function getSkewness(\int $df) : \float
+    {
+        return sqrt(8 / $df);
+    }
+
+    /**
+     * Get Ex. kurtosis.
+     *
+     * @param int $df
+     *
+     * @return float
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+    public static function getExKurtosis(\int $df) : \float
+    {
+        return 12 / $df;
+    }
+
+    public static function getRandom()
+    {
+
     }
 }
