@@ -272,10 +272,19 @@ abstract class DataMapperAbstract implements DataMapperInterface
         foreach (static::$hasMany as $member => $rel) {
             /* is a has many property */
             $property = $reflectionClass->getProperty($member); // throws ReflectionException
+
+            if(!($isPublic = $property->isPublic())) {
+                $property->setAccessible(true);
+            }
+
             $values   = $property->getValue($obj);
             $temp     = end($values);
             reset($values);
             $pname = $property->getName();
+
+            if(!($isPublic)) {
+                $property->setAccessible(false);
+            }
 
             if (is_object($temp)) {
                 // todo: only create if object doesn't exists... get primaryKey field, then get member name based on this
