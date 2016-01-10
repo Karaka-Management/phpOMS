@@ -13,9 +13,9 @@
  * @version    1.0.0
  * @link       http://orange-management.com
  */
-namespace phpOMS\Validation;
+namespace phpOMS\Validation\Base;
 
-
+use phpOMS\Validation\ValidatorAbstract;
 
 /**
  * Validator abstract.
@@ -28,7 +28,7 @@ namespace phpOMS\Validation;
  * @link       http://orange-management.com
  * @since      1.0.0
  */
-abstract class Email extends ValidatorAbstract
+class Email extends ValidatorAbstract
 {
 
     /**
@@ -37,15 +37,15 @@ abstract class Email extends ValidatorAbstract
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function __construct()
+    private function __construct()
     {
     }
 
     /**
      * {@inheritdoc}
      */
-    public static function isValid($value)
+    public static function isValid(\string $value) : \bool
     {
-        return filter_var($value, FILTER_VALIDATE_EMAIL);
+        return filter_var($value, FILTER_VALIDATE_EMAIL) === false ? false : true;
     }
 }

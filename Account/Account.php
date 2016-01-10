@@ -17,6 +17,7 @@ namespace phpOMS\Account;
 
 use phpOMS\Localization\Localization;
 use phpOMS\Localization\NullLocalization;
+use phpOMS\Validation\Base\Email;
 
 /**
  * Account manager class.
@@ -97,6 +98,14 @@ class Account
      * @since 1.0.0
      */
     protected $lastActive = null;
+
+    /**
+     * Last activity.
+     *
+     * @var \DateTime
+     * @since 1.0.0
+     */
+    protected $created = null;
 
     /**
      * Permissions.
@@ -285,6 +294,19 @@ class Account
     }
 
     /**
+     * Get last activity.
+     *
+     * @return \DateTime
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+    public function getCreated() : \DateTime
+    {
+        return $this->created ?? new \DateTime('NOW');
+    }
+
+    /**
      * Set name1.
      *
      * @param \string $name Name
@@ -341,6 +363,10 @@ class Account
      */
     public function setEmail(\string $email)
     {
+        if(!Email::isValid($email)) {
+            throw new \InvalidArgumentException();
+        }
+
         $this->email = $email;
     }
 
@@ -356,6 +382,10 @@ class Account
      */
     public function setStatus(\int $status)
     {
+        if(!AccountStatus::isValidValue($status)) {
+            throw new \InvalidArgumentException();
+        }
+
         $this->status = $status;
     }
 
@@ -371,6 +401,10 @@ class Account
      */
     public function setType(\int $type)
     {
+        if(!AccountType::isValidValue($type)) {
+            throw new \InvalidArgumentException();
+        }
+
         $this->type = $type;
     }
 

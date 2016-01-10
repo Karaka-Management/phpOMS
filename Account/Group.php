@@ -78,14 +78,6 @@ class Group
     protected $permissions = [];
 
     /**
-     * Multition cache.
-     *
-     * @var \Model\Account[]
-     * @since 1.0.0
-     */
-    private static $instances = [];
-
-    /**
      * Constructor.
      *
      * @since  1.0.0
@@ -96,35 +88,20 @@ class Group
     }
 
     /**
-     * Multition constructor.
-     *
-     * @param \int $id Account id
-     *
-     * @return \phpOMS\Account\Group
-     *
-     * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
-     */
-    public static function getInstance($id)
-    {
-        return self::$instances[$id] = self::$instances[$id] ?? new self();
-    }
-
-    /**
-     * Get account id.
+     * Get group id.
      *
      * @return \int
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function getId()
+    public function getId() : \int
     {
         return $this->id;
     }
 
     /**
-     * Get account name.
+     * Get group name.
      *
      * @return \string
      *
@@ -147,6 +124,32 @@ class Group
     public function getDescription() : \string
     {
         return $this->description;
+    }
+
+    /**
+     * Set group name.
+     *
+     * @param \string $name Group name
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+    public function setName(\string $name)
+    {
+        $this->name = $name;
+    }
+
+    /**
+     * Set group description.
+     *
+     * @param \string $description Group description
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+    public function setDescription(\string $description)
+    {
+        $this->description = $description;
     }
 
 }
