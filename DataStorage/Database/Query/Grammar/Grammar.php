@@ -16,6 +16,7 @@
 
 namespace phpOMS\DataStorage\Database\Query\Grammar;
 
+use phpOMS\DataStorage\Database\GrammarAbstract;
 use phpOMS\DataStorage\Database\Query\Builder;
 use phpOMS\DataStorage\Database\Query\Column;
 use phpOMS\DataStorage\Database\Query\QueryType;
@@ -31,49 +32,8 @@ use phpOMS\DataStorage\Database\Query\QueryType;
  * @link       http://orange-management.com
  * @since      1.0.0
  */
-class Grammar extends \phpOMS\DataStorage\Database\Grammar
+class Grammar extends GrammarAbstract
 {
-
-    /**
-     * Comment style.
-     *
-     * @var \string
-     * @since 1.0.0
-     */
-    protected $comment = '--';
-
-    /**
-     * String quotes style.
-     *
-     * @var \string
-     * @since 1.0.0
-     */
-    protected $valueQuotes = '\'';
-
-    /**
-     * System identifier.
-     *
-     * @var \string
-     * @since 1.0.0
-     */
-    public $systemIdentifier = '"';
-
-    /**
-     * And operator.
-     *
-     * @var \string
-     * @since 1.0.0
-     */
-    protected $and = 'AND';
-
-    /**
-     * Or operator.
-     *
-     * @var \string
-     * @since 1.0.0
-     */
-    protected $or = 'OR';
-
     /**
      * Select components.
      *
@@ -118,32 +78,6 @@ class Grammar extends \phpOMS\DataStorage\Database\Grammar
         'sets',
         'wheres',
     ];
-
-    /**
-     * Compile to query.
-     *
-     * @param Builder $query Builder
-     *
-     * @return \string
-     *
-     * @throws
-     *
-     * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
-     */
-    public function compileQuery($query) : \string
-    {
-        return trim(
-                   implode(' ',
-                       array_filter(
-                           $this->compileComponents($query),
-                           function ($value) {
-                               return (string) $value !== '';
-                           }
-                       )
-                   )
-               ) . ';';
-    }
 
     /**
      * Compile components.
@@ -203,43 +137,11 @@ class Grammar extends \phpOMS\DataStorage\Database\Grammar
     {
         $expression = $this->expressionizeTableColumn($columns, $query->getPrefix());
 
-        if ($expression == '') {
-            return '';
+        if ($expression === '') {
+            $expression = '*';
         }
 
         return ($query->distinct ? 'SELECT DISTINCT ' : 'SELECT ') . $expression;
-    }
-
-    /**
-     * Expressionize elements.
-     *
-     * @param array   $elements Elements
-     * @param \string $prefix   Prefix for table
-     *
-     * @return \string
-     *
-     * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
-     */
-    protected function expressionizeTableColumn(array $elements, \string $prefix = '') : \string
-    {
-        $expression = '';
-
-        foreach ($elements as $key => $element) {
-            if (is_string($element) && $element !== '*') {
-                $expression .= $this->compileSystem($element, $prefix) . ', ';
-            } elseif (is_string($element) && $element === '*') {
-                $expression .= '*, ';
-            } elseif ($element instanceof \Closure) {
-                $expression .= $element() . ', ';
-            } elseif ($element instanceof Builder) {
-                $expression .= $element->toSql() . ', ';
-            } else {
-                throw new \InvalidArgumentException();
-            }
-        }
-
-        return rtrim($expression, ', ');
     }
 
     /**
@@ -257,7 +159,7 @@ class Grammar extends \phpOMS\DataStorage\Database\Grammar
     {
         $expression = $this->expressionizeTableColumn($table, $query->getPrefix());
 
-        if ($expression == '') {
+        if ($expression === '') {
             return '';
         }
 

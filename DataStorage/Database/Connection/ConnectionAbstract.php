@@ -17,6 +17,7 @@ namespace phpOMS\DataStorage\Database\Connection;
 
 use phpOMS\DataStorage\Database\DatabaseStatus;
 use phpOMS\DataStorage\Database\Query\Grammar\Grammar;
+use phpOMS\DataStorage\Database\Schema\Query\Grammar\Grammar as SchemaGrammar;
 
 /**
  * Database handler.
@@ -88,6 +89,14 @@ abstract class ConnectionAbstract implements ConnectionInterface
     protected $grammar = null;
 
     /**
+     * Database grammar.
+     *
+     * @var Grammar
+     * @since 1.0.0
+     */
+    protected $schemaGrammar = null;
+
+    /**
      * {@inheritdoc}
      */
     public function getType() : \int
@@ -117,8 +126,8 @@ abstract class ConnectionAbstract implements ConnectionInterface
     }
 
     /**
-     * {@inheritdoc}
-     */
+ * {@inheritdoc}
+ */
     public function getGrammar() : Grammar
     {
         if (!isset($this->grammar)) {
@@ -126,6 +135,18 @@ abstract class ConnectionAbstract implements ConnectionInterface
         }
 
         return $this->grammar;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getSchemaGrammar() : SchemaGrammar
+    {
+        if (!isset($this->schemaGrammar)) {
+            $this->schemaGrammar = new SchemaGrammar();
+        }
+
+        return $this->schemaGrammar;
     }
 
     /**

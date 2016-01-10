@@ -18,6 +18,7 @@ namespace phpOMS\DataStorage\Database\Connection;
 use phpOMS\DataStorage\Database\DatabaseStatus;
 use phpOMS\DataStorage\Database\DatabaseType;
 use phpOMS\DataStorage\Database\Query\Grammar\MysqlGrammar;
+use phpOMS\DataStorage\Database\Schema\Grammar\MysqlGrammar as MysqlSchemaGrammar;
 
 /**
  * Database handler.
@@ -48,8 +49,9 @@ class MysqlConnection extends ConnectionAbstract
      */
     public function __construct(array $dbdata)
     {
-        $this->type    = DatabaseType::MYSQL;
-        $this->grammar = new MysqlGrammar();
+        $this->type          = DatabaseType::MYSQL;
+        $this->grammar       = new MysqlGrammar();
+        $this->schemaGrammar = new MysqlSchemaGrammar();
         $this->connect($dbdata);
     }
 

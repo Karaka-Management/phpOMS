@@ -13,14 +13,13 @@
  * @version    1.0.0
  * @link       http://orange-management.com
  */
-namespace phpOMS\DataStorage\Database\Schema;
 
-use phpOMS\Datatypes\Enum;
+namespace phpOMS\DataStorage\Database\Schema\Grammar;
+
+use phpOMS\DataStorage\Database\GrammarAbstract;
 
 /**
- * Database type enum.
- *
- * Database types that are supported by the application
+ * Database query grammar.
  *
  * @category   Framework
  * @package    phpOMS\DataStorage\Database
@@ -30,10 +29,16 @@ use phpOMS\Datatypes\Enum;
  * @link       http://orange-management.com
  * @since      1.0.0
  */
-abstract class QueryType extends Enum
+class Grammar extends GrammarAbstract
 {
-    const SELECT = 0;
-    const CREATE = 1;
-    const DROP   = 2;
-    const ALTER  = 3;
+    /**
+     * Select components.
+     *
+     * @var \string[]
+     * @since 1.0.0
+     */
+    protected $selectComponents = [
+        'selects',
+        'from',
+    ];
 }

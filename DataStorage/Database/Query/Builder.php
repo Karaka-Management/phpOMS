@@ -16,6 +16,7 @@
 
 namespace phpOMS\DataStorage\Database\Query;
 
+use phpOMS\DataStorage\Database\BuilderAbstract;
 use phpOMS\DataStorage\Database\Connection\ConnectionAbstract;
 use phpOMS\DataStorage\Database\Query;
 
@@ -30,7 +31,7 @@ use phpOMS\DataStorage\Database\Query;
  * @link       http://orange-management.com
  * @since      1.0.0
  */
-class Builder
+class Builder extends BuilderAbstract
 {
 
     /**
@@ -153,43 +154,11 @@ class Builder
      */
     public $lock = false;
 
-    /**
-     * Database connectino.
-     *
-     * @var ConnectionAbstract
-     * @since 1.0.0
-     */
-    protected $connection = null;
-
-    /**
-     * Grammar.
-     *
-     * @var \phpOMS\DataStorage\Database\Query\Grammar\GrammarInterface
-     * @since 1.0.0
-     */
-    protected $grammar = null;
-
-    /**
-     * Query type.
-     *
-     * @var QueryType
-     * @since 1.0.0
-     */
-    protected $type = QueryType::INSERT;
-
     protected $unionLimit = null;
 
     protected $unionOffset = null;
 
     protected $unionOrders = [];
-
-    /**
-     * Prefix.
-     *
-     * @var \string
-     * @since 1.0.0
-     */
-    protected $prefix = '';
 
     /**
      * Comparison operators.
@@ -239,36 +208,6 @@ class Builder
     {
         $this->connection = $connection;
         $this->grammar    = $connection->getGrammar();
-    }
-
-    /**
-     * Set prefix.
-     *
-     * @param \string $prefix Prefix
-     *
-     * @return Builder
-     *
-     * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
-     */
-    public function prefix(\string $prefix)
-    {
-        $this->prefix = $prefix;
-
-        return $this;
-    }
-
-    /**
-     * Get prefix.
-     *
-     * @return \string
-     *
-     * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
-     */
-    public function getPrefix() : \string
-    {
-        return $this->prefix;
     }
 
     /**

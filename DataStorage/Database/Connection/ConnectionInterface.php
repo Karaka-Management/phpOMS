@@ -16,6 +16,7 @@
 namespace phpOMS\DataStorage\Database\Connection;
 
 use phpOMS\DataStorage\Database\Query\Grammar\Grammar;
+use phpOMS\DataStorage\Database\Schema\Query\Grammar\Grammar as SchemaGrammar;
 
 /**
  * Database connection interface.
@@ -84,5 +85,15 @@ interface ConnectionInterface
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function getGrammar() : Grammar;
+
+    /**
+     * Return grammar for this connection.
+     *
+     * @return SchemaGrammar
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+    public function getSchemaGrammar() : SchemaGrammar;
 
 }

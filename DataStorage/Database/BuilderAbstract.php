@@ -14,12 +14,11 @@
  * @link       http://orange-management.com
  */
 
-namespace phpOMS\DataStorage\Database\Schema\Grammar;
-
-use phpOMS\DataStorage\Database\Query\Builder;
+namespace phpOMS\DataStorage\Database;
+use phpOMS\DataStorage\Database\Connection\ConnectionAbstract;
 
 /**
- * Database query grammar.
+ * Database query builder.
  *
  * @category   Framework
  * @package    phpOMS\DataStorage\Database
@@ -29,45 +28,61 @@ use phpOMS\DataStorage\Database\Query\Builder;
  * @link       http://orange-management.com
  * @since      1.0.0
  */
-class MysqlGrammar extends Grammar
+abstract class BuilderAbstract
 {
+    protected $grammar = null;
+
     /**
-     * Compile select.
+     * Database connectino.
      *
-     * @param Builder $query   Builder
-     * @param array   $columns Columns
+     * @var ConnectionAbstract
+     * @since 1.0.0
+     */
+    protected $connection = null;
+
+    /**
+     * Query type.
      *
-     * @return \string
+     * @var int
+     * @since 1.0.0
+     */
+    protected $type = null;
+
+    /**
+     * Prefix.
+     *
+     * @var \string
+     * @since 1.0.0
+     */
+    protected $prefix = '';
+
+    /**
+     * Set prefix.
+     *
+     * @param \string $prefix Prefix
+     *
+     * @return BuilderAbstract
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    protected function compileSelects(Builder $query, array $columns) : \string
+    public function prefix(\string $prefix)
     {
-        $expression = $this->expressionizeTableColumn($columns);
+        $this->prefix = $prefix;
 
-        if ($expression === '') {
-            $expression = '*';
-        }
-
-        return $expression;
+        return $this;
     }
 
     /**
-     * Compile from.
-     *
-     * @param Builder $query Builder
-     * @param array   $table Tables
+     * Get prefix.
      *
      * @return \string
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    protected function compileFrom(Builder $query, array $table) : \string
+    public function getPrefix() : \string
     {
-        $expression = $this->expressionizeTableColumn('information_schema.tables');
-
-        return 'FROM ' . $expression;
+        return $this->prefix;
     }
 }
