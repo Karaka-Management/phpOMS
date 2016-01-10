@@ -15,8 +15,6 @@
  */
 namespace phpOMS\Asset;
 
-use phpOMS\DataStorage\Database\Pool;
-
 /**
  * Asset manager class.
  *
@@ -30,7 +28,7 @@ use phpOMS\DataStorage\Database\Pool;
  * @link       http://orange-management.com
  * @since      1.0.0
  */
-class AssetManager
+class AssetManager implements \Countable
 {
 
     /**
@@ -44,12 +42,10 @@ class AssetManager
     /**
      * Constructor.
      *
-     * @param Pool $dbPool Database pool
-     *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function __construct(Pool $dbPool)
+    public function __construct()
     {
     }
 
@@ -114,6 +110,19 @@ class AssetManager
         }
 
         return null;
+    }
+
+    /**
+     * Get asset count.
+     *
+     * @return int
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+    public function count() : \int
+    {
+        return count($this->assets);
     }
 
 }
