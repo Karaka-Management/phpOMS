@@ -45,7 +45,7 @@ class ConsoleSession implements SessionInterface
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function __construct($sid)
+    public function __construct($sid = false)
     {
         $this->sid = $sid;
     }

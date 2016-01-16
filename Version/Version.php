@@ -44,46 +44,6 @@ class Version
     }
 
     /**
-     * Save version file.
-     *
-     * @param \string $type    Lib or tool name
-     * @param \string $version Version
-     * @param \string $path    Path to version file
-     *
-     * @return void
-     *
-     * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
-     */
-    public static function setVersion(\string $type, \string $version, \string $path)
-    {
-        $versions        = self::getVersion($path);
-        $versions[$type] = $version;
-        file_put_contents($path, json_encode($versions));
-    }
-
-    /**
-     * Loading version file.
-     *
-     * @param \string $jpath Path to version file
-     *
-     * @return \string[]
-     *
-     * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
-     */
-    public static function getVersion(\string $jpath) : array
-    {
-        $path = realpath($jpath);
-
-        if($path === false || Validator::startsWith($path, ROOT_PATH) === false || strpos($path, 'config.php') !== false) {
-            throw new FilePathException($jpath);
-        }
-
-        return json_decode(file_get_contents($path), true);
-    }
-
-    /**
      * Comparing two versions.
      *
      * @param \string $ver1 Version

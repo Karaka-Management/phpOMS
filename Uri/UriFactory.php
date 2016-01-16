@@ -63,11 +63,7 @@ class UriFactory
      */
     public static function getQuery(\string $key)
     {
-        if (isset(self::$uri[$key])) {
-            return self::$uri[$key];
-        }
-
-        return false;
+        return self::$uri[$key] ?? false;
     }
 
     /**
@@ -77,16 +73,20 @@ class UriFactory
      * @param \string $value     Replacement value
      * @param \bool   $overwrite Overwrite if already exists
      *
-     * @return void
+     * @return bool
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public static function setQuery(\string $key, \string $value, \bool $overwrite = true)
+    public static function setQuery(\string $key, \string $value, \bool $overwrite = true) : \bool
     {
         if ($overwrite || !isset(self::$uri[$key])) {
             self::$uri[$key] = $value;
+
+            return true;
         }
+
+        return false;
     }
 
     /**

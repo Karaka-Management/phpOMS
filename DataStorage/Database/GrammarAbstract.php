@@ -40,7 +40,7 @@ abstract class GrammarAbstract
      * @var \string
      * @since 1.0.0
      */
-    public $systemIdentifier = '"';
+    protected $systemIdentifier = '"';
 
     /**
      * And operator.
@@ -63,7 +63,7 @@ abstract class GrammarAbstract
     /**
      * Compile to query.
      *
-     * @param Builder $query Builder
+     * @param BuilderAbstract $query Builder
      *
      * @return \string
      *
@@ -72,7 +72,7 @@ abstract class GrammarAbstract
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function compileQuery($query) : \string
+    public function compileQuery(BuilderAbstract $query) : \string
     {
         return trim(
             implode(' ',
@@ -85,6 +85,8 @@ abstract class GrammarAbstract
             )
         ) . ';';
     }
+
+    abstract protected function compileComponents(BuilderAbstract $query) : array;
 
     /**
      * Expressionize elements.
@@ -116,6 +118,26 @@ abstract class GrammarAbstract
         }
 
         return rtrim($expression, ', ');
+    }
+
+    /**
+     * Compile system.
+     *
+     * @param array|\string $system System
+     * @param \string       $prefix Prefix for table
+     *
+     * @return \string
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+    protected function compileSystem($system, \string $prefix = '') : \string
+    {
+        if (count($split = explode('.', $system)) == 2) {
+            return $this->compileSystem($prefix . $split[0]) . '.' . $this->compileSystem($split[1]);
+        } else {
+            return $this->systemIdentifier . $prefix . $system . $this->systemIdentifier;
+        }
     }
 
     public function getDateFormat() : \string

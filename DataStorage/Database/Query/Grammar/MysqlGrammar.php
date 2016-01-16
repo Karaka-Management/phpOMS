@@ -25,5 +25,5 @@ class MysqlGrammar extends Grammar
      * @var \string
      * @since 1.0.0
      */
-    public $systemIdentifier = '`';
+    protected $systemIdentifier = '`';
 }

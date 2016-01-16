@@ -26,7 +26,7 @@ namespace phpOMS\Utils;
  * @link       http://orange-management.com
  * @since      1.0.0
  */
-class MultiMap
+class MultiMap implements \Countable
 {
 
     /**
@@ -58,21 +58,57 @@ class MultiMap
     /**
      * Add data.
      *
-     * @param array $keys  Keys for value
-     * @param mixed $value Value to store
+     * @param array $keys      Keys for value
+     * @param mixed $value     Value to store
+     * @param \bool $overwrite Add value if key exists
      *
-     * @return void
+     * @return bool
      *
      * @since  1.0.0
      * @author Dennis Eichhorn
      */
-    public function add(array $keys, $value)
+    public function add(array $keys, $value, \bool $overwrite = true) : \bool
     {
-        $this->values[] = $value;
-        $id             = count($this->values) - 1;
+        $id       = count($this->values);
+        $inserted = false;
 
         foreach ($keys as $key) {
-            $this->keys[$key] = $id;
+            if ($overwrite || !isset($this->keys[$key])) {
+                $id               = $this->keys[$key] ?? $id;
+                $this->keys[$key] = $id;
+
+                $inserted = true;
+            }
+        }
+
+        if ($inserted) {
+            $this->values[$id] = $value;
+        }
+
+        // todo: is this really required???? - i don't think so!
+        $this->garbageCollect();
+
+        return $inserted;
+    }
+
+    /**
+     * Garbage collect unreferenced values/keys
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn
+     */
+    private function garbageCollect()
+    {
+        foreach ($this->keys as $key => $keyValue) {
+            if (!isset($this->values[$keyValue])) {
+                unset($this->keys[$key]);
+            }
+        }
+
+        foreach ($this->values as $valueKey => $value) {
+            if (!in_array($valueKey, $this->keys)) {
+                unset($this->values[$valueKey]);
+            }
         }
     }
 
@@ -88,7 +124,7 @@ class MultiMap
      */
     public function get($key)
     {
-        return $this->values[$this->keys[$key]] ?? null;
+        return isset($this->keys[$key]) ? $this->values[$this->keys[$key]] ?? null : null;
     }
 
     /**
@@ -128,13 +164,9 @@ class MultiMap
         if (isset($this->keys[$key])) {
             $id = $this->keys[$key];
 
-            foreach ($this->keys as $key => $ref) {
-                if ($ref === $id) {
-                    unset($this->keys[$key]);
-                }
-            }
-
             unset($this->values[$id]);
+
+            $this->garbageCollect();
 
             return true;
         }
@@ -160,6 +192,8 @@ class MultiMap
         if (isset($this->keys[$old]) && isset($this->keys[$new])) {
             $this->keys[$old] = $this->keys[$new];
 
+            $this->garbageCollect();
+
             return true;
         }
 
@@ -181,22 +215,9 @@ class MultiMap
     public function removeKey($key) : \bool
     {
         if (isset($this->keys[$key])) {
-            $id = $this->keys[$key];
-
             unset($this->keys[$key]);
 
-            $unreferencd = true;
-
-            foreach ($this->keys as $key => $value) {
-                if ($value === $id) {
-                    $unreferencd = false;
-                    break;
-                }
-            }
-
-            if ($unreferencd) {
-                unset($this->values[$id]);
-            }
+            $this->garbageCollect();
 
             return true;
         }

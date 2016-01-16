@@ -95,7 +95,7 @@ abstract class SettingsAbstract implements OptionsInterface
         switch ($this->connection->getType()) {
             case DatabaseType::MYSQL:
                 $query = new Builder($this->connection);
-                $sql   = $query->select(static::$columns[0], 'settings_content')
+                $sql   = $query->select(...static::$columns)
                     ->from($this->connection->prefix . static::$table)
                     ->where(static::$columns[0], 'in', $columns)
                     ->toSql();
@@ -115,7 +115,6 @@ abstract class SettingsAbstract implements OptionsInterface
      * Set option by key.
      *
      * @param \string[] $options   Column values for filtering
-     * @param \bool     $overwrite Overwrite existing settings
      * @param \bool     $store     Save this Setting immediately to database
      *
      * @return mixed Option value
@@ -123,9 +122,9 @@ abstract class SettingsAbstract implements OptionsInterface
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function set(array $options, \bool $overwrite = true, \bool $store = false)
+    public function set(array $options, \bool $store = false)
     {
-        $this->setOptions($options, $overwrite);
+        $this->setOptions($options);
 
         if($store) {
             // save to db

@@ -44,5 +44,6 @@ class UninstallAbstract
      */
     public static function uninstall(Pool $dbPool, array $info)
     {
+
     }
 }

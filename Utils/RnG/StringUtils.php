@@ -41,14 +41,14 @@ class StringUtils
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public static function generateString($min = 10, $max = 10, $charset = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ')
+    public static function generateString(\int $min = 10, \int $max = 10, \string $charset = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ') : \string
     {
-        $length           = rand($min, $max);
+        $length           = mt_rand($min, $max);
         $charactersLength = strlen($charset);
         $randomString     = '';
 
         for ($i = 0; $i < $length; $i++) {
-            $randomString .= $charset[rand(0, $charactersLength - 1)];
+            $randomString .= $charset[mt_rand(0, $charactersLength - 1)];
         }
 
         return $randomString;

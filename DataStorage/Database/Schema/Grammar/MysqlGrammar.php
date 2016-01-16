@@ -32,6 +32,14 @@ use phpOMS\DataStorage\Database\Query\Builder;
 class MysqlGrammar extends Grammar
 {
     /**
+     * System identifier.
+     *
+     * @var \string
+     * @since 1.0.0
+     */
+    protected $systemIdentifier = '`';
+
+    /**
      * Compile select.
      *
      * @param Builder $query   Builder

@@ -16,6 +16,7 @@
 
 namespace phpOMS\DataStorage\Database\Query\Grammar;
 
+use phpOMS\DataStorage\Database\BuilderAbstract;
 use phpOMS\DataStorage\Database\GrammarAbstract;
 use phpOMS\DataStorage\Database\Query\Builder;
 use phpOMS\DataStorage\Database\Query\Column;
@@ -82,7 +83,7 @@ class Grammar extends GrammarAbstract
     /**
      * Compile components.
      *
-     * @param Builder $query Builder
+     * @param BuilderAbstract $query Builder
      *
      * @return \string[]
      *
@@ -91,7 +92,7 @@ class Grammar extends GrammarAbstract
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    protected function compileComponents(Builder $query) : array
+    protected function compileComponents(BuilderAbstract $query) : array
     {
         $sql = [];
 
@@ -254,26 +255,6 @@ class Grammar extends GrammarAbstract
             return $this->compileSystem($value->getColumn(), $prefix);
         } else {
             throw new \InvalidArgumentException();
-        }
-    }
-
-    /**
-     * Compile system.
-     *
-     * @param array|\string $system System
-     * @param \string       $prefix Prefix for table
-     *
-     * @return \string
-     *
-     * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
-     */
-    protected function compileSystem($system, \string $prefix = '') : \string
-    {
-        if (count($split = explode('.', $system)) == 2) {
-            return $this->compileSystem($prefix . $split[0]) . '.' . $this->compileSystem($split[1]);
-        } else {
-            return $this->systemIdentifier . $prefix . $system . $this->systemIdentifier;
         }
     }
 

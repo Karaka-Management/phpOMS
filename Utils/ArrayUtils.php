@@ -116,26 +116,21 @@ class ArrayUtils
      *
      * @param mixed $needle   Needle for search
      * @param array $haystack Haystack for search
-     * @param mixed $id       ID for search
      *
      * @return \bool
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public static function inArrayRecursive($needle, array $haystack, $id = null) : \bool
+    public static function inArrayRecursive($needle, array $haystack) : \bool
     {
         $found = false;
-
-        if (isset($id) && isset($haystack[$id]) && $haystack[$id] === $needle) {
-            return true;
-        }
 
         foreach ($haystack as $item) {
             if ($item === $needle) {
                 return true;
             } elseif (is_array($item)) {
-                $found = self::inArrayRecursive($needle, $item, $id);
+                $found = self::inArrayRecursive($needle, $item);
 
                 if ($found) {
                     break;
@@ -203,16 +198,17 @@ class ArrayUtils
      * @param array   $data      Data to convert
      * @param \string $delimiter Delim to use
      * @param \string $enclosure Enclosure to use
+     * @param \string $escape    Escape to use
      *
      * @return \string
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public static function arrayToCSV(array $data, \string $delimiter = ';', \string $enclosure = '"') : \string
+    public static function arrayToCSV(array $data, \string $delimiter = ';', \string $enclosure = '"', \string $escape = '\\') : \string
     {
-        $outstream = fopen('php://output', 'r+');
-        fputcsv($outstream, $data, $delimiter, $enclosure);
+        $outstream = fopen('php://memory', 'r+');
+        fputcsv($outstream, $data, $delimiter, $enclosure, $escape);
         rewind($outstream);
         $csv = fgets($outstream);
         fclose($outstream);

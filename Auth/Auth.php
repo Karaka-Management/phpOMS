@@ -15,8 +15,6 @@
  */
 namespace phpOMS\Auth;
 
-use phpOMS\Config\OptionsInterface;
-use phpOMS\Config\OptionsTrait;
 use phpOMS\DataStorage\Database\Connection\ConnectionAbstract;
 use phpOMS\DataStorage\Database\DatabaseType;
 use phpOMS\DataStorage\Session\SessionInterface;
@@ -34,10 +32,8 @@ use phpOMS\DataStorage\Session\SessionInterface;
  * @link       http://orange-management.com
  * @since      1.0.0
  */
-class Auth implements OptionsInterface
+class Auth
 {
-    use OptionsTrait;
-
     /**
      * Session instance.
      *
@@ -157,7 +153,7 @@ class Auth implements OptionsInterface
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function logout(\int $uid)
+    public function logout(\int $uid = null)
     {
         // TODO: logout other users? If admin wants to kick a user for updates etc.
         $this->session->remove('UID');

@@ -14,12 +14,11 @@
  * @link       http://orange-management.com
  */
 
-namespace phpOMS\DataStorage\Database\Schema\Query;
+namespace phpOMS\DataStorage\Database\Schema;
 
 use phpOMS\DataStorage\Database\BuilderAbstract;
 use phpOMS\DataStorage\Database\Connection\ConnectionAbstract;
 use phpOMS\DataStorage\Database\Query;
-use phpOMS\DataStorage\Database\Schema\QueryType;
 
 /**
  * Database query builder.
@@ -34,9 +33,9 @@ use phpOMS\DataStorage\Database\Schema\QueryType;
  */
 class Builder extends BuilderAbstract
 {
-    private $type = QueryType::SELECT;
+    public $table = [];
 
-    private $table = [];
+    public $drop = [];
 
     /**
      * Constructor.
@@ -59,9 +58,11 @@ class Builder extends BuilderAbstract
         $this->table = array_unique($this->table);
     }
 
-    public function drop(\string $table)
+    public function drop(...$table)
     {
-
+        $this->type = QueryType::DROP;
+        $this->drop += $table;
+        $this->drop = array_unique($this->drop);
     }
 
     public function create(\string $table)
@@ -72,5 +73,18 @@ class Builder extends BuilderAbstract
     public function alter(array $column)
     {
 
+    }
+
+    /**
+     * Parsing to string.
+     *
+     * @return \string
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+    public function toSql() : \string
+    {
+        return $this->grammar->compileQuery($this);
     }
 }

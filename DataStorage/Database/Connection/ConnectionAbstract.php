@@ -17,7 +17,7 @@ namespace phpOMS\DataStorage\Database\Connection;
 
 use phpOMS\DataStorage\Database\DatabaseStatus;
 use phpOMS\DataStorage\Database\Query\Grammar\Grammar;
-use phpOMS\DataStorage\Database\Schema\Query\Grammar\Grammar as SchemaGrammar;
+use phpOMS\DataStorage\Database\Schema\Grammar\Grammar as SchemaGrammar;
 
 /**
  * Database handler.

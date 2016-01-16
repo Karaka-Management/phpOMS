@@ -789,19 +789,6 @@ class Builder extends BuilderAbstract
     }
 
     /**
-     * Get query type.
-     *
-     * @return \int
-     *
-     * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
-     */
-    public function getType() : \int
-    {
-        return $this->type;
-    }
-
-    /**
      * Merging query.
      *
      * Merging query in order to remove database query volume

@@ -38,4 +38,5 @@ abstract class TagType extends Enum
     const SELECT    = 5; /* <select> */
     const LABEL     = 6; /* <label> */
     const ULIST     = 7; /* <ul> */
+    const OLIST     = 8; /* <ul> */
 }
