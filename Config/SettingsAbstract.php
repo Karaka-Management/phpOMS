@@ -90,7 +90,7 @@ abstract class SettingsAbstract implements OptionsInterface
      */
     public function get(array $columns)
     {
-        $options = false;
+        $options = [];
 
         switch ($this->connection->getType()) {
             case DatabaseType::MYSQL:
