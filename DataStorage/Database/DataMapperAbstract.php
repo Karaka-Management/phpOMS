@@ -512,22 +512,25 @@ abstract class DataMapperAbstract implements DataMapperInterface
      *
      * This will fall back to the insert id if no datetime column is present.
      *
+     * @param \int $limit Newest limit
+     * @param Builder $query Pre-defined query
+     *
      * @return mixed
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function getNewest()
+    public function getNewest(\int $limit = 1, Builder $query = null)
     {
         if (!isset(static::$createdAt) || !isset(static::$columns[static::$createdAt])) {
             throw new \BadMethodCallException('Method "' . __METHOD__ . '" is not supported.');
         }
 
-        $query = new Builder($this->db);
+        $query = $query ?? new Builder($this->db);
         $query->prefix($this->db->getPrefix())
               ->select('*')
               ->from(static::$table)
-              ->limit(1);
+              ->limit($limit); /* todo: limit is not working, setting this to 2 doesn't have any effect!!! */
 
         if (isset(static::$createdAt)) {
             $query->orderBy(static::$table . '.' . static::$columns[static::$createdAt]['name'], 'DESC');
@@ -540,6 +543,7 @@ abstract class DataMapperAbstract implements DataMapperInterface
 
         $results = $sth->fetch(\PDO::FETCH_ASSOC);
 
+        /* todo: if limit get's used this has to call populateIterable */
         return $this->populate(is_bool($results) ? [] : $results);
 
     }
