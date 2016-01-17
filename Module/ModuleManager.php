@@ -151,7 +151,7 @@ class ModuleManager
 
                     $i = 1;
                     $c = count($uriHash);
-                    for($k = 0; $k < $c; $k++) {
+                    for ($k = 0; $k < $c; $k++) {
                         $uriPdo .= ':pid' . $i . ',';
                         $i++;
                     }
@@ -249,7 +249,7 @@ class ModuleManager
                 $path = realpath($oldPath = self::MODULE_PATH . '/' . $files[$i] . '/info.json');
 
                 if (file_exists($path)) {
-                    if(strpos($path, self::MODULE_PATH) === false) {
+                    if (strpos($path, self::MODULE_PATH) === false) {
                         throw new FilePathException($oldPath);
                     }
 
@@ -299,13 +299,13 @@ class ModuleManager
         $path = realpath($oldPath = self::MODULE_PATH . '/' . $module . '/' . 'info.json');
 
         if ($path !== false) {
-            if(strpos($path, self::MODULE_PATH) === false) {
+            if (strpos($path, self::MODULE_PATH) === false) {
                 throw new FilePathException($oldPath);
             }
 
             $info = json_decode(file_get_contents($path), true);
 
-            if(!isset($info)) {
+            if (!isset($info)) {
                 throw new InvalidJsonException($path);
             }
 
@@ -431,11 +431,11 @@ class ModuleManager
             foreach ($module as $m) {
                 $this->initModule($m);
             }
-        } elseif (is_string($module)) {
+        } elseif (is_string($module) && realpath(self::MODULE_PATH . '/' . $module . '/Controller.php') !== false) {
             $this->running[$module] = ModuleFactory::getInstance($module, $this->app);
             $this->app->dispatcher->set($this->running[$module], '\Modules\\' . $module . '\\Controller');
         } else {
-            throw new \InvalidArgumentException('Unknown parameter');
+            throw new \InvalidArgumentException('Invalid Module');
         }
     }
 
@@ -451,7 +451,11 @@ class ModuleManager
      */
     public function get(\string $module)
     {
-        return isset($this->running[$module]) ? $this->running[$module] : null;
+        if (!isset($this->running[$module])) {
+            $this->initModule($module);
+        }
+
+        return $this->running[$module];
     }
 
     /**
