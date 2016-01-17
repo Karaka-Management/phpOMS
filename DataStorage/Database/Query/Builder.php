@@ -724,7 +724,7 @@ class Builder extends BuilderAbstract
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function value($value) : Builder
+    public function value($value, \string $type = 'string') : Builder
     {
         end($this->values);
         $key                  = key($this->values);
