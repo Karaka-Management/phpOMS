@@ -164,7 +164,7 @@ abstract class DataMapperAbstract implements DataMapperInterface
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    protected function extend($class)
+    private function extend($class)
     {
         /* todo: have to implement this in the queries, so far not used */
         $this->collection['primaryField'][] = $class::$primaryField;
@@ -256,7 +256,7 @@ abstract class DataMapperAbstract implements DataMapperInterface
                         }
 
                         $query->insert($column['name'])
-                              ->value($value);
+                              ->value($value, $column['type']);
                         break;
                     }
                 }
@@ -273,16 +273,15 @@ abstract class DataMapperAbstract implements DataMapperInterface
             /* is a has many property */
             $property = $reflectionClass->getProperty($member); // throws ReflectionException
 
-            if(!($isPublic = $property->isPublic())) {
+            if (!($isPublic = $property->isPublic())) {
                 $property->setAccessible(true);
             }
 
-            $values   = $property->getValue($obj);
-            $temp     = end($values);
-            reset($values);
-            $pname = $property->getName();
+            $values = $property->getValue($obj);
+            $temp   = reset($values);
+            $pname  = $property->getName();
 
-            if(!($isPublic)) {
+            if (!($isPublic)) {
                 $property->setAccessible(false);
             }
 
@@ -297,9 +296,8 @@ abstract class DataMapperAbstract implements DataMapperInterface
                     /* todo: I should set the objId here as well before inserting (if many->1)!!!! */
                     $objsIds[$key] = $mapper->create($value);
                 }
-            } elseif (is_numeric($temp) || is_string($temp)) {
+            } elseif (is_scalar($temp)) {
                 $objsIds = $values;
-                continue; // I'm guesssing this is already a key!
             } else {
                 throw new \Exception('Unexpected value for relational data mapping.');
             }
@@ -308,8 +306,8 @@ abstract class DataMapperAbstract implements DataMapperInterface
                 /* is many->many */
                 $relQuery = new Builder($this->db);
                 $relQuery->prefix($this->db->getPrefix())
-                         ->into(static::$hasMany[$pname]['table']);
-                $relQuery->insert(static::$hasMany[$pname]['src'], static::$hasMany[$pname]['dst']);
+                         ->into(static::$hasMany[$pname]['table'])
+                         ->insert(static::$hasMany[$pname]['src'], static::$hasMany[$pname]['dst']);
 
                 foreach ($objsIds as $key => $src) {
                     $relQuery->values($src, $objId);
@@ -418,7 +416,15 @@ abstract class DataMapperAbstract implements DataMapperInterface
     {
         $class = get_class($this);
         $class = str_replace('Mapper', '', $class);
-        $obj   = new $class();
+
+        if (count($result) === 0) {
+            $parts     = explode('\\', $class);
+            $name      = $parts[$c = (count($parts) - 1)];
+            $parts[$c] = 'Null' . $name;
+            $class     = implode('\\', $parts);
+        }
+
+        $obj = new $class();
 
         return $this->populateAbstract($result, $obj);
     }
@@ -592,8 +598,8 @@ abstract class DataMapperAbstract implements DataMapperInterface
     {
         $obj = [];
         if (is_array($primaryKey)) {
-            foreach ($primaryKey as $key) {
-                $obj[$key] = $this->populate($this->getRaw($key));
+            foreach ($primaryKey as $key => $value) {
+                $obj[$value] = $this->populate($this->getRaw($value));
             }
         } else {
             $obj = $this->populate($this->getRaw($primaryKey));
@@ -685,7 +691,7 @@ abstract class DataMapperAbstract implements DataMapperInterface
 
             $sth = $this->db->con->prepare($query->toSql());
             $sth->execute();
-            $result[$member] = $sth->fetchAll(\PDO::FETCH_ASSOC);
+            $result[$member] = $sth->fetchAll(\PDO::FETCH_COLUMN);
         }
 
         return $result;
