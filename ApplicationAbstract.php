@@ -64,10 +64,10 @@ class ApplicationAbstract
     /**
      * Cache instance.
      *
-     * @var \phpOMS\DataStorage\Cache\CacheManager
+     * @var \phpOMS\DataStorage\Cache\Pool
      * @since 1.0.0
      */
-    public $cacheManager = null;
+    public $cachePool = null;
 
     /**
      * ModuleManager instance.
