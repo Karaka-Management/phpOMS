@@ -70,16 +70,18 @@ class SmartDateTime extends \DateTime
      * @param \int $d        Day
      * @param \int $calendar Calendar
      *
-     * @return void
+     * @return SmartDateTime
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function smartModify(\int $y, \int $m = 0, \int $d = 0, \int $calendar = CAL_GREGORIAN)
+    public function smartModify(\int $y, \int $m = 0, \int $d = 0, \int $calendar = CAL_GREGORIAN) : SmartDateTime
     {
-        $y_new       = (int) $this->format('Y') + $y;
+        $y_change    = floor(((int) $this->format('m') + $m) / 12);
+        $y_change    = ((int) $this->format('m') + $m) < 0 && ((int) $this->format('m') + $m) % 12 === 0 ? $y_change - 1 : $y_change;
+        $y_new       = (int) $this->format('Y') + $y + $y_change;
         $m_new       = ((int) $this->format('m') + $m) % 12;
-        $m_new       = $m_new === 0 ? 12 : $m_new;
+        $m_new       = $m_new === 0 ? 12 : $m_new < 0 ? 12 + $m_new : $m_new;
         $d_month_old = cal_days_in_month($calendar, (int) $this->format('m'), (int) $this->format('Y'));
         $d_month_new = cal_days_in_month($calendar, $m_new, $y_new);
         $d_old       = (int) $this->format('d');
@@ -97,6 +99,8 @@ class SmartDateTime extends \DateTime
         if ($d !== 0) {
             $this->modify($d . ' day');
         }
+
+        return $this;
     }
 
 }

@@ -19,6 +19,7 @@ use phpOMS\ApplicationAbstract;
 use phpOMS\Message\RequestAbstract;
 use phpOMS\Message\ResponseAbstract;
 use phpOMS\Module\ModuleAbstract;
+use phpOMS\System\FilePathException;
 use phpOMS\Views\ViewLayout;
 
 /**
@@ -84,7 +85,7 @@ class Dispatcher
         $views = [];
         $type  = ViewLayout::UNDEFINED;
 
-        if (isset($controller['type'])) {
+        if (is_array($controller) && isset($controller['type'])) {
             $type       = $controller['type'];
             $controller = $controller['dest'];
         }
@@ -119,20 +120,22 @@ class Dispatcher
      *
      * @param \string $controller Controller string
      *
-     * @return \bool
+     * @return mixed
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function get(\string $controller) : \bool
+    public function get(\string $controller)
     {
         if (!isset($this->controllers[$controller])) {
-            $this->controllers[$controller] = new $controller($this->app);
+            if (realpath($path = ROOT_PATH . '/' . str_replace('\\', '/', $controller) . '.php') === false) {
+                throw new FilePathException($path);
+            }
 
-            return true;
+            $this->controllers[$controller] = new $controller($this->app);
         }
 
-        return false;
+        return $this->controllers[$controller];
     }
 
     /**

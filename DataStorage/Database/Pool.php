@@ -86,7 +86,7 @@ class Pool
     public function get($key = 'core')
     {
         if (!isset($this->pool[$key])) {
-            return false;
+            return false; /* todo: return nullconnection */
         }
 
         return $this->pool[$key];
@@ -119,18 +119,20 @@ class Pool
      * @param mixed $key    Database key
      * @param array $config Database config data
      *
-     * @return void
+     * @return \bool
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function create($key, array $config)
+    public function create($key, array $config) : \bool
     {
         if (isset($this->pool[$key])) {
-            return;
+            return false;
         }
 
         $this->pool[$key] = ConnectionFactory::create($config);
+
+        return true;
     }
 
 }

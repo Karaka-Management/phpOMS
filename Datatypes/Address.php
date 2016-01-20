@@ -37,7 +37,7 @@ class Address implements JsonableInterface
      * @var \string
      * @since 1.0.0
      */
-    private $recipient = null;
+    private $recipient = '';
 
     /**
      * Sub of the address.
@@ -45,7 +45,7 @@ class Address implements JsonableInterface
      * @var \string
      * @since 1.0.0
      */
-    private $fao = null;
+    private $fao = '';
 
     /**
      * Location.

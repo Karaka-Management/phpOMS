@@ -37,7 +37,7 @@ class Location implements JsonableInterface
      * @var \string
      * @since 1.0.0
      */
-    private $postal = null;
+    private $postal = '';
 
     /**
      * Name of city.
@@ -45,7 +45,7 @@ class Location implements JsonableInterface
      * @var \string
      * @since 1.0.0
      */
-    private $city = null;
+    private $city = '';
 
     /**
      * Name of the country.
@@ -53,7 +53,7 @@ class Location implements JsonableInterface
      * @var \string
      * @since 1.0.0
      */
-    private $country = null;
+    private $country = '';
 
     /**
      * Street & district.
@@ -61,7 +61,7 @@ class Location implements JsonableInterface
      * @var \string
      * @since 1.0.0
      */
-    private $address = null;
+    private $address = '';
 
     /**
      * State.
@@ -69,7 +69,7 @@ class Location implements JsonableInterface
      * @var \string
      * @since 1.0.0
      */
-    private $state = null;
+    private $state = '';
 
     /**
      * Geo coordinates.
@@ -77,7 +77,7 @@ class Location implements JsonableInterface
      * @var \float[]
      * @since 1.0.0
      */
-    private $geo = null;
+    private $geo = ['lat' => 0, 'long' => 0];
 
     /**
      * Constructor.

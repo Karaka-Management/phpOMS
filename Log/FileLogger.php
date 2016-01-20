@@ -50,7 +50,7 @@ class FileLogger implements LoggerInterface
     /**
      * Instance.
      *
-     * @var \phpOMS\DataStorage\Cache\CacheManager
+     * @var \phpOMS\DataStorage\Cache\Pool
      * @since 1.0.0
      */
     protected static $instance = null;
@@ -85,25 +85,31 @@ class FileLogger implements LoggerInterface
      */
     public function __construct(\string $lpath)
     {
-        if (!file_exists($lpath)) {
-            mkdir($lpath);
-        }
-
         $path = realpath($lpath);
 
-        if ($path === false || Validator::startsWith($path, ROOT_PATH) === false) {
+        if ($path !== false && Validator::startsWith($path, ROOT_PATH) === false) {
             throw new FilePathException($lpath);
         }
 
-        if (!file_exists($path)) {
-            mkdir($path, 0644, true);
+        if (is_dir($lpath)) {
+            if (!file_exists($lpath)) {
+                mkdir($lpath, 0644, true);
+            }
+
+            if (!file_exists($lpath . '/' . date('Y-m-d') . '.log')) {
+                touch($lpath . '/' . date('Y-m-d') . '.log');
+            }
+
+            $path = realpath($lpath . '/' . date('Y-m-d') . '.log');
+        } else {
+            if (!file_exists($lpath)) {
+                touch($lpath);
+            }
+
+            $path = realpath($lpath);
         }
 
-        $this->path = $path . '/' . date('Y-m-d') . '.log';
-
-        if (!file_exists($path)) {
-            touch($path);
-        }
+        $this->path = $path;
     }
 
     /**
@@ -237,8 +243,8 @@ class FileLogger implements LoggerInterface
         $replace['{backtrace}'] = str_replace(str_replace('\\', '\\\\', ROOT_PATH), '', $backtrace);
         $replace['{datetime}']  = sprintf('%--19s', (new \DateTime('NOW'))->format('Y-m-d H:i:s'));
         $replace['{level}']     = sprintf('%--12s', $level);
-        $replace['{path}']      = $_SERVER['REQUEST_URI'];
-        $replace['{ip}']        = sprintf('%--15s', $_SERVER['REMOTE_ADDR']);
+        $replace['{path}']      = $_SERVER['REQUEST_URI'] ?? 'REQUEST_URI';
+        $replace['{ip}']        = sprintf('%--15s', $_SERVER['REMOTE_ADDR'] ?? '0.0.0.0');
         $replace['{version}']   = sprintf('%--15s', PHP_VERSION);
         $replace['{os}']        = sprintf('%--15s', PHP_OS);
 
@@ -533,15 +539,16 @@ class FileLogger implements LoggerInterface
 
             while (($line = fgetcsv($this->fp, 0, ';')) !== false) {
                 $id++;
-                $offset--;
 
                 if ($offset > 0) {
+                    $offset--;
                     continue;
                 }
 
                 if ($limit <= 0) {
-                    $logs = array_reverse($logs, true);
-                    array_pop($logs);
+
+                    reset($logs);
+                    unset($logs[key($logs)]);
                 }
 
                 foreach ($line as &$value) {
@@ -550,11 +557,11 @@ class FileLogger implements LoggerInterface
 
                 $logs[$id] = $line;
                 $limit--;
+                ksort($logs);
             }
 
             fseek($this->fp, 0, SEEK_END);
             fclose($this->fp);
-            asort($logs);
         }
 
         return $logs;
@@ -583,16 +590,16 @@ class FileLogger implements LoggerInterface
                     continue;
                 }
 
-                $log['datetime']  = $line[0] ?? '';
-                $log['level']     = $line[1] ?? '';
-                $log['ip']        = $line[2] ?? '';
-                $log['line']      = $line[3] ?? '';
-                $log['version']   = $line[4] ?? '';
-                $log['os']        = $line[5] ?? '';
-                $log['path']      = $line[6] ?? '';
-                $log['message']   = $line[7] ?? '';
-                $log['file']      = $line[8] ?? '';
-                $log['backtrace'] = $line[9] ?? '';
+                $log['datetime']  = trim($line[0] ?? '');
+                $log['level']     = trim($line[1] ?? '');
+                $log['ip']        = trim($line[2] ?? '');
+                $log['line']      = trim($line[3] ?? '');
+                $log['version']   = trim($line[4] ?? '');
+                $log['os']        = trim($line[5] ?? '');
+                $log['path']      = trim($line[6] ?? '');
+                $log['message']   = trim($line[7] ?? '');
+                $log['file']      = trim($line[8] ?? '');
+                $log['backtrace'] = trim($line[9] ?? '');
 
                 break;
             }

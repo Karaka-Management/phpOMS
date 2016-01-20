@@ -14,7 +14,6 @@
  * @link       http://orange-management.com
  */
 namespace phpOMS\Localization;
-use phpOMS\Datatypes\Exception\InvalidEnumName;
 use phpOMS\Datatypes\Exception\InvalidEnumValue;
 
 /**
@@ -37,7 +36,7 @@ class Localization
      * @var \string
      * @since 1.0.0
      */
-    public $country = null;
+    private $country = ISO3166Enum::_US;
 
     /**
      * Timezone.
@@ -45,7 +44,7 @@ class Localization
      * @var \string
      * @since 1.0.0
      */
-    public $timezone = null;
+    private $timezone = 'America/New_York';
 
     /**
      * Language ISO code.
@@ -53,7 +52,7 @@ class Localization
      * @var \string
      * @since 1.0.0
      */
-    public $language = 'en';
+    private $language = ISO639Enum::_EN;
 
     /**
      * Currency.
@@ -61,7 +60,7 @@ class Localization
      * @var \string
      * @since 1.0.0
      */
-    public $currency = null;
+    private $currency = ISO4217Enum::C_USD;
 
     /**
      * Number format.
@@ -69,7 +68,15 @@ class Localization
      * @var \string
      * @since 1.0.0
      */
-    public $numberformat = null;
+    private $decimal = '.';
+
+    /**
+     * Number format.
+     *
+     * @var \string
+     * @since 1.0.0
+     */
+    private $thousands = ',';
 
     /**
      * Time format.
@@ -77,7 +84,7 @@ class Localization
      * @var \string
      * @since 1.0.0
      */
-    public $datetime = null;
+    private $datetime = 'Y-m-d H:i:s';
 
     /**
      * Language array.
@@ -85,7 +92,7 @@ class Localization
      * @var \string[]
      * @since 1.0.0
      */
-    public $lang = [];
+    private $lang = [];
 
     /**
      * Constructor.
@@ -174,8 +181,8 @@ class Localization
      */
     public function setLanguage(\string $language)
     {
-        if(!ISO639EnumArray::isValidName($language)) {
-            throw new InvalidEnumName($language);
+        if(!ISO639Enum::isValidValue($language)) {
+            throw new InvalidEnumValue($language);
         }
 
         $this->language = $language;
@@ -226,8 +233,8 @@ class Localization
      */
     public function setCurrency(\string $currency)
     {
-        if(!ISO4217EnumArray::isValidName($currency)) {
-            throw new InvalidEnumName($currency);
+        if(!ISO4217Enum::isValidValue($currency)) {
+            throw new InvalidEnumValue($currency);
         }
 
         $this->currency = $currency;
@@ -263,21 +270,45 @@ class Localization
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function getNumberformat() : \string
+    public function getDecimal() : \string
     {
-        return $this->numberformat;
+        return $this->decimal;
     }
 
     /**
-     * @param \string $numberformat
+     * @param \string $decimal
      *
      * @return \string
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function setNumberformat(\string $numberformat) : \string
+    public function setDecimal(\string $decimal)
     {
-        $this->numberformat = $numberformat;
+        $this->decimal = $decimal;
+    }
+
+    /**
+     * @return \string
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+    public function getThousands() : \string
+    {
+        return $this->thousands;
+    }
+
+    /**
+     * @param \string $thousands
+     *
+     * @return \string
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+    public function setThousands(\string $thousands)
+    {
+        $this->thousands = $thousands;
     }
 }

@@ -32,14 +32,6 @@ abstract class Enum
 {
 
     /**
-     * Caching constant values.
-     *
-     * @var array
-     * @since 1.0.0
-     */
-    private static $constCache = null;
-
-    /**
      * Checking enum name.
      *
      * Checking if a certain const name exists (case sensitive)
@@ -55,7 +47,7 @@ abstract class Enum
     {
         $constants = self::getConstants();
 
-        return array_key_exists($name, $constants);
+        return isset($constants[$name]);
     }
 
     /**
@@ -68,12 +60,9 @@ abstract class Enum
      */
     public static function getConstants() : array
     {
-        if (!isset(self::$constCache)) {
-            $reflect          = new \ReflectionClass(get_called_class());
-            self::$constCache = $reflect->getConstants();
-        }
+        $reflect = new \ReflectionClass(get_called_class());
 
-        return self::$constCache;
+        return $reflect->getConstants();
     }
 
     /**
@@ -92,7 +81,7 @@ abstract class Enum
     {
         $values = array_values(self::getConstants());
 
-        return in_array($value, $values, $strict = true);
+        return in_array($value, $values, true);
     }
 
 }

@@ -47,7 +47,7 @@ abstract class EnumArray
     {
         $constants = self::getConstants();
 
-        return array_key_exists($name, $constants);
+        return isset($constants[$name]);
     }
 
     /**
@@ -80,7 +80,7 @@ abstract class EnumArray
     {
         $constants = self::getConstants();
 
-        return in_array($value, $constants, $strict = true);
+        return in_array($value, $constants, true);
     }
 
     /**
@@ -97,7 +97,7 @@ abstract class EnumArray
      */
     public static function get($key)
     {
-        $constants = self::getConstants()[$key];
+        $constants = self::getConstants();
 
         if (!isset($constants[$key])) {
             throw new \OutOfBoundsException('Key "' . $key . '" is not valid.');
