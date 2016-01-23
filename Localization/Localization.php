@@ -52,7 +52,7 @@ class Localization
      * @var \string
      * @since 1.0.0
      */
-    private $language = ISO639Enum::_EN;
+    private $language = ISO639x1Enum::_EN;
 
     /**
      * Currency.
@@ -92,7 +92,7 @@ class Localization
      * @var \string[]
      * @since 1.0.0
      */
-    private $lang = [];
+    public $lang = [];
 
     /**
      * Constructor.
@@ -181,7 +181,7 @@ class Localization
      */
     public function setLanguage(\string $language)
     {
-        if(!ISO639Enum::isValidValue($language)) {
+        if(!ISO639x1Enum::isValidValue($language)) {
             throw new InvalidEnumValue($language);
         }
 
