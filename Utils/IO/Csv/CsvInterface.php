@@ -35,7 +35,7 @@ namespace phpOMS\Utils\IO\Csv {
         /**
          * Export Csv.
          *
-         * @param \string $path Path to export
+         * @param string $path Path to export
          *
          * @since  1.0.0
          * @author Dennis Eichhorn <d.eichhorn@oms.com>
@@ -45,7 +45,7 @@ namespace phpOMS\Utils\IO\Csv {
         /**
          * Import Csv.
          *
-         * @param \string $path Path to import
+         * @param string $path Path to import
          *
          * @since  1.0.0
          * @author Dennis Eichhorn <d.eichhorn@oms.com>

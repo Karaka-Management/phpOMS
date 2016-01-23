@@ -39,7 +39,7 @@ class Tetrahedron
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public static function getVolume(\float $a)
+    public static function getVolume(float $a)
     {
         return $a ** 3 / (6 * sqrt(2));
     }
@@ -54,7 +54,7 @@ class Tetrahedron
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public static function getSurface(\float $a)
+    public static function getSurface(float $a)
     {
         return sqrt(3) * $a ** 2;
     }
@@ -69,7 +69,7 @@ class Tetrahedron
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public static function getFaceArea(\float $a)
+    public static function getFaceArea(float $a)
     {
         return sqrt(3) / 4 * $a ** 2;
     }

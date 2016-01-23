@@ -43,7 +43,7 @@ class UniformDistributionContinuous
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public static function getMode(\float $a, \float $b) : \float
+    public static function getMode(float $a, float $b) : float
     {
         return ($a + $b) / 2;
     }
@@ -62,7 +62,7 @@ class UniformDistributionContinuous
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public static function getPdf(\float $x, \float $a, \float $b) : \float
+    public static function getPdf(float $x, float $a, float $b) : float
     {
         return $x > $a && $x < $b ? 1 / ($b - $a) : 0;
     }
@@ -81,7 +81,7 @@ class UniformDistributionContinuous
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public static function getCdf(\float $x, \float $a, \float $b) : \float
+    public static function getCdf(float $x, float $a, float $b) : float
     {
         if ($x < $a) {
             return 0;
@@ -104,7 +104,7 @@ class UniformDistributionContinuous
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public static function getMgf(\int $t, \float $a, \float $b) : \float
+    public static function getMgf(int $t, float $a, float $b) : float
     {
         return $t === 0 ? 1 : (exp($t * $b) - exp($t * $a)) / ($t * ($b - $a));
     }
@@ -117,7 +117,7 @@ class UniformDistributionContinuous
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public static function getSkewness() : \float
+    public static function getSkewness() : float
     {
         return 0.0;
     }
@@ -130,7 +130,7 @@ class UniformDistributionContinuous
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public static function getExKurtosis() : \float
+    public static function getExKurtosis() : float
     {
         return -6 / 5;
     }
@@ -146,7 +146,7 @@ class UniformDistributionContinuous
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public static function getMedian(\float $a, \float $b) : \float
+    public static function getMedian(float $a, float $b) : float
     {
         return ($a + $b) / 2;
     }
@@ -162,7 +162,7 @@ class UniformDistributionContinuous
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public static function getMean(\float $a, \float $b) : \float
+    public static function getMean(float $a, float $b) : float
     {
         return ($a + $b) / 2;
     }
@@ -178,7 +178,7 @@ class UniformDistributionContinuous
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public static function getVariance(\float $a, \float $b) : \float
+    public static function getVariance(float $a, float $b) : float
     {
         return 1 / 12 * ($b - $a) ** 2;
     }

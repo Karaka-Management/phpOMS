@@ -32,7 +32,7 @@ interface PdfInterface
     /**
      * Export Pdf.
      *
-     * @param \string $path Path to export
+     * @param string $path Path to export
      *
      * @return void
      *

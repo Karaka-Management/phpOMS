@@ -47,7 +47,7 @@ class Population implements \Countable
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function __construct(CityPool $pool, \int $size, \bool $initialize = false)
+    public function __construct(CityPool $pool, int $size, bool $initialize = false)
     {
         if ($initialize) {
             for ($i = 0; $i < $size; $i++) {
@@ -65,7 +65,7 @@ class Population implements \Countable
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function insertTourAt(\int $index, Tour $tour)
+    public function insertTourAt(int $index, Tour $tour)
     {
         $this->tours = array_slice($this->tours, 0, $index) + [$tour] + array_slice($this->tours, $index);
     }
@@ -79,7 +79,7 @@ class Population implements \Countable
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function setTour(\int $index, Tour $tour)
+    public function setTour(int $index, Tour $tour)
     {
         $this->tours[$index] = $tour;
         asort($this->tours);
@@ -108,7 +108,7 @@ class Population implements \Countable
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function getTour(\int $index)
+    public function getTour(int $index)
     {
         return $this->tours[$index] ?? null;
     }
@@ -165,7 +165,7 @@ class Population implements \Countable
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function count() : \int
+    public function count() : int
     {
         return count($this->tours);
     }

@@ -46,7 +46,7 @@ abstract class DataMapperAbstract implements DataMapperInterface
     /**
      * Overwriting extended values.
      *
-     * @var \bool
+     * @var bool
      * @since 1.0.0
      */
     protected static $overwrite = true;
@@ -54,7 +54,7 @@ abstract class DataMapperAbstract implements DataMapperInterface
     /**
      * Primary field name.
      *
-     * @var \string
+     * @var string
      * @since 1.0.0
      */
     protected static $primaryField = '';
@@ -62,7 +62,7 @@ abstract class DataMapperAbstract implements DataMapperInterface
     /**
      * Primary field name.
      *
-     * @var \string
+     * @var string
      * @since 1.0.0
      */
     protected static $createdAt = '';
@@ -78,7 +78,7 @@ abstract class DataMapperAbstract implements DataMapperInterface
     /**
      * Relations.
      *
-     * @var \string[]
+     * @var string[]
      * @since 1.0.0
      */
     protected static $hasMany = [];
@@ -86,7 +86,7 @@ abstract class DataMapperAbstract implements DataMapperInterface
     /**
      * Relations.
      *
-     * @var \string[]
+     * @var string[]
      * @since 1.0.0
      */
     protected static $ownsMany = [];
@@ -94,7 +94,7 @@ abstract class DataMapperAbstract implements DataMapperInterface
     /**
      * Relations.
      *
-     * @var \string[]
+     * @var string[]
      * @since 1.0.0
      */
     protected static $hasOne = [];
@@ -102,7 +102,7 @@ abstract class DataMapperAbstract implements DataMapperInterface
     /**
      * Extending relations.
      *
-     * @var \string[]
+     * @var string[]
      * @since 1.0.0
      */
     protected static $extends = [];
@@ -110,7 +110,7 @@ abstract class DataMapperAbstract implements DataMapperInterface
     /**
      * Relations.
      *
-     * @var \string[]
+     * @var string[]
      * @since 1.0.0
      */
     protected static $ownsOne = [];
@@ -118,7 +118,7 @@ abstract class DataMapperAbstract implements DataMapperInterface
     /**
      * Table.
      *
-     * @var \string
+     * @var string
      * @since 1.0.0
      */
     protected static $table = '';
@@ -512,7 +512,7 @@ abstract class DataMapperAbstract implements DataMapperInterface
      *
      * This will fall back to the insert id if no datetime column is present.
      *
-     * @param \int $limit Newest limit
+     * @param int $limit Newest limit
      * @param Builder $query Pre-defined query
      *
      * @return mixed
@@ -520,7 +520,7 @@ abstract class DataMapperAbstract implements DataMapperInterface
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function getNewest(\int $limit = 1, Builder $query = null)
+    public function getNewest(int $limit = 1, Builder $query = null)
     {
         if (!isset(static::$createdAt) || !isset(static::$columns[static::$createdAt])) {
             throw new \BadMethodCallException('Method "' . __METHOD__ . '" is not supported.');
@@ -591,14 +591,14 @@ abstract class DataMapperAbstract implements DataMapperInterface
      * Get object.
      *
      * @param mixed $primaryKey Key
-     * @param \bool $relations  Load relations
+     * @param bool $relations  Load relations
      *
      * @return mixed
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function get($primaryKey, \bool $relations = true)
+    public function get($primaryKey, bool $relations = true)
     {
         $obj = [];
         if (is_array($primaryKey)) {
@@ -740,12 +740,12 @@ abstract class DataMapperAbstract implements DataMapperInterface
     /**
      * Get primary field.
      *
-     * @return \string
+     * @return string
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function getPrimaryField() : \string
+    public function getPrimaryField() : string
     {
         return static::$primaryField;
     }
@@ -753,12 +753,12 @@ abstract class DataMapperAbstract implements DataMapperInterface
     /**
      * Get main table.
      *
-     * @return \string
+     * @return string
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function getTable() : \string
+    public function getTable() : string
     {
         return static::$table;
     }

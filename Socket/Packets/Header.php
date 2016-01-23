@@ -37,7 +37,7 @@ class Header implements \Serializable
     /**
      * Packet size.
      *
-     * @var \int
+     * @var int
      * @since 1.0.0
      */
     private $length = 0;
@@ -53,7 +53,7 @@ class Header implements \Serializable
     /**
      * Packet subtype.
      *
-     * @var \int
+     * @var int
      * @since 1.0.0
      */
     private $subtype = 0;
@@ -79,7 +79,7 @@ class Header implements \Serializable
     }
 
     /**
-     * @return \int
+     * @return int
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
@@ -90,7 +90,7 @@ class Header implements \Serializable
     }
 
     /**
-     * @param \int $length
+     * @param int $length
      *
      * @return void
      *
@@ -103,7 +103,7 @@ class Header implements \Serializable
     }
 
     /**
-     * @return \int
+     * @return int
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
@@ -114,7 +114,7 @@ class Header implements \Serializable
     }
 
     /**
-     * @param \int $type
+     * @param int $type
      *
      * @return void
      *
@@ -127,7 +127,7 @@ class Header implements \Serializable
     }
 
     /**
-     * @return \int
+     * @return int
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
@@ -138,7 +138,7 @@ class Header implements \Serializable
     }
 
     /**
-     * @param \int $subtype
+     * @param int $subtype
      *
      * @return void
      *
@@ -153,7 +153,7 @@ class Header implements \Serializable
     /**
      * Serializing header.
      *
-     * @return \string Json serialization
+     * @return string Json serialization
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
@@ -166,7 +166,7 @@ class Header implements \Serializable
     /**
      * Jsonfy object.
      *
-     * @return \string Json serialization
+     * @return string Json serialization
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
@@ -179,7 +179,7 @@ class Header implements \Serializable
     /**
      * Unserializing json string.
      *
-     * @param \string $string String to unserialize
+     * @param string $string String to unserialize
      *
      * @return void
      *

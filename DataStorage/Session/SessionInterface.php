@@ -34,7 +34,7 @@ interface SessionInterface
     /**
      * Get session variable by key.
      *
-     * @param \string|\int $key Value key
+     * @param string|int $key Value key
      *
      * @return mixed
      *
@@ -46,28 +46,28 @@ interface SessionInterface
     /**
      * Store session value by key.
      *
-     * @param \string|\int $key       Value key
+     * @param string|int $key       Value key
      * @param mixed        $value     Value to store
-     * @param \bool        $overwrite Overwrite existing values
+     * @param bool        $overwrite Overwrite existing values
      *
-     * @return \bool
+     * @return bool
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function set($key, $value, \bool $overwrite = true) : \bool;
+    public function set($key, $value, bool $overwrite = true) : bool;
 
     /**
      * Remove value from session by key.
      *
-     * @param \string|\int $key Value key
+     * @param string|int $key Value key
      *
-     * @return \bool
+     * @return bool
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function remove($key) : \bool;
+    public function remove($key) : bool;
 
     /**
      * Save session.
@@ -82,7 +82,7 @@ interface SessionInterface
     public function save();
 
     /**
-     * @return \int|\string
+     * @return int|string
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
@@ -90,7 +90,7 @@ interface SessionInterface
     public function getSID();
 
     /**
-     * @param \int|\string $sid
+     * @param int|string $sid
      *
      * @return void
      *

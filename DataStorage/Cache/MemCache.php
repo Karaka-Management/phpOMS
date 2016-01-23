@@ -40,7 +40,7 @@ class MemCache implements CacheInterface
     /**
      * Only cache if data is larger than threshold (0-100).
      *
-     * @var \int
+     * @var int
      * @since 1.0.0
      */
     private $threshold = 10;
@@ -74,7 +74,7 @@ class MemCache implements CacheInterface
     /**
      * {@inheritdoc}
      */
-    public function set($key, $value, CacheStatus $type = null, \int $expire = 2592000)
+    public function set($key, $value, CacheStatus $type = null, int $expire = 2592000)
     {
         $this->memc->set($key, $value, false, $expire);
     }
@@ -82,7 +82,7 @@ class MemCache implements CacheInterface
     /**
      * {@inheritdoc}
      */
-    public function add($key, $value, CacheStatus $type = null, \int $expire = 2592000)
+    public function add($key, $value, CacheStatus $type = null, int $expire = 2592000)
     {
         return $this->memc->add($key, $value, false, $expire);
     }
@@ -114,7 +114,7 @@ class MemCache implements CacheInterface
     /**
      * {@inheritdoc}
      */
-    public function replace($key, $value, CacheType $type = null, \int $expire = -1)
+    public function replace($key, $value, CacheType $type = null, int $expire = -1)
     {
         $this->memc->replace($key, $value, false, $expire);
     }
@@ -130,7 +130,7 @@ class MemCache implements CacheInterface
     /**
      * {@inheritdoc}
      */
-    public function getThreshold() : \int
+    public function getThreshold() : int
     {
         return $this->threshold;
     }

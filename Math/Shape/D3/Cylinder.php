@@ -40,7 +40,7 @@ class Cylinder
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public static function getVolume(\float $r, \float $h)
+    public static function getVolume(float $r, float $h)
     {
         return pi() * $r ** 2 * $h;
     }
@@ -56,7 +56,7 @@ class Cylinder
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public static function getSurface(\float $r, \float $h)
+    public static function getSurface(float $r, float $h)
     {
         return 2 * pi() * ($r * $h + $r ** 2);
     }
@@ -72,7 +72,7 @@ class Cylinder
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public static function getLateralSurface(\float $r, \float $h)
+    public static function getLateralSurface(float $r, float $h)
     {
         return 2 * pi() * $r * $h;
     }

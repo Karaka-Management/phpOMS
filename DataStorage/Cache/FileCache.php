@@ -36,7 +36,7 @@ class FileCache implements CacheInterface
     /**
      * Cache path.
      *
-     * @var \string
+     * @var string
      * @since 1.0.0
      */
     const CACHE_PATH = __DIR__ . '/../../../Cache';
@@ -44,7 +44,7 @@ class FileCache implements CacheInterface
     /**
      * Only cache if data is larger than threshold (0-100).
      *
-     * @var \int
+     * @var int
      * @since 1.0.0
      */
     private $threshold = 50;
@@ -52,14 +52,14 @@ class FileCache implements CacheInterface
     /**
      * {@inheritdoc}
      */
-    public function set($key, $value, CacheStatus $type = null, \int $expire = 2592000)
+    public function set($key, $value, CacheStatus $type = null, int $expire = 2592000)
     {
     }
 
     /**
      * {@inheritdoc}
      */
-    public function add($key, $value, CacheStatus $type = null, \int $expire = 2592000)
+    public function add($key, $value, CacheStatus $type = null, int $expire = 2592000)
     {
     }
 
@@ -88,7 +88,7 @@ class FileCache implements CacheInterface
     /**
      * {@inheritdoc}
      */
-    public function replace($key, $value, CacheType $type = null, \int $expire = -1)
+    public function replace($key, $value, CacheType $type = null, int $expire = -1)
     {
     }
 
@@ -108,7 +108,7 @@ class FileCache implements CacheInterface
     /**
      * {@inheritdoc}
      */
-    public function getThreshold() : \int
+    public function getThreshold() : int
     {
         return $this->threshold;
     }

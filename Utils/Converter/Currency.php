@@ -88,15 +88,15 @@ class Currency
     /**
      * Convert from EUR
      *
-     * @param \float  $value Value to convert
-     * @param \string $to    Output currency
+     * @param float  $value Value to convert
+     * @param string $to    Output currency
      *
      * @return float
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public static function fromEurTo(\float $value, \string $to) : \float
+    public static function fromEurTo(float $value, string $to) : float
     {
         $currencies = self::getEcbEuroRates();
         $to         = strtoupper($to);
@@ -111,15 +111,15 @@ class Currency
     /**
      * Convert to EUR
      *
-     * @param \float  $value Value to convert
-     * @param \string $from  Input currency
+     * @param float  $value Value to convert
+     * @param string $from  Input currency
      *
      * @return float
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public static function fromToEur(\float $value, \string $from) : \float
+    public static function fromToEur(float $value, string $from) : float
     {
         $currencies = self::getEcbEuroRates();
         $from       = strtoupper($from);
@@ -134,16 +134,16 @@ class Currency
     /**
      * Convert currency based on ECB reates
      *
-     * @param \float  $value Value to convert
-     * @param \string $from  Input currency
-     * @param \string $to    Output currency
+     * @param float  $value Value to convert
+     * @param string $from  Input currency
+     * @param string $to    Output currency
      *
      * @return float
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public static function convertCurrency(\float $value, \string $from, \string $to) : \float
+    public static function convertCurrency(float $value, string $from, string $to) : float
     {
         $currencies = self::getEcbEuroRates();
         $from       = strtoupper($from);

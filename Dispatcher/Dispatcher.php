@@ -70,7 +70,7 @@ class Dispatcher
     /**
      * Dispatch controller.
      *
-     * @param \string|array|\Closure $controller Controller string
+     * @param string|array|\Closure $controller Controller string
      * @param RequestAbstract        $request    Request
      * @param ResponseAbstract       $response   Response
      * @param mixed                  $data       Data
@@ -118,14 +118,14 @@ class Dispatcher
     /**
      * Get controller.
      *
-     * @param \string $controller Controller string
+     * @param string $controller Controller string
      *
      * @return mixed
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function get(\string $controller)
+    public function get(string $controller)
     {
         if (!isset($this->controllers[$controller])) {
             if (realpath($path = ROOT_PATH . '/' . str_replace('\\', '/', $controller) . '.php') === false) {
@@ -142,14 +142,14 @@ class Dispatcher
      * Set controller by alias.
      *
      * @param ModuleAbstract $controller Controller
-     * @param \string        $name       Controller string
+     * @param string        $name       Controller string
      *
-     * @return \bool
+     * @return bool
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function set(ModuleAbstract $controller, \string $name) : \bool
+    public function set(ModuleAbstract $controller, string $name) : bool
     {
         if (!isset($this->controllers[$name])) {
             $this->controllers[$name] = $controller;

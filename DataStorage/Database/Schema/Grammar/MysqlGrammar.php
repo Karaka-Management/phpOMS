@@ -34,7 +34,7 @@ class MysqlGrammar extends Grammar
     /**
      * System identifier.
      *
-     * @var \string
+     * @var string
      * @since 1.0.0
      */
     protected $systemIdentifier = '`';
@@ -45,12 +45,12 @@ class MysqlGrammar extends Grammar
      * @param Builder $query   Builder
      * @param array   $columns Columns
      *
-     * @return \string
+     * @return string
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    protected function compileSelects(Builder $query, array $columns) : \string
+    protected function compileSelects(Builder $query, array $columns) : string
     {
         $expression = $this->expressionizeTableColumn($columns);
 
@@ -67,12 +67,12 @@ class MysqlGrammar extends Grammar
      * @param Builder $query Builder
      * @param array   $table Tables
      *
-     * @return \string
+     * @return string
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    protected function compileFrom(Builder $query, array $table) : \string
+    protected function compileFrom(Builder $query, array $table) : string
     {
         $expression = $this->expressionizeTableColumn('information_schema.tables');
 

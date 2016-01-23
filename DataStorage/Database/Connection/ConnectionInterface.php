@@ -37,7 +37,7 @@ interface ConnectionInterface
      *
      * Overwrites current connection if existing
      *
-     * @param \string[] $dbdata the basic database information for establishing a connection
+     * @param string[] $dbdata the basic database information for establishing a connection
      *
      * @return void
      *
@@ -49,22 +49,22 @@ interface ConnectionInterface
     /**
      * Get the database type.
      *
-     * @return \int
+     * @return int
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function getType() : \int;
+    public function getType() : int;
 
     /**
      * Get the database status.
      *
-     * @return \int
+     * @return int
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function getStatus() : \int;
+    public function getStatus() : int;
 
     /**
      * Close database connection.

@@ -42,7 +42,7 @@ class TaskScheduler implements ScheduleInterface
         // TODO: Implement remove() method.
     }
 
-    public function get(\string $id)
+    public function get(string $id)
     {
         // TODO: Implement get() method.
     }

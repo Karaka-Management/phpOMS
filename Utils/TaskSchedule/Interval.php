@@ -80,12 +80,12 @@ class Interval
     /**
      * Constructor.
      *
-     * @param \string $interval Interval to parse
+     * @param string $interval Interval to parse
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function __construct(\string $interval = null)
+    public function __construct(string $interval = null)
     {
         if (isset($interval)) {
             $this->parse($interval);
@@ -95,12 +95,12 @@ class Interval
     /**
      * Parse interval.
      *
-     * @param \string $interval Interval to parse
+     * @param string $interval Interval to parse
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    private function parse(\string $interval)
+    private function parse(string $interval)
     {
         $elements = explode(' ', $interval);
     }
@@ -108,14 +108,14 @@ class Interval
     /**
      * Parse element.
      *
-     * @param \string $minute Minute
+     * @param string $minute Minute
      *
      * @return array
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    private function parseMinute(\string $minute) : array
+    private function parseMinute(string $minute) : array
     {
 
     }
@@ -123,14 +123,14 @@ class Interval
     /**
      * Parse element.
      *
-     * @param \string $hour Hour
+     * @param string $hour Hour
      *
      * @return array
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    private function parseHour(\string $hour) : array
+    private function parseHour(string $hour) : array
     {
 
     }
@@ -138,14 +138,14 @@ class Interval
     /**
      * Parse element.
      *
-     * @param \string $dayOfMonth Day of month
+     * @param string $dayOfMonth Day of month
      *
      * @return array
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    private function parseDayOfMonth(\string $dayOfMonth) : array
+    private function parseDayOfMonth(string $dayOfMonth) : array
     {
 
     }
@@ -153,14 +153,14 @@ class Interval
     /**
      * Parse element.
      *
-     * @param \string $month Month
+     * @param string $month Month
      *
      * @return array
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    private function parseMonth(\string $month) : array
+    private function parseMonth(string $month) : array
     {
 
     }
@@ -168,14 +168,14 @@ class Interval
     /**
      * Parse element.
      *
-     * @param \string $dayOfWeek Day of week
+     * @param string $dayOfWeek Day of week
      *
      * @return array
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    private function parseDayOfWeek(\string $dayOfWeek) : array
+    private function parseDayOfWeek(string $dayOfWeek) : array
     {
 
     }
@@ -183,14 +183,14 @@ class Interval
     /**
      * Parse element.
      *
-     * @param \string $year Year
+     * @param string $year Year
      *
      * @return array
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    private function parseYear(\string $year) : array
+    private function parseYear(string $year) : array
     {
 
     }
@@ -199,9 +199,9 @@ class Interval
      * Set mintue.
      *
      * @param array $minute Minute
-     * @param \int  $start  Start/first
-     * @param \int  $end    End/last
-     * @param \int  $step   Step
+     * @param int  $start  Start/first
+     * @param int  $end    End/last
+     * @param int  $step   Step
      * @param bool  $any    Any
      *
      * @throws
@@ -209,7 +209,7 @@ class Interval
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function setMinute(array $minute, \int $start = 0, \int $end = 0, \int $step = 0, \bool $any = false)
+    public function setMinute(array $minute, int $start = 0, int $end = 0, int $step = 0, bool $any = false)
     {
         if ($this->validateMinute($arr = [
             'minutes' => $minute,
@@ -229,9 +229,9 @@ class Interval
      * Set hour.
      *
      * @param array $hour  Hour
-     * @param \int  $start Start/first
-     * @param \int  $end   End/last
-     * @param \int  $step  Step
+     * @param int  $start Start/first
+     * @param int  $end   End/last
+     * @param int  $step  Step
      * @param bool  $any   Any
      *
      * @throws
@@ -239,7 +239,7 @@ class Interval
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function setHour(array $hour, \int $start = 0, \int $end = 0, \int $step = 0, \bool $any = false)
+    public function setHour(array $hour, int $start = 0, int $end = 0, int $step = 0, bool $any = false)
     {
         if ($this->validateHour($arr = [
             'hours' => $hour,
@@ -259,19 +259,19 @@ class Interval
      * Set day of month.
      *
      * @param array $dayOfMonth Day of month
-     * @param \int  $start      Start/first
-     * @param \int  $end        End/last
-     * @param \int  $step       Step
+     * @param int  $start      Start/first
+     * @param int  $end        End/last
+     * @param int  $step       Step
      * @param bool  $any        Any
      * @param bool  $last       Last
-     * @param \int  $nearest    Nearest day
+     * @param int  $nearest    Nearest day
      *
      * @throws
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function setDayOfMonth(array $dayOfMonth, \int $start = 0, \int $end = 0, \int $step = 0, \bool $any = false, \bool $last = false, \int $nearest = 0)
+    public function setDayOfMonth(array $dayOfMonth, int $start = 0, int $end = 0, int $step = 0, bool $any = false, bool $last = false, int $nearest = 0)
     {
         if ($this->validateDayOfMonth($arr = [
             'dayOfMonth' => $dayOfMonth,
@@ -293,9 +293,9 @@ class Interval
      * Set month.
      *
      * @param array $month Month
-     * @param \int  $start Start/first
-     * @param \int  $end   End/last
-     * @param \int  $step  Step
+     * @param int  $start Start/first
+     * @param int  $end   End/last
+     * @param int  $step  Step
      * @param bool  $any   Any
      *
      * @throws
@@ -303,7 +303,7 @@ class Interval
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function setMonth(array $month, \int $start = 0, \int $end = 0, \int $step = 0, \bool $any = false)
+    public function setMonth(array $month, int $start = 0, int $end = 0, int $step = 0, bool $any = false)
     {
         if ($this->validateMonth($arr = [
             'month' => $month,
@@ -323,9 +323,9 @@ class Interval
      * Set day of week.
      *
      * @param array $dayOfWeek Day of week
-     * @param \int  $start     Start/first
-     * @param \int  $end       End/last
-     * @param \int  $step      Step
+     * @param int  $start     Start/first
+     * @param int  $end       End/last
+     * @param int  $step      Step
      * @param bool  $any       Any
      * @param bool  $last      Last
      *
@@ -334,7 +334,7 @@ class Interval
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function setDayOfWeek(array $dayOfWeek, \int $start = 0, \int $end = 0, \int $step = 0, \bool $any = false, \bool $last = false)
+    public function setDayOfWeek(array $dayOfWeek, int $start = 0, int $end = 0, int $step = 0, bool $any = false, bool $last = false)
     {
         if ($this->validateDayOfWeek($arr = [
             'dayOfWeek' => $dayOfWeek,
@@ -355,9 +355,9 @@ class Interval
      * Set yaer.
      *
      * @param array $year  Year
-     * @param \int  $start Start/first
-     * @param \int  $end   End/last
-     * @param \int  $step  Step
+     * @param int  $start Start/first
+     * @param int  $end   End/last
+     * @param int  $step  Step
      * @param bool  $any   Any
      *
      * @throws
@@ -365,7 +365,7 @@ class Interval
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function setYear(array $year, \int $start = 0, \int $end = 0, \int $step = 0, \bool $any = false)
+    public function setYear(array $year, int $start = 0, int $end = 0, int $step = 0, bool $any = false)
     {
         if ($this->validateYear($arr = [
             'year'  => $year,
@@ -464,12 +464,12 @@ class Interval
      *
      * @param array $array Element to validate
      *
-     * @return \bool
+     * @return bool
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    private function validateMinute(array $array) : \bool
+    private function validateMinute(array $array) : bool
     {
         foreach ($array['minutes'] as $minute) {
             if ($minute > 59 || $minute < 0) return false;
@@ -487,12 +487,12 @@ class Interval
      *
      * @param array $array Element to validate
      *
-     * @return \bool
+     * @return bool
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    private function validateHour(array $array) : \bool
+    private function validateHour(array $array) : bool
     {
         foreach ($array['hours'] as $hour) {
             if ($hour > 23 || $hour < 0) return false;
@@ -510,12 +510,12 @@ class Interval
      *
      * @param array $array Element to validate
      *
-     * @return \bool
+     * @return bool
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    private function validateDayOfMonth(array $array) : \bool
+    private function validateDayOfMonth(array $array) : bool
     {
         foreach ($array['dayOfMonth'] as $dayOfMonth) {
             if ($dayOfMonth > 31 || $dayOfMonth < 1) return false;
@@ -534,12 +534,12 @@ class Interval
      *
      * @param array $array Element to validate
      *
-     * @return \bool
+     * @return bool
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    private function validateMonth(array $array) : \bool
+    private function validateMonth(array $array) : bool
     {
         foreach ($array['month'] as $month) {
             if ($month > 12 || $month < 1) return false;
@@ -557,12 +557,12 @@ class Interval
      *
      * @param array $array Element to validate
      *
-     * @return \bool
+     * @return bool
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    private function validateDayOfWeek(array $array) : \bool
+    private function validateDayOfWeek(array $array) : bool
     {
         foreach ($array['dayOfWeek'] as $dayOfWeek) {
             if ($dayOfWeek > 7 || $dayOfWeek < 1) return false;
@@ -580,12 +580,12 @@ class Interval
      *
      * @param array $array Element to validate
      *
-     * @return \bool
+     * @return bool
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    private function validateYear(array $array) : \bool
+    private function validateYear(array $array) : bool
     {
         return true;
     }
@@ -598,7 +598,7 @@ class Interval
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function __toString() : \string
+    public function __toString() : string
     {
         /* Parsing minutes */
         if (($count = count($this->minute['minutes'])) > 0) {

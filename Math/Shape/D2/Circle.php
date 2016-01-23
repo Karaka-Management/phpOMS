@@ -39,7 +39,7 @@ class Circle
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public static function getArea(\float $r)
+    public static function getArea(float $r)
     {
         return pi() * $r ** 2;
     }
@@ -54,7 +54,7 @@ class Circle
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public static function getCircumference(\float $r)
+    public static function getCircumference(float $r)
     {
         return 2 * pi() * $r;
     }
@@ -69,7 +69,7 @@ class Circle
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public static function getRadiusByArea(\float $area)
+    public static function getRadiusByArea(float $area)
     {
         return sqrt($area / pi());
     }
@@ -84,7 +84,7 @@ class Circle
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public static function getRadiusByCircumference(\float $C)
+    public static function getRadiusByCircumference(float $C)
     {
         return $C / (2 * pi());
     }

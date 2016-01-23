@@ -32,8 +32,8 @@ class DateTime
     /**
      * Get a random string.
      *
-     * @param \string $start Start date
-     * @param \string $end   End date
+     * @param string $start Start date
+     * @param string $end   End date
      *
      * @return \DateTime
      *

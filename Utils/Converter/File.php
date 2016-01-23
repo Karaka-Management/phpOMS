@@ -42,14 +42,14 @@ class File
     /**
      * Get file size string.
      *
-     * @param \int $bytes Amount of bytes
+     * @param int $bytes Amount of bytes
      *
-     * @return \string
+     * @return string
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public static function byteSizeToString(\int $bytes) : \string
+    public static function byteSizeToString(int $bytes) : string
     {
         if ($bytes < 1000) {
             return $bytes . 'b';
@@ -65,14 +65,14 @@ class File
     /**
      * Get file size string.
      *
-     * @param \int $kilobytes Amount of kilobytes
+     * @param int $kilobytes Amount of kilobytes
      *
-     * @return \string
+     * @return string
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public static function kilobyteSizeToString(\int $kilobytes) : \string
+    public static function kilobyteSizeToString(int $kilobytes) : string
     {
         if ($kilobytes < 1000) {
             return round($kilobytes, 2) . 'kb';

@@ -56,7 +56,7 @@ abstract class PacketAbstract implements \Serializable
      *
      * This is using a json format
      *
-     * @return \string Json string
+     * @return string Json string
      *
      * @var Header
      * @since 1.0.0
@@ -68,7 +68,7 @@ abstract class PacketAbstract implements \Serializable
      *
      * This is using a json format
      *
-     * @param \string $string Json string
+     * @param string $string Json string
      *
      * @var Header
      * @since 1.0.0

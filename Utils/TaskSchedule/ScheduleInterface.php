@@ -32,7 +32,7 @@ interface ScheduleInterface
 
     public function remove($id);
 
-    public function get(\string $id);
+    public function get(string $id);
 
     public function list();
 

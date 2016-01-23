@@ -44,17 +44,17 @@ class SmartDateTime extends \DateTime
     /**
      * Modify datetime in a smart way.
      *
-     * @param \int $y        Year
-     * @param \int $m        Month
-     * @param \int $d        Day
-     * @param \int $calendar Calendar
+     * @param int $y        Year
+     * @param int $m        Month
+     * @param int $d        Day
+     * @param int $calendar Calendar
      *
      * @return SmartDateTime
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function createModify(\int $y, \int $m = 0, \int $d = 0, \int $calendar = CAL_GREGORIAN) : SmartDateTime
+    public function createModify(int $y, int $m = 0, int $d = 0, int $calendar = CAL_GREGORIAN) : SmartDateTime
     {
         $dt = clone $this;
         $dt->smartModify($y, $m, $d, $calendar);
@@ -65,17 +65,17 @@ class SmartDateTime extends \DateTime
     /**
      * Modify datetime in a smart way.
      *
-     * @param \int $y        Year
-     * @param \int $m        Month
-     * @param \int $d        Day
-     * @param \int $calendar Calendar
+     * @param int $y        Year
+     * @param int $m        Month
+     * @param int $d        Day
+     * @param int $calendar Calendar
      *
      * @return SmartDateTime
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function smartModify(\int $y, \int $m = 0, \int $d = 0, \int $calendar = CAL_GREGORIAN) : SmartDateTime
+    public function smartModify(int $y, int $m = 0, int $d = 0, int $calendar = CAL_GREGORIAN) : SmartDateTime
     {
         $y_change    = floor(((int) $this->format('m') + $m) / 12);
         $y_change    = ((int) $this->format('m') + $m) < 0 && ((int) $this->format('m') + $m) % 12 === 0 ? $y_change - 1 : $y_change;

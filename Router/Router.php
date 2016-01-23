@@ -53,17 +53,17 @@ class Router
     /**
      * Add route.
      *
-     * @param \string $route       Route regex
+     * @param string $route       Route regex
      * @param mixed $destination Destination e.g. Module:function & method
-     * @param \string $method      Request method
-     * @param \int    $type        Result type
+     * @param string $method      Request method
+     * @param int    $type        Result type
      *
      * @return void
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function add(\string $route, $destination, \string $method = RequestMethod::GET, \int $type = ViewLayout::MAIN)
+    public function add(string $route, $destination, string $method = RequestMethod::GET, int $type = ViewLayout::MAIN)
     {
         $this->routes[$route][] = [
             'dest'   => $destination,
@@ -75,15 +75,15 @@ class Router
     /**
      * Route uri.
      *
-     * @param \string $uri          Uri to route
-     * @param \string $remoteMethod GET/POST etc.
+     * @param string $uri          Uri to route
+     * @param string $remoteMethod GET/POST etc.
      *
-     * @return \string[]
+     * @return string[]
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function route(\string $uri, \string $remoteMethod = RequestMethod::GET) : array
+    public function route(string $uri, string $remoteMethod = RequestMethod::GET) : array
     {
         $bound = [];
         foreach ($this->routes as $route => $destination) {
@@ -100,17 +100,17 @@ class Router
     /**
      * Match route and uri.
      *
-     * @param \string $route        Route
-     * @param \string $method       GET,POST for this route
-     * @param \string $uri          Uri
-     * @param \string $remoteMethod Method this request is using
+     * @param string $route        Route
+     * @param string $method       GET,POST for this route
+     * @param string $uri          Uri
+     * @param string $remoteMethod Method this request is using
      *
-     * @return \bool
+     * @return bool
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    private function match(\string $route, \string $method, \string $uri, \string $remoteMethod = RequestMethod::GET) : \bool
+    private function match(string $route, string $method, string $uri, string $remoteMethod = RequestMethod::GET) : bool
     {
         return (bool) preg_match('~^' . $route . '$~', $uri) && ($method == 'any' || $remoteMethod == $method);
     }

@@ -36,7 +36,7 @@ class Http implements UriInterface
     /**
      * Root path.
      *
-     * @var \string
+     * @var string
      * @since 1.0.0
      */
     private $rootPath = '';
@@ -44,7 +44,7 @@ class Http implements UriInterface
     /**
      * Uri.
      *
-     * @var \string
+     * @var string
      * @since 1.0.0
      */
     private $uri = '';
@@ -52,7 +52,7 @@ class Http implements UriInterface
     /**
      * Uri scheme.
      *
-     * @var \string
+     * @var string
      * @since 1.0.0
      */
     private $scheme = '';
@@ -60,7 +60,7 @@ class Http implements UriInterface
     /**
      * Uri host.
      *
-     * @var \string
+     * @var string
      * @since 1.0.0
      */
     private $host = '';
@@ -68,7 +68,7 @@ class Http implements UriInterface
     /**
      * Uri port.
      *
-     * @var \int
+     * @var int
      * @since 1.0.0
      */
     private $port = 80;
@@ -76,7 +76,7 @@ class Http implements UriInterface
     /**
      * Uri user.
      *
-     * @var \string
+     * @var string
      * @since 1.0.0
      */
     private $user = '';
@@ -84,7 +84,7 @@ class Http implements UriInterface
     /**
      * Uri password.
      *
-     * @var \string
+     * @var string
      * @since 1.0.0
      */
     private $pass = '';
@@ -92,7 +92,7 @@ class Http implements UriInterface
     /**
      * Uri path.
      *
-     * @var \string
+     * @var string
      * @since 1.0.0
      */
     private $path = '';
@@ -100,7 +100,7 @@ class Http implements UriInterface
     /**
      * Uri query.
      *
-     * @var \string
+     * @var string
      * @since 1.0.0
      */
     private $query = null;
@@ -108,7 +108,7 @@ class Http implements UriInterface
     /**
      * Uri fragment.
      *
-     * @var \string
+     * @var string
      * @since 1.0.0
      */
     private $fragment = '';
@@ -116,7 +116,7 @@ class Http implements UriInterface
     /**
      * Uri base.
      *
-     * @var \string
+     * @var string
      * @since 1.0.0
      */
     private $base = '';
@@ -124,12 +124,12 @@ class Http implements UriInterface
     /**
      * Constructor.
      *
-     * @param \string $rootPath Root path for subdirectory
+     * @param string $rootPath Root path for subdirectory
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function __construct(\string $rootPath)
+    public function __construct(string $rootPath)
     {
         $this->rootPath = $rootPath;
     }
@@ -137,12 +137,12 @@ class Http implements UriInterface
     /**
      * Get current uri.
      *
-     * @return \string
+     * @return string
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public static function getCurrent() : \string
+    public static function getCurrent() : string
     {
         /** @noinspection PhpUndefinedConstantInspection */
         return 'http://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
@@ -151,7 +151,7 @@ class Http implements UriInterface
     /**
      * {@inheritdoc}
      */
-    public static function isValid(\string $uri) : \bool
+    public static function isValid(string $uri) : bool
     {
         return filter_var($uri, FILTER_VALIDATE_URL);
     }
@@ -159,12 +159,12 @@ class Http implements UriInterface
     /**
      * Get root path.
      *
-     * @return \string
+     * @return string
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function getRootPath() : \string
+    public function getRootPath() : string
     {
         return $this->rootPath;
     }
@@ -172,12 +172,12 @@ class Http implements UriInterface
     /**
      * Get scheme.
      *
-     * @return \string
+     * @return string
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function getScheme() : \string
+    public function getScheme() : string
     {
         return $this->scheme;
     }
@@ -185,12 +185,12 @@ class Http implements UriInterface
     /**
      * Get host.
      *
-     * @return \string
+     * @return string
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function getHost() : \string
+    public function getHost() : string
     {
         return $this->host;
     }
@@ -198,12 +198,12 @@ class Http implements UriInterface
     /**
      * Get port.
      *
-     * @return \int
+     * @return int
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function getPort() : \int
+    public function getPort() : int
     {
         return $this->port;
     }
@@ -211,12 +211,12 @@ class Http implements UriInterface
     /**
      * Get password.
      *
-     * @return \string
+     * @return string
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function getPass() : \string
+    public function getPass() : string
     {
         return $this->pass;
     }
@@ -224,12 +224,12 @@ class Http implements UriInterface
     /**
      * Get path.
      *
-     * @return \string
+     * @return string
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function getPath() : \string
+    public function getPath() : string
     {
         return $this->path;
     }
@@ -237,14 +237,14 @@ class Http implements UriInterface
     /**
      * Get query.
      *
-     * @param null|\string $key Query key
+     * @param null|string $key Query key
      *
-     * @return \string
+     * @return string
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function getQuery(\string $key = null)
+    public function getQuery(string $key = null)
     {
         return isset($key) ? $this->query[$key] ?? null : $this->query;
     }
@@ -252,12 +252,12 @@ class Http implements UriInterface
     /**
      * Get fragment.
      *
-     * @return \string
+     * @return string
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function getFragment() : \string
+    public function getFragment() : string
     {
         return $this->fragment;
     }
@@ -265,12 +265,12 @@ class Http implements UriInterface
     /**
      * Get base.
      *
-     * @return \string
+     * @return string
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function getBase() : \string
+    public function getBase() : string
     {
         return $this->base;
     }
@@ -278,14 +278,14 @@ class Http implements UriInterface
     /**
      * Set uri.
      *
-     * @param \string $uri Uri
+     * @param string $uri Uri
      *
      * @return void
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function set(\string $uri)
+    public function set(string $uri)
     {
         $this->uri = $uri;
 
@@ -335,7 +335,7 @@ class Http implements UriInterface
     /**
      * {@inheritdoc}
      */
-    public function getAuthority() : \string
+    public function getAuthority() : string
     {
         return ($this->getUser() !== '' ? $this->getUser() . '@' : '') . $this->host . (isset($this->port) && $this->port !== '' ? ':' . $this->port : '');
     }
@@ -343,12 +343,12 @@ class Http implements UriInterface
     /**
      * Get user.
      *
-     * @return \string
+     * @return string
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function getUser() : \string
+    public function getUser() : string
     {
         return $this->user;
     }
@@ -356,7 +356,7 @@ class Http implements UriInterface
     /**
      * {@inheritdoc}
      */
-    public function getUserInfo() : \string
+    public function getUserInfo() : string
     {
         return $this->user . (isset($this->pass) && $this->pass !== '' ? ':' . $this->pass : '');
     }

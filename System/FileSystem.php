@@ -46,8 +46,8 @@ class FileSystem
     /**
      * Get file count inside path.
      *
-     * @param \string $path      Path to folder
-     * @param \bool   $recursive Should sub folders be counted as well?
+     * @param string $path      Path to folder
+     * @param bool   $recursive Should sub folders be counted as well?
      * @param array   $ignore    Ignore these sub-paths
      *
      * @return int
@@ -55,7 +55,7 @@ class FileSystem
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public static function getFileCount(\string $path, \bool $recursive = true, array $ignore = ['.', '..', 'cgi-bin',
+    public static function getFileCount(string $path, bool $recursive = true, array $ignore = ['.', '..', 'cgi-bin',
                                                                                                  '.DS_Store'])
     {
         $size  = 0;
@@ -89,7 +89,7 @@ class FileSystem
     {
     }
 
-    public static function deletePath($path) : \bool
+    public static function deletePath($path) : bool
     {
         $path = realpath($oldPath = $path);
         if ($path === false || !is_dir($path) || Validator::startsWith($path, ROOT_PATH)) {

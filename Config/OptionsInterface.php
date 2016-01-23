@@ -46,27 +46,27 @@ interface OptionsInterface
      *
      * @param mixed $key       Unique option key
      * @param mixed $value     Option value
-     * @param \bool $overwrite Overwrite existing value
+     * @param bool $overwrite Overwrite existing value
      *
-     * @return \bool
+     * @return bool
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function setOption($key, $value, \bool $overwrite = true) : \bool;
+    public function setOption($key, $value, bool $overwrite = true) : bool;
 
     /**
      * Updating or adding settings.
      *
      * @param array $pair      Key value pair
-     * @param \bool $overwrite Overwrite existing value
+     * @param bool $overwrite Overwrite existing value
      *
-     * @return \bool
+     * @return bool
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function setOptions(array $pair, \bool $overwrite = true) : \bool;
+    public function setOptions(array $pair, bool $overwrite = true) : bool;
 
     /**
      * Get option by key.

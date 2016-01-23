@@ -52,16 +52,16 @@ class AssetManager implements \Countable
     /**
      * Add asset.
      *
-     * @param \string $id        Asset id
-     * @param \string $asset     Asset
-     * @param \bool   $overwrite Overwrite
+     * @param string $id        Asset id
+     * @param string $asset     Asset
+     * @param bool   $overwrite Overwrite
      *
-     * @return \bool
+     * @return bool
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function set(\string $id, \string $asset, \bool $overwrite = true) : \bool
+    public function set(string $id, string $asset, bool $overwrite = true) : bool
     {
         if ($overwrite || !isset($this->assets[$id])) {
             $this->assets[$id] = $asset;
@@ -75,14 +75,14 @@ class AssetManager implements \Countable
     /**
      * Remove asset.
      *
-     * @param \string $id Asset id
+     * @param string $id Asset id
      *
-     * @return \bool
+     * @return bool
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function remove(\string $id) : \bool
+    public function remove(string $id) : bool
     {
         if (isset($this->assets[$id])) {
             unset($this->assets[$id]);
@@ -96,14 +96,14 @@ class AssetManager implements \Countable
     /**
      * Get asset.
      *
-     * @param \string $id Asset id
+     * @param string $id Asset id
      *
      * @return mixed Asset
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function get(\string $id)
+    public function get(string $id)
     {
         if (isset($this->assets[$id])) {
             return $this->assets[$id];
@@ -120,7 +120,7 @@ class AssetManager implements \Countable
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function count() : \int
+    public function count() : int
     {
         return count($this->assets);
     }

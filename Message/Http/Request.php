@@ -72,7 +72,7 @@ class Request extends RequestAbstract
     /**
      * Request information.
      *
-     * @var \string[]
+     * @var string[]
      * @since 1.0.0
      */
     private $info = null;
@@ -80,12 +80,12 @@ class Request extends RequestAbstract
     /**
      * Constructor.
      *
-     * @param \string $rootPath relative installation path
+     * @param string $rootPath relative installation path
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function __construct(\string $rootPath)
+    public function __construct(string $rootPath)
     {
         $this->uri  = new Http($rootPath);
         $this->l11n = new Localization();
@@ -97,7 +97,7 @@ class Request extends RequestAbstract
      *
      * This is used in order to either initialize the current http request or a batch of GET requests
      *
-     * @param \string $uri URL
+     * @param string $uri URL
      *
      * @return void
      *
@@ -106,7 +106,7 @@ class Request extends RequestAbstract
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function init(\string $uri = null)
+    public function init(string $uri = null)
     {
         if ($uri === null) {
             $this->data = $_GET ?? [];
@@ -165,7 +165,7 @@ class Request extends RequestAbstract
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function isMobile() : \bool
+    public function isMobile() : bool
     {
         // TODO: maybe replace this with smart media queries... checked gets handled in reverse!!!
         $useragent = $_SERVER['HTTP_USER_AGENT'];
@@ -197,12 +197,12 @@ class Request extends RequestAbstract
      *
      * @param array $request Request array
      *
-     * @return \string
+     * @return string
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    private function hashRequest(array $request) : \string
+    private function hashRequest(array $request) : string
     {
         return sha1(implode('', $request));
     }
@@ -284,7 +284,7 @@ class Request extends RequestAbstract
     /**
      * {@inheritdoc}
      */
-    public function getOrigin() : \string
+    public function getOrigin() : string
     {
         return $_SERVER['REMOTE_ADDR'];
     }
@@ -292,14 +292,14 @@ class Request extends RequestAbstract
     /**
      * Is request made via https.
      *
-     * @param \int $port Secure port
+     * @param int $port Secure port
      *
-     * @return \bool
+     * @return bool
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function isHttps(\int $port = 443) : \bool
+    public function isHttps(int $port = 443) : bool
     {
         if ($port < 1 || $port > 65535) {
             throw new \OutOfRangeException('Value "' . $port . '" is out of range.');
@@ -315,7 +315,7 @@ class Request extends RequestAbstract
     /**
      * Stringify request.
      *
-     * @return \string
+     * @return string
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
@@ -331,12 +331,12 @@ class Request extends RequestAbstract
     /**
      * Get request type.
      *
-     * @return \string
+     * @return string
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function getMethod() : \string
+    public function getMethod() : string
     {
         if (!isset($this->type)) {
             $this->type = $_SERVER['REQUEST_METHOD'];
@@ -348,7 +348,7 @@ class Request extends RequestAbstract
     /**
      * {@inheritdoc}
      */
-    public function getProtocolVersion() : \string
+    public function getProtocolVersion() : string
     {
         return $_SERVER['SERVER_PROTOCOL'];
     }
@@ -364,7 +364,7 @@ class Request extends RequestAbstract
     /**
      * {@inheritdoc}
      */
-    public function hasHeader(\string $name) : \bool
+    public function hasHeader(string $name) : bool
     {
         return array_key_exists($name, getallheaders());
     }
@@ -372,7 +372,7 @@ class Request extends RequestAbstract
     /**
      * {@inheritdoc}
      */
-    public function getHeader(\string $name) : \string
+    public function getHeader(string $name) : string
     {
         return getallheaders()[$name];
     }
@@ -380,7 +380,7 @@ class Request extends RequestAbstract
     /**
      * {@inheritdoc}
      */
-    public function getBody() : \string
+    public function getBody() : string
     {
         return file_get_contents('php://input');
     }
@@ -388,7 +388,7 @@ class Request extends RequestAbstract
     /**
      * {@inheritdoc}
      */
-    public function getRequestTarget() : \string
+    public function getRequestTarget() : string
     {
         return '/';
     }
@@ -406,7 +406,7 @@ class Request extends RequestAbstract
         return $this->files;
     }
 
-    public function setHeader($key, \string $header, \bool $overwrite = true)
+    public function setHeader($key, string $header, bool $overwrite = true)
     {
         // NOT Required for Http request
     }
@@ -419,7 +419,7 @@ class Request extends RequestAbstract
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function getRoutify() : \string
+    public function getRoutify() : string
     {
         return $this->uri->__toString();
     }

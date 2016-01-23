@@ -32,13 +32,13 @@ interface SocketInterface
     /**
      * Create the socket.
      *
-     * @param \string $ip   IP address
-     * @param \int    $port Port
+     * @param string $ip   IP address
+     * @param int    $port Port
      *
      * @since    1.0.0
      * @author   Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function create(\string $ip, \int $port);
+    public function create(string $ip, int $port);
 
     /**
      * Close socket.

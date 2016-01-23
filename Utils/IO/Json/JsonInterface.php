@@ -32,7 +32,7 @@ interface JsonInterface
     /**
      * Export Json.
      *
-     * @param \string $path Path to export
+     * @param string $path Path to export
      *
      * @return void
      *
@@ -44,7 +44,7 @@ interface JsonInterface
     /**
      * Import Json.
      *
-     * @param \string $path Path to import
+     * @param string $path Path to import
      *
      * @return void
      *

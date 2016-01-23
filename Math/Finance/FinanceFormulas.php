@@ -34,15 +34,15 @@ class FinanceFormulas
     /**
      * Annual Percentage Yield
      *
-     * @param \float $r Stated annual interest rate
-     * @param \int   $n number of times compounded
+     * @param float $r Stated annual interest rate
+     * @param int   $n number of times compounded
      *
-     * @return \float
+     * @return float
      *
      * @since  1.0.0
      * @author Dennis Eichhorn
      */
-    public static function getAnnualPercentageYield(\float $r, \int $n) : \float
+    public static function getAnnualPercentageYield(float $r, int $n) : float
     {
         return pow(1 + $r / $n, $n) - 1;
     }
@@ -50,15 +50,15 @@ class FinanceFormulas
     /**
      * Annual Percentage Yield
      *
-     * @param \float $apy Annual percentage yield
-     * @param \int   $n   Number of times compounded
+     * @param float $apy Annual percentage yield
+     * @param int   $n   Number of times compounded
      *
-     * @return \float
+     * @return float
      *
      * @since  1.0.0
      * @author Dennis Eichhorn
      */
-    public static function getStateAnnualInterestRateOfAPY(\float $apy, \int $n) : \float
+    public static function getStateAnnualInterestRateOfAPY(float $apy, int $n) : float
     {
         return (pow($apy + 1, 1 / $n) - 1) * $n;
     }
@@ -66,16 +66,16 @@ class FinanceFormulas
     /**
      * Annuity - Future Value
      *
-     * @param \float $P Periodic payment
-     * @param \float $r Stated annual interest rate
-     * @param \int   $n Number of periods
+     * @param float $P Periodic payment
+     * @param float $r Stated annual interest rate
+     * @param int   $n Number of periods
      *
-     * @return \float
+     * @return float
      *
      * @since  1.0.0
      * @author Dennis Eichhorn
      */
-    public static function getFutureValueOfAnnuity(\float $P, \float $r, \int $n) : \float
+    public static function getFutureValueOfAnnuity(float $P, float $r, int $n) : float
     {
         return $P * (pow(1 + $r, $n) - 1) / $r;
     }
@@ -83,16 +83,16 @@ class FinanceFormulas
     /**
      * Annuity - Future Value
      *
-     * @param \float $fva Future value annuity
-     * @param \float $P   Periodic payment
-     * @param \float $r   Stated annual interest rate
+     * @param float $fva Future value annuity
+     * @param float $P   Periodic payment
+     * @param float $r   Stated annual interest rate
      *
-     * @return \int
+     * @return int
      *
      * @since  1.0.0
      * @author Dennis Eichhorn
      */
-    public static function getNumberOfPeriodsOfFVA(\float $fva, \float $P, \float $r) : \int
+    public static function getNumberOfPeriodsOfFVA(float $fva, float $P, float $r) : int
     {
         return (int) round(log($fva / $P * $r + 1) / log(1 + $r));
     }
@@ -100,16 +100,16 @@ class FinanceFormulas
     /**
      * Future Value
      *
-     * @param \float $fva Future value annuity
-     * @param \float $r   Stated annual interest rate
-     * @param \int   $n   Number of periods
+     * @param float $fva Future value annuity
+     * @param float $r   Stated annual interest rate
+     * @param int   $n   Number of periods
      *
-     * @return \float
+     * @return float
      *
      * @since  1.0.0
      * @author Dennis Eichhorn
      */
-    public static function getPeriodicPaymentOfFVA(\float $fva, \float $r, \int $n) : \float
+    public static function getPeriodicPaymentOfFVA(float $fva, float $r, int $n) : float
     {
         return $fva / ((pow(1 + $r, $n) - 1) / $r);
     }
@@ -118,16 +118,16 @@ class FinanceFormulas
     /**
      * Annuity - Future Value w/ Continuous Compounding
      *
-     * @param \float $cf Cach flow
-     * @param \float $r  Rate
-     * @param \int   $t  Time
+     * @param float $cf Cach flow
+     * @param float $r  Rate
+     * @param int   $t  Time
      *
-     * @return \float
+     * @return float
      *
      * @since  1.0.0
      * @author Dennis Eichhorn
      */
-    public static function getFutureValueOfAnnuityConinuousCompounding(\float $cf, \float $r, \int $t) : \float
+    public static function getFutureValueOfAnnuityConinuousCompounding(float $cf, float $r, int $t) : float
     {
         return $cf * (exp($r * $t) - 1) / (exp($r) - 1);
     }
@@ -135,16 +135,16 @@ class FinanceFormulas
     /**
      * Annuity - Future Value w/ Continuous Compounding
      *
-     * @param \float $fvacc Future value annuity continuous compoinding
-     * @param \float $r     Rate
-     * @param \int   $t     Time
+     * @param float $fvacc Future value annuity continuous compoinding
+     * @param float $r     Rate
+     * @param int   $t     Time
      *
-     * @return \float
+     * @return float
      *
      * @since  1.0.0
      * @author Dennis Eichhorn
      */
-    public static function getCashFlowOfFVACC(\float $fvacc, \float $r, \int $t) : \float
+    public static function getCashFlowOfFVACC(float $fvacc, float $r, int $t) : float
     {
         return $fvacc / ((exp($r * $t) - 1) / (exp($r) - 1));
     }
@@ -152,16 +152,16 @@ class FinanceFormulas
     /**
      * Annuity - Future Value w/ Continuous Compounding
      *
-     * @param \float $fvacc Future value annuity continuous compoinding
-     * @param \float $cf    Cach flow
-     * @param \float $r     Rate
+     * @param float $fvacc Future value annuity continuous compoinding
+     * @param float $cf    Cach flow
+     * @param float $r     Rate
      *
-     * @return \int
+     * @return int
      *
      * @since  1.0.0
      * @author Dennis Eichhorn
      */
-    public static function getTimeOfFVACC(\float $fvacc, \float $cf, \float $r) : \int
+    public static function getTimeOfFVACC(float $fvacc, float $cf, float $r) : int
     {
         return (int) round(log($fvacc / $cf * (exp($r) - 1) + 1) / $r);
     }
@@ -169,16 +169,16 @@ class FinanceFormulas
     /**
      * Annuity - Payment (PV)
      *
-     * @param \float $pv Present value
-     * @param \float $r  Rate per period
-     * @param \int   $n  Number of periods
+     * @param float $pv Present value
+     * @param float $r  Rate per period
+     * @param int   $n  Number of periods
      *
-     * @return \float
+     * @return float
      *
      * @since  1.0.0
      * @author Dennis Eichhorn
      */
-    public static function getAnnuityPaymentPV(\float $pv, \float $r, \int $n) : \float
+    public static function getAnnuityPaymentPV(float $pv, float $r, int $n) : float
     {
         return $r * $pv / (1 - pow(1 + $r, -$n));
     }
@@ -186,16 +186,16 @@ class FinanceFormulas
     /**
      * Annuity - Payment (PV)
      *
-     * @param \float $p  Payment
-     * @param \float $pv Present value
-     * @param \float $r  Rate per period
+     * @param float $p  Payment
+     * @param float $pv Present value
+     * @param float $r  Rate per period
      *
-     * @return \int
+     * @return int
      *
      * @since  1.0.0
      * @author Dennis Eichhorn
      */
-    public static function getNumberOfAPPV(\float $p, \float $pv, \float $r) : \int
+    public static function getNumberOfAPPV(float $p, float $pv, float $r) : int
     {
         return (int) round(-log(-($r * $pv / $p - 1)) / log(1 + $r));
     }
@@ -203,16 +203,16 @@ class FinanceFormulas
     /**
      * Annuity - Payment (PV)
      *
-     * @param \float $p Payment
-     * @param \float $r Rate per period
-     * @param \int   $n Number of periods
+     * @param float $p Payment
+     * @param float $r Rate per period
+     * @param int   $n Number of periods
      *
-     * @return \float
+     * @return float
      *
      * @since  1.0.0
      * @author Dennis Eichhorn
      */
-    public static function getPresentValueOfAPPV(\float $p, \float $r, \int $n) : \float
+    public static function getPresentValueOfAPPV(float $p, float $r, int $n) : float
     {
         return $p / $r * (1 - pow(1 + $r, -$n));
     }
@@ -220,16 +220,16 @@ class FinanceFormulas
     /**
      * Annuity - Payment (FV)
      *
-     * @param \float $fv Present value
-     * @param \float $r  Rate per period
-     * @param \int   $n  Number of periods
+     * @param float $fv Present value
+     * @param float $r  Rate per period
+     * @param int   $n  Number of periods
      *
-     * @return \float
+     * @return float
      *
      * @since  1.0.0
      * @author Dennis Eichhorn
      */
-    public static function getAnnuityPaymentFV(\float $fv, \float $r, \int $n) : \float
+    public static function getAnnuityPaymentFV(float $fv, float $r, int $n) : float
     {
         return $r * $fv / (pow(1 + $r, $n) - 1);
     }
@@ -237,16 +237,16 @@ class FinanceFormulas
     /**
      * Annuity - Payment (FV)
      *
-     * @param \float $p  Payment
-     * @param \float $fv Present value
-     * @param \float $r  Rate per period
+     * @param float $p  Payment
+     * @param float $fv Present value
+     * @param float $r  Rate per period
      *
-     * @return \int
+     * @return int
      *
      * @since  1.0.0
      * @author Dennis Eichhorn
      */
-    public static function getNumberOfAPFV(\float $p, \float $fv, \float $r) : \int
+    public static function getNumberOfAPFV(float $p, float $fv, float $r) : int
     {
         return (int) round(log($fv * $r / $p + 1) / log(1 + $r));
     }
@@ -254,16 +254,16 @@ class FinanceFormulas
     /**
      * Annuity - Payment (FV)
      *
-     * @param \float $p Payment
-     * @param \float $r Present value
-     * @param \int   $n Rate per period
+     * @param float $p Payment
+     * @param float $r Present value
+     * @param int   $n Rate per period
      *
-     * @return \float
+     * @return float
      *
      * @since  1.0.0
      * @author Dennis Eichhorn
      */
-    public static function getFutureValueOfAPFV(\float $p, \float $r, \int $n) : \float
+    public static function getFutureValueOfAPFV(float $p, float $r, int $n) : float
     {
         return $p / $r * (pow(1 + $r, $n) - 1);
     }
@@ -271,15 +271,15 @@ class FinanceFormulas
     /**
      * Annuity - Payment Factor (PV)
      *
-     * @param \float $r Rate per period
-     * @param \int   $n Number of periods
+     * @param float $r Rate per period
+     * @param int   $n Number of periods
      *
-     * @return \float
+     * @return float
      *
      * @since  1.0.0
      * @author Dennis Eichhorn
      */
-    public static function getAnnutiyPaymentFactorPV(\float $r, \int $n) : \float
+    public static function getAnnutiyPaymentFactorPV(float $r, int $n) : float
     {
         return $r / (1 - pow(1 + $r, -$n));
     }
@@ -287,15 +287,15 @@ class FinanceFormulas
     /**
      * Annuity - Payment Factor (PV)
      *
-     * @param \float $p Payment factor
-     * @param \float $r Rate per period
+     * @param float $p Payment factor
+     * @param float $r Rate per period
      *
-     * @return \int
+     * @return int
      *
      * @since  1.0.0
      * @author Dennis Eichhorn
      */
-    public static function getNumberOfAPFPV(\float $p, \float $r) : \int
+    public static function getNumberOfAPFPV(float $p, float $r) : int
     {
         return (int) round(-log(-($r / $p - 1)) / log(1 + $r));
     }
@@ -303,16 +303,16 @@ class FinanceFormulas
     /**
      * Annuity - Present Value
      *
-     * @param \float $P Periodic payment
-     * @param \float $r Stated annual interest rate
-     * @param \int   $n Number of periods
+     * @param float $P Periodic payment
+     * @param float $r Stated annual interest rate
+     * @param int   $n Number of periods
      *
-     * @return \float
+     * @return float
      *
      * @since  1.0.0
      * @author Dennis Eichhorn
      */
-    public static function getPresentValueOfAnnuity(\float $P, \float $r, \int $n) : \float
+    public static function getPresentValueOfAnnuity(float $P, float $r, int $n) : float
     {
         return $P * (1 - pow(1 + $r, -$n)) / $r;
     }
@@ -320,16 +320,16 @@ class FinanceFormulas
     /**
      * Annuity - Present Value
      *
-     * @param \float $pva Future value annuity
-     * @param \float $P   Periodic payment
-     * @param \float $r   Stated annual interest rate
+     * @param float $pva Future value annuity
+     * @param float $P   Periodic payment
+     * @param float $r   Stated annual interest rate
      *
-     * @return \int
+     * @return int
      *
      * @since  1.0.0
      * @author Dennis Eichhorn
      */
-    public static function getNumberOfPeriodsOfPVA(\float $pva, \float $P, \float $r) : \int
+    public static function getNumberOfPeriodsOfPVA(float $pva, float $P, float $r) : int
     {
         return (int) round(-log(-($pva / $P * $r - 1)) / log(1 + $r));
     }
@@ -337,16 +337,16 @@ class FinanceFormulas
     /**
      * Annuity - Present Value
      *
-     * @param \float $pva Future value annuity
-     * @param \float $r   Stated annual interest rate
-     * @param \int   $n   Number of periods
+     * @param float $pva Future value annuity
+     * @param float $r   Stated annual interest rate
+     * @param int   $n   Number of periods
      *
-     * @return \float
+     * @return float
      *
      * @since  1.0.0
      * @author Dennis Eichhorn
      */
-    public static function getPeriodicPaymentOfPVA(\float $pva, \float $r, \int $n) : \float
+    public static function getPeriodicPaymentOfPVA(float $pva, float $r, int $n) : float
     {
         return $pva / ((1 - pow(1 + $r, -$n)) / $r);
     }
@@ -354,15 +354,15 @@ class FinanceFormulas
     /**
      * Annuity - PV Factor
      *
-     * @param \float $r Rate per period
-     * @param \int   $n Number of periods
+     * @param float $r Rate per period
+     * @param int   $n Number of periods
      *
-     * @return \float
+     * @return float
      *
      * @since  1.0.0
      * @author Dennis Eichhorn
      */
-    public static function getPresentValueAnnuityFactor(\float $r, \int $n) : \float
+    public static function getPresentValueAnnuityFactor(float $r, int $n) : float
     {
         return (1 - pow(1 + $r, -$n)) / $r;
     }
@@ -370,15 +370,15 @@ class FinanceFormulas
     /**
      * Annuity - PV Factor
      *
-     * @param \float $p Payment factor
-     * @param \float $r Rete per period
+     * @param float $p Payment factor
+     * @param float $r Rete per period
      *
-     * @return \int
+     * @return int
      *
      * @since  1.0.0
      * @author Dennis Eichhorn
      */
-    public static function getPeriodsOfPVAF(\float $p, \float $r) : \int
+    public static function getPeriodsOfPVAF(float $p, float $r) : int
     {
         return (int) round(-log(-($p * $r - 1)) / log(1 + $r));
     }
@@ -386,16 +386,16 @@ class FinanceFormulas
     /**
      * Annuity Due - Present Value
      *
-     * @param \float $P Periodic payment
-     * @param \float $r Rate per period
-     * @param \int   $n Number of periods
+     * @param float $P Periodic payment
+     * @param float $r Rate per period
+     * @param int   $n Number of periods
      *
-     * @return \float
+     * @return float
      *
      * @since  1.0.0
      * @author Dennis Eichhorn
      */
-    public static function getPresentValueOfAnnuityDue(\float $P, \float $r, \int $n) : \float
+    public static function getPresentValueOfAnnuityDue(float $P, float $r, int $n) : float
     {
         return $P + $P * ((1 - pow(1 + $r, -($n - 1))) / $r);
     }
@@ -405,16 +405,16 @@ class FinanceFormulas
      *
      * Using alternative formula for PV
      *
-     * @param \float $PV Present value
-     * @param \float $r  Rate per period
-     * @param \int   $n  Number of periods
+     * @param float $PV Present value
+     * @param float $r  Rate per period
+     * @param int   $n  Number of periods
      *
-     * @return \float
+     * @return float
      *
      * @since  1.0.0
      * @author Dennis Eichhorn
      */
-    public static function getPeriodicPaymentOfPVAD(\float $PV, \float $r, \int $n) : \float
+    public static function getPeriodicPaymentOfPVAD(float $PV, float $r, int $n) : float
     {
         return $PV * $r / (1 - pow(1 + $r, -$n)) * 1 / (1 + $r);
     }
@@ -422,16 +422,16 @@ class FinanceFormulas
     /**
      * Annuity Due - Present Value
      *
-     * @param \float $PV Present value
-     * @param \float $P  Periodic payment
-     * @param \float $r  Rate per period
+     * @param float $PV Present value
+     * @param float $P  Periodic payment
+     * @param float $r  Rate per period
      *
-     * @return \int
+     * @return int
      *
      * @since  1.0.0
      * @author Dennis Eichhorn
      */
-    public static function getPeriodsOfPVAD(\float $PV, \float $P, \float $r) : \int
+    public static function getPeriodsOfPVAD(float $PV, float $P, float $r) : int
     {
         return (int) round((($PV - $P) / $P * $r - 1) / log(1 + $r) + 1);
     }
@@ -439,16 +439,16 @@ class FinanceFormulas
     /**
      * Annuity Due - Future Value
      *
-     * @param \float $P Periodic payment
-     * @param \float $r Rate per period
-     * @param \int   $n Number of periods
+     * @param float $P Periodic payment
+     * @param float $r Rate per period
+     * @param int   $n Number of periods
      *
-     * @return \float
+     * @return float
      *
      * @since  1.0.0
      * @author Dennis Eichhorn
      */
-    public static function getFutureValueOfAnnuityDue(\float $P, \float $r, \int $n) : \float
+    public static function getFutureValueOfAnnuityDue(float $P, float $r, int $n) : float
     {
         return (1 + $r) * $P * (pow(1 + $r, $n) - 1) / $r;
     }
@@ -456,16 +456,16 @@ class FinanceFormulas
     /**
      * Annuity Due - Future Value
      *
-     * @param \float $FV Future value
-     * @param \float $r  Rate per period
-     * @param \int   $n  Number of periods
+     * @param float $FV Future value
+     * @param float $r  Rate per period
+     * @param int   $n  Number of periods
      *
-     * @return \float
+     * @return float
      *
      * @since  1.0.0
      * @author Dennis Eichhorn
      */
-    public static function getPeriodicPaymentOfFVAD(\float $FV, \float $r, \int $n) : \float
+    public static function getPeriodicPaymentOfFVAD(float $FV, float $r, int $n) : float
     {
         return $FV / ((1 + $r) * ((pow(1 + $r, $n) - 1) / $r));
     }
@@ -473,16 +473,16 @@ class FinanceFormulas
     /**
      * Annuity Due - Future Value
      *
-     * @param \float $FV Future value
-     * @param \float $P  Periodic payment
-     * @param \float $r  Rate per period
+     * @param float $FV Future value
+     * @param float $P  Periodic payment
+     * @param float $r  Rate per period
      *
-     * @return \int
+     * @return int
      *
      * @since  1.0.0
      * @author Dennis Eichhorn
      */
-    public static function getPeriodsOfFVAD(\float $FV, \float $P, \float $r) : \int
+    public static function getPeriodsOfFVAD(float $FV, float $P, float $r) : int
     {
         return (int) round(log($FV / (1 + $r) / $P * $r + 1) / log(1 + $r));
     }
@@ -490,15 +490,15 @@ class FinanceFormulas
     /**
      * Asset to Sales Ratio
      *
-     * @param \float $assets  Assets
-     * @param \float $revenue Revenue
+     * @param float $assets  Assets
+     * @param float $revenue Revenue
      *
-     * @return \float
+     * @return float
      *
      * @since  1.0.0
      * @author Dennis Eichhorn
      */
-    public static function getAssetToSalesRatio(\float $assets, \float $revenue) : \float
+    public static function getAssetToSalesRatio(float $assets, float $revenue) : float
     {
         return $assets / $revenue;
     }
@@ -506,15 +506,15 @@ class FinanceFormulas
     /**
      * Asset Turnover Ratio
      *
-     * @param \float $assets  Assets
-     * @param \float $revenue Revenue
+     * @param float $assets  Assets
+     * @param float $revenue Revenue
      *
-     * @return \float
+     * @return float
      *
      * @since  1.0.0
      * @author Dennis Eichhorn
      */
-    public static function getAssetTurnoverRatio(\float $assets, \float $revenue) : \float
+    public static function getAssetTurnoverRatio(float $assets, float $revenue) : float
     {
         return $revenue / $assets;
     }
@@ -522,15 +522,15 @@ class FinanceFormulas
     /**
      * Average Collection Period
      *
-     * @param \float $receivables Receivables turnover (use getReceivablesTurnover)
-     * @param \int   $period      Period
+     * @param float $receivables Receivables turnover (use getReceivablesTurnover)
+     * @param int   $period      Period
      *
-     * @return \float
+     * @return float
      *
      * @since  1.0.0
      * @author Dennis Eichhorn
      */
-    public static function getAverageCollectionPeriod(\float $receivables, \int $period = 365) : \float
+    public static function getAverageCollectionPeriod(float $receivables, int $period = 365) : float
     {
         return $period / $receivables;
     }
@@ -538,15 +538,15 @@ class FinanceFormulas
     /**
      * Receivables Turnover
      *
-     * @param \float $sales       Sales in period
-     * @param \float $receivables Avg. account receivables
+     * @param float $sales       Sales in period
+     * @param float $receivables Avg. account receivables
      *
-     * @return \float
+     * @return float
      *
      * @since  1.0.0
      * @author Dennis Eichhorn
      */
-    public static function getReceivablesTurnover(\float $sales, \float $receivables) : \float
+    public static function getReceivablesTurnover(float $sales, float $receivables) : float
     {
         return $sales / $receivables;
     }
@@ -554,16 +554,16 @@ class FinanceFormulas
     /**
      * Compound Interest
      *
-     * @param \float $P Principal
-     * @param \float $r Rate per period
-     * @param \int   $n Number of periods
+     * @param float $P Principal
+     * @param float $r Rate per period
+     * @param int   $n Number of periods
      *
-     * @return \float
+     * @return float
      *
      * @since  1.0.0
      * @author Dennis Eichhorn
      */
-    public static function getCompoundInterest(\float $P, \float $r, \int $n) : \float
+    public static function getCompoundInterest(float $P, float $r, int $n) : float
     {
         return $P * (pow(1 + $r, $n) - 1);
     }
@@ -571,16 +571,16 @@ class FinanceFormulas
     /**
      * Continuous Compounding
      *
-     * @param \float $P Principal
-     * @param \float $r Rate per period
-     * @param \int   $t Time
+     * @param float $P Principal
+     * @param float $r Rate per period
+     * @param int   $t Time
      *
-     * @return \float
+     * @return float
      *
      * @since  1.0.0
      * @author Dennis Eichhorn
      */
-    public static function getContinuousCompounding(\float $P, \float $r, \int $t) : \float
+    public static function getContinuousCompounding(float $P, float $r, int $t) : float
     {
         return $P * exp($r * $t);
     }
@@ -588,15 +588,15 @@ class FinanceFormulas
     /**
      * Current Ratio
      *
-     * @param \float $assets      Assets
-     * @param \float $liabilities Liabilities
+     * @param float $assets      Assets
+     * @param float $liabilities Liabilities
      *
-     * @return \float
+     * @return float
      *
      * @since  1.0.0
      * @author Dennis Eichhorn
      */
-    public static function getCurrentRaio(\float $assets, \float $liabilities) : \float
+    public static function getCurrentRaio(float $assets, float $liabilities) : float
     {
         return $assets / $liabilities;
     }
@@ -604,14 +604,14 @@ class FinanceFormulas
     /**
      * Days in Inventory
      *
-     * @param \float $inventory Inventory turnover
+     * @param float $inventory Inventory turnover
      *
-     * @return \float
+     * @return float
      *
      * @since  1.0.0
      * @author Dennis Eichhorn
      */
-    public static function getDaysInInventory(\float $inventory) : \float
+    public static function getDaysInInventory(float $inventory) : float
     {
         return 365 / $inventory;
     }
@@ -619,15 +619,15 @@ class FinanceFormulas
     /**
      * Debt Coverage Ratio
      *
-     * @param \float $income  Net operating income
-     * @param \float $service Debt service
+     * @param float $income  Net operating income
+     * @param float $service Debt service
      *
-     * @return \float
+     * @return float
      *
      * @since  1.0.0
      * @author Dennis Eichhorn
      */
-    public static function getDebtCoverageRatio(\float $income, \float $service) : \float
+    public static function getDebtCoverageRatio(float $income, float $service) : float
     {
         return $income / $service;
     }
@@ -635,15 +635,15 @@ class FinanceFormulas
     /**
      * Debt Ratio
      *
-     * @param \float $liabilities Total liabilities
-     * @param \float $assets      Total assets
+     * @param float $liabilities Total liabilities
+     * @param float $assets      Total assets
      *
-     * @return \float
+     * @return float
      *
      * @since  1.0.0
      * @author Dennis Eichhorn
      */
-    public static function getDebtRatio(\float $liabilities, \float $assets) : \float
+    public static function getDebtRatio(float $liabilities, float $assets) : float
     {
         return $liabilities / $assets;
     }
@@ -651,15 +651,15 @@ class FinanceFormulas
     /**
      * Debt to Equity Ratio (D/E)
      *
-     * @param \float $liabilities Total liabilities
-     * @param \float $equity      Total assets
+     * @param float $liabilities Total liabilities
+     * @param float $equity      Total assets
      *
-     * @return \float
+     * @return float
      *
      * @since  1.0.0
      * @author Dennis Eichhorn
      */
-    public static function getDebtToEquityRatio(\float $liabilities, \float $equity) : \float
+    public static function getDebtToEquityRatio(float $liabilities, float $equity) : float
     {
         return $liabilities / $equity;
     }
@@ -667,15 +667,15 @@ class FinanceFormulas
     /**
      * Debt to Income Ratio (D/I)
      *
-     * @param \float $payments Periodic payments
-     * @param \float $income   Periodic income
+     * @param float $payments Periodic payments
+     * @param float $income   Periodic income
      *
-     * @return \float
+     * @return float
      *
      * @since  1.0.0
      * @author Dennis Eichhorn
      */
-    public static function getDebtToIncomeRatio(\float $payments, \float $income) : \float
+    public static function getDebtToIncomeRatio(float $payments, float $income) : float
     {
         return $payments / $income;
     }
@@ -683,16 +683,16 @@ class FinanceFormulas
     /**
      * Discounted Payback Period
      *
-     * @param \float $CF Periodic cash flow
-     * @param \float $O1 Initial Investment (Outflow)
-     * @param \float $r  Rate
+     * @param float $CF Periodic cash flow
+     * @param float $O1 Initial Investment (Outflow)
+     * @param float $r  Rate
      *
-     * @return \float
+     * @return float
      *
      * @since  1.0.0
      * @author Dennis Eichhorn
      */
-    public static function getDiscountedPaybackPeriod(\float $CF, \float $O1, \float $r) : \float
+    public static function getDiscountedPaybackPeriod(float $CF, float $O1, float $r) : float
     {
         return log(1 / (1 - $O1 * $r / $CF)) / log(1 + $r);
     }
@@ -700,14 +700,14 @@ class FinanceFormulas
     /**
      * Doubling Time
      *
-     * @param \float $r Rate of return
+     * @param float $r Rate of return
      *
-     * @return \float
+     * @return float
      *
      * @since  1.0.0
      * @author Dennis Eichhorn
      */
-    public static function getDoublingTime(\float $r) : \float
+    public static function getDoublingTime(float $r) : float
     {
         return log(2) / log(1 + $r);
     }
@@ -715,14 +715,14 @@ class FinanceFormulas
     /**
      * Doubling Time - Continuous Compounding
      *
-     * @param \float $r Rate of return
+     * @param float $r Rate of return
      *
-     * @return \float
+     * @return float
      *
      * @since  1.0.0
      * @author Dennis Eichhorn
      */
-    public static function getDoublingTimeContinuousCompounding(\float $r) : \float
+    public static function getDoublingTimeContinuousCompounding(float $r) : float
     {
         return log(2) / $r;
     }
@@ -730,16 +730,16 @@ class FinanceFormulas
     /**
      * Equivalent Annual Annuity
      *
-     * @param \float $NPV Net present value
-     * @param \float $r   Rate per period
-     * @param \int   $n   Number of periods
+     * @param float $NPV Net present value
+     * @param float $r   Rate per period
+     * @param int   $n   Number of periods
      *
-     * @return \float
+     * @return float
      *
      * @since  1.0.0
      * @author Dennis Eichhorn
      */
-    public static function getEquivalentAnnualAnnuity(\float $NPV, \float $r, \int $n) : \float
+    public static function getEquivalentAnnualAnnuity(float $NPV, float $r, int $n) : float
     {
         return $r * $NPV / (1 - pow(1 + $r, -$n));
     }
@@ -747,16 +747,16 @@ class FinanceFormulas
     /**
      * Equivalent Annual Annuity
      *
-     * @param \float $C   Equivalent annuity cash flow
-     * @param \float $NPV Net present value
-     * @param \float $r   Rate per period
+     * @param float $C   Equivalent annuity cash flow
+     * @param float $NPV Net present value
+     * @param float $r   Rate per period
      *
-     * @return \int
+     * @return int
      *
      * @since  1.0.0
      * @author Dennis Eichhorn
      */
-    public static function getPeriodsOfEAA(\float $C, \float $NPV, \float $r) : \int
+    public static function getPeriodsOfEAA(float $C, float $NPV, float $r) : int
     {
         return (int) round(log(-$r * $NPV / $C + 1) / log(1 + $r));
     }
@@ -764,16 +764,16 @@ class FinanceFormulas
     /**
      * Equivalent Annual Annuity
      *
-     * @param \float $C Net present value
-     * @param \float $r Rate per period
-     * @param \int   $n Number of periods
+     * @param float $C Net present value
+     * @param float $r Rate per period
+     * @param int   $n Number of periods
      *
-     * @return \float
+     * @return float
      *
      * @since  1.0.0
      * @author Dennis Eichhorn
      */
-    public static function getNetPresentValueOfEAA(\float $C, \float $r, \int $n) : \float
+    public static function getNetPresentValueOfEAA(float $C, float $r, int $n) : float
     {
         return $C / $r * (1 - pow(1 + $r, -$n));
     }
@@ -781,18 +781,18 @@ class FinanceFormulas
     /**
      * Free Cash Flow to Equity (FCFE)
      *
-     * @param \float $income    Net income
-     * @param \float $depamo    Depreciation & amortisation
-     * @param \float $capital   Capital expenses
-     * @param \float $wc        Change in working capital
-     * @param \float $borrowing Net Borrowing
+     * @param float $income    Net income
+     * @param float $depamo    Depreciation & amortisation
+     * @param float $capital   Capital expenses
+     * @param float $wc        Change in working capital
+     * @param float $borrowing Net Borrowing
      *
-     * @return \float
+     * @return float
      *
      * @since  1.0.0
      * @author Dennis Eichhorn
      */
-    public static function getFreeCashFlowToEquity(\float $income, \float $depamo, \float $capital, \float $wc, \float $borrowing) : \float
+    public static function getFreeCashFlowToEquity(float $income, float $depamo, float $capital, float $wc, float $borrowing) : float
     {
         return $income + $depamo - $capital - $wc + $borrowing;
     }
@@ -800,18 +800,18 @@ class FinanceFormulas
     /**
      * Free Cash Flow to Firm (FCFF)
      *
-     * @param \float $ebit    EBIT
-     * @param \float $t       Tax rate
-     * @param \float $depamo  Depreciation & amortisation
-     * @param \float $capital Capital expenses
-     * @param \float $wc      Change in working capital
+     * @param float $ebit    EBIT
+     * @param float $t       Tax rate
+     * @param float $depamo  Depreciation & amortisation
+     * @param float $capital Capital expenses
+     * @param float $wc      Change in working capital
      *
-     * @return \float
+     * @return float
      *
      * @since  1.0.0
      * @author Dennis Eichhorn
      */
-    public static function getFreeCashFlowToFirm(\float $ebit, \float $t, \float $depamo, \float $capital, \float $wc) : \float
+    public static function getFreeCashFlowToFirm(float $ebit, float $t, float $depamo, float $capital, float $wc) : float
     {
         return $ebit * (1 - $t) + $depamo - $capital - $wc;
     }
@@ -819,16 +819,16 @@ class FinanceFormulas
     /**
      * Future Value
      *
-     * @param \float $C Cash flow at period 0
-     * @param \float $r Rate of return
-     * @param \int   $n Numbers of periods
+     * @param float $C Cash flow at period 0
+     * @param float $r Rate of return
+     * @param int   $n Numbers of periods
      *
-     * @return \float
+     * @return float
      *
      * @since  1.0.0
      * @author Dennis Eichhorn
      */
-    public static function getFutureValue(\float $C, \float $r, \int $n) : \float
+    public static function getFutureValue(float $C, float $r, int $n) : float
     {
         return $C * pow(1 + $r, $n);
     }
@@ -836,16 +836,16 @@ class FinanceFormulas
     /**
      * Future Value - Continuous Compounding
      *
-     * @param \float $PV Present value
-     * @param \float $r  Rate of return
-     * @param \int   $t  Time
+     * @param float $PV Present value
+     * @param float $r  Rate of return
+     * @param int   $t  Time
      *
-     * @return \float
+     * @return float
      *
      * @since  1.0.0
      * @author Dennis Eichhorn
      */
-    public static function getFutureValueContinuousCompounding(\float $PV, \float $r, \int $t) : \float
+    public static function getFutureValueContinuousCompounding(float $PV, float $r, int $t) : float
     {
         return $PV * exp($r * $t);
     }
@@ -853,15 +853,15 @@ class FinanceFormulas
     /**
      * Future Value Factor
      *
-     * @param \float $r Rate of return
-     * @param \int   $n Number of periods
+     * @param float $r Rate of return
+     * @param int   $n Number of periods
      *
-     * @return \float
+     * @return float
      *
      * @since  1.0.0
      * @author Dennis Eichhorn
      */
-    public static function getFutureValueFactor(\float $r, \int $n) : \float
+    public static function getFutureValueFactor(float $r, int $n) : float
     {
         return pow(1 + $r, $n);
     }
@@ -871,12 +871,12 @@ class FinanceFormulas
      *
      * @param array $r Rate of return
      *
-     * @return \float
+     * @return float
      *
      * @since  1.0.0
      * @author Dennis Eichhorn
      */
-    public static function getGeometricMeanReturn(array $r) : \float
+    public static function getGeometricMeanReturn(array $r) : float
     {
         return Average::geometricMean($r) - 1;
     }
@@ -884,17 +884,17 @@ class FinanceFormulas
     /**
      * Growing Annuity - Future Value
      *
-     * @param \float $P First payment
-     * @param \float $r Rate of return
-     * @param \float $g Growth rate
-     * @param \int   $n Number of periods
+     * @param float $P First payment
+     * @param float $r Rate of return
+     * @param float $g Growth rate
+     * @param int   $n Number of periods
      *
-     * @return \float
+     * @return float
      *
      * @since  1.0.0
      * @author Dennis Eichhorn
      */
-    public static function getGrowingAnnuityFV(\float $P, \float $r, \float $g, \int $n) : \float
+    public static function getGrowingAnnuityFV(float $P, float $r, float $g, int $n) : float
     {
         return $P * (pow(1 + $r, $n) - pow(1 + $g, $n)) / ($r - $g);
     }
@@ -902,17 +902,17 @@ class FinanceFormulas
     /**
      * Growing Annuity - Payment (PV)
      *
-     * @param \float $PV Present value
-     * @param \float $r  Rate of return
-     * @param \float $g  Growth rate
-     * @param \int   $n  Number of periods
+     * @param float $PV Present value
+     * @param float $r  Rate of return
+     * @param float $g  Growth rate
+     * @param int   $n  Number of periods
      *
-     * @return \float
+     * @return float
      *
      * @since  1.0.0
      * @author Dennis Eichhorn
      */
-    public static function getGrowingAnnuityPaymentPV(\float $PV, \float $r, \float $g, \int $n) : \float
+    public static function getGrowingAnnuityPaymentPV(float $PV, float $r, float $g, int $n) : float
     {
         return $PV * ($r - $g) / (1 - pow((1 + $g) / (1 + $r), $n));
     }
@@ -920,17 +920,17 @@ class FinanceFormulas
     /**
      * Growing Annuity - Payment (FV)
      *
-     * @param \float $FV Present value
-     * @param \float $r  Rate of return
-     * @param \float $g  Growth rate
-     * @param \int   $n  Number of periods
+     * @param float $FV Present value
+     * @param float $r  Rate of return
+     * @param float $g  Growth rate
+     * @param int   $n  Number of periods
      *
-     * @return \float
+     * @return float
      *
      * @since  1.0.0
      * @author Dennis Eichhorn
      */
-    public static function getGrowingAnnuityPaymentFV(\float $FV, \float $r, \float $g, \int $n) : \float
+    public static function getGrowingAnnuityPaymentFV(float $FV, float $r, float $g, int $n) : float
     {
         return $FV * ($r - $g) / (pow(1 + $r, $n) - pow(1 + $g, $n));
     }
@@ -938,17 +938,17 @@ class FinanceFormulas
     /**
      * Growing Annuity - Present Value
      *
-     * @param \float $P First payment
-     * @param \float $r Rate of return
-     * @param \float $g Growth rate
-     * @param \int   $n Number of periods
+     * @param float $P First payment
+     * @param float $r Rate of return
+     * @param float $g Growth rate
+     * @param int   $n Number of periods
      *
-     * @return \float
+     * @return float
      *
      * @since  1.0.0
      * @author Dennis Eichhorn
      */
-    public static function getGrowingAnnuityPV(\float $P, \float $r, \float $g, \int $n) : \float
+    public static function getGrowingAnnuityPV(float $P, float $r, float $g, int $n) : float
     {
         return $P / ($r - $g) * (1 - pow((1 + $g) / (1 + $r), $n));
     }
@@ -956,16 +956,16 @@ class FinanceFormulas
     /**
      * Growing Perpetuity - Present Value
      *
-     * @param \float $D Dividend or coupon at period 1
-     * @param \float $r Rate of return
-     * @param \float $g Growth rate
+     * @param float $D Dividend or coupon at period 1
+     * @param float $r Rate of return
+     * @param float $g Growth rate
      *
-     * @return \float
+     * @return float
      *
      * @since  1.0.0
      * @author Dennis Eichhorn
      */
-    public static function getGrowingPerpetuityPV(\float $D, \float $r, \float $g) : \float
+    public static function getGrowingPerpetuityPV(float $D, float $r, float $g) : float
     {
         return $D / ($r - $g);
     }
@@ -973,15 +973,15 @@ class FinanceFormulas
     /**
      * Interest Coverage Ratio
      *
-     * @param \float $ebit    EBIT
-     * @param \float $expense Interest expense
+     * @param float $ebit    EBIT
+     * @param float $expense Interest expense
      *
-     * @return \float
+     * @return float
      *
      * @since  1.0.0
      * @author Dennis Eichhorn
      */
-    public static function getInterestCoverageRatio(\float $ebit, \float $expense) : \float
+    public static function getInterestCoverageRatio(float $ebit, float $expense) : float
     {
         return $ebit / $expense;
     }
@@ -989,15 +989,15 @@ class FinanceFormulas
     /**
      * Inventory Turnover Ratio
      *
-     * @param \float $sales     Sales
-     * @param \float $inventory Inventory
+     * @param float $sales     Sales
+     * @param float $inventory Inventory
      *
-     * @return \float
+     * @return float
      *
      * @since  1.0.0
      * @author Dennis Eichhorn
      */
-    public static function getInventoryTurnoverRatio(\float $sales, \float $inventory) : \float
+    public static function getInventoryTurnoverRatio(float $sales, float $inventory) : float
     {
         return $sales / $inventory;
     }
@@ -1006,16 +1006,16 @@ class FinanceFormulas
      * Net Present Value
      *
      * @param array  $C Cash flow ($C[0] = initial investment)
-     * @param \float $r Discount rate
+     * @param float $r Discount rate
      *
-     * @return \float
+     * @return float
      *
      * @throws
      *
      * @since  1.0.0
      * @author Dennis Eichhorn
      */
-    public static function getNetPresentValue(array $C, \float $r) : \float
+    public static function getNetPresentValue(array $C, float $r) : float
     {
         $count = count($C);
 
@@ -1035,15 +1035,15 @@ class FinanceFormulas
     /**
      * Net Profit Margin
      *
-     * @param \float $income Net income
-     * @param \float $sales  Sales revenue
+     * @param float $income Net income
+     * @param float $sales  Sales revenue
      *
-     * @return \float
+     * @return float
      *
      * @since  1.0.0
      * @author Dennis Eichhorn
      */
-    public static function getNetProfitMargin(\float $income, \float $sales) : \float
+    public static function getNetProfitMargin(float $income, float $sales) : float
     {
         return $income / $sales;
     }
@@ -1051,15 +1051,15 @@ class FinanceFormulas
     /**
      * Net Working Capital
      *
-     * @param \float $assets      Current assets
-     * @param \float $liabilities Current liabilities
+     * @param float $assets      Current assets
+     * @param float $liabilities Current liabilities
      *
-     * @return \float
+     * @return float
      *
      * @since  1.0.0
      * @author Dennis Eichhorn
      */
-    public static function getNetWorkingCapital(\float $assets, \float $liabilities) : \float
+    public static function getNetWorkingCapital(float $assets, float $liabilities) : float
     {
         return $assets - $liabilities;
     }
@@ -1067,16 +1067,16 @@ class FinanceFormulas
     /**
      * Number of Periods - PV & FV
      *
-     * @param \float $FV Future value
-     * @param \float $PV Present value
-     * @param \float $r  Rate per period
+     * @param float $FV Future value
+     * @param float $PV Present value
+     * @param float $r  Rate per period
      *
-     * @return \float
+     * @return float
      *
      * @since  1.0.0
      * @author Dennis Eichhorn
      */
-    public static function getNumberOfPeriodsPVFV(\float $FV, \float $PV, \float $r) : \float
+    public static function getNumberOfPeriodsPVFV(float $FV, float $PV, float $r) : float
     {
         return log($FV / $PV) / log(1 + $r);
     }
@@ -1084,15 +1084,15 @@ class FinanceFormulas
     /**
      * Payback Period
      *
-     * @param \float $investment Initial investment
-     * @param \float $cash       Periodic cash flow
+     * @param float $investment Initial investment
+     * @param float $cash       Periodic cash flow
      *
-     * @return \float
+     * @return float
      *
      * @since  1.0.0
      * @author Dennis Eichhorn
      */
-    public static function getPaybackPeriod(\float $investment, \float $cash) : \float
+    public static function getPaybackPeriod(float $investment, float $cash) : float
     {
         return $investment / $cash;
     }
@@ -1100,15 +1100,15 @@ class FinanceFormulas
     /**
      * Perpetuity
      *
-     * @param \float $D Dividend or coupon per period
-     * @param \float $r Discount rate
+     * @param float $D Dividend or coupon per period
+     * @param float $r Discount rate
      *
-     * @return \float
+     * @return float
      *
      * @since  1.0.0
      * @author Dennis Eichhorn
      */
-    public static function getPresentValueOfPerpetuity(\float $D, \float $r) : \float
+    public static function getPresentValueOfPerpetuity(float $D, float $r) : float
     {
         return $D / $r;
     }
@@ -1116,16 +1116,16 @@ class FinanceFormulas
     /**
      * Number of Periods - PV & FV
      *
-     * @param \float $C Cash flow at period 1
-     * @param \float $r Rate of return
-     * @param \int   $n Number of periods
+     * @param float $C Cash flow at period 1
+     * @param float $r Rate of return
+     * @param int   $n Number of periods
      *
-     * @return \float
+     * @return float
      *
      * @since  1.0.0
      * @author Dennis Eichhorn
      */
-    public static function getPresentValue(\float $C, \float $r, \int $n) : \float
+    public static function getPresentValue(float $C, float $r, int $n) : float
     {
         return $C / pow(1 + $r, $n);
     }
@@ -1133,16 +1133,16 @@ class FinanceFormulas
     /**
      * PV - Continuous Compounding
      *
-     * @param \float $C Cash flow
-     * @param \float $r Rate of return
-     * @param \int   $t Time
+     * @param float $C Cash flow
+     * @param float $r Rate of return
+     * @param int   $t Time
      *
-     * @return \float
+     * @return float
      *
      * @since  1.0.0
      * @author Dennis Eichhorn
      */
-    public static function getPresentValueContinuousCompounding(\float $C, \float $r, \int $t) : \float
+    public static function getPresentValueContinuousCompounding(float $C, float $r, int $t) : float
     {
         return $C / exp($r * $t);
     }
@@ -1150,15 +1150,15 @@ class FinanceFormulas
     /**
      * Present Value Factor
      *
-     * @param \float $r Rate of return
-     * @param \int   $n Number of periods
+     * @param float $r Rate of return
+     * @param int   $n Number of periods
      *
-     * @return \float
+     * @return float
      *
      * @since  1.0.0
      * @author Dennis Eichhorn
      */
-    public static function getPresentValueFactor(\float $r, \int $n) : \float
+    public static function getPresentValueFactor(float $r, int $n) : float
     {
         return 1 / pow(1 + $r, $n);
     }
@@ -1166,15 +1166,15 @@ class FinanceFormulas
     /**
      * Quick Ratio
      *
-     * @param \float $assets      Quick assets (current assets - inventory)
-     * @param \float $liabilities Current liabilities
+     * @param float $assets      Quick assets (current assets - inventory)
+     * @param float $liabilities Current liabilities
      *
-     * @return \float
+     * @return float
      *
      * @since  1.0.0
      * @author Dennis Eichhorn
      */
-    public static function getQuickRatio(\float $assets, \float $liabilities) : \float
+    public static function getQuickRatio(float $assets, float $liabilities) : float
     {
         return $assets / $liabilities;
     }
@@ -1182,15 +1182,15 @@ class FinanceFormulas
     /**
      * Rate of Inflation
      *
-     * @param \float $oldCPI Consumer price index old
-     * @param \float $newCPI Consumer price index new
+     * @param float $oldCPI Consumer price index old
+     * @param float $newCPI Consumer price index new
      *
-     * @return \float
+     * @return float
      *
      * @since  1.0.0
      * @author Dennis Eichhorn
      */
-    public static function getRateOfOnflation(\float $oldCPI, \float $newCPI) : \float
+    public static function getRateOfOnflation(float $oldCPI, float $newCPI) : float
     {
         return $newCPI / $oldCPI - 1;
     }
@@ -1198,15 +1198,15 @@ class FinanceFormulas
     /**
      * Real Rate of Return
      *
-     * @param \float $nominal   Nominal rate
-     * @param \float $inflation Inflation rate
+     * @param float $nominal   Nominal rate
+     * @param float $inflation Inflation rate
      *
-     * @return \float
+     * @return float
      *
      * @since  1.0.0
      * @author Dennis Eichhorn
      */
-    public static function getRealRateOfReturn(\float $nominal, \float $inflation) : \float
+    public static function getRealRateOfReturn(float $nominal, float $inflation) : float
     {
         return (1 + $nominal) / (1 + $inflation) - 1;
     }
@@ -1214,15 +1214,15 @@ class FinanceFormulas
     /**
      * Receivables Turnover Ratio
      *
-     * @param \float $sales      Sales revenue
-     * @param \float $receivable Avg. accounts receivable
+     * @param float $sales      Sales revenue
+     * @param float $receivable Avg. accounts receivable
      *
-     * @return \float
+     * @return float
      *
      * @since  1.0.0
      * @author Dennis Eichhorn
      */
-    public static function getReceivablesTurnoverRatio(\float $sales, \float $receivable) : \float
+    public static function getReceivablesTurnoverRatio(float $sales, float $receivable) : float
     {
         return $sales / $receivable;
     }
@@ -1230,15 +1230,15 @@ class FinanceFormulas
     /**
      * Receivables Turnover Ratio
      *
-     * @param \float $income    Net income
-     * @param \float $dividends Dividends
+     * @param float $income    Net income
+     * @param float $dividends Dividends
      *
-     * @return \float
+     * @return float
      *
      * @since  1.0.0
      * @author Dennis Eichhorn
      */
-    public static function getRetentionRatio(\float $income, \float $dividends) : \float
+    public static function getRetentionRatio(float $income, float $dividends) : float
     {
         return ($income - $dividends) / $income;
     }
@@ -1246,15 +1246,15 @@ class FinanceFormulas
     /**
      * Return on Assets (ROA)
      *
-     * @param \float $income Net income
-     * @param \float $assets Avg. total assets
+     * @param float $income Net income
+     * @param float $assets Avg. total assets
      *
-     * @return \float
+     * @return float
      *
      * @since  1.0.0
      * @author Dennis Eichhorn
      */
-    public static function getReturnOnAssets(\float $income, \float $assets) : \float
+    public static function getReturnOnAssets(float $income, float $assets) : float
     {
         return $income / $assets;
     }
@@ -1262,15 +1262,15 @@ class FinanceFormulas
     /**
      * Return on Equity (ROE)
      *
-     * @param \float $income Net income
-     * @param \float $equity Avg. stockholder's equity
+     * @param float $income Net income
+     * @param float $equity Avg. stockholder's equity
      *
-     * @return \float
+     * @return float
      *
      * @since  1.0.0
      * @author Dennis Eichhorn
      */
-    public static function getReturnOnEquity(\float $income, \float $equity) : \float
+    public static function getReturnOnEquity(float $income, float $equity) : float
     {
         return $income / $equity;
     }
@@ -1278,15 +1278,15 @@ class FinanceFormulas
     /**
      * Return on Investment (ROI)
      *
-     * @param \float $earnings   Earnings
-     * @param \float $investment Initial investment
+     * @param float $earnings   Earnings
+     * @param float $investment Initial investment
      *
-     * @return \float
+     * @return float
      *
      * @since  1.0.0
      * @author Dennis Eichhorn
      */
-    public static function getReturnOnInvestment(\float $earnings, \float $investment) : \float
+    public static function getReturnOnInvestment(float $earnings, float $investment) : float
     {
         return $earnings / $investment - 1;
     }
@@ -1294,16 +1294,16 @@ class FinanceFormulas
     /**
      * Simple Interest
      *
-     * @param \float $P Principal
-     * @param \float $r Rate
-     * @param \int   $t Time
+     * @param float $P Principal
+     * @param float $r Rate
+     * @param int   $t Time
      *
-     * @return \float
+     * @return float
      *
      * @since  1.0.0
      * @author Dennis Eichhorn
      */
-    public static function getSimpleInterest(\float $P, \float $r, \int $t) : \float
+    public static function getSimpleInterest(float $P, float $r, int $t) : float
     {
         return $P * $r * $t;
     }

@@ -42,7 +42,7 @@ class Encryption
     /**
      * Algorithm for encryption.
      *
-     * @var \string
+     * @var string
      * @since 1.0.0
      */
     private $cipher = null;
@@ -50,7 +50,7 @@ class Encryption
     /**
      * Block size.
      *
-     * @var \int
+     * @var int
      * @since 1.0.0
      */
     private $block = 16;
@@ -58,7 +58,7 @@ class Encryption
     /**
      * Encryption mode.
      *
-     * @var \string
+     * @var string
      * @since 1.0.0
      */
     private $mode = MCRYPT_MODE_CBC;
@@ -66,13 +66,13 @@ class Encryption
     /**
      * Constructor.
      *
-     * @param \string $key    Encryption key
-     * @param \string $cipher Encryption algorithm
+     * @param string $key    Encryption key
+     * @param string $cipher Encryption algorithm
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function __construct(\string $key, \string $cipher = MCRYPT_RIJNDAEL_128)
+    public function __construct(string $key, string $cipher = MCRYPT_RIJNDAEL_128)
     {
         $this->key    = $key;
         $this->cipher = $cipher;
@@ -81,12 +81,12 @@ class Encryption
     /**
      * Get encryption key.
      *
-     * @return \string
+     * @return string
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function getKey() : \string
+    public function getKey() : string
     {
         return $this->key;
     }
@@ -94,14 +94,14 @@ class Encryption
     /**
      * Set encryption key.
      *
-     * @param \string $key Encryption key
+     * @param string $key Encryption key
      *
      * @return void
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function setKey(\string $key)
+    public function setKey(string $key)
     {
         $this->key = $key;
     }
@@ -109,12 +109,12 @@ class Encryption
     /**
      * Get encryption cipher.
      *
-     * @return \string
+     * @return string
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function getCipher() : \string
+    public function getCipher() : string
     {
         return $this->key;
     }
@@ -122,14 +122,14 @@ class Encryption
     /**
      * Set encryption cipher.
      *
-     * @param \string $key Encryption key
+     * @param string $key Encryption key
      *
      * @return void
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function setCipher(\string $key)
+    public function setCipher(string $key)
     {
         $this->key = $key;
     }
@@ -137,12 +137,12 @@ class Encryption
     /**
      * Get block size.
      *
-     * @return \int
+     * @return int
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function getBlock() : \int
+    public function getBlock() : int
     {
         return $this->block;
     }
@@ -150,14 +150,14 @@ class Encryption
     /**
      * Set block size.
      *
-     * @param \int $block
+     * @param int $block
      *
      * @return void
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function setBlock(\int $block)
+    public function setBlock(int $block)
     {
         $this->block = $block;
     }
@@ -165,12 +165,12 @@ class Encryption
     /**
      * Get encryption mode.
      *
-     * @return \string
+     * @return string
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function getMode() : \string
+    public function getMode() : string
     {
         return $this->mode;
     }
@@ -178,14 +178,14 @@ class Encryption
     /**
      * Set encryption mode.
      *
-     * @param \string $mode
+     * @param string $mode
      *
      * @return void
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function setMode(\string $mode)
+    public function setMode(string $mode)
     {
         $this->mode = $mode;
     }
@@ -193,12 +193,12 @@ class Encryption
     /**
      * Get input vector size.
      *
-     * @return \int
+     * @return int
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    private function getIvSize() : \int
+    private function getIvSize() : int
     {
         return mcrypt_get_iv_size($this->cipher, $this->mode);
     }
@@ -206,12 +206,12 @@ class Encryption
     /**
      * Get random data source.
      *
-     * @return \int
+     * @return int
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    private function getRandomizer() : \int
+    private function getRandomizer() : int
     {
         if (defined('MCRYPT_DEV_URANDOM')) {
             return MCRYPT_DEV_URANDOM;
@@ -229,15 +229,15 @@ class Encryption
     /**
      * Mcrypt padding.
      *
-     * @param \string $value Value to encrypt
-     * @param \string $iv    Input vector
+     * @param string $value Value to encrypt
+     * @param string $iv    Input vector
      *
-     * @return \string
+     * @return string
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    private function padAndMcrypt(\string $value, \string $iv) : \string
+    private function padAndMcrypt(string $value, string $iv) : string
     {
         $value = $this->addPadding(serialize($value));
 
@@ -247,14 +247,14 @@ class Encryption
     /**
      * Add padding.
      *
-     * @param \string $value Value to encrypt
+     * @param string $value Value to encrypt
      *
-     * @return \string
+     * @return string
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    private function addPadding(\string $value) : \string
+    private function addPadding(string $value) : string
     {
         $pad = $this->block - (strlen($value) % $this->block);
 
@@ -264,15 +264,15 @@ class Encryption
     /**
      * Create hash of value.
      *
-     * @param \string $value Value to encrypt
-     * @param \string $iv    Input vector
+     * @param string $value Value to encrypt
+     * @param string $iv    Input vector
      *
-     * @return \string
+     * @return string
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    private function hash(\string $value, \string $iv) : \string
+    private function hash(string $value, string $iv) : string
     {
         return hash_hmac('sha256', $iv . $value, $this->key);
     }
@@ -280,14 +280,14 @@ class Encryption
     /**
      * Encrypt value.
      *
-     * @param \string $value Value to encrypt
+     * @param string $value Value to encrypt
      *
-     * @return \string
+     * @return string
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function encrpyt(\string $value) : \string
+    public function encrpyt(string $value) : string
     {
         $iv    = mcrypt_create_iv($this->getIvSize(), $this->getRandomizer());
         $value = base64_encode($this->padAndMcrypt($value, $iv));
@@ -299,14 +299,14 @@ class Encryption
     /**
      * Decrypt value.
      *
-     * @param \string $payload Payload to decrypt
+     * @param string $payload Payload to decrypt
      *
-     * @return \string
+     * @return string
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function decrypt(\string $payload) : \string
+    public function decrypt(string $payload) : string
     {
         $payload = $this->getJsonPayload($payload);
         $value   = base64_decode($payload['value']);
@@ -322,14 +322,14 @@ class Encryption
     /**
      * Get json from payload.
      *
-     * @param \string $payload Payload to decrypt
+     * @param string $payload Payload to decrypt
      *
-     * @return \string|false
+     * @return string|false
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    private function getJsonPayload(\string $payload)
+    private function getJsonPayload(string $payload)
     {
         $payload = json_decode(base64_decode($payload), true);
 
@@ -349,12 +349,12 @@ class Encryption
      *
      * @param mixed $payload Payload data
      *
-     * @return \bool
+     * @return bool
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    private function validMac($payload) : \bool
+    private function validMac($payload) : bool
     {
         return $this->hash($payload['value'], $payload['iv']) == $payload['mac'];
     }
@@ -364,12 +364,12 @@ class Encryption
      *
      * @param mixed $payload Payload data
      *
-     * @return \bool
+     * @return bool
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    private function invalidPayload($payload) : \bool
+    private function invalidPayload($payload) : bool
     {
         return !is_array($payload) || !isset($payload['iv']) || !isset($payload['value']) || !isset($payload['mac']);
     }
@@ -377,14 +377,14 @@ class Encryption
     /**
      * Remove padding.
      *
-     * @param \string $value Value to decrypt
+     * @param string $value Value to decrypt
      *
-     * @return \string
+     * @return string
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    private function stripPadding(\string $value) : \string
+    private function stripPadding(string $value) : string
     {
         $pad = ord($value[($len = strlen($value)) - 1]);
 
@@ -394,15 +394,15 @@ class Encryption
     /**
      * Check if padding is valid.
      *
-     * @param \string $pad   Padding to check
-     * @param \string $value Value with padding
+     * @param string $pad   Padding to check
+     * @param string $value Value with padding
      *
-     * @return \bool
+     * @return bool
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    private function paddingIsValid(\string $pad, \string $value) : \bool
+    private function paddingIsValid(string $pad, string $value) : bool
     {
         $beforePad = strlen($value) - $pad;
 
@@ -412,15 +412,15 @@ class Encryption
     /**
      * Decrypt.
      *
-     * @param \string $value Value to decrypt
-     * @param \string $iv    Input vector
+     * @param string $value Value to decrypt
+     * @param string $iv    Input vector
      *
-     * @return \string|false
+     * @return string|false
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    private function mcryptDecrypt(\string $value, \string $iv)
+    private function mcryptDecrypt(string $value, string $iv)
     {
         try {
             return mcrypt_decrypt($this->cipher, $this->key, $value, $this->mode, $iv);

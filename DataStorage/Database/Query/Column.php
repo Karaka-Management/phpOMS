@@ -41,12 +41,12 @@ class Column
     /**
      * Constructor.
      *
-     * @param \string $column Column
+     * @param string $column Column
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function __construct(\string $column)
+    public function __construct(string $column)
     {
         $this->column = $column;
     }
@@ -59,12 +59,12 @@ class Column
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function getColumn() : \string
+    public function getColumn() : string
     {
         return $this->column;
     }
 
-    public function setColumn(\string $column)
+    public function setColumn(string $column)
     {
         $this->column = $column;
     }

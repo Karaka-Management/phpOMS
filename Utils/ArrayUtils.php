@@ -42,16 +42,16 @@ class ArrayUtils
     /**
      * Check if needle exists in multidimensional array.
      *
-     * @param \string $path  Path to element
+     * @param string $path  Path to element
      * @param array   $data  Array
-     * @param \string $delim Delimiter for path
+     * @param string $delim Delimiter for path
      *
      * @return array
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public static function unsetArray(\string $path, array $data, \string $delim) : array
+    public static function unsetArray(string $path, array $data, string $delim) : array
     {
         $nodes  = explode($delim, $path);
         $prevEl = null;
@@ -74,18 +74,18 @@ class ArrayUtils
     /**
      * Check if needle exists in multidimensional array.
      *
-     * @param \string $path      Path to element
+     * @param string $path      Path to element
      * @param array   $data      Array
      * @param mixed   $value     Value to add
-     * @param \string $delim     Delimiter for path
-     * @param \bool   $overwrite Overwrite if existing
+     * @param string $delim     Delimiter for path
+     * @param bool   $overwrite Overwrite if existing
      *
      * @return array
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public static function setArray(\string $path, array $data, $value, \string $delim, \bool $overwrite = false) : array
+    public static function setArray(string $path, array $data, $value, string $delim, bool $overwrite = false) : array
     {
         $pathParts = explode($delim, $path);
         $current   = &$data;
@@ -117,12 +117,12 @@ class ArrayUtils
      * @param mixed $needle   Needle for search
      * @param array $haystack Haystack for search
      *
-     * @return \bool
+     * @return bool
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public static function inArrayRecursive($needle, array $haystack) : \bool
+    public static function inArrayRecursive($needle, array $haystack) : bool
     {
         $found = false;
 
@@ -146,14 +146,14 @@ class ArrayUtils
      *
      * @param array $array Array to stringify
      *
-     * @return \string
+     * @return string
      *
      * @throws \Exception
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public static function stringify(array $array) : \string
+    public static function stringify(array $array) : string
     {
         $str = '[';
 
@@ -196,16 +196,16 @@ class ArrayUtils
      * Convert array to csv string.
      *
      * @param array   $data      Data to convert
-     * @param \string $delimiter Delim to use
-     * @param \string $enclosure Enclosure to use
-     * @param \string $escape    Escape to use
+     * @param string $delimiter Delim to use
+     * @param string $enclosure Enclosure to use
+     * @param string $escape    Escape to use
      *
-     * @return \string
+     * @return string
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public static function arrayToCSV(array $data, \string $delimiter = ';', \string $enclosure = '"', \string $escape = '\\') : \string
+    public static function arrayToCSV(array $data, string $delimiter = ';', string $enclosure = '"', string $escape = '\\') : string
     {
         $outstream = fopen('php://memory', 'r+');
         fputcsv($outstream, $data, $delimiter, $enclosure, $escape);

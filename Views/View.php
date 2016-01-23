@@ -40,7 +40,7 @@ class View implements RenderableInterface
     /**
      * Template.
      *
-     * @var \string
+     * @var string
      * @since 1.0.0
      */
     protected $template = null;
@@ -118,12 +118,12 @@ class View implements RenderableInterface
      * @param array $a Array 1
      * @param array $b Array 2
      *
-     * @return \int
+     * @return int
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    private static function viewSort(array $a, array $b) : \int
+    private static function viewSort(array $a, array $b) : int
     {
         if ($a['order'] === $b['order']) {
             return 0;
@@ -135,12 +135,12 @@ class View implements RenderableInterface
     /**
      * Get the template.
      *
-     * @return \string
+     * @return string
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function getTemplate() : \string
+    public function getTemplate() : string
     {
         return $this->template;
     }
@@ -148,14 +148,14 @@ class View implements RenderableInterface
     /**
      * Set the template.
      *
-     * @param \string $template
+     * @param string $template
      *
      * @return void
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function setTemplate(\string $template)
+    public function setTemplate(string $template)
     {
         $this->template = $template;
     }
@@ -172,7 +172,7 @@ class View implements RenderableInterface
     }
 
     /**
-     * @param \string $id View ID
+     * @param string $id View ID
      *
      * @return false|View
      *
@@ -191,14 +191,14 @@ class View implements RenderableInterface
     /**
      * Remove view.
      *
-     * @param \string $id View ID
+     * @param string $id View ID
      *
-     * @return \bool
+     * @return bool
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function removeView(\string $id) : \bool
+    public function removeView(string $id) : bool
     {
         if (isset($this->views[$id])) {
             unset($this->views[$id]);
@@ -212,16 +212,16 @@ class View implements RenderableInterface
     /**
      * Edit view.
      *
-     * @param \string   $id    View ID
+     * @param string   $id    View ID
      * @param View      $view
-     * @param null|\int $order Order of view
+     * @param null|int $order Order of view
      *
      * @return void
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function editView(\string $id, View $view, $order = null)
+    public function editView(string $id, View $view, $order = null)
     {
         $this->addView($id, $view, $order, true);
     }
@@ -229,17 +229,17 @@ class View implements RenderableInterface
     /**
      * Add view.
      *
-     * @param \string   $id        View ID
+     * @param string   $id        View ID
      * @param View      $view
-     * @param null|\int $order     Order of view
-     * @param \bool     $overwrite Overwrite existing view
+     * @param null|int $order     Order of view
+     * @param bool     $overwrite Overwrite existing view
      *
      * @return void
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function addView(\string $id, View $view, $order = null, \bool $overwrite = true)
+    public function addView(string $id, View $view, $order = null, bool $overwrite = true)
     {
         if ($overwrite || !isset($this->views[$id])) {
             $this->views[$id] = $view;
@@ -253,12 +253,12 @@ class View implements RenderableInterface
     /**
      * Get view/template response of all views.
      *
-     * @return \string
+     * @return string
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function renderAll() : \string
+    public function renderAll() : string
     {
         ob_start();
 
@@ -272,12 +272,12 @@ class View implements RenderableInterface
     /**
      * Get view/template response.
      *
-     * @return \string
+     * @return string
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function render() : \string
+    public function render() : string
     {
         $this->l11n->setLang($this->app->l11nManager->getLanguage($this->response->getL11n()->getLanguage()));
         $path = realpath($oldPath = __DIR__ . '/../..' . $this->template . '.tpl.php');
@@ -294,7 +294,7 @@ class View implements RenderableInterface
     }
 
     /**
-     * @param \string $id Data Id
+     * @param string $id Data Id
      *
      * @return mixed
      *
@@ -307,7 +307,7 @@ class View implements RenderableInterface
     }
 
     /**
-     * @param \string $id   Data ID
+     * @param string $id   Data ID
      * @param mixed   $data Data
      *
      * @return void
@@ -315,7 +315,7 @@ class View implements RenderableInterface
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function setData(\string $id, $data)
+    public function setData(string $id, $data)
     {
         $this->data[$id] = $data;
     }
@@ -323,14 +323,14 @@ class View implements RenderableInterface
     /**
      * Remove view.
      *
-     * @param \string $id Data Id
+     * @param string $id Data Id
      *
-     * @return \bool
+     * @return bool
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function removeData(\string $id) : \bool
+    public function removeData(string $id) : bool
     {
         if (isset($this->data[$id])) {
             unset($this->data[$id]);
@@ -342,7 +342,7 @@ class View implements RenderableInterface
     }
 
     /**
-     * @param \string $id   Data ID
+     * @param string $id   Data ID
      * @param mixed   $data Data
      *
      * @return void
@@ -350,7 +350,7 @@ class View implements RenderableInterface
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function addData(\string $id, $data)
+    public function addData(string $id, $data)
     {
         $this->data[$id] = $data;
     }

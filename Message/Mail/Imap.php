@@ -48,7 +48,7 @@ class Imap extends Mail
         return imap_get_quotaroot($this->inbox, "INBOX");
     }
 
-    public function getInbox(\string $option = 'ALL') : array
+    public function getInbox(string $option = 'ALL') : array
     {
         $ids    = imap_search($this->inbox, $option, SE_FREE, 'UTF-8');
 
@@ -74,22 +74,22 @@ class Imap extends Mail
         return $this->getInbox('NEW');
     }
 
-    public function getInboxFrom(\string $from)
+    public function getInboxFrom(string $from)
     {
         return $this->getInbox('FROM "' . $from . '"');
     }
 
-    public function getInboxTo(\string $to)
+    public function getInboxTo(string $to)
     {
         return $this->getInbox('TO "' . $to . '"');
     }
 
-    public function getInboxCc(\string $cc)
+    public function getInboxCc(string $cc)
     {
         return $this->getInbox('CC "' . $cc . '"');
     }
 
-    public function getInboxBcc(\string $bcc)
+    public function getInboxBcc(string $bcc)
     {
         return $this->getInbox('BCC "' . $bcc . '"');
     }
@@ -99,7 +99,7 @@ class Imap extends Mail
         return $this->getInbox('ANSWERED');
     }
 
-    public function getInboxSubject(\string $subject)
+    public function getInboxSubject(string $subject)
     {
         return $this->getInbox('SUBJECT "' . $subject . '"');
     }
@@ -124,7 +124,7 @@ class Imap extends Mail
         return $this->getInbox('DELETED');
     }
 
-    public function getInboxText(\string $text)
+    public function getInboxText(string $text)
     {
         return $this->getInbox('TEXT "' . $text . '"');
     }

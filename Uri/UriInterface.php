@@ -32,101 +32,101 @@ interface UriInterface
     /**
      * Is uri valid?
      *
-     * @param \string $uri Uri string
+     * @param string $uri Uri string
      *
-     * @return \bool
+     * @return bool
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public static function isValid(\string $uri) : \bool;
+    public static function isValid(string $uri) : bool;
 
     /**
      * Get scheme.
      *
-     * @return \string
+     * @return string
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function getScheme() : \string;
+    public function getScheme() : string;
 
     /**
      * Get authority.
      *
-     * @return \string
+     * @return string
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function getAuthority() : \string;
+    public function getAuthority() : string;
 
     /**
      * Get user info.
      *
-     * @return \string
+     * @return string
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function getUserInfo() : \string;
+    public function getUserInfo() : string;
 
     /**
      * Get host.
      *
-     * @return \string
+     * @return string
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function getHost() : \string;
+    public function getHost() : string;
 
     /**
      * Get port.
      *
-     * @return \int
+     * @return int
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function getPort() : \int;
+    public function getPort() : int;
 
     /**
      * Get path.
      *
-     * @return \string
+     * @return string
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function getPath() : \string;
+    public function getPath() : string;
 
     /**
      * Get query.
      *
-     * @param \string $key Query key
+     * @param string $key Query key
      *
-     * @return \string|array
+     * @return string|array
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function getQuery(\string $key = null);
+    public function getQuery(string $key = null);
 
     /**
      * Get fragment.
      *
-     * @return \string
+     * @return string
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function getFragment() : \string;
+    public function getFragment() : string;
 
     /**
      * Get uri.
      *
-     * @return \string
+     * @return string
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
@@ -136,10 +136,10 @@ interface UriInterface
     /**
      * Get base uri.
      *
-     * @return \string
+     * @return string
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function getBase() : \string;
+    public function getBase() : string;
 }

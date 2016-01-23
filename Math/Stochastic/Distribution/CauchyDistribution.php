@@ -41,7 +41,7 @@ class CauchyDistribution
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public static function getPdf(\float $x, \float $x0, \float $gamma) : \float
+    public static function getPdf(float $x, float $x0, float $gamma) : float
     {
         return 1 / (pi() * $gamma * (1 + (($x - $x0) / $gamma) ** 2));
     }
@@ -58,7 +58,7 @@ class CauchyDistribution
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public static function getCdf(\float $x, \float $x0, \float $gamma) : \float
+    public static function getCdf(float $x, float $x0, float $gamma) : float
     {
         return 1 / pi() * atan(($x - $x0) / $gamma) + 0.5;
     }
@@ -73,7 +73,7 @@ class CauchyDistribution
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public static function getMode($x0) : \float
+    public static function getMode($x0) : float
     {
         return $x0;
     }
@@ -81,14 +81,14 @@ class CauchyDistribution
     /**
      * Get expected value.
      *
-     * @param \float $x0
+     * @param float $x0
      *
      * @return float
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public static function getMedian(\float $x0) : \float
+    public static function getMedian(float $x0) : float
     {
         return $x0;
     }

@@ -62,7 +62,7 @@ class Client extends SocketAbstract
     /**
      * {@inheritdoc}
      */
-    public function create(\string $ip, \int $port)
+    public function create(string $ip, int $port)
     {
         parent::create($ip, $port);
     }

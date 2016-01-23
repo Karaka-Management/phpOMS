@@ -57,12 +57,12 @@ class Pool
      * @param mixed              $key Database key
      * @param ConnectionAbstract $db  Database
      *
-     * @return \bool
+     * @return bool
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function add($key = 'core', ConnectionAbstract $db) : \bool
+    public function add($key = 'core', ConnectionAbstract $db) : bool
     {
         if (isset($this->pool[$key])) {
             return false;
@@ -97,12 +97,12 @@ class Pool
      *
      * @param mixed $key Database key
      *
-     * @return \bool
+     * @return bool
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function remove($key) : \bool
+    public function remove($key) : bool
     {
         if (!isset($this->pool[$key])) {
             return false;
@@ -119,12 +119,12 @@ class Pool
      * @param mixed $key    Database key
      * @param array $config Database config data
      *
-     * @return \bool
+     * @return bool
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function create($key, array $config) : \bool
+    public function create($key, array $config) : bool
     {
         if (isset($this->pool[$key])) {
             return false;

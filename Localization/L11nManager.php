@@ -32,7 +32,7 @@ class L11nManager
     /**
      * Language.
      *
-     * @var \string[][]
+     * @var string[][]
      * @since 1.0.0
      */
     private $language = [];
@@ -40,14 +40,14 @@ class L11nManager
     /**
      * Verify if language is loaded.
      *
-     * @param \string $language Language iso code
+     * @param string $language Language iso code
      *
-     * @return \bool
+     * @return bool
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function isLanguageLoaded(\string $language) : \bool
+    public function isLanguageLoaded(string $language) : bool
     {
         return isset($this->language[$language]);
     }
@@ -58,9 +58,9 @@ class L11nManager
      * One module can only be loaded once. Once the module got loaded it's not
      * possible to load more language files later on.
      *
-     * @param \string     $language Language iso code
-     * @param \string     $from     Module name
-     * @param \string[][] $files    Language files content
+     * @param string     $language Language iso code
+     * @param string     $from     Module name
+     * @param string[][] $files    Language files content
      *
      * @return void
      *
@@ -69,7 +69,7 @@ class L11nManager
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function loadLanguage(\string $language, \string $from, array $files)
+    public function loadLanguage(string $language, string $from, array $files)
     {
         if(!isset($files[$from])) {
             throw new \Exception('Unexpected language key: ' . $from);
@@ -86,15 +86,15 @@ class L11nManager
     /**
      * Get application language.
      *
-     * @param \string $language Language iso code
-     * @param \string $module   Module name
+     * @param string $language Language iso code
+     * @param string $module   Module name
      *
      * @return array
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function getLanguage(\string $language, \string $module = null) : array
+    public function getLanguage(string $language, string $module = null) : array
     {
         if (!isset($module) && isset($this->language[$language])) {
             return $this->language[$language];

@@ -52,7 +52,7 @@ trait OptionsTrait
     /**
      * {@inheritdoc}
      */
-    public function setOption($key, $value, \bool $overwrite = true) : \bool
+    public function setOption($key, $value, bool $overwrite = true) : bool
     {
         if ($overwrite || !array_key_exists($key, $this->options)) {
             $this->options[$key] = $value;
@@ -66,7 +66,7 @@ trait OptionsTrait
     /**
      * {@inheritdoc}
      */
-    public function setOptions(array $pair, \bool $overwrite = true) : \bool
+    public function setOptions(array $pair, bool $overwrite = true) : bool
     {
         if ($overwrite) {
             $this->options += $pair;

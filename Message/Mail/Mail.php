@@ -39,7 +39,7 @@ abstract class Mail
 
     protected $mailer = null;
 
-    public function __construct(\int $type)
+    public function __construct(int $type)
     {
         $this->type = $type;
 

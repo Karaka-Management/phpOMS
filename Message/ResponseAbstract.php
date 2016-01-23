@@ -45,7 +45,7 @@ abstract class ResponseAbstract implements ResponseInterface, ArrayableInterface
     /**
      * Responses.
      *
-     * @var \string[]
+     * @var string[]
      * @since 1.0.0
      */
     protected $response = [];
@@ -53,7 +53,7 @@ abstract class ResponseAbstract implements ResponseInterface, ArrayableInterface
     /**
      * Response status.
      *
-     * @var \int
+     * @var int
      * @since 1.0.0
      */
     protected $status = 200;
@@ -61,7 +61,7 @@ abstract class ResponseAbstract implements ResponseInterface, ArrayableInterface
     /**
      * Account.
      *
-     * @var \int
+     * @var int
      * @since 1.0.0
      */
     protected $account = null;
@@ -69,7 +69,7 @@ abstract class ResponseAbstract implements ResponseInterface, ArrayableInterface
     /**
      * {@inheritdoc}
      */
-    abstract public function setHeader($key, \string $header, \bool $overwrite = true);
+    abstract public function setHeader($key, string $header, bool $overwrite = true);
 
     /**
      * {@inheritdoc}
@@ -107,14 +107,14 @@ abstract class ResponseAbstract implements ResponseInterface, ArrayableInterface
      *
      * @param mixed $key       Response id
      * @param mixed $response  Response to add
-     * @param \bool $overwrite Overwrite
+     * @param bool $overwrite Overwrite
      *
      * @return void
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function set($key, $response, \bool $overwrite = true)
+    public function set($key, $response, bool $overwrite = true)
     {
         $this->response = ArrayUtils::setArray($key, $this->response, $response, ':', $overwrite);
     }
@@ -122,7 +122,7 @@ abstract class ResponseAbstract implements ResponseInterface, ArrayableInterface
     /**
      * {@inheritdoc}
      */
-    public function setStatusCode(\string $status)
+    public function setStatusCode(string $status)
     {
         $this->status = $status;
         $this->generateHeader($status);
@@ -131,7 +131,7 @@ abstract class ResponseAbstract implements ResponseInterface, ArrayableInterface
     /**
      * {@inheritdoc}
      */
-    public function getStatusCode() : \string
+    public function getStatusCode() : string
     {
         return $this->status;
     }
@@ -139,7 +139,7 @@ abstract class ResponseAbstract implements ResponseInterface, ArrayableInterface
     /**
      * {@inheritdoc}
      */
-    public function getAccount() : \int
+    public function getAccount() : int
     {
         return $this->account;
     }
@@ -147,7 +147,7 @@ abstract class ResponseAbstract implements ResponseInterface, ArrayableInterface
     /**
      * {@inheritdoc}
      */
-    public function setAccount(\int $account)
+    public function setAccount(int $account)
     {
         $this->account = $account;
     }
@@ -155,7 +155,7 @@ abstract class ResponseAbstract implements ResponseInterface, ArrayableInterface
     /**
      * {@inheritdoc}
      */
-    public function toJson(\int $options = 0) : \string
+    public function toJson(int $options = 0) : string
     {
         return json_encode($this->toArray());
     }

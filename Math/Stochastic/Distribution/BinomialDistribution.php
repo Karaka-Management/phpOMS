@@ -44,7 +44,7 @@ class BinomialDistribution
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public static function getMode(\int $n, \float $p) : \float
+    public static function getMode(int $n, float $p) : float
     {
         if (($temp = ($n + 1) * $p) === 0 || !is_int($temp)) {
             return floor($temp);
@@ -71,7 +71,7 @@ class BinomialDistribution
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public static function getPmf(\int $n, \int $k, \float $p) : \float
+    public static function getPmf(int $n, int $k, float $p) : float
     {
         return Functions::binomialCoefficient($n, $k) * pow($p, $k) * pow(1 - $p, $n - $k);
     }
@@ -88,7 +88,7 @@ class BinomialDistribution
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public static function getMgf(\int $n, \float $t, \float $p) : \float
+    public static function getMgf(int $n, float $t, float $p) : float
     {
         return pow(1 - $p + $p * exp($t), $n);
     }
@@ -104,7 +104,7 @@ class BinomialDistribution
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public static function getSkewness(\int $n, \float $p) : \float
+    public static function getSkewness(int $n, float $p) : float
     {
         return (1 - 2 * $p) / sqrt($n * $p * (1 - $p));
     }
@@ -120,7 +120,7 @@ class BinomialDistribution
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public static function getFisherInformation(\int $n, \float $p) : \float
+    public static function getFisherInformation(int $n, float $p) : float
     {
         return $n / ($p * (1 - $p));
     }
@@ -136,7 +136,7 @@ class BinomialDistribution
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public static function getExKurtosis(\int $n, \float $p) : \float
+    public static function getExKurtosis(int $n, float $p) : float
     {
         return (1 - 6 * $p * (1 - $p)) / ($n * $p * (1 - $p));
     }
@@ -153,7 +153,7 @@ class BinomialDistribution
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public static function getCdf(\int $n, \int $x, \float $p) : \float
+    public static function getCdf(int $n, int $x, float $p) : float
     {
         $sum = 0.0;
 
@@ -175,7 +175,7 @@ class BinomialDistribution
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public static function getMedian(\int $n, \float $p) : \float
+    public static function getMedian(int $n, float $p) : float
     {
         return floor($n * $p);
     }
@@ -191,7 +191,7 @@ class BinomialDistribution
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public static function getMean(\int $n, \float $p) : \float
+    public static function getMean(int $n, float $p) : float
     {
         return $n * $p;
     }
@@ -207,7 +207,7 @@ class BinomialDistribution
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public static function getVariance(\int $n, \float $p) : \float
+    public static function getVariance(int $n, float $p) : float
     {
         return $n * $p * (1 - $p);
     }

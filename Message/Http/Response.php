@@ -38,7 +38,7 @@ class Response extends ResponseAbstract implements RenderableInterface
     /**
      * Header.
      *
-     * @var \string[][]
+     * @var string[][]
      * @since 1.0.0
      */
     private $header = [];
@@ -83,14 +83,14 @@ class Response extends ResponseAbstract implements RenderableInterface
     /**
      * Remove header by ID.
      *
-     * @param \int $key Header key
+     * @param int $key Header key
      *
-     * @return \bool
+     * @return bool
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function removeHeader(\int $key) : \bool
+    public function removeHeader(int $key) : bool
     {
         if (isset($this->header[$key])) {
             unset($this->header[$key]);
@@ -104,14 +104,14 @@ class Response extends ResponseAbstract implements RenderableInterface
     /**
      * Generate header automatically based on code.
      *
-     * @param \int $code HTTP status code
+     * @param int $code HTTP status code
      *
      * @return void
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function generateHeader(\int $code)
+    public function generateHeader(int $code)
     {
         if ($code === 403) {
             $this->setHeader('HTTP', 'HTTP/1.0 403 Forbidden');
@@ -129,14 +129,14 @@ class Response extends ResponseAbstract implements RenderableInterface
     /**
      * Set response.
      *
-     * @param \string $response Response to set
+     * @param string $response Response to set
      *
      * @return void
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function setResponse(\string $response)
+    public function setResponse(string $response)
     {
         $this->response = $response;
     }
@@ -144,14 +144,14 @@ class Response extends ResponseAbstract implements RenderableInterface
     /**
      * Push a specific response ID.
      *
-     * @param \int $id Response ID
+     * @param int $id Response ID
      *
      * @return void
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function pushResponseId(\int $id)
+    public function pushResponseId(int $id)
     {
         ob_start();
         echo $this->response[$id];
@@ -193,14 +193,14 @@ class Response extends ResponseAbstract implements RenderableInterface
     /**
      * Remove response by ID.
      *
-     * @param \int $id Response ID
+     * @param int $id Response ID
      *
-     * @return \bool
+     * @return bool
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function remove(\int $id) : \bool
+    public function remove(int $id) : bool
     {
         if (isset($this->response[$id])) {
             unset($this->response[$id]);
@@ -222,7 +222,7 @@ class Response extends ResponseAbstract implements RenderableInterface
     /**
      * {@inheritdoc}
      */
-    public function getProtocolVersion() : \string
+    public function getProtocolVersion() : string
     {
         return '1.0';
     }
@@ -238,7 +238,7 @@ class Response extends ResponseAbstract implements RenderableInterface
     /**
      * {@inheritdoc}
      */
-    public function hasHeader(\string $name) : \bool
+    public function hasHeader(string $name) : bool
     {
         return array_key_exists($name, $this->header);
     }
@@ -246,7 +246,7 @@ class Response extends ResponseAbstract implements RenderableInterface
     /**
      * {@inheritdoc}
      */
-    public function getBody() : \string
+    public function getBody() : string
     {
         return $this->render();
     }
@@ -254,14 +254,14 @@ class Response extends ResponseAbstract implements RenderableInterface
     /**
      * Generate response.
      *
-     * @return \string
+     * @return string
      *
      * @throws \Exception
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function render() : \string
+    public function render() : string
     {
         $render = $this->head->render();
 
@@ -284,7 +284,7 @@ class Response extends ResponseAbstract implements RenderableInterface
     /**
      * {@inheritdoc}
      */
-    public function toCsv() : \string
+    public function toCsv() : string
     {
         return ArrayUtils::arrayToCSV($this->toArray());
     }
@@ -310,7 +310,7 @@ class Response extends ResponseAbstract implements RenderableInterface
     /**
      * {@inheritdoc}
      */
-    public function getReasonPhrase() : \string
+    public function getReasonPhrase() : string
     {
         return $this->getHeader('Status');
     }
@@ -318,7 +318,7 @@ class Response extends ResponseAbstract implements RenderableInterface
     /**
      * {@inheritdoc}
      */
-    public function getHeader(\string $name)
+    public function getHeader(string $name)
     {
         if (isset($this->header[$name])) {
             return $this->header[$name];
@@ -330,7 +330,7 @@ class Response extends ResponseAbstract implements RenderableInterface
     /**
      * {@inheritdoc}
      */
-    public function setHeader($key, \string $header, \bool $overwrite = false) : \bool
+    public function setHeader($key, string $header, bool $overwrite = false) : bool
     {
         if (!$overwrite && isset($this->header[$key])) {
             return false;

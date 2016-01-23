@@ -34,7 +34,7 @@ class Meta implements RenderableInterface
     /**
      * Keywords.
      *
-     * @var \string[]
+     * @var string[]
      * @since 1.0.0
      */
     private $keywords = [];
@@ -42,7 +42,7 @@ class Meta implements RenderableInterface
     /**
      * Author.
      *
-     * @var \string
+     * @var string
      * @since 1.0.0
      */
     private $author = null;
@@ -50,7 +50,7 @@ class Meta implements RenderableInterface
     /**
      * Charset.
      *
-     * @var \string
+     * @var string
      * @since 1.0.0
      */
     private $charset = null;
@@ -58,7 +58,7 @@ class Meta implements RenderableInterface
     /**
      * Description.
      *
-     * @var \string
+     * @var string
      * @since 1.0.0
      */
     private $description = null;
@@ -66,7 +66,7 @@ class Meta implements RenderableInterface
     /**
      * Language.
      *
-     * @var \string
+     * @var string
      * @since 1.0.0
      */
     private $language = 'en';
@@ -74,14 +74,14 @@ class Meta implements RenderableInterface
     /**
      * Add keyword.
      *
-     * @param \string $keyword Keyword
+     * @param string $keyword Keyword
      *
      * @return void
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function addKeyword(\string $keyword)
+    public function addKeyword(string $keyword)
     {
         if (!in_array($keyword, $this->keywords)) {
             $this->keywords[] = $keyword;
@@ -91,7 +91,7 @@ class Meta implements RenderableInterface
     /**
      * Get keywords.
      *
-     * @return \string[] Keywords
+     * @return string[] Keywords
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
@@ -104,12 +104,12 @@ class Meta implements RenderableInterface
     /**
      * Get author.
      *
-     * @return \string Author
+     * @return string Author
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function getAuthor() : \string
+    public function getAuthor() : string
     {
         return $this->author;
     }
@@ -117,14 +117,14 @@ class Meta implements RenderableInterface
     /**
      * Set author.
      *
-     * @param \string $author Author
+     * @param string $author Author
      *
      * @return void
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function setAuthor(\string $author)
+    public function setAuthor(string $author)
     {
         $this->author = $author;
     }
@@ -132,12 +132,12 @@ class Meta implements RenderableInterface
     /**
      * Get charset.
      *
-     * @return \string Charset
+     * @return string Charset
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function getCharset() : \string
+    public function getCharset() : string
     {
         return $this->charset;
     }
@@ -145,14 +145,14 @@ class Meta implements RenderableInterface
     /**
      * Set charset.
      *
-     * @param \string $charset Charset
+     * @param string $charset Charset
      *
      * @return void
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function setCharset(\string $charset)
+    public function setCharset(string $charset)
     {
         $this->charset = $charset;
     }
@@ -160,12 +160,12 @@ class Meta implements RenderableInterface
     /**
      * Get description.
      *
-     * @return \string Descritpion
+     * @return string Descritpion
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function getDescription() : \string
+    public function getDescription() : string
     {
         return $this->description;
     }
@@ -173,14 +173,14 @@ class Meta implements RenderableInterface
     /**
      * Set description.
      *
-     * @param \string Descritpion
+     * @param string Descritpion
      *
      * @return void
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function setDescription(\string $description)
+    public function setDescription(string $description)
     {
         $this->description = $description;
     }
@@ -188,12 +188,12 @@ class Meta implements RenderableInterface
     /**
      * Get language.
      *
-     * @return \string Language
+     * @return string Language
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function getLanguage() : \string
+    public function getLanguage() : string
     {
         return $this->language;
     }
@@ -201,14 +201,14 @@ class Meta implements RenderableInterface
     /**
      * Set language.
      *
-     * @param \string $language Language
+     * @param string $language Language
      *
      * @return void
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function setLanguage(\string $language)
+    public function setLanguage(string $language)
     {
         $this->language = $language;
     }
@@ -216,7 +216,7 @@ class Meta implements RenderableInterface
     /**
      * {@inheritdoc}
      */
-    public function render() : \string
+    public function render() : string
     {
         return (count($this->keywords) > 0 ? '<meta name="keywords" content="' . implode(',', $this->keywords) . '">"' : '')
                . (isset($this->author) ? '<meta name="author" content="' . $this->author . '">' : '')

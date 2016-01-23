@@ -73,7 +73,7 @@ class CityPool implements \Countable
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function getCity(\int $index) : City
+    public function getCity(int $index) : City
     {
         return array_values($this->cities)[$index];
     }
@@ -96,12 +96,12 @@ class CityPool implements \Countable
      *
      * @param City $city City
      *
-     * @return \bool
+     * @return bool
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function hasCity(City $city) : \bool
+    public function hasCity(City $city) : bool
     {
         foreach ($this->cities as $c) {
             if ($c->equals($city)) {
@@ -115,12 +115,12 @@ class CityPool implements \Countable
     /**
      * Count cities
      *
-     * @return \int
+     * @return int
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function count() : \int
+    public function count() : int
     {
         return count($this->cities);
     }

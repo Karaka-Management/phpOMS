@@ -35,16 +35,16 @@ class Zip
     /**
      * Create zip.
      *
-     * @param \string[] $sources     Files and directories to compress
-     * @param \string   $destination Output destination
-     * @param \bool     $overwrite   Overwrite if destination is existing
+     * @param string[] $sources     Files and directories to compress
+     * @param string   $destination Output destination
+     * @param bool     $overwrite   Overwrite if destination is existing
      *
-     * @return \bool
+     * @return bool
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public static function create(array $sources, \string $destination, \bool $overwrite = true) : \bool
+    public static function create(array $sources, string $destination, bool $overwrite = true) : bool
     {
         $destination = str_replace('\\', '/', realpath($destination));
 

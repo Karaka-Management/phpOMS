@@ -46,7 +46,7 @@ class Triangle
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public static function getArea(\float $b, \float $h)
+    public static function getArea(float $b, float $h)
     {
         return $h * $b / 2;
     }
@@ -63,7 +63,7 @@ class Triangle
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public static function getPerimeter(\float $a, \float $b, \float $c)
+    public static function getPerimeter(float $a, float $b, float $c)
     {
         return $a + $b + $c;
     }
@@ -79,7 +79,7 @@ class Triangle
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public static function getHeight(\float $area, \float $b)
+    public static function getHeight(float $area, float $b)
     {
         return 2 * $area / $b;
     }

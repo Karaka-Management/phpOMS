@@ -50,16 +50,16 @@ class Numeric
     /**
      * Convert base.
      *
-     * @param \string $numberInput   Input number
-     * @param \string $fromBaseInput Input layout (e.g. 0123456789ABCDEF)
-     * @param \string $toBaseInput   Output layout (e.g. 0123456789ABCDEF)
+     * @param string $numberInput   Input number
+     * @param string $fromBaseInput Input layout (e.g. 0123456789ABCDEF)
+     * @param string $toBaseInput   Output layout (e.g. 0123456789ABCDEF)
      *
-     * @return \string
+     * @return string
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public static function convertBase(\string $numberInput, \string $fromBaseInput, \string $toBaseInput) : \string
+    public static function convertBase(string $numberInput, string $fromBaseInput, string $toBaseInput) : string
     {
         if ($fromBaseInput == $toBaseInput) {
             return $numberInput;
@@ -102,14 +102,14 @@ class Numeric
      *
      * Be aware that there is no standard for larger roman numbers.
      *
-     * @param \int $arabic Arabic number
+     * @param int $arabic Arabic number
      *
-     * @return \string
+     * @return string
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public static function arabicToRoman(\int $arabic) : \string
+    public static function arabicToRoman(int $arabic) : string
     {
         $result = '';
 
@@ -129,14 +129,14 @@ class Numeric
     /**
      * Convert roman to arabic.
      *
-     * @param \string $roman Roman number
+     * @param string $roman Roman number
      *
-     * @return \int
+     * @return int
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public static function romanToArabic(\string $roman) : \int
+    public static function romanToArabic(string $roman) : int
     {
         $result = 0;
 
@@ -155,14 +155,14 @@ class Numeric
      *
      * This can be used for alpha lists such as e.g. word uses.
      *
-     * @param \int $number Number to convert
+     * @param int $number Number to convert
      *
-     * @return \string
+     * @return string
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public static function numericToAlpha(\int $number) : \string
+    public static function numericToAlpha(int $number) : string
     {
         $alpha = '';
 
@@ -177,14 +177,14 @@ class Numeric
     /**
      * Convert alpha to numeric.
      *
-     * @param \string $alpha Alpha to convert
+     * @param string $alpha Alpha to convert
      *
-     * @return \int
+     * @return int
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public static function alphaToNumeric(\string $alpha) : \int
+    public static function alphaToNumeric(string $alpha) : int
     {
         $numeric = 0;
         $length  = strlen($alpha);

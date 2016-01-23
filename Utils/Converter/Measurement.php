@@ -32,16 +32,16 @@ class Measurement
     /**
      * Convert temperature.
      *
-     * @param \float  $value Value to convert
-     * @param \string $from  Input temperature
-     * @param \string $to    Output temperature
+     * @param float  $value Value to convert
+     * @param string $from  Input temperature
+     * @param string $to    Output temperature
      *
-     * @return \float
+     * @return float
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public static function convertTemperature(\float $value, \string $from, \string $to) : \float
+    public static function convertTemperature(float $value, string $from, string $to) : float
     {
         switch ($from) {
             case TemperatureType::CELSIUS:

@@ -34,22 +34,22 @@ interface RequestInterface extends MessageInterface
     /**
      * Get request target.
      *
-     * @return \string
+     * @return string
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function getRequestTarget() : \string;
+    public function getRequestTarget() : string;
 
     /**
      * Get request method.
      *
-     * @return \string
+     * @return string
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function getMethod() : \string;
+    public function getMethod() : string;
 
     /**
      * Get request uri.
@@ -64,7 +64,7 @@ interface RequestInterface extends MessageInterface
     /**
      * Get request hash.
      *
-     * @return \string
+     * @return string
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>

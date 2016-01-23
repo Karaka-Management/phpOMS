@@ -36,7 +36,7 @@ class Account
     /**
      * Id.
      *
-     * @var \int
+     * @var int
      * @since 1.0.0
      */
     protected $id = 0;
@@ -44,7 +44,7 @@ class Account
     /**
      * Names.
      *
-     * @var \string
+     * @var string
      * @since 1.0.0
      */
     protected $name1 = '';
@@ -52,7 +52,7 @@ class Account
     /**
      * Names.
      *
-     * @var \string
+     * @var string
      * @since 1.0.0
      */
     protected $name2 = '';
@@ -60,7 +60,7 @@ class Account
     /**
      * Names.
      *
-     * @var \string
+     * @var string
      * @since 1.0.0
      */
     protected $name3 = '';
@@ -68,7 +68,7 @@ class Account
     /**
      * Email.
      *
-     * @var \string
+     * @var string
      * @since 1.0.0
      */
     protected $email = '';
@@ -78,7 +78,7 @@ class Account
      *
      * Used in order to make sure ips don't change
      *
-     * @var \string
+     * @var string
      * @since 1.0.0
      */
     protected $origin = '';
@@ -86,7 +86,7 @@ class Account
     /**
      * Login.
      *
-     * @var \string
+     * @var string
      * @since 1.0.0
      */
     protected $login = '';
@@ -118,7 +118,7 @@ class Account
     /**
      * Groups.
      *
-     * @var \int[]
+     * @var int[]
      * @since 1.0.0
      */
     protected $groups = [];
@@ -160,12 +160,12 @@ class Account
     /**
      * Get account id.
      *
-     * @return \int Account id
+     * @return int Account id
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function getId() : \int
+    public function getId() : int
     {
         return $this->id;
     }
@@ -201,12 +201,12 @@ class Account
     /**
      * Get name1.
      *
-     * @return \string
+     * @return string
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function getName1() : \string
+    public function getName1() : string
     {
         return $this->name1;
     }
@@ -214,12 +214,12 @@ class Account
     /**
      * Get name2.
      *
-     * @return \string
+     * @return string
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function getName2() : \string
+    public function getName2() : string
     {
         return $this->name2;
     }
@@ -227,12 +227,12 @@ class Account
     /**
      * Get name3.
      *
-     * @return \string
+     * @return string
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function getName3() : \string
+    public function getName3() : string
     {
         return $this->name3;
     }
@@ -240,12 +240,12 @@ class Account
     /**
      * Get email.
      *
-     * @return \string
+     * @return string
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function getEmail() : \string
+    public function getEmail() : string
     {
         return $this->email;
     }
@@ -255,12 +255,12 @@ class Account
      *
      * AccountStatus
      *
-     * @return \int
+     * @return int
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function getStatus() : \int
+    public function getStatus() : int
     {
         return $this->status;
     }
@@ -270,12 +270,12 @@ class Account
      *
      * AccountType
      *
-     * @return \int
+     * @return int
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function getType() : \int
+    public function getType() : int
     {
         return $this->type;
     }
@@ -309,14 +309,14 @@ class Account
     /**
      * Set name1.
      *
-     * @param \string $name Name
+     * @param string $name Name
      *
      * @return void
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function setName1(\string $name)
+    public function setName1(string $name)
     {
         $this->name1 = $name;
     }
@@ -324,14 +324,14 @@ class Account
     /**
      * Set name2.
      *
-     * @param \string $name Name
+     * @param string $name Name
      *
      * @return void
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function setName2(\string $name)
+    public function setName2(string $name)
     {
         $this->name2 = $name;
     }
@@ -339,14 +339,14 @@ class Account
     /**
      * Set name3.
      *
-     * @param \string $name Name
+     * @param string $name Name
      *
      * @return void
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function setName3(\string $name)
+    public function setName3(string $name)
     {
         $this->name3 = $name;
     }
@@ -354,14 +354,14 @@ class Account
     /**
      * Set email.
      *
-     * @param \string $email Email
+     * @param string $email Email
      *
      * @return void
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function setEmail(\string $email)
+    public function setEmail(string $email)
     {
         if(!Email::isValid($email)) {
             throw new \InvalidArgumentException();
@@ -373,14 +373,14 @@ class Account
     /**
      * Get status.
      *
-     * @param \int $status Status
+     * @param int $status Status
      *
      * @return void
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function setStatus(\int $status)
+    public function setStatus(int $status)
     {
         if(!AccountStatus::isValidValue($status)) {
             throw new \InvalidArgumentException();
@@ -392,14 +392,14 @@ class Account
     /**
      * Get type.
      *
-     * @param \int $type Type
+     * @param int $type Type
      *
      * @return void
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function setType(\int $type)
+    public function setType(int $type)
     {
         if(!AccountType::isValidValue($type)) {
             throw new \InvalidArgumentException();

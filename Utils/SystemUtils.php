@@ -44,14 +44,14 @@ class SystemUtils
      *
      * This can become rather slow for large structures.
      *
-     * @param \string $dir Root dir to inspect
+     * @param string $dir Root dir to inspect
      *
-     * @return \int
+     * @return int
      *
      * @since  1.0.0
      * @author Dennis Eichhorn
      */
-    public static function getFolderSize(\string $dir) : \int
+    public static function getFolderSize(string $dir) : int
     {
         $countSize = 0;
         $count     = 0;
@@ -77,12 +77,12 @@ class SystemUtils
     /**
      * Get system RAM.
      *
-     * @return \int
+     * @return int
      *
      * @since  1.0.0
      * @author Dennis Eichhorn
      */
-    public static function getRAM() : \int
+    public static function getRAM() : int
     {
         $mem = null;
 
@@ -109,12 +109,12 @@ class SystemUtils
     /**
      * Get RAM usage.
      *
-     * @return \int
+     * @return int
      *
      * @since  1.0.0
      * @author Dennis Eichhorn
      */
-    public static function getRAMUsage() : \int
+    public static function getRAMUsage() : int
     {
         $memusage = 0;
 
@@ -136,12 +136,12 @@ class SystemUtils
     /**
      * Get cpu usage.
      *
-     * @return \int
+     * @return int
      *
      * @since  1.0.0
      * @author Dennis Eichhorn
      */
-    public static function getCpuUsage() : \int
+    public static function getCpuUsage() : int
     {
         $cpuusage = 0;
 

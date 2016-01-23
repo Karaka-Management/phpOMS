@@ -41,7 +41,7 @@ class LaplaceDistribution
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public static function getPdf(\float $x, \float $mu, \float $b) : \float
+    public static function getPdf(float $x, float $mu, float $b) : float
     {
         return 1 / (2 * $b) * exp(-abs($x - $mu) / $b);
     }
@@ -58,7 +58,7 @@ class LaplaceDistribution
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public static function getCdf(\float $x, \float $mu, \float $b) : \float
+    public static function getCdf(float $x, float $mu, float $b) : float
     {
         return $x < $mu ? exp(($x - $mu) / $b) / 2 : 1 - exp(-($x - $mu) / $b) / 2;
     }
@@ -66,14 +66,14 @@ class LaplaceDistribution
     /**
      * Get mode.
      *
-     * @param \float $mu
+     * @param float $mu
      *
      * @return float
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public static function getMode(\float $mu) : \float
+    public static function getMode(float $mu) : float
     {
         return $mu;
     }
@@ -81,14 +81,14 @@ class LaplaceDistribution
     /**
      * Get expected value.
      *
-     * @param \float $mu
+     * @param float $mu
      *
      * @return float
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public static function getMean(\float $mu) : \float
+    public static function getMean(float $mu) : float
     {
         return $mu;
     }
@@ -96,14 +96,14 @@ class LaplaceDistribution
     /**
      * Get expected value.
      *
-     * @param \float $mu
+     * @param float $mu
      *
      * @return float
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public static function getMedian(\float $mu) : \float
+    public static function getMedian(float $mu) : float
     {
         return $mu;
     }
@@ -111,14 +111,14 @@ class LaplaceDistribution
     /**
      * Get variance.
      *
-     * @param \float $b
+     * @param float $b
      *
      * @return float
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public static function getVariance(\float $b) : \float
+    public static function getVariance(float $b) : float
     {
         return 2 * $b ** 2;
     }
@@ -137,7 +137,7 @@ class LaplaceDistribution
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public static function getMgf(\float $t, \float $mu, \float $b) : \float
+    public static function getMgf(float $t, float $mu, float $b) : float
     {
         if ($t >= 1 / $b) {
             throw new \Exception('Out of bounds');
@@ -154,7 +154,7 @@ class LaplaceDistribution
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public static function getSkewness() : \float
+    public static function getSkewness() : float
     {
         return 0;
     }
@@ -167,7 +167,7 @@ class LaplaceDistribution
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public static function getExKurtosis() : \float
+    public static function getExKurtosis() : float
     {
         return 3;
     }

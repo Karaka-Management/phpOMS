@@ -34,7 +34,7 @@ class Location implements JsonableInterface
     /**
      * Zip or postal.
      *
-     * @var \string
+     * @var string
      * @since 1.0.0
      */
     private $postal = '';
@@ -42,7 +42,7 @@ class Location implements JsonableInterface
     /**
      * Name of city.
      *
-     * @var \string
+     * @var string
      * @since 1.0.0
      */
     private $city = '';
@@ -50,7 +50,7 @@ class Location implements JsonableInterface
     /**
      * Name of the country.
      *
-     * @var \string
+     * @var string
      * @since 1.0.0
      */
     private $country = '';
@@ -58,7 +58,7 @@ class Location implements JsonableInterface
     /**
      * Street & district.
      *
-     * @var \string
+     * @var string
      * @since 1.0.0
      */
     private $address = '';
@@ -66,7 +66,7 @@ class Location implements JsonableInterface
     /**
      * State.
      *
-     * @var \string
+     * @var string
      * @since 1.0.0
      */
     private $state = '';
@@ -74,7 +74,7 @@ class Location implements JsonableInterface
     /**
      * Geo coordinates.
      *
-     * @var \float[]
+     * @var float[]
      * @since 1.0.0
      */
     private $geo = ['lat' => 0, 'long' => 0];
@@ -90,127 +90,127 @@ class Location implements JsonableInterface
     }
 
     /**
-     * @return \string
+     * @return string
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function getPostal() : \string
+    public function getPostal() : string
     {
         return $this->postal;
     }
 
     /**
-     * @param \string $postal
+     * @param string $postal
      *
      * @return void
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function setPostal(\string $postal)
+    public function setPostal(string $postal)
     {
         $this->postal = $postal;
     }
 
     /**
-     * @return \string
+     * @return string
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function getCity() : \string
+    public function getCity() : string
     {
         return $this->city;
     }
 
     /**
-     * @param \string $city
+     * @param string $city
      *
      * @return void
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function setCity(\string $city)
+    public function setCity(string $city)
     {
         $this->city = $city;
     }
 
     /**
-     * @return \string
+     * @return string
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function getCountry() : \string
+    public function getCountry() : string
     {
         return $this->country;
     }
 
     /**
-     * @param \string $country
+     * @param string $country
      *
      * @return void
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function setCountry(\string $country)
+    public function setCountry(string $country)
     {
         $this->country = $country;
     }
 
     /**
-     * @return \string
+     * @return string
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function getAddress() : \string
+    public function getAddress() : string
     {
         return $this->address;
     }
 
     /**
-     * @param \string $address
+     * @param string $address
      *
      * @return void
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function setAddress(\string $address)
+    public function setAddress(string $address)
     {
         $this->address = $address;
     }
 
     /**
-     * @return \string
+     * @return string
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function getState() : \string
+    public function getState() : string
     {
         return $this->state;
     }
 
     /**
-     * @param \string $state
+     * @param string $state
      *
      * @return void
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function setState(\string $state)
+    public function setState(string $state)
     {
         $this->state = $state;
     }
 
     /**
-     * @return \float[]
+     * @return float[]
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
@@ -221,7 +221,7 @@ class Location implements JsonableInterface
     }
 
     /**
-     * @param \float[] $geo
+     * @param float[] $geo
      *
      * @return void
      *
@@ -251,7 +251,7 @@ class Location implements JsonableInterface
     /**
      * {@inheritdoc}
      */
-    public function toJson(\int $option = 0) : \string
+    public function toJson(int $option = 0) : string
     {
         return json_encode($this->toArray());
     }

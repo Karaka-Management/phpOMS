@@ -35,14 +35,14 @@ interface CacheInterface
      * @param mixed       $key    Unique cache key
      * @param mixed       $value  Cache value
      * @param CacheStatus $type   Cache type
-     * @param \int        $expire Valid duration (in s)
+     * @param int        $expire Valid duration (in s)
      *
      * @return void
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function set($key, $value, CacheStatus $type = null, \int $expire = 2592000);
+    public function set($key, $value, CacheStatus $type = null, int $expire = 2592000);
 
     /**
      * Adding new data if it doesn't exist.
@@ -50,14 +50,14 @@ interface CacheInterface
      * @param mixed       $key    Unique cache key
      * @param mixed       $value  Cache value
      * @param CacheStatus $type   Cache type
-     * @param \int        $expire Valid duration (in s)
+     * @param int        $expire Valid duration (in s)
      *
-     * @return \bool
+     * @return bool
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function add($key, $value, CacheStatus $type = null, \int $expire = 2592000) : \bool;
+    public function add($key, $value, CacheStatus $type = null, int $expire = 2592000) : bool;
 
     /**
      * Get cache by key.
@@ -78,12 +78,12 @@ interface CacheInterface
      * @param mixed       $key  Unique cache key
      * @param CacheStatus $type Cache status/type
      *
-     * @return \bool
+     * @return bool
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function delete($key, CacheStatus $type = null) : \bool;
+    public function delete($key, CacheStatus $type = null) : bool;
 
     /**
      * Removing all elements from cache (invalidate cache).
@@ -103,14 +103,14 @@ interface CacheInterface
      * @param mixed     $key    Unique cache key
      * @param mixed     $value  Cache value
      * @param CacheType $type   Cache type
-     * @param  \int      $expire Timestamp
+     * @param  int      $expire Timestamp
      *
-     * @return \bool
+     * @return bool
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function replace($key, $value, CacheType $type = null, \int $expire = -1) : \bool;
+    public function replace($key, $value, CacheType $type = null, int $expire = -1) : bool;
 
     /**
      * Requesting cache stats.
@@ -125,11 +125,11 @@ interface CacheInterface
     /**
      * Get the threshold required to cache data using this cache.
      *
-     * @return \int Storage threshold
+     * @return int Storage threshold
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function getThreshold() : \int;
+    public function getThreshold() : int;
 
 }

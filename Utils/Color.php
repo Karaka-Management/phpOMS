@@ -32,17 +32,17 @@ class Color
     /**
      * Creates a 3 point gradient based on a input value.
      *
-     * @param \int   $value Value to represent by color
-     * @param \int[] $start Gradient start
-     * @param \int[] $stop  Gradient stop
-     * @param \int[] $end   Gradient end
+     * @param int   $value Value to represent by color
+     * @param int[] $start Gradient start
+     * @param int[] $stop  Gradient stop
+     * @param int[] $end   Gradient end
      *
      * @return array
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public static function getRGBGradient(\int $value, array $start, array $stop, array $end)
+    public static function getRGBGradient(int $value, array $start, array $stop, array $end)
     {
         $diff     = [];
         $gradient = [];

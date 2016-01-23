@@ -60,14 +60,14 @@ class MultiMap implements \Countable
      *
      * @param array $keys      Keys for value
      * @param mixed $value     Value to store
-     * @param \bool $overwrite Add value if key exists
+     * @param bool $overwrite Add value if key exists
      *
      * @return bool
      *
      * @since  1.0.0
      * @author Dennis Eichhorn
      */
-    public function add(array $keys, $value, \bool $overwrite = true) : \bool
+    public function add(array $keys, $value, bool $overwrite = true) : bool
     {
         $id       = count($this->values);
         $inserted = false;
@@ -133,12 +133,12 @@ class MultiMap implements \Countable
      * @param mixed $key   Key used to identify value
      * @param mixed $value Value to store
      *
-     * @return \bool
+     * @return bool
      *
      * @since  1.0.0
      * @author Dennis Eichhorn
      */
-    public function set($key, $value) : \bool
+    public function set($key, $value) : bool
     {
         if (isset($this->keys[$key])) {
             $this->values[$this->keys[$key]] = $value;
@@ -154,12 +154,12 @@ class MultiMap implements \Countable
      *
      * @param mixed $key Key used to identify value
      *
-     * @return \bool
+     * @return bool
      *
      * @since  1.0.0
      * @author Dennis Eichhorn
      */
-    public function remove($key) : \bool
+    public function remove($key) : bool
     {
         if (isset($this->keys[$key])) {
             $id = $this->keys[$key];
@@ -182,12 +182,12 @@ class MultiMap implements \Countable
      * @param mixed $old Old key
      * @param mixed $new New key
      *
-     * @return \bool
+     * @return bool
      *
      * @since  1.0.0
      * @author Dennis Eichhorn
      */
-    public function remap($old, $new) : \bool
+    public function remap($old, $new) : bool
     {
         if (isset($this->keys[$old]) && isset($this->keys[$new])) {
             $this->keys[$old] = $this->keys[$new];
@@ -207,12 +207,12 @@ class MultiMap implements \Countable
      *
      * @param mixed $key Key used to identify value
      *
-     * @return \bool
+     * @return bool
      *
      * @since  1.0.0
      * @author Dennis Eichhorn
      */
-    public function removeKey($key) : \bool
+    public function removeKey($key) : bool
     {
         if (isset($this->keys[$key])) {
             unset($this->keys[$key]);
@@ -281,12 +281,12 @@ class MultiMap implements \Countable
     /**
      * Count values.
      *
-     * @return \int
+     * @return int
      *
      * @since  1.0.0
      * @author Dennis Eichhorn
      */
-    public function count() : \int
+    public function count() : int
     {
         return count($this->values);
     }

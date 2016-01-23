@@ -32,7 +32,7 @@ class Text
     /**
      * Vocabulary.
      *
-     * @var \string[]
+     * @var string[]
      * @since 1.0.0
      */
     public static $words_west = ['lorem',
@@ -217,7 +217,7 @@ class Text
     /**
      * Text has random formatting.
      *
-     * @var \bool
+     * @var bool
      * @since 1.0.0
      */
     private $hasFormatting = false;
@@ -225,7 +225,7 @@ class Text
     /**
      * Text has paragraphs.
      *
-     * @var \bool
+     * @var bool
      * @since 1.0.0
      */
     private $hasParagraphs = false;
@@ -233,7 +233,7 @@ class Text
     /**
      * Amount of sentences of the last generated text.
      *
-     * @var \int
+     * @var int
      * @since 1.0.0
      */
     private $sentences = 0;
@@ -241,7 +241,7 @@ class Text
     /**
      * Set if the text should have formatting.
      *
-     * @param \bool $hasFormatting
+     * @param bool $hasFormatting
      *
      * @return void
      *
@@ -256,7 +256,7 @@ class Text
     /**
      * Set if the text should have paragraphs.
      *
-     * @param \bool $hasParagraphs
+     * @param bool $hasParagraphs
      *
      * @return void
      *
@@ -271,7 +271,7 @@ class Text
     /**
      * Amount of sentences of the last generated text.
      *
-     * @return \int
+     * @return int
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
@@ -284,10 +284,10 @@ class Text
     /**
      * Get a random string.
      *
-     * @param \int $length Text length
-     * @param \int $words  Vocabulary
+     * @param int $length Text length
+     * @param int $words  Vocabulary
      *
-     * @return \string
+     * @return string
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
@@ -372,9 +372,9 @@ class Text
     /**
      * Generate punctuation.
      *
-     * @param \int $length Text length
+     * @param int $length Text length
      *
-     * @return \string
+     * @return string
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
@@ -439,9 +439,9 @@ class Text
     /**
      * Generate paragraphs.
      *
-     * @param \int $length Amount of sentences
+     * @param int $length Amount of sentences
      *
-     * @return \string
+     * @return string
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
@@ -470,9 +470,9 @@ class Text
     /**
      * Generate random formatting.
      *
-     * @param \int $length Amount of words
+     * @param int $length Amount of words
      *
-     * @return \string[]
+     * @return string[]
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>

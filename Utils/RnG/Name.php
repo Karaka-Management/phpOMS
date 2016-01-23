@@ -474,10 +474,10 @@ class Name
     /**
      * Get a random string.
      *
-     * @param \string[] $type   Name type (female, male, family)
-     * @param \string   $origin Name origin (western)
+     * @param string[] $type   Name type (female, male, family)
+     * @param string   $origin Name origin (western)
      *
-     * @return \string
+     * @return string
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>

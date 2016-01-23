@@ -68,7 +68,7 @@ class PacketManager
     /**
      * Handle package.
      *
-     * @param \string $data Package data
+     * @param string $data Package data
      * @param mixed   $key  Client Id
      *
      * @return void
@@ -76,7 +76,7 @@ class PacketManager
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function handle(\string $data, $key)
+    public function handle(string $data, $key)
     {
         /*
                 if (!empty($data)) {

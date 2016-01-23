@@ -69,7 +69,7 @@ class Builder extends BuilderAbstract
     /**
      * Distinct.
      *
-     * @var \bool
+     * @var bool
      * @since 1.0.0
      */
     public $distinct = false;
@@ -149,7 +149,7 @@ class Builder extends BuilderAbstract
     /**
      * Lock.
      *
-     * @var \bool
+     * @var bool
      * @since 1.0.0
      */
     public $lock = false;
@@ -163,7 +163,7 @@ class Builder extends BuilderAbstract
     /**
      * Comparison operators.
      *
-     * @var \string[]
+     * @var string[]
      * @since 1.0.0
      */
     const operators = [
@@ -242,7 +242,7 @@ class Builder extends BuilderAbstract
     /**
      * Bind parameter.
      *
-     * @param \string|array|\Closure $binds Binds
+     * @param string|array|\Closure $binds Binds
      *
      * @return Builder
      *
@@ -278,12 +278,12 @@ class Builder extends BuilderAbstract
     /**
      * Parsing to string.
      *
-     * @return \string
+     * @return string
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function toSql() : \string
+    public function toSql() : string
     {
         return $this->grammar->compileQuery($this);
     }
@@ -291,7 +291,7 @@ class Builder extends BuilderAbstract
     /**
      * Make raw column selection.
      *
-     * @param \string|\Closure $expression Raw expression
+     * @param string|\Closure $expression Raw expression
      *
      * @return Builder
      *
@@ -346,7 +346,7 @@ class Builder extends BuilderAbstract
     /**
      * Make raw from.
      *
-     * @param \string|array|\Closure $expression Expression
+     * @param string|array|\Closure $expression Expression
      *
      * @return Builder
      *
@@ -363,16 +363,16 @@ class Builder extends BuilderAbstract
     /**
      * Or Where.
      *
-     * @param \string|array|\Closure $columns  Columns
-     * @param \string                $operator Operator
-     * @param \string|array|\Closure $values   Values
+     * @param string|array|\Closure $columns  Columns
+     * @param string                $operator Operator
+     * @param string|array|\Closure $values   Values
      *
      * @return Builder
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function orWhere($columns, \string $operator = null, $values = null) : Builder
+    public function orWhere($columns, string $operator = null, $values = null) : Builder
     {
         return $this->where($columns, $operator, $values, 'or');
     }
@@ -380,10 +380,10 @@ class Builder extends BuilderAbstract
     /**
      * Where.
      *
-     * @param \string|array|\Closure $columns  Columns
-     * @param \string|array          $operator Operator
+     * @param string|array|\Closure $columns  Columns
+     * @param string|array          $operator Operator
      * @param mixed                  $values   Values
-     * @param \string|array          $boolean  Boolean condition
+     * @param string|array          $boolean  Boolean condition
      *
      * @return Builder
      *
@@ -428,16 +428,16 @@ class Builder extends BuilderAbstract
     /**
      * Where in.
      *
-     * @param \string|array|\Closure $column  Column
+     * @param string|array|\Closure $column  Column
      * @param mixed                  $values  Values
-     * @param \string                $boolean Boolean condition
+     * @param string                $boolean Boolean condition
      *
      * @return Builder
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function whereIn($column, $values = null, \string $boolean = 'and') : Builder
+    public function whereIn($column, $values = null, string $boolean = 'and') : Builder
     {
         $this->where($column, 'in', $values, $boolean);
 
@@ -447,15 +447,15 @@ class Builder extends BuilderAbstract
     /**
      * Where null.
      *
-     * @param \string|array|\Closure $column  Column
-     * @param \string                $boolean Boolean condition
+     * @param string|array|\Closure $column  Column
+     * @param string                $boolean Boolean condition
      *
      * @return Builder
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function whereNull($column, \string $boolean = 'and') : Builder
+    public function whereNull($column, string $boolean = 'and') : Builder
     {
         $this->where($column, '=', null, $boolean);
 
@@ -465,15 +465,15 @@ class Builder extends BuilderAbstract
     /**
      * Where not null.
      *
-     * @param \string|array|\Closure $column  Column
-     * @param \string                $boolean Boolean condition
+     * @param string|array|\Closure $column  Column
+     * @param string                $boolean Boolean condition
      *
      * @return Builder
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function whereNotNull($column, \string $boolean = 'and') : Builder
+    public function whereNotNull($column, string $boolean = 'and') : Builder
     {
         $this->where($column, '!=', null, $boolean);
 
@@ -483,7 +483,7 @@ class Builder extends BuilderAbstract
     /**
      * Group by.
      *
-     * @param \string|array|\Closure $columns Grouping result
+     * @param string|array|\Closure $columns Grouping result
      *
      * @return Builder
      *
@@ -506,7 +506,7 @@ class Builder extends BuilderAbstract
     /**
      * Order by newest.
      *
-     * @param \string|\Closure $column Column
+     * @param string|\Closure $column Column
      *
      * @return Builder
      *
@@ -523,7 +523,7 @@ class Builder extends BuilderAbstract
     /**
      * Order by oldest.
      *
-     * @param \string|\Closure $column Column
+     * @param string|\Closure $column Column
      *
      * @return Builder
      *
@@ -540,8 +540,8 @@ class Builder extends BuilderAbstract
     /**
      * Order by oldest.
      *
-     * @param \string|array|\Closure $columns Columns
-     * @param \string|string[]       $order   Orders
+     * @param string|array|\Closure $columns Columns
+     * @param string|string[]       $order   Orders
      *
      * @return Builder
      *
@@ -566,7 +566,7 @@ class Builder extends BuilderAbstract
     /**
      * Offset.
      *
-     * @param \int|\Closure $offset Offset
+     * @param int|\Closure $offset Offset
      *
      * @return Builder
      *
@@ -583,7 +583,7 @@ class Builder extends BuilderAbstract
     /**
      * Limit.
      *
-     * @param \int|\Closure $limit Limit
+     * @param int|\Closure $limit Limit
      *
      * @return Builder
      *
@@ -600,7 +600,7 @@ class Builder extends BuilderAbstract
     /**
      * Limit.
      *
-     * @param \string|\phpOMS\DataStorage\Database\Query\Builder $query Query
+     * @param string|\phpOMS\DataStorage\Database\Query\Builder $query Query
      *
      * @return Builder
      *
@@ -683,7 +683,7 @@ class Builder extends BuilderAbstract
     /**
      * Table to insert into.
      *
-     * @param \string|\Closure $table Table
+     * @param string|\Closure $table Table
      *
      * @return Builder
      *
@@ -724,7 +724,7 @@ class Builder extends BuilderAbstract
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function value($value, \string $type = 'string') : Builder
+    public function value($value, string $type = 'string') : Builder
     {
         end($this->values);
         $key                  = key($this->values);

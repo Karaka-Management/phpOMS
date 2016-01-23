@@ -51,7 +51,7 @@ abstract class BuilderAbstract
     /**
      * Prefix.
      *
-     * @var \string
+     * @var string
      * @since 1.0.0
      */
     protected $prefix = '';
@@ -59,14 +59,14 @@ abstract class BuilderAbstract
     /**
      * Set prefix.
      *
-     * @param \string $prefix Prefix
+     * @param string $prefix Prefix
      *
      * @return BuilderAbstract
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function prefix(\string $prefix)
+    public function prefix(string $prefix)
     {
         $this->prefix = $prefix;
 
@@ -76,12 +76,12 @@ abstract class BuilderAbstract
     /**
      * Get prefix.
      *
-     * @return \string
+     * @return string
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function getPrefix() : \string
+    public function getPrefix() : string
     {
         return $this->prefix;
     }
@@ -89,12 +89,12 @@ abstract class BuilderAbstract
     /**
      * Get query type.
      *
-     * @return \int
+     * @return int
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function getType() : \int
+    public function getType() : int
     {
         return $this->type;
     }

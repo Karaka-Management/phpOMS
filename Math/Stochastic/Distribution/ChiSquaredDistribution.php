@@ -87,7 +87,7 @@ class ChiSquaredDistribution
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public static function getDegreesOfFreedom(array $values) : \int
+    public static function getDegreesOfFreedom(array $values) : int
     {
         if (is_array($first = reset($values))) {
             return (count($values) - 1) * (count($first) - 1);
@@ -111,7 +111,7 @@ class ChiSquaredDistribution
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public static function testHypothesis(array $dataset, array $expected, \float $significance = 0.05, \int $df = 0) : array
+    public static function testHypothesis(array $dataset, array $expected, float $significance = 0.05, int $df = 0) : array
     {
         if (($count = count($dataset)) !== count($expected)) {
             throw new \Exception('Dimension');
@@ -158,7 +158,7 @@ class ChiSquaredDistribution
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public static function getPdf(\float $x, \int $df) : \float
+    public static function getPdf(float $x, int $df) : float
     {
         if ($x < 0) {
             throw new \Exception('Out of bounds');
@@ -170,14 +170,14 @@ class ChiSquaredDistribution
     /**
      * Get mode.
      *
-     * @param \int $df Degrees of freedom
+     * @param int $df Degrees of freedom
      *
      * @return int
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public static function getMode(\int $df) : \int
+    public static function getMode(int $df) : int
     {
         return max([$df - 2, 0]);
     }
@@ -185,14 +185,14 @@ class ChiSquaredDistribution
     /**
      * Get expected value.
      *
-     * @param \int $df Degrees of freedom
+     * @param int $df Degrees of freedom
      *
      * @return float
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public static function getMean(\int $df) : \float
+    public static function getMean(int $df) : float
     {
         return $df;
     }
@@ -200,14 +200,14 @@ class ChiSquaredDistribution
     /**
      * Get expected value.
      *
-     * @param \int $df Degrees of freedom
+     * @param int $df Degrees of freedom
      *
      * @return float
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public static function getMedian(\int $df) : \float
+    public static function getMedian(int $df) : float
     {
         return $df * (1 - 2 / (9 * $df)) ** 3;
     }
@@ -215,14 +215,14 @@ class ChiSquaredDistribution
     /**
      * Get variance.
      *
-     * @param \int $df Degrees of freedom
+     * @param int $df Degrees of freedom
      *
      * @return float
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public static function getVariance(\int $df) : \float
+    public static function getVariance(int $df) : float
     {
         return 2 * $df;
     }
@@ -240,7 +240,7 @@ class ChiSquaredDistribution
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public static function getMgf(\int $df, \float $t) : \float
+    public static function getMgf(int $df, float $t) : float
     {
         if ($t > 0.5) {
             throw new \Exception('Out of bounds');
@@ -259,7 +259,7 @@ class ChiSquaredDistribution
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public static function getSkewness(\int $df) : \float
+    public static function getSkewness(int $df) : float
     {
         return sqrt(8 / $df);
     }
@@ -274,7 +274,7 @@ class ChiSquaredDistribution
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public static function getExKurtosis(\int $df) : \float
+    public static function getExKurtosis(int $df) : float
     {
         return 12 / $df;
     }

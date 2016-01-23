@@ -37,7 +37,7 @@ class CsvDatabaseMapper implements IODatabaseMapper
         $this->db = $db;
     }
 
-    public function addSource(\string $source)
+    public function addSource(string $source)
     {
         $this->sources[] = $source;
 
@@ -49,12 +49,12 @@ class CsvDatabaseMapper implements IODatabaseMapper
         $this->sources = $sources;
     }
 
-    public function autoIdentifyCsvSettings(\bool $identify)
+    public function autoIdentifyCsvSettings(bool $identify)
     {
         $this->autoIdentifyCsvSettings = $identify;
     }
 
-    public function setLineBuffer(\int $buffer)
+    public function setLineBuffer(int $buffer)
     {
         $this->lineBuffer = $buffer;
     }

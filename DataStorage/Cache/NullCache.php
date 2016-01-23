@@ -32,7 +32,7 @@ class NullCache implements CacheInterface
     /**
      * {@inheritdoc}
      */
-    public function set($key, $value, CacheStatus $type = null, \int $expire = 2592000)
+    public function set($key, $value, CacheStatus $type = null, int $expire = 2592000)
     {
         // TODO: Implement set() method.
     }
@@ -40,7 +40,7 @@ class NullCache implements CacheInterface
     /**
      * {@inheritdoc}
      */
-    public function add($key, $value, CacheStatus $type = null, \int $expire = 2592000)
+    public function add($key, $value, CacheStatus $type = null, int $expire = 2592000)
     {
         // TODO: Implement add() method.
     }
@@ -72,7 +72,7 @@ class NullCache implements CacheInterface
     /**
      * {@inheritdoc}
      */
-    public function replace($key, $value, CacheType $type = null, \int $expire = -1)
+    public function replace($key, $value, CacheType $type = null, int $expire = -1)
     {
         // TODO: Implement replace() method.
     }
@@ -88,7 +88,7 @@ class NullCache implements CacheInterface
     /**
      * {@inheritdoc}
      */
-    public function getThreshold() : \int
+    public function getThreshold() : int
     {
         // TODO: Implement getThreshold() method.
     }

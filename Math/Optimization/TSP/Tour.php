@@ -70,7 +70,7 @@ class Tour implements \Countable
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function __construct(CityPool $pool, \bool $initialize = false)
+    public function __construct(CityPool $pool, bool $initialize = false)
     {
         $this->cityPool = $pool;
 
@@ -103,7 +103,7 @@ class Tour implements \Countable
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function getFitness() : \float
+    public function getFitness() : float
     {
         if ($this->fitness === 0.0 && ($distance = $this->getDistance()) !== 0.0) {
             $this->fitness = 1 / $distance;
@@ -137,7 +137,7 @@ class Tour implements \Countable
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function setCity(\int $index, City $city)
+    public function setCity(int $index, City $city)
     {
         $this->cities[$index] = $city;
         asort($this->cities);
@@ -154,7 +154,7 @@ class Tour implements \Countable
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function getDistance() : \float
+    public function getDistance() : float
     {
         if ($this->distance === 0.0) {
             $distance = 0.0;
@@ -178,12 +178,12 @@ class Tour implements \Countable
      *
      * @param City $city City
      *
-     * @return \bool
+     * @return bool
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function hasCity(City $city) : \bool
+    public function hasCity(City $city) : bool
     {
         foreach ($this->cities as $c) {
             if ($c->equals($city)) {
@@ -202,7 +202,7 @@ class Tour implements \Countable
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function count() : \int
+    public function count() : int
     {
         return count($this->cities);
     }

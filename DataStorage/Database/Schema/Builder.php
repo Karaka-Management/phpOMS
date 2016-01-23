@@ -65,7 +65,7 @@ class Builder extends BuilderAbstract
         $this->drop = array_unique($this->drop);
     }
 
-    public function create(\string $table)
+    public function create(string $table)
     {
 
     }
@@ -78,12 +78,12 @@ class Builder extends BuilderAbstract
     /**
      * Parsing to string.
      *
-     * @return \string
+     * @return string
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function toSql() : \string
+    public function toSql() : string
     {
         return $this->grammar->compileQuery($this);
     }

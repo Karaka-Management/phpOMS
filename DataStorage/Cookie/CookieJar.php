@@ -33,7 +33,7 @@ class CookieJar
         $this->cookies = $_COOKIE;
     }
 
-    public function set($id, $value, \int $expiry = 86400, $path = '/', $domain = null, \bool $secure = false, \bool $httponly = true, \bool $overwrite = true) : \bool
+    public function set($id, $value, int $expiry = 86400, $path = '/', $domain = null, bool $secure = false, bool $httponly = true, bool $overwrite = true) : bool
     {
         if ($overwrite || !isset($this->cookies[$id])) {
             $this->cookies[$id] = [
@@ -51,7 +51,7 @@ class CookieJar
         return false;
     }
 
-    public function remove($id) : \bool
+    public function remove($id) : bool
     {
         if (isset($this->cookies[$id])) {
             unset($this->cookies[$id]);
@@ -62,7 +62,7 @@ class CookieJar
         return false;
     }
 
-    public function delete($id) : \bool
+    public function delete($id) : bool
     {
         $this->remove($id);
         setcookie($id, '', time() - 3600);

@@ -74,7 +74,7 @@ class BruteForce
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function getSolution(\int $limit = 1) : Population
+    public function getSolution(int $limit = 1) : Population
     {
         $population = new Population($this->cityPool, $limit, true);
         $cities     = $this->cityPool->getCities();

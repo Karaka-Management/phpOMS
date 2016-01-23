@@ -65,16 +65,16 @@ class JsonBuilder
     /**
      * Add data.
      *
-     * @param \string $path      Path used for storage
+     * @param string $path      Path used for storage
      * @param array   $value     Data to add
-     * @param \bool   $overwrite Should overwrite existing data
+     * @param bool   $overwrite Should overwrite existing data
      *
      * @return void
      *
      * @since  1.0.0
      * @author Dennis Eichhorn
      */
-    public function add(\string $path, array $value, \bool $overwrite = true)
+    public function add(string $path, array $value, bool $overwrite = true)
     {
         $this->json = ArrayUtils::setArray($path, $this->json, $value, '/', $overwrite);
     }
@@ -82,15 +82,15 @@ class JsonBuilder
     /**
      * Remove data.
      *
-     * @param \string $path  Path to the element to delete
-     * @param \string $delim Delim used inside path
+     * @param string $path  Path to the element to delete
+     * @param string $delim Delim used inside path
      *
      * @return void
      *
      * @since  1.0.0
      * @author Dennis Eichhorn
      */
-    public function remove(\string $path, \string $delim)
+    public function remove(string $path, string $delim)
     {
         $this->json = ArrayUtils::unsetArray($path, $this->json, $delim);
     }
@@ -98,7 +98,7 @@ class JsonBuilder
     /**
      * Get json string.
      *
-     * @return \string
+     * @return string
      *
      * @since  1.0.0
      * @author Dennis Eichhorn

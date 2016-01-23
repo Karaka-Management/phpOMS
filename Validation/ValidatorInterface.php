@@ -34,7 +34,7 @@ interface ValidatorInterface
      *
      * @param mixed $value Value to validate
      *
-     * @return \bool
+     * @return bool
      *
      * @since  1.0.0
      * @author Dennis Eichhorn
@@ -44,7 +44,7 @@ interface ValidatorInterface
     /**
      * Get most recent error string.
      *
-     * @return \string
+     * @return string
      *
      * @since  1.0.0
      * @author Dennis Eichhorn

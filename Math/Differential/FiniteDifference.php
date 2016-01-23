@@ -50,7 +50,7 @@ class FiniteDifference
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public static function getNewtonDifferenceQuotient(\string $formula, array $variable) : \float
+    public static function getNewtonDifferenceQuotient(string $formula, array $variable) : float
     {
         return (Evaluator::evaluate($formula, ['x' => $variable['x'] + self::EPSILON]) - Evaluator::evaluate($formula, ['x' => $variable['x']])) / self::EPSILON;
     }
@@ -68,7 +68,7 @@ class FiniteDifference
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public static function getSymmetricDifferenceQuotient(\string $formula, array $variable) : \float
+    public static function getSymmetricDifferenceQuotient(string $formula, array $variable) : float
     {
         return (Evaluator::evaluate($formula, ['x' => $variable['x'] + self::EPSILON]) - Evaluator::evaluate($formula, ['x' => $variable['x'] - self::EPSILON])) / (2 * self::EPSILON);
     }
@@ -89,7 +89,7 @@ class FiniteDifference
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public static function getFivePointStencil(\string $formula, array $variable, \int $derivative = 1) : \float
+    public static function getFivePointStencil(string $formula, array $variable, int $derivative = 1) : float
     {
         if ($derivative === 1) {
             return (-Evaluator::evaluate($formula, ['x' => $variable['x'] + 2 * self::EPSILON]) + 8 * Evaluator::evaluate($formula, ['x' => $variable['x'] + self::EPSILON]) - 8 * Evaluator::evaluate($formula, ['x' => $variable['x'] - self::EPSILON]) + Evaluator::evaluate($formula, ['x' => $variable['x'] - 2 * self::EPSILON])) / (12 * self::EPSILON);

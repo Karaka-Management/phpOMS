@@ -37,7 +37,7 @@ class Grammar extends GrammarAbstract
     /**
      * Select components.
      *
-     * @var \string[]
+     * @var string[]
      * @since 1.0.0
      */
     protected $selectComponents = [
@@ -48,7 +48,7 @@ class Grammar extends GrammarAbstract
     /**
      * Select components.
      *
-     * @var \string[]
+     * @var string[]
      * @since 1.0.0
      */
     protected $dropComponents = [
@@ -77,7 +77,7 @@ class Grammar extends GrammarAbstract
         return $sql;
     }
 
-    protected function compileDrop(Builder $query, array $tables) : \string
+    protected function compileDrop(Builder $query, array $tables) : string
     {
         $expression = $this->expressionizeTableColumn($tables, $query->getPrefix());
 

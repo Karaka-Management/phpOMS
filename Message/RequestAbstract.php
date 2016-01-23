@@ -78,7 +78,7 @@ abstract class RequestAbstract implements RequestInterface
     /**
      * Account.
      *
-     * @var \int
+     * @var int
      * @since 1.0.0
      */
     protected $account = null;
@@ -94,7 +94,7 @@ abstract class RequestAbstract implements RequestInterface
     /**
      * Request status.
      *
-     * @var \string
+     * @var string
      * @since 1.0.0
      */
     private $status = RequestStatus::R_200;
@@ -156,7 +156,7 @@ abstract class RequestAbstract implements RequestInterface
     /**
      * {@inheritdoc}
      */
-    abstract public function getMethod() : \string;
+    abstract public function getMethod() : string;
 
     /**
      * {@inheritdoc}
@@ -209,7 +209,7 @@ abstract class RequestAbstract implements RequestInterface
     /**
      * {@inheritdoc}
      */
-    public function getAccount() : \int
+    public function getAccount() : int
     {
         return $this->account;
     }
@@ -217,7 +217,7 @@ abstract class RequestAbstract implements RequestInterface
     /**
      * {@inheritdoc}
      */
-    public function setAccount(\int $account)
+    public function setAccount(int $account)
     {
         $this->account = $account;
     }
@@ -225,7 +225,7 @@ abstract class RequestAbstract implements RequestInterface
     /**
      * {@inheritdoc}
      */
-    public function setStatusCode(\string $status)
+    public function setStatusCode(string $status)
     {
         $this->status = $status;
     }
@@ -233,7 +233,7 @@ abstract class RequestAbstract implements RequestInterface
     /**
      * {@inheritdoc}
      */
-    public function getStatusCode() : \string
+    public function getStatusCode() : string
     {
         return $this->status;
     }
@@ -241,7 +241,7 @@ abstract class RequestAbstract implements RequestInterface
     /**
      * {@inheritdoc}
      */
-    public abstract function getOrigin() : \string;
+    public abstract function getOrigin() : string;
 
     /**
      * {@inheritdoc}

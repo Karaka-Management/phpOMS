@@ -24,7 +24,7 @@ namespace phpOMS\Utils\IO\Csv;
  */
 trait CsvSettingsTrait
 {
-    private function getFileDelimiter($file, int $checkLines = 2, array $delimiters = [',', '\t', ';', '|', ':']) : \string
+    private function getFileDelimiter($file, int $checkLines = 2, array $delimiters = [',', '\t', ';', '|', ':']) : string
     {
         $results = [];
 

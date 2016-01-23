@@ -23,7 +23,7 @@ class PointPolygonIntersection
     {
     }
 
-    public static function pointInPolygon(array $point, array $vertices) : \int
+    public static function pointInPolygon(array $point, array $vertices) : int
     {
         $length = count($vertices);
 

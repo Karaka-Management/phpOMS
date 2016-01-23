@@ -34,7 +34,7 @@ class ArrayParser
     /**
      * File path.
      *
-     * @var \string
+     * @var string
      * @since 1.0.0
      */
     public $file = null;
@@ -50,13 +50,13 @@ class ArrayParser
     /**
      * Constructor.
      *
-     * @param \string $file     File path
-     * @param \string $arr_name Array to parse
+     * @param string $file     File path
+     * @param string $arr_name Array to parse
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function __construct(\string $file, \string $arr_name)
+    public function __construct(string $file, string $arr_name)
     {
         if (file_exists($file)) {
             $this->file = $file;
@@ -104,14 +104,14 @@ class ArrayParser
     /**
      * Saving array to file.
      *
-     * @param \string $name Name of new array
+     * @param string $name Name of new array
      *
      * @return void
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function save(\string $name)
+    public function save(string $name)
     {
         $arr = '<' . '?php' . PHP_EOL
                . '$' . $name . ' = [' . PHP_EOL
@@ -126,12 +126,12 @@ class ArrayParser
      *
      * @param array $arr Array to serialize
      *
-     * @return \string
+     * @return string
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function serializeArray(array $arr) : \string
+    public function serializeArray(array $arr) : string
     {
         foreach ($arr as $key => $val) {
             if (is_array($val)) {

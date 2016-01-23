@@ -51,12 +51,12 @@ class Rest
     /**
      * Set url.
      *
-     * @param \string $url Url
+     * @param string $url Url
      *
      * @since  1.0.0
      * @author Dennis Eichhorn
      */
-    public function setUrl(\string $url) {
+    public function setUrl(string $url) {
         if (filter_var($url, FILTER_VALIDATE_URL) === false) {
             throw new InvalidUriException('$url');
         }
@@ -67,12 +67,12 @@ class Rest
     /**
      * Set method.
      *
-     * @param \string $method Method
+     * @param string $method Method
      *
      * @since  1.0.0
      * @author Dennis Eichhorn
      */
-    public function setMethod(\string $method) {
+    public function setMethod(string $method) {
         if(!RequestMethod::isValidValue($method)) {
             throw new InvalidEnumValue($method);
         }
@@ -85,12 +85,12 @@ class Rest
      *
      * @param mixed $data Data to pass
      *
-     * @return \string
+     * @return string
      *
      * @since  1.0.0
      * @author Dennis Eichhorn
      */
-    public function callApi($data = false) : \string
+    public function callApi($data = false) : string
     {
         $curl = curl_init();
 

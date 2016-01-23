@@ -43,7 +43,7 @@ class Sphere
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public static function distance2PointsOnSphere(\float $latStart, \float $longStart, \float $latEnd, \float $longEnd, \float $radius = 6371000.0) : \float
+    public static function distance2PointsOnSphere(float $latStart, float $longStart, float $latEnd, float $longEnd, float $radius = 6371000.0) : float
     {
         $latFrom = deg2rad($latStart);
         $lonFrom = deg2rad($longStart);
@@ -73,7 +73,7 @@ class Sphere
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public static function getVolume(\float $r)
+    public static function getVolume(float $r)
     {
         return 4 / 3 * pi() * $r ** 3;
     }
@@ -88,7 +88,7 @@ class Sphere
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public static function getRadiusByVolume(\float $V)
+    public static function getRadiusByVolume(float $V)
     {
         return pow($V * 3 / (4 * pi()), 1 / 3);
     }
@@ -103,7 +103,7 @@ class Sphere
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public static function getSurface(\float $r)
+    public static function getSurface(float $r)
     {
         return 4 * pi() * $r ** 2;
     }
@@ -118,7 +118,7 @@ class Sphere
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public static function getRadiusBySurface(\float $S)
+    public static function getRadiusBySurface(float $S)
     {
         return sqrt($S / (4 * pi()));
     }

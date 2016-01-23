@@ -21,7 +21,7 @@ abstract class GrammarAbstract
     /**
      * Comment style.
      *
-     * @var \string
+     * @var string
      * @since 1.0.0
      */
     protected $comment = '--';
@@ -29,7 +29,7 @@ abstract class GrammarAbstract
     /**
      * String quotes style.
      *
-     * @var \string
+     * @var string
      * @since 1.0.0
      */
     protected $valueQuotes = '\'';
@@ -37,7 +37,7 @@ abstract class GrammarAbstract
     /**
      * System identifier.
      *
-     * @var \string
+     * @var string
      * @since 1.0.0
      */
     protected $systemIdentifier = '"';
@@ -45,7 +45,7 @@ abstract class GrammarAbstract
     /**
      * And operator.
      *
-     * @var \string
+     * @var string
      * @since 1.0.0
      */
     protected $and = 'AND';
@@ -53,7 +53,7 @@ abstract class GrammarAbstract
     /**
      * Or operator.
      *
-     * @var \string
+     * @var string
      * @since 1.0.0
      */
     protected $or = 'OR';
@@ -65,14 +65,14 @@ abstract class GrammarAbstract
      *
      * @param BuilderAbstract $query Builder
      *
-     * @return \string
+     * @return string
      *
      * @throws
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function compileQuery(BuilderAbstract $query) : \string
+    public function compileQuery(BuilderAbstract $query) : string
     {
         return trim(
             implode(' ',
@@ -92,14 +92,14 @@ abstract class GrammarAbstract
      * Expressionize elements.
      *
      * @param array   $elements Elements
-     * @param \string $prefix   Prefix for table
+     * @param string $prefix   Prefix for table
      *
-     * @return \string
+     * @return string
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    protected function expressionizeTableColumn(array $elements, \string $prefix = '') : \string
+    protected function expressionizeTableColumn(array $elements, string $prefix = '') : string
     {
         $expression = '';
 
@@ -123,15 +123,15 @@ abstract class GrammarAbstract
     /**
      * Compile system.
      *
-     * @param array|\string $system System
-     * @param \string       $prefix Prefix for table
+     * @param array|string $system System
+     * @param string       $prefix Prefix for table
      *
-     * @return \string
+     * @return string
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    protected function compileSystem($system, \string $prefix = '') : \string
+    protected function compileSystem($system, string $prefix = '') : string
     {
         if (count($split = explode('.', $system)) == 2) {
             return $this->compileSystem($prefix . $split[0]) . '.' . $this->compileSystem($split[1]);
@@ -140,17 +140,17 @@ abstract class GrammarAbstract
         }
     }
 
-    public function getDateFormat() : \string
+    public function getDateFormat() : string
     {
         return 'Y-m-d H:i:s';
     }
 
-    public function getTablePrefix() : \string
+    public function getTablePrefix() : string
     {
         return $this->tablePrefix;
     }
 
-    public function setTablePrefix(\string $prefix)
+    public function setTablePrefix(string $prefix)
     {
         $this->tablePrefix = $prefix;
     }

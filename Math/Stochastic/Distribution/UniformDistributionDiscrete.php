@@ -33,7 +33,7 @@ class UniformDistributionDiscrete
     /**
      * Get probability mass function.
      *
-     * @param \float $a
+     * @param float $a
      * @param float  $b
      *
      * @return float
@@ -41,7 +41,7 @@ class UniformDistributionDiscrete
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public static function getPmf(\float $a, \float $b) : \float
+    public static function getPmf(float $a, float $b) : float
     {
         return 1 / ($b - $a + 1);
     }
@@ -60,7 +60,7 @@ class UniformDistributionDiscrete
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public static function getCdf(\float $k, \float $a, \float $b) : \float
+    public static function getCdf(float $k, float $a, float $b) : float
     {
         if ($k > $b || $k < $a) {
             throw new \Exception('Out of bounds');
@@ -81,7 +81,7 @@ class UniformDistributionDiscrete
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public static function getMgf(\int $t, \float $a, \float $b) : \float
+    public static function getMgf(int $t, float $a, float $b) : float
     {
         return (exp($a * $t) - exp(($b + 1) * $t)) / (($b - $a + 1) * (1 - exp($t)));
     }
@@ -94,7 +94,7 @@ class UniformDistributionDiscrete
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public static function getSkewness() : \float
+    public static function getSkewness() : float
     {
         return 0.0;
     }
@@ -110,7 +110,7 @@ class UniformDistributionDiscrete
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public static function getExKurtosis(\float $a, \float $b) : \float
+    public static function getExKurtosis(float $a, float $b) : float
     {
         $n = ($b - $a + 1);
 
@@ -128,7 +128,7 @@ class UniformDistributionDiscrete
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public static function getMedian(\float $a, \float $b) : \float
+    public static function getMedian(float $a, float $b) : float
     {
         return ($a + $b) / 2;
     }
@@ -144,7 +144,7 @@ class UniformDistributionDiscrete
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public static function getMean(\float $a, \float $b) : \float
+    public static function getMean(float $a, float $b) : float
     {
         return ($a + $b) / 2;
     }
@@ -160,7 +160,7 @@ class UniformDistributionDiscrete
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public static function getVariance(\float $a, \float $b) : \float
+    public static function getVariance(float $a, float $b) : float
     {
         return (($b - $a + 1) ** 2 - 1) / 12;
     }

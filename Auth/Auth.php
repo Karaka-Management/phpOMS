@@ -68,12 +68,12 @@ class Auth
     /**
      * Authenticates user.
      *
-     * @return \bool
+     * @return bool
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function authenticate() : \bool
+    public function authenticate() : bool
     {
         $uid = $this->session->get('UID');
 
@@ -87,15 +87,15 @@ class Auth
     /**
      * Login user.
      *
-     * @param \string $login    Username
-     * @param \string $password Password
+     * @param string $login    Username
+     * @param string $password Password
      *
-     * @return \int Login code
+     * @return int Login code
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function login(\string $login, \string $password) : \int
+    public function login(string $login, string $password) : int
     {
         try {
             $result = null;
@@ -146,14 +146,14 @@ class Auth
     /**
      * Logout the given user.
      *
-     * @param \int $uid User ID
+     * @param int $uid User ID
      *
      * @return void
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function logout(\int $uid = null)
+    public function logout(int $uid = null)
     {
         // TODO: logout other users? If admin wants to kick a user for updates etc.
         $this->session->remove('UID');

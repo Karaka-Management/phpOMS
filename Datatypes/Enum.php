@@ -36,14 +36,14 @@ abstract class Enum
      *
      * Checking if a certain const name exists (case sensitive)
      *
-     * @param \string $name Name of the value (case sensitive)
+     * @param string $name Name of the value (case sensitive)
      *
-     * @return \bool
+     * @return bool
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public static function isValidName(\string $name) : \bool
+    public static function isValidName(string $name) : bool
     {
         $constants = self::getConstants();
 
@@ -72,12 +72,12 @@ abstract class Enum
      *
      * @param mixed $value Value to check
      *
-     * @return \bool
+     * @return bool
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public static function isValidValue($value) : \bool
+    public static function isValidValue($value) : bool
     {
         $values = array_values(self::getConstants());
 

@@ -34,7 +34,7 @@ abstract class ModuleAbstract
     /**
      * Receiving modules from?
      *
-     * @var \string[]
+     * @var string[]
      * @since 1.0.0
      */
     protected $receiving = [];
@@ -42,7 +42,7 @@ abstract class ModuleAbstract
     /**
      * Receiving modules from?
      *
-     * @var \string[]
+     * @var string[]
      * @since 1.0.0
      */
     protected static $providing = [];
@@ -50,7 +50,7 @@ abstract class ModuleAbstract
     /**
      * Module name.
      *
-     * @var \string
+     * @var string
      * @since 1.0.0
      */
     const MODULE_NAME = '';
@@ -74,7 +74,7 @@ abstract class ModuleAbstract
     /**
      * Dependencies.
      *
-     * @var \string
+     * @var string
      * @since 1.0.0
      */
     protected static $dependencies = [];
@@ -120,15 +120,15 @@ abstract class ModuleAbstract
     /**
      * Get language files.
      *
-     * @param \string $language    Language key
-     * @param \string $destination Application destination (e.g. Backend)
+     * @param string $language    Language key
+     * @param string $destination Application destination (e.g. Backend)
      *
      * @return array
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function getLocalization(\string $language, \string $destination) : array
+    public function getLocalization(string $language, string $destination) : array
     {
         $lang = [];
         if (isset(static::$localization[$destination])) {
@@ -150,7 +150,7 @@ abstract class ModuleAbstract
     /**
      * {@inheritdoc}
      */
-    public function addReceiving(\string $module)
+    public function addReceiving(string $module)
     {
         $this->receiving[] = $module;
     }
@@ -167,7 +167,7 @@ abstract class ModuleAbstract
     /**
      * {@inheritdoc}
      */
-    public function getName() : \string
+    public function getName() : string
     {
         /** @noinspection PhpUndefinedFieldInspection */
         return static::MODULE_NAME;

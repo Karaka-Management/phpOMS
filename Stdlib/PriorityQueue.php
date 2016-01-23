@@ -30,7 +30,7 @@ class PriorityQueue implements \Countable, \Serializable
     /**
      * Queue elements.
      *
-     * @var \int
+     * @var int
      * @since 1.0.0
      */
     private $count = 0;
@@ -57,14 +57,14 @@ class PriorityQueue implements \Countable, \Serializable
      * Insert element into queue.
      *
      * @param mixed  $data     Queue element
-     * @param \float $priority Priority of this element
+     * @param float $priority Priority of this element
      *
-     * @return \int
+     * @return int
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function insert($data, \float $priority = 0.0) : \int
+    public function insert($data, float $priority = 0.0) : int
     {
         do {
             $key = rand();
@@ -91,14 +91,14 @@ class PriorityQueue implements \Countable, \Serializable
     /**
      * Increase all queue priorities.
      *
-     * @param \float $increase Value to increase every element
+     * @param float $increase Value to increase every element
      *
      * @return void
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function increaseAll(\float $increase)
+    public function increaseAll(float $increase)
     {
         foreach ($this->queue as $key => &$ele) {
             $ele['priority'] += $increase;
@@ -122,14 +122,14 @@ class PriorityQueue implements \Countable, \Serializable
     /**
      * Delete element.
      *
-     * @param \int $id Element to delete
+     * @param int $id Element to delete
      *
      * @return void
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function delete(\int $id = null)
+    public function delete(int $id = null)
     {
         if ($id === null) {
             $this->remove();
@@ -152,15 +152,15 @@ class PriorityQueue implements \Countable, \Serializable
     /**
      * Set element priority.
      *
-     * @param \int   $id       Element ID
-     * @param \float $priority Element priority
+     * @param int   $id       Element ID
+     * @param float $priority Element priority
      *
      * @return void
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function setPriority(\int $id, \float $priority)
+    public function setPriority(int $id, float $priority)
     {
         $this->queue[$id]['priority'] = $priority;
     }
@@ -168,14 +168,14 @@ class PriorityQueue implements \Countable, \Serializable
     /**
      * Set element priority.
      *
-     * @param \int $id Element ID
+     * @param int $id Element ID
      *
-     * @return \float
+     * @return float
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function getPriority(\int $id) : \float
+    public function getPriority(int $id) : float
     {
         return $this->queue[$id]['priority'];
     }
@@ -183,7 +183,7 @@ class PriorityQueue implements \Countable, \Serializable
     /**
      * {@inheritdoc}
      */
-    public function count() : \int
+    public function count() : int
     {
         return $this->count;
     }
@@ -191,7 +191,7 @@ class PriorityQueue implements \Countable, \Serializable
     /**
      * {@inheritdoc}
      */
-    public function serialize() : \string
+    public function serialize() : string
     {
         return json_encode($this->queue);
     }

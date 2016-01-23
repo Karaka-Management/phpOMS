@@ -83,14 +83,14 @@ class Pool implements OptionsInterface
     /**
      * Requesting caching instance.
      *
-     * @param \int $type Cache to request
+     * @param int $type Cache to request
      *
      * @return \phpOMS\DataStorage\Cache\MemCache|\phpOMS\DataStorage\Cache\FileCache|null
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function get(\int $type = null)
+    public function get(int $type = null)
     {
         if (($type === null || $type === CacheStatus::MEMCACHE) && $this->memc !== null) {
             return $this->memc;
@@ -114,7 +114,7 @@ class Pool implements OptionsInterface
     /**
      * {@inheritdoc}
      */
-    public function add(\int $type, CacheInterface $cache)
+    public function add(int $type, CacheInterface $cache)
     {
         if (($type === null || $type === CacheStatus::MEMCACHE) && $this->memc !== null) {
             $this->memc = $cache;

@@ -50,92 +50,92 @@ interface MessageInterface
     /**
      * Checks if a header exists by the given case-insensitive name.
      *
-     * @param \string $name Header name
+     * @param string $name Header name
      *
-     * @return \bool
+     * @return bool
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function hasHeader(\string $name) : \bool;
+    public function hasHeader(string $name) : bool;
 
     /**
      * Retrieves a message header value by the given case-insensitive name.
      *
-     * @param \string $name Header name
+     * @param string $name Header name
      *
      * @return void
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function getHeader(\string $name);
+    public function getHeader(string $name);
 
     /**
      * Add header by ID.
      *
      * @param mixed   $key       Header ID
-     * @param \string $header    Header string
-     * @param \bool   $overwrite Overwrite existing headers
+     * @param string $header    Header string
+     * @param bool   $overwrite Overwrite existing headers
      *
-     * @return \bool
+     * @return bool
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function setHeader($key, \string $header, \bool $overwrite = true);
+    public function setHeader($key, string $header, bool $overwrite = true);
 
     /**
      * Gets the body of the message.
      *
-     * @return \string
+     * @return string
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function getBody() : \string;
+    public function getBody() : string;
 
     /**
      * Set status code.
      *
-     * @param \string $status Status code
+     * @param string $status Status code
      *
      * @return void
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function setStatusCode(\string $status);
+    public function setStatusCode(string $status);
 
     /**
      * Get status code.
      *
-     * @return \string Status code
+     * @return string Status code
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function getStatusCode() : \string;
+    public function getStatusCode() : string;
 
     /**
      * Get account id.
      *
-     * @return \int Account id
+     * @return int Account id
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function getAccount() : \int;
+    public function getAccount() : int;
 
     /**
      * Set account id.
      *
-     * @param \int $account Account id
+     * @param int $account Account id
      *
      * @return void
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function setAccount(\int $account);
+    public function setAccount(int $account);
 }

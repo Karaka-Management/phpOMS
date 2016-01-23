@@ -38,7 +38,7 @@ class CronJob implements TaskInterface
     private $interval = null;
     private $command  = '';
 
-    public function __construct(\string $cronjob)
+    public function __construct(string $cronjob)
     {
 
     }
@@ -48,7 +48,7 @@ class CronJob implements TaskInterface
         $this->interval = $interval;
     }
 
-    public function setCommand(\string $command)
+    public function setCommand(string $command)
     {
         $this->command = $command;
     }
@@ -64,7 +64,7 @@ class CronJob implements TaskInterface
         return $minute . ' ' . $hour . ' ' . $dayOfMonth . ' ' . $month . ' ' . $dayOfWeek . ' ' . $this->command;
     }
 
-    private function printValue(array $value) : \string
+    private function printValue(array $value) : string
     {
         if (($count = count($value['dayOfWeek'])) > 0) {
             $parsed = implode(',', $value['dayOfWeek']);

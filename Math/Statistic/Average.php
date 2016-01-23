@@ -45,7 +45,7 @@ class Average
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public static function weightedAverage(array $values, array $weight) : \float
+    public static function weightedAverage(array $values, array $weight) : float
     {
         if (($count = count($values)) !== count($weight)) {
             throw new \Exception('Dimension');
@@ -93,7 +93,7 @@ class Average
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public static function median(array $values) : \float
+    public static function median(array $values) : float
     {
         sort($values);
         $count     = count($values);
@@ -116,7 +116,7 @@ class Average
      * Example: ([1, 2, 2, 3, 4, 4, 2])
      *
      * @param array $values Values
-     * @param \int  $offset Offset for outlier
+     * @param int  $offset Offset for outlier
      *
      * @return float
      *
@@ -125,7 +125,7 @@ class Average
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public static function arithmeticMean(array $values, \int $offset = 0)
+    public static function arithmeticMean(array $values, int $offset = 0)
     {
         sort($values);
 
@@ -148,7 +148,7 @@ class Average
      * Example: ([1, 2, 2, 3, 4, 4, 2])
      *
      * @param array $values Values
-     * @param \int  $offset Offset for outlier
+     * @param int  $offset Offset for outlier
      *
      * @return float
      *
@@ -157,7 +157,7 @@ class Average
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public static function geometricMean(array $values, \int $offset = 0)
+    public static function geometricMean(array $values, int $offset = 0)
     {
         sort($values);
 
@@ -180,7 +180,7 @@ class Average
      * Example: ([1, 2, 2, 3, 4, 4, 2])
      *
      * @param array $values Values
-     * @param \int  $offset Offset for outlier
+     * @param int  $offset Offset for outlier
      *
      * @return float
      *
@@ -189,7 +189,7 @@ class Average
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public static function harmonicMean(array $values, \int $offset = 0)
+    public static function harmonicMean(array $values, int $offset = 0)
     {
         sort($values);
 
@@ -217,14 +217,14 @@ class Average
      * Example: ([1, 2, 2, 3, 4, 4, 2])
      *
      * @param array $angles Angles
-     * @param \int  $offset Offset for outlier
+     * @param int  $offset Offset for outlier
      *
      * @return float
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public static function angleMean($angles, \int $offset = 0)
+    public static function angleMean($angles, int $offset = 0)
     {
         sort($angles);
 
@@ -260,7 +260,7 @@ class Average
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public static function timeToAngle(\string $time) : \float
+    public static function timeToAngle(string $time) : float
     {
         $parts = explode(':', $time);
 
@@ -288,7 +288,7 @@ class Average
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public static function angleToTime(\float $angle) : \string
+    public static function angleToTime(float $angle) : string
     {
         $sec   = 86400.0 * $angle / 360.0;
         $time  = sprintf('%02d:%02d:%02d', floor($sec / 3600), floor(($sec % 3600) / 60), $sec % 60);
@@ -302,14 +302,14 @@ class Average
      * Example: ([1, 2, 2, 3, 4, 4, 2])
      *
      * @param array $angles Angles
-     * @param \int  $offset Offset for outlier
+     * @param int  $offset Offset for outlier
      *
      * @return float
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public static function angleMean2(array $angles, \int $offset = 0)
+    public static function angleMean2(array $angles, int $offset = 0)
     {
         sort($angles);
 

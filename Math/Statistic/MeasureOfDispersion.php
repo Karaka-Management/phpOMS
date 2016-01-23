@@ -42,7 +42,7 @@ class MeasureOfDispersion
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public static function range(array $values) : \float
+    public static function range(array $values) : float
     {
         sort($values);
         $end   = end($values);
@@ -65,7 +65,7 @@ class MeasureOfDispersion
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public static function empiricalVariance(array $values) : \float
+    public static function empiricalVariance(array $values) : float
     {
         $count = count($values);
 
@@ -97,7 +97,7 @@ class MeasureOfDispersion
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public static function sampleVariance(array $values) : \float
+    public static function sampleVariance(array $values) : float
     {
         $count = count($values);
 
@@ -120,7 +120,7 @@ class MeasureOfDispersion
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public static function standardDeviation(array $values) : \float
+    public static function standardDeviation(array $values) : float
     {
         return sqrt(self::sampleVariance($values));
     }
@@ -139,7 +139,7 @@ class MeasureOfDispersion
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public static function empiricalVariationcoefficient(array $values) : \float
+    public static function empiricalVariationcoefficient(array $values) : float
     {
         $mean = Average::arithmeticMean($values);
 
@@ -165,7 +165,7 @@ class MeasureOfDispersion
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public static function empiricalCovariance(array $x, array $y) : \float
+    public static function empiricalCovariance(array $x, array $y) : float
     {
         $count = count($x);
 
@@ -202,7 +202,7 @@ class MeasureOfDispersion
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public static function bravaisPersonCorrelationcoefficient(array $x, array $y) : \float
+    public static function bravaisPersonCorrelationcoefficient(array $x, array $y) : float
     {
         return self::empiricalCovariance($x, $y) / sqrt(self::empiricalCovariance($x, $x) * self::empiricalCovariance($y, $y));
     }

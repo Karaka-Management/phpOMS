@@ -41,7 +41,7 @@ class Functions
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public static function getGammaInteger(\int $k) : \int
+    public static function getGammaInteger(int $k) : int
     {
         return self::fact($k - 1);
     }
@@ -59,7 +59,7 @@ class Functions
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public static function fact(\int $n, \int $start = 1) : \int
+    public static function fact(int $n, int $start = 1) : int
     {
         $fact = 1;
 
@@ -85,7 +85,7 @@ class Functions
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public static function binomialCoefficient(\int $n, \int $k) : \int
+    public static function binomialCoefficient(int $n, int $k) : int
     {
         $max = max([$k, $n - $k]);
         $min = min([$k, $n - $k]);

@@ -34,13 +34,13 @@ interface JsonableInterface extends ArrayableInterface
     /**
      * Convert the object to its JSON representation.
      *
-     * @param \int $options
+     * @param int $options
      *
-     * @return \string
+     * @return string
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function toJson(\int $options = 0) : \string;
+    public function toJson(int $options = 0) : string;
 
 }

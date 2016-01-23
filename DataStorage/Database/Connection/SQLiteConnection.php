@@ -41,7 +41,7 @@ class SqliteConnection extends ConnectionAbstract
      *
      * Creates the database object and overwrites all default values.
      *
-     * @param \string[] $dbdata the basic database information for establishing a connection
+     * @param string[] $dbdata the basic database information for establishing a connection
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>

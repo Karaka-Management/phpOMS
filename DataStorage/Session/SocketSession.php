@@ -32,7 +32,7 @@ class SocketSession implements SessionInterface
     /**
      * Session ID.
      *
-     * @var \string|\int
+     * @var string|int
      * @since 1.0.0
      */
     private $sid = null;
@@ -40,7 +40,7 @@ class SocketSession implements SessionInterface
     /**
      * Constructor.
      *
-     * @param \string|\int $sid Session id
+     * @param string|int $sid Session id
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
@@ -60,7 +60,7 @@ class SocketSession implements SessionInterface
     /**
      * {@inheritdoc}
      */
-    public function set($key, $value, \bool $overwrite = true) : \bool
+    public function set($key, $value, bool $overwrite = true) : bool
     {
         return false;
     }
@@ -68,7 +68,7 @@ class SocketSession implements SessionInterface
     /**
      * {@inheritdoc}
      */
-    public function remove($key) : \bool
+    public function remove($key) : bool
     {
         return false;
     }

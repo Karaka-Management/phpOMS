@@ -32,7 +32,7 @@ trait ModelValidationTrait
      * Set variable without validating it.
      *
      * @param mixed   $var  Variable to set
-     * @param \string $name Name of the variable
+     * @param string $name Name of the variable
      *
      * @throws \Exception
      *
@@ -54,9 +54,9 @@ trait ModelValidationTrait
      * Validate member variable.
      *
      * @param mixed   $var  Variable to validate
-     * @param \string $name Name of the variable
+     * @param string $name Name of the variable
      *
-     * @return \bool
+     * @return bool
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
@@ -77,9 +77,9 @@ trait ModelValidationTrait
      * Set validated member variable.
      *
      * @param mixed   $var  Variable to validate
-     * @param \string $name Name of the variable
+     * @param string $name Name of the variable
      *
-     * @return \bool
+     * @return bool
      *
      * @throws
      *

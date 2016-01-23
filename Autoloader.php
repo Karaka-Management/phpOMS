@@ -35,14 +35,14 @@ class Autoloader
     /**
      * Loading classes by namespace + class name.
      *
-     * @param \string $class Class path
+     * @param string $class Class path
      *
      * @return void
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public static function default_autoloader(\string $class)
+    public static function default_autoloader(string $class)
     {
         if (($class = self::exists($class)) !== false) {
             /** @noinspection PhpIncludeInspection */
@@ -53,14 +53,14 @@ class Autoloader
     /**
      * Check if class exists.
      *
-     * @param \string $class Class path
+     * @param string $class Class path
      *
      * @return false|string
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public static function exists(\string $class)
+    public static function exists(string $class)
     {
         $class = ltrim($class, '\\');
         $class = str_replace(['_', '\\'], DIRECTORY_SEPARATOR, $class);

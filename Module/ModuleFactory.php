@@ -47,7 +47,7 @@ class ModuleFactory
     /**
      * Unassigned providing.
      *
-     * @var \string[][]
+     * @var string[][]
      * @since 1.0.0
      */
     public static $providing = [];
@@ -65,7 +65,7 @@ class ModuleFactory
     /**
      * Gets and initializes modules.
      *
-     * @param \string             $module Module ID
+     * @param string             $module Module ID
      * @param ApplicationAbstract $app    Application
      *
      * @return ModuleAbstract
@@ -73,7 +73,7 @@ class ModuleFactory
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public static function getInstance(\string $module, ApplicationAbstract $app) : ModuleAbstract
+    public static function getInstance(string $module, ApplicationAbstract $app) : ModuleAbstract
     {
         if (!isset(self::$loaded[$module])) {
             $class = '\\Modules\\' . $module . '\\Controller';

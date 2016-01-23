@@ -29,5 +29,5 @@ namespace phpOMS\Utils\TaskSchedule;
 interface TaskInterface
 {
     public function setInterval(Interval $interval);
-    public function setCommand(\string $command);
+    public function setCommand(string $command);
 }

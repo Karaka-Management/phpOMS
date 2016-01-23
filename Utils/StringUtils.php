@@ -42,15 +42,15 @@ class StringUtils
     /**
      * String ends with?
      *
-     * @param \string $haystack Haystack
-     * @param \string $needle   Needle
+     * @param string $haystack Haystack
+     * @param string $needle   Needle
      *
-     * @return \bool
+     * @return bool
      *
      * @since  1.0.0
      * @author Dennis Eichhorn
      */
-    public static function endsWith(\string $haystack, \string $needle) : \bool
+    public static function endsWith(string $haystack, string $needle) : bool
     {
         return $needle === '' || (($temp = strlen($haystack) - strlen($needle)) >= 0 && strpos($haystack, $needle, $temp) !== false);
     }
@@ -58,15 +58,15 @@ class StringUtils
     /**
      * String starts with?
      *
-     * @param \string $haystack Haystack
-     * @param \string $needle   Needle
+     * @param string $haystack Haystack
+     * @param string $needle   Needle
      *
-     * @return \bool
+     * @return bool
      *
      * @since  1.0.0
      * @author Dennis Eichhorn
      */
-    public static function startsWith(\string $haystack, \string $needle) : \bool
+    public static function startsWith(string $haystack, string $needle) : bool
     {
         return $needle === '' || strrpos($haystack, $needle, -strlen($haystack)) !== false;
     }
@@ -74,15 +74,15 @@ class StringUtils
     /**
      * String starts with?
      *
-     * @param \string $haystack Haystack
-     * @param \string $needle   Needle
+     * @param string $haystack Haystack
+     * @param string $needle   Needle
      *
-     * @return \bool
+     * @return bool
      *
      * @since  1.0.0
      * @author Dennis Eichhorn
      */
-    public static function mb_startsWith(\string $haystack, \string $needle) : \bool
+    public static function mb_startsWith(string $haystack, string $needle) : bool
     {
         return $needle === '' || mb_strrpos($haystack, $needle, -mb_strlen($haystack)) !== false;
     }
@@ -90,15 +90,15 @@ class StringUtils
     /**
      * String ends with?
      *
-     * @param \string $haystack Haystack
-     * @param \string $needle   Needle
+     * @param string $haystack Haystack
+     * @param string $needle   Needle
      *
-     * @return \bool
+     * @return bool
      *
      * @since  1.0.0
      * @author Dennis Eichhorn
      */
-    public static function mb_endsWith(\string $haystack, \string $needle) : \bool
+    public static function mb_endsWith(string $haystack, string $needle) : bool
     {
         return $needle === '' || (($temp = mb_strlen($haystack) - mb_strlen($needle)) >= 0 && mb_strpos($haystack, $needle, $temp) !== false);
     }
@@ -106,14 +106,14 @@ class StringUtils
     /**
      * Uppercase first letter.
      *
-     * @param \string $string String to manipulate
+     * @param string $string String to manipulate
      *
-     * @return \string
+     * @return string
      *
      * @since  1.0.0
      * @author Dennis Eichhorn
      */
-    public static function mb_ucfirst(\string $string) : \string
+    public static function mb_ucfirst(string $string) : string
     {
         $strlen    = mb_strlen($string);
         $firstChar = mb_substr($string, 0, 1);
@@ -125,14 +125,14 @@ class StringUtils
     /**
      * Lowercase first letter.
      *
-     * @param \string $string String to manipulate
+     * @param string $string String to manipulate
      *
-     * @return \string
+     * @return string
      *
      * @since  1.0.0
      * @author Dennis Eichhorn
      */
-    public static function mb_lcfirst(\string $string) : \string
+    public static function mb_lcfirst(string $string) : string
     {
         $strlen    = mb_strlen($string);
         $firstChar = mb_substr($string, 0, 1);
@@ -144,15 +144,15 @@ class StringUtils
     /**
      * Trim string.
      *
-     * @param \string $string   String to manipulate
-     * @param \string $charlist String to trim
+     * @param string $string   String to manipulate
+     * @param string $charlist String to trim
      *
-     * @return \string
+     * @return string
      *
      * @since  1.0.0
      * @author Dennis Eichhorn
      */
-    public static function mb_trim(\string $string, \string $charlist = ' ') : \string
+    public static function mb_trim(string $string, string $charlist = ' ') : string
     {
         if (is_null($charlist)) {
             return trim($string);
@@ -166,15 +166,15 @@ class StringUtils
     /**
      * Trim right part of string.
      *
-     * @param \string $string   String to manipulate
-     * @param \string $charlist String to trim
+     * @param string $string   String to manipulate
+     * @param string $charlist String to trim
      *
-     * @return \string
+     * @return string
      *
      * @since  1.0.0
      * @author Dennis Eichhorn
      */
-    public static function mb_rtrim(\string $string, \string $charlist = ' ') : \string
+    public static function mb_rtrim(string $string, string $charlist = ' ') : string
     {
         if ($charlist === ' ') {
             return rtrim($string);
@@ -188,15 +188,15 @@ class StringUtils
     /**
      * Trim left part of string.
      *
-     * @param \string $string   String to manipulate
-     * @param \string $charlist String to trim
+     * @param string $string   String to manipulate
+     * @param string $charlist String to trim
      *
-     * @return \string
+     * @return string
      *
      * @since  1.0.0
      * @author Dennis Eichhorn
      */
-    public static function mb_ltrim(\string $string, \string $charlist = ' ') : \string
+    public static function mb_ltrim(string $string, string $charlist = ' ') : string
     {
         if ($charlist === ' ') {
             return ltrim($string);

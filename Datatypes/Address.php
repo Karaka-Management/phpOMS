@@ -34,7 +34,7 @@ class Address implements JsonableInterface
     /**
      * Name of the receiver.
      *
-     * @var \string
+     * @var string
      * @since 1.0.0
      */
     private $recipient = '';
@@ -42,7 +42,7 @@ class Address implements JsonableInterface
     /**
      * Sub of the address.
      *
-     * @var \string
+     * @var string
      * @since 1.0.0
      */
     private $fao = '';
@@ -69,12 +69,12 @@ class Address implements JsonableInterface
     /**
      * Get recipient.
      *
-     * @return \string
+     * @return string
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function getRecipient() : \string
+    public function getRecipient() : string
     {
         return $this->recipient;
     }
@@ -82,14 +82,14 @@ class Address implements JsonableInterface
     /**
      * Set recipient.
      *
-     * @param \string $recipient Recipient
+     * @param string $recipient Recipient
      *
      * @return void
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function setRecipient(\string $recipient)
+    public function setRecipient(string $recipient)
     {
         $this->recipient = $recipient;
     }
@@ -97,12 +97,12 @@ class Address implements JsonableInterface
     /**
      * Get FAO.
      *
-     * @return \string
+     * @return string
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function getFAO() : \string
+    public function getFAO() : string
     {
         return $this->fao;
     }
@@ -110,14 +110,14 @@ class Address implements JsonableInterface
     /**
      * Set FAO.
      *
-     * @param \string $fao FAO
+     * @param string $fao FAO
      *
      * @return void
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function setFAO(\string $fao)
+    public function setFAO(string $fao)
     {
         $this->fao = $fao;
     }
@@ -161,7 +161,7 @@ class Address implements JsonableInterface
     /**
      * {@inheritdoc}
      */
-    public function toJson(\int $option = 0) : \string
+    public function toJson(int $option = 0) : string
     {
         return json_encode($this->toArray());
     }

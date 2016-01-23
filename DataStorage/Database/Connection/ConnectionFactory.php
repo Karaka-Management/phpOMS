@@ -45,7 +45,7 @@ class ConnectionFactory
      *
      * Overwrites current connection if existing
      *
-     * @param \string[] $dbdata the basic database information for establishing a connection
+     * @param string[] $dbdata the basic database information for establishing a connection
      *
      * @return ConnectionInterface
      *

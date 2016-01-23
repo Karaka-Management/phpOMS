@@ -35,11 +35,11 @@ interface RenderableInterface
     /**
      * Get the evaluated contents of the object.
      *
-     * @return \string
+     * @return string
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function render() : \string;
+    public function render() : string;
 
 }

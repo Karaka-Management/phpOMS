@@ -43,7 +43,7 @@ class PoissonDistribution
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public static function getPmf(\int $k, \float $lambda) : \float
+    public static function getPmf(int $k, float $lambda) : float
     {
         return exp($k * log($lambda) - $lambda - log(Functions::getGammaInteger($k + 1)));
     }
@@ -59,7 +59,7 @@ class PoissonDistribution
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public static function getCdf(\int $k, \float $lambda) : \float
+    public static function getCdf(int $k, float $lambda) : float
     {
         $sum = 0.0;
 
@@ -73,14 +73,14 @@ class PoissonDistribution
     /**
      * Get mode.
      *
-     * @param \float $lambda Lambda
+     * @param float $lambda Lambda
      *
      * @return float
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public static function getMode(\float $lambda) : \float
+    public static function getMode(float $lambda) : float
     {
         return floor($lambda);
     }
@@ -88,14 +88,14 @@ class PoissonDistribution
     /**
      * Get expected value.
      *
-     * @param \float $lambda Lambda
+     * @param float $lambda Lambda
      *
      * @return float
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public static function getMean(\float $lambda) : \float
+    public static function getMean(float $lambda) : float
     {
         return $lambda;
     }
@@ -103,14 +103,14 @@ class PoissonDistribution
     /**
      * Get expected value.
      *
-     * @param \float $lambda Lambda
+     * @param float $lambda Lambda
      *
      * @return float
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public static function getMedian(\float $lambda) : \float
+    public static function getMedian(float $lambda) : float
     {
         return floor($lambda + 1 / 3 - 0.02 / $lambda);
     }
@@ -118,14 +118,14 @@ class PoissonDistribution
     /**
      * Get variance.
      *
-     * @param \float $lambda Lambda
+     * @param float $lambda Lambda
      *
      * @return float
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public static function getVariance(\float $lambda) : \float
+    public static function getVariance(float $lambda) : float
     {
         return $lambda;
     }
@@ -141,7 +141,7 @@ class PoissonDistribution
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public static function getMgf(\float $lambda, \float $t) : \float
+    public static function getMgf(float $lambda, float $t) : float
     {
         return exp($lambda * (exp($t) - 1));
     }
@@ -156,7 +156,7 @@ class PoissonDistribution
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public static function getSkewness(\float $lambda) : \float
+    public static function getSkewness(float $lambda) : float
     {
         return pow($lambda, -1 / 2);
     }
@@ -171,7 +171,7 @@ class PoissonDistribution
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public static function getFisherInformation(\float $lambda) : \float
+    public static function getFisherInformation(float $lambda) : float
     {
         return pow($lambda, -1);
     }
@@ -186,7 +186,7 @@ class PoissonDistribution
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public static function getExKurtosis(\float $lambda) : \float
+    public static function getExKurtosis(float $lambda) : float
     {
         return pow($lambda, -1);
     }

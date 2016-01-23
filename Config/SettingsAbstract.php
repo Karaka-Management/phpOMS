@@ -55,7 +55,7 @@ abstract class SettingsAbstract implements OptionsInterface
     /**
      * Settings table.
      *
-     * @var \string
+     * @var string
      * @since 1.0.0
      */
     protected static $table = null;
@@ -63,7 +63,7 @@ abstract class SettingsAbstract implements OptionsInterface
     /**
      * Columns to identify the value.
      *
-     * @var \string[]
+     * @var string[]
      * @since 1.0.0
      */
     protected static $columns = [
@@ -73,7 +73,7 @@ abstract class SettingsAbstract implements OptionsInterface
     /**
      * Field where the actual value is stored.
      *
-     * @var \string
+     * @var string
      * @since 1.0.0
      */
     protected $valueField = 'option';
@@ -81,7 +81,7 @@ abstract class SettingsAbstract implements OptionsInterface
     /**
      * Get option by key.
      *
-     * @param \string[] $columns Column values for filtering
+     * @param string[] $columns Column values for filtering
      *
      * @return mixed Option value
      *
@@ -114,15 +114,15 @@ abstract class SettingsAbstract implements OptionsInterface
     /**
      * Set option by key.
      *
-     * @param \string[] $options   Column values for filtering
-     * @param \bool     $store     Save this Setting immediately to database
+     * @param string[] $options   Column values for filtering
+     * @param bool     $store     Save this Setting immediately to database
      *
      * @return mixed Option value
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function set(array $options, \bool $store = false)
+    public function set(array $options, bool $store = false)
     {
         $this->setOptions($options);
 

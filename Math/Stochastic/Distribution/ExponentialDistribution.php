@@ -40,7 +40,7 @@ class ExponentialDistribution
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public static function getPdf(\float $x, \float $lambda) : \float
+    public static function getPdf(float $x, float $lambda) : float
     {
         return $x >= 0 ? $lambda * exp(-$lambda * $x) : 0;
     }
@@ -56,7 +56,7 @@ class ExponentialDistribution
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public static function getCdf(\float $x, \float $lambda) : \float
+    public static function getCdf(float $x, float $lambda) : float
     {
         return $x >= 0 ? 1 - exp($lambda * $x) : 0;
     }
@@ -69,7 +69,7 @@ class ExponentialDistribution
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public static function getMode() : \float
+    public static function getMode() : float
     {
         return 0;
     }
@@ -77,14 +77,14 @@ class ExponentialDistribution
     /**
      * Get expected value.
      *
-     * @param \float $lambda
+     * @param float $lambda
      *
      * @return float
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public static function getMean(\float $lambda) : \float
+    public static function getMean(float $lambda) : float
     {
         return 1 / $lambda;
     }
@@ -92,14 +92,14 @@ class ExponentialDistribution
     /**
      * Get expected value.
      *
-     * @param \float $lambda
+     * @param float $lambda
      *
      * @return float
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public static function getMedian(\float $lambda) : \float
+    public static function getMedian(float $lambda) : float
     {
         return 1 / $lambda;
     }
@@ -107,14 +107,14 @@ class ExponentialDistribution
     /**
      * Get variance.
      *
-     * @param \float $lambda
+     * @param float $lambda
      *
      * @return float
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public static function getVariance(\float $lambda) : \float
+    public static function getVariance(float $lambda) : float
     {
         return pow($lambda, -2);
     }
@@ -132,7 +132,7 @@ class ExponentialDistribution
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public static function getMgf(\float $t, \float $lambda) : \float
+    public static function getMgf(float $t, float $lambda) : float
     {
         if ($t >= $lambda) {
             throw new \Exception('Out of bounds');
@@ -149,7 +149,7 @@ class ExponentialDistribution
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public static function getSkewness() : \float
+    public static function getSkewness() : float
     {
         return 2;
     }
@@ -162,7 +162,7 @@ class ExponentialDistribution
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public static function getExKurtosis() : \float
+    public static function getExKurtosis() : float
     {
         return 6;
     }

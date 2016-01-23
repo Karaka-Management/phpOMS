@@ -50,14 +50,14 @@ class AccountManager
     /**
      * Get account.
      *
-     * @param \int $id Account id
+     * @param int $id Account id
      *
      * @return Account
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function get(\int $id) : Account
+    public function get(int $id) : Account
     {
         return $this->accounts[$id] ?? new NullAccount();
     }
@@ -67,7 +67,7 @@ class AccountManager
      *
      * @param Account $account Account
      *
-     * @return \int Account id
+     * @return int Account id
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>

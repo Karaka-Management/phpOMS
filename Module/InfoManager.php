@@ -44,7 +44,7 @@ class InfoManager
     /**
      * Module path.
      *
-     * @var \string
+     * @var string
      * @since 1.0.0
      */
     const MODULE_PATH = __DIR__ . '/../../Modules/';
@@ -52,12 +52,12 @@ class InfoManager
     /**
      * Object constructor.
      *
-     * @param \string $module Module name
+     * @param string $module Module name
      *
      * @since  1.0.0
      * @author Dennis Eichhorn
      */
-    public function __construct(\string $module)
+    public function __construct(string $module)
     {
         if (($path = realpath($oldPath = self::MODULE_PATH . $module . '/info.json')) === false || Validator::startsWith($path, self::MODULE_PATH)) {
             throw new FilePathException($oldPath);

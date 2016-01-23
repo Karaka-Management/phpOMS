@@ -64,7 +64,7 @@ class City
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function __construct(\float $lat, \float $long, \string $name)
+    public function __construct(float $lat, float $long, string $name)
     {
         $this->long = $long;
         $this->lat  = $lat;
@@ -79,7 +79,7 @@ class City
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function getLongitude() : \float
+    public function getLongitude() : float
     {
         return $this->long;
     }
@@ -92,7 +92,7 @@ class City
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function getLatitude() : \float
+    public function getLatitude() : float
     {
         return $this->lat;
     }
@@ -105,7 +105,7 @@ class City
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function getName() : \string
+    public function getName() : string
     {
         return $this->name;
     }
@@ -120,7 +120,7 @@ class City
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function equals(City $city) : \bool
+    public function equals(City $city) : bool
     {
         return $this->name === $city->getName() && $this->lat === $city->getLatitude() && $this->long === $city->getLatitude();
     }
@@ -135,7 +135,7 @@ class City
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function getDistanceTo(City $city) : \float
+    public function getDistanceTo(City $city) : float
     {
         return Sphere::distance2PointsOnSphere($this->lat, $this->long, $city->getLatitude(), $city->getLongitude());
     }

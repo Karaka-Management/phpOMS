@@ -38,7 +38,7 @@ class CommandManager implements \Countable
     /**
      * Commands.
      *
-     * @var \int
+     * @var int
      * @since 1.0.0
      */
     private $count = 0;
@@ -56,7 +56,7 @@ class CommandManager implements \Countable
     /**
      * Attach new command.
      *
-     * @param \string $cmd      Command ID
+     * @param string $cmd      Command ID
      * @param mixed   $callback Function callback
      * @param mixed   $source   Provider
      *
@@ -65,7 +65,7 @@ class CommandManager implements \Countable
      * @since  1.0.0
      * @author Dennis Eichhorn
      */
-    public function attach(\string $cmd, $callback, $source)
+    public function attach(string $cmd, $callback, $source)
     {
         $this->commands[$cmd] = [$callback, $source];
         $this->count++;
@@ -74,7 +74,7 @@ class CommandManager implements \Countable
     /**
      * Detach existing command.
      *
-     * @param \string $cmd    Command ID
+     * @param string $cmd    Command ID
      * @param mixed   $source Provider
      *
      * @return void
@@ -82,7 +82,7 @@ class CommandManager implements \Countable
      * @since  1.0.0
      * @author Dennis Eichhorn
      */
-    public function detach(\string $cmd, $source)
+    public function detach(string $cmd, $source)
     {
         if (array_key_exists($cmd, $this->commands)) {
             unset($this->commands[$cmd]);
@@ -93,7 +93,7 @@ class CommandManager implements \Countable
     /**
      * Trigger command.
      *
-     * @param \string $cmd  Command ID
+     * @param string $cmd  Command ID
      * @param mixed   $conn Client ID
      * @param mixed   $para Parameters to pass
      *
@@ -102,7 +102,7 @@ class CommandManager implements \Countable
      * @since  1.0.0
      * @author Dennis Eichhorn
      */
-    public function trigger(\string $cmd, $conn, $para)
+    public function trigger(string $cmd, $conn, $para)
     {
         if (array_key_exists($cmd, $this->commands)) {
             return $this->commands[$cmd][0]($conn, $para);
@@ -114,12 +114,12 @@ class CommandManager implements \Countable
     /**
      * Count commands.
      *
-     * @return \int
+     * @return int
      *
      * @since  1.0.0
      * @author Dennis Eichhorn
      */
-    public function count() : \int
+    public function count() : int
     {
         return $this->count;
     }

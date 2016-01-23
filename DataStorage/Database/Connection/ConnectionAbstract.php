@@ -51,7 +51,7 @@ abstract class ConnectionAbstract implements ConnectionInterface
      *
      * The database prefix name for unique table names
      *
-     * @var \string
+     * @var string
      * @since 1.0.0
      */
     public $prefix = '';
@@ -59,7 +59,7 @@ abstract class ConnectionAbstract implements ConnectionInterface
     /**
      * Database data.
      *
-     * @var \string[]
+     * @var string[]
      * @since 1.0.0
      */
     protected $dbdata = null;
@@ -99,7 +99,7 @@ abstract class ConnectionAbstract implements ConnectionInterface
     /**
      * {@inheritdoc}
      */
-    public function getType() : \int
+    public function getType() : int
     {
         return $this->type;
     }
@@ -107,7 +107,7 @@ abstract class ConnectionAbstract implements ConnectionInterface
     /**
      * {@inheritdoc}
      */
-    public function getStatus() : \int
+    public function getStatus() : int
     {
         return $this->status;
     }
@@ -115,12 +115,12 @@ abstract class ConnectionAbstract implements ConnectionInterface
     /**
      * Get table prefix.
      *
-     * @return \string
+     * @return string
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function getPrefix() : \string
+    public function getPrefix() : string
     {
         return $this->prefix;
     }

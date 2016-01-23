@@ -32,7 +32,7 @@ interface ExcelInterface
     /**
      * Export Excel.
      *
-     * @param \string $path Path to export
+     * @param string $path Path to export
      *
      * @return void
      *
@@ -44,7 +44,7 @@ interface ExcelInterface
     /**
      * Import Excel.
      *
-     * @param \string $path Path to import
+     * @param string $path Path to import
      *
      * @return void
      *

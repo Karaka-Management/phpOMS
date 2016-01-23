@@ -32,7 +32,7 @@ abstract class ValidatorAbstract
     /**
      * Error code.
      *
-     * @var \int
+     * @var int
      * @since 1.0.0
      */
     protected static $error = 0;
@@ -40,7 +40,7 @@ abstract class ValidatorAbstract
     /**
      * Message string.
      *
-     * @var \string
+     * @var string
      * @since 1.0.0
      */
     protected static $msg = '';

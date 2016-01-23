@@ -51,7 +51,7 @@ class EventManager implements Mediator
     /**
      * {@inheritdoc}
      */
-    public function attach(\string $event, \Closure $callback = null, \string $listener = null) : \string
+    public function attach(string $event, \Closure $callback = null, string $listener = null) : string
     {
         $this->events[$event][$listener] = $callback;
 
@@ -61,7 +61,7 @@ class EventManager implements Mediator
     /**
      * {@inheritdoc}
      */
-    public function trigger(\string $event, \Closure $callback = null, \string $source = null) : \int
+    public function trigger(string $event, \Closure $callback = null, string $source = null) : int
     {
         $count = 0;
         foreach ($this->events[$event] as $event) {
@@ -82,16 +82,16 @@ class EventManager implements Mediator
      *
      * An object fires an event until it's callback returns false
      *
-     * @param \string  $event    Event ID
+     * @param string  $event    Event ID
      * @param \Closure $callback Callback function of the event. This will get triggered after firering all listener callbacks.
-     * @param \string  $source   What class is invoking this event
+     * @param string  $source   What class is invoking this event
      *
-     * @return \int
+     * @return int
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function triggerUntil(\string $event, \Closure $callback = null, \string $source = null) : \int
+    public function triggerUntil(string $event, \Closure $callback = null, string $source = null) : int
     {
         $run   = true;
         $count = 0;
@@ -113,7 +113,7 @@ class EventManager implements Mediator
     /**
      * {@inheritdoc}
      */
-    public function detach(\int $event)
+    public function detach(int $event)
     {
         $this->events = ArrayUtils::unsetArray($event, $this->events, '/');
     }
@@ -121,12 +121,12 @@ class EventManager implements Mediator
     /**
      * Count event listenings.
      *
-     * @return \int
+     * @return int
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function count() : \int
+    public function count() : int
     {
         return count($this->events);
     }

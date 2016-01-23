@@ -78,12 +78,12 @@ class FileLogger implements LoggerInterface
      *
      * Creates the logging object and overwrites all default values.
      *
-     * @param \string $lpath Path for logging
+     * @param string $lpath Path for logging
      *
      * @since  1.0.0
      * @author Dennis Eichhorn
      */
-    public function __construct(\string $lpath)
+    public function __construct(string $lpath)
     {
         $path = realpath($lpath);
 
@@ -115,14 +115,14 @@ class FileLogger implements LoggerInterface
     /**
      * Returns instance.
      *
-     * @param \string $path Logging path
+     * @param string $path Logging path
      *
      * @return self
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public static function getInstance(\string $path = '')
+    public static function getInstance(string $path = '')
     {
         if (self::$instance === null) {
             self::$instance = new self($path);
@@ -159,7 +159,7 @@ class FileLogger implements LoggerInterface
     /**
      * Starts the time measurement.
      *
-     * @param \string $id the ID by which this time measurement gets identified
+     * @param string $id the ID by which this time measurement gets identified
      *
      * @return void
      *
@@ -177,9 +177,9 @@ class FileLogger implements LoggerInterface
     /**
      * Ends the time measurement.
      *
-     * @param \string $id the ID by which this time measurement gets identified
+     * @param string $id the ID by which this time measurement gets identified
      *
-     * @return \int the time measurement
+     * @return int the time measurement
      *
      * @since  1.0.0
      * @author Dennis Eichhorn
@@ -213,16 +213,16 @@ class FileLogger implements LoggerInterface
     /**
      * Interpolate context
      *
-     * @param \string $message
+     * @param string $message
      * @param array   $context
-     * @param \string $level
+     * @param string $level
      *
-     * @return \string
+     * @return string
      *
      * @since  1.0.0
      * @author Dennis Eichhorn
      */
-    private function interpolate(\string $message, array $context = [], \string $level = LogLevel::DEBUG)
+    private function interpolate(string $message, array $context = [], string $level = LogLevel::DEBUG)
     {
         $replace = [];
         foreach ($context as $key => $val) {
@@ -257,7 +257,7 @@ class FileLogger implements LoggerInterface
      * @param array $a
      * @param array $b
      *
-     * @return \bool the comparison
+     * @return bool the comparison
      *
      * @since  1.0.0
      * @author Dennis Eichhorn
@@ -274,14 +274,14 @@ class FileLogger implements LoggerInterface
     /**
      * Write to file.
      *
-     * @param \string $message
+     * @param string $message
      *
      * @return void
      *
      * @since  1.0.0
      * @author Dennis Eichhorn
      */
-    private function write(\string $message)
+    private function write(string $message)
     {
         $this->fp = fopen($this->path, 'a');
         fwrite($this->fp, $message . "\n");
@@ -291,7 +291,7 @@ class FileLogger implements LoggerInterface
     /**
      * System is unusable.
      *
-     * @param \string $message
+     * @param string $message
      * @param array   $context
      *
      * @return null
@@ -299,7 +299,7 @@ class FileLogger implements LoggerInterface
      * @since  1.0.0
      * @author Dennis Eichhorn
      */
-    public function emergency(\string $message, array $context = [])
+    public function emergency(string $message, array $context = [])
     {
         $message = $this->interpolate($message, $context, LogLevel::EMERGENCY);
         $this->write($message);
@@ -311,7 +311,7 @@ class FileLogger implements LoggerInterface
      * Example: Entire website down, database unavailable, etc. This should
      * trigger the SMS alerts and wake you up.
      *
-     * @param \string $message
+     * @param string $message
      * @param array   $context
      *
      * @return void
@@ -319,7 +319,7 @@ class FileLogger implements LoggerInterface
      * @since  1.0.0
      * @author Dennis Eichhorn
      */
-    public function alert(\string $message, array $context = [])
+    public function alert(string $message, array $context = [])
     {
         $message = $this->interpolate($message, $context, LogLevel::ALERT);
         $this->write($message);
@@ -330,7 +330,7 @@ class FileLogger implements LoggerInterface
      *
      * Example: Application component unavailable, unexpected exception.
      *
-     * @param \string $message
+     * @param string $message
      * @param array   $context
      *
      * @return void
@@ -338,7 +338,7 @@ class FileLogger implements LoggerInterface
      * @since  1.0.0
      * @author Dennis Eichhorn
      */
-    public function critical(\string $message, array $context = [])
+    public function critical(string $message, array $context = [])
     {
         $message = $this->interpolate($message, $context, LogLevel::CRITICAL);
         $this->write($message);
@@ -348,7 +348,7 @@ class FileLogger implements LoggerInterface
      * Runtime errors that do not require immediate action but should typically
      * be logged and monitored.
      *
-     * @param \string $message
+     * @param string $message
      * @param array   $context
      *
      * @return void
@@ -356,7 +356,7 @@ class FileLogger implements LoggerInterface
      * @since  1.0.0
      * @author Dennis Eichhorn
      */
-    public function error(\string $message, array $context = [])
+    public function error(string $message, array $context = [])
     {
         $message = $this->interpolate($message, $context, LogLevel::ERROR);
         $this->write($message);
@@ -368,7 +368,7 @@ class FileLogger implements LoggerInterface
      * Example: Use of deprecated APIs, poor use of an API, undesirable things
      * that are not necessarily wrong.
      *
-     * @param \string $message
+     * @param string $message
      * @param array   $context
      *
      * @return void
@@ -376,7 +376,7 @@ class FileLogger implements LoggerInterface
      * @since  1.0.0
      * @author Dennis Eichhorn
      */
-    public function warning(\string $message, array $context = [])
+    public function warning(string $message, array $context = [])
     {
         $message = $this->interpolate($message, $context, LogLevel::WARNING);
         $this->write($message);
@@ -385,7 +385,7 @@ class FileLogger implements LoggerInterface
     /**
      * Normal but significant events.
      *
-     * @param \string $message
+     * @param string $message
      * @param array   $context
      *
      * @return void
@@ -393,7 +393,7 @@ class FileLogger implements LoggerInterface
      * @since  1.0.0
      * @author Dennis Eichhorn
      */
-    public function notice(\string $message, array $context = [])
+    public function notice(string $message, array $context = [])
     {
         $message = $this->interpolate($message, $context, LogLevel::NOTICE);
         $this->write($message);
@@ -404,7 +404,7 @@ class FileLogger implements LoggerInterface
      *
      * Example: User logs in, SQL logs.
      *
-     * @param \string $message
+     * @param string $message
      * @param array   $context
      *
      * @return void
@@ -412,7 +412,7 @@ class FileLogger implements LoggerInterface
      * @since  1.0.0
      * @author Dennis Eichhorn
      */
-    public function info(\string $message, array $context = [])
+    public function info(string $message, array $context = [])
     {
         $message = $this->interpolate($message, $context, LogLevel::INFO);
         $this->write($message);
@@ -421,7 +421,7 @@ class FileLogger implements LoggerInterface
     /**
      * Detailed debug information.
      *
-     * @param \string $message
+     * @param string $message
      * @param array   $context
      *
      * @return void
@@ -429,7 +429,7 @@ class FileLogger implements LoggerInterface
      * @since  1.0.0
      * @author Dennis Eichhorn
      */
-    public function debug(\string $message, array $context = [])
+    public function debug(string $message, array $context = [])
     {
         $message = $this->interpolate($message, $context, LogLevel::DEBUG);
         $this->write($message);
@@ -438,8 +438,8 @@ class FileLogger implements LoggerInterface
     /**
      * Logs with an arbitrary level.
      *
-     * @param \string $level
-     * @param \string $message
+     * @param string $level
+     * @param string $message
      * @param array   $context
      *
      * @return void
@@ -447,7 +447,7 @@ class FileLogger implements LoggerInterface
      * @since  1.0.0
      * @author Dennis Eichhorn
      */
-    public function log(\string $level, \string $message, array $context = [])
+    public function log(string $level, string $message, array $context = [])
     {
         if (!LogLevel::isValidValue($level)) {
             throw new InvalidEnumValue($level);
@@ -490,11 +490,11 @@ class FileLogger implements LoggerInterface
     /**
      * Find cricitcal connections.
      *
-     * @param \int $limit Amout of perpetrators
+     * @param int $limit Amout of perpetrators
      *
      * @return array
      */
-    public function getHighestPerpetrator(\int $limit = 10)
+    public function getHighestPerpetrator(int $limit = 10)
     {
         $connection = [];
 
@@ -523,12 +523,12 @@ class FileLogger implements LoggerInterface
     /**
      * Get logging messages from file.
      *
-     * @param \int $limit  Amout of perpetrators
-     * @param \int $offset Offset
+     * @param int $limit  Amout of perpetrators
+     * @param int $offset Offset
      *
      * @return array
      */
-    public function get(\int $limit = 25, \int $offset = 0) : array
+    public function get(int $limit = 25, int $offset = 0) : array
     {
         $logs = [];
         $id   = 0;
@@ -570,11 +570,11 @@ class FileLogger implements LoggerInterface
     /**
      * Get single logging message from file.
      *
-     * @param \int $id Id/Line number of the logging message
+     * @param int $id Id/Line number of the logging message
      *
      * @return array
      */
-    public function getByLine(\int $id = 1) : array
+    public function getByLine(int $id = 1) : array
     {
         $log     = [];
         $current = 0;

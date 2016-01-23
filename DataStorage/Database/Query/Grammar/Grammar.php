@@ -38,7 +38,7 @@ class Grammar extends GrammarAbstract
     /**
      * Select components.
      *
-     * @var \string[]
+     * @var string[]
      * @since 1.0.0
      */
     protected $selectComponents = [
@@ -59,7 +59,7 @@ class Grammar extends GrammarAbstract
     /**
      * Insert components.
      *
-     * @var \string[]
+     * @var string[]
      * @since 1.0.0
      */
     protected $insertComponents = [
@@ -71,7 +71,7 @@ class Grammar extends GrammarAbstract
     /**
      * Update components.
      *
-     * @var \string[]
+     * @var string[]
      * @since 1.0.0
      */
     protected $updateComponents = [
@@ -85,7 +85,7 @@ class Grammar extends GrammarAbstract
      *
      * @param BuilderAbstract $query Builder
      *
-     * @return \string[]
+     * @return string[]
      *
      * @throws
      *
@@ -129,12 +129,12 @@ class Grammar extends GrammarAbstract
      * @param Builder $query   Builder
      * @param array   $columns Columns
      *
-     * @return \string
+     * @return string
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    protected function compileSelects(Builder $query, array $columns) : \string
+    protected function compileSelects(Builder $query, array $columns) : string
     {
         $expression = $this->expressionizeTableColumn($columns, $query->getPrefix());
 
@@ -151,12 +151,12 @@ class Grammar extends GrammarAbstract
      * @param Builder $query Builder
      * @param array   $table Tables
      *
-     * @return \string
+     * @return string
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    protected function compileFrom(Builder $query, array $table) : \string
+    protected function compileFrom(Builder $query, array $table) : string
     {
         $expression = $this->expressionizeTableColumn($table, $query->getPrefix());
 
@@ -172,14 +172,14 @@ class Grammar extends GrammarAbstract
      *
      * @param Builder $query  Builder
      * @param array   $wheres Where elmenets
-     * @param \bool   $first  Is first element (usefull for nesting)
+     * @param bool   $first  Is first element (usefull for nesting)
      *
-     * @return \string
+     * @return string
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    protected function compileWheres(Builder $query, array $wheres, \bool $first = true) : \string
+    protected function compileWheres(Builder $query, array $wheres, bool $first = true) : string
     {
         $expression = '';
 
@@ -222,16 +222,16 @@ class Grammar extends GrammarAbstract
      * Compile value.
      *
      * @param array|string|\Closure $value  Value
-     * @param \string               $prefix Prefix in case value is a table
+     * @param string               $prefix Prefix in case value is a table
      *
-     * @return \string
+     * @return string
      *
      * @throws \InvalidArgumentException
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    protected function compileValue($value, $prefix = '') : \string
+    protected function compileValue($value, $prefix = '') : string
     {
         if (is_string($value)) {
             return $this->valueQuotes . $value . $this->valueQuotes;
@@ -262,14 +262,14 @@ class Grammar extends GrammarAbstract
      * Compile limit.
      *
      * @param Builder $query Builder
-     * @param \int    $limit Limit
+     * @param int    $limit Limit
      *
-     * @return \string
+     * @return string
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    protected function compileLimit(Builder $query, $limit) : \string
+    protected function compileLimit(Builder $query, $limit) : string
     {
         return 'LIMIT ' . $limit;
     }
@@ -278,14 +278,14 @@ class Grammar extends GrammarAbstract
      * Compile offset.
      *
      * @param Builder $query  Builder
-     * @param \int    $offset Offset
+     * @param int    $offset Offset
      *
-     * @return \string
+     * @return string
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    protected function compileOffset(Builder $query, $offset) : \string
+    protected function compileOffset(Builder $query, $offset) : string
     {
         return 'OFFSET ' . $offset;
     }
@@ -301,7 +301,7 @@ class Grammar extends GrammarAbstract
      * @param Builder $query  Builder
      * @param array   $groups Groups
      *
-     * @return \string
+     * @return string
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
@@ -325,12 +325,12 @@ class Grammar extends GrammarAbstract
      * @param Builder $query  Builder
      * @param array   $orders Order
      *
-     * @return \string
+     * @return string
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    private function compileOrders(Builder $query, array $orders) : \string
+    private function compileOrders(Builder $query, array $orders) : string
     {
         $expression = '';
 
@@ -361,14 +361,14 @@ class Grammar extends GrammarAbstract
      * Compile insert into table.
      *
      * @param Builder $query Builder
-     * @param \string $table Table
+     * @param string $table Table
      *
-     * @return \string
+     * @return string
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    protected function compileInto(Builder $query, $table) : \string
+    protected function compileInto(Builder $query, $table) : string
     {
         return 'INSERT INTO ' . $this->compileSystem($table, $query->getPrefix());
     }
@@ -379,12 +379,12 @@ class Grammar extends GrammarAbstract
      * @param Builder $query   Builder
      * @param array   $columns Columns
      *
-     * @return \string
+     * @return string
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    protected function compileInserts(Builder $query, array $columns) : \string
+    protected function compileInserts(Builder $query, array $columns) : string
     {
         $cols = '';
 
@@ -405,12 +405,12 @@ class Grammar extends GrammarAbstract
      * @param Builder $query  Builder
      * @param array   $values Values
      *
-     * @return \string
+     * @return string
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    protected function compileValues(Builder $query, array $values) : \string
+    protected function compileValues(Builder $query, array $values) : string
     {
         $vals = '';
 

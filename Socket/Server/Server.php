@@ -37,7 +37,7 @@ class Server extends SocketAbstract
     /**
      * Socket connection limit.
      *
-     * @var \int
+     * @var int
      * @since 1.0.0
      */
     private $limit = 10;
@@ -66,7 +66,7 @@ class Server extends SocketAbstract
      */
     private $app = null;
 
-    public static function hasInternet() : \bool
+    public static function hasInternet() : bool
     {
         $connected = @fsockopen("www.google.com", 80);
 
@@ -95,7 +95,7 @@ class Server extends SocketAbstract
     /**
      * {@inheritdoc}
      */
-    public function create(\string $ip, \int $port)
+    public function create(string $ip, int $port)
     {
         parent::create($ip, $port);
         socket_bind($this->sock, $this->ip, $this->port);
@@ -104,14 +104,14 @@ class Server extends SocketAbstract
     /**
      * Set connection limit.
      *
-     * @param \int $limit Connection limit
+     * @param int $limit Connection limit
      *
      * @return void
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function setLimit(\int $limit)
+    public function setLimit(int $limit)
     {
         $this->limit = $limit;
     }
@@ -171,12 +171,12 @@ class Server extends SocketAbstract
      *
      * @param mixed $key Client key
      *
-     * @return \bool
+     * @return bool
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    private function clientReadError($key) : \bool
+    private function clientReadError($key) : bool
     {
         if (socket_last_error() === 10054) {
             socket_clear_error();

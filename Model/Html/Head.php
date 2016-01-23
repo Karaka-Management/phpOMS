@@ -38,7 +38,7 @@ class Head implements RenderableInterface
     /**
      * Page language.
      *
-     * @var \string
+     * @var string
      * @since 1.0.0
      */
     private $language = '';
@@ -46,7 +46,7 @@ class Head implements RenderableInterface
     /**
      * Page title.
      *
-     * @var \string
+     * @var string
      * @since 1.0.0
      */
     private $title = '';
@@ -62,7 +62,7 @@ class Head implements RenderableInterface
     /**
      * Is the header set?
      *
-     * @var \bool
+     * @var bool
      * @since 1.0.0
      */
     private $hasContent = false;
@@ -118,12 +118,12 @@ class Head implements RenderableInterface
     /**
      * Set page title.
      *
-     * @return \string
+     * @return string
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function getTitle() : \string
+    public function getTitle() : string
     {
         return $this->title;
     }
@@ -131,14 +131,14 @@ class Head implements RenderableInterface
     /**
      * Set page title.
      *
-     * @param \string $title Page title
+     * @param string $title Page title
      *
      * @return void
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function setTitle(\string $title)
+    public function setTitle(string $title)
     {
         $this->title = $title;
     }
@@ -146,15 +146,15 @@ class Head implements RenderableInterface
     /**
      * Set page title.
      *
-     * @param \string $type Asset type
-     * @param \string $uri  Asset uri
+     * @param string $type Asset type
+     * @param string $uri  Asset uri
      *
      * @return void
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function addAsset(\string $type, \string $uri)
+    public function addAsset(string $type, string $uri)
     {
         $this->assets[$uri] = $type;
     }
@@ -162,14 +162,14 @@ class Head implements RenderableInterface
     /**
      * Set page language.
      *
-     * @param \string $language language string
+     * @param string $language language string
      *
      * @return void
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function setLanguage(\string $language)
+    public function setLanguage(string $language)
     {
         $this->language = $language;
     }
@@ -177,12 +177,12 @@ class Head implements RenderableInterface
     /**
      * Get the evaluated contents of the object.
      *
-     * @return \string
+     * @return string
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function render() : \string
+    public function render() : string
     {
         $head = '';
         if ($this->hasContent) {
@@ -197,12 +197,12 @@ class Head implements RenderableInterface
     /**
      * Render style.
      *
-     * @return \string
+     * @return string
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function renderStyle() : \string
+    public function renderStyle() : string
     {
         $style = '';
         foreach ($this->style as $css) {
@@ -215,12 +215,12 @@ class Head implements RenderableInterface
     /**
      * Render script.
      *
-     * @return \string
+     * @return string
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function renderScript() : \string
+    public function renderScript() : string
     {
         $script = '';
         foreach ($this->script as $js) {
@@ -233,16 +233,16 @@ class Head implements RenderableInterface
     /**
      * Set a style.
      *
-     * @param \string $key       Style key
-     * @param \string $style     Style source
-     * @param \bool   $overwrite Overwrite if already existing
+     * @param string $key       Style key
+     * @param string $style     Style source
+     * @param bool   $overwrite Overwrite if already existing
      *
      * @return void
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function setStyle(\string $key, \string $style, \bool $overwrite = true)
+    public function setStyle(string $key, string $style, bool $overwrite = true)
     {
         if ($overwrite || !isset($this->script[$key])) {
             $this->style[$key] = $style;
@@ -252,16 +252,16 @@ class Head implements RenderableInterface
     /**
      * Set a script.
      *
-     * @param \string $key       Script key
-     * @param \string $script    Script source
-     * @param \bool   $overwrite Overwrite if already existing
+     * @param string $key       Script key
+     * @param string $script    Script source
+     * @param bool   $overwrite Overwrite if already existing
      *
      * @return void
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function setScript(\string $key, \string $script, \bool $overwrite = true)
+    public function setScript(string $key, string $script, bool $overwrite = true)
     {
         if ($overwrite || !isset($this->script[$key])) {
             $this->script[$key] = $script;
@@ -297,12 +297,12 @@ class Head implements RenderableInterface
     /**
      * Render assets.
      *
-     * @return \string
+     * @return string
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function renderAssets() : \string
+    public function renderAssets() : string
     {
         $asset = '';
         foreach ($this->assets as $uri => $type) {
@@ -319,12 +319,12 @@ class Head implements RenderableInterface
     /**
      * Render assets.
      *
-     * @return \string
+     * @return string
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function renderAssetsLate() : \string
+    public function renderAssetsLate() : string
     {
         $asset = '';
         foreach ($this->assets as $uri => $type) {

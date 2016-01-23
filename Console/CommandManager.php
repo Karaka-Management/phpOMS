@@ -38,7 +38,7 @@ class CommandManager implements \Countable
     /**
      * Commands.
      *
-     * @var \int
+     * @var int
      * @since 1.0.0
      */
     private $count = 0;
@@ -56,17 +56,17 @@ class CommandManager implements \Countable
     /**
      * Attach new command.
      *
-     * @param \string $cmd       Command ID
+     * @param string $cmd       Command ID
      * @param mixed   $callback  Function callback
      * @param mixed   $source    Provider
-     * @param \bool   $overwrite Overwrite existing
+     * @param bool   $overwrite Overwrite existing
      *
-     * @return \bool
+     * @return bool
      *
      * @since  1.0.0
      * @author Dennis Eichhorn
      */
-    public function attach(\string $cmd, $callback, $source, \bool $overwrite = true) : \bool
+    public function attach(string $cmd, $callback, $source, bool $overwrite = true) : bool
     {
         if ($overwrite || !isset($this->commands[$cmd])) {
             $this->commands[$cmd] = [$callback, $source];
@@ -81,15 +81,15 @@ class CommandManager implements \Countable
     /**
      * Detach existing command.
      *
-     * @param \string $cmd    Command ID
+     * @param string $cmd    Command ID
      * @param mixed   $source Provider
      *
-     * @return \bool
+     * @return bool
      *
      * @since  1.0.0
      * @author Dennis Eichhorn
      */
-    public function detach(\string $cmd, $source) : \bool
+    public function detach(string $cmd, $source) : bool
     {
         if (array_key_exists($cmd, $this->commands)) {
             unset($this->commands[$cmd]);
@@ -104,7 +104,7 @@ class CommandManager implements \Countable
     /**
      * Trigger command.
      *
-     * @param \string $cmd  Command ID
+     * @param string $cmd  Command ID
      * @param mixed   $para Parameters to pass
      *
      * @return mixed|bool
@@ -112,7 +112,7 @@ class CommandManager implements \Countable
      * @since  1.0.0
      * @author Dennis Eichhorn
      */
-    public function trigger(\string $cmd, $para)
+    public function trigger(string $cmd, $para)
     {
         if (array_key_exists($cmd, $this->commands)) {
             return $this->commands[$cmd][0]($para);
@@ -124,12 +124,12 @@ class CommandManager implements \Countable
     /**
      * Count commands.
      *
-     * @return \int
+     * @return int
      *
      * @since  1.0.0
      * @author Dennis Eichhorn
      */
-    public function count() : \int
+    public function count() : int
     {
         return $this->count;
     }

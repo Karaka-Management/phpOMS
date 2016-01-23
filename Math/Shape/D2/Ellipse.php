@@ -45,7 +45,7 @@ class Ellipse
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public static function getArea(\float $a, \float $b)
+    public static function getArea(float $a, float $b)
     {
         return pi() * $a * $b;
     }
@@ -66,7 +66,7 @@ class Ellipse
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public static function getCircumference(\float $a, \float $b)
+    public static function getCircumference(float $a, float $b)
     {
         return pi() * ($a + $b) * (3 * ($a - $b) ** 2 / (($a + $b) ** 2 * (sqrt(-3 * ($a - $b) ** 2 / (($a + $b) ** 2) + 4) + 10)) + 1);
     }

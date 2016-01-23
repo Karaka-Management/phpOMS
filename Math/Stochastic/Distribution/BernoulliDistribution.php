@@ -42,7 +42,7 @@ class BernulliDistribution
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public static function getPmf(\float $p, \int $k) : \float
+    public static function getPmf(float $p, int $k) : float
     {
         if ($k === 0) {
             return 1 - $p;
@@ -56,14 +56,14 @@ class BernulliDistribution
     /**
      * Get mode.
      *
-     * @param \float $p
+     * @param float $p
      *
      * @return int
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public static function getMode(\float $p) : \int
+    public static function getMode(float $p) : int
     {
         if ($p === 0.5) {
             return 0;
@@ -77,14 +77,14 @@ class BernulliDistribution
     /**
      * Get expected value.
      *
-     * @param \float $p
+     * @param float $p
      *
      * @return float
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public static function getMean(\float $p) : \float
+    public static function getMean(float $p) : float
     {
         return $p;
     }
@@ -92,14 +92,14 @@ class BernulliDistribution
     /**
      * Get expected value.
      *
-     * @param \float $p
+     * @param float $p
      *
      * @return float
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public static function getMedian(\float $p) : \float
+    public static function getMedian(float $p) : float
     {
         if ($p === 0.5) {
             return 0.5;
@@ -113,14 +113,14 @@ class BernulliDistribution
     /**
      * Get variance.
      *
-     * @param \float $p
+     * @param float $p
      *
      * @return float
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public static function getVariance(\float $p) : \float
+    public static function getVariance(float $p) : float
     {
         return $p * (1 - $p);
     }
@@ -136,7 +136,7 @@ class BernulliDistribution
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public static function getMgf(\float $p, \float $t) : \float
+    public static function getMgf(float $p, float $t) : float
     {
         return (1 - $p) + $p * exp($t);
     }
@@ -151,7 +151,7 @@ class BernulliDistribution
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public static function getSkewness(\float $p) : \float
+    public static function getSkewness(float $p) : float
     {
         return (1 - 2 * $p) / sqrt($p * (1 - $p));
     }
@@ -166,7 +166,7 @@ class BernulliDistribution
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public static function getFisherInformation(\float $p) : \float
+    public static function getFisherInformation(float $p) : float
     {
         return 1 / ($p * (1 - $p));
     }
@@ -181,7 +181,7 @@ class BernulliDistribution
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public static function getExKurtosis(\float $p) : \float
+    public static function getExKurtosis(float $p) : float
     {
         return (1 - 6 * $p * (1 - $p)) / ($p * (1 - $p));
     }

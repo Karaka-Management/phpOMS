@@ -44,7 +44,7 @@ class Polygon implements Shape2DInterface
     /**
      * Polygon perimeter.
      *
-     * @var \float
+     * @var float
      * @since 1.0.0
      */
     private $perimeter = null;
@@ -52,7 +52,7 @@ class Polygon implements Shape2DInterface
     /**
      * Polygon surface.
      *
-     * @var \float
+     * @var float
      * @since 1.0.0
      */
     private $surface = null;
@@ -60,7 +60,7 @@ class Polygon implements Shape2DInterface
     /**
      * Interior angle sum of the polygon.
      *
-     * @var \float
+     * @var float
      * @since 1.0.0
      */
     private $interiorAngleSum = null;
@@ -68,7 +68,7 @@ class Polygon implements Shape2DInterface
     /**
      * Exterior angle sum of the polygon.
      *
-     * @var \float
+     * @var float
      * @since 1.0.0
      */
     private $exteriorAngleSum = null;
@@ -76,7 +76,7 @@ class Polygon implements Shape2DInterface
     /**
      * Polygon barycenter.
      *
-     * @var \float[]
+     * @var float[]
      * @since 1.0.0
      */
     private $barycenter = null;
@@ -84,7 +84,7 @@ class Polygon implements Shape2DInterface
     /**
      * Polygon edge length.
      *
-     * @var \float
+     * @var float
      * @since 1.0.0
      */
     private $edgeLength = [];
@@ -92,7 +92,7 @@ class Polygon implements Shape2DInterface
     /**
      * Polygon inner length.
      *
-     * @var \float
+     * @var float
      * @since 1.0.0
      */
     private $innerLength = null;
@@ -100,7 +100,7 @@ class Polygon implements Shape2DInterface
     /**
      * Polygon inner edge angular.
      *
-     * @var \float
+     * @var float
      * @since 1.0.0
      */
     private $innerEdgeAngular = null;
@@ -133,9 +133,9 @@ class Polygon implements Shape2DInterface
     /**
      * Set polygon coordinate.
      *
-     * @param \int        $i Index
-     * @param \int|\float $x X coordinate
-     * @param \int|\float $y Y coordinate
+     * @param int        $i Index
+     * @param int|float $x X coordinate
+     * @param int|float $y Y coordinate
      *
      * @return void
      *

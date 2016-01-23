@@ -40,14 +40,14 @@ interface UploadedFileInterface
     /**
      * Move the uploaded file to a new location.
      *
-     * @param \string $targetPath Path to new location
+     * @param string $targetPath Path to new location
      *
      * @return void
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function moveTo(\string $targetPath);
+    public function moveTo(string $targetPath);
 
     /**
      * Retrieve the file size.

@@ -41,7 +41,7 @@ class ModuleManager
     /**
      * Module path.
      *
-     * @var \string
+     * @var string
      * @since 1.0.0
      */
     const MODULE_PATH = ROOT_PATH . DIRECTORY_SEPARATOR . 'Modules';
@@ -277,14 +277,14 @@ class ModuleManager
     /**
      * Install module.
      *
-     * @param \string $module Module name
+     * @param string $module Module name
      *
      * @return void
      *
      * @since  1.0.0
      * @author Dennis Eichhorn
      */
-    public function install(\string $module)
+    public function install(string $module)
     {
         $installed = $this->getInstalledModules();
 
@@ -398,15 +398,15 @@ class ModuleManager
      *
      * Installing additional functionality for another module
      *
-     * @param \string $from From module
-     * @param \string $for  For module
+     * @param string $from From module
+     * @param string $for  For module
      *
      * @return void
      *
      * @since  1.0.0
      * @author Dennis Eichhorn
      */
-    public function installProviding(\string $from, \string $for)
+    public function installProviding(string $from, string $for)
     {
         if (file_exists(self::MODULE_PATH . '/' . $from . '/Admin/Install/' . $for . '.php')) {
             $class = '\\Modules\\' . $from . '\\Admin\\Install\\' . $for;
@@ -418,7 +418,7 @@ class ModuleManager
     /**
      * Initialize module.
      *
-     * @param \string|array $module Module name
+     * @param string|array $module Module name
      *
      * @throws \InvalidArgumentException
      *
@@ -442,14 +442,14 @@ class ModuleManager
     /**
      * Get module instance.
      *
-     * @param \string $module Module name
+     * @param string $module Module name
      *
      * @return \phpOMS\Module\ModuleAbstract
      *
      * @since  1.0.0
      * @author Dennis Eichhorn
      */
-    public function get(\string $module)
+    public function get(string $module)
     {
         if (!isset($this->running[$module])) {
             $this->initModule($module);
@@ -461,15 +461,15 @@ class ModuleManager
     /**
      * Load module language.
      *
-     * @param \string $language    Langauge
-     * @param \string $destination Destination
+     * @param string $language    Langauge
+     * @param string $destination Destination
      *
      * @return void
      *
      * @since  1.0.0
      * @author Dennis Eichhorn
      */
-    public function loadLanguage(\string $language, \string $destination)
+    public function loadLanguage(string $language, string $destination)
     {
         foreach ($this->running as $name => $module) {
             /** @var ModuleAbstract $module */

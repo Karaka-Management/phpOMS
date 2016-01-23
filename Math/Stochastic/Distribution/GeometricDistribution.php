@@ -42,7 +42,7 @@ class GeometricDistribution
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public static function getPmf(\float $p, \int $k) : \float
+    public static function getPmf(float $p, int $k) : float
     {
         return pow(1 - $p, $k - 1) * $p;
     }
@@ -60,7 +60,7 @@ class GeometricDistribution
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public static function getCdf(\float $p, \int $k) : \float
+    public static function getCdf(float $p, int $k) : float
     {
         return 1 - pow(1 - $p, $k);
     }
@@ -73,7 +73,7 @@ class GeometricDistribution
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public static function getMode() : \int
+    public static function getMode() : int
     {
         return 1;
     }
@@ -81,14 +81,14 @@ class GeometricDistribution
     /**
      * Get expected value.
      *
-     * @param \float $p
+     * @param float $p
      *
      * @return float
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public static function getMean(\float $p) : \float
+    public static function getMean(float $p) : float
     {
         return 1 / $p;
     }
@@ -96,14 +96,14 @@ class GeometricDistribution
     /**
      * Get expected value.
      *
-     * @param \float $p
+     * @param float $p
      *
      * @return float
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public static function getMedian(\float $p) : \float
+    public static function getMedian(float $p) : float
     {
         return ceil(-1 / (log(1 - $p, 2)));
     }
@@ -111,14 +111,14 @@ class GeometricDistribution
     /**
      * Get variance.
      *
-     * @param \float $p
+     * @param float $p
      *
      * @return float
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public static function getVariance(\float $p) : \float
+    public static function getVariance(float $p) : float
     {
         return (1 - $p) / $p ** 2;
     }
@@ -134,7 +134,7 @@ class GeometricDistribution
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public static function getMgf(\float $p, \float $t) : \float
+    public static function getMgf(float $p, float $t) : float
     {
         return $p * exp($t) / (1 - (1 - $p) * exp($t));
     }
@@ -149,7 +149,7 @@ class GeometricDistribution
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public static function getSkewness(\float $lambda) : \float
+    public static function getSkewness(float $lambda) : float
     {
         return (2 - $p) / sqrt(1 - $p);
     }
@@ -164,7 +164,7 @@ class GeometricDistribution
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public static function getExKurtosis(\float $lambda) : \float
+    public static function getExKurtosis(float $lambda) : float
     {
         return 6 + $p ** 2 / (1 - $p);
     }

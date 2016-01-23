@@ -32,7 +32,7 @@ class Group
     /**
      * Account id.
      *
-     * @var \int
+     * @var int
      * @since 1.0.0
      */
     protected $id = 0;
@@ -40,7 +40,7 @@ class Group
     /**
      * Account name.
      *
-     * @var \string
+     * @var string
      * @since 1.0.0
      */
     protected $name = '';
@@ -48,7 +48,7 @@ class Group
     /**
      * Account name.
      *
-     * @var \string
+     * @var string
      * @since 1.0.0
      */
     protected $description = '';
@@ -56,7 +56,7 @@ class Group
     /**
      * Account name.
      *
-     * @var \int
+     * @var int
      * @since 1.0.0
      */
     protected $members = [];
@@ -64,7 +64,7 @@ class Group
     /**
      * Parents .
      *
-     * @var \int[]
+     * @var int[]
      * @since 1.0.0
      */
     protected $parents = [];
@@ -72,7 +72,7 @@ class Group
     /**
      * Permissions.
      *
-     * @var \int[]
+     * @var int[]
      * @since 1.0.0
      */
     protected $permissions = [];
@@ -90,12 +90,12 @@ class Group
     /**
      * Get group id.
      *
-     * @return \int
+     * @return int
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function getId() : \int
+    public function getId() : int
     {
         return $this->id;
     }
@@ -103,12 +103,12 @@ class Group
     /**
      * Get group name.
      *
-     * @return \string
+     * @return string
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function getName() : \string
+    public function getName() : string
     {
         return $this->name;
     }
@@ -116,12 +116,12 @@ class Group
     /**
      * Get group description.
      *
-     * @return \string
+     * @return string
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function getDescription() : \string
+    public function getDescription() : string
     {
         return $this->description;
     }
@@ -129,12 +129,12 @@ class Group
     /**
      * Set group name.
      *
-     * @param \string $name Group name
+     * @param string $name Group name
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function setName(\string $name)
+    public function setName(string $name)
     {
         $this->name = $name;
     }
@@ -142,12 +142,12 @@ class Group
     /**
      * Set group description.
      *
-     * @param \string $description Group description
+     * @param string $description Group description
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function setDescription(\string $description)
+    public function setDescription(string $description)
     {
         $this->description = $description;
     }

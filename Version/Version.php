@@ -46,15 +46,15 @@ class Version
     /**
      * Comparing two versions.
      *
-     * @param \string $ver1 Version
-     * @param \string $ver2 Version
+     * @param string $ver1 Version
+     * @param string $ver2 Version
      *
-     * @return \int
+     * @return int
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public static function compare(\string $ver1, \string $ver2) : \int
+    public static function compare(string $ver1, string $ver2) : int
     {
         return version_compare($ver1, $ver2);
     }

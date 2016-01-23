@@ -31,7 +31,7 @@ final class Validator extends ValidatorAbstract
      * @param mixed $var         Variable to validate
      * @param array $constraints Constraints for validation
      *
-     * @return \bool
+     * @return bool
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
@@ -53,10 +53,10 @@ final class Validator extends ValidatorAbstract
     /**
      * String ends with ?
      *
-     * @param \string $haystack String to search in
-     * @param \string $needle   String to search for
+     * @param string $haystack String to search in
+     * @param string $needle   String to search for
      *
-     * @return \bool
+     * @return bool
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
@@ -70,9 +70,9 @@ final class Validator extends ValidatorAbstract
      * Validate variable by type.
      *
      * @param mixed     $var        Variable to validate
-     * @param \string[] $constraint Array of allowed types
+     * @param string[] $constraint Array of allowed types
      *
-     * @return \bool
+     * @return bool
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
@@ -91,11 +91,11 @@ final class Validator extends ValidatorAbstract
     /**
      * Validate variable by length.
      *
-     * @param \string     $var Variable to validate
-     * @param \int|\float $min Min. length
-     * @param \int|\float $max Max. length
+     * @param string     $var Variable to validate
+     * @param int|float $min Min. length
+     * @param int|float $max Max. length
      *
-     * @return \bool
+     * @return bool
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
@@ -114,10 +114,10 @@ final class Validator extends ValidatorAbstract
     /**
      * Validate variable by substring.
      *
-     * @param \string $var    Variable to validate
-     * @param \string $substr Substring
+     * @param string $var    Variable to validate
+     * @param string $substr Substring
      *
-     * @return \bool
+     * @return bool
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
@@ -130,10 +130,10 @@ final class Validator extends ValidatorAbstract
     /**
      * Validate variable by pattern.
      *
-     * @param \string $var     Variable to validate
-     * @param \string $pattern Pattern for validation
+     * @param string $var     Variable to validate
+     * @param string $pattern Pattern for validation
      *
-     * @return \bool
+     * @return bool
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
@@ -146,11 +146,11 @@ final class Validator extends ValidatorAbstract
     /**
      * Validate variable by interval.
      *
-     * @param \int|\float $var Variable to validate
-     * @param \int|\float $min Min. value
-     * @param \int|\float $max Max. value
+     * @param int|float $var Variable to validate
+     * @param int|float $min Min. value
+     * @param int|float $max Max. value
      *
-     * @return \bool
+     * @return bool
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
@@ -167,10 +167,10 @@ final class Validator extends ValidatorAbstract
     /**
      * String starts with ?
      *
-     * @param \string $haystack String to search in
-     * @param \string $needle   String to search for
+     * @param string $haystack String to search in
+     * @param string $needle   String to search for
      *
-     * @return \bool
+     * @return bool
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>

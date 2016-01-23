@@ -36,7 +36,7 @@ class HttpSession implements SessionInterface
     /**
      * Session ID.
      *
-     * @var \string|int
+     * @var string|int
      * @since 1.0.0
      */
     private $sid = null;
@@ -44,15 +44,15 @@ class HttpSession implements SessionInterface
     /**
      * Constructor.
      *
-     * @param \int              $liftetime Session life time
-     * @param \string|int|\bool $sid       Session id
+     * @param int              $liftetime Session life time
+     * @param string|int|bool $sid       Session id
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function __construct(\int $liftetime = 3600, $sid = false)
+    public function __construct(int $liftetime = 3600, $sid = false)
     {
-        if ($sid !== false) {
+        if (!is_bool($sid)) {
             session_id($sid);
         }
 
@@ -83,7 +83,7 @@ class HttpSession implements SessionInterface
     /**
      * {@inheritdoc}
      */
-    public function set($key, $value, \bool $overwrite = true) : \bool
+    public function set($key, $value, bool $overwrite = true) : bool
     {
         if($overwrite || !isset($this->sessionData[$key])) {
             $this->sessionData[$key] = $value;
@@ -105,7 +105,7 @@ class HttpSession implements SessionInterface
     /**
      * {@inheritdoc}
      */
-    public function remove($key) : \bool
+    public function remove($key) : bool
     {
         if (isset($this->sessionData[$key])) {
             unset($this->sessionData[$key]);

@@ -36,7 +36,7 @@ class UriFactory
     /**
      * Dynamic query elements.
      *
-     * @var \string[]
+     * @var string[]
      * @since 1.0.0
      */
     private static $uri = [];
@@ -54,14 +54,14 @@ class UriFactory
     /**
      * Set global query replacements.
      *
-     * @param \string $key Replacement key
+     * @param string $key Replacement key
      *
      * @return false|string
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public static function getQuery(\string $key)
+    public static function getQuery(string $key)
     {
         return self::$uri[$key] ?? false;
     }
@@ -69,16 +69,16 @@ class UriFactory
     /**
      * Set global query replacements.
      *
-     * @param \string $key       Replacement key
-     * @param \string $value     Replacement value
-     * @param \bool   $overwrite Overwrite if already exists
+     * @param string $key       Replacement key
+     * @param string $value     Replacement value
+     * @param bool   $overwrite Overwrite if already exists
      *
      * @return bool
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public static function setQuery(\string $key, \string $value, \bool $overwrite = true) : \bool
+    public static function setQuery(string $key, string $value, bool $overwrite = true) : bool
     {
         if ($overwrite || !isset(self::$uri[$key])) {
             self::$uri[$key] = $value;
@@ -92,9 +92,9 @@ class UriFactory
     /**
      * Build uri.
      *
-     * @param \string        $uri     Path data
+     * @param string        $uri     Path data
      * @param array          $toMatch Optional special replacements
-     * @param UriScheme|\int $scheme  Scheme type
+     * @param UriScheme|int $scheme  Scheme type
      *
      * @return null|string
      *
@@ -103,7 +103,7 @@ class UriFactory
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public static function build(\string $uri, array $toMatch = [], \int $scheme = UriScheme::HTTP)
+    public static function build(string $uri, array $toMatch = [], int $scheme = UriScheme::HTTP)
     {
         $uri = preg_replace_callback('(\{[\/#\?@\.\$][a-zA-Z0-9]*\})', function ($match) use ($toMatch) {
             $match = substr($match[0], 1, strlen($match[0]) - 2);

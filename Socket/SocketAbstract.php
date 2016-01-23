@@ -32,7 +32,7 @@ abstract class SocketAbstract implements SocketInterface
     /**
      * Socket ip.
      *
-     * @var \string
+     * @var string
      * @since 1.0.0
      */
     protected $ip = null;
@@ -40,7 +40,7 @@ abstract class SocketAbstract implements SocketInterface
     /**
      * Socket port.
      *
-     * @var \int
+     * @var int
      * @since 1.0.0
      */
     protected $port = null;
@@ -48,7 +48,7 @@ abstract class SocketAbstract implements SocketInterface
     /**
      * Socket running?
      *
-     * @var \bool
+     * @var bool
      * @since 1.0.0
      */
     protected $run = true;
@@ -64,7 +64,7 @@ abstract class SocketAbstract implements SocketInterface
     /**
      * {@inheritdoc}
      */
-    public function create(\string $ip, \int $port)
+    public function create(string $ip, int $port)
     {
         $this->ip   = $ip;
         $this->port = $port;
