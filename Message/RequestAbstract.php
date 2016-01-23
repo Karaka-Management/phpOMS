@@ -105,7 +105,7 @@ abstract class RequestAbstract implements RequestInterface
      * @var array
      * @since 1.0.0
      */
-    protected $hash = null;
+    protected $hash = [];
 
     /**
      * Constructor.
