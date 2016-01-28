@@ -213,6 +213,10 @@ abstract class DataMapperAbstract implements DataMapperInterface
      */
     public function find(...$columns) : Builder
     {
+        if (count($columns) === 0) {
+            $columns = [static::$table . '.*'];
+        }
+
         $query = new Builder($this->db);
         $query->prefix($this->db->getPrefix());
 
@@ -233,6 +237,7 @@ abstract class DataMapperAbstract implements DataMapperInterface
      */
     public function create($obj)
     {
+        // todo: create should also have an option to create relations (default = true)
         $query = new Builder($this->db);
         $query->prefix($this->db->getPrefix())
               ->into(static::$table);
@@ -253,6 +258,8 @@ abstract class DataMapperAbstract implements DataMapperInterface
 
                         if ($column['type'] === 'DateTime') {
                             $value = isset($value) ? $value->format('Y-m-d H:i:s') : null;
+                        } elseif ($column['type'] === 'Json') {
+                            $value = isset($value) ? json_encode($value) : '';
                         }
 
                         $query->insert($column['name'])
@@ -279,7 +286,7 @@ abstract class DataMapperAbstract implements DataMapperInterface
 
             $values = $property->getValue($obj);
             $temp   = reset($values);
-            $pname  = $property->getName();
+            $pname  = $property->getName(); // todo: isn't this just member? and not necessary?
 
             if (!($isPublic)) {
                 $property->setAccessible(false);
@@ -292,8 +299,29 @@ abstract class DataMapperAbstract implements DataMapperInterface
                 $mapper  = new $mapper($this->db);
                 $objsIds = [];
 
+                if (isset(static::$hasMany[$pname]['mapper']) && static::$hasMany[$pname]['mapper'] === static::$hasMany[$pname]['relationmapper']) {
+                    $relReflectionClass = new \ReflectionClass(get_class($temp));
+                }
+
                 foreach ($values as $key => &$value) {
-                    /* todo: I should set the objId here as well before inserting (if many->1)!!!! */
+                    // Skip if already in db/has key
+                    $relProperty = $relReflectionClass->getProperty($mapper::$columns[$mapper::$primaryField]['internal']);
+                    $relProperty->setAccessible(true);
+                    $primaryKey = $relProperty->getValue($value);
+                    $relProperty->setAccessible(false);
+
+                    if ($primaryKey !== 0 && $primaryKey !== null && $primaryKey !== '') {
+                        continue;
+                    }
+
+                    // Setting relation value for relation (since the relation is not stored in an extra relation table)
+                    if (isset(static::$hasMany[$pname]['mapper']) && static::$hasMany[$pname]['mapper'] === static::$hasMany[$pname]['relationmapper']) {
+                        $relProperty = $relReflectionClass->getProperty($mapper::$columns[static::$hasMany[$pname]['dst']]['internal']);
+                        $relProperty->setAccessible(true);
+                        $relProperty->setValue($value, $objId);
+                        $relProperty->setAccessible(false);
+                    }
+
                     $objsIds[$key] = $mapper->create($value);
                 }
             } elseif (is_scalar($temp)) {
@@ -302,7 +330,7 @@ abstract class DataMapperAbstract implements DataMapperInterface
                 throw new \Exception('Unexpected value for relational data mapping.');
             }
 
-            if (isset(static::$hasMany[$pname]['table'])) {
+            if (isset(static::$hasMany[$pname]['mapper']) && static::$hasMany[$pname]['mapper'] !== static::$hasMany[$pname]['relationmapper']) {
                 /* is many->many */
                 $relQuery = new Builder($this->db);
                 $relQuery->prefix($this->db->getPrefix())
@@ -317,8 +345,10 @@ abstract class DataMapperAbstract implements DataMapperInterface
             }
         }
 
+        // todo: should be done by primaryfield since it could be something else than id
         $reflectionProperty = $reflectionClass->getProperty('id');
 
+        // todo: can't i just set it accessible anyways and not set it to private afterwards?
         if (!($accessible = $reflectionProperty->isPublic())) {
             $reflectionProperty->setAccessible(true);
         }
@@ -440,22 +470,35 @@ abstract class DataMapperAbstract implements DataMapperInterface
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function populateRelations(array $result, &$obj)
+    public function populateManyToMany(array $result, &$obj)
     {
-        foreach ($result as $member => $values) {
-            $reflectionClass = new \ReflectionClass(get_class($obj));
+        $reflectionClass = new \ReflectionClass(get_class($obj));
 
+        foreach ($result as $member => $values) {
             if ($reflectionClass->hasProperty($member)) {
-                $mapper             = static::$hasMany[$member]['mapper'];
+                $mapper = static::$hasMany[$member]['mapper'];
+                /** @var DataMapperAbstract $mapper */
                 $mapper             = new $mapper($this->db);
-                $objects            = $mapper->get($values);
                 $reflectionProperty = $reflectionClass->getProperty($member);
 
                 if (!($accessible = $reflectionProperty->isPublic())) {
                     $reflectionProperty->setAccessible(true);
                 }
 
-                $reflectionProperty->setValue($obj, $objects);
+                // relation table vs relation defined in same table as object e.g. comments
+                if ($values !== false) {
+                    $objects = $mapper->get($values);
+                    $reflectionProperty->setValue($obj, $objects);
+                } else {
+                    // todo: replace getId() with lookup by primaryKey and the assoziated member variable and get value
+                    $query = $mapper->find()->where(static::$hasMany[$member]['table'] . '.' . static::$hasMany[$member]['dst'], '=', $obj->getId());
+                    $sth   = $this->db->con->prepare($query->toSql());
+                    $sth->execute();
+
+                    $results = $sth->fetchAll(\PDO::FETCH_ASSOC);
+                    $objects = $mapper->populateIterable($results);
+                    $reflectionProperty->setValue($obj, $objects);
+                }
 
                 if (!$accessible) {
                     $reflectionProperty->setAccessible(false);
@@ -494,6 +537,8 @@ abstract class DataMapperAbstract implements DataMapperInterface
                     $reflectionProperty->setValue($obj, $value);
                 } elseif (static::$columns[$column]['type'] === 'DateTime') {
                     $reflectionProperty->setValue($obj, new \DateTime($value));
+                } elseif (static::$columns[$column]['type'] === 'Json') {
+                    $reflectionProperty->setValue($obj, json_decode($value, true));
                 } else {
                     throw new \UnexpectedValueException('Value "' . static::$columns[$column]['type'] . '" is not supported.');
                 }
@@ -512,7 +557,7 @@ abstract class DataMapperAbstract implements DataMapperInterface
      *
      * This will fall back to the insert id if no datetime column is present.
      *
-     * @param int $limit Newest limit
+     * @param int     $limit Newest limit
      * @param Builder $query Pre-defined query
      *
      * @return mixed
@@ -544,6 +589,7 @@ abstract class DataMapperAbstract implements DataMapperInterface
         $results = $sth->fetch(\PDO::FETCH_ASSOC);
 
         /* todo: if limit get's used this has to call populateIterable */
+
         return $this->populate(is_bool($results) ? [] : $results);
 
     }
@@ -591,7 +637,7 @@ abstract class DataMapperAbstract implements DataMapperInterface
      * Get object.
      *
      * @param mixed $primaryKey Key
-     * @param bool $relations  Load relations
+     * @param bool  $relations  Load relations
      *
      * @return mixed
      *
@@ -600,28 +646,22 @@ abstract class DataMapperAbstract implements DataMapperInterface
      */
     public function get($primaryKey, bool $relations = true)
     {
-        $obj = [];
-        if (is_array($primaryKey)) {
-            foreach ($primaryKey as $key => $value) {
-                $obj[$value] = $this->populate($this->getRaw($value));
-            }
-        } else {
-            $obj = $this->populate($this->getRaw($primaryKey));
+        $primaryKey = (array) $primaryKey;
+        $obj        = [];
+
+        foreach ($primaryKey as $key => $value) {
+            $obj[$value] = $this->populate($this->getRaw($value));
         }
 
         if (isset($obj)) {
             if ($relations && count(static::$hasMany) > 0) {
                 /* loading relations from relations table and populating them and then adding them to the object */
-                if (is_array($primaryKey)) {
-                    foreach ($primaryKey as $key) {
-                        $this->populateRelations($this->getRelationsRaw($key), $obj[$key]);
-                    }
-                } else {
-                    $this->populateRelations($this->getRelationsRaw($primaryKey), $obj);
+                foreach ($primaryKey as $key) {
+                    $this->populateManyToMany($this->getRelationsRaw($key), $obj[$key]);
                 }
             }
 
-            return $obj;
+            return count($obj) === 1 ? reset($obj) : $obj;
         } else {
             /* Couldn't create object. Creating NullObject as placeholder */
             $class       = get_class($this);
@@ -687,15 +727,19 @@ abstract class DataMapperAbstract implements DataMapperInterface
         $result = [];
 
         foreach (static::$hasMany as $member => $value) {
-            $query = new Builder($this->db);
-            $query->prefix($this->db->getPrefix())
-                  ->select($value['table'] . '.' . $value['src'])
-                  ->from($value['table'])
-                  ->where($value['table'] . '.' . $value['dst'], '=', $primaryKey);
+            if ($value['mapper'] !== $value['relationmapper']) {
+                $query = new Builder($this->db);
+                $query->prefix($this->db->getPrefix())
+                      ->select($value['table'] . '.' . $value['src'])
+                      ->from($value['table'])
+                      ->where($value['table'] . '.' . $value['dst'], '=', $primaryKey);
 
-            $sth = $this->db->con->prepare($query->toSql());
-            $sth->execute();
-            $result[$member] = $sth->fetchAll(\PDO::FETCH_COLUMN);
+                $sth = $this->db->con->prepare($query->toSql());
+                $sth->execute();
+                $result[$member] = $sth->fetchAll(\PDO::FETCH_COLUMN);
+            } else {
+                $result[$member] = false;
+            }
         }
 
         return $result;

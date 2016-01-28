@@ -133,8 +133,15 @@ abstract class GrammarAbstract
      */
     protected function compileSystem($system, string $prefix = '') : string
     {
+        // todo: move remaining * test also here not just if .* but also if * (should be done in else?)
         if (count($split = explode('.', $system)) == 2) {
-            return $this->compileSystem($prefix . $split[0]) . '.' . $this->compileSystem($split[1]);
+            if($split[1] === '*') {
+                $system = $split[1];
+            } else {
+                $system = $this->compileSystem($split[1]);
+            }
+
+            return $this->compileSystem($prefix . $split[0]) . '.' . $system;
         } else {
             return $this->systemIdentifier . $prefix . $system . $this->systemIdentifier;
         }
