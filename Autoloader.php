@@ -39,6 +39,8 @@ class Autoloader
      *
      * @return void
      *
+     * @throws
+     *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
@@ -47,6 +49,8 @@ class Autoloader
         if (($class = self::exists($class)) !== false) {
             /** @noinspection PhpIncludeInspection */
             include __DIR__ . '/../' . $class . '.php';
+        } else {
+            throw new \Exception();
         }
     }
 

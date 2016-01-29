@@ -56,6 +56,22 @@ abstract class ModuleAbstract
     const MODULE_NAME = '';
 
     /**
+     * Module path.
+     *
+     * @var string
+     * @since 1.0.0
+     */
+    const MODULE_PATH = __DIR__;
+
+    /**
+     * Module version.
+     *
+     * @var string
+     * @since 1.0.0
+     */
+    const MODULE_VERSION = '1.0.0';
+
+    /**
      * Localization files.
      *
      * @var array

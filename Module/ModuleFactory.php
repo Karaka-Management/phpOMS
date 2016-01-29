@@ -16,6 +16,7 @@
 namespace phpOMS\Module;
 
 use phpOMS\ApplicationAbstract;
+use phpOMS\Module\NullModule;
 
 
 /**
@@ -76,29 +77,33 @@ class ModuleFactory
     public static function getInstance(string $module, ApplicationAbstract $app) : ModuleAbstract
     {
         if (!isset(self::$loaded[$module])) {
-            $class = '\\Modules\\' . $module . '\\Controller';
+            try {
+                $class = '\\Modules\\' . $module . '\\Controller';
 
-            /**
-             * @var ModuleAbstract $obj
-             */
-            $obj                   = new $class($app);
-            self::$loaded[$module] = $obj;
+                /**
+                 * @var ModuleAbstract $obj
+                 */
+                $obj                   = new $class($app);
+                self::$loaded[$module] = $obj;
 
-            /** Install providing for */
-            foreach ($obj->getProviding() as $providing) {
-                if (isset(self::$loaded[$providing])) {
-                    self::$loaded[$providing]->addReceiving($obj->getName());
-                } else {
-                    self::$providing[$providing][] = $obj->getName();
+                /** Install providing for */
+                foreach ($obj->getProviding() as $providing) {
+                    if (isset(self::$loaded[$providing])) {
+                        self::$loaded[$providing]->addReceiving($obj->getName());
+                    } else {
+                        self::$providing[$providing][] = $obj->getName();
+                    }
                 }
-            }
 
-            /** Check if I get provided with */
-            $name = $obj->getName();
-            if (isset(self::$providing[$name])) {
-                foreach (self::$providing[$name] as $providing) {
-                    self::$loaded[$name]->addReceiving($providing);
+                /** Check if I get provided with */
+                $name = $obj->getName();
+                if (isset(self::$providing[$name])) {
+                    foreach (self::$providing[$name] as $providing) {
+                        self::$loaded[$name]->addReceiving($providing);
+                    }
                 }
+            } catch(\Exception $e) {
+                self::$loaded[$module] = new NullModule($app);
             }
         }
 

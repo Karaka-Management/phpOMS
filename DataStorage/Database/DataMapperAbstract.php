@@ -586,11 +586,11 @@ abstract class DataMapperAbstract implements DataMapperInterface
         $sth = $this->db->con->prepare($query->toSql());
         $sth->execute();
 
-        $results = $sth->fetch(\PDO::FETCH_ASSOC);
+        $results = $sth->fetchAll(\PDO::FETCH_ASSOC);
 
         /* todo: if limit get's used this has to call populateIterable */
 
-        return $this->populate(is_bool($results) ? [] : $results);
+        return $this->populateIterable(is_bool($results) ? [] : $results);
 
     }
 
