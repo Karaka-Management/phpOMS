@@ -48,7 +48,7 @@ abstract class ValidatorAbstract
     /**
      * {@inheritdoc}
      */
-    public static function getMessage()
+    public static function getMessage() : string
     {
         return self::$msg;
     }
