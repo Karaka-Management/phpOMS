@@ -260,6 +260,8 @@ abstract class DataMapperAbstract implements DataMapperInterface
                             $value = isset($value) ? $value->format('Y-m-d H:i:s') : null;
                         } elseif ($column['type'] === 'Json') {
                             $value = isset($value) ? json_encode($value) : '';
+                        } elseif($column['type'] === 'Serialize') {
+                            $value = $value->serialize();
                         }
 
                         $query->insert($column['name'])
@@ -539,6 +541,9 @@ abstract class DataMapperAbstract implements DataMapperInterface
                     $reflectionProperty->setValue($obj, new \DateTime($value));
                 } elseif (static::$columns[$column]['type'] === 'Json') {
                     $reflectionProperty->setValue($obj, json_decode($value, true));
+                } elseif (static::$columns[$column]['type'] === 'Serializable') {
+                    $member = $reflectionProperty->getValue($obj);
+                    $member->unserialize($value);
                 } else {
                     throw new \UnexpectedValueException('Value "' . static::$columns[$column]['type'] . '" is not supported.');
                 }
