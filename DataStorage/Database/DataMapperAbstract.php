@@ -260,7 +260,7 @@ abstract class DataMapperAbstract implements DataMapperInterface
                             $value = isset($value) ? $value->format('Y-m-d H:i:s') : null;
                         } elseif ($column['type'] === 'Json') {
                             $value = isset($value) ? json_encode($value) : '';
-                        } elseif($column['type'] === 'Serialize') {
+                        } elseif($column['type'] === 'Serializable') {
                             $value = $value->serialize();
                         }
 
