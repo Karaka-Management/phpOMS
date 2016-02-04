@@ -44,12 +44,20 @@ abstract class RequestAbstract implements RequestInterface
     protected $uri = null;
 
     /**
-     * Request type.
+     * Request method.
      *
-     * @var \phpOMS\Message\RequestMethod
+     * @var string
      * @since 1.0.0
      */
-    protected $type = null;
+    protected $method = null;
+
+    /**
+     * Root.
+     *
+     * @var string
+     * @since 1.0.0
+     */
+    protected $rootPath = null;
 
     /**
      * Request data.
@@ -128,6 +136,14 @@ abstract class RequestAbstract implements RequestInterface
     /**
      * {@inheritdoc}
      */
+    public function setUri(UriInterface $uri)
+    {
+        return $this->uri = $uri;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
     public function getHash() : array
     {
         return $this->hash;
@@ -157,6 +173,13 @@ abstract class RequestAbstract implements RequestInterface
      * {@inheritdoc}
      */
     abstract public function getMethod() : string;
+
+    /**
+     * {@inheritdoc}
+     */
+    public function setMethod(string $method) {
+        $this->method = $method;
+    }
 
     /**
      * {@inheritdoc}

@@ -15,9 +15,7 @@
  */
 namespace phpOMS\Message\Http;
 
-use phpOMS\Datatypes\Exception\InvalidEnumValue;
 use phpOMS\Message\RequestMethod;
-use phpOMS\Uri\InvalidUriException;
 
 /**
  * Rest request class.
@@ -35,49 +33,21 @@ class Rest
     /**
      * Url.
      *
-     * @var string
+     * @var Request
      * @since 1.0.0
      */
-    private $url = '';
-
-    /**
-     * Method.
-     *
-     * @var string
-     * @since 1.0.0
-     */
-    private $method = RequestMethod::POST;
+    private $request = '';
 
     /**
      * Set url.
      *
-     * @param string $url Url
+     * @param Request $request Request
      *
      * @since  1.0.0
      * @author Dennis Eichhorn
      */
-    public function setUrl(string $url) {
-        if (filter_var($url, FILTER_VALIDATE_URL) === false) {
-            throw new InvalidUriException('$url');
-        }
-
-        $this->url = $url;
-    }
-
-    /**
-     * Set method.
-     *
-     * @param string $method Method
-     *
-     * @since  1.0.0
-     * @author Dennis Eichhorn
-     */
-    public function setMethod(string $method) {
-        if(!RequestMethod::isValidValue($method)) {
-            throw new InvalidEnumValue($method);
-        }
-
-        $this->method = $method;
+    public function setRequest(Request $request) {
+        $this->request = $request;
     }
 
     /**
@@ -94,7 +64,7 @@ class Rest
     {
         $curl = curl_init();
 
-        switch ($this->method) {
+        switch ($this->request->getMethod()) {
             case RequestMethod::POST:
                 curl_setopt($curl, CURLOPT_POST, 1);
 
@@ -105,16 +75,12 @@ class Rest
             case RequestMethod::PUT:
                 curl_setopt($curl, CURLOPT_PUT, 1);
                 break;
-            default:
-                if ($data) {
-                    $this->url = sprintf("%s?%s", $this->url, http_build_query($data));
-                }
         }
 
         curl_setopt($curl, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
         curl_setopt($curl, CURLOPT_USERPWD, "username:password");
 
-        curl_setopt($curl, CURLOPT_URL, $this->url);
+        curl_setopt($curl, CURLOPT_URL, $this->request->getUri()->__toString());
         curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
 
         $result = curl_exec($curl);

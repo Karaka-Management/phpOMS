@@ -52,6 +52,16 @@ interface RequestInterface extends MessageInterface
     public function getMethod() : string;
 
     /**
+     * Set request method.
+     *
+     * @param string $method
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+    public function setMethod(string $method);
+
+    /**
      * Get request uri.
      *
      * @return UriInterface
@@ -62,9 +72,19 @@ interface RequestInterface extends MessageInterface
     public function getUri() : UriInterface;
 
     /**
+     * Set request uri.
+     *
+     * @param UriInterface $uri
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+    public function setUri(UriInterface $uri);
+
+    /**
      * Get request hash.
      *
-     * @return string
+     * @return array
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>

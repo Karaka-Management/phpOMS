@@ -124,14 +124,22 @@ class Http implements UriInterface
     /**
      * Constructor.
      *
-     * @param string $rootPath Root path for subdirectory
+     * @param string $uri Root path for subdirectory
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function __construct(string $rootPath)
+    public function __construct(string $uri)
     {
-        $this->rootPath = $rootPath;
+        $this->set($uri);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function setRootPath(string $root)
+    {
+        return $this->rootPath = $root;
     }
 
     /**
@@ -313,23 +321,9 @@ class Http implements UriInterface
     /**
      * {@inheritdoc}
      */
-    public function parse($uri)
-    {
-    }
-
-    /**
-     * {@inheritdoc}
-     */
     public function __toString()
     {
         return $this->uri;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function resolve($base)
-    {
     }
 
     /**

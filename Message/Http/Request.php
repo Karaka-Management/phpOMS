@@ -16,12 +16,10 @@
 namespace phpOMS\Message\Http;
 
 use phpOMS\Localization\Localization;
-
-
 use phpOMS\Message\RequestAbstract;
-use phpOMS\Message\RequestMethod;
 use phpOMS\Uri\Http;
 use phpOMS\Uri\UriFactory;
+use phpOMS\Uri\UriInterface;
 
 /**
  * Request class.
@@ -80,16 +78,15 @@ class Request extends RequestAbstract
     /**
      * Constructor.
      *
-     * @param string $rootPath relative installation path
+     * @param UriInterface $uri Uri
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function __construct(string $rootPath)
+    public function __construct(UriInterface $uri)
     {
-        $this->uri  = new Http($rootPath);
+        $this->uri  = $uri;
         $this->l11n = new Localization();
-        UriFactory::setQuery('/root', $rootPath);
     }
 
     /**
@@ -97,7 +94,7 @@ class Request extends RequestAbstract
      *
      * This is used in order to either initialize the current http request or a batch of GET requests
      *
-     * @param string $uri URL
+     * @param mixed $uri URL
      *
      * @return void
      *
@@ -106,7 +103,7 @@ class Request extends RequestAbstract
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function init(string $uri = null)
+    public function init($uri = null)
     {
         if ($uri === null) {
             $this->data = $_GET ?? [];
@@ -128,7 +125,7 @@ class Request extends RequestAbstract
 
             $this->uri->set(Http::getCurrent());
         } else {
-            $this->setMethod($uri['type']); // TODO: is this correct?
+            $this->setMethod($uri['type']);
             $this->uri->set($uri['uri']);
         }
 
@@ -175,21 +172,6 @@ class Request extends RequestAbstract
         }
 
         return false;
-    }
-
-    /**
-     * Set request type.
-     *
-     * @param RequestMethod $type Request type
-     *
-     * @return void
-     *
-     * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
-     */
-    public function setMethod(RequestMethod $type)
-    {
-        $this->type = $type;
     }
 
     /**
@@ -338,11 +320,11 @@ class Request extends RequestAbstract
      */
     public function getMethod() : string
     {
-        if (!isset($this->type)) {
-            $this->type = $_SERVER['REQUEST_METHOD'];
+        if (!isset($this->method)) {
+            $this->method = $_SERVER['REQUEST_METHOD'];
         }
 
-        return $this->type;
+        return $this->method;
     }
 
     /**
