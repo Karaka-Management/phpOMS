@@ -235,7 +235,7 @@ abstract class DataMapperAbstract implements DataMapperInterface
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function create($obj)
+    public function create($obj, bool $relations = true)
     {
         // todo: create should also have an option to create relations (default = true)
         $query = new Builder($this->db);
@@ -278,72 +278,74 @@ abstract class DataMapperAbstract implements DataMapperInterface
         $objId = $this->db->con->lastInsertId();
 
         // handle relations
-        foreach (static::$hasMany as $member => $rel) {
-            /* is a has many property */
-            $property = $reflectionClass->getProperty($member); // throws ReflectionException
+        if($relations) {
+            foreach (static::$hasMany as $member => $rel) {
+                /* is a has many property */
+                $property = $reflectionClass->getProperty($member); // throws ReflectionException
 
-            if (!($isPublic = $property->isPublic())) {
-                $property->setAccessible(true);
-            }
-
-            $values = $property->getValue($obj);
-            $temp   = reset($values);
-            $pname  = $property->getName(); // todo: isn't this just member? and not necessary?
-
-            if (!($isPublic)) {
-                $property->setAccessible(false);
-            }
-
-            if (is_object($temp)) {
-                // todo: only create if object doesn't exists... get primaryKey field, then get member name based on this
-                // now check if id is null or set.
-                $mapper  = static::$hasMany[$pname]['mapper'];
-                $mapper  = new $mapper($this->db);
-                $objsIds = [];
-
-                if (isset(static::$hasMany[$pname]['mapper']) && static::$hasMany[$pname]['mapper'] === static::$hasMany[$pname]['relationmapper']) {
-                    $relReflectionClass = new \ReflectionClass(get_class($temp));
+                if (!($isPublic = $property->isPublic())) {
+                    $property->setAccessible(true);
                 }
 
-                foreach ($values as $key => &$value) {
-                    // Skip if already in db/has key
-                    $relProperty = $relReflectionClass->getProperty($mapper::$columns[$mapper::$primaryField]['internal']);
-                    $relProperty->setAccessible(true);
-                    $primaryKey = $relProperty->getValue($value);
-                    $relProperty->setAccessible(false);
+                $values = $property->getValue($obj);
+                $temp   = reset($values);
+                $pname  = $property->getName(); // todo: isn't this just member? and not necessary?
 
-                    if ($primaryKey !== 0 && $primaryKey !== null && $primaryKey !== '') {
-                        continue;
-                    }
+                if (!($isPublic)) {
+                    $property->setAccessible(false);
+                }
 
-                    // Setting relation value for relation (since the relation is not stored in an extra relation table)
+                if (is_object($temp)) {
+                    // todo: only create if object doesn't exists... get primaryKey field, then get member name based on this
+                    // now check if id is null or set.
+                    $mapper  = static::$hasMany[$pname]['mapper'];
+                    $mapper  = new $mapper($this->db);
+                    $objsIds = [];
+
                     if (isset(static::$hasMany[$pname]['mapper']) && static::$hasMany[$pname]['mapper'] === static::$hasMany[$pname]['relationmapper']) {
-                        $relProperty = $relReflectionClass->getProperty($mapper::$columns[static::$hasMany[$pname]['dst']]['internal']);
-                        $relProperty->setAccessible(true);
-                        $relProperty->setValue($value, $objId);
-                        $relProperty->setAccessible(false);
+                        $relReflectionClass = new \ReflectionClass(get_class($temp));
                     }
 
-                    $objsIds[$key] = $mapper->create($value);
+                    foreach ($values as $key => &$value) {
+                        // Skip if already in db/has key
+                        $relProperty = $relReflectionClass->getProperty($mapper::$columns[$mapper::$primaryField]['internal']);
+                        $relProperty->setAccessible(true);
+                        $primaryKey = $relProperty->getValue($value);
+                        $relProperty->setAccessible(false);
+
+                        if ($primaryKey !== 0 && $primaryKey !== null && $primaryKey !== '') {
+                            continue;
+                        }
+
+                        // Setting relation value for relation (since the relation is not stored in an extra relation table)
+                        if (isset(static::$hasMany[$pname]['mapper']) && static::$hasMany[$pname]['mapper'] === static::$hasMany[$pname]['relationmapper']) {
+                            $relProperty = $relReflectionClass->getProperty($mapper::$columns[static::$hasMany[$pname]['dst']]['internal']);
+                            $relProperty->setAccessible(true);
+                            $relProperty->setValue($value, $objId);
+                            $relProperty->setAccessible(false);
+                        }
+
+                        $objsIds[$key] = $mapper->create($value);
+                    }
+                } elseif (is_scalar($temp)) {
+                    $objsIds = $values;
+                } else {
+                    throw new \Exception('Unexpected value for relational data mapping.');
                 }
-            } elseif (is_scalar($temp)) {
-                $objsIds = $values;
-            } else {
-                throw new \Exception('Unexpected value for relational data mapping.');
-            }
 
-            if (isset(static::$hasMany[$pname]['mapper']) && static::$hasMany[$pname]['mapper'] !== static::$hasMany[$pname]['relationmapper']) {
-                /* is many->many */
-                $relQuery = new Builder($this->db);
-                $relQuery->prefix($this->db->getPrefix())
-                         ->into(static::$hasMany[$pname]['table'])
-                         ->insert(static::$hasMany[$pname]['src'], static::$hasMany[$pname]['dst']);
+                if (isset(static::$hasMany[$pname]['mapper']) && static::$hasMany[$pname]['mapper'] !== static::$hasMany[$pname]['relationmapper']) {
+                    /* is many->many */
+                    $relQuery = new Builder($this->db);
+                    $relQuery->prefix($this->db->getPrefix())
+                             ->into(static::$hasMany[$pname]['table'])
+                             ->insert(static::$hasMany[$pname]['src'], static::$hasMany[$pname]['dst']);
 
-                foreach ($objsIds as $key => $src) {
-                    $relQuery->values($src, $objId);
+                    foreach ($objsIds as $key => $src) {
+                        $relQuery->values($src, $objId);
+                    }
+
+                    $this->db->con->prepare($relQuery->toSql())->execute();
                 }
-
-                $this->db->con->prepare($relQuery->toSql())->execute();
             }
         }
 
