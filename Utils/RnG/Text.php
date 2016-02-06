@@ -35,7 +35,7 @@ class Text
      * @var string[]
      * @since 1.0.0
      */
-    public static $words_west = ['lorem',
+    private static $words_west = ['lorem',
                                  'ipsum',
                                  'dolor',
                                  'sit',
@@ -294,11 +294,15 @@ class Text
      */
     public function generateText($length, $words = null)
     {
+        if($length === 0) {
+            return '';
+        }
+
         if ($words === null) {
             $words = self::$words_west;
         }
 
-        $punctuation       = self::generatePunctuation($length);
+        $punctuation       = $this->generatePunctuation($length);
         $punctuation_count = array_count_values(
                                  array_map(
                                      function ($item) {
@@ -311,11 +315,11 @@ class Text
         $this->sentences = $punctuation_count['.'] + $punctuation_count['!'] + $punctuation_count['?'];
 
         if ($this->hasParagraphs) {
-            $paragraph = self::generateParagraph($this->sentences);
+            $paragraph = $this->generateParagraph($this->sentences);
         }
 
         if ($this->hasFormatting) {
-            $formatting = self::generateFormatting($length);
+            $formatting = $this->generateFormatting($length);
         }
 
         $sentenceCount = 0;
