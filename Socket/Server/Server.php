@@ -15,6 +15,7 @@
  */
 namespace phpOMS\Socket\Server;
 
+use phpOMS\Socket\Client\ClientConnection;
 use phpOMS\Socket\CommandManager;
 use phpOMS\Socket\Packets\PacketManager;
 
@@ -58,6 +59,10 @@ class Server extends SocketAbstract
      */
     private $packetManager = null;
 
+    private $clientManager = null;
+
+    private $verbose = true;
+
     /**
      * Socket application.
      *
@@ -72,6 +77,7 @@ class Server extends SocketAbstract
 
         if ($connected) {
             fclose($connected);
+
             return true;
         } else {
             return false;
@@ -89,6 +95,7 @@ class Server extends SocketAbstract
     public function __construct($app)
     {
         $this->app           = $app;
+        $this->clientManager = new ClientManager();
         $this->packetManager = new PacketManager(new CommandManager(), new ClientManager());
     }
 
@@ -97,7 +104,9 @@ class Server extends SocketAbstract
      */
     public function create(string $ip, int $port)
     {
+        $this->app->logger->console('Creating socket...', $this->verbose);
         parent::create($ip, $port);
+        $this->app->logger->console('Binding socket...', $this->verbose);
         socket_bind($this->sock, $this->ip, $this->port);
     }
 
@@ -116,15 +125,57 @@ class Server extends SocketAbstract
         $this->limit = $limit;
     }
 
+    public function handshake($client, $headers)
+    {
+        if (preg_match("/Sec-WebSocket-Version: (.*)\r\n/", $headers, $match)) {
+            $version = $match[1];
+        } else {
+            return false;
+        }
+
+        if ($version == 13) {
+            if (preg_match("/GET (.*) HTTP/", $headers, $match)) {
+                $root = $match[1];
+            }
+
+            if (preg_match("/Host: (.*)\r\n/", $headers, $match)) {
+                $host = $match[1];
+            }
+
+            if (preg_match("/Origin: (.*)\r\n/", $headers, $match)) {
+                $origin = $match[1];
+            }
+
+            if (preg_match("/Sec-WebSocket-Key: (.*)\r\n/", $headers, $match)) {
+                $key = $match[1];
+            }
+
+            $acceptKey = $key . '258EAFA5-E914-47DA-95CA-C5AB0DC85B11';
+            $acceptKey = base64_encode(sha1($acceptKey, true));
+            $upgrade   = "HTTP/1.1 101 Switching Protocols\r\n" .
+                "Upgrade: websocket\r\n" .
+                "Connection: Upgrade\r\n" .
+                "Sec-WebSocket-Accept: $acceptKey" .
+                "\r\n\r\n";
+            socket_write($client->getSocket(), $upgrade);
+            $client->setHandshake(true);
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     /**
      * {@inheritdoc}
      */
     public function run()
     {
+        $this->app->logger->console('Start listening...', $this->verbose);
         socket_listen($this->sock);
         socket_set_nonblock($this->sock);
         $this->conn[] = $this->sock;
 
+        $this->app->logger->console('Start running...', $this->verbose);
         while ($this->run) {
             $read = $this->conn;
 
@@ -138,55 +189,54 @@ class Server extends SocketAbstract
                 // socket_clear_error();
             }
 
-            if (in_array($this->sock, $read)) {
-                $this->conn[] = $newc = socket_accept($this->sock);
+            foreach ($read as $key => $socket) {
+                if ($this->sock === $socket) {
+                    $newc = socket_accept($this->sock);
+                    $this->connectClient($newc);
+                } else {
+                    $client = $this->clientManager->getBySocket($socket);
+                    $data   = socket_read($socket, 1024);
 
-                // TODO: init account
-                // This is only the initial connection no auth happens here
-                // Here the server should request an authentication
-
-                $welcome = "Welcome to the server.\n";
-                socket_write($newc, $welcome, strlen($welcome));
-                socket_getpeername($newc, $ip);
-
-                unset($read[0]);
-            }
-
-            foreach ($read as $key => $client) {
-                $data = socket_read($client, 1024);
-
-                if ($this->clientReadError($key)) {
-                    continue;
+                    if (!$client->getHandshake()) {
+                        $this->app->logger->console('Doing handshake...', $this->verbose);
+                        if ($this->handshake($client, $data)) {
+                            $this->app->logger->console('Handshake succeeded.', $this->verbose);
+                        } else {
+                            $this->app->logger->console('Handshake failed.', $this->verbose);
+                            $this->disconnectClient($client);
+                        }
+                    } else {
+                        $this->packetManager->handle($this->unmask($data), $client);
+                    }
                 }
-
-                $this->packetManager->handle(trim($data), $key);
             }
         }
 
         $this->close();
     }
 
-    /**
-     * Handle client read error.
-     *
-     * @param mixed $key Client key
-     *
-     * @return bool
-     *
-     * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
-     */
-    private function clientReadError($key) : bool
+    public function connectClient($socket)
     {
-        if (socket_last_error() === 10054) {
-            socket_clear_error();
-            unset($this->conn[$key]);
-            $this->conn = array_values($this->conn);
+        $this->app->logger->console('Connecting client...', $this->verbose);
+        $this->clientManager->add($client = new ClientConnection(uniqid(), $socket));
+        $this->conn[$client->getId()] = $socket;
+        $this->app->logger->console('Connected client.', $this->verbose);
+    }
 
-            return true;
+    public function disconnectClient($client)
+    {
+        $this->app->logger->console('Disconnecting client...', $this->verbose);
+        $client->setConnected(false);
+        $client->setHandshake(false);
+        socket_shutdown($client->getSocket(), 2);
+        socket_close($client->getSocket());
+
+        if (isset($this->conn[$client->getId()])) {
+            unset($this->conn[$client->getId()]);
         }
 
-        return false;
+        $this->clientManager->remove($client->getId());
+        $this->app->logger->console('Disconnected client.', $this->verbose);
     }
 
     /**
@@ -205,20 +255,24 @@ class Server extends SocketAbstract
         parent::__destruct();
     }
 
-    /**
-     * Disconnect client.
-     *
-     * @param mixed $key Client key
-     *
-     * @return void
-     *
-     * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
-     */
-    private function disconnect($key)
+    private function unmask($payload)
     {
-        if (isset($this->conn[$key])) {
-            unset($this->conn[$key]);
+        $length = ord($payload[1]) & 127;
+        if ($length == 126) {
+            $masks = substr($payload, 4, 4);
+            $data  = substr($payload, 8);
+        } elseif ($length == 127) {
+            $masks = substr($payload, 10, 4);
+            $data  = substr($payload, 14);
+        } else {
+            $masks = substr($payload, 2, 4);
+            $data  = substr($payload, 6);
         }
+        $text = '';
+        for ($i = 0; $i < strlen($data); ++$i) {
+            $text .= $data[$i] ^ $masks[$i % 4];
+        }
+
+        return $text;
     }
 }

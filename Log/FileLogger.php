@@ -214,7 +214,7 @@ class FileLogger implements LoggerInterface
      * Interpolate context
      *
      * @param string $message
-     * @param array   $context
+     * @param array  $context
      * @param string $level
      *
      * @return string
@@ -292,7 +292,7 @@ class FileLogger implements LoggerInterface
      * System is unusable.
      *
      * @param string $message
-     * @param array   $context
+     * @param array  $context
      *
      * @return null
      *
@@ -312,7 +312,7 @@ class FileLogger implements LoggerInterface
      * trigger the SMS alerts and wake you up.
      *
      * @param string $message
-     * @param array   $context
+     * @param array  $context
      *
      * @return void
      *
@@ -331,7 +331,7 @@ class FileLogger implements LoggerInterface
      * Example: Application component unavailable, unexpected exception.
      *
      * @param string $message
-     * @param array   $context
+     * @param array  $context
      *
      * @return void
      *
@@ -349,7 +349,7 @@ class FileLogger implements LoggerInterface
      * be logged and monitored.
      *
      * @param string $message
-     * @param array   $context
+     * @param array  $context
      *
      * @return void
      *
@@ -369,7 +369,7 @@ class FileLogger implements LoggerInterface
      * that are not necessarily wrong.
      *
      * @param string $message
-     * @param array   $context
+     * @param array  $context
      *
      * @return void
      *
@@ -386,7 +386,7 @@ class FileLogger implements LoggerInterface
      * Normal but significant events.
      *
      * @param string $message
-     * @param array   $context
+     * @param array  $context
      *
      * @return void
      *
@@ -405,7 +405,7 @@ class FileLogger implements LoggerInterface
      * Example: User logs in, SQL logs.
      *
      * @param string $message
-     * @param array   $context
+     * @param array  $context
      *
      * @return void
      *
@@ -422,7 +422,7 @@ class FileLogger implements LoggerInterface
      * Detailed debug information.
      *
      * @param string $message
-     * @param array   $context
+     * @param array  $context
      *
      * @return void
      *
@@ -440,7 +440,7 @@ class FileLogger implements LoggerInterface
      *
      * @param string $level
      * @param string $message
-     * @param array   $context
+     * @param array  $context
      *
      * @return void
      *
@@ -609,5 +609,14 @@ class FileLogger implements LoggerInterface
         }
 
         return $log;
+    }
+
+    public function console(string $text, bool $verbose)
+    {
+        $text = date('[Y-m-d H:i:s] ') . $text . "\r\n";
+
+        if ($verbose) {
+            echo $text;
+        }
     }
 }

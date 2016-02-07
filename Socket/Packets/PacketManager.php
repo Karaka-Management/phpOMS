@@ -69,21 +69,14 @@ class PacketManager
      * Handle package.
      *
      * @param string $data Package data
-     * @param mixed   $key  Client Id
      *
      * @return void
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function handle(string $data, $key)
+    public function handle(string $data, $client)
     {
-        /*
-                if (!empty($data)) {
-                    $data = explode(' ', $data);
-                    $this->commandManager->trigger($data[0], $key, $data);
-                } else {
-                    $this->commandManager->trigger('empty', $key, $data);
-                }*/
+        echo $data;
     }
 }

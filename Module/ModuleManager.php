@@ -17,6 +17,7 @@ namespace phpOMS\Module;
 
 use phpOMS\ApplicationAbstract;
 use phpOMS\DataStorage\Database\DatabaseType;
+use phpOMS\Log\FileLogger;
 use phpOMS\Message\Http\Request;
 use phpOMS\System\FilePathException;
 use phpOMS\Utils\IO\Json\InvalidJsonException;
@@ -429,7 +430,15 @@ class ModuleManager
     {
         if (is_array($module)) {
             foreach ($module as $m) {
-                $this->initModule($m);
+                try {
+                    $this->initModule($m);
+                } catch (\InvalidArgumentException $e) {
+                    $this->app->logger->warning(FileLogger::MSG_FULL, [
+                        'message' => 'Trying to initialize ' . $m . ' without controller.',
+                        'line'    => $e->getLine(),
+                        'file'    => $e->getFile(),
+                    ]);
+                }
             }
         } elseif (is_string($module) && realpath(self::MODULE_PATH . '/' . $module . '/Controller.php') !== false) {
             $this->running[$module] = ModuleFactory::getInstance($module, $this->app);
