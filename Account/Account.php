@@ -105,7 +105,7 @@ class Account
      * @var \DateTime
      * @since 1.0.0
      */
-    protected $created = null;
+    protected $createdAt = null;
 
     /**
      * Permissions.
@@ -290,7 +290,7 @@ class Account
      */
     public function getLastActive() : \DateTime
     {
-        return $this->lastActive ?? new \DateTime('NOW');
+        return $this->lastActive ?? $this->getCreatedAt();
     }
 
     /**
@@ -301,9 +301,9 @@ class Account
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function getCreated() : \DateTime
+    public function getCreatedAt() : \DateTime
     {
-        return $this->created ?? new \DateTime('NOW');
+        return $this->createdAt ?? new \DateTime('NOW');
     }
 
     /**
