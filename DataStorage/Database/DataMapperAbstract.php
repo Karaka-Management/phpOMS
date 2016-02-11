@@ -253,6 +253,25 @@ abstract class DataMapperAbstract implements DataMapperInterface
             } else {
                 /* is not a has many property */
                 foreach (static::$columns as $key => $column) {
+                    /* Insert has one first */
+                    if (isset(static::$hasOne[$pname]) && is_object($relObj = $property->getValue($obj))) {
+                        /* only insert if not already inserted */
+                        $mapper = static::$hasOne[$pname]['mapper'];
+                        $mapper = new $mapper($this->db);
+
+                        $relReflectionClass = new \ReflectionClass(get_class($relObj));
+                        $relProperty        = $relReflectionClass->getProperty($mapper::$columns[$mapper::$primaryField]['internal']);
+                        $relProperty->setAccessible(true);
+                        $primaryKey = $relProperty->getValue($relObj);
+                        $relProperty->setAccessible(false);
+
+                        if ($primaryKey !== 0 && $primaryKey !== null && $primaryKey !== '') {
+                            $primaryKey = $mapper->create($property->getValue($relObj));
+                        }
+
+                        $property->setValue($primaryKey);
+                    }
+
                     if ($column['internal'] === $pname) {
                         $value = $property->getValue($obj);
 
@@ -260,7 +279,7 @@ abstract class DataMapperAbstract implements DataMapperInterface
                             $value = isset($value) ? $value->format('Y-m-d H:i:s') : null;
                         } elseif ($column['type'] === 'Json') {
                             $value = isset($value) ? json_encode($value) : '';
-                        } elseif($column['type'] === 'Serializable') {
+                        } elseif ($column['type'] === 'Serializable') {
                             $value = $value->serialize();
                         }
 
@@ -278,7 +297,7 @@ abstract class DataMapperAbstract implements DataMapperInterface
         $objId = $this->db->con->lastInsertId();
 
         // handle relations
-        if($relations) {
+        if ($relations) {
             foreach (static::$hasMany as $member => $rel) {
                 /* is a has many property */
                 $property = $reflectionClass->getProperty($member); // throws ReflectionException
@@ -514,6 +533,41 @@ abstract class DataMapperAbstract implements DataMapperInterface
     /**
      * Populate data.
      *
+     * @param mixed $obj Object to add the relations to
+     *
+     * @return mixed
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+    public function populateOneToOne(&$obj)
+    {
+        $reflectionClass = new \ReflectionClass(get_class($obj));
+
+        foreach (static::$hasOne as $column => $one) {
+            if ($reflectionClass->hasProperty(static::$columns[$column]['internal'])) {
+                $reflectionProperty = $reflectionClass->getProperty(static::$columns[$column]['internal']);
+
+                if (!($accessible = $reflectionProperty->isPublic())) {
+                    $reflectionProperty->setAccessible(true);
+                }
+
+                $mapper = static::$hasOne[$column]['mapper'];
+                $mapper = new $mapper($this->db);
+
+                $value = $mapper->get($reflectionProperty->getValue($obj));
+                $reflectionProperty->setValue($obj, $value);
+
+                if (!$accessible) {
+                    $reflectionProperty->setAccessible(false);
+                }
+            }
+        }
+    }
+
+    /**
+     * Populate data.
+     *
      * @param array $result Query result set
      * @param mixed $obj    Object to populate
      *
@@ -661,10 +715,19 @@ abstract class DataMapperAbstract implements DataMapperInterface
         }
 
         if (isset($obj)) {
-            if ($relations && count(static::$hasMany) > 0) {
-                /* loading relations from relations table and populating them and then adding them to the object */
+            $hasMany = count(static::$hasMany) > 0;
+            $hasOne  = count(static::$hasOne) > 0;
+
+            if ($relations && ($hasMany || $hasOne)) {
                 foreach ($primaryKey as $key) {
-                    $this->populateManyToMany($this->getRelationsRaw($key), $obj[$key]);
+                    /* loading relations from relations table and populating them and then adding them to the object */
+                    if ($hasMany) {
+                        $this->populateManyToMany($this->getManyRaw($key), $obj[$key]);
+                    }
+
+                    if ($hasOne) {
+                        $this->populateOneToOne($obj[$key]);
+                    }
                 }
             }
 
@@ -729,7 +792,7 @@ abstract class DataMapperAbstract implements DataMapperInterface
         return $this->populateIterable($results);
     }
 
-    public function getRelationsRaw($primaryKey) : array
+    public function getManyRaw($primaryKey) : array
     {
         $result = [];
 
