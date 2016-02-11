@@ -265,6 +265,9 @@ class Response extends ResponseAbstract implements RenderableInterface
     {
         $render = $this->head->render();
 
+        // todo: fix api return
+        // right now it is_object hence not printing the request key => object and only object->render();
+        // this can't be changed easily since view uses this as well and this mustn't print a key. maybe view instanceof View?
         foreach ($this->response as $key => $response) {
             if (is_object($response)) {
                 $render .= $response->render();
