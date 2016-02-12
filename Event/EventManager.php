@@ -16,7 +16,6 @@
 namespace phpOMS\Event;
 
 use phpOMS\Pattern\Mediator;
-use phpOMS\Utils\ArrayUtils;
 
 /**
  * EventManager class.
@@ -29,6 +28,7 @@ use phpOMS\Utils\ArrayUtils;
  */
 class EventManager implements Mediator
 {
+    const DELIM = ':';
 
     /**
      * Events.
@@ -51,7 +51,7 @@ class EventManager implements Mediator
     /**
      * {@inheritdoc}
      */
-    public function attach(string $event, \Closure $callback = null, string $listener = null) : string
+    public function attach(string $event, \Closure $callback, string $listener) : string
     {
         $this->events[$event][$listener] = $callback;
 
@@ -61,17 +61,22 @@ class EventManager implements Mediator
     /**
      * {@inheritdoc}
      */
-    public function trigger(string $event, \Closure $callback = null, string $source = null) : int
+    public function trigger(string $event, string $source, \Closure $callback = null) : int
     {
         $count = 0;
-        foreach ($this->events[$event] as $event) {
-            $event($source);
-            $count++;
+
+        if (isset($this->events[$event])) {
+            foreach ($this->events[$event] as $listener) {
+                foreach ($listener as $closure) {
+                    $closure($source);
+                    $count++;
+                }
+            }
         }
 
         if (isset($callback)) {
             /** @var $callback Callable */
-            $callback();
+            $callback($count);
         }
 
         return $count;
@@ -82,29 +87,31 @@ class EventManager implements Mediator
      *
      * An object fires an event until it's callback returns false
      *
-     * @param string  $event    Event ID
+     * @param string   $event    Event ID
+     * @param string   $source   What class is invoking this event
      * @param \Closure $callback Callback function of the event. This will get triggered after firering all listener callbacks.
-     * @param string  $source   What class is invoking this event
      *
      * @return int
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function triggerUntil(string $event, \Closure $callback = null, string $source = null) : int
+    public function triggerUntil(string $event, string $source, \Closure $callback = null) : int
     {
         $run   = true;
         $count = 0;
 
-        do {
-            foreach ($this->events[$event] as $event) {
-                $run = $event($source);
-                $count++;
-            }
-        } while ($run);
+        if (isset($this->events[$event])) {
+            do {
+                foreach ($this->events[$event] as $eventClosure) {
+                    $run = $eventClosure($source);
+                    $count++;
+                }
+            } while ($run);
+        }
 
         if ($callback !== null) {
-            $callback();
+            $callback($count);
         }
 
         return $count;
@@ -113,9 +120,29 @@ class EventManager implements Mediator
     /**
      * {@inheritdoc}
      */
-    public function detach(int $event)
+    public function detachListener(string $event, string $listener) : bool
     {
-        $this->events = ArrayUtils::unsetArray($event, $this->events, '/');
+        if (isset($this->events[$event][$listener])) {
+            unset($this->events[$event][$listener]);
+
+            return true;
+        }
+
+        return false;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function detachEvent(string $event) : bool
+    {
+        if (isset($this->events[$event])) {
+            unset($this->events[$event]);
+
+            return true;
+        }
+
+        return false;
     }
 
     /**
