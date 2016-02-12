@@ -48,7 +48,7 @@ class FileSystem
      *
      * @param string $path      Path to folder
      * @param bool   $recursive Should sub folders be counted as well?
-     * @param array   $ignore    Ignore these sub-paths
+     * @param array  $ignore    Ignore these sub-paths
      *
      * @return int
      *
@@ -56,7 +56,7 @@ class FileSystem
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public static function getFileCount(string $path, bool $recursive = true, array $ignore = ['.', '..', 'cgi-bin',
-                                                                                                 '.DS_Store'])
+                                                                                               '.DS_Store'])
     {
         $size  = 0;
         $files = scandir($path);
@@ -77,23 +77,21 @@ class FileSystem
         return $size;
     }
 
-    public function copy()
-    {
-    }
-
-    public function rename()
-    {
-    }
-
-    public function move()
-    {
-    }
-
+    /**
+     * Delete directory and all its content.
+     *
+     * @param string $path Path to folder
+     *
+     * @return bool
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
     public static function deletePath($path) : bool
     {
         $path = realpath($oldPath = $path);
         if ($path === false || !is_dir($path) || Validator::startsWith($path, ROOT_PATH)) {
-            return false;
+            throw new FilePathException($oldPath);
         }
 
         $files = scandir($path);
@@ -113,53 +111,5 @@ class FileSystem
         rmdir($path);
 
         return true;
-    }
-
-    public function touch()
-    {
-    }
-
-    public function mkdir()
-    {
-    }
-
-    public function exists()
-    {
-    }
-
-    public function chmod()
-    {
-    }
-
-    public function chown()
-    {
-    }
-
-    public function chgrp()
-    {
-    }
-
-    public function symlink()
-    {
-    }
-
-    public function toRelative()
-    {
-    }
-
-    public function toAbsolute()
-    {
-    }
-
-    public function isRelative()
-    {
-    }
-
-    public function isAbsolute()
-    {
-    }
-
-    public function dump()
-    {
     }
 }

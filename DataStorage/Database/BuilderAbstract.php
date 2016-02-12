@@ -30,10 +30,16 @@ use phpOMS\DataStorage\Database\Connection\ConnectionAbstract;
  */
 abstract class BuilderAbstract
 {
+    /**
+     * Grammar.
+     *
+     * @var GrammarAbstract
+     * @since 1.0.0
+     */
     protected $grammar = null;
 
     /**
-     * Database connectino.
+     * Database connection.
      *
      * @var ConnectionAbstract
      * @since 1.0.0
@@ -61,7 +67,7 @@ abstract class BuilderAbstract
      *
      * @param string $prefix Prefix
      *
-     * @return BuilderAbstract
+     * @return $this
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>

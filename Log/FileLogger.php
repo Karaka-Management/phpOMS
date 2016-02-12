@@ -611,12 +611,23 @@ class FileLogger implements LoggerInterface
         return $log;
     }
 
-    public function console(string $text, bool $verbose)
+    /**
+     * Create console log.
+     *
+     * @param string $message Log message
+     * @param bool   $verbose  Is verbose
+     * @param array  $context Context
+     *
+     * @return array
+     */
+    public function console(string $message, bool $verbose = true, array $context = [])
     {
-        $text = date('[Y-m-d H:i:s] ') . $text . "\r\n";
+        $message = date('[Y-m-d H:i:s] ') . $message . "\r\n";
 
         if ($verbose) {
-            echo $text;
+            echo $message;
+        } else {
+            $this->info($message, $context);
         }
     }
 }

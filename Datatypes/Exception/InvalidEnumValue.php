@@ -31,7 +31,17 @@ namespace phpOMS\Datatypes\Exception;
 class InvalidEnumValue extends \UnexpectedValueException
 {
 
-    public function __construct($message, $code = 0, \Exception $previous = null)
+    /**
+     * Constructor.
+     *
+     * @param string     $message Exception message
+     * @param int        $code    Exception code
+     * @param \Exception Previous exception
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+    public function __construct(string $message, int $code = 0, \Exception $previous = null)
     {
         parent::__construct('The enum value "' . $message . '" is not valid.', $code, $previous);
     }

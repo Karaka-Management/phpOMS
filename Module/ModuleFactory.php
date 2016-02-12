@@ -16,8 +16,6 @@
 namespace phpOMS\Module;
 
 use phpOMS\ApplicationAbstract;
-use phpOMS\Module\NullModule;
-
 
 /**
  * ModuleFactory class.

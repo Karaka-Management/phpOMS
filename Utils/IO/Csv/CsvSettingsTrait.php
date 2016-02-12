@@ -22,9 +22,21 @@ namespace phpOMS\Utils\IO\Csv;
  * @package    phpOMS\Config
  * @since      1.0.0
  */
-trait CsvSettingsTrait
+class CsvSettings
 {
-    private function getFileDelimiter($file, int $checkLines = 2, array $delimiters = [',', '\t', ';', '|', ':']) : string
+    /**
+     * Get csv file delimiter.
+     *
+     * @param mixed $file       File resource
+     * @param int   $checkLines Lines to check for evaluation
+     * @param array $delimiters Potential delimiters
+     *
+     * @return string
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn
+     */
+    public static function getFileDelimiter($file, int $checkLines = 2, array $delimiters = [',', '\t', ';', '|', ':']) : string
     {
         $results = [];
 

@@ -14,6 +14,7 @@
  * @link       http://orange-management.com
  */
 namespace phpOMS\Module;
+
 use phpOMS\System\FilePathException;
 
 
@@ -61,7 +62,7 @@ abstract class ModuleAbstract
      * @var string
      * @since 1.0.0
      */
-    const MODULE_PATH = __DIR__;
+    const MODULE_PATH = __DIR__ . '/../../Modules';
 
     /**
      * Module version.
@@ -148,8 +149,9 @@ abstract class ModuleAbstract
     {
         $lang = [];
         if (isset(static::$localization[$destination])) {
+            /** @noinspection PhpUnusedLocalVariableInspection */
             foreach (static::$localization[$destination] as $file) {
-                if(($path = realpath($oldPath = __DIR__ . '/../../Modules/' . static::MODULE_NAME . '/Theme/' . $destination . '/Lang/' . $language . '.lang.php')) === false) {
+                if (($path = realpath($oldPath = __DIR__ . '/../../Modules/' . static::MODULE_NAME . '/Theme/' . $destination . '/Lang/' . $language . '.lang.php')) === false) {
                     throw new FilePathException($oldPath);
                 }
 
@@ -196,5 +198,18 @@ abstract class ModuleAbstract
     {
         /** @noinspection PhpUndefinedFieldInspection */
         return static::$dependencies;
+    }
+
+    /**
+     * Get event id prefix.
+     *
+     * @return string
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+    public function getEventId() : string
+    {
+        return static::class;
     }
 }

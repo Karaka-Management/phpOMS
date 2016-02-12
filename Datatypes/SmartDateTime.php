@@ -30,7 +30,20 @@ namespace phpOMS\Datatypes;
  */
 class SmartDateTime extends \DateTime
 {
+    /**
+     * Default format
+     *
+     * @var string
+     * @since 1.0.0
+     */
     const FORMAT   = 'Y-m-d hh:mm:ss';
+
+    /**
+     * Default timezone
+     *
+     * @var string
+     * @since 1.0.0
+     */
     const TIMEZONE = 'UTC';
 
     /**
@@ -101,6 +114,32 @@ class SmartDateTime extends \DateTime
         }
 
         return $this;
+    }
+
+    /**
+     * Get days of current month
+     *
+     * @return int
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+    public function getDaysOfMonth() : int
+    {
+        return cal_days_in_month(CAL_GREGORIAN, $this->format('m'), $this->format('Y'));
+    }
+
+    /**
+     * Get first day of current month
+     *
+     * @return int
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+    public function getFirstDayOfMonth() : int
+    {
+        return getdate(mktime(null, null, null, $this->format('m'), 1, $this->format('Y')))['wday'];
     }
 
 }

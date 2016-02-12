@@ -71,9 +71,9 @@ class Dispatcher
      * Dispatch controller.
      *
      * @param string|array|\Closure $controller Controller string
-     * @param RequestAbstract        $request    Request
-     * @param ResponseAbstract       $response   Response
-     * @param mixed                  $data       Data
+     * @param RequestAbstract       $request    Request
+     * @param ResponseAbstract      $response   Response
+     * @param mixed                 $data       Data
      *
      * @return array
      *
@@ -94,11 +94,13 @@ class Dispatcher
             $dispatch = explode(':', $controller);
             $this->get($dispatch[0]);
 
-            if (count($dispatch) == 3) {
+            if (($c = count($dispatch)) == 3) {
                 /* Handling static functions */
                 $views[$type][$controller] = $dispatch[0]::$dispatch[2]();
-            } else {
+            } elseif ($c == 2) {
                 $views[$type][$controller] = $this->controllers[$dispatch[0]]->{$dispatch[1]}($request, $response, $data);
+            } else {
+                throw new \UnexpectedValueException('Unexpected function.');
             }
         } elseif (is_array($controller)) {
             foreach ($controller as $controllerSingle) {
@@ -142,7 +144,7 @@ class Dispatcher
      * Set controller by alias.
      *
      * @param ModuleAbstract $controller Controller
-     * @param string        $name       Controller string
+     * @param string         $name       Controller string
      *
      * @return bool
      *

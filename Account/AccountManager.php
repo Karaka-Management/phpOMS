@@ -26,7 +26,7 @@ namespace phpOMS\Account;
  * @link       http://orange-management.com
  * @since      1.0.0
  */
-class AccountManager
+class AccountManager implements \Countable
 {
 
     /**
@@ -81,6 +81,39 @@ class AccountManager
         }
 
         return null;
+    }
+
+    /**
+     * Remove account.
+     *
+     * @param int $id Account id
+     *
+     * @return bool
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+    public function remove(int $id) : bool
+    {
+        if (isset($this->accounts[$id])) {
+            unset($this->accounts[$id]);
+
+            return true;
+        }
+
+        return false;
+    }
+
+    /**
+     * Get accounts count.
+     *
+     * @return int
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+    public function count() : int {
+        return count($this->accounts);
     }
 
 }

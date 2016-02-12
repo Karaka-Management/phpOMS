@@ -30,7 +30,17 @@ namespace phpOMS\System;
  */
 class FilePathException extends \UnexpectedValueException
 {
-    public function __construct($message, $code = 0, \Exception $previous = null)
+    /**
+     * Constructor.
+     *
+     * @param string     $message Exception message
+     * @param int        $code    Exception code
+     * @param \Exception Previous exception
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+    public function __construct(string $message, int $code = 0, \Exception $previous = null)
     {
         parent::__construct('The path "' . $message . '" is not a valid path.', $code, $previous);
     }

@@ -226,7 +226,8 @@ abstract class DataMapperAbstract implements DataMapperInterface
     /**
      * Create object in db.
      *
-     * @param mixed $obj Object reference (gets filled with insert id)
+     * @param mixed $obj       Object reference (gets filled with insert id)
+     * @param bool  $relations Create all relations as well
      *
      * @return mixed
      *
@@ -256,11 +257,13 @@ abstract class DataMapperAbstract implements DataMapperInterface
                     /* Insert has one first */
                     if (isset(static::$hasOne[$pname]) && is_object($relObj = $property->getValue($obj))) {
                         /* only insert if not already inserted */
+                        /** @var DataMapperAbstract $mapper */
                         $mapper = static::$hasOne[$pname]['mapper'];
                         $mapper = new $mapper($this->db);
 
                         $relReflectionClass = new \ReflectionClass(get_class($relObj));
-                        $relProperty        = $relReflectionClass->getProperty($mapper::$columns[$mapper::$primaryField]['internal']);
+                        /** @var array $columns */
+                        $relProperty = $relReflectionClass->getProperty($mapper::$columns[$mapper::$primaryField]['internal']);
                         $relProperty->setAccessible(true);
                         $primaryKey = $relProperty->getValue($relObj);
                         $relProperty->setAccessible(false);
@@ -327,6 +330,7 @@ abstract class DataMapperAbstract implements DataMapperInterface
 
                     foreach ($values as $key => &$value) {
                         // Skip if already in db/has key
+                        /** @noinspection PhpUndefinedVariableInspection */
                         $relProperty = $relReflectionClass->getProperty($mapper::$columns[$mapper::$primaryField]['internal']);
                         $relProperty->setAccessible(true);
                         $primaryKey = $relProperty->getValue($value);
@@ -552,6 +556,7 @@ abstract class DataMapperAbstract implements DataMapperInterface
                     $reflectionProperty->setAccessible(true);
                 }
 
+                /** @var DataMapperAbstract $mapper */
                 $mapper = static::$hasOne[$column]['mapper'];
                 $mapper = new $mapper($this->db);
 
@@ -792,6 +797,16 @@ abstract class DataMapperAbstract implements DataMapperInterface
         return $this->populateIterable($results);
     }
 
+    /**
+     * Get raw by primary key
+     *
+     * @param mixed $primaryKey Primary key
+     *
+     * @return array
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
     public function getManyRaw($primaryKey) : array
     {
         $result = [];

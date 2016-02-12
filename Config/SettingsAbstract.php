@@ -39,7 +39,7 @@ abstract class SettingsAbstract implements OptionsInterface
     /**
      * Cache manager (pool).
      *
-     * @var \phpOMS\DataStorage\Cache\CacheManager
+     * @var \phpOMS\DataStorage\Cache\Pool
      * @since 1.0.0
      */
     protected $cache = null;

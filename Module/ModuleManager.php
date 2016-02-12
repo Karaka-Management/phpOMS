@@ -22,7 +22,6 @@ use phpOMS\Message\Http\Request;
 use phpOMS\System\FilePathException;
 use phpOMS\Utils\IO\Json\InvalidJsonException;
 
-
 /**
  * Modules class.
  *

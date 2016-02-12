@@ -32,7 +32,7 @@ class ApplicationAbstract
     /**
      * App name.
      *
-     * @var \phpOMS\DataStorage\Database\Pool
+     * @var string
      * @since 1.0.0
      */
     public $appName = '';

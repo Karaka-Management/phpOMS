@@ -15,8 +15,6 @@
  */
 namespace phpOMS\Uri;
 
-
-
 /**
  * UriFactory class.
  *
@@ -93,8 +91,7 @@ class UriFactory
      * Build uri.
      *
      * @param string        $uri     Path data
-     * @param array          $toMatch Optional special replacements
-     * @param UriScheme|int $scheme  Scheme type
+     * @param array         $toMatch Optional special replacements
      *
      * @return null|string
      *
@@ -103,7 +100,7 @@ class UriFactory
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public static function build(string $uri, array $toMatch = [], int $scheme = UriScheme::HTTP)
+    public static function build(string $uri, array $toMatch = [])
     {
         $uri = preg_replace_callback('(\{[\/#\?@\.\$][a-zA-Z0-9]*\})', function ($match) use ($toMatch) {
             $match = substr($match[0], 1, strlen($match[0]) - 2);

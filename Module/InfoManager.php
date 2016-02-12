@@ -14,7 +14,9 @@
  * @link       http://orange-management.com
  */
 namespace phpOMS\Module;
+
 use phpOMS\System\FilePathException;
+use phpOMS\Utils\ArrayUtils;
 use phpOMS\Validation\Validator;
 
 /**
@@ -34,20 +36,20 @@ class InfoManager
 {
 
     /**
-     * File pointer.
-     *
-     * @var mixed
-     * @since 1.0.0
-     */
-    private $fp = null;
-
-    /**
-     * Module path.
+     * File path.
      *
      * @var string
      * @since 1.0.0
      */
-    const MODULE_PATH = __DIR__ . '/../../Modules/';
+    private $path = '';
+
+    /**
+     * Info data.
+     *
+     * @var array
+     * @since 1.0.0
+     */
+    private $info = [];
 
     /**
      * Object constructor.
@@ -59,26 +61,54 @@ class InfoManager
      */
     public function __construct(string $module)
     {
-        if (($path = realpath($oldPath = self::MODULE_PATH . $module . '/info.json')) === false || Validator::startsWith($path, self::MODULE_PATH)) {
+        if (($path = realpath($oldPath = ModuleAbstract::MODULE_PATH . '/' . $module . '/info.json')) === false || Validator::startsWith($path, ModuleAbstract::MODULE_PATH)) {
             throw new FilePathException($oldPath);
         }
 
-        $this->fp = fopen($oldPath, 'r');
-    }
-
-    public function update()
-    {
-        // TODO: update file (convert to json)
+        $this->path = $path;
+        $this->info = json_decode(file_get_contents($this->path), true);
     }
 
     /**
-     * Object destructor.
+     * Update info file
      *
      * @since  1.0.0
      * @author Dennis Eichhorn
      */
-    public function __destruct()
+    public function update()
     {
-        $this->fp->close();
+        file_put_contents($this->path, json_encode($this->info, JSON_PRETTY_PRINT));
+    }
+
+    /**
+     * Set data
+     *
+     * @param string $path  Value path
+     * @param mixed  $data  Scalar or array of data to set
+     * @param string $delim Delimiter of path
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn
+     */
+    public function set(string $path, $data, string $delim = '/')
+    {
+        if (!is_scalar($data) || !is_array($data)) {
+            throw new \InvalidArgumentException('Type of $data "' . gettype($data) . '" is not supported.');
+        }
+
+        ArrayUtils::setArray($path, $this->info, $data, $delim);
+    }
+
+    /**
+     * Get info data.
+     *
+     * @return array
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn
+     */
+    public function get() : array
+    {
+        return $this->info;
     }
 }

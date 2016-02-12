@@ -21,8 +21,6 @@ namespace phpOMS\Stdlib;
  * @category   Stdlib
  * @package    Framework
  * @since      1.0.0
- *
- * @todo       : implement JsonableInterface
  */
 class PriorityQueue implements \Countable, \Serializable
 {
