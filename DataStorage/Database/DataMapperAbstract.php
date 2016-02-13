@@ -268,11 +268,11 @@ abstract class DataMapperAbstract implements DataMapperInterface
                         $primaryKey = $relProperty->getValue($relObj);
                         $relProperty->setAccessible(false);
 
-                        if ($primaryKey !== 0 && $primaryKey !== null && $primaryKey !== '') {
-                            $primaryKey = $mapper->create($property->getValue($relObj));
+                        if (empty($primaryKey)) {
+                            $primaryKey = $mapper->create($property->getValue($obj));
                         }
 
-                        $property->setValue($primaryKey);
+                        $property->setValue($obj, $primaryKey);
                     }
 
                     if ($column['internal'] === $pname) {
@@ -336,7 +336,7 @@ abstract class DataMapperAbstract implements DataMapperInterface
                         $primaryKey = $relProperty->getValue($value);
                         $relProperty->setAccessible(false);
 
-                        if ($primaryKey !== 0 && $primaryKey !== null && $primaryKey !== '') {
+                        if (!empty($primaryKey)) {
                             continue;
                         }
 
@@ -548,16 +548,17 @@ abstract class DataMapperAbstract implements DataMapperInterface
     {
         $reflectionClass = new \ReflectionClass(get_class($obj));
 
-        foreach (static::$hasOne as $column => $one) {
-            if ($reflectionClass->hasProperty(static::$columns[$column]['internal'])) {
-                $reflectionProperty = $reflectionClass->getProperty(static::$columns[$column]['internal']);
+        foreach (static::$hasOne as $member => $one) {
+            // todo: is that if necessary? performance is suffering for sure!
+            if ($reflectionClass->hasProperty($member)) {
+                $reflectionProperty = $reflectionClass->getProperty($member);
 
                 if (!($accessible = $reflectionProperty->isPublic())) {
                     $reflectionProperty->setAccessible(true);
                 }
 
                 /** @var DataMapperAbstract $mapper */
-                $mapper = static::$hasOne[$column]['mapper'];
+                $mapper = static::$hasOne[$member]['mapper'];
                 $mapper = new $mapper($this->db);
 
                 $value = $mapper->get($reflectionProperty->getValue($obj));
