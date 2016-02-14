@@ -589,7 +589,7 @@ abstract class DataMapperAbstract implements DataMapperInterface
         $reflectionClass = new \ReflectionClass(get_class($obj));
 
         foreach ($result as $column => $value) {
-            if ($reflectionClass->hasProperty(static::$columns[$column]['internal'])) {
+            if (isset(static::$columns[$column]['internal']) && $reflectionClass->hasProperty(static::$columns[$column]['internal'])) {
                 $reflectionProperty = $reflectionClass->getProperty(static::$columns[$column]['internal']);
 
                 if (!($accessible = $reflectionProperty->isPublic())) {
