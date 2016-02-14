@@ -155,6 +155,7 @@ class Account
      */
     public function __construct()
     {
+        $this->createdAt = new \DateTime('now');
     }
 
     /**
@@ -367,7 +368,7 @@ class Account
             throw new \InvalidArgumentException();
         }
 
-        $this->email = $email;
+        $this->email = mb_strtolower($email);
     }
 
     /**
@@ -419,6 +420,10 @@ class Account
     public function updateLastActive()
     {
         $this->lastActive = new \DateTime('NOW');
+    }
+
+    public function setCreatedAt(\DateTime $created) {
+        $this->createdAt = $created;
     }
 
 }
