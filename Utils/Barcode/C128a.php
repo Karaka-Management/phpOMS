@@ -32,7 +32,7 @@ class C128a extends C128Abstract
     protected static $CODE_START = '211412';
     protected static $CODE_END   = '2331112';
 
-    public function __construct(string $content = '', int $size = 20, int $orientation = 0)
+    public function __construct(string $content = '', int $size = 20, int $orientation = OrientationType::HORIZONTAL)
     {
         parent::__construct(strtoupper($content), $size, $orientation);
     }

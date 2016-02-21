@@ -22,7 +22,7 @@ abstract class C128Abstract
     protected $background  = ['r' => 0, 'g' => 0, 'b' => 0, 'a' => 0];
     protected $front       = ['r' => 0, 'g' => 0, 'b' => 0, 'a' => 0];
 
-    public function __construct(string $content = '', int $size = 20, int $orientation = 0)
+    public function __construct(string $content = '', int $size = 20, int $orientation = OrientationType::HORIZONTAL)
     {
         $this->content = $content;
         $this->setSize($size);
@@ -54,27 +54,27 @@ abstract class C128Abstract
 
     protected function generateCodeString()
     {
-        $keys       = array_keys(self::$CODEARRAY);
+        $keys       = array_keys(static::$CODEARRAY);
         $values     = array_flip($keys);
         $codeString = '';
         $length     = strlen($this->content);
-        $checksum   = self::$CHECKSUM;
+        $checksum   = static::$CHECKSUM;
 
-        for ($pos = 1; $pos <= $length; $pos += 2) {
+        for ($pos = 1; $pos <= $length; $pos++) {
             $activeKey = substr($this->content, ($pos - 1), 1);
-            $codeString .= self::$CODEARRAY[$activeKey];
-            $checksum = ($checksum + ($values[$activeKey] * $pos));
+            $codeString .= static::$CODEARRAY[$activeKey];
+            $checksum += $values[$activeKey] * $pos;
         }
 
-        $codeString .= self::$CODEARRAY[$keys[($checksum - (intval($checksum / 103) * 103))]];
-        $codeString = self::$CODE_START . $codeString . self::$CODE_END;
+        $codeString .= static::$CODEARRAY[$keys[($checksum - (intval($checksum / 103) * 103))]];
+        $codeString = static::$CODE_START . $codeString . static::$CODE_END;
 
         return $codeString;
     }
 
     public function get()
     {
-        $codeString = self::$CODE_START . $this->generateCodeString() . self::$CODE_END;
+        $codeString = static::$CODE_START . $this->generateCodeString() . static::$CODE_END;
 
         return $this->createImage($codeString, 20);
     }

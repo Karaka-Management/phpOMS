@@ -49,7 +49,7 @@ class C128c extends C128Abstract
             }
 
             $codeString .= self::$CODEARRAY[$activeKey];
-            $checksum = ($checksum + ($values[$activeKey] * $checkPos));
+            $checksum += $values[$activeKey] * $checkPos;
             $checkPos++;
         }
 
