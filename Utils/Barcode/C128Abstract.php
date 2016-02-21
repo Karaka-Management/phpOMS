@@ -15,7 +15,12 @@ abstract class C128Abstract
 
     protected $orientation = 0;
     protected $size        = 0;
+    protected $dimension   = ['width' => 0, 'height' => 0];
     protected $content     = 0;
+    protected $showText    = true;
+    protected $margin      = ['top' => 0.0, 'right' => 0.0, 'bottom' => 0.0, 'left' => 0.0];
+    protected $background  = ['r' => 0, 'g' => 0, 'b' => 0, 'a' => 0];
+    protected $front       = ['r' => 0, 'g' => 0, 'b' => 0, 'a' => 0];
 
     public function __construct(string $content = '', int $size = 20, int $orientation = 0)
     {

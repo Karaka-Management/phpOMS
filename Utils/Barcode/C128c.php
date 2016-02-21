@@ -2,10 +2,6 @@
 
 namespace phpOMS\Utils\Barcode;
 
-/**
- * Class C128c
- * @fixme: here is still a small error. It has a minor deviation to a correct 128c code. WHY?
- */
 class C128c extends C128Abstract
 {
     protected static $CHECKSUM = 105;
@@ -34,7 +30,7 @@ class C128c extends C128Abstract
 
     protected static $CODE_START = '211232';
 
-    protected static $CODE_END   = '2331112';
+    protected static $CODE_END = '2331112';
 
     protected function generateCodeString()
     {
@@ -43,6 +39,7 @@ class C128c extends C128Abstract
         $codeString = '';
         $length     = strlen($this->content);
         $checksum   = self::$CHECKSUM;
+        $checkPos   = 1;
 
         for ($pos = 1; $pos <= $length; $pos += 2) {
             if ($pos + 1 <= $length) {
@@ -52,7 +49,8 @@ class C128c extends C128Abstract
             }
 
             $codeString .= self::$CODEARRAY[$activeKey];
-            $checksum = ($checksum + ($values[$activeKey] * $pos));
+            $checksum = ($checksum + ($values[$activeKey] * $checkPos));
+            $checkPos++;
         }
 
         $codeString .= self::$CODEARRAY[$keys[($checksum - (intval($checksum / 103) * 103))]];
