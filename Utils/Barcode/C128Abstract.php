@@ -18,7 +18,7 @@ abstract class C128Abstract
     protected $dimension   = ['width' => 0, 'height' => 0];
     protected $content     = 0;
     protected $showText    = true;
-    protected $margin      = ['top' => 0.0, 'right' => 0.0, 'bottom' => 0.0, 'left' => 0.0];
+    protected $margin      = ['top' => 0.0, 'right' => 4, 'bottom' => 0.0, 'left' => 4];
     protected $background  = ['r' => 0, 'g' => 0, 'b' => 0, 'a' => 0];
     protected $front       = ['r' => 0, 'g' => 0, 'b' => 0, 'a' => 0];
 
@@ -85,7 +85,7 @@ abstract class C128Abstract
             $codeLength = $codeLength + (int) (substr($codeString, ($i - 1), 1));
         }
 
-        if (strtolower($this->orientation) === OrientationType::HORIZONTAL) {
+        if ($this->orientation === OrientationType::HORIZONTAL) {
             $imgWidth  = $codeLength;
             $imgHeight = $this->size;
         } else {
@@ -103,7 +103,7 @@ abstract class C128Abstract
         for ($position = 1; $position <= $length; $position++) {
             $cur_size = $location + (int) (substr($codeString, ($position - 1), 1));
 
-            if (strtolower($this->orientation) === OrientationType::HORIZONTAL) {
+            if ($this->orientation === OrientationType::HORIZONTAL) {
                 imagefilledrectangle($image, $location, 0, $cur_size, $imgHeight, ($position % 2 == 0 ? $white : $black));
             } else {
                 imagefilledrectangle($image, 0, $location, $imgWidth, $cur_size, ($position % 2 == 0 ? $white : $black));
