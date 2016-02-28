@@ -100,6 +100,14 @@ abstract class DataMapperAbstract implements DataMapperInterface
     protected static $hasOne = [];
 
     /**
+     * Extending other mappers.
+     *
+     * @var string[]
+     * @since 1.0.0
+     */
+    protected static $isExtending = [];
+
+    /**
      * Extending relations.
      *
      * @var string[]
@@ -245,6 +253,13 @@ abstract class DataMapperAbstract implements DataMapperInterface
 
         $reflectionClass = new \ReflectionClass(get_class($obj));
         $properties      = $reflectionClass->getProperties();
+        $extendedIds     = [];
+
+        /* Create extended */
+        foreach (static::$isExtending as $member => $rel) {
+            $mapper               = new $rel['mapper']($this->db);
+            $extendedIds[$member] = $mapper->create($obj, $relations);
+        }
 
         foreach ($properties as $property) {
             $property->setAccessible(true);
@@ -254,7 +269,7 @@ abstract class DataMapperAbstract implements DataMapperInterface
             } else {
                 /* is not a has many property */
                 foreach (static::$columns as $key => $column) {
-                    /* Insert has one first */
+                    /* Insert hasOne first */
                     if (isset(static::$hasOne[$pname]) && is_object($relObj = $property->getValue($obj))) {
                         /* only insert if not already inserted */
                         /** @var DataMapperAbstract $mapper */
@@ -276,7 +291,13 @@ abstract class DataMapperAbstract implements DataMapperInterface
                     }
 
                     if ($column['internal'] === $pname) {
-                        $value = $property->getValue($obj);
+                        if (isset($extendedIds[$pname])) {
+                            /* Set extended id */
+                            $value = $extendedIds[$pname];
+                            $property->setValue($obj, $value);
+                        } else {
+                            $value = $property->getValue($obj);
+                        }
 
                         if ($column['type'] === 'DateTime') {
                             $value = isset($value) ? $value->format('Y-m-d H:i:s') : null;
@@ -372,8 +393,7 @@ abstract class DataMapperAbstract implements DataMapperInterface
             }
         }
 
-        // todo: should be done by primaryfield since it could be something else than id
-        $reflectionProperty = $reflectionClass->getProperty('id');
+        $reflectionProperty = $reflectionClass->getProperty(static::$primaryField['internal']);
 
         // todo: can't i just set it accessible anyways and not set it to private afterwards?
         if (!($accessible = $reflectionProperty->isPublic())) {
@@ -469,7 +489,7 @@ abstract class DataMapperAbstract implements DataMapperInterface
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function populate(array $result)
+    public function populate(array $result, $obj = null)
     {
         $class = get_class($this);
         $class = str_replace('Mapper', '', $class);
@@ -481,7 +501,9 @@ abstract class DataMapperAbstract implements DataMapperInterface
             $class     = implode('\\', $parts);
         }
 
-        $obj = new $class();
+        if (!isset($obj)) {
+            $obj = new $class();
+        }
 
         return $this->populateAbstract($result, $obj);
     }
@@ -705,28 +727,42 @@ abstract class DataMapperAbstract implements DataMapperInterface
      *
      * @param mixed $primaryKey Key
      * @param bool  $relations  Load relations
+     * @param mixed $fill       Object to fill
      *
      * @return mixed
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function get($primaryKey, bool $relations = true)
+    public function get($primaryKey, bool $relations = true, $fill = null)
     {
         $primaryKey = (array) $primaryKey;
+        $fill       = (array) $fill;
         $obj        = [];
+        $fCount     = count($fill);
+        $toFill     = null;
 
         foreach ($primaryKey as $key => $value) {
-            $obj[$value] = $this->populate($this->getRaw($value));
+            if ($fCount > 0) {
+                $toFill = current($fill);
+                next($fill);
+            }
+
+            $obj[$value] = $this->populate($this->getRaw($value), $toFill);
         }
 
-        if (isset($obj)) {
-            $hasMany = count(static::$hasMany) > 0;
-            $hasOne  = count(static::$hasOne) > 0;
+        $hasMany     = count(static::$hasMany) > 0;
+        $hasOne      = count(static::$hasOne) > 0;
+        $isExtending = count(static::$isExtending) > 0;
 
-            if ($relations && ($hasMany || $hasOne)) {
-                foreach ($primaryKey as $key) {
-                    /* loading relations from relations table and populating them and then adding them to the object */
+        if (($relations && ($hasMany || $hasOne)) || $isExtending) {
+            foreach ($primaryKey as $key) {
+                if ($isExtending) {
+                    $this->populateExtending($obj[$key], $relations);
+                }
+
+                /* loading relations from relations table and populating them and then adding them to the object */
+                if ($relations) {
                     if ($hasMany) {
                         $this->populateManyToMany($this->getManyRaw($key), $obj[$key]);
                     }
@@ -736,18 +772,20 @@ abstract class DataMapperAbstract implements DataMapperInterface
                     }
                 }
             }
+        }
 
-            return count($obj) === 1 ? reset($obj) : $obj;
-        } else {
-            /* Couldn't create object. Creating NullObject as placeholder */
-            $class       = get_class($this);
-            $class       = str_replace('Mapper', '', $class);
-            $class       = explode('\\', $class);
-            $pos         = count($class) - 1;
-            $class[$pos] = 'Null' . $class[$pos];
-            $class       = implode('\\', $class);
+        return count($obj) === 1 ? reset($obj) : $obj;
+    }
 
-            return $class;
+    public function populateExtending($obj, bool $relations = true)
+    {
+        $reflectionClass = new \ReflectionClass(get_class($obj));
+
+        foreach (static::$isExtending as $member => $rel) {
+            $reflectionProperty = $reflectionClass->getProperty($member);
+
+            $mapper = new $rel['mapper']($this->db);
+            $mapper->get($reflectionProperty->getValue($obj, $member), $relations, $obj);
         }
     }
 
