@@ -16,7 +16,7 @@
 namespace phpOMS\Utils\PDF;
 
 /** @noinspection PhpIncludeInspection */
-require_once realpath(__DIR__ . '/../../../vendor/tecnick.com/tcpdf/tcpdf.php');
+include __DIR__ . '/../../../Resources/tcpdf/tcpdf.php';
 
 /**
  * Pdf class.
