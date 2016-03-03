@@ -2,17 +2,20 @@
 
 namespace phpOMS\Localization;
 
-class Money {   
+class Money {
+
+    const DECIMALS = 5;
+
     private static function getFromInt(int $value, string $currency, string $thousands = ',', string $decimal = '.', int $decimals = 2) : string
     {
         if($decimals > ISO4270::{$currency}) {
             $decimals = ISO4270::{$currency};
         }
 
-        $value = (string) round($value, - 5 + $decimals);
+        $value = (string) round($value, - self::DECIMALS + $decimals);
 
-        $left = substr($value, 0, -5);
-        $right = substr($value, -5);
+        $left = substr($value, 0, -self::DECIMALS);
+        $right = substr($value, -self::DECIMALS);
 
         return ($decimals > 0) : number_format($left, 0, $thousands, $decimal); . $decimal . $right : (string) $left;
     }
@@ -34,8 +37,8 @@ class Money {
             $right = $split[1];
         }
         
-        $right = substr($right, 0, -5);
-        $value = (int) round((int) $left + (int) $right, - 5 + $decimals);
+        $right = substr($right, 0, -self::DECIMALS);
+        $value = (int) round((int) $left + (int) $right, - self::DECIMALS + $decimals);
         
         return $value;
     }
