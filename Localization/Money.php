@@ -6,7 +6,7 @@ class Money {
 
     const DECIMALS = 5;
 
-    private static function getFromInt(int $value, string $currency, string $thousands = ',', string $decimal = '.', int $decimals = 2) : string
+    private static function getFromInt(int $value, string $currency = 'USD', string $thousands = ',', string $decimal = '.', int $decimals = 2) : string
     {
         if($decimals > ISO4270::{$currency}) {
             $decimals = ISO4270::{$currency};
@@ -20,7 +20,7 @@ class Money {
         return ($decimals > 0) : number_format($left, 0, $thousands, $decimal); . $decimal . $right : (string) $left;
     }
 
-    private static function getFromString(string $value, string $currency, string $thousands = ',', string $decimal = '.', int $decimals = 2) : int
+    private static function getFromString(string $value, string $currency = 'USD', string $thousands = ',', string $decimal = '.', int $decimals = 2) : int
     {
         if($decimals > ISO4270::{$currency}) {
             $decimals = ISO4270::{$currency};
