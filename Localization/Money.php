@@ -86,23 +86,15 @@ class Money {
     
     public function mult($value)
     {
-        if(is_string($value) || is_float($value)) {
-            $this->value *= self::toInt((string) $value);
-        } elseif(is_int($value)) {
+        if(is_float($value) || is_int($value)) {
             $this->value *= $value;
-        } elseif($value instanceof Money) {
-            $this->value *= $value->getInt();
         }
     }
     
     public function div($value)
     {
-        if(is_string($value) || is_float($value)) {
-            $this->value = self::toInt((string) ($this->value / self::toInt((string) $value)));
-        } elseif(is_int($value)) {
+        if(is_float($value) || is_int($value)) {
             $this->value = self::toInt((string) ($this->value / $value));
-        } elseif($value instanceof Money) {
-            $this->value = self::toInt((string) ($this->value / $value->getInt()));
         }
     }
 }
