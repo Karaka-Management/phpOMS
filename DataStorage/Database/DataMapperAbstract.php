@@ -722,11 +722,24 @@ abstract class DataMapperAbstract implements DataMapperInterface
     {
     }
 
+    /*
+    @todo: Implement RelationType::NEWEST!!!
+    Get newest hasMany only (if object doesn't have date use id!)
+
+    SELECT c.*, p1.*
+FROM customer c
+JOIN purchase p1 ON (c.id = p1.customer_id)
+LEFT OUTER JOIN purchase p2 ON (c.id = p2.customer_id AND 
+    (p1.date < p2.date OR p1.date = p2.date AND p1.id < p2.id))
+WHERE p2.id IS NULL;
+
+    */
+
     /**
      * Get object.
      *
      * @param mixed $primaryKey Key
-     * @param bool  $relations  Load relations
+     * @param int  $relations  Load relations
      * @param mixed $fill       Object to fill
      *
      * @return mixed
@@ -734,7 +747,7 @@ abstract class DataMapperAbstract implements DataMapperInterface
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function get($primaryKey, bool $relations = true, $fill = null)
+    public function get($primaryKey, int $relations = RelationType::ALL, $fill = null)
     {
         $primaryKey = (array) $primaryKey;
         $fill       = (array) $fill;
@@ -755,14 +768,14 @@ abstract class DataMapperAbstract implements DataMapperInterface
         $hasOne      = count(static::$hasOne) > 0;
         $isExtending = count(static::$isExtending) > 0;
 
-        if (($relations && ($hasMany || $hasOne)) || $isExtending) {
+        if (($relations !== RelationType::NONE && ($hasMany || $hasOne)) || $isExtending) {
             foreach ($primaryKey as $key) {
                 if ($isExtending) {
                     $this->populateExtending($obj[$key], $relations);
                 }
 
                 /* loading relations from relations table and populating them and then adding them to the object */
-                if ($relations) {
+                if ($relations > 0) {
                     if ($hasMany) {
                         $this->populateManyToMany($this->getManyRaw($key), $obj[$key]);
                     }
@@ -777,7 +790,7 @@ abstract class DataMapperAbstract implements DataMapperInterface
         return count($obj) === 1 ? reset($obj) : $obj;
     }
 
-    public function populateExtending($obj, bool $relations = true)
+    public function populateExtending($obj, int $relations = RelationType::ALL)
     {
         $reflectionClass = new \ReflectionClass(get_class($obj));
 
