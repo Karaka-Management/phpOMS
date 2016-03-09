@@ -37,4 +37,6 @@ interface ScheduleInterface
     public function list();
 
     public function set(TaskInterface $task);
+
+    public function save();
 }

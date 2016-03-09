@@ -38,7 +38,7 @@ class Schedule implements TaskInterface
     private $interval = null;
     private $command  = '';
 
-    public function __construct(string $cronjob)
+    public function __construct(Interval $interval = null, $cmd = '')
     {
 
     }

@@ -29,6 +29,10 @@ namespace phpOMS\Utils\TaskSchedule;
 class Interval
 {
 
+    private $start = null;
+
+    private $end = null;
+
     /**
      * Minute.
      *
@@ -87,6 +91,8 @@ class Interval
      */
     public function __construct(string $interval = null)
     {
+        $this->start = new \DateTime('now');
+
         if (isset($interval)) {
             $this->parse($interval);
         }
@@ -102,7 +108,14 @@ class Interval
      */
     private function parse(string $interval)
     {
-        $elements = explode(' ', $interval);
+        $elements = explode(' ', trim($interval));
+
+        $this->minute = $this->parseMinute($elements[0]);
+        $this->hour = $this->parseHour($elements[1]);
+        $this->dayOfMonth = $this->parseDayOfMonth($elements[2]);
+        $this->month = $this->parseMonth($elements[3]);
+        $this->dayOfWeek = $this->parseDayOfWeek($elements[4]);
+        $this->year = $this->parseYear($elements[5]);
     }
 
     /**
@@ -195,6 +208,24 @@ class Interval
 
     }
 
+    public function setStart(\DateTime $start) {
+        $this->start = $start;
+    }
+
+    public function getStart() : \DateTime 
+    {
+        return $this->start;
+    }
+
+    public function getEnd() 
+    {
+        return $this->end;
+    }
+
+    public function setEnd(\DateTime $end) {
+        $this->end = $end;
+    }
+
     /**
      * Set mintue.
      *
@@ -209,12 +240,10 @@ class Interval
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function setMinute(array $minute, int $start = 0, int $end = 0, int $step = 0, bool $any = false)
+    public function setMinute(array $minute, int $step = 0, bool $any = false)
     {
         if ($this->validateMinute($arr = [
             'minutes' => $minute,
-            'start'   => $start,
-            'end'     => $end,
             'step'    => $step,
             'any'     => $any,
         ])
@@ -239,12 +268,10 @@ class Interval
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function setHour(array $hour, int $start = 0, int $end = 0, int $step = 0, bool $any = false)
+    public function setHour(array $hour, int $step = 0, bool $any = false)
     {
         if ($this->validateHour($arr = [
             'hours' => $hour,
-            'start' => $start,
-            'end'   => $end,
             'step'  => $step,
             'any'   => $any,
         ])
@@ -271,12 +298,10 @@ class Interval
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function setDayOfMonth(array $dayOfMonth, int $start = 0, int $end = 0, int $step = 0, bool $any = false, bool $last = false, int $nearest = 0)
+    public function setDayOfMonth(array $dayOfMonth, int $step = 0, bool $any = false, bool $last = false, int $nearest = 0)
     {
         if ($this->validateDayOfMonth($arr = [
             'dayOfMonth' => $dayOfMonth,
-            'start'      => $start,
-            'end'        => $end,
             'step'       => $step,
             'any'        => $any,
             'last'       => $last,
@@ -303,12 +328,10 @@ class Interval
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function setMonth(array $month, int $start = 0, int $end = 0, int $step = 0, bool $any = false)
+    public function setMonth(array $month, int $step = 0, bool $any = false)
     {
         if ($this->validateMonth($arr = [
             'month' => $month,
-            'start' => $start,
-            'end'   => $end,
             'step'  => $step,
             'any'   => $any,
         ])
@@ -334,12 +357,10 @@ class Interval
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function setDayOfWeek(array $dayOfWeek, int $start = 0, int $end = 0, int $step = 0, bool $any = false, bool $last = false)
+    public function setDayOfWeek(array $dayOfWeek, int $step = 0, bool $any = false, bool $last = false)
     {
         if ($this->validateDayOfWeek($arr = [
             'dayOfWeek' => $dayOfWeek,
-            'start'     => $start,
-            'end'       => $end,
             'step'      => $step,
             'any'       => $any,
             'last'      => $last,
@@ -365,12 +386,10 @@ class Interval
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function setYear(array $year, int $start = 0, int $end = 0, int $step = 0, bool $any = false)
+    public function setYear(array $year, int $step = 0, bool $any = false)
     {
         if ($this->validateYear($arr = [
             'year'  => $year,
-            'start' => $start,
-            'end'   => $end,
             'step'  => $step,
             'any'   => $any,
         ])
@@ -475,8 +494,6 @@ class Interval
             if ($minute > 59 || $minute < 0) return false;
         }
 
-        if ($array['start'] > 59 || $array['start'] < 0) return false;
-        if ($array['end'] > 59 || $array['end'] < 0) return false;
         if ($array['step'] > 59 || $array['step'] < 0) return false;
 
         return true;
@@ -498,8 +515,6 @@ class Interval
             if ($hour > 23 || $hour < 0) return false;
         }
 
-        if ($array['start'] > 23 || $array['start'] < 0) return false;
-        if ($array['end'] > 23 || $array['end'] < 0) return false;
         if ($array['step'] > 23 || $array['step'] < 0) return false;
 
         return true;
@@ -521,8 +536,6 @@ class Interval
             if ($dayOfMonth > 31 || $dayOfMonth < 1) return false;
         }
 
-        if ($array['start'] > 31 || $array['start'] < 1) return false;
-        if ($array['end'] > 31 || $array['end'] < 1) return false;
         if ($array['step'] > 31 || $array['step'] < 1) return false;
         if ($array['nearest'] > 31 || $array['nearest'] < 1) return false;
 
@@ -545,8 +558,6 @@ class Interval
             if ($month > 12 || $month < 1) return false;
         }
 
-        if ($array['start'] > 12 || $array['start'] < 1) return false;
-        if ($array['end'] > 12 || $array['end'] < 1) return false;
         if ($array['step'] > 12 || $array['step'] < 1) return false;
 
         return true;
@@ -568,8 +579,6 @@ class Interval
             if ($dayOfWeek > 7 || $dayOfWeek < 1) return false;
         }
 
-        if ($array['start'] > 7 || $array['start'] < 1) return false;
-        if ($array['end'] > 7 || $array['end'] < 1) return false;
         if ($array['step'] > 5 || $array['step'] < 1) return false;
 
         return true;
@@ -603,9 +612,6 @@ class Interval
         /* Parsing minutes */
         if (($count = count($this->minute['minutes'])) > 0) {
             $minute = implode(',', $this->minute['minutes']);
-        } elseif ($this->minute['start'] !== 0 && $this->minute['end']) {
-            $minute = $this->minute['start'] . '-' . $this->minute['end'];
-            $count  = 2;
         } else {
             $minute = '*';
             $count  = 1;
@@ -618,9 +624,6 @@ class Interval
         /* Parsing hours */
         if (($count = count($this->hour['hours'])) > 0) {
             $hour = implode(',', $this->hour['hours']);
-        } elseif ($this->hour['start'] !== 0 && $this->hour['end']) {
-            $hour  = $this->hour['start'] . '-' . $this->hour['end'];
-            $count = 2;
         } else {
             $hour  = '*';
             $count = 1;
@@ -633,9 +636,6 @@ class Interval
         /* Parsing day of month */
         if (($count = count($this->dayOfMonth['dayOfMonth'])) > 0) {
             $dayOfMonth = implode(',', $this->dayOfMonth['dayOfMonth']);
-        } elseif ($this->dayOfMonth['start'] !== 0 && $this->dayOfMonth['end']) {
-            $dayOfMonth = $this->dayOfMonth['start'] . '-' . $this->dayOfMonth['end'];
-            $count      = 2;
         } else {
             $dayOfMonth = '*';
             $count      = 1;
@@ -652,9 +652,6 @@ class Interval
         /* Parsing month */
         if (($count = count($this->month['month'])) > 0) {
             $month = implode(',', $this->month['month']);
-        } elseif ($this->month['start'] !== 0 && $this->month['end']) {
-            $month = $this->month['start'] . '-' . $this->month['end'];
-            $count = 2;
         } else {
             $month = '*';
             $count = 1;
@@ -667,9 +664,6 @@ class Interval
         /* Parsing day of week */
         if (($count = count($this->dayOfWeek['dayOfWeek'])) > 0) {
             $dayOfWeek = implode(',', $this->dayOfWeek['dayOfWeek']);
-        } elseif ($this->dayOfWeek['start'] !== 0 && $this->dayOfWeek['end']) {
-            $dayOfWeek = $this->dayOfWeek['start'] . '-' . $this->dayOfWeek['end'];
-            $count     = 2;
         } else {
             $dayOfWeek = '*';
             $count     = 1;
@@ -686,9 +680,6 @@ class Interval
         /* Parsing year */
         if (($count = count($this->year['year'])) > 0) {
             $year = implode(',', $this->year['year']);
-        } elseif ($this->year['start'] !== 0 && $this->year['end']) {
-            $year  = $this->year['start'] . '-' . $this->year['end'];
-            $count = 2;
         } else {
             $year  = '*';
             $count = 1;

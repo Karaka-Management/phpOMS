@@ -58,4 +58,9 @@ class Cron implements ScheduleInterface
     {
         // TODO: Implement set() method.
     }
+
+    public function save() 
+    {
+        
+    }
 }
