@@ -132,6 +132,14 @@ abstract class DataMapperAbstract implements DataMapperInterface
     protected static $table = '';
 
     /**
+     * Fields to load.
+     *
+     * @var string[]
+     * @since 1.0.0
+     */
+    protected $fields = [];
+
+    /**
      * Extended value collection.
      *
      * @var array
@@ -160,6 +168,32 @@ abstract class DataMapperAbstract implements DataMapperInterface
     {
         $this->db = $con;
         $this->extend($this);
+    }
+
+    /**
+     * Get primary field.
+     *
+     * @return string
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+    public function getPrimaryField() : string
+    {
+        return static::$primaryField;
+    }
+
+    /**
+     * Get main table.
+     *
+     * @return string
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+    public function getTable() : string
+    {
+        return static::$table;
     }
 
     /**
@@ -207,6 +241,29 @@ abstract class DataMapperAbstract implements DataMapperInterface
      */
     public function delete()
     {
+    }
+
+    /**
+     * Load.
+     *
+     * @param array $objects Objects to load
+     *
+     * @return null
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+    public function with(...$objects)
+    {
+        // todo: how to handle with of parent objects/extends/relations
+
+        $this->fields = $objects;
+
+        return $this;
+    }
+
+    public function clear() {
+        $this->fields = [];
     }
 
     /**
@@ -462,21 +519,28 @@ abstract class DataMapperAbstract implements DataMapperInterface
     }
 
     /**
-     * Find data.
+     * Populate data.
      *
-     * @param Builder $query Query
+     * @param array $result Result set
      *
      * @return array
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function listResults(Builder $query)
+    public function populateIterable(array $result) : array
     {
-        $sth = $this->db->con->prepare($query->toSql());
-        $sth->execute();
+        $row = [];
 
-        return $this->populateIterable($sth->fetchAll(\PDO::FETCH_ASSOC));
+        foreach ($result as $element) {
+            if (isset($element[static::$primaryField])) {
+                $row[$element[static::$primaryField]] = $this->populate($element);
+            } else {
+                $row[] = $this->populate($element);
+            }
+        }
+
+        return $row;
     }
 
     /**
@@ -506,6 +570,32 @@ abstract class DataMapperAbstract implements DataMapperInterface
         }
 
         return $this->populateAbstract($result, $obj);
+    }
+
+    /**
+     * Populate data.
+     *
+     * Is overwriting the hasOne id stored in the member variable by the object.
+     * todo: hasMany needs to be implemented somehow?!?!
+     *
+     * @param $obj    Object to add the relations to
+     * @param int $relations Relations type
+     *
+     * @return mixed
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+    public function populateExtending($obj, int $relations = RelationType::ALL)
+    {
+        $reflectionClass = new \ReflectionClass(get_class($obj));
+
+        foreach (static::$isExtending as $member => $rel) {
+            $reflectionProperty = $reflectionClass->getProperty($member);
+
+            $mapper = new $rel['mapper']($this->db);
+            $mapper->get($reflectionProperty->getValue($obj, $member), $relations, $obj);
+        }
     }
 
     /**
@@ -642,100 +732,6 @@ abstract class DataMapperAbstract implements DataMapperInterface
     }
 
     /**
-     * Get newest.
-     *
-     * This will fall back to the insert id if no datetime column is present.
-     *
-     * @param int     $limit Newest limit
-     * @param Builder $query Pre-defined query
-     *
-     * @return mixed
-     *
-     * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
-     */
-    public function getNewest(int $limit = 1, Builder $query = null)
-    {
-        if (!isset(static::$createdAt) || !isset(static::$columns[static::$createdAt])) {
-            throw new \BadMethodCallException('Method "' . __METHOD__ . '" is not supported.');
-        }
-
-        $query = $query ?? new Builder($this->db);
-        $query->prefix($this->db->getPrefix())
-              ->select('*')
-              ->from(static::$table)
-              ->limit($limit); /* todo: limit is not working, setting this to 2 doesn't have any effect!!! */
-
-        if (isset(static::$createdAt)) {
-            $query->orderBy(static::$table . '.' . static::$columns[static::$createdAt]['name'], 'DESC');
-        } else {
-            $query->orderBy(static::$table . '.' . static::$columns[static::$primaryField]['name'], 'DESC');
-        }
-
-        $sth = $this->db->con->prepare($query->toSql());
-        $sth->execute();
-
-        $results = $sth->fetchAll(\PDO::FETCH_ASSOC);
-
-        /* todo: if limit get's used this has to call populateIterable */
-
-        return $this->populateIterable(is_bool($results) ? [] : $results);
-
-    }
-
-    /**
-     * Populate data.
-     *
-     * @param array $result Result set
-     *
-     * @return array
-     *
-     * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
-     */
-    public function populateIterable(array $result) : array
-    {
-        $row = [];
-
-        foreach ($result as $element) {
-            if (isset($element[static::$primaryField])) {
-                $row[$element[static::$primaryField]] = $this->populate($element);
-            } else {
-                $row[] = $this->populate($element);
-            }
-        }
-
-        return $row;
-    }
-
-    /**
-     * Load.
-     *
-     * @param array $objects Objects to load
-     *
-     * @return null
-     *
-     * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
-     */
-    public function with(...$objects)
-    {
-    }
-
-    /*
-    @todo: Implement RelationType::NEWEST!!!
-    Get newest hasMany only (if object doesn't have date use id!)
-
-    SELECT c.*, p1.*
-FROM customer c
-JOIN purchase p1 ON (c.id = p1.customer_id)
-LEFT OUTER JOIN purchase p2 ON (c.id = p2.customer_id AND 
-    (p1.date < p2.date OR p1.date = p2.date AND p1.id < p2.id))
-WHERE p2.id IS NULL;
-
-    */
-
-    /**
      * Get object.
      *
      * @param mixed $primaryKey Key
@@ -764,20 +760,162 @@ WHERE p2.id IS NULL;
             $obj[$value] = $this->populate($this->getRaw($value), $toFill);
         }
 
+        $this->fillRelations($obj, $relations);
+
+        $this->clear();
+
+        return count($obj) === 1 ? reset($obj) : $obj;
+    }
+
+    /**
+     * Get object.
+     *
+     * @return array
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+    public function getAll(int $relations = RelationType::ALL)
+    {
+        $obj = $this->populateIterable($this->getAllRaw());
+        $this->fillRelations($obj, $relations);
+        $this->clear();
+
+        return $obj;
+    }
+
+    /**
+     * Find data.
+     *
+     * @param Builder $query Query
+     *
+     * @return array
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+    public function listResults(Builder $query)
+    {
+        $sth = $this->db->con->prepare($query->toSql());
+        $sth->execute();
+
+        return $this->populateIterable($sth->fetchAll(\PDO::FETCH_ASSOC));
+    }
+
+    /**
+     * Get newest.
+     *
+     * This will fall back to the insert id if no datetime column is present.
+     *
+     * @param int     $limit Newest limit
+     * @param Builder $query Pre-defined query
+     *
+     * @return mixed
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+    public function getNewest(int $limit = 1, Builder $query = null, int $relations = RelationType::ALL)
+    {
+        if (!isset(static::$createdAt) || !isset(static::$columns[static::$createdAt])) {
+            throw new \BadMethodCallException('Method "' . __METHOD__ . '" is not supported.');
+        }
+
+        $query = $query ?? new Builder($this->db);
+        $query->prefix($this->db->getPrefix())
+              ->select('*')
+              ->from(static::$table)
+              ->limit($limit); /* todo: limit is not working, setting this to 2 doesn't have any effect!!! */
+
+        if (isset(static::$createdAt)) {
+            $query->orderBy(static::$table . '.' . static::$columns[static::$createdAt]['name'], 'DESC');
+        } else {
+            $query->orderBy(static::$table . '.' . static::$columns[static::$primaryField]['name'], 'DESC');
+        }
+
+        $sth = $this->db->con->prepare($query->toSql());
+        $sth->execute();
+
+        $results = $sth->fetchAll(\PDO::FETCH_ASSOC);
+
+        /* todo: if limit get's used this has to call populateIterable */
+
+        $obj = $this->populateIterable(is_bool($results) ? [] : $results);
+
+        $this->fillRelations($obj, $relations);
+        $this->clear();
+
+        return $obj;
+
+    }
+
+    /**
+     * Get all by custom query.
+     *
+     * @param Builder $query Query
+     *
+     * @return array
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+    public function getAllByQuery(Builder $query) : array
+    {
+        $sth = $this->db->con->prepare($query->toSql());
+        $sth->execute();
+
+        $results = $sth->fetchAll(\PDO::FETCH_ASSOC);
+        $results = is_bool($results) ? [] : $results;
+
+        $obj = $this->populateIterable($results);
+        $this->fillRelations($obj, $relations);
+        $this->clear();
+
+        return $obj;
+    }
+
+    /**
+     * Get random object
+     *
+     * @param int $relations Relations type
+     *
+     * @return array
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+    public function getRandom(int $relations = RelationType::ALL) 
+    {
+        // todo: implement
+    }
+
+    /**
+     * Fill object with relations
+     *
+     * @param mixed $obj Objects to fill
+     * @param int $relations Relations type
+     *
+     * @return array
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+    public function fillRelations(array &$obj, int $relations = RelationType::ALL) 
+    {
         $hasMany     = count(static::$hasMany) > 0;
         $hasOne      = count(static::$hasOne) > 0;
         $isExtending = count(static::$isExtending) > 0;
 
         if (($relations !== RelationType::NONE && ($hasMany || $hasOne)) || $isExtending) {
-            foreach ($primaryKey as $key) {
+            foreach ($obj as $key => $value) {
                 if ($isExtending) {
                     $this->populateExtending($obj[$key], $relations);
                 }
 
                 /* loading relations from relations table and populating them and then adding them to the object */
-                if ($relations > 0) {
+                if ($relations !== RealtionType::NONE) {
                     if ($hasMany) {
-                        $this->populateManyToMany($this->getManyRaw($key), $obj[$key]);
+                        $this->populateManyToMany($this->getManyRaw($key, $relations), $obj[$key]);
                     }
 
                     if ($hasOne) {
@@ -785,20 +923,6 @@ WHERE p2.id IS NULL;
                     }
                 }
             }
-        }
-
-        return count($obj) === 1 ? reset($obj) : $obj;
-    }
-
-    public function populateExtending($obj, int $relations = RelationType::ALL)
-    {
-        $reflectionClass = new \ReflectionClass(get_class($obj));
-
-        foreach (static::$isExtending as $member => $rel) {
-            $reflectionProperty = $reflectionClass->getProperty($member);
-
-            $mapper = new $rel['mapper']($this->db);
-            $mapper->get($reflectionProperty->getValue($obj, $member), $relations, $obj);
         }
     }
 
@@ -825,74 +949,9 @@ WHERE p2.id IS NULL;
 
         $results = $sth->fetch(\PDO::FETCH_ASSOC);
 
+        // todo: implement getRawRelations() ?!!!!!
+
         return is_bool($results) ? [] : $results;
-    }
-
-    /**
-     * Get all by custom query.
-     *
-     * @param Builder $query Query
-     *
-     * @return array
-     *
-     * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
-     */
-    public function getAllByQuery(Builder $query) : array
-    {
-        $sth = $this->db->con->prepare($query->toSql());
-        $sth->execute();
-
-        $results = $sth->fetchAll(\PDO::FETCH_ASSOC);
-        $results = is_bool($results) ? [] : $results;
-
-        return $this->populateIterable($results);
-    }
-
-    /**
-     * Get raw by primary key
-     *
-     * @param mixed $primaryKey Primary key
-     *
-     * @return array
-     *
-     * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
-     */
-    public function getManyRaw($primaryKey) : array
-    {
-        $result = [];
-
-        foreach (static::$hasMany as $member => $value) {
-            if ($value['mapper'] !== $value['relationmapper']) {
-                $query = new Builder($this->db);
-                $query->prefix($this->db->getPrefix())
-                      ->select($value['table'] . '.' . $value['src'])
-                      ->from($value['table'])
-                      ->where($value['table'] . '.' . $value['dst'], '=', $primaryKey);
-
-                $sth = $this->db->con->prepare($query->toSql());
-                $sth->execute();
-                $result[$member] = $sth->fetchAll(\PDO::FETCH_COLUMN);
-            } else {
-                $result[$member] = false;
-            }
-        }
-
-        return $result;
-    }
-
-    /**
-     * Get object.
-     *
-     * @return array
-     *
-     * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
-     */
-    public function getAll()
-    {
-        return $this->populateIterable($this->getAllRaw());
     }
 
     /**
@@ -919,29 +978,58 @@ WHERE p2.id IS NULL;
     }
 
     /**
-     * Get primary field.
+     * Get raw by primary key
      *
-     * @return string
+     * @param mixed $primaryKey Primary key
+     *
+     * @return array
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function getPrimaryField() : string
+    public function getManyRaw($primaryKey, int $relations = RelationType::ALL) : array
     {
-        return static::$primaryField;
-    }
+        $result = [];
 
-    /**
-     * Get main table.
-     *
-     * @return string
-     *
-     * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
-     */
-    public function getTable() : string
-    {
-        return static::$table;
+        foreach (static::$hasMany as $member => $value) {
+            if ($value['mapper'] !== $value['relationmapper']) {
+                $query = new Builder($this->db);
+                $query->prefix($this->db->getPrefix());
+
+                if($relations === RelationType::ALL) {
+                    $query->select($value['table'] . '.' . $value['src'])
+                          ->from($value['table'])
+                          ->where($value['table'] . '.' . $value['dst'], '=', $primaryKey);
+                } elseif($relations === RelationType::NEWEST) {
+
+/*
+SELECT c.*, p1.*
+FROM customer c
+JOIN purchase p1 ON (c.id = p1.customer_id)
+LEFT OUTER JOIN purchase p2 ON (c.id = p2.customer_id AND 
+    (p1.date < p2.date OR p1.date = p2.date AND p1.id < p2.id))
+WHERE p2.id IS NULL;
+*/
+/*
+                    $query->select(static::$table . '.' . static::$primaryField, $value['table'] . '.' . $value['src'])
+                          ->from(static::$table)
+                          ->join($value['table'])
+                          ->on(static::$table . '.' . static::$primaryField, '=', $value['table'] . '.' . $value['dst'])
+                          ->leftOuterJoin($value['table'])
+                          ->on(new And('1', new And(new Or('d1', 'd2'), 'id')))
+                          ->where($value['table'] . '.' . $value['dst'], '=', 'NULL');
+                          */
+                }
+
+                $sth = $this->db->con->prepare($query->toSql());
+                $sth->execute();
+                $result[$member] = $sth->fetchAll(\PDO::FETCH_COLUMN);
+            } else {
+                $result[$member] = false;
+            }
+        }
+
+        return $result;
     }
 
 }
