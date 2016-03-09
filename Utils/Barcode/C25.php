@@ -1,20 +1,82 @@
 <?php
+/**
+ * Orange Management
+ *
+ * PHP Version 7.0
+ *
+ * @category   TBD
+ * @package    TBD
+ * @author     OMS Development Team <dev@oms.com>
+ * @author     Dennis Eichhorn <d.eichhorn@oms.com>
+ * @copyright  2013 Dennis Eichhorn
+ * @license    OMS License 1.0
+ * @version    1.0.0
+ * @link       http://orange-management.com
+ */
 
 namespace phpOMS\Utils\Barcode;
 
+/**
+ * Code 2 class.
+ *
+ * @category   Log
+ * @package    Framework
+ * @author     OMS Development Team <dev@oms.com>
+ * @author     Dennis Eichhorn <d.eichhorn@oms.com>
+ * @license    OMS License 1.0
+ * @link       http://orange-management.com
+ * @since      1.0.0
+ */
 class C25 extends C128Abstract
 {
+    /**
+     * Char array.
+     *
+     * @var string[]
+     * @since 1.0.0
+     */
     protected static $CODEARRAY  = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0'];
+
+    /**
+     * Char weighted array.
+     *
+     * @var string[]
+     * @since 1.0.0
+     */
     protected static $CODEARRAY2 = [
         '3-1-1-1-3', '1-3-1-1-3', '3-3-1-1-1', '1-1-3-1-3', '3-1-3-1-1',
         '1-3-3-1-1', '1-1-1-3-3', '3-1-1-3-1', '1-3-1-3-1', '1-1-3-3-1',
     ];
 
+    /**
+     * Code start.
+     *
+     * @var string
+     * @since 1.0.0
+     */
     protected static $CODE_START = '1111';
 
+    /**
+     * Code end.
+     *
+     * @var string
+     * @since 1.0.0
+     */
     protected static $CODE_END = '311';
 
-    public function __construct(string $content = '', int $size = 20, int $orientation = 0)
+    /**
+     * Constructor
+     *
+     * @param string $content Content to encrypt
+     * @param int $size Barcode height
+     * @param int $orientation Orientation of the barcode
+     *
+     * @todo: add mirror parameter
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn
+     */
+    public function __construct(string $content = '', int $size = 20, int $orientation = OrientationType::HORIZONTAL)
     {
         if(!ctype_digit($content)) {
             throw new \InvalidArgumentException($content);
@@ -23,6 +85,14 @@ class C25 extends C128Abstract
         parent::__construct($content, $size, $orientation);
     }
 
+    /**
+     * Set content to encrypt
+     *
+     * @param string $content Barcode content
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn
+     */
     public function setContent(string $content)
     {
         if(!ctype_digit($content)) {
@@ -32,6 +102,14 @@ class C25 extends C128Abstract
         parent::setContent($content);
     }
 
+    /**
+     * Generate weighted code string
+     *
+     * @return string
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn
+     */
     protected function generateCodeString()
     {
         $codeString  = '';

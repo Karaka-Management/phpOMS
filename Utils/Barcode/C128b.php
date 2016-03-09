@@ -1,11 +1,47 @@
 <?php
-
+/**
+ * Orange Management
+ *
+ * PHP Version 7.0
+ *
+ * @category   TBD
+ * @package    TBD
+ * @author     OMS Development Team <dev@oms.com>
+ * @author     Dennis Eichhorn <d.eichhorn@oms.com>
+ * @copyright  2013 Dennis Eichhorn
+ * @license    OMS License 1.0
+ * @version    1.0.0
+ * @link       http://orange-management.com
+ */
 namespace phpOMS\Utils\Barcode;
 
+/**
+ * Code 128b class.
+ *
+ * @category   Log
+ * @package    Framework
+ * @author     OMS Development Team <dev@oms.com>
+ * @author     Dennis Eichhorn <d.eichhorn@oms.com>
+ * @license    OMS License 1.0
+ * @link       http://orange-management.com
+ * @since      1.0.0
+ */
 class C128b extends C128Abstract
 {
+    /**
+     * Checksum.
+     *
+     * @var int
+     * @since 1.0.0
+     */
     protected static $CHECKSUM = 104;
 
+    /**
+     * Char weighted array.
+     *
+     * @var string[]
+     * @since 1.0.0
+     */
     protected static $CODEARRAY = [
         ' '       => '212222', '!' => '222122', '"' => '222221', '#' => '121223', '$' => '121322', '%' => '131222',
         '&'       => '122213', '\'' => '122312', '(' => '132212', ')' => '221213', '*' => '221312', '+' => '231212',
@@ -28,6 +64,19 @@ class C128b extends C128Abstract
         'Start C' => '211232', 'Stop' => '2331112',
     ];
 
+    /**
+     * Code start.
+     *
+     * @var string
+     * @since 1.0.0
+     */
     protected static $CODE_START = '211214';
+
+    /**
+     * Code end.
+     *
+     * @var string
+     * @since 1.0.0
+     */
     protected static $CODE_END   = '2331112';
 }

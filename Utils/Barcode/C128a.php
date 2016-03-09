@@ -1,11 +1,47 @@
 <?php
-
+/**
+ * Orange Management
+ *
+ * PHP Version 7.0
+ *
+ * @category   TBD
+ * @package    TBD
+ * @author     OMS Development Team <dev@oms.com>
+ * @author     Dennis Eichhorn <d.eichhorn@oms.com>
+ * @copyright  2013 Dennis Eichhorn
+ * @license    OMS License 1.0
+ * @version    1.0.0
+ * @link       http://orange-management.com
+ */
 namespace phpOMS\Utils\Barcode;
 
+/**
+ * Code 128a class.
+ *
+ * @category   Log
+ * @package    Framework
+ * @author     OMS Development Team <dev@oms.com>
+ * @author     Dennis Eichhorn <d.eichhorn@oms.com>
+ * @license    OMS License 1.0
+ * @link       http://orange-management.com
+ * @since      1.0.0
+ */
 class C128a extends C128Abstract
 {
+    /**
+     * Checksum.
+     *
+     * @var int
+     * @since 1.0.0
+     */
     protected static $CHECKSUM = 103;
 
+    /**
+     * Char weighted array.
+     *
+     * @var string[]
+     * @since 1.0.0
+     */
     protected static $CODEARRAY = [
         ' '     => '212222', '!' => '222122', '"' => '222221', '#' => '121223', '$' => '121322', '%' => '131222',
         '&'     => '122213', '\'' => '122312', '(' => '132212', ')' => '221213', '*' => '221312', '+' => '231212',
@@ -29,14 +65,49 @@ class C128a extends C128Abstract
         'Stop'  => '2331112',
     ];
 
+    /**
+     * Code start.
+     *
+     * @var string
+     * @since 1.0.0
+     */
     protected static $CODE_START = '211412';
+
+    /**
+     * Code end.
+     *
+     * @var string
+     * @since 1.0.0
+     */
     protected static $CODE_END   = '2331112';
 
+    /**
+     * Constructor
+     *
+     * @param string $content Content to encrypt
+     * @param int $size Barcode height
+     * @param int $orientation Orientation of the barcode
+     *
+     * @todo: add mirror parameter
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn
+     */
     public function __construct(string $content = '', int $size = 20, int $orientation = OrientationType::HORIZONTAL)
     {
         parent::__construct(strtoupper($content), $size, $orientation);
     }
 
+    /**
+     * Set content to encrypt
+     *
+     * @param string $content Content to encrypt
+     *
+     * @todo: add mirror parameter
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn
+     */
     public function setContent(string $content)
     {
         parent::setContent(strtoupper($content));

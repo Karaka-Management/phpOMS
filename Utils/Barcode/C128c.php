@@ -1,11 +1,48 @@
 <?php
+/**
+ * Orange Management
+ *
+ * PHP Version 7.0
+ *
+ * @category   TBD
+ * @package    TBD
+ * @author     OMS Development Team <dev@oms.com>
+ * @author     Dennis Eichhorn <d.eichhorn@oms.com>
+ * @copyright  2013 Dennis Eichhorn
+ * @license    OMS License 1.0
+ * @version    1.0.0
+ * @link       http://orange-management.com
+ */
 
 namespace phpOMS\Utils\Barcode;
 
+/**
+ * Code 128c class.
+ *
+ * @category   Log
+ * @package    Framework
+ * @author     OMS Development Team <dev@oms.com>
+ * @author     Dennis Eichhorn <d.eichhorn@oms.com>
+ * @license    OMS License 1.0
+ * @link       http://orange-management.com
+ * @since      1.0.0
+ */
 class C128c extends C128Abstract
 {
+    /**
+     * Checksum.
+     *
+     * @var int
+     * @since 1.0.0
+     */
     protected static $CHECKSUM = 105;
 
+    /**
+     * Char weighted array.
+     *
+     * @var string[]
+     * @since 1.0.0
+     */
     protected static $CODEARRAY = [
         '00'     => '212222', '01' => '222122', '02' => '222221', '03' => '121223', '04' => '121322', '05' => '131222',
         '06'     => '122213', '07' => '122312', '08' => '132212', '09' => '221213', '10' => '221312', '11' => '231212',
@@ -28,10 +65,30 @@ class C128c extends C128Abstract
         'Stop'   => '2331112',
     ];
 
+    /**
+     * Code start.
+     *
+     * @var string
+     * @since 1.0.0
+     */
     protected static $CODE_START = '211232';
 
+    /**
+     * Code end.
+     *
+     * @var string
+     * @since 1.0.0
+     */
     protected static $CODE_END = '2331112';
 
+    /**
+     * Generate weighted code string
+     *
+     * @return string
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn
+     */
     protected function generateCodeString()
     {
         $keys       = array_keys(self::$CODEARRAY);

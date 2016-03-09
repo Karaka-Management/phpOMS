@@ -1,9 +1,40 @@
 <?php
+/**
+ * Orange Management
+ *
+ * PHP Version 7.0
+ *
+ * @category   TBD
+ * @package    TBD
+ * @author     OMS Development Team <dev@oms.com>
+ * @author     Dennis Eichhorn <d.eichhorn@oms.com>
+ * @copyright  2013 Dennis Eichhorn
+ * @license    OMS License 1.0
+ * @version    1.0.0
+ * @link       http://orange-management.com
+ */
 
 namespace phpOMS\Utils\Barcode;
 
+/**
+ * Code 39 class.
+ *
+ * @category   Log
+ * @package    Framework
+ * @author     OMS Development Team <dev@oms.com>
+ * @author     Dennis Eichhorn <d.eichhorn@oms.com>
+ * @license    OMS License 1.0
+ * @link       http://orange-management.com
+ * @since      1.0.0
+ */
 class C39 extends C128Abstract
 {
+    /**
+     * Char weighted array.
+     *
+     * @var string[]
+     * @since 1.0.0
+     */
     protected static $CODEARRAY = [
         '0' => '111221211', '1' => '211211112', '2' => '112211112', '3' => '212211111', '4' => '111221112',
         '5' => '211221111', '6' => '112221111', '7' => '111211212', '8' => '211211211', '9' => '112211211',
@@ -16,21 +47,60 @@ class C39 extends C128Abstract
         '/' => '121211121', '+' => '121112121', '%' => '111212121', '*' => '121121211',
     ];
 
-
+    /**
+     * Code start.
+     *
+     * @var string
+     * @since 1.0.0
+     */
     protected static $CODE_START = '1211212111';
 
+    /**
+     * Code end.
+     *
+     * @var string
+     * @since 1.0.0
+     */
     protected static $CODE_END = '121121211';
 
-    public function __construct(string $content = '', int $size = 20, int $orientation = 0)
+    /**
+     * Constructor
+     *
+     * @param string $content Content to encrypt
+     * @param int $size Barcode height
+     * @param int $orientation Orientation of the barcode
+     *
+     * @todo: add mirror parameter
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn
+     */
+    public function __construct(string $content = '', int $size = 20, int $orientation = OrientationType::HORIZONTAL)
     {
         parent::__construct(strtoupper($content), $size, $orientation);
     }
 
+    /**
+     * Set content to encrypt
+     *
+     * @param string $content Barcode content
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn
+     */
     public function setContent(string $content)
     {
         parent::setContent(strtoupper($content));
     }
 
+    /**
+     * Generate weighted code string
+     *
+     * @return string
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn
+     */
     protected function generateCodeString()
     {
         $codeString = '';
