@@ -266,7 +266,14 @@ class Repository
 
     public function getCommitsCount() : string
     {
-        return $this->run('shortlog -s -n --all');
+        $result = $this->normalizeResult($this->run('shortlog -s -n --all'));
+
+        return [''];
+    }
+
+    private function normalizeResult(string $result) : string
+    {
+        str_replace('\t', '|', trim($result));
     }
 
     public function getCommitsBy(string $author, \DateTime $start, \DateTime $end) : string
