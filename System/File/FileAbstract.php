@@ -28,7 +28,7 @@ namespace phpOMS\System\File;
  * @link       http://orange-management.com
  * @since      1.0.0
  */
-class FileAbstract
+abstract class FileAbstract
 {
     private $path = '';
     private $name = 'new_directory';
