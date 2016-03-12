@@ -13,7 +13,7 @@
  * @version    1.0.0
  * @link       http://orange-management.com
  */
-namespace phpOMS\System;
+namespace phpOMS\System\File;
 
 /**
  * Filesystem class.
@@ -33,7 +33,8 @@ class File extends FileAbstract
     public function __construct(string $path) 
     {
         parent::__constrct($path);
-
+        $this->count = 1;
+        
         if(file_exists($this->path)) {
             $this->index();
         }
