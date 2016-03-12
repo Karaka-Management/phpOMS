@@ -15,7 +15,7 @@
  */
 namespace phpOMS\Module;
 
-use phpOMS\System\FilePathException;
+use phpOMS\System\File\PathException;
 use phpOMS\Utils\ArrayUtils;
 use phpOMS\Validation\Validator;
 
@@ -62,7 +62,7 @@ class InfoManager
     public function __construct(string $module)
     {
         if (($path = realpath($oldPath = ModuleAbstract::MODULE_PATH . '/' . $module . '/info.json')) === false || Validator::startsWith($path, ModuleAbstract::MODULE_PATH)) {
-            throw new FilePathException($oldPath);
+            throw new PathException($oldPath);
         }
 
         $this->path = $path;

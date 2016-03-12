@@ -19,7 +19,7 @@ use phpOMS\ApplicationAbstract;
 use phpOMS\DataStorage\Database\DatabaseType;
 use phpOMS\Log\FileLogger;
 use phpOMS\Message\Http\Request;
-use phpOMS\System\FilePathException;
+use phpOMS\System\File\PathException;
 use phpOMS\Utils\IO\Json\InvalidJsonException;
 
 /**
@@ -250,7 +250,7 @@ class ModuleManager
 
                 if (file_exists($path)) {
                     if (strpos($path, self::MODULE_PATH) === false) {
-                        throw new FilePathException($oldPath);
+                        throw new PathException($oldPath);
                     }
 
                     $json                                 = json_decode(file_get_contents($path), true);
@@ -300,7 +300,7 @@ class ModuleManager
 
         if ($path !== false) {
             if (strpos($path, self::MODULE_PATH) === false) {
-                throw new FilePathException($oldPath);
+                throw new PathException($oldPath);
             }
 
             $info = json_decode(file_get_contents($path), true);

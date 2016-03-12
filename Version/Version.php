@@ -14,7 +14,7 @@
  * @link       http://orange-management.com
  */
 namespace phpOMS\Version;
-use phpOMS\System\FilePathException;
+use phpOMS\System\File\PathException;
 use phpOMS\Validation\Validator;
 
 /**

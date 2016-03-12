@@ -91,7 +91,7 @@ class FileSystem
     {
         $path = realpath($oldPath = $path);
         if ($path === false || !is_dir($path) || Validator::startsWith($path, ROOT_PATH)) {
-            throw new FilePathException($oldPath);
+            throw new PathException($oldPath);
         }
 
         $files = scandir($path);

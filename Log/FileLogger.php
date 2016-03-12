@@ -16,7 +16,7 @@
 namespace phpOMS\Log;
 
 use phpOMS\Datatypes\Exception\InvalidEnumValue;
-use phpOMS\System\FilePathException;
+use phpOMS\System\File\PathException;
 use phpOMS\Validation\Validator;
 
 /**
@@ -88,7 +88,7 @@ class FileLogger implements LoggerInterface
         $path = realpath($lpath);
 
         if ($path !== false && Validator::startsWith($path, ROOT_PATH) === false) {
-            throw new FilePathException($lpath);
+            throw new PathException($lpath);
         }
 
         if (is_dir($lpath)) {

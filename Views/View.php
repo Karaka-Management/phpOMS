@@ -20,7 +20,7 @@ use phpOMS\Contract\RenderableInterface;
 use phpOMS\Localization\Localization;
 use phpOMS\Message\RequestAbstract;
 use phpOMS\Message\ResponseAbstract;
-use phpOMS\System\FilePathException;
+use phpOMS\System\File\PathException;
 use phpOMS\Validation\Validator;
 
 /**
@@ -283,7 +283,7 @@ class View implements RenderableInterface
         $path = realpath($oldPath = __DIR__ . '/../..' . $this->template . '.tpl.php');
 
         if ($path === false || Validator::startsWith($path, ROOT_PATH) === false) {
-            throw new FilePathException($oldPath);
+            throw new PathException($oldPath);
         }
 
         ob_start();

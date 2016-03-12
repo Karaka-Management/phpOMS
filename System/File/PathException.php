@@ -28,7 +28,7 @@ namespace phpOMS\System;
  * @link       http://orange-management.com
  * @since      1.0.0
  */
-class FilePathException extends \UnexpectedValueException
+class PathException extends \UnexpectedValueException
 {
     /**
      * Constructor.

@@ -19,7 +19,7 @@ use phpOMS\ApplicationAbstract;
 use phpOMS\Message\RequestAbstract;
 use phpOMS\Message\ResponseAbstract;
 use phpOMS\Module\ModuleAbstract;
-use phpOMS\System\FilePathException;
+use phpOMS\System\File\PathException;
 use phpOMS\Views\ViewLayout;
 
 /**
@@ -131,7 +131,7 @@ class Dispatcher
     {
         if (!isset($this->controllers[$controller])) {
             if (realpath($path = ROOT_PATH . '/' . str_replace('\\', '/', $controller) . '.php') === false) {
-                throw new FilePathException($path);
+                throw new PathException($path);
             }
 
             $this->controllers[$controller] = new $controller($this->app);

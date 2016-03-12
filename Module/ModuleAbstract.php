@@ -15,7 +15,7 @@
  */
 namespace phpOMS\Module;
 
-use phpOMS\System\FilePathException;
+use phpOMS\System\File\PathException;
 
 
 /**
@@ -152,7 +152,7 @@ abstract class ModuleAbstract
             /** @noinspection PhpUnusedLocalVariableInspection */
             foreach (static::$localization[$destination] as $file) {
                 if (($path = realpath($oldPath = __DIR__ . '/../../Modules/' . static::MODULE_NAME . '/Theme/' . $destination . '/Lang/' . $language . '.lang.php')) === false) {
-                    throw new FilePathException($oldPath);
+                    throw new PathException($oldPath);
                 }
 
                 /** @noinspection PhpIncludeInspection */
