@@ -30,10 +30,6 @@ namespace phpOMS\System;
  */
 class Directory extends FileAbstract implements Iterator, ArrayAccess
 {
-    private $path = '';
-    private $name = 'new_directory';
-    private $count = 0;
-    private $size = 0;
     private $filter = '*';
     private $nodes = [];
 
@@ -41,6 +37,10 @@ class Directory extends FileAbstract implements Iterator, ArrayAccess
     {
         $this->filter = $filter;
         parent::__constrct($path);
+
+        if(file_exists($this->path)) {
+            parent::index();
+        }
     }
 
     public function create() 
@@ -77,6 +77,8 @@ class Directory extends FileAbstract implements Iterator, ArrayAccess
 
     public function index() 
     {
+        parent::index();
+
         foreach (glob($this->path . DIRECTORY_SEPARATOR . $this->filter) as $filename) {
             // todo: handle . and ..???!!!
             if(is_dir($filename)) {

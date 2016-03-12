@@ -42,6 +42,8 @@ class File extends FileAbstract
 
     public function index() 
     {
+        parent::index();
+        
         $this->size = filesize($this->path);
     }
 }

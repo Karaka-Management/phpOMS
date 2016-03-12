@@ -34,11 +34,18 @@ class FileAbstract
     private $name = 'new_directory';
     private $count = 0;
     private $size = 0;
+    private $createdAt = null;
+    private $changedAt = null;
+    private $owner = '';
+    private $permission = '0000';
 
     public function __construct(string $path) 
     {
         $this->path = $path;
         $this->name = basename($path);
+
+        $this->createdAt = new \DateTime('now');
+        $this->changedAt = new \DateTime('now');
     }
 
     public function getCount() : int
@@ -61,5 +68,31 @@ class FileAbstract
         return $this->path;
     }
 
-    abstract private function index();
+    public function getCreatedAt() : \DateTime 
+    {
+        return $this->createdAt;
+    }
+
+    public function getChangedAt() : \DateTime 
+    {
+        return $this->changedAt;
+    }
+
+    public function getOwner() : string 
+    {
+        return $this->owner;
+    }
+
+    public function getPermission() : string 
+    {
+        return $this->permission;
+    }
+
+    public function index() 
+    {
+        $this->createdAt->setTimestamp(filemtime($this->path));
+        $this->changedAt->setTimestamp(filectime($this->path));
+        $this->owner = fileowner($this->path);
+        $this->permission = substr(sprintf('%o', fileperms($this->path)), -4);
+    }
 }
