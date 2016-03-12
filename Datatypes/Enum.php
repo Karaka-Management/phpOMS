@@ -84,4 +84,19 @@ abstract class Enum
         return in_array($value, $values, true);
     }
 
+    /**
+     * Get random enum value.
+     *
+     * @return mixed
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+    public static function getRandom() 
+    {
+        $constants = self::getConstants();
+
+        return $this->constants[mt_rand(0, count($constants))];
+    }
+
 }
