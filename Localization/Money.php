@@ -2,17 +2,17 @@
 
 namespace phpOMS\Localization;
 
-class Money {
+class Money implements Serialize {
 
-    const DECIMALS = 5;
+    private const MAX_DECIMALS = 5;
     
-    private $currency = 'USD';
+    private $currency = ISO4217CharEnum::C_USD;
     private $thousands = ',';
     private $decimal = '.';
     
     private $value = 0;
     
-    public function __construct(string $currency = 'USD', string $thousands = ',', string $decimal = '.') 
+    public function __construct(string $currency = ISO4217CharEnum::C_USD, string $thousands = ',', string $decimal = '.') 
     {
         $this->currency = $currency;
         $this->thousands = $thousands;
@@ -44,7 +44,7 @@ class Money {
             $right = $split[1];
         }
         
-        $right = substr($right, 0, -self::DECIMALS);
+        $right = substr($right, 0, -self::MAX_DECIMALS);
         $this->value = (int) $left * 100000 + (int) $right;
     }
     
@@ -54,10 +54,10 @@ class Money {
             $decimals = ISO4270::{$this->currency};
         }
 
-        $value = (string) round($value, - self::DECIMALS + $this->decimals);
+        $value = (string) round($value, - self::MAX_DECIMALS + $this->decimals);
 
-        $left = substr($value, 0, -self::DECIMALS);
-        $right = substr($value, -self::DECIMALS);
+        $left = substr($value, 0, -self::MAX_DECIMALS);
+        $right = substr($value, -self::MAX_DECIMALS);
 
         return ($decimals > 0) : number_format($left, 0, $this->thousands, $this->decimal); . $this->decimal . $right : (string) $left;
     }
@@ -96,5 +96,15 @@ class Money {
         if(is_float($value) || is_int($value)) {
             $this->value = self::toInt((string) ($this->value / $value));
         }
+    }
+
+    public function serialize() : int
+    {
+        return $this->getInt();
+    }
+
+    public function unserialize(int $value)
+    {
+        $this->setInt($value);
     }
 }
