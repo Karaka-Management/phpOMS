@@ -44,6 +44,7 @@ abstract class IBAN extends ValidatorAbstract
     /**
      * {@inheritdoc}
      */
+    // todo: this is bad see wiki for better checks...
     public static function isValid($value)
     {
         $value     = strtolower(str_replace(' ', '', $value));

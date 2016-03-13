@@ -45,14 +45,22 @@ class MultiMap implements \Countable
      */
     private $keys = [];
 
+    private $uids = [];
+
+    private $keyType = KeyType::LOOSE;
+
+    private $orderType = OrderType::LOOSE;
+
     /**
      * Constructor.
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function __construct()
+    public function __construct(int $key = KeyType::LOOSE, int $order = OrderType::LOOSE)
     {
+        $this->keyType = $key;
+        $this->orderType = $order;
     }
 
     /**

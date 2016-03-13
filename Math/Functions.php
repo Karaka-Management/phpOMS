@@ -115,4 +115,105 @@ class Functions
 
         return $fact / $fact2;
     }
+
+    public static function ackermann(int $m, int $n) 
+    {
+        if($m === 0) {
+            return $n+1;
+        } elseif($n === 0) {
+            return self::ackermann($m-1, 1);
+        }
+
+        return ackermann($m-1, ackermann($m, $n-1));
+    }
+
+    public static function isSquare(int $x) {
+        $goodMask; // 0xC840C04048404040 computed below
+
+        for ($i = 0; $i < 64; ++$i) {
+            $goodMask |= PHP_INT_MIN >>> ($i*$i);
+        }
+
+        // This tests if the 6 least significant bits are right.
+        // Moving the to be tested bit to the highest position saves us masking.
+        if ($goodMask << $x >= 0) return false;
+
+        $numberOfTrailingZeros = self::countTrailingZeros($x);
+        // Each square ends with an even number of zeros.
+        if (($numberOfTrailingZeros & 1) !== 0) return false;
+
+        $x >>= $numberOfTrailingZeros;
+        // Now x is either 0 or odd.
+        // In binary each odd square ends with 001.
+        // Postpone the sign test until now; handle zero in the branch.
+        if (($x&7) != 1 | $x <= 0) return $x === 0;
+        // Do it in the classical way.
+        // The correctness is not trivial as the conversion from long to double is lossy!
+        $tst = (int) sqrt($x);
+
+        return $tst * $tst == $x;
+    }
+
+    public static function countTrailingZeros(int $n) : int
+    {
+        $count = 0;
+        while ($n !== 0) {
+            if ($n & 1 == 1)  {
+                break;
+            } else {
+                $count++;
+                $n = $n >> 1;
+            }
+        }
+
+        return $count;
+    }
+
+    public static function greatestCommonDivisor(int $n, int $m) : int
+    {
+        while(true) {
+            if($n === $m) {
+                return $m;
+            } if($n > $m) {
+                $n -= $m;
+            } else {
+                $m -= $n;
+            }
+        }
+    }
+
+    public static function invMod($a,$n){
+        if ($n < 0) {
+            $n = -$n;
+        }
+
+        if ($a < 0) { 
+            $a = $n - (-$a % $n);
+        }
+
+        $t = 0; 
+        $nt = 1; 
+        $r = $n; 
+        $nr = $a % $n;
+
+        while ($nr != 0) {
+            $quot = intval($r/$nr);
+            $tmp = $nt;  
+            $nt = $t - $quot*$nt;  
+            $t = $tmp;
+            $tmp = $nr;  
+            $nr = $r - $quot*$nr;  
+            $r = $tmp;
+        }
+
+        if ($r > 1) {
+            return -1;
+        }
+
+        if ($t < 0) {
+            $t += $n;
+        }
+
+        return $t;
+    }
 }

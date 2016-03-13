@@ -71,4 +71,20 @@ abstract class CreditCard extends ValidatorAbstract
         // If the total mod 10 equals 0, the value is valid
         return ($total % 10 == 0) ? true : false;
     }
+
+    public static function luhnTest(string $num) {
+        $len = strlen($num);
+        
+        for ($i = $len-1; $i >= 0; $i--) {
+            $ord = ord($num[$i]);
+
+            if (($len - 1) & $i) {
+                $sum += $ord;
+            } else {
+                $sum += $ord / 5 + (2 * $ord) % 10;
+            }
+        }
+
+        return $sum % 10 == 0;
+    }
 }
