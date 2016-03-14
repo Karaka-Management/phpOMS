@@ -116,7 +116,18 @@ class Functions
         return $fact / $fact2;
     }
 
-    public static function ackermann(int $m, int $n) 
+    /**
+     * Calculate ackermann function.
+     *
+     * @param int $m
+     * @param int $n
+     *
+     * @return int
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+    public static function ackermann(int $m, int $n) : int
     {
         if($m === 0) {
             return $n+1;
@@ -127,62 +138,18 @@ class Functions
         return ackermann($m-1, ackermann($m, $n-1));
     }
 
-    public static function isSquare(int $x) {
-        $goodMask; // 0xC840C04048404040 computed below
-
-        for ($i = 0; $i < 64; ++$i) {
-            $goodMask |= PHP_INT_MIN >>> ($i*$i);
-        }
-
-        // This tests if the 6 least significant bits are right.
-        // Moving the to be tested bit to the highest position saves us masking.
-        if ($goodMask << $x >= 0) return false;
-
-        $numberOfTrailingZeros = self::countTrailingZeros($x);
-        // Each square ends with an even number of zeros.
-        if (($numberOfTrailingZeros & 1) !== 0) return false;
-
-        $x >>= $numberOfTrailingZeros;
-        // Now x is either 0 or odd.
-        // In binary each odd square ends with 001.
-        // Postpone the sign test until now; handle zero in the branch.
-        if (($x&7) != 1 | $x <= 0) return $x === 0;
-        // Do it in the classical way.
-        // The correctness is not trivial as the conversion from long to double is lossy!
-        $tst = (int) sqrt($x);
-
-        return $tst * $tst == $x;
-    }
-
-    public static function countTrailingZeros(int $n) : int
-    {
-        $count = 0;
-        while ($n !== 0) {
-            if ($n & 1 == 1)  {
-                break;
-            } else {
-                $count++;
-                $n = $n >> 1;
-            }
-        }
-
-        return $count;
-    }
-
-    public static function greatestCommonDivisor(int $n, int $m) : int
-    {
-        while(true) {
-            if($n === $m) {
-                return $m;
-            } if($n > $m) {
-                $n -= $m;
-            } else {
-                $m -= $n;
-            }
-        }
-    }
-
-    public static function invMod($a,$n){
+    /**
+     * Calculate inverse modular.
+     *
+     * @param int $a 
+     * @param int $n Modulo
+     *
+     * @return int
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+    public static function invMod($a, $n){
         if ($n < 0) {
             $n = -$n;
         }
@@ -197,7 +164,7 @@ class Functions
         $nr = $a % $n;
 
         while ($nr != 0) {
-            $quot = intval($r/$nr);
+            $quot = (int) ($r/$nr);
             $tmp = $nt;  
             $nt = $t - $quot*$nt;  
             $t = $tmp;

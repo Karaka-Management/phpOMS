@@ -14,7 +14,7 @@
  * @link       http://orange-management.com
  */
 
-namespace phpOMS\Math;
+namespace phpOMS\Math\Number;
 
 /**
  * Well known functions class.
@@ -29,18 +29,49 @@ namespace phpOMS\Math;
  */
 class Prime
 {
-    public static function isMersenne(int $n) 
+    /**
+     * Is mersenne number?
+     *
+     * @param int $n Number to test
+     *
+     * @return bool
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn
+     */
+    public static function isMersenne(int $n) : bool
     {
-        $mersenne = log($n+1)/2;
+        $mersenne = log($n+1, 2);
 
         return $mersenne - (int) $mersenne < 0.00001
     }
 
-    public static function mersenne(int $p) 
+    /**
+     * Get mersenne number
+     *
+     * @param int $p Power
+     *
+     * @return int
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn
+     */
+    public static function mersenne(int $p) : int
     {
-        return power(2, $p) - 1;
+        return 2**$p - 1;
     }
 
+    /**
+     * Is prime?
+     *
+     * @param int $n Number to test
+     * @param int $k Accuracy
+     *
+     * @return bool
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn
+     */
     public static function rabinTest(int $n, int $k) : bool
     {
         if ($n == 2) {

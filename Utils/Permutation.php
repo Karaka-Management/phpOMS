@@ -1,5 +1,7 @@
 <?php
 
+namespace phpOMS\Utils;
+
 class Permutation 
 {
     // usage: permut(['a', 'b', 'c']);

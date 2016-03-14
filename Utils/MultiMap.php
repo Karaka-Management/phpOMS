@@ -46,14 +46,6 @@ class MultiMap implements \Countable
     private $keys = [];
 
     /**
-     * UID.
-     *
-     * @var int[]
-     * @since 1.0.0
-     */
-    private $uids = [];
-
-    /**
      * Key type.
      *
      * @var int
@@ -97,6 +89,10 @@ class MultiMap implements \Countable
     {
         $id       = count($this->values);
         $inserted = false;
+
+        if($this->keyType !== KeyType::LOOSE) {
+            $keys = [implode($keys, ':')];
+        }
 
         foreach ($keys as $key) {
             if ($overwrite || !isset($this->keys[$key])) {
@@ -150,7 +146,28 @@ class MultiMap implements \Countable
      */
     public function get($key)
     {
-        return isset($this->keys[$key]) ? $this->values[$this->keys[$key]] ?? null : null;
+        if($this->keyType === KeyType::LOOSE) {
+            return isset($this->keys[$key]) ? $this->values[$this->keys[$key]] ?? null : null;
+        } else {
+            if(is_array($key)) {
+
+                if($this->orderType === OrderType::LOOSE) {
+                    $keys = Permutation::permut($key);
+
+                    foreach($keys as $key => $value) {
+                        $key = implode($value, ':');
+
+                        if(isset($this->keys[$key])) {
+                            return $this->values[$this->keys[$key]];
+                        }
+                    }
+                } else {
+                    $key = implode($value, ':');
+                }
+            }
+
+            return isset($this->keys[$key]) ? $this->values[$this->keys[$key]] ?? null : null;
+        }
     }
 
     /**
