@@ -1,19 +1,80 @@
 <?php
-
+/**
+ * Orange Management
+ *
+ * PHP Version 7.0
+ *
+ * @category   TBD
+ * @package    TBD
+ * @author     OMS Development Team <dev@oms.com>
+ * @author     Dennis Eichhorn <d.eichhorn@oms.com>
+ * @copyright  2013 Dennis Eichhorn
+ * @license    OMS License 1.0
+ * @version    1.0.0
+ * @link       http://orange-management.com
+ */
 namespace phpOMS\Utils\Git;
 
+/**
+ * Gray encoding class
+ *
+ * @category   Framework
+ * @package    phpOMS\Asset
+ * @author     OMS Development Team <dev@oms.com>
+ * @author     Dennis Eichhorn <d.eichhorn@oms.com>
+ * @license    OMS License 1.0
+ * @link       http://orange-management.com
+ * @since      1.0.0
+ */
 class Git {
+	/**
+     * Git path.
+     *
+     * @var string
+     * @since 1.0.0
+     */
 	protected static $bin = '/usr/bin/git';
 
-	public static function setBin(string $path) {
-		self::$bin = $path;
+	/**
+     * Set git binary.
+     *
+     * @param string $path Git path
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+	public static function setBin(string $path)
+	{
+		if(realpath($path) === false) {
+			throw new \PathException($path)
+		}
+
+		self::$bin = realpath($path);
 	}
 
-	public static function getBin() : string {
+	/**
+     * Get git binary.
+     *
+     * @return string
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+	public static function getBin() : string 
+	{
 		return self::$bin;
 	}
 
-	public static function test() : bool {
+	/**
+     * Test git.
+     *
+     * @return bool
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+	public static function test() : bool 
+	{
 		$pipes = [];
 		$resource = proc_open(Git::getBin(), [1 => ['pipe', 'w'], 2 => ['pipe', 'w']], $pipes);
 

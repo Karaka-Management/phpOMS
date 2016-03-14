@@ -13,10 +13,11 @@
  * @version    1.0.0
  * @link       http://orange-management.com
  */
-namespace phpOMS\Utils\Git;
+
+namespace phpOMS\Utils\RnG;
 
 /**
- * Gray encoding class
+ * Array randomizer class
  *
  * @category   Framework
  * @package    phpOMS\Asset
@@ -26,52 +27,47 @@ namespace phpOMS\Utils\Git;
  * @link       http://orange-management.com
  * @since      1.0.0
  */
-class Branch
+class ArrayRandomize 
 {
-	/**
-     * Name.
-     *
-     * @var string
-     * @since 1.0.0
-     */
-	private $name = '';
-
-	/**
-     * Constructor
-     *
-     * @param string $name Branch name
-     *
-     * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
-     */
-	public function __construct(string $name)
-	{
-		$this->name = $name;
-	}
-
-	/**
-     * Set branch name
-     *
-     * @param string $name Branch name
-     *
-     * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
-     */
-	public function setName(string $name) 
-	{
-		$this->name = $name;
-	}
-
-	/**
-     * Get name
+    /**
+     * Yates array shuffler.
      *
      * @return string
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-	public function getName() : string
-	{
-		return $this->name;
-	}
+    public static function yates(array $arr) : array
+    {
+        $shuffled = [];
+
+        while($arr){
+            $rnd = array_rand($arr);
+            $shuffled[] = $arr[$rnd];
+            array_splice($arr, $rnd, 1);
+        }
+
+        return $shuffled;
+    }
+    
+    /**
+     * Knuths array shuffler.
+     *
+     * @return string
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+    public static function knuth(array $arr) : array
+    {
+        $shuffled = [];
+
+        for($i = count($arr)-1; $i > 0; $i--){
+            $rnd = mt_rand(0, $i);
+            $shuffled[$i] = $arr[$rnd];
+            $shuffled[$rand] = $arr[$i];
+        }
+
+        return $shuffled;
+    }
 }

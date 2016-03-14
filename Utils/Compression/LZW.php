@@ -1,10 +1,41 @@
 <?php
+/**
+ * Orange Management
+ *
+ * PHP Version 7.0
+ *
+ * @category   TBD
+ * @package    TBD
+ * @author     OMS Development Team <dev@oms.com>
+ * @author     Dennis Eichhorn <d.eichhorn@oms.com>
+ * @copyright  2013 Dennis Eichhorn
+ * @license    OMS License 1.0
+ * @version    1.0.0
+ * @link       http://orange-management.com
+ */
+namespace phpOMS\Utils\Compression;
 
+/**
+ * LZW compression class
+ *
+ * @category   Framework
+ * @package    phpOMS\Asset
+ * @author     OMS Development Team <dev@oms.com>
+ * @author     Dennis Eichhorn <d.eichhorn@oms.com>
+ * @license    OMS License 1.0
+ * @link       http://orange-management.com
+ * @since      1.0.0
+ */
 class LZW implements CompressionInterface
 {
-    public static function compress($unc) {
-        $i;$c;$wc;
-        $w = "";
+
+    /**
+     * {@inheritdoc}
+     */
+    public function compress(string $source) : string
+    {
+        $wc = '';
+        $w = '';
         $dictionary = [];
         $result = [];
         $dictSize = 256;
@@ -13,8 +44,8 @@ class LZW implements CompressionInterface
             $dictionary[chr($i)] = $i;
         }
 
-        for ($i = 0; $i < strlen($unc); $i++) {
-            $c = $unc[$i];
+        for ($i = 0; $i < strlen($source); $i++) {
+            $c = $source[$i];
             $wc = $w.$c;
 
             if (array_key_exists($w. $c, $dictionary)) {
@@ -26,29 +57,32 @@ class LZW implements CompressionInterface
             }
         }
 
-        if ($w !== "") {
+        if ($w !== '') {
             array_push($result,$dictionary[$w]);
         }
 
-        return implode(",",$result);
+        return implode(',',$result);
     }
  
-    public static function decompress($com) {
-        $com = explode(",",$com);
-        $i;$w;$k;$result;
+    /**
+     * {@inheritdoc}
+     */
+    public function decompress(string $compressed) : string
+    {
+        $compressed = explode(',', $compressed);
         $dictionary = [];
-        $entry = "";
+        $entry = '';
         $dictSize = 256;
 
         for ($i = 0; $i < 256; $i++) {
             $dictionary[$i] = chr($i);
         }
 
-        $w = chr($com[0]);
+        $w = chr($compressed[0]);
         $result = $w;
 
-        for ($i = 1; $i < count($com);$i++) {
-            $k = $com[$i];
+        for ($i = 1; $i < count($compressed);$i++) {
+            $k = $compressed[$i];
 
             if ($dictionary[$k]) {
                 $entry = $dictionary[$k];

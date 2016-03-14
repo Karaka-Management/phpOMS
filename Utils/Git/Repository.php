@@ -1,18 +1,79 @@
 <?php
-
+/**
+ * Orange Management
+ *
+ * PHP Version 7.0
+ *
+ * @category   TBD
+ * @package    TBD
+ * @author     OMS Development Team <dev@oms.com>
+ * @author     Dennis Eichhorn <d.eichhorn@oms.com>
+ * @copyright  2013 Dennis Eichhorn
+ * @license    OMS License 1.0
+ * @version    1.0.0
+ * @link       http://orange-management.com
+ */
 namespace phpOMS\Utils\Git;
 
+/**
+ * Repository class
+ *
+ * @category   Framework
+ * @package    phpOMS\Asset
+ * @author     OMS Development Team <dev@oms.com>
+ * @author     Dennis Eichhorn <d.eichhorn@oms.com>
+ * @license    OMS License 1.0
+ * @link       http://orange-management.com
+ * @since      1.0.0
+ */
 class Repository
 {
+    /**
+     * Repository path.
+     *
+     * @var string
+     * @since 1.0.0
+     */
     private $path       = '';
+
+    /**
+     * Bare repository.
+     *
+     * @var bool
+     * @since 1.0.0
+     */
     private $bare       = false;
+
+    /**
+     * Env variables.
+     *
+     * @var array
+     * @since 1.0.0
+     */
     private $envOptions = [];
 
+    /**
+     * Constructor
+     *
+     * @param string $path Repository path
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
     public function __construct(string $path)
     {
         $this->setPath($path);
     }
 
+    /**
+     * Create repository
+     *
+     * @param string $source Create repository from source (optional, can be remote)
+     * @param bool $bare Bare repository
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
     public function create(string $source = null, bool $bare = false)
     {
         if (!is_dir($this->path) || file_exists($this->path . '/.git')) {
@@ -26,10 +87,18 @@ class Repository
         }
     }
 
+    /**
+     * Set repository path.
+     *
+     * @param string $path Path to repository
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
     private function setPath(string $path)
     {
-        if (!is_dir($this->path)) {
-            throw new \Exception('Is not a directory');
+        if (!is_dir($path)) {
+            throw new \PathException($path);
         }
 
         $this->path = realpath($path);
@@ -46,7 +115,15 @@ class Repository
         }
     }
 
-    private function run($cmd)
+    /**
+     * Run git command.
+     *
+     * @param string $cmd Command to run
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+    private function run(string $cmd) : string 
     {
         $cmd   = Git::getBin() . ' ' . $cmd;
         $pipes = [];
@@ -81,11 +158,27 @@ class Repository
         return $stdout;
     }
 
+    /**
+     * Get directory path.
+     *
+     * @return string
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
     public function getDirectoryPath() : string
     {
         return $this->bare ? $this->path : $this->path . '/.git';
     }
 
+    /**
+     * Get status.
+     *
+     * @return string
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
     public function status() : string
     {
         return $this->run('status');
@@ -259,12 +352,20 @@ class Repository
         $this->envOptions[$key] = $value;
     }
 
-    public function getMessage(string $commit) : string
+    public function getCommit(string $commit) : Commit
     {
         return $this->run('log --format=%B -n 1 ' . $commit);
     }
 
-    public function getCommitsCount() : string
+    /**
+     * Count Commits.
+     *
+     * @return string
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+    public function getCommitsCount(\DateTime $start = null, \DateTime $end = null, Author $author = null) : int
     {
         $result = $this->normalizeResult($this->run('shortlog -s -n --all'));
 
@@ -276,16 +377,44 @@ class Repository
         str_replace('\t', '|', trim($result));
     }
 
-    public function getCommitsBy(string $author, \DateTime $start, \DateTime $end) : string
+    /**
+     * Get commits by author.
+     *
+     * @param Author $author Commits by author
+     * @param \DateTime $start Commits from
+     * @param \DateTime $end Commits to
+     *
+     * @return string
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+    public function getCommitsBy(Author $author, \DateTime $start = null, \DateTime $end) : array
     {
-        return $this->run('git log --before="' . $end->format('Y-m-d') . '" --after="' . $start->format('Y-m-d') . '" --author="' . $author . '" --reverse --pretty=format:"%cd  %h  %s" --date=short');
+        return $this->run('git log --before="' . $end->format('Y-m-d') . '" --after="' . $start->format('Y-m-d') . '" --author="' . $author->getName() . '" --reverse --pretty=format:"%cd  %h  %s" --date=short');
 	}
 
+    /**
+     * Get remote.
+     *
+     * @return string
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
     public function getRemote() : string
     {
         return $this->run('config --get remote.origin.url');
     }
 
+    /**
+     * Get newest commit.
+     *
+     * @return Commit
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
     public function getNewest() : string
     {
         return $this->run('log --name-status HEAD^..HEAD');

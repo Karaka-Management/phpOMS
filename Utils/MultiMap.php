@@ -45,10 +45,28 @@ class MultiMap implements \Countable
      */
     private $keys = [];
 
+    /**
+     * UID.
+     *
+     * @var int[]
+     * @since 1.0.0
+     */
     private $uids = [];
 
+    /**
+     * Key type.
+     *
+     * @var int
+     * @since 1.0.0
+     */
     private $keyType = KeyType::LOOSE;
 
+    /**
+     * Order type.
+     *
+     * @var int
+     * @since 1.0.0
+     */
     private $orderType = OrderType::LOOSE;
 
     /**

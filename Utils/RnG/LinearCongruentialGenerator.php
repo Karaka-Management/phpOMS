@@ -13,10 +13,11 @@
  * @version    1.0.0
  * @link       http://orange-management.com
  */
-namespace phpOMS\Utils\Git;
+
+namespace phpOMS\Utils\RnG;
 
 /**
- * Gray encoding class
+ * Linear congruential generator class
  *
  * @category   Framework
  * @package    phpOMS\Asset
@@ -26,52 +27,34 @@ namespace phpOMS\Utils\Git;
  * @link       http://orange-management.com
  * @since      1.0.0
  */
-class Branch
+class LinearCongruentialGenerator
 {
-	/**
-     * Name.
+    /**
+     * BSD random number
      *
-     * @var string
-     * @since 1.0.0
-     */
-	private $name = '';
-
-	/**
-     * Constructor
-     *
-     * @param string $name Branch name
+     * @return \Closure
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-	public function __construct(string $name)
-	{
-		$this->name = $name;
-	}
+    public static function bsd(int $seed)
+    {
+        return function() use(&$seed) {
+            return $seed = (1103515245 * $seed + 12345) % (1 << 31);
+        }
+    }
 
-	/**
-     * Set branch name
+    /**
+     * MS random number
      *
-     * @param string $name Branch name
+     * @return \Closure
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-	public function setName(string $name) 
-	{
-		$this->name = $name;
-	}
-
-	/**
-     * Get name
-     *
-     * @return string
-     *
-     * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
-     */
-	public function getName() : string
-	{
-		return $this->name;
-	}
+    public static function msvcrt(int $seed) {
+        return function() use (&$seed) {
+            return ($seed = (214013 * $seed + 2531011) % (1 << 31)) >> 16;
+        };
+    }
 }
