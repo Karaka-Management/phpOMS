@@ -1,6 +1,6 @@
 <?php
 
-namespace phpOMS\Math;
+namespace phpOMS\Math\Matrix;
 
 class IdentityMatrix extends Matrix {
     public function __constrcut(int $n) 
