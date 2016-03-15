@@ -52,7 +52,7 @@ class Graph
      */
     public function __construct() 
     {
-        $this->edges = new MultiMap(KeyType::STRICT, OrderType::LOOSE);
+        $this->edges = new MultiMap(KeyType::MULTIPLE, OrderType::LOOSE);
     }
 
     /**
