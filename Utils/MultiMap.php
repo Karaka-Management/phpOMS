@@ -51,7 +51,7 @@ class MultiMap implements \Countable
      * @var int
      * @since 1.0.0
      */
-    private $keyType = KeyType::LOOSE;
+    private $keyType = KeyType::MULTIPLE;
 
     /**
      * Order type.
@@ -67,7 +67,7 @@ class MultiMap implements \Countable
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function __construct(int $key = KeyType::LOOSE, int $order = OrderType::LOOSE)
+    public function __construct(int $key = KeyType::MULTIPLE, int $order = OrderType::LOOSE)
     {
         $this->keyType = $key;
         $this->orderType = $order;
@@ -90,7 +90,7 @@ class MultiMap implements \Countable
         $id       = count($this->values);
         $inserted = false;
 
-        if($this->keyType !== KeyType::LOOSE) {
+        if($this->keyType !== KeyType::MULTIPLE) {
             $keys = [implode($keys, ':')];
         }
 
@@ -146,11 +146,10 @@ class MultiMap implements \Countable
      */
     public function get($key)
     {
-        if($this->keyType === KeyType::LOOSE) {
+        if($this->keyType === KeyType::MULTIPLE) {
             return isset($this->keys[$key]) ? $this->values[$this->keys[$key]] ?? null : null;
         } else {
             if(is_array($key)) {
-
                 if($this->orderType === OrderType::LOOSE) {
                     $keys = Permutation::permut($key);
 
@@ -162,7 +161,7 @@ class MultiMap implements \Countable
                         }
                     }
                 } else {
-                    $key = implode($value, ':');
+                    $key = implode($key, ':');
                 }
             }
 
@@ -183,10 +182,24 @@ class MultiMap implements \Countable
      */
     public function set($key, $value) : bool
     {
-        if (isset($this->keys[$key])) {
-            $this->values[$this->keys[$key]] = $value;
+        if($this->keyType === KeyType::MULTIPLE && is_array($key)) {
+            if($this->orderType !== OrderType::LOOSE) {
+                $permutation = Permutation::permut($key);
 
-            return true;
+                foreach($permuation as $permut) {
+                    if($this->set(implode($permut, ':'), $value)) {
+                        return true;
+                    }
+                }
+            } else {
+                return $this->set(implode($key, ':'));
+            }
+        } else {
+            if (isset($this->keys[$key])) {
+                $this->values[$this->keys[$key]] = $value;
+
+                return true;
+            }
         }
 
         return false;
@@ -204,14 +217,30 @@ class MultiMap implements \Countable
      */
     public function remove($key) : bool
     {
-        if (isset($this->keys[$key])) {
-            $id = $this->keys[$key];
+        if($this->keyType === KeyType::MULTIPLE && is_array($key)) {
+            if($this->orderType === OrderType::LOOSE) {
+                $keys = Permutation::permut($key);
 
-            unset($this->values[$id]);
+                $removed = false;
 
-            $this->garbageCollect();
+                foreach($keys as $key => $value) {
+                    $removed |= $this->remove(implode($value, ':'));
+                }
 
-            return true;
+                return $removed;
+            } else {
+                return $this->remove(implode($key, ':'));
+            }
+        } else {
+            if (isset($this->keys[$key])) {
+                $id = $this->keys[$key];
+
+                unset($this->values[$id]);
+
+                $this->garbageCollect();
+
+                return true;
+            }
         }
 
         return false;
@@ -232,6 +261,10 @@ class MultiMap implements \Countable
      */
     public function remap($old, $new) : bool
     {
+        if($this->keyType === KeyType::MULTIPLE) {
+            return false;
+        }
+
         if (isset($this->keys[$old]) && isset($this->keys[$new])) {
             $this->keys[$old] = $this->keys[$new];
 
@@ -257,12 +290,28 @@ class MultiMap implements \Countable
      */
     public function removeKey($key) : bool
     {
-        if (isset($this->keys[$key])) {
-            unset($this->keys[$key]);
+        if($this->keyType === KeyType::MULTIPLE && is_array($key)) {
+            if($this->orderType === OrderType::LOOSE) {
+                $keys = Permutation::permut($key);
 
-            $this->garbageCollect();
+                $removed = false;
 
-            return true;
+                foreach($keys as $key => $value) {
+                    $removed |= $this->removeKey(implode($value, ':'));
+                }
+
+                return $removed;
+            } else {
+                return $this->removeKey(implode($key, ':'));
+            }
+        } else {
+            if (isset($this->keys[$key])) {
+                unset($this->keys[$key]);
+
+                $this->garbageCollect();
+
+                return true;
+            }
         }
 
         return false;
@@ -281,6 +330,14 @@ class MultiMap implements \Countable
     public function getSiblings($key) : array
     {
         $siblings = [];
+
+        if($this->keyType === KeyType::MULTIPLE) {
+            if($this->orderType === OrderType::LOOSE) {
+                return Permutation::permut($key);
+            } else {
+                return $siblings;
+            }
+        }
 
         if (isset($this->keys[$key])) {
             $id = $this->keys[$key];

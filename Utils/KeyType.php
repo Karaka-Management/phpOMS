@@ -30,6 +30,6 @@ use phpOMS\Datatypes\Enum;
  */
 abstract class KeyType extends Enum
 {
-    const LOOSE = 0;
-    const STRICT= 1;
+    const SINGLE = 0;
+    const MULTIPLE = 1;
 }
