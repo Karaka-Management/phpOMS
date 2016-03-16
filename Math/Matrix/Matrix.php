@@ -212,43 +212,24 @@ class Matrix implements ArrayAccess, Iterator
             }
         }
 
-        // todo: maybe replace by triangulize/vice versa????!!!?!?!
+        $mDim = count($newMatrixArr);
+        $nDim = count($newMatrixArr[0])
+
         // pivoting
-        for($i = $this->n - 1; $i > 0; $i--) {
-            if ($newMatrixArr[$i - 1][0] < $newMatrixArr[$i][0]) {
-                for($j = 0; $j < $this->n * 2; $j++) {
-                    $temp = $newMatrixArr[$i][$j];
-                    $newMatrixArr[$i][$j] = $newMatrixArr[$i-1][$j];
-                    $newMatrixArr[$i-1][$j] = $temp;
-                }
-            }
-        }
-
-        /* create diagonal matrix */
-        for($i = 0; $i < $this->n; $i++) {
-            for($j = 0; $j < $this->n; $j++) {
-                if ($j !== $i) {
-                    $temp = $newMatrixArr[$j][$i] / $newMatrixArr[$i][$i];
-
-                    for($c = 0; $c < $this->n * 2; $c++) {
-                        $newMatrixArr[$j][$c] -= $newMatrixArr[$i][$c] * $temp;
-                    }
-                }
-            }
-        }
+        $newMatrixArr = $this->diag($newMatrixArr);
 
         /* create unit matrix */
-        for($i = 0; $i < $this->n; $i++) {
+        for($i = 0; $i < $mDim; $i++) {
             $temp = $newMatrixArr[$i][$i];
 
-            for($j = 0; $j < $this->n * 2; $j++) {
+            for($j = 0; $j < $nDim; $j++) {
                 $newMatrixArr[$i][$j] = $newMatrixArr[$i][$j] / $temp;
             }
         }
 
         /* removing identity matrix */
-        for($i = 0; $i < $this->n; $i++) {
-            $newMatrixArr[$i] = array_slice($newMatrixArr[$i], $this->n);
+        for($i = 0; $i < $mDim; $i++) {
+            $newMatrixArr[$i] = array_slice($newMatrixArr[$i], $mDim);
         }
 
         $newMatrix = new Matrix($this->n, $this->n);
@@ -279,6 +260,37 @@ class Matrix implements ArrayAccess, Iterator
         return $newMatrix;
     }
 
+    private function diag(array $arr) : array
+    {
+        $mDim = count($arr);
+        $nDim = count($arr[0]);
+
+        for($i = $mDim - 1; $i > 0; $i--) {
+            if ($arr[$i - 1][0] < $arr[$i][0]) {
+                for($j = 0; $j < $nDim; $j++) {
+                    $temp = $arr[$i][$j];
+                    $arr[$i][$j] = $arr[$i-1][$j];
+                    $arr[$i-1][$j] = $temp;
+                }
+            }
+        }
+
+        /* create diagonal matrix */
+        for($i = 0; $i < $mDim; $i++) {
+            for($j = 0; $j < $mDim; $j++) {
+                if ($j !== $i) {
+                    $temp = $arr[$j][$i] / $arr[$i][$i];
+
+                    for($c = 0; $c < $nDim; $c++) {
+                        $arr[$j][$c] -= $arr[$i][$c] * $temp;
+                    }
+                }
+            }
+        }
+
+        return $arr;
+    }
+
     private function upperTrianglize(array &$arr) : int
     {
         $n = count($arr);
@@ -296,7 +308,8 @@ class Matrix implements ArrayAccess, Iterator
             if ($max) {
                 $sign = -$sign;
                 $temp = $arr[$i];
-                $arr[$i] = $arr[$max], $arr[$max] = $temp;
+                $arr[$i] = $arr[$max];
+                $arr[$max] = $temp;
             }
      
             if (!$arr[$i][$i]) {
