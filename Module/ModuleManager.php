@@ -146,37 +146,37 @@ class ModuleManager
         if (!isset($this->uriLoad)) {
             switch ($this->app->dbPool->get('core')->getType()) {
                 case DatabaseType::MYSQL:
-                    $uriHash = $request->getHash();
-                    $uriPdo  = '';
+                $uriHash = $request->getHash();
+                $uriPdo  = '';
 
-                    $i = 1;
-                    $c = count($uriHash);
-                    for ($k = 0; $k < $c; $k++) {
-                        $uriPdo .= ':pid' . $i . ',';
-                        $i++;
-                    }
+                $i = 1;
+                $c = count($uriHash);
+                for ($k = 0; $k < $c; $k++) {
+                    $uriPdo .= ':pid' . $i . ',';
+                    $i++;
+                }
 
-                    $uriPdo = rtrim($uriPdo, ',');
+                $uriPdo = rtrim($uriPdo, ',');
 
-                    /* TODO: make join in order to see if they are active */
-                    $sth = $this->app->dbPool->get('core')->con->prepare(
-                        'SELECT
-                        `' . $this->app->dbPool->get('core')->prefix . 'module_load`.`module_load_type`, `' . $this->app->dbPool->get('core')->prefix . 'module_load`.*
-                        FROM
-                        `' . $this->app->dbPool->get('core')->prefix . 'module_load`
-                        WHERE
-                        `module_load_pid` IN(' . $uriPdo . ')'
+                /* TODO: make join in order to see if they are active */
+                $sth = $this->app->dbPool->get('core')->con->prepare(
+                    'SELECT
+                    `' . $this->app->dbPool->get('core')->prefix . 'module_load`.`module_load_type`, `' . $this->app->dbPool->get('core')->prefix . 'module_load`.*
+                    FROM
+                    `' . $this->app->dbPool->get('core')->prefix . 'module_load`
+                    WHERE
+                    `module_load_pid` IN(' . $uriPdo . ')'
                     );
 
-                    $i = 1;
-                    foreach ($uriHash as $hash) {
-                        $sth->bindValue(':pid' . $i, $hash, \PDO::PARAM_STR);
-                        $i++;
-                    }
+                $i = 1;
+                foreach ($uriHash as $hash) {
+                    $sth->bindValue(':pid' . $i, $hash, \PDO::PARAM_STR);
+                    $i++;
+                }
 
-                    $sth->execute();
+                $sth->execute();
 
-                    $this->uriLoad = $sth->fetchAll(\PDO::FETCH_GROUP);
+                $this->uriLoad = $sth->fetchAll(\PDO::FETCH_GROUP);
             }
         }
 
@@ -220,10 +220,10 @@ class ModuleManager
         if ($this->active === null) {
             switch ($this->app->dbPool->get('core')->getType()) {
                 case DatabaseType::MYSQL:
-                    $sth = $this->app->dbPool->get('core')->con->prepare('SELECT `module_path` FROM `' . $this->app->dbPool->get('core')->prefix . 'module` WHERE `module_active` = 1');
-                    $sth->execute();
-                    $this->active = $sth->fetchAll(\PDO::FETCH_COLUMN);
-                    break;
+                $sth = $this->app->dbPool->get('core')->con->prepare('SELECT `module_path` FROM `' . $this->app->dbPool->get('core')->prefix . 'module` WHERE `module_active` = 1');
+                $sth->execute();
+                $this->active = $sth->fetchAll(\PDO::FETCH_COLUMN);
+                break;
             }
         }
 
@@ -298,75 +298,73 @@ class ModuleManager
 
         $path = realpath($oldPath = self::MODULE_PATH . '/' . $module . '/' . 'info.json');
 
-        if ($path !== false) {
-            if (strpos($path, self::MODULE_PATH) === false) {
-                throw new PathException($oldPath);
-            }
+        if($path === false || strpos($path, self::MODULE_PATH) === false) {
+            throw new PathException($module);
+        }
 
-            $info = json_decode(file_get_contents($path), true);
+        $info = json_decode(file_get_contents($path), true);
 
-            if (!isset($info)) {
-                throw new InvalidJsonException($path);
-            }
+        if (!isset($info)) {
+            throw new InvalidJsonException($path);
+        }
 
-            switch ($this->app->dbPool->get('core')->getType()) {
-                case DatabaseType::MYSQL:
-                    $this->app->dbPool->get('core')->con->beginTransaction();
+        switch ($this->app->dbPool->get('core')->getType()) {
+            case DatabaseType::MYSQL:
+            $this->app->dbPool->get('core')->con->beginTransaction();
 
-                    $sth = $this->app->dbPool->get('core')->con->prepare(
-                        'INSERT INTO `' . $this->app->dbPool->get('core')->prefix . 'module` (`module_id`, `module_theme`, `module_path`, `module_active`, `module_version`) VALUES
-                                (:internal, :theme, :path, :active, :version);'
-                    );
+            $sth = $this->app->dbPool->get('core')->con->prepare(
+                'INSERT INTO `' . $this->app->dbPool->get('core')->prefix . 'module` (`module_id`, `module_theme`, `module_path`, `module_active`, `module_version`) VALUES
+                (:internal, :theme, :path, :active, :version);'
+                );
 
-                    $sth->bindValue(':internal', $info['name']['internal'], \PDO::PARAM_INT);
-                    $sth->bindValue(':theme', 'Default', \PDO::PARAM_STR);
-                    $sth->bindValue(':path', $info['directory'], \PDO::PARAM_STR);
-                    $sth->bindValue(':active', 1, \PDO::PARAM_INT);
-                    $sth->bindValue(':version', $info['version'], \PDO::PARAM_STR);
+            $sth->bindValue(':internal', $info['name']['internal'], \PDO::PARAM_INT);
+            $sth->bindValue(':theme', 'Default', \PDO::PARAM_STR);
+            $sth->bindValue(':path', $info['directory'], \PDO::PARAM_STR);
+            $sth->bindValue(':active', 1, \PDO::PARAM_INT);
+            $sth->bindValue(':version', $info['version'], \PDO::PARAM_STR);
+
+            $sth->execute();
+
+            $sth = $this->app->dbPool->get('core')->con->prepare(
+                'INSERT INTO `' . $this->app->dbPool->get('core')->prefix . 'module_load` (`module_load_pid`, `module_load_type`, `module_load_from`, `module_load_for`, `module_load_file`) VALUES
+                (:pid, :type, :from, :for, :file);'
+                );
+
+            foreach ($info['load'] as $val) {
+                foreach ($val['pid'] as $pid) {
+                    $sth->bindValue(':pid', $pid, \PDO::PARAM_STR);
+                    $sth->bindValue(':type', $val['type'], \PDO::PARAM_INT);
+                    $sth->bindValue(':from', $val['from'], \PDO::PARAM_STR);
+                    $sth->bindValue(':for', $val['for'], \PDO::PARAM_STR);
+                    $sth->bindValue(':file', $val['file'], \PDO::PARAM_STR);
 
                     $sth->execute();
-
-                    $sth = $this->app->dbPool->get('core')->con->prepare(
-                        'INSERT INTO `' . $this->app->dbPool->get('core')->prefix . 'module_load` (`module_load_pid`, `module_load_type`, `module_load_from`, `module_load_for`, `module_load_file`) VALUES
-                                        (:pid, :type, :from, :for, :file);'
-                    );
-
-                    foreach ($info['load'] as $val) {
-                        foreach ($val['pid'] as $pid) {
-                            $sth->bindValue(':pid', $pid, \PDO::PARAM_STR);
-                            $sth->bindValue(':type', $val['type'], \PDO::PARAM_INT);
-                            $sth->bindValue(':from', $val['from'], \PDO::PARAM_STR);
-                            $sth->bindValue(':for', $val['for'], \PDO::PARAM_STR);
-                            $sth->bindValue(':file', $val['file'], \PDO::PARAM_STR);
-
-                            $sth->execute();
-                        }
-                    }
-
-                    $this->app->dbPool->get('core')->con->commit();
-
-                    break;
+                }
             }
 
-            foreach ($info['dependencies'] as $key => $version) {
-                $this->install($key);
-            }
+            $this->app->dbPool->get('core')->con->commit();
 
-            $class = '\\Modules\\' . $module . '\\Admin\\Installer';
-            /** @var $class InstallerAbstract */
-            $class::install($this->app->dbPool, $info);
+            break;
+        }
+
+        foreach ($info['dependencies'] as $key => $version) {
+            $this->install($key);
+        }
+
+        $class = '\\Modules\\' . $module . '\\Admin\\Installer';
+        /** @var $class InstallerAbstract */
+        $class::install($this->app->dbPool, $info);
 
             // TODO: change this
-            $this->installed[$module] = true;
+        $this->installed[$module] = true;
 
-            foreach ($info['providing'] as $key => $version) {
-                $this->installProviding($module, $key);
-            }
+        foreach ($info['providing'] as $key => $version) {
+            $this->installProviding($module, $key);
+        }
 
-            /* Install receiving */
-            foreach ($installed as $key => $value) {
-                $this->installProviding($key, $module);
-            }
+        /* Install receiving */
+        foreach ($installed as $key => $value) {
+            $this->installProviding($key, $module);
         }
     }
 
@@ -383,10 +381,10 @@ class ModuleManager
         if ($this->installed === null) {
             switch ($this->app->dbPool->get('core')->getType()) {
                 case DatabaseType::MYSQL:
-                    $sth = $this->app->dbPool->get('core')->con->prepare('SELECT `module_id`,`module_theme`,`module_version`,`module_id` FROM `' . $this->app->dbPool->get('core')->prefix . 'module`');
-                    $sth->execute();
-                    $this->installed = $sth->fetchAll(\PDO::FETCH_GROUP);
-                    break;
+                $sth = $this->app->dbPool->get('core')->con->prepare('SELECT `module_id`,`module_theme`,`module_version`,`module_id` FROM `' . $this->app->dbPool->get('core')->prefix . 'module`');
+                $sth->execute();
+                $this->installed = $sth->fetchAll(\PDO::FETCH_GROUP);
+                break;
             }
         }
 
@@ -436,7 +434,7 @@ class ModuleManager
                         'message' => 'Trying to initialize ' . $m . ' without controller.',
                         'line'    => $e->getLine(),
                         'file'    => $e->getFile(),
-                    ]);
+                        ]);
                 }
             }
         } elseif (is_string($module) && realpath(self::MODULE_PATH . '/' . $module . '/Controller.php') !== false) {

@@ -15,7 +15,6 @@
  */
 namespace phpOMS\Module;
 
-
 /**
  * Module abstraction class.
  *

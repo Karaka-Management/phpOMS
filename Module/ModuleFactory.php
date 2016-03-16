@@ -77,29 +77,10 @@ class ModuleFactory
         if (!isset(self::$loaded[$module])) {
             try {
                 $class = '\\Modules\\' . $module . '\\Controller';
-
-                /**
-                 * @var ModuleAbstract $obj
-                 */
                 $obj                   = new $class($app);
                 self::$loaded[$module] = $obj;
-
-                /** Install providing for */
-                foreach ($obj->getProviding() as $providing) {
-                    if (isset(self::$loaded[$providing])) {
-                        self::$loaded[$providing]->addReceiving($obj->getName());
-                    } else {
-                        self::$providing[$providing][] = $obj->getName();
-                    }
-                }
-
-                /** Check if I get provided with */
-                $name = $obj->getName();
-                if (isset(self::$providing[$name])) {
-                    foreach (self::$providing[$name] as $providing) {
-                        self::$loaded[$name]->addReceiving($providing);
-                    }
-                }
+                self::registerRequesting($obj);
+                self::registerProvided($obj);
             } catch(\Exception $e) {
                 self::$loaded[$module] = new NullModule($app);
             }
@@ -107,4 +88,41 @@ class ModuleFactory
 
         return self::$loaded[$module];
     }
+
+    /**
+     * Load modules this module is requesting from
+     *
+     * @param ModuleAbstract $obj Current module
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+    private static function registerRequesting(ModuleAbstract $obj)
+    {
+        foreach ($obj->getProviding() as $providing) {
+            if (isset(self::$loaded[$providing])) {
+                self::$loaded[$providing]->addReceiving($obj->getName());
+            } else {
+                self::$providing[$providing][] = $obj->getName();
+            }
+        }
+    }
+
+    /**
+     * Register modules this module is receiving from
+     *
+     * @param ModuleAbstract $obj Current module
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+    private static function registerProvided(ModuleAbstract $obj)
+    {
+       $name = $obj->getName();
+       if (isset(self::$providing[$name])) {
+        foreach (self::$providing[$name] as $providing) {
+            self::$loaded[$name]->addReceiving($providing);
+        }
+    }
+}
 }

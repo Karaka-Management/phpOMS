@@ -106,7 +106,33 @@ class Request extends RequestAbstract
     public function init($uri = null)
     {
         if ($uri === null) {
-            $this->data = $_GET ?? [];
+            $this->initCurrentRequest();
+        } else {
+            $this->initPseudoRequest($uri);
+        }
+
+        $this->data = array_change_key_case($this->data, CASE_LOWER);
+
+        $this->cleanupGlobals();
+
+        $this->path = explode('/', $this->uri->getPath());
+        $this->l11n->setLanguage($this->path[0]);
+        
+        $this->setupUriBuilder();
+        $this->createRequestHashs();
+    }
+
+    /**
+     * Init current request
+     *
+     * @return void
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+    private function initCurrentRequest() 
+    {
+        $this->data = $_GET ?? [];
 
             if (isset($_SERVER['CONTENT_TYPE'])) {
                 if (strpos($_SERVER['CONTENT_TYPE'], 'application/json') !== false) {
@@ -124,26 +150,50 @@ class Request extends RequestAbstract
             }
 
             $this->uri->set(Http::getCurrent());
-        } else {
-            $this->setMethod($uri['type']);
-            $this->uri->set($uri['uri']);
-        }
+    }
 
-        $this->data = array_change_key_case($this->data, CASE_LOWER);
+    /**
+     * Init pseudo request
+     *
+     * @param mixed $uri Uri to handle as request
+     *
+     * @return void
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+    private function initPseudoRequest($uri)
+    {
+        $this->setMethod($uri['type']);
+        $this->uri->set($uri['uri']);
+    }
 
-        unset($_FILES);
-        unset($_GET);
-        unset($_POST);
-        unset($_REQUEST);
-
-        $this->path = explode('/', $this->uri->getPath());
-        $this->l11n->setLanguage($this->path[0]);
-        $this->hash = [];
-
+    /**
+     * Setup uri builder based on current request
+     *
+     * @return void
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+    private function setupUriBuilder()
+    {
         UriFactory::setQuery('/scheme', $this->uri->getScheme());
         UriFactory::setQuery('/host', $this->uri->getHost());
         UriFactory::setQuery('/lang', $this->l11n->getLanguage());
+    }
 
+    /**
+     * Create request hashs of current request
+     *
+     * @return void
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+    private function createRequestHashs()
+    {
+        $this->hash = [];
         foreach ($this->path as $key => $path) {
             $paths = [];
             for ($i = 1; $i < $key + 1; $i++) {
@@ -152,6 +202,22 @@ class Request extends RequestAbstract
 
             $this->hash[] = $this->hashRequest($paths);
         }
+    }
+
+    /**
+     * Clean up globals that musn't be used any longer
+     *
+     * @return void
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+    private function cleanupGlobals() 
+    {
+        unset($_FILES);
+        unset($_GET);
+        unset($_POST);
+        unset($_REQUEST);
     }
 
     /**

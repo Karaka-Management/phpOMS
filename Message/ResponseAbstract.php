@@ -31,7 +31,7 @@ use phpOMS\Utils\ArrayUtils;
  * @link       http://orange-management.com
  * @since      1.0.0
  */
-abstract class ResponseAbstract implements ResponseInterface, ArrayableInterface, JsonableInterface
+abstract class ResponseAbstract implements MessageInterface, ArrayableInterface, JsonableInterface
 {
 
     /**
@@ -159,4 +159,16 @@ abstract class ResponseAbstract implements ResponseInterface, ArrayableInterface
     {
         return json_encode($this->toArray());
     }
+
+    /**
+     * Generate header automatically based on code.
+     *
+     * @param int $code HTTP status code
+     *
+     * @return void
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+    abstract public function generateHeader(int $code);
 }

@@ -32,7 +32,7 @@ use phpOMS\Uri\UriInterface;
  * @link       http://orange-management.com
  * @since      1.0.0
  */
-abstract class RequestAbstract implements RequestInterface
+abstract class RequestAbstract implements MessageInterface
 {
 
     /**
@@ -126,7 +126,12 @@ abstract class RequestAbstract implements RequestInterface
     }
 
     /**
-     * {@inheritdoc}
+     * Get request uri.
+     *
+     * @return UriInterface
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function getUri() : UriInterface
     {
@@ -134,7 +139,12 @@ abstract class RequestAbstract implements RequestInterface
     }
 
     /**
-     * {@inheritdoc}
+     * Set request uri.
+     *
+     * @param UriInterface $uri
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function setUri(UriInterface $uri)
     {
@@ -142,7 +152,12 @@ abstract class RequestAbstract implements RequestInterface
     }
 
     /**
-     * {@inheritdoc}
+     * Get request hash.
+     *
+     * @return array
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function getHash() : array
     {
@@ -170,12 +185,22 @@ abstract class RequestAbstract implements RequestInterface
     }
 
     /**
-     * {@inheritdoc}
+     * Get request method.
+     *
+     * @return string
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     abstract public function getMethod() : string;
 
     /**
-     * {@inheritdoc}
+     * Set request method.
+     *
+     * @param string $method
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function setMethod(string $method) {
         $this->method = $method;
@@ -273,4 +298,14 @@ abstract class RequestAbstract implements RequestInterface
     {
         return $this->uri->__toString();
     }
+
+    /**
+     * Get request target.
+     *
+     * @return string
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+    abstract public function getRequestTarget() : string;
 }

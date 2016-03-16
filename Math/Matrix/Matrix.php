@@ -190,9 +190,9 @@ class Matrix implements ArrayAccess, Iterator
 
         switch($algorithm) {
             case InversionType::GAUSS_JORDAN:
-                return $this->inverseGaussJordan();
+            return $this->inverseGaussJordan();
             default:
-                throw new \Exception('');
+            throw new \Exception('');
         }
     }
 
@@ -298,31 +298,31 @@ class Matrix implements ArrayAccess, Iterator
 
         for ($i = 0; $i < $n; $i++) {
             $max = 0;
-     
+            
             for ($j = $i; $j < $n; $j++) {
                 if (abs($arr[$j][$i]) > abs($arr[$max][$i])) {
                     $max = $j;
                 }
             }
-     
+            
             if ($max) {
                 $sign = -$sign;
                 $temp = $arr[$i];
                 $arr[$i] = $arr[$max];
                 $arr[$max] = $temp;
             }
-     
+            
             if (!$arr[$i][$i]) {
                 return 0;
             }
-     
+            
             for ($j = $i + 1; $j < $n; $j++) {
                 $r = $arr[$j][$i] / $arr[$i][$i];
 
                 if (!$r) {
                     continue;
                 }
-     
+                
                 for ($c = $i; $c < $n; $c ++) {
                     $arr[$j][$c] -= $arr[$i][$c] * $r;
                 }
