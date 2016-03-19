@@ -42,6 +42,14 @@ class HttpSession implements SessionInterface
     private $sid = null;
 
     /**
+     * Is session locked/already set.
+     *
+     * @var bool
+     * @since 1.0.0
+     */
+    private static $isLocked = false;
+
+    /**
      * Constructor.
      *
      * @param int              $liftetime Session life time
@@ -52,6 +60,10 @@ class HttpSession implements SessionInterface
      */
     public function __construct(int $liftetime = 3600, $sid = false)
     {
+        if(self::$isLocked) {
+            throw new \Exception('Already locked');
+        }
+
         if (!is_bool($sid)) {
             session_id($sid);
         }
@@ -62,6 +74,19 @@ class HttpSession implements SessionInterface
         $_SESSION = null;
 
         $this->sid = session_id();
+        $this->setCsrfProtection();
+
+        self::$isLocked = true;
+    }
+
+    /**
+     * Set Csrf protection for forms.
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+    private function setCsrfProtection() 
+    {
         $this->set('UID', 0, false);
 
         if(($CSRF = $this->get('CSRF')) === null) {
@@ -136,6 +161,16 @@ class HttpSession implements SessionInterface
     {
         $_SESSION = $this->sessionData;
         session_write_close();
+    }
+
+    public static function lock()
+    {
+        self::$isLocked = true;
+    }
+
+    public static function isLocked() 
+    {
+        return self::$isLocked;
     }
 
 }

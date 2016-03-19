@@ -51,6 +51,8 @@ class Response extends ResponseAbstract implements RenderableInterface
      */
     private $head = null;
 
+    private static $isLocked = false;
+
     /**
      * Constructor.
      *
@@ -75,9 +77,15 @@ class Response extends ResponseAbstract implements RenderableInterface
      */
     public function pushHeaderId($name)
     {
+        if(self::$isLocked) {
+            throw new \Exception('Already locked');
+        }
+
         foreach ($this->header[$name] as $key => $value) {
             header($name, $value);
         }
+
+        $this->lock();
     }
 
     /**
@@ -92,6 +100,10 @@ class Response extends ResponseAbstract implements RenderableInterface
      */
     public function removeHeader(int $key) : bool
     {
+        if(self::$isLocked) {
+            throw new \Exception('Already locked');
+        }
+        
         if (isset($this->header[$key])) {
             unset($this->header[$key]);
 
@@ -114,16 +126,31 @@ class Response extends ResponseAbstract implements RenderableInterface
     public function generateHeader(int $code)
     {
         if ($code === 403) {
-            $this->setHeader('HTTP', 'HTTP/1.0 403 Forbidden');
-            $this->setHeader('Status', 'Status: HTTP/1.0 403 Forbidden');
+            $this->generate403();
         } elseif ($code === 406) {
-            $this->setHeader('HTTP', 'HTTP/1.0 406 Not acceptable');
-            $this->setHeader('Status', 'Status:406 Not acceptable');
+            $this->generate406();
         } elseif ($code === 503) {
-            $this->setHeader('HTTP', 'HTTP/1.0 503 Service Temporarily Unavailable');
-            $this->setHeader('Status', 'Status: 503 Service Temporarily Unavailable');
-            $this->setHeader('Retry-After', 'Retry-After: 300');
+            $this->generate503();
         }
+    }
+
+    private function generate403()
+    {
+        $this->setHeader('HTTP', 'HTTP/1.0 403 Forbidden');
+        $this->setHeader('Status', 'Status: HTTP/1.0 403 Forbidden');
+    }
+
+    private function generate406() 
+    {
+        $this->setHeader('HTTP', 'HTTP/1.0 406 Not acceptable');
+        $this->setHeader('Status', 'Status: 406 Not acceptable');
+    }
+
+    private function generate503()
+    {
+        $this->setHeader('HTTP', 'HTTP/1.0 503 Service Temporarily Unavailable');
+        $this->setHeader('Status', 'Status: 503 Service Temporarily Unavailable');
+        $this->setHeader('Retry-After', 'Retry-After: 300');
     }
 
     /**
@@ -183,11 +210,17 @@ class Response extends ResponseAbstract implements RenderableInterface
      */
     public function pushHeader()
     {
+        if(self::$isLocked) {
+            throw new \Exception('Already locked');
+        }
+
         foreach ($this->header as $name => $arr) {
             foreach ($arr as $ele => $value) {
                 header($name . ': ' . $value);
             }
         }
+
+        $this->lock();
     }
 
     /**
@@ -202,6 +235,10 @@ class Response extends ResponseAbstract implements RenderableInterface
      */
     public function remove(int $id) : bool
     {
+        if(self::$isLocked) {
+            throw new \Exception('Already locked');
+        }
+
         if (isset($this->response[$id])) {
             unset($this->response[$id]);
 
@@ -335,6 +372,10 @@ class Response extends ResponseAbstract implements RenderableInterface
      */
     public function setHeader($key, string $header, bool $overwrite = false) : bool
     {
+        if(self::$isLocked) {
+            throw new \Exception('Already locked');
+        }
+
         if (!$overwrite && isset($this->header[$key])) {
             return false;
         } elseif ($overwrite) {
@@ -348,5 +389,12 @@ class Response extends ResponseAbstract implements RenderableInterface
         $this->header[$key][] = $header;
 
         return true;
+    }
+
+    private function lock() 
+    {
+        CookieJar::lock();
+        HttpSession::lock();
+        self::$isLocked = true;
     }
 }
