@@ -56,6 +56,14 @@ class FileLogger implements LoggerInterface
     protected static $instance = null;
 
     /**
+     * Verbose.
+     *
+     * @var bool
+     * @since 1.0.0
+     */
+    protected static $verbose = false;
+
+    /**
      * The file pointer for the logging.
      *
      * Potential values are null or a valid file pointer
@@ -79,13 +87,15 @@ class FileLogger implements LoggerInterface
      * Creates the logging object and overwrites all default values.
      *
      * @param string $lpath Path for logging
+     * @param bool $verbose Verbose logging
      *
      * @since  1.0.0
      * @author Dennis Eichhorn
      */
-    public function __construct(string $lpath)
+    public function __construct(string $lpath, bool $verbose = false)
     {
         $path = realpath($lpath);
+        self::$verbose = $verbose;
 
         if ($path !== false && Validator::startsWith($path, ROOT_PATH) === false) {
             throw new PathException($lpath);
@@ -286,6 +296,10 @@ class FileLogger implements LoggerInterface
         $this->fp = fopen($this->path, 'a');
         fwrite($this->fp, $message . "\n");
         fclose($this->fp);
+
+        if(self::$verbose) {
+            echo $message . "\n";
+        }
     }
 
     /**
