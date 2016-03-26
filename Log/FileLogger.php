@@ -101,7 +101,7 @@ class FileLogger implements LoggerInterface
             throw new PathException($lpath);
         }
 
-        if (is_dir($lpath)) {
+        if (is_dir($lpath) || strpos($lpath, '.') === false) {
             if (!file_exists($lpath)) {
                 mkdir($lpath, 0644, true);
             }
