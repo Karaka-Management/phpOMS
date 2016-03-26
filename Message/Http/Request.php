@@ -83,7 +83,7 @@ class Request extends RequestAbstract
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function __construct(UriInterface $uri)
+    public function __construct(UriInterface $uri = null)
     {
         $this->uri  = $uri;
         $this->l11n = new Localization();
@@ -149,7 +149,7 @@ class Request extends RequestAbstract
             }
         }
 
-        $this->uri->set(Http::getCurrent());
+        $this->uri = $this->uri ?? new Http(Http::getCurrent());
     }
 
     /**

@@ -42,16 +42,6 @@ interface UriInterface
     public static function isValid(string $uri) : bool;
 
     /**
-     * Set uri
-     *
-     * @param string $uri Uri string
-     *
-     * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
-     */
-    public function set(string $uri);
-
-    /**
      * Get scheme.
      *
      * @return string
