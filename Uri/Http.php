@@ -39,7 +39,7 @@ class Http implements UriInterface
      * @var string
      * @since 1.0.0
      */
-    private $rootPath = '';
+    private $rootPath = '/';
 
     /**
      * Uri.
@@ -306,7 +306,7 @@ class Http implements UriInterface
         $this->pass   = $url['pass'] ?? null;
         $this->path   = $url['path'] ?? null;
         $this->path   = rtrim($this->path, '.php');
-        $this->path   = ltrim($this->path, $this->rootPath); // TODO: this could cause a bug if the rootpath is the same as a regular path which is usually the language
+        $this->path   = strpos($this->path, $this->rootPath) === 0 ? substr($this->path, strlen($this->rootPath), strlen($this->path))  : $this->path; // TODO: this could cause a bug if the rootpath is the same as a regular path which is usually the language
         $this->query  = $url['query'] ?? null;
 
         if (isset($this->query)) {
