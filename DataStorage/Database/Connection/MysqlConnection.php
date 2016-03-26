@@ -74,6 +74,8 @@ class MysqlConnection extends ConnectionAbstract
         } catch (\PDOException $e) {
             $this->status = DatabaseStatus::MISSING_DATABASE;
             $this->con    = null;
+        } finally {
+            $this->dbdata['password'] = '****';
         }
     }
 

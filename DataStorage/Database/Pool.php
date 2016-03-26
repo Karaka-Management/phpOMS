@@ -62,7 +62,7 @@ class Pool
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function add($key = 'core', ConnectionAbstract $db) : bool
+    public function add(string $key = 'core', ConnectionAbstract $db) : bool
     {
         if (isset($this->pool[$key])) {
             return false;
@@ -83,7 +83,7 @@ class Pool
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function get($key = 'core')
+    public function get(string $key = 'core')
     {
         if (!isset($this->pool[$key])) {
             return false; /* todo: return nullconnection */
@@ -102,7 +102,7 @@ class Pool
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function remove($key) : bool
+    public function remove(string $key) : bool
     {
         if (!isset($this->pool[$key])) {
             return false;
