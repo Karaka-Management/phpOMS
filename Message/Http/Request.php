@@ -134,22 +134,22 @@ class Request extends RequestAbstract
     {
         $this->data = $_GET ?? [];
 
-            if (isset($_SERVER['CONTENT_TYPE'])) {
-                if (strpos($_SERVER['CONTENT_TYPE'], 'application/json') !== false) {
-                    if (($json = json_decode(($input = file_get_contents('php://input')), true)) === false || $json === null) {
-                        throw new \Exception('Is not valid json ' . $input);
-                    }
-
-                    $this->data += $json;
-                } elseif (strpos($_SERVER['CONTENT_TYPE'], 'application/x-www-form-urlencoded') !== false) {
-                    parse_str(file_get_contents('php://input'), $temp);
-                    $this->data += $temp;
-                } elseif (strpos($_SERVER['CONTENT_TYPE'], 'multipart/form-data') !== false) {
-                    $this->files = $_FILES;
+        if (isset($_SERVER['CONTENT_TYPE'])) {
+            if (strpos($_SERVER['CONTENT_TYPE'], 'application/json') !== false) {
+                if (($json = json_decode(($input = file_get_contents('php://input')), true)) === false || $json === null) {
+                    throw new \Exception('Is not valid json ' . $input);
                 }
-            }
 
-            $this->uri->set(Http::getCurrent());
+                $this->data += $json;
+            } elseif (strpos($_SERVER['CONTENT_TYPE'], 'application/x-www-form-urlencoded') !== false) {
+                parse_str(file_get_contents('php://input'), $temp);
+                $this->data += $temp;
+            } elseif (strpos($_SERVER['CONTENT_TYPE'], 'multipart/form-data') !== false) {
+                $this->files = $_FILES;
+            }
+        }
+
+        $this->uri->set(Http::getCurrent());
     }
 
     /**
@@ -354,10 +354,10 @@ class Request extends RequestAbstract
         }
 
         return
-            (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off')
-            || (empty($_SERVER['HTTP_X_FORWARDED_PROTO']) && $_SERVER['HTTP_X_FORWARDED_PROTO'] == 'https')
-            || (!empty($_SERVER['HTTP_X_FORWARDED_SSL']) && $_SERVER['HTTP_X_FORWARDED_SSL'] == 'on')
-            || $_SERVER['SERVER_PORT'] == $port;
+        (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off')
+        || (empty($_SERVER['HTTP_X_FORWARDED_PROTO']) && $_SERVER['HTTP_X_FORWARDED_PROTO'] == 'https')
+        || (!empty($_SERVER['HTTP_X_FORWARDED_SSL']) && $_SERVER['HTTP_X_FORWARDED_SSL'] == 'on')
+        || $_SERVER['SERVER_PORT'] == $port;
     }
 
     /**

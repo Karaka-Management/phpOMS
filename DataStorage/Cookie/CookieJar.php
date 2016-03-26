@@ -18,7 +18,7 @@ NOT IN USE
 Will be implemented later
 */
 /* TODO: implement */
-namespace phpOMS\Cookie;
+namespace phpOMS\DataStorage\Cookie;
 
 /**
  * @since  1.0.0

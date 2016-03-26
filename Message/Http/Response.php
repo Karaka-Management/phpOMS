@@ -20,6 +20,8 @@ use phpOMS\Contract\RenderableInterface;
 use phpOMS\Message\ResponseAbstract;
 use phpOMS\Model\Html\Head;
 use phpOMS\Utils\ArrayUtils;
+use phpOMS\DataStorage\Cookie\CookieJar;
+use phpOMS\DataStorage\Session\HttpSession;
 
 /**
  * Response class.
