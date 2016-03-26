@@ -34,7 +34,6 @@ use phpOMS\Uri\UriInterface;
  */
 abstract class RequestAbstract implements MessageInterface
 {
-
     /**
      * Uri.
      *
@@ -50,6 +49,14 @@ abstract class RequestAbstract implements MessageInterface
      * @since 1.0.0
      */
     protected $method = null;
+
+    /**
+     * Request type.
+     *
+     * @var string
+     * @since 1.0.0
+     */
+    protected $type = null;
 
     /**
      * Root.
@@ -216,6 +223,34 @@ abstract class RequestAbstract implements MessageInterface
         }
 
         return $this->path[$key] ?? null;
+    }
+
+    /**
+     * Set request type.
+     *
+     * E.g. M_JSON
+     *
+     * @param string $type Request type
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+    public function setType(string $type)
+    {
+        $this->type = $type;
+    }
+
+    /**
+     * Get request type.
+     *
+     * @return string
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+    public function getType() : string
+    {
+        return $this->type;
     }
 
     /**

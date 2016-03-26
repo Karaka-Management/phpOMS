@@ -33,6 +33,7 @@ use phpOMS\Datatypes\Enum;
 abstract class BrowserType extends Enum
 {
     const IE        = 'msie'; /* Internet Explorer */
+    const EDGE        = 'edge'; /* Internet Explorer Edge 20+ */
     const FIREFOX   = 'firefox'; /* Firefox */
     const SAFARI    = 'safari'; /* Safari */
     const CHROME    = 'chrome'; /* Chrome */
@@ -41,4 +42,5 @@ abstract class BrowserType extends Enum
     const MAXTHON   = 'maxthon'; /* Maxthon */
     const KONQUEROR = 'konqueror'; /* Konqueror */
     const HANDHELD  = 'mobile'; /* Handheld Browser */
+    const BLINK  = 'blink'; /* Blink Browser */
 }
