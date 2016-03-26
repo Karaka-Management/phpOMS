@@ -139,7 +139,8 @@ class Http implements UriInterface
      */
     public function setRootPath(string $root)
     {
-        return $this->rootPath = $root;
+        $this->rootPath = $root;
+        $this->set($this->uri);
     }
 
     /**
@@ -293,7 +294,7 @@ class Http implements UriInterface
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function set(string $uri)
+    private function set(string $uri)
     {
         $this->uri = $uri;
 
