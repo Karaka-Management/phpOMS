@@ -220,10 +220,10 @@ class ModuleManager
         if ($this->active === null) {
             switch ($this->app->dbPool->get('core')->getType()) {
                 case DatabaseType::MYSQL:
-                $sth = $this->app->dbPool->get('core')->con->prepare('SELECT `module_path` FROM `' . $this->app->dbPool->get('core')->prefix . 'module` WHERE `module_active` = 1');
-                $sth->execute();
-                $this->active = $sth->fetchAll(\PDO::FETCH_COLUMN);
-                break;
+                    $sth = $this->app->dbPool->get('core')->con->prepare('SELECT `module_path` FROM `' . $this->app->dbPool->get('core')->prefix . 'module` WHERE `module_active` = 1');
+                    $sth->execute();
+                    $this->active = $sth->fetchAll(\PDO::FETCH_COLUMN);
+                    break;
             }
         }
 
