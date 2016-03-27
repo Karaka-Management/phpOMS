@@ -30,10 +30,10 @@ namespace phpOMS\System\File;
  */
 abstract class FileAbstract
 {
-    private $path = '';
-    private $name = 'new_directory';
-    private $count = 0;
-    private $size = 0;
+    protected $path = '';
+    protected $name = 'new_directory';
+    protected $count = 0;
+    protected $size = 0;
     private $createdAt = null;
     private $changedAt = null;
     private $owner = 0;

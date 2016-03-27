@@ -261,13 +261,13 @@ class MultiMap implements \Countable
         if($this->orderType !== OrderType::LOOSE) {
             $permutation = Permutation::permut($key);
 
-            foreach($permuation as $permut) {
+            foreach($permutation as $permut) {
                 if($this->set(implode($permut, ':'), $value)) {
                     return true;
                 }
             }
         } else {
-            return $this->set(implode($key, ':'));
+            return $this->set(implode($key, ':'), $value);
         }
 
         return false;

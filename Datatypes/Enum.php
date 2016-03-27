@@ -96,7 +96,7 @@ abstract class Enum
     {
         $constants = self::getConstants();
 
-        return $this->constants[mt_rand(0, count($constants))];
+        return $constants[mt_rand(0, count($constants))];
     }
 
 }

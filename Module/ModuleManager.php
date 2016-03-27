@@ -49,7 +49,7 @@ class ModuleManager
     /**
      * All modules that are running on this uri.
      *
-     * @var \phpOMS\Module\ModuleAbstract
+     * @var \phpOMS\Module\ModuleAbstract[]
      * @since 1.0.0
      */
     private $running = [];

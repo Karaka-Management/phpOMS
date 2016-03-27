@@ -73,7 +73,7 @@ class Directory extends FileAbstract implements \Iterator, \ArrayAccess
 
     public function get(string $name) : FileAbstract 
     {
-        return $this->node[$name] ?? new NullFile();
+        return $this->nodes[$name] ?? new NullFile();
     }
 
     public function add(FileAbstract $file) 
