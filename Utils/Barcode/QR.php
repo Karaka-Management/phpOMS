@@ -1,5 +1,5 @@
 <?php
 
-class Aztec
+class QR
 {
 }

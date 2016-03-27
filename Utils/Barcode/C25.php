@@ -130,7 +130,8 @@ class C25 extends C128Abstract
                 $temp1 = explode('-', $temp[$posX]);
                 $temp2 = explode('-', $temp[($posX + 1)]);
 
-                for ($posY = 0; $posY < count($temp1); $posY++) {
+                $count = count($temp1);
+                for ($posY = 0; $posY < $count; $posY++) {
                     $codeString .= $temp1[$posY] . $temp2[$posY];
                 }
             }
