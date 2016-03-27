@@ -294,8 +294,11 @@ class FileLogger implements LoggerInterface
     private function write(string $message)
     {
         $this->fp = fopen($this->path, 'a');
-        fwrite($this->fp, $message . "\n");
-        fclose($this->fp);
+
+        if($this->fp !== false) {
+            fwrite($this->fp, $message . "\n");
+            fclose($this->fp);
+        }
 
         if(self::$verbose) {
             echo $message . "\n";
