@@ -134,7 +134,7 @@ abstract class DataMapperAbstract implements DataMapperInterface
     /**
      * Fields to load.
      *
-     * @var string[]
+     * @var array[]
      * @since 1.0.0
      */
     protected $fields = [];
@@ -404,6 +404,8 @@ abstract class DataMapperAbstract implements DataMapperInterface
 
                     if (isset(static::$hasMany[$pname]['mapper']) && static::$hasMany[$pname]['mapper'] === static::$hasMany[$pname]['relationmapper']) {
                         $relReflectionClass = new \ReflectionClass(get_class($temp));
+                    } else {
+                        // todo: init other $relReflectionClass?!
                     }
 
                     foreach ($values as $key => &$value) {
@@ -853,13 +855,14 @@ abstract class DataMapperAbstract implements DataMapperInterface
      * Get all by custom query.
      *
      * @param Builder $query Query
+     * @param bool $relations Relations
      *
      * @return array
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function getAllByQuery(Builder $query) : array
+    public function getAllByQuery(Builder $query, bool $relations = true) : array
     {
         $sth = $this->db->con->prepare($query->toSql());
         $sth->execute();

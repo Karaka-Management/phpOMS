@@ -64,8 +64,9 @@ class Numbers
      */
     public static function selfdescribing(int $n) : bool 
     {
-        foreach (str_split($n) as $place => $value) {
-            if (substr_count($number, $place) != $value) { 
+        $split = str_split($n);
+        foreach ($split as $place => $value) {
+            if (substr_count($n, $place) != $value) { 
                 return false;
             }
         }
@@ -85,7 +86,7 @@ class Numbers
      */
     public static function isSquare(int $n) : bool
     {
-        $goodMask; // 0xC840C04048404040 computed below
+        $goodMask = 0xC840C04048404040; // 0xC840C04048404040 computed below
 
         for ($i = 0; $i < 64; ++$i) {
             $goodMask |= PHP_INT_MIN >> ($i*$i);

@@ -339,7 +339,7 @@ class Matrix implements ArrayAccess, Iterator
         }
 
         $trianglize = $this->matrix;
-        $prod = $this->(upperTrianglize($trianglize));
+        $prod = $this->upperTrianglize($trianglize);
 
         for($i = 0; $i < $this->n; $i++) {
             $prod *= $trianglize[$i][$i];
