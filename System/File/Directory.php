@@ -71,12 +71,12 @@ class Directory extends FileAbstract implements \Iterator, \ArrayAccess
         }
     }
 
-    public function get(string $name) : FileInterface 
+    public function get(string $name) : FileAbstract 
     {
         return $this->node[$name] ?? new NullFile();
     }
 
-    public function add(FileInterface $file) 
+    public function add(FileAbstract $file) 
     {
         $this->count += $file->getCount();
         $this->size += $file->getSize();
