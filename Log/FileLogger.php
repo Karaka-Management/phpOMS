@@ -17,6 +17,8 @@ namespace phpOMS\Log;
 
 use phpOMS\Datatypes\Exception\InvalidEnumValue;
 use phpOMS\System\File\PathException;
+use phpOMS\System\File\File;
+use phpOMS\System\File\Directory;
 use phpOMS\Validation\Validator;
 
 /**
@@ -102,19 +104,12 @@ class FileLogger implements LoggerInterface
         }
 
         if (is_dir($lpath) || strpos($lpath, '.') === false) {
-            if (!file_exists($lpath)) {
-                mkdir($lpath, 0644, true);
-            }
+            Directory::create($lpath, 0644);
+            File::create($path = $lpath . '/' . date('Y-m-d') . '.log');
 
-            if (!file_exists($lpath . '/' . date('Y-m-d') . '.log')) {
-                touch($lpath . '/' . date('Y-m-d') . '.log');
-            }
-
-            $path = realpath($lpath . '/' . date('Y-m-d') . '.log');
+            $path = realpath($path);
         } else {
-            if (!file_exists($lpath)) {
-                touch($lpath);
-            }
+            File::create($lpath);
 
             $path = realpath($lpath);
         }
