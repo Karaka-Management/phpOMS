@@ -73,7 +73,7 @@ class FileLogger implements LoggerInterface
      * @var resource
      * @since 1.0.0
      */
-    private $fp = null;
+    private $fp = false;
 
     /**
      * Logging path
@@ -146,7 +146,7 @@ class FileLogger implements LoggerInterface
      */
     public function __destruct()
     {
-        if (is_resource($this->fp)) {
+        if ($this->fp !== false) {
             fclose($this->fp);
         }
     }
@@ -293,6 +293,7 @@ class FileLogger implements LoggerInterface
         if($this->fp !== false) {
             fwrite($this->fp, $message . "\n");
             fclose($this->fp);
+            $this->fp = false;
         }
 
         if(self::$verbose) {
