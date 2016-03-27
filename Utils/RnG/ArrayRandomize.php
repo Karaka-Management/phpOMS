@@ -41,7 +41,7 @@ class ArrayRandomize
     {
         $shuffled = [];
 
-        while($arr){
+        while(!empty($arr)) {
             $rnd = array_rand($arr);
             $shuffled[] = $arr[$rnd];
             array_splice($arr, $rnd, 1);

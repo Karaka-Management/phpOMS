@@ -144,7 +144,7 @@ class Commit
 		}
 
 		if(!isset($this->files[$path][$line])) {
-			$this->files[$path][$line] => ['old' => $old, 'new' => $new];
+			$this->files[$path][$line] = ['old' => $old, 'new' => $new];
 		} else {
 			throw new \Exception();
 		}

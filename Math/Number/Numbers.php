@@ -88,7 +88,7 @@ class Numbers
         $goodMask; // 0xC840C04048404040 computed below
 
         for ($i = 0; $i < 64; ++$i) {
-            $goodMask |= PHP_INT_MIN >>> ($i*$i);
+            $goodMask |= PHP_INT_MIN >> ($i*$i);
         }
 
         // This tests if the 6 least significant bits are right.

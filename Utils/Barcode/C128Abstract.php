@@ -118,7 +118,7 @@ abstract class C128Abstract
      * @var int[]
      * @since 1.0.0
      */
-    protected $background  = ['r' => 0, 'g' => 0, 'b' => 0, 'a' => 0
+    protected $background  = ['r' => 0, 'g' => 0, 'b' => 0, 'a' => 0];
 
     /**
      * Front color.

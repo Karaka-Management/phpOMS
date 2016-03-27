@@ -4,7 +4,7 @@ namespace phpOMS\Localization;
 
 class Money implements Serialize {
 
-    private const MAX_DECIMALS = 5;
+    const MAX_DECIMALS = 5;
     
     private $currency = ISO4217CharEnum::C_USD;
     private $thousands = ',';

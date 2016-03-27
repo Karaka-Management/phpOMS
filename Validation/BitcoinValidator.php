@@ -24,8 +24,8 @@ class BitcoinValidator
         $d1 = hash("sha256", substr($decoded,0,21), true);
         $d2 = hash("sha256", $d1, true);
  
-        if(substr_compare($decoded, $d2, 21, 4)){
-            return false
+        if(substr_compare($decoded, $d2, 21, 4)) {
+            return false;
         }
 
         return true;

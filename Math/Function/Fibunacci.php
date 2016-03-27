@@ -47,7 +47,7 @@ class Fibunacci
         $fib = 0;
 
         for($i = 4; $i < $n; $i++) {
-            $fib = $old_1 + $old_2
+            $fib = $old_1 + $old_2;
             $old_1 = $old_2;
             $old_2 = $fib;
         }

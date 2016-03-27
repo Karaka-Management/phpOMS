@@ -213,7 +213,7 @@ class Matrix implements ArrayAccess, Iterator
         }
 
         $mDim = count($newMatrixArr);
-        $nDim = count($newMatrixArr[0])
+        $nDim = count($newMatrixArr[0]);
 
         // pivoting
         $newMatrixArr = $this->diag($newMatrixArr);

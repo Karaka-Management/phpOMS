@@ -46,7 +46,7 @@ class Git {
 	public static function setBin(string $path)
 	{
 		if(realpath($path) === false) {
-			throw new \PathException($path)
+			throw new \PathException($path);
 		}
 
 		self::$bin = realpath($path);

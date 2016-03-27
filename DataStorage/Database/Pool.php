@@ -78,7 +78,7 @@ class Pool
      *
      * @param mixed $key Database key
      *
-     * @return ConnectionAbstract
+     * @return ConnectionAbstract|false
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>

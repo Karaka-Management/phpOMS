@@ -126,7 +126,7 @@ class Account
     /**
      * Account type.
      *
-     * @var AccountType
+     * @var AccountType|int
      * @since 1.0.0
      */
     protected $type = AccountType::USER;
@@ -134,7 +134,7 @@ class Account
     /**
      * Account status.
      *
-     * @var AccountStatus
+     * @var AccountStatus|int
      * @since 1.0.0
      */
     protected $status = AccountStatus::INACTIVE;

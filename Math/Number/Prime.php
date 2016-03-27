@@ -43,7 +43,7 @@ class Prime
     {
         $mersenne = log($n+1, 2);
 
-        return $mersenne - (int) $mersenne < 0.00001
+        return $mersenne - (int) $mersenne < 0.00001;
     }
 
     /**

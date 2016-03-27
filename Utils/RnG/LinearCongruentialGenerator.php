@@ -41,7 +41,7 @@ class LinearCongruentialGenerator
     {
         return function() use(&$seed) {
             return $seed = (1103515245 * $seed + 12345) % (1 << 31);
-        }
+        };
     }
 
     /**

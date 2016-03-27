@@ -52,7 +52,7 @@ class FileLogger implements LoggerInterface
     /**
      * Instance.
      *
-     * @var \phpOMS\DataStorage\Cache\Pool
+     * @var FileLogger
      * @since 1.0.0
      */
     protected static $instance = null;
@@ -127,7 +127,7 @@ class FileLogger implements LoggerInterface
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public static function getInstance(string $path = '')
+    public static function getInstance(string $path = '') : FileLogger
     {
         if (self::$instance === null) {
             self::$instance = new self($path);
