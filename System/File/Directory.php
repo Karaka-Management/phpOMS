@@ -33,6 +33,21 @@ class Directory extends FileAbstract implements Iterator, ArrayAccess
     private $filter = '*';
     private $nodes = [];
 
+    public static create(string $path, $permission = 0644) : bool
+    {
+        if (!file_exists($path)) {
+            if(is_writable($path)) {
+                mkdir($path, $permission, true);
+
+                return true;
+            } else {
+                throw new PathException($path);
+            }
+        }
+
+        return false;
+    }
+
     public function __construct(string $path, string $filter = '*') 
     {
         $this->filter = $filter;
@@ -112,7 +127,7 @@ class Directory extends FileAbstract implements Iterator, ArrayAccess
     {
         return next($this->node);
     }
-  
+
     public function valid()
     {
         $key = key($this->node);

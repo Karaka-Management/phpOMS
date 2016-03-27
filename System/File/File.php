@@ -30,6 +30,22 @@ namespace phpOMS\System\File;
  */
 class File extends FileAbstract
 {
+
+    public static create(string $path) : bool
+    {
+        if (!file_exists($path)) {
+            if(is_writable($path)) {
+                touch($path);
+
+                return true;
+            } else {
+                throw new PathException($path);
+            }
+        }
+
+        return false;
+    }
+
     public function __construct(string $path) 
     {
         parent::__constrct($path);
