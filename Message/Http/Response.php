@@ -158,14 +158,14 @@ class Response extends ResponseAbstract implements RenderableInterface
     /**
      * Set response.
      *
-     * @param string $response Response to set
+     * @param array $response Response to set
      *
      * @return void
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function setResponse(string $response)
+    public function setResponse(array $response)
     {
         $this->response = $response;
     }

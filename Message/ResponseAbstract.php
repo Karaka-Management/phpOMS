@@ -53,7 +53,7 @@ abstract class ResponseAbstract implements MessageInterface, ArrayableInterface,
     /**
      * Response status.
      *
-     * @var int
+     * @var string
      * @since 1.0.0
      */
     protected $status = 200;

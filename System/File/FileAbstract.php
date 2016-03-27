@@ -36,7 +36,7 @@ abstract class FileAbstract
     private $size = 0;
     private $createdAt = null;
     private $changedAt = null;
-    private $owner = '';
+    private $owner = 0;
     private $permission = '0000';
 
     public function __construct(string $path) 
@@ -83,7 +83,7 @@ abstract class FileAbstract
         return $this->changedAt;
     }
 
-    public function getOwner() : string 
+    public function getOwner() : int 
     {
         return $this->owner;
     }

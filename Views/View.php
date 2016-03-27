@@ -43,7 +43,7 @@ class View implements RenderableInterface
      * @var string
      * @since 1.0.0
      */
-    protected $template = null;
+    protected $template = '';
 
     /**
      * Views.
@@ -64,7 +64,7 @@ class View implements RenderableInterface
     /**
      * View Localization.
      *
-     * @var array
+     * @var Localization
      * @since 1.0.0
      */
     protected $l11n = null;
@@ -231,7 +231,7 @@ class View implements RenderableInterface
      *
      * @param string   $id        View ID
      * @param View      $view
-     * @param null|int $order     Order of view
+     * @param int $order     Order of view
      * @param bool     $overwrite Overwrite existing view
      *
      * @return void
@@ -239,13 +239,13 @@ class View implements RenderableInterface
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function addView(string $id, View $view, $order = null, bool $overwrite = true)
+    public function addView(string $id, View $view, int $order = 0, bool $overwrite = true)
     {
         if ($overwrite || !isset($this->views[$id])) {
             $this->views[$id] = $view;
 
-            if ($order !== null) {
-                $this->views = uasort($this->views, ['\phpOMS\Views\View', 'viewSort']);
+            if ($order !== 0) {
+                uasort($this->views, ['\phpOMS\Views\View', 'viewSort']);
             }
         }
     }

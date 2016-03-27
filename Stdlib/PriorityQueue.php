@@ -197,7 +197,7 @@ class PriorityQueue implements \Countable, \Serializable
     /**
      * {@inheritdoc}
      */
-    public function unserialize($data) : array
+    public function unserialize(array $data) : array
     {
         $this->queue = json_decode($data);
         $this->count = count($this->queue);

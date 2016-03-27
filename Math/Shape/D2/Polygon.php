@@ -28,7 +28,7 @@ namespace phpOMS\Math\Shape\D2;
  * @link       http://orange-management.com
  * @since      1.0.0
  */
-class Polygon implements Shape2DInterface
+class Polygon implements ShapeInterface
 {
 
     /**
@@ -39,7 +39,7 @@ class Polygon implements Shape2DInterface
      * @var array[]
      * @since 1.0.0
      */
-    private $coord = null;
+    private $coord = [];
 
     /**
      * Polygon perimeter.
@@ -47,7 +47,7 @@ class Polygon implements Shape2DInterface
      * @var float
      * @since 1.0.0
      */
-    private $perimeter = null;
+    private $perimeter = 0.0;
 
     /**
      * Polygon surface.
@@ -55,15 +55,15 @@ class Polygon implements Shape2DInterface
      * @var float
      * @since 1.0.0
      */
-    private $surface = null;
+    private $surface = 0.0;
 
     /**
      * Interior angle sum of the polygon.
      *
-     * @var float
+     * @var int
      * @since 1.0.0
      */
-    private $interiorAngleSum = null;
+    private $interiorAngleSum = 0;
 
     /**
      * Exterior angle sum of the polygon.
@@ -71,7 +71,7 @@ class Polygon implements Shape2DInterface
      * @var float
      * @since 1.0.0
      */
-    private $exteriorAngleSum = null;
+    private $exteriorAngleSum = 0.0;
 
     /**
      * Polygon barycenter.
@@ -79,7 +79,7 @@ class Polygon implements Shape2DInterface
      * @var float[]
      * @since 1.0.0
      */
-    private $barycenter = null;
+    private $barycenter = ['x' => 0.0, 'y' => 0.0];
 
     /**
      * Polygon edge length.
@@ -87,7 +87,7 @@ class Polygon implements Shape2DInterface
      * @var float
      * @since 1.0.0
      */
-    private $edgeLength = [];
+    private $edgeLength = 0.0;
 
     /**
      * Polygon inner length.
@@ -95,15 +95,15 @@ class Polygon implements Shape2DInterface
      * @var float
      * @since 1.0.0
      */
-    private $innerLength = null;
+    private $innerLength = 0.0;
 
     /**
      * Polygon inner edge angular.
      *
-     * @var float
+     * @var int
      * @since 1.0.0
      */
-    private $innerEdgeAngular = null;
+    private $innerEdgeAngular = 0;
 
     /**
      * Constructor.
@@ -150,7 +150,7 @@ class Polygon implements Shape2DInterface
     /**
      * {@inheritdoc}
      */
-    public function getInteriorAngleSum()
+    public function getInteriorAngleSum() : int
     {
         $this->interiorAngleSum = (count($this->coord) - 2) * 180;
 
@@ -184,9 +184,9 @@ class Polygon implements Shape2DInterface
     /**
      * {@inheritdoc}
      */
-    public function getSurface()
+    public function getSurface() : float
     {
-        $this->surface = 0;
+        $this->surface = 0.0;
         $count         = count($this->coord);
 
         for ($i = 0; $i < $count - 2; $i++) {
@@ -214,14 +214,14 @@ class Polygon implements Shape2DInterface
      */
     public function reset()
     {
-        $this->coord            = null;
-        $this->barycenter       = null;
-        $this->perimeter        = null;
-        $this->surface          = null;
-        $this->interiorAngleSum = null;
-        $this->edgeLength       = null;
-        $this->innerLength      = null;
-        $this->innerEdgeAngular = null;
+        $this->coord            = [];
+        $this->barycenter       = ['x' => 0.0, 'y' => 0.0];
+        $this->perimeter        = 0.0;
+        $this->surface          = 0.0;
+        $this->interiorAngleSum = 0;
+        $this->edgeLength       = 0.0;
+        $this->innerLength      = 0.0;
+        $this->innerEdgeAngular = 0;
     }
 
     /**
