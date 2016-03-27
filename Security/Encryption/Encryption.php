@@ -415,7 +415,7 @@ class Encryption
      * @param string $value Value to decrypt
      * @param string $iv    Input vector
      *
-     * @return string|false
+     * @return string
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
@@ -425,7 +425,7 @@ class Encryption
         try {
             return mcrypt_decrypt($this->cipher, $this->key, $value, $this->mode, $iv);
         } catch (\Exception $e) {
-            return false;
+            throw new \Exception();
         }
     }
 }
