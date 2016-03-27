@@ -4,17 +4,19 @@ namespace phpOMS\Math\Optimization\Graph;
 
 class Dijkstra {
     public static function dijkstra(Graph $graph, $source, $target) {
-        $vertices = array();
-        $neighbours = array();
+        $vertices = [];
+        $neighbours = [];
 
         foreach ($graph_array as $edge) {
             array_push($vertices, $edge[0], $edge[1]);
-            $neighbours[$edge[0]][] = array("end" => $edge[1], "cost" => $edge[2]);
-            $neighbours[$edge[1]][] = array("end" => $edge[0], "cost" => $edge[2]);
+            $neighbours[$edge[0]][] = ["end" => $edge[1], "cost" => $edge[2]];
+            $neighbours[$edge[1]][] = ["end" => $edge[0], "cost" => $edge[2]];
         }
 
         $vertices = array_unique($vertices);
      
+        $dist = [];
+        $previous = [];
         foreach ($vertices as $vertex) {
             $dist[$vertex] = INF;
             $previous[$vertex] = NULL;
@@ -35,7 +37,7 @@ class Dijkstra {
                 }
             }
      
-            $Q = array_diff($Q, array($u));
+            $Q = array_diff($Q, [$u]);
 
             if ($dist[$u] == INF || $u == $target) {
                 break;
@@ -53,7 +55,7 @@ class Dijkstra {
             }
         }
 
-        $path = array();
+        $path = [];
         $u = $target;
 
         while (isset($previous[$u])) {
