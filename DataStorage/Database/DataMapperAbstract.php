@@ -406,6 +406,7 @@ abstract class DataMapperAbstract implements DataMapperInterface
                         $relReflectionClass = new \ReflectionClass(get_class($temp));
                     } else {
                         // todo: init other $relReflectionClass?!
+                        throw new \Exception('This should never happen, I guess?!.');
                     }
 
                     foreach ($values as $key => &$value) {
