@@ -48,7 +48,7 @@ class File extends FileAbstract
 
     public function __construct(string $path) 
     {
-        parent::__constrct($path);
+        parent::__construct($path);
         $this->count = 1;
         
         if(file_exists($this->path)) {

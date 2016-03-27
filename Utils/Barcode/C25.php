@@ -115,6 +115,7 @@ class C25 extends C128Abstract
         $codeString  = '';
         $length      = strlen($this->content);
         $arrayLength = count(self::$CODEARRAY);
+        $temp = [];
 
         for ($posX = 1; $posX <= $length; $posX++) {
             for ($posY = 0; $posY < $arrayLength; $posY++) {

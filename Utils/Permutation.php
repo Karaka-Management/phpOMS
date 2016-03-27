@@ -4,7 +4,9 @@ namespace phpOMS\Utils;
 
 class Permutation 
 {
-    // usage: permut(['a', 'b', 'c']);
+    /**
+     * usage: permut(['a', 'b', 'c']);
+     */
     public static function permut(array $toPermute, array $result = []) : array
     {
         $permutations = [];
