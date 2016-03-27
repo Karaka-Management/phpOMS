@@ -68,6 +68,11 @@ abstract class FileAbstract
         return $this->path;
     }
 
+    public function parent() : Directory 
+    {
+        return new Directory(Directory::getParent($this->path));
+    }
+
     public function getCreatedAt() : \DateTime 
     {
         return $this->createdAt;

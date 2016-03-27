@@ -13,7 +13,7 @@
  * @version    1.0.0
  * @link       http://orange-management.com
  */
-namespace phpOMS\System;
+namespace phpOMS\System\File;
 
 /**
  * Filesystem class.
@@ -28,24 +28,37 @@ namespace phpOMS\System;
  * @link       http://orange-management.com
  * @since      1.0.0
  */
-class Directory extends FileAbstract implements Iterator, ArrayAccess
+class Directory extends FileAbstract implements \Iterator, \ArrayAccess
 {
     private $filter = '*';
     private $nodes = [];
 
-    public static function create(string $path, $permission = 0644) : bool
+    public static function create(string $path, int $permission = 0644, bool $recursive = false) : bool
     {
+        if($recursive && !file_exists($parent = self::getParent($path))) {
+            self::create($parent, $permission, $recursive);
+        }
+
         if (!file_exists($path)) {
-            if(is_writable($path)) {
+            if(is_writable(self::getParent($path))) {
                 mkdir($path, $permission, true);
 
                 return true;
             } else {
+
                 throw new PathException($path);
             }
         }
 
         return false;
+    }
+
+    public static function getParent(string $path) : string
+    {
+        $path = explode('/', str_replace('\\', '/', $path));
+        array_pop($path);
+
+        return implode('/', $path);
     }
 
     public function __construct(string $path, string $filter = '*') 
@@ -105,55 +118,55 @@ class Directory extends FileAbstract implements Iterator, ArrayAccess
     /* Iterator */
     public function rewind()
     {
-        reset($this->node);
+        reset($this->nodes);
     }
 
     public function current()
     {
-        return current($this->node);
+        return current($this->nodes);
     }
 
     public function key() 
     {
-        return key($this->node);
+        return key($this->nodes);
     }
 
     public function next() 
     {
-        return next($this->node);
+        return next($this->nodes);
     }
 
     public function valid()
     {
-        $key = key($this->node);
+        $key = key($this->nodes);
 
         return ($key !== null && $key !== false);
     }
 
     /* ArrayAccess */
-    public function offsetSet(string $offset, FileInterface $value) 
+    public function offsetSet($offset, $value) 
     {
         if (is_null($offset)) {
             $this->add($value);
         } else {
-            $this->node[$offset] = $value;
+            $this->nodes[$offset] = $value;
         }
     }
 
-    public function offsetExists(string $offset) 
+    public function offsetExists($offset) 
     {
-        return isset($this->node[$offset]);
+        return isset($this->nodes[$offset]);
     }
 
-    public function offsetUnset(string $offset) 
+    public function offsetUnset($offset) 
     {
-        if(isset($this->node[$offset])) {
-            unset($this->node[$offset]);
+        if(isset($this->nodes[$offset])) {
+            unset($this->nodes[$offset]);
         }
     }
 
-    public function offsetGet(string $offset) 
+    public function offsetGet($offset) 
     {
-        return $this->node[$offset] ?? null;
+        return $this->nodes[$offset] ?? null;
     }
 }
