@@ -33,7 +33,7 @@ class Directory extends FileAbstract implements Iterator, ArrayAccess
     private $filter = '*';
     private $nodes = [];
 
-    public static create(string $path, $permission = 0644) : bool
+    public static function create(string $path, $permission = 0644) : bool
     {
         if (!file_exists($path)) {
             if(is_writable($path)) {
@@ -56,11 +56,6 @@ class Directory extends FileAbstract implements Iterator, ArrayAccess
         if(file_exists($this->path)) {
             parent::index();
         }
-    }
-
-    public function create() 
-    {
-        // todo: implement?
     }
 
     public function get(string $name) : FileInterface 
@@ -139,7 +134,7 @@ class Directory extends FileAbstract implements Iterator, ArrayAccess
     public function offsetSet(string $offset, FileInterface $value) 
     {
         if (is_null($offset)) {
-            $this->add($value)
+            $this->add($value);
         } else {
             $this->node[$offset] = $value;
         }

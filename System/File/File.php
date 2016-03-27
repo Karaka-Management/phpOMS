@@ -31,7 +31,7 @@ namespace phpOMS\System\File;
 class File extends FileAbstract
 {
 
-    public static create(string $path) : bool
+    public static function create(string $path) : bool
     {
         if (!file_exists($path)) {
             if(is_writable($path)) {
