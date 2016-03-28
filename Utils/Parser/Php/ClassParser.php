@@ -209,12 +209,12 @@ class ClassParser
         return false;
     }
 
-    public function getMember($name) : string
+    public function getMember($name) : MemberParser
     {
-        return $this->members[$name] ?? '';
+        return $this->members[$name] ?? new MemberParser();
     }
 
-    public function addFunction(functionParser $function) 
+    public function addFunction(FunctionParser $function) 
     {
         $this->functions[$function->getName()] = $function;
     }
@@ -230,9 +230,9 @@ class ClassParser
         return false;
     }
 
-    public function getFunction($name) : string
+    public function getFunction($name) : FunctionParser
     {
-        return $this->functions[$name] ?? '';
+        return $this->functions[$name] ?? new FunctionParser();
     }
 
     public function parse() : string 
