@@ -67,10 +67,6 @@ class FunctionParser
 
     public function setStatic(bool $static) {
         $this->isStatic = $static;
-
-        if($this->isStatic) {
-            $this->isConst = false;
-        }
     }
 
     public function isStatic() : bool 
@@ -142,5 +138,7 @@ class FunctionParser
         $member .= rtrim($parameters, ', ') . ') ';
         $member .= ($this->return ?? '') . PHP_EOL;
         $member .= '{' . PHP_EOL . $this->body . PHP_EOL . '}';
+
+        return $member;
     }
 }
