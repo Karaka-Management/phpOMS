@@ -30,6 +30,8 @@ namespace phpOMS\Utils\Parser\Php;
  */
 class ClassParser
 {
+    const INDENT = 4;
+    
     private $isFinal = false;
 
     private $isAbstract = false;

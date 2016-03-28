@@ -30,8 +30,6 @@ namespace phpOMS\Utils\Parser\Php;
  */
 class FunctionParser
 {
-    const INDENT = 4;
-
     private $name = '';
 
     private $visibility = Visibility::_PUBLIC;
@@ -148,7 +146,7 @@ class FunctionParser
     public function parse() : string
     {
         $function = '';
-        $member .= str_repeat(' ', self::INDENT);
+        $member .= str_repeat(' ', ClassParser::INDENT);
 
         if($this->isFinal) {
             $member .= 'final ';
@@ -168,18 +166,29 @@ class FunctionParser
 
         $parameters = '';
         foreach($this->parameters as $name => $para) {
-            $parameters = (isset($para['typehint'])  ? $para['typehint'] . ' ': '') . $para['name'] . (array_key_exists('default', $para) ? ' = ' . MemberParser::parseVariable($para['default']) : '') . ', ';
+            $parameters = (isset($para['typehint'])  ? $para['typehint'] . ' ' : '') . $para['name'] . (array_key_exists('default', $para) ? ' = ' . MemberParser::parseVariable($para['default']) : '') . ', ';
         }
 
         $member .= rtrim($parameters, ', ') . ') ';
         $member .= ($this->return ?? '') . PHP_EOL;
 
         if(isset($this->body)) {
-            $member .= '{' . PHP_EOL . $this->body . PHP_EOL . '}';
+            $member .= str_repeat(' ', ClassParser::INDENT) . '{' . PHP_EOL . $this->addIndent($this->body) . PHP_EOL . str_repeat(' ', ClassParser::INDENT) . '}';
         } else {
             $member .= ';';
         }
 
         return $member;
     }
+
+    private function addIndent($body) : string
+    {
+        $body = preg_split('/\r\n|\r|\n/', $this->body);
+
+        foreach($body as &$line) {
+            $line = str_repeat(' ', ClassParser::INDENT) . $line;
+        }
+
+        return $body;
+    } 
 }

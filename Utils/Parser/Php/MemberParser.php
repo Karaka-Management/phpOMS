@@ -30,8 +30,6 @@ namespace phpOMS\Utils\Parser\Php;
  */
 class MemberParser
 {
-    const INDENT = 4;
-
     private $name = '';
 
     private $visibility = Visibility::_PUBLIC;
@@ -90,7 +88,7 @@ class MemberParser
     public function parse() : string
     {
         $member = '';
-        $member .= str_repeat(' ', self::INDENT);
+        $member .= str_repeat(' ', ClassParser::INDENT);
 
         $member .= $this->visibility . ' ';
 

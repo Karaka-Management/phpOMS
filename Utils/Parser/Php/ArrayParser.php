@@ -30,7 +30,6 @@ namespace phpOMS\Utils\Parser\Php;
  */
 class ArrayParser
 {
-
     /**
      * Saving array to file.
      *
