@@ -102,9 +102,9 @@ class FunctionParser
     {
         $this->isAbstract = $abstract;
 
-        if($this->isAbstract) {
+        if ($this->isAbstract) {
             $this->body = null;
-        } elseif(!$this->isAbstract && !isset($this->body)) {
+        } elseif (!$this->isAbstract && !isset($this->body)) {
             $this->body = '';
         }
     }
@@ -134,8 +134,8 @@ class FunctionParser
         $this->parameters[$name]['name'] = $name;
         $this->parameters[$name]['typehint'] = $typehint;
 
-        if(isset($default)) {
-            if($default === 'null') {
+        if (isset($default)) {
+            if ($default === 'null') {
                 $default = null;
             }
 
@@ -148,31 +148,31 @@ class FunctionParser
         $function = '';
         $member .= str_repeat(' ', ClassParser::INDENT);
 
-        if($this->isFinal) {
+        if ($this->isFinal) {
             $member .= 'final ';
         }
 
-        if($this->isAbstract) {
+        if ($this->isAbstract) {
             $member .= 'abstract ';
         }
 
         $member .= $this->visibility . ' ';
 
-        if($this->isStatic) {
+        if ($this->isStatic) {
             $member .= 'static ';
         }
 
         $member .= 'function ' . $this->name . '(';
 
         $parameters = '';
-        foreach($this->parameters as $name => $para) {
-            $parameters = (isset($para['typehint'])  ? $para['typehint'] . ' ' : '') . $para['name'] . (array_key_exists('default', $para) ? ' = ' . MemberParser::parseVariable($para['default']) : '') . ', ';
+        foreach ($this->parameters as $name => $para) {
+            $parameters = (isset($para['typehint']) ? $para['typehint'] . ' ' : '') . $para['name'] . (array_key_exists('default', $para) ? ' = ' . MemberParser::parseVariable($para['default']) : '') . ', ';
         }
 
         $member .= rtrim($parameters, ', ') . ') ';
         $member .= ($this->return ?? '') . PHP_EOL;
 
-        if(isset($this->body)) {
+        if (isset($this->body)) {
             $member .= str_repeat(' ', ClassParser::INDENT) . '{' . PHP_EOL . $this->addIndent($this->body) . PHP_EOL . str_repeat(' ', ClassParser::INDENT) . '}';
         } else {
             $member .= ';';
@@ -185,7 +185,7 @@ class FunctionParser
     {
         $body = preg_split('/\r\n|\r|\n/', $this->body);
 
-        foreach($body as &$line) {
+        foreach ($body as &$line) {
             $line = str_repeat(' ', ClassParser::INDENT) . $line;
         }
 

@@ -136,7 +136,7 @@ class ClassParser
 
     public function addUse(string $namespace, string $as = null)
     {
-        if(isset($as)) {
+        if (isset($as)) {
             $this->use[$as] = $namespace;
         } else {
             $this->use[] = $namespace;
@@ -145,7 +145,7 @@ class ClassParser
 
     public function removeUse($id) : bool
     {
-        if(isset($this->use[$id])) {
+        if (isset($this->use[$id])) {
             unset($this->use[$id]);
 
             return true;
@@ -186,7 +186,7 @@ class ClassParser
 
     public function addTrait(string $trait, string $as = null)
     {
-        if(isset($as)) {
+        if (isset($as)) {
             $this->traits[$as] = $trait;
         } else {
             $this->traits[] = $trait;
@@ -200,7 +200,7 @@ class ClassParser
 
     public function removeMember(string $name) : bool
     {
-        if(isset($this->members[$name])) {
+        if (isset($this->members[$name])) {
             unset($this->members[$name]);
 
             return true;
@@ -221,7 +221,7 @@ class ClassParser
 
     public function removeFunction(string $name) : bool
     {
-        if(isset($this->functions[$name])) {
+        if (isset($this->functions[$name])) {
             unset($this->functions[$name]);
 
             return true;
@@ -239,67 +239,67 @@ class ClassParser
     {
         $class = '';
 
-        if(!empty($this->requires)) {
-            foreach($this->requires as $require) {
+        if (!empty($this->requires)) {
+            foreach ($this->requires as $require) {
                 $class .= 'require_once "' . $require . '";' . PHP_EOL;
             }
 
             $class .= PHP_EOL;
         }
 
-        if(!empty($this->includes)) {
-            foreach($this->includes as $include) {
+        if (!empty($this->includes)) {
+            foreach ($this->includes as $include) {
                 $class .= 'include_once "' . $include . '";' . PHP_EOL;
             }
 
             $class .= PHP_EOL;
         }
 
-        if(isset($namespace)) {
+        if (isset($namespace)) {
             $class = $namespace . ';' . PHP_EOL . PHP_EOL;
         }
 
-        if(!empty($this->use)) {
-            foreach($this->use as $as => $use) {
+        if (!empty($this->use)) {
+            foreach ($this->use as $as => $use) {
                 $class .= 'use ' . $use . (is_string($as) ? ' as ' . $as : '') . ';' . PHP_EOL;
             }
 
             $class .= PHP_EOL;
         }
 
-        if($this->isfinal) {
+        if ($this->isfinal) {
             $class .= 'final ';
         }
 
-        if($this->isAbstract) {
+        if ($this->isAbstract) {
             $class .= 'abstract ';
         }
 
         $class .= $this->type . ' ' . $this->name . ' ';
 
-        if(isset($this->extends)) {
+        if (isset($this->extends)) {
             $class .= 'extends ' . $this->extends . ' ';
         }
 
-        if(!empty($this->implements)) {
+        if (!empty($this->implements)) {
             $class .= 'implements ' . implode(', ', $this->implements) . PHP_EOL;
         }
 
         $class .= '{' . PHP_EOL . PHP_EOL;
 
-        if(!empty($this->traits)) {
-            foreach($this->traits as $as => $trait) {
+        if (!empty($this->traits)) {
+            foreach ($this->traits as $as => $trait) {
                 $class .= 'use ' . $trait . ';' . PHP_EOL;
             }
 
             $class .= PHP_EOL;
         }
 
-        foreach($this->members as $name => $member) {
+        foreach ($this->members as $name => $member) {
             $class .= $member->parse() . PHP_EOL . PHP_EOL;
         }
 
-        foreach($this->functions as $name => $function) {
+        foreach ($this->functions as $name => $function) {
             $class .= $function->parse() . PHP_EOL . PHP_EOL;
         }
 

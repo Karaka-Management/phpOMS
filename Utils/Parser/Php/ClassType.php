@@ -32,7 +32,7 @@ use phpOMS\Datatypes\Enum;
  */
 abstract class ClassType extends Enum
 {
-    const _CLASS  = 'class'; 
+    const _CLASS = 'class'; 
     const _TRAIT = 'trait'; 
-    const _INTERFACE  = 'interface'; 
+    const _INTERFACE = 'interface'; 
 }

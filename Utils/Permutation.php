@@ -11,10 +11,10 @@ class Permutation
     {
         $permutations = [];
 
-        if(empty($toPermute)){
+        if (empty($toPermute)) {
             $permutations[] = implode('', $result);
-        } else{
-            foreach($toPermute as $key => $val){
+        } else {
+            foreach ($toPermute as $key => $val) {
                 $newArr = $toPermute;
                 $newres = $result;
                 $newres[] = $val;

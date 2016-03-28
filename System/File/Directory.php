@@ -130,12 +130,12 @@ class Directory extends FileAbstract implements \Iterator, \ArrayAccess
      */
     public static function createPath(string $path, int $permission = 0644, bool $recursive = false) : bool
     {
-        if($recursive && !file_exists($parent = self::getParent($path))) {
+        if ($recursive && !file_exists($parent = self::getParent($path))) {
             self::createPath($parent, $permission, $recursive);
         }
 
         if (!file_exists($path)) {
-            if(is_writable(self::getParent($path))) {
+            if (is_writable(self::getParent($path))) {
                 mkdir($path, $permission, true);
 
                 return true;

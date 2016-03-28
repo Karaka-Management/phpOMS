@@ -139,11 +139,11 @@ class Commit
      */
 	private function addChange(string $path, int $line, string $old, string $new) 
 	{
-		if(!isset($this->files[$path])) {
+		if (!isset($this->files[$path])) {
 			throw new \Exception();
 		}
 
-		if(!isset($this->files[$path][$line])) {
+		if (!isset($this->files[$path][$line])) {
 			$this->files[$path][$line] = ['old' => $old, 'new' => $new];
 		} else {
 			throw new \Exception();
