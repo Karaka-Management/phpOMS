@@ -62,7 +62,7 @@ class MemberParser
     public function setStatic(bool $static) {
         $this->isStatic = $static;
 
-        if($this->isStatic) {
+        if ($this->isStatic) {
             $this->isConst = false;
         }
     }
@@ -76,7 +76,7 @@ class MemberParser
     {
         $this->isConst = $const;
 
-        if($this->isConst) {
+        if ($this->isConst) {
             $this->isStatic = false;
         }
     }
@@ -92,11 +92,11 @@ class MemberParser
 
         $member .= $this->visibility . ' ';
 
-        if($this->isStatic) {
+        if ($this->isStatic) {
             $member .= 'static ';
         }
 
-        if($this->isConst) {
+        if ($this->isConst) {
             $member .= 'const ';
         }
 
@@ -115,17 +115,17 @@ class MemberParser
      */
     public static function parseVariable($value) : string
     {
-        if(is_array($value)) {
+        if (is_array($value)) {
             return ArrayParser::serializeArray($value) . PHP_EOL;
-        } elseif(is_string($value)) {
+        } elseif (is_string($value)) {
             return '"' . $value . '"';
-        } elseif(is_scalar($value)) {
+        } elseif (is_scalar($value)) {
             return $value;
-        } elseif(is_null($value)) {
+        } elseif (is_null($value)) {
             return 'null';
-        } elseif(is_bool($value)) {
+        } elseif (is_bool($value)) {
             return $value ? 'true' : 'false';
-        } elseif($value instanceOf \Serializable) {
+        } elseif ($value instanceOf \Serializable) {
             return self::parseVariable($value->serialize());
         } else {
             throw new \UnexpectedValueException();

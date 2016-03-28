@@ -43,8 +43,8 @@ class Numbers
     {
         $sum = 0;
 
-        for($i = 1; $i < $n; $i++) {
-            if($n % $i == 0) {
+        for ($i = 1; $i < $n; $i++) {
+            if ($n % $i == 0) {
                 $sum += $i;
             }
         }
@@ -89,7 +89,7 @@ class Numbers
         $goodMask = 0xC840C04048404040; // 0xC840C04048404040 computed below
 
         for ($i = 0; $i < 64; ++$i) {
-            $goodMask |= PHP_INT_MIN >> ($i*$i);
+            $goodMask |= PHP_INT_MIN >> ($i * $i);
         }
 
         // This tests if the 6 least significant bits are right.
@@ -108,7 +108,7 @@ class Numbers
         // Now x is either 0 or odd.
         // In binary each odd square ends with 001.
         // Postpone the sign test until now; handle zero in the branch.
-        if (($n&7) != 1 | $n <= 0) {
+        if (($n & 7) != 1 | $n <= 0) {
             return $n === 0;
         }
         // Do it in the classical way.
@@ -132,7 +132,7 @@ class Numbers
     {
         $count = 0;
         while ($n !== 0) {
-            if ($n & 1 == 1)  {
+            if ($n & 1 == 1) {
                 break;
             } else {
                 $count++;
@@ -156,10 +156,10 @@ class Numbers
      */
     public static function greatestCommonDivisor(int $n, int $m) : int
     {
-        while(true) {
-            if($n === $m) {
+        while (true) {
+            if ($n === $m) {
                 return $m;
-            } if($n > $m) {
+            } if ($n > $m) {
                 $n -= $m;
             } else {
                 $m -= $n;

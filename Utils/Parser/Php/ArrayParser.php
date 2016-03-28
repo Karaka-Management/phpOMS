@@ -64,11 +64,11 @@ class ArrayParser
         $stringify = '[' . PHP_EOL;
 
         foreach ($arr as $key => $val) {
-            if(is_string($key)) {
+            if (is_string($key)) {
                 $key = '"' . $key . '"';
             }
 
-            $stringify .= '    ' . $key . ' => ' . MemberParser::parseVariable($val). ',' . PHP_EOL;
+            $stringify .= '    ' . $key . ' => ' . MemberParser::parseVariable($val) . ',' . PHP_EOL;
 
         }
 
