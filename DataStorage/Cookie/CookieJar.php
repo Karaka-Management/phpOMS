@@ -72,7 +72,7 @@ class CookieJar
 
     public function save()
     {
-        if(self::$isLocked) {
+        if (self::$isLocked) {
             throw new \Exception('Already locked');
         }
         

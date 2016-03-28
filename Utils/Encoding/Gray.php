@@ -42,7 +42,7 @@ final class Gray {
     {
         $source = $gray;
 
-        while($gray >>= 1) {
+        while ($gray >>= 1) {
             $source ^= $gray;
         }
 

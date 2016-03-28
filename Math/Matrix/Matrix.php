@@ -14,14 +14,14 @@ class Matrix implements ArrayAccess, Iterator
         $this->n = $n;
         $this->m = $m;
 
-        for($i = 0; $i < $m; $i++) {
+        for ($i = 0; $i < $m; $i++) {
             $this->matrix[$i] = array_fill(0, $n, 0);
         }
     } 
 
     public function setMatrix(array $matrix)
     {
-        if($this->m !== count($matrix) || $this->n !== count($matrix[0])) {
+        if ($this->m !== count($matrix) || $this->n !== count($matrix[0])) {
             throw new \Exception('Dimension');
         }
 
@@ -53,9 +53,9 @@ class Matrix implements ArrayAccess, Iterator
 
     public function mult($value) : Matrix
     {
-        if($value instanceOf Matrix) {
+        if ($value instanceOf Matrix) {
             return $this->multMatrix($value);
-        } elseif(is_scalar($value)) {
+        } elseif (is_scalar($value)) {
             return $this->multScalar($value);
         }
     }
@@ -65,7 +65,7 @@ class Matrix implements ArrayAccess, Iterator
         $nDim = $matrix->getN();
         $mDim = $matrix->getM();
 
-        if($this->n !== $mDim) {
+        if ($this->n !== $mDim) {
             throw new \Exception('Dimension');
         }
 
@@ -73,11 +73,11 @@ class Matrix implements ArrayAccess, Iterator
         $newMatrix = new Matrix($this->m, $nDim);
         $newMatrixArr = $newMatrix->getMatrix();
 
-        for($i = 0; $i < $this->m; $i++) { // Row of $this
-            for($c = 0; $c < $nDim; $c++) { // Column of $matrix
+        for ($i = 0; $i < $this->m; $i++) { // Row of $this
+            for ($c = 0; $c < $nDim; $c++) { // Column of $matrix
                 $temp = 0;
 
-                for($j = 0; $j < $mDim; $i++) { // Row of $matrix
+                for ($j = 0; $j < $mDim; $i++) { // Row of $matrix
                     $temp += $this->matrix[$i][$j] * $matrixArr[$j][$c];
                 }
 
@@ -94,8 +94,8 @@ class Matrix implements ArrayAccess, Iterator
     {
         $newMatrixArr = $this->matrix;
 
-        foreach($newMatrixArr as $i => $vector) {
-            foreach($vector as $j => $value) {
+        foreach ($newMatrixArr as $i => $vector) {
+            foreach ($vector as $j => $value) {
                 $newMatrixArr[$i][$j] *= $value;
             }
         }
@@ -108,33 +108,33 @@ class Matrix implements ArrayAccess, Iterator
 
     public function add($value) : Matrix
     {
-        if($value instanceOf Matrix) {
+        if ($value instanceOf Matrix) {
             return $this->addMatrix($value);
-        } elseif(is_scalar($value)) {
+        } elseif (is_scalar($value)) {
             return $this->addScalar($value);
         }
     }
 
     public function sub($value) : Matrix
     {
-        if($value instanceOf Matrix) {
+        if ($value instanceOf Matrix) {
             return $this->add($this->multMatrix(-1));
-        } elseif(is_scalar($value)) {
+        } elseif (is_scalar($value)) {
             return $this->addScalar(-$value);
         }
     }
 
     private function addMatrix(Matrix $value) : Matrix
     {
-        if($this->m !== $value->getM() || $this->n !== $value->getN()) {
+        if ($this->m !== $value->getM() || $this->n !== $value->getN()) {
             throw new \Exception('Dimension');
         }
 
         $matrixArr = $value->getMatrix();
         $newMatrixArr = $this->matrix;
 
-        foreach($newMatrixArr as $i => $vector) {
-            foreach($vector as $j => $value) {
+        foreach ($newMatrixArr as $i => $vector) {
+            foreach ($vector as $j => $value) {
                 $newMatrixArr[$i][$j] += $matrixArr[$i][$j];
             }
         }
@@ -149,8 +149,8 @@ class Matrix implements ArrayAccess, Iterator
     {
         $newMatrixArr = $this->matrix;
 
-        foreach($newMatrixArr as $i => $vector) {
-            foreach($vector as $j => $value) {
+        foreach ($newMatrixArr as $i => $vector) {
+            foreach ($vector as $j => $value) {
                 $newMatrixArr[$i][$j] += $value;
             }
         }
@@ -184,11 +184,11 @@ class Matrix implements ArrayAccess, Iterator
 
     public function inverse(int $algorithm = InversionType::GAUSS_JORDAN) : Matrix
     {
-        if($this->n !== $this->m) {
+        if ($this->n !== $this->m) {
             throw new \Exception('Dimension');
         }
 
-        switch($algorithm) {
+        switch ($algorithm) {
             case InversionType::GAUSS_JORDAN:
             return $this->inverseGaussJordan();
             default:
@@ -201,10 +201,10 @@ class Matrix implements ArrayAccess, Iterator
         $newMatrixArr = $this->matrix;
 
         // extending matrix by identity matrix
-        for($i = 0; $i < $this->n; $i++) {
-            for($j = $this->n; $j < $this->n * 2; $j++) {
+        for ($i = 0; $i < $this->n; $i++) {
+            for ($j = $this->n; $j < $this->n * 2; $j++) {
 
-                if($j === ($i + $this->n)) {
+                if ($j === ($i + $this->n)) {
                     $newMatrixArr[$i][$j] = 1;
                 } else {
                     $newMatrixArr[$i][$j] = 0;
@@ -219,16 +219,16 @@ class Matrix implements ArrayAccess, Iterator
         $newMatrixArr = $this->diag($newMatrixArr);
 
         /* create unit matrix */
-        for($i = 0; $i < $mDim; $i++) {
+        for ($i = 0; $i < $mDim; $i++) {
             $temp = $newMatrixArr[$i][$i];
 
-            for($j = 0; $j < $nDim; $j++) {
+            for ($j = 0; $j < $nDim; $j++) {
                 $newMatrixArr[$i][$j] = $newMatrixArr[$i][$j] / $temp;
             }
         }
 
         /* removing identity matrix */
-        for($i = 0; $i < $mDim; $i++) {
+        for ($i = 0; $i < $mDim; $i++) {
             $newMatrixArr[$i] = array_slice($newMatrixArr[$i], $mDim);
         }
 
@@ -244,7 +244,7 @@ class Matrix implements ArrayAccess, Iterator
         $newMatrixArr = $newMatrix->getMatrix();
 
         for ($i = 0; $i < $this->n; $i++) {
-            for ($j = 0; $j < $i+1; $j++) {
+            for ($j = 0; $j < $i + 1; $j++) {
                 $temp = 0;
 
                 for ($c = 0; $c < $j; $c++) {
@@ -265,23 +265,23 @@ class Matrix implements ArrayAccess, Iterator
         $mDim = count($arr);
         $nDim = count($arr[0]);
 
-        for($i = $mDim - 1; $i > 0; $i--) {
+        for ($i = $mDim - 1; $i > 0; $i--) {
             if ($arr[$i - 1][0] < $arr[$i][0]) {
-                for($j = 0; $j < $nDim; $j++) {
+                for ($j = 0; $j < $nDim; $j++) {
                     $temp = $arr[$i][$j];
-                    $arr[$i][$j] = $arr[$i-1][$j];
-                    $arr[$i-1][$j] = $temp;
+                    $arr[$i][$j] = $arr[$i - 1][$j];
+                    $arr[$i - 1][$j] = $temp;
                 }
             }
         }
 
         /* create diagonal matrix */
-        for($i = 0; $i < $mDim; $i++) {
-            for($j = 0; $j < $mDim; $j++) {
+        for ($i = 0; $i < $mDim; $i++) {
+            for ($j = 0; $j < $mDim; $j++) {
                 if ($j !== $i) {
                     $temp = $arr[$j][$i] / $arr[$i][$i];
 
-                    for($c = 0; $c < $nDim; $c++) {
+                    for ($c = 0; $c < $nDim; $c++) {
                         $arr[$j][$c] -= $arr[$i][$c] * $temp;
                     }
                 }
@@ -323,7 +323,7 @@ class Matrix implements ArrayAccess, Iterator
                     continue;
                 }
                 
-                for ($c = $i; $c < $n; $c ++) {
+                for ($c = $i; $c < $n; $c++) {
                     $arr[$j][$c] -= $arr[$i][$c] * $r;
                 }
             }

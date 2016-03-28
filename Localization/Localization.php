@@ -125,7 +125,7 @@ class Localization
      */
     public function setCountry(string $country)
     {
-        if(!ISO3166Enum::isValidValue($country)) {
+        if (!ISO3166Enum::isValidValue($country)) {
             throw new InvalidEnumValue($country);
         }
 
@@ -153,7 +153,7 @@ class Localization
      */
     public function setTimezone(string $timezone)
     {
-        if(!TimeZoneEnumArray::isValidValue($timezone)) {
+        if (!TimeZoneEnumArray::isValidValue($timezone)) {
             throw new InvalidEnumValue($timezone);
         }
 
@@ -181,7 +181,7 @@ class Localization
      */
     public function setLanguage(string $language)
     {
-        if(!ISO639x1Enum::isValidValue($language)) {
+        if (!ISO639x1Enum::isValidValue($language)) {
             throw new InvalidEnumValue($language);
         }
 
@@ -233,7 +233,7 @@ class Localization
      */
     public function setCurrency(string $currency)
     {
-        if(!ISO4217Enum::isValidValue($currency)) {
+        if (!ISO4217Enum::isValidValue($currency)) {
             throw new InvalidEnumValue($currency);
         }
 

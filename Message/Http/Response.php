@@ -79,7 +79,7 @@ class Response extends ResponseAbstract implements RenderableInterface
      */
     public function pushHeaderId($name)
     {
-        if(self::$isLocked) {
+        if (self::$isLocked) {
             throw new \Exception('Already locked');
         }
 
@@ -102,7 +102,7 @@ class Response extends ResponseAbstract implements RenderableInterface
      */
     public function removeHeader(int $key) : bool
     {
-        if(self::$isLocked) {
+        if (self::$isLocked) {
             throw new \Exception('Already locked');
         }
         
@@ -212,7 +212,7 @@ class Response extends ResponseAbstract implements RenderableInterface
      */
     public function pushHeader()
     {
-        if(self::$isLocked) {
+        if (self::$isLocked) {
             throw new \Exception('Already locked');
         }
 
@@ -237,7 +237,7 @@ class Response extends ResponseAbstract implements RenderableInterface
      */
     public function remove(int $id) : bool
     {
-        if(self::$isLocked) {
+        if (self::$isLocked) {
             throw new \Exception('Already locked');
         }
 
@@ -374,7 +374,7 @@ class Response extends ResponseAbstract implements RenderableInterface
      */
     public function setHeader($key, string $header, bool $overwrite = false) : bool
     {
-        if(self::$isLocked) {
+        if (self::$isLocked) {
             throw new \Exception('Already locked');
         }
 

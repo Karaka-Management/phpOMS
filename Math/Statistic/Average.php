@@ -329,7 +329,9 @@ class Average
         $avgcos = $coss / (0.0 + count($angles));
         $avgang = rad2deg(atan2($avgsin, $avgcos));
 
-        while ($avgang < 0.0) $avgang += 360.0;
+        while ($avgang < 0.0) {
+            $avgang += 360.0;
+        }
 
         return $avgang;
     }

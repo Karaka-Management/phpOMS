@@ -56,7 +56,7 @@ class SystemUtils
         $countSize = 0;
         $count     = 0;
 
-        if(is_readable($dir)) {
+        if (is_readable($dir)) {
             $dir_array = scandir($dir);
 
             foreach ($dir_array as $key => $filename) {

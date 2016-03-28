@@ -71,7 +71,7 @@ class L11nManager
      */
     public function loadLanguage(string $language, string $from, array $files)
     {
-        if(!isset($files[$from])) {
+        if (!isset($files[$from])) {
             throw new \Exception('Unexpected language key: ' . $from);
         }
 

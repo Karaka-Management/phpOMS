@@ -491,10 +491,14 @@ class Interval
     private function validateMinute(array $array) : bool
     {
         foreach ($array['minutes'] as $minute) {
-            if ($minute > 59 || $minute < 0) return false;
+            if ($minute > 59 || $minute < 0) {
+                return false;
+            }
         }
 
-        if ($array['step'] > 59 || $array['step'] < 0) return false;
+        if ($array['step'] > 59 || $array['step'] < 0) {
+            return false;
+        }
 
         return true;
     }
@@ -512,10 +516,14 @@ class Interval
     private function validateHour(array $array) : bool
     {
         foreach ($array['hours'] as $hour) {
-            if ($hour > 23 || $hour < 0) return false;
+            if ($hour > 23 || $hour < 0) {
+                return false;
+            }
         }
 
-        if ($array['step'] > 23 || $array['step'] < 0) return false;
+        if ($array['step'] > 23 || $array['step'] < 0) {
+            return false;
+        }
 
         return true;
     }
@@ -533,11 +541,17 @@ class Interval
     private function validateDayOfMonth(array $array) : bool
     {
         foreach ($array['dayOfMonth'] as $dayOfMonth) {
-            if ($dayOfMonth > 31 || $dayOfMonth < 1) return false;
+            if ($dayOfMonth > 31 || $dayOfMonth < 1) {
+                return false;
+            }
         }
 
-        if ($array['step'] > 31 || $array['step'] < 1) return false;
-        if ($array['nearest'] > 31 || $array['nearest'] < 1) return false;
+        if ($array['step'] > 31 || $array['step'] < 1) {
+            return false;
+        }
+        if ($array['nearest'] > 31 || $array['nearest'] < 1) {
+            return false;
+        }
 
         return true;
     }
@@ -555,10 +569,14 @@ class Interval
     private function validateMonth(array $array) : bool
     {
         foreach ($array['month'] as $month) {
-            if ($month > 12 || $month < 1) return false;
+            if ($month > 12 || $month < 1) {
+                return false;
+            }
         }
 
-        if ($array['step'] > 12 || $array['step'] < 1) return false;
+        if ($array['step'] > 12 || $array['step'] < 1) {
+            return false;
+        }
 
         return true;
     }
@@ -576,10 +594,14 @@ class Interval
     private function validateDayOfWeek(array $array) : bool
     {
         foreach ($array['dayOfWeek'] as $dayOfWeek) {
-            if ($dayOfWeek > 7 || $dayOfWeek < 1) return false;
+            if ($dayOfWeek > 7 || $dayOfWeek < 1) {
+                return false;
+            }
         }
 
-        if ($array['step'] > 5 || $array['step'] < 1) return false;
+        if ($array['step'] > 5 || $array['step'] < 1) {
+            return false;
+        }
 
         return true;
     }

@@ -31,12 +31,12 @@ class Fibunacci
 {
     public static function isFibunacci(int $n)
     {
-        return Functions::isSquare(5*$n**2+4) || Functions::isSquare(5*$n**2-4);
+        return Functions::isSquare(5 * $n**2 + 4) || Functions::isSquare(5 * $n**2 - 4);
     }
 
     public static function fibunacci(int $n, int $start = 1) : int
     {
-        if($n < 2) {
+        if ($n < 2) {
             return 0;
         } elseif ($n < 4) {
             return $start;
@@ -57,6 +57,6 @@ class Fibunacci
 
     public static function binet(int $n) : int
     {
-        return (int) (((1+sqrt(5))**$n - (1-sqrt(5))**$n)/(2**$n * sqrt(5)));
+        return (int) (((1 + sqrt(5))**$n - (1 - sqrt(5))**$n) / (2**$n * sqrt(5)));
     }
 }

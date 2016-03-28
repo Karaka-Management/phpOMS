@@ -129,13 +129,13 @@ class Functions
      */
     public static function ackermann(int $m, int $n) : int
     {
-        if($m === 0) {
-            return $n+1;
-        } elseif($n === 0) {
-            return self::ackermann($m-1, 1);
+        if ($m === 0) {
+            return $n + 1;
+        } elseif ($n === 0) {
+            return self::ackermann($m - 1, 1);
         }
 
-        return ackermann($m-1, ackermann($m, $n-1));
+        return ackermann($m - 1, ackermann($m, $n - 1));
     }
 
     /**
@@ -149,7 +149,7 @@ class Functions
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public static function invMod($a, $n){
+    public static function invMod($a, $n) {
         if ($n < 0) {
             $n = -$n;
         }
@@ -164,12 +164,12 @@ class Functions
         $nr = $a % $n;
 
         while ($nr != 0) {
-            $quot = (int) ($r/$nr);
+            $quot = (int) ($r / $nr);
             $tmp = $nt;  
-            $nt = $t - $quot*$nt;  
+            $nt = $t - $quot * $nt;  
             $t = $tmp;
             $tmp = $nr;  
-            $nr = $r - $quot*$nr;  
+            $nr = $r - $quot * $nr;  
             $r = $tmp;
         }
 

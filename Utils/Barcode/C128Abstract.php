@@ -60,7 +60,7 @@ abstract class C128Abstract
      * @var string
      * @since 1.0.0
      */
-    protected static $CODE_END   = '';
+    protected static $CODE_END = '';
 
     /**
      * Orientation.
@@ -76,7 +76,7 @@ abstract class C128Abstract
      * @var int
      * @since 1.0.0
      */
-    protected $size        = 0;
+    protected $size = 0;
 
     /**
      * Barcode dimension.
@@ -86,7 +86,7 @@ abstract class C128Abstract
      * @var int[]
      * @since 1.0.0
      */
-    protected $dimension   = ['width' => 0, 'height' => 0];
+    protected $dimension = ['width' => 0, 'height' => 0];
 
     /**
      * Content to encrypt.
@@ -94,7 +94,7 @@ abstract class C128Abstract
      * @var string|int
      * @since 1.0.0
      */
-    protected $content     = 0;
+    protected $content = 0;
 
     /**
      * Show text below barcode.
@@ -102,7 +102,7 @@ abstract class C128Abstract
      * @var string
      * @since 1.0.0
      */
-    protected $showText    = true;
+    protected $showText = true;
 
     /**
      * Margin for barcode (padding).
@@ -110,7 +110,7 @@ abstract class C128Abstract
      * @var int[]
      * @since 1.0.0
      */
-    protected $margin      = ['top' => 0, 'right' => 4, 'bottom' => 0, 'left' => 4];
+    protected $margin = ['top' => 0, 'right' => 4, 'bottom' => 0, 'left' => 4];
 
     /**
      * Background color.
@@ -118,7 +118,7 @@ abstract class C128Abstract
      * @var int[]
      * @since 1.0.0
      */
-    protected $background  = ['r' => 0, 'g' => 0, 'b' => 0, 'a' => 0];
+    protected $background = ['r' => 0, 'g' => 0, 'b' => 0, 'a' => 0];
 
     /**
      * Front color.
@@ -126,7 +126,7 @@ abstract class C128Abstract
      * @var int[]
      * @since 1.0.0
      */
-    protected $front       = ['r' => 0, 'g' => 0, 'b' => 0, 'a' => 0];
+    protected $front = ['r' => 0, 'g' => 0, 'b' => 0, 'a' => 0];
 
     /**
      * Constructor

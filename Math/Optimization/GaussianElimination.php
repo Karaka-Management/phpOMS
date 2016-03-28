@@ -4,7 +4,9 @@ class GaussianElimination
 {
     private function swapRows(&$a, &$b, $r1, $r2)
     {
-        if ($r1 == $r2) return;
+        if ($r1 == $r2) {
+            return;
+        }
      
         $tmp = $a[$r1];
         $a[$r1] = $a[$r2];

@@ -105,7 +105,7 @@ class Commit
 		$branch = new Branch();
 		$tag = new Tag();
 
-		if(!empty($id)) {
+		if (!empty($id)) {
 			// todo: fill base info
 		}
 	}
@@ -119,7 +119,7 @@ class Commit
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
 	public function addFile(string $path) {
-		if(!isset($this->files[$path])) {
+		if (!isset($this->files[$path])) {
 			$this->files[$path] = [];
 		}
 	}
@@ -203,7 +203,7 @@ class Commit
      */
 	public function removeFile(string $path) : bool
 	{
-		if(isset($this->files[$path])) {
+		if (isset($this->files[$path])) {
 			unset($this->files[$path]);
 
 			return true;

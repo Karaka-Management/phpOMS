@@ -41,7 +41,7 @@ class Prime
      */
     public static function isMersenne(int $n) : bool
     {
-        $mersenne = log($n+1, 2);
+        $mersenne = log($n + 1, 2);
 
         return $mersenne - (int) $mersenne < 0.00001;
     }
@@ -78,7 +78,7 @@ class Prime
             return true;
         }
 
-        if ($n < 2 || $n % 2 == 0){
+        if ($n < 2 || $n % 2 == 0) {
             return false;
         }
      
@@ -91,11 +91,11 @@ class Prime
         }
      
         for ($i = 0; $i < $k; $i++) {
-            $a = mt_rand(2, $n-1);
+            $a = mt_rand(2, $n - 1);
      
             $x = bcpowmod($a, $d, $n);
 
-            if ($x == 1 || $x == $n-1) {
+            if ($x == 1 || $x == $n - 1) {
                 continue;
             }
      
@@ -106,7 +106,7 @@ class Prime
                     return false;
                 }
 
-                if ($x == $n-1) {
+                if ($x == $n - 1) {
                     continue 2;
                 }
             }

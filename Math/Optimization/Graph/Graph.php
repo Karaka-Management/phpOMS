@@ -67,7 +67,7 @@ class Graph
      */
     public function addVertice(VerticeInterface $vertice) : bool
     {
-        if(!isset($this->vertices[$vertice->getId()])) {
+        if (!isset($this->vertices[$vertice->getId()])) {
             $this->vertices[$vertice->getId()] = $vertice;
 
             return true;
@@ -88,7 +88,7 @@ class Graph
      */
     public function addEdge(EdgeInterface $edge) : bool 
     {
-        if(!isset($this->edges[$edge->getId()])) {
+        if (!isset($this->edges[$edge->getId()])) {
             $this->edges[$edge->getId()] = $edge;
 
             return true;
@@ -109,7 +109,7 @@ class Graph
      */
     public function removeVertice($id) : bool
     {
-        if(isset($this->vertices[$id])) {
+        if (isset($this->vertices[$id])) {
             unset($this->vertices[$id]);
 
             return true;
@@ -146,7 +146,7 @@ class Graph
      */
     public function removeEdgeById($id) : bool
     {
-        if(isset($this->edge[$id])) {
+        if (isset($this->edge[$id])) {
             unset($this->edge[$id]);
 
             return true;

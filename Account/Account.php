@@ -364,7 +364,7 @@ class Account
      */
     public function setEmail(string $email)
     {
-        if(!Email::isValid($email)) {
+        if (!Email::isValid($email)) {
             throw new \InvalidArgumentException();
         }
 
@@ -383,7 +383,7 @@ class Account
      */
     public function setStatus(int $status)
     {
-        if(!AccountStatus::isValidValue($status)) {
+        if (!AccountStatus::isValidValue($status)) {
             throw new \InvalidArgumentException();
         }
 
@@ -402,7 +402,7 @@ class Account
      */
     public function setType(int $type)
     {
-        if(!AccountType::isValidValue($type)) {
+        if (!AccountType::isValidValue($type)) {
             throw new \InvalidArgumentException();
         }
 

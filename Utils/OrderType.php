@@ -31,5 +31,5 @@ use phpOMS\Datatypes\Enum;
 abstract class OrderType extends Enum
 {
     const LOOSE = 0;
-    const STRICT= 1;
+    const STRICT = 1;
 }

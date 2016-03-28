@@ -179,7 +179,7 @@ class Directory extends FileAbstract implements \Iterator, \ArrayAccess
         $this->filter = $filter;
         parent::__construct($path);
 
-        if(file_exists($this->path)) {
+        if (file_exists($this->path)) {
             parent::index();
         }
     }
@@ -242,7 +242,7 @@ class Directory extends FileAbstract implements \Iterator, \ArrayAccess
      */
     public function remove(string $name) : bool
     {
-        if(isset($this->nodes[$name])) {
+        if (isset($this->nodes[$name])) {
             $this->count -= $this->nodes[$name]->getCount();
             $this->size -= $this->nodes[$name]->getSize();
 
@@ -269,7 +269,7 @@ class Directory extends FileAbstract implements \Iterator, \ArrayAccess
 
         foreach (glob($this->path . DIRECTORY_SEPARATOR . $this->filter) as $filename) {
             // todo: handle . and ..???!!!
-            if(is_dir($filename)) {
+            if (is_dir($filename)) {
                 $file = new Directory($filename);
                 $file->index();
             } else {
@@ -349,7 +349,7 @@ class Directory extends FileAbstract implements \Iterator, \ArrayAccess
      */
     public function offsetUnset($offset) 
     {
-        if(isset($this->nodes[$offset])) {
+        if (isset($this->nodes[$offset])) {
             unset($this->nodes[$offset]);
         }
     }
