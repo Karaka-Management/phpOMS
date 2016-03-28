@@ -114,9 +114,9 @@ class ArrayParser
     public function save(string $name)
     {
         $arr = '<' . '?php' . PHP_EOL
-               . '$' . $name . ' = [' . PHP_EOL
+               . '$' . $name . ' = '
                . $this->serializeArray($this->array)
-               . '];';
+               . ';';
 
         file_put_contents($this->file, $arr);
     }
@@ -133,28 +133,44 @@ class ArrayParser
      */
     public function serializeArray(array $arr) : string
     {
+        $stringify = '[' . PHP_EOL;
+
         foreach ($arr as $key => $val) {
-            if (is_array($val)) {
-                if (is_string($key)) {
-                    return '"' . $key . '" => [' . PHP_EOL . $this->serializeArray($val) . PHP_EOL . '],' . PHP_EOL;
-                } else {
-                    return $key . ' => [' . PHP_EOL . $this->serializeArray($val) . PHP_EOL . '],' . PHP_EOL;
-                }
-            } elseif (is_null($val)) {
-                if (is_string($key)) {
-                    return '"' . $key . '" => null';
-                } else {
-                    return $key . ' => null,' . PHP_EOL;
-                }
-            } else {
-                if (is_string($key)) {
-                    return '"' . $key . '" => ' . $val . ',' . PHP_EOL;
-                } else {
-                    return $key . ' => ' . $val . ',' . PHP_EOL;
-                }
+            if(is_string($key)) {
+                $key = '"' . $key . '"';
             }
+
+            $stringify .= '    ' . $key . ' => ' . $this->arrayifyValue($val). ',' . PHP_EOL;
+
         }
 
-        return '';
+        return $stringify . ']';
+    }
+
+    /**
+     * Serialize array value.
+     *
+     * @param mixed $value Value to serialzie
+     *
+     * @return string
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+    private function arrayifyValue($value) : string
+    {
+        if(is_array($value)) {
+            return '[' . PHP_EOL . $this->serializeArray($value) . PHP_EOL . ']';
+        } elseif(is_string($value)) {
+            return '"' . $value . '"';
+        } elseif(is_scalar($value)) {
+            return $value;
+        } elseif(is_null($value)) {
+            return 'null';
+        } elseif($value instanceOf \Serializable) {
+            return $this->arrayifyValue($value->serialize());
+        } else {
+            throw new \UnexpectedValueException();
+        }
     }
 }
