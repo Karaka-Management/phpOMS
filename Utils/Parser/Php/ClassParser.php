@@ -209,7 +209,7 @@ class ClassParser
         return false;
     }
 
-    public function getMember($name) : MemberParser
+    public function getMember(string $name) : MemberParser
     {
         return $this->members[$name] ?? new MemberParser();
     }
@@ -230,7 +230,7 @@ class ClassParser
         return false;
     }
 
-    public function getFunction($name) : FunctionParser
+    public function getFunction(string $name) : FunctionParser
     {
         return $this->functions[$name] ?? new FunctionParser();
     }
