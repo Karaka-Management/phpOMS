@@ -50,8 +50,8 @@ class Money implements Serialize {
     
     public function getAmount(int $decimals = 2) : string 
     {
-        if($decimals > ISO4270::{$this->currency}) {
-            $decimals = ISO4270::{$this->currency};
+        if($decimals > ($dec = ISO4217DecimalEnum::${'C_' . strtoupper($this->currency)})) {
+            $decimals = $dec ;
         }
 
         $value = (string) round($value, - self::MAX_DECIMALS + $this->decimals);
