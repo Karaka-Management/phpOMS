@@ -15,7 +15,7 @@
  */
 namespace phpOMS\DataStorage\Cache;
 
-use phpOMS\System\FileSystem;
+use phpOMS\System\File\Directory;
 
 /**
  * MemCache class.
@@ -98,7 +98,7 @@ class FileCache implements CacheInterface
     public function stats() : array
     {
         $stats          = [];
-        $stats['count'] = FileSystem::getFileCount(self::CACHE_PATH);
+        $stats['count'] = Directory::getFileCount(self::CACHE_PATH);
 
         // size, avg. last change compared to now
 

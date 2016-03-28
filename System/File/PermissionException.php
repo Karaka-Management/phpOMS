@@ -16,7 +16,7 @@
 namespace phpOMS\System\File;
 
 /**
- * Path exception class.
+ * Permission exception class.
  *
  * @category   System
  * @package    Framework
@@ -26,7 +26,7 @@ namespace phpOMS\System\File;
  * @link       http://orange-management.com
  * @since      1.0.0
  */
-class PathException extends \UnexpectedValueException
+class PermissionException extends \RuntimeException
 {
     /**
      * Constructor.
@@ -40,6 +40,6 @@ class PathException extends \UnexpectedValueException
      */
     public function __construct(string $message, int $code = 0, \Exception $previous = null)
     {
-        parent::__construct('The path "' . $message . '" is not a valid path.', $code, $previous);
+        parent::__construct('Insufficient permissions for "' . $message . '" operations.', $code, $previous);
     }
 }

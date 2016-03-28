@@ -31,7 +31,17 @@ namespace phpOMS\System\File;
 class File extends FileAbstract
 {
 
-    public static function create(string $path) : bool
+    /**
+     * Create file.
+     *
+     * @param string $path Path
+     *
+     * @return bool
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+    public static function createFile(string $path) : bool
     {
         if (!file_exists($path)) {
             if(is_writable(Directory::getParent($path))) {
@@ -39,13 +49,21 @@ class File extends FileAbstract
 
                 return true;
             } else {
-                throw new PathException($path);
+                throw new PermissionException($path);
             }
         }
 
         return false;
     }
 
+    /**
+     * Constructor.
+     *
+     * @param string $path Path
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
     public function __construct(string $path) 
     {
         parent::__construct($path);
@@ -56,6 +74,56 @@ class File extends FileAbstract
         }
     }
 
+    /**
+     * {@inheritdoc}
+     */
+    private function createNode() : bool
+    {
+        return self::create($this->path);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    private function removeNode() : bool
+    {
+        return true;
+    }
+
+    /**
+     * Get file content.
+     *
+     * @return string
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+    public function getContent() : string
+    {
+        return file_get_contents($this->path);
+    }
+
+    /**
+     * Set file content.
+     *
+     * @param string $content Content to set
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+    public function setContent(string $content)
+    {
+        file_put_contents($this->path, $content);
+    }
+
+    /**
+     * Index file.
+     *
+     * @return void
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
     public function index() 
     {
         parent::index();

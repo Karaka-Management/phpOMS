@@ -15,7 +15,26 @@
  */
 namespace phpOMS\System;
 
+/**
+ * Operating system class.
+ *
+ * @category   System
+ * @package    Framework
+ * @author     OMS Development Team <dev@oms.com>
+ * @author     Dennis Eichhorn <d.eichhorn@oms.com>
+ * @license    OMS License 1.0
+ * @link       http://orange-management.com
+ * @since      1.0.0
+ */
 final class OperatingSystem {
+	/**
+     * Get OS.
+     *
+     * @return int|SystemType
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
 	public static function getSystem() : int 
 	{
 		switch(PHP_OS) {

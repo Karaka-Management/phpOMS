@@ -30,13 +30,108 @@ namespace phpOMS\System\File;
  */
 class Directory extends FileAbstract implements \Iterator, \ArrayAccess
 {
+    /**
+     * Direcotry list filter.
+     *
+     * @var string
+     * @since 1.0.0
+     */
     private $filter = '*';
+
+    /**
+     * Direcotry nodes (files and directories).
+     *
+     * @var string
+     * @since 1.0.0
+     */
     private $nodes = [];
 
-    public static function create(string $path, int $permission = 0644, bool $recursive = false) : bool
+    /**
+     * Get file count inside path.
+     *
+     * @param string $path      Path to folder
+     * @param bool   $recursive Should sub folders be counted as well?
+     * @param array  $ignore    Ignore these sub-paths
+     *
+     * @return int
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+    public static function getFileCount(string $path, bool $recursive = true, array $ignore = ['.', '..', 'cgi-bin',
+                                                                                               '.DS_Store'])
+    {
+        $size  = 0;
+        $files = scandir($path);
+
+        foreach ($files as $t) {
+            if (in_array($t, $ignore)) {
+                continue;
+            }
+            if (is_dir(rtrim($path, '/') . '/' . $t)) {
+                if ($recursive) {
+                    $size += self::getFileCount(rtrim($path, '/') . '/' . $t, true, $ignore);
+                }
+            } else {
+                $size++;
+            }
+        }
+
+        return $size;
+    }
+
+    /**
+     * Delete directory and all its content.
+     *
+     * @param string $path Path to folder
+     *
+     * @return bool
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+    public static function deletePath($path) : bool
+    {
+        $path = realpath($oldPath = $path);
+        if ($path === false || !is_dir($path) || Validator::startsWith($path, ROOT_PATH)) {
+            throw new PathException($oldPath);
+        }
+
+        $files = scandir($path);
+
+        /* Removing . and .. */
+        unset($files[1]);
+        unset($files[0]);
+
+        foreach ($files as $file) {
+            if (is_dir($file)) {
+                self::deletePath($file);
+            } else {
+                unlink($file);
+            }
+        }
+
+        rmdir($path);
+
+        return true;
+    }
+
+    /**
+     * Create directory.
+     *
+     * @param string $path Path
+     * @param int $permission Directory permission
+     * @param bool $recursive Create parent directories if applicable
+     *
+     * @return bool
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+    public static function createPath(string $path, int $permission = 0644, bool $recursive = false) : bool
     {
         if($recursive && !file_exists($parent = self::getParent($path))) {
-            self::create($parent, $permission, $recursive);
+            self::createPath($parent, $permission, $recursive);
         }
 
         if (!file_exists($path)) {
@@ -45,14 +140,23 @@ class Directory extends FileAbstract implements \Iterator, \ArrayAccess
 
                 return true;
             } else {
-
-                throw new PathException($path);
+                throw new PermissionException($path);
             }
         }
 
         return false;
     }
 
+    /**
+     * Get parent directory path.
+     *
+     * @param string $path Path
+     *
+     * @return string
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
     public static function getParent(string $path) : string
     {
         $path = explode('/', str_replace('\\', '/', $path));
@@ -61,6 +165,15 @@ class Directory extends FileAbstract implements \Iterator, \ArrayAccess
         return implode('/', $path);
     }
 
+    /**
+     * Constructor.
+     *
+     * @param string $path Path
+     * @param string $filter Filter
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
     public function __construct(string $path, string $filter = '*') 
     {
         $this->filter = $filter;
@@ -71,18 +184,62 @@ class Directory extends FileAbstract implements \Iterator, \ArrayAccess
         }
     }
 
+    /**
+     * Get node by name.
+     *
+     * @param string $name File/direcotry name
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
     public function get(string $name) : FileAbstract 
     {
         return $this->nodes[$name] ?? new NullFile();
     }
 
-    public function add(FileAbstract $file) 
+    /**
+     * Add file or directory.
+     *
+     * @param FileAbstract $file File to add
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+    public function add(FileAbstract $file) : bool
     {
         $this->count += $file->getCount();
         $this->size += $file->getSize();
         $this->nodes[$this->getName()] = $file;
+
+        return $file->createNode();
     }
 
+    /**
+     * {@inheritdoc}
+     */
+    private function createNode() : bool
+    {
+        return self::createPath($this->path, $this->permission, true);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    private function removeNode() : bool
+    {
+        return true;
+    }
+
+    /**
+     * Remove by name.
+     *
+     * @param string $name Name to remove
+     *
+     * @return bool
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
     public function remove(string $name) : bool
     {
         if(isset($this->nodes[$name])) {
@@ -98,6 +255,14 @@ class Directory extends FileAbstract implements \Iterator, \ArrayAccess
         return false;
     }
 
+    /**
+     * Index directory.
+     *
+     * @return void
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
     public function index() 
     {
         parent::index();
@@ -116,26 +281,41 @@ class Directory extends FileAbstract implements \Iterator, \ArrayAccess
     }
 
     /* Iterator */
+    /**
+     * {@inheritdoc}
+     */
     public function rewind()
     {
         reset($this->nodes);
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function current()
     {
         return current($this->nodes);
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function key() 
     {
         return key($this->nodes);
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function next() 
     {
         return next($this->nodes);
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function valid()
     {
         $key = key($this->nodes);
@@ -144,6 +324,9 @@ class Directory extends FileAbstract implements \Iterator, \ArrayAccess
     }
 
     /* ArrayAccess */
+    /**
+     * {@inheritdoc}
+     */
     public function offsetSet($offset, $value) 
     {
         if (is_null($offset)) {
@@ -153,11 +336,17 @@ class Directory extends FileAbstract implements \Iterator, \ArrayAccess
         }
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function offsetExists($offset) 
     {
         return isset($this->nodes[$offset]);
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function offsetUnset($offset) 
     {
         if(isset($this->nodes[$offset])) {
@@ -165,6 +354,9 @@ class Directory extends FileAbstract implements \Iterator, \ArrayAccess
         }
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function offsetGet($offset) 
     {
         return $this->nodes[$offset] ?? null;
