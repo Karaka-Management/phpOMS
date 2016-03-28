@@ -48,7 +48,7 @@ class MemberParser
 
     public function getName() : string
     {
-        return $this->string;
+        return $this->name;
     }
 
     public function setVisibility(string $visibility) 

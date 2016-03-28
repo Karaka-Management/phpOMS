@@ -46,13 +46,29 @@ class FunctionParser
 
     private $parameters = [];
 
+    private $body = '';
+
     public function setName(string $name) {
         $this->name = $name;
     }
 
     public function getName() : string
     {
-        return $this->string;
+        return $this->name;
+    }
+
+    public function seBody(string $body) {
+        $this->body = $body;
+    }
+
+    public function getBody() : string
+    {
+        return $this->body;
+    }
+
+    public function removeBody() 
+    {
+        $this->body = null;
     }
 
     public function setVisibility(string $visibility) 
@@ -87,6 +103,12 @@ class FunctionParser
     public function setAbstract(bool $abstract)
     {
         $this->isAbstract = $abstract;
+
+        if($this->isAbstract) {
+            $this->body = null;
+        } elseif(!$this->isAbstract && !isset($this->body)) {
+            $this->body = '';
+        }
     }
 
     public function isAbstract() : bool
@@ -107,6 +129,20 @@ class FunctionParser
     public function getReturn()
     {
         return $this->return;
+    }
+
+    public function addParameter(string $name, string $typehint, $default = null) 
+    {
+        $this->parameters[$name]['name'] = $name;
+        $this->parameters[$name]['typehint'] = $typehint;
+
+        if(isset($default)) {
+            if($default === 'null') {
+                $default = null;
+            }
+
+            $this->parameters[$name]['default'] = $default;
+        }
     }
 
     public function parse() : string
@@ -137,7 +173,12 @@ class FunctionParser
 
         $member .= rtrim($parameters, ', ') . ') ';
         $member .= ($this->return ?? '') . PHP_EOL;
-        $member .= '{' . PHP_EOL . $this->body . PHP_EOL . '}';
+
+        if(isset($this->body)) {
+            $member .= '{' . PHP_EOL . $this->body . PHP_EOL . '}';
+        } else {
+            $member .= ';';
+        }
 
         return $member;
     }
