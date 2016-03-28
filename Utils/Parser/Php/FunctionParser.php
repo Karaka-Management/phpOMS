@@ -162,7 +162,7 @@ class FunctionParser
             $member .= 'static ';
         }
 
-        $member .= 'fucntion ' . $this->name . '(';
+        $member .= 'function ' . $this->name . '(';
 
         $parameters = '';
         foreach($this->parameters as $name => $para) {
