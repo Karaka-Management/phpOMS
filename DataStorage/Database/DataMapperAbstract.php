@@ -1000,11 +1000,11 @@ abstract class DataMapperAbstract implements DataMapperInterface
                 $query = new Builder($this->db);
                 $query->prefix($this->db->getPrefix());
 
-                if($relations === RelationType::ALL) {
+                if ($relations === RelationType::ALL) {
                     $query->select($value['table'] . '.' . $value['src'])
                           ->from($value['table'])
                           ->where($value['table'] . '.' . $value['dst'], '=', $primaryKey);
-                } elseif($relations === RelationType::NEWEST) {
+                } elseif ($relations === RelationType::NEWEST) {
 
 /*
 SELECT c.*, p1.*

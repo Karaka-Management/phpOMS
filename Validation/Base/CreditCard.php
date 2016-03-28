@@ -75,7 +75,7 @@ abstract class CreditCard extends ValidatorAbstract
     public static function luhnTest(string $num) {
         $len = strlen($num);
         
-        for ($i = $len-1; $i >= 0; $i--) {
+        for ($i = $len - 1; $i >= 0; $i--) {
             $ord = ord($num[$i]);
 
             if (($len - 1) & $i) {

@@ -78,7 +78,7 @@ class C25 extends C128Abstract
      */
     public function __construct(string $content = '', int $size = 20, int $orientation = OrientationType::HORIZONTAL)
     {
-        if(!ctype_digit($content)) {
+        if (!ctype_digit($content)) {
             throw new \InvalidArgumentException($content);
         }
 
@@ -95,7 +95,7 @@ class C25 extends C128Abstract
      */
     public function setContent(string $content)
     {
-        if(!ctype_digit($content)) {
+        if (!ctype_digit($content)) {
             throw new \InvalidArgumentException($content);
         }
 

@@ -50,7 +50,7 @@ class Imap extends Mail
 
     public function getInbox(string $option = 'ALL') : array
     {
-        $ids    = imap_search($this->inbox, $option, SE_FREE, 'UTF-8');
+        $ids = imap_search($this->inbox, $option, SE_FREE, 'UTF-8');
 
         return is_array($ids) ? imap_fetch_overview($this->inbox, implode(',', $ids)) : [];
     }

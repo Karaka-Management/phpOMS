@@ -44,7 +44,7 @@ class File extends FileAbstract
     public static function createFile(string $path) : bool
     {
         if (!file_exists($path)) {
-            if(is_writable(Directory::getParent($path))) {
+            if (is_writable(Directory::getParent($path))) {
                 touch($path);
 
                 return true;
@@ -69,7 +69,7 @@ class File extends FileAbstract
         parent::__construct($path);
         $this->count = 1;
         
-        if(file_exists($this->path)) {
+        if (file_exists($this->path)) {
             $this->index();
         }
     }

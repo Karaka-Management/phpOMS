@@ -37,7 +37,7 @@ final class OperatingSystem {
      */
 	public static function getSystem() : int 
 	{
-		switch(PHP_OS) {
+		switch (PHP_OS) {
 			case stristr(PHP_OS, 'DAR'):
 				return SystemType::OSX;
 			case stristr(PHP_OS, 'WIN'):

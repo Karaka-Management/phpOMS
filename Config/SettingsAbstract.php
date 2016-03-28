@@ -126,7 +126,7 @@ abstract class SettingsAbstract implements OptionsInterface
     {
         $this->setOptions($options);
 
-        if($store) {
+        if ($store) {
             // save to db
         }
     }

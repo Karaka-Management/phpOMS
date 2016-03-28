@@ -294,7 +294,7 @@ class Text
      */
     public function generateText($length, $words = null)
     {
-        if($length === 0) {
+        if ($length === 0) {
             return '';
         }
 

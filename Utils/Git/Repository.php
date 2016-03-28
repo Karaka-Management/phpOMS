@@ -34,7 +34,7 @@ class Repository
      * @var string
      * @since 1.0.0
      */
-    private $path       = '';
+    private $path = '';
 
     /**
      * Bare repository.
@@ -42,7 +42,7 @@ class Repository
      * @var bool
      * @since 1.0.0
      */
-    private $bare       = false;
+    private $bare = false;
 
     /**
      * Env variables.

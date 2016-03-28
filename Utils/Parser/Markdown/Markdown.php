@@ -584,14 +584,18 @@ class Markdown
         if (isset($block['closed'])) {
             return null;
         }
-        if (preg_match('/^<' . $block['name'] . '(?:[ ]*' . $this->regexHtmlAttribute . ')*[ ]*>/i', $line['text'])) # open
+        if (preg_match('/^<' . $block['name'] . '(?:[ ]*' . $this->regexHtmlAttribute . ')*[ ]*>/i', $line['text'])) {
+            # open
         {
             $block['depth']++;
         }
-        if (preg_match('/(.*?)<\/' . $block['name'] . '>[ ]*$/i', $line['text'], $matches)) # close
+        }
+        if (preg_match('/(.*?)<\/' . $block['name'] . '>[ ]*$/i', $line['text'], $matches)) {
+            # close
         {
             if ($block['depth'] > 0) {
                 $block['depth']--;
+        }
             } else {
                 $block['closed'] = true;
             }

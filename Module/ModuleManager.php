@@ -298,7 +298,7 @@ class ModuleManager
 
         $path = realpath($oldPath = self::MODULE_PATH . '/' . $module . '/' . 'info.json');
 
-        if($path === false || strpos($path, self::MODULE_PATH) === false) {
+        if ($path === false || strpos($path, self::MODULE_PATH) === false) {
             throw new PathException($module);
         }
 

@@ -36,7 +36,7 @@ class SmartDateTime extends \DateTime
      * @var string
      * @since 1.0.0
      */
-    const FORMAT   = 'Y-m-d hh:mm:ss';
+    const FORMAT = 'Y-m-d hh:mm:ss';
 
     /**
      * Default timezone

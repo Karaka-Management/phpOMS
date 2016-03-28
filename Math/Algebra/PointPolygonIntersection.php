@@ -38,7 +38,7 @@ class PointPolygonIntersection
         }
 
         // Inside or ontop?
-        $countIntersect  = 0;
+        $countIntersect = 0;
         $vertices_count = count($vertices);
 
         // todo: return based on highest possibility not by first match

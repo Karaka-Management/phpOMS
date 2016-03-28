@@ -290,13 +290,13 @@ class FileLogger implements LoggerInterface
     {
         $this->fp = fopen($this->path, 'a');
 
-        if($this->fp !== false) {
+        if ($this->fp !== false) {
             fwrite($this->fp, $message . "\n");
             fclose($this->fp);
             $this->fp = false;
         }
 
-        if(self::$verbose) {
+        if (self::$verbose) {
             echo $message . "\n";
         }
     }

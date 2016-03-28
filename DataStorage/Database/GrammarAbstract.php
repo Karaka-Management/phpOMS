@@ -78,7 +78,7 @@ abstract class GrammarAbstract
             implode(' ',
                 array_filter(
                     $this->compileComponents($query),
-                    function ($value) {
+                    function($value) {
                         return (string) $value !== '';
                     }
                 )
@@ -135,7 +135,7 @@ abstract class GrammarAbstract
     {
         // todo: move remaining * test also here not just if .* but also if * (should be done in else?)
         if (count($split = explode('.', $system)) == 2) {
-            if($split[1] === '*') {
+            if ($split[1] === '*') {
                 $system = $split[1];
             } else {
                 $system = $this->compileSystem($split[1]);

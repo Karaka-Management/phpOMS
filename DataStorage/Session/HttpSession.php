@@ -60,7 +60,7 @@ class HttpSession implements SessionInterface
      */
     public function __construct(int $liftetime = 3600, $sid = false)
     {
-        if(self::$isLocked) {
+        if (self::$isLocked) {
             throw new \Exception('Already locked');
         }
 
@@ -89,7 +89,7 @@ class HttpSession implements SessionInterface
     {
         $this->set('UID', 0, false);
 
-        if(($CSRF = $this->get('CSRF')) === null) {
+        if (($CSRF = $this->get('CSRF')) === null) {
             $CSRF = StringUtils::generateString(10, 16);
             $this->set('CSRF', $CSRF, false);
         }
@@ -110,7 +110,7 @@ class HttpSession implements SessionInterface
      */
     public function set($key, $value, bool $overwrite = true) : bool
     {
-        if($overwrite || !isset($this->sessionData[$key])) {
+        if ($overwrite || !isset($this->sessionData[$key])) {
             $this->sessionData[$key] = $value;
 
             return true;

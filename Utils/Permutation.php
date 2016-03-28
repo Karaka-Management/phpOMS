@@ -13,7 +13,7 @@ class Permutation
 
         if(empty($toPermute)){
             $permutations[] = implode('', $result);
-        }else{
+        } else{
             foreach($toPermute as $key => $val){
                 $newArr = $toPermute;
                 $newres = $result;
