@@ -44,5 +44,24 @@ class InstallerAbstract
      */
     public static function install(Pool $dbPool, array $info)
     {
+
+        self::$installRoutes(ROOT_PATH . '/Web/Routes.php', ROOT_PATH . '/Modules/' . $info['directory'] . '/Admin/Routes/http.php');
+        self::$installRoutes(ROOT_PATH . '/Socket/Routes.php', ROOT_PATH . '/Modules/' . $info['directory'] . '/Admin/Routes/socket.php');
+        self::$installRoutes(ROOT_PATH . '/Console/Routes.php', ROOT_PATH . '/Modules/' . $info['directory'] . '/Admin/Routes/console.php');
+    }
+
+    private static function installRoutes(string $appRoutePath, string $moduleRoutePath) 
+    {
+        if(file_exists($appRoutePath) && file_exists($moduleRoutePath)) {
+            include $appRoutePath;
+            include $moduleRoutePath;
+            $appRoutes = array_merge_recursive($appRoutes, $moduleRoutes);
+
+            if(is_writable($appRoutePath)) {
+                file_put_contents(ArrayParser::createFile('moduleRoutes', $appRoutes), $appRoutePath);
+            } else {
+                throw new PermissionException($appRoutePath);
+            }
+        }
     }
 }

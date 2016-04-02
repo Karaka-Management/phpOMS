@@ -343,4 +343,6 @@ abstract class RequestAbstract implements MessageInterface
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     abstract public function getRequestTarget() : string;
+
+    abstract public function getRouteVerb() : int;
 }

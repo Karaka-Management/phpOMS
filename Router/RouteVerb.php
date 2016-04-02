@@ -15,8 +15,10 @@
  */
 namespace phpOMS\Router;
 
+use phpOMS\Datatypes\Enum;
+
 /**
- * Router class.
+ * View layout enum.
  *
  * @category   Framework
  * @package    phpOMS\Socket
@@ -26,9 +28,9 @@ namespace phpOMS\Router;
  * @link       http://orange-management.com
  * @since      1.0.0
  */
-class RouteAbstract
+abstract class RouteVerb extends Enum
 {
-    
-
-
+    const GET = 1;
+    const PUT = 2;
+    const SET = 3;
 }

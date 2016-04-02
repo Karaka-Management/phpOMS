@@ -91,25 +91,11 @@ class Dispatcher
         }
 
         if (is_string($controller)) {
-            $dispatch = explode(':', $controller);
-            $this->get($dispatch[0]);
-
-            if (($c = count($dispatch)) == 3) {
-                /* Handling static functions */
-                $views[$type][$controller] = $dispatch[0]::$dispatch[2]();
-            } elseif ($c == 2) {
-                $views[$type][$controller] = $this->controllers[$dispatch[0]]->{$dispatch[1]}($request, $response, $data);
-            } else {
-                throw new \UnexpectedValueException('Unexpected function.');
-            }
+            $views += $this->dispatchString($controller, $request, $response, $data);
         } elseif (is_array($controller)) {
-            foreach ($controller as $controllerSingle) {
-                foreach ($controllerSingle as $c) {
-                    $views += $this->dispatch($c, $request, $response, $data);
-                }
-            }
+            $views += $this->dispatchArray($controller, $request, $response, $data);
         } elseif ($controller instanceof \Closure) {
-            $views[$type][] = $controller($this->app, $request, $response, $data);
+            $views[$type][] = $this->dispatchClosure($controller, $request, $response, $data);
         } else {
             throw new \UnexpectedValueException('Unexpected controller type.');
         }
@@ -117,17 +103,42 @@ class Dispatcher
         return $views;
     }
 
-    /**
-     * Get controller.
-     *
-     * @param string $controller Controller string
-     *
-     * @return mixed
-     *
-     * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
-     */
-    public function get(string $controller)
+    private function dispatchString(string $controller, RequestAbstract $request, ResponseAbstract $response, $data = null)
+    {
+        $views =[];
+        $dispatch = explode(':', $controller);
+        $this->getController($dispatch[0]);
+
+        if (($c = count($dispatch)) == 3) {
+            /* Handling static functions */
+            $views[$type][$controller] = $dispatch[0]::$dispatch[2]();
+        } elseif ($c == 2) {
+            $views[$type][$controller] = $this->controllers[$dispatch[0]]->{$dispatch[1]}($request, $response, $data);
+        } else {
+            throw new \UnexpectedValueException('Unexpected function.');
+        }
+
+        return $views
+    }
+
+    private function dispatchArray(array $controller, RequestAbstract $request, ResponseAbstract $response, $data = null) : array
+    {
+        $views = [];
+        foreach ($controller as $controllerSingle) {
+            foreach ($controllerSingle as $c) {
+                $views += $this->dispatch($c, $request, $response, $data);
+            }
+        }
+
+        return $views;
+    }
+
+    private function dispatchClosure(\Closure $controller, RequestAbstract $request, ResponseAbstract $response, $data = null)
+    {
+        return $controller($this->app, $request, $response, $data);
+    }
+
+    private function getController(string $controller)
     {
         if (!isset($this->controllers[$controller])) {
             if (realpath($path = ROOT_PATH . '/' . str_replace('\\', '/', $controller) . '.php') === false) {
@@ -158,8 +169,7 @@ class Dispatcher
 
             return true;
         }
-
+        
         return false;
     }
-
 }

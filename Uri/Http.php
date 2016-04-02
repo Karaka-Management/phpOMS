@@ -15,8 +15,6 @@
  */
 namespace phpOMS\Uri;
 
-
-
 /**
  * Uri interface.
  *

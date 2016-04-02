@@ -50,25 +50,30 @@ class Router
     {
     }
 
+    public function importFromFile(string $path) 
+    {
+        include $path;
+        $this->routes = $appRoutes;
+    }
+
     /**
      * Add route.
      *
      * @param string $route       Route regex
-     * @param mixed $destination Destination e.g. Module:function & method
-     * @param string $method      Request method
-     * @param int    $type        Result type
+     * @param mixed $destination Destination e.g. Module:function & verb
+     * @param string $verb      Request verb
+     * @param int    $layout        Result layout
      *
      * @return void
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function add(string $route, $destination, string $method = RequestMethod::GET, int $type = ViewLayout::MAIN)
+    public function add(string $route, $destination, string $verb = RouteVerb::GET)
     {
         $this->routes[$route][] = [
             'dest'   => $destination,
-            'method' => $method,
-            'type'   => $type,
+            'verb' => $verb,
         ];
     }
 
@@ -76,19 +81,19 @@ class Router
      * Route uri.
      *
      * @param string $uri          Uri to route
-     * @param string $remoteMethod GET/POST etc.
+     * @param string $verb GET/POST etc.
      *
      * @return string[]
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function route(string $uri, string $remoteMethod = RequestMethod::GET) : array
+    public function route(RequestAbstract $request) : array
     {
         $bound = [];
         foreach ($this->routes as $route => $destination) {
             foreach ($destination as $d) {
-                if ($this->match($route, $d['method'], $uri, $remoteMethod)) {
+                if ($this->match($route, $d['verb'], $request->getUri(), $request->getRouteVerb())) {
                     $bound[$route][] = ['dest' => $d['dest'], 'type' => $d['type']];
                 }
             }
@@ -101,17 +106,17 @@ class Router
      * Match route and uri.
      *
      * @param string $route        Route
-     * @param string $method       GET,POST for this route
+     * @param string $verb       GET,POST for this route
      * @param string $uri          Uri
-     * @param string $remoteMethod Method this request is using
+     * @param string $verb Verb this request is using
      *
      * @return bool
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    private function match(string $route, string $method, string $uri, string $remoteMethod = RequestMethod::GET) : bool
+    private function match(string $route, string $routeVerb, string $uri, string $remoteVerb = RouteVerb::GET) : bool
     {
-        return (bool) preg_match('~^' . $route . '$~', $uri) && ($method == 'any' || $remoteMethod == $method);
+        return (bool) preg_match('~^' . $route . '$~', $uri) && ($routeVerb == RouteVerb::ANY || $remoteVerb == $routeVerb);
     }
 }

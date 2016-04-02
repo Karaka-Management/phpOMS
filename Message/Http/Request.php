@@ -459,16 +459,17 @@ class Request extends RequestAbstract
         // NOT Required for Http request
     }
 
-    /**
-     * Get request route.
-     *
-     * @return string
-     *
-     * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
-     */
-    public function getRoutify() : string
+    public function getRouteVerb() : int
     {
-        return $this->uri->__toString();
+        switch($this->method) {
+            case RequestMethod::GET:
+                return RouteVerb::GET;
+            case RequestMethod::PUT:
+                return RouteVerb::PUT;
+            case RequestMethod::POST:
+                return RouteVerb::SET;
+            default:
+                throw new \Exception();
+        }
     }
 }
