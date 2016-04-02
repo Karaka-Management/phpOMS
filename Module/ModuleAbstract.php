@@ -81,14 +81,6 @@ abstract class ModuleAbstract
     protected static $localization = [];
 
     /**
-     * Routes.
-     *
-     * @var array
-     * @since 1.0.0
-     */
-    protected static $routes = [];
-
-    /**
      * Dependencies.
      *
      * @var string
@@ -115,12 +107,6 @@ abstract class ModuleAbstract
     public function __construct($app)
     {
         $this->app = $app;
-
-        foreach (static::$routes as $route => $destinations) {
-            foreach ($destinations as $destination) {
-                $this->app->router->add($route, $destination['dest'], $destination['method'], $destination['type']);
-            }
-        }
     }
 
     /**
@@ -148,19 +134,14 @@ abstract class ModuleAbstract
     public function getLocalization(string $language, string $destination) : array
     {
         $lang = [];
-        if (isset(static::$localization[$destination])) {
-            /** @noinspection PhpUnusedLocalVariableInspection */
-            foreach (static::$localization[$destination] as $file) {
-                if (($path = realpath($oldPath = __DIR__ . '/../../Modules/' . static::MODULE_NAME . '/Theme/' . $destination . '/Lang/' . $language . '.lang.php')) === false) {
-                    throw new PathException($oldPath);
-                }
-
-                /** @noinspection PhpIncludeInspection */
-                include realpath($path);
-                /** @var array $MODLANG */
-                $lang += $MODLANG;
-            }
+        if (($path = realpath($oldPath = __DIR__ . '/../../Modules/' . static::MODULE_NAME . '/Theme/' . $destination . '/Lang/' . $language . '.lang.php')) === false) {
+            throw new PathException($oldPath);
         }
+
+        /** @noinspection PhpIncludeInspection */
+        include $path;
+        /** @var array $MODLANG */
+        $lang += $MODLANG;
 
         return $lang;
     }
