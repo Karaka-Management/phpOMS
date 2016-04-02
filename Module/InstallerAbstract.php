@@ -53,12 +53,12 @@ class InstallerAbstract
     private static function installRoutes(string $appRoutePath, string $moduleRoutePath) 
     {
         if(file_exists($appRoutePath) && file_exists($moduleRoutePath)) {
-            include $appRoutePath;
-            include $moduleRoutePath;
+            $appRoutes = include $appRoutePath;
+            $moduleRoutes = include $moduleRoutePath;
             $appRoutes = array_merge_recursive($appRoutes, $moduleRoutes);
 
             if(is_writable($appRoutePath)) {
-                file_put_contents(ArrayParser::createFile('moduleRoutes', $appRoutes), $appRoutePath);
+                file_put_contents('<?php return ' . ArrayParser::serializeArray($appRoutes), $appRoutePath);
             } else {
                 throw new PermissionException($appRoutePath);
             }

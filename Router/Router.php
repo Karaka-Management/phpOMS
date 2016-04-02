@@ -52,8 +52,7 @@ class Router
 
     public function importFromFile(string $path) 
     {
-        include $path;
-        $this->routes = $appRoutes;
+        $this->routes = include $path;
     }
 
     /**
