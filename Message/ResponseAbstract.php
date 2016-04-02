@@ -66,10 +66,7 @@ abstract class ResponseAbstract implements MessageInterface, ArrayableInterface,
      */
     protected $account = null;
 
-    /**
-     * {@inheritdoc}
-     */
-    abstract public function setHeader($key, string $header, bool $overwrite = true);
+    protected $header = null;
 
     /**
      * {@inheritdoc}
@@ -125,7 +122,7 @@ abstract class ResponseAbstract implements MessageInterface, ArrayableInterface,
     public function setStatusCode(string $status)
     {
         $this->status = $status;
-        $this->generateHeader($status);
+        $this->header->generate($status);
     }
 
     /**
@@ -160,15 +157,10 @@ abstract class ResponseAbstract implements MessageInterface, ArrayableInterface,
         return json_encode($this->toArray());
     }
 
-    /**
-     * Generate header automatically based on code.
-     *
-     * @param int $code HTTP status code
-     *
-     * @return void
-     *
-     * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
-     */
-    abstract public function generateHeader(int $code);
+    public function getHeader() : HeaderAbstract
+    {
+        return $this->header;
+    }
+
+    public function getBody() : string;
 }

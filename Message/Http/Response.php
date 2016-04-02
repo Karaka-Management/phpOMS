@@ -36,25 +36,6 @@ use phpOMS\DataStorage\Session\HttpSession;
  */
 class Response extends ResponseAbstract implements RenderableInterface
 {
-
-    /**
-     * Header.
-     *
-     * @var string[][]
-     * @since 1.0.0
-     */
-    private $header = [];
-
-    /**
-     * html head.
-     *
-     * @var Head
-     * @since 1.0.0
-     */
-    private $head = null;
-
-    private static $isLocked = false;
-
     /**
      * Constructor.
      *
@@ -63,96 +44,6 @@ class Response extends ResponseAbstract implements RenderableInterface
      */
     public function __construct()
     {
-        $this->setHeader('Content-Type', 'text/html; charset=utf-8');
-        $this->head = new Head();
-    }
-
-    /**
-     * Push header by ID.
-     *
-     * @param mixed $name Header ID
-     *
-     * @return void
-     *
-     * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
-     */
-    public function pushHeaderId($name)
-    {
-        if (self::$isLocked) {
-            throw new \Exception('Already locked');
-        }
-
-        foreach ($this->header[$name] as $key => $value) {
-            header($name, $value);
-        }
-
-        $this->lock();
-    }
-
-    /**
-     * Remove header by ID.
-     *
-     * @param int $key Header key
-     *
-     * @return bool
-     *
-     * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
-     */
-    public function removeHeader(int $key) : bool
-    {
-        if (self::$isLocked) {
-            throw new \Exception('Already locked');
-        }
-        
-        if (isset($this->header[$key])) {
-            unset($this->header[$key]);
-
-            return true;
-        }
-
-        return false;
-    }
-
-    /**
-     * Generate header automatically based on code.
-     *
-     * @param int $code HTTP status code
-     *
-     * @return void
-     *
-     * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
-     */
-    public function generateHeader(int $code)
-    {
-        if ($code === 403) {
-            $this->generate403();
-        } elseif ($code === 406) {
-            $this->generate406();
-        } elseif ($code === 503) {
-            $this->generate503();
-        }
-    }
-
-    private function generate403()
-    {
-        $this->setHeader('HTTP', 'HTTP/1.0 403 Forbidden');
-        $this->setHeader('Status', 'Status: HTTP/1.0 403 Forbidden');
-    }
-
-    private function generate406() 
-    {
-        $this->setHeader('HTTP', 'HTTP/1.0 406 Not acceptable');
-        $this->setHeader('Status', 'Status: 406 Not acceptable');
-    }
-
-    private function generate503()
-    {
-        $this->setHeader('HTTP', 'HTTP/1.0 503 Service Temporarily Unavailable');
-        $this->setHeader('Status', 'Status: 503 Service Temporarily Unavailable');
-        $this->setHeader('Retry-After', 'Retry-After: 300');
     }
 
     /**
@@ -188,44 +79,6 @@ class Response extends ResponseAbstract implements RenderableInterface
     }
 
     /**
-     * Generate response.
-     *
-     * @return \Iterator
-     *
-     * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
-     */
-    public function getYield() : \Iterator
-    {
-        yield $this->head->render();
-
-        foreach ($this->response as $key => $response) {
-            yield $response;
-        }
-    }
-
-    /**
-     * Push all headers.
-     *
-     * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
-     */
-    public function pushHeader()
-    {
-        if (self::$isLocked) {
-            throw new \Exception('Already locked');
-        }
-
-        foreach ($this->header as $name => $arr) {
-            foreach ($arr as $ele => $value) {
-                header($name . ': ' . $value);
-            }
-        }
-
-        $this->lock();
-    }
-
-    /**
      * Remove response by ID.
      *
      * @param int $id Response ID
@@ -253,33 +106,9 @@ class Response extends ResponseAbstract implements RenderableInterface
     /**
      * {@inheritdoc}
      */
-    public function getHead()
-    {
-        return $this->head;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
     public function getProtocolVersion() : string
     {
         return '1.0';
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function getHeaders() : array
-    {
-        return $this->header;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function hasHeader(string $name) : bool
-    {
-        return array_key_exists($name, $this->header);
     }
 
     /**
@@ -302,14 +131,26 @@ class Response extends ResponseAbstract implements RenderableInterface
      */
     public function render() : string
     {
-        $render = $this->head->render();
+        switch($this->header->get('Content-Type')) {
+            case MimeType::M_JSON:
+                return $this->getJson();
+            default:
+                return $this->getRaw();
+        }
+    }
 
-        // todo: fix api return
-        // right now it is_object hence not printing the request key => object and only object->render();
-        // this can't be changed easily since view uses this as well and this mustn't print a key. maybe view instanceof View?
+    private function getJson() : string
+    {
+        return json_encode($this->getArray());
+    }
+
+    private function getRaw() : string
+    {
+        $render = '';
+
         foreach ($this->response as $key => $response) {
-            if (is_object($response)) {
-                $render .= $response->render();
+            if ($response instanceOf \Serializable) {
+                $render .= $response->serialize();
             } elseif (is_string($response) || is_numeric($response)) {
                 $render .= $response;
             } elseif (is_array($response)) {
@@ -319,34 +160,29 @@ class Response extends ResponseAbstract implements RenderableInterface
                 throw new \Exception('Wrong response type');
             }
         }
-
+        
         return $render;
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function toCsv() : string
+    private function getArray() : array
     {
-        return ArrayUtils::arrayToCSV($this->toArray());
-    }
+        $result = [];
 
-    /**
-     * {@inheritdoc}
-     */
-    public function toArray() : array
-    {
-        $arr = [];
-
-        foreach ($this->response as $key => $response) {
-            if ($response instanceof ArrayableInterface) {
-                $arr = ArrayUtils::setArray($key, $arr, $response->toArray(), ':');
+        foreach($this->response as $key => $response) {
+            if($reponse instanceof Views) {
+                $result += $response->getArray();
+            } elseif(is_array($response)) {
+                $result += $response;
+            } elseif(is_scalar($response)) {
+                $result[] = $response;
+            } elseif($response instanceof \Serializable) {
+                $result[] = $response->serialize();
             } else {
-                $arr = ArrayUtils::setArray($key, $arr, $response, ':');
+                throw new \Exception('Wrong response type');
             }
         }
 
-        return $arr;
+        return $result;
     }
 
     /**
@@ -354,49 +190,6 @@ class Response extends ResponseAbstract implements RenderableInterface
      */
     public function getReasonPhrase() : string
     {
-        return $this->getHeader('Status');
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function getHeader(string $name)
-    {
-        if (isset($this->header[$name])) {
-            return $this->header[$name];
-        }
-
-        return null;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function setHeader($key, string $header, bool $overwrite = false) : bool
-    {
-        if (self::$isLocked) {
-            throw new \Exception('Already locked');
-        }
-
-        if (!$overwrite && isset($this->header[$key])) {
-            return false;
-        } elseif ($overwrite) {
-            unset($this->header[$key]);
-        }
-
-        if (!isset($this->header[$key])) {
-            $this->header[$key] = [];
-        }
-
-        $this->header[$key][] = $header;
-
-        return true;
-    }
-
-    private function lock() 
-    {
-        CookieJar::lock();
-        HttpSession::lock();
-        self::$isLocked = true;
+        return $this->header->getHeader('Status');
     }
 }

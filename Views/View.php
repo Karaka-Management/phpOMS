@@ -34,7 +34,7 @@ use phpOMS\Validation\Validator;
  * @link       http://orange-management.com
  * @since      1.0.0
  */
-class View implements RenderableInterface
+class View implements \Serializeable
 {
 
     /**
@@ -288,9 +288,14 @@ class View implements RenderableInterface
 
         ob_start();
         /** @noinspection PhpIncludeInspection */
-        include $path;
+        $data = include $path;
+        $ob = ob_get_clean();
 
-        return ob_get_clean();
+        if(is_array($data)) {
+            return $data;
+        } 
+
+        return $ob;
     }
 
     /**
@@ -353,6 +358,27 @@ class View implements RenderableInterface
     public function addData(string $id, $data)
     {
         $this->data[$id] = $data;
+    }
+
+    public function getArray() : array 
+    {
+        $viewArray = [];
+
+        $viewArray[] = $this->render();
+
+        foreach($this->views as $key => $view) {
+            $viewArray[$key] = $view->getArray();
+        }
+    }
+
+    public function serialize()
+    {
+        return $this->renderAll();
+    }
+
+    public function unserialize($raw) 
+    {
+
     }
 
 }
