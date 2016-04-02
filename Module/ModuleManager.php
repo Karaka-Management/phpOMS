@@ -426,23 +426,33 @@ class ModuleManager
     public function initModule($module)
     {
         if (is_array($module)) {
-            foreach ($module as $m) {
-                try {
-                    $this->initModule($m);
-                } catch (\InvalidArgumentException $e) {
-                    $this->app->logger->warning(FileLogger::MSG_FULL, [
-                        'message' => 'Trying to initialize ' . $m . ' without controller.',
-                        'line'    => $e->getLine(),
-                        'file'    => $e->getFile(),
-                        ]);
-                }
-            }
+            $this->initModuleArray($module);
         } elseif (is_string($module) && realpath(self::MODULE_PATH . '/' . $module . '/Controller.php') !== false) {
-            $this->running[$module] = ModuleFactory::getInstance($module, $this->app);
-            $this->app->dispatcher->set($this->running[$module], '\Modules\\' . $module . '\\Controller');
+            $this->initModuleController($module);
         } else {
             throw new \InvalidArgumentException('Invalid Module');
         }
+    }
+
+    private function initModuleArray(array $modules)
+    {
+        foreach ($modules as $module) {
+            try {
+                $this->initModule($module);
+            } catch (\InvalidArgumentException $e) {
+                $this->app->logger->warning(FileLogger::MSG_FULL, [
+                    'message' => 'Trying to initialize ' . $module . ' without controller.',
+                    'line'    => $e->getLine(),
+                    'file'    => $e->getFile(),
+                    ]);
+            }
+        }
+    }
+
+    private function initModuleController(string $module) 
+    {
+        $this->running[$module] = ModuleFactory::getInstance($module, $this->app);
+        $this->app->dispatcher->set($this->running[$module], '\Modules\\' . $module . '\\Controller');
     }
 
     /**
