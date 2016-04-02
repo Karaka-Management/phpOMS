@@ -296,18 +296,27 @@ class ModuleManager
             // todo download;
         }
 
-        $path = realpath($oldPath = self::MODULE_PATH . '/' . $module . '/' . 'info.json');
+        $info = $this->loadInfo();
 
-        if ($path === false || strpos($path, self::MODULE_PATH) === false) {
-            throw new PathException($module);
+        $this->registerInDatabase();
+        $this->installDependencies($info->getDependencies());
+        $this->installModule($module);
+        $this->installed[$module] = true;
+
+        /* Install providing */
+        $providing = $info->getProviding();
+        foreach ($providing as $key => $version) {
+            $this->installProviding($module, $key);
         }
 
-        $info = json_decode(file_get_contents($path), true);
-
-        if (!isset($info)) {
-            throw new InvalidJsonException($path);
+        /* Install receiving */
+        foreach ($installed as $key => $value) {
+            $this->installProviding($key, $module);
         }
+    }
 
+    private function registerInDatabase(InfoManager $info)
+    {
         switch ($this->app->dbPool->get('core')->getType()) {
             case DatabaseType::MYSQL:
             $this->app->dbPool->get('core')->con->beginTransaction();
@@ -317,11 +326,11 @@ class ModuleManager
                 (:internal, :theme, :path, :active, :version);'
                 );
 
-            $sth->bindValue(':internal', $info['name']['internal'], \PDO::PARAM_INT);
+            $sth->bindValue(':internal', $info->getInternalName(), \PDO::PARAM_INT);
             $sth->bindValue(':theme', 'Default', \PDO::PARAM_STR);
-            $sth->bindValue(':path', $info['directory'], \PDO::PARAM_STR);
+            $sth->bindValue(':path', $info->getDirectory(), \PDO::PARAM_STR);
             $sth->bindValue(':active', 1, \PDO::PARAM_INT);
-            $sth->bindValue(':version', $info['version'], \PDO::PARAM_STR);
+            $sth->bindValue(':version', $info->getVersion(), \PDO::PARAM_STR);
 
             $sth->execute();
 
@@ -330,7 +339,8 @@ class ModuleManager
                 (:pid, :type, :from, :for, :file);'
                 );
 
-            foreach ($info['load'] as $val) {
+            $load = $info->getLoad();
+            foreach ($load as $val) {
                 foreach ($val['pid'] as $pid) {
                     $sth->bindValue(':pid', $pid, \PDO::PARAM_STR);
                     $sth->bindValue(':type', $val['type'], \PDO::PARAM_INT);
@@ -346,26 +356,41 @@ class ModuleManager
 
             break;
         }
+    }
 
-        foreach ($info['dependencies'] as $key => $version) {
+    private function installDependencies(array $dependencies)
+    {
+        foreach ($dependencies as $key => $version) {
             $this->install($key);
         }
+    }
+
+    private function installModule(string $module)
+    {
+
 
         $class = '\\Modules\\' . $module . '\\Admin\\Installer';
+
+        if(!Autoloader::exist($class)) {
+            throw new \Exception('Module installer does not exist');
+        }
+
         /** @var $class InstallerAbstract */
         $class::install($this->app->dbPool, $info);
+    }
 
-            // TODO: change this
-        $this->installed[$module] = true;
+    private function loadInfo(string $module) : InfoManager
+    {
+        $path = realpath($oldPath = self::MODULE_PATH . '/' . $module . '/' . 'info.json');
 
-        foreach ($info['providing'] as $key => $version) {
-            $this->installProviding($module, $key);
+        if ($path === false || strpos($path, self::MODULE_PATH) === false) {
+            throw new PathException($module);
         }
 
-        /* Install receiving */
-        foreach ($installed as $key => $value) {
-            $this->installProviding($key, $module);
-        }
+        $info = InfoManager($module);
+        $info->load();
+
+        return $info;
     }
 
     /**

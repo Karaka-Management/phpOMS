@@ -42,7 +42,7 @@ class UninstallAbstract
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public static function uninstall(Pool $dbPool, array $info)
+    public static function uninstall(Pool $dbPool, InfoManager $info)
     {
 
     }

@@ -42,7 +42,7 @@ class InstallerAbstract
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public static function install(Pool $dbPool, array $info)
+    public static function install(Pool $dbPool, InfoManager $info)
     {
 
         self::$installRoutes(ROOT_PATH . '/Web/Routes.php', ROOT_PATH . '/Modules/' . $info['directory'] . '/Admin/Routes/http.php');
