@@ -118,7 +118,7 @@ class Dispatcher
             throw new \UnexpectedValueException('Unexpected function.');
         }
 
-        return $views
+        return $views;
     }
 
     private function dispatchArray(array $controller, RequestAbstract $request, ResponseAbstract $response, $data = null) : array

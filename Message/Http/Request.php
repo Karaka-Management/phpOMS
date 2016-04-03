@@ -399,31 +399,7 @@ class Request extends RequestAbstract
     public function getProtocolVersion() : string
     {
         return $_SERVER['SERVER_PROTOCOL'];
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function getHeaders() : array
-    {
-        return getallheaders();
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function hasHeader(string $name) : bool
-    {
-        return array_key_exists($name, getallheaders());
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function getHeader(string $name) : string
-    {
-        return getallheaders()[$name];
-    }
+    }   
 
     /**
      * {@inheritdoc}
@@ -452,11 +428,6 @@ class Request extends RequestAbstract
     public function getFiles() : array
     {
         return $this->files;
-    }
-
-    public function setHeader($key, string $header, bool $overwrite = true)
-    {
-        // NOT Required for Http request
     }
 
     public function getRouteVerb() : int

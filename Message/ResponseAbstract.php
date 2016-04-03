@@ -15,10 +15,9 @@
  */
 namespace phpOMS\Message;
 
-use phpOMS\Contract\ArrayableInterface;
-use phpOMS\Contract\JsonableInterface;
 use phpOMS\Localization\Localization;
 use phpOMS\Utils\ArrayUtils;
+use phpOMS\Message\Http\Header;
 
 /**
  * Response abstract class.
@@ -31,7 +30,7 @@ use phpOMS\Utils\ArrayUtils;
  * @link       http://orange-management.com
  * @since      1.0.0
  */
-abstract class ResponseAbstract implements MessageInterface, ArrayableInterface, JsonableInterface
+abstract class ResponseAbstract implements MessageInterface
 {
 
     /**
@@ -162,5 +161,5 @@ abstract class ResponseAbstract implements MessageInterface, ArrayableInterface,
         return $this->header;
     }
 
-    public function getBody() : string;
+    abstract public function getBody() : string;
 }

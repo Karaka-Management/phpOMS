@@ -77,7 +77,7 @@ class File extends FileAbstract
     /**
      * {@inheritdoc}
      */
-    private function createNode() : bool
+    public function createNode() : bool
     {
         return self::create($this->path);
     }
@@ -85,7 +85,7 @@ class File extends FileAbstract
     /**
      * {@inheritdoc}
      */
-    private function removeNode() : bool
+    public function removeNode() : bool
     {
         return true;
     }

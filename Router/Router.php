@@ -15,7 +15,6 @@
  */
 namespace phpOMS\Router;
 
-use phpOMS\Message\RequestMethod;
 use phpOMS\Views\ViewLayout;
 
 /**

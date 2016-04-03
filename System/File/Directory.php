@@ -217,7 +217,7 @@ class Directory extends FileAbstract implements \Iterator, \ArrayAccess
     /**
      * {@inheritdoc}
      */
-    private function createNode() : bool
+    public function createNode() : bool
     {
         return self::createPath($this->path, $this->permission, true);
     }
@@ -225,7 +225,7 @@ class Directory extends FileAbstract implements \Iterator, \ArrayAccess
     /**
      * {@inheritdoc}
      */
-    private function removeNode() : bool
+    public function removeNode() : bool
     {
         return true;
     }

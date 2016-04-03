@@ -122,6 +122,8 @@ abstract class RequestAbstract implements MessageInterface
      */
     protected $hash = [];
 
+    protected $header = null;
+
     /**
      * Constructor.
      *
@@ -319,6 +321,11 @@ abstract class RequestAbstract implements MessageInterface
     public function getStatusCode() : string
     {
         return $this->status;
+    }
+
+    public function getHeader() : HeaderAbstract
+    {
+        return $this->header;
     }
 
     /**

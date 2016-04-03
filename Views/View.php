@@ -34,7 +34,7 @@ use phpOMS\Validation\Validator;
  * @link       http://orange-management.com
  * @since      1.0.0
  */
-class View implements \Serializeable
+class View implements \Serializable
 {
 
     /**
@@ -251,25 +251,6 @@ class View implements \Serializeable
     }
 
     /**
-     * Get view/template response of all views.
-     *
-     * @return string
-     *
-     * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
-     */
-    public function renderAll() : string
-    {
-        ob_start();
-
-        foreach ($this->views as $key => $view) {
-            echo $view->render();
-        }
-
-        return ob_get_clean();
-    }
-
-    /**
      * Get view/template response.
      *
      * @return string
@@ -373,7 +354,7 @@ class View implements \Serializeable
 
     public function serialize()
     {
-        return $this->renderAll();
+        return $this->render();
     }
 
     public function unserialize($raw) 

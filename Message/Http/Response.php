@@ -15,10 +15,9 @@
  */
 namespace phpOMS\Message\Http;
 
-use phpOMS\Contract\ArrayableInterface;
+use phpOMS\System\MimeType;
 use phpOMS\Contract\RenderableInterface;
 use phpOMS\Message\ResponseAbstract;
-use phpOMS\Model\Html\Head;
 use phpOMS\Utils\ArrayUtils;
 use phpOMS\DataStorage\Cookie\CookieJar;
 use phpOMS\DataStorage\Session\HttpSession;
@@ -44,6 +43,7 @@ class Response extends ResponseAbstract implements RenderableInterface
      */
     public function __construct()
     {
+        $this->header = new Header();
     }
 
     /**
@@ -160,7 +160,7 @@ class Response extends ResponseAbstract implements RenderableInterface
                 throw new \Exception('Wrong response type');
             }
         }
-        
+
         return $render;
     }
 

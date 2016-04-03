@@ -15,10 +15,7 @@
  */
 namespace phpOMS\Message\Http;
 
-use phpOMS\Contract\ArrayableInterface;
-use phpOMS\Contract\RenderableInterface;
-use phpOMS\Message\ResponseAbstract;
-use phpOMS\Model\Html\Head;
+use phpOMS\Message\HeaderAbstract;
 use phpOMS\Utils\ArrayUtils;
 use phpOMS\DataStorage\Cookie\CookieJar;
 use phpOMS\DataStorage\Session\HttpSession;
@@ -48,6 +45,19 @@ class Header extends HeaderAbstract
     public function __constrct()
     {
         $this->setHeader('Content-Type', 'text/html; charset=utf-8');
+    }
+
+    public function getHeaders() : array
+    {
+        return getallheaders();
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getHeader(string $name) : string
+    {
+        return getallheaders()[$name];
     }
 
     /**

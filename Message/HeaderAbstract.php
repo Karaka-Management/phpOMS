@@ -13,27 +13,20 @@
  * @version    1.0.0
  * @link       http://orange-management.com
  */
-namespace phpOMS\Message\Http;
-
-use phpOMS\Datatypes\Enum;
+namespace phpOMS\Message;
 
 /**
- * Request method enum.
+ * Response class.
  *
- * @category   Request
- * @package    Framework
+ * @category   Framework
+ * @package    phpOMS\Response
  * @author     OMS Development Team <dev@oms.com>
  * @author     Dennis Eichhorn <d.eichhorn@oms.com>
  * @license    OMS License 1.0
  * @link       http://orange-management.com
  * @since      1.0.0
  */
-abstract class RequestMethod extends Enum
+class HeaderAbstract
 {
-    const GET    = 'GET';    /* GET */
-    const POST   = 'POST';   /* POST */
-    const PUT    = 'PUT';    /* PUT */
-    const DELETE = 'DELETE'; /* DELETE */
-    const HEAD   = 'HEAD';   /* HEAD */
-    const TRACE  = 'TRACE';  /* TRACE */
+    private static $isLocked = false;
 }
