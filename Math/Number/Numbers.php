@@ -142,28 +142,4 @@ class Numbers
 
         return $count;
     }
-
-    /**
-     * Greatest common diviser.
-     *
-     * @param int $n Number one
-     * @param int $m Number two
-     *
-     * @return int
-     *
-     * @since  1.0.0
-     * @author Dennis Eichhorn
-     */
-    public static function greatestCommonDivisor(int $n, int $m) : int
-    {
-        while (true) {
-            if ($n === $m) {
-                return $m;
-            } if ($n > $m) {
-                $n -= $m;
-            } else {
-                $m -= $n;
-            }
-        }
-    }
 }

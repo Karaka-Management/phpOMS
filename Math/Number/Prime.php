@@ -116,4 +116,45 @@ class Prime
 
         return true;
     }
+
+    public static function sieveOfEratosthenes(int $n) : array
+    {
+        $number = 2;
+        $range = range(2, $n);
+        $primes = array_combine($range, $range);
+         
+        while ($number*$number < $n) {
+            for ($i = $number; $i <= $n; $i += $number) {
+                if ($i == $number) {
+                    continue;
+                }
+
+                unset($primes[$i]);
+            }
+
+            $number = next($primes);
+        }
+
+        return $primes;
+    }
+
+    public function isPrime(int $n) : bool
+    {
+        $i = 2;
+     
+        if ($n === 2) {
+            return true; 
+        }
+     
+        $sqrtN = sqrt($n);
+        while ($i <= $sqrtN) {
+            if ($n % $i === 0) {
+                return false;
+            }
+
+            $i++;
+        }
+     
+        return true;
+    }
 }
