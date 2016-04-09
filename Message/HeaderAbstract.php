@@ -13,22 +13,20 @@
  * @version    1.0.0
  * @link       http://orange-management.com
  */
-namespace phpOMS\Router;
+namespace phpOMS\Message;
 
 /**
- * Router class.
+ * Response class.
  *
  * @category   Framework
- * @package    phpOMS\Socket
+ * @package    phpOMS\Response
  * @author     OMS Development Team <dev@oms.com>
  * @author     Dennis Eichhorn <d.eichhorn@oms.com>
  * @license    OMS License 1.0
  * @link       http://orange-management.com
  * @since      1.0.0
  */
-class RouteAbstract
+class HeaderAbstract
 {
-    
-
-
+    private static $isLocked = false;
 }

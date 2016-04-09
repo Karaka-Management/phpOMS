@@ -20,6 +20,7 @@ use phpOMS\DataStorage\Database\DatabaseType;
 use phpOMS\Log\FileLogger;
 use phpOMS\Message\Http\Request;
 use phpOMS\System\File\PathException;
+use phpOMS\Autoloader;
 use phpOMS\Utils\IO\Json\InvalidJsonException;
 
 /**
@@ -296,18 +297,34 @@ class ModuleManager
             // todo download;
         }
 
-        $path = realpath($oldPath = self::MODULE_PATH . '/' . $module . '/' . 'info.json');
+        try {
+            $info = $this->loadInfo($module);
 
-        if ($path === false || strpos($path, self::MODULE_PATH) === false) {
-            throw new PathException($module);
+            $this->registerInDatabase($info);
+            $this->installed[$module] = $info;
+            $this->installDependencies($info->getDependencies());
+            $this->installModule($info);
+
+            /* Install providing */
+            $providing = $info->getProviding();
+            foreach ($providing as $key => $version) {
+                $this->installProviding($module, $key);
+            }
+
+            /* Install receiving */
+            foreach ($installed as $key => $value) {
+                $this->installProviding($key, $module);
+            }
+        } catch(PathException $e) {
+            // todo: handle module doesn't exist or files are missing
+            //echo $e->getMessage();
+        } catch(\Exception $e) {
+            //echo $e->getMessage();
         }
+    }
 
-        $info = json_decode(file_get_contents($path), true);
-
-        if (!isset($info)) {
-            throw new InvalidJsonException($path);
-        }
-
+    private function registerInDatabase(InfoManager $info)
+    {
         switch ($this->app->dbPool->get('core')->getType()) {
             case DatabaseType::MYSQL:
             $this->app->dbPool->get('core')->con->beginTransaction();
@@ -317,11 +334,11 @@ class ModuleManager
                 (:internal, :theme, :path, :active, :version);'
                 );
 
-            $sth->bindValue(':internal', $info['name']['internal'], \PDO::PARAM_INT);
+            $sth->bindValue(':internal', $info->getInternalName(), \PDO::PARAM_INT);
             $sth->bindValue(':theme', 'Default', \PDO::PARAM_STR);
-            $sth->bindValue(':path', $info['directory'], \PDO::PARAM_STR);
+            $sth->bindValue(':path', $info->getDirectory(), \PDO::PARAM_STR);
             $sth->bindValue(':active', 1, \PDO::PARAM_INT);
-            $sth->bindValue(':version', $info['version'], \PDO::PARAM_STR);
+            $sth->bindValue(':version', $info->getVersion(), \PDO::PARAM_STR);
 
             $sth->execute();
 
@@ -330,7 +347,8 @@ class ModuleManager
                 (:pid, :type, :from, :for, :file);'
                 );
 
-            foreach ($info['load'] as $val) {
+            $load = $info->getLoad();
+            foreach ($load as $val) {
                 foreach ($val['pid'] as $pid) {
                     $sth->bindValue(':pid', $pid, \PDO::PARAM_STR);
                     $sth->bindValue(':type', $val['type'], \PDO::PARAM_INT);
@@ -346,26 +364,39 @@ class ModuleManager
 
             break;
         }
+    }
 
-        foreach ($info['dependencies'] as $key => $version) {
+    private function installDependencies(array $dependencies)
+    {
+        foreach ($dependencies as $key => $version) {
             $this->install($key);
         }
+    }
 
-        $class = '\\Modules\\' . $module . '\\Admin\\Installer';
+    private function installModule(InfoManager $info)
+    {
+        $class = '\\Modules\\' . $info->getDirectory() . '\\Admin\\Installer';
+
+        if(!Autoloader::exists($class)) {
+            throw new \Exception('Module installer does not exist');
+        }
+
         /** @var $class InstallerAbstract */
         $class::install($this->app->dbPool, $info);
+    }
 
-            // TODO: change this
-        $this->installed[$module] = true;
+    private function loadInfo(string $module) : InfoManager
+    {
+        $path = realpath($oldPath = self::MODULE_PATH . '/' . $module . '/' . 'info.json');
 
-        foreach ($info['providing'] as $key => $version) {
-            $this->installProviding($module, $key);
+        if ($path === false || strpos($path, self::MODULE_PATH) === false) {
+            throw new PathException($oldPath);
         }
 
-        /* Install receiving */
-        foreach ($installed as $key => $value) {
-            $this->installProviding($key, $module);
-        }
+        $info = new InfoManager($path);
+        $info->load();
+
+        return $info;
     }
 
     /**
@@ -426,23 +457,33 @@ class ModuleManager
     public function initModule($module)
     {
         if (is_array($module)) {
-            foreach ($module as $m) {
-                try {
-                    $this->initModule($m);
-                } catch (\InvalidArgumentException $e) {
-                    $this->app->logger->warning(FileLogger::MSG_FULL, [
-                        'message' => 'Trying to initialize ' . $m . ' without controller.',
-                        'line'    => $e->getLine(),
-                        'file'    => $e->getFile(),
-                        ]);
-                }
-            }
+            $this->initModuleArray($module);
         } elseif (is_string($module) && realpath(self::MODULE_PATH . '/' . $module . '/Controller.php') !== false) {
-            $this->running[$module] = ModuleFactory::getInstance($module, $this->app);
-            $this->app->dispatcher->set($this->running[$module], '\Modules\\' . $module . '\\Controller');
+            $this->initModuleController($module);
         } else {
             throw new \InvalidArgumentException('Invalid Module');
         }
+    }
+
+    private function initModuleArray(array $modules)
+    {
+        foreach ($modules as $module) {
+            try {
+                $this->initModule($module);
+            } catch (\InvalidArgumentException $e) {
+                $this->app->logger->warning(FileLogger::MSG_FULL, [
+                    'message' => 'Trying to initialize ' . $module . ' without controller.',
+                    'line'    => $e->getLine(),
+                    'file'    => $e->getFile(),
+                    ]);
+            }
+        }
+    }
+
+    private function initModuleController(string $module) 
+    {
+        $this->running[$module] = ModuleFactory::getInstance($module, $this->app);
+        $this->app->dispatcher->set($this->running[$module], '\Modules\\' . $module . '\\Controller');
     }
 
     /**

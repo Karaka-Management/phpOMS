@@ -45,45 +45,7 @@ interface MessageInterface
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function getHeaders() : array;
-
-    /**
-     * Checks if a header exists by the given case-insensitive name.
-     *
-     * @param string $name Header name
-     *
-     * @return bool
-     *
-     * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
-     */
-    public function hasHeader(string $name) : bool;
-
-    /**
-     * Retrieves a message header value by the given case-insensitive name.
-     *
-     * @param string $name Header name
-     *
-     * @return void
-     *
-     * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
-     */
-    public function getHeader(string $name);
-
-    /**
-     * Add header by ID.
-     *
-     * @param mixed   $key       Header ID
-     * @param string $header    Header string
-     * @param bool   $overwrite Overwrite existing headers
-     *
-     * @return bool
-     *
-     * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
-     */
-    public function setHeader($key, string $header, bool $overwrite = true);
+    public function getHeader() : HeaderAbstract;
 
     /**
      * Gets the body of the message.

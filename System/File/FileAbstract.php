@@ -184,7 +184,7 @@ abstract class FileAbstract
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    abstract private function createNode() : bool;
+    abstract public function createNode() : bool;
 
     /**
      * Get created at.

@@ -13,27 +13,25 @@
  * @version    1.0.0
  * @link       http://orange-management.com
  */
-namespace phpOMS\Message;
+namespace phpOMS\Router;
 
 use phpOMS\Datatypes\Enum;
 
 /**
- * Request method enum.
+ * View layout enum.
  *
- * @category   Request
- * @package    Framework
+ * @category   Framework
+ * @package    phpOMS\Socket
  * @author     OMS Development Team <dev@oms.com>
  * @author     Dennis Eichhorn <d.eichhorn@oms.com>
  * @license    OMS License 1.0
  * @link       http://orange-management.com
  * @since      1.0.0
  */
-abstract class RequestMethod extends Enum
+abstract class RouteVerb extends Enum
 {
-    const GET    = 'GET';    /* GET */
-    const POST   = 'POST';   /* POST */
-    const PUT    = 'PUT';    /* PUT */
-    const DELETE = 'DELETE'; /* DELETE */
-    const HEAD   = 'HEAD';   /* HEAD */
-    const TRACE  = 'TRACE';  /* TRACE */
+    const GET = 1;
+    const PUT = 2;
+    const SET = 3;
+    const ANY = 4;
 }

@@ -20,6 +20,7 @@ use phpOMS\Message\RequestAbstract;
 use phpOMS\Uri\Http;
 use phpOMS\Uri\UriFactory;
 use phpOMS\Uri\UriInterface;
+use phpOMS\Router\RouteVerb;
 
 /**
  * Request class.
@@ -387,7 +388,7 @@ class Request extends RequestAbstract
     public function getMethod() : string
     {
         if (!isset($this->method)) {
-            $this->method = $_SERVER['REQUEST_METHOD'];
+            $this->method = $_SERVER['REQUEST_METHOD'] ?? RequestMethod::GET;
         }
 
         return $this->method;
@@ -399,31 +400,7 @@ class Request extends RequestAbstract
     public function getProtocolVersion() : string
     {
         return $_SERVER['SERVER_PROTOCOL'];
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function getHeaders() : array
-    {
-        return getallheaders();
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function hasHeader(string $name) : bool
-    {
-        return array_key_exists($name, getallheaders());
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function getHeader(string $name) : string
-    {
-        return getallheaders()[$name];
-    }
+    }   
 
     /**
      * {@inheritdoc}
@@ -454,21 +431,17 @@ class Request extends RequestAbstract
         return $this->files;
     }
 
-    public function setHeader($key, string $header, bool $overwrite = true)
+    public function getRouteVerb() : int
     {
-        // NOT Required for Http request
-    }
-
-    /**
-     * Get request route.
-     *
-     * @return string
-     *
-     * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
-     */
-    public function getRoutify() : string
-    {
-        return $this->uri->__toString();
+        switch($this->getMethod()) {
+            case RequestMethod::GET:
+                return RouteVerb::GET;
+            case RequestMethod::PUT:
+                return RouteVerb::PUT;
+            case RequestMethod::POST:
+                return RouteVerb::SET;
+            default:
+                throw new \Exception();
+        }
     }
 }

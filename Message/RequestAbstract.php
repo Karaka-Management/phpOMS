@@ -122,6 +122,8 @@ abstract class RequestAbstract implements MessageInterface
      */
     protected $hash = [];
 
+    protected $header = null;
+
     /**
      * Constructor.
      *
@@ -321,6 +323,11 @@ abstract class RequestAbstract implements MessageInterface
         return $this->status;
     }
 
+    public function getHeader() : HeaderAbstract
+    {
+        return $this->header;
+    }
+
     /**
      * {@inheritdoc}
      */
@@ -343,4 +350,6 @@ abstract class RequestAbstract implements MessageInterface
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     abstract public function getRequestTarget() : string;
+
+    abstract public function getRouteVerb() : int;
 }

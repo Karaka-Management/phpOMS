@@ -15,10 +15,9 @@
  */
 namespace phpOMS\Message;
 
-use phpOMS\Contract\ArrayableInterface;
-use phpOMS\Contract\JsonableInterface;
 use phpOMS\Localization\Localization;
 use phpOMS\Utils\ArrayUtils;
+use phpOMS\Message\Http\Header;
 
 /**
  * Response abstract class.
@@ -31,7 +30,7 @@ use phpOMS\Utils\ArrayUtils;
  * @link       http://orange-management.com
  * @since      1.0.0
  */
-abstract class ResponseAbstract implements MessageInterface, ArrayableInterface, JsonableInterface
+abstract class ResponseAbstract implements MessageInterface
 {
 
     /**
@@ -66,10 +65,7 @@ abstract class ResponseAbstract implements MessageInterface, ArrayableInterface,
      */
     protected $account = null;
 
-    /**
-     * {@inheritdoc}
-     */
-    abstract public function setHeader($key, string $header, bool $overwrite = true);
+    protected $header = null;
 
     /**
      * {@inheritdoc}
@@ -125,7 +121,7 @@ abstract class ResponseAbstract implements MessageInterface, ArrayableInterface,
     public function setStatusCode(string $status)
     {
         $this->status = $status;
-        $this->generateHeader($status);
+        $this->header->generate($status);
     }
 
     /**
@@ -160,15 +156,10 @@ abstract class ResponseAbstract implements MessageInterface, ArrayableInterface,
         return json_encode($this->toArray());
     }
 
-    /**
-     * Generate header automatically based on code.
-     *
-     * @param int $code HTTP status code
-     *
-     * @return void
-     *
-     * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
-     */
-    abstract public function generateHeader(int $code);
+    public function getHeader() : HeaderAbstract
+    {
+        return $this->header;
+    }
+
+    abstract public function getBody() : string;
 }
