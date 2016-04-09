@@ -156,6 +156,14 @@ abstract class ResponseAbstract implements MessageInterface
         return json_encode($this->toArray());
     }
 
+    /**
+     * Get header.
+     *
+     * @return HeaderAbstract
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
     public function getHeader() : HeaderAbstract
     {
         return $this->header;

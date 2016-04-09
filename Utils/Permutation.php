@@ -1,11 +1,43 @@
 <?php
-
+/**
+ * Orange Management
+ *
+ * PHP Version 7.0
+ *
+ * @category   TBD
+ * @package    TBD
+ * @author     OMS Development Team <dev@oms.com>
+ * @author     Dennis Eichhorn <d.eichhorn@oms.com>
+ * @copyright  2013 Dennis Eichhorn
+ * @license    OMS License 1.0
+ * @version    1.0.0
+ * @link       http://orange-management.com
+ */
 namespace phpOMS\Utils;
 
+/**
+ * String utils.
+ *
+ * @category   Framework
+ * @package    phpOMS\Utils
+ * @author     OMS Development Team <dev@oms.com>
+ * @author     Dennis Eichhorn <d.eichhorn@oms.com>
+ * @license    OMS License 1.0
+ * @link       http://orange-management.com
+ * @since      1.0.0
+ */
 class Permutation 
 {
     /**
-     * usage: permut(['a', 'b', 'c']);
+     * Create all permutations.
+     *
+     * @param array $toPermute data to permutate
+     * @param array $result existing permutations
+     *
+     * @return array
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public static function permut(array $toPermute, array $result = []) : array
     {
@@ -24,5 +56,71 @@ class Permutation
         }
 
         return $permutations;
+    }
+
+    /**
+     * Check if two strings are permutations of each other.
+     *
+     * @param string $a String a
+     * @param string $b String b
+     *
+     * @return bool
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+    public static function isPermutation(string $a, string $b) : bool 
+    {
+        return count_chars($a, 1) === count_chars($b, 1);
+    }
+
+    /**
+     * Check if a string is a palindrome.
+     *
+     * @param string $a String a
+     * @param string $filter Characters to filter
+     *
+     * @return bool
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+    public static function isPalindrome(string $a, string $filter = 'a-zA-Z0-9') : bool
+    {
+        $a = strtolower(preg_replace('/[^' . $filter . ']/', '', $a));
+
+        return $a === strrev($a);
+    }
+
+    /**
+     * Permutate based on transposition key.
+     *
+     * @param string|array $toPermute To permutate
+     * @param array $key Permutation keys
+     *
+     * @return mixed
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+    public static function permutate($toPermute, array $key)
+    {
+        if(!is_array($toPermute) || !is_string($toPermute)) {
+            throw new \Exception();
+        }
+
+        if(count($key) > strlen($toPermute)) {
+            throw new \Exception();
+        }
+
+        $i = 0;
+        for($key as $pos) {
+            $temp = $toPermute[$i]
+            $toPermute[$i] = $toPermute[$pos];
+            $toPermute[$pos] = $temp;
+            $i++;
+        }
+
+        return $toPermute;
     }
 }

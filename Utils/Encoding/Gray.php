@@ -19,7 +19,7 @@ namespace phpOMS\Utils\Encoding;
  * Gray encoding class
  *
  * @category   Framework
- * @package    phpOMS\Asset
+ * @package    phpOMS\Utils
  * @author     OMS Development Team <dev@oms.com>
  * @author     Dennis Eichhorn <d.eichhorn@oms.com>
  * @license    OMS License 1.0

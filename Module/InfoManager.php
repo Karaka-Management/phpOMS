@@ -24,8 +24,8 @@ use phpOMS\Validation\Validator;
  *
  * Handling the info files for modules
  *
- * @category   Module
- * @package    Framework
+ * @category   Framework
+ * @package    phpOMS\Module
  * @author     OMS Development Team <dev@oms.com>
  * @author     Dennis Eichhorn <d.eichhorn@oms.com>
  * @license    OMS License 1.0
@@ -64,6 +64,14 @@ class InfoManager
         $this->path = $path;
     }
 
+    /**
+     * Load info data from path.
+     *
+     * @return void
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn
+     */
     public function load()
     {
         if (($path = realpath($this->path)) === false) {
@@ -116,31 +124,79 @@ class InfoManager
         return $this->info;
     }
 
+    /**
+     * Get info data.
+     *
+     * @return string
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn
+     */
     public function getInternalName() : string
     {
         return $this->info['name']['internal'];
     }
 
+    /**
+     * Get info data.
+     *
+     * @return array
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn
+     */
     public function getDependencies() : array
     {
         return $this->info['dependencies'];
     }
 
+    /**
+     * Get info data.
+     *
+     * @return array
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn
+     */
     public function getProviding() : array
     {
         return $this->info['providing'];
     }
 
+    /**
+     * Get info data.
+     *
+     * @return string
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn
+     */
     public function getDirectory() : string
     {
         return $this->info['directory'];
     }
 
+    /**
+     * Get info data.
+     *
+     * @return string
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn
+     */
     public function getVersion() : string
     {
         return $this->info['version'];
     }
 
+    /**
+     * Get info data.
+     *
+     * @return array
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn
+     */
     public function getLoad() : array
     {
         return $this->info['load'];

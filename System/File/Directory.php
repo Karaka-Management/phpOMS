@@ -20,8 +20,8 @@ namespace phpOMS\System\File;
  *
  * Performing operations on the file system
  *
- * @category   System
- * @package    Framework
+ * @category   Framework
+ * @package    phpOMS\System\File
  * @author     OMS Development Team <dev@oms.com>
  * @author     Dennis Eichhorn <d.eichhorn@oms.com>
  * @license    OMS License 1.0
@@ -45,6 +45,42 @@ class Directory extends FileAbstract implements \Iterator, \ArrayAccess
      * @since 1.0.0
      */
     private $nodes = [];
+
+    /**
+     * Get folder size recursively.
+     *
+     * This can become rather slow for large structures.
+     *
+     * @param string $dir Root dir to inspect
+     * @param bool $recursive Get size recursive
+     *
+     * @return int
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn
+     */
+    public static function getFolderSize(string $dir, bool $recursive = true) : int
+    {
+        $countSize = 0;
+        $count     = 0;
+
+        if (is_readable($dir)) {
+            $dir_array = scandir($dir);
+
+            foreach ($dir_array as $key => $filename) {
+                if ($filename != ".." && $filename != ".") {
+                    if (is_dir($dir . "/" . $filename) && $recursive) {
+                        $countSize += self::getFolderSize($dir . "/" . $filename, $recursive);
+                    } else if (is_file($dir . "/" . $filename)) {
+                        $countSize += filesize($dir . "/" . $filename);
+                        $count++;
+                    }
+                }
+            }
+        }
+
+        return (int) $countSize;
+    }
 
     /**
      * Get file count inside path.

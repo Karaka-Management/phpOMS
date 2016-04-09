@@ -112,7 +112,7 @@ abstract class RequestAbstract implements MessageInterface
      * @var string
      * @since 1.0.0
      */
-    private $status = RequestStatus::R_200;
+    protected $status = null;
 
     /**
      * Request hash.

@@ -61,6 +61,14 @@ class Request extends RequestAbstract
     protected $path = null;
 
     /**
+     * Request status.
+     *
+     * @var string
+     * @since 1.0.0
+     */
+    protected $status = RequestStatus::R_200;
+
+    /**
      * Uploaded files.
      *
      * @var array
@@ -431,6 +439,14 @@ class Request extends RequestAbstract
         return $this->files;
     }
 
+    /**
+     * Get route verb for this request.
+     *
+     * @return int
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
     public function getRouteVerb() : int
     {
         switch($this->getMethod()) {

@@ -120,7 +120,7 @@ class Response extends ResponseAbstract implements RenderableInterface
     }
 
     /**
-     * Generate response.
+     * Generate response based on header.
      *
      * @return string
      *
@@ -139,11 +139,27 @@ class Response extends ResponseAbstract implements RenderableInterface
         }
     }
 
+    /**
+     * Generate json response.
+     *
+     * @return string
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
     private function getJson() : string
     {
         return json_encode($this->getArray());
     }
 
+    /**
+     * Generate raw response.
+     *
+     * @return string
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
     private function getRaw() : string
     {
         $render = '';
@@ -165,6 +181,14 @@ class Response extends ResponseAbstract implements RenderableInterface
         return $render;
     }
 
+    /**
+     * Generate response array from views.
+     *
+     * @return array
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
     private function getArray() : array
     {
         $result = [];

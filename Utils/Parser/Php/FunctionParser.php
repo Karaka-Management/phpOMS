@@ -20,8 +20,8 @@ namespace phpOMS\Utils\Parser\Php;
  *
  * Parsing/serializing variables
  *
- * @category   System
- * @package    Framework
+ * @category   Framework
+ * @package    phpOMS\Utils\Parser
  * @author     OMS Development Team <dev@oms.com>
  * @author     Dennis Eichhorn <d.eichhorn@oms.com>
  * @license    OMS License 1.0

@@ -18,10 +18,10 @@ namespace phpOMS\Account;
 use phpOMS\Datatypes\Enum;
 
 /**
- * Account type enum.
+ * Account status enum.
  *
  * @category   Framework
- * @package    phpOMS\DataStorage\Database
+ * @package    phpOMS\Account
  * @author     OMS Development Team <dev@oms.com>
  * @author     Dennis Eichhorn <d.eichhorn@oms.com>
  * @license    OMS License 1.0

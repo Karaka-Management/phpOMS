@@ -25,8 +25,8 @@ use phpOMS\Validation\Validator;
 /**
  * List view.
  *
- * @category   Theme
- * @package    Framework
+ * @category   Framework
+ * @package    phpOMS/Views
  * @author     OMS Development Team <dev@oms.com>
  * @author     Dennis Eichhorn <d.eichhorn@oms.com>
  * @license    OMS License 1.0
@@ -340,6 +340,14 @@ class View implements \Serializable
         $this->data[$id] = $data;
     }
 
+    /**
+     * Arrayify view and it's subviews.
+     *
+     * @return array
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
     public function getArray() : array 
     {
         $viewArray = [];
@@ -351,11 +359,27 @@ class View implements \Serializable
         }
     }
 
+    /**
+     * Serialize view for rendering.
+     *
+     * @return string
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
     public function serialize()
     {
         return $this->render();
     }
 
+    /**
+     * Unserialize view.
+     *
+     * @return void
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
     public function unserialize($raw) 
     {
 

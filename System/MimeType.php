@@ -23,7 +23,7 @@ use phpOMS\Datatypes\Enum;
  * Database types that are supported by the application
  *
  * @category   Framework
- * @package    phpOMS\DataStorage\Database
+ * @package    phpOMS\System
  * @author     OMS Development Team <dev@oms.com>
  * @author     Dennis Eichhorn <d.eichhorn@oms.com>
  * @license    OMS License 1.0

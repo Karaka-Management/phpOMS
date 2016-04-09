@@ -44,9 +44,17 @@ class Header extends HeaderAbstract
 
     public function __constrct()
     {
-        $this->setHeader('Content-Type', 'text/html; charset=utf-8');
+        $this->set('Content-Type', 'text/html; charset=utf-8');
     }
 
+    /**
+     * Returns all headers.
+     *
+     * @return array
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
     public function getHeaders() : array
     {
         return getallheaders();
@@ -146,6 +154,14 @@ class Header extends HeaderAbstract
         $this->lock();
     }
 
+    /**
+     * Lock other header pushing models.
+     *
+     * @return array
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
     private function lock() 
     {
         CookieJar::lock();
@@ -173,6 +189,9 @@ class Header extends HeaderAbstract
                 $this->generate406();
                 break;
             case RequestStatus::R_407:
+                $this->generate407();
+                break;
+            case RequestStatus::R_503:
                 $this->generate503();
                 break;
             default:
@@ -180,22 +199,59 @@ class Header extends HeaderAbstract
         }
     }
 
+    /**
+     * Generate predefined header.
+     *
+     * @return void
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
     private function generate403()
     {
-        $this->setHeader('HTTP', 'HTTP/1.0 403 Forbidden');
-        $this->setHeader('Status', 'Status: HTTP/1.0 403 Forbidden');
+        $this->set('HTTP', 'HTTP/1.0 403 Forbidden');
+        $this->set('Status', 'Status: HTTP/1.0 403 Forbidden');
     }
 
+    /**
+     * Generate predefined header.
+     *
+     * @return void
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
     private function generate406() 
     {
-        $this->setHeader('HTTP', 'HTTP/1.0 406 Not acceptable');
-        $this->setHeader('Status', 'Status: 406 Not acceptable');
+        $this->set('HTTP', 'HTTP/1.0 406 Not acceptable');
+        $this->set('Status', 'Status: 406 Not acceptable');
     }
 
+    /**
+     * Generate predefined header.
+     *
+     * @return void
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
     private function generate503()
     {
-        $this->setHeader('HTTP', 'HTTP/1.0 503 Service Temporarily Unavailable');
-        $this->setHeader('Status', 'Status: 503 Service Temporarily Unavailable');
-        $this->setHeader('Retry-After', 'Retry-After: 300');
+        $this->set('HTTP', 'HTTP/1.0 503 Service Temporarily Unavailable');
+        $this->set('Status', 'Status: 503 Service Temporarily Unavailable');
+        $this->set('Retry-After', 'Retry-After: 300');
+    }
+
+    /**
+     * Generate predefined header.
+     *
+     * @return void
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+    private function generate407() 
+    {
+
     }
 }

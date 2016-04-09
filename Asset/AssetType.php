@@ -18,12 +18,10 @@ namespace phpOMS\Asset;
 use phpOMS\Datatypes\Enum;
 
 /**
- * Login return types enum.
- *
- * These are possible answers to authentications.
+ * Asset types enum.
  *
  * @category   Framework
- * @package    phpOMS\Auth
+ * @package    phpOMS\Asset
  * @author     OMS Development Team <dev@oms.com>
  * @author     Dennis Eichhorn <d.eichhorn@oms.com>
  * @license    OMS License 1.0

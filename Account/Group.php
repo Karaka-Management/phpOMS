@@ -19,7 +19,7 @@ namespace phpOMS\Account;
  * Account group class.
  *
  * @category   Framework
- * @package    phpOMS\DataStorage\Database
+ * @package    phpOMS\Account
  * @author     OMS Development Team <dev@oms.com>
  * @author     Dennis Eichhorn <d.eichhorn@oms.com>
  * @license    OMS License 1.0

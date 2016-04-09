@@ -18,8 +18,8 @@ namespace phpOMS\System;
 /**
  * Operating system class.
  *
- * @category   System
- * @package    Framework
+ * @category   Framework
+ * @package    phpOMS\System
  * @author     OMS Development Team <dev@oms.com>
  * @author     Dennis Eichhorn <d.eichhorn@oms.com>
  * @license    OMS License 1.0

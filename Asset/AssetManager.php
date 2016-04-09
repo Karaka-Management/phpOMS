@@ -18,8 +18,6 @@ namespace phpOMS\Asset;
 /**
  * Asset manager class.
  *
- * Responsible for authenticating and initializing the connection
- *
  * @category   Framework
  * @package    phpOMS\Asset
  * @author     OMS Development Team <dev@oms.com>

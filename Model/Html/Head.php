@@ -24,8 +24,8 @@ use phpOMS\Contract\RenderableInterface;
  *
  * Responsible for handling everything that's going on in the <head>
  *
- * @category   Log
- * @package    Framework
+ * @category   Framework
+ * @package    phpOMS/Model
  * @author     OMS Development Team <dev@oms.com>
  * @author     Dennis Eichhorn <d.eichhorn@oms.com>
  * @license    OMS License 1.0

@@ -22,7 +22,7 @@ use phpOMS\Message\RequestAbstract;
  * Router class.
  *
  * @category   Framework
- * @package    phpOMS\Socket
+ * @package    phpOMS\Router
  * @author     OMS Development Team <dev@oms.com>
  * @author     Dennis Eichhorn <d.eichhorn@oms.com>
  * @license    OMS License 1.0
@@ -50,9 +50,19 @@ class Router
     {
     }
 
+    /**
+     * Add routes from file.
+     *
+     * @param string $path Route file path
+     *
+     * @return void
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
     public function importFromFile(string $path) 
     {
-        $this->routes = include $path;
+        $this->routes += include $path;
     }
 
     /**
@@ -61,7 +71,6 @@ class Router
      * @param string $route       Route regex
      * @param mixed $destination Destination e.g. Module:function & verb
      * @param string $verb      Request verb
-     * @param int    $layout        Result layout
      *
      * @return void
      *
@@ -77,10 +86,9 @@ class Router
     }
 
     /**
-     * Route uri.
+     * Route request.
      *
-     * @param string $uri          Uri to route
-     * @param string $verb GET/POST etc.
+     * @param RequestAbstract $request Request to route
      *
      * @return string[]
      *

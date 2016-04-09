@@ -28,8 +28,8 @@ use phpOMS\Utils\IO\Json\InvalidJsonException;
  *
  * General module functionality such as listings and initialization.
  *
- * @category   Module
- * @package    Framework
+ * @category   Framework
+ * @package    phpOMS\Module
  * @author     OMS Development Team <dev@oms.com>
  * @author     Dennis Eichhorn <d.eichhorn@oms.com>
  * @license    OMS License 1.0
@@ -323,6 +323,16 @@ class ModuleManager
         }
     }
 
+    /**
+     * Register module in database.
+     *
+     * @param string $module Module name
+     *
+     * @return void
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn
+     */
     private function registerInDatabase(InfoManager $info)
     {
         switch ($this->app->dbPool->get('core')->getType()) {
@@ -366,6 +376,16 @@ class ModuleManager
         }
     }
 
+    /**
+     * Install module dependencies.
+     *
+     * @param array $dependencies Module dependencies
+     *
+     * @return void
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn
+     */
     private function installDependencies(array $dependencies)
     {
         foreach ($dependencies as $key => $version) {
@@ -373,6 +393,16 @@ class ModuleManager
         }
     }
 
+    /**
+     * Install module itself.
+     *
+     * @param InfoManager $info Module info
+     *
+     * @return void
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn
+     */
     private function installModule(InfoManager $info)
     {
         $class = '\\Modules\\' . $info->getDirectory() . '\\Admin\\Installer';
@@ -385,6 +415,16 @@ class ModuleManager
         $class::install($this->app->dbPool, $info);
     }
 
+    /**
+     * Load info of module.
+     *
+     * @param string $module Module name
+     *
+     * @return InfoManager
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn
+     */
     private function loadInfo(string $module) : InfoManager
     {
         $path = realpath($oldPath = self::MODULE_PATH . '/' . $module . '/' . 'info.json');
@@ -465,6 +505,16 @@ class ModuleManager
         }
     }
 
+    /**
+     * Initialize array of modules.
+     *
+     * @param array $modules Modules
+     *
+     * @return void
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn
+     */
     private function initModuleArray(array $modules)
     {
         foreach ($modules as $module) {
@@ -480,6 +530,18 @@ class ModuleManager
         }
     }
 
+    /**
+     * Initialize module.
+     *
+     * Also registers controller in the dispatcher
+     *
+     * @param string $module Module
+     *
+     * @return void
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn
+     */
     private function initModuleController(string $module) 
     {
         $this->running[$module] = ModuleFactory::getInstance($module, $this->app);

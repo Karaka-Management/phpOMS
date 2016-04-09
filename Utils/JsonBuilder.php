@@ -15,8 +15,6 @@
  */
 namespace phpOMS\Utils;
 
-
-
 /**
  * Json builder class.
  *

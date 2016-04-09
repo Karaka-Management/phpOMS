@@ -46,9 +46,9 @@ class Autoloader
      */
     public static function default_autoloader(string $class)
     {
-        if (($class = self::exists($class)) !== false) {
+        if (($classNew = self::exists($class)) !== false) {
             /** @noinspection PhpIncludeInspection */
-            include __DIR__ . '/../' . $class . '.php';
+            include __DIR__ . '/../' . $classNew . '.php';
         } else {
             throw new \Exception($class);
         }

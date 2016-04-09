@@ -19,7 +19,7 @@ namespace phpOMS\Account;
  * Account manager class.
  *
  * @category   Framework
- * @package    phpOMS\Asset
+ * @package    phpOMS\Account
  * @author     OMS Development Team <dev@oms.com>
  * @author     Dennis Eichhorn <d.eichhorn@oms.com>
  * @license    OMS License 1.0

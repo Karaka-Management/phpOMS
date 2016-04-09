@@ -26,7 +26,7 @@ use phpOMS\Views\ViewLayout;
  * Dispatcher class.
  *
  * @category   Framework
- * @package    Framework
+ * @package    phpOMS\Dispatcher
  * @author     OMS Development Team <dev@oms.com>
  * @author     Dennis Eichhorn <d.eichhorn@oms.com>
  * @license    OMS License 1.0
@@ -102,7 +102,20 @@ class Dispatcher
         return $views;
     }
 
-    private function dispatchString(string $controller, RequestAbstract $request, ResponseAbstract $response, $data = null)
+    /**
+     * Dispatch string.
+     *
+     * @param string|array|\Closure $controller Controller string
+     * @param RequestAbstract       $request    Request
+     * @param ResponseAbstract      $response   Response
+     * @param mixed                 $data       Data
+     *
+     * @return array
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+    private function dispatchString(string $controller, RequestAbstract $request, ResponseAbstract $response, $data = null) : array
     {
         $views =[];
         $dispatch = explode(':', $controller);
@@ -120,6 +133,19 @@ class Dispatcher
         return $views;
     }
 
+    /**
+     * Dispatch array.
+     *
+     * @param string|array|\Closure $controller Controller string
+     * @param RequestAbstract       $request    Request
+     * @param ResponseAbstract      $response   Response
+     * @param mixed                 $data       Data
+     *
+     * @return array
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
     private function dispatchArray(array $controller, RequestAbstract $request, ResponseAbstract $response, $data = null) : array
     {
         $views = [];
@@ -132,11 +158,34 @@ class Dispatcher
         return $views;
     }
 
+    /**
+     * Dispatch closure.
+     *
+     * @param string|array|\Closure $controller Controller string
+     * @param RequestAbstract       $request    Request
+     * @param ResponseAbstract      $response   Response
+     * @param mixed                 $data       Data
+     *
+     * @return array
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
     private function dispatchClosure(\Closure $controller, RequestAbstract $request, ResponseAbstract $response, $data = null)
     {
         return $controller($this->app, $request, $response, $data);
     }
 
+    /**
+     * Dispatch controller.
+     *
+     * @param string $controller Controller
+     *
+     * @return mixed
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
     private function getController(string $controller)
     {
         if (!isset($this->controllers[$controller])) {

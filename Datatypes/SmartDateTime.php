@@ -20,7 +20,7 @@ namespace phpOMS\Datatypes;
  *
  * Providing smarter datetimes
  *
- * @category   Modules
+ * @category   Framework
  * @package    phpOMS\Datatypes
  * @author     OMS Development Team <dev@oms.com>
  * @author     Dennis Eichhorn <d.eichhorn@oms.com>

@@ -18,10 +18,10 @@ namespace phpOMS\DataStorage\Database;
 use phpOMS\DataStorage\Database\Schema\Exception\TableException;
 
 /**
- * Path exception class.
+ * Database exception factory.
  *
- * @category   System
- * @package    Framework
+ * @category   Framework
+ * @package    phpOMS\DataStorage\Database
  * @author     OMS Development Team <dev@oms.com>
  * @author     Dennis Eichhorn <d.eichhorn@oms.com>
  * @license    OMS License 1.0
@@ -33,9 +33,9 @@ class DatabaseExceptionFactory
     /**
      * Constructor.
      *
-     * @param string     $message Exception message
-     * @param int        $code    Exception code
-     * @param \Exception Previous exception
+     * @param \PDOException $e Exception
+     *
+     * @return \PDOException
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
@@ -50,6 +50,16 @@ class DatabaseExceptionFactory
         }
     }
 
+    /**
+     * Create table exception.
+     *
+     * @param \PDOException $e Exception
+     *
+     * @return \PDOException
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
     private static function createTableViewException(\PDOException $e) : \PDOException
     {
         return new TableException(TableException::findTable($e->getMessage()));

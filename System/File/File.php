@@ -20,8 +20,8 @@ namespace phpOMS\System\File;
  *
  * Performing operations on the file system
  *
- * @category   System
- * @package    Framework
+ * @category   Framework
+ * @package    phpOMS\System\File
  * @author     OMS Development Team <dev@oms.com>
  * @author     Dennis Eichhorn <d.eichhorn@oms.com>
  * @license    OMS License 1.0
