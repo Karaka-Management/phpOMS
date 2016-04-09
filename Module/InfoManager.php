@@ -59,18 +59,18 @@ class InfoManager
      * @since  1.0.0
      * @author Dennis Eichhorn
      */
-    public function __construct(string $module)
+    public function __construct($path)
     {
         $this->path = $path;
     }
 
     public function load()
     {
-        if (($path = realpath($oldPath = ModuleAbstract::MODULE_PATH . '/' . $module . '/info.json')) === false || Validator::startsWith($path, ModuleAbstract::MODULE_PATH)) {
-            throw new PathException($oldPath);
+        if (($path = realpath($this->path)) === false) {
+            throw new PathException($this->path);
         }
 
-        $this->info = json_decode(file_get_contents($this->path), true);
+        $this->info = json_decode(file_get_contents($path), true);
     }
 
     /**
@@ -121,12 +121,12 @@ class InfoManager
         return $this->info['name']['internal'];
     }
 
-    public function getDependencies() : string
+    public function getDependencies() : array
     {
         return $this->info['dependencies'];
     }
 
-    public function getProviding() : string
+    public function getProviding() : array
     {
         return $this->info['providing'];
     }
@@ -141,7 +141,7 @@ class InfoManager
         return $this->info['version'];
     }
 
-    public function getLoad() : string
+    public function getLoad() : array
     {
         return $this->info['load'];
     }

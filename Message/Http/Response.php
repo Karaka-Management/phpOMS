@@ -157,6 +157,7 @@ class Response extends ResponseAbstract implements RenderableInterface
                 $render .= json_encode($response);
                 // TODO: remove this. This should never happen since then someone forgot to set the correct header. it should be json header!
             } else {
+                var_dump($response);
                 throw new \Exception('Wrong response type');
             }
         }

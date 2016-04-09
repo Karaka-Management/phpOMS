@@ -20,6 +20,7 @@ use phpOMS\DataStorage\Database\DatabaseType;
 use phpOMS\Log\FileLogger;
 use phpOMS\Message\Http\Request;
 use phpOMS\System\File\PathException;
+use phpOMS\Autoloader;
 use phpOMS\Utils\IO\Json\InvalidJsonException;
 
 /**
@@ -296,22 +297,29 @@ class ModuleManager
             // todo download;
         }
 
-        $info = $this->loadInfo();
+        try {
+            $info = $this->loadInfo($module);
 
-        $this->registerInDatabase();
-        $this->installDependencies($info->getDependencies());
-        $this->installModule($module);
-        $this->installed[$module] = true;
+            $this->registerInDatabase($info);
+            $this->installed[$module] = $info;
+            $this->installDependencies($info->getDependencies());
+            $this->installModule($info);
 
-        /* Install providing */
-        $providing = $info->getProviding();
-        foreach ($providing as $key => $version) {
-            $this->installProviding($module, $key);
-        }
+            /* Install providing */
+            $providing = $info->getProviding();
+            foreach ($providing as $key => $version) {
+                $this->installProviding($module, $key);
+            }
 
-        /* Install receiving */
-        foreach ($installed as $key => $value) {
-            $this->installProviding($key, $module);
+            /* Install receiving */
+            foreach ($installed as $key => $value) {
+                $this->installProviding($key, $module);
+            }
+        } catch(PathException $e) {
+            // todo: handle module doesn't exist or files are missing
+            //echo $e->getMessage();
+        } catch(\Exception $e) {
+            //echo $e->getMessage();
         }
     }
 
@@ -365,13 +373,11 @@ class ModuleManager
         }
     }
 
-    private function installModule(string $module)
+    private function installModule(InfoManager $info)
     {
+        $class = '\\Modules\\' . $info->getDirectory() . '\\Admin\\Installer';
 
-
-        $class = '\\Modules\\' . $module . '\\Admin\\Installer';
-
-        if(!Autoloader::exist($class)) {
+        if(!Autoloader::exists($class)) {
             throw new \Exception('Module installer does not exist');
         }
 
@@ -384,10 +390,10 @@ class ModuleManager
         $path = realpath($oldPath = self::MODULE_PATH . '/' . $module . '/' . 'info.json');
 
         if ($path === false || strpos($path, self::MODULE_PATH) === false) {
-            throw new PathException($module);
+            throw new PathException($oldPath);
         }
 
-        $info = InfoManager($module);
+        $info = new InfoManager($path);
         $info->load();
 
         return $info;

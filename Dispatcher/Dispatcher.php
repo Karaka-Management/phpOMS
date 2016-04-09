@@ -85,8 +85,7 @@ class Dispatcher
         $views = [];
         $type  = ViewLayout::UNDEFINED;
 
-        if (is_array($controller) && isset($controller['type'])) {
-            $type       = $controller['type'];
+        if (is_array($controller) && isset($controller['dest'])) {
             $controller = $controller['dest'];
         }
 
@@ -95,7 +94,7 @@ class Dispatcher
         } elseif (is_array($controller)) {
             $views += $this->dispatchArray($controller, $request, $response, $data);
         } elseif ($controller instanceof \Closure) {
-            $views[$type][] = $this->dispatchClosure($controller, $request, $response, $data);
+            $views[] = $this->dispatchClosure($controller, $request, $response, $data);
         } else {
             throw new \UnexpectedValueException('Unexpected controller type.');
         }
@@ -111,9 +110,9 @@ class Dispatcher
 
         if (($c = count($dispatch)) == 3) {
             /* Handling static functions */
-            $views[$type][$controller] = $dispatch[0]::$dispatch[2]();
+            $views[$controller] = $dispatch[0]::$dispatch[2]();
         } elseif ($c == 2) {
-            $views[$type][$controller] = $this->controllers[$dispatch[0]]->{$dispatch[1]}($request, $response, $data);
+            $views[$controller] = $this->controllers[$dispatch[0]]->{$dispatch[1]}($request, $response, $data);
         } else {
             throw new \UnexpectedValueException('Unexpected function.');
         }

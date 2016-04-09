@@ -73,8 +73,6 @@ class Autoloader
             return $class;
         }
 
-        echo $class;
-
         return false;
     }
 

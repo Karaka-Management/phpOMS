@@ -16,6 +16,9 @@
 namespace phpOMS\Module;
 
 use phpOMS\DataStorage\Database\Pool;
+use phpOMS\Module\InfoManager;
+use phpOMS\Router\RouteVerb;
+use phpOMS\Utils\Parser\Php\ArrayParser;
 
 /**
  * Installer Abstract class.
@@ -44,10 +47,9 @@ class InstallerAbstract
      */
     public static function install(Pool $dbPool, InfoManager $info)
     {
-
-        self::$installRoutes(ROOT_PATH . '/Web/Routes.php', ROOT_PATH . '/Modules/' . $info['directory'] . '/Admin/Routes/http.php');
-        self::$installRoutes(ROOT_PATH . '/Socket/Routes.php', ROOT_PATH . '/Modules/' . $info['directory'] . '/Admin/Routes/socket.php');
-        self::$installRoutes(ROOT_PATH . '/Console/Routes.php', ROOT_PATH . '/Modules/' . $info['directory'] . '/Admin/Routes/console.php');
+        self::installRoutes(ROOT_PATH . '/Web/Routes.php', ROOT_PATH . '/Modules/' . $info->getDirectory() . '/Admin/Routes/http.php');
+        self::installRoutes(ROOT_PATH . '/Socket/Routes.php', ROOT_PATH . '/Modules/' . $info->getDirectory() . '/Admin/Routes/socket.php');
+        self::installRoutes(ROOT_PATH . '/Console/Routes.php', ROOT_PATH . '/Modules/' . $info->getDirectory() . '/Admin/Routes/console.php');
     }
 
     private static function installRoutes(string $appRoutePath, string $moduleRoutePath) 
@@ -58,7 +60,7 @@ class InstallerAbstract
             $appRoutes = array_merge_recursive($appRoutes, $moduleRoutes);
 
             if(is_writable($appRoutePath)) {
-                file_put_contents('<?php return ' . ArrayParser::serializeArray($appRoutes), $appRoutePath);
+                file_put_contents($appRoutePath, '<?php return ' . ArrayParser::serializeArray($appRoutes) . ';', LOCK_EX);
             } else {
                 throw new PermissionException($appRoutePath);
             }

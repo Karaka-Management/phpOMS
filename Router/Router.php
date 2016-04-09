@@ -16,6 +16,7 @@
 namespace phpOMS\Router;
 
 use phpOMS\Views\ViewLayout;
+use phpOMS\Message\RequestAbstract;
 
 /**
  * Router class.
@@ -92,7 +93,7 @@ class Router
         foreach ($this->routes as $route => $destination) {
             foreach ($destination as $d) {
                 if ($this->match($route, $d['verb'], $request->getUri(), $request->getRouteVerb())) {
-                    $bound[$route][] = ['dest' => $d['dest'], 'type' => $d['type']];
+                    $bound[] = ['dest' => $d['dest']];
                 }
             }
         }

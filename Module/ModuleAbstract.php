@@ -139,9 +139,7 @@ abstract class ModuleAbstract
         }
 
         /** @noinspection PhpIncludeInspection */
-        include $path;
-        /** @var array $MODLANG */
-        $lang += $MODLANG;
+        $lang = include $path;
 
         return $lang;
     }

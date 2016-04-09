@@ -18,6 +18,7 @@ namespace phpOMS\Config;
 
 use phpOMS\DataStorage\Database\DatabaseType;
 use phpOMS\DataStorage\Database\Query\Builder;
+use phpOMS\DataStorage\Database\DatabaseExceptionFactory;
 
 /**
  * Settings class.
@@ -90,25 +91,30 @@ abstract class SettingsAbstract implements OptionsInterface
      */
     public function get(array $columns)
     {
-        $options = [];
+        try {
+            $options = [];
 
-        switch ($this->connection->getType()) {
-            case DatabaseType::MYSQL:
-                $query = new Builder($this->connection);
-                $sql   = $query->select(...static::$columns)
-                    ->from($this->connection->prefix . static::$table)
-                    ->where(static::$columns[0], 'in', $columns)
-                    ->toSql();
+            switch ($this->connection->getType()) {
+                case DatabaseType::MYSQL:
+                    $query = new Builder($this->connection);
+                    $sql   = $query->select(...static::$columns)
+                        ->from($this->connection->prefix . static::$table)
+                        ->where(static::$columns[0], 'in', $columns)
+                        ->toSql();
 
-                $sth = $this->connection->con->prepare($sql);
-                $sth->execute();
+                    $sth = $this->connection->con->prepare($sql);
+                    $sth->execute();
 
-                $options = $sth->fetchAll(\PDO::FETCH_KEY_PAIR);
-                $this->setOptions($options);
-                break;
+                    $options = $sth->fetchAll(\PDO::FETCH_KEY_PAIR);
+                    $this->setOptions($options);
+                    break;
+            }
+
+            return $options;
+        } catch (\PDOException $e) {
+            // todo does it mean that the recognition isn't here but at the place where the new happens?
+            throw DatabaseExceptionFactory::create($e);
         }
-
-        return $options;
     }
 
     /**

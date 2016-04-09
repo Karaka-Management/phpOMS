@@ -20,6 +20,7 @@ use phpOMS\Message\RequestAbstract;
 use phpOMS\Uri\Http;
 use phpOMS\Uri\UriFactory;
 use phpOMS\Uri\UriInterface;
+use phpOMS\Router\RouteVerb;
 
 /**
  * Request class.
@@ -387,7 +388,7 @@ class Request extends RequestAbstract
     public function getMethod() : string
     {
         if (!isset($this->method)) {
-            $this->method = $_SERVER['REQUEST_METHOD'];
+            $this->method = $_SERVER['REQUEST_METHOD'] ?? RequestMethod::GET;
         }
 
         return $this->method;
@@ -432,7 +433,7 @@ class Request extends RequestAbstract
 
     public function getRouteVerb() : int
     {
-        switch($this->method) {
+        switch($this->getMethod()) {
             case RequestMethod::GET:
                 return RouteVerb::GET;
             case RequestMethod::PUT:

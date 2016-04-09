@@ -16,7 +16,6 @@
 namespace phpOMS\Views;
 
 use phpOMS\ApplicationAbstract;
-use phpOMS\Contract\RenderableInterface;
 use phpOMS\Localization\Localization;
 use phpOMS\Message\RequestAbstract;
 use phpOMS\Message\ResponseAbstract;
