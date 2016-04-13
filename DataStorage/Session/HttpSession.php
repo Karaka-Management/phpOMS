@@ -55,6 +55,8 @@ class HttpSession implements SessionInterface
      * @param int              $liftetime Session life time
      * @param string|int|bool $sid       Session id
      *
+     * @throws \Exception
+     *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */

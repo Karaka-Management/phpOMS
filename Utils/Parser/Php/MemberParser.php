@@ -100,7 +100,9 @@ class MemberParser
             $member .= 'const ';
         }
 
-        $member .= (!$this->isConst ? '$' : '') . $name . ' = ' . self::parseVariable($this->default) . ';';
+        $member .= (!$this->isConst ? '$' : '') . $this->name . ' = ' . self::parseVariable($this->default) . ';';
+
+        return $member;
     }
 
     /**

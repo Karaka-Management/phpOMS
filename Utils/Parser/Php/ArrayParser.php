@@ -31,25 +31,6 @@ namespace phpOMS\Utils\Parser\Php;
 class ArrayParser
 {
     /**
-     * Saving array to file.
-     *
-     * @param string $name Name of new array
-     * @param array $arr Array to parse
-     *
-     * @return void
-     *
-     * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
-     */
-    public static function createFile(string $name, array $arr) : string
-    {
-        $out = '<' . '?php' . PHP_EOL
-               . '$' . $name . ' = ' . self::serializeArray($this->arr) . ';';
-
-        return $out;
-    }
-
-    /**
      * Serializing array (recursively).
      *
      * @param array $arr Array to serialize

@@ -18,9 +18,7 @@ namespace phpOMS\Message\Http;
 use phpOMS\System\MimeType;
 use phpOMS\Contract\RenderableInterface;
 use phpOMS\Message\ResponseAbstract;
-use phpOMS\Utils\ArrayUtils;
-use phpOMS\DataStorage\Cookie\CookieJar;
-use phpOMS\DataStorage\Session\HttpSession;
+use phpOMS\Views\View;
 
 /**
  * Response class.
@@ -85,15 +83,13 @@ class Response extends ResponseAbstract implements RenderableInterface
      *
      * @return bool
      *
+     * @throws \Exception
+     *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function remove(int $id) : bool
     {
-        if (self::$isLocked) {
-            throw new \Exception('Already locked');
-        }
-
         if (isset($this->response[$id])) {
             unset($this->response[$id]);
 
@@ -149,13 +145,15 @@ class Response extends ResponseAbstract implements RenderableInterface
      */
     private function getJson() : string
     {
-        return json_encode($this->getArray());
+        return json_encode($this->toArray());
     }
 
     /**
      * Generate raw response.
      *
      * @return string
+     *
+     * @throws \Exception
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
@@ -182,20 +180,15 @@ class Response extends ResponseAbstract implements RenderableInterface
     }
 
     /**
-     * Generate response array from views.
-     *
-     * @return array
-     *
-     * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     * {@inheritdoc}
      */
-    private function getArray() : array
+    public function toArray() : array
     {
         $result = [];
 
         foreach($this->response as $key => $response) {
-            if($reponse instanceof Views) {
-                $result += $response->getArray();
+            if($response instanceof View) {
+                $result += $response->toArray();
             } elseif(is_array($response)) {
                 $result += $response;
             } elseif(is_scalar($response)) {

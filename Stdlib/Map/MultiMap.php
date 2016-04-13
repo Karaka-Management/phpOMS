@@ -14,6 +14,7 @@
  * @link       http://orange-management.com
  */
 namespace phpOMS\Stdlib\Map;
+use phpOMS\Utils\Permutation;
 
 /**
  * Multimap utils.
@@ -51,7 +52,7 @@ class MultiMap implements \Countable
      * @var int
      * @since 1.0.0
      */
-    private $keyType = KeyType::MULTIPLE;
+    private $keyType = KeyType::SINGLE;
 
     /**
      * Order type.
@@ -64,10 +65,13 @@ class MultiMap implements \Countable
     /**
      * Constructor.
      *
+     * @param int $key Key type (all keys need to match or just one)
+     * @param int $order Order of the keys is important (only required for multiple keys)
+     *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function __construct(int $key = KeyType::MULTIPLE, int $order = OrderType::LOOSE)
+    public function __construct(int $key = KeyType::SINGLE, int $order = OrderType::LOOSE)
     {
         $this->keyType = $key;
         $this->orderType = $order;
@@ -216,11 +220,9 @@ class MultiMap implements \Countable
     {
         if ($this->keyType === KeyType::MULTIPLE && is_array($key)) {
             return $this->setMultiple($key, $value);
-        } else {
-            return $this->setSingle($key, $value);
         }
 
-        return false;
+        return $this->setSingle($key, $value);
     }
 
     /**

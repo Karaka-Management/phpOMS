@@ -15,7 +15,6 @@
  */
 namespace phpOMS\Router;
 
-use phpOMS\Views\ViewLayout;
 use phpOMS\Message\RequestAbstract;
 
 /**
@@ -62,6 +61,7 @@ class Router
      */
     public function importFromFile(string $path) 
     {
+        /** @noinspection PhpIncludeInspection */
         $this->routes += include $path;
     }
 
@@ -113,9 +113,9 @@ class Router
      * Match route and uri.
      *
      * @param string $route        Route
-     * @param string $verb       GET,POST for this route
+     * @param string $routeVerb       GET,POST for this route
      * @param string $uri          Uri
-     * @param string $verb Verb this request is using
+     * @param string $remoteVerb Verb this request is using
      *
      * @return bool
      *

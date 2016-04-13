@@ -177,12 +177,7 @@ class Http implements UriInterface
     }
 
     /**
-     * Get scheme.
-     *
-     * @return string
-     *
-     * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     * {@inheritdoc}
      */
     public function getScheme() : string
     {
@@ -190,12 +185,7 @@ class Http implements UriInterface
     }
 
     /**
-     * Get host.
-     *
-     * @return string
-     *
-     * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     * {@inheritdoc}
      */
     public function getHost() : string
     {
@@ -203,12 +193,7 @@ class Http implements UriInterface
     }
 
     /**
-     * Get port.
-     *
-     * @return int
-     *
-     * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     * {@inheritdoc}
      */
     public function getPort() : int
     {
@@ -229,12 +214,7 @@ class Http implements UriInterface
     }
 
     /**
-     * Get path.
-     *
-     * @return string
-     *
-     * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     * {@inheritdoc}
      */
     public function getPath() : string
     {
@@ -242,14 +222,7 @@ class Http implements UriInterface
     }
 
     /**
-     * Get query.
-     *
-     * @param null|string $key Query key
-     *
-     * @return string
-     *
-     * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     * {@inheritdoc}
      */
     public function getQuery(string $key = null)
     {
@@ -257,12 +230,7 @@ class Http implements UriInterface
     }
 
     /**
-     * Get fragment.
-     *
-     * @return string
-     *
-     * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     * {@inheritdoc}
      */
     public function getFragment() : string
     {
@@ -270,12 +238,7 @@ class Http implements UriInterface
     }
 
     /**
-     * Get base.
-     *
-     * @return string
-     *
-     * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     * {@inheritdoc}
      */
     public function getBase() : string
     {
@@ -283,16 +246,9 @@ class Http implements UriInterface
     }
 
     /**
-     * Set uri.
-     *
-     * @param string $uri Uri
-     *
-     * @return void
-     *
-     * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     * {@inheritdoc}
      */
-    private function set(string $uri)
+    public function set(string $uri)
     {
         $this->uri = $uri;
 

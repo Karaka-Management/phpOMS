@@ -122,7 +122,7 @@ class FileLogger implements LoggerInterface
      *
      * @param string $path Logging path
      *
-     * @return self
+     * @return FileLogger
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>

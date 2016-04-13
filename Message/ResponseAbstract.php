@@ -17,7 +17,6 @@ namespace phpOMS\Message;
 
 use phpOMS\Localization\Localization;
 use phpOMS\Utils\ArrayUtils;
-use phpOMS\Message\Http\Header;
 
 /**
  * Response abstract class.
@@ -65,6 +64,12 @@ abstract class ResponseAbstract implements MessageInterface
      */
     protected $account = null;
 
+    /**
+     * Header.
+     *
+     * @var HeaderAbstract
+     * @since 1.0.0
+     */
     protected $header = null;
 
     /**
@@ -155,6 +160,18 @@ abstract class ResponseAbstract implements MessageInterface
     {
         return json_encode($this->toArray());
     }
+
+    /**
+     * Generate response array from views.
+     *
+     * @return array
+     *
+     * @throws \Exception
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+    abstract public function toArray() : array;
 
     /**
      * Get header.

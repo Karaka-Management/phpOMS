@@ -146,44 +146,44 @@ class FunctionParser
     public function parse() : string
     {
         $function = '';
-        $member .= str_repeat(' ', ClassParser::INDENT);
+        $function .= str_repeat(' ', ClassParser::INDENT);
 
         if ($this->isFinal) {
-            $member .= 'final ';
+            $function .= 'final ';
         }
 
         if ($this->isAbstract) {
-            $member .= 'abstract ';
+            $function .= 'abstract ';
         }
 
-        $member .= $this->visibility . ' ';
+        $function .= $this->visibility . ' ';
 
         if ($this->isStatic) {
-            $member .= 'static ';
+            $function .= 'static ';
         }
 
-        $member .= 'function ' . $this->name . '(';
+        $function .= 'function ' . $this->name . '(';
 
         $parameters = '';
         foreach ($this->parameters as $name => $para) {
             $parameters = (isset($para['typehint']) ? $para['typehint'] . ' ' : '') . $para['name'] . (array_key_exists('default', $para) ? ' = ' . MemberParser::parseVariable($para['default']) : '') . ', ';
         }
 
-        $member .= rtrim($parameters, ', ') . ') ';
-        $member .= ($this->return ?? '') . PHP_EOL;
+        $function .= rtrim($parameters, ', ') . ') ';
+        $function .= ($this->return ?? '') . PHP_EOL;
 
         if (isset($this->body)) {
-            $member .= str_repeat(' ', ClassParser::INDENT) . '{' . PHP_EOL . $this->addIndent($this->body) . PHP_EOL . str_repeat(' ', ClassParser::INDENT) . '}';
+            $function .= str_repeat(' ', ClassParser::INDENT) . '{' . PHP_EOL . $this->addIndent($this->body) . PHP_EOL . str_repeat(' ', ClassParser::INDENT) . '}';
         } else {
-            $member .= ';';
+            $function .= ';';
         }
 
-        return $member;
+        return $function;
     }
 
-    private function addIndent($body) : string
+    private function addIndent(string $body) : string
     {
-        $body = preg_split('/\r\n|\r|\n/', $this->body);
+        $body = preg_split('/\r\n|\r|\n/', $body);
 
         foreach ($body as &$line) {
             $line = str_repeat(' ', ClassParser::INDENT) . $line;

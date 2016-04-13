@@ -30,7 +30,7 @@ use phpOMS\Datatypes\Enum;
  * @link       http://orange-management.com
  * @since      1.0.0
  */
-abstract class MemberVisibility extends Enum
+abstract class Visibility extends Enum
 {
     const _PUBLIC = 'public'; 
     const _PRIVATE = 'private'; 

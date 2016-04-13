@@ -173,7 +173,7 @@ class Meta implements RenderableInterface
     /**
      * Set description.
      *
-     * @param string Descritpion
+     * @param string $description Meta description
      *
      * @return void
      *

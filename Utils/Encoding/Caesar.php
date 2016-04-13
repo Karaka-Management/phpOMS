@@ -26,8 +26,21 @@ namespace phpOMS\Utils\Encoding;
  * @link       http://orange-management.com
  * @since      1.0.0
  */
-class Ceasar  {
+class Caesar  {
+    /**
+     * ASCII lower char limit.
+     *
+     * @var int
+     * @since 1.0.0
+     */
     const LIMIT_LOWER = 0;
+
+    /**
+     * ASCII upper char limit.
+     *
+     * @var string
+     * @since 1.0.0
+     */
     const LIMIT_UPPER = 127;
 
     /**
@@ -50,7 +63,7 @@ class Ceasar  {
                 $ascii -= self::LIMIT_UPPER;
             }
 
-            $result .= char($ascii);
+            $result .= chr($ascii);
         }
 
         return $result;
@@ -76,7 +89,7 @@ class Ceasar  {
                 $ascii += self::LIMIT_LOWER;
             }
 
-            $result .= char($ascii);
+            $result .= chr($ascii);
         }
 
         return $result;

@@ -26,7 +26,7 @@ namespace phpOMS\Utils\Encoding;
  * @link       http://orange-management.com
  * @since      1.0.0
  */
-class Xor  {
+final class XorEncoding {
 
     /**
      * {@inheritdoc}
@@ -43,7 +43,7 @@ class Xor  {
             }
 
             $ascii = ord($source[$i]) ^ ord($key[$j]);
-            $result .= char($ascii);
+            $result .= chr($ascii);
         }
 
         return $result;
@@ -54,6 +54,6 @@ class Xor  {
      */
     public static function decode(string $raw, string $key) : string
     {
-        return self::encode($raw, $key)
+        return self::encode($raw, $key);
     }
 }

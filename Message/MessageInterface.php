@@ -40,7 +40,7 @@ interface MessageInterface
     /**
      * Retrieves all message header values.
      *
-     * @return array
+     * @return HeaderAbstract
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>

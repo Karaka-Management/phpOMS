@@ -16,9 +16,6 @@
 namespace phpOMS\Message\Http;
 
 use phpOMS\Message\HeaderAbstract;
-use phpOMS\Utils\ArrayUtils;
-use phpOMS\DataStorage\Cookie\CookieJar;
-use phpOMS\DataStorage\Session\HttpSession;
 
 /**
  * Response class.
@@ -42,7 +39,13 @@ class Header extends HeaderAbstract
      */
     private $header = [];
 
-    public function __constrct()
+    /**
+     * Constructor.
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+    public function __construct()
     {
         $this->set('Content-Type', 'text/html; charset=utf-8');
     }
@@ -75,6 +78,8 @@ class Header extends HeaderAbstract
      *
      * @return bool
      *
+     * @throws \Exception
+     *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
@@ -93,26 +98,26 @@ class Header extends HeaderAbstract
         return false;
     }
 
-        /**
+    /**
      * {@inheritdoc}
      */
-    public function get(string $id) : array
+    public function get(string $key) : array
     {
-        return $this->header[$id] ?? [];
+        return $this->header[$key] ?? [];
     }
 
     /**
      * {@inheritdoc}
      */
-    public function has(string $name) : bool
+    public function has(string $key) : bool
     {
-        return array_key_exists($name, $this->header);
+        return array_key_exists($key, $this->header);
     }
 
     /**
      * {@inheritdoc}
      */
-    public function set($key, string $header, bool $overwrite = false) : bool
+    public function set(string $key, string $header, bool $overwrite = false) : bool
     {
         if (self::$isLocked) {
             throw new \Exception('Already locked');
@@ -155,29 +160,7 @@ class Header extends HeaderAbstract
     }
 
     /**
-     * Lock other header pushing models.
-     *
-     * @return array
-     *
-     * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
-     */
-    private function lock() 
-    {
-        CookieJar::lock();
-        HttpSession::lock();
-        self::$isLocked = true;
-    }
-
-    /**
-     * Generate header automatically based on code.
-     *
-     * @param string $code HTTP status code
-     *
-     * @return void
-     *
-     * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     * {@inheritdoc}
      */
     public function generate(string $code)
     {

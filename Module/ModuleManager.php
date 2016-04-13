@@ -21,7 +21,6 @@ use phpOMS\Log\FileLogger;
 use phpOMS\Message\Http\Request;
 use phpOMS\System\File\PathException;
 use phpOMS\Autoloader;
-use phpOMS\Utils\IO\Json\InvalidJsonException;
 
 /**
  * Modules class.
@@ -326,7 +325,7 @@ class ModuleManager
     /**
      * Register module in database.
      *
-     * @param string $module Module name
+     * @param InfoManager $info Module info
      *
      * @return void
      *
@@ -399,6 +398,8 @@ class ModuleManager
      * @param InfoManager $info Module info
      *
      * @return void
+     *
+     * @throws \Exception
      *
      * @since  1.0.0
      * @author Dennis Eichhorn

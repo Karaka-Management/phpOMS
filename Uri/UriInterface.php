@@ -142,4 +142,16 @@ interface UriInterface
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function getBase() : string;
+
+    /**
+     * Set uri.
+     *
+     * @param string $uri Uri
+     *
+     * @return void
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+    public function set(string $uri);
 }

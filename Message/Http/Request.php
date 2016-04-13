@@ -136,6 +136,8 @@ class Request extends RequestAbstract
      *
      * @return void
      *
+     * @throws \Exception
+     *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */

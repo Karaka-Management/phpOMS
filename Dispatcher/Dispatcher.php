@@ -20,7 +20,6 @@ use phpOMS\Message\RequestAbstract;
 use phpOMS\Message\ResponseAbstract;
 use phpOMS\Module\ModuleAbstract;
 use phpOMS\System\File\PathException;
-use phpOMS\Views\ViewLayout;
 
 /**
  * Dispatcher class.
@@ -83,7 +82,6 @@ class Dispatcher
     public function dispatch($controller, RequestAbstract $request, ResponseAbstract $response, $data = null) : array
     {
         $views = [];
-        $type  = ViewLayout::UNDEFINED;
 
         if (is_array($controller) && isset($controller['dest'])) {
             $controller = $controller['dest'];

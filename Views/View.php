@@ -348,14 +348,14 @@ class View implements \Serializable
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function getArray() : array 
+    public function toArray() : array
     {
         $viewArray = [];
 
         $viewArray[] = $this->render();
 
         foreach($this->views as $key => $view) {
-            $viewArray[$key] = $view->getArray();
+            $viewArray[$key] = $view->toArray();
         }
     }
 
@@ -382,7 +382,7 @@ class View implements \Serializable
      */
     public function unserialize($raw) 
     {
-
+        // todo: implement
     }
 
 }

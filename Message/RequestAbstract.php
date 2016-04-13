@@ -157,7 +157,7 @@ abstract class RequestAbstract implements MessageInterface
      */
     public function setUri(UriInterface $uri)
     {
-        return $this->uri = $uri;
+        $this->uri = $uri;
     }
 
     /**

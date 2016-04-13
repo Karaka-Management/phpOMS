@@ -172,16 +172,16 @@ class ClassParser
 
     public function addInclude(string $include) 
     {
-        $this->include[] = $include;
+        $this->includes[] = $include;
 
-        array_unique($this->include);
+        array_unique($this->includes);
     }
 
     public function addRequire(string $require) 
     {
-        $this->require[] = $require;
+        $this->requires[] = $require;
 
-        array_unique($this->require);
+        array_unique($this->requires);
     }
 
     public function addTrait(string $trait, string $as = null)
@@ -267,7 +267,7 @@ class ClassParser
             $class .= PHP_EOL;
         }
 
-        if ($this->isfinal) {
+        if ($this->isFinal) {
             $class .= 'final ';
         }
 

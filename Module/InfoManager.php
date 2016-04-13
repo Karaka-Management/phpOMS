@@ -17,7 +17,6 @@ namespace phpOMS\Module;
 
 use phpOMS\System\File\PathException;
 use phpOMS\Utils\ArrayUtils;
-use phpOMS\Validation\Validator;
 
 /**
  * InfoManager class.
@@ -54,7 +53,7 @@ class InfoManager
     /**
      * Object constructor.
      *
-     * @param string $module Module name
+     * @param string $path Info file path
      *
      * @since  1.0.0
      * @author Dennis Eichhorn

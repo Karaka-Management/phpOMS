@@ -51,7 +51,7 @@ class Permutation
                 $newres = $result;
                 $newres[] = $val;
                 unset($newArr[$key]);
-                $permutations += permut($newArr, $newres);        
+                $permutations += self::permut($newArr, $newres);
             }
         }
 
@@ -100,6 +100,8 @@ class Permutation
      *
      * @return mixed
      *
+     * @throws \Exception
+     *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
@@ -114,8 +116,8 @@ class Permutation
         }
 
         $i = 0;
-        for($key as $pos) {
-            $temp = $toPermute[$i]
+        foreach($key as $pos) {
+            $temp = $toPermute[$i];
             $toPermute[$i] = $toPermute[$pos];
             $toPermute[$pos] = $temp;
             $i++;
