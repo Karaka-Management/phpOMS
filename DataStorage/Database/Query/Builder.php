@@ -265,7 +265,7 @@ class Builder extends BuilderAbstract
     /**
      * Creating new.
      *
-     * @return self
+     * @return Builder
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
@@ -718,6 +718,7 @@ class Builder extends BuilderAbstract
      * Values to insert.
      *
      * @param mixed $value Values
+     * @param string $type Data type to insert
      *
      * @return Builder
      *

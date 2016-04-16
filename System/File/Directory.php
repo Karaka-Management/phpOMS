@@ -225,18 +225,22 @@ class Directory extends FileAbstract implements \Iterator, \ArrayAccess
      *
      * @param string $name File/direcotry name
      *
+     * @return FileAbstract
+     *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function get(string $name) : FileAbstract 
     {
-        return $this->nodes[$name] ?? new NullFile();
+        return $this->nodes[$name] ?? new NullFile('');
     }
 
     /**
      * Add file or directory.
      *
      * @param FileAbstract $file File to add
+     *
+     * @return bool
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>

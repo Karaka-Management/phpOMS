@@ -35,14 +35,14 @@ class DeactivateAbstract
      * Install module.
      *
      * @param Pool  $dbPool Database instance
-     * @param array $info   Module info
+     * @param InfoManager $info   Module info
      *
      * @return void
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public static function deactivate(Pool $dbPool, array $info)
+    public static function deactivate(Pool $dbPool, InfoManager $info)
     {
     }
 }

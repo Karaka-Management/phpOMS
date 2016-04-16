@@ -32,7 +32,9 @@ class ArrayRandomize
     /**
      * Yates array shuffler.
      *
-     * @return string
+     * @param array $arr Array to randomize
+     *
+     * @return array
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
@@ -53,7 +55,9 @@ class ArrayRandomize
     /**
      * Knuths array shuffler.
      *
-     * @return string
+     * @param array $arr Array to randomize
+     *
+     * @return array
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>

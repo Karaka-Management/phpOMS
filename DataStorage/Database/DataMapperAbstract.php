@@ -550,6 +550,7 @@ abstract class DataMapperAbstract implements DataMapperInterface
      * Populate data.
      *
      * @param array $result Result set
+     * @param mixed $obj Object to populate
      *
      * @return mixed
      *
@@ -597,7 +598,7 @@ abstract class DataMapperAbstract implements DataMapperInterface
             $reflectionProperty = $reflectionClass->getProperty($member);
 
             $mapper = new $rel['mapper']($this->db);
-            $mapper->get($reflectionProperty->getValue($obj, $member), $relations, $obj);
+            $mapper->get($reflectionProperty->getValue($obj), $relations, $obj);
         }
     }
 
@@ -773,6 +774,8 @@ abstract class DataMapperAbstract implements DataMapperInterface
     /**
      * Get object.
      *
+     * @param int $relations Load relations
+     *
      * @return array
      *
      * @since  1.0.0
@@ -812,6 +815,7 @@ abstract class DataMapperAbstract implements DataMapperInterface
      *
      * @param int     $limit Newest limit
      * @param Builder $query Pre-defined query
+     * @param int $relations Load relations
      *
      * @return mixed
      *
@@ -917,7 +921,7 @@ abstract class DataMapperAbstract implements DataMapperInterface
                 }
 
                 /* loading relations from relations table and populating them and then adding them to the object */
-                if ($relations !== RealtionType::NONE) {
+                if ($relations !== RelationType::NONE) {
                     if ($hasMany) {
                         $this->populateManyToMany($this->getManyRaw($key, $relations), $obj[$key]);
                     }
@@ -985,6 +989,7 @@ abstract class DataMapperAbstract implements DataMapperInterface
      * Get raw by primary key
      *
      * @param mixed $primaryKey Primary key
+     * @param int $relations Load relations
      *
      * @return array
      *

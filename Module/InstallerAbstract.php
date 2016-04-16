@@ -16,8 +16,7 @@
 namespace phpOMS\Module;
 
 use phpOMS\DataStorage\Database\Pool;
-use phpOMS\Module\InfoManager;
-use phpOMS\Router\RouteVerb;
+use phpOMS\System\File\PermissionException;
 use phpOMS\Utils\Parser\Php\ArrayParser;
 
 /**
@@ -38,7 +37,7 @@ class InstallerAbstract
      * Install module.
      *
      * @param Pool  $dbPool Database instance
-     * @param array $info   Module info
+     * @param InfoManager $info   Module info
      *
      * @return void
      *
@@ -60,13 +59,17 @@ class InstallerAbstract
      *
      * @return void
      *
+     * @throws PermissionException
+     *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     private static function installRoutes(string $destRoutePath, string $srcRoutePath) 
     {
         if(file_exists($destRoutePath) && file_exists($srcRoutePath)) {
+            /** @noinspection PhpIncludeInspection */
             $appRoutes = include $destRoutePath;
+            /** @noinspection PhpIncludeInspection */
             $moduleRoutes = include $srcRoutePath;
             $appRoutes = array_merge_recursive($appRoutes, $moduleRoutes);
 

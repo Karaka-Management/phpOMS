@@ -14,6 +14,7 @@
  * @link       http://orange-management.com
  */
 namespace phpOMS\Utils\Git;
+use phpDocumentor\Reflection\DocBlock\Tag;
 
 /**
  * Gray encoding class
@@ -153,7 +154,7 @@ class Commit
 	/**
      * Set commit message.
      *
-     * @param string $path File path
+     * @param string $message Commit message
      *
      * @throws
      *
@@ -266,7 +267,7 @@ class Commit
 	/**
      * Set commit tag.
      *
-     * @param Repository $tag Commit tag
+     * @param Tag $tag Commit tag
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>

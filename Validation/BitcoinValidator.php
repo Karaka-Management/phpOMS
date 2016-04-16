@@ -19,7 +19,7 @@ class BitcoinValidator
 {
     public static function validate(string $addr)  : bool
     {
-        $decoded = decodeBase58($address);
+        $decoded = self::decodeBase58($addr);
  
         $d1 = hash("sha256", substr($decoded, 0, 21), true);
         $d2 = hash("sha256", $d1, true);

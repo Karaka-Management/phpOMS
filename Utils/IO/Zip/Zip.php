@@ -53,7 +53,7 @@ class Zip
         }
 
         $zip = new \ZipArchive();
-        if (!$zip->open($destination, $overwrite ? \ZIPARCHIVE::OVERWRITE : \ZIPARCHIVE::CREATE)) {
+        if (!$zip->open($destination, $overwrite ? \ZipArchive::OVERWRITE : \ZipArchive::CREATE)) {
             return false;
         }
 

@@ -230,8 +230,6 @@ class Interval
      * Set mintue.
      *
      * @param array $minute Minute
-     * @param int  $start  Start/first
-     * @param int  $end    End/last
      * @param int  $step   Step
      * @param bool  $any    Any
      *
@@ -258,8 +256,6 @@ class Interval
      * Set hour.
      *
      * @param array $hour  Hour
-     * @param int  $start Start/first
-     * @param int  $end   End/last
      * @param int  $step  Step
      * @param bool  $any   Any
      *
@@ -286,8 +282,6 @@ class Interval
      * Set day of month.
      *
      * @param array $dayOfMonth Day of month
-     * @param int  $start      Start/first
-     * @param int  $end        End/last
      * @param int  $step       Step
      * @param bool  $any        Any
      * @param bool  $last       Last
@@ -318,8 +312,6 @@ class Interval
      * Set month.
      *
      * @param array $month Month
-     * @param int  $start Start/first
-     * @param int  $end   End/last
      * @param int  $step  Step
      * @param bool  $any   Any
      *
@@ -346,8 +338,6 @@ class Interval
      * Set day of week.
      *
      * @param array $dayOfWeek Day of week
-     * @param int  $start     Start/first
-     * @param int  $end       End/last
      * @param int  $step      Step
      * @param bool  $any       Any
      * @param bool  $last      Last
@@ -376,8 +366,6 @@ class Interval
      * Set yaer.
      *
      * @param array $year  Year
-     * @param int  $start Start/first
-     * @param int  $end   End/last
      * @param int  $step  Step
      * @param bool  $any   Any
      *

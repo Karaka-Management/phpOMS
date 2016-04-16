@@ -32,6 +32,8 @@ class LinearCongruentialGenerator
     /**
      * BSD random number
      *
+     * @param int $seed Starting seed
+     *
      * @return \Closure
      *
      * @since  1.0.0
@@ -46,6 +48,8 @@ class LinearCongruentialGenerator
 
     /**
      * MS random number
+     *
+     * @param int $seed Starting seed
      *
      * @return \Closure
      *

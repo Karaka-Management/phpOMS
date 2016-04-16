@@ -18,7 +18,7 @@ class Aztec
 
     }
 
-    private function arrange() {
+    private function arange() {
 
     }
 }

@@ -79,7 +79,7 @@ class File extends FileAbstract
      */
     public function createNode() : bool
     {
-        return self::create($this->path);
+        return self::createFile($this->path);
     }
 
     /**

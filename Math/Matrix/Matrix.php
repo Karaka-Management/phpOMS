@@ -2,12 +2,12 @@
 
 namespace phpOMS\Math\Matrix;
 
-class Matrix implements ArrayAccess, Iterator 
+class Matrix implements \ArrayAccess, \Iterator 
 {
-    private $matrix = [];
+    protected $matrix = [];
 
-    private $n = 0;
-    private $m = 0;
+    protected $n = 0;
+    protected $m = 0;
 
     public function __construct(int $m, int $n = 1) 
     {
@@ -46,7 +46,7 @@ class Matrix implements ArrayAccess, Iterator
     public function transpose() : Matrix
     {
         $matrix = new Matrix($this->n, $this->m);
-        $matrix->setMatrix(array_map(null, ...$matrix));
+        $matrix->setMatrix(array_map(null, $matrix->getMatrix()));
 
         return $matrix;
     }
@@ -58,6 +58,8 @@ class Matrix implements ArrayAccess, Iterator
         } elseif (is_scalar($value)) {
             return $this->multScalar($value);
         }
+
+        throw new \Exception();
     }
 
     private function multMatrix(Matrix $matrix) : Matrix
@@ -113,15 +115,19 @@ class Matrix implements ArrayAccess, Iterator
         } elseif (is_scalar($value)) {
             return $this->addScalar($value);
         }
+
+        throw new \Exception();
     }
 
     public function sub($value) : Matrix
     {
         if ($value instanceOf Matrix) {
-            return $this->add($this->multMatrix(-1));
+            return $this->add($this->mult(-1));
         } elseif (is_scalar($value)) {
-            return $this->addScalar(-$value);
+            return $this->add(-$value);
         }
+
+        throw new \Exception();
     }
 
     private function addMatrix(Matrix $value) : Matrix
@@ -175,11 +181,6 @@ class Matrix implements ArrayAccess, Iterator
     {
         // todo: implement
         return new Matrix($this->m, $this->n);
-    }
-
-    public function diag() : Matrix
-    {
-
     }
 
     public function inverse(int $algorithm = InversionType::GAUSS_JORDAN) : Matrix

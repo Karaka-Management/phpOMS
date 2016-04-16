@@ -208,6 +208,7 @@ class ArrayUtils
     public static function arrayToCSV(array $data, string $delimiter = ';', string $enclosure = '"', string $escape = '\\') : string
     {
         $outstream = fopen('php://memory', 'r+');
+        /** @noinspection PhpMethodParametersCountMismatchInspection */
         fputcsv($outstream, $data, $delimiter, $enclosure, $escape);
         rewind($outstream);
         $csv = fgets($outstream);

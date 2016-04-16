@@ -14,6 +14,7 @@
  * @link       http://orange-management.com
  */
 namespace phpOMS\Utils\Git;
+use phpOMS\System\File\PathException;
 
 /**
  * Repository class
@@ -71,6 +72,8 @@ class Repository
      * @param string $source Create repository from source (optional, can be remote)
      * @param bool $bare Bare repository
      *
+     * @throws \Exception
+     *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
@@ -92,13 +95,15 @@ class Repository
      *
      * @param string $path Path to repository
      *
+     * @throws PathException
+     *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     private function setPath(string $path)
     {
         if (!is_dir($path)) {
-            throw new \PathException($path);
+            throw new PathException($path);
         }
 
         $this->path = realpath($path);
@@ -119,6 +124,8 @@ class Repository
      * Run git command.
      *
      * @param string $cmd Command to run
+     *
+     * @throws \Exception
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
@@ -152,7 +159,7 @@ class Repository
         $status = trim(proc_close($resource));
 
         if ($status) {
-            throw new Exception($stderr);
+            throw new \Exception($stderr);
         }
 
         return $stdout;

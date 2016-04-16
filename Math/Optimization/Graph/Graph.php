@@ -14,6 +14,9 @@
  * @link       http://orange-management.com
  */
 namespace phpOMS\Math\Optimization\Graph;
+use phpOMS\Stdlib\Map\KeyType;
+use phpOMS\Stdlib\Map\MultiMap;
+use phpOMS\Stdlib\Map\OrderType;
 
 /**
  * Graph class
@@ -124,7 +127,7 @@ class Graph
      * @param mixed $a First node of edge
      * @param mixed $b Second node of edge
      *
-     * @return EdgeInterface
+     * @return bool
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
@@ -191,7 +194,7 @@ class Graph
     /**
      * Get edge by id.
      *
-     * @param itn $id Edge id
+     * @param int $id Edge id
      *
      * @return EdgeInterface
      *

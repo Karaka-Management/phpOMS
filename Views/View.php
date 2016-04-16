@@ -375,6 +375,8 @@ class View implements \Serializable
     /**
      * Unserialize view.
      *
+     * @param string $raw Raw data to parse
+     *
      * @return void
      *
      * @since  1.0.0

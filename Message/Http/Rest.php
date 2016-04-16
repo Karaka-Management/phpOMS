@@ -15,8 +15,6 @@
  */
 namespace phpOMS\Message\Http;
 
-use phpOMS\Message\Http\RequestMethod;
-
 /**
  * Rest request class.
  *

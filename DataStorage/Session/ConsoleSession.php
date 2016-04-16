@@ -40,7 +40,7 @@ class ConsoleSession implements SessionInterface
     /**
      * Constructor.
      *
-     * @param string|int $sid Session id
+     * @param string|int|bool $sid Session id
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>

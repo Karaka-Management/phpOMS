@@ -1,5 +1,7 @@
 <?php
-class Integer implements Number 
+use phpOMS\Math\Number\Prime;
+
+class Integer implements Number
 {
 	public static function isInteger($value) : bool
 	{
@@ -28,6 +30,8 @@ class Integer implements Number
                 $m -= $n;
             }
         }
+
+		return 1;
     }
 
 	public static function trialFactorization(int $value) 
@@ -39,7 +43,7 @@ class Integer implements Number
 		$factors = [];
 		$primes = Prime::sieveOfEratosthenes((int) $value**0.5);
 
-		for($primes as $prime) {
+		foreach($primes as $prime) {
 			if($prime*$prime > $value) {
 				break;
 			}

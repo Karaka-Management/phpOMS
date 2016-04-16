@@ -14,6 +14,7 @@
  * @link       http://orange-management.com
  */
 namespace phpOMS\Utils\Git;
+use phpOMS\System\File\PathException;
 
 /**
  * Gray encoding class
@@ -39,6 +40,8 @@ class Git {
      * Set git binary.
      *
      * @param string $path Git path
+	 * 
+	 * @throws PathException
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
@@ -46,7 +49,7 @@ class Git {
 	public static function setBin(string $path)
 	{
 		if (realpath($path) === false) {
-			throw new \PathException($path);
+			throw new PathException($path);
 		}
 
 		self::$bin = realpath($path);
