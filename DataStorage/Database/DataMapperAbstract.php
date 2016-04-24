@@ -303,7 +303,6 @@ abstract class DataMapperAbstract implements DataMapperInterface
      */
     public function create($obj, bool $relations = true)
     {
-        // todo: create should also have an option to create relations (default = true)
         $query = new Builder($this->db);
         $query->prefix($this->db->getPrefix())
               ->into(static::$table);
@@ -344,7 +343,7 @@ abstract class DataMapperAbstract implements DataMapperInterface
                             $primaryKey = $mapper->create($property->getValue($obj));
                         }
 
-                        $property->setValue($obj, $primaryKey);
+                        //$property->setValue($obj, $primaryKey);
                     }
 
                     if ($column['internal'] === $pname) {
@@ -362,6 +361,8 @@ abstract class DataMapperAbstract implements DataMapperInterface
                             $value = isset($value) ? json_encode($value) : '';
                         } elseif ($column['type'] === 'Serializable') {
                             $value = $value->serialize();
+                        } elseif(is_object($value)) {
+                            $value = $value->getId();
                         }
 
                         $query->insert($column['name'])
@@ -453,7 +454,7 @@ abstract class DataMapperAbstract implements DataMapperInterface
             }
         }
 
-        $reflectionProperty = $reflectionClass->getProperty(static::$primaryField['internal']);
+        $reflectionProperty = $reflectionClass->getProperty(static::$columns[static::$primaryField]['internal']);
 
         // todo: can't i just set it accessible anyways and not set it to private afterwards?
         if (!($accessible = $reflectionProperty->isPublic())) {
@@ -824,17 +825,13 @@ abstract class DataMapperAbstract implements DataMapperInterface
      */
     public function getNewest(int $limit = 1, Builder $query = null, int $relations = RelationType::ALL)
     {
-        if (!isset(static::$createdAt) || !isset(static::$columns[static::$createdAt])) {
-            throw new \BadMethodCallException('Method "' . __METHOD__ . '" is not supported.');
-        }
-
         $query = $query ?? new Builder($this->db);
         $query->prefix($this->db->getPrefix())
               ->select('*')
               ->from(static::$table)
               ->limit($limit); /* todo: limit is not working, setting this to 2 doesn't have any effect!!! */
 
-        if (isset(static::$createdAt)) {
+        if (!empty(static::$createdAt)) {
             $query->orderBy(static::$table . '.' . static::$columns[static::$createdAt]['name'], 'DESC');
         } else {
             $query->orderBy(static::$table . '.' . static::$columns[static::$primaryField]['name'], 'DESC');
@@ -844,9 +841,6 @@ abstract class DataMapperAbstract implements DataMapperInterface
         $sth->execute();
 
         $results = $sth->fetchAll(\PDO::FETCH_ASSOC);
-
-        /* todo: if limit get's used this has to call populateIterable */
-
         $obj = $this->populateIterable(is_bool($results) ? [] : $results);
 
         $this->fillRelations($obj, $relations);

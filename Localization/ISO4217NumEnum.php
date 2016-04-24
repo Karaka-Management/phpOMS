@@ -1,4 +1,3 @@
-
 <?php
 /**
  * Orange Management
@@ -29,7 +28,7 @@ use phpOMS\Datatypes\Enum;
  * @link       http://orange-management.com
  * @since      1.0.0
  */
-class ISO4217DecimalEnum extends Enum
+class ISO4217NumEnum extends Enum
 {
     const C_AED = '784';
     const C_AFN = '971';

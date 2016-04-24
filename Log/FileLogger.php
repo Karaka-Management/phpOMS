@@ -146,7 +146,7 @@ class FileLogger implements LoggerInterface
      */
     public function __destruct()
     {
-        if ($this->fp !== false) {
+        if (is_resource($this->fp)) {
             fclose($this->fp);
         }
     }

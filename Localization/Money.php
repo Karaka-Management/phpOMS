@@ -126,7 +126,7 @@ class Money implements \Serializable
      */
     public function setString(string $value) 
     {
-        $this->value = self::toInt($value, $this->decimal);
+        $this->value = self::toInt($value, $this->decimal, $this->thousands);
     }
     
     /**
@@ -134,27 +134,27 @@ class Money implements \Serializable
      *
      * @param string $value Money value
      * @param string $decimal Decimal character
+     * @param string $thousands Thousands character
      *
      * @return int
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public static function toInt(string $value, string $decimal = ',')  : int
+    public static function toInt(string $value, string $decimal = ',', string $thousands = '.')  : int
     {
         $split = explode($value, $decimal);
 
-        $left = '';
         $left = $split[0];
-        $left = str_replace($this->thousands, '', $left);
+        $left = str_replace($thousands, '', $left);
 
-        $rigth = '';
+        $right = '';
         if(count($split) > 1) {
             $right = $split[1];
         }
         
         $right = substr($right, 0, -self::MAX_DECIMALS);
-        $this->value = (int) $left * 100000 + (int) $right;
+        return (int) $left * 100000 + (int) $right;
     }
     
     /**
@@ -169,16 +169,16 @@ class Money implements \Serializable
      */
     public function getAmount(int $decimals = 2) : string 
     {
-        if($decimals > ($dec = ISO4217DecimalEnum::${'C_' . strtoupper($this->currency)})) {
+        if($decimals > ($dec = constant('\phpOMS\Localization\ISO4217DecimalEnum::C_' . strtoupper($this->currency)))) {
             $decimals = $dec ;
         }
 
-        $value = (string) round($value, - self::MAX_DECIMALS + $this->decimals);
+        $value = (string) round($this->value, - self::MAX_DECIMALS + $decimals);
 
         $left = substr($value, 0, -self::MAX_DECIMALS);
         $right = substr($value, -self::MAX_DECIMALS);
 
-        return ($decimals > 0) : number_format($left, 0, $this->thousands, $this->decimal); . $this->decimal . $right : (string) $left;
+        return ($decimals > 0) ? number_format($left, 0, $this->thousands, $this->decimal) . $this->decimal . $right : (string) $left;
     }
     
     /**
@@ -194,7 +194,7 @@ class Money implements \Serializable
     public function add($value)
     {
         if(is_string($value) || is_float($value)) {
-            $this->value += self::toInt((string) $value);
+            $this->value += self::toInt((string) $value, $this->decimal, $this->thousands);
         } elseif(is_int($value)) {
             $this->value += $value;
         } elseif($value instanceof Money) {
@@ -215,7 +215,7 @@ class Money implements \Serializable
     public function sub($value)
     {
         if(is_string($value) || is_float($value)) {
-            $this->value -= self::toInt((string) $value);
+            $this->value -= self::toInt((string) $value, $this->decimal, $this->thousands);
         } elseif(is_int($value)) {
             $this->value -= $value;
         } elseif($value instanceof Money) {
@@ -253,7 +253,7 @@ class Money implements \Serializable
     public function div($value)
     {
         if(is_float($value) || is_int($value)) {
-            $this->value = self::toInt((string) ($this->value / $value));
+            $this->value = self::toInt((string) ($this->value / $value), $this->decimal, $this->thousands);
         }
     }
 

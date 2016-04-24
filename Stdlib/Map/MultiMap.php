@@ -94,7 +94,7 @@ class MultiMap implements \Countable
         $id       = count($this->values);
         $inserted = false;
 
-        if ($this->keyType !== KeyType::MULTIPLE) {
+        if ($this->keyType !== KeyType::SINGLE) {
             $keys = [implode($keys, ':')];
         }
 
@@ -494,6 +494,8 @@ class MultiMap implements \Countable
                 }
             }
         }
+
+        return $siblings;
     }
 
     /**
@@ -510,9 +512,9 @@ class MultiMap implements \Countable
     {
         if ($this->orderType === OrderType::LOOSE) {
             return Permutation::permut($key);
-        } else {
-            return [];
         }
+
+        return [];
     }
 
     /**
