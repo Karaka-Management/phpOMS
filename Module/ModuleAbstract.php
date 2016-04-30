@@ -135,7 +135,7 @@ abstract class ModuleAbstract
     {
         $lang = [];
         if (($path = realpath($oldPath = __DIR__ . '/../../Modules/' . static::MODULE_NAME . '/Theme/' . $destination . '/Lang/' . $language . '.lang.php')) === false) {
-            throw new PathException($oldPath);
+            return $lang;
         }
 
         /** @noinspection PhpIncludeInspection */

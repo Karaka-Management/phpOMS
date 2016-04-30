@@ -60,23 +60,6 @@ class Response extends ResponseAbstract implements RenderableInterface
     }
 
     /**
-     * Push a specific response ID.
-     *
-     * @param int $id Response ID
-     *
-     * @return void
-     *
-     * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
-     */
-    public function pushResponseId(int $id)
-    {
-        ob_start();
-        echo $this->response[$id];
-        ob_end_flush();
-    }
-
-    /**
      * Remove response by ID.
      *
      * @param int $id Response ID

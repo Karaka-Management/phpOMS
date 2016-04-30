@@ -297,7 +297,7 @@ class FileLogger implements LoggerInterface
         }
 
         if (self::$verbose) {
-            echo $message . "\n";
+            echo $message , "\n";
         }
     }
 

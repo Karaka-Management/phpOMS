@@ -32,7 +32,6 @@ use phpOMS\Utils\Parser\Php\ArrayParser;
  */
 class InstallerAbstract
 {
-
     /**
      * Install module.
      *
@@ -71,6 +70,7 @@ class InstallerAbstract
             $appRoutes = include $destRoutePath;
             /** @noinspection PhpIncludeInspection */
             $moduleRoutes = include $srcRoutePath;
+
             $appRoutes = array_merge_recursive($appRoutes, $moduleRoutes);
 
             if(is_writable($destRoutePath)) {
