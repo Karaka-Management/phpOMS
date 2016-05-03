@@ -59,7 +59,7 @@ class Router
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function importFromFile(string $path) 
+    public function importFromFile(string $path)
     {
         /** @noinspection PhpIncludeInspection */
         $this->routes += include $path;
@@ -69,8 +69,8 @@ class Router
      * Add route.
      *
      * @param string $route       Route regex
-     * @param mixed $destination Destination e.g. Module:function & verb
-     * @param string $verb      Request verb
+     * @param mixed  $destination Destination e.g. Module:function & verb
+     * @param string $verb        Request verb
      *
      * @return void
      *
@@ -80,7 +80,7 @@ class Router
     public function add(string $route, $destination, string $verb = RouteVerb::GET)
     {
         $this->routes[$route][] = [
-            'dest'   => $destination,
+            'dest' => $destination,
             'verb' => $verb,
         ];
     }
@@ -112,9 +112,9 @@ class Router
     /**
      * Match route and uri.
      *
-     * @param string $route        Route
-     * @param string $routeVerb       GET,POST for this route
-     * @param string $uri          Uri
+     * @param string $route      Route
+     * @param string $routeVerb  GET,POST for this route
+     * @param string $uri        Uri
      * @param string $remoteVerb Verb this request is using
      *
      * @return bool

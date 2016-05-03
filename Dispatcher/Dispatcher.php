@@ -115,14 +115,15 @@ class Dispatcher
      */
     private function dispatchString(string $controller, RequestAbstract $request, ResponseAbstract $response, $data = null) : array
     {
-        $views =[];
+        $views    = [];
         $dispatch = explode(':', $controller);
         $this->getController($dispatch[0]);
 
-        if (($c = count($dispatch)) == 3) {
+        if (($c = count($dispatch)) === 3) {
             /* Handling static functions */
-            $views[$controller] = $dispatch[0]::$dispatch[2]();
-        } elseif ($c == 2) {
+            $function           = $dispatch[0] . '::' . $dispatch[2];
+            $views[$controller] = $function($request, $response, $data);
+        } elseif ($c === 2) {
             $views[$controller] = $this->controllers[$dispatch[0]]->{$dispatch[1]}($request, $response, $data);
         } else {
             throw new \UnexpectedValueException('Unexpected function.');
@@ -215,7 +216,7 @@ class Dispatcher
 
             return true;
         }
-        
+
         return false;
     }
 }

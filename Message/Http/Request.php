@@ -144,6 +144,7 @@ class Request extends RequestAbstract
     private function initCurrentRequest() 
     {
         $this->data = $_GET ?? [];
+        $this->files = $_FILES ?? [];
 
         if (isset($_SERVER['CONTENT_TYPE'])) {
             if (strpos($_SERVER['CONTENT_TYPE'], 'application/json') !== false) {
@@ -155,8 +156,6 @@ class Request extends RequestAbstract
             } elseif (strpos($_SERVER['CONTENT_TYPE'], 'application/x-www-form-urlencoded') !== false) {
                 parse_str(file_get_contents('php://input'), $temp);
                 $this->data += $temp;
-            } elseif (strpos($_SERVER['CONTENT_TYPE'], 'multipart/form-data') !== false) {
-                $this->files = $_FILES;
             }
         }
 
