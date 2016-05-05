@@ -262,7 +262,8 @@ abstract class DataMapperAbstract implements DataMapperInterface
         return $this;
     }
 
-    public function clear() {
+    public function clear()
+    {
         $this->fields = [];
     }
 
@@ -305,7 +306,7 @@ abstract class DataMapperAbstract implements DataMapperInterface
     {
         $query = new Builder($this->db);
         $query->prefix($this->db->getPrefix())
-              ->into(static::$table);
+            ->into(static::$table);
 
         $reflectionClass = new \ReflectionClass(get_class($obj));
         $properties      = $reflectionClass->getProperties();
@@ -361,12 +362,12 @@ abstract class DataMapperAbstract implements DataMapperInterface
                             $value = isset($value) ? json_encode($value) : '';
                         } elseif ($column['type'] === 'Serializable') {
                             $value = $value->serialize();
-                        } elseif(is_object($value)) {
+                        } elseif (is_object($value)) {
                             $value = $value->getId();
                         }
 
                         $query->insert($column['name'])
-                              ->value($value, $column['type']);
+                            ->value($value, $column['type']);
                         break;
                     }
                 }
@@ -442,8 +443,8 @@ abstract class DataMapperAbstract implements DataMapperInterface
                     /* is many->many */
                     $relQuery = new Builder($this->db);
                     $relQuery->prefix($this->db->getPrefix())
-                             ->into(static::$hasMany[$pname]['table'])
-                             ->insert(static::$hasMany[$pname]['src'], static::$hasMany[$pname]['dst']);
+                        ->into(static::$hasMany[$pname]['table'])
+                        ->insert(static::$hasMany[$pname]['src'], static::$hasMany[$pname]['dst']);
 
                     foreach ($objsIds as $key => $src) {
                         $relQuery->values($src, $objId);
@@ -489,7 +490,7 @@ abstract class DataMapperAbstract implements DataMapperInterface
 
         $query = new Builder($this->db);
         $query->prefix($this->db->getPrefix())
-              ->into(static::$table);
+            ->into(static::$table);
 
         $reflectionClass = new \ReflectionClass(get_class($obj));
         $properties      = $reflectionClass->getProperties();
@@ -510,7 +511,7 @@ abstract class DataMapperAbstract implements DataMapperInterface
                         }
 
                         $query->update($column['name'])
-                              ->value($value);
+                            ->value($value);
                         break;
                     }
                 }
@@ -551,7 +552,7 @@ abstract class DataMapperAbstract implements DataMapperInterface
      * Populate data.
      *
      * @param array $result Result set
-     * @param mixed $obj Object to populate
+     * @param mixed $obj    Object to populate
      *
      * @return mixed
      *
@@ -583,7 +584,7 @@ abstract class DataMapperAbstract implements DataMapperInterface
      * Is overwriting the hasOne id stored in the member variable by the object.
      * todo: hasMany needs to be implemented somehow?!?!
      *
-     * @param $obj    Object to add the relations to
+     * @param     $obj       Object to add the relations to
      * @param int $relations Relations type
      *
      * @return mixed
@@ -740,7 +741,7 @@ abstract class DataMapperAbstract implements DataMapperInterface
      * Get object.
      *
      * @param mixed $primaryKey Key
-     * @param int  $relations  Load relations
+     * @param int   $relations  Load relations
      * @param mixed $fill       Object to fill
      *
      * @return mixed
@@ -814,9 +815,9 @@ abstract class DataMapperAbstract implements DataMapperInterface
      *
      * This will fall back to the insert id if no datetime column is present.
      *
-     * @param int     $limit Newest limit
-     * @param Builder $query Pre-defined query
-     * @param int $relations Load relations
+     * @param int     $limit     Newest limit
+     * @param Builder $query     Pre-defined query
+     * @param int     $relations Load relations
      *
      * @return mixed
      *
@@ -827,9 +828,9 @@ abstract class DataMapperAbstract implements DataMapperInterface
     {
         $query = $query ?? new Builder($this->db);
         $query->prefix($this->db->getPrefix())
-              ->select('*')
-              ->from(static::$table)
-              ->limit($limit); /* todo: limit is not working, setting this to 2 doesn't have any effect!!! */
+            ->select('*')
+            ->from(static::$table)
+            ->limit($limit); /* todo: limit is not working, setting this to 2 doesn't have any effect!!! */
 
         if (!empty(static::$createdAt)) {
             $query->orderBy(static::$table . '.' . static::$columns[static::$createdAt]['name'], 'DESC');
@@ -841,7 +842,7 @@ abstract class DataMapperAbstract implements DataMapperInterface
         $sth->execute();
 
         $results = $sth->fetchAll(\PDO::FETCH_ASSOC);
-        $obj = $this->populateIterable(is_bool($results) ? [] : $results);
+        $obj     = $this->populateIterable(is_bool($results) ? [] : $results);
 
         $this->fillRelations($obj, $relations);
         $this->clear();
@@ -853,8 +854,8 @@ abstract class DataMapperAbstract implements DataMapperInterface
     /**
      * Get all by custom query.
      *
-     * @param Builder $query Query
-     * @param bool $relations Relations
+     * @param Builder $query     Query
+     * @param bool    $relations Relations
      *
      * @return array
      *
@@ -886,7 +887,7 @@ abstract class DataMapperAbstract implements DataMapperInterface
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function getRandom(int $relations = RelationType::ALL) 
+    public function getRandom(int $relations = RelationType::ALL)
     {
         // todo: implement
     }
@@ -894,15 +895,15 @@ abstract class DataMapperAbstract implements DataMapperInterface
     /**
      * Fill object with relations
      *
-     * @param mixed $obj Objects to fill
-     * @param int $relations Relations type
+     * @param mixed $obj       Objects to fill
+     * @param int   $relations Relations type
      *
      * @return array
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function fillRelations(array &$obj, int $relations = RelationType::ALL) 
+    public function fillRelations(array &$obj, int $relations = RelationType::ALL)
     {
         $hasMany     = count(static::$hasMany) > 0;
         $hasOne      = count(static::$hasOne) > 0;
@@ -942,9 +943,9 @@ abstract class DataMapperAbstract implements DataMapperInterface
     {
         $query = new Builder($this->db);
         $query->prefix($this->db->getPrefix())
-              ->select('*')
-              ->from(static::$table)
-              ->where(static::$table . '.' . static::$primaryField, '=', $primaryKey);
+            ->select('*')
+            ->from(static::$table)
+            ->where(static::$table . '.' . static::$primaryField, '=', $primaryKey);
 
         $sth = $this->db->con->prepare($query->toSql());
         $sth->execute();
@@ -968,8 +969,8 @@ abstract class DataMapperAbstract implements DataMapperInterface
     {
         $query = new Builder($this->db);
         $query->prefix($this->db->getPrefix())
-              ->select('*')
-              ->from(static::$table);
+            ->select('*')
+            ->from(static::$table);
 
         $sth = $this->db->con->prepare($query->toSql());
         $sth->execute();
@@ -983,7 +984,7 @@ abstract class DataMapperAbstract implements DataMapperInterface
      * Get raw by primary key
      *
      * @param mixed $primaryKey Primary key
-     * @param int $relations Load relations
+     * @param int   $relations  Load relations
      *
      * @return array
      *
@@ -1001,27 +1002,27 @@ abstract class DataMapperAbstract implements DataMapperInterface
 
                 if ($relations === RelationType::ALL) {
                     $query->select($value['table'] . '.' . $value['src'])
-                          ->from($value['table'])
-                          ->where($value['table'] . '.' . $value['dst'], '=', $primaryKey);
+                        ->from($value['table'])
+                        ->where($value['table'] . '.' . $value['dst'], '=', $primaryKey);
                 } elseif ($relations === RelationType::NEWEST) {
 
-/*
-SELECT c.*, p1.*
-FROM customer c
-JOIN purchase p1 ON (c.id = p1.customer_id)
-LEFT OUTER JOIN purchase p2 ON (c.id = p2.customer_id AND 
-    (p1.date < p2.date OR p1.date = p2.date AND p1.id < p2.id))
-WHERE p2.id IS NULL;
-*/
-/*
-                    $query->select(static::$table . '.' . static::$primaryField, $value['table'] . '.' . $value['src'])
-                          ->from(static::$table)
-                          ->join($value['table'])
-                          ->on(static::$table . '.' . static::$primaryField, '=', $value['table'] . '.' . $value['dst'])
-                          ->leftOuterJoin($value['table'])
-                          ->on(new And('1', new And(new Or('d1', 'd2'), 'id')))
-                          ->where($value['table'] . '.' . $value['dst'], '=', 'NULL');
-                          */
+                    /*
+                    SELECT c.*, p1.*
+                    FROM customer c
+                    JOIN purchase p1 ON (c.id = p1.customer_id)
+                    LEFT OUTER JOIN purchase p2 ON (c.id = p2.customer_id AND 
+                        (p1.date < p2.date OR p1.date = p2.date AND p1.id < p2.id))
+                    WHERE p2.id IS NULL;
+                    */
+                    /*
+                                        $query->select(static::$table . '.' . static::$primaryField, $value['table'] . '.' . $value['src'])
+                                              ->from(static::$table)
+                                              ->join($value['table'])
+                                              ->on(static::$table . '.' . static::$primaryField, '=', $value['table'] . '.' . $value['dst'])
+                                              ->leftOuterJoin($value['table'])
+                                              ->on(new And('1', new And(new Or('d1', 'd2'), 'id')))
+                                              ->where($value['table'] . '.' . $value['dst'], '=', 'NULL');
+                                              */
                 }
 
                 $sth = $this->db->con->prepare($query->toSql());

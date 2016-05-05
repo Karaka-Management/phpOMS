@@ -16,7 +16,6 @@
 namespace phpOMS\Math\Shape\D2;
 
 
-
 /**
  * Polygon class.
  *
@@ -133,7 +132,7 @@ class Polygon implements ShapeInterface
     /**
      * Set polygon coordinate.
      *
-     * @param int        $i Index
+     * @param int       $i Index
      * @param int|float $x X coordinate
      * @param int|float $y Y coordinate
      *

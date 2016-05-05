@@ -141,7 +141,7 @@ class Functions
     /**
      * Calculate inverse modular.
      *
-     * @param int $a 
+     * @param int $a
      * @param int $n Modulo
      *
      * @return int
@@ -149,28 +149,29 @@ class Functions
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public static function invMod($a, $n) {
+    public static function invMod($a, $n)
+    {
         if ($n < 0) {
             $n = -$n;
         }
 
-        if ($a < 0) { 
+        if ($a < 0) {
             $a = $n - (-$a % $n);
         }
 
-        $t = 0; 
-        $nt = 1; 
-        $r = $n; 
+        $t  = 0;
+        $nt = 1;
+        $r  = $n;
         $nr = $a % $n;
 
         while ($nr != 0) {
             $quot = (int) ($r / $nr);
-            $tmp = $nt;  
-            $nt = $t - $quot * $nt;  
-            $t = $tmp;
-            $tmp = $nr;  
-            $nr = $r - $quot * $nr;  
-            $r = $tmp;
+            $tmp  = $nt;
+            $nt   = $t - $quot * $nt;
+            $t    = $tmp;
+            $tmp  = $nr;
+            $nr   = $r - $quot * $nr;
+            $r    = $tmp;
         }
 
         if ($r > 1) {

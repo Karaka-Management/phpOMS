@@ -26,19 +26,20 @@ namespace phpOMS\Utils\Encoding;
  * @link       http://orange-management.com
  * @since      1.0.0
  */
-final class XorEncoding {
+final class XorEncoding
+{
 
     /**
      * {@inheritdoc}
      */
     public static function encode(string $source, string $key) : string
     {
-        $result = '';
-        $length = strlen($source);
-        $keyLength = strlen($key)-1;
+        $result    = '';
+        $length    = strlen($source);
+        $keyLength = strlen($key) - 1;
 
-        for($i = 0, $j = 0; $i < $length; $i++, $j++) {
-            if($j > $keyLength) {
+        for ($i = 0, $j = 0; $i < $length; $i++, $j++) {
+            if ($j > $keyLength) {
                 $j = 0;
             }
 

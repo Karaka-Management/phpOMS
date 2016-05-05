@@ -43,7 +43,7 @@ class ArrayUtils
      * Check if needle exists in multidimensional array.
      *
      * @param string $path  Path to element
-     * @param array   $data  Array
+     * @param array  $data  Array
      * @param string $delim Delimiter for path
      *
      * @return array
@@ -75,8 +75,8 @@ class ArrayUtils
      * Check if needle exists in multidimensional array.
      *
      * @param string $path      Path to element
-     * @param array   $data      Array
-     * @param mixed   $value     Value to add
+     * @param array  $data      Array
+     * @param mixed  $value     Value to add
      * @param string $delim     Delimiter for path
      * @param bool   $overwrite Overwrite if existing
      *
@@ -195,7 +195,7 @@ class ArrayUtils
     /**
      * Convert array to csv string.
      *
-     * @param array   $data      Data to convert
+     * @param array  $data      Data to convert
      * @param string $delimiter Delim to use
      * @param string $enclosure Enclosure to use
      * @param string $escape    Escape to use

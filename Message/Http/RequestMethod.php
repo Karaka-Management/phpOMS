@@ -30,10 +30,10 @@ use phpOMS\Datatypes\Enum;
  */
 abstract class RequestMethod extends Enum
 {
-    const GET    = 'GET';    /* GET */
-    const POST   = 'POST';   /* POST */
-    const PUT    = 'PUT';    /* PUT */
+    const GET = 'GET';    /* GET */
+    const POST = 'POST';   /* POST */
+    const PUT = 'PUT';    /* PUT */
     const DELETE = 'DELETE'; /* DELETE */
-    const HEAD   = 'HEAD';   /* HEAD */
-    const TRACE  = 'TRACE';  /* TRACE */
+    const HEAD = 'HEAD';   /* HEAD */
+    const TRACE = 'TRACE';  /* TRACE */
 }

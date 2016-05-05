@@ -14,6 +14,7 @@
  * @link       http://orange-management.com
  */
 namespace phpOMS\DataStorage\Session;
+
 use phpOMS\Uri\UriFactory;
 use phpOMS\Utils\RnG\StringUtils;
 
@@ -52,7 +53,7 @@ class HttpSession implements SessionInterface
     /**
      * Constructor.
      *
-     * @param int              $liftetime Session life time
+     * @param int             $liftetime Session life time
      * @param string|int|bool $sid       Session id
      *
      * @throws \Exception
@@ -73,7 +74,7 @@ class HttpSession implements SessionInterface
         session_set_cookie_params($liftetime, '/', null, false, true);
         session_start();
         $this->sessionData = $_SESSION;
-        $_SESSION = null;
+        $_SESSION          = null;
 
         $this->sid = session_id();
         $this->setCsrfProtection();
@@ -87,7 +88,7 @@ class HttpSession implements SessionInterface
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    private function setCsrfProtection() 
+    private function setCsrfProtection()
     {
         $this->set('UID', 0, false);
 
@@ -170,7 +171,7 @@ class HttpSession implements SessionInterface
         self::$isLocked = true;
     }
 
-    public static function isLocked() 
+    public static function isLocked()
     {
         return self::$isLocked;
     }

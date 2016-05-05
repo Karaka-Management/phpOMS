@@ -124,6 +124,7 @@ class MemCache implements CacheInterface
      */
     public function stats() : array
     {
+        /** @noinspection PhpMethodOrClassCallIsNotCaseSensitiveInspection */
         return $this->memc->getExtendedStats();
     }
 

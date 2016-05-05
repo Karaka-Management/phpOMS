@@ -64,7 +64,7 @@ class ModuleFactory
     /**
      * Gets and initializes modules.
      *
-     * @param string             $module Module ID
+     * @param string              $module Module ID
      * @param ApplicationAbstract $app    Application
      *
      * @return ModuleAbstract
@@ -76,7 +76,7 @@ class ModuleFactory
     {
         if (!isset(self::$loaded[$module])) {
             try {
-                $class = '\\Modules\\' . $module . '\\Controller';
+                $class                 = '\\Modules\\' . $module . '\\Controller';
                 $obj                   = new $class($app);
                 self::$loaded[$module] = $obj;
                 self::registerRequesting($obj);
@@ -118,11 +118,11 @@ class ModuleFactory
      */
     private static function registerProvided(ModuleAbstract $obj)
     {
-       $name = $obj->getName();
-       if (isset(self::$providing[$name])) {
-        foreach (self::$providing[$name] as $providing) {
-            self::$loaded[$name]->addReceiving($providing);
+        $name = $obj->getName();
+        if (isset(self::$providing[$name])) {
+            foreach (self::$providing[$name] as $providing) {
+                self::$loaded[$name]->addReceiving($providing);
+            }
         }
     }
-}
 }

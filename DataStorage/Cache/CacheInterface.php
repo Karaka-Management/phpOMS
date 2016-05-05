@@ -35,7 +35,7 @@ interface CacheInterface
      * @param mixed       $key    Unique cache key
      * @param mixed       $value  Cache value
      * @param CacheStatus $type   Cache type
-     * @param int        $expire Valid duration (in s)
+     * @param int         $expire Valid duration (in s)
      *
      * @return void
      *
@@ -50,7 +50,7 @@ interface CacheInterface
      * @param mixed       $key    Unique cache key
      * @param mixed       $value  Cache value
      * @param CacheStatus $type   Cache type
-     * @param int        $expire Valid duration (in s)
+     * @param int         $expire Valid duration (in s)
      *
      * @return bool
      *

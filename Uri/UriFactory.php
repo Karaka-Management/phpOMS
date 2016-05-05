@@ -90,8 +90,8 @@ class UriFactory
     /**
      * Build uri.
      *
-     * @param string        $uri     Path data
-     * @param array         $toMatch Optional special replacements
+     * @param string $uri     Path data
+     * @param array  $toMatch Optional special replacements
      *
      * @return null|string
      *

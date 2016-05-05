@@ -131,8 +131,8 @@ class Tour implements \Countable
     /**
      * Set city
      *
-     * @param int $index Index to set/replace
-     * @param City $city City
+     * @param int  $index Index to set/replace
+     * @param City $city  City
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>

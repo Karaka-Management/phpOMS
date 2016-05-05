@@ -14,6 +14,7 @@
  * @link       http://orange-management.com
  */
 namespace phpOMS\Math\Optimization\Graph;
+
 use phpOMS\Stdlib\Map\KeyType;
 use phpOMS\Stdlib\Map\MultiMap;
 use phpOMS\Stdlib\Map\OrderType;
@@ -53,7 +54,7 @@ class Graph
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function __construct() 
+    public function __construct()
     {
         $this->edges = new MultiMap(KeyType::MULTIPLE, OrderType::LOOSE);
     }
@@ -89,7 +90,7 @@ class Graph
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function addEdge(EdgeInterface $edge) : bool 
+    public function addEdge(EdgeInterface $edge) : bool
     {
         if (!isset($this->edges[$edge->getId()])) {
             $this->edges[$edge->getId()] = $edge;
@@ -149,8 +150,8 @@ class Graph
      */
     public function removeEdgeById($id) : bool
     {
-        if (isset($this->edge[$id])) {
-            unset($this->edge[$id]);
+        if (isset($this->edges[$id])) {
+            unset($this->edges[$id]);
 
             return true;
         }
@@ -203,7 +204,7 @@ class Graph
      */
     public function getEdgeById(int $id) : EdgeInterface
     {
-        return $this->edges->get([$a, $b]) ?? new NullEdge();
+        return $this->edges->get($id) ?? new NullEdge();
     }
 
     /**
@@ -214,7 +215,7 @@ class Graph
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function countVertices() : int 
+    public function countVertices() : int
     {
         return count($this->vertices);
     }

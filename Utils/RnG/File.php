@@ -16,7 +16,6 @@
 namespace phpOMS\Utils\RnG;
 
 
-
 /**
  * File generator.
  *
@@ -106,7 +105,7 @@ class File
     /**
      * Get a random file extension.
      *
-     * @param array                 $source       Source array for possible extensions
+     * @param array                $source       Source array for possible extensions
      * @param DistributionType|int $distribution Distribution type for the extensions
      *
      * @return false|array

@@ -146,6 +146,7 @@ class Server extends SocketAbstract
                 $origin = $match[1];
             }
 
+            $key = '';
             if (preg_match("/Sec-WebSocket-Key: (.*)\r\n/", $headers, $match)) {
                 $key = $match[1];
             }
@@ -159,6 +160,7 @@ class Server extends SocketAbstract
                 "\r\n\r\n";
             socket_write($client->getSocket(), $upgrade);
             $client->setHandshake(true);
+
             return true;
         } else {
             return false;

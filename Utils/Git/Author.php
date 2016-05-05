@@ -28,38 +28,38 @@ namespace phpOMS\Utils\Git;
  */
 class Author
 {
-	/**
+    /**
      * Name.
      *
      * @var string
      * @since 1.0.0
      */
-	private $name = '';
+    private $name = '';
 
-	/**
+    /**
      * Email.
      *
      * @var string
      * @since 1.0.0
      */
-	private $email = '';
+    private $email = '';
 
-	/**
+    /**
      * Constructor
      *
-     * @param string $name Author name
+     * @param string $name  Author name
      * @param string $email Author email
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-	public function __construct(string $name, string $email)
-	{
-		$this->name = $name;
-		$this->email = $email;
-	}
+    public function __construct(string $name = '', string $email = '')
+    {
+        $this->name  = $name;
+        $this->email = $email;
+    }
 
-	/**
+    /**
      * Get name
      *
      * @return string
@@ -67,12 +67,12 @@ class Author
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-	public function getName() : string
-	{
-		return $name;
-	}
+    public function getName() : string
+    {
+        return $this->name;
+    }
 
-	/**
+    /**
      * Get email
      *
      * @return string
@@ -80,8 +80,8 @@ class Author
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-	public function getEmail() : string
-	{
-		return $email;
-	}
+    public function getEmail() : string
+    {
+        return $this->email;
+    }
 }

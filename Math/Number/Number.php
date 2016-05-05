@@ -1,5 +1,9 @@
-class Number {
-public static function getType($number) {
+<?php
 
-}
+class Number
+{
+    public static function getType($number)
+    {
+
+    }
 }

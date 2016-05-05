@@ -34,7 +34,7 @@ class UniformDistributionDiscrete
      * Get probability mass function.
      *
      * @param float $a
-     * @param float  $b
+     * @param float $b
      *
      * @return float
      *

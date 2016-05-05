@@ -16,7 +16,6 @@
 namespace phpOMS\Utils\RnG;
 
 
-
 /**
  * Phone generator.
  *
@@ -34,7 +33,7 @@ class Phone
     /**
      * Get a random phone number.
      *
-     * @param bool $isInt     This number uses a country code
+     * @param bool  $isInt     This number uses a country code
      * @param array $layout    Number layout
      * @param array $countries Country codes
      *

@@ -15,6 +15,7 @@
  */
 
 namespace phpOMS\DataStorage\Database;
+
 use phpOMS\DataStorage\Database\Connection\ConnectionAbstract;
 
 /**

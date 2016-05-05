@@ -40,7 +40,8 @@ class MemberParser
 
     private $default = null;
 
-    public function setName(string $name) {
+    public function setName(string $name)
+    {
         $this->name = $name;
     }
 
@@ -49,7 +50,7 @@ class MemberParser
         return $this->name;
     }
 
-    public function setVisibility(string $visibility) 
+    public function setVisibility(string $visibility)
     {
         $this->visibility = $visibility;
     }
@@ -59,7 +60,8 @@ class MemberParser
         return $this->visibility;
     }
 
-    public function setStatic(bool $static) {
+    public function setStatic(bool $static)
+    {
         $this->isStatic = $static;
 
         if ($this->isStatic) {
@@ -67,12 +69,12 @@ class MemberParser
         }
     }
 
-    public function isStatic() : bool 
+    public function isStatic() : bool
     {
         return $this->isStatic;
     }
 
-    public function setConst(bool $const) 
+    public function setConst(bool $const)
     {
         $this->isConst = $const;
 
@@ -81,7 +83,8 @@ class MemberParser
         }
     }
 
-    public function setDefault($default) {
+    public function setDefault($default)
+    {
         $this->default = $default;
     }
 

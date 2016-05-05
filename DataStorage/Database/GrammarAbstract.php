@@ -89,7 +89,7 @@ abstract class GrammarAbstract
             implode(' ',
                 array_filter(
                     $this->compileComponents($query),
-                    function($value) {
+                    function ($value) {
                         return (string) $value !== '';
                     }
                 )
@@ -102,7 +102,7 @@ abstract class GrammarAbstract
     /**
      * Expressionize elements.
      *
-     * @param array   $elements Elements
+     * @param array  $elements Elements
      * @param string $prefix   Prefix for table
      *
      * @return string

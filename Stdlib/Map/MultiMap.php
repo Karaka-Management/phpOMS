@@ -14,6 +14,7 @@
  * @link       http://orange-management.com
  */
 namespace phpOMS\Stdlib\Map;
+
 use phpOMS\Utils\Permutation;
 
 /**
@@ -65,7 +66,7 @@ class MultiMap implements \Countable
     /**
      * Constructor.
      *
-     * @param int $key Key type (all keys need to match or just one)
+     * @param int $key   Key type (all keys need to match or just one)
      * @param int $order Order of the keys is important (only required for multiple keys)
      *
      * @since  1.0.0
@@ -73,7 +74,7 @@ class MultiMap implements \Countable
      */
     public function __construct(int $key = KeyType::SINGLE, int $order = OrderType::LOOSE)
     {
-        $this->keyType = $key;
+        $this->keyType   = $key;
         $this->orderType = $order;
     }
 
@@ -82,7 +83,7 @@ class MultiMap implements \Countable
      *
      * @param array $keys      Keys for value
      * @param mixed $value     Value to store
-     * @param bool $overwrite Add value if key exists
+     * @param bool  $overwrite Add value if key exists
      *
      * @return bool
      *
@@ -169,7 +170,7 @@ class MultiMap implements \Countable
      * @since  1.0.0
      * @author Dennis Eichhorn
      */
-    private function getSingle($key) 
+    private function getSingle($key)
     {
         return isset($this->keys[$key]) ? $this->values[$this->keys[$key]] ?? null : null;
     }
@@ -184,7 +185,7 @@ class MultiMap implements \Countable
      * @since  1.0.0
      * @author Dennis Eichhorn
      */
-    private function getMultiple($key) 
+    private function getMultiple($key)
     {
         if (is_array($key)) {
             if ($this->orderType === OrderType::LOOSE) {
@@ -409,7 +410,7 @@ class MultiMap implements \Countable
      * @since  1.0.0
      * @author Dennis Eichhorn
      */
-    private function removeKeySingle($key) : bool 
+    private function removeKeySingle($key) : bool
     {
         if (isset($this->keys[$key])) {
             unset($this->keys[$key]);

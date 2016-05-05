@@ -34,7 +34,7 @@ class DeactivateAbstract
     /**
      * Install module.
      *
-     * @param Pool  $dbPool Database instance
+     * @param Pool        $dbPool Database instance
      * @param InfoManager $info   Module info
      *
      * @return void

@@ -33,9 +33,10 @@ class ClientManager
         return $this->clients[$id] ?? new NullClientConnection(uniqid(), null);
     }
 
-    public function getBySocket($socket) {
-        foreach($this->clients as $client) {
-            if($client->getSocket() === $socket) {
+    public function getBySocket($socket)
+    {
+        foreach ($this->clients as $client) {
+            if ($client->getSocket() === $socket) {
                 return $client;
             }
         }
@@ -43,8 +44,9 @@ class ClientManager
         return new NullClientConnection(uniqid(), null);
     }
 
-    public function remove($id) {
-        if(isset($this->clients[$id])) {
+    public function remove($id)
+    {
+        if (isset($this->clients[$id])) {
             unset($this->clients[$id]);
 
             return true;

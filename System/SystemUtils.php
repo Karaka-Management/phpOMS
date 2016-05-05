@@ -59,7 +59,7 @@ class SystemUtils
             $mem = 0;
 
             while ($line = fgets($fh)) {
-                $pieces = array();
+                $pieces = [];
                 if (preg_match('/^MemTotal:\s+(\d+)\skB$/', $line, $pieces)) {
                     $mem = $pieces[1] * 1024;
                     break;

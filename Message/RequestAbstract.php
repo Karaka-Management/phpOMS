@@ -211,7 +211,8 @@ abstract class RequestAbstract implements MessageInterface
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function setMethod(string $method) {
+    public function setMethod(string $method)
+    {
         $this->method = $method;
     }
 
@@ -261,6 +262,7 @@ abstract class RequestAbstract implements MessageInterface
     public function getData($key = null)
     {
         $key = mb_strtolower($key);
+
         return !isset($key) ? $this->data : $this->data[$key] ?? null;
     }
 

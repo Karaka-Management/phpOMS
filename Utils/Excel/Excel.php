@@ -25,6 +25,7 @@ require_once realpath(__DIR__ . '/../../../vendor/PHPExcel/Classes/PHPExcel.php'
  * @package    phpOMS\Utils\Excel
  * @since      1.0.0
  */
+
 /** @noinspection PhpUndefinedClassInspection */
 class Excel extends \PHPExcel
 {

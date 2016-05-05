@@ -14,6 +14,7 @@
  * @link       http://orange-management.com
  */
 namespace phpOMS\Utils\Git;
+
 use phpOMS\System\File\PathException;
 
 /**
@@ -70,7 +71,7 @@ class Repository
      * Create repository
      *
      * @param string $source Create repository from source (optional, can be remote)
-     * @param bool $bare Bare repository
+     * @param bool   $bare   Bare repository
      *
      * @throws \Exception
      *
@@ -125,12 +126,14 @@ class Repository
      *
      * @param string $cmd Command to run
      *
+     * @return string
+     *
      * @throws \Exception
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    private function run(string $cmd) : string 
+    private function run(string $cmd) : string
     {
         $cmd   = Git::getBin() . ' ' . $cmd;
         $pipes = [];
@@ -387,9 +390,9 @@ class Repository
     /**
      * Get commits by author.
      *
-     * @param Author $author Commits by author
-     * @param \DateTime $start Commits from
-     * @param \DateTime $end Commits to
+     * @param Author    $author Commits by author
+     * @param \DateTime $start  Commits from
+     * @param \DateTime $end    Commits to
      *
      * @return string
      *
@@ -399,7 +402,7 @@ class Repository
     public function getCommitsBy(Author $author, \DateTime $start = null, \DateTime $end) : array
     {
         return $this->run('git log --before="' . $end->format('Y-m-d') . '" --after="' . $start->format('Y-m-d') . '" --author="' . $author->getName() . '" --reverse --pretty=format:"%cd  %h  %s" --date=short');
-	}
+    }
 
     /**
      * Get remote.
@@ -425,5 +428,5 @@ class Repository
     public function getNewest() : string
     {
         return $this->run('log --name-status HEAD^..HEAD');
-	}
+    }
 }

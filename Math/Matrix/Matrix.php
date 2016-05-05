@@ -2,14 +2,14 @@
 
 namespace phpOMS\Math\Matrix;
 
-class Matrix implements \ArrayAccess, \Iterator 
+class Matrix implements \ArrayAccess, \Iterator
 {
     protected $matrix = [];
 
     protected $n = 0;
     protected $m = 0;
 
-    public function __construct(int $m, int $n = 1) 
+    public function __construct(int $m, int $n = 1)
     {
         $this->n = $n;
         $this->m = $m;
@@ -17,7 +17,7 @@ class Matrix implements \ArrayAccess, \Iterator
         for ($i = 0; $i < $m; $i++) {
             $this->matrix[$i] = array_fill(0, $n, 0);
         }
-    } 
+    }
 
     public function setMatrix(array $matrix)
     {
@@ -71,8 +71,8 @@ class Matrix implements \ArrayAccess, \Iterator
             throw new \Exception('Dimension');
         }
 
-        $matrixArr = $matrix->getMatrix();
-        $newMatrix = new Matrix($this->m, $nDim);
+        $matrixArr    = $matrix->getMatrix();
+        $newMatrix    = new Matrix($this->m, $nDim);
         $newMatrixArr = $newMatrix->getMatrix();
 
         for ($i = 0; $i < $this->m; $i++) { // Row of $this
@@ -136,7 +136,7 @@ class Matrix implements \ArrayAccess, \Iterator
             throw new \Exception('Dimension');
         }
 
-        $matrixArr = $value->getMatrix();
+        $matrixArr    = $value->getMatrix();
         $newMatrixArr = $this->matrix;
 
         foreach ($newMatrixArr as $i => $vector) {
@@ -167,17 +167,19 @@ class Matrix implements \ArrayAccess, \Iterator
         return $newMatrix;
     }
 
-    public function upperTriangular() : Matrix 
+    public function upperTriangular() : Matrix
     {
         $matrix = new Matrix($this->n, $this->n);
 
         $matrixArr = $this->matrix;
-        $matrix->setMatrix($this->upperTrianglize($matrixArr));
+        $this->upperTrianglize($matrixArr);
+
+        $matrix->setMatrix($matrixArr);
 
         return $matrix;
     }
 
-    public function lowerTriangular() : Matrix 
+    public function lowerTriangular() : Matrix
     {
         // todo: implement
         return new Matrix($this->m, $this->n);
@@ -191,9 +193,9 @@ class Matrix implements \ArrayAccess, \Iterator
 
         switch ($algorithm) {
             case InversionType::GAUSS_JORDAN:
-            return $this->inverseGaussJordan();
+                return $this->inverseGaussJordan();
             default:
-            throw new \Exception('');
+                throw new \Exception('');
         }
     }
 
@@ -239,9 +241,9 @@ class Matrix implements \ArrayAccess, \Iterator
         return $newMatrix;
     }
 
-    private function decompositionCholesky() : Matrix 
+    private function decompositionCholesky() : Matrix
     {
-        $newMatrix = new Matrix($this->n, $this->n);
+        $newMatrix    = new Matrix($this->n, $this->n);
         $newMatrixArr = $newMatrix->getMatrix();
 
         for ($i = 0; $i < $this->n; $i++) {
@@ -269,8 +271,8 @@ class Matrix implements \ArrayAccess, \Iterator
         for ($i = $mDim - 1; $i > 0; $i--) {
             if ($arr[$i - 1][0] < $arr[$i][0]) {
                 for ($j = 0; $j < $nDim; $j++) {
-                    $temp = $arr[$i][$j];
-                    $arr[$i][$j] = $arr[$i - 1][$j];
+                    $temp            = $arr[$i][$j];
+                    $arr[$i][$j]     = $arr[$i - 1][$j];
                     $arr[$i - 1][$j] = $temp;
                 }
             }
@@ -294,36 +296,36 @@ class Matrix implements \ArrayAccess, \Iterator
 
     private function upperTrianglize(array &$arr) : int
     {
-        $n = count($arr);
+        $n    = count($arr);
         $sign = 1;
 
         for ($i = 0; $i < $n; $i++) {
             $max = 0;
-            
+
             for ($j = $i; $j < $n; $j++) {
                 if (abs($arr[$j][$i]) > abs($arr[$max][$i])) {
                     $max = $j;
                 }
             }
-            
+
             if ($max) {
-                $sign = -$sign;
-                $temp = $arr[$i];
-                $arr[$i] = $arr[$max];
+                $sign      = -$sign;
+                $temp      = $arr[$i];
+                $arr[$i]   = $arr[$max];
                 $arr[$max] = $temp;
             }
-            
+
             if (!$arr[$i][$i]) {
                 return 0;
             }
-            
+
             for ($j = $i + 1; $j < $n; $j++) {
                 $r = $arr[$j][$i] / $arr[$i][$i];
 
                 if (!$r) {
                     continue;
                 }
-                
+
                 for ($c = $i; $c < $n; $c++) {
                     $arr[$j][$c] -= $arr[$i][$c] * $r;
                 }
@@ -331,7 +333,7 @@ class Matrix implements \ArrayAccess, \Iterator
         }
 
         return $sign;
-    } 
+    }
 
     public function det()
     {
@@ -340,12 +342,130 @@ class Matrix implements \ArrayAccess, \Iterator
         }
 
         $trianglize = $this->matrix;
-        $prod = $this->upperTrianglize($trianglize);
+        $prod       = $this->upperTrianglize($trianglize);
 
         for ($i = 0; $i < $this->n; $i++) {
             $prod *= $trianglize[$i][$i];
         }
 
         return $prod;
+    }
+
+    /**
+     * Return the current element
+     * @link  http://php.net/manual/en/iterator.current.php
+     * @return mixed Can return any type.
+     * @since 5.0.0
+     */
+    public function current()
+    {
+        // TODO: Implement current() method.
+    }
+
+    /**
+     * Move forward to next element
+     * @link  http://php.net/manual/en/iterator.next.php
+     * @return void Any returned value is ignored.
+     * @since 5.0.0
+     */
+    public function next()
+    {
+        // TODO: Implement next() method.
+    }
+
+    /**
+     * Return the key of the current element
+     * @link  http://php.net/manual/en/iterator.key.php
+     * @return mixed scalar on success, or null on failure.
+     * @since 5.0.0
+     */
+    public function key()
+    {
+        // TODO: Implement key() method.
+    }
+
+    /**
+     * Checks if current position is valid
+     * @link  http://php.net/manual/en/iterator.valid.php
+     * @return boolean The return value will be casted to boolean and then evaluated.
+     * Returns true on success or false on failure.
+     * @since 5.0.0
+     */
+    public function valid()
+    {
+        // TODO: Implement valid() method.
+    }
+
+    /**
+     * Rewind the Iterator to the first element
+     * @link  http://php.net/manual/en/iterator.rewind.php
+     * @return void Any returned value is ignored.
+     * @since 5.0.0
+     */
+    public function rewind()
+    {
+        // TODO: Implement rewind() method.
+    }
+
+    /**
+     * Whether a offset exists
+     * @link  http://php.net/manual/en/arrayaccess.offsetexists.php
+     * @param mixed $offset <p>
+     *                      An offset to check for.
+     *                      </p>
+     * @return boolean true on success or false on failure.
+     *                      </p>
+     *                      <p>
+     *                      The return value will be casted to boolean if non-boolean was returned.
+     * @since 5.0.0
+     */
+    public function offsetExists($offset)
+    {
+        // TODO: Implement offsetExists() method.
+    }
+
+    /**
+     * Offset to retrieve
+     * @link  http://php.net/manual/en/arrayaccess.offsetget.php
+     * @param mixed $offset <p>
+     *                      The offset to retrieve.
+     *                      </p>
+     * @return mixed Can return all value types.
+     * @since 5.0.0
+     */
+    public function offsetGet($offset)
+    {
+        // TODO: Implement offsetGet() method.
+    }
+
+    /**
+     * Offset to set
+     * @link  http://php.net/manual/en/arrayaccess.offsetset.php
+     * @param mixed $offset <p>
+     *                      The offset to assign the value to.
+     *                      </p>
+     * @param mixed $value  <p>
+     *                      The value to set.
+     *                      </p>
+     * @return void
+     * @since 5.0.0
+     */
+    public function offsetSet($offset, $value)
+    {
+        // TODO: Implement offsetSet() method.
+    }
+
+    /**
+     * Offset to unset
+     * @link  http://php.net/manual/en/arrayaccess.offsetunset.php
+     * @param mixed $offset <p>
+     *                      The offset to unset.
+     *                      </p>
+     * @return void
+     * @since 5.0.0
+     */
+    public function offsetUnset($offset)
+    {
+        // TODO: Implement offsetUnset() method.
     }
 }

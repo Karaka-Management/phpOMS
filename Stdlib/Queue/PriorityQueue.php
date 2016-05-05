@@ -58,7 +58,7 @@ class PriorityQueue implements \Countable, \Serializable
     /**
      * Insert element into queue.
      *
-     * @param mixed  $data     Queue element
+     * @param mixed $data     Queue element
      * @param float $priority Priority of this element
      *
      * @return int
@@ -199,7 +199,14 @@ class PriorityQueue implements \Countable, \Serializable
     }
 
     /**
-     * {@inheritdoc}
+     * Unserialize queue.
+     *
+     * @param string $data Data to unserialze
+     *
+     * @return array
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function unserialize($data) : array
     {

@@ -151,7 +151,7 @@ class GeometricDistribution
      */
     public static function getSkewness(float $lambda) : float
     {
-        return (2 - $p) / sqrt(1 - $p);
+        return (2 - $lambda) / sqrt(1 - $lambda);
     }
 
     /**
@@ -166,7 +166,7 @@ class GeometricDistribution
      */
     public static function getExKurtosis(float $lambda) : float
     {
-        return 6 + $p ** 2 / (1 - $p);
+        return 6 + $lambda ** 2 / (1 - $lambda);
     }
 
     public static function getRandom()

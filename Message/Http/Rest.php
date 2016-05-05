@@ -44,7 +44,8 @@ class Rest
      * @since  1.0.0
      * @author Dennis Eichhorn
      */
-    public function setRequest(Request $request) {
+    public function setRequest(Request $request)
+    {
         $this->request = $request;
     }
 

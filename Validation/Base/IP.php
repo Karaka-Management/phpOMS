@@ -16,7 +16,6 @@
 namespace phpOMS\Validation;
 
 
-
 /**
  * Validator abstract.
  *

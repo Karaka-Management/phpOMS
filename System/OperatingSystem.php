@@ -26,8 +26,9 @@ namespace phpOMS\System;
  * @link       http://orange-management.com
  * @since      1.0.0
  */
-final class OperatingSystem {
-	/**
+final class OperatingSystem
+{
+    /**
      * Get OS.
      *
      * @return int|SystemType
@@ -35,17 +36,17 @@ final class OperatingSystem {
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-	public static function getSystem() : int 
-	{
-		switch (PHP_OS) {
-			case stristr(PHP_OS, 'DAR'):
-				return SystemType::OSX;
-			case stristr(PHP_OS, 'WIN'):
-				return SystemType::WIN;
-			case stristr(PHP_OS, 'LINIX'):
-				return SystemType::LINUX;
-			default:
-				return SystemType::UNKNOWN;
-		}
-	}
+    public static function getSystem() : int
+    {
+        switch (PHP_OS) {
+            case stristr(PHP_OS, 'DAR'):
+                return SystemType::OSX;
+            case stristr(PHP_OS, 'WIN'):
+                return SystemType::WIN;
+            case stristr(PHP_OS, 'LINIX'):
+                return SystemType::LINUX;
+            default:
+                return SystemType::UNKNOWN;
+        }
+    }
 }

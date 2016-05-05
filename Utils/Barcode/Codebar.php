@@ -35,8 +35,8 @@ class Codebar extends C128Abstract
      * @var string[]
      * @since 1.0.0
      */
-    protected static $CODEARRAY  = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0', '-', '$', ':', '/', '.', '+', 'A', 'B', 'C', 'D'];
-    
+    protected static $CODEARRAY = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0', '-', '$', ':', '/', '.', '+', 'A', 'B', 'C', 'D'];
+
     /**
      * Char weighted array.
      *
@@ -67,11 +67,11 @@ class Codebar extends C128Abstract
     /**
      * Constructor
      *
-     * @param string $content Content to encrypt
-     * @param int $size Barcode height
-     * @param int $orientation Orientation of the barcode
+     * @param string $content     Content to encrypt
+     * @param int    $size        Barcode height
+     * @param int    $orientation Orientation of the barcode
      *
-     * @todo: add mirror parameter
+     * @todo   : add mirror parameter
      *
      * @since  1.0.0
      * @author Dennis Eichhorn
@@ -110,8 +110,9 @@ class Codebar extends C128Abstract
 
         for ($posX = 1; $posX <= $length; $posX++) {
             for ($posY = 0; $posY < $lenCodearr; $posY++) {
-                if (substr($this->content, ($posX - 1), 1) == self::$CODEARRAY[$posY])
+                if (substr($this->content, ($posX - 1), 1) == self::$CODEARRAY[$posY]) {
                     $codeString .= self::$CODEARRAY2[$posY] . '1';
+                }
             }
         }
 

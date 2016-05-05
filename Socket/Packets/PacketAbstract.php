@@ -16,7 +16,6 @@
 namespace phpOMS\Socket\Packets;
 
 
-
 /**
  * Server class.
  *

@@ -81,7 +81,7 @@ abstract class C128Abstract
     /**
      * Barcode dimension.
      *
-     * @todo: Implement!
+     * @todo  : Implement!
      *
      * @var int[]
      * @since 1.0.0
@@ -131,11 +131,11 @@ abstract class C128Abstract
     /**
      * Constructor
      *
-     * @param string $content Content to encrypt
-     * @param int $size Barcode height
-     * @param int $orientation Orientation of the barcode
+     * @param string $content     Content to encrypt
+     * @param int    $size        Barcode height
+     * @param int    $orientation Orientation of the barcode
      *
-     * @todo: add mirror parameter
+     * @todo   : add mirror parameter
      *
      * @since  1.0.0
      * @author Dennis Eichhorn
@@ -185,7 +185,7 @@ abstract class C128Abstract
      * @since  1.0.0
      * @author Dennis Eichhorn
      */
-    public function getContent() : string 
+    public function getContent() : string
     {
         return $this->content;
     }
@@ -254,7 +254,7 @@ abstract class C128Abstract
      * Create barcode image
      *
      * @param string $codeString Code string to render
-     * @param int $codeLength Barcode length (based on $codeString)
+     * @param int    $codeLength Barcode length (based on $codeString)
      *
      * @return mixed
      *

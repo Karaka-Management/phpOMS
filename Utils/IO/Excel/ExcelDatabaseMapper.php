@@ -19,7 +19,7 @@ use phpOMS\Utils\IO\IODatabaseMapper;
 
 class ExcelDatabaseMapper implements IODatabaseMapper
 {
-    private $sources    = [];
+    private $sources = [];
     private $lineBuffer = 500;
 
     public function addSource(string $source)

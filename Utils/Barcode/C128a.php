@@ -79,16 +79,16 @@ class C128a extends C128Abstract
      * @var string
      * @since 1.0.0
      */
-    protected static $CODE_END   = '2331112';
+    protected static $CODE_END = '2331112';
 
     /**
      * Constructor
      *
-     * @param string $content Content to encrypt
-     * @param int $size Barcode height
-     * @param int $orientation Orientation of the barcode
+     * @param string $content     Content to encrypt
+     * @param int    $size        Barcode height
+     * @param int    $orientation Orientation of the barcode
      *
-     * @todo: add mirror parameter
+     * @todo   : add mirror parameter
      *
      * @since  1.0.0
      * @author Dennis Eichhorn
@@ -103,7 +103,7 @@ class C128a extends C128Abstract
      *
      * @param string $content Content to encrypt
      *
-     * @todo: add mirror parameter
+     * @todo   : add mirror parameter
      *
      * @since  1.0.0
      * @author Dennis Eichhorn

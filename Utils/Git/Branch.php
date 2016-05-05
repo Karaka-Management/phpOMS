@@ -28,15 +28,15 @@ namespace phpOMS\Utils\Git;
  */
 class Branch
 {
-	/**
+    /**
      * Name.
      *
      * @var string
      * @since 1.0.0
      */
-	private $name = '';
+    private $name = '';
 
-	/**
+    /**
      * Constructor
      *
      * @param string $name Branch name
@@ -44,12 +44,12 @@ class Branch
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-	public function __construct(string $name)
-	{
-		$this->name = $name;
-	}
+    public function __construct(string $name = '')
+    {
+        $this->name = $name;
+    }
 
-	/**
+    /**
      * Set branch name
      *
      * @param string $name Branch name
@@ -57,12 +57,12 @@ class Branch
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-	public function setName(string $name) 
-	{
-		$this->name = $name;
-	}
+    public function setName(string $name)
+    {
+        $this->name = $name;
+    }
 
-	/**
+    /**
      * Get name
      *
      * @return string
@@ -70,8 +70,8 @@ class Branch
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-	public function getName() : string
-	{
-		return $this->name;
-	}
+    public function getName() : string
+    {
+        return $this->name;
+    }
 }

@@ -51,8 +51,8 @@ class Directory extends FileAbstract implements \Iterator, \ArrayAccess
      *
      * This can become rather slow for large structures.
      *
-     * @param string $dir Root dir to inspect
-     * @param bool $recursive Get size recursive
+     * @param string $dir       Root dir to inspect
+     * @param bool   $recursive Get size recursive
      *
      * @return int
      *
@@ -71,9 +71,11 @@ class Directory extends FileAbstract implements \Iterator, \ArrayAccess
                 if ($filename != ".." && $filename != ".") {
                     if (is_dir($dir . "/" . $filename) && $recursive) {
                         $countSize += self::getFolderSize($dir . "/" . $filename, $recursive);
-                    } else if (is_file($dir . "/" . $filename)) {
-                        $countSize += filesize($dir . "/" . $filename);
-                        $count++;
+                    } else {
+                        if (is_file($dir . "/" . $filename)) {
+                            $countSize += filesize($dir . "/" . $filename);
+                            $count++;
+                        }
                     }
                 }
             }
@@ -155,9 +157,9 @@ class Directory extends FileAbstract implements \Iterator, \ArrayAccess
     /**
      * Create directory.
      *
-     * @param string $path Path
-     * @param int $permission Directory permission
-     * @param bool $recursive Create parent directories if applicable
+     * @param string $path       Path
+     * @param int    $permission Directory permission
+     * @param bool   $recursive  Create parent directories if applicable
      *
      * @return bool
      *
@@ -204,19 +206,19 @@ class Directory extends FileAbstract implements \Iterator, \ArrayAccess
     /**
      * Constructor.
      *
-     * @param string $path Path
+     * @param string $path   Path
      * @param string $filter Filter
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function __construct(string $path, string $filter = '*') 
+    public function __construct(string $path, string $filter = '*')
     {
         $this->filter = $filter;
         parent::__construct($path);
 
         if (file_exists($this->path)) {
-            parent::index();
+            $this->index();
         }
     }
 
@@ -230,7 +232,7 @@ class Directory extends FileAbstract implements \Iterator, \ArrayAccess
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function get(string $name) : FileAbstract 
+    public function get(string $name) : FileAbstract
     {
         return $this->nodes[$name] ?? new NullFile('');
     }
@@ -287,6 +289,7 @@ class Directory extends FileAbstract implements \Iterator, \ArrayAccess
             $this->size -= $this->nodes[$name]->getSize();
 
             unset($this->nodes[$name]);
+
             // todo: unlink???
 
             return true;
@@ -303,7 +306,7 @@ class Directory extends FileAbstract implements \Iterator, \ArrayAccess
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function index() 
+    public function index()
     {
         parent::index();
 
@@ -340,7 +343,7 @@ class Directory extends FileAbstract implements \Iterator, \ArrayAccess
     /**
      * {@inheritdoc}
      */
-    public function key() 
+    public function key()
     {
         return key($this->nodes);
     }
@@ -348,7 +351,7 @@ class Directory extends FileAbstract implements \Iterator, \ArrayAccess
     /**
      * {@inheritdoc}
      */
-    public function next() 
+    public function next()
     {
         return next($this->nodes);
     }
@@ -367,7 +370,7 @@ class Directory extends FileAbstract implements \Iterator, \ArrayAccess
     /**
      * {@inheritdoc}
      */
-    public function offsetSet($offset, $value) 
+    public function offsetSet($offset, $value)
     {
         if (is_null($offset)) {
             $this->add($value);
@@ -379,7 +382,7 @@ class Directory extends FileAbstract implements \Iterator, \ArrayAccess
     /**
      * {@inheritdoc}
      */
-    public function offsetExists($offset) 
+    public function offsetExists($offset)
     {
         return isset($this->nodes[$offset]);
     }
@@ -387,7 +390,7 @@ class Directory extends FileAbstract implements \Iterator, \ArrayAccess
     /**
      * {@inheritdoc}
      */
-    public function offsetUnset($offset) 
+    public function offsetUnset($offset)
     {
         if (isset($this->nodes[$offset])) {
             unset($this->nodes[$offset]);
@@ -397,7 +400,7 @@ class Directory extends FileAbstract implements \Iterator, \ArrayAccess
     /**
      * {@inheritdoc}
      */
-    public function offsetGet($offset) 
+    public function offsetGet($offset)
     {
         return $this->nodes[$offset] ?? null;
     }

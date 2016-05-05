@@ -14,6 +14,7 @@
  * @link       http://orange-management.com
  */
 namespace phpOMS\Utils\Git;
+
 use phpOMS\System\File\PathException;
 
 /**
@@ -27,35 +28,36 @@ use phpOMS\System\File\PathException;
  * @link       http://orange-management.com
  * @since      1.0.0
  */
-class Git {
-	/**
+class Git
+{
+    /**
      * Git path.
      *
      * @var string
      * @since 1.0.0
      */
-	protected static $bin = '/usr/bin/git';
+    protected static $bin = '/usr/bin/git';
 
-	/**
+    /**
      * Set git binary.
      *
      * @param string $path Git path
-	 * 
-	 * @throws PathException
+     *
+     * @throws PathException
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-	public static function setBin(string $path)
-	{
-		if (realpath($path) === false) {
-			throw new PathException($path);
-		}
+    public static function setBin(string $path)
+    {
+        if (realpath($path) === false) {
+            throw new PathException($path);
+        }
 
-		self::$bin = realpath($path);
-	}
+        self::$bin = realpath($path);
+    }
 
-	/**
+    /**
      * Get git binary.
      *
      * @return string
@@ -63,12 +65,12 @@ class Git {
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-	public static function getBin() : string 
-	{
-		return self::$bin;
-	}
+    public static function getBin() : string
+    {
+        return self::$bin;
+    }
 
-	/**
+    /**
      * Test git.
      *
      * @return bool
@@ -76,18 +78,18 @@ class Git {
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-	public static function test() : bool 
-	{
-		$pipes = [];
-		$resource = proc_open(Git::getBin(), [1 => ['pipe', 'w'], 2 => ['pipe', 'w']], $pipes);
+    public static function test() : bool
+    {
+        $pipes    = [];
+        $resource = proc_open(Git::getBin(), [1 => ['pipe', 'w'], 2 => ['pipe', 'w']], $pipes);
 
-		$stdout = stream_get_contents($pipes[1]);
-		$stderr = stream_get_contents($pipes[2]);
+        $stdout = stream_get_contents($pipes[1]);
+        $stderr = stream_get_contents($pipes[2]);
 
-		foreach ($pipes as $pipe) {
-			fclose($pipe);
-		}
+        foreach ($pipes as $pipe) {
+            fclose($pipe);
+        }
 
-		return trim(proc_close($resource)) !== 127;
-	}
+        return trim(proc_close($resource)) !== 127;
+    }
 }

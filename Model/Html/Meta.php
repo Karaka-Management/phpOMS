@@ -219,9 +219,9 @@ class Meta implements RenderableInterface
     public function render() : string
     {
         return (count($this->keywords) > 0 ? '<meta name="keywords" content="' . implode(',', $this->keywords) . '">"' : '')
-               . (isset($this->author) ? '<meta name="author" content="' . $this->author . '">' : '')
-               . (isset($this->description) ? '<meta name="description" content="' . $this->description . '">' : '')
-               . (isset($this->charset) ? '<meta charset="' . $this->charset . '">' : '')
-               . '<meta name="generator" content="Orange Management">';
+        . (isset($this->author) ? '<meta name="author" content="' . $this->author . '">' : '')
+        . (isset($this->description) ? '<meta name="description" content="' . $this->description . '">' : '')
+        . (isset($this->charset) ? '<meta charset="' . $this->charset . '">' : '')
+        . '<meta name="generator" content="Orange Management">';
     }
 }

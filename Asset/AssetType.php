@@ -30,7 +30,7 @@ use phpOMS\Datatypes\Enum;
  */
 abstract class AssetType extends Enum
 {
-    const CSS    = 'css';
-    const JS     = 'js';
+    const CSS = 'css';
+    const JS = 'js';
     const JSLATE = 'jslate';
 }

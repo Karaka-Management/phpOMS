@@ -30,8 +30,8 @@ use phpOMS\Datatypes\Enum;
  */
 abstract class AccountStatus extends Enum
 {
-    const ACTIVE   = 1;
+    const ACTIVE = 1;
     const INACTIVE = 2;
-    const TIMEOUT  = 3;
-    const BANNED   = 4;
+    const TIMEOUT = 3;
+    const BANNED = 4;
 }

@@ -172,7 +172,7 @@ class Grammar extends GrammarAbstract
      *
      * @param Builder $query  Builder
      * @param array   $wheres Where elmenets
-     * @param bool   $first  Is first element (usefull for nesting)
+     * @param bool    $first  Is first element (usefull for nesting)
      *
      * @return string
      *
@@ -222,7 +222,7 @@ class Grammar extends GrammarAbstract
      * Compile value.
      *
      * @param array|string|\Closure $value  Value
-     * @param string               $prefix Prefix in case value is a table
+     * @param string                $prefix Prefix in case value is a table
      *
      * @return string
      *
@@ -262,7 +262,7 @@ class Grammar extends GrammarAbstract
      * Compile limit.
      *
      * @param Builder $query Builder
-     * @param int    $limit Limit
+     * @param int     $limit Limit
      *
      * @return string
      *
@@ -278,7 +278,7 @@ class Grammar extends GrammarAbstract
      * Compile offset.
      *
      * @param Builder $query  Builder
-     * @param int    $offset Offset
+     * @param int     $offset Offset
      *
      * @return string
      *
@@ -361,7 +361,7 @@ class Grammar extends GrammarAbstract
      * Compile insert into table.
      *
      * @param Builder $query Builder
-     * @param string $table Table
+     * @param string  $table Table
      *
      * @return string
      *

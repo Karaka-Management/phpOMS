@@ -110,7 +110,7 @@ class Response extends ResponseAbstract implements RenderableInterface
      */
     public function render() : string
     {
-        switch($this->header->get('Content-Type')) {
+        switch ($this->header->get('Content-Type')) {
             case MimeType::M_JSON:
                 return $this->getJson();
             default:
@@ -154,7 +154,6 @@ class Response extends ResponseAbstract implements RenderableInterface
                 $render .= json_encode($response);
                 // TODO: remove this. This should never happen since then someone forgot to set the correct header. it should be json header!
             } else {
-                var_dump($response);
                 throw new \Exception('Wrong response type');
             }
         }
@@ -169,14 +168,14 @@ class Response extends ResponseAbstract implements RenderableInterface
     {
         $result = [];
 
-        foreach($this->response as $key => $response) {
-            if($response instanceof View) {
+        foreach ($this->response as $key => $response) {
+            if ($response instanceof View) {
                 $result += $response->toArray();
-            } elseif(is_array($response)) {
+            } elseif (is_array($response)) {
                 $result += $response;
-            } elseif(is_scalar($response)) {
+            } elseif (is_scalar($response)) {
                 $result[] = $response;
-            } elseif($response instanceof \Serializable) {
+            } elseif ($response instanceof \Serializable) {
                 $result[] = $response->serialize();
             } else {
                 throw new \Exception('Wrong response type');

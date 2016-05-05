@@ -28,7 +28,7 @@ namespace phpOMS\Utils\Encoding;
  */
 interface EncodingInterface
 {
-	/**
+    /**
      * Encode source text
      *
      * @param string $source Source text to decode
@@ -38,9 +38,9 @@ interface EncodingInterface
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-	public function encode($source);
+    public function encode($source);
 
-	/**
+    /**
      * Dedecodes text
      *
      * @param string $decoded decoded text to dedecode
@@ -50,5 +50,5 @@ interface EncodingInterface
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-	public function decode($decoded);
+    public function decode($decoded);
 }

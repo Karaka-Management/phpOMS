@@ -102,7 +102,7 @@ abstract class FileAbstract
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function __construct(string $path) 
+    public function __construct(string $path)
     {
         $this->path = $path;
         $this->name = basename($path);
@@ -145,7 +145,7 @@ abstract class FileAbstract
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function getName() : string 
+    public function getName() : string
     {
         return $this->name;
     }
@@ -158,7 +158,7 @@ abstract class FileAbstract
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function getPath() : string 
+    public function getPath() : string
     {
         return $this->path;
     }
@@ -171,7 +171,7 @@ abstract class FileAbstract
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function parent() : Directory 
+    public function parent() : Directory
     {
         return new Directory(Directory::getParent($this->path));
     }
@@ -194,7 +194,7 @@ abstract class FileAbstract
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function getCreatedAt() : \DateTime 
+    public function getCreatedAt() : \DateTime
     {
         return $this->createdAt;
     }
@@ -207,7 +207,7 @@ abstract class FileAbstract
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function getChangedAt() : \DateTime 
+    public function getChangedAt() : \DateTime
     {
         return $this->changedAt;
     }
@@ -220,7 +220,7 @@ abstract class FileAbstract
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function getOwner() : int 
+    public function getOwner() : int
     {
         return $this->owner;
     }
@@ -233,7 +233,7 @@ abstract class FileAbstract
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function getPermission() : string 
+    public function getPermission() : string
     {
         return $this->permission;
     }
@@ -246,11 +246,11 @@ abstract class FileAbstract
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function index() 
+    public function index()
     {
         $this->createdAt->setTimestamp(filemtime($this->path));
         $this->changedAt->setTimestamp(filectime($this->path));
-        $this->owner = fileowner($this->path);
+        $this->owner      = fileowner($this->path);
         $this->permission = substr(sprintf('%o', fileperms($this->path)), -4);
     }
 }

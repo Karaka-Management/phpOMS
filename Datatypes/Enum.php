@@ -92,7 +92,7 @@ abstract class Enum
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public static function getRandom() 
+    public static function getRandom()
     {
         $constants = self::getConstants();
 

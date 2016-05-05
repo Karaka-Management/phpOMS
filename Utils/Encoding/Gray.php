@@ -26,7 +26,8 @@ namespace phpOMS\Utils\Encoding;
  * @link       http://orange-management.com
  * @since      1.0.0
  */
-final class Gray {
+final class Gray
+{
     /**
      * {@inheritdoc}
      */

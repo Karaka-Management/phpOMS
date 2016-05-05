@@ -32,10 +32,10 @@ use phpOMS\Datatypes\Enum;
  */
 abstract class DatabaseStatus extends Enum
 {
-    const OK               = 0; /* Database connection successful */
+    const OK = 0; /* Database connection successful */
     const MISSING_DATABASE = 1; /* Couldn't find database */
-    const MISSING_TABLE    = 2; /* One of the core tables couldn't be found */
-    const FAILURE          = 3; /* Unknown failure */
-    const READONLY         = 4; /* Database connection is in readonly (but ok) */
-    const CLOSED           = 5; /* Database connection closed */
+    const MISSING_TABLE = 2; /* One of the core tables couldn't be found */
+    const FAILURE = 3; /* Unknown failure */
+    const READONLY = 4; /* Database connection is in readonly (but ok) */
+    const CLOSED = 5; /* Database connection closed */
 }

@@ -46,7 +46,7 @@ interface OptionsInterface
      *
      * @param mixed $key       Unique option key
      * @param mixed $value     Option value
-     * @param bool $overwrite Overwrite existing value
+     * @param bool  $overwrite Overwrite existing value
      *
      * @return bool
      *
@@ -59,7 +59,7 @@ interface OptionsInterface
      * Updating or adding settings.
      *
      * @param array $pair      Key value pair
-     * @param bool $overwrite Overwrite existing value
+     * @param bool  $overwrite Overwrite existing value
      *
      * @return bool
      *

@@ -28,7 +28,8 @@ namespace phpOMS\Utils\TaskSchedule;
  */
 class Cron implements ScheduleInterface
 {
-    public function __construct() {
+    public function __construct()
+    {
 
     }
 
@@ -59,8 +60,8 @@ class Cron implements ScheduleInterface
         // TODO: Implement set() method.
     }
 
-    public function save() 
+    public function save()
     {
-        
+
     }
 }

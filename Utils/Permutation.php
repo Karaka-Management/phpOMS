@@ -26,13 +26,13 @@ namespace phpOMS\Utils;
  * @link       http://orange-management.com
  * @since      1.0.0
  */
-class Permutation 
+class Permutation
 {
     /**
      * Create all permutations.
      *
      * @param array $toPermute data to permutate
-     * @param array $result existing permutations
+     * @param array $result    existing permutations
      *
      * @return array
      *
@@ -47,8 +47,8 @@ class Permutation
             $permutations[] = implode('', $result);
         } else {
             foreach ($toPermute as $key => $val) {
-                $newArr = $toPermute;
-                $newres = $result;
+                $newArr   = $toPermute;
+                $newres   = $result;
                 $newres[] = $val;
                 unset($newArr[$key]);
                 $permutations += self::permut($newArr, $newres);
@@ -69,7 +69,7 @@ class Permutation
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public static function isPermutation(string $a, string $b) : bool 
+    public static function isPermutation(string $a, string $b) : bool
     {
         return count_chars($a, 1) === count_chars($b, 1);
     }
@@ -77,7 +77,7 @@ class Permutation
     /**
      * Check if a string is a palindrome.
      *
-     * @param string $a String a
+     * @param string $a      String a
      * @param string $filter Characters to filter
      *
      * @return bool
@@ -96,7 +96,7 @@ class Permutation
      * Permutate based on transposition key.
      *
      * @param string|array $toPermute To permutate
-     * @param array $key Permutation keys
+     * @param array        $key       Permutation keys
      *
      * @return mixed
      *
@@ -107,18 +107,18 @@ class Permutation
      */
     public static function permutate($toPermute, array $key)
     {
-        if(!is_array($toPermute) || !is_string($toPermute)) {
+        if (!is_array($toPermute) || !is_string($toPermute)) {
             throw new \Exception();
         }
 
-        if(count($key) > strlen($toPermute)) {
+        if (count($key) > strlen($toPermute)) {
             throw new \Exception();
         }
 
         $i = 0;
-        foreach($key as $pos) {
-            $temp = $toPermute[$i];
-            $toPermute[$i] = $toPermute[$pos];
+        foreach ($key as $pos) {
+            $temp            = $toPermute[$i];
+            $toPermute[$i]   = $toPermute[$pos];
             $toPermute[$pos] = $temp;
             $i++;
         }

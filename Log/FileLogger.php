@@ -35,8 +35,8 @@ use phpOMS\Validation\Validator;
 class FileLogger implements LoggerInterface
 {
     const MSG_BACKTRACE = '{datetime}; {level}; {ip}; {message}; {backtrace}';
-    const MSG_FULL      = '{datetime}; {level}; {ip}; {line}; {version}; {os}; {path}; {message}; {file}; {backtrace}';
-    const MSG_SIMPLE    = '{datetime}; {level}; {ip}; {message};';
+    const MSG_FULL = '{datetime}; {level}; {ip}; {line}; {version}; {os}; {path}; {message}; {file}; {backtrace}';
+    const MSG_SIMPLE = '{datetime}; {level}; {ip}; {message};';
 
     /**
      * Timing array.
@@ -88,15 +88,15 @@ class FileLogger implements LoggerInterface
      *
      * Creates the logging object and overwrites all default values.
      *
-     * @param string $lpath Path for logging
-     * @param bool $verbose Verbose logging
+     * @param string $lpath   Path for logging
+     * @param bool   $verbose Verbose logging
      *
      * @since  1.0.0
      * @author Dennis Eichhorn
      */
     public function __construct(string $lpath, bool $verbose = false)
     {
-        $path = realpath($lpath);
+        $path          = realpath($lpath);
         self::$verbose = $verbose;
 
         if ($path !== false && Validator::startsWith($path, ROOT_PATH) === false) {
@@ -262,12 +262,12 @@ class FileLogger implements LoggerInterface
      * @param array $a
      * @param array $b
      *
-     * @return bool the comparison
+     * @return int
      *
      * @since  1.0.0
      * @author Dennis Eichhorn
      */
-    private function orderSort($a, $b)
+    private function orderSort($a, $b) : int
     {
         if ($a['time'] == $b['time']) {
             return 0;
@@ -297,7 +297,7 @@ class FileLogger implements LoggerInterface
         }
 
         if (self::$verbose) {
-            echo $message , "\n";
+            echo $message, "\n";
         }
     }
 
@@ -628,7 +628,7 @@ class FileLogger implements LoggerInterface
      * Create console log.
      *
      * @param string $message Log message
-     * @param bool   $verbose  Is verbose
+     * @param bool   $verbose Is verbose
      * @param array  $context Context
      *
      * @return array

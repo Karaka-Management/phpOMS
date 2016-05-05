@@ -47,16 +47,16 @@ class TableException extends \PDOException
     {
         $pos1 = strpos($message, '\'');
 
-        if($pos1 === false) {
+        if ($pos1 === false) {
             return $message;
         }
 
-        $pos2 = strpos($message, '\'', $pos1+1);
+        $pos2 = strpos($message, '\'', $pos1 + 1);
 
-        if($pos2 === false) {
+        if ($pos2 === false) {
             return $message;
         }
 
-        return substr($message, $pos1+1, $pos2-$pos1-1);
+        return substr($message, $pos1 + 1, $pos2 - $pos1 - 1);
     }
 }

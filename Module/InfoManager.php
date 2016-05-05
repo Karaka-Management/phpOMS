@@ -83,6 +83,8 @@ class InfoManager
     /**
      * Update info file
      *
+     * @return void
+     *
      * @since  1.0.0
      * @author Dennis Eichhorn
      */

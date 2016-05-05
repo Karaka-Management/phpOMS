@@ -41,7 +41,7 @@ class LinearCongruentialGenerator
      */
     public static function bsd(int $seed)
     {
-        return function() use(&$seed) {
+        return function () use (&$seed) {
             return $seed = (1103515245 * $seed + 12345) % (1 << 31);
         };
     }
@@ -56,8 +56,9 @@ class LinearCongruentialGenerator
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public static function msvcrt(int $seed) {
-        return function() use (&$seed) {
+    public static function msvcrt(int $seed)
+    {
+        return function () use (&$seed) {
             return ($seed = (214013 * $seed + 2531011) % (1 << 31)) >> 16;
         };
     }

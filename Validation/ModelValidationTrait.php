@@ -16,7 +16,6 @@
 namespace phpOMS\Validation;
 
 
-
 /**
  * Model validation trait.
  *
@@ -31,7 +30,7 @@ trait ModelValidationTrait
     /**
      * Set variable without validating it.
      *
-     * @param mixed   $var  Variable to set
+     * @param mixed  $var  Variable to set
      * @param string $name Name of the variable
      *
      * @throws \Exception
@@ -53,7 +52,7 @@ trait ModelValidationTrait
     /**
      * Validate member variable.
      *
-     * @param mixed   $var  Variable to validate
+     * @param mixed  $var  Variable to validate
      * @param string $name Name of the variable
      *
      * @return bool
@@ -76,7 +75,7 @@ trait ModelValidationTrait
     /**
      * Set validated member variable.
      *
-     * @param mixed   $var  Variable to validate
+     * @param mixed  $var  Variable to validate
      * @param string $name Name of the variable
      *
      * @return bool

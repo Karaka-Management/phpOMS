@@ -31,10 +31,10 @@ use phpOMS\Socket\SocketAbstract;
  */
 class ClientConnection
 {
-    private $id        = 0;
-    private $socket    = null;
+    private $id = 0;
+    private $socket = null;
     private $handshake = false;
-    private $pid       = null;
+    private $pid = null;
     private $connected = true;
 
     public function __construct($id, $socket)
@@ -48,35 +48,43 @@ class ClientConnection
         return $this->id;
     }
 
-    public function getSocket() {
+    public function getSocket()
+    {
         return $this->socket;
     }
 
-    public function getHandshake() {
+    public function getHandshake()
+    {
         return $this->handshake;
     }
 
-    public function getPid() {
+    public function getPid()
+    {
         return $this->pid;
     }
 
-    public function isConnected() {
+    public function isConnected()
+    {
         return $this->connected;
     }
 
-    public function setSocket($socket) {
+    public function setSocket($socket)
+    {
         $this->socket = $socket;
     }
 
-    public function setHandshake($handshake) {
+    public function setHandshake($handshake)
+    {
         $this->handshake = $handshake;
     }
 
-    public function setPid($pid) {
+    public function setPid($pid)
+    {
         $this->pid = $pid;
     }
 
-    public function setConnected(bool $connected) {
+    public function setConnected(bool $connected)
+    {
         $this->connected = $connected;
     }
 }

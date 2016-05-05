@@ -2,23 +2,28 @@
 
 class Aztec
 {
-    private function calculateSize() {
+    private function calculateSize()
+    {
 
     }
 
-    private function bitStuffing() {
+    private function bitStuffing()
+    {
 
     }
 
-    private function padding() {
+    private function padding()
+    {
 
     }
 
-    private function check() {
+    private function check()
+    {
 
     }
 
-    private function arange() {
+    private function arange()
+    {
 
     }
 }

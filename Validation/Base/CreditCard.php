@@ -16,7 +16,6 @@
 namespace phpOMS\Validation;
 
 
-
 /**
  * Validator abstract.
  *
@@ -72,9 +71,11 @@ abstract class CreditCard extends ValidatorAbstract
         return ($total % 10 == 0) ? true : false;
     }
 
-    public static function luhnTest(string $num) {
+    public static function luhnTest(string $num)
+    {
         $len = strlen($num);
-        
+        $sum = 0;
+
         for ($i = $len - 1; $i >= 0; $i--) {
             $ord = ord($num[$i]);
 

@@ -46,7 +46,8 @@ class FunctionParser
 
     private $body = '';
 
-    public function setName(string $name) {
+    public function setName(string $name)
+    {
         $this->name = $name;
     }
 
@@ -55,7 +56,8 @@ class FunctionParser
         return $this->name;
     }
 
-    public function seBody(string $body) {
+    public function seBody(string $body)
+    {
         $this->body = $body;
     }
 
@@ -64,12 +66,12 @@ class FunctionParser
         return $this->body;
     }
 
-    public function removeBody() 
+    public function removeBody()
     {
         $this->body = null;
     }
 
-    public function setVisibility(string $visibility) 
+    public function setVisibility(string $visibility)
     {
         $this->visibility = $visibility;
     }
@@ -79,16 +81,17 @@ class FunctionParser
         return $this->visibility;
     }
 
-    public function setStatic(bool $static) {
+    public function setStatic(bool $static)
+    {
         $this->isStatic = $static;
     }
 
-    public function isStatic() : bool 
+    public function isStatic() : bool
     {
         return $this->isStatic;
     }
 
-    public function setFinal(bool $final) 
+    public function setFinal(bool $final)
     {
         $this->isFinal = $final;
     }
@@ -114,12 +117,12 @@ class FunctionParser
         return $this->isAbstract;
     }
 
-    public function setReturn(string $return) 
+    public function setReturn(string $return)
     {
         $this->return = $return;
     }
 
-    public function removeReturn() 
+    public function removeReturn()
     {
         $this->return = null;
     }
@@ -129,9 +132,9 @@ class FunctionParser
         return $this->return;
     }
 
-    public function addParameter(string $name, string $typehint, $default = null) 
+    public function addParameter(string $name, string $typehint, $default = null)
     {
-        $this->parameters[$name]['name'] = $name;
+        $this->parameters[$name]['name']     = $name;
         $this->parameters[$name]['typehint'] = $typehint;
 
         if (isset($default)) {
@@ -190,5 +193,5 @@ class FunctionParser
         }
 
         return $body;
-    } 
+    }
 }

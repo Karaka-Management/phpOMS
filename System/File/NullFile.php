@@ -30,5 +30,5 @@ namespace phpOMS\System\File;
  */
 class NullFile extends File
 {
-    
+
 }

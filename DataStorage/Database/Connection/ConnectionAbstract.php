@@ -126,8 +126,8 @@ abstract class ConnectionAbstract implements ConnectionInterface
     }
 
     /**
- * {@inheritdoc}
- */
+     * {@inheritdoc}
+     */
     public function getGrammar() : Grammar
     {
         if (!isset($this->grammar)) {

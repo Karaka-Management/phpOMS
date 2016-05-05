@@ -31,15 +31,15 @@ use phpOMS\Datatypes\Enum;
 abstract class ViewLayout extends Enum
 {
     const UNDEFINED = -1;
-    const VALUE     = 0;
-    const HEAD      = 1;
-    const GLOBAL    = 2;
-    const HEADER    = 3;
-    const MAIN      = 4;
-    const FOOTER    = 5;
-    const SIDE      = 6;
-    const FUNC      = 7;
-    const CLOSURE   = 8; // TODO: this could be very dangerous
-    const OBJECT    = 9;
-    const NULL      = 10;
+    const VALUE = 0;
+    const HEAD = 1;
+    const GLOBAL = 2;
+    const HEADER = 3;
+    const MAIN = 4;
+    const FOOTER = 5;
+    const SIDE = 6;
+    const FUNC = 7;
+    const CLOSURE = 8; // TODO: this could be very dangerous
+    const OBJECT = 9;
+    const NULL = 10;
 }

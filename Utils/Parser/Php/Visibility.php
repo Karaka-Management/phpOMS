@@ -32,7 +32,7 @@ use phpOMS\Datatypes\Enum;
  */
 abstract class Visibility extends Enum
 {
-    const _PUBLIC = 'public'; 
-    const _PRIVATE = 'private'; 
-    const _PROTECTED = 'protected'; 
+    const _PUBLIC = 'public';
+    const _PRIVATE = 'private';
+    const _PROTECTED = 'protected';
 }

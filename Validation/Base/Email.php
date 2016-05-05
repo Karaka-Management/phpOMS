@@ -53,7 +53,7 @@ class Email extends ValidatorAbstract
             return false;
         }
 
-        self::$msg = '';
+        self::$msg   = '';
         self::$error = 0;
 
         return true;

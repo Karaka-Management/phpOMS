@@ -31,7 +31,7 @@ namespace phpOMS\Utils\Parser\Php;
 class ClassParser
 {
     const INDENT = 4;
-    
+
     private $isFinal = false;
 
     private $isAbstract = false;
@@ -58,7 +58,9 @@ class ClassParser
 
     private $functions = [];
 
-    public function __construct() {}
+    public function __construct()
+    {
+    }
 
     /**
      * Saving class to file.
@@ -74,7 +76,7 @@ class ClassParser
     {
     }
 
-    public function setFinal(bool $final) 
+    public function setFinal(bool $final)
     {
         $this->isFinal = $final;
     }
@@ -104,7 +106,7 @@ class ClassParser
         return $this->type;
     }
 
-    public function setExtends(string $extends) 
+    public function setExtends(string $extends)
     {
         $this->extends = $extends;
     }
@@ -114,12 +116,12 @@ class ClassParser
         return $this->extends;
     }
 
-    public function removeExtends() 
+    public function removeExtends()
     {
         $this->extends = null;
     }
 
-    public function setNamespace(string $namespace) 
+    public function setNamespace(string $namespace)
     {
         $this->namespace = $namespace;
     }
@@ -129,7 +131,7 @@ class ClassParser
         return $this->namespace;
     }
 
-    public function removeNamespace() 
+    public function removeNamespace()
     {
         $this->namespace = null;
     }
@@ -154,7 +156,8 @@ class ClassParser
         return false;
     }
 
-    public function setName(string $name) {
+    public function setName(string $name)
+    {
         $this->name = $name;
     }
 
@@ -163,21 +166,21 @@ class ClassParser
         return $this->name;
     }
 
-    public function addImplements(string $implements) 
+    public function addImplements(string $implements)
     {
         $this->implements[] = $implements;
 
         array_unique($this->implements);
     }
 
-    public function addInclude(string $include) 
+    public function addInclude(string $include)
     {
         $this->includes[] = $include;
 
         array_unique($this->includes);
     }
 
-    public function addRequire(string $require) 
+    public function addRequire(string $require)
     {
         $this->requires[] = $require;
 
@@ -193,7 +196,7 @@ class ClassParser
         }
     }
 
-    public function addMember(MemberParser $member) 
+    public function addMember(MemberParser $member)
     {
         $this->members[$member->getName()] = $member;
     }
@@ -214,7 +217,7 @@ class ClassParser
         return $this->members[$name] ?? new MemberParser();
     }
 
-    public function addFunction(FunctionParser $function) 
+    public function addFunction(FunctionParser $function)
     {
         $this->functions[$function->getName()] = $function;
     }
@@ -235,7 +238,7 @@ class ClassParser
         return $this->functions[$name] ?? new FunctionParser();
     }
 
-    public function parse() : string 
+    public function parse() : string
     {
         $class = '';
 

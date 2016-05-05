@@ -1005,7 +1005,7 @@ class FinanceFormulas
     /**
      * Net Present Value
      *
-     * @param array  $C Cash flow ($C[0] = initial investment)
+     * @param array $C Cash flow ($C[0] = initial investment)
      * @param float $r Discount rate
      *
      * @return float

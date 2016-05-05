@@ -26,9 +26,9 @@ namespace phpOMS\Math\Optimization\Graph;
  * @link       http://orange-management.com
  * @since      1.0.0
  */
-interface EdgeInterface 
+interface EdgeInterface
 {
-	/**
+    /**
      * Get edge id.
      *
      * @return mixed
@@ -36,9 +36,9 @@ interface EdgeInterface
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-	public function getId();
+    public function getId();
 
-	/**
+    /**
      * Get edge weight.
      *
      * @return mixed
@@ -46,9 +46,9 @@ interface EdgeInterface
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-	public function getWeight();
+    public function getWeight();
 
-	/**
+    /**
      * Set weight.
      *
      * @param mixed $weight Weight of edge
@@ -56,9 +56,9 @@ interface EdgeInterface
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-	public function setWeight($weight);
+    public function setWeight($weight);
 
-	/**
+    /**
      * Get vertices.
      *
      * @return array
@@ -66,9 +66,9 @@ interface EdgeInterface
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-	public function getVertices() : array;
+    public function getVertices() : array;
 
-	/**
+    /**
      * Set vertices.
      *
      * @param VerticeInterface $a Vertice a
@@ -77,5 +77,5 @@ interface EdgeInterface
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-	public function setVertices(VerticeInterface $a, VerticeInterface $b);
+    public function setVertices(VerticeInterface $a, VerticeInterface $b);
 }

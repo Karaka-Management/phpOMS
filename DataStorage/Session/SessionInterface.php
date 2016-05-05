@@ -47,8 +47,8 @@ interface SessionInterface
      * Store session value by key.
      *
      * @param string|int $key       Value key
-     * @param mixed        $value     Value to store
-     * @param bool        $overwrite Overwrite existing values
+     * @param mixed      $value     Value to store
+     * @param bool       $overwrite Overwrite existing values
      *
      * @return bool
      *

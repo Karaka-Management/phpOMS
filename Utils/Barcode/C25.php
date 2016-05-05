@@ -67,11 +67,11 @@ class C25 extends C128Abstract
     /**
      * Constructor
      *
-     * @param string $content Content to encrypt
-     * @param int $size Barcode height
-     * @param int $orientation Orientation of the barcode
+     * @param string $content     Content to encrypt
+     * @param int    $size        Barcode height
+     * @param int    $orientation Orientation of the barcode
      *
-     * @todo: add mirror parameter
+     * @todo   : add mirror parameter
      *
      * @since  1.0.0
      * @author Dennis Eichhorn
@@ -115,7 +115,7 @@ class C25 extends C128Abstract
         $codeString  = '';
         $length      = strlen($this->content);
         $arrayLength = count(self::$CODEARRAY);
-        $temp = [];
+        $temp        = [];
 
         for ($posX = 1; $posX <= $length; $posX++) {
             for ($posY = 0; $posY < $arrayLength; $posY++) {

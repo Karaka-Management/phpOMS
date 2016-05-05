@@ -108,7 +108,7 @@ abstract class ResponseAbstract implements MessageInterface
      *
      * @param mixed $key       Response id
      * @param mixed $response  Response to add
-     * @param bool $overwrite Overwrite
+     * @param bool  $overwrite Overwrite
      *
      * @return void
      *

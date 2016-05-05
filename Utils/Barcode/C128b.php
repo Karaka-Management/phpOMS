@@ -78,5 +78,5 @@ class C128b extends C128Abstract
      * @var string
      * @since 1.0.0
      */
-    protected static $CODE_END   = '2331112';
+    protected static $CODE_END = '2331112';
 }

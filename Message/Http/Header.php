@@ -88,7 +88,7 @@ class Header extends HeaderAbstract
         if (self::$isLocked) {
             throw new \Exception('Already locked');
         }
-        
+
         if (isset($this->header[$key])) {
             unset($this->header[$key]);
 
@@ -164,7 +164,7 @@ class Header extends HeaderAbstract
      */
     public function generate(string $code)
     {
-        switch($code) {
+        switch ($code) {
             case RequestStatus::R_403:
                 $this->generate403();
                 break;
@@ -204,7 +204,7 @@ class Header extends HeaderAbstract
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    private function generate406() 
+    private function generate406()
     {
         $this->set('HTTP', 'HTTP/1.0 406 Not acceptable');
         $this->set('Status', 'Status: 406 Not acceptable');
@@ -233,7 +233,7 @@ class Header extends HeaderAbstract
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    private function generate407() 
+    private function generate407()
     {
 
     }

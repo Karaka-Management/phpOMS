@@ -26,9 +26,9 @@ namespace phpOMS\Math\Optimization\Graph;
  * @link       http://orange-management.com
  * @since      1.0.0
  */
-interface VerticeInterface 
+interface VerticeInterface
 {
-	/**
+    /**
      * Get vertice id.
      *
      * @return mixed
@@ -36,9 +36,9 @@ interface VerticeInterface
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-	public function getId();
+    public function getId();
 
-	/**
+    /**
      * Get edges.
      *
      * @return array
@@ -46,9 +46,9 @@ interface VerticeInterface
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-	public function getEdges() : array;
+    public function getEdges() : array;
 
-	/**
+    /**
      * Add edge.
      *
      * @param EdgeInterface $edge Edge to add to vertice
@@ -58,5 +58,5 @@ interface VerticeInterface
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-	public function addEdge(EdgeInterface $edge) : bool;
+    public function addEdge(EdgeInterface $edge) : bool;
 }

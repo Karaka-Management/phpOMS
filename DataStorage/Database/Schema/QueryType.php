@@ -34,6 +34,6 @@ abstract class QueryType extends Enum
 {
     const SELECT = 0;
     const CREATE = 1;
-    const DROP   = 2;
-    const ALTER  = 3;
+    const DROP = 2;
+    const ALTER = 3;
 }

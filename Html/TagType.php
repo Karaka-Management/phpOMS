@@ -30,13 +30,13 @@ use phpOMS\Datatypes\Enum;
  */
 abstract class TagType extends Enum
 {
-    const INPUT     = 0; /* <input> */
-    const BUTTON    = 1; /* <button> */
-    const LINK      = 2; /* <a> */
+    const INPUT = 0; /* <input> */
+    const BUTTON = 1; /* <button> */
+    const LINK = 2; /* <a> */
     const SYMMETRIC = 3; /* <span><div>... */
-    const TEXTAREA  = 4; /* <textarea> */
-    const SELECT    = 5; /* <select> */
-    const LABEL     = 6; /* <label> */
-    const ULIST     = 7; /* <ul> */
-    const OLIST     = 8; /* <ul> */
+    const TEXTAREA = 4; /* <textarea> */
+    const SELECT = 5; /* <select> */
+    const LABEL = 6; /* <label> */
+    const ULIST = 7; /* <ul> */
+    const OLIST = 8; /* <ul> */
 }

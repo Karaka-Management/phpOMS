@@ -28,9 +28,9 @@ namespace phpOMS\Datatypes;
  */
 abstract class AddressType extends Enum
 {
-    const HOME     = 1;
+    const HOME = 1;
     const BUSINESS = 2;
     const SHIPPING = 3;
-    const BILLING  = 4;
-    const WORK     = 5;
+    const BILLING = 4;
+    const WORK = 5;
 }

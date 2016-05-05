@@ -27,7 +27,7 @@ namespace phpOMS\Utils\RnG;
  * @link       http://orange-management.com
  * @since      1.0.0
  */
-class ArrayRandomize 
+class ArrayRandomize
 {
     /**
      * Yates array shuffler.
@@ -44,14 +44,14 @@ class ArrayRandomize
         $shuffled = [];
 
         while (!empty($arr)) {
-            $rnd = array_rand($arr);
+            $rnd        = array_rand($arr);
             $shuffled[] = $arr[$rnd];
             array_splice($arr, $rnd, 1);
         }
 
         return $shuffled;
     }
-    
+
     /**
      * Knuths array shuffler.
      *
@@ -67,8 +67,8 @@ class ArrayRandomize
         $shuffled = [];
 
         for ($i = count($arr) - 1; $i > 0; $i--) {
-            $rnd = mt_rand(0, $i);
-            $shuffled[$i] = $arr[$rnd];
+            $rnd            = mt_rand(0, $i);
+            $shuffled[$i]   = $arr[$rnd];
             $shuffled[$rnd] = $arr[$i];
         }
 

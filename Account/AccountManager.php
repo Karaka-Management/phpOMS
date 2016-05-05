@@ -112,7 +112,8 @@ class AccountManager implements \Countable
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function count() : int {
+    public function count() : int
+    {
         return count($this->accounts);
     }
 

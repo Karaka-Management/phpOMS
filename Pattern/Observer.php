@@ -16,7 +16,6 @@
 namespace phpOMS\Pattern;
 
 
-
 /**
  * Observer.
  *

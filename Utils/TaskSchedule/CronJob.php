@@ -36,12 +36,12 @@ class CronJob implements TaskInterface
      * @since 1.0.0
      */
     private $interval = null;
-    private $command  = '';
+    private $command = '';
 
     public function __construct(Interval $interval = null, $cmd = '')
     {
         $this->interval = $interval;
-        $this->cmd = $cmd;
+        $this->cmd      = $cmd;
     }
 
     public function setInterval(Interval $interval)

@@ -422,7 +422,8 @@ class Account
         $this->lastActive = new \DateTime('NOW');
     }
 
-    public function setCreatedAt(\DateTime $created) {
+    public function setCreatedAt(\DateTime $created)
+    {
         $this->createdAt = $created;
     }
 

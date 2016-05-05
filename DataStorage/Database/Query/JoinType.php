@@ -30,15 +30,15 @@ use phpOMS\Datatypes\Enum;
  */
 abstract class JoinType extends Enum
 {
-    const JOIN             = 'JOIN';
-    const LEFT_JOIN        = 'LEFT JOIN';
-    const LEFT_OUTER_JOIN  = 'LEFT OUTER JOIN';
-    const LEFT_INNER_JOIN  = 'LEFT INNER JOIN';
-    const RIGHT_JOIN       = 'RIGHT JOIN';
+    const JOIN = 'JOIN';
+    const LEFT_JOIN = 'LEFT JOIN';
+    const LEFT_OUTER_JOIN = 'LEFT OUTER JOIN';
+    const LEFT_INNER_JOIN = 'LEFT INNER JOIN';
+    const RIGHT_JOIN = 'RIGHT JOIN';
     const RIGHT_OUTER_JOIN = 'RIGHT OUTER JOIN';
     const RIGHT_INNER_JOIN = 'RIGHT INNER JOIN';
-    const OUTER_JOIN       = 'OUTER JOIN';
-    const INNER_JOIN       = 'INNER JOIN';
-    const CROSS_JOIN       = 'CROSS JOIN';
-    const FULL_OUTER_JOIN  = 'FULL OUTER JOIN';
+    const OUTER_JOIN = 'OUTER JOIN';
+    const INNER_JOIN = 'INNER JOIN';
+    const CROSS_JOIN = 'CROSS JOIN';
+    const FULL_OUTER_JOIN = 'FULL OUTER JOIN';
 }

@@ -28,8 +28,8 @@ namespace phpOMS\Datatypes;
  */
 abstract class PhoneType extends Enum
 {
-    const HOME     = 1;
+    const HOME = 1;
     const BUSINESS = 2;
-    const MOBILE   = 3;
-    const WORK     = 4;
+    const MOBILE = 3;
+    const WORK = 4;
 }

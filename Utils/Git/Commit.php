@@ -14,7 +14,6 @@
  * @link       http://orange-management.com
  */
 namespace phpOMS\Utils\Git;
-use phpDocumentor\Reflection\DocBlock\Tag;
 
 /**
  * Gray encoding class
@@ -27,73 +26,73 @@ use phpDocumentor\Reflection\DocBlock\Tag;
  * @link       http://orange-management.com
  * @since      1.0.0
  */
-class Commit 
+class Commit
 {
-	/**
+    /**
      * Hash.
      *
      * @var string
      * @since 1.0.0
      */
-	private $id = '';
+    private $id = '';
 
-	/**
+    /**
      * Author.
      *
      * @var Author
      * @since 1.0.0
      */
-	private $author = null;
+    private $author = null;
 
-	/**
+    /**
      * Branch.
      *
      * @var Branch
      * @since 1.0.0
      */
-	private $branch = null;
+    private $branch = null;
 
-	/**
+    /**
      * Tag.
      *
      * @var Tag
      * @since 1.0.0
      */
-	private $tag = null;
+    private $tag = null;
 
-	/**
+    /**
      * Commit date.
      *
      * @var \DateTime
      * @since 1.0.0
      */
-	private $date = null;
+    private $date = null;
 
-	/**
+    /**
      * Repository.
      *
      * @var Repository
      * @since 1.0.0
      */
-	private $repository = null;
+    private $repository = null;
 
-	/**
+    /**
      * Commit message.
      *
      * @var string
      * @since 1.0.0
      */
-	private $message = '';
+    private $message = '';
 
-	/**
+    /**
      * Files.
      *
      * @var string[]
      * @since 1.0.0
      */
-	private $files = [];
+    private $files = [];
 
-	/**
+    /**
      * Constructor
      *
      * @param string $id Commit hash
@@ -101,17 +100,18 @@ class Commit
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-	public function __construct(string $id = '') {
-		$author = new Author();
-		$branch = new Branch();
-		$tag = new Tag();
+    public function __construct(string $id = '')
+    {
+        $this->author = new Author();
+        $this->branch = new Branch();
+        $this->tag    = new Tag();
 
-		if (!empty($id)) {
-			// todo: fill base info
-		}
-	}
+        if (!empty($id)) {
+            // todo: fill base info
+        }
+    }
 
-	/**
+    /**
      * Add file to commit.
      *
      * @param string $path File path
@@ -119,39 +119,40 @@ class Commit
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-	public function addFile(string $path) {
-		if (!isset($this->files[$path])) {
-			$this->files[$path] = [];
-		}
-	}
+    public function addFile(string $path)
+    {
+        if (!isset($this->files[$path])) {
+            $this->files[$path] = [];
+        }
+    }
 
-	/**
+    /**
      * Add change.
      *
      * @param string $path File path
-     * @param int $line Line number
-     * @param string $old Old line
-     * @param string $new New line
+     * @param int    $line Line number
+     * @param string $old  Old line
+     * @param string $new  New line
      *
      * @throws
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-	private function addChange(string $path, int $line, string $old, string $new) 
-	{
-		if (!isset($this->files[$path])) {
-			throw new \Exception();
-		}
+    private function addChange(string $path, int $line, string $old, string $new)
+    {
+        if (!isset($this->files[$path])) {
+            throw new \Exception();
+        }
 
-		if (!isset($this->files[$path][$line])) {
-			$this->files[$path][$line] = ['old' => $old, 'new' => $new];
-		} else {
-			throw new \Exception();
-		}
-	}
+        if (!isset($this->files[$path][$line])) {
+            $this->files[$path][$line] = ['old' => $old, 'new' => $new];
+        } else {
+            throw new \Exception();
+        }
+    }
 
-	/**
+    /**
      * Set commit message.
      *
      * @param string $message Commit message
@@ -161,12 +162,12 @@ class Commit
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-	public function setMessage(string $message)
-	{
-		$this->message = $message;
-	}
+    public function setMessage(string $message)
+    {
+        $this->message = $message;
+    }
 
-	/**
+    /**
      * Get commit message.
      *
      * @return string
@@ -174,12 +175,12 @@ class Commit
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-	public function getMessage() : string
-	{
-		return $this->message;
-	}
+    public function getMessage() : string
+    {
+        return $this->message;
+    }
 
-	/**
+    /**
      * Get files of this commit.
      *
      * @return string[]
@@ -187,12 +188,12 @@ class Commit
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-	public function getFiles() : array 
-	{
-		return $this->files;
-	}
+    public function getFiles() : array
+    {
+        return $this->files;
+    }
 
-	/**
+    /**
      * Get files of this commit.
      *
      * @param string $path File path
@@ -202,18 +203,18 @@ class Commit
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-	public function removeFile(string $path) : bool
-	{
-		if (isset($this->files[$path])) {
-			unset($this->files[$path]);
+    public function removeFile(string $path) : bool
+    {
+        if (isset($this->files[$path])) {
+            unset($this->files[$path]);
 
-			return true;
-		}
+            return true;
+        }
 
-		return false;
-	}
+        return false;
+    }
 
-	/**
+    /**
      * Set commit author.
      *
      * @param Author $author Commit author
@@ -221,12 +222,12 @@ class Commit
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-	public function setAuthor(Author $author) 
-	{
-		$this->author = $author;
-	}
+    public function setAuthor(Author $author)
+    {
+        $this->author = $author;
+    }
 
-	/**
+    /**
      * Get commit author.
      *
      * @return Author
@@ -234,12 +235,12 @@ class Commit
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-	public function getAuthor() : Author 
-	{
-		return $this->author;
-	}
+    public function getAuthor() : Author
+    {
+        return $this->author;
+    }
 
-	/**
+    /**
      * Set commit branch.
      *
      * @param Branch $branch Commit branch
@@ -247,11 +248,12 @@ class Commit
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-	public function setBranch(Branch $branch) {
-		$this->branch = $branch;
-	}
+    public function setBranch(Branch $branch)
+    {
+        $this->branch = $branch;
+    }
 
-	/**
+    /**
      * Get commit branch.
      *
      * @return Branch
@@ -259,12 +261,12 @@ class Commit
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-	public function getBranch() : Branch 
-	{
-		return $this->branch;
-	}
+    public function getBranch() : Branch
+    {
+        return $this->branch;
+    }
 
-	/**
+    /**
      * Set commit tag.
      *
      * @param Tag $tag Commit tag
@@ -272,11 +274,12 @@ class Commit
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-	public function setTag(Tag $tag) {
-		$this->tag = $tag;
-	}
+    public function setTag(Tag $tag)
+    {
+        $this->tag = $tag;
+    }
 
-	/**
+    /**
      * Get commit tag.
      *
      * @return Tag
@@ -284,12 +287,12 @@ class Commit
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-	public function getTag() : Tag 
-	{
-		return $this->tag;
-	}
+    public function getTag() : Tag
+    {
+        return $this->tag;
+    }
 
-	/**
+    /**
      * Get commit date.
      *
      * @return \DateTime
@@ -297,12 +300,12 @@ class Commit
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-	public function getDate() : \DateTime 
-	{
-		return $this->date ?? new \DateTime('now');
-	}
+    public function getDate() : \DateTime
+    {
+        return $this->date ?? new \DateTime('now');
+    }
 
-	/**
+    /**
      * Set commit repository.
      *
      * @param Repository $repository Commit repository
@@ -310,12 +313,12 @@ class Commit
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-	public function setRepository(Repository $repository)
-	{
-		$this->repository = $repository;
-	}
+    public function setRepository(Repository $repository)
+    {
+        $this->repository = $repository;
+    }
 
-	/**
+    /**
      * Get commit repository.
      *
      * @return Repository
@@ -323,8 +326,8 @@ class Commit
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-	public function getRepository() : Repository
-	{
-		return $this->repository;
-	}
+    public function getRepository() : Repository
+    {
+        return $this->repository;
+    }
 }

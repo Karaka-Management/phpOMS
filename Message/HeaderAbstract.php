@@ -14,6 +14,7 @@
  * @link       http://orange-management.com
  */
 namespace phpOMS\Message;
+
 use phpOMS\DataStorage\Cookie\CookieJar;
 use phpOMS\DataStorage\Session\HttpSession;
 
@@ -41,9 +42,9 @@ abstract class HeaderAbstract
     /**
      * Set header.
      *
-     * @param string $key Header key
-     * @param string $value Header value
-     * @param bool $overwrite Overwrite if key already exists
+     * @param string $key       Header key
+     * @param string $value     Header value
+     * @param bool   $overwrite Overwrite if key already exists
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>

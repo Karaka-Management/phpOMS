@@ -64,7 +64,7 @@ class JsonBuilder
      * Add data.
      *
      * @param string $path      Path used for storage
-     * @param array   $value     Data to add
+     * @param array  $value     Data to add
      * @param bool   $overwrite Should overwrite existing data
      *
      * @return void

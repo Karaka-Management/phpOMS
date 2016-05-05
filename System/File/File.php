@@ -64,11 +64,11 @@ class File extends FileAbstract
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function __construct(string $path) 
+    public function __construct(string $path)
     {
         parent::__construct($path);
         $this->count = 1;
-        
+
         if (file_exists($this->path)) {
             $this->index();
         }
@@ -124,10 +124,10 @@ class File extends FileAbstract
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function index() 
+    public function index()
     {
         parent::index();
-        
+
         $this->size = filesize($this->path);
     }
 }

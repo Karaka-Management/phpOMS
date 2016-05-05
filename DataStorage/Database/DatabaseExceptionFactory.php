@@ -42,7 +42,7 @@ class DatabaseExceptionFactory
      */
     public static function create(\PDOException $e) : \PDOException
     {
-        switch($e->getCode()) {
+        switch ($e->getCode()) {
             case '42S02':
                 return self::createTableViewException($e);
             default:

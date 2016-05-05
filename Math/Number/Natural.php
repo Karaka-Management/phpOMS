@@ -1,9 +1,9 @@
 <?php
 
-class Natural implements Number 
+class Natural
 {
-	public static function isNatural($value) : bool
-	{
-		return is_int($value) && $value >= 0;
-	}
+    public static function isNatural($value) : bool
+    {
+        return is_int($value) && $value >= 0;
+    }
 }

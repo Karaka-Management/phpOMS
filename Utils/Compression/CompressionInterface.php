@@ -28,7 +28,7 @@ namespace phpOMS\Utils\Compression;
  */
 interface CompressionInterface
 {
-	/**
+    /**
      * Compresses source text
      *
      * @param string $source Source text to compress
@@ -38,9 +38,9 @@ interface CompressionInterface
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-	public function compress(string $source) : string;
+    public function compress(string $source) : string;
 
-	/**
+    /**
      * Decompresses text
      *
      * @param string $compressed Compressed text to decompress
@@ -50,5 +50,5 @@ interface CompressionInterface
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-	public function decompress(string $compressed) : string;
+    public function decompress(string $compressed) : string;
 }

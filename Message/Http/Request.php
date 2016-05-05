@@ -126,7 +126,7 @@ class Request extends RequestAbstract
 
         $this->path = explode('/', $this->uri->getPath());
         $this->l11n->setLanguage($this->path[0]);
-        
+
         $this->setupUriBuilder();
         $this->createRequestHashs();
     }
@@ -141,9 +141,9 @@ class Request extends RequestAbstract
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    private function initCurrentRequest() 
+    private function initCurrentRequest()
     {
-        $this->data = $_GET ?? [];
+        $this->data  = $_GET ?? [];
         $this->files = $_FILES ?? [];
 
         if (isset($_SERVER['CONTENT_TYPE'])) {
@@ -222,7 +222,7 @@ class Request extends RequestAbstract
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    private function cleanupGlobals() 
+    private function cleanupGlobals()
     {
         unset($_FILES);
         unset($_GET);
@@ -364,10 +364,10 @@ class Request extends RequestAbstract
         }
 
         return
-        (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off')
-        || (empty($_SERVER['HTTP_X_FORWARDED_PROTO']) && $_SERVER['HTTP_X_FORWARDED_PROTO'] == 'https')
-        || (!empty($_SERVER['HTTP_X_FORWARDED_SSL']) && $_SERVER['HTTP_X_FORWARDED_SSL'] == 'on')
-        || $_SERVER['SERVER_PORT'] == $port;
+            (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off')
+            || (empty($_SERVER['HTTP_X_FORWARDED_PROTO']) && $_SERVER['HTTP_X_FORWARDED_PROTO'] == 'https')
+            || (!empty($_SERVER['HTTP_X_FORWARDED_SSL']) && $_SERVER['HTTP_X_FORWARDED_SSL'] == 'on')
+            || $_SERVER['SERVER_PORT'] == $port;
     }
 
     /**
@@ -409,7 +409,7 @@ class Request extends RequestAbstract
     public function getProtocolVersion() : string
     {
         return $_SERVER['SERVER_PROTOCOL'];
-    }   
+    }
 
     /**
      * {@inheritdoc}
@@ -452,7 +452,7 @@ class Request extends RequestAbstract
      */
     public function getRouteVerb() : int
     {
-        switch($this->getMethod()) {
+        switch ($this->getMethod()) {
             case RequestMethod::GET:
                 return RouteVerb::GET;
             case RequestMethod::PUT:

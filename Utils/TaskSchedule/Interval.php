@@ -110,12 +110,12 @@ class Interval
     {
         $elements = explode(' ', trim($interval));
 
-        $this->minute = $this->parseMinute($elements[0]);
-        $this->hour = $this->parseHour($elements[1]);
+        $this->minute     = $this->parseMinute($elements[0]);
+        $this->hour       = $this->parseHour($elements[1]);
         $this->dayOfMonth = $this->parseDayOfMonth($elements[2]);
-        $this->month = $this->parseMonth($elements[3]);
-        $this->dayOfWeek = $this->parseDayOfWeek($elements[4]);
-        $this->year = $this->parseYear($elements[5]);
+        $this->month      = $this->parseMonth($elements[3]);
+        $this->dayOfWeek  = $this->parseDayOfWeek($elements[4]);
+        $this->year       = $this->parseYear($elements[5]);
     }
 
     /**
@@ -208,21 +208,23 @@ class Interval
 
     }
 
-    public function setStart(\DateTime $start) {
+    public function setStart(\DateTime $start)
+    {
         $this->start = $start;
     }
 
-    public function getStart() : \DateTime 
+    public function getStart() : \DateTime
     {
         return $this->start;
     }
 
-    public function getEnd() 
+    public function getEnd()
     {
         return $this->end;
     }
 
-    public function setEnd(\DateTime $end) {
+    public function setEnd(\DateTime $end)
+    {
         $this->end = $end;
     }
 
@@ -230,7 +232,7 @@ class Interval
      * Set mintue.
      *
      * @param array $minute Minute
-     * @param int  $step   Step
+     * @param int   $step   Step
      * @param bool  $any    Any
      *
      * @throws
@@ -255,9 +257,9 @@ class Interval
     /**
      * Set hour.
      *
-     * @param array $hour  Hour
-     * @param int  $step  Step
-     * @param bool  $any   Any
+     * @param array $hour Hour
+     * @param int   $step Step
+     * @param bool  $any  Any
      *
      * @throws
      *
@@ -282,10 +284,10 @@ class Interval
      * Set day of month.
      *
      * @param array $dayOfMonth Day of month
-     * @param int  $step       Step
+     * @param int   $step       Step
      * @param bool  $any        Any
      * @param bool  $last       Last
-     * @param int  $nearest    Nearest day
+     * @param int   $nearest    Nearest day
      *
      * @throws
      *
@@ -312,7 +314,7 @@ class Interval
      * Set month.
      *
      * @param array $month Month
-     * @param int  $step  Step
+     * @param int   $step  Step
      * @param bool  $any   Any
      *
      * @throws
@@ -338,7 +340,7 @@ class Interval
      * Set day of week.
      *
      * @param array $dayOfWeek Day of week
-     * @param int  $step      Step
+     * @param int   $step      Step
      * @param bool  $any       Any
      * @param bool  $last      Last
      *
@@ -365,9 +367,9 @@ class Interval
     /**
      * Set yaer.
      *
-     * @param array $year  Year
-     * @param int  $step  Step
-     * @param bool  $any   Any
+     * @param array $year Year
+     * @param int   $step Step
+     * @param bool  $any  Any
      *
      * @throws
      *
@@ -377,9 +379,9 @@ class Interval
     public function setYear(array $year, int $step = 0, bool $any = false)
     {
         if ($this->validateYear($arr = [
-            'year'  => $year,
-            'step'  => $step,
-            'any'   => $any,
+            'year' => $year,
+            'step' => $step,
+            'any'  => $any,
         ])
         ) {
             $this->hour = $arr;

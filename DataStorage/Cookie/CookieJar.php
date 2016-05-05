@@ -75,13 +75,13 @@ class CookieJar
         if (self::$isLocked) {
             throw new \Exception('Already locked');
         }
-        
+
         foreach ($this->cookies as $key => $cookie) {
             setcookie($key, $cookie['value'], $cookie['expiry'], $cookie['path'], $cookie['domain'], $cookie['secure'], $cookie['httponly']);
         }
     }
 
-    public static function lock() 
+    public static function lock()
     {
         self::$isLocked = true;
     }

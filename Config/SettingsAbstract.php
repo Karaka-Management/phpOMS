@@ -120,8 +120,8 @@ abstract class SettingsAbstract implements OptionsInterface
     /**
      * Set option by key.
      *
-     * @param string[] $options   Column values for filtering
-     * @param bool     $store     Save this Setting immediately to database
+     * @param string[] $options Column values for filtering
+     * @param bool     $store   Save this Setting immediately to database
      *
      * @return mixed Option value
      *

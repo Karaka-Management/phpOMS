@@ -34,17 +34,19 @@ class Imap extends Mail
 
     public function connect($host, $user, $password)
     {
-        $this->host = $host;
+        $this->host  = $host;
         $this->inbox = imap_open($host, $user, $password);
 
         return !($this->inbox === false);
     }
 
-    public function getBoxes() {
+    public function getBoxes()
+    {
         return imap_list($this->inbox, $this->host, '*');
     }
 
-    public function getQuota() {
+    public function getQuota()
+    {
         return imap_get_quotaroot($this->inbox, "INBOX");
     }
 
@@ -133,10 +135,12 @@ class Imap extends Mail
     {
         if ($encoding == 3) {
             return imap_base64($content);
-        } else if ($encoding == 1) {
-            return imap_8bit($content);
         } else {
-            return imap_qprint($content);
+            if ($encoding == 1) {
+                return imap_8bit($content);
+            } else {
+                return imap_qprint($content);
+            }
         }
     }
 }

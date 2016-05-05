@@ -382,7 +382,7 @@ class Builder extends BuilderAbstract
      *
      * @param string|array|\Closure $columns  Columns
      * @param string|array          $operator Operator
-     * @param mixed                  $values   Values
+     * @param mixed                 $values   Values
      * @param string|array          $boolean  Boolean condition
      *
      * @return Builder
@@ -429,7 +429,7 @@ class Builder extends BuilderAbstract
      * Where in.
      *
      * @param string|array|\Closure $column  Column
-     * @param mixed                  $values  Values
+     * @param mixed                 $values  Values
      * @param string                $boolean Boolean condition
      *
      * @return Builder
@@ -717,8 +717,8 @@ class Builder extends BuilderAbstract
     /**
      * Values to insert.
      *
-     * @param mixed $value Values
-     * @param string $type Data type to insert
+     * @param mixed  $value Values
+     * @param string $type  Data type to insert
      *
      * @return Builder
      *

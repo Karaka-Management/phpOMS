@@ -146,21 +146,21 @@ class ModuleManager
         if (!isset($this->uriLoad)) {
             switch ($this->app->dbPool->get('core')->getType()) {
                 case DatabaseType::MYSQL:
-                $uriHash = $request->getHash();
-                $uriPdo  = '';
+                    $uriHash = $request->getHash();
+                    $uriPdo  = '';
 
-                $i = 1;
-                $c = count($uriHash);
-                for ($k = 0; $k < $c; $k++) {
-                    $uriPdo .= ':pid' . $i . ',';
-                    $i++;
-                }
+                    $i = 1;
+                    $c = count($uriHash);
+                    for ($k = 0; $k < $c; $k++) {
+                        $uriPdo .= ':pid' . $i . ',';
+                        $i++;
+                    }
 
-                $uriPdo = rtrim($uriPdo, ',');
+                    $uriPdo = rtrim($uriPdo, ',');
 
-                /* TODO: make join in order to see if they are active */
-                $sth = $this->app->dbPool->get('core')->con->prepare(
-                    'SELECT
+                    /* TODO: make join in order to see if they are active */
+                    $sth = $this->app->dbPool->get('core')->con->prepare(
+                        'SELECT
                     `' . $this->app->dbPool->get('core')->prefix . 'module_load`.`module_load_type`, `' . $this->app->dbPool->get('core')->prefix . 'module_load`.*
                     FROM
                     `' . $this->app->dbPool->get('core')->prefix . 'module_load`
@@ -168,15 +168,15 @@ class ModuleManager
                     `module_load_pid` IN(' . $uriPdo . ')'
                     );
 
-                $i = 1;
-                foreach ($uriHash as $hash) {
-                    $sth->bindValue(':pid' . $i, $hash, \PDO::PARAM_STR);
-                    $i++;
-                }
+                    $i = 1;
+                    foreach ($uriHash as $hash) {
+                        $sth->bindValue(':pid' . $i, $hash, \PDO::PARAM_STR);
+                        $i++;
+                    }
 
-                $sth->execute();
+                    $sth->execute();
 
-                $this->uriLoad = $sth->fetchAll(\PDO::FETCH_GROUP);
+                    $this->uriLoad = $sth->fetchAll(\PDO::FETCH_GROUP);
             }
         }
 
@@ -314,10 +314,10 @@ class ModuleManager
             foreach ($installed as $key => $value) {
                 $this->installProviding($key, $module);
             }
-        } catch(PathException $e) {
+        } catch (PathException $e) {
             // todo: handle module doesn't exist or files are missing
             //echo $e->getMessage();
-        } catch(\Exception $e) {
+        } catch (\Exception $e) {
             //echo $e->getMessage();
         }
     }
@@ -336,42 +336,42 @@ class ModuleManager
     {
         switch ($this->app->dbPool->get('core')->getType()) {
             case DatabaseType::MYSQL:
-            $this->app->dbPool->get('core')->con->beginTransaction();
+                $this->app->dbPool->get('core')->con->beginTransaction();
 
-            $sth = $this->app->dbPool->get('core')->con->prepare(
-                'INSERT INTO `' . $this->app->dbPool->get('core')->prefix . 'module` (`module_id`, `module_theme`, `module_path`, `module_active`, `module_version`) VALUES
+                $sth = $this->app->dbPool->get('core')->con->prepare(
+                    'INSERT INTO `' . $this->app->dbPool->get('core')->prefix . 'module` (`module_id`, `module_theme`, `module_path`, `module_active`, `module_version`) VALUES
                 (:internal, :theme, :path, :active, :version);'
                 );
 
-            $sth->bindValue(':internal', $info->getInternalName(), \PDO::PARAM_INT);
-            $sth->bindValue(':theme', 'Default', \PDO::PARAM_STR);
-            $sth->bindValue(':path', $info->getDirectory(), \PDO::PARAM_STR);
-            $sth->bindValue(':active', 1, \PDO::PARAM_INT);
-            $sth->bindValue(':version', $info->getVersion(), \PDO::PARAM_STR);
+                $sth->bindValue(':internal', $info->getInternalName(), \PDO::PARAM_INT);
+                $sth->bindValue(':theme', 'Default', \PDO::PARAM_STR);
+                $sth->bindValue(':path', $info->getDirectory(), \PDO::PARAM_STR);
+                $sth->bindValue(':active', 1, \PDO::PARAM_INT);
+                $sth->bindValue(':version', $info->getVersion(), \PDO::PARAM_STR);
 
-            $sth->execute();
+                $sth->execute();
 
-            $sth = $this->app->dbPool->get('core')->con->prepare(
-                'INSERT INTO `' . $this->app->dbPool->get('core')->prefix . 'module_load` (`module_load_pid`, `module_load_type`, `module_load_from`, `module_load_for`, `module_load_file`) VALUES
+                $sth = $this->app->dbPool->get('core')->con->prepare(
+                    'INSERT INTO `' . $this->app->dbPool->get('core')->prefix . 'module_load` (`module_load_pid`, `module_load_type`, `module_load_from`, `module_load_for`, `module_load_file`) VALUES
                 (:pid, :type, :from, :for, :file);'
                 );
 
-            $load = $info->getLoad();
-            foreach ($load as $val) {
-                foreach ($val['pid'] as $pid) {
-                    $sth->bindValue(':pid', $pid, \PDO::PARAM_STR);
-                    $sth->bindValue(':type', $val['type'], \PDO::PARAM_INT);
-                    $sth->bindValue(':from', $val['from'], \PDO::PARAM_STR);
-                    $sth->bindValue(':for', $val['for'], \PDO::PARAM_STR);
-                    $sth->bindValue(':file', $val['file'], \PDO::PARAM_STR);
+                $load = $info->getLoad();
+                foreach ($load as $val) {
+                    foreach ($val['pid'] as $pid) {
+                        $sth->bindValue(':pid', $pid, \PDO::PARAM_STR);
+                        $sth->bindValue(':type', $val['type'], \PDO::PARAM_INT);
+                        $sth->bindValue(':from', $val['from'], \PDO::PARAM_STR);
+                        $sth->bindValue(':for', $val['for'], \PDO::PARAM_STR);
+                        $sth->bindValue(':file', $val['file'], \PDO::PARAM_STR);
 
-                    $sth->execute();
+                        $sth->execute();
+                    }
                 }
-            }
 
-            $this->app->dbPool->get('core')->con->commit();
+                $this->app->dbPool->get('core')->con->commit();
 
-            break;
+                break;
         }
     }
 
@@ -408,7 +408,7 @@ class ModuleManager
     {
         $class = '\\Modules\\' . $info->getDirectory() . '\\Admin\\Installer';
 
-        if(!Autoloader::exists($class)) {
+        if (!Autoloader::exists($class)) {
             throw new \Exception('Module installer does not exist');
         }
 
@@ -453,10 +453,10 @@ class ModuleManager
         if ($this->installed === null) {
             switch ($this->app->dbPool->get('core')->getType()) {
                 case DatabaseType::MYSQL:
-                $sth = $this->app->dbPool->get('core')->con->prepare('SELECT `module_id`,`module_theme`,`module_version`,`module_id` FROM `' . $this->app->dbPool->get('core')->prefix . 'module`');
-                $sth->execute();
-                $this->installed = $sth->fetchAll(\PDO::FETCH_GROUP);
-                break;
+                    $sth = $this->app->dbPool->get('core')->con->prepare('SELECT `module_id`,`module_theme`,`module_version`,`module_id` FROM `' . $this->app->dbPool->get('core')->prefix . 'module`');
+                    $sth->execute();
+                    $this->installed = $sth->fetchAll(\PDO::FETCH_GROUP);
+                    break;
             }
         }
 
@@ -526,7 +526,7 @@ class ModuleManager
                     'message' => 'Trying to initialize ' . $module . ' without controller.',
                     'line'    => $e->getLine(),
                     'file'    => $e->getFile(),
-                    ]);
+                ]);
             }
         }
     }
@@ -543,7 +543,7 @@ class ModuleManager
      * @since  1.0.0
      * @author Dennis Eichhorn
      */
-    private function initModuleController(string $module) 
+    private function initModuleController(string $module)
     {
         $this->running[$module] = ModuleFactory::getInstance($module, $this->app);
         $this->app->dispatcher->set($this->running[$module], '\Modules\\' . $module . '\\Controller');

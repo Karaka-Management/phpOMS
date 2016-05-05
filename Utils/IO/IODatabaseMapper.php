@@ -15,9 +15,13 @@
  */
 namespace phpOMS\Utils\IO;
 
-interface IODatabaseMapper {
+interface IODatabaseMapper
+{
     public function addSource(string $source);
+
     public function setSources(array $sources);
+
     public function setLineBuffer(int $buffer);
+
     public function insert();
 }

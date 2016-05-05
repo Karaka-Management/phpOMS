@@ -36,7 +36,7 @@ class Schedule implements TaskInterface
      * @since 1.0.0
      */
     private $interval = null;
-    private $command  = '';
+    private $command = '';
 
     public function __construct(Interval $interval = null, $cmd = '')
     {

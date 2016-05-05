@@ -34,11 +34,11 @@ class LZW implements CompressionInterface
      */
     public function compress(string $source) : string
     {
-        $wc = '';
-        $w = '';
+        $wc         = '';
+        $w          = '';
         $dictionary = [];
-        $result = [];
-        $dictSize = 256;
+        $result     = [];
+        $dictSize   = 256;
 
         for ($i = 0; $i < 256; $i += 1) {
             $dictionary[chr($i)] = $i;
@@ -46,25 +46,25 @@ class LZW implements CompressionInterface
 
         $length = strlen($source);
         for ($i = 0; $i < $length; $i++) {
-            $c = $source[$i];
-            $wc = $w.$c;
+            $c  = $source[$i];
+            $wc = $w . $c;
 
-            if (array_key_exists($w. $c, $dictionary)) {
+            if (array_key_exists($w . $c, $dictionary)) {
                 $w = $w . $c;
             } else {
                 array_push($result, $dictionary[$w]);
                 $dictionary[$wc] = $dictSize++;
-                $w = (string) $c;
+                $w               = (string) $c;
             }
         }
 
         if ($w !== '') {
-            array_push($result,$dictionary[$w]);
+            array_push($result, $dictionary[$w]);
         }
 
-        return implode(',',$result);
+        return implode(',', $result);
     }
- 
+
     /**
      * {@inheritdoc}
      */
@@ -72,25 +72,25 @@ class LZW implements CompressionInterface
     {
         $compressed = explode(',', $compressed);
         $dictionary = [];
-        $entry = '';
-        $dictSize = 256;
+        $entry      = '';
+        $dictSize   = 256;
 
         for ($i = 0; $i < 256; $i++) {
             $dictionary[$i] = chr($i);
         }
 
-        $w = chr($compressed[0]);
+        $w      = chr($compressed[0]);
         $result = $w;
 
         $count = count($compressed);
-        for ($i = 1; $i < $count;$i++) {
+        for ($i = 1; $i < $count; $i++) {
             $k = $compressed[$i];
 
             if ($dictionary[$k]) {
                 $entry = $dictionary[$k];
             } else {
                 if ($k === $dictSize) {
-                    $entry = $w.$w[0];
+                    $entry = $w . $w[0];
                 } else {
                     return null;
                 }
@@ -98,7 +98,7 @@ class LZW implements CompressionInterface
 
             $result .= $entry;
             $dictionary[$dictSize++] = $w + $entry[0];
-            $w = $entry;
+            $w                       = $entry;
         }
 
         return $result;

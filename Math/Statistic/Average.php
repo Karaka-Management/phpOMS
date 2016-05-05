@@ -116,7 +116,7 @@ class Average
      * Example: ([1, 2, 2, 3, 4, 4, 2])
      *
      * @param array $values Values
-     * @param int  $offset Offset for outlier
+     * @param int   $offset Offset for outlier
      *
      * @return float
      *
@@ -148,7 +148,7 @@ class Average
      * Example: ([1, 2, 2, 3, 4, 4, 2])
      *
      * @param array $values Values
-     * @param int  $offset Offset for outlier
+     * @param int   $offset Offset for outlier
      *
      * @return float
      *
@@ -180,7 +180,7 @@ class Average
      * Example: ([1, 2, 2, 3, 4, 4, 2])
      *
      * @param array $values Values
-     * @param int  $offset Offset for outlier
+     * @param int   $offset Offset for outlier
      *
      * @return float
      *
@@ -217,7 +217,7 @@ class Average
      * Example: ([1, 2, 2, 3, 4, 4, 2])
      *
      * @param array $angles Angles
-     * @param int  $offset Offset for outlier
+     * @param int   $offset Offset for outlier
      *
      * @return float
      *
@@ -290,8 +290,8 @@ class Average
      */
     public static function angleToTime(float $angle) : string
     {
-        $sec   = 86400.0 * $angle / 360.0;
-        $time  = sprintf('%02d:%02d:%02d', floor($sec / 3600), floor(($sec % 3600) / 60), $sec % 60);
+        $sec  = 86400.0 * $angle / 360.0;
+        $time = sprintf('%02d:%02d:%02d', floor($sec / 3600), floor(($sec % 3600) / 60), $sec % 60);
 
         return $time;
     }
@@ -302,7 +302,7 @@ class Average
      * Example: ([1, 2, 2, 3, 4, 4, 2])
      *
      * @param array $angles Angles
-     * @param int  $offset Offset for outlier
+     * @param int   $offset Offset for outlier
      *
      * @return float
      *

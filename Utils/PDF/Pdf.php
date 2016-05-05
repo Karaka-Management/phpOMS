@@ -25,6 +25,7 @@ include __DIR__ . '/../../../Resources/tcpdf/tcpdf.php';
  * @package    phpOMS\Utils\Pdf
  * @since      1.0.0
  */
+
 /** @noinspection PhpUndefinedClassInspection */
 class Pdf extends \TCPDF
 {

@@ -35,7 +35,7 @@ class InstallerAbstract
     /**
      * Install module.
      *
-     * @param Pool  $dbPool Database instance
+     * @param Pool        $dbPool Database instance
      * @param InfoManager $info   Module info
      *
      * @return void
@@ -53,8 +53,8 @@ class InstallerAbstract
     /**
      * Install routes.
      *
-     * @param string  $destRoutePath Destination route path
-     * @param string $srcRoutePath   Source route path
+     * @param string $destRoutePath Destination route path
+     * @param string $srcRoutePath  Source route path
      *
      * @return void
      *
@@ -63,9 +63,9 @@ class InstallerAbstract
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    private static function installRoutes(string $destRoutePath, string $srcRoutePath) 
+    private static function installRoutes(string $destRoutePath, string $srcRoutePath)
     {
-        if(file_exists($destRoutePath) && file_exists($srcRoutePath)) {
+        if (file_exists($destRoutePath) && file_exists($srcRoutePath)) {
             /** @noinspection PhpIncludeInspection */
             $appRoutes = include $destRoutePath;
             /** @noinspection PhpIncludeInspection */
@@ -73,7 +73,7 @@ class InstallerAbstract
 
             $appRoutes = array_merge_recursive($appRoutes, $moduleRoutes);
 
-            if(is_writable($destRoutePath)) {
+            if (is_writable($destRoutePath)) {
                 file_put_contents($destRoutePath, '<?php return ' . ArrayParser::serializeArray($appRoutes) . ';', LOCK_EX);
             } else {
                 throw new PermissionException($destRoutePath);

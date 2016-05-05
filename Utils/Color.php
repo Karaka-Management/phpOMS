@@ -57,7 +57,7 @@ class Color
             }
 
             $start = $stop;
-            $stop = $end;
+            $stop  = $end;
         }
 
         $diff[0] = $stop[0] - $start[0];

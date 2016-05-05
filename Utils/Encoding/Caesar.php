@@ -26,7 +26,8 @@ namespace phpOMS\Utils\Encoding;
  * @link       http://orange-management.com
  * @since      1.0.0
  */
-class Caesar  {
+class Caesar
+{
     /**
      * ASCII lower char limit.
      *
@@ -48,18 +49,18 @@ class Caesar  {
      */
     public static function encode(string $source, string $key) : string
     {
-        $result = '';
-        $length = strlen($source);
-        $keyLength = strlen($key)-1;
+        $result    = '';
+        $length    = strlen($source);
+        $keyLength = strlen($key) - 1;
 
-        for($i = 0, $j = 0; $i < $length; $i++, $j++) {
-            if($j > $keyLength) {
+        for ($i = 0, $j = 0; $i < $length; $i++, $j++) {
+            if ($j > $keyLength) {
                 $j = 0;
             }
 
             $ascii = ord($source[$i]) + ord($key[$j]);
 
-            if($ascii > self::LIMIT_UPPER) {
+            if ($ascii > self::LIMIT_UPPER) {
                 $ascii -= self::LIMIT_UPPER;
             }
 
@@ -74,18 +75,18 @@ class Caesar  {
      */
     public static function decode(string $raw, string $key) : string
     {
-        $result = '';
-        $length = strlen($raw);
-        $keyLength = strlen($key)-1;
+        $result    = '';
+        $length    = strlen($raw);
+        $keyLength = strlen($key) - 1;
 
-        for($i = 0, $j = 0; $i < $length; $i++, $j++) {
-            if($j > $keyLength) {
+        for ($i = 0, $j = 0; $i < $length; $i++, $j++) {
+            if ($j > $keyLength) {
                 $j = 0;
             }
 
             $ascii = ord($raw[$i]) - ord($key[$j]);
 
-            if($ascii < self::LIMIT_LOWER) {
+            if ($ascii < self::LIMIT_LOWER) {
                 $ascii += self::LIMIT_LOWER;
             }
 

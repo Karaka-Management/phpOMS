@@ -212,7 +212,7 @@ class View implements \Serializable
      * Edit view.
      *
      * @param string   $id    View ID
-     * @param View      $view
+     * @param View     $view
      * @param null|int $order Order of view
      *
      * @return void
@@ -228,10 +228,10 @@ class View implements \Serializable
     /**
      * Add view.
      *
-     * @param string   $id        View ID
-     * @param View      $view
-     * @param int $order     Order of view
-     * @param bool     $overwrite Overwrite existing view
+     * @param string $id        View ID
+     * @param View   $view
+     * @param int    $order     Order of view
+     * @param bool   $overwrite Overwrite existing view
      *
      * @return void
      *
@@ -269,11 +269,11 @@ class View implements \Serializable
         ob_start();
         /** @noinspection PhpIncludeInspection */
         $data = include $path;
-        $ob = ob_get_clean();
+        $ob   = ob_get_clean();
 
-        if(is_array($data)) {
+        if (is_array($data)) {
             return $data;
-        } 
+        }
 
         return $ob;
     }
@@ -293,7 +293,7 @@ class View implements \Serializable
 
     /**
      * @param string $id   Data ID
-     * @param mixed   $data Data
+     * @param mixed  $data Data
      *
      * @return void
      *
@@ -328,7 +328,7 @@ class View implements \Serializable
 
     /**
      * @param string $id   Data ID
-     * @param mixed   $data Data
+     * @param mixed  $data Data
      *
      * @return void
      *
@@ -354,7 +354,7 @@ class View implements \Serializable
 
         $viewArray[] = $this->render();
 
-        foreach($this->views as $key => $view) {
+        foreach ($this->views as $key => $view) {
             $viewArray[$key] = $view->toArray();
         }
     }
@@ -382,7 +382,7 @@ class View implements \Serializable
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function unserialize($raw) 
+    public function unserialize($raw)
     {
         // todo: implement
     }

@@ -58,7 +58,7 @@ class Prime
      */
     public static function mersenne(int $p) : int
     {
-        return 2**$p - 1;
+        return 2 ** $p - 1;
     }
 
     /**
@@ -81,24 +81,24 @@ class Prime
         if ($n < 2 || $n % 2 == 0) {
             return false;
         }
-     
+
         $d = $n - 1;
         $s = 0;
-     
+
         while ($d % 2 == 0) {
             $d /= 2;
             $s++;
         }
-     
+
         for ($i = 0; $i < $k; $i++) {
             $a = mt_rand(2, $n - 1);
-     
+
             $x = bcpowmod($a, $d, $n);
 
             if ($x == 1 || $x == $n - 1) {
                 continue;
             }
-     
+
             for ($j = 1; $j < $s; $j++) {
                 $x = bcmod(bcmul($x, $x), $n);
 
@@ -120,10 +120,10 @@ class Prime
     public static function sieveOfEratosthenes(int $n) : array
     {
         $number = 2;
-        $range = range(2, $n);
+        $range  = range(2, $n);
         $primes = array_combine($range, $range);
-         
-        while ($number*$number < $n) {
+
+        while ($number * $number < $n) {
             for ($i = $number; $i <= $n; $i += $number) {
                 if ($i == $number) {
                     continue;
@@ -141,11 +141,11 @@ class Prime
     public function isPrime(int $n) : bool
     {
         $i = 2;
-     
+
         if ($n === 2) {
-            return true; 
+            return true;
         }
-     
+
         $sqrtN = sqrt($n);
         while ($i <= $sqrtN) {
             if ($n % $i === 0) {
@@ -154,7 +154,7 @@ class Prime
 
             $i++;
         }
-     
+
         return true;
     }
 }

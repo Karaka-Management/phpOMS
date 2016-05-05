@@ -57,8 +57,8 @@ class CommandManager implements \Countable
      * Attach new command.
      *
      * @param string $cmd       Command ID
-     * @param mixed   $callback  Function callback
-     * @param mixed   $source    Provider
+     * @param mixed  $callback  Function callback
+     * @param mixed  $source    Provider
      * @param bool   $overwrite Overwrite existing
      *
      * @return bool
@@ -82,7 +82,7 @@ class CommandManager implements \Countable
      * Detach existing command.
      *
      * @param string $cmd    Command ID
-     * @param mixed   $source Provider
+     * @param mixed  $source Provider
      *
      * @return bool
      *
@@ -105,7 +105,7 @@ class CommandManager implements \Countable
      * Trigger command.
      *
      * @param string $cmd  Command ID
-     * @param mixed   $para Parameters to pass
+     * @param mixed  $para Parameters to pass
      *
      * @return mixed|bool
      *
