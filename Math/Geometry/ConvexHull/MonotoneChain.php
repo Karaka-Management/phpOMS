@@ -33,9 +33,9 @@ final class MonotoneChain
     /**
      * Counter clock wise turn?
      *
-     * @param array $a Point b
-     * @param array $b Point c
-     * @param array $c Point d
+     * @param array $a Point a
+     * @param array $b Point b
+     * @param array $c Point c
      *
      * @return float
      *
@@ -50,8 +50,8 @@ final class MonotoneChain
     /**
      * Sort by x coordinate then by z coordinate
      *
-     * @param array $a Point b
-     * @param array $b Point c
+     * @param array $a Point a
+     * @param array $b Point b
      *
      * @return float
      *
