@@ -17,7 +17,7 @@
 namespace phpOMS\Utils\Barcode;
 
 /**
- * Code 2 class.
+ * Code 25 class.
  *
  * @category   Log
  * @package    Framework
