@@ -1,8 +1,48 @@
 <?php
+/**
+ * Orange Management
+ *
+ * PHP Version 7.0
+ *
+ * @category   TBD
+ * @package    TBD
+ * @author     OMS Development Team <dev@oms.com>
+ * @author     Dennis Eichhorn <d.eichhorn@oms.com>
+ * @copyright  2013 Dennis Eichhorn
+ * @license    OMS License 1.0
+ * @version    1.0.0
+ * @link       http://orange-management.com
+ */
 
+use phpOMS\Math\Matrix\Matrix;
+
+/**
+ * Gaussian elimination class
+ *
+ * @category   Framework
+ * @package    phpOMS\Math\Matrix
+ * @author     OMS Development Team <dev@oms.com>
+ * @author     Dennis Eichhorn <d.eichhorn@oms.com>
+ * @license    OMS License 1.0
+ * @link       http://orange-management.com
+ * @since      1.0.0
+ */
 class GaussianElimination
 {
-    private function swapRows(&$a, &$b, $r1, $r2)
+    /**
+     * Swap rows.
+     *
+     * @param array $a  Matrix A
+     * @param array $b  Vector b
+     * @param int   $r1 Row 1
+     * @param int   $r2 Row 2
+     *
+     * @return void
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+    private function swapRows(&$a, &$b, int $r1, int $r2)
     {
         if ($r1 == $r2) {
             return;
@@ -17,8 +57,23 @@ class GaussianElimination
         $b[$r2] = $tmp;
     }
 
-    public function solve(array $A, array $b, int $limit) : array
+    /**
+     * Solve equation with gaussian elimination.
+     *
+     * @param Matrix $A     Matrix A
+     * @param Matrix $b     Vector b
+     *
+     * @return Matrix
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+    public function solve(Matrix $A, Matrix $b) : Matrix
     {
+        $limit = min($A->getM(), $A->getN());
+        $A     = $A->getMatrix();
+        $b     = $b->getMatrix();
+
         for ($col = 0; $col < $limit; $col++) {
             $j   = $col;
             $max = $A[$j][$j];
@@ -47,7 +102,6 @@ class GaussianElimination
         }
 
         $x = [];
-
         for ($col = $limit - 1; $col >= 0; $col--) {
             $tmp = $b[$col];
 
@@ -58,6 +112,9 @@ class GaussianElimination
             $x[$col] = $tmp / $A[$col][$col];
         }
 
-        return $x;
+        $Y = new Matrix(count($x), 1);
+        $Y->setMatrix($x);
+
+        return $Y;
     }
 }

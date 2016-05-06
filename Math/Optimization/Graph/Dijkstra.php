@@ -8,8 +8,9 @@ class Dijkstra
     {
         $vertices   = [];
         $neighbours = [];
+        $graphArray = $graph->getEdges();
 
-        foreach ($graph_array as $edge) {
+        foreach ($graphArray as $edge) {
             array_push($vertices, $edge[0], $edge[1]);
             $neighbours[$edge[0]][] = ["end" => $edge[1], "cost" => $edge[2]];
             $neighbours[$edge[1]][] = ["end" => $edge[0], "cost" => $edge[2]];

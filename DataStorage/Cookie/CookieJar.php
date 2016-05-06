@@ -13,38 +13,76 @@
  * @version    1.0.0
  * @link       http://orange-management.com
  */
-/*
-NOT IN USE
-Will be implemented later
-*/
-/* TODO: implement */
+
 namespace phpOMS\DataStorage\Cookie;
 
 /**
- * @since  1.0.0
- * @author Dennis Eichhorn <d.eichhorn@oms.com>
+ * CookieJar class
+ *
+ * @category   Framework
+ * @package    phpOMS\Utils
+ * @author     OMS Development Team <dev@oms.com>
+ * @author     Dennis Eichhorn <d.eichhorn@oms.com>
+ * @license    OMS License 1.0
+ * @link       http://orange-management.com
+ * @since      1.0.0
  */
 class CookieJar
 {
+    /**
+     * Cookie values.
+     *
+     * @var array
+     * @since 1.0.0
+     */
     private $cookies = [];
 
+    /**
+     * Locked.
+     *
+     * @var bool
+     * @since 1.0.0
+     */
     private static $isLocked = false;
 
+    /**
+     * Constructor.
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
     public function __construct()
     {
         $this->cookies = $_COOKIE;
     }
 
-    public function set($id, $value, int $expiry = 86400, $path = '/', $domain = null, bool $secure = false, bool $httponly = true, bool $overwrite = true) : bool
+    /**
+     * Set pending cookie
+     *
+     * @param string $id        Cookie id
+     * @param mixed  $value     Cookie value
+     * @param int    $expire    Expire time
+     * @param string $path      Path
+     * @param string $domain    Domain
+     * @param bool   $secure    Is secure
+     * @param bool   $httpOnly  Allow only http access
+     * @param bool   $overwrite Overwrite if already set
+     *
+     * @return bool
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+    public function set(string $id, $value, int $expire = 86400, string $path = '/', string $domain = null, bool $secure = false, bool $httpOnly = true, bool $overwrite = true) : bool
     {
         if ($overwrite || !isset($this->cookies[$id])) {
             $this->cookies[$id] = [
                 'value'    => $value,
-                'expiry'   => $expiry,
+                'expiry'   => $expire,
                 'path'     => $path,
                 'domain'   => $domain,
                 'secure'   => $secure,
-                'httponly' => $httponly,
+                'httponly' => $httpOnly,
             ];
 
             return true;
@@ -53,7 +91,17 @@ class CookieJar
         return false;
     }
 
-    public function remove($id) : bool
+    /**
+     * Remove pending cookie
+     *
+     * @param string $id Cookie id to remove
+     *
+     * @return bool
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+    public function remove(string $id) : bool
     {
         if (isset($this->cookies[$id])) {
             unset($this->cookies[$id]);
@@ -64,12 +112,28 @@ class CookieJar
         return false;
     }
 
-    public function delete($id) : bool
+    /**
+     * Delete already set cookie
+     *
+     * @param string $id Cookie id to remove
+     *
+     * @return void
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+    public function delete(string $id)
     {
         $this->remove($id);
         setcookie($id, '', time() - 3600);
     }
 
+    /**
+     * Save cookie
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
     public function save()
     {
         if (self::$isLocked) {
@@ -81,11 +145,25 @@ class CookieJar
         }
     }
 
+    /**
+     * Lock
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
     public static function lock()
     {
         self::$isLocked = true;
     }
 
+    /**
+     * Is locked?
+     *
+     * @return bool
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
     public static function isLocked() : bool
     {
         return self::$isLocked;

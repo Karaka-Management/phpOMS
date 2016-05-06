@@ -18,10 +18,10 @@ namespace phpOMS\Math\Matrix;
 use phpOMS\Datatypes\Enum;
 
 /**
- * Account type enum.
+ * Inverse type enum.
  *
  * @category   Framework
- * @package    phpOMS\DataStorage\Database
+ * @package    phpOMS\Math\Matrix
  * @author     OMS Development Team <dev@oms.com>
  * @author     Dennis Eichhorn <d.eichhorn@oms.com>
  * @license    OMS License 1.0

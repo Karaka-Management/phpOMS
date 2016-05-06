@@ -15,14 +15,38 @@
  */
 namespace phpOMS\Math\Algebra;
 
-class PointPolygonIntersection
+/**
+ * Scheduler factory.
+ *
+ * @category   Framework
+ * @package    phpOMS\Utils\TaskSchedule
+ * @author     OMS Development Team <dev@oms.com>
+ * @author     Dennis Eichhorn <d.eichhorn@oms.com>
+ * @license    OMS License 1.0
+ * @link       http://orange-management.com
+ * @since      1.0.0
+ */
+final class PointPolygonIntersection
 {
+    /**
+     * Epsilon.
+     *
+     * @var float
+     * @since 1.0.0
+     */
     const EPSILON = 1E-6;
 
-    private function __construct()
-    {
-    }
-
+    /**
+     * Point polygon relative position
+     *
+     * @param array $point    Point location
+     * @param array $vertices Vertice locations
+     *
+     * @return int
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
     public static function pointInPolygon(array $point, array $vertices) : int
     {
         $length = count($vertices);
@@ -70,7 +94,18 @@ class PointPolygonIntersection
         return 1;
     }
 
-    private static function isOnVertex($point, $vertices)
+    /**
+     * Is point on vertex?
+     *
+     * @param array $point    Point location
+     * @param array $vertices Vertice locations
+     *
+     * @return bool
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+    private static function isOnVertex($point, $vertices) : bool
     {
         foreach ($vertices as $vertex) {
             if (abs($point['x'] - $vertex['x']) < self::EPSILON && abs($point['y'] - $vertex['y']) < self::EPSILON) {
