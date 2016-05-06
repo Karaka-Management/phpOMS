@@ -1,14 +1,75 @@
 <?php
+/**
+ * Orange Management
+ *
+ * PHP Version 7.0
+ *
+ * @category   TBD
+ * @package    TBD
+ * @author     OMS Development Team <dev@oms.com>
+ * @author     Dennis Eichhorn <d.eichhorn@oms.com>
+ * @copyright  2013 Dennis Eichhorn
+ * @license    OMS License 1.0
+ * @version    1.0.0
+ * @link       http://orange-management.com
+ */
 
 namespace phpOMS\Math\Matrix;
 
+/**
+ * Matrix class
+ *
+ * @category   Framework
+ * @package    phpOMS\Math\Matrix
+ * @author     OMS Development Team <dev@oms.com>
+ * @author     Dennis Eichhorn <d.eichhorn@oms.com>
+ * @license    OMS License 1.0
+ * @link       http://orange-management.com
+ * @since      1.0.0
+ */
 class Matrix implements \ArrayAccess, \Iterator
 {
+    /**
+     * Matrix.
+     *
+     * @var array
+     * @since 1.0.0
+     */
     protected $matrix = [];
 
+    /**
+     * Columns.
+     *
+     * @var int
+     * @since 1.0.0
+     */
     protected $n = 0;
+
+    /**
+     * Rows.
+     *
+     * @var int
+     * @since 1.0.0
+     */
     protected $m = 0;
 
+    /**
+     * Iterator position.
+     *
+     * @var int
+     * @since 1.0.0
+     */
+    protected $position = 0;
+
+    /**
+     * Constructor.
+     *
+     * @param int $m Rows
+     * @param int $n Columns
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
     public function __construct(int $m, int $n = 1)
     {
         $this->n = $n;
@@ -19,6 +80,42 @@ class Matrix implements \ArrayAccess, \Iterator
         }
     }
 
+    /**
+     * Get matrix rows.
+     *
+     * @return int
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+    public function getM() : int
+    {
+        return $this->m;
+    }
+
+    /**
+     * Get matrix columns.
+     *
+     * @return int
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+    public function getN() : int
+    {
+        return $this->n;
+    }
+
+    /**
+     * Set matrix array.
+     *
+     * @param array $matrix Matrix
+     *
+     * @throws \Exception
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
     public function setMatrix(array $matrix)
     {
         if ($this->m !== count($matrix) || $this->n !== count($matrix[0])) {
@@ -28,21 +125,70 @@ class Matrix implements \ArrayAccess, \Iterator
         $this->matrix = $matrix;
     }
 
+    /**
+     * Get matrix array.
+     *
+     * @return array
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
     public function getMatrix() : array
     {
         return $this->matrix;
     }
 
+    /**
+     * Set value.
+     *
+     * @param int $m     Row
+     * @param int $n     Column
+     * @param int $value Value
+     *
+     * @throws
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
     public function set(int $m, int $n, $value)
     {
+        if(!isset($this->matrix[$m][$n])) {
+            throw new \Exception('Dimension');
+        }
+
         $this->matrix[$m][$n] = $value;
     }
 
+    /**
+     * Get value.
+     *
+     * @param int $m     Row
+     * @param int $n     Column
+     *
+     * @return mixed
+     *
+     * @throws
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
     public function get(int $m, int $n)
     {
+        if(!isset($this->matrix[$m][$n])) {
+            throw new \Exception('Dimension');
+        }
+
         return $this->matrix[$m][$n];
     }
 
+    /**
+     * Transpose matrix.
+     *
+     * @return Matrix
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
     public function transpose() : Matrix
     {
         $matrix = new Matrix($this->n, $this->m);
@@ -51,6 +197,18 @@ class Matrix implements \ArrayAccess, \Iterator
         return $matrix;
     }
 
+    /**
+     * Multiply right.
+     *
+     * @param mixed $value Factor
+     *
+     * @return Matrix
+     *
+     * @throws \Exception
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
     public function mult($value) : Matrix
     {
         if ($value instanceOf Matrix) {
@@ -59,9 +217,21 @@ class Matrix implements \ArrayAccess, \Iterator
             return $this->multScalar($value);
         }
 
-        throw new \Exception();
+        throw new \Exception('Type');
     }
 
+    /**
+     * Multiply matrix.
+     *
+     * @param Matrix $matrix Matrix to multiply with
+     *
+     * @return Matrix
+     *
+     * @throws \Exception
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
     private function multMatrix(Matrix $matrix) : Matrix
     {
         $nDim = $matrix->getN();
@@ -92,13 +262,25 @@ class Matrix implements \ArrayAccess, \Iterator
         return $newMatrix;
     }
 
-    private function multScalar($value) : Matrix
+    /**
+     * Multiply matrix.
+     *
+     * @param mixed $scalar Scalar value
+     *
+     * @return Matrix
+     *
+     * @throws \Exception
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+    private function multScalar($scalar) : Matrix
     {
         $newMatrixArr = $this->matrix;
 
         foreach ($newMatrixArr as $i => $vector) {
             foreach ($vector as $j => $value) {
-                $newMatrixArr[$i][$j] *= $value;
+                $newMatrixArr[$i][$j] *= $scalar;
             }
         }
 
@@ -108,6 +290,18 @@ class Matrix implements \ArrayAccess, \Iterator
         return $newMatrix;
     }
 
+    /**
+     * Add right.
+     *
+     * @param mixed $value Value
+     *
+     * @return Matrix
+     *
+     * @throws \Exception
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
     public function add($value) : Matrix
     {
         if ($value instanceOf Matrix) {
@@ -119,6 +313,18 @@ class Matrix implements \ArrayAccess, \Iterator
         throw new \Exception();
     }
 
+    /**
+     * Subtract right.
+     *
+     * @param mixed $value Value
+     *
+     * @return Matrix
+     *
+     * @throws \Exception
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
     public function sub($value) : Matrix
     {
         if ($value instanceOf Matrix) {
@@ -127,16 +333,28 @@ class Matrix implements \ArrayAccess, \Iterator
             return $this->add(-$value);
         }
 
-        throw new \Exception();
+        throw new \Exception('Type');
     }
 
-    private function addMatrix(Matrix $value) : Matrix
+    /**
+     * Add matrix.
+     *
+     * @param Matrix $matrix Matrix to add
+     *
+     * @return Matrix
+     *
+     * @throws \Exception
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+    private function addMatrix(Matrix $matrix) : Matrix
     {
-        if ($this->m !== $value->getM() || $this->n !== $value->getN()) {
+        if ($this->m !== $matrix->getM() || $this->n !== $matrix->getN()) {
             throw new \Exception('Dimension');
         }
 
-        $matrixArr    = $value->getMatrix();
+        $matrixArr    = $matrix->getMatrix();
         $newMatrixArr = $this->matrix;
 
         foreach ($newMatrixArr as $i => $vector) {
@@ -151,13 +369,25 @@ class Matrix implements \ArrayAccess, \Iterator
         return $newMatrix;
     }
 
-    private function addScalar($value) : Matrix
+    /**
+     * Add scalar.
+     *
+     * @param mixed $scalar Scalar
+     *
+     * @return Matrix
+     *
+     * @throws \Exception
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+    private function addScalar($scalar) : Matrix
     {
         $newMatrixArr = $this->matrix;
 
         foreach ($newMatrixArr as $i => $vector) {
             foreach ($vector as $j => $value) {
-                $newMatrixArr[$i][$j] += $value;
+                $newMatrixArr[$i][$j] += $scalar;
             }
         }
 
@@ -167,38 +397,73 @@ class Matrix implements \ArrayAccess, \Iterator
         return $newMatrix;
     }
 
+    /**
+     * Upper triangulize matrix.
+     *
+     * @return Matrix
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
     public function upperTriangular() : Matrix
     {
         $matrix = new Matrix($this->n, $this->n);
 
         $matrixArr = $this->matrix;
         $this->upperTrianglize($matrixArr);
-
         $matrix->setMatrix($matrixArr);
 
         return $matrix;
     }
 
+    /**
+     * Lower triangulize matrix.
+     *
+     * @return Matrix
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
     public function lowerTriangular() : Matrix
     {
         // todo: implement
         return new Matrix($this->m, $this->n);
     }
 
-    public function inverse(int $algorithm = InversionType::GAUSS_JORDAN) : Matrix
+    /**
+     * Inverse matrix.
+     *
+     * @param int $algorithm Algorithm for inversion
+     *
+     * @return Matrix
+     *
+     * @throws \Exception
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+    public function inverse(int $algorithm = InverseType::GAUSS_JORDAN) : Matrix
     {
         if ($this->n !== $this->m) {
             throw new \Exception('Dimension');
         }
 
         switch ($algorithm) {
-            case InversionType::GAUSS_JORDAN:
+            case InverseType::GAUSS_JORDAN:
                 return $this->inverseGaussJordan();
             default:
-                throw new \Exception('');
+                throw new \Exception('Inversion algorithm');
         }
     }
 
+    /**
+     * Inverse matrix using gauss jordan.
+     *
+     * @return Matrix
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
     private function inverseGaussJordan() : Matrix
     {
         $newMatrixArr = $this->matrix;
@@ -241,6 +506,14 @@ class Matrix implements \ArrayAccess, \Iterator
         return $newMatrix;
     }
 
+    /**
+     * Decompose matrix using cholesky algorithm.
+     *
+     * @return Matrix
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
     private function decompositionCholesky() : Matrix
     {
         $newMatrix    = new Matrix($this->n, $this->n);
@@ -263,6 +536,16 @@ class Matrix implements \ArrayAccess, \Iterator
         return $newMatrix;
     }
 
+    /**
+     * Diagonalize matrix.
+     *
+     * @param array $arr Matrix to diagonalize
+     *
+     * @return array
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
     private function diag(array $arr) : array
     {
         $mDim = count($arr);
@@ -294,6 +577,16 @@ class Matrix implements \ArrayAccess, \Iterator
         return $arr;
     }
 
+    /**
+     * Trianglize matrix.
+     *
+     * @param array $arr Matrix to trianglize
+     *
+     * @return int Det sign
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
     private function upperTrianglize(array &$arr) : int
     {
         $n    = count($arr);
@@ -335,7 +628,15 @@ class Matrix implements \ArrayAccess, \Iterator
         return $sign;
     }
 
-    public function det()
+    /**
+     * Calculate det.
+     *
+     * @return float
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+    public function det() : float
     {
         if ($this->n === 1) {
             return $this->matrix[0][0];
@@ -359,7 +660,7 @@ class Matrix implements \ArrayAccess, \Iterator
      */
     public function current()
     {
-        // TODO: Implement current() method.
+        return $this->offsetGet($this->position);
     }
 
     /**
@@ -370,7 +671,7 @@ class Matrix implements \ArrayAccess, \Iterator
      */
     public function next()
     {
-        // TODO: Implement next() method.
+        ++$this->position;
     }
 
     /**
@@ -381,7 +682,7 @@ class Matrix implements \ArrayAccess, \Iterator
      */
     public function key()
     {
-        // TODO: Implement key() method.
+        return $this->position;
     }
 
     /**
@@ -393,7 +694,7 @@ class Matrix implements \ArrayAccess, \Iterator
      */
     public function valid()
     {
-        // TODO: Implement valid() method.
+        $this->offsetExists($this->position);
     }
 
     /**
@@ -404,7 +705,7 @@ class Matrix implements \ArrayAccess, \Iterator
      */
     public function rewind()
     {
-        // TODO: Implement rewind() method.
+        $this->position = 0;
     }
 
     /**
@@ -421,7 +722,8 @@ class Matrix implements \ArrayAccess, \Iterator
      */
     public function offsetExists($offset)
     {
-        // TODO: Implement offsetExists() method.
+        $row = (int) ($offset/$this->m);
+        return isset($this->matrix[$row][$offset - $row * $this->n]);
     }
 
     /**
@@ -435,7 +737,8 @@ class Matrix implements \ArrayAccess, \Iterator
      */
     public function offsetGet($offset)
     {
-        // TODO: Implement offsetGet() method.
+        $row = (int) ($offset/$this->m);
+        return $this->matrix[$row][$offset - $row * $this->n];
     }
 
     /**
@@ -452,7 +755,8 @@ class Matrix implements \ArrayAccess, \Iterator
      */
     public function offsetSet($offset, $value)
     {
-        // TODO: Implement offsetSet() method.
+        $row = (int) ($offset/$this->m);
+        $this->matrix[$row][$offset - $row * $this->n] = $value;
     }
 
     /**
@@ -466,6 +770,7 @@ class Matrix implements \ArrayAccess, \Iterator
      */
     public function offsetUnset($offset)
     {
-        // TODO: Implement offsetUnset() method.
+        $row = (int) ($offset/$this->m);
+        unset($this->matrix[$row][$offset - $row * $this->n]);
     }
 }
