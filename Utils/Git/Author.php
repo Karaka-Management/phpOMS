@@ -55,8 +55,8 @@ class Author
      */
     public function __construct(string $name = '', string $email = '')
     {
-        $this->name  = $name;
-        $this->email = $email;
+        $this->name  = escapeshellarg($name);
+        $this->email = escapeshellarg($email);
     }
 
     /**

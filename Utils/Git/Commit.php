@@ -102,13 +102,23 @@ class Commit
      */
     public function __construct(string $id = '')
     {
+        $this->id     = escapeshellarg($id);
         $this->author = new Author();
         $this->branch = new Branch();
         $this->tag    = new Tag();
+    }
 
-        if (!empty($id)) {
-            // todo: fill base info
-        }
+    /**
+     * Get commit id.
+     *
+     * @return string
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+    public function getId()
+    {
+        return $this->id;
     }
 
     /**
@@ -121,6 +131,8 @@ class Commit
      */
     public function addFile(string $path)
     {
+        $path = escapeshellarg($path);
+
         if (!isset($this->files[$path])) {
             $this->files[$path] = [];
         }
@@ -164,7 +176,7 @@ class Commit
      */
     public function setMessage(string $message)
     {
-        $this->message = $message;
+        $this->message = escapeshellarg($message);
     }
 
     /**
@@ -303,6 +315,21 @@ class Commit
     public function getDate() : \DateTime
     {
         return $this->date ?? new \DateTime('now');
+    }
+
+    /**
+     * Set commit date.
+     *
+     * @param \DateTime $date Commit date
+     *
+     * @return void
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+    public function setDate(\DateTime $date)
+    {
+        $this->date = $date;
     }
 
     /**

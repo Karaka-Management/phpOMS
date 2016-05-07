@@ -46,7 +46,7 @@ class Branch
      */
     public function __construct(string $name = '')
     {
-        $this->name = $name;
+        $this->setName($name);
     }
 
     /**
@@ -59,7 +59,7 @@ class Branch
      */
     public function setName(string $name)
     {
-        $this->name = $name;
+        $this->name = escapeshellarg($name);
     }
 
     /**

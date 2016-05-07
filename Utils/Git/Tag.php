@@ -28,5 +28,72 @@ namespace phpOMS\Utils\Git;
  */
 class Tag
 {
+    /**
+     * Name.
+     *
+     * @var string
+     * @since 1.0.0
+     */
+    private $name = '';
+
+    /**
+     * Message.
+     *
+     * @var string
+     * @since 1.0.0
+     */
+    private $message = '';
+
+    /**
+     * Constructor
+     *
+     * @param string $name Tag name/version
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+    public function __construct(string $name = '')
+    {
+        $this->name = escapeshellarg($name);
+    }
+
+    /**
+     * Set tag name
+     *
+     * @param string $message Tag message
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+    public function setMessage(string $message)
+    {
+        $this->message = escapeshellarg($message);
+    }
+
+    /**
+     * Get tag message
+     *
+     * @return string
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+    public function getMessage() : string
+    {
+        return $this->message;
+    }
+
+    /**
+     * Get tag name
+     *
+     * @return string
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+    public function getName() : string
+    {
+        return $this->name;
+    }
 
 }
