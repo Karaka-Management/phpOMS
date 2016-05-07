@@ -16,10 +16,10 @@
 namespace phpOMS\Utils\TaskSchedule;
 
 /**
- * Array utils.
+ * Interval class for tasks.
  *
  * @category   Framework
- * @package    Utils
+ * @package    phpOMS\Utils\TaskSchedule
  * @author     OMS Development Team <dev@oms.com>
  * @author     Dennis Eichhorn <d.eichhorn@oms.com>
  * @license    OMS License 1.0
@@ -29,8 +29,20 @@ namespace phpOMS\Utils\TaskSchedule;
 class Interval
 {
 
+    /**
+     * Start.
+     *
+     * @var \DateTime
+     * @since 1.0.0
+     */
     private $start = null;
 
+    /**
+     * End.
+     *
+     * @var \DateTime
+     * @since 1.0.0
+     */
     private $end = null;
 
     /**
@@ -208,21 +220,57 @@ class Interval
 
     }
 
+    /**
+     * Set start.
+     *
+     * @param \DateTime $start Start date
+     *
+     * @return void
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
     public function setStart(\DateTime $start)
     {
         $this->start = $start;
     }
 
+    /**
+     * Get start.
+     *
+     * @return \DateTime
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
     public function getStart() : \DateTime
     {
         return $this->start;
     }
 
+    /**
+     * Get end.
+     *
+     * @return \DateTime
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
     public function getEnd()
     {
         return $this->end;
     }
 
+    /**
+     * Set end.
+     *
+     * @param \DateTime $end End date
+     *
+     * @return void
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
     public function setEnd(\DateTime $end)
     {
         $this->end = $end;

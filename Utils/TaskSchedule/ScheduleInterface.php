@@ -19,7 +19,7 @@ namespace phpOMS\Utils\TaskSchedule;
  * Array utils.
  *
  * @category   Framework
- * @package    Utils
+ * @package    phpOMS\Utils\TaskSchedule
  * @author     OMS Development Team <dev@oms.com>
  * @author     Dennis Eichhorn <d.eichhorn@oms.com>
  * @license    OMS License 1.0
@@ -39,4 +39,6 @@ interface ScheduleInterface
     public function set(TaskInterface $task);
 
     public function save();
+
+    public function run(string $cmd);
 }

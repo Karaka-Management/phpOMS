@@ -19,38 +19,26 @@ namespace phpOMS\Utils\TaskSchedule;
  * Array utils.
  *
  * @category   Framework
- * @package    Utils
+ * @package    phpOMS\Utils\TaskSchedule
  * @author     OMS Development Team <dev@oms.com>
  * @author     Dennis Eichhorn <d.eichhorn@oms.com>
  * @license    OMS License 1.0
  * @link       http://orange-management.com
  * @since      1.0.0
  */
-class Schedule implements TaskInterface
+class Schedule extends TaskAbstract
 {
-
-    /**
-     * Interval.
-     *
-     * @var Interval
-     * @since 1.0.0
-     */
-    private $interval = null;
-    private $command = '';
+    private $name = '';
 
     public function __construct(Interval $interval = null, $cmd = '')
     {
+        if (!isset($interval)) {
+            $this->interval = new Interval();
+        } else {
+            $this->interval = $interval;
+        }
 
-    }
-
-    public function setInterval(Interval $interval)
-    {
-        $this->interval = $interval;
-    }
-
-    public function setCommand(string $command)
-    {
-        $this->command = $command;
+        $this->command = $cmd;
     }
 
     public function __toString()

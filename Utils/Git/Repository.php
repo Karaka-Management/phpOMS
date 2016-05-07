@@ -379,14 +379,14 @@ class Repository
     /**
      * Get active Branch.
      *
-     * @return string
+     * @return Branch
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function getActiveBranch() : string
+    public function getActiveBranch() : Branch
     {
-        if (!isset($branch)) {
+        if (!isset($this->branch)) {
             $branches = $this->getBranches();
             $active   = preg_grep('/^\*/', $branches);
             reset($active);

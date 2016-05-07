@@ -21,7 +21,7 @@ namespace phpOMS\Utils\TaskSchedule;
  * Performing operations on the file system
  *
  * @category   System
- * @package    Framework
+ * @package    phpOMS\Utils\TaskSchedule
  * @author     OMS Development Team <dev@oms.com>
  * @author     Dennis Eichhorn <d.eichhorn@oms.com>
  * @license    OMS License 1.0
