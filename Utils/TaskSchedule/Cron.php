@@ -16,7 +16,7 @@
 namespace phpOMS\Utils\TaskSchedule;
 
 /**
- * Array utils.
+ * Cron class.
  *
  * @category   Framework
  * @package    phpOMS\Utils\TaskSchedule

@@ -16,7 +16,7 @@
 namespace phpOMS\Utils\TaskSchedule;
 
 /**
- * Array utils.
+ * Schedule Interface.
  *
  * @category   Framework
  * @package    phpOMS\Utils\TaskSchedule

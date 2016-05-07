@@ -19,7 +19,7 @@ namespace phpOMS\Utils\IO\Json;
  * Json decoding exception class.
  *
  * @category   Framework
- * @package    IO
+ * @package    phpOMS\Utils\IO\Json
  * @author     OMS Development Team <dev@oms.com>
  * @author     Dennis Eichhorn <d.eichhorn@oms.com>
  * @license    OMS License 1.0
@@ -28,6 +28,16 @@ namespace phpOMS\Utils\IO\Json;
  */
 class InvalidJsonException extends \UnexpectedValueException
 {
+    /**
+     * Constructor.
+     *
+     * @param string     $message Exception message
+     * @param int        $code    Exception code
+     * @param \Exception Previous exception
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
     public function __construct($message, $code = 0, \Exception $previous = null)
     {
         parent::__construct('Couldn\'t parse "' . $message . '" as valid json.', $code, $previous);

@@ -16,7 +16,7 @@
 namespace phpOMS\Utils\TaskSchedule;
 
 /**
- * Array utils.
+ * Schedule class.
  *
  * @category   Framework
  * @package    phpOMS\Utils\TaskSchedule
@@ -30,7 +30,16 @@ class Schedule extends TaskAbstract
 {
     private $name = '';
 
-    public function __construct(Interval $interval = null, $cmd = '')
+    /**
+     * Constructor.
+     *
+     * @param Interval $interval Interval
+     * @param string   $cmd      Command to execute
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+    public function __construct(Interval $interval = null, string $cmd = '')
     {
         if (!isset($interval)) {
             $this->interval = new Interval();

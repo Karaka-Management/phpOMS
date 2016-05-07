@@ -15,32 +15,71 @@
  */
 namespace phpOMS\Validation;
 
-class BitcoinValidator
+/**
+ * Bitcoin validator.
+ *
+ * @category   Framework
+ * @package    phpOMS\Utils\TaskSchedule
+ * @author     OMS Development Team <dev@oms.com>
+ * @author     Dennis Eichhorn <d.eichhorn@oms.com>
+ * @license    OMS License 1.0
+ * @link       http://orange-management.com
+ * @since      1.0.0
+ */
+class BitcoinValidator extends ValidatorAbstract
 {
-    public static function validate(string $addr)  : bool
+    /**
+     * Validate bitcoin.
+     *
+     * @param string $addr Bitcoin address
+     *
+     * @return bool
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+    public static function isValid(string $addr)  : bool
     {
-        $decoded = self::decodeBase58($addr);
+        try {
+            $decoded = self::decodeBase58($addr);
 
-        $d1 = hash("sha256", substr($decoded, 0, 21), true);
-        $d2 = hash("sha256", $d1, true);
+            $d1 = hash("sha256", substr($decoded, 0, 21), true);
+            $d2 = hash("sha256", $d1, true);
 
-        if (substr_compare($decoded, $d2, 21, 4)) {
+            if (substr_compare($decoded, $d2, 21, 4)) {
+                return false;
+            }
+
+            return true;
+        } catch(\Exception $e) {
+            self::$msg = $e->getMessage();
+        } finally {
             return false;
         }
-
-        return true;
     }
 
-    public static function decodeBase58(string $input) : string
+    /**
+     * Decode base 58 bitcoin address.
+     *
+     * @param string $addr Bitcoin address
+     *
+     * @return string
+     *
+     * @throws \Exception
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+    private static function decodeBase58(string $addr) : string
     {
-        $alphabet = "123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz";
+        $alphabet = '123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz';
 
-        $out = array_fill(0, 25, 0);
-        $len = strlen($input);
+        $out    = array_fill(0, 25, 0);
+        $length = strlen($addr);
 
-        for ($i = 0; $i < $len; $i++) {
-            if (($p = strpos($alphabet, $input[$i])) === false) {
-                throw new \Exception("invalid character found");
+        for ($i = 0; $i < $length; $i++) {
+            if (($p = strpos($alphabet, $addr[$i])) === false) {
+                throw new \Exception('Invalid character found in address.');
             }
 
             $c = $p;
@@ -52,11 +91,11 @@ class BitcoinValidator
             }
 
             if ($c !== 0) {
-                throw new \Exception("address too long");
+                throw new \Exception('Bitcoin address too long.');
             }
         }
 
-        $result = "";
+        $result = '';
         foreach ($out as $val) {
             $result .= chr($val);
         }

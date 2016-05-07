@@ -15,13 +15,14 @@
  */
 
 namespace phpOMS\Math;
+
 use phpOMS\Math\Number\Numbers;
 
 /**
  * Well known functions class.
  *
  * @category   Framework
- * @package    phpOMS\DataStorage\Database
+ * @package    phpOMS\Math\Function
  * @author     OMS Development Team <dev@oms.com>
  * @author     Dennis Eichhorn <d.eichhorn@oms.com>
  * @license    OMS License 1.0
@@ -30,11 +31,33 @@ use phpOMS\Math\Number\Numbers;
  */
 class Fibunacci
 {
-    public static function isFibunacci(int $n)
+
+    /**
+     * Is fibunacci number.
+     *
+     * @param int $n Integer
+     *
+     * @return bool
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+    public static function isFibunacci(int $n) : bool
     {
         return Numbers::isSquare(5 * $n ** 2 + 4) || Numbers::isSquare(5 * $n ** 2 - 4);
     }
 
+    /**
+     * Get n-th fibunacci number.
+     *
+     * @param int $n     n-th number
+     * @param int $start Start value
+     *
+     * @return int
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
     public static function fibunacci(int $n, int $start = 1) : int
     {
         if ($n < 2) {
@@ -56,6 +79,16 @@ class Fibunacci
         return $fib;
     }
 
+    /**
+     * Calculate n-th fibunacci with binets formula.
+     *
+     * @param int $n n-th number
+     *
+     * @return int
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
     public static function binet(int $n) : int
     {
         return (int) (((1 + sqrt(5)) ** $n - (1 - sqrt(5)) ** $n) / (2 ** $n * sqrt(5)));

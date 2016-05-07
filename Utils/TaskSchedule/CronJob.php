@@ -16,7 +16,7 @@
 namespace phpOMS\Utils\TaskSchedule;
 
 /**
- * Array utils.
+ * CronJob class.
  *
  * @category   Framework
  * @package    phpOMS\Utils\TaskSchedule
@@ -29,6 +29,15 @@ namespace phpOMS\Utils\TaskSchedule;
 class CronJob extends TaskAbstract
 {
 
+    /**
+     * Constructor.
+     *
+     * @param Interval $interval Interval
+     * @param string   $cmd      Command to execute
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
     public function __construct(Interval $interval = null, $cmd = '')
     {
         if (!isset($interval)) {
