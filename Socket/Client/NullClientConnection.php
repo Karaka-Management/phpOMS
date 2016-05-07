@@ -15,9 +15,6 @@
  */
 namespace phpOMS\Socket\Client;
 
-use phpOMS\Socket\CommandManager;
-use phpOMS\Socket\SocketAbstract;
-
 /**
  * Client socket class.
  *

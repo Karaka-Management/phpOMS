@@ -15,9 +15,6 @@
  */
 namespace phpOMS\Module;
 
-use phpOMS\System\File\PathException;
-
-
 /**
  * Module abstraction class.
  *

@@ -65,6 +65,8 @@ class Currency
      *
      * @return array
      *
+     * @throws \Exception
+     *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
@@ -74,7 +76,11 @@ class Currency
             $xml = file_get_contents('http://www.ecb.europa.eu/stats/eurofxref/eurofxref-daily.xml');
             $xml = new \SimpleXMLElement($xml);
 
-            $node = $xml->Cube->Cube->Cube;
+            if (isset($xml->Cube)) {
+                $node = $xml->Cube->Cube->Cube;
+            } else {
+                throw new \Exception('Invalid xml path');
+            }
 
             self::$ecbCurrencies = [];
             foreach ($node as $key => $value) {

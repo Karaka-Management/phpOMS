@@ -15,6 +15,7 @@
  */
 
 namespace phpOMS\Math;
+use phpOMS\Math\Number\Numbers;
 
 /**
  * Well known functions class.
@@ -31,7 +32,7 @@ class Fibunacci
 {
     public static function isFibunacci(int $n)
     {
-        return Functions::isSquare(5 * $n ** 2 + 4) || Functions::isSquare(5 * $n ** 2 - 4);
+        return Numbers::isSquare(5 * $n ** 2 + 4) || Numbers::isSquare(5 * $n ** 2 - 4);
     }
 
     public static function fibunacci(int $n, int $start = 1) : int

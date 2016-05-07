@@ -314,6 +314,7 @@ abstract class DataMapperAbstract implements DataMapperInterface
 
         /* Create extended */
         foreach (static::$isExtending as $member => $rel) {
+            /** @var DataMapperAbstract $mapper */
             $mapper               = new $rel['mapper']($this->db);
             $extendedIds[$member] = $mapper->create($obj, $relations);
         }
@@ -599,6 +600,7 @@ abstract class DataMapperAbstract implements DataMapperInterface
         foreach (static::$isExtending as $member => $rel) {
             $reflectionProperty = $reflectionClass->getProperty($member);
 
+            /** @var DataMapperAbstract $mapper */
             $mapper = new $rel['mapper']($this->db);
             $mapper->get($reflectionProperty->getValue($obj), $relations, $obj);
         }

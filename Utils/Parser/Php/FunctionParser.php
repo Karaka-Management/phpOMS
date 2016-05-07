@@ -30,77 +30,233 @@ namespace phpOMS\Utils\Parser\Php;
  */
 class FunctionParser
 {
+    /**
+     * Function name.
+     *
+     * @var string
+     * @since 1.0.0
+     */
     private $name = '';
 
+    /**
+     * Function visibility.
+     *
+     * @var string
+     * @since 1.0.0
+     */
     private $visibility = Visibility::_PUBLIC;
 
+    /**
+     * Is static?
+     *
+     * @var bool
+     * @since 1.0.0
+     */
     private $isStatic = false;
 
+    /**
+     * Is abstract?
+     *
+     * @var bool
+     * @since 1.0.0
+     */
     private $isAbstract = false;
 
+    /**
+     * Is final?
+     *
+     * @var bool
+     * @since 1.0.0
+     */
     private $isFinal = false;
 
+    /**
+     * Return type.
+     *
+     * @var string
+     * @since 1.0.0
+     */
     private $return = null;
 
+    /**
+     * Parameters.
+     *
+     * @var array
+     * @since 1.0.0
+     */
     private $parameters = [];
 
+    /**
+     * Function body.
+     *
+     * @var string
+     * @since 1.0.0
+     */
     private $body = '';
 
+    /**
+     * Set function name.
+     *
+     * @param string $name Function name
+     *
+     * @return void
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
     public function setName(string $name)
     {
         $this->name = $name;
     }
 
+    /**
+     * Get function name.
+     *
+     * @return string
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
     public function getName() : string
     {
         return $this->name;
     }
 
+    /**
+     * Set function body.
+     *
+     * @param string $body Function body
+     *
+     * @return void
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
     public function seBody(string $body)
     {
         $this->body = $body;
     }
 
+    /**
+     * Get function body.
+     *
+     * @return string
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
     public function getBody() : string
     {
         return $this->body;
     }
 
+    /**
+     * Remove body.
+     *
+     * @return void
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
     public function removeBody()
     {
-        $this->body = null;
+        $this->body = '';
     }
 
+    /**
+     * Set visibility.
+     *
+     * @param string $visibility Function visibility
+     *
+     * @return void
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
     public function setVisibility(string $visibility)
     {
         $this->visibility = $visibility;
     }
 
+    /**
+     * Get function visibility.
+     *
+     * @return string
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
     public function getVisibility() : string
     {
         return $this->visibility;
     }
 
+    /**
+     * Set static.
+     *
+     * @param bool $static Is static
+     *
+     * @return void
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
     public function setStatic(bool $static)
     {
         $this->isStatic = $static;
     }
 
+    /**
+     * Is static?
+     *
+     * @return bool
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
     public function isStatic() : bool
     {
         return $this->isStatic;
     }
 
+    /**
+     * Set final.
+     *
+     * @param bool $final Is final
+     *
+     * @return void
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
     public function setFinal(bool $final)
     {
         $this->isFinal = $final;
     }
 
+    /**
+     * Is final?
+     *
+     * @return bool
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
     public function isFinal() : bool
     {
         return $this->isFinal;
     }
 
+    /**
+     * Set abstract.
+     *
+     * @param bool $abstract Is abstract
+     *
+     * @return void
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
     public function setAbstract(bool $abstract)
     {
         $this->isAbstract = $abstract;
@@ -112,27 +268,73 @@ class FunctionParser
         }
     }
 
+    /**
+     * Is abstract?
+     *
+     * @return bool
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
     public function isAbstract() : bool
     {
         return $this->isAbstract;
     }
 
+    /**
+     * Set return type.
+     *
+     * @param string $return Return type
+     *
+     * @return void
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
     public function setReturn(string $return)
     {
         $this->return = $return;
     }
 
+    /**
+     * Remove return type.
+     *
+     * @return void
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
     public function removeReturn()
     {
         $this->return = null;
     }
 
-    public function getReturn()
+    /**
+     * Get return type.
+     *
+     * @return string
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+    public function getReturn() : string
     {
         return $this->return;
     }
 
-    public function addParameter(string $name, string $typehint, $default = null)
+    /**
+     * Add parameter to function.
+     *
+     * @param string $name     Parameter name
+     * @param string $typehint Typehint
+     * @param string $default  Default value
+     *
+     * @return void
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+    public function addParameter(string $name, string $typehint = null, string $default = null)
     {
         $this->parameters[$name]['name']     = $name;
         $this->parameters[$name]['typehint'] = $typehint;
@@ -146,7 +348,15 @@ class FunctionParser
         }
     }
 
-    public function parse() : string
+    /**
+     * Serialize function.
+     *
+     * @return string
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+    public function serialize()
     {
         $function = '';
         $function .= str_repeat(' ', ClassParser::INDENT);
@@ -184,6 +394,16 @@ class FunctionParser
         return $function;
     }
 
+    /**
+     * Add indention for body.
+     *
+     * @param string $body Function body to indent
+     *
+     * @return string
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
     private function addIndent(string $body) : string
     {
         $body = preg_split('/\r\n|\r|\n/', $body);

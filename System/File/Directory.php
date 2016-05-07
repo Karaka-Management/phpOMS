@@ -14,6 +14,7 @@
  * @link       http://orange-management.com
  */
 namespace phpOMS\System\File;
+use phpOMS\Validation\Validator;
 
 /**
  * Filesystem class.

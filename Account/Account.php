@@ -295,7 +295,7 @@ class Account
     }
 
     /**
-     * Get last activity.
+     * Get created at.
      *
      * @return \DateTime
      *
@@ -410,7 +410,7 @@ class Account
     }
 
     /**
-     * Get last activity.
+     * Update last activity.
      *
      * @return void
      *
@@ -422,6 +422,16 @@ class Account
         $this->lastActive = new \DateTime('NOW');
     }
 
+    /**
+     * Set created at.
+     *
+     * @param \DateTime $created Created at
+     *
+     * @return void
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
     public function setCreatedAt(\DateTime $created)
     {
         $this->createdAt = $created;

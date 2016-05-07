@@ -50,7 +50,7 @@ class Sphere
         $latTo   = deg2rad($latEnd);
         $lonTo   = deg2rad($longEnd);
 
-        $latDelta = $latTo - $latFrom;
+        //$latDelta = $latTo - $latFrom;
         $lonDelta = $lonTo - $lonFrom;
 
         $a = pow(cos($latTo) * sin($lonDelta), 2) + pow(cos($latFrom) * sin($latTo) - sin($latFrom) * cos($latTo) * cos($lonDelta), 2);

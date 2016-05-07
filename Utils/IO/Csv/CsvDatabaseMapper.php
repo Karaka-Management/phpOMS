@@ -15,6 +15,7 @@
  */
 namespace phpOMS\Utils\IO\Csv;
 
+use phpOMS\DataStorage\Database\Connection\ConnectionAbstract;
 use phpOMS\DataStorage\Database\Query\Builder;
 use phpOMS\Utils\IO\IODatabaseMapper;
 
@@ -32,7 +33,7 @@ class CsvDatabaseMapper implements IODatabaseMapper
 
     private $autoIdentifyCsvSettings = false;
 
-    public function __construct($db)
+    public function __construct(ConnectionAbstract $db)
     {
         $this->db = $db;
     }

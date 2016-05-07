@@ -15,6 +15,7 @@
  */
 
 namespace phpOMS\Math\Differential;
+use phpOMS\Math\Parser\Evaluator;
 
 /**
  * Chi square distribution.

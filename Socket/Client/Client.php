@@ -31,6 +31,7 @@ use phpOMS\Socket\SocketAbstract;
  */
 class Client extends SocketAbstract
 {
+    private $commands;
 
     /**
      * Constructor.
