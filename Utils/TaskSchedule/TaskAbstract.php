@@ -29,6 +29,14 @@ namespace phpOMS\Utils\TaskSchedule;
 abstract class TaskAbstract
 {
     /**
+     * Id.
+     *
+     * @var string
+     * @since 1.0.0
+     */
+    protected $id = '';
+
+    /**
      * Interval.
      *
      * @var Interval
@@ -43,6 +51,19 @@ abstract class TaskAbstract
      * @since 1.0.0
      */
     protected $command = '';
+
+    /**
+     * Get id.
+     *
+     * @return string
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+    public function getId() : string
+    {
+        return $this->id;
+    }
 
     /**
      * Set interval.

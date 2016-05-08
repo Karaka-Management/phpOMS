@@ -18,7 +18,7 @@ namespace phpOMS\Utils\Parser\Php;
 /**
  * Member parser class.
  *
- * Parsing/serializing variables
+ * Parsing/serializing functions
  *
  * @category   Framework
  * @package    phpOMS\Utils\Parser

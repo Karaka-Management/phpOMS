@@ -325,6 +325,14 @@ abstract class RequestAbstract implements MessageInterface
         return $this->status;
     }
 
+    /**
+     * Get request header.
+     *
+     * @return HeaderAbstract
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
     public function getHeader() : HeaderAbstract
     {
         return $this->header;
@@ -353,5 +361,13 @@ abstract class RequestAbstract implements MessageInterface
      */
     abstract public function getRequestTarget() : string;
 
+    /**
+     * Get route verb.
+     *
+     * @return int
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
     abstract public function getRouteVerb() : int;
 }

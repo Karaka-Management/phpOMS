@@ -186,5 +186,13 @@ abstract class ResponseAbstract implements MessageInterface
         return $this->header;
     }
 
+    /**
+     * Get response body.
+     *
+     * @return string
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
     abstract public function getBody() : string;
 }

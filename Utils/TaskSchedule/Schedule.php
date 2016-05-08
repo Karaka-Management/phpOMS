@@ -28,8 +28,6 @@ namespace phpOMS\Utils\TaskSchedule;
  */
 class Schedule extends TaskAbstract
 {
-    private $name = '';
-
     /**
      * Constructor.
      *

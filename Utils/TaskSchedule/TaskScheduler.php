@@ -26,45 +26,27 @@ namespace phpOMS\Utils\TaskSchedule;
  * @link       http://orange-management.com
  * @since      1.0.0
  */
-class TaskScheduler implements ScheduleInterface
+class TaskScheduler extends SchedulerAbstract
 {
-    public function __construct()
-    {
-
-    }
-
-    public function add(TaskInterface $task)
-    {
-        // TODO: Implement add() method.
-    }
-
-    public function remove($id)
-    {
-        // TODO: Implement remove() method.
-    }
-
-    public function get(string $id)
-    {
-        // TODO: Implement get() method.
-    }
-
-    public function list()
-    {
-        // TODO: Implement list() method.
-    }
-
-    public function set(TaskInterface $task)
-    {
-        // TODO: Implement set() method.
-    }
 
     public function save()
     {
 
     }
 
-    public function run(string $cmd)
+    /**
+     * Run command
+     *
+     * @param string $cmd Command to run
+     *
+     * @return array
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn
+     */
+    public function run(string $cmd) : array
     {
         // TODO: Implement run() method.
+        return [];
     }
 }

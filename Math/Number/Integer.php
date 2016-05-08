@@ -71,7 +71,17 @@ class Integer
         return 1;
     }
 
-    public static function trialFactorization(int $value)
+    /**
+     * Trial factorization.
+     *
+     * @param int $value Integer to factorize
+     *
+     * @return array
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn
+     */
+    public static function trialFactorization(int $value) : array
     {
         if ($value < 2) {
             return [];
@@ -98,31 +108,65 @@ class Integer
         return $factors;
     }
 
-    public static function pollardsRho($value, $x = 2, $factor = 1, $cycleSize = 2, $xFixed = 2)
+    /**
+     * Pollard's Rho.
+     *
+     * Integer factorization algorithm
+     *
+     * @param int $n         Integer to factorize
+     * @param int $x         Used for g(x) = (x^2 + 1) mod n
+     * @param int $factor    Period for repetition
+     * @param int $cycleSize Cycle size
+     * @param int $y         Fixed value for g(x) = g(y) mod p
+     *
+     * @return int
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn
+     */
+    public static function pollardsRho(int $n, int $x = 2, int $factor = 1, int $cycleSize = 2, int $y = 2) : int
     {
         while ($factor === 1) {
             for ($i = 1; $i < $cycleSize && $factor <= 1; $i++) {
-                $x      = ($x * $x + 1) % $value;
-                $factor = self::greatestCommonDivisor($x - $xFixed, $value);
+                $x      = ($x * $x + 1) % $n;
+                $factor = self::greatestCommonDivisor($x - $y, $n);
             }
 
             $cycleSize *= 2;
-            $xFixed = $x;
+            $y = $x;
         }
 
         return $factor;
     }
 
-    public static function fermatFactor(int $value)
+    /**
+     * Fermat factorization of odd integers.
+     *
+     * @param int $value Integer to factorize
+     * @param int $limit Max amount of iterations
+     *
+     * @return int
+     *
+     * @throws \Exception
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn
+     */
+    public static function fermatFactor(int $value, int $limit = 1000000) : int
     {
-        $a  = $value;
-        $b2 = $a * $a - $value;
+        if(($value % 2) !== 0) {
+            throw new \Exception('Only odd integers are allowed');
+        }
 
-        while (abs((int) round(sqrt($b2), 0) - sqrt($b2)) > 0.0001) {
+        $a  = (int) ceil(sqrt($value));
+        $b2 = $a * $a - $value;
+        $i  = 1;
+
+        while (!Numbers::isSquare($b2) && $i < $limit) {
             $a += 1;
             $b2 = $a * $a - $value;
         }
 
-        return $a - sqrt($b2);
+        return (int) round($a - sqrt($b2));
     }
 }

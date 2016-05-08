@@ -18,9 +18,9 @@ namespace phpOMS\Utils\Parser\Php;
 use phpOMS\Datatypes\Enum;
 
 /**
- * Database type enum.
+ * Visibility type enum.
  *
- * Database types that are supported by the application
+ * Visibility for member variables and functions
  *
  * @category   Framework
  * @package    phpOMS\Utils\Parser
@@ -32,6 +32,7 @@ use phpOMS\Datatypes\Enum;
  */
 abstract class Visibility extends Enum
 {
+    const _NONE = '';
     const _PUBLIC = 'public';
     const _PRIVATE = 'private';
     const _PROTECTED = 'protected';

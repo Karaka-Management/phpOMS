@@ -16,9 +16,9 @@
 namespace phpOMS\Utils\Parser\Php;
 
 /**
- * Array parser class.
+ * Class parser class.
  *
- * Parsing/serializing arrays to and from php file
+ * Parsing/serializing classes, interfaces to and from php file
  *
  * @category   Framework
  * @package    phpOMS\Utils\Parser
@@ -30,37 +30,117 @@ namespace phpOMS\Utils\Parser\Php;
  */
 class ClassParser
 {
+    /**
+     * Indention.
+     *
+     * @var int
+     * @since 1.0.0
+     */
     const INDENT = 4;
 
+    /**
+     * Is final?
+     *
+     * @var bool
+     * @since 1.0.0
+     */
     private $isFinal = false;
 
+    /**
+     * Is abstract?
+     *
+     * @var bool
+     * @since 1.0.0
+     */
     private $isAbstract = false;
 
+    /**
+     * Type.
+     *
+     * @var string
+     * @since 1.0.0
+     */
     private $type = ClassType::_CLASS;
 
-    private $extends = null;
+    /**
+     * Extends.
+     *
+     * @var string
+     * @since 1.0.0
+     */
+    private $extends = '';
 
-    private $namespace = null;
+    /**
+     * Namespace.
+     *
+     * @var null|string
+     * @since 1.0.0
+     */
+    private $namespace = '';
 
+    /**
+     * Includes.
+     *
+     * @var array
+     * @since 1.0.0
+     */
     private $includes = [];
 
+    /**
+     * Requires.
+     *
+     * @var array
+     * @since 1.0.0
+     */
     private $requires = [];
 
+    /**
+     * Uses.
+     *
+     * @var array
+     * @since 1.0.0
+     */
     private $use = [];
 
+    /**
+     * Name.
+     *
+     * @var string
+     * @since 1.0.0
+     */
     private $name = '';
 
+    /**
+     * Implements.
+     *
+     * @var array
+     * @since 1.0.0
+     */
     private $implements = [];
 
+    /**
+     * Traits.
+     *
+     * @var array
+     * @since 1.0.0
+     */
     private $traits = [];
 
+    /**
+     * Members.
+     *
+     * @var MemberParser[]
+     * @since 1.0.0
+     */
     private $members = [];
 
+    /**
+     * Functions.
+     *
+     * @var FunctionParser[]
+     * @since 1.0.0
+     */
     private $functions = [];
-
-    public function __construct()
-    {
-    }
 
     /**
      * Saving class to file.
@@ -74,68 +154,188 @@ class ClassParser
      */
     public function createFile(string $path)
     {
+        // todo: implement
     }
 
+    /**
+     * Set final.
+     *
+     * @param bool $final Is final
+     *
+     * @return void
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
     public function setFinal(bool $final)
     {
         $this->isFinal = $final;
     }
 
+    /**
+     * Is final?
+     *
+     * @return bool
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
     public function isFinal() : bool
     {
         return $this->isFinal;
     }
 
+    /**
+     * Set abstract.
+     *
+     * @param bool $abstract Is abstract
+     *
+     * @return void
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
     public function setAbstract(bool $abstract)
     {
         $this->isAbstract = $abstract;
     }
 
+    /**
+     * Is abstract?
+     *
+     * @return bool
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
     public function isAbstract() : bool
     {
         return $this->isAbstract;
     }
 
+    /**
+     * Set type.
+     *
+     * Available types are ClassType::
+     *
+     * @param string $type Set type
+     *
+     * @return void
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
     public function setType(string $type)
     {
         $this->type = $type;
     }
 
+    /**
+     * Get type.
+     *
+     * @return string
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
     public function getType() : string
     {
         return $this->type;
     }
 
+    /**
+     * Set extends.
+     *
+     * @param string $extends Extended class
+     *
+     * @return void
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
     public function setExtends(string $extends)
     {
         $this->extends = $extends;
     }
 
+    /**
+     * Get extends.
+     *
+     * @return string
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
     public function getExtends() : string
     {
         return $this->extends;
     }
 
+    /**
+     * Remove extends.
+     *
+     * @return void
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
     public function removeExtends()
     {
-        $this->extends = null;
+        $this->extends = '';
     }
 
+    /**
+     * Set namespace.
+     *
+     * @param string $namespace Namespace
+     *
+     * @return void
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
     public function setNamespace(string $namespace)
     {
         $this->namespace = $namespace;
     }
 
+    /**
+     * Get namespace.
+     *
+     * @return string
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
     public function getNamespace() : string
     {
         return $this->namespace;
     }
 
+    /**
+     * Remove namespace.
+     *
+     * @return void
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
     public function removeNamespace()
     {
-        $this->namespace = null;
+        $this->namespace = '';
     }
 
+    /**
+     * Add use.
+     *
+     * @param string $namespace Namespace to use
+     * @param string $as        Namespace as
+     *
+     * @return void
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
     public function addUse(string $namespace, string $as = null)
     {
         if (isset($as)) {
@@ -145,6 +345,16 @@ class ClassParser
         }
     }
 
+    /**
+     * Remove use.
+     *
+     * @param string $id Namespace numerical id or 'as' if used.
+     *
+     * @return bool
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
     public function removeUse($id) : bool
     {
         if (isset($this->use[$id])) {
@@ -156,16 +366,44 @@ class ClassParser
         return false;
     }
 
+    /**
+     * Set name.
+     *
+     * @param string $name Class name
+     *
+     * @return void
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
     public function setName(string $name)
     {
         $this->name = $name;
     }
 
+    /**
+     * Get name.
+     *
+     * @return string
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
     public function getName() : string
     {
         return $this->name;
     }
 
+    /**
+     * Add implements.
+     *
+     * @param string $implements Implement
+     *
+     * @return void
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
     public function addImplements(string $implements)
     {
         $this->implements[] = $implements;
@@ -173,6 +411,16 @@ class ClassParser
         array_unique($this->implements);
     }
 
+    /**
+     * Add include.
+     *
+     * @param string $include Include
+     *
+     * @return void
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
     public function addInclude(string $include)
     {
         $this->includes[] = $include;
@@ -180,6 +428,16 @@ class ClassParser
         array_unique($this->includes);
     }
 
+    /**
+     * Add $require.
+     *
+     * @param string $require Require
+     *
+     * @return void
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
     public function addRequire(string $require)
     {
         $this->requires[] = $require;
@@ -187,6 +445,17 @@ class ClassParser
         array_unique($this->requires);
     }
 
+    /**
+     * Add trait.
+     *
+     * @param string $trait Trait to use
+     * @param string $as    Trait as
+     *
+     * @return void
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
     public function addTrait(string $trait, string $as = null)
     {
         if (isset($as)) {
@@ -196,11 +465,52 @@ class ClassParser
         }
     }
 
+    /**
+     * Remove trait.
+     *
+     * @param string $id Namespace numerical id or 'as' if used.
+     *
+     * @return bool
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+    public function removeTrait($id) : bool
+    {
+        if (isset($this->traits[$id])) {
+            unset($this->traits[$id]);
+
+            return true;
+        }
+
+        return false;
+    }
+
+    /**
+     * Add member.
+     *
+     * @param MemberParser $member Member
+     *
+     * @return bool
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
     public function addMember(MemberParser $member)
     {
         $this->members[$member->getName()] = $member;
     }
 
+    /**
+     * Remove member by name.
+     *
+     * @param string $name Member name
+     *
+     * @return bool
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
     public function removeMember(string $name) : bool
     {
         if (isset($this->members[$name])) {
@@ -212,16 +522,46 @@ class ClassParser
         return false;
     }
 
+    /**
+     * Get member by name.
+     *
+     * @param string $name Member name
+     *
+     * @return MemberParser
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
     public function getMember(string $name) : MemberParser
     {
         return $this->members[$name] ?? new MemberParser();
     }
 
+    /**
+     * Add function.
+     *
+     * @param FunctionParser $function Function
+     *
+     * @return bool
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
     public function addFunction(FunctionParser $function)
     {
         $this->functions[$function->getName()] = $function;
     }
 
+    /**
+     * Remove function by name.
+     *
+     * @param string $name Function name
+     *
+     * @return bool
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
     public function removeFunction(string $name) : bool
     {
         if (isset($this->functions[$name])) {
@@ -233,12 +573,30 @@ class ClassParser
         return false;
     }
 
+    /**
+     * Get function by name.
+     *
+     * @param string $name Function name
+     *
+     * @return FunctionParser
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
     public function getFunction(string $name) : FunctionParser
     {
         return $this->functions[$name] ?? new FunctionParser();
     }
 
-    public function parse() : string
+    /**
+     * Serialize class.
+     *
+     * @return string
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+    public function serialize() : string
     {
         $class = '';
 
@@ -258,8 +616,8 @@ class ClassParser
             $class .= PHP_EOL;
         }
 
-        if (isset($namespace)) {
-            $class = $namespace . ';' . PHP_EOL . PHP_EOL;
+        if (!empty($this->namespace)) {
+            $class = $this->namespace . ';' . PHP_EOL . PHP_EOL;
         }
 
         if (!empty($this->use)) {
@@ -280,7 +638,7 @@ class ClassParser
 
         $class .= $this->type . ' ' . $this->name . ' ';
 
-        if (isset($this->extends)) {
+        if (!empty($this->extends)) {
             $class .= 'extends ' . $this->extends . ' ';
         }
 
@@ -299,11 +657,11 @@ class ClassParser
         }
 
         foreach ($this->members as $name => $member) {
-            $class .= $member->parse() . PHP_EOL . PHP_EOL;
+            $class .= $member->serialize() . PHP_EOL . PHP_EOL;
         }
 
         foreach ($this->functions as $name => $function) {
-            $class .= $function->parse() . PHP_EOL . PHP_EOL;
+            $class .= $function->serialize() . PHP_EOL . PHP_EOL;
         }
 
         $class .= '}';

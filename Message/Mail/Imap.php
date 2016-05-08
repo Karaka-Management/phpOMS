@@ -15,16 +15,60 @@
  */
 namespace phpOMS\Message\Mail;
 
+/**
+ * Imap mail class.
+ *
+ * @category   Framework
+ * @package    phpOMS\Message\Mail
+ * @author     OMS Development Team <dev@oms.com>
+ * @author     Dennis Eichhorn <d.eichhorn@oms.com>
+ * @license    OMS License 1.0
+ * @link       http://orange-management.com
+ * @since      1.0.0
+ */
 class Imap extends Mail
 {
+    /**
+     * Mail inbox.
+     *
+     * @var resource
+     * @since 1.0.0
+     */
     private $inbox = null;
+
+    /**
+     * Host.
+     *
+     * @var string
+     * @since 1.0.0
+     */
     private $host = '';
 
+    /**
+     * User.
+     *
+     * @var string
+     * @since 1.0.0
+     */
+    private $user = '';
+
+    /**
+     * Constructor.
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
     public function __construct()
     {
         parent::__construct(MailType::IMAP);
     }
 
+    /**
+     * Destructor.
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
     public function __destruct()
     {
         if (isset($this->inbox)) {
@@ -32,103 +76,273 @@ class Imap extends Mail
         }
     }
 
+    /**
+     * Connect to inbox.
+     *
+     * @param string $host     Host
+     * @param string $user     User
+     * @param string $password Password
+     *
+     * @return bool
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
     public function connect($host, $user, $password)
     {
         $this->host  = $host;
+        $this->user  = $user;
         $this->inbox = imap_open($host, $user, $password);
 
         return !($this->inbox === false);
     }
 
-    public function getBoxes()
+    /**
+     * Get boxes.
+     *
+     * @param string $pattern Pattern for boxes
+     *
+     * @return array
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+    public function getBoxes(string $pattern = '*') : array
     {
-        return imap_list($this->inbox, $this->host, '*');
+        return imap_list($this->inbox, $this->host, $pattern);
     }
 
+    /**
+     * Get inbox quota.
+     *
+     * @return mixed
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
     public function getQuota()
     {
         return imap_get_quotaroot($this->inbox, "INBOX");
     }
 
-    public function getInbox(string $option = 'ALL') : array
+    /**
+     * Get inbox overview.
+     *
+     * @param string $option Inbox option (imap_search creterias)
+     *
+     * @return array
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+    public function getInboxOverview(string $option = 'ALL') : array
     {
         $ids = imap_search($this->inbox, $option, SE_FREE, 'UTF-8');
 
         return is_array($ids) ? imap_fetch_overview($this->inbox, implode(',', $ids)) : [];
     }
 
-    public function getEmail($id)
+    /**
+     * Get email.
+     *
+     * @param mixed $id mail id
+     *
+     * @return Mail
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+    public function getEmail($id) : Mail
     {
-        return [
-            'overview' => imap_fetch_overview($this->inbox, $id),
-            'body'     => imap_fetchbody($this->inbox, $id, 2),
-            'encoding' => imap_fetchstructure($this->inbox, $id),
-        ];
+        $mail = new Mail($id);
+        $mail->setOverview(imap_fetch_overview($this->inbox, $id));
+        $mail->setBody(imap_fetchbody($this->inbox, $id, 2));
+        $mail->setEncoding(imap_fetchstructure($this->inbox, $id));
+
+        return $mail;
     }
 
-    public function getInboxAll()
+    /**
+     * Get all inbox messages.
+     *
+     * @return array
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+    public function getInboxAll() : array
     {
-        return $this->getInbox('ALL');
+        return $this->getInboxOverview('ALL');
     }
 
-    public function getInboxNew()
+    /**
+     * Get all new inbox messages.
+     *
+     * @return array
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+    public function getInboxNew() : array
     {
-        return $this->getInbox('NEW');
+        return $this->getInboxOverview('NEW');
     }
 
-    public function getInboxFrom(string $from)
+    /**
+     * Get all inbox messages from a person.
+     *
+     * @param string $from Messages from
+     *
+     * @return array
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+    public function getInboxFrom(string $from) : array
     {
-        return $this->getInbox('FROM "' . $from . '"');
+        return $this->getInboxOverview('FROM "' . $from . '"');
     }
 
-    public function getInboxTo(string $to)
+    /**
+     * Get all inbox messages to a person.
+     *
+     * @param string $to Messages to
+     *
+     * @return array
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+    public function getInboxTo(string $to) : array
     {
-        return $this->getInbox('TO "' . $to . '"');
+        return $this->getInboxOverview('TO "' . $to . '"');
     }
 
-    public function getInboxCc(string $cc)
+    /**
+     * Get all inbox messages cc a person.
+     *
+     * @param string $cc Messages cc
+     *
+     * @return array
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+    public function getInboxCc(string $cc) : array
     {
-        return $this->getInbox('CC "' . $cc . '"');
+        return $this->getInboxOverview('CC "' . $cc . '"');
     }
 
-    public function getInboxBcc(string $bcc)
+    /**
+     * Get all inbox messages bcc a person.
+     *
+     * @param string $bcc Messages bcc
+     *
+     * @return array
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+    public function getInboxBcc(string $bcc) : array
     {
-        return $this->getInbox('BCC "' . $bcc . '"');
+        return $this->getInboxOverview('BCC "' . $bcc . '"');
     }
 
-    public function getInboxAnswered()
+    /**
+     * Get all answered inbox messages.
+     *
+     * @return array
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+    public function getInboxAnswered() : array
     {
-        return $this->getInbox('ANSWERED');
+        return $this->getInboxOverview('ANSWERED');
     }
 
-    public function getInboxSubject(string $subject)
+    /**
+     * Get all inbox messages with a certain subject.
+     *
+     * @param string $subject Subject
+     *
+     * @return array
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+    public function getInboxSubject(string $subject) : array
     {
-        return $this->getInbox('SUBJECT "' . $subject . '"');
+        return $this->getInboxOverview('SUBJECT "' . $subject . '"');
     }
 
-    public function getInboxSince(\DateTime $since)
+    /**
+     * Get all inbox messages from a certain date onwards.
+     *
+     * @param \DateTime $since Messages since
+     *
+     * @return array
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+    public function getInboxSince(\DateTime $since) : array
     {
-        return $this->getInbox('SINCE "' . $since->format('d-M-Y') . '"');
+        return $this->getInboxOverview('SINCE "' . $since->format('d-M-Y') . '"');
     }
 
-    public function getInboxUnseen()
+    /**
+     * Get all unseen inbox messages.
+     *
+     * @return array
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+    public function getInboxUnseen() : array
     {
-        return $this->getInbox('UNSEEN');
+        return $this->getInboxOverview('UNSEEN');
     }
 
-    public function getInboxSeen()
+    /**
+     * Get all seen inbox messages.
+     *
+     * @return array
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+    public function getInboxSeen() : array
     {
-        return $this->getInbox('SEEN');
+        return $this->getInboxOverview('SEEN');
     }
 
-    public function getInboxDeleted()
+    /**
+     * Get all deleted inbox messages.
+     *
+     * @return array
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+    public function getInboxDeleted() : array
     {
-        return $this->getInbox('DELETED');
+        return $this->getInboxOverview('DELETED');
     }
 
-    public function getInboxText(string $text)
+    /**
+     * Get all inbox messages with text.
+     *
+     * @param string $text Text in message body
+     *
+     * @return array
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+    public function getInboxText(string $text) : array
     {
-        return $this->getInbox('TEXT "' . $text . '"');
+        return $this->getInboxOverview('TEXT "' . $text . '"');
     }
 
     public static function decode($content, $encoding)

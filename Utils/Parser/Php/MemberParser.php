@@ -18,7 +18,7 @@ namespace phpOMS\Utils\Parser\Php;
 /**
  * Member parser class.
  *
- * Parsing/serializing variables
+ * Parsing/serializing member variables
  *
  * @category   Framework
  * @package    phpOMS\Utils\Parser
@@ -30,36 +30,112 @@ namespace phpOMS\Utils\Parser\Php;
  */
 class MemberParser
 {
+    /**
+     * Member name.
+     *
+     * @var string
+     * @since 1.0.0
+     */
     private $name = '';
 
+    /**
+     * Member visibility.
+     *
+     * @var string
+     * @since 1.0.0
+     */
     private $visibility = Visibility::_PUBLIC;
 
+    /**
+     * Is static.
+     *
+     * @var bool
+     * @since 1.0.0
+     */
     private $isStatic = false;
 
+    /**
+     * Is const.
+     *
+     * @var bool
+     * @since 1.0.0
+     */
     private $isConst = false;
 
+    /**
+     * Default value.
+     *
+     * @var mixed
+     * @since 1.0.0
+     */
     private $default = null;
 
+    /**
+     * Set member name.
+     *
+     * @param string $name Member name
+     *
+     * @return void
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
     public function setName(string $name)
     {
         $this->name = $name;
     }
 
+    /**
+     * Get member name.
+     *
+     * @return string
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
     public function getName() : string
     {
         return $this->name;
     }
 
+    /**
+     * Set visibility.
+     *
+     * @param string $visibility Member visibility
+     *
+     * @return void
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
     public function setVisibility(string $visibility)
     {
         $this->visibility = $visibility;
     }
 
+    /**
+     * Get visibility.
+     *
+     * @return string
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
     public function getVisibility() : string
     {
         return $this->visibility;
     }
 
+    /**
+     * Set static.
+     *
+     * @param bool $static Is static
+     *
+     * @return void
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
     public function setStatic(bool $static)
     {
         $this->isStatic = $static;
@@ -69,11 +145,29 @@ class MemberParser
         }
     }
 
+    /**
+     * Is static?
+     *
+     * @return bool
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
     public function isStatic() : bool
     {
         return $this->isStatic;
     }
 
+    /**
+     * Set const.
+     *
+     * @param bool $const Is const
+     *
+     * @return void
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
     public function setConst(bool $const)
     {
         $this->isConst = $const;
@@ -83,12 +177,43 @@ class MemberParser
         }
     }
 
+    /**
+     * Is const?
+     *
+     * @return bool
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+    public function isConst() : bool
+    {
+        return $this->isConst;
+    }
+
+    /**
+     * Set default value.
+     *
+     * @param string $default
+     *
+     * @return void
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
     public function setDefault($default)
     {
         $this->default = $default;
     }
 
-    public function parse() : string
+    /**
+     * Serialize member.
+     *
+     * @return string
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+    public function serialize() : string
     {
         $member = '';
         $member .= str_repeat(' ', ClassParser::INDENT);
