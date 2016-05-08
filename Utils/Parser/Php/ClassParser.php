@@ -600,61 +600,12 @@ class ClassParser
     {
         $class = '';
 
-        if (!empty($this->requires)) {
-            foreach ($this->requires as $require) {
-                $class .= 'require_once "' . $require . '";' . PHP_EOL;
-            }
-
-            $class .= PHP_EOL;
-        }
-
-        if (!empty($this->includes)) {
-            foreach ($this->includes as $include) {
-                $class .= 'include_once "' . $include . '";' . PHP_EOL;
-            }
-
-            $class .= PHP_EOL;
-        }
-
-        if (!empty($this->namespace)) {
-            $class = $this->namespace . ';' . PHP_EOL . PHP_EOL;
-        }
-
-        if (!empty($this->use)) {
-            foreach ($this->use as $as => $use) {
-                $class .= 'use ' . $use . (is_string($as) ? ' as ' . $as : '') . ';' . PHP_EOL;
-            }
-
-            $class .= PHP_EOL;
-        }
-
-        if ($this->isFinal) {
-            $class .= 'final ';
-        }
-
-        if ($this->isAbstract) {
-            $class .= 'abstract ';
-        }
-
-        $class .= $this->type . ' ' . $this->name . ' ';
-
-        if (!empty($this->extends)) {
-            $class .= 'extends ' . $this->extends . ' ';
-        }
-
-        if (!empty($this->implements)) {
-            $class .= 'implements ' . implode(', ', $this->implements) . PHP_EOL;
-        }
-
+        $class .= $this->serializeRequire();
+        $class .= $this->serializeNamespace();
+        $class .= $this->serializeUse();
+        $class .= $this->serializeClass();
         $class .= '{' . PHP_EOL . PHP_EOL;
-
-        if (!empty($this->traits)) {
-            foreach ($this->traits as $as => $trait) {
-                $class .= 'use ' . $trait . ';' . PHP_EOL;
-            }
-
-            $class .= PHP_EOL;
-        }
+        $class .= $this->serializeTraits();
 
         foreach ($this->members as $name => $member) {
             $class .= $member->serialize() . PHP_EOL . PHP_EOL;
@@ -667,5 +618,121 @@ class ClassParser
         $class .= '}';
 
         return $class;
+    }
+
+    /**
+     * Serialize require.
+     *
+     * @return string
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+    private function serializeRequire() : string
+    {
+        $serialze = '';
+        if (!empty($this->requires)) {
+            foreach ($this->requires as $require) {
+                $serialze .= 'require_once "' . $require . '";' . PHP_EOL;
+            }
+
+            $serialze .= PHP_EOL;
+        }
+
+        return $serialze;
+    }
+
+    /**
+     * Serialize namespace.
+     *
+     * @return string
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+    private function serializeNamespace() : string
+    {
+        $serialze = '';
+        if (!empty($this->namespace)) {
+            $serialze = $this->namespace . ';' . PHP_EOL . PHP_EOL;
+        }
+
+        return $serialze;
+    }
+
+    /**
+     * Serialize use.
+     *
+     * @return string
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+    private function serializeUse() : string
+    {
+        $serialze = '';
+        if (!empty($this->use)) {
+            foreach ($this->use as $as => $use) {
+                $serialze .= 'use ' . $use . (is_string($as) ? ' as ' . $as : '') . ';' . PHP_EOL;
+            }
+
+            $serialze .= PHP_EOL;
+        }
+
+        return $serialze;
+    }
+
+    /**
+     * Serialize class.
+     *
+     * @return string
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+    private function serializeClass() : string
+    {
+        $serialze = '';
+        if ($this->isFinal) {
+            $serialze .= 'final ';
+        }
+
+        if ($this->isAbstract) {
+            $serialze .= 'abstract ';
+        }
+
+        $serialze .= $this->type . ' ' . $this->name . ' ';
+
+        if (!empty($this->extends)) {
+            $serialze .= 'extends ' . $this->extends . ' ';
+        }
+
+        if (!empty($this->implements)) {
+            $serialze .= 'implements ' . implode(', ', $this->implements) . PHP_EOL;
+        }
+
+        return $serialze;
+    }
+
+    /**
+     * Serialize traits.
+     *
+     * @return string
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+    private function serializeTraits() : string
+    {
+        $serialze = '';
+        if (!empty($this->traits)) {
+            foreach ($this->traits as $as => $trait) {
+                $serialze .= 'use ' . $trait . ';' . PHP_EOL;
+            }
+
+            $serialze .= PHP_EOL;
+        }
+
+        return $serialze;
     }
 }
