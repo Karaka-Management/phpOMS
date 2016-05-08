@@ -600,12 +600,13 @@ class ClassParser
     {
         $class = '';
 
-        $class .= $this->serializeRequire();
+        $class .= $this->serializeRequire('require_once', $this->requires);
+        $class .= $this->serializeRequire('include_once', $this->includes);
         $class .= $this->serializeNamespace();
-        $class .= $this->serializeUse();
+        $class .= $this->serializeUse($this->use);
         $class .= $this->serializeClass();
         $class .= '{' . PHP_EOL . PHP_EOL;
-        $class .= $this->serializeTraits();
+        $class .= $this->serializeUse($this->traits);
 
         foreach ($this->members as $name => $member) {
             $class .= $member->serialize() . PHP_EOL . PHP_EOL;
@@ -623,17 +624,20 @@ class ClassParser
     /**
      * Serialize require.
      *
+     * @param string $keyword Keyword (e.g. include, require, include_once)
+     * @param array $source Require source
+     *
      * @return string
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    private function serializeRequire() : string
+    private function serializeRequire(string $keyword, array $source) : string
     {
         $serialze = '';
-        if (!empty($this->requires)) {
-            foreach ($this->requires as $require) {
-                $serialze .= 'require_once "' . $require . '";' . PHP_EOL;
+        if (!empty($source)) {
+            foreach ($source as $require) {
+                $serialze .= $keyword . ' "' . $require . '";' . PHP_EOL;
             }
 
             $serialze .= PHP_EOL;
@@ -663,16 +667,18 @@ class ClassParser
     /**
      * Serialize use.
      *
+     * @param array $source Use source
+     *
      * @return string
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    private function serializeUse() : string
+    private function serializeUse(array $source) : string
     {
         $serialze = '';
-        if (!empty($this->use)) {
-            foreach ($this->use as $as => $use) {
+        if (!empty($source)) {
+            foreach ($source as $as => $use) {
                 $serialze .= 'use ' . $use . (is_string($as) ? ' as ' . $as : '') . ';' . PHP_EOL;
             }
 
@@ -714,25 +720,4 @@ class ClassParser
         return $serialze;
     }
 
-    /**
-     * Serialize traits.
-     *
-     * @return string
-     *
-     * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
-     */
-    private function serializeTraits() : string
-    {
-        $serialze = '';
-        if (!empty($this->traits)) {
-            foreach ($this->traits as $as => $trait) {
-                $serialze .= 'use ' . $trait . ';' . PHP_EOL;
-            }
-
-            $serialze .= PHP_EOL;
-        }
-
-        return $serialze;
-    }
 }
