@@ -26,7 +26,7 @@ namespace phpOMS\Utils\TaskSchedule;
  * @link       http://orange-management.com
  * @since      1.0.0
  */
-class Interval
+class Interval implements \Serializable
 {
 
     /**
@@ -106,28 +106,8 @@ class Interval
         $this->start = new \DateTime('now');
 
         if (isset($interval)) {
-            $this->parse($interval);
+            $this->unserialize($interval);
         }
-    }
-
-    /**
-     * Parse interval.
-     *
-     * @param string $interval Interval to parse
-     *
-     * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
-     */
-    private function parse(string $interval)
-    {
-        $elements = explode(' ', trim($interval));
-
-        $this->minute     = $this->parseMinute($elements[0]);
-        $this->hour       = $this->parseHour($elements[1]);
-        $this->dayOfMonth = $this->parseDayOfMonth($elements[2]);
-        $this->month      = $this->parseMonth($elements[3]);
-        $this->dayOfWeek  = $this->parseDayOfWeek($elements[4]);
-        $this->year       = $this->parseYear($elements[5]);
     }
 
     /**
@@ -290,13 +270,12 @@ class Interval
      */
     public function setMinute(array $minute, int $step = 0, bool $any = false)
     {
-        if ($this->validateMinute($arr = [
-            'minutes' => $minute,
-            'step'    => $step,
-            'any'     => $any,
-        ])
-        ) {
-            $this->hour = $arr;
+        if ($this->validateTime($minute, $step, 0, 59)) {
+            $this->hour = [
+                'minutes' => $minute,
+                'step'    => $step,
+                'any'     => $any,
+            ];
         } else {
             throw new \Exception('Invalid format.');
         }
@@ -316,13 +295,12 @@ class Interval
      */
     public function setHour(array $hour, int $step = 0, bool $any = false)
     {
-        if ($this->validateHour($arr = [
-            'hours' => $hour,
-            'step'  => $step,
-            'any'   => $any,
-        ])
-        ) {
-            $this->hour = $arr;
+        if ($this->validateTime($hour, $step, 0, 23)) {
+            $this->hour = [
+                'hours' => $hour,
+                'step'  => $step,
+                'any'   => $any,
+            ];
         } else {
             throw new \Exception('Invalid format.');
         }
@@ -372,13 +350,12 @@ class Interval
      */
     public function setMonth(array $month, int $step = 0, bool $any = false)
     {
-        if ($this->validateMonth($arr = [
-            'month' => $month,
-            'step'  => $step,
-            'any'   => $any,
-        ])
-        ) {
-            $this->hour = $arr;
+        if ($this->validateTime($month, $step, 1, 12)) {
+            $this->month = [
+                'month' => $month,
+                'step'  => $step,
+                'any'   => $any,
+            ];
         } else {
             throw new \Exception('Invalid format.');
         }
@@ -517,49 +494,27 @@ class Interval
     }
 
     /**
-     * Validate minute.
+     * Validate time.
      *
-     * @param array $array Element to validate
-     *
-     * @return bool
-     *
-     * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
-     */
-    private function validateMinute(array $array) : bool
-    {
-        foreach ($array['minutes'] as $minute) {
-            if ($minute > 59 || $minute < 0) {
-                return false;
-            }
-        }
-
-        if ($array['step'] > 59 || $array['step'] < 0) {
-            return false;
-        }
-
-        return true;
-    }
-
-    /**
-     * Validate hour.
-     *
-     * @param array $array Element to validate
+     * @param array $times   Times
+     * @param int   $step    Step
+     * @param int   $lowest  Lowest limet
+     * @param int   $highest Highest limet
      *
      * @return bool
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    private function validateHour(array $array) : bool
+    private function validateTime(array $times, int $step, int $lowest, int $highest) : bool
     {
-        foreach ($array['hours'] as $hour) {
-            if ($hour > 23 || $hour < 0) {
+        foreach ($times as $minute) {
+            if ($minute > $highest || $minute < $lowest) {
                 return false;
             }
         }
 
-        if ($array['step'] > 23 || $array['step'] < 0) {
+        if ($step > $highest || $step < $lowest) {
             return false;
         }
 
@@ -588,31 +543,6 @@ class Interval
             return false;
         }
         if ($array['nearest'] > 31 || $array['nearest'] < 1) {
-            return false;
-        }
-
-        return true;
-    }
-
-    /**
-     * Validate month.
-     *
-     * @param array $array Element to validate
-     *
-     * @return bool
-     *
-     * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
-     */
-    private function validateMonth(array $array) : bool
-    {
-        foreach ($array['month'] as $month) {
-            if ($month > 12 || $month < 1) {
-                return false;
-            }
-        }
-
-        if ($array['step'] > 12 || $array['step'] < 1) {
             return false;
         }
 
@@ -662,93 +592,123 @@ class Interval
     /**
      * Create string representation.
      *
+     * @param array $time Time
+     * @param int   $step Step for repetition
+     *
      * @return string
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function __toString() : string
+    public function serializeTime($time, $step)
     {
-        /* Parsing minutes */
-        if (($count = count($this->minute['minutes'])) > 0) {
-            $minute = implode(',', $this->minute['minutes']);
+        if (($count = count($time)) > 0) {
+            $serialize = implode(',', $time);
         } else {
-            $minute = '*';
-            $count  = 1;
+            $serialize = '*';
+            $count     = 1;
         }
 
-        if ($count === 0 && $this->minute['step'] !== 0) {
-            $minute .= '/' . $this->minute['step'];
+        if ($count === 0 && $step !== 0) {
+            $serialize .= '/' . $step;
         }
 
-        /* Parsing hours */
-        if (($count = count($this->hour['hours'])) > 0) {
-            $hour = implode(',', $this->hour['hours']);
-        } else {
-            $hour  = '*';
-            $count = 1;
-        }
+        return $serialize;
+    }
 
-        if ($count === 0 && $this->hour['step'] !== 0) {
-            $hour .= '/' . $this->hour['step'];
-        }
-
-        /* Parsing day of month */
+    /**
+     * Create string representation.
+     *
+     * @return string
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+    public function serializeDayOfMonth()
+    {
         if (($count = count($this->dayOfMonth['dayOfMonth'])) > 0) {
-            $dayOfMonth = implode(',', $this->dayOfMonth['dayOfMonth']);
+            $serialize = implode(',', $this->dayOfMonth['dayOfMonth']);
         } else {
-            $dayOfMonth = '*';
-            $count      = 1;
+            $serialize = '*';
+            $count     = 1;
         }
 
         if ($count === 0 && $this->dayOfMonth['step'] !== 0) {
-            $dayOfMonth .= '/' . $this->dayOfMonth['step'];
+            $serialize .= '/' . $this->dayOfMonth['step'];
         }
 
         if ($this->dayOfMonth['last']) {
-            $dayOfMonth .= 'L';
+            $serialize .= 'L';
         }
 
-        /* Parsing month */
-        if (($count = count($this->month['month'])) > 0) {
-            $month = implode(',', $this->month['month']);
-        } else {
-            $month = '*';
-            $count = 1;
-        }
+        return $serialize;
+    }
 
-        if ($count === 0 && $this->month['step'] !== 0) {
-            $month .= '/' . $this->month['step'];
-        }
-
-        /* Parsing day of week */
+    /**
+     * Create string representation.
+     *
+     * @return string
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+    public function serializeDayOfWeek()
+    {
         if (($count = count($this->dayOfWeek['dayOfWeek'])) > 0) {
-            $dayOfWeek = implode(',', $this->dayOfWeek['dayOfWeek']);
+            $serialize = implode(',', $this->dayOfWeek['dayOfWeek']);
         } else {
-            $dayOfWeek = '*';
+            $serialize = '*';
             $count     = 1;
         }
 
         if ($count === 0 && $this->dayOfWeek['step'] !== 0) {
-            $dayOfWeek .= '#' . $this->dayOfWeek['step'];
+            $serialize .= '#' . $this->dayOfWeek['step'];
         }
 
         if ($this->dayOfWeek['last']) {
-            $dayOfWeek .= 'L';
+            $serialize .= 'L';
         }
 
-        /* Parsing year */
-        if (($count = count($this->year['year'])) > 0) {
-            $year = implode(',', $this->year['year']);
-        } else {
-            $year  = '*';
-            $count = 1;
-        }
+        return $serialize;
+    }
 
-        if ($count === 0 && $this->year['step'] !== 0) {
-            $year .= '/' . $this->year['step'];
-        }
+    /**
+     * Create string representation.
+     *
+     * @return string
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+    public function serialize()
+    {
+        $minute     = $this->serializeTime($this->minute['minutes'], $this->minute['step']);
+        $hour       = $this->serializeTime($this->hour['hours'], $this->hour['step']);
+        $dayOfMonth = $this->serializeDayOfMonth();
+        $month      = $this->serializeTime($this->month['month'], $this->month['step']);
+        $dayOfWeek  = $this->serializeDayOfWeek();
+        $year       = $this->serializeTime($this->year['year'], $this->year['step']);
 
         return $minute . ' ' . $hour . ' ' . $dayOfMonth . ' ' . $month . ' ' . $dayOfWeek . ' ' . $year;
+    }
+
+    /**
+     * Unserialize.
+     *
+     * @param string $serialized String to unserialize
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+    public function unserialize($serialized)
+    {
+        $elements = explode(' ', trim($serialized));
+
+        $this->minute     = $this->parseMinute($elements[0]);
+        $this->hour       = $this->parseHour($elements[1]);
+        $this->dayOfMonth = $this->parseDayOfMonth($elements[2]);
+        $this->month      = $this->parseMonth($elements[3]);
+        $this->dayOfWeek  = $this->parseDayOfWeek($elements[4]);
+        $this->year       = $this->parseYear($elements[5]);
     }
 }
