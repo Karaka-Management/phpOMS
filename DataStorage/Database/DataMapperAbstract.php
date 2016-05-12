@@ -32,7 +32,7 @@ use phpOMS\DataStorage\DataMapperInterface;
  * @link       http://orange-management.com
  * @since      1.0.0
  */
-abstract class DataMapperAbstract implements DataMapperInterface
+class DataMapperAbstract implements DataMapperInterface
 {
 
     /**
@@ -41,7 +41,7 @@ abstract class DataMapperAbstract implements DataMapperInterface
      * @var \phpOMS\DataStorage\Database\Connection\ConnectionAbstract
      * @since 1.0.0
      */
-    protected $db = null;
+    protected static $db = null;
 
     /**
      * Overwriting extended values.
@@ -137,7 +137,7 @@ abstract class DataMapperAbstract implements DataMapperInterface
      * @var array[]
      * @since 1.0.0
      */
-    protected $fields = [];
+    protected static $fields = [];
 
     /**
      * Extended value collection.
@@ -145,7 +145,7 @@ abstract class DataMapperAbstract implements DataMapperInterface
      * @var array
      * @since 1.0.0
      */
-    protected $collection = [
+    protected static $collection = [
         'primaryField' => [],
         'createdAt'    => [],
         'columns'      => [],
@@ -159,15 +159,64 @@ abstract class DataMapperAbstract implements DataMapperInterface
     /**
      * Constructor.
      *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+    private function __construct() {};
+
+    /**
+     * Clone.
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+    private function __clone() {};
+
+    /**
+     * Reset static variables.
+     *
+     * @return void
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+    private static function reset() 
+    {
+        self::$overwrite = true;
+        self::$primaryField = '';
+        self::$createdAt = '';
+        self::$columns = [];
+        self::$hasMany = [];
+        self::$ownsMany = [];
+        self::$hasOne = [];
+        self::$isExtending = [];
+        self::$extends = [];
+        self::$ownsOne = [];
+        self::$table = '';
+        self::$fields = [];
+        self::$collection = [
+            'primaryField' => [],
+            'createdAt'    => [],
+            'columns'      => [],
+            'hasMany'      => [],
+            'hasOne'       => [],
+            'ownsMany'     => [],
+            'ownsOne'      => [],
+            'table'        => [],
+        ];
+    }
+
+    /**
+     * Set database connection.
+     *
      * @param ConnectionAbstract $con Database connection
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function __construct(ConnectionAbstract $con)
+    public static function setConnection(ConnectionAbstract $con)
     {
-        $this->db = $con;
-        $this->extend($this);
+        self::$db = $con;
     }
 
     /**
@@ -178,7 +227,7 @@ abstract class DataMapperAbstract implements DataMapperInterface
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function getPrimaryField() : string
+    public static function getPrimaryField() : string
     {
         return static::$primaryField;
     }
@@ -191,7 +240,7 @@ abstract class DataMapperAbstract implements DataMapperInterface
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function getTable() : string
+    public static function getTable() : string
     {
         return static::$table;
     }
@@ -209,17 +258,17 @@ abstract class DataMapperAbstract implements DataMapperInterface
     private function extend($class)
     {
         /* todo: have to implement this in the queries, so far not used */
-        $this->collection['primaryField'][] = $class::$primaryField;
-        $this->collection['createdAt'][]    = $class::$createdAt;
-        $this->collection['columns'][]      = $class::$columns;
-        $this->collection['hasMany'][]      = $class::$hasMany;
-        $this->collection['hasOne'][]       = $class::$hasOne;
-        $this->collection['ownsMany'][]     = $class::$ownsMany;
-        $this->collection['ownsOne'][]      = $class::$ownsOne;
-        $this->collection['table'][]        = $class::$table;
+        self::$collection['primaryField'][] = $class::$primaryField;
+        self::$collection['createdAt'][]    = $class::$createdAt;
+        self::$collection['columns'][]      = $class::$columns;
+        self::$collection['hasMany'][]      = $class::$hasMany;
+        self::$collection['hasOne'][]       = $class::$hasOne;
+        self::$collection['ownsMany'][]     = $class::$ownsMany;
+        self::$collection['ownsOne'][]      = $class::$ownsOne;
+        self::$collection['table'][]        = $class::$table;
 
         if (($parent = get_parent_class($class)) !== false && !$class::$overwrite) {
-            $this->extend($parent);
+            self::$extend($parent);
         }
     }
 
@@ -229,7 +278,7 @@ abstract class DataMapperAbstract implements DataMapperInterface
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function save()
+    public static function save()
     {
     }
 
@@ -239,7 +288,7 @@ abstract class DataMapperAbstract implements DataMapperInterface
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function delete()
+    public static function delete()
     {
     }
 
@@ -253,18 +302,18 @@ abstract class DataMapperAbstract implements DataMapperInterface
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function with(...$objects)
+    public static function with(...$objects)
     {
         // todo: how to handle with of parent objects/extends/relations
 
-        $this->fields = $objects;
+        self::$fields = $objects;
 
         return $this;
     }
 
-    public function clear()
+    public static function clear()
     {
-        $this->fields = [];
+        self::$fields = [];
     }
 
     /**
@@ -277,14 +326,16 @@ abstract class DataMapperAbstract implements DataMapperInterface
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function find(...$columns) : Builder
+    public static function find(...$columns) : Builder
     {
+        self::$extend($this);
+
         if (count($columns) === 0) {
             $columns = [static::$table . '.*'];
         }
 
-        $query = new Builder($this->db);
-        $query->prefix($this->db->getPrefix());
+        $query = new Builder(self::$db);
+        $query->prefix(self::$db->getPrefix());
 
         return $query->select(...$columns)->from(static::$table);
     }
@@ -302,10 +353,12 @@ abstract class DataMapperAbstract implements DataMapperInterface
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function create($obj, bool $relations = true)
+    public static function create($obj, bool $relations = true)
     {
-        $query = new Builder($this->db);
-        $query->prefix($this->db->getPrefix())
+        self::$extend($this);
+
+        $query = new Builder(self::$db);
+        $query->prefix(self::$db->getPrefix())
             ->into(static::$table);
 
         $reflectionClass = new \ReflectionClass(get_class($obj));
@@ -315,7 +368,7 @@ abstract class DataMapperAbstract implements DataMapperInterface
         /* Create extended */
         foreach (static::$isExtending as $member => $rel) {
             /** @var DataMapperAbstract $mapper */
-            $mapper               = new $rel['mapper']($this->db);
+            $mapper               = new $rel['mapper'](self::$db);
             $extendedIds[$member] = $mapper->create($obj, $relations);
         }
 
@@ -332,7 +385,7 @@ abstract class DataMapperAbstract implements DataMapperInterface
                         /* only insert if not already inserted */
                         /** @var DataMapperAbstract $mapper */
                         $mapper = static::$hasOne[$pname]['mapper'];
-                        $mapper = new $mapper($this->db);
+                        $mapper = new $mapper(self::$db);
 
                         $relReflectionClass = new \ReflectionClass(get_class($relObj));
                         /** @var array $columns */
@@ -377,8 +430,8 @@ abstract class DataMapperAbstract implements DataMapperInterface
             // todo: do i have to reverse the accessibility or is there no risk involved here?
         }
 
-        $this->db->con->prepare($query->toSql())->execute();
-        $objId = $this->db->con->lastInsertId();
+        self::$db->con->prepare($query->toSql())->execute();
+        $objId = self::$db->con->lastInsertId();
 
         // handle relations
         if ($relations) {
@@ -402,7 +455,7 @@ abstract class DataMapperAbstract implements DataMapperInterface
                     // todo: only create if object doesn't exists... get primaryKey field, then get member name based on this
                     // now check if id is null or set.
                     $mapper  = static::$hasMany[$pname]['mapper'];
-                    $mapper  = new $mapper($this->db);
+                    $mapper  = new $mapper(self::$db);
                     $objsIds = [];
 
                     if (isset(static::$hasMany[$pname]['mapper']) && static::$hasMany[$pname]['mapper'] === static::$hasMany[$pname]['relationmapper']) {
@@ -442,8 +495,8 @@ abstract class DataMapperAbstract implements DataMapperInterface
 
                 if (isset(static::$hasMany[$pname]['mapper']) && static::$hasMany[$pname]['mapper'] !== static::$hasMany[$pname]['relationmapper']) {
                     /* is many->many */
-                    $relQuery = new Builder($this->db);
-                    $relQuery->prefix($this->db->getPrefix())
+                    $relQuery = new Builder(self::$db);
+                    $relQuery->prefix(self::$db->getPrefix())
                         ->into(static::$hasMany[$pname]['table'])
                         ->insert(static::$hasMany[$pname]['src'], static::$hasMany[$pname]['dst']);
 
@@ -451,7 +504,7 @@ abstract class DataMapperAbstract implements DataMapperInterface
                         $relQuery->values($src, $objId);
                     }
 
-                    $this->db->con->prepare($relQuery->toSql())->execute();
+                    self::$db->con->prepare($relQuery->toSql())->execute();
                 }
             }
         }
@@ -485,12 +538,14 @@ abstract class DataMapperAbstract implements DataMapperInterface
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function update($obj)
+    public static function update($obj)
     {
         // todo: relations handling (needs to be done first)... updating, deleting or inserting are possible
 
-        $query = new Builder($this->db);
-        $query->prefix($this->db->getPrefix())
+        self::$extend($this);
+
+        $query = new Builder(self::$db);
+        $query->prefix(self::$db->getPrefix())
             ->into(static::$table);
 
         $reflectionClass = new \ReflectionClass(get_class($obj));
@@ -521,7 +576,7 @@ abstract class DataMapperAbstract implements DataMapperInterface
             // todo: do i have to reverse the accessibility or is there no risk involved here?
         }
 
-        $this->db->con->prepare($query->toSql())->execute();
+        self::$db->con->prepare($query->toSql())->execute();
     }
 
     /**
@@ -534,15 +589,15 @@ abstract class DataMapperAbstract implements DataMapperInterface
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function populateIterable(array $result) : array
+    public static function populateIterable(array $result) : array
     {
         $row = [];
 
         foreach ($result as $element) {
             if (isset($element[static::$primaryField])) {
-                $row[$element[static::$primaryField]] = $this->populate($element);
+                $row[$element[static::$primaryField]] = self::$populate($element);
             } else {
-                $row[] = $this->populate($element);
+                $row[] = self::$populate($element);
             }
         }
 
@@ -560,7 +615,7 @@ abstract class DataMapperAbstract implements DataMapperInterface
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function populate(array $result, $obj = null)
+    public static function populate(array $result, $obj = null)
     {
         $class = get_class($this);
         $class = str_replace('Mapper', '', $class);
@@ -576,7 +631,7 @@ abstract class DataMapperAbstract implements DataMapperInterface
             $obj = new $class();
         }
 
-        return $this->populateAbstract($result, $obj);
+        return self::$populateAbstract($result, $obj);
     }
 
     /**
@@ -593,7 +648,7 @@ abstract class DataMapperAbstract implements DataMapperInterface
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function populateExtending($obj, int $relations = RelationType::ALL)
+    public static function populateExtending($obj, int $relations = RelationType::ALL)
     {
         $reflectionClass = new \ReflectionClass(get_class($obj));
 
@@ -601,7 +656,7 @@ abstract class DataMapperAbstract implements DataMapperInterface
             $reflectionProperty = $reflectionClass->getProperty($member);
 
             /** @var DataMapperAbstract $mapper */
-            $mapper = new $rel['mapper']($this->db);
+            $mapper = new $rel['mapper'](self::$db);
             $mapper->get($reflectionProperty->getValue($obj), $relations, $obj);
         }
     }
@@ -617,7 +672,7 @@ abstract class DataMapperAbstract implements DataMapperInterface
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function populateManyToMany(array $result, &$obj)
+    public static function populateManyToMany(array $result, &$obj)
     {
         $reflectionClass = new \ReflectionClass(get_class($obj));
 
@@ -625,7 +680,7 @@ abstract class DataMapperAbstract implements DataMapperInterface
             if ($reflectionClass->hasProperty($member)) {
                 $mapper = static::$hasMany[$member]['mapper'];
                 /** @var DataMapperAbstract $mapper */
-                $mapper             = new $mapper($this->db);
+                $mapper             = new $mapper(self::$db);
                 $reflectionProperty = $reflectionClass->getProperty($member);
 
                 if (!($accessible = $reflectionProperty->isPublic())) {
@@ -639,7 +694,7 @@ abstract class DataMapperAbstract implements DataMapperInterface
                 } else {
                     // todo: replace getId() with lookup by primaryKey and the assoziated member variable and get value
                     $query = $mapper->find()->where(static::$hasMany[$member]['table'] . '.' . static::$hasMany[$member]['dst'], '=', $obj->getId());
-                    $sth   = $this->db->con->prepare($query->toSql());
+                    $sth   = self::$db->con->prepare($query->toSql());
                     $sth->execute();
 
                     $results = $sth->fetchAll(\PDO::FETCH_ASSOC);
@@ -664,7 +719,7 @@ abstract class DataMapperAbstract implements DataMapperInterface
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function populateOneToOne(&$obj)
+    public static function populateOneToOne(&$obj)
     {
         $reflectionClass = new \ReflectionClass(get_class($obj));
 
@@ -679,7 +734,7 @@ abstract class DataMapperAbstract implements DataMapperInterface
 
                 /** @var DataMapperAbstract $mapper */
                 $mapper = static::$hasOne[$member]['mapper'];
-                $mapper = new $mapper($this->db);
+                $mapper = new $mapper(self::$db);
 
                 $value = $mapper->get($reflectionProperty->getValue($obj));
                 $reflectionProperty->setValue($obj, $value);
@@ -704,7 +759,7 @@ abstract class DataMapperAbstract implements DataMapperInterface
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function populateAbstract(array $result, $obj)
+    public static function populateAbstract(array $result, $obj)
     {
         $reflectionClass = new \ReflectionClass(get_class($obj));
 
@@ -751,8 +806,10 @@ abstract class DataMapperAbstract implements DataMapperInterface
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function get($primaryKey, int $relations = RelationType::ALL, $fill = null)
+    public static function get($primaryKey, int $relations = RelationType::ALL, $fill = null)
     {
+        self::$extend($this);
+
         $primaryKey = (array) $primaryKey;
         $fill       = (array) $fill;
         $obj        = [];
@@ -765,12 +822,12 @@ abstract class DataMapperAbstract implements DataMapperInterface
                 next($fill);
             }
 
-            $obj[$value] = $this->populate($this->getRaw($value), $toFill);
+            $obj[$value] = self::$populate(self::$getRaw($value), $toFill);
         }
 
-        $this->fillRelations($obj, $relations);
+        self::$fillRelations($obj, $relations);
 
-        $this->clear();
+        self::$clear();
 
         return count($obj) === 1 ? reset($obj) : $obj;
     }
@@ -785,11 +842,11 @@ abstract class DataMapperAbstract implements DataMapperInterface
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function getAll(int $relations = RelationType::ALL)
+    public static function getAll(int $relations = RelationType::ALL)
     {
-        $obj = $this->populateIterable($this->getAllRaw());
-        $this->fillRelations($obj, $relations);
-        $this->clear();
+        $obj = self::$populateIterable(self::$getAllRaw());
+        self::$fillRelations($obj, $relations);
+        self::$clear();
 
         return $obj;
     }
@@ -804,12 +861,12 @@ abstract class DataMapperAbstract implements DataMapperInterface
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function listResults(Builder $query)
+    public static function listResults(Builder $query)
     {
-        $sth = $this->db->con->prepare($query->toSql());
+        $sth = self::$db->con->prepare($query->toSql());
         $sth->execute();
 
-        return $this->populateIterable($sth->fetchAll(\PDO::FETCH_ASSOC));
+        return self::$populateIterable($sth->fetchAll(\PDO::FETCH_ASSOC));
     }
 
     /**
@@ -826,10 +883,12 @@ abstract class DataMapperAbstract implements DataMapperInterface
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function getNewest(int $limit = 1, Builder $query = null, int $relations = RelationType::ALL)
+    public static function getNewest(int $limit = 1, Builder $query = null, int $relations = RelationType::ALL)
     {
-        $query = $query ?? new Builder($this->db);
-        $query->prefix($this->db->getPrefix())
+        self::$extend($this);
+
+        $query = $query ?? new Builder(self::$db);
+        $query->prefix(self::$db->getPrefix())
             ->select('*')
             ->from(static::$table)
             ->limit($limit); /* todo: limit is not working, setting this to 2 doesn't have any effect!!! */
@@ -840,14 +899,14 @@ abstract class DataMapperAbstract implements DataMapperInterface
             $query->orderBy(static::$table . '.' . static::$columns[static::$primaryField]['name'], 'DESC');
         }
 
-        $sth = $this->db->con->prepare($query->toSql());
+        $sth = self::$db->con->prepare($query->toSql());
         $sth->execute();
 
         $results = $sth->fetchAll(\PDO::FETCH_ASSOC);
-        $obj     = $this->populateIterable(is_bool($results) ? [] : $results);
+        $obj     = self::$populateIterable(is_bool($results) ? [] : $results);
 
-        $this->fillRelations($obj, $relations);
-        $this->clear();
+        self::$fillRelations($obj, $relations);
+        self::$clear();
 
         return $obj;
 
@@ -864,17 +923,17 @@ abstract class DataMapperAbstract implements DataMapperInterface
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function getAllByQuery(Builder $query, bool $relations = true) : array
+    public static function getAllByQuery(Builder $query, bool $relations = true) : array
     {
-        $sth = $this->db->con->prepare($query->toSql());
+        $sth = self::$db->con->prepare($query->toSql());
         $sth->execute();
 
         $results = $sth->fetchAll(\PDO::FETCH_ASSOC);
         $results = is_bool($results) ? [] : $results;
 
-        $obj = $this->populateIterable($results);
-        $this->fillRelations($obj, $relations);
-        $this->clear();
+        $obj = self::$populateIterable($results);
+        self::$fillRelations($obj, $relations);
+        self::$clear();
 
         return $obj;
     }
@@ -889,7 +948,7 @@ abstract class DataMapperAbstract implements DataMapperInterface
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function getRandom(int $relations = RelationType::ALL)
+    public static function getRandom(int $relations = RelationType::ALL)
     {
         // todo: implement
     }
@@ -905,7 +964,7 @@ abstract class DataMapperAbstract implements DataMapperInterface
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function fillRelations(array &$obj, int $relations = RelationType::ALL)
+    public static function fillRelations(array &$obj, int $relations = RelationType::ALL)
     {
         $hasMany     = count(static::$hasMany) > 0;
         $hasOne      = count(static::$hasOne) > 0;
@@ -914,17 +973,17 @@ abstract class DataMapperAbstract implements DataMapperInterface
         if (($relations !== RelationType::NONE && ($hasMany || $hasOne)) || $isExtending) {
             foreach ($obj as $key => $value) {
                 if ($isExtending) {
-                    $this->populateExtending($obj[$key], $relations);
+                    self::$populateExtending($obj[$key], $relations);
                 }
 
                 /* loading relations from relations table and populating them and then adding them to the object */
                 if ($relations !== RelationType::NONE) {
                     if ($hasMany) {
-                        $this->populateManyToMany($this->getManyRaw($key, $relations), $obj[$key]);
+                        self::$populateManyToMany(self::$getManyRaw($key, $relations), $obj[$key]);
                     }
 
                     if ($hasOne) {
-                        $this->populateOneToOne($obj[$key]);
+                        self::$populateOneToOne($obj[$key]);
                     }
                 }
             }
@@ -941,15 +1000,15 @@ abstract class DataMapperAbstract implements DataMapperInterface
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function getRaw($primaryKey) : array
+    public static function getRaw($primaryKey) : array
     {
-        $query = new Builder($this->db);
-        $query->prefix($this->db->getPrefix())
+        $query = new Builder(self::$db);
+        $query->prefix(self::$db->getPrefix())
             ->select('*')
             ->from(static::$table)
             ->where(static::$table . '.' . static::$primaryField, '=', $primaryKey);
 
-        $sth = $this->db->con->prepare($query->toSql());
+        $sth = self::$db->con->prepare($query->toSql());
         $sth->execute();
 
         $results = $sth->fetch(\PDO::FETCH_ASSOC);
@@ -967,14 +1026,14 @@ abstract class DataMapperAbstract implements DataMapperInterface
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function getAllRaw() : array
+    public static function getAllRaw() : array
     {
-        $query = new Builder($this->db);
-        $query->prefix($this->db->getPrefix())
+        $query = new Builder(self::$db);
+        $query->prefix(self::$db->getPrefix())
             ->select('*')
             ->from(static::$table);
 
-        $sth = $this->db->con->prepare($query->toSql());
+        $sth = self::$db->con->prepare($query->toSql());
         $sth->execute();
 
         $results = $sth->fetchAll(\PDO::FETCH_ASSOC);
@@ -993,14 +1052,14 @@ abstract class DataMapperAbstract implements DataMapperInterface
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function getManyRaw($primaryKey, int $relations = RelationType::ALL) : array
+    public static function getManyRaw($primaryKey, int $relations = RelationType::ALL) : array
     {
         $result = [];
 
         foreach (static::$hasMany as $member => $value) {
             if ($value['mapper'] !== $value['relationmapper']) {
-                $query = new Builder($this->db);
-                $query->prefix($this->db->getPrefix());
+                $query = new Builder(self::$db);
+                $query->prefix(self::$db->getPrefix());
 
                 if ($relations === RelationType::ALL) {
                     $query->select($value['table'] . '.' . $value['src'])
@@ -1027,7 +1086,7 @@ abstract class DataMapperAbstract implements DataMapperInterface
                                               */
                 }
 
-                $sth = $this->db->con->prepare($query->toSql());
+                $sth = self::$db->con->prepare($query->toSql());
                 $sth->execute();
                 $result[$member] = $sth->fetchAll(\PDO::FETCH_COLUMN);
             } else {
