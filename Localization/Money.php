@@ -154,7 +154,8 @@ class Money implements \Serializable
         }
         
         $right = substr($right, 0, -self::MAX_DECIMALS);
-        return (int) $left * 100000 + (int) $right;
+
+        return (int) $left * 10 * self::MAX_DECIMALS + (int) $right;
     }
     
     /**
