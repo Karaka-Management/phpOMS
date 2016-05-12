@@ -43,6 +43,16 @@ class TableException extends \PDOException
         parent::__construct('The table "' . $message . '" doesn\'t exist.', $code, $previous);
     }
 
+    /**
+     * Get table name from exception.
+     *
+     * @param string     $message Exception message
+     *
+     * @return string
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
     public static function findTable(string $message) : string
     {
         $pos1 = strpos($message, '\'');
