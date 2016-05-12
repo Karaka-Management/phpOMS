@@ -368,8 +368,8 @@ class DataMapperAbstract implements DataMapperInterface
         /* Create extended */
         foreach (static::$isExtending as $member => $rel) {
             /** @var DataMapperAbstract $mapper */
-            $mapper               = new $rel['mapper'](self::$db);
-            $extendedIds[$member] = $mapper->create($obj, $relations);
+            $mapper               = $rel['mapper'];
+            $extendedIds[$member] = $mapper::create($obj, $relations);
         }
 
         foreach ($properties as $property) {
@@ -385,7 +385,6 @@ class DataMapperAbstract implements DataMapperInterface
                         /* only insert if not already inserted */
                         /** @var DataMapperAbstract $mapper */
                         $mapper = static::$hasOne[$pname]['mapper'];
-                        $mapper = new $mapper(self::$db);
 
                         $relReflectionClass = new \ReflectionClass(get_class($relObj));
                         /** @var array $columns */
@@ -395,7 +394,7 @@ class DataMapperAbstract implements DataMapperInterface
                         $relProperty->setAccessible(false);
 
                         if (empty($primaryKey)) {
-                            $primaryKey = $mapper->create($property->getValue($obj));
+                            $primaryKey = $mapper::create($property->getValue($obj));
                         }
 
                         //$property->setValue($obj, $primaryKey);
@@ -455,7 +454,6 @@ class DataMapperAbstract implements DataMapperInterface
                     // todo: only create if object doesn't exists... get primaryKey field, then get member name based on this
                     // now check if id is null or set.
                     $mapper  = static::$hasMany[$pname]['mapper'];
-                    $mapper  = new $mapper(self::$db);
                     $objsIds = [];
 
                     if (isset(static::$hasMany[$pname]['mapper']) && static::$hasMany[$pname]['mapper'] === static::$hasMany[$pname]['relationmapper']) {
@@ -485,7 +483,7 @@ class DataMapperAbstract implements DataMapperInterface
                             $relProperty->setAccessible(false);
                         }
 
-                        $objsIds[$key] = $mapper->create($value);
+                        $objsIds[$key] = $mapper::create($value);
                     }
                 } elseif (is_scalar($temp)) {
                     $objsIds = $values;
@@ -656,8 +654,8 @@ class DataMapperAbstract implements DataMapperInterface
             $reflectionProperty = $reflectionClass->getProperty($member);
 
             /** @var DataMapperAbstract $mapper */
-            $mapper = new $rel['mapper'](self::$db);
-            $mapper->get($reflectionProperty->getValue($obj), $relations, $obj);
+            $mapper = $rel['mapper'];
+            $mapper::get($reflectionProperty->getValue($obj), $relations, $obj);
         }
     }
 
@@ -679,8 +677,6 @@ class DataMapperAbstract implements DataMapperInterface
         foreach ($result as $member => $values) {
             if ($reflectionClass->hasProperty($member)) {
                 $mapper = static::$hasMany[$member]['mapper'];
-                /** @var DataMapperAbstract $mapper */
-                $mapper             = new $mapper(self::$db);
                 $reflectionProperty = $reflectionClass->getProperty($member);
 
                 if (!($accessible = $reflectionProperty->isPublic())) {
@@ -689,16 +685,16 @@ class DataMapperAbstract implements DataMapperInterface
 
                 // relation table vs relation defined in same table as object e.g. comments
                 if ($values !== false) {
-                    $objects = $mapper->get($values);
+                    $objects = $mapper::get($values);
                     $reflectionProperty->setValue($obj, $objects);
                 } else {
                     // todo: replace getId() with lookup by primaryKey and the assoziated member variable and get value
-                    $query = $mapper->find()->where(static::$hasMany[$member]['table'] . '.' . static::$hasMany[$member]['dst'], '=', $obj->getId());
+                    $query = $mapper::find()->where(static::$hasMany[$member]['table'] . '.' . static::$hasMany[$member]['dst'], '=', $obj->getId());
                     $sth   = self::$db->con->prepare($query->toSql());
                     $sth->execute();
 
                     $results = $sth->fetchAll(\PDO::FETCH_ASSOC);
-                    $objects = $mapper->populateIterable($results);
+                    $objects = $mapper::populateIterable($results);
                     $reflectionProperty->setValue($obj, $objects);
                 }
 
@@ -734,9 +730,8 @@ class DataMapperAbstract implements DataMapperInterface
 
                 /** @var DataMapperAbstract $mapper */
                 $mapper = static::$hasOne[$member]['mapper'];
-                $mapper = new $mapper(self::$db);
 
-                $value = $mapper->get($reflectionProperty->getValue($obj));
+                $value = $mapper::get($reflectionProperty->getValue($obj));
                 $reflectionProperty->setValue($obj, $value);
 
                 if (!$accessible) {
