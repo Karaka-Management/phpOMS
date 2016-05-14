@@ -43,7 +43,7 @@ interface DataMapperInterface
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function create($obj);
+    public static function create($obj);
 
     /**
      * Update data.
@@ -87,7 +87,7 @@ interface DataMapperInterface
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function find(...$columns) : Builder;
+    public static function find(...$columns) : Builder;
 
     /**
      * List data.
