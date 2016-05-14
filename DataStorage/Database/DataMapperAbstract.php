@@ -32,10 +32,8 @@ use phpOMS\DataStorage\DataMapperInterface;
  * @link       http://orange-management.com
  * @since      1.0.0
  */
-class DataMapperAbstract //implements DataMapperInterface
+class DataMapperAbstract implements DataMapperInterface
 {
-    protected static $CLASS = __CLASS__;
-
     /**
      * Database connection.
      *
@@ -163,7 +161,9 @@ class DataMapperAbstract //implements DataMapperInterface
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    private function __construct() {}
+    private function __construct()
+    {
+    }
 
     /**
      * Clone.
@@ -171,7 +171,9 @@ class DataMapperAbstract //implements DataMapperInterface
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    private function __clone() {}
+    private function __clone()
+    {
+    }
 
     /**
      * Set database connection.
@@ -280,19 +282,19 @@ class DataMapperAbstract //implements DataMapperInterface
 
     public static function clear()
     {
-        self::$overwrite = true;
+        self::$overwrite    = true;
         self::$primaryField = '';
-        self::$createdAt = '';
-        self::$columns = [];
-        self::$hasMany = [];
-        self::$ownsMany = [];
-        self::$hasOne = [];
-        self::$isExtending = [];
-        self::$extends = [];
-        self::$ownsOne = [];
-        self::$table = '';
-        self::$fields = [];
-        self::$collection = [
+        self::$createdAt    = '';
+        self::$columns      = [];
+        self::$hasMany      = [];
+        self::$ownsMany     = [];
+        self::$hasOne       = [];
+        self::$isExtending  = [];
+        self::$extends      = [];
+        self::$ownsOne      = [];
+        self::$table        = '';
+        self::$fields       = [];
+        self::$collection   = [
             'primaryField' => [],
             'createdAt'    => [],
             'columns'      => [],
@@ -332,7 +334,7 @@ class DataMapperAbstract //implements DataMapperInterface
      * Create object in db.
      *
      * @param mixed $obj       Object reference (gets filled with insert id)
-     * @param bool  $relations Create all relations as well
+     * @param int   $relations Create all relations as well
      *
      * @return mixed
      *
@@ -341,7 +343,7 @@ class DataMapperAbstract //implements DataMapperInterface
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public static function create($obj, bool $relations = true)
+    public static function create($obj, int $relations = RelationType::ALL)
     {
         self::extend(__CLASS__);
 
@@ -421,7 +423,7 @@ class DataMapperAbstract //implements DataMapperInterface
         $objId = self::$db->con->lastInsertId();
 
         // handle relations
-        if ($relations) {
+        if ($relations === RelationType::ALL) {
             foreach (static::$hasMany as $member => $rel) {
                 /* is a has many property */
                 $property = $reflectionClass->getProperty($member); // throws ReflectionException
@@ -664,7 +666,7 @@ class DataMapperAbstract //implements DataMapperInterface
 
         foreach ($result as $member => $values) {
             if ($reflectionClass->hasProperty($member)) {
-                $mapper = static::$hasMany[$member]['mapper'];
+                $mapper             = static::$hasMany[$member]['mapper'];
                 $reflectionProperty = $reflectionClass->getProperty($member);
 
                 if (!($accessible = $reflectionProperty->isPublic())) {
@@ -899,14 +901,14 @@ class DataMapperAbstract //implements DataMapperInterface
      * Get all by custom query.
      *
      * @param Builder $query     Query
-     * @param bool    $relations Relations
+     * @param int     $relations Relations
      *
      * @return array
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public static function getAllByQuery(Builder $query, bool $relations = true) : array
+    public static function getAllByQuery(Builder $query, int $relations = RelationType::ALL) : array
     {
         $sth = self::$db->con->prepare($query->toSql());
         $sth->execute();

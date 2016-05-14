@@ -55,7 +55,7 @@ interface DataMapperInterface
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function update($obj);
+    public static function update($obj);
 
     /**
      * Save data.
@@ -65,7 +65,7 @@ interface DataMapperInterface
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function save();
+    public static function save();
 
     /**
      * Delete data.
@@ -75,7 +75,7 @@ interface DataMapperInterface
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function delete();
+    public static function delete();
 
     /**
      * Find data.
@@ -99,7 +99,7 @@ interface DataMapperInterface
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function listResults(Builder $query);
+    public static function listResults(Builder $query);
 
     /**
      * Populate data.
@@ -111,7 +111,7 @@ interface DataMapperInterface
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function populate(array $result);
+    public static function populate(array $result);
 
     /**
      * Populate data.
@@ -123,7 +123,7 @@ interface DataMapperInterface
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function populateIterable(array $result) : array;
+    public static function populateIterable(array $result) : array;
 
     /**
      * Load.
@@ -135,7 +135,7 @@ interface DataMapperInterface
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function with(...$objects);
+    public static function with(...$objects);
 
     /**
      * Get object.
@@ -147,6 +147,6 @@ interface DataMapperInterface
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function get($primaryKey);
+    public static function get($primaryKey);
 
 }
