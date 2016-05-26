@@ -15,8 +15,8 @@
  */
 namespace phpOMS\Utils\Git;
 
+use phpOMS\Auth\Auth;
 use phpOMS\System\File\PathException;
-use phpOMS\Validation\Validator;
 
 /**
  * Repository class
@@ -73,8 +73,8 @@ class Repository
      */
     public function __construct(string $path)
     {
-        $this->branch = $this->getActiveBranch();
         $this->setPath($path);
+        $this->branch = $this->getActiveBranch();
     }
 
     /**
@@ -119,7 +119,7 @@ class Repository
 
         $this->path = realpath($path);
 
-        if ($this->path === false || !Validator::startsWith($this->path, ROOT_PATH)) {
+        if ($this->path === false) {
             throw new PathException($path);
         }
 
@@ -178,7 +178,7 @@ class Repository
             throw new \Exception($stderr);
         }
 
-        return $this->parseLines($stdout);
+        return $this->parseLines(trim($stdout));
     }
 
     /**
@@ -193,22 +193,20 @@ class Repository
      */
     private function parseLines(string $lines) : array
     {
-        $lines     = preg_replace('/!\\t+/', '|', $lines);
-        $lines     = preg_replace('!\s+!', ' ', $lines);
-        $lineArray = preg_split('/\\r\\n|\\r|\\n/', $lines);
+        //$lines     = preg_replace('/!\\t+/', '|', $lines);
+        //$lines     = preg_replace('!\s+!', ' ', $lines);
+        $lineArray = preg_split('/\r\n|\n|\r/', $lines);
+        $lines     = [];
 
         foreach ($lineArray as $key => $line) {
-            $lineArray[$key] = trim($line, ' |');
+            $temp = trim($line, ' |');
 
-            if (empty($line)) {
-                unset($lineArray[$key]);
-            } else {
-                $lineArray[$key] = $line;
+            if (!empty($temp)) {
+                $lines[] = $temp;
             }
         }
 
-        return $lineArray;
-
+        return $lines;
     }
 
     /**
@@ -333,8 +331,8 @@ class Repository
     /**
      * Create local branch.
      *
-     * @param Branch $branch  Branch
-     * @param bool $force Force?
+     * @param Branch $branch Branch
+     * @param bool   $force  Force?
      *
      * @return string
      *
@@ -346,12 +344,20 @@ class Repository
         return implode("\n", $this->run('branch ' . ($force ? '-D' : '-d') . ' ' . $branch->getName()));
     }
 
+    /**
+     * Get all branches.
+     *
+     * @return array
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
     public function getBranches() : array
     {
         $branches = $this->run('branch');
 
         foreach ($branches as $key => &$branch) {
-            $branch = trim($branch);
+            $branch = trim($branch, '* ');
 
             if ($branch === '') {
                 unset($branches[$key]);
@@ -361,12 +367,20 @@ class Repository
         return $branches;
     }
 
+    /**
+     * Get all remote branches.
+     *
+     * @return array
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
     public function getBranchesRemote() : array
     {
         $branches = $this->run('branch -r');
 
         foreach ($branches as $key => &$branch) {
-            $branch = trim($branch);
+            $branch = trim($branch, '* ');
 
             if ($branch === '' || strpos($branch, 'HEAD -> ') !== false) {
                 unset($branches[$key]);
@@ -568,16 +582,28 @@ class Repository
      *
      * @return Commit
      *
+     * @throws \Exception
+     *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function getCommit(string $commit) : Commit
     {
         $commit = escapeshellarg($commit);
-        $lines  = $this->run('log show --name-only ' . $commit);
+        $lines  = $this->run('show --name-only ' . $commit);
         $count  = count($lines);
 
+        if (empty($lines)) {
+            // todo: return null commit
+            return new Commit();
+        }
+
         preg_match('/[0-9ABCDEFabcdef]{40}/', $lines[0], $matches);
+
+        if (!isset($matches[0]) || strlen($matches[0]) !== 40) {
+            throw new \Exception('Invalid commit id');
+        }
+
         $author = explode(':', $lines[1]);
         $author = explode('<', trim($author[1]));
         $date   = explode(':', $lines[2]);
@@ -622,11 +648,48 @@ class Repository
         $commits = [];
 
         foreach ($lines as $line) {
-            $count              = explode('|', $line);
-            $commits[$count[1]] = $count[0];
+            preg_match('/^[0-9]*/', $line, $matches);
+
+            $commits[substr($line, strlen($matches[0]) + 1)] = (int) $matches[0];
         }
 
         return $commits;
+    }
+
+    /**
+     * Get contributors.
+     *
+     * @param \DateTime $start Start date
+     * @param \DateTime $end   End date
+     *
+     * @return array
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+    public function getContributors(\DateTime $start = null, \DateTime $end = null) : array
+    {
+        if (!isset($start)) {
+            $start = new \DateTime('1970-12-31');
+        }
+
+        if (!isset($end)) {
+            $end = new \DateTime('now');
+        }
+
+        $lines        = $this->run('shortlog -s -n --since="' . $start->format('Y-m-d') . '" --before="' . $end->format('Y-m-d') . '" --all');
+        $contributors = [];
+
+        foreach ($lines as $line) {
+            preg_match('/^[0-9]*/', $line, $matches);
+
+            $contributor = new Author(substr($line, strlen($matches[0]) + 1));
+            $contributor->setCommitCount($this->getCommitsCount($start, $end)[$contributor->getName()]);
+
+            $contributors[] = $contributor;
+        }
+
+        return $contributors;
     }
 
     /**
@@ -691,14 +754,25 @@ class Repository
      *
      * @return Commit
      *
+     * @throws \Exception
+     *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function getNewest() : Commit
     {
-        $lines = $this->run('log --name-status HEAD^..HEAD');
+        $lines = $this->run('log -n 1');
 
-        preg_match('[0-9ABCDEFabcdef]{40}', $lines[0], $matches);
+        if (empty($lines)) {
+            // todo: return nullcommit
+            return new Commit();
+        }
+
+        preg_match('/[0-9ABCDEFabcdef]{40}/', $lines[0], $matches);
+
+        if (!isset($matches[0]) || strlen($matches[0]) !== 40) {
+            throw new \Exception('Invalid commit id');
+        }
 
         return $this->getCommit($matches[0]);
     }

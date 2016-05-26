@@ -122,6 +122,7 @@ abstract class ResponseAbstract implements MessageInterface
 
     /**
      * {@inheritdoc}
+     * todo: shouldn't this only be available in the header?!
      */
     public function setStatusCode(string $status)
     {
@@ -131,6 +132,7 @@ abstract class ResponseAbstract implements MessageInterface
 
     /**
      * {@inheritdoc}
+     * todo: shouldn't this only be available in the header?!
      */
     public function getStatusCode() : string
     {

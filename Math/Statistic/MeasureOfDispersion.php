@@ -80,7 +80,7 @@ class MeasureOfDispersion
             $sum += $value - $mean;
         }
 
-        return $sum / $count;
+        return $sum / ($count - 1);
     }
 
     /**
@@ -204,6 +204,89 @@ class MeasureOfDispersion
      */
     public static function bravaisPersonCorrelationcoefficient(array $x, array $y) : float
     {
-        return self::empiricalCovariance($x, $y) / sqrt(self::empiricalCovariance($x, $x) * self::empiricalCovariance($y, $y));
+        return self::empiricalCovariance($x, $y) / (self::standardDeviation($x) * self::standardDeviation($y));
+    }
+
+    /**
+     * Get interquartile range.
+     *
+     * @param array $x Dataset
+     *
+     * @return float
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+    public static function getIQR(array $x) : float
+    {
+    }
+
+    /**
+     * Get mean deviation.
+     *
+     * @param array $x Values
+     *
+     * @return float
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+    public static function meanDeviation(array $x) : float
+    {
+        $mean = Average::arithmeticMean($x);
+        $sum  = 0.0;
+
+        foreach ($x as $xi) {
+            $sum += ($xi - $mean);
+        }
+
+        return $sum / count($x);
+    }
+
+    /**
+     * Get squared mean deviation.
+     *
+     * @param array $x Values
+     *
+     * @return float
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+    public static function squaredMeanDeviation(array $x) : float
+    {
+        $mean = Average::arithmeticMean($x);
+        $sum  = 0.0;
+
+        foreach ($x as $xi) {
+            $sum += ($xi - $mean) ** 2;
+        }
+
+        return $sum / count($x);
+    }
+
+    /**
+     * Get the autocorrelation coefficient (ACF).
+     *
+     * @param array $x Dataset
+     * @param int   $k k-th coefficient
+     *
+     * @return float
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+    public static function autocorrelationCoefficient(array $x, int $k = 0) : float
+    {
+        $squaredMeanDeviation = self::squaredMeanDeviation($x);
+        $mean                 = Average::arithmeticMean($x);
+        $count                = count($x);
+        $sum                  = 0.0;
+
+        for ($i = $k + 1; $i < $count; $i++) {
+            $sum += ($x[$i] - $mean) * ($x[$i - $k] - $mean);
+        }
+
+        return $sum / ($squaredMeanDeviation * count($x));
     }
 }

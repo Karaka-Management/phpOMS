@@ -182,9 +182,4 @@ class UniformDistributionContinuous
     {
         return 1 / 12 * ($b - $a) ** 2;
     }
-
-    public static function getRandom()
-    {
-
-    }
 }

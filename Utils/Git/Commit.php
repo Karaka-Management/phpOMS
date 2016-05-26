@@ -102,7 +102,7 @@ class Commit
      */
     public function __construct(string $id = '')
     {
-        $this->id     = escapeshellarg($id);
+        $this->id     = $id;
         $this->author = new Author();
         $this->branch = new Branch();
         $this->tag    = new Tag();

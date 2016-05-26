@@ -168,6 +168,9 @@ class Header extends HeaderAbstract
             case RequestStatus::R_403:
                 $this->generate403();
                 break;
+            case RequestStatus::R_404:
+                $this->generate404();
+                break;
             case RequestStatus::R_406:
                 $this->generate406();
                 break;
@@ -183,6 +186,18 @@ class Header extends HeaderAbstract
     }
 
     /**
+     * Get status code.
+     *
+     * @return int
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+    public static function getStatusCode() : int {
+        return http_response_code();
+    }
+
+    /**
      * Generate predefined header.
      *
      * @return void
@@ -194,6 +209,22 @@ class Header extends HeaderAbstract
     {
         $this->set('HTTP', 'HTTP/1.0 403 Forbidden');
         $this->set('Status', 'Status: HTTP/1.0 403 Forbidden');
+        http_response_code(403);
+    }
+
+    /**
+     * Generate predefined header.
+     *
+     * @return void
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+    private function generate404()
+    {
+        $this->set('HTTP', 'HTTP/1.0 404 Not Found');
+        $this->set('Status', 'Status: HTTP/1.0 404 Not Found');
+        http_response_code(404);
     }
 
     /**
@@ -208,6 +239,7 @@ class Header extends HeaderAbstract
     {
         $this->set('HTTP', 'HTTP/1.0 406 Not acceptable');
         $this->set('Status', 'Status: 406 Not acceptable');
+        http_response_code(406);
     }
 
     /**
@@ -223,6 +255,7 @@ class Header extends HeaderAbstract
         $this->set('HTTP', 'HTTP/1.0 503 Service Temporarily Unavailable');
         $this->set('Status', 'Status: 503 Service Temporarily Unavailable');
         $this->set('Retry-After', 'Retry-After: 300');
+        http_response_code(503);
     }
 
     /**

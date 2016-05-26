@@ -14,6 +14,7 @@
  * @link       http://orange-management.com
  */
 namespace phpOMS\System\File;
+
 use phpOMS\Validation\Validator;
 
 /**
@@ -159,7 +160,7 @@ class Directory extends FileAbstract implements \Iterator, \ArrayAccess
      * Create directory.
      *
      * @param string $path       Path
-     * @param int    $permission Directory permission
+     * @param string $permission Directory permission
      * @param bool   $recursive  Create parent directories if applicable
      *
      * @return bool
@@ -167,7 +168,7 @@ class Directory extends FileAbstract implements \Iterator, \ArrayAccess
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public static function createPath(string $path, int $permission = 0644, bool $recursive = false) : bool
+    public static function createPath(string $path, string $permission = '0644', bool $recursive = false) : bool
     {
         if ($recursive && !file_exists($parent = self::getParent($path))) {
             self::createPath($parent, $permission, $recursive);

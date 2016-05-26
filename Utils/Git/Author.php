@@ -45,6 +45,14 @@ class Author
     private $email = '';
 
     /**
+     * Commit count.
+     *
+     * @var int
+     * @since 1.0.0
+     */
+    private $commitCount = 0;
+
+    /**
      * Constructor
      *
      * @param string $name  Author name
@@ -55,8 +63,8 @@ class Author
      */
     public function __construct(string $name = '', string $email = '')
     {
-        $this->name  = escapeshellarg($name);
-        $this->email = escapeshellarg($email);
+        $this->name  = $name;
+        $this->email = $email;
     }
 
     /**
@@ -83,5 +91,33 @@ class Author
     public function getEmail() : string
     {
         return $this->email;
+    }
+
+    /**
+     * Set commit count
+     *
+     * @param int $count Commit count
+     *
+     * @return void
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+    public function setCommitCount(int $count)
+    {
+        $this->commitCount = $count;
+    }
+
+    /**
+     * Get commit count
+     *
+     * @return int
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+    public function getCommitCount() : int
+    {
+        return $this->commitCount;
     }
 }

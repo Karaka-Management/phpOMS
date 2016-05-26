@@ -18,7 +18,6 @@ namespace phpOMS\DataStorage\Database\Schema\Grammar;
 
 use phpOMS\DataStorage\Database\BuilderAbstract;
 use phpOMS\DataStorage\Database\GrammarAbstract;
-use phpOMS\DataStorage\Database\Schema\Builder;
 use phpOMS\DataStorage\Database\Schema\QueryType;
 
 /**
@@ -55,6 +54,16 @@ class Grammar extends GrammarAbstract
         'drop',
     ];
 
+    /**
+     * Compile components based on query type.
+     *
+     * @param BuilderAbstract $query Query
+     *
+     * @return array
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
     public function compileComponents(BuilderAbstract $query) : array
     {
         $sql = [];
@@ -77,7 +86,18 @@ class Grammar extends GrammarAbstract
         return $sql;
     }
 
-    protected function compileDrop(Builder $query, array $tables) : string
+    /**
+     * Compile drop query.
+     *
+     * @param BuilderAbstract $query  Query
+     * @param array           $tables Tables to drop
+     *
+     * @return string
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+    protected function compileDrop(BuilderAbstract $query, array $tables) : string
     {
         $expression = $this->expressionizeTableColumn($tables, $query->getPrefix());
 

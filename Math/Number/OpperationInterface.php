@@ -1,16 +1,102 @@
 <?php
+/**
+ * Orange Management
+ *
+ * PHP Version 7.0
+ *
+ * @category   TBD
+ * @package    TBD
+ * @author     OMS Development Team <dev@oms.com>
+ * @author     Dennis Eichhorn <d.eichhorn@oms.com>
+ * @copyright  2013 Dennis Eichhorn
+ * @license    OMS License 1.0
+ * @version    1.0.0
+ * @link       http://orange-management.com
+ */
+namespace phpOMS\Math\Number;
 
-interface NumberInterface
+/**
+ * Basic operation interface.
+ *
+ * @category   Framework
+ * @package    phpOMS\Account
+ * @author     OMS Development Team <dev@oms.com>
+ * @author     Dennis Eichhorn <d.eichhorn@oms.com>
+ * @license    OMS License 1.0
+ * @link       http://orange-management.com
+ * @since      1.0.0
+ */
+interface OperationInterface
 {
-    public function add($number);
+    /**
+     * Add value.
+     *
+     * @param mixed $x Value
+     *
+     * @return mixed
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+    public function add($x);
 
-    public function sub($number);
+    /**
+     * Subtract value.
+     *
+     * @param mixed $x Value
+     *
+     * @return mixed
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+    public function sub($x);
 
-    public function mult($number);
+    /**
+     * Right multiplicate value.
+     *
+     * @param mixed $x Value
+     *
+     * @return mixed
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+    public function mult($x);
 
-    public function div($number);
+    /**
+     * Right devision value.
+     *
+     * @param mixed $x Value
+     *
+     * @return mixed
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+    public function div($x);
 
+    /**
+     * Power of value.
+     *
+     * @param mixed $p Power
+     *
+     * @return mixed
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
     public function pow($p);
 
-    public function abs($number);
+    /**
+     * Abs of value.
+     *
+     * @param mixed $x Value
+     *
+     * @return mixed
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+    public function abs($x);
 }

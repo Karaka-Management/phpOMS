@@ -138,6 +138,18 @@ class Functions
         return self::ackermann($m - 1, self::ackermann($m, $n - 1));
     }
 
+
+    public static function abs(array $values) : array
+    {
+        $abs = [];
+
+        foreach ($values as $value) {
+            $abs[] = abs($value);
+        }
+
+        return $abs;
+    }
+
     /**
      * Calculate inverse modular.
      *

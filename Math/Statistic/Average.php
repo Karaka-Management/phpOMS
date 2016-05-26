@@ -60,6 +60,25 @@ class Average
         return $avg;
     }
 
+    /**
+     * Average change.
+     *
+     * @param array $x Dataset
+     * @param int   $h Future steps
+     *
+     * @return float
+     *
+     * @throws
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+    public static function averageChange(array $x, int $h = 1) : float
+    {
+        $count = count($x);
+
+        return $x[$count - 1] + $h * ($x[$count - 1] - $x[0]) / ($count - 1); 
+    }
 
     /**
      * Calculate the mode.
@@ -104,7 +123,7 @@ class Average
         } else {
             $low    = $values[$middleval];
             $high   = $values[$middleval + 1];
-            $median = (($low + $high) / 2);
+            $median = ($low + $high) / 2;
         }
 
         return $median;

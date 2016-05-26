@@ -16,6 +16,17 @@
 
 namespace phpOMS\DataStorage\Database\Query\Grammar;
 
+/**
+ * Grammar class.
+ *
+ * @category   Framework
+ * @package    phpOMS\DataStorage\Database\Query\Grammar
+ * @author     OMS Development Team <dev@oms.com>
+ * @author     Dennis Eichhorn <d.eichhorn@oms.com>
+ * @license    OMS License 1.0
+ * @link       http://orange-management.com
+ * @since      1.0.0
+ */
 class MysqlGrammar extends Grammar
 {
 

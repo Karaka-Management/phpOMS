@@ -26,7 +26,7 @@ namespace phpOMS\Utils\TaskSchedule;
  * @link       http://orange-management.com
  * @since      1.0.0
  */
-class CronJob extends TaskAbstract
+class CronJob extends TaskAbstract implements \Serializable
 {
 
     /**
@@ -49,7 +49,15 @@ class CronJob extends TaskAbstract
         $this->command = $cmd;
     }
 
-    public function __toString()
+    /**
+     * Serialize cronjob.
+     *
+     * @return string
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+    public function serialize()
     {
         $minute     = $this->printValue($this->interval->getMinute());
         $hour       = $this->printValue($this->interval->getHour());
@@ -60,6 +68,16 @@ class CronJob extends TaskAbstract
         return $minute . ' ' . $hour . ' ' . $dayOfMonth . ' ' . $month . ' ' . $dayOfWeek . ' ' . $this->command;
     }
 
+    /**
+     * Print value.
+     *
+     * @param array $value Element to serialize
+     *
+     * @return string
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
     private function printValue(array $value) : string
     {
         if (($count = count($value['dayOfWeek'])) > 0) {
@@ -77,5 +95,18 @@ class CronJob extends TaskAbstract
         }
 
         return $parsed;
+    }
+
+    /**
+     * Unserialize cronjob.
+     *
+     * @param string $serialized To unserialize
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+    public function unserialize($serialized)
+    {
+        // TODO: Implement unserialize() method.
     }
 }

@@ -1,14 +1,59 @@
-class Complex implements Number {
-private $real = 0;
-private $imaginary = 0;
+<?php
+/**
+ * Orange Management
+ *
+ * PHP Version 7.0
+ *
+ * @category   TBD
+ * @package    TBD
+ * @author     OMS Development Team <dev@oms.com>
+ * @author     Dennis Eichhorn <d.eichhorn@oms.com>
+ * @copyright  2013 Dennis Eichhorn
+ * @license    OMS License 1.0
+ * @version    1.0.0
+ * @link       http://orange-management.com
+ */
+namespace phpOMS\Math\Number;
 
-public function __construct() {}
+class Complex
+{
+    private $real = null;
 
-public function setReal($real) {
-$this->real = $real;
-}
+    private $im = null;
 
-public function setImaginary($imaginary) {
-$this->imaginary = $imaginary;
-}
+    public function getReal()
+    {
+    }
+
+    public function setReal()
+    {
+    }
+
+    public function setImaginary()
+    {
+    }
+
+    public function getImaginary()
+    {
+    }
+
+    public function pow()
+    {
+    }
+
+    public function add()
+    {
+    }
+
+    public function sub()
+    {
+    }
+
+    public function mult()
+    {
+    }
+
+    public function div()
+    {
+    }
 }
