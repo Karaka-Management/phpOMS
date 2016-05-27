@@ -632,11 +632,11 @@ class Repository
 
         $author = explode(':', $lines[1]);
         $author = explode('<', trim($author[1]));
-        $date   = explode(':', $lines[2]);
+        $date   = substr($lines[2], 6);
 
         $commit = new Commit($matches[0]);
         $commit->setAuthor(new Author(trim($author[0]), rtrim($author[1], '>')));
-        $commit->setDate(new \DateTime(trim($date[1])));
+        $commit->setDate(new \DateTime(trim($date)));
         $commit->setMessage($lines[3]);
         $commit->setTag(new Tag());
         $commit->setRepository($this);
