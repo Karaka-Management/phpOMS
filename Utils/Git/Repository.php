@@ -768,6 +768,18 @@ class Repository
         return $contributors;
     }
 
+    /**
+     * Get additions and removals from contributor.
+     *
+     * @param Author    $author Author
+     * @param \DateTime $start  Start date
+     * @param \DateTime $end    End date
+     *
+     * @return array ['added' => ?, 'removed'=> ?]
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
     public function getAdditionsRemovalsByContributor(Author $author, \DateTime $start = null, \DateTime $end = null) : array
     {
         $addremove = ['added' => 0, 'removed' => 0];
