@@ -616,8 +616,8 @@ class Repository
      */
     public function getCommit(string $commit) : Commit
     {
-        $lines  = $this->run('show --name-only ' . escapeshellarg($commit));
-        $count  = count($lines);
+        $lines = $this->run('show --name-only ' . escapeshellarg($commit));
+        $count = count($lines);
 
         if (empty($lines)) {
             // todo: return null commit
@@ -647,6 +647,52 @@ class Repository
         }
 
         return $commit;
+    }
+
+    /**
+     * Count files in repository.
+     *
+     * @return int
+     *
+     * @throws \Exception
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+    public function countFiles() : int
+    {
+        $lines = $this->run('ls-files');
+
+        return count($lines);
+    }
+
+    /**
+     * Get LOC.
+     *
+     * @return int
+     *
+     * @throws \Exception
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+    public function getLOC() : int
+    {
+        $lines = $this->run('ls-files');
+        $loc   = 0;
+
+        foreach ($lines as $line) {
+            $fh = fopen($this->getDirectoryPath() . ($this->bare ? '/' : '/../') . $line, 'r');
+
+            while (!feof($fh)) {
+                fgets($fh);
+                $loc++;
+            }
+
+            fclose($fh);
+        }
+
+        return $loc;
     }
 
     /**
