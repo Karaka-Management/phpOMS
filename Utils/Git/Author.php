@@ -53,6 +53,22 @@ class Author
     private $commitCount = 0;
 
     /**
+     * Additions count.
+     *
+     * @var int
+     * @since 1.0.0
+     */
+    private $additionsCount = 0;
+
+    /**
+     * Removals count.
+     *
+     * @var int
+     * @since 1.0.0
+     */
+    private $removalsCount = 0;
+
+    /**
      * Constructor
      *
      * @param string $name  Author name
@@ -119,5 +135,61 @@ class Author
     public function getCommitCount() : int
     {
         return $this->commitCount;
+    }
+
+    /**
+     * Set additions count
+     *
+     * @param int $count Commit count
+     *
+     * @return void
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+    public function setAdditionCount(int $count)
+    {
+        $this->additionsCount = $count;
+    }
+
+    /**
+     * Get additions count
+     *
+     * @return int
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+    public function getAdditionCount() : int
+    {
+        return $this->additionsCount;
+    }
+
+    /**
+     * Set removals count
+     *
+     * @param int $count Commit count
+     *
+     * @return void
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+    public function setRemovalCount(int $count)
+    {
+        $this->removalsCount = $count;
+    }
+
+    /**
+     * Get removals count
+     *
+     * @return int
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+    public function getRemovalCount() : int
+    {
+        return $this->removalsCount;
     }
 }

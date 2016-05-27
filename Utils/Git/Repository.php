@@ -15,7 +15,6 @@
  */
 namespace phpOMS\Utils\Git;
 
-use phpOMS\Auth\Auth;
 use phpOMS\System\File\PathException;
 
 /**
@@ -38,6 +37,14 @@ class Repository
      * @since 1.0.0
      */
     private $path = '';
+
+    /**
+     * Repository name.
+     *
+     * @var string
+     * @since 1.0.0
+     */
+    private $name = '';
 
     /**
      * Bare repository.
@@ -193,13 +200,11 @@ class Repository
      */
     private function parseLines(string $lines) : array
     {
-        //$lines     = preg_replace('/!\\t+/', '|', $lines);
-        //$lines     = preg_replace('!\s+!', ' ', $lines);
         $lineArray = preg_split('/\r\n|\n|\r/', $lines);
         $lines     = [];
 
         foreach ($lineArray as $key => $line) {
-            $temp = trim($line, ' |');
+            $temp = preg_replace('/\s+/', ' ', trim($line, ' '));
 
             if (!empty($temp)) {
                 $lines[] = $temp;
@@ -355,16 +360,37 @@ class Repository
     public function getBranches() : array
     {
         $branches = $this->run('branch');
+        $result   = [];
 
-        foreach ($branches as $key => &$branch) {
+        foreach ($branches as $key => $branch) {
             $branch = trim($branch, '* ');
 
-            if ($branch === '') {
-                unset($branches[$key]);
+            if ($branch !== '') {
+                $result[] = $branch;
             }
         }
 
-        return $branches;
+        return $result;
+    }
+
+    /**
+     * Get repository name.
+     *
+     * @return string
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+    public function getName() : string
+    {
+        if (empty($this->name)) {
+            $path       = $this->getDirectoryPath();
+            $path       = str_replace('\\', '/', $path);
+            $path       = explode('/', $path);
+            $this->name = $path[count($path) - 2];
+        }
+
+        return $this->name;
     }
 
     /**
@@ -378,16 +404,17 @@ class Repository
     public function getBranchesRemote() : array
     {
         $branches = $this->run('branch -r');
+        $result   = [];
 
-        foreach ($branches as $key => &$branch) {
+        foreach ($branches as $key => $branch) {
             $branch = trim($branch, '* ');
 
-            if ($branch === '' || strpos($branch, 'HEAD -> ') !== false) {
-                unset($branches[$key]);
+            if ($branch !== '') {
+                $result[] = $branch;
             }
         }
 
-        return $branches;
+        return $result;
     }
 
     /**
@@ -686,10 +713,29 @@ class Repository
             $contributor = new Author(substr($line, strlen($matches[0]) + 1));
             $contributor->setCommitCount($this->getCommitsCount($start, $end)[$contributor->getName()]);
 
+            $addremove = $this->getAdditionsRemovalsByContributor($contributor, $start, $end);
+            $contributor->setAdditionCount($addremove['added']);
+            $contributor->setRemovalCount($addremove['removed']);
+
             $contributors[] = $contributor;
         }
 
         return $contributors;
+    }
+
+    public function getAdditionsRemovalsByContributor(Author $author, \DateTime $start = null, \DateTime $end = null) : array
+    {
+        $addremove = ['added' => 0, 'removed' => 0];
+        $lines     = $this->run('log --author="' . $author->getName() . '" --since="' . $start->format('Y-m-d') . '" --before="' . $end->format('Y-m-d') . '" --pretty=tformat: --numstat');
+
+        foreach ($lines as $line) {
+            $nums = explode(' ', $line);
+
+            $addremove['added'] += $nums[0];
+            $addremove['removed'] += $nums[1];
+        }
+
+        return $addremove;
     }
 
     /**
@@ -752,6 +798,8 @@ class Repository
     /**
      * Get newest commit.
      *
+     * @param int $limit Limit of commits
+     *
      * @return Commit
      *
      * @throws \Exception
@@ -759,9 +807,9 @@ class Repository
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function getNewest() : Commit
+    public function getNewest(int $limit = 1) : Commit
     {
-        $lines = $this->run('log -n 1');
+        $lines = $this->run('log -n ' . $limit);
 
         if (empty($lines)) {
             // todo: return nullcommit

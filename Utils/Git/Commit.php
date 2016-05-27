@@ -176,7 +176,7 @@ class Commit
      */
     public function setMessage(string $message)
     {
-        $this->message = escapeshellarg($message);
+        $this->message = $message;
     }
 
     /**
