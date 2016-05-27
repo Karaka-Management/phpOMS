@@ -16,6 +16,7 @@
 namespace phpOMS\Utils\Git;
 
 use phpOMS\System\File\PathException;
+use phpOMS\Utils\StringUtils;
 
 /**
  * Repository class
@@ -387,7 +388,7 @@ class Repository
             $path       = $this->getDirectoryPath();
             $path       = str_replace('\\', '/', $path);
             $path       = explode('/', $path);
-            $this->name = $path[count($path) - 2];
+            $this->name = $path[count($path) - ($this->bare ? 1 : 2)];
         }
 
         return $this->name;
@@ -669,6 +670,8 @@ class Repository
     /**
      * Get LOC.
      *
+     * @param array $extensions Extensions whitelist
+     *
      * @return int
      *
      * @throws \Exception
@@ -676,12 +679,16 @@ class Repository
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function getLOC() : int
+    public function getLOC(array $extensions = ['*']) : int
     {
         $lines = $this->run('ls-files');
         $loc   = 0;
 
         foreach ($lines as $line) {
+            if ($extensions[0] !== '*' && !StringUtils::endsWith($line, $extensions)) {
+                continue;
+            }
+
             $fh = fopen($this->getDirectoryPath() . ($this->bare ? '/' : '/../') . $line, 'r');
 
             while (!feof($fh)) {
