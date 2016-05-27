@@ -42,65 +42,105 @@ class StringUtils
     /**
      * String ends with?
      *
-     * @param string $haystack Haystack
-     * @param string $needle   Needle
+     * @param string       $haystack Haystack
+     * @param string|array $needles  Needles
      *
      * @return bool
      *
      * @since  1.0.0
      * @author Dennis Eichhorn
      */
-    public static function endsWith(string $haystack, string $needle) : bool
+    public static function endsWith(string $haystack, $needles) : bool
     {
-        return $needle === '' || (($temp = strlen($haystack) - strlen($needle)) >= 0 && strpos($haystack, $needle, $temp) !== false);
+        if (is_string($needles)) {
+            self::endsWith($haystack, [$needles]);
+        }
+
+        foreach ($needles as $needle) {
+            if ($needle === '' || (($temp = strlen($haystack) - strlen($needle)) >= 0 && strpos($haystack, $needle, $temp) !== false)) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     /**
      * String starts with?
      *
-     * @param string $haystack Haystack
-     * @param string $needle   Needle
+     * @param string       $haystack Haystack
+     * @param string|array $needles  Needles
      *
      * @return bool
      *
      * @since  1.0.0
      * @author Dennis Eichhorn
      */
-    public static function startsWith(string $haystack, string $needle) : bool
+    public static function startsWith(string $haystack, $needles) : bool
     {
-        return $needle === '' || strrpos($haystack, $needle, -strlen($haystack)) !== false;
+        if (is_string($needles)) {
+            self::startsWith($haystack, [$needles]);
+        }
+
+        foreach ($needles as $needle) {
+            if ($needle === '' || strrpos($haystack, $needle, -strlen($haystack)) !== false) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     /**
      * String starts with?
      *
-     * @param string $haystack Haystack
-     * @param string $needle   Needle
+     * @param string       $haystack Haystack
+     * @param string|array $needles  Needles
      *
      * @return bool
      *
      * @since  1.0.0
      * @author Dennis Eichhorn
      */
-    public static function mb_startsWith(string $haystack, string $needle) : bool
+    public static function mb_startsWith(string $haystack, $needles) : bool
     {
-        return $needle === '' || mb_strrpos($haystack, $needle, -mb_strlen($haystack)) !== false;
+        if (is_string($needles)) {
+            self::mb_startsWith($haystack, [$needles]);
+        }
+
+        foreach ($needles as $needle) {
+            if ($needle === '' || mb_strrpos($haystack, $needle, -mb_strlen($haystack)) !== false) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     /**
      * String ends with?
      *
-     * @param string $haystack Haystack
-     * @param string $needle   Needle
+     * @param string       $haystack Haystack
+     * @param string|array $needles  Needles
      *
      * @return bool
      *
      * @since  1.0.0
      * @author Dennis Eichhorn
      */
-    public static function mb_endsWith(string $haystack, string $needle) : bool
+    public static function mb_endsWith(string $haystack, $needles) : bool
     {
-        return $needle === '' || (($temp = mb_strlen($haystack) - mb_strlen($needle)) >= 0 && mb_strpos($haystack, $needle, $temp) !== false);
+        if (is_string($needles)) {
+            self::mb_endsWith($haystack, [$needles]);
+        }
+
+        foreach ($needles as $needle) {
+            if ($needle === '' || (($temp = mb_strlen($haystack) - mb_strlen($needle)) >= 0 && mb_strpos($haystack, $needle, $temp) !== false)) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     /**
