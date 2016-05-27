@@ -116,7 +116,7 @@ class Commit
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function getId()
+    public function getId() : string
     {
         return $this->id;
     }
@@ -126,16 +126,20 @@ class Commit
      *
      * @param string $path File path
      *
+     * @return bool
+     *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function addFile(string $path)
+    public function addFile(string $path) : bool
     {
-        $path = escapeshellarg($path);
-
         if (!isset($this->files[$path])) {
             $this->files[$path] = [];
+
+            return true;
         }
+
+        return false;
     }
 
     /**
