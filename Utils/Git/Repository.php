@@ -616,8 +616,7 @@ class Repository
      */
     public function getCommit(string $commit) : Commit
     {
-        $commit = escapeshellarg($commit);
-        $lines  = $this->run('show --name-only ' . $commit);
+        $lines  = $this->run('show --name-only ' . escapeshellarg($commit));
         $count  = count($lines);
 
         if (empty($lines)) {
@@ -726,7 +725,7 @@ class Repository
     public function getAdditionsRemovalsByContributor(Author $author, \DateTime $start = null, \DateTime $end = null) : array
     {
         $addremove = ['added' => 0, 'removed' => 0];
-        $lines     = $this->run('log --author="' . $author->getName() . '" --since="' . $start->format('Y-m-d') . '" --before="' . $end->format('Y-m-d') . '" --pretty=tformat: --numstat');
+        $lines     = $this->run('log --author=' . escapeshellarg($author->getName()) . ' --since="' . $start->format('Y-m-d') . '" --before="' . $end->format('Y-m-d') . '" --pretty=tformat: --numstat');
 
         foreach ($lines as $line) {
             $nums = explode(' ', $line);
@@ -776,7 +775,7 @@ class Repository
         if (!isset($author)) {
             $author = '';
         } else {
-            $author = ' --author="' . $author->getName() . '"';
+            $author = ' --author=' . escapeshellarg($author->getName()) . '';
         }
 
         $lines   = $this->run('git log --before="' . $end->format('Y-m-d') . '" --after="' . $start->format('Y-m-d') . '"' . $author . ' --reverse --date=short');
