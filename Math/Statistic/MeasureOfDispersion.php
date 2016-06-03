@@ -190,24 +190,6 @@ class MeasureOfDispersion
     }
 
     /**
-     * Calculage bravais person correlation coefficient.
-     *
-     * Example: ([4, 5, 9, 1, 3], [4, 5, 9, 1, 3])
-     *
-     * @param array $x Values
-     * @param array $y Values
-     *
-     * @return float
-     *
-     * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
-     */
-    public static function bravaisPersonCorrelationcoefficient(array $x, array $y) : float
-    {
-        return self::empiricalCovariance($x, $y) / (self::standardDeviation($x) * self::standardDeviation($y));
-    }
-
-    /**
      * Get interquartile range.
      *
      * @param array $x Dataset
@@ -265,28 +247,4 @@ class MeasureOfDispersion
         return $sum / count($x);
     }
 
-    /**
-     * Get the autocorrelation coefficient (ACF).
-     *
-     * @param array $x Dataset
-     * @param int   $k k-th coefficient
-     *
-     * @return float
-     *
-     * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
-     */
-    public static function autocorrelationCoefficient(array $x, int $k = 0) : float
-    {
-        $squaredMeanDeviation = self::squaredMeanDeviation($x);
-        $mean                 = Average::arithmeticMean($x);
-        $count                = count($x);
-        $sum                  = 0.0;
-
-        for ($i = $k + 1; $i < $count; $i++) {
-            $sum += ($x[$i] - $mean) * ($x[$i - $k] - $mean);
-        }
-
-        return $sum / ($squaredMeanDeviation * count($x));
-    }
 }

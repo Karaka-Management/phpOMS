@@ -14,7 +14,7 @@
  * @link       http://orange-management.com
  */
 
-namespace phpOMS\Math\Forecast;
+namespace phpOMS\Math\Statistic\Forecast;
 
 use phpOMS\Math\Functions;
 use phpOMS\Math\Statistic\Average;

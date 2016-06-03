@@ -108,11 +108,13 @@ class Permutation
     public static function permutate($toPermute, array $key)
     {
         if (!is_array($toPermute) || !is_string($toPermute)) {
-            throw new \Exception();
+            throw new \InvalidArgumentException('Parameter has to be array or string');
         }
 
-        if (count($key) > strlen($toPermute)) {
-            throw new \Exception();
+        $length = is_array($toPermute) ? count($toPermute) : strlen($toPermute);
+
+        if (count($key) > $length) {
+            throw new \InvalidArgumentException('There mustn not be more keys than permutation elements.');
         }
 
         $i = 0;

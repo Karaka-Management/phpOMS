@@ -89,11 +89,11 @@ class LZW implements CompressionInterface
             if ($dictionary[$k]) {
                 $entry = $dictionary[$k];
             } else {
-                if ($k === $dictSize) {
-                    $entry = $w . $w[0];
-                } else {
+                if ($k !== $dictSize) {
                     return null;
                 }
+
+                $entry = $w . $w[0];
             }
 
             $result .= $entry;

@@ -54,11 +54,11 @@ class File
         if ($bytes < 1000) {
             return $bytes . 'b';
         } elseif ($bytes > 999 && $bytes < 1000000) {
-            return $bytes / 1000 . 'kb';
+            return ((float) number_format($bytes / 1000, 1)) . 'kb';
         } elseif ($bytes > 999999 && $bytes < 1000000000) {
-            return $bytes / 1000000 . 'mb';
+            return ((float) number_format($bytes / 1000000, 1)) . 'mb';
         } else {
-            return $bytes / 1000000000 . 'gb';
+            return ((float) number_format($bytes / 1000000000, 1)) . 'gb';
         }
     }
 
@@ -75,11 +75,11 @@ class File
     public static function kilobyteSizeToString(int $kilobytes) : string
     {
         if ($kilobytes < 1000) {
-            return round($kilobytes, 2) . 'kb';
+            return ((float) number_format($kilobytes, 1)) . 'kb';
         } elseif ($kilobytes > 999 && $kilobytes < 1000000) {
-            return round($kilobytes / 1000, 2) . 'mb';
+            return ((float) number_format($kilobytes / 1000, 1)) . 'mb';
         } else {
-            return round($kilobytes / 1000000, 2) . 'gb';
+            return ((float) number_format($kilobytes / 1000000, 1)) . 'gb';
         }
     }
 }
