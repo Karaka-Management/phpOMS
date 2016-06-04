@@ -689,7 +689,11 @@ class Repository
                 continue;
             }
 
-            $fh = fopen($this->getDirectoryPath() . ($this->bare ? '/' : '/../') . $line, 'r');
+            $fh = fopen($path = $this->getDirectoryPath() . ($this->bare ? '/' : '/../') . $line, 'r');
+
+            if(!$fh) {
+                throw new PathException($path);
+            }
 
             while (!feof($fh)) {
                 fgets($fh);
