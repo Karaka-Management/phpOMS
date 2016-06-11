@@ -437,4 +437,27 @@ class Account
         $this->createdAt = $created;
     }
 
+    public function toArray() : array
+    {
+        return [
+            'id'          => $this->id,
+            'name'        => [
+                $this->name1,
+                $this->name2,
+                $this->name3,
+            ],
+            'email'       => $this->email,
+            'login'       => $this->login,
+            'groups'      => $this->groups,
+            'permissions' => $this->permissions,
+            'type'        => $this->type,
+            'status'      => $this->status,
+        ];
+    }
+
+    public function __toString()
+    {
+        return json_encode($this->toArray());
+    }
+
 }

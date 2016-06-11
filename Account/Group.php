@@ -78,6 +78,22 @@ class Group
     protected $permissions = [];
 
     /**
+     * Created at.
+     *
+     * @var \DateTime
+     * @since 1.0.0
+     */
+    protected $createdAt = null;
+
+    /**
+     * Created by.
+     *
+     * @var int
+     * @since 1.0.0
+     */
+    protected $createdBy = 0;
+
+    /**
      * Constructor.
      *
      * @since  1.0.0
@@ -85,6 +101,7 @@ class Group
      */
     public function __construct()
     {
+        $this->createdAt = new \DateTime('now');
     }
 
     /**
@@ -152,4 +169,21 @@ class Group
         $this->description = $description;
     }
 
+    public function toArray() : array
+    {
+        return [
+            'id'          => $this->id,
+            'name'        => $this->name,
+            'description' => $this->description,
+            'createdBy'   => $this->createdBy,
+            'createdAt'   => $this->createdAt->format('Y-m-d H:i:s'),
+            'permissions' => $this->permissions,
+            'members'     => $this->members,
+        ];
+    }
+
+    public function __toString()
+    {
+        return json_encode($this->toArray());
+    }
 }
