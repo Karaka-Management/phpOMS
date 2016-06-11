@@ -47,7 +47,7 @@ class FileLogger implements LoggerInterface
      * @var array[float]
      * @since 1.0.0
      */
-    public $timings = [];
+    private $timings = [];
 
     /**
      * Instance.
@@ -252,6 +252,7 @@ class FileLogger implements LoggerInterface
         $replace['{ip}']        = sprintf('%--15s', $_SERVER['REMOTE_ADDR'] ?? '0.0.0.0');
         $replace['{version}']   = sprintf('%--15s', PHP_VERSION);
         $replace['{os}']        = sprintf('%--15s', PHP_OS);
+        $replace['{line}']      = isset($context['line']) ? sprintf('%--15s', $context['line']) : '?';
 
         return strtr($message, $replace);
     }
