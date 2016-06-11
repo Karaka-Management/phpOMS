@@ -105,7 +105,6 @@ abstract class Iban extends ValidatorAbstract
         $movedArray = str_split($moved);
         $new        = '';
 
-        // performing checksum calculation
         foreach ($movedArray as $key => $value) {
             if (!is_numeric($movedArray[$key])) {
                 $movedArray[$key] = $chars[$movedArray[$key]];
