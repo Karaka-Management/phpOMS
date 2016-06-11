@@ -279,4 +279,5 @@ class ISO3166TwoEnum extends EnumArray
     const C_YEM = 'YE';
     const C_ZMB = 'ZM';
     const C_ZWE = 'ZW';
+    const C_XKK = 'XK';
 }

@@ -45,9 +45,7 @@ abstract class Enum
      */
     public static function isValidName(string $name) : bool
     {
-        $constants = self::getConstants();
-
-        return isset($constants[$name]);
+        return defined($name);
     }
 
     /**
@@ -97,6 +95,27 @@ abstract class Enum
         $constants = self::getConstants();
 
         return $constants[mt_rand(0, count($constants))];
+    }
+
+    /**
+     * Get enum value by name.
+     *
+     * @param string $name Enum name
+     *
+     * @return mixed
+     *
+     * @throws \Exception
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+    public static function getByName(string $name)
+    {
+        if(!self::isValidName($name)) {
+            throw new \Exception('Undefined constant');
+        }
+
+        return constant($name);
     }
 
 }

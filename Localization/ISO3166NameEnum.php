@@ -279,4 +279,5 @@ class ISO3166NameEnum extends Enum
     const C_YEM = 'Yemen';
     const C_ZMB = 'Zambia';
     const C_ZWE = 'Zimbabwe';
+    const C_XKK = 'Kosovo';
 }
