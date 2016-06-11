@@ -1099,11 +1099,29 @@ class DataMapperAbstract implements DataMapperInterface
         return $query;
     }
 
+    /**
+     * Get created at column
+     *
+     * @return string
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
     public static function getCreatedAt() : string
     {
         return static::$createdAt;
     }
 
+    /**
+     * Get model based on request object
+     *
+     * @param RequestAbstract $request Request object
+     *
+     * @return mixed
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
     public static function getByRequest(RequestAbstract $request)
     {
         if (!is_null($request->getData('id'))) {

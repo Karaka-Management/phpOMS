@@ -15,6 +15,7 @@
  */
 namespace phpOMS\Account;
 
+use phpOMS\Contract\ArrayableInterface;
 use phpOMS\Localization\Localization;
 use phpOMS\Localization\NullLocalization;
 use phpOMS\Validation\Base\Email;
@@ -30,7 +31,7 @@ use phpOMS\Validation\Base\Email;
  * @link       http://orange-management.com
  * @since      1.0.0
  */
-class Account
+class Account implements ArrayableInterface
 {
 
     /**
@@ -437,6 +438,9 @@ class Account
         $this->createdAt = $created;
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function toArray() : array
     {
         return [
@@ -455,6 +459,14 @@ class Account
         ];
     }
 
+    /**
+     * Get string representation.
+     *
+     * @return string
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
     public function __toString()
     {
         return json_encode($this->toArray());

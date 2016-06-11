@@ -14,6 +14,7 @@
  * @link       http://orange-management.com
  */
 namespace phpOMS\Account;
+use phpOMS\Contract\ArrayableInterface;
 
 /**
  * Account group class.
@@ -26,7 +27,7 @@ namespace phpOMS\Account;
  * @link       http://orange-management.com
  * @since      1.0.0
  */
-class Group
+class Group implements ArrayableInterface
 {
 
     /**
@@ -169,6 +170,9 @@ class Group
         $this->description = $description;
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function toArray() : array
     {
         return [
@@ -182,6 +186,14 @@ class Group
         ];
     }
 
+    /**
+     * Get string representation.
+     *
+     * @return string
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
     public function __toString()
     {
         return json_encode($this->toArray());
