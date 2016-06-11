@@ -18,6 +18,7 @@ namespace phpOMS\DataStorage\Database;
 use phpOMS\DataStorage\Database\Connection\ConnectionAbstract;
 use phpOMS\DataStorage\Database\Query\Builder;
 use phpOMS\DataStorage\DataMapperInterface;
+use phpOMS\Message\RequestAbstract;
 
 /**
  * Datamapper for databases.
@@ -257,8 +258,10 @@ class DataMapperAbstract implements DataMapperInterface
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public static function delete()
+    public static function delete($obj) : int
     {
+
+        return 0;
     }
 
     /**
@@ -519,14 +522,14 @@ class DataMapperAbstract implements DataMapperInterface
      *
      * @param mixed $obj Object reference (gets filled with insert id)
      *
-     * @return void
+     * @return int
      *
      * @throws
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public static function update($obj)
+    public static function update($obj) : int
     {
         // todo: relations handling (needs to be done first)... updating, deleting or inserting are possible
 
@@ -565,6 +568,8 @@ class DataMapperAbstract implements DataMapperInterface
         }
 
         self::$db->con->prepare($query->toSql())->execute();
+
+        return 0;
     }
 
     /**
@@ -873,10 +878,8 @@ class DataMapperAbstract implements DataMapperInterface
         self::extend(__CLASS__);
 
         $query = $query ?? new Builder(self::$db);
-        $query->prefix(self::$db->getPrefix())
-            ->select('*')
-            ->from(static::$table)
-            ->limit($limit); /* todo: limit is not working, setting this to 2 doesn't have any effect!!! */
+        $query = self::getQuery($query);
+        $query->limit($limit); /* todo: limit is not working, setting this to 2 doesn't have any effect!!! */
 
         if (!empty(static::$createdAt)) {
             $query->orderBy(static::$table . '.' . static::$columns[static::$createdAt]['name'], 'DESC');
@@ -910,7 +913,8 @@ class DataMapperAbstract implements DataMapperInterface
      */
     public static function getAllByQuery(Builder $query, int $relations = RelationType::ALL) : array
     {
-        $sth = self::$db->con->prepare($query->toSql());
+        $query = self::getQuery($query);
+        $sth   = self::$db->con->prepare($query->toSql());
         $sth->execute();
 
         $results = $sth->fetchAll(\PDO::FETCH_ASSOC);
@@ -987,11 +991,8 @@ class DataMapperAbstract implements DataMapperInterface
      */
     public static function getRaw($primaryKey) : array
     {
-        $query = new Builder(self::$db);
-        $query->prefix(self::$db->getPrefix())
-            ->select('*')
-            ->from(static::$table)
-            ->where(static::$table . '.' . static::$primaryField, '=', $primaryKey);
+        $query = self::getQuery();
+        $query->where(static::$table . '.' . static::$primaryField, '=', $primaryKey);
 
         $sth = self::$db->con->prepare($query->toSql());
         $sth->execute();
@@ -1013,12 +1014,8 @@ class DataMapperAbstract implements DataMapperInterface
      */
     public static function getAllRaw() : array
     {
-        $query = new Builder(self::$db);
-        $query->prefix(self::$db->getPrefix())
-            ->select('*')
-            ->from(static::$table);
-
-        $sth = self::$db->con->prepare($query->toSql());
+        $query = self::getQuery();
+        $sth   = self::$db->con->prepare($query->toSql());
         $sth->execute();
 
         $results = $sth->fetchAll(\PDO::FETCH_ASSOC);
@@ -1077,6 +1074,71 @@ class DataMapperAbstract implements DataMapperInterface
             } else {
                 $result[$member] = false;
             }
+        }
+
+        return $result;
+    }
+
+    /**
+     * Get mapper specific builder
+     *
+     * @param Builder $query Query to fill
+     *
+     * @return Builder
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+    public static function getQuery(Builder $query = null) : Builder
+    {
+        $query = $query ?? new Builder(self::$db);
+        $query->prefix(self::$db->getPrefix())
+            ->select('*')
+            ->from(static::$table);
+
+        return $query;
+    }
+
+    public static function getCreatedAt() : string
+    {
+        return static::$createdAt;
+    }
+
+    public static function getByRequest(RequestAbstract $request)
+    {
+        if (!is_null($request->getData('id'))) {
+            $result = static::get($request->getData('id'))->__toString();
+        } elseif (!is_null($filter = $request->getData('filter'))) {
+            $filter = strtolower($filter);
+
+            if ($filter === 'all') {
+                $result = static::getAll();
+            } elseif ($filter === 'list') {
+                $list   = $request->getData('list');
+                $result = static::get(json_decode($list, true));
+            } else {
+                $limit = $request->getData('limit') ?? 1;
+                $from  = !is_null($request->getData('from')) ? new \DateTime($request->getData('from')) : null;
+                $to    = !is_null($request->getData('to')) ? new \DateTime($request->getData('to')) : null;
+
+                $query = static::getQuery();
+                $query->limit($limit);
+
+                if (isset($from) && isset($to) && !empty(static::getCreatedAt())) {
+                    $query->where(static::getCreatedAt(), '>=', $from);
+                    $query->where(static::getCreatedAt(), '<=', $to);
+                }
+
+                $result = static::getAllByQuery($query);
+            }
+        } else {
+            $class     = static::class;
+            $class     = str_replace('Mapper', '', $class);
+            $parts     = explode('\\', $class);
+            $name      = $parts[$c = (count($parts) - 1)];
+            $parts[$c] = 'Null' . $name;
+            $class     = implode('\\', $parts);
+            $result    = new $class();
         }
 
         return $result;

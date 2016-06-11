@@ -50,12 +50,12 @@ interface DataMapperInterface
      *
      * @param mixed $obj Object reference (gets filled with insert id)
      *
-     * @return void
+     * @return int Status
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public static function update($obj);
+    public static function update($obj) : int;
 
     /**
      * Save data.
@@ -70,12 +70,14 @@ interface DataMapperInterface
     /**
      * Delete data.
      *
-     * @return void
+     * @param mixed $obj Object to delete
+     *
+     * @return int Status
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public static function delete();
+    public static function delete($obj) : int;
 
     /**
      * Find data.
