@@ -82,16 +82,20 @@ abstract class SettingsAbstract implements OptionsInterface
     /**
      * Get option by key.
      *
-     * @param string[] $columns Column values for filtering
+     * @param string|string[] $columns Column values for filtering
      *
      * @return mixed Option value
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function get(array $columns)
+    public function get($columns)
     {
         try {
+            if (!is_array($columns)) {
+                $columns = [$columns];
+            }
+
             $options = [];
 
             switch ($this->connection->getType()) {
