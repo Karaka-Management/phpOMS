@@ -17,7 +17,7 @@ namespace phpOMS\Validation\Base;
 use phpOMS\Datatypes\Enum;
 
 /**
- * Address type enum.
+ * Iban error type enum.
  *
  * @category   Framework
  * @package    phpOMS\Datatypes

@@ -18,7 +18,7 @@ namespace phpOMS\Validation\Base;
 use phpOMS\Datatypes\Enum;
 
 /**
- * Country codes ISO list.
+ * Iban layout definition.
  *
  * @category   Framework
  * @package    phpOMS\Localization

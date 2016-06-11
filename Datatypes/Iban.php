@@ -15,7 +15,6 @@
  */
 namespace phpOMS\Datatypes;
 
-use phpOMS\Localization\ISO3166TwoEnum;
 use phpOMS\Validation\Base\IbanEnum;
 
 /**
@@ -33,13 +32,37 @@ use phpOMS\Validation\Base\IbanEnum;
  */
 class Iban implements \Serializable
 {
+    /**
+     * Iban.
+     *
+     * @var string
+     * @since 1.0.0
+     */
     private $iban = '';
 
+    /**
+     * Constructor.
+     *
+     * @param string $iban Iban
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
     public function __construct(string $iban)
     {
         $this->parse($iban);
     }
 
+    /**
+     * Parsing iban string
+     *
+     * @param string $iban Iban to parse
+     *
+     * @return void
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
     private function parse(string $iban)
     {
         if (!\phpOMS\Validation\Base\Iban::isValid($iban)) {
@@ -49,22 +72,42 @@ class Iban implements \Serializable
         $this->iban = self::normalize($iban);
     }
 
+    /**
+     * Get 2 digit country code
+     *
+     * @return string
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
     public function getCountry() : string
     {
-        $code = substr($this->iban, 0, 2);
-
-        if (!ISO3166TwoEnum::isValidValue($code)) {
-            throw new \Exception('Invalid country code');
-        }
-
-        return $code;
+        return substr($this->iban, 0, 2);
     }
 
+    /**
+     * Get normalized iban length
+     *
+     * @return int
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
     public function getLength() : int
     {
         return strlen($this->iban);
     }
 
+    /**
+     * Get sequence specified in the layout
+     *
+     * @param string $sequence Sequence identifier
+     *
+     * @return string
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
     private function getSequence(string $sequence) : string
     {
         $country = $this->getCountry();
@@ -80,66 +123,161 @@ class Iban implements \Serializable
         return substr($this->iban, $start, $end - $start);
     }
 
+    /**
+     * Get iban checksum
+     *
+     * @return string
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
     public function getChecksum() : string
     {
         return $this->getSequence('k');
     }
 
+    /**
+     * Get national checksum
+     *
+     * @return string
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
     public function getNationalChecksum() : string
     {
         return $this->getSequence('x');
     }
 
+    /**
+     * Get branch code
+     *
+     * @return string
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
     public function getBranchCode() : string
     {
         return $this->getSequence('s');
     }
 
+    /**
+     * Get account type (cheque account, savings etc.)
+     *
+     * @return string
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
     public function getAccountType() : string
     {
         return $this->getSequence('t');
     }
 
+    /**
+     * Get currency
+     *
+     * @return string
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
     public function getCurrency() : string
     {
         return $this->getSequence('m');
     }
 
-    public function getBicBankCode() : string
-    {
-        return $this->getSequence('a');
-    }
-
+    /**
+     * Get bank code
+     *
+     * @return string
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
     public function getBankCode() : string
     {
         return $this->getSequence('b');
     }
 
+    /**
+     * Get account
+     *
+     * @return string
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
     public function getAccount() : string
     {
         return $this->getSequence('n');
     }
 
+    /**
+     * Get holder's kennital
+     *
+     * @return string
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
     public function getHoldersKennital() : string
     {
         return $this->getSequence('i');
     }
 
+    /**
+     * Get owner account number
+     *
+     * @return string
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
     public function getOwnerAccountNumber() : string
     {
         return $this->getSequence('n');
     }
 
+    /**
+     * Get BIC
+     *
+     * Only very rarely used in iban
+     *
+     * @return string
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
     public function getBicCode() : string
     {
         return $this->getSequence('a');
     }
 
+    /**
+     * Pretty print iban
+     *
+     * @return string
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
     public function prettyPrint() : string
     {
         return wordwrap($this->iban, 4, ' ', true);
     }
 
+    /**
+     * Normalize iban
+     *
+     * @param string $iban Iban to normalize
+     *
+     * @return string
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
     public static function normalize(string $iban) : string
     {
         return strtoupper(str_replace(' ', '', $iban));

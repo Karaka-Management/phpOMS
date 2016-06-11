@@ -41,9 +41,13 @@ abstract class Iban extends ValidatorAbstract
     }
 
     /**
-     * {@inheritdoc}
+     * @param string $value Iban to validate
+     *
+     * @return bool
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    // todo: this is bad see wiki for better checks...
     public static function isValid($value) : bool
     {
         $value  = \phpOMS\Datatypes\Iban::normalize($value);
@@ -82,6 +86,16 @@ abstract class Iban extends ValidatorAbstract
         return true;
     }
 
+    /**
+     * Validate checksum
+     *
+     * @param string $iban Iban to validate
+     *
+     * @return bool
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
     private static function validateChecksum(string $iban) : bool
     {
         $chars      = ['a' => 10, 'b' => 11, 'c' => 12, 'd' => 13, 'e' => 14, 'f' => 15, 'g' => 16, 'h' => 17, 'i' => 18,
@@ -109,6 +123,17 @@ abstract class Iban extends ValidatorAbstract
         return $mod == 1;
     }
 
+    /**
+     * Validate positions that should have zeros
+     *
+     * @param string $iban   Iban to validate
+     * @param string $layout Iban layout
+     *
+     * @return bool
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
     private static function validateZeros(string $iban, string $layout) : bool
     {
         if (strpos($layout, '0') === false) {
@@ -127,6 +152,17 @@ abstract class Iban extends ValidatorAbstract
         return true;
     }
 
+    /**
+     * Validate positions that should be numeric
+     *
+     * @param string $iban   Iban to validate
+     * @param string $layout Iban layout
+     *
+     * @return bool
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
     private static function validateNumeric(string $iban, string $layout) : bool
     {
         if (strpos($layout, 'n') === false) {
