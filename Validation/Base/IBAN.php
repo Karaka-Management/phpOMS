@@ -114,13 +114,7 @@ abstract class Iban extends ValidatorAbstract
             $new .= $movedArray[$key];
         }
 
-        $mod = bcmod($new, '97');
-
-        if ($mod != 1) {
-            self::$error = IbanErrorType::INVALID_CHECKSUM;
-        }
-
-        return $mod == 1;
+        return bcmod($new, '97') == 1;
     }
 
     /**
