@@ -13,7 +13,7 @@
  * @version    1.0.0
  * @link       http://orange-management.com
  */
-namespace phpOMS\Math\Algebra;
+namespace phpOMS\Math\Shape\D3;
 
 /**
  * Rectangular pyramid shape.
@@ -26,7 +26,7 @@ namespace phpOMS\Math\Algebra;
  * @link       http://orange-management.com
  * @since      1.0.0
  */
-class RectangularPyramid
+class RectangularPyramid implements D3ShapeInterface
 {
 
     /**

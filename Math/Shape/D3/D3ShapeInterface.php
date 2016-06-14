@@ -13,7 +13,9 @@
  * @version    1.0.0
  * @link       http://orange-management.com
  */
-namespace phpOMS\Math\Shape;
+namespace phpOMS\Math\Shape\D3;
+
+use phpOMS\Math\Shape\ShapeInterface;
 
 /**
  * Shape interface.
@@ -26,7 +28,7 @@ namespace phpOMS\Math\Shape;
  * @link       http://orange-management.com
  * @since      1.0.0
  */
-interface ShapeInterface
+interface D2ShapeInterface extends ShapeInterface
 {
-	public static function getSurface() : float;
+	public static function getVolume() : float;
 }

@@ -26,7 +26,7 @@ namespace phpOMS\Math\Shape\D3;
  * @link       http://orange-management.com
  * @since      1.0.0
  */
-class Sphere
+class Sphere implements D3ShapeInterface
 {
 
     /**
@@ -73,7 +73,7 @@ class Sphere
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public static function getVolume(float $r)
+    public static function getVolumeByRadius(float $r)
     {
         return 4 / 3 * pi() * $r ** 3;
     }
@@ -103,7 +103,7 @@ class Sphere
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public static function getSurface(float $r)
+    public static function getSurfaceByRadius(float $r)
     {
         return 4 * pi() * $r ** 2;
     }
@@ -121,5 +121,36 @@ class Sphere
     public static function getRadiusBySurface(float $S)
     {
         return sqrt($S / (4 * pi()));
+    }
+
+    public static function byRadius(float $r) : Sphere 
+    {
+        return new self($r);
+    }
+
+    public static function byVolume(float $v) : Sphere 
+    {
+        return new self(self::getRadiusByVolume($v));
+    }
+
+    public static function bySurface(float $s) : Sphere 
+    {
+        return new self(self::getRadiusBySurface($s));
+    }
+
+    public function __construct(float $radius) {
+        $this->radius = $radius;
+    }
+
+    public function getVolume() : float {
+        return self::getVolumeByRadius($this->radius);
+    }
+
+    public function getRadius() : float {
+        return $this->radius;
+    }
+
+    public function getSurface() : float {
+        return self::getSurfaceByRadius($this->radius);
     }
 }

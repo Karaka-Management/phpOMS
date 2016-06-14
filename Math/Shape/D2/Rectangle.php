@@ -13,7 +13,7 @@
  * @version    1.0.0
  * @link       http://orange-management.com
  */
-namespace phpOMS\Math\Algebra;
+namespace phpOMS\Math\Shape\D2;
 
 /**
  * Rectangle shape.
@@ -26,7 +26,7 @@ namespace phpOMS\Math\Algebra;
  * @link       http://orange-management.com
  * @since      1.0.0
  */
-class Rectangle
+class Rectangle implements D2ShapeInterface
 {
 
     /**
@@ -40,7 +40,7 @@ class Rectangle
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public static function getArea(float $a, float $b)
+    public static function getSurface(float $a, float $b)
     {
         return $a * $b;
     }

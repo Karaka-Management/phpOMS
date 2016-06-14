@@ -14,8 +14,6 @@
  * @link       http://orange-management.com
  */
 namespace phpOMS\Math\Shape\D2;
-use phpOMS\Math\Shape\ShapeInterface;
-
 
 /**
  * Polygon class.
@@ -28,7 +26,7 @@ use phpOMS\Math\Shape\ShapeInterface;
  * @link       http://orange-management.com
  * @since      1.0.0
  */
-class Polygon implements ShapeInterface
+class Polygon implements D2ShapeInterface
 {
 
     /**
@@ -282,5 +280,83 @@ class Polygon implements ShapeInterface
         }
 
         return $this->barycenter;
+    }
+
+    /**
+     * Point polygon relative position
+     *
+     * @param array $point    Point location
+     *
+     * @return int
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+    public static function pointInPolygon(array $point) : int
+    {
+        $length = count($this->coord);
+
+        // Polygon has to start and end with same point
+        if ($this->coord[0]['x'] !== $this->coord[$length - 1]['x'] || $this->coord[0]['y'] !== $this->coord[$length - 1]['y']) {
+            $this->coord[] = $this->coord[0];
+        }
+
+        // On vertex?
+        if (self::isOnVertex($point, $this->coord)) {
+            return 0;
+        }
+
+        // Inside or ontop?
+        $countIntersect = 0;
+        $this->coord_count = count($this->coord);
+
+        // todo: return based on highest possibility not by first match
+        for ($i = 1; $i < $this->coord_count; $i++) {
+            $vertex1 = $this->coord[$i - 1];
+            $vertex2 = $this->coord[$i];
+
+            if (abs($vertex1['y'] - $vertex2['y']) < self::EPSILON && abs($vertex1['y'] - $point['y']) < self::EPSILON && $point['x'] > min($vertex1['x'], $vertex2['x']) && $point['x'] < max($vertex1['x'], $vertex2['x'])) {
+                return 0; // boundary
+            }
+
+            if ($point['y'] > min($vertex1['y'], $vertex2['y']) && $point['y'] <= max($vertex1['y'], $vertex2['y']) && $point['x'] <= max($vertex1['x'], $vertex2['x']) && abs($vertex1['y'] - $vertex2['y']) >= self::EPSILON) {
+                $xinters = ($point['y'] - $vertex1['y']) * ($vertex2['x'] - $vertex1['x']) / ($vertex2['y'] - $vertex1['y']) + $vertex1['x'];
+
+                if (abs($xinters - $point['x']) < self::EPSILON) {
+                    return 0; // boundary
+                }
+
+                if (abs($vertex1['x'] - $vertex2['x']) < self::EPSILON || $point['x'] < $xinters) {
+                    $countIntersect++;
+                }
+            }
+        }
+
+        if ($countIntersect % 2 != 0) {
+            return -1;
+        }
+
+        return 1;
+    }
+
+    /**
+     * Is point on vertex?
+     *
+     * @param array $point    Point location
+     *
+     * @return bool
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+    private static function isOnVertex(array $point) : bool
+    {
+        foreach ($this->coord as $vertex) {
+            if (abs($point['x'] - $vertex['x']) < self::EPSILON && abs($point['y'] - $vertex['y']) < self::EPSILON) {
+                return true;
+            }
+        }
+
+        return false;
     }
 }

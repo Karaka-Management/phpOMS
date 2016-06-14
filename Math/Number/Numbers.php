@@ -62,7 +62,7 @@ class Numbers
      * @since  1.0.0
      * @author Dennis Eichhorn
      */
-    public static function selfdescribing(int $n) : bool
+    public static function isSelfdescribing(int $n) : bool
     {
         $split = str_split($n);
         foreach ($split as $place => $value) {

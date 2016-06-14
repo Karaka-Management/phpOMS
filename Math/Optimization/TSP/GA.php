@@ -89,20 +89,20 @@ class GA
         $shift         = self::ELITISM ? 1 : 0;
         $newPopulation = new Population($this->cityPool, $count = $population->count(), false);
 
-        $newPopulation->addTour($population->getFittest());
+        $newPopulation->add($population->getFittest());
 
         for ($i = $shift; $i < $count; $i++) {
             $parent1 = $this->tournamentSelection($population);
             $parent2 = $this->tournamentSelection($population);
             $child   = $this->crossover($parent1, $parent2);
 
-            $newPopulation->setTour($i, $child);
+            $newPopulation->set($i, $child);
         }
 
         $count = $newPopulation->count();
 
         for ($i = $shift; $i < $count; $i++) {
-            $this->mutate($newPopulation->getTour($i));
+            $this->mutate($newPopulation->get($i));
         }
 
         return $newPopulation;
@@ -197,7 +197,7 @@ class GA
         $populationSize = $population->count();
 
         for ($i = 0; $i < self::TOURNAMENT; $i++) {
-            $tournament->addTour($population->getTour(mt_rand(0, $populationSize)));
+            $tournament->add($population->get(mt_rand(0, $populationSize)));
         }
 
         return $tournament->getFittest();

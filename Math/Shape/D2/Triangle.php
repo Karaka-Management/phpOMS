@@ -13,7 +13,7 @@
  * @version    1.0.0
  * @link       http://orange-management.com
  */
-namespace phpOMS\Math\Algebra;
+namespace phpOMS\Math\Shape\D2;
 
 /**
  * Triangle shape.
@@ -26,7 +26,7 @@ namespace phpOMS\Math\Algebra;
  * @link       http://orange-management.com
  * @since      1.0.0
  */
-class Triangle
+class Triangle implements D2ShapeInterface
 {
 
     /**
@@ -46,7 +46,7 @@ class Triangle
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public static function getArea(float $b, float $h)
+    public static function getSurface(float $b, float $h)
     {
         return $h * $b / 2;
     }

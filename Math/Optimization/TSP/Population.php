@@ -65,7 +65,7 @@ class Population implements \Countable
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function insertTourAt(int $index, Tour $tour)
+    public function insertAt(int $index, Tour $tour)
     {
         $this->tours = array_slice($this->tours, 0, $index) + [$tour] + array_slice($this->tours, $index);
     }
@@ -79,7 +79,7 @@ class Population implements \Countable
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function setTour(int $index, Tour $tour)
+    public function set(int $index, Tour $tour)
     {
         $this->tours[$index] = $tour;
         asort($this->tours);
@@ -93,7 +93,7 @@ class Population implements \Countable
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function addTour(Tour $tour)
+    public function add(Tour $tour)
     {
         $this->tours[] = $tour;
     }
@@ -108,7 +108,7 @@ class Population implements \Countable
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function getTour(int $index)
+    public function get(int $index)
     {
         return $this->tours[$index] ?? null;
     }

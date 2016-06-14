@@ -42,7 +42,7 @@ class GaussianElimination
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    private function swapRows(&$a, &$b, int $r1, int $r2)
+    private static function swapRows(&$a, &$b, int $r1, int $r2)
     {
         if ($r1 == $r2) {
             return;
@@ -68,7 +68,7 @@ class GaussianElimination
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function solve(Matrix $A, Matrix $b) : Matrix
+    public static function solve(Matrix $A, Matrix $b) : Matrix
     {
         $limit = min($A->getM(), $A->getN());
         $A     = $A->getMatrix();

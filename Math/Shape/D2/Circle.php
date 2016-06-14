@@ -13,7 +13,7 @@
  * @version    1.0.0
  * @link       http://orange-management.com
  */
-namespace phpOMS\Math\Algebra;
+namespace phpOMS\Math\Shape\D2;
 
 /**
  * Circle shape.
@@ -26,7 +26,7 @@ namespace phpOMS\Math\Algebra;
  * @link       http://orange-management.com
  * @since      1.0.0
  */
-class Circle
+class Circle implements D2ShapeInterface
 {
 
     /**
@@ -39,7 +39,7 @@ class Circle
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public static function getArea(float $r)
+    public static function getSurface(float $r)
     {
         return pi() * $r ** 2;
     }
@@ -54,7 +54,7 @@ class Circle
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public static function getCircumference(float $r)
+    public static function getPerimeter(float $r)
     {
         return 2 * pi() * $r;
     }
@@ -62,16 +62,16 @@ class Circle
     /**
      * Radius
      *
-     * @param float $area Area
+     * @param float $surface Surface
      *
      * @return float
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public static function getRadiusByArea(float $area)
+    public static function getRadiusBySurface(float $surface)
     {
-        return sqrt($area / pi());
+        return sqrt($surface / pi());
     }
 
     /**
@@ -84,7 +84,7 @@ class Circle
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public static function getRadiusByCircumference(float $C)
+    public static function getRadiusByPerimeter(float $C)
     {
         return $C / (2 * pi());
     }

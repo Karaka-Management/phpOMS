@@ -60,7 +60,7 @@ class BruteForce
         $this->cityPool = $pool;
 
         if ($this->cityPool->count() > self::LIMIT) {
-            throw new \Exception('64 bit overflow');
+            throw new \Exception('Overflow');
         }
     }
 
@@ -98,7 +98,7 @@ class BruteForce
      */
     private function bruteForce(array $cities, Tour $tour, Population $population)
     {
-        if (count($cities) === 0) {
+        if (empty($cities)) {
             $population->addTour($tour);
         }
 

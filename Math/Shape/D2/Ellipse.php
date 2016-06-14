@@ -13,7 +13,7 @@
  * @version    1.0.0
  * @link       http://orange-management.com
  */
-namespace phpOMS\Math\Algebra;
+namespace phpOMS\Math\Shape\D2;
 
 /**
  * Ellipse shape.
@@ -26,7 +26,7 @@ namespace phpOMS\Math\Algebra;
  * @link       http://orange-management.com
  * @since      1.0.0
  */
-class Ellipse
+class Ellipse implements D2ShapeInterface
 {
 
     /**
@@ -45,7 +45,7 @@ class Ellipse
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public static function getArea(float $a, float $b)
+    public static function getSurface(float $a, float $b)
     {
         return pi() * $a * $b;
     }
@@ -66,7 +66,7 @@ class Ellipse
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public static function getCircumference(float $a, float $b)
+    public static function getPerimeter(float $a, float $b)
     {
         return pi() * ($a + $b) * (3 * ($a - $b) ** 2 / (($a + $b) ** 2 * (sqrt(-3 * ($a - $b) ** 2 / (($a + $b) ** 2) + 4) + 10)) + 1);
     }

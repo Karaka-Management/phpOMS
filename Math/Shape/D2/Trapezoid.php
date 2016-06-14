@@ -13,7 +13,7 @@
  * @version    1.0.0
  * @link       http://orange-management.com
  */
-namespace phpOMS\Math\Algebra;
+namespace phpOMS\Math\Shape\D2;
 
 /**
  * Trapezoid shape.
@@ -26,7 +26,7 @@ namespace phpOMS\Math\Algebra;
  * @link       http://orange-management.com
  * @since      1.0.0
  */
-class Trapezoid
+class Trapezoid implements D2ShapeInterface
 {
 
     /**
@@ -47,7 +47,7 @@ class Trapezoid
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public static function getArea(float $a, float $b, float $h)
+    public static function getSurface(float $a, float $b, float $h)
     {
         return ($a + $b) / 2 * $h;
     }
