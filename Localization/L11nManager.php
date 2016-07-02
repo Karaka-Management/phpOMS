@@ -58,9 +58,9 @@ class L11nManager
      * One module can only be loaded once. Once the module got loaded it's not
      * possible to load more language files later on.
      *
-     * @param string     $language Language iso code
-     * @param string     $from     Module name
-     * @param string[][] $files    Language files content
+     * @param string     $language    Language iso code
+     * @param string     $from        Module name
+     * @param string[][] $translation Language files content
      *
      * @return void
      *
@@ -69,17 +69,17 @@ class L11nManager
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function loadLanguage(string $language, string $from, array $files)
+    public function loadLanguage(string $language, string $from, array $translation)
     {
-        if (!isset($files[$from])) {
+        if (!isset($translation[$from])) {
             throw new \Exception('Unexpected language key: ' . $from);
         }
 
         if (!isset($this->language[$language][$from])) {
-            $this->language[$language][$from] = $files[$from];
+            $this->language[$language][$from] = $translation[$from];
         } else {
             /** @noinspection PhpWrongStringConcatenationInspection */
-            $this->language[$language][$from] = $files[$from] + $this->language[$language][$from];
+            $this->language[$language][$from] = $translation[$from] + $this->language[$language][$from];
         }
     }
 
@@ -103,5 +103,22 @@ class L11nManager
         } else {
             return [];
         }
+    }
+
+    /**
+     * Get translation.
+     *
+     * @param string $code        Country code
+     * @param string $module      Module name
+     * @param string $translation Text
+     *
+     * @return array
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+    public function getText(string $code, string $module, string $translation)
+    {
+        return $this->language[$code][$module][$translation] ?? 'ERROR';
     }
 }

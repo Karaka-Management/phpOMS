@@ -107,8 +107,7 @@ class View implements \Serializable
         $this->app      = $app;
         $this->request  = $request;
         $this->response = $response;
-
-        $this->l11n = new Localization();
+        $this->l11n     = $response->getL11n();
     }
 
     /**
@@ -259,7 +258,6 @@ class View implements \Serializable
      */
     public function render() : string
     {
-        $this->l11n->setLang($this->app->l11nManager->getLanguage($this->response->getL11n()->getLanguage()));
         $path = realpath($oldPath = __DIR__ . '/../..' . $this->template . '.tpl.php');
 
         if ($path === false || Validator::startsWith($path, ROOT_PATH) === false) {

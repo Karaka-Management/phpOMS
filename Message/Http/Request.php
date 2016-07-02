@@ -15,6 +15,7 @@
  */
 namespace phpOMS\Message\Http;
 
+use phpOMS\Localization\L11nManager;
 use phpOMS\Localization\Localization;
 use phpOMS\Message\RequestAbstract;
 use phpOMS\Uri\Http;
@@ -87,15 +88,16 @@ class Request extends RequestAbstract
     /**
      * Constructor.
      *
-     * @param UriInterface $uri Uri
+     * @param L11nManager  $l11nManager Localization manager
+     * @param UriInterface $uri         Uri
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function __construct(UriInterface $uri = null)
+    public function __construct(L11nManager $l11nManager, UriInterface $uri = null)
     {
+        $this->l11n = new Localization($l11nManager);
         $this->uri  = $uri;
-        $this->l11n = new Localization();
     }
 
     /**

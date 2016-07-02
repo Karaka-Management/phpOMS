@@ -14,6 +14,7 @@
  * @link       http://orange-management.com
  */
 namespace phpOMS\Localization;
+
 use phpOMS\Datatypes\Exception\InvalidEnumValue;
 
 /**
@@ -87,21 +88,24 @@ class Localization
     private $datetime = 'Y-m-d H:i:s';
 
     /**
-     * Language array.
+     * Localization manager.
      *
-     * @var string[]
+     * @var L11nManager
      * @since 1.0.0
      */
-    public $lang = [];
+    public $l11nManager = null;
 
     /**
      * Constructor.
      *
+     * @param L11nManager $l11nManager Localization manager
+     *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function __construct()
+    public function __construct(L11nManager $l11nManager)
     {
+        $this->l11nManager = $l11nManager;
     }
 
     /**
@@ -146,7 +150,7 @@ class Localization
     /**
      * @param string $timezone
      *
-     * @todo: maybe make parameter int
+     * @todo   : maybe make parameter int
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
@@ -186,30 +190,6 @@ class Localization
         }
 
         $this->language = $language;
-    }
-
-    /**
-     * @return array
-     *
-     * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
-     */
-    public function getLang() : array
-    {
-        return $this->lang;
-    }
-
-    /**
-     * @param array $lang
-     *
-     * @return void
-     *
-     * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
-     */
-    public function setLang(array $lang)
-    {
-        $this->lang = $lang;
     }
 
     /**
@@ -310,5 +290,21 @@ class Localization
     public function setThousands(string $thousands)
     {
         $this->thousands = $thousands;
+    }
+
+    /**
+     * Get translation.
+     *
+     * @param string $module      Module name
+     * @param string $translation Text
+     *
+     * @return array
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+    public function getText(string $module, string $translation)
+    {
+        return $this->l11nManager->getText($this->language, $module, $translation);
     }
 }

@@ -280,14 +280,6 @@ abstract class RequestAbstract implements MessageInterface
     /**
      * {@inheritdoc}
      */
-    public function setLocalization(Localization $l11n)
-    {
-        return $this->l11n = $l11n;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
     public function getL11n() : Localization
     {
         return $this->l11n;

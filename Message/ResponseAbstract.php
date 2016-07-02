@@ -81,14 +81,6 @@ abstract class ResponseAbstract implements MessageInterface
     }
 
     /**
-     * {@inheritdoc}
-     */
-    public function setL11n(Localization $l11n)
-    {
-        return $this->l11n = $l11n;
-    }
-
-    /**
      * Get response by ID.
      *
      * @param mixed $id Response ID

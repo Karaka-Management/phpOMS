@@ -347,6 +347,37 @@ class ModuleManager
     }
 
     /**
+     * Re-init module.
+     *
+     * @param string $module Module name
+     *
+     * @return bool
+     *
+     * @throws
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn
+     */
+    public function reInit(string $module) : bool
+    {
+        if(file_exists($path = __DIR__ . '/../Web/Routes.php')) {
+            unlink($path);
+        }
+
+        file_put_contents($path, '<?php return [];');
+
+        $info = $this->loadInfo($module);
+        /** @var $class InstallerAbstract */
+        $class = '\\Modules\\' . $info->getDirectory() . '\\Admin\\Installer';
+
+        if (!Autoloader::exists($class)) {
+            throw new \Exception('Module installer does not exist');
+        }
+
+        $class::reInit($info);
+    }
+
+    /**
      * Install module.
      *
      * @param string $module Module name
@@ -569,13 +600,11 @@ class ModuleManager
      */
     public function initModule($module)
     {
-        if (is_array($module)) {
-            $this->initModuleArray($module);
-        } elseif (is_string($module) && realpath(self::MODULE_PATH . '/' . $module . '/Controller.php') !== false) {
-            $this->initModuleController($module);
-        } else {
-            throw new \InvalidArgumentException('Invalid Module');
+        if(!is_array($module)) {
+            $module = [$module];
         }
+
+        $this->initModuleArray($module);
     }
 
     /**
@@ -592,7 +621,7 @@ class ModuleManager
     {
         foreach ($modules as $module) {
             try {
-                $this->initModule($module);
+                $this->initModuleController($module);
             } catch (\InvalidArgumentException $e) {
                 $this->app->logger->warning(FileLogger::MSG_FULL, [
                     'message' => 'Trying to initialize ' . $module . ' without controller.',

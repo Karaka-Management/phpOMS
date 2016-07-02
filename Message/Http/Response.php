@@ -15,6 +15,8 @@
  */
 namespace phpOMS\Message\Http;
 
+use phpOMS\Localization\L11nManager;
+use phpOMS\Localization\Localization;
 use phpOMS\System\MimeType;
 use phpOMS\Contract\RenderableInterface;
 use phpOMS\Message\ResponseAbstract;
@@ -36,12 +38,15 @@ class Response extends ResponseAbstract implements RenderableInterface
     /**
      * Constructor.
      *
+     * @param L11nManager $l11nManager Localization manager
+     *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function __construct()
+    public function __construct(L11nManager $l11nManager)
     {
         $this->header = new Header();
+        $this->l11n   = new Localization($l11nManager);
     }
 
     /**

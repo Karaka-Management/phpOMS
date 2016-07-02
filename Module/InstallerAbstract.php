@@ -99,6 +99,38 @@ class InstallerAbstract
     public static function install(Pool $dbPool, InfoManager $info)
     {
         self::registerInDatabase($dbPool, $info);
+        self::initRoutes($info);
+    }
+
+    /**
+     * Re-init module.
+     *
+     * @param InfoManager $info Module info
+     *
+     * @return void
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+    public static function reInit(InfoManager $info)
+    {
+        self::initRoutes($info);
+    }
+
+    /**
+     * Init routes.
+     *
+     * @param InfoManager $info Module info
+     *
+     * @return void
+     *
+     * @throws PermissionException
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+    private static function initRoutes(InfoManager $info)
+    {
         self::installRoutes(ROOT_PATH . '/Web/Routes.php', ROOT_PATH . '/Modules/' . $info->getDirectory() . '/Admin/Routes/http.php');
         self::installRoutes(ROOT_PATH . '/Socket/Routes.php', ROOT_PATH . '/Modules/' . $info->getDirectory() . '/Admin/Routes/socket.php');
         self::installRoutes(ROOT_PATH . '/Console/Routes.php', ROOT_PATH . '/Modules/' . $info->getDirectory() . '/Admin/Routes/console.php');
