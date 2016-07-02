@@ -27,7 +27,7 @@ use phpOMS\Contract\ArrayableInterface;
  * @link       http://orange-management.com
  * @since      1.0.0
  */
-class Group implements ArrayableInterface
+class Group implements ArrayableInterface, \JsonSerializable
 {
 
     /**
@@ -195,6 +195,19 @@ class Group implements ArrayableInterface
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function __toString()
+    {
+        return $this->jsonSerialize();
+    }
+
+    /**
+     * Json serialize.
+     *
+     * @return string
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+    public function jsonSerialize()
     {
         return json_encode($this->toArray());
     }

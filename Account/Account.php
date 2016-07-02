@@ -31,7 +31,7 @@ use phpOMS\Validation\Base\Email;
  * @link       http://orange-management.com
  * @since      1.0.0
  */
-class Account implements ArrayableInterface
+class Account implements ArrayableInterface, \JsonSerializable
 {
 
     /**
@@ -468,6 +468,19 @@ class Account implements ArrayableInterface
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function __toString()
+    {
+        return $this->jsonSerialize();
+    }
+
+    /**
+     * Json serialize.
+     *
+     * @return string
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+    public function jsonSerialize()
     {
         return json_encode($this->toArray());
     }
