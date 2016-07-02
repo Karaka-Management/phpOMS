@@ -15,6 +15,7 @@
  */
 namespace phpOMS\Module;
 
+use phpOMS\DataStorage\Database\DatabaseType;
 use phpOMS\DataStorage\Database\Pool;
 use phpOMS\System\File\PermissionException;
 use phpOMS\Utils\Parser\Php\ArrayParser;
@@ -33,6 +34,58 @@ use phpOMS\Utils\Parser\Php\ArrayParser;
 class InstallerAbstract
 {
     /**
+     * Register module in database.
+     *
+     * @param Pool        $dbPool Database instance
+     * @param InfoManager $info   Module info
+     *
+     * @return void
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn
+     */
+    public static function registerInDatabase(Pool $dbPool, InfoManager $info)
+    {
+        switch ($dbPool->get()->getType()) {
+            case DatabaseType::MYSQL:
+                $dbPool->get()->con->beginTransaction();
+
+                $sth = $dbPool->get()->con->prepare(
+                    'INSERT INTO `' . $dbPool->get()->prefix . 'module` (`module_id`, `module_theme`, `module_path`, `module_active`, `module_version`) VALUES
+                (:internal, :theme, :path, :active, :version);'
+                );
+
+                $sth->bindValue(':internal', $info->getInternalName(), \PDO::PARAM_INT);
+                $sth->bindValue(':theme', 'Default', \PDO::PARAM_STR);
+                $sth->bindValue(':path', $info->getDirectory(), \PDO::PARAM_STR);
+                $sth->bindValue(':active', 1, \PDO::PARAM_INT);
+                $sth->bindValue(':version', $info->getVersion(), \PDO::PARAM_STR);
+                $sth->execute();
+
+                $sth = $dbPool->get()->con->prepare(
+                    'INSERT INTO `' . $dbPool->get()->prefix . 'module_load` (`module_load_pid`, `module_load_type`, `module_load_from`, `module_load_for`, `module_load_file`) VALUES
+                (:pid, :type, :from, :for, :file);'
+                );
+
+                $load = $info->getLoad();
+                foreach ($load as $val) {
+                    foreach ($val['pid'] as $pid) {
+                        $sth->bindValue(':pid', $pid, \PDO::PARAM_STR);
+                        $sth->bindValue(':type', $val['type'], \PDO::PARAM_INT);
+                        $sth->bindValue(':from', $val['from'], \PDO::PARAM_STR);
+                        $sth->bindValue(':for', $val['for'], \PDO::PARAM_STR);
+                        $sth->bindValue(':file', $val['file'], \PDO::PARAM_STR);
+
+                        $sth->execute();
+                    }
+                }
+
+                $dbPool->get()->con->commit();
+                break;
+        }
+    }
+
+    /**
      * Install module.
      *
      * @param Pool        $dbPool Database instance
@@ -45,6 +98,7 @@ class InstallerAbstract
      */
     public static function install(Pool $dbPool, InfoManager $info)
     {
+        self::registerInDatabase($dbPool, $info);
         self::installRoutes(ROOT_PATH . '/Web/Routes.php', ROOT_PATH . '/Modules/' . $info->getDirectory() . '/Admin/Routes/http.php');
         self::installRoutes(ROOT_PATH . '/Socket/Routes.php', ROOT_PATH . '/Modules/' . $info->getDirectory() . '/Admin/Routes/socket.php');
         self::installRoutes(ROOT_PATH . '/Console/Routes.php', ROOT_PATH . '/Modules/' . $info->getDirectory() . '/Admin/Routes/console.php');
@@ -80,4 +134,5 @@ class InstallerAbstract
             }
         }
     }
+
 }

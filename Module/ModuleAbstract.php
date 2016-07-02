@@ -131,12 +131,10 @@ abstract class ModuleAbstract
     public function getLocalization(string $language, string $destination) : array
     {
         $lang = [];
-        if (($path = realpath($oldPath = __DIR__ . '/../../Modules/' . static::MODULE_NAME . '/Theme/' . $destination . '/Lang/' . $language . '.lang.php')) === false) {
-            return $lang;
+        if (($path = realpath($oldPath = __DIR__ . '/../../Modules/' . static::MODULE_NAME . '/Theme/' . $destination . '/Lang/' . $language . '.lang.php')) !== false) {
+            /** @noinspection PhpIncludeInspection */
+            $lang = include $path;
         }
-
-        /** @noinspection PhpIncludeInspection */
-        $lang = include $path;
 
         return $lang;
     }

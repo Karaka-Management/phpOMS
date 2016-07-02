@@ -275,21 +275,93 @@ class ModuleManager
     }
 
     /**
-     * Install module.
+     * Deactivate module.
      *
      * @param string $module Module name
      *
-     * @return void
+     * @return bool
      *
      * @since  1.0.0
      * @author Dennis Eichhorn
      */
-    public function install(string $module)
+    public function deactivate(string $module) : bool
     {
         $installed = $this->getInstalledModules();
 
         if (isset($installed[$module])) {
-            return;
+            return false;
+        }
+
+        try {
+            $info = $this->loadInfo($module);
+
+            $this->deactivateModule($info);
+
+            return true;
+        } catch (PathException $e) {
+            // todo: handle module doesn't exist or files are missing
+            //echo $e->getMessage();
+
+            return false;
+        } catch (\Exception $e) {
+            //echo $e->getMessage();
+
+            return false;
+        }
+    }
+
+    /**
+     * Deactivate module.
+     *
+     * @param string $module Module name
+     *
+     * @return bool
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn
+     */
+    public function activate(string $module) : bool
+    {
+        $installed = $this->getInstalledModules();
+
+        if (isset($installed[$module])) {
+            return false;
+        }
+
+        try {
+            $info = $this->loadInfo($module);
+
+            $this->activateModule($info);
+
+            return true;
+        } catch (PathException $e) {
+            // todo: handle module doesn't exist or files are missing
+            //echo $e->getMessage();
+
+            return false;
+        } catch (\Exception $e) {
+            //echo $e->getMessage();
+
+            return false;
+        }
+    }
+
+    /**
+     * Install module.
+     *
+     * @param string $module Module name
+     *
+     * @return bool
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn
+     */
+    public function install(string $module) : bool
+    {
+        $installed = $this->getInstalledModules();
+
+        if (isset($installed[$module])) {
+            return false;
         }
 
         if (!file_exists(self::MODULE_PATH . '/' . $module . '/Admin/Install.php')) {
@@ -299,7 +371,6 @@ class ModuleManager
         try {
             $info = $this->loadInfo($module);
 
-            $this->registerInDatabase($info);
             $this->installed[$module] = $info;
             $this->installDependencies($info->getDependencies());
             $this->installModule($info);
@@ -314,64 +385,17 @@ class ModuleManager
             foreach ($installed as $key => $value) {
                 $this->installProviding($key, $module);
             }
+
+            return true;
         } catch (PathException $e) {
             // todo: handle module doesn't exist or files are missing
             //echo $e->getMessage();
+
+            return false;
         } catch (\Exception $e) {
             //echo $e->getMessage();
-        }
-    }
 
-    /**
-     * Register module in database.
-     *
-     * @param InfoManager $info Module info
-     *
-     * @return void
-     *
-     * @since  1.0.0
-     * @author Dennis Eichhorn
-     */
-    private function registerInDatabase(InfoManager $info)
-    {
-        switch ($this->app->dbPool->get('core')->getType()) {
-            case DatabaseType::MYSQL:
-                $this->app->dbPool->get('core')->con->beginTransaction();
-
-                $sth = $this->app->dbPool->get('core')->con->prepare(
-                    'INSERT INTO `' . $this->app->dbPool->get('core')->prefix . 'module` (`module_id`, `module_theme`, `module_path`, `module_active`, `module_version`) VALUES
-                (:internal, :theme, :path, :active, :version);'
-                );
-
-                $sth->bindValue(':internal', $info->getInternalName(), \PDO::PARAM_INT);
-                $sth->bindValue(':theme', 'Default', \PDO::PARAM_STR);
-                $sth->bindValue(':path', $info->getDirectory(), \PDO::PARAM_STR);
-                $sth->bindValue(':active', 1, \PDO::PARAM_INT);
-                $sth->bindValue(':version', $info->getVersion(), \PDO::PARAM_STR);
-
-                $sth->execute();
-
-                $sth = $this->app->dbPool->get('core')->con->prepare(
-                    'INSERT INTO `' . $this->app->dbPool->get('core')->prefix . 'module_load` (`module_load_pid`, `module_load_type`, `module_load_from`, `module_load_for`, `module_load_file`) VALUES
-                (:pid, :type, :from, :for, :file);'
-                );
-
-                $load = $info->getLoad();
-                foreach ($load as $val) {
-                    foreach ($val['pid'] as $pid) {
-                        $sth->bindValue(':pid', $pid, \PDO::PARAM_STR);
-                        $sth->bindValue(':type', $val['type'], \PDO::PARAM_INT);
-                        $sth->bindValue(':from', $val['from'], \PDO::PARAM_STR);
-                        $sth->bindValue(':for', $val['for'], \PDO::PARAM_STR);
-                        $sth->bindValue(':file', $val['file'], \PDO::PARAM_STR);
-
-                        $sth->execute();
-                    }
-                }
-
-                $this->app->dbPool->get('core')->con->commit();
-
-                break;
+            return false;
         }
     }
 
@@ -406,14 +430,62 @@ class ModuleManager
      */
     private function installModule(InfoManager $info)
     {
+        /** @var $class InstallerAbstract */
         $class = '\\Modules\\' . $info->getDirectory() . '\\Admin\\Installer';
 
         if (!Autoloader::exists($class)) {
             throw new \Exception('Module installer does not exist');
         }
 
-        /** @var $class InstallerAbstract */
         $class::install($this->app->dbPool, $info);
+    }
+
+    /**
+     * Deactivate module.
+     *
+     * @param InfoManager $info Module info
+     *
+     * @return void
+     *
+     * @throws \Exception
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn
+     */
+    private function deactivateModule(InfoManager $info)
+    {
+        $class = '\\Modules\\' . $info->getDirectory() . '\\Admin\\Deactivate';
+
+        if (!Autoloader::exists($class)) {
+            throw new \Exception('Module deactivation does not exist');
+        }
+
+        /** @var $class DeactivateAbstract */
+        $class::deactivate($this->app->dbPool, $info);
+    }
+
+    /**
+     * Activate module.
+     *
+     * @param InfoManager $info Module info
+     *
+     * @return void
+     *
+     * @throws \Exception
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn
+     */
+    private function activateModule(InfoManager $info)
+    {
+        $class = '\\Modules\\' . $info->getDirectory() . '\\Admin\\Deactivate';
+
+        if (!Autoloader::exists($class)) {
+            throw new \Exception('Module deactivation does not exist');
+        }
+
+        /** @var $class ActivateAbstract */
+        $class::activate($this->app->dbPool, $info);
     }
 
     /**
@@ -547,6 +619,8 @@ class ModuleManager
     {
         $this->running[$module] = ModuleFactory::getInstance($module, $this->app);
         $this->app->dispatcher->set($this->running[$module], '\Modules\\' . $module . '\\Controller');
+        // todo: replace 'en' with request language.
+        $this->loadLanguage($module, 'en');
     }
 
     /**
@@ -571,22 +645,19 @@ class ModuleManager
     /**
      * Load module language.
      *
-     * @param string $language    Langauge
-     * @param string $destination Destination
+     * @param string $module   Module name
+     * @param string $language Language
      *
      * @return void
      *
      * @since  1.0.0
      * @author Dennis Eichhorn
      */
-    public function loadLanguage(string $language, string $destination)
+    public function loadLanguage(string $module, string $language)
     {
-        foreach ($this->running as $name => $module) {
-            /** @var ModuleAbstract $module */
-            $file = $module->getLocalization($language, $destination);
-            if (!empty($file)) {
-                $this->app->l11nManager->loadLanguage($language, $name, $file);
-            }
+        $file = $this->running[$module]->getLocalization($language, $this->app->appName);
+        if (!empty($file)) {
+            $this->app->l11nManager->loadLanguage($language, $module, $file);
         }
     }
 }
