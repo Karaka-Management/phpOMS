@@ -182,7 +182,7 @@ class Account implements ArrayableInterface
      */
     public function getL11n() : Localization
     {
-        return $this->l11n ?? new NullLocalization();
+        return $this->l11n;
     }
 
     /**
