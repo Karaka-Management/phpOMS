@@ -122,6 +122,14 @@ abstract class RequestAbstract implements MessageInterface
      */
     protected $hash = [];
 
+    /**
+     * Request lock.
+     *
+     * @var bool
+     * @since 1.0.0
+     */
+    protected $lock = false;
+
     protected $header = null;
 
     /**
@@ -267,14 +275,29 @@ abstract class RequestAbstract implements MessageInterface
     }
 
     /**
-     * {@inheritdoc}
+     * Set request data.
+     *
+     * @param mixed $key       Data key
+     * @param mixed $value     Value
+     * @param bool  $overwrite Overwrite data
+     *
+     * @return bool
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function setData($key, $value, $overwrite = true)
+    public function setData($key, $value, bool $overwrite = true) : bool
     {
-        $key = mb_strtolower($key);
-        if ($overwrite || !isset($this->data[$key])) {
-            $this->data[$key] = $value;
+        if (!$this->lock) {
+            $key = mb_strtolower($key);
+            if ($overwrite || !isset($this->data[$key])) {
+                $this->data[$key] = $value;
+
+                return true;
+            }
         }
+
+        return false;
     }
 
     /**
@@ -283,6 +306,19 @@ abstract class RequestAbstract implements MessageInterface
     public function getL11n() : Localization
     {
         return $this->l11n;
+    }
+
+    /**
+     * Lock request for further manipulations.
+     *
+     * @return void
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+    public function lock()
+    {
+        $this->lock = true;
     }
 
     /**
