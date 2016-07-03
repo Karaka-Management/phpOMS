@@ -131,6 +131,7 @@ class Request extends RequestAbstract
 
         $this->setupUriBuilder();
         $this->createRequestHashs();
+        $this->lock();
     }
 
     /**
