@@ -58,7 +58,7 @@ class InstallerAbstract
                 $sth->bindValue(':internal', $info->getInternalName(), \PDO::PARAM_INT);
                 $sth->bindValue(':theme', 'Default', \PDO::PARAM_STR);
                 $sth->bindValue(':path', $info->getDirectory(), \PDO::PARAM_STR);
-                $sth->bindValue(':active', 1, \PDO::PARAM_INT);
+                $sth->bindValue(':active', 0, \PDO::PARAM_INT);
                 $sth->bindValue(':version', $info->getVersion(), \PDO::PARAM_STR);
                 $sth->execute();
 
@@ -100,6 +100,25 @@ class InstallerAbstract
     {
         self::registerInDatabase($dbPool, $info);
         self::initRoutes($info);
+        self::activate($dbPool, $info);
+    }
+
+    /**
+     * Activate after install.
+     *
+     * @param Pool        $dbPool Database instance
+     * @param InfoManager $info   Module info
+     *
+     * @return void
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+    private static function activate(Pool $dbPool, InfoManager $info)
+    {
+        /** @var ActivateAbstract $class */
+        $class = '\Modules\\' . $info->getDirectory() . '\Admin\Activate';
+        $class::activate($dbPool, $info);
     }
 
     /**
