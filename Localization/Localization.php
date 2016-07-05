@@ -296,6 +296,7 @@ class Localization
      * Get translation.
      *
      * @param string $module      Module name
+     * @param string $theme       Theme name
      * @param string $translation Text
      *
      * @return array
@@ -303,8 +304,8 @@ class Localization
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function getText(string $module, string $translation)
+    public function getText(string $module, string $theme, string $translation)
     {
-        return $this->l11nManager->getText($this->language, $module, $translation);
+        return $this->l11nManager->getText($this->language, $module, $theme, $translation);
     }
 }
