@@ -17,6 +17,7 @@ namespace phpOMS\Localization;
 
 use phpOMS\Log\FileLogger;
 use phpOMS\Log\LoggerInterface;
+use phpOMS\Module\ModuleAbstract;
 
 /**
  * Localization class.
@@ -134,6 +135,7 @@ class L11nManager
      *
      * @param string $code        Country code
      * @param string $module      Module name
+     * @param string $theme       Theme
      * @param string $translation Text
      *
      * @return array
@@ -141,15 +143,16 @@ class L11nManager
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function getText(string $code, string $module, string $translation)
+    public function getText(string $code, string $module, string $theme, string $translation)
     {
         if (!isset($this->language[$code][$module][$translation])) {
+            /** @var ModuleAbstract $class */
             $class = '\Modules\\' . $module . '\\Controller';
-            $this->loadLanguage($code, $module, $class::getLocalization($code, $module));
+            $this->loadLanguage($code, $module, $class::getLocalization($code, $theme));
 
             if (!isset($this->language[$code][$module][$translation])) {
                 $this->logger->warning(FileLogger::MSG_FULL, [
-                    'message' => 'Undefined translation for \'' . $code . '/' . $module . '/' . $translation . '\'.'
+                    'message' => 'Undefined translation for \'' . $code . '/' . $module . '/' . $translation . '\'.',
                 ]);
 
                 return 'ERROR';
