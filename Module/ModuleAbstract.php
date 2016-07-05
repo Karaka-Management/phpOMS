@@ -128,7 +128,7 @@ abstract class ModuleAbstract
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function getLocalization(string $language, string $destination) : array
+    public static function getLocalization(string $language, string $destination) : array
     {
         $lang = [];
         if (($path = realpath($oldPath = __DIR__ . '/../../Modules/' . static::MODULE_NAME . '/Theme/' . $destination . '/Lang/' . $language . '.lang.php')) !== false) {

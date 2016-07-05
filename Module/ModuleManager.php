@@ -648,8 +648,6 @@ class ModuleManager
     {
         $this->running[$module] = ModuleFactory::getInstance($module, $this->app);
         $this->app->dispatcher->set($this->running[$module], '\Modules\\' . $module . '\\Controller');
-        // todo: replace 'en' with request language.
-        $this->loadLanguage($module, 'en');
     }
 
     /**
@@ -669,24 +667,5 @@ class ModuleManager
         }
 
         return $this->running[$module];
-    }
-
-    /**
-     * Load module language.
-     *
-     * @param string $module   Module name
-     * @param string $language Language
-     *
-     * @return void
-     *
-     * @since  1.0.0
-     * @author Dennis Eichhorn
-     */
-    public function loadLanguage(string $module, string $language)
-    {
-        $file = $this->running[$module]->getLocalization($language, $this->app->appName);
-        if (!empty($file)) {
-            $this->app->l11nManager->loadLanguage($language, $module, $file);
-        }
     }
 }

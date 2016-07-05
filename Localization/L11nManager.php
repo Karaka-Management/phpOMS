@@ -118,7 +118,7 @@ class L11nManager
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function getLanguage(string $language, string $module = null) : array
+    public function getModuleLanguage(string $language, string $module = null) : array
     {
         if (!isset($module) && isset($this->language[$language])) {
             return $this->language[$language];
@@ -144,11 +144,16 @@ class L11nManager
     public function getText(string $code, string $module, string $translation)
     {
         if (!isset($this->language[$code][$module][$translation])) {
-            $this->logger->warning(FileLogger::MSG_FULL, [
-                'message' => 'Undefined translation for \'' . $code . '/' . $module . '/' . $translation . '\'.'
-            ]);
+            $class = '\Modules\\' . $module . '\\Controller';
+            $this->loadLanguage($code, $module, $class::getLocalization($code, $module));
 
-            return 'ERROR';
+            if (!isset($this->language[$code][$module][$translation])) {
+                $this->logger->warning(FileLogger::MSG_FULL, [
+                    'message' => 'Undefined translation for \'' . $code . '/' . $module . '/' . $translation . '\'.'
+                ]);
+
+                return 'ERROR';
+            }
         }
 
         return $this->language[$code][$module][$translation];
