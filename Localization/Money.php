@@ -15,6 +15,8 @@
  */
 namespace phpOMS\Localization;
 
+use \phpOMS\Math\Number\OperationInterface;
+
 /**
  * Money class.
  *
@@ -26,7 +28,7 @@ namespace phpOMS\Localization;
  * @link       http://orange-management.com
  * @since      1.0.0
  */
-class Money implements \Serializable 
+class Money implements \Serializable, OperationInterface
 {
 
     /**
@@ -187,12 +189,12 @@ class Money implements \Serializable
      *
      * @param Money|string|int|float $value
      *
-     * @return void
+     * @return Money
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function add($value)
+    public function add($value) : Money
     {
         if(is_string($value) || is_float($value)) {
             $this->value += self::toInt((string) $value, $this->decimal, $this->thousands);
@@ -201,6 +203,8 @@ class Money implements \Serializable
         } elseif($value instanceof Money) {
             $this->value += $value->getInt();
         }
+
+        return $this;
     }
     
     /**
@@ -208,12 +212,12 @@ class Money implements \Serializable
      *
      * @param Money|string|int|float $value
      *
-     * @return void
+     * @return Money
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function sub($value)
+    public function sub($value) : Money
     {
         if(is_string($value) || is_float($value)) {
             $this->value -= self::toInt((string) $value, $this->decimal, $this->thousands);
@@ -222,6 +226,8 @@ class Money implements \Serializable
         } elseif($value instanceof Money) {
             $this->value -= $value->getInt();
         }
+
+        return $this;
     }
     
     /**
@@ -229,16 +235,18 @@ class Money implements \Serializable
      *
      * @param int|float $value
      *
-     * @return void
+     * @return Money
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function mult($value)
+    public function mult($value) : Money
     {
         if(is_float($value) || is_int($value)) {
             $this->value *= $value;
         }
+
+        return $this;
     }
     
     /**
@@ -246,16 +254,52 @@ class Money implements \Serializable
      *
      * @param int|float $value
      *
-     * @return void
+     * @return Money
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function div($value)
+    public function div($value) : Money
     {
         if(is_float($value) || is_int($value)) {
             $this->value = self::toInt((string) ($this->value / $value), $this->decimal, $this->thousands);
         }
+
+        return $this;
+    }
+
+    /**
+     * Abs.
+     *
+     * @return Money
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+    public function abs() : Money
+    {
+        $this->value = abs($this->value);
+
+        return $this;
+    }
+
+    /**
+     * Power.
+     *
+     * @param int|float $value
+     *
+     * @return Money
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+    public function pow($value) : Money
+    {
+        if(is_float($value) || is_int($value)) {
+            $this->value = $this->value ** $value;
+        }
+
+        return $this;
     }
 
     /**
