@@ -15,8 +15,6 @@
  */
 namespace phpOMS\Datatypes;
 
-use phpOMS\Contract\JsonableInterface;
-
 /**
  * Location class.
  *
@@ -28,7 +26,7 @@ use phpOMS\Contract\JsonableInterface;
  * @link       http://orange-management.com
  * @since      1.0.0
  */
-class Location implements JsonableInterface, \Serializable
+class Location implements \JsonSerializable, \Serializable
 {
 
     /**
@@ -251,7 +249,7 @@ class Location implements JsonableInterface, \Serializable
     /**
      * {@inheritdoc}
      */
-    public function toJson(int $option = 0) : string
+    public function jsonSerialize() : string
     {
         return json_encode($this->toArray());
     }
@@ -264,7 +262,7 @@ class Location implements JsonableInterface, \Serializable
      */
     public function serialize()
     {
-        return $this->toJson();
+        return $this->jsonSerialize();
     }
 
     /**

@@ -15,8 +15,6 @@
  */
 namespace phpOMS\Datatypes;
 
-use phpOMS\Contract\JsonableInterface;
-
 /**
  * Address class.
  *
@@ -28,7 +26,7 @@ use phpOMS\Contract\JsonableInterface;
  * @link       http://orange-management.com
  * @since      1.0.0
  */
-class Address implements JsonableInterface
+class Address implements \JsonSerializable
 {
 
     /**
@@ -161,7 +159,7 @@ class Address implements JsonableInterface
     /**
      * {@inheritdoc}
      */
-    public function toJson(int $option = 0) : string
+    public function jsonSerialize(int $option = 0) : string
     {
         return json_encode($this->toArray());
     }

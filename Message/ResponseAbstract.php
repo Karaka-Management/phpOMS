@@ -29,7 +29,7 @@ use phpOMS\Utils\ArrayUtils;
  * @link       http://orange-management.com
  * @since      1.0.0
  */
-abstract class ResponseAbstract implements MessageInterface
+abstract class ResponseAbstract implements MessageInterface, \JsonSerializable
 {
 
     /**
@@ -150,7 +150,7 @@ abstract class ResponseAbstract implements MessageInterface
     /**
      * {@inheritdoc}
      */
-    public function toJson(int $options = 0) : string
+    public function jsonSerialize(int $options = 0) : string
     {
         return json_encode($this->toArray());
     }
