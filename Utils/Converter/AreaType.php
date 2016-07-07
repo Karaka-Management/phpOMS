@@ -18,7 +18,7 @@ namespace phpOMS\Utils\Converter;
 use phpOMS\Datatypes\Enum;
 
 /**
- * Temperature type enum.
+ * Area type enum.
  *
  * @category   Framework
  * @package    phpOMS\Utils\Converter
@@ -28,14 +28,19 @@ use phpOMS\Datatypes\Enum;
  * @link       http://orange-management.com
  * @since      1.0.0
  */
-abstract class TemperatureType extends Enum
+abstract class AreaType extends Enum
 {
-    const CELSIUS = 'celsius';
-    const FAHRENHEIT = 'fahrenheit';
-    const KELVIN = 'kelvin';
-    const REAUMUR = 'reaumur';
-    const RANKINE = 'rankine';
-    const DELISLE = 'delisle';
-    const NEWTON = 'newton';
-    const ROMER = 'romer';
+    const SQUARE_FEET = 'ft';
+    const SQUARE_METERS = 'm';
+    const SQUARE_KILOMETERS = 'km';
+    const SQUARE_MILES = 'mi';
+    const SQUARE_YARDS = 'yd';
+    const SQUARE_INCHES = 'in';
+    const SQUARE_MICROINCHES = 'muin';
+    const SQUARE_CENTIMETERS = 'cm';
+    const SQUARE_MILIMETERS = 'mm';
+    const SQUARE_MICROMETERS = 'micron';
+    const SQUARE_DECIMETERS = 'dm';
+    const HECTARES = 'ha';
+    const ACRES = 'ac';
 }

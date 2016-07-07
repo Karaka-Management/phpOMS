@@ -18,7 +18,7 @@ namespace phpOMS\Utils\Converter;
 use phpOMS\Datatypes\Enum;
 
 /**
- * Temperature type enum.
+ * Time type enum.
  *
  * @category   Framework
  * @package    phpOMS\Utils\Converter
@@ -28,14 +28,15 @@ use phpOMS\Datatypes\Enum;
  * @link       http://orange-management.com
  * @since      1.0.0
  */
-abstract class TemperatureType extends Enum
+abstract class TimeType extends Enum
 {
-    const CELSIUS = 'celsius';
-    const FAHRENHEIT = 'fahrenheit';
-    const KELVIN = 'kelvin';
-    const REAUMUR = 'reaumur';
-    const RANKINE = 'rankine';
-    const DELISLE = 'delisle';
-    const NEWTON = 'newton';
-    const ROMER = 'romer';
+    const MILLISECONDS = 'ms';
+    const SECONDS = 's';
+    const MINUTES = 'm';
+    const HOURS = 'h';
+    const DAYS = 'd';
+    const WEEKS = 'w';
+    const MONTH = 'm';
+    const QUARTER = 'q';
+    const YEAR = 'y';
 }

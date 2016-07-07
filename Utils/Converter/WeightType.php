@@ -30,11 +30,18 @@ use phpOMS\Datatypes\Enum;
  */
 abstract class WeightType extends Enum
 {
-    const MILLIGRAM = 'mg';
+    const MICROGRAM = 'mg';
+    const MILLIGRAM = 'mug';
     const GRAM = 'g';
     const KILOGRAM = 'kg';
-    const TONS = 't';
+    const METRIC_TONS = 't';
     const POUNDS = 'lb';
     const OUNCES = 'oz';
     const STONES = 'st';
+    const GRAIN = 'gr';
+    const CARAT = 'ct';
+    const LONG_TONS = 'uk t';
+    const SHORT_TONS = 'us ton';
+    const TROY_POUNDS = 't lb';
+    const TROY_OUNCES = 't oz';
 }

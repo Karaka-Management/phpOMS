@@ -18,7 +18,7 @@ namespace phpOMS\Utils\Converter;
 use phpOMS\Datatypes\Enum;
 
 /**
- * Temperature type enum.
+ * File size type enum.
  *
  * @category   Framework
  * @package    phpOMS\Utils\Converter
@@ -28,14 +28,16 @@ use phpOMS\Datatypes\Enum;
  * @link       http://orange-management.com
  * @since      1.0.0
  */
-abstract class TemperatureType extends Enum
+abstract class FileSizeType extends Enum
 {
-    const CELSIUS = 'celsius';
-    const FAHRENHEIT = 'fahrenheit';
-    const KELVIN = 'kelvin';
-    const REAUMUR = 'reaumur';
-    const RANKINE = 'rankine';
-    const DELISLE = 'delisle';
-    const NEWTON = 'newton';
-    const ROMER = 'romer';
+    const TERRABYTE = 'TB';
+    const GIGABYTE = 'GB';
+    const MEGABYTE = 'MB';
+    const KILOBYTE = 'KB';
+    const BYTE = 'B';
+    const TERRABIT = 'tbit';
+    const GIGABIT = 'gbit';
+    const MEGABIT = 'mbit';
+    const KILOBIT = 'kbit';
+    const BIT = 'bit';
 }
