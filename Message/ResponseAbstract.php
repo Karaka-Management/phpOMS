@@ -150,7 +150,7 @@ abstract class ResponseAbstract implements MessageInterface, \JsonSerializable
     /**
      * {@inheritdoc}
      */
-    public function jsonSerialize(int $options = 0) : string
+    public function jsonSerialize()
     {
         return json_encode($this->toArray());
     }
