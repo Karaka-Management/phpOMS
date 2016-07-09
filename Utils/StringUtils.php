@@ -53,7 +53,7 @@ class StringUtils
     public static function endsWith(string $haystack, $needles) : bool
     {
         if (is_string($needles)) {
-            self::endsWith($haystack, [$needles]);
+            $needles = [$needles];
         }
 
         foreach ($needles as $needle) {
@@ -79,7 +79,7 @@ class StringUtils
     public static function startsWith(string $haystack, $needles) : bool
     {
         if (is_string($needles)) {
-            self::startsWith($haystack, [$needles]);
+            $needles = [$needles];
         }
 
         foreach ($needles as $needle) {
