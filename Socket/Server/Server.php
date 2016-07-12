@@ -71,19 +71,6 @@ class Server extends SocketAbstract
      */
     private $app = null;
 
-    public static function hasInternet() : bool
-    {
-        $connected = @fsockopen("www.google.com", 80);
-
-        if ($connected) {
-            fclose($connected);
-
-            return true;
-        } else {
-            return false;
-        }
-    }
-
     /**
      * Constructor.
      *
@@ -100,13 +87,34 @@ class Server extends SocketAbstract
     }
 
     /**
+     * Has internet connection.
+     *
+     * @return bool
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+    public static function hasInternet() : bool
+    {
+        $connected = @fsockopen("www.google.com", 80);
+
+        if ($connected) {
+            fclose($connected);
+
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    /**
      * {@inheritdoc}
      */
     public function create(string $ip, int $port)
     {
-        $this->app->logger->console('Creating socket...', $this->verbose);
+        $this->app->logger->info('Creating socket...');
         parent::create($ip, $port);
-        $this->app->logger->console('Binding socket...', $this->verbose);
+        $this->app->logger->info('Binding socket...');
         socket_bind($this->sock, $this->ip, $this->port);
     }
 
@@ -127,6 +135,9 @@ class Server extends SocketAbstract
 
     public function handshake($client, $headers)
     {
+        // todo: different handshake for normal tcp connection
+        return true;
+
         if (preg_match("/Sec-WebSocket-Version: (.*)\r\n/", $headers, $match)) {
             $version = $match[1];
         } else {
@@ -172,12 +183,12 @@ class Server extends SocketAbstract
      */
     public function run()
     {
-        $this->app->logger->console('Start listening...', $this->verbose);
+        $this->app->logger->info('Start listening...');
         socket_listen($this->sock);
         socket_set_nonblock($this->sock);
         $this->conn[] = $this->sock;
 
-        $this->app->logger->console('Start running...', $this->verbose);
+        $this->app->logger->info('Start running...');
         while ($this->run) {
             $read = $this->conn;
 
@@ -200,11 +211,11 @@ class Server extends SocketAbstract
                     $data   = socket_read($socket, 1024);
 
                     if (!$client->getHandshake()) {
-                        $this->app->logger->console('Doing handshake...', $this->verbose);
+                        $this->app->logger->debug('Doing handshake...');
                         if ($this->handshake($client, $data)) {
-                            $this->app->logger->console('Handshake succeeded.', $this->verbose);
+                            $this->app->logger->debug('Handshake succeeded.');
                         } else {
-                            $this->app->logger->console('Handshake failed.', $this->verbose);
+                            $this->app->logger->debug('Handshake failed.');
                             $this->disconnectClient($client);
                         }
                     } else {
@@ -219,15 +230,15 @@ class Server extends SocketAbstract
 
     public function connectClient($socket)
     {
-        $this->app->logger->console('Connecting client...', $this->verbose);
+        $this->app->logger->debug('Connecting client...');
         $this->clientManager->add($client = new ClientConnection(uniqid(), $socket));
         $this->conn[$client->getId()] = $socket;
-        $this->app->logger->console('Connected client.', $this->verbose);
+        $this->app->logger->debug('Connected client.');
     }
 
     public function disconnectClient($client)
     {
-        $this->app->logger->console('Disconnecting client...', $this->verbose);
+        $this->app->logger->debug('Disconnecting client...');
         $client->setConnected(false);
         $client->setHandshake(false);
         socket_shutdown($client->getSocket(), 2);
@@ -238,7 +249,7 @@ class Server extends SocketAbstract
         }
 
         $this->clientManager->remove($client->getId());
-        $this->app->logger->console('Disconnected client.', $this->verbose);
+        $this->app->logger->debug('Disconnected client.');
     }
 
     /**

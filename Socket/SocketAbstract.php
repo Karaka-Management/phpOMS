@@ -69,6 +69,7 @@ abstract class SocketAbstract implements SocketInterface
         $this->ip   = $ip;
         $this->port = $port;
 
+        // todo: if local network connect use AF_UNIX
         $this->sock = \socket_create(AF_INET, SOCK_STREAM, SOL_TCP);
     }
 
