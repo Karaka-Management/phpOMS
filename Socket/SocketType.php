@@ -30,6 +30,7 @@ use phpOMS\Datatypes\Enum;
  */
 abstract class SocketType extends Enum
 {
-    const SERVER = 'server'; /* Server socket */
-    const CLIENT = 'client'; /* Client socket */
+    const TCP_SERVER = 'server';
+    const TCP_CLIENT = 'client';
+    const WEB_SOCKET = 'ws';
 }
