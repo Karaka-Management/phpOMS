@@ -117,23 +117,10 @@ class Response extends ResponseAbstract implements RenderableInterface
     {
         switch ($this->header->get('Content-Type')) {
             case MimeType::M_JSON:
-                return $this->getJson();
+                return $this->jsonSerialize();
             default:
                 return $this->getRaw();
         }
-    }
-
-    /**
-     * Generate json response.
-     *
-     * @return string
-     *
-     * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
-     */
-    private function getJson() : string
-    {
-        return json_encode($this->toArray());
     }
 
     /**
@@ -173,21 +160,27 @@ class Response extends ResponseAbstract implements RenderableInterface
     {
         $result = [];
 
-        foreach ($this->response as $key => $response) {
-            if ($response instanceof View) {
-                $result += $response->toArray();
-            } elseif (is_array($response)) {
-                $result += $response;
-            } elseif (is_scalar($response)) {
-                $result[] = $response;
-            } elseif ($response instanceof \Serializable) {
-                $result[] = $response->serialize();
-            } else {
-                throw new \Exception('Wrong response type');
+        try {
+            foreach ($this->response as $key => $response) {
+                if ($response instanceof View) {
+                    $result += $response->toArray();
+                } elseif (is_array($response)) {
+                    $result += $response;
+                } elseif (is_scalar($response)) {
+                    $result[] = $response;
+                } elseif ($response instanceof \Serializable) {
+                    $result[] = $response->serialize();
+                } else {
+                    throw new \Exception('Wrong response type');
+                }
             }
+        } catch(\Exception $e) {
+            // todo: handle exception
+            // need to to try catch for logging. otherwise the json_encode in the logger will have a problem with this
+            $result = [];
+        } finally {
+            return $result;
         }
-
-        return $result;
     }
 
     /**
