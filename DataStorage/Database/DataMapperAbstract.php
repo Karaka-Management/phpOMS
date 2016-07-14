@@ -449,7 +449,7 @@ class DataMapperAbstract implements DataMapperInterface
                     $mapper  = static::$hasMany[$pname]['mapper'];
                     $objsIds = [];
 
-                    if (isset(static::$hasMany[$pname]['mapper']) && static::$hasMany[$pname]['mapper'] === static::$hasMany[$pname]['relationmapper']) {
+                    if (isset(static::$hasMany[$pname]['mapper']) && !isset(static::$hasMany[$pname]['relationmapper'])) {
                         $relReflectionClass = new \ReflectionClass(get_class($temp));
                     } else {
                         // todo: init other $relReflectionClass?!
@@ -469,7 +469,7 @@ class DataMapperAbstract implements DataMapperInterface
                         }
 
                         // Setting relation value for relation (since the relation is not stored in an extra relation table)
-                        if (isset(static::$hasMany[$pname]['mapper']) && static::$hasMany[$pname]['mapper'] === static::$hasMany[$pname]['relationmapper']) {
+                        if (isset(static::$hasMany[$pname]['mapper']) && !isset(static::$hasMany[$pname]['relationmapper'])) {
                             $relProperty = $relReflectionClass->getProperty($mapper::$columns[static::$hasMany[$pname]['dst']]['internal']);
                             $relProperty->setAccessible(true);
                             $relProperty->setValue($value, $objId);
@@ -484,7 +484,7 @@ class DataMapperAbstract implements DataMapperInterface
                     throw new \Exception('Unexpected value for relational data mapping.');
                 }
 
-                if (isset(static::$hasMany[$pname]['mapper']) && static::$hasMany[$pname]['mapper'] !== static::$hasMany[$pname]['relationmapper']) {
+                if (isset(static::$hasMany[$pname]['mapper']) && isset(static::$hasMany[$pname]['relationmapper'])) {
                     /* is many->many */
                     $relQuery = new Builder(self::$db);
                     $relQuery->prefix(self::$db->getPrefix())
@@ -1039,7 +1039,7 @@ class DataMapperAbstract implements DataMapperInterface
         $result = [];
 
         foreach (static::$hasMany as $member => $value) {
-            if ($value['mapper'] !== $value['relationmapper']) {
+            if (!isset($value['relationmapper'])) {
                 $query = new Builder(self::$db);
                 $query->prefix(self::$db->getPrefix());
 
