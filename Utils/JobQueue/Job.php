@@ -1,0 +1,51 @@
+<?php
+/**
+ * Orange Management
+ *
+ * PHP Version 7.0
+ *
+ * @category   TBD
+ }
+ * @package    TBD
+ * @author     OMS Development Team <dev@oms.com>
+ * @author     Dennis Eichhorn <d.eichhorn@oms.com>
+ * @copyright  2013 Dennis Eichhorn
+ * @license    OMS License 1.0
+ * @version    1.0.0
+ * @link       http://orange-management.com
+ */
+namespace phpOMS\Utils\JobQueue;
+
+/**
+ * Array utils.
+ *
+ * @category   Framework
+ * @package    phpOMS\Utils
+ * @author     OMS Development Team <dev@oms.com>
+ * @author     Dennis Eichhorn <d.eichhorn@oms.com>
+ * @license    OMS License 1.0
+ * @link       http://orange-management.com
+ * @since      1.0.0
+ */
+class Job
+{
+	private $priority = 0.0;
+	private $callback = null;
+
+	public function __construct($callback, float $priority = 0.0) {
+		$this->priority = $priority;
+		$this->callback = $callback;
+	}
+
+	public function execute() {
+		$this->callback();
+	}
+
+	public function getPriority() : float {
+		return $this->priority;
+	}
+
+	public function setPriority(float $priority) {
+		$this->priority = $priority;
+	}
+}

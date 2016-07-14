@@ -66,14 +66,14 @@ class PriorityQueue implements \Countable, \Serializable
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function insert($data, float $priority = 0.0) : int
+    public function insert($data, float $priority = 1.0) : int
     {
         do {
             $key = rand();
         } while (array_key_exists($key, $this->queue));
 
         if ($this->count === 0) {
-            $this->queue[$key] = ['key' => $key, 'data' => $data, 'priority' => $priority];
+            $this->queue[$key] = ['key' => $key, 'job' => $job, 'priority' => $priority];
         } else {
             $pos = 0;
             foreach ($this->queue as $ele) {
@@ -84,7 +84,7 @@ class PriorityQueue implements \Countable, \Serializable
                 $pos++;
             }
 
-            array_splice($original, $pos, 0, [$key => ['key' => $key, 'data' => $data, 'priority' => $priority]]);
+            array_splice($original, $pos, 0, [$key => ['key' => $key, 'job' => $job, 'priority' => $priority]]);
         }
 
         return $key;
@@ -100,7 +100,7 @@ class PriorityQueue implements \Countable, \Serializable
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function increaseAll(float $increase)
+    public function increaseAll(float $increase = 0.1)
     {
         foreach ($this->queue as $key => &$ele) {
             $ele['priority'] += $increase;
@@ -115,10 +115,9 @@ class PriorityQueue implements \Countable, \Serializable
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function get()
+    public function pop()
     {
-        $ele                      = array_pop($this->queue);
-        $this->queue[$ele['key']] = $ele;
+        return array_pop($this->queue);
     }
 
     /**
