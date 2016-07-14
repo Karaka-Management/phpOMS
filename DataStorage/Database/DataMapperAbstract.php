@@ -404,10 +404,12 @@ class DataMapperAbstract implements DataMapperInterface
 
                         if ($column['type'] === 'DateTime') {
                             $value = isset($value) ? $value->format('Y-m-d H:i:s') : null;
-                        } elseif ($column['type'] === 'Json') {
+                        } elseif ($column['type'] === 'json') {
                             $value = isset($value) ? json_encode($value) : '';
                         } elseif ($column['type'] === 'Serializable') {
                             $value = $value->serialize();
+                        } elseif ($column['type'] === 'jsonSerializable') {
+                            $value = $value->jsonSerializable();                            
                         } elseif (is_object($value)) {
                             $value = $value->getId();
                         }
