@@ -115,6 +115,26 @@ class Header extends HeaderAbstract
     }
 
     /**
+     * Is security header.
+     *
+     * @param string $key Header key
+     *
+     * @return bool
+     *
+     * @throws \Exception
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+    private function isSecurityHeader(string $key) : bool
+    {
+        return $key === 'content-security-policy' ||
+            $key === 'x-xss-protection' ||
+            $key === 'x-content-type-options' ||
+            $key === 'x-frame-options';
+    }
+
+    /**
      * {@inheritdoc}
      */
     public function set(string $key, string $header, bool $overwrite = false) : bool
@@ -128,10 +148,7 @@ class Header extends HeaderAbstract
         if (!$overwrite && isset($this->header[$key])) {
             return false;
         } elseif ($overwrite && isset($this->header[$key])) {
-            if($key === 'content-security-policy' ||
-                $key === 'x-xss-protection' ||
-                $key === 'x-content-type-options' ||
-                $key === 'x-frame-options') {
+            if ($this->isSecurityHeader($key)) {
                 throw new \Exception('Cannot change security headers.');
             }
 
@@ -202,7 +219,8 @@ class Header extends HeaderAbstract
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public static function getStatusCode() : int {
+    public static function getStatusCode() : int
+    {
         return http_response_code();
     }
 
