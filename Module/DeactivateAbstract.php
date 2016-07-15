@@ -50,6 +50,22 @@ class DeactivateAbstract
     }
 
     /**
+     * Install routes.
+     *
+     * @param string $destRoutePath Destination route path
+     * @param string $srcRoutePath  Source route path
+     *
+     * @return void
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+    private static function deactivateRoutes(string $destRoutePath, string $srcRoutePath)
+    {
+        // todo: remove route
+    }
+
+    /**
      * Deactivate module in database.
      *
      * @param Pool        $dbPool Database instance
@@ -78,22 +94,5 @@ class DeactivateAbstract
 
                 break;
         }
-    }
-
-
-    /**
-     * Install routes.
-     *
-     * @param string $destRoutePath Destination route path
-     * @param string $srcRoutePath  Source route path
-     *
-     * @return void
-     *
-     * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
-     */
-    private static function deactivateRoutes(string $destRoutePath, string $srcRoutePath)
-    {
-        // todo: remove route
     }
 }

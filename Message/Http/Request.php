@@ -38,29 +38,12 @@ class Request extends RequestAbstract
 {
 
     /**
-     * Browser type.
-     *
-     * @var BrowserType
-     * @since 1.0.0
-     */
-    private $browser = null;
-
-    /**
-     * OS type.
-     *
-     * @var OSType
-     * @since 1.0.0
-     */
-    private $os = null;
-
-    /**
      * Path.
      *
      * @var array
      * @since 1.0.0
      */
     protected $path = null;
-
     /**
      * Request status.
      *
@@ -68,7 +51,6 @@ class Request extends RequestAbstract
      * @since 1.0.0
      */
     protected $status = RequestStatus::R_200;
-
     /**
      * Uploaded files.
      *
@@ -76,7 +58,20 @@ class Request extends RequestAbstract
      * @since 1.0.0
      */
     protected $files = [];
-
+    /**
+     * Browser type.
+     *
+     * @var BrowserType
+     * @since 1.0.0
+     */
+    private $browser = null;
+    /**
+     * OS type.
+     *
+     * @var OSType
+     * @since 1.0.0
+     */
+    private $os = null;
     /**
      * Request information.
      *
@@ -182,6 +177,22 @@ class Request extends RequestAbstract
     }
 
     /**
+     * Clean up globals that musn't be used any longer
+     *
+     * @return void
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+    private function cleanupGlobals()
+    {
+        unset($_FILES);
+        unset($_GET);
+        unset($_POST);
+        unset($_REQUEST);
+    }
+
+    /**
      * Setup uri builder based on current request
      *
      * @return void
@@ -218,19 +229,18 @@ class Request extends RequestAbstract
     }
 
     /**
-     * Clean up globals that musn't be used any longer
+     * Generate request hash.
      *
-     * @return void
+     * @param array $request Request array
+     *
+     * @return string
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    private function cleanupGlobals()
+    private function hashRequest(array $request) : string
     {
-        unset($_FILES);
-        unset($_GET);
-        unset($_POST);
-        unset($_REQUEST);
+        return sha1(implode('', $request));
     }
 
     /**
@@ -251,21 +261,6 @@ class Request extends RequestAbstract
         }
 
         return false;
-    }
-
-    /**
-     * Generate request hash.
-     *
-     * @param array $request Request array
-     *
-     * @return string
-     *
-     * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
-     */
-    private function hashRequest(array $request) : string
-    {
-        return sha1(implode('', $request));
     }
 
     /**
@@ -390,23 +385,6 @@ class Request extends RequestAbstract
     }
 
     /**
-     * Get request type.
-     *
-     * @return string
-     *
-     * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
-     */
-    public function getMethod() : string
-    {
-        if (!isset($this->method)) {
-            $this->method = $_SERVER['REQUEST_METHOD'] ?? RequestMethod::GET;
-        }
-
-        return $this->method;
-    }
-
-    /**
      * {@inheritdoc}
      */
     public function getProtocolVersion() : string
@@ -465,5 +443,22 @@ class Request extends RequestAbstract
             default:
                 throw new \Exception();
         }
+    }
+
+    /**
+     * Get request type.
+     *
+     * @return string
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+    public function getMethod() : string
+    {
+        if (!isset($this->method)) {
+            $this->method = $_SERVER['REQUEST_METHOD'] ?? RequestMethod::GET;
+        }
+
+        return $this->method;
     }
 }

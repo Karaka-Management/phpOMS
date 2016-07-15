@@ -32,13 +32,19 @@ class Localization
 {
 
     /**
+     * Localization manager.
+     *
+     * @var L11nManager
+     * @since 1.0.0
+     */
+    public $l11nManager = null;
+    /**
      * Country ID.
      *
      * @var string
      * @since 1.0.0
      */
     private $country = ISO3166Enum::_US;
-
     /**
      * Timezone.
      *
@@ -46,7 +52,6 @@ class Localization
      * @since 1.0.0
      */
     private $timezone = 'America/New_York';
-
     /**
      * Language ISO code.
      *
@@ -54,7 +59,6 @@ class Localization
      * @since 1.0.0
      */
     private $language = ISO639x1Enum::_EN;
-
     /**
      * Currency.
      *
@@ -62,7 +66,6 @@ class Localization
      * @since 1.0.0
      */
     private $currency = ISO4217Enum::C_USD;
-
     /**
      * Number format.
      *
@@ -70,7 +73,6 @@ class Localization
      * @since 1.0.0
      */
     private $decimal = '.';
-
     /**
      * Number format.
      *
@@ -78,7 +80,6 @@ class Localization
      * @since 1.0.0
      */
     private $thousands = ',';
-
     /**
      * Time format.
      *
@@ -86,14 +87,6 @@ class Localization
      * @since 1.0.0
      */
     private $datetime = 'Y-m-d H:i:s';
-
-    /**
-     * Localization manager.
-     *
-     * @var L11nManager
-     * @since 1.0.0
-     */
-    public $l11nManager = null;
 
     /**
      * Constructor.

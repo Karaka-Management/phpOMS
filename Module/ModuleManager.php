@@ -16,11 +16,11 @@
 namespace phpOMS\Module;
 
 use phpOMS\ApplicationAbstract;
+use phpOMS\Autoloader;
 use phpOMS\DataStorage\Database\DatabaseType;
 use phpOMS\Log\FileLogger;
 use phpOMS\Message\Http\Request;
 use phpOMS\System\File\PathException;
-use phpOMS\Autoloader;
 
 /**
  * Modules class.
@@ -360,7 +360,7 @@ class ModuleManager
      */
     public function reInit(string $module) : bool
     {
-        if(file_exists($path = __DIR__ . '/../Web/Routes.php')) {
+        if (file_exists($path = __DIR__ . '/../Web/Routes.php')) {
             unlink($path);
         }
 
@@ -600,7 +600,7 @@ class ModuleManager
      */
     public function initModule($module)
     {
-        if(!is_array($module)) {
+        if (!is_array($module)) {
             $module = [$module];
         }
 

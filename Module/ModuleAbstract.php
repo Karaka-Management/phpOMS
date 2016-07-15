@@ -30,29 +30,12 @@ abstract class ModuleAbstract
 {
 
     /**
-     * Receiving modules from?
-     *
-     * @var string[]
-     * @since 1.0.0
-     */
-    protected $receiving = [];
-
-    /**
-     * Receiving modules from?
-     *
-     * @var string[]
-     * @since 1.0.0
-     */
-    protected static $providing = [];
-
-    /**
      * Module name.
      *
      * @var string
      * @since 1.0.0
      */
     const MODULE_NAME = '';
-
     /**
      * Module path.
      *
@@ -60,7 +43,6 @@ abstract class ModuleAbstract
      * @since 1.0.0
      */
     const MODULE_PATH = __DIR__ . '/../../Modules';
-
     /**
      * Module version.
      *
@@ -68,7 +50,13 @@ abstract class ModuleAbstract
      * @since 1.0.0
      */
     const MODULE_VERSION = '1.0.0';
-
+    /**
+     * Receiving modules from?
+     *
+     * @var string[]
+     * @since 1.0.0
+     */
+    protected static $providing = [];
     /**
      * Localization files.
      *
@@ -76,7 +64,6 @@ abstract class ModuleAbstract
      * @since 1.0.0
      */
     protected static $localization = [];
-
     /**
      * Dependencies.
      *
@@ -84,7 +71,13 @@ abstract class ModuleAbstract
      * @since 1.0.0
      */
     protected static $dependencies = [];
-
+    /**
+     * Receiving modules from?
+     *
+     * @var string[]
+     * @since 1.0.0
+     */
+    protected $receiving = [];
     /**
      * Application instance.
      *

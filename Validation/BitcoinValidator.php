@@ -51,7 +51,7 @@ class BitcoinValidator extends ValidatorAbstract
             }
 
             return true;
-        } catch(\Exception $e) {
+        } catch (\Exception $e) {
             self::$msg = $e->getMessage();
         } finally {
             return false;

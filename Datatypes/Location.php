@@ -232,6 +232,25 @@ class Location implements \JsonSerializable, \Serializable
     }
 
     /**
+     * String representation of object
+     * @link  http://php.net/manual/en/serializable.serialize.php
+     * @return string the string representation of the object or null
+     * @since 5.1.0
+     */
+    public function serialize()
+    {
+        return $this->jsonSerialize();
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function jsonSerialize() : string
+    {
+        return json_encode($this->toArray());
+    }
+
+    /**
      * {@inheritdoc}
      */
     public function toArray() : array
@@ -244,25 +263,6 @@ class Location implements \JsonSerializable, \Serializable
             'state'   => $this->state,
             'geo'     => $this->geo,
         ];
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function jsonSerialize() : string
-    {
-        return json_encode($this->toArray());
-    }
-
-    /**
-     * String representation of object
-     * @link  http://php.net/manual/en/serializable.serialize.php
-     * @return string the string representation of the object or null
-     * @since 5.1.0
-     */
-    public function serialize()
-    {
-        return $this->jsonSerialize();
     }
 
     /**

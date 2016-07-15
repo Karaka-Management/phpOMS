@@ -151,16 +151,16 @@ class Address implements \JsonSerializable
     /**
      * {@inheritdoc}
      */
-    public function toArray() : array
+    public function jsonSerialize(int $option = 0) : string
     {
-        return ['recipient' => $this->recipient, 'fao' => $this->fao, 'location' => $this->location->toArray()];
+        return json_encode($this->toArray());
     }
 
     /**
      * {@inheritdoc}
      */
-    public function jsonSerialize(int $option = 0) : string
+    public function toArray() : array
     {
-        return json_encode($this->toArray());
+        return ['recipient' => $this->recipient, 'fao' => $this->fao, 'location' => $this->location->toArray()];
     }
 }

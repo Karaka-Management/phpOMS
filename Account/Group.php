@@ -14,6 +14,7 @@
  * @link       http://orange-management.com
  */
 namespace phpOMS\Account;
+
 use phpOMS\Contract\ArrayableInterface;
 
 /**
@@ -132,19 +133,6 @@ class Group implements ArrayableInterface, \JsonSerializable
     }
 
     /**
-     * Get group description.
-     *
-     * @return string
-     *
-     * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
-     */
-    public function getDescription() : string
-    {
-        return $this->description;
-    }
-
-    /**
      * Set group name.
      *
      * @param string $name Group name
@@ -158,6 +146,19 @@ class Group implements ArrayableInterface, \JsonSerializable
     }
 
     /**
+     * Get group description.
+     *
+     * @return string
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+    public function getDescription() : string
+    {
+        return $this->description;
+    }
+
+    /**
      * Set group description.
      *
      * @param string $description Group description
@@ -168,22 +169,6 @@ class Group implements ArrayableInterface, \JsonSerializable
     public function setDescription(string $description)
     {
         $this->description = $description;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function toArray() : array
-    {
-        return [
-            'id'          => $this->id,
-            'name'        => $this->name,
-            'description' => $this->description,
-            'createdBy'   => $this->createdBy,
-            'createdAt'   => $this->createdAt->format('Y-m-d H:i:s'),
-            'permissions' => $this->permissions,
-            'members'     => $this->members,
-        ];
     }
 
     /**
@@ -210,5 +195,21 @@ class Group implements ArrayableInterface, \JsonSerializable
     public function jsonSerialize()
     {
         return json_encode($this->toArray());
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function toArray() : array
+    {
+        return [
+            'id'          => $this->id,
+            'name'        => $this->name,
+            'description' => $this->description,
+            'createdBy'   => $this->createdBy,
+            'createdAt'   => $this->createdAt->format('Y-m-d H:i:s'),
+            'permissions' => $this->permissions,
+            'members'     => $this->members,
+        ];
     }
 }

@@ -80,7 +80,7 @@ class JsonBuilder implements \Serializable
     /**
      * Remove data.
      *
-     * @param string $path  Path to the element to delete
+     * @param string $path Path to the element to delete
      *
      * @return void
      *

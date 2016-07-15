@@ -32,38 +32,6 @@ abstract class Enum
 {
 
     /**
-     * Checking enum name.
-     *
-     * Checking if a certain const name exists (case sensitive)
-     *
-     * @param string $name Name of the value (case sensitive)
-     *
-     * @return bool
-     *
-     * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
-     */
-    public static function isValidName(string $name) : bool
-    {
-        return defined($name);
-    }
-
-    /**
-     * Getting all constants of this enum.
-     *
-     * @return array
-     *
-     * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
-     */
-    public static function getConstants() : array
-    {
-        $reflect = new \ReflectionClass(get_called_class());
-
-        return $reflect->getConstants();
-    }
-
-    /**
      * Check enum value.
      *
      * Checking if a given value is part of this enum
@@ -80,6 +48,21 @@ abstract class Enum
         $values = array_values(self::getConstants());
 
         return in_array($value, $values, true);
+    }
+
+    /**
+     * Getting all constants of this enum.
+     *
+     * @return array
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+    public static function getConstants() : array
+    {
+        $reflect = new \ReflectionClass(get_called_class());
+
+        return $reflect->getConstants();
     }
 
     /**
@@ -111,11 +94,28 @@ abstract class Enum
      */
     public static function getByName(string $name)
     {
-        if(!self::isValidName($name)) {
+        if (!self::isValidName($name)) {
             throw new \Exception('Undefined constant');
         }
 
         return constant($name);
+    }
+
+    /**
+     * Checking enum name.
+     *
+     * Checking if a certain const name exists (case sensitive)
+     *
+     * @param string $name Name of the value (case sensitive)
+     *
+     * @return bool
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+    public static function isValidName(string $name) : bool
+    {
+        return defined($name);
     }
 
 }

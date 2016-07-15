@@ -135,10 +135,29 @@ class Http implements UriInterface
     /**
      * {@inheritdoc}
      */
-    public function setRootPath(string $root)
+    public function set(string $uri)
     {
-        $this->rootPath = $root;
-        $this->set($this->uri);
+        $this->uri = $uri;
+
+        $url = parse_url($this->uri);
+
+        $this->scheme = $url['scheme'] ?? '';
+        $this->host   = $url['host'] ?? null;
+        $this->port   = $url['port'] ?? null;
+        $this->user   = $url['user'] ?? null;
+        $this->pass   = $url['pass'] ?? null;
+        $this->path   = $url['path'] ?? null;
+        $this->path   = rtrim($this->path, '.php');
+        $this->path   = strpos($this->path, $this->rootPath) === 0 ? substr($this->path, strlen($this->rootPath), strlen($this->path)) : $this->path; // TODO: this could cause a bug if the rootpath is the same as a regular path which is usually the language
+        $this->query  = $url['query'] ?? null;
+
+        if (isset($this->query)) {
+            parse_str($this->query, $this->query);
+        }
+
+        $this->fragment = $url['fragment'] ?? null;
+
+        $this->base = $this->scheme . '://' . $this->host . $this->rootPath;
     }
 
     /**
@@ -174,6 +193,15 @@ class Http implements UriInterface
     public function getRootPath() : string
     {
         return $this->rootPath;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function setRootPath(string $root)
+    {
+        $this->rootPath = $root;
+        $this->set($this->uri);
     }
 
     /**
@@ -243,34 +271,6 @@ class Http implements UriInterface
     public function getBase() : string
     {
         return $this->base;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function set(string $uri)
-    {
-        $this->uri = $uri;
-
-        $url = parse_url($this->uri);
-
-        $this->scheme = $url['scheme'] ?? '';
-        $this->host   = $url['host'] ?? null;
-        $this->port   = $url['port'] ?? null;
-        $this->user   = $url['user'] ?? null;
-        $this->pass   = $url['pass'] ?? null;
-        $this->path   = $url['path'] ?? null;
-        $this->path   = rtrim($this->path, '.php');
-        $this->path   = strpos($this->path, $this->rootPath) === 0 ? substr($this->path, strlen($this->rootPath), strlen($this->path)) : $this->path; // TODO: this could cause a bug if the rootpath is the same as a regular path which is usually the language
-        $this->query  = $url['query'] ?? null;
-
-        if (isset($this->query)) {
-            parse_str($this->query, $this->query);
-        }
-
-        $this->fragment = $url['fragment'] ?? null;
-
-        $this->base = $this->scheme . '://' . $this->host . $this->rootPath;
     }
 
     /**

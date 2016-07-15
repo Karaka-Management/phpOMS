@@ -73,16 +73,18 @@ class Iban implements \Serializable
     }
 
     /**
-     * Get 2 digit country code
+     * Normalize iban
+     *
+     * @param string $iban Iban to normalize
      *
      * @return string
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function getCountry() : string
+    public static function normalize(string $iban) : string
     {
-        return substr($this->iban, 0, 2);
+        return strtoupper(str_replace(' ', '', $iban));
     }
 
     /**
@@ -96,6 +98,19 @@ class Iban implements \Serializable
     public function getLength() : int
     {
         return strlen($this->iban);
+    }
+
+    /**
+     * Get iban checksum
+     *
+     * @return string
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+    public function getChecksum() : string
+    {
+        return $this->getSequence('k');
     }
 
     /**
@@ -124,16 +139,16 @@ class Iban implements \Serializable
     }
 
     /**
-     * Get iban checksum
+     * Get 2 digit country code
      *
      * @return string
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function getChecksum() : string
+    public function getCountry() : string
     {
-        return $this->getSequence('k');
+        return substr($this->iban, 0, 2);
     }
 
     /**
@@ -256,6 +271,17 @@ class Iban implements \Serializable
     }
 
     /**
+     * String representation of object
+     * @link  http://php.net/manual/en/serializable.serialize.php
+     * @return string the string representation of the object or null
+     * @since 5.1.0
+     */
+    public function serialize()
+    {
+        return $this->prettyPrint();
+    }
+
+    /**
      * Pretty print iban
      *
      * @return string
@@ -266,32 +292,6 @@ class Iban implements \Serializable
     public function prettyPrint() : string
     {
         return wordwrap($this->iban, 4, ' ', true);
-    }
-
-    /**
-     * Normalize iban
-     *
-     * @param string $iban Iban to normalize
-     *
-     * @return string
-     *
-     * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
-     */
-    public static function normalize(string $iban) : string
-    {
-        return strtoupper(str_replace(' ', '', $iban));
-    }
-
-    /**
-     * String representation of object
-     * @link  http://php.net/manual/en/serializable.serialize.php
-     * @return string the string representation of the object or null
-     * @since 5.1.0
-     */
-    public function serialize()
-    {
-        return $this->prettyPrint();
     }
 
     /**
