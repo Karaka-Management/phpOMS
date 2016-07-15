@@ -739,8 +739,221 @@ class Measurement
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public static function convertSpeed(float $value, string $from = WeightType::GRAM, string $to = WeightType::KILOGRAM) : float
+    public static function convertSpeed(float $value, string $from = SpeedType::KILOMETERS_PER_HOUR, string $to = SpeedType::KILOMETERS_PER_HOUR) : float
     {
+        // to kph
+        switch ($from) {
+            case SpeedType::KILOMETERS_PER_HOUR:
+                break;
+            case SpeedType::MILES_PER_DAY:
+                $value = $value / 24 * 1.60934;
+                break;
+            case SpeedType::MILES_PER_HOUR:
+                $value *= 1.60934;
+                break;
+            case SpeedType::MILES_PER_MINUTE:
+                $value *= 60 * 1.60934;
+                break;
+            case SpeedType::MILES_PER_SECOND:
+                $value *= 60 * 60 * 1.60934;
+                break;
+            case SpeedType::KILOMETERS_PER_DAY:
+                $value /= 24;
+                break;
+            case SpeedType::KILOMETERS_PER_MINUTE:
+                $value *= 60;
+                break;
+            case SpeedType::KILOMETERS_PER_SECOND:
+                $value *= 60 * 60;
+                break;
+            case SpeedType::METERS_PER_DAY:
+                $value = $value / 24 / 1000;
+                break;
+            case SpeedType::METERS_PER_HOUR:
+                $value /= 1000;
+                break;
+            case SpeedType::METERS_PER_MINUTE:
+                $value *= 60 / 1000;
+                break;
+            case SpeedType::METERS_PER_SECOND:
+                $value *= 60 * 60 / 1000;
+                break;
+            case SpeedType::CENTIMETERS_PER_DAY:
+                $value = $value / 24 / 100000;
+                break;
+            case SpeedType::CENTIMETERS_PER_HOUR:
+                $value /= 100000;
+                break;
+            case SpeedType::CENTIMETERS_PER_MINUTES:
+                $value *= 60 / 100000;
+                break;
+            case SpeedType::CENTIMETERS_PER_SECOND:
+                $value *= 60 * 60 / 100000;
+                break;
+            case SpeedType::MILLIMETERS_PER_DAY:
+                $value = $value / 24 / 1000000;
+                break;
+            case SpeedType::MILLIMETERS_PER_HOUR:
+                $value /= 1000000;
+                break;
+            case SpeedType::MILLIMETERS_PER_MINUTES:
+                $value *= 60 / 1000000;
+                break;
+            case SpeedType::MILLIMETERS_PER_SECOND:
+                $value *= 60 * 60 / 1000000;
+                break;
+            case SpeedType::YARDS_PER_DAY:
+                $value = $value / 24 * 0.0009144;
+                break;
+            case SpeedType::YARDS_PER_HOUR:
+                $value *= 0.0009144;
+                break;
+            case SpeedType::YARDS_PER_MINUTE:
+                $value *= 60 * 0.0009144;
+                break;
+            case SpeedType::YARDS_PER_SECOND:
+                $value *= 60 * 60 * 0.0009144;
+                break;
+            case SpeedType::INCHES_PER_DAY:
+                $value = $value / 24 * 0.0000254;
+                break;
+            case SpeedType::INCHES_PER_HOUR:
+                $value *= 0.0000254;
+                break;
+            case SpeedType::INCHES_PER_MINUTE:
+                $value *= 60 * 0.0000254;
+                break;
+            case SpeedType::INCHES_PER_SECOND:
+                $value *= 60 * 60 * 0.0000254;
+                break;
+            case SpeedType::FEET_PER_DAY:
+                $value = $value / 24 * 0.0003048;
+                break;
+            case SpeedType::FEET_PER_HOUR:
+                $value *= 0.0003048;
+                break;
+            case SpeedType::FEET_PER_MINUTE:
+                $value *= 60 * 0.0003048;
+                break;
+            case SpeedType::FEET_PER_SECOND:
+                $value *= 60 * 60 * 0.0003048;
+                break;
+            case SpeedType::MACH:
+                $value *= 1225.044;
+                break;
+            case SpeedType::KNOTS:
+                $value *= 1.852;
+                break;
+            default:
+                throw new \InvalidArgumentException('Speed not supported');
+        }
+
+        switch ($to) {
+            case SpeedType::KILOMETERS_PER_HOUR:
+                break;
+            case SpeedType::MILES_PER_DAY:
+                $value = $value * 24 / 1.60934;
+                break;
+            case SpeedType::MILES_PER_HOUR:
+                $value /= 1.60934;
+                break;
+            case SpeedType::MILES_PER_MINUTE:
+                $value = $value / 60 / 1.60934;
+                break;
+            case SpeedType::MILES_PER_SECOND:
+                $value = $value / 3600 / 1.60934;
+                break;
+            case SpeedType::KILOMETERS_PER_DAY:
+                $value *= 24;
+                break;
+            case SpeedType::KILOMETERS_PER_MINUTE:
+                $value /= 60;
+                break;
+            case SpeedType::KILOMETERS_PER_SECOND:
+                $value /= 3600;
+                break;
+            case SpeedType::METERS_PER_DAY:
+                $value = $value * 24 * 1000;
+                break;
+            case SpeedType::METERS_PER_HOUR:
+                $value *= 1000;
+                break;
+            case SpeedType::METERS_PER_MINUTE:
+                $value = $value / 60 * 1000;
+                break;
+            case SpeedType::METERS_PER_SECOND:
+                $value = $value / 3600 * 1000;
+                break;
+            case SpeedType::CENTIMETERS_PER_DAY:
+                $value = $value * 24 * 100000;
+                break;
+            case SpeedType::CENTIMETERS_PER_HOUR:
+                $value *= 100000;
+                break;
+            case SpeedType::CENTIMETERS_PER_MINUTES:
+                $value = $value / 60 * 100000;
+                break;
+            case SpeedType::CENTIMETERS_PER_SECOND:
+                $value = $value / 3600 * 100000;
+                break;
+            case SpeedType::MILLIMETERS_PER_DAY:
+                $value = $value * 24 * 1000000;
+                break;
+            case SpeedType::MILLIMETERS_PER_HOUR:
+                $value *= 1000000;
+                break;
+            case SpeedType::MILLIMETERS_PER_MINUTES:
+                $value = $value / 60 * 1000000;
+                break;
+            case SpeedType::MILLIMETERS_PER_SECOND:
+                $value = $value / 3600 * 1000000;
+                break;
+            case SpeedType::YARDS_PER_DAY:
+                $value = $value * 24 / 0.0009144;
+                break;
+            case SpeedType::YARDS_PER_HOUR:
+                $value /= 0.0009144;
+                break;
+            case SpeedType::YARDS_PER_MINUTE:
+                $value = $value / 60 / 0.0009144;
+                break;
+            case SpeedType::YARDS_PER_SECOND:
+                $value = $value / 3600 / 0.0009144;
+                break;
+            case SpeedType::INCHES_PER_DAY:
+                $value = $value * 24 / 0.0000254;
+                break;
+            case SpeedType::INCHES_PER_HOUR:
+                $value /= 0.0000254;
+                break;
+            case SpeedType::INCHES_PER_MINUTE:
+                $value = $value / 60 / 0.0000254;
+                break;
+            case SpeedType::INCHES_PER_SECOND:
+                $value = $value / 3600 / 0.0000254;
+                break;
+            case SpeedType::FEET_PER_DAY:
+                $value = $value * 24 / 0.0003048;
+                break;
+            case SpeedType::FEET_PER_HOUR:
+                $value /= 0.0003048;
+                break;
+            case SpeedType::FEET_PER_MINUTE:
+                $value = $value / 60 / 0.0003048;
+                break;
+            case SpeedType::FEET_PER_SECOND:
+                $value = $value / 3600 / 0.0003048;
+                break;
+            case SpeedType::MACH:
+                $value /= 1225.044;
+                break;
+            case SpeedType::KNOTS:
+                $value /= 1.852;
+                break;
+            default:
+                throw new \InvalidArgumentException('Speed not supported');
+        }
+
         return $value;
     }
 
@@ -758,7 +971,7 @@ class Measurement
      */
     public static function convertTime(float $value, string $from = TimeType::SECONDS, string $to = TimeType::HOURS) : float
     {
-        // to byte
+        // to seconds
         switch ($from) {
             case TimeType::SECONDS:
                 break;
@@ -836,8 +1049,77 @@ class Measurement
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public static function convertAngle(float $value, string $from = WeightType::GRAM, string $to = WeightType::KILOGRAM) : float
+    public static function convertAngle(float $value, string $from = AngleType::DEGREE, string $to = AngleType::DEGREE) : float
     {
+        // to degree
+        switch ($from) {
+            case AngleType::DEGREE:
+                break;
+            case AngleType::RADIAN:
+                $value *= 57.296;
+                break;
+            case AngleType::SECOND:
+                $value *= 0.00027778;
+                break;
+            case AngleType::MINUTE:
+                $value *= 0.016667;
+                break;
+            case AngleType::MILLIRADIAN_US:
+                $value *= 0.09;
+                break;
+            case AngleType::MILLIRADIAN_UK:
+                $value *= 0.057296;
+                break;
+            case AngleType::MILLIRADIAN_USSR:
+                $value *= 0.057143;
+                break;
+            case AngleType::MILLIRADIAN_NATO:
+                $value *= 0.056250;
+                break;
+            case AngleType::GRADIAN:
+                $value *= 0.09;
+                break;
+            case AngleType::CENTRAD:
+                $value *= 0.57296;
+                break;
+            default:
+                throw new \InvalidArgumentException('Angle not supported');
+        }
+
+        switch ($to) {
+            case AngleType::DEGREE:
+                break;
+            case AngleType::RADIAN:
+                $value /= 57.296;
+                break;
+            case AngleType::SECOND:
+                $value /= 0.00027778;
+                break;
+            case AngleType::MINUTE:
+                $value /= 0.016667;
+                break;
+            case AngleType::MILLIRADIAN_US:
+                $value /= 0.09;
+                break;
+            case AngleType::MILLIRADIAN_UK:
+                $value /= 0.057296;
+                break;
+            case AngleType::MILLIRADIAN_USSR:
+                $value /= 0.057143;
+                break;
+            case AngleType::MILLIRADIAN_NATO:
+                $value /= 0.056250;
+                break;
+            case AngleType::GRADIAN:
+                $value /= 0.09;
+                break;
+            case AngleType::CENTRAD:
+                $value /= 0.57296;
+                break;
+            default:
+                throw new \InvalidArgumentException('Angle not supported');
+        }
+
         return $value;
     }
 
@@ -853,8 +1135,93 @@ class Measurement
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public static function convertPressure(float $value, string $from = WeightType::GRAM, string $to = WeightType::KILOGRAM) : float
+    public static function convertPressure(float $value, string $from = PressureType::PASCALS, string $to = PressureType::BAR) : float
     {
+        // to pascals
+        switch ($from) {
+            case PressureType::PASCALS:
+                break;
+            case PressureType::BAR:
+                $value *= 100000;
+                break;
+            case PressureType::POUND_PER_SQUARE_INCH:
+                $value /= 0.00014504;
+                break;
+            case PressureType::ATMOSPHERES:
+                $value *= 101325;
+                break;
+            case PressureType::INCHES_OF_MERCURY:
+                $value /= 0.00029530;
+                break;
+            case PressureType::INCHES_OF_WATER:
+                $value /= 0.0040146;
+                break;
+            case PressureType::MILLIMETERS_OF_WATER:
+                $value /= 0.10197;
+                break;
+            case PressureType::MILLIMETERS_OF_MERCURY:
+                $value /= 0.0075006;
+                break;
+            case PressureType::MILLIBAR:
+                $value *= 100;
+                break;
+            case PressureType::KILOGRAM_PER_SQUARE_METER:
+                $value /= 0.10197;
+                break;
+            case PressureType::NEWTONS_PER_METER_SQUARED:
+                break;
+            case PressureType::POUNDS_PER_SQUARE_FOOT:
+                $value /= 0.020885;
+                break;
+            case PressureType::TORRS:
+                $value /= 0.0075006;
+                break;
+            default:
+                throw new \InvalidArgumentException('Size not supported');
+        }
+
+        switch ($to) {
+            case PressureType::PASCALS:
+                break;
+            case PressureType::BAR:
+                $value /= 100000;
+                break;
+            case PressureType::POUND_PER_SQUARE_INCH:
+                $value *= 0.00014504;
+                break;
+            case PressureType::ATMOSPHERES:
+                $value /= 101325;
+                break;
+            case PressureType::INCHES_OF_MERCURY:
+                $value *= 0.00029530;
+                break;
+            case PressureType::INCHES_OF_WATER:
+                $value *= 0.0040146;
+                break;
+            case PressureType::MILLIMETERS_OF_WATER:
+                $value *= 0.10197;
+                break;
+            case PressureType::MILLIMETERS_OF_MERCURY:
+                $value *= 0.0075006;
+                break;
+            case PressureType::MILLIBAR:
+                $value /= 100;
+                break;
+            case PressureType::KILOGRAM_PER_SQUARE_METER:
+                $value *= 0.10197;
+                break;
+            case PressureType::NEWTONS_PER_METER_SQUARED:
+                break;
+            case PressureType::POUNDS_PER_SQUARE_FOOT:
+                $value *= 0.020885;
+                break;
+            case PressureType::TORRS:
+                $value *= 0.0075006;
+                break;
+            default:
+                throw new \InvalidArgumentException('Size not supported');
+        }
+
         return $value;
     }
 
