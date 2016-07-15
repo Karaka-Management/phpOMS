@@ -46,7 +46,7 @@ class TableException extends \PDOException
     /**
      * Get table name from exception.
      *
-     * @param string     $message Exception message
+     * @param string $message Exception message
      *
      * @return string
      *

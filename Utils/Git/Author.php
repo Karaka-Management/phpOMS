@@ -110,6 +110,19 @@ class Author
     }
 
     /**
+     * Get commit count
+     *
+     * @return int
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+    public function getCommitCount() : int
+    {
+        return $this->commitCount;
+    }
+
+    /**
      * Set commit count
      *
      * @param int $count Commit count
@@ -122,19 +135,6 @@ class Author
     public function setCommitCount(int $count)
     {
         $this->commitCount = $count;
-    }
-
-    /**
-     * Get commit count
-     *
-     * @return int
-     *
-     * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
-     */
-    public function getCommitCount() : int
-    {
-        return $this->commitCount;
     }
 
     /**

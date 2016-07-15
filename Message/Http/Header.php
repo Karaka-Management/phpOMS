@@ -51,6 +51,69 @@ class Header extends HeaderAbstract
     }
 
     /**
+     * {@inheritdoc}
+     */
+    public function set(string $key, string $header, bool $overwrite = false) : bool
+    {
+        if (self::$isLocked) {
+            throw new \Exception('Already locked');
+        }
+
+        $key = strtolower($key);
+
+        if (!$overwrite && isset($this->header[$key])) {
+            return false;
+        } elseif ($overwrite && isset($this->header[$key])) {
+            if ($this->isSecurityHeader($key)) {
+                throw new \Exception('Cannot change security headers.');
+            }
+
+            unset($this->header[$key]);
+        }
+
+        if (!isset($this->header[$key])) {
+            $this->header[$key] = [];
+        }
+
+        $this->header[$key][] = $header;
+
+        return true;
+    }
+
+    /**
+     * Is security header.
+     *
+     * @param string $key Header key
+     *
+     * @return bool
+     *
+     * @throws \Exception
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+    private function isSecurityHeader(string $key) : bool
+    {
+        return $key === 'content-security-policy' ||
+        $key === 'x-xss-protection' ||
+        $key === 'x-content-type-options' ||
+        $key === 'x-frame-options';
+    }
+
+    /**
+     * Get status code.
+     *
+     * @return int
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+    public static function getStatusCode() : int
+    {
+        return http_response_code();
+    }
+
+    /**
      * Returns all headers.
      *
      * @return array
@@ -115,56 +178,6 @@ class Header extends HeaderAbstract
     }
 
     /**
-     * Is security header.
-     *
-     * @param string $key Header key
-     *
-     * @return bool
-     *
-     * @throws \Exception
-     *
-     * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
-     */
-    private function isSecurityHeader(string $key) : bool
-    {
-        return $key === 'content-security-policy' ||
-            $key === 'x-xss-protection' ||
-            $key === 'x-content-type-options' ||
-            $key === 'x-frame-options';
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function set(string $key, string $header, bool $overwrite = false) : bool
-    {
-        if (self::$isLocked) {
-            throw new \Exception('Already locked');
-        }
-
-        $key = strtolower($key);
-
-        if (!$overwrite && isset($this->header[$key])) {
-            return false;
-        } elseif ($overwrite && isset($this->header[$key])) {
-            if ($this->isSecurityHeader($key)) {
-                throw new \Exception('Cannot change security headers.');
-            }
-
-            unset($this->header[$key]);
-        }
-
-        if (!isset($this->header[$key])) {
-            $this->header[$key] = [];
-        }
-
-        $this->header[$key][] = $header;
-
-        return true;
-    }
-
-    /**
      * Push all headers.
      *
      * @since  1.0.0
@@ -209,19 +222,6 @@ class Header extends HeaderAbstract
             default:
                 throw new \Exception('Unexpected header code');
         }
-    }
-
-    /**
-     * Get status code.
-     *
-     * @return int
-     *
-     * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
-     */
-    public static function getStatusCode() : int
-    {
-        return http_response_code();
     }
 
     /**
@@ -277,12 +277,9 @@ class Header extends HeaderAbstract
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    private function generate503()
+    private function generate407()
     {
-        $this->set('HTTP', 'HTTP/1.0 503 Service Temporarily Unavailable');
-        $this->set('Status', 'Status: 503 Service Temporarily Unavailable');
-        $this->set('Retry-After', 'Retry-After: 300');
-        http_response_code(503);
+
     }
 
     /**
@@ -293,8 +290,11 @@ class Header extends HeaderAbstract
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    private function generate407()
+    private function generate503()
     {
-
+        $this->set('HTTP', 'HTTP/1.0 503 Service Temporarily Unavailable');
+        $this->set('Status', 'Status: 503 Service Temporarily Unavailable');
+        $this->set('Retry-After', 'Retry-After: 300');
+        http_response_code(503);
     }
 }

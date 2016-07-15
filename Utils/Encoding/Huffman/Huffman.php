@@ -37,19 +37,6 @@ final class Huffman
     private $dictionary = null;
 
     /**
-     * Set dictionary
-     *
-     * @param Dictionary $dictionary Huffman dictionary
-     *
-     * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
-     */
-    public function setDictionary(Dictionary $dictionary)
-    {
-        $this->dictionary = $dictionary;
-    }
-
-    /**
      * Remove dictionary
      *
      * @since  1.0.0
@@ -71,6 +58,19 @@ final class Huffman
     public function getDictionary() : Dictionary
     {
         return $this->dictionary;
+    }
+
+    /**
+     * Set dictionary
+     *
+     * @param Dictionary $dictionary Huffman dictionary
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+    public function setDictionary(Dictionary $dictionary)
+    {
+        $this->dictionary = $dictionary;
     }
 
     /**

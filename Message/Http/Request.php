@@ -18,10 +18,10 @@ namespace phpOMS\Message\Http;
 use phpOMS\Localization\L11nManager;
 use phpOMS\Localization\Localization;
 use phpOMS\Message\RequestAbstract;
+use phpOMS\Router\RouteVerb;
 use phpOMS\Uri\Http;
 use phpOMS\Uri\UriFactory;
 use phpOMS\Uri\UriInterface;
-use phpOMS\Router\RouteVerb;
 
 /**
  * Request class.

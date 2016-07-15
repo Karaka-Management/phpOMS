@@ -99,6 +99,21 @@ abstract class GrammarAbstract
 
     abstract protected function compileComponents(BuilderAbstract $query) : array;
 
+    public function getDateFormat() : string
+    {
+        return 'Y-m-d H:i:s';
+    }
+
+    public function getTablePrefix() : string
+    {
+        return $this->tablePrefix;
+    }
+
+    public function setTablePrefix(string $prefix)
+    {
+        $this->tablePrefix = $prefix;
+    }
+
     /**
      * Expressionize elements.
      *
@@ -156,21 +171,6 @@ abstract class GrammarAbstract
         } else {
             return $this->systemIdentifier . $prefix . $system . $this->systemIdentifier;
         }
-    }
-
-    public function getDateFormat() : string
-    {
-        return 'Y-m-d H:i:s';
-    }
-
-    public function getTablePrefix() : string
-    {
-        return $this->tablePrefix;
-    }
-
-    public function setTablePrefix(string $prefix)
-    {
-        $this->tablePrefix = $prefix;
     }
 
 }

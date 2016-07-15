@@ -49,6 +49,69 @@ class Directory extends FileAbstract implements \Iterator, \ArrayAccess
     private $nodes = [];
 
     /**
+     * Constructor.
+     *
+     * @param string $path   Path
+     * @param string $filter Filter
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+    public function __construct(string $path, string $filter = '*')
+    {
+        $this->filter = $filter;
+        parent::__construct($path);
+
+        if (file_exists($this->path)) {
+            $this->index();
+        }
+    }
+
+    /**
+     * Index directory.
+     *
+     * @return void
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+    public function index()
+    {
+        parent::index();
+
+        foreach (glob($this->path . DIRECTORY_SEPARATOR . $this->filter) as $filename) {
+            // todo: handle . and ..???!!!
+            if (is_dir($filename)) {
+                $file = new Directory($filename);
+                $file->index();
+            } else {
+                $file = new File($filename);
+            }
+
+            $this->add($file);
+        }
+    }
+
+    /**
+     * Add file or directory.
+     *
+     * @param FileAbstract $file File to add
+     *
+     * @return bool
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+    public function add(FileAbstract $file) : bool
+    {
+        $this->count += $file->getCount();
+        $this->size += $file->getSize();
+        $this->nodes[$this->getName()] = $file;
+
+        return $file->createNode();
+    }
+
+    /**
      * Get folder size recursively.
      *
      * This can become rather slow for large structures.
@@ -157,6 +220,29 @@ class Directory extends FileAbstract implements \Iterator, \ArrayAccess
     }
 
     /**
+     * Get node by name.
+     *
+     * @param string $name File/direcotry name
+     *
+     * @return FileAbstract
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+    public function get(string $name) : FileAbstract
+    {
+        return $this->nodes[$name] ?? new NullFile('');
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function createNode() : bool
+    {
+        return self::createPath($this->path, $this->permission, true);
+    }
+
+    /**
      * Create directory.
      *
      * @param string $path       Path
@@ -206,67 +292,6 @@ class Directory extends FileAbstract implements \Iterator, \ArrayAccess
     }
 
     /**
-     * Constructor.
-     *
-     * @param string $path   Path
-     * @param string $filter Filter
-     *
-     * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
-     */
-    public function __construct(string $path, string $filter = '*')
-    {
-        $this->filter = $filter;
-        parent::__construct($path);
-
-        if (file_exists($this->path)) {
-            $this->index();
-        }
-    }
-
-    /**
-     * Get node by name.
-     *
-     * @param string $name File/direcotry name
-     *
-     * @return FileAbstract
-     *
-     * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
-     */
-    public function get(string $name) : FileAbstract
-    {
-        return $this->nodes[$name] ?? new NullFile('');
-    }
-
-    /**
-     * Add file or directory.
-     *
-     * @param FileAbstract $file File to add
-     *
-     * @return bool
-     *
-     * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
-     */
-    public function add(FileAbstract $file) : bool
-    {
-        $this->count += $file->getCount();
-        $this->size += $file->getSize();
-        $this->nodes[$this->getName()] = $file;
-
-        return $file->createNode();
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function createNode() : bool
-    {
-        return self::createPath($this->path, $this->permission, true);
-    }
-
-    /**
      * {@inheritdoc}
      */
     public function removeNode() : bool
@@ -300,32 +325,8 @@ class Directory extends FileAbstract implements \Iterator, \ArrayAccess
         return false;
     }
 
-    /**
-     * Index directory.
-     *
-     * @return void
-     *
-     * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
-     */
-    public function index()
-    {
-        parent::index();
-
-        foreach (glob($this->path . DIRECTORY_SEPARATOR . $this->filter) as $filename) {
-            // todo: handle . and ..???!!!
-            if (is_dir($filename)) {
-                $file = new Directory($filename);
-                $file->index();
-            } else {
-                $file = new File($filename);
-            }
-
-            $this->add($file);
-        }
-    }
-
     /* Iterator */
+
     /**
      * {@inheritdoc}
      */

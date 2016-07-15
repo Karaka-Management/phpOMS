@@ -52,6 +52,73 @@ class MeasureOfDispersion
     }
 
     /**
+     * Calculage empirical variation coefficient.
+     *
+     * Example: ([4, 5, 9, 1, 3])
+     *
+     * @param array $values Values
+     *
+     * @return float
+     *
+     * @throws
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+    public static function empiricalVariationcoefficient(array $values) : float
+    {
+        $mean = Average::arithmeticMean($values);
+
+        if ($mean === 0) {
+            throw new \Exception('Division zero');
+        }
+
+        return self::standardDeviation($values) / $mean;
+    }
+
+    /**
+     * Calculage standard deviation.
+     *
+     * Example: ([4, 5, 9, 1, 3])
+     *
+     * @param array $values Values
+     *
+     * @return float
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+    public static function standardDeviation(array $values) : float
+    {
+        return sqrt(self::sampleVariance($values));
+    }
+
+    /**
+     * Calculage sample variance.
+     *
+     * Example: ([4, 5, 9, 1, 3])
+     *
+     * @param array $values Values
+     *
+     * @return float
+     *
+     * @throws
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+    public static function sampleVariance(array $values) : float
+    {
+        $count = count($values);
+
+        if ($count < 2) {
+            throw new \Exception('Division zero');
+        }
+
+        return $count * self::empiricalVariance($values) / ($count - 1);
+    }
+
+    /**
      * Calculage empirical variance.
      *
      * Example: ([4, 5, 9, 1, 3])
@@ -81,73 +148,6 @@ class MeasureOfDispersion
         }
 
         return $sum / ($count - 1);
-    }
-
-    /**
-     * Calculage sample variance.
-     *
-     * Example: ([4, 5, 9, 1, 3])
-     *
-     * @param array $values Values
-     *
-     * @return float
-     *
-     * @throws
-     *
-     * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
-     */
-    public static function sampleVariance(array $values) : float
-    {
-        $count = count($values);
-
-        if ($count < 2) {
-            throw new \Exception('Division zero');
-        }
-
-        return $count * self::empiricalVariance($values) / ($count - 1);
-    }
-
-    /**
-     * Calculage standard deviation.
-     *
-     * Example: ([4, 5, 9, 1, 3])
-     *
-     * @param array $values Values
-     *
-     * @return float
-     *
-     * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
-     */
-    public static function standardDeviation(array $values) : float
-    {
-        return sqrt(self::sampleVariance($values));
-    }
-
-    /**
-     * Calculage empirical variation coefficient.
-     *
-     * Example: ([4, 5, 9, 1, 3])
-     *
-     * @param array $values Values
-     *
-     * @return float
-     *
-     * @throws
-     *
-     * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
-     */
-    public static function empiricalVariationcoefficient(array $values) : float
-    {
-        $mean = Average::arithmeticMean($values);
-
-        if ($mean === 0) {
-            throw new \Exception('Division zero');
-        }
-
-        return self::standardDeviation($values) / $mean;
     }
 
     /**

@@ -59,25 +59,6 @@ class BinomialDistribution
     }
 
     /**
-     * Get probability mass function.
-     *
-     * Formula: C(n, k) * p^k * (1-p)^(n-k)
-     *
-     * @param int   $n
-     * @param int   $k
-     * @param float $p
-     *
-     * @return float
-     *
-     * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
-     */
-    public static function getPmf(int $n, int $k, float $p) : float
-    {
-        return Functions::binomialCoefficient($n, $k) * pow($p, $k) * pow(1 - $p, $n - $k);
-    }
-
-    /**
      * Get moment generating function.
      *
      * @param int   $n
@@ -163,6 +144,25 @@ class BinomialDistribution
         }
 
         return $sum;
+    }
+
+    /**
+     * Get probability mass function.
+     *
+     * Formula: C(n, k) * p^k * (1-p)^(n-k)
+     *
+     * @param int   $n
+     * @param int   $k
+     * @param float $p
+     *
+     * @return float
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+    public static function getPmf(int $n, int $k, float $p) : float
+    {
+        return Functions::binomialCoefficient($n, $k) * pow($p, $k) * pow(1 - $p, $n - $k);
     }
 
     /**

@@ -15,11 +15,11 @@
  */
 namespace phpOMS\Message\Http;
 
+use phpOMS\Contract\RenderableInterface;
 use phpOMS\Localization\L11nManager;
 use phpOMS\Localization\Localization;
-use phpOMS\System\MimeType;
-use phpOMS\Contract\RenderableInterface;
 use phpOMS\Message\ResponseAbstract;
+use phpOMS\System\MimeType;
 use phpOMS\Views\View;
 
 /**
@@ -174,7 +174,7 @@ class Response extends ResponseAbstract implements RenderableInterface
                     throw new \Exception('Wrong response type');
                 }
             }
-        } catch(\Exception $e) {
+        } catch (\Exception $e) {
             // todo: handle exception
             // need to to try catch for logging. otherwise the json_encode in the logger will have a problem with this
             $result = [];

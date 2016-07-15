@@ -72,29 +72,18 @@ class City
     }
 
     /**
-     * Get longitude.
+     * Is equals to.
      *
-     * @return float
+     * @param City $city City
      *
-     * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
-     */
-    public function getLongitude() : float
-    {
-        return $this->long;
-    }
-
-    /**
-     * Get latitude.
-     *
-     * @return float
+     * @return bool
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function getLatitude() : float
+    public function equals(City $city) : bool
     {
-        return $this->lat;
+        return $this->name === $city->getName() && $this->lat === $city->getLatitude() && $this->long === $city->getLatitude();
     }
 
     /**
@@ -111,18 +100,16 @@ class City
     }
 
     /**
-     * Is equals to.
+     * Get latitude.
      *
-     * @param City $city City
-     *
-     * @return bool
+     * @return float
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function equals(City $city) : bool
+    public function getLatitude() : float
     {
-        return $this->name === $city->getName() && $this->lat === $city->getLatitude() && $this->long === $city->getLatitude();
+        return $this->lat;
     }
 
     /**
@@ -138,5 +125,18 @@ class City
     public function getDistanceTo(City $city) : float
     {
         return Sphere::distance2PointsOnSphere($this->lat, $this->long, $city->getLatitude(), $city->getLongitude());
+    }
+
+    /**
+     * Get longitude.
+     *
+     * @return float
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+    public function getLongitude() : float
+    {
+        return $this->long;
     }
 }

@@ -5,7 +5,7 @@
  * PHP Version 7.0
  *
  * @category   TBD
- }
+ * }
  * @package    TBD
  * @author     OMS Development Team <dev@oms.com>
  * @author     Dennis Eichhorn <d.eichhorn@oms.com>
@@ -29,23 +29,27 @@ namespace phpOMS\Utils\JobQueue;
  */
 class Job
 {
-	private $priority = 0.0;
-	private $callback = null;
+    private $priority = 0.0;
+    private $callback = null;
 
-	public function __construct($callback, float $priority = 0.0) {
-		$this->priority = $priority;
-		$this->callback = $callback;
-	}
+    public function __construct($callback, float $priority = 0.0)
+    {
+        $this->priority = $priority;
+        $this->callback = $callback;
+    }
 
-	public function execute() {
-		$this->callback();
-	}
+    public function execute()
+    {
+        $this->callback();
+    }
 
-	public function getPriority() : float {
-		return $this->priority;
-	}
+    public function getPriority() : float
+    {
+        return $this->priority;
+    }
 
-	public function setPriority(float $priority) {
-		$this->priority = $priority;
-	}
+    public function setPriority(float $priority)
+    {
+        $this->priority = $priority;
+    }
 }

@@ -95,6 +95,19 @@ class FunctionParser
     private $body = '';
 
     /**
+     * Get function name.
+     *
+     * @return string
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+    public function getName() : string
+    {
+        return $this->name;
+    }
+
+    /**
      * Set function name.
      *
      * @param string $name Function name
@@ -107,19 +120,6 @@ class FunctionParser
     public function setName(string $name)
     {
         $this->name = $name;
-    }
-
-    /**
-     * Get function name.
-     *
-     * @return string
-     *
-     * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
-     */
-    public function getName() : string
-    {
-        return $this->name;
     }
 
     /**
@@ -164,6 +164,19 @@ class FunctionParser
     }
 
     /**
+     * Get function visibility.
+     *
+     * @return string
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+    public function getVisibility() : string
+    {
+        return $this->visibility;
+    }
+
+    /**
      * Set visibility.
      *
      * @param string $visibility Function visibility
@@ -176,19 +189,6 @@ class FunctionParser
     public function setVisibility(string $visibility)
     {
         $this->visibility = $visibility;
-    }
-
-    /**
-     * Get function visibility.
-     *
-     * @return string
-     *
-     * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
-     */
-    public function getVisibility() : string
-    {
-        return $this->visibility;
     }
 
     /**
@@ -282,21 +282,6 @@ class FunctionParser
     }
 
     /**
-     * Set return type.
-     *
-     * @param string $return Return type
-     *
-     * @return void
-     *
-     * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
-     */
-    public function setReturn(string $return)
-    {
-        $this->return = $return;
-    }
-
-    /**
      * Remove return type.
      *
      * @return void
@@ -320,6 +305,21 @@ class FunctionParser
     public function getReturn() : string
     {
         return $this->return;
+    }
+
+    /**
+     * Set return type.
+     *
+     * @param string $return Return type
+     *
+     * @return void
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+    public function setReturn(string $return)
+    {
+        $this->return = $return;
     }
 
     /**

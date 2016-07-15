@@ -63,6 +63,19 @@ class Imap extends Mail
         parent::__construct(MailType::IMAP);
     }
 
+    public static function decode($content, $encoding)
+    {
+        if ($encoding == 3) {
+            return imap_base64($content);
+        } else {
+            if ($encoding == 1) {
+                return imap_8bit($content);
+            } else {
+                return imap_qprint($content);
+            }
+        }
+    }
+
     /**
      * Destructor.
      *
@@ -126,23 +139,6 @@ class Imap extends Mail
     }
 
     /**
-     * Get inbox overview.
-     *
-     * @param string $option Inbox option (imap_search creterias)
-     *
-     * @return array
-     *
-     * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
-     */
-    public function getInboxOverview(string $option = 'ALL') : array
-    {
-        $ids = imap_search($this->inbox, $option, SE_FREE, 'UTF-8');
-
-        return is_array($ids) ? imap_fetch_overview($this->inbox, implode(',', $ids)) : [];
-    }
-
-    /**
      * Get email.
      *
      * @param mixed $id mail id
@@ -173,6 +169,23 @@ class Imap extends Mail
     public function getInboxAll() : array
     {
         return $this->getInboxOverview('ALL');
+    }
+
+    /**
+     * Get inbox overview.
+     *
+     * @param string $option Inbox option (imap_search creterias)
+     *
+     * @return array
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+    public function getInboxOverview(string $option = 'ALL') : array
+    {
+        $ids = imap_search($this->inbox, $option, SE_FREE, 'UTF-8');
+
+        return is_array($ids) ? imap_fetch_overview($this->inbox, implode(',', $ids)) : [];
     }
 
     /**
@@ -343,18 +356,5 @@ class Imap extends Mail
     public function getInboxText(string $text) : array
     {
         return $this->getInboxOverview('TEXT "' . $text . '"');
-    }
-
-    public static function decode($content, $encoding)
-    {
-        if ($encoding == 3) {
-            return imap_base64($content);
-        } else {
-            if ($encoding == 1) {
-                return imap_8bit($content);
-            } else {
-                return imap_qprint($content);
-            }
-        }
     }
 }

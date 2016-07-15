@@ -81,6 +81,176 @@ class Matrix implements \ArrayAccess, \Iterator
     }
 
     /**
+     * Set value.
+     *
+     * @param int $m     Row
+     * @param int $n     Column
+     * @param int $value Value
+     *
+     * @throws
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+    public function set(int $m, int $n, $value)
+    {
+        if (!isset($this->matrix[$m][$n])) {
+            throw new \Exception('Dimension');
+        }
+
+        $this->matrix[$m][$n] = $value;
+    }
+
+    /**
+     * Get value.
+     *
+     * @param int $m Row
+     * @param int $n Column
+     *
+     * @return mixed
+     *
+     * @throws
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+    public function get(int $m, int $n)
+    {
+        if (!isset($this->matrix[$m][$n])) {
+            throw new \Exception('Dimension');
+        }
+
+        return $this->matrix[$m][$n];
+    }
+
+    /**
+     * Transpose matrix.
+     *
+     * @return Matrix
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+    public function transpose() : Matrix
+    {
+        $matrix = new Matrix($this->n, $this->m);
+        $matrix->setMatrix(array_map(null, $matrix->getMatrix()));
+
+        return $matrix;
+    }
+
+    /**
+     * Get matrix array.
+     *
+     * @return array
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+    public function getMatrix() : array
+    {
+        return $this->matrix;
+    }
+
+    /**
+     * Set matrix array.
+     *
+     * @param array $matrix Matrix
+     *
+     * @throws \Exception
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+    public function setMatrix(array $matrix)
+    {
+        if ($this->m !== count($matrix) || $this->n !== count($matrix[0])) {
+            throw new \Exception('Dimension');
+        }
+
+        $this->matrix = $matrix;
+    }
+
+    /**
+     * Subtract right.
+     *
+     * @param mixed $value Value
+     *
+     * @return Matrix
+     *
+     * @throws \Exception
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+    public function sub($value) : Matrix
+    {
+        if ($value instanceOf Matrix) {
+            return $this->add($this->mult(-1));
+        } elseif (is_scalar($value)) {
+            return $this->add(-$value);
+        }
+
+        throw new \Exception('Type');
+    }
+
+    /**
+     * Add right.
+     *
+     * @param mixed $value Value
+     *
+     * @return Matrix
+     *
+     * @throws \Exception
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+    public function add($value) : Matrix
+    {
+        if ($value instanceOf Matrix) {
+            return $this->addMatrix($value);
+        } elseif (is_scalar($value)) {
+            return $this->addScalar($value);
+        }
+
+        throw new \Exception();
+    }
+
+    /**
+     * Add matrix.
+     *
+     * @param Matrix $matrix Matrix to add
+     *
+     * @return Matrix
+     *
+     * @throws \Exception
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+    private function addMatrix(Matrix $matrix) : Matrix
+    {
+        if ($this->m !== $matrix->getM() || $this->n !== $matrix->getN()) {
+            throw new \Exception('Dimension');
+        }
+
+        $matrixArr    = $matrix->getMatrix();
+        $newMatrixArr = $this->matrix;
+
+        foreach ($newMatrixArr as $i => $vector) {
+            foreach ($vector as $j => $value) {
+                $newMatrixArr[$i][$j] += $matrixArr[$i][$j];
+            }
+        }
+
+        $newMatrix = new Matrix($this->m, $this->n);
+        $newMatrix->setMatrix($newMatrixArr);
+
+        return $newMatrix;
+    }
+
+    /**
      * Get matrix rows.
      *
      * @return int
@@ -107,94 +277,31 @@ class Matrix implements \ArrayAccess, \Iterator
     }
 
     /**
-     * Set matrix array.
+     * Add scalar.
      *
-     * @param array $matrix Matrix
+     * @param mixed $scalar Scalar
+     *
+     * @return Matrix
      *
      * @throws \Exception
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function setMatrix(array $matrix)
+    private function addScalar($scalar) : Matrix
     {
-        if ($this->m !== count($matrix) || $this->n !== count($matrix[0])) {
-            throw new \Exception('Dimension');
+        $newMatrixArr = $this->matrix;
+
+        foreach ($newMatrixArr as $i => $vector) {
+            foreach ($vector as $j => $value) {
+                $newMatrixArr[$i][$j] += $scalar;
+            }
         }
 
-        $this->matrix = $matrix;
-    }
+        $newMatrix = new Matrix($this->m, $this->n);
+        $newMatrix->setMatrix($newMatrixArr);
 
-    /**
-     * Get matrix array.
-     *
-     * @return array
-     *
-     * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
-     */
-    public function getMatrix() : array
-    {
-        return $this->matrix;
-    }
-
-    /**
-     * Set value.
-     *
-     * @param int $m     Row
-     * @param int $n     Column
-     * @param int $value Value
-     *
-     * @throws
-     *
-     * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
-     */
-    public function set(int $m, int $n, $value)
-    {
-        if(!isset($this->matrix[$m][$n])) {
-            throw new \Exception('Dimension');
-        }
-
-        $this->matrix[$m][$n] = $value;
-    }
-
-    /**
-     * Get value.
-     *
-     * @param int $m     Row
-     * @param int $n     Column
-     *
-     * @return mixed
-     *
-     * @throws
-     *
-     * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
-     */
-    public function get(int $m, int $n)
-    {
-        if(!isset($this->matrix[$m][$n])) {
-            throw new \Exception('Dimension');
-        }
-
-        return $this->matrix[$m][$n];
-    }
-
-    /**
-     * Transpose matrix.
-     *
-     * @return Matrix
-     *
-     * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
-     */
-    public function transpose() : Matrix
-    {
-        $matrix = new Matrix($this->n, $this->m);
-        $matrix->setMatrix(array_map(null, $matrix->getMatrix()));
-
-        return $matrix;
+        return $newMatrix;
     }
 
     /**
@@ -291,113 +398,6 @@ class Matrix implements \ArrayAccess, \Iterator
     }
 
     /**
-     * Add right.
-     *
-     * @param mixed $value Value
-     *
-     * @return Matrix
-     *
-     * @throws \Exception
-     *
-     * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
-     */
-    public function add($value) : Matrix
-    {
-        if ($value instanceOf Matrix) {
-            return $this->addMatrix($value);
-        } elseif (is_scalar($value)) {
-            return $this->addScalar($value);
-        }
-
-        throw new \Exception();
-    }
-
-    /**
-     * Subtract right.
-     *
-     * @param mixed $value Value
-     *
-     * @return Matrix
-     *
-     * @throws \Exception
-     *
-     * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
-     */
-    public function sub($value) : Matrix
-    {
-        if ($value instanceOf Matrix) {
-            return $this->add($this->mult(-1));
-        } elseif (is_scalar($value)) {
-            return $this->add(-$value);
-        }
-
-        throw new \Exception('Type');
-    }
-
-    /**
-     * Add matrix.
-     *
-     * @param Matrix $matrix Matrix to add
-     *
-     * @return Matrix
-     *
-     * @throws \Exception
-     *
-     * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
-     */
-    private function addMatrix(Matrix $matrix) : Matrix
-    {
-        if ($this->m !== $matrix->getM() || $this->n !== $matrix->getN()) {
-            throw new \Exception('Dimension');
-        }
-
-        $matrixArr    = $matrix->getMatrix();
-        $newMatrixArr = $this->matrix;
-
-        foreach ($newMatrixArr as $i => $vector) {
-            foreach ($vector as $j => $value) {
-                $newMatrixArr[$i][$j] += $matrixArr[$i][$j];
-            }
-        }
-
-        $newMatrix = new Matrix($this->m, $this->n);
-        $newMatrix->setMatrix($newMatrixArr);
-
-        return $newMatrix;
-    }
-
-    /**
-     * Add scalar.
-     *
-     * @param mixed $scalar Scalar
-     *
-     * @return Matrix
-     *
-     * @throws \Exception
-     *
-     * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
-     */
-    private function addScalar($scalar) : Matrix
-    {
-        $newMatrixArr = $this->matrix;
-
-        foreach ($newMatrixArr as $i => $vector) {
-            foreach ($vector as $j => $value) {
-                $newMatrixArr[$i][$j] += $scalar;
-            }
-        }
-
-        $newMatrix = new Matrix($this->m, $this->n);
-        $newMatrix->setMatrix($newMatrixArr);
-
-        return $newMatrix;
-    }
-
-    /**
      * Upper triangulize matrix.
      *
      * @return Matrix
@@ -414,6 +414,57 @@ class Matrix implements \ArrayAccess, \Iterator
         $matrix->setMatrix($matrixArr);
 
         return $matrix;
+    }
+
+    /**
+     * Trianglize matrix.
+     *
+     * @param array $arr Matrix to trianglize
+     *
+     * @return int Det sign
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+    private function upperTrianglize(array &$arr) : int
+    {
+        $n    = count($arr);
+        $sign = 1;
+
+        for ($i = 0; $i < $n; $i++) {
+            $max = 0;
+
+            for ($j = $i; $j < $n; $j++) {
+                if (abs($arr[$j][$i]) > abs($arr[$max][$i])) {
+                    $max = $j;
+                }
+            }
+
+            if ($max) {
+                $sign      = -$sign;
+                $temp      = $arr[$i];
+                $arr[$i]   = $arr[$max];
+                $arr[$max] = $temp;
+            }
+
+            if (!$arr[$i][$i]) {
+                return 0;
+            }
+
+            for ($j = $i + 1; $j < $n; $j++) {
+                $r = $arr[$j][$i] / $arr[$i][$i];
+
+                if (!$r) {
+                    continue;
+                }
+
+                for ($c = $i; $c < $n; $c++) {
+                    $arr[$j][$c] -= $arr[$i][$c] * $r;
+                }
+            }
+        }
+
+        return $sign;
     }
 
     /**
@@ -507,36 +558,6 @@ class Matrix implements \ArrayAccess, \Iterator
     }
 
     /**
-     * Decompose matrix using cholesky algorithm.
-     *
-     * @return Matrix
-     *
-     * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
-     */
-    private function decompositionCholesky() : Matrix
-    {
-        $newMatrix    = new Matrix($this->n, $this->n);
-        $newMatrixArr = $newMatrix->getMatrix();
-
-        for ($i = 0; $i < $this->n; $i++) {
-            for ($j = 0; $j < $i + 1; $j++) {
-                $temp = 0;
-
-                for ($c = 0; $c < $j; $c++) {
-                    $temp += $newMatrixArr[$i][$c] * $newMatrixArr[$j][$c];
-                }
-
-                $newMatrixArr[$i][$j] = ($i == $j) ? sqrt($this->matrix[$i][$i] - $temp) : (1 / $newMatrixArr[$j][$j] * ($this->matrix[$i][$j] - $temp));
-            }
-        }
-
-        $newMatrix->setMatrix($newMatrixArr);
-
-        return $newMatrix;
-    }
-
-    /**
      * Diagonalize matrix.
      *
      * @param array $arr Matrix to diagonalize
@@ -578,57 +599,6 @@ class Matrix implements \ArrayAccess, \Iterator
     }
 
     /**
-     * Trianglize matrix.
-     *
-     * @param array $arr Matrix to trianglize
-     *
-     * @return int Det sign
-     *
-     * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
-     */
-    private function upperTrianglize(array &$arr) : int
-    {
-        $n    = count($arr);
-        $sign = 1;
-
-        for ($i = 0; $i < $n; $i++) {
-            $max = 0;
-
-            for ($j = $i; $j < $n; $j++) {
-                if (abs($arr[$j][$i]) > abs($arr[$max][$i])) {
-                    $max = $j;
-                }
-            }
-
-            if ($max) {
-                $sign      = -$sign;
-                $temp      = $arr[$i];
-                $arr[$i]   = $arr[$max];
-                $arr[$max] = $temp;
-            }
-
-            if (!$arr[$i][$i]) {
-                return 0;
-            }
-
-            for ($j = $i + 1; $j < $n; $j++) {
-                $r = $arr[$j][$i] / $arr[$i][$i];
-
-                if (!$r) {
-                    continue;
-                }
-
-                for ($c = $i; $c < $n; $c++) {
-                    $arr[$j][$c] -= $arr[$i][$c] * $r;
-                }
-            }
-        }
-
-        return $sign;
-    }
-
-    /**
      * Calculate det.
      *
      * @return float
@@ -661,6 +631,22 @@ class Matrix implements \ArrayAccess, \Iterator
     public function current()
     {
         return $this->offsetGet($this->position);
+    }
+
+    /**
+     * Offset to retrieve
+     * @link  http://php.net/manual/en/arrayaccess.offsetget.php
+     * @param mixed $offset <p>
+     *                      The offset to retrieve.
+     *                      </p>
+     * @return mixed Can return all value types.
+     * @since 5.0.0
+     */
+    public function offsetGet($offset)
+    {
+        $row = (int) ($offset / $this->m);
+
+        return $this->matrix[$row][$offset - $row * $this->n];
     }
 
     /**
@@ -698,17 +684,6 @@ class Matrix implements \ArrayAccess, \Iterator
     }
 
     /**
-     * Rewind the Iterator to the first element
-     * @link  http://php.net/manual/en/iterator.rewind.php
-     * @return void Any returned value is ignored.
-     * @since 5.0.0
-     */
-    public function rewind()
-    {
-        $this->position = 0;
-    }
-
-    /**
      * Whether a offset exists
      * @link  http://php.net/manual/en/arrayaccess.offsetexists.php
      * @param mixed $offset <p>
@@ -722,23 +697,20 @@ class Matrix implements \ArrayAccess, \Iterator
      */
     public function offsetExists($offset)
     {
-        $row = (int) ($offset/$this->m);
+        $row = (int) ($offset / $this->m);
+
         return isset($this->matrix[$row][$offset - $row * $this->n]);
     }
 
     /**
-     * Offset to retrieve
-     * @link  http://php.net/manual/en/arrayaccess.offsetget.php
-     * @param mixed $offset <p>
-     *                      The offset to retrieve.
-     *                      </p>
-     * @return mixed Can return all value types.
+     * Rewind the Iterator to the first element
+     * @link  http://php.net/manual/en/iterator.rewind.php
+     * @return void Any returned value is ignored.
      * @since 5.0.0
      */
-    public function offsetGet($offset)
+    public function rewind()
     {
-        $row = (int) ($offset/$this->m);
-        return $this->matrix[$row][$offset - $row * $this->n];
+        $this->position = 0;
     }
 
     /**
@@ -755,7 +727,7 @@ class Matrix implements \ArrayAccess, \Iterator
      */
     public function offsetSet($offset, $value)
     {
-        $row = (int) ($offset/$this->m);
+        $row                                           = (int) ($offset / $this->m);
         $this->matrix[$row][$offset - $row * $this->n] = $value;
     }
 
@@ -770,7 +742,37 @@ class Matrix implements \ArrayAccess, \Iterator
      */
     public function offsetUnset($offset)
     {
-        $row = (int) ($offset/$this->m);
+        $row = (int) ($offset / $this->m);
         unset($this->matrix[$row][$offset - $row * $this->n]);
+    }
+
+    /**
+     * Decompose matrix using cholesky algorithm.
+     *
+     * @return Matrix
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+    private function decompositionCholesky() : Matrix
+    {
+        $newMatrix    = new Matrix($this->n, $this->n);
+        $newMatrixArr = $newMatrix->getMatrix();
+
+        for ($i = 0; $i < $this->n; $i++) {
+            for ($j = 0; $j < $i + 1; $j++) {
+                $temp = 0;
+
+                for ($c = 0; $c < $j; $c++) {
+                    $temp += $newMatrixArr[$i][$c] * $newMatrixArr[$j][$c];
+                }
+
+                $newMatrixArr[$i][$j] = ($i == $j) ? sqrt($this->matrix[$i][$i] - $temp) : (1 / $newMatrixArr[$j][$j] * ($this->matrix[$i][$j] - $temp));
+            }
+        }
+
+        $newMatrix->setMatrix($newMatrixArr);
+
+        return $newMatrix;
     }
 }

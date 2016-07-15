@@ -148,6 +148,23 @@ abstract class C128Abstract
     }
 
     /**
+     * Set barcode height
+     *
+     * @param int $size Barcode height
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn
+     */
+    public function setSize(int $size)
+    {
+        if ($size < 0) {
+            throw new \OutOfBoundsException($size);
+        }
+
+        $this->size = $size;
+    }
+
+    /**
      * Set barcode orientation
      *
      * @param int $orientation Barcode orientation
@@ -165,19 +182,6 @@ abstract class C128Abstract
     }
 
     /**
-     * Set content to encrypt
-     *
-     * @param string $content Barcode content
-     *
-     * @since  1.0.0
-     * @author Dennis Eichhorn
-     */
-    public function setContent(string $content)
-    {
-        $this->content = $content;
-    }
-
-    /**
      * Get content
      *
      * @return string
@@ -191,20 +195,31 @@ abstract class C128Abstract
     }
 
     /**
-     * Set barcode height
+     * Set content to encrypt
      *
-     * @param int $size Barcode height
+     * @param string $content Barcode content
      *
      * @since  1.0.0
      * @author Dennis Eichhorn
      */
-    public function setSize(int $size)
+    public function setContent(string $content)
     {
-        if ($size < 0) {
-            throw new \OutOfBoundsException($size);
-        }
+        $this->content = $content;
+    }
 
-        $this->size = $size;
+    /**
+     * Get image reference
+     *
+     * @return mixed
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn
+     */
+    public function get()
+    {
+        $codeString = static::$CODE_START . $this->generateCodeString() . static::$CODE_END;
+
+        return $this->createImage($codeString, 20);
     }
 
     /**
@@ -233,21 +248,6 @@ abstract class C128Abstract
         $codeString = static::$CODE_START . $codeString . static::$CODE_END;
 
         return $codeString;
-    }
-
-    /**
-     * Get image reference
-     *
-     * @return mixed
-     *
-     * @since  1.0.0
-     * @author Dennis Eichhorn
-     */
-    public function get()
-    {
-        $codeString = static::$CODE_START . $this->generateCodeString() . static::$CODE_END;
-
-        return $this->createImage($codeString, 20);
     }
 
     /**

@@ -71,6 +71,19 @@ class MemberParser
     private $default = null;
 
     /**
+     * Get member name.
+     *
+     * @return string
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+    public function getName() : string
+    {
+        return $this->name;
+    }
+
+    /**
      * Set member name.
      *
      * @param string $name Member name
@@ -86,16 +99,16 @@ class MemberParser
     }
 
     /**
-     * Get member name.
+     * Get visibility.
      *
      * @return string
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function getName() : string
+    public function getVisibility() : string
     {
-        return $this->name;
+        return $this->visibility;
     }
 
     /**
@@ -111,19 +124,6 @@ class MemberParser
     public function setVisibility(string $visibility)
     {
         $this->visibility = $visibility;
-    }
-
-    /**
-     * Get visibility.
-     *
-     * @return string
-     *
-     * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
-     */
-    public function getVisibility() : string
-    {
-        return $this->visibility;
     }
 
     /**

@@ -68,103 +68,6 @@ final class Dictionary
     }
 
     /**
-     * Get dictionary value by entry
-     *
-     * @param string $entry 1 character entry
-     *
-     * @return string
-     *
-     * @throws
-     *
-     * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
-     */
-    public function get(string $entry) : string
-    {
-        if (strlen($entry) !== 1) {
-            throw new \Exception('Must be a character.');
-        }
-
-        if (!isset($this->dictionary[$entry])) {
-            throw new \Exception('Character does not exist');
-        }
-
-        return $this->dictionary[$entry];
-    }
-
-    /**
-     * Get dictionary entry and reduce value
-     *
-     * @param string $value Dictionary value
-     *
-     * @return null|string
-     *
-     * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
-     */
-    public function getEntry(&$value)
-    {
-        $length = strlen($value);
-        if ($length < $this->min) {
-            return null;
-        }
-
-        for ($i = $this->min; $i <= $this->max; ++$i) {
-            $needle = substr($value, 0, $i);
-
-            foreach ($this->dictionary as $key => $val) {
-                if ($needle === $val) {
-                    $value = substr($value, $i);
-
-                    return $key;
-                }
-            }
-        }
-
-        return null;
-    }
-
-    /**
-     * Set dictionary value
-     *
-     * @param string $entry 1 character entry
-     * @param string $value Dictionary value
-     *
-     * @return void
-     *
-     * @throws
-     *
-     * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
-     */
-    public function set(string $entry, string $value)
-    {
-        if (strlen($entry) !== 1) {
-            throw new \Exception('Must be a character.');
-        }
-
-        if (!isset($this->dictionary[$entry])) {
-            throw new \Exception('Character does not exist');
-        }
-
-        if (strlen(str_replace('0', '', str_replace('1', '', $value))) !== 0) {
-            throw new \Exception('Bad formatting.');
-        }
-
-        $length = strlen($value);
-
-        if ($this->min === -1 || $length < $this->min) {
-            $this->min = $length;
-        }
-
-        if ($this->max === -1 || $length > $this->max) {
-            $this->max = $length;
-        }
-
-        $this->dictionary[$entry] = $value;
-    }
-
-    /**
      * Generate dictionary from data.
      *
      * @param string $source Source data to generate dictionary from
@@ -225,5 +128,102 @@ final class Dictionary
                 $this->fill($entry[1][1], $value . '1');
             }
         }
+    }
+
+    /**
+     * Set dictionary value
+     *
+     * @param string $entry 1 character entry
+     * @param string $value Dictionary value
+     *
+     * @return void
+     *
+     * @throws
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+    public function set(string $entry, string $value)
+    {
+        if (strlen($entry) !== 1) {
+            throw new \Exception('Must be a character.');
+        }
+
+        if (!isset($this->dictionary[$entry])) {
+            throw new \Exception('Character does not exist');
+        }
+
+        if (strlen(str_replace('0', '', str_replace('1', '', $value))) !== 0) {
+            throw new \Exception('Bad formatting.');
+        }
+
+        $length = strlen($value);
+
+        if ($this->min === -1 || $length < $this->min) {
+            $this->min = $length;
+        }
+
+        if ($this->max === -1 || $length > $this->max) {
+            $this->max = $length;
+        }
+
+        $this->dictionary[$entry] = $value;
+    }
+
+    /**
+     * Get dictionary value by entry
+     *
+     * @param string $entry 1 character entry
+     *
+     * @return string
+     *
+     * @throws
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+    public function get(string $entry) : string
+    {
+        if (strlen($entry) !== 1) {
+            throw new \Exception('Must be a character.');
+        }
+
+        if (!isset($this->dictionary[$entry])) {
+            throw new \Exception('Character does not exist');
+        }
+
+        return $this->dictionary[$entry];
+    }
+
+    /**
+     * Get dictionary entry and reduce value
+     *
+     * @param string $value Dictionary value
+     *
+     * @return null|string
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+    public function getEntry(&$value)
+    {
+        $length = strlen($value);
+        if ($length < $this->min) {
+            return null;
+        }
+
+        for ($i = $this->min; $i <= $this->max; ++$i) {
+            $needle = substr($value, 0, $i);
+
+            foreach ($this->dictionary as $key => $val) {
+                if ($needle === $val) {
+                    $value = substr($value, $i);
+
+                    return $key;
+                }
+            }
+        }
+
+        return null;
     }
 }

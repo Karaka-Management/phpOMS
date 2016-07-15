@@ -237,12 +237,18 @@ class MultiMap implements \Countable
      * @since  1.0.0
      * @author Dennis Eichhorn
      */
-    private function setSingle($key, $value) : bool
+    private function setMultiple($key, $value) : bool
     {
-        if (isset($this->keys[$key])) {
-            $this->values[$this->keys[$key]] = $value;
+        if ($this->orderType !== OrderType::LOOSE) {
+            $permutation = Permutation::permut($key);
 
-            return true;
+            foreach ($permutation as $permut) {
+                if ($this->set(implode($permut, ':'), $value)) {
+                    return true;
+                }
+            }
+        } else {
+            return $this->set(implode($key, ':'), $value);
         }
 
         return false;
@@ -259,18 +265,12 @@ class MultiMap implements \Countable
      * @since  1.0.0
      * @author Dennis Eichhorn
      */
-    private function setMultiple($key, $value) : bool
+    private function setSingle($key, $value) : bool
     {
-        if ($this->orderType !== OrderType::LOOSE) {
-            $permutation = Permutation::permut($key);
+        if (isset($this->keys[$key])) {
+            $this->values[$this->keys[$key]] = $value;
 
-            foreach ($permutation as $permut) {
-                if ($this->set(implode($permut, ':'), $value)) {
-                    return true;
-                }
-            }
-        } else {
-            return $this->set(implode($key, ':'), $value);
+            return true;
         }
 
         return false;
@@ -305,31 +305,6 @@ class MultiMap implements \Countable
      * @since  1.0.0
      * @author Dennis Eichhorn
      */
-    private function removeSingle($key) : bool
-    {
-        if (isset($this->keys[$key])) {
-            $id = $this->keys[$key];
-
-            unset($this->values[$id]);
-
-            $this->garbageCollect();
-
-            return true;
-        }
-
-        return false;
-    }
-
-    /**
-     * Remove value and all sibling keys based on key.
-     *
-     * @param mixed $key Key used to identify value
-     *
-     * @return bool
-     *
-     * @since  1.0.0
-     * @author Dennis Eichhorn
-     */
     private function removeMultiple($key) : bool
     {
         if ($this->orderType === OrderType::LOOSE) {
@@ -345,6 +320,31 @@ class MultiMap implements \Countable
         } else {
             return $this->remove(implode($key, ':'));
         }
+    }
+
+    /**
+     * Remove value and all sibling keys based on key.
+     *
+     * @param mixed $key Key used to identify value
+     *
+     * @return bool
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn
+     */
+    private function removeSingle($key) : bool
+    {
+        if (isset($this->keys[$key])) {
+            $id = $this->keys[$key];
+
+            unset($this->values[$id]);
+
+            $this->garbageCollect();
+
+            return true;
+        }
+
+        return false;
     }
 
     /**
@@ -410,31 +410,6 @@ class MultiMap implements \Countable
      * @since  1.0.0
      * @author Dennis Eichhorn
      */
-    private function removeKeySingle($key) : bool
-    {
-        if (isset($this->keys[$key])) {
-            unset($this->keys[$key]);
-
-            $this->garbageCollect();
-
-            return true;
-        }
-
-        return false;
-    }
-
-    /**
-     * Remove key.
-     *
-     * This only removes the value if no other key exists for this value.
-     *
-     * @param mixed $key Key used to identify value
-     *
-     * @return bool
-     *
-     * @since  1.0.0
-     * @author Dennis Eichhorn
-     */
     private function removeKeyMultiple($key) : bool
     {
         if ($this->orderType === OrderType::LOOSE) {
@@ -450,6 +425,31 @@ class MultiMap implements \Countable
         } else {
             return $this->removeKey(implode($key, ':'));
         }
+    }
+
+    /**
+     * Remove key.
+     *
+     * This only removes the value if no other key exists for this value.
+     *
+     * @param mixed $key Key used to identify value
+     *
+     * @return bool
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn
+     */
+    private function removeKeySingle($key) : bool
+    {
+        if (isset($this->keys[$key])) {
+            unset($this->keys[$key]);
+
+            $this->garbageCollect();
+
+            return true;
+        }
+
+        return false;
     }
 
     /**
@@ -482,6 +482,25 @@ class MultiMap implements \Countable
      * @since  1.0.0
      * @author Dennis Eichhorn
      */
+    public function getSiblingsMultiple($key) : array
+    {
+        if ($this->orderType === OrderType::LOOSE) {
+            return Permutation::permut($key);
+        }
+
+        return [];
+    }
+
+    /**
+     * Get all sibling keys.
+     *
+     * @param mixed $key Key to find siblings for
+     *
+     * @return array
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn
+     */
     private function getSiblingsSingle($key) : array
     {
         $siblings = [];
@@ -497,25 +516,6 @@ class MultiMap implements \Countable
         }
 
         return $siblings;
-    }
-
-    /**
-     * Get all sibling keys.
-     *
-     * @param mixed $key Key to find siblings for
-     *
-     * @return array
-     *
-     * @since  1.0.0
-     * @author Dennis Eichhorn
-     */
-    public function getSiblingsMultiple($key) : array
-    {
-        if ($this->orderType === OrderType::LOOSE) {
-            return Permutation::permut($key);
-        }
-
-        return [];
     }
 
     /**

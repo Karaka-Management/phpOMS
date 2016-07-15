@@ -109,6 +109,28 @@ class GA
     }
 
     /**
+     * Find fittest
+     *
+     * @param Population $population Population to evaluate
+     *
+     * @return Tour
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+    private function tournamentSelection(Population $population) : Tour
+    {
+        $tournament     = new Population($this->cityPool, self::TOURNAMENT, false);
+        $populationSize = $population->count();
+
+        for ($i = 0; $i < self::TOURNAMENT; $i++) {
+            $tournament->add($population->get(mt_rand(0, $populationSize)));
+        }
+
+        return $tournament->getFittest();
+    }
+
+    /**
      * Crossover tours
      *
      * @param Tour $tour1 Tour 1
@@ -179,28 +201,6 @@ class GA
                 $tour->setCity($pos2, $city1);
             }
         }
-    }
-
-    /**
-     * Find fittest
-     *
-     * @param Population $population Population to evaluate
-     *
-     * @return Tour
-     *
-     * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
-     */
-    private function tournamentSelection(Population $population) : Tour
-    {
-        $tournament     = new Population($this->cityPool, self::TOURNAMENT, false);
-        $populationSize = $population->count();
-
-        for ($i = 0; $i < self::TOURNAMENT; $i++) {
-            $tournament->add($population->get(mt_rand(0, $populationSize)));
-        }
-
-        return $tournament->getFittest();
     }
 
 }

@@ -45,33 +45,6 @@ class Integer
     }
 
     /**
-     * Greatest common diviser.
-     *
-     * @param int $n Number one
-     * @param int $m Number two
-     *
-     * @return int
-     *
-     * @since  1.0.0
-     * @author Dennis Eichhorn
-     */
-    public static function greatestCommonDivisor(int $n, int $m) : int
-    {
-        while (true) {
-            if ($n === $m) {
-                return $m;
-            }
-            if ($n > $m) {
-                $n -= $m;
-            } else {
-                $m -= $n;
-            }
-        }
-
-        return 1;
-    }
-
-    /**
      * Trial factorization.
      *
      * @param int $value Integer to factorize
@@ -140,6 +113,33 @@ class Integer
     }
 
     /**
+     * Greatest common diviser.
+     *
+     * @param int $n Number one
+     * @param int $m Number two
+     *
+     * @return int
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn
+     */
+    public static function greatestCommonDivisor(int $n, int $m) : int
+    {
+        while (true) {
+            if ($n === $m) {
+                return $m;
+            }
+            if ($n > $m) {
+                $n -= $m;
+            } else {
+                $m -= $n;
+            }
+        }
+
+        return 1;
+    }
+
+    /**
      * Fermat factorization of odd integers.
      *
      * @param int $value Integer to factorize
@@ -154,7 +154,7 @@ class Integer
      */
     public static function fermatFactor(int $value, int $limit = 1000000) : int
     {
-        if(($value % 2) !== 0) {
+        if (($value % 2) !== 0) {
             throw new \Exception('Only odd integers are allowed');
         }
 

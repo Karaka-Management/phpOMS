@@ -66,6 +66,19 @@ abstract class TaskAbstract
     }
 
     /**
+     * Get interval.
+     *
+     * @return Interval
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+    public function getInterval() : Interval
+    {
+        return $this->interval;
+    }
+
+    /**
      * Set interval.
      *
      * @param Interval $interval Interval
@@ -81,16 +94,16 @@ abstract class TaskAbstract
     }
 
     /**
-     * Get interval.
+     * Get command.
      *
-     * @return Interval
+     * @return string
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function getInterval() : Interval
+    public function getCommand() : string
     {
-        return $this->interval;
+        return $this->command;
     }
 
     /**
@@ -106,18 +119,5 @@ abstract class TaskAbstract
     public function setCommand(string $command)
     {
         $this->command = $command;
-    }
-
-    /**
-     * Get command.
-     *
-     * @return string
-     *
-     * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
-     */
-    public function getCommand() : string
-    {
-        return $this->command;
     }
 }

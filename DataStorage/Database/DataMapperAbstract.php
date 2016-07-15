@@ -409,7 +409,7 @@ class DataMapperAbstract implements DataMapperInterface
                         } elseif ($column['type'] === 'Serializable') {
                             $value = $value->serialize();
                         } elseif ($column['type'] === 'jsonSerializable') {
-                            $value = $value->jsonSerializable();                            
+                            $value = $value->jsonSerializable();
                         } elseif (is_object($value)) {
                             $value = $value->getId();
                         }

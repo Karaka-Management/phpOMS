@@ -14,6 +14,7 @@
  * @link       http://orange-management.com
  */
 namespace phpOMS\Math\Statistic\Forecast;
+
 use phpOMS\Datatypes\Enum;
 
 /**

@@ -30,8 +30,8 @@ class Forecast
 {
     /**
      * Get forecast interval.
-     * 
-     * 
+     *
+     *
      *
      * @param array $observed   Dataset
      * @param array $forecasted Forecasted

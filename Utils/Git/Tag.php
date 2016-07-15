@@ -58,19 +58,6 @@ class Tag
     }
 
     /**
-     * Set tag name
-     *
-     * @param string $message Tag message
-     *
-     * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
-     */
-    public function setMessage(string $message)
-    {
-        $this->message = escapeshellarg($message);
-    }
-
-    /**
      * Get tag message
      *
      * @return string
@@ -81,6 +68,19 @@ class Tag
     public function getMessage() : string
     {
         return $this->message;
+    }
+
+    /**
+     * Set tag name
+     *
+     * @param string $message Tag message
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+    public function setMessage(string $message)
+    {
+        $this->message = escapeshellarg($message);
     }
 
     /**

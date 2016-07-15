@@ -61,6 +61,29 @@ class Currency
     }
 
     /**
+     * Convert from EUR
+     *
+     * @param float  $value Value to convert
+     * @param string $to    Output currency
+     *
+     * @return float
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+    public static function fromEurTo(float $value, string $to) : float
+    {
+        $currencies = self::getEcbEuroRates();
+        $to         = strtoupper($to);
+
+        if (!isset($currencies[$to])) {
+            throw new \InvalidArgumentException('Currency doesn\'t exists');
+        }
+
+        return $value * $currencies[$to];
+    }
+
+    /**
      * Get ECB currency rates.
      *
      * @return array
@@ -89,29 +112,6 @@ class Currency
         }
 
         return self::$ecbCurrencies;
-    }
-
-    /**
-     * Convert from EUR
-     *
-     * @param float  $value Value to convert
-     * @param string $to    Output currency
-     *
-     * @return float
-     *
-     * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
-     */
-    public static function fromEurTo(float $value, string $to) : float
-    {
-        $currencies = self::getEcbEuroRates();
-        $to         = strtoupper($to);
-
-        if (!isset($currencies[$to])) {
-            throw new \InvalidArgumentException('Currency doesn\'t exists');
-        }
-
-        return $value * $currencies[$to];
     }
 
     /**

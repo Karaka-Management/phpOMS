@@ -77,7 +77,7 @@ class Average
     {
         $count = count($x);
 
-        return $x[$count - 1] + $h * ($x[$count - 1] - $x[0]) / ($count - 1); 
+        return $x[$count - 1] + $h * ($x[$count - 1] - $x[0]) / ($count - 1);
     }
 
     /**

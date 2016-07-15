@@ -15,8 +15,6 @@
  */
 namespace phpOMS\Message\Mail;
 
-use phpOMS\Datatypes\Exception\InvalidEnumValue;
-
 /**
  * Mail class.
  *

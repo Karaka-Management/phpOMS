@@ -30,38 +30,10 @@ use phpOMS\Math\Matrix\Matrix;
 class GaussianElimination
 {
     /**
-     * Swap rows.
-     *
-     * @param array $a  Matrix A
-     * @param array $b  Vector b
-     * @param int   $r1 Row 1
-     * @param int   $r2 Row 2
-     *
-     * @return void
-     *
-     * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
-     */
-    private static function swapRows(&$a, &$b, int $r1, int $r2)
-    {
-        if ($r1 == $r2) {
-            return;
-        }
-
-        $tmp    = $a[$r1];
-        $a[$r1] = $a[$r2];
-        $a[$r2] = $tmp;
-
-        $tmp    = $b[$r1];
-        $b[$r1] = $b[$r2];
-        $b[$r2] = $tmp;
-    }
-
-    /**
      * Solve equation with gaussian elimination.
      *
-     * @param Matrix $A     Matrix A
-     * @param Matrix $b     Vector b
+     * @param Matrix $A Matrix A
+     * @param Matrix $b Vector b
      *
      * @return Matrix
      *
@@ -116,5 +88,33 @@ class GaussianElimination
         $Y->setMatrix($x);
 
         return $Y;
+    }
+
+    /**
+     * Swap rows.
+     *
+     * @param array $a  Matrix A
+     * @param array $b  Vector b
+     * @param int   $r1 Row 1
+     * @param int   $r2 Row 2
+     *
+     * @return void
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+    private static function swapRows(&$a, &$b, int $r1, int $r2)
+    {
+        if ($r1 == $r2) {
+            return;
+        }
+
+        $tmp    = $a[$r1];
+        $a[$r1] = $a[$r2];
+        $a[$r2] = $tmp;
+
+        $tmp    = $b[$r1];
+        $b[$r1] = $b[$r2];
+        $b[$r2] = $tmp;
     }
 }

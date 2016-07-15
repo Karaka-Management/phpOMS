@@ -50,19 +50,6 @@ class Branch
     }
 
     /**
-     * Set branch name
-     *
-     * @param string $name Branch name
-     *
-     * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
-     */
-    public function setName(string $name)
-    {
-        $this->name = escapeshellarg($name);
-    }
-
-    /**
      * Get name
      *
      * @return string
@@ -73,5 +60,18 @@ class Branch
     public function getName() : string
     {
         return $this->name;
+    }
+
+    /**
+     * Set branch name
+     *
+     * @param string $name Branch name
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+    public function setName(string $name)
+    {
+        $this->name = escapeshellarg($name);
     }
 }

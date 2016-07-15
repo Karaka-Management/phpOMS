@@ -14,6 +14,7 @@
  * @link       http://orange-management.com
  */
 namespace phpOMS\Validation\Base;
+
 use phpOMS\Validation\ValidatorAbstract;
 
 
@@ -87,36 +88,6 @@ abstract class Iban extends ValidatorAbstract
     }
 
     /**
-     * Validate checksum
-     *
-     * @param string $iban Iban to validate
-     *
-     * @return bool
-     *
-     * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
-     */
-    private static function validateChecksum(string $iban) : bool
-    {
-        $chars      = ['a' => 10, 'b' => 11, 'c' => 12, 'd' => 13, 'e' => 14, 'f' => 15, 'g' => 16, 'h' => 17, 'i' => 18,
-                       'j' => 19, 'k' => 20, 'l' => 21, 'm' => 22, 'n' => 23, 'o' => 24, 'p' => 25, 'q' => 26, 'r' => 27,
-                       's' => 28, 't' => 29, 'u' => 30, 'v' => 31, 'w' => 32, 'x' => 33, 'y' => 34, 'z' => 35,];
-        $moved      = substr($iban, 4) . substr($iban, 0, 4);
-        $movedArray = str_split($moved);
-        $new        = '';
-
-        foreach ($movedArray as $key => $value) {
-            if (!is_numeric($movedArray[$key])) {
-                $movedArray[$key] = $chars[$movedArray[$key]];
-            }
-
-            $new .= $movedArray[$key];
-        }
-
-        return bcmod($new, '97') == 1;
-    }
-
-    /**
      * Validate positions that should have zeros
      *
      * @param string $iban   Iban to validate
@@ -172,5 +143,35 @@ abstract class Iban extends ValidatorAbstract
         }
 
         return true;
+    }
+
+    /**
+     * Validate checksum
+     *
+     * @param string $iban Iban to validate
+     *
+     * @return bool
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+    private static function validateChecksum(string $iban) : bool
+    {
+        $chars      = ['a' => 10, 'b' => 11, 'c' => 12, 'd' => 13, 'e' => 14, 'f' => 15, 'g' => 16, 'h' => 17, 'i' => 18,
+                       'j' => 19, 'k' => 20, 'l' => 21, 'm' => 22, 'n' => 23, 'o' => 24, 'p' => 25, 'q' => 26, 'r' => 27,
+                       's' => 28, 't' => 29, 'u' => 30, 'v' => 31, 'w' => 32, 'x' => 33, 'y' => 34, 'z' => 35,];
+        $moved      = substr($iban, 4) . substr($iban, 0, 4);
+        $movedArray = str_split($moved);
+        $new        = '';
+
+        foreach ($movedArray as $key => $value) {
+            if (!is_numeric($movedArray[$key])) {
+                $movedArray[$key] = $chars[$movedArray[$key]];
+            }
+
+            $new .= $movedArray[$key];
+        }
+
+        return bcmod($new, '97') == 1;
     }
 }

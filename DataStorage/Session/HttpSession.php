@@ -32,16 +32,6 @@ use phpOMS\Utils\RnG\StringUtils;
 class HttpSession implements SessionInterface
 {
 
-    private $sessionData = [];
-
-    /**
-     * Session ID.
-     *
-     * @var string|int
-     * @since 1.0.0
-     */
-    private $sid = null;
-
     /**
      * Is session locked/already set.
      *
@@ -49,6 +39,14 @@ class HttpSession implements SessionInterface
      * @since 1.0.0
      */
     private static $isLocked = false;
+    private $sessionData = [];
+    /**
+     * Session ID.
+     *
+     * @var string|int
+     * @since 1.0.0
+     */
+    private $sid = null;
 
     /**
      * Constructor.
@@ -103,14 +101,6 @@ class HttpSession implements SessionInterface
     /**
      * {@inheritdoc}
      */
-    public function get($key)
-    {
-        return $this->sessionData[$key] ?? null;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
     public function set($key, $value, bool $overwrite = true) : bool
     {
         if ($overwrite || !isset($this->sessionData[$key])) {
@@ -120,6 +110,24 @@ class HttpSession implements SessionInterface
         }
 
         return false;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function get($key)
+    {
+        return $this->sessionData[$key] ?? null;
+    }
+
+    public static function lock()
+    {
+        self::$isLocked = true;
+    }
+
+    public static function isLocked()
+    {
+        return self::$isLocked;
     }
 
     /**
@@ -164,16 +172,6 @@ class HttpSession implements SessionInterface
     {
         $_SESSION = $this->sessionData;
         session_write_close();
-    }
-
-    public static function lock()
-    {
-        self::$isLocked = true;
-    }
-
-    public static function isLocked()
-    {
-        return self::$isLocked;
     }
 
 }

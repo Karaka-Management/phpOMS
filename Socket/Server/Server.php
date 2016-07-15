@@ -18,7 +18,6 @@ namespace phpOMS\Socket\Server;
 use phpOMS\Socket\Client\ClientConnection;
 use phpOMS\Socket\CommandManager;
 use phpOMS\Socket\Packets\PacketManager;
-
 use phpOMS\Socket\SocketAbstract;
 
 /**

@@ -79,25 +79,6 @@ class ChiSquaredDistribution
     ];
 
     /**
-     * Get degrees of freedom of array.
-     *
-     * @param array $values Value matrix or vector (N or NxM)
-     *
-     * @return int
-     *
-     * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
-     */
-    public static function getDegreesOfFreedom(array $values) : int
-    {
-        if (is_array($first = reset($values))) {
-            return (count($values) - 1) * (count($first) - 1);
-        } else {
-            return count($values) - 1;
-        }
-    }
-
-    /**
      * Test hypthesis.
      *
      * @param array $dataset      Values
@@ -144,6 +125,25 @@ class ChiSquaredDistribution
         $P = 1 - ($P ?? key(end(self::TABLE[$df])));
 
         return ['P' => $P, 'H0' => ($P > $significance), 'df' => $df];
+    }
+
+    /**
+     * Get degrees of freedom of array.
+     *
+     * @param array $values Value matrix or vector (N or NxM)
+     *
+     * @return int
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+    public static function getDegreesOfFreedom(array $values) : int
+    {
+        if (is_array($first = reset($values))) {
+            return (count($values) - 1) * (count($first) - 1);
+        } else {
+            return count($values) - 1;
+        }
     }
 
     /**

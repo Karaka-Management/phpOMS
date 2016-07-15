@@ -111,6 +111,26 @@ class Interval implements \Serializable
     }
 
     /**
+     * Unserialize.
+     *
+     * @param string $serialized String to unserialize
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+    public function unserialize($serialized)
+    {
+        $elements = explode(' ', trim($serialized));
+
+        $this->minute     = $this->parseMinute($elements[0]);
+        $this->hour       = $this->parseHour($elements[1]);
+        $this->dayOfMonth = $this->parseDayOfMonth($elements[2]);
+        $this->month      = $this->parseMonth($elements[3]);
+        $this->dayOfWeek  = $this->parseDayOfWeek($elements[4]);
+        $this->year       = $this->parseYear($elements[5]);
+    }
+
+    /**
      * Parse element.
      *
      * @param string $minute Minute
@@ -201,6 +221,19 @@ class Interval implements \Serializable
     }
 
     /**
+     * Get start.
+     *
+     * @return \DateTime
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+    public function getStart() : \DateTime
+    {
+        return $this->start;
+    }
+
+    /**
      * Set start.
      *
      * @param \DateTime $start Start date
@@ -213,19 +246,6 @@ class Interval implements \Serializable
     public function setStart(\DateTime $start)
     {
         $this->start = $start;
-    }
-
-    /**
-     * Get start.
-     *
-     * @return \DateTime
-     *
-     * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
-     */
-    public function getStart() : \DateTime
-    {
-        return $this->start;
     }
 
     /**
@@ -257,6 +277,19 @@ class Interval implements \Serializable
     }
 
     /**
+     * Get minute.
+     *
+     * @return array
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+    public function getMinute() : array
+    {
+        return $this->minute;
+    }
+
+    /**
      * Set mintue.
      *
      * @param array $minute Minute
@@ -282,6 +315,47 @@ class Interval implements \Serializable
     }
 
     /**
+     * Validate time.
+     *
+     * @param array $times   Times
+     * @param int   $step    Step
+     * @param int   $lowest  Lowest limet
+     * @param int   $highest Highest limet
+     *
+     * @return bool
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+    private function validateTime(array $times, int $step, int $lowest, int $highest) : bool
+    {
+        foreach ($times as $minute) {
+            if ($minute > $highest || $minute < $lowest) {
+                return false;
+            }
+        }
+
+        if ($step > $highest || $step < $lowest) {
+            return false;
+        }
+
+        return true;
+    }
+
+    /**
+     * Get hour.
+     *
+     * @return array
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+    public function getHour() : array
+    {
+        return $this->hour;
+    }
+
+    /**
      * Set hour.
      *
      * @param array $hour Hour
@@ -304,6 +378,19 @@ class Interval implements \Serializable
         } else {
             throw new \Exception('Invalid format.');
         }
+    }
+
+    /**
+     * Get day of month.
+     *
+     * @return array
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+    public function getDayOfMonth() : array
+    {
+        return $this->dayOfMonth;
     }
 
     /**
@@ -337,28 +424,44 @@ class Interval implements \Serializable
     }
 
     /**
-     * Set month.
+     * Validate day of month.
      *
-     * @param array $month Month
-     * @param int   $step  Step
-     * @param bool  $any   Any
+     * @param array $array Element to validate
      *
-     * @throws
+     * @return bool
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function setMonth(array $month, int $step = 0, bool $any = false)
+    private function validateDayOfMonth(array $array) : bool
     {
-        if ($this->validateTime($month, $step, 1, 12)) {
-            $this->month = [
-                'month' => $month,
-                'step'  => $step,
-                'any'   => $any,
-            ];
-        } else {
-            throw new \Exception('Invalid format.');
+        foreach ($array['dayOfMonth'] as $dayOfMonth) {
+            if ($dayOfMonth > 31 || $dayOfMonth < 1) {
+                return false;
+            }
         }
+
+        if ($array['step'] > 31 || $array['step'] < 1) {
+            return false;
+        }
+        if ($array['nearest'] > 31 || $array['nearest'] < 1) {
+            return false;
+        }
+
+        return true;
+    }
+
+    /**
+     * Get day of week.
+     *
+     * @return array
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+    public function getDayOfWeek() : array
+    {
+        return $this->dayOfWeek;
     }
 
     /**
@@ -390,6 +493,82 @@ class Interval implements \Serializable
     }
 
     /**
+     * Validate day of week.
+     *
+     * @param array $array Element to validate
+     *
+     * @return bool
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+    private function validateDayOfWeek(array $array) : bool
+    {
+        foreach ($array['dayOfWeek'] as $dayOfWeek) {
+            if ($dayOfWeek > 7 || $dayOfWeek < 1) {
+                return false;
+            }
+        }
+
+        if ($array['step'] > 5 || $array['step'] < 1) {
+            return false;
+        }
+
+        return true;
+    }
+
+    /**
+     * Get month.
+     *
+     * @return array
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+    public function getMonth() : array
+    {
+        return $this->month;
+    }
+
+    /**
+     * Set month.
+     *
+     * @param array $month Month
+     * @param int   $step  Step
+     * @param bool  $any   Any
+     *
+     * @throws
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+    public function setMonth(array $month, int $step = 0, bool $any = false)
+    {
+        if ($this->validateTime($month, $step, 1, 12)) {
+            $this->month = [
+                'month' => $month,
+                'step'  => $step,
+                'any'   => $any,
+            ];
+        } else {
+            throw new \Exception('Invalid format.');
+        }
+    }
+
+    /**
+     * Get year.
+     *
+     * @return array
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+    public function getYear() : array
+    {
+        return $this->year;
+    }
+
+    /**
      * Set yaer.
      *
      * @param array $year Year
@@ -416,165 +595,6 @@ class Interval implements \Serializable
     }
 
     /**
-     * Get minute.
-     *
-     * @return array
-     *
-     * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
-     */
-    public function getMinute() : array
-    {
-        return $this->minute;
-    }
-
-    /**
-     * Get hour.
-     *
-     * @return array
-     *
-     * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
-     */
-    public function getHour() : array
-    {
-        return $this->hour;
-    }
-
-    /**
-     * Get day of month.
-     *
-     * @return array
-     *
-     * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
-     */
-    public function getDayOfMonth() : array
-    {
-        return $this->dayOfMonth;
-    }
-
-    /**
-     * Get day of week.
-     *
-     * @return array
-     *
-     * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
-     */
-    public function getDayOfWeek() : array
-    {
-        return $this->dayOfWeek;
-    }
-
-    /**
-     * Get month.
-     *
-     * @return array
-     *
-     * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
-     */
-    public function getMonth() : array
-    {
-        return $this->month;
-    }
-
-    /**
-     * Get year.
-     *
-     * @return array
-     *
-     * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
-     */
-    public function getYear() : array
-    {
-        return $this->year;
-    }
-
-    /**
-     * Validate time.
-     *
-     * @param array $times   Times
-     * @param int   $step    Step
-     * @param int   $lowest  Lowest limet
-     * @param int   $highest Highest limet
-     *
-     * @return bool
-     *
-     * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
-     */
-    private function validateTime(array $times, int $step, int $lowest, int $highest) : bool
-    {
-        foreach ($times as $minute) {
-            if ($minute > $highest || $minute < $lowest) {
-                return false;
-            }
-        }
-
-        if ($step > $highest || $step < $lowest) {
-            return false;
-        }
-
-        return true;
-    }
-
-    /**
-     * Validate day of month.
-     *
-     * @param array $array Element to validate
-     *
-     * @return bool
-     *
-     * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
-     */
-    private function validateDayOfMonth(array $array) : bool
-    {
-        foreach ($array['dayOfMonth'] as $dayOfMonth) {
-            if ($dayOfMonth > 31 || $dayOfMonth < 1) {
-                return false;
-            }
-        }
-
-        if ($array['step'] > 31 || $array['step'] < 1) {
-            return false;
-        }
-        if ($array['nearest'] > 31 || $array['nearest'] < 1) {
-            return false;
-        }
-
-        return true;
-    }
-
-    /**
-     * Validate day of week.
-     *
-     * @param array $array Element to validate
-     *
-     * @return bool
-     *
-     * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
-     */
-    private function validateDayOfWeek(array $array) : bool
-    {
-        foreach ($array['dayOfWeek'] as $dayOfWeek) {
-            if ($dayOfWeek > 7 || $dayOfWeek < 1) {
-                return false;
-            }
-        }
-
-        if ($array['step'] > 5 || $array['step'] < 1) {
-            return false;
-        }
-
-        return true;
-    }
-
-    /**
      * Validate year.
      *
      * @param array $array Element to validate
@@ -587,6 +607,26 @@ class Interval implements \Serializable
     private function validateYear(array $array) : bool
     {
         return true;
+    }
+
+    /**
+     * Create string representation.
+     *
+     * @return string
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+    public function serialize()
+    {
+        $minute     = $this->serializeTime($this->minute['minutes'], $this->minute['step']);
+        $hour       = $this->serializeTime($this->hour['hours'], $this->hour['step']);
+        $dayOfMonth = $this->serializeDayOfMonth();
+        $month      = $this->serializeTime($this->month['month'], $this->month['step']);
+        $dayOfWeek  = $this->serializeDayOfWeek();
+        $year       = $this->serializeTime($this->year['year'], $this->year['step']);
+
+        return $minute . ' ' . $hour . ' ' . $dayOfMonth . ' ' . $month . ' ' . $dayOfWeek . ' ' . $year;
     }
 
     /**
@@ -670,45 +710,5 @@ class Interval implements \Serializable
         }
 
         return $serialize;
-    }
-
-    /**
-     * Create string representation.
-     *
-     * @return string
-     *
-     * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
-     */
-    public function serialize()
-    {
-        $minute     = $this->serializeTime($this->minute['minutes'], $this->minute['step']);
-        $hour       = $this->serializeTime($this->hour['hours'], $this->hour['step']);
-        $dayOfMonth = $this->serializeDayOfMonth();
-        $month      = $this->serializeTime($this->month['month'], $this->month['step']);
-        $dayOfWeek  = $this->serializeDayOfWeek();
-        $year       = $this->serializeTime($this->year['year'], $this->year['step']);
-
-        return $minute . ' ' . $hour . ' ' . $dayOfMonth . ' ' . $month . ' ' . $dayOfWeek . ' ' . $year;
-    }
-
-    /**
-     * Unserialize.
-     *
-     * @param string $serialized String to unserialize
-     *
-     * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
-     */
-    public function unserialize($serialized)
-    {
-        $elements = explode(' ', trim($serialized));
-
-        $this->minute     = $this->parseMinute($elements[0]);
-        $this->hour       = $this->parseHour($elements[1]);
-        $this->dayOfMonth = $this->parseDayOfMonth($elements[2]);
-        $this->month      = $this->parseMonth($elements[3]);
-        $this->dayOfWeek  = $this->parseDayOfWeek($elements[4]);
-        $this->year       = $this->parseYear($elements[5]);
     }
 }

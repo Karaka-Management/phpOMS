@@ -30,20 +30,19 @@ namespace phpOMS\DataStorage\Cookie;
 class CookieJar
 {
     /**
-     * Cookie values.
-     *
-     * @var array
-     * @since 1.0.0
-     */
-    private $cookies = [];
-
-    /**
      * Locked.
      *
      * @var bool
      * @since 1.0.0
      */
     private static $isLocked = false;
+    /**
+     * Cookie values.
+     *
+     * @var array
+     * @since 1.0.0
+     */
+    private $cookies = [];
 
     /**
      * Constructor.
@@ -54,6 +53,30 @@ class CookieJar
     public function __construct()
     {
         $this->cookies = $_COOKIE;
+    }
+
+    /**
+     * Lock
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+    public static function lock()
+    {
+        self::$isLocked = true;
+    }
+
+    /**
+     * Is locked?
+     *
+     * @return bool
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+    public static function isLocked() : bool
+    {
+        return self::$isLocked;
     }
 
     /**
@@ -92,6 +115,22 @@ class CookieJar
     }
 
     /**
+     * Delete already set cookie
+     *
+     * @param string $id Cookie id to remove
+     *
+     * @return void
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+    public function delete(string $id)
+    {
+        $this->remove($id);
+        setcookie($id, '', time() - 3600);
+    }
+
+    /**
      * Remove pending cookie
      *
      * @param string $id Cookie id to remove
@@ -113,22 +152,6 @@ class CookieJar
     }
 
     /**
-     * Delete already set cookie
-     *
-     * @param string $id Cookie id to remove
-     *
-     * @return void
-     *
-     * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
-     */
-    public function delete(string $id)
-    {
-        $this->remove($id);
-        setcookie($id, '', time() - 3600);
-    }
-
-    /**
      * Save cookie
      *
      * @since  1.0.0
@@ -143,29 +166,5 @@ class CookieJar
         foreach ($this->cookies as $key => $cookie) {
             setcookie($key, $cookie['value'], $cookie['expiry'], $cookie['path'], $cookie['domain'], $cookie['secure'], $cookie['httponly']);
         }
-    }
-
-    /**
-     * Lock
-     *
-     * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
-     */
-    public static function lock()
-    {
-        self::$isLocked = true;
-    }
-
-    /**
-     * Is locked?
-     *
-     * @return bool
-     *
-     * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
-     */
-    public static function isLocked() : bool
-    {
-        return self::$isLocked;
     }
 }

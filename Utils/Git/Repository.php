@@ -86,30 +86,6 @@ class Repository
     }
 
     /**
-     * Create repository
-     *
-     * @param string $source Create repository from source (optional, can be remote)
-     * @param bool   $bare   Bare repository
-     *
-     * @throws \Exception
-     *
-     * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
-     */
-    public function create(string $source = null, bool $bare = false)
-    {
-        if (!is_dir($this->path) || file_exists($this->path . '/.git')) {
-            throw new \Exception('Already repository');
-        }
-
-        if (isset($source)) {
-            $this->clone($source);
-        } else {
-            $this->init($bare);
-        }
-    }
-
-    /**
      * Set repository path.
      *
      * @param string $path Path to repository
@@ -140,6 +116,51 @@ class Repository
                 $this->bare = true;
             }
         }
+    }
+
+    /**
+     * Get active Branch.
+     *
+     * @return Branch
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+    public function getActiveBranch() : Branch
+    {
+        if (!isset($this->branch)) {
+            $branches = $this->getBranches();
+            $active   = preg_grep('/^\*/', $branches);
+            reset($active);
+
+            $this->branch = new Branch(current($active));
+        }
+
+        return $this->branch;
+    }
+
+    /**
+     * Get all branches.
+     *
+     * @return array
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+    public function getBranches() : array
+    {
+        $branches = $this->run('branch');
+        $result   = [];
+
+        foreach ($branches as $key => $branch) {
+            $branch = trim($branch, '* ');
+
+            if ($branch !== '') {
+                $result[] = $branch;
+            }
+        }
+
+        return $result;
     }
 
     /**
@@ -216,16 +237,27 @@ class Repository
     }
 
     /**
-     * Get directory path.
+     * Create repository
      *
-     * @return string
+     * @param string $source Create repository from source (optional, can be remote)
+     * @param bool   $bare   Bare repository
+     *
+     * @throws \Exception
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function getDirectoryPath() : string
+    public function create(string $source = null, bool $bare = false)
     {
-        return $this->bare ? $this->path : $this->path . '/.git';
+        if (!is_dir($this->path) || file_exists($this->path . '/.git')) {
+            throw new \Exception('Already repository');
+        }
+
+        if (isset($source)) {
+            $this->clone($source);
+        } else {
+            $this->init($bare);
+        }
     }
 
     /**
@@ -351,30 +383,6 @@ class Repository
     }
 
     /**
-     * Get all branches.
-     *
-     * @return array
-     *
-     * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
-     */
-    public function getBranches() : array
-    {
-        $branches = $this->run('branch');
-        $result   = [];
-
-        foreach ($branches as $key => $branch) {
-            $branch = trim($branch, '* ');
-
-            if ($branch !== '') {
-                $result[] = $branch;
-            }
-        }
-
-        return $result;
-    }
-
-    /**
      * Get repository name.
      *
      * @return string
@@ -392,6 +400,19 @@ class Repository
         }
 
         return $this->name;
+    }
+
+    /**
+     * Get directory path.
+     *
+     * @return string
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+    public function getDirectoryPath() : string
+    {
+        return $this->bare ? $this->path : $this->path . '/.git';
     }
 
     /**
@@ -416,27 +437,6 @@ class Repository
         }
 
         return $result;
-    }
-
-    /**
-     * Get active Branch.
-     *
-     * @return Branch
-     *
-     * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
-     */
-    public function getActiveBranch() : Branch
-    {
-        if (!isset($this->branch)) {
-            $branches = $this->getBranches();
-            $active   = preg_grep('/^\*/', $branches);
-            reset($active);
-
-            $this->branch = new Branch(current($active));
-        }
-
-        return $this->branch;
     }
 
     /**
@@ -604,53 +604,6 @@ class Repository
     }
 
     /**
-     * Get commit by id.
-     *
-     * @param string $commit Commit id
-     *
-     * @return Commit
-     *
-     * @throws \Exception
-     *
-     * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
-     */
-    public function getCommit(string $commit) : Commit
-    {
-        $lines = $this->run('show --name-only ' . escapeshellarg($commit));
-        $count = count($lines);
-
-        if (empty($lines)) {
-            // todo: return null commit
-            return new Commit();
-        }
-
-        preg_match('/[0-9ABCDEFabcdef]{40}/', $lines[0], $matches);
-
-        if (!isset($matches[0]) || strlen($matches[0]) !== 40) {
-            throw new \Exception('Invalid commit id');
-        }
-
-        $author = explode(':', $lines[1]);
-        $author = explode('<', trim($author[1]));
-        $date   = substr($lines[2], 6);
-
-        $commit = new Commit($matches[0]);
-        $commit->setAuthor(new Author(trim($author[0]), rtrim($author[1], '>')));
-        $commit->setDate(new \DateTime(trim($date)));
-        $commit->setMessage($lines[3]);
-        $commit->setTag(new Tag());
-        $commit->setRepository($this);
-        $commit->setBranch($this->branch);
-
-        for ($i = 4; $i < $count; $i++) {
-            $commit->addFile($lines[$i]);
-        }
-
-        return $commit;
-    }
-
-    /**
      * Count files in repository.
      *
      * @return int
@@ -691,7 +644,7 @@ class Repository
 
             $fh = fopen($path = $this->getDirectoryPath() . ($this->bare ? '/' : '/../') . $line, 'r');
 
-            if(!$fh) {
+            if (!$fh) {
                 throw new PathException($path);
             }
 
@@ -704,39 +657,6 @@ class Repository
         }
 
         return $loc;
-    }
-
-    /**
-     * Count commits.
-     *
-     * @param \DateTime $start Start date
-     * @param \DateTime $end   End date
-     *
-     * @return array
-     *
-     * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
-     */
-    public function getCommitsCount(\DateTime $start = null, \DateTime $end = null) : array
-    {
-        if (!isset($start)) {
-            $start = new \DateTime('1970-12-31');
-        }
-
-        if (!isset($end)) {
-            $end = new \DateTime('now');
-        }
-
-        $lines   = $this->run('shortlog -s -n --since="' . $start->format('Y-m-d') . '" --before="' . $end->format('Y-m-d') . '" --all');
-        $commits = [];
-
-        foreach ($lines as $line) {
-            preg_match('/^[0-9]*/', $line, $matches);
-
-            $commits[substr($line, strlen($matches[0]) + 1)] = (int) $matches[0];
-        }
-
-        return $commits;
     }
 
     /**
@@ -777,6 +697,39 @@ class Repository
         }
 
         return $contributors;
+    }
+
+    /**
+     * Count commits.
+     *
+     * @param \DateTime $start Start date
+     * @param \DateTime $end   End date
+     *
+     * @return array
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+    public function getCommitsCount(\DateTime $start = null, \DateTime $end = null) : array
+    {
+        if (!isset($start)) {
+            $start = new \DateTime('1970-12-31');
+        }
+
+        if (!isset($end)) {
+            $end = new \DateTime('now');
+        }
+
+        $lines   = $this->run('shortlog -s -n --since="' . $start->format('Y-m-d') . '" --before="' . $end->format('Y-m-d') . '" --all');
+        $commits = [];
+
+        foreach ($lines as $line) {
+            preg_match('/^[0-9]*/', $line, $matches);
+
+            $commits[substr($line, strlen($matches[0]) + 1)] = (int) $matches[0];
+        }
+
+        return $commits;
     }
 
     /**
@@ -861,6 +814,53 @@ class Repository
         }
 
         return $commits;
+    }
+
+    /**
+     * Get commit by id.
+     *
+     * @param string $commit Commit id
+     *
+     * @return Commit
+     *
+     * @throws \Exception
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+    public function getCommit(string $commit) : Commit
+    {
+        $lines = $this->run('show --name-only ' . escapeshellarg($commit));
+        $count = count($lines);
+
+        if (empty($lines)) {
+            // todo: return null commit
+            return new Commit();
+        }
+
+        preg_match('/[0-9ABCDEFabcdef]{40}/', $lines[0], $matches);
+
+        if (!isset($matches[0]) || strlen($matches[0]) !== 40) {
+            throw new \Exception('Invalid commit id');
+        }
+
+        $author = explode(':', $lines[1]);
+        $author = explode('<', trim($author[1]));
+        $date   = substr($lines[2], 6);
+
+        $commit = new Commit($matches[0]);
+        $commit->setAuthor(new Author(trim($author[0]), rtrim($author[1], '>')));
+        $commit->setDate(new \DateTime(trim($date)));
+        $commit->setMessage($lines[3]);
+        $commit->setTag(new Tag());
+        $commit->setRepository($this);
+        $commit->setBranch($this->branch);
+
+        for ($i = 4; $i < $count; $i++) {
+            $commit->addFile($lines[$i]);
+        }
+
+        return $commit;
     }
 
     /**

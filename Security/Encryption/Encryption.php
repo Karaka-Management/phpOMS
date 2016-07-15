@@ -191,6 +191,25 @@ class Encryption
     }
 
     /**
+     * Encrypt value.
+     *
+     * @param string $value Value to encrypt
+     *
+     * @return string
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+    public function encrpyt(string $value) : string
+    {
+        $iv    = mcrypt_create_iv($this->getIvSize(), $this->getRandomizer());
+        $value = base64_encode($this->padAndMcrypt($value, $iv));
+        $mac   = $this->hash($value, $iv = base64_encode($iv));
+
+        return base64_encode(json_encode(compact('iv', 'value', 'mac')));
+    }
+
+    /**
      * Get input vector size.
      *
      * @return int
@@ -278,25 +297,6 @@ class Encryption
     }
 
     /**
-     * Encrypt value.
-     *
-     * @param string $value Value to encrypt
-     *
-     * @return string
-     *
-     * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
-     */
-    public function encrpyt(string $value) : string
-    {
-        $iv    = mcrypt_create_iv($this->getIvSize(), $this->getRandomizer());
-        $value = base64_encode($this->padAndMcrypt($value, $iv));
-        $mac   = $this->hash($value, $iv = base64_encode($iv));
-
-        return base64_encode(json_encode(compact('iv', 'value', 'mac')));
-    }
-
-    /**
      * Decrypt value.
      *
      * @param string $payload Payload to decrypt
@@ -345,21 +345,6 @@ class Encryption
     }
 
     /**
-     * Is valid mac.
-     *
-     * @param mixed $payload Payload data
-     *
-     * @return bool
-     *
-     * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
-     */
-    private function validMac($payload) : bool
-    {
-        return $this->hash($payload['value'], $payload['iv']) == $payload['mac'];
-    }
-
-    /**
      * Check if payload is valid.
      *
      * @param mixed $payload Payload data
@@ -372,6 +357,21 @@ class Encryption
     private function invalidPayload($payload) : bool
     {
         return !is_array($payload) || !isset($payload['iv']) || !isset($payload['value']) || !isset($payload['mac']);
+    }
+
+    /**
+     * Is valid mac.
+     *
+     * @param mixed $payload Payload data
+     *
+     * @return bool
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+    private function validMac($payload) : bool
+    {
+        return $this->hash($payload['value'], $payload['iv']) == $payload['mac'];
     }
 
     /**

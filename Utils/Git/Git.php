@@ -39,38 +39,6 @@ class Git
     protected static $bin = '/usr/bin/git';
 
     /**
-     * Set git binary.
-     *
-     * @param string $path Git path
-     *
-     * @throws PathException
-     *
-     * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
-     */
-    public static function setBin(string $path)
-    {
-        if (realpath($path) === false) {
-            throw new PathException($path);
-        }
-
-        self::$bin = realpath($path);
-    }
-
-    /**
-     * Get git binary.
-     *
-     * @return string
-     *
-     * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
-     */
-    public static function getBin() : string
-    {
-        return self::$bin;
-    }
-
-    /**
      * Test git.
      *
      * @return bool
@@ -91,5 +59,37 @@ class Git
         }
 
         return trim(proc_close($resource)) !== 127;
+    }
+
+    /**
+     * Get git binary.
+     *
+     * @return string
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+    public static function getBin() : string
+    {
+        return self::$bin;
+    }
+
+    /**
+     * Set git binary.
+     *
+     * @param string $path Git path
+     *
+     * @throws PathException
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+    public static function setBin(string $path)
+    {
+        if (realpath($path) === false) {
+            throw new PathException($path);
+        }
+
+        self::$bin = realpath($path);
     }
 }

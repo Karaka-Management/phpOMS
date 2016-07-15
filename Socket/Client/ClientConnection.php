@@ -50,24 +50,14 @@ class ClientConnection
         return $this->socket;
     }
 
-    public function getHandshake()
-    {
-        return $this->handshake;
-    }
-
-    public function getPid()
-    {
-        return $this->pid;
-    }
-
-    public function isConnected()
-    {
-        return $this->connected;
-    }
-
     public function setSocket($socket)
     {
         $this->socket = $socket;
+    }
+
+    public function getHandshake()
+    {
+        return $this->handshake;
     }
 
     public function setHandshake($handshake)
@@ -75,9 +65,19 @@ class ClientConnection
         $this->handshake = $handshake;
     }
 
+    public function getPid()
+    {
+        return $this->pid;
+    }
+
     public function setPid($pid)
     {
         $this->pid = $pid;
+    }
+
+    public function isConnected()
+    {
+        return $this->connected;
     }
 
     public function setConnected(bool $connected)

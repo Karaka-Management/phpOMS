@@ -143,29 +143,16 @@ class Commit
     }
 
     /**
-     * Add change.
+     * Get commit message.
      *
-     * @param string $path File path
-     * @param int    $line Line number
-     * @param string $old  Old line
-     * @param string $new  New line
-     *
-     * @throws
+     * @return string
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    private function addChange(string $path, int $line, string $old, string $new)
+    public function getMessage() : string
     {
-        if (!isset($this->files[$path])) {
-            throw new \Exception();
-        }
-
-        if (!isset($this->files[$path][$line])) {
-            $this->files[$path][$line] = ['old' => $old, 'new' => $new];
-        } else {
-            throw new \Exception();
-        }
+        return $this->message;
     }
 
     /**
@@ -181,19 +168,6 @@ class Commit
     public function setMessage(string $message)
     {
         $this->message = $message;
-    }
-
-    /**
-     * Get commit message.
-     *
-     * @return string
-     *
-     * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
-     */
-    public function getMessage() : string
-    {
-        return $this->message;
     }
 
     /**
@@ -231,19 +205,6 @@ class Commit
     }
 
     /**
-     * Set commit author.
-     *
-     * @param Author $author Commit author
-     *
-     * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
-     */
-    public function setAuthor(Author $author)
-    {
-        $this->author = $author;
-    }
-
-    /**
      * Get commit author.
      *
      * @return Author
@@ -257,16 +218,16 @@ class Commit
     }
 
     /**
-     * Set commit branch.
+     * Set commit author.
      *
-     * @param Branch $branch Commit branch
+     * @param Author $author Commit author
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function setBranch(Branch $branch)
+    public function setAuthor(Author $author)
     {
-        $this->branch = $branch;
+        $this->author = $author;
     }
 
     /**
@@ -283,16 +244,16 @@ class Commit
     }
 
     /**
-     * Set commit tag.
+     * Set commit branch.
      *
-     * @param Tag $tag Commit tag
+     * @param Branch $branch Commit branch
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function setTag(Tag $tag)
+    public function setBranch(Branch $branch)
     {
-        $this->tag = $tag;
+        $this->branch = $branch;
     }
 
     /**
@@ -306,6 +267,19 @@ class Commit
     public function getTag() : Tag
     {
         return $this->tag;
+    }
+
+    /**
+     * Set commit tag.
+     *
+     * @param Tag $tag Commit tag
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+    public function setTag(Tag $tag)
+    {
+        $this->tag = $tag;
     }
 
     /**
@@ -337,6 +311,19 @@ class Commit
     }
 
     /**
+     * Get commit repository.
+     *
+     * @return Repository
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+    public function getRepository() : Repository
+    {
+        return $this->repository;
+    }
+
+    /**
      * Set commit repository.
      *
      * @param Repository $repository Commit repository
@@ -350,15 +337,28 @@ class Commit
     }
 
     /**
-     * Get commit repository.
+     * Add change.
      *
-     * @return Repository
+     * @param string $path File path
+     * @param int    $line Line number
+     * @param string $old  Old line
+     * @param string $new  New line
+     *
+     * @throws
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function getRepository() : Repository
+    private function addChange(string $path, int $line, string $old, string $new)
     {
-        return $this->repository;
+        if (!isset($this->files[$path])) {
+            throw new \Exception();
+        }
+
+        if (!isset($this->files[$path][$line])) {
+            $this->files[$path][$line] = ['old' => $old, 'new' => $new];
+        } else {
+            throw new \Exception();
+        }
     }
 }

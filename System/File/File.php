@@ -32,6 +32,47 @@ class File extends FileAbstract
 {
 
     /**
+     * Constructor.
+     *
+     * @param string $path Path
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+    public function __construct(string $path)
+    {
+        parent::__construct($path);
+        $this->count = 1;
+
+        if (file_exists($this->path)) {
+            $this->index();
+        }
+    }
+
+    /**
+     * Index file.
+     *
+     * @return void
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+    public function index()
+    {
+        parent::index();
+
+        $this->size = filesize($this->path);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function createNode() : bool
+    {
+        return self::createFile($this->path);
+    }
+
+    /**
      * Create file.
      *
      * @param string $path Path
@@ -54,32 +95,6 @@ class File extends FileAbstract
         }
 
         return false;
-    }
-
-    /**
-     * Constructor.
-     *
-     * @param string $path Path
-     *
-     * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
-     */
-    public function __construct(string $path)
-    {
-        parent::__construct($path);
-        $this->count = 1;
-
-        if (file_exists($this->path)) {
-            $this->index();
-        }
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function createNode() : bool
-    {
-        return self::createFile($this->path);
     }
 
     /**
@@ -114,20 +129,5 @@ class File extends FileAbstract
     public function setContent(string $content)
     {
         file_put_contents($this->path, $content);
-    }
-
-    /**
-     * Index file.
-     *
-     * @return void
-     *
-     * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
-     */
-    public function index()
-    {
-        parent::index();
-
-        $this->size = filesize($this->path);
     }
 }

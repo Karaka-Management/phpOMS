@@ -113,6 +113,33 @@ class Tour implements \Countable
     }
 
     /**
+     * Get tour distance
+     *
+     * @return float
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+    public function getDistance() : float
+    {
+        if ($this->distance === 0.0) {
+            $distance = 0.0;
+
+            $count = count($this->cities);
+
+            for ($i = 0; $i < $count; $i++) {
+                $dest = ($i + 1 < $count) ? $this->cities[$i + 1] : $this->cities[0];
+
+                $distance += $this->cities[$i]->getDistanceTo($dest);
+            }
+
+            $this->distance = $distance;
+        }
+
+        return $this->distance;
+    }
+
+    /**
      * Add city to tour.
      *
      * @param City $city City
@@ -144,33 +171,6 @@ class Tour implements \Countable
 
         $this->fitness  = 0.0;
         $this->distance = 0.0;
-    }
-
-    /**
-     * Get tour distance
-     *
-     * @return float
-     *
-     * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
-     */
-    public function getDistance() : float
-    {
-        if ($this->distance === 0.0) {
-            $distance = 0.0;
-
-            $count = count($this->cities);
-
-            for ($i = 0; $i < $count; $i++) {
-                $dest = ($i + 1 < $count) ? $this->cities[$i + 1] : $this->cities[0];
-
-                $distance += $this->cities[$i]->getDistanceTo($dest);
-            }
-
-            $this->distance = $distance;
-        }
-
-        return $this->distance;
     }
 
     /**

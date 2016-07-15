@@ -38,7 +38,7 @@ class Measurement
      *
      * @return float
      *
-     * @todo: implement more
+     * @todo   : implement more
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
@@ -114,7 +114,7 @@ class Measurement
      *
      * @return float
      *
-     * @todo: implement more
+     * @todo   : implement more
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
@@ -985,19 +985,19 @@ class Measurement
                 $value /= 3600;
                 break;
             case TimeType::DAYS:
-                $value /= 3600*24;
+                $value /= 3600 * 24;
                 break;
             case TimeType::WEEKS:
-                $value /= 3600*24*7;
+                $value /= 3600 * 24 * 7;
                 break;
             case TimeType::MONTH:
-                $value /= 3600*24*30;
+                $value /= 3600 * 24 * 30;
                 break;
             case TimeType::QUARTER:
-                $value /= 3600*24*90;
+                $value /= 3600 * 24 * 90;
                 break;
             case TimeType::QUARTER:
-                $value /= 3600*24*365;
+                $value /= 3600 * 24 * 365;
                 break;
             default:
                 throw new \InvalidArgumentException('Size not supported');
@@ -1016,19 +1016,19 @@ class Measurement
                 $value *= 3600;
                 break;
             case TimeType::DAYS:
-                $value *= 3600*24;
+                $value *= 3600 * 24;
                 break;
             case TimeType::WEEKS:
-                $value *= 3600*24*7;
+                $value *= 3600 * 24 * 7;
                 break;
             case TimeType::MONTH:
-                $value *= 3600*24*30;
+                $value *= 3600 * 24 * 30;
                 break;
             case TimeType::QUARTER:
-                $value *= 3600*24*90;
+                $value *= 3600 * 24 * 90;
                 break;
             case TimeType::QUARTER:
-                $value *= 3600*24*365;
+                $value *= 3600 * 24 * 365;
                 break;
             default:
                 throw new \InvalidArgumentException('Size not supported');

@@ -30,106 +30,131 @@ use \phpOMS\Stdlib\Queue\PriorityQueue;
  */
 class JobQueue
 {
-	private $queue = null;
-	private $run = true;
-	private $suspended = false;
-	private $isTerminating = true;
-	private $isDeamonized;
+    private $queue = null;
+    private $run = true;
+    private $suspended = false;
+    private $isTerminating = true;
+    private $isDeamonized;
 
-	public function __construct() {
-		$this->queue = new PriorityQueue();
-	}
+    public function __construct()
+    {
+        $this->queue = new PriorityQueue();
+    }
 
-	public function dispatch(Job $job) {
-		$this->queue->insert($job, $job->getPriority());
-	}
+    public function dispatch(Job $job)
+    {
+        $this->queue->insert($job, $job->getPriority());
+    }
 
-	public function run() {
-		$this->run = true;
-		$this->suspended = false;
+    public function run()
+    {
+        $this->run       = true;
+        $this->suspended = false;
 
-		if($this->isDeamonized) {
-			if($pid = pcntl_fork()) {
-				return $pid;
-			}
+        if ($this->isDeamonized) {
+            if ($pid = pcntl_fork()) {
+                return $pid;
+            }
 
-			$this->runAsDeamon();
+            $this->runAsDeamon();
 
-			if (posix_setsid() < 0 || $pid = pcntl_fork()) {
-            	return;
-			}
-		}
+            if (posix_setsid() < 0 || $pid = pcntl_fork()) {
+                return;
+            }
+        }
 
-		while($this->run) {
-			while(!$this->suspended) 
-				if($this->deamonized) {
-					// todo: see if still unsuspended and still running (db, file etc)
-				}
+        while ($this->run) {
+            while (!$this->suspended) {
+                if ($this->deamonized) {
+                    // todo: see if still unsuspended and still running (db, file etc)
+                }
+            }
 
-				$job = $this->queue->pop();
+            $job = $this->queue->pop();
 
-				$this->queue->increaseAll();
-				$job['job']->execute();	
+            $this->queue->increaseAll();
+            $job['job']->execute();
 
-				if($this->isTerminating && $this->queue->count() < 1) {
-					$this->suspended = true;
-					$this->run = false;
-				}	
+            if ($this->isTerminating && $this->queue->count() < 1) {
+                $this->suspended = true;
+                $this->run       = false;
+            }
 
-				sleep(1);
-			}
+            sleep(1);
+        }
 
-			sleep(1);
-		}
-	}
+        sleep(1);
+    }
+}
 
-	public function setRunning(bool $run = true) {
-		$this->run = $run;
-		$this->suspended = $run;
-	}
+public
+function setRunning(bool $run = true)
+{
+    $this->run       = $run;
+    $this->suspended = $run;
+}
 
-	public function isRunning() : bool {
-		return $this->run;
-	}
+public
+function isRunning() : bool
+{
+    return $this->run;
+}
 
-	public function setSuspended(bool $suspended = true) {
-		$this->suspended = $suspended;
-	}
+public
+function setSuspended(bool $suspended = true)
+{
+    $this->suspended = $suspended;
+}
 
-	public function isSuspended() : bool {
-		return $this->suspended;
-	}
+public
+function isSuspended() : bool
+{
+    return $this->suspended;
+}
 
-	public function isTerminating() : bool {
-		return $this->isTerminating;
-	}
+public
+function isTerminating() : bool
+{
+    return $this->isTerminating;
+}
 
-	public function setTerminating(bool $terminating = true) {
-		$this->isTerminating = $terminating;
-	}
+public
+function setTerminating(bool $terminating = true)
+{
+    $this->isTerminating = $terminating;
+}
 
-	public function isDeamonized() : bool {
-		return $this->isDeamonized;
-	}
+public
+function isDeamonized() : bool
+{
+    return $this->isDeamonized;
+}
 
-	public function setDeamonized(bool $deamonized) {
-		$this->isDeamonized = $deamonized;
-	}
+public
+function setDeamonized(bool $deamonized)
+{
+    $this->isDeamonized = $deamonized;
+}
 
-	private function runAsDeamon() {
-		ob_end_clean();
-        fclose(STDIN);
-        fclose(STDOUT);
-        fclose(STDERR);
+private
+function runAsDeamon()
+{
+    ob_end_clean();
+    fclose(STDIN);
+    fclose(STDOUT);
+    fclose(STDERR);
 
-        function shutdown() { 
-            posix_kill(posix_getpid(), SIGHUP); 
-        } 
+    function shutdown()
+    {
+        posix_kill(posix_getpid(), SIGHUP);
+    }
 
-        register_shutdown_function('shutdown'); 
-	}
+    register_shutdown_function('shutdown');
+}
 
-	private function savePid() {
-		// todo: save pid somewhere for kill
-	}
+private
+function savePid()
+{
+    // todo: save pid somewhere for kill
+}
 }

@@ -214,6 +214,19 @@ class ClassParser
     }
 
     /**
+     * Get type.
+     *
+     * @return string
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+    public function getType() : string
+    {
+        return $this->type;
+    }
+
+    /**
      * Set type.
      *
      * Available types are ClassType::
@@ -231,16 +244,16 @@ class ClassParser
     }
 
     /**
-     * Get type.
+     * Get extends.
      *
      * @return string
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function getType() : string
+    public function getExtends() : string
     {
-        return $this->type;
+        return $this->extends;
     }
 
     /**
@@ -259,19 +272,6 @@ class ClassParser
     }
 
     /**
-     * Get extends.
-     *
-     * @return string
-     *
-     * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
-     */
-    public function getExtends() : string
-    {
-        return $this->extends;
-    }
-
-    /**
      * Remove extends.
      *
      * @return void
@@ -282,6 +282,19 @@ class ClassParser
     public function removeExtends()
     {
         $this->extends = '';
+    }
+
+    /**
+     * Get namespace.
+     *
+     * @return string
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+    public function getNamespace() : string
+    {
+        return $this->namespace;
     }
 
     /**
@@ -297,19 +310,6 @@ class ClassParser
     public function setNamespace(string $namespace)
     {
         $this->namespace = $namespace;
-    }
-
-    /**
-     * Get namespace.
-     *
-     * @return string
-     *
-     * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
-     */
-    public function getNamespace() : string
-    {
-        return $this->namespace;
     }
 
     /**
@@ -367,6 +367,19 @@ class ClassParser
     }
 
     /**
+     * Get name.
+     *
+     * @return string
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+    public function getName() : string
+    {
+        return $this->name;
+    }
+
+    /**
      * Set name.
      *
      * @param string $name Class name
@@ -379,19 +392,6 @@ class ClassParser
     public function setName(string $name)
     {
         $this->name = $name;
-    }
-
-    /**
-     * Get name.
-     *
-     * @return string
-     *
-     * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
-     */
-    public function getName() : string
-    {
-        return $this->name;
     }
 
     /**
@@ -625,7 +625,7 @@ class ClassParser
      * Serialize require.
      *
      * @param string $keyword Keyword (e.g. include, require, include_once)
-     * @param array $source Require source
+     * @param array  $source  Require source
      *
      * @return string
      *

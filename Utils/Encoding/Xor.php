@@ -32,6 +32,14 @@ final class XorEncoding
     /**
      * {@inheritdoc}
      */
+    public static function decode(string $raw, string $key) : string
+    {
+        return self::encode($raw, $key);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
     public static function encode(string $source, string $key) : string
     {
         $result    = '';
@@ -48,13 +56,5 @@ final class XorEncoding
         }
 
         return $result;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public static function decode(string $raw, string $key) : string
-    {
-        return self::encode($raw, $key);
     }
 }
