@@ -123,9 +123,18 @@ class Header extends HeaderAbstract
             throw new \Exception('Already locked');
         }
 
+        $key = strtolower($key);
+
         if (!$overwrite && isset($this->header[$key])) {
             return false;
-        } elseif ($overwrite) {
+        } elseif ($overwrite && isset($this->header[$key])) {
+            if($key === 'content-security-policy' ||
+                $key === 'x-xss-protection' ||
+                $key === 'x-content-type-options' ||
+                $key === 'x-frame-options') {
+                throw new \Exception('Cannot change security headers.');
+            }
+
             unset($this->header[$key]);
         }
 
