@@ -642,10 +642,14 @@ class Repository
                 continue;
             }
 
-            $fh = fopen($path = $this->getDirectoryPath() . ($this->bare ? '/' : '/../') . $line, 'r');
+            if(!file_exists($path = $this->getDirectoryPath() . ($this->bare ? '/' : '/../') . $line)) {
+                return 0;
+            }
+
+            $fh = fopen($path, 'r');
 
             if (!$fh) {
-                throw new PathException($path);
+                return 0;
             }
 
             while (!feof($fh)) {
@@ -844,6 +848,7 @@ class Repository
             throw new \Exception('Invalid commit id');
         }
 
+        // todo: validate if array values are all initialized
         $author = explode(':', $lines[1]);
         $author = explode('<', trim($author[1]));
         $date   = substr($lines[2], 6);
