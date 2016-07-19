@@ -18,7 +18,7 @@ namespace phpOMS\Localization;
 use phpOMS\Datatypes\Enum;
 
 /**
- * Language codes ISO list.
+ * Language name ISO list.
  *
  * @category   Framework
  * @package    phpOMS\Localization
