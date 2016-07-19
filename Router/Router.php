@@ -85,6 +85,10 @@ class Router
      */
     public function add(string $route, $destination, string $verb = RouteVerb::GET)
     {
+        if(!isset($this->routes[$route])) {
+            $this->routes[$route] = [];
+        }
+
         $this->routes[$route][] = [
             'dest' => $destination,
             'verb' => $verb,
