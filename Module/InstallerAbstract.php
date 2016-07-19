@@ -150,9 +150,15 @@ class InstallerAbstract
      */
     private static function initRoutes(InfoManager $info)
     {
-        self::installRoutes(ROOT_PATH . '/Web/Routes.php', ROOT_PATH . '/Modules/' . $info->getDirectory() . '/Admin/Routes/http.php');
-        self::installRoutes(ROOT_PATH . '/Socket/Routes.php', ROOT_PATH . '/Modules/' . $info->getDirectory() . '/Admin/Routes/socket.php');
-        self::installRoutes(ROOT_PATH . '/Console/Routes.php', ROOT_PATH . '/Modules/' . $info->getDirectory() . '/Admin/Routes/console.php');
+        $directories = new Directory(ROOT_PATH . '/Modules/' . $info->getDirectory() . '/Admin/Routes');
+
+        foreach($directories as $key => $subdir) {
+            if($subdir instanceOf Directory) {
+                foreach($subdir as $key2 => $file) {
+                    self::installRoutes(ROOT_PATH . '/' . $subdir->getName() . '/' . $file->getName() . '/Routes.php', $file->getPath());
+                }
+            }
+        }
     }
 
     /**
@@ -170,6 +176,10 @@ class InstallerAbstract
      */
     private static function installRoutes(string $destRoutePath, string $srcRoutePath)
     {
+        if(!file_exists($destRoutePath)) {
+            mkdir($destRoutePath);
+        }
+
         if (file_exists($destRoutePath) && file_exists($srcRoutePath)) {
             /** @noinspection PhpIncludeInspection */
             $appRoutes = include $destRoutePath;

@@ -80,15 +80,11 @@ class Directory extends FileAbstract implements \Iterator, \ArrayAccess
         parent::index();
 
         foreach (glob($this->path . DIRECTORY_SEPARATOR . $this->filter) as $filename) {
-            // todo: handle . and ..???!!!
-            if (is_dir($filename)) {
-                $file = new Directory($filename);
-                $file->index();
-            } else {
-                $file = new File($filename);
-            }
+            if(strpos($filename, '.') === false) {
+                $file = is_dir($filename) ? new self($filename) : new File($filename);
 
-            $this->add($file);
+                $this->add($file);
+            }
         }
     }
 
