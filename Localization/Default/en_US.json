@@ -1,0 +1,47 @@
+{
+	"language": "EN",
+	"country": "USA",
+	"currency": "USD",
+	"thousand": ",",
+	"decimal": ".",
+	"angle": "Degree",
+	"weight": {
+		"very_light" : "mg",
+		"light" : "g",
+		"medium" : "kg",
+		"heavy" : "t",
+		"very_heavy" : "t",
+	},
+	"speed": {
+		"very_slow" : "ms",
+		"slow" : "ms",
+		"medium" : "kph",
+		"fast" : "kph",
+		"very_fast" : "mach",
+		"sea" : "mile"
+	},
+	"length": {
+		"very_short" : "mm",
+		"short" : "cm",
+		"medium" : "m",
+		"long" : "km",
+		"very_long" : "km",
+		"sea": "mile"
+	},
+	"area": {
+		"very_small" : "mm",
+		"small" : "cm",
+		"medium" : "m",
+		"large" : "km",
+		"very_large" : "ha"
+	},
+	"volume": {
+		"very_small" : "ml",
+		"small" : "ml",
+		"medium" : "l",
+		"large" : "m",
+		"very_large" : "km",
+		"teaspoon": "metric teaspoon",
+		"glass": "metric glass"
+	}
+}
