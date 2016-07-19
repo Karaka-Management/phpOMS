@@ -140,6 +140,87 @@ class Error
     }
 
     /**
+     * Goodness of fit.
+     *
+     * Evaluating how well the observed data fit the linear regression model
+     *
+     * @param array $observed   Obersved y values
+     * @param array $forecasted Forecasted y values
+     *
+     * @return float
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+    public static function getCoefficientOfDetermination(array $observed, array $forecasted) : float
+    {
+        $countO = count($observed);
+        $countF = count($forecasted);
+        $sum1   = 0;
+        $sum2   = 0;
+        $meanY  = Average::arithmeticMean($observed);
+
+        for ($i = 0; $i < $countF; $i++) {
+            $sum1 += ($forecasted[$i] - $meanY) ** 2;
+        }
+
+        for ($i = 0; $i < $countO; $i++) {
+            $sum2 += ($observed[$i] - $meanY) ** 2;
+        }
+
+        return $sum1 / $sum2;
+    }
+
+    /**
+     * Get sum squared error (SSE).
+     *
+     * @param array $errors Errors
+     *
+     * @return float
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+    public static function getSumSquaredError(array $errors) : float {
+        $error = 0.0;
+
+        foreach($errors as $e) {
+            $error += $e*$e;
+        }
+
+        return $error;
+    }
+
+    public static function getRBarSquared(float $R, int $observations, int $predictors) : float {
+        return 1 - (1 - $R * ($observations - 1) / ($observations - $predictors - 1);
+    }
+
+    /**
+     * Get Aike's information criterion (AIC)
+     *
+     */
+    public static function getAkaikeInformationCriterion(float $sse, int $observations, int $predictors) : float {
+        return $observations * log($sse / $observations) + 2 * ($predictors + 2);
+    }
+
+    /**
+     * Get corrected Aike's information criterion (AIC)
+     *
+     * Correction for small amount of observations
+     */
+    public static function getCorrectedAkaikeInformationCriterion(float aic, int $observations, int $predictors) : float {
+        return $aic + (2*($predictors +2)*($predictors + 3)) / ($observations - $predictors - 3);
+    }
+
+    /**
+     * Get Bayesian information criterion (BIC)
+     *
+     */
+    public static function getSchwarzBayesianInformationCriterion(float $sse, int $observations, int $predictors) : float {
+        return $observations * log($sse / $observations) + ($predictors +2)*log($observations);
+    }
+
+    /**
      * Get mean absolute percentage error (MAPE).
      *
      * @param array $observed   Dataset
