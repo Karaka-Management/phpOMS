@@ -114,19 +114,15 @@ class Average
             throw new \Exception('Periods');
         }
 
-        if(!isset($weight)) {
-             $weight = array_fill(0, $count, 1);
-        }
-
-        $sum = 0.0;
         $end = $symmetric ? $periods - 1 : 0;
         $end = $order % 2 === 0 ? $end - 1 : $end;
+        $start = $t - 1 -($periods - 2);
 
-        for($i = -($periods - 2); $i < $end; $i++) {
-            $sum += $weight[$t-1+$i] * $x[$t-1+$i];
+        if(isset($weight)) {
+            return self::weightedAverage(array_slice($x, $start, $end-$start), array_slice($weight, $start, $end-$start));
+        } else {
+            return self::arithmeticMean(array_slice($x, $start, $end-$start));
         }
-
-        return 1/ $order * $sum;
     }
 
     /**
@@ -201,7 +197,6 @@ class Average
      * Example: ([1, 2, 2, 3, 4, 4, 2])
      *
      * @param array $values Values
-     * @param int   $offset Offset for outlier
      *
      * @return float
      *
@@ -210,14 +205,8 @@ class Average
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public static function arithmeticMean(array $values, int $offset = 0)
+    public static function arithmeticMean(array $values)
     {
-        sort($values);
-
-        if ($offset > 0) {
-            $values = array_slice($values, $offset, -$offset);
-        }
-
         $count = count($values);
 
         if ($count === 0) {
@@ -244,12 +233,6 @@ class Average
      */
     public static function geometricMean(array $values, int $offset = 0)
     {
-        sort($values);
-
-        if ($offset > 0) {
-            $values = array_slice($values, $offset, -$offset);
-        }
-
         $count = count($values);
 
         if ($count === 0) {
@@ -276,18 +259,6 @@ class Average
      */
     public static function harmonicMean(array $values, int $offset = 0)
     {
-        sort($values);
-
-        if ($offset > 0) {
-            $values = array_slice($values, $offset, -$offset);
-        }
-
-        $count = count($values);
-        $sum   = 0.0;
-
-        foreach ($values as $value) {
-            if ($value === 0) {
-                throw new \Exception('Division zero');
             }
 
             $sum += 1 / $value;
@@ -311,12 +282,6 @@ class Average
      */
     public static function angleMean($angles, int $offset = 0)
     {
-        sort($angles);
-
-        if ($offset > 0) {
-            $angles = array_slice($angles, $offset, -$offset);
-        }
-
         $y    = $x = 0;
         $size = count($angles);
 
