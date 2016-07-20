@@ -229,11 +229,11 @@ class Measurement
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public static function convertLength(float $value, string $from = LengthType::METER, string $to = LengthType::KILOMETER) : float
+    public static function convertLength(float $value, string $from = LengthType::METERS, string $to = LengthType::KILOMETERS) : float
     {
         // to meter
         switch ($from) {
-            case LengthType::METER:
+            case LengthType::METERS:
                 break;
             case LengthType::MILES:
                 $value /= 0.00062137;
@@ -300,7 +300,7 @@ class Measurement
         }
 
         switch ($to) {
-            case LengthType::METER:
+            case LengthType::METERS:
                 break;
             case LengthType::MILES:
                 $value *= 0.00062137;
@@ -796,7 +796,7 @@ class Measurement
             case SpeedType::MILLIMETERS_PER_HOUR:
                 $value /= 1000000;
                 break;
-            case SpeedType::MILLIMETERS_PER_MINUTES:
+            case SpeedType::MILLIMETERS_PER_MINUTE:
                 $value *= 60 / 1000000;
                 break;
             case SpeedType::MILLIMETERS_PER_SECOND:
@@ -902,7 +902,7 @@ class Measurement
             case SpeedType::MILLIMETERS_PER_HOUR:
                 $value *= 1000000;
                 break;
-            case SpeedType::MILLIMETERS_PER_MINUTES:
+            case SpeedType::MILLIMETERS_PER_MINUTE:
                 $value = $value / 60 * 1000000;
                 break;
             case SpeedType::MILLIMETERS_PER_SECOND:
@@ -996,7 +996,7 @@ class Measurement
             case TimeType::QUARTER:
                 $value /= 3600 * 24 * 90;
                 break;
-            case TimeType::QUARTER:
+            case TimeType::YEAR:
                 $value /= 3600 * 24 * 365;
                 break;
             default:
@@ -1027,7 +1027,7 @@ class Measurement
             case TimeType::QUARTER:
                 $value *= 3600 * 24 * 90;
                 break;
-            case TimeType::QUARTER:
+            case TimeType::YEAR:
                 $value *= 3600 * 24 * 365;
                 break;
             default:
