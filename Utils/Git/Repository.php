@@ -854,8 +854,8 @@ class Repository
         $date   = substr($lines[2], 6);
 
         $commit = new Commit($matches[0]);
-        $commit->setAuthor(new Author(trim($author[0]), rtrim($author[1], '>')));
-        $commit->setDate(new \DateTime(trim($date)));
+        $commit->setAuthor(new Author(trim($author[0] ?? ''), rtrim($author[1] ?? '', '>')));
+        $commit->setDate(new \DateTime(trim($date ?? 'now')));
         $commit->setMessage($lines[3]);
         $commit->setTag(new Tag());
         $commit->setRepository($this);
