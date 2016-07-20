@@ -5,6 +5,7 @@
 	"thousand": ",",
 	"decimal": ".",
 	"angle": "Degree",
+	"temperature": "celsius",
 	"weight": {
 		"very_light" : "mg",
 		"light" : "g",
@@ -18,7 +19,7 @@
 		"medium" : "kph",
 		"fast" : "kph",
 		"very_fast" : "mach",
-		"sea" : "mile"
+		"sea" : "knot"
 	},
 	"length": {
 		"very_short" : "mm",
