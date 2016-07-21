@@ -44,7 +44,7 @@ class Localization
      * @var string
      * @since 1.0.0
      */
-    private $country = ISO3166Enum::_US;
+    private $country = ISO3166TwoEnum::C_USA;
     /**
      * Timezone.
      *
@@ -162,7 +162,7 @@ class Localization
      */
     public function setCountry(string $country)
     {
-        if (!ISO3166Enum::isValidValue($country)) {
+        if (!ISO3166TwoEnum::isValidValue($country)) {
             throw new InvalidEnumValue($country);
         }
 
