@@ -17,6 +17,8 @@ namespace phpOMS\Module;
 
 use phpOMS\DataStorage\Database\DatabaseType;
 use phpOMS\DataStorage\Database\Pool;
+use phpOMS\System\File\Directory;
+use phpOMS\System\File\PathException;
 use phpOMS\System\File\PermissionException;
 use phpOMS\Utils\Parser\Php\ArrayParser;
 
@@ -153,9 +155,9 @@ class InstallerAbstract
         $directories = new Directory(ROOT_PATH . '/Modules/' . $info->getDirectory() . '/Admin/Routes');
 
         foreach($directories as $key => $subdir) {
-            if($subdir instanceOf Directory) {
+            if($subdir instanceof Directory) {
                 foreach($subdir as $key2 => $file) {
-                    self::installRoutes(ROOT_PATH . '/' . $subdir->getName() . '/' . $file->getName() . '/Routes.php', $file->getPath());
+                    self::installRoutes(ROOT_PATH . '/' . $subdir->getName() . '/' . basename($file->getName(), '.php') . '/Routes.php', $file->getPath());
                 }
             }
         }
@@ -177,7 +179,7 @@ class InstallerAbstract
     private static function installRoutes(string $destRoutePath, string $srcRoutePath)
     {
         if(!file_exists($destRoutePath)) {
-            mkdir($destRoutePath);
+            file_put_contents($destRoutePath, '<?php return [];');
         }
 
         if (file_exists($destRoutePath) && file_exists($srcRoutePath)) {
@@ -189,9 +191,17 @@ class InstallerAbstract
             $appRoutes = array_merge_recursive($appRoutes, $moduleRoutes);
 
             if (is_writable($destRoutePath)) {
-                file_put_contents($destRoutePath, '<?php return ' . ArrayParser::serializeArray($appRoutes) . ';', LOCK_EX);
+                file_put_contents($destRoutePath, '<?php return' . ArrayParser::serializeArray($appRoutes) . ';', LOCK_EX);
             } else {
                 throw new PermissionException($destRoutePath);
+            }
+        } else {
+            if(!file_exists($srcRoutePath)) {
+                throw new PathException($srcRoutePath);
+            }
+
+            if(!file_exists($destRoutePath)) {
+                throw new PathException($destRoutePath);
             }
         }
     }

@@ -15,6 +15,7 @@
  */
 namespace phpOMS\System\File;
 
+use phpOMS\Utils\StringUtils;
 use phpOMS\Validation\Validator;
 
 /**
@@ -43,7 +44,7 @@ class Directory extends FileAbstract implements \Iterator, \ArrayAccess
     /**
      * Direcotry nodes (files and directories).
      *
-     * @var string
+     * @var FileAbstract[]
      * @since 1.0.0
      */
     private $nodes = [];
@@ -80,7 +81,7 @@ class Directory extends FileAbstract implements \Iterator, \ArrayAccess
         parent::index();
 
         foreach (glob($this->path . DIRECTORY_SEPARATOR . $this->filter) as $filename) {
-            if(strpos($filename, '.') === false) {
+            if(!StringUtils::endsWith(trim($filename), '.') ) {
                 $file = is_dir($filename) ? new self($filename) : new File($filename);
 
                 $this->add($file);
@@ -102,7 +103,7 @@ class Directory extends FileAbstract implements \Iterator, \ArrayAccess
     {
         $this->count += $file->getCount();
         $this->size += $file->getSize();
-        $this->nodes[$this->getName()] = $file;
+        $this->nodes[$file->getName()] = $file;
 
         return $file->createNode();
     }

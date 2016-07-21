@@ -360,12 +360,6 @@ class ModuleManager
      */
     public function reInit(string $module) : bool
     {
-        if (file_exists($path = __DIR__ . '/../Web/Routes.php')) {
-            unlink($path);
-        }
-
-        file_put_contents($path, '<?php return [];');
-
         $info = $this->loadInfo($module);
         /** @var $class InstallerAbstract */
         $class = '\\Modules\\' . $info->getDirectory() . '\\Admin\\Installer';

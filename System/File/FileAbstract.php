@@ -104,7 +104,7 @@ abstract class FileAbstract
      */
     public function __construct(string $path)
     {
-        $this->path = $path;
+        $this->path = rtrim($path, '/\\');
         $this->name = basename($path);
 
         $this->createdAt = new \DateTime('now');
