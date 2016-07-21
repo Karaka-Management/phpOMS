@@ -150,12 +150,15 @@ class Account implements ArrayableInterface, \JsonSerializable
     /**
      * Constructor.
      *
+     * @param int $id Account id
+     *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function __construct()
+    public function __construct(int $id)
     {
         $this->createdAt = new \DateTime('now');
+        $this->id        = $id;
     }
 
     /**

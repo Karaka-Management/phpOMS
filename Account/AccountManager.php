@@ -15,6 +15,10 @@
  */
 namespace phpOMS\Account;
 
+use phpOMS\Auth\Auth;
+use phpOMS\DataStorage\Database\Connection\ConnectionAbstract;
+use phpOMS\DataStorage\Session\SessionInterface;
+
 /**
  * Account manager class.
  *
@@ -38,13 +42,43 @@ class AccountManager implements \Countable
     private $accounts = [];
 
     /**
+     * Session.
+     *
+     * @var SessionInterface
+     * @since 1.0.0
+     */
+    private $session = null;
+
+    /**
+     * Database connection instance.
+     *
+     * @var ConnectionAbstract
+     * @since 1.0.0
+     */
+    private $connection = null;
+
+    /**
+     * Authenticator.
+     *
+     * @var Auth
+     * @since 1.0.0
+     */
+    private $auth = null;
+
+    /**
      * Constructor.
+     *
+     * @param ConnectionAbstract $connection Database connection
+     * @param SessionInterface   $session    Session
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function __construct()
+    public function __construct(ConnectionAbstract $connection, SessionInterface $session)
     {
+        $this->connection = $connection;
+        $this->session    = $session;
+        $this->auth       = new Auth($this->connection, $this->session);
     }
 
     /**
@@ -57,9 +91,42 @@ class AccountManager implements \Countable
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function get(int $id) : Account
+    public function get(int $id = 0) : Account
     {
+        if ($id === 0) {
+            $account = new Account($this->auth->authenticate());
+
+            if (!isset($this->accounts[$account->getId()])) {
+                $this->accounts[$account->getId()] = $account;
+            }
+
+            return $account;
+        }
+
         return $this->accounts[$id] ?? new NullAccount();
+    }
+
+    /**
+     * Login user.
+     *
+     * @param int    $account  Account id
+     * @param string $login    Username
+     * @param string $password Password
+     *
+     * @return int
+     *
+     * @throws
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+    public function login(int $account, string $login, string $password) : int
+    {
+        if (!isset($this->accounts[$account])) {
+            throw new \Exception('Account not loaded');
+        }
+
+        return $this->auth->login($login, $password);
     }
 
     /**

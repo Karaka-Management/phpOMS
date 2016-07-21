@@ -39,7 +39,15 @@ class HttpSession implements SessionInterface
      * @since 1.0.0
      */
     private static $isLocked = false;
+
+    /**
+     * Raw session data.
+     *
+     * @var array
+     * @since 1.0.0
+     */
     private $sessionData = [];
+
     /**
      * Session ID.
      *
