@@ -16,7 +16,7 @@
 namespace phpOMS\Utils\Encoding;
 
 /**
- * Gray encoding class
+ * XOR encoding class
  *
  * @category   Framework
  * @package    phpOMS\Utils

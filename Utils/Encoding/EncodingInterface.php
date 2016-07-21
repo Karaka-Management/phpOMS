@@ -38,7 +38,7 @@ interface EncodingInterface
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function encode($source);
+    public static function encode($source);
 
     /**
      * Dedecodes text
@@ -50,5 +50,5 @@ interface EncodingInterface
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function decode($decoded);
+    public static function decode($decoded);
 }
