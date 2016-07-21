@@ -43,6 +43,7 @@
 		"large" : "m",
 		"very_large" : "km",
 		"teaspoon": "metric teaspoon",
+		"tablespoon": "metric tablespoon",
 		"glass": "metric glass"
 	}
 }
