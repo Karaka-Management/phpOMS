@@ -111,7 +111,7 @@ class Request extends RequestAbstract
      */
     public function init($uri = null)
     {
-        if ($uri === null) {
+        if (!isset($uri)) {
             $this->initCurrentRequest();
         } else {
             $this->initPseudoRequest($uri);

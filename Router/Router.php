@@ -54,15 +54,21 @@ class Router
      *
      * @param string $path Route file path
      *
-     * @return void
+     * @return bool
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function importFromFile(string $path)
+    public function importFromFile(string $path) : bool
     {
-        /** @noinspection PhpIncludeInspection */
-        $this->routes += include $path;
+        if(file_exists($path)) {
+            /** @noinspection PhpIncludeInspection */
+            $this->routes += include $path;
+
+            return true;
+        }
+
+        return false;
     }
 
     /**
@@ -79,6 +85,10 @@ class Router
      */
     public function add(string $route, $destination, string $verb = RouteVerb::GET)
     {
+        if(!isset($this->routes[$route])) {
+            $this->routes[$route] = [];
+        }
+
         $this->routes[$route][] = [
             'dest' => $destination,
             'verb' => $verb,

@@ -89,6 +89,46 @@ class Localization
     private $datetime = 'Y-m-d H:i:s';
 
     /**
+     * Weight.
+     *
+     * @var string
+     * @since 1.0.0
+     */
+    private $weight = [];
+
+    /**
+     * Speed.
+     *
+     * @var string
+     * @since 1.0.0
+     */
+    private $speed = [];
+
+    /**
+     * Length.
+     *
+     * @var string
+     * @since 1.0.0
+     */
+    private $length = [];
+
+    /**
+     * Area.
+     *
+     * @var string
+     * @since 1.0.0
+     */
+    private $area = [];
+
+    /**
+     * Volume.
+     *
+     * @var string
+     * @since 1.0.0
+     */
+    private $volume = [];
+
+    /**
      * Constructor.
      *
      * @param L11nManager $l11nManager Localization manager
