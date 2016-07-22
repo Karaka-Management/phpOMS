@@ -155,7 +155,7 @@ class Account implements ArrayableInterface, \JsonSerializable
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function __construct(int $id)
+    public function __construct(int $id = 0)
     {
         $this->createdAt = new \DateTime('now');
         $this->id        = $id;
