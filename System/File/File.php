@@ -98,14 +98,6 @@ class File extends FileAbstract
     }
 
     /**
-     * {@inheritdoc}
-     */
-    public function removeNode() : bool
-    {
-        return true;
-    }
-
-    /**
      * Get file content.
      *
      * @return string

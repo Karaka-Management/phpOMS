@@ -289,14 +289,6 @@ class Directory extends FileAbstract implements \Iterator, \ArrayAccess
     }
 
     /**
-     * {@inheritdoc}
-     */
-    public function removeNode() : bool
-    {
-        return true;
-    }
-
-    /**
      * Remove by name.
      *
      * @param string $name Name to remove
