@@ -15,7 +15,7 @@
  */
 namespace phpOMS\Localization;
 
-use phpOMS\Datatypes\EnumArray;
+use phpOMS\Datatypes\Enum;
 
 /**
  * Country codes ISO list.
@@ -28,7 +28,7 @@ use phpOMS\Datatypes\EnumArray;
  * @link       http://orange-management.com
  * @since      1.0.0
  */
-class ISO3166TwoEnum extends EnumArray
+class ISO3166TwoEnum extends Enum
 {
     const C_AFG = 'AF';
     const C_ALA = 'AX';

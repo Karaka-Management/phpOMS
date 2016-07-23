@@ -40,6 +40,28 @@ class StringUtils
     }
 
     /**
+     * Contains any string
+     *
+     * @param string       $haystack Haystack
+     * @param array $needles  Needles
+     *
+     * @return bool
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn
+     */
+    public static function contains(string $haystack, array $needles) : bool
+    {
+        foreach($needles as $needle) {
+            if(strpos($haystack, $needle) !== false) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    /**
      * String ends with?
      *
      * @param string       $haystack Haystack
@@ -105,7 +127,7 @@ class StringUtils
     public static function mb_startsWith(string $haystack, $needles) : bool
     {
         if (is_string($needles)) {
-            self::mb_startsWith($haystack, [$needles]);
+            $needles = [$needles];
         }
 
         foreach ($needles as $needle) {
@@ -131,7 +153,7 @@ class StringUtils
     public static function mb_endsWith(string $haystack, $needles) : bool
     {
         if (is_string($needles)) {
-            self::mb_endsWith($haystack, [$needles]);
+            $needles = [$needles];
         }
 
         foreach ($needles as $needle) {

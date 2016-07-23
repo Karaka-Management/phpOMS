@@ -165,12 +165,12 @@ class Dispatcher
      * @param ResponseAbstract      $response   Response
      * @param mixed                 $data       Data
      *
-     * @return array
+     * @return mixed
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    private function dispatchClosure(\Closure $controller, RequestAbstract $request, ResponseAbstract $response, $data = null) : array
+    private function dispatchClosure(\Closure $controller, RequestAbstract $request, ResponseAbstract $response, $data = null)
     {
         return $controller($this->app, $request, $response, $data);
     }

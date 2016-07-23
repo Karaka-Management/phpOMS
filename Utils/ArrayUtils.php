@@ -61,7 +61,12 @@ class ArrayUtils
 
         foreach ($nodes as &$node) {
             $prevEl = &$el;
-            $el     = &$el[$node];
+
+            if (!isset($el[$node])) {
+                break;
+            }
+
+            $el = &$el[$node];
         }
 
         if ($prevEl !== null) {

@@ -51,7 +51,7 @@ class Permutation
                 $newres   = $result;
                 $newres[] = $val;
                 unset($newArr[$key]);
-                $permutations += self::permut($newArr, $newres);
+                $permutations = array_merge($permutations, self::permut($newArr, $newres));
             }
         }
 
@@ -107,7 +107,7 @@ class Permutation
      */
     public static function permutate($toPermute, array $key)
     {
-        if (!is_array($toPermute) || !is_string($toPermute)) {
+        if (!is_array($toPermute) && !is_string($toPermute)) {
             throw new \InvalidArgumentException('Parameter has to be array or string');
         }
 
@@ -119,9 +119,9 @@ class Permutation
 
         $i = 0;
         foreach ($key as $pos) {
-            $temp            = $toPermute[$i];
-            $toPermute[$i]   = $toPermute[$pos];
-            $toPermute[$pos] = $temp;
+            $temp                = $toPermute[$i];
+            $toPermute[$i]       = $toPermute[$pos - 1];
+            $toPermute[$pos - 1] = $temp;
             $i++;
         }
 

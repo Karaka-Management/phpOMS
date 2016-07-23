@@ -52,4 +52,12 @@ abstract class ValidatorAbstract
     {
         return self::$msg;
     }
+
+    /**
+     * {@inheritdoc}
+     */
+    public static function getErrorCode() : int
+    {
+        return self::$error;
+    }
 }

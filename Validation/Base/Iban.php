@@ -37,7 +37,7 @@ abstract class Iban extends ValidatorAbstract
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function __construct()
+    private function __construct()
     {
     }
 
@@ -51,14 +51,16 @@ abstract class Iban extends ValidatorAbstract
      */
     public static function isValid($value) : bool
     {
-        $value  = \phpOMS\Datatypes\Iban::normalize($value);
-        $layout = str_replace(' ', '', IbanEnum::getByName($enumName = 'C_' . strtoupper(substr($value, 0, 2))));
+        $value = str_replace(' ', '', strtolower($value));
+        $enumName = 'C_' . strtoupper(substr($value, 0, 2));
 
         if (!IbanEnum::isValidName($enumName)) {
             self::$error = IbanErrorType::INVALID_COUNTRY;
 
             return false;
         }
+
+        $layout = str_replace(' ', '', IbanEnum::getByName($enumName));
 
         if (strlen($value) !== strlen($layout)) {
             self::$error = IbanErrorType::INVALID_LENGTH;

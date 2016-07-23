@@ -52,14 +52,14 @@ class LZW implements CompressionInterface
             if (array_key_exists($w . $c, $dictionary)) {
                 $w = $w . $c;
             } else {
-                array_push($result, $dictionary[$w]);
+                $result[]        = $dictionary[$w];
                 $dictionary[$wc] = $dictSize++;
                 $w               = (string) $c;
             }
         }
 
         if ($w !== '') {
-            array_push($result, $dictionary[$w]);
+            $result[] = $dictionary[$w];
         }
 
         return implode(',', $result);
@@ -90,7 +90,7 @@ class LZW implements CompressionInterface
                 $entry = $dictionary[$k];
             } else {
                 if ($k !== $dictSize) {
-                    return null;
+                    throw new \Exception('Wrong dictionary size!'. $k . '.' . $dictSize);
                 }
 
                 $entry = $w . $w[0];

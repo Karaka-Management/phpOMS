@@ -65,11 +65,11 @@ class Iban implements \Serializable
      */
     private function parse(string $iban)
     {
-        if (!\phpOMS\Validation\Base\Iban::isValid($iban)) {
+        $this->iban = self::normalize($iban);
+
+        if (!\phpOMS\Validation\Base\Iban::isValid($this->iban)) {
             throw new \InvalidArgumentException('Invalid IBAN');
         }
-
-        $this->iban = self::normalize($iban);
     }
 
     /**
@@ -135,7 +135,7 @@ class Iban implements \Serializable
             return '';
         }
 
-        return substr($this->iban, $start, $end - $start);
+        return substr($this->iban, $start, $end - $start + 1);
     }
 
     /**
@@ -226,7 +226,7 @@ class Iban implements \Serializable
      */
     public function getAccount() : string
     {
-        return $this->getSequence('n');
+        return $this->getSequence('c');
     }
 
     /**

@@ -136,7 +136,7 @@ class Localization
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function __construct(L11nManager $l11nManager)
+    public function __construct(L11nManager $l11nManager = null)
     {
         $this->l11nManager = $l11nManager;
     }

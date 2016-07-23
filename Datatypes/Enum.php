@@ -95,10 +95,10 @@ abstract class Enum
     public static function getByName(string $name)
     {
         if (!self::isValidName($name)) {
-            throw new \Exception('Undefined constant');
+            throw new \Exception('Undefined constant "' . $name . '"');
         }
 
-        return constant($name);
+        return constant('static::' . $name);
     }
 
     /**
@@ -115,7 +115,7 @@ abstract class Enum
      */
     public static function isValidName(string $name) : bool
     {
-        return defined($name);
+        return defined('static::' . $name);
     }
 
 }

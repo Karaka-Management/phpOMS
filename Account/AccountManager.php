@@ -130,24 +130,24 @@ class AccountManager implements \Countable
     }
 
     /**
-     * Set account.
+     * Add account.
      *
      * @param Account $account Account
      *
-     * @return int Account id
+     * @return bool
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function set(Account $account)
+    public function add(Account $account) : bool
     {
         if (!isset($this->accounts[$account->getId()])) {
             $this->accounts[$account->getId()] = $account;
 
-            return $account->getId();
+            return true;
         }
 
-        return null;
+        return false;
     }
 
     /**

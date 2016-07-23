@@ -587,18 +587,22 @@ class ModuleManager
      *
      * @param string|array $module Module name
      *
-     * @throws \InvalidArgumentException
+     * @throws
      *
      * @since  1.0.0
      * @author Dennis Eichhorn
      */
     public function initModule($module)
     {
-        if (!is_array($module)) {
-            $module = [$module];
-        }
+        try {
+            if (!is_array($module)) {
+                $module = [$module];
+            }
 
-        $this->initModuleArray($module);
+            $this->initModuleArray($module);
+        } catch (\Exception $e) {
+            throw $e;
+        }
     }
 
     /**
@@ -617,11 +621,7 @@ class ModuleManager
             try {
                 $this->initModuleController($module);
             } catch (\InvalidArgumentException $e) {
-                $this->app->logger->warning(FileLogger::MSG_FULL, [
-                    'message' => 'Trying to initialize ' . $module . ' without controller.',
-                    'line'    => $e->getLine(),
-                    'file'    => $e->getFile(),
-                ]);
+                throw $e;
             }
         }
     }
@@ -635,13 +635,19 @@ class ModuleManager
      *
      * @return void
      *
+     * @throws
+     *
      * @since  1.0.0
      * @author Dennis Eichhorn
      */
     private function initModuleController(string $module)
     {
-        $this->running[$module] = ModuleFactory::getInstance($module, $this->app);
-        $this->app->dispatcher->set($this->running[$module], '\Modules\\' . $module . '\\Controller');
+        try {
+            $this->running[$module] = ModuleFactory::getInstance($module, $this->app);
+            $this->app->dispatcher->set($this->running[$module], '\Modules\\' . $module . '\\Controller');
+        } catch (\Exception $e) {
+            throw $e;
+        }
     }
 
     /**
@@ -651,15 +657,21 @@ class ModuleManager
      *
      * @return \phpOMS\Module\ModuleAbstract
      *
+     * @throws
+     *
      * @since  1.0.0
      * @author Dennis Eichhorn
      */
     public function get(string $module)
     {
-        if (!isset($this->running[$module])) {
-            $this->initModule($module);
-        }
+        try {
+            if (!isset($this->running[$module])) {
+                $this->initModule($module);
+            }
 
-        return $this->running[$module];
+            return $this->running[$module];
+        } catch (\Exception $e) {
+            throw $e;
+        }
     }
 }

@@ -17,6 +17,7 @@ namespace phpOMS\Account;
 
 use phpOMS\Contract\ArrayableInterface;
 use phpOMS\Localization\Localization;
+use phpOMS\Localization\NullLocalization;
 use phpOMS\Validation\Base\Email;
 
 /**
@@ -159,6 +160,7 @@ class Account implements ArrayableInterface, \JsonSerializable
     {
         $this->createdAt = new \DateTime('now');
         $this->id        = $id;
+        $this->l11n      = new NullLocalization();
     }
 
     /**
@@ -423,21 +425,6 @@ class Account implements ArrayableInterface, \JsonSerializable
     public function updateLastActive()
     {
         $this->lastActive = new \DateTime('NOW');
-    }
-
-    /**
-     * Set created at.
-     *
-     * @param \DateTime $created Created at
-     *
-     * @return void
-     *
-     * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
-     */
-    public function setCreatedAt(\DateTime $created)
-    {
-        $this->createdAt = $created;
     }
 
     /**
