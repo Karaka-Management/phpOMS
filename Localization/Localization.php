@@ -73,6 +73,23 @@ class Localization
      * @since 1.0.0
      */
     private $thousands = ',';
+
+    /**
+     * Angle type.
+     *
+     * @var string
+     * @since 1.0.0
+     */
+    private $angle = AngleType::DEGREE;
+
+    /**
+     * Temperature type.
+     *
+     * @var string
+     * @since 1.0.0
+     */
+    private $temperature = TemperatureType::CELSIUS;
+
     /**
      * Time format.
      *
@@ -315,5 +332,53 @@ class Localization
     public function setThousands(string $thousands)
     {
         $this->thousands = $thousands;
-    }   
+    }
+
+    /**
+     * @return string
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+    public function getAngle() : string
+    {
+        return $this->angle;
+    }
+
+    /**
+     * @param string $angle
+     *
+     * @return string
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+    public function setAngle(string $angle)
+    {
+        $this->temperature = $angle;
+    }
+
+    /**
+     * @return string
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+    public function getTemperature() : string
+    {
+        return $this->temperature;
+    }
+
+    /**
+     * @param string $temperature
+     *
+     * @return string
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+    public function setTemperatur(string $temperature)
+    {
+        $this->temperature = $temperature;
+    } 
 }
