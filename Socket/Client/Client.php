@@ -77,33 +77,37 @@ class Client extends SocketAbstract
         $i = 0;
 
         while ($this->run) {
-            $i++;
-            $msg = 'disconnect';
-            socket_write($this->sock, $msg, strlen($msg));
+            try {
+                $i++;
+                $msg = 'disconnect';
+                socket_write($this->sock, $msg, strlen($msg));
 
-            $read = [$this->sock];
+                $read = [$this->sock];
 
-            //if(socket_select($read, $write = null, $except = null, 0) < 1) {
-            // error
-            // socket_last_error();
-            // socket_strerror(socket_last_error());
-            //}
+                //if(socket_select($read, $write = null, $except = null, 0) < 1) {
+                // error
+                // socket_last_error();
+                // socket_strerror(socket_last_error());
+                //}
 
-            if (count($read) > 0) {
-                $data = socket_read($this->sock, 1024);
+                if (count($read) > 0) {
+                    $data = socket_read($this->sock, 1024);
 
-                /* Server no data */
-                if ($data === false) {
-                    continue;
+                    /* Server no data */
+                    if ($data === false) {
+                        continue;
+                    }
+
+                    /* Normalize */
+                    $data = trim($data);
+
+                    if (!empty($data)) {
+                        $data = explode(' ', $data);
+                        $this->commands->trigger($data[0], 0, $data);
+                    }
                 }
-
-                /* Normalize */
-                $data = trim($data);
-
-                if (!empty($data)) {
-                    $data = explode(' ', $data);
-                    $this->commands->trigger($data[0], 0, $data);
-                }
+            } catch (\Error $e) {
+                $this->run = false;
             }
         }
 

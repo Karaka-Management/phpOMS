@@ -14,6 +14,7 @@
  * @link       http://orange-management.com
  */
 namespace phpOMS\Validation;
+use phpOMS\Utils\StringUtils;
 
 /**
  * Validator class.
@@ -36,11 +37,11 @@ final class Validator extends ValidatorAbstract
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public static function isValid($var, $constraints)
+    public static function isValid($var, array $constraints)
     {
         foreach ($constraints as $callback => $settings) {
             $valid = self::$callback($var, ...$settings);
-            $valid = (self::endsWith($callback, 'Not') ? $valid : !$valid);
+            $valid = (StringUtils::endsWith($callback, 'Not') ? $valid : !$valid);
 
             if (!$valid) {
                 return false;
@@ -51,26 +52,10 @@ final class Validator extends ValidatorAbstract
     }
 
     /**
-     * String ends with ?
-     *
-     * @param string $haystack String to search in
-     * @param string $needle   String to search for
-     *
-     * @return bool
-     *
-     * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
-     */
-    public static function endsWith($haystack, $needle)
-    {
-        return $needle === '' || strpos($haystack, $needle, strlen($haystack) - strlen($needle)) !== false;
-    }
-
-    /**
      * Validate variable by type.
      *
-     * @param mixed    $var        Variable to validate
-     * @param string[] $constraint Array of allowed types
+     * @param mixed           $var        Variable to validate
+     * @param string[]|string $constraint Array of allowed types
      *
      * @return bool
      *
@@ -79,6 +64,10 @@ final class Validator extends ValidatorAbstract
      */
     public static function isType($var, $constraint)
     {
+        if (!is_array($constraint)) {
+            $constraint = [$constraint];
+        }
+
         foreach ($constraint as $key => $value) {
             if (!is_a($var, $value)) {
                 return false;
@@ -100,7 +89,7 @@ final class Validator extends ValidatorAbstract
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public static function hasLength($var, $min = 0, $max = PHP_INT_MAX)
+    public static function hasLength(string $var, int $min = 0, int $max = PHP_INT_MAX)
     {
         $length = strlen($var);
 
@@ -114,17 +103,17 @@ final class Validator extends ValidatorAbstract
     /**
      * Validate variable by substring.
      *
-     * @param string $var    Variable to validate
-     * @param string $substr Substring
+     * @param string       $var    Variable to validate
+     * @param string|array $substr Substring
      *
      * @return bool
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public static function contains($var, $substr)
+    public static function contains(string $var, $substr)
     {
-        return (strpos($var, $substr) !== false ? true : false);
+        return StringUtils::contains($var, $substr);
     }
 
     /**
@@ -138,7 +127,7 @@ final class Validator extends ValidatorAbstract
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public static function matches($var, $pattern)
+    public static function matches(string $var, string $pattern)
     {
         return (preg_match($pattern, $var) !== false ? true : false);
     }
@@ -162,21 +151,5 @@ final class Validator extends ValidatorAbstract
         }
 
         return false;
-    }
-
-    /**
-     * String starts with ?
-     *
-     * @param string $haystack String to search in
-     * @param string $needle   String to search for
-     *
-     * @return bool
-     *
-     * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
-     */
-    public static function startsWith($haystack, $needle)
-    {
-        return $needle === '' || strrpos($haystack, $needle, -strlen($haystack)) !== false;
     }
 }

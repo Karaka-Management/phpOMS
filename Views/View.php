@@ -249,34 +249,6 @@ class View implements \Serializable
     }
 
     /**
-     * Get view/template response.
-     *
-     * @return string
-     *
-     * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
-     */
-    public function render() : string
-    {
-        $path = realpath($oldPath = __DIR__ . '/../..' . $this->template . '.tpl.php');
-
-        if ($path === false || Validator::startsWith($path, ROOT_PATH) === false) {
-            throw new PathException($oldPath);
-        }
-
-        ob_start();
-        /** @noinspection PhpIncludeInspection */
-        $data = include $path;
-        $ob   = ob_get_clean();
-
-        if (is_array($data)) {
-            return $data;
-        }
-
-        return $ob;
-    }
-
-    /**
      * @param string $id Data Id
      *
      * @return mixed
@@ -382,6 +354,34 @@ class View implements \Serializable
         foreach ($this->views as $key => $view) {
             $viewArray[$key] = $view->toArray();
         }
+    }
+
+    /**
+     * Get view/template response.
+     *
+     * @return string
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+    public function render() : string
+    {
+        $path = realpath($oldPath = __DIR__ . '/../..' . $this->template . '.tpl.php');
+
+        if ($path === false || Validator::startsWith($path, ROOT_PATH) === false) {
+            throw new PathException($oldPath);
+        }
+
+        ob_start();
+        /** @noinspection PhpIncludeInspection */
+        $data = include $path;
+        $ob   = ob_get_clean();
+
+        if (is_array($data)) {
+            return $data;
+        }
+
+        return $ob;
     }
 
     /**
