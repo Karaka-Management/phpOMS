@@ -20,7 +20,7 @@ use phpOMS\Localization\Localization;
 use phpOMS\Message\RequestAbstract;
 use phpOMS\Message\ResponseAbstract;
 use phpOMS\System\File\PathException;
-use phpOMS\Validation\Validator;
+use phpOMS\Utils\StringUtils;
 
 /**
  * List view.
@@ -319,19 +319,35 @@ class View implements \Serializable
      *
      * @return array
      *
+     * @throws
+     *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function getText(string $translation, string $module = null, string $theme = null)
     {
-        if(!isset($module)) {
-            $match = '/Theme/';
-            $module = ($start = strripos($this->template, $match)) !== false ? substr($this->template, ($offset = $start+strlen($match)), strpos($this->template, '/', $offset)) : throw new \Exception('Unknown Theme');
+        if (!isset($module)) {
+            $match = '/Modules/';
+
+            if (($start = strripos($this->template, $match)) === false) {
+                throw new \Exception('Unknown Module');
+            }
+
+            $start  = $start + strlen($match);
+            $end    = strpos($this->template, '/', $start);
+            $module = substr($this->template, $start, $end - $start);
         }
 
-        if(!isset($theme)) {
-            $match = '/Modules/';
-            $module = ($start = strripos($this->template, $match)) !== false ? substr($this->template, ($offset = $start+strlen($match)), strpos($this->template, '/', $offset)) : throw new \Exception('Unknown Module');
+        if (!isset($theme)) {
+            $match = '/Theme/';
+
+            if (($start = strripos($this->template, $match)) === false) {
+                throw new \Exception('Unknown Theme');
+            }
+
+            $start = $start + strlen($match);
+            $end   = strpos($this->template, '/', $start);
+            $theme = substr($this->template, $start, $end - $start);
         }
 
         return $this->app->l11nManager->getText($this->l11n->getLanguage(), $module, $theme, $translation);
@@ -368,7 +384,7 @@ class View implements \Serializable
     {
         $path = realpath($oldPath = __DIR__ . '/../..' . $this->template . '.tpl.php');
 
-        if ($path === false || Validator::startsWith($path, ROOT_PATH) === false) {
+        if ($path === false || StringUtils::startsWith($path, ROOT_PATH) === false) {
             throw new PathException($oldPath);
         }
 

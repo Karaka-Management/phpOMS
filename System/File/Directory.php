@@ -16,7 +16,6 @@
 namespace phpOMS\System\File;
 
 use phpOMS\Utils\StringUtils;
-use phpOMS\Validation\Validator;
 
 /**
  * Filesystem class.
@@ -193,7 +192,7 @@ class Directory extends FileAbstract implements \Iterator, \ArrayAccess
     public static function deletePath($path) : bool
     {
         $path = realpath($oldPath = $path);
-        if ($path === false || !is_dir($path) || Validator::startsWith($path, ROOT_PATH)) {
+        if ($path === false || !is_dir($path) || StringUtils::startsWith($path, ROOT_PATH)) {
             throw new PathException($oldPath);
         }
 
