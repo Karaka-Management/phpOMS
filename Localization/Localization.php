@@ -32,13 +32,6 @@ class Localization
 {
 
     /**
-     * Localization manager.
-     *
-     * @var L11nManager
-     * @since 1.0.0
-     */
-    public $l11nManager = null;
-    /**
      * Country ID.
      *
      * @var string
@@ -136,9 +129,8 @@ class Localization
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function __construct(L11nManager $l11nManager = null)
+    public function __construct()
     {
-        $this->l11nManager = $l11nManager;
     }
 
     /**
@@ -323,22 +315,5 @@ class Localization
     public function setThousands(string $thousands)
     {
         $this->thousands = $thousands;
-    }
-
-    /**
-     * Get translation.
-     *
-     * @param string $module      Module name
-     * @param string $theme       Theme name
-     * @param string $translation Text
-     *
-     * @return array
-     *
-     * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
-     */
-    public function getText(string $module, string $theme, string $translation)
-    {
-        return $this->l11nManager->getText($this->language, $module, $theme, $translation);
-    }
+    }   
 }

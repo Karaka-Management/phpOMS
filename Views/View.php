@@ -339,6 +339,33 @@ class View implements \Serializable
     }
 
     /**
+     * Get translation.
+     *
+     * @param string $module      Module name
+     * @param string $theme       Theme name
+     * @param string $translation Text
+     *
+     * @return array
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+    public function getText(string $translation, string $module = null, string $theme = null)
+    {
+        if(!isset($module)) {
+            $match = '/Theme/';
+            $module = ($start = strripos($this->template, $match)) !== false ? substr($this->template, ($offset = $start+strlen($match)), strpos($this->template, '/', $offset)) : throw new \Exception('Unknown Theme');
+        }
+
+        if(!isset($theme)) {
+            $match = '/Modules/';
+            $module = ($start = strripos($this->template, $match)) !== false ? substr($this->template, ($offset = $start+strlen($match)), strpos($this->template, '/', $offset)) : throw new \Exception('Unknown Module');
+        }
+
+        return $this->app->l11nManager->getText($this->l11n->getLanguage(), $module, $theme, $translation);
+    }
+
+    /**
      * Arrayify view and it's subviews.
      *
      * @return array
