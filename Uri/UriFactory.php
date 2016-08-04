@@ -90,6 +90,14 @@ class UriFactory
     /**
      * Build uri.
      *
+     * # = DOM id
+     * . = DOM class
+     * / = Current path
+     * ? = Current query
+     * # = Current fragment
+     * @ = 
+     * $ = Other data
+     *
      * @param string $uri     Path data
      * @param array  $toMatch Optional special replacements
      *
