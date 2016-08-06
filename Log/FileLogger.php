@@ -298,7 +298,7 @@ class FileLogger implements LoggerInterface
             $this->fp = false;
         }
 
-        if ($this->verbose) {
+        if ($this->verbose || php_sapi_name() === 'cli') {
             echo $message, "\n";
         }
     }
