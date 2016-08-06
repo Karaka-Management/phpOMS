@@ -71,10 +71,17 @@ class EventManager implements Mediator
     /**
      * {@inheritdoc}
      */
-    public function detach(string $group)
+    public function detach(string $group) : bool
     {
-        unset($this->callbacks[$group]);
-        unset($this->groups[$group]);
+        if(isset($this->callbacks[$group])) {
+            unset($this->callbacks[$group]);
+        }
+
+        if(isset($this->groups[$group])) {
+            unset($this->groups[$group]);
+        }
+
+        return true;
     }
 
     /**

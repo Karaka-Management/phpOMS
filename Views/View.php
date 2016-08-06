@@ -365,11 +365,15 @@ class View implements \Serializable
     {
         $viewArray = [];
 
-        $viewArray[] = $this->render();
+        if($this->template === '') {
+            $viewArray[] = $this->render();
+        }
 
         foreach ($this->views as $key => $view) {
             $viewArray[$key] = $view->toArray();
         }
+
+        return $viewArray;
     }
 
     /**

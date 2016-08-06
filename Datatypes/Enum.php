@@ -45,9 +45,9 @@ abstract class Enum
      */
     public static function isValidValue($value) : bool
     {
-        $values = array_values(self::getConstants());
+        $constants = self::getConstants();
 
-        return in_array($value, $values, true);
+        return in_array($value, $constants, true);
     }
 
     /**
@@ -76,8 +76,9 @@ abstract class Enum
     public static function getRandom()
     {
         $constants = self::getConstants();
+        $keys      = array_keys($constants);
 
-        return $constants[mt_rand(0, count($constants))];
+        return $constants[$keys[mt_rand(0, count($constants) - 1)]];
     }
 
     /**

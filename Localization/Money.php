@@ -15,8 +15,6 @@
  */
 namespace phpOMS\Localization;
 
-use phpOMS\Math\Number\OperationInterface;
-
 /**
  * Money class.
  *
@@ -28,7 +26,7 @@ use phpOMS\Math\Number\OperationInterface;
  * @link       http://orange-management.com
  * @since      1.0.0
  */
-class Money implements \Serializable, OperationInterface
+class Money implements \Serializable
 {
 
     /**
@@ -37,15 +35,7 @@ class Money implements \Serializable, OperationInterface
      * @var int
      * @since 1.0.0
      */
-    const MAX_DECIMALS = 5;
-
-    /**
-     * Currency symbol.
-     *
-     * @var string
-     * @since 1.0.0
-     */
-    private $currency = ISO4217CharEnum::C_USD;
+    const MAX_DECIMALS = 4;
 
     /**
      * Thousands separator.
@@ -74,16 +64,16 @@ class Money implements \Serializable, OperationInterface
     /**
      * Constructor.
      *
-     * @param string $currency  Currency symbol
+     * @param string|int|float $value     Value
      * @param string $thousands Thousands separator
      * @param string $decimal   Decimal separator
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function __construct(string $currency = ISO4217CharEnum::C_USD, string $thousands = ',', string $decimal = '.')
+    public function __construct($value = 0, string $thousands = ',', string $decimal = '.')
     {
-        $this->currency  = $currency;
+        $this->value     = is_int($value) ? $value : self::toInt((string) $value);
         $this->thousands = $thousands;
         $this->decimal   = $decimal;
     }
@@ -93,43 +83,44 @@ class Money implements \Serializable, OperationInterface
      *
      * @param string $value Money value
      *
-     * @return void
+     * @return Money
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function setString(string $value)
+    public function setString(string $value) : Money
     {
-        $this->value = self::toInt($value, $this->decimal, $this->thousands);
+        $this->value = self::toInt($value, $this->thousands, $this->decimal);
+
+        return $this;
     }
 
     /**
      * Money to int.
      *
      * @param string $value     Money value
-     * @param string $decimal   Decimal character
      * @param string $thousands Thousands character
+     * @param string $decimal   Decimal character
      *
      * @return int
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public static function toInt(string $value, string $decimal = ',', string $thousands = '.')  : int
+    public static function toInt(string $value, string $thousands = ',', string $decimal = '.')  : int
     {
-        $split = explode($value, $decimal);
-
-        $left = $split[0];
-        $left = str_replace($thousands, '', $left);
-
+        $split = explode($decimal, $value);
+        $left  = $split[0];
+        $left  = str_replace($thousands, '', $left);
         $right = '';
+
         if (count($split) > 1) {
             $right = $split[1];
         }
 
-        $right = substr($right, 0, -self::MAX_DECIMALS);
+        $right = substr($right, 0, self::MAX_DECIMALS);
 
-        return (int) $left * 10 * self::MAX_DECIMALS + (int) $right;
+        return (int) (((int) $left) * 10 ** self::MAX_DECIMALS + (int) str_pad($right, self::MAX_DECIMALS, '0'));
     }
 
     /**
@@ -144,16 +135,12 @@ class Money implements \Serializable, OperationInterface
      */
     public function getAmount(int $decimals = 2) : string
     {
-        if ($decimals > ($dec = constant('\phpOMS\Localization\ISO4217DecimalEnum::C_' . strtoupper($this->currency)))) {
-            $decimals = $dec;
-        }
-
         $value = (string) round($this->value, -self::MAX_DECIMALS + $decimals);
 
         $left  = substr($value, 0, -self::MAX_DECIMALS);
         $right = substr($value, -self::MAX_DECIMALS);
 
-        return ($decimals > 0) ? number_format($left, 0, $this->thousands, $this->decimal) . $this->decimal . $right : (string) $left;
+        return ($decimals > 0) ? number_format($left, 0, $this->decimal, $this->thousands) . $this->decimal . substr($right, 0, $decimals) : (string) $left;
     }
 
     /**
@@ -169,7 +156,7 @@ class Money implements \Serializable, OperationInterface
     public function add($value) : Money
     {
         if (is_string($value) || is_float($value)) {
-            $this->value += self::toInt((string) $value, $this->decimal, $this->thousands);
+            $this->value += self::toInt((string) $value, $this->thousands, $this->decimal);
         } elseif (is_int($value)) {
             $this->value += $value;
         } elseif ($value instanceof Money) {
@@ -205,7 +192,7 @@ class Money implements \Serializable, OperationInterface
     public function sub($value) : Money
     {
         if (is_string($value) || is_float($value)) {
-            $this->value -= self::toInt((string) $value, $this->decimal, $this->thousands);
+            $this->value -= self::toInt((string) $value, $this->thousands, $this->decimal);
         } elseif (is_int($value)) {
             $this->value -= $value;
         } elseif ($value instanceof Money) {
@@ -228,7 +215,7 @@ class Money implements \Serializable, OperationInterface
     public function mult($value) : Money
     {
         if (is_float($value) || is_int($value)) {
-            $this->value *= $value;
+            $this->value = (int) ($this->value * $value);
         }
 
         return $this;
@@ -247,7 +234,7 @@ class Money implements \Serializable, OperationInterface
     public function div($value) : Money
     {
         if (is_float($value) || is_int($value)) {
-            $this->value = self::toInt((string) ($this->value / $value), $this->decimal, $this->thousands);
+            $this->value = (int) ($this->value / $value);
         }
 
         return $this;
@@ -320,13 +307,15 @@ class Money implements \Serializable, OperationInterface
      *
      * @param int $value Value
      *
-     * @return void
+     * @return Money
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function setInt(int $value)
+    public function setInt(int $value) : Money
     {
         $this->value = $value;
+
+        return $this;
     }
 }

@@ -58,18 +58,6 @@ interface Mediator extends \Countable
     public function detach(string $group) : bool;
 
     /**
-     * Has outstanding.
-     *
-     * @param string $group Group
-     *
-     * @return bool
-     *
-     * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
-     */
-    private function hasOutstanding(string $group) : bool;
-
-    /**
      * Add group.
      *
      * Add new element to group
