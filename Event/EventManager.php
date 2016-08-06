@@ -18,7 +18,7 @@ namespace phpOMS\Event;
 use phpOMS\Pattern\Mediator;
 
 /**
- * Dispatcher class.
+ * EventManager class.
  *
  * @category   Framework
  * @package    phpOMS\Event
@@ -40,7 +40,15 @@ class EventManager implements Mediator
      * @var array
      * @since 1.0.0
      */
-    private $events = [];
+    private $groups = [];
+
+    /**
+     * Callbacks.
+     *
+     * @var array
+     * @since 1.0.0
+     */
+    private $callbacks = [];
 
     /**
      * Constructor.
@@ -55,102 +63,60 @@ class EventManager implements Mediator
     /**
      * {@inheritdoc}
      */
-    public function attach(string $event, \Closure $callback, string $listener) : string
+    public function attach(string $group, \Closure $callback, bool $remove = false)
     {
-        $this->events[$event][$listener] = $callback;
-
-        return $event . '/' . $listener;
+        $this->callbacks[$group] = ['remove' => $remove, 'func' => $callback];
     }
 
     /**
      * {@inheritdoc}
      */
-    public function trigger(string $event, string $source, \Closure $callback = null) : int
+    public function detach(string $group)
     {
-        $count = 0;
+        unset($this->callbacks[$group]);
+        unset($this->groups[$group]);
+    }
 
-        if (isset($this->events[$event])) {
-            foreach ($this->events[$event] as $listener) {
-                foreach ($listener as $closure) {
-                    $closure($source);
-                    $count++;
-                }
+    /**
+     * {@inheritdoc}
+     */
+    public function trigger(string $id, string $group)
+    {
+        if(isset($this->groups[$group])) {
+            unset($this->groups[$group][$id]);
+        }
+
+        if ($this->hasOutstanding($group)) {
+            $this->callbacks[$group]['func'];
+
+            if($this->callbacks[$group]['remove']) {
+                $this->detach($group);
             }
         }
-
-        if (isset($callback)) {
-            /** @var $callback Callable */
-            $callback($count);
-        }
-
-        return $count;
-    }
-
-    /**
-     * Trigger event.
-     *
-     * An object fires an event until it's callback returns false
-     *
-     * @param string   $event    Event ID
-     * @param string   $source   What class is invoking this event
-     * @param \Closure $callback Callback function of the event. This will get triggered after firering all listener callbacks.
-     *
-     * @return int
-     *
-     * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
-     */
-    public function triggerUntil(string $event, string $source, \Closure $callback = null) : int
-    {
-        $run   = true;
-        $count = 0;
-
-        if (isset($this->events[$event])) {
-            do {
-                foreach ($this->events[$event] as $eventClosure) {
-                    $run = $eventClosure($source);
-                    $count++;
-                }
-            } while ($run);
-        }
-
-        if ($callback !== null) {
-            $callback($count);
-        }
-
-        return $count;
     }
 
     /**
      * {@inheritdoc}
      */
-    public function detachListener(string $event, string $listener) : bool
+    private function hasOutstanding(string $group) : bool 
     {
-        if (isset($this->events[$event][$listener])) {
-            unset($this->events[$event][$listener]);
-
-            return true;
-        }
-
-        return false;
+        return empty($this->groups[$group]);
     }
 
     /**
      * {@inheritdoc}
      */
-    public function detachEvent(string $event) : bool
+    public function addGroup(string $id, string $group) 
     {
-        if (isset($this->events[$event])) {
-            unset($this->events[$event]);
-
-            return true;
+        if(!isset($this->groups[$group])) {
+            $this->groups[$group] = [];
         }
 
-        return false;
+        $this->groups[$group][$id] = false;
     }
 
     /**
-     * Count event listenings.
+     * Count events.
      *
      * @return int
      *
@@ -159,7 +125,7 @@ class EventManager implements Mediator
      */
     public function count() : int
     {
-        return count($this->events);
+        return count($this->callbacks);
     }
 
 }

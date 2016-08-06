@@ -34,55 +34,68 @@ interface Mediator extends \Countable
      *
      * Listeners will get called if a certain event gets triggered
      *
-     * @param string   $event    Event ID
+     * @param string   $group    Group
      * @param \Closure $callback Function to call if the event gets triggered
-     * @param string   $listener What class is attaching this listener
+     * @param bool   $remove Remove event after execution
      *
-     * @return string UID for the listener
+     * @return void
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function attach(string $event, \Closure $callback, string $listener) : string;
+    public function attach(string $group, \Closure $callback, bool $remove = false);
 
     /**
      * Removing a event.
      *
-     * @param string $event ID of the event
+     * @param string $group Group
      *
      * @return bool
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function detachEvent(string $event) : bool;
+    public function detach(string $group) : bool;
 
     /**
-     * Removing a listener.
+     * Has outstanding.
      *
-     * @param string $event    ID of the event
-     * @param string $listener ID of the listener
+     * @param string $group Group
      *
      * @return bool
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function detachListener(string $event, string $listener) : bool;
+    private function hasOutstanding(string $group) : bool;
+
+    /**
+     * Add group.
+     *
+     * Add new element to group
+     *
+     * @param string   $id    Event ID
+     * @param string   $group   Group
+     *
+     * @return void
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+    public function addGroup(string $id, string $group);
 
     /**
      * Trigger event.
      *
      * An object fires an event
      *
-     * @param string   $event    Event ID
-     * @param string   $source   What class is invoking this event
-     * @param \Closure $callback Callback function of the event. This will get triggered after firering all listener callbacks.
+     * @param string   $id    Event ID
+     * @param string   $group   Group
      *
-     * @return int
+     * @return void
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function trigger(string $event, string $source, \Closure $callback = null) : int;
+    public function trigger(string $id, string $group);
 }
