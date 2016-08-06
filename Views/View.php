@@ -365,7 +365,7 @@ class View implements \Serializable
     {
         $viewArray = [];
 
-        if($this->template === '') {
+        if($this->template !== '') {
             $viewArray[] = $this->render();
         }
 
