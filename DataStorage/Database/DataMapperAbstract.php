@@ -994,21 +994,26 @@ class DataMapperAbstract implements DataMapperInterface
     /**
      * Get random object
      *
+     * @param int $amount Amount of random models
      * @param int $relations Relations type
      *
-     * @return array
+     * @return mixed
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public static function getRandom(int $relations = RelationType::ALL)
+    public static function getRandom(int $amount = 1, int $relations = RelationType::ALL)
     {
         $query = new Builder(self::$db);
         $query->prefix(self::$db->getPrefix())
             ->random(static::$primaryKey)
-            ->from(static::$table);
+            ->from(static::$table)
+            ->limit($amount);
 
-        return self::get(self::$db->con->prepare($query->toSql())->execute(), $relations);
+        $sth = self::$db->con->prepare($query->toSql());
+        $sth->execute();
+
+        return self::get($sth->fetchAll(), $relations);
     }
 
     /**

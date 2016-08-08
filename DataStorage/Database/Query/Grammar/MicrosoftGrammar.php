@@ -48,6 +48,8 @@ class MicrosoftGrammar extends Grammar
             $expression = '*';
         }
 
-        return 'SELECT TOP 1 ' . $expression . ' ' . $this->compileFrom($query, $query->from) . ' ORDER BY IDX FETCH FIRST 1 ROWS ONLY';
+        $query->limit = $query->limit ?? 1;
+
+        return 'SELECT TOP 1 ' . $expression . ' ' . $this->compileFrom($query, $query->from) . ' ORDER BY IDX FETCH FIRST ' . $query->limit . ' ROWS ONLY';
     }
 }
