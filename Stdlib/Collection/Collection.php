@@ -33,21 +33,22 @@ class Collection implements \Countable, \ArrayAccess, \Iterator, \JsonSerializab
 
     public function __construct(array $data)
     {
+        $this->collection = $data;
     }
 
-    public function toArray()
+    public function toArray() : array
     {
-
+        return $this->collection;
     }
 
     public function jsonSerialize()
     {
-
+        return json_encode($this->collection);
     }
 
     public function avg()
     {
-
+        return $this->sum() / $this->count();
     }
 
     public function chunk()
@@ -70,6 +71,7 @@ class Collection implements \Countable, \ArrayAccess, \Iterator, \JsonSerializab
 
     public function count()
     {
+        return count($this->collection);
     }
 
     public function diff()
@@ -80,13 +82,31 @@ class Collection implements \Countable, \ArrayAccess, \Iterator, \JsonSerializab
     {
     }
 
-    public function every()
+    public function every(int $n)
     {
+        $new = [];
+        for($i = 0; $i < $this->count(); $i += $n) {
+            $new[] = $this->get($i);
+        }
 
+        return new self($new);
     }
 
-    public function except()
+    public function except($filter)
     {
+        if(!is_array($filter)) {
+            $filter = [$filter];
+        }
+
+        $new = [];
+        for($i = 0; $i < $this->count(); $i++) {
+
+            if(!in_array($this->get($i), $filter)) {
+                $new[] = $this->get($i);
+            }
+        }
+
+        return new self($new);
     }
 
     public function filter()
@@ -95,10 +115,15 @@ class Collection implements \Countable, \ArrayAccess, \Iterator, \JsonSerializab
 
     public function first()
     {
+        return reset($this->collection);
     }
 
     public function last()
     {
+        $end = end($this->collection);
+        reset($this->collection);
+
+        return $end;
     }
 
     public function sort()
@@ -129,8 +154,17 @@ class Collection implements \Countable, \ArrayAccess, \Iterator, \JsonSerializab
     {
     }
 
-    public function get()
+    public function get($key)
     {
+        if(!isset($this->collection[$key])) {
+            if(is_int($key) && $key < $this->count()) {
+                return $this->collection[array_keys($this->collection)[$key]];
+            }
+        } else {
+            return $this->collection[$key];
+        }
+
+        return null;
     }
 
     public function groupBy()
