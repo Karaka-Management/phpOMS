@@ -1005,9 +1005,8 @@ class DataMapperAbstract implements DataMapperInterface
     {
         $query = new Builder(self::$db);
         $query->prefix(self::$db->getPrefix())
-            ->select(static::$primaryKey)
-            ->from(static::$table)
-            ->random();
+            ->random(static::$primaryKey)
+            ->from(static::$table);
 
         return self::get(self::$db->con->prepare($query->toSql())->execute(), $relations);
     }

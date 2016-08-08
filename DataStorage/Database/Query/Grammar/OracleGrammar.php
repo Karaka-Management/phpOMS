@@ -27,17 +27,8 @@ namespace phpOMS\DataStorage\Database\Query\Grammar;
  * @link       http://orange-management.com
  * @since      1.0.0
  */
-class MysqlGrammar extends Grammar
+class OracleGrammar extends Grammar
 {
-
-    /**
-     * System identifier.
-     *
-     * @var string
-     * @since 1.0.0
-     */
-    protected $systemIdentifier = '`';
-
     /**
      * Compile random.
      *
@@ -57,6 +48,6 @@ class MysqlGrammar extends Grammar
             $expression = '*';
         }
 
-        return 'SELECT ' . $expression . ' ' . $this->compileFrom($query, $query->from) . ' ORDER BY RAND() LIMIT 1';
+        return 'SELECT ' . $expression . ' FROM (SELECT ' . $expression . ' ' . $this->compileFrom($query, $query->from) . ' ORDER BY dbms_random.value) WHERE rownum = 1';
     }
 }

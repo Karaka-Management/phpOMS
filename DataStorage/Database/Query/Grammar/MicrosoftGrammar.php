@@ -27,17 +27,8 @@ namespace phpOMS\DataStorage\Database\Query\Grammar;
  * @link       http://orange-management.com
  * @since      1.0.0
  */
-class MysqlGrammar extends Grammar
+class MicrosoftGrammar extends Grammar
 {
-
-    /**
-     * System identifier.
-     *
-     * @var string
-     * @since 1.0.0
-     */
-    protected $systemIdentifier = '`';
-
     /**
      * Compile random.
      *
@@ -57,6 +48,6 @@ class MysqlGrammar extends Grammar
             $expression = '*';
         }
 
-        return 'SELECT ' . $expression . ' ' . $this->compileFrom($query, $query->from) . ' ORDER BY RAND() LIMIT 1';
+        return 'SELECT TOP 1 ' . $expression . ' ' . $this->compileFrom($query, $query->from) . ' ORDER BY IDX FETCH FIRST 1 ROWS ONLY';
     }
 }

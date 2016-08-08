@@ -160,6 +160,8 @@ class Builder extends BuilderAbstract
 
     protected $unionOrders = [];
 
+    public $random = false;
+
     /**
      * Comparison operators.
      *
@@ -235,6 +237,27 @@ class Builder extends BuilderAbstract
                 throw new \InvalidArgumentException();
             }
         }
+
+        return $this;
+    }
+
+    /**
+     * Select.
+     *
+     * @param array $columns Columns
+     *
+     * @return Builder
+     *
+     * @todo   Closure is not working this way, needs to be evaluated befor assigning
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+    public function random(...$columns) : Builder
+    {
+        $this->select(...$columns);
+
+        $this->type = QueryType::RANDOM;
 
         return $this;
     }
@@ -781,6 +804,13 @@ class Builder extends BuilderAbstract
 
     public function rollback()
     {
+        return $this;
+    }
+
+    public function random()
+    {
+        $this->random = true;
+
         return $this;
     }
 

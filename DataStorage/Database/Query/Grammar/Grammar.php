@@ -81,6 +81,16 @@ class Grammar extends GrammarAbstract
     ];
 
     /**
+     * Random components.
+     *
+     * @var string[]
+     * @since 1.0.0
+     */
+    protected $randomComponents = [
+        'random'
+    ];
+
+    /**
      * Compile components.
      *
      * @param BuilderAbstract $query Builder
@@ -108,6 +118,9 @@ class Grammar extends GrammarAbstract
                 break;
             case QueryType::DELETE:
                 $components = [];
+                break;
+            case QueryType::RANDOM:
+                $components = $this->selectComponents;
                 break;
             default:
                 throw new \InvalidArgumentException('Unknown query type.');

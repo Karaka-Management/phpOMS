@@ -37,4 +37,26 @@ class SqliteGrammar extends Grammar
      * @since 1.0.0
      */
     public $systemIdentifier = '`';
+
+    /**
+     * Compile random.
+     *
+     * @param Builder $query   Builder
+     * @param array   $columns Columns
+     *
+     * @return string
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+    protected function compileRandom(Builder $query, array $columns) : string
+    {
+        $expression = $this->expressionizeTableColumn($columns, $query->getPrefix());
+
+        if ($expression === '') {
+            $expression = '*';
+        }
+
+        return 'SELECT ' . $expression . ' ' . $this->compileFrom($query, $query->from) . ' ORDER BY RANDOM() LIMIT 1';
+    }
 }
