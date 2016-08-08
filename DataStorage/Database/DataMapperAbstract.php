@@ -38,7 +38,7 @@ class DataMapperAbstract implements DataMapperInterface
     /**
      * Database connection.
      *
-     * @var \phpOMS\DataStorage\Database\Connection\ConnectionAbstract
+     * @var ConnectionAbstract
      * @since 1.0.0
      */
     protected static $db = null;
@@ -1003,7 +1003,13 @@ class DataMapperAbstract implements DataMapperInterface
      */
     public static function getRandom(int $relations = RelationType::ALL)
     {
-        // todo: implement
+        $query = new Builder(self::$db);
+        $query->prefix(self::$db->getPrefix())
+            ->select(static::$primaryKey)
+            ->from(static::$table)
+            ->random();
+
+        return self::get(self::$db->con->prepare($query->toSql())->execute(), $relations);
     }
 
     /**
@@ -1021,13 +1027,14 @@ class DataMapperAbstract implements DataMapperInterface
     {
         $hasMany = count(static::$hasMany) > 0;
         $hasOne  = count(static::$hasOne) > 0;
+        $ownsOne  = count(static::$ownsOne) > 0;
 
         if ($relations !== RelationType::NONE && ($hasMany || $hasOne)) {
             foreach ($obj as $key => $value) {
                 /* loading relations from relations table and populating them and then adding them to the object */
                 if ($relations !== RelationType::NONE) {
                     if ($hasMany) {
-                        self::populateManyToMany(self::getManyRaw($key, $relations), $obj[$key]);
+                        self::populateManyToMany(self::getHasManyRaw($key, $relations), $obj[$key]);
                     }
 
                     if ($hasOne) {
@@ -1057,8 +1064,6 @@ class DataMapperAbstract implements DataMapperInterface
         $sth->execute();
 
         $results = $sth->fetch(\PDO::FETCH_ASSOC);
-
-        // todo: implement getRawRelations() ?!!!!!
 
         return is_bool($results) ? [] : $results;
     }
@@ -1093,7 +1098,7 @@ class DataMapperAbstract implements DataMapperInterface
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public static function getManyRaw($primaryKey, int $relations = RelationType::ALL) : array
+    public static function getHasManyRaw($primaryKey, int $relations = RelationType::ALL) : array
     {
         $result = [];
 
