@@ -204,6 +204,8 @@ class Request extends RequestAbstract
         UriFactory::setQuery('/scheme', $this->uri->getScheme());
         UriFactory::setQuery('/host', $this->uri->getHost());
         UriFactory::setQuery('/lang', $this->l11n->getLanguage());
+        UriFactory::setQuery('?', $this->uri->getQuery());
+        UriFactory::setQuery('%', $this->uri->__toString());
     }
 
     /**
