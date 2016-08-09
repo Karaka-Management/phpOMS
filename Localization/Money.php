@@ -67,15 +67,38 @@ class Money implements \Serializable
      * @param string|int|float $value     Value
      * @param string $thousands Thousands separator
      * @param string $decimal   Decimal separator
+     * @param string $symbol    Currency symbol
+     * @param int $position     Symbol position
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function __construct($value = 0, string $thousands = ',', string $decimal = '.')
+    public function __construct($value = 0, string $thousands = ',', string $decimal = '.', string $symbol = '', int $position = 0)
     {
         $this->value     = is_int($value) ? $value : self::toInt((string) $value);
         $this->thousands = $thousands;
         $this->decimal   = $decimal;
+        $this->symbol    = $symbol;
+        $this->position  = $position;
+    }
+
+    /**
+     * Set localization.
+     *
+     * @param string $thousands Thousands separator
+     * @param string $decimal   Decimal separator
+     * @param string $symbol    Currency symbol
+     * @param int $position     Symbol position
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+    public function setLocalization(string $thousands = ',', string $decimal = '.', string $symbol = '', int $position = 0)
+    {
+        $this->thousands = $thousands;
+        $this->decimal   = $decimal;
+        $this->symbol    = $symbol;
+        $this->position  = $position;
     }
 
     /**
@@ -141,6 +164,21 @@ class Money implements \Serializable
         $right = substr($value, -self::MAX_DECIMALS);
 
         return ($decimals > 0) ? number_format($left, 0, $this->decimal, $this->thousands) . $this->decimal . substr($right, 0, $decimals) : (string) $left;
+    }
+
+    /**
+     * Get money.
+     *
+     * @param int $decimals Precision
+     *
+     * @return string
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+    public function getCurrency(int $decimals = 2) : string
+    {
+        return ($position === 0 ? $smbol : '') . $this->getAmount($decimals, $thousands, $decimal) . ($position === 1 ? $smbol : '');
     }
 
     /**
