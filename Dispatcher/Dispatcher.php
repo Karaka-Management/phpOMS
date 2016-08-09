@@ -70,8 +70,6 @@ class Dispatcher
      * Dispatch controller.
      *
      * @param string|array|\Closure $controller Controller string
-     * @param RequestAbstract       $request    Request
-     * @param ResponseAbstract      $response   Response
      * @param mixed                 $data       Data
      *
      * @return array
@@ -79,7 +77,7 @@ class Dispatcher
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function dispatch($controller, RequestAbstract $request, ResponseAbstract $response, $data = null) : array
+    public function dispatch($controller, ...$data) : array
     {
         $views = [];
 
@@ -88,11 +86,11 @@ class Dispatcher
         }
 
         if (is_string($controller)) {
-            $views += $this->dispatchString($controller, $request, $response, $data);
+            $views += $this->dispatchString($controller, $data);
         } elseif (is_array($controller)) {
-            $views += $this->dispatchArray($controller, $request, $response, $data);
+            $views += $this->dispatchArray($controller, $data);
         } elseif ($controller instanceof \Closure) {
-            $views[] = $this->dispatchClosure($controller, $request, $response, $data);
+            $views[] = $this->dispatchClosure($controller, $data);
         } else {
             throw new \UnexpectedValueException('Unexpected controller type.');
         }
@@ -104,16 +102,14 @@ class Dispatcher
      * Dispatch string.
      *
      * @param string|array|\Closure $controller Controller string
-     * @param RequestAbstract       $request    Request
-     * @param ResponseAbstract      $response   Response
-     * @param mixed                 $data       Data
+     * @param array                 $data       Data
      *
      * @return array
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    private function dispatchString(string $controller, RequestAbstract $request, ResponseAbstract $response, $data = null) : array
+    private function dispatchString(string $controller, array $data = null) : array
     {
         $views    = [];
         $dispatch = explode(':', $controller);
@@ -122,9 +118,9 @@ class Dispatcher
         if (($c = count($dispatch)) === 3) {
             /* Handling static functions */
             $function           = $dispatch[0] . '::' . $dispatch[2];
-            $views[$controller] = $function($request, $response, $data);
+            $views[$controller] = $function(...$data);
         } elseif ($c === 2) {
-            $views[$controller] = $this->controllers[$dispatch[0]]->{$dispatch[1]}($request, $response, $data);
+            $views[$controller] = $this->controllers[$dispatch[0]]->{$dispatch[1]}(...$data);
         } else {
             throw new \UnexpectedValueException('Unexpected function.');
         }
@@ -136,21 +132,19 @@ class Dispatcher
      * Dispatch array.
      *
      * @param string|array|\Closure $controller Controller string
-     * @param RequestAbstract       $request    Request
-     * @param ResponseAbstract      $response   Response
-     * @param mixed                 $data       Data
+     * @param array                 $data       Data
      *
      * @return array
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    private function dispatchArray(array $controller, RequestAbstract $request, ResponseAbstract $response, $data = null) : array
+    private function dispatchArray(array $controller, array $data = null) : array
     {
         $views = [];
         foreach ($controller as $controllerSingle) {
             foreach ($controllerSingle as $c) {
-                $views += $this->dispatch($c, $request, $response, $data);
+                $views += $this->dispatch($c, ...$data);
             }
         }
 
@@ -161,18 +155,16 @@ class Dispatcher
      * Dispatch closure.
      *
      * @param string|array|\Closure $controller Controller string
-     * @param RequestAbstract       $request    Request
-     * @param ResponseAbstract      $response   Response
-     * @param mixed                 $data       Data
+     * @param array                 $data       Data
      *
      * @return mixed
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    private function dispatchClosure(\Closure $controller, RequestAbstract $request, ResponseAbstract $response, $data = null)
+    private function dispatchClosure(\Closure $controller, array $data = null)
     {
-        return $controller($this->app, $request, $response, $data);
+        return $controller($this->app, ...$data);
     }
 
     /**
