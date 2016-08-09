@@ -174,7 +174,7 @@ class ISO4217SubUnitEnum extends Enum
     const _UZS = 100;
     const _VEF = 100;
     const _VND = 10;
-    const _VUV = None;
+    const _VUV = 0;
     const _WST = 100;
     const _XAF = 100;
     const _XCD = 100;
