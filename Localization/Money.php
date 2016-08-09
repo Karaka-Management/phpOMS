@@ -43,7 +43,7 @@ class Money implements \Serializable
      * @var string
      * @since 1.0.0
      */
-    private $thousands = ',';
+    private static $thousands = ',';
 
     /**
      * Decimal separator.
@@ -51,7 +51,23 @@ class Money implements \Serializable
      * @var string
      * @since 1.0.0
      */
-    private $decimal = '.';
+    private static $decimal = '.';
+
+    /**
+     * Currency symbol.
+     *
+     * @var string
+     * @since 1.0.0
+     */
+    private static $symbol = '';
+
+    /**
+     * Symbol position.
+     *
+     * @var int
+     * @since 1.0.0
+     */
+    private static $position = 0;
 
     /**
      * Value.
@@ -67,15 +83,34 @@ class Money implements \Serializable
      * @param string|int|float $value     Value
      * @param string $thousands Thousands separator
      * @param string $decimal   Decimal separator
+     * @param string $symbol   Currency symbol
+     * @param int $pos   Symbol position
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function __construct($value = 0, string $thousands = ',', string $decimal = '.')
+    public function __construct($value = 0)
     {
-        $this->value     = is_int($value) ? $value : self::toInt((string) $value);
-        $this->thousands = $thousands;
-        $this->decimal   = $decimal;
+        $this->value = is_int($value) ? $value : self::toInt((string) $value);
+    }
+
+    /**
+     * Set localization.
+     *
+     * @param string $thousands Thousands separator
+     * @param string $decimal   Decimal separator
+     * @param string $symbol   Currency symbol
+     * @param int $pos   Symbol position
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+    public static function setLocalization(string $thousands = ',', string $decimal = '.', string $symbol = '', int $pos = 0) 
+    {
+        self::$thousands = $thousands;
+        self::$decimal   = $decimal;
+        self::$symbol    = $symbol;
+        self::$position  = $pos;
     }
 
     /**
@@ -90,7 +125,7 @@ class Money implements \Serializable
      */
     public function setString(string $value) : Money
     {
-        $this->value = self::toInt($value, $this->thousands, $this->decimal);
+        $this->value = self::toInt($value, self::$thousands, self::$decimal);
 
         return $this;
     }
@@ -133,14 +168,35 @@ class Money implements \Serializable
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function getAmount(int $decimals = 2) : string
+    public function getAmount(int $decimals = 2, string $thousands = null, string $decimal = null) : string
     {
-        $value = (string) round($this->value, -self::MAX_DECIMALS + $decimals);
+        $value     = (string) round($this->value, -self::MAX_DECIMALS + $decimals);
+        $thousands = $thousands ?? self::$thousands;
+        $decimal   = $decimal ?? self::$decimal;
+        $left      = substr($value, 0, -self::MAX_DECIMALS);
+        $right     = substr($value, -self::MAX_DECIMALS);
 
-        $left  = substr($value, 0, -self::MAX_DECIMALS);
-        $right = substr($value, -self::MAX_DECIMALS);
+        return ($decimals > 0) ? number_format($left, 0, $decimal, $thousands) . $decimal . substr($right, 0, $decimals) : (string) $left;
+    }
 
-        return ($decimals > 0) ? number_format($left, 0, $this->decimal, $this->thousands) . $this->decimal . substr($right, 0, $decimals) : (string) $left;
+    /**
+     * Get money.
+     *
+     * @param int $decimals Precision
+     *
+     * @return string
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+    public function getCurrency(int $decimals = 2, string $thousands = null, string $decimal = null, string $symbol = null, int $position = null) : string
+    {
+        $thousands = $thousands ?? self::$thousands;
+        $decimal   = $decimal ?? self::$decimal;
+        $symbol    = $symbol ?? self::$symbol;
+        $position  = $position ?? self::$position;
+
+        return ($position === 0 ? $smbol : '') . $this->getAmount($decimals, $thousands, $decimal) . ($position === 1 ? $smbol : '');
     }
 
     /**
@@ -156,7 +212,7 @@ class Money implements \Serializable
     public function add($value) : Money
     {
         if (is_string($value) || is_float($value)) {
-            $this->value += self::toInt((string) $value, $this->thousands, $this->decimal);
+            $this->value += self::toInt((string) $value, self::$thousands, self::$decimal);
         } elseif (is_int($value)) {
             $this->value += $value;
         } elseif ($value instanceof Money) {
@@ -192,7 +248,7 @@ class Money implements \Serializable
     public function sub($value) : Money
     {
         if (is_string($value) || is_float($value)) {
-            $this->value -= self::toInt((string) $value, $this->thousands, $this->decimal);
+            $this->value -= self::toInt((string) $value, self::$thousands, self::$decimal);
         } elseif (is_int($value)) {
             $this->value -= $value;
         } elseif ($value instanceof Money) {
