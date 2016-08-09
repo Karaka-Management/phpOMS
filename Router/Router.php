@@ -102,15 +102,26 @@ class Router
      *
      * @return string[]
      *
+     * @throws
+     *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function route(RequestAbstract $request) : array
+    public function route($request, string $verb = RouteVerb::GET) : array
     {
+        if($request instanceof RequestAbstract) {
+            $uri = $request->getUri();
+            $verb = $request->getRouteVerb();
+        } elseif(is_string($request)) {
+            $uri = $request;
+        } else {
+            throw new \Exception();
+        }
+
         $bound = [];
         foreach ($this->routes as $route => $destination) {
             foreach ($destination as $d) {
-                if ($this->match($route, $d['verb'], $request->getUri(), $request->getRouteVerb())) {
+                if ($this->match($route, $d['verb'], $uri, $verb)) {
                     $bound[] = ['dest' => $d['dest']];
                 }
             }
