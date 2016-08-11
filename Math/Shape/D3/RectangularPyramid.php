@@ -41,7 +41,7 @@ class RectangularPyramid implements D3ShapeInterface
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public static function getVolume(float $a, float $b, float $h)
+    public static function getVolume(float $a, float $b, float $h) : float
     {
         return $a * $b * $h / 3;
     }
@@ -58,7 +58,7 @@ class RectangularPyramid implements D3ShapeInterface
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public static function getSurface(float $a, float $b, float $h)
+    public static function getSurface(float $a, float $b, float $h) : float
     {
         return $a * $b + $a * sqrt(($b / 2) ** 2 + $h ** 2) + $b * sqrt(($a / 2) ** 2 + $h ** 2);
     }
@@ -75,7 +75,7 @@ class RectangularPyramid implements D3ShapeInterface
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public static function getLateralSurface(float $a, float $b, float $h)
+    public static function getLateralSurface(float $a, float $b, float $h) : float
     {
         return $a * sqrt(($b / 2) ** 2 + $h ** 2) + $b * sqrt(($a / 2) ** 2 + $h ** 2);
     }

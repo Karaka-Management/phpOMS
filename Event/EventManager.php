@@ -63,9 +63,15 @@ class EventManager implements Mediator
     /**
      * {@inheritdoc}
      */
-    public function attach(string $group, \Closure $callback, bool $remove = false)
+    public function attach(string $group, \Closure $callback, bool $remove = false) : bool
     {
+        if(isset($this->callbacks[$group])) {
+            return false;
+        }
+
         $this->callbacks[$group] = ['remove' => $remove, 'func' => $callback];
+
+        return true;
     }
 
     /**
@@ -87,7 +93,7 @@ class EventManager implements Mediator
     /**
      * {@inheritdoc}
      */
-    public function trigger(string $id, string $group)
+    public function trigger(string $group, string $id = 0)
     {
         if(isset($this->groups[$group])) {
             unset($this->groups[$group][$id]);
@@ -113,7 +119,7 @@ class EventManager implements Mediator
     /**
      * {@inheritdoc}
      */
-    public function addGroup(string $id, string $group) 
+    public function addGroup(string $group, $id) 
     {
         if(!isset($this->groups[$group])) {
             $this->groups[$group] = [];

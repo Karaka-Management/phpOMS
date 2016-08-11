@@ -46,7 +46,7 @@ class Triangle implements D2ShapeInterface
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public static function getSurface(float $b, float $h)
+    public static function getSurface(float $b, float $h) : float
     {
         return $h * $b / 2;
     }
@@ -63,7 +63,7 @@ class Triangle implements D2ShapeInterface
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public static function getPerimeter(float $a, float $b, float $c)
+    public static function getPerimeter(float $a, float $b, float $c) : float
     {
         return $a + $b + $c;
     }
@@ -79,7 +79,7 @@ class Triangle implements D2ShapeInterface
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public static function getHeight(float $area, float $b)
+    public static function getHeight(float $area, float $b) : float
     {
         return 2 * $area / $b;
     }

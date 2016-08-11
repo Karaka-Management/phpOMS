@@ -145,14 +145,14 @@ class Integer
      * @param int $value Integer to factorize
      * @param int $limit Max amount of iterations
      *
-     * @return int
+     * @return array
      *
      * @throws \Exception
      *
      * @since  1.0.0
      * @author Dennis Eichhorn
      */
-    public static function fermatFactor(int $value, int $limit = 1000000) : int
+    public static function fermatFactor(int $value, int $limit = 1000000) : array
     {
         if (($value % 2) !== 0) {
             throw new \Exception('Only odd integers are allowed');
@@ -167,6 +167,6 @@ class Integer
             $b2 = $a * $a - $value;
         }
 
-        return (int) round($a - sqrt($b2));
+        return [(int) round($a - sqrt($b2)), (int) round($a + sqrt($b2))];
     }
 }

@@ -39,7 +39,7 @@ class Circle implements D2ShapeInterface
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public static function getSurface(float $r)
+    public static function getSurface(float $r) : float
     {
         return pi() * $r ** 2;
     }
@@ -54,7 +54,7 @@ class Circle implements D2ShapeInterface
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public static function getPerimeter(float $r)
+    public static function getPerimeter(float $r) : float
     {
         return 2 * pi() * $r;
     }
@@ -69,7 +69,7 @@ class Circle implements D2ShapeInterface
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public static function getRadiusBySurface(float $surface)
+    public static function getRadiusBySurface(float $surface) : float
     {
         return sqrt($surface / pi());
     }
@@ -84,7 +84,7 @@ class Circle implements D2ShapeInterface
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public static function getRadiusByPerimeter(float $C)
+    public static function getRadiusByPerimeter(float $C) : float
     {
         return $C / (2 * pi());
     }

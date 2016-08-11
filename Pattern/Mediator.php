@@ -62,28 +62,28 @@ interface Mediator extends \Countable
      *
      * Add new element to group
      *
-     * @param string   $id    Event ID
      * @param string   $group   Group
+     * @param string   $id    Event ID
      *
      * @return void
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function addGroup(string $id, string $group);
+    public function addGroup(string $group, string $id);
 
     /**
      * Trigger event.
      *
      * An object fires an event
      *
-     * @param string   $id    Event ID
      * @param string   $group   Group
+     * @param string   $id      Event ID
      *
      * @return void
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function trigger(string $id, string $group);
+    public function trigger(string $group, string $id);
 }

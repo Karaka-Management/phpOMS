@@ -41,7 +41,7 @@ class Cuboid implements D3ShapeInterface
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public static function getVolume(float $a, float $b, float $h)
+    public static function getVolume(float $a, float $b, float $h) : float
     {
         return $a * $b * $h;
     }
@@ -58,7 +58,7 @@ class Cuboid implements D3ShapeInterface
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public static function getSurface(float $a, float $b, float $h)
+    public static function getSurface(float $a, float $b, float $h) : float
     {
         return 2 * ($a * $b + $a * $h + $b * $h);
     }

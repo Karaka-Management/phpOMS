@@ -40,7 +40,7 @@ class Rectangle implements D2ShapeInterface
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public static function getSurface(float $a, float $b)
+    public static function getSurface(float $a, float $b) : float
     {
         return $a * $b;
     }
@@ -56,7 +56,7 @@ class Rectangle implements D2ShapeInterface
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public static function getPerimeter(float $a, float $b)
+    public static function getPerimeter(float $a, float $b) : float
     {
         return 2 * ($a + $b);
     }
@@ -72,7 +72,7 @@ class Rectangle implements D2ShapeInterface
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public static function getDiagonal(float $a, float $b)
+    public static function getDiagonal(float $a, float $b) : float
     {
         return sqrt($a * $a + $b * $b);
     }
