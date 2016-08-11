@@ -160,8 +160,6 @@ class Builder extends BuilderAbstract
 
     protected $unionOrders = [];
 
-    public $random = false;
-
     /**
      * Comparison operators.
      *
@@ -804,13 +802,6 @@ class Builder extends BuilderAbstract
 
     public function rollback()
     {
-        return $this;
-    }
-
-    public function random()
-    {
-        $this->random = true;
-
         return $this;
     }
 
