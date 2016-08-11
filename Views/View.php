@@ -324,7 +324,7 @@ class View implements \Serializable
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function getText(string $translation, string $module = null, string $theme = null)
+    private function getText(string $translation, string $module = null, string $theme = null)
     {
         if (!isset($module)) {
             $match = '/Modules/';
@@ -407,13 +407,19 @@ class View implements \Serializable
     /**
      * Serialize view for rendering.
      *
-     * @return string
+     * @return string|array
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function serialize()
     {
+        $path = realpath($oldPath = __DIR__ . '/../..' . $this->template . '.tpl.php');
+
+        if ($path === false || StringUtils::startsWith($path, ROOT_PATH) === false) {
+            return $this->toArray();
+        }
+
         return $this->render();
     }
 
