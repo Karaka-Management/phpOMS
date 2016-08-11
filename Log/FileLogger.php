@@ -158,7 +158,7 @@ class FileLogger implements LoggerInterface
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function __clone()
+    private function __clone()
     {
     }
 
