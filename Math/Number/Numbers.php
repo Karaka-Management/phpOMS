@@ -39,7 +39,7 @@ class Numbers
      * @since  1.0.0
      * @author Dennis Eichhorn
      */
-    public static function perfect(int $n) : bool
+    public static function isPerfect(int $n) : bool
     {
         $sum = 0;
 
