@@ -72,7 +72,7 @@ class Prime
      * @since  1.0.0
      * @author Dennis Eichhorn
      */
-    public static function rabinTest(int $n, int $k) : bool
+    public static function rabinTest(int $n, int $k = 10000) : bool
     {
         if ($n == 2) {
             return true;
@@ -117,6 +117,16 @@ class Prime
         return true;
     }
 
+    /**
+     * Create prime numbers
+     *
+     * @param int $n Primes to generate
+     *
+     * @return int[]
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn
+     */
     public static function sieveOfEratosthenes(int $n) : array
     {
         $number = 2;
@@ -138,6 +148,16 @@ class Prime
         return $primes;
     }
 
+    /**
+     * Is prime?
+     *
+     * @param int $n Number to test
+     *
+     * @return bool
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn
+     */
     public function isPrime(int $n) : bool
     {
         $i = 2;
