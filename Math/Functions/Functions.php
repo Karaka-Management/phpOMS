@@ -14,7 +14,7 @@
  * @link       http://orange-management.com
  */
 
-namespace phpOMS\Math;
+namespace phpOMS\Math\Functions;
 
 /**
  * Well known functions class.
@@ -138,7 +138,16 @@ class Functions
         return self::ackermann($m - 1, self::ackermann($m, $n - 1));
     }
 
-
+    /**
+     * Applying abs to every array value
+     *
+     * @param array $values Numeric values
+     *
+     * @return array
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
     public static function abs(array $values) : array
     {
         $abs = [];
@@ -161,7 +170,7 @@ class Functions
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public static function invMod($a, $n)
+    public static function invMod(int $a, int $n)
     {
         if ($n < 0) {
             $n = -$n;
