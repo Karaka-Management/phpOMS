@@ -14,7 +14,7 @@
  * @link       http://orange-management.com
  */
 
-namespace phpOMS\Math;
+namespace phpOMS\Math\Functions;
 
 use phpOMS\Math\Number\Numbers;
 
@@ -60,17 +60,15 @@ class Fibunacci
      */
     public static function fibunacci(int $n, int $start = 1) : int
     {
-        if ($n < 2) {
-            return 0;
-        } elseif ($n < 4) {
+        if ($n < 3) {
             return $start;
         }
 
-        $old_1 = 0;
+        $old_1 = $start;
         $old_2 = $start;
         $fib   = 0;
 
-        for ($i = 4; $i < $n; $i++) {
+        for ($i = 2; $i < $n; $i++) {
             $fib   = $old_1 + $old_2;
             $old_1 = $old_2;
             $old_2 = $fib;

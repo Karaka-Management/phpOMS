@@ -13,7 +13,7 @@
  * @version    1.0.0
  * @link       http://orange-management.com
  */
-namespace phpOMS\Math\Geometry;
+namespace phpOMS\Math\Geometry\ConvexHull;
 
 /**
  * Andrew's monotone chain convex hull algorithm class.

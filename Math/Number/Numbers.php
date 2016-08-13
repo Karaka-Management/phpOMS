@@ -86,36 +86,7 @@ class Numbers
      */
     public static function isSquare(int $n) : bool
     {
-        $goodMask = 0xC840C04048404040; // 0xC840C04048404040 computed below
-
-        for ($i = 0; $i < 64; ++$i) {
-            $goodMask |= PHP_INT_MIN >> ($i * $i);
-        }
-
-        // This tests if the 6 least significant bits are right.
-        // Moving the to be tested bit to the highest position saves us masking.
-        if ($goodMask << $n >= 0) {
-            return false;
-        }
-
-        $numberOfTrailingZeros = self::countTrailingZeros($n);
-        // Each square ends with an even number of zeros.
-        if (($numberOfTrailingZeros & 1) !== 0) {
-            return false;
-        }
-
-        $n >>= $numberOfTrailingZeros;
-        // Now x is either 0 or odd.
-        // In binary each odd square ends with 001.
-        // Postpone the sign test until now; handle zero in the branch.
-        if (($n & 7) != 1 | $n <= 0) {
-            return $n === 0;
-        }
-        // Do it in the classical way.
-        // The correctness is not trivial as the conversion from long to double is lossy!
-        $tst = (int) sqrt($n);
-
-        return $tst * $tst === $n;
+        return abs(((int) sqrt($n)) * ((int) sqrt($n)) - $n) < 0.001;
     }
 
     /**

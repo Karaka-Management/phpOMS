@@ -81,8 +81,8 @@ class LZW implements CompressionInterface
 
         $w      = chr($compressed[0]);
         $result = $w;
-
         $count = count($compressed);
+        
         for ($i = 1; $i < $count; $i++) {
             $k = $compressed[$i];
 
@@ -97,7 +97,7 @@ class LZW implements CompressionInterface
             }
 
             $result .= $entry;
-            $dictionary[$dictSize++] = $w + $entry[0];
+            $dictionary[$dictSize++] = $w . $entry[0];
             $w                       = $entry;
         }
 

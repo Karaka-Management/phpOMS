@@ -39,7 +39,7 @@ class Localization
      * @var string
      * @since 1.0.0
      */
-    private $country = ISO3166TwoEnum::C_USA;
+    private $country = ISO3166TwoEnum::_USA;
     /**
      * Timezone.
      *
@@ -60,7 +60,7 @@ class Localization
      * @var string
      * @since 1.0.0
      */
-    private $currency = ISO4217Enum::C_USD;
+    private $currency = ISO4217Enum::_USD;
     /**
      * Number format.
      *

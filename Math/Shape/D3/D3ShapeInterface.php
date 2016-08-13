@@ -28,7 +28,6 @@ use phpOMS\Math\Shape\ShapeInterface;
  * @link       http://orange-management.com
  * @since      1.0.0
  */
-interface D2ShapeInterface extends ShapeInterface
+interface D3ShapeInterface extends ShapeInterface
 {
-    public static function getVolume() : float;
 }

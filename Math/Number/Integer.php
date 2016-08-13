@@ -125,10 +125,10 @@ class Integer
      */
     public static function greatestCommonDivisor(int $n, int $m) : int
     {
-        while (true) {
-            if ($n === $m) {
-                return $m;
-            }
+        $n = abs($n);
+        $m = abs($m);
+
+        while ($n !== $m) {
             if ($n > $m) {
                 $n -= $m;
             } else {
@@ -136,7 +136,7 @@ class Integer
             }
         }
 
-        return 1;
+        return $m;
     }
 
     /**
@@ -154,17 +154,18 @@ class Integer
      */
     public static function fermatFactor(int $value, int $limit = 1000000) : array
     {
-        if (($value % 2) !== 0) {
+        if (($value % 2) === 0) {
             throw new \Exception('Only odd integers are allowed');
         }
 
         $a  = (int) ceil(sqrt($value));
-        $b2 = $a * $a - $value;
+        $b2 = (int) ($a * $a - $value);
         $i  = 1;
 
         while (!Numbers::isSquare($b2) && $i < $limit) {
+            $i++;
             $a += 1;
-            $b2 = $a * $a - $value;
+            $b2 = (int) ($a * $a - $value);
         }
 
         return [(int) round($a - sqrt($b2)), (int) round($a + sqrt($b2))];

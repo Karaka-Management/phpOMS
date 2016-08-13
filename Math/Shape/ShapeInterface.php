@@ -28,5 +28,4 @@ namespace phpOMS\Math\Shape;
  */
 interface ShapeInterface
 {
-    public static function getSurface() : float;
 }

@@ -88,8 +88,8 @@ class Cone implements D3ShapeInterface
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public static function getHeight(float $V, float $r) : float
+    public static function getHeightFromVolume(float $V, float $r) : float
     {
-        return 4 * $V / (pi() * $r ** 2);
+        return 3 * $V / (pi() * $r ** 2);
     }
 }

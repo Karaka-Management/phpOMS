@@ -30,5 +30,4 @@ use phpOMS\Math\Shape\ShapeInterface;
  */
 interface D2ShapeInterface extends ShapeInterface
 {
-    public static function getPerimeter() : float;
 }

@@ -158,7 +158,7 @@ class Prime
      * @since  1.0.0
      * @author Dennis Eichhorn
      */
-    public function isPrime(int $n) : bool
+    public static function isPrime(int $n) : bool
     {
         $i = 2;
 
