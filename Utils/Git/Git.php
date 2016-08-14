@@ -49,7 +49,7 @@ class Git
     public static function test() : bool
     {
         $pipes    = [];
-        $resource = proc_open(Git::getBin(), [1 => ['pipe', 'w'], 2 => ['pipe', 'w']], $pipes);
+        $resource = proc_open(escapeshellarg(Git::getBin()), [1 => ['pipe', 'w'], 2 => ['pipe', 'w']], $pipes);
 
         $stdout = stream_get_contents($pipes[1]);
         $stderr = stream_get_contents($pipes[2]);

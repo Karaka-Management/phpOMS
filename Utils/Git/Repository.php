@@ -177,7 +177,7 @@ class Repository
      */
     private function run(string $cmd) : array
     {
-        $cmd   = Git::getBin() . ' ' . $cmd;
+        $cmd   = escapeshellarg(Git::getBin()) . ' ' . $cmd;
         $pipes = [];
         $desc  = [
             1 => ['pipe', 'w'],
@@ -203,7 +203,7 @@ class Repository
 
         $status = trim(proc_close($resource));
 
-        if ($status) {
+        if ($status == -1) {
             throw new \Exception($stderr);
         }
 
