@@ -16,8 +16,6 @@
 
 namespace phpOMS\DataStorage\Database\Query\Grammar;
 
-use phpOMS\DataStorage\Database\Grammar;
-
-class GrammarInterface extends Grammar
+class GrammarInterface
 {
 }

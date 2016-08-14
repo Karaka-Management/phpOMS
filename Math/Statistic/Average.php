@@ -35,7 +35,7 @@ class Average
     const MA2x12 = [5/6, 5/6, 5/6, 5/6, 5/6, 5/6, 0.42];
     const MA3x3 = [1/3, 2/9, 1/9];
     const MA3x5 = [0.2, 0.2, 2/15, 4/6];
-    const MAS15 = [0.231, 0.209, 0.144, 2/3, 0.009, -0.016, -0.019, -0.009]
+    const MAS15 = [0.231, 0.209, 0.144, 2/3, 0.009, -0.016, -0.019, -0.009];
     const MAS21 = [0.171, 0.163, 0.134, 0.37, 0.51, 0.017, -0.006, -0.014, -0.014, -0.009, -0.003];
     const MAH5 = [0.558, 0.294, -0.73];
     const MAH9 = [0.330, 0.267, 0.119, -0.010, -0.041];
@@ -110,7 +110,9 @@ class Average
      */
     public static function movingAverage(array $x, int $t, int $order, array $weight = null, bool $symmetric = false) : float {
         $periods = (int) ($order / 2);
-        if($t < $periods || ($count = count($x)) < $periods) || ($symmetric && $t + $periods < $count)) {
+        $count = count($x);
+
+        if($t < $periods || ($count < $periods) || ($symmetric && $t + $periods < $count)) {
             throw new \Exception('Periods');
         }
 
@@ -259,6 +261,18 @@ class Average
      */
     public static function harmonicMean(array $values, int $offset = 0)
     {
+        sort($values);
+
+        if ($offset > 0) {
+            $values = array_slice($values, $offset, -$offset);
+        }
+
+        $count = count($values);
+        $sum   = 0.0;
+
+        foreach ($values as $value) {
+            if ($value === 0) {
+                throw new \Exception('Division zero');
             }
 
             $sum += 1 / $value;

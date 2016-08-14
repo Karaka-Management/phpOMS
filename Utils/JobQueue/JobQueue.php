@@ -15,7 +15,7 @@
  */
 namespace phpOMS\Utils\JobQueue;
 
-use \phpOMS\Stdlib\Queue\PriorityQueue;
+use phpOMS\Stdlib\Queue\PriorityQueue;
 
 /**
  * Array utils.
@@ -85,76 +85,65 @@ class JobQueue
 
         sleep(1);
     }
-}
 
-public
-function setRunning(bool $run = true)
-{
-    $this->run       = $run;
-    $this->suspended = $run;
-}
-
-public
-function isRunning() : bool
-{
-    return $this->run;
-}
-
-public
-function setSuspended(bool $suspended = true)
-{
-    $this->suspended = $suspended;
-}
-
-public
-function isSuspended() : bool
-{
-    return $this->suspended;
-}
-
-public
-function isTerminating() : bool
-{
-    return $this->isTerminating;
-}
-
-public
-function setTerminating(bool $terminating = true)
-{
-    $this->isTerminating = $terminating;
-}
-
-public
-function isDeamonized() : bool
-{
-    return $this->isDeamonized;
-}
-
-public
-function setDeamonized(bool $deamonized)
-{
-    $this->isDeamonized = $deamonized;
-}
-
-private
-function runAsDeamon()
-{
-    ob_end_clean();
-    fclose(STDIN);
-    fclose(STDOUT);
-    fclose(STDERR);
-
-    function shutdown()
+    public function setRunning(bool $run = true)
     {
-        posix_kill(posix_getpid(), SIGHUP);
+        $this->run       = $run;
+        $this->suspended = $run;
     }
 
-    register_shutdown_function('shutdown');
-}
+    public function isRunning() : bool
+    {
+        return $this->run;
+    }
 
-private
-function savePid()
-{
-    // todo: save pid somewhere for kill
-}
+    public function setSuspended(bool $suspended = true)
+    {
+        $this->suspended = $suspended;
+    }
+
+    public function isSuspended() : bool
+    {
+        return $this->suspended;
+    }
+
+    public function isTerminating() : bool
+    {
+        return $this->isTerminating;
+    }
+
+    public function setTerminating(bool $terminating = true)
+    {
+        $this->isTerminating = $terminating;
+    }
+
+    public function isDeamonized() : bool
+    {
+        return $this->isDeamonized;
+    }
+
+    public function setDeamonized(bool $deamonized)
+    {
+        $this->isDeamonized = $deamonized;
+    }
+
+    private function runAsDeamon()
+    {
+        ob_end_clean();
+        fclose(STDIN);
+        fclose(STDOUT);
+        fclose(STDERR);
+
+        function shutdown()
+        {
+            posix_kill(posix_getpid(), SIGHUP);
+        }
+
+        register_shutdown_function('shutdown');
+    }
+
+    private function savePid()
+    {
+        // todo: save pid somewhere for kill
+    }
 }

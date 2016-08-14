@@ -26,12 +26,10 @@ namespace phpOMS\Math\Statistic\Forecast;
  * @link       http://orange-management.com
  * @since      1.0.0
  */
-class Forecast
+class Forecasts
 {
     /**
      * Get forecast interval.
-     *
-     *
      *
      * @param array $observed   Dataset
      * @param array $forecasted Forecasted

@@ -13,8 +13,9 @@
  * @version    1.0.0
  * @link       http://orange-management.com
  */
-namespace phpOMS\Validation;
+namespace phpOMS\Validation\Base;
 
+use phpOMS\Validation\ValidatorAbstract;
 
 /**
  * Validator abstract.

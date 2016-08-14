@@ -13,7 +13,7 @@
  * @version    1.0.0
  * @link       http://orange-management.com
  */
-namespace Psr\Http\Message;
+namespace phpOMS\Message;
 
 /**
  * Upload interface.

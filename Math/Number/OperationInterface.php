@@ -91,8 +91,6 @@ interface OperationInterface
     /**
      * Abs of value.
      *
-     * @param mixed $x Value
-     *
      * @return mixed
      *
      * @since  1.0.0

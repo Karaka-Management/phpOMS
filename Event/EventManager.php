@@ -93,7 +93,7 @@ class EventManager implements Mediator
     /**
      * {@inheritdoc}
      */
-    public function trigger(string $group, string $id = 0)
+    public function trigger(string $group, string $id = '')
     {
         if(isset($this->groups[$group])) {
             unset($this->groups[$group][$id]);
@@ -119,7 +119,7 @@ class EventManager implements Mediator
     /**
      * {@inheritdoc}
      */
-    public function addGroup(string $group, $id) 
+    public function addGroup(string $group, string $id)
     {
         if(!isset($this->groups[$group])) {
             $this->groups[$group] = [];

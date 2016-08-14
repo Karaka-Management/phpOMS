@@ -1,5 +1,9 @@
 <?php
 
+namespace phpOMS\Math\Finance\Forecasting;
+
+use phpOMS\Math\Statistic\Average;
+
 class ClassicalDecomposition {
 	const ADDITIVE = 0;
 	const MULTIPLICATIVE = 1;
@@ -12,7 +16,7 @@ class ClassicalDecomposition {
 	public function __construct(array $data, int $order, int $mode = self::ADDITIVE) {
 		$this->mode = $mode;
 		$this->data = $data;
-		$this->order = $this->order;
+		$this->order = $order;
 
 		$this->dataSize = count($data);
 	}
@@ -20,7 +24,7 @@ class ClassicalDecomposition {
 	public function getDecomposition() : array {
 		$trendCycleComponent = self::computeTrendCycle($this->data, $this->order);
 		$detrendedSeries = self::computeDetrendedSeries($this->data, $trendCycleComponent, $this->mode);
-		$seasonalComponent = $this->computeSeasonalComponent($detrended, $this->order);
+		$seasonalComponent = $this->computeSeasonalComponent($detrendedSeries, $this->order);
 		$remainderComponent = $this->computeRemainderComponent($trendCycleComponent, $seasonalComponent);
 
 		return [
@@ -32,9 +36,9 @@ class ClassicalDecomposition {
 	}
 
 	public static function computeTrendCycle(array $data, int $order) : array {
-		$mMA = Average::totalMovingAverage($data, $order, null true);
+		$mMA = Average::totalMovingAverage($data, $order, null, true);
 
-		return $this->order % 2 === 0 ? Average::totalMovingAverage($mMa, 2, null, true) : $mMA;
+		return $order % 2 === 0 ? Average::totalMovingAverage($mMA, 2, null, true) : $mMA;
 	}
 
 	public static function computeDetrendedSeries(array $data, array $trendCycleComponent, int $mode) : array {
@@ -74,7 +78,7 @@ class ClassicalDecomposition {
 
 	public static function computeRemainderComponent(array $trendCycleComponent, array $seasonalComponent) : array {
 		$remainderComponent = [];
-		$count = count($trendedCycleComponent);
+		$count = count($trendCycleComponent);
 		$start = self::getStartOfDecomposition($this->dataSize, $count);
 		$seasons = count($seasonalComponent);
 

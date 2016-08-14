@@ -40,7 +40,7 @@ class NullCache implements CacheInterface
     /**
      * {@inheritdoc}
      */
-    public function add($key, $value, CacheStatus $type = null, int $expire = 2592000)
+    public function add($key, $value, CacheStatus $type = null, int $expire = 2592000) : bool
     {
         // TODO: Implement add() method.
     }
@@ -56,7 +56,7 @@ class NullCache implements CacheInterface
     /**
      * {@inheritdoc}
      */
-    public function delete($key, CacheStatus $type = null)
+    public function delete($key, CacheStatus $type = null) : bool
     {
         // TODO: Implement delete() method.
     }
@@ -72,7 +72,7 @@ class NullCache implements CacheInterface
     /**
      * {@inheritdoc}
      */
-    public function replace($key, $value, CacheType $type = null, int $expire = -1)
+    public function replace($key, $value, CacheType $type = null, int $expire = -1) : bool
     {
         // TODO: Implement replace() method.
     }

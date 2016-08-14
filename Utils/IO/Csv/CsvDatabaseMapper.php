@@ -21,8 +21,6 @@ use phpOMS\Utils\IO\IODatabaseMapper;
 
 class CsvDatabaseMapper implements IODatabaseMapper
 {
-    use CsvSettingsTrait;
-
     private $db = null;
 
     private $sources = [];

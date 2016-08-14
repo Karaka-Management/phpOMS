@@ -13,7 +13,7 @@
  * @version    1.0.0
  * @link       http://orange-management.com
  */
-namespace phpOMS\Datatypes\ExactFloat;
+namespace phpOMS\Datatypes;
 
 class ExactFloat
 {
@@ -121,10 +121,4 @@ class ExactFloat
     public static function div($a, $b, $length = null)
     {
     }
-
-    public static function __toString()
-    {
-        return '';
-    }
-
 }

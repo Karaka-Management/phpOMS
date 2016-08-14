@@ -1,5 +1,7 @@
 <?php
 
+namespace phpOMS\Math\Finance\Forecasting;
+
 class ARIMA {
 	public function __construct(array $data, int $order = 12) {
 		if($order !== 12 && $order !== 4) {

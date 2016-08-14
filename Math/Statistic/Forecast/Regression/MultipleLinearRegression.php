@@ -1,5 +1,7 @@
 <?php
 
+namespace phpOMS\Math\Statistic\Forecast\Regression;
+
 class MultipleLinearRegression {
 	public static function getRegression(array $x, array $y) : array {
 		$X = new Matrix(count($x), count($x[0]));

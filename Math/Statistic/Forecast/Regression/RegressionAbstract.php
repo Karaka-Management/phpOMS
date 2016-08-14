@@ -1,6 +1,12 @@
-<?php 
+<?php
 
-class RegressionAbstract {
+namespace phpOMS\Math\Statistic\Forecast\Regression;
+
+use phpOMS\Math\Statistic\Average;
+use phpOMS\Math\Statistic\Forecast\ForecastIntervalMultiplier;
+use phpOMS\Math\Statistic\MeasureOfDispersion;
+
+abstract class RegressionAbstract {
     /**
      * Get linear regression based on scatter plot.
      *
@@ -123,13 +129,7 @@ class RegressionAbstract {
         return Average::arithmeticMean($y) - $b1 * Average::arithmeticMean($x);
     }
 
-	abstract public static function getRegression(array $x, array $y) : array;
-
 	abstract public static function getSlope(float $b1, float $y, float $x) : float;
 
 	abstract public static function getElasticity(float $b1, float $y, float $x): float;
-
-	abstract public static function getBeta0(array $x, array $y, float b1) : float;
-
-	abstract public static function getBeta1(array $x, array $y) : float;
 }

@@ -13,6 +13,7 @@
  * @version    1.0.0
  * @link       http://orange-management.com
  */
+namespace phpOMS\Math\Optimization;
 
 use phpOMS\Math\Matrix\Matrix;
 
@@ -59,7 +60,7 @@ class GaussianElimination
                 }
             }
 
-            $this->swapRows($A, $b, $col, $j);
+            self::swapRows($A, $b, $col, $j);
 
             for ($i = $col + 1; $i < $limit; $i++) {
                 $tmp = $A[$i][$col] / $A[$col][$col];

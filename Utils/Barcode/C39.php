@@ -101,7 +101,7 @@ class C39 extends C128Abstract
      * @since  1.0.0
      * @author Dennis Eichhorn
      */
-    protected function generateCodeString()
+    protected function generateCodeString() : string
     {
         $codeString = '';
         $length     = strlen($this->content);

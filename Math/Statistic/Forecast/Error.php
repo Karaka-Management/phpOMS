@@ -192,7 +192,7 @@ class Error
     }
 
     public static function getRBarSquared(float $R, int $observations, int $predictors) : float {
-        return 1 - (1 - $R * ($observations - 1) / ($observations - $predictors - 1);
+        return 1 - (1 - $R * ($observations - 1) / ($observations - $predictors - 1));
     }
 
     /**
@@ -208,7 +208,7 @@ class Error
      *
      * Correction for small amount of observations
      */
-    public static function getCorrectedAkaikeInformationCriterion(float aic, int $observations, int $predictors) : float {
+    public static function getCorrectedAkaikeInformationCriterion(float $aic, int $observations, int $predictors) : float {
         return $aic + (2*($predictors +2)*($predictors + 3)) / ($observations - $predictors - 3);
     }
 

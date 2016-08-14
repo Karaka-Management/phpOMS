@@ -59,7 +59,7 @@ class Directory extends FileAbstract implements \Iterator, \ArrayAccess
      */
     public function __construct(string $path, string $filter = '*')
     {
-        $this->filter = $filter;
+        $this->filter = ltrim($filter, '\\/');
         parent::__construct($path);
 
         if (file_exists($this->path)) {

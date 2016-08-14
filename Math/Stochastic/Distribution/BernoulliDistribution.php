@@ -27,7 +27,7 @@ namespace phpOMS\Math\Stochastic\Distribution;
  * @link       http://orange-management.com
  * @since      1.0.0
  */
-class BernulliDistribution
+class BernoulliDistribution
 {
     /**
      * Get probability mass function.

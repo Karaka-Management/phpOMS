@@ -13,11 +13,11 @@
  * @version    1.0.0
  * @link       http://orange-management.com
  */
-namespace phpOMS\Validation\File;
+namespace phpOMS\Validation\Barcode;
 
 use phpOMS\Validation\ValidatorAbstract;
 
-class Crc32 extends ValidatorAbstract
+class Barcode25 extends ValidatorAbstract
 {
 
 }

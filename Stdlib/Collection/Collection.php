@@ -13,7 +13,7 @@
  * @version    1.0.0
  * @link       http://orange-management.com
  */
-namespace phpOMS\Stdlib\Map;
+namespace phpOMS\Stdlib\Collection;
 
 /**
  * Multimap utils.

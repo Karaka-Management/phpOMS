@@ -101,7 +101,6 @@ class ISO4217SymbolEnum extends Enum
     const _NZD = '$';
     const _NIO = 'C$';
     const _NGN = '₦';
-    const _KPW = '₩';
     const _NOK = 'kr';
     const _OMR = '﷼';
     const _PKR = '₨';
@@ -121,7 +120,6 @@ class ISO4217SymbolEnum extends Enum
     const _SBD = '$';
     const _SOS = 'S';
     const _ZAR = 'R';
-    const _KRW = '₩';
     const _LKR = '₨';
     const _SEK = 'kr';
     const _CHF = 'CHF';

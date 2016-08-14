@@ -29,7 +29,7 @@ use phpOMS\Datatypes\Enum;
  * @link       http://orange-management.com
  * @since      1.0.0
  */
-abstract class AccountType extends Enum
+abstract class NumberType extends Enum
 {
     const INTEGER = 1;
     const NATURAL = 21;

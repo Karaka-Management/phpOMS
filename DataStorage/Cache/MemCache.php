@@ -82,7 +82,7 @@ class MemCache implements CacheInterface
     /**
      * {@inheritdoc}
      */
-    public function add($key, $value, CacheStatus $type = null, int $expire = 2592000)
+    public function add($key, $value, CacheStatus $type = null, int $expire = 2592000) : bool
     {
         return $this->memc->add($key, $value, false, $expire);
     }
@@ -98,7 +98,7 @@ class MemCache implements CacheInterface
     /**
      * {@inheritdoc}
      */
-    public function delete($key, CacheStatus $type = null)
+    public function delete($key, CacheStatus $type = null) : bool
     {
         $this->memc->delete($key);
     }
@@ -114,7 +114,7 @@ class MemCache implements CacheInterface
     /**
      * {@inheritdoc}
      */
-    public function replace($key, $value, CacheType $type = null, int $expire = -1)
+    public function replace($key, $value, CacheType $type = null, int $expire = -1) : bool
     {
         $this->memc->replace($key, $value, false, $expire);
     }
