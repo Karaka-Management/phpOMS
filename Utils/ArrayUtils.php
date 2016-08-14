@@ -221,4 +221,13 @@ class ArrayUtils
 
         return $csv;
     }
+
+    public static function getArg(string $id, array $args)
+    {
+        if(($key = array_search($id, $args)) === false || $key === count($args) - 1) {
+            return null;
+        }
+
+        return $args[$key+1];
+    }
 }
