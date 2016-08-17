@@ -222,12 +222,27 @@ class ArrayUtils
         return $csv;
     }
 
+    /**
+     * Get array value by argument id.
+     *
+     * Useful for parsing command line parsing
+     *
+     * @param array  $data      Data to convert
+     * @param string $delimiter Delim to use
+     * @param string $enclosure Enclosure to use
+     * @param string $escape    Escape to use
+     *
+     * @return string
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
     public static function getArg(string $id, array $args)
     {
         if(($key = array_search($id, $args)) === false || $key === count($args) - 1) {
             return null;
         }
 
-        return $args[$key+1];
+        return trim($args[$key+1], '" ');
     }
 }
