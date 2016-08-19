@@ -42,8 +42,8 @@ class StringUtils
     /**
      * Contains any string
      *
-     * @param string       $haystack Haystack
-     * @param array $needles  Needles
+     * @param string $haystack Haystack
+     * @param array  $needles  Needles
      *
      * @return bool
      *
@@ -52,8 +52,8 @@ class StringUtils
      */
     public static function contains(string $haystack, array $needles) : bool
     {
-        foreach($needles as $needle) {
-            if(strpos($haystack, $needle) !== false) {
+        foreach ($needles as $needle) {
+            if (strpos($haystack, $needle) !== false) {
                 return true;
             }
         }
@@ -267,5 +267,32 @@ class StringUtils
 
             return preg_replace('/(^[' . $charlist . ']+)/us', '', $string);
         }
+    }
+
+    /**
+     * Count occurences of character at the beginning of string.
+     *
+     * @param string $string    String to manipulate
+     * @param string $character Character to count
+     *
+     * @return int
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn
+     */
+    public static function countCharacterFromStart(string $string, string $character) : int
+    {
+        $count  = 0;
+        $length = strlen($string);
+
+        for ($i = 0; $i < $length; $i++) {
+            if ($string[$i] !== $character) {
+                break;
+            }
+
+            $count++;
+        }
+
+        return $count;
     }
 }

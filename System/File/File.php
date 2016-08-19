@@ -122,4 +122,15 @@ class File extends FileAbstract
     {
         file_put_contents($this->path, $content);
     }
+
+    public static function copy(string $p1, string $p2, bool $recursive = true) : bool
+    {
+        Directory::createPath(dirname($p2));
+
+        if(realpath($p1) === false) {
+            throw new PathException($p1);
+        }
+
+        return copy($p1, $p2);
+    }
 }
