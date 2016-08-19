@@ -204,8 +204,14 @@ class Request extends RequestAbstract
         UriFactory::setQuery('/scheme', $this->uri->getScheme());
         UriFactory::setQuery('/host', $this->uri->getHost());
         UriFactory::setQuery('/lang', $this->l11n->getLanguage());
+        UriFactory::setQuery('/base', $this->uri->getBase());
+        UriFactory::setQuery('/rootPath', $this->uri->getRootPath());
         UriFactory::setQuery('?', $this->uri->getQuery());
         UriFactory::setQuery('%', $this->uri->__toString());
+        UriFactory::setQuery('#', $this->uri->getFragment());
+        UriFactory::setQuery('/', $this->uri->getPath());
+        UriFactory::setQuery(':user', $this->uri->getUser());
+        UriFactory::setQuery(':pass', $this->uri->getPass());
     }
 
     /**

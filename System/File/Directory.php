@@ -225,7 +225,7 @@ class Directory extends FileAbstract implements \Iterator, \ArrayAccess
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function get(string $name) : FileAbstract
+    public function getNode(string $name) : FileAbstract
     {
         return $this->nodes[$name] ?? new NullFile('');
     }
@@ -250,7 +250,7 @@ class Directory extends FileAbstract implements \Iterator, \ArrayAccess
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public static function createPath(string $path, string $permission = '0644', bool $recursive = true) : bool
+    public static function create(string $path, string $permission = '0644', bool $recursive = false) : bool
     {
         if (!file_exists($path)) {
             mkdir($path, $permission, $recursive);
@@ -271,7 +271,7 @@ class Directory extends FileAbstract implements \Iterator, \ArrayAccess
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public static function getParent(string $path) : string
+    public static function parent(string $path) : string
     {
         $path = explode('/', str_replace('\\', '/', $path));
         array_pop($path);
@@ -386,5 +386,90 @@ class Directory extends FileAbstract implements \Iterator, \ArrayAccess
     public function offsetGet($offset)
     {
         return $this->nodes[$offset] ?? null;
+    }
+
+    public function getParent() : FileInterface
+    {
+        // TODO: Implement getParent() method.
+    }
+
+    public function copyNode() : bool
+    {
+        // TODO: Implement copyNode() method.
+    }
+
+    public function moveNode() : bool
+    {
+        // TODO: Implement moveNode() method.
+    }
+
+    public function deleteNode() : bool
+    {
+        // TODO: Implement deleteNode() method.
+    }
+
+    public function putContent() : bool
+    {
+        // TODO: Implement putContent() method.
+    }
+
+    public function getContent() : string
+    {
+        // TODO: Implement getContent() method.
+    }
+
+    public static function created(string $path) : \DateTime
+    {
+        // TODO: Implement created() method.
+    }
+
+    public static function changed(string $path) : \DateTime
+    {
+        // TODO: Implement changed() method.
+    }
+
+    public static function owner(string $path) : int
+    {
+        // TODO: Implement owner() method.
+    }
+
+    public static function permission(string $path) : string
+    {
+        // TODO: Implement permission() method.
+    }
+
+    public static function delete(string $path) : bool
+    {
+        // TODO: Implement delete() method.
+    }
+
+    public static function copy(string $from, string $to, bool $overwrite = false) : bool
+    {
+        // TODO: Implement copy() method.
+    }
+
+    public static function move(string $from, string $to, bool $overwrite = false) : bool
+    {
+        // TODO: Implement move() method.
+    }
+
+    public static function put(string $path, string $content, bool $overwrite = true) : bool
+    {
+        // TODO: Implement put() method.
+    }
+
+    public static function get(string $path) : string
+    {
+        // TODO: Implement get() method.
+    }
+
+    public static function size(string $path) : string
+    {
+        // TODO: Implement size() method.
+    }
+
+    public static function exists(string $path) : bool
+    {
+        // TODO: Implement exists() method.
     }
 }

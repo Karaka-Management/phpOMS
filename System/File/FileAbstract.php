@@ -28,7 +28,7 @@ namespace phpOMS\System\File;
  * @link       http://orange-management.com
  * @since      1.0.0
  */
-abstract class FileAbstract
+abstract class FileAbstract implements FileInterface
 {
     /**
      * Path.
@@ -171,9 +171,9 @@ abstract class FileAbstract
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function parent() : Directory
+    public function parentNode() : Directory
     {
-        return new Directory(Directory::getParent($this->path));
+        return new Directory(Directory::parent($this->path));
     }
 
     /**

@@ -32,7 +32,7 @@ abstract class RouteVerb extends Enum
 {
     const GET = 1;
     const PUT = 2;
-    const SET = 3;
-    const DELETE = 4;
-    const ANY = 5;
+    const SET = 4;
+    const DELETE = 8;
+    const ANY = 16;
 }

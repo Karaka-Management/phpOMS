@@ -69,32 +69,7 @@ class File extends FileAbstract
      */
     public function createNode() : bool
     {
-        return self::createFile($this->path);
-    }
-
-    /**
-     * Create file.
-     *
-     * @param string $path Path
-     *
-     * @return bool
-     *
-     * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
-     */
-    public static function createFile(string $path) : bool
-    {
-        if (!file_exists($path)) {
-            if (is_writable(Directory::getParent($path))) {
-                touch($path);
-
-                return true;
-            } else {
-                throw new PermissionException($path);
-            }
-        }
-
-        return false;
+        return self::create($this->path);
     }
 
     /**
@@ -123,14 +98,182 @@ class File extends FileAbstract
         file_put_contents($this->path, $content);
     }
 
-    public static function copy(string $p1, string $p2, bool $recursive = true) : bool
+    public static function put(string $path, string $content, bool $overwrite = true) : bool
     {
-        Directory::createPath(dirname($p2));
+        if($overwrite || !file_exists($path)) {
+            if(!Directory::exists(dirname($path))) {
+                Directory::create(dirname($path), '0644', true);
+            }
 
-        if(realpath($p1) === false) {
-            throw new PathException($p1);
+            file_put_contents($path, $content);
+
+            return true;
         }
 
-        return copy($p1, $p2);
+        return false;
+    }
+
+    public static function get(string $path) : string
+    {
+        if(!file_exists($path)) {
+            throw new PathException($path);
+        }
+
+        return file_get_contents($path);
+    }
+
+    public static function exists(string $path) : bool
+    {
+        return file_exists($path);
+    }
+
+    public static function create(string $path) : string
+    {
+        if(!file_exists($path)) {
+            if(!Directory::exists(dirname($path))) {
+                Directory::create(dirname($path), '0644', true);
+            }
+
+            touch($path);
+
+            return true;
+        }
+
+        return false;
+    }
+
+    public static function parent(string $path) : string
+    {
+        return Directory::parent(dirname($path));
+    }
+
+    public static function created(string $path) : \DateTime
+    {
+        if(!file_exists($path)) {
+            throw new PathException($path);
+        }
+
+        $created = new \DateTime();
+        $created->setTimestamp(filemtime($path));
+
+        return $created;
+    }
+
+    public static function changed(string $path) : \DateTime
+    {
+        if(!file_exists($path)) {
+            throw new PathException($path);
+        }
+        
+        $changed = new \DateTime();
+        $changed->setTimestamp(filectime($path));
+
+        return $changed;
+    }
+
+    public static function size(string $path) : int
+    {
+        if(!file_exists($path)) {
+            throw new PathException($path);
+        }
+        
+        return filesize($path);
+    }
+
+    public static function owner(string $path) : int
+    {
+        if(!file_exists($path)) {
+            throw new PathException($path);
+        }
+        
+        return fileperms($path);
+    }
+
+    public static function permission(string $path) : int
+    {
+        if(!file_exists($path)) {
+            throw new PathException($path);
+        }
+        
+        return fileowner($path);
+    }
+
+    public static function dirname(string $path) : string
+    {
+        return dirname($path);
+    }
+
+    public static function copy(string $from, string $to, bool $overwrite = false) : bool
+    {
+        if(!file_exists($from)) {
+            throw new PathException($from);
+        }
+
+        if($overwrite || !file_exists($to)) {
+            if(!Directory::exists(dirname($to))) {
+                Directory::create(dirname($to), '0644', true);
+            }
+
+            copy($from, $to);
+
+            return true;
+        }
+
+        return false;
+    }
+
+    public static function move(string $from, string $to, bool $overwrite = false) : bool
+    {
+        if(!file_exists($from)) {
+            throw new PathException($from);
+        }
+
+        if($overwrite || !file_exists($to)) {
+            if(!Directory::exists(dirname($to))) {
+                Directory::create(dirname($to), '0644', true);
+            }
+
+            rename($from, $to);
+
+            return true;
+        }
+
+        return false;
+    }
+
+    public static function delete(string $path) : bool
+    {
+        if(!file_exists($path)) {
+            return false;
+        }
+
+        unlink($path);
+
+        return true;
+    }
+
+    public function getParent() : FileInterface
+    {
+        // TODO: Implement getParent() method.
+    }
+
+    public function copyNode() : bool
+    {
+        // TODO: Implement copyNode() method.
+    }
+
+    public function moveNode() : bool
+    {
+        // TODO: Implement moveNode() method.
+    }
+
+    public function deleteNode() : bool
+    {
+        // TODO: Implement deleteNode() method.
+    }
+
+    public function putContent() : bool
+    {
+        // TODO: Implement putContent() method.
     }
 }

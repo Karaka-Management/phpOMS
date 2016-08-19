@@ -76,14 +76,14 @@ class Router
      *
      * @param string $route       Route regex
      * @param mixed  $destination Destination e.g. Module:function & verb
-     * @param string $verb        Request verb
+     * @param int $verb           Request verb
      *
      * @return void
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function add(string $route, $destination, string $verb = RouteVerb::GET)
+    public function add(string $route, $destination, int $verb = RouteVerb::GET)
     {
         if(!isset($this->routes[$route])) {
             $this->routes[$route] = [];
@@ -99,6 +99,7 @@ class Router
      * Route request.
      *
      * @param RequestAbstract $request Request to route
+     * @param int $verb Route verb
      *
      * @return string[]
      *
@@ -107,7 +108,7 @@ class Router
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function route($request, string $verb = RouteVerb::GET) : array
+    public function route($request, int $verb = RouteVerb::GET) : array
     {
         if($request instanceof RequestAbstract) {
             $uri = $request->getUri();
@@ -134,17 +135,17 @@ class Router
      * Match route and uri.
      *
      * @param string $route      Route
-     * @param string $routeVerb  GET,POST for this route
+     * @param int $routeVerb  GET,POST for this route
      * @param string $uri        Uri
-     * @param string $remoteVerb Verb this request is using
+     * @param int $remoteVerb Verb this request is using
      *
      * @return bool
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    private function match(string $route, string $routeVerb, string $uri, string $remoteVerb = RouteVerb::GET) : bool
+    private function match(string $route, int $routeVerb, string $uri, int $remoteVerb = RouteVerb::GET) : bool
     {
-        return (bool) preg_match('~^' . $route . '$~', $uri) && ($routeVerb == RouteVerb::ANY || $remoteVerb == $routeVerb);
+        return (bool) preg_match('~^' . $route . '$~', $uri) && ($routeVerb == RouteVerb::ANY || $remoteVerb & $routeVerb === $remoteVerb);
     }
 }
