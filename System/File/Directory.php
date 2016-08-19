@@ -250,7 +250,7 @@ class Directory extends FileAbstract implements \Iterator, \ArrayAccess
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public static function createPath(string $path, string $permission = '0644', bool $recursive = false) : bool
+    public static function create(string $path, string $permission = '0644', bool $recursive = false) : bool
     {
         if ($recursive && !file_exists($parent = self::getParent($path))) {
             self::createPath($parent, $permission, $recursive);

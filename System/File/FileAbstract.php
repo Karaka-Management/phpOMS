@@ -28,7 +28,7 @@ namespace phpOMS\System\File;
  * @link       http://orange-management.com
  * @since      1.0.0
  */
-abstract class FileAbstract
+abstract class FileAbstract implements FileInterface
 {
     /**
      * Path.

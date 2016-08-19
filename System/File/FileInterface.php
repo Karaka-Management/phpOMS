@@ -62,25 +62,29 @@ interface FileInterface
 
 	public function index();
 
-	public static function createdAt() : \DateTime;
+	public static function created(string $path) : \DateTime;
 
-	public static function changedAt() : \DateTime;
+	public static function changed(string $path) : \DateTime;
 
-	public static function owner() : int;
+	public static function owner(string $path) : int;
 
-	public static function permission() : string;
+	public static function permission(string $path) : string;
 
-	public static function parent() : string;
+	public static function parent(string $path) : string;
 
-	public static function create() : bool;
+	public static function create(string $path) : bool;
 
-	public static function delete() : bool;
+	public static function delete(string $path) : bool;
 
-	public static function copy() : bool;
+	public static function copy(string $from, string $to, bool $overwrite = false) : bool;
 
-	public static function move() : bool;
+	public static function move(string $from, string $to, bool $overwrite = false) : bool;
 
-	public static function put() : bool;
+	public static function put(string $path, string $content, bool $overwrite = true) : bool;
 
-	public static function get() : string;
+	public static function get(string $path) : string;
+
+	public static function size(string $path) : string;
+
+	public static function exists(string $path) : bool;
 }
