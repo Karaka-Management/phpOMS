@@ -177,7 +177,12 @@ class Repository
      */
     private function run(string $cmd) : array
     {
-        $cmd   = escapeshellarg(Git::getBin()) . ' ' . $cmd;
+        if (strtolower(substr(PHP_OS, 0, 3)) == 'win') {
+            $cmd = 'cd ' . escapeshellarg(dirname(Git::getBin())) . ' && ' . basename(Git::getBin()) . ' -C ' . escapeshellarg($this->path) . ' ' . $cmd;
+        } else {
+            $cmd = escapeshellarg(Git::getBin()) . ' -C ' . escapeshellarg($this->path) . ' ' . $cmd;
+        }
+
         $pipes = [];
         $desc  = [
             1 => ['pipe', 'w'],
