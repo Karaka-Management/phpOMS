@@ -235,7 +235,7 @@ class Directory extends FileAbstract implements \Iterator, \ArrayAccess
      */
     public function createNode() : bool
     {
-        return self::createPath($this->path, $this->permission, true);
+        return self::create($this->path, $this->permission, true);
     }
 
     /**
@@ -433,7 +433,7 @@ class Directory extends FileAbstract implements \Iterator, \ArrayAccess
         // TODO: Implement owner() method.
     }
 
-    public static function permission(string $path) : string
+    public static function permission(string $path) : int
     {
         // TODO: Implement permission() method.
     }
@@ -463,13 +463,13 @@ class Directory extends FileAbstract implements \Iterator, \ArrayAccess
         // TODO: Implement get() method.
     }
 
-    public static function size(string $path) : string
+    public static function size(string $path) : int
     {
         // TODO: Implement size() method.
     }
 
     public static function exists(string $path) : bool
     {
-        // TODO: Implement exists() method.
+        return file_exists($path);
     }
 }

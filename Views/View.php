@@ -19,8 +19,6 @@ use phpOMS\ApplicationAbstract;
 use phpOMS\Localization\Localization;
 use phpOMS\Message\RequestAbstract;
 use phpOMS\Message\ResponseAbstract;
-use phpOMS\System\File\PathException;
-use phpOMS\Utils\StringUtils;
 
 /**
  * List view.
@@ -169,7 +167,7 @@ class View extends ViewAbstract
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    private function getText(string $translation, string $module = null, string $theme = null)
+    protected function getText(string $translation, string $module = null, string $theme = null)
     {
         if (!isset($module)) {
             $match = '/Modules/';

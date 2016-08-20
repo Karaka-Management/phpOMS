@@ -15,12 +15,7 @@
  */
 namespace phpOMS\Views;
 
-use phpOMS\ApplicationAbstract;
-use phpOMS\Localization\Localization;
-use phpOMS\Message\RequestAbstract;
-use phpOMS\Message\ResponseAbstract;
 use phpOMS\System\File\PathException;
-use phpOMS\Utils\StringUtils;
 
 /**
  * List view.
@@ -54,10 +49,6 @@ abstract class ViewAbstract implements \Serializable
 
     /**
      * Constructor.
-     *
-     * @param ApplicationAbstract $app      Application
-     * @param RequestAbstract     $request  Request
-     * @param ResponseAbstract    $response Request
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>

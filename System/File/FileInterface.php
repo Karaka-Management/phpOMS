@@ -68,7 +68,7 @@ interface FileInterface
 
 	public static function owner(string $path) : int;
 
-	public static function permission(string $path) : string;
+	public static function permission(string $path) : int;
 
 	public static function parent(string $path) : string;
 
@@ -84,7 +84,7 @@ interface FileInterface
 
 	public static function get(string $path) : string;
 
-	public static function size(string $path) : string;
+	public static function size(string $path) : int;
 
 	public static function exists(string $path) : bool;
 }

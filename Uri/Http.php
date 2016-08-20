@@ -98,10 +98,18 @@ class Http implements UriInterface
     /**
      * Uri query.
      *
+     * @var array
+     * @since 1.0.0
+     */
+    private $query = [];
+
+    /**
+     * Uri query.
+     *
      * @var string
      * @since 1.0.0
      */
-    private $query = null;
+    private $queryString = '';
 
     /**
      * Uri fragment.
@@ -138,18 +146,18 @@ class Http implements UriInterface
     public function set(string $uri)
     {
         $this->uri = $uri;
+        $url       = parse_url($this->uri);
 
-        $url = parse_url($this->uri);
-
-        $this->scheme = $url['scheme'] ?? '';
-        $this->host   = $url['host'] ?? null;
-        $this->port   = $url['port'] ?? null;
-        $this->user   = $url['user'] ?? null;
-        $this->pass   = $url['pass'] ?? null;
-        $this->path   = $url['path'] ?? null;
-        $this->path   = rtrim($this->path, '.php');
-        $this->path   = strpos($this->path, $this->rootPath) === 0 ? substr($this->path, strlen($this->rootPath), strlen($this->path)) : $this->path; // TODO: this could cause a bug if the rootpath is the same as a regular path which is usually the language
-        $this->query  = $url['query'] ?? null;
+        $this->scheme      = $url['scheme'] ?? '';
+        $this->host        = $url['host'] ?? null;
+        $this->port        = $url['port'] ?? null;
+        $this->user        = $url['user'] ?? null;
+        $this->pass        = $url['pass'] ?? null;
+        $this->path        = $url['path'] ?? null;
+        $this->path        = rtrim($this->path, '.php');
+        $this->path        = strpos($this->path, $this->rootPath) === 0 ? substr($this->path, strlen($this->rootPath), strlen($this->path)) : $this->path; // TODO: this could cause a bug if the rootpath is the same as a regular path which is usually the language
+        $this->query       = $url['query'] ?? null;
+        $this->queryString = $this->query;
 
         if (isset($this->query)) {
             parse_str($this->query, $this->query);
@@ -192,7 +200,7 @@ class Http implements UriInterface
      */
     public function getRootPath() : string
     {
-        return $this->rootPath;
+        return $this->rootPath ?? '';
     }
 
     /**
@@ -209,7 +217,7 @@ class Http implements UriInterface
      */
     public function getScheme() : string
     {
-        return $this->scheme;
+        return $this->scheme ?? '';
     }
 
     /**
@@ -217,7 +225,7 @@ class Http implements UriInterface
      */
     public function getHost() : string
     {
-        return $this->host;
+        return $this->host ?? '';
     }
 
     /**
@@ -225,7 +233,7 @@ class Http implements UriInterface
      */
     public function getPort() : int
     {
-        return $this->port;
+        return $this->port ?? 80;
     }
 
     /**
@@ -238,7 +246,7 @@ class Http implements UriInterface
      */
     public function getPass() : string
     {
-        return $this->pass;
+        return $this->pass ?? '';
     }
 
     /**
@@ -246,7 +254,7 @@ class Http implements UriInterface
      */
     public function getPath() : string
     {
-        return $this->path;
+        return $this->path ?? '';
     }
 
     /**
@@ -254,7 +262,7 @@ class Http implements UriInterface
      */
     public function getQuery(string $key = null)
     {
-        return isset($key) ? $this->query[$key] ?? null : $this->query;
+        return isset($key) ? $this->query[$key] ?? null : $this->queryString ?? '';
     }
 
     /**
@@ -262,7 +270,7 @@ class Http implements UriInterface
      */
     public function getFragment() : string
     {
-        return $this->fragment;
+        return $this->fragment ?? '';
     }
 
     /**
@@ -270,7 +278,7 @@ class Http implements UriInterface
      */
     public function getBase() : string
     {
-        return $this->base;
+        return $this->base ?? '';
     }
 
     /**
@@ -299,7 +307,7 @@ class Http implements UriInterface
      */
     public function getUser() : string
     {
-        return $this->user;
+        return $this->user ?? '';
     }
 
     /**

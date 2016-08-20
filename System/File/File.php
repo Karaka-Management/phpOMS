@@ -49,6 +49,16 @@ class File extends FileAbstract
         }
     }
 
+    public function getDirName() : string
+    {
+        return basename(dirname($this->path));
+    }
+
+    public function getDirPath() : string
+    {
+        return dirname($this->path);
+    }
+
     /**
      * Index file.
      *
@@ -113,6 +123,18 @@ class File extends FileAbstract
         return false;
     }
 
+    public function getFileName() : string
+    {
+        return explode('.', $this->name)[0];
+    }
+
+    public function getExtension() : string
+    {
+        $extension = explode('.', $this->name);
+
+        return $extension[1] ?? '';
+    }
+
     public static function get(string $path) : string
     {
         if(!file_exists($path)) {
@@ -127,7 +149,7 @@ class File extends FileAbstract
         return file_exists($path);
     }
 
-    public static function create(string $path) : string
+    public static function create(string $path) : bool
     {
         if(!file_exists($path)) {
             if(!Directory::exists(dirname($path))) {
@@ -186,7 +208,7 @@ class File extends FileAbstract
             throw new PathException($path);
         }
         
-        return fileperms($path);
+        return fileowner($path);
     }
 
     public static function permission(string $path) : int
@@ -195,7 +217,7 @@ class File extends FileAbstract
             throw new PathException($path);
         }
         
-        return fileowner($path);
+        return fileperms($path);
     }
 
     public static function dirname(string $path) : string
