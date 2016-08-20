@@ -853,6 +853,10 @@ class Repository
             throw new \Exception('Invalid commit id');
         }
 
+        if(StringUtils::startsWith($lines[1], 'Merge')) {
+            return new Commit();
+        }
+
         // todo: validate if array values are all initialized
         $author = explode(':', $lines[1]);
         $author = explode('<', trim($author[1]));
