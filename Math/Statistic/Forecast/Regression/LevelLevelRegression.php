@@ -16,10 +16,6 @@
 
 namespace phpOMS\Math\Statistic\Forecast\Regression;
 
-use phpOMS\Math\Statistic\Average;
-use phpOMS\Math\Statistic\Forecast\ForecastIntervalMultiplier;
-use phpOMS\Math\Statistic\MeasureOfDispersion;
-
 /**
  * Regression class.
  *
@@ -33,11 +29,13 @@ use phpOMS\Math\Statistic\MeasureOfDispersion;
  */
 class LevelLevelRegression extends RegressionAbstract
 {
-    public static function getSlope(float $b1, float $y, float $x) : float {
+    public static function getSlope(float $b1, float $y, float $x) : float
+    {
         return $b1;
     }
 
-    public static function getElasticity(float $b1, float $y, float $x): float {
+    public static function getElasticity(float $b1, float $y, float $x): float
+    {
         return $b1 * $y / $x;
     }
 }

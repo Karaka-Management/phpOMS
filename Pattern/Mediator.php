@@ -36,7 +36,7 @@ interface Mediator extends \Countable
      *
      * @param string   $group    Group
      * @param \Closure $callback Function to call if the event gets triggered
-     * @param bool   $remove Remove event after execution
+     * @param bool     $remove   Remove event after execution
      *
      * @return void
      *
@@ -62,8 +62,8 @@ interface Mediator extends \Countable
      *
      * Add new element to group
      *
-     * @param string   $group   Group
-     * @param string   $id    Event ID
+     * @param string $group Group
+     * @param string $id    Event ID
      *
      * @return void
      *
@@ -77,8 +77,8 @@ interface Mediator extends \Countable
      *
      * An object fires an event
      *
-     * @param string   $group   Group
-     * @param string   $id      Event ID
+     * @param string $group Group
+     * @param string $id    Event ID
      *
      * @return void
      *

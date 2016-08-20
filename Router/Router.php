@@ -61,7 +61,7 @@ class Router
      */
     public function importFromFile(string $path) : bool
     {
-        if(file_exists($path)) {
+        if (file_exists($path)) {
             /** @noinspection PhpIncludeInspection */
             $this->routes += include $path;
 
@@ -76,7 +76,7 @@ class Router
      *
      * @param string $route       Route regex
      * @param mixed  $destination Destination e.g. Module:function & verb
-     * @param int $verb           Request verb
+     * @param int    $verb        Request verb
      *
      * @return void
      *
@@ -85,7 +85,7 @@ class Router
      */
     public function add(string $route, $destination, int $verb = RouteVerb::GET)
     {
-        if(!isset($this->routes[$route])) {
+        if (!isset($this->routes[$route])) {
             $this->routes[$route] = [];
         }
 
@@ -99,7 +99,7 @@ class Router
      * Route request.
      *
      * @param RequestAbstract $request Request to route
-     * @param int $verb Route verb
+     * @param int             $verb    Route verb
      *
      * @return string[]
      *
@@ -110,10 +110,10 @@ class Router
      */
     public function route($request, int $verb = RouteVerb::GET) : array
     {
-        if($request instanceof RequestAbstract) {
-            $uri = $request->getUri();
+        if ($request instanceof RequestAbstract) {
+            $uri  = $request->getUri();
             $verb = $request->getRouteVerb();
-        } elseif(is_string($request)) {
+        } elseif (is_string($request)) {
             $uri = $request;
         } else {
             throw new \Exception();
@@ -135,9 +135,9 @@ class Router
      * Match route and uri.
      *
      * @param string $route      Route
-     * @param int $routeVerb  GET,POST for this route
+     * @param int    $routeVerb  GET,POST for this route
      * @param string $uri        Uri
-     * @param int $remoteVerb Verb this request is using
+     * @param int    $remoteVerb Verb this request is using
      *
      * @return bool
      *

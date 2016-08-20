@@ -382,5 +382,5 @@ class Localization
     public function setTemperatur(string $temperature)
     {
         $this->temperature = $temperature;
-    } 
+    }
 }

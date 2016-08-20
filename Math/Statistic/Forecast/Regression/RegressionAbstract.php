@@ -6,7 +6,8 @@ use phpOMS\Math\Statistic\Average;
 use phpOMS\Math\Statistic\Forecast\ForecastIntervalMultiplier;
 use phpOMS\Math\Statistic\MeasureOfDispersion;
 
-abstract class RegressionAbstract {
+abstract class RegressionAbstract
+{
     /**
      * Get linear regression based on scatter plot.
      *
@@ -22,7 +23,7 @@ abstract class RegressionAbstract {
      */
     public static function getRegression(array $x, array $y) : array
     {
-        if(count($x) != count($y)) {
+        if (count($x) != count($y)) {
             throw new \Exception('Dimension');
         }
 
@@ -30,7 +31,7 @@ abstract class RegressionAbstract {
 
         return ['b0' => self::getBeta0($x, $y, $b1), 'b1' => $b1];
     }
-    
+
     /**
      * Standard error of the regression.
      *
@@ -129,7 +130,7 @@ abstract class RegressionAbstract {
         return Average::arithmeticMean($y) - $b1 * Average::arithmeticMean($x);
     }
 
-	abstract public static function getSlope(float $b1, float $y, float $x) : float;
+    abstract public static function getSlope(float $b1, float $y, float $x) : float;
 
-	abstract public static function getElasticity(float $b1, float $y, float $x): float;
+    abstract public static function getElasticity(float $b1, float $y, float $x): float;
 }

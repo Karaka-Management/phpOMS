@@ -2,6 +2,7 @@
 
 namespace phpOMS\Math\Finance\Forecasting;
 
-class ExponentialSmoothing {
+class ExponentialSmoothing
+{
 
 }

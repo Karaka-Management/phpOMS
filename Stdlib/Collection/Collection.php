@@ -51,6 +51,15 @@ class Collection implements \Countable, \ArrayAccess, \Iterator, \JsonSerializab
         return $this->sum() / $this->count();
     }
 
+    public function sum()
+    {
+    }
+
+    public function count()
+    {
+        return count($this->collection);
+    }
+
     public function chunk()
     {
 
@@ -69,11 +78,6 @@ class Collection implements \Countable, \ArrayAccess, \Iterator, \JsonSerializab
     {
     }
 
-    public function count()
-    {
-        return count($this->collection);
-    }
-
     public function diff()
     {
     }
@@ -85,23 +89,36 @@ class Collection implements \Countable, \ArrayAccess, \Iterator, \JsonSerializab
     public function every(int $n)
     {
         $new = [];
-        for($i = 0; $i < $this->count(); $i += $n) {
+        for ($i = 0; $i < $this->count(); $i += $n) {
             $new[] = $this->get($i);
         }
 
         return new self($new);
     }
 
+    public function get($key)
+    {
+        if (!isset($this->collection[$key])) {
+            if (is_int($key) && $key < $this->count()) {
+                return $this->collection[array_keys($this->collection)[$key]];
+            }
+        } else {
+            return $this->collection[$key];
+        }
+
+        return null;
+    }
+
     public function except($filter)
     {
-        if(!is_array($filter)) {
+        if (!is_array($filter)) {
             $filter = [$filter];
         }
 
         $new = [];
-        for($i = 0; $i < $this->count(); $i++) {
+        for ($i = 0; $i < $this->count(); $i++) {
 
-            if(!in_array($this->get($i), $filter)) {
+            if (!in_array($this->get($i), $filter)) {
                 $new[] = $this->get($i);
             }
         }
@@ -154,19 +171,6 @@ class Collection implements \Countable, \ArrayAccess, \Iterator, \JsonSerializab
     {
     }
 
-    public function get($key)
-    {
-        if(!isset($this->collection[$key])) {
-            if(is_int($key) && $key < $this->count()) {
-                return $this->collection[array_keys($this->collection)[$key]];
-            }
-        } else {
-            return $this->collection[$key];
-        }
-
-        return null;
-    }
-
     public function groupBy()
     {
     }
@@ -200,10 +204,6 @@ class Collection implements \Countable, \ArrayAccess, \Iterator, \JsonSerializab
     }
 
     public function min()
-    {
-    }
-
-    public function sum()
     {
     }
 

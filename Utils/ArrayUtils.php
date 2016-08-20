@@ -239,10 +239,10 @@ class ArrayUtils
      */
     public static function getArg(string $id, array $args)
     {
-        if(($key = array_search($id, $args)) === false || $key === count($args) - 1) {
+        if (($key = array_search($id, $args)) === false || $key === count($args) - 1) {
             return null;
         }
 
-        return trim($args[$key+1], '" ');
+        return trim($args[$key + 1], '" ');
     }
 }

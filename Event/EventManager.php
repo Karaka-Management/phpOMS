@@ -65,7 +65,7 @@ class EventManager implements Mediator
      */
     public function attach(string $group, \Closure $callback, bool $remove = false) : bool
     {
-        if(isset($this->callbacks[$group])) {
+        if (isset($this->callbacks[$group])) {
             return false;
         }
 
@@ -77,13 +77,39 @@ class EventManager implements Mediator
     /**
      * {@inheritdoc}
      */
+    public function trigger(string $group, string $id = '')
+    {
+        if (isset($this->groups[$group])) {
+            unset($this->groups[$group][$id]);
+        }
+
+        if ($this->hasOutstanding($group)) {
+            $this->callbacks[$group]['func'];
+
+            if ($this->callbacks[$group]['remove']) {
+                $this->detach($group);
+            }
+        }
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    private function hasOutstanding(string $group) : bool
+    {
+        return empty($this->groups[$group]);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
     public function detach(string $group) : bool
     {
-        if(isset($this->callbacks[$group])) {
+        if (isset($this->callbacks[$group])) {
             unset($this->callbacks[$group]);
         }
 
-        if(isset($this->groups[$group])) {
+        if (isset($this->groups[$group])) {
             unset($this->groups[$group]);
         }
 
@@ -93,35 +119,9 @@ class EventManager implements Mediator
     /**
      * {@inheritdoc}
      */
-    public function trigger(string $group, string $id = '')
-    {
-        if(isset($this->groups[$group])) {
-            unset($this->groups[$group][$id]);
-        }
-
-        if ($this->hasOutstanding($group)) {
-            $this->callbacks[$group]['func'];
-
-            if($this->callbacks[$group]['remove']) {
-                $this->detach($group);
-            }
-        }
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    private function hasOutstanding(string $group) : bool 
-    {
-        return empty($this->groups[$group]);
-    }
-
-    /**
-     * {@inheritdoc}
-     */
     public function addGroup(string $group, string $id)
     {
-        if(!isset($this->groups[$group])) {
+        if (!isset($this->groups[$group])) {
             $this->groups[$group] = [];
         }
 

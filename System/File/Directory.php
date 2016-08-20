@@ -80,7 +80,7 @@ class Directory extends FileAbstract implements \Iterator, \ArrayAccess
         parent::index();
 
         foreach (glob($this->path . DIRECTORY_SEPARATOR . $this->filter) as $filename) {
-            if(!StringUtils::endsWith(trim($filename), '.') ) {
+            if (!StringUtils::endsWith(trim($filename), '.')) {
                 $file = is_dir($filename) ? new self($filename) : new File($filename);
 
                 $this->add($file);
@@ -216,6 +216,83 @@ class Directory extends FileAbstract implements \Iterator, \ArrayAccess
     }
 
     /**
+     * Get parent directory path.
+     *
+     * @param string $path Path
+     *
+     * @return string
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+    public static function parent(string $path) : string
+    {
+        $path = explode('/', str_replace('\\', '/', $path));
+        array_pop($path);
+
+        return implode('/', $path);
+    }
+
+    public static function created(string $path) : \DateTime
+    {
+        // TODO: Implement created() method.
+    }
+
+    public static function changed(string $path) : \DateTime
+    {
+        // TODO: Implement changed() method.
+    }
+
+    public static function owner(string $path) : int
+    {
+        // TODO: Implement owner() method.
+    }
+
+    public static function permission(string $path) : int
+    {
+        // TODO: Implement permission() method.
+    }
+
+    /* Iterator */
+
+    public static function delete(string $path) : bool
+    {
+        // TODO: Implement delete() method.
+    }
+
+    public static function copy(string $from, string $to, bool $overwrite = false) : bool
+    {
+        // TODO: Implement copy() method.
+    }
+
+    public static function move(string $from, string $to, bool $overwrite = false) : bool
+    {
+        // TODO: Implement move() method.
+    }
+
+    public static function put(string $path, string $content, bool $overwrite = true) : bool
+    {
+        // TODO: Implement put() method.
+    }
+
+    public static function get(string $path) : string
+    {
+        // TODO: Implement get() method.
+    }
+
+    /* ArrayAccess */
+
+    public static function size(string $path) : int
+    {
+        // TODO: Implement size() method.
+    }
+
+    public static function exists(string $path) : bool
+    {
+        return file_exists($path);
+    }
+
+    /**
      * Get node by name.
      *
      * @param string $name File/direcotry name
@@ -262,24 +339,6 @@ class Directory extends FileAbstract implements \Iterator, \ArrayAccess
     }
 
     /**
-     * Get parent directory path.
-     *
-     * @param string $path Path
-     *
-     * @return string
-     *
-     * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
-     */
-    public static function parent(string $path) : string
-    {
-        $path = explode('/', str_replace('\\', '/', $path));
-        array_pop($path);
-
-        return implode('/', $path);
-    }
-
-    /**
      * Remove by name.
      *
      * @param string $name Name to remove
@@ -304,8 +363,6 @@ class Directory extends FileAbstract implements \Iterator, \ArrayAccess
 
         return false;
     }
-
-    /* Iterator */
 
     /**
      * {@inheritdoc}
@@ -349,7 +406,6 @@ class Directory extends FileAbstract implements \Iterator, \ArrayAccess
         return ($key !== null && $key !== false);
     }
 
-    /* ArrayAccess */
     /**
      * {@inheritdoc}
      */
@@ -416,60 +472,5 @@ class Directory extends FileAbstract implements \Iterator, \ArrayAccess
     public function getContent() : string
     {
         // TODO: Implement getContent() method.
-    }
-
-    public static function created(string $path) : \DateTime
-    {
-        // TODO: Implement created() method.
-    }
-
-    public static function changed(string $path) : \DateTime
-    {
-        // TODO: Implement changed() method.
-    }
-
-    public static function owner(string $path) : int
-    {
-        // TODO: Implement owner() method.
-    }
-
-    public static function permission(string $path) : int
-    {
-        // TODO: Implement permission() method.
-    }
-
-    public static function delete(string $path) : bool
-    {
-        // TODO: Implement delete() method.
-    }
-
-    public static function copy(string $from, string $to, bool $overwrite = false) : bool
-    {
-        // TODO: Implement copy() method.
-    }
-
-    public static function move(string $from, string $to, bool $overwrite = false) : bool
-    {
-        // TODO: Implement move() method.
-    }
-
-    public static function put(string $path, string $content, bool $overwrite = true) : bool
-    {
-        // TODO: Implement put() method.
-    }
-
-    public static function get(string $path) : string
-    {
-        // TODO: Implement get() method.
-    }
-
-    public static function size(string $path) : int
-    {
-        // TODO: Implement size() method.
-    }
-
-    public static function exists(string $path) : bool
-    {
-        return file_exists($path);
     }
 }

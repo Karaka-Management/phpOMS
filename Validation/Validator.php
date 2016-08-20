@@ -14,6 +14,7 @@
  * @link       http://orange-management.com
  */
 namespace phpOMS\Validation;
+
 use phpOMS\Utils\StringUtils;
 
 /**

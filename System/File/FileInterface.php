@@ -30,61 +30,61 @@ namespace phpOMS\System\File;
  */
 interface FileInterface
 {
-	public function getCount() : int;
+    public static function created(string $path) : \DateTime;
 
-	public function getSize() : int;
+    public static function changed(string $path) : \DateTime;
 
-	public function getName() : string;
+    public static function owner(string $path) : int;
 
-	public function getPath() : string;
+    public static function permission(string $path) : int;
 
-	public function getParent() : FileInterface;
+    public static function parent(string $path) : string;
 
-	public function createNode() : bool;
+    public static function create(string $path) : bool;
 
-	public function copyNode() : bool;
+    public static function delete(string $path) : bool;
 
-	public function moveNode() : bool;
+    public static function copy(string $from, string $to, bool $overwrite = false) : bool;
 
-	public function deleteNode() : bool;
+    public static function move(string $from, string $to, bool $overwrite = false) : bool;
 
-	public function putContent() : bool;
+    public static function put(string $path, string $content, bool $overwrite = true) : bool;
 
-	public function getContent() : string;
+    public static function get(string $path) : string;
 
-	public function getCreatedAt() : \DateTime;
+    public static function size(string $path) : int;
 
-	public function getChangedAt() : \DateTime;
+    public static function exists(string $path) : bool;
 
-	public function getOwner() : int;
+    public function getCount() : int;
 
-	public function getPermission() : string;
+    public function getSize() : int;
 
-	public function index();
+    public function getName() : string;
 
-	public static function created(string $path) : \DateTime;
+    public function getPath() : string;
 
-	public static function changed(string $path) : \DateTime;
+    public function getParent() : FileInterface;
 
-	public static function owner(string $path) : int;
+    public function createNode() : bool;
 
-	public static function permission(string $path) : int;
+    public function copyNode() : bool;
 
-	public static function parent(string $path) : string;
+    public function moveNode() : bool;
 
-	public static function create(string $path) : bool;
+    public function deleteNode() : bool;
 
-	public static function delete(string $path) : bool;
+    public function putContent() : bool;
 
-	public static function copy(string $from, string $to, bool $overwrite = false) : bool;
+    public function getContent() : string;
 
-	public static function move(string $from, string $to, bool $overwrite = false) : bool;
+    public function getCreatedAt() : \DateTime;
 
-	public static function put(string $path, string $content, bool $overwrite = true) : bool;
+    public function getChangedAt() : \DateTime;
 
-	public static function get(string $path) : string;
+    public function getOwner() : int;
 
-	public static function size(string $path) : int;
+    public function getPermission() : string;
 
-	public static function exists(string $path) : bool;
+    public function index();
 }

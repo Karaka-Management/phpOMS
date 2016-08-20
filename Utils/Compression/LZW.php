@@ -81,8 +81,8 @@ class LZW implements CompressionInterface
 
         $w      = chr($compressed[0]);
         $result = $w;
-        $count = count($compressed);
-        
+        $count  = count($compressed);
+
         for ($i = 1; $i < $count; $i++) {
             $k = $compressed[$i];
 
@@ -90,7 +90,7 @@ class LZW implements CompressionInterface
                 $entry = $dictionary[$k];
             } else {
                 if ($k !== $dictSize) {
-                    throw new \Exception('Wrong dictionary size!'. $k . '.' . $dictSize);
+                    throw new \Exception('Wrong dictionary size!' . $k . '.' . $dictSize);
                 }
 
                 $entry = $w . $w[0];

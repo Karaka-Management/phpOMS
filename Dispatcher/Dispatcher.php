@@ -16,8 +16,6 @@
 namespace phpOMS\Dispatcher;
 
 use phpOMS\ApplicationAbstract;
-use phpOMS\Message\RequestAbstract;
-use phpOMS\Message\ResponseAbstract;
 use phpOMS\Module\ModuleAbstract;
 use phpOMS\System\File\PathException;
 

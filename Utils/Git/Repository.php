@@ -642,7 +642,7 @@ class Repository
                 continue;
             }
 
-            if(!file_exists($path = $this->getDirectoryPath() . ($this->bare ? '/' : '/../') . $line)) {
+            if (!file_exists($path = $this->getDirectoryPath() . ($this->bare ? '/' : '/../') . $line)) {
                 return 0;
             }
 

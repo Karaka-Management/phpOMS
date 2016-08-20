@@ -94,7 +94,7 @@ class UriFactory
      * . = DOM class
      * / = Current path
      * ? = Current query
-     * @ = 
+     * @ =
      * $ = Other data
      *
      * @param string $uri     Path data

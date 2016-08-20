@@ -154,9 +154,9 @@ class InstallerAbstract
     {
         $directories = new Directory(ROOT_PATH . '/Modules/' . $info->getDirectory() . '/Admin/Routes');
 
-        foreach($directories as $key => $subdir) {
-            if($subdir instanceof Directory) {
-                foreach($subdir as $key2 => $file) {
+        foreach ($directories as $key => $subdir) {
+            if ($subdir instanceof Directory) {
+                foreach ($subdir as $key2 => $file) {
                     self::installRoutes(ROOT_PATH . '/' . $subdir->getName() . '/' . basename($file->getName(), '.php') . '/Routes.php', $file->getPath());
                 }
             }
@@ -178,7 +178,7 @@ class InstallerAbstract
      */
     private static function installRoutes(string $destRoutePath, string $srcRoutePath)
     {
-        if(!file_exists($destRoutePath)) {
+        if (!file_exists($destRoutePath)) {
             file_put_contents($destRoutePath, '<?php return [];');
         }
 
@@ -196,11 +196,11 @@ class InstallerAbstract
                 throw new PermissionException($destRoutePath);
             }
         } else {
-            if(!file_exists($srcRoutePath)) {
+            if (!file_exists($srcRoutePath)) {
                 throw new PathException($srcRoutePath);
             }
 
-            if(!file_exists($destRoutePath)) {
+            if (!file_exists($destRoutePath)) {
                 throw new PathException($destRoutePath);
             }
         }

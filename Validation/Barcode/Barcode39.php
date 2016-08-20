@@ -19,5 +19,5 @@ use phpOMS\Validation\ValidatorAbstract;
 
 class Barcode39 extends ValidatorAbstract
 {
-    
+
 }

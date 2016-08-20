@@ -16,10 +16,6 @@
 
 namespace phpOMS\Math\Statistic\Forecast\Regression;
 
-use phpOMS\Math\Statistic\Average;
-use phpOMS\Math\Statistic\Forecast\ForecastIntervalMultiplier;
-use phpOMS\Math\Statistic\MeasureOfDispersion;
-
 /**
  * Regression class.
  *
@@ -48,11 +44,11 @@ class LogLogRegression extends RegressionAbstract
      */
     public static function getRegression(array $x, array $y) : array
     {
-        if(($c = count($x)) != count($y)) {
+        if (($c = count($x)) != count($y)) {
             throw new \Exception('Dimension');
         }
 
-        for($i = 0; $i < $c; $i++) {
+        for ($i = 0; $i < $c; $i++) {
             $x[$i] = log($x[i]);
             $y[$i] = log($y[i]);
         }
@@ -60,12 +56,14 @@ class LogLogRegression extends RegressionAbstract
         return parent::getRegression($x, $y);
     }
 
-    public static function getSlope(float $b1, float $y, float $x) : float {
+    public static function getSlope(float $b1, float $y, float $x) : float
+    {
         return $b1 * $y / $x;
     }
 
-    public static function getElasticity(float $b1, float $y, float $x): float {
+    public static function getElasticity(float $b1, float $y, float $x): float
+    {
         return $b1;
     }
-    
+
 }

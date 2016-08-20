@@ -65,10 +65,10 @@ class Money implements \Serializable
      * Constructor.
      *
      * @param string|int|float $value     Value
-     * @param string $thousands Thousands separator
-     * @param string $decimal   Decimal separator
-     * @param string $symbol    Currency symbol
-     * @param int $position     Symbol position
+     * @param string           $thousands Thousands separator
+     * @param string           $decimal   Decimal separator
+     * @param string           $symbol    Currency symbol
+     * @param int              $position  Symbol position
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
@@ -80,42 +80,6 @@ class Money implements \Serializable
         $this->decimal   = $decimal;
         $this->symbol    = $symbol;
         $this->position  = $position;
-    }
-
-    /**
-     * Set localization.
-     *
-     * @param string $thousands Thousands separator
-     * @param string $decimal   Decimal separator
-     * @param string $symbol    Currency symbol
-     * @param int $position     Symbol position
-     *
-     * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
-     */
-    public function setLocalization(string $thousands = ',', string $decimal = '.', string $symbol = '', int $position = 0)
-    {
-        $this->thousands = $thousands;
-        $this->decimal   = $decimal;
-        $this->symbol    = $symbol;
-        $this->position  = $position;
-    }
-
-    /**
-     * Set value by string.
-     *
-     * @param string $value Money value
-     *
-     * @return Money
-     *
-     * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
-     */
-    public function setString(string $value) : Money
-    {
-        $this->value = self::toInt($value, $this->thousands, $this->decimal);
-
-        return $this;
     }
 
     /**
@@ -147,6 +111,57 @@ class Money implements \Serializable
     }
 
     /**
+     * Set localization.
+     *
+     * @param string $thousands Thousands separator
+     * @param string $decimal   Decimal separator
+     * @param string $symbol    Currency symbol
+     * @param int    $position  Symbol position
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+    public function setLocalization(string $thousands = ',', string $decimal = '.', string $symbol = '', int $position = 0)
+    {
+        $this->thousands = $thousands;
+        $this->decimal   = $decimal;
+        $this->symbol    = $symbol;
+        $this->position  = $position;
+    }
+
+    /**
+     * Set value by string.
+     *
+     * @param string $value Money value
+     *
+     * @return Money
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+    public function setString(string $value) : Money
+    {
+        $this->value = self::toInt($value, $this->thousands, $this->decimal);
+
+        return $this;
+    }
+
+    /**
+     * Get money.
+     *
+     * @param int $decimals Precision
+     *
+     * @return string
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+    public function getCurrency(int $decimals = 2) : string
+    {
+        return ($position === 0 ? $smbol : '') . $this->getAmount($decimals, $thousands, $decimal) . ($position === 1 ? $smbol : '');
+    }
+
+    /**
      * Get money.
      *
      * @param int $decimals Precision
@@ -164,21 +179,6 @@ class Money implements \Serializable
         $right = substr($value, -self::MAX_DECIMALS);
 
         return ($decimals > 0) ? number_format($left, 0, $this->decimal, $this->thousands) . $this->decimal . substr($right, 0, $decimals) : (string) $left;
-    }
-
-    /**
-     * Get money.
-     *
-     * @param int $decimals Precision
-     *
-     * @return string
-     *
-     * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
-     */
-    public function getCurrency(int $decimals = 2) : string
-    {
-        return ($position === 0 ? $smbol : '') . $this->getAmount($decimals, $thousands, $decimal) . ($position === 1 ? $smbol : '');
     }
 
     /**

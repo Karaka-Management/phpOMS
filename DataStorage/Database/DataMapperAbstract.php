@@ -994,7 +994,7 @@ class DataMapperAbstract implements DataMapperInterface
     /**
      * Get random object
      *
-     * @param int $amount Amount of random models
+     * @param int $amount    Amount of random models
      * @param int $relations Relations type
      *
      * @return mixed
@@ -1031,7 +1031,7 @@ class DataMapperAbstract implements DataMapperInterface
     {
         $hasMany = count(static::$hasMany) > 0;
         $hasOne  = count(static::$hasOne) > 0;
-        $ownsOne  = count(static::$ownsOne) > 0;
+        $ownsOne = count(static::$ownsOne) > 0;
 
         if ($relations !== RelationType::NONE && ($hasMany || $hasOne)) {
             foreach ($obj as $key => $value) {

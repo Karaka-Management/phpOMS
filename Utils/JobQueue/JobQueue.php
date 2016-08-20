@@ -86,6 +86,21 @@ class JobQueue
         sleep(1);
     }
 
+    private function runAsDeamon()
+    {
+        ob_end_clean();
+        fclose(STDIN);
+        fclose(STDOUT);
+        fclose(STDERR);
+
+        function shutdown()
+        {
+            posix_kill(posix_getpid(), SIGHUP);
+        }
+
+        register_shutdown_function('shutdown');
+    }
+
     public function setRunning(bool $run = true)
     {
         $this->run       = $run;
@@ -97,14 +112,14 @@ class JobQueue
         return $this->run;
     }
 
-    public function setSuspended(bool $suspended = true)
-    {
-        $this->suspended = $suspended;
-    }
-
     public function isSuspended() : bool
     {
         return $this->suspended;
+    }
+
+    public function setSuspended(bool $suspended = true)
+    {
+        $this->suspended = $suspended;
     }
 
     public function isTerminating() : bool
@@ -125,21 +140,6 @@ class JobQueue
     public function setDeamonized(bool $deamonized)
     {
         $this->isDeamonized = $deamonized;
-    }
-
-    private function runAsDeamon()
-    {
-        ob_end_clean();
-        fclose(STDIN);
-        fclose(STDOUT);
-        fclose(STDERR);
-
-        function shutdown()
-        {
-            posix_kill(posix_getpid(), SIGHUP);
-        }
-
-        register_shutdown_function('shutdown');
     }
 
     private function savePid()

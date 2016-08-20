@@ -18,7 +18,6 @@ namespace phpOMS\Module;
 use phpOMS\ApplicationAbstract;
 use phpOMS\Autoloader;
 use phpOMS\DataStorage\Database\DatabaseType;
-use phpOMS\Log\FileLogger;
 use phpOMS\Message\Http\Request;
 use phpOMS\System\File\PathException;
 

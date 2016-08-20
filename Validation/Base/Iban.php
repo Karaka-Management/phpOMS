@@ -51,7 +51,7 @@ abstract class Iban extends ValidatorAbstract
      */
     public static function isValid($value) : bool
     {
-        $value = str_replace(' ', '', strtolower($value));
+        $value    = str_replace(' ', '', strtolower($value));
         $enumName = 'C_' . strtoupper(substr($value, 0, 2));
 
         if (!IbanEnum::isValidName($enumName)) {

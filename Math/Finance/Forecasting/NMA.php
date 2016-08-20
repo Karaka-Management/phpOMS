@@ -2,7 +2,8 @@
 
 namespace phpOMS\Math\Finance\Forecasting;
 
-class NMA {
+class NMA
+{
 
 }
 

@@ -87,7 +87,7 @@ class Grammar extends GrammarAbstract
      * @since 1.0.0
      */
     protected $randomComponents = [
-        'random'
+        'random',
     ];
 
     /**

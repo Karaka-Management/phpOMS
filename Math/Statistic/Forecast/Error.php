@@ -181,17 +181,19 @@ class Error
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public static function getSumSquaredError(array $errors) : float {
+    public static function getSumSquaredError(array $errors) : float
+    {
         $error = 0.0;
 
-        foreach($errors as $e) {
-            $error += $e*$e;
+        foreach ($errors as $e) {
+            $error += $e * $e;
         }
 
         return $error;
     }
 
-    public static function getRBarSquared(float $R, int $observations, int $predictors) : float {
+    public static function getRBarSquared(float $R, int $observations, int $predictors) : float
+    {
         return 1 - (1 - $R * ($observations - 1) / ($observations - $predictors - 1));
     }
 
@@ -199,7 +201,8 @@ class Error
      * Get Aike's information criterion (AIC)
      *
      */
-    public static function getAkaikeInformationCriterion(float $sse, int $observations, int $predictors) : float {
+    public static function getAkaikeInformationCriterion(float $sse, int $observations, int $predictors) : float
+    {
         return $observations * log($sse / $observations) + 2 * ($predictors + 2);
     }
 
@@ -208,16 +211,18 @@ class Error
      *
      * Correction for small amount of observations
      */
-    public static function getCorrectedAkaikeInformationCriterion(float $aic, int $observations, int $predictors) : float {
-        return $aic + (2*($predictors +2)*($predictors + 3)) / ($observations - $predictors - 3);
+    public static function getCorrectedAkaikeInformationCriterion(float $aic, int $observations, int $predictors) : float
+    {
+        return $aic + (2 * ($predictors + 2) * ($predictors + 3)) / ($observations - $predictors - 3);
     }
 
     /**
      * Get Bayesian information criterion (BIC)
      *
      */
-    public static function getSchwarzBayesianInformationCriterion(float $sse, int $observations, int $predictors) : float {
-        return $observations * log($sse / $observations) + ($predictors +2)*log($observations);
+    public static function getSchwarzBayesianInformationCriterion(float $sse, int $observations, int $predictors) : float
+    {
+        return $observations * log($sse / $observations) + ($predictors + 2) * log($observations);
     }
 
     /**

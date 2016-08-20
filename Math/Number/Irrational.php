@@ -18,5 +18,5 @@ namespace phpOMS\Math\Number;
 
 class Irrational
 {
-    
+
 }

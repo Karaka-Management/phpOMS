@@ -58,6 +58,26 @@ abstract class ViewAbstract implements \Serializable
     }
 
     /**
+     * Sort views by order.
+     *
+     * @param array $a Array 1
+     * @param array $b Array 2
+     *
+     * @return int
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+    private static function viewSort(array $a, array $b) : int
+    {
+        if ($a['order'] === $b['order']) {
+            return 0;
+        }
+
+        return ($a['order'] < $b['order']) ? -1 : 1;
+    }
+
+    /**
      * Get the template.
      *
      * @return string
@@ -83,26 +103,6 @@ abstract class ViewAbstract implements \Serializable
     public function setTemplate(string $template)
     {
         $this->template = $template;
-    }
-
-    /**
-     * Sort views by order.
-     *
-     * @param array $a Array 1
-     * @param array $b Array 2
-     *
-     * @return int
-     *
-     * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
-     */
-    private static function viewSort(array $a, array $b) : int
-    {
-        if ($a['order'] === $b['order']) {
-            return 0;
-        }
-
-        return ($a['order'] < $b['order']) ? -1 : 1;
     }
 
     /**
@@ -196,6 +196,25 @@ abstract class ViewAbstract implements \Serializable
     }
 
     /**
+     * Serialize view for rendering.
+     *
+     * @return string|array
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+    public function serialize()
+    {
+        $path = realpath($oldPath = __DIR__ . '/../..' . $this->template . '.tpl.php');
+
+        if ($path === false) {
+            return $this->toArray();
+        }
+
+        return $this->render();
+    }
+
+    /**
      * Arrayify view and it's subviews.
      *
      * @return array
@@ -207,7 +226,7 @@ abstract class ViewAbstract implements \Serializable
     {
         $viewArray = [];
 
-        if($this->template !== '') {
+        if ($this->template !== '') {
             $viewArray[] = $this->render();
         }
 
@@ -244,25 +263,6 @@ abstract class ViewAbstract implements \Serializable
         }
 
         return $ob;
-    }
-
-    /**
-     * Serialize view for rendering.
-     *
-     * @return string|array
-     *
-     * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
-     */
-    public function serialize()
-    {
-        $path = realpath($oldPath = __DIR__ . '/../..' . $this->template . '.tpl.php');
-
-        if ($path === false) {
-            return $this->toArray();
-        }
-
-        return $this->render();
     }
 
     /**
