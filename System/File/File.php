@@ -68,20 +68,20 @@ class File extends FileAbstract
      * Save string to file.
      *
      * If the directory doesn't exist where the string should be saved it will be created
-     * as well as potential subdirectories. The directories will be created with '0644'
+     * as well as potential parent directories. The directories will be created with '0644'
      * permission.
      *
-     * @param string $path Path to save the string to
-     * @param string $content Content to save to file
-     * @param bool $overwrite Should the file be overwritten if it already exists
+     * @param string $path      Path to save the string to
+     * @param string $content   Content to save to file
+     * @param bool   $overwrite Should the file be overwritten if it already exists
      *
      * @example File::put('/var/www/html/test.txt', 'string'); // true
      * @example File::put('/var/www/html/test.txt', 'string', false); // false
      *
-     * @return bool Returns true on successfule file write and false on failure
+     * @return bool Returns true on successful file write and false on failure
      *
-     * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     * @since   1.0.0
+     * @author  Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public static function put(string $path, string $content, bool $overwrite = true) : bool
     {
@@ -109,8 +109,8 @@ class File extends FileAbstract
      *
      * @throws PathException In case the file doesn't exist this exception gets thrown.
      *
-     * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     * @since   1.0.0
+     * @author  Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public static function get(string $path) : string
     {
@@ -130,8 +130,8 @@ class File extends FileAbstract
      *
      * @return bool Returns true if the file exists and false if it doesn't.
      *
-     * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     * @since   1.0.0
+     * @author  Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public static function exists(string $path) : bool
     {
@@ -147,8 +147,8 @@ class File extends FileAbstract
      *
      * @return string Returns the parent full directory path.
      *
-     * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     * @since   1.0.0
+     * @author  Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public static function parent(string $path) : string
     {
@@ -166,8 +166,8 @@ class File extends FileAbstract
      *
      * @example File::created('/var/www/html/test.txt');
      *
-     * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     * @since   1.0.0
+     * @author  Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public static function created(string $path) : \DateTime
     {
@@ -192,8 +192,8 @@ class File extends FileAbstract
      *
      * @example File::changed('/var/www/html/test.txt');
      *
-     * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     * @since   1.0.0
+     * @author  Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public static function changed(string $path) : \DateTime
     {
@@ -207,6 +207,18 @@ class File extends FileAbstract
         return $changed;
     }
 
+    /**
+     * Gets the size of a file.
+     *
+     * @param string $path Path of the file to get the size for.
+     *
+     * @return int Returns the size of a file
+     *
+     * @example File::size('/var/www/html/test.txt');
+     *
+     * @since   1.0.0
+     * @author  Dennis Eichhorn <d.eichhorn@oms.com>
+     */
     public static function size(string $path) : int
     {
         if (!file_exists($path)) {
@@ -216,6 +228,18 @@ class File extends FileAbstract
         return filesize($path);
     }
 
+    /**
+     * Gets the owner of a file.
+     *
+     * @param string $path Path of the file to get owner for.
+     *
+     * @return int Returns the owner of a file.
+     *
+     * @example File::owner('/var/www/html/test.txt');
+     *
+     * @since   1.0.0
+     * @author  Dennis Eichhorn <d.eichhorn@oms.com>
+     */
     public static function owner(string $path) : int
     {
         if (!file_exists($path)) {
@@ -225,6 +249,18 @@ class File extends FileAbstract
         return fileowner($path);
     }
 
+    /**
+     * Gets the permission of a file.
+     *
+     * @param string $path Path of the file to get the permission for.
+     *
+     * @return int Returns the permission of a file <owner><group><all>
+     *
+     * @example File::size('/var/www/html/test.txt');
+     *
+     * @since   1.0.0
+     * @author  Dennis Eichhorn <d.eichhorn@oms.com>
+     */
     public static function permission(string $path) : int
     {
         if (!file_exists($path)) {
@@ -234,11 +270,61 @@ class File extends FileAbstract
         return fileperms($path);
     }
 
+    /**
+     * Gets the directory name of a file.
+     *
+     * @param string $path Path of the file to get the directory name for.
+     *
+     * @return string Returns the directory name of a file.
+     *
+     * @example File::size('/var/www/html/test.txt'); // html
+     *
+     * @since   1.0.0
+     * @author  Dennis Eichhorn <d.eichhorn@oms.com>
+     */
     public static function dirname(string $path) : string
+    {
+        return basename(dirname($path));
+    }
+
+    /**
+     * Gets the directory path of a file.
+     *
+     * @param string $path Path of the file to get the directory path for.
+     *
+     * @return string Returns the directory path of a file.
+     *
+     * @example File::size('/var/www/html/test.txt'); // /var/www/html
+     *
+     * @since   1.0.0
+     * @author  Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+    public static function dirpath(string $path) : string
     {
         return dirname($path);
     }
 
+    /**
+     * Copies a file.
+     *
+     * If the directory doesn't exist where the file should be copied to it will be created
+     * as well as potential parent directories. The directories will be created with '0644'
+     * permission.
+     *
+     * @param string $from      The path of the file to copy.
+     * @param string $to        The path and name of the file where to save the copy.
+     * @param bool   $overwrite Should the file be overwritten if it already exists
+     *
+     * @example File::copy('/var/www/html/test.txt', '/var/www/html/test2.txt'); // true
+     * @example File::copy('/var/www/html/test.txt', '/var/www/html/test2.txt'); // false
+     *
+     * @return bool Returns true on successful file copy and false on failure
+     *
+     * @throws PathException Throws this exception if the file to copy doesn't exist.
+     *
+     * @since   1.0.0
+     * @author  Dennis Eichhorn <d.eichhorn@oms.com>
+     */
     public static function copy(string $from, string $to, bool $overwrite = false) : bool
     {
         if (!file_exists($from)) {
@@ -258,6 +344,27 @@ class File extends FileAbstract
         return false;
     }
 
+    /**
+     * Moves a file.
+     *
+     * If the directory doesn't exist where the file should be moved to it will be created
+     * as well as potential parent directories. The directories will be created with '0644'
+     * permission.
+     *
+     * @param string $from      The path of the file to move.
+     * @param string $to        The path and name of the file where to move it.
+     * @param bool   $overwrite Should the file be overwritten if it already exists.
+     *
+     * @example File::move('/var/www/html/test.txt', '/var/www/html/test2.txt'); // true
+     * @example File::move('/var/www/html/test.txt', '/var/www/html/test2.txt'); // false
+     *
+     * @return bool Returns true on successful file move and false on failure
+     *
+     * @throws PathException Throws this exception if the file to move doesn't exist.
+     *
+     * @since   1.0.0
+     * @author  Dennis Eichhorn <d.eichhorn@oms.com>
+     */
     public static function move(string $from, string $to, bool $overwrite = false) : bool
     {
         if (!file_exists($from)) {
@@ -277,22 +384,52 @@ class File extends FileAbstract
         return false;
     }
 
+    /**
+     * Deletes a file.
+     *
+     * @param string $path Path of the file delete.
+     *
+     * @return bool Returns true if the file could get deleted false otherwise.
+     *
+     * @throws PathException Throws this exception if the file to delete doesn't exist.
+     *
+     * @example File::size('/var/www/html/test.txt');
+     *
+     * @since   1.0.0
+     * @author  Dennis Eichhorn <d.eichhorn@oms.com>
+     */
     public static function delete(string $path) : bool
     {
         if (!file_exists($path)) {
-            return false;
+            throw new PathException($path);
         }
 
         unlink($path);
 
-        return true;
+        return !file_exists($path);
     }
 
+    /**
+     * Gets the directory name of a file.
+     *
+     * @return string Returns the directory name of the file.
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
     public function getDirName() : string
     {
         return basename(dirname($this->path));
     }
 
+    /**
+     * Gets the directory path of a file.
+     *
+     * @return string Returns the directory path of the file.
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
     public function getDirPath() : string
     {
         return dirname($this->path);
@@ -306,6 +443,20 @@ class File extends FileAbstract
         return self::create($this->path);
     }
 
+    /**
+     * Create an empty file.
+     *
+     * If the directory doesn't exist where the file should be created it will be created
+     * as well as potential parent directories. The directories will be created with '0644'
+     * permission.
+     *
+     * @param string $path Path of the file to create.
+     *
+     * @return bool Returns true if the file could get created false otherwise or if it already existed.
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
     public static function create(string $path) : bool
     {
         if (!file_exists($path)) {
@@ -315,7 +466,7 @@ class File extends FileAbstract
 
             touch($path);
 
-            return true;
+            return file_exists($path);
         }
 
         return false;
