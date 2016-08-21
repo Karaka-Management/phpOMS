@@ -43,7 +43,7 @@ class ModuleManager
      * @var string
      * @since 1.0.0
      */
-    const MODULE_PATH = ROOT_PATH . DIRECTORY_SEPARATOR . 'Modules';
+    const MODULE_PATH = __DIR__ . '/../../Modules';
 
     /**
      * All modules that are running on this uri.
