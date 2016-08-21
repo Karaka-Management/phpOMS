@@ -13,7 +13,7 @@
  * @version    1.0.0
  * @link       http://orange-management.com
  */
-namespace phpOMS\System\File;
+namespace phpOMS\System\File\Local;
 
 /**
  * Filesystem class.
@@ -28,7 +28,7 @@ namespace phpOMS\System\File;
  * @link       http://orange-management.com
  * @since      1.0.0
  */
-abstract class FileAbstract implements FileInterface
+abstract class FileAbstract implements ContainerInterface
 {
     /**
      * Path.
@@ -175,16 +175,6 @@ abstract class FileAbstract implements FileInterface
     {
         return new Directory(Directory::parent($this->path));
     }
-
-    /**
-     * Create file/directory.
-     *
-     * @return bool
-     *
-     * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
-     */
-    abstract public function createNode() : bool;
 
     /**
      * Get created at.

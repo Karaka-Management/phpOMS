@@ -15,7 +15,7 @@
  */
 namespace phpOMS\DataStorage\Cache;
 
-use phpOMS\System\File\Directory;
+use phpOMS\System\File\Local\Directory;
 
 /**
  * MemCache class.

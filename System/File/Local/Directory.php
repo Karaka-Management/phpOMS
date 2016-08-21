@@ -13,8 +13,9 @@
  * @version    1.0.0
  * @link       http://orange-management.com
  */
-namespace phpOMS\System\File;
+namespace phpOMS\System\File\Local;
 
+use phpOMS\System\File\DirectoryInterface;
 use phpOMS\Utils\StringUtils;
 
 /**
@@ -30,7 +31,7 @@ use phpOMS\Utils\StringUtils;
  * @link       http://orange-management.com
  * @since      1.0.0
  */
-class Directory extends FileAbstract implements \Iterator, \ArrayAccess
+class Directory extends FileAbstract implements DirectoryInterface
 {
     /**
      * Direcotry list filter.
