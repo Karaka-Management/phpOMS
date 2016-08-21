@@ -30,11 +30,28 @@ namespace phpOMS\System\File;
  */
 final class Storage
 {
+    private static $registered = [];
+
     public static function env(string $env = 'local') : string
     {
-        $env = ucfirst(strtolower($env));
-        $env = __NAMESPACE__ . '\\' . $env . '\\' . $env . 'Storage';
-
+        if (isset(self::$registered[$env])) {
+            $env = self::$registered[$env];
+        } else {
+            $env = ucfirst(strtolower($env));
+            $env = __NAMESPACE__ . '\\' . $env . '\\' . $env . 'Storage';
+        }
+        
         return $env::getInstance();
+    }
+
+    public static function register(string $name, string $class) : bool
+    {
+        if (isset(self::$registered[$name])) {
+            return false;
+        }
+
+        self::$registered[$name] = $class;
+
+        return true;
     }
 }
