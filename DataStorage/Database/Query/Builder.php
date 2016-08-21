@@ -18,7 +18,6 @@ namespace phpOMS\DataStorage\Database\Query;
 
 use phpOMS\DataStorage\Database\BuilderAbstract;
 use phpOMS\DataStorage\Database\Connection\ConnectionAbstract;
-use phpOMS\DataStorage\Database\Query;
 
 /**
  * Database query builder.

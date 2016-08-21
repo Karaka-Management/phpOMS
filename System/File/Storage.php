@@ -40,7 +40,7 @@ final class Storage
             $env = ucfirst(strtolower($env));
             $env = __NAMESPACE__ . '\\' . $env . '\\' . $env . 'Storage';
         }
-        
+
         return $env::getInstance();
     }
 

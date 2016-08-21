@@ -35,7 +35,7 @@ use phpOMS\Utils\StringUtils;
 class Directory extends FileAbstract implements DirectoryInterface
 {
     /**
-     * Direcotry list filter.
+     * Directory list filter.
      *
      * @var string
      * @since 1.0.0
@@ -43,7 +43,7 @@ class Directory extends FileAbstract implements DirectoryInterface
     private $filter = '*';
 
     /**
-     * Direcotry nodes (files and directories).
+     * Directory nodes (files and directories).
      *
      * @var FileAbstract[]
      * @since 1.0.0
