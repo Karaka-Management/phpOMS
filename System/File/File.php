@@ -64,6 +64,25 @@ class File extends FileAbstract
         $this->size = filesize($this->path);
     }
 
+    /**
+     * Save string to file.
+     *
+     * If the directory doesn't exist where the string should be saved it will be created
+     * as well as potential subdirectories. The directories will be created with '0644'
+     * permission.
+     *
+     * @param string $path Path to save the string to
+     * @param string $content Content to save to file
+     * @param bool $overwrite Should the file be overwritten if it already exists
+     *
+     * @example File::put('/var/www/html/test.txt', 'string'); // true
+     * @example File::put('/var/www/html/test.txt', 'string', false); // false
+     *
+     * @return bool Returns true on successfule file write and false on failure
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
     public static function put(string $path, string $content, bool $overwrite = true) : bool
     {
         if ($overwrite || !file_exists($path)) {
@@ -79,6 +98,20 @@ class File extends FileAbstract
         return false;
     }
 
+    /**
+     * Get content of file.
+     *
+     * @param string $path Path to read from
+     *
+     * @example File::get('/var/www/html/test.txt');
+     *
+     * @return string The content of the file to read from.
+     *
+     * @throws PathException In case the file doesn't exist this exception gets thrown.
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
     public static function get(string $path) : string
     {
         if (!file_exists($path)) {
@@ -88,16 +121,54 @@ class File extends FileAbstract
         return file_get_contents($path);
     }
 
+    /**
+     * Checks if a file exists.
+     *
+     * @param string $path Path of the file to check the existance for.
+     *
+     * @example File::exists('/var/www/html/test.txt');
+     *
+     * @return bool Returns true if the file exists and false if it doesn't.
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
     public static function exists(string $path) : bool
     {
         return file_exists($path);
     }
 
+    /**
+     * Gets the parent directory path of the specified file.
+     *
+     * @param string $path Path of the file to get the parent directory for.
+     *
+     * @example File::parent('/var/www/html/test.txt'); // /var/www
+     *
+     * @return string Returns the parent full directory path.
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
     public static function parent(string $path) : string
     {
         return Directory::parent(dirname($path));
     }
 
+    /**
+     * Gets the date when the file got created.
+     *
+     * @param string $path Path of the file to get the date of creation for.
+     *
+     * @return \DateTime Returns the \DateTime of when the file was created.
+     *
+     * @throws PathException Throws this exception if the file to get the creation date for doesn't exist.
+     *
+     * @example File::created('/var/www/html/test.txt');
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
     public static function created(string $path) : \DateTime
     {
         if (!file_exists($path)) {
@@ -110,6 +181,20 @@ class File extends FileAbstract
         return $created;
     }
 
+    /**
+     * Gets the date when the file got changed the last time.
+     *
+     * @param string $path Path of the file to get the last date of change for.
+     *
+     * @return \DateTime Returns the \DateTime of when the file was last changed.
+     *
+     * @throws PathException Throws this exception if the file to get the last change date for doesn't exist.
+     *
+     * @example File::changed('/var/www/html/test.txt');
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
     public static function changed(string $path) : \DateTime
     {
         if (!file_exists($path)) {
