@@ -16,6 +16,7 @@
 namespace phpOMS\System\File\Local;
 
 use phpOMS\System\File\DirectoryInterface;
+use phpOMS\System\File\PathException;
 use phpOMS\Utils\StringUtils;
 
 /**
@@ -190,7 +191,7 @@ class Directory extends FileAbstract implements DirectoryInterface
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public static function deletePath($path) : bool
+    public static function delete(string $path) : bool
     {
         $path = realpath($oldPath = $path);
         if ($path === false || !is_dir($path) || StringUtils::startsWith($path, ROOT_PATH)) {
@@ -205,7 +206,7 @@ class Directory extends FileAbstract implements DirectoryInterface
 
         foreach ($files as $file) {
             if (is_dir($file)) {
-                self::deletePath($file);
+                self::delete($file);
             } else {
                 unlink($file);
             }
@@ -255,11 +256,6 @@ class Directory extends FileAbstract implements DirectoryInterface
     }
 
     /* Iterator */
-
-    public static function delete(string $path) : bool
-    {
-        // TODO: Implement delete() method.
-    }
 
     public static function copy(string $from, string $to, bool $overwrite = false) : bool
     {

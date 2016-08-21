@@ -15,6 +15,7 @@
  */
 namespace phpOMS\System\File\Local;
 use phpOMS\System\File\FileInterface;
+use phpOMS\System\File\PathException;
 
 /**
  * Filesystem class.
