@@ -16,7 +16,6 @@
 namespace phpOMS\System\File\Local;
 use phpOMS\System\File\ContainerInterface;
 use phpOMS\System\File\FileInterface;
-use phpOMS\System\File\PathException;
 use phpOMS\System\File\StorageAbstract;
 
 /**
@@ -110,7 +109,7 @@ class LocalStorage extends StorageAbstract
         // TODO: Implement getPath() method.
     }
 
-    public function getParent() : FileInterface
+    public function getParent() : ContainerInterface
     {
         // TODO: Implement getParent() method.
     }

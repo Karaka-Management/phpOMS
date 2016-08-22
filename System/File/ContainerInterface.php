@@ -14,6 +14,7 @@
  * @link       http://orange-management.com
  */
 namespace phpOMS\System\File;
+use phpOMS\System\File\Local\FileAbstract;
 
 /**
  * Filesystem class.
@@ -60,7 +61,7 @@ interface ContainerInterface
 
     public function getPath() : string;
 
-    public function getParent() : FileInterface;
+    public function getParent() : ContainerInterface;
 
     public function createNode() : bool;
 

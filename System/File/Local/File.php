@@ -14,6 +14,7 @@
  * @link       http://orange-management.com
  */
 namespace phpOMS\System\File\Local;
+use phpOMS\System\File\ContainerInterface;
 use phpOMS\System\File\FileInterface;
 use phpOMS\System\File\PathException;
 
@@ -361,7 +362,7 @@ class File extends FileAbstract implements FileInterface
         return $extension[1] ?? '';
     }
 
-    public function getParent() : FileInterface
+    public function getParent() : ContainerInterface
     {
         // TODO: Implement getParent() method.
     }

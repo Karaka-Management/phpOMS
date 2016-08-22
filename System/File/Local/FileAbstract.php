@@ -14,6 +14,7 @@
  * @link       http://orange-management.com
  */
 namespace phpOMS\System\File\Local;
+use phpOMS\System\File\ContainerInterface;
 
 /**
  * Filesystem class.
