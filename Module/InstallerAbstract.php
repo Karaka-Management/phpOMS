@@ -17,7 +17,7 @@ namespace phpOMS\Module;
 
 use phpOMS\DataStorage\Database\DatabaseType;
 use phpOMS\DataStorage\Database\Pool;
-use phpOMS\System\File\Directory;
+use phpOMS\System\File\Local\Directory;
 use phpOMS\System\File\PathException;
 use phpOMS\System\File\PermissionException;
 use phpOMS\Utils\Parser\Php\ArrayParser;

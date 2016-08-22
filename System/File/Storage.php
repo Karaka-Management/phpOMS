@@ -28,14 +28,30 @@ namespace phpOMS\System\File;
  * @link       http://orange-management.com
  * @since      1.0.0
  */
-interface FileInterface extends ContainerInterface
+final class Storage
 {
+    private static $registered = [];
 
-    public static function put(string $path, string $content, bool $overwrite = true) : bool;
+    public static function env(string $env = 'local') : string
+    {
+        if (isset(self::$registered[$env])) {
+            $env = self::$registered[$env];
+        } else {
+            $env = ucfirst(strtolower($env));
+            $env = __NAMESPACE__ . '\\' . $env . '\\' . $env . 'Storage';
+        }
 
-    public static function get(string $path) : string;
+        return $env::getInstance();
+    }
 
-    public function putContent() : bool;
+    public static function register(string $name, string $class) : bool
+    {
+        if (isset(self::$registered[$name])) {
+            return false;
+        }
 
-    public function getContent() : string;
+        self::$registered[$name] = $class;
+
+        return true;
+    }
 }

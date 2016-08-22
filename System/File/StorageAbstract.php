@@ -28,14 +28,22 @@ namespace phpOMS\System\File;
  * @link       http://orange-management.com
  * @since      1.0.0
  */
-interface FileInterface extends ContainerInterface
+abstract class StorageAbstract implements DirectoryInterface, FileInterface
 {
+    protected static $instance = null;
 
-    public static function put(string $path, string $content, bool $overwrite = true) : bool;
+    protected function __construct()
+    {
+    }
 
-    public static function get(string $path) : string;
+    public static function getInstance()
+    {
+        if(!isset(static::$instance)) {
+            static::$instance = new static();
+        }
 
-    public function putContent() : bool;
+        return static::$instance;
+    }
 
-    public function getContent() : string;
+    abstract protected function getType() : ContainerInterface;
 }

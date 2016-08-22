@@ -13,8 +13,10 @@
  * @version    1.0.0
  * @link       http://orange-management.com
  */
-namespace phpOMS\System\File;
+namespace phpOMS\System\File\Local;
 
+use phpOMS\System\File\DirectoryInterface;
+use phpOMS\System\File\PathException;
 use phpOMS\Utils\StringUtils;
 
 /**
@@ -30,10 +32,10 @@ use phpOMS\Utils\StringUtils;
  * @link       http://orange-management.com
  * @since      1.0.0
  */
-class Directory extends FileAbstract implements \Iterator, \ArrayAccess
+class Directory extends FileAbstract implements DirectoryInterface
 {
     /**
-     * Direcotry list filter.
+     * Directory list filter.
      *
      * @var string
      * @since 1.0.0
@@ -41,7 +43,7 @@ class Directory extends FileAbstract implements \Iterator, \ArrayAccess
     private $filter = '*';
 
     /**
-     * Direcotry nodes (files and directories).
+     * Directory nodes (files and directories).
      *
      * @var FileAbstract[]
      * @since 1.0.0
@@ -189,7 +191,7 @@ class Directory extends FileAbstract implements \Iterator, \ArrayAccess
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public static function deletePath($path) : bool
+    public static function delete(string $path) : bool
     {
         $path = realpath($oldPath = $path);
         if ($path === false || !is_dir($path) || StringUtils::startsWith($path, ROOT_PATH)) {
@@ -204,7 +206,7 @@ class Directory extends FileAbstract implements \Iterator, \ArrayAccess
 
         foreach ($files as $file) {
             if (is_dir($file)) {
-                self::deletePath($file);
+                self::delete($file);
             } else {
                 unlink($file);
             }
@@ -254,11 +256,6 @@ class Directory extends FileAbstract implements \Iterator, \ArrayAccess
     }
 
     /* Iterator */
-
-    public static function delete(string $path) : bool
-    {
-        // TODO: Implement delete() method.
-    }
 
     public static function copy(string $from, string $to, bool $overwrite = false) : bool
     {

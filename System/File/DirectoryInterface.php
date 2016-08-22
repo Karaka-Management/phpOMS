@@ -28,7 +28,6 @@ namespace phpOMS\System\File;
  * @link       http://orange-management.com
  * @since      1.0.0
  */
-class NullFile extends File
+interface DirectoryInterface extends ContainerInterface, \Iterator, \ArrayAccess
 {
-
 }
