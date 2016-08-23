@@ -194,9 +194,8 @@ class Directory extends FileAbstract implements DirectoryInterface
      */
     public static function delete(string $path) : bool
     {
-        $path = realpath($oldPath = $path);
-        if ($path === false || !is_dir($path) || StringUtils::startsWith($path, ROOT_PATH)) {
-            throw new PathException($oldPath);
+        if (!file_exists($path) || !is_dir($path)) {
+            throw new PathException($path);
         }
 
         $files = scandir($path);

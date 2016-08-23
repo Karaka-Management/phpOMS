@@ -124,9 +124,9 @@ abstract class ModuleAbstract
     public static function getLocalization(string $language, string $destination) : array
     {
         $lang = [];
-        if (($path = realpath($oldPath = __DIR__ . '/../../Modules/' . static::MODULE_NAME . '/Theme/' . $destination . '/Lang/' . $language . '.lang.php')) !== false) {
+        if (file_exists($oldPath = __DIR__ . '/../../Modules/' . static::MODULE_NAME . '/Theme/' . $destination . '/Lang/' . $language . '.lang.php')) {
             /** @noinspection PhpIncludeInspection */
-            $lang = include $path;
+            $lang = include $oldPath;
         }
 
         return $lang;

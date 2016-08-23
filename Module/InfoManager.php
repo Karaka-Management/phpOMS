@@ -73,11 +73,11 @@ class InfoManager
      */
     public function load()
     {
-        if (($path = realpath($this->path)) === false) {
+        if (!file_exists($this->path)) {
             throw new PathException($this->path);
         }
 
-        $this->info = json_decode(file_get_contents($path), true);
+        $this->info = json_decode(file_get_contents($this->path), true);
     }
 
     /**

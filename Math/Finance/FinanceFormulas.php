@@ -52,6 +52,8 @@ class FinanceFormulas
     /**
      * Annual Percentage Yield
      *
+     * @latex r = \left(APY + 1\right)^{\frac{1}{n}} \cdot n - 1
+     *
      * @param float $apy Annual percentage yield
      * @param int   $n   Number of times compounded
      *
@@ -62,7 +64,7 @@ class FinanceFormulas
      */
     public static function getStateAnnualInterestRateOfAPY(float $apy, int $n) : float
     {
-        return (pow($apy + 1, 1 / $n) - 1) * $n;
+        return pow($apy + 1, 1 / $n) * $n  - 1;
     }
 
     /**

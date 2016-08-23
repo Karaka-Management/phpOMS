@@ -205,9 +205,7 @@ abstract class ViewAbstract implements \Serializable
      */
     public function serialize()
     {
-        $path = realpath($oldPath = __DIR__ . '/../..' . $this->template . '.tpl.php');
-
-        if ($path === false) {
+        if (!file_exists(__DIR__ . '/../..' . $this->template . '.tpl.php')) {
             return $this->toArray();
         }
 
@@ -247,10 +245,10 @@ abstract class ViewAbstract implements \Serializable
      */
     public function render() : string
     {
-        $path = realpath($oldPath = __DIR__ . '/../..' . $this->template . '.tpl.php');
+        $path = __DIR__ . '/../..' . $this->template . '.tpl.php';
 
-        if ($path === false) {
-            throw new PathException($oldPath);
+        if (!file_exists($path)) {
+            throw new PathException($path);
         }
 
         ob_start();
