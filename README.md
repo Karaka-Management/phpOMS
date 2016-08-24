@@ -15,6 +15,8 @@ Thanks to the modular structure it's easy to have full control over the costs an
 
 Currently Orange Management is still fully developing the first Alpha version. As soon as we have a running Beta version we are allowing external testers to use our software and a selected amount of inhouse developed modules.
 
+[Repository Dashboard](https://app.powerbi.com/view?r=eyJrIjoiNDdjOWQyZjItNGZiNy00MGYzLTgzYzMtYzdjMzUwYzFjZTRkIiwidCI6IjQ2ZWY1YTJmLWIzN2MtNGQzNS1hOTBiLWZkYzMyMzg5MzQ3ZSJ9)
+
 ## Developers
 
 We are always looking for people that are interested in joining this project. We are looking for:
