@@ -16,7 +16,9 @@
 namespace phpOMS\Utils;
 
 /**
- * String utils.
+ * String utils class.
+ *
+ * This class provides static helper functionalities for strings.
  *
  * @category   Framework
  * @package    phpOMS\Utils
@@ -32,6 +34,8 @@ class StringUtils
     /**
      * Constructor.
      *
+     * This class is purely static and is preventing any initialization
+     *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
@@ -40,12 +44,18 @@ class StringUtils
     }
 
     /**
-     * Contains any string
+     * Check if a string contains any of the provided needles.
+     *
+     * The validation is done case sensitive.
      *
      * @param string $haystack Haystack
-     * @param array  $needles  Needles
+     * @param array  $needles  Needles to check if any of them are part of the haystack
      *
-     * @return bool
+     * @example StringUtils::contains('This string', ['This', 'test']); // true
+     * @example StringUtils::contains('This string', 'is st'); // true
+     * @example StringUtils::contains('This string', 'something'); // false
+     *
+     * @return bool The function returns true if any of the needles is part of the haystack, false otherwise.
      *
      * @since  1.0.0
      * @author Dennis Eichhorn
@@ -62,12 +72,19 @@ class StringUtils
     }
 
     /**
-     * String ends with?
+     * Tests if a string ends with a certain string.
+     *
+     * The validation is done case sensitive. The function takes strings or an array of strings for the validation.
+     * In case of an array the function will test if any of the needles is at the end of the haystack string.
      *
      * @param string       $haystack Haystack
-     * @param string|array $needles  Needles
+     * @param string|array $needles  Needles to check if they are at the end of the haystack.
      *
-     * @return bool
+     * @example StringUtils::endsWith('Test string', ['test1', 'string']); // true
+     * @example StringUtils::endsWith('Test string', 'string'); // true
+     * @example StringUtils::endsWith('Test string', 'String'); // false
+     *
+     * @return bool The function returns true if any of the needles is at the end of the haystack, false otherwise.
      *
      * @since  1.0.0
      * @author Dennis Eichhorn
@@ -88,12 +105,19 @@ class StringUtils
     }
 
     /**
-     * String starts with?
+     * Tests if a string starts with a certain string.
+     *
+     * The validation is done case sensitive. The function takes strings or an array of strings for the validation.
+     * In case of an array the function will test if any of the needles is at the beginning of the haystack string.
      *
      * @param string       $haystack Haystack
-     * @param string|array $needles  Needles
+     * @param string|array $needles  Needles to check if they are at the beginning of the haystack.
      *
-     * @return bool
+     * @example StringUtils::startsWith('Test string', ['Test', 'something']); // true
+     * @example StringUtils::startsWith('Test string', 'string'); // false
+     * @example StringUtils::startsWith('Test string', 'Test'); // true
+     *
+     * @return bool The function returns true if any of the needles is at the beginning of the haystack, false otherwise.
      *
      * @since  1.0.0
      * @author Dennis Eichhorn
@@ -114,12 +138,15 @@ class StringUtils
     }
 
     /**
-     * String starts with?
+     * Tests if a multi byte string starts with a certain string.
+     *
+     * The validation is done case sensitive. The function takes strings or an array of strings for the validation.
+     * In case of an array the function will test if any of the needles is at the beginning of the haystack string.
      *
      * @param string       $haystack Haystack
-     * @param string|array $needles  Needles
+     * @param string|array $needles  Needles to check if they are at the beginning of the haystack.
      *
-     * @return bool
+     * @return bool The function returns true if any of the needles is at the beginning of the haystack, false otherwise.
      *
      * @since  1.0.0
      * @author Dennis Eichhorn
@@ -140,12 +167,19 @@ class StringUtils
     }
 
     /**
-     * String ends with?
+     * Tests if a multi byte string ends with a certain string.
+     *
+     * The validation is done case sensitive. The function takes strings or an array of strings for the validation.
+     * In case of an array the function will test if any of the needles is at the end of the haystack string.
      *
      * @param string       $haystack Haystack
-     * @param string|array $needles  Needles
+     * @param string|array $needles  Needles to check if they are at the end of the haystack.
      *
-     * @return bool
+     * @example StringUtils::endsWith('Test string', ['test1', 'string']); // true
+     * @example StringUtils::endsWith('Test string', 'string'); // true
+     * @example StringUtils::endsWith('Test string', String); // false
+     *
+     * @return bool The function returns true if any of the needles is at the end of the haystack, false otherwise.
      *
      * @since  1.0.0
      * @author Dennis Eichhorn
@@ -166,11 +200,11 @@ class StringUtils
     }
 
     /**
-     * Uppercase first letter.
+     * Makes first letter of a multi byte string upper case.
      *
-     * @param string $string String to manipulate
+     * @param string $string String to upper case first letter.
      *
-     * @return string
+     * @return string Multi byte string with first character as upper case.
      *
      * @since  1.0.0
      * @author Dennis Eichhorn
@@ -185,11 +219,11 @@ class StringUtils
     }
 
     /**
-     * Lowercase first letter.
+     * Makes first letter of a multi byte string lower case.
      *
-     * @param string $string String to manipulate
+     * @param string $string String to lower case first letter.
      *
-     * @return string
+     * @return string Multi byte string with first character as lower case.
      *
      * @since  1.0.0
      * @author Dennis Eichhorn
@@ -204,12 +238,12 @@ class StringUtils
     }
 
     /**
-     * Trim string.
+     * Trim multi byte characters from a multi byte string.
      *
-     * @param string $string   String to manipulate
-     * @param string $charlist String to trim
+     * @param string $string   Multi byte string to trim multi byte characters from.
+     * @param string $charlist Multi byte character list used for trimming
      *
-     * @return string
+     * @return string Trimmed multi byte string.
      *
      * @since  1.0.0
      * @author Dennis Eichhorn
@@ -226,12 +260,12 @@ class StringUtils
     }
 
     /**
-     * Trim right part of string.
+     * Trim multi byte characters from the right of a multi byte string.
      *
-     * @param string $string   String to manipulate
-     * @param string $charlist String to trim
+     * @param string $string   Multi byte string to trim multi byte characters from.
+     * @param string $charlist Multi byte character list used for trimming
      *
-     * @return string
+     * @return string Trimmed multi byte string.
      *
      * @since  1.0.0
      * @author Dennis Eichhorn
@@ -248,12 +282,12 @@ class StringUtils
     }
 
     /**
-     * Trim left part of string.
+     * Trim multi byte characters from the left of a multi byte string.
      *
-     * @param string $string   String to manipulate
-     * @param string $charlist String to trim
+     * @param string $string   Multi byte string to trim multi byte characters from.
+     * @param string $charlist Multi byte character list used for trimming
      *
-     * @return string
+     * @return string Trimmed multi byte string.
      *
      * @since  1.0.0
      * @author Dennis Eichhorn
@@ -270,12 +304,15 @@ class StringUtils
     }
 
     /**
-     * Count occurences of character at the beginning of string.
+     * Count occurences of character at the beginning of a string.
      *
-     * @param string $string    String to manipulate
-     * @param string $character Character to count
+     * @param string $string    String to analyze.
+     * @param string $character Character to count at the beginning of the string.
      *
-     * @return int
+     * @example StringUtils::countCharacterFromStart('    Test string', ' '); // 4
+     * @example StringUtils::countCharacterFromStart('    Test string', 's'); // 0
+     *
+     * @return int The amount of repeating occurences at the beginning of the string.
      *
      * @since  1.0.0
      * @author Dennis Eichhorn

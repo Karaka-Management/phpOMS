@@ -11,7 +11,7 @@ abstract class RegressionAbstract
     /**
      * Get linear regression based on scatter plot.
      *
-     * y = b0 + b1 * x
+     * @latex y = b_{0} + b_{1} \cdot x
      *
      * @param array $x Obersved x values
      * @param array $y Observed y values
@@ -36,6 +36,8 @@ abstract class RegressionAbstract
      * Standard error of the regression.
      *
      * Used in order to evaluate the performance of the linear regression
+     *
+     * @latex s_{e} = \sqrt{\frac{1}{N - 2}\sum_{i = 1}^{N} e_{i}^{2}}
      *
      * @param array $errors Errors (e = y - y_forecasted)
      *
@@ -88,6 +90,8 @@ abstract class RegressionAbstract
     /**
      * Get linear regression parameter beta 1.
      *
+     * @latex \beta_{1} = \frac{\sum_{i=1}^{N} \left(y_{i} - \bar{y}\right)\left(x_{i} - \bar{x}\right)}{\sum_{i=1}^{N} \left(x_{i} - \bar{x}\right)^{2}}
+     *
      * @param array $x Obersved x values
      * @param array $y Observed y values
      *
@@ -115,6 +119,8 @@ abstract class RegressionAbstract
 
     /**
      * Get linear regression parameter beta 0.
+     *
+     * @latex \beta_{0} = \bar{x} - b_{1} \cdot \bar{x}
      *
      * @param array $x  Obersved x values
      * @param array $y  Observed y values

@@ -263,6 +263,16 @@ class DataMapperAbstract implements DataMapperInterface
         return __CLASS__;
     }
 
+    /**
+     * Resets all loaded mapper variables.
+     *
+     * This is used after one action is performed otherwise other models would use wrong settings.
+     *
+     * @return void
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
     public static function clear()
     {
         self::$overwrite    = true;

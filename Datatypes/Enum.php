@@ -88,7 +88,7 @@ abstract class Enum
      *
      * @return mixed
      *
-     * @throws \Exception
+     * @throws \Exception Throws this exception if the constant is not defined in the enum class.
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>

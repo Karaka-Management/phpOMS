@@ -39,7 +39,7 @@ class Autoloader
      *
      * @return void
      *
-     * @throws
+     * @throws \Exception Throws this exception if the class to autoload doesn't exist. This could also be related to a wrong namespace/file path correlation.
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>

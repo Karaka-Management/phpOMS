@@ -30,17 +30,7 @@ namespace phpOMS\Math\Statistic\Forecast\Regression;
 class LogLogRegression extends RegressionAbstract
 {
     /**
-     * Get linear regression based on scatter plot.
-     *
-     * y = b0 + b1 * x
-     *
-     * @param array $x Obersved x values
-     * @param array $y Observed y values
-     *
-     * @return array [b0 => ?, b1 => ?]
-     *
-     * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     * {@inheritdoc}
      */
     public static function getRegression(array $x, array $y) : array
     {
