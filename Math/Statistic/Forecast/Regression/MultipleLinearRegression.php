@@ -4,6 +4,9 @@ namespace phpOMS\Math\Statistic\Forecast\Regression;
 
 class MultipleLinearRegression
 {
+    /**
+     * {@inheritdoc}
+     */
     public static function getRegression(array $x, array $y) : array
     {
         $X = new Matrix(count($x), count($x[0]));

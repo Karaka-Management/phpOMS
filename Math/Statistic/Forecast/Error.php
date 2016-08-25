@@ -142,7 +142,9 @@ class Error
     /**
      * Goodness of fit.
      *
-     * Evaluating how well the observed data fit the linear regression model
+     * Evaluating how well the observed data fit the linear regression model.
+     *
+     * @latex R^{2} = \frac{\sum \left(\hat{y}_{i} - \bar{y}\right)^2}{\sum \left(y_{i} - \bar{y}\right)^2}
      *
      * @param array $observed   Obersved y values
      * @param array $forecasted Forecasted y values
