@@ -245,16 +245,15 @@ class ModuleManager
             $c     = count($files);
 
             for ($i = 0; $i < $c; $i++) {
-                $path = realpath($oldPath = self::MODULE_PATH . '/' . $files[$i] . '/info.json');
+                $path = self::MODULE_PATH . '/' . $files[$i] . '/info.json';
 
-                if (file_exists($path)) {
-                    if (strpos($path, self::MODULE_PATH) === false) {
-                        throw new PathException($oldPath);
-                    }
-
-                    $json                                 = json_decode(file_get_contents($path), true);
-                    self::$all[$json['name']['internal']] = $json;
+                if (!file_exists($path)) {
+                    continue;
+                    // throw new PathException($path);
                 }
+
+                $json                                 = json_decode(file_get_contents($path), true);
+                self::$all[$json['name']['internal']] = $json;
             }
         }
 
@@ -388,8 +387,9 @@ class ModuleManager
             return false;
         }
 
-        if (!file_exists(self::MODULE_PATH . '/' . $module . '/Admin/Install.php')) {
+        if (!file_exists(self::MODULE_PATH . '/' . $module . '/Admin/Installer.php')) {
             // todo download;
+            return false;
         }
 
         try {
@@ -526,7 +526,7 @@ class ModuleManager
     {
         $path = realpath($oldPath = self::MODULE_PATH . '/' . $module . '/' . 'info.json');
 
-        if ($path === false || strpos($path, self::MODULE_PATH) === false) {
+        if ($path === false) {
             throw new PathException($oldPath);
         }
 
@@ -584,38 +584,17 @@ class ModuleManager
     /**
      * Initialize module.
      *
-     * @param string|array $module Module name
+     * @param string|array $modules Module name
      *
      * @throws
      *
      * @since  1.0.0
      * @author Dennis Eichhorn
      */
-    public function initModule($module)
+    public function initModule($modules)
     {
-        try {
-            if (!is_array($module)) {
-                $module = [$module];
-            }
+        $modules = (array) $modules;
 
-            $this->initModuleArray($module);
-        } catch (\Exception $e) {
-            throw $e;
-        }
-    }
-
-    /**
-     * Initialize array of modules.
-     *
-     * @param array $modules Modules
-     *
-     * @return void
-     *
-     * @since  1.0.0
-     * @author Dennis Eichhorn
-     */
-    private function initModuleArray(array $modules)
-    {
         foreach ($modules as $module) {
             try {
                 $this->initModuleController($module);

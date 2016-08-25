@@ -105,7 +105,7 @@ class FileLogger implements LoggerInterface
         if (is_dir($lpath) || strpos($lpath, '.') === false) {
             File::create($path = $path . '/' . date('Y-m-d') . '.log');
         } else {
-            File::create($lpath);
+            File::create($path = $lpath);
         }
 
         $this->path = $path;

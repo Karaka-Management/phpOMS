@@ -145,7 +145,7 @@ class Prime
             $number = next($primes);
         }
 
-        return $primes;
+        return array_values($primes);
     }
 
     /**

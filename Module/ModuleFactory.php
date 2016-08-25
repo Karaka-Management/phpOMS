@@ -82,7 +82,7 @@ class ModuleFactory
                 self::registerRequesting($obj);
                 self::registerProvided($obj);
             } catch (\Exception $e) {
-                throw new \InvalidArgumentException('Module "' . $module . '" is not loaded.');
+                self::$loaded[$module] = new NullModule($app);
             }
         }
 

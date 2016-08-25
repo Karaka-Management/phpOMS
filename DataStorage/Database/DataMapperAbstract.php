@@ -378,9 +378,12 @@ class DataMapperAbstract implements DataMapperInterface
             }
 
             foreach (static::$columns as $key => $column) {
-                if (isset(static::$ownsOne[$propertyName])) {
-                    self::createOwnsOne($propertyName, $property, $obj);
-                } elseif ($column['internal'] === $propertyName) {
+                if (isset(static::$ownsOne[$propertyName]) && $column['internal'] === $propertyName) {
+                    $id    = self::createOwnsOne($propertyName, $property, $obj);
+                    $value = self::parseValue($column['type'], $id);
+
+                    $query->insert($column['name'])->value($value, $column['type']);
+                } elseif ($column['internal'] === $propertyName && $column['type'] !== static::$primaryField) {
                     $value = self::parseValue($column['type'], $property->getValue($obj));
 
                     $query->insert($column['name'])->value($value, $column['type']);
@@ -509,7 +512,7 @@ class DataMapperAbstract implements DataMapperInterface
         }
     }
 
-    private static function createHasOne()
+    private static function createHasOne(\ReflectionClass $reflectionClass, $obj)
     {
         foreach (static::$hasOne as $propertyName => $rel) {
 
@@ -599,16 +602,26 @@ class DataMapperAbstract implements DataMapperInterface
      */
     private static function parseValue(string $type, $value)
     {
-        if ($type === 'DateTime') {
-            return isset($value) ? $value->format('Y-m-d H:i:s') : null;
+        if (is_null($value)) {
+            return null;
+        } elseif ($type === 'DateTime') {
+            return $value->format('Y-m-d H:i:s');
         } elseif ($type === 'json') {
-            return isset($value) ? json_encode($value) : '';
+            return json_encode($value);
         } elseif ($type === 'Serializable') {
             return $value->serialize();
         } elseif ($type === 'jsonSerializable') {
             return $value->jsonSerializable();
         } elseif (is_object($value)) {
             return $value->getId();
+        } elseif ($type === 'int') {
+            return (int) $value;
+        } elseif ($type === 'string') {
+            return (string) $value;
+        } elseif ($type === 'float') {
+            return (float) $value;
+        } elseif ($type === 'bool') {
+            return (bool) $value;
         }
 
         return $value;
@@ -752,20 +765,8 @@ class DataMapperAbstract implements DataMapperInterface
                     $reflectionProperty->setAccessible(true);
                 }
 
-                // relation table vs relation defined in same table as object e.g. comments
-                if ($values !== false) {
-                    $objects = $mapper::get($values);
-                    $reflectionProperty->setValue($obj, $objects);
-                } else {
-                    // todo: replace getId() with lookup by primaryKey and the assoziated member variable and get value
-                    $query = $mapper::find()->where(static::$hasMany[$member]['table'] . '.' . static::$hasMany[$member]['dst'], '=', $obj->getId());
-                    $sth   = self::$db->con->prepare($query->toSql());
-                    $sth->execute();
-
-                    $results = $sth->fetchAll(\PDO::FETCH_ASSOC);
-                    $objects = $mapper::populateIterable($results);
-                    $reflectionProperty->setValue($obj, $objects);
-                }
+                $objects = $mapper::get($values);
+                $reflectionProperty->setValue($obj, $objects);
 
                 if (!$accessible) {
                     $reflectionProperty->setAccessible(false);
@@ -781,10 +782,12 @@ class DataMapperAbstract implements DataMapperInterface
      *
      * @return mixed
      *
+     * @todo   accept reflection class as parameter
+     *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public static function populateOneToOne(&$obj)
+    public static function populateHasOne(&$obj)
     {
         $reflectionClass = new \ReflectionClass(get_class($obj));
 
@@ -799,6 +802,44 @@ class DataMapperAbstract implements DataMapperInterface
 
                 /** @var DataMapperAbstract $mapper */
                 $mapper = static::$hasOne[$member]['mapper'];
+
+                $value = $mapper::get($reflectionProperty->getValue($obj));
+                $reflectionProperty->setValue($obj, $value);
+
+                if (!$accessible) {
+                    $reflectionProperty->setAccessible(false);
+                }
+            }
+        }
+    }
+
+    /**
+     * Populate data.
+     *
+     * @param mixed $obj Object to add the relations to
+     *
+     * @return mixed
+     *
+     * @todo   accept reflection class as parameter
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+    public static function populateOwnsOne(&$obj)
+    {
+        $reflectionClass = new \ReflectionClass(get_class($obj));
+
+        foreach (static::$ownsOne as $member => $one) {
+            // todo: is that if necessary? performance is suffering for sure!
+            if ($reflectionClass->hasProperty($member)) {
+                $reflectionProperty = $reflectionClass->getProperty($member);
+
+                if (!($accessible = $reflectionProperty->isPublic())) {
+                    $reflectionProperty->setAccessible(true);
+                }
+
+                /** @var DataMapperAbstract $mapper */
+                $mapper = static::$ownsOne[$member]['mapper'];
 
                 $value = $mapper::get($reflectionProperty->getValue($obj));
                 $reflectionProperty->setValue($obj, $value);
@@ -1043,7 +1084,7 @@ class DataMapperAbstract implements DataMapperInterface
         $hasOne  = count(static::$hasOne) > 0;
         $ownsOne = count(static::$ownsOne) > 0;
 
-        if ($relations !== RelationType::NONE && ($hasMany || $hasOne)) {
+        if ($relations !== RelationType::NONE && ($hasMany || $hasOne || $ownsOne)) {
             foreach ($obj as $key => $value) {
                 /* loading relations from relations table and populating them and then adding them to the object */
                 if ($relations !== RelationType::NONE) {
@@ -1052,7 +1093,11 @@ class DataMapperAbstract implements DataMapperInterface
                     }
 
                     if ($hasOne) {
-                        self::populateOneToOne($obj[$key]);
+                        self::populateHasOne($obj[$key]);
+                    }
+
+                    if ($ownsOne) {
+                        self::populateOwnsOne($obj[$key]);
                     }
                 }
             }
@@ -1117,41 +1162,39 @@ class DataMapperAbstract implements DataMapperInterface
         $result = [];
 
         foreach (static::$hasMany as $member => $value) {
-            if (!isset($value['relationmapper'])) {
-                $query = new Builder(self::$db);
-                $query->prefix(self::$db->getPrefix());
+            $query = new Builder(self::$db);
+            $query->prefix(self::$db->getPrefix());
 
-                if ($relations === RelationType::ALL) {
-                    $query->select($value['table'] . '.' . $value['src'])
-                        ->from($value['table'])
-                        ->where($value['table'] . '.' . $value['dst'], '=', $primaryKey);
-                } elseif ($relations === RelationType::NEWEST) {
+            if ($relations === RelationType::ALL) {
+                $src = $value['src'] ?? $value['mapper']::$primaryField;
 
-                    /*
-                    SELECT c.*, p1.*
-                    FROM customer c
-                    JOIN purchase p1 ON (c.id = p1.customer_id)
-                    LEFT OUTER JOIN purchase p2 ON (c.id = p2.customer_id AND 
-                        (p1.date < p2.date OR p1.date = p2.date AND p1.id < p2.id))
-                    WHERE p2.id IS NULL;
-                    */
-                    /*
-                                        $query->select(static::$table . '.' . static::$primaryField, $value['table'] . '.' . $value['src'])
-                                              ->from(static::$table)
-                                              ->join($value['table'])
-                                              ->on(static::$table . '.' . static::$primaryField, '=', $value['table'] . '.' . $value['dst'])
-                                              ->leftOuterJoin($value['table'])
-                                              ->on(new And('1', new And(new Or('d1', 'd2'), 'id')))
-                                              ->where($value['table'] . '.' . $value['dst'], '=', 'NULL');
-                                              */
-                }
+                $query->select($value['table'] . '.' . $src)
+                    ->from($value['table'])
+                    ->where($value['table'] . '.' . $value['dst'], '=', $primaryKey);
+            } elseif ($relations === RelationType::NEWEST) {
 
-                $sth = self::$db->con->prepare($query->toSql());
-                $sth->execute();
-                $result[$member] = $sth->fetchAll(\PDO::FETCH_COLUMN);
-            } else {
-                $result[$member] = false;
+                /*
+                SELECT c.*, p1.*
+                FROM customer c
+                JOIN purchase p1 ON (c.id = p1.customer_id)
+                LEFT OUTER JOIN purchase p2 ON (c.id = p2.customer_id AND
+                    (p1.date < p2.date OR p1.date = p2.date AND p1.id < p2.id))
+                WHERE p2.id IS NULL;
+                */
+                /*
+                                    $query->select(static::$table . '.' . static::$primaryField, $value['table'] . '.' . $value['src'])
+                                          ->from(static::$table)
+                                          ->join($value['table'])
+                                          ->on(static::$table . '.' . static::$primaryField, '=', $value['table'] . '.' . $value['dst'])
+                                          ->leftOuterJoin($value['table'])
+                                          ->on(new And('1', new And(new Or('d1', 'd2'), 'id')))
+                                          ->where($value['table'] . '.' . $value['dst'], '=', 'NULL');
+                                          */
             }
+
+            $sth = self::$db->con->prepare($query->toSql());
+            $sth->execute();
+            $result[$member] = $sth->fetchAll(\PDO::FETCH_COLUMN);
         }
 
         return $result;
