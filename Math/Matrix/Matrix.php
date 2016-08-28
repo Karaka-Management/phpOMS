@@ -95,7 +95,7 @@ class Matrix implements \ArrayAccess, \Iterator
     public function set(int $m, int $n, $value)
     {
         if (!isset($this->matrix[$m][$n])) {
-            throw new \Exception('Dimension');
+            throw new DimensionException($m, $n);
         }
 
         $this->matrix[$m][$n] = $value;
@@ -117,7 +117,7 @@ class Matrix implements \ArrayAccess, \Iterator
     public function get(int $m, int $n)
     {
         if (!isset($this->matrix[$m][$n])) {
-            throw new \Exception('Dimension');
+            throw new DimensionException($m, $n);
         }
 
         return $this->matrix[$m][$n];
@@ -165,7 +165,7 @@ class Matrix implements \ArrayAccess, \Iterator
     public function setMatrix(array $matrix)
     {
         if ($this->m !== count($matrix) || $this->n !== count($matrix[0])) {
-            throw new \Exception('Dimension');
+            throw new DimensionException(count($matrix), count($matrix[0]));
         }
 
         $this->matrix = $matrix;
@@ -232,7 +232,7 @@ class Matrix implements \ArrayAccess, \Iterator
     private function addMatrix(Matrix $matrix) : Matrix
     {
         if ($this->m !== $matrix->getM() || $this->n !== $matrix->getN()) {
-            throw new \Exception('Dimension');
+            throw new DimensionException($matrix->getM(), $matrix->getN());
         }
 
         $matrixArr    = $matrix->getMatrix();
@@ -345,7 +345,7 @@ class Matrix implements \ArrayAccess, \Iterator
         $mDim = $matrix->getM();
 
         if ($this->n !== $mDim) {
-            throw new \Exception('Dimension');
+            throw new DimensionException($mDim, $nDim);
         }
 
         $matrixArr    = $matrix->getMatrix();
@@ -496,7 +496,7 @@ class Matrix implements \ArrayAccess, \Iterator
     public function inverse(int $algorithm = InverseType::GAUSS_JORDAN) : Matrix
     {
         if ($this->n !== $this->m) {
-            throw new \Exception('Dimension');
+            throw new DimensionException($this->m, $this->n);
         }
 
         switch ($algorithm) {

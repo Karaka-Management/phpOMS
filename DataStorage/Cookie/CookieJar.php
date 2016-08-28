@@ -16,6 +16,8 @@
 
 namespace phpOMS\DataStorage\Cookie;
 
+use phpOMS\DataStorage\LockException;
+
 /**
  * CookieJar class
  *
@@ -160,7 +162,7 @@ class CookieJar
     public function save()
     {
         if (self::$isLocked) {
-            throw new \Exception('Already locked');
+            throw new LockException('CookieJar');
         }
 
         foreach ($this->cookies as $key => $cookie) {

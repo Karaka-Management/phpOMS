@@ -50,7 +50,7 @@ class Autoloader
             /** @noinspection PhpIncludeInspection */
             include __DIR__ . '/../' . $classNew . '.php';
         } else {
-            throw new \Exception($class);
+            throw new AutoloaderException($class);
         }
     }
 

@@ -17,6 +17,7 @@ namespace phpOMS\DataStorage\Session;
 
 use phpOMS\Uri\UriFactory;
 use phpOMS\Utils\RnG\StringUtils;
+use phpOMS\DataStorage\LockException;
 
 /**
  * Http session class.
@@ -62,7 +63,7 @@ class HttpSession implements SessionInterface
      * @param int             $liftetime Session life time
      * @param string|int|bool $sid       Session id
      *
-     * @throws \Exception Throws this exception if the session is alrady locked for further interaction.
+     * @throws LockException Throws this exception if the session is alrady locked for further interaction.
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
@@ -70,7 +71,7 @@ class HttpSession implements SessionInterface
     public function __construct(int $liftetime = 3600, $sid = false)
     {
         if (self::$isLocked) {
-            throw new \Exception('Already locked');
+            throw new LockException('HttpSession');
         }
 
         if (!is_bool($sid)) {
