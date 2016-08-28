@@ -49,7 +49,7 @@ class ConnectionFactory
      *
      * @return ConnectionInterface
      *
-     * @throws \Exception
+     * @throws \InvalidArgumentException Throws this exception if the database is not supported.
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>

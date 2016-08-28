@@ -62,7 +62,7 @@ class HttpSession implements SessionInterface
      * @param int             $liftetime Session life time
      * @param string|int|bool $sid       Session id
      *
-     * @throws \Exception
+     * @throws \Exception Throws this exception if the session is alrady locked for further interaction.
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>

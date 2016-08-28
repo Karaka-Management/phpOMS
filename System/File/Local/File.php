@@ -210,6 +210,16 @@ class File extends FileAbstract implements FileInterface
         return $changed;
     }
 
+    /**
+     * Gets the size of a file in bytes.
+     * 
+     * @param  string $path Path of the file to get the size for.
+     * 
+     * @return int Returns the size of the file.
+     *
+     * @since 1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
     public static function size(string $path) : int
     {
         if (!file_exists($path)) {
@@ -219,6 +229,16 @@ class File extends FileAbstract implements FileInterface
         return filesize($path);
     }
 
+    /**
+     * Gets the id of the owner of the file.
+     * 
+     * @param  string $path Path of the file to get the owner for.
+     * 
+     * @return int Returns the owner of the file.
+     *
+     * @since 1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
     public static function owner(string $path) : int
     {
         if (!file_exists($path)) {
@@ -228,6 +248,16 @@ class File extends FileAbstract implements FileInterface
         return fileowner($path);
     }
 
+    /**
+     * Gets the permission of a file.
+     * 
+     * @param  string $path Path of the file to get the permission for.
+     * 
+     * @return int Returns the permission of the file.
+     *
+     * @since 1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
     public static function permission(string $path) : int
     {
         if (!file_exists($path)) {
@@ -237,6 +267,16 @@ class File extends FileAbstract implements FileInterface
         return fileperms($path);
     }
 
+    /**
+     * Gets the directory name of a file.
+     * 
+     * @param  string $path Path of the file to get the directory name for.
+     * 
+     * @return string Returns the directory name of the file.
+     *
+     * @since 1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
     public static function dirname(string $path) : string
     {
         return dirname($path);
@@ -325,9 +365,9 @@ class File extends FileAbstract implements FileInterface
     }
 
     /**
-     * Get file content.
+     * Gets the content of the current file.
      *
-     * @return string
+     * @return string Content of the file.
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>

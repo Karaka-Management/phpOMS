@@ -115,7 +115,7 @@ class AccountManager implements \Countable
      *
      * @return int
      *
-     * @throws
+     * @throws \Exception Throws this exception if the account to login is not found in the AccountManager.
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
@@ -123,7 +123,7 @@ class AccountManager implements \Countable
     public function login(int $account, string $login, string $password) : int
     {
         if (!isset($this->accounts[$account])) {
-            throw new \Exception('Account not loaded');
+            throw new \Exception('Account not found in the account manager.');
         }
 
         return $this->auth->login($login, $password);
