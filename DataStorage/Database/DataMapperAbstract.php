@@ -338,12 +338,11 @@ class DataMapperAbstract implements DataMapperInterface
 
         $reflectionClass = new \ReflectionClass(get_class($obj));
         $objId           = self::createModel($reflectionClass, $obj);
+        self::setObjectId($reflectionClass, $obj, $objId);
 
         if ($relations === RelationType::ALL) {
             self::createHasMany($reflectionClass, $obj, $objId);
         }
-
-        self::setObjectId($reflectionClass, $obj, $objId);
 
         return $objId;
     }
@@ -379,7 +378,7 @@ class DataMapperAbstract implements DataMapperInterface
 
             foreach (static::$columns as $key => $column) {
                 if (isset(static::$ownsOne[$propertyName]) && $column['internal'] === $propertyName) {
-                    $id    = self::createOwnsOne($propertyName, $property, $obj);
+                    $id    = self::createOwnsOne($propertyName, $property->getValue($obj));
                     $value = self::parseValue($column['type'], $id);
 
                     $query->insert($column['name'])->value($value, $column['type']);
@@ -458,19 +457,26 @@ class DataMapperAbstract implements DataMapperInterface
                 $property->setAccessible(false);
             }
 
-            if (!is_object($temp = reset($values))) {
-                throw new \Exception('Unexpected value for relational data mapping.');
-            }
-
             if (!isset(static::$hasMany[$propertyName]['mapper'])) {
                 throw new \Exception('No mapper set for relation object.');
             }
 
             $mapper             = static::$hasMany[$propertyName]['mapper'];
             $objsIds            = [];
-            $relReflectionClass = new \ReflectionClass(get_class($temp));
+            $relReflectionClass = null;
 
             foreach ($values as $key => &$value) {
+                if (!is_object($value)) {
+                    // Is scalar => already in database
+                    $objsIds[$key] = $value;
+
+                    continue;
+                }
+
+                if (!isset($relReflectionClass)) {
+                    $relReflectionClass = new \ReflectionClass(get_class($value));
+                }
+
                 /** @noinspection PhpUndefinedVariableInspection */
                 $relProperty = $relReflectionClass->getProperty($mapper::$columns[$mapper::$primaryField]['internal']);
 
@@ -486,6 +492,8 @@ class DataMapperAbstract implements DataMapperInterface
 
                 // already in db
                 if (!empty($primaryKey)) {
+                    $objsIds[$key] = $value;
+
                     continue;
                 }
 
@@ -524,9 +532,8 @@ class DataMapperAbstract implements DataMapperInterface
      *
      * The reference is stored in the main model
      *
-     * @param string              $propertyName Property name to initialize
-     * @param \ReflectionProperty $property     Reflection property
-     * @param Object              $obj          Object to create
+     * @param string $propertyName Property name to initialize
+     * @param Object $obj          Object to create
      *
      * @return mixed
      *
@@ -535,25 +542,25 @@ class DataMapperAbstract implements DataMapperInterface
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    private static function createOwnsOne(string $propertyName, \ReflectionProperty $property, $obj)
+    private static function createOwnsOne(string $propertyName, $obj)
     {
-        if (is_object($relObj = $property->getValue($obj))) {
+        if (is_object($obj)) {
             $mapper             = static::$ownsOne[$propertyName]['mapper'];
-            $relReflectionClass = new \ReflectionClass(get_class($relObj));
+            $relReflectionClass = new \ReflectionClass(get_class($obj));
             /** @var array $columns */
             $relProperty = $relReflectionClass->getProperty($mapper::$columns[$mapper::$primaryField]['internal']);
             $relProperty->setAccessible(true);
-            $primaryKey = $relProperty->getValue($relObj);
+            $primaryKey = $relProperty->getValue($obj);
             $relProperty->setAccessible(false);
 
             if (empty($primaryKey)) {
-                $primaryKey = $mapper::create($property->getValue($obj));
+                $primaryKey = $mapper::create($obj);
             }
 
             return $primaryKey;
         }
 
-        return 0;
+        return $obj;
     }
 
     /**
