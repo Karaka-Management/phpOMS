@@ -39,19 +39,18 @@ class Autoloader
      *
      * @return void
      *
-     * @throws \Exception Throws this exception if the class to autoload doesn't exist. This could also be related to a wrong namespace/file path correlation.
+     * @throws AutoloadException Throws this exception if the class to autoload doesn't exist. This could also be related to a wrong namespace/file path correlation.
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public static function default_autoloader(string $class)
     {
-        if (($classNew = self::exists($class)) !== false) {
-            /** @noinspection PhpIncludeInspection */
-            include __DIR__ . '/../' . $classNew . '.php';
-        } else {
-            throw new AutoloaderException($class);
-        }
+        $class = ltrim($class, '\\');
+        $class = str_replace(['_', '\\'], DIRECTORY_SEPARATOR, $class);
+
+        /** @noinspection PhpIncludeInspection */
+        include_once __DIR__ . '/../' . $class . '.php';
     }
 
     /**

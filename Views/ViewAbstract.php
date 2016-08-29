@@ -205,7 +205,7 @@ abstract class ViewAbstract implements \Serializable
      */
     public function serialize()
     {
-        if (!file_exists(__DIR__ . '/../..' . $this->template . '.tpl.php')) {
+        if (empty($this->template)) {
             return $this->toArray();
         }
 
