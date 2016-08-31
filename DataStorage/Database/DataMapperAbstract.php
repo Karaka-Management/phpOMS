@@ -106,6 +106,16 @@ class DataMapperAbstract implements DataMapperInterface
     protected static $ownsOne = [];
 
     /**
+     * Relations.
+     *
+     * Relation is defined in current mapper
+     *
+     * @var string[]
+     * @since 1.0.0
+     */
+    protected static $belongsTo = [];
+
+    /**
      * Table.
      *
      * @var string
@@ -382,6 +392,11 @@ class DataMapperAbstract implements DataMapperInterface
                     $value = self::parseValue($column['type'], $id);
 
                     $query->insert($column['name'])->value($value, $column['type']);
+                } elseif (isset(static::$belongsTo[$propertyName]) && $column['internal'] === $propertyName) {
+                    $id    = self::createBelongsTo($propertyName, $property->getValue($obj));
+                    $value = self::parseValue($column['type'], $id);
+
+                    $query->insert($column['name'])->value($value, $column['type']);
                 } elseif ($column['internal'] === $propertyName && $column['type'] !== static::$primaryField) {
                     $value = self::parseValue($column['type'], $property->getValue($obj));
 
@@ -546,6 +561,42 @@ class DataMapperAbstract implements DataMapperInterface
     {
         if (is_object($obj)) {
             $mapper             = static::$ownsOne[$propertyName]['mapper'];
+            $relReflectionClass = new \ReflectionClass(get_class($obj));
+            /** @var array $columns */
+            $relProperty = $relReflectionClass->getProperty($mapper::$columns[$mapper::$primaryField]['internal']);
+            $relProperty->setAccessible(true);
+            $primaryKey = $relProperty->getValue($obj);
+            $relProperty->setAccessible(false);
+
+            if (empty($primaryKey)) {
+                $primaryKey = $mapper::create($obj);
+            }
+
+            return $primaryKey;
+        }
+
+        return $obj;
+    }
+
+    /**
+     * Create owns one
+     *
+     * The reference is stored in the main model
+     *
+     * @param string $propertyName Property name to initialize
+     * @param Object $obj          Object to create
+     *
+     * @return mixed
+     *
+     * @throws
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+    private static function createBelongsTo(string $propertyName, $obj)
+    {
+        if (is_object($obj)) {
+            $mapper             = static::$belongsTo[$propertyName]['mapper'];
             $relReflectionClass = new \ReflectionClass(get_class($obj));
             /** @var array $columns */
             $relProperty = $relReflectionClass->getProperty($mapper::$columns[$mapper::$primaryField]['internal']);
@@ -861,6 +912,44 @@ class DataMapperAbstract implements DataMapperInterface
     /**
      * Populate data.
      *
+     * @param mixed $obj Object to add the relations to
+     *
+     * @return mixed
+     *
+     * @todo   accept reflection class as parameter
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+    public static function populateBelongsTo(&$obj)
+    {
+        $reflectionClass = new \ReflectionClass(get_class($obj));
+
+        foreach (static::$belongsTo as $member => $one) {
+            // todo: is that if necessary? performance is suffering for sure!
+            if ($reflectionClass->hasProperty($member)) {
+                $reflectionProperty = $reflectionClass->getProperty($member);
+
+                if (!($accessible = $reflectionProperty->isPublic())) {
+                    $reflectionProperty->setAccessible(true);
+                }
+
+                /** @var DataMapperAbstract $mapper */
+                $mapper = static::$belongsTo[$member]['mapper'];
+
+                $value = $mapper::get($reflectionProperty->getValue($obj));
+                $reflectionProperty->setValue($obj, $value);
+
+                if (!$accessible) {
+                    $reflectionProperty->setAccessible(false);
+                }
+            }
+        }
+    }
+
+    /**
+     * Populate data.
+     *
      * @param array $result Query result set
      * @param mixed $obj    Object to populate
      *
@@ -938,7 +1027,6 @@ class DataMapperAbstract implements DataMapperInterface
         }
 
         self::fillRelations($obj, $relations);
-
         self::clear();
 
         return count($obj) === 1 ? reset($obj) : $obj;
@@ -1090,6 +1178,7 @@ class DataMapperAbstract implements DataMapperInterface
         $hasMany = count(static::$hasMany) > 0;
         $hasOne  = count(static::$hasOne) > 0;
         $ownsOne = count(static::$ownsOne) > 0;
+        $belongsTo = count(static::$belongsTo) > 0;
 
         if ($relations !== RelationType::NONE && ($hasMany || $hasOne || $ownsOne)) {
             foreach ($obj as $key => $value) {
@@ -1105,6 +1194,10 @@ class DataMapperAbstract implements DataMapperInterface
 
                     if ($ownsOne) {
                         self::populateOwnsOne($obj[$key]);
+                    }
+
+                    if ($belongsTo) {
+                        self::populateBelongsTo($obj[$key]);
                     }
                 }
             }
