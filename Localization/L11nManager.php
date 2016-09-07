@@ -109,6 +109,34 @@ class L11nManager
     }
 
     /**
+     * Load language from file.
+     *
+     * One module can only be loaded once. Once the module got loaded it's not
+     * possible to load more language files later on.
+     *
+     * @param string     $language    Language iso code
+     * @param string     $from        Module name
+     * @param string     $file File to import language from
+     *
+     * @return void
+     *
+     * @throws
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+    public function loadLanguageFromFile(string $language, string $from, string $file)
+    {
+        $lang = [];
+        if (file_exists(file)) {
+            /** @noinspection PhpIncludeInspection */
+            $lang = include $file;
+        }
+
+        $this->loadLanguage($language, $from, $lang);
+    }
+
+    /**
      * Get application language.
      *
      * @param string $language Language iso code
