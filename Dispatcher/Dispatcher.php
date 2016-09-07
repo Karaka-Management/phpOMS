@@ -178,7 +178,7 @@ class Dispatcher
     private function getController(string $controller)
     {
         if (!isset($this->controllers[$controller])) {
-            if (!file_exists($path = ROOT_PATH . '/' . str_replace('\\', '/', $controller) . '.php')) {
+            if (!file_exists($path = __DIR__ . '/../../' . str_replace('\\', '/', $controller) . '.php')) {
                 throw new PathException($path);
             }
 

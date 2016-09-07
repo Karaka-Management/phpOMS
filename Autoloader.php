@@ -47,7 +47,7 @@ class Autoloader
     public static function default_autoloader(string $class)
     {
         $class = ltrim($class, '\\');
-        $class = str_replace(['_', '\\'], DIRECTORY_SEPARATOR, $class);
+        $class = str_replace(['_', '\\'], '/', $class);
 
         /** @noinspection PhpIncludeInspection */
         include_once __DIR__ . '/../' . $class . '.php';
@@ -66,7 +66,7 @@ class Autoloader
     public static function exists(string $class)
     {
         $class = ltrim($class, '\\');
-        $class = str_replace(['_', '\\'], DIRECTORY_SEPARATOR, $class);
+        $class = str_replace(['_', '\\'], '/', $class);
 
         if (file_exists(__DIR__ . '/../' . $class . '.php')) {
             return $class;

@@ -102,6 +102,18 @@ interface UriInterface
     public function getPath() : string;
 
     /**
+     * Get path element.
+     *
+     * @param int $pos Position of the path
+     *
+     * @return string
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+    public function getPathElement(int $pos) : string;
+
+    /**
      * Get query.
      *
      * @param string $key Query key

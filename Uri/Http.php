@@ -164,7 +164,6 @@ class Http implements UriInterface
         }
 
         $this->fragment = $url['fragment'] ?? null;
-
         $this->base = $this->scheme . '://' . $this->host . $this->rootPath;
     }
 
@@ -255,6 +254,14 @@ class Http implements UriInterface
     public function getPath() : string
     {
         return $this->path ?? '';
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getPathElement(int $pos) : string
+    {
+        return  explode('/', $this->path)[$pos];
     }
 
     /**

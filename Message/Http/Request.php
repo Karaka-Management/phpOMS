@@ -121,7 +121,6 @@ class Request extends RequestAbstract
         $this->cleanupGlobals();
 
         $this->path = explode('/', $this->uri->getPath());
-        $this->l11n->setLanguage($this->path[0]);
 
         $this->setupUriBuilder();
         $this->createRequestHashs();
@@ -204,7 +203,7 @@ class Request extends RequestAbstract
         UriFactory::setQuery('/scheme', $this->uri->getScheme());
         UriFactory::setQuery('/host', $this->uri->getHost());
         UriFactory::setQuery('/lang', $this->l11n->getLanguage());
-        UriFactory::setQuery('/base', $this->uri->getBase());
+        UriFactory::setQuery('/base', rtrim($this->uri->getBase(), '/'));
         UriFactory::setQuery('/rootPath', $this->uri->getRootPath());
         UriFactory::setQuery('?', $this->uri->getQuery());
         UriFactory::setQuery('%', $this->uri->__toString());

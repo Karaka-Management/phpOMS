@@ -60,6 +60,9 @@ class ConnectionFactory
             case 'mysql':
                 return new MysqlConnection($dbdata);
                 break;
+            case 'mssql':
+                return new SqlServerConnection($dbdata);
+                break;
             default:
                 throw new \InvalidArgumentException('Database "' . $dbdata['db'] . '" is not supported.');
         }
