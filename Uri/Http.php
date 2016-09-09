@@ -14,6 +14,7 @@
  * @link       http://orange-management.com
  */
 namespace phpOMS\Uri;
+use phpOMS\Utils\StringUtils;
 
 /**
  * Uri interface.
@@ -154,7 +155,11 @@ class Http implements UriInterface
         $this->user        = $url['user'] ?? null;
         $this->pass        = $url['pass'] ?? null;
         $this->path        = $url['path'] ?? null;
-        $this->path        = rtrim($this->path, '.php');
+
+        if(StringUtils::endsWith($this->path, '.php')) {
+            $this->path = substr($this->path, 0, -4);
+        }
+
         $this->path        = strpos($this->path, $this->rootPath) === 0 ? substr($this->path, strlen($this->rootPath), strlen($this->path)) : $this->path; // TODO: this could cause a bug if the rootpath is the same as a regular path which is usually the language
         $this->query       = $url['query'] ?? null;
         $this->queryString = $this->query;
