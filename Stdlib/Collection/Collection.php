@@ -46,13 +46,34 @@ class Collection implements \Countable, \ArrayAccess, \Iterator, \JsonSerializab
         return json_encode($this->collection);
     }
 
-    public function avg()
+    public function avg($filter = null)
     {
-        return $this->sum() / $this->count();
+        return $this->sum($filter) / $this->count();
     }
 
-    public function sum()
+    public function sum($filter = null)
     {
+        $sum = 0;
+
+        if(!isset($filter)) {
+            foreach($this->collection as $key => $value) {
+                if(is_numeric($value)) {
+                    $sum += $value;
+                } elseif($value instanceof Collection) {
+                    $sum += $value->sum();
+                }
+            }
+        } elseif(is_string($filter)) {
+            foreach($this->collection as $key => $value) {
+                if(isset($value[$filter]) && is_numeric($value[$filter])) {
+                    $sum += $value[$filter];
+                }
+            }
+        } elseif ($filter instanceof \Closure) {
+            $sum = $filter($this->collection);
+        }
+
+        return $sum;
     }
 
     public function count()
@@ -60,30 +81,82 @@ class Collection implements \Countable, \ArrayAccess, \Iterator, \JsonSerializab
         return count($this->collection);
     }
 
-    public function chunk()
+    public function chunk(int size)
     {
-
+        return new self(array_chunk($this->collection, size));
     }
 
     public function collapse()
     {
-
+        $return = [];
+        return new self(array_walk_recursive($this->collection, function($a) use (&$return) { $return[] = $a; });)
     }
 
-    public function combine()
+    public function combine(array $values) : Collection
     {
+        foreach($this->collection as $key => $value) {
+            if(is_int($key) && is_string($value)) {
+                $this->collection[$value] = current($values);
+                unset($this->collection[$key]);
+            } elseif(is_string($key) && is_string($value)) {
+                $this->collection[$key] = [$value, current($values)];
+            } elseif(is_array($value)) {
+                $this->collection[$key][] = current($values);
+            } else {
+                continue;
+            }
+
+            next($values);
+        }
+
+        return $this;
     }
 
-    public function contains()
+    public function contains($find) : bool
     {
+        foreach($this->collection as $key => $value) {
+            if(is_string($find) && ((is_string($value) && $find === $value) || (is_array($value) && in_array($find, $value)))) {
+                return true;
+            } elseif($find instanceof \Collection) {
+                $result = $find($value, $key);
+
+                if($result) {
+                    return true;
+                }
+            }
+        }
+
+        return false;
     }
 
-    public function diff()
+    public function diff(array $compare) : array
     {
+        $diff = [];
+
+        foreach($this->collection as $key => $value) {
+            if($value !== current($compare)) {
+                $diff = $value;
+            }
+
+            next($compare);
+        }
+
+        return $diff;
     }
 
-    public function diffKeys()
+    public function diffKeys(array $compare)
     {
+        $diff = [];
+
+        foreach($this->collection as $key => $value) {
+            if($key !== current($compare)) {
+                $diff = $key;
+            }
+
+            next($compare);
+        }
+
+        return $diff;
     }
 
     public function every(int $n)
