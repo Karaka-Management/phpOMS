@@ -153,13 +153,19 @@ class Builder extends BuilderAbstract
      */
     public $lock = false;
 
+    /**
+     * Raw query.
+     *
+     * @var bool
+     * @since 1.0.0
+     */
+    public $raw = '';
+
     protected $unionLimit = null;
 
     protected $unionOffset = null;
 
     protected $unionOrders = [];
-
-    public $raw = '';
 
     /**
      * Comparison operators.
@@ -210,6 +216,16 @@ class Builder extends BuilderAbstract
         $this->setConnection($connection);
     }
 
+    /**
+     * Set connection for grammar.
+     *
+     * @param ConnectionAbstract $connection Database connection
+     *
+     * @return  void
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
     public function setConnection(ConnectionAbstract $connection)
     {
         $this->connection = $connection;
@@ -230,8 +246,6 @@ class Builder extends BuilderAbstract
      */
     public function select(...$columns) : Builder
     {
-        // todo handle wrong parameters
-
         $this->type = QueryType::SELECT;
 
         foreach ($columns as $key => $column) {
@@ -315,6 +329,16 @@ class Builder extends BuilderAbstract
         return $this->grammar->compileQuery($this);
     }
 
+    /**
+     * Set raw query.
+     *
+     * @param  string $raw Raw query
+     *
+     * @return Builder
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
     public function raw(string $raw) : Builder
     {
         $this->type = QueryType::RAW;
@@ -447,6 +471,16 @@ class Builder extends BuilderAbstract
         return $this;
     }
 
+    /**
+     * Where and sub condition.
+     *
+     * @param Where $where Where sub condition
+     *
+     * @return Builder
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
     public function andWhere(Where $where)
     {
         $this->wheres[][] = [
@@ -457,6 +491,16 @@ class Builder extends BuilderAbstract
         return $this;
     }
 
+    /**
+     * Where or sub condition.
+     *
+     * @param Where $where Where sub condition
+     *
+     * @return Builder
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
     public function orWhere(Where $where)
     {
         $this->wheres[][] = [
