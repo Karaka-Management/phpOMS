@@ -159,6 +159,8 @@ class Builder extends BuilderAbstract
 
     protected $unionOrders = [];
 
+    public $raw = '';
+
     /**
      * Comparison operators.
      *
@@ -204,6 +206,11 @@ class Builder extends BuilderAbstract
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function __construct(ConnectionAbstract $connection)
+    {
+        $this->setConnection($connection);
+    }
+
+    public function setConnection(ConnectionAbstract $connection)
     {
         $this->connection = $connection;
         $this->grammar    = $connection->getGrammar();
@@ -308,6 +315,14 @@ class Builder extends BuilderAbstract
         return $this->grammar->compileQuery($this);
     }
 
+    public function raw(string $raw) : Builder
+    {
+        $this->type = QueryType::RAW;
+        $this->raw  = $raw;
+
+        return $this;
+    }
+
     /**
      * Make raw column selection.
      *
@@ -333,7 +348,7 @@ class Builder extends BuilderAbstract
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function distinct() : Builder
+    public function distinct(...$columns) : Builder
     {
         $this->distinct = true;
 
@@ -381,23 +396,6 @@ class Builder extends BuilderAbstract
     }
 
     /**
-     * Or Where.
-     *
-     * @param string|array|\Closure $columns  Columns
-     * @param string                $operator Operator
-     * @param string|array|\Closure $values   Values
-     *
-     * @return Builder
-     *
-     * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
-     */
-    public function orWhere($columns, string $operator = null, $values = null) : Builder
-    {
-        return $this->where($columns, $operator, $values, 'or');
-    }
-
-    /**
      * Where.
      *
      * @param string|array|\Closure $columns  Columns
@@ -426,9 +424,13 @@ class Builder extends BuilderAbstract
                     throw new \InvalidArgumentException('Unknown operator.');
                 }
 
-                $this->wheres[$key][] = ['column'  => $column, 'operator' => $operator[$i],
-                                         'value'   => $values[$i],
-                                         'boolean' => $boolean[$i],];
+                $this->wheres[$key][] = [
+                    'column'   => $column,
+                    'operator' => $operator[$i],
+                    'value'    => $values[$i],
+                    'boolean'  => $boolean[$i],
+                ];
+
                 $i++;
             }
         } elseif (is_string($columns)) {
@@ -441,6 +443,26 @@ class Builder extends BuilderAbstract
         } else {
             throw new \InvalidArgumentException();
         }
+
+        return $this;
+    }
+
+    public function andWhere(Where $where)
+    {
+        $this->wheres[][] = [
+            'column'  => $where,
+            'boolean' => 'and',
+        ];
+
+        return $this;
+    }
+
+    public function orWhere(Where $where)
+    {
+        $this->wheres[][] = [
+            'column'  => $where,
+            'boolean' => 'or',
+        ];
 
         return $this;
     }

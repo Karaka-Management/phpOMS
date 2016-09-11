@@ -21,6 +21,7 @@ use phpOMS\DataStorage\Database\GrammarAbstract;
 use phpOMS\DataStorage\Database\Query\Builder;
 use phpOMS\DataStorage\Database\Query\Column;
 use phpOMS\DataStorage\Database\Query\QueryType;
+use phpOMS\DataStorage\Database\Query\Where;
 
 /**
  * Database query grammar.
@@ -122,6 +123,9 @@ class Grammar extends GrammarAbstract
             case QueryType::RANDOM:
                 $components = $this->selectComponents;
                 break;
+            case QueryType::RAW:
+                return $query->raw;
+                break;
             default:
                 throw new \InvalidArgumentException('Unknown query type.');
         }
@@ -198,28 +202,7 @@ class Grammar extends GrammarAbstract
 
         foreach ($wheres as $key => $where) {
             foreach ($where as $key2 => $element) {
-                if (!$first) {
-                    $expression .= ' ' . strtoupper($element['boolean']) . ' ';
-                }
-
-                if (is_string($element['column'])) {
-                    $expression .= $this->compileSystem($element['column'], $query->getPrefix()) . ' ' . strtoupper($element['operator']) . ' ' . $this->compileValue($element['value'], $query->getPrefix());
-                } elseif ($element['column'] instanceof \Closure) {
-                } elseif ($element['column'] instanceof Builder) {
-                }
-
-                if (is_string($element['value'])) {
-                } elseif ($element['value'] instanceof \Closure) {
-                } elseif ($element['value'] instanceof Builder) {
-                } elseif ($element['value'] instanceof \DateTime) {
-                } elseif (is_int($element['value'])) {
-                } elseif (is_bool($element['value'])) {
-                } elseif (is_null($element['value'])) {
-                } elseif (is_float($element['value'])) {
-                } elseif (is_array($element['value'])) {
-                    // is bind
-                }
-
+                $expression .= $this->compileWhereElement($element, $query, $first);
                 $first = false;
             }
         }
@@ -229,6 +212,37 @@ class Grammar extends GrammarAbstract
         }
 
         return 'WHERE ' . $expression;
+    }
+
+    protected function compileWhereElement(array $element, Builder $query, bool $first = true) : string
+    {
+        $expression = '';
+
+        if(!$first) {
+            $expression = ' ' . strtoupper($element['boolean']) . ' ';
+        }
+
+        if (is_string($element['column'])) {
+            $expression .= $this->compileSystem($element['column'], $query->getPrefix());
+        } elseif ($element['column'] instanceof \Closure) {
+            $expression .= $element['column']();
+        } elseif ($element['column'] instanceof Builder) {
+            $expression .= '(' . $element['column']->toSql() . ')';
+        } elseif ($element['column'] instanceof Where) {
+            $expression .= '(' . $this->compileWhere($element['column'], $query->getPrefix()) . ')';
+        }
+
+        if (isset($element['value'])) {
+            $expression .= ' ' . strtoupper($element['operator']) . ' ' . $this->compileValue($element['value'], $query->getPrefix());
+        }
+
+        return $expression;
+    }
+
+    protected function compileWhere(Where $where, string $prefix = '', bool $first = true) : string
+    {
+
+        return '';
     }
 
     /**
@@ -247,6 +261,10 @@ class Grammar extends GrammarAbstract
     protected function compileValue($value, $prefix = '') : string
     {
         if (is_string($value)) {
+            if(strpos($value, ':') === 0) {
+                return $value;
+            }
+
             return $this->valueQuotes . $value . $this->valueQuotes;
         } elseif (is_int($value)) {
             return $value;
