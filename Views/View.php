@@ -196,4 +196,26 @@ class View extends ViewAbstract
         return $this->app->l11nManager->getText($this->l11n->getLanguage(), $module, $theme, $translation);
     }
 
+    /**
+     * @return Request
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+    public function getRequest()
+    {
+        return $this->request;
+    }
+
+    /**
+     * @return Response
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+    public function getResponse() : Response
+    {
+        return $this->response;
+    }
+
 }
