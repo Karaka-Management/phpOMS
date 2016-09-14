@@ -116,6 +116,16 @@ class SmartDateTime extends \DateTime
         return $this;
     }
 
+    public function getEndOfMonth() : SmartDateTime
+    {
+        return new SmartDateTime($this->format('Y') . '-' . $this->format('m') . '-' . $this->getDaysOfMonth());
+    }
+
+    public function getStartOfMonth() : SmartDateTime
+    {
+        return new SmartDateTime($this->format('Y') . '-' . $this->format('m') . '-01');
+    }
+
     /**
      * Get days of current month
      *
