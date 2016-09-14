@@ -891,4 +891,12 @@ class Builder extends BuilderAbstract
     {
         return clone($this);
     }
+
+    public function execute()
+    {
+        $sth = $this->connection->con->prepare($this->toSQL());
+        $sth->execute();
+
+        return $sth;
+    }
 }

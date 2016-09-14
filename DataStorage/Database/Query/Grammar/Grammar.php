@@ -124,7 +124,7 @@ class Grammar extends GrammarAbstract
                 $components = $this->selectComponents;
                 break;
             case QueryType::RAW:
-                return $query->raw;
+                return [$query->raw];
                 break;
             default:
                 throw new \InvalidArgumentException('Unknown query type.');
