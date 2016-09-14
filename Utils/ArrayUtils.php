@@ -245,4 +245,20 @@ class ArrayUtils
 
         return trim($args[$key + 1], '" ');
     }
+
+    public static function arraySum(array $array, int $start = 0, int $count = 0)
+    {
+        $count = $count === 0 ? count($array) : $count;
+        $sum = 0.0;
+
+        for($i = $start; $i <= $count-1; $i++) {
+            if(!isset($array[$i])) {
+                continue;
+            }
+
+            $sum += $array[$i];
+        }
+
+        return $sum;
+    }
 }
