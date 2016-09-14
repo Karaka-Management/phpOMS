@@ -65,7 +65,7 @@ class SqlServerConnection extends ConnectionAbstract
         $this->prefix = $dbdata['prefix'];
 
         try {
-            $this->con = new \PDO('dblib:host=' . $this->dbdata['host'] . ':' . $this->dbdata['port'] . ';dbname=' . $this->dbdata['database'] . ';charset=utf8', $this->dbdata['login'], $this->dbdata['password']);
+            $this->con = new \PDO('sqlsrv:Server=' . $this->dbdata['host'] . ',' . $this->dbdata['port'] . ';Database=' . $this->dbdata['database'] . ';ConnectionPooling=0', $this->dbdata['login'], $this->dbdata['password']);
             $this->con->setAttribute(\PDO::ATTR_EMULATE_PREPARES, false);
             $this->con->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
 
