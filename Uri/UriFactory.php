@@ -100,7 +100,10 @@ class UriFactory
 
             for ($i = 0; $i < $length; $i++) {
                 $spl           = explode('=', $pars[$i]);
-                $comps[$spl[0]] = $spl[1];
+
+                if(isset($spl[1])) {
+                    $comps[$spl[0]] = $spl[1];
+                }
             }
 
             $pars = [];
