@@ -89,17 +89,17 @@ class UriFactory
 
     private static function unique(string $url) : string
     {
-        $parts = explode('?', url);
+        $parts = explode('?', $url);
 
         if (count($parts) >= 2) {
             $full = $parts[1];
-            $pars  = explode('&', $full),
-            $comps = [],
-            $spl   = null,
+            $pars  = explode('&', $full);
+            $comps = [];
+            $spl   = null;
             $length = count($pars);
 
             for ($i = 0; $i < $length; $i++) {
-                $spl           = explode('=', $pars[i]);
+                $spl           = explode('=', $pars[$i]);
                 $comps[$spl[0]] = $spl[1];
             }
 
@@ -147,7 +147,7 @@ class UriFactory
             str_replace('&', '?', $parsed);
         }
 
-        $parsed = self::uniqid($parsed);
+        $parsed = self::unique($parsed);
 
         return $parsed;
     }
