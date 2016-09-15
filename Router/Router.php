@@ -111,7 +111,7 @@ class Router
     public function route($request, int $verb = RouteVerb::GET) : array
     {
         if ($request instanceof RequestAbstract) {
-            $uri  = $request->getUri()->getPath();
+            $uri  = $request->getUri()->getRoute();
             $verb = $request->getRouteVerb();
         } elseif (is_string($request)) {
             $uri = $request;

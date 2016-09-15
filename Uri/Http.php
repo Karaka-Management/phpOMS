@@ -261,6 +261,11 @@ class Http implements UriInterface
         return $this->path ?? '';
     }
 
+    public function getRoute() : string
+    {
+        return ($this->path ?? '') . $this->getQuery();
+    }
+
     /**
      * {@inheritdoc}
      */
