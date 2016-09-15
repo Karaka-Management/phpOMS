@@ -103,6 +103,25 @@ abstract class Enum
     }
 
     /**
+     * Get enum name by value.
+     *
+     * @param string $value Enum value
+     *
+     * @return mixed
+     *
+     * @throws \Exception Throws this exception if the constant is not defined in the enum class.
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+    public static function getName(string $value)
+    {
+        $arr = self::getConstants();
+
+        return array_search($value, $arr);
+    }
+
+    /**
      * Checking enum name.
      *
      * Checking if a certain const name exists (case sensitive)
