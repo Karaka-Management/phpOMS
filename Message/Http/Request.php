@@ -211,6 +211,10 @@ class Request extends RequestAbstract
         UriFactory::setQuery('/', $this->uri->getPath());
         UriFactory::setQuery(':user', $this->uri->getUser());
         UriFactory::setQuery(':pass', $this->uri->getPass());
+
+        foreach($this->data as $key => $value) {
+            UriFactory::setQuery('?' . $key, $value);
+        }
     }
 
     /**
