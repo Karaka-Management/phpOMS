@@ -246,13 +246,30 @@ class ArrayUtils
         return trim($args[$key + 1], '" ');
     }
 
+    public static function arrayFlatten(array $array) : array
+    {
+        $flat  = [];
+        $stack = array_values($array);
+        while ($stack) {
+            $value = array_shift($stack);
+
+            if (is_array($value)) {
+                $stack = array_merge(array_values($value), $stack);
+            } else {
+                $flat[] = $value;
+            }
+        }
+
+        return $flat;
+    }
+
     public static function arraySum(array $array, int $start = 0, int $count = 0)
     {
         $count = $count === 0 ? count($array) : $count;
-        $sum = 0.0;
+        $sum   = 0.0;
 
-        for($i = $start; $i <= $count-1; $i++) {
-            if(!isset($array[$i])) {
+        for ($i = $start; $i <= $count - 1; $i++) {
+            if (!isset($array[$i])) {
                 continue;
             }
 
@@ -260,5 +277,10 @@ class ArrayUtils
         }
 
         return $sum;
+    }
+
+    public static function arraySumRecursive(array $array)
+    {
+        return array_sum(self::arrayFlatten($array));
     }
 }
