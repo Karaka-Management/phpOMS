@@ -15,6 +15,8 @@
  */
 namespace phpOMS\Stdlib\Collection;
 
+use phpOMS\Utils\ArrayUtils;
+
 /**
  * Multimap utils.
  *
@@ -28,7 +30,6 @@ namespace phpOMS\Stdlib\Collection;
  */
 class Collection implements \Countable, \ArrayAccess, \Iterator, \JsonSerializable
 {
-    private $count = 0;
     private $collection = [];
 
     public function __construct(array $data)
@@ -55,17 +56,17 @@ class Collection implements \Countable, \ArrayAccess, \Iterator, \JsonSerializab
     {
         $sum = 0;
 
-        if(!isset($filter)) {
-            foreach($this->collection as $key => $value) {
-                if(is_numeric($value)) {
+        if (!isset($filter)) {
+            foreach ($this->collection as $key => $value) {
+                if (is_numeric($value)) {
                     $sum += $value;
-                } elseif($value instanceof Collection) {
+                } elseif ($value instanceof Collection) {
                     $sum += $value->sum();
                 }
             }
-        } elseif(is_string($filter)) {
-            foreach($this->collection as $key => $value) {
-                if(isset($value[$filter]) && is_numeric($value[$filter])) {
+        } elseif (is_string($filter)) {
+            foreach ($this->collection as $key => $value) {
+                if (isset($value[$filter]) && is_numeric($value[$filter])) {
                     $sum += $value[$filter];
                 }
             }
@@ -81,26 +82,29 @@ class Collection implements \Countable, \ArrayAccess, \Iterator, \JsonSerializab
         return count($this->collection);
     }
 
-    public function chunk(int size)
+    public function chunk(int $size) : Collection
     {
-        return new self(array_chunk($this->collection, size));
+        return new self(array_chunk($this->collection, $size));
     }
 
-    public function collapse()
+    public function collapse() : Collection
     {
         $return = [];
-        return new self(array_walk_recursive($this->collection, function($a) use (&$return) { $return[] = $a; });)
+
+        return new self(array_walk_recursive($this->collection, function ($a) use (&$return) {
+            $return[] = $a;
+        }));
     }
 
     public function combine(array $values) : Collection
     {
-        foreach($this->collection as $key => $value) {
-            if(is_int($key) && is_string($value)) {
+        foreach ($this->collection as $key => $value) {
+            if (is_int($key) && is_string($value)) {
                 $this->collection[$value] = current($values);
                 unset($this->collection[$key]);
-            } elseif(is_string($key) && is_string($value)) {
+            } elseif (is_string($key) && is_string($value)) {
                 $this->collection[$key] = [$value, current($values)];
-            } elseif(is_array($value)) {
+            } elseif (is_array($value)) {
                 $this->collection[$key][] = current($values);
             } else {
                 continue;
@@ -114,13 +118,13 @@ class Collection implements \Countable, \ArrayAccess, \Iterator, \JsonSerializab
 
     public function contains($find) : bool
     {
-        foreach($this->collection as $key => $value) {
-            if(is_string($find) && ((is_string($value) && $find === $value) || (is_array($value) && in_array($find, $value)))) {
+        foreach ($this->collection as $key => $value) {
+            if (is_string($find) && ((is_string($value) && $find === $value) || (is_array($value) && in_array($find, $value)))) {
                 return true;
-            } elseif($find instanceof \Collection) {
+            } elseif ($find instanceof Collection) {
                 $result = $find($value, $key);
 
-                if($result) {
+                if ($result) {
                     return true;
                 }
             }
@@ -133,8 +137,8 @@ class Collection implements \Countable, \ArrayAccess, \Iterator, \JsonSerializab
     {
         $diff = [];
 
-        foreach($this->collection as $key => $value) {
-            if($value !== current($compare)) {
+        foreach ($this->collection as $key => $value) {
+            if ($value !== current($compare)) {
                 $diff = $value;
             }
 
@@ -148,8 +152,8 @@ class Collection implements \Countable, \ArrayAccess, \Iterator, \JsonSerializab
     {
         $diff = [];
 
-        foreach($this->collection as $key => $value) {
-            if($key !== current($compare)) {
+        foreach ($this->collection as $key => $value) {
+            if ($key !== current($compare)) {
                 $diff = $key;
             }
 
@@ -159,11 +163,15 @@ class Collection implements \Countable, \ArrayAccess, \Iterator, \JsonSerializab
         return $diff;
     }
 
-    public function every(int $n)
+    public function every(int $n) : Collection
     {
+        $values = array_values($this->collection);
+        $keys   = array_keys($this->collection);
+        $count  = count($values);
+
         $new = [];
-        for ($i = 0; $i < $this->count(); $i += $n) {
-            $new[] = $this->get($i);
+        for ($i = 0; $i < $count; $i += $n) {
+            $new[$keys[$i]] = $values[$i];
         }
 
         return new self($new);
@@ -182,7 +190,7 @@ class Collection implements \Countable, \ArrayAccess, \Iterator, \JsonSerializab
         return null;
     }
 
-    public function except($filter)
+    public function except($filter) : Collection
     {
         if (!is_array($filter)) {
             $filter = [$filter];
@@ -199,116 +207,276 @@ class Collection implements \Countable, \ArrayAccess, \Iterator, \JsonSerializab
         return new self($new);
     }
 
-    public function filter()
+    public function filter($filter) : Collection
     {
+        $new = [];
+        foreach ($this->collection as $key => $value) {
+            if ($filter($key, $value)) {
+                $new[$key] = $value;
+            }
+        }
+
+        return new self($new);
     }
 
-    public function first()
+    public function first(\Closure $filter = null)
     {
-        return reset($this->collection);
+        foreach ($this->collection as $key => $value) {
+            if (!isset($filter) || $filter($key, $value)) {
+                return $value;
+            }
+        }
+
+        return null;
     }
 
-    public function last()
+    public function flatten() : Collection
     {
-        $end = end($this->collection);
-        reset($this->collection);
-
-        return $end;
+        return new self(ArrayUtils::arrayFlatten($this->collection));
     }
 
-    public function sort()
+    public function flip() : Collection
     {
+        return new self(array_flip($this->collection));
     }
 
-    public function reverse()
+    public function groupBy($filter) : Collection
     {
+        $new = [];
+        foreach ($this->collection as $key => $value) {
+            if (is_string($filter)) {
+                $group = $filter;
+            } elseif ($filter instanceof \Closure) {
+                $group = $filter($value, $key);
+            } else {
+                throw new \Exception();
+            }
+
+            $new[$value[$group]][] = $value;
+        }
+
+        return new self($new);
     }
 
-    public function map()
+    public function last(\Closure $filter = null)
     {
+        $collection = array_reverse($this->collection, true);
+        foreach ($collection as $key => $value) {
+            if (!isset($filter) || $filter($key, $value)) {
+                return $value;
+            }
+        }
+
+        return null;
     }
 
-    public function flatten()
+    public function sort() : Collection
     {
+        return new self(arsort($this->collection));
     }
 
-    public function flip()
+    public function sortBy($filter) : Collection
     {
+        return new self(uasort($this->collection, $filter));
     }
 
-    public function remove()
+    public function reverse() : Collection
     {
+        return new self(array_reverse($this->collection));
+    }
+
+    public function map($filter) : Collection
+    {
+        $new = [];
+        foreach ($this->collection as $key => $value) {
+            $new[$key] = $filter($value, $key);
+        }
+
+        return new self($new);
+    }
+
+    public function remove($key) : Collection
+    {
+        if ($key instanceof \Closure) {
+            foreach ($this->collection as $index => $value) {
+                if ($key($value, $index)) {
+                    unset($this->collection[$index]);
+                }
+            }
+        } elseif (is_scalar($key)) {
+            unset($this->collection[$key]);
+        }
+
+        return $this;
     }
 
     public function range()
     {
     }
 
-    public function groupBy()
+    public function has($key) : bool
     {
+        return isset($this->collection[$key]);
     }
 
-    public function has()
+    public function implode(string $delim, $key) : string
     {
+        $implode = '';
+        foreach ($this->collection as $colKey => $value) {
+            if (!isset($key) && is_scalar($value)) {
+                $implode .= $value . $delim;
+            } elseif (isset($key)) {
+                $implode .= $value[$key] . $delim;
+            }
+        }
+
+        return rtrim($implode, $delim);
     }
 
-    public function implode()
+    public function intersect(array $values) : Collection
     {
+        $new = [];
+        foreach ($this->collection as $key => $value) {
+            if (in_array($value, $values)) {
+                $new[] = $value;
+            }
+        }
+
+        return new self($new);
     }
 
-    public function intersect()
+    public function isEmpty() : bool
     {
+        return empty($this->collection);
     }
 
-    public function isEmpty()
+    public function keys() : array
     {
+        return array_keys($this->collection);
     }
 
-    public function keyBy()
+    public function max($key = null)
     {
+        $max = null;
+        foreach ($this->collection as $index => $value) {
+            if (isset($key) && is_array($value)) {
+                $value = $value[$index];
+            }
+
+            if (!isset($max) || $value > $max) {
+                $max = $value;
+            }
+        }
+
+        return $max;
     }
 
-    public function keys()
+    public function min($key = null)
     {
+        $min = null;
+        foreach ($this->collection as $index => $value) {
+            if (isset($key) && is_array($value)) {
+                $value = $value[$index];
+            }
+
+            if (!isset($min) || $value > $min) {
+                $min = $value;
+            }
+        }
+
+        return $min;
     }
 
-    public function max()
+    public function only(array $filter) : Collection
     {
+        $new = [];
+        foreach ($filter as $key => $value) {
+            $new[$value] = $this->collection[$value];
+        }
+
+        return new self($new);
     }
 
-    public function min()
+    public function pluck(string $id) : Collection
     {
+        $new = [];
+        foreach ($this->collection as $key => $value) {
+            $new[] = $value[$id];
+        }
+
+        return new self($new);
     }
 
-    public function merge()
+    public function merge(array $merge) : Collection
     {
+        return new self(array_merge($this->collection, $merge));
     }
 
     public function pop()
     {
+        return array_pop($this->collection);
     }
 
-    public function pull()
+    public function prepend(...$element) : Collection
     {
+        $this->collection = array_merge($element, $this->collection);
+
+        return $this;
     }
 
-    public function put()
+    public function pull($key)
     {
+        $value = $this->collection[$key];
+        unset($this->collection[$key]);
+
+        return $value;
+    }
+
+    public function put($key, $value) : Collection
+    {
+        $this->collection[$key] = $value;
+
+        return $this;
     }
 
     public function random()
     {
+        $i = mt_rand(0, $this->count() - 1);
+
+        return $this->get($i);
     }
 
-    public function find()
+    public function reduce($callback, $start = 0)
     {
+        $total = $start;
+        foreach ($this->collection as $key => $value) {
+            $total = $callback($total, $value, $key);
+        }
+
+        return $total;
     }
 
-    public function shift()
+    public function search($filter, bool $strict = true)
     {
+        if (is_scalar($filter)) {
+            array_search($filter, $this->collection, $strict);
+        } else {
+            foreach ($this->collection as $key => $value) {
+                if ($filter($value, $key)) {
+                    return $key;
+                }
+            }
+        }
+
+        return null;
     }
 
-    public function shiffle()
+    public function shift() : Collection
+    {
+        return new self(array_shift($this->collection));
+    }
+
+    public function shuffle() : Collection
     {
     }
 
@@ -320,16 +488,11 @@ class Collection implements \Countable, \ArrayAccess, \Iterator, \JsonSerializab
     {
     }
 
-    public function sortBy()
+    public function push($value) : Collection
     {
-    }
+        $this->collection[] = $value;
 
-    public function push()
-    {
-    }
-
-    public function prepend()
-    {
+        return $this;
     }
 
     /**
