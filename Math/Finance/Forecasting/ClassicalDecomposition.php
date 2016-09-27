@@ -69,8 +69,9 @@ class ClassicalDecomposition
     private function computeSeasonalComponent() : array
     {
         $seasonalComponent = [];
+        $count = count($this->data);
 
-        for ($i = 0; $i < $this->orderSize; $i++) {
+        for ($i = 0; $i < $this->dataSize; $i++) {
             $temp = [];
 
             for ($j = $i * $this->order; $j < $count; $j += $this->order) {

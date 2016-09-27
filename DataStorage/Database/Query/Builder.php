@@ -894,7 +894,7 @@ class Builder extends BuilderAbstract
 
     public function execute()
     {
-        $sth = $this->connection->con->prepare($this->toSQL());
+        $sth = $this->connection->con->prepare($this->toSql());
         $sth->execute();
 
         return $sth;
