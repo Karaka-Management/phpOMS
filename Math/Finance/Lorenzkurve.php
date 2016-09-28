@@ -35,9 +35,12 @@ class Lorenzkurve
         $i    = 1;
         $n    = count($data);
 
+        sort($data);
+
         foreach ($data as $key => $value) {
-            $sum1 += $i * $value;
-            $sum2 += $value;
+                $sum1 += $i * $value;
+                $sum2 += $value;
+                $i++;
         }
 
         return 2 * $sum1 / ($n * $sum2) - ($n + 1) / $n;
