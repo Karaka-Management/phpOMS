@@ -71,6 +71,8 @@ class Group implements ArrayableInterface, \JsonSerializable
      */
     protected $parents = [];
 
+    private $status = GroupStatus::INACTIVE;
+
     /**
      * Permissions.
      *
@@ -169,6 +171,16 @@ class Group implements ArrayableInterface, \JsonSerializable
     public function setDescription(string $description)
     {
         $this->description = $description;
+    }
+
+    public function getStatus() : int
+    {
+        return $this->status;
+    }
+
+    public function setStatus(int $status)
+    {
+        $this->status = $status;
     }
 
     /**
