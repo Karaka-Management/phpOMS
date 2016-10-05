@@ -263,7 +263,7 @@ class Http implements UriInterface
 
     public function getRoute() : string
     {
-        return ($this->path ?? '') . $this->getQuery();
+        return ($this->path ?? '') . '?' . $this->getQuery();
     }
 
     /**
