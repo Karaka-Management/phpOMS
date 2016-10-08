@@ -205,4 +205,28 @@ class Functions
 
         return $t;
     }
+
+    public static function mod($a, $b) {
+        if($a < 0) {
+            return ($a + $b) % $b;
+        }
+
+        return $a % $b;
+    }
+
+    public static function isOdd($a) : int {
+        if ($a & 1) {
+            return true;
+        }
+
+        return false;
+    }
+
+    public static function isEven($a) : int {
+        if ($a & 1) {
+            return false;
+        }
+
+        return true;
+    }
 }
