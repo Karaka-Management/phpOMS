@@ -206,15 +206,17 @@ class Functions
         return $t;
     }
 
-    public static function mod($a, $b) {
-        if($a < 0) {
+    public static function mod($a, $b)
+    {
+        if ($a < 0) {
             return ($a + $b) % $b;
         }
 
         return $a % $b;
     }
 
-    public static function isOdd($a) : int {
+    public static function isOdd($a) : bool
+    {
         if ($a & 1) {
             return true;
         }
@@ -222,11 +224,17 @@ class Functions
         return false;
     }
 
-    public static function isEven($a) : int {
+    public static function isEven($a) : bool
+    {
         if ($a & 1) {
             return false;
         }
 
         return true;
+    }
+
+    public static function getRelativeDegree($value, $length, $start = 0)
+    {
+        return abs(self::mod($value - $start, $length));
     }
 }
