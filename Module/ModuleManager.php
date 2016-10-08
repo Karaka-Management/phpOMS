@@ -366,7 +366,7 @@ class ModuleManager
             throw new \Exception('Module installer does not exist');
         }
 
-        $class::reInit($info);
+        $class::reInit(ROOT_PATH, $info);
     }
 
     /**
@@ -461,7 +461,7 @@ class ModuleManager
             throw new \Exception('Module installer does not exist');
         }
 
-        $class::install($this->app->dbPool, $info);
+        $class::install(ROOT_PATH, $this->app->dbPool, $info);
     }
 
     /**
@@ -577,7 +577,7 @@ class ModuleManager
         if (file_exists(self::MODULE_PATH . '/' . $from . '/Admin/Install/' . $for . '.php')) {
             $class = '\\Modules\\' . $from . '\\Admin\\Install\\' . $for;
             /** @var $class InstallerAbstract */
-            $class::install($this->app->dbPool, null);
+            $class::install(ROOT_PATH, $this->app->dbPool, null);
         }
     }
 

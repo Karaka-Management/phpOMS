@@ -90,18 +90,19 @@ class InstallerAbstract
     /**
      * Install module.
      *
-     * @param Pool        $dbPool Database instance
-     * @param InfoManager $info   Module info
+     * @param string      $routePath Route Path
+     * @param Pool        $dbPool    Database instance
+     * @param InfoManager $info      Module info
      *
      * @return void
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public static function install(Pool $dbPool, InfoManager $info)
+    public static function install(string $routePath, Pool $dbPool, InfoManager $info)
     {
         self::registerInDatabase($dbPool, $info);
-        self::initRoutes($info);
+        self::initRoutes($routePath, $info);
         self::activate($dbPool, $info);
     }
 
@@ -126,6 +127,7 @@ class InstallerAbstract
     /**
      * Re-init module.
      *
+     * @param string      $routePath Route Path
      * @param InfoManager $info Module info
      *
      * @return void
@@ -133,14 +135,15 @@ class InstallerAbstract
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public static function reInit(InfoManager $info)
+    public static function reInit(string $routePath, InfoManager $info)
     {
-        self::initRoutes($info);
+        self::initRoutes($routePath, $info);
     }
 
     /**
      * Init routes.
      *
+     * @param string      $routePath Route Path
      * @param InfoManager $info Module info
      *
      * @return void
@@ -150,14 +153,15 @@ class InstallerAbstract
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    private static function initRoutes(InfoManager $info)
+    private static function initRoutes(string $routePath, InfoManager $info)
     {
+        // todo: maybe use static::__DIR__ ?
         $directories = new Directory(ROOT_PATH . '/Modules/' . $info->getDirectory() . '/Admin/Routes');
 
         foreach ($directories as $key => $subdir) {
             if ($subdir instanceof Directory) {
                 foreach ($subdir as $key2 => $file) {
-                    self::installRoutes(ROOT_PATH . '/' . $subdir->getName() . '/' . basename($file->getName(), '.php') . '/Routes.php', $file->getPath());
+                    self::installRoutes($routePath . '/' . $subdir->getName() . '/' . basename($file->getName(), '.php') . '/Routes.php', $file->getPath());
                 }
             }
         }
