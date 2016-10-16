@@ -82,6 +82,8 @@ class FileLogger implements LoggerInterface
      */
     private $path = '';
 
+    private $created = false;
+
     /**
      * Object constructor.
      *
@@ -103,12 +105,20 @@ class FileLogger implements LoggerInterface
         }
 
         if (is_dir($lpath) || strpos($lpath, '.') === false) {
-            File::create($path = $path . '/' . date('Y-m-d') . '.log');
+            $path = $path . '/' . date('Y-m-d') . '.log';
         } else {
-            File::create($path = $lpath);
+            $path = $lpath;
         }
 
         $this->path = $path;
+    }
+
+    private function createFile()
+    {
+        if (!file_exists($this->path) && !$this->created) {
+            File::create($this->path);
+            $this->created = true;
+        }
     }
 
     /**
@@ -284,6 +294,7 @@ class FileLogger implements LoggerInterface
      */
     private function write(string $message)
     {
+        $this->createFile();
         $this->fp = fopen($this->path, 'a');
 
         if ($this->fp !== false) {
