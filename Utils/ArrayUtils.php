@@ -246,6 +246,18 @@ class ArrayUtils
         return trim($args[$key + 1], '" ');
     }
 
+    /**
+     * Flatten array
+     *
+     * Reduces multi dimensional array to one dimensional array. Flatten tries to maintain the index as far as possible.
+     *
+     * @param array  $array Multi dimensional array to flatten
+     *
+     * @return array
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
     public static function arrayFlatten(array $array) : array
     {
 
@@ -265,6 +277,9 @@ class ArrayUtils
         return $flat;
     }
 
+    /**
+     * todo: what did i smoke? what is this?
+     */
     public static function arraySum(array $array, int $start = 0, int $count = 0)
     {
         $count = $count === 0 ? count($array) : $count;
@@ -281,6 +296,16 @@ class ArrayUtils
         return $sum;
     }
 
+    /**
+     * Sum multi dimensional array
+     *
+     * @param array $array Multi dimensional array to flatten
+     *
+     * @return mixed
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
     public static function arraySumRecursive(array $array)
     {
         return array_sum(self::arrayFlatten($array));

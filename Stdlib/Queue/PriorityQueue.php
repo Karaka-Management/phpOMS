@@ -45,13 +45,15 @@ class PriorityQueue implements \Countable, \Serializable
      */
     private $queue = [];
 
+    private $mode = 0;
+
     /**
      * Constructor.
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function __construct()
+    public function __construct($mode = '')
     {
     }
 
