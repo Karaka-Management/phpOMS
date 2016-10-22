@@ -134,7 +134,7 @@ class Matrix implements \ArrayAccess, \Iterator
     public function transpose() : Matrix
     {
         $matrix = new Matrix($this->n, $this->m);
-        $matrix->setMatrix(array_map(null, $matrix->getMatrix()));
+        $matrix->setMatrix(array_map(null, ...$this->matrix));
 
         return $matrix;
     }
@@ -153,22 +153,39 @@ class Matrix implements \ArrayAccess, \Iterator
     }
 
     /**
+     * Get matrix rank.
+     *
+     * @return int
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+    public function rank() : int
+    {
+        return 0;
+    }
+
+    /**
      * Set matrix array.
      *
      * @param array $matrix Matrix
+     *
+     * @return Matrix 
      *
      * @throws \Exception
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function setMatrix(array $matrix)
+    public function setMatrix(array $matrix) : Matrix
     {
         if ($this->m !== count($matrix) || $this->n !== count($matrix[0])) {
             throw new DimensionException(count($matrix), count($matrix[0]));
         }
 
         $this->matrix = $matrix;
+
+        return $this;
     }
 
     /**
@@ -356,7 +373,7 @@ class Matrix implements \ArrayAccess, \Iterator
             for ($c = 0; $c < $nDim; $c++) { // Column of $matrix
                 $temp = 0;
 
-                for ($j = 0; $j < $mDim; $i++) { // Row of $matrix
+                for ($j = 0; $j < $mDim; $j++) { // Row of $matrix
                     $temp += $this->matrix[$i][$j] * $matrixArr[$j][$c];
                 }
 
@@ -553,6 +570,14 @@ class Matrix implements \ArrayAccess, \Iterator
 
         $newMatrix = new Matrix($this->n, $this->n);
         $newMatrix->setMatrix($newMatrixArr);
+
+        return $newMatrix;
+    }
+
+    public function diagonalize() : Matrix
+    {
+        $newMatrix = new Matrix($this->m, $this->n);
+        $newMatrix->setMatrix($this->diag($this->matrix));
 
         return $newMatrix;
     }
