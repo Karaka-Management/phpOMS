@@ -574,12 +574,74 @@ class Matrix implements \ArrayAccess, \Iterator
         return $newMatrix;
     }
 
+
     public function diagonalize() : Matrix
     {
         $newMatrix = new Matrix($this->m, $this->n);
         $newMatrix->setMatrix($this->diag($this->matrix));
 
         return $newMatrix;
+    }
+
+    public function solve($b, int $algorithm) : Matrix
+    {
+        return $this->gaussElimination($b);
+    }
+
+    private function gaussElimination($b) : Matrix 
+    {
+        $mDim = count($b);
+        $matrix = $this->matrix;
+
+        for($col = 0; $col < $mDim; $col++) {
+            $j = $col;
+            $max = $matrix[$j][$j];
+
+            for ($i = $col + 1; $i < $mDim; $i++) {
+                $temp = abs($matrix[$i][$col]);
+
+                if ($temp > $max) {
+                    $j = $i;
+                    $max = $temp;
+                }
+            }
+     
+            if($col != $j) {
+                $temp = $matrix[$col];
+                $matrix[$col] = $matrix[$j];
+                $matrix[$j] = $temp;
+             
+                $temp = $b[$col];
+                $b[$col] = $b[$j];
+                $b[$j] = $temp;
+            }
+     
+            for ($i = $col + 1; $i < $mDim; $i++) {
+                $temp = $matrix[$i][$col] / $matrix[$col][$col];
+
+                for ($j = $col + 1; $j < $mDim; $j++) {
+                    $matrix[$i][$j] -= $temp * $matrix[$col][$j];
+                }
+
+                $matrix[$i][$col] = 0;
+                $b[$i] -= $temp * $b[$col];
+            }
+        }
+
+        $x = [];
+        for ($col = $mDim - 1; $col >= 0; $col--) {
+            $temp = $b[$col];
+            for ($j = $mDim - 1; $j > $col; $j--) {
+                $temp -= $x[$j] * $matrix[$col][$j];
+            }
+
+            $x[$col] = $temp / $matrix[$col][$col];
+        }
+
+        $solution = new self(count($x), count($x[0]));
+        $solution->setMatrix($x);
+
+        return $solution;
     }
 
     /**
