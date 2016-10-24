@@ -30,12 +30,40 @@ namespace phpOMS\System\File;
  */
 abstract class StorageAbstract implements DirectoryInterface, FileInterface
 {
+    /**
+     * Singleton instance.
+     *
+     * @var StorageAbstract
+     * @since 1.0.0
+     */
     protected static $instance = null;
 
-    protected function __construct()
+    /**
+     * Storage type.
+     *
+     * @var int
+     * @since 1.0.0
+     */
+    protected $type = 0;
+
+    /**
+     * Constructor.
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+    private function __construct()
     {
     }
 
+    /**
+     * Get instance.
+     *
+     * @return mixed Storage instance.
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
     public static function getInstance()
     {
         if(!isset(static::$instance)) {
@@ -45,5 +73,16 @@ abstract class StorageAbstract implements DirectoryInterface, FileInterface
         return static::$instance;
     }
 
-    abstract protected function getType() : ContainerInterface;
+    /**
+     * Get storage type.
+     *
+     * @return int Storage type.
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+    public function getType() : int
+    {
+        return $this->type;
+    }
 }

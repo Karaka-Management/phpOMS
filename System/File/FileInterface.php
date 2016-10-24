@@ -31,11 +31,52 @@ namespace phpOMS\System\File;
 interface FileInterface extends ContainerInterface
 {
 
-    public static function put(string $path, string $content, bool $overwrite = true) : bool;
+	/**
+     * Save content to file.
+     *
+     * @param string $path File path to save the content to
+     * @param string $content Content to save in file
+     * @param int $mode Mode (overwrite, append)
+     *
+     * @return bool 
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+    public static function put(string $path, string $content, int $mode = 0) : bool;
 
+    /**
+     * Get content from file.
+     *
+     * @param string $path File path of content
+     *
+     * @return string Content of file
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
     public static function get(string $path) : string;
 
-    public function putContent() : bool;
+	/**
+     * Save content to file.
+     *
+     * @param string $content Content to save in file
+     * @param int $mode Mode (overwrite, append)
+     *
+     * @return bool 
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+    public function putContent(string $content, int $mode = 0) : bool;
 
+    /**
+     * Get content from file.
+     *
+     * @return string Content of file
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
     public function getContent() : string;
 }
