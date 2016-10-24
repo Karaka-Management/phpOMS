@@ -301,15 +301,28 @@ class Repository
         return implode("\n", $this->run('add ' . $files . ' -v'));
     }
 
+    /**
+     * Remove file(s) from repository
+     *
+     * @param string|array $files  Files to remove
+     * @param bool         $cached ?
+     *
+     * @return string
+     *
+     * @throws \InvalidArgumentException
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
     public function rm($files = '*', bool $cached = false) : string
     {
         if (is_array($files)) {
             $files = '"' . implode('" "', $files) . '"';
         } elseif (!is_string($files)) {
-            throw new \Exception('Wrong type');
+            throw new \InvalidArgumentException('Wrong type for $files.');
         }
 
-        return $this->run('rm ' . ($cached ? '--cached ' : '') . $files);
+        return implode("\n", $this->run('rm ' . ($cached ? '--cached ' : '') . $files));
     }
 
     /**
@@ -328,31 +341,65 @@ class Repository
         return implode("\n", $this->run('commit ' . ($all ? '-av' : '-v') . ' -m ' . escapeshellarg($commit->getMessage())));
     }
 
+    /**
+     * Clone repository to different directory
+     *
+     * @param string $target Target clone directory
+     *
+     * @return string
+     *
+     * @throws PathException in case the target is not a valid directory
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
     public function cloneTo(string $target) : string
     {
         if (!is_dir($target)) {
-            throw new \Exception('Not a directory');
+            throw new PathException($target);
         }
 
-        return $this->run('clone --local ' . $this->path . ' ' . $target);
+        return implode("\n", $this->run('clone --local ' . $this->path . ' ' . $target));
     }
 
+    /**
+     * Clone repository to current directory
+     *
+     * @param string $source Source repository to clone
+     *
+     * @return string
+     *
+     * @throws PathException in case the source repository is not valid
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
     public function cloneFrom(string $source) : string
     {
         if (!is_dir($source)) {
-            throw new \Exception('Not a directory');
+            throw new PathException($source);
         }
 
         // todo: is valid git repository?
 
-        return $this->run('clone --local ' . $source . ' ' . $this->path);
+        return implode("\n", $this->run('clone --local ' . $source . ' ' . $this->path));
     }
 
+    /**
+     * Clone remote repository to current directory
+     *
+     * @param string $source Source repository to clone
+     *
+     * @return string
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
     public function cloneRemote(string $source) : string
     {
         // todo: is valid remote git repository?
 
-        return $this->run('clone ' . $source . ' ' . $this->path);
+        return implode("\n", $this->run('clone ' . $source . ' ' . $this->path));
     }
 
     /**
@@ -853,7 +900,7 @@ class Repository
             throw new \Exception('Invalid commit id');
         }
 
-        if(StringUtils::startsWith($lines[1], 'Merge')) {
+        if (StringUtils::startsWith($lines[1], 'Merge')) {
             return new Commit();
         }
 

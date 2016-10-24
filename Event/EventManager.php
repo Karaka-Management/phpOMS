@@ -32,8 +32,6 @@ use phpOMS\Pattern\Mediator;
  */
 class EventManager implements Mediator
 {
-    const DELIM = ':';
-
     /**
      * Events.
      *

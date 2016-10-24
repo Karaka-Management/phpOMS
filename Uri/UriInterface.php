@@ -156,6 +156,16 @@ interface UriInterface
     public function getBase() : string;
 
     /**
+     * Get route representation of uri.
+     *
+     * @return string
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+    public function getRoute() : string;
+
+    /**
      * Set uri.
      *
      * @param string $uri Uri

@@ -87,27 +87,39 @@ class UriFactory
         return false;
     }
 
+    /**
+     * Simplify url
+     *
+     * While adding, and removing elements to a uri it can have multiple parameters or empty parameters which need to be cleaned up
+     *
+     * @param string $url Url to simplify
+     *
+     * @return string
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
     private static function unique(string $url) : string
     {
         $parts = explode('?', $url);
 
         if (count($parts) >= 2) {
-            $full = $parts[1];
-            $pars  = explode('&', $full);
-            $comps = [];
-            $spl   = null;
+            $full   = $parts[1];
+            $pars   = explode('&', $full);
+            $comps  = [];
+            $spl    = null;
             $length = count($pars);
 
             for ($i = 0; $i < $length; $i++) {
-                $spl           = explode('=', $pars[$i]);
+                $spl = explode('=', $pars[$i]);
 
-                if(isset($spl[1])) {
+                if (isset($spl[1])) {
                     $comps[$spl[0]] = $spl[1];
                 }
             }
 
             $pars = [];
-            foreach($comps as $key => $value) {
+            foreach ($comps as $key => $value) {
                 $pars[] = $key . '=' . $value;
             }
 
@@ -146,7 +158,7 @@ class UriFactory
         }, $uri);
 
         // todo: maybe don't do this and adjust unique?!
-        if(strpos($parsed, '?')) {
+        if (strpos($parsed, '?')) {
             str_replace('&', '?', $parsed);
         }
 
