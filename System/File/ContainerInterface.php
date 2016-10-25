@@ -198,21 +198,6 @@ interface ContainerInterface
      *
      * A file will always return 1 as it doesn't have any sub-resources. 
      *
-     * @param string $path Path of the resource
-     * @param bool $recursive Should count also sub-sub-resources
-     *
-     * @return int
-     *
-     * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
-     */
-    public static function count(string $path, bool $recursive = false) : int;
-
-    /**
-     * Get amount of sub-resources.
-     *
-     * A file will always return 1 as it doesn't have any sub-resources. 
-     *
      * @param bool $recursive Should count also sub-sub-resources
      *
      * @return int

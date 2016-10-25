@@ -87,16 +87,9 @@ class Directory extends FileAbstract implements DirectoryInterface
     }
 
     /**
-     * Add file or directory.
-     *
-     * @param FileAbstract $file File to add
-     *
-     * @return bool
-     *
-     * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     * {@inheritdoc}
      */
-    public function add(FileAbstract $file) : bool
+    public function add($file) : bool
     {
         $this->count += $file->getCount();
         $this->size += $file->getSize();
@@ -106,19 +99,9 @@ class Directory extends FileAbstract implements DirectoryInterface
     }
 
     /**
-     * Get folder size recursively.
-     *
-     * This can become rather slow for large structures.
-     *
-     * @param string $dir       Root dir to inspect
-     * @param bool   $recursive Get size recursive
-     *
-     * @return int
-     *
-     * @since  1.0.0
-     * @author Dennis Eichhorn
+     * {@inheritdoc}
      */
-    public static function getFolderSize(string $dir, bool $recursive = true) : int
+    public static function size(string $dir, bool $recursive = true) : int
     {
         $countSize = 0;
         $count     = 0;
@@ -129,7 +112,7 @@ class Directory extends FileAbstract implements DirectoryInterface
             foreach ($dir_array as $key => $filename) {
                 if ($filename != ".." && $filename != ".") {
                     if (is_dir($dir . "/" . $filename) && $recursive) {
-                        $countSize += self::getFolderSize($dir . "/" . $filename, $recursive);
+                        $countSize += self::size($dir . "/" . $filename, $recursive);
                     } else {
                         if (is_file($dir . "/" . $filename)) {
                             $countSize += filesize($dir . "/" . $filename);
@@ -144,18 +127,9 @@ class Directory extends FileAbstract implements DirectoryInterface
     }
 
     /**
-     * Get file count inside path.
-     *
-     * @param string $path      Path to folder
-     * @param bool   $recursive Should sub folders be counted as well?
-     * @param array  $ignore    Ignore these sub-paths
-     *
-     * @return int
-     *
-     * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     * {@inheritdoc}
      */
-    public static function getFileCount(string $path, bool $recursive = true, array $ignore = ['.', '..', 'cgi-bin',
+    public static function count(string $path, bool $recursive = true, array $ignore = ['.', '..', 'cgi-bin',
                                                                                                '.DS_Store'])
     {
         $size  = 0;
@@ -167,7 +141,7 @@ class Directory extends FileAbstract implements DirectoryInterface
             }
             if (is_dir(rtrim($path, '/') . '/' . $t)) {
                 if ($recursive) {
-                    $size += self::getFileCount(rtrim($path, '/') . '/' . $t, true, $ignore);
+                    $size += self::count(rtrim($path, '/') . '/' . $t, true, $ignore);
                 }
             } else {
                 $size++;
@@ -267,28 +241,13 @@ class Directory extends FileAbstract implements DirectoryInterface
     /**
      * {@inheritdoc}
      */
-    public static function size(string $path, bool $recursive = true) : int
-    {
-        // TODO: Implement size() method.
-    }
-
-    /**
-     * {@inheritdoc}
-     */
     public static function exists(string $path) : bool
     {
         return file_exists($path);
     }
 
     /**
-     * Get node by name.
-     *
-     * @param string $name File/direcotry name
-     *
-     * @return FileAbstract
-     *
-     * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     * {@inheritdoc}
      */
     public function getNode(string $name) : FileAbstract
     {
@@ -422,14 +381,6 @@ class Directory extends FileAbstract implements DirectoryInterface
     public static function basename(string $path) : string
     {
         // TODO: Implement basename() method.
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public static function count(string $path, bool $recursive = false) : int
-    {
-        // TODO: Implement count() method.
     }
 
     /**

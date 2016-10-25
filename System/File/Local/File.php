@@ -423,14 +423,6 @@ class File extends FileAbstract implements FileInterface
     /**
      * {@inheritdoc}
      */
-    public static function count(string $path, bool $recursive = false) : int
-    {
-        // TODO: Implement count() method.
-    }
-
-    /**
-     * {@inheritdoc}
-     */
     public static function extension(string $path) : string
     {
         $extension = explode('.', basename($path));
