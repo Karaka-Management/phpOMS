@@ -43,7 +43,52 @@ interface FileInterface extends ContainerInterface
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public static function put(string $path, string $content, int $mode = 0) : bool;
+    public static function put(string $path, string $content, int $mode = ContentPutMode::APPEND | ContentPutMode::CREATE) : bool;
+
+    /**
+     * Save content to file.
+     *
+     * Creates new file if it doesn't exist or overwrites existing file.
+     *
+     * @param string $path File path to save the content to
+     * @param string $content Content to save in file
+     *
+     * @return bool
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+    public static function set(string $path, string $content) : bool;
+
+    /**
+     * Save content to file.
+     *
+     * Creates new file if it doesn't exist or appends existing file.
+     *
+     * @param string $path File path to save the content to
+     * @param string $content Content to save in file
+     *
+     * @return bool
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+    public static function append(string $path, string $content) : bool;
+
+    /**
+     * Save content to file.
+     *
+     * Creates new file if it doesn't exist or prepends existing file.
+     *
+     * @param string $path File path to save the content to
+     * @param string $content Content to save in file
+     *
+     * @return bool
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+    public static function prepend(string $path, string $content) : bool;
 
     /**
      * Get content from file.
@@ -57,6 +102,18 @@ interface FileInterface extends ContainerInterface
      */
     public static function get(string $path) : string;
 
+    /**
+     * Get file extension.
+     *
+     * @param string $path File path
+     *
+     * @return string
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+    public static function extension(string $path) : string;
+
 	/**
      * Save content to file.
      *
@@ -68,7 +125,49 @@ interface FileInterface extends ContainerInterface
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function putContent(string $content, int $mode = 0) : bool;
+    public function putContent(string $content, int $mode = ContentPutMode::APPEND | ContentPutMode::CREATE) : bool;
+
+    /**
+     * Save content to file.
+     *
+     * Creates new file if it doesn't exist or overwrites existing file.
+     *
+     * @param string $content Content to save in file
+     *
+     * @return bool
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+    public function setContent(string $content) : bool;
+
+    /**
+     * Save content to file.
+     *
+     * Creates new file if it doesn't exist or overwrites existing file.
+     *
+     * @param string $content Content to save in file
+     *
+     * @return bool
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+    public function appendContent(string $content) : bool;
+
+    /**
+     * Save content to file.
+     *
+     * Creates new file if it doesn't exist or overwrites existing file.
+     *
+     * @param string $content Content to save in file
+     *
+     * @return bool
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+    public function prependContent(string $content) : bool;
 
     /**
      * Get content from file.
@@ -79,4 +178,14 @@ interface FileInterface extends ContainerInterface
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function getContent() : string;
+
+    /**
+     * Get file extension.
+     *
+     * @return string
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+    public function getExtension() : string;
 }

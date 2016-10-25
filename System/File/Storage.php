@@ -37,25 +37,32 @@ final class Storage
      * @since 1.0.0
      */
     private static $registered = [];
+    
+    private function __construct()
+    {
+        
+    }
 
     /**
      * Get registred env instance.
      *
      * @param string $env Environment name
      *
+     * @return StorageAbstract
+     *
      * @throws \Exception Throws exception in case of invalid storage
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public static function env(string $env = 'local') : string
+    public static function env(string $env = 'local') : StorageAbstract
     {
         if (isset(self::$registered[$env])) {
             if(is_string(self::$registered[$env])) {
                 $env = self::$registered[$env]::getInstance();
             } elseif(self::$registered[$env] instanceof StorageAbstract) {
                 $env = self::$registered[$env]::getInstance();
-            } elseif(self::$regsitered[$env] instanceof ContainerInterface) {
+            } elseif(self::$registered[$env] instanceof ContainerInterface) {
                 $env = self::$registered[$env];
             } else {
                 throw new \Exception('Invalid type');
@@ -74,6 +81,8 @@ final class Storage
      *
      * @param string $name Name of the environment
      * @param string|StorageAbstract|mixed $class Class to register. This can be either a namespace path, a anonymous class or storage implementation.
+     *
+     * @return bool
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>

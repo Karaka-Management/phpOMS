@@ -14,7 +14,6 @@
  * @link       http://orange-management.com
  */
 namespace phpOMS\System\File;
-use phpOMS\System\File\Local\FileAbstract;
 
 /**
  * Filesystem class.
@@ -72,12 +71,12 @@ interface ContainerInterface
      *
      * @param string $path Path of the resource
      *
-     * @return int Permissions (e.g. 0644);
+     * @return string Permissions (e.g. 0644);
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public static function permission(string $path) : int;
+    public static function permission(string $path) : string;
 
     /**
      * Get the parent path of the resource.
@@ -293,7 +292,6 @@ interface ContainerInterface
     /**
      * Move resource to different location.
      *
-     * @param string $from Path of the resource to move
      * @param string $to Path of the resource to move to
      * @param bool $overwrite Overwrite/replace existing file
      *
@@ -347,7 +345,7 @@ interface ContainerInterface
     /**
      * Get the permissions id of the resource.
      *
-     * @return int Permissions (e.g. 0644);
+     * @return string Permissions (e.g. 0644);
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>

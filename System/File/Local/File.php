@@ -15,6 +15,7 @@
  */
 namespace phpOMS\System\File\Local;
 use phpOMS\System\File\ContainerInterface;
+use phpOMS\System\File\ContentPutMode;
 use phpOMS\System\File\FileInterface;
 use phpOMS\System\File\PathException;
 
@@ -53,12 +54,7 @@ class File extends FileAbstract implements FileInterface
     }
 
     /**
-     * Index file.
-     *
-     * @return void
-     *
-     * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     * {@inheritdoc}
      */
     public function index()
     {
@@ -68,27 +64,17 @@ class File extends FileAbstract implements FileInterface
     }
 
     /**
-     * Save string to file.
-     *
-     * If the directory doesn't exist where the string should be saved it will be created
-     * as well as potential subdirectories. The directories will be created with '0644'
-     * permission.
-     *
-     * @param string $path Path to save the string to
-     * @param string $content Content to save to file
-     * @param bool $overwrite Should the file be overwritten if it already exists
-     *
-     * @example File::put('/var/www/html/test.txt', 'string'); // true
-     * @example File::put('/var/www/html/test.txt', 'string', false); // false
-     *
-     * @return bool Returns true on successfule file write and false on failure
-     *
-     * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     * {@inheritdoc}
      */
-    public static function put(string $path, string $content, bool $overwrite = true) : bool
+    public static function put(string $path, string $content, int $mode = ContentPutMode::APPEND | ContentPutMode::CREATE) : bool
     {
-        if ($overwrite || !file_exists($path)) {
+        // todo: create all else cases, right now all getting handled the same way which is wrong
+        if (
+            (($mode & ContentPutMode::APPEND) === ContentPutMode::APPEND && file_exists($path))
+            || (($mode & ContentPutMode::PREPEND) === ContentPutMode::PREPEND && file_exists($path))
+            || (($mode & ContentPutMode::REPLACE) === ContentPutMode::REPLACE && file_exists($path))
+            || (!file_exists($path) && ($mode & ContentPutMode::CREATE) === ContentPutMode::CREATE)
+        ) {
             if (!Directory::exists(dirname($path))) {
                 Directory::create(dirname($path), '0644', true);
             }
@@ -102,18 +88,7 @@ class File extends FileAbstract implements FileInterface
     }
 
     /**
-     * Get content of file.
-     *
-     * @param string $path Path to read from
-     *
-     * @example File::get('/var/www/html/test.txt');
-     *
-     * @return string The content of the file to read from.
-     *
-     * @throws PathException In case the file doesn't exist this exception gets thrown.
-     *
-     * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     * {@inheritdoc}
      */
     public static function get(string $path) : string
     {
@@ -125,16 +100,31 @@ class File extends FileAbstract implements FileInterface
     }
 
     /**
-     * Checks if a file exists.
-     *
-     * @param string $path Path of the file to check the existance for.
-     *
-     * @example File::exists('/var/www/html/test.txt');
-     *
-     * @return bool Returns true if the file exists and false if it doesn't.
-     *
-     * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     * {@inheritdoc}
+     */
+    public static function set(string $path, string $content) : bool
+    {
+        return self::put($path, $content, ContentPutMode::REPLACE | ContentPutMode::CREATE);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public static function append(string $path, string $content) : bool
+    {
+        return self::put($path, $content, ContentPutMode::APPEND | ContentPutMode::CREATE);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public static function prepend(string $path, string $content) : bool
+    {
+        return self::put($path, $content, ContentPutMode::PREPEND | ContentPutMode::CREATE);
+    }
+
+    /**
+     * {@inheritdoc}
      */
     public static function exists(string $path) : bool
     {
@@ -142,16 +132,7 @@ class File extends FileAbstract implements FileInterface
     }
 
     /**
-     * Gets the parent directory path of the specified file.
-     *
-     * @param string $path Path of the file to get the parent directory for.
-     *
-     * @example File::parent('/var/www/html/test.txt'); // /var/www
-     *
-     * @return string Returns the parent full directory path.
-     *
-     * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     * {@inheritdoc}
      */
     public static function parent(string $path) : string
     {
@@ -159,18 +140,7 @@ class File extends FileAbstract implements FileInterface
     }
 
     /**
-     * Gets the date when the file got created.
-     *
-     * @param string $path Path of the file to get the date of creation for.
-     *
-     * @return \DateTime Returns the \DateTime of when the file was created.
-     *
-     * @throws PathException Throws this exception if the file to get the creation date for doesn't exist.
-     *
-     * @example File::created('/var/www/html/test.txt');
-     *
-     * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     * {@inheritdoc}
      */
     public static function created(string $path) : \DateTime
     {
@@ -185,18 +155,7 @@ class File extends FileAbstract implements FileInterface
     }
 
     /**
-     * Gets the date when the file got changed the last time.
-     *
-     * @param string $path Path of the file to get the last date of change for.
-     *
-     * @return \DateTime Returns the \DateTime of when the file was last changed.
-     *
-     * @throws PathException Throws this exception if the file to get the last change date for doesn't exist.
-     *
-     * @example File::changed('/var/www/html/test.txt');
-     *
-     * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     * {@inheritdoc}
      */
     public static function changed(string $path) : \DateTime
     {
@@ -211,16 +170,9 @@ class File extends FileAbstract implements FileInterface
     }
 
     /**
-     * Gets the size of a file in bytes.
-     * 
-     * @param  string $path Path of the file to get the size for.
-     * 
-     * @return int Returns the size of the file.
-     *
-     * @since 1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     * {@inheritdoc}
      */
-    public static function size(string $path) : int
+    public static function size(string $path, bool $recursive = true) : int
     {
         if (!file_exists($path)) {
             throw new PathException($path);
@@ -230,14 +182,7 @@ class File extends FileAbstract implements FileInterface
     }
 
     /**
-     * Gets the id of the owner of the file.
-     * 
-     * @param  string $path Path of the file to get the owner for.
-     * 
-     * @return int Returns the owner of the file.
-     *
-     * @since 1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     * {@inheritdoc}
      */
     public static function owner(string $path) : int
     {
@@ -249,14 +194,7 @@ class File extends FileAbstract implements FileInterface
     }
 
     /**
-     * Gets the permission of a file.
-     * 
-     * @param  string $path Path of the file to get the permission for.
-     * 
-     * @return int Returns the permission of the file.
-     *
-     * @since 1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     * {@inheritdoc}
      */
     public static function permission(string $path) : int
     {
@@ -282,6 +220,9 @@ class File extends FileAbstract implements FileInterface
         return dirname($path);
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public static function copy(string $from, string $to, bool $overwrite = false) : bool
     {
         if (!file_exists($from)) {
@@ -301,6 +242,9 @@ class File extends FileAbstract implements FileInterface
         return false;
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public static function move(string $from, string $to, bool $overwrite = false) : bool
     {
         if (!file_exists($from)) {
@@ -320,6 +264,9 @@ class File extends FileAbstract implements FileInterface
         return false;
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public static function delete(string $path) : bool
     {
         if (!file_exists($path)) {
@@ -349,6 +296,9 @@ class File extends FileAbstract implements FileInterface
         return self::create($this->path);
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public static function create(string $path) : bool
     {
         if (!file_exists($path)) {
@@ -365,12 +315,7 @@ class File extends FileAbstract implements FileInterface
     }
 
     /**
-     * Gets the content of the current file.
-     *
-     * @return string Content of the file.
-     *
-     * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     * {@inheritdoc}
      */
     public function getContent() : string
     {
@@ -378,23 +323,40 @@ class File extends FileAbstract implements FileInterface
     }
 
     /**
-     * Set file content.
-     *
-     * @param string $content Content to set
-     *
-     * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     * {@inheritdoc}
      */
-    public function setContent(string $content)
+    public function setContent(string $content) : bool
     {
-        file_put_contents($this->path, $content);
+        return $this->putContent($content, ContentPutMode::REPLACE | ContentPutMode::CREATE);
     }
 
-    public function getFileName() : string
+    /**
+     * {@inheritdoc}
+     */
+    public function appendContent(string $content) : bool
+    {
+        return $this->putContent($content, ContentPutMode::APPEND | ContentPutMode::CREATE);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function prependContent(string $content) : bool
+    {
+        return $this->putContent($content, ContentPutMode::PREPEND | ContentPutMode::CREATE);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getName() : string
     {
         return explode('.', $this->name)[0];
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function getExtension() : string
     {
         $extension = explode('.', $this->name);
@@ -402,28 +364,77 @@ class File extends FileAbstract implements FileInterface
         return $extension[1] ?? '';
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function getParent() : ContainerInterface
     {
         // TODO: Implement getParent() method.
     }
 
-    public function copyNode() : bool
+    /**
+     * {@inheritdoc}
+     */
+    public function copyNode(string $to, bool $overwrite = false) : bool
     {
         // TODO: Implement copyNode() method.
     }
 
-    public function moveNode() : bool
+    /**
+     * {@inheritdoc}
+     */
+    public function moveNode(string $to, bool $overwrite = false) : bool
     {
         // TODO: Implement moveNode() method.
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function deleteNode() : bool
     {
         // TODO: Implement deleteNode() method.
     }
 
-    public function putContent() : bool
+    /**
+     * {@inheritdoc}
+     */
+    public function putContent(string $content, int $mode = ContentPutMode::APPEND | ContentPutMode::CREATE) : bool
     {
         // TODO: Implement putContent() method.
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public static function name(string $path) : string
+    {
+        return explode('.', basename($path))[0];
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public static function basename(string $path) : string
+    {
+        // TODO: Implement basename() method.
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public static function count(string $path, bool $recursive = false) : int
+    {
+        // TODO: Implement count() method.
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public static function extension(string $path) : string
+    {
+        $extension = explode('.', basename($path));
+
+        return $extension[1] ?? '';
     }
 }

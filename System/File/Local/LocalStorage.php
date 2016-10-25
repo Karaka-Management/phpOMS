@@ -15,7 +15,6 @@
  */
 namespace phpOMS\System\File\Local;
 use phpOMS\System\File\ContainerInterface;
-use phpOMS\System\File\FileInterface;
 use phpOMS\System\File\StorageAbstract;
 
 /**
@@ -33,127 +32,225 @@ use phpOMS\System\File\StorageAbstract;
  */
 class LocalStorage extends StorageAbstract
 {
-
+    /**
+     * {@inheritdoc}
+     */
     public static function created(string $path) : \DateTime
     {
         // TODO: Implement created() method.
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public static function changed(string $path) : \DateTime
     {
         // TODO: Implement changed() method.
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public static function owner(string $path) : int
     {
         // TODO: Implement owner() method.
     }
 
-    public static function permission(string $path) : int
+    /**
+     * {@inheritdoc}
+     */
+    public static function permission(string $path) : string
     {
         // TODO: Implement permission() method.
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public static function parent(string $path) : string
     {
         // TODO: Implement parent() method.
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public static function create(string $path) : bool
     {
         // TODO: Implement create() method.
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public static function delete(string $path) : bool
     {
         // TODO: Implement delete() method.
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public static function copy(string $from, string $to, bool $overwrite = false) : bool
     {
         // TODO: Implement copy() method.
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public static function move(string $from, string $to, bool $overwrite = false) : bool
     {
         // TODO: Implement move() method.
     }
 
-    public static function size(string $path) : int
+    /**
+     * {@inheritdoc}
+     */
+    public static function size(string $path, bool $recursive = true) : int
     {
         // TODO: Implement size() method.
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public static function exists(string $path) : bool
     {
         // TODO: Implement exists() method.
     }
 
-    public function getCount() : int
+    /**
+     * {@inheritdoc}
+     */
+    public static function name(string $path) : string
+    {
+        // TODO: Implement name() method.
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public static function basename(string $path) : string
+    {
+        // TODO: Implement basename() method.
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public static function count(string $path, bool $recursive = false) : int
+    {
+        // TODO: Implement count() method.
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getCount(bool $recursive = false) : int
     {
         // TODO: Implement getCount() method.
     }
 
-    public function getSize() : int
+    /**
+     * {@inheritdoc}
+     */
+    public function getSize(bool $recursive = false) : int
     {
         // TODO: Implement getSize() method.
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function getName() : string
     {
         // TODO: Implement getName() method.
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function getPath() : string
     {
         // TODO: Implement getPath() method.
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function getParent() : ContainerInterface
     {
         // TODO: Implement getParent() method.
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function createNode() : bool
     {
         // TODO: Implement createNode() method.
     }
 
-    public function copyNode() : bool
+    /**
+     * {@inheritdoc}
+     */
+    public function copyNode(string $to, bool $overwrite = false) : bool
     {
         // TODO: Implement copyNode() method.
     }
 
-    public function moveNode() : bool
+    /**
+     * {@inheritdoc}
+     */
+    public function moveNode(string $to, bool $overwrite = false) : bool
     {
         // TODO: Implement moveNode() method.
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function deleteNode() : bool
     {
         // TODO: Implement deleteNode() method.
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function getCreatedAt() : \DateTime
     {
         // TODO: Implement getCreatedAt() method.
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function getChangedAt() : \DateTime
     {
         // TODO: Implement getChangedAt() method.
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function getOwner() : int
     {
         // TODO: Implement getOwner() method.
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function getPermission() : string
     {
         // TODO: Implement getPermission() method.
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function index()
     {
         // TODO: Implement index() method.
@@ -161,7 +258,7 @@ class LocalStorage extends StorageAbstract
 
     /**
      * Return the current element
-     * @link http://php.net/manual/en/iterator.current.php
+     * @link  http://php.net/manual/en/iterator.current.php
      * @return mixed Can return any type.
      * @since 5.0.0
      */
@@ -172,7 +269,7 @@ class LocalStorage extends StorageAbstract
 
     /**
      * Move forward to next element
-     * @link http://php.net/manual/en/iterator.next.php
+     * @link  http://php.net/manual/en/iterator.next.php
      * @return void Any returned value is ignored.
      * @since 5.0.0
      */
@@ -183,7 +280,7 @@ class LocalStorage extends StorageAbstract
 
     /**
      * Return the key of the current element
-     * @link http://php.net/manual/en/iterator.key.php
+     * @link  http://php.net/manual/en/iterator.key.php
      * @return mixed scalar on success, or null on failure.
      * @since 5.0.0
      */
@@ -194,7 +291,7 @@ class LocalStorage extends StorageAbstract
 
     /**
      * Checks if current position is valid
-     * @link http://php.net/manual/en/iterator.valid.php
+     * @link  http://php.net/manual/en/iterator.valid.php
      * @return boolean The return value will be casted to boolean and then evaluated.
      * Returns true on success or false on failure.
      * @since 5.0.0
@@ -206,7 +303,7 @@ class LocalStorage extends StorageAbstract
 
     /**
      * Rewind the Iterator to the first element
-     * @link http://php.net/manual/en/iterator.rewind.php
+     * @link  http://php.net/manual/en/iterator.rewind.php
      * @return void Any returned value is ignored.
      * @since 5.0.0
      */
@@ -217,14 +314,14 @@ class LocalStorage extends StorageAbstract
 
     /**
      * Whether a offset exists
-     * @link http://php.net/manual/en/arrayaccess.offsetexists.php
+     * @link  http://php.net/manual/en/arrayaccess.offsetexists.php
      * @param mixed $offset <p>
-     * An offset to check for.
-     * </p>
+     *                      An offset to check for.
+     *                      </p>
      * @return boolean true on success or false on failure.
-     * </p>
-     * <p>
-     * The return value will be casted to boolean if non-boolean was returned.
+     *                      </p>
+     *                      <p>
+     *                      The return value will be casted to boolean if non-boolean was returned.
      * @since 5.0.0
      */
     public function offsetExists($offset)
@@ -234,10 +331,10 @@ class LocalStorage extends StorageAbstract
 
     /**
      * Offset to retrieve
-     * @link http://php.net/manual/en/arrayaccess.offsetget.php
+     * @link  http://php.net/manual/en/arrayaccess.offsetget.php
      * @param mixed $offset <p>
-     * The offset to retrieve.
-     * </p>
+     *                      The offset to retrieve.
+     *                      </p>
      * @return mixed Can return all value types.
      * @since 5.0.0
      */
@@ -248,13 +345,13 @@ class LocalStorage extends StorageAbstract
 
     /**
      * Offset to set
-     * @link http://php.net/manual/en/arrayaccess.offsetset.php
+     * @link  http://php.net/manual/en/arrayaccess.offsetset.php
      * @param mixed $offset <p>
-     * The offset to assign the value to.
-     * </p>
-     * @param mixed $value <p>
-     * The value to set.
-     * </p>
+     *                      The offset to assign the value to.
+     *                      </p>
+     * @param mixed $value  <p>
+     *                      The value to set.
+     *                      </p>
      * @return void
      * @since 5.0.0
      */
@@ -265,10 +362,10 @@ class LocalStorage extends StorageAbstract
 
     /**
      * Offset to unset
-     * @link http://php.net/manual/en/arrayaccess.offsetunset.php
+     * @link  http://php.net/manual/en/arrayaccess.offsetunset.php
      * @param mixed $offset <p>
-     * The offset to unset.
-     * </p>
+     *                      The offset to unset.
+     *                      </p>
      * @return void
      * @since 5.0.0
      */
@@ -277,28 +374,35 @@ class LocalStorage extends StorageAbstract
         // TODO: Implement offsetUnset() method.
     }
 
-    public static function put(string $path, string $content, bool $overwrite = true) : bool
+    /**
+     * {@inheritdoc}
+     */
+    public static function put(string $path, string $content, int $mode = 0) : bool
     {
         // TODO: Implement put() method.
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public static function get(string $path) : string
     {
         // TODO: Implement get() method.
     }
 
-    public function putContent() : bool
+    /**
+     * {@inheritdoc}
+     */
+    public function putContent(string $content, int $mode = 0) : bool
     {
         // TODO: Implement putContent() method.
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function getContent() : string
     {
         // TODO: Implement getContent() method.
-    }
-
-    protected function getType() : ContainerInterface
-    {
-        // TODO: Implement getType() method.
     }
 }

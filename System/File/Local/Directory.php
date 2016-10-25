@@ -71,12 +71,7 @@ class Directory extends FileAbstract implements DirectoryInterface
     }
 
     /**
-     * Index directory.
-     *
-     * @return void
-     *
-     * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     * {@inheritdoc}
      */
     public function index()
     {
@@ -183,14 +178,7 @@ class Directory extends FileAbstract implements DirectoryInterface
     }
 
     /**
-     * Delete directory and all its content.
-     *
-     * @param string $path Path to folder
-     *
-     * @return bool
-     *
-     * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     * {@inheritdoc}
      */
     public static function delete(string $path) : bool
     {
@@ -218,14 +206,7 @@ class Directory extends FileAbstract implements DirectoryInterface
     }
 
     /**
-     * Get parent directory path.
-     *
-     * @param string $path Path
-     *
-     * @return string
-     *
-     * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     * {@inheritdoc}
      */
     public static function parent(string $path) : string
     {
@@ -235,55 +216,65 @@ class Directory extends FileAbstract implements DirectoryInterface
         return implode('/', $path);
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public static function created(string $path) : \DateTime
     {
         // TODO: Implement created() method.
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public static function changed(string $path) : \DateTime
     {
         // TODO: Implement changed() method.
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public static function owner(string $path) : int
     {
         // TODO: Implement owner() method.
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public static function permission(string $path) : int
     {
         // TODO: Implement permission() method.
     }
 
-    /* Iterator */
-
+    /**
+     * {@inheritdoc}
+     */
     public static function copy(string $from, string $to, bool $overwrite = false) : bool
     {
         // TODO: Implement copy() method.
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public static function move(string $from, string $to, bool $overwrite = false) : bool
     {
         // TODO: Implement move() method.
     }
 
-    public static function put(string $path, string $content, bool $overwrite = true) : bool
-    {
-        // TODO: Implement put() method.
-    }
-
-    public static function get(string $path) : string
-    {
-        // TODO: Implement get() method.
-    }
-
-    /* ArrayAccess */
-
-    public static function size(string $path) : int
+    /**
+     * {@inheritdoc}
+     */
+    public static function size(string $path, bool $recursive = true) : int
     {
         // TODO: Implement size() method.
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public static function exists(string $path) : bool
     {
         return file_exists($path);
@@ -301,7 +292,7 @@ class Directory extends FileAbstract implements DirectoryInterface
      */
     public function getNode(string $name) : FileAbstract
     {
-        return $this->nodes[$name] ?? new NullFile('');
+        return $this->nodes[$name] ?? null;
     }
 
     /**
@@ -313,16 +304,7 @@ class Directory extends FileAbstract implements DirectoryInterface
     }
 
     /**
-     * Create directory.
-     *
-     * @param string $path       Path
-     * @param string $permission Directory permission
-     * @param bool   $recursive  Create parent directories if applicable
-     *
-     * @return bool
-     *
-     * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     * {@inheritdoc}
      */
     public static function create(string $path, string $permission = '0644', bool $recursive = false) : bool
     {
@@ -336,14 +318,7 @@ class Directory extends FileAbstract implements DirectoryInterface
     }
 
     /**
-     * Remove by name.
-     *
-     * @param string $name Name to remove
-     *
-     * @return bool
-     *
-     * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     * {@inheritdoc}
      */
     public function remove(string $name) : bool
     {
@@ -436,38 +411,70 @@ class Directory extends FileAbstract implements DirectoryInterface
     /**
      * {@inheritdoc}
      */
-    public function offsetGet($offset)
+    public static function name(string $path) : string
     {
-        return $this->nodes[$offset] ?? null;
+        // TODO: Implement name() method.
     }
 
+    /**
+     * {@inheritdoc}
+     */
+    public static function basename(string $path) : string
+    {
+        // TODO: Implement basename() method.
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public static function count(string $path, bool $recursive = false) : int
+    {
+        // TODO: Implement count() method.
+    }
+
+    /**
+     * {@inheritdoc}
+     */
     public function getParent() : ContainerInterface
     {
         // TODO: Implement getParent() method.
     }
 
-    public function copyNode() : bool
+    /**
+     * {@inheritdoc}
+     */
+    public function copyNode(string $to, bool $overwrite = false) : bool
     {
         // TODO: Implement copyNode() method.
     }
 
-    public function moveNode() : bool
+    /**
+     * {@inheritdoc}
+     */
+    public function moveNode(string $to, bool $overwrite = false) : bool
     {
         // TODO: Implement moveNode() method.
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function deleteNode() : bool
     {
         // TODO: Implement deleteNode() method.
     }
 
-    public function putContent() : bool
+    /**
+     * Offset to retrieve
+     * @link  http://php.net/manual/en/arrayaccess.offsetget.php
+     * @param mixed $offset <p>
+     *                      The offset to retrieve.
+     *                      </p>
+     * @return mixed Can return all value types.
+     * @since 5.0.0
+     */
+    public function offsetGet($offset)
     {
-        // TODO: Implement putContent() method.
-    }
-
-    public function getContent() : string
-    {
-        // TODO: Implement getContent() method.
+        // TODO: Implement offsetGet() method.
     }
 }

@@ -113,38 +113,23 @@ abstract class FileAbstract implements ContainerInterface
     }
 
     /**
-     * Get directory/file count.
-     *
-     * @return int
-     *
-     * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     * {@inheritdoc}
      */
-    public function getCount() : int
+    public function getCount(bool $recursive = true) : int
     {
         return $this->count;
     }
 
     /**
-     * Get directory/file size.
-     *
-     * @return int
-     *
-     * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     * {@inheritdoc}
      */
-    public function getSize() : int
+    public function getSize(bool $recursive = true) : int
     {
         return $this->size;
     }
 
     /**
-     * Get name.
-     *
-     * @return string
-     *
-     * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     * {@inheritdoc}
      */
     public function getName() : string
     {
@@ -152,12 +137,7 @@ abstract class FileAbstract implements ContainerInterface
     }
 
     /**
-     * Get path.
-     *
-     * @return string
-     *
-     * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     * {@inheritdoc}
      */
     public function getPath() : string
     {
@@ -165,12 +145,7 @@ abstract class FileAbstract implements ContainerInterface
     }
 
     /**
-     * Get parent directory.
-     *
-     * @return Directory
-     *
-     * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     * {@inheritdoc}
      */
     public function parentNode() : Directory
     {
@@ -178,12 +153,7 @@ abstract class FileAbstract implements ContainerInterface
     }
 
     /**
-     * Get created at.
-     *
-     * @return \DateTime
-     *
-     * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     * {@inheritdoc}
      */
     public function getCreatedAt() : \DateTime
     {
@@ -191,12 +161,7 @@ abstract class FileAbstract implements ContainerInterface
     }
 
     /**
-     * Get last changed at.
-     *
-     * @return \DateTime
-     *
-     * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     * {@inheritdoc}
      */
     public function getChangedAt() : \DateTime
     {
@@ -204,12 +169,7 @@ abstract class FileAbstract implements ContainerInterface
     }
 
     /**
-     * Get owner.
-     *
-     * @return int
-     *
-     * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     * {@inheritdoc}
      */
     public function getOwner() : int
     {
@@ -217,12 +177,7 @@ abstract class FileAbstract implements ContainerInterface
     }
 
     /**
-     * Get permission.
-     *
-     * @return string
-     *
-     * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     * {@inheritdoc}
      */
     public function getPermission() : string
     {
@@ -230,12 +185,7 @@ abstract class FileAbstract implements ContainerInterface
     }
 
     /**
-     * (Re-)Index path.
-     *
-     * @return void
-     *
-     * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     * {@inheritdoc}
      */
     public function index()
     {
