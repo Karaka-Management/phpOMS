@@ -81,7 +81,7 @@ class Directory extends FileAbstract implements DirectoryInterface
             if (!StringUtils::endsWith(trim($filename), '.')) {
                 $file = is_dir($filename) ? new self($filename) : new File($filename);
 
-                $this->add($file);
+                $this->addNode($file);
             }
         }
     }
@@ -89,7 +89,7 @@ class Directory extends FileAbstract implements DirectoryInterface
     /**
      * {@inheritdoc}
      */
-    public function add($file) : bool
+    public function addNode($file) : bool
     {
         $this->count += $file->getCount();
         $this->size += $file->getSize();
@@ -260,6 +260,8 @@ class Directory extends FileAbstract implements DirectoryInterface
     public function createNode() : bool
     {
         return self::create($this->path, $this->permission, true);
+
+        // todo: add node
     }
 
     /**
@@ -343,7 +345,7 @@ class Directory extends FileAbstract implements DirectoryInterface
     public function offsetSet($offset, $value)
     {
         if (is_null($offset)) {
-            $this->add($value);
+            $this->addNode($value);
         } else {
             $this->nodes[$offset] = $value;
         }

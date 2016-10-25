@@ -66,7 +66,7 @@ class File extends FileAbstract implements FileInterface
     /**
      * {@inheritdoc}
      */
-    public static function put(string $path, string $content, int $mode = ContentPutMode::APPEND | ContentPutMode::CREATE) : bool
+    public static function put(string $path, string $content, int $mode = ContentPutMode::REPLACE | ContentPutMode::CREATE) : bool
     {
         // todo: create all else cases, right now all getting handled the same way which is wrong
         if (

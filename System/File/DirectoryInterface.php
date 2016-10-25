@@ -68,5 +68,5 @@ interface DirectoryInterface extends ContainerInterface, \Iterator, \ArrayAccess
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function add($file) : bool;
+    public function addNode($file) : bool;
 }
