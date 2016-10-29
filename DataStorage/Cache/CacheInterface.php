@@ -14,6 +14,7 @@
  * @link       http://orange-management.com
  */
 namespace phpOMS\DataStorage\Cache;
+use phpOMS\Datatypes\Exception\InvalidEnumValue;
 
 /**
  * Cache interface.
@@ -32,85 +33,106 @@ interface CacheInterface
     /**
      * Updating or adding cache data.
      *
-     * @param mixed       $key    Unique cache key
-     * @param mixed       $value  Cache value
-     * @param CacheStatus $type   Cache type
-     * @param int         $expire Valid duration (in s)
+     * @param mixed $key    Unique cache key
+     * @param mixed $value  Cache value
+     * @param int   $expire Valid duration (in s). Negative expiration means no expiration.
      *
      * @return void
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function set($key, $value, CacheStatus $type = null, int $expire = 2592000);
+    public function set($key, $value, int $expire = -1);
 
     /**
      * Adding new data if it doesn't exist.
      *
-     * @param mixed       $key    Unique cache key
-     * @param mixed       $value  Cache value
-     * @param CacheStatus $type   Cache type
-     * @param int         $expire Valid duration (in s)
+     * @param mixed $key    Unique cache key
+     * @param mixed $value  Cache value
+     * @param int   $expire Valid duration (in s)
      *
      * @return bool
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function add($key, $value, CacheStatus $type = null, int $expire = 2592000) : bool;
+    public function add($key, $value, int $expire = -1) : bool;
 
     /**
      * Get cache by key.
      *
-     * @param mixed       $key  Unique cache key
-     * @param CacheStatus $type Cache status/type
+     * @param mixed $key    Unique cache key
+     * @param int   $expire Valid duration (in s). In case the data needs to be newer than the defined expiration time. If the expiration date is larger than the defined expiration time and supposed to be expired it will not remove the outdated cache.
      *
      * @return mixed Cache value
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function get($key, CacheStatus $type = null);
+    public function get($key, int $expire = -1);
 
     /**
      * Remove value by key.
      *
-     * @param mixed       $key  Unique cache key
-     * @param CacheStatus $type Cache status/type
+     * @param mixed $key    Unique cache key
+     * @param int   $expire Valid duration (in s)
      *
      * @return bool
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function delete($key, CacheStatus $type = null) : bool;
+    public function delete($key, int $expire = -1) : bool;
+
+    /**
+     * Removing all cache elements larger or equal to the expiration date. Call flushAll for removing persistent cache elements (expiration is negative) as well.
+     *
+     * @param int $expire Valid duration (in s)
+     *
+     * @return bool
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+    public function flush(int $expire = 0) : bool;
 
     /**
      * Removing all elements from cache (invalidate cache).
      *
-     * @param CacheStatus $type Cache status/type
-     *
-     * @return void
+     * @return bool
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function flush(CacheStatus $type = null);
+    public function flushAll() : bool;
+
+    /**
+     * Set cache status
+     *
+     * @param int $status Cache status
+     *
+     * @return void
+     *
+     * @throws InvalidEnumValue
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+    public function setStatus(int $status);
 
     /**
      * Updating existing value/key.
      *
-     * @param mixed     $key    Unique cache key
-     * @param mixed     $value  Cache value
-     * @param CacheType $type   Cache type
-     * @param  int      $expire Timestamp
+     * @param mixed $key    Unique cache key
+     * @param mixed $value  Cache value
+     * @param  int  $expire Valid duration (in s)
      *
      * @return bool
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function replace($key, $value, CacheType $type = null, int $expire = -1) : bool;
+    public function replace($key, $value, int $expire = -1) : bool;
 
     /**
      * Requesting cache stats.
