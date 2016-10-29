@@ -15,7 +15,7 @@
  */
 namespace phpOMS\Module;
 
-use phpOMS\DataStorage\Database\Pool;
+use phpOMS\DataStorage\Database\DatabasePool;
 
 /**
  * Installer Abstract class.
@@ -42,7 +42,7 @@ class UpdateAbstract
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public static function update(Pool $dbPool, InfoManager $info)
+    public static function update(DatabasePool $dbPool, InfoManager $info)
     {
     }
 }

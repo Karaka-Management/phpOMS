@@ -16,7 +16,7 @@
 namespace phpOMS\Module;
 
 use phpOMS\DataStorage\Database\DatabaseType;
-use phpOMS\DataStorage\Database\Pool;
+use phpOMS\DataStorage\Database\DatabasePool;
 
 /**
  * Installer Abstract class.
@@ -43,7 +43,7 @@ class DeactivateAbstract
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public static function deactivate(Pool $dbPool, InfoManager $info)
+    public static function deactivate(DatabasePool $dbPool, InfoManager $info)
     {
         self::deactivateRoutes(ROOT_PATH . '/Web/Routes.php', ROOT_PATH . '/Modules/' . $info->getDirectory() . '/Admin/Routes/http.php');
         self::deactivateInDatabase($dbPool, $info);
@@ -76,7 +76,7 @@ class DeactivateAbstract
      * @since  1.0.0
      * @author Dennis Eichhorn
      */
-    public static function deactivateInDatabase(Pool $dbPool, InfoManager $info)
+    public static function deactivateInDatabase(DatabasePool $dbPool, InfoManager $info)
     {
         switch ($dbPool->get()->getType()) {
             case DatabaseType::MYSQL:

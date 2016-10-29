@@ -30,7 +30,7 @@ use phpOMS\DataStorage\Database\Connection\ConnectionFactory;
  * @link       http://orange-management.com
  * @since      1.0.0
  */
-class Pool
+class DatabasePool
 {
 
     /**

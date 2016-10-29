@@ -40,7 +40,7 @@ class ApplicationAbstract
     /**
      * Database object.
      *
-     * @var \phpOMS\DataStorage\Database\Pool
+     * @var \phpOMS\DataStorage\Database\DatabasePool
      * @since 1.0.0
      */
     public $dbPool = null;
@@ -64,7 +64,7 @@ class ApplicationAbstract
     /**
      * Cache instance.
      *
-     * @var \phpOMS\DataStorage\Cache\Pool
+     * @var \phpOMS\DataStorage\Cache\CachePool
      * @since 1.0.0
      */
     public $cachePool = null;

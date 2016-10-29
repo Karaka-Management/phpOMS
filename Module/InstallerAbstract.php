@@ -16,7 +16,7 @@
 namespace phpOMS\Module;
 
 use phpOMS\DataStorage\Database\DatabaseType;
-use phpOMS\DataStorage\Database\Pool;
+use phpOMS\DataStorage\Database\DatabasePool;
 use phpOMS\System\File\Local\Directory;
 use phpOMS\System\File\PathException;
 use phpOMS\System\File\PermissionException;
@@ -46,7 +46,7 @@ class InstallerAbstract
      * @since  1.0.0
      * @author Dennis Eichhorn
      */
-    public static function registerInDatabase(Pool $dbPool, InfoManager $info)
+    public static function registerInDatabase(DatabasePool $dbPool, InfoManager $info)
     {
         switch ($dbPool->get()->getType()) {
             case DatabaseType::MYSQL:
@@ -99,7 +99,7 @@ class InstallerAbstract
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public static function install(string $routePath, Pool $dbPool, InfoManager $info)
+    public static function install(string $routePath, DatabasePool $dbPool, InfoManager $info)
     {
         self::registerInDatabase($dbPool, $info);
         self::initRoutes($routePath, $info);
@@ -117,7 +117,7 @@ class InstallerAbstract
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    private static function activate(Pool $dbPool, InfoManager $info)
+    private static function activate(DatabasePool $dbPool, InfoManager $info)
     {
         /** @var ActivateAbstract $class */
         $class = '\Modules\\' . $info->getDirectory() . '\Admin\Activate';

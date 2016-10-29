@@ -15,7 +15,7 @@
  */
 namespace phpOMS\Module;
 
-use phpOMS\DataStorage\Database\Pool;
+use phpOMS\DataStorage\Database\DatabasePool;
 
 /**
  * Installer Abstract class.
@@ -42,7 +42,7 @@ class UninstallAbstract
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public static function uninstall(Pool $dbPool, InfoManager $info)
+    public static function uninstall(DatabasePool $dbPool, InfoManager $info)
     {
 
     }
