@@ -14,6 +14,7 @@
  * @link       http://orange-management.com
  */
 namespace phpOMS\System\File\Local;
+
 use phpOMS\System\File\ContainerInterface;
 use phpOMS\System\File\ContentPutMode;
 use phpOMS\System\File\FileInterface;
@@ -142,6 +143,14 @@ class File extends FileAbstract implements FileInterface
     /**
      * {@inheritdoc}
      */
+    public static function sanitize(string $path) : string
+    {
+        return preg_replace('[^\w\s\d\.\-_~,;:\[\]\(\]]', '', $path);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
     public static function created(string $path) : \DateTime
     {
         if (!file_exists($path)) {
@@ -196,7 +205,7 @@ class File extends FileAbstract implements FileInterface
     /**
      * {@inheritdoc}
      */
-    public static function permission(string $path) : int
+    public static function permission(string $path) : string
     {
         if (!file_exists($path)) {
             throw new PathException($path);

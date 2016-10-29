@@ -130,7 +130,7 @@ class Directory extends FileAbstract implements DirectoryInterface
      * {@inheritdoc}
      */
     public static function count(string $path, bool $recursive = true, array $ignore = ['.', '..', 'cgi-bin',
-                                                                                               '.DS_Store'])
+                                                                                               '.DS_Store']) : int
     {
         $size  = 0;
         $files = scandir($path);
@@ -217,7 +217,7 @@ class Directory extends FileAbstract implements DirectoryInterface
     /**
      * {@inheritdoc}
      */
-    public static function permission(string $path) : int
+    public static function permission(string $path) : string
     {
         // TODO: Implement permission() method.
     }
@@ -244,6 +244,14 @@ class Directory extends FileAbstract implements DirectoryInterface
     public static function exists(string $path) : bool
     {
         return file_exists($path);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public static function sanitize(string $path) : string
+    {
+        return preg_replace('[^\w\s\d\.\-_~,;:\[\]\(\]\/]', '', $path);
     }
 
     /**

@@ -194,6 +194,18 @@ interface ContainerInterface
     public static function basename(string $path) : string;
 
     /**
+     * Make name/path operating system safe.
+     *
+     * @param string $path Path of the resource
+     *
+     * @return string
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+    public static function sanitize(string $path) : string;
+
+    /**
      * Get amount of sub-resources.
      *
      * A file will always return 1 as it doesn't have any sub-resources. 

@@ -44,7 +44,7 @@ interface DirectoryInterface extends ContainerInterface, \Iterator, \ArrayAccess
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public static function count(string $path, bool $recursive = false, array $ignore = []) : int;
+    public static function count(string $path, bool $recursive = true, array $ignore = []) : int;
 
     /**
      * Get node by name.
