@@ -82,6 +82,12 @@ class FileLogger implements LoggerInterface
      */
     private $path = '';
 
+    /**
+     * Is the logging file created
+     *
+     * @var bool
+     * @since 1.0.0
+     */
     private $created = false;
 
     /**
