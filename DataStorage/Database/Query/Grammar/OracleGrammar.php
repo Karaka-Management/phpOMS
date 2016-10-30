@@ -15,6 +15,7 @@
  */
 
 namespace phpOMS\DataStorage\Database\Query\Grammar;
+use phpOMS\DataStorage\Database\Query\Builder;
 
 /**
  * Grammar class.

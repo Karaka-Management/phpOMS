@@ -300,7 +300,7 @@ class Grammar extends GrammarAbstract
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    protected function compileLimit(Builder $query, $limit) : string
+    protected function compileLimit(Builder $query, int $limit) : string
     {
         return 'LIMIT ' . $limit;
     }

@@ -116,7 +116,7 @@ class Builder extends BuilderAbstract
     /**
      * Limit.
      *
-     * @var array
+     * @var int
      * @since 1.0.0
      */
     public $limit = null;
