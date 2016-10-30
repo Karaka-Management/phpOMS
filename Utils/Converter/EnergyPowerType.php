@@ -30,4 +30,13 @@ use phpOMS\Datatypes\Enum;
  */
 abstract class EnergyPowerType extends Enum
 {
+    const KILOWATT_HOUERS = 'kWh';
+    const MEGAWATT_HOUERS = 'MWh';
+    const KILOTONS = 'kt';
+    const JOULS = 'J';
+    const CALORIES = 'Cal';
+    const BTU = 'BTU';
+    const KILOJOULS = 'kJ';
+    const THERMEC = 'thmEC';
+    const NEWTON_METERS = 'Nm';
 }

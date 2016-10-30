@@ -38,8 +38,6 @@ class Measurement
      *
      * @return float
      *
-     * @todo   : implement more
-     *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
@@ -113,8 +111,6 @@ class Measurement
      * @param string $to    Output weight
      *
      * @return float
-     *
-     * @todo   : implement more
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
@@ -1237,8 +1233,68 @@ class Measurement
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public static function convertEnergie(float $value, string $from = WeightType::GRAM, string $to = WeightType::KILOGRAM) : float
+    public static function convertEnergie(float $value, string $from = EnergyPowerType::JOULS, string $to = EnergyPowerType::KILOWATT_HOUERS) : float
     {
+        switch ($from) {
+            case EnergyPowerType::JOULS:
+                break;
+            case EnergyPowerType::KILOWATT_HOUERS:
+                $value /= 0.00000027778;
+                break;
+            case EnergyPowerType::MEGAWATT_HOUERS:
+                $value /= 0.00000000027778;
+                break;
+            case EnergyPowerType::KILOTONS:
+                $value /= 0.00000000000023901;
+                break;
+            case EnergyPowerType::CALORIES:
+                $value /= 0.00023885;
+                break;
+            case EnergyPowerType::BTU:
+                $value /= 0.00094782;
+                break;
+            case EnergyPowerType::KILOJOULS:
+                $value /= 0.0010000;
+                break;
+            case EnergyPowerType::THERMEC:
+                $value /= 0.0000000094782;
+                break;
+            case EnergyPowerType::NEWTON_METERS:
+                break;
+            default:
+                throw new \InvalidArgumentException('Energy not supported');
+        }
+
+        switch ($to) {
+            case EnergyPowerType::JOULS:
+                break;
+            case EnergyPowerType::KILOWATT_HOUERS:
+                $value *= 0.00000027778;
+                break;
+            case EnergyPowerType::MEGAWATT_HOUERS:
+                $value *= 0.00000000027778;
+                break;
+            case EnergyPowerType::KILOTONS:
+                $value *= 0.00000000000023901;
+                break;
+            case EnergyPowerType::CALORIES:
+                $value *= 0.00023885;
+                break;
+            case EnergyPowerType::BTU:
+                $value *= 0.00094782;
+                break;
+            case EnergyPowerType::KILOJOULS:
+                $value *= 0.0010000;
+                break;
+            case EnergyPowerType::THERMEC:
+                $value *= 0.0000000094782;
+                break;
+            case EnergyPowerType::NEWTON_METERS:
+                break;
+            default:
+                throw new \InvalidArgumentException('Energy not supported');
+        }
+
         return $value;
     }
 
