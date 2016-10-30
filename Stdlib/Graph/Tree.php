@@ -32,13 +32,13 @@ use phpOMS\Validation\Base\IbanEnum;
  */
 class Tree extends Graph
 {
-	private $nodes = [];
+	protected $nodes = [];
 
 	public function getMaxDepth() : int 
 	{
 		$depth = [0];
 
-		foreach($nodes as $node) {
+		foreach($this->nodes as $node) {
 			$depth[] = $node->getMaxDepth();
 		}
 
@@ -49,7 +49,7 @@ class Tree extends Graph
 	{
 		$depth = [0];
 
-		foreach($nodes as $node) {
+		foreach($this->nodes as $node) {
 			$depth[] = $node->getMinDepth();
 		}
 
