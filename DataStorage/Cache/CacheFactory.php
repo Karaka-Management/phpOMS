@@ -13,7 +13,8 @@
  * @version    1.0.0
  * @link       http://orange-management.com
  */
-namespace phpOMS\DataStorage\Database\Connection;
+namespace phpOMS\DataStorage\Cache;
+
 use phpOMS\DataStorage\Cache\CacheInterface;
 use phpOMS\DataStorage\Cache\FileCache;
 

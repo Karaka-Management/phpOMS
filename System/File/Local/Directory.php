@@ -192,10 +192,21 @@ class Directory extends FileAbstract implements DirectoryInterface
 
     /**
      * {@inheritdoc}
+     * todo: move to fileAbastract since it should be the same for file and directory?
      */
     public static function created(string $path) : \DateTime
     {
-        // TODO: Implement created() method.
+        if(!file_exists($path)) {
+            $created = new \DateTime();
+            $created->setTimestamp(0);
+
+            return $created;
+        }
+
+        $created = new \DateTime('now');
+        $created->setTimestamp(filemtime($path));
+
+        return $created;
     }
 
     /**

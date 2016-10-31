@@ -145,7 +145,7 @@ class File extends FileAbstract implements FileInterface
      */
     public static function sanitize(string $path) : string
     {
-        return preg_replace('[^\w\s\d\.\-_~,;:\[\]\(\]]', '', $path);
+        return preg_replace('/[^\w\s\d\.\-_~,;\[\]\(\]]/', '', $path);
     }
 
     /**
