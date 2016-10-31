@@ -144,7 +144,7 @@ class FileCache implements CacheInterface
 
         $path = File::sanitize($key, '~');
 
-        file_put_contents($this->cachePath . '/' . $path, $this->build($value, $expire));
+        file_put_contents($this->cachePath . '/' . $path . '.cache', $this->build($value, $expire));
 
         return false;
     }
@@ -158,10 +158,11 @@ class FileCache implements CacheInterface
             return false;
         }
 
-        $path = File::sanitize($key, '~');
+        $name = File::sanitize($key, '~');
+        $path = $this->cachePath . '/' . $path . '.cache';
 
-        if (!file_exists($this->cachePath . '/' . $path)) {
-            file_put_contents($this->cachePath . '/' . $path, $this->build($value, $expire));
+        if (!file_exists($path)) {
+            file_put_contents($path, $this->build($value, $expire));
 
             return true;
         }
@@ -275,7 +276,7 @@ class FileCache implements CacheInterface
         }
 
         $name = File::sanitize($key, '~');
-        $path = $this->cachePath . '/' . $name;
+        $path = $this->cachePath . '/' . $name . '.cache';
 
         if(!file_exists($path)) {
             return null;
@@ -342,7 +343,7 @@ class FileCache implements CacheInterface
         }
 
         $name = File::sanitize($key, '~');
-        $path = $this->cachePath . '/' . $name;
+        $path = $this->cachePath . '/' . $name . '.cache';
 
         if ($expire < 0 && file_exists($path)) {
             unlink($path);
@@ -404,10 +405,11 @@ class FileCache implements CacheInterface
             return false;
         }
 
-        $path = File::sanitize($key, '~');
+        $name = File::sanitize($key, '~');
+        $path = $this->cachePath . '/' . $path . '.cache';
 
-        if (file_exists($this->cachePath . '/' . $path)) {
-            file_put_contents($this->cachePath . '/' . $path, $this->build($value, $expire));
+        if (file_exists($path)) {
+            file_put_contents($path, $this->build($value, $expire));
 
             return true;
         }
