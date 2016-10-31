@@ -284,7 +284,7 @@ class FileCache implements CacheInterface
         $created = Directory::created($path)->getTimestamp();
         $now     = time();
 
-        if ($expire >= 0 && $created + $expire > $now) {
+        if ($expire >= 0 && $created + $expire < $now) {
             return null;
         }
 
