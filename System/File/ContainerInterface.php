@@ -197,13 +197,14 @@ interface ContainerInterface
      * Make name/path operating system safe.
      *
      * @param string $path Path of the resource
+     * @param string $replace Replace invalid chars with
      *
      * @return string
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public static function sanitize(string $path) : string;
+    public static function sanitize(string $path, string $replace = '') : string;
 
     /**
      * Get amount of sub-resources.
