@@ -617,7 +617,7 @@ class DataMapperAbstract implements DataMapperInterface
     /**
      * Create relation table entry
      *
-     * In cas of a many to many relation the relation has to be stored in a relation table
+     * In case of a many to many relation the relation has to be stored in a relation table
      *
      * @param string $propertyName Property name to initialize
      * @param array  $objsIds      Object ids to insert
@@ -633,7 +633,11 @@ class DataMapperAbstract implements DataMapperInterface
     private static function createRelationTable(string $propertyName, array $objsIds, $objId)
     {
         /** @var string $table */
-        if (static::$hasMany[$propertyName]['table'] !== static::$table && static::$hasMany[$propertyName]['table'] !== static::$hasMany[$propertyName]['mapper']::$table) {
+        if (
+            !empty($objsIds)
+            && static::$hasMany[$propertyName]['table'] !== static::$table
+            && static::$hasMany[$propertyName]['table'] !== static::$hasMany[$propertyName]['mapper']::$table
+        ) {
             $relQuery = new Builder(self::$db);
             $relQuery->prefix(self::$db->getPrefix())
                 ->into(static::$hasMany[$propertyName]['table'])
@@ -824,7 +828,7 @@ class DataMapperAbstract implements DataMapperInterface
                 }
 
                 $objects = $mapper::get($values);
-                $reflectionProperty->setValue($obj, $objects);
+                $reflectionProperty->setValue($obj, !is_array($objects) ? [$objects] : $objects);
 
                 if (!$accessible) {
                     $reflectionProperty->setAccessible(false);
