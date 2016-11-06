@@ -64,14 +64,20 @@ class Group implements ArrayableInterface, \JsonSerializable
     protected $members = [];
 
     /**
-     * Parents .
+     * Parents.
      *
      * @var int[]
      * @since 1.0.0
      */
     protected $parents = [];
 
-    private $status = GroupStatus::INACTIVE;
+    /**
+     * Group status.
+     *
+     * @var int
+     * @since 1.0.0
+     */
+    protected $status = GroupStatus::INACTIVE;
 
     /**
      * Permissions.
