@@ -142,9 +142,9 @@ class FileCache implements CacheInterface
             return false;
         }
 
-        $path = File::sanitize($key);
+        $path = File::sanitize($key, '~');
 
-        file_put_contents($this->cachePath . '/' . $path, $this->build($value, $expire));
+        file_put_contents($this->cachePath . '/' . $path . '.cache', $this->build($value, $expire));
 
         return false;
     }
@@ -158,10 +158,11 @@ class FileCache implements CacheInterface
             return false;
         }
 
-        $path = File::sanitize($key);
+        $name = File::sanitize($key, '~');
+        $path = $this->cachePath . '/' . $path . '.cache';
 
-        if (!file_exists($this->cachePath . '/' . $path)) {
-            file_put_contents($this->cachePath . '/' . $path, $this->build($value, $expire));
+        if (!file_exists($path)) {
+            file_put_contents($path, $this->build($value, $expire));
 
             return true;
         }
@@ -260,9 +261,9 @@ class FileCache implements CacheInterface
     private function getExpire(string $raw) : int
     {
         $expireStart = strpos($raw, self::DELIM);
-        $expireEnd   = strpos($raw, self::DELIM, $expireStart);
+        $expireEnd   = strpos($raw, self::DELIM, $expireStart+1);
 
-        return (int) substr($raw, $expireStart, $expireEnd);
+        return (int) substr($raw, $expireStart+1, $expireEnd - ($expireStart+1));
     }
 
     /**
@@ -274,11 +275,17 @@ class FileCache implements CacheInterface
             return null;
         }
 
-        $name    = Directory::sanitize($key);
-        $created = Directory::created($path = $this->cachePath . '/' . $name)->getTimestamp();
+        $name = File::sanitize($key, '~');
+        $path = $this->cachePath . '/' . $name . '.cache';
+
+        if(!file_exists($path)) {
+            return null;
+        }
+        
+        $created = Directory::created($path)->getTimestamp();
         $now     = time();
 
-        if ($expire >= 0 && $created + $expire > $now) {
+        if ($expire >= 0 && $created + $expire < $now) {
             return null;
         }
 
@@ -286,10 +293,10 @@ class FileCache implements CacheInterface
         $type = $raw[0];
 
         $expireStart = strpos($raw, self::DELIM);
-        $expireEnd   = strpos($raw, self::DELIM, $expireStart);
-        $cacheExpire = substr($raw, $expireStart, $expireEnd);
+        $expireEnd   = strpos($raw, self::DELIM, $expireStart+1);
+        $cacheExpire = substr($raw, $expireStart+1, $expireEnd - ($expireStart+1));
 
-        if ($cacheExpire >= 0 && $created + $cacheExpire > $now) {
+        if ($cacheExpire >= 0 && $created + $cacheExpire < $now) {
             $this->delete($key);
 
             return null;
@@ -316,7 +323,7 @@ class FileCache implements CacheInterface
             case CacheType::_SERIALIZABLE:
             case CacheType::_JSONSERIALIZABLE:
                 $namespaceStart = strpos($raw, self::DELIM, $expireEnd);
-                $namespaceEnd   = strpos($raw, self::DELIM, $namespaceStart);
+                $namespaceEnd   = strpos($raw, self::DELIM, $namespaceStart+1);
                 $namespace      = substr($raw, $namespaceStart, $namespaceEnd);
 
                 $value = $namespace::unserialize(substr($raw, $namespaceEnd + 1));
@@ -335,8 +342,8 @@ class FileCache implements CacheInterface
             return false;
         }
 
-        $name = File::sanitize($key);
-        $path = $this->cachePath . '/' . $name;
+        $name = File::sanitize($key, '~');
+        $path = $this->cachePath . '/' . $name . '.cache';
 
         if ($expire < 0 && file_exists($path)) {
             unlink($path);
@@ -349,8 +356,8 @@ class FileCache implements CacheInterface
             $now         = time();
             $raw         = file_get_contents($path);
             $expireStart = strpos($raw, self::DELIM);
-            $expireEnd   = strpos($raw, self::DELIM, $expireStart);
-            $cacheExpire = substr($raw, $expireStart, $expireEnd);
+            $expireEnd   = strpos($raw, self::DELIM, $expireStart+1);
+            $cacheExpire = substr($raw, $expireStart+1, $expireEnd - ($expireStart+1));
 
             if ($cacheExpire >= 0 && $created + $cacheExpire > $now) {
                 unlink($path);
@@ -398,10 +405,11 @@ class FileCache implements CacheInterface
             return false;
         }
 
-        $path = File::sanitize($key);
+        $name = File::sanitize($key, '~');
+        $path = $this->cachePath . '/' . $path . '.cache';
 
-        if (file_exists($this->cachePath . '/' . $path)) {
-            file_put_contents($this->cachePath . '/' . $path, $this->build($value, $expire));
+        if (file_exists($path)) {
+            file_put_contents($path, $this->build($value, $expire));
 
             return true;
         }
