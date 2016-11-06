@@ -429,7 +429,7 @@ class Builder extends BuilderAbstract
      *
      * @return Builder
      *
-     * @throws
+     * @throws \InvalidArgumentException
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>

@@ -50,8 +50,6 @@ class Average
      *
      * @return float
      *
-     * @throws
-     *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
@@ -91,7 +89,7 @@ class Average
      *
      * @todo   : allow counter i also to go into the future... required for forecast how? should be doable!
      *
-     * @throws
+     * @throws \Exception
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
@@ -126,7 +124,7 @@ class Average
      *
      * @return float
      *
-     * @throws
+     * @throws \Exception
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
@@ -155,7 +153,7 @@ class Average
      *
      * @return float
      *
-     * @throws
+     * @throws \Exception
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
@@ -230,7 +228,7 @@ class Average
      *
      * @return float
      *
-     * @throws
+     * @throws \Exception
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
@@ -256,7 +254,7 @@ class Average
      *
      * @return float
      *
-     * @throws
+     * @throws \Exception
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
@@ -321,7 +319,7 @@ class Average
      *
      * @return float
      *
-     * @throws
+     * @throws \Exception
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
@@ -348,8 +346,6 @@ class Average
      * @param float $angle Angle
      *
      * @return string
-     *
-     * @throws
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>

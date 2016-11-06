@@ -34,7 +34,7 @@ class Router
     /**
      * Routes.
      *
-     * @var array<string, array>
+     * @var array
      * @since 1.0.0
      */
     private $routes = [];
@@ -103,7 +103,7 @@ class Router
      *
      * @return string[]
      *
-     * @throws
+     * @throws \Exception
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>

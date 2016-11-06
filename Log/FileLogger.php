@@ -43,7 +43,7 @@ class FileLogger implements LoggerInterface
      * Potential values are null or an array filled with log timings.
      * This is used in order to profile code sections by ID.
      *
-     * @var array[float]
+     * @var array
      * @since 1.0.0
      */
     private $timings = [];

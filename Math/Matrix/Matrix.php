@@ -87,7 +87,7 @@ class Matrix implements \ArrayAccess, \Iterator
      * @param int $n     Column
      * @param int $value Value
      *
-     * @throws
+     * @throws DimensionException
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
@@ -109,7 +109,7 @@ class Matrix implements \ArrayAccess, \Iterator
      *
      * @return mixed
      *
-     * @throws
+     * @throws DimensionException
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>

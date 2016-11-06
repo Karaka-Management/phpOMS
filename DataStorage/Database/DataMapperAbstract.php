@@ -70,7 +70,7 @@ class DataMapperAbstract implements DataMapperInterface
     /**
      * Columns.
      *
-     * @var array<string, array>
+     * @var array
      * @since 1.0.0
      */
     protected static $columns = [];
@@ -337,8 +337,6 @@ class DataMapperAbstract implements DataMapperInterface
      *
      * @return mixed
      *
-     * @throws
-     *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
@@ -452,7 +450,7 @@ class DataMapperAbstract implements DataMapperInterface
      *
      * @return void
      *
-     * @throws
+     * @throws \Exception
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
@@ -552,8 +550,6 @@ class DataMapperAbstract implements DataMapperInterface
      *
      * @return mixed
      *
-     * @throws
-     *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
@@ -587,8 +583,6 @@ class DataMapperAbstract implements DataMapperInterface
      * @param Object $obj          Object to create
      *
      * @return mixed
-     *
-     * @throws
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
@@ -624,8 +618,6 @@ class DataMapperAbstract implements DataMapperInterface
      * @param mixed  $objId        Model to reference
      *
      * @return mixed
-     *
-     * @throws
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
@@ -695,8 +687,6 @@ class DataMapperAbstract implements DataMapperInterface
      * @param mixed $obj Object reference (gets filled with insert id)
      *
      * @return int
-     *
-     * @throws
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>

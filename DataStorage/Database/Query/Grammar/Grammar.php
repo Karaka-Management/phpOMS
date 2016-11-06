@@ -98,7 +98,7 @@ class Grammar extends GrammarAbstract
      *
      * @return string[]
      *
-     * @throws
+     * @throws \InvalidArgumentException
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>

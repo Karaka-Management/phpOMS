@@ -127,7 +127,7 @@ class ExponentialDistribution
      *
      * @return float
      *
-     * @throws
+     * @throws \Exception
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>

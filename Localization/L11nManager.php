@@ -89,7 +89,7 @@ class L11nManager
      *
      * @return void
      *
-     * @throws
+     * @throws \Exception
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
@@ -119,8 +119,6 @@ class L11nManager
      * @param string     $file File to import language from
      *
      * @return void
-     *
-     * @throws
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>

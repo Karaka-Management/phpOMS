@@ -35,7 +35,7 @@ class ChiSquaredDistribution
     /**
      * Chi square table.
      *
-     * @var array<int, array>
+     * @var array
      * @since 1.0.0
      */
     const TABLE = [
@@ -88,7 +88,7 @@ class ChiSquaredDistribution
      *
      * @return array
      *
-     * @throws
+     * @throws \Exception
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
@@ -154,7 +154,7 @@ class ChiSquaredDistribution
      *
      * @return float
      *
-     * @throws
+     * @throws \Exception
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
@@ -236,7 +236,7 @@ class ChiSquaredDistribution
      *
      * @return float
      *
-     * @throws
+     * @throws \Exception
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
