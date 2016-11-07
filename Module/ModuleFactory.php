@@ -16,6 +16,7 @@
 namespace phpOMS\Module;
 
 use phpOMS\ApplicationAbstract;
+use phpOMS\Autoloader;
 
 /**
  * ModuleFactory class.
@@ -74,14 +75,19 @@ class ModuleFactory
      */
     public static function getInstance(string $module, ApplicationAbstract $app) : ModuleAbstract
     {
+        $class = '\\Modules\\' . $module . '\\Controller';
+
         if (!isset(self::$loaded[$module])) {
-            try {
-                $class                 = '\\Modules\\' . $module . '\\Controller';
-                $obj                   = new $class($app);
-                self::$loaded[$module] = $obj;
-                self::registerRequesting($obj);
-                self::registerProvided($obj);
-            } catch (\Exception $e) {
+            if(Autoloader::exists($class) !== false) {
+                try {
+                    $obj                   = new $class($app);
+                    self::$loaded[$module] = $obj;
+                    self::registerRequesting($obj);
+                    self::registerProvided($obj);
+                } catch (\Exception $e) {
+                    self::$loaded[$module] = new NullModule($app);
+                }
+            } else {
                 self::$loaded[$module] = new NullModule($app);
             }
         }
