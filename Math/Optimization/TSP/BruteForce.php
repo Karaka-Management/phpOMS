@@ -50,7 +50,7 @@ class BruteForce
      *
      * @param CityPool $pool City pool
      *
-     * @throws
+     * @throws \Exception
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>

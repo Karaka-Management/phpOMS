@@ -156,13 +156,13 @@ class View extends ViewAbstract
     /**
      * Get translation.
      *
+     * @param string $translation Text
      * @param string $module      Module name
      * @param string $theme       Theme name
-     * @param string $translation Text
-     *
+     * 
      * @return array
      *
-     * @throws
+     * @throws \Exception
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>

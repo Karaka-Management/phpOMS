@@ -296,7 +296,7 @@ class Interval implements \Serializable
      * @param int   $step   Step
      * @param bool  $any    Any
      *
-     * @throws
+     * @throws \Exception
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
@@ -362,7 +362,7 @@ class Interval implements \Serializable
      * @param int   $step Step
      * @param bool  $any  Any
      *
-     * @throws
+     * @throws \Exception
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
@@ -402,7 +402,7 @@ class Interval implements \Serializable
      * @param bool  $last       Last
      * @param int   $nearest    Nearest day
      *
-     * @throws
+     * @throws \Exception
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
@@ -472,7 +472,7 @@ class Interval implements \Serializable
      * @param bool  $any       Any
      * @param bool  $last      Last
      *
-     * @throws
+     * @throws \Exception
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
@@ -537,7 +537,7 @@ class Interval implements \Serializable
      * @param int   $step  Step
      * @param bool  $any   Any
      *
-     * @throws
+     * @throws \Exception
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
@@ -575,7 +575,7 @@ class Interval implements \Serializable
      * @param int   $step Step
      * @param bool  $any  Any
      *
-     * @throws
+     * @throws \Exception
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>

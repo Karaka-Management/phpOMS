@@ -38,8 +38,6 @@ class UniformDistributionContinuous
      *
      * @return float
      *
-     * @throws
-     *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
@@ -57,8 +55,6 @@ class UniformDistributionContinuous
      *
      * @return float
      *
-     * @throws
-     *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
@@ -75,8 +71,6 @@ class UniformDistributionContinuous
      * @param float $b
      *
      * @return float
-     *
-     * @throws
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>

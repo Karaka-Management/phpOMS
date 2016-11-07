@@ -351,7 +351,7 @@ class ModuleManager
      *
      * @return bool
      *
-     * @throws
+     * @throws \Exception
      *
      * @since  1.0.0
      * @author Dennis Eichhorn
@@ -586,7 +586,7 @@ class ModuleManager
      *
      * @param string|array $modules Module name
      *
-     * @throws
+     * @throws \InvalidArgumentException
      *
      * @since  1.0.0
      * @author Dennis Eichhorn
@@ -613,7 +613,7 @@ class ModuleManager
      *
      * @return void
      *
-     * @throws
+     * @throws \Exception
      *
      * @since  1.0.0
      * @author Dennis Eichhorn
@@ -635,7 +635,7 @@ class ModuleManager
      *
      * @return \phpOMS\Module\ModuleAbstract
      *
-     * @throws
+     * @throws \Exception
      *
      * @since  1.0.0
      * @author Dennis Eichhorn

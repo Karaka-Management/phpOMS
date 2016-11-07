@@ -160,8 +160,6 @@ class Commit
      *
      * @param string $message Commit message
      *
-     * @throws
-     *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
@@ -344,7 +342,7 @@ class Commit
      * @param string $old  Old line
      * @param string $new  New line
      *
-     * @throws
+     * @throws \Exception
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
