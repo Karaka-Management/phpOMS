@@ -224,6 +224,8 @@ class Localization
      *
      * @return void
      *
+     * @throws InvalidEnumValue
+     *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */

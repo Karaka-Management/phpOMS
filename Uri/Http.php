@@ -155,7 +155,7 @@ class Http implements UriInterface
         $this->port   = $url['port'] ?? null;
         $this->user   = $url['user'] ?? null;
         $this->pass   = $url['pass'] ?? null;
-        $this->path   = $url['path'] ?? null;
+        $this->path   = $url['path'] ?? '';
 
         if (StringUtils::endsWith($this->path, '.php')) {
             $this->path = substr($this->path, 0, -4);
@@ -183,7 +183,7 @@ class Http implements UriInterface
     public static function getCurrent() : string
     {
         /** @noinspection PhpUndefinedConstantInspection */
-        return 'http://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
+        return 'http://' . ($_SERVER['HTTP_HOST'] ?? '') . ($_SERVER['REQUEST_URI'] ?? '');
     }
 
     /**
