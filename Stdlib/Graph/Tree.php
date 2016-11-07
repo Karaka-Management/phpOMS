@@ -15,8 +15,6 @@
  */
 namespace phpOMS\Datatypes;
 
-use phpOMS\Validation\Base\IbanEnum;
-
 /**
  * Tree class.
  *

@@ -95,7 +95,7 @@ abstract class SchedulerAbstract
      * @since  1.0.0
      * @author Dennis Eichhorn
      */
-    public function list() : array
+    public function getAll() : array
     {
         return $this->tasks;
     }

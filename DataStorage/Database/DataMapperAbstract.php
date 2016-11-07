@@ -1330,6 +1330,8 @@ class DataMapperAbstract implements DataMapperInterface
     /**
      * Get model based on request object
      *
+     * @todo: change to graphql
+     *
      * @param RequestAbstract $request Request object
      *
      * @return mixed
