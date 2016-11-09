@@ -37,15 +37,9 @@ class Schedule extends TaskAbstract implements \Serializable
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function __construct(Interval $interval = null, string $cmd = '')
+    public function __construct(string $name, string $cmd = '')
     {
-        if (!isset($interval)) {
-            $this->interval = new Interval();
-        } else {
-            $this->interval = $interval;
-        }
-
-        $this->command = $cmd;
+        parent::__construct($name, $cmd);
     }
 
     /**

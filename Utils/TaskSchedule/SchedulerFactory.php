@@ -42,7 +42,7 @@ final class SchedulerFactory
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public static function create() : ScheduleInterface
+    public static function create() : SchedulerAbstract
     {
         switch (OperatingSystem::getSystem()) {
             case SystemType::WIN:

@@ -35,7 +35,7 @@ final class TaskFactory
     /**
      * Create task instance.
      *
-     * @param Interval $interval Task interval
+     * @param string $id Task id
      * @param string   $cmd      Command to run
      *
      * @return TaskInterface
@@ -45,13 +45,13 @@ final class TaskFactory
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public static function create(Interval $interval = null, string $cmd = '') : TaskInterface
+    public static function create(string $id = null, string $cmd = '') : TaskAbstract
     {
         switch (OperatingSystem::getSystem()) {
             case SystemType::WIN:
-                return new Schedule($interval, $cmd);
+                return new Schedule($id, $cmd);
             case SystemType::LINUX:
-                return new CronJob($interval, $cmd);
+                return new CronJob($id, $cmd);
             default:
                 throw new \Exception('Unsupported system.');
         }
