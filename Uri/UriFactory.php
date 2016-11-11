@@ -87,6 +87,38 @@ class UriFactory
         return false;
     }
 
+    public static function clearAll() : bool 
+    {
+        self::$uri = [];
+
+        return true;
+    }
+
+    public static function clear(string $key) : bool 
+    {
+        if(isset(self::$uri[$key])) {
+            unset(self::$uri[$key]);
+
+            return true;
+        }
+
+        return false;
+    }
+
+    public static function clearLike(string $pattern) : bool 
+    {
+        $success = false;
+
+        foreach(self::$uri as $key => $value) {
+            if(((bool) preg_match('~^' . $pattern . '$~', $key))) {
+                unset(self::$uri[$key]);
+                $success = true;
+            }
+        }
+
+        return success;
+    }
+
     /**
      * Simplify url
      *
