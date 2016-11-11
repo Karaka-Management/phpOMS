@@ -61,16 +61,19 @@ final class Storage
             if(is_string(self::$registered[$env])) {
                 $env = self::$registered[$env]::getInstance();
             } elseif(self::$registered[$env] instanceof StorageAbstract) {
-                $env = self::$registered[$env]::getInstance();
+                $env = self::$registered[$env];
             } elseif(self::$registered[$env] instanceof ContainerInterface) {
                 $env = self::$registered[$env];
             } else {
                 throw new \Exception('Invalid type');
             }
         } else {
+            $stg = $env;
             $env = ucfirst(strtolower($env));
             $env = __NAMESPACE__ . '\\' . $env . '\\' . $env . 'Storage';
             $env = $env::getInstance();
+
+            self::$registered[$stg] = $env;
         }
 
         return $env;
