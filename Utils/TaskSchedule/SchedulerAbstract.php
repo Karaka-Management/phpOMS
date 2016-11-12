@@ -29,12 +29,75 @@ namespace phpOMS\Utils\TaskSchedule;
 abstract class SchedulerAbstract
 {
     /**
-     * tasks.
+     * Tasks.
      *
      * @var TaskAbstract[]
      * @since 1.0.0
      */
     protected $tasks = [];
+
+    /**
+     * Bin path.
+     *
+     * @var string
+     * @since 1.0.0
+     */
+    protected static $bin = '';
+
+    /**
+     * Get git binary.
+     *
+     * @return string
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+    public static function getBin() : string
+    {
+        return self::$bin;
+    }
+
+    /**
+     * Set git binary.
+     *
+     * @param string $path Git path
+     *
+     * @throws PathException
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+    public static function setBin(string $path)
+    {
+        if (realpath($path) === false) {
+            throw new PathException($path);
+        }
+
+        self::$bin = realpath($path);
+    }
+
+    /**
+     * Test git.
+     *
+     * @return bool
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+    public static function test() : bool
+    {
+        $pipes    = [];
+        $resource = proc_open(escapeshellarg(self::$bin), [1 => ['pipe', 'w'], 2 => ['pipe', 'w']], $pipes);
+
+        $stdout = stream_get_contents($pipes[1]);
+        $stderr = stream_get_contents($pipes[2]);
+
+        foreach ($pipes as $pipe) {
+            fclose($pipe);
+        }
+
+        return trim(proc_close($resource)) !== 127;
+    }
 
     /**
      * Add task
