@@ -32,6 +32,18 @@ class Tree extends Graph
 {
 	protected $nodes = [];
 
+	public function add(Tree $node) {
+		$this->nodes[] = $node;
+
+		return $this;
+	}
+
+	public function set($key, Tree $node) {
+		$this->nodes[$key] = $node;
+
+		return $this;
+	}
+
 	public function getMaxDepth() : int 
 	{
 		$depth = [0];
@@ -54,42 +66,44 @@ class Tree extends Graph
 		return min($depth) + 1;
 	}
 
-	public function postOrder() 
+	public function levelOrder(\Closure $callback)
 	{
+		$depth = $this->getMaxDepth();
 
-	}
-
-	public function preOrder()
-	{
-
-	}
-
-	public function levelOrder()
-	{
-
-	}
-
-	public function levelOrder2()
-	{
-
-	}
-
-	public function verticalOrder()
-	{
-
+		for($i = 1; $i < $depth; $i++) {
+			$nodes = $this->getLevel($i);
+			callback($nodes);
+		}
 	}
 
 	public function isLeaf() : bool 
 	{
-
-	}
-
-	public function isSymmetric() : bool {
-
+		return count($this->nodes) === 0;
 	}
 
 	public function getDimension() : int 
 	{
-		
+		$size = 1;
+
+		foreach($this->nodes as $node) {
+			$size += $node->getDimension() + 1;
+		}
+
+		return $size;
+	}
+
+	public function getLevelNodes(int $level, array &$nodes)
+	{
+		--$level;
+
+		foreach($this->nodes as $node) {
+			if($level === 0) {
+				$nodes[] = $this;
+
+				return $nodes;
+			} else {
+				$this->getLevelNodes($level, $nodes);
+			}
+		}
 	}
 }
