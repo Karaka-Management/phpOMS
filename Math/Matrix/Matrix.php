@@ -767,7 +767,7 @@ class Matrix implements \ArrayAccess, \Iterator
      */
     public function valid()
     {
-        $this->offsetExists($this->position);
+        return $this->offsetExists($this->position);
     }
 
     /**
