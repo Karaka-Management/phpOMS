@@ -38,6 +38,14 @@ class ApplicationAbstract
     public $appName = '';
 
     /**
+     * Config.
+     *
+     * @var array
+     * @since 1.0.0
+     */
+    private $config = [];
+
+    /**
      * Database object.
      *
      * @var \phpOMS\DataStorage\Database\DatabasePool
