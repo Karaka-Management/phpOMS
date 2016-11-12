@@ -56,14 +56,6 @@ class Repository
     private $bare = false;
 
     /**
-     * Env variables.
-     *
-     * @var array
-     * @since 1.0.0
-     */
-    private $envOptions = [];
-
-    /**
      * Current branch.
      *
      * @var Branch
@@ -189,16 +181,7 @@ class Repository
             2 => ['pipe', 'w'],
         ];
 
-        if (count($_ENV) === 0) {
-            $env = null;
-            foreach ($this->envOptions as $key => $value) {
-                putenv(sprintf("%s=%s", $key, $value));
-            }
-        } else {
-            $env = array_merge($_ENV, $this->envOptions);
-        }
-
-        $resource = proc_open($cmd, $desc, $pipes, $this->path, $env);
+        $resource = proc_open($cmd, $desc, $pipes, $this->path, null);
         $stdout   = stream_get_contents($pipes[1]);
         $stderr   = stream_get_contents($pipes[2]);
 
@@ -637,22 +620,6 @@ class Repository
     public function getDescription() : string
     {
         return file_get_contents($this->getDirectoryPath() . '/description');
-    }
-
-    /**
-     * Set environment value.
-     *
-     * @param string $key   Key
-     * @param string $value Value
-     *
-     * @return void
-     *
-     * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
-     */
-    public function setEnv(string $key, string $value)
-    {
-        $this->envOptions[$key] = $value;
     }
 
     /**
