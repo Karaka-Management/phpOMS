@@ -310,10 +310,6 @@ class Collection implements \Countable, \ArrayAccess, \Iterator, \JsonSerializab
         return $this;
     }
 
-    public function range()
-    {
-    }
-
     public function has($key) : bool
     {
         return isset($this->collection[$key]);
@@ -478,14 +474,17 @@ class Collection implements \Countable, \ArrayAccess, \Iterator, \JsonSerializab
 
     public function shuffle() : Collection
     {
+        return new self(shuffle($this->collection));
     }
 
-    public function slice()
+    public function slice(int $offset, int $length) : Collection
     {
+        return new self(array_slice($this->collection, $offset, $length));
     }
 
-    public function splice()
+    public function splice(int $offset, int $length) : Collection
     {
+        return new self(array_splice($this->collection, $offset, $length));
     }
 
     public function push($value) : Collection
@@ -503,7 +502,25 @@ class Collection implements \Countable, \ArrayAccess, \Iterator, \JsonSerializab
      */
     public function current()
     {
-        // TODO: Implement current() method.
+        return current($this->collection);
+    }
+
+    /**
+     * Offset to retrieve
+     * @link  http://php.net/manual/en/arrayaccess.offsetget.php
+     * @param mixed $offset <p>
+     *                      The offset to retrieve.
+     *                      </p>
+     * @return mixed Can return all value types.
+     * @since 5.0.0
+     */
+    public function offsetGet($offset)
+    {
+        if(!isset($this->collection[$offset])) {
+            throw new \Exception('Invalid offset');
+        }
+
+        return $this->collection[$offset];
     }
 
     /**
@@ -514,7 +531,7 @@ class Collection implements \Countable, \ArrayAccess, \Iterator, \JsonSerializab
      */
     public function next()
     {
-        // TODO: Implement next() method.
+        next($this->collection);
     }
 
     /**
@@ -525,7 +542,7 @@ class Collection implements \Countable, \ArrayAccess, \Iterator, \JsonSerializab
      */
     public function key()
     {
-        // TODO: Implement key() method.
+        return key($this->collection);
     }
 
     /**
@@ -537,18 +554,7 @@ class Collection implements \Countable, \ArrayAccess, \Iterator, \JsonSerializab
      */
     public function valid()
     {
-        // TODO: Implement valid() method.
-    }
-
-    /**
-     * Rewind the Iterator to the first element
-     * @link  http://php.net/manual/en/iterator.rewind.php
-     * @return void Any returned value is ignored.
-     * @since 5.0.0
-     */
-    public function rewind()
-    {
-        // TODO: Implement rewind() method.
+        return isset($this->collection[key($this->collection)]);
     }
 
     /**
@@ -565,21 +571,18 @@ class Collection implements \Countable, \ArrayAccess, \Iterator, \JsonSerializab
      */
     public function offsetExists($offset)
     {
-        // TODO: Implement offsetExists() method.
+        return isset($this->collection[$offset]);
     }
 
     /**
-     * Offset to retrieve
-     * @link  http://php.net/manual/en/arrayaccess.offsetget.php
-     * @param mixed $offset <p>
-     *                      The offset to retrieve.
-     *                      </p>
-     * @return mixed Can return all value types.
+     * Rewind the Iterator to the first element
+     * @link  http://php.net/manual/en/iterator.rewind.php
+     * @return void Any returned value is ignored.
      * @since 5.0.0
      */
-    public function offsetGet($offset)
+    public function rewind()
     {
-        // TODO: Implement offsetGet() method.
+        rewind($this->collection);
     }
 
     /**
@@ -596,7 +599,7 @@ class Collection implements \Countable, \ArrayAccess, \Iterator, \JsonSerializab
      */
     public function offsetSet($offset, $value)
     {
-        // TODO: Implement offsetSet() method.
+        $this->collection[$offset] = $value;
     }
 
     /**
@@ -610,6 +613,8 @@ class Collection implements \Countable, \ArrayAccess, \Iterator, \JsonSerializab
      */
     public function offsetUnset($offset)
     {
-        // TODO: Implement offsetUnset() method.
+        if(isset($this->collection[$offset])) {
+            unset($this->collection[$offset]);
+        }
     }
 }
