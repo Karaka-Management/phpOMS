@@ -45,73 +45,78 @@ class BinaryTree extends Tree
 		return $list;  
 	}
 
-	public function getLeft() {
-		return $this->nodes[0] ?? null;
+	public function getLeft(Node $base)
+	{
+		$neighbors = $base->getNeighbors($base);
+
+		// todo: index can be wrong, see setLeft/setRight
+		return $neighbors[0] ?? null;
 	}
 
-	public function getRight() {
-		return $this->nodes[1] ?? null;
+	public function getRight(Node $base)
+	{
+		$neighbors = $base->getNeighbors($base);
+
+		// todo: index can be wrong, see setLeft/setRight
+		return $neighbors[1] ?? null;
 	}
 
-	public function setLeft(BinaryTree $left) {
-		$this->nodes[0] = $left;
+	public function setLeft(Node $base, Node $left) 
+	{
+		if($this->getLeft($base) === null) {
+			$this->addNode($base, $left);
+			// todo: doesn't know that this is left
+			// todo: maybe need to add numerics to edges?
+		} else {
+			// todo: replace node
+		}
 	}
 
-	public function setRight(BinaryTree $right) {
-		$this->nodes[1] = $right;
+	public function setRight(Node $base, Node $right) 
+	{
+		if($this->getRight($base) === null) {
+			$this->addNode($base, $right);
+			// todo: doesn't know that this is right
+			// todo: maybe need to add numerics to edges?
+		} else {
+			// todo: replace node
+		}
 	}
 
-	public function preOrder(\Closure $callback) {
+	public function inOrder(Node $node, \Closure $callback) 
+	{
 		if(count($this->nodes) === 0) {
 			return;
 		}
 
-		$callback($this);
-		$this->nodes[0]->inOrder($callback);
-		$this->nodes[1]->inOrder($callback);
+		$this->inOrder($this->getLeft($node), $callback);
+		$callback($node);
+		$this->inOrder($this->getRight($node), $callback);
 	}
 
-	public function inOrder(\Closure $callback) {
-		if(count($this->nodes) === 0) {
-			return;
-		}
-
-		$this->nodes[0]->inOrder($callback);
-		$callback($this);
-		$this->nodes[1]->inOrder($callback);
-	}
-
-	public function postOrder(\Closure $callback) {
-		if(count($this->nodes) === 0) {
-			return;
-		}
-
-		$this->nodes[0]->inOrder($callback);
-		$this->nodes[1]->inOrder($callback);
-		$callback($this);
-	}
-
-	private function getVerticalOrder(int $horizontalDistance = 0, array &$order) 
+	private function getVerticalOrder(Node $node, int $horizontalDistance = 0, array &$order) 
 	{
 		if(!isset($order[$horizontalDistance])) {
 			$order[$horizontalDistance] = [];
 		}
 
-		$order[$horizontalDistance][] = $this;
+		$order[$horizontalDistance][] = $node;
+		$left = $this->getLeft($node);
+		$right = $this->getRight($node);
 
-		if(isset($this->nodes[0])) {
-			$this->nodes[0]->getVerticalOrder($horizontalDistance-1, $order);
+		if(isset($left)) {
+			$this->getVerticalOrder($left, $horizontalDistance-1, $order);
 		}
 
-		if(isset($this->nodes[1])) {
-			$this->nodes[1]->getVerticalOrder($horizontalDistance+1, $order);
+		if(isset($right)) {
+			$this->getVerticalOrder($right, $horizontalDistance+1, $order);
 		}
 	}
 
-	public function verticalOrder(\Closure $callback)
+	public function verticalOrder(Node $node, \Closure $callback)
 	{
 		$order = [];
-		$this->getVerticalOrder(0, $order);
+		$this->getVerticalOrder($node, 0, $order);
 
 		foreach($order as $level) {
 			foreach($level as $node) {
@@ -120,19 +125,21 @@ class BinaryTree extends Tree
 		}
 	}
 
-	public function isSymmetric() : bool {
-		// todo: compare values? true symmetry requires the values to be the same
-		if(isset($this->nodes[0]) && isset($this->nodes[1])) {
-			return isSymmetric($this->nodes[0], $this->nodes[1]);
+	public function isSymmetric(Node $node1 = null, Node $node2 = null) : bool 
+	{
+		if(!isset($node1) && !isset($node2)) {
+			return true;
 		}
 
-		return false;
-	}
+		$left1 = $this->getLeft($node1);
+		$right1 = $this->getRight($node1);
 
-	public function symmetric(BinaryTree $tree1, BinaryTree $tree2) : bool {
+		$left2 = isset($node2) ? $this->getLeft($node1) : $this->getLeft($node2);
+		$right2 = isset($node2) ? $this->getRight($node1) : $this->getRight($node2);
+
 		// todo: compare values? true symmetry requires the values to be the same
-		if(($tree1 !== null && $tree2 !== null) || $tree1 === $tree2) {
-			return isSymmetric($tree1->getLeft(), $tree1->getRight()) && isSymmetric($tree2->getRight(), $tree2->getLeft());
+		if(isset($node1) && isset($node2)) {
+			return $this->isSymmetric($left1, $right2) && $this->isSymmetric($right1, $left2);
 		}
 
 		return false;

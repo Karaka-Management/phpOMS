@@ -25,43 +25,57 @@ namespace phpOMS\Datatypes;
  * @license    OMS License 1.0
  * @link       http://orange-management.com
  * @since      1.0.0
- *
- * @todo       : there is a bug with Hungary ibans since they have two k (checksums) in their definition
  */
 class Tree extends Graph
 {
-	protected $nodes = [];
+	private $root = null;
 
-	public function add(Tree $node) {
-		$this->nodes[] = $node;
-
-		return $this;
-	}
-
-	public function set($key, Tree $node) {
-		$this->nodes[$key] = $node;
-
-		return $this;
-	}
-
-	public function getMaxDepth() : int 
+	public function __construct()
 	{
-		$depth = [0];
+		$root = new Node();
+		$this->addNode($root);
+	}
 
-		foreach($this->nodes as $node) {
-			$depth[] = $node->getMaxDepth();
+	public function addNode(Node $base, Node $node) 
+	{
+		parent::addNode($node);
+		parent::addEdge(new Edge($base, $node));
+	}
+
+	public function getMaxDepth(Node $node = null) : int 
+	{
+		$currentNode = $node ?? $this->root;
+
+		if(!isset($currentNode)) {
+			return 0;
 		}
 
-		return max($depth) + 1;
+		$depth = 1;
+		$neighbors = $this->getNeighbors($currentNode);
+
+		foreach($neighbors as $neighbor) {
+			$depth = max($depth, $depth + $this->getMaxDepth($neighbor));
+		}
+
+		return $depth;
 	}
 
-	public function getMinDepth() : int
+	public function getMinDepth(Node $node = null) : int
 	{
-		$depth = [0];
+		$currentNode = $node ?? $this->root;
 
-		foreach($this->nodes as $node) {
-			$depth[] = $node->getMinDepth();
+		if(!isset($currentNode)) {
+			return 0;
 		}
+
+		$depth = [];
+		$neighbors = $this->getNeighbors($currentNode);
+
+		foreach($neighbors as $neighbor) {
+			$depth[] = $this->getMaxDepth($neighbor);
+		}
+
+		$depth = empty($depth) ? 0 : $depth;
 
 		return min($depth) + 1;
 	}
@@ -76,34 +90,70 @@ class Tree extends Graph
 		}
 	}
 
-	public function isLeaf() : bool 
+	public function isLeaf(Node $node) : bool 
 	{
-		return count($this->nodes) === 0;
+		return count($this->getEdgesOfNode($node)) === 1;
 	}
 
-	public function getDimension() : int 
-	{
-		$size = 1;
-
-		foreach($this->nodes as $node) {
-			$size += $node->getDimension() + 1;
-		}
-
-		return $size;
-	}
-
-	public function getLevelNodes(int $level, array &$nodes)
+	public function getLevelNodes(int $level, Node $node) : array
 	{
 		--$level;
+		$neighbors = $this->getNeighbors($node);
+		$nodes = [];
+
+		if($level === 1) {
+			return $neighbors;
+		}
+
+		foreach($neighbors as $neighbor) {
+			array_merge($nodes, $this->getLevelNodes($level, $neighbor));
+		}
+
+		return $nodes;
+	}
+
+	public function isFull(int $type) : bool {
+		if(count($this->edges) % $type !== 0) {
+			return false;
+		}
 
 		foreach($this->nodes as $node) {
-			if($level === 0) {
-				$nodes[] = $this;
+			$neighbors = count($this->getNeighbors($node));
 
-				return $nodes;
-			} else {
-				$this->getLevelNodes($level, $nodes);
+			if($neighbors !== $type && $neighbors !== 0) {
+				return false;
 			}
 		}
+
+		return true;
+	}
+
+	public function preOrder(Node $node, \Closure $callback) {
+		if(count($this->nodes) === 0) {
+			return;
+		}
+
+		$callback($node);
+		$neighbors = $this->getNeighbors();
+
+		foreach($neighbors as $neighbor) {
+			// todo: get neighbors needs to return in ordered way
+			$this->preOrder($neighbor, $callback);
+		}
+	}
+	
+	public function postOrder(Node $node, \Closure $callback) {
+		if(count($this->nodes) === 0) {
+			return;
+		}
+		
+		$neighbors = $this->getNeighbors();
+
+		foreach($neighbors as $neighbor) {
+			// todo: get neighbors needs to return in ordered way
+			$this->postOrder($neighbor, $callback);
+		}
+
+		$callback($node);
 	}
 }
