@@ -142,6 +142,7 @@ class FileCache implements CacheInterface
             return false;
         }
 
+        // todo: allow $key to contain / as char and create subdirectory if necessary. This is important for cleaner caching.
         $path = File::sanitize($key, '~');
 
         file_put_contents($this->cachePath . '/' . $path . '.cache', $this->build($value, $expire));
