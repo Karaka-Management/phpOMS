@@ -13,7 +13,7 @@
  * @version    1.0.0
  * @link       http://orange-management.com
  */
-namespace phpOMS\Datatypes;
+namespace phpOMS\Stdlib\Graph;
 
 /**
  * Tree class.

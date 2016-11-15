@@ -13,9 +13,7 @@
  * @version    1.0.0
  * @link       http://orange-management.com
  */
-namespace phpOMS\Datatypes;
-
-use phpOMS\Validation\Base\IbanEnum;
+namespace phpOMS\Stdlib\Graph;
 
 /**
  * Tree class.

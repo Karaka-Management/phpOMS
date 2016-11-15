@@ -74,7 +74,7 @@ class MemCache implements CacheInterface
     /**
      * {@inheritdoc}
      */
-    public function set($key, $value, CacheStatus $type = null, int $expire = 2592000)
+    public function set($key, $value, int $expire = -1)
     {
         $this->memc->set($key, $value, false, $expire);
     }
@@ -82,7 +82,7 @@ class MemCache implements CacheInterface
     /**
      * {@inheritdoc}
      */
-    public function add($key, $value, CacheStatus $type = null, int $expire = 2592000) : bool
+    public function add($key, $value, int $expire = -1) : bool
     {
         return $this->memc->add($key, $value, false, $expire);
     }
@@ -90,7 +90,7 @@ class MemCache implements CacheInterface
     /**
      * {@inheritdoc}
      */
-    public function get($key, CacheStatus $type = null)
+    public function get($key, int $expire = -1)
     {
         return $this->memc->get($key);
     }
@@ -98,7 +98,7 @@ class MemCache implements CacheInterface
     /**
      * {@inheritdoc}
      */
-    public function delete($key, CacheStatus $type = null) : bool
+    public function delete($key, int $expire = -1) : bool
     {
         $this->memc->delete($key);
     }
@@ -106,15 +106,27 @@ class MemCache implements CacheInterface
     /**
      * {@inheritdoc}
      */
-    public function flush(CacheStatus $type = null)
+    public function flush(int $expire = 0) : bool
     {
         $this->memc->flush();
+
+        return true;
     }
 
     /**
      * {@inheritdoc}
      */
-    public function replace($key, $value, CacheType $type = null, int $expire = -1) : bool
+    public function flushAll() : bool
+    {
+        $this->memc->flush();
+
+        return true;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function replace($key, $value, int $expire = -1) : bool
     {
         $this->memc->replace($key, $value, false, $expire);
     }
@@ -134,6 +146,14 @@ class MemCache implements CacheInterface
     public function getThreshold() : int
     {
         return $this->threshold;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function setStatus(int $status) 
+    {
+        $this->status = $status;
     }
 
     /**

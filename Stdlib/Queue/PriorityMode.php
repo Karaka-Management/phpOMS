@@ -28,7 +28,7 @@ use phpOMS\Datatypes\Enum;
  * @link       http://orange-management.com
  * @since      1.0.0
  */
-abstract class PrioirtyMode extends Enum
+abstract class PriorityMode extends Enum
 {
     const FIFO = 0;
     const LIFO = 0;

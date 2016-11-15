@@ -13,7 +13,7 @@
  * @version    1.0.0
  * @link       http://orange-management.com
  */
-namespace phpOMS\Datatypes;
+namespace phpOMS\Stdlib\Graph;
 
 /**
  * Tree class.
@@ -33,10 +33,10 @@ class Tree extends Graph
 	public function __construct()
 	{
 		$root = new Node();
-		$this->addNode($root);
+		parent::addNode($root);
 	}
 
-	public function addNode(Node $base, Node $node) 
+	public function addRelativeNode(Node $base, Node $node)
 	{
 		parent::addNode($node);
 		parent::addEdge(new Edge($base, $node));
