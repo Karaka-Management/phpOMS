@@ -119,9 +119,17 @@ class FileLogger implements LoggerInterface
         $this->path = $path;
     }
 
+    /**
+     * Create logging file.
+     *
+     * @return void
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
     private function createFile()
     {
-        if (!file_exists($this->path) && !$this->created) {
+        if (!$this->created && !file_exists($this->path)) {
             File::create($this->path);
             $this->created = true;
         }

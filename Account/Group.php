@@ -179,13 +179,30 @@ class Group implements ArrayableInterface, \JsonSerializable
         $this->description = $description;
     }
 
+    /**
+     * Get group status.
+     *
+     * @return int Group status
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
     public function getStatus() : int
     {
         return $this->status;
     }
 
+    /**
+     * Set group status.
+     *
+     * @param int $status Group status
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
     public function setStatus(int $status)
     {
+        // todo: check valid
         $this->status = $status;
     }
 

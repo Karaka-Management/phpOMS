@@ -206,6 +206,17 @@ class Functions
         return $t;
     }
 
+    /**
+     * Modular implementation for negative values.
+     *
+     * @param int $a
+     * @param int $b
+     *
+     * @return int
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
     public static function mod($a, $b)
     {
         if ($a < 0) {
@@ -215,6 +226,16 @@ class Functions
         return $a % $b;
     }
 
+    /**
+     * Check if value is odd.
+     *
+     * @param int $a Value to test
+     *
+     * @return int
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
     public static function isOdd($a) : bool
     {
         if ($a & 1) {
@@ -224,6 +245,16 @@ class Functions
         return false;
     }
 
+    /**
+     * Check if value is even.
+     *
+     * @param int $a Value to test
+     *
+     * @return int
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
     public static function isEven($a) : bool
     {
         if ($a & 1) {
@@ -233,6 +264,19 @@ class Functions
         return true;
     }
 
+    /**
+     * Gets the relative position on a circular construct.
+     *
+     * @example The relative fiscal month (August) in a company where the fiscal year starts in July.
+     * @example 2 = getRelativeDegree(8, 12, 7);
+     *
+     * @param int $a Value to test
+     *
+     * @return int
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
     public static function getRelativeDegree($value, $length, $start = 0)
     {
         return abs(self::mod($value - $start, $length));

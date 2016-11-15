@@ -129,12 +129,26 @@ class HttpSession implements SessionInterface
         return $this->sessionData[$key] ?? null;
     }
 
+    /**
+     * Lock session from further adjustments.
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
     public static function lock()
     {
         self::$isLocked = true;
     }
 
-    public static function isLocked()
+    /**
+     * Check if session is locked.
+     *
+     * @return bool Lock status
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+    public static function isLocked() : bool
     {
         return self::$isLocked;
     }
@@ -177,10 +191,18 @@ class HttpSession implements SessionInterface
         $this->sid = $sid;
     }
 
+    /**
+     * Destruct session.
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
     public function __destruct()
     {
-        $_SESSION = $this->sessionData;
-        session_write_close();
+        if(!self::$isLocked) {
+            $_SESSION = $this->sessionData;
+            session_write_close();
+        }
     }
 
 }

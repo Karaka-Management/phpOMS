@@ -43,6 +43,16 @@ class BinaryTree extends Tree
 		return $list;  
 	}
 
+	/**
+     * Get left node of a node.
+     *
+     * @param Node $node Tree node
+	 *
+	 * @return Node Left node
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
 	public function getLeft(Node $base)
 	{
 		$neighbors = $base->getNeighbors($base);
@@ -51,6 +61,16 @@ class BinaryTree extends Tree
 		return $neighbors[0] ?? null;
 	}
 
+	/**
+     * Get right node of a node.
+     *
+     * @param Node $node Tree node
+	 *
+	 * @return Node Right node
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
 	public function getRight(Node $base)
 	{
 		$neighbors = $base->getNeighbors($base);
@@ -59,7 +79,18 @@ class BinaryTree extends Tree
 		return $neighbors[1] ?? null;
 	}
 
-	public function setLeft(Node $base, Node $left) 
+	/**
+     * Set left node of node.
+     *
+     * @param Node $base Base node
+     * @param Node $left Left node
+	 *
+	 * @return BinaryTree
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+	public function setLeft(Node $base, Node $left) : BinaryTree
 	{
 		if($this->getLeft($base) === null) {
 			$this->addNode($base, $left);
@@ -68,8 +99,21 @@ class BinaryTree extends Tree
 		} else {
 			// todo: replace node
 		}
+
+		return $this;
 	}
 
+	/**
+     * Set right node of node.
+     *
+     * @param Node $base Base node
+     * @param Node $right Right node
+	 *
+	 * @return BinaryTree
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
 	public function setRight(Node $base, Node $right) 
 	{
 		if($this->getRight($base) === null) {
@@ -81,17 +125,32 @@ class BinaryTree extends Tree
 		}
 	}
 
+	/**
+     * Perform action on tree in in-order.
+     *
+     * @param Node $node Tree node
+     * @param \Closure $callback Task to perform on node
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
 	public function inOrder(Node $node, \Closure $callback) 
 	{
-		if(count($this->nodes) === 0) {
-			return;
-		}
-
 		$this->inOrder($this->getLeft($node), $callback);
 		$callback($node);
 		$this->inOrder($this->getRight($node), $callback);
 	}
 
+	/**
+     * Get nodes in vertical order.
+     *
+     * @param Node $node Tree node
+     * @param int $horizontalDistance Horizontal distance
+	 * @param Node[] &$order Ordered nodes by horizontal distance
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
 	private function getVerticalOrder(Node $node, int $horizontalDistance = 0, array &$order) 
 	{
 		if(!isset($order[$horizontalDistance])) {
@@ -111,6 +170,15 @@ class BinaryTree extends Tree
 		}
 	}
 
+	/**
+     * Perform action on tree in vertical-order.
+     *
+     * @param Node $node Tree node
+     * @param \Closure $callback Task to perform on node
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
 	public function verticalOrder(Node $node, \Closure $callback)
 	{
 		$order = [];
@@ -123,6 +191,15 @@ class BinaryTree extends Tree
 		}
 	}
 
+	/**
+     * Check if tree is symmetric.
+     *
+     * @param Node $node1 Tree node1
+     * @param Node $node2 Tree node2 (optional, can be different tree)
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
 	public function isSymmetric(Node $node1 = null, Node $node2 = null) : bool 
 	{
 		if(!isset($node1) && !isset($node2)) {

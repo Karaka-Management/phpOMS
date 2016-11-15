@@ -30,6 +30,9 @@ use phpOMS\Validation\Base\DateTime;
  */
 class TaskScheduler extends SchedulerAbstract
 {
+    /**
+     * {@inheritdoc}
+     */
     public function save()
     {
 
@@ -74,12 +77,33 @@ class TaskScheduler extends SchedulerAbstract
         return trim($stdout);
     }
 
+    /**
+     * Normalize run result for easier parsing
+     *
+     * @param string $raw Raw command output
+     *
+     * @return string Normalized string for parsing
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn
+     */
     private function normalize(string $raw) : string 
     {
         return str_replace("\r\n", "\n", $raw);
     }
 
-    private function parseJobList(array $jobData) {
+    /**
+     * Parse a list of jobs
+     *
+     * @param array $jobData Csv data containing the job information
+     *
+     * @return TaskAbstract Parsed job
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn
+     */
+    private function parseJobList(array $jobData) : TaskAbstract
+    {
             $job = TaskFactory::create($jobData[1], '');
 
             $job->setRun($jobData[8]);
@@ -109,6 +133,9 @@ class TaskScheduler extends SchedulerAbstract
             return $job;
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function getAll() : array
     {
         $lines = explode("\n", $this->normalize($this->run('/query /v /fo CSV')));
@@ -122,16 +149,25 @@ class TaskScheduler extends SchedulerAbstract
         return $jobs;
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function get(string $id)
     {
-
+        // todo: implement
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function getByName(string $name) : Schedule
     {
-
+        // todo: implement
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function getAllByName(string $name, bool $exact = true) : array
     {
         if($exact) {
@@ -160,8 +196,11 @@ class TaskScheduler extends SchedulerAbstract
         return $jobs;
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function create(Schedule $task)
     {
-
+        // todo: implement
     }
 }

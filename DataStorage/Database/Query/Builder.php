@@ -704,43 +704,103 @@ class Builder extends BuilderAbstract
         return $this;
     }
 
+    /**
+     * Lock query.
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
     public function lock()
     {
     }
 
+    /**
+     * Lock for update query.
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
     public function lockUpdate()
     {
     }
 
+    /**
+     * Create query string.
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
     public function __toString()
     {
         return $this->grammar->compileQuery($this);
     }
 
+    /**
+     * Find query.
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
     public function find()
     {
     }
 
+    /**
+     * Count results.
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
     public function count()
     {
     }
 
+    /**
+     * Check if exists.
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
     public function exists()
     {
     }
 
+    /**
+     * Select minimum.
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
     public function min()
     {
     }
 
+    /**
+     * Select maximum.
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
     public function max()
     {
     }
 
+    /**
+     * Select sum.
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
     public function sum()
     {
     }
 
+    /**
+     * Select average.
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
     public function avg()
     {
     }
@@ -821,6 +881,16 @@ class Builder extends BuilderAbstract
         return $this;
     }
 
+    /**
+     * Update columns.
+     *
+     * @param array $columns Column names to update
+     *
+     * @return Builder
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
     public function update(...$columns) : Builder
     {
         $this->type = QueryType::UPDATE;
@@ -832,44 +902,106 @@ class Builder extends BuilderAbstract
         return $this;
     }
 
+    /**
+     * Increment value.
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
     public function increment()
     {
     }
 
+    /**
+     * Decrement value.
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
     public function decrement()
     {
     }
 
+    /**
+     * Join.
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
     public function join($table1, $table2, $column1, $opperator, $column2)
     {
         return $this;
     }
 
+    /**
+     * Join where.
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
     public function joinWhere()
     {
     }
 
+    /**
+     * Left join.
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
     public function leftJoin()
     {
     }
 
+    /**
+     * Left join where.
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
     public function leftJoinWhere()
     {
     }
 
+    /**
+     * Right join.
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
     public function rightJoin()
     {
     }
 
+    /**
+     * Right join where.
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
     public function rightJoinWhere()
     {
     }
 
+    /**
+     * Rollback.
+     *
+     * @return Builder
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
     public function rollback()
     {
         return $this;
     }
 
+    /**
+     * On.
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
     public function on()
     {
 
@@ -892,6 +1024,14 @@ class Builder extends BuilderAbstract
         return clone($this);
     }
 
+    /**
+     * Execute query.
+     *
+     * @return mixed
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
     public function execute()
     {
         $sth = $this->connection->con->prepare($this->toSql());

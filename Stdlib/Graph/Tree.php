@@ -28,20 +28,55 @@ namespace phpOMS\Stdlib\Graph;
  */
 class Tree extends Graph
 {
+	/**
+     * Root node.
+     *
+     * @var Node
+     * @since 1.0.0
+     */
 	private $root = null;
 
+	/**
+     * Constructor.
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
 	public function __construct()
 	{
 		$root = new Node();
 		parent::addNode($root);
 	}
 
-	public function addRelativeNode(Node $base, Node $node)
+	/**
+     * Add a note relative to a node.
+     *
+     * @param Node $base Base node
+     * @param Node $node Node to add
+     *
+     * @return Tree
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+	public function addRelativeNode(Node $base, Node $node) : Tree
 	{
 		parent::addNode($node);
 		parent::addEdge(new Edge($base, $node));
+
+		return $this;
 	}
 
+	/**
+     * Get maximum tree depth.
+     *
+     * @param Node $node Tree node
+     *
+     * @return int
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
 	public function getMaxDepth(Node $node = null) : int 
 	{
 		$currentNode = $node ?? $this->root;
@@ -60,6 +95,16 @@ class Tree extends Graph
 		return $depth;
 	}
 
+	/**
+     * Get minimum tree path.
+     *
+     * @param Node $node Tree node
+     *
+     * @return int
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
 	public function getMinDepth(Node $node = null) : int
 	{
 		$currentNode = $node ?? $this->root;
@@ -80,7 +125,18 @@ class Tree extends Graph
 		return min($depth) + 1;
 	}
 
-	public function levelOrder(\Closure $callback)
+	/**
+     * Perform task on tree nodes in level order.
+     *
+     * @param Node $node Tree node
+     * @param \Closure $callback Task to perform
+     *
+     * @return void
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+	public function levelOrder(Node $node, \Closure $callback)
 	{
 		$depth = $this->getMaxDepth();
 
@@ -90,11 +146,32 @@ class Tree extends Graph
 		}
 	}
 
+	/**
+     * Check if node is leaf.
+     *
+     * @param Node $node Tree node
+     *
+     * @return bool
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
 	public function isLeaf(Node $node) : bool 
 	{
 		return count($this->getEdgesOfNode($node)) === 1;
 	}
 
+	/**
+     * Get all nodes of a specific level.
+     *
+     * @param int $level Level to retrieve
+     * @param Node $node Tree node
+     *
+     * @return Node[]
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
 	public function getLevelNodes(int $level, Node $node) : array
 	{
 		--$level;
@@ -112,7 +189,18 @@ class Tree extends Graph
 		return $nodes;
 	}
 
-	public function isFull(int $type) : bool {
+	/**
+     * Check if the tree is full.
+     *
+     * @param int $type Child nodes per non-leaf node
+     *
+     * @return bool
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+	public function isFull(int $type) : bool 
+	{
 		if(count($this->edges) % $type !== 0) {
 			return false;
 		}
@@ -128,6 +216,15 @@ class Tree extends Graph
 		return true;
 	}
 
+	/**
+     * Perform action on tree in pre-order.
+     *
+     * @param Node $node Tree node
+     * @param \Closure $callback Task to perform on node
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
 	public function preOrder(Node $node, \Closure $callback) {
 		if(count($this->nodes) === 0) {
 			return;
@@ -142,6 +239,15 @@ class Tree extends Graph
 		}
 	}
 	
+	/**
+     * Perform action on tree in post-order.
+     *
+     * @param Node $node Tree node
+     * @param \Closure $callback Task to perform on node
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
 	public function postOrder(Node $node, \Closure $callback) {
 		if(count($this->nodes) === 0) {
 			return;

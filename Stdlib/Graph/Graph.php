@@ -28,31 +28,85 @@ namespace phpOMS\Stdlib\Graph;
  */
 class Graph
 {
+    /**
+     * Nodes.
+     *
+     * @var array
+     * @since 1.0.0
+     */
     protected $nodes = [];
 
+    /**
+     * Edges.
+     *
+     * @var array
+     * @since 1.0.0
+     */
     protected $edges = [];
 
-	public function addNode(Node $node) 
+    /**
+     * Add node to graph.
+     *
+     * @param Node $node Graph node
+     *
+     * @return Graph
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+	public function addNode(Node $node) : Graph
     {
 		$this->nodes[] = $node;
 
 		return $this;
 	}
 
-	public function setNode($key, Node $node) 
+    /**
+     * Set node in graph.
+     *
+     * @param mixed $key Key of node
+     * @param Node $node Graph node
+     *
+     * @return Graph
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+	public function setNode($key, Node $node) : Graph
     {
 		$this->nodes[$key] = $node;
 
 		return $this;
 	}
 
-    public function addEdge(Edge $edge) 
+    /**
+     * Add edge to graph.
+     *
+     * @param Edge $edge Graph edge
+     *
+     * @return Graph
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+    public function addEdge(Edge $edge) : Graph
     {
 		$this->edges[] = $edge;
 
 		return $this;
 	}
 
+    /**
+     * Set edge in graph.
+     *
+     * @param mixed $key Edge key
+     * @param Edge $edge Edge to set
+     *
+     * @return Graph
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
 	public function setEdge($key, Edge $edge) 
     {
 		$this->edges[$key] = $edge;
@@ -60,16 +114,46 @@ class Graph
 		return $this;
 	}
 
+    /**
+     * Get graph node
+     *
+     * @param mixed $key Node key
+     *
+     * @return Node
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
     public function getNode($key) : Node 
 	{
 		return $this->nodes[$key];
 	}
 
+    /**
+     * Get graph edge.
+     *
+     * @param mixed $key Edge key
+     *
+     * @return Edge
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
     public function getEdge($key) : Edge 
 	{
 		return $this->edges[$key];
 	}
 
+    /**
+     * Get all edges of a node
+     *
+     * @param mixed $node Node
+     *
+     * @return Edge[]
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
     public function getEdgesOfNode($node) : array 
     {
         if(!($node instanceof Node)) {
@@ -88,6 +172,16 @@ class Graph
         return $edges;
     }
 
+    /**
+     * Get all node neighbors.
+     *
+     * @param Node $node Graph node
+     *
+     * @return Node[]
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
     public function getNeighbors($node) : array 
     {
         if(!($node instanceof Node)) {
@@ -110,71 +204,196 @@ class Graph
         return $neighbors;
     }
 
+    /**
+     * Get graph dimension.
+     *
+     * @return int
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
     public function getDimension() : int 
     {
+        // todo: implement
         return 0;
     }
 
+    /**
+     * Get all bridges.
+     *
+     * @return Edge[]
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
     public function getBridges() : array
     {
+        // todo: implement
         return [];
     }
 
+    /**
+     * Get minimal spanning tree using Kruskal's algorithm.
+     *
+     * @return Tree
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
     public function getKruskalMinimalSpanningTree() : Tree 
     {
+        // todo: implement
         return new Tree();
     }
 
+    /**
+     * Get minimal spanning tree using Prim's algorithm
+     *
+     * @return Tree
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
     public function getPrimMinimalSpanningTree() : Tree 
     {
+        // todo: implement
         return new Tree();
     }
 
+    /**
+     * Get circles in graph.
+     *
+     * @return array
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
     public function getCircle() : array 
     {
-
+        // todo: implement
     }
 
+    /**
+     * Get shortest path using Floyd Warschall algorithm.
+     *
+     * @return array
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
     public function getFloydWarshallShortestPath() : array 
     {
-
+        // todo: implement
     }
 
+    /**
+     * Get shortest path using Dijkstra algorithm.
+     *
+     * @return array
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
     public function getDijkstraShortestPath() : array
     {
-
+        // todo: implement
     }
 
+    /**
+     * Perform depth first traversal.
+     *
+     * @return array
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
     public function depthFirstTraversal() : array 
     {
-
+        // todo: implement
     }
 
+    /**
+     * Perform breadth first traversal.
+     *
+     * @return array
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
     public function breadthFirstTraversal() : array 
     {
-
+        // todo: implement
     }
 
+    /**
+     * Get longest path in graph.
+     *
+     * @return Node[]
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
     public function longestPath() : array
     {
-
+        // todo: implement
     }
 
-    public function longestPathBetweenNodes() : array
+    /**
+     * Get longest path between two nodes.
+     *
+     * @param Node $node1 Graph node
+     * @param Node $node2 Graph node
+     *
+     * @return Node[]
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+    public function longestPathBetweenNodes(Node $node1, Node $node2) : array
     {
-
+        // todo: implement
     }
 
+    /**
+     * Get order of the graph.
+     *
+     * The order of a graph is the amount of nodes it contains.
+     *
+     * @return int
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
     public function getOrder() : int
     {
         return count($this->nodes);
     }
 
+    /**
+     * Get size of the graph.
+     *
+     * The size of the graph is the amount of edges it contains.
+     *
+     * @return int
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
     public function getSize() : int
     {
         return count($this->edges);
     }
 
+    /**
+     * Get diameter of graph.
+     *
+     * The diameter of a graph is the longest shortest path between two nodes.
+     *
+     * @return int
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
     public function getDiameter() : int
     {
         $diameter = 0;
@@ -194,46 +413,51 @@ class Graph
 
     public function getGirth() : int
     {
-
+        // todo: implement
     }
 
     public function getCircuitRank() : int
     {
-
+        // todo: implement
     }
 
     public function getNodeConnectivity() : int
     {
-
+        // todo: implement
     }
 
     public function getEdgeConnectivity() : int
     {
-
+        // todo: implement
     }
 
     public function isConnected() : bool
     {
+        // todo: implement
         return true;
     }
 
     public function getUnconnected() : array
     {
+        // todo: implement
         // get all unconnected sub graphs
     }
 
     public function isBipartite() : bool
     {
+        // todo: implement
         return true;
     }
 
     public function isTriangleFree() : bool
     {
+        // todo: implement
         return true;
     }
 
     public function isCircleFree() : bool
     {
+        // todo: implement
         return true;
     }
 }
