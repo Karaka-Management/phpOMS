@@ -34,7 +34,7 @@ class FinanceFormulas
     /**
      * Annual Percentage Yield
      *
-     * @latex APY = \left(\frac{1 + r}{n}\right)^{n}-1
+     * @latex APY = \left(1+ \frac{r}{n}\right)^{n}-1
      *
      * @param float $r Stated annual interest rate
      * @param int   $n number of times compounded
