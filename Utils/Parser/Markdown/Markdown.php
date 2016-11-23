@@ -82,10 +82,12 @@ class Markdown
 
     public function parse(string $raw) : string
     {
-        $raw   = $this->cleanup($raw);
+        /*$raw   = $this->cleanup($raw);
         $lines = explode("\n", $raw);
 
-        return trim($this->parseLines($lines), " \n");
+        return trim($this->parseLines($lines), " \n");*/
+
+        return $raw;
     }
 
     private function cleanup(string $raw) : string

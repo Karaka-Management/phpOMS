@@ -54,6 +54,22 @@ class Money implements \Serializable
     private $decimal = '.';
 
     /**
+     * Currency symbol position
+     *
+     * @var string
+     * @since 1.0.0
+     */
+    private $position = 1;
+
+    /**
+     * Currency symbol.
+     *
+     * @var string
+     * @since 1.0.0
+     */
+    private $symbol = ISO4217SymbolEnum::_USD;
+
+    /**
      * Value.
      *
      * @var int
@@ -118,6 +134,8 @@ class Money implements \Serializable
      * @param string $symbol    Currency symbol
      * @param int    $position  Symbol position
      *
+     * @return Money
+     *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
@@ -127,6 +145,8 @@ class Money implements \Serializable
         $this->decimal   = $decimal;
         $this->symbol    = $symbol;
         $this->position  = $position;
+
+        return $this;
     }
 
     /**
@@ -158,7 +178,7 @@ class Money implements \Serializable
      */
     public function getCurrency(int $decimals = 2) : string
     {
-        return ($position === 0 ? $smbol : '') . $this->getAmount($decimals, $thousands, $decimal) . ($position === 1 ? $smbol : '');
+        return ($this->position === 0 ? $this->symbol : '') . $this->getAmount($decimals) . ($this->position === 1 ? $this->symbol : '');
     }
 
     /**
@@ -199,6 +219,8 @@ class Money implements \Serializable
             $this->value += $value;
         } elseif ($value instanceof Money) {
             $this->value += $value->getInt();
+        } else {
+            throw new \InvalidArgumentException();
         }
 
         return $this;
@@ -235,7 +257,10 @@ class Money implements \Serializable
             $this->value -= $value;
         } elseif ($value instanceof Money) {
             $this->value -= $value->getInt();
+        } else {
+            throw new \InvalidArgumentException();
         }
+
 
         return $this;
     }

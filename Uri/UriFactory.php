@@ -116,7 +116,7 @@ class UriFactory
             }
         }
 
-        return success;
+        return $success;
     }
 
     /**

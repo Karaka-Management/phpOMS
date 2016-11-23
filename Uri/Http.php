@@ -204,7 +204,7 @@ class Http implements UriInterface
      */
     public function getRootPath() : string
     {
-        return $this->rootPath ?? '';
+        return $this->rootPath;
     }
 
     /**

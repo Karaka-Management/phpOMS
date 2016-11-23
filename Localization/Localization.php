@@ -359,7 +359,7 @@ class Localization
      */
     public function setAngle(string $angle)
     {
-        $this->temperature = $angle;
+        $this->angle = $angle;
     }
 
     /**
@@ -381,7 +381,7 @@ class Localization
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function setTemperatur(string $temperature)
+    public function setTemperature(string $temperature)
     {
         $this->temperature = $temperature;
     }

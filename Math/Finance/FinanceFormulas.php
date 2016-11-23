@@ -34,7 +34,7 @@ class FinanceFormulas
     /**
      * Annual Percentage Yield
      *
-     * @latex APY = \left(1+ \frac{r}{n}\right)^{n}-1
+     * @latex  APY = \left(1+ \frac{r}{n}\right)^{n}-1
      *
      * @param float $r Stated annual interest rate
      * @param int   $n number of times compounded
@@ -52,7 +52,7 @@ class FinanceFormulas
     /**
      * Annual Percentage Yield
      *
-     * @latex r = \left(\left(APY + 1\right)^{\frac{1}{n}} - 1\right) \cdot n
+     * @latex  r = \left(\left(APY + 1\right)^{\frac{1}{n}} - 1\right) \cdot n
      *
      * @param float $apy Annual percentage yield
      * @param int   $n   Number of times compounded
@@ -437,7 +437,7 @@ class FinanceFormulas
      */
     public static function getPeriodsOfPVAD(float $PV, float $P, float $r) : int
     {
-        return (int) round((($PV - $P) / $P * $r - 1) / log(1 + $r) + 1);
+        return (int) round(-(log(-($PV - $P) / $P * $r + 1) / log(1 + $r) - 1));
     }
 
     /**
@@ -573,6 +573,40 @@ class FinanceFormulas
     }
 
     /**
+     * Principal of compound interest
+     *
+     * @param float $C Compound interest
+     * @param float $r Rate per period
+     * @param int   $n Number of periods
+     *
+     * @return float
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn
+     */
+    public static function getPrincipalOfCompundInterest(float $C, float $r, int $n) : float
+    {
+        return $C / (pow(1 + $r, $n) - 1);
+    }
+
+    /**
+     * Principal of compound interest
+     *
+     * @param float $P Principal
+     * @param float $C Compound interest
+     * @param float $r Rate per period
+     *
+     * @return float
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn
+     */
+    public static function getPeriodsOfCompundInterest(float $P, float $C, float $r) : float
+    {
+        return log($C / $P + 1) / log(1 + $r);
+    }
+
+    /**
      * Continuous Compounding
      *
      * @param float $P Principal
@@ -587,6 +621,57 @@ class FinanceFormulas
     public static function getContinuousCompounding(float $P, float $r, int $t) : float
     {
         return $P * exp($r * $t);
+    }
+
+    /**
+     * Continuous Compounding
+     *
+     * @param float $C Compounding
+     * @param float $r Rate per period
+     * @param int   $t Time
+     *
+     * @return float
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn
+     */
+    public static function getPrincipalOfContinuousCompounding(float $C, float $r, int $t) : float
+    {
+        return $C / exp($r * $t);
+    }
+
+    /**
+     * Continuous Compounding
+     *
+     * @param float $P Principal
+     * @param float $C Compounding
+     * @param float $r Rate per period
+     *
+     * @return float
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn
+     */
+    public static function getPeriodsOfContinuousCompounding(float $P, float $C, float $r) : float
+    {
+        return log($C / $P) / $r;
+    }
+
+    /**
+     * Continuous Compounding
+     *
+     * @param float $P Principal
+     * @param float $C Compounding
+     * @param float $t Time
+     *
+     * @return float
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn
+     */
+    public static function getRateOfContinuousCompounding(float $P, float $C, float $t) : float
+    {
+        return log($C / $P) / $t;
     }
 
     /**
