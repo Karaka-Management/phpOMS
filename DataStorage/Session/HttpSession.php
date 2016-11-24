@@ -85,8 +85,6 @@ class HttpSession implements SessionInterface
 
         $this->sid = session_id();
         $this->setCsrfProtection();
-
-        self::$isLocked = true;
     }
 
     /**
@@ -135,7 +133,7 @@ class HttpSession implements SessionInterface
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public static function lock()
+    public function lock()
     {
         self::$isLocked = true;
     }
@@ -158,7 +156,10 @@ class HttpSession implements SessionInterface
      */
     public function save()
     {
-
+        if(!self::$isLocked) {
+            $_SESSION = $this->sessionData;
+            session_write_close();
+        }
     }
 
     /**
@@ -199,10 +200,7 @@ class HttpSession implements SessionInterface
      */
     public function __destruct()
     {
-        if(!self::$isLocked) {
-            $_SESSION = $this->sessionData;
-            session_write_close();
-        }
+        $this->save();
     }
 
 }

@@ -93,8 +93,7 @@ abstract class HeaderAbstract
      */
     public static function lock()
     {
-        CookieJar::lock();
-        HttpSession::lock();
+        // todo: maybe pass session as member and make lock not static
         self::$isLocked = true;
     }
 
