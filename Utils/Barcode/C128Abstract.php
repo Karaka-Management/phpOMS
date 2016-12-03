@@ -155,7 +155,7 @@ abstract class C128Abstract
      * @since  1.0.0
      * @author Dennis Eichhorn
      */
-    public function setSize(int $size)
+    public function setSize(int $size) /* : void */
     {
         if ($size < 0) {
             throw new \OutOfBoundsException($size);
@@ -172,7 +172,7 @@ abstract class C128Abstract
      * @since  1.0.0
      * @author Dennis Eichhorn
      */
-    public function setOrientation(int $orientation)
+    public function setOrientation(int $orientation) /* : void */
     {
         if (!OrientationType::isValidValue($orientation)) {
             throw new InvalidEnumValue($orientation);
@@ -202,7 +202,7 @@ abstract class C128Abstract
      * @since  1.0.0
      * @author Dennis Eichhorn
      */
-    public function setContent(string $content)
+    public function setContent(string $content) /* : void */
     {
         $this->content = $content;
     }

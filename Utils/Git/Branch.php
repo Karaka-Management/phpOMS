@@ -70,7 +70,7 @@ class Branch
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function setName(string $name)
+    public function setName(string $name) /* : void */
     {
         $this->name = escapeshellarg($name);
     }

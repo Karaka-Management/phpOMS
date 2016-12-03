@@ -34,7 +34,7 @@ class RedisCache implements CacheInterface
     /**
      * {@inheritdoc}
      */
-    public function set($key, $value, int $expire = -1)
+    public function set($key, $value, int $expire = -1) /* : void */
     {
         // TODO: Implement set() method.
     }
@@ -110,7 +110,7 @@ class RedisCache implements CacheInterface
     /**
      * {@inheritdoc}
      */
-    public function setStatus(int $status)
+    public function setStatus(int $status) /* : void */
     {
         // TODO: Implement setStatus() method.
     }

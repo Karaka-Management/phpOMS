@@ -147,7 +147,7 @@ abstract class GrammarAbstract
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function setTablePrefix(string $prefix)
+    public function setTablePrefix(string $prefix) /* : void */
     {
         $this->tablePrefix = $prefix;
     }

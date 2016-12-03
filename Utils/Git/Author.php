@@ -132,7 +132,7 @@ class Author
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function setCommitCount(int $count)
+    public function setCommitCount(int $count) /* : void */
     {
         $this->commitCount = $count;
     }
@@ -147,7 +147,7 @@ class Author
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function setAdditionCount(int $count)
+    public function setAdditionCount(int $count) /* : void */
     {
         $this->additionsCount = $count;
     }
@@ -175,7 +175,7 @@ class Author
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function setRemovalCount(int $count)
+    public function setRemovalCount(int $count) /* : void */
     {
         $this->removalsCount = $count;
     }

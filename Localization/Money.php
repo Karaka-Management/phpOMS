@@ -139,7 +139,7 @@ class Money implements \Serializable
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function setLocalization(string $thousands = ',', string $decimal = '.', string $symbol = '', int $position = 0)
+    public function setLocalization(string $thousands = ',', string $decimal = '.', string $symbol = '', int $position = 0) /* : void */
     {
         $this->thousands = $thousands;
         $this->decimal   = $decimal;
@@ -345,7 +345,7 @@ class Money implements \Serializable
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function serialize()
+    public function serialize() /* : void */
     {
         return $this->getInt();
     }

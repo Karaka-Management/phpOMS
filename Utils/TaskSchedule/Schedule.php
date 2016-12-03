@@ -48,7 +48,7 @@ class Schedule extends TaskAbstract implements \Serializable
      * @return string the string representation of the object or null
      * @since 5.1.0
      */
-    public function serialize()
+    public function serialize() /* : void */
     {
         // TODO: Implement serialize() method.
     }

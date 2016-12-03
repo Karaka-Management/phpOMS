@@ -208,7 +208,7 @@ class Mail
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function setBody(string $body)
+    public function setBody(string $body) /* : void */
     {
         $this->body = $body;
     }
@@ -223,7 +223,7 @@ class Mail
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function setOverview(string $overview)
+    public function setOverview(string $overview) /* : void */
     {
         $this->overview = $overview;
     }
@@ -238,7 +238,7 @@ class Mail
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function setEncoding(int $encoding)
+    public function setEncoding(int $encoding) /* : void */
     {
         $this->encoding = $encoding;
     }

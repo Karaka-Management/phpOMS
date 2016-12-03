@@ -163,7 +163,7 @@ class Commit
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function setMessage(string $message)
+    public function setMessage(string $message) /* : void */
     {
         $this->message = $message;
     }
@@ -223,7 +223,7 @@ class Commit
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function setAuthor(Author $author)
+    public function setAuthor(Author $author) /* : void */
     {
         $this->author = $author;
     }
@@ -249,7 +249,7 @@ class Commit
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function setBranch(Branch $branch)
+    public function setBranch(Branch $branch) /* : void */
     {
         $this->branch = $branch;
     }
@@ -275,7 +275,7 @@ class Commit
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function setTag(Tag $tag)
+    public function setTag(Tag $tag) /* : void */
     {
         $this->tag = $tag;
     }
@@ -303,7 +303,7 @@ class Commit
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function setDate(\DateTime $date)
+    public function setDate(\DateTime $date) /* : void */
     {
         $this->date = $date;
     }
@@ -329,7 +329,7 @@ class Commit
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function setRepository(Repository $repository)
+    public function setRepository(Repository $repository) /* : void */
     {
         $this->repository = $repository;
     }

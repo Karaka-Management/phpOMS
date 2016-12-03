@@ -199,7 +199,7 @@ class Account implements ArrayableInterface, \JsonSerializable
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function setL11n(Localization $l11n)
+    public function setL11n(Localization $l11n) /* : void */
     {
         $this->l11n = $l11n;
     }
@@ -322,7 +322,7 @@ class Account implements ArrayableInterface, \JsonSerializable
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function setName1(string $name)
+    public function setName1(string $name) /* : void */
     {
         $this->name1 = $name;
     }
@@ -337,7 +337,7 @@ class Account implements ArrayableInterface, \JsonSerializable
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function setName2(string $name)
+    public function setName2(string $name) /* : void */
     {
         $this->name2 = $name;
     }
@@ -352,7 +352,7 @@ class Account implements ArrayableInterface, \JsonSerializable
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function setName3(string $name)
+    public function setName3(string $name) /* : void */
     {
         $this->name3 = $name;
     }
@@ -367,7 +367,7 @@ class Account implements ArrayableInterface, \JsonSerializable
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function setEmail(string $email)
+    public function setEmail(string $email) /* : void */
     {
         if (!Email::isValid($email)) {
             throw new \InvalidArgumentException();
@@ -386,7 +386,7 @@ class Account implements ArrayableInterface, \JsonSerializable
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function setStatus(int $status)
+    public function setStatus(int $status) /* : void */
     {
         if (!AccountStatus::isValidValue($status)) {
             throw new \InvalidArgumentException();
@@ -405,7 +405,7 @@ class Account implements ArrayableInterface, \JsonSerializable
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function setType(int $type)
+    public function setType(int $type) /* : void */
     {
         if (!AccountType::isValidValue($type)) {
             throw new \InvalidArgumentException();

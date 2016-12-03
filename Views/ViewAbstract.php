@@ -100,7 +100,7 @@ abstract class ViewAbstract implements \Serializable
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function setTemplate(string $template)
+    public function setTemplate(string $template) /* : void */
     {
         $this->template = $template;
     }
@@ -203,7 +203,7 @@ abstract class ViewAbstract implements \Serializable
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function serialize()
+    public function serialize() /* : void */
     {
         if (empty($this->template)) {
             return $this->toArray();

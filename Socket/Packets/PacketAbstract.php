@@ -95,7 +95,7 @@ abstract class PacketAbstract implements \Serializable
      * @var Header
      * @since 1.0.0
      */
-    public function setHeader(Header $header)
+    public function setHeader(Header $header) /* : void */
     {
         $this->header = $header;
     }

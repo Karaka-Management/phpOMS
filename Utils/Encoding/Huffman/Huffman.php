@@ -68,7 +68,7 @@ final class Huffman
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function setDictionary(Dictionary $dictionary)
+    public function setDictionary(Dictionary $dictionary) /* : void */
     {
         $this->dictionary = $dictionary;
     }

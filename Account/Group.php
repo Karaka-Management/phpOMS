@@ -148,7 +148,7 @@ class Group implements ArrayableInterface, \JsonSerializable
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function setName(string $name)
+    public function setName(string $name) /* : void */
     {
         $this->name = $name;
     }
@@ -174,7 +174,7 @@ class Group implements ArrayableInterface, \JsonSerializable
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function setDescription(string $description)
+    public function setDescription(string $description) /* : void */
     {
         $this->description = $description;
     }
@@ -200,7 +200,7 @@ class Group implements ArrayableInterface, \JsonSerializable
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function setStatus(int $status)
+    public function setStatus(int $status) /* : void */
     {
         // todo: check valid
         $this->status = $status;

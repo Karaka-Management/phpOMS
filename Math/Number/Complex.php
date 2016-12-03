@@ -25,11 +25,11 @@ class Complex
     {
     }
 
-    public function setReal()
+    public function setReal() /* : void */
     {
     }
 
-    public function setImaginary()
+    public function setImaginary() /* : void */
     {
     }
 

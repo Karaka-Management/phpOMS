@@ -124,7 +124,7 @@ class Meta implements RenderableInterface
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function setAuthor(string $author)
+    public function setAuthor(string $author) /* : void */
     {
         $this->author = $author;
     }
@@ -152,7 +152,7 @@ class Meta implements RenderableInterface
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function setCharset(string $charset)
+    public function setCharset(string $charset) /* : void */
     {
         $this->charset = $charset;
     }
@@ -180,7 +180,7 @@ class Meta implements RenderableInterface
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function setDescription(string $description)
+    public function setDescription(string $description) /* : void */
     {
         $this->description = $description;
     }
@@ -208,7 +208,7 @@ class Meta implements RenderableInterface
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function setLanguage(string $language)
+    public function setLanguage(string $language) /* : void */
     {
         $this->language = $language;
     }

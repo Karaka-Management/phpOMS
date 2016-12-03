@@ -163,7 +163,7 @@ abstract class RequestAbstract implements MessageInterface
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function setUri(UriInterface $uri)
+    public function setUri(UriInterface $uri) /* : void */
     {
         $this->uri = $uri;
     }
@@ -192,7 +192,7 @@ abstract class RequestAbstract implements MessageInterface
     /**
      * {@inheritdoc}
      */
-    public function setRequestSource($source)
+    public function setRequestSource($source) /* : void */
     {
         if (!RequestSource::isValidValue($source)) {
             throw new InvalidEnumValue($source);
@@ -219,7 +219,7 @@ abstract class RequestAbstract implements MessageInterface
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function setMethod(string $method)
+    public function setMethod(string $method) /* : void */
     {
         $this->method = $method;
     }
@@ -246,7 +246,7 @@ abstract class RequestAbstract implements MessageInterface
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function setType(string $type)
+    public function setType(string $type) /* : void */
     {
         $this->type = $type;
     }
@@ -332,7 +332,7 @@ abstract class RequestAbstract implements MessageInterface
     /**
      * {@inheritdoc}
      */
-    public function setAccount(int $account)
+    public function setAccount(int $account) /* : void */
     {
         $this->account = $account;
     }
@@ -340,7 +340,7 @@ abstract class RequestAbstract implements MessageInterface
     /**
      * {@inheritdoc}
      */
-    public function setStatusCode(string $status)
+    public function setStatusCode(string $status) /* : void */
     {
         $this->status = $status;
     }

@@ -107,7 +107,7 @@ class Graph
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-	public function setEdge($key, Edge $edge) 
+	public function setEdge($key, Edge $edge)  /* : void */
     {
 		$this->edges[$key] = $edge;
 

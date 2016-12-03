@@ -163,7 +163,7 @@ class PriorityQueue implements \Countable, \Serializable
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function setPriority(int $id, float $priority)
+    public function setPriority(int $id, float $priority) /* : void */
     {
         $this->queue[$id]['priority'] = $priority;
     }

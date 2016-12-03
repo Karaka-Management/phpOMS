@@ -248,7 +248,7 @@ class Text
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function setFormatting($hasFormatting)
+    public function setFormatting($hasFormatting) /* : void */
     {
         $this->hasFormatting = $hasFormatting;
     }
@@ -263,7 +263,7 @@ class Text
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function setParagraphs($hasParagraphs)
+    public function setParagraphs($hasParagraphs) /* : void */
     {
         $this->hasParagraphs = $hasParagraphs;
     }

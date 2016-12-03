@@ -201,7 +201,7 @@ class Polygon implements D2ShapeInterface
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function setCoordinates($coord)
+    public function setCoordinates($coord) /* : void */
     {
         $this->coord = $coord;
     }
@@ -218,7 +218,7 @@ class Polygon implements D2ShapeInterface
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function setCoordinate($i, $x, $y)
+    public function setCoordinate($i, $x, $y) /* : void */
     {
         $this->coord[$i] = ['x' => $x, 'y' => $y];
     }
@@ -278,7 +278,7 @@ class Polygon implements D2ShapeInterface
     /**
      * {@inheritdoc}
      */
-    public function setSurface($surface)
+    public function setSurface($surface) /* : void */
     {
         $this->reset();
 
@@ -326,7 +326,7 @@ class Polygon implements D2ShapeInterface
     /**
      * {@inheritdoc}
      */
-    public function setPerimeter($perimeter)
+    public function setPerimeter($perimeter) /* : void */
     {
         $this->reset();
 

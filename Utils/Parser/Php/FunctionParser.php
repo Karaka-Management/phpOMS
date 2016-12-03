@@ -117,7 +117,7 @@ class FunctionParser
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function setName(string $name)
+    public function setName(string $name) /* : void */
     {
         $this->name = $name;
     }
@@ -132,7 +132,7 @@ class FunctionParser
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function seBody(string $body)
+    public function seBody(string $body) /* : void */
     {
         $this->body = $body;
     }
@@ -186,7 +186,7 @@ class FunctionParser
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function setVisibility(string $visibility)
+    public function setVisibility(string $visibility) /* : void */
     {
         $this->visibility = $visibility;
     }
@@ -201,7 +201,7 @@ class FunctionParser
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function setStatic(bool $static)
+    public function setStatic(bool $static) /* : void */
     {
         $this->isStatic = $static;
     }
@@ -229,7 +229,7 @@ class FunctionParser
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function setFinal(bool $final)
+    public function setFinal(bool $final) /* : void */
     {
         $this->isFinal = $final;
     }
@@ -257,7 +257,7 @@ class FunctionParser
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function setAbstract(bool $abstract)
+    public function setAbstract(bool $abstract) /* : void */
     {
         $this->isAbstract = $abstract;
 
@@ -317,7 +317,7 @@ class FunctionParser
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function setReturn(string $return)
+    public function setReturn(string $return) /* : void */
     {
         $this->return = $return;
     }
@@ -356,7 +356,7 @@ class FunctionParser
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function serialize()
+    public function serialize() /* : void */
     {
         $function = '';
         $function .= str_repeat(' ', ClassParser::INDENT);

@@ -226,7 +226,7 @@ class Builder extends BuilderAbstract
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function setConnection(ConnectionAbstract $connection)
+    public function setConnection(ConnectionAbstract $connection) /* : void */
     {
         $this->connection = $connection;
         $this->grammar    = $connection->getGrammar();

@@ -136,7 +136,7 @@ class FileCache implements CacheInterface
     /**
      * {@inheritdoc}
      */
-    public function set($key, $value, int $expire = -1)
+    public function set($key, $value, int $expire = -1) /* : void */
     {
         if($this->status !== CacheStatus::ACTIVE) {
             return false;

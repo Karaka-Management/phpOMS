@@ -145,7 +145,7 @@ class Http implements UriInterface
     /**
      * {@inheritdoc}
      */
-    public function set(string $uri)
+    public function set(string $uri) /* : void */
     {
         $this->uri = $uri;
         $url       = parse_url($this->uri);
@@ -210,7 +210,7 @@ class Http implements UriInterface
     /**
      * {@inheritdoc}
      */
-    public function setRootPath(string $root)
+    public function setRootPath(string $root) /* : void */
     {
         $this->rootPath = $root;
         $this->set($this->uri);

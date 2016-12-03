@@ -103,7 +103,7 @@ class InfoManager
      * @since  1.0.0
      * @author Dennis Eichhorn
      */
-    public function set(string $path, $data, string $delim = '/')
+    public function set(string $path, $data, string $delim = '/') /* : void */
     {
         if (!is_scalar($data) || !is_array($data)) {
             throw new \InvalidArgumentException('Type of $data "' . gettype($data) . '" is not supported.');

@@ -93,7 +93,7 @@ class C25 extends C128Abstract
      * @since  1.0.0
      * @author Dennis Eichhorn
      */
-    public function setContent(string $content)
+    public function setContent(string $content) /* : void */
     {
         if (!ctype_digit($content)) {
             throw new \InvalidArgumentException($content);

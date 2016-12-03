@@ -57,7 +57,7 @@ class CronJob extends TaskAbstract implements \Serializable
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function serialize()
+    public function serialize() /* : void */
     {
         $minute     = $this->printValue($this->interval->getMinute());
         $hour       = $this->printValue($this->interval->getHour());

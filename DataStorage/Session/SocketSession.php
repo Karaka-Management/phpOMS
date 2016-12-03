@@ -84,7 +84,7 @@ class SocketSession implements SessionInterface
     /**
      * {@inheritdoc}
      */
-    public function setSID($sid)
+    public function setSID($sid) /* : void */
     {
         $this->sid = $sid;
     }

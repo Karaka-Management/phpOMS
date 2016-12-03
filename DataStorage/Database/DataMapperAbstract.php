@@ -175,7 +175,7 @@ class DataMapperAbstract implements DataMapperInterface
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public static function setConnection(ConnectionAbstract $con)
+    public static function setConnection(ConnectionAbstract $con) /* : void */
     {
         self::$db = $con;
     }
@@ -425,7 +425,7 @@ class DataMapperAbstract implements DataMapperInterface
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    private static function setObjectId(\ReflectionClass $reflectionClass, $obj, $objId)
+    private static function setObjectId(\ReflectionClass $reflectionClass, $obj, $objId) /* : void */
     {
         $reflectionProperty = $reflectionClass->getProperty(static::$columns[static::$primaryField]['internal']);
 

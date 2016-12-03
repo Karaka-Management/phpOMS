@@ -54,22 +54,22 @@ class Backpack
         return true;
     }
 
-    public function setPopulationItem(ItemInterface $item) 
+    public function setPopulationItem(ItemInterface $item)  /* : void */
     {
         $this->population[$item->getId()] = $item;
     }
 
-    public function setCostCalculation(\Closure $callback)
+    public function setCostCalculation(\Closure $callback) /* : void */
     {
 
     }
 
-    public function setValueCalculation(\Closure $callback)
+    public function setValueCalculation(\Closure $callback) /* : void */
     {
 
     }
 
-    public function setTestPopulationBuilder(\Closure $callback)
+    public function setTestPopulationBuilder(\Closure $callback) /* : void */
     {
 
     }

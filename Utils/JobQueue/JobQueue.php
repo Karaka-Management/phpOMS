@@ -101,7 +101,7 @@ class JobQueue
         register_shutdown_function('shutdown');
     }
 
-    public function setRunning(bool $run = true)
+    public function setRunning(bool $run = true) /* : void */
     {
         $this->run       = $run;
         $this->suspended = $run;
@@ -117,7 +117,7 @@ class JobQueue
         return $this->suspended;
     }
 
-    public function setSuspended(bool $suspended = true)
+    public function setSuspended(bool $suspended = true) /* : void */
     {
         $this->suspended = $suspended;
     }
@@ -127,7 +127,7 @@ class JobQueue
         return $this->isTerminating;
     }
 
-    public function setTerminating(bool $terminating = true)
+    public function setTerminating(bool $terminating = true) /* : void */
     {
         $this->isTerminating = $terminating;
     }
@@ -137,7 +137,7 @@ class JobQueue
         return $this->isDeamonized;
     }
 
-    public function setDeamonized(bool $deamonized)
+    public function setDeamonized(bool $deamonized) /* : void */
     {
         $this->isDeamonized = $deamonized;
     }

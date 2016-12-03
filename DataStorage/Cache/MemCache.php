@@ -74,7 +74,7 @@ class MemCache implements CacheInterface
     /**
      * {@inheritdoc}
      */
-    public function set($key, $value, int $expire = -1)
+    public function set($key, $value, int $expire = -1) /* : void */
     {
         $this->memc->set($key, $value, false, $expire);
     }
@@ -151,7 +151,7 @@ class MemCache implements CacheInterface
     /**
      * {@inheritdoc}
      */
-    public function setStatus(int $status) 
+    public function setStatus(int $status)  /* : void */
     {
         $this->status = $status;
     }

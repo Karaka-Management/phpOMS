@@ -114,7 +114,7 @@ class BinaryTree extends Tree
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-	public function setRight(Node $base, Node $right) 
+	public function setRight(Node $base, Node $right)  /* : void */
 	{
 		if($this->getRight($base) === null) {
 			$this->addNode($base, $right);

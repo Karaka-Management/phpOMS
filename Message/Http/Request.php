@@ -196,7 +196,7 @@ class Request extends RequestAbstract
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    private function setupUriBuilder()
+    private function setupUriBuilder() /* : void */
     {
         UriFactory::setQuery('/scheme', $this->uri->getScheme());
         UriFactory::setQuery('/host', $this->uri->getHost());

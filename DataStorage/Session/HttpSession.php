@@ -93,7 +93,7 @@ class HttpSession implements SessionInterface
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    private function setCsrfProtection()
+    private function setCsrfProtection() /* : void */
     {
         $this->set('UID', 0, false);
 
@@ -187,7 +187,7 @@ class HttpSession implements SessionInterface
     /**
      * {@inheritdoc}
      */
-    public function setSID($sid)
+    public function setSID($sid) /* : void */
     {
         $this->sid = $sid;
     }

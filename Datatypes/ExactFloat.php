@@ -20,7 +20,7 @@ class ExactFloat
 
     private static $length = 0;
 
-    public static function setLength($length)
+    public static function setLength($length) /* : void */
     {
         self::$length = (int) $length;
     }

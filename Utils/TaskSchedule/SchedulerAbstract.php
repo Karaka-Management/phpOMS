@@ -67,7 +67,7 @@ abstract class SchedulerAbstract
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public static function setBin(string $path)
+    public static function setBin(string $path) /* : void */
     {
         if (realpath($path) === false) {
             throw new PathException($path);
@@ -173,7 +173,7 @@ abstract class SchedulerAbstract
      * @since  1.0.0
      * @author Dennis Eichhorn
      */
-    public function set(TaskAbstract $task)
+    public function set(TaskAbstract $task) /* : void */
     {
         $this->tasks[$task->getId()] = $task;
     }

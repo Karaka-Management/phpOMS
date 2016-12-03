@@ -87,7 +87,7 @@ class Repository
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    private function setPath(string $path)
+    private function setPath(string $path) /* : void */
     {
         if (!is_dir($path)) {
             throw new PathException($path);
@@ -604,7 +604,7 @@ class Repository
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function setDescription(string $description)
+    public function setDescription(string $description) /* : void */
     {
         file_put_contents($this->getDirectoryPath(), $description);
     }

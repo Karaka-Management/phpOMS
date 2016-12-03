@@ -48,7 +48,7 @@ class Job
         return $this->priority;
     }
 
-    public function setPriority(float $priority)
+    public function setPriority(float $priority) /* : void */
     {
         $this->priority = $priority;
     }

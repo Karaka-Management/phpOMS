@@ -167,7 +167,7 @@ class ClassParser
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function setFinal(bool $final)
+    public function setFinal(bool $final) /* : void */
     {
         $this->isFinal = $final;
     }
@@ -195,7 +195,7 @@ class ClassParser
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function setAbstract(bool $abstract)
+    public function setAbstract(bool $abstract) /* : void */
     {
         $this->isAbstract = $abstract;
     }
@@ -238,7 +238,7 @@ class ClassParser
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function setType(string $type)
+    public function setType(string $type) /* : void */
     {
         $this->type = $type;
     }
@@ -266,7 +266,7 @@ class ClassParser
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function setExtends(string $extends)
+    public function setExtends(string $extends) /* : void */
     {
         $this->extends = $extends;
     }
@@ -307,7 +307,7 @@ class ClassParser
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function setNamespace(string $namespace)
+    public function setNamespace(string $namespace) /* : void */
     {
         $this->namespace = $namespace;
     }
@@ -389,7 +389,7 @@ class ClassParser
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function setName(string $name)
+    public function setName(string $name) /* : void */
     {
         $this->name = $name;
     }

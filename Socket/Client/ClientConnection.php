@@ -50,7 +50,7 @@ class ClientConnection
         return $this->socket;
     }
 
-    public function setSocket($socket)
+    public function setSocket($socket) /* : void */
     {
         $this->socket = $socket;
     }
@@ -60,7 +60,7 @@ class ClientConnection
         return $this->handshake;
     }
 
-    public function setHandshake($handshake)
+    public function setHandshake($handshake) /* : void */
     {
         $this->handshake = $handshake;
     }
@@ -70,7 +70,7 @@ class ClientConnection
         return $this->pid;
     }
 
-    public function setPid($pid)
+    public function setPid($pid) /* : void */
     {
         $this->pid = $pid;
     }
@@ -80,7 +80,7 @@ class ClientConnection
         return $this->connected;
     }
 
-    public function setConnected(bool $connected)
+    public function setConnected(bool $connected) /* : void */
     {
         $this->connected = $connected;
     }

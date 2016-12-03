@@ -108,7 +108,7 @@ class C128a extends C128Abstract
      * @since  1.0.0
      * @author Dennis Eichhorn
      */
-    public function setContent(string $content)
+    public function setContent(string $content) /* : void */
     {
         parent::setContent(strtoupper($content));
     }

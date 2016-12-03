@@ -567,7 +567,7 @@ class Collection implements \Countable, \ArrayAccess, \Iterator, \JsonSerializab
         return $total;
     }
 
-    public function search($filter, bool $strict = true)
+    public function search($filter, bool $strict = true) /* : void */
     {
         if (is_scalar($filter)) {
             array_search($filter, $this->collection, $strict);

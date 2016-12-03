@@ -143,7 +143,7 @@ final class Dictionary
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function set(string $entry, string $value)
+    public function set(string $entry, string $value) /* : void */
     {
         if (strlen($entry) !== 1) {
             throw new \Exception('Must be a character.');

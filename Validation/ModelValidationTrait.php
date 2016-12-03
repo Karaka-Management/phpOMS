@@ -38,7 +38,7 @@ trait ModelValidationTrait
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function setForce($var, $name)
+    public function setForce($var, $name) /* : void */
     {
         if (!property_exists($this, $var)) {
             throw new \Exception('Unknown property.');
@@ -85,7 +85,7 @@ trait ModelValidationTrait
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    protected function setValidation($var, $name)
+    protected function setValidation($var, $name) /* : void */
     {
         /** @noinspection PhpUndefinedFieldInspection */
         if (!isset(self::${$name . '_validate'}) || Validator::isValid($var, self::$validation[$name]) === true) {
