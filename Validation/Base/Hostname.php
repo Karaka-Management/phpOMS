@@ -44,7 +44,7 @@ abstract class Hostname extends ValidatorAbstract
     /**
      * {@inheritdoc}
      */
-    public static function isValid($value)
+    public static function isValid($value) : bool
     {
         return filter_var(gethostbyname($value), FILTER_VALIDATE_IP);
     }

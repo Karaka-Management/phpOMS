@@ -59,7 +59,7 @@ abstract class HeaderAbstract
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    abstract public function generate(string $statusCode);
+    abstract public function generate(string $statusCode) /* : void */;
 
     /**
      * Get header by key.
@@ -91,7 +91,7 @@ abstract class HeaderAbstract
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public static function lock()
+    public static function lock() /* : void */
     {
         // todo: maybe pass session as member and make lock not static
         self::$isLocked = true;

@@ -36,7 +36,7 @@ trait OptionsTrait
     /**
      * {@inheritdoc}
      */
-    public function exists($key)
+    public function exists($key) : bool
     {
         return isset($this->options[$key]);
     }

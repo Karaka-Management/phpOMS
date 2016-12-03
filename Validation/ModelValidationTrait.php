@@ -60,7 +60,7 @@ trait ModelValidationTrait
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    protected function isValid($var, $name)
+    protected function isValid($var, $name) : bool
     {
         /** @noinspection PhpUndefinedFieldInspection */
         if (!isset(self::${$name . '_validate'})) {

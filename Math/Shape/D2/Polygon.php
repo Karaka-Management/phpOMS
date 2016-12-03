@@ -288,7 +288,7 @@ class Polygon implements D2ShapeInterface
     /**
      * {@inheritdoc}
      */
-    public function reset()
+    public function reset() /* : void */
     {
         $this->coord            = [];
         $this->barycenter       = ['x' => 0.0, 'y' => 0.0];
@@ -311,7 +311,7 @@ class Polygon implements D2ShapeInterface
     /**
      * {@inheritdoc}
      */
-    public function getPerimeter()
+    public function getPerimeter() : float
     {
         $count           = count($this->coord);
         $this->perimeter = sqrt(($this->coord[0]['x'] - $this->coord[$count - 1]['x']) ** 2 + ($this->coord[0]['y'] - $this->coord[$count - 1]['y']) ** 2);

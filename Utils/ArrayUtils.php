@@ -237,7 +237,7 @@ class ArrayUtils
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public static function getArg(string $id, array $args)
+    public static function getArg(string $id, array $args) /* : ?string */
     {
         if (($key = array_search($id, $args)) === false || $key === count($args) - 1) {
             return null;

@@ -92,7 +92,7 @@ class SocketSession implements SessionInterface
     /**
      * {@inheritdoc}
      */
-    public function save()
+    public function save() /* : void */
     {
     }
 

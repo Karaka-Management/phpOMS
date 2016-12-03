@@ -170,7 +170,7 @@ class Functions
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public static function invMod(int $a, int $n)
+    public static function invMod(int $a, int $n) : int
     {
         if ($n < 0) {
             $n = -$n;
@@ -217,7 +217,7 @@ class Functions
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public static function mod($a, $b)
+    public static function mod($a, $b) : int
     {
         if ($a < 0) {
             return ($a + $b) % $b;
@@ -277,7 +277,7 @@ class Functions
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public static function getRelativeDegree($value, $length, $start = 0)
+    public static function getRelativeDegree($value, $length, $start = 0) : int
     {
         return abs(self::mod($value - $start, $length));
     }

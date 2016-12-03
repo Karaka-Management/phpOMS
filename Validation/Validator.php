@@ -38,7 +38,7 @@ final class Validator extends ValidatorAbstract
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public static function isValid($var, array $constraints)
+    public static function isValid($var, array $constraints) : bool
     {
         foreach ($constraints as $callback => $settings) {
             $valid = self::$callback($var, ...$settings);
@@ -63,7 +63,7 @@ final class Validator extends ValidatorAbstract
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public static function isType($var, $constraint)
+    public static function isType($var, $constraint) : bool
     {
         if (!is_array($constraint)) {
             $constraint = [$constraint];
@@ -90,7 +90,7 @@ final class Validator extends ValidatorAbstract
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public static function hasLength(string $var, int $min = 0, int $max = PHP_INT_MAX)
+    public static function hasLength(string $var, int $min = 0, int $max = PHP_INT_MAX) : bool
     {
         $length = strlen($var);
 
@@ -112,7 +112,7 @@ final class Validator extends ValidatorAbstract
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public static function contains(string $var, $substr)
+    public static function contains(string $var, $substr) : bool
     {
         return is_string($substr) ? strpos($var, $substr) !== false : StringUtils::contains($var, $substr);
     }
@@ -128,7 +128,7 @@ final class Validator extends ValidatorAbstract
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public static function matches(string $var, string $pattern)
+    public static function matches(string $var, string $pattern) : bool
     {
         return (preg_match($pattern, $var) !== false ? true : false);
     }
@@ -145,7 +145,7 @@ final class Validator extends ValidatorAbstract
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public static function hasLimit($var, $min = 0, $max = PHP_INT_MAX)
+    public static function hasLimit($var, $min = 0, $max = PHP_INT_MAX) : bool
     {
         if ($var <= $max && $var >= $min) {
             return true;

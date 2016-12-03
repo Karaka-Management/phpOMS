@@ -227,7 +227,7 @@ abstract class RequestAbstract implements MessageInterface
     /**
      * {@inheritdoc}
      */
-    public function getPath($key = null)
+    public function getPath($key = null) /* : ?string */
     {
         if ($key === null) {
             return $this->path;
@@ -316,7 +316,7 @@ abstract class RequestAbstract implements MessageInterface
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function lock()
+    public function lock() /* : void */
     {
         $this->lock = true;
     }

@@ -237,7 +237,7 @@ class Location implements \JsonSerializable, \Serializable
      * @return string the string representation of the object or null
      * @since 5.1.0
      */
-    public function serialize() /* : void */
+    public function serialize()
     {
         return $this->jsonSerialize();
     }

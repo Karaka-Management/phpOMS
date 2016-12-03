@@ -55,7 +55,7 @@ class Currency
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public static function resetCurrencies()
+    public static function resetCurrencies() /* : void */
     {
         self::$ecbCurrencies = null;
     }

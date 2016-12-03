@@ -46,7 +46,7 @@ class InstallerAbstract
      * @since  1.0.0
      * @author Dennis Eichhorn
      */
-    public static function registerInDatabase(DatabasePool $dbPool, InfoManager $info)
+    public static function registerInDatabase(DatabasePool $dbPool, InfoManager $info) /* : void */
     {
         switch ($dbPool->get()->getType()) {
             case DatabaseType::MYSQL:
@@ -99,7 +99,7 @@ class InstallerAbstract
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public static function install(string $routePath, DatabasePool $dbPool, InfoManager $info)
+    public static function install(string $routePath, DatabasePool $dbPool, InfoManager $info) /* : void */
     {
         self::registerInDatabase($dbPool, $info);
         self::initRoutes($routePath, $info);
@@ -117,7 +117,7 @@ class InstallerAbstract
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    private static function activate(DatabasePool $dbPool, InfoManager $info)
+    private static function activate(DatabasePool $dbPool, InfoManager $info) /* : void */
     {
         /** @var ActivateAbstract $class */
         $class = '\Modules\\' . $info->getDirectory() . '\Admin\Activate';
@@ -135,7 +135,7 @@ class InstallerAbstract
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public static function reInit(string $routePath, InfoManager $info)
+    public static function reInit(string $routePath, InfoManager $info) /* : void */
     {
         self::initRoutes($routePath, $info);
     }
@@ -153,7 +153,7 @@ class InstallerAbstract
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    private static function initRoutes(string $routePath, InfoManager $info)
+    private static function initRoutes(string $routePath, InfoManager $info) /* : void */
     {
         // todo: maybe use static::__DIR__ ?
         $directories = new Directory(ROOT_PATH . '/Modules/' . $info->getDirectory() . '/Admin/Routes');
@@ -180,7 +180,7 @@ class InstallerAbstract
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    private static function installRoutes(string $destRoutePath, string $srcRoutePath)
+    private static function installRoutes(string $destRoutePath, string $srcRoutePath) /* : void */
     {
         if (!file_exists($destRoutePath)) {
             file_put_contents($destRoutePath, '<?php return [];');

@@ -280,7 +280,7 @@ class Http implements UriInterface
     /**
      * {@inheritdoc}
      */
-    public function getQuery(string $key = null)
+    public function getQuery(string $key = null) /* : ?string */
     {
         return isset($key) ? $this->query[$key] ?? null : $this->queryString ?? '';
     }

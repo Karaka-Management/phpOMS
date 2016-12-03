@@ -54,14 +54,14 @@ class UriFactory
      *
      * @param string $key Replacement key
      *
-     * @return false|string
+     * @return null|string
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public static function getQuery(string $key)
+    public static function getQuery(string $key) /* : ?string */
     {
-        return self::$uri[$key] ?? false;
+        return self::$uri[$key] ?? null;
     }
 
     /**
@@ -181,7 +181,7 @@ class UriFactory
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public static function build(string $uri, array $toMatch = [])
+    public static function build(string $uri, array $toMatch = []) /* : ?string */
     {
         $parsed = preg_replace_callback('(\{[\/#\?@\.\$][a-zA-Z0-9\-]*\})', function ($match) use ($toMatch) {
             $match = substr($match[0], 1, strlen($match[0]) - 2);

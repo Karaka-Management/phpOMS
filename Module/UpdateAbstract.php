@@ -42,7 +42,7 @@ class UpdateAbstract
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public static function update(DatabasePool $dbPool, InfoManager $info)
+    public static function update(DatabasePool $dbPool, InfoManager $info) /* : void */
     {
     }
 }

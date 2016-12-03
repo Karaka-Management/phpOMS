@@ -109,7 +109,7 @@ abstract class SchedulerAbstract
      * @since  1.0.0
      * @author Dennis Eichhorn
      */
-    public function add(TaskAbstract $task)
+    public function add(TaskAbstract $task) /* : void */
     {
         $this->tasks[$task->getId()] = $task;
     }
@@ -186,5 +186,5 @@ abstract class SchedulerAbstract
      * @since  1.0.0
      * @author Dennis Eichhorn
      */
-    abstract public function save();
+    abstract public function save() /* : void */;
 }

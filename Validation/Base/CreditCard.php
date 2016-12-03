@@ -44,7 +44,7 @@ abstract class CreditCard extends ValidatorAbstract
     /**
      * {@inheritdoc}
      */
-    public static function isValid($value)
+    public static function isValid($value) : bool
     {
         $value = preg_replace('/\D/', '', $value);
 

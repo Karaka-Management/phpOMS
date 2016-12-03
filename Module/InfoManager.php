@@ -71,7 +71,7 @@ class InfoManager
      * @since  1.0.0
      * @author Dennis Eichhorn
      */
-    public function load()
+    public function load() /* : void */
     {
         if (!file_exists($this->path)) {
             throw new PathException($this->path);
@@ -88,7 +88,7 @@ class InfoManager
      * @since  1.0.0
      * @author Dennis Eichhorn
      */
-    public function update()
+    public function update() /* : void */
     {
         file_put_contents($this->path, json_encode($this->info, JSON_PRETTY_PRINT));
     }

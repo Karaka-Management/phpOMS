@@ -99,7 +99,7 @@ class View extends ViewAbstract
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function getData($id)
+    public function getData(string $id)
     {
         return $this->data[$id] ?? null;
     }
@@ -160,14 +160,14 @@ class View extends ViewAbstract
      * @param string $module      Module name
      * @param string $theme       Theme name
      * 
-     * @return array
+     * @return string
      *
      * @throws \Exception
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    protected function getText(string $translation, string $module = null, string $theme = null)
+    protected function getText(string $translation, string $module = null, string $theme = null) : string
     {
         if (!isset($module)) {
             $match = '/Modules/';
@@ -202,7 +202,7 @@ class View extends ViewAbstract
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function getRequest()
+    public function getRequest() : Request
     {
         return $this->request;
     }

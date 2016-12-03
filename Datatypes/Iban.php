@@ -63,7 +63,7 @@ class Iban implements \Serializable
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    private function parse(string $iban)
+    private function parse(string $iban) /* : void */
     {
         $this->iban = self::normalize($iban);
 
@@ -276,7 +276,7 @@ class Iban implements \Serializable
      * @return string the string representation of the object or null
      * @since 5.1.0
      */
-    public function serialize() /* : void */
+    public function serialize()
     {
         return $this->prettyPrint();
     }

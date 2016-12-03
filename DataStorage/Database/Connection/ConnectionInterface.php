@@ -44,7 +44,7 @@ interface ConnectionInterface
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function connect(array $dbdata);
+    public function connect(array $dbdata) /* : void */;
 
     /**
      * Get the database type.
@@ -74,7 +74,7 @@ interface ConnectionInterface
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function close();
+    public function close() /* : void */;
 
     /**
      * Return grammar for this connection.

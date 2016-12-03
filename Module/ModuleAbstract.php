@@ -105,9 +105,8 @@ abstract class ModuleAbstract
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public static function installExternal()
+    public static function installExternal() /* : void */
     {
-        return false;
     }
 
     /**
@@ -135,7 +134,7 @@ abstract class ModuleAbstract
     /**
      * {@inheritdoc}
      */
-    public function addReceiving(string $module)
+    public function addReceiving(string $module) /* : void */
     {
         $this->receiving[] = $module;
     }

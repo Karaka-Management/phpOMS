@@ -73,7 +73,7 @@ class Directory extends FileAbstract implements DirectoryInterface
     /**
      * {@inheritdoc}
      */
-    public function index()
+    public function index() /* : void */
     {
         parent::index();
 

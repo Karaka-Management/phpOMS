@@ -127,7 +127,7 @@ class FileLogger implements LoggerInterface
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    private function createFile()
+    private function createFile() /* : void */
     {
         if (!$this->created && !file_exists($this->path)) {
             File::create($this->path);
@@ -306,7 +306,7 @@ class FileLogger implements LoggerInterface
      * @since  1.0.0
      * @author Dennis Eichhorn
      */
-    private function write(string $message)
+    private function write(string $message) /* : void */
     {
         $this->createFile();
         $this->fp = fopen($this->path, 'a');
@@ -335,7 +335,7 @@ class FileLogger implements LoggerInterface
      * @since  1.0.0
      * @author Dennis Eichhorn
      */
-    public function emergency(string $message, array $context = [])
+    public function emergency(string $message, array $context = []) /* : void */
     {
         $message = $this->interpolate($message, $context, LogLevel::EMERGENCY);
         $this->write($message);
@@ -355,7 +355,7 @@ class FileLogger implements LoggerInterface
      * @since  1.0.0
      * @author Dennis Eichhorn
      */
-    public function alert(string $message, array $context = [])
+    public function alert(string $message, array $context = []) /* : void */
     {
         $message = $this->interpolate($message, $context, LogLevel::ALERT);
         $this->write($message);
@@ -374,7 +374,7 @@ class FileLogger implements LoggerInterface
      * @since  1.0.0
      * @author Dennis Eichhorn
      */
-    public function critical(string $message, array $context = [])
+    public function critical(string $message, array $context = []) /* : void */
     {
         $message = $this->interpolate($message, $context, LogLevel::CRITICAL);
         $this->write($message);
@@ -392,7 +392,7 @@ class FileLogger implements LoggerInterface
      * @since  1.0.0
      * @author Dennis Eichhorn
      */
-    public function error(string $message, array $context = [])
+    public function error(string $message, array $context = []) /* : void */
     {
         $message = $this->interpolate($message, $context, LogLevel::ERROR);
         $this->write($message);
@@ -412,7 +412,7 @@ class FileLogger implements LoggerInterface
      * @since  1.0.0
      * @author Dennis Eichhorn
      */
-    public function warning(string $message, array $context = [])
+    public function warning(string $message, array $context = []) /* : void */
     {
         $message = $this->interpolate($message, $context, LogLevel::WARNING);
         $this->write($message);
@@ -429,7 +429,7 @@ class FileLogger implements LoggerInterface
      * @since  1.0.0
      * @author Dennis Eichhorn
      */
-    public function notice(string $message, array $context = [])
+    public function notice(string $message, array $context = []) /* : void */
     {
         $message = $this->interpolate($message, $context, LogLevel::NOTICE);
         $this->write($message);
@@ -448,7 +448,7 @@ class FileLogger implements LoggerInterface
      * @since  1.0.0
      * @author Dennis Eichhorn
      */
-    public function info(string $message, array $context = [])
+    public function info(string $message, array $context = []) /* : void */
     {
         $message = $this->interpolate($message, $context, LogLevel::INFO);
         $this->write($message);
@@ -465,7 +465,7 @@ class FileLogger implements LoggerInterface
      * @since  1.0.0
      * @author Dennis Eichhorn
      */
-    public function debug(string $message, array $context = [])
+    public function debug(string $message, array $context = []) /* : void */
     {
         $message = $this->interpolate($message, $context, LogLevel::DEBUG);
         $this->write($message);
@@ -483,7 +483,7 @@ class FileLogger implements LoggerInterface
      * @since  1.0.0
      * @author Dennis Eichhorn
      */
-    public function log(string $level, string $message, array $context = [])
+    public function log(string $level, string $message, array $context = []) /* : void */
     {
         if (!LogLevel::isValidValue($level)) {
             throw new InvalidEnumValue($level);

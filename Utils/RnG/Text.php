@@ -276,7 +276,7 @@ class Text
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function getSentences()
+    public function getSentences() : int
     {
         return $this->sentences;
     }
@@ -292,7 +292,7 @@ class Text
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function generateText($length, $words = null)
+    public function generateText(int $length, $words = null) : string
     {
         if ($length === 0) {
             return '';
@@ -383,7 +383,7 @@ class Text
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    private function generatePunctuation($length)
+    private function generatePunctuation(int $length) : string
     {
         $minSentences    = 4;
         $maxSentences    = 20;
@@ -450,7 +450,7 @@ class Text
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    private function generateParagraph($length)
+    private function generateParagraph(int $length) /* : void */
     {
         $minSentence = 3;
         $maxSentence = 10;
@@ -481,7 +481,7 @@ class Text
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    private function generateFormatting($length)
+    private function generateFormatting(int $length) : array
     {
         $probCursive = 0.005;
         $probBold    = 0.005;

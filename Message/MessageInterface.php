@@ -67,7 +67,7 @@ interface MessageInterface
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function setStatusCode(string $status);
+    public function setStatusCode(string $status) /* : void */;
 
     /**
      * Get status code.
@@ -99,5 +99,5 @@ interface MessageInterface
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function setAccount(int $account);
+    public function setAccount(int $account) /* : void */;
 }

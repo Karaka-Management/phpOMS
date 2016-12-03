@@ -106,7 +106,7 @@ class Request extends RequestAbstract
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function init($uri = null)
+    public function init($uri = null) /* : void */
     {
         if (!isset($uri)) {
             $this->initCurrentRequest();
@@ -135,7 +135,7 @@ class Request extends RequestAbstract
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    private function initCurrentRequest()
+    private function initCurrentRequest() /* : void */
     {
         $this->data  = $_GET ?? [];
         $this->files = $_FILES ?? [];
@@ -166,7 +166,7 @@ class Request extends RequestAbstract
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    private function initPseudoRequest($uri)
+    private function initPseudoRequest($uri) /* : void */
     {
         $this->setMethod($uri['type']);
         $this->uri->set($uri['uri']);
@@ -180,7 +180,7 @@ class Request extends RequestAbstract
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    private function cleanupGlobals()
+    private function cleanupGlobals() /* : void */
     {
         unset($_FILES);
         unset($_GET);
@@ -224,7 +224,7 @@ class Request extends RequestAbstract
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    private function createRequestHashs()
+    private function createRequestHashs() /* : void */
     {
         $this->hash = [];
         foreach ($this->path as $key => $path) {
@@ -312,12 +312,12 @@ class Request extends RequestAbstract
     /**
      * Determine request OS.
      *
-     * @return OSType
+     * @return string
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function getOS() : OSType
+    public function getOS() : string
     {
         if (!isset($this->os)) {
             $arr               = OSType::getConstants();

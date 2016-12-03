@@ -103,7 +103,7 @@ class ModuleFactory
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    private static function registerRequesting(ModuleAbstract $obj)
+    private static function registerRequesting(ModuleAbstract $obj) /* : void */
     {
         foreach ($obj->getProviding() as $providing) {
             if (isset(self::$loaded[$providing])) {
@@ -122,7 +122,7 @@ class ModuleFactory
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    private static function registerProvided(ModuleAbstract $obj)
+    private static function registerProvided(ModuleAbstract $obj) /* : void */
     {
         $name = $obj->getName();
         if (isset(self::$providing[$name])) {

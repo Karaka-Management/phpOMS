@@ -216,7 +216,7 @@ class DataMapperAbstract implements DataMapperInterface
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    private static function extend($class)
+    private static function extend($class) /* : void */
     {
         /* todo: have to implement this in the queries, so far not used */
         self::$collection['primaryField'][] = $class::$primaryField;
@@ -264,7 +264,7 @@ class DataMapperAbstract implements DataMapperInterface
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public static function with(...$objects)
+    public static function with(...$objects) /* : void */
     {
         // todo: how to handle with of parent objects/extends/relations
 
@@ -283,7 +283,7 @@ class DataMapperAbstract implements DataMapperInterface
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public static function clear()
+    public static function clear() /* : void */
     {
         self::$overwrite    = true;
         self::$primaryField = '';

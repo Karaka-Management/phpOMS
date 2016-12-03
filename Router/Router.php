@@ -83,7 +83,7 @@ class Router
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function add(string $route, $destination, int $verb = RouteVerb::GET)
+    public function add(string $route, $destination, int $verb = RouteVerb::GET) /* : void */
     {
         if (!isset($this->routes[$route])) {
             $this->routes[$route] = [];

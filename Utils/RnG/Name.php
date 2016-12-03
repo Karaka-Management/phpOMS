@@ -482,7 +482,7 @@ class Name
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public static function generateName(array $type, string $origin = 'western')
+    public static function generateName(array $type, string $origin = 'western') : string
     {
         $rndType = rand(0, count($type) - 1);
 

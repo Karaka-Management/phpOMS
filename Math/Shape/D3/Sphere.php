@@ -88,7 +88,7 @@ class Sphere implements D3ShapeInterface
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public static function getRadiusByVolume(float $V)
+    public static function getRadiusByVolume(float $V) : float
     {
         return pow($V * 3 / (4 * pi()), 1 / 3);
     }
@@ -108,7 +108,7 @@ class Sphere implements D3ShapeInterface
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public static function getRadiusBySurface(float $S)
+    public static function getRadiusBySurface(float $S) : float
     {
         return sqrt($S / (4 * pi()));
     }
@@ -128,7 +128,7 @@ class Sphere implements D3ShapeInterface
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public static function getVolumeByRadius(float $r)
+    public static function getVolumeByRadius(float $r) : float
     {
         return 4 / 3 * pi() * $r ** 3;
     }
@@ -153,7 +153,7 @@ class Sphere implements D3ShapeInterface
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public static function getSurfaceByRadius(float $r)
+    public static function getSurfaceByRadius(float $r) : float
     {
         return 4 * pi() * $r ** 2;
     }

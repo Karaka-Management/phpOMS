@@ -617,7 +617,7 @@ class Interval implements \Serializable
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function serialize() /* : void */
+    public function serialize()
     {
         $minute     = $this->serializeTime($this->minute['minutes'], $this->minute['step']);
         $hour       = $this->serializeTime($this->hour['hours'], $this->hour['step']);

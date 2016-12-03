@@ -68,12 +68,12 @@ abstract class BuilderAbstract
      *
      * @param string $prefix Prefix
      *
-     * @return $this
+     * @return BuilderAbstract
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function prefix(string $prefix)
+    public function prefix(string $prefix) : BuilderAbstract
     {
         $this->prefix = $prefix;
 

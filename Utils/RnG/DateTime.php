@@ -40,7 +40,7 @@ class DateTime
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public static function generateDateTime($start, $end)
+    public static function generateDateTime(string $start, string $end) : \DateTime
     {
         $startDate = strtotime($start);
         $endDate   = strtotime($end);

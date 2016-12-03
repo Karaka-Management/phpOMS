@@ -158,7 +158,7 @@ class FunctionParser
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function removeBody()
+    public function removeBody() /* : void */
     {
         $this->body = '';
     }
@@ -289,7 +289,7 @@ class FunctionParser
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function removeReturn()
+    public function removeReturn() /* : void */
     {
         $this->return = null;
     }
@@ -334,7 +334,7 @@ class FunctionParser
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function addParameter(string $name, string $typehint = null, string $default = null)
+    public function addParameter(string $name, string $typehint = null, string $default = null) /* : void */
     {
         $this->parameters[$name]['name']     = $name;
         $this->parameters[$name]['typehint'] = $typehint;
@@ -356,7 +356,7 @@ class FunctionParser
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function serialize() /* : void */
+    public function serialize()
     {
         $function = '';
         $function .= str_repeat(' ', ClassParser::INDENT);

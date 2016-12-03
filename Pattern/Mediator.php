@@ -38,12 +38,12 @@ interface Mediator extends \Countable
      * @param \Closure $callback Function to call if the event gets triggered
      * @param bool     $remove   Remove event after execution
      *
-     * @return void
+     * @return bool
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function attach(string $group, \Closure $callback, bool $remove = false);
+    public function attach(string $group, \Closure $callback, bool $remove = false) : bool;
 
     /**
      * Removing a event.
@@ -70,7 +70,7 @@ interface Mediator extends \Countable
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function addGroup(string $group, string $id);
+    public function addGroup(string $group, string $id) /* : void */;
 
     /**
      * Trigger event.
@@ -85,5 +85,5 @@ interface Mediator extends \Countable
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function trigger(string $group, string $id);
+    public function trigger(string $group, string $id) /* : void */;
 }

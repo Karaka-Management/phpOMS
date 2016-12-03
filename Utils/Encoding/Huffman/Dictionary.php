@@ -77,7 +77,7 @@ final class Dictionary
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function generate(string $source)
+    public function generate(string $source) /* : void */
     {
         $this->dictionary = [];
         $this->min        = -1;
@@ -113,7 +113,7 @@ final class Dictionary
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    private function fill(string $entry, string $value = '')
+    private function fill(string $entry, string $value = '') /* : void */
     {
         if (!is_array($entry[0][1])) {
             $this->set($entry[0][1], $value . '0');
@@ -205,7 +205,7 @@ final class Dictionary
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function getEntry(&$value)
+    public function getEntry(&$value) /* : ?string */
     {
         $length = strlen($value);
         if ($length < $this->min) {

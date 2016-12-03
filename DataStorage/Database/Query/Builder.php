@@ -481,7 +481,7 @@ class Builder extends BuilderAbstract
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function andWhere(Where $where)
+    public function andWhere(Where $where) : Builder
     {
         $this->wheres[][] = [
             'column'  => $where,
@@ -501,7 +501,7 @@ class Builder extends BuilderAbstract
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function orWhere(Where $where)
+    public function orWhere(Where $where) : Builder
     {
         $this->wheres[][] = [
             'column'  => $where,

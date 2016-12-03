@@ -154,7 +154,7 @@ class Head implements RenderableInterface
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function addAsset(string $type, string $uri)
+    public function addAsset(string $type, string $uri) /* : void */
     {
         $this->assets[$uri] = $type;
     }

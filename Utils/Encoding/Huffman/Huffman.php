@@ -42,7 +42,7 @@ final class Huffman
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function removeDictionary()
+    public function removeDictionary() /* : void */
     {
         $this->dictionary = null;
     }

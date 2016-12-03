@@ -166,7 +166,7 @@ abstract class ViewAbstract implements \Serializable
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function editView(string $id, View $view, $order = null)
+    public function editView(string $id, View $view, $order = null) /* : void */
     {
         $this->addView($id, $view, $order, true);
     }
@@ -203,7 +203,7 @@ abstract class ViewAbstract implements \Serializable
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function serialize() /* : void */
+    public function serialize()
     {
         if (empty($this->template)) {
             return $this->toArray();

@@ -154,7 +154,7 @@ class HttpSession implements SessionInterface
     /**
      * {@inheritdoc}
      */
-    public function save()
+    public function save() /* : void */
     {
         if(!self::$isLocked) {
             $_SESSION = $this->sessionData;

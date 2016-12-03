@@ -158,7 +158,7 @@ class Average
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public static function arithmeticMean(array $values)
+    public static function arithmeticMean(array $values) : float
     {
         $count = count($values);
 
@@ -233,7 +233,7 @@ class Average
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public static function geometricMean(array $values, int $offset = 0)
+    public static function geometricMean(array $values, int $offset = 0) : float
     {
         $count = count($values);
 
@@ -259,7 +259,7 @@ class Average
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public static function harmonicMean(array $values, int $offset = 0)
+    public static function harmonicMean(array $values, int $offset = 0) : float
     {
         sort($values);
 
@@ -294,7 +294,7 @@ class Average
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public static function angleMean($angles, int $offset = 0)
+    public static function angleMean($angles, int $offset = 0) : float
     {
         $y    = $x = 0;
         $size = count($angles);
@@ -371,7 +371,7 @@ class Average
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public static function angleMean2(array $angles, int $offset = 0)
+    public static function angleMean2(array $angles, int $offset = 0) : float
     {
         sort($angles);
 
