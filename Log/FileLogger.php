@@ -311,8 +311,10 @@ class FileLogger implements LoggerInterface
         $this->createFile();
         $this->fp = fopen($this->path, 'a');
 
-        if ($this->fp !== false) {
+        if (flock($this->fp, LOCK_EX) && $this->fp !== false) {
             fwrite($this->fp, $message . "\n");
+            fflush($this->fp);
+            flock($this->fp, LOCK_UN);
             fclose($this->fp);
             $this->fp = false;
         }
