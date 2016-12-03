@@ -184,7 +184,7 @@ abstract class ViewAbstract implements \Serializable
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function addView(string $id, View $view, int $order = 0, bool $overwrite = true)
+    public function addView(string $id, View $view, int $order = 0, bool $overwrite = true) /* : void */
     {
         if ($overwrite || !isset($this->views[$id])) {
             $this->views[$id] = $view;
