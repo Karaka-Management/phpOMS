@@ -71,14 +71,6 @@ abstract class C128Abstract
     protected $orientation = 0;
 
     /**
-     * Barcode height.
-     *
-     * @var int
-     * @since 1.0.0
-     */
-    protected $size = 0;
-
-    /**
      * Barcode dimension.
      *
      * @todo  : Implement!
@@ -140,28 +132,34 @@ abstract class C128Abstract
      * @since  1.0.0
      * @author Dennis Eichhorn
      */
-    public function __construct(string $content = '', int $size = 20, int $orientation = OrientationType::HORIZONTAL)
+    public function __construct(string $content = '', int $width = 20, int $height = 20, int $orientation = OrientationType::HORIZONTAL)
     {
         $this->content = $content;
-        $this->setSize($size);
+        $this->setDimension($width, $height);
         $this->setOrientation($orientation);
     }
 
     /**
-     * Set barcode height
+     * Set barcode dimensions
      *
-     * @param int $size Barcode height
+     * @param int $width Barcode width
+     * @param int $height Barcode height
      *
      * @since  1.0.0
      * @author Dennis Eichhorn
      */
-    public function setSize(int $size) /* : void */
+    public function setDimension(int $width, int $height) /* : void */
     {
-        if ($size < 0) {
-            throw new \OutOfBoundsException($size);
+        if ($width < 0) {
+            throw new \OutOfBoundsException($width);
         }
 
-        $this->size = $size;
+        if ($height < 0) {
+            throw new \OutOfBoundsException($height);
+        }
+
+        $this->dimension['width'] = $width;
+        $this->dimension['height'] = $height;
     }
 
     /**
@@ -268,11 +266,11 @@ abstract class C128Abstract
         }
 
         if ($this->orientation === OrientationType::HORIZONTAL) {
-            $imgWidth  = $codeLength;
-            $imgHeight = $this->size;
+            $imgWidth  = max($codeLength, $this->dimension['width']);
+            $imgHeight = $this->dimension['height'];
         } else {
-            $imgWidth  = $this->size;
-            $imgHeight = $codeLength;
+            $imgWidth  = $this->dimension['width'];
+            $imgHeight = max($codeLength, $this->dimension['height']);
         }
 
         $image    = imagecreate($imgWidth, $imgHeight);
