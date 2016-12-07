@@ -30,16 +30,16 @@ use phpOMS\Datatypes\Enum;
  */
 abstract class ViewLayout extends Enum
 {
-    const UNDEFINED = -1;
-    const VALUE = 0;
-    const HEAD = 1;
-    const GLOBAL = 2;
-    const HEADER = 3;
-    const MAIN = 4;
-    const FOOTER = 5;
-    const SIDE = 6;
-    const FUNC = 7;
-    const CLOSURE = 8; // TODO: this could be very dangerous
-    const OBJECT = 9;
-    const NULL = 10;
+    /* public */ const UNDEFINED = -1;
+    /* public */ const VALUE = 0;
+    /* public */ const HEAD = 1;
+    /* public */ const GLOBAL = 2;
+    /* public */ const HEADER = 3;
+    /* public */ const MAIN = 4;
+    /* public */ const FOOTER = 5;
+    /* public */ const SIDE = 6;
+    /* public */ const FUNC = 7;
+    /* public */ const CLOSURE = 8; // TODO: this could be very dangerous
+    /* public */ const OBJECT = 9;
+    /* public */ const NULL = 10;
 }

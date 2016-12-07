@@ -28,8 +28,8 @@ namespace phpOMS\Utils\Converter;
  */
 class Ip
 {
-    const IP_TABLE_PATH = __DIR__ . '/../../Localization/Default/Ip/ipGeoLocation.csv';
-    const IP_TABLE_ITERATIONS = 100;
+    /* public */ const IP_TABLE_PATH = __DIR__ . '/../../Localization/Default/Ip/ipGeoLocation.csv';
+    /* public */ const IP_TABLE_ITERATIONS = 100;
 
     private function __construct()
     {

@@ -35,7 +35,7 @@ class GA
      * @var int
      * @since 1.0.0
      */
-    const MUTATION = 15; /* 1000 = 100% */
+    /* public */ const MUTATION = 15; /* 1000 = 100% */
 
     /**
      * Tournaments
@@ -43,7 +43,7 @@ class GA
      * @var int
      * @since 1.0.0
      */
-    const TOURNAMENT = 5;
+    /* public */ const TOURNAMENT = 5;
 
     /**
      * Elitism
@@ -51,7 +51,7 @@ class GA
      * @var bool
      * @since 1.0.0
      */
-    const ELITISM = true;
+    /* public */ const ELITISM = true;
 
     /**
      * City pool

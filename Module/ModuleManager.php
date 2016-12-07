@@ -43,7 +43,7 @@ class ModuleManager
      * @var string
      * @since 1.0.0
      */
-    const MODULE_PATH = __DIR__ . '/../../Modules';
+    /* public */ const MODULE_PATH = __DIR__ . '/../../Modules';
 
     /**
      * All modules that are running on this uri.

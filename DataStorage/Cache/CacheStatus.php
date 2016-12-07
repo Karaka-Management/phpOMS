@@ -32,7 +32,7 @@ use phpOMS\Datatypes\Enum;
  */
 abstract class CacheStatus extends Enum
 {
-    const ACTIVE = 0;
-    const INACTIVE = 1;
-    const ERROR = 2;
+    /* public */ const ACTIVE = 0;
+    /* public */ const INACTIVE = 1;
+    /* public */ const ERROR = 2;
 }

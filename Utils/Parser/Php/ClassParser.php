@@ -36,7 +36,7 @@ class ClassParser
      * @var int
      * @since 1.0.0
      */
-    const INDENT = 4;
+    /* public */ const INDENT = 4;
 
     /**
      * Is final?

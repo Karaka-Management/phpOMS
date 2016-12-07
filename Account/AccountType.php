@@ -30,6 +30,6 @@ use phpOMS\Datatypes\Enum;
  */
 abstract class AccountType extends Enum
 {
-    const USER = 0;
-    const GROUP = 1;
+    /* public */ const USER = 0;
+    /* public */ const GROUP = 1;
 }

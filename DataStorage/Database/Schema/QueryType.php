@@ -32,8 +32,8 @@ use phpOMS\Datatypes\Enum;
  */
 abstract class QueryType extends Enum
 {
-    const SELECT = 0;
-    const CREATE = 1;
-    const DROP = 2;
-    const ALTER = 3;
+    /* public */ const SELECT = 0;
+    /* public */ const CREATE = 1;
+    /* public */ const DROP = 2;
+    /* public */ const ALTER = 3;
 }

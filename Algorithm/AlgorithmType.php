@@ -30,5 +30,5 @@ use phpOMS\Datatypes\Enum;
  */
 abstract class AlgorithmType extends Enum
 {
-    const BRUTEFORCE = 0;
+    /* public */ const BRUTEFORCE = 0;
 }

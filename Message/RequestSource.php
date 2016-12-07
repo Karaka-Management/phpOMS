@@ -30,7 +30,7 @@ use phpOMS\Datatypes\Enum;
  */
 abstract class RequestSource extends Enum
 {
-    const WEB = 0; /* This is a http request */
-    const CONSOLE = 1; /* Request is a console command */
-    const SOCKET = 2; /* Request through socket connection */
+    /* public */ const WEB = 0; /* This is a http request */
+    /* public */ const CONSOLE = 1; /* Request is a console command */
+    /* public */ const SOCKET = 2; /* Request through socket connection */
 }

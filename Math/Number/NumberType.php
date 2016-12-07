@@ -31,13 +31,13 @@ use phpOMS\Datatypes\Enum;
  */
 abstract class NumberType extends Enum
 {
-    const INTEGER = 1;
-    const NATURAL = 21;
-    const EVEN = 211;
-    const UNEVEN = 212;
-    const PRIME = 22;
-    const REAL = 3;
-    const RATIONAL = 4;
-    const IRRATIONAL = 5;
-    const COMPLEX = 6;
+    /* public */ const INTEGER = 1;
+    /* public */ const NATURAL = 21;
+    /* public */ const EVEN = 211;
+    /* public */ const UNEVEN = 212;
+    /* public */ const PRIME = 22;
+    /* public */ const REAL = 3;
+    /* public */ const RATIONAL = 4;
+    /* public */ const IRRATIONAL = 5;
+    /* public */ const COMPLEX = 6;
 }

@@ -30,9 +30,9 @@ use phpOMS\Datatypes\Enum;
  */
 abstract class GroupStatus extends Enum
 {
-    const ACTIVE = 1;
+    /* public */ const ACTIVE = 1;
 
-    const INACTIVE = 2;
+    /* public */ const INACTIVE = 2;
 
-    const HIDDEN = 4;
+    /* public */ const HIDDEN = 4;
 }

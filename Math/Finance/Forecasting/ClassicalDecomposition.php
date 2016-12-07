@@ -6,8 +6,8 @@ use phpOMS\Math\Statistic\Average;
 
 class ClassicalDecomposition
 {
-    const ADDITIVE = 0;
-    const MULTIPLICATIVE = 1;
+    /* public */ const ADDITIVE = 0;
+    /* public */ const MULTIPLICATIVE = 1;
 
     private $mode = self::ADDITIVE;
     private $data = [];

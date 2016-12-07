@@ -30,9 +30,9 @@ use phpOMS\Datatypes\Enum;
  */
 abstract class MailType extends Enum
 {
-    const MAIL = 0;
-    const SMTP = 1;
-    const IMAP = 2;
-    const POP3 = 3;
-    const SENDMAIL = 4;
+    /* public */ const MAIL = 0;
+    /* public */ const SMTP = 1;
+    /* public */ const IMAP = 2;
+    /* public */ const POP3 = 3;
+    /* public */ const SENDMAIL = 4;
 }

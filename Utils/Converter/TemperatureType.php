@@ -30,12 +30,12 @@ use phpOMS\Datatypes\Enum;
  */
 abstract class TemperatureType extends Enum
 {
-    const CELSIUS = 'celsius';
-    const FAHRENHEIT = 'fahrenheit';
-    const KELVIN = 'kelvin';
-    const REAUMUR = 'reaumur';
-    const RANKINE = 'rankine';
-    const DELISLE = 'delisle';
-    const NEWTON = 'newton';
-    const ROMER = 'romer';
+    /* public */ const CELSIUS = 'celsius';
+    /* public */ const FAHRENHEIT = 'fahrenheit';
+    /* public */ const KELVIN = 'kelvin';
+    /* public */ const REAUMUR = 'reaumur';
+    /* public */ const RANKINE = 'rankine';
+    /* public */ const DELISLE = 'delisle';
+    /* public */ const NEWTON = 'newton';
+    /* public */ const ROMER = 'romer';
 }

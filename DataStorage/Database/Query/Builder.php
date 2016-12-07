@@ -173,7 +173,7 @@ class Builder extends BuilderAbstract
      * @var string[]
      * @since 1.0.0
      */
-    const operators = [
+    /* public */ const operators = [
         '=',
         '<',
         '>',

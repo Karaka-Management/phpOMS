@@ -124,7 +124,7 @@ abstract class Enum
     /**
      * Checking enum name.
      *
-     * Checking if a certain const name exists (case sensitive)
+     * Checking if a certain /* public */ const name exists (case sensitive)
      *
      * @param string $name Name of the value (case sensitive)
      *

@@ -30,9 +30,9 @@ use phpOMS\Datatypes\Enum;
  */
 abstract class RouteVerb extends Enum
 {
-    const GET = 1;
-    const PUT = 2;
-    const SET = 4;
-    const DELETE = 8;
-    const ANY = 16;
+    /* public */ const GET = 1;
+    /* public */ const PUT = 2;
+    /* public */ const SET = 4;
+    /* public */ const DELETE = 8;
+    /* public */ const ANY = 16;
 }

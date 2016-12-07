@@ -30,10 +30,10 @@ use phpOMS\Datatypes\Enum;
  */
 abstract class QueryType extends Enum
 {
-    const SELECT = 0;
-    const INSERT = 1;
-    const UPDATE = 2;
-    const DELETE = 3;
-    const RANDOM = 4;
-    const RAW = 5;
+    /* public */ const SELECT = 0;
+    /* public */ const INSERT = 1;
+    /* public */ const UPDATE = 2;
+    /* public */ const DELETE = 3;
+    /* public */ const RANDOM = 4;
+    /* public */ const RAW = 5;
 }

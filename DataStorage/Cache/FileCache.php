@@ -41,7 +41,7 @@ class FileCache implements CacheInterface
      * @var string
      * @since 1.0.0
      */
-    const DELIM = '$';
+    /* public */ const DELIM = '$';
 
     /**
      * Cache path.

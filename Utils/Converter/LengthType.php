@@ -30,25 +30,25 @@ use phpOMS\Datatypes\Enum;
  */
 abstract class LengthType extends Enum
 {
-    const MILES = 'mi';
-    const METERS = 'm';
-    const MICROMETER = 'micron';
-    const CENTIMETERS = 'cm';
-    const MILLIMETERS = 'mm';
-    const KILOMETERS = 'km';
-    const CHAINS = 'ch';
-    const FEET = 'ft';
-    const FURLONGS = 'fur';
-    const MICROINCH = 'muin';
-    const INCHES = 'in';
-    const YARDS = 'yd';
-    const PARSECS = 'pc';
-    const UK_NAUTICAL_MILES = 'uk nmi';
-    const US_NAUTICAL_MILES = 'us nmi';
-    const UK_NAUTICAL_LEAGUES = 'uk nl';
-    const NAUTICAL_LEAGUES = 'nl';
-    const UK_LEAGUES = 'uk lg';
-    const US_LEAGUES = 'us lg';
-    const LIGHTYEARS = 'ly';
-    const DECIMETERS = 'dm';
+    /* public */ const MILES = 'mi';
+    /* public */ const METERS = 'm';
+    /* public */ const MICROMETER = 'micron';
+    /* public */ const CENTIMETERS = 'cm';
+    /* public */ const MILLIMETERS = 'mm';
+    /* public */ const KILOMETERS = 'km';
+    /* public */ const CHAINS = 'ch';
+    /* public */ const FEET = 'ft';
+    /* public */ const FURLONGS = 'fur';
+    /* public */ const MICROINCH = 'muin';
+    /* public */ const INCHES = 'in';
+    /* public */ const YARDS = 'yd';
+    /* public */ const PARSECS = 'pc';
+    /* public */ const UK_NAUTICAL_MILES = 'uk nmi';
+    /* public */ const US_NAUTICAL_MILES = 'us nmi';
+    /* public */ const UK_NAUTICAL_LEAGUES = 'uk nl';
+    /* public */ const NAUTICAL_LEAGUES = 'nl';
+    /* public */ const UK_LEAGUES = 'uk lg';
+    /* public */ const US_LEAGUES = 'us lg';
+    /* public */ const LIGHTYEARS = 'ly';
+    /* public */ const DECIMETERS = 'dm';
 }

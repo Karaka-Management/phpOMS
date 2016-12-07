@@ -30,7 +30,7 @@ use phpOMS\Datatypes\Enum;
  */
 abstract class DistributionType extends Enum
 {
-    const UNIFORM = 0;
+    /* public */ const UNIFORM = 0;
 
-    const NORMAL = 1;
+    /* public */ const NORMAL = 1;
 }

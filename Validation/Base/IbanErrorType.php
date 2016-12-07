@@ -30,9 +30,9 @@ use phpOMS\Datatypes\Enum;
  */
 abstract class IbanErrorType extends Enum
 {
-    const INVALID_COUNTRY = 1;
-    const INVALID_LENGTH = 2;
-    const INVALID_CHECKSUM = 3;
-    const EXPECTED_ZERO = 4;
-    const EXPECTED_NUMERIC = 5;
+    /* public */ const INVALID_COUNTRY = 1;
+    /* public */ const INVALID_LENGTH = 2;
+    /* public */ const INVALID_CHECKSUM = 3;
+    /* public */ const EXPECTED_ZERO = 4;
+    /* public */ const EXPECTED_NUMERIC = 5;
 }

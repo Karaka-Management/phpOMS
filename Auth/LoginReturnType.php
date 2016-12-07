@@ -32,14 +32,14 @@ use phpOMS\Datatypes\Enum;
  */
 abstract class LoginReturnType extends Enum
 {
-    const OK = 0; /* Everything is ok and the user got authed */
-    const FAILURE = 1; /* Authentication resulted in a unexpected failure */
-    const WRONG_PASSWORD = 2; /* Authentication with wrong password */
-    const WRONG_USERNAME = 3; /* Authentication with unknown user */
-    const WRONG_PERMISSION = 4; /* User doesn't have permission to authenticate */
-    const NOT_ACTIVATED = 5; /* The user is not activated yet */
-    const WRONG_INPUT_EXCEEDED = 6; /* Too many wrong logins recently */
-    const TIMEOUTED = 7; /* User received a timeout and can not log in until a certain date */
-    const BANNED = 8; /* User is banned */
-    const INACTIVE = 9; /* User is inactive */
+    /* public */ const OK = 0; /* Everything is ok and the user got authed */
+    /* public */ const FAILURE = 1; /* Authentication resulted in a unexpected failure */
+    /* public */ const WRONG_PASSWORD = 2; /* Authentication with wrong password */
+    /* public */ const WRONG_USERNAME = 3; /* Authentication with unknown user */
+    /* public */ const WRONG_PERMISSION = 4; /* User doesn't have permission to authenticate */
+    /* public */ const NOT_ACTIVATED = 5; /* The user is not activated yet */
+    /* public */ const WRONG_INPUT_EXCEEDED = 6; /* Too many wrong logins recently */
+    /* public */ const TIMEOUTED = 7; /* User received a timeout and can not log in until a certain date */
+    /* public */ const BANNED = 8; /* User is banned */
+    /* public */ const INACTIVE = 9; /* User is inactive */
 }
