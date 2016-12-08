@@ -153,7 +153,7 @@ class FileCache implements CacheInterface
         // todo: allow $key to contain / as char and create subdirectory if necessary. This is important for cleaner caching.
         $path = File::sanitize($key, self::SANITIZE);
 
-        file_put_contents($this->cachePath . '/' . $path . '.cache', $this->build($value, $expire));
+        file_put_contents($this->cachePath . '/' . trim($path, '/') . '.cache', $this->build($value, $expire));
 
         return false;
     }
@@ -167,8 +167,8 @@ class FileCache implements CacheInterface
             return false;
         }
 
-        $name = File::sanitize($key, self::SANITIZE);
-        $path = $this->cachePath . '/' . $path . '.cache';
+        $path = File::sanitize($key, self::SANITIZE);
+        $path = $this->cachePath . '/' . trim($path, '/') . '.cache';
 
         if (!file_exists($path)) {
             file_put_contents($path, $this->build($value, $expire));
@@ -285,7 +285,7 @@ class FileCache implements CacheInterface
         }
 
         $name = File::sanitize($key, self::SANITIZE);
-        $path = $this->cachePath . '/' . $name . '.cache';
+        $path = $this->cachePath . '/' . trim($name, '/') . '.cache';
 
         if(!file_exists($path)) {
             return null;
@@ -352,7 +352,7 @@ class FileCache implements CacheInterface
         }
 
         $name = File::sanitize($key, self::SANITIZE);
-        $path = $this->cachePath . '/' . $name . '.cache';
+        $path = $this->cachePath . '/' . trim($name, '/') . '.cache';
 
         if ($expire < 0 && file_exists($path)) {
             unlink($path);
@@ -415,7 +415,7 @@ class FileCache implements CacheInterface
         }
 
         $name = File::sanitize($key, self::SANITIZE);
-        $path = $this->cachePath . '/' . $path . '.cache';
+        $path = $this->cachePath . '/' . trim($path, '/') . '.cache';
 
         if (file_exists($path)) {
             file_put_contents($path, $this->build($value, $expire));
