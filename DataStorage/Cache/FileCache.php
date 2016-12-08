@@ -22,7 +22,7 @@ use phpOMS\System\File\Local\File;
 /**
  * MemCache class.
  *
- * PHP Version 5.6
+ * PHP Version 7.1
  *
  * @category   Framework
  * @package    phpOMS\DataStorage\Cache
@@ -41,7 +41,15 @@ class FileCache implements CacheInterface
      * @var string
      * @since 1.0.0
      */
-    /* public */ const DELIM = '$';
+    /* private */ const DELIM = '$';
+
+    /**
+     * File path sanitizer
+     *
+     * @var string
+     * @since 1.0.0
+     */
+    /* private */ const SANITIZE = '~';
 
     /**
      * Cache path.
@@ -143,7 +151,7 @@ class FileCache implements CacheInterface
         }
 
         // todo: allow $key to contain / as char and create subdirectory if necessary. This is important for cleaner caching.
-        $path = File::sanitize($key, '~');
+        $path = File::sanitize($key, self::SANITIZE);
 
         file_put_contents($this->cachePath . '/' . $path . '.cache', $this->build($value, $expire));
 
@@ -159,7 +167,7 @@ class FileCache implements CacheInterface
             return false;
         }
 
-        $name = File::sanitize($key, '~');
+        $name = File::sanitize($key, self::SANITIZE);
         $path = $this->cachePath . '/' . $path . '.cache';
 
         if (!file_exists($path)) {
@@ -276,7 +284,7 @@ class FileCache implements CacheInterface
             return null;
         }
 
-        $name = File::sanitize($key, '~');
+        $name = File::sanitize($key, self::SANITIZE);
         $path = $this->cachePath . '/' . $name . '.cache';
 
         if(!file_exists($path)) {
@@ -343,7 +351,7 @@ class FileCache implements CacheInterface
             return false;
         }
 
-        $name = File::sanitize($key, '~');
+        $name = File::sanitize($key, self::SANITIZE);
         $path = $this->cachePath . '/' . $name . '.cache';
 
         if ($expire < 0 && file_exists($path)) {
@@ -406,7 +414,7 @@ class FileCache implements CacheInterface
             return false;
         }
 
-        $name = File::sanitize($key, '~');
+        $name = File::sanitize($key, self::SANITIZE);
         $path = $this->cachePath . '/' . $path . '.cache';
 
         if (file_exists($path)) {
