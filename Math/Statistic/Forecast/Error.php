@@ -136,6 +136,7 @@ class Error
      */
     public static function getRootMeanSquaredError(array $errors) : float
     {
+        // sqrt(Average::getVariance($error)+pow(Average::arithmeticMean($error), 2));
         return sqrt(Average::arithmeticMean(self::square($errors)));
     }
 
