@@ -44,7 +44,7 @@ class Autoloader
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public static function default_autoloader(string $class)
+    public static function default_autoloader(string $class) /* : void */
     {
         $class = ltrim($class, '\\');
         $class = str_replace(['_', '\\'], '/', $class);
