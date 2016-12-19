@@ -315,6 +315,10 @@ class File extends FileAbstract implements FileInterface
                 Directory::create(dirname($path), '0644', true);
             }
 
+            if(!is_writable($path)) {
+                return false;
+            }
+            
             touch($path);
 
             return true;
