@@ -159,6 +159,7 @@ class Account implements ArrayableInterface, \JsonSerializable
     public function __construct(int $id = 0)
     {
         $this->createdAt = new \DateTime('now');
+        $this->lastActive = new \DateTime('now');
         $this->id        = $id;
         $this->l11n      = new NullLocalization();
     }
@@ -202,6 +203,19 @@ class Account implements ArrayableInterface, \JsonSerializable
     public function setL11n(Localization $l11n) /* : void */
     {
         $this->l11n = $l11n;
+    }
+
+    /**
+     * Get name.
+     *
+     * @return string
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+    public function getName() : string
+    {
+        return $this->login;
     }
 
     /**
@@ -310,6 +324,21 @@ class Account implements ArrayableInterface, \JsonSerializable
     public function getCreatedAt() : \DateTime
     {
         return $this->createdAt ?? new \DateTime('NOW');
+    }
+
+    /**
+     * Set name.
+     *
+     * @param string $name Name
+     *
+     * @return void
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+    public function setName(string $name) /* : void */
+    {
+        $this->login = $name;
     }
 
     /**
