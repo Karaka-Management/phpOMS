@@ -16,7 +16,7 @@
 
 namespace phpOMS\Math\Stochastic\Distribution;
 
-use phpOMS\Math\Functions;
+use phpOMS\Math\Functions\Functions;
 
 /**
  * Binomial distribution.

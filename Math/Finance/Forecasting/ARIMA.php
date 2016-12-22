@@ -1,13 +1,34 @@
 <?php
+/**
+ * Orange Management
+ *
+ * PHP Version 7.1
+ *
+ * @category   TBD
+ * @package    TBD
+ * @author     OMS Development Team <dev@oms.com>
+ * @author     Dennis Eichhorn <d.eichhorn@oms.com>
+ * @copyright  2013 Dennis Eichhorn
+ * @license    OMS License 1.0
+ * @version    1.0.0
+ * @link       http://orange-management.com
+ */
+ namespace phpOMS\Math\Finance\Forecasting;
 
-namespace phpOMS\Math\Finance\Forecasting;
+use phpOMS\Math\Statistic\Average;
 
 class ARIMA
 {
+    private $data = [];
+    private $order = 0;
+
     public function __construct(array $data, int $order = 12)
     {
+        $this->data = $data;
+        $this->order = $order;
+
         if ($order !== 12 && $order !== 4) {
-            throw new \Exceptions('ARIMA only supports quarterly and monthly decomposition');
+            throw new \Exception('ARIMA only supports quarterly and monthly decomposition');
         }
     }
 
@@ -67,7 +88,7 @@ class ARIMA
 
     private function removeOutliers(array $data, float $deviation = 0.5) : array
     {
-        $avg = AVerage::arithmeticMean($data);
+        $avg = Average::arithmeticMean($data);
 
         foreach ($data as $key => $value) {
             if ($value / $avg - 1 > $deviation) {

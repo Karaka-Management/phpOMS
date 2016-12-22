@@ -18,7 +18,7 @@ namespace phpOMS\Math\Statistic\Forecast;
 use phpOMS\Datatypes\Enum;
 
 /**
- * Address type enum.
+ * Prediction interval multiplier.
  *
  * @category   Framework
  * @package    phpOMS\Datatypes

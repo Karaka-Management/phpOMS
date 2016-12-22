@@ -20,7 +20,7 @@ namespace phpOMS\Math\Statistic;
  * Average class.
  *
  * @category   Framework
- * @package    phpOMS\DataStorage\Database
+ * @package    phpOMS\Math\Statistic
  * @author     OMS Development Team <dev@oms.com>
  * @author     Dennis Eichhorn <d.eichhorn@oms.com>
  * @license    OMS License 1.0
@@ -61,9 +61,19 @@ class Average
     }
 
     /**
-     * t = 3 and p = 3 means -1 0 +1, t = 4 and p = 2 means -1 0
-     * periods should be replaced with order than it's possible to test for even or odd m
-     * todo: maybe floor()?
+     * Moving average of dataset
+     *
+     * @param array $x       Dataset
+     * @param int   $order  Periods to use for average
+     * @param array $weight Weight for moving average
+     * @param bool $symmetric Cyclic moving average
+     *
+     * @return array Moving average of data
+     *
+     * @throws \Exception
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public static function totalMovingAverage(array $x, int $order, array $weight = null, bool $symmetric = false) : array
     {
@@ -79,15 +89,15 @@ class Average
     }
 
     /**
-     * Moving average or order m.
+     * Moving average of element in dataset
      *
      * @param array $x       Dataset
      * @param int   $t       Current period
-     * @param int   $periods Periods to use for average
+     * @param int   $order  Periods to use for average
+     * @param array $weight Weight for moving average
+     * @param bool $symmetric Cyclic moving average
      *
-     * @return float
-     *
-     * @todo   : allow counter i also to go into the future... required for forecast how? should be doable!
+     * @return float Moving average
      *
      * @throws \Exception
      *
@@ -107,7 +117,7 @@ class Average
         $end   = $order % 2 === 0 ? $end - 1 : $end;
         $start = $t - 1 - ($periods - 2);
 
-        if (isset($weight)) {
+        if (!empty($weight)) {
             return self::weightedAverage(array_slice($x, $start, $end - $start), array_slice($weight, $start, $end - $start));
         } else {
             return self::arithmeticMean(array_slice($x, $start, $end - $start));

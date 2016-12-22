@@ -226,6 +226,21 @@ class File extends FileAbstract implements FileInterface
      */
     public static function dirname(string $path) : string
     {
+        return basename(dirname($path));
+    }
+
+    /**
+     * Gets the directory path of a file.
+     * 
+     * @param  string $path Path of the file to get the directory name for.
+     * 
+     * @return string Returns the directory name of the file.
+     *
+     * @since 1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+    public static function dirpath(string $path) : string
+    {
         return dirname($path);
     }
 
@@ -287,11 +302,27 @@ class File extends FileAbstract implements FileInterface
         return true;
     }
 
+    /**
+     * Gets the directory name of a file.
+     * 
+     * @return string Returns the directory name of the file.
+     *
+     * @since 1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
     public function getDirName() : string
     {
         return basename(dirname($this->path));
     }
 
+    /**
+     * Gets the directory path of a file.
+     * 
+     * @return string Returns the directory path of the file.
+     *
+     * @since 1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
     public function getDirPath() : string
     {
         return dirname($this->path);

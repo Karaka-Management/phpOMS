@@ -28,6 +28,13 @@ namespace phpOMS\Math\Shape\D2;
  */
 class Polygon implements D2ShapeInterface
 {
+    /**
+     * Epsilon for float comparison.
+     *
+     * @var float
+     * @since 1.0.0
+     */
+    /* public */ const EPSILON = 0.00001;
 
     /**
      * Coordinates.
@@ -123,28 +130,44 @@ class Polygon implements D2ShapeInterface
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public static function pointInPolygon(array $point) : int
+    public function pointInPolygon(array $point) : int
     {
-        $length = count($this->coord);
+        return self::isPointInPolygon($point, $this->coord);
+    }
+
+    /**
+     * Point polygon relative position
+     *
+     * @param array $point Point location
+     * @param array $polygon Polygon definition
+     *
+     * @return int
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+    public static function isPointInPolygon(array $point, array $polygon) : int
+    {
+        $length = count($polygon);
 
         // Polygon has to start and end with same point
-        if ($this->coord[0]['x'] !== $this->coord[$length - 1]['x'] || $this->coord[0]['y'] !== $this->coord[$length - 1]['y']) {
-            $this->coord[] = $this->coord[0];
+        if ($polygon[0]['x'] !== $polygon[$length - 1]['x'] || $polygon[0]['y'] !== $polygon[$length - 1]['y']) {
+            $polygon[] = $polygon[0];
         }
 
         // On vertex?
-        if (self::isOnVertex($point, $this->coord)) {
+        if (self::isOnVertex($point, $polygon)) {
             return 0;
         }
 
         // Inside or ontop?
         $countIntersect    = 0;
-        $this->coord_count = count($this->coord);
+        $polygon_count = count($polygon);
 
         // todo: return based on highest possibility not by first match
-        for ($i = 1; $i < $this->coord_count; $i++) {
-            $vertex1 = $this->coord[$i - 1];
-            $vertex2 = $this->coord[$i];
+        for ($i = 1; $i < $polygon_count; $i++) {
+            $vertex1 = $polygon[$i - 1];
+            $vertex2 = $polygon[$i];
 
             if (abs($vertex1['y'] - $vertex2['y']) < self::EPSILON && abs($vertex1['y'] - $point['y']) < self::EPSILON && $point['x'] > min($vertex1['x'], $vertex2['x']) && $point['x'] < max($vertex1['x'], $vertex2['x'])) {
                 return 0; // boundary
@@ -180,9 +203,25 @@ class Polygon implements D2ShapeInterface
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    private static function isOnVertex(array $point) : bool
+    public function onVertex(array $point) : bool
     {
-        foreach ($this->coord as $vertex) {
+        return self::isOnVertex($point, $this->coord);
+    }
+
+    /**
+     * Is point on vertex?
+     *
+     * @param array $point Point location
+     * @param array $polygon Polygon definition
+     *
+     * @return bool
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+    private static function isOnVertex(array $point, array $polygon) : bool
+    {
+        foreach ($polygon as $vertex) {
             if (abs($point['x'] - $vertex['x']) < self::EPSILON && abs($point['y'] - $vertex['y']) < self::EPSILON) {
                 return true;
             }

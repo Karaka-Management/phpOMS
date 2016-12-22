@@ -397,6 +397,7 @@ class Directory extends FileAbstract implements DirectoryInterface
      */
     public static function name(string $path) : string
     {
+        // todo: name doesn' t make sense
         // TODO: Implement name() method.
     }
 

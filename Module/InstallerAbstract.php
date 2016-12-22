@@ -38,7 +38,7 @@ class InstallerAbstract
     /**
      * Register module in database.
      *
-     * @param Pool        $dbPool Database instance
+     * @param DatabasePool        $dbPool Database instance
      * @param InfoManager $info   Module info
      *
      * @return void
@@ -91,7 +91,7 @@ class InstallerAbstract
      * Install module.
      *
      * @param string      $routePath Route Path
-     * @param Pool        $dbPool    Database instance
+     * @param DatabasePool        $dbPool    Database instance
      * @param InfoManager $info      Module info
      *
      * @return void
@@ -109,7 +109,7 @@ class InstallerAbstract
     /**
      * Activate after install.
      *
-     * @param Pool        $dbPool Database instance
+     * @param DatabasePool        $dbPool Database instance
      * @param InfoManager $info   Module info
      *
      * @return void

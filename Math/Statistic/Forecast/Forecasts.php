@@ -29,10 +29,11 @@ namespace phpOMS\Math\Statistic\Forecast;
 class Forecasts
 {
     /**
-     * Get forecast interval.
+     * Get forecast/prediction interval.
      *
-     * @param array $observed   Dataset
-     * @param array $forecasted Forecasted
+     * @param float $forecast Forecast value
+     * @param float $standardDeviation Standard Deviation of forecast
+     * @param float $interval Forecast multiplier for prediction intervals
      *
      * @return array
      *

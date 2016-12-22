@@ -195,7 +195,7 @@ abstract class TaskAbstract
      */
     public function setNextRunTime(\DateTime $nextRunTime) /* : void */
     {
-        $this->nextRuntime = $nextRunTime;
+        $this->nextRunTime = $nextRunTime;
     }
 
     /**

@@ -31,8 +31,8 @@ class Schedule extends TaskAbstract implements \Serializable
     /**
      * Constructor.
      *
-     * @param Interval $interval Interval
-     * @param string   $cmd      Command to execute
+     * @param string $name Schedule name
+     * @param string $cmd  Command to execute
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>

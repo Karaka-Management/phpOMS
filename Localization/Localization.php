@@ -143,8 +143,6 @@ class Localization
     /**
      * Constructor.
      *
-     * @param L11nManager $l11nManager Localization manager
-     *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */

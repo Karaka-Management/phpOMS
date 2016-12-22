@@ -231,7 +231,7 @@ class Tree extends Graph
 		}
 
 		$callback($node);
-		$neighbors = $this->getNeighbors();
+		$neighbors = $this->getNeighbors($node);
 
 		foreach($neighbors as $neighbor) {
 			// todo: get neighbors needs to return in ordered way
@@ -253,7 +253,7 @@ class Tree extends Graph
 			return;
 		}
 		
-		$neighbors = $this->getNeighbors();
+		$neighbors = $this->getNeighbors($node);
 
 		foreach($neighbors as $neighbor) {
 			// todo: get neighbors needs to return in ordered way

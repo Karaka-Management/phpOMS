@@ -35,7 +35,7 @@ class DeactivateAbstract
     /**
      * Deactivate module.
      *
-     * @param Pool        $dbPool Database instance
+     * @param DatabasePool        $dbPool Database instance
      * @param InfoManager $info   Module info
      *
      * @return void
@@ -68,7 +68,7 @@ class DeactivateAbstract
     /**
      * Deactivate module in database.
      *
-     * @param Pool        $dbPool Database instance
+     * @param DatabasePool        $dbPool Database instance
      * @param InfoManager $info   Module info
      *
      * @return void

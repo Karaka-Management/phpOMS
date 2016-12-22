@@ -1146,7 +1146,7 @@ class DataMapperAbstract implements DataMapperInterface
     {
         $query = new Builder(self::$db);
         $query->prefix(self::$db->getPrefix())
-            ->random(static::$primaryKey)
+            ->random(static::$primaryField)
             ->from(static::$table)
             ->limit($amount);
 

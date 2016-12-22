@@ -16,7 +16,7 @@
 
 namespace phpOMS\Math\Statistic\Forecast;
 
-use phpOMS\Math\Functions;
+use phpOMS\Math\Functions\Functions;
 use phpOMS\Math\Statistic\Average;
 use phpOMS\Math\Statistic\MeasureOfDispersion;
 
@@ -125,6 +125,21 @@ class Error
     }
 
     /**
+     * Get mean squared error (MSE).
+     *
+     * @param array $errors Errors
+     *
+     * @return float
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+    public static function getMeanSquaredError(array $errors) : float
+    {
+        return Average::arithmeticMean(self::square($errors));
+    }
+
+    /**
      * Get root mean squared error (RMSE).
      *
      * @param array $errors Errors
@@ -136,7 +151,6 @@ class Error
      */
     public static function getRootMeanSquaredError(array $errors) : float
     {
-        // sqrt(Average::getVariance($error)+pow(Average::arithmeticMean($error), 2));
         return sqrt(Average::arithmeticMean(self::square($errors)));
     }
 
@@ -195,6 +209,18 @@ class Error
         return $error;
     }
 
+    /**
+     * Get R Bar Squared
+     *
+     * @param float $R R
+     * @param int $observations Amount of observations
+     * @param int $predictors Amount of predictors
+     *
+     * @return float
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
     public static function getRBarSquared(float $R, int $observations, int $predictors) : float
     {
         return 1 - (1 - $R * ($observations - 1) / ($observations - $predictors - 1));
@@ -203,6 +229,14 @@ class Error
     /**
      * Get Aike's information criterion (AIC)
      *
+     * @param float $sse SSE
+     * @param int $observations Amount of observations
+     * @param int $predictors Amount of predictors
+     *
+     * @return float
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public static function getAkaikeInformationCriterion(float $sse, int $observations, int $predictors) : float
     {
@@ -213,6 +247,15 @@ class Error
      * Get corrected Aike's information criterion (AIC)
      *
      * Correction for small amount of observations
+     *
+     * @param float $aic AIC
+     * @param int $observations Amount of observations
+     * @param int $predictors Amount of predictors
+     *
+     * @return float
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public static function getCorrectedAkaikeInformationCriterion(float $aic, int $observations, int $predictors) : float
     {
@@ -222,6 +265,14 @@ class Error
     /**
      * Get Bayesian information criterion (BIC)
      *
+     * @param float $sse SSE
+     * @param int $observations Amount of observations
+     * @param int $predictors Amount of predictors
+     *
+     * @return float
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public static function getSchwarzBayesianInformationCriterion(float $sse, int $observations, int $predictors) : float
     {

@@ -35,7 +35,7 @@ final class SchedulerFactory
     /**
      * Create scheduler instance.
      *
-     * @return ScheduleInterface
+     * @return SchedulerAbstract
      *
      * @throws \Exception
      *

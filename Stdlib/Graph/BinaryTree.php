@@ -46,7 +46,7 @@ class BinaryTree extends Tree
 	/**
      * Get left node of a node.
      *
-     * @param Node $node Tree node
+     * @param Node $base Tree node
 	 *
 	 * @return Node Left node
      *
@@ -64,7 +64,7 @@ class BinaryTree extends Tree
 	/**
      * Get right node of a node.
      *
-     * @param Node $node Tree node
+     * @param Node $base Tree node
 	 *
 	 * @return Node Right node
      *
@@ -73,7 +73,7 @@ class BinaryTree extends Tree
      */
 	public function getRight(Node $base)
 	{
-		$neighbors = $base->getNeighbors($base);
+		$neighbors = $this->getNeighbors($base);
 
 		// todo: index can be wrong, see setLeft/setRight
 		return $neighbors[1] ?? null;
@@ -93,7 +93,7 @@ class BinaryTree extends Tree
 	public function setLeft(Node $base, Node $left) : BinaryTree
 	{
 		if($this->getLeft($base) === null) {
-			$this->addNode($base, $left);
+			$this->addNodeRelative($base, $left);
 			// todo: doesn't know that this is left
 			// todo: maybe need to add numerics to edges?
 		} else {
@@ -117,7 +117,7 @@ class BinaryTree extends Tree
 	public function setRight(Node $base, Node $right)  /* : void */
 	{
 		if($this->getRight($base) === null) {
-			$this->addNode($base, $right);
+			$this->addNodeRelative($base, $right);
 			// todo: doesn't know that this is right
 			// todo: maybe need to add numerics to edges?
 		} else {
@@ -196,6 +196,8 @@ class BinaryTree extends Tree
      *
      * @param Node $node1 Tree node1
      * @param Node $node2 Tree node2 (optional, can be different tree)
+	 *
+	 * @return bool True if tree is symmetric, false if tree is not symmetric
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>

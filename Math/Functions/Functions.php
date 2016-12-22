@@ -231,7 +231,7 @@ class Functions
      *
      * @param int $a Value to test
      *
-     * @return int
+     * @return bool
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
@@ -250,7 +250,7 @@ class Functions
      *
      * @param int $a Value to test
      *
-     * @return int
+     * @return bool
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
@@ -270,7 +270,9 @@ class Functions
      * @example The relative fiscal month (August) in a company where the fiscal year starts in July.
      * @example 2 = getRelativeDegree(8, 12, 7);
      *
-     * @param int $a Value to test
+     * @param mixed $value Value to get degree
+     * @param mixed $length Circle size
+     * @param mixed $start Start value
      *
      * @return int
      *

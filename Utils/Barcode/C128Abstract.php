@@ -124,7 +124,8 @@ abstract class C128Abstract
      * Constructor
      *
      * @param string $content     Content to encrypt
-     * @param int    $size        Barcode height
+     * @param int    $width       Barcode width
+     * @param int    $height      Barcode height
      * @param int    $orientation Orientation of the barcode
      *
      * @todo   : add mirror parameter
@@ -142,7 +143,7 @@ abstract class C128Abstract
     /**
      * Set barcode dimensions
      *
-     * @param int $width Barcode width
+     * @param int $width  Barcode width
      * @param int $height Barcode height
      *
      * @since  1.0.0
@@ -158,7 +159,7 @@ abstract class C128Abstract
             throw new \OutOfBoundsException($height);
         }
 
-        $this->dimension['width'] = $width;
+        $this->dimension['width']  = $width;
         $this->dimension['height'] = $height;
     }
 

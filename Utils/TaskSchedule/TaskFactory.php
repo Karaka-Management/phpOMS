@@ -38,7 +38,7 @@ final class TaskFactory
      * @param string $id Task id
      * @param string   $cmd      Command to run
      *
-     * @return TaskInterface
+     * @return TaskAbstract
      *
      * @throws \Exception
      *

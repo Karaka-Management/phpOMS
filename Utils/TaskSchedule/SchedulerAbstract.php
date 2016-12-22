@@ -14,6 +14,7 @@
  * @link       http://orange-management.com
  */
 namespace phpOMS\Utils\TaskSchedule;
+use phpOMS\System\File\PathException;
 
 /**
  * Scheduler abstract.

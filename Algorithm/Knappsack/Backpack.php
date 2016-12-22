@@ -14,6 +14,7 @@
  * @link       http://orange-management.com
  */
 namespace phpOMS\Algorithm\Knappsack;
+use phpOMS\Algorithm\AlgorithmType;
 
 /**
  * Knappsack algorithm implementations

@@ -45,12 +45,12 @@ class HIBCC
 
     public function setIdentifier(string $identifier) /* : void */
     {
-        $this->identifer = $identifier;
+        $this->identifier = $identifier;
     }
 
     public function getIdentifier() : string
     {
-        return $this->identifer;
+        return $this->identifier;
     }
 
     public function setProductId(string $id) /* : void */
@@ -88,7 +88,7 @@ class HIBCC
         $this->expirationDate = $date;
     }
 
-    public function getExpirationDate() : \Datetime
+    public function getExpirationDate() : \DateTime
     {
         return $this->expirationDate;
     }

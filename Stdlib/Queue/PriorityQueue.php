@@ -16,7 +16,7 @@
 namespace phpOMS\Stdlib\Queue;
 
 /**
- * Router class.
+ * Priority queue class.
  *
  * @category   Framework
  * @package    phpOMS\Stdlib
@@ -45,15 +45,13 @@ class PriorityQueue implements \Countable, \Serializable
      */
     private $queue = [];
 
-    private $mode = 0;
-
     /**
      * Constructor.
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function __construct($mode = '')
+    public function __construct()
     {
     }
 

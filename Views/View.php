@@ -197,23 +197,23 @@ class View extends ViewAbstract
     }
 
     /**
-     * @return Request
+     * @return RequestAbstract
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function getRequest() : Request
+    public function getRequest() : RequestAbstract
     {
         return $this->request;
     }
 
     /**
-     * @return Response
+     * @return ResponseAbstract
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function getResponse() : Response
+    public function getResponse() : ResponseAbstract
     {
         return $this->response;
     }

@@ -19,7 +19,7 @@ namespace phpOMS\Math\Shape\D3;
  * Sphere shape.
  *
  * @category   Framework
- * @package    phpOMS\DataStorage\Database
+ * @package    phpOMS\Math\Shape
  * @author     OMS Development Team <dev@oms.com>
  * @author     Dennis Eichhorn <d.eichhorn@oms.com>
  * @license    OMS License 1.0
@@ -28,7 +28,22 @@ namespace phpOMS\Math\Shape\D3;
  */
 class Sphere implements D3ShapeInterface
 {
+    /**
+     * Radius.
+     *
+     * @var float
+     * @since 1.0.0
+     */
+    private $radius = 0.0;
 
+    /**
+     * Constructor.
+     *
+     * @param float $radius Sphere radius
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
     public function __construct(float $radius)
     {
         $this->radius = $radius;
@@ -68,11 +83,31 @@ class Sphere implements D3ShapeInterface
         return $angle * $radius;
     }
 
+    /**
+     * Create sphere by radius
+     *
+     * @param float $r Radius
+     *
+     * @return Sphere
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
     public static function byRadius(float $r) : Sphere
     {
         return new self($r);
     }
 
+    /**
+     * Create sphere by volume
+     *
+     * @param float $v Sphere volume
+     *
+     * @return Sphere
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
     public static function byVolume(float $v) : Sphere
     {
         return new self(self::getRadiusByVolume($v));
@@ -81,25 +116,35 @@ class Sphere implements D3ShapeInterface
     /**
      * Radius
      *
-     * @param float $V Volume
+     * @param float $v Volume
      *
      * @return float
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public static function getRadiusByVolume(float $V) : float
+    public static function getRadiusByVolume(float $v) : float
     {
-        return pow($V * 3 / (4 * pi()), 1 / 3);
+        return pow($v * 3 / (4 * pi()), 1 / 3);
     }
 
+    /**
+     * Create sphere by surface
+     *
+     * @param float $s Sphere surface
+     *
+     * @return Sphere
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
     public static function bySurface(float $s) : Sphere
     {
         return new self(self::getRadiusBySurface($s));
     }
 
     /**
-     * Radius
+     * Get radius by sphere
      *
      * @param float $S Surface
      *
@@ -113,13 +158,21 @@ class Sphere implements D3ShapeInterface
         return sqrt($S / (4 * pi()));
     }
 
+    /**
+     * Get volume
+     *
+     * @return float Sphere volume
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
     public function getVolume() : float
     {
         return self::getVolumeByRadius($this->radius);
     }
 
     /**
-     * Volume
+     * Get sphere volume by radius
      *
      * @param float $r Radius
      *
@@ -133,11 +186,27 @@ class Sphere implements D3ShapeInterface
         return 4 / 3 * pi() * $r ** 3;
     }
 
+    /**
+     * Get radius
+     *
+     * @return float Sphere radius
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
     public function getRadius() : float
     {
         return $this->radius;
     }
 
+    /**
+     * Get surface
+     *
+     * @return float Sphere surface
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
     public function getSurface() : float
     {
         return self::getSurfaceByRadius($this->radius);

@@ -271,7 +271,7 @@ class Collection implements \Countable, \ArrayAccess, \Iterator, \JsonSerializab
     /**
      * Get collection that contains every n-th element.
      *
-     * @param $int $n Every n-th element
+     * @param int $n Every n-th element
      *
      * @return Collection
      *
@@ -622,12 +622,16 @@ class Collection implements \Countable, \ArrayAccess, \Iterator, \JsonSerializab
 
     /**
      * Offset to retrieve
-     * @link  http://php.net/manual/en/arrayaccess.offsetget.php
-     * @param mixed $offset <p>
-     *                      The offset to retrieve.
-     *                      </p>
+     *
+     * @param mixed $offset The offset to retrieve.
+     *
      * @return mixed Can return all value types.
-     * @since 5.0.0
+     *
+     * @throws \Exception
+     *
+     * @link  http://php.net/manual/en/arrayaccess.offsetget.php
+     *
+     * @since 1.0.0
      */
     public function offsetGet($offset)
     {

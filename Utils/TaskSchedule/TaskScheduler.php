@@ -43,7 +43,7 @@ class TaskScheduler extends SchedulerAbstract
      *
      * @param string $cmd Command to run
      *
-     * @return array
+     * @return string
      *
      * @throws \Exception
      *
@@ -114,7 +114,7 @@ class TaskScheduler extends SchedulerAbstract
             }
 
             if(DateTime::isValid($jobData[5])) { 
-                $job->setLastRunTime(new \DateTime($jobData[5]));
+                $job->setLastRuntime(new \DateTime($jobData[5]));
             }
             
             $job->setAuthor($jobData[7]);
@@ -171,7 +171,7 @@ class TaskScheduler extends SchedulerAbstract
     public function getAllByName(string $name, bool $exact = true) : array
     {
         if($exact) {
-            $lines = $this->run('/query /v /fo CSV /tn ' . escapeshellarg($name));
+            $lines = explode("\n", $this->normalize($this->run('/query /v /fo CSV /tn ' . escapeshellarg($name))));
             unset($lines[0]);
 
             $jobs = [];

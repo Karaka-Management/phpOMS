@@ -54,30 +54,46 @@ class Graph
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-	public function addNode(Node $node) : Graph
+    public function addNode(Node $node) : Graph
     {
-		$this->nodes[] = $node;
+        $this->nodes[] = $node;
 
-		return $this;
-	}
+        return $this;
+    }
 
     /**
-     * Set node in graph.
+     * Add node to graph.
      *
-     * @param mixed $key Key of node
-     * @param Node $node Graph node
+     * @param Node $relative Relative graph node
+     * @param Node $node     Graph node
      *
      * @return Graph
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-	public function setNode($key, Node $node) : Graph
+    public function addNodeRelative(Node $relative, Node $node) : Graph
     {
-		$this->nodes[$key] = $node;
+        return $this;
+    }
 
-		return $this;
-	}
+    /**
+     * Set node in graph.
+     *
+     * @param mixed $key  Key of node
+     * @param Node  $node Graph node
+     *
+     * @return Graph
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+    public function setNode($key, Node $node) : Graph
+    {
+        $this->nodes[$key] = $node;
+
+        return $this;
+    }
 
     /**
      * Add edge to graph.
@@ -91,28 +107,28 @@ class Graph
      */
     public function addEdge(Edge $edge) : Graph
     {
-		$this->edges[] = $edge;
+        $this->edges[] = $edge;
 
-		return $this;
-	}
+        return $this;
+    }
 
     /**
      * Set edge in graph.
      *
-     * @param mixed $key Edge key
-     * @param Edge $edge Edge to set
+     * @param mixed $key  Edge key
+     * @param Edge  $edge Edge to set
      *
      * @return Graph
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-	public function setEdge($key, Edge $edge)  /* : void */
+    public function setEdge($key, Edge $edge)  /* : void */
     {
-		$this->edges[$key] = $edge;
+        $this->edges[$key] = $edge;
 
-		return $this;
-	}
+        return $this;
+    }
 
     /**
      * Get graph node
@@ -124,10 +140,23 @@ class Graph
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function getNode($key) : Node 
-	{
-		return $this->nodes[$key];
-	}
+    public function getNode($key) : Node
+    {
+        return $this->nodes[$key];
+    }
+
+    /**
+     * Get graph nodes
+     *
+     * @return Node[]
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+    public function getNodes() : array
+    {
+        return $this->nodes;
+    }
 
     /**
      * Get graph edge.
@@ -139,10 +168,10 @@ class Graph
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function getEdge($key) : Edge 
-	{
-		return $this->edges[$key];
-	}
+    public function getEdge($key) : Edge
+    {
+        return $this->edges[$key];
+    }
 
     /**
      * Get all edges of a node
@@ -154,17 +183,17 @@ class Graph
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function getEdgesOfNode($node) : array 
+    public function getEdgesOfNode($node) : array
     {
-        if(!($node instanceof Node)) {
+        if (!($node instanceof Node)) {
             $node = $this->getNode($node);
         }
 
         $edges = [];
-        foreach($this->edges as $edge) {
+        foreach ($this->edges as $edge) {
             $nodes = $edge->getNodes();
 
-            if($nodes[0] === $node || $nodes[1] === $node) {
+            if ($nodes[0] === $node || $nodes[1] === $node) {
                 $edges[] = $edge;
             }
         }
@@ -182,21 +211,21 @@ class Graph
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function getNeighbors($node) : array 
+    public function getNeighbors($node) : array
     {
-        if(!($node instanceof Node)) {
+        if (!($node instanceof Node)) {
             $node = $this->getNode($node);
         }
 
-        $edges = $this->getEdgesOfNode($node);
+        $edges     = $this->getEdgesOfNode($node);
         $neighbors = [];
 
-        foreach($edges as $edge) {
+        foreach ($edges as $edge) {
             $nodes = $edge->getNodes();
 
-            if($nodes[0] !== $node && $nodes[0] !== null) {
+            if ($nodes[0] !== $node && $nodes[0] !== null) {
                 $neighbors[] = $nodes[0];
-            } elseif($nodes[1] !== $node && $nodes[0] !== null) {
+            } elseif ($nodes[1] !== $node && $nodes[0] !== null) {
                 $neighbors[] = $nodes[1];
             }
         }
@@ -212,7 +241,7 @@ class Graph
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function getDimension() : int 
+    public function getDimension() : int
     {
         // todo: implement
         return 0;
@@ -240,7 +269,7 @@ class Graph
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function getKruskalMinimalSpanningTree() : Tree 
+    public function getKruskalMinimalSpanningTree() : Tree
     {
         // todo: implement
         return new Tree();
@@ -254,7 +283,7 @@ class Graph
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function getPrimMinimalSpanningTree() : Tree 
+    public function getPrimMinimalSpanningTree() : Tree
     {
         // todo: implement
         return new Tree();
@@ -268,7 +297,7 @@ class Graph
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function getCircle() : array 
+    public function getCircle() : array
     {
         // todo: implement
     }
@@ -281,7 +310,7 @@ class Graph
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function getFloydWarshallShortestPath() : array 
+    public function getFloydWarshallShortestPath() : array
     {
         // todo: implement
     }
@@ -307,7 +336,7 @@ class Graph
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function depthFirstTraversal() : array 
+    public function depthFirstTraversal() : array
     {
         // todo: implement
     }
@@ -320,7 +349,7 @@ class Graph
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function breadthFirstTraversal() : array 
+    public function breadthFirstTraversal() : array
     {
         // todo: implement
     }
@@ -398,9 +427,9 @@ class Graph
     {
         $diameter = 0;
 
-        foreach($this->nodes as $node1) {
-            foreach($this->nodes as $node2) {
-                if($node1 === $node2) {
+        foreach ($this->nodes as $node1) {
+            foreach ($this->nodes as $node2) {
+                if ($node1 === $node2) {
                     continue;
                 }
 

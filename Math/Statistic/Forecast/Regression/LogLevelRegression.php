@@ -39,7 +39,7 @@ class LogLevelRegression extends RegressionAbstract
         }
 
         for ($i = 0; $i < $c; $i++) {
-            $y[$i] = log($y[i]);
+            $y[$i] = log($y[$i]);
         }
 
         return parent::getRegression($x, $y);
