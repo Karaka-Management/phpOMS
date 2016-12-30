@@ -70,11 +70,13 @@ class File extends FileAbstract implements FileInterface
     public static function put(string $path, string $content, int $mode = ContentPutMode::REPLACE | ContentPutMode::CREATE) : bool
     {
         // todo: create all else cases, right now all getting handled the same way which is wrong
+        $exists = file_exists($path);
+
         if (
-            (($mode & ContentPutMode::APPEND) === ContentPutMode::APPEND && file_exists($path))
-            || (($mode & ContentPutMode::PREPEND) === ContentPutMode::PREPEND && file_exists($path))
-            || (($mode & ContentPutMode::REPLACE) === ContentPutMode::REPLACE && file_exists($path))
-            || (!file_exists($path) && ($mode & ContentPutMode::CREATE) === ContentPutMode::CREATE)
+            (($mode & ContentPutMode::APPEND) === ContentPutMode::APPEND && $exists)
+            || (($mode & ContentPutMode::PREPEND) === ContentPutMode::PREPEND && $exists)
+            || (($mode & ContentPutMode::REPLACE) === ContentPutMode::REPLACE && $exists)
+            || (!$exists && ($mode & ContentPutMode::CREATE) === ContentPutMode::CREATE)
         ) {
             if (!Directory::exists(dirname($path))) {
                 Directory::create(dirname($path), '0644', true);
