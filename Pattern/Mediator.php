@@ -79,11 +79,12 @@ interface Mediator extends \Countable
      *
      * @param string $group Group
      * @param string $id    Event ID
+     * @param bool $reset Reset if success
      *
      * @return void
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function trigger(string $group, string $id) /* : void */;
+    public function trigger(string $group, string $id, bool $reset = false) /* : void */;
 }

@@ -75,7 +75,7 @@ class EventManager implements Mediator
     /**
      * {@inheritdoc}
      */
-    public function trigger(string $group, string $id = '') /* : void */
+    public function trigger(string $group, string $id = '', bool $reset = false) /* : void */
     {
         if (isset($this->groups[$group])) {
             unset($this->groups[$group][$id]);
