@@ -139,6 +139,7 @@ class Request extends RequestAbstract
     {
         $this->data  = $_GET ?? [];
         $this->files = $_FILES ?? [];
+        $this->language = $this->loadRequestLanguage();
 
         if (isset($_SERVER['CONTENT_TYPE'])) {
             if (strpos($_SERVER['CONTENT_TYPE'], 'application/json') !== false) {
@@ -154,6 +155,15 @@ class Request extends RequestAbstract
         }
 
         $this->uri = $this->uri ?? new Http(Http::getCurrent());
+    }
+
+    private function loadRequestLanguage() : string
+    {
+        $lang = $_SERVER['HTTP_ACCEPT_LANGUAGE'];
+        $lang = explode(';', $lang);
+        $lang = explode('-', $lang[0]);
+
+        return $lang[0];
     }
 
     /**
@@ -214,6 +224,14 @@ class Request extends RequestAbstract
         foreach($this->data as $key => $value) {
             UriFactory::setQuery('?' . $key, $value);
         }
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getLanguage() : string
+    {
+        return $this->language;
     }
 
     /**

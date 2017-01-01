@@ -83,12 +83,20 @@ abstract class RequestAbstract implements MessageInterface
     protected $path = [];
 
     /**
-     * Language.
+     * Localization.
      *
      * @var Localization
      * @since 1.0.0
      */
     protected $l11n = null;
+
+    /**
+     * Language.
+     *
+     * @var string
+     * @since 1.0.0
+     */
+    protected $language = '';
 
     /**
      * Account.
@@ -167,6 +175,16 @@ abstract class RequestAbstract implements MessageInterface
     {
         $this->uri = $uri;
     }
+
+    /**
+     * Get request language.
+     *
+     * @return string
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+    abstract public function getLanguage() : string;
 
     /**
      * Get request hash.
