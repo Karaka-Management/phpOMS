@@ -90,8 +90,8 @@ class SmartDateTime extends \DateTime
      */
     public function smartModify(int $y, int $m = 0, int $d = 0, int $calendar = CAL_GREGORIAN) : SmartDateTime
     {
-        $y_change    = (int) floor(((int) $this->format('m') - 1 + $m) / 12);
-        $y_change    = ((int) $this->format('m') - 1 + $m) <= 0 && ((int) $this->format('m') - 1 + $m) % 12 === 0 ? $y_change - 1 : $y_change;
+        $y_change    = floor(((int) $this->format('m') - 1 + $m) / 12);
+        $y_change    = ((int) $this->format('m') - 1 + $m) < 0 && ((int) $this->format('m') - 1 + $m) % 12 === 0 ? $y_change - 1 : $y_change;
         $y_new       = (int) $this->format('Y') + $y + $y_change;
         $m_new       = ((int) $this->format('m') + $m) % 12;
         $m_new       = $m_new === 0 ? 12 : $m_new < 0 ? 12 + $m_new : $m_new;
