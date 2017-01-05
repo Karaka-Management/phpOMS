@@ -87,6 +87,14 @@ class UriFactory
         return false;
     }
 
+    /**
+     * Clear all uri components
+     *
+     * @return bool
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
     public static function clearAll() : bool 
     {
         self::$uri = [];
@@ -94,6 +102,16 @@ class UriFactory
         return true;
     }
 
+    /**
+     * Clear uri component
+     *
+     * @param string $key Uri component key
+     *
+     * @return bool
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
     public static function clear(string $key) : bool 
     {
         if(isset(self::$uri[$key])) {
@@ -105,6 +123,16 @@ class UriFactory
         return false;
     }
 
+    /**
+     * Clear uri components that follow a certain pattern
+     *
+     * @param string $pattern Uri key pattern to remove
+     *
+     * @return bool
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
     public static function clearLike(string $pattern) : bool 
     {
         $success = false;
