@@ -2,7 +2,7 @@
 /**
  * Orange Management
  *
- * PHP Version 7.0
+ * PHP Version 7.1
  *
  * @category   TBD
  * @package    TBD
@@ -37,8 +37,6 @@ class GeometricDistribution
      *
      * @return float
      *
-     * @throws
-     *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
@@ -54,8 +52,6 @@ class GeometricDistribution
      * @param int   $k
      *
      * @return float
-     *
-     * @throws
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>

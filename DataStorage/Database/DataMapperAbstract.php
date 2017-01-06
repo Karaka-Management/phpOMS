@@ -2,7 +2,7 @@
 /**
  * Orange Management
  *
- * PHP Version 7.0
+ * PHP Version 7.1
  *
  * @category   TBD
  * @package    TBD
@@ -70,7 +70,7 @@ class DataMapperAbstract implements DataMapperInterface
     /**
      * Columns.
      *
-     * @var array<string, array>
+     * @var array
      * @since 1.0.0
      */
     protected static $columns = [];
@@ -175,7 +175,7 @@ class DataMapperAbstract implements DataMapperInterface
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public static function setConnection(ConnectionAbstract $con)
+    public static function setConnection(ConnectionAbstract $con) /* : void */
     {
         self::$db = $con;
     }
@@ -216,7 +216,7 @@ class DataMapperAbstract implements DataMapperInterface
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    private static function extend($class)
+    private static function extend($class) /* : void */
     {
         /* todo: have to implement this in the queries, so far not used */
         self::$collection['primaryField'][] = $class::$primaryField;
@@ -264,7 +264,7 @@ class DataMapperAbstract implements DataMapperInterface
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public static function with(...$objects)
+    public static function with(...$objects) /* : void */
     {
         // todo: how to handle with of parent objects/extends/relations
 
@@ -283,7 +283,7 @@ class DataMapperAbstract implements DataMapperInterface
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public static function clear()
+    public static function clear() /* : void */
     {
         self::$overwrite    = true;
         self::$primaryField = '';
@@ -336,8 +336,6 @@ class DataMapperAbstract implements DataMapperInterface
      * @param int   $relations Create all relations as well
      *
      * @return mixed
-     *
-     * @throws
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
@@ -427,7 +425,7 @@ class DataMapperAbstract implements DataMapperInterface
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    private static function setObjectId(\ReflectionClass $reflectionClass, $obj, $objId)
+    private static function setObjectId(\ReflectionClass $reflectionClass, $obj, $objId) /* : void */
     {
         $reflectionProperty = $reflectionClass->getProperty(static::$columns[static::$primaryField]['internal']);
 
@@ -452,7 +450,7 @@ class DataMapperAbstract implements DataMapperInterface
      *
      * @return void
      *
-     * @throws
+     * @throws \Exception
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
@@ -552,8 +550,6 @@ class DataMapperAbstract implements DataMapperInterface
      *
      * @return mixed
      *
-     * @throws
-     *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
@@ -588,8 +584,6 @@ class DataMapperAbstract implements DataMapperInterface
      *
      * @return mixed
      *
-     * @throws
-     *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
@@ -617,7 +611,7 @@ class DataMapperAbstract implements DataMapperInterface
     /**
      * Create relation table entry
      *
-     * In cas of a many to many relation the relation has to be stored in a relation table
+     * In case of a many to many relation the relation has to be stored in a relation table
      *
      * @param string $propertyName Property name to initialize
      * @param array  $objsIds      Object ids to insert
@@ -625,15 +619,17 @@ class DataMapperAbstract implements DataMapperInterface
      *
      * @return mixed
      *
-     * @throws
-     *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     private static function createRelationTable(string $propertyName, array $objsIds, $objId)
     {
         /** @var string $table */
-        if (static::$hasMany[$propertyName]['table'] !== static::$table && static::$hasMany[$propertyName]['table'] !== static::$hasMany[$propertyName]['mapper']::$table) {
+        if (
+            !empty($objsIds)
+            && static::$hasMany[$propertyName]['table'] !== static::$table
+            && static::$hasMany[$propertyName]['table'] !== static::$hasMany[$propertyName]['mapper']::$table
+        ) {
             $relQuery = new Builder(self::$db);
             $relQuery->prefix(self::$db->getPrefix())
                 ->into(static::$hasMany[$propertyName]['table'])
@@ -691,8 +687,6 @@ class DataMapperAbstract implements DataMapperInterface
      * @param mixed $obj Object reference (gets filled with insert id)
      *
      * @return int
-     *
-     * @throws
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
@@ -824,7 +818,7 @@ class DataMapperAbstract implements DataMapperInterface
                 }
 
                 $objects = $mapper::get($values);
-                $reflectionProperty->setValue($obj, $objects);
+                $reflectionProperty->setValue($obj, !is_array($objects) ? [$objects] : $objects);
 
                 if (!$accessible) {
                     $reflectionProperty->setAccessible(false);
@@ -1152,7 +1146,7 @@ class DataMapperAbstract implements DataMapperInterface
     {
         $query = new Builder(self::$db);
         $query->prefix(self::$db->getPrefix())
-            ->random(static::$primaryKey)
+            ->random(static::$primaryField)
             ->from(static::$table)
             ->limit($amount);
 
@@ -1335,6 +1329,8 @@ class DataMapperAbstract implements DataMapperInterface
 
     /**
      * Get model based on request object
+     *
+     * @todo: change to graphql
      *
      * @param RequestAbstract $request Request object
      *

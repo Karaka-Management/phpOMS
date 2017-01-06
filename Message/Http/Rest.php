@@ -2,7 +2,7 @@
 /**
  * Orange Management
  *
- * PHP Version 7.0
+ * PHP Version 7.1
  *
  * @category   TBD
  * @package    TBD
@@ -44,7 +44,7 @@ class Rest
      * @since  1.0.0
      * @author Dennis Eichhorn
      */
-    public function setRequest(Request $request)
+    public function setRequest(Request $request) /* : void */
     {
         $this->request = $request;
     }

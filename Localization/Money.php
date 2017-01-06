@@ -2,7 +2,7 @@
 /**
  * Orange Management
  *
- * PHP Version 7.0
+ * PHP Version 7.1
  *
  * @category   TBD
  * @package    TBD
@@ -35,7 +35,7 @@ class Money implements \Serializable
      * @var int
      * @since 1.0.0
      */
-    const MAX_DECIMALS = 4;
+    /* public */ const MAX_DECIMALS = 4;
 
     /**
      * Thousands separator.
@@ -52,6 +52,22 @@ class Money implements \Serializable
      * @since 1.0.0
      */
     private $decimal = '.';
+
+    /**
+     * Currency symbol position
+     *
+     * @var string
+     * @since 1.0.0
+     */
+    private $position = 1;
+
+    /**
+     * Currency symbol.
+     *
+     * @var string
+     * @since 1.0.0
+     */
+    private $symbol = ISO4217SymbolEnum::_USD;
 
     /**
      * Value.
@@ -118,15 +134,19 @@ class Money implements \Serializable
      * @param string $symbol    Currency symbol
      * @param int    $position  Symbol position
      *
+     * @return Money
+     *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function setLocalization(string $thousands = ',', string $decimal = '.', string $symbol = '', int $position = 0)
+    public function setLocalization(string $thousands = ',', string $decimal = '.', string $symbol = '', int $position = 0) /* : void */
     {
         $this->thousands = $thousands;
         $this->decimal   = $decimal;
         $this->symbol    = $symbol;
         $this->position  = $position;
+
+        return $this;
     }
 
     /**
@@ -158,7 +178,7 @@ class Money implements \Serializable
      */
     public function getCurrency(int $decimals = 2) : string
     {
-        return ($position === 0 ? $smbol : '') . $this->getAmount($decimals, $thousands, $decimal) . ($position === 1 ? $smbol : '');
+        return ($this->position === 0 ? $this->symbol : '') . $this->getAmount($decimals) . ($this->position === 1 ? $this->symbol : '');
     }
 
     /**
@@ -199,6 +219,8 @@ class Money implements \Serializable
             $this->value += $value;
         } elseif ($value instanceof Money) {
             $this->value += $value->getInt();
+        } else {
+            throw new \InvalidArgumentException();
         }
 
         return $this;
@@ -235,7 +257,10 @@ class Money implements \Serializable
             $this->value -= $value;
         } elseif ($value instanceof Money) {
             $this->value -= $value->getInt();
+        } else {
+            throw new \InvalidArgumentException();
         }
+
 
         return $this;
     }

@@ -2,7 +2,7 @@
 /**
  * Orange Management
  *
- * PHP Version 7.0
+ * PHP Version 7.1
  *
  * @category   TBD
  * @package    TBD
@@ -170,7 +170,7 @@ class Functions
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public static function invMod(int $a, int $n)
+    public static function invMod(int $a, int $n) : int
     {
         if ($n < 0) {
             $n = -$n;
@@ -206,7 +206,18 @@ class Functions
         return $t;
     }
 
-    public static function mod($a, $b)
+    /**
+     * Modular implementation for negative values.
+     *
+     * @param int $a
+     * @param int $b
+     *
+     * @return int
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+    public static function mod($a, $b) : int
     {
         if ($a < 0) {
             return ($a + $b) % $b;
@@ -215,6 +226,16 @@ class Functions
         return $a % $b;
     }
 
+    /**
+     * Check if value is odd.
+     *
+     * @param int $a Value to test
+     *
+     * @return bool
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
     public static function isOdd($a) : bool
     {
         if ($a & 1) {
@@ -224,6 +245,16 @@ class Functions
         return false;
     }
 
+    /**
+     * Check if value is even.
+     *
+     * @param int $a Value to test
+     *
+     * @return bool
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
     public static function isEven($a) : bool
     {
         if ($a & 1) {
@@ -233,7 +264,22 @@ class Functions
         return true;
     }
 
-    public static function getRelativeDegree($value, $length, $start = 0)
+    /**
+     * Gets the relative position on a circular construct.
+     *
+     * @example The relative fiscal month (August) in a company where the fiscal year starts in July.
+     * @example 2 = getRelativeDegree(8, 12, 7);
+     *
+     * @param mixed $value Value to get degree
+     * @param mixed $length Circle size
+     * @param mixed $start Start value
+     *
+     * @return int
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+    public static function getRelativeDegree($value, $length, $start = 0) : int
     {
         return abs(self::mod($value - $start, $length));
     }

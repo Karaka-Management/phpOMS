@@ -2,7 +2,7 @@
 /**
  * Orange Management
  *
- * PHP Version 7.0
+ * PHP Version 7.1
  *
  * @category   TBD
  * @package    TBD
@@ -25,7 +25,7 @@ class AccountMapper extends DataMapperAbstract
     /**
      * Columns.
      *
-     * @var array<string, array>
+     * @var array
      * @since 1.0.0
      */
     protected static $columns = [

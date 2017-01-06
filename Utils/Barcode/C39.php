@@ -2,7 +2,7 @@
 /**
  * Orange Management
  *
- * PHP Version 7.0
+ * PHP Version 7.1
  *
  * @category   TBD
  * @package    TBD
@@ -88,7 +88,7 @@ class C39 extends C128Abstract
      * @since  1.0.0
      * @author Dennis Eichhorn
      */
-    public function setContent(string $content)
+    public function setContent(string $content) /* : void */
     {
         parent::setContent(strtoupper($content));
     }

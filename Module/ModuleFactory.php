@@ -2,7 +2,7 @@
 /**
  * Orange Management
  *
- * PHP Version 7.0
+ * PHP Version 7.1
  *
  * @category   TBD
  * @package    TBD
@@ -16,6 +16,7 @@
 namespace phpOMS\Module;
 
 use phpOMS\ApplicationAbstract;
+use phpOMS\Autoloader;
 
 /**
  * ModuleFactory class.
@@ -74,14 +75,19 @@ class ModuleFactory
      */
     public static function getInstance(string $module, ApplicationAbstract $app) : ModuleAbstract
     {
+        $class = '\\Modules\\' . $module . '\\Controller';
+
         if (!isset(self::$loaded[$module])) {
-            try {
-                $class                 = '\\Modules\\' . $module . '\\Controller';
-                $obj                   = new $class($app);
-                self::$loaded[$module] = $obj;
-                self::registerRequesting($obj);
-                self::registerProvided($obj);
-            } catch (\Exception $e) {
+            if(Autoloader::exists($class) !== false) {
+                try {
+                    $obj                   = new $class($app);
+                    self::$loaded[$module] = $obj;
+                    self::registerRequesting($obj);
+                    self::registerProvided($obj);
+                } catch (\Exception $e) {
+                    self::$loaded[$module] = new NullModule($app);
+                }
+            } else {
                 self::$loaded[$module] = new NullModule($app);
             }
         }
@@ -97,7 +103,7 @@ class ModuleFactory
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    private static function registerRequesting(ModuleAbstract $obj)
+    private static function registerRequesting(ModuleAbstract $obj) /* : void */
     {
         foreach ($obj->getProviding() as $providing) {
             if (isset(self::$loaded[$providing])) {
@@ -116,7 +122,7 @@ class ModuleFactory
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    private static function registerProvided(ModuleAbstract $obj)
+    private static function registerProvided(ModuleAbstract $obj) /* : void */
     {
         $name = $obj->getName();
         if (isset(self::$providing[$name])) {

@@ -2,7 +2,7 @@
 /**
  * Orange Management
  *
- * PHP Version 7.0
+ * PHP Version 7.1
  *
  * @category   TBD
  * @package    TBD
@@ -32,7 +32,7 @@ use phpOMS\Datatypes\Enum;
  */
 abstract class RelationType extends Enum
 {
-    const NONE = 0;
-    const NEWEST = 1;
-    const ALL = 2;
+    /* public */ const NONE = 0;
+    /* public */ const NEWEST = 1;
+    /* public */ const ALL = 2;
 }

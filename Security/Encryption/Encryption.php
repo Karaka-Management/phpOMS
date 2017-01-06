@@ -2,7 +2,7 @@
 /**
  * Orange Management
  *
- * PHP Version 7.0
+ * PHP Version 7.1
  *
  * @category   TBD
  * @package    TBD
@@ -101,7 +101,7 @@ class Encryption
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function setKey(string $key)
+    public function setKey(string $key) /* : void */
     {
         $this->key = $key;
     }
@@ -129,7 +129,7 @@ class Encryption
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function setCipher(string $key)
+    public function setCipher(string $key) /* : void */
     {
         $this->key = $key;
     }
@@ -157,7 +157,7 @@ class Encryption
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function setBlock(int $block)
+    public function setBlock(int $block) /* : void */
     {
         $this->block = $block;
     }
@@ -185,7 +185,7 @@ class Encryption
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function setMode(string $mode)
+    public function setMode(string $mode) /* : void */
     {
         $this->mode = $mode;
     }

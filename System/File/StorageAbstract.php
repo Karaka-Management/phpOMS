@@ -2,7 +2,7 @@
 /**
  * Orange Management
  *
- * PHP Version 7.0
+ * PHP Version 7.1
  *
  * @category   TBD
  * @package    TBD
@@ -64,7 +64,7 @@ abstract class StorageAbstract implements DirectoryInterface, FileInterface
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public static function getInstance()
+    public static function getInstance() : StorageAbstract
     {
         if(!isset(static::$instance)) {
             static::$instance = new static();

@@ -2,7 +2,7 @@
 /**
  * Orange Management
  *
- * PHP Version 7.0
+ * PHP Version 7.1
  *
  * @category   TBD
  * @package    TBD
@@ -117,7 +117,7 @@ class FunctionParser
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function setName(string $name)
+    public function setName(string $name) /* : void */
     {
         $this->name = $name;
     }
@@ -132,7 +132,7 @@ class FunctionParser
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function seBody(string $body)
+    public function seBody(string $body) /* : void */
     {
         $this->body = $body;
     }
@@ -158,7 +158,7 @@ class FunctionParser
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function removeBody()
+    public function removeBody() /* : void */
     {
         $this->body = '';
     }
@@ -186,7 +186,7 @@ class FunctionParser
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function setVisibility(string $visibility)
+    public function setVisibility(string $visibility) /* : void */
     {
         $this->visibility = $visibility;
     }
@@ -201,7 +201,7 @@ class FunctionParser
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function setStatic(bool $static)
+    public function setStatic(bool $static) /* : void */
     {
         $this->isStatic = $static;
     }
@@ -229,7 +229,7 @@ class FunctionParser
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function setFinal(bool $final)
+    public function setFinal(bool $final) /* : void */
     {
         $this->isFinal = $final;
     }
@@ -257,7 +257,7 @@ class FunctionParser
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function setAbstract(bool $abstract)
+    public function setAbstract(bool $abstract) /* : void */
     {
         $this->isAbstract = $abstract;
 
@@ -289,7 +289,7 @@ class FunctionParser
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function removeReturn()
+    public function removeReturn() /* : void */
     {
         $this->return = null;
     }
@@ -317,7 +317,7 @@ class FunctionParser
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function setReturn(string $return)
+    public function setReturn(string $return) /* : void */
     {
         $this->return = $return;
     }
@@ -334,7 +334,7 @@ class FunctionParser
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function addParameter(string $name, string $typehint = null, string $default = null)
+    public function addParameter(string $name, string $typehint = null, string $default = null) /* : void */
     {
         $this->parameters[$name]['name']     = $name;
         $this->parameters[$name]['typehint'] = $typehint;

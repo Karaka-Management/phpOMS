@@ -2,7 +2,7 @@
 /**
  * Orange Management
  *
- * PHP Version 7.0
+ * PHP Version 7.1
  *
  * @category   TBD
  * @package    TBD
@@ -63,7 +63,7 @@ class CookieJar
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public static function lock()
+    public static function lock() /* : void */
     {
         self::$isLocked = true;
     }
@@ -126,7 +126,7 @@ class CookieJar
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function delete(string $id)
+    public function delete(string $id) /* : void */
     {
         $this->remove($id);
         setcookie($id, '', time() - 3600);
@@ -156,10 +156,14 @@ class CookieJar
     /**
      * Save cookie
      *
+     * @return void
+     *
+     * @throws LockException
+     *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function save()
+    public function save() /* : void */
     {
         if (self::$isLocked) {
             throw new LockException('CookieJar');

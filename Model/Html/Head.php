@@ -2,7 +2,7 @@
 /**
  * Orange Management
  *
- * PHP Version 7.0
+ * PHP Version 7.1
  *
  * @category   TBD
  * @package    TBD
@@ -138,7 +138,7 @@ class Head implements RenderableInterface
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function setTitle(string $title)
+    public function setTitle(string $title) /* : void */
     {
         $this->title = $title;
     }
@@ -154,7 +154,7 @@ class Head implements RenderableInterface
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function addAsset(string $type, string $uri)
+    public function addAsset(string $type, string $uri) /* : void */
     {
         $this->assets[$uri] = $type;
     }
@@ -169,7 +169,7 @@ class Head implements RenderableInterface
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function setLanguage(string $language)
+    public function setLanguage(string $language) /* : void */
     {
         $this->language = $language;
     }
@@ -242,7 +242,7 @@ class Head implements RenderableInterface
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function setStyle(string $key, string $style, bool $overwrite = true)
+    public function setStyle(string $key, string $style, bool $overwrite = true) /* : void */
     {
         if ($overwrite || !isset($this->script[$key])) {
             $this->style[$key] = $style;
@@ -261,7 +261,7 @@ class Head implements RenderableInterface
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function setScript(string $key, string $script, bool $overwrite = true)
+    public function setScript(string $key, string $script, bool $overwrite = true) /* : void */
     {
         if ($overwrite || !isset($this->script[$key])) {
             $this->script[$key] = $script;

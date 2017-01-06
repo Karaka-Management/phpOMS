@@ -2,7 +2,7 @@
 /**
  * Orange Management
  *
- * PHP Version 7.0
+ * PHP Version 7.1
  *
  * @category   TBD
  * @package    TBD
@@ -106,7 +106,7 @@ class Location implements \JsonSerializable, \Serializable
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function setPostal(string $postal)
+    public function setPostal(string $postal) /* : void */
     {
         $this->postal = $postal;
     }
@@ -130,7 +130,7 @@ class Location implements \JsonSerializable, \Serializable
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function setCity(string $city)
+    public function setCity(string $city) /* : void */
     {
         $this->city = $city;
     }
@@ -154,7 +154,7 @@ class Location implements \JsonSerializable, \Serializable
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function setCountry(string $country)
+    public function setCountry(string $country) /* : void */
     {
         $this->country = $country;
     }
@@ -178,7 +178,7 @@ class Location implements \JsonSerializable, \Serializable
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function setAddress(string $address)
+    public function setAddress(string $address) /* : void */
     {
         $this->address = $address;
     }
@@ -202,7 +202,7 @@ class Location implements \JsonSerializable, \Serializable
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function setState(string $state)
+    public function setState(string $state) /* : void */
     {
         $this->state = $state;
     }
@@ -226,7 +226,7 @@ class Location implements \JsonSerializable, \Serializable
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function setGeo(array $geo)
+    public function setGeo(array $geo) /* : void */
     {
         $this->geo = $geo;
     }

@@ -2,7 +2,7 @@
 /**
  * Orange Management
  *
- * PHP Version 7.0
+ * PHP Version 7.1
  *
  * @category   TBD
  * @package    TBD
@@ -32,11 +32,11 @@ use phpOMS\Datatypes\Enum;
  */
 abstract class CacheType extends Enum
 {
-    const _INT = 0; /* Data is integer */
-    const _STRING = 1; /* Data is string */
-    const _ARRAY = 2; /* Data is array */
-    const _SERIALIZABLE = 3; /* Data is object */
-    const _JSONSERIALIZABLE = 6;
-    const _FLOAT = 4; /* Data is float */
-    const _BOOL = 5; /* Data is float */
+    /* public */ const _INT = 0; /* Data is integer */
+    /* public */ const _STRING = 1; /* Data is string */
+    /* public */ const _ARRAY = 2; /* Data is array */
+    /* public */ const _SERIALIZABLE = 3; /* Data is object */
+    /* public */ const _JSONSERIALIZABLE = 6;
+    /* public */ const _FLOAT = 4; /* Data is float */
+    /* public */ const _BOOL = 5; /* Data is float */
 }

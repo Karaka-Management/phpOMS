@@ -2,7 +2,7 @@
 /**
  * Orange Management
  *
- * PHP Version 7.0
+ * PHP Version 7.1
  *
  * @category   TBD
  * @package    TBD
@@ -30,17 +30,17 @@ use phpOMS\Datatypes\Enum;
  */
 abstract class AreaType extends Enum
 {
-    const SQUARE_FEET = 'ft';
-    const SQUARE_METERS = 'm';
-    const SQUARE_KILOMETERS = 'km';
-    const SQUARE_MILES = 'mi';
-    const SQUARE_YARDS = 'yd';
-    const SQUARE_INCHES = 'in';
-    const SQUARE_MICROINCHES = 'muin';
-    const SQUARE_CENTIMETERS = 'cm';
-    const SQUARE_MILIMETERS = 'mm';
-    const SQUARE_MICROMETERS = 'micron';
-    const SQUARE_DECIMETERS = 'dm';
-    const HECTARES = 'ha';
-    const ACRES = 'ac';
+    /* public */ const SQUARE_FEET = 'ft';
+    /* public */ const SQUARE_METERS = 'm';
+    /* public */ const SQUARE_KILOMETERS = 'km';
+    /* public */ const SQUARE_MILES = 'mi';
+    /* public */ const SQUARE_YARDS = 'yd';
+    /* public */ const SQUARE_INCHES = 'in';
+    /* public */ const SQUARE_MICROINCHES = 'muin';
+    /* public */ const SQUARE_CENTIMETERS = 'cm';
+    /* public */ const SQUARE_MILIMETERS = 'mm';
+    /* public */ const SQUARE_MICROMETERS = 'micron';
+    /* public */ const SQUARE_DECIMETERS = 'dm';
+    /* public */ const HECTARES = 'ha';
+    /* public */ const ACRES = 'ac';
 }

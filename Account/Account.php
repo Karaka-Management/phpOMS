@@ -2,7 +2,7 @@
 /**
  * Orange Management
  *
- * PHP Version 7.0
+ * PHP Version 7.1
  *
  * @category   TBD
  * @package    TBD
@@ -159,6 +159,7 @@ class Account implements ArrayableInterface, \JsonSerializable
     public function __construct(int $id = 0)
     {
         $this->createdAt = new \DateTime('now');
+        $this->lastActive = new \DateTime('now');
         $this->id        = $id;
         $this->l11n      = new NullLocalization();
     }
@@ -199,9 +200,22 @@ class Account implements ArrayableInterface, \JsonSerializable
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function setL11n(Localization $l11n)
+    public function setL11n(Localization $l11n) /* : void */
     {
         $this->l11n = $l11n;
+    }
+
+    /**
+     * Get name.
+     *
+     * @return string
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+    public function getName() : string
+    {
+        return $this->login;
     }
 
     /**
@@ -313,6 +327,21 @@ class Account implements ArrayableInterface, \JsonSerializable
     }
 
     /**
+     * Set name.
+     *
+     * @param string $name Name
+     *
+     * @return void
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+    public function setName(string $name) /* : void */
+    {
+        $this->login = $name;
+    }
+
+    /**
      * Set name1.
      *
      * @param string $name Name
@@ -322,7 +351,7 @@ class Account implements ArrayableInterface, \JsonSerializable
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function setName1(string $name)
+    public function setName1(string $name) /* : void */
     {
         $this->name1 = $name;
     }
@@ -337,7 +366,7 @@ class Account implements ArrayableInterface, \JsonSerializable
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function setName2(string $name)
+    public function setName2(string $name) /* : void */
     {
         $this->name2 = $name;
     }
@@ -352,7 +381,7 @@ class Account implements ArrayableInterface, \JsonSerializable
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function setName3(string $name)
+    public function setName3(string $name) /* : void */
     {
         $this->name3 = $name;
     }
@@ -367,7 +396,7 @@ class Account implements ArrayableInterface, \JsonSerializable
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function setEmail(string $email)
+    public function setEmail(string $email) /* : void */
     {
         if (!Email::isValid($email)) {
             throw new \InvalidArgumentException();
@@ -386,7 +415,7 @@ class Account implements ArrayableInterface, \JsonSerializable
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function setStatus(int $status)
+    public function setStatus(int $status) /* : void */
     {
         if (!AccountStatus::isValidValue($status)) {
             throw new \InvalidArgumentException();
@@ -405,7 +434,7 @@ class Account implements ArrayableInterface, \JsonSerializable
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function setType(int $type)
+    public function setType(int $type) /* : void */
     {
         if (!AccountType::isValidValue($type)) {
             throw new \InvalidArgumentException();

@@ -2,7 +2,7 @@
 /**
  * Orange Management
  *
- * PHP Version 7.0
+ * PHP Version 7.1
  *
  * @category   TBD
  * @package    TBD
@@ -31,21 +31,15 @@ class Schedule extends TaskAbstract implements \Serializable
     /**
      * Constructor.
      *
-     * @param Interval $interval Interval
-     * @param string   $cmd      Command to execute
+     * @param string $name Schedule name
+     * @param string $cmd  Command to execute
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function __construct(Interval $interval = null, string $cmd = '')
+    public function __construct(string $name, string $cmd = '')
     {
-        if (!isset($interval)) {
-            $this->interval = new Interval();
-        } else {
-            $this->interval = $interval;
-        }
-
-        $this->command = $cmd;
+        parent::__construct($name, $cmd);
     }
 
     /**

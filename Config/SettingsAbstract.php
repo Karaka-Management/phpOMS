@@ -2,7 +2,7 @@
 /**
  * Orange Management
  *
- * PHP Version 7.0
+ * PHP Version 7.1
  *
  * @category   TBD
  * @package    TBD
@@ -39,7 +39,7 @@ abstract class SettingsAbstract implements OptionsInterface
     /**
      * Cache manager (pool).
      *
-     * @var \phpOMS\DataStorage\Cache\Pool
+     * @var \phpOMS\DataStorage\Cache\CachePool
      * @since 1.0.0
      */
     protected $cache = null;
@@ -131,7 +131,7 @@ abstract class SettingsAbstract implements OptionsInterface
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function set(array $options, bool $store = false)
+    public function set(array $options, bool $store = false) /* : void */
     {
         $this->setOptions($options);
 

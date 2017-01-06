@@ -2,7 +2,7 @@
 /**
  * Orange Management
  *
- * PHP Version 7.0
+ * PHP Version 7.1
  *
  * @category   TBD
  * @package    TBD
@@ -35,21 +35,21 @@ abstract class ModuleAbstract
      * @var string
      * @since 1.0.0
      */
-    const MODULE_NAME = '';
+    /* public */ const MODULE_NAME = '';
     /**
      * Module path.
      *
      * @var string
      * @since 1.0.0
      */
-    const MODULE_PATH = __DIR__ . '/../../Modules';
+    /* public */ const MODULE_PATH = __DIR__ . '/../../Modules';
     /**
      * Module version.
      *
      * @var string
      * @since 1.0.0
      */
-    const MODULE_VERSION = '1.0.0';
+    /* public */ const MODULE_VERSION = '1.0.0';
     /**
      * Receiving modules from?
      *
@@ -105,9 +105,8 @@ abstract class ModuleAbstract
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public static function installExternal()
+    public static function installExternal() /* : void */
     {
-        return false;
     }
 
     /**
@@ -135,7 +134,7 @@ abstract class ModuleAbstract
     /**
      * {@inheritdoc}
      */
-    public function addReceiving(string $module)
+    public function addReceiving(string $module) /* : void */
     {
         $this->receiving[] = $module;
     }

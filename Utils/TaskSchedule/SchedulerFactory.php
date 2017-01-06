@@ -2,7 +2,7 @@
 /**
  * Orange Management
  *
- * PHP Version 7.0
+ * PHP Version 7.1
  *
  * @category   TBD
  * @package    TBD
@@ -35,14 +35,14 @@ final class SchedulerFactory
     /**
      * Create scheduler instance.
      *
-     * @return ScheduleInterface
+     * @return SchedulerAbstract
      *
      * @throws \Exception
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public static function create() : ScheduleInterface
+    public static function create() : SchedulerAbstract
     {
         switch (OperatingSystem::getSystem()) {
             case SystemType::WIN:

@@ -2,7 +2,7 @@
 /**
  * Orange Management
  *
- * PHP Version 7.0
+ * PHP Version 7.1
  *
  * @category   TBD
  * @package    TBD
@@ -73,7 +73,7 @@ class Directory extends FileAbstract implements DirectoryInterface
     /**
      * {@inheritdoc}
      */
-    public function index()
+    public function index() /* : void */
     {
         parent::index();
 
@@ -289,6 +289,10 @@ class Directory extends FileAbstract implements DirectoryInterface
     public static function create(string $path, string $permission = '0644', bool $recursive = false) : bool
     {
         if (!file_exists($path)) {
+            if(!is_writable($path)) {
+                return false;
+            }
+
             mkdir($path, $permission, $recursive);
 
             return true;
@@ -393,6 +397,7 @@ class Directory extends FileAbstract implements DirectoryInterface
      */
     public static function name(string $path) : string
     {
+        // todo: name doesn' t make sense
         // TODO: Implement name() method.
     }
 

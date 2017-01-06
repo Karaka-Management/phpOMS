@@ -2,7 +2,7 @@
 /**
  * Orange Management
  *
- * PHP Version 7.0
+ * PHP Version 7.1
  *
  * @category   TBD
  * @package    TBD
@@ -95,7 +95,7 @@ abstract class PacketAbstract implements \Serializable
      * @var Header
      * @since 1.0.0
      */
-    public function setHeader(Header $header)
+    public function setHeader(Header $header) /* : void */
     {
         $this->header = $header;
     }

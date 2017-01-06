@@ -2,7 +2,7 @@
 /**
  * Orange Management
  *
- * PHP Version 7.0
+ * PHP Version 7.1
  *
  * @category   TBD
  * @package    TBD
@@ -30,6 +30,6 @@ use phpOMS\Datatypes\Enum;
  */
 abstract class OrientationType extends Enum
 {
-    const HORIZONTAL = 0;
-    const VERTICAL = 1;
+    /* public */ const HORIZONTAL = 0;
+    /* public */ const VERTICAL = 1;
 }

@@ -2,7 +2,7 @@
 /**
  * Orange Management
  *
- * PHP Version 7.0
+ * PHP Version 7.1
  *
  * @category   TBD
  * @package    TBD
@@ -64,7 +64,7 @@ class Column
         return $this->column;
     }
 
-    public function setColumn(string $column)
+    public function setColumn(string $column) /* : void */
     {
         $this->column = $column;
     }

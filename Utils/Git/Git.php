@@ -2,7 +2,7 @@
 /**
  * Orange Management
  *
- * PHP Version 7.0
+ * PHP Version 7.1
  *
  * @category   TBD
  * @package    TBD
@@ -84,7 +84,7 @@ class Git
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public static function setBin(string $path)
+    public static function setBin(string $path) /* : void */
     {
         if (realpath($path) === false) {
             throw new PathException($path);

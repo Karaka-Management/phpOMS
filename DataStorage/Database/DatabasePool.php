@@ -2,7 +2,7 @@
 /**
  * Orange Management
  *
- * PHP Version 7.0
+ * PHP Version 7.1
  *
  * @category   TBD
  * @package    TBD
@@ -78,15 +78,15 @@ class DatabasePool
      *
      * @param mixed $key Database key
      *
-     * @return ConnectionAbstract|false
+     * @return ConnectionAbstract|null
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function get(string $key = 'core')
+    public function get(string $key = 'core') /* : ?ConnectionAbstract */
     {
         if (!isset($this->pool[$key])) {
-            return false; /* todo: return nullconnection */
+            return null; /* todo: return nullconnection */
         }
 
         return $this->pool[$key];

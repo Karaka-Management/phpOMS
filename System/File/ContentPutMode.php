@@ -2,7 +2,7 @@
 /**
  * Orange Management
  *
- * PHP Version 7.0
+ * PHP Version 7.1
  *
  * @category   TBD
  * @package    TBD
@@ -32,8 +32,8 @@ use phpOMS\Datatypes\Enum;
  */
 abstract class ContentPutMode extends Enum
 {
-    const APPEND = 1;
-    const PREPEND = 2;
-    const REPLACE = 4;
-    const CREATE = 8;
+    /* public */ const APPEND = 1;
+    /* public */ const PREPEND = 2;
+    /* public */ const REPLACE = 4;
+    /* public */ const CREATE = 8;
 }

@@ -2,7 +2,7 @@
 /**
  * Orange Management
  *
- * PHP Version 7.0
+ * PHP Version 7.1
  *
  * @category   TBD
  * @package    TBD
@@ -75,7 +75,7 @@ class EventManager implements Mediator
     /**
      * {@inheritdoc}
      */
-    public function trigger(string $group, string $id = '')
+    public function trigger(string $group, string $id = '', bool $reset = false) /* : void */
     {
         if (isset($this->groups[$group])) {
             unset($this->groups[$group][$id]);
@@ -117,7 +117,7 @@ class EventManager implements Mediator
     /**
      * {@inheritdoc}
      */
-    public function addGroup(string $group, string $id)
+    public function addGroup(string $group, string $id) /* : void */
     {
         if (!isset($this->groups[$group])) {
             $this->groups[$group] = [];

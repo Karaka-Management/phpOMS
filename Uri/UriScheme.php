@@ -2,7 +2,7 @@
 /**
  * Orange Management
  *
- * PHP Version 7.0
+ * PHP Version 7.1
  *
  * @category   TBD
  * @package    TBD
@@ -30,19 +30,19 @@ use phpOMS\Datatypes\Enum;
  */
 abstract class UriScheme extends Enum
 {
-    const HTTP = 0; /* Http */
-    const FILE = 1; /* File */
-    const MAILTO = 2; /* Mail */
-    const FTP = 3; /* FTP */
-    const HTTPS = 4; /* Https */
-    const IRC = 5; /* IRC */
-    const TEL = 6; /* Telephone */
-    const TELNET = 7; /* Telnet */
-    const SSH = 8; /* SSH */
-    const SKYPE = 9; /* Skype */
-    const SSL = 10; /* SSL */
-    const NFS = 11; /* Network File System */
-    const GEO = 12; /* Geo location */
-    const MARKET = 13; /* Android Market */
-    const ITMS = 14; /* iTunes */
+    /* public */ const HTTP = 0; /* Http */
+    /* public */ const FILE = 1; /* File */
+    /* public */ const MAILTO = 2; /* Mail */
+    /* public */ const FTP = 3; /* FTP */
+    /* public */ const HTTPS = 4; /* Https */
+    /* public */ const IRC = 5; /* IRC */
+    /* public */ const TEL = 6; /* Telephone */
+    /* public */ const TELNET = 7; /* Telnet */
+    /* public */ const SSH = 8; /* SSH */
+    /* public */ const SKYPE = 9; /* Skype */
+    /* public */ const SSL = 10; /* SSL */
+    /* public */ const NFS = 11; /* Network File System */
+    /* public */ const GEO = 12; /* Geo location */
+    /* public */ const MARKET = 13; /* Android Market */
+    /* public */ const ITMS = 14; /* iTunes */
 }

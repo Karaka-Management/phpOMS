@@ -2,7 +2,7 @@
 /**
  * Orange Management
  *
- * PHP Version 7.0
+ * PHP Version 7.1
  *
  * @category   TBD
  * @package    TBD
@@ -25,11 +25,11 @@ class Complex
     {
     }
 
-    public function setReal()
+    public function setReal() /* : void */
     {
     }
 
-    public function setImaginary()
+    public function setImaginary() /* : void */
     {
     }
 

@@ -2,7 +2,7 @@
 /**
  * Orange Management
  *
- * PHP Version 7.0
+ * PHP Version 7.1
  *
  * @category   TBD
  * @package    TBD
@@ -20,7 +20,7 @@ namespace phpOMS\Math\Statistic;
  * Average class.
  *
  * @category   Framework
- * @package    phpOMS\DataStorage\Database
+ * @package    phpOMS\Math\Statistic
  * @author     OMS Development Team <dev@oms.com>
  * @author     Dennis Eichhorn <d.eichhorn@oms.com>
  * @license    OMS License 1.0
@@ -30,17 +30,17 @@ namespace phpOMS\Math\Statistic;
 class Average
 {
 
-    const MA3 = [1 / 3, 1 / 3];
-    const MA5 = [0.2, 0.2, 0.2];
-    const MA2x12 = [5 / 6, 5 / 6, 5 / 6, 5 / 6, 5 / 6, 5 / 6, 0.42];
-    const MA3x3 = [1 / 3, 2 / 9, 1 / 9];
-    const MA3x5 = [0.2, 0.2, 2 / 15, 4 / 6];
-    const MAS15 = [0.231, 0.209, 0.144, 2 / 3, 0.009, -0.016, -0.019, -0.009];
-    const MAS21 = [0.171, 0.163, 0.134, 0.37, 0.51, 0.017, -0.006, -0.014, -0.014, -0.009, -0.003];
-    const MAH5 = [0.558, 0.294, -0.73];
-    const MAH9 = [0.330, 0.267, 0.119, -0.010, -0.041];
-    const MAH13 = [0.240, 0.214, 0.147, 0.66, 0, -0.028, -0.019];
-    const MAH23 = [0.148, 0.138, 0.122, 0.097, 0.068, 0.039, 0.013, -0.005, -0.015, -0.016, -0.011, -0.004];
+    /* public */ const MA3 = [1 / 3, 1 / 3];
+    /* public */ const MA5 = [0.2, 0.2, 0.2];
+    /* public */ const MA2x12 = [5 / 6, 5 / 6, 5 / 6, 5 / 6, 5 / 6, 5 / 6, 0.42];
+    /* public */ const MA3x3 = [1 / 3, 2 / 9, 1 / 9];
+    /* public */ const MA3x5 = [0.2, 0.2, 2 / 15, 4 / 6];
+    /* public */ const MAS15 = [0.231, 0.209, 0.144, 2 / 3, 0.009, -0.016, -0.019, -0.009];
+    /* public */ const MAS21 = [0.171, 0.163, 0.134, 0.37, 0.51, 0.017, -0.006, -0.014, -0.014, -0.009, -0.003];
+    /* public */ const MAH5 = [0.558, 0.294, -0.73];
+    /* public */ const MAH9 = [0.330, 0.267, 0.119, -0.010, -0.041];
+    /* public */ const MAH13 = [0.240, 0.214, 0.147, 0.66, 0, -0.028, -0.019];
+    /* public */ const MAH23 = [0.148, 0.138, 0.122, 0.097, 0.068, 0.039, 0.013, -0.005, -0.015, -0.016, -0.011, -0.004];
 
     /**
      * Average change.
@@ -49,8 +49,6 @@ class Average
      * @param int   $h Future steps
      *
      * @return float
-     *
-     * @throws
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
@@ -63,9 +61,19 @@ class Average
     }
 
     /**
-     * t = 3 and p = 3 means -1 0 +1, t = 4 and p = 2 means -1 0
-     * periods should be replaced with order than it's possible to test for even or odd m
-     * todo: maybe floor()?
+     * Moving average of dataset
+     *
+     * @param array $x       Dataset
+     * @param int   $order  Periods to use for average
+     * @param array $weight Weight for moving average
+     * @param bool $symmetric Cyclic moving average
+     *
+     * @return array Moving average of data
+     *
+     * @throws \Exception
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public static function totalMovingAverage(array $x, int $order, array $weight = null, bool $symmetric = false) : array
     {
@@ -81,17 +89,17 @@ class Average
     }
 
     /**
-     * Moving average or order m.
+     * Moving average of element in dataset
      *
      * @param array $x       Dataset
      * @param int   $t       Current period
-     * @param int   $periods Periods to use for average
+     * @param int   $order  Periods to use for average
+     * @param array $weight Weight for moving average
+     * @param bool $symmetric Cyclic moving average
      *
-     * @return float
+     * @return float Moving average
      *
-     * @todo   : allow counter i also to go into the future... required for forecast how? should be doable!
-     *
-     * @throws
+     * @throws \Exception
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
@@ -109,7 +117,7 @@ class Average
         $end   = $order % 2 === 0 ? $end - 1 : $end;
         $start = $t - 1 - ($periods - 2);
 
-        if (isset($weight)) {
+        if (!empty($weight)) {
             return self::weightedAverage(array_slice($x, $start, $end - $start), array_slice($weight, $start, $end - $start));
         } else {
             return self::arithmeticMean(array_slice($x, $start, $end - $start));
@@ -126,7 +134,7 @@ class Average
      *
      * @return float
      *
-     * @throws
+     * @throws \Exception
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
@@ -155,12 +163,12 @@ class Average
      *
      * @return float
      *
-     * @throws
+     * @throws \Exception
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public static function arithmeticMean(array $values)
+    public static function arithmeticMean(array $values) : float
     {
         $count = count($values);
 
@@ -230,12 +238,12 @@ class Average
      *
      * @return float
      *
-     * @throws
+     * @throws \Exception
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public static function geometricMean(array $values, int $offset = 0)
+    public static function geometricMean(array $values, int $offset = 0) : float
     {
         $count = count($values);
 
@@ -256,12 +264,12 @@ class Average
      *
      * @return float
      *
-     * @throws
+     * @throws \Exception
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public static function harmonicMean(array $values, int $offset = 0)
+    public static function harmonicMean(array $values, int $offset = 0) : float
     {
         sort($values);
 
@@ -296,7 +304,7 @@ class Average
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public static function angleMean($angles, int $offset = 0)
+    public static function angleMean($angles, int $offset = 0) : float
     {
         $y    = $x = 0;
         $size = count($angles);
@@ -321,7 +329,7 @@ class Average
      *
      * @return float
      *
-     * @throws
+     * @throws \Exception
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
@@ -349,8 +357,6 @@ class Average
      *
      * @return string
      *
-     * @throws
-     *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
@@ -375,7 +381,7 @@ class Average
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public static function angleMean2(array $angles, int $offset = 0)
+    public static function angleMean2(array $angles, int $offset = 0) : float
     {
         sort($angles);
 

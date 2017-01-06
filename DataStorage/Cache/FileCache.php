@@ -2,7 +2,7 @@
 /**
  * Orange Management
  *
- * PHP Version 7.0
+ * PHP Version 7.1
  *
  * @category   TBD
  * @package    TBD
@@ -22,7 +22,7 @@ use phpOMS\System\File\Local\File;
 /**
  * MemCache class.
  *
- * PHP Version 5.6
+ * PHP Version 7.1
  *
  * @category   Framework
  * @package    phpOMS\DataStorage\Cache
@@ -41,7 +41,15 @@ class FileCache implements CacheInterface
      * @var string
      * @since 1.0.0
      */
-    const DELIM = '$';
+    /* private */ const DELIM = '$';
+
+    /**
+     * File path sanitizer
+     *
+     * @var string
+     * @since 1.0.0
+     */
+    /* private */ const SANITIZE = '~';
 
     /**
      * Cache path.
@@ -136,15 +144,16 @@ class FileCache implements CacheInterface
     /**
      * {@inheritdoc}
      */
-    public function set($key, $value, int $expire = -1)
+    public function set($key, $value, int $expire = -1) /* : void */
     {
         if($this->status !== CacheStatus::ACTIVE) {
             return false;
         }
 
-        $path = File::sanitize($key, '~');
+        // todo: allow $key to contain / as char and create subdirectory if necessary. This is important for cleaner caching.
+        $path = File::sanitize($key, self::SANITIZE);
 
-        file_put_contents($this->cachePath . '/' . $path . '.cache', $this->build($value, $expire));
+        file_put_contents($this->cachePath . '/' . trim($path, '/') . '.cache', $this->build($value, $expire));
 
         return false;
     }
@@ -158,8 +167,8 @@ class FileCache implements CacheInterface
             return false;
         }
 
-        $name = File::sanitize($key, '~');
-        $path = $this->cachePath . '/' . $path . '.cache';
+        $path = File::sanitize($key, self::SANITIZE);
+        $path = $this->cachePath . '/' . trim($path, '/') . '.cache';
 
         if (!file_exists($path)) {
             file_put_contents($path, $this->build($value, $expire));
@@ -275,8 +284,8 @@ class FileCache implements CacheInterface
             return null;
         }
 
-        $name = File::sanitize($key, '~');
-        $path = $this->cachePath . '/' . $name . '.cache';
+        $name = File::sanitize($key, self::SANITIZE);
+        $path = $this->cachePath . '/' . trim($name, '/') . '.cache';
 
         if(!file_exists($path)) {
             return null;
@@ -342,8 +351,8 @@ class FileCache implements CacheInterface
             return false;
         }
 
-        $name = File::sanitize($key, '~');
-        $path = $this->cachePath . '/' . $name . '.cache';
+        $name = File::sanitize($key, self::SANITIZE);
+        $path = $this->cachePath . '/' . trim($name, '/') . '.cache';
 
         if ($expire < 0 && file_exists($path)) {
             unlink($path);
@@ -405,8 +414,8 @@ class FileCache implements CacheInterface
             return false;
         }
 
-        $name = File::sanitize($key, '~');
-        $path = $this->cachePath . '/' . $path . '.cache';
+        $name = File::sanitize($key, self::SANITIZE);
+        $path = $this->cachePath . '/' . trim($path, '/') . '.cache';
 
         if (file_exists($path)) {
             file_put_contents($path, $this->build($value, $expire));

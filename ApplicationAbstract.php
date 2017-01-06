@@ -2,7 +2,7 @@
 /**
  * Orange Management
  *
- * PHP Version 7.0
+ * PHP Version 7.1
  *
  * @category   TBD
  * @package    TBD
@@ -36,6 +36,14 @@ class ApplicationAbstract
      * @since 1.0.0
      */
     public $appName = '';
+
+    /**
+     * Config.
+     *
+     * @var array
+     * @since 1.0.0
+     */
+    private $config = [];
 
     /**
      * Database object.

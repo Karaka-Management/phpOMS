@@ -2,7 +2,7 @@
 /**
  * Orange Management
  *
- * PHP Version 7.0
+ * PHP Version 7.1
  *
  * @category   TBD
  * @package    TBD
@@ -84,7 +84,7 @@ class ConsoleSession implements SessionInterface
     /**
      * {@inheritdoc}
      */
-    public function setSID($sid)
+    public function setSID($sid) /* : void */
     {
         $this->sid = $sid;
     }

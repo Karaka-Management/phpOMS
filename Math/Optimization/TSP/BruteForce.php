@@ -2,7 +2,7 @@
 /**
  * Orange Management
  *
- * PHP Version 7.0
+ * PHP Version 7.1
  *
  * @category   TBD
  * @package    TBD
@@ -35,7 +35,7 @@ class BruteForce
      * @var float
      * @since 1.0.0
      */
-    const LIMIT = 22;
+    /* public */ const LIMIT = 22;
 
     /**
      * City pool.
@@ -50,7 +50,7 @@ class BruteForce
      *
      * @param CityPool $pool City pool
      *
-     * @throws
+     * @throws \Exception
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>

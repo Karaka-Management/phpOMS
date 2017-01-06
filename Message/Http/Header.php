@@ -2,7 +2,7 @@
 /**
  * Orange Management
  *
- * PHP Version 7.0
+ * PHP Version 7.1
  *
  * @category   TBD
  * @package    TBD
@@ -220,7 +220,7 @@ class Header extends HeaderAbstract
                 $this->generate503();
                 break;
             default:
-                throw new \Exception('Unexpected header code');
+                $this->generate500();
         }
     }
 
@@ -280,6 +280,22 @@ class Header extends HeaderAbstract
     private function generate407()
     {
 
+    }
+
+    /**
+     * Generate predefined header.
+     *
+     * @return void
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+    private function generate500()
+    {
+        $this->set('HTTP', 'HTTP/1.0 500 Internal Server Error');
+        $this->set('Status', 'Status: 500 Internal Server Error');
+        $this->set('Retry-After', 'Retry-After: 300');
+        http_response_code(500);
     }
 
     /**

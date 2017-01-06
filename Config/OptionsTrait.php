@@ -2,7 +2,7 @@
 /**
  * Orange Management
  *
- * PHP Version 7.0
+ * PHP Version 7.1
  *
  * @category   TBD
  * @package    TBD
@@ -36,7 +36,7 @@ trait OptionsTrait
     /**
      * {@inheritdoc}
      */
-    public function exists($key)
+    public function exists($key) : bool
     {
         return isset($this->options[$key]);
     }

@@ -2,7 +2,7 @@
 /**
  * Orange Management
  *
- * PHP Version 7.0
+ * PHP Version 7.1
  *
  * @category   TBD
  * @package    TBD
@@ -36,7 +36,7 @@ class ClassParser
      * @var int
      * @since 1.0.0
      */
-    const INDENT = 4;
+    /* public */ const INDENT = 4;
 
     /**
      * Is final?
@@ -152,7 +152,7 @@ class ClassParser
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function createFile(string $path)
+    public function createFile(string $path) /* : void */
     {
         // todo: implement
     }
@@ -167,7 +167,7 @@ class ClassParser
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function setFinal(bool $final)
+    public function setFinal(bool $final) /* : void */
     {
         $this->isFinal = $final;
     }
@@ -195,7 +195,7 @@ class ClassParser
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function setAbstract(bool $abstract)
+    public function setAbstract(bool $abstract) /* : void */
     {
         $this->isAbstract = $abstract;
     }
@@ -238,7 +238,7 @@ class ClassParser
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function setType(string $type)
+    public function setType(string $type) /* : void */
     {
         $this->type = $type;
     }
@@ -266,7 +266,7 @@ class ClassParser
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function setExtends(string $extends)
+    public function setExtends(string $extends) /* : void */
     {
         $this->extends = $extends;
     }
@@ -279,7 +279,7 @@ class ClassParser
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function removeExtends()
+    public function removeExtends() /* : void */
     {
         $this->extends = '';
     }
@@ -307,7 +307,7 @@ class ClassParser
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function setNamespace(string $namespace)
+    public function setNamespace(string $namespace) /* : void */
     {
         $this->namespace = $namespace;
     }
@@ -320,7 +320,7 @@ class ClassParser
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function removeNamespace()
+    public function removeNamespace() /* : void */
     {
         $this->namespace = '';
     }
@@ -336,7 +336,7 @@ class ClassParser
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function addUse(string $namespace, string $as = null)
+    public function addUse(string $namespace, string $as = null) /* : void */
     {
         if (isset($as)) {
             $this->use[$as] = $namespace;
@@ -389,7 +389,7 @@ class ClassParser
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function setName(string $name)
+    public function setName(string $name) /* : void */
     {
         $this->name = $name;
     }
@@ -404,7 +404,7 @@ class ClassParser
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function addImplements(string $implements)
+    public function addImplements(string $implements) /* : void */
     {
         $this->implements[] = $implements;
 
@@ -421,7 +421,7 @@ class ClassParser
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function addInclude(string $include)
+    public function addInclude(string $include) /* : void */
     {
         $this->includes[] = $include;
 
@@ -438,7 +438,7 @@ class ClassParser
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function addRequire(string $require)
+    public function addRequire(string $require) /* : void */
     {
         $this->requires[] = $require;
 
@@ -456,7 +456,7 @@ class ClassParser
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function addTrait(string $trait, string $as = null)
+    public function addTrait(string $trait, string $as = null) /* : void */
     {
         if (isset($as)) {
             $this->traits[$as] = $trait;
@@ -496,7 +496,7 @@ class ClassParser
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function addMember(MemberParser $member)
+    public function addMember(MemberParser $member) /* : void */
     {
         $this->members[$member->getName()] = $member;
     }

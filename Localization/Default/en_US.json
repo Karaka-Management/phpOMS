@@ -14,7 +14,7 @@
         "light": "g",
         "medium": "kg",
         "heavy": "t",
-        "very_heavy": "t",
+        "very_heavy": "t"
     },
     "speed": {
         "very_slow": "ms",
@@ -56,6 +56,6 @@
         "short": "m.y",
         "medium": "d.m.Y",
         "long": "d.m.Y h:i",
-        "very_long": "d.m.Y h:i:s",
+        "very_long": "d.m.Y h:i:s"
     }
 }

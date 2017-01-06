@@ -2,7 +2,7 @@
 /**
  * Orange Management
  *
- * PHP Version 7.0
+ * PHP Version 7.1
  *
  * @category   TBD
  * @package    TBD
@@ -87,12 +87,12 @@ class Matrix implements \ArrayAccess, \Iterator
      * @param int $n     Column
      * @param int $value Value
      *
-     * @throws
+     * @throws DimensionException
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function set(int $m, int $n, $value)
+    public function set(int $m, int $n, $value) /* : void */
     {
         if (!isset($this->matrix[$m][$n])) {
             throw new DimensionException($m, $n);
@@ -109,7 +109,7 @@ class Matrix implements \ArrayAccess, \Iterator
      *
      * @return mixed
      *
-     * @throws
+     * @throws DimensionException
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
@@ -767,7 +767,7 @@ class Matrix implements \ArrayAccess, \Iterator
      */
     public function valid()
     {
-        $this->offsetExists($this->position);
+        return $this->offsetExists($this->position);
     }
 
     /**

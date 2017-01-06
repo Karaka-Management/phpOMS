@@ -2,7 +2,7 @@
 /**
  * Orange Management
  *
- * PHP Version 7.0
+ * PHP Version 7.1
  *
  * @category   TBD
  * @package    TBD
@@ -145,7 +145,7 @@ class Http implements UriInterface
     /**
      * {@inheritdoc}
      */
-    public function set(string $uri)
+    public function set(string $uri) /* : void */
     {
         $this->uri = $uri;
         $url       = parse_url($this->uri);
@@ -155,7 +155,7 @@ class Http implements UriInterface
         $this->port   = $url['port'] ?? null;
         $this->user   = $url['user'] ?? null;
         $this->pass   = $url['pass'] ?? null;
-        $this->path   = $url['path'] ?? null;
+        $this->path   = $url['path'] ?? '';
 
         if (StringUtils::endsWith($this->path, '.php')) {
             $this->path = substr($this->path, 0, -4);
@@ -183,7 +183,7 @@ class Http implements UriInterface
     public static function getCurrent() : string
     {
         /** @noinspection PhpUndefinedConstantInspection */
-        return 'http://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
+        return 'http://' . ($_SERVER['HTTP_HOST'] ?? '') . ($_SERVER['REQUEST_URI'] ?? '');
     }
 
     /**
@@ -204,13 +204,13 @@ class Http implements UriInterface
      */
     public function getRootPath() : string
     {
-        return $this->rootPath ?? '';
+        return $this->rootPath;
     }
 
     /**
      * {@inheritdoc}
      */
-    public function setRootPath(string $root)
+    public function setRootPath(string $root) /* : void */
     {
         $this->rootPath = $root;
         $this->set($this->uri);
@@ -266,7 +266,8 @@ class Http implements UriInterface
      */
     public function getRoute() : string
     {
-        return ($this->path ?? '') . '?' . $this->getQuery();
+        $query = $this->getQuery();
+        return ($this->path ?? '') . (!empty($query) ? '?' . $this->getQuery() : '');
     }
 
     /**
@@ -280,7 +281,7 @@ class Http implements UriInterface
     /**
      * {@inheritdoc}
      */
-    public function getQuery(string $key = null)
+    public function getQuery(string $key = null) /* : ?string */
     {
         return isset($key) ? $this->query[$key] ?? null : $this->queryString ?? '';
     }

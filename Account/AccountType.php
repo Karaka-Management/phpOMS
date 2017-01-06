@@ -2,7 +2,7 @@
 /**
  * Orange Management
  *
- * PHP Version 7.0
+ * PHP Version 7.1
  *
  * @category   TBD
  * @package    TBD
@@ -30,6 +30,6 @@ use phpOMS\Datatypes\Enum;
  */
 abstract class AccountType extends Enum
 {
-    const USER = 0;
-    const GROUP = 1;
+    /* public */ const USER = 0;
+    /* public */ const GROUP = 1;
 }

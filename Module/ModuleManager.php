@@ -2,7 +2,7 @@
 /**
  * Orange Management
  *
- * PHP Version 7.0
+ * PHP Version 7.1
  *
  * @category   TBD
  * @package    TBD
@@ -43,7 +43,7 @@ class ModuleManager
      * @var string
      * @since 1.0.0
      */
-    const MODULE_PATH = __DIR__ . '/../../Modules';
+    /* public */ const MODULE_PATH = __DIR__ . '/../../Modules';
 
     /**
      * All modules that are running on this uri.
@@ -351,7 +351,7 @@ class ModuleManager
      *
      * @return bool
      *
-     * @throws
+     * @throws \Exception
      *
      * @since  1.0.0
      * @author Dennis Eichhorn
@@ -433,7 +433,7 @@ class ModuleManager
      * @since  1.0.0
      * @author Dennis Eichhorn
      */
-    private function installDependencies(array $dependencies)
+    private function installDependencies(array $dependencies) /* : void */
     {
         foreach ($dependencies as $key => $version) {
             $this->install($key);
@@ -452,7 +452,7 @@ class ModuleManager
      * @since  1.0.0
      * @author Dennis Eichhorn
      */
-    private function installModule(InfoManager $info)
+    private function installModule(InfoManager $info) /* : void */
     {
         /** @var $class InstallerAbstract */
         $class = '\\Modules\\' . $info->getDirectory() . '\\Admin\\Installer';
@@ -476,7 +476,7 @@ class ModuleManager
      * @since  1.0.0
      * @author Dennis Eichhorn
      */
-    private function deactivateModule(InfoManager $info)
+    private function deactivateModule(InfoManager $info) /* : void */
     {
         $class = '\\Modules\\' . $info->getDirectory() . '\\Admin\\Deactivate';
 
@@ -500,7 +500,7 @@ class ModuleManager
      * @since  1.0.0
      * @author Dennis Eichhorn
      */
-    private function activateModule(InfoManager $info)
+    private function activateModule(InfoManager $info) /* : void */
     {
         $class = '\\Modules\\' . $info->getDirectory() . '\\Admin\\Deactivate';
 
@@ -572,7 +572,7 @@ class ModuleManager
      * @since  1.0.0
      * @author Dennis Eichhorn
      */
-    public function installProviding(string $from, string $for)
+    public function installProviding(string $from, string $for) /* : void */
     {
         if (file_exists(self::MODULE_PATH . '/' . $from . '/Admin/Install/' . $for . '.php')) {
             $class = '\\Modules\\' . $from . '\\Admin\\Install\\' . $for;
@@ -586,12 +586,14 @@ class ModuleManager
      *
      * @param string|array $modules Module name
      *
-     * @throws
+     * @return void
+     *
+     * @throws \InvalidArgumentException
      *
      * @since  1.0.0
      * @author Dennis Eichhorn
      */
-    public function initModule($modules)
+    public function initModule($modules) /* : void */
     {
         $modules = (array) $modules;
 
@@ -613,12 +615,12 @@ class ModuleManager
      *
      * @return void
      *
-     * @throws
+     * @throws \Exception
      *
      * @since  1.0.0
      * @author Dennis Eichhorn
      */
-    private function initModuleController(string $module)
+    private function initModuleController(string $module) /* : void */
     {
         try {
             $this->running[$module] = ModuleFactory::getInstance($module, $this->app);
@@ -635,12 +637,12 @@ class ModuleManager
      *
      * @return \phpOMS\Module\ModuleAbstract
      *
-     * @throws
+     * @throws \Exception
      *
      * @since  1.0.0
      * @author Dennis Eichhorn
      */
-    public function get(string $module)
+    public function get(string $module) : ModuleAbstract
     {
         try {
             if (!isset($this->running[$module])) {

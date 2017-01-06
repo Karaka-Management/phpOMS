@@ -2,7 +2,7 @@
 /**
  * Orange Management
  *
- * PHP Version 7.0
+ * PHP Version 7.1
  *
  * @category   TBD
  * @package    TBD
@@ -18,7 +18,7 @@ namespace phpOMS\Stdlib\Collection;
 use phpOMS\Utils\ArrayUtils;
 
 /**
- * Multimap utils.
+ * Collection.
  *
  * @category   Framework
  * @package    phpOMS\Stdlib
@@ -30,28 +30,78 @@ use phpOMS\Utils\ArrayUtils;
  */
 class Collection implements \Countable, \ArrayAccess, \Iterator, \JsonSerializable
 {
+    /**
+     * Collection.
+     *
+     * @var array
+     * @since 1.0.0
+     */
     private $collection = [];
 
+    /**
+     * Create collection from array.
+     *
+     * @param array $data Collection data
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
     public function __construct(array $data)
     {
         $this->collection = $data;
     }
 
+    /**
+     * Turn collection to array.
+     *
+     * @return array Collection array representation
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
     public function toArray() : array
     {
         return $this->collection;
     }
 
+    /**
+     * Json serialize.
+     *
+     * @return string
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
     public function jsonSerialize()
     {
         return json_encode($this->collection);
     }
 
+    /**
+     * Get average of collection data.
+     *
+     * @param mixed $filter Filter for average calculation
+     *
+     * @return mixed
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
     public function avg($filter = null)
     {
         return $this->sum($filter) / $this->count();
     }
 
+    /**
+     * Get sum of collection data.
+     *
+     * @param mixed $filter Filter for sum calculation
+     *
+     * @return mixed
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
     public function sum($filter = null)
     {
         $sum = 0;
@@ -77,16 +127,51 @@ class Collection implements \Countable, \ArrayAccess, \Iterator, \JsonSerializab
         return $sum;
     }
 
+    /**
+     * Get collection count.
+     *
+     * @return int
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
     public function count()
     {
         return count($this->collection);
     }
 
-    public function chunk(int $size) : Collection
+    /**
+     * Chunk collection.
+     *
+     * Creates new collection in the specified size.
+     *
+     * @param int $size Chunk size
+     *
+     * @return Collection[]
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+    public function chunk(int $size) : array
     {
-        return new self(array_chunk($this->collection, $size));
+        $arrays = array_chunk($this->collection, $size);
+        $collections = [];
+
+        foreach($arrays as $array) {
+            $collections[] = new self($array);
+        }
+
+        return $collections;
     }
 
+    /**
+     * Collapse collection.
+     *
+     * @return Collection
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
     public function collapse() : Collection
     {
         $return = [];
@@ -116,12 +201,22 @@ class Collection implements \Countable, \ArrayAccess, \Iterator, \JsonSerializab
         return $this;
     }
 
+    /**
+     * Check if collection contains a value.
+     *
+     * @param string|int|float|\Closure $find Needle
+     *
+     * @return bool
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
     public function contains($find) : bool
     {
         foreach ($this->collection as $key => $value) {
             if (is_string($find) && ((is_string($value) && $find === $value) || (is_array($value) && in_array($find, $value)))) {
                 return true;
-            } elseif ($find instanceof Collection) {
+            } elseif ($find instanceof \Closure) {
                 $result = $find($value, $key);
 
                 if ($result) {
@@ -133,13 +228,23 @@ class Collection implements \Countable, \ArrayAccess, \Iterator, \JsonSerializab
         return false;
     }
 
-    public function diff(array $compare) : array
+    /**
+     * Diff of collection.
+     *
+     * @param Collection|array $compare To compare with
+     *
+     * @return array
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+    public function diff($compare) : array
     {
         $diff = [];
 
         foreach ($this->collection as $key => $value) {
             if ($value !== current($compare)) {
-                $diff = $value;
+                $diff[] = $value;
             }
 
             next($compare);
@@ -163,6 +268,16 @@ class Collection implements \Countable, \ArrayAccess, \Iterator, \JsonSerializab
         return $diff;
     }
 
+    /**
+     * Get collection that contains every n-th element.
+     *
+     * @param int $n Every n-th element
+     *
+     * @return Collection
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
     public function every(int $n) : Collection
     {
         $values = array_values($this->collection);
@@ -310,10 +425,6 @@ class Collection implements \Countable, \ArrayAccess, \Iterator, \JsonSerializab
         return $this;
     }
 
-    public function range()
-    {
-    }
-
     public function has($key) : bool
     {
         return isset($this->collection[$key]);
@@ -456,7 +567,7 @@ class Collection implements \Countable, \ArrayAccess, \Iterator, \JsonSerializab
         return $total;
     }
 
-    public function search($filter, bool $strict = true)
+    public function search($filter, bool $strict = true) /* : void */
     {
         if (is_scalar($filter)) {
             array_search($filter, $this->collection, $strict);
@@ -478,14 +589,17 @@ class Collection implements \Countable, \ArrayAccess, \Iterator, \JsonSerializab
 
     public function shuffle() : Collection
     {
+        return new self(shuffle($this->collection));
     }
 
-    public function slice()
+    public function slice(int $offset, int $length) : Collection
     {
+        return new self(array_slice($this->collection, $offset, $length));
     }
 
-    public function splice()
+    public function splice(int $offset, int $length) : Collection
     {
+        return new self(array_splice($this->collection, $offset, $length));
     }
 
     public function push($value) : Collection
@@ -503,7 +617,29 @@ class Collection implements \Countable, \ArrayAccess, \Iterator, \JsonSerializab
      */
     public function current()
     {
-        // TODO: Implement current() method.
+        return current($this->collection);
+    }
+
+    /**
+     * Offset to retrieve
+     *
+     * @param mixed $offset The offset to retrieve.
+     *
+     * @return mixed Can return all value types.
+     *
+     * @throws \Exception
+     *
+     * @link  http://php.net/manual/en/arrayaccess.offsetget.php
+     *
+     * @since 1.0.0
+     */
+    public function offsetGet($offset)
+    {
+        if(!isset($this->collection[$offset])) {
+            throw new \Exception('Invalid offset');
+        }
+
+        return $this->collection[$offset];
     }
 
     /**
@@ -514,7 +650,7 @@ class Collection implements \Countable, \ArrayAccess, \Iterator, \JsonSerializab
      */
     public function next()
     {
-        // TODO: Implement next() method.
+        next($this->collection);
     }
 
     /**
@@ -525,7 +661,7 @@ class Collection implements \Countable, \ArrayAccess, \Iterator, \JsonSerializab
      */
     public function key()
     {
-        // TODO: Implement key() method.
+        return key($this->collection);
     }
 
     /**
@@ -537,18 +673,7 @@ class Collection implements \Countable, \ArrayAccess, \Iterator, \JsonSerializab
      */
     public function valid()
     {
-        // TODO: Implement valid() method.
-    }
-
-    /**
-     * Rewind the Iterator to the first element
-     * @link  http://php.net/manual/en/iterator.rewind.php
-     * @return void Any returned value is ignored.
-     * @since 5.0.0
-     */
-    public function rewind()
-    {
-        // TODO: Implement rewind() method.
+        return isset($this->collection[key($this->collection)]);
     }
 
     /**
@@ -565,21 +690,18 @@ class Collection implements \Countable, \ArrayAccess, \Iterator, \JsonSerializab
      */
     public function offsetExists($offset)
     {
-        // TODO: Implement offsetExists() method.
+        return isset($this->collection[$offset]);
     }
 
     /**
-     * Offset to retrieve
-     * @link  http://php.net/manual/en/arrayaccess.offsetget.php
-     * @param mixed $offset <p>
-     *                      The offset to retrieve.
-     *                      </p>
-     * @return mixed Can return all value types.
+     * Rewind the Iterator to the first element
+     * @link  http://php.net/manual/en/iterator.rewind.php
+     * @return void Any returned value is ignored.
      * @since 5.0.0
      */
-    public function offsetGet($offset)
+    public function rewind()
     {
-        // TODO: Implement offsetGet() method.
+        rewind($this->collection);
     }
 
     /**
@@ -596,7 +718,7 @@ class Collection implements \Countable, \ArrayAccess, \Iterator, \JsonSerializab
      */
     public function offsetSet($offset, $value)
     {
-        // TODO: Implement offsetSet() method.
+        $this->collection[$offset] = $value;
     }
 
     /**
@@ -610,6 +732,8 @@ class Collection implements \Countable, \ArrayAccess, \Iterator, \JsonSerializab
      */
     public function offsetUnset($offset)
     {
-        // TODO: Implement offsetUnset() method.
+        if(isset($this->collection[$offset])) {
+            unset($this->collection[$offset]);
+        }
     }
 }

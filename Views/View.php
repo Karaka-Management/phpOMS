@@ -2,7 +2,7 @@
 /**
  * Orange Management
  *
- * PHP Version 7.0
+ * PHP Version 7.1
  *
  * @category   TBD
  * @package    TBD
@@ -99,7 +99,7 @@ class View extends ViewAbstract
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function getData($id)
+    public function getData(string $id)
     {
         return $this->data[$id] ?? null;
     }
@@ -113,7 +113,7 @@ class View extends ViewAbstract
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function setData(string $id, $data)
+    public function setData(string $id, $data) /* : void */
     {
         $this->data[$id] = $data;
     }
@@ -156,18 +156,18 @@ class View extends ViewAbstract
     /**
      * Get translation.
      *
+     * @param string $translation Text
      * @param string $module      Module name
      * @param string $theme       Theme name
-     * @param string $translation Text
+     * 
+     * @return string
      *
-     * @return array
-     *
-     * @throws
+     * @throws \Exception
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    protected function getText(string $translation, string $module = null, string $theme = null)
+    protected function getText(string $translation, string $module = null, string $theme = null) : string
     {
         if (!isset($module)) {
             $match = '/Modules/';
@@ -197,23 +197,23 @@ class View extends ViewAbstract
     }
 
     /**
-     * @return Request
+     * @return RequestAbstract
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function getRequest()
+    public function getRequest() : RequestAbstract
     {
         return $this->request;
     }
 
     /**
-     * @return Response
+     * @return ResponseAbstract
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function getResponse() : Response
+    public function getResponse() : ResponseAbstract
     {
         return $this->response;
     }

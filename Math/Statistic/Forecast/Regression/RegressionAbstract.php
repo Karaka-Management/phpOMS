@@ -1,6 +1,19 @@
 <?php
-
-namespace phpOMS\Math\Statistic\Forecast\Regression;
+/**
+ * Orange Management
+ *
+ * PHP Version 7.1
+ *
+ * @category   TBD
+ * @package    TBD
+ * @author     OMS Development Team <dev@oms.com>
+ * @author     Dennis Eichhorn <d.eichhorn@oms.com>
+ * @copyright  2013 Dennis Eichhorn
+ * @license    OMS License 1.0
+ * @version    1.0.0
+ * @link       http://orange-management.com
+ */
+ namespace phpOMS\Math\Statistic\Forecast\Regression;
 
 use phpOMS\Math\Statistic\Average;
 use phpOMS\Math\Statistic\Forecast\ForecastIntervalMultiplier;
@@ -17,6 +30,8 @@ abstract class RegressionAbstract
      * @param array $y Observed y values
      *
      * @return array [b0 => ?, b1 => ?]
+     *
+     * @throws \Exception
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>

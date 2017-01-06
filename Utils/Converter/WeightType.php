@@ -2,7 +2,7 @@
 /**
  * Orange Management
  *
- * PHP Version 7.0
+ * PHP Version 7.1
  *
  * @category   TBD
  * @package    TBD
@@ -30,18 +30,18 @@ use phpOMS\Datatypes\Enum;
  */
 abstract class WeightType extends Enum
 {
-    const MICROGRAM = 'mg';
-    const MILLIGRAM = 'mug';
-    const GRAM = 'g';
-    const KILOGRAM = 'kg';
-    const METRIC_TONS = 't';
-    const POUNDS = 'lb';
-    const OUNCES = 'oz';
-    const STONES = 'st';
-    const GRAIN = 'gr';
-    const CARAT = 'ct';
-    const LONG_TONS = 'uk t';
-    const SHORT_TONS = 'us ton';
-    const TROY_POUNDS = 't lb';
-    const TROY_OUNCES = 't oz';
+    /* public */ const MICROGRAM = 'mg';
+    /* public */ const MILLIGRAM = 'mug';
+    /* public */ const GRAM = 'g';
+    /* public */ const KILOGRAM = 'kg';
+    /* public */ const METRIC_TONS = 't';
+    /* public */ const POUNDS = 'lb';
+    /* public */ const OUNCES = 'oz';
+    /* public */ const STONES = 'st';
+    /* public */ const GRAIN = 'gr';
+    /* public */ const CARAT = 'ct';
+    /* public */ const LONG_TONS = 'uk t';
+    /* public */ const SHORT_TONS = 'us ton';
+    /* public */ const TROY_POUNDS = 't lb';
+    /* public */ const TROY_OUNCES = 't oz';
 }

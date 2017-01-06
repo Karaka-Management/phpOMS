@@ -2,7 +2,7 @@
 /**
  * Orange Management
  *
- * PHP Version 7.0
+ * PHP Version 7.1
  *
  * @category   TBD
  * @package    TBD
@@ -98,7 +98,7 @@ class Grammar extends GrammarAbstract
      *
      * @return string[]
      *
-     * @throws
+     * @throws \InvalidArgumentException
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
@@ -214,6 +214,18 @@ class Grammar extends GrammarAbstract
         return 'WHERE ' . $expression;
     }
 
+    /**
+     * Compile where element.
+     *
+     * @param array $element Element data
+     * @param Builder $query Query builder
+     * @param bool    $first  Is first element (usefull for nesting)
+     *
+     * @return string
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
     protected function compileWhereElement(array $element, Builder $query, bool $first = true) : string
     {
         $expression = '';
@@ -264,6 +276,9 @@ class Grammar extends GrammarAbstract
             if(strpos($value, ':') === 0) {
                 return $value;
             }
+
+            // todo: fix for injection
+            // todo: implement binding
 
             return $this->valueQuotes . $value . $this->valueQuotes;
         } elseif (is_int($value)) {

@@ -2,7 +2,7 @@
 /**
  * Orange Management
  *
- * PHP Version 7.0
+ * PHP Version 7.1
  *
  * @category   TBD
  * @package    TBD
@@ -27,12 +27,12 @@ class ExcelDatabaseMapper implements IODatabaseMapper
         $this->sources[] = $source;
     }
 
-    public function setLineBuffer(int $buffer)
+    public function setLineBuffer(int $buffer) /* : void */
     {
         $this->lineBuffer = $buffer;
     }
 
-    public function setSources(array $sources)
+    public function setSources(array $sources) /* : void */
     {
         $this->sources = $sources;
     }

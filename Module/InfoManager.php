@@ -2,7 +2,7 @@
 /**
  * Orange Management
  *
- * PHP Version 7.0
+ * PHP Version 7.1
  *
  * @category   TBD
  * @package    TBD
@@ -71,7 +71,7 @@ class InfoManager
      * @since  1.0.0
      * @author Dennis Eichhorn
      */
-    public function load()
+    public function load() /* : void */
     {
         if (!file_exists($this->path)) {
             throw new PathException($this->path);
@@ -88,7 +88,7 @@ class InfoManager
      * @since  1.0.0
      * @author Dennis Eichhorn
      */
-    public function update()
+    public function update() /* : void */
     {
         file_put_contents($this->path, json_encode($this->info, JSON_PRETTY_PRINT));
     }
@@ -103,7 +103,7 @@ class InfoManager
      * @since  1.0.0
      * @author Dennis Eichhorn
      */
-    public function set(string $path, $data, string $delim = '/')
+    public function set(string $path, $data, string $delim = '/') /* : void */
     {
         if (!is_scalar($data) || !is_array($data)) {
             throw new \InvalidArgumentException('Type of $data "' . gettype($data) . '" is not supported.');

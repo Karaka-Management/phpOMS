@@ -2,7 +2,7 @@
 /**
  * Orange Management
  *
- * PHP Version 7.0
+ * PHP Version 7.1
  *
  * @category   TBD
  * @package    TBD
@@ -37,7 +37,7 @@ class FiniteDifference
      * @var float
      * @since 1.0.0
      */
-    const EPSILON = 0.00001;
+    /* public */ const EPSILON = 0.00001;
 
     /**
      * Differentiate by using the Newton difference quotient.
@@ -86,7 +86,7 @@ class FiniteDifference
      *
      * @return float
      *
-     * @throws
+     * @throws \Exception
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>

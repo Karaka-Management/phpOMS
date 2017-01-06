@@ -2,7 +2,7 @@
 /**
  * Orange Management
  *
- * PHP Version 7.0
+ * PHP Version 7.1
  *
  * @category   TBD
  * @package    TBD
@@ -30,38 +30,38 @@ use phpOMS\Datatypes\Enum;
  */
 abstract class SpeedType extends Enum
 {
-    const MILES_PER_DAY = 'mpd';
-    const MILES_PER_HOUR = 'mph';
-    const MILES_PER_MINUTE = 'mpm';
-    const MILES_PER_SECOND = 'mps';
-    const KILOMETERS_PER_DAY = 'kpd';
-    const KILOMETERS_PER_HOUR = 'kph';
-    const KILOMETERS_PER_MINUTE = 'kpm';
-    const KILOMETERS_PER_SECOND = 'kps';
-    const METERS_PER_DAY = 'md';
-    const METERS_PER_HOUR = 'mh';
-    const METERS_PER_MINUTE = 'mm';
-    const METERS_PER_SECOND = 'ms';
-    const CENTIMETERS_PER_DAY = 'cpd';
-    const CENTIMETERS_PER_HOUR = 'cph';
-    const CENTIMETERS_PER_MINUTES = 'cpm';
-    const CENTIMETERS_PER_SECOND = 'cps';
-    const MILLIMETERS_PER_DAY = 'mmpd';
-    const MILLIMETERS_PER_HOUR = 'mmph';
-    const MILLIMETERS_PER_MINUTE = 'mmpm';
-    const MILLIMETERS_PER_SECOND = 'mmps';
-    const YARDS_PER_DAY = 'ypd';
-    const YARDS_PER_HOUR = 'yph';
-    const YARDS_PER_MINUTE = 'ypm';
-    const YARDS_PER_SECOND = 'yps';
-    const INCHES_PER_DAY = 'ind';
-    const INCHES_PER_HOUR = 'inh';
-    const INCHES_PER_MINUTE = 'inm';
-    const INCHES_PER_SECOND = 'ins';
-    const FEET_PER_DAY = 'ftd';
-    const FEET_PER_HOUR = 'fth';
-    const FEET_PER_MINUTE = 'ftm';
-    const FEET_PER_SECOND = 'fts';
-    const MACH = 'mach';
-    const KNOTS = 'knots';
+    /* public */ const MILES_PER_DAY = 'mpd';
+    /* public */ const MILES_PER_HOUR = 'mph';
+    /* public */ const MILES_PER_MINUTE = 'mpm';
+    /* public */ const MILES_PER_SECOND = 'mps';
+    /* public */ const KILOMETERS_PER_DAY = 'kpd';
+    /* public */ const KILOMETERS_PER_HOUR = 'kph';
+    /* public */ const KILOMETERS_PER_MINUTE = 'kpm';
+    /* public */ const KILOMETERS_PER_SECOND = 'kps';
+    /* public */ const METERS_PER_DAY = 'md';
+    /* public */ const METERS_PER_HOUR = 'mh';
+    /* public */ const METERS_PER_MINUTE = 'mm';
+    /* public */ const METERS_PER_SECOND = 'ms';
+    /* public */ const CENTIMETERS_PER_DAY = 'cpd';
+    /* public */ const CENTIMETERS_PER_HOUR = 'cph';
+    /* public */ const CENTIMETERS_PER_MINUTES = 'cpm';
+    /* public */ const CENTIMETERS_PER_SECOND = 'cps';
+    /* public */ const MILLIMETERS_PER_DAY = 'mmpd';
+    /* public */ const MILLIMETERS_PER_HOUR = 'mmph';
+    /* public */ const MILLIMETERS_PER_MINUTE = 'mmpm';
+    /* public */ const MILLIMETERS_PER_SECOND = 'mmps';
+    /* public */ const YARDS_PER_DAY = 'ypd';
+    /* public */ const YARDS_PER_HOUR = 'yph';
+    /* public */ const YARDS_PER_MINUTE = 'ypm';
+    /* public */ const YARDS_PER_SECOND = 'yps';
+    /* public */ const INCHES_PER_DAY = 'ind';
+    /* public */ const INCHES_PER_HOUR = 'inh';
+    /* public */ const INCHES_PER_MINUTE = 'inm';
+    /* public */ const INCHES_PER_SECOND = 'ins';
+    /* public */ const FEET_PER_DAY = 'ftd';
+    /* public */ const FEET_PER_HOUR = 'fth';
+    /* public */ const FEET_PER_MINUTE = 'ftm';
+    /* public */ const FEET_PER_SECOND = 'fts';
+    /* public */ const MACH = 'mach';
+    /* public */ const KNOTS = 'knots';
 }

@@ -2,7 +2,7 @@
 /**
  * Orange Management
  *
- * PHP Version 7.0
+ * PHP Version 7.1
  *
  * @category   TBD
  * @package    TBD
@@ -40,7 +40,7 @@ class DateTime
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public static function generateDateTime($start, $end)
+    public static function generateDateTime(string $start, string $end) : \DateTime
     {
         $startDate = strtotime($start);
         $endDate   = strtotime($end);

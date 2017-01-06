@@ -2,7 +2,7 @@
 /**
  * Orange Management
  *
- * PHP Version 7.0
+ * PHP Version 7.1
  *
  * @category   TBD
  * @package    TBD
@@ -16,7 +16,7 @@
 
 namespace phpOMS\Math\Stochastic\Distribution;
 
-use phpOMS\Math\Functions;
+use phpOMS\Math\Functions\Functions;
 
 /**
  * Well known functions class.

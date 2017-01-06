@@ -2,7 +2,7 @@
 /**
  * Orange Management
  *
- * PHP Version 7.0
+ * PHP Version 7.1
  *
  * @category   TBD
  * @package    TBD
@@ -30,6 +30,6 @@ use phpOMS\Datatypes\Enum;
  */
 abstract class OrderType extends Enum
 {
-    const LOOSE = 0;
-    const STRICT = 1;
+    /* public */ const LOOSE = 0;
+    /* public */ const STRICT = 1;
 }

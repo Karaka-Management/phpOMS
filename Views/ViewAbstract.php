@@ -2,7 +2,7 @@
 /**
  * Orange Management
  *
- * PHP Version 7.0
+ * PHP Version 7.1
  *
  * @category   TBD
  * @package    TBD
@@ -100,7 +100,7 @@ abstract class ViewAbstract implements \Serializable
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function setTemplate(string $template)
+    public function setTemplate(string $template) /* : void */
     {
         $this->template = $template;
     }
@@ -166,7 +166,7 @@ abstract class ViewAbstract implements \Serializable
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function editView(string $id, View $view, $order = null)
+    public function editView(string $id, View $view, $order = null) /* : void */
     {
         $this->addView($id, $view, $order, true);
     }
@@ -184,7 +184,7 @@ abstract class ViewAbstract implements \Serializable
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function addView(string $id, View $view, int $order = 0, bool $overwrite = true)
+    public function addView(string $id, View $view, int $order = 0, bool $overwrite = true) /* : void */
     {
         if ($overwrite || !isset($this->views[$id])) {
             $this->views[$id] = $view;

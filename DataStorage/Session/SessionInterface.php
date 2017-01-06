@@ -2,7 +2,7 @@
 /**
  * Orange Management
  *
- * PHP Version 7.0
+ * PHP Version 7.1
  *
  * @category   TBD
  * @package    TBD
@@ -79,7 +79,7 @@ interface SessionInterface
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function save();
+    public function save() /* : void */;
 
     /**
      * @return int|string
@@ -97,6 +97,6 @@ interface SessionInterface
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function setSID($sid);
+    public function setSID($sid) /* : void */;
 
 }

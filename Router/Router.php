@@ -2,7 +2,7 @@
 /**
  * Orange Management
  *
- * PHP Version 7.0
+ * PHP Version 7.1
  *
  * @category   TBD
  * @package    TBD
@@ -34,7 +34,7 @@ class Router
     /**
      * Routes.
      *
-     * @var array<string, array>
+     * @var array
      * @since 1.0.0
      */
     private $routes = [];
@@ -83,7 +83,7 @@ class Router
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function add(string $route, $destination, int $verb = RouteVerb::GET)
+    public function add(string $route, $destination, int $verb = RouteVerb::GET) /* : void */
     {
         if (!isset($this->routes[$route])) {
             $this->routes[$route] = [];
@@ -103,7 +103,7 @@ class Router
      *
      * @return string[]
      *
-     * @throws
+     * @throws \Exception
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>

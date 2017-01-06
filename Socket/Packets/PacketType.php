@@ -2,7 +2,7 @@
 /**
  * Orange Management
  *
- * PHP Version 7.0
+ * PHP Version 7.1
  *
  * @category   TBD
  * @package    TBD
@@ -30,15 +30,15 @@ use phpOMS\Datatypes\Enum;
  */
 abstract class PacketType extends Enum
 {
-    const CONNECT = 0; /* Client connection (server/sender) */
-    const DISCONNECT = 1; /* Client disconnection (server/sender) */
-    const KICK = 2; /* Kick (server/client/sender) */
-    const PING = 3; /* Ping (server/sender) */
-    const HELP = 4; /* Help (server/sender) */
-    const RESTART = 5; /* Restart server (server/all clients/client) */
-    const MSG = 6; /* Message (server/sender/client/all clients?) */
-    const LOGIN = 7; /* Login (server/sender) */
-    const LOGOUT = 8; /* Logout (server/sender) */
-    const ACCMODIFY = 9; /* Account modification (server/sender (admin)/user) */
-    const MODULE = 999999999; /* Module packet ??? */
+    /* public */ const CONNECT = 0; /* Client connection (server/sender) */
+    /* public */ const DISCONNECT = 1; /* Client disconnection (server/sender) */
+    /* public */ const KICK = 2; /* Kick (server/client/sender) */
+    /* public */ const PING = 3; /* Ping (server/sender) */
+    /* public */ const HELP = 4; /* Help (server/sender) */
+    /* public */ const RESTART = 5; /* Restart server (server/all clients/client) */
+    /* public */ const MSG = 6; /* Message (server/sender/client/all clients?) */
+    /* public */ const LOGIN = 7; /* Login (server/sender) */
+    /* public */ const LOGOUT = 8; /* Logout (server/sender) */
+    /* public */ const ACCMODIFY = 9; /* Account modification (server/sender (admin)/user) */
+    /* public */ const MODULE = 999999999; /* Module packet ??? */
 }

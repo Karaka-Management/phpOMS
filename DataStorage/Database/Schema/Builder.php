@@ -2,7 +2,7 @@
 /**
  * Orange Management
  *
- * PHP Version 7.0
+ * PHP Version 7.1
  *
  * @category   TBD
  * @package    TBD
@@ -51,7 +51,7 @@ class Builder extends BuilderAbstract
         $this->grammar    = $connection->getSchemaGrammar();
     }
 
-    public function select(...$table)
+    public function select(...$table) /* : void */
     {
         $this->type = QueryType::SELECT;
         $this->table += $table;

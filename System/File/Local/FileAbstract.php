@@ -2,7 +2,7 @@
 /**
  * Orange Management
  *
- * PHP Version 7.0
+ * PHP Version 7.1
  *
  * @category   TBD
  * @package    TBD
@@ -187,7 +187,7 @@ abstract class FileAbstract implements ContainerInterface
     /**
      * {@inheritdoc}
      */
-    public function index()
+    public function index() /* : void */
     {
         $this->createdAt->setTimestamp(filemtime($this->path));
         $this->changedAt->setTimestamp(filectime($this->path));

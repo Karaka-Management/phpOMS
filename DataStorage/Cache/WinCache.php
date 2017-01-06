@@ -2,7 +2,7 @@
 /**
  * Orange Management
  *
- * PHP Version 7.0
+ * PHP Version 7.1
  *
  * @category   TBD
  * @package    TBD
@@ -34,7 +34,7 @@ class WinCache implements CacheInterface
     /**
      * {@inheritdoc}
      */
-    public function set($key, $value, CacheStatus $type = null, int $expire = 2592000)
+    public function set($key, $value, int $expire = -1) /* : void */
     {
         // TODO: Implement set() method.
     }
@@ -42,7 +42,7 @@ class WinCache implements CacheInterface
     /**
      * {@inheritdoc}
      */
-    public function add($key, $value, CacheStatus $type = null, int $expire = 2592000) : bool
+    public function add($key, $value, int $expire = -1) : bool
     {
         // TODO: Implement add() method.
     }
@@ -50,7 +50,7 @@ class WinCache implements CacheInterface
     /**
      * {@inheritdoc}
      */
-    public function get($key, CacheStatus $type = null)
+    public function get($key, int $expire = -1)
     {
         // TODO: Implement get() method.
     }
@@ -58,7 +58,7 @@ class WinCache implements CacheInterface
     /**
      * {@inheritdoc}
      */
-    public function delete($key, CacheStatus $type = null) : bool
+    public function delete($key, int $expire = -1) : bool
     {
         // TODO: Implement delete() method.
     }
@@ -66,15 +66,27 @@ class WinCache implements CacheInterface
     /**
      * {@inheritdoc}
      */
-    public function flush(CacheStatus $type = null)
+    public function flush(int $expire = 0) : bool
     {
         // TODO: Implement flush() method.
+
+        return true;
     }
 
     /**
      * {@inheritdoc}
      */
-    public function replace($key, $value, CacheType $type = null, int $expire = -1) : bool
+    public function flushAll() : bool
+    {
+        // TODO: Implement flush() method.
+
+        return true;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function replace($key, $value, int $expire = -1) : bool
     {
         // TODO: Implement replace() method.
     }
@@ -95,4 +107,11 @@ class WinCache implements CacheInterface
         // TODO: Implement getThreshold() method.
     }
 
+    /**
+     * {@inheritdoc}
+     */
+    public function setStatus(int $status) /* : void */
+    {
+        // TODO: Implement setStatus() method.
+    }
 }

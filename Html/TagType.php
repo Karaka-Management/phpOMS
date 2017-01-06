@@ -2,7 +2,7 @@
 /**
  * Orange Management
  *
- * PHP Version 7.0
+ * PHP Version 7.1
  *
  * @category   TBD
  * @package    TBD
@@ -30,13 +30,13 @@ use phpOMS\Datatypes\Enum;
  */
 abstract class TagType extends Enum
 {
-    const INPUT = 0; /* <input> */
-    const BUTTON = 1; /* <button> */
-    const LINK = 2; /* <a> */
-    const SYMMETRIC = 3; /* <span><div>... */
-    const TEXTAREA = 4; /* <textarea> */
-    const SELECT = 5; /* <select> */
-    const LABEL = 6; /* <label> */
-    const ULIST = 7; /* <ul> */
-    const OLIST = 8; /* <ul> */
+    /* public */ const INPUT = 0; /* <input> */
+    /* public */ const BUTTON = 1; /* <button> */
+    /* public */ const LINK = 2; /* <a> */
+    /* public */ const SYMMETRIC = 3; /* <span><div>... */
+    /* public */ const TEXTAREA = 4; /* <textarea> */
+    /* public */ const SELECT = 5; /* <select> */
+    /* public */ const LABEL = 6; /* <label> */
+    /* public */ const ULIST = 7; /* <ul> */
+    /* public */ const OLIST = 8; /* <ul> */
 }

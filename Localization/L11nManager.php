@@ -2,7 +2,7 @@
 /**
  * Orange Management
  *
- * PHP Version 7.0
+ * PHP Version 7.1
  *
  * @category   TBD
  * @package    TBD
@@ -89,12 +89,12 @@ class L11nManager
      *
      * @return void
      *
-     * @throws
+     * @throws \Exception
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function loadLanguage(string $language, string $from, array $translation)
+    public function loadLanguage(string $language, string $from, array $translation) /* : void */
     {
         if (!isset($translation[$from])) {
             throw new \Exception('Unexpected language key: ' . $from);
@@ -120,15 +120,13 @@ class L11nManager
      *
      * @return void
      *
-     * @throws
-     *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function loadLanguageFromFile(string $language, string $from, string $file)
+    public function loadLanguageFromFile(string $language, string $from, string $file) /* : void */
     {
         $lang = [];
-        if (file_exists(file)) {
+        if (file_exists($file)) {
             /** @noinspection PhpIncludeInspection */
             $lang = include $file;
         }
@@ -151,7 +149,7 @@ class L11nManager
     {
         if (!isset($module) && isset($this->language[$language])) {
             return $this->language[$language];
-        } elseif (isset($this->language[$language])) {
+        } elseif (isset($this->language[$language]) && isset($this->language[$language][$module])) {
             return $this->language[$language][$module];
         } else {
             return [];
@@ -166,12 +164,12 @@ class L11nManager
      * @param string $theme       Theme
      * @param string $translation Text
      *
-     * @return array
+     * @return string
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function getText(string $code, string $module, string $theme, string $translation)
+    public function getText(string $code, string $module, string $theme, string $translation) : string
     {
         if (!isset($this->language[$code][$module][$translation])) {
             /** @var ModuleAbstract $class */

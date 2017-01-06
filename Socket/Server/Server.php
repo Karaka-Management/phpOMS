@@ -2,7 +2,7 @@
 /**
  * Orange Management
  *
- * PHP Version 7.0
+ * PHP Version 7.1
  *
  * @category   TBD
  * @package    TBD
@@ -127,7 +127,7 @@ class Server extends SocketAbstract
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function setLimit(int $limit)
+    public function setLimit(int $limit) /* : void */
     {
         $this->limit = $limit;
     }

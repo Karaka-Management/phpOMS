@@ -2,7 +2,7 @@
 /**
  * Orange Management
  *
- * PHP Version 7.0
+ * PHP Version 7.1
  *
  * @category   TBD
  * @package    TBD
@@ -35,7 +35,7 @@ class ActivateAbstract
     /**
      * Deactivate module.
      *
-     * @param Pool        $dbPool Database instance
+     * @param DatabasePool        $dbPool Database instance
      * @param InfoManager $info   Module info
      *
      * @return void
@@ -43,7 +43,7 @@ class ActivateAbstract
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public static function activate(DatabasePool $dbPool, InfoManager $info)
+    public static function activate(DatabasePool $dbPool, InfoManager $info) /* : void */
     {
         self::activateRoutes(ROOT_PATH . '/Web/Routes.php', ROOT_PATH . '/Modules/' . $info->getDirectory() . '/Admin/Routes/http.php');
         self::activateInDatabase($dbPool, $info);
@@ -60,7 +60,7 @@ class ActivateAbstract
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    private static function activateRoutes(string $destRoutePath, string $srcRoutePath)
+    private static function activateRoutes(string $destRoutePath, string $srcRoutePath) /* : void */
     {
         // todo: remove route
     }
@@ -68,7 +68,7 @@ class ActivateAbstract
     /**
      * Deactivate module in database.
      *
-     * @param Pool        $dbPool Database instance
+     * @param DatabasePool        $dbPool Database instance
      * @param InfoManager $info   Module info
      *
      * @return void
@@ -76,7 +76,7 @@ class ActivateAbstract
      * @since  1.0.0
      * @author Dennis Eichhorn
      */
-    public static function activateInDatabase(DatabasePool $dbPool, InfoManager $info)
+    public static function activateInDatabase(DatabasePool $dbPool, InfoManager $info) /* : void */
     {
         switch ($dbPool->get()->getType()) {
             case DatabaseType::MYSQL:

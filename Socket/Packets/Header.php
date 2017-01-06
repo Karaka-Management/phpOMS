@@ -2,7 +2,7 @@
 /**
  * Orange Management
  *
- * PHP Version 7.0
+ * PHP Version 7.1
  *
  * @category   TBD
  * @package    TBD
@@ -63,7 +63,7 @@ class Header implements \Serializable
         return $this->sendFrom;
     }
 
-    public function setSendFrom($sendFrom)
+    public function setSendFrom($sendFrom) /* : void */
     {
         $this->sendFrom = $sendFrom;
     }
@@ -73,7 +73,7 @@ class Header implements \Serializable
         return $this->sendTo;
     }
 
-    public function setSendTo($sendTo)
+    public function setSendTo($sendTo) /* : void */
     {
         $this->sendTo = $sendTo;
     }
@@ -97,7 +97,7 @@ class Header implements \Serializable
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function setLength($length)
+    public function setLength($length) /* : void */
     {
         $this->length = $length;
     }
@@ -121,7 +121,7 @@ class Header implements \Serializable
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function setType($type)
+    public function setType($type) /* : void */
     {
         $this->type = $type;
     }
@@ -145,7 +145,7 @@ class Header implements \Serializable
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function setSubtype($subtype)
+    public function setSubtype($subtype) /* : void */
     {
         $this->subtype = $subtype;
     }

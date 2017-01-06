@@ -2,7 +2,7 @@
 /**
  * Orange Management
  *
- * PHP Version 7.0
+ * PHP Version 7.1
  *
  * @category   TBD
  * @package    TBD
@@ -32,9 +32,9 @@ use phpOMS\Datatypes\Enum;
  */
 abstract class DatabaseType extends Enum
 {
-    const MYSQL = 0; /* MySQL */
-    const SQLITE = 1; /* SQLITE */
-    const PGSQL = 2; /* PostgreSQL */
-    const ORACLE = 3; /* Oracle */
-    const SQLSRV = 4; /* Microsoft SQL Server */
+    /* public */ const MYSQL = 0; /* MySQL */
+    /* public */ const SQLITE = 1; /* SQLITE */
+    /* public */ const PGSQL = 2; /* PostgreSQL */
+    /* public */ const ORACLE = 3; /* Oracle */
+    /* public */ const SQLSRV = 4; /* Microsoft SQL Server */
 }

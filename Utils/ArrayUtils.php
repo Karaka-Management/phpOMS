@@ -2,7 +2,7 @@
 /**
  * Orange Management
  *
- * PHP Version 7.0
+ * PHP Version 7.1
  *
  * @category   TBD
  * @package    TBD
@@ -227,17 +227,15 @@ class ArrayUtils
      *
      * Useful for parsing command line parsing
      *
-     * @param array  $data      Data to convert
-     * @param string $delimiter Delim to use
-     * @param string $enclosure Enclosure to use
-     * @param string $escape    Escape to use
+     * @param string $id   Id to find
+     * @param array  $args CLI command list
      *
      * @return string
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public static function getArg(string $id, array $args)
+    public static function getArg(string $id, array $args) /* : ?string */
     {
         if (($key = array_search($id, $args)) === false || $key === count($args) - 1) {
             return null;
@@ -251,7 +249,7 @@ class ArrayUtils
      *
      * Reduces multi dimensional array to one dimensional array. Flatten tries to maintain the index as far as possible.
      *
-     * @param array  $array Multi dimensional array to flatten
+     * @param array $array Multi dimensional array to flatten
      *
      * @return array
      *
@@ -278,18 +276,25 @@ class ArrayUtils
     }
 
     /**
-     * todo: what did i smoke? what is this?
+     * Sum of array elements
+     *
+     * @param array $array Array to sum
+     * @param int $start Start index
+     * @param int $count Amount of elements to sum
+     *
+     * @return int|float
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public static function arraySum(array $array, int $start = 0, int $count = 0)
     {
         $count = $count === 0 ? count($array) : $count;
-        $sum   = 0.0;
+        $sum   = 0;
+
+        $array = array_values($array);
 
         for ($i = $start; $i <= $count - 1; $i++) {
-            if (!isset($array[$i])) {
-                continue;
-            }
-
             $sum += $array[$i];
         }
 

@@ -2,7 +2,7 @@
 /**
  * Orange Management
  *
- * PHP Version 7.0
+ * PHP Version 7.1
  *
  * @category   TBD
  * @package    TBD
@@ -45,7 +45,7 @@ class Ellipse implements D2ShapeInterface
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public static function getSurface(float $a, float $b)
+    public static function getSurface(float $a, float $b) : float
     {
         return pi() * $a * $b;
     }
@@ -66,7 +66,7 @@ class Ellipse implements D2ShapeInterface
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public static function getPerimeter(float $a, float $b)
+    public static function getPerimeter(float $a, float $b) : float
     {
         return pi() * ($a + $b) * (3 * ($a - $b) ** 2 / (($a + $b) ** 2 * (sqrt(-3 * ($a - $b) ** 2 / (($a + $b) ** 2) + 4) + 10)) + 1);
     }

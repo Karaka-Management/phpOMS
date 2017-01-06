@@ -2,7 +2,7 @@
 /**
  * Orange Management
  *
- * PHP Version 7.0
+ * PHP Version 7.1
  *
  * @category   TBD
  * @package    TBD
@@ -87,7 +87,7 @@ class Address implements \JsonSerializable
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function setRecipient(string $recipient)
+    public function setRecipient(string $recipient) /* : void */
     {
         $this->recipient = $recipient;
     }
@@ -115,7 +115,7 @@ class Address implements \JsonSerializable
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function setFAO(string $fao)
+    public function setFAO(string $fao) /* : void */
     {
         $this->fao = $fao;
     }
@@ -143,7 +143,7 @@ class Address implements \JsonSerializable
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function setLocation(Location $location)
+    public function setLocation(Location $location) /* : void */
     {
         $this->location = $location;
     }

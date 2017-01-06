@@ -2,7 +2,7 @@
 /**
  * Orange Management
  *
- * PHP Version 7.0
+ * PHP Version 7.1
  *
  * @category   TBD
  * @package    TBD
@@ -42,7 +42,7 @@ final class Huffman
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function removeDictionary()
+    public function removeDictionary() /* : void */
     {
         $this->dictionary = null;
     }
@@ -68,7 +68,7 @@ final class Huffman
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function setDictionary(Dictionary $dictionary)
+    public function setDictionary(Dictionary $dictionary) /* : void */
     {
         $this->dictionary = $dictionary;
     }

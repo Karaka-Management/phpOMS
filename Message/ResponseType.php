@@ -2,7 +2,7 @@
 /**
  * Orange Management
  *
- * PHP Version 7.0
+ * PHP Version 7.1
  *
  * @category   TBD
  * @package    TBD
@@ -30,8 +30,8 @@ use phpOMS\Datatypes\Enum;
  */
 abstract class ResponseType extends Enum
 {
-    const HTTP = 0; /* HTTP */
-    const JSON = 1; /* JSON */
-    const SOCKET = 2; /* Socket */
-    const CONSOLE = 3; /* Console */
+    /* public */ const HTTP = 0; /* HTTP */
+    /* public */ const JSON = 1; /* JSON */
+    /* public */ const SOCKET = 2; /* Socket */
+    /* public */ const CONSOLE = 3; /* Console */
 }

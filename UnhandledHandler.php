@@ -2,7 +2,7 @@
 /**
  * Orange Management
  *
- * PHP Version 7.0
+ * PHP Version 7.1
  *
  * @category   TBD
  * @package    TBD
@@ -37,7 +37,7 @@ final class UnhandledHandler
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public static function exceptionHandler($e)
+    public static function exceptionHandler($e) /* : void */
     {
         $logger = FileLogger::getInstance(ROOT_PATH . '/Logs');
         $logger->critical(FileLogger::MSG_FULL, [
@@ -109,7 +109,7 @@ final class UnhandledHandler
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public static function shutdownHandler()
+    public static function shutdownHandler() /* : void */
     {
         $e = error_get_last();
 

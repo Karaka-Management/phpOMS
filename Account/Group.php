@@ -2,7 +2,7 @@
 /**
  * Orange Management
  *
- * PHP Version 7.0
+ * PHP Version 7.1
  *
  * @category   TBD
  * @package    TBD
@@ -64,14 +64,20 @@ class Group implements ArrayableInterface, \JsonSerializable
     protected $members = [];
 
     /**
-     * Parents .
+     * Parents.
      *
      * @var int[]
      * @since 1.0.0
      */
     protected $parents = [];
 
-    private $status = GroupStatus::INACTIVE;
+    /**
+     * Group status.
+     *
+     * @var int
+     * @since 1.0.0
+     */
+    protected $status = GroupStatus::INACTIVE;
 
     /**
      * Permissions.
@@ -142,7 +148,7 @@ class Group implements ArrayableInterface, \JsonSerializable
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function setName(string $name)
+    public function setName(string $name) /* : void */
     {
         $this->name = $name;
     }
@@ -168,18 +174,35 @@ class Group implements ArrayableInterface, \JsonSerializable
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function setDescription(string $description)
+    public function setDescription(string $description) /* : void */
     {
         $this->description = $description;
     }
 
+    /**
+     * Get group status.
+     *
+     * @return int Group status
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
     public function getStatus() : int
     {
         return $this->status;
     }
 
-    public function setStatus(int $status)
+    /**
+     * Set group status.
+     *
+     * @param int $status Group status
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+    public function setStatus(int $status) /* : void */
     {
+        // todo: check valid
         $this->status = $status;
     }
 

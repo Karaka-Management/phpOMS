@@ -2,7 +2,7 @@
 /**
  * Orange Management
  *
- * PHP Version 7.0
+ * PHP Version 7.1
  *
  * @category   TBD
  * @package    TBD
@@ -36,7 +36,7 @@ class SmartDateTime extends \DateTime
      * @var string
      * @since 1.0.0
      */
-    const FORMAT = 'Y-m-d hh:mm:ss';
+    /* public */ const FORMAT = 'Y-m-d hh:mm:ss';
 
     /**
      * Default timezone
@@ -44,7 +44,7 @@ class SmartDateTime extends \DateTime
      * @var string
      * @since 1.0.0
      */
-    const TIMEZONE = 'UTC';
+    /* public */ const TIMEZONE = 'UTC';
 
     /**
      * {@inheritdoc}
@@ -90,7 +90,7 @@ class SmartDateTime extends \DateTime
      */
     public function smartModify(int $y, int $m = 0, int $d = 0, int $calendar = CAL_GREGORIAN) : SmartDateTime
     {
-        $y_change    = floor(((int) $this->format('m') - 1 + $m) / 12);
+        $y_change    = (int) floor(((int) $this->format('m') - 1 + $m) / 12);
         $y_change    = ((int) $this->format('m') - 1 + $m) < 0 && ((int) $this->format('m') - 1 + $m) % 12 === 0 ? $y_change - 1 : $y_change;
         $y_new       = (int) $this->format('Y') + $y + $y_change;
         $m_new       = ((int) $this->format('m') + $m) % 12;

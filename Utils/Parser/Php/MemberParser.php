@@ -2,7 +2,7 @@
 /**
  * Orange Management
  *
- * PHP Version 7.0
+ * PHP Version 7.1
  *
  * @category   TBD
  * @package    TBD
@@ -93,7 +93,7 @@ class MemberParser
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function setName(string $name)
+    public function setName(string $name) /* : void */
     {
         $this->name = $name;
     }
@@ -121,7 +121,7 @@ class MemberParser
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function setVisibility(string $visibility)
+    public function setVisibility(string $visibility) /* : void */
     {
         $this->visibility = $visibility;
     }
@@ -136,7 +136,7 @@ class MemberParser
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function setStatic(bool $static)
+    public function setStatic(bool $static) /* : void */
     {
         $this->isStatic = $static;
 
@@ -168,7 +168,7 @@ class MemberParser
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function setConst(bool $const)
+    public function setConst(bool $const) /* : void */
     {
         $this->isConst = $const;
 
@@ -200,7 +200,7 @@ class MemberParser
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function setDefault($default)
+    public function setDefault($default) /* : void */
     {
         $this->default = $default;
     }

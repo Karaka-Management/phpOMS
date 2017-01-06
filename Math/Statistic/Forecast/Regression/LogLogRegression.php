@@ -2,7 +2,7 @@
 /**
  * Orange Management
  *
- * PHP Version 7.0
+ * PHP Version 7.1
  *
  * @category   TBD
  * @package    TBD
@@ -39,8 +39,8 @@ class LogLogRegression extends RegressionAbstract
         }
 
         for ($i = 0; $i < $c; $i++) {
-            $x[$i] = log($x[i]);
-            $y[$i] = log($y[i]);
+            $x[$i] = log($x[$i]);
+            $y[$i] = log($y[$i]);
         }
 
         return parent::getRegression($x, $y);

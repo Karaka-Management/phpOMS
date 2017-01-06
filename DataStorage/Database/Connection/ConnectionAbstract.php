@@ -2,7 +2,7 @@
 /**
  * Orange Management
  *
- * PHP Version 7.0
+ * PHP Version 7.1
  *
  * @category   TBD
  * @package    TBD
@@ -165,7 +165,7 @@ abstract class ConnectionAbstract implements ConnectionInterface
     /**
      * {@inheritdoc}
      */
-    public function close()
+    public function close() /* : void */
     {
         $this->con    = null;
         $this->status = DatabaseStatus::CLOSED;

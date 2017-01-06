@@ -2,7 +2,7 @@
 /**
  * Orange Management
  *
- * PHP Version 7.0
+ * PHP Version 7.1
  *
  * @category   TBD
  * @package    TBD
@@ -16,7 +16,7 @@
 
 namespace phpOMS\Math\Stochastic\Distribution;
 
-use phpOMS\Math\Functions;
+use phpOMS\Math\Functions\Functions;
 
 /**
  * Chi squared distribution.
@@ -35,10 +35,10 @@ class ChiSquaredDistribution
     /**
      * Chi square table.
      *
-     * @var array<int, array>
+     * @var array
      * @since 1.0.0
      */
-    const TABLE = [
+    /* public */ const TABLE = [
         1   => ['0.995' => 0.000, '0.99' => 0.000, '0.975' => 0.001, '0.95' => 0.004, '0.90' => 0.016, '0.10' => 2.706, '0.05' => 3.841, '0.025' => 5.024, '0.01' => 6.635, '0.005' => 7.879],
         2   => ['0.995' => 0.010, '0.99' => 0.020, '0.975' => 0.051, '0.95' => 0.103, '0.90' => 0.211, '0.10' => 4.605, '0.05' => 5.991, '0.025' => 7.378, '0.01' => 9.210, '0.005' => 10.597],
         3   => ['0.995' => 0.072, '0.99' => 0.115, '0.975' => 0.216, '0.95' => 0.352, '0.90' => 0.584, '0.10' => 6.251, '0.05' => 7.815, '0.025' => 9.348, '0.01' => 11.345, '0.005' => 12.838],
@@ -88,7 +88,7 @@ class ChiSquaredDistribution
      *
      * @return array
      *
-     * @throws
+     * @throws \Exception
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
@@ -154,7 +154,7 @@ class ChiSquaredDistribution
      *
      * @return float
      *
-     * @throws
+     * @throws \Exception
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
@@ -236,7 +236,7 @@ class ChiSquaredDistribution
      *
      * @return float
      *
-     * @throws
+     * @throws \Exception
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>

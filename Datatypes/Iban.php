@@ -2,7 +2,7 @@
 /**
  * Orange Management
  *
- * PHP Version 7.0
+ * PHP Version 7.1
  *
  * @category   TBD
  * @package    TBD
@@ -63,7 +63,7 @@ class Iban implements \Serializable
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    private function parse(string $iban)
+    private function parse(string $iban) /* : void */
     {
         $this->iban = self::normalize($iban);
 

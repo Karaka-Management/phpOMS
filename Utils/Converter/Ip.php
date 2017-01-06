@@ -2,7 +2,7 @@
 /**
  * Orange Management
  *
- * PHP Version 7.0
+ * PHP Version 7.1
  *
  * @category   TBD
  * @package    TBD
@@ -28,8 +28,8 @@ namespace phpOMS\Utils\Converter;
  */
 class Ip
 {
-    const IP_TABLE_PATH = __DIR__ . '/../../Localization/Default/Ip/ipGeoLocation.csv';
-    const IP_TABLE_ITERATIONS = 100;
+    /* public */ const IP_TABLE_PATH = __DIR__ . '/../../Localization/Default/Ip/ipGeoLocation.csv';
+    /* public */ const IP_TABLE_ITERATIONS = 100;
 
     private function __construct()
     {

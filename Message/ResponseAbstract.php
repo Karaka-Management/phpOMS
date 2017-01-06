@@ -2,7 +2,7 @@
 /**
  * Orange Management
  *
- * PHP Version 7.0
+ * PHP Version 7.1
  *
  * @category   TBD
  * @package    TBD
@@ -107,7 +107,7 @@ abstract class ResponseAbstract implements MessageInterface, \JsonSerializable
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function set($key, $response, bool $overwrite = true)
+    public function set($key, $response, bool $overwrite = true) /* : void */
     {
         $this->response = ArrayUtils::setArray($key, $this->response, $response, ':', $overwrite);
     }
@@ -116,7 +116,7 @@ abstract class ResponseAbstract implements MessageInterface, \JsonSerializable
      * {@inheritdoc}
      * todo: shouldn't this only be available in the header?!
      */
-    public function setStatusCode(string $status)
+    public function setStatusCode(string $status) /* : void */
     {
         $this->status = $status;
         $this->header->generate($status);
@@ -142,7 +142,7 @@ abstract class ResponseAbstract implements MessageInterface, \JsonSerializable
     /**
      * {@inheritdoc}
      */
-    public function setAccount(int $account)
+    public function setAccount(int $account) /* : void */
     {
         $this->account = $account;
     }

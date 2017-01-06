@@ -2,7 +2,7 @@
 /**
  * Orange Management
  *
- * PHP Version 7.0
+ * PHP Version 7.1
  *
  * @category   TBD
  * @package    TBD
@@ -13,9 +13,7 @@
  * @version    1.0.0
  * @link       http://orange-management.com
  */
-namespace phpOMS\Datatypes;
-
-use phpOMS\Validation\Base\IbanEnum;
+namespace phpOMS\Stdlib\Graph;
 
 /**
  * Tree class.
@@ -27,71 +25,241 @@ use phpOMS\Validation\Base\IbanEnum;
  * @license    OMS License 1.0
  * @link       http://orange-management.com
  * @since      1.0.0
- *
- * @todo       : there is a bug with Hungary ibans since they have two k (checksums) in their definition
  */
 class Tree extends Graph
 {
-	protected $nodes = [];
+	/**
+     * Root node.
+     *
+     * @var Node
+     * @since 1.0.0
+     */
+	private $root = null;
 
-	public function getMaxDepth() : int 
+	/**
+     * Constructor.
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+	public function __construct()
 	{
-		$depth = [0];
-
-		foreach($this->nodes as $node) {
-			$depth[] = $node->getMaxDepth();
-		}
-
-		return max($depth) + 1;
+		$root = new Node();
+		parent::addNode($root);
 	}
 
-	public function getMinDepth() : int
+	/**
+     * Add a note relative to a node.
+     *
+     * @param Node $base Base node
+     * @param Node $node Node to add
+     *
+     * @return Tree
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+	public function addRelativeNode(Node $base, Node $node) : Tree
 	{
-		$depth = [0];
+		parent::addNode($node);
+		parent::addEdge(new Edge($base, $node));
 
-		foreach($this->nodes as $node) {
-			$depth[] = $node->getMinDepth();
+		return $this;
+	}
+
+	/**
+     * Get maximum tree depth.
+     *
+     * @param Node $node Tree node
+     *
+     * @return int
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+	public function getMaxDepth(Node $node = null) : int 
+	{
+		$currentNode = $node ?? $this->root;
+
+		if(!isset($currentNode)) {
+			return 0;
 		}
+
+		$depth = 1;
+		$neighbors = $this->getNeighbors($currentNode);
+
+		foreach($neighbors as $neighbor) {
+			$depth = max($depth, $depth + $this->getMaxDepth($neighbor));
+		}
+
+		return $depth;
+	}
+
+	/**
+     * Get minimum tree path.
+     *
+     * @param Node $node Tree node
+     *
+     * @return int
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+	public function getMinDepth(Node $node = null) : int
+	{
+		$currentNode = $node ?? $this->root;
+
+		if(!isset($currentNode)) {
+			return 0;
+		}
+
+		$depth = [];
+		$neighbors = $this->getNeighbors($currentNode);
+
+		foreach($neighbors as $neighbor) {
+			$depth[] = $this->getMaxDepth($neighbor);
+		}
+
+		$depth = empty($depth) ? 0 : $depth;
 
 		return min($depth) + 1;
 	}
 
-	public function postOrder() 
+	/**
+     * Perform task on tree nodes in level order.
+     *
+     * @param Node $node Tree node
+     * @param \Closure $callback Task to perform
+     *
+     * @return void
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+	public function levelOrder(Node $node, \Closure $callback)
 	{
+		$depth = $this->getMaxDepth();
 
+		for($i = 1; $i < $depth; $i++) {
+			$nodes = $this->getLevel($i);
+			callback($nodes);
+		}
 	}
 
-	public function preOrder()
+	/**
+     * Check if node is leaf.
+     *
+     * @param Node $node Tree node
+     *
+     * @return bool
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+	public function isLeaf(Node $node) : bool 
 	{
-
+		return count($this->getEdgesOfNode($node)) === 1;
 	}
 
-	public function levelOrder()
+	/**
+     * Get all nodes of a specific level.
+     *
+     * @param int $level Level to retrieve
+     * @param Node $node Tree node
+     *
+     * @return Node[]
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+	public function getLevelNodes(int $level, Node $node) : array
 	{
+		--$level;
+		$neighbors = $this->getNeighbors($node);
+		$nodes = [];
 
+		if($level === 1) {
+			return $neighbors;
+		}
+
+		foreach($neighbors as $neighbor) {
+			array_merge($nodes, $this->getLevelNodes($level, $neighbor));
+		}
+
+		return $nodes;
 	}
 
-	public function levelOrder2()
+	/**
+     * Check if the tree is full.
+     *
+     * @param int $type Child nodes per non-leaf node
+     *
+     * @return bool
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+	public function isFull(int $type) : bool 
 	{
+		if(count($this->edges) % $type !== 0) {
+			return false;
+		}
 
+		foreach($this->nodes as $node) {
+			$neighbors = count($this->getNeighbors($node));
+
+			if($neighbors !== $type && $neighbors !== 0) {
+				return false;
+			}
+		}
+
+		return true;
 	}
 
-	public function verticalOrder()
-	{
+	/**
+     * Perform action on tree in pre-order.
+     *
+     * @param Node $node Tree node
+     * @param \Closure $callback Task to perform on node
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+	public function preOrder(Node $node, \Closure $callback) {
+		if(count($this->nodes) === 0) {
+			return;
+		}
 
+		$callback($node);
+		$neighbors = $this->getNeighbors($node);
+
+		foreach($neighbors as $neighbor) {
+			// todo: get neighbors needs to return in ordered way
+			$this->preOrder($neighbor, $callback);
+		}
 	}
-
-	public function isLeaf() : bool 
-	{
-
-	}
-
-	public function isSymmetric() : bool {
-
-	}
-
-	public function getDimension() : int 
-	{
+	
+	/**
+     * Perform action on tree in post-order.
+     *
+     * @param Node $node Tree node
+     * @param \Closure $callback Task to perform on node
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+	public function postOrder(Node $node, \Closure $callback) {
+		if(count($this->nodes) === 0) {
+			return;
+		}
 		
+		$neighbors = $this->getNeighbors($node);
+
+		foreach($neighbors as $neighbor) {
+			// todo: get neighbors needs to return in ordered way
+			$this->postOrder($neighbor, $callback);
+		}
+
+		$callback($node);
 	}
 }

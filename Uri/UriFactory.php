@@ -2,7 +2,7 @@
 /**
  * Orange Management
  *
- * PHP Version 7.0
+ * PHP Version 7.1
  *
  * @category   TBD
  * @package    TBD
@@ -54,14 +54,14 @@ class UriFactory
      *
      * @param string $key Replacement key
      *
-     * @return false|string
+     * @return null|string
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public static function getQuery(string $key)
+    public static function getQuery(string $key) /* : ?string */
     {
-        return self::$uri[$key] ?? false;
+        return self::$uri[$key] ?? null;
     }
 
     /**
@@ -85,6 +85,66 @@ class UriFactory
         }
 
         return false;
+    }
+
+    /**
+     * Clear all uri components
+     *
+     * @return bool
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+    public static function clearAll() : bool 
+    {
+        self::$uri = [];
+
+        return true;
+    }
+
+    /**
+     * Clear uri component
+     *
+     * @param string $key Uri component key
+     *
+     * @return bool
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+    public static function clear(string $key) : bool 
+    {
+        if(isset(self::$uri[$key])) {
+            unset(self::$uri[$key]);
+
+            return true;
+        }
+
+        return false;
+    }
+
+    /**
+     * Clear uri components that follow a certain pattern
+     *
+     * @param string $pattern Uri key pattern to remove
+     *
+     * @return bool
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+    public static function clearLike(string $pattern) : bool 
+    {
+        $success = false;
+
+        foreach(self::$uri as $key => $value) {
+            if(((bool) preg_match('~^' . $pattern . '$~', $key))) {
+                unset(self::$uri[$key]);
+                $success = true;
+            }
+        }
+
+        return $success;
     }
 
     /**
@@ -149,7 +209,7 @@ class UriFactory
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public static function build(string $uri, array $toMatch = [])
+    public static function build(string $uri, array $toMatch = []) /* : ?string */
     {
         $parsed = preg_replace_callback('(\{[\/#\?@\.\$][a-zA-Z0-9\-]*\})', function ($match) use ($toMatch) {
             $match = substr($match[0], 1, strlen($match[0]) - 2);

@@ -2,7 +2,7 @@
 /**
  * Orange Management
  *
- * PHP Version 7.0
+ * PHP Version 7.1
  *
  * @category   TBD
  * @package    TBD
@@ -30,13 +30,13 @@ use phpOMS\Datatypes\Enum;
  */
 abstract class EnergyPowerType extends Enum
 {
-    const KILOWATT_HOUERS = 'kWh';
-    const MEGAWATT_HOUERS = 'MWh';
-    const KILOTONS = 'kt';
-    const JOULS = 'J';
-    const CALORIES = 'Cal';
-    const BTU = 'BTU';
-    const KILOJOULS = 'kJ';
-    const THERMEC = 'thmEC';
-    const NEWTON_METERS = 'Nm';
+    /* public */ const KILOWATT_HOUERS = 'kWh';
+    /* public */ const MEGAWATT_HOUERS = 'MWh';
+    /* public */ const KILOTONS = 'kt';
+    /* public */ const JOULS = 'J';
+    /* public */ const CALORIES = 'Cal';
+    /* public */ const BTU = 'BTU';
+    /* public */ const KILOJOULS = 'kJ';
+    /* public */ const THERMEC = 'thmEC';
+    /* public */ const NEWTON_METERS = 'Nm';
 }

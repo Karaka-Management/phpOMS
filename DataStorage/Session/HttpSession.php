@@ -2,7 +2,7 @@
 /**
  * Orange Management
  *
- * PHP Version 7.0
+ * PHP Version 7.1
  *
  * @category   TBD
  * @package    TBD
@@ -85,8 +85,6 @@ class HttpSession implements SessionInterface
 
         $this->sid = session_id();
         $this->setCsrfProtection();
-
-        self::$isLocked = true;
     }
 
     /**
@@ -95,7 +93,7 @@ class HttpSession implements SessionInterface
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    private function setCsrfProtection()
+    private function setCsrfProtection() /* : void */
     {
         $this->set('UID', 0, false);
 
@@ -129,12 +127,26 @@ class HttpSession implements SessionInterface
         return $this->sessionData[$key] ?? null;
     }
 
-    public static function lock()
+    /**
+     * Lock session from further adjustments.
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+    public function lock()
     {
         self::$isLocked = true;
     }
 
-    public static function isLocked()
+    /**
+     * Check if session is locked.
+     *
+     * @return bool Lock status
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+    public static function isLocked() : bool
     {
         return self::$isLocked;
     }
@@ -142,9 +154,12 @@ class HttpSession implements SessionInterface
     /**
      * {@inheritdoc}
      */
-    public function save()
+    public function save() /* : void */
     {
-
+        if(!self::$isLocked) {
+            $_SESSION = $this->sessionData;
+            session_write_close();
+        }
     }
 
     /**
@@ -172,15 +187,20 @@ class HttpSession implements SessionInterface
     /**
      * {@inheritdoc}
      */
-    public function setSID($sid)
+    public function setSID($sid) /* : void */
     {
         $this->sid = $sid;
     }
 
+    /**
+     * Destruct session.
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
     public function __destruct()
     {
-        $_SESSION = $this->sessionData;
-        session_write_close();
+        $this->save();
     }
 
 }

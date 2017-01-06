@@ -2,7 +2,7 @@
 /**
  * Orange Management
  *
- * PHP Version 7.0
+ * PHP Version 7.1
  *
  * @category   TBD
  * @package    TBD
@@ -139,7 +139,7 @@ class LocalStorage extends StorageAbstract
     /**
      * {@inheritdoc}
      */
-    public static function count(string $path, bool $recursive = false) : int
+    public static function count(string $path, bool $recursive = true, array $ignore = []) : int
     {
         // TODO: Implement count() method.
     }
@@ -404,5 +404,93 @@ class LocalStorage extends StorageAbstract
     public function getContent() : string
     {
         // TODO: Implement getContent() method.
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public static function sanitize(string $path, string $replace = '') : string
+    {
+        // TODO: Implement sanitize() method.
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getNode(string $name)
+    {
+        // TODO: Implement getNode() method.
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function addNode($file) : bool
+    {
+        // TODO: Implement addNode() method.
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public static function set(string $path, string $content) : bool
+    {
+        // TODO: Implement set() method.
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public static function append(string $path, string $content) : bool
+    {
+        // TODO: Implement append() method.
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public static function prepend(string $path, string $content) : bool
+    {
+        // TODO: Implement prepend() method.
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public static function extension(string $path) : string
+    {
+        // TODO: Implement extension() method.
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function setContent(string $content) : bool
+    {
+        // TODO: Implement setContent() method.
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function appendContent(string $content) : bool
+    {
+        // TODO: Implement appendContent() method.
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function prependContent(string $content) : bool
+    {
+        // TODO: Implement prependContent() method.
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getExtension() : string
+    {
+        // TODO: Implement getExtension() method.
     }
 }

@@ -2,7 +2,7 @@
 /**
  * Orange Management
  *
- * PHP Version 7.0
+ * PHP Version 7.1
  *
  * @category   TBD
  * @package    TBD
@@ -16,7 +16,7 @@
 namespace phpOMS\Stdlib\Queue;
 
 /**
- * Router class.
+ * Priority queue class.
  *
  * @category   Framework
  * @package    phpOMS\Stdlib
@@ -45,15 +45,13 @@ class PriorityQueue implements \Countable, \Serializable
      */
     private $queue = [];
 
-    private $mode = 0;
-
     /**
      * Constructor.
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function __construct($mode = '')
+    public function __construct()
     {
     }
 
@@ -102,7 +100,7 @@ class PriorityQueue implements \Countable, \Serializable
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function increaseAll(float $increase = 0.1)
+    public function increaseAll(float $increase = 0.1) /* : void */
     {
         foreach ($this->queue as $key => &$ele) {
             $ele['priority'] += $increase;
@@ -132,7 +130,7 @@ class PriorityQueue implements \Countable, \Serializable
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function delete(int $id = null)
+    public function delete(int $id = null) /* : void */
     {
         if ($id === null) {
             $this->remove();
@@ -163,7 +161,7 @@ class PriorityQueue implements \Countable, \Serializable
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function setPriority(int $id, float $priority)
+    public function setPriority(int $id, float $priority) /* : void */
     {
         $this->queue[$id]['priority'] = $priority;
     }

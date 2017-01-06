@@ -2,7 +2,7 @@
 /**
  * Orange Management
  *
- * PHP Version 7.0
+ * PHP Version 7.1
  *
  * @category   TBD
  * @package    TBD
@@ -33,9 +33,9 @@ use phpOMS\Utils\StringUtils;
  */
 class FileLogger implements LoggerInterface
 {
-    const MSG_BACKTRACE = '{datetime}; {level}; {ip}; {message}; {backtrace}';
-    const MSG_FULL = '{datetime}; {level}; {ip}; {line}; {version}; {os}; {path}; {message}; {file}; {backtrace}';
-    const MSG_SIMPLE = '{datetime}; {level}; {ip}; {message};';
+    /* public */ const MSG_BACKTRACE = '{datetime}; {level}; {ip}; {message}; {backtrace}';
+    /* public */ const MSG_FULL = '{datetime}; {level}; {ip}; {line}; {version}; {os}; {path}; {message}; {file}; {backtrace}';
+    /* public */ const MSG_SIMPLE = '{datetime}; {level}; {ip}; {message};';
 
     /**
      * Timing array.
@@ -43,7 +43,7 @@ class FileLogger implements LoggerInterface
      * Potential values are null or an array filled with log timings.
      * This is used in order to profile code sections by ID.
      *
-     * @var array[float]
+     * @var array
      * @since 1.0.0
      */
     private $timings = [];
@@ -119,9 +119,17 @@ class FileLogger implements LoggerInterface
         $this->path = $path;
     }
 
-    private function createFile()
+    /**
+     * Create logging file.
+     *
+     * @return void
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+    private function createFile() /* : void */
     {
-        if (!file_exists($this->path) && !$this->created) {
+        if (!$this->created && !file_exists($this->path)) {
             File::create($this->path);
             $this->created = true;
         }
@@ -138,7 +146,7 @@ class FileLogger implements LoggerInterface
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public static function getInstance(string $path = '', bool $verbose = true) : FileLogger
+    public static function getInstance(string $path = '', bool $verbose = false) : FileLogger
     {
         if (self::$instance === null) {
             self::$instance = new self($path, $verbose);
@@ -298,18 +306,24 @@ class FileLogger implements LoggerInterface
      * @since  1.0.0
      * @author Dennis Eichhorn
      */
-    private function write(string $message)
+    private function write(string $message) /* : void */
     {
         $this->createFile();
+        if(!is_readable($this->path)) {
+            return;
+        }
+
         $this->fp = fopen($this->path, 'a');
 
-        if ($this->fp !== false) {
+        if (flock($this->fp, LOCK_EX) && $this->fp !== false) {
             fwrite($this->fp, $message . "\n");
+            fflush($this->fp);
+            flock($this->fp, LOCK_UN);
             fclose($this->fp);
             $this->fp = false;
         }
 
-        if ($this->verbose || php_sapi_name() === 'cli') {
+        if ($this->verbose) {
             echo $message, "\n";
         }
     }
@@ -325,7 +339,7 @@ class FileLogger implements LoggerInterface
      * @since  1.0.0
      * @author Dennis Eichhorn
      */
-    public function emergency(string $message, array $context = [])
+    public function emergency(string $message, array $context = []) /* : void */
     {
         $message = $this->interpolate($message, $context, LogLevel::EMERGENCY);
         $this->write($message);
@@ -345,7 +359,7 @@ class FileLogger implements LoggerInterface
      * @since  1.0.0
      * @author Dennis Eichhorn
      */
-    public function alert(string $message, array $context = [])
+    public function alert(string $message, array $context = []) /* : void */
     {
         $message = $this->interpolate($message, $context, LogLevel::ALERT);
         $this->write($message);
@@ -364,7 +378,7 @@ class FileLogger implements LoggerInterface
      * @since  1.0.0
      * @author Dennis Eichhorn
      */
-    public function critical(string $message, array $context = [])
+    public function critical(string $message, array $context = []) /* : void */
     {
         $message = $this->interpolate($message, $context, LogLevel::CRITICAL);
         $this->write($message);
@@ -382,7 +396,7 @@ class FileLogger implements LoggerInterface
      * @since  1.0.0
      * @author Dennis Eichhorn
      */
-    public function error(string $message, array $context = [])
+    public function error(string $message, array $context = []) /* : void */
     {
         $message = $this->interpolate($message, $context, LogLevel::ERROR);
         $this->write($message);
@@ -402,7 +416,7 @@ class FileLogger implements LoggerInterface
      * @since  1.0.0
      * @author Dennis Eichhorn
      */
-    public function warning(string $message, array $context = [])
+    public function warning(string $message, array $context = []) /* : void */
     {
         $message = $this->interpolate($message, $context, LogLevel::WARNING);
         $this->write($message);
@@ -419,7 +433,7 @@ class FileLogger implements LoggerInterface
      * @since  1.0.0
      * @author Dennis Eichhorn
      */
-    public function notice(string $message, array $context = [])
+    public function notice(string $message, array $context = []) /* : void */
     {
         $message = $this->interpolate($message, $context, LogLevel::NOTICE);
         $this->write($message);
@@ -438,7 +452,7 @@ class FileLogger implements LoggerInterface
      * @since  1.0.0
      * @author Dennis Eichhorn
      */
-    public function info(string $message, array $context = [])
+    public function info(string $message, array $context = []) /* : void */
     {
         $message = $this->interpolate($message, $context, LogLevel::INFO);
         $this->write($message);
@@ -455,7 +469,7 @@ class FileLogger implements LoggerInterface
      * @since  1.0.0
      * @author Dennis Eichhorn
      */
-    public function debug(string $message, array $context = [])
+    public function debug(string $message, array $context = []) /* : void */
     {
         $message = $this->interpolate($message, $context, LogLevel::DEBUG);
         $this->write($message);
@@ -473,7 +487,7 @@ class FileLogger implements LoggerInterface
      * @since  1.0.0
      * @author Dennis Eichhorn
      */
-    public function log(string $level, string $message, array $context = [])
+    public function log(string $level, string $message, array $context = []) /* : void */
     {
         if (!LogLevel::isValidValue($level)) {
             throw new InvalidEnumValue($level);

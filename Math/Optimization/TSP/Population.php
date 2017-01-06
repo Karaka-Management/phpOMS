@@ -2,7 +2,7 @@
 /**
  * Orange Management
  *
- * PHP Version 7.0
+ * PHP Version 7.1
  *
  * @category   TBD
  * @package    TBD
@@ -79,7 +79,7 @@ class Population implements \Countable
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function set(int $index, Tour $tour)
+    public function set(int $index, Tour $tour) /* : void */
     {
         $this->tours[$index] = $tour;
         asort($this->tours);

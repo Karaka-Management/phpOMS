@@ -2,7 +2,7 @@
 /**
  * Orange Management
  *
- * PHP Version 7.0
+ * PHP Version 7.1
  *
  * @category   TBD
  * @package    TBD
@@ -37,20 +37,41 @@ abstract class TaskAbstract
     protected $id = '';
 
     /**
-     * Interval.
-     *
-     * @var Interval
-     * @since 1.0.0
-     */
-    protected $interval = null;
-
-    /**
-     * Command.
+     * Command used for creating the task
      *
      * @var string
      * @since 1.0.0
      */
     protected $command = '';
+
+    /**
+     * Command/script to run.
+     *
+     * @var string
+     * @since 1.0.0
+     */
+    protected $run = '';
+
+    protected $status = '';
+
+    protected $nextRunTime = null;
+
+    protected $lastRunTime = null;
+
+    protected $start = null;
+
+    protected $end = null;
+
+    protected $comment = '';
+
+    protected $results = [];
+
+    protected $author = '';
+
+    public function __construct(string $name, string $cmd = '') {
+        $this->id = $name;
+        $this->command = $cmd;
+    }
 
     /**
      * Get id.
@@ -63,34 +84,6 @@ abstract class TaskAbstract
     public function getId() : string
     {
         return $this->id;
-    }
-
-    /**
-     * Get interval.
-     *
-     * @return Interval
-     *
-     * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
-     */
-    public function getInterval() : Interval
-    {
-        return $this->interval;
-    }
-
-    /**
-     * Set interval.
-     *
-     * @param Interval $interval Interval
-     *
-     * @return void
-     *
-     * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
-     */
-    public function setInterval(Interval $interval)
-    {
-        $this->interval = $interval;
     }
 
     /**
@@ -116,8 +109,245 @@ abstract class TaskAbstract
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function setCommand(string $command)
+    public function setCommand(string $command) /* : void */
     {
         $this->command = $command;
+    }
+
+    /**
+     * Get run.
+     *
+     * @return string
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+    public function getRun() : string
+    {
+        return $this->run;
+    }
+
+    /**
+     * Set run.
+     *
+     * @param string $run Command/script to run
+     *
+     * @return void
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+    public function setRun(string $run) /* : void */
+    {
+        $this->run = $run;
+    }
+
+    /**
+     * Get status.
+     *
+     * @return string
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+    public function getStatus() : string
+    {
+        return $this->status;
+    }
+
+    /**
+     * Set status.
+     *
+     * @param string $status Status
+     *
+     * @return void
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+    public function setStatus(string $status) /* : void */
+    {
+        $this->status = $status;
+    }
+
+    /**
+     * Get next run time.
+     *
+     * @return \DateTime
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+    public function getNextRunTime()
+    {
+        return $this->nextRunTime;
+    }
+
+    /**
+     * Set next run time.
+     *
+     * @param \DateTime $nextRunTime Next run time
+     *
+     * @return void
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+    public function setNextRunTime(\DateTime $nextRunTime) /* : void */
+    {
+        $this->nextRunTime = $nextRunTime;
+    }
+
+    /**
+     * Get last run time.
+     *
+     * @return \DateTime
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+    public function getLastRuntime() 
+    {
+        return $this->lastRunTime;
+    }
+
+    /**
+     * Set last run time.
+     *
+     * @param \DateTime $lastRunTime Last run time
+     *
+     * @return void
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+    public function setLastRuntime(\DateTime $lastRunTime) /* : void */
+    {
+        $this->lastRunTime = $lastRunTime;
+    }
+
+    /**
+     * Get start.
+     *
+     * @return \DateTime
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+    public function getStart()
+    {
+        return $this->start;
+    }
+
+    /**
+     * Set start.
+     *
+     * @param \DateTime $start Start
+     *
+     * @return void
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+    public function setStart(\DateTime $start) /* : void */
+    {
+        $this->start = $start;
+    }
+
+    /**
+     * Get end.
+     *
+     * @return \DateTime
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+    public function getEnd()
+    {
+        return $this->end;
+    }
+
+    /**
+     * Set end.
+     *
+     * @param \DateTime $end End
+     *
+     * @return void
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+    public function setEnd(\DateTime $end) /* : void */
+    {
+        $this->end = $end;
+    }
+
+    /**
+     * Get author.
+     *
+     * @return string
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+    public function getAuthor() : string
+    {
+        return $this->author;
+    }
+
+    /**
+     * Set author.
+     *
+     * @param string $author Author
+     *
+     * @return void
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+    public function setAuthor(string $author) /* : void */
+    {
+        $this->author = $author;
+    }
+
+    /**
+     * Get comment.
+     *
+     * @return string
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+    public function getComment() : string
+    {
+        return $this->comment;
+    }
+
+    /**
+     * Set comment.
+     *
+     * @param string $comment Comment
+     *
+     * @return void
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+    public function setComment(string $comment) /* : void */
+    {
+        $this->comment = $comment;
+    }
+
+    /**
+     * Get comment.
+     *
+     * @return string
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+    public function addResult(string $result)
+    {
+        $this->results[] = $result;
     }
 }

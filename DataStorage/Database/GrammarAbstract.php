@@ -2,7 +2,7 @@
 /**
  * Orange Management
  *
- * PHP Version 7.0
+ * PHP Version 7.1
  *
  * @category   TBD
  * @package    TBD
@@ -69,6 +69,12 @@ abstract class GrammarAbstract
      */
     protected $or = 'OR';
 
+    /**
+     * Table prefix.
+     *
+     * @var string
+     * @since 1.0.0
+     */
     protected $tablePrefix = '';
 
     /**
@@ -77,8 +83,6 @@ abstract class GrammarAbstract
      * @param BuilderAbstract $query Builder
      *
      * @return string
-     *
-     * @throws
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
@@ -97,19 +101,53 @@ abstract class GrammarAbstract
         ) . ';';
     }
 
+    /**
+     * Compile query components.
+     *
+     * @param BuilderAbstract $query Builder
+     *
+     * @return array Parsed query components
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
     abstract protected function compileComponents(BuilderAbstract $query) : array;
 
+    /**
+     * Get date format.
+     *
+     * @return string
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
     public function getDateFormat() : string
     {
         return 'Y-m-d H:i:s';
     }
 
+    /**
+     * Get table prefix.
+     *
+     * @return string
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
     public function getTablePrefix() : string
     {
         return $this->tablePrefix;
     }
 
-    public function setTablePrefix(string $prefix)
+    /**
+     * Set table prefix.
+     *
+     * @param string $prefix Table prefix
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+    public function setTablePrefix(string $prefix) /* : void */
     {
         $this->tablePrefix = $prefix;
     }

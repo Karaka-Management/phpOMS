@@ -2,7 +2,7 @@
 /**
  * Orange Management
  *
- * PHP Version 7.0
+ * PHP Version 7.1
  *
  * @category   TBD
  * @package    TBD
@@ -32,127 +32,225 @@ use phpOMS\System\File\StorageAbstract;
  */
 class FtpStorage extends StorageAbstract
 {
-
+    /**
+     * {@inheritdoc}
+     */
     public static function created(string $path) : \DateTime
     {
         // TODO: Implement created() method.
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public static function changed(string $path) : \DateTime
     {
         // TODO: Implement changed() method.
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public static function owner(string $path) : int
     {
         // TODO: Implement owner() method.
     }
 
-    public static function permission(string $path) : int
+    /**
+     * {@inheritdoc}
+     */
+    public static function permission(string $path) : string
     {
         // TODO: Implement permission() method.
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public static function parent(string $path) : string
     {
         // TODO: Implement parent() method.
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public static function create(string $path) : bool
     {
         // TODO: Implement create() method.
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public static function delete(string $path) : bool
     {
         // TODO: Implement delete() method.
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public static function copy(string $from, string $to, bool $overwrite = false) : bool
     {
         // TODO: Implement copy() method.
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public static function move(string $from, string $to, bool $overwrite = false) : bool
     {
         // TODO: Implement move() method.
     }
 
-    public static function size(string $path) : int
+    /**
+     * {@inheritdoc}
+     */
+    public static function size(string $path, bool $recursive = true) : int
     {
         // TODO: Implement size() method.
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public static function exists(string $path) : bool
     {
         // TODO: Implement exists() method.
     }
 
-    public function getCount() : int
+    /**
+     * {@inheritdoc}
+     */
+    public static function name(string $path) : string
+    {
+        // TODO: Implement name() method.
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public static function basename(string $path) : string
+    {
+        // TODO: Implement basename() method.
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public static function count(string $path, bool $recursive = true, array $ignore = []) : int
+    {
+        // TODO: Implement count() method.
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getCount(bool $recursive = false) : int
     {
         // TODO: Implement getCount() method.
     }
 
-    public function getSize() : int
+    /**
+     * {@inheritdoc}
+     */
+    public function getSize(bool $recursive = false) : int
     {
         // TODO: Implement getSize() method.
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function getName() : string
     {
         // TODO: Implement getName() method.
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function getPath() : string
     {
         // TODO: Implement getPath() method.
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function getParent() : ContainerInterface
     {
         // TODO: Implement getParent() method.
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function createNode() : bool
     {
         // TODO: Implement createNode() method.
     }
 
-    public function copyNode() : bool
+    /**
+     * {@inheritdoc}
+     */
+    public function copyNode(string $to, bool $overwrite = false) : bool
     {
         // TODO: Implement copyNode() method.
     }
 
-    public function moveNode() : bool
+    /**
+     * {@inheritdoc}
+     */
+    public function moveNode(string $to, bool $overwrite = false) : bool
     {
         // TODO: Implement moveNode() method.
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function deleteNode() : bool
     {
         // TODO: Implement deleteNode() method.
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function getCreatedAt() : \DateTime
     {
         // TODO: Implement getCreatedAt() method.
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function getChangedAt() : \DateTime
     {
         // TODO: Implement getChangedAt() method.
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function getOwner() : int
     {
         // TODO: Implement getOwner() method.
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function getPermission() : string
     {
         // TODO: Implement getPermission() method.
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function index()
     {
         // TODO: Implement index() method.
@@ -276,28 +374,123 @@ class FtpStorage extends StorageAbstract
         // TODO: Implement offsetUnset() method.
     }
 
-    public static function put(string $path, string $content, bool $overwrite = true) : bool
+    /**
+     * {@inheritdoc}
+     */
+    public static function put(string $path, string $content, int $mode = 0) : bool
     {
         // TODO: Implement put() method.
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public static function get(string $path) : string
     {
         // TODO: Implement get() method.
     }
 
-    public function putContent() : bool
+    /**
+     * {@inheritdoc}
+     */
+    public function putContent(string $content, int $mode = 0) : bool
     {
         // TODO: Implement putContent() method.
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function getContent() : string
     {
         // TODO: Implement getContent() method.
     }
 
-    protected function getType() : ContainerInterface
+    /**
+     * {@inheritdoc}
+     */
+    public static function sanitize(string $path, string $replace = '') : string
     {
-        // TODO: Implement getType() method.
+        // TODO: Implement sanitize() method.
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getNode(string $name)
+    {
+        // TODO: Implement getNode() method.
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function addNode($file) : bool
+    {
+        // TODO: Implement addNode() method.
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public static function set(string $path, string $content) : bool
+    {
+        // TODO: Implement set() method.
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public static function append(string $path, string $content) : bool
+    {
+        // TODO: Implement append() method.
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public static function prepend(string $path, string $content) : bool
+    {
+        // TODO: Implement prepend() method.
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public static function extension(string $path) : string
+    {
+        // TODO: Implement extension() method.
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function setContent(string $content) : bool
+    {
+        // TODO: Implement setContent() method.
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function appendContent(string $content) : bool
+    {
+        // TODO: Implement appendContent() method.
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function prependContent(string $content) : bool
+    {
+        // TODO: Implement prependContent() method.
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getExtension() : string
+    {
+        // TODO: Implement getExtension() method.
     }
 }

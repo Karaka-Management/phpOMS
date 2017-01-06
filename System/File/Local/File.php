@@ -2,7 +2,7 @@
 /**
  * Orange Management
  *
- * PHP Version 7.0
+ * PHP Version 7.1
  *
  * @category   TBD
  * @package    TBD
@@ -57,7 +57,7 @@ class File extends FileAbstract implements FileInterface
     /**
      * {@inheritdoc}
      */
-    public function index()
+    public function index() /* : void */
     {
         parent::index();
 
@@ -70,11 +70,13 @@ class File extends FileAbstract implements FileInterface
     public static function put(string $path, string $content, int $mode = ContentPutMode::REPLACE | ContentPutMode::CREATE) : bool
     {
         // todo: create all else cases, right now all getting handled the same way which is wrong
+        $exists = file_exists($path);
+
         if (
-            (($mode & ContentPutMode::APPEND) === ContentPutMode::APPEND && file_exists($path))
-            || (($mode & ContentPutMode::PREPEND) === ContentPutMode::PREPEND && file_exists($path))
-            || (($mode & ContentPutMode::REPLACE) === ContentPutMode::REPLACE && file_exists($path))
-            || (!file_exists($path) && ($mode & ContentPutMode::CREATE) === ContentPutMode::CREATE)
+            (($mode & ContentPutMode::APPEND) === ContentPutMode::APPEND && $exists)
+            || (($mode & ContentPutMode::PREPEND) === ContentPutMode::PREPEND && $exists)
+            || (($mode & ContentPutMode::REPLACE) === ContentPutMode::REPLACE && $exists)
+            || (!$exists && ($mode & ContentPutMode::CREATE) === ContentPutMode::CREATE)
         ) {
             if (!Directory::exists(dirname($path))) {
                 Directory::create(dirname($path), '0644', true);
@@ -226,6 +228,21 @@ class File extends FileAbstract implements FileInterface
      */
     public static function dirname(string $path) : string
     {
+        return basename(dirname($path));
+    }
+
+    /**
+     * Gets the directory path of a file.
+     * 
+     * @param  string $path Path of the file to get the directory name for.
+     * 
+     * @return string Returns the directory name of the file.
+     *
+     * @since 1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+    public static function dirpath(string $path) : string
+    {
         return dirname($path);
     }
 
@@ -287,11 +304,27 @@ class File extends FileAbstract implements FileInterface
         return true;
     }
 
+    /**
+     * Gets the directory name of a file.
+     * 
+     * @return string Returns the directory name of the file.
+     *
+     * @since 1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
     public function getDirName() : string
     {
         return basename(dirname($this->path));
     }
 
+    /**
+     * Gets the directory path of a file.
+     * 
+     * @return string Returns the directory path of the file.
+     *
+     * @since 1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
     public function getDirPath() : string
     {
         return dirname($this->path);
@@ -315,6 +348,10 @@ class File extends FileAbstract implements FileInterface
                 Directory::create(dirname($path), '0644', true);
             }
 
+            if(!is_writable($path)) {
+                return false;
+            }
+            
             touch($path);
 
             return true;

@@ -2,7 +2,7 @@
 /**
  * Orange Management
  *
- * PHP Version 7.0
+ * PHP Version 7.1
  *
  * @category   TBD
  * @package    TBD
@@ -121,10 +121,12 @@ class MultiMap implements \Countable
     /**
      * Garbage collect unreferenced values/keys
      *
+     * @return void
+     *
      * @since  1.0.0
      * @author Dennis Eichhorn
      */
-    private function garbageCollect()
+    private function garbageCollect() /* : void */
     {
         /* garbage collect keys */
         foreach ($this->keys as $key => $keyValue) {

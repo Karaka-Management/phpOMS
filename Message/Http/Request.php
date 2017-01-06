@@ -2,7 +2,7 @@
 /**
  * Orange Management
  *
- * PHP Version 7.0
+ * PHP Version 7.1
  *
  * @category   TBD
  * @package    TBD
@@ -103,12 +103,10 @@ class Request extends RequestAbstract
      *
      * @return void
      *
-     * @throws
-     *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function init($uri = null)
+    public function init($uri = null) /* : void */
     {
         if (!isset($uri)) {
             $this->initCurrentRequest();
@@ -137,10 +135,11 @@ class Request extends RequestAbstract
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    private function initCurrentRequest()
+    private function initCurrentRequest() /* : void */
     {
         $this->data  = $_GET ?? [];
         $this->files = $_FILES ?? [];
+        $this->language = $this->loadRequestLanguage();
 
         if (isset($_SERVER['CONTENT_TYPE'])) {
             if (strpos($_SERVER['CONTENT_TYPE'], 'application/json') !== false) {
@@ -158,6 +157,15 @@ class Request extends RequestAbstract
         $this->uri = $this->uri ?? new Http(Http::getCurrent());
     }
 
+    private function loadRequestLanguage() : string
+    {
+        $lang = $_SERVER['HTTP_ACCEPT_LANGUAGE'];
+        $lang = explode(';', $lang);
+        $lang = explode('-', $lang[0]);
+
+        return $lang[0];
+    }
+
     /**
      * Init pseudo request
      *
@@ -168,7 +176,7 @@ class Request extends RequestAbstract
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    private function initPseudoRequest($uri)
+    private function initPseudoRequest($uri) /* : void */
     {
         $this->setMethod($uri['type']);
         $this->uri->set($uri['uri']);
@@ -182,7 +190,7 @@ class Request extends RequestAbstract
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    private function cleanupGlobals()
+    private function cleanupGlobals() /* : void */
     {
         unset($_FILES);
         unset($_GET);
@@ -198,7 +206,7 @@ class Request extends RequestAbstract
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    private function setupUriBuilder()
+    private function setupUriBuilder() /* : void */
     {
         UriFactory::setQuery('/scheme', $this->uri->getScheme());
         UriFactory::setQuery('/host', $this->uri->getHost());
@@ -219,6 +227,14 @@ class Request extends RequestAbstract
     }
 
     /**
+     * {@inheritdoc}
+     */
+    public function getLanguage() : string
+    {
+        return $this->language;
+    }
+
+    /**
      * Create request hashs of current request
      *
      * @return void
@@ -226,7 +242,7 @@ class Request extends RequestAbstract
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    private function createRequestHashs()
+    private function createRequestHashs() /* : void */
     {
         $this->hash = [];
         foreach ($this->path as $key => $path) {
@@ -314,12 +330,12 @@ class Request extends RequestAbstract
     /**
      * Determine request OS.
      *
-     * @return OSType
+     * @return string
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function getOS() : OSType
+    public function getOS() : string
     {
         if (!isset($this->os)) {
             $arr               = OSType::getConstants();

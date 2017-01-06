@@ -2,7 +2,7 @@
 /**
  * Orange Management
  *
- * PHP Version 7.0
+ * PHP Version 7.1
  *
  * @category   TBD
  * @package    TBD
@@ -143,8 +143,6 @@ class Localization
     /**
      * Constructor.
      *
-     * @param L11nManager $l11nManager Localization manager
-     *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
@@ -171,7 +169,7 @@ class Localization
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function setCountry(string $country)
+    public function setCountry(string $country) /* : void */
     {
         if (!ISO3166TwoEnum::isValidValue($country)) {
             throw new InvalidEnumValue($country);
@@ -199,7 +197,7 @@ class Localization
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function setTimezone(string $timezone)
+    public function setTimezone(string $timezone) /* : void */
     {
         if (!TimeZoneEnumArray::isValidValue($timezone)) {
             throw new InvalidEnumValue($timezone);
@@ -224,10 +222,12 @@ class Localization
      *
      * @return void
      *
+     * @throws InvalidEnumValue
+     *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function setLanguage(string $language)
+    public function setLanguage(string $language) /* : void */
     {
         if (!ISO639x1Enum::isValidValue($language)) {
             throw new InvalidEnumValue($language);
@@ -255,7 +255,7 @@ class Localization
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function setCurrency(string $currency)
+    public function setCurrency(string $currency) /* : void */
     {
         if (!ISO4217Enum::isValidValue($currency)) {
             throw new InvalidEnumValue($currency);
@@ -283,7 +283,7 @@ class Localization
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function setDatetime(string $datetime)
+    public function setDatetime(string $datetime) /* : void */
     {
         $this->datetime = $datetime;
     }
@@ -307,7 +307,7 @@ class Localization
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function setDecimal(string $decimal)
+    public function setDecimal(string $decimal) /* : void */
     {
         $this->decimal = $decimal;
     }
@@ -331,7 +331,7 @@ class Localization
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function setThousands(string $thousands)
+    public function setThousands(string $thousands) /* : void */
     {
         $this->thousands = $thousands;
     }
@@ -355,9 +355,9 @@ class Localization
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function setAngle(string $angle)
+    public function setAngle(string $angle) /* : void */
     {
-        $this->temperature = $angle;
+        $this->angle = $angle;
     }
 
     /**
@@ -379,7 +379,7 @@ class Localization
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function setTemperatur(string $temperature)
+    public function setTemperature(string $temperature) /* : void */
     {
         $this->temperature = $temperature;
     }

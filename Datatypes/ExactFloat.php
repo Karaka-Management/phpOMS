@@ -2,7 +2,7 @@
 /**
  * Orange Management
  *
- * PHP Version 7.0
+ * PHP Version 7.1
  *
  * @category   TBD
  * @package    TBD
@@ -20,7 +20,7 @@ class ExactFloat
 
     private static $length = 0;
 
-    public static function setLength($length)
+    public static function setLength($length) /* : void */
     {
         self::$length = (int) $length;
     }

@@ -2,7 +2,7 @@
 /**
  * Orange Management
  *
- * PHP Version 7.0
+ * PHP Version 7.1
  *
  * @category   TBD
  * @package    TBD
@@ -34,7 +34,7 @@ class UpdateAbstract
     /**
      * Install module.
      *
-     * @param Pool        $dbPool Database instance
+     * @param DatabasePool        $dbPool Database instance
      * @param InfoManager $info   Module info
      *
      * @return void
@@ -42,7 +42,7 @@ class UpdateAbstract
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public static function update(DatabasePool $dbPool, InfoManager $info)
+    public static function update(DatabasePool $dbPool, InfoManager $info) /* : void */
     {
     }
 }
