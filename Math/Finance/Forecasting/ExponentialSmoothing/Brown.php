@@ -13,8 +13,9 @@
  * @version    1.0.0
  * @link       http://orange-management.com
  */
- namespace phpOMS\Math\Finance\Forecasting;
+ namespace phpOMS\Math\Finance\Forecasting\ExponentialSmoothing;
 
+use phpOMS\Math\Finance\Forecasting\SmoothingType;
 use phpOMS\Math\Statistic\Average;
 use phpOMS\Math\Statistic\Forecast\Error;
 
@@ -76,11 +77,10 @@ class Brown
         $seasonality                 = $this->getSeasonality($trendCycle);
         $seasonalityIndexMap         = $this->generateSeasonalityMap($this->cycle, $seasonality);
         $adjustedSeasonalityIndexMap = $this->generateAdjustedSeasonalityMap($this->cycle, $seasonalityIndexMap);
-        $seasonalIndex               = $this->getSeasonalIndex($this->cycle, $adjustedSeasonalityIndexMap);
-        $adjustedData                = $this->getAdjustedData($this->cycle, $seasonalIndex);
+        $adjustedData                = $this->getAdjustedData($this->cycle, $adjustedSeasonalityIndexMap);
         $optimizedForecast           = $this->getOptimizedForecast($future, $adjustedData);
 
-        return $this->getReseasonalized($optimizedForecast, $seasonalIndex);
+        return $this->getReseasonalized($this->cycle, $optimizedForecast, $adjustedSeasonalityIndexMap);
     }
 
     private function getTrendCycle(int $cycle) : array
@@ -146,7 +146,7 @@ class Brown
         $adjusted = [];
 
         foreach ($this->data as $key => $value) {
-            $adjusted[$key] = $this->data[$key] / $seasonalIndex[$key];
+            $adjusted[$key] = $value / ($seasonalIndex[$key % $cycle] === 0 ? 1 : $seasonalIndex[$key % $cycle]);
         }
 
         return $adjusted;
@@ -155,7 +155,8 @@ class Brown
     private function forecast(int $future, float $alpha, array $data, array &$error) : array
     {
         $forecast = [];
-        $length   = count($data) + $future;
+        $dataLength = count($data);
+        $length   = $dataLength + $future;
 
         $forecast[0] = $data[0];
         $forecast[1] = $data[1];
@@ -164,8 +165,8 @@ class Brown
         $error[1] = $data[1] - $forecast[1];
 
         for ($i = 2; $i < $length; $i++) {
-            $forecast[$i] = 2 * $data[$i - 1] - $data[$i - 2] - 2 * (1 - $alpha) * $error[$i - 1] + pow(1 - $alpha, 2) * $error[$i - 2];
-            $error[$i]    = $data[$i] - $forecast[$i];
+            $forecast[$i] = 2 * ($data[$i - 1] ?? $forecast[$i - 1]) - ($data[$i - 2] ?? $forecast[$i - 2]) - 2 * (1 - $alpha) * $error[$i - 1] + pow(1 - $alpha, 2) * $error[$i - 2];
+            $error[$i]    = $i < $dataLength ? $data[$i] - $forecast[$i] : 0;
         }
 
         return $forecast;
@@ -173,14 +174,14 @@ class Brown
 
     private function getOptimizedForecast(int $future, array $adjustedData) : array
     {
-        $this->rmse = 0;
+        $this->rmse = PHP_INT_MAX;
         $alpha      = 0.00;
         $forecast   = [];
-        $error      = [];
 
         while ($alpha < 1) {
+            $error      = [];
             $tempForecast = $this->forecast($future, $alpha, $adjustedData, $error);
-            $alpha += 0.01;
+            $alpha += 0.001;
 
             $tempRMSE = Error::getRootMeanSquaredError($error);
 
@@ -198,12 +199,12 @@ class Brown
         return $forecast;
     }
 
-    private function getReseasonalized(array $forecast, array $seasonalIndex) : array
+    private function getReseasonalized(int $cycle, array $forecast, array $seasonalIndex) : array
     {
         $reSeasonalized = [];
 
         foreach ($forecast as $key => $value) {
-            $reSeasonalized[$key] = $value * $seasonalIndex[$key];
+            $reSeasonalized[$key] = $value * ($seasonalIndex[$key % $cycle] === 0 ? 1 : $seasonalIndex[$key % $cycle]);
         }
 
         return $reSeasonalized;
