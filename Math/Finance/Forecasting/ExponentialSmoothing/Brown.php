@@ -19,13 +19,15 @@ use phpOMS\Math\Finance\Forecasting\SmoothingType;
 use phpOMS\Math\Statistic\Average;
 use phpOMS\Math\Statistic\Forecast\Error;
 
-class Brown
+class Brown implements ExponentialSmoothingInterface
 {
     private $data = [];
 
     private $errors = [];
 
     private $cycle = 0;
+
+    private $type = ForecastType::LINEAR;
 
     private $rmse = 0.0;
 
@@ -35,10 +37,10 @@ class Brown
 
     private $sse = 0.0;
 
-    public function __construct(array $data, int $cycle = 0)
+    public function __construct(array $data, int $cycle = 0, int $type = ForecastType::LINEAR)
     {
         $this->data  = $data;
-        $this->cycle = $cycle;
+        $this->type = $type;
     }
 
     public function setCycle(int $cycle) /* : void */
@@ -73,7 +75,7 @@ class Brown
 
     public function getForecast(int $future = 1, int $smoothing = SmoothingType::CENTERED_MOVING_AVERAGE) : array
     {
-        $trendCycle                  = $this->getTrendCycle($this->cycle);
+        $trendCycle                  = $this->getTrendCycle($this->cycle, $smoothing);
         $seasonality                 = $this->getSeasonality($trendCycle);
         $seasonalityIndexMap         = $this->generateSeasonalityMap($this->cycle, $seasonality);
         $adjustedSeasonalityIndexMap = $this->generateAdjustedSeasonalityMap($this->cycle, $seasonalityIndexMap);
@@ -83,7 +85,7 @@ class Brown
         return $this->getReseasonalized($this->cycle, $optimizedForecast, $adjustedSeasonalityIndexMap);
     }
 
-    private function getTrendCycle(int $cycle) : array
+    private function getTrendCycle(int $cycle, int $smoothing) : array
     {
         $centeredMovingAverage = [];
 
@@ -152,7 +154,7 @@ class Brown
         return $adjusted;
     }
 
-    private function forecast(int $future, float $alpha, array $data, array &$error) : array
+    private function forecastLinear(int $future, float $alpha, array $data, array &$error) : array
     {
         $forecast = [];
         $dataLength = count($data);
@@ -172,7 +174,25 @@ class Brown
         return $forecast;
     }
 
-    private function getOptimizedForecast(int $future, array $adjustedData) : array
+    private function forecastSimple(int $future, float $alpha, array $data, array &$error) : array
+    {
+        $forecast = [];
+        $dataLength = count($data);
+        $length   = $dataLength + $future;
+
+        $forecast[0] = $data[0];
+
+        $error[0] = 0;
+
+        for ($i = 1; $i < $length; $i++) {
+            $forecast[$i] = $alpha * $data[$i-1] + (1-$alpha)*$forecast[$i-1];
+            $error[$i]    = $i < $dataLength ? $data[$i] - $forecast[$i] : 0;
+        }
+
+        return $forecast;
+    }
+
+    private function getOptimizedForecast(int $future, array $adjustedDatae) : array
     {
         $this->rmse = PHP_INT_MAX;
         $alpha      = 0.00;
@@ -180,7 +200,13 @@ class Brown
 
         while ($alpha < 1) {
             $error      = [];
-            $tempForecast = $this->forecast($future, $alpha, $adjustedData, $error);
+
+            if($this->type === ForecastType::LINEAR) {
+                $tempForecast = $this->forecastLinear($future, $alpha, $adjustedData, $error);
+            } else {
+                $tempForecast = $this->forecastSimple($future, $alpha, $adjustedData, $error);
+            }
+
             $alpha += 0.001;
 
             $tempRMSE = Error::getRootMeanSquaredError($error);
