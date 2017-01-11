@@ -1397,4 +1397,36 @@ class FinanceFormulas
         return $P * $r * $t;
     }
 
+    /**
+     * Relative market share by share
+     *
+     * @param float $ownShare Own market share
+     * @param float $competitorShare Largest competitor market share
+     *
+     * @return float
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn
+     */
+    public static function getRelativeMarketShareByShare(float $ownShare, float $competitorShare) : float
+    {
+        return $ownShare / $competitorShare;
+    }
+
+    /**
+     * Relative market share by sales
+     *
+     * @param float $ownSales Own sales
+     * @param float $competitorSales Largest competitor sales
+     *
+     * @return float
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn
+     */
+    public static function getRelativeMarketShareBySales(float $ownSales, float $competitorSales) : float
+    {
+        return $ownSales / $competitorSales;
+    }
+
 }
