@@ -1,4 +1,3 @@
-@@ -1,265 +0,0 @@
 <?php
 /**
  * Orange Management
@@ -14,7 +13,7 @@
  * @version    1.0.0
  * @link       http://orange-management.com
  */
- namespace phpOMS\Math\Finance\Forecasting\ExponentialSmoothing;
+namespace phpOMS\Math\Finance\Forecasting\ExponentialSmoothing;
 
 use phpOMS\Math\Finance\Forecasting\SmoothingType;
 use phpOMS\Math\Statistic\Average;
@@ -66,30 +65,57 @@ class Holt implements ExponentialSmoothingInterface
 
     public function forecast(int $future, int $trendType = TrendType::NONE, int $seasonalType = SeasonalType::NONE, int $cycle = 12, float $damping = 1) : array 
     {
+        $this->rmse = PHP_INT_MAX;
+
         if($trendType === TrendType::ALL || $seasonalType === SeasonalType::ALL) {
-            // todo: loob through all and find best
+            $trends = [$trendType];
+            if($trendType === TrendType::ALL) {
+                $trends = [TrendType::NONE, TrendType::ADDITIVE, TrendType::MULTIPLICATIVE];
+            }
+
+            $seasonals = [$seasonalType];
+            if($seasonalType === SeasonalType::ALL) {
+                $seasonals = [SeasonalType::NONE, SeasonalType::ADDITIVE, SeasonalType::MULTIPLICATIVE];
+            }
+
+            $forecast = [];
+            $bestError = PHP_INT_MAX;
+            foreach($trends as $trend) {
+                foreach($seasonals as $seasonal) {
+                    $tempForecast = $this->forecast($future, $trends, $seasonals, $cycle, $damping);
+
+                    if ($this->rmse < $bestError) {
+                        $bestError = $this->rmse;
+                        $forecast   = $tempForecast;
+                    }
+                }
+            }
+
+            return $forecast;
         } elseif($trendType === TrendType::NONE && $seasonalType === SeasonalType::NONE) {
-            return $this->getNoneNone($future, $alpha);
+            return $this->getNoneNone($future);
         } elseif($trendType === TrendType::NONE && $seasonalType === SeasonalType::ADDITIVE) {
-            return $this->getNoneAdditive($future, $alpha, $gamma, $cycle);
+            return $this->getNoneAdditive($future, $cycle);
         } elseif($trendType === TrendType::NONE && $seasonalType === SeasonalType::MULTIPLICATIVE) {
-            return $this->getNoneMultiplicative($future, $alpha, $gamma, $cycle);
+            return $this->getNoneMultiplicative($future, $cycle);
         } elseif($trendType === TrendType::ADDITIVE && $seasonalType === SeasonalType::NONE) {
-            return $this->getAdditiveNone($future, $alpha, $damping);
+            return $this->getAdditiveNone($future, $damping);
         } elseif($trendType === TrendType::ADDITIVE && $seasonalType === SeasonalType::ADDITIVE) {
-            return $this->getAdditiveAdditive($future, $alpha, $beta, $gamma, $cycle, $damping);
+            return $this->getAdditiveAdditive($future, $cycle, $damping);
         } elseif($trendType === TrendType::ADDITIVE && $seasonalType === SeasonalType::MULTIPLICATIVE) {
-            return $this->getAdditiveMultiplicative($future, $alpha, $beta, $gamma, $cycle, $damping);
+            return $this->getAdditiveMultiplicative($future, $cycle, $damping);
         } elseif($trendType === TrendType::MULTIPLICATIVE && $seasonalType === SeasonalType::NONE) {
-            return $this->getMultiplicativeNone($future);
+            return $this->getMultiplicativeNone($future, $damping);
         } elseif($trendType === TrendType::MULTIPLICATIVE && $seasonalType === SeasonalType::ADDITIVE) {
             return $this->getMultiplicativeAdditive($future, $cycle, $damping);
         } elseif($trendType === TrendType::MULTIPLICATIVE && $seasonalType === SeasonalType::MULTIPLICATIVE) {
             return $this->getMultiplicativeMultiplicative($future, $cycle, $damping);
         }
+
+        throw new \Exception();
     }
 
-    private dampingSum(float $damping, int $length) : float
+    private function dampingSum(float $damping, int $length) : float
     {
         $sum = 0;
         for($i = 0; $i < $length; $i++) {
@@ -101,89 +127,193 @@ class Holt implements ExponentialSmoothingInterface
 
     public function getNoneNone($future, $alpha) : array 
     {
-        $level[0] = $data[0];
+        $level = [$data[0]];
         $dataLength = count($this->data) + $future;
         $forecast = [];
 
-        for($i = 1; $i < $dataLength; $i++) {
-            $level[] = $alpha * $this->data[$i-1] + (1 - $alpha) * $level[$i-1];
+        $alpha = 0.00;
+        while ($alpha < 1) {
+            $error      = [];
+            $tempForecast = [];
 
-            $forecast[] = $level[$i];
+            for($i = 1; $i < $dataLength; $i++) {
+                $level[] = $alpha * $this->data[$i-1] + (1 - $alpha) * $level[$i-1];
+
+                $tempForecast[] = $level[$i];
+                $error[]    = $i < $dataLength ? $this->data[$i] - $tempForecast[$i] : 0;
+            }
+
+            $tempRMSE = Error::getRootMeanSquaredError($error);
+            
+            if ($tempRMSE < $this->rmse) {
+                $this->rmse = $tempRMSE;
+                $forecast   = $tempForecast;
+            }
+
+            $alpha += 0.001;
         }
+
+        $this->errors = $error;
+        $this->mse    = Error::getMeanSquaredError($error);
+        $this->mae    = Error::getMeanAbsoulteError($error);
+        $this->sse    = Error::getSumSquaredError($error);
 
         return $forecast;
     }
 
-    public function getNoneAdditive(int $future, float $alpha, float $gamma, int $cycle) : array 
+    public function getNoneAdditive(int $future, int $cycle) : array 
     {
-        $level[0] = $data[0];
+        $level = [$data[0]];
         $dataLength = count($this->data) + $future;
         $forecast = [];
-        $gamma_ = $gamma * (1 - $alpha);
+        $seasonal = [];
 
         for($i = 0; $i < $cycle; $i++) {
             $seasonal[$i] = $data[$i] - $level[0];
         }
 
-        for($i = 1; $i < $dataLength; $i++) {
-            $hm = (int) floor(($i-1) % $cycle) + 1;
+        $alpha = 0.00;
+        while ($alpha < 1) {
+            $gamma = 0.00;
 
-            $level[] = $alpha * ($this->data[$i-1] - $seasonal[$i]) + (1 - $alpha) * $level[$i-1];
-            $seasonal[] = $gamma_*($this->data[$i-1] - $level[$i-1]) + (1 - $gamma_) * $seasonal[$i];
+            while($gamma < 0) {
+                $gamma_ = $gamma * (1 - $alpha);
+                $error      = [];
+                $tempForecast = [];
 
-            $forecast[] = $level[$i] + $seasonal[$i+$hm];
+                for($i = 1; $i < $dataLength; $i++) {
+                    $hm = (int) floor(($i-1) % $cycle) + 1;
+
+                    $level[] = $alpha * ($this->data[$i-1] - $seasonal[$i]) + (1 - $alpha) * $level[$i-1];
+                    $seasonal[] = $gamma_*($this->data[$i-1] - $level[$i-1]) + (1 - $gamma_) * $seasonal[$i];
+
+                    $tempForecast[] = $level[$i] + $seasonal[$i+$hm];
+                    $error[]    = $i < $dataLength ? $this->data[$i] - $tempForecast[$i] : 0;
+                }
+                    
+                $tempRMSE = Error::getRootMeanSquaredError($error);
+            
+                if ($tempRMSE < $this->rmse) {
+                    $this->rmse = $tempRMSE;
+                    $forecast   = $tempForecast;
+                }
+       
+                $gamma += 0.001;
+            }
+
+            $alpha += 0.001;
         }
+
+        $this->errors = $error;
+        $this->mse    = Error::getMeanSquaredError($error);
+        $this->mae    = Error::getMeanAbsoulteError($error);
+        $this->sse    = Error::getSumSquaredError($error);
 
         return $forecast;
     }
 
-    public function getNoneMultiplicative(int $future, float $alpha, float $gamma, int $cycle) : array 
+    public function getNoneMultiplicative(int $future, int $cycle) : array 
     {
-        $level[0] = $data[0];
+        $level = [$data[0]];
         $dataLength = count($this->data) + $future;
         $forecast = [];
-        $gamma_ = $gamma * (1 - $alpha);
+        $seasonal = [];
 
         for($i = 0; $i < $cycle; $i++) {
             $seasonal[$i] = $this->data[$i] / $level[0];
         }
 
-        for($i = 1; $i < $dataLength; $i++) {
-            $hm = (int) floor(($i-1) % $cycle) + 1;
+        $alpha = 0.00;
+        while ($alpha < 1) {
+            $gamma = 0.00;
 
-            $level[] = $alpha * ($this->data[$i-1] / $seasonal[$i]) + (1 - $alpha) * $level[$i-1];
-            $seasonal[] = $gamma_*($this->data[$i-1] / $level[$i-1]) + (1 - $gamma_) * $seasonal[$i]
+            while($gamma < 0) {
+                $gamma_ = $gamma * (1 - $alpha);
+                $error      = [];
+                $tempForecast = [];
 
-            $forecast[] = $level[$i] + $seasonal[$i+$hm];
+                for($i = 1; $i < $dataLength; $i++) {
+                    $hm = (int) floor(($i-1) % $cycle) + 1;
+
+                    $level[] = $alpha * ($this->data[$i-1] / $seasonal[$i]) + (1 - $alpha) * $level[$i-1];
+                    $seasonal[] = $gamma_*($this->data[$i-1] / $level[$i-1]) + (1 - $gamma_) * $seasonal[$i];
+
+                    $tempForecast[] = $level[$i] + $seasonal[$i+$hm];
+                    $error[]    = $i < $dataLength ? $this->data[$i] - $tempForecast[$i] : 0;
+                }
+                    
+                $tempRMSE = Error::getRootMeanSquaredError($error);
+            
+                if ($tempRMSE < $this->rmse) {
+                    $this->rmse = $tempRMSE;
+                    $forecast   = $tempForecast;
+                }
+       
+                $gamma += 0.001;
+            }
+
+            $alpha += 0.001;
         }
+
+        $this->errors = $error;
+        $this->mse    = Error::getMeanSquaredError($error);
+        $this->mae    = Error::getMeanAbsoulteError($error);
+        $this->sse    = Error::getSumSquaredError($error);
 
         return $forecast;
     }
 
-    public function getAdditiveNone(int $future, float $alpha, float $damping) : array 
+    public function getAdditiveNone(int $future, float $damping) : array 
     {
-        $level[0] = $this->data[0];
-        $trend[0] = $this->data[1] - $this->data[0];
+        $level = [$this->data[0]];
+        $trend = [$this->data[1] - $this->data[0]];
         $dataLength = count($this->data) + $future;
         $forecast = [];
 
-        for($i = 1; $i < $dataLength; $i++) {
-            $level[] = $alpha * $this->data[$i-1] + (1 - $alpha) * ($level[$i-1] + $damping * $trend[$i-1]);
-            $trend[] = $beta * ($level[$i] - $level[$i-1]) + (1 - $beta) * $damping * $trend[$i-1];
+        $alpha = 0.00;
+        while ($alpha < 1) {
+            $beta = 0.00;
 
-            $forecast[] = $level[$i] + $this->dampingSum($damping, $i) * $trend[$i];
+            while($beta < 0) {
+                $error      = [];
+                $tempForecast = [];
+
+                for($i = 1; $i < $dataLength; $i++) {
+                    $level[] = $alpha * $this->data[$i-1] + (1 - $alpha) * ($level[$i-1] + $damping * $trend[$i-1]);
+                    $trend[] = $beta * ($level[$i] - $level[$i-1]) + (1 - $beta) * $damping * $trend[$i-1];
+
+                    $tempForecast[] = $level[$i] + $this->dampingSum($damping, $i) * $trend[$i];
+                    $error[]    = $i < $dataLength ? $this->data[$i] - $tempForecast[$i] : 0;
+                }
+                    
+                $tempRMSE = Error::getRootMeanSquaredError($error);
+            
+                if ($tempRMSE < $this->rmse) {
+                    $this->rmse = $tempRMSE;
+                    $forecast   = $tempForecast;
+                }
+       
+                $beta += 0.001;
+            }
+
+            $alpha += 0.001;
         }
+
+        $this->errors = $error;
+        $this->mse    = Error::getMeanSquaredError($error);
+        $this->mae    = Error::getMeanAbsoulteError($error);
+        $this->sse    = Error::getSumSquaredError($error);
 
         return $forecast;
     }
 
-    public function getAdditiveAdditive(int $future, float $alpha, float $beta, float $gamma, int $cycle, float $damping) : array 
+    public function getAdditiveAdditive(int $future, int $cycle, float $damping) : array 
     {
-        $level[0] = $1 / $cycle * array_sum($this->data, 0, $cycle);
-        $trend[0] = 1 / $cycle;
+        $level = [1 / $cycle * array_sum($this->data, 0, $cycle)];
+        $trend = [1 / $cycle];
         $dataLength = count($this->data) + $future;
         $forecast = [];
-        $gamma_ = $gamma * (1 - $alpha);
+        $seasonal = [];
 
         $sum = 0;
         for($i = 0; $i < $cycle; $i++) {
@@ -196,25 +326,60 @@ class Holt implements ExponentialSmoothingInterface
             $seasonal[$i] = $data[$i] - $level[0];
         }
 
-        for($i = 1; $i < $dataLength; $i++) {
-            $hm = (int) floor(($i-1) % $cycle) + 1;
+        $alpha = 0.00;
+        while ($alpha < 1) {
+            $beta = 0.00;
 
-            $level[] = $alpha * ($this->data[$i-1] - $seasonal[$i]) + (1 - $alpha) * ($level[$i-1] + $damping * $trend[$i-1]);
-            $trend[] = $beta * ($level[$i] - $level[$i-1]) + (1 - $beta) * $damping * $trend[$i-1];
-            $seasonal[] = $gamma_*($this->data[$i-1] - $level[$i-1]) + (1 - $gamma_) * $seasonal[$i];
+            while($beta < 0) {
+                $gamma = 0.00;
 
-            $forecast[] = $level[$i] + $this->dampingSum($damping, $i) * $trend[$i] + $seasonal[$i+$hm];
+                while($gamma < 1) {
+                    $gamma_ = $gamma * (1 - $alpha);
+                    $error      = [];
+                    $tempForecast = [];
+
+                    for($i = 1; $i < $dataLength; $i++) {
+                        $hm = (int) floor(($i-1) % $cycle) + 1;
+
+                        $level[] = $alpha * ($this->data[$i-1] - $seasonal[$i]) + (1 - $alpha) * ($level[$i-1] + $damping * $trend[$i-1]);
+                        $trend[] = $beta * ($level[$i] - $level[$i-1]) + (1 - $beta) * $damping * $trend[$i-1];
+                        $seasonal[] = $gamma_*($this->data[$i-1] - $level[$i-1]) + (1 - $gamma_) * $seasonal[$i];
+
+                        $tempForecast[] = $level[$i] + $this->dampingSum($damping, $i) * $trend[$i] + $seasonal[$i+$hm];
+                        $error[]    = $i < $dataLength ? $this->data[$i] - $tempForecast[$i] : 0;
+                    }
+                    
+                    $tempRMSE = Error::getRootMeanSquaredError($error);
+            
+                    if ($tempRMSE < $this->rmse) {
+                        $this->rmse = $tempRMSE;
+                        $forecast   = $tempForecast;
+                    }
+
+                    $gamma += 0.001;
+                }
+
+                $beta += 0.001;
+            }
+
+            $alpha += 0.001;
         }
+
+        $this->errors = $error;
+        $this->mse    = Error::getMeanSquaredError($error);
+        $this->mae    = Error::getMeanAbsoulteError($error);
+        $this->sse    = Error::getSumSquaredError($error);
 
         return $forecast;
     }
 
-    public function getAdditiveMultiplicative(int $future, float $alpha, float $beta, float $gamma, int $cycle, float $damping) : array 
+    public function getAdditiveMultiplicative(int $future, int $cycle, float $damping) : array 
     {
-        $level[0] = 1 / $cycle * array_sum($this->data, 0, $cycle);
-        $trend[0] = 1 / $cycle;
+        $level = [1 / $cycle * array_sum($this->data, 0, $cycle)];
+        $trend = [1 / $cycle];
         $dataLength = count($this->data) + $future;
         $forecast = [];
+        $seasonal = [];
         $gamma_ = $gamma * (1 - $alpha);
 
         $sum = 0;
@@ -228,29 +393,103 @@ class Holt implements ExponentialSmoothingInterface
             $seasonal[$i] = $this->data[$i] / $level[0];
         }
 
-        for($i = 1; $i < $dataLength; $i++) {
-            $hm = (int) floor(($i-1) % $cycle) + 1;
+        $alpha = 0.00;
+        while ($alpha < 1) {
+            $beta = 0.00;
 
-            $level[] = $alpha * ($this->data[$i-1] / $seasonal[$i]) + (1 - $alpha) * ($level[$i-1] + $damping * $trend[$i-1]);
-            $trend[] = $beta * ($level[$i] - $level[$i-1]) + (1 - $beta) * $damping * $trend[$i-1];
-            $seasonal[] = $gamma_*($this->data[$i-1] / ($level[$i-1] + $damping * $trend[$i-1]) + (1 - $gamma_) * $seasonal[$i];
+            while($beta < 0) {
+                $gamma = 0.00;
 
-            $forecast[] = ($level[$i] + $this->dampingSum($damping, $i) * $trend[$i-1]) * $seasonal[$i+$hm];
+                while($gamma < 1) {
+                    $gamma_ = $gamma * (1 - $alpha);
+                    $error      = [];
+                    $tempForecast = [];
+
+                    for($i = 1; $i < $dataLength; $i++) {
+                        $hm = (int) floor(($i-1) % $cycle) + 1;
+
+                        $level[] = $alpha * ($this->data[$i-1] / $seasonal[$i]) + (1 - $alpha) * ($level[$i-1] + $damping * $trend[$i-1]);
+                        $trend[] = $beta * ($level[$i] - $level[$i-1]) + (1 - $beta) * $damping * $trend[$i-1];
+                        $seasonal[] = $gamma_*$this->data[$i-1] / ($level[$i-1] + $damping * $trend[$i-1]) + (1 - $gamma_) * $seasonal[$i];
+
+                        $tempForecast[] = ($level[$i] + $this->dampingSum($damping, $i) * $trend[$i-1]) * $seasonal[$i+$hm];
+                        $error[]    = $i < $dataLength ? $this->data[$i] - $tempForecast[$i] : 0;
+                    }
+                    
+                    $tempRMSE = Error::getRootMeanSquaredError($error);
+            
+                    if ($tempRMSE < $this->rmse) {
+                        $this->rmse = $tempRMSE;
+                        $forecast   = $tempForecast;
+                    }
+
+                    $gamma += 0.001;
+                }
+
+                $beta += 0.001;
+            }
+
+            $alpha += 0.001;
         }
+
+        $this->errors = $error;
+        $this->mse    = Error::getMeanSquaredError($error);
+        $this->mae    = Error::getMeanAbsoulteError($error);
+        $this->sse    = Error::getSumSquaredError($error);
 
         return $forecast;
     }
 
-    public function getMultiplicativeNone() : array 
+    public function getMultiplicativeNone(int $future, float $damping) : array 
     {
-        $level[0] = $this->data[0];
-        $trend[0] = $this->data[1] / $this->data[0];
+        $level = [$this->data[0]];
+        $trend = [$this->data[1] / $this->data[0]];
+        $dataLength = count($this->data) + $future;
+        $forecast = [];
+
+        $alpha = 0.00;
+        while ($alpha < 1) {
+            $beta = 0.00;
+
+            while($beta < 0) {
+                $error      = [];
+                $tempForecast = [];
+
+                for($i = 1; $i < $dataLength; $i++) {
+                    $level[] = $alpha * $this->data[$i-1] + (1 - $alpha) * $level[$i-1] * pow($trend[$i-1], $damping);
+                    $trend[] = $beta * ($level[$i] / $level[$i-1]) + (1 - $beta) * pow($trend[$i-1], $damping);
+
+                    $tempForecast[] = $level[$i] * pow($trend[$i], $this->dampingSum($damping, $i));
+                    $error[]    = $i < $dataLength ? $this->data[$i] - $tempForecast[$i] : 0;
+                }
+
+                $tempRMSE = Error::getRootMeanSquaredError($error);
+            
+                if ($tempRMSE < $this->rmse) {
+                    $this->rmse = $tempRMSE;
+                    $forecast   = $tempForecast;
+                }
+
+                $beta += 0.001;
+            }
+            $alpha += 0.001;
+        }
+            
+        $this->errors = $error;
+        $this->mse    = Error::getMeanSquaredError($error);
+        $this->mae    = Error::getMeanAbsoulteError($error);
+        $this->sse    = Error::getSumSquaredError($error);
+
+        return $forecast;
     }
 
-    public function getMultiplicativeAdditive() : array 
+    public function getMultiplicativeAdditive(int $future, int $cycle, float $damping) : array 
     {
-        $level[0] = $this->data[0];
-        $trend[0] = 1 / $cycle;
+        $level = [$this->data[0]];
+        $trend = [1 / $cycle];
+        $dataLength = count($this->data) + $future;
+        $forecast = [];
+        $seasonal = [];
 
         $sum = 0;
         for($i = 0; $i < $cycle; $i++) {
@@ -261,14 +500,62 @@ class Holt implements ExponentialSmoothingInterface
 
         for($i = 0; $i < $cycle; $i++) {
             $seasonal[$i] = $data[$i] - $level[0];
-        }        
+        }
+
+        $alpha = 0.00;
+        while ($alpha < 1) {
+            $beta = 0.00;
+
+            while($beta < 0) {
+                $gamma = 0.00;
+
+                while($gamma < 1) {
+                    $gamma_ = $gamma * (1 - $alpha);
+                    $error      = [];
+                    $tempForecast = [];
+
+                    for($i = 1; $i < $dataLength; $i++) {
+                        $hm = (int) floor(($i-1) % $cycle) + 1;
+
+                        $level[] = $alpha * ($this->data[$i-1] - $seasonal[$i]) + (1 - $alpha) * $level[$i-1] * pow($trend[$i-1], $damping);
+                        $trend[] = $beta * ($level[$i] / $level[$i-1]) + (1 - $beta) * pow($trend[$i-1], $damping);
+                        $seasonal[] = $gamma_*($this->data[$i-1] - $level[$i-1] * pow($trend[$i-1], $damping)) + (1 - $gamma_) * $seasonal[$i];
+
+                        $tempForecast[] = $level[$i] * pow($trend[$i], $this->dampingSum($damping, $i)) + $seasonal[$i+$hm];
+                        $error[]    = $i < $dataLength ? $this->data[$i] - $tempForecast[$i] : 0;
+                    }
+
+                    $tempRMSE = Error::getRootMeanSquaredError($error);
+            
+                    if ($tempRMSE < $this->rmse) {
+                        $this->rmse = $tempRMSE;
+                        $forecast   = $tempForecast;
+                    }
+
+                    $gamma += 0.001;
+                }
+
+                $beta += 0.001;
+            }
+
+            $alpha += 0.001;
+        }
+
+        $this->errors = $error;
+        $this->mse    = Error::getMeanSquaredError($error);
+        $this->mae    = Error::getMeanAbsoulteError($error);
+        $this->sse    = Error::getSumSquaredError($error);
+
+        return $forecast;
     }
 
-    public function getMultiplicativeMultiplicative() : array 
+    public function getMultiplicativeMultiplicative(int $future, int $cycle, float $damping) : array 
     {
-        $level[0] = $this->data[0];
-
-        $trend[0] = 1 / $cycle;
+        $level = [$this->data[0]];
+        $trend = [1 / $cycle];
+        $dataLength = count($this->data) + $future;
+        $forecast = [];
+        $seasonal = [];
 
         $sum = 0;
         for($i = 0; $i < $cycle; $i++) {
@@ -280,6 +567,52 @@ class Holt implements ExponentialSmoothingInterface
         for($i = 0; $i < $cycle; $i++) {
             $seasonal[$i] = $this->data[$i] / $level[0];
         }
+
+        $alpha = 0.00;
+        while ($alpha < 1) {
+            $beta = 0.00;
+
+            while($beta < 0) {
+                $gamma = 0.00;
+
+                while($gamma < 1) {
+                    $gamma_ = $gamma * (1 - $alpha);
+                    $error      = [];
+                    $tempForecast = [];
+
+                    for($i = 1; $i < $dataLength; $i++) {
+                        $hm = (int) floor(($i-1) % $cycle) + 1;
+
+                        $level[] = $alpha * ($this->data[$i-1] / $seasonal[$i]) + (1 - $alpha) * $level[$i-1] * pow($trend[$i-1], $damping);
+                        $trend[] = $beta * ($level[$i] / $level[$i-1]) + (1 - $beta) * pow($trend[$i-1], $damping);
+                        $seasonal[] = $gamma_*$this->data[$i-1] / ($level[$i-1] * pow($trend[$i-1], $damping)) + (1 - $gamma_) * $seasonal[$i];
+
+                        $tempForecast[] = $level[$i] * pow($trend[$i], $this->dampingSum($damping, $i)) * $seasonal[$i+$hm];
+                        $error[]    = $i < $dataLength ? $this->data[$i] - $tempForecast[$i] : 0;
+                    }
+                    
+                    $tempRMSE = Error::getRootMeanSquaredError($error);
+            
+                    if ($tempRMSE < $this->rmse) {
+                        $this->rmse = $tempRMSE;
+                        $forecast   = $tempForecast;
+                    }
+
+                    $gamma += 0.001;
+                }
+
+                $beta += 0.001;
+            }
+
+            $alpha += 0.001;
+        }
+
+        $this->errors = $error;
+        $this->mse    = Error::getMeanSquaredError($error);
+        $this->mae    = Error::getMeanAbsoulteError($error);
+        $this->sse    = Error::getSumSquaredError($error);
+
+        return $forecast;
     }
 
 }
