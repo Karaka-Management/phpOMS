@@ -28,9 +28,10 @@ use phpOMS\Datatypes\Enum;
  * @link       http://orange-management.com
  * @since      1.0.0
  */
-abstract class ForecastType extends Enum
+abstract class TrendType extends Enum
 {
-    /* public */ const SIMPLE = 1;
-    /* public */ const LINEAR = 2;
-    /* public */ const EXPONENTIAL = 3;
+    /* public */ const ALL = 0;
+    /* public */ const NONE = 1;
+    /* public */ const ADDITIVE = 2;
+    /* public */ const MULTIPLICATIVE = 4;
 }
