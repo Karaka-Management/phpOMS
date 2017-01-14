@@ -32,6 +32,34 @@ use phpOMS\System\File\StorageAbstract;
  */
 class FtpStorage extends StorageAbstract
 {
+    private $con = null;
+
+    public function __construct(string $uri, int $port = 21, string $login = null, string $pass = null, bool $ssl = false)
+    {
+        $this->connect($uri, $port = 21, $login = null, $pass = null, $ssl = false);
+    }
+
+    public function connect(string $uri, int $port = 21, string $login = null, string $pass = null, bool $ssl = false) : bool
+    {
+        if($ssl) {
+            $this->con = ftp_connect($uri, $port);
+        } else {
+            $this->con = ftp_ssl_connect($uri, $port);
+        }
+
+        if(isset($login) && isset($pass)) {
+            ftp_login($this->con, $login, $pass);
+        }
+    }
+
+    public function __destruct()
+    {
+        if(isset($this->con)) {
+            ftp_close($this->con);
+            $this->con = null;
+        }
+    }
+
     /**
      * {@inheritdoc}
      */
