@@ -87,8 +87,8 @@ class FileCache implements CacheInterface
     {
         $path = $config['path'] ?? '';
 
-        if (!file_exists($path)) {
-            mkdir($path);
+        if (!File::exists($path)) {
+            Directory::create($path);
         }
 
         $this->cachePath = realpath($path);
@@ -153,7 +153,7 @@ class FileCache implements CacheInterface
         // todo: allow $key to contain / as char and create subdirectory if necessary. This is important for cleaner caching.
         $path = File::sanitize($key, self::SANITIZE);
 
-        file_put_contents($this->cachePath . '/' . trim($path, '/') . '.cache', $this->build($value, $expire));
+        File::put($this->cachePath . '/' . trim($path, '/') . '.cache', $this->build($value, $expire));
 
         return false;
     }
@@ -170,8 +170,8 @@ class FileCache implements CacheInterface
         $path = File::sanitize($key, self::SANITIZE);
         $path = $this->cachePath . '/' . trim($path, '/') . '.cache';
 
-        if (!file_exists($path)) {
-            file_put_contents($path, $this->build($value, $expire));
+        if (!File::exists($path)) {
+            File::put($path, $this->build($value, $expire));
 
             return true;
         }
@@ -287,7 +287,7 @@ class FileCache implements CacheInterface
         $name = File::sanitize($key, self::SANITIZE);
         $path = $this->cachePath . '/' . trim($name, '/') . '.cache';
 
-        if(!file_exists($path)) {
+        if(!File::exists($path)) {
             return null;
         }
         
@@ -298,7 +298,7 @@ class FileCache implements CacheInterface
             return null;
         }
 
-        $raw  = file_get_contents($path);
+        $raw  = File::get($path);
         $type = $raw[0];
 
         $expireStart = strpos($raw, self::DELIM);
@@ -354,8 +354,8 @@ class FileCache implements CacheInterface
         $name = File::sanitize($key, self::SANITIZE);
         $path = $this->cachePath . '/' . trim($name, '/') . '.cache';
 
-        if ($expire < 0 && file_exists($path)) {
-            unlink($path);
+        if ($expire < 0 && File::exists($path)) {
+            File::delete($path);
 
             return true;
         }
@@ -369,7 +369,7 @@ class FileCache implements CacheInterface
             $cacheExpire = substr($raw, $expireStart+1, $expireEnd - ($expireStart+1));
 
             if ($cacheExpire >= 0 && $created + $cacheExpire > $now) {
-                unlink($path);
+                File::delete($path);
 
                 return true;
             }
@@ -397,7 +397,7 @@ class FileCache implements CacheInterface
                     ($expire >= 0 && $created + $expire < $now)
                     || ($expire < 0 && $created + $this->getExpire($file->getContent()) < $now)
                 ) {
-                    unlink($file->getPath());
+                    File::delete($file->getPath());
                 }
             }
         }
@@ -417,8 +417,8 @@ class FileCache implements CacheInterface
         $name = File::sanitize($key, self::SANITIZE);
         $path = $this->cachePath . '/' . trim($path, '/') . '.cache';
 
-        if (file_exists($path)) {
-            file_put_contents($path, $this->build($value, $expire));
+        if (File::exists($path)) {
+            File::put($path, $this->build($value, $expire));
 
             return true;
         }
