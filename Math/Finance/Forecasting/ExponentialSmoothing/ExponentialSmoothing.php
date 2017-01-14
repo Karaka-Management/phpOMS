@@ -19,7 +19,7 @@ use phpOMS\Math\Finance\Forecasting\SmoothingType;
 use phpOMS\Math\Statistic\Average;
 use phpOMS\Math\Statistic\Forecast\Error;
 
-class Holt implements ExponentialSmoothingInterface
+class ExponentialSmoothing
 {
     private $data = [];
 
@@ -63,7 +63,7 @@ class Holt implements ExponentialSmoothingInterface
         return $this->errors;
     }
 
-    public function forecast(int $future, int $trendType = TrendType::NONE, int $seasonalType = SeasonalType::NONE, int $cycle = 12, float $damping = 1) : array 
+    public function getForecast(int $future, int $trendType = TrendType::NONE, int $seasonalType = SeasonalType::NONE, int $cycle = 12, float $damping = 1) : array 
     {
         $this->rmse = PHP_INT_MAX;
 
@@ -82,7 +82,7 @@ class Holt implements ExponentialSmoothingInterface
             $bestError = PHP_INT_MAX;
             foreach($trends as $trend) {
                 foreach($seasonals as $seasonal) {
-                    $tempForecast = $this->forecast($future, $trends, $seasonals, $cycle, $damping);
+                    $tempForecast = $this->getForecast($future, $trend, $seasonal, $cycle, $damping);
 
                     if ($this->rmse < $bestError) {
                         $bestError = $this->rmse;
@@ -117,6 +117,10 @@ class Holt implements ExponentialSmoothingInterface
 
     private function dampingSum(float $damping, int $length) : float
     {
+        if(abs($damping - 1) < 0.001) {
+            return $length;
+        }
+
         $sum = 0;
         for($i = 0; $i < $length; $i++) {
             $sum += pow($damping, $i);
@@ -125,9 +129,9 @@ class Holt implements ExponentialSmoothingInterface
         return $sum;
     }
 
-    public function getNoneNone($future, $alpha) : array 
+    public function getNoneNone(int $future) : array 
     {
-        $level = [$data[0]];
+        $level = [$this->data[0]];
         $dataLength = count($this->data) + $future;
         $forecast = [];
 
@@ -137,10 +141,10 @@ class Holt implements ExponentialSmoothingInterface
             $tempForecast = [];
 
             for($i = 1; $i < $dataLength; $i++) {
-                $level[] = $alpha * $this->data[$i-1] + (1 - $alpha) * $level[$i-1];
+                $level[$i] = $alpha * ($i < $dataLength - $future ? $this->data[$i-1] : $tempForecast[$i-1]) + (1 - $alpha) * $level[$i-1];
 
-                $tempForecast[] = $level[$i];
-                $error[]    = $i < $dataLength ? $this->data[$i] - $tempForecast[$i] : 0;
+                $tempForecast[$i] = $level[$i];
+                $error[]    = $i < $dataLength - $future ? $this->data[$i] - $tempForecast[$i] : 0;
             }
 
             $tempRMSE = Error::getRootMeanSquaredError($error);
@@ -150,7 +154,7 @@ class Holt implements ExponentialSmoothingInterface
                 $forecast   = $tempForecast;
             }
 
-            $alpha += 0.001;
+            $alpha += 0.01;
         }
 
         $this->errors = $error;
@@ -163,20 +167,20 @@ class Holt implements ExponentialSmoothingInterface
 
     public function getNoneAdditive(int $future, int $cycle) : array 
     {
-        $level = [$data[0]];
+        $level = [$this->data[0]];
         $dataLength = count($this->data) + $future;
         $forecast = [];
         $seasonal = [];
 
-        for($i = 0; $i < $cycle; $i++) {
-            $seasonal[$i] = $data[$i] - $level[0];
+        for($i = 1; $i < $cycle+1; $i++) {
+            $seasonal[$i] = $this->data[$i-1] - $level[0];
         }
 
         $alpha = 0.00;
         while ($alpha < 1) {
             $gamma = 0.00;
 
-            while($gamma < 0) {
+            while($gamma < 1) {
                 $gamma_ = $gamma * (1 - $alpha);
                 $error      = [];
                 $tempForecast = [];
@@ -184,11 +188,11 @@ class Holt implements ExponentialSmoothingInterface
                 for($i = 1; $i < $dataLength; $i++) {
                     $hm = (int) floor(($i-1) % $cycle) + 1;
 
-                    $level[] = $alpha * ($this->data[$i-1] - $seasonal[$i]) + (1 - $alpha) * $level[$i-1];
-                    $seasonal[] = $gamma_*($this->data[$i-1] - $level[$i-1]) + (1 - $gamma_) * $seasonal[$i];
+                    $level[$i] = $alpha * (($i < $dataLength - $future ? $this->data[$i-1] : $tempForecast[$i-1]) - $seasonal[$i]) + (1 - $alpha) * $level[$i-1];
+                    $seasonal[$i+$cycle] = $gamma_*(($i < $dataLength - $future ? $this->data[$i-1] : $tempForecast[$i-1]) - $level[$i-1]) + (1 - $gamma_) * $seasonal[$i];
 
-                    $tempForecast[] = $level[$i] + $seasonal[$i+$hm];
-                    $error[]    = $i < $dataLength ? $this->data[$i] - $tempForecast[$i] : 0;
+                    $tempForecast[$i] = $level[$i] + $seasonal[$i+$hm];
+                    $error[]    = $i < $dataLength - $future ? $this->data[$i] - $tempForecast[$i] : 0;
                 }
                     
                 $tempRMSE = Error::getRootMeanSquaredError($error);
@@ -198,10 +202,10 @@ class Holt implements ExponentialSmoothingInterface
                     $forecast   = $tempForecast;
                 }
        
-                $gamma += 0.001;
+                $gamma += 0.01;
             }
 
-            $alpha += 0.001;
+            $alpha += 0.01;
         }
 
         $this->errors = $error;
@@ -214,12 +218,12 @@ class Holt implements ExponentialSmoothingInterface
 
     public function getNoneMultiplicative(int $future, int $cycle) : array 
     {
-        $level = [$data[0]];
+        $level = [$this->data[0]];
         $dataLength = count($this->data) + $future;
         $forecast = [];
         $seasonal = [];
 
-        for($i = 0; $i < $cycle; $i++) {
+        for($i = 1; $i < $cycle+1; $i++) {
             $seasonal[$i] = $this->data[$i] / $level[0];
         }
 
@@ -227,7 +231,7 @@ class Holt implements ExponentialSmoothingInterface
         while ($alpha < 1) {
             $gamma = 0.00;
 
-            while($gamma < 0) {
+            while($gamma < 1) {
                 $gamma_ = $gamma * (1 - $alpha);
                 $error      = [];
                 $tempForecast = [];
@@ -235,11 +239,11 @@ class Holt implements ExponentialSmoothingInterface
                 for($i = 1; $i < $dataLength; $i++) {
                     $hm = (int) floor(($i-1) % $cycle) + 1;
 
-                    $level[] = $alpha * ($this->data[$i-1] / $seasonal[$i]) + (1 - $alpha) * $level[$i-1];
-                    $seasonal[] = $gamma_*($this->data[$i-1] / $level[$i-1]) + (1 - $gamma_) * $seasonal[$i];
+                    $level[$i] = $alpha * (($i < $dataLength - $future ? $this->data[$i-1] : $tempForecast[$i-1]) / $seasonal[$i]) + (1 - $alpha) * $level[$i-1];
+                    $seasonal[$i+$cycle] = $gamma_*(($i < $dataLength - $future ? $this->data[$i-1] : $tempForecast[$i-1]) / $level[$i-1]) + (1 - $gamma_) * $seasonal[$i];
 
-                    $tempForecast[] = $level[$i] + $seasonal[$i+$hm];
-                    $error[]    = $i < $dataLength ? $this->data[$i] - $tempForecast[$i] : 0;
+                    $tempForecast[$i] = $level[$i] + $seasonal[$i+$hm];
+                    $error[]    = $i < $dataLength - $future ? $this->data[$i] - $tempForecast[$i] : 0;
                 }
                     
                 $tempRMSE = Error::getRootMeanSquaredError($error);
@@ -249,10 +253,10 @@ class Holt implements ExponentialSmoothingInterface
                     $forecast   = $tempForecast;
                 }
        
-                $gamma += 0.001;
+                $gamma += 0.01;
             }
 
-            $alpha += 0.001;
+            $alpha += 0.01;
         }
 
         $this->errors = $error;
@@ -274,16 +278,16 @@ class Holt implements ExponentialSmoothingInterface
         while ($alpha < 1) {
             $beta = 0.00;
 
-            while($beta < 0) {
+            while($beta < 1) {
                 $error      = [];
                 $tempForecast = [];
 
                 for($i = 1; $i < $dataLength; $i++) {
-                    $level[] = $alpha * $this->data[$i-1] + (1 - $alpha) * ($level[$i-1] + $damping * $trend[$i-1]);
-                    $trend[] = $beta * ($level[$i] - $level[$i-1]) + (1 - $beta) * $damping * $trend[$i-1];
+                    $level[$i] = $alpha * ($i < $dataLength - $future ? $this->data[$i-1] : $tempForecast[$i-1]) + (1 - $alpha) * ($level[$i-1] + $damping * $trend[$i-1]);
+                    $trend[$i] = $beta * ($level[$i] - $level[$i-1]) + (1 - $beta) * $damping * $trend[$i-1];
 
-                    $tempForecast[] = $level[$i] + $this->dampingSum($damping, $i) * $trend[$i];
-                    $error[]    = $i < $dataLength ? $this->data[$i] - $tempForecast[$i] : 0;
+                    $tempForecast[$i] = $level[$i] + $this->dampingSum($damping, $i) * $trend[$i];
+                    $error[]    = $i < $dataLength - $future ? $this->data[$i] - $tempForecast[$i] : 0;
                 }
                     
                 $tempRMSE = Error::getRootMeanSquaredError($error);
@@ -293,10 +297,10 @@ class Holt implements ExponentialSmoothingInterface
                     $forecast   = $tempForecast;
                 }
        
-                $beta += 0.001;
+                $beta += 0.01;
             }
 
-            $alpha += 0.001;
+            $alpha += 0.01;
         }
 
         $this->errors = $error;
@@ -309,28 +313,28 @@ class Holt implements ExponentialSmoothingInterface
 
     public function getAdditiveAdditive(int $future, int $cycle, float $damping) : array 
     {
-        $level = [1 / $cycle * array_sum($this->data, 0, $cycle)];
+        $level = [1 / $cycle * array_sum(array_slice($this->data, 0, $cycle))];
         $trend = [1 / $cycle];
         $dataLength = count($this->data) + $future;
         $forecast = [];
         $seasonal = [];
 
         $sum = 0;
-        for($i = 0; $i < $cycle; $i++) {
+        for($i = 1; $i < $cycle+1; $i++) {
             $sum += ($this->data[$cycle] - $this->data[$i]) / $cycle;
         }
 
         $trend[0] *= $sum;
 
-        for($i = 0; $i < $cycle; $i++) {
-            $seasonal[$i] = $data[$i] - $level[0];
+        for($i = 1; $i < $cycle+1; $i++) {
+            $seasonal[$i] = $this->data[$i-1] - $level[0];
         }
 
         $alpha = 0.00;
         while ($alpha < 1) {
             $beta = 0.00;
 
-            while($beta < 0) {
+            while($beta < 1) {
                 $gamma = 0.00;
 
                 while($gamma < 1) {
@@ -341,14 +345,14 @@ class Holt implements ExponentialSmoothingInterface
                     for($i = 1; $i < $dataLength; $i++) {
                         $hm = (int) floor(($i-1) % $cycle) + 1;
 
-                        $level[] = $alpha * ($this->data[$i-1] - $seasonal[$i]) + (1 - $alpha) * ($level[$i-1] + $damping * $trend[$i-1]);
-                        $trend[] = $beta * ($level[$i] - $level[$i-1]) + (1 - $beta) * $damping * $trend[$i-1];
-                        $seasonal[] = $gamma_*($this->data[$i-1] - $level[$i-1]) + (1 - $gamma_) * $seasonal[$i];
+                        $level[$i] = $alpha * (($i < $dataLength - $future ? $this->data[$i-1] : $tempForecast[$i-1]) - $seasonal[$i]) + (1 - $alpha) * ($level[$i-1] + $damping * $trend[$i-1]);
+                        $trend[$i] = $beta * ($level[$i] - $level[$i-1]) + (1 - $beta) * $damping * $trend[$i-1];
+                        $seasonal[$i+$cycle] = $gamma_*(($i < $dataLength - $future ? $this->data[$i-1] : $tempForecast[$i-1]) - $level[$i-1]) + (1 - $gamma_) * $seasonal[$i];
 
-                        $tempForecast[] = $level[$i] + $this->dampingSum($damping, $i) * $trend[$i] + $seasonal[$i+$hm];
-                        $error[]    = $i < $dataLength ? $this->data[$i] - $tempForecast[$i] : 0;
+                        $tempForecast[$i] = $level[$i] + $this->dampingSum($damping, $i) * $trend[$i] + $seasonal[$i+$hm];
+                        $error[]    = $i < $dataLength - $future ? $this->data[$i] - $tempForecast[$i] : 0;
                     }
-                    
+
                     $tempRMSE = Error::getRootMeanSquaredError($error);
             
                     if ($tempRMSE < $this->rmse) {
@@ -356,13 +360,13 @@ class Holt implements ExponentialSmoothingInterface
                         $forecast   = $tempForecast;
                     }
 
-                    $gamma += 0.001;
+                    $gamma += 0.01;
                 }
 
-                $beta += 0.001;
+                $beta += 0.01;
             }
 
-            $alpha += 0.001;
+            $alpha += 0.01;
         }
 
         $this->errors = $error;
@@ -375,7 +379,7 @@ class Holt implements ExponentialSmoothingInterface
 
     public function getAdditiveMultiplicative(int $future, int $cycle, float $damping) : array 
     {
-        $level = [1 / $cycle * array_sum($this->data, 0, $cycle)];
+        $level = [1 / $cycle * array_sum(array_slice($this->data, 0, $cycle))];
         $trend = [1 / $cycle];
         $dataLength = count($this->data) + $future;
         $forecast = [];
@@ -383,13 +387,13 @@ class Holt implements ExponentialSmoothingInterface
         $gamma_ = $gamma * (1 - $alpha);
 
         $sum = 0;
-        for($i = 0; $i < $cycle; $i++) {
+        for($i = 1; $i < $cycle+1; $i++) {
             $sum += ($this->data[$cycle] - $this->data[$i]) / $cycle;
         }
 
         $trend[0] *= $sum;
 
-        for($i = 0; $i < $cycle; $i++) {
+        for($i = 1; $i < $cycle+1; $i++) {
             $seasonal[$i] = $this->data[$i] / $level[0];
         }
 
@@ -397,7 +401,7 @@ class Holt implements ExponentialSmoothingInterface
         while ($alpha < 1) {
             $beta = 0.00;
 
-            while($beta < 0) {
+            while($beta < 1) {
                 $gamma = 0.00;
 
                 while($gamma < 1) {
@@ -408,12 +412,12 @@ class Holt implements ExponentialSmoothingInterface
                     for($i = 1; $i < $dataLength; $i++) {
                         $hm = (int) floor(($i-1) % $cycle) + 1;
 
-                        $level[] = $alpha * ($this->data[$i-1] / $seasonal[$i]) + (1 - $alpha) * ($level[$i-1] + $damping * $trend[$i-1]);
-                        $trend[] = $beta * ($level[$i] - $level[$i-1]) + (1 - $beta) * $damping * $trend[$i-1];
-                        $seasonal[] = $gamma_*$this->data[$i-1] / ($level[$i-1] + $damping * $trend[$i-1]) + (1 - $gamma_) * $seasonal[$i];
+                        $level[$i] = $alpha * (($i < $dataLength - $future ? $this->data[$i-1] : $tempForecast[$i-1]) / $seasonal[$i]) + (1 - $alpha) * ($level[$i-1] + $damping * $trend[$i-1]);
+                        $trend[$i] = $beta * ($level[$i] - $level[$i-1]) + (1 - $beta) * $damping * $trend[$i-1];
+                        $seasonal[$i+$cycle] = $gamma_*($i < $dataLength - $future ? $this->data[$i-1] : $tempForecast[$i-1]) / ($level[$i-1] + $damping * $trend[$i-1]) + (1 - $gamma_) * $seasonal[$i];
 
                         $tempForecast[] = ($level[$i] + $this->dampingSum($damping, $i) * $trend[$i-1]) * $seasonal[$i+$hm];
-                        $error[]    = $i < $dataLength ? $this->data[$i] - $tempForecast[$i] : 0;
+                        $error[]    = $i < $dataLength - $future ? $this->data[$i] - $tempForecast[$i] : 0;
                     }
                     
                     $tempRMSE = Error::getRootMeanSquaredError($error);
@@ -423,13 +427,13 @@ class Holt implements ExponentialSmoothingInterface
                         $forecast   = $tempForecast;
                     }
 
-                    $gamma += 0.001;
+                    $gamma += 0.01;
                 }
 
-                $beta += 0.001;
+                $beta += 0.01;
             }
 
-            $alpha += 0.001;
+            $alpha += 0.01;
         }
 
         $this->errors = $error;
@@ -451,16 +455,16 @@ class Holt implements ExponentialSmoothingInterface
         while ($alpha < 1) {
             $beta = 0.00;
 
-            while($beta < 0) {
+            while($beta < 1) {
                 $error      = [];
                 $tempForecast = [];
 
                 for($i = 1; $i < $dataLength; $i++) {
-                    $level[] = $alpha * $this->data[$i-1] + (1 - $alpha) * $level[$i-1] * pow($trend[$i-1], $damping);
-                    $trend[] = $beta * ($level[$i] / $level[$i-1]) + (1 - $beta) * pow($trend[$i-1], $damping);
+                    $level[$i] = $alpha * ($i < $dataLength - $future ? $this->data[$i-1] : $tempForecast[$i-1]) + (1 - $alpha) * $level[$i-1] * pow($trend[$i-1], $damping);
+                    $trend[$i] = $beta * ($level[$i] / $level[$i-1]) + (1 - $beta) * pow($trend[$i-1], $damping);
 
-                    $tempForecast[] = $level[$i] * pow($trend[$i], $this->dampingSum($damping, $i));
-                    $error[]    = $i < $dataLength ? $this->data[$i] - $tempForecast[$i] : 0;
+                    $tempForecast[$i] = $level[$i] * pow($trend[$i], $this->dampingSum($damping, $i));
+                    $error[]    = $i < $dataLength - $future ? $this->data[$i] - $tempForecast[$i] : 0;
                 }
 
                 $tempRMSE = Error::getRootMeanSquaredError($error);
@@ -470,9 +474,9 @@ class Holt implements ExponentialSmoothingInterface
                     $forecast   = $tempForecast;
                 }
 
-                $beta += 0.001;
+                $beta += 0.01;
             }
-            $alpha += 0.001;
+            $alpha += 0.01;
         }
             
         $this->errors = $error;
@@ -492,21 +496,21 @@ class Holt implements ExponentialSmoothingInterface
         $seasonal = [];
 
         $sum = 0;
-        for($i = 0; $i < $cycle; $i++) {
+        for($i = 1; $i < $cycle+1; $i++) {
             $sum += ($this->data[$cycle] - $this->data[$i]) / $cycle;
         }
 
         $trend[0] *= $sum;
 
-        for($i = 0; $i < $cycle; $i++) {
-            $seasonal[$i] = $data[$i] - $level[0];
+        for($i = 1; $i < $cycle+1; $i++) {
+            $seasonal[$i] = $this->data[$i-1] - $level[0];
         }
 
         $alpha = 0.00;
         while ($alpha < 1) {
             $beta = 0.00;
 
-            while($beta < 0) {
+            while($beta < 1) {
                 $gamma = 0.00;
 
                 while($gamma < 1) {
@@ -517,12 +521,12 @@ class Holt implements ExponentialSmoothingInterface
                     for($i = 1; $i < $dataLength; $i++) {
                         $hm = (int) floor(($i-1) % $cycle) + 1;
 
-                        $level[] = $alpha * ($this->data[$i-1] - $seasonal[$i]) + (1 - $alpha) * $level[$i-1] * pow($trend[$i-1], $damping);
-                        $trend[] = $beta * ($level[$i] / $level[$i-1]) + (1 - $beta) * pow($trend[$i-1], $damping);
-                        $seasonal[] = $gamma_*($this->data[$i-1] - $level[$i-1] * pow($trend[$i-1], $damping)) + (1 - $gamma_) * $seasonal[$i];
+                        $level[$i] = $alpha * (($i < $dataLength - $future ? $this->data[$i-1] : $tempForecast[$i-1]) - $seasonal[$i]) + (1 - $alpha) * $level[$i-1] * pow($trend[$i-1], $damping);
+                        $trend[$i] = $beta * ($level[$i] / $level[$i-1]) + (1 - $beta) * pow($trend[$i-1], $damping);
+                        $seasonal[$i+$cycle] = $gamma_*(($i < $dataLength - $future ? $this->data[$i-1] : $tempForecast[$i-1]) - $level[$i-1] * pow($trend[$i-1], $damping)) + (1 - $gamma_) * $seasonal[$i];
 
-                        $tempForecast[] = $level[$i] * pow($trend[$i], $this->dampingSum($damping, $i)) + $seasonal[$i+$hm];
-                        $error[]    = $i < $dataLength ? $this->data[$i] - $tempForecast[$i] : 0;
+                        $tempForecast[$i] = $level[$i] * pow($trend[$i], $this->dampingSum($damping, $i)) + $seasonal[$i+$hm];
+                        $error[]    = $i < $dataLength - $future ? $this->data[$i] - $tempForecast[$i] : 0;
                     }
 
                     $tempRMSE = Error::getRootMeanSquaredError($error);
@@ -532,13 +536,13 @@ class Holt implements ExponentialSmoothingInterface
                         $forecast   = $tempForecast;
                     }
 
-                    $gamma += 0.001;
+                    $gamma += 0.01;
                 }
 
-                $beta += 0.001;
+                $beta += 0.01;
             }
 
-            $alpha += 0.001;
+            $alpha += 0.01;
         }
 
         $this->errors = $error;
@@ -558,13 +562,13 @@ class Holt implements ExponentialSmoothingInterface
         $seasonal = [];
 
         $sum = 0;
-        for($i = 0; $i < $cycle; $i++) {
+        for($i = 1; $i < $cycle+1; $i++) {
             $sum += ($this->data[$cycle] - $this->data[$i]) / $cycle;
         }
 
         $trend[0] *= $sum;
 
-        for($i = 0; $i < $cycle; $i++) {
+        for($i = 1; $i < $cycle+1; $i++) {
             $seasonal[$i] = $this->data[$i] / $level[0];
         }
 
@@ -572,7 +576,7 @@ class Holt implements ExponentialSmoothingInterface
         while ($alpha < 1) {
             $beta = 0.00;
 
-            while($beta < 0) {
+            while($beta < 1) {
                 $gamma = 0.00;
 
                 while($gamma < 1) {
@@ -583,12 +587,12 @@ class Holt implements ExponentialSmoothingInterface
                     for($i = 1; $i < $dataLength; $i++) {
                         $hm = (int) floor(($i-1) % $cycle) + 1;
 
-                        $level[] = $alpha * ($this->data[$i-1] / $seasonal[$i]) + (1 - $alpha) * $level[$i-1] * pow($trend[$i-1], $damping);
-                        $trend[] = $beta * ($level[$i] / $level[$i-1]) + (1 - $beta) * pow($trend[$i-1], $damping);
-                        $seasonal[] = $gamma_*$this->data[$i-1] / ($level[$i-1] * pow($trend[$i-1], $damping)) + (1 - $gamma_) * $seasonal[$i];
+                        $level[$i] = $alpha * (($i < $dataLength - $future ? $this->data[$i-1] : $tempForecast[$i-1]) / $seasonal[$i]) + (1 - $alpha) * $level[$i-1] * pow($trend[$i-1], $damping);
+                        $trend[$i] = $beta * ($level[$i] / $level[$i-1]) + (1 - $beta) * pow($trend[$i-1], $damping);
+                        $seasonal[$i+$cycle] = $gamma_*($i < $dataLength - $future ? $this->data[$i-1] : $tempForecast[$i-1]) / ($level[$i-1] * pow($trend[$i-1], $damping)) + (1 - $gamma_) * $seasonal[$i];
 
-                        $tempForecast[] = $level[$i] * pow($trend[$i], $this->dampingSum($damping, $i)) * $seasonal[$i+$hm];
-                        $error[]    = $i < $dataLength ? $this->data[$i] - $tempForecast[$i] : 0;
+                        $tempForecast[$i] = $level[$i] * pow($trend[$i], $this->dampingSum($damping, $i)) * $seasonal[$i+$hm];
+                        $error[]    = $i < $dataLength - $future ? $this->data[$i] - $tempForecast[$i] : 0;
                     }
                     
                     $tempRMSE = Error::getRootMeanSquaredError($error);
@@ -598,13 +602,13 @@ class Holt implements ExponentialSmoothingInterface
                         $forecast   = $tempForecast;
                     }
 
-                    $gamma += 0.001;
+                    $gamma += 0.01;
                 }
 
-                $beta += 0.001;
+                $beta += 0.01;
             }
 
-            $alpha += 0.001;
+            $alpha += 0.01;
         }
 
         $this->errors = $error;
