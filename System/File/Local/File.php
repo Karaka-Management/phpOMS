@@ -463,7 +463,7 @@ class File extends FileAbstract implements FileInterface
      */
     public static function basename(string $path) : string
     {
-        // TODO: Implement basename() method.
+        return basename($path);
     }
 
     /**

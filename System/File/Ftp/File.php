@@ -40,13 +40,54 @@ class File extends FileAbstract implements FileInterface
      */
     public static function put(string $path, string $content, int $mode = ContentPutMode::REPLACE | ContentPutMode::CREATE) : bool
     {
+        // todo: create all else cases, right now all getting handled the same way which is wrong
+        $current = ftp_pwd($con);
+        if(!ftp_chdir($con, File::dirpath($path))) {
+            return false;
+        }
+
+        $exists = self::exists($path);
+        $result = false;
+
+        if (
+            (($mode & ContentPutMode::APPEND) === ContentPutMode::APPEND && $exists)
+            || (($mode & ContentPutMode::PREPEND) === ContentPutMode::PREPEND && $exists)
+            || (($mode & ContentPutMode::REPLACE) === ContentPutMode::REPLACE && $exists)
+            || (!$exists && ($mode & ContentPutMode::CREATE) === ContentPutMode::CREATE)
+        ) {
+            if (!Directory::exists(dirname($path))) {
+                Directory::create(dirname($path), '0644', true);
+            }
+
+            $stream = fopen('data://temp,' . $content, 'r');
+            ftp_fput($path, $content);
+            fclose($stream);
+
+            $result = true;
+        }
+
+        ftp_chdir($current);
+
+        return $result;
     }
 
     /**
      * {@inheritdoc}
      */
-    public static function get(string $path) : string
+    public static function get(string $path) : /* ? */string
     {
+        $temp = fopen('php://temp', 'r+');
+
+        $current = ftp_pwd($con);
+        if(ftp_chdir($con, File::dirpath($path)) && ftp_fget($con, $temp, $path, FTP_BINARY, 0)) {
+            rewind($temp);
+            $content = stream_get_contents($temp);
+        }
+
+        fclose($temp);
+        ftp_chdir($current);
+
+        return $content ?? null;
     }
 
     /**
@@ -78,13 +119,16 @@ class File extends FileAbstract implements FileInterface
      */
     public static function exists(string $path) : bool
     {
-        if(ftp_pwd($con) !== LocalFile::dirpath($path)) {
+        
+        if(($current = ftp_pwd($con)) !== LocalFile::dirpath($path)) {
             if(!ftp_chdir($con, $path)) {
                 return false;
             }
         }
 
         $list = ftp_nlist($con, $path);
+
+        ftp_chdir($con, $current);
 
         return in_array($path, $list);
     }
@@ -94,6 +138,7 @@ class File extends FileAbstract implements FileInterface
      */
     public static function parent(string $path) : string
     {
+        return Directory::parent($path);
     }
 
     /**
@@ -117,7 +162,7 @@ class File extends FileAbstract implements FileInterface
      */
     public static function changed(string $path) : \DateTime
     {
-
+        return ftp_mdtm($con, $path);
     }
 
     /**
@@ -125,7 +170,11 @@ class File extends FileAbstract implements FileInterface
      */
     public static function size(string $path, bool $recursive = true) : int
     {
+        if (!self::exists($path)) {
+            throw new PathException($path);
+        }
 
+        return ftp_size($con, $path);
     }
 
     /**
@@ -187,7 +236,20 @@ class File extends FileAbstract implements FileInterface
      */
     public static function move(string $from, string $to, bool $overwrite = false) : bool
     {
+         if (!self::exists($from)) {
+            throw new PathException($from);
+        }
 
+        if ($overwrite || !self::exists($to)) {
+            if (!Directory::exists(dirname($to))) {
+                Directory::create(dirname($to), '0644', true);
+            }
+
+
+            return ftp_rename($con, $from, $to);
+        }
+
+        return false;
     }
 
     /**
@@ -195,7 +257,13 @@ class File extends FileAbstract implements FileInterface
      */
     public static function delete(string $path) : bool
     {
+        if (!self::exists($path)) {
+            return false;
+        }
 
+        ftp_delete($con, $path);
+
+        return true;
     }
 
     /**

@@ -34,18 +34,20 @@ class FtpStorage extends StorageAbstract
 {
     private $con = null;
 
-    public function __construct(string $uri, int $port = 21, string $login = null, string $pass = null, bool $ssl = false)
+    public function __construct(string $uri, int $port = 21, bool $mode = true, string $login = null, string $pass = null, bool $ssl = false)
     {
-        $this->connect($uri, $port = 21, $login = null, $pass = null, $ssl = false);
+        $this->connect($uri, $port = 21, $mode, $login = null, $pass = null, $ssl = false);
     }
 
-    public function connect(string $uri, int $port = 21, string $login = null, string $pass = null, bool $ssl = false) : bool
+    public function connect(string $uri, int $port = 21, bool $mode = true, string $login = null, string $pass = null, bool $ssl = false) : bool
     {
         if($ssl) {
             $this->con = ftp_connect($uri, $port);
         } else {
             $this->con = ftp_ssl_connect($uri, $port);
         }
+
+        ftp_pasv($this->con, $mode);
 
         if(isset($login) && isset($pass)) {
             ftp_login($this->con, $login, $pass);
