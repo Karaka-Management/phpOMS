@@ -19,6 +19,8 @@ use phpOMS\System\File\ContainerInterface;
 use phpOMS\System\File\ContentPutMode;
 use phpOMS\System\File\FileInterface;
 use phpOMS\System\File\PathException;
+use phpOMS\System\File\Local\File as FileLocal;
+use phpOMS\System\File\Local\Directory as DirectoryLocal;
 
 /**
  * Filesystem class.
@@ -146,7 +148,7 @@ class File extends FileAbstract implements FileInterface
      */
     public static function sanitize(string $path, string $replace = '') : string
     {
-        return preg_replace('/[^\w\s\d\.\-_~,;\/\[\]\(\]]/', $replace, $path);
+        return LocalFile::sanitize($path, $replace);
     }
 
     /**
@@ -154,7 +156,7 @@ class File extends FileAbstract implements FileInterface
      */
     public static function created(string $path) : \DateTime
     {
-
+        return new \DateTime('1970-01-01');
     }
 
     /**
@@ -162,7 +164,10 @@ class File extends FileAbstract implements FileInterface
      */
     public static function changed(string $path) : \DateTime
     {
-        return ftp_mdtm($con, $path);
+        $changed = new \DateTime();
+        $changed->setTimestamp(ftp_mdtm($con, $path));
+        
+        return $changed;
     }
 
     /**
@@ -182,7 +187,7 @@ class File extends FileAbstract implements FileInterface
      */
     public static function owner(string $path) : int
     {
-
+        return self::parseFtpFileData($path)['user'] ?? '';
     }
 
     /**
@@ -190,7 +195,30 @@ class File extends FileAbstract implements FileInterface
      */
     public static function permission(string $path) : string
     {
+        return self::parseFtpFileData($path)['permission'] ?? '';
+    }
 
+    private static function parseFtpFileData(string $path) : array
+    {
+        $items = []; 
+
+        if (is_array($files = ftp_rawlist($con, self::dirpath($path)))) { 
+            foreach ($files as $fileData) { 
+                if(strpos($fileData, self::name($path)) !== false) {
+                    $chunks = preg_split("/\s+/", $fileData); 
+
+                    $items['permission'] = $chungs[0];
+                    $items['user'] = $chungs[2];
+                    $items['group'] = $chungs[3];
+                    $items['size'] = $chungs[4];
+                    $items['type'] = $chunks[0][0] === 'd' ? 'directory' : 'file';
+
+                    break;
+                }
+            } 
+        } 
+
+        return $items; 
     }
 
     /**
@@ -205,7 +233,7 @@ class File extends FileAbstract implements FileInterface
      */
     public static function dirname(string $path) : string
     {
-
+        return FileLocal::dirname($path);
     }
 
     /**
@@ -220,7 +248,7 @@ class File extends FileAbstract implements FileInterface
      */
     public static function dirpath(string $path) : string
     {
-
+        return FileLocal::dirpath($path);
     }
 
     /**
@@ -228,7 +256,11 @@ class File extends FileAbstract implements FileInterface
      */
     public static function copy(string $from, string $to, bool $overwrite = false) : bool
     {
+        if(($src = self::get($from)) === false) {
+            return false;
+        } 
 
+        return self::put($to, $src, $overwrite ? ContentPutMode::REPLACE : ContentPutMode::CREATE);
     }
 
     /**
@@ -244,7 +276,6 @@ class File extends FileAbstract implements FileInterface
             if (!Directory::exists(dirname($to))) {
                 Directory::create(dirname($to), '0644', true);
             }
-
 
             return ftp_rename($con, $from, $to);
         }
@@ -271,7 +302,7 @@ class File extends FileAbstract implements FileInterface
      */
     public static function create(string $path) : bool
     {
-
+        return self::put($path, '', ContentPutMode::CREATE);
     }
 
     /**
@@ -279,7 +310,7 @@ class File extends FileAbstract implements FileInterface
      */
     public static function name(string $path) : string
     {
-        return explode('.', basename($path))[0];
+        return FileLocal::name($path);
     }
 
     /**
@@ -287,7 +318,7 @@ class File extends FileAbstract implements FileInterface
      */
     public static function basename(string $path) : string
     {
-        // TODO: Implement basename() method.
+        return FileLocal::basename($path);
     }
 
     /**
@@ -295,8 +326,6 @@ class File extends FileAbstract implements FileInterface
      */
     public static function extension(string $path) : string
     {
-        $extension = explode('.', basename($path));
-
-        return $extension[1] ?? '';
+        return FileLocal::extension($path);
     }
 }
