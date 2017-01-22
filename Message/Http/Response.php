@@ -114,12 +114,15 @@ class Response extends ResponseAbstract implements RenderableInterface
      */
     public function render() : string
     {
-        switch ($this->header->get('Content-Type')) {
-            case MimeType::M_JSON:
+        $types = $this->header->get('Content-Type');
+
+        foreach($types as $type) {
+            if(stripos($type, MimeType::M_JSON) !== false) {
                 return $this->jsonSerialize();
-            default:
-                return $this->getRaw();
+            }
         }
+
+        return $this->getRaw();
     }
 
     /**
@@ -167,8 +170,8 @@ class Response extends ResponseAbstract implements RenderableInterface
                     $result += $response;
                 } elseif (is_scalar($response)) {
                     $result[] = $response;
-                } elseif ($response instanceof \Serializable) {
-                    $result[] = $response->serialize();
+                } elseif ($response instanceof \JsonSerializable) {
+                    $result[] = $response->jsonSerialize();
                 } else {
                     throw new \Exception('Wrong response type');
                 }

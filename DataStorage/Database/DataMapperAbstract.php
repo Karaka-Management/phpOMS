@@ -660,12 +660,12 @@ class DataMapperAbstract implements DataMapperInterface
             return null;
         } elseif ($type === 'DateTime') {
             return $value->format('Y-m-d H:i:s');
-        } elseif ($type === 'json') {
+        } elseif ($type === 'Json' || $type === 'jsonSerializable') {
             return json_encode($value);
         } elseif ($type === 'Serializable') {
             return $value->serialize();
-        } elseif ($type === 'jsonSerializable') {
-            return $value->jsonSerializable();
+        } elseif ($value instanceof \JsonSerializable) {
+            return json_encode($value->jsonSerialize());
         } elseif (is_object($value)) {
             return $value->getId();
         } elseif ($type === 'int') {

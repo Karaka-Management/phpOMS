@@ -247,7 +247,7 @@ class Location implements \JsonSerializable, \Serializable
      */
     public function jsonSerialize() : string
     {
-        return json_encode($this->toArray());
+        return $this->toArray();
     }
 
     /**

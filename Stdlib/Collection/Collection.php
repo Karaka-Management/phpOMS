@@ -74,7 +74,7 @@ class Collection implements \Countable, \ArrayAccess, \Iterator, \JsonSerializab
      */
     public function jsonSerialize()
     {
-        return json_encode($this->collection);
+        return $this->collection;
     }
 
     /**

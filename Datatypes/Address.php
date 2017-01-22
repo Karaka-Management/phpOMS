@@ -153,7 +153,7 @@ class Address implements \JsonSerializable
      */
     public function jsonSerialize(int $option = 0) : string
     {
-        return json_encode($this->toArray());
+        return $this->toArray();
     }
 
     /**

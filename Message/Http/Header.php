@@ -63,8 +63,8 @@ class Header extends HeaderAbstract
 
         if (!$overwrite && isset($this->header[$key])) {
             return false;
-        } elseif ($overwrite && isset($this->header[$key])) {
-            if ($this->isSecurityHeader($key)) {
+        } elseif ($overwrite || !isset($this->header[$key])) {
+            if ($this->isSecurityHeader($key) && isset($this->header[$key])) {
                 throw new \Exception('Cannot change security headers.');
             }
 
@@ -166,7 +166,7 @@ class Header extends HeaderAbstract
      */
     public function get(string $key) : array
     {
-        return $this->header[$key] ?? [];
+        return $this->header[strtolower($key)] ?? [];
     }
 
     /**
