@@ -151,7 +151,7 @@ class Address implements \JsonSerializable
     /**
      * {@inheritdoc}
      */
-    public function jsonSerialize(int $option = 0) : string
+    public function jsonSerialize(int $option = 0)
     {
         return $this->toArray();
     }
