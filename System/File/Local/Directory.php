@@ -289,10 +289,6 @@ class Directory extends FileAbstract implements DirectoryInterface
     public static function create(string $path, string $permission = '0644', bool $recursive = false) : bool
     {
         if (!file_exists($path)) {
-            if(!is_writable($path)) {
-                return false;
-            }
-
             mkdir($path, $permission, $recursive);
 
             return true;
@@ -397,8 +393,7 @@ class Directory extends FileAbstract implements DirectoryInterface
      */
     public static function name(string $path) : string
     {
-        // todo: name doesn' t make sense
-        // TODO: Implement name() method.
+        return basename($path);
     }
 
     /**
@@ -406,7 +401,7 @@ class Directory extends FileAbstract implements DirectoryInterface
      */
     public static function basename(string $path) : string
     {
-        // TODO: Implement basename() method.
+        return basename($path);
     }
 
     /**
