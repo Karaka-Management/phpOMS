@@ -125,6 +125,14 @@ class Account implements ArrayableInterface, \JsonSerializable
     protected $groups = [];
 
     /**
+     * Password.
+     *
+     * @var Password
+     * @since 1.0.0
+     */
+    protected $password = '';
+
+    /**
      * Account type.
      *
      * @var AccountType|int
@@ -327,6 +335,21 @@ class Account implements ArrayableInterface, \JsonSerializable
     }
 
     /**
+     * Generate password.
+     *
+     * @param string $password Password
+     *
+     * @return void
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+    public function generatePassword(string $password) /* : void */
+    {
+        $this->password = password_hash($password, PASSWORD_DEFAULT);
+    }
+
+    /**
      * Set name.
      *
      * @param string $name Name
@@ -487,7 +510,7 @@ class Account implements ArrayableInterface, \JsonSerializable
      */
     public function __toString()
     {
-        return $this->jsonSerialize();
+        return json_encode($this->toArray());
     }
 
     /**
@@ -500,7 +523,7 @@ class Account implements ArrayableInterface, \JsonSerializable
      */
     public function jsonSerialize()
     {
-        return json_encode($this->toArray());
+        return $this->toArray();
     }
 
 }
