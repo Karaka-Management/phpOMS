@@ -13,6 +13,8 @@
  * @version    1.0.0
  * @link       http://orange-management.com
  */
+declare(strict_types=1);
+
 namespace phpOMS\System\File\Local;
 use phpOMS\System\File\ContainerInterface;
 use phpOMS\System\File\StorageAbstract;

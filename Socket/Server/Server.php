@@ -13,6 +13,8 @@
  * @version    1.0.0
  * @link       http://orange-management.com
  */
+declare(strict_types=1);
+
 namespace phpOMS\Socket\Server;
 
 use phpOMS\Socket\Client\ClientConnection;
