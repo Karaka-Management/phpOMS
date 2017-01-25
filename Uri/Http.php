@@ -166,7 +166,7 @@ class Http implements UriInterface
         $this->path        = strpos($this->path, $this->rootPath) === 0 ? substr($this->path, strlen($this->rootPath), strlen($this->path)) : $this->path; // TODO: this could cause a bug if the rootpath is the same as a regular path which is usually the language
         $this->queryString = $url['query'] ?? '';
 
-        if (isset($this->queryString)) {
+        if (!empty($this->queryString)) {
             parse_str($this->queryString, $this->query);
         }
 
@@ -260,7 +260,7 @@ class Http implements UriInterface
      */
     public function getPath() : string
     {
-        return $this->path ?? '';
+        return $this->path;
     }
 
     /**
@@ -269,7 +269,7 @@ class Http implements UriInterface
     public function getRoute() : string
     {
         $query = $this->getQuery();
-        return ($this->path ?? '') . (!empty($query) ? '?' . $this->getQuery() : '');
+        return $this->path . (!empty($query) ? '?' . $this->getQuery() : '');
     }
 
     /**
@@ -285,7 +285,7 @@ class Http implements UriInterface
      */
     public function getQuery(string $key = null) /* : ?string */
     {
-        return isset($key) ? $this->query[$key] ?? null : $this->queryString ?? '';
+        return isset($key) ? $this->query[$key] ?? null : $this->queryString;
     }
 
     /**
