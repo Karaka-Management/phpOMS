@@ -153,7 +153,7 @@ class Auth
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function logout(int $uid = null)
+    public function logout(int $uid = null) /* : void */
     {
         // TODO: logout other users? If admin wants to kick a user for updates etc.
         $this->session->remove('UID');

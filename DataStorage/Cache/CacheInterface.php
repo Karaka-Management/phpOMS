@@ -42,7 +42,7 @@ interface CacheInterface
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function set($key, $value, int $expire = -1);
+    public function set($key, $value, int $expire = -1) /* : void */;
 
     /**
      * Adding new data if it doesn't exist.
@@ -118,7 +118,7 @@ interface CacheInterface
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function setStatus(int $status);
+    public function setStatus(int $status) /* : void */;
 
     /**
      * Updating existing value/key.

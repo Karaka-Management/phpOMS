@@ -83,10 +83,8 @@ class FileCache implements CacheInterface
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function __construct(array $config)
+    public function __construct(string $path)
     {
-        $path = $config['path'] ?? '';
-
         if (!File::exists($path)) {
             Directory::create($path);
         }
@@ -111,7 +109,8 @@ class FileCache implements CacheInterface
     /**
      * {@inheritdoc}
      */
-    public function setStatus(int $status) {
+    public function setStatus(int $status) /* : void */
+    {
         if(!CacheStatus::isValidValue($status)) {
             throw new InvalidEnumValue($status);
         }

@@ -130,7 +130,7 @@ class CachePool implements OptionsInterface
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function create(string $key, array $config)
+    public function create(string $key, array $config) : bool
     {
         if (isset($this->pool[$key])) {
             return false;
