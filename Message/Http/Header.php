@@ -185,7 +185,7 @@ class Header extends HeaderAbstract
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function push()
+    public function push() /* : void */
     {
         if (self::$isLocked) {
             throw new \Exception('Already locked');
@@ -203,7 +203,7 @@ class Header extends HeaderAbstract
     /**
      * {@inheritdoc}
      */
-    public function generate(string $code)
+    public function generate(string $code) /* : void */
     {
         switch ($code) {
             case RequestStatus::R_403:
@@ -234,7 +234,7 @@ class Header extends HeaderAbstract
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    private function generate403()
+    private function generate403() /* : void */
     {
         $this->set('HTTP', 'HTTP/1.0 403 Forbidden');
         $this->set('Status', 'Status: HTTP/1.0 403 Forbidden');
@@ -249,7 +249,7 @@ class Header extends HeaderAbstract
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    private function generate404()
+    private function generate404() /* : void */
     {
         $this->set('HTTP', 'HTTP/1.0 404 Not Found');
         $this->set('Status', 'Status: HTTP/1.0 404 Not Found');
@@ -264,7 +264,7 @@ class Header extends HeaderAbstract
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    private function generate406()
+    private function generate406() /* : void */
     {
         $this->set('HTTP', 'HTTP/1.0 406 Not acceptable');
         $this->set('Status', 'Status: 406 Not acceptable');
@@ -279,7 +279,7 @@ class Header extends HeaderAbstract
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    private function generate407()
+    private function generate407() /* : void */
     {
 
     }
@@ -292,7 +292,7 @@ class Header extends HeaderAbstract
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    private function generate500()
+    private function generate500() /* : void */
     {
         $this->set('HTTP', 'HTTP/1.0 500 Internal Server Error');
         $this->set('Status', 'Status: 500 Internal Server Error');
@@ -308,7 +308,7 @@ class Header extends HeaderAbstract
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    private function generate503()
+    private function generate503() /* : void */
     {
         $this->set('HTTP', 'HTTP/1.0 503 Service Temporarily Unavailable');
         $this->set('Status', 'Status: 503 Service Temporarily Unavailable');

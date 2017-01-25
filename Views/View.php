@@ -150,7 +150,7 @@ class View extends ViewAbstract
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function addData(string $id, $data)
+    public function addData(string $id, $data) /* : void */
     {
         $this->data[$id] = $data;
     }
