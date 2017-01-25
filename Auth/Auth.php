@@ -70,12 +70,12 @@ class Auth
     /**
      * Authenticates user.
      *
-     * @return bool
+     * @return mixed
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function authenticate() : bool
+    public function authenticate()
     {
         $uid = $this->session->get('UID');
 

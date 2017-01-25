@@ -80,7 +80,7 @@ class HttpSession implements SessionInterface
             session_id($sid);
         }
 
-        session_set_cookie_params($liftetime, '/', null, false, true);
+        session_set_cookie_params($liftetime, '/', '', false, true);
         session_start();
         $this->sessionData = $_SESSION;
         $_SESSION          = null;

@@ -283,7 +283,7 @@ class Grammar extends GrammarAbstract
 
             return $this->valueQuotes . $value . $this->valueQuotes;
         } elseif (is_int($value)) {
-            return $value;
+            return (string) $value;
         } elseif (is_array($value)) {
             $values = '';
 

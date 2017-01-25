@@ -288,7 +288,7 @@ class Directory extends FileAbstract implements DirectoryInterface
     /**
      * {@inheritdoc}
      */
-    public static function create(string $path, string $permission = '0644', bool $recursive = false) : bool
+    public static function create(string $path, int $permission = 0644, bool $recursive = false) : bool
     {
         if (!file_exists($path)) {
             mkdir($path, $permission, $recursive);
