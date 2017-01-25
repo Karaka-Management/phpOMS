@@ -153,10 +153,10 @@ class Http implements UriInterface
         $url       = parse_url($this->uri);
 
         $this->scheme = $url['scheme'] ?? '';
-        $this->host   = $url['host'] ?? null;
-        $this->port   = $url['port'] ?? null;
-        $this->user   = $url['user'] ?? null;
-        $this->pass   = $url['pass'] ?? null;
+        $this->host   = $url['host'] ?? '';
+        $this->port   = $url['port'] ?? 80;
+        $this->user   = $url['user'] ?? '';
+        $this->pass   = $url['pass'] ?? '';
         $this->path   = $url['path'] ?? '';
 
         if (StringUtils::endsWith($this->path, '.php')) {
@@ -164,13 +164,13 @@ class Http implements UriInterface
         }
 
         $this->path        = strpos($this->path, $this->rootPath) === 0 ? substr($this->path, strlen($this->rootPath), strlen($this->path)) : $this->path; // TODO: this could cause a bug if the rootpath is the same as a regular path which is usually the language
-        $this->queryString = $url['query'] ?? null;
+        $this->queryString = $url['query'] ?? '';
 
         if (isset($this->queryString)) {
             parse_str($this->queryString, $this->query);
         }
 
-        $this->fragment = $url['fragment'] ?? null;
+        $this->fragment = $url['fragment'] ?? '';
         $this->base     = $this->scheme . '://' . $this->host . $this->rootPath;
     }
 
@@ -223,7 +223,7 @@ class Http implements UriInterface
      */
     public function getScheme() : string
     {
-        return $this->scheme ?? '';
+        return $this->scheme;
     }
 
     /**
@@ -231,7 +231,7 @@ class Http implements UriInterface
      */
     public function getHost() : string
     {
-        return $this->host ?? '';
+        return $this->host;
     }
 
     /**
@@ -239,7 +239,7 @@ class Http implements UriInterface
      */
     public function getPort() : int
     {
-        return $this->port ?? 80;
+        return $this->port;
     }
 
     /**
@@ -252,7 +252,7 @@ class Http implements UriInterface
      */
     public function getPass() : string
     {
-        return $this->pass ?? '';
+        return $this->pass;
     }
 
     /**
@@ -293,7 +293,7 @@ class Http implements UriInterface
      */
     public function getFragment() : string
     {
-        return $this->fragment ?? '';
+        return $this->fragment;
     }
 
     /**
@@ -301,7 +301,7 @@ class Http implements UriInterface
      */
     public function getBase() : string
     {
-        return $this->base ?? '';
+        return $this->base;
     }
 
     /**
@@ -330,7 +330,7 @@ class Http implements UriInterface
      */
     public function getUser() : string
     {
-        return $this->user ?? '';
+        return $this->user;
     }
 
     /**
@@ -338,6 +338,6 @@ class Http implements UriInterface
      */
     public function getUserInfo() : string
     {
-        return $this->user . (isset($this->pass) && $this->pass !== '' ? ':' . $this->pass : '');
+        return $this->user . (!empty($this->pass) ? ':' . $this->pass : '');
     }
 }
