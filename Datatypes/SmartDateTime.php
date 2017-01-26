@@ -138,7 +138,7 @@ class SmartDateTime extends \DateTime
      */
     public function getDaysOfMonth() : int
     {
-        return cal_days_in_month(CAL_GREGORIAN, $this->format('m'), $this->format('Y'));
+        return cal_days_in_month(CAL_GREGORIAN, (int) $this->format('m'), (int) $this->format('Y'));
     }
 
     /**
@@ -151,7 +151,7 @@ class SmartDateTime extends \DateTime
      */
     public function getFirstDayOfMonth() : int
     {
-        return getdate(mktime(null, null, null, $this->format('m'), 1, $this->format('Y')))['wday'];
+        return getdate(mktime(null, null, null, (int) $this->format('m'), 1, (int) $this->format('Y')))['wday'];
     }
 
 }
