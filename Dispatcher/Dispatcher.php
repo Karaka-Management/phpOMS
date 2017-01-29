@@ -184,7 +184,12 @@ class Dispatcher
                 throw new PathException($path);
             }
 
-            $this->controllers[$controller] = new $controller($this->app);
+            // If module controller use module manager for initialization
+            if(count($split = explode('\\', $controller)) === 4) {
+                $this->controllers[$controller] = $this->app->moduleManager->get($split[2]);
+            } else {
+                $this->controllers[$controller] = new $controller($this->app);
+            }
         }
 
         return $this->controllers[$controller];
