@@ -972,7 +972,7 @@ class DataMapperAbstract implements DataMapperInterface
                     settype($value, static::$columns[$column]['type']);
                     $reflectionProperty->setValue($obj, $value);
                 } elseif (static::$columns[$column]['type'] === 'DateTime') {
-                    $reflectionProperty->setValue($obj, new \DateTime($value));
+                    $reflectionProperty->setValue($obj, new \DateTime($value ?? ''));
                 } elseif (static::$columns[$column]['type'] === 'Json') {
                     $reflectionProperty->setValue($obj, json_decode($value, true));
                 } elseif (static::$columns[$column]['type'] === 'Serializable') {
