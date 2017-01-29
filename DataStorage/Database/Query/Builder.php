@@ -752,8 +752,10 @@ class Builder extends BuilderAbstract
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function count()
+    public function count(string $table = '*')
     {
+        // todo: don't do this as string, create new object new Count(); this can get handled by the grammar parser WAY better
+        return $this->select('COUNT(' . $table . ')');
     }
 
     /**

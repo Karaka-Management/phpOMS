@@ -17,6 +17,8 @@ declare(strict_types=1);
 
 namespace phpOMS\DataStorage\Database;
 
+use phpOMS\Utils\StringUtils;
+
 /**
  * Grammar.
  *
@@ -77,6 +79,16 @@ abstract class GrammarAbstract
      * @since 1.0.0
      */
     protected $tablePrefix = '';
+
+    /**
+     * Special keywords.
+     *
+     * @var string
+     * @since 1.0.0
+     */
+    protected $specialKeywords = [
+        'COUNT('
+    ];
 
     /**
      * Compile to query.
@@ -198,6 +210,16 @@ abstract class GrammarAbstract
      */
     protected function compileSystem($system, string $prefix = '') : string
     {
+        // todo: this is a bad way to handle select count(*) which doesn't need a prefix. Maybe remove prefixes in total?
+        $identifier = $this->systemIdentifier;
+        
+        foreach($this->specialKeywords as $keyword) {
+            if(StringUtils::startsWith($system, $keyword)) {
+                $prefix = '';
+                $identifier = '';
+            }
+        }
+
         // todo: move remaining * test also here not just if .* but also if * (should be done in else?)
         if (count($split = explode('.', $system)) == 2) {
             if ($split[1] === '*') {
@@ -208,7 +230,7 @@ abstract class GrammarAbstract
 
             return $this->compileSystem($prefix . $split[0]) . '.' . $system;
         } else {
-            return $this->systemIdentifier . $prefix . $system . $this->systemIdentifier;
+            return $identifier . $prefix . $system . $identifier;
         }
     }
 
