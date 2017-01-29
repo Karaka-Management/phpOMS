@@ -151,7 +151,7 @@ class SmartDateTime extends \DateTime
      */
     public function getFirstDayOfMonth() : int
     {
-        return getdate(mktime(null, null, null, (int) $this->format('m'), 1, (int) $this->format('Y')))['wday'];
+        return getdate(mktime(0, 0, 0, (int) $this->format('m'), 1, (int) $this->format('Y')))['wday'];
     }
 
 }
