@@ -70,7 +70,7 @@ class TaskScheduler extends SchedulerAbstract
             fclose($pipe);
         }
 
-        $status = trim(proc_close($resource));
+        $status = trim((string) proc_close($resource));
 
         if ($status == -1) {
             throw new \Exception($stderr);
