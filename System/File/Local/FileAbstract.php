@@ -95,7 +95,7 @@ abstract class FileAbstract implements ContainerInterface
      * @var string
      * @since 1.0.0
      */
-    protected $permission = '0000';
+    protected $permission = 0644;
 
     /**
      * Constructor.
@@ -194,6 +194,6 @@ abstract class FileAbstract implements ContainerInterface
         $this->createdAt->setTimestamp(filemtime($this->path));
         $this->changedAt->setTimestamp(filectime($this->path));
         $this->owner      = fileowner($this->path);
-        $this->permission = substr(sprintf('%o', fileperms($this->path)), -4);
+        $this->permission = (int) substr(sprintf('%o', fileperms($this->path)), -4);
     }
 }

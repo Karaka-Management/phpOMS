@@ -252,7 +252,7 @@ class MemberParser
         } elseif (is_string($value)) {
             return '"' . $value . '"';
         } elseif (is_scalar($value)) {
-            return $value;
+            return (string) $value;
         } elseif (is_null($value)) {
             return 'null';
         } elseif (is_bool($value)) {

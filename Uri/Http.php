@@ -193,7 +193,7 @@ class Http implements UriInterface
      */
     public static function isValid(string $uri) : bool
     {
-        return filter_var($uri, FILTER_VALIDATE_URL);
+        return (bool) filter_var($uri, FILTER_VALIDATE_URL);
     }
 
     /**

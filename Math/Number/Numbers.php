@@ -65,9 +65,11 @@ class Numbers
      */
     public static function isSelfdescribing(int $n) : bool
     {
+        $n = (string) $n;
         $split = str_split($n);
+
         foreach ($split as $place => $value) {
-            if (substr_count($n, $place) != $value) {
+            if (substr_count($n, (string) $place) != $value) {
                 return false;
             }
         }

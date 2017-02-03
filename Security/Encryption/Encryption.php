@@ -390,7 +390,7 @@ class Encryption
     {
         $pad = ord($value[($len = strlen($value)) - 1]);
 
-        return $this->paddingIsValid($pad, $value) ? substr($value, 0, $len - $pad) : $value;
+        return $this->paddingIsValid((string) $pad, $value) ? substr($value, 0, $len - $pad) : $value;
     }
 
     /**
@@ -408,7 +408,7 @@ class Encryption
     {
         $beforePad = strlen($value) - $pad;
 
-        return substr($value, $beforePad) == str_repeat(substr($value, -1), $pad);
+        return substr($value, $beforePad) == str_repeat(substr($value, -1), (int) $pad);
     }
 
     /**

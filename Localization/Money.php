@@ -200,7 +200,7 @@ class Money implements \Serializable
         $left  = substr($value, 0, -self::MAX_DECIMALS);
         $right = substr($value, -self::MAX_DECIMALS);
 
-        return ($decimals > 0) ? number_format($left, 0, $this->decimal, $this->thousands) . $this->decimal . substr($right, 0, $decimals) : (string) $left;
+        return ($decimals > 0) ? number_format((float) $left, 0, $this->decimal, $this->thousands) . $this->decimal . substr($right, 0, $decimals) : (string) $left;
     }
 
     /**

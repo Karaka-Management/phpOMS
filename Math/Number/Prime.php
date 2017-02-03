@@ -94,14 +94,14 @@ class Prime
         for ($i = 0; $i < $k; $i++) {
             $a = mt_rand(2, $n - 1);
 
-            $x = bcpowmod($a, $d, $n);
+            $x = bcpowmod((string) $a, (string) $d, (string) $n);
 
             if ($x == 1 || $x == $n - 1) {
                 continue;
             }
 
             for ($j = 1; $j < $s; $j++) {
-                $x = bcmod(bcmul($x, $x), $n);
+                $x = bcmod(bcmul($x, $x), (string) $n);
 
                 if ($x == 1) {
                     return false;
