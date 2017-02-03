@@ -656,4 +656,23 @@ class ModuleManager
             throw $e;
         }
     }
+
+    /**
+     * Initialize all modules for a request.
+     *
+     * @param Request $request Request
+     *
+     * @return void
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn
+     */
+    public function initRequestModules(Request $request) /* : void */
+    {
+        $toInit = $this->getRoutedModules($request);
+
+        foreach($toInit as $module) {
+            $this->initModuleController($module);
+        }
+    }
 }
