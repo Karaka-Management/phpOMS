@@ -235,28 +235,6 @@ class DataMapperAbstract implements DataMapperInterface
     }
 
     /**
-     * Save data.
-     *
-     * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
-     */
-    public static function save()
-    {
-    }
-
-    /**
-     * Delete data.
-     *
-     * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
-     */
-    public static function delete($obj) : int
-    {
-
-        return 0;
-    }
-
-    /**
      * Load.
      *
      * @param array $objects Objects to load
@@ -360,15 +338,15 @@ class DataMapperAbstract implements DataMapperInterface
     /**
      * Create base model.
      *
-     * @param \ReflectionClass $reflectionClass Reflection class
      * @param Object           $obj             Model to create
+     * @param \ReflectionClass $reflectionClass Reflection class
      *
      * @return mixed
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    private static function createModel(\ReflectionClass $reflectionClass, $obj)
+    private static function createModel($obj, \ReflectionClass $reflectionClass)
     {
         $query = new Builder(self::$db);
         $query->prefix(self::$db->getPrefix())->into(static::$table);
@@ -477,7 +455,7 @@ class DataMapperAbstract implements DataMapperInterface
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    private static function createHasMany(\ReflectionClass $reflectionClass, $obj, $objId)
+    private static function createHasMany(\ReflectionClass $reflectionClass, $obj, $objId) /* : void */
     {
         foreach (static::$hasMany as $propertyName => $rel) {
             $property = $reflectionClass->getProperty($propertyName);
@@ -684,7 +662,21 @@ class DataMapperAbstract implements DataMapperInterface
         return $value;
     }
 
-    private static function updateHasMany(\ReflectionClass $reflectionClass, $obj, $objId)
+    /**
+     * Update has many
+     *
+     * @param \ReflectionClass $reflectionClass Reflection class
+     * @param Object           $obj             Object to create
+     * @param mixed            $objId           Id to set
+     *
+     * @return void
+     *
+     * @throws \Exception
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+    private static function updateHasMany(\ReflectionClass $reflectionClass, $obj, $objId) /* : void */
     {
         foreach (static::$hasMany as $propertyName => $rel) {
             $property = $reflectionClass->getProperty($propertyName);
@@ -750,6 +742,20 @@ class DataMapperAbstract implements DataMapperInterface
         }
     }
 
+    /**
+     * Update relation table entry
+     *
+     * Deletes old entries and creates new ones
+     *
+     * @param string $propertyName Property name to initialize
+     * @param array  $objsIds      Object ids to insert
+     * @param mixed  $objId        Model to reference
+     *
+     * @return mixed
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
     private static function updateRelationTable(string $propertyName, array $objsIds, $objId)
     {
         if (
@@ -776,6 +782,18 @@ class DataMapperAbstract implements DataMapperInterface
         }
     }
 
+    /**
+     * Delete relation table entry
+     *
+     * @param string $propertyName Property name to initialize
+     * @param array  $objsIds      Object ids to insert
+     * @param mixed  $objId        Model to reference
+     *
+     * @return mixed
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
     private static function deleteRelationTable(string $propertyName, array $objsIds, $objId)
     {
         if (
@@ -797,6 +815,19 @@ class DataMapperAbstract implements DataMapperInterface
         }
     }
 
+    /**
+     * Update owns one
+     *
+     * The reference is stored in the main model
+     *
+     * @param string $propertyName Property name to initialize
+     * @param Object $obj          Object to update
+     *
+     * @return mixed
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
     private static function updateOwnsOne(string $propertyName, $obj)
     {
         if (is_object($obj)) {
@@ -810,7 +841,20 @@ class DataMapperAbstract implements DataMapperInterface
         return $obj;
     }
 
-    private static function updateBelongsTo()
+    /**
+     * Update owns one
+     *
+     * The reference is stored in the main model
+     *
+     * @param string $propertyName Property name to initialize
+     * @param Object $obj          Object to update
+     *
+     * @return mixed
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+    private static function updateBelongsTo(string $propertyName, $obj)
     {
         if (is_object($obj)) {
             $mapper = static::$belongsTo[$propertyName]['mapper'];
@@ -821,12 +865,24 @@ class DataMapperAbstract implements DataMapperInterface
         return $obj;
     }
 
-    private static function updateModel(\ReflectionClass $reflectionClass, $obj) /* : void */
+    /**
+     * Update object in db.
+     *
+     * @param Object           $obj             Model to update
+     * @param mixed           $objId             Model id
+     * @param \ReflectionClass $reflectionClass Reflection class
+     *
+     * @return mixed
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+    private static function updateModel($obj, $objId, \ReflectionClass $reflectionClass = null) /* : void */
     {
         $query = new Builder(self::$db);
         $query->prefix(self::$db->getPrefix())
             ->into(static::$table)
-            ->where(static::$primaryField, '=', self::getObjectId($obj, $reflectionClass));
+            ->where(static::$primaryField, '=', $objId);
 
         $properties = $reflectionClass->getProperties();
 
@@ -840,6 +896,8 @@ class DataMapperAbstract implements DataMapperInterface
             if (!($isPublic = $property->isPublic())) {
                 $property->setAccessible(true);
             }
+
+            // todo: the order of updating could be a problem. maybe looping through ownsOne and belongsTo first is better.
 
             foreach (static::$columns as $key => $column) {
                 if (isset(static::$ownsOne[$propertyName]) && $column['internal'] === $propertyName) {
@@ -873,7 +931,7 @@ class DataMapperAbstract implements DataMapperInterface
     }
 
     /**
-     * Create object in db.
+     * Update object in db.
      *
      * @param mixed $obj Object reference (gets filled with insert id)
      * @param int   $relations Create all relations as well
@@ -888,8 +946,10 @@ class DataMapperAbstract implements DataMapperInterface
         self::extend(__CLASS__);
         $reflectionClass = new \ReflectionClass(get_class($obj));
         $objId = self::getObjectId($obj, $reflectionClass);
+        $update = true;
 
         if(empty($objId)) {
+            $update = false;
             self::create($obj, $relations);
         }
 
@@ -897,7 +957,216 @@ class DataMapperAbstract implements DataMapperInterface
             self::updateHasMany($reflectionClass, $obj, $objId);
         }
         
-        self::updateModel($reflectionClass, $obj);
+        if($update) {
+            self::updateModel($obj, $objId, $reflectionClass);
+        }
+
+        return $objId;
+    }
+
+    /**
+     * Delete has many
+     *
+     * @param \ReflectionClass $reflectionClass Reflection class
+     * @param Object           $obj             Object to create
+     * @param mixed            $objId           Id to set
+     * @param int   $relations Delete all relations as well
+     *
+     * @return void
+     *
+     * @throws \Exception
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+    private static function deleteHasMany(\ReflectionClass $reflectionClass, $obj, $objId, int $relations) /* : void */
+    {
+        foreach (static::$hasMany as $propertyName => $rel) {
+            $property = $reflectionClass->getProperty($propertyName);
+
+            if (!($isPublic = $property->isPublic())) {
+                $property->setAccessible(true);
+            }
+
+            $values = $property->getValue($obj);
+
+            if (!($isPublic)) {
+                $property->setAccessible(false);
+            }
+
+            if (!isset(static::$hasMany[$propertyName]['mapper'])) {
+                throw new \Exception('No mapper set for relation object.');
+            }
+
+            $mapper             = static::$hasMany[$propertyName]['mapper'];
+            $objsIds            = [];
+            $relReflectionClass = null;
+
+            foreach ($values as $key => &$value) {
+                if (!is_object($value)) {
+                    // Is scalar => already in database
+                    $objsIds[$key] = $value;
+
+                    continue;
+                } 
+                
+                if (!isset($relReflectionClass)) {
+                    $relReflectionClass = new \ReflectionClass(get_class($value));
+                }
+
+                $primaryKey = $mapper::getObjectId($value, $relReflectionClass);
+
+                // already in db
+                if (!empty($primaryKey)) {
+                    if($relations === RelationType::ALL) {
+                        $objsIds[$key] = $mapper::delete($value);
+                    } else {
+                        $objsIds[$key] = $primaryKey;
+                    }
+
+                    continue;
+                }
+
+                // todo: could be a problem, relation needs to be removed first?!
+                
+            }
+
+            self::deleteRelationTable($propertyName, $objsIds, $objId);
+        }
+    }
+
+    /**
+     * Delete owns one
+     *
+     * The reference is stored in the main model
+     *
+     * @param string $propertyName Property name to initialize
+     * @param Object $obj          Object to delete
+     *
+     * @return mixed
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+    private static function deleteOwnsOne(string $propertyName, $obj)
+    {
+        if (is_object($obj)) {
+            $mapper = static::$ownsOne[$propertyName]['mapper'];
+
+            // todo: delete owned one object is not recommended since it can be owned by by something else? or does owns one mean that nothing else can have a relation to this one?
+            return $mapper::delete($obj);
+        }
+
+        return $obj;
+    }
+
+    /**
+     * Delete owns one
+     *
+     * The reference is stored in the main model
+     *
+     * @param string $propertyName Property name to initialize
+     * @param Object $obj          Object to delete
+     *
+     * @return mixed
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+    private static function deleteBelongsTo(string $propertyName, $obj)
+    {
+        if (is_object($obj)) {
+            $mapper = static::$belongsTo[$propertyName]['mapper'];
+
+            return $mapper::delete($obj);
+        }
+
+        return $obj;
+    }
+
+    /**
+     * Delete object in db.
+     *
+     * @param Object           $obj             Model to delete
+     * @param mixed           $objId             Model id
+     * @param int   $relations Delete all relations as well
+     * @param \ReflectionClass $reflectionClass Reflection class
+     *
+     * @return mixed
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+    private static function deleteModel($obj, $objId, int $relations = RelationType::REFERENCE, \ReflectionClass $reflectionClass = null) /* : void */
+    {
+        $query = new Builder(self::$db);
+        $query->prefix(self::$db->getPrefix())
+            ->delete()
+            ->into(static::$table)
+            ->where(static::$primaryField, '=', $objId);
+
+        $properties = $reflectionClass->getProperties();
+
+        if($relations === RelationType::ALL) {
+            foreach ($properties as $property) {
+                $propertyName = $property->getName();
+
+                if (isset(static::$hasMany[$propertyName]) || isset(static::$hasOne[$propertyName])) {
+                    continue;
+                }
+
+                if (!($isPublic = $property->isPublic())) {
+                    $property->setAccessible(true);
+                }
+
+                // todo: the order of deletion could be a problem. maybe looping through ownsOne and belongsTo first is better.
+                // todo: support other relation types as well (belongsto, ownsone) = for better control
+                
+                foreach (static::$columns as $key => $column) {
+                    if ($relations === RelationType::ALL && isset(static::$ownsOne[$propertyName]) && $column['internal'] === $propertyName) {
+                        self::deleteOwnsOne($propertyName, $property->getValue($obj));
+                        break;
+                    } elseif ($relations === RelationType::ALL && isset(static::$belongsTo[$propertyName]) && $column['internal'] === $propertyName) {
+                        self::deleteBelongsTo($propertyName, $property->getValue($obj));
+                        break;
+                    }
+                }
+
+                if (!($isPublic)) {
+                    $property->setAccessible(false);
+                }
+            }
+        }
+
+        self::$db->con->prepare($query->toSql())->execute();
+    }
+
+    /**
+     * Delete object in db.
+     *
+     * @param mixed $obj Object reference (gets filled with insert id)
+     * @param int   $relations Create all relations as well
+     *
+     * @return int
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+    public static function delete($obj, int $relations = RelationType::REFERENCE) /* : ?int */
+    {
+        self::extend(__CLASS__);
+        $reflectionClass = new \ReflectionClass(get_class($obj));
+        $objId = self::getObjectId($obj, $reflectionClass);
+
+        if(empty($objId)) {
+            return null;
+        }
+
+        if ($relations !== RelationType::NONE) {
+            self::deleteHasMany($reflectionClass, $obj, $objId, $relations);
+        }
+        
+        self::deleteModel($obj, $objId, $relations, $reflectionClass);
 
         return $objId;
     }

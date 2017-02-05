@@ -37,4 +37,5 @@ abstract class RelationType extends Enum
     /* public */ const NONE = 0;
     /* public */ const NEWEST = 1;
     /* public */ const ALL = 2;
+    /* public */ const REFERENCE = 4;
 }
