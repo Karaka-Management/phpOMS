@@ -60,16 +60,6 @@ interface DataMapperInterface
     public static function update($obj) : int;
 
     /**
-     * Save data.
-     *
-     * @return void
-     *
-     * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
-     */
-    public static function save();
-
-    /**
      * Delete data.
      *
      * @param mixed $obj Object to delete
@@ -79,7 +69,7 @@ interface DataMapperInterface
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public static function delete($obj) : int;
+    public static function delete($obj);
 
     /**
      * Find data.

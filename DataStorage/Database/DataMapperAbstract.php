@@ -1152,7 +1152,7 @@ class DataMapperAbstract implements DataMapperInterface
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public static function delete($obj, int $relations = RelationType::REFERENCE) /* : ?int */
+    public static function delete($obj, int $relations = RelationType::REFERENCE)
     {
         self::extend(__CLASS__);
         $reflectionClass = new \ReflectionClass(get_class($obj));
