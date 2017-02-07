@@ -1038,8 +1038,34 @@ class Builder extends BuilderAbstract
     public function execute()
     {
         $sth = $this->connection->con->prepare($this->toSql());
+        
+        foreach($this->binds as $key => $bind) {
+            $type = $this->getBindParamType($bind);
+            
+            $sth->bindParam($key, $bind, $type);
+        }
+        
         $sth->execute();
 
         return $sth;
+    }
+    
+    /**
+     * Get bind parameter type.
+     *
+     * @return mixed
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+    private function getBindParamType($value)
+    {
+        if(is_int($value)) {
+            return PDO::PARAM_INT;
+        } elseif(is_string($value)) {
+            return PDO::PARAM_STR;
+        }
+        
+        throw new \Exception();
     }
 }
