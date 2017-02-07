@@ -278,9 +278,6 @@ class Grammar extends GrammarAbstract
                 return $value;
             }
 
-            // todo: fix for injection
-            // todo: implement binding
-
             return $this->valueQuotes . $value . $this->valueQuotes;
         } elseif (is_int($value)) {
             return (string) $value;
