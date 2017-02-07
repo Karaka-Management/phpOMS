@@ -200,6 +200,8 @@ abstract class GrammarAbstract
     /**
      * Compile system.
      *
+     * A system is a table, a sub query or special keyword.
+     *
      * @param array|string $system System
      * @param string       $prefix Prefix for table
      *
