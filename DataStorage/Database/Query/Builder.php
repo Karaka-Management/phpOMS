@@ -1062,7 +1062,7 @@ class Builder extends BuilderAbstract
     {
         if(is_int($value)) {
             return PDO::PARAM_INT;
-        } elseif(is_string($value)) {
+        } elseif(is_string($value) || is_float($value)) {
             return PDO::PARAM_STR;
         }
         
