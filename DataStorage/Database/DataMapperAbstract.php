@@ -325,7 +325,7 @@ class DataMapperAbstract implements DataMapperInterface
         self::extend(__CLASS__);
 
         $reflectionClass = new \ReflectionClass(get_class($obj));
-        $objId           = self::createModel($reflectionClass, $obj);
+        $objId           = self::createModel($obj, $reflectionClass);
         self::setObjectId($reflectionClass, $obj, $objId);
 
         if ($relations === RelationType::ALL) {
