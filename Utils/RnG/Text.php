@@ -380,12 +380,12 @@ class Text
      *
      * @param int $length Text length
      *
-     * @return string
+     * @return array
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    private function generatePunctuation(int $length) : string
+    private function generatePunctuation(int $length) : array
     {
         $minSentences    = 4;
         $maxSentences    = 20;
