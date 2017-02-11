@@ -185,7 +185,7 @@ class UriFactory
                 $pars[] = $key . '=' . $value;
             }
 
-            $url = $parts[0] . '?' . implode('&', $pars);
+            return $parts[0] . (empty($pars) ? '' : '?' . implode('&', $pars));
         }
 
         return $url;
@@ -224,8 +224,6 @@ class UriFactory
             str_replace('&', '?', $parsed);
         }
 
-        $parsed = self::unique($parsed);
-
-        return $parsed;
+        return self::unique($parsed);
     }
 }
