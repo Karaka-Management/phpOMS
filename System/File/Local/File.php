@@ -350,7 +350,7 @@ class File extends FileAbstract implements FileInterface
                 Directory::create(dirname($path), 0644, true);
             }
 
-            if(!is_writable($path)) {
+            if(!is_writable(dirname($path))) {
                 return false;
             }
             

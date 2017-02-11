@@ -70,17 +70,17 @@ class Auth
     /**
      * Authenticates user.
      *
-     * @return mixed
+     * @return int
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function authenticate()
+    public function authenticate() : int
     {
         $uid = $this->session->get('UID');
 
-        if ($uid === null) {
-            $uid = false;
+        if (empty($uid)) {
+            return 0;
         }
 
         return $uid;

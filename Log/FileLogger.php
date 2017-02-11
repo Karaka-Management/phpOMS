@@ -311,7 +311,7 @@ class FileLogger implements LoggerInterface
     private function write(string $message) /* : void */
     {
         $this->createFile();
-        if(!is_readable($this->path)) {
+        if(!is_writable($this->path)) {
             return;
         }
 

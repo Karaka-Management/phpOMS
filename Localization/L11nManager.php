@@ -59,7 +59,7 @@ class L11nManager
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function __construct(LoggerInterface $logger)
+    public function __construct(LoggerInterface $logger = null)
     {
         $this->logger = $logger;
     }
@@ -179,9 +179,11 @@ class L11nManager
             $this->loadLanguage($code, $module, $class::getLocalization($code, $theme));
 
             if (!isset($this->language[$code][$module][$translation])) {
-                $this->logger->warning(FileLogger::MSG_FULL, [
-                    'message' => 'Undefined translation for \'' . $code . '/' . $module . '/' . $translation . '\'.',
-                ]);
+                if(isset($this->logger)) {
+                    $this->logger->warning(FileLogger::MSG_FULL, [
+                        'message' => 'Undefined translation for \'' . $code . '/' . $module . '/' . $translation . '\'.',
+                    ]);
+                }
 
                 return 'ERROR';
             }
