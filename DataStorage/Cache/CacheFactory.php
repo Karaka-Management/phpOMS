@@ -64,7 +64,6 @@ class CacheFactory
         switch ($cacheData['type']) {
             case 'file':
                 return new FileCache($cacheData['path']);
-                break;
             default:
                 throw new \InvalidArgumentException('Cache "' . $cacheData['type'] . '" is not supported.');
         }

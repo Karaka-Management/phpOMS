@@ -30,7 +30,7 @@ use phpOMS\Validation\ValidatorAbstract;
  * @link       http://orange-management.com
  * @since      1.0.0
  */
-abstract class IP extends ValidatorAbstract
+abstract class Ip extends ValidatorAbstract
 {
 
     /**
@@ -48,6 +48,16 @@ abstract class IP extends ValidatorAbstract
      */
     public static function isValid($value) : bool
     {
-        return filter_var($value, FILTER_VALIDATE_IP);
+        return filter_var($value, FILTER_VALIDATE_IP) !== false;
+    }
+
+    public static function isValidIpv6($value) : bool
+    {
+        return filter_var($value, FILTER_VALIDATE_IP, FILTER_FLAG_IPV6) !== false;
+    }
+
+    public static function isValidIpv4($value) : bool
+    {
+        return filter_var($value, FILTER_VALIDATE_IP, FILTER_FLAG_IPV4) !== false;
     }
 }

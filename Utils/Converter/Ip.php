@@ -67,11 +67,11 @@ class Ip
             if ($ip > $split[1]) {
                 $larger = true;
                 $start  = $current;
-                fseek($fh, ($end - $current) / 2, SEEK_CUR);
+                fseek($fh, (int) (($end - $current) / 2), SEEK_CUR);
             } else {
                 $larger = false;
                 $end    = $current;
-                fseek($fh, ($start - $current) / 2, SEEK_CUR);
+                fseek($fh, (int) (($start - $current) / 2), SEEK_CUR);
             }
 
             $counter++;

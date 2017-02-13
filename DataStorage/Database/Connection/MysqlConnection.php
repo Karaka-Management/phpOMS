@@ -65,7 +65,7 @@ class MysqlConnection extends ConnectionAbstract
         $this->close();
 
         $this->dbdata = isset($dbdata) ? $dbdata : $this->dbdata;
-        $this->prefix = $dbdata['prefix'];
+        $this->prefix = $dbdata['prefix'] ?? '';
 
         try {
             $this->con = new \PDO($this->dbdata['db'] . ':host=' . $this->dbdata['host'] . ':' . $this->dbdata['port'] . ';dbname=' . $this->dbdata['database'] . ';charset=utf8', $this->dbdata['login'], $this->dbdata['password']);

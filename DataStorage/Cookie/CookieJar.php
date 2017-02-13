@@ -122,15 +122,26 @@ class CookieJar
      *
      * @param string $id Cookie id to remove
      *
-     * @return void
+     * @return bool
+     *
+     * @throws LockException
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function delete(string $id) /* : void */
+    public function delete(string $id) : bool
     {
-        $this->remove($id);
-        setcookie($id, '', time() - 3600);
+        if($this->remove($id)) {
+            if (self::$isLocked) {
+                throw new LockException('CookieJar');
+            }
+
+            setcookie($id, '', time() - 3600);
+
+            return true;
+        }
+
+        return false;
     }
 
     /**

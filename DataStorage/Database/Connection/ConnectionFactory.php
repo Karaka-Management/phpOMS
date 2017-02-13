@@ -17,7 +17,6 @@ declare(strict_types=1);
 
 namespace phpOMS\DataStorage\Database\Connection;
 
-
 /**
  * Database connection factory.
  *
@@ -58,6 +57,7 @@ class ConnectionFactory
      */
     public static function create(array $dbdata) : ConnectionInterface
     {
+        // todo: replace string with enum
         switch ($dbdata['db']) {
             case 'mysql':
                 return new MysqlConnection($dbdata);
