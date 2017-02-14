@@ -62,9 +62,34 @@ class MysqlConnection extends ConnectionAbstract
      */
     public function connect(array $dbdata = null) /* : void */
     {
-        $this->close();
-
         $this->dbdata = isset($dbdata) ? $dbdata : $this->dbdata;
+        
+        if(!isset($this->dbdata['db'])) {
+            throw new \Exception('db');
+        }
+
+        if(!isset($this->dbdata['host'])) {
+            throw new \Exception('host');
+        }
+
+        if(!isset($this->dbdata['port'])) {
+            throw new \Exception('port');
+        }
+
+        if(!isset($this->dbdata['database'])) {
+            throw new \Exception('database');
+        }
+
+        if(!isset($this->dbdata['login'])) {
+            throw new \Exception('login');
+        }
+
+        if(!isset($this->dbdata['password'])) {
+            throw new \Exception('password');
+        }
+
+        $this->close();
+        
         $this->prefix = $dbdata['prefix'] ?? '';
 
         try {
