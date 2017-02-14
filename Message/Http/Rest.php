@@ -30,26 +30,6 @@ namespace phpOMS\Message\Http;
  */
 class Rest
 {
-    /**
-     * Url.
-     *
-     * @var Request
-     * @since 1.0.0
-     */
-    private $request = '';
-
-    /**
-     * Set url.
-     *
-     * @param Request $request Request
-     *
-     * @since  1.0.0
-     * @author Dennis Eichhorn
-     */
-    public function setRequest(Request $request) /* : void */
-    {
-        $this->request = $request;
-    }
 
     /**
      * Make request.
@@ -61,16 +41,16 @@ class Rest
      * @since  1.0.0
      * @author Dennis Eichhorn
      */
-    public function callApi($data = false) : string
+    public static function request(Request $request) : string
     {
         $curl = curl_init();
 
-        switch ($this->request->getMethod()) {
+        switch ($request->getMethod()) {
             case RequestMethod::POST:
                 curl_setopt($curl, CURLOPT_POST, 1);
 
                 if ($data) {
-                    curl_setopt($curl, CURLOPT_POSTFIELDS, $data);
+                    curl_setopt($curl, CURLOPT_POSTFIELDS, $request->getData());
                 }
                 break;
             case RequestMethod::PUT:
@@ -81,7 +61,7 @@ class Rest
         curl_setopt($curl, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
         curl_setopt($curl, CURLOPT_USERPWD, "username:password");
 
-        curl_setopt($curl, CURLOPT_URL, $this->request->getUri()->__toString());
+        curl_setopt($curl, CURLOPT_URL, $request->getUri()->__toString());
         curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
 
         $result = curl_exec($curl);
