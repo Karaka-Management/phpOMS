@@ -64,7 +64,7 @@ class Autoloader
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public static function exists(string $class)
+    public static function exists(string $class) : bool
     {
         $class = ltrim($class, '\\');
         $class = str_replace(['_', '\\'], '/', $class);
