@@ -55,7 +55,7 @@ class ArrayUtils
      */
     public static function unsetArray(string $path, array $data, string $delim) : array
     {
-        $nodes  = explode($delim, $path);
+        $nodes  = explode($delim, trim($path, $delim));
         $prevEl = null;
         $el     = &$data;
 
@@ -94,7 +94,7 @@ class ArrayUtils
      */
     public static function setArray(string $path, array $data, $value, string $delim, bool $overwrite = false) : array
     {
-        $pathParts = explode($delim, $path);
+        $pathParts = explode($delim, trim($path, $delim));
         $current   = &$data;
 
         foreach ($pathParts as $key) {
