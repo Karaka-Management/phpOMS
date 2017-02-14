@@ -45,13 +45,7 @@ class Request extends RequestAbstract
      * @since 1.0.0
      */
     protected $path = null;
-    /**
-     * Request status.
-     *
-     * @var string
-     * @since 1.0.0
-     */
-    protected $status = RequestStatus::R_200;
+
     /**
      * Uploaded files.
      *
@@ -110,10 +104,10 @@ class Request extends RequestAbstract
      */
     public function init($uri = null) /* : void */
     {
-        if (!isset($uri)) {
+        if (!isset($uri) && !isset($this->uri)) {
             $this->initCurrentRequest();
         } else {
-            $this->initPseudoRequest($uri);
+            $this->initPseudoRequest($uri ?? $this->uri->__toString());
         }
 
         $this->data = array_change_key_case($this->data, CASE_LOWER);
@@ -139,6 +133,7 @@ class Request extends RequestAbstract
      */
     private function initCurrentRequest() /* : void */
     {
+        $this->uir = new Http(Http::getCurrent());
         $this->data  = $_GET ?? [];
         $this->files = $_FILES ?? [];
         $this->language = $this->loadRequestLanguage();
@@ -329,6 +324,11 @@ class Request extends RequestAbstract
         return $this->browser;
     }
 
+    public function setBrowser(string $browser) /* : void */
+    {
+        $this->browser = $browser;
+    }
+
     /**
      * Determine request OS.
      *
@@ -351,6 +351,11 @@ class Request extends RequestAbstract
         }
 
         return $this->os;
+    }
+
+    public function setOS(string $os) /* : void */
+    {
+        $this->os = $os;
     }
 
     /**
