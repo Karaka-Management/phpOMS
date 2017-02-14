@@ -449,7 +449,7 @@ class Builder extends BuilderAbstract
                     throw new \InvalidArgumentException('Unknown operator.');
                 }
 
-                $this->wheres[$key][] = [
+                $this->wheres[$this->getPublicColumnName($column)][] = [
                     'column'   => $column,
                     'operator' => $operator[$i],
                     'value'    => $values[$i],
@@ -463,13 +463,25 @@ class Builder extends BuilderAbstract
                 throw new \InvalidArgumentException('Unknown operator.');
             }
 
-            $this->wheres[null][] = ['column'  => $columns, 'operator' => $operator, 'value' => $values,
+            $this->wheres[$this->getPublicColumnName($columns)][] = ['column'  => $columns, 'operator' => $operator, 'value' => $values,
                                      'boolean' => $boolean,];
         } else {
             throw new \InvalidArgumentException();
         }
 
         return $this;
+    }
+
+    public function getWhereByColumn($column) 
+    {
+        return $this->wheres[$this->getPublicColumnName($column)] ?? null;
+    }
+
+    public function getTableOfSystem($expression, $systemIdentifier)
+    {
+        if(($pos = strpos($expression, $systemIdentifier . '.' . $systemIdentifier)) === false) {
+            return null;
+        }
     }
 
     /**
@@ -1066,6 +1078,21 @@ class Builder extends BuilderAbstract
             return PDO::PARAM_STR;
         }
         
+        throw new \Exception();
+    }
+
+    public function getPublicColumnName($column) : string
+    {
+        if(is_string($column)) {
+            return $column;
+        } elseif($column instanceof Column) {
+            return $column->getPublicName();
+        } elseif($column instanceof \Closure) {
+            return $column();
+        } elseif($column instanceof \Serializable) {
+            return $column;
+        }
+
         throw new \Exception();
     }
 }
