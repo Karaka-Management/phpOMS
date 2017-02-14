@@ -92,6 +92,10 @@ class InfoManager
      */
     public function update() /* : void */
     {
+    	if (!file_exists($this->path)) {
+            throw new PathException($this->path);
+        }
+
         file_put_contents($this->path, json_encode($this->info, JSON_PRETTY_PRINT));
     }
 
@@ -107,7 +111,7 @@ class InfoManager
      */
     public function set(string $path, $data, string $delim = '/') /* : void */
     {
-        if (!is_scalar($data) || !is_array($data)) {
+        if (!is_scalar($data) && !is_array($data) && !($data instanceof \JsonSerializable)) {
             throw new \InvalidArgumentException('Type of $data "' . gettype($data) . '" is not supported.');
         }
 
@@ -137,7 +141,7 @@ class InfoManager
      */
     public function getInternalName() : string
     {
-        return $this->info['name']['internal'];
+        return $this->info['name']['internal'] ?? '';
     }
 
     /**
@@ -150,7 +154,7 @@ class InfoManager
      */
     public function getDependencies() : array
     {
-        return $this->info['dependencies'];
+        return $this->info['dependencies'] ?? [];
     }
 
     /**
@@ -163,7 +167,7 @@ class InfoManager
      */
     public function getProviding() : array
     {
-        return $this->info['providing'];
+        return $this->info['providing'] ?? [];
     }
 
     /**
@@ -176,7 +180,7 @@ class InfoManager
      */
     public function getDirectory() : string
     {
-        return $this->info['directory'];
+        return $this->info['directory'] ?? '';
     }
 
     /**
@@ -189,7 +193,7 @@ class InfoManager
      */
     public function getVersion() : string
     {
-        return $this->info['version'];
+        return $this->info['version'] ?? '';
     }
 
     /**
@@ -202,6 +206,6 @@ class InfoManager
      */
     public function getLoad() : array
     {
-        return $this->info['load'];
+        return $this->info['load'] ?? [];
     }
 }
