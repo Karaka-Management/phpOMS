@@ -115,7 +115,7 @@ class InfoManager
             throw new \InvalidArgumentException('Type of $data "' . gettype($data) . '" is not supported.');
         }
 
-        ArrayUtils::setArray($path, $this->info, $data, $delim);
+        ArrayUtils::setArray($path, $this->info, $data, $delim, true);
     }
 
     /**
