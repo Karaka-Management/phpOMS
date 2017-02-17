@@ -105,6 +105,30 @@ class UriFactory
     }
 
     /**
+     * Setup uri builder based on current request
+     *
+     * @param UriInterface $uri Uri
+     *
+     * @return void
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+    public static function setupUriBuilder(UriInterface $uri) /* : void */
+    {
+        self::setQuery('/scheme', $uri->getScheme());
+        self::setQuery('/host', $uri->getHost());
+        self::setQuery('/base', rtrim($uri->getBase(), '/'));
+        self::setQuery('/rootPath', $uri->getRootPath());
+        self::setQuery('?', $uri->getQuery());
+        self::setQuery('%', $uri->__toString());
+        self::setQuery('#', $uri->getFragment());
+        self::setQuery('/', $uri->getPath());
+        self::setQuery(':user', $uri->getUser());
+        self::setQuery(':pass', $uri->getPass());
+    }
+
+    /**
      * Clear uri component
      *
      * @param string $key Uri component key

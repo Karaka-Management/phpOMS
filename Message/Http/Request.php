@@ -133,7 +133,7 @@ class Request extends RequestAbstract
      */
     private function initCurrentRequest() /* : void */
     {
-        $this->uir = new Http(Http::getCurrent());
+        $this->uri = new Http(Http::getCurrent());
         $this->data  = $_GET ?? [];
         $this->files = $_FILES ?? [];
         $this->language = $this->loadRequestLanguage();
@@ -205,17 +205,7 @@ class Request extends RequestAbstract
      */
     private function setupUriBuilder() /* : void */
     {
-        UriFactory::setQuery('/scheme', $this->uri->getScheme());
-        UriFactory::setQuery('/host', $this->uri->getHost());
         UriFactory::setQuery('/lang', $this->l11n->getLanguage());
-        UriFactory::setQuery('/base', rtrim($this->uri->getBase(), '/'));
-        UriFactory::setQuery('/rootPath', $this->uri->getRootPath());
-        UriFactory::setQuery('?', $this->uri->getQuery());
-        UriFactory::setQuery('%', $this->uri->__toString());
-        UriFactory::setQuery('#', $this->uri->getFragment());
-        UriFactory::setQuery('/', $this->uri->getPath());
-        UriFactory::setQuery(':user', $this->uri->getUser());
-        UriFactory::setQuery(':pass', $this->uri->getPass());
 
         // todo: flush previous
         foreach($this->data as $key => $value) {
