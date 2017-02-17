@@ -185,7 +185,7 @@ class Dispatcher
             }
 
             // If module controller use module manager for initialization
-            if(count($split = explode('\\', $controller)) === 4) {
+            if(strpos('\Modules', $controller) === 0) {
                 $this->controllers[$controller] = $this->app->moduleManager->get($split[2]);
             } else {
                 $this->controllers[$controller] = new $controller($this->app);
