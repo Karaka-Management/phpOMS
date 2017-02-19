@@ -33,6 +33,13 @@ use phpOMS\DataStorage\Database\Connection\ConnectionAbstract;
  */
 class Builder extends BuilderAbstract
 {
+    /**
+     * Is read only.
+     *
+     * @var bool
+     * @since 1.0.0
+     */
+    private $isReadOnly = false;
 
     /**
      * Columns.
@@ -212,8 +219,9 @@ class Builder extends BuilderAbstract
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function __construct(ConnectionAbstract $connection)
+    public function __construct(ConnectionAbstract $connection, bool $readOnly = false)
     {
+        $this->isReadOnly = $readOnly;
         $this->setConnection($connection);
     }
 
@@ -342,6 +350,19 @@ class Builder extends BuilderAbstract
      */
     public function raw(string $raw) : Builder
     {
+        if($this->isReadOnly) {
+            $test = strtolower($raw);
+
+            if(strpos($test, 'insert') !== false 
+            || strpos($test, 'update') !== false
+            || strpos($test, 'drop') !== false
+            || strpos($test, 'delete') !== false
+            || strpos($test, 'create') !== false
+            || strpos($test, 'alter') !== false) {
+                throw new \Exception();
+            }
+        }
+
         $this->type = QueryType::RAW;
         $this->raw  = $raw;
 
@@ -449,7 +470,7 @@ class Builder extends BuilderAbstract
                     throw new \InvalidArgumentException('Unknown operator.');
                 }
 
-                $this->wheres[$this->getPublicColumnName($column)][] = [
+                $this->wheres[self::getPublicColumnName($column)][] = [
                     'column'   => $column,
                     'operator' => $operator[$i],
                     'value'    => $values[$i],
@@ -463,7 +484,7 @@ class Builder extends BuilderAbstract
                 throw new \InvalidArgumentException('Unknown operator.');
             }
 
-            $this->wheres[$this->getPublicColumnName($columns)][] = ['column'  => $columns, 'operator' => $operator, 'value' => $values,
+            $this->wheres[self::getPublicColumnName($columns)][] = ['column'  => $columns, 'operator' => $operator, 'value' => $values,
                                      'boolean' => $boolean,];
         } else {
             throw new \InvalidArgumentException();
@@ -474,7 +495,7 @@ class Builder extends BuilderAbstract
 
     public function getWhereByColumn($column) 
     {
-        return $this->wheres[$this->getPublicColumnName($column)] ?? null;
+        return $this->wheres[self::getPublicColumnName($column)] ?? null;
     }
 
     public function getTableOfSystem($expression, $systemIdentifier)
@@ -832,6 +853,10 @@ class Builder extends BuilderAbstract
      */
     public function insert(...$columns) : Builder
     {
+        if($this->isReadOnly) {
+            throw new \Exception();
+        }
+
         $this->type = QueryType::INSERT;
 
         foreach ($columns as $key => $column) {
@@ -908,6 +933,10 @@ class Builder extends BuilderAbstract
      */
     public function update(...$columns) : Builder
     {
+        if($this->isReadOnly) {
+            throw new \Exception();
+        }
+
         $this->type = QueryType::UPDATE;
 
         foreach ($columns as $key => $column) {
@@ -1052,7 +1081,7 @@ class Builder extends BuilderAbstract
         $sth = $this->connection->con->prepare($this->toSql());
         
         foreach($this->binds as $key => $bind) {
-            $type = $this->getBindParamType($bind);
+            $type = self::getBindParamType($bind);
             
             $sth->bindParam($key, $bind, $type);
         }
@@ -1070,7 +1099,7 @@ class Builder extends BuilderAbstract
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    private function getBindParamType($value)
+    public static function getBindParamType($value)
     {
         if(is_int($value)) {
             return PDO::PARAM_INT;
@@ -1081,7 +1110,7 @@ class Builder extends BuilderAbstract
         throw new \Exception();
     }
 
-    public function getPublicColumnName($column) : string
+    public static function getPublicColumnName($column) : string
     {
         if(is_string($column)) {
             return $column;
