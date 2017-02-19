@@ -34,9 +34,9 @@ use phpOMS\Datatypes\Enum;
  */
 abstract class DatabaseType extends Enum
 {
-    /* public */ const MYSQL = 0; /* MySQL */
-    /* public */ const SQLITE = 1; /* SQLITE */
+    /* public */ const MYSQL = 'mysql'; /* MySQL */
+    /* public */ const SQLITE = 'sqlite'; /* SQLITE */
     /* public */ const PGSQL = 2; /* PostgreSQL */
     /* public */ const ORACLE = 3; /* Oracle */
-    /* public */ const SQLSRV = 4; /* Microsoft SQL Server */
+    /* public */ const SQLSRV = 'mssql'; /* Microsoft SQL Server */
 }

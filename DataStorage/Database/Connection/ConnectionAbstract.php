@@ -101,7 +101,7 @@ abstract class ConnectionAbstract implements ConnectionInterface
     /**
      * {@inheritdoc}
      */
-    public function getType() : int
+    public function getType() : string
     {
         return $this->type;
     }

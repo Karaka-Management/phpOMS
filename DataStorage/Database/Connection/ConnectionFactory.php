@@ -57,12 +57,11 @@ class ConnectionFactory
      */
     public static function create(array $dbdata) : ConnectionInterface
     {
-        // todo: replace string with enum
         switch ($dbdata['db']) {
-            case 'mysql':
+            case DatabaseType::MYSQL:
                 return new MysqlConnection($dbdata);
                 break;
-            case 'mssql':
+            case DatabaseType::SQLSRV:
                 return new SqlServerConnection($dbdata);
                 break;
             default:
