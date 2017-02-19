@@ -1452,6 +1452,10 @@ class DataMapperAbstract implements DataMapperInterface
             }
 
             $obj[$value] = self::populate(self::getRaw($value), $toFill);
+
+            if(method_exists($obj[$value], 'initialize')) {
+                $obj[$value]->initialize();
+            }
         }
 
         self::fillRelations($obj, $relations);
