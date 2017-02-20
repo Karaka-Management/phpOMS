@@ -51,12 +51,12 @@ interface ConnectionInterface
     /**
      * Get the database type.
      *
-     * @return int
+     * @return string
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function getType() : int;
+    public function getType() : string;
 
     /**
      * Get the database status.

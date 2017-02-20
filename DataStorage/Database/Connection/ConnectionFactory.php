@@ -17,6 +17,8 @@ declare(strict_types=1);
 
 namespace phpOMS\DataStorage\Database\Connection;
 
+use phpOMS\DataStorage\Database\DatabaseType;
+
 /**
  * Database connection factory.
  *
