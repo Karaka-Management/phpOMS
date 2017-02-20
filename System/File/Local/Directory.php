@@ -72,6 +72,17 @@ class Directory extends FileAbstract implements DirectoryInterface
         }
     }
 
+    public static function list(string $path, string $filter = '*') : array
+    {
+        $list = [];
+
+        foreach (glob($path . DIRECTORY_SEPARATOR . $filter) as $filename) {
+            $list[] = $filename;
+        }
+
+        return $list;
+    }
+
     /**
      * {@inheritdoc}
      */
