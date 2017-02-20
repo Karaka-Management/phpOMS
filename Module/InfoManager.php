@@ -147,6 +147,19 @@ class InfoManager
     /**
      * Get info data.
      *
+     * @return string
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn
+     */
+    public function getExternalName() : string
+    {
+        return $this->info['name']['external'] ?? '';
+    }
+
+    /**
+     * Get info data.
+     *
      * @return array
      *
      * @since  1.0.0
@@ -181,6 +194,19 @@ class InfoManager
     public function getDirectory() : string
     {
         return $this->info['directory'] ?? '';
+    }
+
+    /**
+     * Get info category.
+     *
+     * @return string
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn
+     */
+    public function getCategory() : string
+    {
+        return $this->info['category'] ?? '';
     }
 
     /**
