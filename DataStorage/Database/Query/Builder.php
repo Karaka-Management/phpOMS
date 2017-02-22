@@ -493,16 +493,42 @@ class Builder extends BuilderAbstract
         return $this;
     }
 
-    public function getWhereByColumn($column) 
+    /**
+     * Get column of where condition
+     *
+     * One column can have multiple where conditions.
+     * TODO: maybe think about a case where there is a where condition but no column but some other identifier?
+     *
+     * @param mixed $column Column
+     *
+     * @return array|null
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+    public function getWhereByColumn($column) /* : ?array */
     {
         return $this->wheres[self::getPublicColumnName($column)] ?? null;
     }
 
-    public function getTableOfSystem($expression, $systemIdentifier)
+    /**
+     * Get table name of system
+     *
+     * @param mixed $expression System expression
+     * @param string $systemIdentifier System identifier
+     *
+     * @return string|null
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+    public function getTableOfSystem($expression, string $systemIdentifier) /* : ?string */
     {
         if(($pos = strpos($expression, $systemIdentifier . '.' . $systemIdentifier)) === false) {
             return null;
         }
+
+        return explode('.', $expression)[0];
     }
 
     /**

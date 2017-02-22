@@ -154,6 +154,14 @@ class Request extends RequestAbstract
         $this->uri = $this->uri ?? new Http(Http::getCurrent());
     }
 
+    /**
+     * Load request language
+     *
+     * @return string
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
     private function loadRequestLanguage() : string
     {
         $lang = $_SERVER['HTTP_ACCEPT_LANGUAGE'];
