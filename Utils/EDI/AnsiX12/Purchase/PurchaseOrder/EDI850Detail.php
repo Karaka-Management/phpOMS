@@ -28,7 +28,7 @@ namespace phpOMS\Utils\EDI\AnsiX12\Purchase\PurchaseOrder;
  * @link       http://orange-management.com
  * @since      1.0.0
  */
-class EDI850Heading
+class EDI850Detail
 {
     private $detailBaselineItemData = '';
 

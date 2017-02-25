@@ -22,6 +22,7 @@ use phpOMS\System\File\ContentPutMode;
 use phpOMS\System\File\FileInterface;
 use phpOMS\System\File\PathException;
 use phpOMS\System\File\Local\File as FileLocal;
+use phpOMS\System\File\Local\FileAbstract;
 use phpOMS\System\File\Local\Directory as DirectoryLocal;
 
 /**
@@ -329,5 +330,171 @@ class File extends FileAbstract implements FileInterface
     public static function extension(string $path) : string
     {
         return FileLocal::extension($path);
+    }
+
+    /**
+     * Get the parent path of the resource.
+     *
+     * The parent resource path is always a directory.
+     *
+     * @return ContainerInterface
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+    public function getParent() : ContainerInterface
+    {
+        // TODO: Implement getParent() method.
+    }
+
+    /**
+     * Create resource at destination path.
+     *
+     * @return bool True on success and false on failure
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+    public function createNode() : bool
+    {
+        // TODO: Implement createNode() method.
+    }
+
+    /**
+     * Copy resource to different location.
+     *
+     * @param string $to        Path of the resource to copy to
+     * @param bool   $overwrite Overwrite/replace existing file
+     *
+     * @return bool True on success and false on failure
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+    public function copyNode(string $to, bool $overwrite = false) : bool
+    {
+        // TODO: Implement copyNode() method.
+    }
+
+    /**
+     * Move resource to different location.
+     *
+     * @param string $to        Path of the resource to move to
+     * @param bool   $overwrite Overwrite/replace existing file
+     *
+     * @return bool True on success and false on failure
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+    public function moveNode(string $to, bool $overwrite = false) : bool
+    {
+        // TODO: Implement moveNode() method.
+    }
+
+    /**
+     * Delete resource at destination path.
+     *
+     * @return bool True on success and false on failure
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+    public function deleteNode() : bool
+    {
+        // TODO: Implement deleteNode() method.
+    }
+
+    /**
+     * Save content to file.
+     *
+     * @param string $content Content to save in file
+     * @param int    $mode    Mode (overwrite, append)
+     *
+     * @return bool
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+    public function putContent(string $content, int $mode = ContentPutMode::APPEND | ContentPutMode::CREATE) : bool
+    {
+        // TODO: Implement putContent() method.
+    }
+
+    /**
+     * Save content to file.
+     *
+     * Creates new file if it doesn't exist or overwrites existing file.
+     *
+     * @param string $content Content to save in file
+     *
+     * @return bool
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+    public function setContent(string $content) : bool
+    {
+        // TODO: Implement setContent() method.
+    }
+
+    /**
+     * Save content to file.
+     *
+     * Creates new file if it doesn't exist or overwrites existing file.
+     *
+     * @param string $content Content to save in file
+     *
+     * @return bool
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+    public function appendContent(string $content) : bool
+    {
+        // TODO: Implement appendContent() method.
+    }
+
+    /**
+     * Save content to file.
+     *
+     * Creates new file if it doesn't exist or overwrites existing file.
+     *
+     * @param string $content Content to save in file
+     *
+     * @return bool
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+    public function prependContent(string $content) : bool
+    {
+        // TODO: Implement prependContent() method.
+    }
+
+    /**
+     * Get content from file.
+     *
+     * @return string Content of file
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+    public function getContent() : string
+    {
+        // TODO: Implement getContent() method.
+    }
+
+    /**
+     * Get file extension.
+     *
+     * @return string
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+    public function getExtension() : string
+    {
+        // TODO: Implement getExtension() method.
     }
 }
