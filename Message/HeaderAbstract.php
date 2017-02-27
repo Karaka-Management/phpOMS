@@ -17,9 +17,6 @@ declare(strict_types=1);
 
 namespace phpOMS\Message;
 
-use phpOMS\DataStorage\Cookie\CookieJar;
-use phpOMS\DataStorage\Session\HttpSession;
-
 /**
  * Response class.
  *

@@ -289,9 +289,13 @@ abstract class RequestAbstract implements MessageInterface
      */
     public function getData($key = null)
     {
+        if(!isset($key)) {
+            return $this->data;
+        }
+
         $key = mb_strtolower($key);
 
-        return !isset($key) ? $this->data : $this->data[$key] ?? null;
+        return $this->data[$key] ?? null;
     }
 
     /**

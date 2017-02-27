@@ -32,6 +32,16 @@ namespace phpOMS\Utils;
  */
 class ImageUtils
 {
+    /**
+     * Decode base64 image.
+     *
+     * @param string $img Encoded image
+     *
+     * @return string Decoded image
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
     public static function decodeBase64Image(string $img) : string
     {
         $img = str_replace('data:image/png;base64,', '', $img);

@@ -322,6 +322,16 @@ class Request extends RequestAbstract
         return $this->browser;
     }
 
+    /**
+     * Set browser type
+     *
+     * @param string $browser Browser type
+     *
+     * @return void
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
     public function setBrowser(string $browser) /* : void */
     {
         $this->browser = $browser;
@@ -351,6 +361,16 @@ class Request extends RequestAbstract
         return $this->os;
     }
 
+    /**
+     * Set OS type
+     *
+     * @param string $os OS type
+     *
+     * @return void
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
     public function setOS(string $os) /* : void */
     {
         $this->os = $os;
