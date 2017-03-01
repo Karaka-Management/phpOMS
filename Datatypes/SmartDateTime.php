@@ -118,11 +118,27 @@ class SmartDateTime extends \DateTime
         return $this;
     }
 
+    /**
+     * Get end of month object
+     *
+     * @return SmartDateTime
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
     public function getEndOfMonth() : SmartDateTime
     {
         return new SmartDateTime($this->format('Y') . '-' . $this->format('m') . '-' . $this->getDaysOfMonth());
     }
 
+    /**
+     * Get start of month object
+     *
+     * @return SmartDateTime
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
     public function getStartOfMonth() : SmartDateTime
     {
         return new SmartDateTime($this->format('Y') . '-' . $this->format('m') . '-01');
@@ -152,6 +168,70 @@ class SmartDateTime extends \DateTime
     public function getFirstDayOfMonth() : int
     {
         return getdate(mktime(0, 0, 0, (int) $this->format('m'), 1, (int) $this->format('Y')))['wday'];
+    }
+
+    /**
+     * Is leap year in gregorian calendar
+     *
+     * @return bool
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+    public function isLeapYear() : bool
+    {
+        return self::leapYear((int) $this->format('Y'));
+    }
+
+    /**
+     * Test year if leap year in gregorian calendar
+     *
+     * @return bool
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+    public static function leapYear(int $year) : bool
+    {
+        $isLeap = false;
+
+        if ($year % 4 == 0) {
+            $isLeap = true;
+        }
+
+        if ($year % 100 == 0) {
+            $isLeap = false;
+        }
+
+        if ($year % 400 == 0) {
+            $isLeap = true;
+        }
+
+        return $isLeap;
+    }
+
+    /**
+     * Get day of week
+     *
+     * @return int
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+    public static function getDayOfWeek(int $y, int $m, int $d) : int
+    {
+        $w  = 1;
+        $y  = ($y - 1) % 400 + 1;
+        $ly = ($y - 1) / 4;
+        $ly = $ly - ($y - 1) / 100;
+        $ly = $ly + ($y - 1) / 400;
+        $ry = $y - 1 - $ly;
+        $w  = $w + $ry;
+        $w  = $w + 2 * $ly;
+        $w  = $w + date("z", mktime(0, 0, 0, $m, $d, $y)) + 1;;
+        $w = ($w - 1) % 7 + 1;
+
+        return $w;
     }
 
 }
