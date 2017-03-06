@@ -1492,15 +1492,16 @@ class DataMapperAbstract implements DataMapperInterface
      * Get object.
      *
      * @param int $relations Load relations
+     * @param string $lang Language
      *
      * @return array
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public static function getAll(int $relations = RelationType::ALL)
+    public static function getAll(int $relations = RelationType::ALL, string $lang = '')
     {
-        $obj = self::populateIterable(self::getAllRaw());
+        $obj = self::populateIterable(self::getAllRaw($lang));
         self::fillRelations($obj, $relations);
         self::clear();
 
@@ -1533,13 +1534,14 @@ class DataMapperAbstract implements DataMapperInterface
      * @param int     $limit     Newest limit
      * @param Builder $query     Pre-defined query
      * @param int     $relations Load relations
+     * @param string $lang Language
      *
      * @return mixed
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public static function getNewest(int $limit = 1, Builder $query = null, int $relations = RelationType::ALL)
+    public static function getNewest(int $limit = 1, Builder $query = null, int $relations = RelationType::ALL, string $lang = '')
     {
         self::extend(__CLASS__);
 
@@ -1551,6 +1553,10 @@ class DataMapperAbstract implements DataMapperInterface
             $query->orderBy(static::$table . '.' . static::$columns[static::$createdAt]['name'], 'DESC');
         } else {
             $query->orderBy(static::$table . '.' . static::$columns[static::$primaryField]['name'], 'DESC');
+        }
+
+        if (!empty(self::$language_field) && !empty($lang)) {
+            $query->where(static::$table . '.' . static::$language_field, '=', $lang, 'AND');
         }
 
         $sth = self::$db->con->prepare($query->toSql());
@@ -1686,14 +1692,21 @@ class DataMapperAbstract implements DataMapperInterface
     /**
      * Get all in raw output.
      *
+     * @param string $lang Language
+     *
      * @return array
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public static function getAllRaw() : array
+    public static function getAllRaw(string $lang = '') : array
     {
         $query = self::getQuery();
+
+        if (!empty(self::$language_field) && !empty($lang)) {
+            $query->where(static::$table . '.' . static::$language_field, '=', $lang, 'AND');
+        }
+
         $sth   = self::$db->con->prepare($query->toSql());
         $sth->execute();
 
