@@ -80,14 +80,14 @@ class FileCache implements CacheInterface
     /**
      * Constructor
      *
-     * @param array $config Cache config
+     * @param string $path Cache path
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function __construct(string $path)
     {
-        if (!File::exists($path)) {
+        if (!Directory::exists(File::parent($path))) {
             Directory::create($path);
         }
 
