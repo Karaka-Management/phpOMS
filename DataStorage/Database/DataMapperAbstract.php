@@ -70,6 +70,14 @@ class DataMapperAbstract implements DataMapperInterface
     protected static $createdAt = '';
 
     /**
+     * Language
+     *
+     * @var string
+     * @since 1.0.0
+     */
+    protected static $language_field = '';
+
+    /**
      * Columns.
      *
      * @var array
@@ -474,6 +482,7 @@ class DataMapperAbstract implements DataMapperInterface
                 throw new \Exception('No mapper set for relation object.');
             }
 
+            /** @var DataMapperAbstract $mapper */
             $mapper             = static::$hasMany[$propertyName]['mapper'];
             $objsIds            = [];
             $relReflectionClass = null;
@@ -501,6 +510,7 @@ class DataMapperAbstract implements DataMapperInterface
 
                 // Setting relation value (id) for relation (since the relation is not stored in an extra relation table)
                 /** @var string $table */
+                /** @var array $columns */
                 if (static::$hasMany[$propertyName]['table'] === static::$hasMany[$propertyName]['mapper']::$table) {
                     $relProperty = $relReflectionClass->getProperty($mapper::$columns[static::$hasMany[$propertyName]['dst']]['internal']);
 
@@ -524,7 +534,7 @@ class DataMapperAbstract implements DataMapperInterface
 
     private static function createHasOne(\ReflectionClass $reflectionClass, $obj)
     {
-        throw new \Excpetion();
+        throw new \Exception();
 
         foreach (static::$hasOne as $propertyName => $rel) {
 
@@ -576,6 +586,7 @@ class DataMapperAbstract implements DataMapperInterface
     private static function createBelongsTo(string $propertyName, $obj)
     {
         if (is_object($obj)) {
+            /** @var DataMapperAbstract $mapper */
             $mapper             = static::$belongsTo[$propertyName]['mapper'];
             $primaryKey = $mapper::getObjectId($obj);
 
@@ -695,6 +706,7 @@ class DataMapperAbstract implements DataMapperInterface
                 throw new \Exception('No mapper set for relation object.');
             }
 
+            /** @var DataMapperAbstract $mapper */
             $mapper             = static::$hasMany[$propertyName]['mapper'];
             $objsIds            = [];
             $relReflectionClass = null;
@@ -721,6 +733,8 @@ class DataMapperAbstract implements DataMapperInterface
                 }
 
                 // create if not existing
+                /** @var string $table */
+                /** @var array $columns */
                 if (static::$hasMany[$propertyName]['table'] === static::$hasMany[$propertyName]['mapper']::$table) {
                     $relProperty = $relReflectionClass->getProperty($mapper::$columns[static::$hasMany[$propertyName]['dst']]['internal']);
 
@@ -753,11 +767,14 @@ class DataMapperAbstract implements DataMapperInterface
      *
      * @return mixed
      *
+     * @throws \Exception
+     *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     private static function updateRelationTable(string $propertyName, array $objsIds, $objId)
     {
+        /** @var string $table */
         if (
             !empty($objsIds)
             && static::$hasMany[$propertyName]['table'] !== static::$table
@@ -796,6 +813,7 @@ class DataMapperAbstract implements DataMapperInterface
      */
     private static function deleteRelationTable(string $propertyName, array $objsIds, $objId)
     {
+        /** @var string $table */
         if (
             !empty($objsIds)
             && static::$hasMany[$propertyName]['table'] !== static::$table
@@ -831,6 +849,7 @@ class DataMapperAbstract implements DataMapperInterface
     private static function updateOwnsOne(string $propertyName, $obj)
     {
         if (is_object($obj)) {
+            /** @var DataMapperAbstract $mapper */
             $mapper = static::$ownsOne[$propertyName]['mapper'];
 
             // todo: delete owned one object is not recommended since it can be owned by by something else? or does owns one mean that nothing else can have a relation to this one?
@@ -857,6 +876,7 @@ class DataMapperAbstract implements DataMapperInterface
     private static function updateBelongsTo(string $propertyName, $obj)
     {
         if (is_object($obj)) {
+            /** @var DataMapperAbstract $mapper */
             $mapper = static::$belongsTo[$propertyName]['mapper'];
 
             return $mapper::update($obj);
@@ -998,6 +1018,7 @@ class DataMapperAbstract implements DataMapperInterface
                 throw new \Exception('No mapper set for relation object.');
             }
 
+            /** @var DataMapperAbstract $mapper */
             $mapper             = static::$hasMany[$propertyName]['mapper'];
             $objsIds            = [];
             $relReflectionClass = null;
@@ -1051,6 +1072,7 @@ class DataMapperAbstract implements DataMapperInterface
     private static function deleteOwnsOne(string $propertyName, $obj)
     {
         if (is_object($obj)) {
+            /** @var DataMapperAbstract $mapper */
             $mapper = static::$ownsOne[$propertyName]['mapper'];
 
             // todo: delete owned one object is not recommended since it can be owned by by something else? or does owns one mean that nothing else can have a relation to this one?
@@ -1076,6 +1098,7 @@ class DataMapperAbstract implements DataMapperInterface
     private static function deleteBelongsTo(string $propertyName, $obj)
     {
         if (is_object($obj)) {
+            /** @var DataMapperAbstract $mapper */
             $mapper = static::$belongsTo[$propertyName]['mapper'];
 
             return $mapper::delete($obj);
@@ -1244,6 +1267,7 @@ class DataMapperAbstract implements DataMapperInterface
 
         foreach ($result as $member => $values) {
             if ($reflectionClass->hasProperty($member)) {
+                /** @var DataMapperAbstract $mapper */
                 $mapper             = static::$hasMany[$member]['mapper'];
                 $reflectionProperty = $reflectionClass->getProperty($member);
 
@@ -1698,6 +1722,7 @@ class DataMapperAbstract implements DataMapperInterface
             $query->prefix(self::$db->getPrefix());
 
             if ($relations === RelationType::ALL) {
+                /** @var string $primaryField */
                 $src = $value['src'] ?? $value['mapper']::$primaryField;
 
                 $query->select($value['table'] . '.' . $src)
