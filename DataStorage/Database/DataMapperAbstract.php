@@ -1819,7 +1819,7 @@ class DataMapperAbstract implements DataMapperInterface
     public static function getByRequest(RequestAbstract $request)
     {
         if (!is_null($request->getData('id'))) {
-            $result = static::get($request->getData('id'))->__toString();
+            $result = static::get($request->getData('id'), $request->getLanguage())->__toString();
         } elseif (!is_null($filter = $request->getData('filter'))) {
             $filter = strtolower($filter);
 
@@ -1827,7 +1827,7 @@ class DataMapperAbstract implements DataMapperInterface
                 $result = static::getAll();
             } elseif ($filter === 'list') {
                 $list   = $request->getData('list');
-                $result = static::get(json_decode($list, true));
+                $result = static::get(json_decode($list, true), $request->getLanguage());
             } else {
                 $limit = $request->getData('limit') ?? 1;
                 $from  = !is_null($request->getData('from')) ? new \DateTime($request->getData('from')) : null;
