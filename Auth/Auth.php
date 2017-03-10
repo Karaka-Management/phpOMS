@@ -94,6 +94,8 @@ class Auth
      *
      * @return int Login code
      *
+     * @todo move this to the admin accountMapper
+     *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */

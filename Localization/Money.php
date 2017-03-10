@@ -221,9 +221,7 @@ class Money implements \Serializable
             $this->value += $value;
         } elseif ($value instanceof Money) {
             $this->value += $value->getInt();
-        } else {
-            throw new \InvalidArgumentException();
-        }
+        } 
 
         return $this;
     }
@@ -259,10 +257,7 @@ class Money implements \Serializable
             $this->value -= $value;
         } elseif ($value instanceof Money) {
             $this->value -= $value->getInt();
-        } else {
-            throw new \InvalidArgumentException();
-        }
-
+        } 
 
         return $this;
     }

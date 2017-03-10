@@ -100,12 +100,12 @@ class Router
     /**
      * Route request.
      *
-     * @param RequestAbstract $request Request to route
+     * @param string|RequestAbstract $request Request to route
      * @param int             $verb    Route verb
      *
      * @return string[]
      *
-     * @throws \Exception
+     * @throws \InvalidArgumentException
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
@@ -118,7 +118,7 @@ class Router
         } elseif (is_string($request)) {
             $uri = $request;
         } else {
-            throw new \Exception();
+            throw new \InvalidArgumentException();
         }
 
         $bound = [];
