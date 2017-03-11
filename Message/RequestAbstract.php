@@ -74,7 +74,7 @@ abstract class RequestAbstract implements MessageInterface
      * @var array
      * @since 1.0.0
      */
-    protected $data = null;
+    protected $data = [];
 
     /**
      * Request data.
@@ -114,15 +114,7 @@ abstract class RequestAbstract implements MessageInterface
      * @var \phpOMS\Message\RequestSource
      * @since 1.0.0
      */
-    private static $source = null;
-
-    /**
-     * Request status.
-     *
-     * @var string
-     * @since 1.0.0
-     */
-    protected $status = null;
+    private $source = null;
 
     /**
      * Request hash.
@@ -206,7 +198,7 @@ abstract class RequestAbstract implements MessageInterface
      */
     public function getRequestSource()
     {
-        return self::$source;
+        return $this->source;
     }
 
     /**
@@ -218,7 +210,7 @@ abstract class RequestAbstract implements MessageInterface
             throw new InvalidEnumValue($source);
         }
 
-        self::$source = $source;
+        $this->source = $source;
     }
 
     /**
@@ -359,22 +351,6 @@ abstract class RequestAbstract implements MessageInterface
     public function setAccount(int $account) /* : void */
     {
         $this->account = $account;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function setStatusCode(string $status) /* : void */
-    {
-        $this->status = $status;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function getStatusCode() : string
-    {
-        return $this->status;
     }
 
     /**

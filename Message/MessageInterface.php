@@ -60,28 +60,6 @@ interface MessageInterface
     public function getBody() : string;
 
     /**
-     * Set status code.
-     *
-     * @param string $status Status code
-     *
-     * @return void
-     *
-     * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
-     */
-    public function setStatusCode(string $status) /* : void */;
-
-    /**
-     * Get status code.
-     *
-     * @return string Status code
-     *
-     * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
-     */
-    public function getStatusCode() : string;
-
-    /**
      * Get account id.
      *
      * @return int Account id
