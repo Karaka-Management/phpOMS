@@ -363,9 +363,9 @@ class StringUtils
         return $count;
     }
 
-    public static function getEntropy(string $value) : int
+    public static function getEntropy(string $value) : float
     {
-        $entroy = 0;
+        $entroy = 0.0;
         $size = mb_strlen($value);
         $countChars = self::mb_count_chars($value, 1);
 

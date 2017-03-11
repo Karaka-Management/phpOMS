@@ -83,6 +83,8 @@ class Request extends RequestAbstract
         $this->uri  = $uri;
         $this->source = RequestSource::WEB;
         $this->header = new Header();
+
+        $this->init();
     }
 
     /**
@@ -97,12 +99,10 @@ class Request extends RequestAbstract
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function init($uri = null) /* : void */
+    private function init() /* : void */
     {
-        if (!isset($uri) && !isset($this->uri)) {
+        if (!isset($this->uri)) {
             $this->initCurrentRequest();
-        } else {
-            $this->initPseudoRequest($uri ?? $this->uri->__toString());
         }
 
         $this->data = array_change_key_case($this->data, CASE_LOWER);
@@ -159,28 +159,14 @@ class Request extends RequestAbstract
      */
     private function loadRequestLanguage() : string
     {
-        $lang = $_SERVER['HTTP_ACCEPT_LANGUAGE'];
-        $lang = explode(';', $lang);
+        if(!isset($_SERVER['HTTP_ACCEPT_LANGUAGE'])) {
+            return 'EN';
+        }
+
+        $lang = explode(';', $_SERVER['HTTP_ACCEPT_LANGUAGE']);
         $lang = explode('-', $lang[0]);
 
         return $lang[0];
-    }
-
-    /**
-     * Init pseudo request
-     *
-     * @param mixed $uri Uri to handle as request
-     *
-     * @return void
-     *
-     * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
-     */
-    private function initPseudoRequest($uri) /* : void */
-    {
-        // todo: $uri can be string and this will fail!!!
-        $this->setMethod($uri['type']);
-        $this->uri->set($uri['uri']);
     }
 
     /**
@@ -297,12 +283,12 @@ class Request extends RequestAbstract
     /**
      * Determine request browser.
      *
-     * @return BrowserType
+     * @return string
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function getBrowser() : BrowserType
+    public function getBrowser() : string
     {
         if (!isset($this->browser)) {
             $arr               = BrowserType::getConstants();
