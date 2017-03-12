@@ -332,7 +332,13 @@ class DataMapperAbstract implements DataMapperInterface
     {
         self::extend(__CLASS__);
 
-        $reflectionClass = new \ReflectionClass(get_class($obj));
+        if($obj === null ||
+            (is_object($obj) && strpos($className = get_class($obj), '\Null') !== false)
+        ) {
+            return null;
+        }
+
+        $reflectionClass = new \ReflectionClass($className);
         $objId           = self::createModel($obj, $reflectionClass);
         self::setObjectId($reflectionClass, $obj, $objId);
 
@@ -378,6 +384,8 @@ class DataMapperAbstract implements DataMapperInterface
                     $value = self::parseValue($column['type'], $id);
 
                     $query->insert($column['name'])->value($value, $column['type']);
+                    $temp = $query->toSql();
+                    $test = 1;
                     break;
                 } elseif (isset(static::$belongsTo[$propertyName]) && $column['internal'] === $propertyName) {
                     $id    = self::createBelongsTo($propertyName, $property->getValue($obj));
@@ -658,7 +666,7 @@ class DataMapperAbstract implements DataMapperInterface
             return $value->serialize();
         } elseif ($value instanceof \JsonSerializable) {
             return json_encode($value->jsonSerialize());
-        } elseif (is_object($value)) {
+        } elseif (is_object($value) && method_exists($value, 'getId')) {
             return $value->getId();
         } elseif ($type === 'int') {
             return (int) $value;
@@ -1266,7 +1274,7 @@ class DataMapperAbstract implements DataMapperInterface
         $reflectionClass = new \ReflectionClass(get_class($obj));
 
         foreach ($result as $member => $values) {
-            if ($reflectionClass->hasProperty($member)) {
+            if (!empty($values) && $reflectionClass->hasProperty($member)) {
                 /** @var DataMapperAbstract $mapper */
                 $mapper             = static::$hasMany[$member]['mapper'];
                 $reflectionProperty = $reflectionClass->getProperty($member);

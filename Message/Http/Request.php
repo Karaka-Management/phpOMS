@@ -224,7 +224,7 @@ class Request extends RequestAbstract
         $this->hash = [];
         foreach ($this->path as $key => $path) {
             $paths = [];
-            for ($i = 1; $i < $key + 1; $i++) {
+            for ($i = 0; $i < $key + 1; $i++) {
                 $paths[] = $this->path[$i];
             }
 
@@ -383,10 +383,10 @@ class Request extends RequestAbstract
         }
 
         return
-            (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off')
-            || (empty($_SERVER['HTTP_X_FORWARDED_PROTO']) && $_SERVER['HTTP_X_FORWARDED_PROTO'] == 'https')
-            || (!empty($_SERVER['HTTP_X_FORWARDED_SSL']) && $_SERVER['HTTP_X_FORWARDED_SSL'] == 'on')
-            || $_SERVER['SERVER_PORT'] == $port;
+            (!empty($_SERVER['HTTPS'] ?? '') && ($_SERVER['HTTPS'] ?? '') !== 'off')
+            || (($_SERVER['HTTP_X_FORWARDED_PROTO'] ?? '') === 'https')
+            || (($_SERVER['HTTP_X_FORWARDED_SSL'] ?? '') === 'on')
+            || ($_SERVER['SERVER_PORT'] ?? '') == $port;
     }
 
     /**
