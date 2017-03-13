@@ -103,6 +103,7 @@ class Request extends RequestAbstract
     {
         if (!isset($this->uri)) {
             $this->initCurrentRequest();
+            $this->lock();
         }
 
         $this->data = array_change_key_case($this->data, CASE_LOWER);
@@ -112,8 +113,6 @@ class Request extends RequestAbstract
         $this->path = explode('/', $this->uri->getPath());
 
         $this->setupUriBuilder();
-        $this->createRequestHashs();
-        $this->lock();
     }
 
     /**
@@ -214,37 +213,28 @@ class Request extends RequestAbstract
     /**
      * Create request hashs of current request
      *
+     * The hashes are based on the request path and can be used as unique id.
+     *
+     * @param int $start Start hash from n-th path element
+     *
      * @return void
+     *
+     * @todo: maybe change to normal path string e.g. /some/path/here instead of hash! Remember to adjust navigation elements
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    private function createRequestHashs() /* : void */
+    public function createRequestHashs(int $start = 0) /* : void */
     {
         $this->hash = [];
         foreach ($this->path as $key => $path) {
             $paths = [];
-            for ($i = 0; $i < $key + 1; $i++) {
+            for ($i = $start; $i < $key + 1; $i++) {
                 $paths[] = $this->path[$i];
             }
 
-            $this->hash[] = $this->hashRequest($paths);
+            $this->hash[] = sha1(implode('', $paths));
         }
-    }
-
-    /**
-     * Generate request hash.
-     *
-     * @param array $request Request array
-     *
-     * @return string
-     *
-     * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
-     */
-    private function hashRequest(array $request) : string
-    {
-        return sha1(implode('', $request));
     }
 
     /**

@@ -40,7 +40,7 @@ class AccountMapper extends DataMapperAbstract
         'account_name3'      => ['name' => 'account_name3', 'type' => 'string', 'internal' => 'name3'],
         'account_email'      => ['name' => 'account_email', 'type' => 'string', 'internal' => 'email'],
         'account_lactive'    => ['name' => 'account_lactive', 'type' => 'DateTime', 'internal' => 'lastActive'],
-        'account_created_at' => ['name' => 'account_created', 'type' => 'DateTime', 'internal' => 'createdAt'],
+        'account_created_at' => ['name' => 'account_created_at', 'type' => 'DateTime', 'internal' => 'createdAt'],
     ];
 
     protected static $hasMany = [
