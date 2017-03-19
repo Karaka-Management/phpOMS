@@ -29,6 +29,7 @@ use phpOMS\Datatypes\Enum;
  * @license    OMS License 1.0
  * @link       http://orange-management.com
  * @since      1.0.0
+ * @todo Should be changed to int instead of string
  */
 abstract class AssetType extends Enum
 {

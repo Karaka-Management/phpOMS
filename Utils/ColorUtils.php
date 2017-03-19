@@ -28,7 +28,7 @@ namespace phpOMS\Utils;
  * @link       http://orange-management.com
  * @since      1.0.0
  */
-class Color
+class ColorUtils
 {
 
     /**
@@ -82,5 +82,16 @@ class Color
         }
 
         return $gradient;
+    }
+
+    public static function intToRgb(int $rgbInt) : array
+    {
+        $rgb = [];
+
+        $rgb['b'] = $rgbInt & 255;
+        $rgb['g'] = ($rgbInt >> 8) & 255;
+        $rgb['r'] = ($rgbInt >> 16) & 255;
+
+        return $rgb;
     }
 }

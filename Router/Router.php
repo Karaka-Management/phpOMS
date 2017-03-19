@@ -63,7 +63,7 @@ class Router
      */
     public function importFromFile(string $path) : bool
     {
-        if (stream_resolve_include_path($path) !== false) {
+        if (file_exists($path)) {
             /** @noinspection PhpIncludeInspection */
             $this->routes += include $path;
 
