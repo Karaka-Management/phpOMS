@@ -17,8 +17,6 @@ declare(strict_types=1);
 
 namespace phpOMS\Event;
 
-use phpOMS\Pattern\Mediator;
-
 /**
  * EventManager class.
  *
@@ -32,7 +30,7 @@ use phpOMS\Pattern\Mediator;
  *
  * @todo       : make cachable + database storable -> can reload user defined listeners (persistent events)
  */
-class EventManager implements Mediator
+class EventManager
 {
     /**
      * Events.
