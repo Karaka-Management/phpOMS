@@ -29,11 +29,10 @@ use phpOMS\Datatypes\Enum;
  * @license    OMS License 1.0
  * @link       http://orange-management.com
  * @since      1.0.0
- * @todo Should be changed to int instead of string
  */
 abstract class AssetType extends Enum
 {
-    /* public */ const CSS = 'css';
-    /* public */ const JS = 'js';
-    /* public */ const JSLATE = 'jslate';
+    /* public */ const CSS = 0;
+    /* public */ const JS = 1;
+    /* public */ const JSLATE = 2;
 }
