@@ -158,7 +158,7 @@ class InstallerAbstract
     private static function initRoutes(string $routePath, InfoManager $info) /* : void */
     {
         // todo: maybe use static::__DIR__ ?
-        $directories = new Directory(ROOT_PATH . '/Modules/' . $info->getDirectory() . '/Admin/Routes');
+        $directories = new Directory(dirname($info->getPath()) . '/Modules/' . $info->getDirectory() . '/Admin/Routes');
 
         foreach ($directories as $key => $subdir) {
             if ($subdir instanceof Directory) {

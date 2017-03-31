@@ -62,7 +62,20 @@ class InfoManager
      */
     public function __construct($path)
     {
-        $this->path = $path;
+        $this->path = realpath($path);
+    }
+
+    /**
+     * Get info path
+     *
+     * @return string
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn
+     */
+    public function getPath() : string
+    {
+        return $this->path;
     }
 
     /**
