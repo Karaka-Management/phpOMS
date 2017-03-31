@@ -109,29 +109,6 @@ class AccountManager implements \Countable
     }
 
     /**
-     * Login user.
-     *
-     * @param int    $account  Account id
-     * @param string $login    Username
-     * @param string $password Password
-     *
-     * @return int
-     *
-     * @throws \Exception Throws this exception if the account to login is not found in the AccountManager.
-     *
-     * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
-     */
-    public function login(int $account, string $login, string $password) : int
-    {
-        if (!isset($this->accounts[$account])) {
-            throw new \Exception('Account not found in the account manager.');
-        }
-
-        return $this->auth->login($login, $password);
-    }
-
-    /**
      * Add account.
      *
      * @param Account $account Account
