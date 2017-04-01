@@ -71,13 +71,15 @@ class ModuleManager
      */
     private $active = null;
 
+    private $modulePath = __DIR__ . '/../../Modules';
+
     /**
      * All modules in the module directory.
      *
      * @var array
      * @since 1.0.0
      */
-    private static $all = null;
+    private $all = null;
 
     /**
      * To load based on request uri.
@@ -98,7 +100,7 @@ class ModuleManager
     public function __construct(ApplicationAbstract $app, string $modulePath = '')
     {
         $this->app = $app;
-        $modulePath = $modulePath;
+        $this->modulePath = $modulePath;
     }
 
     /**
@@ -232,9 +234,9 @@ class ModuleManager
      * @since  1.0.0
      * @author Dennis Eichhorn
      */
-    public static function getAllModules() : array
+    public function getAllModules() : array
     {
-        if (!isset(self::$all)) {
+        if (!isset($this->all)) {
             chdir($this->modulePath);
             $files = glob('*', GLOB_ONLYDIR);
             $c     = count($files);
@@ -248,11 +250,11 @@ class ModuleManager
                 }
 
                 $json                                 = json_decode(file_get_contents($path), true);
-                self::$all[$json['name']['internal']] = $json;
+                $this->all[$json['name']['internal']] = $json;
             }
         }
 
-        return self::$all;
+        return $this->all;
     }
 
     /**
