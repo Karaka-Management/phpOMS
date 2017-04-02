@@ -197,6 +197,8 @@ class Header extends HeaderAbstract
             }
         }
 
+        header("X-Powered-By: hidden");
+
         $this->lock();
     }
 
