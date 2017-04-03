@@ -47,7 +47,7 @@ class DeactivateAbstract
      */
     public static function deactivate(DatabasePool $dbPool, InfoManager $info) /* : void */
     {
-        self::deactivateRoutes(ROOT_PATH . '/Web/Routes.php', ROOT_PATH . '/Modules/' . $info->getDirectory() . '/Admin/Routes/http.php');
+        self::deactivateRoutes(__DIR__ . '/../../Web/Routes.php', __DIR__ . '/../../Modules/' . $info->getDirectory() . '/Admin/Routes/http.php');
         self::deactivateInDatabase($dbPool, $info);
     }
 
