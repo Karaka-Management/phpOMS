@@ -41,7 +41,7 @@ final class UnhandledHandler
      */
     public static function exceptionHandler($e) /* : void */
     {
-        $logger = FileLogger::getInstance(ROOT_PATH . '/Logs');
+        $logger = FileLogger::getInstance(__DIR__ . '/../Logs');
         $logger->critical(FileLogger::MSG_FULL, [
             'message' => $e->getMessage(),
             'line'    => $e->getLine(),
@@ -74,7 +74,7 @@ final class UnhandledHandler
             return false;
         }
 
-        $logger = FileLogger::getInstance(ROOT_PATH . '/Logs');
+        $logger = FileLogger::getInstance(__DIR__ . '/../Logs');
         $logger->error(FileLogger::MSG_FULL, [
             'message' => 'Unhandled error',
             'line'    => $errline,
@@ -116,7 +116,7 @@ final class UnhandledHandler
         $e = error_get_last();
 
         if (isset($e)) {
-            $logger = FileLogger::getInstance(ROOT_PATH . '/Logs');
+            $logger = FileLogger::getInstance(__DIR__ . '/../Logs');
             $logger->warning(FileLogger::MSG_FULL, [
                 'message' => $e['message'],
                 'line'    => $e['line'],
