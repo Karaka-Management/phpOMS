@@ -44,7 +44,7 @@ final class OperatingSystem
             return SystemType::OSX;
         } elseif(stristr(PHP_OS, 'WIN') !== false) {
             return SystemType::WIN;
-        } elseif(stristr(PHP_OS, 'LINIX') !== false) {
+        } elseif(stristr(PHP_OS, 'LINUX') !== false) {
             return SystemType::LINUX;
         } 
 
