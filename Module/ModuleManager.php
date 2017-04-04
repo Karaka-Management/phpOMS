@@ -71,6 +71,12 @@ class ModuleManager
      */
     private $active = null;
 
+    /**
+     * Module path.
+     *
+     * @var string
+     * @since 1.0.0
+     */
     private $modulePath = __DIR__ . '/../../Modules';
 
     /**
