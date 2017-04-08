@@ -17,6 +17,6 @@ declare(strict_types=1);
 
 namespace phpOMS\Utils\RnG;
 
-class IBAN
+class Iban
 {
 }
