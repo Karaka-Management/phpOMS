@@ -32,5 +32,11 @@ class Header
 {
     private $interchangeControlHeader = null;
 
-    private $functionGroupHeader = null;
+    private $functionalGroupHeader = null;
+
+    public function __construct() 
+    {
+        $this->interchangeControlHeader = new InterchangeControlHeader();
+        $this->functionalGroupHeader = new FunctionalGroupHeader();
+    }
 }

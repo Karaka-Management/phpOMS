@@ -15,10 +15,10 @@
  */
 declare(strict_types=1);
 
-namespace phpOMS\Utils\EDI\AnsiX12\Purchase;
+namespace phpOMS\Utils\EDI\AnsiX12\Purchase\PurchaseOrder;
 
 /**
- * EDI 850 - Purchase order.
+ * EDI
  *
  * @category   Framework
  * @package    phpOMS\Utils\Converter
@@ -28,28 +28,18 @@ namespace phpOMS\Utils\EDI\AnsiX12\Purchase;
  * @link       http://orange-management.com
  * @since      1.0.0
  */
-class EDI850Heading
+abstract class EDIAbstract
 {
-    private $headingTransactionSetHeader = null;
+    private $header = null;
 
-    private $headingBeginningSegmentPO = null;
+    private $heading = null;
 
-    private $headingCurrency = '';
+    private $detail = null;
 
-    private $headingReferenceID = '';
-
-    private $headingAdministrativeCommunicationsContact = '';
-
-    private $headingDateTimeReference = null;
-
-    private $headignCarrierDetails = '';
-
-    private $headingMarksNumbers = 0;
-
-    private $headingLoopId = [];
+    private $summary = null;
 
     public function __construct()
     {
-        $this->headingTransactionSetHeader = new TransactionSetHeader();
+        $this->header = new Header();
     }
 }
