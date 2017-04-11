@@ -84,9 +84,19 @@ class ColorUtils
         return $gradient;
     }
 
+    /**
+     * Convert int to rgb
+     *
+     * @param int   $rgbInt Value to convert
+     *
+     * @return array
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
     public static function intToRgb(int $rgbInt) : array
     {
-        $rgb = [];
+        $rgb = ['r' => 0, 'g' => 0, 'b' => 0];
 
         $rgb['b'] = $rgbInt & 255;
         $rgb['g'] = ($rgbInt >> 8) & 255;
