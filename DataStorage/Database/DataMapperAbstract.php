@@ -296,25 +296,27 @@ class DataMapperAbstract implements DataMapperInterface
     /**
      * Find data.
      *
-     * @param array $columns Columns
+     * @param string $search Search for
      *
      * @return Builder
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public static function find(...$columns) : Builder
+    public static function find(string $search) : array
     {
         self::extend(__CLASS__);
 
-        if (count($columns) === 0) {
-            $columns = [static::$table . '.*'];
+        $query = static::getQuery();
+
+        foreach(static::$columns as $col) {
+            if(isset($col['autocomplete']) && $col['autocomplete']) {
+                $query->where($col['name'], 'LIKE', $search, 'OR');
+            }
         }
 
-        $query = new Builder(self::$db);
-        $query->prefix(self::$db->getPrefix());
-
-        return $query->select(...$columns)->from(static::$table);
+        
+        return static::getAllByQuery($query);
     }
 
     /**
