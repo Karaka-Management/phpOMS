@@ -75,7 +75,7 @@ class EventManager
     /**
      * {@inheritdoc}
      */
-    public function trigger(string $group, string $id = '', $data) /* : void */
+    public function trigger(string $group, string $id = '', $data = null) /* : void */
     {
         if(!isset($this->callbacks[$group])) {
             return;
