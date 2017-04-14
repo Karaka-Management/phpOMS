@@ -1593,7 +1593,6 @@ class DataMapperAbstract implements DataMapperInterface
      */
     public static function getAllByQuery(Builder $query, int $relations = RelationType::ALL) : array
     {
-        $query = self::getQuery($query);
         $sth   = self::$db->con->prepare($query->toSql());
         $sth->execute();
 
@@ -1836,7 +1835,7 @@ class DataMapperAbstract implements DataMapperInterface
                 $list   = $request->getData('list');
                 $result = static::get(json_decode($list, true));
             } else {
-                $limit = $request->getData('limit') ?? 1;
+                $limit = (int) ($request->getData('limit') ?? 1);
                 $from  = !is_null($request->getData('from')) ? new \DateTime($request->getData('from')) : null;
                 $to    = !is_null($request->getData('to')) ? new \DateTime($request->getData('to')) : null;
 
