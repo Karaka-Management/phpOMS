@@ -1826,7 +1826,7 @@ class DataMapperAbstract implements DataMapperInterface
     public static function getByRequest(RequestAbstract $request)
     {
         if (!is_null($request->getData('id'))) {
-            $result = static::get($request->getData('id'))->__toString();
+            $result = static::get($request->getData('id'));
         } elseif (!is_null($filter = $request->getData('filter'))) {
             $filter = strtolower($filter);
 
