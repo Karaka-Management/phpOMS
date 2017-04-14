@@ -75,7 +75,7 @@ class EventManager
     /**
      * {@inheritdoc}
      */
-    public function trigger(string $group, string $id = '') /* : void */
+    public function trigger(string $group, string $id = '', $data) /* : void */
     {
         if(!isset($this->callbacks[$group])) {
             return;
@@ -86,7 +86,7 @@ class EventManager
         }
 
         if (!$this->hasOutstanding($group)) {
-            $this->callbacks[$group]['func']();
+            $this->callbacks[$group]['func']($data);
 
             if ($this->callbacks[$group]['remove']) {
                 $this->detach($group);
