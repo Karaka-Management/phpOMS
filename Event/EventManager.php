@@ -77,6 +77,10 @@ class EventManager
      */
     public function trigger(string $group, string $id = '') /* : void */
     {
+        if(!isset($this->callbacks[$group])) {
+            return;
+        }
+
         if (isset($this->groups[$group])) {
             $this->groups[$group][$id] = true;
         }
