@@ -311,10 +311,9 @@ class DataMapperAbstract implements DataMapperInterface
 
         foreach(static::$columns as $col) {
             if(isset($col['autocomplete']) && $col['autocomplete']) {
-                $query->where($col['name'], 'LIKE', $search, 'OR');
+                $query->where(static::$table . '.' . $col['name'], 'LIKE', '%' . $search . '%', 'OR');
             }
         }
-
         
         return static::getAllByQuery($query);
     }

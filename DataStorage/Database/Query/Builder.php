@@ -176,12 +176,12 @@ class Builder extends BuilderAbstract
     protected $unionOrders = [];
 
     /**
-     * Comparison operators.
+     * Comparison OPERATORS.
      *
      * @var string[]
      * @since 1.0.0
      */
-    /* public */ const operators = [
+    /* public */ const OPERATORS = [
         '=',
         '<',
         '>',
@@ -459,14 +459,14 @@ class Builder extends BuilderAbstract
     public function where($columns, $operator = null, $values = null, $boolean = 'and') : Builder
     {
         // TODO: handle $value is null -> operator NULL
-        if (isset($operator) && !is_array($operator) && !in_array($operator, self::operators)) {
+        if (isset($operator) && !is_array($operator) && !in_array(strtolower($operator), self::OPERATORS)) {
             throw new \InvalidArgumentException('Unknown operator.');
         }
 
         if (is_array($columns)) {
             $i = 0;
             foreach ($columns as $key => $column) {
-                if (isset($operator[$i]) && !in_array($operator[$i], self::operators)) {
+                if (isset($operator[$i]) && !in_array(strtolower($operator[$i]), self::OPERATORS)) {
                     throw new \InvalidArgumentException('Unknown operator.');
                 }
 
@@ -480,7 +480,7 @@ class Builder extends BuilderAbstract
                 $i++;
             }
         } elseif (is_string($columns)) {
-            if (isset($operator) && !in_array($operator, self::operators)) {
+            if (isset($operator) && !in_array(strtolower($operator), self::OPERATORS)) {
                 throw new \InvalidArgumentException('Unknown operator.');
             }
 
