@@ -33,7 +33,6 @@ use phpOMS\Datatypes\Enum;
 abstract class ResponseType extends Enum
 {
     /* public */ const HTTP = 0; /* HTTP */
-    /* public */ const JSON = 1; /* JSON */
-    /* public */ const SOCKET = 2; /* Socket */
-    /* public */ const CONSOLE = 3; /* Console */
+    /* public */ const SOCKET = 1; /* Socket */
+    /* public */ const CONSOLE = 2; /* Console */
 }

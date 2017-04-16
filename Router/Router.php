@@ -63,7 +63,7 @@ class Router
      */
     public function importFromFile(string $path) : bool
     {
-        if (stream_resolve_include_path($path) !== false) {
+        if (file_exists($path)) {
             /** @noinspection PhpIncludeInspection */
             $this->routes += include $path;
 
@@ -100,12 +100,12 @@ class Router
     /**
      * Route request.
      *
-     * @param RequestAbstract $request Request to route
+     * @param string|RequestAbstract $request Request to route
      * @param int             $verb    Route verb
      *
      * @return string[]
      *
-     * @throws \Exception
+     * @throws \InvalidArgumentException
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
@@ -118,7 +118,7 @@ class Router
         } elseif (is_string($request)) {
             $uri = $request;
         } else {
-            throw new \Exception();
+            throw new \InvalidArgumentException();
         }
 
         $bound = [];
@@ -148,6 +148,6 @@ class Router
      */
     private function match(string $route, int $routeVerb, string $uri, int $remoteVerb = RouteVerb::GET) : bool
     {
-        return (bool) preg_match('~^' . $route . '$~', $uri) && ($routeVerb == RouteVerb::ANY || ($remoteVerb & $routeVerb) === $remoteVerb);
+        return (bool) preg_match('~^' . $route . '$~', $uri) && ($routeVerb === RouteVerb::ANY || $remoteVerb === RouteVerb::ANY || ($remoteVerb & $routeVerb) === $remoteVerb);
     }
 }

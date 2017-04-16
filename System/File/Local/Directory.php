@@ -72,6 +72,17 @@ class Directory extends FileAbstract implements DirectoryInterface
         }
     }
 
+    /**
+     * List all files in directorz.
+     *
+     * @param string $path   Path
+     * @param string $filter Filter
+     *
+     * @return array
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
     public static function list(string $path, string $filter = '*') : array
     {
         $list = [];

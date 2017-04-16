@@ -92,7 +92,7 @@ class InstallerAbstract
     /**
      * Install module.
      *
-     * @param string      $routePath Route Path
+     * @param string      $modulePath Route Path
      * @param DatabasePool        $dbPool    Database instance
      * @param InfoManager $info      Module info
      *
@@ -101,10 +101,10 @@ class InstallerAbstract
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public static function install(string $routePath, DatabasePool $dbPool, InfoManager $info) /* : void */
+    public static function install(string $modulePath, DatabasePool $dbPool, InfoManager $info) /* : void */
     {
         self::registerInDatabase($dbPool, $info);
-        self::initRoutes($routePath, $info);
+        self::initRoutes($modulePath, $info);
         self::activate($dbPool, $info);
     }
 
@@ -129,7 +129,7 @@ class InstallerAbstract
     /**
      * Re-init module.
      *
-     * @param string      $routePath Route Path
+     * @param string      $modulePath Route Path
      * @param InfoManager $info Module info
      *
      * @return void
@@ -137,9 +137,9 @@ class InstallerAbstract
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public static function reInit(string $routePath, InfoManager $info) /* : void */
+    public static function reInit(string $modulePath, InfoManager $info) /* : void */
     {
-        self::initRoutes($routePath, $info);
+        self::initRoutes($modulePath, $info);
     }
 
     /**
@@ -155,15 +155,15 @@ class InstallerAbstract
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    private static function initRoutes(string $routePath, InfoManager $info) /* : void */
+    private static function initRoutes(string $modulePath, InfoManager $info) /* : void */
     {
         // todo: maybe use static::__DIR__ ?
-        $directories = new Directory(ROOT_PATH . '/Modules/' . $info->getDirectory() . '/Admin/Routes');
+        $directories = new Directory($modulePath . '/Admin/Routes');
 
         foreach ($directories as $key => $subdir) {
             if ($subdir instanceof Directory) {
                 foreach ($subdir as $key2 => $file) {
-                    self::installRoutes($routePath . '/' . $subdir->getName() . '/' . basename($file->getName(), '.php') . '/Routes.php', $file->getPath());
+                    self::installRoutes(__DIR__ . '/../../' . $subdir->getName() . '/' . basename($file->getName(), '.php') . '/Routes.php', $file->getPath());
                 }
             }
         }

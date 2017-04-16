@@ -15,11 +15,8 @@
  */
 declare(strict_types=1);
 
-namespace phpOMS\Validation\File;
+namespace phpOMS\Utils\RnG;
 
-use phpOMS\Validation\ValidatorAbstract;
-
-class IsCompressed extends ValidatorAbstract
+class Iban
 {
-
 }

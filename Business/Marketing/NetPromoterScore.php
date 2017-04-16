@@ -88,6 +88,42 @@ class NetPromoterScore {
 
         $total = $promoters + $passives + $detractors;
 
-        return ((int) ($promoters / $total)) - ((int) ($detractors / $total));
+        return $total === 0 ? 0 : ((int) ($promoters * 100 / $total)) - ((int) ($detractors * 100 / $total));
+    }
+
+    public function countDetractors() : int
+    {
+        $count = 0;
+        foreach($this->scores as $score) {
+            if($score < 7) {
+                $count++;
+            }
+        }
+
+        return $count;
+    }
+
+    public function countPassives() : int
+    {
+        $count = 0;
+        foreach($this->scores as $score) {
+            if($score > 6 && $score < 9) {
+                $count++;
+            }
+        }
+
+        return $count;
+    }
+
+    public function countPromoters() : int
+    {
+        $count = 0;
+        foreach($this->scores as $score) {
+            if($score > 8) {
+                $count++;
+            }
+        }
+
+        return $count;
     }
 }

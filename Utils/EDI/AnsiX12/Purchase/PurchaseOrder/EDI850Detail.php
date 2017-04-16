@@ -28,23 +28,19 @@ namespace phpOMS\Utils\EDI\AnsiX12\Purchase\PurchaseOrder;
  * @link       http://orange-management.com
  * @since      1.0.0
  */
-class EDI850Heading
+class EDI850Detail
 {
-    private $headingTransactionSetHeader = '';
+    private $detailBaselineItemData = '';
 
-    private $headingBeginningSegmentPO = '';
+    private $detailProductItemDescrpition = '';
 
-    private $headingCurrency = '';
+    private $detailReferenceId = '';
 
-    private $headingReferenceID = '';
+    private $detailServicePromoLotInfo = '';
 
-    private $headingAdministrativeCommunicationsContact = '';
+    private $detailDateTime = null;
 
-    private $headingDateTimeReference = null;
+    private $detailMarkNumbers = 0;
 
-    private $headignCarrierDetails = '';
-
-    private $headingMarksNumbers = 0;
-
-    private $headingLoopId = [];
+    private $detailLineItemSchedule = '';
 }

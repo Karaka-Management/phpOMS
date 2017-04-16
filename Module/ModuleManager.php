@@ -40,14 +40,6 @@ class ModuleManager
 {
 
     /**
-     * Module path.
-     *
-     * @var string
-     * @since 1.0.0
-     */
-    /* public */ const MODULE_PATH = __DIR__ . '/../../Modules';
-
-    /**
      * All modules that are running on this uri.
      *
      * @var \phpOMS\Module\ModuleAbstract[]
@@ -80,12 +72,20 @@ class ModuleManager
     private $active = null;
 
     /**
+     * Module path.
+     *
+     * @var string
+     * @since 1.0.0
+     */
+    private $modulePath = __DIR__ . '/../../Modules';
+
+    /**
      * All modules in the module directory.
      *
      * @var array
      * @since 1.0.0
      */
-    private static $all = null;
+    private $all = null;
 
     /**
      * To load based on request uri.
@@ -103,9 +103,10 @@ class ModuleManager
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function __construct(ApplicationAbstract $app)
+    public function __construct(ApplicationAbstract $app, string $modulePath = '')
     {
         $this->app = $app;
+        $this->modulePath = $modulePath;
     }
 
     /**
@@ -239,15 +240,15 @@ class ModuleManager
      * @since  1.0.0
      * @author Dennis Eichhorn
      */
-    public static function getAllModules() : array
+    public function getAllModules() : array
     {
-        if (!isset(self::$all)) {
-            chdir(self::MODULE_PATH);
+        if (!isset($this->all)) {
+            chdir($this->modulePath);
             $files = glob('*', GLOB_ONLYDIR);
             $c     = count($files);
 
             for ($i = 0; $i < $c; $i++) {
-                $path = self::MODULE_PATH . '/' . $files[$i] . '/info.json';
+                $path = $this->modulePath . '/' . $files[$i] . '/info.json';
 
                 if (!file_exists($path)) {
                     continue;
@@ -255,11 +256,11 @@ class ModuleManager
                 }
 
                 $json                                 = json_decode(file_get_contents($path), true);
-                self::$all[$json['name']['internal']] = $json;
+                $this->all[$json['name']['internal']] = $json;
             }
         }
 
-        return self::$all;
+        return $this->all;
     }
 
     /**
@@ -368,7 +369,7 @@ class ModuleManager
             throw new \Exception('Module installer does not exist');
         }
 
-        $class::reInit(ROOT_PATH, $info);
+        $class::reInit($this->modulePath, $info);
     }
 
     /**
@@ -389,7 +390,7 @@ class ModuleManager
             return false;
         }
 
-        if (!file_exists(self::MODULE_PATH . '/' . $module . '/Admin/Installer.php')) {
+        if (!file_exists($this->modulePath . '/' . $module . '/Admin/Installer.php')) {
             // todo download;
             return false;
         }
@@ -463,7 +464,7 @@ class ModuleManager
             throw new \Exception('Module installer does not exist');
         }
 
-        $class::install(ROOT_PATH, $this->app->dbPool, $info);
+        $class::install($this->modulePath, $this->app->dbPool, $info);
     }
 
     /**
@@ -526,7 +527,7 @@ class ModuleManager
      */
     private function loadInfo(string $module) : InfoManager
     {
-        $path = realpath($oldPath = self::MODULE_PATH . '/' . $module . '/' . 'info.json');
+        $path = realpath($oldPath = $this->modulePath . '/' . $module . '/' . 'info.json');
 
         if ($path === false) {
             throw new PathException($oldPath);
@@ -576,10 +577,10 @@ class ModuleManager
      */
     public function installProviding(string $from, string $for) /* : void */
     {
-        if (file_exists(self::MODULE_PATH . '/' . $from . '/Admin/Install/' . $for . '.php')) {
+        if (file_exists($this->modulePath . '/' . $from . '/Admin/Install/' . $for . '.php')) {
             $class = '\\Modules\\' . $from . '\\Admin\\Install\\' . $for;
             /** @var $class InstallerAbstract */
-            $class::install(ROOT_PATH, $this->app->dbPool, null);
+            $class::install($this->modulePath, $this->app->dbPool, null);
         }
     }
 

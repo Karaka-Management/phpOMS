@@ -18,7 +18,7 @@ declare(strict_types=1);
 namespace phpOMS\Utils\EDI\AnsiX12\Purchase\PurchaseOrder;
 
 /**
- * EDI 850 - Purchase order.
+ * EDI
  *
  * @category   Framework
  * @package    phpOMS\Utils\Converter
@@ -28,13 +28,18 @@ namespace phpOMS\Utils\EDI\AnsiX12\Purchase\PurchaseOrder;
  * @link       http://orange-management.com
  * @since      1.0.0
  */
-class EDI850
+abstract class EDIAbstract
 {
     private $header = null;
 
     private $heading = null;
 
-    private $detail = [];
+    private $detail = null;
 
     private $summary = null;
+
+    public function __construct()
+    {
+        $this->header = new Header();
+    }
 }

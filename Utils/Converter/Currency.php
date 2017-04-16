@@ -17,6 +17,13 @@ declare(strict_types=1);
 
 namespace phpOMS\Utils\Converter;
 
+use phpOMS\Localization\ISO4217CharEnum;
+use phpOMS\Message\Http\Rest;
+use phpOMS\Message\Http\Request;
+use phpOMS\Message\Http\RequestMethod;
+use phpOMS\Localization\Localization;
+use phpOMS\Uri\Http;
+
 /**
  * Currency converter.
  *
@@ -98,16 +105,19 @@ class Currency
     public static function getEcbEuroRates() : array
     {
         if (!isset(self::$ecbCurrencies)) {
-            $xml = file_get_contents('http://www.ecb.europa.eu/stats/eurofxref/eurofxref-daily.xml');
-            $xml = new \SimpleXMLElement($xml);
+            $request = new Request(new Localization(), new Http('http://www.ecb.europa.eu/stats/eurofxref/eurofxref-daily.xml'));
+		    $request->setMethod(RequestMethod::GET);
 
-            if (isset($xml->Cube)) {
-                $node = $xml->Cube->Cube->Cube;
-            } else {
+            $xml = new \SimpleXMLElement(Rest::request($request));
+
+            if (!isset($xml->Cube)) {
                 throw new \Exception('Invalid xml path');
-            }
+                
+            } 
 
+            $node = $xml->Cube->Cube->Cube;
             self::$ecbCurrencies = [];
+            
             foreach ($node as $key => $value) {
                 self::$ecbCurrencies[strtoupper((string) $value->attributes()['currency'])] = (float) $value->attributes()['rate'];
             }
@@ -157,14 +167,14 @@ class Currency
         $from       = strtoupper($from);
         $to         = strtoupper($to);
 
-        if ((!isset($currencies[$from]) && $from !== 'EUR') || (!isset($currencies[$to]) && $to !== 'EUR')) {
+        if ((!isset($currencies[$from]) && $from !== ISO4217CharEnum::_EUR) || (!isset($currencies[$to]) && $to !== ISO4217CharEnum::_EUR)) {
             throw new \InvalidArgumentException('Currency doesn\'t exists');
         }
 
-        if ($from !== 'EUR') {
+        if ($from !== ISO4217CharEnum::_EUR) {
             $value /= $currencies[$from];
         }
 
-        return $to === 'EUR' ? $value : $value * $currencies[$to];
+        return $to === ISO4217CharEnum::_EUR ? $value : $value * $currencies[$to];
     }
 }

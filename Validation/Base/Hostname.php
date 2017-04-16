@@ -48,6 +48,6 @@ abstract class Hostname extends ValidatorAbstract
      */
     public static function isValid($value) : bool
     {
-        return filter_var(gethostbyname($value), FILTER_VALIDATE_IP);
+        return filter_var(gethostbyname($value), FILTER_VALIDATE_IP) !== false;
     }
 }

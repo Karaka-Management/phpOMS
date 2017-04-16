@@ -140,4 +140,17 @@ abstract class Enum
         return defined('static::' . $name);
     }
 
+    /**
+     * Count enum variables
+     *
+     * @return int
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+    public static function count() : int
+    {
+        return count(self::getConstants());
+    }
+
 }

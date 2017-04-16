@@ -17,8 +17,6 @@ declare(strict_types=1);
 
 namespace phpOMS\Event;
 
-use phpOMS\Pattern\Mediator;
-
 /**
  * EventManager class.
  *
@@ -32,7 +30,7 @@ use phpOMS\Pattern\Mediator;
  *
  * @todo       : make cachable + database storable -> can reload user defined listeners (persistent events)
  */
-class EventManager implements Mediator
+class EventManager
 {
     /**
      * Events.
@@ -63,13 +61,13 @@ class EventManager implements Mediator
     /**
      * {@inheritdoc}
      */
-    public function attach(string $group, \Closure $callback, bool $remove = false) : bool
+    public function attach(string $group, \Closure $callback, bool $remove = false, bool $reset = false) : bool
     {
         if (isset($this->callbacks[$group])) {
             return false;
         }
 
-        $this->callbacks[$group] = ['remove' => $remove, 'func' => $callback];
+        $this->callbacks[$group] = ['remove' => $remove, 'reset' => $reset, 'func' => $callback];
 
         return true;
     }
@@ -77,18 +75,31 @@ class EventManager implements Mediator
     /**
      * {@inheritdoc}
      */
-    public function trigger(string $group, string $id = '', bool $reset = false) /* : void */
+    public function trigger(string $group, string $id = '', $data = null) /* : void */
     {
-        if (isset($this->groups[$group])) {
-            unset($this->groups[$group][$id]);
+        if(!isset($this->callbacks[$group])) {
+            return;
         }
 
-        if ($this->hasOutstanding($group)) {
-            $this->callbacks[$group]['func'];
+        if (isset($this->groups[$group])) {
+            $this->groups[$group][$id] = true;
+        }
+
+        if (!$this->hasOutstanding($group)) {
+            $this->callbacks[$group]['func']($data);
 
             if ($this->callbacks[$group]['remove']) {
                 $this->detach($group);
+            } elseif($this->callbacks[$group]['reset']) {
+                $this->reset($group);
             }
+        }
+    }
+
+    private function reset(string $group) /* : void */
+    {
+        foreach($this->groups[$group] as $id => $ok) {
+            $this->groups[$group][$id] = false;
         }
     }
 
@@ -97,7 +108,17 @@ class EventManager implements Mediator
      */
     private function hasOutstanding(string $group) : bool
     {
-        return empty($this->groups[$group]);
+        if(!isset($this->groups[$group])) {
+            return false;
+        }
+
+        foreach($this->groups[$group] as $id => $ok) {
+            if(!$ok) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     /**

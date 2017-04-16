@@ -15,26 +15,28 @@
  */
 declare(strict_types=1);
 
-namespace phpOMS\Datatypes;
+namespace phpOMS\Utils\EDI\AnsiX12\Purchase\PurchaseOrder;
+
+use phpOMS\Utils\EDI\AnsiX12\EDIAbstract;
 
 /**
- * Address type enum.
+ * EDI 850 - Purchase order.
  *
  * @category   Framework
- * @package    phpOMS\Datatypes
+ * @package    phpOMS\Utils\Converter
  * @author     OMS Development Team <dev@oms.com>
  * @author     Dennis Eichhorn <d.eichhorn@oms.com>
  * @license    OMS License 1.0
  * @link       http://orange-management.com
  * @since      1.0.0
  */
-abstract class AddressType extends Enum
+class EDI850 extends EDIAbstract
 {
-    /* public */ const HOME = 1;
-    /* public */ const BUSINESS = 2;
-    /* public */ const SHIPPING = 3;
-    /* public */ const BILLING = 4;
-    /* public */ const WORK = 5;
-    /* public */ const CONTRACT = 6;
-    /* public */ const OTHER = 7;
+    public function __construct()
+    {
+        parent::__construct();
+        $this->heading = new EDIT850Heading();
+        $this->detail = new EDIT850Detail();
+        $this->summary = new EDI850Summary();
+    }
 }

@@ -34,7 +34,7 @@ class Rest
     /**
      * Make request.
      *
-     * @param mixed $data Data to pass
+     * @param Request $request Request
      *
      * @return string
      *
@@ -49,7 +49,7 @@ class Rest
             case RequestMethod::POST:
                 curl_setopt($curl, CURLOPT_POST, 1);
 
-                if ($data) {
+                if ($request->getData() !== null) {
                     curl_setopt($curl, CURLOPT_POSTFIELDS, $request->getData());
                 }
                 break;

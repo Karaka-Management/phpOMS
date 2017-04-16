@@ -74,14 +74,14 @@ interface DataMapperInterface
     /**
      * Find data.
      *
-     * @param array $columns Columns
+     * @param string $search Search
      *
-     * @return Builder
+     * @return array
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public static function find(...$columns) : Builder;
+    public static function find(string $search) : array;
 
     /**
      * List data.

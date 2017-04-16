@@ -15,7 +15,7 @@
  */
 declare(strict_types=1);
 
-namespace phpOMS\Utils\EDI\AnsiX12\Purchase\PurchaseOrder;
+namespace phpOMS\Utils\EDI\AnsiX12\Purchase;
 
 /**
  * EDI 850 - Purchase order.
@@ -30,17 +30,26 @@ namespace phpOMS\Utils\EDI\AnsiX12\Purchase\PurchaseOrder;
  */
 class EDI850Heading
 {
-    private $detailBaselineItemData = '';
+    private $headingTransactionSetHeader = null;
 
-    private $detailProductItemDescrpition = '';
+    private $headingBeginningSegmentPO = null;
 
-    private $detailReferenceId = '';
+    private $headingCurrency = '';
 
-    private $detailServicePromoLotInfo = '';
+    private $headingReferenceID = '';
 
-    private $detailDateTime = null;
+    private $headingAdministrativeCommunicationsContact = '';
 
-    private $detailMarkNumbers = 0;
+    private $headingDateTimeReference = null;
 
-    private $detailLineItemSchedule = '';
+    private $headignCarrierDetails = '';
+
+    private $headingMarksNumbers = 0;
+
+    private $headingLoopId = [];
+
+    public function __construct()
+    {
+        $this->headingTransactionSetHeader = new TransactionSetHeader();
+    }
 }

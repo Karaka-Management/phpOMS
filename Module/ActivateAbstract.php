@@ -47,7 +47,7 @@ class ActivateAbstract
      */
     public static function activate(DatabasePool $dbPool, InfoManager $info) /* : void */
     {
-        self::activateRoutes(ROOT_PATH . '/Web/Routes.php', ROOT_PATH . '/Modules/' . $info->getDirectory() . '/Admin/Routes/http.php');
+        self::activateRoutes(__DIR__ . '/../../Web/Routes.php', __DIR__ . '/../../Modules/' . $info->getDirectory() . '/Admin/Routes/http.php');
         self::activateInDatabase($dbPool, $info);
     }
 

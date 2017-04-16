@@ -38,6 +38,8 @@ class Autoloader
      *
      * @param string $class Class path
      *
+     * @example Autoloader::default_autoloader('\phpOMS\Autoloader') // void
+     *
      * @return void
      *
      * @throws AutoloadException Throws this exception if the class to autoload doesn't exist. This could also be related to a wrong namespace/file path correlation.
@@ -50,8 +52,12 @@ class Autoloader
         $class = ltrim($class, '\\');
         $class = str_replace(['_', '\\'], '/', $class);
 
+        if(!file_exists($path = __DIR__ . '/../' . $class . '.php')) {
+            return;
+        }
+
         /** @noinspection PhpIncludeInspection */
-        include_once __DIR__ . '/../' . $class . '.php';
+        include_once $path;
     }
 
     /**
@@ -59,7 +65,9 @@ class Autoloader
      *
      * @param string $class Class path
      *
-     * @return false|string
+     * @example Autoloader::exists('\phpOMS\Autoloader') // true
+     *
+     * @return bool
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>

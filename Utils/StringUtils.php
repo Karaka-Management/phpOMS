@@ -74,6 +74,34 @@ class StringUtils
     }
 
     /**
+     * Check if a string contains any of the provided needles.
+     *
+     * The validation is done case sensitive.
+     *
+     * @param string $haystack Haystack
+     * @param array  $needles  Needles to check if any of them are part of the haystack
+     *
+     * @example StringUtils::mb_contains('This string', ['This', 'test']); // true
+     * @example StringUtils::mb_contains('This string', 'is st'); // true
+     * @example StringUtils::mb_contains('This string', 'something'); // false
+     *
+     * @return bool The function returns true if any of the needles is part of the haystack, false otherwise.
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn
+     */
+    public static function mb_contains(string $haystack, array $needles) : bool
+    {
+        foreach ($needles as $needle) {
+            if (mb_strpos($haystack, $needle) !== false) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    /**
      * Tests if a string ends with a certain string.
      *
      * The validation is done case sensitive. The function takes strings or an array of strings for the validation.
@@ -333,5 +361,36 @@ class StringUtils
         }
 
         return $count;
+    }
+
+    public static function getEntropy(string $value) : float
+    {
+        $entroy = 0.0;
+        $size = mb_strlen($value);
+        $countChars = self::mb_count_chars($value, 1);
+
+        foreach ($countChars as $v) {
+            $p = $v / $size;
+            $entroy -= $p * log($p) / log(2);
+        }
+
+        return $entroy;
+    }
+
+    public static function mb_count_chars(string $input) {
+        $l = mb_strlen($input, 'UTF-8');
+        $unique = [];
+
+        for($i = 0; $i < $l; $i++) {
+            $char = mb_substr($input, $i, 1, 'UTF-8');
+
+            if(!array_key_exists($char, $unique)) {
+                $unique[$char] = 0;
+            }
+
+            $unique[$char]++;
+        }
+
+        return $unique;
     }
 }

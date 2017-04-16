@@ -28,7 +28,7 @@ namespace phpOMS\Utils;
  * @link       http://orange-management.com
  * @since      1.0.0
  */
-class Color
+class ColorUtils
 {
 
     /**
@@ -82,5 +82,26 @@ class Color
         }
 
         return $gradient;
+    }
+
+    /**
+     * Convert int to rgb
+     *
+     * @param int   $rgbInt Value to convert
+     *
+     * @return array
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+    public static function intToRgb(int $rgbInt) : array
+    {
+        $rgb = ['r' => 0, 'g' => 0, 'b' => 0];
+
+        $rgb['b'] = $rgbInt & 255;
+        $rgb['g'] = ($rgbInt >> 8) & 255;
+        $rgb['r'] = ($rgbInt >> 16) & 255;
+
+        return $rgb;
     }
 }

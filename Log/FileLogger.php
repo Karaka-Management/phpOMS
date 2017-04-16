@@ -108,10 +108,6 @@ class FileLogger implements LoggerInterface
         $path          = realpath($lpath);
         $this->verbose = $verbose;
 
-        if ($path !== false && StringUtils::startsWith($path, ROOT_PATH) === false) {
-            throw new PathException($lpath);
-        }
-
         if (is_dir($lpath) || strpos($lpath, '.') === false) {
             $path = $path . '/' . date('Y-m-d') . '.log';
         } else {
@@ -266,7 +262,7 @@ class FileLogger implements LoggerInterface
 
         $backtrace = json_encode($backtrace);
 
-        $replace['{backtrace}'] = str_replace(str_replace('\\', '\\\\', ROOT_PATH), '', $backtrace);
+        $replace['{backtrace}'] = $backtrace;
         $replace['{datetime}']  = sprintf('%--19s', (new \DateTime('NOW'))->format('Y-m-d H:i:s'));
         $replace['{level}']     = sprintf('%--12s', $level);
         $replace['{path}']      = $_SERVER['REQUEST_URI'] ?? 'REQUEST_URI';

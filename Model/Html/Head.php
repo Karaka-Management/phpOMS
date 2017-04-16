@@ -148,7 +148,7 @@ class Head implements RenderableInterface
     /**
      * Set page title.
      *
-     * @param string $type Asset type
+     * @param int $type Asset type
      * @param string $uri  Asset uri
      *
      * @return void
@@ -156,7 +156,7 @@ class Head implements RenderableInterface
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function addAsset(string $type, string $uri) /* : void */
+    public function addAsset(int $type, string $uri) /* : void */
     {
         $this->assets[$uri] = $type;
     }
@@ -308,7 +308,7 @@ class Head implements RenderableInterface
     {
         $asset = '';
         foreach ($this->assets as $uri => $type) {
-            if ($type == AssetType::CSS) {
+            if ($type === AssetType::CSS) {
                 $asset .= '<link rel="stylesheet" type="text/css" href="' . $uri . '">';
             } elseif ($type === AssetType::JS) {
                 $asset .= '<script src="' . $uri . '"></script>';

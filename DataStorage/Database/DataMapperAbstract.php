@@ -70,6 +70,14 @@ class DataMapperAbstract implements DataMapperInterface
     protected static $createdAt = '';
 
     /**
+     * Language
+     *
+     * @var string
+     * @since 1.0.0
+     */
+    protected static $language_field = '';
+
+    /**
      * Columns.
      *
      * @var array
@@ -288,25 +296,26 @@ class DataMapperAbstract implements DataMapperInterface
     /**
      * Find data.
      *
-     * @param array $columns Columns
+     * @param string $search Search for
      *
      * @return Builder
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public static function find(...$columns) : Builder
+    public static function find(string $search) : array
     {
         self::extend(__CLASS__);
 
-        if (count($columns) === 0) {
-            $columns = [static::$table . '.*'];
+        $query = static::getQuery();
+
+        foreach(static::$columns as $col) {
+            if(isset($col['autocomplete']) && $col['autocomplete']) {
+                $query->where(static::$table . '.' . $col['name'], 'LIKE', '%' . $search . '%', 'OR');
+            }
         }
-
-        $query = new Builder(self::$db);
-        $query->prefix(self::$db->getPrefix());
-
-        return $query->select(...$columns)->from(static::$table);
+        
+        return static::getAllByQuery($query);
     }
 
     /**
@@ -324,7 +333,13 @@ class DataMapperAbstract implements DataMapperInterface
     {
         self::extend(__CLASS__);
 
-        $reflectionClass = new \ReflectionClass(get_class($obj));
+        if($obj === null ||
+            (is_object($obj) && strpos($className = get_class($obj), '\Null') !== false)
+        ) {
+            return null;
+        }
+
+        $reflectionClass = new \ReflectionClass($className);
         $objId           = self::createModel($obj, $reflectionClass);
         self::setObjectId($reflectionClass, $obj, $objId);
 
@@ -370,6 +385,8 @@ class DataMapperAbstract implements DataMapperInterface
                     $value = self::parseValue($column['type'], $id);
 
                     $query->insert($column['name'])->value($value, $column['type']);
+                    $temp = $query->toSql();
+                    $test = 1;
                     break;
                 } elseif (isset(static::$belongsTo[$propertyName]) && $column['internal'] === $propertyName) {
                     $id    = self::createBelongsTo($propertyName, $property->getValue($obj));
@@ -474,6 +491,7 @@ class DataMapperAbstract implements DataMapperInterface
                 throw new \Exception('No mapper set for relation object.');
             }
 
+            /** @var DataMapperAbstract $mapper */
             $mapper             = static::$hasMany[$propertyName]['mapper'];
             $objsIds            = [];
             $relReflectionClass = null;
@@ -501,6 +519,7 @@ class DataMapperAbstract implements DataMapperInterface
 
                 // Setting relation value (id) for relation (since the relation is not stored in an extra relation table)
                 /** @var string $table */
+                /** @var array $columns */
                 if (static::$hasMany[$propertyName]['table'] === static::$hasMany[$propertyName]['mapper']::$table) {
                     $relProperty = $relReflectionClass->getProperty($mapper::$columns[static::$hasMany[$propertyName]['dst']]['internal']);
 
@@ -524,7 +543,7 @@ class DataMapperAbstract implements DataMapperInterface
 
     private static function createHasOne(\ReflectionClass $reflectionClass, $obj)
     {
-        throw new \Excpetion();
+        throw new \Exception();
 
         foreach (static::$hasOne as $propertyName => $rel) {
 
@@ -576,6 +595,7 @@ class DataMapperAbstract implements DataMapperInterface
     private static function createBelongsTo(string $propertyName, $obj)
     {
         if (is_object($obj)) {
+            /** @var DataMapperAbstract $mapper */
             $mapper             = static::$belongsTo[$propertyName]['mapper'];
             $primaryKey = $mapper::getObjectId($obj);
 
@@ -647,7 +667,7 @@ class DataMapperAbstract implements DataMapperInterface
             return $value->serialize();
         } elseif ($value instanceof \JsonSerializable) {
             return json_encode($value->jsonSerialize());
-        } elseif (is_object($value)) {
+        } elseif (is_object($value) && method_exists($value, 'getId')) {
             return $value->getId();
         } elseif ($type === 'int') {
             return (int) $value;
@@ -695,6 +715,7 @@ class DataMapperAbstract implements DataMapperInterface
                 throw new \Exception('No mapper set for relation object.');
             }
 
+            /** @var DataMapperAbstract $mapper */
             $mapper             = static::$hasMany[$propertyName]['mapper'];
             $objsIds            = [];
             $relReflectionClass = null;
@@ -721,6 +742,8 @@ class DataMapperAbstract implements DataMapperInterface
                 }
 
                 // create if not existing
+                /** @var string $table */
+                /** @var array $columns */
                 if (static::$hasMany[$propertyName]['table'] === static::$hasMany[$propertyName]['mapper']::$table) {
                     $relProperty = $relReflectionClass->getProperty($mapper::$columns[static::$hasMany[$propertyName]['dst']]['internal']);
 
@@ -753,11 +776,14 @@ class DataMapperAbstract implements DataMapperInterface
      *
      * @return mixed
      *
+     * @throws \Exception
+     *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     private static function updateRelationTable(string $propertyName, array $objsIds, $objId)
     {
+        /** @var string $table */
         if (
             !empty($objsIds)
             && static::$hasMany[$propertyName]['table'] !== static::$table
@@ -796,6 +822,7 @@ class DataMapperAbstract implements DataMapperInterface
      */
     private static function deleteRelationTable(string $propertyName, array $objsIds, $objId)
     {
+        /** @var string $table */
         if (
             !empty($objsIds)
             && static::$hasMany[$propertyName]['table'] !== static::$table
@@ -831,6 +858,7 @@ class DataMapperAbstract implements DataMapperInterface
     private static function updateOwnsOne(string $propertyName, $obj)
     {
         if (is_object($obj)) {
+            /** @var DataMapperAbstract $mapper */
             $mapper = static::$ownsOne[$propertyName]['mapper'];
 
             // todo: delete owned one object is not recommended since it can be owned by by something else? or does owns one mean that nothing else can have a relation to this one?
@@ -857,6 +885,7 @@ class DataMapperAbstract implements DataMapperInterface
     private static function updateBelongsTo(string $propertyName, $obj)
     {
         if (is_object($obj)) {
+            /** @var DataMapperAbstract $mapper */
             $mapper = static::$belongsTo[$propertyName]['mapper'];
 
             return $mapper::update($obj);
@@ -998,6 +1027,7 @@ class DataMapperAbstract implements DataMapperInterface
                 throw new \Exception('No mapper set for relation object.');
             }
 
+            /** @var DataMapperAbstract $mapper */
             $mapper             = static::$hasMany[$propertyName]['mapper'];
             $objsIds            = [];
             $relReflectionClass = null;
@@ -1051,6 +1081,7 @@ class DataMapperAbstract implements DataMapperInterface
     private static function deleteOwnsOne(string $propertyName, $obj)
     {
         if (is_object($obj)) {
+            /** @var DataMapperAbstract $mapper */
             $mapper = static::$ownsOne[$propertyName]['mapper'];
 
             // todo: delete owned one object is not recommended since it can be owned by by something else? or does owns one mean that nothing else can have a relation to this one?
@@ -1076,6 +1107,7 @@ class DataMapperAbstract implements DataMapperInterface
     private static function deleteBelongsTo(string $propertyName, $obj)
     {
         if (is_object($obj)) {
+            /** @var DataMapperAbstract $mapper */
             $mapper = static::$belongsTo[$propertyName]['mapper'];
 
             return $mapper::delete($obj);
@@ -1243,7 +1275,8 @@ class DataMapperAbstract implements DataMapperInterface
         $reflectionClass = new \ReflectionClass(get_class($obj));
 
         foreach ($result as $member => $values) {
-            if ($reflectionClass->hasProperty($member)) {
+            if (!empty($values) && $reflectionClass->hasProperty($member)) {
+                /** @var DataMapperAbstract $mapper */
                 $mapper             = static::$hasMany[$member]['mapper'];
                 $reflectionProperty = $reflectionClass->getProperty($member);
 
@@ -1468,15 +1501,16 @@ class DataMapperAbstract implements DataMapperInterface
      * Get object.
      *
      * @param int $relations Load relations
+     * @param string $lang Language
      *
      * @return array
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public static function getAll(int $relations = RelationType::ALL)
+    public static function getAll(int $relations = RelationType::ALL, string $lang = '')
     {
-        $obj = self::populateIterable(self::getAllRaw());
+        $obj = self::populateIterable(self::getAllRaw($lang));
         self::fillRelations($obj, $relations);
         self::clear();
 
@@ -1509,13 +1543,14 @@ class DataMapperAbstract implements DataMapperInterface
      * @param int     $limit     Newest limit
      * @param Builder $query     Pre-defined query
      * @param int     $relations Load relations
+     * @param string $lang Language
      *
      * @return mixed
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public static function getNewest(int $limit = 1, Builder $query = null, int $relations = RelationType::ALL)
+    public static function getNewest(int $limit = 1, Builder $query = null, int $relations = RelationType::ALL, string $lang = '')
     {
         self::extend(__CLASS__);
 
@@ -1527,6 +1562,10 @@ class DataMapperAbstract implements DataMapperInterface
             $query->orderBy(static::$table . '.' . static::$columns[static::$createdAt]['name'], 'DESC');
         } else {
             $query->orderBy(static::$table . '.' . static::$columns[static::$primaryField]['name'], 'DESC');
+        }
+
+        if (!empty(self::$language_field) && !empty($lang)) {
+            $query->where(static::$table . '.' . static::$language_field, '=', $lang, 'AND');
         }
 
         $sth = self::$db->con->prepare($query->toSql());
@@ -1555,7 +1594,6 @@ class DataMapperAbstract implements DataMapperInterface
      */
     public static function getAllByQuery(Builder $query, int $relations = RelationType::ALL) : array
     {
-        $query = self::getQuery($query);
         $sth   = self::$db->con->prepare($query->toSql());
         $sth->execute();
 
@@ -1662,14 +1700,21 @@ class DataMapperAbstract implements DataMapperInterface
     /**
      * Get all in raw output.
      *
+     * @param string $lang Language
+     *
      * @return array
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public static function getAllRaw() : array
+    public static function getAllRaw(string $lang = '') : array
     {
         $query = self::getQuery();
+
+        if (!empty(self::$language_field) && !empty($lang)) {
+            $query->where(static::$table . '.' . static::$language_field, '=', $lang, 'AND');
+        }
+
         $sth   = self::$db->con->prepare($query->toSql());
         $sth->execute();
 
@@ -1698,6 +1743,7 @@ class DataMapperAbstract implements DataMapperInterface
             $query->prefix(self::$db->getPrefix());
 
             if ($relations === RelationType::ALL) {
+                /** @var string $primaryField */
                 $src = $value['src'] ?? $value['mapper']::$primaryField;
 
                 $query->select($value['table'] . '.' . $src)
@@ -1780,7 +1826,7 @@ class DataMapperAbstract implements DataMapperInterface
     public static function getByRequest(RequestAbstract $request)
     {
         if (!is_null($request->getData('id'))) {
-            $result = static::get($request->getData('id'))->__toString();
+            $result = static::get($request->getData('id'));
         } elseif (!is_null($filter = $request->getData('filter'))) {
             $filter = strtolower($filter);
 
@@ -1790,7 +1836,7 @@ class DataMapperAbstract implements DataMapperInterface
                 $list   = $request->getData('list');
                 $result = static::get(json_decode($list, true));
             } else {
-                $limit = $request->getData('limit') ?? 1;
+                $limit = (int) ($request->getData('limit') ?? 1);
                 $from  = !is_null($request->getData('from')) ? new \DateTime($request->getData('from')) : null;
                 $to    = !is_null($request->getData('to')) ? new \DateTime($request->getData('to')) : null;
 

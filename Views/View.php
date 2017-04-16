@@ -145,14 +145,20 @@ class View extends ViewAbstract
      * @param string $id   Data ID
      * @param mixed  $data Data
      *
-     * @return void
+     * @return bool
      *
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function addData(string $id, $data) /* : void */
+    public function addData(string $id, $data) : bool
     {
+        if(isset($this->data[$id])) {
+            return false;
+        }
+
         $this->data[$id] = $data;
+
+        return true;
     }
 
     /**

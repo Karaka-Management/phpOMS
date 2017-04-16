@@ -21,6 +21,7 @@ use phpOMS\System\File\ContainerInterface;
 use phpOMS\System\File\DirectoryInterface;
 use phpOMS\System\File\PathException;
 use phpOMS\Utils\StringUtils;
+use phpOMS\System\File\Local\FileAbstract;
 use phpOMS\System\File\Local\Directory as DirectoryLocal;
 
 /**
@@ -157,5 +158,150 @@ class Directory extends FileAbstract implements DirectoryInterface
     public static function basename(string $path) : string
     {
         return DirectoryLocal::basename($path);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getNode(string $name) : FileAbstract
+    {
+        return $this->nodes[$name] ?? null;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function createNode() : bool
+    {
+        return self::create($this->path, $this->permission, true);
+
+        // todo: add node
+    }
+
+    public function addNode($file) : bool
+    {
+        $this->count += $file->getCount();
+        $this->size += $file->getSize();
+        $this->nodes[$file->getName()] = $file;
+
+        return $file->createNode();
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getParent() : ContainerInterface
+    {
+        // TODO: Implement getParent() method.
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function copyNode(string $to, bool $overwrite = false) : bool
+    {
+        // TODO: Implement copyNode() method.
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function moveNode(string $to, bool $overwrite = false) : bool
+    {
+        // TODO: Implement moveNode() method.
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function deleteNode() : bool
+    {
+        // TODO: Implement deleteNode() method.
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function rewind()
+    {
+        reset($this->nodes);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function current()
+    {
+        return current($this->nodes);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function key()
+    {
+        return key($this->nodes);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function next()
+    {
+        return next($this->nodes);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function valid()
+    {
+        $key = key($this->nodes);
+
+        return ($key !== null && $key !== false);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function offsetSet($offset, $value)
+    {
+        if (is_null($offset)) {
+            $this->addNode($value);
+        } else {
+            $this->nodes[$offset] = $value;
+        }
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function offsetExists($offset)
+    {
+        return isset($this->nodes[$offset]);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function offsetUnset($offset)
+    {
+        if (isset($this->nodes[$offset])) {
+            unset($this->nodes[$offset]);
+        }
+    }
+
+    /**
+     * Offset to retrieve
+     * @link  http://php.net/manual/en/arrayaccess.offsetget.php
+     * @param mixed $offset <p>
+     *                      The offset to retrieve.
+     *                      </p>
+     * @return mixed Can return all value types.
+     * @since 5.0.0
+     */
+    public function offsetGet($offset)
+    {
+        // TODO: Implement offsetGet() method.
     }
 }

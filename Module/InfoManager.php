@@ -62,7 +62,20 @@ class InfoManager
      */
     public function __construct($path)
     {
-        $this->path = $path;
+        $this->path = realpath($path);
+    }
+
+    /**
+     * Get info path
+     *
+     * @return string
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn
+     */
+    public function getPath() : string
+    {
+        return $this->path;
     }
 
     /**
@@ -75,8 +88,8 @@ class InfoManager
      */
     public function load() /* : void */
     {
-        if (!file_exists($this->path)) {
-            throw new PathException($this->path);
+        if ($this->path === false || !file_exists($this->path)) {
+            throw new PathException((string) $this->path);
         }
 
         $this->info = json_decode(file_get_contents($this->path), true);
@@ -92,8 +105,8 @@ class InfoManager
      */
     public function update() /* : void */
     {
-    	if (!file_exists($this->path)) {
-            throw new PathException($this->path);
+    	if ($this->path === false || !file_exists($this->path)) {
+            throw new PathException((string) $this->path);
         }
 
         file_put_contents($this->path, json_encode($this->info, JSON_PRETTY_PRINT));

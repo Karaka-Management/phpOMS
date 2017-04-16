@@ -87,65 +87,6 @@ class Auth
     }
 
     /**
-     * Login user.
-     *
-     * @param string $login    Username
-     * @param string $password Password
-     *
-     * @return int Login code
-     *
-     * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
-     */
-    public function login(string $login, string $password) : int
-    {
-        try {
-            $result = null;
-
-            switch ($this->connection->getType()) {
-                case DatabaseType::MYSQL:
-
-                    $sth = $this->connection->con->prepare(
-                        'SELECT
-                            `' . $this->connection->prefix . 'account`.*
-                        FROM
-                            `' . $this->connection->prefix . 'account`
-                        WHERE
-                            `account_login` = :login'
-                    );
-                    $sth->bindValue(':login', $login, \PDO::PARAM_STR);
-                    $sth->execute();
-
-                    $result = $sth->fetchAll();
-                    break;
-            }
-
-            // TODO: check if user is allowed to login on THIS page (backend|frontend|etc...)
-
-            if (!isset($result[0])) {
-                return LoginReturnType::WRONG_USERNAME;
-            }
-
-            $result = $result[0];
-
-            if ($result['account_tries'] <= 0) {
-                return LoginReturnType::WRONG_INPUT_EXCEEDED;
-            }
-
-            if (password_verify($password, $result['account_password'])) {
-                $this->session->set('UID', $result['account_id']);
-                $this->session->save();
-
-                return LoginReturnType::OK;
-            }
-
-            return LoginReturnType::WRONG_PASSWORD;
-        } catch (\Exception $e) {
-            return LoginReturnType::FAILURE;
-        }
-    }
-
-    /**
      * Logout the given user.
      *
      * @param int $uid User ID

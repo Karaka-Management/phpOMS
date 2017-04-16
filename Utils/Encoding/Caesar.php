@@ -63,7 +63,7 @@ class Caesar
             $ascii = ord($source[$i]) + ord($key[$j]);
 
             if ($ascii > self::LIMIT_UPPER) {
-                $ascii -= self::LIMIT_UPPER;
+                $ascii = self::LIMIT_LOWER + ($ascii - self::LIMIT_UPPER);
             }
 
             $result .= chr($ascii);
@@ -89,7 +89,7 @@ class Caesar
             $ascii = ord($raw[$i]) - ord($key[$j]);
 
             if ($ascii < self::LIMIT_LOWER) {
-                $ascii += self::LIMIT_LOWER;
+                $ascii = self::LIMIT_UPPER + ($ascii - self::LIMIT_LOWER) ;
             }
 
             $result .= chr($ascii);
