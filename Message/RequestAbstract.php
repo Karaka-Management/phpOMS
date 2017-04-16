@@ -132,6 +132,12 @@ abstract class RequestAbstract implements MessageInterface
      */
     protected $lock = false;
 
+    /**
+     * Request header.
+     *
+     * @var HeaderAbstract
+     * @since 1.0.0
+     */
     protected $header = null;
 
     /**
