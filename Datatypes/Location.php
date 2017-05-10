@@ -32,6 +32,14 @@ class Location implements \JsonSerializable, \Serializable
 {
 
     /**
+     * Location id
+     *
+     * @var int
+     * @since 1.0.0
+     */
+    private $id = 0;
+
+    /**
      * Zip or postal.
      *
      * @var string
@@ -64,6 +72,14 @@ class Location implements \JsonSerializable, \Serializable
     private $address = '';
 
     /**
+     * Address type
+     *
+     * @var int
+     * @since 1.0.0
+     */
+    private $type = AddressType::HOME;
+
+    /**
      * State.
      *
      * @var string
@@ -87,6 +103,33 @@ class Location implements \JsonSerializable, \Serializable
      */
     public function __construct()
     {
+    }
+
+    /**
+     * @return int
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+    public function getId() : int
+    {
+        return $this->id;
+    }
+
+    /**
+     * @return int
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+    public function getType() : int
+    {
+        return $this->type;
+    }
+
+    public function setType(int $type) /* : void */
+    {
+        $this->type = $type;
     }
 
     /**
