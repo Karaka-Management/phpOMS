@@ -1843,7 +1843,7 @@ class DataMapperAbstract implements DataMapperInterface
                 $query = static::getQuery();
                 $query->limit($limit);
 
-                if (isset($from) && isset($to) && !empty(static::getCreatedAt())) {
+                if (isset($from, $to) && !empty(static::getCreatedAt())) {
                     $query->where(static::getCreatedAt(), '>=', $from);
                     $query->where(static::getCreatedAt(), '<=', $to);
                 }
