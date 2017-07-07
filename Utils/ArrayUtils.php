@@ -148,6 +148,17 @@ class ArrayUtils
         return $found;
     }
 
+    public static function anyInArray(array $needles, array $haystack) : bool
+    {
+        foreach($needles as $needle) {
+            if(in_array($needle, $haystack)) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
     /**
      * Stringify array.
      *
