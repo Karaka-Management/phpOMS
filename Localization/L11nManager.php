@@ -151,7 +151,7 @@ class L11nManager
     {
         if (!isset($module) && isset($this->language[$language])) {
             return $this->language[$language];
-        } elseif (isset($this->language[$language]) && isset($this->language[$language][$module])) {
+        } elseif (isset($this->language[$language], $this->language[$language][$module])) {
             return $this->language[$language][$module];
         } else {
             return [];

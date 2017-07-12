@@ -370,7 +370,7 @@ class MultiMap implements \Countable
             return false;
         }
 
-        if (isset($this->keys[$old]) && isset($this->keys[$new])) {
+        if (isset($this->keys[$old], $this->keys[$new])) {
             $this->keys[$old] = $this->keys[$new];
 
             $this->garbageCollect();

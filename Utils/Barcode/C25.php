@@ -127,7 +127,7 @@ class C25 extends C128Abstract
         }
 
         for ($posX = 1; $posX <= $length; $posX += 2) {
-            if (isset($temp[$posX]) && isset($temp[($posX + 1)])) {
+            if (isset($temp[$posX], $temp[($posX + 1)])) {
                 $temp1 = explode('-', $temp[$posX]);
                 $temp2 = explode('-', $temp[($posX + 1)]);
 

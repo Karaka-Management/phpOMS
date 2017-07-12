@@ -51,7 +51,7 @@ class FtpStorage extends StorageAbstract
 
         ftp_pasv($this->con, $mode);
 
-        if(isset($login) && isset($pass)) {
+        if(isset($login, $pass)) {
             ftp_login($this->con, $login, $pass);
         }
     }

@@ -217,7 +217,7 @@ class BinaryTree extends Tree
 		$right2 = isset($node2) ? $this->getRight($node1) : $this->getRight($node2);
 
 		// todo: compare values? true symmetry requires the values to be the same
-		if(isset($node1) && isset($node2)) {
+		if(isset($node1, $node2)) {
 			return $this->isSymmetric($left1, $right2) && $this->isSymmetric($right1, $left2);
 		}
 

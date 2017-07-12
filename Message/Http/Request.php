@@ -77,7 +77,7 @@ class Request extends RequestAbstract
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function __construct(Localization $l11n, UriInterface $uri = null)
+    public function __construct(Localization $l11n = null, UriInterface $uri = null)
     {
         $this->l11n = $l11n;
         $this->uri  = $uri;
@@ -104,12 +104,10 @@ class Request extends RequestAbstract
         if (!isset($this->uri)) {
             $this->initCurrentRequest();
             $this->lock();
+            $this->cleanupGlobals();
         }
 
         $this->data = array_change_key_case($this->data, CASE_LOWER);
-
-        $this->cleanupGlobals();
-
         $this->path = explode('/', $this->uri->getPath());
 
         $this->setupUriBuilder();
