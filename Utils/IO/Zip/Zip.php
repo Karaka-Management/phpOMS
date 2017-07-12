@@ -34,16 +34,7 @@ class Zip implements ArchiveInterface
 {
 
     /**
-     * Create zip.
-     *
-     * @param string[] $sources     Files and directories to compress
-     * @param string   $destination Output destination
-     * @param bool     $overwrite   Overwrite if destination is existing
-     *
-     * @return bool
-     *
-     * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     * {@inheritdoc}
      */
     public static function pack(array $sources, string $destination, bool $overwrite = true) : bool
     {
@@ -92,6 +83,9 @@ class Zip implements ArchiveInterface
         return $zip->close();
     }
     
+    /**
+     * {@inheritdoc}
+     */
     public static function unpack(string $source, string $destination) : bool
     {
         $destination = str_replace('\\', '/', realpath($destination));
