@@ -40,7 +40,7 @@ interface ArchiveInterface
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public static function pack(array $sources, string $destination, bool $overwrite = true) : bool
+    public static function pack($sources, string $destination, bool $overwrite = true) : bool
     
     /**
      * Unpack archive.
