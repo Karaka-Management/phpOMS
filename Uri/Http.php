@@ -262,6 +262,11 @@ class Http implements UriInterface
     {
         return $this->path;
     }
+    
+    public function getPathOffset() : int
+    {
+        return substr_count($this->rootPath, '/') - 1;
+    }
 
     /**
      * {@inheritdoc}
