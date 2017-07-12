@@ -55,7 +55,7 @@ class Gz implements ArchiveInterface
         
         $src = fopen($source, 'r');
         while(!feof($src)) {
-            gzwrite($gz, fgets($src));
+            gzwrite($gz, fread($src, 4096));
         }
         
         fclose($src);
@@ -76,7 +76,7 @@ class Gz implements ArchiveInterface
         
         $dest = fopen($destination, 'w');
         while (!gzeof($handle)) {
-            fwrite($dest, gzgets($handle, 4096));
+            fwrite($dest, gzread($handle, 4096));
         }
         
         fclose($dest);
