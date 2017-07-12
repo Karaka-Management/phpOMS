@@ -45,7 +45,7 @@ class Zip
      * @since  1.0.0
      * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public static function create(array $sources, string $destination, bool $overwrite = true) : bool
+    public static function pack(array $sources, string $destination, bool $overwrite = true) : bool
     {
         $destination = str_replace('\\', '/', realpath($destination));
 
@@ -89,6 +89,24 @@ class Zip
             }
         }
 
+        return $zip->close();
+    }
+    
+    public static function unpack(string $source, string $destination) : bool
+    {
+        $destination = str_replace('\\', '/', realpath($destination));
+
+        if (file_exists($destination)) {
+            return false;
+        }
+
+        $zip = new \ZipArchive();
+        if (!$zip->open($destination)) {
+            return false;
+        }
+        
+        $zip->extractTo($destination);
+        
         return $zip->close();
     }
 }
