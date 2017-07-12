@@ -30,7 +30,7 @@ namespace phpOMS\Utils\IO\Zip;
  * @link       http://orange-management.com
  * @since      1.0.0
  */
-class Zip
+class Zip implements ArchiveInterface
 {
 
     /**
