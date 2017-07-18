@@ -254,7 +254,7 @@ class Functions
      */
     public static function isEven($a) : bool
     {
-        return !($a & 1)
+        return !($a & 1);
     }
 
     /**
