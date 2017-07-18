@@ -239,11 +239,7 @@ class Functions
      */
     public static function isOdd($a) : bool
     {
-        if ($a & 1) {
-            return true;
-        }
-
-        return false;
+        return $a & 1;
     }
 
     /**
@@ -258,11 +254,7 @@ class Functions
      */
     public static function isEven($a) : bool
     {
-        if ($a & 1) {
-            return false;
-        }
-
-        return true;
+        return !($a & 1)
     }
 
     /**
