@@ -16,7 +16,9 @@
 declare(strict_types=1);
 namespace phpOMS\Utils;
 /**
- * Array utils.
+ * Test utils.
+ *
+ * Only for testing purposes. MUST NOT be used for other purposes.
  *
  * @category   Framework
  * @package    phpOMS\Utils
