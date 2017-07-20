@@ -7,7 +7,6 @@
  * @category   TBD
  * @package    TBD
  * @author     OMS Development Team <dev@oms.com>
- * @author     Dennis Eichhorn <d.eichhorn@oms.com>
  * @copyright  Dennis Eichhorn
  * @license    OMS License 1.0
  * @version    1.0.0
@@ -27,7 +26,6 @@ use phpOMS\DataStorage\Cache\FileCache;
  * @category   Framework
  * @package    phpOMS\DataStorage\Database
  * @author     OMS Development Team <dev@oms.com>
- * @author     Dennis Eichhorn <d.eichhorn@oms.com>
  * @license    OMS License 1.0
  * @link       http://orange-management.com
  * @since      1.0.0
@@ -39,7 +37,6 @@ class CacheFactory
      * Constructor.
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     private function __construct()
     {
@@ -57,7 +54,6 @@ class CacheFactory
      * @throws \InvalidArgumentException Throws this exception if the database is not supported.
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public static function create(array $cacheData) : CacheInterface
     {

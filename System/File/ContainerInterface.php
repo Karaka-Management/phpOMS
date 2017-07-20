@@ -7,7 +7,6 @@
  * @category   TBD
  * @package    TBD
  * @author     OMS Development Team <dev@oms.com>
- * @author     Dennis Eichhorn <d.eichhorn@oms.com>
  * @copyright  Dennis Eichhorn
  * @license    OMS License 1.0
  * @version    1.0.0
@@ -25,7 +24,6 @@ namespace phpOMS\System\File;
  * @category   Framework
  * @package    phpOMS\System\File
  * @author     OMS Development Team <dev@oms.com>
- * @author     Dennis Eichhorn <d.eichhorn@oms.com>
  * @license    OMS License 1.0
  * @link       http://orange-management.com
  * @since      1.0.0
@@ -40,7 +38,6 @@ interface ContainerInterface
      * @return \DateTime 
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public static function created(string $path) : \DateTime;
 
@@ -52,7 +49,6 @@ interface ContainerInterface
      * @return \DateTime 
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public static function changed(string $path) : \DateTime;
 
@@ -64,7 +60,6 @@ interface ContainerInterface
      * @return int 
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public static function owner(string $path) : int;
 
@@ -76,7 +71,6 @@ interface ContainerInterface
      * @return string Permissions (e.g. 0644);
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public static function permission(string $path) : string;
 
@@ -90,7 +84,6 @@ interface ContainerInterface
      * @return string 
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public static function parent(string $path) : string;
 
@@ -102,7 +95,6 @@ interface ContainerInterface
      * @return bool True on success and false on failure
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public static function create(string $path) : bool;
 
@@ -114,7 +106,6 @@ interface ContainerInterface
      * @return bool True on success and false on failure
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public static function delete(string $path) : bool;
 
@@ -128,7 +119,6 @@ interface ContainerInterface
      * @return bool True on success and false on failure
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public static function copy(string $from, string $to, bool $overwrite = false) : bool;
 
@@ -142,7 +132,6 @@ interface ContainerInterface
      * @return bool True on success and false on failure
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public static function move(string $from, string $to, bool $overwrite = false) : bool;
 
@@ -155,7 +144,6 @@ interface ContainerInterface
      * @return int
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public static function size(string $path, bool $recursive = true) : int;
 
@@ -167,7 +155,6 @@ interface ContainerInterface
      * @return bool
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public static function exists(string $path) : bool;
 
@@ -179,7 +166,6 @@ interface ContainerInterface
      * @return string
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public static function name(string $path) : string;
 
@@ -191,7 +177,6 @@ interface ContainerInterface
      * @return string
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public static function basename(string $path) : string;
 
@@ -204,7 +189,6 @@ interface ContainerInterface
      * @return string
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public static function sanitize(string $path, string $replace = '') : string;
 
@@ -218,7 +202,6 @@ interface ContainerInterface
      * @return int
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function getCount(bool $recursive = false) : int;
 
@@ -230,7 +213,6 @@ interface ContainerInterface
      * @return int
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function getSize(bool $recursive = false) : int;
 
@@ -240,7 +222,6 @@ interface ContainerInterface
      * @return string
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function getName() : string;
 
@@ -250,7 +231,6 @@ interface ContainerInterface
      * @return string
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function getPath() : string;
 
@@ -262,7 +242,6 @@ interface ContainerInterface
      * @return ContainerInterface 
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function getParent() : ContainerInterface;
 
@@ -272,7 +251,6 @@ interface ContainerInterface
      * @return bool True on success and false on failure
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function createNode() : bool;
 
@@ -285,7 +263,6 @@ interface ContainerInterface
      * @return bool True on success and false on failure
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function copyNode(string $to, bool $overwrite = false) : bool;
 
@@ -298,7 +275,6 @@ interface ContainerInterface
      * @return bool True on success and false on failure
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function moveNode(string $to, bool $overwrite = false) : bool;
 
@@ -308,7 +284,6 @@ interface ContainerInterface
      * @return bool True on success and false on failure
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function deleteNode() : bool;
 
@@ -318,7 +293,6 @@ interface ContainerInterface
      * @return \DateTime 
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function getCreatedAt() : \DateTime;
 
@@ -328,7 +302,6 @@ interface ContainerInterface
      * @return \DateTime 
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function getChangedAt() : \DateTime;
 
@@ -338,7 +311,6 @@ interface ContainerInterface
      * @return int 
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function getOwner() : int;
 
@@ -348,7 +320,6 @@ interface ContainerInterface
      * @return string Permissions (e.g. 0644);
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function getPermission() : string;
 
@@ -359,7 +330,6 @@ interface ContainerInterface
      * Sub-sub-resources are only initialized once they are needed.
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function index();
 }

@@ -7,7 +7,6 @@
  * @category   TBD
  * @package    TBD
  * @author     OMS Development Team <dev@oms.com>
- * @author     Dennis Eichhorn <d.eichhorn@oms.com>
  * @copyright  Dennis Eichhorn
  * @license    OMS License 1.0
  * @version    1.0.0
@@ -26,7 +25,6 @@ use phpOMS\DataStorage\Database\Connection\ConnectionAbstract;
  * @category   Framework
  * @package    phpOMS\DataStorage\Database
  * @author     OMS Development Team <dev@oms.com>
- * @author     Dennis Eichhorn <d.eichhorn@oms.com>
  * @license    OMS License 1.0
  * @link       http://orange-management.com
  * @since      1.0.0
@@ -217,7 +215,6 @@ class Builder extends BuilderAbstract
      * @param ConnectionAbstract $connection Database connection
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function __construct(ConnectionAbstract $connection, bool $readOnly = false)
     {
@@ -233,7 +230,6 @@ class Builder extends BuilderAbstract
      * @return  void
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function setConnection(ConnectionAbstract $connection) /* : void */
     {
@@ -251,7 +247,6 @@ class Builder extends BuilderAbstract
      * @todo   Closure is not working this way, needs to be evaluated befor assigning
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function select(...$columns) : Builder
     {
@@ -278,7 +273,6 @@ class Builder extends BuilderAbstract
      * @todo   Closure is not working this way, needs to be evaluated befor assigning
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function random(...$columns) : Builder
     {
@@ -297,7 +291,6 @@ class Builder extends BuilderAbstract
      * @return Builder
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function bind($binds) : Builder
     {
@@ -318,7 +311,6 @@ class Builder extends BuilderAbstract
      * @return Builder
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function newQuery() : Builder
     {
@@ -331,7 +323,6 @@ class Builder extends BuilderAbstract
      * @return string
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function toSql() : string
     {
@@ -346,7 +337,6 @@ class Builder extends BuilderAbstract
      * @return Builder
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function raw(string $raw) : Builder
     {
@@ -377,7 +367,6 @@ class Builder extends BuilderAbstract
      * @return Builder
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function selectRaw($expression) : Builder
     {
@@ -392,7 +381,6 @@ class Builder extends BuilderAbstract
      * @return Builder
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function distinct(...$columns) : Builder
     {
@@ -409,7 +397,6 @@ class Builder extends BuilderAbstract
      * @return Builder
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function from(...$tables) : Builder
     {
@@ -432,7 +419,6 @@ class Builder extends BuilderAbstract
      * @return Builder
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function fromRaw($expression) : Builder
     {
@@ -454,7 +440,6 @@ class Builder extends BuilderAbstract
      * @throws \InvalidArgumentException
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function where($columns, $operator = null, $values = null, $boolean = 'and') : Builder
     {
@@ -504,7 +489,6 @@ class Builder extends BuilderAbstract
      * @return array|null
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function getWhereByColumn($column) /* : ?array */
     {
@@ -520,7 +504,6 @@ class Builder extends BuilderAbstract
      * @return string|null
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function getTableOfSystem($expression, string $systemIdentifier) /* : ?string */
     {
@@ -539,7 +522,6 @@ class Builder extends BuilderAbstract
      * @return Builder
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function andWhere(Where $where) : Builder
     {
@@ -559,7 +541,6 @@ class Builder extends BuilderAbstract
      * @return Builder
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function orWhere(Where $where) : Builder
     {
@@ -581,7 +562,6 @@ class Builder extends BuilderAbstract
      * @return Builder
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function whereIn($column, $values = null, string $boolean = 'and') : Builder
     {
@@ -599,7 +579,6 @@ class Builder extends BuilderAbstract
      * @return Builder
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function whereNull($column, string $boolean = 'and') : Builder
     {
@@ -617,7 +596,6 @@ class Builder extends BuilderAbstract
      * @return Builder
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function whereNotNull($column, string $boolean = 'and') : Builder
     {
@@ -634,7 +612,6 @@ class Builder extends BuilderAbstract
      * @return Builder
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function groupBy(...$columns) : Builder
     {
@@ -657,7 +634,6 @@ class Builder extends BuilderAbstract
      * @return Builder
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function newest($column) : Builder
     {
@@ -674,7 +650,6 @@ class Builder extends BuilderAbstract
      * @return Builder
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function oldest($column) : Builder
     {
@@ -692,7 +667,6 @@ class Builder extends BuilderAbstract
      * @return Builder
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function orderBy($columns, $order = 'DESC') : Builder
     {
@@ -717,7 +691,6 @@ class Builder extends BuilderAbstract
      * @return Builder
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function offset($offset) : Builder
     {
@@ -734,7 +707,6 @@ class Builder extends BuilderAbstract
      * @return Builder
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function limit($limit) : Builder
     {
@@ -751,7 +723,6 @@ class Builder extends BuilderAbstract
      * @return Builder
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function union($query) : Builder
     {
@@ -768,7 +739,6 @@ class Builder extends BuilderAbstract
      * Lock query.
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function lock()
     {
@@ -778,7 +748,6 @@ class Builder extends BuilderAbstract
      * Lock for update query.
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function lockUpdate()
     {
@@ -788,7 +757,6 @@ class Builder extends BuilderAbstract
      * Create query string.
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function __toString()
     {
@@ -799,7 +767,6 @@ class Builder extends BuilderAbstract
      * Find query.
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function find()
     {
@@ -809,7 +776,6 @@ class Builder extends BuilderAbstract
      * Count results.
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function count(string $table = '*')
     {
@@ -821,7 +787,6 @@ class Builder extends BuilderAbstract
      * Check if exists.
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function exists()
     {
@@ -831,7 +796,6 @@ class Builder extends BuilderAbstract
      * Select minimum.
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function min()
     {
@@ -841,7 +805,6 @@ class Builder extends BuilderAbstract
      * Select maximum.
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function max()
     {
@@ -851,7 +814,6 @@ class Builder extends BuilderAbstract
      * Select sum.
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function sum()
     {
@@ -861,7 +823,6 @@ class Builder extends BuilderAbstract
      * Select average.
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function avg()
     {
@@ -875,7 +836,6 @@ class Builder extends BuilderAbstract
      * @return Builder
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function insert(...$columns) : Builder
     {
@@ -900,7 +860,6 @@ class Builder extends BuilderAbstract
      * @return Builder
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function into($table) : Builder
     {
@@ -917,7 +876,6 @@ class Builder extends BuilderAbstract
      * @return Builder
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function values(...$values) : Builder
     {
@@ -935,7 +893,6 @@ class Builder extends BuilderAbstract
      * @return Builder
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function value($value, string $type = 'string') : Builder
     {
@@ -955,7 +912,6 @@ class Builder extends BuilderAbstract
      * @return Builder
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function update(...$columns) : Builder
     {
@@ -976,7 +932,6 @@ class Builder extends BuilderAbstract
      * Increment value.
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function increment()
     {
@@ -986,7 +941,6 @@ class Builder extends BuilderAbstract
      * Decrement value.
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function decrement()
     {
@@ -996,7 +950,6 @@ class Builder extends BuilderAbstract
      * Join.
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function join($table1, $table2, $column1, $opperator, $column2)
     {
@@ -1007,7 +960,6 @@ class Builder extends BuilderAbstract
      * Join where.
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function joinWhere()
     {
@@ -1017,7 +969,6 @@ class Builder extends BuilderAbstract
      * Left join.
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function leftJoin()
     {
@@ -1027,7 +978,6 @@ class Builder extends BuilderAbstract
      * Left join where.
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function leftJoinWhere()
     {
@@ -1037,7 +987,6 @@ class Builder extends BuilderAbstract
      * Right join.
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function rightJoin()
     {
@@ -1047,7 +996,6 @@ class Builder extends BuilderAbstract
      * Right join where.
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function rightJoinWhere()
     {
@@ -1059,7 +1007,6 @@ class Builder extends BuilderAbstract
      * @return Builder
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function rollback()
     {
@@ -1070,7 +1017,6 @@ class Builder extends BuilderAbstract
      * On.
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function on()
     {
@@ -1087,7 +1033,6 @@ class Builder extends BuilderAbstract
      * @return Builder
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function merge(Builder $query) : Builder
     {
@@ -1100,7 +1045,6 @@ class Builder extends BuilderAbstract
      * @return mixed
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function execute()
     {
@@ -1123,7 +1067,6 @@ class Builder extends BuilderAbstract
      * @return mixed
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public static function getBindParamType($value)
     {

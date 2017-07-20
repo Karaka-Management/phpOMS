@@ -7,7 +7,6 @@
  * @category   TBD
  * @package    TBD
  * @author     OMS Development Team <dev@oms.com>
- * @author     Dennis Eichhorn <d.eichhorn@oms.com>
  * @copyright  Dennis Eichhorn
  * @license    OMS License 1.0
  * @version    1.0.0
@@ -25,7 +24,6 @@ namespace phpOMS\Utils\Parser\Php;
  * @category   Framework
  * @package    phpOMS\Utils\Parser
  * @author     OMS Development Team <dev@oms.com>
- * @author     Dennis Eichhorn <d.eichhorn@oms.com>
  * @license    OMS License 1.0
  * @link       http://orange-management.com
  * @since      1.0.0
@@ -152,7 +150,6 @@ class ClassParser
      * @return void
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function createFile(string $path) /* : void */
     {
@@ -167,7 +164,6 @@ class ClassParser
      * @return void
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function setFinal(bool $final) /* : void */
     {
@@ -180,7 +176,6 @@ class ClassParser
      * @return bool
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function isFinal() : bool
     {
@@ -195,7 +190,6 @@ class ClassParser
      * @return void
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function setAbstract(bool $abstract) /* : void */
     {
@@ -208,7 +202,6 @@ class ClassParser
      * @return bool
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function isAbstract() : bool
     {
@@ -221,7 +214,6 @@ class ClassParser
      * @return string
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function getType() : string
     {
@@ -238,7 +230,6 @@ class ClassParser
      * @return void
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function setType(string $type) /* : void */
     {
@@ -251,7 +242,6 @@ class ClassParser
      * @return string
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function getExtends() : string
     {
@@ -266,7 +256,6 @@ class ClassParser
      * @return void
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function setExtends(string $extends) /* : void */
     {
@@ -279,7 +268,6 @@ class ClassParser
      * @return void
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function removeExtends() /* : void */
     {
@@ -292,7 +280,6 @@ class ClassParser
      * @return string
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function getNamespace() : string
     {
@@ -307,7 +294,6 @@ class ClassParser
      * @return void
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function setNamespace(string $namespace) /* : void */
     {
@@ -320,7 +306,6 @@ class ClassParser
      * @return void
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function removeNamespace() /* : void */
     {
@@ -336,7 +321,6 @@ class ClassParser
      * @return void
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function addUse(string $namespace, string $as = null) /* : void */
     {
@@ -355,7 +339,6 @@ class ClassParser
      * @return bool
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function removeUse($id) : bool
     {
@@ -374,7 +357,6 @@ class ClassParser
      * @return string
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function getName() : string
     {
@@ -389,7 +371,6 @@ class ClassParser
      * @return void
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function setName(string $name) /* : void */
     {
@@ -404,7 +385,6 @@ class ClassParser
      * @return void
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function addImplements(string $implements) /* : void */
     {
@@ -421,7 +401,6 @@ class ClassParser
      * @return void
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function addInclude(string $include) /* : void */
     {
@@ -438,7 +417,6 @@ class ClassParser
      * @return void
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function addRequire(string $require) /* : void */
     {
@@ -456,7 +434,6 @@ class ClassParser
      * @return void
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function addTrait(string $trait, string $as = null) /* : void */
     {
@@ -475,7 +452,6 @@ class ClassParser
      * @return bool
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function removeTrait($id) : bool
     {
@@ -496,7 +472,6 @@ class ClassParser
      * @return bool
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function addMember(MemberParser $member) /* : void */
     {
@@ -511,7 +486,6 @@ class ClassParser
      * @return bool
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function removeMember(string $name) : bool
     {
@@ -532,7 +506,6 @@ class ClassParser
      * @return MemberParser
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function getMember(string $name) : MemberParser
     {
@@ -547,7 +520,6 @@ class ClassParser
      * @return bool
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function addFunction(FunctionParser $function)
     {
@@ -562,7 +534,6 @@ class ClassParser
      * @return bool
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function removeFunction(string $name) : bool
     {
@@ -583,7 +554,6 @@ class ClassParser
      * @return FunctionParser
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function getFunction(string $name) : FunctionParser
     {
@@ -596,7 +566,6 @@ class ClassParser
      * @return string
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function serialize() : string
     {
@@ -632,7 +601,6 @@ class ClassParser
      * @return string
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     private function serializeRequire(string $keyword, array $source) : string
     {
@@ -654,7 +622,6 @@ class ClassParser
      * @return string
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     private function serializeNamespace() : string
     {
@@ -674,7 +641,6 @@ class ClassParser
      * @return string
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     private function serializeUse(array $source) : string
     {
@@ -696,7 +662,6 @@ class ClassParser
      * @return string
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     private function serializeClass() : string
     {

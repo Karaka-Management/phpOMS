@@ -7,7 +7,6 @@
  * @category   TBD
  * @package    TBD
  * @author     OMS Development Team <dev@oms.com>
- * @author     Dennis Eichhorn <d.eichhorn@oms.com>
  * @copyright  Dennis Eichhorn
  * @license    OMS License 1.0
  * @version    1.0.0
@@ -25,7 +24,6 @@ use phpOMS\Utils\StringUtils;
  * @category   Framework
  * @package    phpOMS\DataStorage\Database
  * @author     OMS Development Team <dev@oms.com>
- * @author     Dennis Eichhorn <d.eichhorn@oms.com>
  * @license    OMS License 1.0
  * @link       http://orange-management.com
  * @since      1.0.0
@@ -98,7 +96,6 @@ abstract class GrammarAbstract
      * @return string
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function compileQuery(BuilderAbstract $query) : string
     {
@@ -122,7 +119,6 @@ abstract class GrammarAbstract
      * @return array Parsed query components
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     abstract protected function compileComponents(BuilderAbstract $query) : array;
 
@@ -132,7 +128,6 @@ abstract class GrammarAbstract
      * @return string
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function getDateFormat() : string
     {
@@ -145,7 +140,6 @@ abstract class GrammarAbstract
      * @return string
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function getTablePrefix() : string
     {
@@ -158,7 +152,6 @@ abstract class GrammarAbstract
      * @param string $prefix Table prefix
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function setTablePrefix(string $prefix) /* : void */
     {
@@ -174,7 +167,6 @@ abstract class GrammarAbstract
      * @return string
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     protected function expressionizeTableColumn(array $elements, string $prefix = '') : string
     {
@@ -208,7 +200,6 @@ abstract class GrammarAbstract
      * @return string
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     protected function compileSystem($system, string $prefix = '') : string
     {

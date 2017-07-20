@@ -7,7 +7,6 @@
  * @category   TBD
  * @package    TBD
  * @author     OMS Development Team <dev@oms.com>
- * @author     Dennis Eichhorn <d.eichhorn@oms.com>
  * @copyright  Dennis Eichhorn
  * @license    OMS License 1.0
  * @version    1.0.0
@@ -27,7 +26,6 @@ use phpOMS\Module\ModuleAbstract;
  * @category   Framework
  * @package    phpOMS\Localization
  * @author     OMS Development Team <dev@oms.com>
- * @author     Dennis Eichhorn <d.eichhorn@oms.com>
  * @license    OMS License 1.0
  * @link       http://orange-management.com
  * @since      1.0.0
@@ -57,7 +55,6 @@ class L11nManager
      * @param LoggerInterface $logger Logger
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function __construct(LoggerInterface $logger = null)
     {
@@ -72,7 +69,6 @@ class L11nManager
      * @return bool
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function isLanguageLoaded(string $language) : bool
     {
@@ -94,7 +90,6 @@ class L11nManager
      * @throws \Exception
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function loadLanguage(string $language, string $from, array $translation) /* : void */
     {
@@ -123,7 +118,6 @@ class L11nManager
      * @return void
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function loadLanguageFromFile(string $language, string $from, string $file) /* : void */
     {
@@ -145,7 +139,6 @@ class L11nManager
      * @return array
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function getModuleLanguage(string $language, string $module = null) : array
     {
@@ -169,7 +162,6 @@ class L11nManager
      * @return string
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function getText(string $code, string $module, string $theme, string $translation) : string
     {

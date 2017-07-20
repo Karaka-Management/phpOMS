@@ -7,7 +7,6 @@
  * @category   TBD
  * @package    TBD
  * @author     OMS Development Team <dev@oms.com>
- * @author     Dennis Eichhorn <d.eichhorn@oms.com>
  * @copyright  Dennis Eichhorn
  * @license    OMS License 1.0
  * @version    1.0.0
@@ -27,7 +26,6 @@ use phpOMS\Math\Statistic\Average;
  * @category   Framework
  * @package    phpOMS\Math\Finance\Forecasting
  * @author     OMS Development Team <dev@oms.com>
- * @author     Dennis Eichhorn <d.eichhorn@oms.com>
  * @license    OMS License 1.0
  * @link       http://orange-management.com
  * @see        https://www.otexts.org/fpp/6/1
@@ -91,7 +89,6 @@ class ClassicalDecomposition
      * @param int   $mode  Decomposition mode
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function __construct(array $data, int $order, int $mode = self::ADDITIVE)
     {
@@ -108,7 +105,6 @@ class ClassicalDecomposition
      * @return array Returns an array containing the trend cycle component, detrended series, seasonal component and remainder component.
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function getDecomposition() : array
     {
@@ -134,7 +130,6 @@ class ClassicalDecomposition
      * @return array Total moving average 2 x m-MA
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public static function computeTrendCycle(array $data, int $order) : array
     {
@@ -153,7 +148,6 @@ class ClassicalDecomposition
      * @return array Detrended series / seasonal normalized data
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public static function computeDetrendedSeries(array $data, array $trendCycleComponent, int $mode) : array
     {
@@ -179,7 +173,6 @@ class ClassicalDecomposition
      * @return int New data start index
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public static function getStartOfDecomposition(int $dataSize, int $trendCycleComponents) : int
     {
@@ -197,7 +190,6 @@ class ClassicalDecomposition
      * @return array
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     private function computeSeasonalComponent(array $detrendedSeries, int $order) : array
     {
@@ -228,7 +220,6 @@ class ClassicalDecomposition
      * @return array All remainders or absolute errors
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public static function computeRemainderComponent(array $data, array $trendCycleComponent, array $seasonalComponent, int $mode = self::ADDITIVE) : array
     {

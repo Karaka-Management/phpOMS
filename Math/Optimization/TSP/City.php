@@ -7,7 +7,6 @@
  * @category   TBD
  * @package    TBD
  * @author     OMS Development Team <dev@oms.com>
- * @author     Dennis Eichhorn <d.eichhorn@oms.com>
  * @copyright  Dennis Eichhorn
  * @license    OMS License 1.0
  * @version    1.0.0
@@ -25,7 +24,6 @@ use phpOMS\Math\Shape\D3\Sphere;
  * @category   Framework
  * @package    phpOMS\DataStorage\Database
  * @author     OMS Development Team <dev@oms.com>
- * @author     Dennis Eichhorn <d.eichhorn@oms.com>
  * @license    OMS License 1.0
  * @link       http://orange-management.com
  * @since      1.0.0
@@ -64,7 +62,6 @@ class City
      * @param string $name City name
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function __construct(float $lat, float $long, string $name)
     {
@@ -81,7 +78,6 @@ class City
      * @return bool
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function equals(City $city) : bool
     {
@@ -94,7 +90,6 @@ class City
      * @return string
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function getName() : string
     {
@@ -107,7 +102,6 @@ class City
      * @return float
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function getLatitude() : float
     {
@@ -122,7 +116,6 @@ class City
      * @return float
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function getDistanceTo(City $city) : float
     {
@@ -135,7 +128,6 @@ class City
      * @return float
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function getLongitude() : float
     {

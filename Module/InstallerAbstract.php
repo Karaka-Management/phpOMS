@@ -7,7 +7,6 @@
  * @category   TBD
  * @package    TBD
  * @author     OMS Development Team <dev@oms.com>
- * @author     Dennis Eichhorn <d.eichhorn@oms.com>
  * @copyright  Dennis Eichhorn
  * @license    OMS License 1.0
  * @version    1.0.0
@@ -30,7 +29,6 @@ use phpOMS\Utils\Parser\Php\ArrayParser;
  * @category   Framework
  * @package    phpOMS\Module
  * @author     OMS Development Team <dev@oms.com>
- * @author     Dennis Eichhorn <d.eichhorn@oms.com>
  * @license    OMS License 1.0
  * @link       http://orange-management.com
  * @since      1.0.0
@@ -99,7 +97,6 @@ class InstallerAbstract
      * @return void
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public static function install(string $modulePath, DatabasePool $dbPool, InfoManager $info) /* : void */
     {
@@ -117,7 +114,6 @@ class InstallerAbstract
      * @return void
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     private static function activate(DatabasePool $dbPool, InfoManager $info) /* : void */
     {
@@ -135,7 +131,6 @@ class InstallerAbstract
      * @return void
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public static function reInit(string $modulePath, InfoManager $info) /* : void */
     {
@@ -153,7 +148,6 @@ class InstallerAbstract
      * @throws PermissionException
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     private static function initRoutes(string $modulePath, InfoManager $info) /* : void */
     {
@@ -180,7 +174,6 @@ class InstallerAbstract
      * @throws PermissionException
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     private static function installRoutes(string $destRoutePath, string $srcRoutePath) /* : void */
     {

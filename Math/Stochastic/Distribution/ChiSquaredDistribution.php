@@ -7,7 +7,6 @@
  * @category   TBD
  * @package    TBD
  * @author     OMS Development Team <dev@oms.com>
- * @author     Dennis Eichhorn <d.eichhorn@oms.com>
  * @copyright  Dennis Eichhorn
  * @license    OMS License 1.0
  * @version    1.0.0
@@ -25,7 +24,6 @@ use phpOMS\Math\Functions\Functions;
  * @category   Framework
  * @package    phpOMS\DataStorage\Database
  * @author     OMS Development Team <dev@oms.com>
- * @author     Dennis Eichhorn <d.eichhorn@oms.com>
  * @license    OMS License 1.0
  * @link       http://orange-management.com
  * @since      1.0.0
@@ -92,7 +90,6 @@ class ChiSquaredDistribution
      * @throws \Exception
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public static function testHypothesis(array $dataset, array $expected, float $significance = 0.05, int $df = 0) : array
     {
@@ -136,7 +133,6 @@ class ChiSquaredDistribution
      * @return int
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public static function getDegreesOfFreedom(array $values) : int
     {
@@ -158,7 +154,6 @@ class ChiSquaredDistribution
      * @throws \Exception
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public static function getPdf(float $x, int $df) : float
     {
@@ -177,7 +172,6 @@ class ChiSquaredDistribution
      * @return int
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public static function getMode(int $df) : int
     {
@@ -192,7 +186,6 @@ class ChiSquaredDistribution
      * @return float
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public static function getMean(int $df) : float
     {
@@ -207,7 +200,6 @@ class ChiSquaredDistribution
      * @return float
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public static function getMedian(int $df) : float
     {
@@ -222,7 +214,6 @@ class ChiSquaredDistribution
      * @return float
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public static function getVariance(int $df) : float
     {
@@ -240,7 +231,6 @@ class ChiSquaredDistribution
      * @throws \Exception
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public static function getMgf(int $df, float $t) : float
     {
@@ -259,7 +249,6 @@ class ChiSquaredDistribution
      * @return float
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public static function getSkewness(int $df) : float
     {
@@ -274,7 +263,6 @@ class ChiSquaredDistribution
      * @return float
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public static function getExKurtosis(int $df) : float
     {

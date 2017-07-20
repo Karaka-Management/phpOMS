@@ -7,7 +7,6 @@
  * @category   TBD
  * @package    TBD
  * @author     OMS Development Team <dev@oms.com>
- * @author     Dennis Eichhorn <d.eichhorn@oms.com>
  * @copyright  Dennis Eichhorn
  * @license    OMS License 1.0
  * @version    1.0.0
@@ -35,7 +34,6 @@ abstract class RegressionAbstract
      * @throws \Exception
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public static function getRegression(array $x, array $y) : array
     {
@@ -60,7 +58,6 @@ abstract class RegressionAbstract
      * @return float
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public static function getStandardErrorOfRegression(array $errors) : float
     {
@@ -86,7 +83,6 @@ abstract class RegressionAbstract
      * @return array
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public static function getPredictionInterval(float $forecasted, array $x, array $errors, float $multiplier = ForecastIntervalMultiplier::P_95) : array
     {
@@ -114,7 +110,6 @@ abstract class RegressionAbstract
      * @return float
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     private static function getBeta1(array $x, array $y) : float
     {
@@ -145,7 +140,6 @@ abstract class RegressionAbstract
      * @return float
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     private static function getBeta0(array $x, array $y, float $b1) : float
     {

@@ -7,7 +7,6 @@
  * @category   TBD
  * @package    TBD
  * @author     OMS Development Team <dev@oms.com>
- * @author     Dennis Eichhorn <d.eichhorn@oms.com>
  * @copyright  Dennis Eichhorn
  * @license    OMS License 1.0
  * @version    1.0.0
@@ -25,7 +24,6 @@ namespace phpOMS\Utils\Parser\Php;
  * @category   Framework
  * @package    phpOMS\Utils\Parser
  * @author     OMS Development Team <dev@oms.com>
- * @author     Dennis Eichhorn <d.eichhorn@oms.com>
  * @license    OMS License 1.0
  * @link       http://orange-management.com
  * @since      1.0.0
@@ -102,7 +100,6 @@ class FunctionParser
      * @return string
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function getName() : string
     {
@@ -117,7 +114,6 @@ class FunctionParser
      * @return void
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function setName(string $name) /* : void */
     {
@@ -132,7 +128,6 @@ class FunctionParser
      * @return void
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function seBody(string $body) /* : void */
     {
@@ -145,7 +140,6 @@ class FunctionParser
      * @return string
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function getBody() : string
     {
@@ -158,7 +152,6 @@ class FunctionParser
      * @return void
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function removeBody() /* : void */
     {
@@ -171,7 +164,6 @@ class FunctionParser
      * @return string
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function getVisibility() : string
     {
@@ -186,7 +178,6 @@ class FunctionParser
      * @return void
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function setVisibility(string $visibility) /* : void */
     {
@@ -201,7 +192,6 @@ class FunctionParser
      * @return void
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function setStatic(bool $static) /* : void */
     {
@@ -214,7 +204,6 @@ class FunctionParser
      * @return bool
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function isStatic() : bool
     {
@@ -229,7 +218,6 @@ class FunctionParser
      * @return void
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function setFinal(bool $final) /* : void */
     {
@@ -242,7 +230,6 @@ class FunctionParser
      * @return bool
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function isFinal() : bool
     {
@@ -257,7 +244,6 @@ class FunctionParser
      * @return void
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function setAbstract(bool $abstract) /* : void */
     {
@@ -276,7 +262,6 @@ class FunctionParser
      * @return bool
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function isAbstract() : bool
     {
@@ -289,7 +274,6 @@ class FunctionParser
      * @return void
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function removeReturn() /* : void */
     {
@@ -302,7 +286,6 @@ class FunctionParser
      * @return string
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function getReturn() : string
     {
@@ -317,7 +300,6 @@ class FunctionParser
      * @return void
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function setReturn(string $return) /* : void */
     {
@@ -334,7 +316,6 @@ class FunctionParser
      * @return void
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function addParameter(string $name, string $typehint = null, string $default = null) /* : void */
     {
@@ -356,7 +337,6 @@ class FunctionParser
      * @return string
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function serialize()
     {
@@ -404,7 +384,6 @@ class FunctionParser
      * @return string
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     private function addIndent(string $body) : string
     {

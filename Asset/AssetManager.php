@@ -7,7 +7,6 @@
  * @category   TBD
  * @package    TBD
  * @author     OMS Development Team <dev@oms.com>
- * @author     Dennis Eichhorn <d.eichhorn@oms.com>
  * @copyright  Dennis Eichhorn
  * @license    OMS License 1.0
  * @version    1.0.0
@@ -23,7 +22,6 @@ namespace phpOMS\Asset;
  * @category   Framework
  * @package    phpOMS\Asset
  * @author     OMS Development Team <dev@oms.com>
- * @author     Dennis Eichhorn <d.eichhorn@oms.com>
  * @license    OMS License 1.0
  * @link       http://orange-management.com
  * @since      1.0.0
@@ -43,7 +41,6 @@ class AssetManager implements \Countable
      * Constructor.
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function __construct()
     {
@@ -59,7 +56,6 @@ class AssetManager implements \Countable
      * @return bool
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function set(string $id, string $asset, bool $overwrite = true) : bool
     {
@@ -80,7 +76,6 @@ class AssetManager implements \Countable
      * @return bool
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function remove(string $id) : bool
     {
@@ -101,7 +96,6 @@ class AssetManager implements \Countable
      * @return mixed Asset
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function get(string $id) /* : ?string */
     {
@@ -118,7 +112,6 @@ class AssetManager implements \Countable
      * @return int
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function count() : int
     {

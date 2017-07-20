@@ -7,7 +7,6 @@
  * @category   TBD
  * @package    TBD
  * @author     OMS Development Team <dev@oms.com>
- * @author     Dennis Eichhorn <d.eichhorn@oms.com>
  * @copyright  Dennis Eichhorn
  * @license    OMS License 1.0
  * @version    1.0.0
@@ -24,7 +23,6 @@ use phpOMS\Datatypes\Exception\InvalidEnumValue;
  * @category   Framework
  * @package    phpOMS\DataStorage\Cache
  * @author     OMS Development Team <dev@oms.com>
- * @author     Dennis Eichhorn <d.eichhorn@oms.com>
  * @license    OMS License 1.0
  * @link       http://orange-management.com
  * @since      1.0.0
@@ -42,7 +40,6 @@ interface CacheInterface
      * @return void
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function set($key, $value, int $expire = -1) /* : void */;
 
@@ -56,7 +53,6 @@ interface CacheInterface
      * @return bool
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function add($key, $value, int $expire = -1) : bool;
 
@@ -69,7 +65,6 @@ interface CacheInterface
      * @return mixed Cache value
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function get($key, int $expire = -1);
 
@@ -82,7 +77,6 @@ interface CacheInterface
      * @return bool
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function delete($key, int $expire = -1) : bool;
 
@@ -94,7 +88,6 @@ interface CacheInterface
      * @return bool
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function flush(int $expire = 0) : bool;
 
@@ -104,7 +97,6 @@ interface CacheInterface
      * @return bool
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function flushAll() : bool;
 
@@ -118,7 +110,6 @@ interface CacheInterface
      * @throws InvalidEnumValue
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function setStatus(int $status) /* : void */;
 
@@ -132,7 +123,6 @@ interface CacheInterface
      * @return bool
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function replace($key, $value, int $expire = -1) : bool;
 
@@ -142,7 +132,6 @@ interface CacheInterface
      * @return mixed[] Stats array
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function stats() : array;
 
@@ -152,7 +141,6 @@ interface CacheInterface
      * @return int Storage threshold
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function getThreshold() : int;
 

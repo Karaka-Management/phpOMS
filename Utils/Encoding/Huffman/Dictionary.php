@@ -7,7 +7,6 @@
  * @category   TBD
  * @package    TBD
  * @author     OMS Development Team <dev@oms.com>
- * @author     Dennis Eichhorn <d.eichhorn@oms.com>
  * @copyright  Dennis Eichhorn
  * @license    OMS License 1.0
  * @version    1.0.0
@@ -23,7 +22,6 @@ namespace phpOMS\Utils\Encoding\Huffman;
  * @category   Framework
  * @package    phpOMS\Utils
  * @author     OMS Development Team <dev@oms.com>
- * @author     Dennis Eichhorn <d.eichhorn@oms.com>
  * @license    OMS License 1.0
  * @link       http://orange-management.com
  * @since      1.0.0
@@ -60,7 +58,6 @@ final class Dictionary
      * @param string $source Source to create the dictionary from
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function __construct(string $source = '')
     {
@@ -77,7 +74,6 @@ final class Dictionary
      * @return void
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function generate(string $source) /* : void */
     {
@@ -113,7 +109,6 @@ final class Dictionary
      * @return void
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     private function fill(string $entry, string $value = '') /* : void */
     {
@@ -143,7 +138,6 @@ final class Dictionary
      * @throws \Exception
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function set(string $entry, string $value) /* : void */
     {
@@ -182,7 +176,6 @@ final class Dictionary
      * @throws \Exception
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function get(string $entry) : string
     {
@@ -205,7 +198,6 @@ final class Dictionary
      * @return null|string
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function getEntry(&$value) /* : ?string */
     {

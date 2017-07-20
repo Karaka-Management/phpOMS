@@ -7,7 +7,6 @@
  * @category   TBD
  * @package    TBD
  * @author     OMS Development Team <dev@oms.com>
- * @author     Dennis Eichhorn <d.eichhorn@oms.com>
  * @copyright  Dennis Eichhorn
  * @license    OMS License 1.0
  * @version    1.0.0
@@ -23,7 +22,6 @@ namespace phpOMS\Utils\RnG;
  * @category   Framework
  * @package    RnG
  * @author     OMS Development Team <dev@oms.com>
- * @author     Dennis Eichhorn <d.eichhorn@oms.com>
  * @license    OMS License 1.0
  * @link       http://orange-management.com
  * @since      1.0.0
@@ -248,7 +246,6 @@ class Text
      * @return void
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function setFormatting($hasFormatting) /* : void */
     {
@@ -263,7 +260,6 @@ class Text
      * @return void
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function setParagraphs($hasParagraphs) /* : void */
     {
@@ -276,7 +272,6 @@ class Text
      * @return int
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function getSentences() : int
     {
@@ -292,7 +287,6 @@ class Text
      * @return string
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function generateText(int $length, $words = null) : string
     {
@@ -383,7 +377,6 @@ class Text
      * @return array
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     private function generatePunctuation(int $length) : array
     {
@@ -450,7 +443,6 @@ class Text
      * @return string
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     private function generateParagraph(int $length) /* : void */
     {
@@ -481,7 +473,6 @@ class Text
      * @return string[]
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     private function generateFormatting(int $length) : array
     {

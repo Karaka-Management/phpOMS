@@ -7,7 +7,6 @@
  * @category   TBD
  * @package    TBD
  * @author     OMS Development Team <dev@oms.com>
- * @author     Dennis Eichhorn <d.eichhorn@oms.com>
  * @copyright  Dennis Eichhorn
  * @license    OMS License 1.0
  * @version    1.0.0
@@ -23,7 +22,6 @@ namespace phpOMS\Math\Shape\D2;
  * @category   Framework
  * @package    phpOMS\DataStorage\Database
  * @author     OMS Development Team <dev@oms.com>
- * @author     Dennis Eichhorn <d.eichhorn@oms.com>
  * @license    OMS License 1.0
  * @link       http://orange-management.com
  * @since      1.0.0
@@ -40,7 +38,6 @@ class Rectangle implements D2ShapeInterface
      * @return float
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public static function getSurface(float $a, float $b) : float
     {
@@ -56,7 +53,6 @@ class Rectangle implements D2ShapeInterface
      * @return float
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public static function getPerimeter(float $a, float $b) : float
     {
@@ -72,7 +68,6 @@ class Rectangle implements D2ShapeInterface
      * @return float
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public static function getDiagonal(float $a, float $b) : float
     {

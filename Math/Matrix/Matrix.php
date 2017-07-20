@@ -7,7 +7,6 @@
  * @category   TBD
  * @package    TBD
  * @author     OMS Development Team <dev@oms.com>
- * @author     Dennis Eichhorn <d.eichhorn@oms.com>
  * @copyright  Dennis Eichhorn
  * @license    OMS License 1.0
  * @version    1.0.0
@@ -23,7 +22,6 @@ namespace phpOMS\Math\Matrix;
  * @category   Framework
  * @package    phpOMS\Math\Matrix
  * @author     OMS Development Team <dev@oms.com>
- * @author     Dennis Eichhorn <d.eichhorn@oms.com>
  * @license    OMS License 1.0
  * @link       http://orange-management.com
  * @since      1.0.0
@@ -69,7 +67,6 @@ class Matrix implements \ArrayAccess, \Iterator
      * @param int $n Columns
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function __construct(int $m, int $n = 1)
     {
@@ -91,7 +88,6 @@ class Matrix implements \ArrayAccess, \Iterator
      * @throws DimensionException
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function set(int $m, int $n, $value) /* : void */
     {
@@ -113,7 +109,6 @@ class Matrix implements \ArrayAccess, \Iterator
      * @throws DimensionException
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function get(int $m, int $n)
     {
@@ -130,7 +125,6 @@ class Matrix implements \ArrayAccess, \Iterator
      * @return Matrix
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function transpose() : Matrix
     {
@@ -146,7 +140,6 @@ class Matrix implements \ArrayAccess, \Iterator
      * @return array
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function getMatrix() : array
     {
@@ -159,7 +152,6 @@ class Matrix implements \ArrayAccess, \Iterator
      * @return int
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function rank() : int
     {
@@ -176,7 +168,6 @@ class Matrix implements \ArrayAccess, \Iterator
      * @throws \Exception
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function setMatrix(array $matrix) : Matrix
     {
@@ -199,7 +190,6 @@ class Matrix implements \ArrayAccess, \Iterator
      * @throws \Exception
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function sub($value) : Matrix
     {
@@ -222,7 +212,6 @@ class Matrix implements \ArrayAccess, \Iterator
      * @throws \Exception
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function add($value) : Matrix
     {
@@ -245,7 +234,6 @@ class Matrix implements \ArrayAccess, \Iterator
      * @throws \Exception
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     private function addMatrix(Matrix $matrix) : Matrix
     {
@@ -274,7 +262,6 @@ class Matrix implements \ArrayAccess, \Iterator
      * @return int
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function getM() : int
     {
@@ -287,7 +274,6 @@ class Matrix implements \ArrayAccess, \Iterator
      * @return int
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function getN() : int
     {
@@ -304,7 +290,6 @@ class Matrix implements \ArrayAccess, \Iterator
      * @throws \Exception
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     private function addScalar($scalar) : Matrix
     {
@@ -332,7 +317,6 @@ class Matrix implements \ArrayAccess, \Iterator
      * @throws \Exception
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function mult($value) : Matrix
     {
@@ -355,7 +339,6 @@ class Matrix implements \ArrayAccess, \Iterator
      * @throws \Exception
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     private function multMatrix(Matrix $matrix) : Matrix
     {
@@ -397,7 +380,6 @@ class Matrix implements \ArrayAccess, \Iterator
      * @throws \Exception
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     private function multScalar($scalar) : Matrix
     {
@@ -421,7 +403,6 @@ class Matrix implements \ArrayAccess, \Iterator
      * @return Matrix
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function upperTriangular() : Matrix
     {
@@ -442,7 +423,6 @@ class Matrix implements \ArrayAccess, \Iterator
      * @return int Det sign
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     private function upperTrianglize(array &$arr) : int
     {
@@ -491,7 +471,6 @@ class Matrix implements \ArrayAccess, \Iterator
      * @return Matrix
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function lowerTriangular() : Matrix
     {
@@ -509,7 +488,6 @@ class Matrix implements \ArrayAccess, \Iterator
      * @throws \Exception
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function inverse(int $algorithm = InverseType::GAUSS_JORDAN) : Matrix
     {
@@ -531,7 +509,6 @@ class Matrix implements \ArrayAccess, \Iterator
      * @return Matrix
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     private function inverseGaussJordan() : Matrix
     {
@@ -653,7 +630,6 @@ class Matrix implements \ArrayAccess, \Iterator
      * @return array
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     private function diag(array $arr) : array
     {
@@ -692,7 +668,6 @@ class Matrix implements \ArrayAccess, \Iterator
      * @return float
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function det() : float
     {
@@ -840,7 +815,6 @@ class Matrix implements \ArrayAccess, \Iterator
      * @return Matrix
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     private function decompositionCholesky() : Matrix
     {

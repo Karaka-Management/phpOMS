@@ -7,7 +7,6 @@
  * @category   TBD
  * @package    TBD
  * @author     OMS Development Team <dev@oms.com>
- * @author     Dennis Eichhorn <d.eichhorn@oms.com>
  * @copyright  Dennis Eichhorn
  * @license    OMS License 1.0
  * @version    1.0.0
@@ -23,7 +22,6 @@ namespace phpOMS\Message\Mail;
  * @category   Framework
  * @package    phpOMS\Message\Mail
  * @author     OMS Development Team <dev@oms.com>
- * @author     Dennis Eichhorn <d.eichhorn@oms.com>
  * @license    OMS License 1.0
  * @link       http://orange-management.com
  * @since      1.0.0
@@ -58,7 +56,6 @@ class Imap extends Mail
      * Constructor.
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function __construct()
     {
@@ -82,7 +79,6 @@ class Imap extends Mail
      * Destructor.
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function __destruct()
     {
@@ -101,7 +97,6 @@ class Imap extends Mail
      * @return bool
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function connect($host, $user, $password)
     {
@@ -120,7 +115,6 @@ class Imap extends Mail
      * @return array
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function getBoxes(string $pattern = '*') : array
     {
@@ -133,7 +127,6 @@ class Imap extends Mail
      * @return mixed
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function getQuota()
     {
@@ -148,7 +141,6 @@ class Imap extends Mail
      * @return Mail
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function getEmail($id) : Mail
     {
@@ -166,7 +158,6 @@ class Imap extends Mail
      * @return array
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function getInboxAll() : array
     {
@@ -181,7 +172,6 @@ class Imap extends Mail
      * @return array
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function getInboxOverview(string $option = 'ALL') : array
     {
@@ -196,7 +186,6 @@ class Imap extends Mail
      * @return array
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function getInboxNew() : array
     {
@@ -211,7 +200,6 @@ class Imap extends Mail
      * @return array
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function getInboxFrom(string $from) : array
     {
@@ -226,7 +214,6 @@ class Imap extends Mail
      * @return array
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function getInboxTo(string $to) : array
     {
@@ -241,7 +228,6 @@ class Imap extends Mail
      * @return array
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function getInboxCc(string $cc) : array
     {
@@ -256,7 +242,6 @@ class Imap extends Mail
      * @return array
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function getInboxBcc(string $bcc) : array
     {
@@ -269,7 +254,6 @@ class Imap extends Mail
      * @return array
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function getInboxAnswered() : array
     {
@@ -284,7 +268,6 @@ class Imap extends Mail
      * @return array
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function getInboxSubject(string $subject) : array
     {
@@ -299,7 +282,6 @@ class Imap extends Mail
      * @return array
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function getInboxSince(\DateTime $since) : array
     {
@@ -312,7 +294,6 @@ class Imap extends Mail
      * @return array
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function getInboxUnseen() : array
     {
@@ -325,7 +306,6 @@ class Imap extends Mail
      * @return array
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function getInboxSeen() : array
     {
@@ -338,7 +318,6 @@ class Imap extends Mail
      * @return array
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function getInboxDeleted() : array
     {
@@ -353,7 +332,6 @@ class Imap extends Mail
      * @return array
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function getInboxText(string $text) : array
     {

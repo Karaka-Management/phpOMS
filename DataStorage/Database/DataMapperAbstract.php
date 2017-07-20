@@ -7,7 +7,6 @@
  * @category   TBD
  * @package    TBD
  * @author     OMS Development Team <dev@oms.com>
- * @author     Dennis Eichhorn <d.eichhorn@oms.com>
  * @copyright  Dennis Eichhorn
  * @license    OMS License 1.0
  * @version    1.0.0
@@ -30,7 +29,6 @@ use phpOMS\Message\RequestAbstract;
  * @category   Framework
  * @package    phpOMS\DataStorage\Database
  * @author     OMS Development Team <dev@oms.com>
- * @author     Dennis Eichhorn <d.eichhorn@oms.com>
  * @license    OMS License 1.0
  * @link       http://orange-management.com
  * @since      1.0.0
@@ -164,7 +162,6 @@ class DataMapperAbstract implements DataMapperInterface
      * Constructor.
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     private function __construct()
     {
@@ -174,7 +171,6 @@ class DataMapperAbstract implements DataMapperInterface
      * Clone.
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     private function __clone()
     {
@@ -186,7 +182,6 @@ class DataMapperAbstract implements DataMapperInterface
      * @param ConnectionAbstract $con Database connection
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public static function setConnection(ConnectionAbstract $con) /* : void */
     {
@@ -199,7 +194,6 @@ class DataMapperAbstract implements DataMapperInterface
      * @return string
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public static function getPrimaryField() : string
     {
@@ -212,7 +206,6 @@ class DataMapperAbstract implements DataMapperInterface
      * @return string
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public static function getTable() : string
     {
@@ -227,7 +220,6 @@ class DataMapperAbstract implements DataMapperInterface
      * @return void
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     private static function extend($class) /* : void */
     {
@@ -253,7 +245,6 @@ class DataMapperAbstract implements DataMapperInterface
      * @return null
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public static function with(...$objects) /* : void */
     {
@@ -272,7 +263,6 @@ class DataMapperAbstract implements DataMapperInterface
      * @return void
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public static function clear() /* : void */
     {
@@ -310,7 +300,6 @@ class DataMapperAbstract implements DataMapperInterface
      * @return Builder
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public static function find(string $search) : array
     {
@@ -336,7 +325,6 @@ class DataMapperAbstract implements DataMapperInterface
      * @return mixed
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public static function create($obj, int $relations = RelationType::ALL)
     {
@@ -368,7 +356,6 @@ class DataMapperAbstract implements DataMapperInterface
      * @return mixed
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     private static function createModel($obj, \ReflectionClass $reflectionClass)
     {
@@ -447,7 +434,6 @@ class DataMapperAbstract implements DataMapperInterface
      * @return void
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     private static function setObjectId(\ReflectionClass $reflectionClass, $obj, $objId) /* : void */
     {
@@ -477,7 +463,6 @@ class DataMapperAbstract implements DataMapperInterface
      * @throws \Exception
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     private static function createHasMany(\ReflectionClass $reflectionClass, $obj, $objId) /* : void */
     {
@@ -568,7 +553,6 @@ class DataMapperAbstract implements DataMapperInterface
      * @return mixed
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     private static function createOwnsOne(string $propertyName, $obj)
     {
@@ -597,7 +581,6 @@ class DataMapperAbstract implements DataMapperInterface
      * @return mixed
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     private static function createBelongsTo(string $propertyName, $obj)
     {
@@ -628,7 +611,6 @@ class DataMapperAbstract implements DataMapperInterface
      * @return mixed
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     private static function createRelationTable(string $propertyName, array $objsIds, $objId)
     {
@@ -660,7 +642,6 @@ class DataMapperAbstract implements DataMapperInterface
      * @return mixed
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     private static function parseValue(string $type, $value)
     {
@@ -701,7 +682,6 @@ class DataMapperAbstract implements DataMapperInterface
      * @throws \Exception
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     private static function updateHasMany(\ReflectionClass $reflectionClass, $obj, $objId) /* : void */
     {
@@ -786,7 +766,6 @@ class DataMapperAbstract implements DataMapperInterface
      * @throws \Exception
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     private static function updateRelationTable(string $propertyName, array $objsIds, $objId)
     {
@@ -825,7 +804,6 @@ class DataMapperAbstract implements DataMapperInterface
      * @return mixed
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     private static function deleteRelationTable(string $propertyName, array $objsIds, $objId)
     {
@@ -860,7 +838,6 @@ class DataMapperAbstract implements DataMapperInterface
      * @return mixed
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     private static function updateOwnsOne(string $propertyName, $obj)
     {
@@ -887,7 +864,6 @@ class DataMapperAbstract implements DataMapperInterface
      * @return mixed
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     private static function updateBelongsTo(string $propertyName, $obj)
     {
@@ -911,7 +887,6 @@ class DataMapperAbstract implements DataMapperInterface
      * @return mixed
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     private static function updateModel($obj, $objId, \ReflectionClass $reflectionClass = null) /* : void */
     {
@@ -975,7 +950,6 @@ class DataMapperAbstract implements DataMapperInterface
      * @return int
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public static function update($obj, int $relations = RelationType::ALL) : int
     {
@@ -1013,7 +987,6 @@ class DataMapperAbstract implements DataMapperInterface
      * @throws \Exception
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     private static function deleteHasMany(\ReflectionClass $reflectionClass, $obj, $objId, int $relations) /* : void */
     {
@@ -1083,7 +1056,6 @@ class DataMapperAbstract implements DataMapperInterface
      * @return mixed
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     private static function deleteOwnsOne(string $propertyName, $obj)
     {
@@ -1109,7 +1081,6 @@ class DataMapperAbstract implements DataMapperInterface
      * @return mixed
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     private static function deleteBelongsTo(string $propertyName, $obj)
     {
@@ -1134,7 +1105,6 @@ class DataMapperAbstract implements DataMapperInterface
      * @return mixed
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     private static function deleteModel($obj, $objId, int $relations = RelationType::REFERENCE, \ReflectionClass $reflectionClass = null) /* : void */
     {
@@ -1189,7 +1159,6 @@ class DataMapperAbstract implements DataMapperInterface
      * @return int
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public static function delete($obj, int $relations = RelationType::REFERENCE)
     {
@@ -1218,7 +1187,6 @@ class DataMapperAbstract implements DataMapperInterface
      * @return array
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public static function populateIterable(array $result) : array
     {
@@ -1244,7 +1212,6 @@ class DataMapperAbstract implements DataMapperInterface
      * @return mixed
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public static function populate(array $result, $obj = null)
     {
@@ -1274,7 +1241,6 @@ class DataMapperAbstract implements DataMapperInterface
      * @return mixed
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public static function populateManyToMany(array $result, &$obj)
     {
@@ -1316,7 +1282,6 @@ class DataMapperAbstract implements DataMapperInterface
      * @todo   accept reflection class as parameter
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public static function populateHasOne(&$obj)
     {
@@ -1359,7 +1324,6 @@ class DataMapperAbstract implements DataMapperInterface
      * @todo   accept reflection class as parameter
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public static function populateOwnsOne(&$obj)
     {
@@ -1402,7 +1366,6 @@ class DataMapperAbstract implements DataMapperInterface
      * @todo   accept reflection class as parameter
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public static function populateBelongsTo(&$obj)
     {
@@ -1446,7 +1409,6 @@ class DataMapperAbstract implements DataMapperInterface
      * @throws \Exception
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public static function populateAbstract(array $result, $obj)
     {
@@ -1493,7 +1455,6 @@ class DataMapperAbstract implements DataMapperInterface
      * @return mixed
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public static function get($primaryKey, int $relations = RelationType::ALL, $fill = null)
     {
@@ -1543,7 +1504,6 @@ class DataMapperAbstract implements DataMapperInterface
      * @return array
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public static function getAll(int $relations = RelationType::ALL, string $lang = '')
     {
@@ -1566,7 +1526,6 @@ class DataMapperAbstract implements DataMapperInterface
      * @return array
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public static function listResults(Builder $query)
     {
@@ -1589,7 +1548,6 @@ class DataMapperAbstract implements DataMapperInterface
      * @return mixed
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public static function getNewest(int $limit = 1, Builder $query = null, int $relations = RelationType::ALL, string $lang = '')
     {
@@ -1631,7 +1589,6 @@ class DataMapperAbstract implements DataMapperInterface
      * @return array
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public static function getAllByQuery(Builder $query, int $relations = RelationType::ALL) : array
     {
@@ -1657,7 +1614,6 @@ class DataMapperAbstract implements DataMapperInterface
      * @return mixed
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public static function getRandom(int $amount = 1, int $relations = RelationType::ALL)
     {
@@ -1682,7 +1638,6 @@ class DataMapperAbstract implements DataMapperInterface
      * @return array
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public static function fillRelations(array &$obj, int $relations = RelationType::ALL)
     {
@@ -1721,7 +1676,6 @@ class DataMapperAbstract implements DataMapperInterface
      * @return mixed
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public static function getRaw($primaryKey) : array
     {
@@ -1744,7 +1698,6 @@ class DataMapperAbstract implements DataMapperInterface
      * @return array
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public static function getAllRaw(string $lang = '') : array
     {
@@ -1771,7 +1724,6 @@ class DataMapperAbstract implements DataMapperInterface
      * @return array
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public static function getHasManyRaw($primaryKey, int $relations = RelationType::ALL) : array
     {
@@ -1825,7 +1777,6 @@ class DataMapperAbstract implements DataMapperInterface
      * @return Builder
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public static function getQuery(Builder $query = null) : Builder
     {
@@ -1843,7 +1794,6 @@ class DataMapperAbstract implements DataMapperInterface
      * @return string
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public static function getCreatedAt() : string
     {
@@ -1860,7 +1810,6 @@ class DataMapperAbstract implements DataMapperInterface
      * @return mixed
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public static function getByRequest(RequestAbstract $request)
     {

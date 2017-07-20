@@ -7,7 +7,6 @@
  * @category   TBD
  * @package    TBD
  * @author     OMS Development Team <dev@oms.com>
- * @author     Dennis Eichhorn <d.eichhorn@oms.com>
  * @copyright  Dennis Eichhorn
  * @license    OMS License 1.0
  * @version    1.0.0
@@ -25,7 +24,6 @@ namespace phpOMS\Socket\Packets;
  * @category   System
  * @package    Framework
  * @author     OMS Development Team <dev@oms.com>
- * @author     Dennis Eichhorn <d.eichhorn@oms.com>
  * @license    OMS License 1.0
  * @link       http://orange-management.com
  * @since      1.0.0
@@ -84,7 +82,6 @@ class Header implements \Serializable
      * @return int
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function getLength()
     {
@@ -97,7 +94,6 @@ class Header implements \Serializable
      * @return void
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function setLength($length) /* : void */
     {
@@ -108,7 +104,6 @@ class Header implements \Serializable
      * @return int
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function getType()
     {
@@ -121,7 +116,6 @@ class Header implements \Serializable
      * @return void
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function setType($type) /* : void */
     {
@@ -132,7 +126,6 @@ class Header implements \Serializable
      * @return int
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function getSubtype()
     {
@@ -145,7 +138,6 @@ class Header implements \Serializable
      * @return void
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function setSubtype($subtype) /* : void */
     {
@@ -158,7 +150,6 @@ class Header implements \Serializable
      * @return string Json serialization
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function serialize()
     {
@@ -171,7 +162,6 @@ class Header implements \Serializable
      * @return string Json serialization
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function __toString()
     {
@@ -186,7 +176,6 @@ class Header implements \Serializable
      * @return void
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function unserialize($string)
     {

@@ -7,7 +7,6 @@
  * @category   TBD
  * @package    TBD
  * @author     OMS Development Team <dev@oms.com>
- * @author     Dennis Eichhorn <d.eichhorn@oms.com>
  * @copyright  Dennis Eichhorn
  * @license    OMS License 1.0
  * @version    1.0.0
@@ -25,7 +24,6 @@ use phpOMS\Message\RequestAbstract;
  * @category   Framework
  * @package    phpOMS\Router
  * @author     OMS Development Team <dev@oms.com>
- * @author     Dennis Eichhorn <d.eichhorn@oms.com>
  * @license    OMS License 1.0
  * @link       http://orange-management.com
  * @since      1.0.0
@@ -45,7 +43,6 @@ class Router
      * Constructor.
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function __construct()
     {
@@ -59,7 +56,6 @@ class Router
      * @return bool
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function importFromFile(string $path) : bool
     {
@@ -83,7 +79,6 @@ class Router
      * @return void
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function add(string $route, $destination, int $verb = RouteVerb::GET) /* : void */
     {
@@ -108,7 +103,6 @@ class Router
      * @throws \InvalidArgumentException
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function route($request, int $verb = RouteVerb::GET) : array
     {
@@ -144,7 +138,6 @@ class Router
      * @return bool
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     private function match(string $route, int $routeVerb, string $uri, int $remoteVerb = RouteVerb::GET) : bool
     {

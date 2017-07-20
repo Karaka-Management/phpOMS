@@ -7,7 +7,6 @@
  * @category   TBD
  * @package    TBD
  * @author     OMS Development Team <dev@oms.com>
- * @author     Dennis Eichhorn <d.eichhorn@oms.com>
  * @copyright  Dennis Eichhorn
  * @license    OMS License 1.0
  * @version    1.0.0
@@ -23,7 +22,6 @@ namespace phpOMS\Utils\TaskSchedule;
  * @category   Framework
  * @package    phpOMS\Utils\TaskSchedule
  * @author     OMS Development Team <dev@oms.com>
- * @author     Dennis Eichhorn <d.eichhorn@oms.com>
  * @license    OMS License 1.0
  * @link       http://orange-management.com
  * @since      1.0.0
@@ -81,7 +79,6 @@ abstract class TaskAbstract
      * @return string
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function getId() : string
     {
@@ -94,7 +91,6 @@ abstract class TaskAbstract
      * @return string
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function getCommand() : string
     {
@@ -109,7 +105,6 @@ abstract class TaskAbstract
      * @return void
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function setCommand(string $command) /* : void */
     {
@@ -122,7 +117,6 @@ abstract class TaskAbstract
      * @return string
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function getRun() : string
     {
@@ -137,7 +131,6 @@ abstract class TaskAbstract
      * @return void
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function setRun(string $run) /* : void */
     {
@@ -150,7 +143,6 @@ abstract class TaskAbstract
      * @return string
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function getStatus() : string
     {
@@ -165,7 +157,6 @@ abstract class TaskAbstract
      * @return void
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function setStatus(string $status) /* : void */
     {
@@ -178,7 +169,6 @@ abstract class TaskAbstract
      * @return \DateTime
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function getNextRunTime()
     {
@@ -193,7 +183,6 @@ abstract class TaskAbstract
      * @return void
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function setNextRunTime(\DateTime $nextRunTime) /* : void */
     {
@@ -206,7 +195,6 @@ abstract class TaskAbstract
      * @return \DateTime
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function getLastRuntime() 
     {
@@ -221,7 +209,6 @@ abstract class TaskAbstract
      * @return void
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function setLastRuntime(\DateTime $lastRunTime) /* : void */
     {
@@ -234,7 +221,6 @@ abstract class TaskAbstract
      * @return \DateTime
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function getStart()
     {
@@ -249,7 +235,6 @@ abstract class TaskAbstract
      * @return void
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function setStart(\DateTime $start) /* : void */
     {
@@ -262,7 +247,6 @@ abstract class TaskAbstract
      * @return \DateTime
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function getEnd()
     {
@@ -277,7 +261,6 @@ abstract class TaskAbstract
      * @return void
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function setEnd(\DateTime $end) /* : void */
     {
@@ -290,7 +273,6 @@ abstract class TaskAbstract
      * @return string
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function getAuthor() : string
     {
@@ -305,7 +287,6 @@ abstract class TaskAbstract
      * @return void
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function setAuthor(string $author) /* : void */
     {
@@ -318,7 +299,6 @@ abstract class TaskAbstract
      * @return string
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function getComment() : string
     {
@@ -333,7 +313,6 @@ abstract class TaskAbstract
      * @return void
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function setComment(string $comment) /* : void */
     {
@@ -346,7 +325,6 @@ abstract class TaskAbstract
      * @return string
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function addResult(string $result)
     {

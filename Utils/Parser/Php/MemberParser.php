@@ -7,7 +7,6 @@
  * @category   TBD
  * @package    TBD
  * @author     OMS Development Team <dev@oms.com>
- * @author     Dennis Eichhorn <d.eichhorn@oms.com>
  * @copyright  Dennis Eichhorn
  * @license    OMS License 1.0
  * @version    1.0.0
@@ -25,7 +24,6 @@ namespace phpOMS\Utils\Parser\Php;
  * @category   Framework
  * @package    phpOMS\Utils\Parser
  * @author     OMS Development Team <dev@oms.com>
- * @author     Dennis Eichhorn <d.eichhorn@oms.com>
  * @license    OMS License 1.0
  * @link       http://orange-management.com
  * @since      1.0.0
@@ -78,7 +76,6 @@ class MemberParser
      * @return string
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function getName() : string
     {
@@ -93,7 +90,6 @@ class MemberParser
      * @return void
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function setName(string $name) /* : void */
     {
@@ -106,7 +102,6 @@ class MemberParser
      * @return string
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function getVisibility() : string
     {
@@ -121,7 +116,6 @@ class MemberParser
      * @return void
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function setVisibility(string $visibility) /* : void */
     {
@@ -136,7 +130,6 @@ class MemberParser
      * @return void
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function setStatic(bool $static) /* : void */
     {
@@ -153,7 +146,6 @@ class MemberParser
      * @return bool
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function isStatic() : bool
     {
@@ -168,7 +160,6 @@ class MemberParser
      * @return void
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function setConst(bool $const) /* : void */
     {
@@ -185,7 +176,6 @@ class MemberParser
      * @return bool
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function isConst() : bool
     {
@@ -200,7 +190,6 @@ class MemberParser
      * @return void
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function setDefault($default) /* : void */
     {
@@ -213,7 +202,6 @@ class MemberParser
      * @return string
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function serialize() : string
     {
@@ -243,7 +231,6 @@ class MemberParser
      * @return string
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public static function parseVariable($value) : string
     {

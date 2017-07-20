@@ -7,7 +7,6 @@
  * @category   TBD
  * @package    TBD
  * @author     OMS Development Team <dev@oms.com>
- * @author     Dennis Eichhorn <d.eichhorn@oms.com>
  * @copyright  Dennis Eichhorn
  * @license    OMS License 1.0
  * @version    1.0.0
@@ -27,7 +26,6 @@ use phpOMS\Utils\StringUtils;
  * @category   Framework
  * @package    phpOMS/Uri
  * @author     OMS Development Team <dev@oms.com>
- * @author     Dennis Eichhorn <d.eichhorn@oms.com>
  * @license    OMS License 1.0
  * @link       http://orange-management.com
  * @since      1.0.0
@@ -137,7 +135,6 @@ class Http implements UriInterface
      * @param string $uri Root path for subdirectory
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function __construct(string $uri)
     {
@@ -180,7 +177,6 @@ class Http implements UriInterface
      * @return string
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public static function getCurrent() : string
     {
@@ -202,7 +198,6 @@ class Http implements UriInterface
      * @return string
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function getRootPath() : string
     {
@@ -248,7 +243,6 @@ class Http implements UriInterface
      * @return string
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function getPass() : string
     {
@@ -331,7 +325,6 @@ class Http implements UriInterface
      * @return string
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function getUser() : string
     {

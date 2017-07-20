@@ -7,7 +7,6 @@
  * @category   TBD
  * @package    TBD
  * @author     OMS Development Team <dev@oms.com>
- * @author     Dennis Eichhorn <d.eichhorn@oms.com>
  * @copyright  Dennis Eichhorn
  * @license    OMS License 1.0
  * @version    1.0.0
@@ -30,7 +29,6 @@ use phpOMS\DataStorage\Database\Query\Where;
  * @category   Framework
  * @package    phpOMS\DataStorage\Database
  * @author     OMS Development Team <dev@oms.com>
- * @author     Dennis Eichhorn <d.eichhorn@oms.com>
  * @license    OMS License 1.0
  * @link       http://orange-management.com
  * @since      1.0.0
@@ -102,7 +100,6 @@ class Grammar extends GrammarAbstract
      * @throws \InvalidArgumentException
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     protected function compileComponents(BuilderAbstract $query) : array
     {
@@ -150,7 +147,6 @@ class Grammar extends GrammarAbstract
      * @return string
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     protected function compileSelects(Builder $query, array $columns) : string
     {
@@ -172,7 +168,6 @@ class Grammar extends GrammarAbstract
      * @return string
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     protected function compileFrom(Builder $query, array $table) : string
     {
@@ -195,7 +190,6 @@ class Grammar extends GrammarAbstract
      * @return string
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     protected function compileWheres(Builder $query, array $wheres, bool $first = true) : string
     {
@@ -225,7 +219,6 @@ class Grammar extends GrammarAbstract
      * @return string
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     protected function compileWhereElement(array $element, Builder $query, bool $first = true) : string
     {
@@ -271,7 +264,6 @@ class Grammar extends GrammarAbstract
      * @throws \InvalidArgumentException Throws this exception if the value to compile is not supported by this function.
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     protected function compileValue($value, $prefix = '') : string
     {
@@ -313,7 +305,6 @@ class Grammar extends GrammarAbstract
      * @return string
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     protected function compileLimit(Builder $query, int $limit) : string
     {
@@ -329,7 +320,6 @@ class Grammar extends GrammarAbstract
      * @return string
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     protected function compileOffset(Builder $query, $offset) : string
     {
@@ -350,7 +340,6 @@ class Grammar extends GrammarAbstract
      * @return string
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     private function compileGroups(Builder $query, array $groups)
     {
@@ -374,7 +363,6 @@ class Grammar extends GrammarAbstract
      * @return string
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     private function compileOrders(Builder $query, array $orders) : string
     {
@@ -412,7 +400,6 @@ class Grammar extends GrammarAbstract
      * @return string
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     protected function compileInto(Builder $query, $table) : string
     {
@@ -428,7 +415,6 @@ class Grammar extends GrammarAbstract
      * @return string
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     protected function compileInserts(Builder $query, array $columns) : string
     {
@@ -454,7 +440,6 @@ class Grammar extends GrammarAbstract
      * @return string
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     protected function compileValues(Builder $query, array $values) : string
     {

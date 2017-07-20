@@ -7,7 +7,6 @@
  * @category   TBD
  * @package    TBD
  * @author     OMS Development Team <dev@oms.com>
- * @author     Dennis Eichhorn <d.eichhorn@oms.com>
  * @copyright  Dennis Eichhorn
  * @license    OMS License 1.0
  * @version    1.0.0
@@ -23,7 +22,6 @@ namespace phpOMS\Message;
  * @category   Framework
  * @package    phpOMS\Response
  * @author     OMS Development Team <dev@oms.com>
- * @author     Dennis Eichhorn <d.eichhorn@oms.com>
  * @license    OMS License 1.0
  * @link       http://orange-management.com
  * @since      1.0.0
@@ -46,7 +44,6 @@ abstract class HeaderAbstract
      * @param bool   $overwrite Overwrite if key already exists
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     abstract public function set(string $key, string $value, bool $overwrite = false);
 
@@ -56,7 +53,6 @@ abstract class HeaderAbstract
      * @param string $statusCode Status code
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     abstract public function generate(string $statusCode) /* : void */;
 
@@ -68,7 +64,6 @@ abstract class HeaderAbstract
      * @return array
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     abstract public function get(string $key) : array;
 
@@ -80,7 +75,6 @@ abstract class HeaderAbstract
      * @return bool
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     abstract public function has(string $key) : bool;
 
@@ -88,7 +82,6 @@ abstract class HeaderAbstract
      * Set header locked.
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public static function lock() /* : void */
     {
@@ -102,7 +95,6 @@ abstract class HeaderAbstract
      * @return bool
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public static function isLocked() : bool
     {

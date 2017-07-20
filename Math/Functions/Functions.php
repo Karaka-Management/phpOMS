@@ -7,7 +7,6 @@
  * @category   TBD
  * @package    TBD
  * @author     OMS Development Team <dev@oms.com>
- * @author     Dennis Eichhorn <d.eichhorn@oms.com>
  * @copyright  Dennis Eichhorn
  * @license    OMS License 1.0
  * @version    1.0.0
@@ -23,7 +22,6 @@ namespace phpOMS\Math\Functions;
  * @category   Framework
  * @package    phpOMS\DataStorage\Database
  * @author     OMS Development Team <dev@oms.com>
- * @author     Dennis Eichhorn <d.eichhorn@oms.com>
  * @license    OMS License 1.0
  * @link       http://orange-management.com
  * @since      1.0.0
@@ -40,7 +38,6 @@ class Functions
      * @return int
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public static function getGammaInteger(int $k) : int
     {
@@ -58,7 +55,6 @@ class Functions
      * @return int
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public static function fact(int $n, int $start = 1) : int
     {
@@ -84,7 +80,6 @@ class Functions
      * @return int
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public static function binomialCoefficient(int $n, int $k) : int
     {
@@ -126,7 +121,6 @@ class Functions
      * @return int
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public static function ackermann(int $m, int $n) : int
     {
@@ -147,7 +141,6 @@ class Functions
      * @return array
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public static function abs(array $values) : array
     {
@@ -169,7 +162,6 @@ class Functions
      * @return int
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public static function invMod(int $a, int $n) : int
     {
@@ -216,7 +208,6 @@ class Functions
      * @return int
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public static function mod($a, $b) : int
     {
@@ -235,7 +226,6 @@ class Functions
      * @return bool
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public static function isOdd($a) : bool
     {
@@ -250,7 +240,6 @@ class Functions
      * @return bool
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public static function isEven($a) : bool
     {
@@ -270,7 +259,6 @@ class Functions
      * @return int
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public static function getRelativeDegree($value, $length, $start = 0) : int
     {

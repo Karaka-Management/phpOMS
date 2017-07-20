@@ -7,7 +7,6 @@
  * @category   TBD
  * @package    TBD
  * @author     OMS Development Team <dev@oms.com>
- * @author     Dennis Eichhorn <d.eichhorn@oms.com>
  * @copyright  Dennis Eichhorn
  * @license    OMS License 1.0
  * @version    1.0.0
@@ -23,7 +22,6 @@ namespace phpOMS\Math\Optimization\TSP;
  * @category   Framework
  * @package    phpOMS\DataStorage\Database
  * @author     OMS Development Team <dev@oms.com>
- * @author     Dennis Eichhorn <d.eichhorn@oms.com>
  * @license    OMS License 1.0
  * @link       http://orange-management.com
  * @since      1.0.0
@@ -69,7 +67,6 @@ class Tour implements \Countable
      * @param bool     $initialize Initialize with random tours
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function __construct(CityPool $pool, bool $initialize = false)
     {
@@ -89,7 +86,6 @@ class Tour implements \Countable
      * @return null|City
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function getCity($index)
     {
@@ -102,7 +98,6 @@ class Tour implements \Countable
      * @return float
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function getFitness() : float
     {
@@ -119,7 +114,6 @@ class Tour implements \Countable
      * @return float
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function getDistance() : float
     {
@@ -146,7 +140,6 @@ class Tour implements \Countable
      * @param City $city City
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function addCity(City $city)
     {
@@ -163,7 +156,6 @@ class Tour implements \Countable
      * @param City $city  City
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function setCity(int $index, City $city) /* : void */
     {
@@ -182,7 +174,6 @@ class Tour implements \Countable
      * @return bool
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function hasCity(City $city) : bool
     {
@@ -201,7 +192,6 @@ class Tour implements \Countable
      * @return int
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function count() : int
     {

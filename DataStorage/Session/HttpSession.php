@@ -7,7 +7,6 @@
  * @category   TBD
  * @package    TBD
  * @author     OMS Development Team <dev@oms.com>
- * @author     Dennis Eichhorn <d.eichhorn@oms.com>
  * @copyright  Dennis Eichhorn
  * @license    OMS License 1.0
  * @version    1.0.0
@@ -27,7 +26,6 @@ use phpOMS\DataStorage\LockException;
  * @category   Framework
  * @package    phpOMS\DataStorage\Session
  * @author     OMS Development Team <dev@oms.com>
- * @author     Dennis Eichhorn <d.eichhorn@oms.com>
  * @license    OMS License 1.0
  * @link       http://orange-management.com
  * @since      1.0.0
@@ -68,7 +66,6 @@ class HttpSession implements SessionInterface
      * @throws LockException Throws this exception if the session is alrady locked for further interaction.
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function __construct(int $liftetime = 3600, $sid = false)
     {
@@ -93,7 +90,6 @@ class HttpSession implements SessionInterface
      * Set Csrf protection for forms.
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     private function setCsrfProtection() /* : void */
     {
@@ -133,7 +129,6 @@ class HttpSession implements SessionInterface
      * Lock session from further adjustments.
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function lock()
     {
@@ -146,7 +141,6 @@ class HttpSession implements SessionInterface
      * @return bool Lock status
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public static function isLocked() : bool
     {
@@ -198,7 +192,6 @@ class HttpSession implements SessionInterface
      * Destruct session.
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function __destruct()
     {

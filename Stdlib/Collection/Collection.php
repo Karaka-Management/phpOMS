@@ -7,7 +7,6 @@
  * @category   TBD
  * @package    TBD
  * @author     OMS Development Team <dev@oms.com>
- * @author     Dennis Eichhorn <d.eichhorn@oms.com>
  * @copyright  Dennis Eichhorn
  * @license    OMS License 1.0
  * @version    1.0.0
@@ -25,7 +24,6 @@ use phpOMS\Utils\ArrayUtils;
  * @category   Framework
  * @package    phpOMS\Stdlib
  * @author     OMS Development Team <dev@oms.com>
- * @author     Dennis Eichhorn <d.eichhorn@oms.com>
  * @license    OMS License 1.0
  * @link       http://orange-management.com
  * @since      1.0.0
@@ -46,7 +44,6 @@ class Collection implements \Countable, \ArrayAccess, \Iterator, \JsonSerializab
      * @param array $data Collection data
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function __construct(array $data)
     {
@@ -59,7 +56,6 @@ class Collection implements \Countable, \ArrayAccess, \Iterator, \JsonSerializab
      * @return array Collection array representation
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function toArray() : array
     {
@@ -72,7 +68,6 @@ class Collection implements \Countable, \ArrayAccess, \Iterator, \JsonSerializab
      * @return string
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function jsonSerialize()
     {
@@ -87,7 +82,6 @@ class Collection implements \Countable, \ArrayAccess, \Iterator, \JsonSerializab
      * @return mixed
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function avg($filter = null)
     {
@@ -102,7 +96,6 @@ class Collection implements \Countable, \ArrayAccess, \Iterator, \JsonSerializab
      * @return mixed
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function sum($filter = null)
     {
@@ -135,7 +128,6 @@ class Collection implements \Countable, \ArrayAccess, \Iterator, \JsonSerializab
      * @return int
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function count()
     {
@@ -152,7 +144,6 @@ class Collection implements \Countable, \ArrayAccess, \Iterator, \JsonSerializab
      * @return Collection[]
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function chunk(int $size) : array
     {
@@ -172,7 +163,6 @@ class Collection implements \Countable, \ArrayAccess, \Iterator, \JsonSerializab
      * @return Collection
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function collapse() : Collection
     {
@@ -211,7 +201,6 @@ class Collection implements \Countable, \ArrayAccess, \Iterator, \JsonSerializab
      * @return bool
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function contains($find) : bool
     {
@@ -238,7 +227,6 @@ class Collection implements \Countable, \ArrayAccess, \Iterator, \JsonSerializab
      * @return array
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function diff($compare) : array
     {
@@ -278,7 +266,6 @@ class Collection implements \Countable, \ArrayAccess, \Iterator, \JsonSerializab
      * @return Collection
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function every(int $n) : Collection
     {

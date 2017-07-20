@@ -7,7 +7,6 @@
  * @category   TBD
  * @package    TBD
  * @author     OMS Development Team <dev@oms.com>
- * @author     Dennis Eichhorn <d.eichhorn@oms.com>
  * @copyright  Dennis Eichhorn
  * @license    OMS License 1.0
  * @version    1.0.0
@@ -26,7 +25,6 @@ use phpOMS\Validation\ValidatorAbstract;
  * @category   Validation
  * @package    Framework
  * @author     OMS Development Team <dev@oms.com>
- * @author     Dennis Eichhorn <d.eichhorn@oms.com>
  * @license    OMS License 1.0
  * @link       http://orange-management.com
  * @since      1.0.0
@@ -37,7 +35,6 @@ abstract class Iban extends ValidatorAbstract
      * Constructor.
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     private function __construct()
     {
@@ -49,7 +46,6 @@ abstract class Iban extends ValidatorAbstract
      * @return bool
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public static function isValid($value) : bool
     {
@@ -100,7 +96,6 @@ abstract class Iban extends ValidatorAbstract
      * @return bool
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     private static function validateZeros(string $iban, string $layout) : bool
     {
@@ -129,7 +124,6 @@ abstract class Iban extends ValidatorAbstract
      * @return bool
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     private static function validateNumeric(string $iban, string $layout) : bool
     {
@@ -157,7 +151,6 @@ abstract class Iban extends ValidatorAbstract
      * @return bool
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     private static function validateChecksum(string $iban) : bool
     {

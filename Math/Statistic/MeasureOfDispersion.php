@@ -7,7 +7,6 @@
  * @category   TBD
  * @package    TBD
  * @author     OMS Development Team <dev@oms.com>
- * @author     Dennis Eichhorn <d.eichhorn@oms.com>
  * @copyright  Dennis Eichhorn
  * @license    OMS License 1.0
  * @version    1.0.0
@@ -23,7 +22,6 @@ namespace phpOMS\Math\Statistic;
  * @category   Framework
  * @package    phpOMS\DataStorage\Database
  * @author     OMS Development Team <dev@oms.com>
- * @author     Dennis Eichhorn <d.eichhorn@oms.com>
  * @license    OMS License 1.0
  * @link       http://orange-management.com
  * @since      1.0.0
@@ -41,7 +39,6 @@ class MeasureOfDispersion
      * @return float
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public static function range(array $values) : float
     {
@@ -64,7 +61,6 @@ class MeasureOfDispersion
      * @throws \Exception
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public static function empiricalVariationcoefficient(array $values) : float
     {
@@ -87,7 +83,6 @@ class MeasureOfDispersion
      * @return float
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public static function standardDeviation(array $values) : float
     {
@@ -106,7 +101,6 @@ class MeasureOfDispersion
      * @throws \Exception
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public static function sampleVariance(array $values) : float
     {
@@ -131,7 +125,6 @@ class MeasureOfDispersion
      * @throws \Exception
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public static function empiricalVariance(array $values) : float
     {
@@ -164,7 +157,6 @@ class MeasureOfDispersion
      * @throws \Exception
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public static function empiricalCovariance(array $x, array $y) : float
     {
@@ -198,7 +190,6 @@ class MeasureOfDispersion
      * @return float
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public static function getIQR(array $x) : float
     {
@@ -212,7 +203,6 @@ class MeasureOfDispersion
      * @return float
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public static function meanDeviation(array $x) : float
     {
@@ -234,7 +224,6 @@ class MeasureOfDispersion
      * @return float
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public static function squaredMeanDeviation(array $x) : float
     {

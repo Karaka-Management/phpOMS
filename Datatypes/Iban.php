@@ -7,7 +7,6 @@
  * @category   TBD
  * @package    TBD
  * @author     OMS Development Team <dev@oms.com>
- * @author     Dennis Eichhorn <d.eichhorn@oms.com>
  * @copyright  Dennis Eichhorn
  * @license    OMS License 1.0
  * @version    1.0.0
@@ -25,7 +24,6 @@ use phpOMS\Validation\Base\IbanEnum;
  * @category   Framework
  * @package    phpOMS\Datatypes
  * @author     OMS Development Team <dev@oms.com>
- * @author     Dennis Eichhorn <d.eichhorn@oms.com>
  * @license    OMS License 1.0
  * @link       http://orange-management.com
  * @since      1.0.0
@@ -48,7 +46,6 @@ class Iban implements \Serializable
      * @param string $iban Iban
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function __construct(string $iban)
     {
@@ -63,7 +60,6 @@ class Iban implements \Serializable
      * @return void
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     private function parse(string $iban) /* : void */
     {
@@ -82,7 +78,6 @@ class Iban implements \Serializable
      * @return string
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public static function normalize(string $iban) : string
     {
@@ -95,7 +90,6 @@ class Iban implements \Serializable
      * @return int
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function getLength() : int
     {
@@ -108,7 +102,6 @@ class Iban implements \Serializable
      * @return string
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function getChecksum() : string
     {
@@ -123,7 +116,6 @@ class Iban implements \Serializable
      * @return string
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     private function getSequence(string $sequence) : string
     {
@@ -146,7 +138,6 @@ class Iban implements \Serializable
      * @return string
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function getCountry() : string
     {
@@ -159,7 +150,6 @@ class Iban implements \Serializable
      * @return string
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function getNationalChecksum() : string
     {
@@ -172,7 +162,6 @@ class Iban implements \Serializable
      * @return string
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function getBranchCode() : string
     {
@@ -185,7 +174,6 @@ class Iban implements \Serializable
      * @return string
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function getAccountType() : string
     {
@@ -198,7 +186,6 @@ class Iban implements \Serializable
      * @return string
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function getCurrency() : string
     {
@@ -211,7 +198,6 @@ class Iban implements \Serializable
      * @return string
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function getBankCode() : string
     {
@@ -224,7 +210,6 @@ class Iban implements \Serializable
      * @return string
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function getAccount() : string
     {
@@ -237,7 +222,6 @@ class Iban implements \Serializable
      * @return string
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function getHoldersKennital() : string
     {
@@ -250,7 +234,6 @@ class Iban implements \Serializable
      * @return string
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function getOwnerAccountNumber() : string
     {
@@ -265,7 +248,6 @@ class Iban implements \Serializable
      * @return string
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function getBicCode() : string
     {
@@ -289,7 +271,6 @@ class Iban implements \Serializable
      * @return string
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function prettyPrint() : string
     {

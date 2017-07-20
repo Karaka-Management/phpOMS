@@ -7,7 +7,6 @@
  * @category   TBD
  * @package    TBD
  * @author     OMS Development Team <dev@oms.com>
- * @author     Dennis Eichhorn <d.eichhorn@oms.com>
  * @copyright  Dennis Eichhorn
  * @license    OMS License 1.0
  * @version    1.0.0
@@ -25,7 +24,6 @@ namespace phpOMS\Datatypes;
  * @category   Framework
  * @package    phpOMS\Datatypes
  * @author     OMS Development Team <dev@oms.com>
- * @author     Dennis Eichhorn <d.eichhorn@oms.com>
  * @license    OMS License 1.0
  * @link       http://orange-management.com
  * @since      1.0.0
@@ -43,7 +41,6 @@ abstract class Enum
      * @return bool
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public static function isValidValue($value) : bool
     {
@@ -58,7 +55,6 @@ abstract class Enum
      * @return array
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public static function getConstants() : array
     {
@@ -73,7 +69,6 @@ abstract class Enum
      * @return mixed
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public static function getRandom()
     {
@@ -93,7 +88,6 @@ abstract class Enum
      * @throws \Exception Throws this exception if the constant is not defined in the enum class.
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public static function getByName(string $name)
     {
@@ -114,7 +108,6 @@ abstract class Enum
      * @throws \Exception Throws this exception if the constant is not defined in the enum class.
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public static function getName(string $value)
     {
@@ -133,7 +126,6 @@ abstract class Enum
      * @return bool
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public static function isValidName(string $name) : bool
     {
@@ -146,7 +138,6 @@ abstract class Enum
      * @return int
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public static function count() : int
     {

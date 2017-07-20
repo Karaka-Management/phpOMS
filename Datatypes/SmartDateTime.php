@@ -7,7 +7,6 @@
  * @category   TBD
  * @package    TBD
  * @author     OMS Development Team <dev@oms.com>
- * @author     Dennis Eichhorn <d.eichhorn@oms.com>
  * @copyright  Dennis Eichhorn
  * @license    OMS License 1.0
  * @version    1.0.0
@@ -25,7 +24,6 @@ namespace phpOMS\Datatypes;
  * @category   Framework
  * @package    phpOMS\Datatypes
  * @author     OMS Development Team <dev@oms.com>
- * @author     Dennis Eichhorn <d.eichhorn@oms.com>
  * @license    OMS License 1.0
  * @link       http://orange-management.com
  * @since      1.0.0
@@ -67,7 +65,6 @@ class SmartDateTime extends \DateTime
      * @return SmartDateTime
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function createModify(int $y, int $m = 0, int $d = 0, int $calendar = CAL_GREGORIAN) : SmartDateTime
     {
@@ -88,7 +85,6 @@ class SmartDateTime extends \DateTime
      * @return SmartDateTime
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function smartModify(int $y, int $m = 0, int $d = 0, int $calendar = CAL_GREGORIAN) : SmartDateTime
     {
@@ -124,7 +120,6 @@ class SmartDateTime extends \DateTime
      * @return SmartDateTime
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function getEndOfMonth() : SmartDateTime
     {
@@ -137,7 +132,6 @@ class SmartDateTime extends \DateTime
      * @return SmartDateTime
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function getStartOfMonth() : SmartDateTime
     {
@@ -150,7 +144,6 @@ class SmartDateTime extends \DateTime
      * @return int
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function getDaysOfMonth() : int
     {
@@ -163,7 +156,6 @@ class SmartDateTime extends \DateTime
      * @return int
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function getFirstDayOfMonth() : int
     {
@@ -176,7 +168,6 @@ class SmartDateTime extends \DateTime
      * @return bool
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function isLeapYear() : bool
     {
@@ -189,7 +180,6 @@ class SmartDateTime extends \DateTime
      * @return bool
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public static function leapYear(int $year) : bool
     {
@@ -216,7 +206,6 @@ class SmartDateTime extends \DateTime
      * @return int
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public static function getDayOfWeek(int $y, int $m, int $d) : int
     {

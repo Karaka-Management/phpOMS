@@ -7,7 +7,6 @@
  * @category   TBD
  * @package    TBD
  * @author     OMS Development Team <dev@oms.com>
- * @author     Dennis Eichhorn <d.eichhorn@oms.com>
  * @copyright  Dennis Eichhorn
  * @license    OMS License 1.0
  * @version    1.0.0
@@ -30,7 +29,6 @@ use phpOMS\Uri\Http;
  * @category   Framework
  * @package    phpOMS\Utils\Converter
  * @author     OMS Development Team <dev@oms.com>
- * @author     Dennis Eichhorn <d.eichhorn@oms.com>
  * @license    OMS License 1.0
  * @link       http://orange-management.com
  * @since      1.0.0
@@ -50,7 +48,6 @@ class Currency
      * Constructor.
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     private function __construct()
     {
@@ -62,7 +59,6 @@ class Currency
      * Can be used in order to refresh them. Be careful currency rates only get updated once a day from the ECB website.
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public static function resetCurrencies() /* : void */
     {
@@ -78,7 +74,6 @@ class Currency
      * @return float
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public static function fromEurTo(float $value, string $to) : float
     {
@@ -100,7 +95,6 @@ class Currency
      * @throws \Exception
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public static function getEcbEuroRates() : array
     {
@@ -135,7 +129,6 @@ class Currency
      * @return float
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public static function fromToEur(float $value, string $from) : float
     {
@@ -159,7 +152,6 @@ class Currency
      * @return float
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public static function convertCurrency(float $value, string $from, string $to) : float
     {

@@ -7,7 +7,6 @@
  * @category   TBD
  * @package    TBD
  * @author     OMS Development Team <dev@oms.com>
- * @author     Dennis Eichhorn <d.eichhorn@oms.com>
  * @copyright  Dennis Eichhorn
  * @license    OMS License 1.0
  * @version    1.0.0
@@ -25,7 +24,6 @@ namespace phpOMS\System\File;
  * @category   Framework
  * @package    phpOMS\System\File
  * @author     OMS Development Team <dev@oms.com>
- * @author     Dennis Eichhorn <d.eichhorn@oms.com>
  * @license    OMS License 1.0
  * @link       http://orange-management.com
  * @since      1.0.0
@@ -43,7 +41,6 @@ interface FileInterface extends ContainerInterface
      * @return bool 
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public static function put(string $path, string $content, int $mode = ContentPutMode::APPEND | ContentPutMode::CREATE) : bool;
 
@@ -58,7 +55,6 @@ interface FileInterface extends ContainerInterface
      * @return bool
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public static function set(string $path, string $content) : bool;
 
@@ -73,7 +69,6 @@ interface FileInterface extends ContainerInterface
      * @return bool
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public static function append(string $path, string $content) : bool;
 
@@ -88,7 +83,6 @@ interface FileInterface extends ContainerInterface
      * @return bool
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public static function prepend(string $path, string $content) : bool;
 
@@ -100,7 +94,6 @@ interface FileInterface extends ContainerInterface
      * @return string Content of file
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public static function get(string $path) : string;
 
@@ -112,7 +105,6 @@ interface FileInterface extends ContainerInterface
      * @return string
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public static function extension(string $path) : string;
 
@@ -125,7 +117,6 @@ interface FileInterface extends ContainerInterface
      * @return bool 
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function putContent(string $content, int $mode = ContentPutMode::APPEND | ContentPutMode::CREATE) : bool;
 
@@ -139,7 +130,6 @@ interface FileInterface extends ContainerInterface
      * @return bool
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function setContent(string $content) : bool;
 
@@ -153,7 +143,6 @@ interface FileInterface extends ContainerInterface
      * @return bool
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function appendContent(string $content) : bool;
 
@@ -167,7 +156,6 @@ interface FileInterface extends ContainerInterface
      * @return bool
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function prependContent(string $content) : bool;
 
@@ -177,7 +165,6 @@ interface FileInterface extends ContainerInterface
      * @return string Content of file
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function getContent() : string;
 
@@ -187,7 +174,6 @@ interface FileInterface extends ContainerInterface
      * @return string
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function getExtension() : string;
 }

@@ -7,7 +7,6 @@
  * @category   TBD
  * @package    TBD
  * @author     OMS Development Team <dev@oms.com>
- * @author     Dennis Eichhorn <d.eichhorn@oms.com>
  * @copyright  Dennis Eichhorn
  * @license    OMS License 1.0
  * @version    1.0.0
@@ -25,7 +24,6 @@ use phpOMS\Contract\RenderableInterface;
  * @category   Framework
  * @package    phpOMS/Model
  * @author     OMS Development Team <dev@oms.com>
- * @author     Dennis Eichhorn <d.eichhorn@oms.com>
  * @license    OMS License 1.0
  * @link       http://orange-management.com
  * @since      1.0.0
@@ -81,7 +79,6 @@ class Meta implements RenderableInterface
      * @return void
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function addKeyword(string $keyword)
     {
@@ -96,7 +93,6 @@ class Meta implements RenderableInterface
      * @return string[] Keywords
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function getKeywords() : array
     {
@@ -109,7 +105,6 @@ class Meta implements RenderableInterface
      * @return string Author
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function getAuthor() : string
     {
@@ -124,7 +119,6 @@ class Meta implements RenderableInterface
      * @return void
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function setAuthor(string $author) /* : void */
     {
@@ -137,7 +131,6 @@ class Meta implements RenderableInterface
      * @return string Charset
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function getCharset() : string
     {
@@ -152,7 +145,6 @@ class Meta implements RenderableInterface
      * @return void
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function setCharset(string $charset) /* : void */
     {
@@ -165,7 +157,6 @@ class Meta implements RenderableInterface
      * @return string Descritpion
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function getDescription() : string
     {
@@ -180,7 +171,6 @@ class Meta implements RenderableInterface
      * @return void
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function setDescription(string $description) /* : void */
     {
@@ -193,7 +183,6 @@ class Meta implements RenderableInterface
      * @return string Language
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function getLanguage() : string
     {
@@ -208,7 +197,6 @@ class Meta implements RenderableInterface
      * @return void
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function setLanguage(string $language) /* : void */
     {

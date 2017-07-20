@@ -7,7 +7,6 @@
  * @category   TBD
  * @package    TBD
  * @author     OMS Development Team <dev@oms.com>
- * @author     Dennis Eichhorn <d.eichhorn@oms.com>
  * @copyright  Dennis Eichhorn
  * @license    OMS License 1.0
  * @version    1.0.0
@@ -23,7 +22,6 @@ namespace phpOMS\Math\Optimization\Graph;
  * @category   Framework
  * @package    phpOMS\Asset
  * @author     OMS Development Team <dev@oms.com>
- * @author     Dennis Eichhorn <d.eichhorn@oms.com>
  * @license    OMS License 1.0
  * @link       http://orange-management.com
  * @since      1.0.0
@@ -36,7 +34,6 @@ interface EdgeInterface
      * @return mixed
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function getId();
 
@@ -46,7 +43,6 @@ interface EdgeInterface
      * @return mixed
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function getWeight();
 
@@ -56,7 +52,6 @@ interface EdgeInterface
      * @param mixed $weight Weight of edge
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function setWeight($weight);
 
@@ -66,7 +61,6 @@ interface EdgeInterface
      * @return array
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function getVertices() : array;
 
@@ -77,7 +71,6 @@ interface EdgeInterface
      * @param VerticeInterface $b Vertice b
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function setVertices(VerticeInterface $a, VerticeInterface $b);
 }

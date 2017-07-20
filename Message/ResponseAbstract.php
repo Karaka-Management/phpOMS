@@ -7,7 +7,6 @@
  * @category   TBD
  * @package    TBD
  * @author     OMS Development Team <dev@oms.com>
- * @author     Dennis Eichhorn <d.eichhorn@oms.com>
  * @copyright  Dennis Eichhorn
  * @license    OMS License 1.0
  * @version    1.0.0
@@ -26,7 +25,6 @@ use phpOMS\Utils\ArrayUtils;
  * @category   Framework
  * @package    phpOMS\Response
  * @author     OMS Development Team <dev@oms.com>
- * @author     Dennis Eichhorn <d.eichhorn@oms.com>
  * @license    OMS License 1.0
  * @link       http://orange-management.com
  * @since      1.0.0
@@ -90,7 +88,6 @@ abstract class ResponseAbstract implements MessageInterface, \JsonSerializable
      * @return mixed
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function &get($id)
     {
@@ -107,7 +104,6 @@ abstract class ResponseAbstract implements MessageInterface, \JsonSerializable
      * @return void
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function set($key, $response, bool $overwrite = true) /* : void */
     {
@@ -165,7 +161,6 @@ abstract class ResponseAbstract implements MessageInterface, \JsonSerializable
      * @throws \Exception
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     abstract public function toArray() : array;
 
@@ -175,7 +170,6 @@ abstract class ResponseAbstract implements MessageInterface, \JsonSerializable
      * @return HeaderAbstract
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function getHeader() : HeaderAbstract
     {
@@ -188,7 +182,6 @@ abstract class ResponseAbstract implements MessageInterface, \JsonSerializable
      * @return string
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     abstract public function getBody() : string;
 }

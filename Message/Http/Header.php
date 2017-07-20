@@ -7,7 +7,6 @@
  * @category   TBD
  * @package    TBD
  * @author     OMS Development Team <dev@oms.com>
- * @author     Dennis Eichhorn <d.eichhorn@oms.com>
  * @copyright  Dennis Eichhorn
  * @license    OMS License 1.0
  * @version    1.0.0
@@ -25,7 +24,6 @@ use phpOMS\Message\HeaderAbstract;
  * @category   Framework
  * @package    phpOMS\Response
  * @author     OMS Development Team <dev@oms.com>
- * @author     Dennis Eichhorn <d.eichhorn@oms.com>
  * @license    OMS License 1.0
  * @link       http://orange-management.com
  * @since      1.0.0
@@ -45,7 +43,6 @@ class Header extends HeaderAbstract
      * Constructor.
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function __construct()
     {
@@ -92,7 +89,6 @@ class Header extends HeaderAbstract
      * @throws \Exception
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     private function isSecurityHeader(string $key) : bool
     {
@@ -108,7 +104,6 @@ class Header extends HeaderAbstract
      * @return int
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public static function getStatusCode() : int
     {
@@ -121,7 +116,6 @@ class Header extends HeaderAbstract
      * @return array
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function getHeaders() : array
     {
@@ -146,7 +140,6 @@ class Header extends HeaderAbstract
      * @throws \Exception
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function remove(int $key) : bool
     {
@@ -183,7 +176,6 @@ class Header extends HeaderAbstract
      * Push all headers.
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function push() /* : void */
     {
@@ -234,7 +226,6 @@ class Header extends HeaderAbstract
      * @return void
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     private function generate403() /* : void */
     {
@@ -249,7 +240,6 @@ class Header extends HeaderAbstract
      * @return void
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     private function generate404() /* : void */
     {
@@ -264,7 +254,6 @@ class Header extends HeaderAbstract
      * @return void
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     private function generate406() /* : void */
     {
@@ -279,7 +268,6 @@ class Header extends HeaderAbstract
      * @return void
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     private function generate407() /* : void */
     {
@@ -292,7 +280,6 @@ class Header extends HeaderAbstract
      * @return void
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     private function generate500() /* : void */
     {
@@ -308,7 +295,6 @@ class Header extends HeaderAbstract
      * @return void
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     private function generate503() /* : void */
     {

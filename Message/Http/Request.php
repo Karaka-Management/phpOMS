@@ -7,7 +7,6 @@
  * @category   TBD
  * @package    TBD
  * @author     OMS Development Team <dev@oms.com>
- * @author     Dennis Eichhorn <d.eichhorn@oms.com>
  * @copyright  Dennis Eichhorn
  * @license    OMS License 1.0
  * @version    1.0.0
@@ -31,7 +30,6 @@ use phpOMS\Uri\UriInterface;
  * @category   Framework
  * @package    phpOMS\Request
  * @author     OMS Development Team <dev@oms.com>
- * @author     Dennis Eichhorn <d.eichhorn@oms.com>
  * @license    OMS License 1.0
  * @link       http://orange-management.com
  * @since      1.0.0
@@ -75,7 +73,6 @@ class Request extends RequestAbstract
      * @param UriInterface $uri  Uri
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function __construct(Localization $l11n = null, UriInterface $uri = null)
     {
@@ -97,7 +94,6 @@ class Request extends RequestAbstract
      * @return void
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     private function init() /* : void */
     {
@@ -121,7 +117,6 @@ class Request extends RequestAbstract
      * @throws \Exception
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     private function initCurrentRequest() /* : void */
     {
@@ -152,7 +147,6 @@ class Request extends RequestAbstract
      * @return string
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     private function loadRequestLanguage() : string
     {
@@ -172,7 +166,6 @@ class Request extends RequestAbstract
      * @return void
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     private function cleanupGlobals() /* : void */
     {
@@ -188,7 +181,6 @@ class Request extends RequestAbstract
      * @return void
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     private function setupUriBuilder() /* : void */
     {
@@ -220,7 +212,6 @@ class Request extends RequestAbstract
      * @todo: maybe change to normal path string e.g. /some/path/here instead of hash! Remember to adjust navigation elements
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function createRequestHashs(int $start = 0) /* : void */
     {
@@ -241,7 +232,6 @@ class Request extends RequestAbstract
      * @return bool
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function isMobile() : bool
     {
@@ -274,7 +264,6 @@ class Request extends RequestAbstract
      * @return string
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function getBrowser() : string
     {
@@ -300,7 +289,6 @@ class Request extends RequestAbstract
      * @return void
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function setBrowser(string $browser) /* : void */
     {
@@ -313,7 +301,6 @@ class Request extends RequestAbstract
      * @return string
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function getOS() : string
     {
@@ -339,7 +326,6 @@ class Request extends RequestAbstract
      * @return void
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function setOS(string $os) /* : void */
     {
@@ -362,7 +348,6 @@ class Request extends RequestAbstract
      * @return bool
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function isHttps(int $port = 443) : bool
     {
@@ -383,7 +368,6 @@ class Request extends RequestAbstract
      * @return string
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function __toString()
     {
@@ -423,7 +407,6 @@ class Request extends RequestAbstract
      * @return array
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function getFiles() : array
     {
@@ -438,7 +421,6 @@ class Request extends RequestAbstract
      * @throws \Exception
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function getRouteVerb() : int
     {
@@ -462,7 +444,6 @@ class Request extends RequestAbstract
      * @return string
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function getMethod() : string
     {

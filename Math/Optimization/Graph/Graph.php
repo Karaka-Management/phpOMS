@@ -7,7 +7,6 @@
  * @category   TBD
  * @package    TBD
  * @author     OMS Development Team <dev@oms.com>
- * @author     Dennis Eichhorn <d.eichhorn@oms.com>
  * @copyright  Dennis Eichhorn
  * @license    OMS License 1.0
  * @version    1.0.0
@@ -27,7 +26,6 @@ use phpOMS\Stdlib\Map\OrderType;
  * @category   Framework
  * @package    phpOMS\Asset
  * @author     OMS Development Team <dev@oms.com>
- * @author     Dennis Eichhorn <d.eichhorn@oms.com>
  * @license    OMS License 1.0
  * @link       http://orange-management.com
  * @since      1.0.0
@@ -54,7 +52,6 @@ class Graph
      * Constructor
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function __construct()
     {
@@ -69,7 +66,6 @@ class Graph
      * @return bool
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function addVertice(VerticeInterface $vertice) : bool
     {
@@ -90,7 +86,6 @@ class Graph
      * @return bool
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function addEdge(EdgeInterface $edge) : bool
     {
@@ -111,7 +106,6 @@ class Graph
      * @return bool
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function removeVertice($id) : bool
     {
@@ -133,7 +127,6 @@ class Graph
      * @return bool
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function removeEdge($a, $b) : bool
     {
@@ -148,7 +141,6 @@ class Graph
      * @return bool
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function removeEdgeById($id) : bool
     {
@@ -169,7 +161,6 @@ class Graph
      * @return VerticeInterface
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function getVertice($id) : VerticeInterface
     {
@@ -187,7 +178,6 @@ class Graph
      * @return EdgeInterface
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function getEdge($a, $b) : EdgeInterface
     {
@@ -202,7 +192,6 @@ class Graph
      * @return EdgeInterface
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function getEdgeById(int $id) : EdgeInterface
     {
@@ -215,7 +204,6 @@ class Graph
      * @return int
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function countVertices() : int
     {
@@ -228,7 +216,6 @@ class Graph
      * @return int
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function countEdges() : int
     {

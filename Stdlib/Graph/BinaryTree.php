@@ -7,7 +7,6 @@
  * @category   TBD
  * @package    TBD
  * @author     OMS Development Team <dev@oms.com>
- * @author     Dennis Eichhorn <d.eichhorn@oms.com>
  * @copyright  Dennis Eichhorn
  * @license    OMS License 1.0
  * @version    1.0.0
@@ -23,7 +22,6 @@ namespace phpOMS\Stdlib\Graph;
  * @category   Framework
  * @package    phpOMS\Datatypes
  * @author     OMS Development Team <dev@oms.com>
- * @author     Dennis Eichhorn <d.eichhorn@oms.com>
  * @license    OMS License 1.0
  * @link       http://orange-management.com
  * @since      1.0.0
@@ -53,7 +51,6 @@ class BinaryTree extends Tree
 	 * @return Node Left node
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
 	public function getLeft(Node $base)
 	{
@@ -71,7 +68,6 @@ class BinaryTree extends Tree
 	 * @return Node Right node
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
 	public function getRight(Node $base)
 	{
@@ -90,7 +86,6 @@ class BinaryTree extends Tree
 	 * @return BinaryTree
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
 	public function setLeft(Node $base, Node $left) : BinaryTree
 	{
@@ -114,7 +109,6 @@ class BinaryTree extends Tree
 	 * @return BinaryTree
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
 	public function setRight(Node $base, Node $right)  /* : void */
 	{
@@ -134,7 +128,6 @@ class BinaryTree extends Tree
      * @param \Closure $callback Task to perform on node
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
 	public function inOrder(Node $node, \Closure $callback) 
 	{
@@ -151,7 +144,6 @@ class BinaryTree extends Tree
 	 * @param Node[] &$order Ordered nodes by horizontal distance
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
 	private function getVerticalOrder(Node $node, int $horizontalDistance = 0, array &$order) 
 	{
@@ -179,7 +171,6 @@ class BinaryTree extends Tree
      * @param \Closure $callback Task to perform on node
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
 	public function verticalOrder(Node $node, \Closure $callback)
 	{
@@ -202,7 +193,6 @@ class BinaryTree extends Tree
 	 * @return bool True if tree is symmetric, false if tree is not symmetric
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
 	public function isSymmetric(Node $node1 = null, Node $node2 = null) : bool 
 	{

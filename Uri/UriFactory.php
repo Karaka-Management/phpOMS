@@ -7,7 +7,6 @@
  * @category   TBD
  * @package    TBD
  * @author     OMS Development Team <dev@oms.com>
- * @author     Dennis Eichhorn <d.eichhorn@oms.com>
  * @copyright  Dennis Eichhorn
  * @license    OMS License 1.0
  * @version    1.0.0
@@ -25,7 +24,6 @@ namespace phpOMS\Uri;
  * @category   Framework
  * @package    phpOMS/Uri
  * @author     OMS Development Team <dev@oms.com>
- * @author     Dennis Eichhorn <d.eichhorn@oms.com>
  * @license    OMS License 1.0
  * @link       http://orange-management.com
  * @since      1.0.0
@@ -45,7 +43,6 @@ class UriFactory
      * Constructor.
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     private function __construct()
     {
@@ -59,7 +56,6 @@ class UriFactory
      * @return null|string
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public static function getQuery(string $key) /* : ?string */
     {
@@ -76,7 +72,6 @@ class UriFactory
      * @return bool
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public static function setQuery(string $key, string $value, bool $overwrite = true) : bool
     {
@@ -95,7 +90,6 @@ class UriFactory
      * @return bool
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public static function clearAll() : bool 
     {
@@ -112,7 +106,6 @@ class UriFactory
      * @return void
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public static function setupUriBuilder(UriInterface $uri) /* : void */
     {
@@ -136,7 +129,6 @@ class UriFactory
      * @return bool
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public static function clear(string $key) : bool 
     {
@@ -157,7 +149,6 @@ class UriFactory
      * @return bool
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public static function clearLike(string $pattern) : bool 
     {
@@ -183,7 +174,6 @@ class UriFactory
      * @return string
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     private static function unique(string $url) : string
     {
@@ -233,7 +223,6 @@ class UriFactory
      * @throws \Exception
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public static function build(string $uri, array $toMatch = []) /* : ?string */
     {

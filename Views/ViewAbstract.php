@@ -7,7 +7,6 @@
  * @category   TBD
  * @package    TBD
  * @author     OMS Development Team <dev@oms.com>
- * @author     Dennis Eichhorn <d.eichhorn@oms.com>
  * @copyright  Dennis Eichhorn
  * @license    OMS License 1.0
  * @version    1.0.0
@@ -25,7 +24,6 @@ use phpOMS\System\File\PathException;
  * @category   Framework
  * @package    phpOMS/Views
  * @author     OMS Development Team <dev@oms.com>
- * @author     Dennis Eichhorn <d.eichhorn@oms.com>
  * @license    OMS License 1.0
  * @link       http://orange-management.com
  * @since      1.0.0
@@ -53,7 +51,6 @@ abstract class ViewAbstract implements \Serializable
      * Constructor.
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function __construct()
     {
@@ -68,7 +65,6 @@ abstract class ViewAbstract implements \Serializable
      * @return int
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     private static function viewSort(array $a, array $b) : int
     {
@@ -85,7 +81,6 @@ abstract class ViewAbstract implements \Serializable
      * @return string
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function getTemplate() : string
     {
@@ -100,7 +95,6 @@ abstract class ViewAbstract implements \Serializable
      * @return void
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function setTemplate(string $template) /* : void */
     {
@@ -111,7 +105,6 @@ abstract class ViewAbstract implements \Serializable
      * @return View[]
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function getViews() : array
     {
@@ -124,7 +117,6 @@ abstract class ViewAbstract implements \Serializable
      * @return false|View
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function getView($id)
     {
@@ -143,7 +135,6 @@ abstract class ViewAbstract implements \Serializable
      * @return bool
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function removeView(string $id) : bool
     {
@@ -166,7 +157,6 @@ abstract class ViewAbstract implements \Serializable
      * @return void
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function editView(string $id, View $view, $order = null) /* : void */
     {
@@ -184,7 +174,6 @@ abstract class ViewAbstract implements \Serializable
      * @return void
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function addView(string $id, View $view, int $order = 0, bool $overwrite = true) /* : void */
     {
@@ -203,7 +192,6 @@ abstract class ViewAbstract implements \Serializable
      * @return string|array
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function serialize()
     {
@@ -220,7 +208,6 @@ abstract class ViewAbstract implements \Serializable
      * @return array
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function toArray() : array
     {
@@ -243,7 +230,6 @@ abstract class ViewAbstract implements \Serializable
      * @return string
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function render(...$data) : string
     {
@@ -273,7 +259,6 @@ abstract class ViewAbstract implements \Serializable
      * @return void
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function unserialize($raw)
     {

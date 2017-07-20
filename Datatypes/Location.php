@@ -7,7 +7,6 @@
  * @category   TBD
  * @package    TBD
  * @author     OMS Development Team <dev@oms.com>
- * @author     Dennis Eichhorn <d.eichhorn@oms.com>
  * @copyright  Dennis Eichhorn
  * @license    OMS License 1.0
  * @version    1.0.0
@@ -23,7 +22,6 @@ namespace phpOMS\Datatypes;
  * @category   Framework
  * @package    phpOMS\Datatypes
  * @author     OMS Development Team <dev@oms.com>
- * @author     Dennis Eichhorn <d.eichhorn@oms.com>
  * @license    OMS License 1.0
  * @link       http://orange-management.com
  * @since      1.0.0
@@ -99,7 +97,6 @@ class Location implements \JsonSerializable, \Serializable
      * Constructor.
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function __construct()
     {
@@ -109,7 +106,6 @@ class Location implements \JsonSerializable, \Serializable
      * @return int
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function getId() : int
     {
@@ -120,7 +116,6 @@ class Location implements \JsonSerializable, \Serializable
      * @return int
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function getType() : int
     {
@@ -136,7 +131,6 @@ class Location implements \JsonSerializable, \Serializable
      * @return string
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function getPostal() : string
     {
@@ -149,7 +143,6 @@ class Location implements \JsonSerializable, \Serializable
      * @return void
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function setPostal(string $postal) /* : void */
     {
@@ -160,7 +153,6 @@ class Location implements \JsonSerializable, \Serializable
      * @return string
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function getCity() : string
     {
@@ -173,7 +165,6 @@ class Location implements \JsonSerializable, \Serializable
      * @return void
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function setCity(string $city) /* : void */
     {
@@ -184,7 +175,6 @@ class Location implements \JsonSerializable, \Serializable
      * @return string
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function getCountry() : string
     {
@@ -197,7 +187,6 @@ class Location implements \JsonSerializable, \Serializable
      * @return void
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function setCountry(string $country) /* : void */
     {
@@ -208,7 +197,6 @@ class Location implements \JsonSerializable, \Serializable
      * @return string
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function getAddress() : string
     {
@@ -221,7 +209,6 @@ class Location implements \JsonSerializable, \Serializable
      * @return void
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function setAddress(string $address) /* : void */
     {
@@ -232,7 +219,6 @@ class Location implements \JsonSerializable, \Serializable
      * @return string
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function getState() : string
     {
@@ -245,7 +231,6 @@ class Location implements \JsonSerializable, \Serializable
      * @return void
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function setState(string $state) /* : void */
     {
@@ -256,7 +241,6 @@ class Location implements \JsonSerializable, \Serializable
      * @return float[]
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function getGeo() : array
     {
@@ -269,7 +253,6 @@ class Location implements \JsonSerializable, \Serializable
      * @return void
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function setGeo(array $geo) /* : void */
     {

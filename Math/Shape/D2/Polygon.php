@@ -7,7 +7,6 @@
  * @category   TBD
  * @package    TBD
  * @author     OMS Development Team <dev@oms.com>
- * @author     Dennis Eichhorn <d.eichhorn@oms.com>
  * @copyright  Dennis Eichhorn
  * @license    OMS License 1.0
  * @version    1.0.0
@@ -23,7 +22,6 @@ namespace phpOMS\Math\Shape\D2;
  * @category   Framework
  * @package    phpOMS\Math
  * @author     OMS Development Team <dev@oms.com>
- * @author     Dennis Eichhorn <d.eichhorn@oms.com>
  * @license    OMS License 1.0
  * @link       http://orange-management.com
  * @since      1.0.0
@@ -116,7 +114,6 @@ class Polygon implements D2ShapeInterface
      * Constructor.
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function __construct()
     {
@@ -130,7 +127,6 @@ class Polygon implements D2ShapeInterface
      * @return int
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function pointInPolygon(array $point) : int
     {
@@ -146,7 +142,6 @@ class Polygon implements D2ShapeInterface
      * @return int
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public static function isPointInPolygon(array $point, array $polygon) : int
     {
@@ -203,7 +198,6 @@ class Polygon implements D2ShapeInterface
      * @return bool
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function onVertex(array $point) : bool
     {
@@ -219,7 +213,6 @@ class Polygon implements D2ShapeInterface
      * @return bool
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     private static function isOnVertex(array $point, array $polygon) : bool
     {
@@ -240,7 +233,6 @@ class Polygon implements D2ShapeInterface
      * @return void
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function setCoordinates($coord) /* : void */
     {
@@ -257,7 +249,6 @@ class Polygon implements D2ShapeInterface
      * @return void
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function setCoordinate($i, $x, $y) /* : void */
     {

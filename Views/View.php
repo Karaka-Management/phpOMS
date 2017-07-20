@@ -7,7 +7,6 @@
  * @category   TBD
  * @package    TBD
  * @author     OMS Development Team <dev@oms.com>
- * @author     Dennis Eichhorn <d.eichhorn@oms.com>
  * @copyright  Dennis Eichhorn
  * @license    OMS License 1.0
  * @version    1.0.0
@@ -28,7 +27,6 @@ use phpOMS\Message\ResponseAbstract;
  * @category   Framework
  * @package    phpOMS/Views
  * @author     OMS Development Team <dev@oms.com>
- * @author     Dennis Eichhorn <d.eichhorn@oms.com>
  * @license    OMS License 1.0
  * @link       http://orange-management.com
  * @since      1.0.0
@@ -83,7 +81,6 @@ class View extends ViewAbstract
      * @param ResponseAbstract    $response Request
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function __construct(ApplicationAbstract $app, RequestAbstract $request, ResponseAbstract $response)
     {
@@ -99,7 +96,6 @@ class View extends ViewAbstract
      * @return mixed
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function getData(string $id)
     {
@@ -113,7 +109,6 @@ class View extends ViewAbstract
      * @return void
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function setData(string $id, $data) /* : void */
     {
@@ -128,7 +123,6 @@ class View extends ViewAbstract
      * @return bool
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function removeData(string $id) : bool
     {
@@ -148,7 +142,6 @@ class View extends ViewAbstract
      * @return bool
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function addData(string $id, $data) : bool
     {
@@ -173,7 +166,6 @@ class View extends ViewAbstract
      * @throws \Exception
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     protected function getText(string $translation, string $module = null, string $theme = null) : string
     {
@@ -208,7 +200,6 @@ class View extends ViewAbstract
      * @return RequestAbstract
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function getRequest() : RequestAbstract
     {
@@ -219,7 +210,6 @@ class View extends ViewAbstract
      * @return ResponseAbstract
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function getResponse() : ResponseAbstract
     {

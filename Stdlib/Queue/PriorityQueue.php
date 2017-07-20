@@ -7,7 +7,6 @@
  * @category   TBD
  * @package    TBD
  * @author     OMS Development Team <dev@oms.com>
- * @author     Dennis Eichhorn <d.eichhorn@oms.com>
  * @copyright  Dennis Eichhorn
  * @license    OMS License 1.0
  * @version    1.0.0
@@ -23,7 +22,6 @@ namespace phpOMS\Stdlib\Queue;
  * @category   Framework
  * @package    phpOMS\Stdlib
  * @author     OMS Development Team <dev@oms.com>
- * @author     Dennis Eichhorn <d.eichhorn@oms.com>
  * @license    OMS License 1.0
  * @link       http://orange-management.com
  * @since      1.0.0
@@ -51,7 +49,6 @@ class PriorityQueue implements \Countable, \Serializable
      * Constructor.
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function __construct()
     {
@@ -66,7 +63,6 @@ class PriorityQueue implements \Countable, \Serializable
      * @return int
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function insert($data, float $priority = 1.0) : int
     {
@@ -100,7 +96,6 @@ class PriorityQueue implements \Countable, \Serializable
      * @return void
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function increaseAll(float $increase = 0.1) /* : void */
     {
@@ -115,7 +110,6 @@ class PriorityQueue implements \Countable, \Serializable
      * @return mixed
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function pop()
     {
@@ -130,7 +124,6 @@ class PriorityQueue implements \Countable, \Serializable
      * @return void
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function delete(int $id = null) /* : void */
     {
@@ -145,7 +138,6 @@ class PriorityQueue implements \Countable, \Serializable
      * Delete last element.
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function remove()
     {
@@ -161,7 +153,6 @@ class PriorityQueue implements \Countable, \Serializable
      * @return void
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function setPriority(int $id, float $priority) /* : void */
     {
@@ -176,7 +167,6 @@ class PriorityQueue implements \Countable, \Serializable
      * @return float
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function getPriority(int $id) : float
     {
@@ -207,7 +197,6 @@ class PriorityQueue implements \Countable, \Serializable
      * @return array
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function unserialize($data) : array
     {

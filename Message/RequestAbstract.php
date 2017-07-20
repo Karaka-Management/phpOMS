@@ -7,7 +7,6 @@
  * @category   TBD
  * @package    TBD
  * @author     OMS Development Team <dev@oms.com>
- * @author     Dennis Eichhorn <d.eichhorn@oms.com>
  * @copyright  Dennis Eichhorn
  * @license    OMS License 1.0
  * @version    1.0.0
@@ -29,7 +28,6 @@ use phpOMS\Uri\UriInterface;
  * @category   Request
  * @package    Framework
  * @author     OMS Development Team <dev@oms.com>
- * @author     Dennis Eichhorn <d.eichhorn@oms.com>
  * @license    OMS License 1.0
  * @link       http://orange-management.com
  * @since      1.0.0
@@ -144,7 +142,6 @@ abstract class RequestAbstract implements MessageInterface
      * Constructor.
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function __construct()
     {
@@ -156,7 +153,6 @@ abstract class RequestAbstract implements MessageInterface
      * @return UriInterface
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function getUri() : UriInterface
     {
@@ -169,7 +165,6 @@ abstract class RequestAbstract implements MessageInterface
      * @param UriInterface $uri
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function setUri(UriInterface $uri) /* : void */
     {
@@ -182,7 +177,6 @@ abstract class RequestAbstract implements MessageInterface
      * @return string
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     abstract public function getLanguage() : string;
 
@@ -192,7 +186,6 @@ abstract class RequestAbstract implements MessageInterface
      * @return array
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function getHash() : array
     {
@@ -225,7 +218,6 @@ abstract class RequestAbstract implements MessageInterface
      * @return string
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     abstract public function getMethod() : string;
 
@@ -235,7 +227,6 @@ abstract class RequestAbstract implements MessageInterface
      * @param string $method
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function setMethod(string $method) /* : void */
     {
@@ -278,7 +269,6 @@ abstract class RequestAbstract implements MessageInterface
      * @return bool
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function setData($key, $value, bool $overwrite = true) : bool
     {
@@ -308,7 +298,6 @@ abstract class RequestAbstract implements MessageInterface
      * @return void
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function lock() /* : void */
     {
@@ -337,7 +326,6 @@ abstract class RequestAbstract implements MessageInterface
      * @return HeaderAbstract
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function getHeader() : HeaderAbstract
     {
@@ -363,7 +351,6 @@ abstract class RequestAbstract implements MessageInterface
      * @return string
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     abstract public function getRequestTarget() : string;
 
@@ -373,7 +360,6 @@ abstract class RequestAbstract implements MessageInterface
      * @return int
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     abstract public function getRouteVerb() : int;
 }

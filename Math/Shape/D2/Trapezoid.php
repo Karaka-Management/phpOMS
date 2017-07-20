@@ -7,7 +7,6 @@
  * @category   TBD
  * @package    TBD
  * @author     OMS Development Team <dev@oms.com>
- * @author     Dennis Eichhorn <d.eichhorn@oms.com>
  * @copyright  Dennis Eichhorn
  * @license    OMS License 1.0
  * @version    1.0.0
@@ -23,7 +22,6 @@ namespace phpOMS\Math\Shape\D2;
  * @category   Framework
  * @package    phpOMS\DataStorage\Database
  * @author     OMS Development Team <dev@oms.com>
- * @author     Dennis Eichhorn <d.eichhorn@oms.com>
  * @license    OMS License 1.0
  * @link       http://orange-management.com
  * @since      1.0.0
@@ -47,7 +45,6 @@ class Trapezoid implements D2ShapeInterface
      * @return float
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public static function getSurface(float $a, float $b, float $h) : float
     {
@@ -71,7 +68,6 @@ class Trapezoid implements D2ShapeInterface
      * @return float
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public static function getPerimeter(float $a, float $b, float $c, float $d) : float
     {
@@ -94,7 +90,6 @@ class Trapezoid implements D2ShapeInterface
      * @return float
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public static function getHeight(float $area, float $a, float $b) : float
     {
@@ -117,7 +112,6 @@ class Trapezoid implements D2ShapeInterface
      * @return float
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public static function getA(float $area, float $h, float $b) : float
     {
@@ -140,7 +134,6 @@ class Trapezoid implements D2ShapeInterface
      * @return float
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public static function getB(float $area, float $h, float $a) : float
     {
@@ -164,7 +157,6 @@ class Trapezoid implements D2ShapeInterface
      * @return float
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public static function getC(float $perimeter, float $a, float $b, float $d) : float
     {
@@ -188,7 +180,6 @@ class Trapezoid implements D2ShapeInterface
      * @return float
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public static function getD(float $perimeter, float $a, float $b, float $c) : float
     {

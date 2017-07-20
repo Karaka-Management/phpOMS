@@ -7,7 +7,6 @@
  * @category   TBD
  * @package    TBD
  * @author     OMS Development Team <dev@oms.com>
- * @author     Dennis Eichhorn <d.eichhorn@oms.com>
  * @copyright  Dennis Eichhorn
  * @license    OMS License 1.0
  * @version    1.0.0
@@ -23,7 +22,6 @@ namespace phpOMS\Math\Statistic;
  * @category   Framework
  * @package    phpOMS\Math\Statistic
  * @author     OMS Development Team <dev@oms.com>
- * @author     Dennis Eichhorn <d.eichhorn@oms.com>
  * @license    OMS License 1.0
  * @link       http://orange-management.com
  * @since      1.0.0
@@ -52,7 +50,6 @@ class Average
      * @return float
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public static function averageChange(array $x, int $h = 1) : float
     {
@@ -74,7 +71,6 @@ class Average
      * @throws \Exception
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public static function totalMovingAverage(array $x, int $order, array $weight = null, bool $symmetric = false) : array
     {
@@ -103,7 +99,6 @@ class Average
      * @throws \Exception
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public static function movingAverage(array $x, int $t, int $order, array $weight = null, bool $symmetric = false) : float
     {
@@ -138,7 +133,6 @@ class Average
      * @throws \Exception
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public static function weightedAverage(array $values, array $weight) : float
     {
@@ -167,7 +161,6 @@ class Average
      * @throws \Exception
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public static function arithmeticMean(array $values) : float
     {
@@ -190,7 +183,6 @@ class Average
      * @return float
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public static function mode($values)
     {
@@ -210,7 +202,6 @@ class Average
      * @return float
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public static function median(array $values) : float
     {
@@ -242,7 +233,6 @@ class Average
      * @throws \Exception
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public static function geometricMean(array $values, int $offset = 0) : float
     {
@@ -268,7 +258,6 @@ class Average
      * @throws \Exception
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public static function harmonicMean(array $values, int $offset = 0) : float
     {
@@ -303,7 +292,6 @@ class Average
      * @return float
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public static function angleMean($angles, int $offset = 0) : float
     {
@@ -333,7 +321,6 @@ class Average
      * @throws \Exception
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public static function timeToAngle(string $time) : float
     {
@@ -359,7 +346,6 @@ class Average
      * @return string
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public static function angleToTime(float $angle) : string
     {
@@ -380,7 +366,6 @@ class Average
      * @return float
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public static function angleMean2(array $angles, int $offset = 0) : float
     {

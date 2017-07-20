@@ -7,7 +7,6 @@
  * @category   TBD
  * @package    TBD
  * @author     OMS Development Team <dev@oms.com>
- * @author     Dennis Eichhorn <d.eichhorn@oms.com>
  * @copyright  Dennis Eichhorn
  * @license    OMS License 1.0
  * @version    1.0.0
@@ -27,7 +26,6 @@ use phpOMS\System\File\PathException;
  * @category   Framework
  * @package    phpOMS\Dispatcher
  * @author     OMS Development Team <dev@oms.com>
- * @author     Dennis Eichhorn <d.eichhorn@oms.com>
  * @license    OMS License 1.0
  * @link       http://orange-management.com
  * @since      1.0.0
@@ -59,7 +57,6 @@ class Dispatcher
      * @param ApplicationAbstract $app Appliaction
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function __construct(ApplicationAbstract $app)
     {
@@ -75,7 +72,6 @@ class Dispatcher
      * @return array
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function dispatch($controller, ...$data) : array
     {
@@ -107,7 +103,6 @@ class Dispatcher
      * @return array
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     private function dispatchString(string $controller, array $data = null) : array
     {
@@ -137,7 +132,6 @@ class Dispatcher
      * @return array
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     private function dispatchArray(array $controller, array $data = null) : array
     {
@@ -160,7 +154,6 @@ class Dispatcher
      * @return mixed
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     private function dispatchClosure(\Closure $controller, array $data = null)
     {
@@ -175,7 +168,6 @@ class Dispatcher
      * @return mixed
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     private function getController(string $controller)
     {
@@ -204,7 +196,6 @@ class Dispatcher
      * @return bool
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function set(ModuleAbstract $controller, string $name) : bool
     {

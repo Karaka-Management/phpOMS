@@ -7,7 +7,6 @@
  * @category   TBD
  * @package    TBD
  * @author     OMS Development Team <dev@oms.com>
- * @author     Dennis Eichhorn <d.eichhorn@oms.com>
  * @copyright  Dennis Eichhorn
  * @license    OMS License 1.0
  * @version    1.0.0
@@ -23,7 +22,6 @@ namespace phpOMS\Utils\Git;
  * @category   Framework
  * @package    phpOMS\Asset
  * @author     OMS Development Team <dev@oms.com>
- * @author     Dennis Eichhorn <d.eichhorn@oms.com>
  * @license    OMS License 1.0
  * @link       http://orange-management.com
  * @since      1.0.0
@@ -100,7 +98,6 @@ class Commit
      * @param string $id Commit hash
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function __construct(string $id = '')
     {
@@ -116,7 +113,6 @@ class Commit
      * @return string
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function getId() : string
     {
@@ -131,7 +127,6 @@ class Commit
      * @return bool
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function addFile(string $path) : bool
     {
@@ -150,7 +145,6 @@ class Commit
      * @return string
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function getMessage() : string
     {
@@ -163,7 +157,6 @@ class Commit
      * @param string $message Commit message
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function setMessage(string $message) /* : void */
     {
@@ -176,7 +169,6 @@ class Commit
      * @return string[]
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function getFiles() : array
     {
@@ -191,7 +183,6 @@ class Commit
      * @return bool
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function removeFile(string $path) : bool
     {
@@ -210,7 +201,6 @@ class Commit
      * @return Author
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function getAuthor() : Author
     {
@@ -223,7 +213,6 @@ class Commit
      * @param Author $author Commit author
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function setAuthor(Author $author) /* : void */
     {
@@ -236,7 +225,6 @@ class Commit
      * @return Branch
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function getBranch() : Branch
     {
@@ -249,7 +237,6 @@ class Commit
      * @param Branch $branch Commit branch
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function setBranch(Branch $branch) /* : void */
     {
@@ -262,7 +249,6 @@ class Commit
      * @return Tag
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function getTag() : Tag
     {
@@ -275,7 +261,6 @@ class Commit
      * @param Tag $tag Commit tag
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function setTag(Tag $tag) /* : void */
     {
@@ -288,7 +273,6 @@ class Commit
      * @return \DateTime
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function getDate() : \DateTime
     {
@@ -303,7 +287,6 @@ class Commit
      * @return void
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function setDate(\DateTime $date) /* : void */
     {
@@ -316,7 +299,6 @@ class Commit
      * @return Repository
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function getRepository() : Repository
     {
@@ -329,7 +311,6 @@ class Commit
      * @param Repository $repository Commit repository
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function setRepository(Repository $repository) /* : void */
     {
@@ -347,7 +328,6 @@ class Commit
      * @throws \Exception
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     private function addChange(string $path, int $line, string $old, string $new) /* : void */
     {
