@@ -37,7 +37,6 @@ class MarketShareEstimation {
      * @return float
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn
      */
     public static function getRankFromMarketShare(int $participants, float $marketShare, float $modifier = 1.0) : int
     {
@@ -61,7 +60,6 @@ class MarketShareEstimation {
      * @return float
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn
      */
     public static function getMarketShareFromRank(int $participants, int $rank, float $modifier = 1.0) : float
     {

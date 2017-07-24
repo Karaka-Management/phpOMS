@@ -36,7 +36,6 @@ class Prime
      * @return bool
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn
      */
     public static function isMersenne(int $n) : bool
     {
@@ -53,7 +52,6 @@ class Prime
      * @return int
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn
      */
     public static function mersenne(int $p) : int
     {
@@ -69,7 +67,6 @@ class Prime
      * @return bool
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn
      */
     public static function rabinTest(int $n, int $k = 10000) : bool
     {
@@ -124,7 +121,6 @@ class Prime
      * @return int[]
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn
      */
     public static function sieveOfEratosthenes(int $n) : array
     {
@@ -155,7 +151,6 @@ class Prime
      * @return bool
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn
      */
     public static function isPrime(int $n) : bool
     {

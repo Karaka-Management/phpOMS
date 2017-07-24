@@ -48,7 +48,6 @@ class TaskScheduler extends SchedulerAbstract
      * @throws \Exception
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn
      */
     private function run(string $cmd) : string
     {
@@ -85,7 +84,6 @@ class TaskScheduler extends SchedulerAbstract
      * @return string Normalized string for parsing
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn
      */
     private function normalize(string $raw) : string 
     {
@@ -100,7 +98,6 @@ class TaskScheduler extends SchedulerAbstract
      * @return TaskAbstract Parsed job
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn
      */
     private function parseJobList(array $jobData) : TaskAbstract
     {

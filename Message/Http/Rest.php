@@ -37,7 +37,6 @@ class Rest
      * @return string
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn
      */
     public static function request(Request $request) : string
     {

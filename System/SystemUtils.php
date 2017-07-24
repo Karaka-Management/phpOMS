@@ -44,7 +44,6 @@ class SystemUtils
      * @return int
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn
      */
     public static function getRAM() : int
     {
@@ -76,7 +75,6 @@ class SystemUtils
      * @return int
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn
      */
     public static function getRAMUsage() : int
     {
@@ -103,7 +101,6 @@ class SystemUtils
      * @return int
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn
      */
     public static function getCpuUsage() : int
     {

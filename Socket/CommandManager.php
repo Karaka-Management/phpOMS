@@ -63,7 +63,6 @@ class CommandManager implements \Countable
      * @return void
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn
      */
     public function attach(string $cmd, $callback, $source)
     {
@@ -80,7 +79,6 @@ class CommandManager implements \Countable
      * @return void
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn
      */
     public function detach(string $cmd, $source)
     {
@@ -100,7 +98,6 @@ class CommandManager implements \Countable
      * @return mixed|bool
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn
      */
     public function trigger(string $cmd, $conn, $para)
     {
@@ -117,7 +114,6 @@ class CommandManager implements \Countable
      * @return int
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn
      */
     public function count() : int
     {

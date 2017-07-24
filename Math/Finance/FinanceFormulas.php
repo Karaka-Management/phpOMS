@@ -42,7 +42,6 @@ class FinanceFormulas
      * @return float
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn
      */
     public static function getAnnualPercentageYield(float $r, int $n) : float
     {
@@ -60,7 +59,6 @@ class FinanceFormulas
      * @return float
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn
      */
     public static function getStateAnnualInterestRateOfAPY(float $apy, int $n) : float
     {
@@ -77,7 +75,6 @@ class FinanceFormulas
      * @return float
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn
      */
     public static function getFutureValueOfAnnuity(float $P, float $r, int $n) : float
     {
@@ -94,7 +91,6 @@ class FinanceFormulas
      * @return int
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn
      */
     public static function getNumberOfPeriodsOfFVA(float $fva, float $P, float $r) : int
     {
@@ -111,7 +107,6 @@ class FinanceFormulas
      * @return float
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn
      */
     public static function getPeriodicPaymentOfFVA(float $fva, float $r, int $n) : float
     {
@@ -129,7 +124,6 @@ class FinanceFormulas
      * @return float
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn
      */
     public static function getFutureValueOfAnnuityConinuousCompounding(float $cf, float $r, int $t) : float
     {
@@ -146,7 +140,6 @@ class FinanceFormulas
      * @return float
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn
      */
     public static function getCashFlowOfFVACC(float $fvacc, float $r, int $t) : float
     {
@@ -163,7 +156,6 @@ class FinanceFormulas
      * @return int
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn
      */
     public static function getTimeOfFVACC(float $fvacc, float $cf, float $r) : int
     {
@@ -180,7 +172,6 @@ class FinanceFormulas
      * @return float
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn
      */
     public static function getAnnuityPaymentPV(float $pv, float $r, int $n) : float
     {
@@ -197,7 +188,6 @@ class FinanceFormulas
      * @return int
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn
      */
     public static function getNumberOfAPPV(float $p, float $pv, float $r) : int
     {
@@ -214,7 +204,6 @@ class FinanceFormulas
      * @return float
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn
      */
     public static function getPresentValueOfAPPV(float $p, float $r, int $n) : float
     {
@@ -231,7 +220,6 @@ class FinanceFormulas
      * @return float
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn
      */
     public static function getAnnuityPaymentFV(float $fv, float $r, int $n) : float
     {
@@ -248,7 +236,6 @@ class FinanceFormulas
      * @return int
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn
      */
     public static function getNumberOfAPFV(float $p, float $fv, float $r) : int
     {
@@ -265,7 +252,6 @@ class FinanceFormulas
      * @return float
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn
      */
     public static function getFutureValueOfAPFV(float $p, float $r, int $n) : float
     {
@@ -281,7 +267,6 @@ class FinanceFormulas
      * @return float
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn
      */
     public static function getAnnutiyPaymentFactorPV(float $r, int $n) : float
     {
@@ -297,7 +282,6 @@ class FinanceFormulas
      * @return int
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn
      */
     public static function getNumberOfAPFPV(float $p, float $r) : int
     {
@@ -314,7 +298,6 @@ class FinanceFormulas
      * @return float
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn
      */
     public static function getPresentValueOfAnnuity(float $P, float $r, int $n) : float
     {
@@ -331,7 +314,6 @@ class FinanceFormulas
      * @return int
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn
      */
     public static function getNumberOfPeriodsOfPVA(float $pva, float $P, float $r) : int
     {
@@ -348,7 +330,6 @@ class FinanceFormulas
      * @return float
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn
      */
     public static function getPeriodicPaymentOfPVA(float $pva, float $r, int $n) : float
     {
@@ -364,7 +345,6 @@ class FinanceFormulas
      * @return float
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn
      */
     public static function getPresentValueAnnuityFactor(float $r, int $n) : float
     {
@@ -380,7 +360,6 @@ class FinanceFormulas
      * @return int
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn
      */
     public static function getPeriodsOfPVAF(float $p, float $r) : int
     {
@@ -397,7 +376,6 @@ class FinanceFormulas
      * @return float
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn
      */
     public static function getPresentValueOfAnnuityDue(float $P, float $r, int $n) : float
     {
@@ -416,7 +394,6 @@ class FinanceFormulas
      * @return float
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn
      */
     public static function getPeriodicPaymentOfPVAD(float $PV, float $r, int $n) : float
     {
@@ -433,7 +410,6 @@ class FinanceFormulas
      * @return int
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn
      */
     public static function getPeriodsOfPVAD(float $PV, float $P, float $r) : int
     {
@@ -450,7 +426,6 @@ class FinanceFormulas
      * @return float
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn
      */
     public static function getFutureValueOfAnnuityDue(float $P, float $r, int $n) : float
     {
@@ -467,7 +442,6 @@ class FinanceFormulas
      * @return float
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn
      */
     public static function getPeriodicPaymentOfFVAD(float $FV, float $r, int $n) : float
     {
@@ -484,7 +458,6 @@ class FinanceFormulas
      * @return int
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn
      */
     public static function getPeriodsOfFVAD(float $FV, float $P, float $r) : int
     {
@@ -500,7 +473,6 @@ class FinanceFormulas
      * @return float
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn
      */
     public static function getAssetToSalesRatio(float $assets, float $revenue) : float
     {
@@ -516,7 +488,6 @@ class FinanceFormulas
      * @return float
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn
      */
     public static function getAssetTurnoverRatio(float $assets, float $revenue) : float
     {
@@ -532,7 +503,6 @@ class FinanceFormulas
      * @return float
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn
      */
     public static function getAverageCollectionPeriod(float $receivables, int $period = 365) : float
     {
@@ -548,7 +518,6 @@ class FinanceFormulas
      * @return float
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn
      */
     public static function getReceivablesTurnover(float $sales, float $receivables) : float
     {
@@ -565,7 +534,6 @@ class FinanceFormulas
      * @return float
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn
      */
     public static function getCompoundInterest(float $P, float $r, int $n) : float
     {
@@ -582,7 +550,6 @@ class FinanceFormulas
      * @return float
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn
      */
     public static function getPrincipalOfCompundInterest(float $C, float $r, int $n) : float
     {
@@ -599,7 +566,6 @@ class FinanceFormulas
      * @return float
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn
      */
     public static function getPeriodsOfCompundInterest(float $P, float $C, float $r) : float
     {
@@ -616,7 +582,6 @@ class FinanceFormulas
      * @return float
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn
      */
     public static function getContinuousCompounding(float $P, float $r, int $t) : float
     {
@@ -633,7 +598,6 @@ class FinanceFormulas
      * @return float
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn
      */
     public static function getPrincipalOfContinuousCompounding(float $C, float $r, int $t) : float
     {
@@ -650,7 +614,6 @@ class FinanceFormulas
      * @return float
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn
      */
     public static function getPeriodsOfContinuousCompounding(float $P, float $C, float $r) : float
     {
@@ -667,7 +630,6 @@ class FinanceFormulas
      * @return float
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn
      */
     public static function getRateOfContinuousCompounding(float $P, float $C, float $t) : float
     {
@@ -683,7 +645,6 @@ class FinanceFormulas
      * @return float
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn
      */
     public static function getCurrentRaio(float $assets, float $liabilities) : float
     {
@@ -698,7 +659,6 @@ class FinanceFormulas
      * @return float
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn
      */
     public static function getDaysInInventory(float $inventory) : float
     {
@@ -714,7 +674,6 @@ class FinanceFormulas
      * @return float
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn
      */
     public static function getDebtCoverageRatio(float $income, float $service) : float
     {
@@ -730,7 +689,6 @@ class FinanceFormulas
      * @return float
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn
      */
     public static function getDebtRatio(float $liabilities, float $assets) : float
     {
@@ -746,7 +704,6 @@ class FinanceFormulas
      * @return float
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn
      */
     public static function getDebtToEquityRatio(float $liabilities, float $equity) : float
     {
@@ -762,7 +719,6 @@ class FinanceFormulas
      * @return float
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn
      */
     public static function getDebtToIncomeRatio(float $payments, float $income) : float
     {
@@ -779,7 +735,6 @@ class FinanceFormulas
      * @return float
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn
      */
     public static function getDiscountedPaybackPeriod(float $CF, float $O1, float $r) : float
     {
@@ -794,7 +749,6 @@ class FinanceFormulas
      * @return float
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn
      */
     public static function getDoublingTime(float $r) : float
     {
@@ -809,7 +763,6 @@ class FinanceFormulas
      * @return float
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn
      */
     public static function getDoublingTimeContinuousCompounding(float $r) : float
     {
@@ -826,7 +779,6 @@ class FinanceFormulas
      * @return float
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn
      */
     public static function getEquivalentAnnualAnnuity(float $NPV, float $r, int $n) : float
     {
@@ -843,7 +795,6 @@ class FinanceFormulas
      * @return int
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn
      */
     public static function getPeriodsOfEAA(float $C, float $NPV, float $r) : int
     {
@@ -860,7 +811,6 @@ class FinanceFormulas
      * @return float
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn
      */
     public static function getNetPresentValueOfEAA(float $C, float $r, int $n) : float
     {
@@ -879,7 +829,6 @@ class FinanceFormulas
      * @return float
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn
      */
     public static function getFreeCashFlowToEquity(float $income, float $depamo, float $capital, float $wc, float $borrowing) : float
     {
@@ -898,7 +847,6 @@ class FinanceFormulas
      * @return float
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn
      */
     public static function getFreeCashFlowToFirm(float $ebit, float $t, float $depamo, float $capital, float $wc) : float
     {
@@ -915,7 +863,6 @@ class FinanceFormulas
      * @return float
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn
      */
     public static function getFutureValue(float $C, float $r, int $n) : float
     {
@@ -932,7 +879,6 @@ class FinanceFormulas
      * @return float
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn
      */
     public static function getFutureValueContinuousCompounding(float $PV, float $r, int $t) : float
     {
@@ -948,7 +894,6 @@ class FinanceFormulas
      * @return float
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn
      */
     public static function getFutureValueFactor(float $r, int $n) : float
     {
@@ -963,7 +908,6 @@ class FinanceFormulas
      * @return float
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn
      */
     public static function getGeometricMeanReturn(array $r) : float
     {
@@ -981,7 +925,6 @@ class FinanceFormulas
      * @return float
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn
      */
     public static function getGrowingAnnuityFV(float $P, float $r, float $g, int $n) : float
     {
@@ -999,7 +942,6 @@ class FinanceFormulas
      * @return float
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn
      */
     public static function getGrowingAnnuityPaymentPV(float $PV, float $r, float $g, int $n) : float
     {
@@ -1017,7 +959,6 @@ class FinanceFormulas
      * @return float
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn
      */
     public static function getGrowingAnnuityPaymentFV(float $FV, float $r, float $g, int $n) : float
     {
@@ -1035,7 +976,6 @@ class FinanceFormulas
      * @return float
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn
      */
     public static function getGrowingAnnuityPV(float $P, float $r, float $g, int $n) : float
     {
@@ -1052,7 +992,6 @@ class FinanceFormulas
      * @return float
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn
      */
     public static function getGrowingPerpetuityPV(float $D, float $r, float $g) : float
     {
@@ -1068,7 +1007,6 @@ class FinanceFormulas
      * @return float
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn
      */
     public static function getInterestCoverageRatio(float $ebit, float $expense) : float
     {
@@ -1084,7 +1022,6 @@ class FinanceFormulas
      * @return float
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn
      */
     public static function getInventoryTurnoverRatio(float $sales, float $inventory) : float
     {
@@ -1102,7 +1039,6 @@ class FinanceFormulas
      * @throws \Exception
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn
      */
     public static function getNetPresentValue(array $C, float $r) : float
     {
@@ -1130,7 +1066,6 @@ class FinanceFormulas
      * @return float
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn
      */
     public static function getNetProfitMargin(float $income, float $sales) : float
     {
@@ -1146,7 +1081,6 @@ class FinanceFormulas
      * @return float
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn
      */
     public static function getNetWorkingCapital(float $assets, float $liabilities) : float
     {
@@ -1163,7 +1097,6 @@ class FinanceFormulas
      * @return float
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn
      */
     public static function getNumberOfPeriodsPVFV(float $FV, float $PV, float $r) : float
     {
@@ -1179,7 +1112,6 @@ class FinanceFormulas
      * @return float
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn
      */
     public static function getPaybackPeriod(float $investment, float $cash) : float
     {
@@ -1195,7 +1127,6 @@ class FinanceFormulas
      * @return float
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn
      */
     public static function getPresentValueOfPerpetuity(float $D, float $r) : float
     {
@@ -1212,7 +1143,6 @@ class FinanceFormulas
      * @return float
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn
      */
     public static function getPresentValue(float $C, float $r, int $n) : float
     {
@@ -1229,7 +1159,6 @@ class FinanceFormulas
      * @return float
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn
      */
     public static function getPresentValueContinuousCompounding(float $C, float $r, int $t) : float
     {
@@ -1245,7 +1174,6 @@ class FinanceFormulas
      * @return float
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn
      */
     public static function getPresentValueFactor(float $r, int $n) : float
     {
@@ -1261,7 +1189,6 @@ class FinanceFormulas
      * @return float
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn
      */
     public static function getQuickRatio(float $assets, float $liabilities) : float
     {
@@ -1277,7 +1204,6 @@ class FinanceFormulas
      * @return float
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn
      */
     public static function getRateOfOnflation(float $oldCPI, float $newCPI) : float
     {
@@ -1293,7 +1219,6 @@ class FinanceFormulas
      * @return float
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn
      */
     public static function getRealRateOfReturn(float $nominal, float $inflation) : float
     {
@@ -1309,7 +1234,6 @@ class FinanceFormulas
      * @return float
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn
      */
     public static function getReceivablesTurnoverRatio(float $sales, float $receivable) : float
     {
@@ -1325,7 +1249,6 @@ class FinanceFormulas
      * @return float
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn
      */
     public static function getRetentionRatio(float $income, float $dividends) : float
     {
@@ -1341,7 +1264,6 @@ class FinanceFormulas
      * @return float
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn
      */
     public static function getReturnOnAssets(float $income, float $assets) : float
     {
@@ -1357,7 +1279,6 @@ class FinanceFormulas
      * @return float
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn
      */
     public static function getReturnOnEquity(float $income, float $equity) : float
     {
@@ -1373,7 +1294,6 @@ class FinanceFormulas
      * @return float
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn
      */
     public static function getReturnOnInvestment(float $earnings, float $investment) : float
     {
@@ -1390,7 +1310,6 @@ class FinanceFormulas
      * @return float
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn
      */
     public static function getSimpleInterest(float $P, float $r, int $t) : float
     {
@@ -1406,7 +1325,6 @@ class FinanceFormulas
      * @return float
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn
      */
     public static function getRelativeMarketShareByShare(float $ownShare, float $competitorShare) : float
     {
@@ -1422,7 +1340,6 @@ class FinanceFormulas
      * @return float
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn
      */
     public static function getRelativeMarketShareBySales(float $ownSales, float $competitorSales) : float
     {

@@ -39,7 +39,6 @@ class Loan
      * @return float
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn
      */
     public static function getPaymentsOnBalloonLoan(float $PV, float $r, int $n, float $balloon = 0) : float
     {
@@ -57,7 +56,6 @@ class Loan
      * @return float
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn
      */
     public static function getBalloonBalanceOfLoan(float $PV, float $P, float $r, int $n) : float
     {
@@ -74,7 +72,6 @@ class Loan
      * @return float
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn
      */
     public static function getLoanPayment(float $PV, float $r, int $n) : float
     {
@@ -92,7 +89,6 @@ class Loan
      * @return float
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn
      */
     public static function getRemainingBalanceLoan(float $PV, float $P, float $r, int $n) : float
     {
@@ -108,7 +104,6 @@ class Loan
      * @return float
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn
      */
     public static function getLoanToDepositRatio(float $loans, float $deposits) : float
     {
@@ -124,7 +119,6 @@ class Loan
      * @return float
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn
      */
     public static function getLoanToValueRatio(float $loan, float $collateral) : float
     {

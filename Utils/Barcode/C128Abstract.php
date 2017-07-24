@@ -131,7 +131,6 @@ abstract class C128Abstract
      * @todo   : add mirror parameter
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn
      */
     public function __construct(string $content = '', int $width = 20, int $height = 20, int $orientation = OrientationType::HORIZONTAL)
     {
@@ -147,7 +146,6 @@ abstract class C128Abstract
      * @param int $height Barcode height
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn
      */
     public function setDimension(int $width, int $height) /* : void */
     {
@@ -169,7 +167,6 @@ abstract class C128Abstract
      * @param int $orientation Barcode orientation
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn
      */
     public function setOrientation(int $orientation) /* : void */
     {
@@ -186,7 +183,6 @@ abstract class C128Abstract
      * @return string
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn
      */
     public function getContent() : string
     {
@@ -199,7 +195,6 @@ abstract class C128Abstract
      * @param string $content Barcode content
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn
      */
     public function setContent(string $content) /* : void */
     {
@@ -212,7 +207,6 @@ abstract class C128Abstract
      * @return mixed
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn
      */
     public function get()
     {
@@ -227,7 +221,6 @@ abstract class C128Abstract
      * @return string
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn
      */
     protected function generateCodeString() : string
     {
@@ -258,7 +251,6 @@ abstract class C128Abstract
      * @return mixed
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn
      */
     protected function createImage(string $codeString, int $codeLength = 20)
     {

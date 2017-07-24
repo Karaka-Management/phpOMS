@@ -41,7 +41,6 @@ class JsonBuilder implements \Serializable
      * Constructor.
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn
      */
     public function __construct()
     {
@@ -53,7 +52,6 @@ class JsonBuilder implements \Serializable
      * @return array
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn
      */
     public function getJson() : array
     {
@@ -70,7 +68,6 @@ class JsonBuilder implements \Serializable
      * @return void
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn
      */
     public function add(string $path, $value, bool $overwrite = true) /* : void */
     {
@@ -85,7 +82,6 @@ class JsonBuilder implements \Serializable
      * @return void
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn
      */
     public function remove(string $path) /* : void */
     {

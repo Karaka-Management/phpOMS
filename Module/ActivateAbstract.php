@@ -72,7 +72,6 @@ class ActivateAbstract
      * @return void
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn
      */
     public static function activateInDatabase(DatabasePool $dbPool, InfoManager $info) /* : void */
     {

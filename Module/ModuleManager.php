@@ -114,7 +114,6 @@ class ModuleManager
      * @return array
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn
      */
     public function getRoutedModules(Request $request) : array
     {
@@ -138,7 +137,6 @@ class ModuleManager
      * @return array
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn
      */
     public function getUriLoad(Request $request) : array
     {
@@ -190,7 +188,6 @@ class ModuleManager
      * @return array
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn
      */
     public function getLanguageFiles(Request $request) : array
     {
@@ -212,7 +209,6 @@ class ModuleManager
      * @return array
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn
      */
     public function getActiveModules() : array
     {
@@ -235,7 +231,6 @@ class ModuleManager
      * @return array
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn
      */
     public function getAllModules() : array
     {
@@ -266,7 +261,6 @@ class ModuleManager
      * @return array
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn
      */
     public function getAvailableModules() : array
     {
@@ -280,7 +274,6 @@ class ModuleManager
      * @return bool
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn
      */
     public function deactivate(string $module) : bool
     {
@@ -316,7 +309,6 @@ class ModuleManager
      * @return bool
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn
      */
     public function activate(string $module) : bool
     {
@@ -354,7 +346,6 @@ class ModuleManager
      * @throws \Exception
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn
      */
     public function reInit(string $module) : bool
     {
@@ -377,7 +368,6 @@ class ModuleManager
      * @return bool
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn
      */
     public function install(string $module) : bool
     {
@@ -431,7 +421,6 @@ class ModuleManager
      * @return void
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn
      */
     private function installDependencies(array $dependencies) /* : void */
     {
@@ -450,7 +439,6 @@ class ModuleManager
      * @throws \Exception
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn
      */
     private function installModule(InfoManager $info) /* : void */
     {
@@ -474,7 +462,6 @@ class ModuleManager
      * @throws \Exception
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn
      */
     private function deactivateModule(InfoManager $info) /* : void */
     {
@@ -498,7 +485,6 @@ class ModuleManager
      * @throws \Exception
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn
      */
     private function activateModule(InfoManager $info) /* : void */
     {
@@ -520,7 +506,6 @@ class ModuleManager
      * @return InfoManager
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn
      */
     private function loadInfo(string $module) : InfoManager
     {
@@ -542,7 +527,6 @@ class ModuleManager
      * @return array
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn
      */
     public function getInstalledModules() : array
     {
@@ -570,7 +554,6 @@ class ModuleManager
      * @return void
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn
      */
     public function installProviding(string $from, string $for) /* : void */
     {
@@ -591,7 +574,6 @@ class ModuleManager
      * @throws \InvalidArgumentException
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn
      */
     public function initModule($modules) /* : void */
     {
@@ -618,7 +600,6 @@ class ModuleManager
      * @throws \Exception
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn
      */
     private function initModuleController(string $module) /* : void */
     {
@@ -640,7 +621,6 @@ class ModuleManager
      * @throws \Exception
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn
      */
     public function get(string $module) : ModuleAbstract
     {
@@ -663,7 +643,6 @@ class ModuleManager
      * @return void
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn
      */
     public function initRequestModules(Request $request) /* : void */
     {

@@ -73,7 +73,6 @@ class C25 extends C128Abstract
      * @todo   : add mirror parameter
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn
      */
     public function __construct(string $content = '', int $size = 20, int $orientation = OrientationType::HORIZONTAL)
     {
@@ -90,7 +89,6 @@ class C25 extends C128Abstract
      * @param string $content Barcode content
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn
      */
     public function setContent(string $content) /* : void */
     {
@@ -107,7 +105,6 @@ class C25 extends C128Abstract
      * @return string
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn
      */
     protected function generateCodeString() : string
     {

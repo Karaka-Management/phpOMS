@@ -64,7 +64,6 @@ class CommandManager implements \Countable
      * @return bool
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn
      */
     public function attach(string $cmd, $callback, $source, bool $overwrite = true) : bool
     {
@@ -87,7 +86,6 @@ class CommandManager implements \Countable
      * @return bool
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn
      */
     public function detach(string $cmd, $source) : bool
     {
@@ -110,7 +108,6 @@ class CommandManager implements \Countable
      * @return mixed|bool
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn
      */
     public function trigger(string $cmd, $para)
     {
@@ -127,7 +124,6 @@ class CommandManager implements \Countable
      * @return int
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn
      */
     public function count() : int
     {

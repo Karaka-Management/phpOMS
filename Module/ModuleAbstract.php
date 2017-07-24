@@ -92,7 +92,6 @@ abstract class ModuleAbstract
      * @param \phpOMS\ApplicationAbstract $app Application instance
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn
      */
     public function __construct($app)
     {

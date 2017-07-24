@@ -37,7 +37,6 @@ interface ValidatorInterface
      * @return bool
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn
      */
     public static function isValid($value);
 
@@ -47,7 +46,6 @@ interface ValidatorInterface
      * @return string
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn
      */
     public static function getMessage();
 }

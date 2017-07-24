@@ -57,7 +57,6 @@ class StringUtils
      * @return bool The function returns true if any of the needles is part of the haystack, false otherwise.
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn
      */
     public static function contains(string $haystack, array $needles) : bool
     {
@@ -85,7 +84,6 @@ class StringUtils
      * @return bool The function returns true if any of the needles is part of the haystack, false otherwise.
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn
      */
     public static function mb_contains(string $haystack, array $needles) : bool
     {
@@ -114,7 +112,6 @@ class StringUtils
      * @return bool The function returns true if any of the needles is at the end of the haystack, false otherwise.
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn
      */
     public static function endsWith(string $haystack, $needles) : bool
     {
@@ -147,7 +144,6 @@ class StringUtils
      * @return bool The function returns true if any of the needles is at the beginning of the haystack, false otherwise.
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn
      */
     public static function startsWith(string $haystack, $needles) : bool
     {
@@ -176,7 +172,6 @@ class StringUtils
      * @return bool The function returns true if any of the needles is at the beginning of the haystack, false otherwise.
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn
      */
     public static function mb_startsWith(string $haystack, $needles) : bool
     {
@@ -209,7 +204,6 @@ class StringUtils
      * @return bool The function returns true if any of the needles is at the end of the haystack, false otherwise.
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn
      */
     public static function mb_endsWith(string $haystack, $needles) : bool
     {
@@ -234,7 +228,6 @@ class StringUtils
      * @return string Multi byte string with first character as upper case.
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn
      */
     public static function mb_ucfirst(string $string) : string
     {
@@ -253,7 +246,6 @@ class StringUtils
      * @return string Multi byte string with first character as lower case.
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn
      */
     public static function mb_lcfirst(string $string) : string
     {
@@ -273,7 +265,6 @@ class StringUtils
      * @return string Trimmed multi byte string.
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn
      */
     public static function mb_trim(string $string, string $charlist = ' ') : string
     {
@@ -295,7 +286,6 @@ class StringUtils
      * @return string Trimmed multi byte string.
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn
      */
     public static function mb_rtrim(string $string, string $charlist = ' ') : string
     {
@@ -317,7 +307,6 @@ class StringUtils
      * @return string Trimmed multi byte string.
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn
      */
     public static function mb_ltrim(string $string, string $charlist = ' ') : string
     {
@@ -342,7 +331,6 @@ class StringUtils
      * @return int The amount of repeating occurences at the beginning of the string.
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn
      */
     public static function countCharacterFromStart(string $string, string $character) : int
     {

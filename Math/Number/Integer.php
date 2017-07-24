@@ -50,7 +50,6 @@ class Integer
      * @return array
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn
      */
     public static function trialFactorization(int $value) : array
     {
@@ -93,7 +92,6 @@ class Integer
      * @return int
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn
      */
     public static function pollardsRho(int $n, int $x = 2, int $factor = 1, int $cycleSize = 2, int $y = 2) : int
     {
@@ -119,7 +117,6 @@ class Integer
      * @return int
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn
      */
     public static function greatestCommonDivisor(int $n, int $m) : int
     {
@@ -148,7 +145,6 @@ class Integer
      * @throws \Exception
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn
      */
     public static function fermatFactor(int $value, int $limit = 1000000) : array
     {

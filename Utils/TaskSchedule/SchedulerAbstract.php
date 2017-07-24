@@ -105,7 +105,6 @@ abstract class SchedulerAbstract
      * @return void
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn
      */
     public function add(TaskAbstract $task) /* : void */
     {
@@ -120,7 +119,6 @@ abstract class SchedulerAbstract
      * @return bool
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn
      */
     public function remove(string $id) : bool
     {
@@ -141,7 +139,6 @@ abstract class SchedulerAbstract
      * @return TaskAbstract|null
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn
      */
     public function get(string $id)
     {
@@ -154,7 +151,6 @@ abstract class SchedulerAbstract
      * @return TaskAbstract[]
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn
      */
     public function getAll() : array
     {
@@ -169,7 +165,6 @@ abstract class SchedulerAbstract
      * @return void
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn
      */
     public function set(TaskAbstract $task) /* : void */
     {
@@ -182,7 +177,6 @@ abstract class SchedulerAbstract
      * @return void
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn
      */
     abstract public function save() /* : void */;
 }

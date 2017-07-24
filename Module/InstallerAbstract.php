@@ -44,7 +44,6 @@ class InstallerAbstract
      * @return void
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn
      */
     public static function registerInDatabase(DatabasePool $dbPool, InfoManager $info) /* : void */
     {

@@ -86,7 +86,6 @@ class C128c extends C128Abstract
      * @return string
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn
      */
     protected function generateCodeString() : string
     {

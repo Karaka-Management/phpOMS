@@ -91,7 +91,6 @@ class C128a extends C128Abstract
      * @todo   : add mirror parameter
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn
      */
     public function __construct(string $content = '', int $size = 20, int $orientation = OrientationType::HORIZONTAL)
     {
@@ -106,7 +105,6 @@ class C128a extends C128Abstract
      * @todo   : add mirror parameter
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn
      */
     public function setContent(string $content) /* : void */
     {

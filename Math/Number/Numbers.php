@@ -36,7 +36,6 @@ class Numbers
      * @return bool
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn
      */
     public static function isPerfect(int $n) : bool
     {
@@ -59,7 +58,6 @@ class Numbers
      * @return bool
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn
      */
     public static function isSelfdescribing(int $n) : bool
     {
@@ -83,7 +81,6 @@ class Numbers
      * @return bool
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn
      */
     public static function isSquare(int $n) : bool
     {
@@ -98,7 +95,6 @@ class Numbers
      * @return int
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn
      */
     public static function countTrailingZeros(int $n) : int
     {

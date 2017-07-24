@@ -38,7 +38,6 @@ class StockBonds
      * @return float
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn
      */
     public static function getBondEquivalentYield(float $fv, float $price, int $days) : float
     {
@@ -54,7 +53,6 @@ class StockBonds
      * @return float
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn
      */
     public static function getBookValuePerShare(float $total, int $common) : float
     {
@@ -71,7 +69,6 @@ class StockBonds
      * @return float
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn
      */
     public static function getExpectedReturnCAPM(float $rf, float $beta, float $r) : float
     {
@@ -87,7 +84,6 @@ class StockBonds
      * @return float
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn
      */
     public static function getCapitalGainsYield(float $P0, float $P1) : float
     {
@@ -103,7 +99,6 @@ class StockBonds
      * @return float
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn
      */
     public static function getCurrentYield(float $coupons, float $price) : float
     {
@@ -120,7 +115,6 @@ class StockBonds
      * @return float
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn
      */
     public static function getDilutedEarningsPerShare(float $income, float $avg, float $other) : float
     {
@@ -136,7 +130,6 @@ class StockBonds
      * @return float
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn
      */
     public static function getDividendPayoutRatio(float $dividends, float $income) : float
     {
@@ -152,7 +145,6 @@ class StockBonds
      * @return float
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn
      */
     public static function getDividendYield(float $dividends, float $price) : float
     {
@@ -168,7 +160,6 @@ class StockBonds
      * @return float
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn
      */
     public static function getDividendsPerShare(float $dividends, int $shares) : float
     {
@@ -184,7 +175,6 @@ class StockBonds
      * @return float
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn
      */
     public static function getEarningsPerShare(float $income, float $shares) : float
     {
@@ -200,7 +190,6 @@ class StockBonds
      * @return float
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn
      */
     public static function getEquityMultiplier(float $assets, float $equity) : float
     {
@@ -215,7 +204,6 @@ class StockBonds
      * @return float
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn
      */
     public static function getHoldingPeriodReturn(array $r) : float
     {
@@ -238,7 +226,6 @@ class StockBonds
      * @return float
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn
      */
     public static function getNetAssetValue(float $assets, float $liabilities, int $shares) : float
     {
@@ -254,7 +241,6 @@ class StockBonds
      * @return float
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn
      */
     public static function getPriceToBookValue(float $market, float $book) : float
     {
@@ -270,7 +256,6 @@ class StockBonds
      * @return float
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn
      */
     public static function getPriceEarningsRatio(float $price, float $earnings) : float
     {
@@ -286,7 +271,6 @@ class StockBonds
      * @return float
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn
      */
     public static function getPriceToSalesRatio(float $price, float $sales) : float
     {
@@ -303,7 +287,6 @@ class StockBonds
      * @return float
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn
      */
     public static function getPresentValueOfStockConstantGrowth(float $dividend, float $r, float $g = 0.0) : float
     {
@@ -319,7 +302,6 @@ class StockBonds
      * @return float
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn
      */
     public static function getTaxEquivalentYield(float $free, float $tax) : float
     {
@@ -336,7 +318,6 @@ class StockBonds
      * @return float
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn
      */
     public static function getTotalStockReturn(float $P0, float $P1, float $D) : float
     {
@@ -354,7 +335,6 @@ class StockBonds
      * @return float
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn
      */
     public static function getYieldToMaturity(float $C, float $F, float $P, int $n) : float
     {
@@ -371,7 +351,6 @@ class StockBonds
      * @return float
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn
      */
     public static function getZeroCouponBondValue(float $F, float $r, int $t) : float
     {
@@ -388,7 +367,6 @@ class StockBonds
      * @return float
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn
      */
     public static function getZeroCouponBondEffectiveYield(float $F, float $PV, int $n) : float
     {

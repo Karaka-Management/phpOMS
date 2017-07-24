@@ -35,7 +35,6 @@ class CsvSettings
      * @return string
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn
      */
     public static function getFileDelimiter($file, int $checkLines = 2, array $delimiters = [',', '\t', ';', '|', ':']) : string
     {
