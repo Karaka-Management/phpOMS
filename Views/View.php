@@ -196,6 +196,11 @@ class View extends ViewAbstract
         return $this->app->l11nManager->getText($this->l11n->getLanguage(), $module, $theme, $translation);
     }
 
+    protected function getHtml(string $translation, string $module = null, string $theme = null) : string
+    {
+        return htmlspecialchars($this->getText($translation, $module, $theme));
+    }
+
     /**
      * @return RequestAbstract
      *
