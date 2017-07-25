@@ -16,7 +16,7 @@ declare(strict_types=1);
 
 namespace phpOMS\Datatypes;
 
-use phpOMS\Validation\Base\IbanEnum;
+use phpOMS\Validation\Finance\IbanEnum;
 
 /**
  * Iban class.
@@ -65,7 +65,7 @@ class Iban implements \Serializable
     {
         $this->iban = self::normalize($iban);
 
-        if (!\phpOMS\Validation\Base\Iban::isValid($this->iban)) {
+        if (!\phpOMS\Validation\Finance\Iban::isValid($this->iban)) {
             throw new \InvalidArgumentException('Invalid IBAN');
         }
     }

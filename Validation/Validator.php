@@ -38,9 +38,10 @@ final class Validator extends ValidatorAbstract
      *
      * @since  1.0.0
      */
-    public static function isValid($var, array $constraints) : bool
+    public static function isValid($var, array $constraints = null) : bool
     {
         foreach ($constraints as $callback => $settings) {
+            $callback = StringUtils::endsWith($callback, 'Not') ? substr($callback, 0, -3) : $callback;
             $valid = self::$callback($var, ...$settings);
             $valid = (StringUtils::endsWith($callback, 'Not') ? $valid : !$valid);
 

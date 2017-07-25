@@ -14,7 +14,9 @@
  */
 declare(strict_types=1);
 
-namespace phpOMS\Validation;
+namespace phpOMS\Validation\Network;
+
+use phpOMS\Validation\ValidatorAbstract;
 
 /**
  * Validator abstract.
@@ -26,38 +28,23 @@ namespace phpOMS\Validation;
  * @link       http://orange-management.com
  * @since      1.0.0
  */
-abstract class ValidatorAbstract implements ValidatorInterface
+abstract class Hostname extends ValidatorAbstract
 {
 
     /**
-     * Error code.
+     * Constructor.
      *
-     * @var int
-     * @since 1.0.0
+     * @since  1.0.0
      */
-    protected static $error = 0;
-
-    /**
-     * Message string.
-     *
-     * @var string
-     * @since 1.0.0
-     */
-    protected static $msg = '';
-
-    /**
-     * {@inheritdoc}
-     */
-    public static function getMessage() : string
+    public function __construct()
     {
-        return self::$msg;
     }
 
     /**
      * {@inheritdoc}
      */
-    public static function getErrorCode() : int
+    public static function isValid($value) : bool
     {
-        return self::$error;
+        return filter_var(gethostbyname($value), FILTER_VALIDATE_IP) !== false;
     }
 }
