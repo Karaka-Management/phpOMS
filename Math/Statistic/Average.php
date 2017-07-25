@@ -16,6 +16,9 @@ declare(strict_types=1);
 
 namespace phpOMS\Math\Statistic;
 
+use phpOMS\Math\Exception\ZeroDevisionException;
+use phpOMS\Math\Matrix\Exception\InvalidDimensionException;
+
 /**
  * Average class.
  *
@@ -130,14 +133,14 @@ class Average
      *
      * @return float
      *
-     * @throws \Exception
+     * @throws InvalidDimensionException This exception is thrown in case both parameters have different array length
      *
      * @since  1.0.0
      */
     public static function weightedAverage(array $values, array $weight) : float
     {
         if (($count = count($values)) !== count($weight)) {
-            throw new \Exception('Dimension');
+            throw new InvalidDimensionException(count($values) . 'x' . count($weight));
         }
 
         $avg = 0.0;
@@ -167,7 +170,7 @@ class Average
         $count = count($values);
 
         if ($count === 0) {
-            throw new \Exception('Division zero');
+            throw new ZeroDevisionException();
         }
 
         return array_sum($values) / $count;
@@ -239,7 +242,7 @@ class Average
         $count = count($values);
 
         if ($count === 0) {
-            throw new \Exception('Division zero');
+            throw new ZeroDevisionException();
         }
 
         return pow(array_product($values), 1 / $count);
@@ -272,7 +275,7 @@ class Average
 
         foreach ($values as $value) {
             if ($value === 0) {
-                throw new \Exception('Division zero');
+                throw new ZeroDevisionException();
             }
 
             $sum += 1 / $value;

@@ -17,6 +17,7 @@ declare(strict_types=1);
 namespace phpOMS\Math\Finance;
 
 use phpOMS\Math\Statistic\Average;
+use phpOMS\Math\Matrix\Exception\InvalidDimensionException;
 
 /**
  * Finance class.
@@ -1036,7 +1037,7 @@ class FinanceFormulas
      *
      * @return float
      *
-     * @throws \Exception
+     * @throws InvalidDimensionException Throws this exception if the length of the array is 0
      *
      * @since  1.0.0
      */
@@ -1045,7 +1046,7 @@ class FinanceFormulas
         $count = count($C);
 
         if ($count === 0) {
-            throw new \Exception('Dimension');
+            throw new InvalidDimensionException($count);
         }
 
         $npv = -$C[0];

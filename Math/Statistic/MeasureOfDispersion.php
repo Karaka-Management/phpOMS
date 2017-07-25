@@ -16,6 +16,9 @@ declare(strict_types=1);
 
 namespace phpOMS\Math\Statistic;
 
+use phpOMS\Math\Exception\ZeroDevisionException;
+use phpOMS\Math\Matrix\Exception\InvalidDimensionException;
+
 /**
  * Measure of dispersion.
  *
@@ -67,7 +70,7 @@ class MeasureOfDispersion
         $mean = Average::arithmeticMean($values);
 
         if ($mean === 0) {
-            throw new \Exception('Division zero');
+            throw new ZeroDevisionException();
         }
 
         return self::standardDeviation($values) / $mean;
@@ -107,7 +110,7 @@ class MeasureOfDispersion
         $count = count($values);
 
         if ($count < 2) {
-            throw new \Exception('Division zero');
+            throw new ZeroDevisionException();
         }
 
         return $count * self::empiricalVariance($values) / ($count - 1);
@@ -131,7 +134,7 @@ class MeasureOfDispersion
         $count = count($values);
 
         if ($count === 0) {
-            throw new \Exception('Division zero');
+            throw new ZeroDevisionException();
         }
 
         $mean = Average::arithmeticMean($values);
@@ -154,7 +157,7 @@ class MeasureOfDispersion
      *
      * @return float
      *
-     * @throws \Exception
+     * @throws InvalidDimensionException
      *
      * @since  1.0.0
      */
@@ -163,11 +166,11 @@ class MeasureOfDispersion
         $count = count($x);
 
         if ($count < 2) {
-            throw new \Exception('Division zero');
+            throw new ZeroDevisionException();
         }
 
         if ($count !== count($y)) {
-            throw new \Exception('Dimensions');
+            throw new InvalidDimensionException($count . 'x' . count($y));
         }
 
         $xMean = Average::arithmeticMean($x);

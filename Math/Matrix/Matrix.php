@@ -16,6 +16,8 @@ declare(strict_types=1);
 
 namespace phpOMS\Math\Matrix;
 
+use phpOMS\Math\Matrix\Exception\InvalidDimensionException;
+
 /**
  * Matrix class
  *
@@ -85,14 +87,14 @@ class Matrix implements \ArrayAccess, \Iterator
      * @param int $n     Column
      * @param int $value Value
      *
-     * @throws DimensionException
+     * @throws InvalidDimensionException
      *
      * @since  1.0.0
      */
     public function set(int $m, int $n, $value) /* : void */
     {
         if (!isset($this->matrix[$m][$n])) {
-            throw new DimensionException($m, $n);
+            throw new InvalidDimensionException($m . 'x' . $n);
         }
 
         $this->matrix[$m][$n] = $value;
@@ -106,14 +108,14 @@ class Matrix implements \ArrayAccess, \Iterator
      *
      * @return mixed
      *
-     * @throws DimensionException
+     * @throws InvalidDimensionException
      *
      * @since  1.0.0
      */
     public function get(int $m, int $n)
     {
         if (!isset($this->matrix[$m][$n])) {
-            throw new DimensionException($m, $n);
+            throw new InvalidDimensionException($m . 'x' . $n);
         }
 
         return $this->matrix[$m][$n];
@@ -172,7 +174,7 @@ class Matrix implements \ArrayAccess, \Iterator
     public function setMatrix(array $matrix) : Matrix
     {
         if ($this->m !== count($matrix) || $this->n !== count($matrix[0])) {
-            throw new DimensionException(count($matrix), count($matrix[0]));
+            throw new InvalidDimensionException(count($matrix) . 'x' . count($matrix[0]));
         }
 
         $this->matrix = $matrix;
@@ -238,7 +240,7 @@ class Matrix implements \ArrayAccess, \Iterator
     private function addMatrix(Matrix $matrix) : Matrix
     {
         if ($this->m !== $matrix->getM() || $this->n !== $matrix->getN()) {
-            throw new DimensionException($matrix->getM(), $matrix->getN());
+            throw new InvalidDimensionException($matrix->getM() . 'x' . $matrix->getN());
         }
 
         $matrixArr    = $matrix->getMatrix();
@@ -346,7 +348,7 @@ class Matrix implements \ArrayAccess, \Iterator
         $mDim = $matrix->getM();
 
         if ($this->n !== $mDim) {
-            throw new DimensionException($mDim, $nDim);
+            throw new InvalidDimensionException($mDim . 'x' . $nDim);
         }
 
         $matrixArr    = $matrix->getMatrix();
@@ -485,14 +487,14 @@ class Matrix implements \ArrayAccess, \Iterator
      *
      * @return Matrix
      *
-     * @throws \Exception
+     * @throws InvalidDimensionException
      *
      * @since  1.0.0
      */
     public function inverse(int $algorithm = InverseType::GAUSS_JORDAN) : Matrix
     {
         if ($this->n !== $this->m) {
-            throw new DimensionException($this->m, $this->n);
+            throw new InvalidDimensionException($this->m . 'x' . $this->n);
         }
 
         switch ($algorithm) {

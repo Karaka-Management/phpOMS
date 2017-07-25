@@ -16,6 +16,8 @@ declare(strict_types=1);
 
 namespace phpOMS\Math\Statistic\Forecast\Regression;
 
+use phpOMS\Math\Matrix\Exception\InvalidDimensionException;
+
 /**
  * Regression class.
  *
@@ -33,8 +35,8 @@ class LevelLogRegression extends RegressionAbstract
      */
     public static function getRegression(array $x, array $y) : array
     {
-        if (($c = count($x)) != count($y)) {
-            throw new \Exception('Dimension');
+        if (($c = count($x)) !== count($y)) {
+            throw new InvalidDimensionException($c . 'x' . count($y));
         }
 
         for ($i = 0; $i < $c; $i++) {
