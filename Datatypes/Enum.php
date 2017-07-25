@@ -85,14 +85,14 @@ abstract class Enum
      *
      * @return mixed
      *
-     * @throws \Exception Throws this exception if the constant is not defined in the enum class.
+     * @throws \UnexpectedValueException Throws this exception if the constant is not defined in the enum class.
      *
      * @since  1.0.0
      */
     public static function getByName(string $name)
     {
         if (!self::isValidName($name)) {
-            throw new \Exception('Undefined constant "' . $name . '"');
+            throw new \UnexpectedValueException($name);
         }
 
         return constant('static::' . $name);
@@ -104,8 +104,6 @@ abstract class Enum
      * @param string $value Enum value
      *
      * @return mixed
-     *
-     * @throws \Exception Throws this exception if the constant is not defined in the enum class.
      *
      * @since  1.0.0
      */
