@@ -17,7 +17,7 @@
         "very_heavy": "t"
     },
     "speed": {
-        "very_slow": "ms",
+        "very_slow": "ns",
         "slow": "ms",
         "medium": "kph",
         "fast": "kph",
@@ -25,19 +25,19 @@
         "sea": "knot"
     },
     "length": {
-        "very_short": "mm",
-        "short": "cm",
-        "medium": "m",
-        "long": "km",
+        "very_short": "nm",
+        "short": "mm",
+        "medium": "cm",
+        "long": "m",
         "very_long": "km",
         "sea": "mile"
     },
     "area": {
-        "very_small": "mm",
-        "small": "cm",
-        "medium": "m",
-        "large": "km",
-        "very_large": "ha"
+        "very_small": "nm",
+        "small": "mm",
+        "medium": "cm",
+        "large": "m",
+        "very_large": "km"
     },
     "volume": {
         "very_small": "ml",
