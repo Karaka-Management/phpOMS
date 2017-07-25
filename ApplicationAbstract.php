@@ -35,7 +35,7 @@ class ApplicationAbstract
      * @var string
      * @since 1.0.0
      */
-    public $appName = '';
+    private $appName = '';
 
     /**
      * Config.
@@ -51,7 +51,7 @@ class ApplicationAbstract
      * @var \phpOMS\DataStorage\Database\DatabasePool
      * @since 1.0.0
      */
-    public $dbPool = null;
+    private $dbPool = null;
 
     /**
      * Application settings object.
@@ -59,7 +59,7 @@ class ApplicationAbstract
      * @var \Model\CoreSettings
      * @since 1.0.0
      */
-    public $appSettings = null;
+    private $appSettings = null;
 
     /**
      * Account manager instance.
@@ -67,7 +67,7 @@ class ApplicationAbstract
      * @var \phpOMS\Account\AccountManager
      * @since 1.0.0
      */
-    public $accountManager = null;
+    private $accountManager = null;
 
     /**
      * Cache instance.
@@ -75,7 +75,7 @@ class ApplicationAbstract
      * @var \phpOMS\DataStorage\Cache\CachePool
      * @since 1.0.0
      */
-    public $cachePool = null;
+    private $cachePool = null;
 
     /**
      * ModuleManager instance.
@@ -83,7 +83,7 @@ class ApplicationAbstract
      * @var \phpOMS\Module\ModuleManager
      * @since 1.0.0
      */
-    public $moduleManager = null;
+    private $moduleManager = null;
 
     /**
      * Router instance.
@@ -91,7 +91,7 @@ class ApplicationAbstract
      * @var \phpOMS\Router\Router
      * @since 1.0.0
      */
-    public $router = null;
+    private $router = null;
 
     /**
      * Dispatcher instance.
@@ -99,7 +99,7 @@ class ApplicationAbstract
      * @var \phpOMS\Dispatcher\Dispatcher
      * @since 1.0.0
      */
-    public $dispatcher = null;
+    private $dispatcher = null;
 
     /**
      * Session instance.
@@ -107,7 +107,7 @@ class ApplicationAbstract
      * @var \phpOMS\DataStorage\Session\SessionInterface
      * @since 1.0.0
      */
-    public $sessionManager = null;
+    private $sessionManager = null;
 
     /**
      * Server localization.
@@ -115,7 +115,7 @@ class ApplicationAbstract
      * @var \phpOMS\Localization\Localization
      * @since 1.0.0
      */
-    public $l11nServer = null;
+    private $l11nServer = null;
 
     /**
      * Server localization.
@@ -123,7 +123,7 @@ class ApplicationAbstract
      * @var \phpOMS\Log\FileLogger
      * @since 1.0.0
      */
-    public $logger = null;
+    private $logger = null;
 
     /**
      * L11n manager.
@@ -131,7 +131,7 @@ class ApplicationAbstract
      * @var \phpOMS\Localization\L11nManager
      * @since 1.0.0
      */
-    public $l11nManager = null;
+    private $l11nManager = null;
 
     /**
      * Event manager.
@@ -139,5 +139,46 @@ class ApplicationAbstract
      * @var \phpOMS\Event\EventManager
      * @since 1.0.0
      */
-    public $eventManager = null;
+    private $eventManager = null;
+
+    /**
+     * Set values
+     *
+     * @param string $name Variable name
+     * @param string $value Variable value
+     *
+     * @return void
+     *
+     * @todo replace with proper setter (faster)
+     *
+     * @since  1.0.0
+     */
+    public function __set($name, $value) 
+    {
+        if(!empty($this->$name) || $name === 'config') {
+            return;
+        }
+
+        $this->$name = $value;
+    }
+
+    /**
+     * Get values
+     *
+     * @param string $name Variable name
+     *
+     * @return mixed
+     *
+     * @todo replace with proper getter (faster)
+     *
+     * @since  1.0.0
+     */
+    public function __get($name) 
+    { 
+        if($name === 'config') {
+            return [];
+        }
+
+        return $this->$name; 
+    }
 }
