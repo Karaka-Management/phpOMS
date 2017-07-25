@@ -35,7 +35,7 @@ class ApplicationAbstract
      * @var string
      * @since 1.0.0
      */
-    private $appName = '';
+    protected $appName = '';
 
     /**
      * Config.
@@ -43,7 +43,7 @@ class ApplicationAbstract
      * @var array
      * @since 1.0.0
      */
-    private $config = [];
+    protected $config = [];
 
     /**
      * Database object.
@@ -51,7 +51,7 @@ class ApplicationAbstract
      * @var \phpOMS\DataStorage\Database\DatabasePool
      * @since 1.0.0
      */
-    private $dbPool = null;
+    protected $dbPool = null;
 
     /**
      * Application settings object.
@@ -59,7 +59,7 @@ class ApplicationAbstract
      * @var \Model\CoreSettings
      * @since 1.0.0
      */
-    private $appSettings = null;
+    protected $appSettings = null;
 
     /**
      * Account manager instance.
@@ -67,7 +67,7 @@ class ApplicationAbstract
      * @var \phpOMS\Account\AccountManager
      * @since 1.0.0
      */
-    private $accountManager = null;
+    protected $accountManager = null;
 
     /**
      * Cache instance.
@@ -75,7 +75,7 @@ class ApplicationAbstract
      * @var \phpOMS\DataStorage\Cache\CachePool
      * @since 1.0.0
      */
-    private $cachePool = null;
+    protected $cachePool = null;
 
     /**
      * ModuleManager instance.
@@ -83,7 +83,7 @@ class ApplicationAbstract
      * @var \phpOMS\Module\ModuleManager
      * @since 1.0.0
      */
-    private $moduleManager = null;
+    protected $moduleManager = null;
 
     /**
      * Router instance.
@@ -91,7 +91,7 @@ class ApplicationAbstract
      * @var \phpOMS\Router\Router
      * @since 1.0.0
      */
-    private $router = null;
+    protected $router = null;
 
     /**
      * Dispatcher instance.
@@ -99,7 +99,7 @@ class ApplicationAbstract
      * @var \phpOMS\Dispatcher\Dispatcher
      * @since 1.0.0
      */
-    private $dispatcher = null;
+    protected $dispatcher = null;
 
     /**
      * Session instance.
@@ -107,7 +107,7 @@ class ApplicationAbstract
      * @var \phpOMS\DataStorage\Session\SessionInterface
      * @since 1.0.0
      */
-    private $sessionManager = null;
+    protected $sessionManager = null;
 
     /**
      * Server localization.
@@ -115,7 +115,7 @@ class ApplicationAbstract
      * @var \phpOMS\Localization\Localization
      * @since 1.0.0
      */
-    private $l11nServer = null;
+    protected $l11nServer = null;
 
     /**
      * Server localization.
@@ -123,7 +123,7 @@ class ApplicationAbstract
      * @var \phpOMS\Log\FileLogger
      * @since 1.0.0
      */
-    private $logger = null;
+    protected $logger = null;
 
     /**
      * L11n manager.
@@ -131,7 +131,7 @@ class ApplicationAbstract
      * @var \phpOMS\Localization\L11nManager
      * @since 1.0.0
      */
-    private $l11nManager = null;
+    protected $l11nManager = null;
 
     /**
      * Event manager.
@@ -139,7 +139,7 @@ class ApplicationAbstract
      * @var \phpOMS\Event\EventManager
      * @since 1.0.0
      */
-    private $eventManager = null;
+    protected $eventManager = null;
 
     /**
      * Set values
