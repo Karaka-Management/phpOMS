@@ -20,6 +20,7 @@ use phpOMS\DataStorage\Database\DatabaseStatus;
 use phpOMS\DataStorage\Database\DatabaseType;
 use phpOMS\DataStorage\Database\Query\Grammar\MysqlGrammar;
 use phpOMS\DataStorage\Database\Schema\Grammar\MysqlGrammar as MysqlSchemaGrammar;
+use phpOMS\DataStorage\Database\Exception\InvalidConnectionConfigException;
 
 /**
  * Database handler.
@@ -62,27 +63,27 @@ class MysqlConnection extends ConnectionAbstract
         $this->dbdata = isset($dbdata) ? $dbdata : $this->dbdata;
         
         if(!isset($this->dbdata['db'])) {
-            throw new \Exception('db');
+            throw new InvalidConnectionConfigException('db');
         }
 
         if(!isset($this->dbdata['host'])) {
-            throw new \Exception('host');
+            throw new InvalidConnectionConfigException('host');
         }
 
         if(!isset($this->dbdata['port'])) {
-            throw new \Exception('port');
+            throw new InvalidConnectionConfigException('port');
         }
 
         if(!isset($this->dbdata['database'])) {
-            throw new \Exception('database');
+            throw new InvalidConnectionConfigException('database');
         }
 
         if(!isset($this->dbdata['login'])) {
-            throw new \Exception('login');
+            throw new InvalidConnectionConfigException('login');
         }
 
         if(!isset($this->dbdata['password'])) {
-            throw new \Exception('password');
+            throw new InvalidConnectionConfigException('password');
         }
 
         $this->close();

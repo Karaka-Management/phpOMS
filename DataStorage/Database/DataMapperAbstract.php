@@ -20,6 +20,7 @@ use phpOMS\DataStorage\Database\Connection\ConnectionAbstract;
 use phpOMS\DataStorage\Database\Query\Builder;
 use phpOMS\DataStorage\DataMapperInterface;
 use phpOMS\Message\RequestAbstract;
+use phpOMS\DataStorage\Database\Exception\InvalidMapperException;
 
 /**
  * Datamapper for databases.
@@ -460,7 +461,7 @@ class DataMapperAbstract implements DataMapperInterface
      *
      * @return void
      *
-     * @throws \Exception
+     * @throws InvalidMapperException
      *
      * @since  1.0.0
      */
@@ -480,7 +481,7 @@ class DataMapperAbstract implements DataMapperInterface
             }
 
             if (!isset(static::$hasMany[$propertyName]['mapper'])) {
-                throw new \Exception('No mapper set for relation object.');
+                throw new InvalidMapperException();
             }
 
             /** @var DataMapperAbstract $mapper */
@@ -679,7 +680,7 @@ class DataMapperAbstract implements DataMapperInterface
      *
      * @return void
      *
-     * @throws \Exception
+     * @throws InvalidMapperException
      *
      * @since  1.0.0
      */
@@ -699,7 +700,7 @@ class DataMapperAbstract implements DataMapperInterface
             }
 
             if (!isset(static::$hasMany[$propertyName]['mapper'])) {
-                throw new \Exception('No mapper set for relation object.');
+                throw new InvalidMapperException();
             }
 
             /** @var DataMapperAbstract $mapper */
@@ -984,7 +985,7 @@ class DataMapperAbstract implements DataMapperInterface
      *
      * @return void
      *
-     * @throws \Exception
+     * @throws InvalidMapperException
      *
      * @since  1.0.0
      */
@@ -1004,7 +1005,7 @@ class DataMapperAbstract implements DataMapperInterface
             }
 
             if (!isset(static::$hasMany[$propertyName]['mapper'])) {
-                throw new \Exception('No mapper set for relation object.');
+                throw new InvalidMapperException();
             }
 
             /** @var DataMapperAbstract $mapper */
@@ -1406,7 +1407,7 @@ class DataMapperAbstract implements DataMapperInterface
      *
      * @return mixed
      *
-     * @throws \Exception
+     * @throws \UnexpectedValueException
      *
      * @since  1.0.0
      */
