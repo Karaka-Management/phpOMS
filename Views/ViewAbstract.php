@@ -177,7 +177,7 @@ abstract class ViewAbstract implements \Serializable
      *
      * @since  1.0.0 <d.eichhorn@oms.com>
      */
-    public function addView(string $id, View $view, int $order = 0, bool $overwrite = true)  : bool 
+    public function addView(string $id, View $view, int $order = 0, bool $overwrite = true) : bool 
     {
         if ($overwrite || !isset($this->views[$id])) {
             $this->views[$id] = $view;
@@ -233,11 +233,11 @@ abstract class ViewAbstract implements \Serializable
     /**
      * Get view/template response.
      *
-     * @return string
+     * @return string|array
      *
      * @since  1.0.0 <d.eichhorn@oms.com>
      */
-    public function render(...$data) : string
+    public function render(...$data)
     {
         $path = __DIR__ . '/../..' . $this->template . '.tpl.php';
 
@@ -247,11 +247,11 @@ abstract class ViewAbstract implements \Serializable
 
         ob_start();
         /** @noinspection PhpIncludeInspection */
-        $data = include $path;
+        $tpl = include $path;
         $ob   = ob_get_clean();
 
-        if (is_array($data)) {
-            return $data;
+        if (is_array($tpl)) {
+            return $tpl;
         }
 
         return $ob;

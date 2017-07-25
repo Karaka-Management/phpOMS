@@ -20,6 +20,8 @@ use phpOMS\ApplicationAbstract;
 use phpOMS\Localization\Localization;
 use phpOMS\Message\RequestAbstract;
 use phpOMS\Message\ResponseAbstract;
+use phpOMS\Module\Exception\InvalidModuleException;
+use phpOMS\Module\Exception\InvalidThemeException;
 
 /**
  * List view.
@@ -163,7 +165,8 @@ class View extends ViewAbstract
      * 
      * @return string
      *
-     * @throws \Exception
+     * @throws InvalidModuleException Throws this exception if no data for the defined module could be found.
+     * @throws InvalidTemplateException Throws this exception if no data for the defined theme could be found.
      *
      * @since  1.0.0
      */
@@ -173,7 +176,7 @@ class View extends ViewAbstract
             $match = '/Modules/';
 
             if (($start = strripos($this->template, $match)) === false) {
-                throw new \Exception('Unknown Module');
+                throw new InvalidModuleException($module);
             }
 
             $start  = $start + strlen($match);
@@ -185,7 +188,7 @@ class View extends ViewAbstract
             $match = '/Theme/';
 
             if (($start = strripos($this->template, $match)) === false) {
-                throw new \Exception('Unknown Theme');
+                throw new InvalidThemeException($theme);
             }
 
             $start = $start + strlen($match);
@@ -196,6 +199,17 @@ class View extends ViewAbstract
         return $this->app->l11nManager->getText($this->l11n->getLanguage(), $module, $theme, $translation);
     }
 
+    /**
+     * Get translation.
+     *
+     * @param string $translation Text
+     * @param string $module      Module name
+     * @param string $theme       Theme name
+     * 
+     * @return string
+     *
+     * @since  1.0.0
+     */
     protected function getHtml(string $translation, string $module = null, string $theme = null) : string
     {
         return htmlspecialchars($this->getText($translation, $module, $theme));

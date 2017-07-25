@@ -19,7 +19,7 @@ namespace phpOMS\Account;
 use phpOMS\Contract\ArrayableInterface;
 use phpOMS\Localization\Localization;
 use phpOMS\Localization\NullLocalization;
-use phpOMS\Validation\Base\Email;
+use phpOMS\Validation\Network\Email;
 
 /**
  * Account manager class.
@@ -452,7 +452,7 @@ class Account implements ArrayableInterface, \JsonSerializable
      *
      * @since  1.0.0
      */
-    public function updateLastActive()
+    public function updateLastActive() /* : void */
     {
         $this->lastActive = new \DateTime('NOW');
     }

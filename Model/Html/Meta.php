@@ -80,7 +80,7 @@ class Meta implements RenderableInterface
      *
      * @since  1.0.0
      */
-    public function addKeyword(string $keyword)
+    public function addKeyword(string $keyword) /* : void */
     {
         if (!in_array($keyword, $this->keywords)) {
             $this->keywords[] = $keyword;

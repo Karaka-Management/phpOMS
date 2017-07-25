@@ -87,14 +87,14 @@ class L11nManager
      *
      * @return void
      *
-     * @throws \Exception
+     * @throws \UnexpectedValueException This exception is thrown when no language definitions for the defined source `$from` exist.
      *
      * @since  1.0.0
      */
     public function loadLanguage(string $language, string $from, array $translation) /* : void */
     {
         if (!isset($translation[$from])) {
-            throw new \Exception('Unexpected language key: ' . $from);
+            throw new \UnexpectedValueException($from);
         }
 
         if (!isset($this->language[$language][$from])) {
@@ -146,9 +146,9 @@ class L11nManager
             return $this->language[$language];
         } elseif (isset($this->language[$language], $this->language[$language][$module])) {
             return $this->language[$language][$module];
-        } else {
-            return [];
         }
+        
+        return [];
     }
 
     /**
@@ -159,23 +159,31 @@ class L11nManager
      * @param string $theme       Theme
      * @param string $translation Text
      *
-     * @return string
+     * @return string In case the language element couldn't be found 'ERROR' will be returned
      *
      * @since  1.0.0
      */
     public function getText(string $code, string $module, string $theme, string $translation) : string
     {
         if (!isset($this->language[$code][$module][$translation])) {
-            /** @var ModuleAbstract $class */
-            $class = '\Modules\\' . $module . '\\Controller';
-            $this->loadLanguage($code, $module, $class::getLocalization($code, $theme));
+            try {
+                /** @var ModuleAbstract $class */
+                $class = '\Modules\\' . $module . '\\Controller';
+                $this->loadLanguage($code, $module, $class::getLocalization($code, $theme));
 
-            if (!isset($this->language[$code][$module][$translation])) {
-                if(isset($this->logger)) {
-                    $this->logger->warning(FileLogger::MSG_FULL, [
-                        'message' => 'Undefined translation for \'' . $code . '/' . $module . '/' . $translation . '\'.',
-                    ]);
+                if (!isset($this->language[$code][$module][$translation])) {
+                    if(isset($this->logger)) {
+                        $this->logger->warning(FileLogger::MSG_FULL, [
+                            'message' => 'Undefined translation for \'' . $code . '/' . $module . '/' . $translation . '\'.',
+                        ]);
+                    }
+
+                    return 'ERROR';
                 }
+            } catch(\Excpetion $e) {
+                $this->logger->warning(FileLogger::MSG_FULL, [
+                    'message' => 'Undefined translation for \'' . $code . '/' . $module . '/' . $translation . '\'.',
+                ]);
 
                 return 'ERROR';
             }

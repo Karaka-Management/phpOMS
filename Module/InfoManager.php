@@ -79,6 +79,8 @@ class InfoManager
      *
      * @return void
      *
+     * @throws PathException This exception is thrown in case the info file path doesn't exist.
+     *
      * @since  1.0.0
      */
     public function load() /* : void */

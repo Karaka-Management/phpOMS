@@ -193,17 +193,27 @@ abstract class RequestAbstract implements MessageInterface
     }
 
     /**
-     * {@inheritdoc}
+     * Get request source.
+     *
+     * @return int
+     *
+     * @since  1.0.0
      */
-    public function getRequestSource()
+    public function getRequestSource() : int
     {
         return $this->source;
     }
 
     /**
-     * {@inheritdoc}
+     * Set request source.
+     *
+     * @param int $source Request source
+     *
+     * @return void
+     *
+     * @since  1.0.0
      */
-    public function setRequestSource($source) /* : void */
+    public function setRequestSource(int $source) /* : void */
     {
         if (!RequestSource::isValidValue($source)) {
             throw new InvalidEnumValue($source);

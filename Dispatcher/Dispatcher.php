@@ -155,7 +155,7 @@ class Dispatcher
      *
      * @since  1.0.0
      */
-    private function dispatchClosure(\Closure $controller, array $data = null)
+    private function dispatchClosure(\Closure $controller, array $data = null) /* : void */
     {
         return $controller($this->app, ...$data);
     }
@@ -167,9 +167,11 @@ class Dispatcher
      *
      * @return mixed
      *
+     * @throws PathException This exception is thrown in case the controller couldn't be found.
+     *
      * @since  1.0.0
      */
-    private function getController(string $controller)
+    private function getController(string $controller) /* : object */
     {
         if (!isset($this->controllers[$controller])) {
             if (!file_exists($path = __DIR__ . '/../../' . str_replace('\\', '/', $controller) . '.php')) {
@@ -193,18 +195,12 @@ class Dispatcher
      * @param ModuleAbstract $controller Controller
      * @param string         $name       Controller string
      *
-     * @return bool
+     * @return void
      *
      * @since  1.0.0
      */
-    public function set(ModuleAbstract $controller, string $name) : bool
+    public function set(ModuleAbstract $controller, string $name) /* : void */
     {
-        if (!isset($this->controllers[$name])) {
-            $this->controllers[$name] = $controller;
-
-            return true;
-        }
-
-        return false;
+        $this->controllers[$name] = $controller;
     }
 }

@@ -41,7 +41,7 @@ class ColorUtils
      *
      * @since  1.0.0
      */
-    public static function getRGBGradient(int $value, array $start, array $stop, array $end)
+    public static function getRGBGradient(int $value, array $start, array $stop, array $end) : array
     {
         $diff     = [];
         $gradient = [];

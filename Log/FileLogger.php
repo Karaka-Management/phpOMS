@@ -180,7 +180,7 @@ class FileLogger implements LoggerInterface
      *
      * @since  1.0.0
      */
-    public function startTimeLog($id = '')
+    public function startTimeLog($id = '') /* : void */
     {
         $mtime = explode(' ', microtime());
         $mtime = $mtime[1] + $mtime[0];
@@ -193,11 +193,11 @@ class FileLogger implements LoggerInterface
      *
      * @param string $id the ID by which this time measurement gets identified
      *
-     * @return int the time measurement
+     * @return int The time measurement in ms
      *
      * @since  1.0.0
      */
-    public function endTimeLog($id = '')
+    public function endTimeLog($id = '') : int
     {
         $mtime = explode(' ', microtime());
         $mtime = $mtime[1] + $mtime[0];
@@ -217,7 +217,7 @@ class FileLogger implements LoggerInterface
      *
      * @since  1.0.0
      */
-    public function timingSort(&$timings)
+    public function timingSort(&$timings) /* : void */
     {
         uasort($timings, [$this, 'orderSort']);
     }
@@ -233,7 +233,7 @@ class FileLogger implements LoggerInterface
      *
      * @since  1.0.0
      */
-    private function interpolate(string $message, array $context = [], string $level = LogLevel::DEBUG)
+    private function interpolate(string $message, array $context = [], string $level = LogLevel::DEBUG) : string
     {
         $replace = [];
         foreach ($context as $key => $val) {
@@ -634,9 +634,8 @@ class FileLogger implements LoggerInterface
      * @param bool   $verbose Is verbose
      * @param array  $context Context
      *
-     * @return array
      */
-    public function console(string $message, bool $verbose = true, array $context = [])
+    public function console(string $message, bool $verbose = true, array $context = []) /* : void */
     {
         $message = date('[Y-m-d H:i:s] ') . $message . "\r\n";
 

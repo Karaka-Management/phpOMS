@@ -21,6 +21,7 @@ use phpOMS\Autoloader;
 use phpOMS\DataStorage\Database\DatabaseType;
 use phpOMS\Message\Http\Request;
 use phpOMS\System\File\PathException;
+use phpOMS\Module\Exception\InvalidModuleException;
 
 /**
  * Modules class.
@@ -343,7 +344,7 @@ class ModuleManager
      *
      * @return bool
      *
-     * @throws \Exception
+     * @throws InvalidModuleException Throws this exception in case the installer doesn't exist
      *
      * @since  1.0.0
      */
@@ -354,7 +355,7 @@ class ModuleManager
         $class = '\\Modules\\' . $info->getDirectory() . '\\Admin\\Installer';
 
         if (!Autoloader::exists($class)) {
-            throw new \Exception('Module installer does not exist');
+            throw new InvalidModuleException($info->getDirectory());
         }
 
         $class::reInit($this->modulePath, $info);
@@ -436,7 +437,7 @@ class ModuleManager
      *
      * @return void
      *
-     * @throws \Exception
+     * @throws InvalidModuleException Throws this exception in case the installer doesn't exist
      *
      * @since  1.0.0
      */
@@ -446,7 +447,7 @@ class ModuleManager
         $class = '\\Modules\\' . $info->getDirectory() . '\\Admin\\Installer';
 
         if (!Autoloader::exists($class)) {
-            throw new \Exception('Module installer does not exist');
+            throw new InvalidModuleException($info->getDirectory());
         }
 
         $class::install($this->modulePath, $this->app->dbPool, $info);
@@ -459,7 +460,7 @@ class ModuleManager
      *
      * @return void
      *
-     * @throws \Exception
+     * @throws InvalidModuleException Throws this exception in case the deactiviation doesn't exist
      *
      * @since  1.0.0
      */
@@ -468,7 +469,7 @@ class ModuleManager
         $class = '\\Modules\\' . $info->getDirectory() . '\\Admin\\Deactivate';
 
         if (!Autoloader::exists($class)) {
-            throw new \Exception('Module deactivation does not exist');
+            throw new InvalidModuleException($info->getDirectory());
         }
 
         /** @var $class DeactivateAbstract */
@@ -482,16 +483,16 @@ class ModuleManager
      *
      * @return void
      *
-     * @throws \Exception
+     * @throws InvalidModuleException Throws this exception in case the activation doesn't exist
      *
      * @since  1.0.0
      */
     private function activateModule(InfoManager $info) /* : void */
     {
-        $class = '\\Modules\\' . $info->getDirectory() . '\\Admin\\Deactivate';
+        $class = '\\Modules\\' . $info->getDirectory() . '\\Admin\\Activate';
 
         if (!Autoloader::exists($class)) {
-            throw new \Exception('Module deactivation does not exist');
+            throw new InvalidModuleException($info->getDirectory());
         }
 
         /** @var $class ActivateAbstract */

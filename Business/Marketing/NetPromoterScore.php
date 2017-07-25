@@ -86,6 +86,15 @@ class NetPromoterScore {
         return $total === 0 ? 0 : ((int) ($promoters * 100 / $total)) - ((int) ($detractors * 100 / $total));
     }
 
+    /**
+     * Count detractors
+     *
+     * Detractors are all ratings below 7.
+     *
+     * @return int
+     *
+     * @since  1.0.0
+     */
     public function countDetractors() : int
     {
         $count = 0;
@@ -98,6 +107,15 @@ class NetPromoterScore {
         return $count;
     }
 
+    /**
+     * Count passives
+     *
+     * Passives are all ratings between 7 and 8 (inclusive)
+     *
+     * @return int
+     *
+     * @since  1.0.0
+     */
     public function countPassives() : int
     {
         $count = 0;
@@ -110,6 +128,15 @@ class NetPromoterScore {
         return $count;
     }
 
+    /**
+     * Count promoters
+     *
+     * Promotoers are all ratings larger 8
+     *
+     * @return int
+     *
+     * @since  1.0.0
+     */
     public function countPromoters() : int
     {
         $count = 0;

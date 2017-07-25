@@ -17,6 +17,7 @@ declare(strict_types=1);
 namespace phpOMS\Message\Http;
 
 use phpOMS\Message\HeaderAbstract;
+use phpOMS\DataStorage\LockExcpetion;
 
 /**
  * Response class.
@@ -50,12 +51,25 @@ class Header extends HeaderAbstract
     }
 
     /**
-     * {@inheritdoc}
+     * Set header.
+     *
+     * @param string $key Header key (case insensitive)
+     * @param string $header Header value
+     * @param bool $overwrite Overwrite if already existing
+     *
+     * @return bool
+     *
+     * @throws LockException The http header needs to be defined at the beginning. If it is already pushed further interactions are impossible and locked.
+     * @throws \Exception If the header already exists and cannot be overwritten this exception will be thrown.
+     *
+     * @todo Allow to extend header key with additional values.
+     *
+     * @since  1.0.0
      */
     public function set(string $key, string $header, bool $overwrite = false) : bool
     {
         if (self::$isLocked) {
-            throw new \Exception('Already locked');
+            throw new LockExcpetion('HTTP header');
         }
 
         $key = strtolower($key);
@@ -86,8 +100,6 @@ class Header extends HeaderAbstract
      *
      * @return bool
      *
-     * @throws \Exception
-     *
      * @since  1.0.0
      */
     private function isSecurityHeader(string $key) : bool
@@ -111,7 +123,7 @@ class Header extends HeaderAbstract
     }
 
     /**
-     * Returns all headers.
+     * Returns all pushed headers.
      *
      * @return array
      *
@@ -123,7 +135,11 @@ class Header extends HeaderAbstract
     }
 
     /**
-     * {@inheritdoc}
+     * Get pushed header by name.
+     *
+     * @return string
+     *
+     * @since  1.0.0
      */
     public function getHeader(string $name) : string
     {
@@ -137,14 +153,14 @@ class Header extends HeaderAbstract
      *
      * @return bool
      *
-     * @throws \Exception
+     * @throws LockException The http header needs to be defined at the beginning. If it is already pushed further interactions are impossible and locked.
      *
      * @since  1.0.0
      */
     public function remove(int $key) : bool
     {
         if (self::$isLocked) {
-            throw new \Exception('Already locked');
+            throw new \LockException('HTTP header');
         }
 
         if (isset($this->header[$key])) {
@@ -157,7 +173,13 @@ class Header extends HeaderAbstract
     }
 
     /**
-     * {@inheritdoc}
+     * Get header by name.
+     *
+     * @param int $key Header key
+     *
+     * @return array
+     *
+     * @since  1.0.0
      */
     public function get(string $key) : array
     {
@@ -165,11 +187,17 @@ class Header extends HeaderAbstract
     }
 
     /**
-     * {@inheritdoc}
+     * Check if header is defined.
+     *
+     * @param int $key Header key
+     *
+     * @return bool
+     *
+     * @since  1.0.0
      */
     public function has(string $key) : bool
     {
-        return array_key_exists($key, $this->header);
+        return isset($this->header[$key]);
     }
 
     /**
