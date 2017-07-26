@@ -6,7 +6,6 @@
  *
  * @category   TBD
  * @package    TBD
- * @author     OMS Development Team <dev@oms.com>
  * @copyright  Dennis Eichhorn
  * @license    OMS License 1.0
  * @version    1.0.0
@@ -22,7 +21,6 @@ namespace phpOMS\Utils\EDI\AnsiX12;
  * @link       https://www.erico.com/public/library/edi/ERICO850_4010.pdf
  * @category   Framework
  * @package    phpOMS\Utils\Converter
- * @author     OMS Development Team <dev@oms.com>
  * @license    OMS License 1.0
  * @link       http://orange-management.com
  * @since      1.0.0

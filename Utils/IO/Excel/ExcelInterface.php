@@ -6,7 +6,6 @@
  *
  * @category   TBD
  * @package    TBD
- * @author     OMS Development Team <dev@oms.com>
  * @copyright  Dennis Eichhorn
  * @license    OMS License 1.0
  * @version    1.0.0
@@ -21,7 +20,6 @@ namespace phpOMS\Utils\IO\Excel;
  *
  * @category   Framework
  * @package    Utils
- * @author     OMS Development Team <dev@oms.com>
  * @license    OMS License 1.0
  * @link       http://orange-management.com
  * @since      1.0.0
