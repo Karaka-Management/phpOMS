@@ -83,6 +83,20 @@ class Request extends RequestAbstract
     }
 
     /**
+     * Create request from super globals.
+     *
+     * @param Localization $l11n Localization
+     * 
+     * @return Request
+     *
+     * @since  1.0.0
+     */
+    public static function createFromSuperglobals(Localization $l11n = null) : Request
+    {
+        return new self($l11n);
+    }
+
+    /**
      * Init request.
      *
      * This is used in order to either initialize the current http request or a batch of GET requests
