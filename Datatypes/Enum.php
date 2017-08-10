@@ -26,7 +26,7 @@ namespace phpOMS\Datatypes;
  * @link       http://orange-management.com
  * @since      1.0.0
  */
-abstract class Enum implements \Countable
+abstract class Enum
 {
 
     /**
