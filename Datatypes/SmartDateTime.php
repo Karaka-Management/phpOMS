@@ -283,7 +283,7 @@ class SmartDateTime extends \DateTime
         $diffToWeekStart = $diffToWeekStart === 0 ? 7 : $diffToWeekStart;
 
         // get days of previous month
-        $previousMonth = self::createModify(0, -1);
+        $previousMonth = $this->createModify(0, -1);
         $daysPreviousMonth = $previousMonth->getDaysOfMonth();
         
         // add difference to $weekStartsWith counting backwards from days of previous month (reorder so that lowest value first)
