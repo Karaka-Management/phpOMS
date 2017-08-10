@@ -15,6 +15,8 @@ declare(strict_types=1);
 
 namespace phpOMS\Datatypes;
 
+use phpOMS\Math\Functions;
+
 /**
  * SmartDateTime.
  *
