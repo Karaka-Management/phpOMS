@@ -51,6 +51,20 @@ class SmartDateTime extends \DateTime
     {
         parent::__construct($time, $timezone);
     }
+    
+    /**
+     * Create object from DateTime
+     *
+     * @param \DateTime $date DateTime to extend
+     *
+     * @return SmartDateTime
+     *
+     * @since  1.0.0
+     */
+    public static function createFromDateTime(\Datetime $date) : SmarteDateTime
+    {
+        return new self('Y-m-d H:i:s', $date->getTimezone());
+    }
 
     /**
      * Modify datetime in a smart way.
@@ -201,6 +215,10 @@ class SmartDateTime extends \DateTime
     /**
      * Get day of week
      *
+     * @param int $y Year
+     * @param int $m Month
+     * @param int $d Day
+     *
      * @return int
      *
      * @since  1.0.0
@@ -215,21 +233,74 @@ class SmartDateTime extends \DateTime
         $ry = $y - 1 - $ly;
         $w  = $w + $ry;
         $w  = $w + 2 * $ly;
-        $w  = $w + date("z", mktime(0, 0, 0, $m, $d, $y)) + 1;;
+        $w  = $w + date("z", mktime(0, 0, 0, $m, $d, $y)) + 1;
+        $w = ($w - 1) % 7 + 1;
+
+        return $w;
+    }
+    
+    /**
+     * Get day of week
+     *
+     * @return int
+     *
+     * @since  1.0.0
+     */
+    public function getFirstDayOfWeek() : int
+    {
+        $w  = 1;
+        $y  = ((int) $this->formay('Y') - 1) % 400 + 1;
+        $ly = ($y - 1) / 4;
+        $ly = $ly - ($y - 1) / 100;
+        $ly = $ly + ($y - 1) / 400;
+        $ry = $y - 1 - $ly;
+        $w  = $w + $ry;
+        $w  = $w + 2 * $ly;
+        $w  = $w + date("z", mktime(0, 0, 0, (int) $this->formay('m'), (int) $this->formay('d'), $y)) + 1;
         $w = ($w - 1) % 7 + 1;
 
         return $w;
     }
 
+    /**
+     * Create calendar array
+     *
+     * @param int $weekStartsWith Day of the week start (0 = Sunday)
+     *
+     * @return array
+     *
+     * @since  1.0.0
+     */
     public function getMonthCalendar(int $weekStartsWith = 0) : array
     {
-        // get day of first day in month
-        // calculate difference to $weekStartsWith
-        // get days of previous month
-        // add difference to $weekStartsWith counting backwards from days of previous month (reorder so that lowest value first)
-        // add normal count of current days
-        // add remaining days to next month (7*6 - difference+count of current month)
+        $days = [];
         
-        // return maybe two dimensional array (one week = first dimension) one dimensional also ok with some easy calculations (one week = 7 days)
+        // get day of first day in month
+        $firstDay = $this->getFirstDayOfMonth();
+        
+        // calculate difference to $weekStartsWith
+        $diffToWeekStart = Functions::mod($firstDay - $weekStartsWith, 7);
+        $diffToWeekStart = $diffToWeekStart === 0 ? 7 : $diffToWeekStart;
+
+        // get days of previous month
+        $previousMonth = self::createModify(0, -1);
+        $daysPreviousMonth = $previousMonth->getDaysOfMonth();
+        
+        // add difference to $weekStartsWith counting backwards from days of previous month (reorder so that lowest value first)
+        for($i = $daysPreviousMonth - $diffToWeekStart; $i < $daysPreviousMonth; $i++) {
+            $days[] = $i;
+        }
+        // add normal count of current days
+        $daysMonth = $this->getDaysOfMonth();
+        for($i = 1; $i <= $daysMonth; $i++) {
+            $days[] = $i;
+        }
+        
+        // add remaining days to next month (7*6 - difference+count of current month)
+        for($i = 42 - $daysPreviousMonth - $daysMonth; $i < 42; $i++) {
+            $days[] = $i;
+        }
+        
+        return $days;
     }
 }
