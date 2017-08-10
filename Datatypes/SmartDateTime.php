@@ -221,4 +221,15 @@ class SmartDateTime extends \DateTime
         return $w;
     }
 
+    public function getMonthCalendar(int $weekStartsWith = 0) : array
+    {
+        // get day of first day in month
+        // calculate difference to $weekStartsWith
+        // get days of previous month
+        // add difference to $weekStartsWith counting backwards from days of previous month (reorder so that lowest value first)
+        // add normal count of current days
+        // add remaining days to next month (7*6 - difference+count of current month)
+        
+        // return maybe two dimensional array (one week = first dimension) one dimensional also ok with some easy calculations (one week = 7 days)
+    }
 }
