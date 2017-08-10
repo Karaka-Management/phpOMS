@@ -292,6 +292,7 @@ class SmartDateTime extends \DateTime
         for($i = $daysPreviousMonth - $diffToWeekStart; $i < $daysPreviousMonth; $i++) {
             $days[] = $i;
         }
+        
         // add normal count of current days
         $daysMonth = $this->getDaysOfMonth();
         for($i = 1; $i <= $daysMonth; $i++) {
