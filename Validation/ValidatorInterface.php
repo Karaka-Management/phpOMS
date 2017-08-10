@@ -55,5 +55,5 @@ interface ValidatorInterface
      *
      * @since  1.0.0
      */
-    public static function getErrorCode() : int
+    public static function getErrorCode() : int;
 }
