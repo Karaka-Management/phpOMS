@@ -13,7 +13,7 @@
  */
 declare(strict_types=1);
 
-namespace phpOMS\Datatypes\Exception;
+namespace phpOMS\Stdlib\Base\Exception;
 
 /**
  * Filesystem class.
@@ -26,7 +26,7 @@ namespace phpOMS\Datatypes\Exception;
  * @link       http://orange-management.com
  * @since      1.0.0
  */
-class InvalidEnumName extends \UnexpectedValueException
+class InvalidEnumValue extends \UnexpectedValueException
 {
 
     /**
@@ -40,7 +40,7 @@ class InvalidEnumName extends \UnexpectedValueException
      */
     public function __construct(string $message, int $code = 0, \Exception $previous = null)
     {
-        parent::__construct('The enum name "' . $message . '" is not valid.', $code, $previous);
+        parent::__construct('The enum value "' . $message . '" is not valid.', $code, $previous);
     }
 
 }

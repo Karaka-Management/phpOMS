@@ -15,7 +15,7 @@ declare(strict_types=1);
 
 namespace phpOMS\Socket\Packets;
 
-use phpOMS\Datatypes\Enum;
+use phpOMS\Stdlib\Base\Enum;
 
 /**
  * Packet type enum.

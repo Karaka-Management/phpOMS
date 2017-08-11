@@ -15,7 +15,7 @@ declare(strict_types=1);
 
 namespace phpOMS\Router;
 
-use phpOMS\Datatypes\Enum;
+use phpOMS\Stdlib\Base\Enum;
 
 /**
  * Route verb enum.

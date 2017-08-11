@@ -15,7 +15,7 @@ declare(strict_types=1);
 
 namespace phpOMS\Views;
 
-use phpOMS\Datatypes\Enum;
+use phpOMS\Stdlib\Base\Enum;
 
 /**
  * View layout enum.

@@ -13,7 +13,7 @@
  */
 declare(strict_types=1);
 
-namespace phpOMS\Datatypes;
+namespace phpOMS\Stdlib\Base;
 
 /**
  * Address class.

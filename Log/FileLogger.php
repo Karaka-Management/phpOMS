@@ -15,7 +15,7 @@ declare(strict_types=1);
 
 namespace phpOMS\Log;
 
-use phpOMS\Datatypes\Exception\InvalidEnumValue;
+use phpOMS\Stdlib\Base\Exception\InvalidEnumValue;
 use phpOMS\System\File\Local\File;
 use phpOMS\System\File\PathException;
 use phpOMS\Utils\StringUtils;

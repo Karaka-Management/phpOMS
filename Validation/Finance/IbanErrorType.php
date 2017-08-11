@@ -15,7 +15,7 @@ declare(strict_types=1);
 
 namespace phpOMS\Validation\Finance;
 
-use phpOMS\Datatypes\Enum;
+use phpOMS\Stdlib\Base\Enum;
 
 /**
  * Iban error type enum.

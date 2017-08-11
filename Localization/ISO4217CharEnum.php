@@ -15,7 +15,7 @@ declare(strict_types=1);
 
 namespace phpOMS\Localization;
 
-use phpOMS\Datatypes\Enum;
+use phpOMS\Stdlib\Base\Enum;
 
 /**
  * Currency codes ISO list.

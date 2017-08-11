@@ -15,7 +15,7 @@ declare(strict_types=1);
 
 namespace phpOMS\Utils\RnG;
 
-use phpOMS\Datatypes\Enum;
+use phpOMS\Stdlib\Base\Enum;
 
 /**
  * Distribution type enum.

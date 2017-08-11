@@ -15,7 +15,7 @@ declare(strict_types=1);
 
 namespace phpOMS\Utils\Parser\Php;
 
-use phpOMS\Datatypes\Enum;
+use phpOMS\Stdlib\Base\Enum;
 
 /**
  * Visibility type enum.

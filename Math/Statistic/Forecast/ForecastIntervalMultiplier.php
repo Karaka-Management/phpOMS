@@ -15,7 +15,7 @@ declare(strict_types=1);
 
 namespace phpOMS\Math\Statistic\Forecast;
 
-use phpOMS\Datatypes\Enum;
+use phpOMS\Stdlib\Base\Enum;
 
 /**
  * Prediction interval multiplier.

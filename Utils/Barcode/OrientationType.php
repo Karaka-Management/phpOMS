@@ -15,7 +15,7 @@ declare(strict_types=1);
 
 namespace phpOMS\Utils\Barcode;
 
-use phpOMS\Datatypes\Enum;
+use phpOMS\Stdlib\Base\Enum;
 
 /**
  * Account type enum.

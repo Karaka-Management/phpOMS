@@ -15,7 +15,7 @@ declare(strict_types=1);
 
 namespace phpOMS\Auth;
 
-use phpOMS\Datatypes\Enum;
+use phpOMS\Stdlib\Base\Enum;
 
 /**
  * Login return types enum.

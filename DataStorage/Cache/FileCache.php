@@ -15,7 +15,7 @@ declare(strict_types=1);
 
 namespace phpOMS\DataStorage\Cache;
 
-use phpOMS\Datatypes\Exception\InvalidEnumValue;
+use phpOMS\Stdlib\Base\Exception\InvalidEnumValue;
 use phpOMS\System\File\Local\Directory;
 use phpOMS\System\File\Local\File;
 

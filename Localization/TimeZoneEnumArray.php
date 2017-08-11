@@ -15,7 +15,7 @@ declare(strict_types=1);
 
 namespace phpOMS\Localization;
 
-use phpOMS\Datatypes\EnumArray;
+use phpOMS\Stdlib\Base\EnumArray;
 
 /**
  * PHP Time zones.

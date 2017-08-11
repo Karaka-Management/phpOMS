@@ -15,7 +15,7 @@ declare(strict_types=1);
 
 namespace phpOMS\DataStorage\Database\Query;
 
-use phpOMS\Datatypes\Enum;
+use phpOMS\Stdlib\Base\Enum;
 
 /**
  * Query type enum.

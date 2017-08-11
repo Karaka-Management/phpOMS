@@ -13,10 +13,10 @@
  */
 declare(strict_types=1);
 
-namespace phpOMS\Datatypes;
+namespace phpOMS\Stdlib\Base;
 
 /**
- * Location class.
+ * Address type enum.
  *
  * @category   Framework
  * @package    phpOMS\Datatypes
@@ -24,6 +24,10 @@ namespace phpOMS\Datatypes;
  * @link       http://orange-management.com
  * @since      1.0.0
  */
-class NullLocation extends Location
+abstract class PhoneType extends Enum
 {
+    /* public */ const HOME = 1;
+    /* public */ const BUSINESS = 2;
+    /* public */ const MOBILE = 3;
+    /* public */ const WORK = 4;
 }
