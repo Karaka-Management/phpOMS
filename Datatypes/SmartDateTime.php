@@ -15,7 +15,7 @@ declare(strict_types=1);
 
 namespace phpOMS\Datatypes;
 
-use phpOMS\Math\Functions;
+use phpOMS\Math\Functions\Functions;
 
 /**
  * SmartDateTime.
@@ -290,7 +290,7 @@ class SmartDateTime extends \DateTime
         
         // add difference to $weekStartsWith counting backwards from days of previous month (reorder so that lowest value first)
         for($i = $daysPreviousMonth - $diffToWeekStart; $i < $daysPreviousMonth; $i++) {
-            $days[] = $i;
+            $days[] = $i+1;
         }
         
         // add normal count of current days
@@ -300,10 +300,11 @@ class SmartDateTime extends \DateTime
         }
         
         // add remaining days to next month (7*6 - difference+count of current month)
-        for($i = 42 - $daysPreviousMonth - $daysMonth; $i < 42; $i++) {
+        $remainingDays = 42 - $diffToWeekStart - $daysMonth;
+        for($i = 1; $i <= $remainingDays; $i++) {
             $days[] = $i;
         }
-        
+
         return $days;
     }
 }
