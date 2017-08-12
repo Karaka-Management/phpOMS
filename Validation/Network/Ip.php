@@ -41,7 +41,7 @@ class Ip extends ValidatorAbstract
     /**
      * {@inheritdoc}
      */
-    public static function isValid($value) : bool
+    public static function isValid($value, array $constraints = null) : bool
     {
         return filter_var($value, FILTER_VALIDATE_IP) !== false;
     }

@@ -189,4 +189,9 @@ class L11nManager
 
         return $this->language[$code][$module][$translation];
     }
+
+    public function getHtml(string $code, string $module, string $theme, string $translation) : string
+    {
+        return htmlspecialchars($this->getText($code, $module, $theme, $translation));
+    }
 }

@@ -41,7 +41,7 @@ abstract class DateTime extends ValidatorAbstract
     /**
      * {@inheritdoc}
      */
-    public static function isValid($value) : bool
+    public static function isValid($value, array $constraints = null) : bool
     {
         return (bool) strtotime($value);
     }

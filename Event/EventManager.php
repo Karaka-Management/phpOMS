@@ -157,19 +157,25 @@ class EventManager
      *
      * @param string $group Name of the event
      *
-     * @return void
+     * @return bool
      *
      * @since  1.0.0
      */
-    public function detach(string $group) /* : bool */
+    public function detach(string $group) : bool
     {
+        $found = false;
+
         if (isset($this->callbacks[$group])) {
             unset($this->callbacks[$group]);
+            $found = true;
         }
 
         if (isset($this->groups[$group])) {
             unset($this->groups[$group]);
+            $found = true;
         }
+
+        return $found;
     }
 
     /**
