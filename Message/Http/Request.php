@@ -45,14 +45,14 @@ class Request extends RequestAbstract
     /**
      * Browser type.
      *
-     * @var BrowserType
+     * @var string
      * @since 1.0.0
      */
     private $browser = BrowserType::CHROME;
     /**
      * OS type.
      *
-     * @var OSType
+     * @var string
      * @since 1.0.0
      */
     private $os = OSType::LINUX;
@@ -282,7 +282,7 @@ class Request extends RequestAbstract
         if (!isset($this->browser)) {
             $arr               = BrowserType::getConstants();
             $http_request_type = strtolower($_SERVER['HTTP_USER_AGENT']);
-            
+
             foreach ($arr as $key => $val) {
                 if (stripos($http_request_type, $val)) {
                     $this->browser = $val;

@@ -110,7 +110,7 @@ abstract class RequestAbstract implements MessageInterface
      * @var \phpOMS\Message\RequestSource
      * @since 1.0.0
      */
-    private $source = RequestSource::UNDEFINED;
+    protected $source = RequestSource::UNDEFINED;
 
     /**
      * Request hash.

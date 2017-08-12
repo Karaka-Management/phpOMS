@@ -294,7 +294,7 @@ class ArrayUtils
         // see collection collapse as alternative?!
         $flat  = [];
         $stack = array_values($array);
-        while ($stack) {
+        while (!empty($stack)) {
             $value = array_shift($stack);
 
             if (is_array($value)) {

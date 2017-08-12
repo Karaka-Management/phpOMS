@@ -54,7 +54,7 @@ class Money implements \Serializable
     /**
      * Currency symbol position
      *
-     * @var string
+     * @var int
      * @since 1.0.0
      */
     private $position = 1;
