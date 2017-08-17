@@ -15,10 +15,8 @@ declare(strict_types=1);
 
 namespace phpOMS\Message\Mail;
 
-use phpOMS\Stdlib\Base\Enum;
-
 /**
- * Mail type.
+ * Imap mail class.
  *
  * @category   Framework
  * @package    phpOMS\Message\Mail
@@ -26,11 +24,16 @@ use phpOMS\Stdlib\Base\Enum;
  * @link       http://orange-management.com
  * @since      1.0.0
  */
-abstract class MailType extends Enum
+class Nntp extends EmailAbstract
 {
-    /* public */ const MAIL = 0;
-    /* public */ const SMTP = 1;
-    /* public */ const IMAP = 2;
-    /* public */ const POP3 = 3;
-    /* public */ const SENDMAIL = 4;
+    public function __construct(string $host = 'localhost', int $port = 25, int $timeout = 30, bool $ssl = false)
+    {
+        parent::__construct($host, $port, $timeout, $options);
+    }
+
+    public function connect(string $user = '', string $pass = '')
+    {
+        $this->mailbox = '{' . $this->host . ':' . $this->port . '/nntp' . '}';
+        parent::connect();
+    }
 }
