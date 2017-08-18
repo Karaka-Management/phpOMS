@@ -26,7 +26,16 @@ namespace phpOMS\Math\Finance;
  */
 class Lorenzkurve
 {
-    public static function getGiniCoefficient(array $data)
+    /**
+     * Calculate Gini coefficient
+     *
+     * @param array $data Datapoints (can be unsorted)
+     *
+     * @return float
+     *
+     * @since  1.0.0
+     */
+    public static function getGiniCoefficient(array $data) : float
     {
         $sum1 = 0;
         $sum2 = 0;
@@ -36,9 +45,9 @@ class Lorenzkurve
         sort($data);
 
         foreach ($data as $key => $value) {
-                $sum1 += $i * $value;
-                $sum2 += $value;
-                $i++;
+            $sum1 += $i * $value;
+            $sum2 += $value;
+            $i++;
         }
 
         return 2 * $sum1 / ($n * $sum2) - ($n + 1) / $n;
