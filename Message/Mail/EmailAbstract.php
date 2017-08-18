@@ -26,16 +26,56 @@ namespace phpOMS\Message\Mail;
  */
 class MailAbstract
 {
+    /**
+     * Host.
+     *
+     * @var string
+     * @since 1.0.0
+     */
     private $host = '';
 
+    /**
+     * Port.
+     *
+     * @var int
+     * @since 1.0.0
+     */
     private $port = 25;
 
+    /**
+     * Use ssl.
+     *
+     * @var bool
+     * @since 1.0.0
+     */
     private $ssl = false;
 
+    /**
+     * Mailbox base.
+     *
+     * @var string
+     * @since 1.0.0
+     */
     private $mailbox = '';
 
+    /**
+     * Timeout.
+     *
+     * @var int
+     * @since 1.0.0
+     */
     private $timeout = 30;
 
+    /**
+     * Construct
+     *
+     * @param string $host Host
+     * @param int $port Host port
+     * @param int $timeout Timeout
+     * @param bool $ssl Use ssl
+     *
+     * @since  1.0.0
+     */
     public function __construct(string $host = 'localhost', int $port = 25, int $timeout = 30, bool $ssl = false)
     {
         $this->host = $host;
@@ -49,7 +89,15 @@ class MailAbstract
         imap_timeout(IMAP_CLOSETIMEOUT, $timeout);
     }
 
-    public static function decode($content, $encoding)
+    /**
+     * Decode
+     *
+     * @param string $host Content to decode
+     * @param int $encoding Encoding type
+     *
+     * @since  1.0.0
+     */
+    public static function decode(string $content, int $encoding)
     {
         if ($encoding == 3) {
             return imap_base64($content);
@@ -62,11 +110,21 @@ class MailAbstract
         }
     }
 
+    /**
+     * Descrutor
+     *
+     * @since  1.0.0
+     */
     public function __destruct()
     {
         $this->disconnect();
     }
 
+    /**
+     * Disconnect server
+     *
+     * @since  1.0.0
+     */
     public function disconnect()
     {
         if(!isset($this->con)) {
@@ -75,7 +133,17 @@ class MailAbstract
         }
     }
 
-    public function connect(string $user = '', string $pass = '')
+    /**
+     * Connect to server
+     *
+     * @param string $user Username
+     * @param string $pass Password
+     * 
+     * @return void
+     *
+     * @since  1.0.0
+     */
+    public function connect(string $user = '', string $pass = '') /* : void */
     {
         $this->mailbox = substr($this->mailbox, 0, -1) . ($this->ssl ? '/ssl/validate-cert' : '/novalidate-cert') . '}';
 
@@ -85,6 +153,13 @@ class MailAbstract
         }
     }
 
+    /**
+     * Test connection
+     *
+     * @return bool
+     *
+     * @since  1.0.0
+     */
     public function isConnected() : bool
     {
         return imap_ping($this->con);
@@ -321,36 +396,97 @@ class MailAbstract
         return $this->getInboxOverview('TEXT "' . $text . '"');
     }
 
+    /**
+     * List mailboxes
+     *
+     * @return array
+     *
+     * @since  1.0.0
+     */
     public function listMailbox() : array
     {
         return imap_listmailbox($this->con, $this->mailbox, '*');
     }
 
+    /**
+     * Create mailbox
+     * 
+     * @param string $mailbox Mailbox to create
+     *
+     * @return bool
+     *
+     * @since  1.0.0
+     */
     public function createMailbox(string $mailbox) : bool
     {
         return imap_createmailbox($this->con, $mailbox);
     }
 
+    /**
+     * Rename mailbox
+     * 
+     * @param string $old Old mailbox name
+     * @param string $new New mailbox name
+     *
+     * @return bool
+     *
+     * @since  1.0.0
+     */
     public function renameMailbox(string $old, string $new) : bool
     {
         return imap_renamemailbox($this->con, $old, $new);
     }
 
+    /**
+     * Delete mailbox
+     * 
+     * @param string $mailbox Mailbox to delete
+     *
+     * @return bool
+     *
+     * @since  1.0.0
+     */
     public function deleteMailbox(string $mailbox) : bool
     {
         return imap_deletemailbox($this->con, $mailbox);
     }
 
+    /**
+     * Check message to delete
+     * 
+     * @param int $id Message id
+     *
+     * @return bool
+     *
+     * @since  1.0.0
+     */
     public function deleteMessage(int $id) : bool
     {
         return imap_delete($this->con, $id);
     }
 
+    /**
+     * Delete all marked messages
+     * 
+     * @return bool
+     *
+     * @since  1.0.0
+     */
     public function deleteMarkedMessages() : bool
     {
         return imap_expunge($this->con);
     }
 
+    /**
+     * Check message to delete
+     * 
+     * @param int $length Amount of message overview
+     * @param int $start Start index of the overview for pagination
+     *
+     * @return array
+     *
+     * @since  1.0.0
+     */
     public function getMessageOverview(int $length = 0, int $start = 1) : array
     {
         if($length === 0) {
@@ -361,11 +497,27 @@ class MailAbstract
         return imap_fetch_overview($mbox, $start . ':' . ($length + $start), 0);
     }
 
+    /**
+     * Count messages
+     * 
+     * @return int
+     *
+     * @since  1.0.0
+     */
     public function countMessages() : int
     {
         return imap_num_msg($this->con);
     }
 
+    /**
+     * Get message header
+     * 
+     * @param int $id Message id
+     *
+     * @return string
+     *
+     * @since  1.0.0
+     */
     public function getMessageHeader(int $id) : string
     {
         return imap_fetchheader($this->con, $id);

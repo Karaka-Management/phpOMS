@@ -26,12 +26,32 @@ namespace phpOMS\Message\Mail;
  */
 class Pop3 extends EmailAbstract
 {
+    /**
+     * Construct
+     *
+     * @param string $host Host
+     * @param int $port Host port
+     * @param int $timeout Timeout
+     * @param bool $ssl Use ssl
+     *
+     * @since  1.0.0
+     */
     public function __construct(string $host = 'localhost', int $port = 25, int $timeout = 30, bool $ssl = false)
     {
-        parent::__construct($host, $port, $timeout, $options);
+        parent::__construct($host, $port, $timeout, $ssl);
     }
 
-    public function connect(string $user = '', string $pass = '')
+    /**
+     * Connect to server
+     *
+     * @param string $user Username
+     * @param string $pass Password
+     * 
+     * @return void
+     *
+     * @since  1.0.0
+     */
+    public function connect(string $user = '', string $pass = '') /* : void */
     {
         $this->mailbox = '{' . $this->host . ':' . $this->port . '/pop3' . '}';
         parent::connect();

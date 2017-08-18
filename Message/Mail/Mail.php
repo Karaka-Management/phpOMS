@@ -139,14 +139,6 @@ class Mail
     protected $encoding = 0;
 
     /**
-     * Mail type.
-     *
-     * @var int
-     * @since 1.0.0
-     */
-    protected $type = MailType::MAIL;
-
-    /**
      * Mail host name.
      *
      * @var string
@@ -177,11 +169,6 @@ class Mail
      * @since 1.0.0
      */
     protected $messageDate = null;
-
-    /**
-     * todo: ???
-     */
-    protected $mailer = null;
 
     /**
      * Constructor.
