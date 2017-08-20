@@ -13,7 +13,7 @@
  */
 declare(strict_types=1);
 
-namespace phpOMS\Math\Finance\Forecasting;
+namespace phpOMS\Business\Finance\Forecasting;
 
 use phpOMS\Stdlib\Base\Enum;
 

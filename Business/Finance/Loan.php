@@ -13,7 +13,7 @@
  */
 declare(strict_types=1);
 
-namespace phpOMS\Math\Finance;
+namespace phpOMS\Business\Finance;
 
 /**
  * Finance class.

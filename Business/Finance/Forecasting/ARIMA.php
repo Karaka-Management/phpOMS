@@ -12,7 +12,7 @@
  * @link       http://orange-management.com
  */
 declare(strict_types=1);
- namespace phpOMS\Math\Finance\Forecasting;
+ namespace phpOMS\Business\Finance\Forecasting;
 
 use phpOMS\Math\Statistic\Average;
 

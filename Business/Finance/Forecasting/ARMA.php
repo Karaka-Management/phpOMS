@@ -12,10 +12,9 @@
  * @link       http://orange-management.com
  */
 declare(strict_types=1);
+ namespace phpOMS\Business\Finance\Forecasting;
 
-namespace phpOMS\Math\Finance;
-
-class Depreciation
+class ARMA
 {
 
 }

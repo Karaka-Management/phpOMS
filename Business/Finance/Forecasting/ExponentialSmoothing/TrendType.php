@@ -13,7 +13,7 @@
  */
 declare(strict_types=1);
 
-namespace phpOMS\Math\Finance\Forecasting\ExponentialSmoothing;
+namespace phpOMS\Business\Finance\Forecasting\ExponentialSmoothing;
 
 use phpOMS\Stdlib\Base\Enum;
 
@@ -26,7 +26,7 @@ use phpOMS\Stdlib\Base\Enum;
  * @link       http://orange-management.com
  * @since      1.0.0
  */
-abstract class SeasonalType extends Enum
+abstract class TrendType extends Enum
 {
     /* public */ const ALL = 0;
     /* public */ const NONE = 1;
