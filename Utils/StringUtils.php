@@ -266,7 +266,7 @@ class StringUtils
      */
     public static function mb_trim(string $string, string $charlist = ' ') : string
     {
-        if (is_null($charlist)) {
+        if ($charlist === ' ') {
             return trim($string);
         } else {
             $charlist = str_replace('/', '\/', preg_quote($charlist));

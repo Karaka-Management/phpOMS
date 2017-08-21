@@ -24,7 +24,7 @@ namespace phpOMS\Utils;
  * @link       http://orange-management.com
  * @since      1.0.0
  */
-class JsonBuilder implements \Serializable
+class JsonBuilder implements \Serializable, \JsonSerializable
 {
 
     /**
@@ -109,5 +109,10 @@ class JsonBuilder implements \Serializable
     public function unserialize($serialized)
     {
         $this->json = json_decode($serialized);
+    }
+
+    public function jsonSerialize()
+    {
+        return $this->json();
     }
 }
