@@ -36,7 +36,7 @@ final class UnhandledHandler
      *
      * @since  1.0.0
      */
-    public static function exceptionHandler($e) /* : void */
+    public static function exceptionHandler(\Throwable $e) /* : void */
     {
         $logger = FileLogger::getInstance(__DIR__ . '/../Logs');
         $logger->critical(FileLogger::MSG_FULL, [
@@ -103,6 +103,8 @@ final class UnhandledHandler
 
     /**
      * Shutdown handler.
+     * 
+     * @return void
      *
      * @since  1.0.0
      */

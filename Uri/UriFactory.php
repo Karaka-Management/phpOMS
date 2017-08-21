@@ -197,7 +197,7 @@ class UriFactory
                 $pars[] = $key . '=' . $value;
             }
 
-            return $parts[0] . (empty($pars) ? '' : '?' . implode('&', $pars));
+            $url = $parts[0] . (empty($pars) ? '' : '?' . implode('&', $pars));
         }
 
         return $url;
