@@ -97,6 +97,16 @@ class Request extends RequestAbstract
     }
 
     /**
+     * {@inheritdoc}
+     */
+    public function setUri(UriInterface $uri) /* : void */
+    {
+        $this->uri = $uri;
+        $this->path = explode('/', $this->uri->getPath());
+        $this->data += $uri->getQueryArray();
+    }
+
+    /**
      * Init request.
      *
      * This is used in order to either initialize the current http request or a batch of GET requests

@@ -62,15 +62,13 @@ class Response extends ResponseAbstract implements RenderableInterface
     /**
      * Remove response by ID.
      *
-     * @param int $id Response ID
+     * @param mixed $id Response ID
      *
      * @return bool
      *
-     * @throws \Exception
-     *
      * @since  1.0.0
      */
-    public function remove(int $id) : bool
+    public function remove($id) : bool
     {
         if (isset($this->response[$id])) {
             unset($this->response[$id]);

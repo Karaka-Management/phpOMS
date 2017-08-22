@@ -60,7 +60,7 @@ abstract class ResponseAbstract implements MessageInterface, \JsonSerializable
      * @var int
      * @since 1.0.0
      */
-    protected $account = null;
+    protected $account = 0;
 
     /**
      * Header.
@@ -122,7 +122,7 @@ abstract class ResponseAbstract implements MessageInterface, \JsonSerializable
      * {@inheritdoc}
      * todo: shouldn't this only be available in the header?!
      */
-    public function getStatusCode() : string
+    public function getStatusCode() : int
     {
         return $this->status;
     }

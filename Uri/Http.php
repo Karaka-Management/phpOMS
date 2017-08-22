@@ -165,6 +165,8 @@ class Http implements UriInterface
             parse_str($this->queryString, $this->query);
         }
 
+        $this->query = array_change_key_case($this->query, CASE_LOWER);
+
         $this->fragment = $url['fragment'] ?? '';
         $this->base     = $this->scheme . '://' . $this->host . $this->rootPath;
     }
@@ -282,7 +284,21 @@ class Http implements UriInterface
      */
     public function getQuery(string $key = null) /* : ?string */
     {
-        return isset($key) ? $this->query[$key] ?? null : $this->queryString;
+        if(isset($key)) {
+            $key = strtolower($key);
+
+            return $this->query[$key] ?? '';
+        }
+
+        return $this->queryString;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getQueryArray() : array
+    {
+        return $this->query;
     }
 
     /**

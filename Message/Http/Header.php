@@ -117,7 +117,7 @@ class Header extends HeaderAbstract
      */
     public static function getStatusCode() : int
     {
-        return http_response_code();
+        return \http_response_code();
     }
 
     /**
@@ -129,7 +129,7 @@ class Header extends HeaderAbstract
      */
     public function getHeaders() : array
     {
-        return getallheaders();
+        return self::getAllHeaders();
     }
 
     /**
@@ -141,7 +141,30 @@ class Header extends HeaderAbstract
      */
     public function getHeader(string $name) : string
     {
-        return getallheaders()[$name];
+        return self::getAllHeaders()[$name] ?? '';
+    }
+
+    /**
+     * Get all headers for apache and nginx
+     *
+     * @return array
+     *
+     * @since  1.0.0
+     */
+    private static function getAllHeaders() : array
+    {
+        if (function_exists('getallheaders')) {
+            return getallheaders();
+        }
+
+        $headers = []; 
+        foreach ($_SERVER as $name => $value) { 
+            if (substr($name, 0, 5) == 'HTTP_') { 
+                $headers[str_replace(' ', '-', ucwords(strtolower(str_replace('_', ' ', substr($name, 5)))))] = $value; 
+            } 
+        } 
+
+        return $headers;
     }
 
     /**
@@ -257,7 +280,7 @@ class Header extends HeaderAbstract
     {
         $this->set('HTTP', 'HTTP/1.0 403 Forbidden');
         $this->set('Status', 'Status: HTTP/1.0 403 Forbidden');
-        http_response_code(403);
+        \http_response_code(403);
     }
 
     /**
@@ -271,7 +294,7 @@ class Header extends HeaderAbstract
     {
         $this->set('HTTP', 'HTTP/1.0 404 Not Found');
         $this->set('Status', 'Status: HTTP/1.0 404 Not Found');
-        http_response_code(404);
+        \http_response_code(404);
     }
 
     /**
@@ -285,7 +308,7 @@ class Header extends HeaderAbstract
     {
         $this->set('HTTP', 'HTTP/1.0 406 Not acceptable');
         $this->set('Status', 'Status: 406 Not acceptable');
-        http_response_code(406);
+        \http_response_code(406);
     }
 
     /**
@@ -312,7 +335,7 @@ class Header extends HeaderAbstract
         $this->set('HTTP', 'HTTP/1.0 500 Internal Server Error');
         $this->set('Status', 'Status: 500 Internal Server Error');
         $this->set('Retry-After', 'Retry-After: 300');
-        http_response_code(500);
+        \http_response_code(500);
     }
 
     /**
@@ -327,6 +350,6 @@ class Header extends HeaderAbstract
         $this->set('HTTP', 'HTTP/1.0 503 Service Temporarily Unavailable');
         $this->set('Status', 'Status: 503 Service Temporarily Unavailable');
         $this->set('Retry-After', 'Retry-After: 300');
-        http_response_code(503);
+        \http_response_code(503);
     }
 }

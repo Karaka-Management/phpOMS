@@ -645,7 +645,7 @@ class FinanceFormulas
      *
      * @since  1.0.0
      */
-    public static function getCurrentRaio(float $assets, float $liabilities) : float
+    public static function getCurrentRatio(float $assets, float $liabilities) : float
     {
         return $assets / $liabilities;
     }

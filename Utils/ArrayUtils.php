@@ -320,7 +320,7 @@ class ArrayUtils
      */
     public static function arraySum(array $array, int $start = 0, int $count = 0)
     {
-        $count = $count === 0 ? count($array) : $count;
+        $count = $count === 0 ? count($array) : $start + $count;
         $sum   = 0;
 
         $array = array_values($array);

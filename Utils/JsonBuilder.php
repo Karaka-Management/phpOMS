@@ -108,11 +108,11 @@ class JsonBuilder implements \Serializable, \JsonSerializable
      */
     public function unserialize($serialized)
     {
-        $this->json = json_decode($serialized);
+        $this->json = json_decode($serialized, true);
     }
 
     public function jsonSerialize()
     {
-        return $this->json();
+        return $this->getJson();
     }
 }

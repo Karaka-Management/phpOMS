@@ -214,7 +214,7 @@ abstract class RequestAbstract implements MessageInterface
     public function setRequestSource(int $source) /* : void */
     {
         if (!RequestSource::isValidValue($source)) {
-            throw new InvalidEnumValue($source);
+            throw new InvalidEnumValue((string) $source);
         }
 
         $this->source = $source;
