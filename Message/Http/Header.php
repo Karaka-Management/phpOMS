@@ -246,22 +246,22 @@ class Header extends HeaderAbstract
     /**
      * {@inheritdoc}
      */
-    public function generate(string $code) /* : void */
+    public function generate(int $code) /* : void */
     {
         switch ($code) {
-            case RequestStatus::R_403:
+            case RequestStatusCode::R_403:
                 $this->generate403();
                 break;
-            case RequestStatus::R_404:
+            case RequestStatusCode::R_404:
                 $this->generate404();
                 break;
-            case RequestStatus::R_406:
+            case RequestStatusCode::R_406:
                 $this->generate406();
                 break;
-            case RequestStatus::R_407:
+            case RequestStatusCode::R_407:
                 $this->generate407();
                 break;
-            case RequestStatus::R_503:
+            case RequestStatusCode::R_503:
                 $this->generate503();
                 break;
             default:

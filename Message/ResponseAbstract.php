@@ -49,10 +49,10 @@ abstract class ResponseAbstract implements MessageInterface, \JsonSerializable
     /**
      * Response status.
      *
-     * @var string
+     * @var int
      * @since 1.0.0
      */
-    protected $status = 200;
+    protected $status = 0;
 
     /**
      * Account.
@@ -112,7 +112,7 @@ abstract class ResponseAbstract implements MessageInterface, \JsonSerializable
      * {@inheritdoc}
      * todo: shouldn't this only be available in the header?!
      */
-    public function setStatusCode(string $status) /* : void */
+    public function setStatusCode(int $status) /* : void */
     {
         $this->status = $status;
         $this->header->generate($status);

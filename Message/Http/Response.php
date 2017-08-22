@@ -33,6 +33,14 @@ use phpOMS\Views\View;
 class Response extends ResponseAbstract implements RenderableInterface
 {
     /**
+     * Response status.
+     *
+     * @var int
+     * @since 1.0.0
+     */
+    protected $status = RequestStatusCode::R_200;
+
+    /**
      * Constructor.
      *
      * @param Localization $l11n Localization

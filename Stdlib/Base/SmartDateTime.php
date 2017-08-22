@@ -63,9 +63,9 @@ class SmartDateTime extends \DateTime
      *
      * @since  1.0.0
      */
-    public static function createFromDateTime(\Datetime $date) : SmarteDateTime
+    public static function createFromDateTime(\Datetime $date) : SmartDateTime
     {
-        return new self('Y-m-d H:i:s', $date->getTimezone());
+        return new self($date->format('Y-m-d H:i:s'), $date->getTimezone());
     }
 
     /**
@@ -161,6 +161,7 @@ class SmartDateTime extends \DateTime
      */
     public function getDaysOfMonth() : int
     {
+        // todo: maybe ->format('t') is better
         return cal_days_in_month(CAL_GREGORIAN, (int) $this->format('m'), (int) $this->format('Y'));
     }
 
@@ -250,18 +251,7 @@ class SmartDateTime extends \DateTime
      */
     public function getFirstDayOfWeek() : int
     {
-        $w  = 1;
-        $y  = ((int) $this->formay('Y') - 1) % 400 + 1;
-        $ly = ($y - 1) / 4;
-        $ly = $ly - ($y - 1) / 100;
-        $ly = $ly + ($y - 1) / 400;
-        $ry = $y - 1 - $ly;
-        $w  = $w + $ry;
-        $w  = $w + 2 * $ly;
-        $w  = $w + date("z", mktime(0, 0, 0, (int) $this->formay('m'), (int) $this->formay('d'), $y)) + 1;
-        $w = ($w - 1) % 7 + 1;
-
-        return $w;
+        return self::getDayOfWeek((int) $this->format('Y'), (int) $this->format('m'), (int) $this->format('d'));
     }
 
     /**

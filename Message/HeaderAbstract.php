@@ -48,11 +48,11 @@ abstract class HeaderAbstract
     /**
      * Generate header based on status code.
      *
-     * @param string $statusCode Status code
+     * @param int $statusCode Status code
      *
      * @since  1.0.0
      */
-    abstract public function generate(string $statusCode) /* : void */;
+    abstract public function generate(int $statusCode) /* : void */;
 
     /**
      * Get header by key.
