@@ -138,7 +138,20 @@ class DataMapperAbstract implements DataMapperInterface
      */
     protected static $fields = [];
 
+    /**
+     * Initialized objects for cross reference to reduce initialization costs
+     *
+     * @var array[]
+     * @since 1.0.0
+     */
     protected static $initObjects = [];
+
+    /**
+     * Highest mapper to know when to clear initialized objects
+     *
+     * @var DataMapperAbstract
+     * @since 1.0.0
+     */
     protected static $parentMapper = null;
 
     /**
@@ -168,6 +181,8 @@ class DataMapperAbstract implements DataMapperInterface
 
     /**
      * Clone.
+     * 
+     * @return void
      *
      * @since  1.0.0
      */
@@ -179,6 +194,8 @@ class DataMapperAbstract implements DataMapperInterface
      * Set database connection.
      *
      * @param ConnectionAbstract $con Database connection
+     * 
+     * @return void
      *
      * @since  1.0.0
      */
@@ -241,7 +258,7 @@ class DataMapperAbstract implements DataMapperInterface
      *
      * @param array $objects Objects to load
      *
-     * @return null
+     * @return void
      *
      * @since  1.0.0
      */
@@ -296,7 +313,7 @@ class DataMapperAbstract implements DataMapperInterface
      *
      * @param string $search Search for
      *
-     * @return Builder
+     * @return array
      *
      * @since  1.0.0
      */
@@ -405,6 +422,16 @@ class DataMapperAbstract implements DataMapperInterface
         return self::$db->con->lastInsertId();
     }
 
+    /**
+     * Get id of object
+     *
+     * @param Object           $obj             Model to create
+     * @param \ReflectionClass $reflectionClass Reflection class
+     *
+     * @return mixed
+     *
+     * @since  1.0.0
+     */
     private static function getObjectId($obj, \ReflectionClass $reflectionClass = null) 
     {
         $reflectionClass = $reflectionClass ?? new \ReflectionClass(get_class($obj));
@@ -1155,7 +1182,7 @@ class DataMapperAbstract implements DataMapperInterface
      * @param mixed $obj Object reference (gets filled with insert id)
      * @param int   $relations Create all relations as well
      *
-     * @return int
+     * @return mixed
      *
      * @since  1.0.0
      */
@@ -1504,7 +1531,7 @@ class DataMapperAbstract implements DataMapperInterface
      *
      * @since  1.0.0
      */
-    public static function getAll(int $relations = RelationType::ALL, string $lang = '')
+    public static function getAll(int $relations = RelationType::ALL, string $lang = '') : array
     {
         if(!isset(self::$parentMapper)) {
             self::setUpParentMapper();
@@ -1526,7 +1553,7 @@ class DataMapperAbstract implements DataMapperInterface
      *
      * @since  1.0.0
      */
-    public static function listResults(Builder $query)
+    public static function listResults(Builder $query) : array
     {
         $sth = self::$db->con->prepare($query->toSql());
         $sth->execute();
@@ -1548,7 +1575,7 @@ class DataMapperAbstract implements DataMapperInterface
      *
      * @since  1.0.0
      */
-    public static function getNewest(int $limit = 1, Builder $query = null, int $relations = RelationType::ALL, string $lang = '')
+    public static function getNewest(int $limit = 1, Builder $query = null, int $relations = RelationType::ALL, string $lang = '') : array
     {
         self::extend(__CLASS__);
 
@@ -1634,11 +1661,11 @@ class DataMapperAbstract implements DataMapperInterface
      * @param mixed $obj       Objects to fill
      * @param int   $relations Relations type
      *
-     * @return array
+     * @return void
      *
      * @since  1.0.0
      */
-    public static function fillRelations(array &$obj, int $relations = RelationType::ALL)
+    public static function fillRelations(array &$obj, int $relations = RelationType::ALL) /* : void */
     {
         $hasMany = !empty(static::$hasMany);
         $hasOne  = !empty(static::$hasOne);
@@ -1850,7 +1877,18 @@ class DataMapperAbstract implements DataMapperInterface
         return $result;
     }
 
-    private static function addInitialized($mapper, $id, $obj = null)
+    /**
+     * Add initialized object to local cache
+     *
+     * @param string $mapper Mapper name
+     * @param mixed $id Object id
+     * @param object $obj Model to cache locally
+     *
+     * @return void
+     *
+     * @since  1.0.0
+     */
+    private static function addInitialized(string $mapper, $id, $obj = null) /* : void */
     {
         if(!isset(self::$initObjects[$mapper])) {
             self::$initObjects[$mapper] = [];
@@ -1859,13 +1897,55 @@ class DataMapperAbstract implements DataMapperInterface
         self::$initObjects[$mapper][$id] = $obj;
     }
 
-    private static function isInitialized($mapper, $id) 
+    /**
+     * Check if a object is initialized
+     *
+     * @param string $mapper Mapper name
+     * @param mixed $id Object id
+     *
+     * @return bool
+     *
+     * @since  1.0.0
+     */
+    private static function isInitialized($mapper, $id) : bool
     {
         return isset(self::$initObjects[$mapper]) && isset(self::$initObjects[$mapper][$id]);
     }
 
-    private static function setUpParentMapper()
+    /**
+     * Define the highest mapper of this request
+     *
+     * @return void
+     *
+     * @since  1.0.0
+     */
+    private static function setUpParentMapper() /* : void */
     {
         self::$parentMapper = static::class;
+    }
+
+    /**
+     * Check if model exists in database
+     *
+     * @param mixed $id Object id
+     *
+     * @return bool
+     *
+     * @since  1.0.0
+     */
+    public static function exists($id) : bool
+    {
+        $query = $query ?? new Builder(self::$db);
+        $query->prefix(self::$db->getPrefix())
+            ->select(static::$primaryField)
+            ->from(static::$table)
+            ->where(static::$primaryField, '=', $id);
+
+        $sth = self::$db->con->prepare($query->toSql());
+        $sth->execute();
+    
+        $results = $sth->fetchAll(\PDO::FETCH_ASSOC);
+
+        return count($results) === 0;
     }
 }
