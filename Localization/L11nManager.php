@@ -190,6 +190,18 @@ class L11nManager
         return $this->language[$code][$module][$translation];
     }
 
+    /**
+     * Get translation html escaped.
+     *
+     * @param string $code        Country code
+     * @param string $module      Module name
+     * @param string $theme       Theme
+     * @param string $translation Text
+     *
+     * @return string In case the language element couldn't be found 'ERROR' will be returned
+     *
+     * @since  1.0.0
+     */
     public function getHtml(string $code, string $module, string $theme, string $translation) : string
     {
         return htmlspecialchars($this->getText($code, $module, $theme, $translation));
