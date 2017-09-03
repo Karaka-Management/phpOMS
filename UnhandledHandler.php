@@ -44,11 +44,6 @@ final class UnhandledHandler
             'line'    => $e->getLine(),
             'file'    => $e->getFile(),
         ]);
-
-        echo '<b>My Exception</b> [' . $e->getCode() . '] ' . $e->getMessage() . '<br>'
-            . '  Exception on line ' . $e->getLine() . ' in file ' . $e->getFile()
-            . ', PHP ' . PHP_VERSION . ' (' . PHP_OS . ')<br>'
-            . 'aborting...<br>';
     }
 
     /**
@@ -77,25 +72,6 @@ final class UnhandledHandler
             'file'    => $errfile,
         ]);
 
-        switch ($errno) {
-            case E_USER_ERROR:
-                echo '<b>My ERROR</b> [' . $errno . '] ' . $errstr . '<br>';
-                break;
-            case E_USER_WARNING:
-                echo '<b>My WARNING</b> [' . $errno . '] ' . $errstr . '<br>';
-                break;
-            case E_USER_NOTICE:
-                echo '<b>My NOTICE</b> [' . $errno . '] ' . $errstr . '<br>';
-                break;
-            default:
-                echo 'Unknown error type: [' . $errno . '] ' . $errstr . '<br>';
-                break;
-        }
-
-        echo '<b>My Error</b>  Fatal error on line ' . $errline . ' in file ' . $errfile
-            . ', PHP ' . PHP_VERSION . ' (' . PHP_OS . '<br>'
-            . 'aborting...<br>';
-
         error_clear_last();
 
         return true;
@@ -119,11 +95,6 @@ final class UnhandledHandler
                 'line'    => $e['line'],
                 'file'    => $e['file'],
             ]);
-
-            echo '<b>My Error unhandled</b> [' . $e['type'] . '] ' . $e['message'] . '<br>'
-                . '  Fatal error on line ' . $e['line'] . ' in file ' . $e['file']
-                . ', PHP ' . PHP_VERSION . ' (' . PHP_OS . ')<br>'
-                . 'aborting...<br>';
         }
     }
 }
