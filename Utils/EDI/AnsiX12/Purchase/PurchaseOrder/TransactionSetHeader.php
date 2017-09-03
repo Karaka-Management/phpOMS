@@ -26,7 +26,7 @@ namespace phpOMS\Utils\EDI\AnsiX12\Purchase\PurchaseOrder;
  */
 class TransactionSetHeader
 {
-    const IDENTIFIER = 'ST';
+    /* private */ const IDENTIFIER = 'ST';
     
     private $transactionSetIdentifierCode = 850;
 

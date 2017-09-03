@@ -27,7 +27,7 @@ namespace phpOMS\Utils\EDI\AnsiX12;
  */
 class InterchangeControlHeader
 {
-    const COMPONENT_ELEMENT_SEPARATOR = '>';
+    /* private */ const COMPONENT_ELEMENT_SEPARATOR = '>';
 
     private $interchangeControlHeader = InterchangeControlHeader::ISA;
 
