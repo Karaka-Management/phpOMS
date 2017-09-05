@@ -81,28 +81,12 @@ abstract class RequestAbstract implements MessageInterface
     protected $path = [];
 
     /**
-     * Localization.
-     *
-     * @var Localization
-     * @since 1.0.0
-     */
-    protected $l11n = null;
-
-    /**
      * Language.
      *
      * @var string
      * @since 1.0.0
      */
     protected $language = '';
-
-    /**
-     * Account.
-     *
-     * @var int
-     * @since 1.0.0
-     */
-    protected $account = null;
 
     /**
      * Request type.
@@ -293,14 +277,6 @@ abstract class RequestAbstract implements MessageInterface
     }
 
     /**
-     * {@inheritdoc}
-     */
-    public function getL11n() : Localization
-    {
-        return $this->l11n;
-    }
-
-    /**
      * Lock request for further manipulations.
      *
      * @return void
@@ -310,22 +286,6 @@ abstract class RequestAbstract implements MessageInterface
     public function lock() /* : void */
     {
         $this->lock = true;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function getAccount() : int
-    {
-        return $this->account;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function setAccount(int $account) /* : void */
-    {
-        $this->account = $account;
     }
 
     /**
