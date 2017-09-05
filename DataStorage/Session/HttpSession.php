@@ -54,18 +54,27 @@ class HttpSession implements SessionInterface
      * @since 1.0.0
      */
     private $sid = null;
+    
+    /**
+     * Inactivity Interval.
+     *
+     * @var int
+     * @since 1.0.0
+     */
+    private $inactivityInterval = 0;
 
     /**
      * Constructor.
      *
      * @param int             $liftetime Session life time
      * @param string|int|bool $sid       Session id
+     * @param int             $inactivityInterval Interval for session activity
      *
      * @throws LockException Throws this exception if the session is alrady locked for further interaction.
      *
      * @since  1.0.0
      */
-    public function __construct(int $liftetime = 3600, $sid = false)
+    public function __construct(int $liftetime = 3600, $sid = false, int $inactivityInterval = 0)
     {
         if (self::$isLocked) {
             throw new LockException('HttpSession');
@@ -74,13 +83,21 @@ class HttpSession implements SessionInterface
         if (!is_bool($sid)) {
             session_id($sid);
         }
+        
+        $this->inactivityInterval = $inactivityInterval;
 
         session_set_cookie_params($liftetime, '/', '', false, true);
         session_start();
+        
+        if($this->inactivityInterval > 0 && ($this->inactivityInterval + ($_SESSION['lastActivity'] ?? 0) < time())) {
+            $this->destroy();
+        }
+        
         $this->sessionData = $_SESSION;
         $_SESSION          = null;
-
+        $this->sessionData['lastActivity'] = time();
         $this->sid = session_id();
+        
         $this->setCsrfProtection();
     }
 
@@ -184,6 +201,12 @@ class HttpSession implements SessionInterface
     public function setSID($sid) /* : void */
     {
         $this->sid = $sid;
+    }
+    
+    private function destroy() /* : void */
+    {
+        session_destroy();
+        session_start();
     }
 
     /**
