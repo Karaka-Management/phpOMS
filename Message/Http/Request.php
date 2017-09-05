@@ -102,7 +102,6 @@ class Request extends RequestAbstract
     public function setUri(UriInterface $uri) /* : void */
     {
         $this->uri = $uri;
-        $this->path = explode('/', $this->uri->getPath());
         $this->data += $uri->getQueryArray();
     }
 
@@ -126,7 +125,6 @@ class Request extends RequestAbstract
         }
 
         $this->data = array_change_key_case($this->data, CASE_LOWER);
-        $this->path = explode('/', $this->uri->getPath());
 
         $this->setupUriBuilder();
     }
