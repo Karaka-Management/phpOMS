@@ -81,14 +81,6 @@ abstract class RequestAbstract implements MessageInterface
     protected $path = [];
 
     /**
-     * Language.
-     *
-     * @var string
-     * @since 1.0.0
-     */
-    protected $language = '';
-
-    /**
      * Request type.
      *
      * @var \phpOMS\Message\RequestSource
@@ -152,15 +144,6 @@ abstract class RequestAbstract implements MessageInterface
     {
         $this->uri = $uri;
     }
-
-    /**
-     * Get request language.
-     *
-     * @return string
-     *
-     * @since  1.0.0
-     */
-    abstract public function getLanguage() : string;
 
     /**
      * Get request hash.
