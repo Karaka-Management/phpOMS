@@ -90,14 +90,6 @@ class Response extends ResponseAbstract implements RenderableInterface
     /**
      * {@inheritdoc}
      */
-    public function getProtocolVersion() : string
-    {
-        return '1.0';
-    }
-
-    /**
-     * {@inheritdoc}
-     */
     public function getBody() : string
     {
         return $this->render();
