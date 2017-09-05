@@ -206,6 +206,7 @@ class HttpSession implements SessionInterface
     private function destroy() /* : void */
     {
         session_destroy();
+        $this->sessionData = [];
         session_start();
     }
 
