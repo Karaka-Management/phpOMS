@@ -26,14 +26,6 @@ namespace phpOMS\Message;
  */
 interface MessageInterface
 {
-
-    /**
-     * Retrieves the HTTP protocol version as a string.
-     *
-     * @since  1.0.0
-     */
-    public function getProtocolVersion();
-
     /**
      * Retrieves all message header values.
      *
@@ -51,24 +43,4 @@ interface MessageInterface
      * @since  1.0.0
      */
     public function getBody() : string;
-
-    /**
-     * Get account id.
-     *
-     * @return int Account id
-     *
-     * @since  1.0.0
-     */
-    public function getAccount() : int;
-
-    /**
-     * Set account id.
-     *
-     * @param int $account Account id
-     *
-     * @return void
-     *
-     * @since  1.0.0
-     */
-    public function setAccount(int $account) /* : void */;
 }
