@@ -218,6 +218,14 @@ class Header extends HeaderAbstract
     {
         return $this->header[strtolower($key)] ?? [];
     }
+    
+    /**
+     * {@inheritdoc}
+     */
+    public function getReasonPhrase() : string
+    {
+        return $this->header->getHeader('Status');
+    }
 
     /**
      * Check if header is defined.
