@@ -35,12 +35,61 @@ abstract class HeaderAbstract
     protected static $isLocked = false;
     
     /**
+     * Localization.
+     *
+     * @var Localization
+     * @since 1.0.0
+     */
+    protected $l11n = null;
+    
+    /**
+     * Account.
+     *
+     * @var int
+     * @since 1.0.0
+     */
+    protected $account = 0;
+    
+    /**
      * Response status.
      *
      * @var int
      * @since 1.0.0
      */
     protected $status = 0;
+    
+    /**
+     * {@inheritdoc}
+     */
+    public function getL11n() : Localization
+    {
+        return $this->l11n;
+    }
+    
+    /**
+     * {@inheritdoc}
+     */
+    public function setL11n(Localization $l11n) /* : void */
+    {
+        $this->l11n = $l11n;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getAccount() : int
+    {
+        return $this->account;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function setAccount(int $account) /* : void */
+    {
+        $this->account = $account;
+    }
+
     
     /**
      * {@inheritdoc}
