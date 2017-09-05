@@ -47,14 +47,6 @@ abstract class ResponseAbstract implements MessageInterface, \JsonSerializable
     protected $response = [];
 
     /**
-     * Response status.
-     *
-     * @var int
-     * @since 1.0.0
-     */
-    protected $status = 0;
-
-    /**
      * Account.
      *
      * @var int
@@ -106,25 +98,6 @@ abstract class ResponseAbstract implements MessageInterface, \JsonSerializable
     public function set($key, $response, bool $overwrite = true) /* : void */
     {
         $this->response = ArrayUtils::setArray((string) $key, $this->response, $response, ':', $overwrite);
-    }
-
-    /**
-     * {@inheritdoc}
-     * todo: shouldn't this only be available in the header?!
-     */
-    public function setStatusCode(int $status) /* : void */
-    {
-        $this->status = $status;
-        $this->header->generate($status);
-    }
-
-    /**
-     * {@inheritdoc}
-     * todo: shouldn't this only be available in the header?!
-     */
-    public function getStatusCode() : int
-    {
-        return $this->status;
     }
 
     /**
