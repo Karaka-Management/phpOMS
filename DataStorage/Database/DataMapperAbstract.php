@@ -1708,7 +1708,12 @@ class DataMapperAbstract implements DataMapperInterface
     public static function getRaw($primaryKey) : array
     {
         $query = self::getQuery();
-        $query->where(static::$table . '.' . static::$primaryField, '=', $primaryKey);
+        
+        if(is_array($primaryKey)) {
+            $query->where(static::$table . '.' . static::$primaryField, 'in', $primaryKey);
+        } else {
+            $query->where(static::$table . '.' . static::$primaryField, '=', $primaryKey);
+        }
 
         $sth = self::$db->con->prepare($query->toSql());
         $sth->execute();
