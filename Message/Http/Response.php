@@ -173,12 +173,4 @@ class Response extends ResponseAbstract implements RenderableInterface
             return $result;
         }
     }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function getReasonPhrase() : string
-    {
-        return $this->header->getHeader('Status');
-    }
 }
