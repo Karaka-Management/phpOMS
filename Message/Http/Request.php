@@ -236,10 +236,12 @@ class Request extends RequestAbstract
     public function createRequestHashs(int $start = 0) /* : void */
     {
         $this->hash = [];
-        foreach ($this->path as $key => $path) {
+        $pathArray = $this->uri->getPathElements();
+        
+        foreach ($pathArray as $key => $path) {
             $paths = [];
             for ($i = $start; $i < $key + 1; $i++) {
-                $paths[] = $this->path[$i];
+                $paths[] = $pathArray[$i];
             }
 
             $this->hash[] = sha1(implode('', $paths));

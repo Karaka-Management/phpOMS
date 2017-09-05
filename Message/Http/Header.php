@@ -46,6 +46,7 @@ class Header extends HeaderAbstract
     public function __construct()
     {
         $this->set('Content-Type', 'text/html; charset=utf-8');
+        parent::__construct();
     }
 
     /**
@@ -123,7 +124,7 @@ class Header extends HeaderAbstract
      *
      * @since  1.0.0
      */
-    public static function getStatusCode() : int
+    public function getStatusCode() : int
     {
         if($this->status === 0) {
             $this->status = \http_response_code();

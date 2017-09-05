@@ -15,6 +15,8 @@ declare(strict_types=1);
 
 namespace phpOMS\Message;
 
+use phpOMS\Localization\Localization;
+
 /**
  * Response class.
  *
@@ -57,9 +59,23 @@ abstract class HeaderAbstract
      * @since 1.0.0
      */
     protected $status = 0;
+
+    /**
+     * Constructor.
+     *
+     * @since  1.0.0
+     */
+    public function __construct()
+    {
+        $this->l11n = new Localization();
+    }
     
     /**
-     * {@inheritdoc}
+     * Get Localization
+     *
+     * @return Localization
+     *
+     * @since  1.0.0
      */
     public function getL11n() : Localization
     {
@@ -67,7 +83,13 @@ abstract class HeaderAbstract
     }
     
     /**
-     * {@inheritdoc}
+     * Set localization
+     *
+     * @param int $localization Localization
+     * 
+     * @return void
+     *
+     * @since  1.0.0
      */
     public function setL11n(Localization $l11n) /* : void */
     {
@@ -75,7 +97,11 @@ abstract class HeaderAbstract
     }
 
     /**
-     * {@inheritdoc}
+     * Get account id
+     *
+     * @return int
+     *
+     * @since  1.0.0
      */
     public function getAccount() : int
     {
@@ -83,7 +109,13 @@ abstract class HeaderAbstract
     }
 
     /**
-     * {@inheritdoc}
+     * Set account id
+     *
+     * @param int $account Account id
+     * 
+     * @return void
+     *
+     * @since  1.0.0
      */
     public function setAccount(int $account) /* : void */
     {
@@ -92,8 +124,13 @@ abstract class HeaderAbstract
 
     
     /**
-     * {@inheritdoc}
-     * todo: shouldn't this only be available in the header?!
+     * Set status code
+     *
+     * @param int $status Status code
+     * 
+     * @return void
+     *
+     * @since  1.0.0
      */
     public function setStatusCode(int $status) /* : void */
     {
@@ -102,8 +139,11 @@ abstract class HeaderAbstract
     }
 
     /**
-     * {@inheritdoc}
-     * todo: shouldn't this only be available in the header?!
+     * Get status code
+     *
+     * @return int
+     *
+     * @since  1.0.0
      */
     public function getStatusCode() : int
     {

@@ -1498,8 +1498,6 @@ class DataMapperAbstract implements DataMapperInterface
 
         foreach ($primaryKey as $key => $value) {
             if(self::isInitialized(static::class, $value)) {
-                $obj[$value] = self::getInitialized(static::class, $value);
-                
                 continue;
             }
 
@@ -1708,12 +1706,7 @@ class DataMapperAbstract implements DataMapperInterface
     public static function getRaw($primaryKey) : array
     {
         $query = self::getQuery();
-        
-        if(is_array($primaryKey)) {
-            $query->where(static::$table . '.' . static::$primaryField, 'in', $primaryKey);
-        } else {
-            $query->where(static::$table . '.' . static::$primaryField, '=', $primaryKey);
-        }
+        $query->where(static::$table . '.' . static::$primaryField, '=', $primaryKey);
 
         $sth = self::$db->con->prepare($query->toSql());
         $sth->execute();
@@ -1917,21 +1910,6 @@ class DataMapperAbstract implements DataMapperInterface
     private static function isInitialized($mapper, $id) : bool
     {
         return isset(self::$initObjects[$mapper]) && isset(self::$initObjects[$mapper][$id]);
-    }
-    
-    /**
-     * Get initialized object
-     *
-     * @param string $mapper Mapper name
-     * @param mixed $id Object id
-     *
-     * @return object
-     *
-     * @since  1.0.0
-     */
-    private static function getInitialized($mapper, $id) 
-    {
-        return self::$initObjects[$mapper][$id];
     }
 
     /**
