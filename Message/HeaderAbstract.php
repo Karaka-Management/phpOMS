@@ -33,6 +33,33 @@ abstract class HeaderAbstract
      * @since 1.0.0
      */
     protected static $isLocked = false;
+    
+    /**
+     * Response status.
+     *
+     * @var int
+     * @since 1.0.0
+     */
+    protected $status = 0;
+    
+    /**
+     * {@inheritdoc}
+     * todo: shouldn't this only be available in the header?!
+     */
+    public function setStatusCode(int $status) /* : void */
+    {
+        $this->status = $status;
+        $this->header->generate($status);
+    }
+
+    /**
+     * {@inheritdoc}
+     * todo: shouldn't this only be available in the header?!
+     */
+    public function getStatusCode() : int
+    {
+        return $this->status;
+    }
 
     /**
      * Set header.
