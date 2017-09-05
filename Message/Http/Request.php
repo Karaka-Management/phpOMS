@@ -403,14 +403,6 @@ class Request extends RequestAbstract
     /**
      * {@inheritdoc}
      */
-    public function getProtocolVersion() : string
-    {
-        return $_SERVER['SERVER_PROTOCOL'] ?? 'HTTP/1.1';
-    }
-
-    /**
-     * {@inheritdoc}
-     */
     public function getBody() : string
     {
         return file_get_contents('php://input');
