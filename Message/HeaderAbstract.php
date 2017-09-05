@@ -109,6 +109,15 @@ abstract class HeaderAbstract
     {
         return $this->status;
     }
+    
+    /**
+     * Get protocol version.
+     *
+     * @return string
+     *
+     * @since  1.0.0
+     */
+    abstract public function getProtocolVersion() : string;
 
     /**
      * Set header.
