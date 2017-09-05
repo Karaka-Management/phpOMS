@@ -29,15 +29,6 @@ use phpOMS\Utils\ArrayUtils;
  */
 abstract class ResponseAbstract implements MessageInterface, \JsonSerializable
 {
-
-    /**
-     * Localization.
-     *
-     * @var Localization
-     * @since 1.0.0
-     */
-    protected $l11n = null;
-
     /**
      * Responses.
      *
@@ -47,28 +38,12 @@ abstract class ResponseAbstract implements MessageInterface, \JsonSerializable
     protected $response = [];
 
     /**
-     * Account.
-     *
-     * @var int
-     * @since 1.0.0
-     */
-    protected $account = 0;
-
-    /**
      * Header.
      *
      * @var HeaderAbstract
      * @since 1.0.0
      */
     protected $header = null;
-
-    /**
-     * {@inheritdoc}
-     */
-    public function getL11n() : Localization
-    {
-        return $this->l11n;
-    }
 
     /**
      * Get response by ID.
@@ -98,22 +73,6 @@ abstract class ResponseAbstract implements MessageInterface, \JsonSerializable
     public function set($key, $response, bool $overwrite = true) /* : void */
     {
         $this->response = ArrayUtils::setArray((string) $key, $this->response, $response, ':', $overwrite);
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function getAccount() : int
-    {
-        return $this->account;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function setAccount(int $account) /* : void */
-    {
-        $this->account = $account;
     }
 
     /**
