@@ -73,14 +73,6 @@ abstract class RequestAbstract implements MessageInterface
     protected $data = [];
 
     /**
-     * Request data.
-     *
-     * @var array
-     * @since 1.0.0
-     */
-    protected $path = [];
-
-    /**
      * Request type.
      *
      * @var \phpOMS\Message\RequestSource
@@ -206,18 +198,6 @@ abstract class RequestAbstract implements MessageInterface
     public function setMethod(string $method) /* : void */
     {
         $this->method = $method;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function getPath($key = null) /* : ?string */
-    {
-        if ($key === null) {
-            return $this->path;
-        }
-
-        return $this->path[$key] ?? null;
     }
 
     /**
