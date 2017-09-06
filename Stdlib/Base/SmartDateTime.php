@@ -239,7 +239,7 @@ class SmartDateTime extends \DateTime
         $w  = $w + date("z", mktime(0, 0, 0, $m, $d, $y)) + 1;
         $w = ($w - 1) % 7 + 1;
 
-        return $w === 7 ? 0 : $w + 1;
+        return $w === 7 ? 0 : $w;
     }
     
     /**
