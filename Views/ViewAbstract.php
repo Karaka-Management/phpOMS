@@ -239,13 +239,14 @@ abstract class ViewAbstract implements \Serializable
     {
         $ob = '';
 
-        try {
+        
             $path = __DIR__ . '/../..' . $this->template . '.tpl.php';
 
-            if (!file_exists($path)) {
-                throw new PathException($path);
-            }
+        if (!file_exists($path)) {
+            throw new PathException($path);
+        }
 
+        try {
             ob_start();
             /** @noinspection PhpIncludeInspection */
             $data = include $path;
