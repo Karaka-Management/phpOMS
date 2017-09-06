@@ -94,21 +94,12 @@ class Group implements ArrayableInterface, \JsonSerializable
     protected $createdAt = null;
 
     /**
-     * Created by.
-     *
-     * @var int
-     * @since 1.0.0
-     */
-    protected $createdBy = 0;
-
-    /**
      * Constructor.
      *
      * @since  1.0.0
      */
     public function __construct()
     {
-        $this->createdAt = new \DateTime('now');
     }
 
     /**
@@ -230,7 +221,6 @@ class Group implements ArrayableInterface, \JsonSerializable
             'name'        => $this->name,
             'description' => $this->description,
             'createdBy'   => $this->createdBy,
-            'createdAt'   => $this->createdAt->format('Y-m-d H:i:s'),
             'permissions' => $this->permissions,
             'members'     => $this->members,
         ];
