@@ -237,22 +237,28 @@ abstract class ViewAbstract implements \Serializable
      */
     public function render(...$data)
     {
-        $path = __DIR__ . '/../..' . $this->template . '.tpl.php';
+        $ob = '';
 
-        if (!file_exists($path)) {
-            throw new PathException($path);
+        try {
+            $path = __DIR__ . '/../..' . $this->template . '.tpl.php';
+
+            if (!file_exists($path)) {
+                throw new PathException($path);
+            }
+
+            ob_start();
+            /** @noinspection PhpIncludeInspection */
+            $data = include $path;
+            $ob   = ob_get_clean();
+
+            if (is_array($data)) {
+                return $data;
+            }
+        } catch(\Throwable $e) {
+            $ob = '';
+        } finally {
+            return $ob;
         }
-
-        ob_start();
-        /** @noinspection PhpIncludeInspection */
-        $tpl = include $path;
-        $ob   = ob_get_clean();
-
-        if (is_array($tpl)) {
-            return $tpl;
-        }
-
-        return $ob;
     }
 
     /**
