@@ -86,14 +86,6 @@ class Group implements ArrayableInterface, \JsonSerializable
     protected $permissions = [];
 
     /**
-     * Created at.
-     *
-     * @var \DateTime
-     * @since 1.0.0
-     */
-    protected $createdAt = null;
-
-    /**
      * Constructor.
      *
      * @since  1.0.0
@@ -220,7 +212,6 @@ class Group implements ArrayableInterface, \JsonSerializable
             'id'          => $this->id,
             'name'        => $this->name,
             'description' => $this->description,
-            'createdBy'   => $this->createdBy,
             'permissions' => $this->permissions,
             'members'     => $this->members,
         ];
