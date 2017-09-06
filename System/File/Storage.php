@@ -71,9 +71,14 @@ final class Storage
             $stg = $env;
             $env = ucfirst(strtolower($env));
             $env = __NAMESPACE__ . '\\' . $env . '\\' . $env . 'Storage';
-            $env = $env::getInstance();
 
-            self::$registered[$stg] = $env;
+            try {
+                $env = $env::getInstance();
+
+                self::$registered[$stg] = $env;
+            } catch(\Exception $e) {
+                throw new \Exception();
+            }
         }
 
         return $env;
