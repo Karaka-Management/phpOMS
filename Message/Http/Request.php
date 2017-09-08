@@ -6,8 +6,6 @@
  *
  * @category   TBD
  * @package    TBD
- * @author     OMS Development Team <dev@oms.com>
- * @author     Dennis Eichhorn <d.eichhorn@oms.com>
  * @copyright  Dennis Eichhorn
  * @license    OMS License 1.0
  * @version    1.0.0
@@ -30,8 +28,6 @@ use phpOMS\Uri\UriInterface;
  *
  * @category   Framework
  * @package    phpOMS\Request
- * @author     OMS Development Team <dev@oms.com>
- * @author     Dennis Eichhorn <d.eichhorn@oms.com>
  * @license    OMS License 1.0
  * @link       http://orange-management.com
  * @since      1.0.0
@@ -49,14 +45,14 @@ class Request extends RequestAbstract
     /**
      * Browser type.
      *
-     * @var BrowserType
+     * @var string
      * @since 1.0.0
      */
     private $browser = BrowserType::CHROME;
     /**
      * OS type.
      *
-     * @var OSType
+     * @var string
      * @since 1.0.0
      */
     private $os = OSType::LINUX;
@@ -75,7 +71,6 @@ class Request extends RequestAbstract
      * @param UriInterface $uri  Uri
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function __construct(Localization $l11n = null, UriInterface $uri = null)
     {
@@ -88,6 +83,29 @@ class Request extends RequestAbstract
     }
 
     /**
+     * Create request from super globals.
+     *
+     * @param Localization $l11n Localization
+     * 
+     * @return Request
+     *
+     * @since  1.0.0
+     */
+    public static function createFromSuperglobals(Localization $l11n = null) : Request
+    {
+        return new self($l11n);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function setUri(UriInterface $uri) /* : void */
+    {
+        $this->uri = $uri;
+        $this->data += $uri->getQueryArray();
+    }
+
+    /**
      * Init request.
      *
      * This is used in order to either initialize the current http request or a batch of GET requests
@@ -97,7 +115,6 @@ class Request extends RequestAbstract
      * @return void
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     private function init() /* : void */
     {
@@ -108,7 +125,6 @@ class Request extends RequestAbstract
         }
 
         $this->data = array_change_key_case($this->data, CASE_LOWER);
-        $this->path = explode('/', $this->uri->getPath());
 
         $this->setupUriBuilder();
     }
@@ -121,7 +137,6 @@ class Request extends RequestAbstract
      * @throws \Exception
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     private function initCurrentRequest() /* : void */
     {
@@ -152,7 +167,6 @@ class Request extends RequestAbstract
      * @return string
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     private function loadRequestLanguage() : string
     {
@@ -172,7 +186,6 @@ class Request extends RequestAbstract
      * @return void
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     private function cleanupGlobals() /* : void */
     {
@@ -188,7 +201,6 @@ class Request extends RequestAbstract
      * @return void
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     private function setupUriBuilder() /* : void */
     {
@@ -220,15 +232,16 @@ class Request extends RequestAbstract
      * @todo: maybe change to normal path string e.g. /some/path/here instead of hash! Remember to adjust navigation elements
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function createRequestHashs(int $start = 0) /* : void */
     {
         $this->hash = [];
-        foreach ($this->path as $key => $path) {
+        $pathArray = $this->uri->getPathElements();
+        
+        foreach ($pathArray as $key => $path) {
             $paths = [];
             for ($i = $start; $i < $key + 1; $i++) {
-                $paths[] = $this->path[$i];
+                $paths[] = $pathArray[$i];
             }
 
             $this->hash[] = sha1(implode('', $paths));
@@ -241,7 +254,6 @@ class Request extends RequestAbstract
      * @return bool
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function isMobile() : bool
     {
@@ -274,13 +286,13 @@ class Request extends RequestAbstract
      * @return string
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function getBrowser() : string
     {
         if (!isset($this->browser)) {
             $arr               = BrowserType::getConstants();
             $http_request_type = strtolower($_SERVER['HTTP_USER_AGENT']);
+
             foreach ($arr as $key => $val) {
                 if (stripos($http_request_type, $val)) {
                     $this->browser = $val;
@@ -300,7 +312,6 @@ class Request extends RequestAbstract
      * @return void
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function setBrowser(string $browser) /* : void */
     {
@@ -313,7 +324,6 @@ class Request extends RequestAbstract
      * @return string
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function getOS() : string
     {
@@ -339,7 +349,6 @@ class Request extends RequestAbstract
      * @return void
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function setOS(string $os) /* : void */
     {
@@ -362,7 +371,6 @@ class Request extends RequestAbstract
      * @return bool
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function isHttps(int $port = 443) : bool
     {
@@ -383,7 +391,6 @@ class Request extends RequestAbstract
      * @return string
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function __toString()
     {
@@ -391,14 +398,6 @@ class Request extends RequestAbstract
         reset($this->hash);
 
         return $lastElement;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function getProtocolVersion() : string
-    {
-        return $_SERVER['SERVER_PROTOCOL'] ?? 'HTTP/1.1';
     }
 
     /**
@@ -423,7 +422,6 @@ class Request extends RequestAbstract
      * @return array
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function getFiles() : array
     {
@@ -438,7 +436,6 @@ class Request extends RequestAbstract
      * @throws \Exception
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function getRouteVerb() : int
     {
@@ -462,7 +459,6 @@ class Request extends RequestAbstract
      * @return string
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function getMethod() : string
     {

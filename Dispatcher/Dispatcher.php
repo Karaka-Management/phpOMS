@@ -6,8 +6,6 @@
  *
  * @category   TBD
  * @package    TBD
- * @author     OMS Development Team <dev@oms.com>
- * @author     Dennis Eichhorn <d.eichhorn@oms.com>
  * @copyright  Dennis Eichhorn
  * @license    OMS License 1.0
  * @version    1.0.0
@@ -26,8 +24,6 @@ use phpOMS\System\File\PathException;
  *
  * @category   Framework
  * @package    phpOMS\Dispatcher
- * @author     OMS Development Team <dev@oms.com>
- * @author     Dennis Eichhorn <d.eichhorn@oms.com>
  * @license    OMS License 1.0
  * @link       http://orange-management.com
  * @since      1.0.0
@@ -59,7 +55,6 @@ class Dispatcher
      * @param ApplicationAbstract $app Appliaction
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function __construct(ApplicationAbstract $app)
     {
@@ -75,7 +70,6 @@ class Dispatcher
      * @return array
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function dispatch($controller, ...$data) : array
     {
@@ -107,7 +101,6 @@ class Dispatcher
      * @return array
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     private function dispatchString(string $controller, array $data = null) : array
     {
@@ -137,7 +130,6 @@ class Dispatcher
      * @return array
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     private function dispatchArray(array $controller, array $data = null) : array
     {
@@ -160,9 +152,8 @@ class Dispatcher
      * @return mixed
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    private function dispatchClosure(\Closure $controller, array $data = null)
+    private function dispatchClosure(\Closure $controller, array $data = null) /* : void */
     {
         return $controller($this->app, ...$data);
     }
@@ -174,10 +165,11 @@ class Dispatcher
      *
      * @return mixed
      *
+     * @throws PathException This exception is thrown in case the controller couldn't be found.
+     *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    private function getController(string $controller)
+    private function getController(string $controller) /* : object */
     {
         if (!isset($this->controllers[$controller])) {
             if (!file_exists($path = __DIR__ . '/../../' . str_replace('\\', '/', $controller) . '.php')) {
@@ -186,6 +178,7 @@ class Dispatcher
 
             // If module controller use module manager for initialization
             if(strpos('\Modules\Controller', $controller) === 0) {
+                $split = explode('\\', $controller);
                 $this->controllers[$controller] = $this->app->moduleManager->get($split[2]);
             } else {
                 $this->controllers[$controller] = new $controller($this->app);
@@ -201,19 +194,12 @@ class Dispatcher
      * @param ModuleAbstract $controller Controller
      * @param string         $name       Controller string
      *
-     * @return bool
+     * @return void
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function set(ModuleAbstract $controller, string $name) : bool
+    public function set(ModuleAbstract $controller, string $name) /* : void */
     {
-        if (!isset($this->controllers[$name])) {
-            $this->controllers[$name] = $controller;
-
-            return true;
-        }
-
-        return false;
+        $this->controllers[$name] = $controller;
     }
 }

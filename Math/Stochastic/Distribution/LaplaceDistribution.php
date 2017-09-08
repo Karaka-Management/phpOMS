@@ -6,8 +6,6 @@
  *
  * @category   TBD
  * @package    TBD
- * @author     OMS Development Team <dev@oms.com>
- * @author     Dennis Eichhorn <d.eichhorn@oms.com>
  * @copyright  Dennis Eichhorn
  * @license    OMS License 1.0
  * @version    1.0.0
@@ -22,8 +20,6 @@ namespace phpOMS\Math\Stochastic\Distribution;
  *
  * @category   Framework
  * @package    phpOMS\DataStorage\Database
- * @author     OMS Development Team <dev@oms.com>
- * @author     Dennis Eichhorn <d.eichhorn@oms.com>
  * @license    OMS License 1.0
  * @link       http://orange-management.com
  * @since      1.0.0
@@ -40,7 +36,6 @@ class LaplaceDistribution
      * @return float
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public static function getPdf(float $x, float $mu, float $b) : float
     {
@@ -57,7 +52,6 @@ class LaplaceDistribution
      * @return float
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public static function getCdf(float $x, float $mu, float $b) : float
     {
@@ -72,7 +66,6 @@ class LaplaceDistribution
      * @return float
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public static function getMode(float $mu) : float
     {
@@ -87,7 +80,6 @@ class LaplaceDistribution
      * @return float
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public static function getMean(float $mu) : float
     {
@@ -102,7 +94,6 @@ class LaplaceDistribution
      * @return float
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public static function getMedian(float $mu) : float
     {
@@ -117,7 +108,6 @@ class LaplaceDistribution
      * @return float
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public static function getVariance(float $b) : float
     {
@@ -136,7 +126,6 @@ class LaplaceDistribution
      * @throws \Exception
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public static function getMgf(float $t, float $mu, float $b) : float
     {
@@ -153,7 +142,6 @@ class LaplaceDistribution
      * @return float
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public static function getSkewness() : float
     {
@@ -166,7 +154,6 @@ class LaplaceDistribution
      * @return float
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public static function getExKurtosis() : float
     {

@@ -6,8 +6,6 @@
  *
  * @category   TBD
  * @package    TBD
- * @author     OMS Development Team <dev@oms.com>
- * @author     Dennis Eichhorn <d.eichhorn@oms.com>
  * @copyright  Dennis Eichhorn
  * @license    OMS License 1.0
  * @version    1.0.0
@@ -22,8 +20,6 @@ namespace phpOMS\System;
  *
  * @category   Framework
  * @package    phpOMS\System
- * @author     OMS Development Team <dev@oms.com>
- * @author     Dennis Eichhorn <d.eichhorn@oms.com>
  * @license    OMS License 1.0
  * @link       http://orange-management.com
  * @since      1.0.0
@@ -35,7 +31,6 @@ class SystemUtils
      * Constructor.
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     private function __construct()
     {
@@ -47,7 +42,6 @@ class SystemUtils
      * @return int
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn
      */
     public static function getRAM() : int
     {
@@ -79,7 +73,6 @@ class SystemUtils
      * @return int
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn
      */
     public static function getRAMUsage() : int
     {
@@ -106,7 +99,6 @@ class SystemUtils
      * @return int
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn
      */
     public static function getCpuUsage() : int
     {

@@ -6,8 +6,6 @@
  *
  * @category   TBD
  * @package    TBD
- * @author     OMS Development Team <dev@oms.com>
- * @author     Dennis Eichhorn <d.eichhorn@oms.com>
  * @copyright  Dennis Eichhorn
  * @license    OMS License 1.0
  * @version    1.0.0
@@ -17,13 +15,13 @@ declare(strict_types=1);
 
 namespace phpOMS\Math\Statistic\Forecast\Regression;
 
+use phpOMS\Math\Matrix\Exception\InvalidDimensionException;
+
 /**
  * Regression class.
  *
  * @category   Framework
  * @package    phpOMS\DataStorage\Database
- * @author     OMS Development Team <dev@oms.com>
- * @author     Dennis Eichhorn <d.eichhorn@oms.com>
  * @license    OMS License 1.0
  * @link       http://orange-management.com
  * @since      1.0.0
@@ -35,8 +33,8 @@ class LogLogRegression extends RegressionAbstract
      */
     public static function getRegression(array $x, array $y) : array
     {
-        if (($c = count($x)) != count($y)) {
-            throw new \Exception('Dimension');
+        if (($c = count($x)) !== count($y)) {
+            throw new InvalidDimensionException($c . 'x' . count($y));
         }
 
         for ($i = 0; $i < $c; $i++) {

@@ -6,8 +6,6 @@
  *
  * @category   TBD
  * @package    TBD
- * @author     OMS Development Team <dev@oms.com>
- * @author     Dennis Eichhorn <d.eichhorn@oms.com>
  * @copyright  Dennis Eichhorn
  * @license    OMS License 1.0
  * @version    1.0.0
@@ -22,8 +20,6 @@ namespace phpOMS\Stdlib\Graph;
  *
  * @category   Framework
  * @package    phpOMS\Datatypes
- * @author     OMS Development Team <dev@oms.com>
- * @author     Dennis Eichhorn <d.eichhorn@oms.com>
  * @license    OMS License 1.0
  * @link       http://orange-management.com
  * @since      1.0.0
@@ -42,7 +38,6 @@ class Tree extends Graph
      * Constructor.
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
 	public function __construct()
 	{
@@ -59,7 +54,6 @@ class Tree extends Graph
      * @return Tree
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
 	public function addRelativeNode(Node $base, Node $node) : Tree
 	{
@@ -77,7 +71,6 @@ class Tree extends Graph
      * @return int
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
 	public function getMaxDepth(Node $node = null) : int 
 	{
@@ -105,7 +98,6 @@ class Tree extends Graph
      * @return int
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
 	public function getMinDepth(Node $node = null) : int
 	{
@@ -136,7 +128,6 @@ class Tree extends Graph
      * @return void
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
 	public function levelOrder(Node $node, \Closure $callback)
 	{
@@ -156,7 +147,6 @@ class Tree extends Graph
      * @return bool
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
 	public function isLeaf(Node $node) : bool 
 	{
@@ -172,7 +162,6 @@ class Tree extends Graph
      * @return Node[]
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
 	public function getLevelNodes(int $level, Node $node) : array
 	{
@@ -199,7 +188,6 @@ class Tree extends Graph
      * @return bool
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
 	public function isFull(int $type) : bool 
 	{
@@ -225,7 +213,6 @@ class Tree extends Graph
      * @param \Closure $callback Task to perform on node
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
 	public function preOrder(Node $node, \Closure $callback) {
 		if(count($this->nodes) === 0) {
@@ -248,7 +235,6 @@ class Tree extends Graph
      * @param \Closure $callback Task to perform on node
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
 	public function postOrder(Node $node, \Closure $callback) {
 		if(count($this->nodes) === 0) {

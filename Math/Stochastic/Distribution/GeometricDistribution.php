@@ -6,8 +6,6 @@
  *
  * @category   TBD
  * @package    TBD
- * @author     OMS Development Team <dev@oms.com>
- * @author     Dennis Eichhorn <d.eichhorn@oms.com>
  * @copyright  Dennis Eichhorn
  * @license    OMS License 1.0
  * @version    1.0.0
@@ -22,8 +20,6 @@ namespace phpOMS\Math\Stochastic\Distribution;
  *
  * @category   Framework
  * @package    phpOMS\DataStorage\Database
- * @author     OMS Development Team <dev@oms.com>
- * @author     Dennis Eichhorn <d.eichhorn@oms.com>
  * @license    OMS License 1.0
  * @link       http://orange-management.com
  * @since      1.0.0
@@ -39,7 +35,6 @@ class GeometricDistribution
      * @return float
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public static function getPmf(float $p, int $k) : float
     {
@@ -55,7 +50,6 @@ class GeometricDistribution
      * @return float
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public static function getCdf(float $p, int $k) : float
     {
@@ -68,7 +62,6 @@ class GeometricDistribution
      * @return int
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public static function getMode() : int
     {
@@ -83,7 +76,6 @@ class GeometricDistribution
      * @return float
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public static function getMean(float $p) : float
     {
@@ -98,7 +90,6 @@ class GeometricDistribution
      * @return float
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public static function getMedian(float $p) : float
     {
@@ -113,7 +104,6 @@ class GeometricDistribution
      * @return float
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public static function getVariance(float $p) : float
     {
@@ -129,7 +119,6 @@ class GeometricDistribution
      * @return float
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public static function getMgf(float $p, float $t) : float
     {
@@ -144,7 +133,6 @@ class GeometricDistribution
      * @return float
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public static function getSkewness(float $lambda) : float
     {
@@ -159,7 +147,6 @@ class GeometricDistribution
      * @return float
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public static function getExKurtosis(float $lambda) : float
     {

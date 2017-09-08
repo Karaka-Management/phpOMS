@@ -6,8 +6,6 @@
  *
  * @category   TBD
  * @package    TBD
- * @author     OMS Development Team <dev@oms.com>
- * @author     Dennis Eichhorn <d.eichhorn@oms.com>
  * @copyright  Dennis Eichhorn
  * @license    OMS License 1.0
  * @version    1.0.0
@@ -17,7 +15,7 @@ declare(strict_types=1);
 
 namespace phpOMS\Message;
 
-use phpOMS\Datatypes\Exception\InvalidEnumValue;
+use phpOMS\Stdlib\Base\Exception\InvalidEnumValue;
 use phpOMS\Localization\Localization;
 use phpOMS\Uri\UriInterface;
 
@@ -28,8 +26,6 @@ use phpOMS\Uri\UriInterface;
  *
  * @category   Request
  * @package    Framework
- * @author     OMS Development Team <dev@oms.com>
- * @author     Dennis Eichhorn <d.eichhorn@oms.com>
  * @license    OMS License 1.0
  * @link       http://orange-management.com
  * @since      1.0.0
@@ -77,44 +73,12 @@ abstract class RequestAbstract implements MessageInterface
     protected $data = [];
 
     /**
-     * Request data.
-     *
-     * @var array
-     * @since 1.0.0
-     */
-    protected $path = [];
-
-    /**
-     * Localization.
-     *
-     * @var Localization
-     * @since 1.0.0
-     */
-    protected $l11n = null;
-
-    /**
-     * Language.
-     *
-     * @var string
-     * @since 1.0.0
-     */
-    protected $language = '';
-
-    /**
-     * Account.
-     *
-     * @var int
-     * @since 1.0.0
-     */
-    protected $account = null;
-
-    /**
      * Request type.
      *
      * @var \phpOMS\Message\RequestSource
      * @since 1.0.0
      */
-    private $source = null;
+    protected $source = RequestSource::UNDEFINED;
 
     /**
      * Request hash.
@@ -144,7 +108,6 @@ abstract class RequestAbstract implements MessageInterface
      * Constructor.
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function __construct()
     {
@@ -156,7 +119,6 @@ abstract class RequestAbstract implements MessageInterface
      * @return UriInterface
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function getUri() : UriInterface
     {
@@ -169,7 +131,6 @@ abstract class RequestAbstract implements MessageInterface
      * @param UriInterface $uri
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function setUri(UriInterface $uri) /* : void */
     {
@@ -177,22 +138,11 @@ abstract class RequestAbstract implements MessageInterface
     }
 
     /**
-     * Get request language.
-     *
-     * @return string
-     *
-     * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
-     */
-    abstract public function getLanguage() : string;
-
-    /**
      * Get request hash.
      *
      * @return array
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function getHash() : array
     {
@@ -200,20 +150,30 @@ abstract class RequestAbstract implements MessageInterface
     }
 
     /**
-     * {@inheritdoc}
+     * Get request source.
+     *
+     * @return int
+     *
+     * @since  1.0.0
      */
-    public function getRequestSource()
+    public function getRequestSource() : int
     {
         return $this->source;
     }
 
     /**
-     * {@inheritdoc}
+     * Set request source.
+     *
+     * @param int $source Request source
+     *
+     * @return void
+     *
+     * @since  1.0.0
      */
-    public function setRequestSource($source) /* : void */
+    public function setRequestSource(int $source) /* : void */
     {
         if (!RequestSource::isValidValue($source)) {
-            throw new InvalidEnumValue($source);
+            throw new InvalidEnumValue((string) $source);
         }
 
         $this->source = $source;
@@ -225,7 +185,6 @@ abstract class RequestAbstract implements MessageInterface
      * @return string
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     abstract public function getMethod() : string;
 
@@ -235,23 +194,10 @@ abstract class RequestAbstract implements MessageInterface
      * @param string $method
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function setMethod(string $method) /* : void */
     {
         $this->method = $method;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function getPath($key = null) /* : ?string */
-    {
-        if ($key === null) {
-            return $this->path;
-        }
-
-        return $this->path[$key] ?? null;
     }
 
     /**
@@ -278,7 +224,6 @@ abstract class RequestAbstract implements MessageInterface
      * @return bool
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function setData($key, $value, bool $overwrite = true) : bool
     {
@@ -295,40 +240,15 @@ abstract class RequestAbstract implements MessageInterface
     }
 
     /**
-     * {@inheritdoc}
-     */
-    public function getL11n() : Localization
-    {
-        return $this->l11n;
-    }
-
-    /**
      * Lock request for further manipulations.
      *
      * @return void
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function lock() /* : void */
     {
         $this->lock = true;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function getAccount() : int
-    {
-        return $this->account;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function setAccount(int $account) /* : void */
-    {
-        $this->account = $account;
     }
 
     /**
@@ -337,7 +257,6 @@ abstract class RequestAbstract implements MessageInterface
      * @return HeaderAbstract
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function getHeader() : HeaderAbstract
     {
@@ -363,7 +282,6 @@ abstract class RequestAbstract implements MessageInterface
      * @return string
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     abstract public function getRequestTarget() : string;
 
@@ -373,7 +291,6 @@ abstract class RequestAbstract implements MessageInterface
      * @return int
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     abstract public function getRouteVerb() : int;
 }

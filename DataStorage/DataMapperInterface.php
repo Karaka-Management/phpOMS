@@ -6,8 +6,6 @@
  *
  * @category   TBD
  * @package    TBD
- * @author     OMS Development Team <dev@oms.com>
- * @author     Dennis Eichhorn <d.eichhorn@oms.com>
  * @copyright  Dennis Eichhorn
  * @license    OMS License 1.0
  * @version    1.0.0
@@ -26,8 +24,6 @@ use phpOMS\DataStorage\Database\Query\Builder;
  *
  * @category   Framework
  * @package    phpOMS\DataStorage\Database
- * @author     OMS Development Team <dev@oms.com>
- * @author     Dennis Eichhorn <d.eichhorn@oms.com>
  * @license    OMS License 1.0
  * @link       http://orange-management.com
  * @since      1.0.0
@@ -43,7 +39,6 @@ interface DataMapperInterface
      * @return mixed
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public static function create($obj);
 
@@ -55,7 +50,6 @@ interface DataMapperInterface
      * @return int Status
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public static function update($obj) : int;
 
@@ -67,7 +61,6 @@ interface DataMapperInterface
      * @return int Status
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public static function delete($obj);
 
@@ -79,7 +72,6 @@ interface DataMapperInterface
      * @return array
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public static function find(string $search) : array;
 
@@ -91,7 +83,6 @@ interface DataMapperInterface
      * @return mixed
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public static function listResults(Builder $query);
 
@@ -103,7 +94,6 @@ interface DataMapperInterface
      * @return mixed
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public static function populate(array $result);
 
@@ -115,7 +105,6 @@ interface DataMapperInterface
      * @return array
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public static function populateIterable(array $result) : array;
 
@@ -127,7 +116,6 @@ interface DataMapperInterface
      * @return $this
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public static function with(...$objects);
 
@@ -139,7 +127,6 @@ interface DataMapperInterface
      * @return self
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public static function get($primaryKey);
 

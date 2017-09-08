@@ -6,8 +6,6 @@
  *
  * @category   TBD
  * @package    TBD
- * @author     OMS Development Team <dev@oms.com>
- * @author     Dennis Eichhorn <d.eichhorn@oms.com>
  * @copyright  Dennis Eichhorn
  * @license    OMS License 1.0
  * @version    1.0.0
@@ -22,8 +20,6 @@ namespace phpOMS\Utils;
  *
  * @category   Framework
  * @package    phpOMS\Utils
- * @author     OMS Development Team <dev@oms.com>
- * @author     Dennis Eichhorn <d.eichhorn@oms.com>
  * @license    OMS License 1.0
  * @link       http://orange-management.com
  * @since      1.0.0
@@ -39,7 +35,6 @@ class Permutation
      * @return array
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public static function permut(array $toPermute, array $result = []) : array
     {
@@ -69,7 +64,6 @@ class Permutation
      * @return bool
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public static function isPermutation(string $a, string $b) : bool
     {
@@ -85,7 +79,6 @@ class Permutation
      * @return bool
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public static function isPalindrome(string $a, string $filter = 'a-zA-Z0-9') : bool
     {
@@ -105,7 +98,6 @@ class Permutation
      * @throws \Exception
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public static function permutate($toPermute, array $key)
     {

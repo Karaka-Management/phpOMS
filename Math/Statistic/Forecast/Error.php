@@ -6,8 +6,6 @@
  *
  * @category   TBD
  * @package    TBD
- * @author     OMS Development Team <dev@oms.com>
- * @author     Dennis Eichhorn <d.eichhorn@oms.com>
  * @copyright  Dennis Eichhorn
  * @license    OMS License 1.0
  * @version    1.0.0
@@ -26,8 +24,6 @@ use phpOMS\Math\Statistic\MeasureOfDispersion;
  *
  * @category   Framework
  * @package    phpOMS\DataStorage\Database
- * @author     OMS Development Team <dev@oms.com>
- * @author     Dennis Eichhorn <d.eichhorn@oms.com>
  * @license    OMS License 1.0
  * @link       http://orange-management.com
  * @since      1.0.0
@@ -43,7 +39,6 @@ class Error
      * @return float
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public static function getForecastError(float $observed, float $forecasted) : float
     {
@@ -59,7 +54,6 @@ class Error
      * @return array
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public static function getForecastErrorArray(array $observed, array $forecasted) : array
     {
@@ -81,7 +75,6 @@ class Error
      * @return float
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public static function getPercentageError(float $error, float $observed) : float
     {
@@ -97,7 +90,6 @@ class Error
      * @return array
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public static function getPercentageErrorArray(array $errors, array $observed) : array
     {
@@ -118,7 +110,6 @@ class Error
      * @return float
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public static function getMeanAbsoulteError(array $errors) : float
     {
@@ -133,7 +124,6 @@ class Error
      * @return float
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public static function getMeanSquaredError(array $errors) : float
     {
@@ -148,7 +138,6 @@ class Error
      * @return float
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public static function getRootMeanSquaredError(array $errors) : float
     {
@@ -168,7 +157,6 @@ class Error
      * @return float
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public static function getCoefficientOfDetermination(array $observed, array $forecasted) : float
     {
@@ -197,7 +185,6 @@ class Error
      * @return float
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public static function getSumSquaredError(array $errors) : float
     {
@@ -220,7 +207,6 @@ class Error
      * @return float
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public static function getRBarSquared(float $R, int $observations, int $predictors) : float
     {
@@ -237,7 +223,6 @@ class Error
      * @return float
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public static function getAkaikeInformationCriterion(float $sse, int $observations, int $predictors) : float
     {
@@ -256,7 +241,6 @@ class Error
      * @return float
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public static function getCorrectedAkaikeInformationCriterion(float $aic, int $observations, int $predictors) : float
     {
@@ -273,7 +257,6 @@ class Error
      * @return float
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public static function getSchwarzBayesianInformationCriterion(float $sse, int $observations, int $predictors) : float
     {
@@ -289,7 +272,6 @@ class Error
      * @return float
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public static function getMeanAbsolutePercentageError(array $observed, array $forecasted) : float
     {
@@ -305,7 +287,6 @@ class Error
      * @return float
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public static function getSymmetricMeanAbsolutePercentageError(array $observed, array $forecasted) : float
     {
@@ -326,7 +307,6 @@ class Error
      * @return array
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      *         todo: move to utils?! implement sqrt for array as well... could be usefull for others (e.g. matrix)
      */
     private static function square(array $values) : array
@@ -349,7 +329,6 @@ class Error
      * @return array
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public static function getCrossSectionalScaledErrorArray(array $errors, array $observed) : array
     {
@@ -372,7 +351,6 @@ class Error
      * @return float
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public static function getCrossSectionalScaledError(float $error, array $observed) : float
     {
@@ -394,7 +372,6 @@ class Error
      * @return float
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public static function getMeanAbsoluteScaledError(array $scaledErrors) : float
     {
@@ -409,7 +386,6 @@ class Error
      * @return float
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public static function getMeanSquaredScaledError(array $scaledErrors) : float
     {
@@ -426,7 +402,6 @@ class Error
      * @return array
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public static function getScaledErrorArray(array $errors, array $observed, int $m = 1) : array
     {
@@ -450,7 +425,6 @@ class Error
      * @return float
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public static function getScaledError(float $error, array $observed, int $m = 1) : float
     {
@@ -466,7 +440,6 @@ class Error
      * @return float
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     private static function getNaiveForecast(array $observed, int $m = 1) : float
     {

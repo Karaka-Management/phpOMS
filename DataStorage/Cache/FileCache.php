@@ -6,8 +6,6 @@
  *
  * @category   TBD
  * @package    TBD
- * @author     OMS Development Team <dev@oms.com>
- * @author     Dennis Eichhorn <d.eichhorn@oms.com>
  * @copyright  Dennis Eichhorn
  * @license    OMS License 1.0
  * @version    1.0.0
@@ -17,7 +15,7 @@ declare(strict_types=1);
 
 namespace phpOMS\DataStorage\Cache;
 
-use phpOMS\Datatypes\Exception\InvalidEnumValue;
+use phpOMS\Stdlib\Base\Exception\InvalidEnumValue;
 use phpOMS\System\File\Local\Directory;
 use phpOMS\System\File\Local\File;
 
@@ -28,8 +26,6 @@ use phpOMS\System\File\Local\File;
  *
  * @category   Framework
  * @package    phpOMS\DataStorage\Cache
- * @author     OMS Development Team <dev@oms.com>
- * @author     Dennis Eichhorn <d.eichhorn@oms.com>
  * @license    OMS License 1.0
  * @link       http://orange-management.com
  * @since      1.0.0
@@ -83,7 +79,6 @@ class FileCache implements CacheInterface
      * @param string $path Cache path
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function __construct(string $path)
     {
@@ -189,7 +184,6 @@ class FileCache implements CacheInterface
      * @return string
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     private function build($value, int $expire) : string
     {
@@ -207,7 +201,6 @@ class FileCache implements CacheInterface
      * @return int
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     private function dataType($value) : int
     {
@@ -241,7 +234,6 @@ class FileCache implements CacheInterface
      * @throws InvalidEnumValue
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     private function stringify($value, int $type) : string
     {
@@ -266,7 +258,6 @@ class FileCache implements CacheInterface
      * @return int
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     private function getExpire(string $raw) : int
     {

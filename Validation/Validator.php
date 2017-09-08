@@ -6,8 +6,6 @@
  *
  * @category   TBD
  * @package    TBD
- * @author     OMS Development Team <dev@oms.com>
- * @author     Dennis Eichhorn <d.eichhorn@oms.com>
  * @copyright  Dennis Eichhorn
  * @license    OMS License 1.0
  * @version    1.0.0
@@ -38,11 +36,11 @@ final class Validator extends ValidatorAbstract
      * @return bool
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public static function isValid($var, array $constraints) : bool
+    public static function isValid($var, array $constraints = null) : bool
     {
         foreach ($constraints as $callback => $settings) {
+            $callback = StringUtils::endsWith($callback, 'Not') ? substr($callback, 0, -3) : $callback;
             $valid = self::$callback($var, ...$settings);
             $valid = (StringUtils::endsWith($callback, 'Not') ? $valid : !$valid);
 
@@ -63,7 +61,6 @@ final class Validator extends ValidatorAbstract
      * @return bool
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public static function isType($var, $constraint) : bool
     {
@@ -90,7 +87,6 @@ final class Validator extends ValidatorAbstract
      * @return bool
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public static function hasLength(string $var, int $min = 0, int $max = PHP_INT_MAX) : bool
     {
@@ -112,7 +108,6 @@ final class Validator extends ValidatorAbstract
      * @return bool
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public static function contains(string $var, $substr) : bool
     {
@@ -128,7 +123,6 @@ final class Validator extends ValidatorAbstract
      * @return bool
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public static function matches(string $var, string $pattern) : bool
     {
@@ -145,7 +139,6 @@ final class Validator extends ValidatorAbstract
      * @return bool
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public static function hasLimit($var, $min = 0, $max = PHP_INT_MAX) : bool
     {

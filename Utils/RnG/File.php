@@ -6,8 +6,6 @@
  *
  * @category   TBD
  * @package    TBD
- * @author     OMS Development Team <dev@oms.com>
- * @author     Dennis Eichhorn <d.eichhorn@oms.com>
  * @copyright  Dennis Eichhorn
  * @license    OMS License 1.0
  * @version    1.0.0
@@ -23,8 +21,6 @@ namespace phpOMS\Utils\RnG;
  *
  * @category   DataStorage
  * @package    Framework
- * @author     OMS Development Team <dev@oms.com>
- * @author     Dennis Eichhorn <d.eichhorn@oms.com>
  * @license    OMS License 1.0
  * @link       http://orange-management.com
  * @since      1.0.0
@@ -38,71 +34,19 @@ class File
      * @var array[]
      * @since 1.0.0
      */
-    private static $extensions = [['exe', null],
-                                  ['dat', null],
-                                  ['txt', null],
-                                  ['csv', 'txt'],
-                                  ['doc', null],
-                                  ['docx', 'doc'],
-                                  ['mp3', null],
-                                  ['mp4', null],
-                                  ['avi', null],
-                                  ['mpeg', null],
-                                  ['wmv', null],
-                                  ['ppt', null],
-                                  ['xls', null],
-                                  ['xlsx', 'xls'],
-                                  ['xlsxm', 'xls'],
-                                  ['php', null],
-                                  ['html', null],
-                                  ['tex', null],
-                                  ['js', null],
-                                  ['c', null],
-                                  ['cpp', null],
-                                  ['h', null],
-                                  ['res', null],
-                                  ['ico', null],
-                                  ['jpg', null],
-                                  ['png', null],
-                                  ['gif', null],
-                                  ['bmp', null],
-                                  ['ttf', null],
-                                  ['zip', null],
-                                  ['rar', null],
-                                  ['7z', null],
-                                  ['tar', 'gz'],
-                                  ['gz', null],
-                                  ['gz', null],
-                                  ['sh', null],
-                                  ['bat', null],
-                                  ['iso', null],
-                                  ['css', null],
-                                  ['json', null],
-                                  ['ini', null],
-                                  ['psd', null],
-                                  ['pptx', 'ppt'],
-                                  ['xml', null],
-                                  ['dll', null],
-                                  ['wav', null],
-                                  ['wma', null],
-                                  ['vb', null],
-                                  ['tmp', null],
-                                  ['tif', null],
-                                  ['sql', null],
-                                  ['swf', null],
-                                  ['svg', null],
-                                  ['rpm', null],
-                                  ['rss', null],
-                                  ['pkg', null],
-                                  ['pdf', null],
-                                  ['mpg', null],
-                                  ['mov', null],
-                                  ['jar', null],
-                                  ['flv', null],
-                                  ['fla', null],
-                                  ['deb', null],
-                                  ['py', null],
-                                  ['pl', null],];
+    private static $extensions = [
+        ['exe', null], ['dat', null], ['txt', null], ['csv', 'txt'], ['doc', null], ['docx', 'doc'], 
+        ['mp3', null], ['mp4', null], ['avi', null], ['mpeg', null], ['wmv', null], ['ppt', null], 
+        ['xls', null], ['xlsx', 'xls'], ['xlsxm', 'xls'], ['php', null], ['html', null], ['tex', null], 
+        ['js', null], ['c', null], ['cpp', null], ['h', null], ['res', null], ['ico', null], 
+        ['jpg', null], ['png', null], ['gif', null], ['bmp', null], ['ttf', null], ['zip', null], 
+        ['rar', null], ['7z', null], ['tar', 'gz'], ['gz', null], ['gz', null], ['sh', null], 
+        ['bat', null], ['iso', null], ['css', null], ['json', null], ['ini', null], ['psd', null], 
+        ['pptx', 'ppt'], ['xml', null], ['dll', null], ['wav', null], ['wma', null], ['vb', null], 
+        ['tmp', null], ['tif', null], ['sql', null], ['swf', null], ['svg', null], ['rpm', null], 
+        ['rss', null], ['pkg', null], ['pdf', null], ['mpg', null], ['mov', null], ['jar', null], 
+        ['flv', null], ['fla', null], ['deb', null], ['py', null], ['pl', null],
+    ];
 
     /**
      * Get a random file extension.
@@ -113,7 +57,6 @@ class File
      * @return false|array
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public static function generateExtension($source = null, $distribution = DistributionType::UNIFORM)
     {

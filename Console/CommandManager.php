@@ -6,8 +6,6 @@
  *
  * @category   TBD
  * @package    TBD
- * @author     OMS Development Team <dev@oms.com>
- * @author     Dennis Eichhorn <d.eichhorn@oms.com>
  * @copyright  Dennis Eichhorn
  * @license    OMS License 1.0
  * @version    1.0.0
@@ -49,7 +47,6 @@ class CommandManager implements \Countable
      * Constructor.
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function __construct()
     {
@@ -66,7 +63,6 @@ class CommandManager implements \Countable
      * @return bool
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn
      */
     public function attach(string $cmd, $callback, $source, bool $overwrite = true) : bool
     {
@@ -89,7 +85,6 @@ class CommandManager implements \Countable
      * @return bool
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn
      */
     public function detach(string $cmd, $source) : bool
     {
@@ -112,7 +107,6 @@ class CommandManager implements \Countable
      * @return mixed|bool
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn
      */
     public function trigger(string $cmd, $para)
     {
@@ -129,7 +123,6 @@ class CommandManager implements \Countable
      * @return int
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn
      */
     public function count() : int
     {

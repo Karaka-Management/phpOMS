@@ -6,8 +6,6 @@
  *
  * @category   TBD
  * @package    TBD
- * @author     OMS Development Team <dev@oms.com>
- * @author     Dennis Eichhorn <d.eichhorn@oms.com>
  * @copyright  Dennis Eichhorn
  * @license    OMS License 1.0
  * @version    1.0.0
@@ -22,6 +20,7 @@ use phpOMS\Autoloader;
 use phpOMS\DataStorage\Database\DatabaseType;
 use phpOMS\Message\Http\Request;
 use phpOMS\System\File\PathException;
+use phpOMS\Module\Exception\InvalidModuleException;
 
 /**
  * Modules class.
@@ -30,8 +29,6 @@ use phpOMS\System\File\PathException;
  *
  * @category   Framework
  * @package    phpOMS\Module
- * @author     OMS Development Team <dev@oms.com>
- * @author     Dennis Eichhorn <d.eichhorn@oms.com>
  * @license    OMS License 1.0
  * @link       http://orange-management.com
  * @since      1.0.0
@@ -101,7 +98,6 @@ class ModuleManager
      * @param ApplicationAbstract $app Application
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function __construct(ApplicationAbstract $app, string $modulePath = '')
     {
@@ -117,7 +113,6 @@ class ModuleManager
      * @return array
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn
      */
     public function getRoutedModules(Request $request) : array
     {
@@ -141,7 +136,6 @@ class ModuleManager
      * @return array
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn
      */
     public function getUriLoad(Request $request) : array
     {
@@ -193,7 +187,6 @@ class ModuleManager
      * @return array
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn
      */
     public function getLanguageFiles(Request $request) : array
     {
@@ -215,7 +208,6 @@ class ModuleManager
      * @return array
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn
      */
     public function getActiveModules() : array
     {
@@ -238,7 +230,6 @@ class ModuleManager
      * @return array
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn
      */
     public function getAllModules() : array
     {
@@ -269,7 +260,6 @@ class ModuleManager
      * @return array
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn
      */
     public function getAvailableModules() : array
     {
@@ -283,7 +273,6 @@ class ModuleManager
      * @return bool
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn
      */
     public function deactivate(string $module) : bool
     {
@@ -319,7 +308,6 @@ class ModuleManager
      * @return bool
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn
      */
     public function activate(string $module) : bool
     {
@@ -354,10 +342,9 @@ class ModuleManager
      *
      * @return bool
      *
-     * @throws \Exception
+     * @throws InvalidModuleException Throws this exception in case the installer doesn't exist
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn
      */
     public function reInit(string $module) : bool
     {
@@ -366,7 +353,7 @@ class ModuleManager
         $class = '\\Modules\\' . $info->getDirectory() . '\\Admin\\Installer';
 
         if (!Autoloader::exists($class)) {
-            throw new \Exception('Module installer does not exist');
+            throw new InvalidModuleException($info->getDirectory());
         }
 
         $class::reInit($this->modulePath, $info);
@@ -380,7 +367,6 @@ class ModuleManager
      * @return bool
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn
      */
     public function install(string $module) : bool
     {
@@ -434,7 +420,6 @@ class ModuleManager
      * @return void
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn
      */
     private function installDependencies(array $dependencies) /* : void */
     {
@@ -450,10 +435,9 @@ class ModuleManager
      *
      * @return void
      *
-     * @throws \Exception
+     * @throws InvalidModuleException Throws this exception in case the installer doesn't exist
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn
      */
     private function installModule(InfoManager $info) /* : void */
     {
@@ -461,7 +445,7 @@ class ModuleManager
         $class = '\\Modules\\' . $info->getDirectory() . '\\Admin\\Installer';
 
         if (!Autoloader::exists($class)) {
-            throw new \Exception('Module installer does not exist');
+            throw new InvalidModuleException($info->getDirectory());
         }
 
         $class::install($this->modulePath, $this->app->dbPool, $info);
@@ -474,17 +458,16 @@ class ModuleManager
      *
      * @return void
      *
-     * @throws \Exception
+     * @throws InvalidModuleException Throws this exception in case the deactiviation doesn't exist
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn
      */
     private function deactivateModule(InfoManager $info) /* : void */
     {
         $class = '\\Modules\\' . $info->getDirectory() . '\\Admin\\Deactivate';
 
         if (!Autoloader::exists($class)) {
-            throw new \Exception('Module deactivation does not exist');
+            throw new InvalidModuleException($info->getDirectory());
         }
 
         /** @var $class DeactivateAbstract */
@@ -498,17 +481,16 @@ class ModuleManager
      *
      * @return void
      *
-     * @throws \Exception
+     * @throws InvalidModuleException Throws this exception in case the activation doesn't exist
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn
      */
     private function activateModule(InfoManager $info) /* : void */
     {
-        $class = '\\Modules\\' . $info->getDirectory() . '\\Admin\\Deactivate';
+        $class = '\\Modules\\' . $info->getDirectory() . '\\Admin\\Activate';
 
         if (!Autoloader::exists($class)) {
-            throw new \Exception('Module deactivation does not exist');
+            throw new InvalidModuleException($info->getDirectory());
         }
 
         /** @var $class ActivateAbstract */
@@ -523,7 +505,6 @@ class ModuleManager
      * @return InfoManager
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn
      */
     private function loadInfo(string $module) : InfoManager
     {
@@ -545,14 +526,13 @@ class ModuleManager
      * @return array
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn
      */
     public function getInstalledModules() : array
     {
         if ($this->installed === null) {
             switch ($this->app->dbPool->get('core')->getType()) {
                 case DatabaseType::MYSQL:
-                    $sth = $this->app->dbPool->get('core')->con->prepare('SELECT `module_id`,`module_theme`,`module_version`,`module_id` FROM `' . $this->app->dbPool->get('core')->prefix . 'module`');
+                    $sth = $this->app->dbPool->get('core')->con->prepare('SELECT `module_id`,`module_theme`,`module_version` FROM `' . $this->app->dbPool->get('core')->prefix . 'module`');
                     $sth->execute();
                     $this->installed = $sth->fetchAll(\PDO::FETCH_GROUP);
                     break;
@@ -573,7 +553,6 @@ class ModuleManager
      * @return void
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn
      */
     public function installProviding(string $from, string $for) /* : void */
     {
@@ -594,7 +573,6 @@ class ModuleManager
      * @throws \InvalidArgumentException
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn
      */
     public function initModule($modules) /* : void */
     {
@@ -621,7 +599,6 @@ class ModuleManager
      * @throws \Exception
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn
      */
     private function initModuleController(string $module) /* : void */
     {
@@ -643,7 +620,6 @@ class ModuleManager
      * @throws \Exception
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn
      */
     public function get(string $module) : ModuleAbstract
     {
@@ -666,7 +642,6 @@ class ModuleManager
      * @return void
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn
      */
     public function initRequestModules(Request $request) /* : void */
     {

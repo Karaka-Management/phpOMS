@@ -6,8 +6,6 @@
  *
  * @category   TBD
  * @package    TBD
- * @author     OMS Development Team <dev@oms.com>
- * @author     Dennis Eichhorn <d.eichhorn@oms.com>
  * @copyright  Dennis Eichhorn
  * @license    OMS License 1.0
  * @version    1.0.0
@@ -26,8 +24,6 @@ use phpOMS\Utils\StringUtils;
  *
  * @category   Framework
  * @package    phpOMS/Uri
- * @author     OMS Development Team <dev@oms.com>
- * @author     Dennis Eichhorn <d.eichhorn@oms.com>
  * @license    OMS License 1.0
  * @link       http://orange-management.com
  * @since      1.0.0
@@ -137,7 +133,6 @@ class Http implements UriInterface
      * @param string $uri Root path for subdirectory
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function __construct(string $uri)
     {
@@ -170,6 +165,8 @@ class Http implements UriInterface
             parse_str($this->queryString, $this->query);
         }
 
+        $this->query = array_change_key_case($this->query, CASE_LOWER);
+
         $this->fragment = $url['fragment'] ?? '';
         $this->base     = $this->scheme . '://' . $this->host . $this->rootPath;
     }
@@ -180,7 +177,6 @@ class Http implements UriInterface
      * @return string
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public static function getCurrent() : string
     {
@@ -202,7 +198,6 @@ class Http implements UriInterface
      * @return string
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function getRootPath() : string
     {
@@ -248,7 +243,6 @@ class Http implements UriInterface
      * @return string
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function getPass() : string
     {
@@ -263,13 +257,12 @@ class Http implements UriInterface
         return $this->path;
     }
     
-    public function getPathOffset() : int
-    {
-        return substr_count($this->rootPath, '/') - 1;
-    }
-
     /**
-     * {@inheritdoc}
+     * Get path offset.
+     *
+     * @return int
+     *
+     * @since  1.0.0
      */
     public function getPathOffset() : int
     {
@@ -288,9 +281,14 @@ class Http implements UriInterface
     /**
      * {@inheritdoc}
      */
-    public function getPathElement(int $pos) : string
+    public function getPathElement(int $pos = null) : string
     {
         return explode('/', $this->path)[$pos];
+    }
+
+    public function getPathElements() : array
+    {
+        return explode('/', $this->path);    
     }
 
     /**
@@ -298,7 +296,21 @@ class Http implements UriInterface
      */
     public function getQuery(string $key = null) /* : ?string */
     {
-        return isset($key) ? $this->query[$key] ?? null : $this->queryString;
+        if(isset($key)) {
+            $key = strtolower($key);
+
+            return $this->query[$key] ?? '';
+        }
+
+        return $this->queryString;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getQueryArray() : array
+    {
+        return $this->query;
     }
 
     /**
@@ -339,7 +351,6 @@ class Http implements UriInterface
      * @return string
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function getUser() : string
     {

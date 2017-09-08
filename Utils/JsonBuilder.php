@@ -6,8 +6,6 @@
  *
  * @category   TBD
  * @package    TBD
- * @author     OMS Development Team <dev@oms.com>
- * @author     Dennis Eichhorn <d.eichhorn@oms.com>
  * @copyright  Dennis Eichhorn
  * @license    OMS License 1.0
  * @version    1.0.0
@@ -22,13 +20,11 @@ namespace phpOMS\Utils;
  *
  * @category   Framework
  * @package    phpOMS\Utils
- * @author     OMS Development Team <dev@oms.com>
- * @author     Dennis Eichhorn <d.eichhorn@oms.com>
  * @license    OMS License 1.0
  * @link       http://orange-management.com
  * @since      1.0.0
  */
-class JsonBuilder implements \Serializable
+class JsonBuilder implements \Serializable, \JsonSerializable
 {
 
     /**
@@ -43,7 +39,6 @@ class JsonBuilder implements \Serializable
      * Constructor.
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn
      */
     public function __construct()
     {
@@ -55,7 +50,6 @@ class JsonBuilder implements \Serializable
      * @return array
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn
      */
     public function getJson() : array
     {
@@ -72,7 +66,6 @@ class JsonBuilder implements \Serializable
      * @return void
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn
      */
     public function add(string $path, $value, bool $overwrite = true) /* : void */
     {
@@ -87,7 +80,6 @@ class JsonBuilder implements \Serializable
      * @return void
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn
      */
     public function remove(string $path) /* : void */
     {
@@ -116,6 +108,11 @@ class JsonBuilder implements \Serializable
      */
     public function unserialize($serialized)
     {
-        $this->json = json_decode($serialized);
+        $this->json = json_decode($serialized, true);
+    }
+
+    public function jsonSerialize()
+    {
+        return $this->getJson();
     }
 }

@@ -6,8 +6,6 @@
  *
  * @category   TBD
  * @package    TBD
- * @author     OMS Development Team <dev@oms.com>
- * @author     Dennis Eichhorn <d.eichhorn@oms.com>
  * @copyright  Dennis Eichhorn
  * @license    OMS License 1.0
  * @version    1.0.0
@@ -22,8 +20,6 @@ namespace phpOMS\Localization;
  *
  * @category   Framework
  * @package    phpOMS\Localization
- * @author     OMS Development Team <dev@oms.com>
- * @author     Dennis Eichhorn <d.eichhorn@oms.com>
  * @license    OMS License 1.0
  * @link       http://orange-management.com
  * @since      1.0.0
@@ -58,7 +54,7 @@ class Money implements \Serializable
     /**
      * Currency symbol position
      *
-     * @var string
+     * @var int
      * @since 1.0.0
      */
     private $position = 1;
@@ -89,7 +85,6 @@ class Money implements \Serializable
      * @param int              $position  Symbol position
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function __construct($value = 0, string $thousands = ',', string $decimal = '.', string $symbol = '', int $position = 0)
     {
@@ -110,7 +105,6 @@ class Money implements \Serializable
      * @return int
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public static function toInt(string $value, string $thousands = ',', string $decimal = '.')  : int
     {
@@ -139,7 +133,6 @@ class Money implements \Serializable
      * @return Money
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function setLocalization(string $thousands = ',', string $decimal = '.', string $symbol = '', int $position = 0) /* : void */
     {
@@ -159,7 +152,6 @@ class Money implements \Serializable
      * @return Money
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function setString(string $value) : Money
     {
@@ -176,7 +168,6 @@ class Money implements \Serializable
      * @return string
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function getCurrency(int $decimals = 2) : string
     {
@@ -191,7 +182,6 @@ class Money implements \Serializable
      * @return string
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function getAmount(int $decimals = 2) : string
     {
@@ -211,7 +201,6 @@ class Money implements \Serializable
      * @return Money
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function add($value) : Money
     {
@@ -232,7 +221,6 @@ class Money implements \Serializable
      * @return int
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function getInt() : int
     {
@@ -247,7 +235,6 @@ class Money implements \Serializable
      * @return Money
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function sub($value) : Money
     {
@@ -270,7 +257,6 @@ class Money implements \Serializable
      * @return Money
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function mult($value) : Money
     {
@@ -289,7 +275,6 @@ class Money implements \Serializable
      * @return Money
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function div($value) : Money
     {
@@ -306,7 +291,6 @@ class Money implements \Serializable
      * @return Money
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function abs() : Money
     {
@@ -323,7 +307,6 @@ class Money implements \Serializable
      * @return Money
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function pow($value) : Money
     {
@@ -340,7 +323,6 @@ class Money implements \Serializable
      * @return int
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function serialize()
     {
@@ -355,7 +337,6 @@ class Money implements \Serializable
      * @return void
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function unserialize($value)
     {
@@ -370,7 +351,6 @@ class Money implements \Serializable
      * @return Money
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function setInt(int $value) : Money
     {

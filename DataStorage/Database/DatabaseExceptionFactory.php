@@ -6,8 +6,6 @@
  *
  * @category   TBD
  * @package    TBD
- * @author     OMS Development Team <dev@oms.com>
- * @author     Dennis Eichhorn <d.eichhorn@oms.com>
  * @copyright  Dennis Eichhorn
  * @license    OMS License 1.0
  * @version    1.0.0
@@ -17,15 +15,11 @@ declare(strict_types=1);
 
 namespace phpOMS\DataStorage\Database;
 
-use phpOMS\DataStorage\Database\Schema\Exception\TableException;
-
 /**
  * Database exception factory.
  *
  * @category   Framework
  * @package    phpOMS\DataStorage\Database
- * @author     OMS Development Team <dev@oms.com>
- * @author     Dennis Eichhorn <d.eichhorn@oms.com>
  * @license    OMS License 1.0
  * @link       http://orange-management.com
  * @since      1.0.0
@@ -37,33 +31,36 @@ class DatabaseExceptionFactory
      *
      * @param \PDOException $e Exception
      *
-     * @return \PDOException
+     * @return string
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public static function create(\PDOException $e) : \PDOException
+    public static function createException(\PDOException $e) : string
     {
         switch ($e->getCode()) {
             case '42S02':
-                return self::createTableViewException($e);
+                return '\phpOMS\DataStorage\Database\Schema\Exception\TableException';
             default:
-                return $e;
+                return '\PDOException';
         }
     }
 
     /**
-     * Create table exception.
+     * Constructor.
      *
      * @param \PDOException $e Exception
      *
-     * @return \PDOException
+     * @return string
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    private static function createTableViewException(\PDOException $e) : \PDOException
+    public static function createExceptionMessage(\PDOException $e) : string
     {
-        return new TableException(TableException::findTable($e->getMessage()));
+        switch ($e->getCode()) {
+            case '42S02':
+                return TableException::findTable($e->getMessage());
+            default:
+                return $e->getMessage();
+        }
     }
 }

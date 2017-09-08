@@ -6,8 +6,6 @@
  *
  * @category   TBD
  * @package    TBD
- * @author     OMS Development Team <dev@oms.com>
- * @author     Dennis Eichhorn <d.eichhorn@oms.com>
  * @copyright  Dennis Eichhorn
  * @license    OMS License 1.0
  * @version    1.0.0
@@ -17,13 +15,13 @@ declare(strict_types=1);
 
 namespace phpOMS\Math\Matrix;
 
+use phpOMS\Math\Matrix\Exception\InvalidDimensionException;
+
 /**
  * Matrix class
  *
  * @category   Framework
  * @package    phpOMS\Math\Matrix
- * @author     OMS Development Team <dev@oms.com>
- * @author     Dennis Eichhorn <d.eichhorn@oms.com>
  * @license    OMS License 1.0
  * @link       http://orange-management.com
  * @since      1.0.0
@@ -69,7 +67,6 @@ class Matrix implements \ArrayAccess, \Iterator
      * @param int $n Columns
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function __construct(int $m, int $n = 1)
     {
@@ -88,15 +85,14 @@ class Matrix implements \ArrayAccess, \Iterator
      * @param int $n     Column
      * @param int $value Value
      *
-     * @throws DimensionException
+     * @throws InvalidDimensionException
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function set(int $m, int $n, $value) /* : void */
     {
         if (!isset($this->matrix[$m][$n])) {
-            throw new DimensionException($m, $n);
+            throw new InvalidDimensionException($m . 'x' . $n);
         }
 
         $this->matrix[$m][$n] = $value;
@@ -110,15 +106,14 @@ class Matrix implements \ArrayAccess, \Iterator
      *
      * @return mixed
      *
-     * @throws DimensionException
+     * @throws InvalidDimensionException
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function get(int $m, int $n)
     {
         if (!isset($this->matrix[$m][$n])) {
-            throw new DimensionException($m, $n);
+            throw new InvalidDimensionException($m . 'x' . $n);
         }
 
         return $this->matrix[$m][$n];
@@ -130,7 +125,6 @@ class Matrix implements \ArrayAccess, \Iterator
      * @return Matrix
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function transpose() : Matrix
     {
@@ -146,7 +140,6 @@ class Matrix implements \ArrayAccess, \Iterator
      * @return array
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function getMatrix() : array
     {
@@ -159,7 +152,6 @@ class Matrix implements \ArrayAccess, \Iterator
      * @return int
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function rank() : int
     {
@@ -176,12 +168,11 @@ class Matrix implements \ArrayAccess, \Iterator
      * @throws \Exception
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function setMatrix(array $matrix) : Matrix
     {
         if ($this->m !== count($matrix) || $this->n !== count($matrix[0])) {
-            throw new DimensionException(count($matrix), count($matrix[0]));
+            throw new InvalidDimensionException(count($matrix) . 'x' . count($matrix[0]));
         }
 
         $this->matrix = $matrix;
@@ -199,7 +190,6 @@ class Matrix implements \ArrayAccess, \Iterator
      * @throws \Exception
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function sub($value) : Matrix
     {
@@ -222,7 +212,6 @@ class Matrix implements \ArrayAccess, \Iterator
      * @throws \Exception
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function add($value) : Matrix
     {
@@ -245,12 +234,11 @@ class Matrix implements \ArrayAccess, \Iterator
      * @throws \Exception
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     private function addMatrix(Matrix $matrix) : Matrix
     {
         if ($this->m !== $matrix->getM() || $this->n !== $matrix->getN()) {
-            throw new DimensionException($matrix->getM(), $matrix->getN());
+            throw new InvalidDimensionException($matrix->getM() . 'x' . $matrix->getN());
         }
 
         $matrixArr    = $matrix->getMatrix();
@@ -274,7 +262,6 @@ class Matrix implements \ArrayAccess, \Iterator
      * @return int
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function getM() : int
     {
@@ -287,7 +274,6 @@ class Matrix implements \ArrayAccess, \Iterator
      * @return int
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function getN() : int
     {
@@ -304,7 +290,6 @@ class Matrix implements \ArrayAccess, \Iterator
      * @throws \Exception
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     private function addScalar($scalar) : Matrix
     {
@@ -332,7 +317,6 @@ class Matrix implements \ArrayAccess, \Iterator
      * @throws \Exception
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function mult($value) : Matrix
     {
@@ -355,7 +339,6 @@ class Matrix implements \ArrayAccess, \Iterator
      * @throws \Exception
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     private function multMatrix(Matrix $matrix) : Matrix
     {
@@ -363,7 +346,7 @@ class Matrix implements \ArrayAccess, \Iterator
         $mDim = $matrix->getM();
 
         if ($this->n !== $mDim) {
-            throw new DimensionException($mDim, $nDim);
+            throw new InvalidDimensionException($mDim . 'x' . $nDim);
         }
 
         $matrixArr    = $matrix->getMatrix();
@@ -397,7 +380,6 @@ class Matrix implements \ArrayAccess, \Iterator
      * @throws \Exception
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     private function multScalar($scalar) : Matrix
     {
@@ -421,7 +403,6 @@ class Matrix implements \ArrayAccess, \Iterator
      * @return Matrix
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function upperTriangular() : Matrix
     {
@@ -442,7 +423,6 @@ class Matrix implements \ArrayAccess, \Iterator
      * @return int Det sign
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     private function upperTrianglize(array &$arr) : int
     {
@@ -491,7 +471,6 @@ class Matrix implements \ArrayAccess, \Iterator
      * @return Matrix
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function lowerTriangular() : Matrix
     {
@@ -506,15 +485,14 @@ class Matrix implements \ArrayAccess, \Iterator
      *
      * @return Matrix
      *
-     * @throws \Exception
+     * @throws InvalidDimensionException
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function inverse(int $algorithm = InverseType::GAUSS_JORDAN) : Matrix
     {
         if ($this->n !== $this->m) {
-            throw new DimensionException($this->m, $this->n);
+            throw new InvalidDimensionException($this->m . 'x' . $this->n);
         }
 
         switch ($algorithm) {
@@ -531,7 +509,6 @@ class Matrix implements \ArrayAccess, \Iterator
      * @return Matrix
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     private function inverseGaussJordan() : Matrix
     {
@@ -653,7 +630,6 @@ class Matrix implements \ArrayAccess, \Iterator
      * @return array
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     private function diag(array $arr) : array
     {
@@ -692,7 +668,6 @@ class Matrix implements \ArrayAccess, \Iterator
      * @return float
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function det() : float
     {
@@ -840,7 +815,6 @@ class Matrix implements \ArrayAccess, \Iterator
      * @return Matrix
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     private function decompositionCholesky() : Matrix
     {

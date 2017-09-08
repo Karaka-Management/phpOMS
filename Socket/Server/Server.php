@@ -6,8 +6,6 @@
  *
  * @category   TBD
  * @package    TBD
- * @author     OMS Development Team <dev@oms.com>
- * @author     Dennis Eichhorn <d.eichhorn@oms.com>
  * @copyright  Dennis Eichhorn
  * @license    OMS License 1.0
  * @version    1.0.0
@@ -27,8 +25,6 @@ use phpOMS\Socket\SocketAbstract;
  *
  * @category   Framework
  * @package    phpOMS\Socket\Server
- * @author     OMS Development Team <dev@oms.com>
- * @author     Dennis Eichhorn <d.eichhorn@oms.com>
  * @license    OMS License 1.0
  * @link       http://orange-management.com
  * @since      1.0.0
@@ -78,7 +74,6 @@ class Server extends SocketAbstract
      * @param \Socket\SocketApplication $app socketApplication
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function __construct($app)
     {
@@ -93,7 +88,6 @@ class Server extends SocketAbstract
      * @return bool
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public static function hasInternet() : bool
     {
@@ -127,7 +121,6 @@ class Server extends SocketAbstract
      * @return void
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function setLimit(int $limit) /* : void */
     {

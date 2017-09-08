@@ -6,8 +6,6 @@
  *
  * @category   TBD
  * @package    TBD
- * @author     OMS Development Team <dev@oms.com>
- * @author     Dennis Eichhorn <d.eichhorn@oms.com>
  * @copyright  Dennis Eichhorn
  * @license    OMS License 1.0
  * @version    1.0.0
@@ -24,8 +22,6 @@ namespace phpOMS\Utils\IO\Zip;
  *
  * @category   Framework
  * @package    phpOMS\Asset
- * @author     OMS Development Team <dev@oms.com>
- * @author     Dennis Eichhorn <d.eichhorn@oms.com>
  * @license    OMS License 1.0
  * @link       http://orange-management.com
  * @since      1.0.0
@@ -34,16 +30,7 @@ class Zip implements ArchiveInterface
 {
 
     /**
-     * Create zip.
-     *
-     * @param string[] $sources     Files and directories to compress
-     * @param string   $destination Output destination
-     * @param bool     $overwrite   Overwrite if destination is existing
-     *
-     * @return bool
-     *
-     * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     * {@inheritdoc}
      */
     public static function pack(array $sources, string $destination, bool $overwrite = true) : bool
     {
@@ -92,6 +79,9 @@ class Zip implements ArchiveInterface
         return $zip->close();
     }
     
+    /**
+     * {@inheritdoc}
+     */
     public static function unpack(string $source, string $destination) : bool
     {
         $destination = str_replace('\\', '/', realpath($destination));

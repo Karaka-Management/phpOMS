@@ -6,8 +6,6 @@
  *
  * @category   TBD
  * @package    TBD
- * @author     OMS Development Team <dev@oms.com>
- * @author     Dennis Eichhorn <d.eichhorn@oms.com>
  * @copyright  Dennis Eichhorn
  * @license    OMS License 1.0
  * @version    1.0.0
@@ -17,13 +15,14 @@ declare(strict_types=1);
 
 namespace phpOMS\Math\Statistic;
 
+use phpOMS\Math\Exception\ZeroDevisionException;
+use phpOMS\Math\Matrix\Exception\InvalidDimensionException;
+
 /**
  * Average class.
  *
  * @category   Framework
  * @package    phpOMS\Math\Statistic
- * @author     OMS Development Team <dev@oms.com>
- * @author     Dennis Eichhorn <d.eichhorn@oms.com>
  * @license    OMS License 1.0
  * @link       http://orange-management.com
  * @since      1.0.0
@@ -52,7 +51,6 @@ class Average
      * @return float
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public static function averageChange(array $x, int $h = 1) : float
     {
@@ -74,7 +72,6 @@ class Average
      * @throws \Exception
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public static function totalMovingAverage(array $x, int $order, array $weight = null, bool $symmetric = false) : array
     {
@@ -103,7 +100,6 @@ class Average
      * @throws \Exception
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public static function movingAverage(array $x, int $t, int $order, array $weight = null, bool $symmetric = false) : float
     {
@@ -135,15 +131,14 @@ class Average
      *
      * @return float
      *
-     * @throws \Exception
+     * @throws InvalidDimensionException This exception is thrown in case both parameters have different array length
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public static function weightedAverage(array $values, array $weight) : float
     {
         if (($count = count($values)) !== count($weight)) {
-            throw new \Exception('Dimension');
+            throw new InvalidDimensionException(count($values) . 'x' . count($weight));
         }
 
         $avg = 0.0;
@@ -167,14 +162,13 @@ class Average
      * @throws \Exception
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public static function arithmeticMean(array $values) : float
     {
         $count = count($values);
 
         if ($count === 0) {
-            throw new \Exception('Division zero');
+            throw new ZeroDevisionException();
         }
 
         return array_sum($values) / $count;
@@ -190,7 +184,6 @@ class Average
      * @return float
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public static function mode($values)
     {
@@ -210,7 +203,6 @@ class Average
      * @return float
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public static function median(array $values) : float
     {
@@ -242,14 +234,13 @@ class Average
      * @throws \Exception
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public static function geometricMean(array $values, int $offset = 0) : float
     {
         $count = count($values);
 
         if ($count === 0) {
-            throw new \Exception('Division zero');
+            throw new ZeroDevisionException();
         }
 
         return pow(array_product($values), 1 / $count);
@@ -268,7 +259,6 @@ class Average
      * @throws \Exception
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public static function harmonicMean(array $values, int $offset = 0) : float
     {
@@ -283,7 +273,7 @@ class Average
 
         foreach ($values as $value) {
             if ($value === 0) {
-                throw new \Exception('Division zero');
+                throw new ZeroDevisionException();
             }
 
             $sum += 1 / $value;
@@ -303,7 +293,6 @@ class Average
      * @return float
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public static function angleMean($angles, int $offset = 0) : float
     {
@@ -333,7 +322,6 @@ class Average
      * @throws \Exception
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public static function timeToAngle(string $time) : float
     {
@@ -359,7 +347,6 @@ class Average
      * @return string
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public static function angleToTime(float $angle) : string
     {
@@ -380,7 +367,6 @@ class Average
      * @return float
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public static function angleMean2(array $angles, int $offset = 0) : float
     {

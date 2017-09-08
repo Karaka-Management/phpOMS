@@ -6,8 +6,6 @@
  *
  * @category   TBD
  * @package    TBD
- * @author     OMS Development Team <dev@oms.com>
- * @author     Dennis Eichhorn <d.eichhorn@oms.com>
  * @copyright  Dennis Eichhorn
  * @license    OMS License 1.0
  * @version    1.0.0
@@ -22,8 +20,6 @@ namespace phpOMS\Utils\Converter;
  *
  * @category   Framework
  * @package    phpOMS\Utils\Converter
- * @author     OMS Development Team <dev@oms.com>
- * @author     Dennis Eichhorn <d.eichhorn@oms.com>
  * @license    OMS License 1.0
  * @link       http://orange-management.com
  * @since      1.0.0
@@ -41,7 +37,6 @@ class Measurement
      * @return float
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public static function convertTemperature(float $value, string $from = TemperatureType::FAHRENHEIT, string $to = TemperatureType::CELSIUS) : float
     {
@@ -115,7 +110,6 @@ class Measurement
      * @return float
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public static function convertWeight(float $value, string $from = WeightType::GRAM, string $to = WeightType::KILOGRAM) : float
     {
@@ -225,7 +219,6 @@ class Measurement
      * @return float
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public static function convertLength(float $value, string $from = LengthType::METERS, string $to = LengthType::KILOMETERS) : float
     {
@@ -377,7 +370,6 @@ class Measurement
      * @return float
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public static function convertArea(float $value, string $from = AreaType::SQUARE_METERS, string $to = AreaType::SQUARE_KILOMETERS) : float
     {
@@ -481,7 +473,6 @@ class Measurement
      * @return float
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public static function convertVolume(float $value, string $from = VolumeType::LITER, string $to = VolumeType::LITER) : float
     {
@@ -735,7 +726,6 @@ class Measurement
      * @return float
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public static function convertSpeed(float $value, string $from = SpeedType::KILOMETERS_PER_HOUR, string $to = SpeedType::KILOMETERS_PER_HOUR) : float
     {
@@ -965,7 +955,6 @@ class Measurement
      * @return float
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public static function convertTime(float $value, string $from = TimeType::SECONDS, string $to = TimeType::HOURS) : float
     {
@@ -1045,7 +1034,6 @@ class Measurement
      * @return float
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public static function convertAngle(float $value, string $from = AngleType::DEGREE, string $to = AngleType::DEGREE) : float
     {
@@ -1131,7 +1119,6 @@ class Measurement
      * @return float
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public static function convertPressure(float $value, string $from = PressureType::PASCALS, string $to = PressureType::BAR) : float
     {
@@ -1233,7 +1220,6 @@ class Measurement
      * @return float
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public static function convertEnergie(float $value, string $from = EnergyPowerType::JOULS, string $to = EnergyPowerType::KILOWATT_HOUERS) : float
     {
@@ -1310,7 +1296,6 @@ class Measurement
      * @return float
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public static function convertFileSize(float $value, string $from = FileSizeType::BYTE, string $to = FileSizeType::MEGABYTE) : float
     {

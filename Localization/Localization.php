@@ -6,8 +6,6 @@
  *
  * @category   TBD
  * @package    TBD
- * @author     OMS Development Team <dev@oms.com>
- * @author     Dennis Eichhorn <d.eichhorn@oms.com>
  * @copyright  Dennis Eichhorn
  * @license    OMS License 1.0
  * @version    1.0.0
@@ -17,7 +15,7 @@ declare(strict_types=1);
 
 namespace phpOMS\Localization;
 
-use phpOMS\Datatypes\Exception\InvalidEnumValue;
+use phpOMS\Stdlib\Base\Exception\InvalidEnumValue;
 use phpOMS\Utils\Converter\AngleType;
 use phpOMS\Utils\Converter\TemperatureType;
 
@@ -26,8 +24,6 @@ use phpOMS\Utils\Converter\TemperatureType;
  *
  * @category   Framework
  * @package    phpOMS\Localization
- * @author     OMS Development Team <dev@oms.com>
- * @author     Dennis Eichhorn <d.eichhorn@oms.com>
  * @license    OMS License 1.0
  * @link       http://orange-management.com
  * @since      1.0.0
@@ -146,7 +142,6 @@ class Localization
      * Constructor.
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function __construct()
     {
@@ -156,7 +151,6 @@ class Localization
      * @return string
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function getCountry() : string
     {
@@ -169,7 +163,6 @@ class Localization
      * @return void
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function setCountry(string $country) /* : void */
     {
@@ -184,7 +177,6 @@ class Localization
      * @return string
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function getTimezone() : string
     {
@@ -197,7 +189,6 @@ class Localization
      * @todo   : maybe make parameter int
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function setTimezone(string $timezone) /* : void */
     {
@@ -212,7 +203,6 @@ class Localization
      * @return string
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function getLanguage() : string
     {
@@ -227,7 +217,6 @@ class Localization
      * @throws InvalidEnumValue
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function setLanguage(string $language) /* : void */
     {
@@ -242,7 +231,6 @@ class Localization
      * @return string
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function getCurrency() : string
     {
@@ -255,7 +243,6 @@ class Localization
      * @return void
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function setCurrency(string $currency) /* : void */
     {
@@ -270,7 +257,6 @@ class Localization
      * @return string
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function getDatetime() : string
     {
@@ -283,7 +269,6 @@ class Localization
      * @return void
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function setDatetime(string $datetime) /* : void */
     {
@@ -294,7 +279,6 @@ class Localization
      * @return string
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function getDecimal() : string
     {
@@ -307,7 +291,6 @@ class Localization
      * @return string
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function setDecimal(string $decimal) /* : void */
     {
@@ -318,7 +301,6 @@ class Localization
      * @return string
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function getThousands() : string
     {
@@ -331,7 +313,6 @@ class Localization
      * @return string
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function setThousands(string $thousands) /* : void */
     {
@@ -342,7 +323,6 @@ class Localization
      * @return string
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function getAngle() : string
     {
@@ -355,7 +335,6 @@ class Localization
      * @return string
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function setAngle(string $angle) /* : void */
     {
@@ -366,7 +345,6 @@ class Localization
      * @return string
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function getTemperature() : string
     {
@@ -379,7 +357,6 @@ class Localization
      * @return string
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function setTemperature(string $temperature) /* : void */
     {

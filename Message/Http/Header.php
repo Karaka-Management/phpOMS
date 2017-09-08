@@ -6,8 +6,6 @@
  *
  * @category   TBD
  * @package    TBD
- * @author     OMS Development Team <dev@oms.com>
- * @author     Dennis Eichhorn <d.eichhorn@oms.com>
  * @copyright  Dennis Eichhorn
  * @license    OMS License 1.0
  * @version    1.0.0
@@ -18,14 +16,13 @@ declare(strict_types=1);
 namespace phpOMS\Message\Http;
 
 use phpOMS\Message\HeaderAbstract;
+use phpOMS\DataStorage\LockExcpetion;
 
 /**
  * Response class.
  *
  * @category   Framework
  * @package    phpOMS\Response
- * @author     OMS Development Team <dev@oms.com>
- * @author     Dennis Eichhorn <d.eichhorn@oms.com>
  * @license    OMS License 1.0
  * @link       http://orange-management.com
  * @since      1.0.0
@@ -45,20 +42,33 @@ class Header extends HeaderAbstract
      * Constructor.
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function __construct()
     {
         $this->set('Content-Type', 'text/html; charset=utf-8');
+        parent::__construct();
     }
 
     /**
-     * {@inheritdoc}
+     * Set header.
+     *
+     * @param string $key Header key (case insensitive)
+     * @param string $header Header value
+     * @param bool $overwrite Overwrite if already existing
+     *
+     * @return bool
+     *
+     * @throws LockException The http header needs to be defined at the beginning. If it is already pushed further interactions are impossible and locked.
+     * @throws \Exception If the header already exists and cannot be overwritten this exception will be thrown.
+     *
+     * @todo Allow to extend header key with additional values.
+     *
+     * @since  1.0.0
      */
     public function set(string $key, string $header, bool $overwrite = false) : bool
     {
         if (self::$isLocked) {
-            throw new \Exception('Already locked');
+            throw new LockExcpetion('HTTP header');
         }
 
         $key = strtolower($key);
@@ -81,6 +91,14 @@ class Header extends HeaderAbstract
 
         return true;
     }
+    
+    /**
+     * {@inheritdoc}
+     */
+    public function getProtocolVersion() : string
+    {
+        return $_SERVER['SERVER_PROTOCOL'] ?? 'HTTP/1.1';
+    }
 
     /**
      * Is security header.
@@ -89,10 +107,7 @@ class Header extends HeaderAbstract
      *
      * @return bool
      *
-     * @throws \Exception
-     *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     private function isSecurityHeader(string $key) : bool
     {
@@ -108,32 +123,61 @@ class Header extends HeaderAbstract
      * @return int
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public static function getStatusCode() : int
+    public function getStatusCode() : int
     {
-        return http_response_code();
+        if($this->status === 0) {
+            $this->status = \http_response_code();
+        }
+        
+        return $this->status;
     }
 
     /**
-     * Returns all headers.
+     * Returns all pushed headers.
      *
      * @return array
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function getHeaders() : array
     {
-        return getallheaders();
+        return self::getAllHeaders();
     }
 
     /**
-     * {@inheritdoc}
+     * Get pushed header by name.
+     *
+     * @return string
+     *
+     * @since  1.0.0
      */
     public function getHeader(string $name) : string
     {
-        return getallheaders()[$name];
+        return self::getAllHeaders()[$name] ?? '';
+    }
+
+    /**
+     * Get all headers for apache and nginx
+     *
+     * @return array
+     *
+     * @since  1.0.0
+     */
+    private static function getAllHeaders() : array
+    {
+        if (function_exists('getallheaders')) {
+            return getallheaders();
+        }
+
+        $headers = []; 
+        foreach ($_SERVER as $name => $value) { 
+            if (substr($name, 0, 5) == 'HTTP_') { 
+                $headers[str_replace(' ', '-', ucwords(strtolower(str_replace('_', ' ', substr($name, 5)))))] = $value; 
+            } 
+        } 
+
+        return $headers;
     }
 
     /**
@@ -143,15 +187,14 @@ class Header extends HeaderAbstract
      *
      * @return bool
      *
-     * @throws \Exception
+     * @throws LockException The http header needs to be defined at the beginning. If it is already pushed further interactions are impossible and locked.
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function remove(int $key) : bool
     {
         if (self::$isLocked) {
-            throw new \Exception('Already locked');
+            throw new \LockException('HTTP header');
         }
 
         if (isset($this->header[$key])) {
@@ -164,26 +207,45 @@ class Header extends HeaderAbstract
     }
 
     /**
-     * {@inheritdoc}
+     * Get header by name.
+     *
+     * @param int $key Header key
+     *
+     * @return array
+     *
+     * @since  1.0.0
      */
     public function get(string $key) : array
     {
         return $this->header[strtolower($key)] ?? [];
     }
-
+    
     /**
      * {@inheritdoc}
      */
+    public function getReasonPhrase() : string
+    {
+        return $this->header->getHeader('Status');
+    }
+
+    /**
+     * Check if header is defined.
+     *
+     * @param int $key Header key
+     *
+     * @return bool
+     *
+     * @since  1.0.0
+     */
     public function has(string $key) : bool
     {
-        return array_key_exists($key, $this->header);
+        return isset($this->header[$key]);
     }
 
     /**
      * Push all headers.
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function push() /* : void */
     {
@@ -205,22 +267,22 @@ class Header extends HeaderAbstract
     /**
      * {@inheritdoc}
      */
-    public function generate(string $code) /* : void */
+    public function generate(int $code) /* : void */
     {
         switch ($code) {
-            case RequestStatus::R_403:
+            case RequestStatusCode::R_403:
                 $this->generate403();
                 break;
-            case RequestStatus::R_404:
+            case RequestStatusCode::R_404:
                 $this->generate404();
                 break;
-            case RequestStatus::R_406:
+            case RequestStatusCode::R_406:
                 $this->generate406();
                 break;
-            case RequestStatus::R_407:
+            case RequestStatusCode::R_407:
                 $this->generate407();
                 break;
-            case RequestStatus::R_503:
+            case RequestStatusCode::R_503:
                 $this->generate503();
                 break;
             default:
@@ -234,13 +296,12 @@ class Header extends HeaderAbstract
      * @return void
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     private function generate403() /* : void */
     {
         $this->set('HTTP', 'HTTP/1.0 403 Forbidden');
         $this->set('Status', 'Status: HTTP/1.0 403 Forbidden');
-        http_response_code(403);
+        \http_response_code(403);
     }
 
     /**
@@ -249,13 +310,12 @@ class Header extends HeaderAbstract
      * @return void
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     private function generate404() /* : void */
     {
         $this->set('HTTP', 'HTTP/1.0 404 Not Found');
         $this->set('Status', 'Status: HTTP/1.0 404 Not Found');
-        http_response_code(404);
+        \http_response_code(404);
     }
 
     /**
@@ -264,13 +324,12 @@ class Header extends HeaderAbstract
      * @return void
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     private function generate406() /* : void */
     {
         $this->set('HTTP', 'HTTP/1.0 406 Not acceptable');
         $this->set('Status', 'Status: 406 Not acceptable');
-        http_response_code(406);
+        \http_response_code(406);
     }
 
     /**
@@ -279,7 +338,6 @@ class Header extends HeaderAbstract
      * @return void
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     private function generate407() /* : void */
     {
@@ -292,14 +350,13 @@ class Header extends HeaderAbstract
      * @return void
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     private function generate500() /* : void */
     {
         $this->set('HTTP', 'HTTP/1.0 500 Internal Server Error');
         $this->set('Status', 'Status: 500 Internal Server Error');
         $this->set('Retry-After', 'Retry-After: 300');
-        http_response_code(500);
+        \http_response_code(500);
     }
 
     /**
@@ -308,13 +365,12 @@ class Header extends HeaderAbstract
      * @return void
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     private function generate503() /* : void */
     {
         $this->set('HTTP', 'HTTP/1.0 503 Service Temporarily Unavailable');
         $this->set('Status', 'Status: 503 Service Temporarily Unavailable');
         $this->set('Retry-After', 'Retry-After: 300');
-        http_response_code(503);
+        \http_response_code(503);
     }
 }

@@ -6,8 +6,6 @@
  *
  * @category   TBD
  * @package    TBD
- * @author     OMS Development Team <dev@oms.com>
- * @author     Dennis Eichhorn <d.eichhorn@oms.com>
  * @copyright  Dennis Eichhorn
  * @license    OMS License 1.0
  * @version    1.0.0
@@ -20,15 +18,13 @@ namespace phpOMS\Account;
 use phpOMS\Contract\ArrayableInterface;
 use phpOMS\Localization\Localization;
 use phpOMS\Localization\NullLocalization;
-use phpOMS\Validation\Base\Email;
+use phpOMS\Validation\Network\Email;
 
 /**
  * Account manager class.
  *
  * @category   Framework
  * @package    phpOMS\Account
- * @author     OMS Development Team <dev@oms.com>
- * @author     Dennis Eichhorn <d.eichhorn@oms.com>
  * @license    OMS License 1.0
  * @link       http://orange-management.com
  * @since      1.0.0
@@ -164,7 +160,6 @@ class Account implements ArrayableInterface, \JsonSerializable
      * @param int $id Account id
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function __construct(int $id = 0)
     {
@@ -180,7 +175,6 @@ class Account implements ArrayableInterface, \JsonSerializable
      * @return int Account id
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function getId() : int
     {
@@ -193,7 +187,6 @@ class Account implements ArrayableInterface, \JsonSerializable
      * @return Localization
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function getL11n() : Localization
     {
@@ -208,7 +201,6 @@ class Account implements ArrayableInterface, \JsonSerializable
      * @return void
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function setL11n(Localization $l11n) /* : void */
     {
@@ -221,7 +213,6 @@ class Account implements ArrayableInterface, \JsonSerializable
      * @return string
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function getName() : string
     {
@@ -234,7 +225,6 @@ class Account implements ArrayableInterface, \JsonSerializable
      * @return string
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function getName1() : string
     {
@@ -247,7 +237,6 @@ class Account implements ArrayableInterface, \JsonSerializable
      * @return string
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function getName2() : string
     {
@@ -260,7 +249,6 @@ class Account implements ArrayableInterface, \JsonSerializable
      * @return string
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function getName3() : string
     {
@@ -273,7 +261,6 @@ class Account implements ArrayableInterface, \JsonSerializable
      * @return string
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function getEmail() : string
     {
@@ -288,7 +275,6 @@ class Account implements ArrayableInterface, \JsonSerializable
      * @return int
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function getStatus() : int
     {
@@ -303,7 +289,6 @@ class Account implements ArrayableInterface, \JsonSerializable
      * @return int
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function getType() : int
     {
@@ -316,7 +301,6 @@ class Account implements ArrayableInterface, \JsonSerializable
      * @return \DateTime
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function getLastActive() : \DateTime
     {
@@ -329,7 +313,6 @@ class Account implements ArrayableInterface, \JsonSerializable
      * @return \DateTime
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function getCreatedAt() : \DateTime
     {
@@ -344,7 +327,6 @@ class Account implements ArrayableInterface, \JsonSerializable
      * @return void
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function generatePassword(string $password) /* : void */
     {
@@ -359,7 +341,6 @@ class Account implements ArrayableInterface, \JsonSerializable
      * @return void
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function setName(string $name) /* : void */
     {
@@ -374,7 +355,6 @@ class Account implements ArrayableInterface, \JsonSerializable
      * @return void
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function setName1(string $name) /* : void */
     {
@@ -389,7 +369,6 @@ class Account implements ArrayableInterface, \JsonSerializable
      * @return void
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function setName2(string $name) /* : void */
     {
@@ -404,7 +383,6 @@ class Account implements ArrayableInterface, \JsonSerializable
      * @return void
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function setName3(string $name) /* : void */
     {
@@ -419,7 +397,6 @@ class Account implements ArrayableInterface, \JsonSerializable
      * @return void
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function setEmail(string $email) /* : void */
     {
@@ -438,7 +415,6 @@ class Account implements ArrayableInterface, \JsonSerializable
      * @return void
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function setStatus(int $status) /* : void */
     {
@@ -457,7 +433,6 @@ class Account implements ArrayableInterface, \JsonSerializable
      * @return void
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function setType(int $type) /* : void */
     {
@@ -474,9 +449,8 @@ class Account implements ArrayableInterface, \JsonSerializable
      * @return void
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function updateLastActive()
+    public function updateLastActive() /* : void */
     {
         $this->lastActive = new \DateTime('NOW');
     }
@@ -508,7 +482,6 @@ class Account implements ArrayableInterface, \JsonSerializable
      * @return string
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function __toString()
     {
@@ -521,7 +494,6 @@ class Account implements ArrayableInterface, \JsonSerializable
      * @return string
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function jsonSerialize()
     {

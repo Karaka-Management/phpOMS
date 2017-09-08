@@ -6,8 +6,6 @@
  *
  * @category   TBD
  * @package    TBD
- * @author     OMS Development Team <dev@oms.com>
- * @author     Dennis Eichhorn <d.eichhorn@oms.com>
  * @copyright  Dennis Eichhorn
  * @license    OMS License 1.0
  * @version    1.0.0
@@ -24,8 +22,6 @@ use phpOMS\Validation\Base\DateTime;
  *
  * @category   Framework
  * @package    phpOMS\Utils\TaskSchedule
- * @author     OMS Development Team <dev@oms.com>
- * @author     Dennis Eichhorn <d.eichhorn@oms.com>
  * @license    OMS License 1.0
  * @link       http://orange-management.com
  * @since      1.0.0
@@ -50,7 +46,6 @@ class TaskScheduler extends SchedulerAbstract
      * @throws \Exception
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn
      */
     private function run(string $cmd) : string
     {
@@ -87,7 +82,6 @@ class TaskScheduler extends SchedulerAbstract
      * @return string Normalized string for parsing
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn
      */
     private function normalize(string $raw) : string 
     {
@@ -102,7 +96,6 @@ class TaskScheduler extends SchedulerAbstract
      * @return TaskAbstract Parsed job
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn
      */
     private function parseJobList(array $jobData) : TaskAbstract
     {

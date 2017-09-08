@@ -6,8 +6,6 @@
  *
  * @category   TBD
  * @package    TBD
- * @author     OMS Development Team <dev@oms.com>
- * @author     Dennis Eichhorn <d.eichhorn@oms.com>
  * @copyright  Dennis Eichhorn
  * @license    OMS License 1.0
  * @version    1.0.0
@@ -28,8 +26,6 @@ use phpOMS\DataStorage\Database\Query\Builder;
  *
  * @category   Framework
  * @package    phpOMS\Config
- * @author     OMS Development Team <dev@oms.com>
- * @author     Dennis Eichhorn <d.eichhorn@oms.com>
  * @license    OMS License 1.0
  * @link       http://orange-management.com
  * @since      1.0.0
@@ -88,7 +84,6 @@ abstract class SettingsAbstract implements OptionsInterface
      * @return mixed Option value
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function get($columns)
     {
@@ -117,8 +112,10 @@ abstract class SettingsAbstract implements OptionsInterface
 
             return $options;
         } catch (\PDOException $e) {
-            // todo does it mean that the recognition isn't here but at the place where the new happens?
-            throw DatabaseExceptionFactory::create($e);
+            $exception = DatabaseExceptionFactory::createException($e);
+            $message = DatabaseExceptionFactory::createExceptionMessage($e);
+
+            throw new $exception($message);
         }
     }
 
@@ -131,7 +128,6 @@ abstract class SettingsAbstract implements OptionsInterface
      * @return mixed Option value
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function set(array $options, bool $store = false) /* : void */
     {

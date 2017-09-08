@@ -6,8 +6,6 @@
  *
  * @category   TBD
  * @package    TBD
- * @author     OMS Development Team <dev@oms.com>
- * @author     Dennis Eichhorn <d.eichhorn@oms.com>
  * @copyright  Dennis Eichhorn
  * @license    OMS License 1.0
  * @version    1.0.0
@@ -22,8 +20,6 @@ namespace phpOMS\Math\Optimization\TSP;
  *
  * @category   Framework
  * @package    phpOMS\DataStorage\Database
- * @author     OMS Development Team <dev@oms.com>
- * @author     Dennis Eichhorn <d.eichhorn@oms.com>
  * @license    OMS License 1.0
  * @link       http://orange-management.com
  * @since      1.0.0
@@ -46,7 +42,6 @@ class Population implements \Countable
      * @param bool     $initialize Initialize with random tours
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function __construct(CityPool $pool, int $size, bool $initialize = false)
     {
@@ -64,7 +59,6 @@ class Population implements \Countable
      * @param Tour $tour  Tour to insert
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function insertAt(int $index, Tour $tour)
     {
@@ -78,7 +72,6 @@ class Population implements \Countable
      * @param Tour $tour  Tour to set
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function set(int $index, Tour $tour) /* : void */
     {
@@ -92,7 +85,6 @@ class Population implements \Countable
      * @param Tour $tour Tour to add
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function add(Tour $tour)
     {
@@ -107,7 +99,6 @@ class Population implements \Countable
      * @return null|Tour
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function get(int $index)
     {
@@ -120,7 +111,6 @@ class Population implements \Countable
      * @return Tour
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function getFittest() : Tour
     {
@@ -142,7 +132,6 @@ class Population implements \Countable
      * @return Tour
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function getUnfittest() : Tour
     {
@@ -164,7 +153,6 @@ class Population implements \Countable
      * @return int
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function count() : int
     {

@@ -6,8 +6,6 @@
  *
  * @category   TBD
  * @package    TBD
- * @author     OMS Development Team <dev@oms.com>
- * @author     Dennis Eichhorn <d.eichhorn@oms.com>
  * @copyright  Dennis Eichhorn
  * @license    OMS License 1.0
  * @version    1.0.0
@@ -22,8 +20,6 @@ namespace phpOMS\Utils\TaskSchedule;
  *
  * @category   Framework
  * @package    phpOMS\Utils\TaskSchedule
- * @author     OMS Development Team <dev@oms.com>
- * @author     Dennis Eichhorn <d.eichhorn@oms.com>
  * @license    OMS License 1.0
  * @link       http://orange-management.com
  * @since      1.0.0
@@ -101,7 +97,6 @@ class Interval implements \Serializable
      * @param string $interval Interval to parse
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function __construct(string $interval = null)
     {
@@ -118,7 +113,6 @@ class Interval implements \Serializable
      * @param string $serialized String to unserialize
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function unserialize($serialized)
     {
@@ -140,7 +134,6 @@ class Interval implements \Serializable
      * @return array
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     private function parseMinute(string $minute) : array
     {
@@ -155,7 +148,6 @@ class Interval implements \Serializable
      * @return array
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     private function parseHour(string $hour) : array
     {
@@ -170,7 +162,6 @@ class Interval implements \Serializable
      * @return array
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     private function parseDayOfMonth(string $dayOfMonth) : array
     {
@@ -185,7 +176,6 @@ class Interval implements \Serializable
      * @return array
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     private function parseMonth(string $month) : array
     {
@@ -200,7 +190,6 @@ class Interval implements \Serializable
      * @return array
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     private function parseDayOfWeek(string $dayOfWeek) : array
     {
@@ -215,7 +204,6 @@ class Interval implements \Serializable
      * @return array
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     private function parseYear(string $year) : array
     {
@@ -228,7 +216,6 @@ class Interval implements \Serializable
      * @return \DateTime
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function getStart() : \DateTime
     {
@@ -243,7 +230,6 @@ class Interval implements \Serializable
      * @return void
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function setStart(\DateTime $start) /* : void */
     {
@@ -256,7 +242,6 @@ class Interval implements \Serializable
      * @return \DateTime
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function getEnd()
     {
@@ -271,7 +256,6 @@ class Interval implements \Serializable
      * @return void
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function setEnd(\DateTime $end) /* : void */
     {
@@ -284,7 +268,6 @@ class Interval implements \Serializable
      * @return array
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function getMinute() : array
     {
@@ -301,7 +284,6 @@ class Interval implements \Serializable
      * @throws \Exception
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function setMinute(array $minute, int $step = 0, bool $any = false) /* : void */
     {
@@ -327,7 +309,6 @@ class Interval implements \Serializable
      * @return bool
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     private function validateTime(array $times, int $step, int $lowest, int $highest) : bool
     {
@@ -350,7 +331,6 @@ class Interval implements \Serializable
      * @return array
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function getHour() : array
     {
@@ -367,7 +347,6 @@ class Interval implements \Serializable
      * @throws \Exception
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function setHour(array $hour, int $step = 0, bool $any = false) /* : void */
     {
@@ -388,7 +367,6 @@ class Interval implements \Serializable
      * @return array
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function getDayOfMonth() : array
     {
@@ -407,7 +385,6 @@ class Interval implements \Serializable
      * @throws \Exception
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function setDayOfMonth(array $dayOfMonth, int $step = 0, bool $any = false, bool $last = false, int $nearest = 0) /* : void */
     {
@@ -433,7 +410,6 @@ class Interval implements \Serializable
      * @return bool
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     private function validateDayOfMonth(array $array) : bool
     {
@@ -459,7 +435,6 @@ class Interval implements \Serializable
      * @return array
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function getDayOfWeek() : array
     {
@@ -477,7 +452,6 @@ class Interval implements \Serializable
      * @throws \Exception
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function setDayOfWeek(array $dayOfWeek, int $step = 0, bool $any = false, bool $last = false) /* : void */
     {
@@ -502,7 +476,6 @@ class Interval implements \Serializable
      * @return bool
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     private function validateDayOfWeek(array $array) : bool
     {
@@ -525,7 +498,6 @@ class Interval implements \Serializable
      * @return array
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function getMonth() : array
     {
@@ -542,7 +514,6 @@ class Interval implements \Serializable
      * @throws \Exception
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function setMonth(array $month, int $step = 0, bool $any = false) /* : void */
     {
@@ -563,7 +534,6 @@ class Interval implements \Serializable
      * @return array
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function getYear() : array
     {
@@ -580,7 +550,6 @@ class Interval implements \Serializable
      * @throws \Exception
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function setYear(array $year, int $step = 0, bool $any = false) /* : void */
     {
@@ -604,7 +573,6 @@ class Interval implements \Serializable
      * @return bool
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     private function validateYear(array $array) : bool
     {
@@ -617,7 +585,6 @@ class Interval implements \Serializable
      * @return string
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function serialize()
     {
@@ -640,7 +607,6 @@ class Interval implements \Serializable
      * @return string
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function serializeTime($time, $step) /* : void */
     {
@@ -664,7 +630,6 @@ class Interval implements \Serializable
      * @return string
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function serializeDayOfMonth() /* : void */
     {
@@ -692,7 +657,6 @@ class Interval implements \Serializable
      * @return string
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function serializeDayOfWeek() /* : void */
     {

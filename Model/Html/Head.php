@@ -6,8 +6,6 @@
  *
  * @category   TBD
  * @package    TBD
- * @author     OMS Development Team <dev@oms.com>
- * @author     Dennis Eichhorn <d.eichhorn@oms.com>
  * @copyright  Dennis Eichhorn
  * @license    OMS License 1.0
  * @version    1.0.0
@@ -28,8 +26,6 @@ use phpOMS\Contract\RenderableInterface;
  *
  * @category   Framework
  * @package    phpOMS/Model
- * @author     OMS Development Team <dev@oms.com>
- * @author     Dennis Eichhorn <d.eichhorn@oms.com>
  * @license    OMS License 1.0
  * @link       http://orange-management.com
  * @since      1.0.0
@@ -99,7 +95,6 @@ class Head implements RenderableInterface
      * Constructor.
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function __construct()
     {
@@ -110,7 +105,6 @@ class Head implements RenderableInterface
      * Set page meta.
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function getMeta() : Meta
     {
@@ -123,7 +117,6 @@ class Head implements RenderableInterface
      * @return string
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function getTitle() : string
     {
@@ -138,7 +131,6 @@ class Head implements RenderableInterface
      * @return void
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function setTitle(string $title) /* : void */
     {
@@ -154,7 +146,6 @@ class Head implements RenderableInterface
      * @return void
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function addAsset(int $type, string $uri) /* : void */
     {
@@ -169,7 +160,6 @@ class Head implements RenderableInterface
      * @return void
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function setLanguage(string $language) /* : void */
     {
@@ -182,7 +172,6 @@ class Head implements RenderableInterface
      * @return string
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function render() : string
     {
@@ -202,7 +191,6 @@ class Head implements RenderableInterface
      * @return string
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function renderStyle() : string
     {
@@ -220,7 +208,6 @@ class Head implements RenderableInterface
      * @return string
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function renderScript() : string
     {
@@ -242,7 +229,6 @@ class Head implements RenderableInterface
      * @return void
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function setStyle(string $key, string $style, bool $overwrite = true) /* : void */
     {
@@ -261,7 +247,6 @@ class Head implements RenderableInterface
      * @return void
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function setScript(string $key, string $script, bool $overwrite = true) /* : void */
     {
@@ -276,7 +261,6 @@ class Head implements RenderableInterface
      * @return array
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function getStyleAll() : array
     {
@@ -289,7 +273,6 @@ class Head implements RenderableInterface
      * @return array
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function getScriptAll() : array
     {
@@ -302,7 +285,6 @@ class Head implements RenderableInterface
      * @return string
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function renderAssets() : string
     {
@@ -324,7 +306,6 @@ class Head implements RenderableInterface
      * @return string
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function renderAssetsLate() : string
     {

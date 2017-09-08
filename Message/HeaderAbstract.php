@@ -6,8 +6,6 @@
  *
  * @category   TBD
  * @package    TBD
- * @author     OMS Development Team <dev@oms.com>
- * @author     Dennis Eichhorn <d.eichhorn@oms.com>
  * @copyright  Dennis Eichhorn
  * @license    OMS License 1.0
  * @version    1.0.0
@@ -17,13 +15,13 @@ declare(strict_types=1);
 
 namespace phpOMS\Message;
 
+use phpOMS\Localization\Localization;
+
 /**
  * Response class.
  *
  * @category   Framework
  * @package    phpOMS\Response
- * @author     OMS Development Team <dev@oms.com>
- * @author     Dennis Eichhorn <d.eichhorn@oms.com>
  * @license    OMS License 1.0
  * @link       http://orange-management.com
  * @since      1.0.0
@@ -37,6 +35,129 @@ abstract class HeaderAbstract
      * @since 1.0.0
      */
     protected static $isLocked = false;
+    
+    /**
+     * Localization.
+     *
+     * @var Localization
+     * @since 1.0.0
+     */
+    protected $l11n = null;
+    
+    /**
+     * Account.
+     *
+     * @var int
+     * @since 1.0.0
+     */
+    protected $account = 0;
+    
+    /**
+     * Response status.
+     *
+     * @var int
+     * @since 1.0.0
+     */
+    protected $status = 0;
+
+    /**
+     * Constructor.
+     *
+     * @since  1.0.0
+     */
+    public function __construct()
+    {
+        $this->l11n = new Localization();
+    }
+    
+    /**
+     * Get Localization
+     *
+     * @return Localization
+     *
+     * @since  1.0.0
+     */
+    public function getL11n() : Localization
+    {
+        return $this->l11n;
+    }
+    
+    /**
+     * Set localization
+     *
+     * @param int $localization Localization
+     * 
+     * @return void
+     *
+     * @since  1.0.0
+     */
+    public function setL11n(Localization $l11n) /* : void */
+    {
+        $this->l11n = $l11n;
+    }
+
+    /**
+     * Get account id
+     *
+     * @return int
+     *
+     * @since  1.0.0
+     */
+    public function getAccount() : int
+    {
+        return $this->account;
+    }
+
+    /**
+     * Set account id
+     *
+     * @param int $account Account id
+     * 
+     * @return void
+     *
+     * @since  1.0.0
+     */
+    public function setAccount(int $account) /* : void */
+    {
+        $this->account = $account;
+    }
+
+    
+    /**
+     * Set status code
+     *
+     * @param int $status Status code
+     * 
+     * @return void
+     *
+     * @since  1.0.0
+     */
+    public function setStatusCode(int $status) /* : void */
+    {
+        $this->status = $status;
+        $this->header->generate($status);
+    }
+
+    /**
+     * Get status code
+     *
+     * @return int
+     *
+     * @since  1.0.0
+     */
+    public function getStatusCode() : int
+    {
+        return $this->status;
+    }
+    
+    /**
+     * Get protocol version.
+     *
+     * @return string
+     *
+     * @since  1.0.0
+     */
+    abstract public function getProtocolVersion() : string;
 
     /**
      * Set header.
@@ -46,19 +167,17 @@ abstract class HeaderAbstract
      * @param bool   $overwrite Overwrite if key already exists
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     abstract public function set(string $key, string $value, bool $overwrite = false);
 
     /**
      * Generate header based on status code.
      *
-     * @param string $statusCode Status code
+     * @param int $statusCode Status code
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    abstract public function generate(string $statusCode) /* : void */;
+    abstract public function generate(int $statusCode) /* : void */;
 
     /**
      * Get header by key.
@@ -68,7 +187,6 @@ abstract class HeaderAbstract
      * @return array
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     abstract public function get(string $key) : array;
 
@@ -80,7 +198,6 @@ abstract class HeaderAbstract
      * @return bool
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     abstract public function has(string $key) : bool;
 
@@ -88,7 +205,6 @@ abstract class HeaderAbstract
      * Set header locked.
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public static function lock() /* : void */
     {
@@ -102,7 +218,6 @@ abstract class HeaderAbstract
      * @return bool
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public static function isLocked() : bool
     {

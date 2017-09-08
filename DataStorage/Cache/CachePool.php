@@ -6,8 +6,6 @@
  *
  * @category   TBD
  * @package    TBD
- * @author     OMS Development Team <dev@oms.com>
- * @author     Dennis Eichhorn <d.eichhorn@oms.com>
  * @copyright  Dennis Eichhorn
  * @license    OMS License 1.0
  * @version    1.0.0
@@ -30,8 +28,6 @@ use phpOMS\DataStorage\Cache\CacheFactory;
  *
  * @category   Framework
  * @package    phpOMS\DataStorage\Cache
- * @author     OMS Development Team <dev@oms.com>
- * @author     Dennis Eichhorn <d.eichhorn@oms.com>
  * @license    OMS License 1.0
  * @link       http://orange-management.com
  * @since      1.0.0
@@ -53,7 +49,6 @@ class CachePool implements OptionsInterface
      * Constructor.
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function __construct()
     {
@@ -68,7 +63,6 @@ class CachePool implements OptionsInterface
      * @return bool
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function add(string $key = 'core', CacheInterface $cache) : bool
     {
@@ -89,7 +83,6 @@ class CachePool implements OptionsInterface
      * @return bool
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function remove(string $key) : bool
     {
@@ -110,7 +103,6 @@ class CachePool implements OptionsInterface
      * @return \phpOMS\DataStorage\Cache\CacheInterface
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function get(string $key) /* : ?CacheInterface */
     {
@@ -130,7 +122,6 @@ class CachePool implements OptionsInterface
      * @return bool
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function create(string $key, array $config) : bool
     {

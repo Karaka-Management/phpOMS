@@ -6,8 +6,6 @@
  *
  * @category   TBD
  * @package    TBD
- * @author     OMS Development Team <dev@oms.com>
- * @author     Dennis Eichhorn <d.eichhorn@oms.com>
  * @copyright  Dennis Eichhorn
  * @license    OMS License 1.0
  * @version    1.0.0
@@ -32,8 +30,6 @@ use phpOMS\System\File\Local\Directory as DirectoryLocal;
  *
  * @category   Framework
  * @package    phpOMS\System\File
- * @author     OMS Development Team <dev@oms.com>
- * @author     Dennis Eichhorn <d.eichhorn@oms.com>
  * @license    OMS License 1.0
  * @link       http://orange-management.com
  * @since      1.0.0
@@ -232,7 +228,6 @@ class File extends FileAbstract implements FileInterface
      * @return string Returns the directory name of the file.
      *
      * @since 1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public static function dirname(string $path) : string
     {
@@ -247,7 +242,6 @@ class File extends FileAbstract implements FileInterface
      * @return string Returns the directory name of the file.
      *
      * @since 1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public static function dirpath(string $path) : string
     {
@@ -340,7 +334,6 @@ class File extends FileAbstract implements FileInterface
      * @return ContainerInterface
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function getParent() : ContainerInterface
     {
@@ -353,7 +346,6 @@ class File extends FileAbstract implements FileInterface
      * @return bool True on success and false on failure
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function createNode() : bool
     {
@@ -369,7 +361,6 @@ class File extends FileAbstract implements FileInterface
      * @return bool True on success and false on failure
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function copyNode(string $to, bool $overwrite = false) : bool
     {
@@ -385,7 +376,6 @@ class File extends FileAbstract implements FileInterface
      * @return bool True on success and false on failure
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function moveNode(string $to, bool $overwrite = false) : bool
     {
@@ -398,7 +388,6 @@ class File extends FileAbstract implements FileInterface
      * @return bool True on success and false on failure
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function deleteNode() : bool
     {
@@ -414,7 +403,6 @@ class File extends FileAbstract implements FileInterface
      * @return bool
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function putContent(string $content, int $mode = ContentPutMode::APPEND | ContentPutMode::CREATE) : bool
     {
@@ -431,7 +419,6 @@ class File extends FileAbstract implements FileInterface
      * @return bool
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function setContent(string $content) : bool
     {
@@ -448,7 +435,6 @@ class File extends FileAbstract implements FileInterface
      * @return bool
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function appendContent(string $content) : bool
     {
@@ -465,7 +451,6 @@ class File extends FileAbstract implements FileInterface
      * @return bool
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function prependContent(string $content) : bool
     {
@@ -478,7 +463,6 @@ class File extends FileAbstract implements FileInterface
      * @return string Content of file
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function getContent() : string
     {
@@ -491,7 +475,6 @@ class File extends FileAbstract implements FileInterface
      * @return string
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function getExtension() : string
     {

@@ -6,8 +6,6 @@
  *
  * @category   TBD
  * @package    TBD
- * @author     OMS Development Team <dev@oms.com>
- * @author     Dennis Eichhorn <d.eichhorn@oms.com>
  * @copyright  Dennis Eichhorn
  * @license    OMS License 1.0
  * @version    1.0.0
@@ -25,8 +23,6 @@ use phpOMS\Utils\StringUtils;
  *
  * @category   Framework
  * @package    phpOMS\Asset
- * @author     OMS Development Team <dev@oms.com>
- * @author     Dennis Eichhorn <d.eichhorn@oms.com>
  * @license    OMS License 1.0
  * @link       http://orange-management.com
  * @since      1.0.0
@@ -71,7 +67,6 @@ class Repository
      * @param string $path Repository path
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function __construct(string $path)
     {
@@ -87,7 +82,6 @@ class Repository
      * @throws PathException
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     private function setPath(string $path) /* : void */
     {
@@ -118,7 +112,6 @@ class Repository
      * @return Branch
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function getActiveBranch() : Branch
     {
@@ -139,7 +132,6 @@ class Repository
      * @return array
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function getBranches() : array
     {
@@ -167,7 +159,6 @@ class Repository
      * @throws \Exception
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     private function run(string $cmd) : array
     {
@@ -208,7 +199,6 @@ class Repository
      * @return array
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     private function parseLines(string $lines) : array
     {
@@ -235,7 +225,6 @@ class Repository
      * @throws \Exception
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function create(string $source = null, bool $bare = false)
     {
@@ -256,7 +245,6 @@ class Repository
      * @return string
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function status() : string
     {
@@ -273,7 +261,6 @@ class Repository
      * @throws \Exception
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function add($files = '*') : string
     {
@@ -297,7 +284,6 @@ class Repository
      * @throws \InvalidArgumentException
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function rm($files = '*', bool $cached = false) : string
     {
@@ -319,7 +305,6 @@ class Repository
      * @return string
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function commit(Commit $commit, $all = true) : string
     {
@@ -336,7 +321,6 @@ class Repository
      * @throws PathException in case the target is not a valid directory
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function cloneTo(string $target) : string
     {
@@ -357,7 +341,6 @@ class Repository
      * @throws PathException in case the source repository is not valid
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function cloneFrom(string $source) : string
     {
@@ -378,7 +361,6 @@ class Repository
      * @return string
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function cloneRemote(string $source) : string
     {
@@ -396,7 +378,6 @@ class Repository
      * @return string
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function clean(bool $dirs = false, bool $force = false) : string
     {
@@ -412,7 +393,6 @@ class Repository
      * @return string
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function createBranch(Branch $branch, bool $force = false) : string
     {
@@ -425,7 +405,6 @@ class Repository
      * @return string
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function getName() : string
     {
@@ -445,7 +424,6 @@ class Repository
      * @return string
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function getDirectoryPath() : string
     {
@@ -458,7 +436,6 @@ class Repository
      * @return array
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function getBranchesRemote() : array
     {
@@ -484,7 +461,6 @@ class Repository
      * @return string
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function checkout(Branch $branch) : string
     {
@@ -502,7 +478,6 @@ class Repository
      * @return string
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function merge(Branch $branch) : string
     {
@@ -515,7 +490,6 @@ class Repository
      * @return string
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function fetch() : string
     {
@@ -530,7 +504,6 @@ class Repository
      * @return string
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function createTag(Tag $tag) : string
     {
@@ -545,7 +518,6 @@ class Repository
      * @return Tag[]
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function getTags(string $pattern = '') : array
     {
@@ -569,7 +541,6 @@ class Repository
      * @return string
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function push(string $remote, Branch $branch) : string
     {
@@ -587,7 +558,6 @@ class Repository
      * @return string
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function pull(string $remote, Branch $branch) : string
     {
@@ -604,7 +574,6 @@ class Repository
      * @return void
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function setDescription(string $description) /* : void */
     {
@@ -617,7 +586,6 @@ class Repository
      * @return string
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function getDescription() : string
     {
@@ -632,7 +600,6 @@ class Repository
      * @throws \Exception
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function countFiles() : int
     {
@@ -651,7 +618,6 @@ class Repository
      * @throws \Exception
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function getLOC(array $extensions = ['*']) : int
     {
@@ -693,7 +659,6 @@ class Repository
      * @return array
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function getContributors(\DateTime $start = null, \DateTime $end = null) : array
     {
@@ -733,7 +698,6 @@ class Repository
      * @return array
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function getCommitsCount(\DateTime $start = null, \DateTime $end = null) : array
     {
@@ -767,7 +731,6 @@ class Repository
      * @return array ['added' => ?, 'removed'=> ?]
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function getAdditionsRemovalsByContributor(Author $author, \DateTime $start = null, \DateTime $end = null) : array
     {
@@ -790,7 +753,6 @@ class Repository
      * @return string
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function getRemote() : string
     {
@@ -807,7 +769,6 @@ class Repository
      * @return Commit[]
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function getCommitsBy(\DateTime $start = null, \DateTime $end = null, Author $author = null) : array
     {
@@ -851,7 +812,6 @@ class Repository
      * @throws \Exception
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function getCommit(string $commit) : Commit
     {
@@ -903,7 +863,6 @@ class Repository
      * @throws \Exception
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function getNewest(int $limit = 1) : Commit
     {

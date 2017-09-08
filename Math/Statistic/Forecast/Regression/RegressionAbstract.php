@@ -6,8 +6,6 @@
  *
  * @category   TBD
  * @package    TBD
- * @author     OMS Development Team <dev@oms.com>
- * @author     Dennis Eichhorn <d.eichhorn@oms.com>
  * @copyright  Dennis Eichhorn
  * @license    OMS License 1.0
  * @version    1.0.0
@@ -19,6 +17,7 @@ declare(strict_types=1);
 use phpOMS\Math\Statistic\Average;
 use phpOMS\Math\Statistic\Forecast\ForecastIntervalMultiplier;
 use phpOMS\Math\Statistic\MeasureOfDispersion;
+use phpOMS\Math\Matrix\Exception\InvalidDimensionException;
 
 abstract class RegressionAbstract
 {
@@ -32,15 +31,14 @@ abstract class RegressionAbstract
      *
      * @return array [b0 => ?, b1 => ?]
      *
-     * @throws \Exception
+     * @throws InvalidDimensionException Throws this exception if the dimension of both arrays is not equal.
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public static function getRegression(array $x, array $y) : array
     {
-        if (count($x) != count($y)) {
-            throw new \Exception('Dimension');
+        if (count($x) !== count($y)) {
+            throw new InvalidDimensionException(count($x) . 'x' . count($y));
         }
 
         $b1 = self::getBeta1($x, $y);
@@ -60,7 +58,6 @@ abstract class RegressionAbstract
      * @return float
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public static function getStandardErrorOfRegression(array $errors) : float
     {
@@ -86,7 +83,6 @@ abstract class RegressionAbstract
      * @return array
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public static function getPredictionInterval(float $forecasted, array $x, array $errors, float $multiplier = ForecastIntervalMultiplier::P_95) : array
     {
@@ -114,7 +110,6 @@ abstract class RegressionAbstract
      * @return float
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     private static function getBeta1(array $x, array $y) : float
     {
@@ -145,7 +140,6 @@ abstract class RegressionAbstract
      * @return float
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     private static function getBeta0(array $x, array $y, float $b1) : float
     {

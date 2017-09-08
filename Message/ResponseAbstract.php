@@ -6,8 +6,6 @@
  *
  * @category   TBD
  * @package    TBD
- * @author     OMS Development Team <dev@oms.com>
- * @author     Dennis Eichhorn <d.eichhorn@oms.com>
  * @copyright  Dennis Eichhorn
  * @license    OMS License 1.0
  * @version    1.0.0
@@ -25,23 +23,12 @@ use phpOMS\Utils\ArrayUtils;
  *
  * @category   Framework
  * @package    phpOMS\Response
- * @author     OMS Development Team <dev@oms.com>
- * @author     Dennis Eichhorn <d.eichhorn@oms.com>
  * @license    OMS License 1.0
  * @link       http://orange-management.com
  * @since      1.0.0
  */
 abstract class ResponseAbstract implements MessageInterface, \JsonSerializable
 {
-
-    /**
-     * Localization.
-     *
-     * @var Localization
-     * @since 1.0.0
-     */
-    protected $l11n = null;
-
     /**
      * Responses.
      *
@@ -49,22 +36,6 @@ abstract class ResponseAbstract implements MessageInterface, \JsonSerializable
      * @since 1.0.0
      */
     protected $response = [];
-
-    /**
-     * Response status.
-     *
-     * @var string
-     * @since 1.0.0
-     */
-    protected $status = 200;
-
-    /**
-     * Account.
-     *
-     * @var int
-     * @since 1.0.0
-     */
-    protected $account = null;
 
     /**
      * Header.
@@ -75,14 +46,6 @@ abstract class ResponseAbstract implements MessageInterface, \JsonSerializable
     protected $header = null;
 
     /**
-     * {@inheritdoc}
-     */
-    public function getL11n() : Localization
-    {
-        return $this->l11n;
-    }
-
-    /**
      * Get response by ID.
      *
      * @param mixed $id Response ID
@@ -90,7 +53,6 @@ abstract class ResponseAbstract implements MessageInterface, \JsonSerializable
      * @return mixed
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function &get($id)
     {
@@ -107,46 +69,10 @@ abstract class ResponseAbstract implements MessageInterface, \JsonSerializable
      * @return void
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function set($key, $response, bool $overwrite = true) /* : void */
     {
         $this->response = ArrayUtils::setArray((string) $key, $this->response, $response, ':', $overwrite);
-    }
-
-    /**
-     * {@inheritdoc}
-     * todo: shouldn't this only be available in the header?!
-     */
-    public function setStatusCode(string $status) /* : void */
-    {
-        $this->status = $status;
-        $this->header->generate($status);
-    }
-
-    /**
-     * {@inheritdoc}
-     * todo: shouldn't this only be available in the header?!
-     */
-    public function getStatusCode() : string
-    {
-        return $this->status;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function getAccount() : int
-    {
-        return $this->account;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function setAccount(int $account) /* : void */
-    {
-        $this->account = $account;
     }
 
     /**
@@ -165,7 +91,6 @@ abstract class ResponseAbstract implements MessageInterface, \JsonSerializable
      * @throws \Exception
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     abstract public function toArray() : array;
 
@@ -175,7 +100,6 @@ abstract class ResponseAbstract implements MessageInterface, \JsonSerializable
      * @return HeaderAbstract
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function getHeader() : HeaderAbstract
     {
@@ -188,7 +112,6 @@ abstract class ResponseAbstract implements MessageInterface, \JsonSerializable
      * @return string
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     abstract public function getBody() : string;
 }

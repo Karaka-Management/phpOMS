@@ -6,8 +6,6 @@
  *
  * @category   TBD
  * @package    TBD
- * @author     OMS Development Team <dev@oms.com>
- * @author     Dennis Eichhorn <d.eichhorn@oms.com>
  * @copyright  Dennis Eichhorn
  * @license    OMS License 1.0
  * @version    1.0.0
@@ -22,8 +20,6 @@ namespace phpOMS\Utils\RnG;
  *
  * @category   Framework
  * @package    Utils\RnG
- * @author     OMS Development Team <dev@oms.com>
- * @author     Dennis Eichhorn <d.eichhorn@oms.com>
  * @license    OMS License 1.0
  * @link       http://orange-management.com
  * @since      1.0.0
@@ -471,7 +467,21 @@ class Name
                 'Lutz', 'Duarte', 'Kidd', 'Key', 'Cooke',
             ],
         ],
+        'asian' => [
+            'female' => ['none'],
+            'male' => ['none'],
+            'family' => [
+                'Հովհաննիսյան', 'Հարությունյան', 'Սարգսյան', 'Խաչատրյան', 'Գրիգորյան',
+                'আহমেদ', 'আলী', 'আক্তার', 'বন্দ্যোপাধ্যায়', 'নিক', 'ব্যাপারী', 'বড়ুয়া', 'বিশ্বাস', 'ভৌমিক', 'বসু', 
+                '王', '李', '张', '刘', '陈', '杨', '黄', '赵', '吴', '周', '徐', '孙', '马', '朱', '胡', '郭', '何', '高', '林', '罗',
+                'כהן', 'לוי', 'מזרחי', 'פרץ', 'ביטון', 'דהן', 'אברהם', 'פרידמן', 'מלכה', 'אזולאי', 'כץ', 'יוסף', 'דוד', 'עמר', 'אוחיון', 
+                '김', '리', '박', '최', '정', '강', '조', '윤', '장', '림', '한', '신', '서', '권', '황', '안', '송', '홍', '고', '문', '손', '량', 
+                'Yılmaz', 'Kaya', 'Demir', 'Şahin', 'Çelik', 'Yıldız', 'Yıldırım', 'Öztürk', 'Aydın', 'Özdemir', 'Arslan', 'Doğan', 'Kılıç', 'Aslan', 'Çetin', 'Kara', 'Koç', 'Kurt', 'Özkan', 'Şimşek', 
+            ],
+        ]
     ];
+
+
 
     /**
      * Get a random string.
@@ -482,12 +492,11 @@ class Name
      * @return string
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public static function generateName(array $type, string $origin = 'western') : string
     {
-        $rndType = rand(0, count($type) - 1);
+        $rndType = mt_rand(0, count($type) - 1);
 
-        return self::$names[$origin][$type[$rndType]][rand(0, count(self::$names[$origin][$type[$rndType]]) - 1)];
+        return self::$names[$origin][$type[$rndType]][mt_rand(0, count(self::$names[$origin][$type[$rndType]]) - 1)];
     }
 }

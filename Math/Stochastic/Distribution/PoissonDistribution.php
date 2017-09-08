@@ -6,8 +6,6 @@
  *
  * @category   TBD
  * @package    TBD
- * @author     OMS Development Team <dev@oms.com>
- * @author     Dennis Eichhorn <d.eichhorn@oms.com>
  * @copyright  Dennis Eichhorn
  * @license    OMS License 1.0
  * @version    1.0.0
@@ -24,8 +22,6 @@ use phpOMS\Math\Functions\Functions;
  *
  * @category   Framework
  * @package    phpOMS\DataStorage\Database
- * @author     OMS Development Team <dev@oms.com>
- * @author     Dennis Eichhorn <d.eichhorn@oms.com>
  * @license    OMS License 1.0
  * @link       http://orange-management.com
  * @since      1.0.0
@@ -43,7 +39,6 @@ class PoissonDistribution
      * @return float
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public static function getPmf(int $k, float $lambda) : float
     {
@@ -59,7 +54,6 @@ class PoissonDistribution
      * @return float
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public static function getCdf(int $k, float $lambda) : float
     {
@@ -80,7 +74,6 @@ class PoissonDistribution
      * @return float
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public static function getMode(float $lambda) : float
     {
@@ -95,7 +88,6 @@ class PoissonDistribution
      * @return float
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public static function getMean(float $lambda) : float
     {
@@ -110,7 +102,6 @@ class PoissonDistribution
      * @return float
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public static function getMedian(float $lambda) : float
     {
@@ -125,7 +116,6 @@ class PoissonDistribution
      * @return float
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public static function getVariance(float $lambda) : float
     {
@@ -141,7 +131,6 @@ class PoissonDistribution
      * @return float
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public static function getMgf(float $lambda, float $t) : float
     {
@@ -156,7 +145,6 @@ class PoissonDistribution
      * @return float
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public static function getSkewness(float $lambda) : float
     {
@@ -171,7 +159,6 @@ class PoissonDistribution
      * @return float
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public static function getFisherInformation(float $lambda) : float
     {
@@ -186,7 +173,6 @@ class PoissonDistribution
      * @return float
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public static function getExKurtosis(float $lambda) : float
     {

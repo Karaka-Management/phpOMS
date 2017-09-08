@@ -6,8 +6,6 @@
  *
  * @category   TBD
  * @package    TBD
- * @author     OMS Development Team <dev@oms.com>
- * @author     Dennis Eichhorn <d.eichhorn@oms.com>
  * @copyright  Dennis Eichhorn
  * @license    OMS License 1.0
  * @version    1.0.0
@@ -24,8 +22,6 @@ use phpOMS\Contract\ArrayableInterface;
  *
  * @category   Framework
  * @package    phpOMS\Account
- * @author     OMS Development Team <dev@oms.com>
- * @author     Dennis Eichhorn <d.eichhorn@oms.com>
  * @license    OMS License 1.0
  * @link       http://orange-management.com
  * @since      1.0.0
@@ -90,30 +86,12 @@ class Group implements ArrayableInterface, \JsonSerializable
     protected $permissions = [];
 
     /**
-     * Created at.
-     *
-     * @var \DateTime
-     * @since 1.0.0
-     */
-    protected $createdAt = null;
-
-    /**
-     * Created by.
-     *
-     * @var int
-     * @since 1.0.0
-     */
-    protected $createdBy = 0;
-
-    /**
      * Constructor.
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function __construct()
     {
-        $this->createdAt = new \DateTime('now');
     }
 
     /**
@@ -122,7 +100,6 @@ class Group implements ArrayableInterface, \JsonSerializable
      * @return int
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function getId() : int
     {
@@ -135,7 +112,6 @@ class Group implements ArrayableInterface, \JsonSerializable
      * @return string
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function getName() : string
     {
@@ -148,7 +124,6 @@ class Group implements ArrayableInterface, \JsonSerializable
      * @param string $name Group name
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function setName(string $name) /* : void */
     {
@@ -161,7 +136,6 @@ class Group implements ArrayableInterface, \JsonSerializable
      * @return string
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function getDescription() : string
     {
@@ -174,7 +148,6 @@ class Group implements ArrayableInterface, \JsonSerializable
      * @param string $description Group description
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function setDescription(string $description) /* : void */
     {
@@ -187,7 +160,6 @@ class Group implements ArrayableInterface, \JsonSerializable
      * @return int Group status
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function getStatus() : int
     {
@@ -200,7 +172,6 @@ class Group implements ArrayableInterface, \JsonSerializable
      * @param int $status Group status
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function setStatus(int $status) /* : void */
     {
@@ -214,7 +185,6 @@ class Group implements ArrayableInterface, \JsonSerializable
      * @return string
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function __toString()
     {
@@ -227,7 +197,6 @@ class Group implements ArrayableInterface, \JsonSerializable
      * @return string
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function jsonSerialize()
     {
@@ -243,8 +212,6 @@ class Group implements ArrayableInterface, \JsonSerializable
             'id'          => $this->id,
             'name'        => $this->name,
             'description' => $this->description,
-            'createdBy'   => $this->createdBy,
-            'createdAt'   => $this->createdAt->format('Y-m-d H:i:s'),
             'permissions' => $this->permissions,
             'members'     => $this->members,
         ];

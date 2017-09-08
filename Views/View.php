@@ -6,8 +6,6 @@
  *
  * @category   TBD
  * @package    TBD
- * @author     OMS Development Team <dev@oms.com>
- * @author     Dennis Eichhorn <d.eichhorn@oms.com>
  * @copyright  Dennis Eichhorn
  * @license    OMS License 1.0
  * @version    1.0.0
@@ -21,14 +19,14 @@ use phpOMS\ApplicationAbstract;
 use phpOMS\Localization\Localization;
 use phpOMS\Message\RequestAbstract;
 use phpOMS\Message\ResponseAbstract;
+use phpOMS\Module\Exception\InvalidModuleException;
+use phpOMS\Module\Exception\InvalidThemeException;
 
 /**
  * List view.
  *
  * @category   Framework
  * @package    phpOMS/Views
- * @author     OMS Development Team <dev@oms.com>
- * @author     Dennis Eichhorn <d.eichhorn@oms.com>
  * @license    OMS License 1.0
  * @link       http://orange-management.com
  * @since      1.0.0
@@ -83,14 +81,13 @@ class View extends ViewAbstract
      * @param ResponseAbstract    $response Request
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function __construct(ApplicationAbstract $app, RequestAbstract $request, ResponseAbstract $response)
     {
         $this->app      = $app;
         $this->request  = $request;
         $this->response = $response;
-        $this->l11n     = $response->getL11n();
+        $this->l11n     = $response->getHeader()->getL11n();
     }
 
     /**
@@ -99,7 +96,6 @@ class View extends ViewAbstract
      * @return mixed
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function getData(string $id)
     {
@@ -113,7 +109,6 @@ class View extends ViewAbstract
      * @return void
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function setData(string $id, $data) /* : void */
     {
@@ -128,7 +123,6 @@ class View extends ViewAbstract
      * @return bool
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function removeData(string $id) : bool
     {
@@ -148,7 +142,6 @@ class View extends ViewAbstract
      * @return bool
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function addData(string $id, $data) : bool
     {
@@ -170,10 +163,10 @@ class View extends ViewAbstract
      * 
      * @return string
      *
-     * @throws \Exception
+     * @throws InvalidModuleException Throws this exception if no data for the defined module could be found.
+     * @throws InvalidTemplateException Throws this exception if no data for the defined theme could be found.
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     protected function getText(string $translation, string $module = null, string $theme = null) : string
     {
@@ -181,7 +174,7 @@ class View extends ViewAbstract
             $match = '/Modules/';
 
             if (($start = strripos($this->template, $match)) === false) {
-                throw new \Exception('Unknown Module');
+                throw new InvalidModuleException($module);
             }
 
             $start  = $start + strlen($match);
@@ -193,7 +186,7 @@ class View extends ViewAbstract
             $match = '/Theme/';
 
             if (($start = strripos($this->template, $match)) === false) {
-                throw new \Exception('Unknown Theme');
+                throw new InvalidThemeException($theme);
             }
 
             $start = $start + strlen($match);
@@ -205,10 +198,25 @@ class View extends ViewAbstract
     }
 
     /**
+     * Get translation.
+     *
+     * @param string $translation Text
+     * @param string $module      Module name
+     * @param string $theme       Theme name
+     * 
+     * @return string
+     *
+     * @since  1.0.0
+     */
+    protected function getHtml(string $translation, string $module = null, string $theme = null) : string
+    {
+        return htmlspecialchars($this->getText($translation, $module, $theme));
+    }
+
+    /**
      * @return RequestAbstract
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function getRequest() : RequestAbstract
     {
@@ -219,7 +227,6 @@ class View extends ViewAbstract
      * @return ResponseAbstract
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function getResponse() : ResponseAbstract
     {

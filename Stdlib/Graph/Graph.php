@@ -6,8 +6,6 @@
  *
  * @category   TBD
  * @package    TBD
- * @author     OMS Development Team <dev@oms.com>
- * @author     Dennis Eichhorn <d.eichhorn@oms.com>
  * @copyright  Dennis Eichhorn
  * @license    OMS License 1.0
  * @version    1.0.0
@@ -22,8 +20,6 @@ namespace phpOMS\Stdlib\Graph;
  *
  * @category   Framework
  * @package    phpOMS\Datatypes
- * @author     OMS Development Team <dev@oms.com>
- * @author     Dennis Eichhorn <d.eichhorn@oms.com>
  * @license    OMS License 1.0
  * @link       http://orange-management.com
  * @since      1.0.0
@@ -54,7 +50,6 @@ class Graph
      * @return Graph
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function addNode(Node $node) : Graph
     {
@@ -72,7 +67,6 @@ class Graph
      * @return Graph
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function addNodeRelative(Node $relative, Node $node) : Graph
     {
@@ -88,7 +82,6 @@ class Graph
      * @return Graph
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function setNode($key, Node $node) : Graph
     {
@@ -105,7 +98,6 @@ class Graph
      * @return Graph
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function addEdge(Edge $edge) : Graph
     {
@@ -123,7 +115,6 @@ class Graph
      * @return Graph
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function setEdge($key, Edge $edge)  /* : void */
     {
@@ -140,7 +131,6 @@ class Graph
      * @return Node
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function getNode($key) : Node
     {
@@ -153,7 +143,6 @@ class Graph
      * @return Node[]
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function getNodes() : array
     {
@@ -168,7 +157,6 @@ class Graph
      * @return Edge
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function getEdge($key) : Edge
     {
@@ -183,7 +171,6 @@ class Graph
      * @return Edge[]
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function getEdgesOfNode($node) : array
     {
@@ -211,7 +198,6 @@ class Graph
      * @return Node[]
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function getNeighbors($node) : array
     {
@@ -241,7 +227,6 @@ class Graph
      * @return int
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function getDimension() : int
     {
@@ -255,7 +240,6 @@ class Graph
      * @return Edge[]
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function getBridges() : array
     {
@@ -269,7 +253,6 @@ class Graph
      * @return Tree
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function getKruskalMinimalSpanningTree() : Tree
     {
@@ -283,7 +266,6 @@ class Graph
      * @return Tree
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function getPrimMinimalSpanningTree() : Tree
     {
@@ -297,7 +279,6 @@ class Graph
      * @return array
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function getCircle() : array
     {
@@ -310,7 +291,6 @@ class Graph
      * @return array
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function getFloydWarshallShortestPath() : array
     {
@@ -323,7 +303,6 @@ class Graph
      * @return array
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function getDijkstraShortestPath() : array
     {
@@ -336,7 +315,6 @@ class Graph
      * @return array
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function depthFirstTraversal() : array
     {
@@ -349,7 +327,6 @@ class Graph
      * @return array
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function breadthFirstTraversal() : array
     {
@@ -362,7 +339,6 @@ class Graph
      * @return Node[]
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function longestPath() : array
     {
@@ -378,7 +354,6 @@ class Graph
      * @return Node[]
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function longestPathBetweenNodes(Node $node1, Node $node2) : array
     {
@@ -393,7 +368,6 @@ class Graph
      * @return int
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function getOrder() : int
     {
@@ -408,7 +382,6 @@ class Graph
      * @return int
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function getSize() : int
     {
@@ -423,7 +396,6 @@ class Graph
      * @return int
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function getDiameter() : int
     {

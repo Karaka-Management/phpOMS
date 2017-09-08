@@ -6,8 +6,6 @@
  *
  * @category   TBD
  * @package    TBD
- * @author     OMS Development Team <dev@oms.com>
- * @author     Dennis Eichhorn <d.eichhorn@oms.com>
  * @copyright  Dennis Eichhorn
  * @license    OMS License 1.0
  * @version    1.0.0
@@ -22,8 +20,6 @@ namespace phpOMS\Message\Mail;
  *
  * @category   Framework
  * @package    phpOMS\Message\Mail
- * @author     OMS Development Team <dev@oms.com>
- * @author     Dennis Eichhorn <d.eichhorn@oms.com>
  * @license    OMS License 1.0
  * @link       http://orange-management.com
  * @since      1.0.0
@@ -143,14 +139,6 @@ class Mail
     protected $encoding = 0;
 
     /**
-     * Mail type.
-     *
-     * @var int
-     * @since 1.0.0
-     */
-    protected $type = MailType::MAIL;
-
-    /**
      * Mail host name.
      *
      * @var string
@@ -183,17 +171,11 @@ class Mail
     protected $messageDate = null;
 
     /**
-     * todo: ???
-     */
-    protected $mailer = null;
-
-    /**
      * Constructor.
      *
      * @param mixed $id Id
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function __construct($id)
     {
@@ -208,7 +190,6 @@ class Mail
      * @return void
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function setBody(string $body) /* : void */
     {
@@ -223,7 +204,6 @@ class Mail
      * @return void
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function setOverview(string $overview) /* : void */
     {
@@ -238,7 +218,6 @@ class Mail
      * @return void
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function setEncoding(int $encoding) /* : void */
     {

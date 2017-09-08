@@ -6,8 +6,6 @@
  *
  * @category   TBD
  * @package    TBD
- * @author     OMS Development Team <dev@oms.com>
- * @author     Dennis Eichhorn <d.eichhorn@oms.com>
  * @copyright  Dennis Eichhorn
  * @license    OMS License 1.0
  * @version    1.0.0
@@ -22,8 +20,6 @@ namespace phpOMS\Utils;
  *
  * @category   Framework
  * @package    phpOMS\Utils
- * @author     OMS Development Team <dev@oms.com>
- * @author     Dennis Eichhorn <d.eichhorn@oms.com>
  * @license    OMS License 1.0
  * @link       http://orange-management.com
  * @since      1.0.0
@@ -35,7 +31,6 @@ class ArrayUtils
      * Constructor.
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     private function __construct()
     {
@@ -51,9 +46,8 @@ class ArrayUtils
      * @return array
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public static function unsetArray(string $path, array $data, string $delim) : array
+    public static function unsetArray(string $path, array $data, string $delim = '/') : array
     {
         $nodes  = explode($delim, trim($path, $delim));
         $prevEl = null;
@@ -90,9 +84,8 @@ class ArrayUtils
      * @return array
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public static function setArray(string $path, array $data, $value, string $delim, bool $overwrite = false) : array
+    public static function setArray(string $path, array $data, $value, string $delim = '/', bool $overwrite = false) : array
     {
         $pathParts = explode($delim, trim($path, $delim));
         $current   = &$data;
@@ -127,7 +120,6 @@ class ArrayUtils
      * @return bool
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public static function inArrayRecursive($needle, array $haystack) : bool
     {
@@ -148,6 +140,16 @@ class ArrayUtils
         return $found;
     }
 
+    /**
+     * Check if any of the needles are in the array
+     *
+     * @param mixed $needles   Needles for search
+     * @param array $haystack Haystack for search
+     *
+     * @return bool
+     *
+     * @since  1.0.0
+     */
     public static function anyInArray(array $needles, array $haystack) : bool
     {
         foreach($needles as $needle) {
@@ -160,6 +162,27 @@ class ArrayUtils
     }
 
     /**
+     * Check if all of the needles are in the array
+     *
+     * @param mixed $needles   Needles for search
+     * @param array $haystack Haystack for search
+     *
+     * @return bool
+     *
+     * @since  1.0.0
+     */
+    public static function allInArray(array $needles, array $haystack) : bool
+    {
+        foreach($needles as $needle) {
+            if(!in_array($needle, $haystack)) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    /**
      * Stringify array.
      *
      * @param array $array Array to stringify
@@ -169,7 +192,6 @@ class ArrayUtils
      * @throws \Exception
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public static function stringify(array $array) : string
     {
@@ -221,7 +243,6 @@ class ArrayUtils
      * @return string
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public static function arrayToCSV(array $data, string $delimiter = ';', string $enclosure = '"', string $escape = '\\') : string
     {
@@ -246,7 +267,6 @@ class ArrayUtils
      * @return string
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public static function getArg(string $id, array $args) /* : ?string */
     {
@@ -267,7 +287,6 @@ class ArrayUtils
      * @return array
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public static function arrayFlatten(array $array) : array
     {
@@ -275,7 +294,7 @@ class ArrayUtils
         // see collection collapse as alternative?!
         $flat  = [];
         $stack = array_values($array);
-        while ($stack) {
+        while (!empty($stack)) {
             $value = array_shift($stack);
 
             if (is_array($value)) {
@@ -298,11 +317,10 @@ class ArrayUtils
      * @return int|float
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public static function arraySum(array $array, int $start = 0, int $count = 0)
     {
-        $count = $count === 0 ? count($array) : $count;
+        $count = $count === 0 ? count($array) : $start + $count;
         $sum   = 0;
 
         $array = array_values($array);
@@ -322,7 +340,6 @@ class ArrayUtils
      * @return mixed
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public static function arraySumRecursive(array $array)
     {

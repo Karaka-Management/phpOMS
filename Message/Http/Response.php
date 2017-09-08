@@ -6,8 +6,6 @@
  *
  * @category   TBD
  * @package    TBD
- * @author     OMS Development Team <dev@oms.com>
- * @author     Dennis Eichhorn <d.eichhorn@oms.com>
  * @copyright  Dennis Eichhorn
  * @license    OMS License 1.0
  * @version    1.0.0
@@ -28,8 +26,6 @@ use phpOMS\Views\View;
  *
  * @category   Framework
  * @package    phpOMS\Response
- * @author     OMS Development Team <dev@oms.com>
- * @author     Dennis Eichhorn <d.eichhorn@oms.com>
  * @license    OMS License 1.0
  * @link       http://orange-management.com
  * @since      1.0.0
@@ -37,12 +33,19 @@ use phpOMS\Views\View;
 class Response extends ResponseAbstract implements RenderableInterface
 {
     /**
+     * Response status.
+     *
+     * @var int
+     * @since 1.0.0
+     */
+    protected $status = RequestStatusCode::R_200;
+
+    /**
      * Constructor.
      *
      * @param Localization $l11n Localization
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function __construct(Localization $l11n)
     {
@@ -58,7 +61,6 @@ class Response extends ResponseAbstract implements RenderableInterface
      * @return void
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function setResponse(array $response) /* : void */
     {
@@ -68,16 +70,13 @@ class Response extends ResponseAbstract implements RenderableInterface
     /**
      * Remove response by ID.
      *
-     * @param int $id Response ID
+     * @param mixed $id Response ID
      *
      * @return bool
      *
-     * @throws \Exception
-     *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function remove(int $id) : bool
+    public function remove($id) : bool
     {
         if (isset($this->response[$id])) {
             unset($this->response[$id]);
@@ -86,14 +85,6 @@ class Response extends ResponseAbstract implements RenderableInterface
         }
 
         return false;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function getProtocolVersion() : string
-    {
-        return '1.0';
     }
 
     /**
@@ -109,10 +100,7 @@ class Response extends ResponseAbstract implements RenderableInterface
      *
      * @return string
      *
-     * @throws \Exception
-     *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function render() : string
     {
@@ -135,7 +123,6 @@ class Response extends ResponseAbstract implements RenderableInterface
      * @throws \Exception
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     private function getRaw() : string
     {
@@ -185,13 +172,5 @@ class Response extends ResponseAbstract implements RenderableInterface
         } finally {
             return $result;
         }
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function getReasonPhrase() : string
-    {
-        return $this->header->getHeader('Status');
     }
 }

@@ -6,8 +6,6 @@
  *
  * @category   TBD
  * @package    TBD
- * @author     OMS Development Team <dev@oms.com>
- * @author     Dennis Eichhorn <d.eichhorn@oms.com>
  * @copyright  Dennis Eichhorn
  * @license    OMS License 1.0
  * @version    1.0.0
@@ -22,8 +20,6 @@ namespace phpOMS\Validation;
  *
  * @category   Validation
  * @package    Framework
- * @author     OMS Development Team <dev@oms.com>
- * @author     Dennis Eichhorn <d.eichhorn@oms.com>
  * @license    OMS License 1.0
  * @link       http://orange-management.com
  * @since      1.0.0
@@ -35,13 +31,13 @@ interface ValidatorInterface
      * Check if value is valid.
      *
      * @param mixed $value Value to validate
+     * @param array $constraints Constraints for validation
      *
      * @return bool
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn
      */
-    public static function isValid($value);
+    public static function isValid($value, array $constraints = null);
 
     /**
      * Get most recent error string.
@@ -49,7 +45,15 @@ interface ValidatorInterface
      * @return string
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn
      */
-    public static function getMessage();
+    public static function getMessage() : string;
+
+    /**
+     * Get most recent error code.
+     *
+     * @return int
+     *
+     * @since  1.0.0
+     */
+    public static function getErrorCode() : int;
 }

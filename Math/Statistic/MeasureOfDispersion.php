@@ -6,8 +6,6 @@
  *
  * @category   TBD
  * @package    TBD
- * @author     OMS Development Team <dev@oms.com>
- * @author     Dennis Eichhorn <d.eichhorn@oms.com>
  * @copyright  Dennis Eichhorn
  * @license    OMS License 1.0
  * @version    1.0.0
@@ -17,13 +15,14 @@ declare(strict_types=1);
 
 namespace phpOMS\Math\Statistic;
 
+use phpOMS\Math\Exception\ZeroDevisionException;
+use phpOMS\Math\Matrix\Exception\InvalidDimensionException;
+
 /**
  * Measure of dispersion.
  *
  * @category   Framework
  * @package    phpOMS\DataStorage\Database
- * @author     OMS Development Team <dev@oms.com>
- * @author     Dennis Eichhorn <d.eichhorn@oms.com>
  * @license    OMS License 1.0
  * @link       http://orange-management.com
  * @since      1.0.0
@@ -41,7 +40,6 @@ class MeasureOfDispersion
      * @return float
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public static function range(array $values) : float
     {
@@ -64,14 +62,13 @@ class MeasureOfDispersion
      * @throws \Exception
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public static function empiricalVariationcoefficient(array $values) : float
     {
         $mean = Average::arithmeticMean($values);
 
         if ($mean === 0) {
-            throw new \Exception('Division zero');
+            throw new ZeroDevisionException();
         }
 
         return self::standardDeviation($values) / $mean;
@@ -87,7 +84,6 @@ class MeasureOfDispersion
      * @return float
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public static function standardDeviation(array $values) : float
     {
@@ -106,14 +102,13 @@ class MeasureOfDispersion
      * @throws \Exception
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public static function sampleVariance(array $values) : float
     {
         $count = count($values);
 
         if ($count < 2) {
-            throw new \Exception('Division zero');
+            throw new ZeroDevisionException();
         }
 
         return $count * self::empiricalVariance($values) / ($count - 1);
@@ -131,14 +126,13 @@ class MeasureOfDispersion
      * @throws \Exception
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public static function empiricalVariance(array $values) : float
     {
         $count = count($values);
 
         if ($count === 0) {
-            throw new \Exception('Division zero');
+            throw new ZeroDevisionException();
         }
 
         $mean = Average::arithmeticMean($values);
@@ -161,21 +155,20 @@ class MeasureOfDispersion
      *
      * @return float
      *
-     * @throws \Exception
+     * @throws InvalidDimensionException
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public static function empiricalCovariance(array $x, array $y) : float
     {
         $count = count($x);
 
         if ($count < 2) {
-            throw new \Exception('Division zero');
+            throw new ZeroDevisionException();
         }
 
         if ($count !== count($y)) {
-            throw new \Exception('Dimensions');
+            throw new InvalidDimensionException($count . 'x' . count($y));
         }
 
         $xMean = Average::arithmeticMean($x);
@@ -198,7 +191,6 @@ class MeasureOfDispersion
      * @return float
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public static function getIQR(array $x) : float
     {
@@ -212,7 +204,6 @@ class MeasureOfDispersion
      * @return float
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public static function meanDeviation(array $x) : float
     {
@@ -234,7 +225,6 @@ class MeasureOfDispersion
      * @return float
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public static function squaredMeanDeviation(array $x) : float
     {

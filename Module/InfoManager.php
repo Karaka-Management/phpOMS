@@ -6,8 +6,6 @@
  *
  * @category   TBD
  * @package    TBD
- * @author     OMS Development Team <dev@oms.com>
- * @author     Dennis Eichhorn <d.eichhorn@oms.com>
  * @copyright  Dennis Eichhorn
  * @license    OMS License 1.0
  * @version    1.0.0
@@ -27,8 +25,6 @@ use phpOMS\Utils\ArrayUtils;
  *
  * @category   Framework
  * @package    phpOMS\Module
- * @author     OMS Development Team <dev@oms.com>
- * @author     Dennis Eichhorn <d.eichhorn@oms.com>
  * @license    OMS License 1.0
  * @link       http://orange-management.com
  * @since      1.0.0
@@ -58,7 +54,6 @@ class InfoManager
      * @param string $path Info file path
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn
      */
     public function __construct($path)
     {
@@ -71,7 +66,6 @@ class InfoManager
      * @return string
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn
      */
     public function getPath() : string
     {
@@ -83,8 +77,9 @@ class InfoManager
      *
      * @return void
      *
+     * @throws PathException This exception is thrown in case the info file path doesn't exist.
+     *
      * @since  1.0.0
-     * @author Dennis Eichhorn
      */
     public function load() /* : void */
     {
@@ -101,7 +96,6 @@ class InfoManager
      * @return void
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn
      */
     public function update() /* : void */
     {
@@ -120,7 +114,6 @@ class InfoManager
      * @param string $delim Delimiter of path
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn
      */
     public function set(string $path, $data, string $delim = '/') /* : void */
     {
@@ -137,7 +130,6 @@ class InfoManager
      * @return array
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn
      */
     public function get() : array
     {
@@ -150,7 +142,6 @@ class InfoManager
      * @return string
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn
      */
     public function getInternalName() : string
     {
@@ -163,7 +154,6 @@ class InfoManager
      * @return string
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn
      */
     public function getExternalName() : string
     {
@@ -176,7 +166,6 @@ class InfoManager
      * @return array
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn
      */
     public function getDependencies() : array
     {
@@ -189,7 +178,6 @@ class InfoManager
      * @return array
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn
      */
     public function getProviding() : array
     {
@@ -202,7 +190,6 @@ class InfoManager
      * @return string
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn
      */
     public function getDirectory() : string
     {
@@ -215,7 +202,6 @@ class InfoManager
      * @return string
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn
      */
     public function getCategory() : string
     {
@@ -228,7 +214,6 @@ class InfoManager
      * @return string
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn
      */
     public function getVersion() : string
     {
@@ -241,7 +226,6 @@ class InfoManager
      * @return array
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn
      */
     public function getLoad() : array
     {

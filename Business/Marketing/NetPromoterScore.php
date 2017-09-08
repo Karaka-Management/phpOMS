@@ -6,8 +6,6 @@
  *
  * @category   TBD
  * @package    TBD
- * @author     OMS Development Team <dev@oms.com>
- * @author     Dennis Eichhorn <d.eichhorn@oms.com>
  * @copyright  Dennis Eichhorn
  * @license    OMS License 1.0
  * @version    1.0.0
@@ -22,8 +20,6 @@ namespace phpOMS\Business\Marketing;
  *
  * @category   Framework
  * @package    phpOMS\Business
- * @author     OMS Development Team <dev@oms.com>
- * @author     Dennis Eichhorn <d.eichhorn@oms.com>
  * @license    OMS License 1.0
  * @link       http://orange-management.com
  * @since      1.0.0
@@ -41,7 +37,6 @@ class NetPromoterScore {
      * Constructor.
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function __construct() {
 
@@ -55,7 +50,6 @@ class NetPromoterScore {
      * @return void
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function add(int $score) /* : void */
     {
@@ -68,7 +62,6 @@ class NetPromoterScore {
      * @return int
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function getScore() : int
     {
@@ -91,6 +84,15 @@ class NetPromoterScore {
         return $total === 0 ? 0 : ((int) ($promoters * 100 / $total)) - ((int) ($detractors * 100 / $total));
     }
 
+    /**
+     * Count detractors
+     *
+     * Detractors are all ratings below 7.
+     *
+     * @return int
+     *
+     * @since  1.0.0
+     */
     public function countDetractors() : int
     {
         $count = 0;
@@ -103,6 +105,15 @@ class NetPromoterScore {
         return $count;
     }
 
+    /**
+     * Count passives
+     *
+     * Passives are all ratings between 7 and 8 (inclusive)
+     *
+     * @return int
+     *
+     * @since  1.0.0
+     */
     public function countPassives() : int
     {
         $count = 0;
@@ -115,6 +126,15 @@ class NetPromoterScore {
         return $count;
     }
 
+    /**
+     * Count promoters
+     *
+     * Promotoers are all ratings larger 8
+     *
+     * @return int
+     *
+     * @since  1.0.0
+     */
     public function countPromoters() : int
     {
         $count = 0;

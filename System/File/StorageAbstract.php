@@ -6,8 +6,6 @@
  *
  * @category   TBD
  * @package    TBD
- * @author     OMS Development Team <dev@oms.com>
- * @author     Dennis Eichhorn <d.eichhorn@oms.com>
  * @copyright  Dennis Eichhorn
  * @license    OMS License 1.0
  * @version    1.0.0
@@ -24,8 +22,6 @@ namespace phpOMS\System\File;
  *
  * @category   Framework
  * @package    phpOMS\System\File
- * @author     OMS Development Team <dev@oms.com>
- * @author     Dennis Eichhorn <d.eichhorn@oms.com>
  * @license    OMS License 1.0
  * @link       http://orange-management.com
  * @since      1.0.0
@@ -52,7 +48,6 @@ abstract class StorageAbstract implements DirectoryInterface, FileInterface
      * Constructor.
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     private function __construct()
     {
@@ -64,7 +59,6 @@ abstract class StorageAbstract implements DirectoryInterface, FileInterface
      * @return mixed Storage instance.
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public static function getInstance() : StorageAbstract
     {
@@ -81,7 +75,6 @@ abstract class StorageAbstract implements DirectoryInterface, FileInterface
      * @return int Storage type.
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function getType() : int
     {

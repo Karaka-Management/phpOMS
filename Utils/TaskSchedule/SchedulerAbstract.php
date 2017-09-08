@@ -6,8 +6,6 @@
  *
  * @category   TBD
  * @package    TBD
- * @author     OMS Development Team <dev@oms.com>
- * @author     Dennis Eichhorn <d.eichhorn@oms.com>
  * @copyright  Dennis Eichhorn
  * @license    OMS License 1.0
  * @version    1.0.0
@@ -23,8 +21,6 @@ use phpOMS\System\File\PathException;
  *
  * @category   Framework
  * @package    phpOMS\Utils\TaskSchedule
- * @author     OMS Development Team <dev@oms.com>
- * @author     Dennis Eichhorn <d.eichhorn@oms.com>
  * @license    OMS License 1.0
  * @link       http://orange-management.com
  * @since      1.0.0
@@ -53,7 +49,6 @@ abstract class SchedulerAbstract
      * @return string
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public static function getBin() : string
     {
@@ -68,7 +63,6 @@ abstract class SchedulerAbstract
      * @throws PathException
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public static function setBin(string $path) /* : void */
     {
@@ -85,7 +79,6 @@ abstract class SchedulerAbstract
      * @return bool
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public static function test() : bool
     {
@@ -110,7 +103,6 @@ abstract class SchedulerAbstract
      * @return void
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn
      */
     public function add(TaskAbstract $task) /* : void */
     {
@@ -125,7 +117,6 @@ abstract class SchedulerAbstract
      * @return bool
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn
      */
     public function remove(string $id) : bool
     {
@@ -146,7 +137,6 @@ abstract class SchedulerAbstract
      * @return TaskAbstract|null
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn
      */
     public function get(string $id)
     {
@@ -159,7 +149,6 @@ abstract class SchedulerAbstract
      * @return TaskAbstract[]
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn
      */
     public function getAll() : array
     {
@@ -174,7 +163,6 @@ abstract class SchedulerAbstract
      * @return void
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn
      */
     public function set(TaskAbstract $task) /* : void */
     {
@@ -187,7 +175,6 @@ abstract class SchedulerAbstract
      * @return void
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn
      */
     abstract public function save() /* : void */;
 }

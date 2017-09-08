@@ -6,8 +6,6 @@
  *
  * @category   TBD
  * @package    TBD
- * @author     OMS Development Team <dev@oms.com>
- * @author     Dennis Eichhorn <d.eichhorn@oms.com>
  * @copyright  Dennis Eichhorn
  * @license    OMS License 1.0
  * @version    1.0.0
@@ -22,8 +20,6 @@ namespace phpOMS\Message;
  *
  * @category   Framework
  * @package    phpOMS\Response
- * @author     OMS Development Team <dev@oms.com>
- * @author     Dennis Eichhorn <d.eichhorn@oms.com>
  * @license    OMS License 1.0
  * @link       http://orange-management.com
  * @since      1.0.0
@@ -35,7 +31,6 @@ interface UploadedFileInterface
      * Retrieve a stream representing the uploaded file.
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function getStream();
 
@@ -47,7 +42,6 @@ interface UploadedFileInterface
      * @return void
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function moveTo(string $targetPath);
 
@@ -55,7 +49,6 @@ interface UploadedFileInterface
      * Retrieve the file size.
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function getSize();
 
@@ -63,7 +56,6 @@ interface UploadedFileInterface
      * Retrieve the error associated with the uploaded file.
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function getError();
 
@@ -71,7 +63,6 @@ interface UploadedFileInterface
      * Retrieve the filename sent by the client.
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function getClientFilename();
 
@@ -79,7 +70,6 @@ interface UploadedFileInterface
      * Retrieve the media type sent by the client.
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function getClientMediaType();
 }

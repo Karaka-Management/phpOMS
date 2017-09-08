@@ -6,8 +6,6 @@
  *
  * @category   TBD
  * @package    TBD
- * @author     OMS Development Team <dev@oms.com>
- * @author     Dennis Eichhorn <d.eichhorn@oms.com>
  * @copyright  Dennis Eichhorn
  * @license    OMS License 1.0
  * @version    1.0.0
@@ -17,7 +15,7 @@ declare(strict_types=1);
 
 namespace phpOMS\Log;
 
-use phpOMS\Datatypes\Exception\InvalidEnumValue;
+use phpOMS\Stdlib\Base\Exception\InvalidEnumValue;
 use phpOMS\System\File\Local\File;
 use phpOMS\System\File\PathException;
 use phpOMS\Utils\StringUtils;
@@ -27,8 +25,6 @@ use phpOMS\Utils\StringUtils;
  *
  * @category   Framework
  * @package    phpOMS\Log
- * @author     OMS Development Team <dev@oms.com>
- * @author     Dennis Eichhorn <d.eichhorn@oms.com>
  * @license    OMS License 1.0
  * @link       http://orange-management.com
  * @since      1.0.0
@@ -101,7 +97,6 @@ class FileLogger implements LoggerInterface
      * @param bool   $verbose Verbose logging
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn
      */
     public function __construct(string $lpath, bool $verbose = false)
     {
@@ -123,7 +118,6 @@ class FileLogger implements LoggerInterface
      * @return void
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     private function createFile() /* : void */
     {
@@ -142,7 +136,6 @@ class FileLogger implements LoggerInterface
      * @return FileLogger
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public static function getInstance(string $path = '', bool $verbose = false) : FileLogger
     {
@@ -159,7 +152,6 @@ class FileLogger implements LoggerInterface
      * Closes the logging file
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn
      */
     public function __destruct()
     {
@@ -172,7 +164,6 @@ class FileLogger implements LoggerInterface
      * Protect instance from getting copied from outside.
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     private function __clone()
     {
@@ -186,9 +177,8 @@ class FileLogger implements LoggerInterface
      * @return void
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn
      */
-    public function startTimeLog($id = '')
+    public function startTimeLog($id = '') /* : void */
     {
         $mtime = explode(' ', microtime());
         $mtime = $mtime[1] + $mtime[0];
@@ -201,12 +191,11 @@ class FileLogger implements LoggerInterface
      *
      * @param string $id the ID by which this time measurement gets identified
      *
-     * @return int the time measurement
+     * @return int The time measurement in ms
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn
      */
-    public function endTimeLog($id = '')
+    public function endTimeLog($id = '') : int
     {
         $mtime = explode(' ', microtime());
         $mtime = $mtime[1] + $mtime[0];
@@ -225,9 +214,8 @@ class FileLogger implements LoggerInterface
      * @return void
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn
      */
-    public function timingSort(&$timings)
+    public function timingSort(&$timings) /* : void */
     {
         uasort($timings, [$this, 'orderSort']);
     }
@@ -242,9 +230,8 @@ class FileLogger implements LoggerInterface
      * @return string
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn
      */
-    private function interpolate(string $message, array $context = [], string $level = LogLevel::DEBUG)
+    private function interpolate(string $message, array $context = [], string $level = LogLevel::DEBUG) : string
     {
         $replace = [];
         foreach ($context as $key => $val) {
@@ -283,7 +270,6 @@ class FileLogger implements LoggerInterface
      * @return int
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn
      */
     private function orderSort($a, $b) : int
     {
@@ -302,7 +288,6 @@ class FileLogger implements LoggerInterface
      * @return void
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn
      */
     private function write(string $message) /* : void */
     {
@@ -335,7 +320,6 @@ class FileLogger implements LoggerInterface
      * @return null
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn
      */
     public function emergency(string $message, array $context = []) /* : void */
     {
@@ -355,7 +339,6 @@ class FileLogger implements LoggerInterface
      * @return void
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn
      */
     public function alert(string $message, array $context = []) /* : void */
     {
@@ -374,7 +357,6 @@ class FileLogger implements LoggerInterface
      * @return void
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn
      */
     public function critical(string $message, array $context = []) /* : void */
     {
@@ -392,7 +374,6 @@ class FileLogger implements LoggerInterface
      * @return void
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn
      */
     public function error(string $message, array $context = []) /* : void */
     {
@@ -412,7 +393,6 @@ class FileLogger implements LoggerInterface
      * @return void
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn
      */
     public function warning(string $message, array $context = []) /* : void */
     {
@@ -429,7 +409,6 @@ class FileLogger implements LoggerInterface
      * @return void
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn
      */
     public function notice(string $message, array $context = []) /* : void */
     {
@@ -448,7 +427,6 @@ class FileLogger implements LoggerInterface
      * @return void
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn
      */
     public function info(string $message, array $context = []) /* : void */
     {
@@ -465,7 +443,6 @@ class FileLogger implements LoggerInterface
      * @return void
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn
      */
     public function debug(string $message, array $context = []) /* : void */
     {
@@ -483,7 +460,6 @@ class FileLogger implements LoggerInterface
      * @return void
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn
      */
     public function log(string $level, string $message, array $context = []) /* : void */
     {
@@ -656,9 +632,8 @@ class FileLogger implements LoggerInterface
      * @param bool   $verbose Is verbose
      * @param array  $context Context
      *
-     * @return array
      */
-    public function console(string $message, bool $verbose = true, array $context = [])
+    public function console(string $message, bool $verbose = true, array $context = []) /* : void */
     {
         $message = date('[Y-m-d H:i:s] ') . $message . "\r\n";
 
