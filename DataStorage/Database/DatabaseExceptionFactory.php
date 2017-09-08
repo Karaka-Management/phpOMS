@@ -15,8 +15,6 @@ declare(strict_types=1);
 
 namespace phpOMS\DataStorage\Database;
 
-use phpOMS\DataStorage\Database\Schema\Exception\TableException;
-
 /**
  * Database exception factory.
  *
@@ -33,17 +31,17 @@ class DatabaseExceptionFactory
      *
      * @param \PDOException $e Exception
      *
-     * @return \PDOException
+     * @return string
      *
      * @since  1.0.0
      */
-    public static function createException(\PDOException $e) : \PDOException
+    public static function createException(\PDOException $e) : string
     {
         switch ($e->getCode()) {
             case '42S02':
-                return self::createTableViewException($e);
+                return '\phpOMS\DataStorage\Database\Schema\Exception\TableException';
             default:
-                return $e;
+                return '\PDOException';
         }
     }
 
@@ -52,31 +50,17 @@ class DatabaseExceptionFactory
      *
      * @param \PDOException $e Exception
      *
-     * @return \PDOException
+     * @return string
      *
      * @since  1.0.0
      */
-    public static function createExceptionMessage(\PDOException $e) : \PDOException
+    public static function createExceptionMessage(\PDOException $e) : string
     {
         switch ($e->getCode()) {
             case '42S02':
-                return self::createTableViewExceptionMessage($e);
+                return TableException::findTable($e->getMessage());
             default:
-                return $e;
+                return $e->getMessage();
         }
-    }
-
-    /**
-     * Create table exception.
-     *
-     * @param \PDOException $e Exception
-     *
-     * @return \PDOException
-     *
-     * @since  1.0.0
-     */
-    private static function createTableViewException(\PDOException $e) : string
-    {
-        return TableException::findTable($e->getMessage());
     }
 }
