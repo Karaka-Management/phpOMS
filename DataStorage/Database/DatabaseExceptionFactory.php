@@ -37,11 +37,30 @@ class DatabaseExceptionFactory
      *
      * @since  1.0.0
      */
-    public static function create(\PDOException $e) : \PDOException
+    public static function createException(\PDOException $e) : \PDOException
     {
         switch ($e->getCode()) {
             case '42S02':
                 return self::createTableViewException($e);
+            default:
+                return $e;
+        }
+    }
+
+    /**
+     * Constructor.
+     *
+     * @param \PDOException $e Exception
+     *
+     * @return \PDOException
+     *
+     * @since  1.0.0
+     */
+    public static function createExceptionMessage(\PDOException $e) : \PDOException
+    {
+        switch ($e->getCode()) {
+            case '42S02':
+                return self::createTableViewExceptionMessage($e);
             default:
                 return $e;
         }
@@ -56,8 +75,8 @@ class DatabaseExceptionFactory
      *
      * @since  1.0.0
      */
-    private static function createTableViewException(\PDOException $e) : \PDOException
+    private static function createTableViewException(\PDOException $e) : string
     {
-        return new TableException(TableException::findTable($e->getMessage()));
+        return TableException::findTable($e->getMessage());
     }
 }
