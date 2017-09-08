@@ -532,7 +532,7 @@ class ModuleManager
         if ($this->installed === null) {
             switch ($this->app->dbPool->get('core')->getType()) {
                 case DatabaseType::MYSQL:
-                    $sth = $this->app->dbPool->get('core')->con->prepare('SELECT `module_id`,`module_theme`,`module_version`,`module_id` FROM `' . $this->app->dbPool->get('core')->prefix . 'module`');
+                    $sth = $this->app->dbPool->get('core')->con->prepare('SELECT `module_id`,`module_theme`,`module_version` FROM `' . $this->app->dbPool->get('core')->prefix . 'module`');
                     $sth->execute();
                     $this->installed = $sth->fetchAll(\PDO::FETCH_GROUP);
                     break;
