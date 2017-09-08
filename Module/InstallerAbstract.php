@@ -69,7 +69,7 @@ class InstallerAbstract
                 $load = $info->getLoad();
                 foreach ($load as $val) {
                     foreach ($val['pid'] as $pid) {
-                        $sth->bindValue(':pid', $pid, \PDO::PARAM_STR);
+                        $sth->bindValue(':pid', sha1(str_replace('/', '', $pid)), \PDO::PARAM_STR);
                         $sth->bindValue(':type', $val['type'], \PDO::PARAM_INT);
                         $sth->bindValue(':from', $val['from'], \PDO::PARAM_STR);
                         $sth->bindValue(':for', $val['for'], \PDO::PARAM_STR);
