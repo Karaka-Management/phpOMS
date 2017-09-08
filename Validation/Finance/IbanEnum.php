@@ -54,7 +54,7 @@ class IbanEnum extends Enum
     /* public */ const C_GR = 'GRkk bbbs sssc cccc cccc cccc ccc';
     /* public */ const C_GL = 'GLkk bbbb cccc cccc cc';
     /* public */ const C_GT = 'GTkk bbbb mmtt cccc cccc cccc cccc';
-    /* public */ const C_HU = 'HUkk bbbs sssk cccc cccc cccc cccx';
+    /* public */ const C_HU = 'HUkk bbbs sssx cccc cccc cccc cccx';
     /* public */ const C_IS = 'ISkk bbbb sscc cccc iiii iiii ii';
     /* public */ const C_IE = 'IEkk aaaa bbbb bbcc cccc cc';
     /* public */ const C_IL = 'ILkk bbbn nncc cccc cccc ccc';
