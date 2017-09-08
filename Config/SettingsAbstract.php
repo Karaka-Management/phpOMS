@@ -112,7 +112,6 @@ abstract class SettingsAbstract implements OptionsInterface
 
             return $options;
         } catch (\PDOException $e) {
-            // todo does it mean that the recognition isn't here but at the place where the new happens?
             $exception = DatabaseExceptionFactory::createException($e);
             $message = DatabaseExceptionFactory::createExceptionMessage($e);
 
