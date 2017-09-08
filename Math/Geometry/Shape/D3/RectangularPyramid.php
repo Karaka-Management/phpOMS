@@ -13,10 +13,10 @@
  */
 declare(strict_types=1);
 
-namespace phpOMS\Math\Shape\D3;
+namespace phpOMS\Math\Geometry\Shape\D3;
 
 /**
- * Cylinder shape.
+ * Rectangular pyramid shape.
  *
  * @category   Framework
  * @package    phpOMS\DataStorage\Database
@@ -24,51 +24,54 @@ namespace phpOMS\Math\Shape\D3;
  * @link       http://orange-management.com
  * @since      1.0.0
  */
-class Cylinder implements D3ShapeInterface
+class RectangularPyramid implements D3ShapeInterface
 {
 
     /**
      * Volume
      *
-     * @param float $r Radius
+     * @param float $a Edge
+     * @param float $b Edge
      * @param float $h Height
      *
      * @return float
      *
      * @since  1.0.0
      */
-    public static function getVolume(float $r, float $h) : float
+    public static function getVolume(float $a, float $b, float $h) : float
     {
-        return pi() * $r ** 2 * $h;
+        return $a * $b * $h / 3;
     }
 
     /**
      * Surface area
      *
-     * @param float $r Radius
+     * @param float $a Edge
+     * @param float $b Edge
      * @param float $h Height
      *
      * @return float
      *
      * @since  1.0.0
      */
-    public static function getSurface(float $r, float $h) : float
+    public static function getSurface(float $a, float $b, float $h) : float
     {
-        return 2 * pi() * ($r * $h + $r ** 2);
+        return $a * $b + $a * sqrt(($b / 2) ** 2 + $h ** 2) + $b * sqrt(($a / 2) ** 2 + $h ** 2);
     }
 
     /**
      * Lateral surface area
      *
-     * @param float $r Radius
+     * @param float $a Edge
+     * @param float $b Edge
      * @param float $h Height
      *
      * @return float
      *
      * @since  1.0.0
      */
-    public static function getLateralSurface(float $r, float $h) : float
+    public static function getLateralSurface(float $a, float $b, float $h) : float
     {
-        return 2 * pi() * $r * $h;
+        return $a * sqrt(($b / 2) ** 2 + $h ** 2) + $b * sqrt(($a / 2) ** 2 + $h ** 2);
     }
 }

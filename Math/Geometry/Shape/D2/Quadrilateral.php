@@ -12,9 +12,9 @@
  * @link       http://orange-management.com
  */
 declare(strict_types=1);
- namespace phpOMS\Math\Shape\D3;
+ namespace phpOMS\Math\Geometry\Shape\D2;
 
-class Prism implements D3ShapeInterface
+class Quadrilateral implements D2ShapeInterface
 {
 
 }

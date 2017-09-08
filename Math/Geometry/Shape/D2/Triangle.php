@@ -13,10 +13,10 @@
  */
 declare(strict_types=1);
 
-namespace phpOMS\Math\Shape\D2;
+namespace phpOMS\Math\Geometry\Shape\D2;
 
 /**
- * Rectangle shape.
+ * Triangle shape.
  *
  * @category   Framework
  * @package    phpOMS\DataStorage\Database
@@ -24,22 +24,28 @@ namespace phpOMS\Math\Shape\D2;
  * @link       http://orange-management.com
  * @since      1.0.0
  */
-class Rectangle implements D2ShapeInterface
+class Triangle implements D2ShapeInterface
 {
 
     /**
      * Area
      *
-     * @param float $a Edge
+     *     .
+     *    /|\
+     *  a  h c
+     * /   |  \
+     * ----b---
+     *
      * @param float $b Edge
+     * @param float $h Height
      *
      * @return float
      *
      * @since  1.0.0
      */
-    public static function getSurface(float $a, float $b) : float
+    public static function getSurface(float $b, float $h) : float
     {
-        return $a * $b;
+        return $h * $b / 2;
     }
 
     /**
@@ -47,28 +53,29 @@ class Rectangle implements D2ShapeInterface
      *
      * @param float $a Edge
      * @param float $b Edge
+     * @param float $c Edge
      *
      * @return float
      *
      * @since  1.0.0
      */
-    public static function getPerimeter(float $a, float $b) : float
+    public static function getPerimeter(float $a, float $b, float $c) : float
     {
-        return 2 * ($a + $b);
+        return $a + $b + $c;
     }
 
     /**
      * Diagonal
      *
-     * @param float $a Edge
-     * @param float $b Edge
+     * @param float $area Area
+     * @param float $b    Edge
      *
      * @return float
      *
      * @since  1.0.0
      */
-    public static function getDiagonal(float $a, float $b) : float
+    public static function getHeight(float $area, float $b) : float
     {
-        return sqrt($a * $a + $b * $b);
+        return 2 * $area / $b;
     }
 }

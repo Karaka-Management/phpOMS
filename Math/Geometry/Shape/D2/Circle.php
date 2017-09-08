@@ -13,7 +13,7 @@
  */
 declare(strict_types=1);
 
-namespace phpOMS\Math\Shape\D2;
+namespace phpOMS\Math\Geometry\Shape\D2;
 
 /**
  * Circle shape.

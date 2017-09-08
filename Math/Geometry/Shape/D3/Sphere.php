@@ -13,13 +13,13 @@
  */
 declare(strict_types=1);
 
-namespace phpOMS\Math\Shape\D3;
+namespace phpOMS\Math\Geometry\Shape\D3;
 
 /**
  * Sphere shape.
  *
  * @category   Framework
- * @package    phpOMS\Math\Shape
+ * @package    phpOMS\Math\Geometry\Shape
  * @license    OMS License 1.0
  * @link       http://orange-management.com
  * @since      1.0.0

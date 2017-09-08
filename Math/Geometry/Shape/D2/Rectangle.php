@@ -13,10 +13,10 @@
  */
 declare(strict_types=1);
 
-namespace phpOMS\Math\Shape\D3;
+namespace phpOMS\Math\Geometry\Shape\D2;
 
 /**
- * Cuboid shape.
+ * Rectangle shape.
  *
  * @category   Framework
  * @package    phpOMS\DataStorage\Database
@@ -24,38 +24,51 @@ namespace phpOMS\Math\Shape\D3;
  * @link       http://orange-management.com
  * @since      1.0.0
  */
-class Cuboid implements D3ShapeInterface
+class Rectangle implements D2ShapeInterface
 {
 
     /**
-     * Volume
+     * Area
      *
      * @param float $a Edge
      * @param float $b Edge
-     * @param float $h Height
      *
      * @return float
      *
      * @since  1.0.0
      */
-    public static function getVolume(float $a, float $b, float $h) : float
+    public static function getSurface(float $a, float $b) : float
     {
-        return $a * $b * $h;
+        return $a * $b;
     }
 
     /**
-     * Surface area
+     * Perimeter
      *
      * @param float $a Edge
      * @param float $b Edge
-     * @param float $h Height
      *
      * @return float
      *
      * @since  1.0.0
      */
-    public static function getSurface(float $a, float $b, float $h) : float
+    public static function getPerimeter(float $a, float $b) : float
     {
-        return 2 * ($a * $b + $a * $h + $b * $h);
+        return 2 * ($a + $b);
+    }
+
+    /**
+     * Diagonal
+     *
+     * @param float $a Edge
+     * @param float $b Edge
+     *
+     * @return float
+     *
+     * @since  1.0.0
+     */
+    public static function getDiagonal(float $a, float $b) : float
+    {
+        return sqrt($a * $a + $b * $b);
     }
 }

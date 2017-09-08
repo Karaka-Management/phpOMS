@@ -15,7 +15,7 @@ declare(strict_types=1);
 
 namespace phpOMS\Math\Optimization\TSP;
 
-use phpOMS\Math\Shape\D3\Sphere;
+use phpOMS\Math\Geometry\Shape\D3\Sphere;
 
 /**
  * City class.

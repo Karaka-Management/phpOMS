@@ -13,10 +13,10 @@
  */
 declare(strict_types=1);
 
-namespace phpOMS\Math\Shape\D3;
+namespace phpOMS\Math\Geometry\Shape\D3;
 
 /**
- * Rectangular pyramid shape.
+ * Cone shape.
  *
  * @category   Framework
  * @package    phpOMS\DataStorage\Database
@@ -24,54 +24,66 @@ namespace phpOMS\Math\Shape\D3;
  * @link       http://orange-management.com
  * @since      1.0.0
  */
-class RectangularPyramid implements D3ShapeInterface
+class Cone implements D3ShapeInterface
 {
 
     /**
      * Volume
      *
-     * @param float $a Edge
-     * @param float $b Edge
+     * @param float $r Radius
      * @param float $h Height
      *
      * @return float
      *
      * @since  1.0.0
      */
-    public static function getVolume(float $a, float $b, float $h) : float
+    public static function getVolume(float $r, float $h) : float
     {
-        return $a * $b * $h / 3;
+        return pi() * $r ** 2 * $h / 3;
     }
 
     /**
      * Surface area
      *
-     * @param float $a Edge
-     * @param float $b Edge
+     * @param float $r Radius
      * @param float $h Height
      *
      * @return float
      *
      * @since  1.0.0
      */
-    public static function getSurface(float $a, float $b, float $h) : float
+    public static function getSurface(float $r, float $h) : float
     {
-        return $a * $b + $a * sqrt(($b / 2) ** 2 + $h ** 2) + $b * sqrt(($a / 2) ** 2 + $h ** 2);
+        return pi() * $r * ($r + sqrt($h ** 2 + $r ** 2));
     }
 
     /**
-     * Lateral surface area
+     * Slant height
      *
-     * @param float $a Edge
-     * @param float $b Edge
+     * @param float $r Radius
      * @param float $h Height
      *
      * @return float
      *
      * @since  1.0.0
      */
-    public static function getLateralSurface(float $a, float $b, float $h) : float
+    public static function getSlantHeight(float $r, float $h) : float
     {
-        return $a * sqrt(($b / 2) ** 2 + $h ** 2) + $b * sqrt(($a / 2) ** 2 + $h ** 2);
+        return sqrt($h ** 2 + $r ** 2);
+    }
+
+    /**
+     * Height
+     *
+     * @param float $V Volume
+     * @param float $r Radius
+     *
+     * @return float
+     *
+     * @since  1.0.0
+     */
+    public static function getHeightFromVolume(float $V, float $r) : float
+    {
+        return 3 * $V / (pi() * $r ** 2);
     }
 }

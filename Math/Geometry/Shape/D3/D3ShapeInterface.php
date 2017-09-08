@@ -13,9 +13,9 @@
  */
 declare(strict_types=1);
 
-namespace phpOMS\Math\Shape\D3;
+namespace phpOMS\Math\Geometry\Shape\D3;
 
-use phpOMS\Math\Shape\ShapeInterface;
+use phpOMS\Math\Geometry\Shape\ShapeInterface;
 
 /**
  * Shape interface.

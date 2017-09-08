@@ -12,9 +12,18 @@
  * @link       http://orange-management.com
  */
 declare(strict_types=1);
- namespace phpOMS\Math\Shape\D2;
 
-class Quadrilateral implements D2ShapeInterface
+namespace phpOMS\Math\Geometry\Shape;
+
+/**
+ * Shape interface.
+ *
+ * @category   Framework
+ * @package    phpOMS\Math
+ * @license    OMS License 1.0
+ * @link       http://orange-management.com
+ * @since      1.0.0
+ */
+interface ShapeInterface
 {
-
 }

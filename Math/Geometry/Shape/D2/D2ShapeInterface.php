@@ -13,7 +13,9 @@
  */
 declare(strict_types=1);
 
-namespace phpOMS\Math\Shape;
+namespace phpOMS\Math\Geometry\Shape\D2;
+
+use phpOMS\Math\Geometry\Shape\ShapeInterface;
 
 /**
  * Shape interface.
@@ -24,6 +26,6 @@ namespace phpOMS\Math\Shape;
  * @link       http://orange-management.com
  * @since      1.0.0
  */
-interface ShapeInterface
+interface D2ShapeInterface extends ShapeInterface
 {
 }

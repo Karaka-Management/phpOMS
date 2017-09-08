@@ -13,10 +13,10 @@
  */
 declare(strict_types=1);
 
-namespace phpOMS\Math\Shape\D2;
+namespace phpOMS\Math\Geometry\Shape\D3;
 
 /**
- * Triangle shape.
+ * Cuboid shape.
  *
  * @category   Framework
  * @package    phpOMS\DataStorage\Database
@@ -24,18 +24,13 @@ namespace phpOMS\Math\Shape\D2;
  * @link       http://orange-management.com
  * @since      1.0.0
  */
-class Triangle implements D2ShapeInterface
+class Cuboid implements D3ShapeInterface
 {
 
     /**
-     * Area
+     * Volume
      *
-     *     .
-     *    /|\
-     *  a  h c
-     * /   |  \
-     * ----b---
-     *
+     * @param float $a Edge
      * @param float $b Edge
      * @param float $h Height
      *
@@ -43,39 +38,24 @@ class Triangle implements D2ShapeInterface
      *
      * @since  1.0.0
      */
-    public static function getSurface(float $b, float $h) : float
+    public static function getVolume(float $a, float $b, float $h) : float
     {
-        return $h * $b / 2;
+        return $a * $b * $h;
     }
 
     /**
-     * Perimeter
+     * Surface area
      *
      * @param float $a Edge
      * @param float $b Edge
-     * @param float $c Edge
+     * @param float $h Height
      *
      * @return float
      *
      * @since  1.0.0
      */
-    public static function getPerimeter(float $a, float $b, float $c) : float
+    public static function getSurface(float $a, float $b, float $h) : float
     {
-        return $a + $b + $c;
-    }
-
-    /**
-     * Diagonal
-     *
-     * @param float $area Area
-     * @param float $b    Edge
-     *
-     * @return float
-     *
-     * @since  1.0.0
-     */
-    public static function getHeight(float $area, float $b) : float
-    {
-        return 2 * $area / $b;
+        return 2 * ($a * $b + $a * $h + $b * $h);
     }
 }
