@@ -32,9 +32,19 @@ class FtpStorage extends StorageAbstract
 {
     private $con = null;
 
-    public function __construct(string $uri, int $port = 21, bool $mode = true, string $login = null, string $pass = null, bool $ssl = false)
+    private static $instance = null;
+
+    public function __construct() {
+        
+    }
+
+    public static function getInstance() : StorageAbstract
     {
-        $this->connect($uri, $port = 21, $mode, $login = null, $pass = null, $ssl = false);
+        if(!isset(self::$instance)) {
+            self::$instance = new self();
+        }
+
+        return self::$instance;
     }
 
     public function connect(string $uri, int $port = 21, bool $mode = true, string $login = null, string $pass = null, bool $ssl = false) : bool

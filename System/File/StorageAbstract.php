@@ -29,14 +29,6 @@ namespace phpOMS\System\File;
 abstract class StorageAbstract implements DirectoryInterface, FileInterface
 {
     /**
-     * Singleton instance.
-     *
-     * @var StorageAbstract
-     * @since 1.0.0
-     */
-    protected static $instance = null;
-
-    /**
      * Storage type.
      *
      * @var int
@@ -60,15 +52,7 @@ abstract class StorageAbstract implements DirectoryInterface, FileInterface
      *
      * @since  1.0.0
      */
-    public static function getInstance() : StorageAbstract
-    {
-        if(!isset(static::$instance)) {
-            static::$instance = new static();
-        }
-
-        return static::$instance;
-    }
-
+    abstract public static function getInstance() : StorageAbstract;
     /**
      * Get storage type.
      *

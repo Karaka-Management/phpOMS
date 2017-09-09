@@ -30,6 +30,21 @@ use phpOMS\System\File\StorageAbstract;
  */
 class LocalStorage extends StorageAbstract
 {
+    private static $instance = null;
+
+    public function __construct() {
+        
+    }
+
+    public static function getInstance() : StorageAbstract
+    {
+        if(!isset(self::$instance)) {
+            self::$instance = new self();
+        }
+
+        return self::$instance;
+    }
+
     /**
      * {@inheritdoc}
      */
