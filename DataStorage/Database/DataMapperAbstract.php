@@ -1417,6 +1417,30 @@ class DataMapperAbstract implements DataMapperInterface
      * Populate data.
      *
      * @param array $result Result set
+     *
+     * @return array
+     *
+     * @since  1.0.0
+     */
+    public static function populateIterableArray(array $result) : array
+    {
+        $row = [];
+
+        foreach ($result as $element) {
+            if (isset($element[static::$primaryField])) {
+                $row[$element[static::$primaryField]] = self::populateAbstractArray($element);
+            } else {
+                $row[] = self::populateAbstractArray($element);
+            }
+        }
+
+        return $row;
+    }
+
+    /**
+     * Populate data.
+     *
+     * @param array $result Result set
      * @param mixed $obj    Object to populate
      *
      * @return mixed
@@ -1964,6 +1988,29 @@ class DataMapperAbstract implements DataMapperInterface
 
         $obj = self::populateIterable(self::getAllRaw($lang));
         self::fillRelations($obj, $relations);
+        self::clear();
+
+        return $obj;
+    }
+
+    /**
+     * Get object.
+     *
+     * @param int $relations Load relations
+     * @param string $lang Language
+     *
+     * @return array
+     *
+     * @since  1.0.0
+     */
+    public static function getAllArray(int $relations = RelationType::ALL, string $lang = '') : array
+    {
+        if(!isset(self::$parentMapper)) {
+            self::setUpParentMapper();
+        }
+
+        $obj = self::populateIterableArray(self::getAllRaw($lang));
+        self::fillRelationsArray($obj, $relations);
         self::clear();
 
         return $obj;
