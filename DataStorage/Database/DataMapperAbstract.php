@@ -1889,6 +1889,66 @@ class DataMapperAbstract implements DataMapperInterface
     /**
      * Get object.
      *
+     * @param mixed $refKey Key
+     * @param string $ref  The field that defines the for
+     * @param int   $relations  Load relations
+     * @param mixed $fill       Object to fill
+     *
+     * @return mixed
+     *
+     * @since  1.0.0
+     */
+    public static function getFor($refKey, string $ref, int $relations = RelationType::ALL, $fill = null)
+    {
+        if(!isset(self::$parentMapper)) {
+            self::setUpParentMapper();
+        }
+
+        self::extend(__CLASS__);
+
+        $refKey = (array) $refKey;
+        $obj        = [];
+
+        foreach ($refKey as $key => $value) {
+            // todo: this only works for belongsTo not for many-to-many relations. Implement many-to-many
+            $obj[$value] = self::get(self::getPrimaryKeyBy($value, self::getColumnByMember($ref)), $relations, $fill);
+        }
+        return count($obj) === 1 ? reset($obj) : $obj;
+    }
+
+    /**
+     * Get object.
+     *
+     * @param mixed $refKey Key
+     * @param string $ref  The field that defines the for
+     * @param int   $relations  Load relations
+     * @param mixed $fill       Object to fill
+     *
+     * @return mixed
+     *
+     * @since  1.0.0
+     */
+    public static function getForArray($refKey, string $ref, int $relations = RelationType::ALL, $fill = null)
+    {
+        if(!isset(self::$parentMapper)) {
+            self::setUpParentMapper();
+        }
+
+        self::extend(__CLASS__);
+
+        $refKey = (array) $refKey;
+        $obj    = [];
+
+        foreach ($refKey as $key => $value) {
+            // todo: this only works for belongsTo not for many-to-many relations. Implement many-to-many
+            $obj[$value] = self::getArray(self::getPrimaryKeyBy($value, self::getColumnByMember($ref)), $relations, $fill);
+        }
+        return count($obj) === 1 ? reset($obj) : $obj;
+    }
+
+    /**
+     * Get object.
+     *
      * @param int $relations Load relations
      * @param string $lang Language
      *
@@ -2118,6 +2178,31 @@ class DataMapperAbstract implements DataMapperInterface
         $results = $sth->fetch(\PDO::FETCH_ASSOC);
 
         return is_bool($results) ? [] : $results;
+    }
+
+    /**
+     * Get object.
+     *
+     * @param mixed $refKey Key
+     * @param string $ref Ref
+     *
+     * @return mixed
+     *
+     * @since  1.0.0
+     */
+    public static function getPrimaryKeyBy($refKey, string $ref) : array
+    {
+        $query = self::getQuery();
+        $query->select(static::$primaryField)
+            ->from(static::$table)
+            ->where(static::$table . '.' . $ref, '=', $refKey);
+
+        $sth = self::$db->con->prepare($query->toSql());
+        $sth->execute();
+
+        $results = array_column($sth->fetchAll(\PDO::FETCH_NUM) ?? [], 0);
+
+        return $results;
     }
 
     /**
@@ -2351,5 +2436,16 @@ class DataMapperAbstract implements DataMapperInterface
         $results = $sth->fetchAll(\PDO::FETCH_ASSOC);
 
         return count($results) === 0;
+    }
+
+    private static function getColumnByMember(string $name) : string
+    {
+        foreach(static::$columns as $cName => $column) {
+            if($column['internal'] === $name) {
+                return $cName;
+            }
+        }
+
+        throw \Exception();
     }
 }
