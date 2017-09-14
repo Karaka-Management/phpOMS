@@ -240,7 +240,7 @@ abstract class GrammarAbstract
         $identifier = $this->systemIdentifier;
         
         foreach($this->specialKeywords as $keyword) {
-            if(StringUtils::startsWith($system, $keyword)) {
+            if($keyword === '' || strrpos($system, $keyword, -strlen($system)) !== false) {
                 $prefix = '';
                 $identifier = '';
             }

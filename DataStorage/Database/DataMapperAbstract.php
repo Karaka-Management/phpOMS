@@ -1454,7 +1454,7 @@ class DataMapperAbstract implements DataMapperInterface
         $class = static::class;
         $class = str_replace('Mapper', '', $class);
 
-        if (count($result) === 0) {
+        if (empty($result)) {
             $parts     = explode('\\', $class);
             $name      = $parts[$c = (count($parts) - 1)];
             $parts[$c] = 'Null' . $name;
@@ -1760,7 +1760,7 @@ class DataMapperAbstract implements DataMapperInterface
         $reflectionClass = new \ReflectionClass(get_class($obj));
 
         foreach ($result as $column => $value) {
-            if (isset(static::$columns[$column]['internal']) && $reflectionClass->hasProperty(static::$columns[$column]['internal'])) {
+            if (isset(static::$columns[$column]['internal']) /* && $reflectionClass->hasProperty(static::$columns[$column]['internal']) */) {
                 $reflectionProperty = $reflectionClass->getProperty(static::$columns[$column]['internal']);
 
                 if (!($accessible = $reflectionProperty->isPublic())) {
@@ -1768,7 +1768,7 @@ class DataMapperAbstract implements DataMapperInterface
                 }
 
                 if (in_array(static::$columns[$column]['type'], ['string', 'int', 'float', 'bool'])) {
-                    if($reflectionProperty->getValue($obj) !== null || $value !== null) {
+                    if($value !== null || $reflectionProperty->getValue($obj) !== null) {
                         settype($value, static::$columns[$column]['type']);
                     }
 
