@@ -1945,11 +1945,26 @@ class DataMapperAbstract implements DataMapperInterface
         $obj        = [];
 
         foreach ($refKey as $key => $value) {
-            // todo: this only works for belongsTo not for many-to-many relations. Implement many-to-many
-            $obj[$value] = self::get(self::getPrimaryKeyBy($value, self::getColumnByMember($ref)), $relations, $fill);
+            $toLoad = [];
+
+            if(isset(static::$hasMany[$ref]) && static::$hasMany[$ref]['src'] !== null) {
+                $toLoad = self::getHasManyPrimaryKeys($value, $ref);
+            } else {
+                $toLoad = self::getPrimaryKeysBy($value, self::getColumnByMember($ref));
+            }
+
+            $obj[$value] = self::get($toLoad, $relations, $fill);
         }
 
-        return count($obj) === 1 ? reset($obj) : $obj;
+        $countResulsts = count($obj);
+
+        if($countResulsts === 0) {
+            return null;
+        } elseif($countResulsts === 1) {
+            return reset($obj);
+        }
+
+        return $obj;
     }
 
     /**
@@ -1976,8 +1991,15 @@ class DataMapperAbstract implements DataMapperInterface
         $obj    = [];
 
         foreach ($refKey as $key => $value) {
-            // todo: this only works for belongsTo not for many-to-many relations. Implement many-to-many
-            $obj[$value] = self::getArray(self::getPrimaryKeyBy($value, self::getColumnByMember($ref)), $relations, $fill);
+            $toLoad = [];
+
+            if(isset(static::$hasMany[$ref]) && static::$hasMany[$ref]['src'] !== null) {
+                $toLoad = self::getHasManyPrimaryKeys($value, $ref);
+            } else {
+                $toLoad = self::getPrimaryKeysBy($value, self::getColumnByMember($ref));
+            }
+
+            $obj[$value] = self::get($toLoad, $relations, $fill);
         }
 
         return count($obj) === 1 ? reset($obj) : $obj;
@@ -2250,13 +2272,39 @@ class DataMapperAbstract implements DataMapperInterface
      *
      * @since  1.0.0
      */
-    public static function getPrimaryKeyBy($refKey, string $ref) : array
+    public static function getPrimaryKeysBy($refKey, string $ref) : array
     {
         $query = new Builder(self::$db);
         $query->prefix(self::$db->getPrefix())
             ->select(static::$table . '.' . static::$primaryField)
             ->from(static::$table)
             ->where(static::$table . '.' . $ref, '=', $refKey);
+
+        $sth = self::$db->con->prepare($query->toSql());
+        $sth->execute();
+
+        $results = array_column($sth->fetchAll(\PDO::FETCH_NUM) ?? [], 0);
+
+        return $results;
+    }
+
+    /**
+     * Get object.
+     *
+     * @param mixed $refKey Key
+     * @param string $ref Ref
+     *
+     * @return mixed
+     *
+     * @since  1.0.0
+     */
+    public static function getHasManyPrimaryKeys($refKey, string $ref) : array
+    {
+        $query = new Builder(self::$db);
+        $query->prefix(self::$db->getPrefix())
+            ->select(static::$hasMany[$ref]['table'] . '.' . static::$hasMany[$ref]['dst'])
+            ->from(static::$hasMany[$ref]['table'])
+            ->where(static::$hasMany[$ref]['table'] . '.' . static::$hasMany[$ref]['src'], '=', $refKey);
 
         $sth = self::$db->con->prepare($query->toSql());
         $sth->execute();
