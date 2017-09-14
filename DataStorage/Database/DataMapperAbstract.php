@@ -2245,8 +2245,6 @@ class DataMapperAbstract implements DataMapperInterface
             ->from(static::$table)
             ->where(static::$table . '.' . $ref, '=', $refKey);
 
-        var_dump($query->toSql());
-
         $sth = self::$db->con->prepare($query->toSql());
         $sth->execute();
 
