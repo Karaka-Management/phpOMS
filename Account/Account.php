@@ -207,6 +207,28 @@ class Account implements ArrayableInterface, \JsonSerializable
         $this->l11n = $l11n;
     }
 
+    public function setPermissions(array $permissions) /* : void */
+    {
+        $this->permissions = $permissions;
+    }
+
+    public function hasPermission(int $permission, int $unit = null, string $app = null, int $module = null, int $type = null, $element = null, $component = null) : bool
+    {
+        foreach($this->permissions as $p) {
+            if(($p->getUnit() === $unit || $p->getUnit() === null)
+                && ($p->getApp() === $app || $p->getApp() === null) 
+                && ($p->getModule() === $module || $p->getModule() === null) 
+                && ($p->getType() === $type || $p->getType() === null) 
+                && ($p->getElement() === $element || $p->getElement() === null) 
+                && ($p->getComponent() === $component || $p->getComponent() === null) 
+                && ($p->getPermission() | $permission) === $p->getPermission()) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
     /**
      * Get name.
      *
