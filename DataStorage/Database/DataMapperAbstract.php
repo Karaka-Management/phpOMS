@@ -1703,7 +1703,7 @@ class DataMapperAbstract implements DataMapperInterface
                 } else {
                     $value = $mapper::get($reflectionProperty->getValue($obj));
                 }
-                
+
                 $reflectionProperty->setValue($obj, $value);
 
                 if (!$accessible) {
@@ -1765,10 +1765,10 @@ class DataMapperAbstract implements DataMapperInterface
                 }
 
                 if (in_array(static::$columns[$column]['type'], ['string', 'int', 'float', 'bool'])) {
-                    if($reflectionProperty->getValue($obj) !== null) {
+                    if($reflectionProperty->getValue($obj) !== null || $value !== null) {
                         settype($value, static::$columns[$column]['type']);
                     }
-                    
+
                     $reflectionProperty->setValue($obj, $value);
                 } elseif (static::$columns[$column]['type'] === 'DateTime') {
                     $reflectionProperty->setValue($obj, new \DateTime($value ?? ''));
@@ -1872,7 +1872,15 @@ class DataMapperAbstract implements DataMapperInterface
         self::fillRelations($obj, $relations);
         self::clear();
 
-        return count($obj) === 1 ? reset($obj) : $obj;
+        $countResulsts = count($obj);
+
+        if($countResulsts === 0) {
+            return null;
+        } elseif($countResulsts === 1) {
+            return reset($obj);
+        }
+
+        return $obj;
     }
 
     /**
