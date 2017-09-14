@@ -505,7 +505,7 @@ class DataMapperAbstract implements DataMapperInterface
      */
     private static function getObjectId($obj, \ReflectionClass $reflectionClass = null) 
     {
-        $reflectionClass = $reflectionClass ?? new \ReflectionClass(get_class($obj));
+        $reflectionClass    = $reflectionClass ?? new \ReflectionClass(get_class($obj));
         $reflectionProperty = $reflectionClass->getProperty(static::$columns[static::$primaryField]['internal']);
 
         if (!($isPublic = $reflectionProperty->isPublic())) {
@@ -710,7 +710,7 @@ class DataMapperAbstract implements DataMapperInterface
     private static function createOwnsOne(string $propertyName, $obj)
     {
         if (is_object($obj)) {
-            $mapper             = static::$ownsOne[$propertyName]['mapper'];
+            $mapper     = static::$ownsOne[$propertyName]['mapper'];
             $primaryKey = $mapper::getObjectId($obj);
 
             if (empty($primaryKey)) {
@@ -738,7 +738,7 @@ class DataMapperAbstract implements DataMapperInterface
     private static function createOwnsOneArray(string $propertyName, array &$obj)
     {
         if (is_array($obj)) {
-            $mapper             = static::$ownsOne[$propertyName]['mapper'];
+            $mapper     = static::$ownsOne[$propertyName]['mapper'];
             $primaryKey = $obj[static::$columns[static::$primaryField]['internal']];
 
             if (empty($primaryKey)) {
@@ -767,7 +767,7 @@ class DataMapperAbstract implements DataMapperInterface
     {
         if (is_object($obj)) {
             /** @var DataMapperAbstract $mapper */
-            $mapper             = static::$belongsTo[$propertyName]['mapper'];
+            $mapper     = static::$belongsTo[$propertyName]['mapper'];
             $primaryKey = $mapper::getObjectId($obj);
 
             if (empty($primaryKey)) {
@@ -796,7 +796,7 @@ class DataMapperAbstract implements DataMapperInterface
     {
         if (is_array($obj)) {
             /** @var DataMapperAbstract $mapper */
-            $mapper             = static::$belongsTo[$propertyName]['mapper'];
+            $mapper     = static::$belongsTo[$propertyName]['mapper'];
             $primaryKey = $obj[static::$columns[static::$primaryField]['internal']];
 
             if (empty($primaryKey)) {
@@ -991,7 +991,7 @@ class DataMapperAbstract implements DataMapperInterface
                 // todo: definately an error here. needs testing
                 throw new \Exception();
                 $removes = array_diff_key($many[$member], $objsIds[$member]);
-                $adds = array_diff_key($objsIds[$member], $many[$member]);
+                $adds    = array_diff_key($objsIds[$member], $many[$member]);
 
                 if(!empty($removes)) {
                     self::deleteRelationTable($propertyName, $removes, $objId);
@@ -1122,7 +1122,7 @@ class DataMapperAbstract implements DataMapperInterface
 
             foreach (static::$columns as $key => $column) {
                 if (isset(static::$ownsOne[$propertyName]) && $column['internal'] === $propertyName) {
-                    $id = self::updateOwnsOne($propertyName, $property->getValue($obj));
+                    $id    = self::updateOwnsOne($propertyName, $property->getValue($obj));
                     $value = self::parseValue($column['type'], $id);
 
                     // todo: should not be done if the id didn't change. but for now don't know if id changed
@@ -1164,9 +1164,10 @@ class DataMapperAbstract implements DataMapperInterface
     public static function update($obj, int $relations = RelationType::ALL) : int
     {
         self::extend(__CLASS__);
+
         $reflectionClass = new \ReflectionClass(get_class($obj));
-        $objId = self::getObjectId($obj, $reflectionClass);
-        $update = true;
+        $objId           = self::getObjectId($obj, $reflectionClass);
+        $update          = true;
 
         if(empty($objId)) {
             $update = false;
@@ -1373,8 +1374,9 @@ class DataMapperAbstract implements DataMapperInterface
     public static function delete($obj, int $relations = RelationType::REFERENCE)
     {
         self::extend(__CLASS__);
+
         $reflectionClass = new \ReflectionClass(get_class($obj));
-        $objId = self::getObjectId($obj, $reflectionClass);
+        $objId           = self::getObjectId($obj, $reflectionClass);
 
         if(empty($objId)) {
             return null;
@@ -1521,8 +1523,9 @@ class DataMapperAbstract implements DataMapperInterface
         foreach ($result as $member => $values) {
             if (!empty($values)) {
                 /** @var DataMapperAbstract $mapper */
-                $mapper             = static::$hasMany[$member]['mapper'];
+                $mapper = static::$hasMany[$member]['mapper'];
                 $values = array_diff($values, array_keys(self::$initObjects[$mapper] ?? []));
+
                 if(empty($values)) {
                     continue;
                 }
@@ -1942,7 +1945,7 @@ class DataMapperAbstract implements DataMapperInterface
         self::extend(__CLASS__);
 
         $refKey = (array) $refKey;
-        $obj        = [];
+        $obj    = [];
 
         foreach ($refKey as $key => $value) {
             $toLoad = [];
@@ -2125,7 +2128,7 @@ class DataMapperAbstract implements DataMapperInterface
      */
     public static function getAllByQuery(Builder $query, int $relations = RelationType::ALL) : array
     {
-        $sth   = self::$db->con->prepare($query->toSql());
+        $sth = self::$db->con->prepare($query->toSql());
         $sth->execute();
 
         $results = $sth->fetchAll(\PDO::FETCH_ASSOC);
@@ -2174,9 +2177,9 @@ class DataMapperAbstract implements DataMapperInterface
      */
     public static function fillRelations(array &$obj, int $relations = RelationType::ALL) /* : void */
     {
-        $hasMany = !empty(static::$hasMany);
-        $hasOne  = !empty(static::$hasOne);
-        $ownsOne = !empty(static::$ownsOne);
+        $hasMany   = !empty(static::$hasMany);
+        $hasOne    = !empty(static::$hasOne);
+        $ownsOne   = !empty(static::$ownsOne);
         $belongsTo = !empty(static::$belongsTo);
 
         if ($relations !== RelationType::NONE && ($hasMany || $hasOne || $ownsOne || $belongsTo)) {
@@ -2213,9 +2216,9 @@ class DataMapperAbstract implements DataMapperInterface
      */
     public static function fillRelationsArray(array &$obj, int $relations = RelationType::ALL) /* : void */
     {
-        $hasMany = !empty(static::$hasMany);
-        $hasOne  = !empty(static::$hasOne);
-        $ownsOne = !empty(static::$ownsOne);
+        $hasMany   = !empty(static::$hasMany);
+        $hasOne    = !empty(static::$hasOne);
+        $ownsOne   = !empty(static::$ownsOne);
         $belongsTo = !empty(static::$belongsTo);
 
         if ($relations !== RelationType::NONE && ($hasMany || $hasOne || $ownsOne || $belongsTo)) {
@@ -2331,7 +2334,7 @@ class DataMapperAbstract implements DataMapperInterface
             $query->where(static::$table . '.' . static::$language_field, '=', $lang, 'AND');
         }
 
-        $sth   = self::$db->con->prepare($query->toSql());
+        $sth = self::$db->con->prepare($query->toSql());
         $sth->execute();
 
         $results = $sth->fetchAll(\PDO::FETCH_ASSOC);

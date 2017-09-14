@@ -30,8 +30,8 @@ use phpOMS\Stdlib\Base\Enum;
  */
 abstract class SystemType extends Enum
 {
-    /* public */ const UNKNOWN = 1;
-    /* public */ const WIN = 2;
-    /* public */ const LINUX = 3;
-    /* public */ const OSX = 4;
+	/* public */ const UNKNOWN = 1;
+	/* public */ const WIN     = 2;
+	/* public */ const LINUX   = 3;
+	/* public */ const OSX     = 4;
 }

@@ -65,8 +65,8 @@ class NetPromoterScore {
      */
     public function getScore() : int
     {
-        $promoters = 0;
-        $passives = 0;
+        $promoters  = 0;
+        $passives   = 0;
         $detractors = 0;
 
         foreach($this->scores as $score) {

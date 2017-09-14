@@ -243,7 +243,7 @@ class DeleteMapperAbstract extends DataMapperBaseAbstract
     {
         self::extend(__CLASS__);
         $reflectionClass = new \ReflectionClass(get_class($obj));
-        $objId = self::getObjectId($obj, $reflectionClass);
+        $objId           = self::getObjectId($obj, $reflectionClass);
 
         if(empty($objId)) {
             return null;

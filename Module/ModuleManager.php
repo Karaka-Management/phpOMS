@@ -116,9 +116,9 @@ class ModuleManager
      */
     public function getRoutedModules(Request $request) : array
     {
-        $files = $this->getUriLoad($request);
-
+        $files   = $this->getUriLoad($request);
         $modules = [];
+
         if (isset($files[4])) {
             foreach ($files[4] as $module) {
                 $modules[] = $module['module_load_file'];
@@ -147,6 +147,7 @@ class ModuleManager
 
                     $i = 1;
                     $c = count($uriHash);
+                    
                     for ($k = 0; $k < $c; $k++) {
                         $uriPdo .= ':pid' . $i . ',';
                         $i++;

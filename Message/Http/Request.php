@@ -140,9 +140,9 @@ class Request extends RequestAbstract
      */
     private function initCurrentRequest() /* : void */
     {
-        $this->uri = new Http(Http::getCurrent());
-        $this->data  = $_GET ?? [];
-        $this->files = $_FILES ?? [];
+        $this->uri      = new Http(Http::getCurrent());
+        $this->data     = $_GET ?? [];
+        $this->files    = $_FILES ?? [];
         $this->language = $this->loadRequestLanguage();
 
         if (isset($_SERVER['CONTENT_TYPE'])) {
@@ -330,6 +330,7 @@ class Request extends RequestAbstract
         if (!isset($this->os)) {
             $arr               = OSType::getConstants();
             $http_request_type = strtolower($_SERVER['HTTP_USER_AGENT']);
+            
             foreach ($arr as $key => $val) {
                 if (stripos($http_request_type, $val)) {
                     $this->os = $val;

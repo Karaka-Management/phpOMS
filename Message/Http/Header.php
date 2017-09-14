@@ -111,10 +111,10 @@ class Header extends HeaderAbstract
      */
     private function isSecurityHeader(string $key) : bool
     {
-        return $key === 'content-security-policy' ||
-        $key === 'x-xss-protection' ||
-        $key === 'x-content-type-options' ||
-        $key === 'x-frame-options';
+        return $key === 'content-security-policy'
+            || $key === 'x-xss-protection'
+            || $key === 'x-content-type-options'
+            || $key === 'x-frame-options';
     }
 
     /**

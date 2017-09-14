@@ -346,6 +346,15 @@ class StringUtils
         return $count;
     }
 
+    /**
+     * Calculate string entropy
+     *
+     * @param string $string String to analyze.
+     *
+     * @return float 
+     *
+     * @since  1.0.0
+     */
     public static function getEntropy(string $value) : float
     {
         $entroy = 0.0;
@@ -360,8 +369,17 @@ class StringUtils
         return $entroy;
     }
 
+    /**
+     * Count chars of utf-8 string.
+     *
+     * @param string $string String to count chars.
+     *
+     * @return int 
+     *
+     * @since  1.0.0
+     */
     public static function mb_count_chars(string $input) {
-        $l = mb_strlen($input, 'UTF-8');
+        $l      = mb_strlen($input, 'UTF-8');
         $unique = [];
 
         for($i = 0; $i < $l; $i++) {
