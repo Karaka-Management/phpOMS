@@ -169,7 +169,7 @@ class Grammar extends GrammarAbstract
      */
     protected function compileFrom(Builder $query, array $table) : string
     {
-        $expression = $this->expressionizeTableColumn($table, $query->getPrefix());
+        $expression = $this->expressionizeTable($table, $query->getPrefix());
 
         if ($expression === '') {
             return '';

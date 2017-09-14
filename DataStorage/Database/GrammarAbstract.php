@@ -172,10 +172,41 @@ abstract class GrammarAbstract
 
         foreach ($elements as $key => $element) {
             if (is_string($element) && $element !== '*') {
-                if(strpos($element, '.')) {
+                if(strpos($element, '.') === false) {
                     $prefix = '';
                 }
 
+                $expression .= $this->compileSystem($element, $prefix) . ', ';
+            } elseif (is_string($element) && $element === '*') {
+                $expression .= '*, ';
+            } elseif ($element instanceof \Closure) {
+                $expression .= $element() . ', ';
+            } elseif ($element instanceof BuilderAbstract) {
+                $expression .= $element->toSql() . ', ';
+            } else {
+                throw new \InvalidArgumentException();
+            }
+        }
+
+        return rtrim($expression, ', ');
+    }
+
+    /**
+     * Expressionize elements.
+     *
+     * @param array  $elements Elements
+     * @param string $prefix   Prefix for table
+     *
+     * @return string
+     *
+     * @since  1.0.0
+     */
+    protected function expressionizeTable(array $elements, string $prefix = '') : string
+    {
+        $expression = '';
+
+        foreach ($elements as $key => $element) {
+            if (is_string($element) && $element !== '*') {
                 $expression .= $this->compileSystem($element, $prefix) . ', ';
             } elseif (is_string($element) && $element === '*') {
                 $expression .= '*, ';

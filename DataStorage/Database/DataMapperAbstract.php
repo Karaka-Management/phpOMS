@@ -2239,10 +2239,13 @@ class DataMapperAbstract implements DataMapperInterface
      */
     public static function getPrimaryKeyBy($refKey, string $ref) : array
     {
-        $query = self::getQuery();
-        $query->select(static::$primaryField)
+        $query = new Builder(self::$db);
+        $query->prefix(self::$db->getPrefix())
+            ->select(static::$table . '.' . static::$primaryField)
             ->from(static::$table)
             ->where(static::$table . '.' . $ref, '=', $refKey);
+
+        var_dump($query->toSql());
 
         $sth = self::$db->con->prepare($query->toSql());
         $sth->execute();
@@ -2493,6 +2496,6 @@ class DataMapperAbstract implements DataMapperInterface
             }
         }
 
-        throw \Exception();
+        throw new \Exception('Invalid member name');
     }
 }
