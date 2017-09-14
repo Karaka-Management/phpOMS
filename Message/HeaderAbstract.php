@@ -85,7 +85,7 @@ abstract class HeaderAbstract
     /**
      * Set localization
      *
-     * @param int $localization Localization
+     * @param Localization $l11n Localization
      * 
      * @return void
      *
@@ -135,7 +135,7 @@ abstract class HeaderAbstract
     public function setStatusCode(int $status) /* : void */
     {
         $this->status = $status;
-        $this->header->generate($status);
+        $this->generate($status);
     }
 
     /**

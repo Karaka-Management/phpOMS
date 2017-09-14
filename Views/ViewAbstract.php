@@ -171,7 +171,7 @@ abstract class ViewAbstract implements \Serializable
      * @param int    $order     Order of view
      * @param bool   $overwrite Overwrite existing view
      *
-     * @return void
+     * @return bool
      *
      * @since  1.0.0 <d.eichhorn@oms.com>
      */
@@ -231,16 +231,16 @@ abstract class ViewAbstract implements \Serializable
     /**
      * Get view/template response.
      *
-     * @return string|array
+     * @param array $data Data to pass to renderer
+     *
+     * @return array|string
      *
      * @since  1.0.0 <d.eichhorn@oms.com>
      */
     public function render(...$data)
     {
-        $ob = '';
-
-        
-            $path = __DIR__ . '/../..' . $this->template . '.tpl.php';
+        $ob   = '';
+        $path = __DIR__ . '/../..' . $this->template . '.tpl.php';
 
         if (!file_exists($path)) {
             throw new PathException($path);

@@ -15,8 +15,6 @@ declare(strict_types=1);
 
 namespace phpOMS\DataStorage\Database;
 
-use phpOMS\Utils\StringUtils;
-
 /**
  * Grammar.
  *
@@ -79,7 +77,7 @@ abstract class GrammarAbstract
     /**
      * Special keywords.
      *
-     * @var string
+     * @var array
      * @since 1.0.0
      */
     protected $specialKeywords = [

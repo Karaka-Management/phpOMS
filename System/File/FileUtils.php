@@ -36,11 +36,25 @@ class FileUtils
     /* public */ const SPREADSHEET_EXTENSION  = ['xls', 'xlsm'];
     /* public */ const IMAGE_EXTENSION        = ['png', 'gif', 'jpg', 'jpeg', 'tiff', 'bmp'];
 
+    /**
+     * Constructor.
+     *
+     * @since  1.0.0
+     */
     private function __construct() 
     {
 
     }
 
+    /**
+     * Get file extension type.
+     *
+     * @param string $extension Extension string
+     *
+     * @return int Extension type
+     *
+     * @since  1.0.0
+     */
     public static function getExtensionType(string $extension) : int
     {
         $extension = strtolower($extension);

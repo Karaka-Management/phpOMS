@@ -104,6 +104,15 @@ interface UriInterface
     public function getPathElement(int $pos) : string;
 
     /**
+     * Get path elements.
+     *
+     * @return array
+     *
+     * @since  1.0.0
+     */
+    public function getPathElements() : array;
+
+    /**
      * Get query.
      *
      * @param string $key Query key

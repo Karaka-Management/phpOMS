@@ -137,7 +137,7 @@ class InstallerAbstract
     /**
      * Init routes.
      *
-     * @param string      $routePath Route Path
+     * @param string      $modulePath Path to the module
      * @param InfoManager $info Module info
      *
      * @return void

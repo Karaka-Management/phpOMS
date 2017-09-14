@@ -63,7 +63,7 @@ class SmartDateTime extends \DateTime
      *
      * @since  1.0.0
      */
-    public static function createFromDateTime(\Datetime $date) : SmartDateTime
+    public static function createFromDateTime(\DateTime $date) : SmartDateTime
     {
         return new self($date->format('Y-m-d H:i:s'), $date->getTimezone());
     }
@@ -191,6 +191,8 @@ class SmartDateTime extends \DateTime
 
     /**
      * Test year if leap year in gregorian calendar
+     *
+     * @param int $year Year to check
      *
      * @return bool
      *

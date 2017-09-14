@@ -74,10 +74,11 @@ class Request extends RequestAbstract
      */
     public function __construct(Localization $l11n = null, UriInterface $uri = null)
     {
-        $this->l11n = $l11n;
-        $this->uri  = $uri;
-        $this->source = RequestSource::WEB;
         $this->header = new Header();
+        $this->header->setL11n($l11n);
+
+        $this->uri    = $uri;
+        $this->source = RequestSource::WEB;
 
         $this->init();
     }
@@ -110,7 +111,7 @@ class Request extends RequestAbstract
      *
      * This is used in order to either initialize the current http request or a batch of GET requests
      *
-     * @param mixed $uri URL
+     * @param void
      *
      * @return void
      *
@@ -143,7 +144,7 @@ class Request extends RequestAbstract
         $this->uri      = new Http(Http::getCurrent());
         $this->data     = $_GET ?? [];
         $this->files    = $_FILES ?? [];
-        $this->language = $this->loadRequestLanguage();
+        $this->header->getL11n()->setLanguage($this->loadRequestLanguage());
 
         if (isset($_SERVER['CONTENT_TYPE'])) {
             if (strpos($_SERVER['CONTENT_TYPE'], 'application/json') !== false) {
@@ -204,20 +205,12 @@ class Request extends RequestAbstract
      */
     private function setupUriBuilder() /* : void */
     {
-        UriFactory::setQuery('/lang', $this->l11n->getLanguage());
+        UriFactory::setQuery('/lang', $this->header->getL11n()->getLanguage());
 
         // todo: flush previous
         foreach($this->data as $key => $value) {
             UriFactory::setQuery('?' . $key, $value);
         }
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function getLanguage() : string
-    {
-        return $this->language;
     }
 
     /**

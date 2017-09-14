@@ -268,7 +268,7 @@ class DataMapperAbstract implements DataMapperInterface
 
         self::$fields = $objects;
 
-        return __CLASS__;
+        //return __CLASS__;
     }
 
     /**
@@ -450,7 +450,7 @@ class DataMapperAbstract implements DataMapperInterface
     /**
      * Create base model.
      *
-     * @param Object           $obj             Model to create
+     * @param array $obj Model to create
      *
      * @return mixed
      *
@@ -580,7 +580,7 @@ class DataMapperAbstract implements DataMapperInterface
                 throw new InvalidMapperException();
             }
 
-            /** @var DataMapperAbstract $mapper */
+            /** @var string $mapper */
             $mapper             = static::$hasMany[$propertyName]['mapper'];
             $objsIds            = [];
             $relReflectionClass = null;
@@ -651,7 +651,7 @@ class DataMapperAbstract implements DataMapperInterface
                 throw new InvalidMapperException();
             }
 
-            /** @var DataMapperAbstract $mapper */
+            /** @var string $mapper */
             $mapper             = static::$hasMany[$propertyName]['mapper'];
             $objsIds            = [];
 
@@ -766,7 +766,7 @@ class DataMapperAbstract implements DataMapperInterface
     private static function createBelongsTo(string $propertyName, $obj)
     {
         if (is_object($obj)) {
-            /** @var DataMapperAbstract $mapper */
+            /** @var string $mapper */
             $mapper     = static::$belongsTo[$propertyName]['mapper'];
             $primaryKey = $mapper::getObjectId($obj);
 
@@ -786,7 +786,7 @@ class DataMapperAbstract implements DataMapperInterface
      * The reference is stored in the main model
      *
      * @param string $propertyName Property name to initialize
-     * @param Object $obj          Object to create
+     * @param array $obj          Object to create
      *
      * @return mixed
      *
@@ -795,7 +795,7 @@ class DataMapperAbstract implements DataMapperInterface
     private static function createBelongsToArray(string $propertyName, array $obj)
     {
         if (is_array($obj)) {
-            /** @var DataMapperAbstract $mapper */
+            /** @var string $mapper */
             $mapper     = static::$belongsTo[$propertyName]['mapper'];
             $primaryKey = $obj[static::$columns[static::$primaryField]['internal']];
 
@@ -912,7 +912,7 @@ class DataMapperAbstract implements DataMapperInterface
                 throw new InvalidMapperException();
             }
 
-            /** @var DataMapperAbstract $mapper */
+            /** @var string $mapper */
             $mapper             = static::$hasMany[$propertyName]['mapper'];
             $objsIds            = [];
             $relReflectionClass = null;
@@ -1052,7 +1052,7 @@ class DataMapperAbstract implements DataMapperInterface
     private static function updateOwnsOne(string $propertyName, $obj)
     {
         if (is_object($obj)) {
-            /** @var DataMapperAbstract $mapper */
+            /** @var string $mapper */
             $mapper = static::$ownsOne[$propertyName]['mapper'];
 
             // todo: delete owned one object is not recommended since it can be owned by by something else? or does owns one mean that nothing else can have a relation to this one?
@@ -1078,7 +1078,7 @@ class DataMapperAbstract implements DataMapperInterface
     private static function updateBelongsTo(string $propertyName, $obj)
     {
         if (is_object($obj)) {
-            /** @var DataMapperAbstract $mapper */
+            /** @var string $mapper */
             $mapper = static::$belongsTo[$propertyName]['mapper'];
 
             return $mapper::update($obj);
@@ -1218,7 +1218,7 @@ class DataMapperAbstract implements DataMapperInterface
                 throw new InvalidMapperException();
             }
 
-            /** @var DataMapperAbstract $mapper */
+            /** @var string $mapper */
             $mapper             = static::$hasMany[$propertyName]['mapper'];
             $objsIds            = [];
             $relReflectionClass = null;
@@ -1271,7 +1271,7 @@ class DataMapperAbstract implements DataMapperInterface
     private static function deleteOwnsOne(string $propertyName, $obj)
     {
         if (is_object($obj)) {
-            /** @var DataMapperAbstract $mapper */
+            /** @var string $mapper */
             $mapper = static::$ownsOne[$propertyName]['mapper'];
 
             // todo: delete owned one object is not recommended since it can be owned by by something else? or does owns one mean that nothing else can have a relation to this one?
@@ -1296,7 +1296,7 @@ class DataMapperAbstract implements DataMapperInterface
     private static function deleteBelongsTo(string $propertyName, $obj)
     {
         if (is_object($obj)) {
-            /** @var DataMapperAbstract $mapper */
+            /** @var string $mapper */
             $mapper = static::$belongsTo[$propertyName]['mapper'];
 
             return $mapper::delete($obj);
@@ -1485,7 +1485,7 @@ class DataMapperAbstract implements DataMapperInterface
 
         foreach ($result as $member => $values) {
             if (!empty($values) && $reflectionClass->hasProperty($member)) {
-                /** @var DataMapperAbstract $mapper */
+                /** @var string $mapper */
                 $mapper             = static::$hasMany[$member]['mapper'];
                 $reflectionProperty = $reflectionClass->getProperty($member);
 
@@ -1522,7 +1522,7 @@ class DataMapperAbstract implements DataMapperInterface
     {
         foreach ($result as $member => $values) {
             if (!empty($values)) {
-                /** @var DataMapperAbstract $mapper */
+                /** @var string $mapper */
                 $mapper = static::$hasMany[$member]['mapper'];
                 $values = array_diff($values, array_keys(self::$initObjects[$mapper] ?? []));
 
@@ -1560,10 +1560,10 @@ class DataMapperAbstract implements DataMapperInterface
                     $reflectionProperty->setAccessible(true);
                 }
 
-                /** @var DataMapperAbstract $mapper */
+                /** @var string $mapper */
                 $mapper = static::$hasOne[$member]['mapper'];
 
-                if(self::isInitialized($mapper, $reflectionProperty->getValue($obj))) {
+                if(self::isInitialized($mapper, ($id = $reflectionProperty->getValue($obj)))) {
                     $value = self::$initObjects[$mapper][$id];
                 } else {
                     $value = $mapper::get($reflectionProperty->getValue($obj));
@@ -1592,11 +1592,11 @@ class DataMapperAbstract implements DataMapperInterface
     public static function populateHasOneArray(array &$obj) /* : void */
     {
         foreach (static::$hasOne as $member => $one) {
-            /** @var DataMapperAbstract $mapper */
+            /** @var string $mapper */
             $mapper = static::$hasOne[$member]['mapper'];
 
             if(self::isInitialized($mapper, $obj['member'])) {
-                $value = self::$initObjects[$mapper][$id];
+                $value = self::$initObjects[$mapper][$obj['member']];
             } else {
                 $value = $mapper::getArray($obj[$member]);
             }
@@ -1629,10 +1629,10 @@ class DataMapperAbstract implements DataMapperInterface
                     $reflectionProperty->setAccessible(true);
                 }
 
-                /** @var DataMapperAbstract $mapper */
+                /** @var string $mapper */
                 $mapper = static::$ownsOne[$member]['mapper'];
 
-                if(self::isInitialized($mapper, $reflectionProperty->getValue($obj))) {
+                if(self::isInitialized($mapper, ($id = $reflectionProperty->getValue($obj)))) {
                     $value = self::$initObjects[$mapper][$id];
                 } else {
                     $value = $mapper::get($reflectionProperty->getValue($obj));
@@ -1661,11 +1661,11 @@ class DataMapperAbstract implements DataMapperInterface
     public static function populateOwnsOneArray(array &$obj) /* : void */
     {
         foreach (static::$ownsOne as $member => $one) {
-            /** @var DataMapperAbstract $mapper */
+            /** @var string $mapper */
             $mapper = static::$ownsOne[$member]['mapper'];
 
             if(self::isInitialized($mapper, $obj[$member])) {
-                $value = self::$initObjects[$mapper][$id];
+                $value = self::$initObjects[$mapper][$obj[$member]];
             } else {
                 $value = $mapper::getArray($obj[$member]);
             }
@@ -1698,10 +1698,10 @@ class DataMapperAbstract implements DataMapperInterface
                     $reflectionProperty->setAccessible(true);
                 }
 
-                /** @var DataMapperAbstract $mapper */
+                /** @var string $mapper */
                 $mapper = static::$belongsTo[$member]['mapper'];
 
-                if(self::isInitialized($mapper, $reflectionProperty->getValue($obj))) {
+                if(self::isInitialized($mapper, ($id = $reflectionProperty->getValue($obj)))) {
                     $value = self::$initObjects[$mapper][$id];
                 } else {
                     $value = $mapper::get($reflectionProperty->getValue($obj));
@@ -1730,11 +1730,11 @@ class DataMapperAbstract implements DataMapperInterface
     public static function populateBelongsToArray(array &$obj) /* : void */
     {
         foreach (static::$belongsTo as $member => $one) {
-            /** @var DataMapperAbstract $mapper */
+            /** @var string $mapper */
             $mapper = static::$belongsTo[$member]['mapper'];
 
             if(self::isInitialized($mapper, $obj[$member])) {
-                $value = self::$initObjects[$mapper][$id];
+                $value = self::$initObjects[$mapper][$obj[$member]];
             } else {
                 $value = $mapper::get($obj[$member]);
             }
@@ -1905,7 +1905,6 @@ class DataMapperAbstract implements DataMapperInterface
         self::extend(__CLASS__);
 
         $primaryKey = (array) $primaryKey;
-        $fill       = (array) $fill;
         $obj        = [];
 
         foreach ($primaryKey as $key => $value) {
@@ -2550,6 +2549,17 @@ class DataMapperAbstract implements DataMapperInterface
         return count($results) === 0;
     }
 
+    /**
+     * Find database column name by member name
+     *
+     * @param string $name member name
+     *
+     * @return string
+     * 
+     * @throws \Exception Throws this exception if the member couldn't be found
+     *
+     * @since  1.0.0
+     */
     private static function getColumnByMember(string $name) : string
     {
         foreach(static::$columns as $cName => $column) {

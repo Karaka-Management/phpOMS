@@ -32,7 +32,7 @@ class Zip implements ArchiveInterface
     /**
      * {@inheritdoc}
      */
-    public static function pack(array $sources, string $destination, bool $overwrite = true) : bool
+    public static function pack($sources, string $destination, bool $overwrite = true) : bool
     {
         $destination = str_replace('\\', '/', realpath($destination));
 
@@ -45,6 +45,7 @@ class Zip implements ArchiveInterface
             return false;
         }
 
+        /** @var array $sources */
         foreach ($sources as $source) {
             $source = str_replace('\\', '/', realpath($source));
 

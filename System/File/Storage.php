@@ -73,6 +73,7 @@ final class Storage
             $env = __NAMESPACE__ . '\\' . $env . '\\' . $env . 'Storage';
 
             try {
+                /** @var StorageAbstract $env */
                 $env = $env::getInstance();
 
                 self::$registered[$stg] = $env;

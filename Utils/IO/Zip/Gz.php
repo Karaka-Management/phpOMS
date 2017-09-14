@@ -29,7 +29,7 @@ class Gz implements ArchiveInterface
     /**
      * {@inheritdoc}
      */
-    public static function pack(string $source, string $destination, bool $overwrite = true) : bool
+    public static function pack($source, string $destination, bool $overwrite = true) : bool
     {
         $destination = str_replace('\\', '/', realpath($destination));
         if (!$overwrite && file_exists($destination)) {
@@ -56,7 +56,7 @@ class Gz implements ArchiveInterface
     public static function unpack(string $source, string $destination) : bool
     {
         $destination = str_replace('\\', '/', realpath($destination));
-        if (!$overwrite && file_exists($destination)) {
+        if (file_exists($destination)) {
             return false;
         }
         
@@ -65,8 +65,8 @@ class Gz implements ArchiveInterface
         }
         
         $dest = fopen($destination, 'w');
-        while (!gzeof($handle)) {
-            fwrite($dest, gzread($handle, 4096));
+        while (!gzeof($gz)) {
+            fwrite($dest, gzread($gz, 4096));
         }
         
         fclose($dest);

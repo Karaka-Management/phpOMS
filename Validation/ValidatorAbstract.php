@@ -59,6 +59,13 @@ abstract class ValidatorAbstract implements ValidatorInterface
         return self::$error;
     }
 
+    /**
+     * Reset error information
+     *
+     * @return bool
+     *
+     * @since  1.0.0
+     */
     public static function resetError() /* : void */
     {
         self::$error = 0;

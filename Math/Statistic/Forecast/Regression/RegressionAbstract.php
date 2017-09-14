@@ -12,13 +12,22 @@
  * @link       http://orange-management.com
  */
 declare(strict_types=1);
- namespace phpOMS\Math\Statistic\Forecast\Regression;
+namespace phpOMS\Math\Statistic\Forecast\Regression;
 
 use phpOMS\Math\Statistic\Average;
 use phpOMS\Math\Statistic\Forecast\ForecastIntervalMultiplier;
 use phpOMS\Math\Statistic\MeasureOfDispersion;
 use phpOMS\Math\Matrix\Exception\InvalidDimensionException;
 
+/**
+ * Regression abstract class.
+ *
+ * @category   Framework
+ * @package    phpOMS\Math\Statistic
+ * @license    OMS License 1.0
+ * @link       http://orange-management.com
+ * @since      1.0.0
+ */
 abstract class RegressionAbstract
 {
     /**
@@ -146,7 +155,35 @@ abstract class RegressionAbstract
         return Average::arithmeticMean($y) - $b1 * Average::arithmeticMean($x);
     }
 
-    abstract public static function getSlope(float $b1, float $y, float $x) : float;
+    /**
+     * Get slope
+     *
+     * @param float $b1 Beta 1
+     * @param float $x  Obersved x values
+     * @param float $y  Observed y values
+     *
+     * @return float
+     *
+     * @since  1.0.0
+     */
+    public static function getSlope(float $b1, float $y, float $x) : float
+    {
+        return 0.0;
+    }
 
-    abstract public static function getElasticity(float $b1, float $y, float $x): float;
+    /**
+     * Get elasticity
+     *
+     * @param float $b1 Beta 1
+     * @param float $x  Obersved x values
+     * @param float $y  Observed y values
+     *
+     * @return float
+     *
+     * @since  1.0.0
+     */
+    public static function getElasticity(float $b1, float $y, float $x): float
+    {
+        return 0.0;
+    }
 }

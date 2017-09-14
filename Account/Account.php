@@ -109,7 +109,7 @@ class Account implements ArrayableInterface, \JsonSerializable
     /**
      * Permissions.
      *
-     * @var array
+     * @var PermissionAbstract[]
      * @since 1.0.0
      */
     protected $permissions = [];
@@ -125,7 +125,7 @@ class Account implements ArrayableInterface, \JsonSerializable
     /**
      * Password.
      *
-     * @var Password
+     * @var string
      * @since 1.0.0
      */
     protected $password = '';
@@ -207,11 +207,35 @@ class Account implements ArrayableInterface, \JsonSerializable
         $this->l11n = $l11n;
     }
 
+    /**
+     * Set permissions.
+     *
+     * @param PermissionAbstract[] $permissions
+     *
+     * @return void
+     *
+     * @since  1.0.0
+     */
     public function setPermissions(array $permissions) /* : void */
     {
         $this->permissions = $permissions;
     }
 
+    /**
+     * Has permissions.
+     *
+     * @param int $permission Check if user has this permission
+     * @param int $unit Unit
+     * @param string $app App
+     * @param int $module Module
+     * @param int $type Type (e.g. customer)
+     * @param int $element (e.g. customer id)
+     * @param int $component (e.g. address)
+     *
+     * @return bool
+     *
+     * @since  1.0.0
+     */
     public function hasPermission(int $permission, int $unit = null, string $app = null, int $module = null, int $type = null, $element = null, $component = null) : bool
     {
         foreach($this->permissions as $p) {

@@ -52,7 +52,10 @@ abstract class StorageAbstract implements DirectoryInterface, FileInterface
      *
      * @since  1.0.0
      */
-    abstract public static function getInstance() : StorageAbstract;
+    public static function getInstance() : StorageAbstract
+    {
+        return null;
+    }
     /**
      * Get storage type.
      *

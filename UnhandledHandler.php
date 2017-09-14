@@ -60,12 +60,21 @@ final class UnhandledHandler
      */
     public static function errorHandler(int $errno, string $errstr, string $errfile, int $errline) : bool
     {
+        $logger = FileLogger::getInstance(__DIR__ . '/../Logs');
+
         if (!(error_reporting() & $errno)) {
-            // This error code is not included in error_reporting
+            $logger->error(FileLogger::MSG_FULL, [
+                'message' => 'Undefined error',
+                'line'    => $errline,
+                'file'    => $errfile,
+            ]);
+
+            error_clear_last();
+
             return false;
         }
 
-        $logger = FileLogger::getInstance(__DIR__ . '/../Logs');
+
         $logger->error(FileLogger::MSG_FULL, [
             'message' => 'Unhandled error',
             'line'    => $errline,

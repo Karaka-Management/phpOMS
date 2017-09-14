@@ -32,7 +32,7 @@ class MarketShareEstimation {
      * @param float $marketShare (m)
      * @param float $modifier (s)
      *
-     * @return float
+     * @return int
      *
      * @since  1.0.0
      */

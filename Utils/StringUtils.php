@@ -349,7 +349,7 @@ class StringUtils
     /**
      * Calculate string entropy
      *
-     * @param string $string String to analyze.
+     * @param string $value String to analyze.
      *
      * @return float 
      *
@@ -359,10 +359,10 @@ class StringUtils
     {
         $entroy = 0.0;
         $size = mb_strlen($value);
-        $countChars = self::mb_count_chars($value, 1);
+        $countChars = self::mb_count_chars($value);
 
-        foreach ($countChars as $v) {
-            $p = $v / $size;
+        for ($i = 0; $i < $countChars; $i++) {
+            $p = $value[$i] / $size;
             $entroy -= $p * log($p) / log(2);
         }
 
@@ -372,13 +372,14 @@ class StringUtils
     /**
      * Count chars of utf-8 string.
      *
-     * @param string $string String to count chars.
+     * @param string $input String to count chars.
      *
      * @return int 
      *
      * @since  1.0.0
      */
-    public static function mb_count_chars(string $input) {
+    public static function mb_count_chars(string $input) : int
+    {
         $l      = mb_strlen($input, 'UTF-8');
         $unique = [];
 

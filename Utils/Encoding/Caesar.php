@@ -37,7 +37,7 @@ class Caesar
     /**
      * ASCII upper char limit.
      *
-     * @var string
+     * @var int
      * @since 1.0.0
      */
     /* public */ const LIMIT_UPPER = 127;

@@ -25,8 +25,6 @@ use phpOMS\Validation\Finance\IbanEnum;
  * @license    OMS License 1.0
  * @link       http://orange-management.com
  * @since      1.0.0
- *
- * @todo       : there is a bug with Hungary ibans since they have two k (checksums) in their definition
  */
 class Iban implements \Serializable
 {

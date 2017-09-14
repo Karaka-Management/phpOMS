@@ -16,7 +16,7 @@ declare(strict_types=1);
 namespace phpOMS\Message\Http;
 
 use phpOMS\Message\HeaderAbstract;
-use phpOMS\DataStorage\LockExcpetion;
+use phpOMS\DataStorage\LockException;
 
 /**
  * Response class.
@@ -68,7 +68,7 @@ class Header extends HeaderAbstract
     public function set(string $key, string $header, bool $overwrite = false) : bool
     {
         if (self::$isLocked) {
-            throw new LockExcpetion('HTTP header');
+            throw new LockException('HTTP header');
         }
 
         $key = strtolower($key);
@@ -146,18 +146,6 @@ class Header extends HeaderAbstract
     }
 
     /**
-     * Get pushed header by name.
-     *
-     * @return string
-     *
-     * @since  1.0.0
-     */
-    public function getHeader(string $name) : string
-    {
-        return self::getAllHeaders()[$name] ?? '';
-    }
-
-    /**
      * Get all headers for apache and nginx
      *
      * @return array
@@ -194,7 +182,7 @@ class Header extends HeaderAbstract
     public function remove(int $key) : bool
     {
         if (self::$isLocked) {
-            throw new \LockException('HTTP header');
+            throw new LockException('HTTP header');
         }
 
         if (isset($this->header[$key])) {
@@ -209,7 +197,7 @@ class Header extends HeaderAbstract
     /**
      * Get header by name.
      *
-     * @param int $key Header key
+     * @param string $key Header key
      *
      * @return array
      *
@@ -219,19 +207,19 @@ class Header extends HeaderAbstract
     {
         return $this->header[strtolower($key)] ?? [];
     }
-    
+
     /**
      * {@inheritdoc}
      */
     public function getReasonPhrase() : string
     {
-        return $this->header->getHeader('Status');
+        return $this->get('Status');
     }
 
     /**
      * Check if header is defined.
      *
-     * @param int $key Header key
+     * @param string $key Header key
      *
      * @return bool
      *

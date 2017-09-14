@@ -96,6 +96,7 @@ class ModuleManager
      * Constructor.
      *
      * @param ApplicationAbstract $app Application
+     * @param string $modulePath Path to modules
      *
      * @since  1.0.0
      */

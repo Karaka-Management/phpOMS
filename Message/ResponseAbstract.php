@@ -15,7 +15,6 @@ declare(strict_types=1);
 
 namespace phpOMS\Message;
 
-use phpOMS\Localization\Localization;
 use phpOMS\Utils\ArrayUtils;
 
 /**

@@ -13,6 +13,7 @@
  */
 declare(strict_types=1);
 namespace phpOMS\Account;
+use Modules\Admin\Models\PermissionType;
 
 /**
  * InfoManager class.
@@ -27,110 +28,309 @@ namespace phpOMS\Account;
  */
 abstract class PermissionAbstract
 {
+    /**
+     * Permission id.
+     *
+     * @var int
+     * @since 1.0.0
+     */
     protected $id = 0;
 
+    /**
+     * Unit id.
+     *
+     * @var int
+     * @since 1.0.0
+     */
     protected $unit = null;
 
+    /**
+     * App name.
+     *
+     * @var string
+     * @since 1.0.0
+     */
     protected $app = null;
 
+    /**
+     * Module id.
+     *
+     * @var int
+     * @since 1.0.0
+     */
     protected $module = null;
 
+    /**
+     * Providing module id.
+     *
+     * @var int
+     * @since 1.0.0
+     */
     protected $from = 0;
 
+    /**
+     * Type.
+     *
+     * @var int
+     * @since 1.0.0
+     */
     protected $type = null;
 
+    /**
+     * Element id.
+     *
+     * @var int
+     * @since 1.0.0
+     */
     protected $element = null;
 
+    /**
+     * Component id.
+     *
+     * @var int
+     * @since 1.0.0
+     */
     protected $component = null;
 
-    protected $permission = 0;
+    /**
+     * Permission.
+     *
+     * @var int
+     * @since 1.0.0
+     */
+    protected $permission = PermissionType::NONE;
 
-    public function getId()
+    /**
+     * Get permission id.
+     *
+     * @return int
+     *
+     * @since  1.0.0
+     */
+    public function getId() : int
     {
-        return $id;
+        return $this->id;
     }
 
-    public function getUnit()
+    /**
+     * Get unit id.
+     *
+     * @return int
+     *
+     * @since  1.0.0
+     */
+    public function getUnit() /* : ?int */
     {
         return $this->unit;
     }
 
-    public function getApp()
+    /**
+     * Get app name.
+     *
+     * @return string
+     *
+     * @since  1.0.0
+     */
+    public function getApp() /* : ?string */
     {
         return $this->app;
     }
 
-    public function getModule()
+    /**
+     * Get module id.
+     *
+     * @return int
+     *
+     * @since  1.0.0
+     */
+    public function getModule() /* : ?int */
     {
         return $this->module;
     }
 
-    public function getFrom()
+    /**
+     * Get providing module id.
+     *
+     * @return int
+     *
+     * @since  1.0.0
+     */
+    public function getFrom() /* : ?int */
     {
         return $this->from;
     }
 
-    public function getType()
+    /**
+     * Get type.
+     *
+     * @return int
+     *
+     * @since  1.0.0
+     */
+    public function getType() /* : ?int */
     {
         return $this->type;
     }
 
-    public function getElement()
+    /**
+     * Get element id.
+     *
+     * @return int
+     *
+     * @since  1.0.0
+     */
+    public function getElement() /* : ?int */
     {
         return $this->element;
     }
 
-    public function getComponent()
+    /**
+     * Get component id.
+     *
+     * @return int
+     *
+     * @since  1.0.0
+     */
+    public function getComponent() /* : ?int */
     {
         return $this->component;
     }
 
+    /**
+     * Get permission
+     *
+     * @return int
+     *
+     * @since  1.0.0
+     */
     public function getPermission() : int
     {
         return $this->permission;
     }
 
+    /**
+     * Set unit id.
+     *
+     * @param int $unit Unit
+     *
+     * @return void
+     *
+     * @since  1.0.0
+     */
     public function setUnit(int $unit = null) /* : void */
     {
         $this->unit = $unit;
     }
 
-    public function setApp(int $app = null) /* : void */
+    /**
+     * Set app name.
+     *
+     * @param string $app App name
+     *
+     * @return void
+     *
+     * @since  1.0.0
+     */
+    public function setApp(string $app = null) /* : void */
     {
         $this->app = $app;
     }
 
+    /**
+     * Set module id.
+     *
+     * @param int $module Module
+     *
+     * @return void
+     *
+     * @since  1.0.0
+     */
     public function setModule(int $module = null) /* : void */
     {
         $this->module = $module;
     }
 
+    /**
+     * Set providing module id.
+     *
+     * @param int $from Providing module
+     *
+     * @return void
+     *
+     * @since  1.0.0
+     */
     public function setFrom(int $from = null) /* : void */
     {
         $this->from = $from;
     }
 
+    /**
+     * Set type.
+     *
+     * @param int $type Type
+     *
+     * @return void
+     *
+     * @since  1.0.0
+     */
     public function setType(int $type = null) /* : void */
     {
         $this->type = $type;
     }
 
+    /**
+     * Set element id.
+     *
+     * @param int $element Element id
+     *
+     * @return void
+     *
+     * @since  1.0.0
+     */
     public function setElement(int $element = null) /* : void */
     {
         $this->element = $element;
     }
 
+    /**
+     * Set component id.
+     *
+     * @param int $component Component
+     *
+     * @return void
+     *
+     * @since  1.0.0
+     */
     public function setComponent(int $component = null) /* : void */
     {
         $this->component = $component;
     }
 
+    /**
+     * Set permission.
+     *
+     * @param int $permission Permission
+     *
+     * @return void
+     *
+     * @since  1.0.0
+     */
     public function setPermission(int $permission = 0) /* : void */
     {
-        if($permission === 0) {
-            $this->permission = 0;
-        } else {
-            $this->permission |= $permission;
-        }
+        $this->permission = $permission;
+    }
+
+    /**
+     * Add permission.
+     *
+     * @param int $permission Permission
+     *
+     * @return void
+     *
+     * @since  1.0.0
+     */
+    public function addPermission(int $permission = 0) /* : void */
+    {
+        $this->permission |= $permission;
     }
 }

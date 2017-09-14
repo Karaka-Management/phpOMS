@@ -417,7 +417,7 @@ class InterchangeControlHeader
         $this->setInterchangeIdQualifier((int) trim($split[5]));
         $this->setInterchangeSender(trim($split[6]));
         $this->setInterchangeReceiver(trim($split[8]));
-        $this->setInterchangeDateTime(new \DateTime(trim($split[9]) . '-' . trim($split[10])));
+        $this->setInterchangeDatetime(new \DateTime(trim($split[9]) . '-' . trim($split[10])));
         $this->setInterchangeControlStandardId(trim($split[11]));
         $this->setInterchangeControlVersionNumber((int) trim($split[12]));
         $this->setInterchangeControlNumber((int) trim($split[13]));

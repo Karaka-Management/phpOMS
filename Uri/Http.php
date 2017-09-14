@@ -158,7 +158,7 @@ class Http implements UriInterface
             $this->path = substr($this->path, 0, -4);
         }
 
-        $this->path        = strpos($this->path, $this->rootPath) === 0 ? substr($this->path, strlen($this->rootPath), strlen($this->path)) : $this->path; // TODO: this could cause a bug if the rootpath is the same as a regular path which is usually the language
+        $this->path        = strpos($this->path, $this->rootPath) === 0 ? substr($this->path, strlen($this->rootPath), strlen($this->path)) : $this->path; 
         $this->queryString = $url['query'] ?? '';
 
         if (!empty($this->queryString)) {
@@ -286,6 +286,9 @@ class Http implements UriInterface
         return explode('/', $this->path)[$pos];
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function getPathElements() : array
     {
         return explode('/', $this->path);    

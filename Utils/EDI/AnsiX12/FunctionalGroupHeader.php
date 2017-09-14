@@ -150,7 +150,7 @@ class FunctionalGroupHedaer
     public function serialize()
     {
         return $this->functionalGroupHeader . '*'
-            . $this->getfunctionalIdentifierCode() . '*'
+            . $this->getFunctionalIdentifierCode() . '*'
             . $this->getApplicationSenderCode() . '*'
             . $this->getApplicationReceiverCode() . '*'
             . $this->getDate() . '*'

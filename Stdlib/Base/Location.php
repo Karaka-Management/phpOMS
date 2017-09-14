@@ -101,6 +101,8 @@ class Location implements \JsonSerializable, \Serializable
     }
 
     /**
+     * Get location id
+     *
      * @return int
      *
      * @since  1.0.0
@@ -111,6 +113,8 @@ class Location implements \JsonSerializable, \Serializable
     }
 
     /**
+     * Get location type
+     *
      * @return int
      *
      * @since  1.0.0
@@ -120,12 +124,23 @@ class Location implements \JsonSerializable, \Serializable
         return $this->type;
     }
 
+    /**
+     * Set location type
+     *
+     * @param int $type Location type
+     *
+     * @return void
+     *
+     * @since  1.0.0
+     */
     public function setType(int $type) /* : void */
     {
         $this->type = $type;
     }
 
     /**
+     * Get postal or zip code
+     *
      * @return string
      *
      * @since  1.0.0
@@ -136,6 +151,8 @@ class Location implements \JsonSerializable, \Serializable
     }
 
     /**
+     * Set postal or zip code
+     *
      * @param string $postal
      *
      * @return void
@@ -148,6 +165,8 @@ class Location implements \JsonSerializable, \Serializable
     }
 
     /**
+     * Get city name
+     *
      * @return string
      *
      * @since  1.0.0
@@ -158,6 +177,8 @@ class Location implements \JsonSerializable, \Serializable
     }
 
     /**
+     * Set city name
+     *
      * @param string $city
      *
      * @return void
@@ -170,6 +191,8 @@ class Location implements \JsonSerializable, \Serializable
     }
 
     /**
+     * Get country code
+     *
      * @return string
      *
      * @since  1.0.0
@@ -180,6 +203,8 @@ class Location implements \JsonSerializable, \Serializable
     }
 
     /**
+     * Set country code
+     *
      * @param string $country
      *
      * @return void
@@ -192,6 +217,8 @@ class Location implements \JsonSerializable, \Serializable
     }
 
     /**
+     * Get address
+     *
      * @return string
      *
      * @since  1.0.0
@@ -202,6 +229,8 @@ class Location implements \JsonSerializable, \Serializable
     }
 
     /**
+     * Set address
+     *
      * @param string $address
      *
      * @return void
@@ -214,6 +243,8 @@ class Location implements \JsonSerializable, \Serializable
     }
 
     /**
+     * Get state name
+     *
      * @return string
      *
      * @since  1.0.0
@@ -224,6 +255,8 @@ class Location implements \JsonSerializable, \Serializable
     }
 
     /**
+     * Set state name
+     *
      * @param string $state
      *
      * @return void
@@ -236,6 +269,8 @@ class Location implements \JsonSerializable, \Serializable
     }
 
     /**
+     * Get geo location
+     *
      * @return float[]
      *
      * @since  1.0.0
@@ -246,6 +281,8 @@ class Location implements \JsonSerializable, \Serializable
     }
 
     /**
+     * Set geo location
+     *
      * @param float[] $geo
      *
      * @return void

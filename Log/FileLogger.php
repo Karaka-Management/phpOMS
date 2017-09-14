@@ -17,8 +17,6 @@ namespace phpOMS\Log;
 
 use phpOMS\Stdlib\Base\Exception\InvalidEnumValue;
 use phpOMS\System\File\Local\File;
-use phpOMS\System\File\PathException;
-use phpOMS\Utils\StringUtils;
 
 /**
  * Logging class.
