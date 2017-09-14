@@ -13,7 +13,7 @@
  */
 declare(strict_types=1);
 namespace phpOMS\Account;
-use Modules\Admin\Models\PermissionType;
+use phpOMS\Account\PermissionType;
 
 /**
  * InfoManager class.

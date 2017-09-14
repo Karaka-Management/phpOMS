@@ -222,6 +222,34 @@ class Account implements ArrayableInterface, \JsonSerializable
     }
 
     /**
+     * Add permissions.
+     *
+     * @param PermissionAbstract[] $permissions
+     *
+     * @return void
+     *
+     * @since  1.0.0
+     */
+    public function addPermissions(array $permissions) /* : void */
+    {
+        $this->permissions += $permissions;
+    }
+
+    /**
+     * Add permission.
+     *
+     * @param PermissionAbstract $permissions
+     *
+     * @return void
+     *
+     * @since  1.0.0
+     */
+    public function addPermission(PermissionAbstract $permission) /* : void */
+    {
+        $this->permissions[] = $permission;
+    }
+
+    /**
      * Has permissions.
      *
      * @param int $permission Check if user has this permission
