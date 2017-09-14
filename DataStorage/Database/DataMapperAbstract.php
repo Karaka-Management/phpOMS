@@ -1937,6 +1937,7 @@ class DataMapperAbstract implements DataMapperInterface
             // todo: this only works for belongsTo not for many-to-many relations. Implement many-to-many
             $obj[$value] = self::get(self::getPrimaryKeyBy($value, self::getColumnByMember($ref)), $relations, $fill);
         }
+
         return count($obj) === 1 ? reset($obj) : $obj;
     }
 
@@ -1967,6 +1968,7 @@ class DataMapperAbstract implements DataMapperInterface
             // todo: this only works for belongsTo not for many-to-many relations. Implement many-to-many
             $obj[$value] = self::getArray(self::getPrimaryKeyBy($value, self::getColumnByMember($ref)), $relations, $fill);
         }
+
         return count($obj) === 1 ? reset($obj) : $obj;
     }
 
