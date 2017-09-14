@@ -1765,7 +1765,10 @@ class DataMapperAbstract implements DataMapperInterface
                 }
 
                 if (in_array(static::$columns[$column]['type'], ['string', 'int', 'float', 'bool'])) {
-                    settype($value, static::$columns[$column]['type']);
+                    if($reflectionProperty->getValue($obj) !== null) {
+                        settype($value, static::$columns[$column]['type']);
+                    }
+                    
                     $reflectionProperty->setValue($obj, $value);
                 } elseif (static::$columns[$column]['type'] === 'DateTime') {
                     $reflectionProperty->setValue($obj, new \DateTime($value ?? ''));
