@@ -266,6 +266,8 @@ class Account implements ArrayableInterface, \JsonSerializable
      */
     public function hasPermission(int $permission, int $unit = null, string $app = null, int $module = null, int $type = null, $element = null, $component = null) : bool
     {
+        $app = isset($app) ? strtolower($app) : $app;
+
         foreach($this->permissions as $p) {
             if(($p->getUnit() === $unit || $p->getUnit() === null)
                 && ($p->getApp() === $app || $p->getApp() === null) 
