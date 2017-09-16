@@ -361,8 +361,8 @@ class StringUtils
         $size = mb_strlen($value);
         $countChars = self::mb_count_chars($value);
 
-        for ($i = 0; $i < $countChars; $i++) {
-            $p = $value[$i] / $size;
+        foreach ($countChars as $v) {
+            $p = $v / $size;
             $entroy -= $p * log($p) / log(2);
         }
 
@@ -374,11 +374,11 @@ class StringUtils
      *
      * @param string $input String to count chars.
      *
-     * @return int 
+     * @return array 
      *
      * @since  1.0.0
      */
-    public static function mb_count_chars(string $input) : int
+    public static function mb_count_chars(string $input) : array
     {
         $l      = mb_strlen($input, 'UTF-8');
         $unique = [];
