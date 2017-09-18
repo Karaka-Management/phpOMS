@@ -12,8 +12,8 @@
  * @link       http://orange-management.com
  */
 declare(strict_types=1);
+
 namespace phpOMS\Account;
-use phpOMS\Account\PermissionType;
 
 /**
  * InfoManager class.
@@ -125,90 +125,6 @@ abstract class PermissionAbstract
     }
 
     /**
-     * Get app name.
-     *
-     * @return string
-     *
-     * @since  1.0.0
-     */
-    public function getApp() /* : ?string */
-    {
-        return $this->app;
-    }
-
-    /**
-     * Get module id.
-     *
-     * @return int
-     *
-     * @since  1.0.0
-     */
-    public function getModule() /* : ?int */
-    {
-        return $this->module;
-    }
-
-    /**
-     * Get providing module id.
-     *
-     * @return int
-     *
-     * @since  1.0.0
-     */
-    public function getFrom() /* : ?int */
-    {
-        return $this->from;
-    }
-
-    /**
-     * Get type.
-     *
-     * @return int
-     *
-     * @since  1.0.0
-     */
-    public function getType() /* : ?int */
-    {
-        return $this->type;
-    }
-
-    /**
-     * Get element id.
-     *
-     * @return int
-     *
-     * @since  1.0.0
-     */
-    public function getElement() /* : ?int */
-    {
-        return $this->element;
-    }
-
-    /**
-     * Get component id.
-     *
-     * @return int
-     *
-     * @since  1.0.0
-     */
-    public function getComponent() /* : ?int */
-    {
-        return $this->component;
-    }
-
-    /**
-     * Get permission
-     *
-     * @return int
-     *
-     * @since  1.0.0
-     */
-    public function getPermission() : int
-    {
-        return $this->permission;
-    }
-
-    /**
      * Set unit id.
      *
      * @param int $unit Unit
@@ -220,6 +136,18 @@ abstract class PermissionAbstract
     public function setUnit(int $unit = null) /* : void */
     {
         $this->unit = $unit;
+    }
+
+    /**
+     * Get app name.
+     *
+     * @return string
+     *
+     * @since  1.0.0
+     */
+    public function getApp() /* : ?string */
+    {
+        return $this->app;
     }
 
     /**
@@ -237,6 +165,18 @@ abstract class PermissionAbstract
     }
 
     /**
+     * Get module id.
+     *
+     * @return int
+     *
+     * @since  1.0.0
+     */
+    public function getModule() /* : ?int */
+    {
+        return $this->module;
+    }
+
+    /**
      * Set module id.
      *
      * @param int $module Module
@@ -248,6 +188,18 @@ abstract class PermissionAbstract
     public function setModule(int $module = null) /* : void */
     {
         $this->module = $module;
+    }
+
+    /**
+     * Get providing module id.
+     *
+     * @return int
+     *
+     * @since  1.0.0
+     */
+    public function getFrom() /* : ?int */
+    {
+        return $this->from;
     }
 
     /**
@@ -265,6 +217,18 @@ abstract class PermissionAbstract
     }
 
     /**
+     * Get type.
+     *
+     * @return int
+     *
+     * @since  1.0.0
+     */
+    public function getType() /* : ?int */
+    {
+        return $this->type;
+    }
+
+    /**
      * Set type.
      *
      * @param int $type Type
@@ -276,6 +240,18 @@ abstract class PermissionAbstract
     public function setType(int $type = null) /* : void */
     {
         $this->type = $type;
+    }
+
+    /**
+     * Get element id.
+     *
+     * @return int
+     *
+     * @since  1.0.0
+     */
+    public function getElement() /* : ?int */
+    {
+        return $this->element;
     }
 
     /**
@@ -293,6 +269,18 @@ abstract class PermissionAbstract
     }
 
     /**
+     * Get component id.
+     *
+     * @return int
+     *
+     * @since  1.0.0
+     */
+    public function getComponent() /* : ?int */
+    {
+        return $this->component;
+    }
+
+    /**
      * Set component id.
      *
      * @param int $component Component
@@ -304,6 +292,18 @@ abstract class PermissionAbstract
     public function setComponent(int $component = null) /* : void */
     {
         $this->component = $component;
+    }
+
+    /**
+     * Get permission
+     *
+     * @return int
+     *
+     * @since  1.0.0
+     */
+    public function getPermission() : int
+    {
+        return $this->permission;
     }
 
     /**
