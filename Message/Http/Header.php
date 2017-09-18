@@ -93,14 +93,6 @@ class Header extends HeaderAbstract
     }
     
     /**
-     * {@inheritdoc}
-     */
-    public function getProtocolVersion() : string
-    {
-        return $_SERVER['SERVER_PROTOCOL'] ?? 'HTTP/1.1';
-    }
-
-    /**
      * Is security header.
      *
      * @param string $key Header key
@@ -115,6 +107,14 @@ class Header extends HeaderAbstract
             || $key === 'x-xss-protection'
             || $key === 'x-content-type-options'
             || $key === 'x-frame-options';
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getProtocolVersion() : string
+    {
+        return $_SERVER['SERVER_PROTOCOL'] ?? 'HTTP/1.1';
     }
 
     /**
@@ -195,6 +195,14 @@ class Header extends HeaderAbstract
     }
 
     /**
+     * {@inheritdoc}
+     */
+    public function getReasonPhrase() : string
+    {
+        return $this->get('Status');
+    }
+
+    /**
      * Get header by name.
      *
      * @param string $key Header key
@@ -206,14 +214,6 @@ class Header extends HeaderAbstract
     public function get(string $key) : array
     {
         return $this->header[strtolower($key)] ?? [];
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function getReasonPhrase() : string
-    {
-        return $this->get('Status');
     }
 
     /**
@@ -339,12 +339,12 @@ class Header extends HeaderAbstract
      *
      * @since  1.0.0
      */
-    private function generate500() /* : void */
+    private function generate503() /* : void */
     {
-        $this->set('HTTP', 'HTTP/1.0 500 Internal Server Error');
-        $this->set('Status', 'Status: 500 Internal Server Error');
+        $this->set('HTTP', 'HTTP/1.0 503 Service Temporarily Unavailable');
+        $this->set('Status', 'Status: 503 Service Temporarily Unavailable');
         $this->set('Retry-After', 'Retry-After: 300');
-        \http_response_code(500);
+        \http_response_code(503);
     }
 
     /**
@@ -354,11 +354,11 @@ class Header extends HeaderAbstract
      *
      * @since  1.0.0
      */
-    private function generate503() /* : void */
+    private function generate500() /* : void */
     {
-        $this->set('HTTP', 'HTTP/1.0 503 Service Temporarily Unavailable');
-        $this->set('Status', 'Status: 503 Service Temporarily Unavailable');
+        $this->set('HTTP', 'HTTP/1.0 500 Internal Server Error');
+        $this->set('Status', 'Status: 500 Internal Server Error');
         $this->set('Retry-After', 'Retry-After: 300');
-        \http_response_code(503);
+        \http_response_code(500);
     }
 }

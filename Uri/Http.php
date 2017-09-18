@@ -281,6 +281,20 @@ class Http implements UriInterface
     /**
      * {@inheritdoc}
      */
+    public function getQuery(string $key = null) /* : ?string */
+    {
+        if(isset($key)) {
+            $key = strtolower($key);
+
+            return $this->query[$key] ?? '';
+        }
+
+        return $this->queryString;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
     public function getPathElement(int $pos = null) : string
     {
         return explode('/', $this->path)[$pos];
@@ -292,20 +306,6 @@ class Http implements UriInterface
     public function getPathElements() : array
     {
         return explode('/', $this->path);    
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function getQuery(string $key = null) /* : ?string */
-    {
-        if(isset($key)) {
-            $key = strtolower($key);
-
-            return $this->query[$key] ?? '';
-        }
-
-        return $this->queryString;
     }
 
     /**

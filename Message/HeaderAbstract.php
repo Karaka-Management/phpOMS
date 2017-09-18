@@ -71,6 +71,29 @@ abstract class HeaderAbstract
     }
     
     /**
+     * Set header locked.
+     *
+     * @since  1.0.0
+     */
+    public static function lock() /* : void */
+    {
+        // todo: maybe pass session as member and make lock not static
+        self::$isLocked = true;
+    }
+    
+    /**
+     * Is header locked?
+     *
+     * @return bool
+     *
+     * @since  1.0.0
+     */
+    public static function isLocked() : bool
+    {
+        return self::$isLocked;
+    }
+
+    /**
      * Get Localization
      *
      * @return Localization
@@ -81,7 +104,7 @@ abstract class HeaderAbstract
     {
         return $this->l11n;
     }
-    
+
     /**
      * Set localization
      *
@@ -121,7 +144,6 @@ abstract class HeaderAbstract
     {
         $this->account = $account;
     }
-
     
     /**
      * Set status code
@@ -139,6 +161,15 @@ abstract class HeaderAbstract
     }
 
     /**
+     * Generate header based on status code.
+     *
+     * @param int $statusCode Status code
+     *
+     * @since  1.0.0
+     */
+    abstract public function generate(int $statusCode) /* : void */;
+
+    /**
      * Get status code
      *
      * @return int
@@ -149,7 +180,7 @@ abstract class HeaderAbstract
     {
         return $this->status;
     }
-    
+
     /**
      * Get protocol version.
      *
@@ -169,15 +200,6 @@ abstract class HeaderAbstract
      * @since  1.0.0
      */
     abstract public function set(string $key, string $value, bool $overwrite = false);
-
-    /**
-     * Generate header based on status code.
-     *
-     * @param int $statusCode Status code
-     *
-     * @since  1.0.0
-     */
-    abstract public function generate(int $statusCode) /* : void */;
 
     /**
      * Get header by key.
@@ -200,27 +222,4 @@ abstract class HeaderAbstract
      * @since  1.0.0
      */
     abstract public function has(string $key) : bool;
-
-    /**
-     * Set header locked.
-     *
-     * @since  1.0.0
-     */
-    public static function lock() /* : void */
-    {
-        // todo: maybe pass session as member and make lock not static
-        self::$isLocked = true;
-    }
-
-    /**
-     * Is header locked?
-     *
-     * @return bool
-     *
-     * @since  1.0.0
-     */
-    public static function isLocked() : bool
-    {
-        return self::$isLocked;
-    }
 }
