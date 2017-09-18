@@ -238,7 +238,7 @@ class Account implements ArrayableInterface, \JsonSerializable
     /**
      * Add permission.
      *
-     * @param PermissionAbstract $permissions
+     * @param PermissionAbstract $permission
      *
      * @return void
      *
@@ -308,6 +308,20 @@ class Account implements ArrayableInterface, \JsonSerializable
     }
 
     /**
+     * Set name1.
+     *
+     * @param string $name Name
+     *
+     * @return void
+     *
+     * @since  1.0.0
+     */
+    public function setName1(string $name) /* : void */
+    {
+        $this->name1 = $name;
+    }
+
+    /**
      * Get name2.
      *
      * @return string
@@ -317,6 +331,20 @@ class Account implements ArrayableInterface, \JsonSerializable
     public function getName2() : string
     {
         return $this->name2;
+    }
+
+    /**
+     * Set name2.
+     *
+     * @param string $name Name
+     *
+     * @return void
+     *
+     * @since  1.0.0
+     */
+    public function setName2(string $name) /* : void */
+    {
+        $this->name2 = $name;
     }
 
     /**
@@ -332,6 +360,20 @@ class Account implements ArrayableInterface, \JsonSerializable
     }
 
     /**
+     * Set name3.
+     *
+     * @param string $name Name
+     *
+     * @return void
+     *
+     * @since  1.0.0
+     */
+    public function setName3(string $name) /* : void */
+    {
+        $this->name3 = $name;
+    }
+
+    /**
      * Get email.
      *
      * @return string
@@ -341,6 +383,24 @@ class Account implements ArrayableInterface, \JsonSerializable
     public function getEmail() : string
     {
         return $this->email;
+    }
+
+    /**
+     * Set email.
+     *
+     * @param string $email Email
+     *
+     * @return void
+     *
+     * @since  1.0.0
+     */
+    public function setEmail(string $email) /* : void */
+    {
+        if (!Email::isValid($email)) {
+            throw new \InvalidArgumentException();
+        }
+
+        $this->email = mb_strtolower($email);
     }
 
     /**
@@ -358,6 +418,24 @@ class Account implements ArrayableInterface, \JsonSerializable
     }
 
     /**
+     * Get status.
+     *
+     * @param int $status Status
+     *
+     * @return void
+     *
+     * @since  1.0.0
+     */
+    public function setStatus(int $status) /* : void */
+    {
+        if (!AccountStatus::isValidValue($status)) {
+            throw new \InvalidArgumentException();
+        }
+
+        $this->status = $status;
+    }
+
+    /**
      * Get type.
      *
      * AccountType
@@ -369,6 +447,24 @@ class Account implements ArrayableInterface, \JsonSerializable
     public function getType() : int
     {
         return $this->type;
+    }
+
+    /**
+     * Get type.
+     *
+     * @param int $type Type
+     *
+     * @return void
+     *
+     * @since  1.0.0
+     */
+    public function setType(int $type) /* : void */
+    {
+        if (!AccountType::isValidValue($type)) {
+            throw new \InvalidArgumentException();
+        }
+
+        $this->type = $type;
     }
 
     /**
@@ -424,102 +520,6 @@ class Account implements ArrayableInterface, \JsonSerializable
     }
 
     /**
-     * Set name1.
-     *
-     * @param string $name Name
-     *
-     * @return void
-     *
-     * @since  1.0.0
-     */
-    public function setName1(string $name) /* : void */
-    {
-        $this->name1 = $name;
-    }
-
-    /**
-     * Set name2.
-     *
-     * @param string $name Name
-     *
-     * @return void
-     *
-     * @since  1.0.0
-     */
-    public function setName2(string $name) /* : void */
-    {
-        $this->name2 = $name;
-    }
-
-    /**
-     * Set name3.
-     *
-     * @param string $name Name
-     *
-     * @return void
-     *
-     * @since  1.0.0
-     */
-    public function setName3(string $name) /* : void */
-    {
-        $this->name3 = $name;
-    }
-
-    /**
-     * Set email.
-     *
-     * @param string $email Email
-     *
-     * @return void
-     *
-     * @since  1.0.0
-     */
-    public function setEmail(string $email) /* : void */
-    {
-        if (!Email::isValid($email)) {
-            throw new \InvalidArgumentException();
-        }
-
-        $this->email = mb_strtolower($email);
-    }
-
-    /**
-     * Get status.
-     *
-     * @param int $status Status
-     *
-     * @return void
-     *
-     * @since  1.0.0
-     */
-    public function setStatus(int $status) /* : void */
-    {
-        if (!AccountStatus::isValidValue($status)) {
-            throw new \InvalidArgumentException();
-        }
-
-        $this->status = $status;
-    }
-
-    /**
-     * Get type.
-     *
-     * @param int $type Type
-     *
-     * @return void
-     *
-     * @since  1.0.0
-     */
-    public function setType(int $type) /* : void */
-    {
-        if (!AccountType::isValidValue($type)) {
-            throw new \InvalidArgumentException();
-        }
-
-        $this->type = $type;
-    }
-
-    /**
      * Update last activity.
      *
      * @return void
@@ -529,6 +529,18 @@ class Account implements ArrayableInterface, \JsonSerializable
     public function updateLastActive() /* : void */
     {
         $this->lastActive = new \DateTime('NOW');
+    }
+
+    /**
+     * Get string representation.
+     *
+     * @return string
+     *
+     * @since  1.0.0
+     */
+    public function __toString()
+    {
+        return json_encode($this->toArray());
     }
 
     /**
@@ -550,18 +562,6 @@ class Account implements ArrayableInterface, \JsonSerializable
             'type'        => $this->type,
             'status'      => $this->status,
         ];
-    }
-
-    /**
-     * Get string representation.
-     *
-     * @return string
-     *
-     * @since  1.0.0
-     */
-    public function __toString()
-    {
-        return json_encode($this->toArray());
     }
 
     /**
