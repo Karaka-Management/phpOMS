@@ -16,6 +16,7 @@ declare(strict_types=1);
 namespace phpOMS\Module;
 
 use phpOMS\ApplicationAbstract;
+use phpOMS\Autoloader;
 use phpOMS\DataStorage\Database\DatabaseType;
 use phpOMS\Message\Http\Request;
 use phpOMS\System\File\PathException;
