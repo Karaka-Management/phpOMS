@@ -16,7 +16,6 @@ declare(strict_types=1);
 namespace phpOMS\Module;
 
 use phpOMS\ApplicationAbstract;
-use phpOMS\Autoloader;
 
 /**
  * ModuleFactory class.
