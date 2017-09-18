@@ -15,6 +15,7 @@ declare(strict_types=1);
 
 namespace phpOMS\Module;
 
+use phpOMS\Autoloader;
 use phpOMS\ApplicationAbstract;
 
 /**
