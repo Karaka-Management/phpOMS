@@ -269,12 +269,12 @@ class Account implements ArrayableInterface, \JsonSerializable
         $app = isset($app) ? strtolower($app) : $app;
 
         foreach($this->permissions as $p) {
-            if(($p->getUnit() === $unit || $p->getUnit() === null)
-                && ($p->getApp() === $app || $p->getApp() === null) 
-                && ($p->getModule() === $module || $p->getModule() === null) 
-                && ($p->getType() === $type || $p->getType() === null) 
-                && ($p->getElement() === $element || $p->getElement() === null) 
-                && ($p->getComponent() === $component || $p->getComponent() === null) 
+            if(($p->getUnit() === $unit || $p->getUnit() === null || !isset($unit))
+                && ($p->getApp() === $app || $p->getApp() === null || !isset($app)) 
+                && ($p->getModule() === $module || $p->getModule() === null || !isset($module)) 
+                && ($p->getType() === $type || $p->getType() === null || !isset($type)) 
+                && ($p->getElement() === $element || $p->getElement() === null || !isset($element)) 
+                && ($p->getComponent() === $component || $p->getComponent() === null || !isset($component)) 
                 && ($p->getPermission() | $permission) === $p->getPermission()) {
                 return true;
             }
