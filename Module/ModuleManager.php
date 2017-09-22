@@ -141,7 +141,7 @@ class ModuleManager
     public function getUriLoad(Request $request) : array
     {
         if (!isset($this->uriLoad)) {
-            switch ($this->app->dbPool->get('core')->getType()) {
+            switch ($this->app->dbPool->get('select')->getType()) {
                 case DatabaseType::MYSQL:
                     $uriHash = $request->getHash();
                     $uriPdo  = '';
@@ -157,11 +157,11 @@ class ModuleManager
                     $uriPdo = rtrim($uriPdo, ',');
 
                     /* TODO: make join in order to see if they are active */
-                    $sth = $this->app->dbPool->get('core')->con->prepare(
+                    $sth = $this->app->dbPool->get('select')->con->prepare(
                         'SELECT
-                    `' . $this->app->dbPool->get('core')->prefix . 'module_load`.`module_load_type`, `' . $this->app->dbPool->get('core')->prefix . 'module_load`.*
+                    `' . $this->app->dbPool->get('select')->prefix . 'module_load`.`module_load_type`, `' . $this->app->dbPool->get('select')->prefix . 'module_load`.*
                     FROM
-                    `' . $this->app->dbPool->get('core')->prefix . 'module_load`
+                    `' . $this->app->dbPool->get('select')->prefix . 'module_load`
                     WHERE
                     `module_load_pid` IN(' . $uriPdo . ')'
                     );
@@ -191,9 +191,9 @@ class ModuleManager
     public function getActiveModules() : array
     {
         if ($this->active === null) {
-            switch ($this->app->dbPool->get('core')->getType()) {
+            switch ($this->app->dbPool->get('select')->getType()) {
                 case DatabaseType::MYSQL:
-                    $sth = $this->app->dbPool->get('core')->con->prepare('SELECT `module_path` FROM `' . $this->app->dbPool->get('core')->prefix . 'module` WHERE `module_active` = 1');
+                    $sth = $this->app->dbPool->get('select')->con->prepare('SELECT `module_path` FROM `' . $this->app->dbPool->get('select')->prefix . 'module` WHERE `module_active` = 1');
                     $sth->execute();
                     $this->active = $sth->fetchAll(\PDO::FETCH_COLUMN);
                     break;
@@ -289,9 +289,9 @@ class ModuleManager
     public function getInstalledModules() : array
     {
         if ($this->installed === null) {
-            switch ($this->app->dbPool->get('core')->getType()) {
+            switch ($this->app->dbPool->get('select')->getType()) {
                 case DatabaseType::MYSQL:
-                    $sth = $this->app->dbPool->get('core')->con->prepare('SELECT `module_id`,`module_theme`,`module_version` FROM `' . $this->app->dbPool->get('core')->prefix . 'module`');
+                    $sth = $this->app->dbPool->get('select')->con->prepare('SELECT `module_id`,`module_theme`,`module_version` FROM `' . $this->app->dbPool->get('select')->prefix . 'module`');
                     $sth->execute();
                     $this->installed = $sth->fetchAll(\PDO::FETCH_GROUP);
                     break;
