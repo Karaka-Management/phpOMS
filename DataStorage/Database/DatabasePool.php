@@ -77,10 +77,14 @@ class DatabasePool
      *
      * @since  1.0.0
      */
-    public function get(string $key = 'core') /* : ?ConnectionAbstract */
+    public function get(string $key = '') /* : ?ConnectionAbstract */
     {
-        if (!isset($this->pool[$key])) {
-            return null; /* todo: return nullconnection */
+        if((!empty($key) && !isset($this->pool[$key])) || empty($this->pool)) {
+            return null;
+        }
+
+        if(empty($key)) {
+            return reset($this->pool);
         }
 
         return $this->pool[$key];
