@@ -297,7 +297,7 @@ class Http implements UriInterface
      */
     public function getPathElement(int $pos = null) : string
     {
-        return explode('/', $this->path)[$pos];
+        return explode('/', $this->path)[$pos] ?? '';
     }
 
     /**
