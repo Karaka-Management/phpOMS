@@ -104,10 +104,14 @@ class CachePool implements OptionsInterface
      *
      * @since  1.0.0
      */
-    public function get(string $key) /* : ?CacheInterface */
+    public function get(string $key = '') /* : ?CacheInterface */
     {
-        if (!isset($this->pool[$key])) {
+        if((!empty($key) && !isset($this->pool[$key])) || empty($this->pool)) {
             return null;
+        }
+
+        if(empty($key)) {
+            return reset($this->pool);
         }
 
         return $this->pool[$key];
