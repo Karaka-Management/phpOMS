@@ -1878,12 +1878,24 @@ class DataMapperAbstract implements DataMapperInterface
         $countResulsts = count($obj);
 
         if($countResulsts === 0) {
-            return null;
+            return self::getNullModelObj();
         } elseif($countResulsts === 1) {
             return reset($obj);
         }
 
         return $obj;
+    }
+
+    private static function getNullModelObj()
+    {
+        $class     = static::class;
+        $class     = str_replace('Mapper', '', $class);
+        $parts     = explode('\\', $class);
+        $name      = $parts[$c = (count($parts) - 1)];
+        $parts[$c] = 'Null' . $name;
+        $class     = implode('\\', $parts);
+
+        return new $class();
     }
 
     /**
@@ -1961,7 +1973,7 @@ class DataMapperAbstract implements DataMapperInterface
         $countResulsts = count($obj);
 
         if($countResulsts === 0) {
-            return null;
+            return self::getNullModelObj();
         } elseif($countResulsts === 1) {
             return reset($obj);
         }
@@ -2465,13 +2477,7 @@ class DataMapperAbstract implements DataMapperInterface
                 $result = static::getAllByQuery($query);
             }
         } else {
-            $class     = static::class;
-            $class     = str_replace('Mapper', '', $class);
-            $parts     = explode('\\', $class);
-            $name      = $parts[$c = (count($parts) - 1)];
-            $parts[$c] = 'Null' . $name;
-            $class     = implode('\\', $parts);
-            $result    = new $class();
+            return self::getNullModelObj();
         }
 
         return $result;
