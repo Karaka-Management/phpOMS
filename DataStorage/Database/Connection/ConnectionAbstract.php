@@ -111,6 +111,42 @@ abstract class ConnectionAbstract implements ConnectionInterface
     }
 
     /**
+     * Get database name.
+     *
+     * @return string
+     *
+     * @since  1.0.0
+     */
+    public function getDatabase() : string
+    {
+        return $this->dbdata['database'];
+    }
+
+    /**
+     * Get database host.
+     *
+     * @return string
+     *
+     * @since  1.0.0
+     */
+    public function getHost() : string
+    {
+        return $this->dbdata['host'];
+    }
+
+    /**
+     * Get database port.
+     *
+     * @return int
+     *
+     * @since  1.0.0
+     */
+    public function getPort() : int
+    {
+        return (int) $this->dbdata['port'];
+    }
+
+    /**
      * Get table prefix.
      *
      * @return string
