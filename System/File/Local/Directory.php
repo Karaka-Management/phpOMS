@@ -88,6 +88,25 @@ class Directory extends FileAbstract implements DirectoryInterface
         return $list;
     }
 
+    public static function listByExtension(string $dir, string $extension) : array
+    {
+        $files = [];
+        $ffs   = scandir($dir);
+        foreach ($ffs as $ff) {
+            if ($ff !== '.' && $ff !== '..') {
+                if (is_dir($dir . '/' . $ff)) {
+                    $files = array_merge($files, self::listFilesByExtension($dir . '/' . $ff, $extension));
+                } else {
+                    if (StringUtils::endsWith($ff, $extension)) {
+                        $files[] = $dir . '/' . $ff;
+                    }
+                }
+            }
+        }
+    
+        return $files;
+    }
+
     /**
      * {@inheritdoc}
      */
