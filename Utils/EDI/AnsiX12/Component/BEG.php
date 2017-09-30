@@ -13,24 +13,18 @@
  */
 declare(strict_types=1);
 
-namespace phpOMS\Utils\EDI\AnsiX12\Purchase\PurchaseOrder;
-
-use phpOMS\Utils\EDI\AnsiX12\Component;
+namespace phpOMS\Utils\EDI\AnsiX12\Components;
 
 /**
- * EDI 850 - Purchase order.
+ * EDI Header
  *
+ * @link       https://www.erico.com/public/library/edi/ERICO850_4010.pdf
  * @category   Framework
  * @package    phpOMS\Utils\Converter
  * @license    OMS License 1.0
  * @link       http://orange-management.com
  * @since      1.0.0
  */
-class EDI850Summary
+class BEG
 {
-    private $summaryTransationTotals = 0;
-
-    private $summaryMonetaryAmount = 0;
-
-    private $summaryTransectionSetTrailer = '';
 }

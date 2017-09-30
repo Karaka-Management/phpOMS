@@ -81,4 +81,41 @@ class FileUtils
 
         return ExtensionType::UNKNOWN;
     }
+
+    /**
+     * Make file path absolute
+     *
+     * @param string $origPath File path
+     *
+     * @return string
+     *
+     * @since  1.0.0
+     */
+    public static function absolute(string $origPath) : string
+    {
+        if(!file_exists($origPath)) {
+            $startsWithSlash = strpos($origPath, '/') === 0 ? '/' : '';
+
+            $path = [];
+            $parts = explode('/', $origPath);
+
+            foreach($parts as $part) {
+                if (empty($part) || $part === '.') {
+                    continue;
+                }
+          
+                if ($part !== '..') {
+                    $path[] = $part;
+                } elseif (!empty($path)) {
+                    array_pop($path);
+                } else {
+                    throw new PathException($origPath);
+                }
+            }
+          
+            return $startsWithSlash . implode('/', $path);
+        }
+
+        return realpath($origPath);
+    }
 }

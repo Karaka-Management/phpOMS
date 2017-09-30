@@ -48,6 +48,11 @@ class StringCompare
         $this->dictionary = $dictionary;
     }
 
+    public function add(string $word) /* : void */
+    {
+        $this->dictionary[] = $word;
+    }
+
     /**
      * Match word against dictionary.
      *
@@ -66,6 +71,7 @@ class StringCompare
             $score = self::fuzzyMatch($word, $match);
 
             if($score < $bestScore) {
+                $bestScore = $score;
                 $bestMatch = $word;
             }
         }

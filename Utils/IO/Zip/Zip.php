@@ -15,6 +15,9 @@ declare(strict_types=1);
 
 namespace phpOMS\Utils\IO\Zip;
 
+use phpOMS\System\File\FileUtils;
+use phpOMS\Utils\StringUtils;
+
 /**
  * Zip class for handling zip files.
  *
@@ -34,19 +37,19 @@ class Zip implements ArchiveInterface
      */
     public static function pack($sources, string $destination, bool $overwrite = true) : bool
     {
-        $destination = str_replace('\\', '/', realpath($destination));
+        $destination = FileUtils::absolute(str_replace('\\', '/', $destination));
 
         if (!$overwrite && file_exists($destination)) {
             return false;
         }
 
         $zip = new \ZipArchive();
-        if (!$zip->open($destination, $overwrite ? \ZipArchive::OVERWRITE : \ZipArchive::CREATE)) {
+        if (!$zip->open($destination, $overwrite ? \ZipArchive::CREATE | \ZipArchive::OVERWRITE : \ZipArchive::CREATE)) {
             return false;
         }
 
         /** @var array $sources */
-        foreach ($sources as $source) {
+        foreach ($sources as $source => $relative) {
             $source = str_replace('\\', '/', realpath($source));
 
             if (!file_exists($source)) {
@@ -67,13 +70,13 @@ class Zip implements ArchiveInterface
                     $file = realpath($file);
 
                     if (is_dir($file)) {
-                        $zip->addEmptyDir(str_replace($source . '/', '', $file . '/'));
+                        $zip->addEmptyDir(str_replace($relative . '/', '', $file . '/'));
                     } elseif (is_file($file)) {
-                        $zip->addFile(str_replace($source . '/', '', $file), $file);
+                        $zip->addFile(str_replace($relative . '/', '', $file), $file);
                     }
                 }
             } elseif (is_file($source)) {
-                $zip->addFile(basename($source), $source);
+                $zip->addFile($source, $relative);
             }
         }
 

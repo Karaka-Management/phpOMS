@@ -86,7 +86,6 @@ final class Dictionary
         }
 
         sort($count);
-
         while (count($count) > 1) {
             $row1    = array_shift($count);
             $row2    = array_shift($count);
@@ -101,14 +100,14 @@ final class Dictionary
     /**
      * Fill dictionary.
      *
-     * @param string $entry Source data to generate dictionary from
+     * @param array $entry Source data to generate dictionary from
      * @param string $value Dictionary value
      *
      * @return void
      *
      * @since  1.0.0
      */
-    private function fill(string $entry, string $value = '') /* : void */
+    private function fill(array $entry, string $value = '') /* : void */
     {
         if (!is_array($entry[0][1])) {
             $this->set($entry[0][1], $value . '0');
@@ -143,8 +142,8 @@ final class Dictionary
             throw new \Exception('Must be a character.');
         }
 
-        if (!isset($this->dictionary[$entry])) {
-            throw new \Exception('Character does not exist');
+        if (isset($this->dictionary[$entry])) {
+            throw new \Exception('Character already exists');
         }
 
         if (strlen(str_replace('0', '', str_replace('1', '', $value))) !== 0) {
