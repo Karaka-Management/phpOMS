@@ -24,7 +24,7 @@ namespace phpOMS\DataStorage\Database\Exception;
  * @link       http://orange-management.com
  * @since      1.0.0
  */
-class InvalidConnectionConfigException extends \RuntimeException
+class InvalidConnectionConfigException extends \InvalidArgumentException
 {
     /**
      * Constructor.
