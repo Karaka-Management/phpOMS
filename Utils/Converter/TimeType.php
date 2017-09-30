@@ -30,7 +30,7 @@ abstract class TimeType extends Enum
 {
     /* public */ const MILLISECONDS = 'ms';
     /* public */ const SECONDS = 's';
-    /* public */ const MINUTES = 'm';
+    /* public */ const MINUTES = 'i';
     /* public */ const HOURS = 'h';
     /* public */ const DAYS = 'd';
     /* public */ const WEEKS = 'w';

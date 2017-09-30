@@ -36,7 +36,7 @@ abstract class VolumeType extends Enum
     /* public */ const US_PINT_DRY = 'US pt dry';
     /* public */ const US_QUARTS_LIQUID = 'US qt lqd';
     /* public */ const US_QUARTS_DRY = 'US qt dry';
-    /* public */ const UK_QUARTS = 'US qt dry';
+    /* public */ const UK_QUARTS = 'UK qt dry';
     /* public */ const US_GILL = 'US gi';
     /* public */ const UK_GILL = 'UK gi';
     /* public */ const LITER = 'L';
