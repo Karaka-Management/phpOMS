@@ -28,7 +28,7 @@ use phpOMS\Stdlib\Base\Enum;
  */
 abstract class AngleType extends Enum
 {
-    /* public */ const DEGREE = 'º';
+    /* public */ const DEGREE = 'deg';
     /* public */ const RADIAN = 'rad';
     /* public */ const SECOND = 'arcsec';
     /* public */ const MINUTE = 'arcmin';

@@ -34,7 +34,7 @@ abstract class PressureType extends Enum
     /* public */ const ATMOSPHERES = 'atm';
     /* public */ const INCHES_OF_MERCURY = 'inHg';
     /* public */ const INCHES_OF_WATER = 'inH20';
-    /* public */ const MILLIMETERS_OF_WATER = 'mmH2O';
+    /* public */ const MILLIMETERS_OF_WATER = 'mmH20';
     /* public */ const MILLIMETERS_OF_MERCURY = 'mmHg';
     /* public */ const MILLIBAR = 'mbar';
     /* public */ const KILOGRAM_PER_SQUARE_METER = 'kg/m2';
