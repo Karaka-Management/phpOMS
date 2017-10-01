@@ -76,7 +76,7 @@ class Header extends HeaderAbstract
         if (!$overwrite && isset($this->header[$key])) {
             return false;
         } elseif ($overwrite || !isset($this->header[$key])) {
-            if ($this->isSecurityHeader($key) && isset($this->header[$key])) {
+            if (self::isSecurityHeader($key) && isset($this->header[$key])) {
                 throw new \Exception('Cannot change security headers.');
             }
 
@@ -101,8 +101,10 @@ class Header extends HeaderAbstract
      *
      * @since  1.0.0
      */
-    private function isSecurityHeader(string $key) : bool
+    public static function isSecurityHeader(string $key) : bool
     {
+        $key = strtolower($key);
+
         return $key === 'content-security-policy'
             || $key === 'x-xss-protection'
             || $key === 'x-content-type-options'
@@ -130,19 +132,7 @@ class Header extends HeaderAbstract
             $this->status = \http_response_code();
         }
         
-        return $this->status;
-    }
-
-    /**
-     * Returns all pushed headers.
-     *
-     * @return array
-     *
-     * @since  1.0.0
-     */
-    public function getHeaders() : array
-    {
-        return self::getAllHeaders();
+        return (int) $this->status;
     }
 
     /**
@@ -152,7 +142,7 @@ class Header extends HeaderAbstract
      *
      * @since  1.0.0
      */
-    private static function getAllHeaders() : array
+    public static function getAllHeaders() : array
     {
         if (function_exists('getallheaders')) {
             return getallheaders();
@@ -171,7 +161,7 @@ class Header extends HeaderAbstract
     /**
      * Remove header by ID.
      *
-     * @param int $key Header key
+     * @param mixed $key Header key
      *
      * @return bool
      *
@@ -179,7 +169,7 @@ class Header extends HeaderAbstract
      *
      * @since  1.0.0
      */
-    public function remove(int $key) : bool
+    public function remove($key) : bool
     {
         if (self::$isLocked) {
             throw new LockException('HTTP header');
@@ -199,7 +189,9 @@ class Header extends HeaderAbstract
      */
     public function getReasonPhrase() : string
     {
-        return $this->get('Status');
+        $phrases = $this->get('Status');
+
+        return empty($phrases) ? '' : $phrases[0];
     }
 
     /**
