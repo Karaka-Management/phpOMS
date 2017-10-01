@@ -67,12 +67,14 @@ class Zip implements ArchiveInterface
                         continue;
                     }
 
-                    $file = realpath($file);
+                    $absolute = realpath($file);
+                    $absolute = str_replace('\\', '/', $absolute);
+                    $dir = str_replace($source . '/', '', $relative . '/' . $absolute);
 
-                    if (is_dir($file)) {
-                        $zip->addEmptyDir(str_replace($relative . '/', '', $file . '/'));
-                    } elseif (is_file($file)) {
-                        $zip->addFile(str_replace($relative . '/', '', $file), $file);
+                    if (is_dir($absolute)) {
+                        $zip->addEmptyDir($dir . '/');
+                    } elseif (is_file($absolute)) {
+                        $zip->addFile($absolute, $dir);
                     }
                 }
             } elseif (is_file($source)) {
@@ -88,18 +90,19 @@ class Zip implements ArchiveInterface
      */
     public static function unpack(string $source, string $destination) : bool
     {
-        $destination = str_replace('\\', '/', realpath($destination));
-
-        if (file_exists($destination)) {
+        if(!file_exists($source)) {
             return false;
         }
 
+        $destination = str_replace('\\', '/', $destination);
+        $destination = rtrim($destination, '/');
+
         $zip = new \ZipArchive();
-        if (!$zip->open($destination)) {
+        if (!$zip->open($source)) {
             return false;
         }
         
-        $zip->extractTo($destination);
+        $zip->extractTo($destination . '/');
         
         return $zip->close();
     }

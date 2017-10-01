@@ -42,6 +42,6 @@ class DateTime
         $startDate = strtotime($start);
         $endDate   = strtotime($end);
 
-        return new \DateTime(date('Y-m-d H:i:s', rand($startDate, $endDate)));
+        return new \DateTime(date('Y-m-d H:i:s', mt_rand($startDate, $endDate)));
     }
 }
