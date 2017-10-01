@@ -83,7 +83,7 @@ class FileCache implements CacheInterface
     public function __construct(string $path)
     {
         if (!Directory::exists(File::parent($path))) {
-            Directory::create($path);
+            Directory::create($path, 0664, true);
         }
 
         $this->cachePath = realpath($path);
