@@ -82,7 +82,7 @@ class Directory extends FileAbstract implements DirectoryInterface
         $list = [];
 
         foreach (glob($path . DIRECTORY_SEPARATOR . $filter) as $filename) {
-            $list[] = $filename;
+            $list[] = str_replace(['/\\', '\\'], ['/', '/'], $filename);
         }
 
         return $list;
