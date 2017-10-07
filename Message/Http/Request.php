@@ -75,7 +75,7 @@ class Request extends RequestAbstract
     public function __construct(Localization $l11n = null, UriInterface $uri = null)
     {
         $this->header = new Header();
-        $this->header->setL11n($l11n);
+        $this->header->setL11n($l11n ?? new Localization());
 
         $this->uri    = $uri;
         $this->source = RequestSource::WEB;
@@ -209,7 +209,7 @@ class Request extends RequestAbstract
      */
     public function setUri(UriInterface $uri) /* : void */
     {
-        $this->uri = $uri;
+        parent::setUri($uri);
         $this->data += $uri->getQueryArray();
     }
 
@@ -377,21 +377,6 @@ class Request extends RequestAbstract
             || (($_SERVER['HTTP_X_FORWARDED_PROTO'] ?? '') === 'https')
             || (($_SERVER['HTTP_X_FORWARDED_SSL'] ?? '') === 'on')
             || ($_SERVER['SERVER_PORT'] ?? '') == $port;
-    }
-
-    /**
-     * Stringify request.
-     *
-     * @return string
-     *
-     * @since  1.0.0
-     */
-    public function __toString()
-    {
-        $lastElement = end($this->hash);
-        reset($this->hash);
-
-        return $lastElement;
     }
 
     /**
