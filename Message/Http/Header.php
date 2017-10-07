@@ -129,10 +129,10 @@ class Header extends HeaderAbstract
     public function getStatusCode() : int
     {
         if($this->status === 0) {
-            $this->status = \http_response_code();
+            $this->status = (int) \http_response_code();
         }
         
-        return (int) $this->status;
+        return parent::getStatusCode();
     }
 
     /**
