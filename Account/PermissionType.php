@@ -32,10 +32,10 @@ use phpOMS\Stdlib\Base\Enum;
  */
 abstract class PermissionType extends Enum
 {
-    /* public */ const NONE       = 0;
-    /* public */ const READ       = 1;
-    /* public */ const CREATE     = 2;
-    /* public */ const MODIFY     = 4;
-    /* public */ const DELETE     = 8;
-    /* public */ const PERMISSION = 16;
+    /* public */ const NONE       = 1;
+    /* public */ const READ       = 2;
+    /* public */ const CREATE     = 4;
+    /* public */ const MODIFY     = 8;
+    /* public */ const DELETE     = 16;
+    /* public */ const PERMISSION = 32;
 }

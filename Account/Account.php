@@ -194,6 +194,18 @@ class Account implements ArrayableInterface, \JsonSerializable
     }
 
     /**
+     * Get groups.
+     *
+     * @return array
+     *
+     * @since  1.0.0
+     */
+    public function getGroups() : array
+    {
+        return $this->groups;
+    }
+
+    /**
      * Set localization.
      *
      * @param Localization $l11n Localization

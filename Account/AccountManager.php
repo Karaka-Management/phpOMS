@@ -102,6 +102,11 @@ class AccountManager implements \Countable
         return $this->accounts[$id] ?? new NullAccount();
     }
 
+    public function getAuth() : Auth
+    {
+        return $this->auth;
+    }
+
     /**
      * Add account.
      *
