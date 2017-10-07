@@ -259,7 +259,7 @@ class File extends FileAbstract implements FileInterface
      */
     public static function copy(string $from, string $to, bool $overwrite = false) : bool
     {
-        if (!file_exists($from)) {
+        if (!is_file($from)) {
             throw new PathException($from);
         }
 
@@ -281,7 +281,7 @@ class File extends FileAbstract implements FileInterface
      */
     public static function move(string $from, string $to, bool $overwrite = false) : bool
     {
-        if (!file_exists($from)) {
+        if (!is_file($from)) {
             throw new PathException($from);
         }
 

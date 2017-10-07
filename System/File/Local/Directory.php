@@ -79,6 +79,10 @@ class Directory extends FileAbstract implements DirectoryInterface
      */
     public static function list(string $path, string $filter = '*') : array
     {
+        if (!file_exists($path)) {
+            throw new PathException($path);
+        }
+
         $list = [];
         $path = rtrim($path, '\\/');
 
@@ -152,6 +156,10 @@ class Directory extends FileAbstract implements DirectoryInterface
      */
     public static function size(string $dir, bool $recursive = true) : int
     {
+        if (!file_exists($dir)) {
+            throw new PathException($dir);
+        }
+
         $countSize = 0;
         $count     = 0;
 
@@ -180,6 +188,10 @@ class Directory extends FileAbstract implements DirectoryInterface
      */
     public static function count(string $path, bool $recursive = true, array $ignore = []) : int
     {
+        if (!file_exists($path)) {
+            throw new PathException($path);
+        }
+
         $size  = 0;
         $files = scandir($path);
         $ignore[] = '.';
@@ -206,10 +218,6 @@ class Directory extends FileAbstract implements DirectoryInterface
      */
     public static function delete(string $path) : bool
     {
-        if (!file_exists($path) || !is_dir($path)) {
-            throw new PathException($path);
-        }
-
         $files = scandir($path);
 
         /* Removing . and .. */
@@ -247,10 +255,7 @@ class Directory extends FileAbstract implements DirectoryInterface
     public static function created(string $path) : \DateTime
     {
         if(!file_exists($path)) {
-            $created = new \DateTime();
-            $created->setTimestamp(0);
-
-            return $created;
+            throw new PathException($path);
         }
 
         $created = new \DateTime('now');
@@ -303,6 +308,10 @@ class Directory extends FileAbstract implements DirectoryInterface
      */
     public static function copy(string $from, string $to, bool $overwrite = false) : bool
     {
+        if (!is_dir($from)) {
+            throw new PathException($from);
+        }
+
         if(!$overwrite && file_exists($to)) {
             return false;
         }
@@ -330,6 +339,10 @@ class Directory extends FileAbstract implements DirectoryInterface
      */
     public static function move(string $from, string $to, bool $overwrite = false) : bool
     {
+        if (!is_dir($from)) {
+            throw new PathException($from);
+        }
+
         if (!$overwrite && file_exists($to)) {
             return false;
         }
