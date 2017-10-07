@@ -168,7 +168,7 @@ class View extends ViewAbstract
      *
      * @since  1.0.0
      */
-    protected function getText(string $translation, string $module = null, string $theme = null) : string
+    public function getText(string $translation, string $module = null, string $theme = null) : string
     {
         if (!isset($module)) {
             $match = '/Modules/';
@@ -208,7 +208,7 @@ class View extends ViewAbstract
      *
      * @since  1.0.0
      */
-    protected function getHtml(string $translation, string $module = null, string $theme = null) : string
+    public function getHtml(string $translation, string $module = null, string $theme = null) : string
     {
         return htmlspecialchars($this->getText($translation, $module, $theme));
     }
@@ -222,7 +222,7 @@ class View extends ViewAbstract
      *
      * @since  1.0.0
      */
-    protected function printHtml(string $text) : string
+    public function printHtml(string $text) : string
     {
         return htmlspecialchars($text);
     }
