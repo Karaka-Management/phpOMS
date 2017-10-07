@@ -70,7 +70,7 @@ interface ContainerInterface
      *
      * @since  1.0.0
      */
-    public static function permission(string $path) : string;
+    public static function permission(string $path) : int;
 
     /**
      * Get the parent path of the resource.

@@ -68,7 +68,7 @@ class Directory extends FileAbstract implements DirectoryInterface
     }
 
     /**
-     * List all files in directorz.
+     * List all files in directory.
      *
      * @param string $path   Path
      * @param string $filter Filter
@@ -80,31 +80,43 @@ class Directory extends FileAbstract implements DirectoryInterface
     public static function list(string $path, string $filter = '*') : array
     {
         $list = [];
+        $path = rtrim($path, '\\/');
 
-        foreach (glob($path . DIRECTORY_SEPARATOR . $filter) as $filename) {
-            $list[] = str_replace(['/\\', '\\'], ['/', '/'], $filename);
+        foreach ($iterator = new \RecursiveIteratorIterator(
+            new \RecursiveDirectoryIterator($path, \RecursiveDirectoryIterator::SKIP_DOTS),
+            \RecursiveIteratorIterator::SELF_FIRST) as $item
+        ) {
+            $list[] = str_replace('\\', '/', $iterator->getSubPathName());
         }
 
         return $list;
     }
 
-    public static function listByExtension(string $dir, string $extension) : array
+    /**
+     * List all files by extension directory.
+     *
+     * @param string $path   Path
+     * @param string $extension Extension
+     *
+     * @return array
+     *
+     * @since  1.0.0
+     */
+    public static function listByExtension(string $path, string $extension) : array
     {
-        $files = [];
-        $ffs   = scandir($dir);
-        foreach ($ffs as $ff) {
-            if ($ff !== '.' && $ff !== '..') {
-                if (is_dir($dir . '/' . $ff)) {
-                    $files = array_merge($files, self::listFilesByExtension($dir . '/' . $ff, $extension));
-                } else {
-                    if (StringUtils::endsWith($ff, $extension)) {
-                        $files[] = $dir . '/' . $ff;
-                    }
-                }
+        $list = [];
+        $path = rtrim($path, '\\/');
+
+        foreach ($iterator = new \RecursiveIteratorIterator(
+            new \RecursiveDirectoryIterator($path, \RecursiveDirectoryIterator::SKIP_DOTS),
+            \RecursiveIteratorIterator::SELF_FIRST) as $item
+        ) {
+            if($item->getExtension() === $extension) {
+                $list[] = str_replace('\\', '/', $iterator->getSubPathName());
             }
         }
-    
-        return $files;
+
+        return $list;
     }
 
     /**
@@ -204,10 +216,10 @@ class Directory extends FileAbstract implements DirectoryInterface
         unset($files[0]);
 
         foreach ($files as $file) {
-            if (is_dir($file)) {
-                self::delete($file);
+            if (is_dir($path . '/' . $file)) {
+                self::delete($path . '/' . $file);
             } else {
-                unlink($file);
+                unlink($path . '/' . $file);
             }
         }
 
@@ -251,7 +263,14 @@ class Directory extends FileAbstract implements DirectoryInterface
      */
     public static function changed(string $path) : \DateTime
     {
-        // TODO: Implement changed() method.
+        if (!file_exists($path)) {
+            throw new PathException($path);
+        }
+
+        $changed = new \DateTime();
+        $changed->setTimestamp(filectime($path));
+
+        return $changed;
     }
 
     /**
@@ -259,15 +278,23 @@ class Directory extends FileAbstract implements DirectoryInterface
      */
     public static function owner(string $path) : int
     {
-        // TODO: Implement owner() method.
+        if (!file_exists($path)) {
+            throw new PathException($path);
+        }
+
+        return fileowner($path);
     }
 
     /**
      * {@inheritdoc}
      */
-    public static function permission(string $path) : string
+    public static function permission(string $path) : int
     {
-        // TODO: Implement permission() method.
+        if (!file_exists($path)) {
+            throw new PathException($path);
+        }
+
+        return fileperms($path);
     }
 
     /**
@@ -275,7 +302,26 @@ class Directory extends FileAbstract implements DirectoryInterface
      */
     public static function copy(string $from, string $to, bool $overwrite = false) : bool
     {
-        // TODO: Implement copy() method.
+        if(!$overwrite && file_exists($to)) {
+            return false;
+        }
+
+        if (!file_exists($to)) {
+            self::create($to, 0644, true);
+        }
+
+        foreach ($iterator = new \RecursiveIteratorIterator(
+            new \RecursiveDirectoryIterator($from, \RecursiveDirectoryIterator::SKIP_DOTS),
+            \RecursiveIteratorIterator::SELF_FIRST) as $item
+        ) {
+            if ($item->isDir()) {
+                mkdir($to . '/' . $iterator->getSubPathName());
+            } else {
+                copy($from . '/' . $iterator->getSubPathName(), $to . '/' . $iterator->getSubPathName());
+            }
+        }
+
+        return true;
     }
 
     /**
@@ -283,7 +329,17 @@ class Directory extends FileAbstract implements DirectoryInterface
      */
     public static function move(string $from, string $to, bool $overwrite = false) : bool
     {
-        // TODO: Implement move() method.
+        if (!$overwrite && file_exists($to)) {
+            return false;
+        }
+
+        if (!self::exists(self::parent($to))) {
+            self::create(self::parent($to), 0644, true);
+        }
+
+        rename($from, $to);
+
+        return true;
     }
 
     /**
@@ -326,6 +382,10 @@ class Directory extends FileAbstract implements DirectoryInterface
     public static function create(string $path, int $permission = 0644, bool $recursive = false) : bool
     {
         if (!file_exists($path)) {
+            if(!$recursive && !file_exists(self::parent($path))) {
+                return false;
+            }
+
             mkdir($path, $permission, $recursive);
 
             return true;
@@ -431,6 +491,22 @@ class Directory extends FileAbstract implements DirectoryInterface
     public static function name(string $path) : string
     {
         return basename($path);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public static function dirname(string $path) : string
+    {
+        return basename($path);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public static function dirpath(string $path) : string
+    {
+        return $path;
     }
 
     /**

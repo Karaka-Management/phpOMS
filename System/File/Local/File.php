@@ -66,7 +66,6 @@ class File extends FileAbstract implements FileInterface
      */
     public static function put(string $path, string $content, int $mode = ContentPutMode::REPLACE | ContentPutMode::CREATE) : bool
     {
-        // todo: create all else cases, right now all getting handled the same way which is wrong
         $exists = file_exists($path);
 
         if (
@@ -75,11 +74,17 @@ class File extends FileAbstract implements FileInterface
             || (($mode & ContentPutMode::REPLACE) === ContentPutMode::REPLACE && $exists)
             || (!$exists && ($mode & ContentPutMode::CREATE) === ContentPutMode::CREATE)
         ) {
-            if (!Directory::exists(dirname($path))) {
-                Directory::create(dirname($path), 0644, true);
-            }
+            if(($mode & ContentPutMode::APPEND) === ContentPutMode::APPEND && $exists) {
+                file_put_contents($path, file_get_contents($path) . $content);
+            } elseif(($mode & ContentPutMode::PREPEND) === ContentPutMode::PREPEND && $exists) {
+                file_put_contents($path, $content . file_get_contents($path));
+            } else {
+                if (!Directory::exists(dirname($path))) {
+                    Directory::create(dirname($path), 0644, true);
+                }
 
-            file_put_contents($path, $content);
+                file_put_contents($path, $content);
+            }
 
             return true;
         }
@@ -97,6 +102,14 @@ class File extends FileAbstract implements FileInterface
         }
 
         return file_get_contents($path);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public static function count(string $path) : int
+    {
+        return 1;
     }
 
     /**
@@ -204,7 +217,7 @@ class File extends FileAbstract implements FileInterface
     /**
      * {@inheritdoc}
      */
-    public static function permission(string $path) : string
+    public static function permission(string $path) : int
     {
         if (!file_exists($path)) {
             throw new PathException($path);
