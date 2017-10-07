@@ -47,7 +47,7 @@ class LocalStorage extends StorageAbstract
 
     private static function getClassType(string $path) : string
     {
-        return is_dir($path) ? Directory::class : File::class;
+        return is_dir($path) || (!is_file($path) && stripos($path, '.') === false) ? Directory::class : File::class;
     }
 
     /**
@@ -77,7 +77,7 @@ class LocalStorage extends StorageAbstract
     /**
      * {@inheritdoc}
      */
-    public static function permission(string $path) : string
+    public static function permission(string $path) : int
     {
         return self::getClassType($path)::permission($path);
     }
@@ -95,7 +95,7 @@ class LocalStorage extends StorageAbstract
      */
     public static function create(string $path) : bool
     {
-        return self::getClassType($path)::create($path);
+        return stripos($path, '.') === false ? Directory::create($path, 0644, true) : File::create($path);
     }
 
     /**
@@ -157,6 +157,22 @@ class LocalStorage extends StorageAbstract
     /**
      * {@inheritdoc}
      */
+    public static function dirname(string $path) : string
+    {
+        return self::getClassType($path)::dirname($path);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public static function dirpath(string $path) : string
+    {
+        return self::getClassType($path)::dirpath($path);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
     public static function count(string $path, bool $recursive = true, array $ignore = []) : int
     {
         return self::getClassType($path)::count($path, $recursive, $ignore);
@@ -189,7 +205,7 @@ class LocalStorage extends StorageAbstract
     /**
      * {@inheritdoc}
      */
-    public static function list(string $path, string $filter = '*') : string
+    public static function list(string $path, string $filter = '*') : array
     {
         if(is_file($path)) {
             throw new \Exception();
@@ -215,7 +231,7 @@ class LocalStorage extends StorageAbstract
             throw new \Exception();
         }
 
-        return File::set_socket_blocking($path, $content);
+        return File::set($path, $content);
     }
 
     /**
@@ -251,6 +267,6 @@ class LocalStorage extends StorageAbstract
             throw new \Exception();
         }
 
-        return File::extension($path, $content);
+        return File::extension($path);
     }
 }

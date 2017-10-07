@@ -97,7 +97,7 @@ class FtpStorage extends StorageAbstract
     /**
      * {@inheritdoc}
      */
-    public static function permission(string $path) : string
+    public static function permission(string $path) : int
     {
         // TODO: Implement permission() method.
     }
@@ -170,6 +170,30 @@ class FtpStorage extends StorageAbstract
      * {@inheritdoc}
      */
     public static function basename(string $path) : string
+    {
+        // TODO: Implement basename() method.
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public static function dirname(string $path) : string
+    {
+        // TODO: Implement basename() method.
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public static function dirpath(string $path) : string
+    {
+        // TODO: Implement basename() method.
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public static function list(string $path, string $filter = '*') : array
     {
         // TODO: Implement basename() method.
     }

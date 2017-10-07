@@ -107,7 +107,7 @@ class File extends FileAbstract implements FileInterface
     /**
      * {@inheritdoc}
      */
-    public static function count(string $path) : int
+    public static function count(string $path, bool $recursive = true, array $ignore = []) : int
     {
         return 1;
     }

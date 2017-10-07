@@ -86,7 +86,7 @@ abstract class StorageAbstract
     /**
      * {@inheritdoc}
      */
-    public abstract static function permission(string $path) : string;
+    public abstract static function permission(string $path) : int;
 
     /**
      * {@inheritdoc}
@@ -132,6 +132,21 @@ abstract class StorageAbstract
      * {@inheritdoc}
      */
     public abstract static function basename(string $path) : string;
+
+    /**
+     * {@inheritdoc}
+     */
+    public abstract static function dirname(string $path) : string;
+
+    /**
+     * {@inheritdoc}
+     */
+    public abstract static function dirpath(string $path) : string;
+
+    /**
+     * {@inheritdoc}
+     */
+    public abstract static function list(string $path, string $filter = '*') : array;
 
     /**
      * {@inheritdoc}

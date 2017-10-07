@@ -178,11 +178,12 @@ class Directory extends FileAbstract implements DirectoryInterface
     /**
      * {@inheritdoc}
      */
-    public static function count(string $path, bool $recursive = true, array $ignore = ['.', '..', 'cgi-bin',
-                                                                                               '.DS_Store']) : int
+    public static function count(string $path, bool $recursive = true, array $ignore = []) : int
     {
         $size  = 0;
         $files = scandir($path);
+        $ignore[] = '.';
+        $ignore[] = '..';
 
         foreach ($files as $t) {
             if (in_array($t, $ignore)) {
