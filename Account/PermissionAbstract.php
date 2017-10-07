@@ -333,4 +333,18 @@ abstract class PermissionAbstract
     {
         $this->permission |= $permission;
     }
+
+    /**
+     * Has permission.
+     *
+     * @param int $permission Permission
+     *
+     * @return void
+     *
+     * @since  1.0.0
+     */
+    public function hasPermission(int $permission) : bool 
+    {
+        return ($this->permission | $permission) === $this->permission;
+    }
 }
