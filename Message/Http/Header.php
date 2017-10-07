@@ -321,7 +321,7 @@ class Header extends HeaderAbstract
      */
     private function generate407() /* : void */
     {
-
+        \http_response_code(407);
     }
 
     /**
