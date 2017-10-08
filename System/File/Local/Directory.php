@@ -318,6 +318,8 @@ class Directory extends FileAbstract implements DirectoryInterface
 
         if (!file_exists($to)) {
             self::create($to, 0644, true);
+        } elseif($overwrite && file_exists($to)) {
+            self::delete($to);
         }
 
         foreach ($iterator = new \RecursiveIteratorIterator(
@@ -345,6 +347,8 @@ class Directory extends FileAbstract implements DirectoryInterface
 
         if (!$overwrite && file_exists($to)) {
             return false;
+        } elseif($overwrite && file_exists($to)) {
+            self::delete($to);
         }
 
         if (!self::exists(self::parent($to))) {

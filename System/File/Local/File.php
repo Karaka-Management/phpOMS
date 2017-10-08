@@ -268,6 +268,10 @@ class File extends FileAbstract implements FileInterface
                 Directory::create(dirname($to), 0644, true);
             }
 
+            if($overwrite && file_exists($to)) {
+                unlink($to);
+            }
+
             copy($from, $to);
 
             return true;
@@ -288,6 +292,10 @@ class File extends FileAbstract implements FileInterface
         if ($overwrite || !file_exists($to)) {
             if (!Directory::exists(dirname($to))) {
                 Directory::create(dirname($to), 0644, true);
+            }
+
+            if($overwrite && file_exists($to)) {
+                unlink($to);
             }
 
             rename($from, $to);
