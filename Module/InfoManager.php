@@ -55,9 +55,9 @@ class InfoManager
      *
      * @since  1.0.0
      */
-    public function __construct($path)
+    public function __construct(string $path)
     {
-        $this->path = realpath($path);
+        $this->path = $path;
     }
 
     /**
@@ -83,8 +83,8 @@ class InfoManager
      */
     public function load() /* : void */
     {
-        if ($this->path === false || !file_exists($this->path)) {
-            throw new PathException((string) $this->path);
+        if (!file_exists($this->path)) {
+            throw new PathException($this->path);
         }
 
         $this->info = json_decode(file_get_contents($this->path), true);
@@ -99,7 +99,7 @@ class InfoManager
      */
     public function update() /* : void */
     {
-    	if ($this->path === false || !file_exists($this->path)) {
+    	if (!file_exists($this->path)) {
             throw new PathException((string) $this->path);
         }
 
