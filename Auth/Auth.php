@@ -40,25 +40,15 @@ class Auth
     private $session = null;
 
     /**
-     * Database connection instance.
-     *
-     * @var ConnectionAbstract
-     * @since 1.0.0
-     */
-    private $connection = null;
-
-    /**
      * Constructor.
      *
-     * @param ConnectionAbstract $connection Database connection
      * @param SessionInterface   $session    Session
      *
      * @since  1.0.0
      */
-    public function __construct(ConnectionAbstract $connection, SessionInterface $session)
+    public function __construct(SessionInterface $session)
     {
-        $this->connection = $connection;
-        $this->session    = $session;
+        $this->session = $session;
     }
 
     /**

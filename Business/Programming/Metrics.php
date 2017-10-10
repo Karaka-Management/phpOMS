@@ -12,9 +12,13 @@
  * @link       http://orange-management.com
  */
 declare(strict_types=1);
+
 namespace phpOMS\Business\Programming;
+
 /**
  * Programming metrics
+ * 
+ * This class provides basic programming metric calculations.
  *
  * @category   Framework
  * @package    phpOMS\Business

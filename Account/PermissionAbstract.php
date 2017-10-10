@@ -16,9 +16,10 @@ declare(strict_types=1);
 namespace phpOMS\Account;
 
 /**
- * InfoManager class.
- *
- * Handling the info files for modules
+ * Permission class.
+ * 
+ * This permission abstract is the basis for all permissions. Contrary to it's name it is not an
+ * abstract class and can be used directly if needed.
  *
  * @category   Framework
  * @package    phpOMS\Module
@@ -26,7 +27,7 @@ namespace phpOMS\Account;
  * @link       http://orange-management.com
  * @since      1.0.0
  */
-abstract class PermissionAbstract
+class PermissionAbstract
 {
     /**
      * Permission id.

@@ -192,9 +192,9 @@ class File extends FileAbstract implements FileInterface
     /**
      * {@inheritdoc}
      */
-    public static function permission(string $path) : string
+    public static function permission(string $path) : int
     {
-        return self::parseFtpFileData($path)['permission'] ?? '';
+        return (int) self::parseFtpFileData($path)['permission'] ?? 0;
     }
 
     private static function parseFtpFileData(string $path) : array

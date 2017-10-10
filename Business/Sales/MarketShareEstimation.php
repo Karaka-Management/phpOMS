@@ -12,9 +12,14 @@
  * @link       http://orange-management.com
  */
 declare(strict_types=1);
+
 namespace phpOMS\Business\Sales;
+
 /**
  * Market share calculations (Zipf function)
+ * 
+ * This class can be used to calculate the market share based on a rank or vice versa 
+ * the rank based on a marketshare in a Zipf distributed market.
  *
  * @category   Framework
  * @package    phpOMS\Business
@@ -24,11 +29,11 @@ namespace phpOMS\Business\Sales;
  */
 class MarketShareEstimation {
     /**
-     * Calculate rank (r) based on marketshare (m)
+     * Calculate rank (r) based on market share (m)
      *
      * @latex  r = \sqrt[s]{\frac{1}{m \times \sum_{n=1}^N{\frac{1}{n^{s}}}}}
      *
-     * @param int $participants (p)
+     * @param int $participants (N)
      * @param float $marketShare (m)
      * @param float $modifier (s)
      *
@@ -47,11 +52,11 @@ class MarketShareEstimation {
     }
     
     /**
-     * Calculate marketshare (m) based on rank (r)
+     * Calculate market share (m) based on rank (r)
      *
      * @latex  m = \frac{\frac{1}{r^{s}}}{\sum_{n=1}^N{\frac{1}{n^{s}}}}
      *
-     * @param int $participants (p)
+     * @param int $participants (N)
      * @param int $rank (r)
      * @param float $modifier (s)
      *

@@ -21,7 +21,10 @@ use phpOMS\Localization\NullLocalization;
 use phpOMS\Validation\Network\Email;
 
 /**
- * Account manager class.
+ * Account class.
+ * 
+ * The account class is the base model for accounts. This model contains the most common account 
+ * information. This model is not comparable to a profile which contains much more information. 
  *
  * @category   Framework
  * @package    phpOMS\Account
@@ -156,6 +159,8 @@ class Account implements ArrayableInterface, \JsonSerializable
 
     /**
      * Constructor.
+     * 
+     * The constructor automatically sets the created date as well as the last activity to now.
      *
      * @param int $id Account id
      *
@@ -183,6 +188,8 @@ class Account implements ArrayableInterface, \JsonSerializable
 
     /**
      * Get localization.
+     * 
+     * Every account can have a different localization which can be accessed here.
      *
      * @return Localization
      *
@@ -195,8 +202,11 @@ class Account implements ArrayableInterface, \JsonSerializable
 
     /**
      * Get groups.
+     * 
+     * Every account can belong to multiple groups. 
+     * These groups usually are used for permissions and categorize accounts.
      *
-     * @return array
+     * @return array Returns array of all groups
      *
      * @since  1.0.0
      */
@@ -221,6 +231,8 @@ class Account implements ArrayableInterface, \JsonSerializable
 
     /**
      * Set permissions.
+     * 
+     * The method accepts an array of permissions. All existing permissions are replaced.
      *
      * @param PermissionAbstract[] $permissions
      *
@@ -235,8 +247,10 @@ class Account implements ArrayableInterface, \JsonSerializable
 
     /**
      * Add permissions.
+     * 
+     * Adds permissions to the account
      *
-     * @param PermissionAbstract[] $permissions
+     * @param PermissionAbstract[] $permissions Array of permissions to add to the account
      *
      * @return void
      *
@@ -249,8 +263,10 @@ class Account implements ArrayableInterface, \JsonSerializable
 
     /**
      * Add permission.
+     * 
+     * Adds a single permission to the account
      *
-     * @param PermissionAbstract $permission
+     * @param PermissionAbstract $permission Permission to add to the account
      *
      * @return void
      *
@@ -264,15 +280,17 @@ class Account implements ArrayableInterface, \JsonSerializable
     /**
      * Has permissions.
      *
-     * @param int $permission Check if user has this permission
-     * @param int $unit Unit
-     * @param string $app App
-     * @param int $module Module
-     * @param int $type Type (e.g. customer)
-     * @param int $element (e.g. customer id)
-     * @param int $component (e.g. address)
+     * Checks if the account has a permission defined
+     * 
+     * @param int $permission Permission to check
+     * @param int $unit Unit Unit to check (null if all are acceptable)
+     * @param string $app App App to check  (null if all are acceptable)
+     * @param int $module Module Module to check  (null if all are acceptable)
+     * @param int $type Type (e.g. customer) (null if all are acceptable)
+     * @param int $element (e.g. customer id) (null if all are acceptable)
+     * @param int $component (e.g. address) (null if all are acceptable)
      *
-     * @return bool
+     * @return bool Returns true if the account has the permission, false otherwise
      *
      * @since  1.0.0
      */
@@ -403,6 +421,8 @@ class Account implements ArrayableInterface, \JsonSerializable
      * @param string $email Email
      *
      * @return void
+     * 
+     * @throws \InvalidArgumentException Exception is thrown if the provided string is not a valid email
      *
      * @since  1.0.0
      */
