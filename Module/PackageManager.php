@@ -23,7 +23,9 @@ use phpOMS\System\File\Local\LocalStorage;
 use phpOMS\Utils\IO\Zip\Zip;
 
 /**
- * Account group class.
+ * Package Manager model.
+ * 
+ * The package manager is responsible for handling installation and update packages for modules, frameworks and resources.
  *
  * @category   Framework
  * @package    phpOMS\Account
@@ -66,10 +68,10 @@ class PackageManager
     private $info = [];
 
     /**
-     * Object constructor.
-     *
-     * @param string $path Package path
-     * @param string $basePath Base Path of the application
+     * Constructor.
+     * 
+     * @param string $path Package source path e.g. path after download.
+     * @param string basePath Path of the application
      *
      * @since  1.0.0
      */
@@ -79,6 +81,15 @@ class PackageManager
         $this->basePath = $basePath;
     }
 
+    /**
+     * Extract package to temporary destination
+     * 
+     * @param string $path Temporary extract path
+     * 
+     * @return bool
+     *
+     * @since  1.0.0
+     */
     public function extract(string $path) : bool
     {
         $this->extractPath = $path;
@@ -103,11 +114,27 @@ class PackageManager
         $this->info = json_decode(file_get_contents($this->extractPath . '/info.json'), true);
     }
 
+    /**
+     * Validate package integrity
+     * 
+     * @return bool Returns true if the package is authentic, false otherwise
+     *
+     * @since  1.0.0
+     */
     public function isValid() : bool
     {
         return $this->authenticate(file_get_contents($this->extractPath . '/package.cert'), $this->hashFiles());
     }
 
+    /**
+     * Hash array of files
+     * 
+     * @param array $files Files to hash
+     * 
+     * @return string Hash value of files
+     *
+     * @since  1.0.0
+     */
     private function hashFiles(array $files) : string
     {
         $files = Directory::list($this->extractPath . '/package');
@@ -124,6 +151,13 @@ class PackageManager
         return \sodium_crypto_generichash_final();
     }
 
+    /**
+     * Install package
+     * 
+     * @return void
+     *
+     * @since  1.0.0
+     */
     public function install() /* : void */
     {
         if(!$this->isValid()) {
@@ -137,6 +171,13 @@ class PackageManager
         }
     }
 
+    /**
+     * Move files
+     * 
+     * @return void
+     *
+     * @since  1.0.0
+     */
     private function move($components)
     {
         foreach($components as $component) {
@@ -144,6 +185,13 @@ class PackageManager
         }
     }
 
+    /**
+     * Copy files
+     * 
+     * @return void
+     *
+     * @since  1.0.0
+     */
     private function copy($components)
     {
         foreach($components as $component) {
@@ -155,6 +203,13 @@ class PackageManager
         }
     }
 
+    /**
+     * Delete files
+     * 
+     * @return void
+     *
+     * @since  1.0.0
+     */
     private function delete($components)
     {
         foreach($components as $component) {
@@ -162,6 +217,13 @@ class PackageManager
         }
     }
 
+    /**
+     * Execute commands
+     * 
+     * @return void
+     *
+     * @since  1.0.0
+     */
     private function execute($components) 
     {
         foreach($components as $component) {
@@ -169,13 +231,27 @@ class PackageManager
         }
     }
 
+    /**
+     * Cleanup after installation
+     * 
+     * @return void
+     *
+     * @since  1.0.0
+     */
     public function cleanup() 
     {
         File::delete($this->path);
         Directory::delete($this->extractPath);
     }
 
-    private function authenticate(string $signedHash, string $rawHash)
+    /**
+     * Authenticate package
+     * 
+     * @return bool
+     *
+     * @since  1.0.0
+     */
+    private function authenticate(string $signedHash, string $rawHash) : bool
     {
         // https://3v4l.org/PN9Xl
         $publicKey = 'MIICIjANBgkqhkiG9w0BAQEFAAOCAg8AMIICCgKCAgEAjr73rerPRq3ZwWmrUKsN

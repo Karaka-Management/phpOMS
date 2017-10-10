@@ -48,6 +48,15 @@ class StringCompare
         $this->dictionary = $dictionary;
     }
 
+    /**
+     * Adds word to dictionary
+     * 
+     * @param string $word Word to add to dictionary
+     * 
+     * @return void
+     *
+     * @since  1.0.0
+     */
     public function add(string $word) /* : void */
     {
         $this->dictionary[] = $word;
