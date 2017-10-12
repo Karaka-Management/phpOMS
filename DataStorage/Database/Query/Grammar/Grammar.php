@@ -79,6 +79,18 @@ class Grammar extends GrammarAbstract
     ];
 
     /**
+     * Update components.
+     *
+     * @var string[]
+     * @since 1.0.0
+     */
+    protected $deleteComponents = [
+        'deletes',
+        'from',
+        'wheres',
+    ];
+
+    /**
      * Random components.
      *
      * @var string[]
@@ -111,10 +123,10 @@ class Grammar extends GrammarAbstract
                 $components = $this->insertComponents;
                 break;
             case QueryType::UPDATE:
-                $components = [];
+                $components = $this->updateComponents;
                 break;
             case QueryType::DELETE:
-                $components = [];
+                $components = $this->deleteComponents;
                 break;
             case QueryType::RANDOM:
                 $components = $this->selectComponents;
@@ -155,6 +167,42 @@ class Grammar extends GrammarAbstract
         }
 
         return ($query->distinct ? 'SELECT DISTINCT ' : 'SELECT ') . $expression;
+    }
+
+    /**
+     * Compile select.
+     *
+     * @param Builder $query   Builder
+     * @param array   $columns Columns
+     *
+     * @return string
+     *
+     * @since  1.0.0
+     */
+    protected function compileUpdates(Builder $query, array $table) : string
+    {
+        $expression = $this->expressionizeTable($table, $query->getPrefix());
+        
+        if ($expression === '') {
+            return '';
+        }
+
+        return 'UPDATE ' . $expression;
+    }
+
+    /**
+     * Compile select.
+     *
+     * @param Builder $query   Builder
+     * @param array   $columns Columns
+     *
+     * @return string
+     *
+     * @since  1.0.0
+     */
+    protected function compileDeletes(Builder $query, array $columns) : string
+    {
+        return 'DELETE';
     }
 
     /**
@@ -200,7 +248,7 @@ class Grammar extends GrammarAbstract
             }
         }
 
-        if ($expression == '') {
+        if ($expression === '') {
             return '';
         }
 
@@ -287,10 +335,12 @@ class Grammar extends GrammarAbstract
             return 'NULL';
         } elseif (is_bool($value)) {
             return (string) ((int) $value);
+        } elseif (is_float($value)) {
+            return (string) $value;
         } elseif ($value instanceof Column) {
             return $this->compileSystem($value->getColumn(), $prefix);
         } else {
-            throw new \InvalidArgumentException();
+            throw new \InvalidArgumentException(gettype($value));
         }
     }
 
@@ -370,7 +420,7 @@ class Grammar extends GrammarAbstract
             $expression .= $this->compileSystem($order['column'], $query->getPrefix()) . ' ' . $order['order'] . ', ';
         }
 
-        if ($expression == '') {
+        if ($expression === '') {
             return '';
         }
 
@@ -422,7 +472,7 @@ class Grammar extends GrammarAbstract
             $cols .= $this->compileSystem($column) . ', ';
         }
 
-        if ($cols == '') {
+        if ($cols === '') {
             return '';
         }
 
@@ -447,10 +497,38 @@ class Grammar extends GrammarAbstract
             $vals .= $this->compileValue($value) . ', ';
         }
 
-        if ($vals == '') {
+        if ($vals === '') {
             return '';
         }
 
         return 'VALUES ' . rtrim($vals, ', ');
+    }
+
+    /**
+     * Compile insert values.
+     *
+     * @param Builder $query  Builder
+     * @param array   $values Values
+     *
+     * @return string
+     *
+     * @since  1.0.0
+     */
+    protected function compileSets(Builder $query, array $values) : string
+    {
+        $vals = '';
+
+        foreach ($values as $column => $value) {
+            // todo change expressionizeTableColumn to accept single column and create additionl for Columns
+            $expression = $this->expressionizeTableColumn([$column], $query->getPrefix());
+
+            $vals .= $expression . ' = ' . $this->compileValue($value) . ', ';
+        }
+
+        if ($vals === '') {
+            return '';
+        }
+
+        return 'SET ' . rtrim($vals, ', ');
     }
 }

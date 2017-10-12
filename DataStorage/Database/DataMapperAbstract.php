@@ -855,11 +855,12 @@ class DataMapperAbstract implements DataMapperInterface
      */
     private static function parseValue(string $type, $value)
     {
+        // todo: checking for string === string and is_* is slow. maybe only check type or only string
         if (is_null($value)) {
             return null;
-        } elseif ($type === 'DateTime') {
+        } elseif ($type === 'DateTime' || $value instanceof \DateTime) {
             return $value->format('Y-m-d H:i:s');
-        } elseif ($type === 'Json' || $type === 'jsonSerializable') {
+        } elseif ($type === 'Json' || $type === 'jsonSerializable' || is_array($value)) {
             return json_encode($value);
         } elseif ($type === 'Serializable') {
             return $value->serialize();
@@ -867,13 +868,13 @@ class DataMapperAbstract implements DataMapperInterface
             return json_encode($value->jsonSerialize());
         } elseif (is_object($value) && method_exists($value, 'getId')) {
             return $value->getId();
-        } elseif ($type === 'int') {
+        } elseif ($type === 'int' || is_int($value)) {
             return (int) $value;
-        } elseif ($type === 'string') {
+        } elseif ($type === 'string' || is_string($value)) {
             return (string) $value;
-        } elseif ($type === 'float') {
+        } elseif ($type === 'float' || is_float($value)) {
             return (float) $value;
-        } elseif ($type === 'bool') {
+        } elseif ($type === 'bool' || is_bool($value)) {
             return (bool) $value;
         }
 
@@ -895,6 +896,8 @@ class DataMapperAbstract implements DataMapperInterface
      */
     private static function updateHasMany(\ReflectionClass $reflectionClass, $obj, $objId) /* : void */
     {
+        $objsIds = [];
+
         foreach (static::$hasMany as $propertyName => $rel) {
             $property = $reflectionClass->getProperty($propertyName);
 
@@ -914,13 +917,13 @@ class DataMapperAbstract implements DataMapperInterface
 
             /** @var string $mapper */
             $mapper             = static::$hasMany[$propertyName]['mapper'];
-            $objsIds            = [];
             $relReflectionClass = null;
+            $objsIds[$propertyName] = [];
 
             foreach ($values as $key => &$value) {
                 if (!is_object($value)) {
                     // Is scalar => already in database
-                    $objsIds[$key] = $value;
+                    $objsIds[$propertyName][$key] = $value;
 
                     continue;
                 } 
@@ -933,7 +936,9 @@ class DataMapperAbstract implements DataMapperInterface
 
                 // already in db
                 if (!empty($primaryKey)) {
-                    $objsIds[$key] = $value;
+                    $mapper::update($value);
+
+                    $objsIds[$propertyName][$key] = $value;
 
                     continue;
                 }
@@ -955,11 +960,11 @@ class DataMapperAbstract implements DataMapperInterface
                     }
                 }
 
-                $objsIds[$key] = $mapper::create($value);
+                $objsIds[$propertyName][$key] = $mapper::create($value);
             }
-
-            self::updateRelationTable($propertyName, $objsIds, $objId);
         }
+
+        self::updateRelationTable($objsIds, $objId);
     }
 
     /**
@@ -977,29 +982,20 @@ class DataMapperAbstract implements DataMapperInterface
      *
      * @since  1.0.0
      */
-    private static function updateRelationTable(string $propertyName, array $objsIds, $objId)
+    private static function updateRelationTable(array $objsIds, $objId)
     {
-        /** @var string $table */
-        if (
-            !empty($objsIds)
-            && static::$hasMany[$propertyName]['table'] !== static::$table
-            && static::$hasMany[$propertyName]['table'] !== static::$hasMany[$propertyName]['mapper']::$table
-        ) {
-            $many = self::getHasManyRaw($objId);
+        $many = self::getHasManyRaw($objId);
 
-            foreach(static::$hasMany as $member => $value) {
-                // todo: definately an error here. needs testing
-                throw new \Exception();
-                $removes = array_diff_key($many[$member], $objsIds[$member]);
-                $adds    = array_diff_key($objsIds[$member], $many[$member]);
+        foreach (static::$hasMany as $propertyName => $rel) {
+            $removes = array_diff($many[$propertyName], array_keys($objsIds[$propertyName] ?? []));
+            $adds    = array_diff(array_keys($objsIds[$propertyName] ?? []), $many[$propertyName]);
 
-                if(!empty($removes)) {
-                    self::deleteRelationTable($propertyName, $removes, $objId);
-                }
+            if(!empty($removes)) {
+                self::deleteRelationTable($propertyName, $removes, $objId);
+            }
 
-                if(!empty($adds)) {
-                    self::createRelationTable($propertyName, $adds, $objId);
-                }
+            if(!empty($adds)) {
+                self::createRelationTable($propertyName, $adds, $objId);
             }
         }
     }
@@ -1026,11 +1022,10 @@ class DataMapperAbstract implements DataMapperInterface
             foreach ($objsIds as $key => $src) {
                 $relQuery = new Builder(self::$db);
                 $relQuery->prefix(self::$db->getPrefix())
-                    ->into(static::$hasMany[$propertyName]['table'])
-                    ->delete();
-
-                $relQuery->where(static::$hasMany[$propertyName]['src'], '=', $src)
-                    ->where(static::$hasMany[$propertyName]['dst'], '=', $objId, 'and');
+                    ->delete()
+                    ->from(static::$hasMany[$propertyName]['table'])
+                    ->where(static::$hasMany[$propertyName]['table'] . '.' . static::$hasMany[$propertyName]['src'], '=', $src)
+                    ->where(static::$hasMany[$propertyName]['table'] . '.' . static::$hasMany[$propertyName]['dst'], '=', $objId, 'and');
 
                 self::$db->con->prepare($relQuery->toSql())->execute();
             }
@@ -1102,8 +1097,8 @@ class DataMapperAbstract implements DataMapperInterface
     {
         $query = new Builder(self::$db);
         $query->prefix(self::$db->getPrefix())
-            ->into(static::$table)
-            ->where(static::$primaryField, '=', $objId);
+            ->update(static::$table)
+            ->where(static::$table . '.' . static::$primaryField, '=', $objId);
 
         $properties = $reflectionClass->getProperties();
 
@@ -1126,19 +1121,19 @@ class DataMapperAbstract implements DataMapperInterface
                     $value = self::parseValue($column['type'], $id);
 
                     // todo: should not be done if the id didn't change. but for now don't know if id changed
-                    $query->update($column['name'])->value($value, $column['type']);
+                    $query->set([static::$table . '.' . $column['name'] => $value], $column['type']);
                     break;
                 } elseif (isset(static::$belongsTo[$propertyName]) && $column['internal'] === $propertyName) {
                     $id    = self::updateBelongsTo($propertyName, $property->getValue($obj));
                     $value = self::parseValue($column['type'], $id);
 
                     // todo: should not be done if the id didn't change. but for now don't know if id changed
-                    $query->update($column['name'])->value($value, $column['type']);
+                    $query->set([static::$table . '.' . $column['name'] => $value], $column['type']);
                     break;
                 } elseif ($column['internal'] === $propertyName && $column['type'] !== static::$primaryField) {
                      $value = self::parseValue($column['type'], $property->getValue($obj));
 
-                    $query->update($column['name'])->value($value, $column['type']);
+                    $query->set([static::$table . '.' . $column['name'] => $value], $column['type']);
                     break;
                 }
             }
@@ -1322,8 +1317,8 @@ class DataMapperAbstract implements DataMapperInterface
         $query = new Builder(self::$db);
         $query->prefix(self::$db->getPrefix())
             ->delete()
-            ->into(static::$table)
-            ->where(static::$primaryField, '=', $objId);
+            ->from(static::$table)
+            ->where(static::$table . '.' . static::$primaryField, '=', $objId);
 
         $properties = $reflectionClass->getProperties();
 
@@ -2379,7 +2374,6 @@ class DataMapperAbstract implements DataMapperInterface
                     ->from($value['table'])
                     ->where($value['table'] . '.' . $value['dst'], '=', $primaryKey);
             } elseif ($relations === RelationType::NEWEST) {
-
                 /*
                 SELECT c.*, p1.*
                 FROM customer c
