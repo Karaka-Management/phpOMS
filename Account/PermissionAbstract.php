@@ -22,7 +22,7 @@ namespace phpOMS\Account;
  * abstract class and can be used directly if needed.
  *
  * @category   Framework
- * @package    phpOMS\Module
+ * @package    phpOMS\Account
  * @license    OMS License 1.0
  * @link       http://orange-management.com
  * @since      1.0.0

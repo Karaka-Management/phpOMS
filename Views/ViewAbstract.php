@@ -6,7 +6,6 @@
  *
  * @category   TBD
  * @package    TBD
- * @author     Dennis Eichhorn <d.eichhorn@oms.com>
  * @copyright  Dennis Eichhorn
  * @license    OMS License 1.0
  * @version    1.0.0
@@ -23,7 +22,6 @@ use phpOMS\System\File\PathException;
  *
  * @category   Framework
  * @package    phpOMS/Views
- * @author     Dennis Eichhorn <d.eichhorn@oms.com>
  * @license    OMS License 1.0
  * @link       http://orange-management.com
  * @since      1.0.0

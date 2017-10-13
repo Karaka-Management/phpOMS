@@ -21,7 +21,7 @@ use phpOMS\Stdlib\Base\Enum;
  * Account type enum.
  *
  * @category   Framework
- * @package    phpOMS\DataStorage\Database
+ * @package    phpOMS\Account
  * @license    OMS License 1.0
  * @link       http://orange-management.com
  * @since      1.0.0
