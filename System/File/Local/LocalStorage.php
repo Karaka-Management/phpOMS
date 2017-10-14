@@ -16,6 +16,7 @@ declare(strict_types=1);
 namespace phpOMS\System\File\Local;
 use phpOMS\System\File\ContainerInterface;
 use phpOMS\System\File\StorageAbstract;
+use phpOMS\System\File\PathException;
 
 /**
  * Filesystem class.
@@ -184,7 +185,7 @@ class LocalStorage extends StorageAbstract
     public static function put(string $path, string $content, int $mode = 0) : bool
     {
         if(is_dir($path)) {
-            throw new \Exception();
+            throw new PathException($path);
         }
 
         return File::put($path, $content, $mode);
@@ -196,7 +197,7 @@ class LocalStorage extends StorageAbstract
     public static function get(string $path) : string
     {
         if(is_dir($path)) {
-            throw new \Exception();
+            throw new PathException($path);
         }
 
         return File::get($path);
@@ -208,7 +209,7 @@ class LocalStorage extends StorageAbstract
     public static function list(string $path, string $filter = '*') : array
     {
         if(is_file($path)) {
-            throw new \Exception();
+            throw new PathException($path);
         }
 
         return Directory::list($path, $filter);
@@ -228,7 +229,7 @@ class LocalStorage extends StorageAbstract
     public static function set(string $path, string $content) : bool
     {
         if(is_dir($path)) {
-            throw new \Exception();
+            throw new PathException($path);
         }
 
         return File::set($path, $content);
@@ -240,7 +241,7 @@ class LocalStorage extends StorageAbstract
     public static function append(string $path, string $content) : bool
     {
         if(is_dir($path)) {
-            throw new \Exception();
+            throw new PathException($path);
         }
 
         return File::append($path, $content);
@@ -252,7 +253,7 @@ class LocalStorage extends StorageAbstract
     public static function prepend(string $path, string $content) : bool
     {
         if(is_dir($path)) {
-            throw new \Exception();
+            throw new PathException($path);
         }
 
         return File::prepend($path, $content);
@@ -264,7 +265,7 @@ class LocalStorage extends StorageAbstract
     public static function extension(string $path) : string
     {
         if(is_dir($path)) {
-            throw new \Exception();
+            throw new PathException($path);
         }
 
         return File::extension($path);

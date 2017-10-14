@@ -333,7 +333,7 @@ class Grammar extends GrammarAbstract
 
             return '(' . rtrim($values, ', ') . ')';
         } elseif ($value instanceof \DateTime) {
-            return $this->valueQuotes . $value->format('Y-m-d h:m:s') . $this->valueQuotes;
+            return $this->valueQuotes . $value->format('Y-m-d H:i:s') . $this->valueQuotes;
         } elseif (is_null($value)) {
             return 'NULL';
         } elseif (is_bool($value)) {

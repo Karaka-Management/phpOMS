@@ -227,7 +227,7 @@ class Functions
      */
     public static function isOdd($a) : bool
     {
-        return $a & 1;
+        return (bool) ($a & 1);
     }
 
     /**
@@ -241,7 +241,7 @@ class Functions
      */
     public static function isEven($a) : bool
     {
-        return !($a & 1);
+        return !((bool) ($a & 1));
     }
 
     /**
@@ -254,7 +254,7 @@ class Functions
      * @param mixed $length Circle size
      * @param mixed $start Start value
      *
-     * @return int
+     * @return int Lowest value is 0 and highest value is length - 1
      *
      * @since  1.0.0
      */

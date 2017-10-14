@@ -119,7 +119,7 @@ abstract class ConnectionAbstract implements ConnectionInterface
      */
     public function getDatabase() : string
     {
-        return $this->dbdata['database'];
+        return $this->dbdata['database'] ?? '';
     }
 
     /**
@@ -131,7 +131,7 @@ abstract class ConnectionAbstract implements ConnectionInterface
      */
     public function getHost() : string
     {
-        return $this->dbdata['host'];
+        return $this->dbdata['host'] ?? '';
     }
 
     /**
@@ -143,7 +143,7 @@ abstract class ConnectionAbstract implements ConnectionInterface
      */
     public function getPort() : int
     {
-        return (int) $this->dbdata['port'];
+        return (int) $this->dbdata['port'] ?? 0;
     }
 
     /**

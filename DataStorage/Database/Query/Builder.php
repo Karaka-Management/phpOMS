@@ -189,12 +189,6 @@ class Builder extends BuilderAbstract
      */
     public $raw = '';
 
-    protected $unionLimit = null;
-
-    protected $unionOffset = null;
-
-    protected $unionOrders = [];
-
     /**
      * Comparison OPERATORS.
      *
@@ -336,7 +330,7 @@ class Builder extends BuilderAbstract
      */
     public function newQuery() : Builder
     {
-        return new static($this->connection, $this->grammar);
+        return new static($this->connection, $this->isReadOnly);
     }
 
     /**
@@ -376,7 +370,7 @@ class Builder extends BuilderAbstract
         }
 
         $this->type = QueryType::RAW;
-        $this->raw  = $raw;
+        $this->raw  = rtrim($raw, ';');
 
         return $this;
     }
@@ -800,15 +794,6 @@ class Builder extends BuilderAbstract
     }
 
     /**
-     * Check if exists.
-     *
-     * @since  1.0.0
-     */
-    public function exists()
-    {
-    }
-
-    /**
      * Select minimum.
      *
      * @since  1.0.0
@@ -964,6 +949,10 @@ class Builder extends BuilderAbstract
      */
     public function update(...$tables) : Builder
     {
+        if($this->isReadOnly) {
+            throw new \Exception();
+        }
+
         $this->type = QueryType::UPDATE;
 
         foreach ($tables as $key => $table) {
@@ -979,6 +968,10 @@ class Builder extends BuilderAbstract
 
     public function delete() : Builder
     {
+        if($this->isReadOnly) {
+            throw new \Exception();
+        }
+
         $this->type = QueryType::DELETE;
 
         return $this;

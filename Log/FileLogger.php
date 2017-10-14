@@ -42,7 +42,7 @@ class FileLogger implements LoggerInterface
      * @var array
      * @since 1.0.0
      */
-    private $timings = [];
+    private static $timings = [];
 
     /**
      * Instance.
@@ -174,16 +174,22 @@ class FileLogger implements LoggerInterface
      *
      * @param string $id the ID by which this time measurement gets identified
      *
-     * @return void
+     * @return bool
      *
      * @since  1.0.0
      */
-    public function startTimeLog($id = '') /* : void */
+    public static function startTimeLog($id = '')  : bool
     {
+        if(isset(self::$timings[$id])) {
+            return false;
+        }
+
         $mtime = explode(' ', microtime());
         $mtime = $mtime[1] + $mtime[0];
 
-        $this->timings[$id] = ['start' => $mtime];
+        self::$timings[$id] = ['start' => $mtime];
+
+        return true;
     }
 
     /**
@@ -195,29 +201,15 @@ class FileLogger implements LoggerInterface
      *
      * @since  1.0.0
      */
-    public function endTimeLog($id = '') : int
+    public static function endTimeLog($id = '') : float
     {
         $mtime = explode(' ', microtime());
         $mtime = $mtime[1] + $mtime[0];
 
-        $this->timings[$id]['end']  = $mtime;
-        $this->timings[$id]['time'] = $mtime - $this->timings[$id]['start'];
+        self::$timings[$id]['end']  = $mtime;
+        self::$timings[$id]['time'] = $mtime - self::$timings[$id]['start'];
 
-        return $this->timings[$id]['time'];
-    }
-
-    /**
-     * Sorts timings descending.
-     *
-     * @param array [float] &$timings the timing array to sort
-     *
-     * @return void
-     *
-     * @since  1.0.0
-     */
-    public function timingSort(&$timings) /* : void */
-    {
-        uasort($timings, [$this, 'orderSort']);
+        return self::$timings[$id]['time'];
     }
 
     /**
@@ -259,25 +251,6 @@ class FileLogger implements LoggerInterface
         $replace['{line}']      = sprintf('%--15s', $context['line'] ?? '?');
 
         return strtr($message, $replace);
-    }
-
-    /**
-     * Sorts all timings descending.
-     *
-     * @param array $a
-     * @param array $b
-     *
-     * @return int
-     *
-     * @since  1.0.0
-     */
-    private function orderSort($a, $b) : int
-    {
-        if ($a['time'] == $b['time']) {
-            return 0;
-        }
-
-        return ($a['time'] > $b['time']) ? -1 : 1;
     }
 
     /**
