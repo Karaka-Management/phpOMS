@@ -86,8 +86,10 @@ class HttpSession implements SessionInterface
         
         $this->inactivityInterval = $inactivityInterval;
 
-        session_set_cookie_params($liftetime, '/', '', false, true);
-        session_start();
+        if(session_status() !== PHP_SESSION_ACTIVE && !headers_sent()) {
+            session_set_cookie_params($liftetime, '/', '', false, true);
+            session_start();
+        }
         
         if($this->inactivityInterval > 0 && ($this->inactivityInterval + ($_SESSION['lastActivity'] ?? 0) < time())) {
             $this->destroy();

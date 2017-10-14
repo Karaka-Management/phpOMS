@@ -28,6 +28,12 @@ class Ip
 {
     /* public */ const IP_TABLE_ITERATIONS = 100;
 
+    /**
+     * Constructor.
+     *
+     * @since  1.0.0
+     * @codeCoverageIgnore
+     */
     private function __construct()
     {
     }

@@ -41,6 +41,7 @@ class UriFactory
      * Constructor.
      *
      * @since  1.0.0
+     * @codeCoverageIgnore
      */
     private function __construct()
     {

@@ -545,14 +545,9 @@ class Builder extends BuilderAbstract
      *
      * @since  1.0.0
      */
-    public function andWhere(Where $where) : Builder
+    public function andWhere($where, $operator = null, $values = null) : Builder
     {
-        $this->wheres[][] = [
-            'column'  => $where,
-            'boolean' => 'and',
-        ];
-
-        return $this;
+        return $this->where($where, $operator, $values, 'and');
     }
 
     /**
@@ -564,14 +559,9 @@ class Builder extends BuilderAbstract
      *
      * @since  1.0.0
      */
-    public function orWhere(Where $where) : Builder
+    public function orWhere($where, $operator = null, $values = null) : Builder
     {
-        $this->wheres[][] = [
-            'column'  => $where,
-            'boolean' => 'or',
-        ];
-
-        return $this;
+        return $this->where($where, $operator, $values, 'or');
     }
 
     /**
@@ -693,10 +683,14 @@ class Builder extends BuilderAbstract
     public function orderBy($columns, $order = 'DESC') : Builder
     {
         if (is_string($columns) || $columns instanceof \Closure) {
-            $this->orders[] = ['column' => $columns, 'order' => $order];
+            if(!isset($this->orders[$order])) {
+                $this->orders[$order] = [];
+            }
+
+            $this->orders[$order][] = $columns;
         } elseif (is_array($columns)) {
             foreach ($columns as $key => $column) {
-                $this->orders[] = ['column' => $column, 'order' => $order[$key]];
+                $this->orders[is_string($order) ? $order : $order[$key]][] = $column;
             }
         } else {
             throw new \InvalidArgumentException();

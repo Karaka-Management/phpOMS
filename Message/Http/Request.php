@@ -67,12 +67,12 @@ class Request extends RequestAbstract
     /**
      * Constructor.
      *
-     * @param Localization $l11n Localization
      * @param UriInterface $uri  Uri
+     * @param Localization $l11n Localization
      *
      * @since  1.0.0
      */
-    public function __construct(Localization $l11n = null, UriInterface $uri = null)
+    public function __construct(UriInterface $uri = null, Localization $l11n = null)
     {
         $this->header = new Header();
         $this->header->setL11n($l11n ?? new Localization());
@@ -193,15 +193,13 @@ class Request extends RequestAbstract
     /**
      * Create request from super globals.
      *
-     * @param Localization $l11n Localization
-     * 
      * @return Request
      *
      * @since  1.0.0
      */
-    public static function createFromSuperglobals(Localization $l11n = null) : Request
+    public static function createFromSuperglobals() : Request
     {
-        return new self($l11n);
+        return new self();
     }
 
     /**

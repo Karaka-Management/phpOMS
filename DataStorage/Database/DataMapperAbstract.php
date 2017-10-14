@@ -174,6 +174,7 @@ class DataMapperAbstract implements DataMapperInterface
      * Constructor.
      *
      * @since  1.0.0
+     * @codeCoverageIgnore
      */
     private function __construct()
     {
@@ -185,6 +186,7 @@ class DataMapperAbstract implements DataMapperInterface
      * @return void
      *
      * @since  1.0.0
+     * @codeCoverageIgnore
      */
     private function __clone()
     {

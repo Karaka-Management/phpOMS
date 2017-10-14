@@ -127,9 +127,13 @@ class CookieJar
                 throw new LockException('CookieJar');
             }
 
-            setcookie($id, '', time() - 3600);
+            if(!headers_sent()) {
+                setcookie($id, '', time() - 3600);
 
-            return true;
+                return true;
+            }
+
+            return false;
         }
 
         return false;

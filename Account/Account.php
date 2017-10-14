@@ -216,6 +216,20 @@ class Account implements ArrayableInterface, \JsonSerializable
     }
 
     /**
+     * Add group.
+     * 
+     * @param mixed $group Group to add
+     * 
+     * @return void
+     *
+     * @since  1.0.0
+     */
+    public function addGroup($group) /* : void */
+    {
+        $this->groups[] = $group;
+    }
+
+    /**
      * Set localization.
      *
      * @param Localization $l11n Localization
@@ -258,7 +272,7 @@ class Account implements ArrayableInterface, \JsonSerializable
      */
     public function addPermissions(array $permissions) /* : void */
     {
-        $this->permissions += $permissions;
+        $this->permissions = array_merge($this->permissions, $permissions);
     }
 
     /**
@@ -275,6 +289,18 @@ class Account implements ArrayableInterface, \JsonSerializable
     public function addPermission(PermissionAbstract $permission) /* : void */
     {
         $this->permissions[] = $permission;
+    }
+
+    /**
+     * Get permissions.
+     * 
+     * @return array
+     *
+     * @since  1.0.0
+     */
+    public function getPermissions() : array
+    {
+        return $this->permissions;
     }
 
     /**

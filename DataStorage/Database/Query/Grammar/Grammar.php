@@ -288,6 +288,9 @@ class Grammar extends GrammarAbstract
 
         if (isset($element['value'])) {
             $expression .= ' ' . strtoupper($element['operator']) . ' ' . $this->compileValue($element['value'], $query->getPrefix());
+        } else {
+            $operator = strtoupper($element['operator']) === '=' ? 'IS' : 'IS NOT';
+            $expression .= ' ' . $operator . ' ' . $this->compileValue($element['value'], $query->getPrefix());
         }
 
         return $expression;
@@ -416,8 +419,13 @@ class Grammar extends GrammarAbstract
     {
         $expression = '';
 
-        foreach ($orders as $order) {
-            $expression .= $this->compileSystem($order['column'], $query->getPrefix()) . ' ' . $order['order'] . ', ';
+        foreach ($orders as $key => $order) {
+            foreach($order as $column) {
+                $expression .= $this->compileSystem($column, $query->getPrefix()) . ', ';
+            }
+
+            $expression = rtrim($expression, ', ');
+            $expression .= ' ' . $key . ', ';
         }
 
         if ($expression === '') {

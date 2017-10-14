@@ -35,6 +35,7 @@ final class UnhandledHandler
      * @return void
      *
      * @since  1.0.0
+     * @codeCoverageIgnore
      */
     public static function exceptionHandler(\Throwable $e) /* : void */
     {
@@ -92,6 +93,7 @@ final class UnhandledHandler
      * @return void
      *
      * @since  1.0.0
+     * @codeCoverageIgnore
      */
     public static function shutdownHandler() /* : void */
     {

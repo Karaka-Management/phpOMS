@@ -150,6 +150,7 @@ class FileLogger implements LoggerInterface
      * Closes the logging file
      *
      * @since  1.0.0
+     * @codeCoverageIgnore
      */
     public function __destruct()
     {
@@ -162,6 +163,7 @@ class FileLogger implements LoggerInterface
      * Protect instance from getting copied from outside.
      *
      * @since  1.0.0
+     * @codeCoverageIgnore
      */
     private function __clone()
     {

@@ -108,15 +108,6 @@ abstract class ModuleAbstract
     }
 
     /**
-     * Install external.
-     *
-     * @since  1.0.0
-     */
-    public static function installExternal() /* : void */
-    {
-    }
-
-    /**
      * Get language files.
      *
      * @param string $language    Language key
@@ -170,17 +161,5 @@ abstract class ModuleAbstract
     {
         /** @noinspection PhpUndefinedFieldInspection */
         return static::$dependencies;
-    }
-
-    /**
-     * Get event id prefix.
-     *
-     * @return string
-     *
-     * @since  1.0.0
-     */
-    public function getEventId() : string
-    {
-        return static::class;
     }
 }

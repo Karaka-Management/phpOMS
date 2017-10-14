@@ -35,6 +35,7 @@ class StringUtils
      * This class is purely static and is preventing any initialization
      *
      * @since  1.0.0
+     * @codeCoverageIgnore
      */
     private function __construct()
     {

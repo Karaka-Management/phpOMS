@@ -146,22 +146,6 @@ abstract class ViewAbstract implements \Serializable
     }
 
     /**
-     * Edit view.
-     *
-     * @param string   $id    View ID
-     * @param View     $view
-     * @param null|int $order Order of view
-     *
-     * @return void
-     *
-     * @since  1.0.0 <d.eichhorn@oms.com>
-     */
-    public function editView(string $id, View $view, $order = null) /* : void */
-    {
-        $this->addView($id, $view, $order, true);
-    }
-
-    /**
      * Add view.
      *
      * @param string $id        View ID
@@ -247,11 +231,11 @@ abstract class ViewAbstract implements \Serializable
         try {
             ob_start();
             /** @noinspection PhpIncludeInspection */
-            $data = include $path;
+            $includeData = include $path;
             $ob   = ob_get_clean();
 
-            if (is_array($data)) {
-                return $data;
+            if (is_array($includeData)) {
+                return $includeData;
             }
         } catch(\Throwable $e) {
             $ob = '';
@@ -268,10 +252,10 @@ abstract class ViewAbstract implements \Serializable
      * @return void
      *
      * @since  1.0.0 <d.eichhorn@oms.com>
+     * @codeCoverageIgnore
      */
     public function unserialize($raw)
     {
-        // todo: implement
     }
 
 }

@@ -59,7 +59,7 @@ final class Dictionary
      */
     public function __construct(string $source = '')
     {
-        if (isset($source)) {
+        if (!empty($source)) {
             $this->generate($source);
         }
     }
@@ -139,15 +139,15 @@ final class Dictionary
     public function set(string $entry, string $value) /* : void */
     {
         if (strlen($entry) !== 1) {
-            throw new \Exception('Must be a character.');
+            throw new \InvalidArgumentException('Must be a character.');
         }
 
         if (isset($this->dictionary[$entry])) {
-            throw new \Exception('Character already exists');
+            throw new \InvalidArgumentException('Character already exists');
         }
 
         if (strlen(str_replace('0', '', str_replace('1', '', $value))) !== 0) {
-            throw new \Exception('Bad formatting.');
+            throw new \InvalidArgumentException('Bad formatting.');
         }
 
         $length = strlen($value);
@@ -177,11 +177,11 @@ final class Dictionary
     public function get(string $entry) : string
     {
         if (strlen($entry) !== 1) {
-            throw new \Exception('Must be a character.');
+            throw new \InvalidArgumentException('Must be a character.');
         }
 
         if (!isset($this->dictionary[$entry])) {
-            throw new \Exception('Character does not exist');
+            throw new \InvalidArgumentException('Character does not exist');
         }
 
         return $this->dictionary[$entry];

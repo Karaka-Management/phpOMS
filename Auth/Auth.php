@@ -62,11 +62,7 @@ class Auth
     {
         $uid = $this->session->get('UID');
 
-        if (empty($uid)) {
-            return 0;
-        }
-
-        return $uid;
+        return empty($uid) ? 0 : $uid;
     }
 
     /**
