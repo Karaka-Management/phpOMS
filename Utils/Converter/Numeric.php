@@ -39,6 +39,7 @@ class Numeric
      * Constructor.
      *
      * @since  1.0.0
+     * @codeCoverageIgnore
      */
     private function __construct()
     {
@@ -73,7 +74,7 @@ class Numeric
             $newOutput = 0;
 
             for ($i = 1; $i <= $numberLen; $i++) {
-                $newOutput = bcadd($newOutput, bcmul(array_search($number[$i - 1], $fromBase), bcpow($fromLen, $numberLen - $i)));
+                $newOutput = bcadd((string) $newOutput, bcmul((string) array_search($number[$i - 1], $fromBase), bcpow((string) $fromLen, (string) ($numberLen - $i))));
             }
 
             return $newOutput;
@@ -86,8 +87,8 @@ class Numeric
         }
 
         while ($base10 !== '0') {
-            $newOutput = $toBase[bcmod($base10, $toLen)] . $newOutput;
-            $base10    = bcdiv($base10, $toLen, 0);
+            $newOutput = $toBase[bcmod($base10, (string) $toLen)] . $newOutput;
+            $base10    = bcdiv($base10, (string) $toLen, 0);
         }
 
         return $newOutput;
