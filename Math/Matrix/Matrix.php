@@ -68,7 +68,7 @@ class Matrix implements \ArrayAccess, \Iterator
      *
      * @since  1.0.0
      */
-    public function __construct(int $m, int $n = 1)
+    public function __construct(int $m = 1, int $n = 1)
     {
         $this->n = $n;
         $this->m = $m;
@@ -147,6 +147,18 @@ class Matrix implements \ArrayAccess, \Iterator
     }
 
     /**
+     * Get matrix array.
+     *
+     * @return array
+     *
+     * @since  1.0.0
+     */
+    public function toArray() : array
+    {
+        return $this->matrix;
+    }
+
+    /**
      * Get matrix rank.
      *
      * @return int
@@ -171,10 +183,8 @@ class Matrix implements \ArrayAccess, \Iterator
      */
     public function setMatrix(array $matrix) : Matrix
     {
-        if ($this->m !== count($matrix) || $this->n !== count($matrix[0])) {
-            throw new InvalidDimensionException(count($matrix) . 'x' . count($matrix[0]));
-        }
-
+        $this->m = count($matrix);
+        $this->n = count($matrix[0] ?? 1);
         $this->matrix = $matrix;
 
         return $this;
@@ -491,16 +501,7 @@ class Matrix implements \ArrayAccess, \Iterator
      */
     public function inverse(int $algorithm = InverseType::GAUSS_JORDAN) : Matrix
     {
-        if ($this->n !== $this->m) {
-            throw new InvalidDimensionException($this->m . 'x' . $this->n);
-        }
-
-        switch ($algorithm) {
-            case InverseType::GAUSS_JORDAN:
-                return $this->inverseGaussJordan();
-            default:
-                throw new \Exception('Inversion algorithm');
-        }
+        return $this->solve(new IdentityMatrix($this->m, $this->m));
     }
 
     /**
@@ -561,9 +562,11 @@ class Matrix implements \ArrayAccess, \Iterator
         return $newMatrix;
     }
 
-    public function solve($b, int $algorithm) : Matrix
+    public function solve(Matrix $B) : Matrix
     {
-        return $this->gaussElimination($b);
+        $M = $this->m === $this->n ? new LUDecomposition($this) : new QRDecomposition($this);
+
+        return $M->solve($B);
     }
 
     private function gaussElimination($b) : Matrix 
@@ -671,18 +674,8 @@ class Matrix implements \ArrayAccess, \Iterator
      */
     public function det() : float
     {
-        if ($this->n === 1) {
-            return $this->matrix[0][0];
-        }
-
-        $trianglize = $this->matrix;
-        $prod       = $this->upperTrianglize($trianglize);
-
-        for ($i = 0; $i < $this->n; $i++) {
-            $prod *= $trianglize[$i][$i];
-        }
-
-        return $prod;
+        $L = new LUDecomposition($this);
+        return $L->det();
     }
 
     /**
