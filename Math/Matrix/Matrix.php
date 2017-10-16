@@ -802,32 +802,4 @@ class Matrix implements \ArrayAccess, \Iterator
         unset($this->matrix[$row][$offset - $row * $this->n]);
     }
 
-    /**
-     * Decompose matrix using cholesky algorithm.
-     *
-     * @return Matrix
-     *
-     * @since  1.0.0
-     */
-    private function decompositionCholesky() : Matrix
-    {
-        $newMatrix    = new Matrix($this->n, $this->n);
-        $newMatrixArr = $newMatrix->getMatrix();
-
-        for ($i = 0; $i < $this->n; $i++) {
-            for ($j = 0; $j < $i + 1; $j++) {
-                $temp = 0;
-
-                for ($c = 0; $c < $j; $c++) {
-                    $temp += $newMatrixArr[$i][$c] * $newMatrixArr[$j][$c];
-                }
-
-                $newMatrixArr[$i][$j] = ($i == $j) ? sqrt($this->matrix[$i][$i] - $temp) : (1 / $newMatrixArr[$j][$j] * ($this->matrix[$i][$j] - $temp));
-            }
-        }
-
-        $newMatrix->setMatrix($newMatrixArr);
-
-        return $newMatrix;
-    }
 }
