@@ -35,6 +35,7 @@ class StringUtils
      * This class is purely static and is preventing any initialization
      *
      * @since  1.0.0
+     * @codeCoverageIgnore
      */
     private function __construct()
     {
@@ -346,11 +347,20 @@ class StringUtils
         return $count;
     }
 
+    /**
+     * Calculate string entropy
+     *
+     * @param string $value String to analyze.
+     *
+     * @return float 
+     *
+     * @since  1.0.0
+     */
     public static function getEntropy(string $value) : float
     {
         $entroy = 0.0;
         $size = mb_strlen($value);
-        $countChars = self::mb_count_chars($value, 1);
+        $countChars = self::mb_count_chars($value);
 
         foreach ($countChars as $v) {
             $p = $v / $size;
@@ -360,8 +370,18 @@ class StringUtils
         return $entroy;
     }
 
-    public static function mb_count_chars(string $input) {
-        $l = mb_strlen($input, 'UTF-8');
+    /**
+     * Count chars of utf-8 string.
+     *
+     * @param string $input String to count chars.
+     *
+     * @return array 
+     *
+     * @since  1.0.0
+     */
+    public static function mb_count_chars(string $input) : array
+    {
+        $l      = mb_strlen($input, 'UTF-8');
         $unique = [];
 
         for($i = 0; $i < $l; $i++) {

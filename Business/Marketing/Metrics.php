@@ -16,7 +16,9 @@ declare(strict_types=1);
 namespace phpOMS\Business\Marketing;
 
 /**
- * Net Promoter Score
+ * Marketing Metrics
+ * 
+ * This class provided basic marketing metric calculations
  *
  * @category   Framework
  * @package    phpOMS\Business

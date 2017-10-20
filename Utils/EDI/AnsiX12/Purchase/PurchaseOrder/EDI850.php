@@ -16,6 +16,7 @@ declare(strict_types=1);
 namespace phpOMS\Utils\EDI\AnsiX12\Purchase\PurchaseOrder;
 
 use phpOMS\Utils\EDI\AnsiX12\EDIAbstract;
+use phpOMS\Utils\EDI\AnsiX12\Component;
 
 /**
  * EDI 850 - Purchase order.
@@ -28,11 +29,30 @@ use phpOMS\Utils\EDI\AnsiX12\EDIAbstract;
  */
 class EDI850 extends EDIAbstract
 {
+    private $interchangeControlHeader = null;
+
+    private $functionalGroupHeader = null;
+
+    private $heading = null;
+
+    private $detail = null;
+
+    private $summary = null;
+
+    private $functionalGroupTrailer = null;
+
+    private $interchangeControlTrailer = null;
+
     public function __construct()
     {
-        parent::__construct();
-        $this->heading = new EDIT850Heading();
-        $this->detail = new EDIT850Detail();
+        $this->interchangeControlHeader = new ISA();
+        $this->functionalGroupHeader = new GS();
+
+        $this->heading = new EDI850Heading();
+        $this->detail = new EDI850Detail();
         $this->summary = new EDI850Summary();
+
+        $this->functionalGroupTrailer = new GE();
+        $this->interchangeControlTrailer = new IEA();
     }
 }

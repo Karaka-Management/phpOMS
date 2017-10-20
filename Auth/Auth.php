@@ -16,7 +16,6 @@ declare(strict_types=1);
 namespace phpOMS\Auth;
 
 use phpOMS\DataStorage\Database\Connection\ConnectionAbstract;
-use phpOMS\DataStorage\Database\DatabaseType;
 use phpOMS\DataStorage\Session\SessionInterface;
 
 /**
@@ -41,25 +40,15 @@ class Auth
     private $session = null;
 
     /**
-     * Database connection instance.
-     *
-     * @var ConnectionAbstract
-     * @since 1.0.0
-     */
-    private $connection = null;
-
-    /**
      * Constructor.
      *
-     * @param ConnectionAbstract $connection Database connection
      * @param SessionInterface   $session    Session
      *
      * @since  1.0.0
      */
-    public function __construct(ConnectionAbstract $connection, SessionInterface $session)
+    public function __construct(SessionInterface $session)
     {
-        $this->connection = $connection;
-        $this->session    = $session;
+        $this->session = $session;
     }
 
     /**
@@ -73,11 +62,7 @@ class Auth
     {
         $uid = $this->session->get('UID');
 
-        if (empty($uid)) {
-            return 0;
-        }
-
-        return $uid;
+        return empty($uid) ? 0 : $uid;
     }
 
     /**

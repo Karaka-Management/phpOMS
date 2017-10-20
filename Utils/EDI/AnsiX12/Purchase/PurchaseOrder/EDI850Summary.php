@@ -15,6 +15,8 @@ declare(strict_types=1);
 
 namespace phpOMS\Utils\EDI\AnsiX12\Purchase\PurchaseOrder;
 
+use phpOMS\Utils\EDI\AnsiX12\Component;
+
 /**
  * EDI 850 - Purchase order.
  *

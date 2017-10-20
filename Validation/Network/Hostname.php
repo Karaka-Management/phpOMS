@@ -33,8 +33,9 @@ abstract class Hostname extends ValidatorAbstract
      * Constructor.
      *
      * @since  1.0.0
+     * @codeCoverageIgnore
      */
-    public function __construct()
+    private function __construct()
     {
     }
 

@@ -59,7 +59,7 @@ final class Dictionary
      */
     public function __construct(string $source = '')
     {
-        if (isset($source)) {
+        if (!empty($source)) {
             $this->generate($source);
         }
     }
@@ -86,7 +86,6 @@ final class Dictionary
         }
 
         sort($count);
-
         while (count($count) > 1) {
             $row1    = array_shift($count);
             $row2    = array_shift($count);
@@ -101,14 +100,14 @@ final class Dictionary
     /**
      * Fill dictionary.
      *
-     * @param string $entry Source data to generate dictionary from
+     * @param array $entry Source data to generate dictionary from
      * @param string $value Dictionary value
      *
      * @return void
      *
      * @since  1.0.0
      */
-    private function fill(string $entry, string $value = '') /* : void */
+    private function fill(array $entry, string $value = '') /* : void */
     {
         if (!is_array($entry[0][1])) {
             $this->set($entry[0][1], $value . '0');
@@ -140,15 +139,15 @@ final class Dictionary
     public function set(string $entry, string $value) /* : void */
     {
         if (strlen($entry) !== 1) {
-            throw new \Exception('Must be a character.');
+            throw new \InvalidArgumentException('Must be a character.');
         }
 
-        if (!isset($this->dictionary[$entry])) {
-            throw new \Exception('Character does not exist');
+        if (isset($this->dictionary[$entry])) {
+            throw new \InvalidArgumentException('Character already exists');
         }
 
         if (strlen(str_replace('0', '', str_replace('1', '', $value))) !== 0) {
-            throw new \Exception('Bad formatting.');
+            throw new \InvalidArgumentException('Bad formatting.');
         }
 
         $length = strlen($value);
@@ -178,11 +177,11 @@ final class Dictionary
     public function get(string $entry) : string
     {
         if (strlen($entry) !== 1) {
-            throw new \Exception('Must be a character.');
+            throw new \InvalidArgumentException('Must be a character.');
         }
 
         if (!isset($this->dictionary[$entry])) {
-            throw new \Exception('Character does not exist');
+            throw new \InvalidArgumentException('Character does not exist');
         }
 
         return $this->dictionary[$entry];

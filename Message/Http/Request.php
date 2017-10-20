@@ -67,42 +67,20 @@ class Request extends RequestAbstract
     /**
      * Constructor.
      *
-     * @param Localization $l11n Localization
      * @param UriInterface $uri  Uri
+     * @param Localization $l11n Localization
      *
      * @since  1.0.0
      */
-    public function __construct(Localization $l11n = null, UriInterface $uri = null)
+    public function __construct(UriInterface $uri = null, Localization $l11n = null)
     {
-        $this->l11n = $l11n;
-        $this->uri  = $uri;
-        $this->source = RequestSource::WEB;
         $this->header = new Header();
+        $this->header->setL11n($l11n ?? new Localization());
+
+        $this->uri    = $uri;
+        $this->source = RequestSource::WEB;
 
         $this->init();
-    }
-
-    /**
-     * Create request from super globals.
-     *
-     * @param Localization $l11n Localization
-     * 
-     * @return Request
-     *
-     * @since  1.0.0
-     */
-    public static function createFromSuperglobals(Localization $l11n = null) : Request
-    {
-        return new self($l11n);
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function setUri(UriInterface $uri) /* : void */
-    {
-        $this->uri = $uri;
-        $this->data += $uri->getQueryArray();
     }
 
     /**
@@ -110,7 +88,7 @@ class Request extends RequestAbstract
      *
      * This is used in order to either initialize the current http request or a batch of GET requests
      *
-     * @param mixed $uri URL
+     * @param void
      *
      * @return void
      *
@@ -140,10 +118,10 @@ class Request extends RequestAbstract
      */
     private function initCurrentRequest() /* : void */
     {
-        $this->uri = new Http(Http::getCurrent());
-        $this->data  = $_GET ?? [];
-        $this->files = $_FILES ?? [];
-        $this->language = $this->loadRequestLanguage();
+        $this->uri      = new Http(Http::getCurrent());
+        $this->data     = $_GET ?? [];
+        $this->files    = $_FILES ?? [];
+        $this->header->getL11n()->setLanguage($this->loadRequestLanguage());
 
         if (isset($_SERVER['CONTENT_TYPE'])) {
             if (strpos($_SERVER['CONTENT_TYPE'], 'application/json') !== false) {
@@ -204,7 +182,7 @@ class Request extends RequestAbstract
      */
     private function setupUriBuilder() /* : void */
     {
-        UriFactory::setQuery('/lang', $this->l11n->getLanguage());
+        UriFactory::setQuery('/lang', $this->header->getL11n()->getLanguage());
 
         // todo: flush previous
         foreach($this->data as $key => $value) {
@@ -213,11 +191,24 @@ class Request extends RequestAbstract
     }
 
     /**
+     * Create request from super globals.
+     *
+     * @return Request
+     *
+     * @since  1.0.0
+     */
+    public static function createFromSuperglobals() : Request
+    {
+        return new self();
+    }
+
+    /**
      * {@inheritdoc}
      */
-    public function getLanguage() : string
+    public function setUri(UriInterface $uri) /* : void */
     {
-        return $this->language;
+        parent::setUri($uri);
+        $this->data += $uri->getQueryArray();
     }
 
     /**
@@ -330,6 +321,7 @@ class Request extends RequestAbstract
         if (!isset($this->os)) {
             $arr               = OSType::getConstants();
             $http_request_type = strtolower($_SERVER['HTTP_USER_AGENT']);
+            
             foreach ($arr as $key => $val) {
                 if (stripos($http_request_type, $val)) {
                     $this->os = $val;
@@ -383,21 +375,6 @@ class Request extends RequestAbstract
             || (($_SERVER['HTTP_X_FORWARDED_PROTO'] ?? '') === 'https')
             || (($_SERVER['HTTP_X_FORWARDED_SSL'] ?? '') === 'on')
             || ($_SERVER['SERVER_PORT'] ?? '') == $port;
-    }
-
-    /**
-     * Stringify request.
-     *
-     * @return string
-     *
-     * @since  1.0.0
-     */
-    public function __toString()
-    {
-        $lastElement = end($this->hash);
-        reset($this->hash);
-
-        return $lastElement;
     }
 
     /**

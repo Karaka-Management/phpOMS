@@ -46,6 +46,7 @@ class Currency
      * Constructor.
      *
      * @since  1.0.0
+     * @codeCoverageIgnore
      */
     private function __construct()
     {
@@ -97,7 +98,7 @@ class Currency
     public static function getEcbEuroRates() : array
     {
         if (!isset(self::$ecbCurrencies)) {
-            $request = new Request(new Localization(), new Http('http://www.ecb.europa.eu/stats/eurofxref/eurofxref-daily.xml'));
+            $request = new Request(new Http('http://www.ecb.europa.eu/stats/eurofxref/eurofxref-daily.xml'));
 		    $request->setMethod(RequestMethod::GET);
 
             $xml = new \SimpleXMLElement(Rest::request($request));

@@ -21,7 +21,10 @@ use phpOMS\Localization\NullLocalization;
 use phpOMS\Validation\Network\Email;
 
 /**
- * Account manager class.
+ * Account class.
+ * 
+ * The account class is the base model for accounts. This model contains the most common account 
+ * information. This model is not comparable to a profile which contains much more information. 
  *
  * @category   Framework
  * @package    phpOMS\Account
@@ -109,7 +112,7 @@ class Account implements ArrayableInterface, \JsonSerializable
     /**
      * Permissions.
      *
-     * @var array
+     * @var PermissionAbstract[]
      * @since 1.0.0
      */
     protected $permissions = [];
@@ -125,7 +128,7 @@ class Account implements ArrayableInterface, \JsonSerializable
     /**
      * Password.
      *
-     * @var Password
+     * @var string
      * @since 1.0.0
      */
     protected $password = '';
@@ -156,6 +159,8 @@ class Account implements ArrayableInterface, \JsonSerializable
 
     /**
      * Constructor.
+     * 
+     * The constructor automatically sets the created date as well as the last activity to now.
      *
      * @param int $id Account id
      *
@@ -183,6 +188,8 @@ class Account implements ArrayableInterface, \JsonSerializable
 
     /**
      * Get localization.
+     * 
+     * Every account can have a different localization which can be accessed here.
      *
      * @return Localization
      *
@@ -191,6 +198,35 @@ class Account implements ArrayableInterface, \JsonSerializable
     public function getL11n() : Localization
     {
         return $this->l11n;
+    }
+
+    /**
+     * Get groups.
+     * 
+     * Every account can belong to multiple groups. 
+     * These groups usually are used for permissions and categorize accounts.
+     *
+     * @return array Returns array of all groups
+     *
+     * @since  1.0.0
+     */
+    public function getGroups() : array
+    {
+        return $this->groups;
+    }
+
+    /**
+     * Add group.
+     * 
+     * @param mixed $group Group to add
+     * 
+     * @return void
+     *
+     * @since  1.0.0
+     */
+    public function addGroup($group) /* : void */
+    {
+        $this->groups[] = $group;
     }
 
     /**
@@ -205,6 +241,102 @@ class Account implements ArrayableInterface, \JsonSerializable
     public function setL11n(Localization $l11n) /* : void */
     {
         $this->l11n = $l11n;
+    }
+
+    /**
+     * Set permissions.
+     * 
+     * The method accepts an array of permissions. All existing permissions are replaced.
+     *
+     * @param PermissionAbstract[] $permissions
+     *
+     * @return void
+     *
+     * @since  1.0.0
+     */
+    public function setPermissions(array $permissions) /* : void */
+    {
+        $this->permissions = $permissions;
+    }
+
+    /**
+     * Add permissions.
+     * 
+     * Adds permissions to the account
+     *
+     * @param PermissionAbstract[] $permissions Array of permissions to add to the account
+     *
+     * @return void
+     *
+     * @since  1.0.0
+     */
+    public function addPermissions(array $permissions) /* : void */
+    {
+        $this->permissions = array_merge($this->permissions, $permissions);
+    }
+
+    /**
+     * Add permission.
+     * 
+     * Adds a single permission to the account
+     *
+     * @param PermissionAbstract $permission Permission to add to the account
+     *
+     * @return void
+     *
+     * @since  1.0.0
+     */
+    public function addPermission(PermissionAbstract $permission) /* : void */
+    {
+        $this->permissions[] = $permission;
+    }
+
+    /**
+     * Get permissions.
+     * 
+     * @return array
+     *
+     * @since  1.0.0
+     */
+    public function getPermissions() : array
+    {
+        return $this->permissions;
+    }
+
+    /**
+     * Has permissions.
+     *
+     * Checks if the account has a permission defined
+     * 
+     * @param int $permission Permission to check
+     * @param int $unit Unit Unit to check (null if all are acceptable)
+     * @param string $app App App to check  (null if all are acceptable)
+     * @param int $module Module Module to check  (null if all are acceptable)
+     * @param int $type Type (e.g. customer) (null if all are acceptable)
+     * @param int $element (e.g. customer id) (null if all are acceptable)
+     * @param int $component (e.g. address) (null if all are acceptable)
+     *
+     * @return bool Returns true if the account has the permission, false otherwise
+     *
+     * @since  1.0.0
+     */
+    public function hasPermission(int $permission, int $unit = null, string $app = null, int $module = null, int $type = null, $element = null, $component = null) : bool
+    {
+        $app = isset($app) ? strtolower($app) : $app;
+
+        foreach($this->permissions as $p) {
+            if(($p->getUnit() === $unit || $p->getUnit() === null || !isset($unit))
+                && ($p->getApp() === $app || $p->getApp() === null || !isset($app)) 
+                && ($p->getModule() === $module || $p->getModule() === null || !isset($module)) 
+                && ($p->getType() === $type || $p->getType() === null || !isset($type)) 
+                && ($p->getElement() === $element || $p->getElement() === null || !isset($element)) 
+                && ($p->getComponent() === $component || $p->getComponent() === null || !isset($component)) 
+                && ($p->getPermission() | $permission) === $p->getPermission()) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     /**
@@ -232,6 +364,20 @@ class Account implements ArrayableInterface, \JsonSerializable
     }
 
     /**
+     * Set name1.
+     *
+     * @param string $name Name
+     *
+     * @return void
+     *
+     * @since  1.0.0
+     */
+    public function setName1(string $name) /* : void */
+    {
+        $this->name1 = $name;
+    }
+
+    /**
      * Get name2.
      *
      * @return string
@@ -241,6 +387,20 @@ class Account implements ArrayableInterface, \JsonSerializable
     public function getName2() : string
     {
         return $this->name2;
+    }
+
+    /**
+     * Set name2.
+     *
+     * @param string $name Name
+     *
+     * @return void
+     *
+     * @since  1.0.0
+     */
+    public function setName2(string $name) /* : void */
+    {
+        $this->name2 = $name;
     }
 
     /**
@@ -256,6 +416,20 @@ class Account implements ArrayableInterface, \JsonSerializable
     }
 
     /**
+     * Set name3.
+     *
+     * @param string $name Name
+     *
+     * @return void
+     *
+     * @since  1.0.0
+     */
+    public function setName3(string $name) /* : void */
+    {
+        $this->name3 = $name;
+    }
+
+    /**
      * Get email.
      *
      * @return string
@@ -265,6 +439,26 @@ class Account implements ArrayableInterface, \JsonSerializable
     public function getEmail() : string
     {
         return $this->email;
+    }
+
+    /**
+     * Set email.
+     *
+     * @param string $email Email
+     *
+     * @return void
+     * 
+     * @throws \InvalidArgumentException Exception is thrown if the provided string is not a valid email
+     *
+     * @since  1.0.0
+     */
+    public function setEmail(string $email) /* : void */
+    {
+        if (!Email::isValid($email)) {
+            throw new \InvalidArgumentException();
+        }
+
+        $this->email = mb_strtolower($email);
     }
 
     /**
@@ -282,6 +476,24 @@ class Account implements ArrayableInterface, \JsonSerializable
     }
 
     /**
+     * Get status.
+     *
+     * @param int $status Status
+     *
+     * @return void
+     *
+     * @since  1.0.0
+     */
+    public function setStatus(int $status) /* : void */
+    {
+        if (!AccountStatus::isValidValue($status)) {
+            throw new \InvalidArgumentException();
+        }
+
+        $this->status = $status;
+    }
+
+    /**
      * Get type.
      *
      * AccountType
@@ -293,6 +505,24 @@ class Account implements ArrayableInterface, \JsonSerializable
     public function getType() : int
     {
         return $this->type;
+    }
+
+    /**
+     * Get type.
+     *
+     * @param int $type Type
+     *
+     * @return void
+     *
+     * @since  1.0.0
+     */
+    public function setType(int $type) /* : void */
+    {
+        if (!AccountType::isValidValue($type)) {
+            throw new \InvalidArgumentException();
+        }
+
+        $this->type = $type;
     }
 
     /**
@@ -348,102 +578,6 @@ class Account implements ArrayableInterface, \JsonSerializable
     }
 
     /**
-     * Set name1.
-     *
-     * @param string $name Name
-     *
-     * @return void
-     *
-     * @since  1.0.0
-     */
-    public function setName1(string $name) /* : void */
-    {
-        $this->name1 = $name;
-    }
-
-    /**
-     * Set name2.
-     *
-     * @param string $name Name
-     *
-     * @return void
-     *
-     * @since  1.0.0
-     */
-    public function setName2(string $name) /* : void */
-    {
-        $this->name2 = $name;
-    }
-
-    /**
-     * Set name3.
-     *
-     * @param string $name Name
-     *
-     * @return void
-     *
-     * @since  1.0.0
-     */
-    public function setName3(string $name) /* : void */
-    {
-        $this->name3 = $name;
-    }
-
-    /**
-     * Set email.
-     *
-     * @param string $email Email
-     *
-     * @return void
-     *
-     * @since  1.0.0
-     */
-    public function setEmail(string $email) /* : void */
-    {
-        if (!Email::isValid($email)) {
-            throw new \InvalidArgumentException();
-        }
-
-        $this->email = mb_strtolower($email);
-    }
-
-    /**
-     * Get status.
-     *
-     * @param int $status Status
-     *
-     * @return void
-     *
-     * @since  1.0.0
-     */
-    public function setStatus(int $status) /* : void */
-    {
-        if (!AccountStatus::isValidValue($status)) {
-            throw new \InvalidArgumentException();
-        }
-
-        $this->status = $status;
-    }
-
-    /**
-     * Get type.
-     *
-     * @param int $type Type
-     *
-     * @return void
-     *
-     * @since  1.0.0
-     */
-    public function setType(int $type) /* : void */
-    {
-        if (!AccountType::isValidValue($type)) {
-            throw new \InvalidArgumentException();
-        }
-
-        $this->type = $type;
-    }
-
-    /**
      * Update last activity.
      *
      * @return void
@@ -453,6 +587,18 @@ class Account implements ArrayableInterface, \JsonSerializable
     public function updateLastActive() /* : void */
     {
         $this->lastActive = new \DateTime('NOW');
+    }
+
+    /**
+     * Get string representation.
+     *
+     * @return string
+     *
+     * @since  1.0.0
+     */
+    public function __toString()
+    {
+        return json_encode($this->toArray());
     }
 
     /**
@@ -474,18 +620,6 @@ class Account implements ArrayableInterface, \JsonSerializable
             'type'        => $this->type,
             'status'      => $this->status,
         ];
-    }
-
-    /**
-     * Get string representation.
-     *
-     * @return string
-     *
-     * @since  1.0.0
-     */
-    public function __toString()
-    {
-        return json_encode($this->toArray());
     }
 
     /**

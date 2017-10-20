@@ -135,9 +135,7 @@ class Dispatcher
     {
         $views = [];
         foreach ($controller as $controllerSingle) {
-            foreach ($controllerSingle as $c) {
-                $views += $this->dispatch($c, ...$data);
-            }
+            $views += $this->dispatch($controllerSingle, ...$data);
         }
 
         return $views;

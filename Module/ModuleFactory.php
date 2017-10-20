@@ -15,8 +15,8 @@ declare(strict_types=1);
 
 namespace phpOMS\Module;
 
-use phpOMS\ApplicationAbstract;
 use phpOMS\Autoloader;
+use phpOMS\ApplicationAbstract;
 
 /**
  * ModuleFactory class.
@@ -54,6 +54,7 @@ class ModuleFactory
      * Constructor.
      *
      * @since  1.0.0
+     * @codeCoverageIgnore
      */
     private function __construct()
     {

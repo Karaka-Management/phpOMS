@@ -220,6 +220,8 @@ class Localization
      */
     public function setLanguage(string $language) /* : void */
     {
+        $language = strtolower($language);
+        
         if (!ISO639x1Enum::isValidValue($language)) {
             throw new InvalidEnumValue($language);
         }

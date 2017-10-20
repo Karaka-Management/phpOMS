@@ -17,6 +17,9 @@ namespace phpOMS\Business\Marketing;
 
 /**
  * Net Promoter Score
+ * 
+ * The net promoter score is a basic evaluation of the happiness of customers. 
+ * Instead of customers the NPS can also be transferred to non-customers.
  *
  * @category   Framework
  * @package    phpOMS\Business
@@ -65,8 +68,8 @@ class NetPromoterScore {
      */
     public function getScore() : int
     {
-        $promoters = 0;
-        $passives = 0;
+        $promoters  = 0;
+        $passives   = 0;
         $detractors = 0;
 
         foreach($this->scores as $score) {

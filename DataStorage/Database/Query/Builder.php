@@ -46,6 +46,22 @@ class Builder extends BuilderAbstract
     public $selects = [];
 
     /**
+     * Columns.
+     *
+     * @var array
+     * @since 1.0.0
+     */
+    public $updates = [];
+
+    /**
+     * Stupid work around because value needs to be not null for it to work in Grammar.
+     *
+     * @var array
+     * @since 1.0.0
+     */
+    public $deletes = [1];
+
+    /**
      * Into.
      *
      * @var array
@@ -68,6 +84,14 @@ class Builder extends BuilderAbstract
      * @since 1.0.0
      */
     public $values = [];
+
+    /**
+     * Into columns.
+     *
+     * @var array
+     * @since 1.0.0
+     */
+    public $sets = [];
 
     /**
      * Distinct.
@@ -164,12 +188,6 @@ class Builder extends BuilderAbstract
      * @since 1.0.0
      */
     public $raw = '';
-
-    protected $unionLimit = null;
-
-    protected $unionOffset = null;
-
-    protected $unionOrders = [];
 
     /**
      * Comparison OPERATORS.
@@ -312,7 +330,7 @@ class Builder extends BuilderAbstract
      */
     public function newQuery() : Builder
     {
-        return new static($this->connection, $this->grammar);
+        return new static($this->connection, $this->isReadOnly);
     }
 
     /**
@@ -352,7 +370,7 @@ class Builder extends BuilderAbstract
         }
 
         $this->type = QueryType::RAW;
-        $this->raw  = $raw;
+        $this->raw  = rtrim($raw, ';');
 
         return $this;
     }
@@ -521,14 +539,9 @@ class Builder extends BuilderAbstract
      *
      * @since  1.0.0
      */
-    public function andWhere(Where $where) : Builder
+    public function andWhere($where, $operator = null, $values = null) : Builder
     {
-        $this->wheres[][] = [
-            'column'  => $where,
-            'boolean' => 'and',
-        ];
-
-        return $this;
+        return $this->where($where, $operator, $values, 'and');
     }
 
     /**
@@ -540,14 +553,9 @@ class Builder extends BuilderAbstract
      *
      * @since  1.0.0
      */
-    public function orWhere(Where $where) : Builder
+    public function orWhere($where, $operator = null, $values = null) : Builder
     {
-        $this->wheres[][] = [
-            'column'  => $where,
-            'boolean' => 'or',
-        ];
-
-        return $this;
+        return $this->where($where, $operator, $values, 'or');
     }
 
     /**
@@ -669,10 +677,14 @@ class Builder extends BuilderAbstract
     public function orderBy($columns, $order = 'DESC') : Builder
     {
         if (is_string($columns) || $columns instanceof \Closure) {
-            $this->orders[] = ['column' => $columns, 'order' => $order];
+            if(!isset($this->orders[$order])) {
+                $this->orders[$order] = [];
+            }
+
+            $this->orders[$order][] = $columns;
         } elseif (is_array($columns)) {
             foreach ($columns as $key => $column) {
-                $this->orders[] = ['column' => $column, 'order' => $order[$key]];
+                $this->orders[is_string($order) ? $order : $order[$key]][] = $column;
             }
         } else {
             throw new \InvalidArgumentException();
@@ -779,15 +791,6 @@ class Builder extends BuilderAbstract
     {
         // todo: don't do this as string, create new object new Count(); this can get handled by the grammar parser WAY better
         return $this->select('COUNT(' . $table . ')');
-    }
-
-    /**
-     * Check if exists.
-     *
-     * @since  1.0.0
-     */
-    public function exists()
-    {
     }
 
     /**
@@ -903,6 +906,39 @@ class Builder extends BuilderAbstract
     }
 
     /**
+     * Values to insert.
+     *
+     * @param array $sets Values
+     *
+     * @return Builder
+     *
+     * @since  1.0.0
+     */
+    public function sets(...$sets) : Builder
+    {
+        $this->sets[] = $sets;
+
+        return $this;
+    }
+
+    /**
+     * Values to insert.
+     *
+     * @param mixed  $set Values
+     * @param string $type  Data type to insert
+     *
+     * @return Builder
+     *
+     * @since  1.0.0
+     */
+    public function set($set, string $type = 'string') : Builder
+    {
+        $this->sets[key($set)] = current($set);
+
+        return $this;
+    }
+
+    /**
      * Update columns.
      *
      * @param array $columns Column names to update
@@ -911,7 +947,7 @@ class Builder extends BuilderAbstract
      *
      * @since  1.0.0
      */
-    public function update(...$columns) : Builder
+    public function update(...$tables) : Builder
     {
         if($this->isReadOnly) {
             throw new \Exception();
@@ -919,9 +955,24 @@ class Builder extends BuilderAbstract
 
         $this->type = QueryType::UPDATE;
 
-        foreach ($columns as $key => $column) {
-            $this->inserts[] = $column;
+        foreach ($tables as $key => $table) {
+            if (is_string($table) || $table instanceof \Closure) {
+                $this->updates[] = $table;
+            } else {
+                throw new \InvalidArgumentException();
+            }
         }
+
+        return $this;
+    }
+
+    public function delete() : Builder
+    {
+        if($this->isReadOnly) {
+            throw new \Exception();
+        }
+
+        $this->type = QueryType::DELETE;
 
         return $this;
     }

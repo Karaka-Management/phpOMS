@@ -15,6 +15,8 @@ declare(strict_types=1);
 
 namespace phpOMS\DataStorage\Database;
 
+use phpOMS\DataStorage\Database\Schema\Exception\TableException;
+
 /**
  * Database exception factory.
  *

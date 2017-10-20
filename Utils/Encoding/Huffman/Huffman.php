@@ -51,7 +51,7 @@ final class Huffman
      *
      * @since  1.0.0
      */
-    public function getDictionary() : Dictionary
+    public function getDictionary() /* : ?Dictionary */
     {
         return $this->dictionary;
     }

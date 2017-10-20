@@ -26,6 +26,15 @@ namespace phpOMS\Utils\Converter;
  */
 class Measurement
 {
+    /**
+     * Constructor.
+     *
+     * @since  1.0.0
+     * @codeCoverageIgnore
+     */
+    private function __construct()
+    {
+    }
 
     /**
      * Convert temperature.
@@ -88,7 +97,7 @@ class Measurement
                 $value = ($value - 273.15) * 1.5 - 100;
                 break;
             case TemperatureType::NEWTON:
-                $value = ($value - 273.15) / 0.33;
+                $value = ($value - 273.15) * 0.33;
                 break;
             case TemperatureType::ROMER:
                 $value = ($value - 273.15) * 0.525 + 7.5;
@@ -1221,7 +1230,7 @@ class Measurement
      *
      * @since  1.0.0
      */
-    public static function convertEnergie(float $value, string $from = EnergyPowerType::JOULS, string $to = EnergyPowerType::KILOWATT_HOUERS) : float
+    public static function convertEnergy(float $value, string $from = EnergyPowerType::JOULS, string $to = EnergyPowerType::KILOWATT_HOUERS) : float
     {
         switch ($from) {
             case EnergyPowerType::JOULS:

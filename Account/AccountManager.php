@@ -21,6 +21,8 @@ use phpOMS\DataStorage\Session\SessionInterface;
 
 /**
  * Account manager class.
+ * 
+ * The account manager is used to manage multiple accounts. 
  *
  * @category   Framework
  * @package    phpOMS\Account
@@ -48,14 +50,6 @@ class AccountManager implements \Countable
     private $session = null;
 
     /**
-     * Database connection instance.
-     *
-     * @var ConnectionAbstract
-     * @since 1.0.0
-     */
-    private $connection = null;
-
-    /**
      * Authenticator.
      *
      * @var Auth
@@ -66,16 +60,14 @@ class AccountManager implements \Countable
     /**
      * Constructor.
      *
-     * @param ConnectionAbstract $connection Database connection
      * @param SessionInterface   $session    Session
      *
      * @since  1.0.0
      */
-    public function __construct(ConnectionAbstract $connection, SessionInterface $session)
+    public function __construct(SessionInterface $session)
     {
-        $this->connection = $connection;
         $this->session    = $session;
-        $this->auth       = new Auth($this->connection, $this->session);
+        $this->auth       = new Auth($this->session);
     }
 
     /**
@@ -100,6 +92,18 @@ class AccountManager implements \Countable
         }
 
         return $this->accounts[$id] ?? new NullAccount();
+    }
+
+    /**
+     * Returns the authentication manager
+     *
+     * @return Auth
+     *
+     * @since  1.0.0
+     */
+    public function getAuth() : Auth
+    {
+        return $this->auth;
     }
 
     /**

@@ -19,5 +19,8 @@ use phpOMS\Validation\ValidatorAbstract;
 
 class Barcode39 extends ValidatorAbstract
 {
-
+    public static function isValid($value, array $constraints = null)
+    {
+        
+    }
 }

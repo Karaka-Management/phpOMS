@@ -1197,14 +1197,14 @@ class FinanceFormulas
     /**
      * Rate of Inflation
      *
-     * @param float $oldCPI Consumer price index old
      * @param float $newCPI Consumer price index new
+     * @param float $oldCPI Consumer price index old
      *
      * @return float
      *
      * @since  1.0.0
      */
-    public static function getRateOfOnflation(float $oldCPI, float $newCPI) : float
+    public static function getRateOfOnflation(float $newCPI, float $oldCPI) : float
     {
         return $newCPI / $oldCPI - 1;
     }
@@ -1313,6 +1313,54 @@ class FinanceFormulas
     public static function getSimpleInterest(float $P, float $r, int $t) : float
     {
         return $P * $r * $t;
+    }
+
+    /**
+     * Simple Interest Rate
+     *
+     * @param float $I Interest
+     * @param float $P Principal
+     * @param int   $t Time
+     *
+     * @return float
+     *
+     * @since  1.0.0
+     */
+    public static function getSimpleInterestRate(float $I, float $P, int $t) : float
+    {
+        return $I / ($P * $t);
+    }
+
+    /**
+     * Simple Interest Principal
+     *
+     * @param float $I Interest
+     * @param float $r Rate
+     * @param int   $t Time
+     *
+     * @return float
+     *
+     * @since  1.0.0
+     */
+    public static function getSimpleInterestPrincipal(float $I, float $r, int $t) : float
+    {
+        return $I / ($r * $t);
+    }
+
+    /**
+     * Simple Interest Principal
+     *
+     * @param float $I Interest
+     * @param float $P Principal
+     * @param float $r Rate
+     *
+     * @return int
+     *
+     * @since  1.0.0
+     */
+    public static function getSimpleInterestTime(float $I, float $P, float $r) : int
+    {
+        return (int) round($I / ($P * $r));
     }
 
     /**

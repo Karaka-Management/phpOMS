@@ -192,18 +192,6 @@ class Group implements ArrayableInterface, \JsonSerializable
     }
 
     /**
-     * Json serialize.
-     *
-     * @return string
-     *
-     * @since  1.0.0
-     */
-    public function jsonSerialize()
-    {
-        return $this->toArray();
-    }
-
-    /**
      * {@inheritdoc}
      */
     public function toArray() : array
@@ -215,5 +203,17 @@ class Group implements ArrayableInterface, \JsonSerializable
             'permissions' => $this->permissions,
             'members'     => $this->members,
         ];
+    }
+
+    /**
+     * Json serialize.
+     *
+     * @return string
+     *
+     * @since  1.0.0
+     */
+    public function jsonSerialize()
+    {
+        return $this->toArray();
     }
 }

@@ -96,6 +96,7 @@ class ModuleManager
      * Constructor.
      *
      * @param ApplicationAbstract $app Application
+     * @param string $modulePath Path to modules
      *
      * @since  1.0.0
      */
@@ -103,80 +104,6 @@ class ModuleManager
     {
         $this->app = $app;
         $this->modulePath = $modulePath;
-    }
-
-    /**
-     * Get modules that run on this page.
-     *
-     * @param Request $request Request
-     *
-     * @return array
-     *
-     * @since  1.0.0
-     */
-    public function getRoutedModules(Request $request) : array
-    {
-        $files = $this->getUriLoad($request);
-
-        $modules = [];
-        if (isset($files[4])) {
-            foreach ($files[4] as $module) {
-                $modules[] = $module['module_load_file'];
-            }
-        }
-
-        return $modules;
-    }
-
-    /**
-     * Get modules that run on this page.
-     *
-     * @param Request $request Request
-     *
-     * @return array
-     *
-     * @since  1.0.0
-     */
-    public function getUriLoad(Request $request) : array
-    {
-        if (!isset($this->uriLoad)) {
-            switch ($this->app->dbPool->get('core')->getType()) {
-                case DatabaseType::MYSQL:
-                    $uriHash = $request->getHash();
-                    $uriPdo  = '';
-
-                    $i = 1;
-                    $c = count($uriHash);
-                    for ($k = 0; $k < $c; $k++) {
-                        $uriPdo .= ':pid' . $i . ',';
-                        $i++;
-                    }
-
-                    $uriPdo = rtrim($uriPdo, ',');
-
-                    /* TODO: make join in order to see if they are active */
-                    $sth = $this->app->dbPool->get('core')->con->prepare(
-                        'SELECT
-                    `' . $this->app->dbPool->get('core')->prefix . 'module_load`.`module_load_type`, `' . $this->app->dbPool->get('core')->prefix . 'module_load`.*
-                    FROM
-                    `' . $this->app->dbPool->get('core')->prefix . 'module_load`
-                    WHERE
-                    `module_load_pid` IN(' . $uriPdo . ')'
-                    );
-
-                    $i = 1;
-                    foreach ($uriHash as $hash) {
-                        $sth->bindValue(':pid' . $i, $hash, \PDO::PARAM_STR);
-                        $i++;
-                    }
-
-                    $sth->execute();
-
-                    $this->uriLoad = $sth->fetchAll(\PDO::FETCH_GROUP);
-            }
-        }
-
-        return $this->uriLoad;
     }
 
     /**
@@ -203,6 +130,58 @@ class ModuleManager
     }
 
     /**
+     * Get modules that run on this page.
+     *
+     * @param Request $request Request
+     *
+     * @return array
+     *
+     * @since  1.0.0
+     */
+    public function getUriLoad(Request $request) : array
+    {
+        if (!isset($this->uriLoad)) {
+            switch ($this->app->dbPool->get('select')->getType()) {
+                case DatabaseType::MYSQL:
+                    $uriHash = $request->getHash();
+                    $uriPdo  = '';
+
+                    $i = 1;
+                    $c = count($uriHash);
+                    
+                    for ($k = 0; $k < $c; $k++) {
+                        $uriPdo .= ':pid' . $i . ',';
+                        $i++;
+                    }
+
+                    $uriPdo = rtrim($uriPdo, ',');
+
+                    /* TODO: make join in order to see if they are active */
+                    $sth = $this->app->dbPool->get('select')->con->prepare(
+                        'SELECT
+                    `' . $this->app->dbPool->get('select')->prefix . 'module_load`.`module_load_type`, `' . $this->app->dbPool->get('select')->prefix . 'module_load`.*
+                    FROM
+                    `' . $this->app->dbPool->get('select')->prefix . 'module_load`
+                    WHERE
+                    `module_load_pid` IN(' . $uriPdo . ')'
+                    );
+
+                    $i = 1;
+                    foreach ($uriHash as $hash) {
+                        $sth->bindValue(':pid' . $i, $hash, \PDO::PARAM_STR);
+                        $i++;
+                    }
+
+                    $sth->execute();
+
+                    $this->uriLoad = $sth->fetchAll(\PDO::FETCH_GROUP);
+            }
+        }
+
+        return $this->uriLoad;
+    }
+
+    /**
      * Get all installed modules that are active (not just on this uri).
      *
      * @return array
@@ -212,9 +191,9 @@ class ModuleManager
     public function getActiveModules() : array
     {
         if ($this->active === null) {
-            switch ($this->app->dbPool->get('core')->getType()) {
+            switch ($this->app->dbPool->get('select')->getType()) {
                 case DatabaseType::MYSQL:
-                    $sth = $this->app->dbPool->get('core')->con->prepare('SELECT `module_path` FROM `' . $this->app->dbPool->get('core')->prefix . 'module` WHERE `module_active` = 1');
+                    $sth = $this->app->dbPool->get('select')->con->prepare('SELECT `module_path` FROM `' . $this->app->dbPool->get('select')->prefix . 'module` WHERE `module_active` = 1');
                     $sth->execute();
                     $this->active = $sth->fetchAll(\PDO::FETCH_COLUMN);
                     break;
@@ -301,6 +280,74 @@ class ModuleManager
     }
 
     /**
+     * Get all installed modules.
+     *
+     * @return array
+     *
+     * @since  1.0.0
+     */
+    public function getInstalledModules() : array
+    {
+        if ($this->installed === null) {
+            switch ($this->app->dbPool->get('select')->getType()) {
+                case DatabaseType::MYSQL:
+                    $sth = $this->app->dbPool->get('select')->con->prepare('SELECT `module_id`,`module_theme`,`module_version` FROM `' . $this->app->dbPool->get('select')->prefix . 'module`');
+                    $sth->execute();
+                    $this->installed = $sth->fetchAll(\PDO::FETCH_GROUP);
+                    break;
+            }
+        }
+
+        return $this->installed;
+    }
+
+    /**
+     * Load info of module.
+     *
+     * @param string $module Module name
+     *
+     * @return InfoManager
+     *
+     * @since  1.0.0
+     */
+    private function loadInfo(string $module) : InfoManager
+    {
+        $path = realpath($oldPath = $this->modulePath . '/' . $module . '/' . 'info.json');
+
+        if ($path === false) {
+            throw new PathException($oldPath);
+        }
+
+        $info = new InfoManager($path);
+        $info->load();
+
+        return $info;
+    }
+
+    /**
+     * Deactivate module.
+     *
+     * @param InfoManager $info Module info
+     *
+     * @return void
+     *
+     * @throws InvalidModuleException Throws this exception in case the deactiviation doesn't exist
+     *
+     * @since  1.0.0
+     */
+    private function deactivateModule(InfoManager $info) /* : void */
+    {
+        $class = '\\Modules\\' . $info->getDirectory() . '\\Admin\\Deactivate';
+
+        if (!Autoloader::exists($class)) {
+            throw new InvalidModuleException($info->getDirectory());
+        }
+
+        /** @var $class DeactivateAbstract */
+        $class::deactivate($this->app->dbPool, $info);
+    }
+
+    /**
      * Deactivate module.
      *
      * @param string $module Module name
@@ -333,6 +380,29 @@ class ModuleManager
 
             return false;
         }
+    }
+
+    /**
+     * Activate module.
+     *
+     * @param InfoManager $info Module info
+     *
+     * @return void
+     *
+     * @throws InvalidModuleException Throws this exception in case the activation doesn't exist
+     *
+     * @since  1.0.0
+     */
+    private function activateModule(InfoManager $info) /* : void */
+    {
+        $class = '\\Modules\\' . $info->getDirectory() . '\\Admin\\Activate';
+
+        if (!Autoloader::exists($class)) {
+            throw new InvalidModuleException($info->getDirectory());
+        }
+
+        /** @var $class ActivateAbstract */
+        $class::activate($this->app->dbPool, $info);
     }
 
     /**
@@ -452,97 +522,6 @@ class ModuleManager
     }
 
     /**
-     * Deactivate module.
-     *
-     * @param InfoManager $info Module info
-     *
-     * @return void
-     *
-     * @throws InvalidModuleException Throws this exception in case the deactiviation doesn't exist
-     *
-     * @since  1.0.0
-     */
-    private function deactivateModule(InfoManager $info) /* : void */
-    {
-        $class = '\\Modules\\' . $info->getDirectory() . '\\Admin\\Deactivate';
-
-        if (!Autoloader::exists($class)) {
-            throw new InvalidModuleException($info->getDirectory());
-        }
-
-        /** @var $class DeactivateAbstract */
-        $class::deactivate($this->app->dbPool, $info);
-    }
-
-    /**
-     * Activate module.
-     *
-     * @param InfoManager $info Module info
-     *
-     * @return void
-     *
-     * @throws InvalidModuleException Throws this exception in case the activation doesn't exist
-     *
-     * @since  1.0.0
-     */
-    private function activateModule(InfoManager $info) /* : void */
-    {
-        $class = '\\Modules\\' . $info->getDirectory() . '\\Admin\\Activate';
-
-        if (!Autoloader::exists($class)) {
-            throw new InvalidModuleException($info->getDirectory());
-        }
-
-        /** @var $class ActivateAbstract */
-        $class::activate($this->app->dbPool, $info);
-    }
-
-    /**
-     * Load info of module.
-     *
-     * @param string $module Module name
-     *
-     * @return InfoManager
-     *
-     * @since  1.0.0
-     */
-    private function loadInfo(string $module) : InfoManager
-    {
-        $path = realpath($oldPath = $this->modulePath . '/' . $module . '/' . 'info.json');
-
-        if ($path === false) {
-            throw new PathException($oldPath);
-        }
-
-        $info = new InfoManager($path);
-        $info->load();
-
-        return $info;
-    }
-
-    /**
-     * Get all installed modules.
-     *
-     * @return array
-     *
-     * @since  1.0.0
-     */
-    public function getInstalledModules() : array
-    {
-        if ($this->installed === null) {
-            switch ($this->app->dbPool->get('core')->getType()) {
-                case DatabaseType::MYSQL:
-                    $sth = $this->app->dbPool->get('core')->con->prepare('SELECT `module_id`,`module_theme`,`module_version` FROM `' . $this->app->dbPool->get('core')->prefix . 'module`');
-                    $sth->execute();
-                    $this->installed = $sth->fetchAll(\PDO::FETCH_GROUP);
-                    break;
-            }
-        }
-
-        return $this->installed;
-    }
-
-    /**
      * Install providing.
      *
      * Installing additional functionality for another module
@@ -560,6 +539,30 @@ class ModuleManager
             $class = '\\Modules\\' . $from . '\\Admin\\Install\\' . $for;
             /** @var $class InstallerAbstract */
             $class::install($this->modulePath, $this->app->dbPool, null);
+        }
+    }
+
+    /**
+     * Get module instance.
+     *
+     * @param string $module Module name
+     *
+     * @return \phpOMS\Module\ModuleAbstract
+     *
+     * @throws \Exception
+     *
+     * @since  1.0.0
+     */
+    public function get(string $module) : ModuleAbstract
+    {
+        try {
+            if (!isset($this->running[$module])) {
+                $this->initModule($module);
+            }
+
+            return $this->running[$module];
+        } catch (\Exception $e) {
+            throw $e;
         }
     }
 
@@ -611,30 +614,6 @@ class ModuleManager
     }
 
     /**
-     * Get module instance.
-     *
-     * @param string $module Module name
-     *
-     * @return \phpOMS\Module\ModuleAbstract
-     *
-     * @throws \Exception
-     *
-     * @since  1.0.0
-     */
-    public function get(string $module) : ModuleAbstract
-    {
-        try {
-            if (!isset($this->running[$module])) {
-                $this->initModule($module);
-            }
-
-            return $this->running[$module];
-        } catch (\Exception $e) {
-            throw $e;
-        }
-    }
-
-    /**
      * Initialize all modules for a request.
      *
      * @param Request $request Request
@@ -650,5 +629,28 @@ class ModuleManager
         foreach($toInit as $module) {
             $this->initModuleController($module);
         }
+    }
+
+    /**
+     * Get modules that run on this page.
+     *
+     * @param Request $request Request
+     *
+     * @return array
+     *
+     * @since  1.0.0
+     */
+    public function getRoutedModules(Request $request) : array
+    {
+        $files   = $this->getUriLoad($request);
+        $modules = [];
+
+        if (isset($files[4])) {
+            foreach ($files[4] as $module) {
+                $modules[] = $module['module_load_file'];
+            }
+        }
+
+        return $modules;
     }
 }

@@ -24,7 +24,7 @@ namespace phpOMS\Message\Mail;
  * @link       http://orange-management.com
  * @since      1.0.0
  */
-class MailAbstract
+class EmailAbstract
 {
     /**
      * Host.

@@ -34,6 +34,7 @@ abstract class ModuleAbstract
      * @since 1.0.0
      */
     /* public */ const MODULE_NAME = '';
+
     /**
      * Module path.
      *
@@ -41,6 +42,7 @@ abstract class ModuleAbstract
      * @since 1.0.0
      */
     /* public */ const MODULE_PATH = __DIR__ . '/../../Modules';
+
     /**
      * Module version.
      *
@@ -48,6 +50,15 @@ abstract class ModuleAbstract
      * @since 1.0.0
      */
     /* public */ const MODULE_VERSION = '1.0.0';
+
+    /**
+     * Module id.
+     *
+     * @var string
+     * @since 1.0.0
+     */
+    /* public */ const MODULE_ID = 0;
+
     /**
      * Receiving modules from?
      *
@@ -94,15 +105,6 @@ abstract class ModuleAbstract
     public function __construct($app)
     {
         $this->app = $app;
-    }
-
-    /**
-     * Install external.
-     *
-     * @since  1.0.0
-     */
-    public static function installExternal() /* : void */
-    {
     }
 
     /**
@@ -159,17 +161,5 @@ abstract class ModuleAbstract
     {
         /** @noinspection PhpUndefinedFieldInspection */
         return static::$dependencies;
-    }
-
-    /**
-     * Get event id prefix.
-     *
-     * @return string
-     *
-     * @since  1.0.0
-     */
-    public function getEventId() : string
-    {
-        return static::class;
     }
 }

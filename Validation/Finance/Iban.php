@@ -33,17 +33,14 @@ abstract class Iban extends ValidatorAbstract
      * Constructor.
      *
      * @since  1.0.0
+     * @codeCoverageIgnore
      */
     private function __construct()
     {
     }
 
     /**
-     * @param string $value Iban to validate
-     *
-     * @return bool
-     *
-     * @since  1.0.0
+     * {@inheritdoc}
      */
     public static function isValid($value, array $constraints = null) : bool
     {

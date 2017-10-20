@@ -26,6 +26,9 @@ namespace phpOMS\Utils\RnG;
  */
 class LinearCongruentialGenerator
 {
+    private static $bsdSeed = 0;
+    private static $msvcrtSeed = 0;
+
     /**
      * BSD random number
      *
@@ -35,11 +38,13 @@ class LinearCongruentialGenerator
      *
      * @since  1.0.0
      */
-    public static function bsd(int $seed)
+    public static function bsd(int $seed = 0)
     {
-        return function () use (&$seed) {
-            return $seed = (1103515245 * $seed + 12345) % (1 << 31);
-        };
+        if($seed !== 0) {
+            self::$bsdSeed = $seed;
+        }
+
+        return self::$bsdSeed = (1103515245 * self::$bsdSeed + 12345) % (1 << 31);
     }
 
     /**
@@ -51,10 +56,12 @@ class LinearCongruentialGenerator
      *
      * @since  1.0.0
      */
-    public static function msvcrt(int $seed)
+    public static function msvcrt(int $seed = 0)
     {
-        return function () use (&$seed) {
-            return ($seed = (214013 * $seed + 2531011) % (1 << 31)) >> 16;
-        };
+        if($seed !== 0) {
+            self::$msvcrtSeed = $seed;
+        }
+
+        return (self::$msvcrtSeed = (214013 * self::$msvcrtSeed + 2531011) % (1 << 31)) >> 16;
     }
 }

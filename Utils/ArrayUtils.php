@@ -31,6 +31,7 @@ class ArrayUtils
      * Constructor.
      *
      * @since  1.0.0
+     * @codeCoverageIgnore
      */
     private function __construct()
     {
@@ -294,6 +295,7 @@ class ArrayUtils
         // see collection collapse as alternative?!
         $flat  = [];
         $stack = array_values($array);
+
         while (!empty($stack)) {
             $value = array_shift($stack);
 
@@ -322,7 +324,6 @@ class ArrayUtils
     {
         $count = $count === 0 ? count($array) : $start + $count;
         $sum   = 0;
-
         $array = array_values($array);
 
         for ($i = $start; $i <= $count - 1; $i++) {

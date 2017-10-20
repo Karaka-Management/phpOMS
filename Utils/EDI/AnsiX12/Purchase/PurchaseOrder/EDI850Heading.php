@@ -15,6 +15,8 @@ declare(strict_types=1);
 
 namespace phpOMS\Utils\EDI\AnsiX12\Purchase;
 
+use phpOMS\Utils\EDI\AnsiX12\Component;
+
 /**
  * EDI 850 - Purchase order.
  *
@@ -46,6 +48,7 @@ class EDI850Heading
 
     public function __construct()
     {
-        $this->headingTransactionSetHeader = new TransactionSetHeader();
+        $this->headingTransactionSetHeader = new ST(850);
+        $this->headingBeginningSegmentPO = new BEG();
     }
 }

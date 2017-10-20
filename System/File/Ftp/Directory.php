@@ -96,7 +96,7 @@ class Directory extends FileAbstract implements DirectoryInterface
     /**
      * {@inheritdoc}
      */
-    public static function permission(string $path) : string
+    public static function permission(string $path) : int
     {
         // TODO: Implement permission() method.
     }

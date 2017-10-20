@@ -13,7 +13,7 @@
  */
 declare(strict_types=1);
 
-namespace phpOMS\Utils\EDI\AnsiX12\Purchase\PurchaseOrder;
+namespace phpOMS\Utils\EDI\AnsiX12;
 
 /**
  * EDI

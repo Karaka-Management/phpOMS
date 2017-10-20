@@ -49,7 +49,7 @@ class NaiveBayesFilter
             }
         }
         
-        return 1 / (1+exp(M_E, $n));
+        return 1 / (1+exp($n));
     }
     
     private function normalizeDictionary() : array

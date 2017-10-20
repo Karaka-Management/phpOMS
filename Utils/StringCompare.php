@@ -49,6 +49,20 @@ class StringCompare
     }
 
     /**
+     * Adds word to dictionary
+     * 
+     * @param string $word Word to add to dictionary
+     * 
+     * @return void
+     *
+     * @since  1.0.0
+     */
+    public function add(string $word) /* : void */
+    {
+        $this->dictionary[] = $word;
+    }
+
+    /**
      * Match word against dictionary.
      *
      * @param string $match Word to match against dictionary
@@ -62,10 +76,11 @@ class StringCompare
         $bestScore = PHP_INT_MAX;
         $bestMatch = '';
 
-        foreach($dictionary as $word) {
+        foreach($this->dictionary as $word) {
             $score = self::fuzzyMatch($word, $match);
 
             if($score < $bestScore) {
+                $bestScore = $score;
                 $bestMatch = $word;
             }
         }
@@ -145,7 +160,7 @@ class StringCompare
      *
      * @param string $s1 Word 1
      * @param string $s2 Word 2
-     * @param float $prhaseWeight Weighting for phrase score
+     * @param float $phraseWeight Weighting for phrase score
      * @param float $wordWeight Weighting for word score
      * @param float $minWeight Min weight
      * @param float $maxWeight Max weight
@@ -157,9 +172,9 @@ class StringCompare
      */
     public static function fuzzyMatch(string $s1, string $s2, float $phraseWeight = 0.5, float $wordWeight = 1, float $minWeight = 10, float $maxWeight = 1, float $lengthWeight = -0.3) : float
     {
-        $phraseValue = valuePhrase($s1, $s2);
-        $wordValue = valueWords($s1, $s2);
-        $lengthValue = valueLength($s1, $s2);
+        $phraseValue = self::valuePhrase($s1, $s2);
+        $wordValue   = self::valueWords($s1, $s2);
+        $lengthValue = self::valueLength($s1, $s2);
 
         return min($phraseValue * $phraseWeight, $wordValue * $wordWeight) * $minWeight
             + max($phraseValue * $phraseWeight, $wordValue * $wordWeight) * $maxWeight

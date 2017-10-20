@@ -28,20 +28,19 @@ class DateTime
 {
 
     /**
-     * Get a random string.
+     * Get a random \DateTime.
      *
-     * @param string $start Start date
-     * @param string $end   End date
+     * @param \DateTime $start Start date
+     * @param \DateTime $end   End date
      *
      * @return \DateTime
      *
      * @since  1.0.0
      */
-    public static function generateDateTime(string $start, string $end) : \DateTime
+    public static function generateDateTime(\DateTime $start, \DateTime $end) : \DateTime
     {
-        $startDate = strtotime($start);
-        $endDate   = strtotime($end);
-
-        return new \DateTime(date('Y-m-d H:i:s', rand($startDate, $endDate)));
+        $rng = new \DateTime();
+        
+        return $rng->setTimestamp(mt_rand($start->getTimestamp(), $end->getTimestamp()));
     }
 }

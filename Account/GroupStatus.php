@@ -20,17 +20,15 @@ use phpOMS\Stdlib\Base\Enum;
 /**
  * Accept status enum.
  *
- * @category   Calendar
- * @package    Modules
+ * @category   Framework
+ * @package    phpOMS\Account
  * @license    OMS License 1.0
  * @link       http://orange-management.com
  * @since      1.0.0
  */
 abstract class GroupStatus extends Enum
 {
-    /* public */ const ACTIVE = 1;
-
-    /* public */ const INACTIVE = 2;
-
-    /* public */ const HIDDEN = 4;
+	/* public */ const ACTIVE   = 1;
+	/* public */ const INACTIVE = 2;
+	/* public */ const HIDDEN   = 4;
 }

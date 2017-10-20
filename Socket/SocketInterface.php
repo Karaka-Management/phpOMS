@@ -34,7 +34,6 @@ interface SocketInterface
      * @param int    $port Port
      *
      * @since    1.0.0
-     * @author   Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function create(string $ip, int $port);
 
@@ -42,7 +41,6 @@ interface SocketInterface
      * Close socket.
      *
      * @since    1.0.0
-     * @author   Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function close();
 
@@ -50,7 +48,6 @@ interface SocketInterface
      * Run socket.
      *
      * @since    1.0.0
-     * @author   Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function run();
 }

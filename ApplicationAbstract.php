@@ -36,14 +36,6 @@ class ApplicationAbstract
     protected $appName = '';
 
     /**
-     * Config.
-     *
-     * @var array
-     * @since 1.0.0
-     */
-    protected $config = [];
-
-    /**
      * Database object.
      *
      * @var \phpOMS\DataStorage\Database\DatabasePool
@@ -153,7 +145,7 @@ class ApplicationAbstract
      */
     public function __set($name, $value) 
     {
-        if(!empty($this->$name) || $name === 'config') {
+        if(!empty($this->$name)) {
             return;
         }
 
@@ -173,10 +165,6 @@ class ApplicationAbstract
      */
     public function __get($name) 
     { 
-        if($name === 'config') {
-            return [];
-        }
-
         return $this->$name; 
     }
 }

@@ -26,21 +26,36 @@ namespace phpOMS\System\File;
  */
 class FileUtils
 {
-    /* public */ const CODE_EXTENSION = ['cpp', 'c', 'h', 'hpp', 'cs', 'css', 'htm', 'html', 'php', 'rb'];
-    /* public */ const TEXT_EXTENSION = ['doc', 'docx', 'txt', 'md', 'csv'];
+    /* public */ const CODE_EXTENSION         = ['cpp', 'c', 'h', 'hpp', 'cs', 'css', 'htm', 'html', 'php', 'rb'];
+    /* public */ const TEXT_EXTENSION         = ['doc', 'docx', 'txt', 'md', 'csv'];
     /* public */ const PRESENTATION_EXTENSION = ['ppt', 'pptx'];
-    /* public */ const PDF_EXTENSION = ['pdf'];
-    /* public */ const ARCHIVE_EXTENSION = ['zip', '7z', 'rar'];
-    /* public */ const AUDIO_EXTENSION = ['mp3', 'wav'];
-    /* public */ const VIDEO_EXTENSION = ['mp4'];
-    /* public */ const SPREADSHEET_EXTENSION = ['xls', 'xlsm'];
-    /* public */ const IMAGE_EXTENSION = ['png', 'gif', 'jpg', 'jpeg', 'tiff', 'bmp'];
+    /* public */ const PDF_EXTENSION          = ['pdf'];
+    /* public */ const ARCHIVE_EXTENSION      = ['zip', '7z', 'rar'];
+    /* public */ const AUDIO_EXTENSION        = ['mp3', 'wav'];
+    /* public */ const VIDEO_EXTENSION        = ['mp4'];
+    /* public */ const SPREADSHEET_EXTENSION  = ['xls', 'xlsm'];
+    /* public */ const IMAGE_EXTENSION        = ['png', 'gif', 'jpg', 'jpeg', 'tiff', 'bmp'];
 
+    /**
+     * Constructor.
+     *
+     * @since  1.0.0
+     * @codeCoverageIgnore
+     */
     private function __construct() 
     {
 
     }
 
+    /**
+     * Get file extension type.
+     *
+     * @param string $extension Extension string
+     *
+     * @return int Extension type
+     *
+     * @since  1.0.0
+     */
     public static function getExtensionType(string $extension) : int
     {
         $extension = strtolower($extension);
@@ -66,5 +81,42 @@ class FileUtils
         }
 
         return ExtensionType::UNKNOWN;
+    }
+
+    /**
+     * Make file path absolute
+     *
+     * @param string $origPath File path
+     *
+     * @return string
+     *
+     * @since  1.0.0
+     */
+    public static function absolute(string $origPath) : string
+    {
+        if(!file_exists($origPath)) {
+            $startsWithSlash = strpos($origPath, '/') === 0 ? '/' : '';
+
+            $path = [];
+            $parts = explode('/', $origPath);
+
+            foreach($parts as $part) {
+                if (empty($part) || $part === '.') {
+                    continue;
+                }
+          
+                if ($part !== '..') {
+                    $path[] = $part;
+                } elseif (!empty($path)) {
+                    array_pop($path);
+                } else {
+                    throw new PathException($origPath);
+                }
+            }
+          
+            return $startsWithSlash . implode('/', $path);
+        }
+
+        return realpath($origPath);
     }
 }

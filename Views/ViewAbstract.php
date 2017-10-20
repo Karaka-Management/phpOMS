@@ -6,7 +6,6 @@
  *
  * @category   TBD
  * @package    TBD
- * @author     Dennis Eichhorn <d.eichhorn@oms.com>
  * @copyright  Dennis Eichhorn
  * @license    OMS License 1.0
  * @version    1.0.0
@@ -23,7 +22,6 @@ use phpOMS\System\File\PathException;
  *
  * @category   Framework
  * @package    phpOMS/Views
- * @author     Dennis Eichhorn <d.eichhorn@oms.com>
  * @license    OMS License 1.0
  * @link       http://orange-management.com
  * @since      1.0.0
@@ -148,22 +146,6 @@ abstract class ViewAbstract implements \Serializable
     }
 
     /**
-     * Edit view.
-     *
-     * @param string   $id    View ID
-     * @param View     $view
-     * @param null|int $order Order of view
-     *
-     * @return void
-     *
-     * @since  1.0.0 <d.eichhorn@oms.com>
-     */
-    public function editView(string $id, View $view, $order = null) /* : void */
-    {
-        $this->addView($id, $view, $order, true);
-    }
-
-    /**
      * Add view.
      *
      * @param string $id        View ID
@@ -171,7 +153,7 @@ abstract class ViewAbstract implements \Serializable
      * @param int    $order     Order of view
      * @param bool   $overwrite Overwrite existing view
      *
-     * @return void
+     * @return bool
      *
      * @since  1.0.0 <d.eichhorn@oms.com>
      */
@@ -231,16 +213,16 @@ abstract class ViewAbstract implements \Serializable
     /**
      * Get view/template response.
      *
-     * @return string|array
+     * @param array $data Data to pass to renderer
+     *
+     * @return array|string
      *
      * @since  1.0.0 <d.eichhorn@oms.com>
      */
     public function render(...$data)
     {
-        $ob = '';
-
-        
-            $path = __DIR__ . '/../..' . $this->template . '.tpl.php';
+        $ob   = '';
+        $path = __DIR__ . '/../..' . $this->template . '.tpl.php';
 
         if (!file_exists($path)) {
             throw new PathException($path);
@@ -249,11 +231,11 @@ abstract class ViewAbstract implements \Serializable
         try {
             ob_start();
             /** @noinspection PhpIncludeInspection */
-            $data = include $path;
+            $includeData = include $path;
             $ob   = ob_get_clean();
 
-            if (is_array($data)) {
-                return $data;
+            if (is_array($includeData)) {
+                return $includeData;
             }
         } catch(\Throwable $e) {
             $ob = '';
@@ -270,10 +252,10 @@ abstract class ViewAbstract implements \Serializable
      * @return void
      *
      * @since  1.0.0 <d.eichhorn@oms.com>
+     * @codeCoverageIgnore
      */
     public function unserialize($raw)
     {
-        // todo: implement
     }
 
 }

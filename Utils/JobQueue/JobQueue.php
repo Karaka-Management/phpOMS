@@ -57,7 +57,7 @@ class JobQueue
             $this->runAsDeamon();
 
             if (posix_setsid() < 0 || $pid = pcntl_fork()) {
-                return;
+                return 0;
             }
         }
 

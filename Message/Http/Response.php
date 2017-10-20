@@ -47,10 +47,10 @@ class Response extends ResponseAbstract implements RenderableInterface
      *
      * @since  1.0.0
      */
-    public function __construct(Localization $l11n)
+    public function __construct(Localization $l11n = null)
     {
         $this->header = new Header();
-        $this->l11n   = $l11n;
+        $this->header->setL11n($l11n ?? new Localization());
     }
 
     /**

@@ -29,7 +29,7 @@ class TarGz implements ArchiveInterface
     /**
      * {@inheritdoc}
      */
-    public static function pack(array $source, string $destination, bool $overwrite = true) : bool
+    public static function pack($source, string $destination, bool $overwrite = true) : bool
     {
         if(!Tar::pack($source, $destination . '.tmp', $overwrite)) {
             return false;

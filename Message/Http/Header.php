@@ -16,7 +16,7 @@ declare(strict_types=1);
 namespace phpOMS\Message\Http;
 
 use phpOMS\Message\HeaderAbstract;
-use phpOMS\DataStorage\LockExcpetion;
+use phpOMS\DataStorage\LockException;
 
 /**
  * Response class.
@@ -68,7 +68,7 @@ class Header extends HeaderAbstract
     public function set(string $key, string $header, bool $overwrite = false) : bool
     {
         if (self::$isLocked) {
-            throw new LockExcpetion('HTTP header');
+            throw new LockException('HTTP header');
         }
 
         $key = strtolower($key);
@@ -76,7 +76,7 @@ class Header extends HeaderAbstract
         if (!$overwrite && isset($this->header[$key])) {
             return false;
         } elseif ($overwrite || !isset($this->header[$key])) {
-            if ($this->isSecurityHeader($key) && isset($this->header[$key])) {
+            if (self::isSecurityHeader($key) && isset($this->header[$key])) {
                 throw new \Exception('Cannot change security headers.');
             }
 
@@ -93,14 +93,6 @@ class Header extends HeaderAbstract
     }
     
     /**
-     * {@inheritdoc}
-     */
-    public function getProtocolVersion() : string
-    {
-        return $_SERVER['SERVER_PROTOCOL'] ?? 'HTTP/1.1';
-    }
-
-    /**
      * Is security header.
      *
      * @param string $key Header key
@@ -109,12 +101,22 @@ class Header extends HeaderAbstract
      *
      * @since  1.0.0
      */
-    private function isSecurityHeader(string $key) : bool
+    public static function isSecurityHeader(string $key) : bool
     {
-        return $key === 'content-security-policy' ||
-        $key === 'x-xss-protection' ||
-        $key === 'x-content-type-options' ||
-        $key === 'x-frame-options';
+        $key = strtolower($key);
+
+        return $key === 'content-security-policy'
+            || $key === 'x-xss-protection'
+            || $key === 'x-content-type-options'
+            || $key === 'x-frame-options';
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getProtocolVersion() : string
+    {
+        return $_SERVER['SERVER_PROTOCOL'] ?? 'HTTP/1.1';
     }
 
     /**
@@ -127,34 +129,10 @@ class Header extends HeaderAbstract
     public function getStatusCode() : int
     {
         if($this->status === 0) {
-            $this->status = \http_response_code();
+            $this->status = (int) \http_response_code();
         }
         
-        return $this->status;
-    }
-
-    /**
-     * Returns all pushed headers.
-     *
-     * @return array
-     *
-     * @since  1.0.0
-     */
-    public function getHeaders() : array
-    {
-        return self::getAllHeaders();
-    }
-
-    /**
-     * Get pushed header by name.
-     *
-     * @return string
-     *
-     * @since  1.0.0
-     */
-    public function getHeader(string $name) : string
-    {
-        return self::getAllHeaders()[$name] ?? '';
+        return parent::getStatusCode();
     }
 
     /**
@@ -164,7 +142,7 @@ class Header extends HeaderAbstract
      *
      * @since  1.0.0
      */
-    private static function getAllHeaders() : array
+    public static function getAllHeaders() : array
     {
         if (function_exists('getallheaders')) {
             return getallheaders();
@@ -183,7 +161,7 @@ class Header extends HeaderAbstract
     /**
      * Remove header by ID.
      *
-     * @param int $key Header key
+     * @param mixed $key Header key
      *
      * @return bool
      *
@@ -191,10 +169,10 @@ class Header extends HeaderAbstract
      *
      * @since  1.0.0
      */
-    public function remove(int $key) : bool
+    public function remove($key) : bool
     {
         if (self::$isLocked) {
-            throw new \LockException('HTTP header');
+            throw new LockException('HTTP header');
         }
 
         if (isset($this->header[$key])) {
@@ -207,9 +185,19 @@ class Header extends HeaderAbstract
     }
 
     /**
+     * {@inheritdoc}
+     */
+    public function getReasonPhrase() : string
+    {
+        $phrases = $this->get('Status');
+
+        return empty($phrases) ? '' : $phrases[0];
+    }
+
+    /**
      * Get header by name.
      *
-     * @param int $key Header key
+     * @param string $key Header key
      *
      * @return array
      *
@@ -219,19 +207,11 @@ class Header extends HeaderAbstract
     {
         return $this->header[strtolower($key)] ?? [];
     }
-    
-    /**
-     * {@inheritdoc}
-     */
-    public function getReasonPhrase() : string
-    {
-        return $this->header->getHeader('Status');
-    }
 
     /**
      * Check if header is defined.
      *
-     * @param int $key Header key
+     * @param string $key Header key
      *
      * @return bool
      *
@@ -341,22 +321,7 @@ class Header extends HeaderAbstract
      */
     private function generate407() /* : void */
     {
-
-    }
-
-    /**
-     * Generate predefined header.
-     *
-     * @return void
-     *
-     * @since  1.0.0
-     */
-    private function generate500() /* : void */
-    {
-        $this->set('HTTP', 'HTTP/1.0 500 Internal Server Error');
-        $this->set('Status', 'Status: 500 Internal Server Error');
-        $this->set('Retry-After', 'Retry-After: 300');
-        \http_response_code(500);
+        \http_response_code(407);
     }
 
     /**
@@ -372,5 +337,20 @@ class Header extends HeaderAbstract
         $this->set('Status', 'Status: 503 Service Temporarily Unavailable');
         $this->set('Retry-After', 'Retry-After: 300');
         \http_response_code(503);
+    }
+
+    /**
+     * Generate predefined header.
+     *
+     * @return void
+     *
+     * @since  1.0.0
+     */
+    private function generate500() /* : void */
+    {
+        $this->set('HTTP', 'HTTP/1.0 500 Internal Server Error');
+        $this->set('Status', 'Status: 500 Internal Server Error');
+        $this->set('Retry-After', 'Retry-After: 300');
+        \http_response_code(500);
     }
 }

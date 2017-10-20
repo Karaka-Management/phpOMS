@@ -33,6 +33,7 @@ class Ip extends ValidatorAbstract
      * Constructor.
      *
      * @since  1.0.0
+     * @codeCoverageIgnore
      */
     private function __construct()
     {
@@ -46,11 +47,29 @@ class Ip extends ValidatorAbstract
         return filter_var($value, FILTER_VALIDATE_IP) !== false;
     }
 
+    /**
+     * Validate IPv6
+     *
+     * @param mixed $value to validate
+     *
+     * @return bool
+     *
+     * @since  1.0.0
+     */
     public static function isValidIpv6($value) : bool
     {
         return filter_var($value, FILTER_VALIDATE_IP, FILTER_FLAG_IPV6) !== false;
     }
 
+    /**
+     * Validate IPv4
+     *
+     * @param mixed $value to validate
+     *
+     * @return bool
+     *
+     * @since  1.0.0
+     */
     public static function isValidIpv4($value) : bool
     {
         return filter_var($value, FILTER_VALIDATE_IP, FILTER_FLAG_IPV4) !== false;

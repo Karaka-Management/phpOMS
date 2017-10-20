@@ -68,7 +68,7 @@ class Directory extends FileAbstract implements DirectoryInterface
     }
 
     /**
-     * List all files in directorz.
+     * List all files in directory.
      *
      * @param string $path   Path
      * @param string $filter Filter
@@ -79,10 +79,45 @@ class Directory extends FileAbstract implements DirectoryInterface
      */
     public static function list(string $path, string $filter = '*') : array
     {
-        $list = [];
+        if (!file_exists($path)) {
+            throw new PathException($path);
+        }
 
-        foreach (glob($path . DIRECTORY_SEPARATOR . $filter) as $filename) {
-            $list[] = $filename;
+        $list = [];
+        $path = rtrim($path, '\\/');
+
+        foreach ($iterator = new \RecursiveIteratorIterator(
+            new \RecursiveDirectoryIterator($path, \RecursiveDirectoryIterator::SKIP_DOTS),
+            \RecursiveIteratorIterator::SELF_FIRST) as $item
+        ) {
+            $list[] = str_replace('\\', '/', $iterator->getSubPathName());
+        }
+
+        return $list;
+    }
+
+    /**
+     * List all files by extension directory.
+     *
+     * @param string $path   Path
+     * @param string $extension Extension
+     *
+     * @return array
+     *
+     * @since  1.0.0
+     */
+    public static function listByExtension(string $path, string $extension) : array
+    {
+        $list = [];
+        $path = rtrim($path, '\\/');
+
+        foreach ($iterator = new \RecursiveIteratorIterator(
+            new \RecursiveDirectoryIterator($path, \RecursiveDirectoryIterator::SKIP_DOTS),
+            \RecursiveIteratorIterator::SELF_FIRST) as $item
+        ) {
+            if($item->getExtension() === $extension) {
+                $list[] = str_replace('\\', '/', $iterator->getSubPathName());
+            }
         }
 
         return $list;
@@ -121,6 +156,10 @@ class Directory extends FileAbstract implements DirectoryInterface
      */
     public static function size(string $dir, bool $recursive = true) : int
     {
+        if (!file_exists($dir)) {
+            throw new PathException($dir);
+        }
+
         $countSize = 0;
         $count     = 0;
 
@@ -147,11 +186,16 @@ class Directory extends FileAbstract implements DirectoryInterface
     /**
      * {@inheritdoc}
      */
-    public static function count(string $path, bool $recursive = true, array $ignore = ['.', '..', 'cgi-bin',
-                                                                                               '.DS_Store']) : int
+    public static function count(string $path, bool $recursive = true, array $ignore = []) : int
     {
+        if (!file_exists($path)) {
+            throw new PathException($path);
+        }
+
         $size  = 0;
         $files = scandir($path);
+        $ignore[] = '.';
+        $ignore[] = '..';
 
         foreach ($files as $t) {
             if (in_array($t, $ignore)) {
@@ -174,10 +218,6 @@ class Directory extends FileAbstract implements DirectoryInterface
      */
     public static function delete(string $path) : bool
     {
-        if (!file_exists($path) || !is_dir($path)) {
-            throw new PathException($path);
-        }
-
         $files = scandir($path);
 
         /* Removing . and .. */
@@ -185,10 +225,10 @@ class Directory extends FileAbstract implements DirectoryInterface
         unset($files[0]);
 
         foreach ($files as $file) {
-            if (is_dir($file)) {
-                self::delete($file);
+            if (is_dir($path . '/' . $file)) {
+                self::delete($path . '/' . $file);
             } else {
-                unlink($file);
+                unlink($path . '/' . $file);
             }
         }
 
@@ -215,10 +255,7 @@ class Directory extends FileAbstract implements DirectoryInterface
     public static function created(string $path) : \DateTime
     {
         if(!file_exists($path)) {
-            $created = new \DateTime();
-            $created->setTimestamp(0);
-
-            return $created;
+            throw new PathException($path);
         }
 
         $created = new \DateTime('now');
@@ -232,7 +269,14 @@ class Directory extends FileAbstract implements DirectoryInterface
      */
     public static function changed(string $path) : \DateTime
     {
-        // TODO: Implement changed() method.
+        if (!file_exists($path)) {
+            throw new PathException($path);
+        }
+
+        $changed = new \DateTime();
+        $changed->setTimestamp(filectime($path));
+
+        return $changed;
     }
 
     /**
@@ -240,15 +284,23 @@ class Directory extends FileAbstract implements DirectoryInterface
      */
     public static function owner(string $path) : int
     {
-        // TODO: Implement owner() method.
+        if (!file_exists($path)) {
+            throw new PathException($path);
+        }
+
+        return fileowner($path);
     }
 
     /**
      * {@inheritdoc}
      */
-    public static function permission(string $path) : string
+    public static function permission(string $path) : int
     {
-        // TODO: Implement permission() method.
+        if (!file_exists($path)) {
+            throw new PathException($path);
+        }
+
+        return fileperms($path);
     }
 
     /**
@@ -256,7 +308,32 @@ class Directory extends FileAbstract implements DirectoryInterface
      */
     public static function copy(string $from, string $to, bool $overwrite = false) : bool
     {
-        // TODO: Implement copy() method.
+        if (!is_dir($from)) {
+            throw new PathException($from);
+        }
+
+        if(!$overwrite && file_exists($to)) {
+            return false;
+        }
+
+        if (!file_exists($to)) {
+            self::create($to, 0644, true);
+        } elseif($overwrite && file_exists($to)) {
+            self::delete($to);
+        }
+
+        foreach ($iterator = new \RecursiveIteratorIterator(
+            new \RecursiveDirectoryIterator($from, \RecursiveDirectoryIterator::SKIP_DOTS),
+            \RecursiveIteratorIterator::SELF_FIRST) as $item
+        ) {
+            if ($item->isDir()) {
+                mkdir($to . '/' . $iterator->getSubPathName());
+            } else {
+                copy($from . '/' . $iterator->getSubPathName(), $to . '/' . $iterator->getSubPathName());
+            }
+        }
+
+        return true;
     }
 
     /**
@@ -264,7 +341,23 @@ class Directory extends FileAbstract implements DirectoryInterface
      */
     public static function move(string $from, string $to, bool $overwrite = false) : bool
     {
-        // TODO: Implement move() method.
+        if (!is_dir($from)) {
+            throw new PathException($from);
+        }
+
+        if (!$overwrite && file_exists($to)) {
+            return false;
+        } elseif($overwrite && file_exists($to)) {
+            self::delete($to);
+        }
+
+        if (!self::exists(self::parent($to))) {
+            self::create(self::parent($to), 0644, true);
+        }
+
+        rename($from, $to);
+
+        return true;
     }
 
     /**
@@ -307,6 +400,10 @@ class Directory extends FileAbstract implements DirectoryInterface
     public static function create(string $path, int $permission = 0644, bool $recursive = false) : bool
     {
         if (!file_exists($path)) {
+            if(!$recursive && !file_exists(self::parent($path))) {
+                return false;
+            }
+
             mkdir($path, $permission, $recursive);
 
             return true;
@@ -412,6 +509,22 @@ class Directory extends FileAbstract implements DirectoryInterface
     public static function name(string $path) : string
     {
         return basename($path);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public static function dirname(string $path) : string
+    {
+        return basename($path);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public static function dirpath(string $path) : string
+    {
+        return $path;
     }
 
     /**
