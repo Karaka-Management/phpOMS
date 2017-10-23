@@ -74,7 +74,7 @@ class ArrayUtils
     }
 
     /**
-     * Check if needle exists in multidimensional array.
+     * Set element in array by path
      *
      * @param string $path      Path to element
      * @param array  $data      Array
@@ -110,6 +110,29 @@ class ArrayUtils
         }
 
         return $data;
+    }
+
+    /**
+     * Get element of array by path
+     *
+     * @param string $path      Path to element
+     * @param array  $data      Array
+     * @param string $delim     Delimiter for path
+     *
+     * @return mixed
+     *
+     * @since  1.0.0
+     */
+    public static function getArray(string $path, array $data, string $delim = '/')
+    {
+        $pathParts = explode($delim, trim($path, $delim));
+        $current   = $data;
+
+        foreach ($pathParts as $key) {
+            $current = $current[$key];
+        }
+
+        return $current;
     }
 
     /**
