@@ -47,7 +47,7 @@ class MeasureOfDispersion
         $end   = end($values);
         $start = reset($values);
 
-        return $start - $end;
+        return $end - $start;
     }
 
     /**
