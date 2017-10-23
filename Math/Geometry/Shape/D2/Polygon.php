@@ -138,7 +138,8 @@ class Polygon implements D2ShapeInterface
      * @param array $polygon Polygon definition
      *
      * @return int
-     *
+     * 
+     * @link http://erich.realtimerendering.com/ptinpoly/
      * @since  1.0.0
      */
     public static function isPointInPolygon(array $point, array $polygon) : int
