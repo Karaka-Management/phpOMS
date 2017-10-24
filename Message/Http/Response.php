@@ -144,7 +144,7 @@ class Response extends ResponseAbstract implements RenderableInterface
         $types = $this->header->get('Content-Type');
         
         if(stripos($types[0], MimeType::M_HTML) !== false) {
-            return trim(preg_replace('/(\s{2,}|\n)(?![^<>]*<\/pre>)/', ' ', $render));
+            return trim(preg_replace('/(\s{2,}|\n|\t)(?![^<>]*<\/pre>)/', ' ', $render));
         }
 
         return $render;
