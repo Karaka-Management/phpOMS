@@ -140,6 +140,12 @@ class Response extends ResponseAbstract implements RenderableInterface
                 throw new \Exception('Wrong response type');
             }
         }
+        
+        $types = $this->header->get('Content-Type');
+        
+        if(in_array(MimeType::M_HTML, $types)) {
+            return trim(preg_replace('/(\s{2,}|\n)(?![^<>]*<\/pre>)/', ' ', $render);
+        }
 
         return $render;
     }
