@@ -219,7 +219,7 @@ abstract class ViewAbstract implements \Serializable
      *
      * @since  1.0.0 <d.eichhorn@oms.com>
      */
-    public function render(...$data)
+    public function render(...$data) : string
     {
         $ob   = '';
         $path = __DIR__ . '/../..' . $this->template . '.tpl.php';
