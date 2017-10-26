@@ -269,8 +269,6 @@ class DataMapperAbstract implements DataMapperInterface
         // todo: how to handle with of parent objects/extends/relations
 
         self::$fields = $objects;
-
-        //return __CLASS__;
     }
 
     /**
