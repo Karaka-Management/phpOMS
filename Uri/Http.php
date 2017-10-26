@@ -281,7 +281,7 @@ class Http implements UriInterface
     /**
      * {@inheritdoc}
      */
-    public function getQuery(string $key = null) /* : ?string */
+    public function getQuery(string $key = null)  : string
     {
         if(isset($key)) {
             $key = strtolower($key);

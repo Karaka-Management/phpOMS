@@ -117,11 +117,11 @@ interface UriInterface
      *
      * @param string $key Query key
      *
-     * @return string|array
+     * @return string
      *
      * @since  1.0.0
      */
-    public function getQuery(string $key = null);
+    public function getQuery(string $key = null) : string;
 
     /**
      * Get fragment.
