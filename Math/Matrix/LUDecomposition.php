@@ -84,6 +84,8 @@ class LUDecomposition
 
     public function getL()
     {
+        $L = [[]];
+
         for ($i = 0; $i < $this->m; ++$i) {
 			for ($j = 0; $j < $this->n; ++$j) {
 				if ($i > $j) {
@@ -104,6 +106,8 @@ class LUDecomposition
 
     public function getU()
     {
+        $U = [[]];
+
         for ($i = 0; $i < $this->n; ++$i) {
 			for ($j = 0; $j < $this->n; ++$j) {
 				if ($i <= $j) {
@@ -153,8 +157,6 @@ class LUDecomposition
 
         if (!$this->isNonsingular()) {
         }
-
-        var_dump($this->piv);
 
         $nx = $B->getM();
         $X  = $B->getMatrix($this->piv, 0, $nx-1);
