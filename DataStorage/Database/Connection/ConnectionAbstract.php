@@ -89,7 +89,7 @@ abstract class ConnectionAbstract implements ConnectionInterface
     /**
      * Database grammar.
      *
-     * @var Grammar
+     * @var SchemaGrammar
      * @since 1.0.0
      */
     protected $schemaGrammar = null;

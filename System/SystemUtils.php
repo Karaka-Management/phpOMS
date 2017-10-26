@@ -79,9 +79,7 @@ class SystemUtils
     {
         $memusage = 0;
 
-        if (stristr(PHP_OS, 'WIN')) {
-
-        } elseif (stristr(PHP_OS, 'LINUX')) {
+        if (stristr(PHP_OS, 'LINUX')) {
             $free     = shell_exec('free');
             $free     = (string) trim($free);
             $free_arr = explode("\n", $free);

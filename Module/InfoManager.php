@@ -99,7 +99,7 @@ class InfoManager
      */
     public function update() /* : void */
     {
-    	if (!file_exists($this->path)) {
+        if (!file_exists($this->path)) {
             throw new PathException((string) $this->path);
         }
 

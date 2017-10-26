@@ -52,11 +52,11 @@ class Average
      *
      * @since  1.0.0
      */
-    public static function averageChange(array $x, int $h = 1) : float
+    public static function averageDatasetChange(array $x, int $h = 1) : float
     {
         $count = count($x);
 
-        return $x[$count - 1] + $h * ($x[$count - 1] - $x[0]) / ($count - 1);
+        return $h * ($x[$count - 1] - $x[0]) / ($count - 1);
     }
 
     /**

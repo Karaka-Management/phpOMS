@@ -15,6 +15,6 @@ declare(strict_types=1);
 
 namespace phpOMS\DataStorage\Database\Query\Grammar;
 
-class GrammarInterface
+interface GrammarInterface
 {
 }
