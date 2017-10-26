@@ -419,13 +419,13 @@ class ModuleManager
     public function reInit(string $module) : bool
     {
         $info = $this->loadInfo($module);
-        /** @var $class InstallerAbstract */
         $class = '\\Modules\\' . $info->getDirectory() . '\\Admin\\Installer';
 
         if (!Autoloader::exists($class)) {
             throw new InvalidModuleException($info->getDirectory());
         }
 
+        /** @var $class InstallerAbstract */
         $class::reInit($this->modulePath, $info);
     }
 
@@ -511,13 +511,13 @@ class ModuleManager
      */
     private function installModule(InfoManager $info) /* : void */
     {
-        /** @var $class InstallerAbstract */
         $class = '\\Modules\\' . $info->getDirectory() . '\\Admin\\Installer';
 
         if (!Autoloader::exists($class)) {
             throw new InvalidModuleException($info->getDirectory());
         }
 
+        /** @var $class InstallerAbstract */
         $class::install($this->modulePath, $this->app->dbPool, $info);
     }
 
