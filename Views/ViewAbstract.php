@@ -175,7 +175,7 @@ abstract class ViewAbstract implements \Serializable
     /**
      * Serialize view for rendering.
      *
-     * @return string|array
+     * @return string
      *
      * @since  1.0.0 <d.eichhorn@oms.com>
      */
@@ -215,7 +215,7 @@ abstract class ViewAbstract implements \Serializable
      *
      * @param array $data Data to pass to renderer
      *
-     * @return array|string
+     * @return string
      *
      * @since  1.0.0 <d.eichhorn@oms.com>
      */
@@ -235,7 +235,7 @@ abstract class ViewAbstract implements \Serializable
             $ob   = ob_get_clean();
 
             if (is_array($includeData)) {
-                return $includeData;
+                return json_encode($includeData);
             }
         } catch(\Throwable $e) {
             $ob = '';
