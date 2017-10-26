@@ -24,7 +24,7 @@ namespace phpOMS\DataStorage\Cache;
  * @link       http://orange-management.com
  * @since      1.0.0
  */
-class MemCache implements CacheInterface
+class MemCached implements CacheInterface
 {
 
     /**
