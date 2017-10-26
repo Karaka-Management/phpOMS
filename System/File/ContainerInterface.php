@@ -315,11 +315,11 @@ interface ContainerInterface
     /**
      * Get the permissions id of the resource.
      *
-     * @return string Permissions (e.g. 0644);
+     * @return int Permissions (e.g. 0644);
      *
      * @since  1.0.0
      */
-    public function getPermission() : string;
+    public function getPermission() : int;
 
     /**
      * (Re-)Initialize resource
