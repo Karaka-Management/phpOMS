@@ -82,7 +82,7 @@ class View extends ViewAbstract
      *
      * @since  1.0.0
      */
-    public function __construct(ApplicationAbstract $app, RequestAbstract $request, ResponseAbstract $response)
+    public function __construct(ApplicationAbstract $app = null, RequestAbstract $request = null, ResponseAbstract $response = null)
     {
         $this->app      = $app;
         $this->request  = $request;
