@@ -574,7 +574,7 @@ class Matrix implements \ArrayAccess, \Iterator
         $mDim = count($b);
         $matrix = $this->matrix;
 
-        for($col = 0; $col < $mDim; $col++) {
+        for ($col = 0; $col < $mDim; $col++) {
             $j = $col;
             $max = $matrix[$j][$j];
 

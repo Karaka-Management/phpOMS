@@ -122,7 +122,7 @@ class ExponentialSmoothing
         }
 
         $sum = 0;
-        for($i = 0; $i < $length; $i++) {
+        for ($i = 0; $i < $length; $i++) {
             $sum += pow($damping, $i);
         }
 
@@ -140,7 +140,7 @@ class ExponentialSmoothing
             $error      = [];
             $tempForecast = [];
 
-            for($i = 1; $i < $dataLength; $i++) {
+            for ($i = 1; $i < $dataLength; $i++) {
                 $level[$i] = $alpha * ($i < $dataLength - $future ? $this->data[$i-1] : $tempForecast[$i-1]) + (1 - $alpha) * $level[$i-1];
 
                 $tempForecast[$i] = $level[$i];
@@ -172,7 +172,7 @@ class ExponentialSmoothing
         $forecast = [];
         $seasonal = [];
 
-        for($i = 1; $i < $cycle+1; $i++) {
+        for ($i = 1; $i < $cycle+1; $i++) {
             $seasonal[$i] = $this->data[$i-1] - $level[0];
         }
 
@@ -185,7 +185,7 @@ class ExponentialSmoothing
                 $error      = [];
                 $tempForecast = [];
 
-                for($i = 1; $i < $dataLength; $i++) {
+                for ($i = 1; $i < $dataLength; $i++) {
                     $hm = (int) floor(($i-1) % $cycle) + 1;
 
                     $level[$i] = $alpha * (($i < $dataLength - $future ? $this->data[$i-1] : $tempForecast[$i-1]) - $seasonal[$i]) + (1 - $alpha) * $level[$i-1];
@@ -223,7 +223,7 @@ class ExponentialSmoothing
         $forecast = [];
         $seasonal = [];
 
-        for($i = 1; $i < $cycle+1; $i++) {
+        for ($i = 1; $i < $cycle+1; $i++) {
             $seasonal[$i] = $this->data[$i] / $level[0];
         }
 
@@ -236,7 +236,7 @@ class ExponentialSmoothing
                 $error      = [];
                 $tempForecast = [];
 
-                for($i = 1; $i < $dataLength; $i++) {
+                for ($i = 1; $i < $dataLength; $i++) {
                     $hm = (int) floor(($i-1) % $cycle) + 1;
 
                     $level[$i] = $alpha * (($i < $dataLength - $future ? $this->data[$i-1] : $tempForecast[$i-1]) / $seasonal[$i]) + (1 - $alpha) * $level[$i-1];
@@ -282,7 +282,7 @@ class ExponentialSmoothing
                 $error      = [];
                 $tempForecast = [];
 
-                for($i = 1; $i < $dataLength; $i++) {
+                for ($i = 1; $i < $dataLength; $i++) {
                     $level[$i] = $alpha * ($i < $dataLength - $future ? $this->data[$i-1] : $tempForecast[$i-1]) + (1 - $alpha) * ($level[$i-1] + $damping * $trend[$i-1]);
                     $trend[$i] = $beta * ($level[$i] - $level[$i-1]) + (1 - $beta) * $damping * $trend[$i-1];
 
@@ -320,13 +320,13 @@ class ExponentialSmoothing
         $seasonal = [];
 
         $sum = 0;
-        for($i = 1; $i < $cycle+1; $i++) {
+        for ($i = 1; $i < $cycle+1; $i++) {
             $sum += ($this->data[$cycle] - $this->data[$i]) / $cycle;
         }
 
         $trend[0] *= $sum;
 
-        for($i = 1; $i < $cycle+1; $i++) {
+        for ($i = 1; $i < $cycle+1; $i++) {
             $seasonal[$i] = $this->data[$i-1] - $level[0];
         }
 
@@ -342,7 +342,7 @@ class ExponentialSmoothing
                     $error      = [];
                     $tempForecast = [];
 
-                    for($i = 1; $i < $dataLength; $i++) {
+                    for ($i = 1; $i < $dataLength; $i++) {
                         $hm = (int) floor(($i-1) % $cycle) + 1;
 
                         $level[$i] = $alpha * (($i < $dataLength - $future ? $this->data[$i-1] : $tempForecast[$i-1]) - $seasonal[$i]) + (1 - $alpha) * ($level[$i-1] + $damping * $trend[$i-1]);
@@ -387,13 +387,13 @@ class ExponentialSmoothing
         $gamma_ = $gamma * (1 - $alpha);
 
         $sum = 0;
-        for($i = 1; $i < $cycle+1; $i++) {
+        for ($i = 1; $i < $cycle+1; $i++) {
             $sum += ($this->data[$cycle] - $this->data[$i]) / $cycle;
         }
 
         $trend[0] *= $sum;
 
-        for($i = 1; $i < $cycle+1; $i++) {
+        for ($i = 1; $i < $cycle+1; $i++) {
             $seasonal[$i] = $this->data[$i] / $level[0];
         }
 
@@ -409,7 +409,7 @@ class ExponentialSmoothing
                     $error      = [];
                     $tempForecast = [];
 
-                    for($i = 1; $i < $dataLength; $i++) {
+                    for ($i = 1; $i < $dataLength; $i++) {
                         $hm = (int) floor(($i-1) % $cycle) + 1;
 
                         $level[$i] = $alpha * (($i < $dataLength - $future ? $this->data[$i-1] : $tempForecast[$i-1]) / $seasonal[$i]) + (1 - $alpha) * ($level[$i-1] + $damping * $trend[$i-1]);
@@ -459,7 +459,7 @@ class ExponentialSmoothing
                 $error      = [];
                 $tempForecast = [];
 
-                for($i = 1; $i < $dataLength; $i++) {
+                for ($i = 1; $i < $dataLength; $i++) {
                     $level[$i] = $alpha * ($i < $dataLength - $future ? $this->data[$i-1] : $tempForecast[$i-1]) + (1 - $alpha) * $level[$i-1] * pow($trend[$i-1], $damping);
                     $trend[$i] = $beta * ($level[$i] / $level[$i-1]) + (1 - $beta) * pow($trend[$i-1], $damping);
 
@@ -496,13 +496,13 @@ class ExponentialSmoothing
         $seasonal = [];
 
         $sum = 0;
-        for($i = 1; $i < $cycle+1; $i++) {
+        for ($i = 1; $i < $cycle+1; $i++) {
             $sum += ($this->data[$cycle] - $this->data[$i]) / $cycle;
         }
 
         $trend[0] *= $sum;
 
-        for($i = 1; $i < $cycle+1; $i++) {
+        for ($i = 1; $i < $cycle+1; $i++) {
             $seasonal[$i] = $this->data[$i-1] - $level[0];
         }
 
@@ -518,7 +518,7 @@ class ExponentialSmoothing
                     $error      = [];
                     $tempForecast = [];
 
-                    for($i = 1; $i < $dataLength; $i++) {
+                    for ($i = 1; $i < $dataLength; $i++) {
                         $hm = (int) floor(($i-1) % $cycle) + 1;
 
                         $level[$i] = $alpha * (($i < $dataLength - $future ? $this->data[$i-1] : $tempForecast[$i-1]) - $seasonal[$i]) + (1 - $alpha) * $level[$i-1] * pow($trend[$i-1], $damping);
@@ -562,13 +562,13 @@ class ExponentialSmoothing
         $seasonal = [];
 
         $sum = 0;
-        for($i = 1; $i < $cycle+1; $i++) {
+        for ($i = 1; $i < $cycle+1; $i++) {
             $sum += ($this->data[$cycle] - $this->data[$i]) / $cycle;
         }
 
         $trend[0] *= $sum;
 
-        for($i = 1; $i < $cycle+1; $i++) {
+        for ($i = 1; $i < $cycle+1; $i++) {
             $seasonal[$i] = $this->data[$i] / $level[0];
         }
 
@@ -584,7 +584,7 @@ class ExponentialSmoothing
                     $error      = [];
                     $tempForecast = [];
 
-                    for($i = 1; $i < $dataLength; $i++) {
+                    for ($i = 1; $i < $dataLength; $i++) {
                         $hm = (int) floor(($i-1) % $cycle) + 1;
 
                         $level[$i] = $alpha * (($i < $dataLength - $future ? $this->data[$i-1] : $tempForecast[$i-1]) / $seasonal[$i]) + (1 - $alpha) * $level[$i-1] * pow($trend[$i-1], $damping);

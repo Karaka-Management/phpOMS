@@ -281,20 +281,20 @@ class SmartDateTime extends \DateTime
         $daysPreviousMonth = $previousMonth->getDaysOfMonth();
         
         // add difference to $weekStartsWith counting backwards from days of previous month (reorder so that lowest value first)
-        for($i = $daysPreviousMonth - $diffToWeekStart; $i < $daysPreviousMonth; $i++) {
+        for ($i = $daysPreviousMonth - $diffToWeekStart; $i < $daysPreviousMonth; $i++) {
             $days[] = new \DateTime($previousMonth->format('Y') . '-' . $previousMonth->format('m') . '-' . ($i+1));
         }
         
         // add normal count of current days
         $daysMonth = $this->getDaysOfMonth();
-        for($i = 1; $i <= $daysMonth; $i++) {
+        for ($i = 1; $i <= $daysMonth; $i++) {
             $days[] = new \DateTime($this->format('Y') . '-' . $this->format('m') . '-' . ($i));
         }
         
         // add remaining days to next month (7*6 - difference+count of current month)
         $remainingDays = 42 - $diffToWeekStart - $daysMonth;
         $nextMonth = $this->createModify(0, 1);
-        for($i = 1; $i <= $remainingDays; $i++) {
+        for ($i = 1; $i <= $remainingDays; $i++) {
             $days[] = new \DateTime($nextMonth->format('Y') . '-' . $nextMonth->format('m') . '-' . ($i));
         }
 

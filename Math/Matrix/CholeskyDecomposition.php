@@ -28,9 +28,9 @@ class CholeskyDecomposition
         $this->L = $M->toArray();
         $this->m = $M->getM();
 
-        for($i = 0; $i < $this->m; ++$i) {
-            for($j = $i; $j < $this->m; ++$j) {
-                for($sum = $this->L[$i][$j], $k = $i - 1; $k >= 0; --$k) {
+        for ($i = 0; $i < $this->m; ++$i) {
+            for ($j = $i; $j < $this->m; ++$j) {
+                for ($sum = $this->L[$i][$j], $k = $i - 1; $k >= 0; --$k) {
                     $sum -= $this->L[$i][$k] * $this->L[$j][$k];
                 }
                 if ($i == $j) {
