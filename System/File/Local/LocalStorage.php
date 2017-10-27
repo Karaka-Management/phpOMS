@@ -14,7 +14,6 @@
 declare(strict_types=1);
 
 namespace phpOMS\System\File\Local;
-use phpOMS\System\File\ContainerInterface;
 use phpOMS\System\File\StorageAbstract;
 use phpOMS\System\File\PathException;
 

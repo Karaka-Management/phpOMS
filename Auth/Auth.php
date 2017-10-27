@@ -15,7 +15,6 @@ declare(strict_types=1);
 
 namespace phpOMS\Auth;
 
-use phpOMS\DataStorage\Database\Connection\ConnectionAbstract;
 use phpOMS\DataStorage\Session\SessionInterface;
 
 /**
