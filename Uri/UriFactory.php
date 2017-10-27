@@ -187,7 +187,6 @@ class UriFactory
             $full   = $parts[1];
             $pars   = explode('&', $full);
             $comps  = [];
-            $spl    = null;
             $length = count($pars);
 
             for ($i = 0; $i < $length; $i++) {

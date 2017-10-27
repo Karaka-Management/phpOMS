@@ -152,7 +152,7 @@ class Builder extends BuilderAbstract
     /**
      * Offset.
      *
-     * @var array
+     * @var int
      * @since 1.0.0
      */
     public $offset = null;
@@ -184,7 +184,7 @@ class Builder extends BuilderAbstract
     /**
      * Raw query.
      *
-     * @var bool
+     * @var string
      * @since 1.0.0
      */
     public $raw = '';
