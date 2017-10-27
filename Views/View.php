@@ -87,7 +87,7 @@ class View extends ViewAbstract
         $this->app      = $app;
         $this->request  = $request;
         $this->response = $response;
-        $this->l11n     = $response->getHeader()->getL11n();
+        $this->l11n     = isset($response) ? $response->getHeader()->getL11n() : null;
     }
 
     /**
