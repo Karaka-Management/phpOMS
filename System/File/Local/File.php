@@ -74,9 +74,9 @@ class File extends FileAbstract implements FileInterface
             || (($mode & ContentPutMode::REPLACE) === ContentPutMode::REPLACE && $exists)
             || (!$exists && ($mode & ContentPutMode::CREATE) === ContentPutMode::CREATE)
         ) {
-            if(($mode & ContentPutMode::APPEND) === ContentPutMode::APPEND && $exists) {
+            if (($mode & ContentPutMode::APPEND) === ContentPutMode::APPEND && $exists) {
                 file_put_contents($path, file_get_contents($path) . $content);
-            } elseif(($mode & ContentPutMode::PREPEND) === ContentPutMode::PREPEND && $exists) {
+            } elseif (($mode & ContentPutMode::PREPEND) === ContentPutMode::PREPEND && $exists) {
                 file_put_contents($path, $content . file_get_contents($path));
             } else {
                 if (!Directory::exists(dirname($path))) {
@@ -268,7 +268,7 @@ class File extends FileAbstract implements FileInterface
                 Directory::create(dirname($to), 0644, true);
             }
 
-            if($overwrite && file_exists($to)) {
+            if ($overwrite && file_exists($to)) {
                 unlink($to);
             }
 
@@ -294,7 +294,7 @@ class File extends FileAbstract implements FileInterface
                 Directory::create(dirname($to), 0644, true);
             }
 
-            if($overwrite && file_exists($to)) {
+            if ($overwrite && file_exists($to)) {
                 unlink($to);
             }
 
@@ -362,7 +362,7 @@ class File extends FileAbstract implements FileInterface
                 Directory::create(dirname($path), 0644, true);
             }
 
-            if(!is_writable(dirname($path))) {
+            if (!is_writable(dirname($path))) {
                 return false;
             }
             

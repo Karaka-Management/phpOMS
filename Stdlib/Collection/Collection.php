@@ -148,7 +148,7 @@ class Collection implements \Countable, \ArrayAccess, \Iterator, \JsonSerializab
         $arrays = array_chunk($this->collection, $size);
         $collections = [];
 
-        foreach($arrays as $array) {
+        foreach ($arrays as $array) {
             $collections[] = new self($array);
         }
 
@@ -622,7 +622,7 @@ class Collection implements \Countable, \ArrayAccess, \Iterator, \JsonSerializab
      */
     public function offsetGet($offset)
     {
-        if(!isset($this->collection[$offset])) {
+        if (!isset($this->collection[$offset])) {
             throw new \Exception('Invalid offset');
         }
 
@@ -719,7 +719,7 @@ class Collection implements \Countable, \ArrayAccess, \Iterator, \JsonSerializab
      */
     public function offsetUnset($offset)
     {
-        if(isset($this->collection[$offset])) {
+        if (isset($this->collection[$offset])) {
             unset($this->collection[$offset]);
         }
     }

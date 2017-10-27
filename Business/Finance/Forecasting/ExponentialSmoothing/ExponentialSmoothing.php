@@ -67,21 +67,21 @@ class ExponentialSmoothing
     {
         $this->rmse = PHP_INT_MAX;
 
-        if($trendType === TrendType::ALL || $seasonalType === SeasonalType::ALL) {
+        if ($trendType === TrendType::ALL || $seasonalType === SeasonalType::ALL) {
             $trends = [$trendType];
-            if($trendType === TrendType::ALL) {
+            if ($trendType === TrendType::ALL) {
                 $trends = [TrendType::NONE, TrendType::ADDITIVE, TrendType::MULTIPLICATIVE];
             }
 
             $seasonals = [$seasonalType];
-            if($seasonalType === SeasonalType::ALL) {
+            if ($seasonalType === SeasonalType::ALL) {
                 $seasonals = [SeasonalType::NONE, SeasonalType::ADDITIVE, SeasonalType::MULTIPLICATIVE];
             }
 
             $forecast = [];
             $bestError = PHP_INT_MAX;
-            foreach($trends as $trend) {
-                foreach($seasonals as $seasonal) {
+            foreach ($trends as $trend) {
+                foreach ($seasonals as $seasonal) {
                     $tempForecast = $this->getForecast($future, $trend, $seasonal, $cycle, $damping);
 
                     if ($this->rmse < $bestError) {
@@ -92,23 +92,23 @@ class ExponentialSmoothing
             }
 
             return $forecast;
-        } elseif($trendType === TrendType::NONE && $seasonalType === SeasonalType::NONE) {
+        } elseif ($trendType === TrendType::NONE && $seasonalType === SeasonalType::NONE) {
             return $this->getNoneNone($future);
-        } elseif($trendType === TrendType::NONE && $seasonalType === SeasonalType::ADDITIVE) {
+        } elseif ($trendType === TrendType::NONE && $seasonalType === SeasonalType::ADDITIVE) {
             return $this->getNoneAdditive($future, $cycle);
-        } elseif($trendType === TrendType::NONE && $seasonalType === SeasonalType::MULTIPLICATIVE) {
+        } elseif ($trendType === TrendType::NONE && $seasonalType === SeasonalType::MULTIPLICATIVE) {
             return $this->getNoneMultiplicative($future, $cycle);
-        } elseif($trendType === TrendType::ADDITIVE && $seasonalType === SeasonalType::NONE) {
+        } elseif ($trendType === TrendType::ADDITIVE && $seasonalType === SeasonalType::NONE) {
             return $this->getAdditiveNone($future, $damping);
-        } elseif($trendType === TrendType::ADDITIVE && $seasonalType === SeasonalType::ADDITIVE) {
+        } elseif ($trendType === TrendType::ADDITIVE && $seasonalType === SeasonalType::ADDITIVE) {
             return $this->getAdditiveAdditive($future, $cycle, $damping);
-        } elseif($trendType === TrendType::ADDITIVE && $seasonalType === SeasonalType::MULTIPLICATIVE) {
+        } elseif ($trendType === TrendType::ADDITIVE && $seasonalType === SeasonalType::MULTIPLICATIVE) {
             return $this->getAdditiveMultiplicative($future, $cycle, $damping);
-        } elseif($trendType === TrendType::MULTIPLICATIVE && $seasonalType === SeasonalType::NONE) {
+        } elseif ($trendType === TrendType::MULTIPLICATIVE && $seasonalType === SeasonalType::NONE) {
             return $this->getMultiplicativeNone($future, $damping);
-        } elseif($trendType === TrendType::MULTIPLICATIVE && $seasonalType === SeasonalType::ADDITIVE) {
+        } elseif ($trendType === TrendType::MULTIPLICATIVE && $seasonalType === SeasonalType::ADDITIVE) {
             return $this->getMultiplicativeAdditive($future, $cycle, $damping);
-        } elseif($trendType === TrendType::MULTIPLICATIVE && $seasonalType === SeasonalType::MULTIPLICATIVE) {
+        } elseif ($trendType === TrendType::MULTIPLICATIVE && $seasonalType === SeasonalType::MULTIPLICATIVE) {
             return $this->getMultiplicativeMultiplicative($future, $cycle, $damping);
         }
 
@@ -117,7 +117,7 @@ class ExponentialSmoothing
 
     private function dampingSum(float $damping, int $length) : float
     {
-        if(abs($damping - 1) < 0.001) {
+        if (abs($damping - 1) < 0.001) {
             return $length;
         }
 
@@ -180,7 +180,7 @@ class ExponentialSmoothing
         while ($alpha < 1) {
             $gamma = 0.00;
 
-            while($gamma < 1) {
+            while ($gamma < 1) {
                 $gamma_ = $gamma * (1 - $alpha);
                 $error      = [];
                 $tempForecast = [];
@@ -231,7 +231,7 @@ class ExponentialSmoothing
         while ($alpha < 1) {
             $gamma = 0.00;
 
-            while($gamma < 1) {
+            while ($gamma < 1) {
                 $gamma_ = $gamma * (1 - $alpha);
                 $error      = [];
                 $tempForecast = [];
@@ -278,7 +278,7 @@ class ExponentialSmoothing
         while ($alpha < 1) {
             $beta = 0.00;
 
-            while($beta < 1) {
+            while ($beta < 1) {
                 $error      = [];
                 $tempForecast = [];
 
@@ -334,10 +334,10 @@ class ExponentialSmoothing
         while ($alpha < 1) {
             $beta = 0.00;
 
-            while($beta < 1) {
+            while ($beta < 1) {
                 $gamma = 0.00;
 
-                while($gamma < 1) {
+                while ($gamma < 1) {
                     $gamma_ = $gamma * (1 - $alpha);
                     $error      = [];
                     $tempForecast = [];
@@ -401,10 +401,10 @@ class ExponentialSmoothing
         while ($alpha < 1) {
             $beta = 0.00;
 
-            while($beta < 1) {
+            while ($beta < 1) {
                 $gamma = 0.00;
 
-                while($gamma < 1) {
+                while ($gamma < 1) {
                     $gamma_ = $gamma * (1 - $alpha);
                     $error      = [];
                     $tempForecast = [];
@@ -455,7 +455,7 @@ class ExponentialSmoothing
         while ($alpha < 1) {
             $beta = 0.00;
 
-            while($beta < 1) {
+            while ($beta < 1) {
                 $error      = [];
                 $tempForecast = [];
 
@@ -510,10 +510,10 @@ class ExponentialSmoothing
         while ($alpha < 1) {
             $beta = 0.00;
 
-            while($beta < 1) {
+            while ($beta < 1) {
                 $gamma = 0.00;
 
-                while($gamma < 1) {
+                while ($gamma < 1) {
                     $gamma_ = $gamma * (1 - $alpha);
                     $error      = [];
                     $tempForecast = [];
@@ -576,10 +576,10 @@ class ExponentialSmoothing
         while ($alpha < 1) {
             $beta = 0.00;
 
-            while($beta < 1) {
+            while ($beta < 1) {
                 $gamma = 0.00;
 
-                while($gamma < 1) {
+                while ($gamma < 1) {
                     $gamma_ = $gamma * (1 - $alpha);
                     $error      = [];
                     $tempForecast = [];

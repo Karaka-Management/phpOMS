@@ -356,10 +356,10 @@ class Builder extends BuilderAbstract
      */
     public function raw(string $raw) : Builder
     {
-        if($this->isReadOnly) {
+        if ($this->isReadOnly) {
             $test = strtolower($raw);
 
-            if(strpos($test, 'insert') !== false 
+            if (strpos($test, 'insert') !== false 
             || strpos($test, 'update') !== false
             || strpos($test, 'drop') !== false
             || strpos($test, 'delete') !== false
@@ -523,7 +523,7 @@ class Builder extends BuilderAbstract
      */
     public function getTableOfSystem($expression, string $systemIdentifier) /* : ?string */
     {
-        if(($pos = strpos($expression, $systemIdentifier . '.' . $systemIdentifier)) === false) {
+        if (($pos = strpos($expression, $systemIdentifier . '.' . $systemIdentifier)) === false) {
             return null;
         }
 
@@ -677,7 +677,7 @@ class Builder extends BuilderAbstract
     public function orderBy($columns, $order = 'DESC') : Builder
     {
         if (is_string($columns) || $columns instanceof \Closure) {
-            if(!isset($this->orders[$order])) {
+            if (!isset($this->orders[$order])) {
                 $this->orders[$order] = [];
             }
 
@@ -840,7 +840,7 @@ class Builder extends BuilderAbstract
      */
     public function insert(...$columns) : Builder
     {
-        if($this->isReadOnly) {
+        if ($this->isReadOnly) {
             throw new \Exception();
         }
 
@@ -949,7 +949,7 @@ class Builder extends BuilderAbstract
      */
     public function update(...$tables) : Builder
     {
-        if($this->isReadOnly) {
+        if ($this->isReadOnly) {
             throw new \Exception();
         }
 
@@ -968,7 +968,7 @@ class Builder extends BuilderAbstract
 
     public function delete() : Builder
     {
-        if($this->isReadOnly) {
+        if ($this->isReadOnly) {
             throw new \Exception();
         }
 
@@ -1099,7 +1099,7 @@ class Builder extends BuilderAbstract
     {
         $sth = $this->connection->con->prepare($this->toSql());
         
-        foreach($this->binds as $key => $bind) {
+        foreach ($this->binds as $key => $bind) {
             $type = self::getBindParamType($bind);
             
             $sth->bindParam($key, $bind, $type);
@@ -1119,9 +1119,9 @@ class Builder extends BuilderAbstract
      */
     public static function getBindParamType($value)
     {
-        if(is_int($value)) {
+        if (is_int($value)) {
             return PDO::PARAM_INT;
-        } elseif(is_string($value) || is_float($value)) {
+        } elseif (is_string($value) || is_float($value)) {
             return PDO::PARAM_STR;
         }
         
@@ -1130,13 +1130,13 @@ class Builder extends BuilderAbstract
 
     public static function getPublicColumnName($column) : string
     {
-        if(is_string($column)) {
+        if (is_string($column)) {
             return $column;
-        } elseif($column instanceof Column) {
+        } elseif ($column instanceof Column) {
             return $column->getPublicName();
-        } elseif($column instanceof \Closure) {
+        } elseif ($column instanceof \Closure) {
             return $column();
-        } elseif($column instanceof \Serializable) {
+        } elseif ($column instanceof \Serializable) {
             return $column;
         }
 

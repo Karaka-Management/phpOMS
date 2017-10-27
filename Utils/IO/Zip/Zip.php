@@ -90,7 +90,7 @@ class Zip implements ArchiveInterface
      */
     public static function unpack(string $source, string $destination) : bool
     {
-        if(!file_exists($source)) {
+        if (!file_exists($source)) {
             return false;
         }
 

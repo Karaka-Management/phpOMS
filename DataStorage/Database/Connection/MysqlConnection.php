@@ -60,27 +60,27 @@ class MysqlConnection extends ConnectionAbstract
     {
         $this->dbdata = isset($dbdata) ? $dbdata : $this->dbdata;
         
-        if(!isset($this->dbdata['db'])) {
+        if (!isset($this->dbdata['db'])) {
             throw new InvalidConnectionConfigException('db');
         }
 
-        if(!isset($this->dbdata['host'])) {
+        if (!isset($this->dbdata['host'])) {
             throw new InvalidConnectionConfigException('host');
         }
 
-        if(!isset($this->dbdata['port'])) {
+        if (!isset($this->dbdata['port'])) {
             throw new InvalidConnectionConfigException('port');
         }
 
-        if(!isset($this->dbdata['database'])) {
+        if (!isset($this->dbdata['database'])) {
             throw new InvalidConnectionConfigException('database');
         }
 
-        if(!isset($this->dbdata['login'])) {
+        if (!isset($this->dbdata['login'])) {
             throw new InvalidConnectionConfigException('login');
         }
 
-        if(!isset($this->dbdata['password'])) {
+        if (!isset($this->dbdata['password'])) {
             throw new InvalidConnectionConfigException('password');
         }
 

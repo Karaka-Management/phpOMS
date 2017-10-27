@@ -115,7 +115,7 @@ class Directory extends FileAbstract implements DirectoryInterface
             new \RecursiveDirectoryIterator($path, \RecursiveDirectoryIterator::SKIP_DOTS),
             \RecursiveIteratorIterator::SELF_FIRST) as $item
         ) {
-            if($item->getExtension() === $extension) {
+            if ($item->getExtension() === $extension) {
                 $list[] = str_replace('\\', '/', $iterator->getSubPathName());
             }
         }
@@ -254,7 +254,7 @@ class Directory extends FileAbstract implements DirectoryInterface
      */
     public static function created(string $path) : \DateTime
     {
-        if(!file_exists($path)) {
+        if (!file_exists($path)) {
             throw new PathException($path);
         }
 
@@ -312,13 +312,13 @@ class Directory extends FileAbstract implements DirectoryInterface
             throw new PathException($from);
         }
 
-        if(!$overwrite && file_exists($to)) {
+        if (!$overwrite && file_exists($to)) {
             return false;
         }
 
         if (!file_exists($to)) {
             self::create($to, 0644, true);
-        } elseif($overwrite && file_exists($to)) {
+        } elseif ($overwrite && file_exists($to)) {
             self::delete($to);
         }
 
@@ -347,7 +347,7 @@ class Directory extends FileAbstract implements DirectoryInterface
 
         if (!$overwrite && file_exists($to)) {
             return false;
-        } elseif($overwrite && file_exists($to)) {
+        } elseif ($overwrite && file_exists($to)) {
             self::delete($to);
         }
 
@@ -400,7 +400,7 @@ class Directory extends FileAbstract implements DirectoryInterface
     public static function create(string $path, int $permission = 0644, bool $recursive = false) : bool
     {
         if (!file_exists($path)) {
-            if(!$recursive && !file_exists(self::parent($path))) {
+            if (!$recursive && !file_exists(self::parent($path))) {
                 return false;
             }
 

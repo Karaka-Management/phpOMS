@@ -106,8 +106,8 @@ class Response extends ResponseAbstract implements RenderableInterface
     {
         $types = $this->header->get('Content-Type');
 
-        foreach($types as $type) {
-            if(stripos($type, MimeType::M_JSON) !== false) {
+        foreach ($types as $type) {
+            if (stripos($type, MimeType::M_JSON) !== false) {
                 return $this->jsonSerialize();
             }
         }
@@ -143,7 +143,7 @@ class Response extends ResponseAbstract implements RenderableInterface
 
         $types = $this->header->get('Content-Type');
         
-        if(stripos($types[0], MimeType::M_HTML) !== false) {
+        if (stripos($types[0], MimeType::M_HTML) !== false) {
             return trim(preg_replace('/(\s{2,}|\n|\t)(?![^<>]*<\/pre>)/', ' ', $render));
         }
 

@@ -626,7 +626,7 @@ class ModuleManager
     {
         $toInit = $this->getRoutedModules($request);
 
-        foreach($toInit as $module) {
+        foreach ($toInit as $module) {
             $this->initModuleController($module);
         }
     }

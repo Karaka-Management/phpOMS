@@ -106,7 +106,7 @@ class PackageManager
      */
     public function load() /* : void */
     {
-        if(!file_exists($this->extractPath)) {
+        if (!file_exists($this->extractPath)) {
             throw new PathException($this->extractPath);
         }
 
@@ -139,8 +139,8 @@ class PackageManager
         $files = Directory::list($this->extractPath . '/package');
         $state = \sodium_crypto_generichash_init();
 
-        foreach($files as $file) {
-            if($file === 'package.cert') {
+        foreach ($files as $file) {
+            if ($file === 'package.cert') {
                 continue; 
             }
 
@@ -159,12 +159,12 @@ class PackageManager
      */
     public function install() /* : void */
     {
-        if(!$this->isValid()) {
+        if (!$this->isValid()) {
             throw new \Exception();
         }
 
-        foreach($this->info as $key => $components) {
-            if(function_exists($this->{$key})) {
+        foreach ($this->info as $key => $components) {
+            if (function_exists($this->{$key})) {
                 $this->{$key}($components);
             }
         }
@@ -179,7 +179,7 @@ class PackageManager
      */
     private function move($components)
     {
-        foreach($components as $component) {
+        foreach ($components as $component) {
             LocalStorage::move($this->basePath . '/' . $component['from'], $this->basePath . '/' . $component['to'], true);
         }
     }
@@ -193,8 +193,8 @@ class PackageManager
      */
     private function copy($components)
     {
-        foreach($components as $component) {
-            if(StringUtils::startsWith($component['from'], 'Package/')) {
+        foreach ($components as $component) {
+            if (StringUtils::startsWith($component['from'], 'Package/')) {
                 LocalStorage::copy($this->path . '/' . $component['from'], $this->basePath . '/' . $component['to'], true);
             } else {
                 LocalStorage::copy($this->basePath . '/' . $component['from'], $this->basePath . '/' . $component['to'], true);
@@ -211,7 +211,7 @@ class PackageManager
      */
     private function delete($components)
     {
-        foreach($components as $component) {
+        foreach ($components as $component) {
             LocalStorage::delete($this->basePath . '/' . $component);
         }
     }
@@ -225,7 +225,7 @@ class PackageManager
      */
     private function execute($components) 
     {
-        foreach($components as $component) {
+        foreach ($components as $component) {
             include $this->basePath . '/' . $component;
         }
     }

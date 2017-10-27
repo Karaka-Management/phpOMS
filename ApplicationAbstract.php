@@ -145,7 +145,7 @@ class ApplicationAbstract
      */
     public function __set($name, $value) 
     {
-        if(!empty($this->$name)) {
+        if (!empty($this->$name)) {
             return;
         }
 

@@ -145,7 +145,7 @@ class View extends ViewAbstract
      */
     public function addData(string $id, $data) : bool
     {
-        if(isset($this->data[$id])) {
+        if (isset($this->data[$id])) {
             return false;
         }
 

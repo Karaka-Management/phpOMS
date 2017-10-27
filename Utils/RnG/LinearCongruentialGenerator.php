@@ -40,7 +40,7 @@ class LinearCongruentialGenerator
      */
     public static function bsd(int $seed = 0)
     {
-        if($seed !== 0) {
+        if ($seed !== 0) {
             self::$bsdSeed = $seed;
         }
 
@@ -58,7 +58,7 @@ class LinearCongruentialGenerator
      */
     public static function msvcrt(int $seed = 0)
     {
-        if($seed !== 0) {
+        if ($seed !== 0) {
             self::$msvcrtSeed = $seed;
         }
 

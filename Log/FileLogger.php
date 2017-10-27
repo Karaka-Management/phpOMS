@@ -180,7 +180,7 @@ class FileLogger implements LoggerInterface
      */
     public static function startTimeLog($id = '')  : bool
     {
-        if(isset(self::$timings[$id])) {
+        if (isset(self::$timings[$id])) {
             return false;
         }
 
@@ -265,7 +265,7 @@ class FileLogger implements LoggerInterface
     private function write(string $message) /* : void */
     {
         $this->createFile();
-        if(!is_writable($this->path)) {
+        if (!is_writable($this->path)) {
             return;
         }
 

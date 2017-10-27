@@ -44,7 +44,7 @@ class Backpack
 
     public function addPopulationItem(ItemInterface $item) : bool
     {
-        if(isset($this->population[$item->getId()])) {
+        if (isset($this->population[$item->getId()])) {
             return false;
         }
 

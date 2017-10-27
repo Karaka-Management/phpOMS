@@ -283,7 +283,7 @@ class DataMapperBaseAbstract
         ];
 
         // clear parent and objects
-        if(static::class === self::$parentMapper) {
+        if (static::class === self::$parentMapper) {
             self::$initObjects = [];
             self::$parentMapper = null;
         }
@@ -426,8 +426,8 @@ class DataMapperBaseAbstract
 
     private static function getColumnByMember(string $name) : string
     {
-        foreach(static::$columns as $cName => $column) {
-            if($column['internal'] === $name) {
+        foreach (static::$columns as $cName => $column) {
+            if ($column['internal'] === $name) {
                 return $cName;
             }
         }

@@ -76,14 +76,14 @@ class Tree extends Graph
     {
         $currentNode = $node ?? $this->root;
 
-        if(!isset($currentNode)) {
+        if (!isset($currentNode)) {
             return 0;
         }
 
         $depth = 1;
         $neighbors = $this->getNeighbors($currentNode);
 
-        foreach($neighbors as $neighbor) {
+        foreach ($neighbors as $neighbor) {
             $depth = max($depth, $depth + $this->getMaxDepth($neighbor));
         }
 
@@ -103,14 +103,14 @@ class Tree extends Graph
     {
         $currentNode = $node ?? $this->root;
 
-        if(!isset($currentNode)) {
+        if (!isset($currentNode)) {
             return 0;
         }
 
         $depth = [];
         $neighbors = $this->getNeighbors($currentNode);
 
-        foreach($neighbors as $neighbor) {
+        foreach ($neighbors as $neighbor) {
             $depth[] = $this->getMaxDepth($neighbor);
         }
 
@@ -169,11 +169,11 @@ class Tree extends Graph
         $neighbors = $this->getNeighbors($node);
         $nodes = [];
 
-        if($level === 1) {
+        if ($level === 1) {
             return $neighbors;
         }
 
-        foreach($neighbors as $neighbor) {
+        foreach ($neighbors as $neighbor) {
             array_merge($nodes, $this->getLevelNodes($level, $neighbor));
         }
 
@@ -191,14 +191,14 @@ class Tree extends Graph
      */
     public function isFull(int $type) : bool 
     {
-        if(count($this->edges) % $type !== 0) {
+        if (count($this->edges) % $type !== 0) {
             return false;
         }
 
-        foreach($this->nodes as $node) {
+        foreach ($this->nodes as $node) {
             $neighbors = count($this->getNeighbors($node));
 
-            if($neighbors !== $type && $neighbors !== 0) {
+            if ($neighbors !== $type && $neighbors !== 0) {
                 return false;
             }
         }
@@ -215,14 +215,14 @@ class Tree extends Graph
      * @since  1.0.0
      */
     public function preOrder(Node $node, \Closure $callback) {
-        if(count($this->nodes) === 0) {
+        if (count($this->nodes) === 0) {
             return;
         }
 
         $callback($node);
         $neighbors = $this->getNeighbors($node);
 
-        foreach($neighbors as $neighbor) {
+        foreach ($neighbors as $neighbor) {
             // todo: get neighbors needs to return in ordered way
             $this->preOrder($neighbor, $callback);
         }
@@ -237,13 +237,13 @@ class Tree extends Graph
      * @since  1.0.0
      */
     public function postOrder(Node $node, \Closure $callback) {
-        if(count($this->nodes) === 0) {
+        if (count($this->nodes) === 0) {
             return;
         }
 		
         $neighbors = $this->getNeighbors($node);
 
-        foreach($neighbors as $neighbor) {
+        foreach ($neighbors as $neighbor) {
             // todo: get neighbors needs to return in ordered way
             $this->postOrder($neighbor, $callback);
         }

@@ -127,7 +127,7 @@ class EmailAbstract
      */
     public function disconnect()
     {
-        if(!isset($this->con)) {
+        if (!isset($this->con)) {
             imap_close($this->con);
             $this->con = null;
         }
@@ -148,7 +148,7 @@ class EmailAbstract
         $this->mailbox = substr($this->mailbox, 0, -1) . ($this->ssl ? '/ssl/validate-cert' : '/novalidate-cert') . '}';
 
         // /novalidate-cert
-        if(!isset($this->con)) {
+        if (!isset($this->con)) {
             $this->con = imap_open($this->mailbox . 'INBOX', $user, $pass);
         }
     }
@@ -489,7 +489,7 @@ class EmailAbstract
      */
     public function getMessageOverview(int $length = 0, int $start = 1) : array
     {
-        if($length === 0) {
+        if ($length === 0) {
             $info = imap_check($this->con);
             $length = $info->Nmsgs;
         }

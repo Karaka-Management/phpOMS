@@ -38,7 +38,7 @@ class LocalStorage extends StorageAbstract
 
     public static function getInstance() : StorageAbstract
     {
-        if(!isset(self::$instance)) {
+        if (!isset(self::$instance)) {
             self::$instance = new self();
         }
 
@@ -183,7 +183,7 @@ class LocalStorage extends StorageAbstract
      */
     public static function put(string $path, string $content, int $mode = 0) : bool
     {
-        if(is_dir($path)) {
+        if (is_dir($path)) {
             throw new PathException($path);
         }
 
@@ -195,7 +195,7 @@ class LocalStorage extends StorageAbstract
      */
     public static function get(string $path) : string
     {
-        if(is_dir($path)) {
+        if (is_dir($path)) {
             throw new PathException($path);
         }
 
@@ -207,7 +207,7 @@ class LocalStorage extends StorageAbstract
      */
     public static function list(string $path, string $filter = '*') : array
     {
-        if(is_file($path)) {
+        if (is_file($path)) {
             throw new PathException($path);
         }
 
@@ -227,7 +227,7 @@ class LocalStorage extends StorageAbstract
      */
     public static function set(string $path, string $content) : bool
     {
-        if(is_dir($path)) {
+        if (is_dir($path)) {
             throw new PathException($path);
         }
 
@@ -239,7 +239,7 @@ class LocalStorage extends StorageAbstract
      */
     public static function append(string $path, string $content) : bool
     {
-        if(is_dir($path)) {
+        if (is_dir($path)) {
             throw new PathException($path);
         }
 
@@ -251,7 +251,7 @@ class LocalStorage extends StorageAbstract
      */
     public static function prepend(string $path, string $content) : bool
     {
-        if(is_dir($path)) {
+        if (is_dir($path)) {
             throw new PathException($path);
         }
 
@@ -263,7 +263,7 @@ class LocalStorage extends StorageAbstract
      */
     public static function extension(string $path) : string
     {
-        if(is_dir($path)) {
+        if (is_dir($path)) {
             throw new PathException($path);
         }
 

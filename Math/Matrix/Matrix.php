@@ -587,7 +587,7 @@ class Matrix implements \ArrayAccess, \Iterator
                 }
             }
      
-            if($col != $j) {
+            if ($col != $j) {
                 $temp = $matrix[$col];
                 $matrix[$col] = $matrix[$j];
                 $matrix[$j] = $temp;

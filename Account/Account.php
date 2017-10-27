@@ -324,8 +324,8 @@ class Account implements ArrayableInterface, \JsonSerializable
     {
         $app = isset($app) ? strtolower($app) : $app;
 
-        foreach($this->permissions as $p) {
-            if(($p->getUnit() === $unit || $p->getUnit() === null || !isset($unit))
+        foreach ($this->permissions as $p) {
+            if (($p->getUnit() === $unit || $p->getUnit() === null || !isset($unit))
                 && ($p->getApp() === $app || $p->getApp() === null || !isset($app)) 
                 && ($p->getModule() === $module || $p->getModule() === null || !isset($module)) 
                 && ($p->getType() === $type || $p->getType() === null || !isset($type)) 

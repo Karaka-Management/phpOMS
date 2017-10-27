@@ -43,8 +43,8 @@ class NaiveBayesFilter
         $normalizedDict = $this->normalizeDictionary();
 
         $n = 0.0;
-        foreach($toMatch as $element) {
-            if(isset($normalizedDict[$element])) {
+        foreach ($toMatch as $element) {
+            if (isset($normalizedDict[$element])) {
                 $n += log(1-$normalizedDict[$element]['match'] / $normalizedDict[$element]['total']) - log($normalizedDict[$element]['match'] / $normalizedDict[$element]['total']);
             }
         }

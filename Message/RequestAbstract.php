@@ -204,7 +204,7 @@ abstract class RequestAbstract implements MessageInterface
      */
     public function getData($key = null)
     {
-        if(!isset($key)) {
+        if (!isset($key)) {
             return $this->data;
         }
 

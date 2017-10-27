@@ -79,11 +79,11 @@ class DatabasePool
      */
     public function get(string $key = '') /* : ?ConnectionAbstract */
     {
-        if((!empty($key) && !isset($this->pool[$key])) || empty($this->pool)) {
+        if ((!empty($key) && !isset($this->pool[$key])) || empty($this->pool)) {
             return null;
         }
 
-        if(empty($key)) {
+        if (empty($key)) {
             return reset($this->pool);
         }
 

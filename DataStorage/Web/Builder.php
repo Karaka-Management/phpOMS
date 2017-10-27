@@ -33,7 +33,7 @@ class Builder extends DatabaseQueryBuilder
         $finder = [];
         $l11n = new Localization();
         
-        foreach($this->from as $from) {
+        foreach ($this->from as $from) {
             $doc = new \DOMDocument();
             $doc->loadHTML(Rest::request($l11n, new Http($from)));
             $finder[$from] = new \DomXPath($doc);
@@ -53,21 +53,21 @@ class Builder extends DatabaseQueryBuilder
         $result = [];
         $table = null;
 
-        foreach($this->wheres as $column => $where) {
-            if($column === 'xpath') {
+        foreach ($this->wheres as $column => $where) {
+            if ($column === 'xpath') {
                 $table = $this->createTable($finder->query($where['value']));
             }
         }
 
-        foreach($this->columns as $column) {
+        foreach ($this->columns as $column) {
         }
     }
 
     private function createTable($node) : array
     {
-        if(strtolower($node->tagName) === 'table') {
+        if (strtolower($node->tagName) === 'table') {
             return $this->createTableFromTable();
-        } elseif(strtolower($node->tagName) === 'li') {
+        } elseif (strtolower($node->tagName) === 'li') {
             return $this->createTableFromList();
         } else {
             return $this->createTableFromContent();
@@ -88,7 +88,7 @@ class Builder extends DatabaseQueryBuilder
         $table = [];
         $children = $node->childNodes;
 
-        foreach($children as $child) {
+        foreach ($children as $child) {
             $table[] = $child->asXML();
         }
         

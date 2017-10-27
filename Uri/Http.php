@@ -283,7 +283,7 @@ class Http implements UriInterface
      */
     public function getQuery(string $key = null)  : string
     {
-        if(isset($key)) {
+        if (isset($key)) {
             $key = strtolower($key);
 
             return $this->query[$key] ?? '';

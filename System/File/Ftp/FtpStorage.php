@@ -40,7 +40,7 @@ class FtpStorage extends StorageAbstract
 
     public static function getInstance() : StorageAbstract
     {
-        if(!isset(self::$instance)) {
+        if (!isset(self::$instance)) {
             self::$instance = new self();
         }
 
@@ -49,7 +49,7 @@ class FtpStorage extends StorageAbstract
 
     public function connect(string $uri, int $port = 21, bool $mode = true, string $login = null, string $pass = null, bool $ssl = false) : bool
     {
-        if($ssl) {
+        if ($ssl) {
             $this->con = ftp_connect($uri, $port);
         } else {
             $this->con = ftp_ssl_connect($uri, $port);
@@ -57,14 +57,14 @@ class FtpStorage extends StorageAbstract
 
         ftp_pasv($this->con, $mode);
 
-        if(isset($login, $pass)) {
+        if (isset($login, $pass)) {
             ftp_login($this->con, $login, $pass);
         }
     }
 
     public function __destruct()
     {
-        if(isset($this->con)) {
+        if (isset($this->con)) {
             ftp_close($this->con);
             $this->con = null;
         }

@@ -128,7 +128,7 @@ class Header extends HeaderAbstract
      */
     public function getStatusCode() : int
     {
-        if($this->status === 0) {
+        if ($this->status === 0) {
             $this->status = (int) \http_response_code();
         }
         

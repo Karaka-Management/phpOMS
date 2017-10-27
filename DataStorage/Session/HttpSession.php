@@ -86,12 +86,12 @@ class HttpSession implements SessionInterface
         
         $this->inactivityInterval = $inactivityInterval;
 
-        if(session_status() !== PHP_SESSION_ACTIVE && !headers_sent()) {
+        if (session_status() !== PHP_SESSION_ACTIVE && !headers_sent()) {
             session_set_cookie_params($liftetime, '/', '', false, true);
             session_start();
         }
         
-        if($this->inactivityInterval > 0 && ($this->inactivityInterval + ($_SESSION['lastActivity'] ?? 0) < time())) {
+        if ($this->inactivityInterval > 0 && ($this->inactivityInterval + ($_SESSION['lastActivity'] ?? 0) < time())) {
             $this->destroy();
         }
         
@@ -169,7 +169,7 @@ class HttpSession implements SessionInterface
      */
     public function save() /* : void */
     {
-        if(!self::$isLocked) {
+        if (!self::$isLocked) {
             $_SESSION = $this->sessionData;
             session_write_close();
         }

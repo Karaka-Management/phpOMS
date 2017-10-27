@@ -36,12 +36,12 @@ class Gz implements ArchiveInterface
             return false;
         }
         
-        if(($gz = gzopen($destination, 'w')) === false) {
+        if (($gz = gzopen($destination, 'w')) === false) {
             return false;
         }
         
         $src = fopen($source, 'r');
-        while(!feof($src)) {
+        while (!feof($src)) {
             gzwrite($gz, fread($src, 4096));
         }
         
@@ -60,7 +60,7 @@ class Gz implements ArchiveInterface
             return false;
         }
         
-        if(($gz = gzopen($source, 'w')) === false) {
+        if (($gz = gzopen($source, 'w')) === false) {
             return false;
         }
         

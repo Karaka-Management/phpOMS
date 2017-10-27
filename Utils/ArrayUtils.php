@@ -176,8 +176,8 @@ class ArrayUtils
      */
     public static function anyInArray(array $needles, array $haystack) : bool
     {
-        foreach($needles as $needle) {
-            if(in_array($needle, $haystack)) {
+        foreach ($needles as $needle) {
+            if (in_array($needle, $haystack)) {
                 return true;
             }
         }
@@ -197,8 +197,8 @@ class ArrayUtils
      */
     public static function allInArray(array $needles, array $haystack) : bool
     {
-        foreach($needles as $needle) {
-            if(!in_array($needle, $haystack)) {
+        foreach ($needles as $needle) {
+            if (!in_array($needle, $haystack)) {
                 return false;
             }
         }

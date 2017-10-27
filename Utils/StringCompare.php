@@ -76,10 +76,10 @@ class StringCompare
         $bestScore = PHP_INT_MAX;
         $bestMatch = '';
 
-        foreach($this->dictionary as $word) {
+        foreach ($this->dictionary as $word) {
             $score = self::fuzzyMatch($word, $match);
 
-            if($score < $bestScore) {
+            if ($score < $bestScore) {
                 $bestScore = $score;
                 $bestMatch = $word;
             }
@@ -104,17 +104,17 @@ class StringCompare
         $words2 = preg_split('/[ _-]/', $s2);
         $total = 0;
 
-        foreach($words1 as $word1) {
+        foreach ($words1 as $word1) {
             $best = strlen($s2);
 
-            foreach($words2 as $word2) {
+            foreach ($words2 as $word2) {
                 $wordDist = levenshtein($word1, $word2);
 
-                if($wordDist < $best) {
+                if ($wordDist < $best) {
                     $best = $wordDist;
                 }
 
-                if($wordDist === 0) {
+                if ($wordDist === 0) {
                     break;
                 }
             }

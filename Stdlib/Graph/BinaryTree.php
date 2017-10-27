@@ -87,7 +87,7 @@ class BinaryTree extends Tree
      */
     public function setLeft(Node $base, Node $left) : BinaryTree
     {
-        if($this->getLeft($base) === null) {
+        if ($this->getLeft($base) === null) {
             $this->addNodeRelative($base, $left);
             // todo: doesn't know that this is left
             // todo: maybe need to add numerics to edges?
@@ -110,7 +110,7 @@ class BinaryTree extends Tree
      */
     public function setRight(Node $base, Node $right)  /* : void */
     {
-        if($this->getRight($base) === null) {
+        if ($this->getRight($base) === null) {
             $this->addNodeRelative($base, $right);
             // todo: doesn't know that this is right
             // todo: maybe need to add numerics to edges?
@@ -145,7 +145,7 @@ class BinaryTree extends Tree
      */
     private function getVerticalOrder(Node $node, int $horizontalDistance = 0, array &$order) 
     {
-        if(!isset($order[$horizontalDistance])) {
+        if (!isset($order[$horizontalDistance])) {
             $order[$horizontalDistance] = [];
         }
 
@@ -153,11 +153,11 @@ class BinaryTree extends Tree
         $left = $this->getLeft($node);
         $right = $this->getRight($node);
 
-        if(isset($left)) {
+        if (isset($left)) {
             $this->getVerticalOrder($left, $horizontalDistance-1, $order);
         }
 
-        if(isset($right)) {
+        if (isset($right)) {
             $this->getVerticalOrder($right, $horizontalDistance+1, $order);
         }
     }
@@ -175,8 +175,8 @@ class BinaryTree extends Tree
         $order = [];
         $this->getVerticalOrder($node, 0, $order);
 
-        foreach($order as $level) {
-            foreach($level as $node) {
+        foreach ($order as $level) {
+            foreach ($level as $node) {
                 $callback($node);
             }
         }
@@ -194,7 +194,7 @@ class BinaryTree extends Tree
      */
     public function isSymmetric(Node $node1 = null, Node $node2 = null) : bool 
     {
-        if(!isset($node1) && !isset($node2)) {
+        if (!isset($node1) && !isset($node2)) {
             return true;
         }
 
@@ -205,7 +205,7 @@ class BinaryTree extends Tree
         $right2 = isset($node2) ? $this->getRight($node1) : $this->getRight($node2);
 
         // todo: compare values? true symmetry requires the values to be the same
-        if(isset($node1, $node2)) {
+        if (isset($node1, $node2)) {
             return $this->isSymmetric($left1, $right2) && $this->isSymmetric($right1, $left2);
         }
 

@@ -49,7 +49,7 @@ class TransactionSetHeader
 
     public function setTransactionSetControlNumber(string $number) /* : void */
     {
-        if(strlen($number) < 4 || strlen($number) > 9) {
+        if (strlen($number) < 4 || strlen($number) > 9) {
             throw new \Exception();
         }
 

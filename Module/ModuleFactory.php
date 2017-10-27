@@ -75,7 +75,7 @@ class ModuleFactory
         $class = '\\Modules\\' . $module . '\\Controller';
 
         if (!isset(self::$loaded[$module])) {
-            if(Autoloader::exists($class) !== false) {
+            if (Autoloader::exists($class) !== false) {
                 try {
                     $obj                   = new $class($app);
                     self::$loaded[$module] = $obj;

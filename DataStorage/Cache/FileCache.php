@@ -108,7 +108,7 @@ class FileCache implements CacheInterface
      */
     public function setStatus(int $status) /* : void */
     {
-        if(!CacheStatus::isValidValue($status)) {
+        if (!CacheStatus::isValidValue($status)) {
             throw new InvalidEnumValue($status);
         }
 
@@ -142,7 +142,7 @@ class FileCache implements CacheInterface
      */
     public function set($key, $value, int $expire = -1) /* : void */
     {
-        if($this->status !== CacheStatus::ACTIVE) {
+        if ($this->status !== CacheStatus::ACTIVE) {
             return false;
         }
 
@@ -159,7 +159,7 @@ class FileCache implements CacheInterface
      */
     public function add($key, $value, int $expire = -1) : bool
     {
-        if($this->status !== CacheStatus::ACTIVE) {
+        if ($this->status !== CacheStatus::ACTIVE) {
             return false;
         }
 
@@ -272,14 +272,14 @@ class FileCache implements CacheInterface
      */
     public function get($key, int $expire = -1)
     {
-        if($this->status !== CacheStatus::ACTIVE) {
+        if ($this->status !== CacheStatus::ACTIVE) {
             return null;
         }
 
         $name = File::sanitize($key, self::SANITIZE);
         $path = $this->cachePath . '/' . trim($name, '/') . '.cache';
 
-        if(!File::exists($path)) {
+        if (!File::exists($path)) {
             return null;
         }
         
@@ -339,7 +339,7 @@ class FileCache implements CacheInterface
      */
     public function delete($key, int $expire = -1) : bool
     {
-        if($this->status !== CacheStatus::ACTIVE) {
+        if ($this->status !== CacheStatus::ACTIVE) {
             return false;
         }
 
@@ -402,7 +402,7 @@ class FileCache implements CacheInterface
      */
     public function replace($key, $value, int $expire = -1) : bool
     {
-        if($this->status !== CacheStatus::ACTIVE) {
+        if ($this->status !== CacheStatus::ACTIVE) {
             return false;
         }
 
