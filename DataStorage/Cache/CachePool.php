@@ -39,7 +39,7 @@ class CachePool implements OptionsInterface
     /**
      * MemCache instance.
      *
-     * @var \phpOMS\DataStorage\Cache\CacheInterface
+     * @var \phpOMS\DataStorage\Cache\CacheInterface[]
      * @since 1.0.0
      */
     private $pool = null;

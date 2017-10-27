@@ -96,7 +96,7 @@ class Router
      * @param string|RequestAbstract $request Request to route
      * @param int             $verb    Route verb
      *
-     * @return string[]
+     * @return array[]
      *
      * @throws \InvalidArgumentException
      *

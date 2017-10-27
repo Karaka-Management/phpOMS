@@ -208,7 +208,7 @@ class Group implements ArrayableInterface, \JsonSerializable
     /**
      * Json serialize.
      *
-     * @return string
+     * @return array
      *
      * @since  1.0.0
      */

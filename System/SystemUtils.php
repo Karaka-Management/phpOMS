@@ -46,10 +46,12 @@ class SystemUtils
      */
     public static function getRAM() : int
     {
-        $mem = null;
+        $mem = 0;
 
         if (stristr(PHP_OS, 'WIN')) {
             exec('wmic memorychip get capacity', $mem);
+            
+            /** @var array $mem */
             $mem = array_sum($mem) / 1024;
         } elseif (stristr(PHP_OS, 'LINUX')) {
             $fh  = fopen('/proc/meminfo', 'r');
@@ -62,6 +64,7 @@ class SystemUtils
                     break;
                 }
             }
+            
             fclose($fh);
         }
 

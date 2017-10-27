@@ -74,7 +74,7 @@ abstract class RequestAbstract implements MessageInterface
     /**
      * Request type.
      *
-     * @var \phpOMS\Message\RequestSource
+     * @var int
      * @since 1.0.0
      */
     protected $source = RequestSource::UNDEFINED;

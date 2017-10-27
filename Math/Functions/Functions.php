@@ -250,15 +250,15 @@ class Functions
      * @example The relative fiscal month (August) in a company where the fiscal year starts in July.
      * @example 2 = getRelativeDegree(8, 12, 7);
      *
-     * @param mixed $value Value to get degree
-     * @param mixed $length Circle size
-     * @param mixed $start Start value
+     * @param int $value Value to get degree
+     * @param int $length Circle size
+     * @param int $start Start value
      *
      * @return int Lowest value is 0 and highest value is length - 1
      *
      * @since  1.0.0
      */
-    public static function getRelativeDegree($value, $length, $start = 0) : int
+    public static function getRelativeDegree(int $value, int $length, int $start = 0) : int
     {
         return abs(self::mod($value - $start, $length));
     }

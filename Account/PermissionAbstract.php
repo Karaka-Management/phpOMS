@@ -340,7 +340,7 @@ class PermissionAbstract
      *
      * @param int $permission Permission
      *
-     * @return void
+     * @return bool
      *
      * @since  1.0.0
      */

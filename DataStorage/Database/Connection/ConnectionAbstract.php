@@ -65,15 +65,15 @@ abstract class ConnectionAbstract implements ConnectionInterface
     /**
      * Database type.
      *
-     * @var \phpOMS\DataStorage\Database\DatabaseType
+     * @var string
      * @since 1.0.0
      */
-    protected $type = null;
+    protected $type = 'undefined';
 
     /**
      * Database status.
      *
-     * @var DatabaseStatus
+     * @var int
      * @since 1.0.0
      */
     protected $status = DatabaseStatus::CLOSED;

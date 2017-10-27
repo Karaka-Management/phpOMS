@@ -185,12 +185,12 @@ class Average
      *
      * @since  1.0.0
      */
-    public static function mode($values)
+    public static function mode(array $values)
     {
         $count = array_count_values($values);
         $best  = max($count);
 
-        return array_keys($count, $best);
+        return (float) (array_keys($count, $best)[0] ?? 0.0);
     }
 
     /**

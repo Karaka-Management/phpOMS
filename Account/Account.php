@@ -136,7 +136,7 @@ class Account implements ArrayableInterface, \JsonSerializable
     /**
      * Account type.
      *
-     * @var AccountType|int
+     * @var int
      * @since 1.0.0
      */
     protected $type = AccountType::USER;
@@ -144,7 +144,7 @@ class Account implements ArrayableInterface, \JsonSerializable
     /**
      * Account status.
      *
-     * @var AccountStatus|int
+     * @var int
      * @since 1.0.0
      */
     protected $status = AccountStatus::INACTIVE;
@@ -624,8 +624,8 @@ class Account implements ArrayableInterface, \JsonSerializable
 
     /**
      * Json serialize.
-     *
-     * @return string
+     * 
+     * @return array
      *
      * @since  1.0.0
      */

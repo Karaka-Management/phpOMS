@@ -31,7 +31,7 @@ class InvalidConnectionConfigException extends \InvalidArgumentException
      *
      * @param string     $message Exception message
      * @param int        $code    Exception code
-     * @param \Exception Previous exception
+     * @param \Exception $previous Previous exception
      *
      * @since  1.0.0
      */

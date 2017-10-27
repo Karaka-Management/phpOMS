@@ -70,7 +70,7 @@ class PackageManager
      * Constructor.
      * 
      * @param string $path Package source path e.g. path after download.
-     * @param string basePath Path of the application
+     * @param string $basePath Path of the application
      *
      * @since  1.0.0
      */
@@ -85,11 +85,11 @@ class PackageManager
      * 
      * @param string $path Temporary extract path
      * 
-     * @return bool
-     *
+     * @return void
+     * 
      * @since  1.0.0
      */
-    public function extract(string $path) : bool
+    public function extract(string $path) /* : void */
     {
         $this->extractPath = $path;
         Zip::unpack($this->path, $this->extractPath);
