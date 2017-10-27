@@ -99,7 +99,7 @@ class Currency
     {
         if (!isset(self::$ecbCurrencies)) {
             $request = new Request(new Http('http://www.ecb.europa.eu/stats/eurofxref/eurofxref-daily.xml'));
-		    $request->setMethod(RequestMethod::GET);
+            $request->setMethod(RequestMethod::GET);
 
             $xml = new \SimpleXMLElement(Rest::request($request));
 

@@ -87,15 +87,15 @@ class LUDecomposition
         $L = [[]];
 
         for ($i = 0; $i < $this->m; ++$i) {
-			for ($j = 0; $j < $this->n; ++$j) {
-				if ($i > $j) {
-					$L[$i][$j] = $this->LU[$i][$j];
-				} elseif ($i == $j) {
-					$L[$i][$j] = 1.0;
-				} else {
-					$L[$i][$j] = 0.0;
-				}
-			}
+            for ($j = 0; $j < $this->n; ++$j) {
+                if ($i > $j) {
+                    $L[$i][$j] = $this->LU[$i][$j];
+                } elseif ($i == $j) {
+                    $L[$i][$j] = 1.0;
+                } else {
+                    $L[$i][$j] = 0.0;
+                }
+            }
         }
         
         $matrix = new Matrix();
@@ -109,14 +109,14 @@ class LUDecomposition
         $U = [[]];
 
         for ($i = 0; $i < $this->n; ++$i) {
-			for ($j = 0; $j < $this->n; ++$j) {
-				if ($i <= $j) {
-					$U[$i][$j] = $this->LU[$i][$j];
-				} else {
-					$U[$i][$j] = 0.0;
-				}
-			}
-		}
+            for ($j = 0; $j < $this->n; ++$j) {
+                if ($i <= $j) {
+                    $U[$i][$j] = $this->LU[$i][$j];
+                } else {
+                    $U[$i][$j] = 0.0;
+                }
+            }
+        }
         
         $matrix = new Matrix();
         $matrix->setMatrix($U);
@@ -132,9 +132,9 @@ class LUDecomposition
     public function isNonsingular() : bool
     {
         for ($j = 0; $j < $this->n; ++$j) {
-			if ($this->LU[$j][$j] == 0) {
-				return false;
-			}
+            if ($this->LU[$j][$j] == 0) {
+                return false;
+            }
         }
         
         return true;

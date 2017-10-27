@@ -227,7 +227,7 @@ class Tree extends Graph
             $this->preOrder($neighbor, $callback);
         }
     }
-	
+    
     /**
      * Perform action on tree in post-order.
      *
@@ -240,7 +240,7 @@ class Tree extends Graph
         if (count($this->nodes) === 0) {
             return;
         }
-		
+        
         $neighbors = $this->getNeighbors($node);
 
         foreach ($neighbors as $neighbor) {

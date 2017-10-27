@@ -26,7 +26,7 @@ namespace phpOMS\Math\Optimization;
  */
 interface GeneticAlgorithmInterface
 {
-	public function mutate($a);
+    public function mutate($a);
 
-	public function unfitness($a, $b);
+    public function unfitness($a, $b);
 }

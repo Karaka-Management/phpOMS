@@ -29,9 +29,9 @@ use phpOMS\Utils\EDI\Edifact\Components\BGM;
  */
 class INVOIC
 {
-	private $unh = null;
+    private $unh = null;
 
-	private $bgm = null;
+    private $bgm = null;
 
     public function __construct()
     {
