@@ -16,7 +16,6 @@ declare(strict_types=1);
 namespace phpOMS\Message;
 
 use phpOMS\Stdlib\Base\Exception\InvalidEnumValue;
-use phpOMS\Localization\Localization;
 use phpOMS\Uri\UriInterface;
 
 /**

@@ -16,7 +16,6 @@ declare(strict_types=1);
 namespace phpOMS\Module;
 
 use phpOMS\System\File\PathException;
-use phpOMS\Utils\ArrayUtils;
 use phpOMS\System\File\Local\File;
 use phpOMS\System\File\Local\Directory;
 use phpOMS\System\File\Local\LocalStorage;
