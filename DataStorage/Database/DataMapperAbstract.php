@@ -347,7 +347,7 @@ class DataMapperAbstract implements DataMapperInterface
         self::extend(__CLASS__);
 
         if ($obj === null ||
-            (is_object($obj) && strpos($className = get_class($obj), '\Null') !== false)
+            (is_object($obj) && strpos($className = $obj, '\Null') !== false)
         ) {
             return null;
         }
@@ -505,7 +505,7 @@ class DataMapperAbstract implements DataMapperInterface
      */
     private static function getObjectId($obj, \ReflectionClass $reflectionClass = null) 
     {
-        $reflectionClass    = $reflectionClass ?? new \ReflectionClass(get_class($obj));
+        $reflectionClass    = $reflectionClass ?? new \ReflectionClass($obj);
         $reflectionProperty = $reflectionClass->getProperty(static::$columns[static::$primaryField]['internal']);
 
         if (!($isPublic = $reflectionProperty->isPublic())) {
@@ -594,7 +594,7 @@ class DataMapperAbstract implements DataMapperInterface
                 }
 
                 if (!isset($relReflectionClass)) {
-                    $relReflectionClass = new \ReflectionClass(get_class($value));
+                    $relReflectionClass = new \ReflectionClass($value);
                 }
 
                 $primaryKey = $mapper::getObjectId($value, $relReflectionClass);
@@ -929,7 +929,7 @@ class DataMapperAbstract implements DataMapperInterface
                 } 
                 
                 if (!isset($relReflectionClass)) {
-                    $relReflectionClass = new \ReflectionClass(get_class($value));
+                    $relReflectionClass = new \ReflectionClass($value);
                 }
 
                 $primaryKey = $mapper::getObjectId($value, $relReflectionClass);
@@ -1160,7 +1160,7 @@ class DataMapperAbstract implements DataMapperInterface
     {
         self::extend(__CLASS__);
 
-        $reflectionClass = new \ReflectionClass(get_class($obj));
+        $reflectionClass = new \ReflectionClass($obj);
         $objId           = self::getObjectId($obj, $reflectionClass);
         $update          = true;
 
@@ -1227,7 +1227,7 @@ class DataMapperAbstract implements DataMapperInterface
                 } 
                 
                 if (!isset($relReflectionClass)) {
-                    $relReflectionClass = new \ReflectionClass(get_class($value));
+                    $relReflectionClass = new \ReflectionClass($value);
                 }
 
                 $primaryKey = $mapper::getObjectId($value, $relReflectionClass);
@@ -1370,7 +1370,7 @@ class DataMapperAbstract implements DataMapperInterface
     {
         self::extend(__CLASS__);
 
-        $reflectionClass = new \ReflectionClass(get_class($obj));
+        $reflectionClass = new \ReflectionClass($obj);
         $objId           = self::getObjectId($obj, $reflectionClass);
 
         if (empty($objId)) {
@@ -1476,7 +1476,7 @@ class DataMapperAbstract implements DataMapperInterface
     public static function populateManyToMany(array $result, &$obj) /* : void */
     {
         // todo: maybe pass reflectionClass as optional parameter for performance increase
-        $reflectionClass = new \ReflectionClass(get_class($obj));
+        $reflectionClass = new \ReflectionClass($obj);
 
         foreach ($result as $member => $values) {
             if (!empty($values) && $reflectionClass->hasProperty($member)) {
@@ -1544,7 +1544,7 @@ class DataMapperAbstract implements DataMapperInterface
      */
     public static function populateHasOne(&$obj) /* : void */
     {
-        $reflectionClass = new \ReflectionClass(get_class($obj));
+        $reflectionClass = new \ReflectionClass($obj);
 
         foreach (static::$hasOne as $member => $one) {
             // todo: is that if necessary? performance is suffering for sure!
@@ -1613,7 +1613,7 @@ class DataMapperAbstract implements DataMapperInterface
      */
     public static function populateOwnsOne(&$obj) /* : void */
     {
-        $reflectionClass = new \ReflectionClass(get_class($obj));
+        $reflectionClass = new \ReflectionClass($obj);
 
         foreach (static::$ownsOne as $member => $one) {
             // todo: is that if necessary? performance is suffering for sure!
@@ -1682,7 +1682,7 @@ class DataMapperAbstract implements DataMapperInterface
      */
     public static function populateBelongsTo(&$obj) /* : void */
     {
-        $reflectionClass = new \ReflectionClass(get_class($obj));
+        $reflectionClass = new \ReflectionClass($obj);
 
         foreach (static::$belongsTo as $member => $one) {
             // todo: is that if necessary? performance is suffering for sure!
@@ -1752,7 +1752,7 @@ class DataMapperAbstract implements DataMapperInterface
      */
     public static function populateAbstract(array $result, $obj)
     {
-        $reflectionClass = new \ReflectionClass(get_class($obj));
+        $reflectionClass = new \ReflectionClass($obj);
 
         foreach ($result as $column => $value) {
             if (isset(static::$columns[$column]['internal']) /* && $reflectionClass->hasProperty(static::$columns[$column]['internal']) */) {
