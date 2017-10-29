@@ -265,7 +265,7 @@ abstract class RequestAbstract implements MessageInterface
     /**
      * {@inheritdoc}
      */
-    public abstract function getOrigin() : string;
+    abstract public function getOrigin() : string;
 
     /**
      * {@inheritdoc}

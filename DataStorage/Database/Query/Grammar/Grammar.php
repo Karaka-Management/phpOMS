@@ -133,7 +133,6 @@ class Grammar extends GrammarAbstract
                 break;
             case QueryType::RAW:
                 return [$query->raw];
-                break;
             default:
                 throw new \InvalidArgumentException('Unknown query type.');
         }

@@ -72,120 +72,120 @@ abstract class StorageAbstract
     /**
      * {@inheritdoc}
      */
-    public abstract static function created(string $path) : \DateTime;
+    abstract public static function created(string $path) : \DateTime;
 
     /**
      * {@inheritdoc}
      */
-    public abstract static function changed(string $path) : \DateTime;
+    abstract public static function changed(string $path) : \DateTime;
 
     /**
      * {@inheritdoc}
      */
-    public abstract static function owner(string $path) : int;
+    abstract public static function owner(string $path) : int;
 
     /**
      * {@inheritdoc}
      */
-    public abstract static function permission(string $path) : int;
+    abstract public static function permission(string $path) : int;
 
     /**
      * {@inheritdoc}
      */
-    public abstract static function parent(string $path) : string;
+    abstract public static function parent(string $path) : string;
 
     /**
      * {@inheritdoc}
      */
-    public abstract static function create(string $path) : bool;
+    abstract public static function create(string $path) : bool;
 
     /**
      * {@inheritdoc}
      */
-    public abstract static function delete(string $path) : bool;
+    abstract public static function delete(string $path) : bool;
 
     /**
      * {@inheritdoc}
      */
-    public abstract static function copy(string $from, string $to, bool $overwrite = false) : bool;
+    abstract public static function copy(string $from, string $to, bool $overwrite = false) : bool;
 
     /**
      * {@inheritdoc}
      */
-    public abstract static function move(string $from, string $to, bool $overwrite = false) : bool;
+    abstract public static function move(string $from, string $to, bool $overwrite = false) : bool;
 
     /**
      * {@inheritdoc}
      */
-    public abstract static function size(string $path, bool $recursive = true) : int;
+    abstract public static function size(string $path, bool $recursive = true) : int;
 
     /**
      * {@inheritdoc}
      */
-    public abstract static function exists(string $path) : bool;
+    abstract public static function exists(string $path) : bool;
 
     /**
      * {@inheritdoc}
      */
-    public abstract static function name(string $path) : string;
+    abstract public static function name(string $path) : string;
 
     /**
      * {@inheritdoc}
      */
-    public abstract static function basename(string $path) : string;
+    abstract public static function basename(string $path) : string;
 
     /**
      * {@inheritdoc}
      */
-    public abstract static function dirname(string $path) : string;
+    abstract public static function dirname(string $path) : string;
 
     /**
      * {@inheritdoc}
      */
-    public abstract static function dirpath(string $path) : string;
+    abstract public static function dirpath(string $path) : string;
 
     /**
      * {@inheritdoc}
      */
-    public abstract static function list(string $path, string $filter = '*') : array;
+    abstract public static function list(string $path, string $filter = '*') : array;
 
     /**
      * {@inheritdoc}
      */
-    public abstract static function count(string $path, bool $recursive = true, array $ignore = []) : int;
+    abstract public static function count(string $path, bool $recursive = true, array $ignore = []) : int;
 
     /**
      * {@inheritdoc}
      */
-    public abstract static function put(string $path, string $content, int $mode = 0) : bool;
+    abstract public static function put(string $path, string $content, int $mode = 0) : bool;
 
     /**
      * {@inheritdoc}
      */
-    public abstract static function get(string $path) : string;
+    abstract public static function get(string $path) : string;
 
     /**
      * {@inheritdoc}
      */
-    public abstract static function sanitize(string $path, string $replace = '') : string;
+    abstract public static function sanitize(string $path, string $replace = '') : string;
 
     /**
      * {@inheritdoc}
      */
-    public abstract static function set(string $path, string $content) : bool;
+    abstract public static function set(string $path, string $content) : bool;
 
     /**
      * {@inheritdoc}
      */
-    public abstract static function append(string $path, string $content) : bool;
+    abstract public static function append(string $path, string $content) : bool;
 
     /**
      * {@inheritdoc}
      */
-    public abstract static function prepend(string $path, string $content) : bool;
+    abstract public static function prepend(string $path, string $content) : bool;
 
     /**
      * {@inheritdoc}
      */
-    public abstract static function extension(string $path) : string;
+    abstract public static function extension(string $path) : string;
 }

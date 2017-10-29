@@ -149,7 +149,7 @@ class DataMapperAbstract implements DataMapperInterface
     /**
      * Highest mapper to know when to clear initialized objects
      *
-     * @var DataMapperAbstract
+     * @var string
      * @since 1.0.0
      */
     protected static $parentMapper = null;

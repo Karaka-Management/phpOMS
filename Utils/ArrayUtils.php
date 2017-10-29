@@ -97,16 +97,14 @@ class ArrayUtils
 
         if ($overwrite) {
             $current = $value;
+        } elseif (is_array($current) && !is_array($value)) {
+            $current[] = $value;
+        } elseif (is_array($current) && is_array($value)) {
+            $current += $value;
+        } elseif (is_scalar($current) && $current !== null) {
+            $current = [$current, $value];
         } else {
-            if (is_array($current) && !is_array($value)) {
-                $current[] = $value;
-            } elseif (is_array($current) && is_array($value)) {
-                $current += $value;
-            } elseif (is_scalar($current) && $current !== null) {
-                $current = [$current, $value];
-            } else {
-                $current = $value;
-            }
+            $current = $value;
         }
 
         return $data;
@@ -156,7 +154,7 @@ class ArrayUtils
                 $found = self::inArrayRecursive($needle, $item);
 
                 if ($found) {
-                    break;
+                    return true;
                 }
             }
         }
