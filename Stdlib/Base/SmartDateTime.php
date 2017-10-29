@@ -282,7 +282,7 @@ class SmartDateTime extends \DateTime
         
         // add difference to $weekStartsWith counting backwards from days of previous month (reorder so that lowest value first)
         for ($i = $daysPreviousMonth - $diffToWeekStart; $i < $daysPreviousMonth; $i++) {
-            $days[] = new \DateTime($previousMonth->format('Y') . '-' . $previousMonth->format('m') . '-' . ($i+1));
+            $days[] = new \DateTime($previousMonth->format('Y') . '-' . $previousMonth->format('m') . '-' . ($i + 1));
         }
         
         // add normal count of current days

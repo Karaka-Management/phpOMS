@@ -45,7 +45,7 @@ class MarketShareEstimation {
     {
         $sum = 0.0;
         for ($i = 0; $i < $participants; $i++) {
-            $sum += 1 / pow($i+1, $modifier);
+            $sum += 1 / pow($i + 1, $modifier);
         }
     
         return (int) round(pow(1 / ($marketShare * $sum), 1 / $modifier));
@@ -68,7 +68,7 @@ class MarketShareEstimation {
     {
         $sum = 0.0;
         for ($i = 0; $i < $participants; $i++) {
-            $sum += 1 / pow($i+1, $modifier);
+            $sum += 1 / pow($i + 1, $modifier);
         }
         
         return (1 / pow($rank, $modifier)) / $sum;

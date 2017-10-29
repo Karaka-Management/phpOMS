@@ -157,7 +157,7 @@ class Polygon implements D2ShapeInterface
         }
 
         // Inside or ontop?
-        $countIntersect    = 0;
+        $countIntersect = 0;
         $polygon_count = count($polygon);
 
         // todo: return based on highest possibility not by first match

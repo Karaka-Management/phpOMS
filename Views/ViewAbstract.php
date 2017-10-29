@@ -232,7 +232,7 @@ abstract class ViewAbstract implements \Serializable
             ob_start();
             /** @noinspection PhpIncludeInspection */
             $includeData = include $path;
-            $ob   = ob_get_clean();
+            $ob = ob_get_clean();
 
             if (is_array($includeData)) {
                 return json_encode($includeData);

@@ -48,7 +48,7 @@ class LUDecomposition
             for ($i = 0; $i < $this->m; ++$i) {
                 $LUrowi = $this->LU[$i];
                 // Most of the time is spent in the following dot product.
-                $kmax = min($i,$j);
+                $kmax = min($i, $j);
                 $s = 0.0;
                 for ($k = 0; $k < $kmax; ++$k) {
                     $s += $LUrowi[$k] * $LUcolj[$k];
@@ -57,7 +57,7 @@ class LUDecomposition
             }
             // Find pivot and exchange if necessary.
             $p = $j;
-            for ($i = $j+1; $i < $this->m; ++$i) {
+            for ($i = $j + 1; $i < $this->m; ++$i) {
                 if (abs($LUcolj[$i]) > abs($LUcolj[$p])) {
                     $p = $i;
                 }
@@ -75,7 +75,7 @@ class LUDecomposition
             }
             // Compute multipliers.
             if (($j < $this->m) && ($this->LU[$j][$j] != 0.0)) {
-                for ($i = $j+1; $i < $this->m; ++$i) {
+                for ($i = $j + 1; $i < $this->m; ++$i) {
                     $this->LU[$i][$j] /= $this->LU[$j][$j];
                 }
             }
@@ -159,11 +159,11 @@ class LUDecomposition
         }
 
         $nx = $B->getM();
-        $X  = $B->getMatrix($this->piv, 0, $nx-1);
+        $X  = $B->getMatrix($this->piv, 0, $nx - 1);
 
         // Solve L*Y = B(piv,:)
         for ($k = 0; $k < $this->n; ++$k) {
-            for ($i = $k+1; $i < $this->n; ++$i) {
+            for ($i = $k + 1; $i < $this->n; ++$i) {
                 for ($j = 0; $j < $nx; ++$j) {
                     $X->A[$i][$j] -= $X->A[$k][$j] * $this->LU[$i][$k];
                 }
@@ -171,7 +171,7 @@ class LUDecomposition
         }
 
         // Solve U*X = Y;
-        for ($k = $this->n-1; $k >= 0; --$k) {
+        for ($k = $this->n - 1; $k >= 0; --$k) {
             for ($j = 0; $j < $nx; ++$j) {
                 $X->A[$k][$j] /= $this->LU[$k][$k];
             }
