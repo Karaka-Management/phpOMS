@@ -35,7 +35,7 @@ class ExponentialSmoothing
 
     public function __construct(array $data)
     {
-        $this->data  = $data;
+        $this->data = $data;
     }
 
     public function getRMSE() : float
@@ -86,7 +86,7 @@ class ExponentialSmoothing
 
                     if ($this->rmse < $bestError) {
                         $bestError = $this->rmse;
-                        $forecast   = $tempForecast;
+                        $forecast = $tempForecast;
                     }
                 }
             }
@@ -137,14 +137,14 @@ class ExponentialSmoothing
 
         $alpha = 0.00;
         while ($alpha < 1) {
-            $error      = [];
+            $error = [];
             $tempForecast = [];
 
             for ($i = 1; $i < $dataLength; $i++) {
-                $level[$i] = $alpha * ($i < $dataLength - $future ? $this->data[$i-1] : $tempForecast[$i-1]) + (1 - $alpha) * $level[$i-1];
+                $level[$i] = $alpha * ($i < $dataLength - $future ? $this->data[$i - 1] : $tempForecast[$i - 1]) + (1 - $alpha) * $level[$i - 1];
 
                 $tempForecast[$i] = $level[$i];
-                $error[]    = $i < $dataLength - $future ? $this->data[$i] - $tempForecast[$i] : 0;
+                $error[] = $i < $dataLength - $future ? $this->data[$i] - $tempForecast[$i] : 0;
             }
 
             $tempRMSE = Error::getRootMeanSquaredError($error);
@@ -172,8 +172,8 @@ class ExponentialSmoothing
         $forecast = [];
         $seasonal = [];
 
-        for ($i = 1; $i < $cycle+1; $i++) {
-            $seasonal[$i] = $this->data[$i-1] - $level[0];
+        for ($i = 1; $i < $cycle + 1; $i++) {
+            $seasonal[$i] = $this->data[$i - 1] - $level[0];
         }
 
         $alpha = 0.00;
@@ -182,17 +182,17 @@ class ExponentialSmoothing
 
             while ($gamma < 1) {
                 $gamma_ = $gamma * (1 - $alpha);
-                $error      = [];
+                $error = [];
                 $tempForecast = [];
 
                 for ($i = 1; $i < $dataLength; $i++) {
-                    $hm = (int) floor(($i-1) % $cycle) + 1;
+                    $hm = (int) floor(($i - 1) % $cycle) + 1;
 
-                    $level[$i] = $alpha * (($i < $dataLength - $future ? $this->data[$i-1] : $tempForecast[$i-1]) - $seasonal[$i]) + (1 - $alpha) * $level[$i-1];
-                    $seasonal[$i+$cycle] = $gamma_*(($i < $dataLength - $future ? $this->data[$i-1] : $tempForecast[$i-1]) - $level[$i-1]) + (1 - $gamma_) * $seasonal[$i];
+                    $level[$i] = $alpha * (($i < $dataLength - $future ? $this->data[$i - 1] : $tempForecast[$i - 1]) - $seasonal[$i]) + (1 - $alpha) * $level[$i - 1];
+                    $seasonal[$i + $cycle] = $gamma_ * (($i < $dataLength - $future ? $this->data[$i - 1] : $tempForecast[$i - 1]) - $level[$i - 1]) + (1 - $gamma_) * $seasonal[$i];
 
-                    $tempForecast[$i] = $level[$i] + $seasonal[$i+$hm];
-                    $error[]    = $i < $dataLength - $future ? $this->data[$i] - $tempForecast[$i] : 0;
+                    $tempForecast[$i] = $level[$i] + $seasonal[$i + $hm];
+                    $error[] = $i < $dataLength - $future ? $this->data[$i] - $tempForecast[$i] : 0;
                 }
                     
                 $tempRMSE = Error::getRootMeanSquaredError($error);
@@ -223,7 +223,7 @@ class ExponentialSmoothing
         $forecast = [];
         $seasonal = [];
 
-        for ($i = 1; $i < $cycle+1; $i++) {
+        for ($i = 1; $i < $cycle + 1; $i++) {
             $seasonal[$i] = $this->data[$i] / $level[0];
         }
 
@@ -233,17 +233,17 @@ class ExponentialSmoothing
 
             while ($gamma < 1) {
                 $gamma_ = $gamma * (1 - $alpha);
-                $error      = [];
+                $error = [];
                 $tempForecast = [];
 
                 for ($i = 1; $i < $dataLength; $i++) {
-                    $hm = (int) floor(($i-1) % $cycle) + 1;
+                    $hm = (int) floor(($i - 1) % $cycle) + 1;
 
-                    $level[$i] = $alpha * (($i < $dataLength - $future ? $this->data[$i-1] : $tempForecast[$i-1]) / $seasonal[$i]) + (1 - $alpha) * $level[$i-1];
-                    $seasonal[$i+$cycle] = $gamma_*(($i < $dataLength - $future ? $this->data[$i-1] : $tempForecast[$i-1]) / $level[$i-1]) + (1 - $gamma_) * $seasonal[$i];
+                    $level[$i] = $alpha * (($i < $dataLength - $future ? $this->data[$i - 1] : $tempForecast[$i - 1]) / $seasonal[$i]) + (1 - $alpha) * $level[$i - 1];
+                    $seasonal[$i + $cycle] = $gamma_ * (($i < $dataLength - $future ? $this->data[$i - 1] : $tempForecast[$i - 1]) / $level[$i - 1]) + (1 - $gamma_) * $seasonal[$i];
 
-                    $tempForecast[$i] = $level[$i] + $seasonal[$i+$hm];
-                    $error[]    = $i < $dataLength - $future ? $this->data[$i] - $tempForecast[$i] : 0;
+                    $tempForecast[$i] = $level[$i] + $seasonal[$i + $hm];
+                    $error[] = $i < $dataLength - $future ? $this->data[$i] - $tempForecast[$i] : 0;
                 }
                     
                 $tempRMSE = Error::getRootMeanSquaredError($error);
@@ -279,15 +279,15 @@ class ExponentialSmoothing
             $beta = 0.00;
 
             while ($beta < 1) {
-                $error      = [];
+                $error = [];
                 $tempForecast = [];
 
                 for ($i = 1; $i < $dataLength; $i++) {
-                    $level[$i] = $alpha * ($i < $dataLength - $future ? $this->data[$i-1] : $tempForecast[$i-1]) + (1 - $alpha) * ($level[$i-1] + $damping * $trend[$i-1]);
-                    $trend[$i] = $beta * ($level[$i] - $level[$i-1]) + (1 - $beta) * $damping * $trend[$i-1];
+                    $level[$i] = $alpha * ($i < $dataLength - $future ? $this->data[$i - 1] : $tempForecast[$i - 1]) + (1 - $alpha) * ($level[$i - 1] + $damping * $trend[$i - 1]);
+                    $trend[$i] = $beta * ($level[$i] - $level[$i - 1]) + (1 - $beta) * $damping * $trend[$i - 1];
 
                     $tempForecast[$i] = $level[$i] + $this->dampingSum($damping, $i) * $trend[$i];
-                    $error[]    = $i < $dataLength - $future ? $this->data[$i] - $tempForecast[$i] : 0;
+                    $error[] = $i < $dataLength - $future ? $this->data[$i] - $tempForecast[$i] : 0;
                 }
                     
                 $tempRMSE = Error::getRootMeanSquaredError($error);
@@ -320,14 +320,14 @@ class ExponentialSmoothing
         $seasonal = [];
 
         $sum = 0;
-        for ($i = 1; $i < $cycle+1; $i++) {
+        for ($i = 1; $i < $cycle + 1; $i++) {
             $sum += ($this->data[$cycle] - $this->data[$i]) / $cycle;
         }
 
         $trend[0] *= $sum;
 
-        for ($i = 1; $i < $cycle+1; $i++) {
-            $seasonal[$i] = $this->data[$i-1] - $level[0];
+        for ($i = 1; $i < $cycle + 1; $i++) {
+            $seasonal[$i] = $this->data[$i - 1] - $level[0];
         }
 
         $alpha = 0.00;
@@ -339,18 +339,18 @@ class ExponentialSmoothing
 
                 while ($gamma < 1) {
                     $gamma_ = $gamma * (1 - $alpha);
-                    $error      = [];
+                    $error = [];
                     $tempForecast = [];
 
                     for ($i = 1; $i < $dataLength; $i++) {
-                        $hm = (int) floor(($i-1) % $cycle) + 1;
+                        $hm = (int) floor(($i - 1) % $cycle) + 1;
 
-                        $level[$i] = $alpha * (($i < $dataLength - $future ? $this->data[$i-1] : $tempForecast[$i-1]) - $seasonal[$i]) + (1 - $alpha) * ($level[$i-1] + $damping * $trend[$i-1]);
-                        $trend[$i] = $beta * ($level[$i] - $level[$i-1]) + (1 - $beta) * $damping * $trend[$i-1];
-                        $seasonal[$i+$cycle] = $gamma_*(($i < $dataLength - $future ? $this->data[$i-1] : $tempForecast[$i-1]) - $level[$i-1]) + (1 - $gamma_) * $seasonal[$i];
+                        $level[$i] = $alpha * (($i < $dataLength - $future ? $this->data[$i - 1] : $tempForecast[$i - 1]) - $seasonal[$i]) + (1 - $alpha) * ($level[$i - 1] + $damping * $trend[$i - 1]);
+                        $trend[$i] = $beta * ($level[$i] - $level[$i - 1]) + (1 - $beta) * $damping * $trend[$i - 1];
+                        $seasonal[$i + $cycle] = $gamma_ * (($i < $dataLength - $future ? $this->data[$i - 1] : $tempForecast[$i - 1]) - $level[$i - 1]) + (1 - $gamma_) * $seasonal[$i];
 
-                        $tempForecast[$i] = $level[$i] + $this->dampingSum($damping, $i) * $trend[$i] + $seasonal[$i+$hm];
-                        $error[]    = $i < $dataLength - $future ? $this->data[$i] - $tempForecast[$i] : 0;
+                        $tempForecast[$i] = $level[$i] + $this->dampingSum($damping, $i) * $trend[$i] + $seasonal[$i + $hm];
+                        $error[] = $i < $dataLength - $future ? $this->data[$i] - $tempForecast[$i] : 0;
                     }
 
                     $tempRMSE = Error::getRootMeanSquaredError($error);
@@ -387,13 +387,13 @@ class ExponentialSmoothing
         $gamma_ = $gamma * (1 - $alpha);
 
         $sum = 0;
-        for ($i = 1; $i < $cycle+1; $i++) {
+        for ($i = 1; $i < $cycle + 1; $i++) {
             $sum += ($this->data[$cycle] - $this->data[$i]) / $cycle;
         }
 
         $trend[0] *= $sum;
 
-        for ($i = 1; $i < $cycle+1; $i++) {
+        for ($i = 1; $i < $cycle + 1; $i++) {
             $seasonal[$i] = $this->data[$i] / $level[0];
         }
 
@@ -406,18 +406,18 @@ class ExponentialSmoothing
 
                 while ($gamma < 1) {
                     $gamma_ = $gamma * (1 - $alpha);
-                    $error      = [];
+                    $error = [];
                     $tempForecast = [];
 
                     for ($i = 1; $i < $dataLength; $i++) {
-                        $hm = (int) floor(($i-1) % $cycle) + 1;
+                        $hm = (int) floor(($i - 1) % $cycle) + 1;
 
-                        $level[$i] = $alpha * (($i < $dataLength - $future ? $this->data[$i-1] : $tempForecast[$i-1]) / $seasonal[$i]) + (1 - $alpha) * ($level[$i-1] + $damping * $trend[$i-1]);
-                        $trend[$i] = $beta * ($level[$i] - $level[$i-1]) + (1 - $beta) * $damping * $trend[$i-1];
-                        $seasonal[$i+$cycle] = $gamma_*($i < $dataLength - $future ? $this->data[$i-1] : $tempForecast[$i-1]) / ($level[$i-1] + $damping * $trend[$i-1]) + (1 - $gamma_) * $seasonal[$i];
+                        $level[$i] = $alpha * (($i < $dataLength - $future ? $this->data[$i - 1] : $tempForecast[$i - 1]) / $seasonal[$i]) + (1 - $alpha) * ($level[$i - 1] + $damping * $trend[$i - 1]);
+                        $trend[$i] = $beta * ($level[$i] - $level[$i - 1]) + (1 - $beta) * $damping * $trend[$i - 1];
+                        $seasonal[$i + $cycle] = $gamma_ * ($i < $dataLength - $future ? $this->data[$i - 1] : $tempForecast[$i - 1]) / ($level[$i - 1] + $damping * $trend[$i - 1]) + (1 - $gamma_) * $seasonal[$i];
 
-                        $tempForecast[] = ($level[$i] + $this->dampingSum($damping, $i) * $trend[$i-1]) * $seasonal[$i+$hm];
-                        $error[]    = $i < $dataLength - $future ? $this->data[$i] - $tempForecast[$i] : 0;
+                        $tempForecast[] = ($level[$i] + $this->dampingSum($damping, $i) * $trend[$i - 1]) * $seasonal[$i + $hm];
+                        $error[] = $i < $dataLength - $future ? $this->data[$i] - $tempForecast[$i] : 0;
                     }
                     
                     $tempRMSE = Error::getRootMeanSquaredError($error);
@@ -456,15 +456,15 @@ class ExponentialSmoothing
             $beta = 0.00;
 
             while ($beta < 1) {
-                $error      = [];
+                $error = [];
                 $tempForecast = [];
 
                 for ($i = 1; $i < $dataLength; $i++) {
-                    $level[$i] = $alpha * ($i < $dataLength - $future ? $this->data[$i-1] : $tempForecast[$i-1]) + (1 - $alpha) * $level[$i-1] * pow($trend[$i-1], $damping);
-                    $trend[$i] = $beta * ($level[$i] / $level[$i-1]) + (1 - $beta) * pow($trend[$i-1], $damping);
+                    $level[$i] = $alpha * ($i < $dataLength - $future ? $this->data[$i - 1] : $tempForecast[$i - 1]) + (1 - $alpha) * $level[$i - 1] * pow($trend[$i - 1], $damping);
+                    $trend[$i] = $beta * ($level[$i] / $level[$i - 1]) + (1 - $beta) * pow($trend[$i - 1], $damping);
 
                     $tempForecast[$i] = $level[$i] * pow($trend[$i], $this->dampingSum($damping, $i));
-                    $error[]    = $i < $dataLength - $future ? $this->data[$i] - $tempForecast[$i] : 0;
+                    $error[] = $i < $dataLength - $future ? $this->data[$i] - $tempForecast[$i] : 0;
                 }
 
                 $tempRMSE = Error::getRootMeanSquaredError($error);
@@ -496,14 +496,14 @@ class ExponentialSmoothing
         $seasonal = [];
 
         $sum = 0;
-        for ($i = 1; $i < $cycle+1; $i++) {
+        for ($i = 1; $i < $cycle + 1; $i++) {
             $sum += ($this->data[$cycle] - $this->data[$i]) / $cycle;
         }
 
         $trend[0] *= $sum;
 
-        for ($i = 1; $i < $cycle+1; $i++) {
-            $seasonal[$i] = $this->data[$i-1] - $level[0];
+        for ($i = 1; $i < $cycle + 1; $i++) {
+            $seasonal[$i] = $this->data[$i - 1] - $level[0];
         }
 
         $alpha = 0.00;
@@ -515,18 +515,18 @@ class ExponentialSmoothing
 
                 while ($gamma < 1) {
                     $gamma_ = $gamma * (1 - $alpha);
-                    $error      = [];
+                    $error = [];
                     $tempForecast = [];
 
                     for ($i = 1; $i < $dataLength; $i++) {
-                        $hm = (int) floor(($i-1) % $cycle) + 1;
+                        $hm = (int) floor(($i - 1) % $cycle) + 1;
 
-                        $level[$i] = $alpha * (($i < $dataLength - $future ? $this->data[$i-1] : $tempForecast[$i-1]) - $seasonal[$i]) + (1 - $alpha) * $level[$i-1] * pow($trend[$i-1], $damping);
-                        $trend[$i] = $beta * ($level[$i] / $level[$i-1]) + (1 - $beta) * pow($trend[$i-1], $damping);
-                        $seasonal[$i+$cycle] = $gamma_*(($i < $dataLength - $future ? $this->data[$i-1] : $tempForecast[$i-1]) - $level[$i-1] * pow($trend[$i-1], $damping)) + (1 - $gamma_) * $seasonal[$i];
+                        $level[$i] = $alpha * (($i < $dataLength - $future ? $this->data[$i - 1] : $tempForecast[$i - 1]) - $seasonal[$i]) + (1 - $alpha) * $level[$i - 1] * pow($trend[$i - 1], $damping);
+                        $trend[$i] = $beta * ($level[$i] / $level[$i - 1]) + (1 - $beta) * pow($trend[$i - 1], $damping);
+                        $seasonal[$i + $cycle] = $gamma_ * (($i < $dataLength - $future ? $this->data[$i - 1] : $tempForecast[$i - 1]) - $level[$i - 1] * pow($trend[$i - 1], $damping)) + (1 - $gamma_) * $seasonal[$i];
 
-                        $tempForecast[$i] = $level[$i] * pow($trend[$i], $this->dampingSum($damping, $i)) + $seasonal[$i+$hm];
-                        $error[]    = $i < $dataLength - $future ? $this->data[$i] - $tempForecast[$i] : 0;
+                        $tempForecast[$i] = $level[$i] * pow($trend[$i], $this->dampingSum($damping, $i)) + $seasonal[$i + $hm];
+                        $error[] = $i < $dataLength - $future ? $this->data[$i] - $tempForecast[$i] : 0;
                     }
 
                     $tempRMSE = Error::getRootMeanSquaredError($error);
@@ -562,13 +562,13 @@ class ExponentialSmoothing
         $seasonal = [];
 
         $sum = 0;
-        for ($i = 1; $i < $cycle+1; $i++) {
+        for ($i = 1; $i < $cycle + 1; $i++) {
             $sum += ($this->data[$cycle] - $this->data[$i]) / $cycle;
         }
 
         $trend[0] *= $sum;
 
-        for ($i = 1; $i < $cycle+1; $i++) {
+        for ($i = 1; $i < $cycle + 1; $i++) {
             $seasonal[$i] = $this->data[$i] / $level[0];
         }
 
@@ -581,18 +581,18 @@ class ExponentialSmoothing
 
                 while ($gamma < 1) {
                     $gamma_ = $gamma * (1 - $alpha);
-                    $error      = [];
+                    $error = [];
                     $tempForecast = [];
 
                     for ($i = 1; $i < $dataLength; $i++) {
-                        $hm = (int) floor(($i-1) % $cycle) + 1;
+                        $hm = (int) floor(($i - 1) % $cycle) + 1;
 
-                        $level[$i] = $alpha * (($i < $dataLength - $future ? $this->data[$i-1] : $tempForecast[$i-1]) / $seasonal[$i]) + (1 - $alpha) * $level[$i-1] * pow($trend[$i-1], $damping);
-                        $trend[$i] = $beta * ($level[$i] / $level[$i-1]) + (1 - $beta) * pow($trend[$i-1], $damping);
-                        $seasonal[$i+$cycle] = $gamma_*($i < $dataLength - $future ? $this->data[$i-1] : $tempForecast[$i-1]) / ($level[$i-1] * pow($trend[$i-1], $damping)) + (1 - $gamma_) * $seasonal[$i];
+                        $level[$i] = $alpha * (($i < $dataLength - $future ? $this->data[$i - 1] : $tempForecast[$i - 1]) / $seasonal[$i]) + (1 - $alpha) * $level[$i - 1] * pow($trend[$i - 1], $damping);
+                        $trend[$i] = $beta * ($level[$i] / $level[$i - 1]) + (1 - $beta) * pow($trend[$i - 1], $damping);
+                        $seasonal[$i + $cycle] = $gamma_ * ($i < $dataLength - $future ? $this->data[$i - 1] : $tempForecast[$i - 1]) / ($level[$i - 1] * pow($trend[$i - 1], $damping)) + (1 - $gamma_) * $seasonal[$i];
 
-                        $tempForecast[$i] = $level[$i] * pow($trend[$i], $this->dampingSum($damping, $i)) * $seasonal[$i+$hm];
-                        $error[]    = $i < $dataLength - $future ? $this->data[$i] - $tempForecast[$i] : 0;
+                        $tempForecast[$i] = $level[$i] * pow($trend[$i], $this->dampingSum($damping, $i)) * $seasonal[$i + $hm];
+                        $error[] = $i < $dataLength - $future ? $this->data[$i] - $tempForecast[$i] : 0;
                     }
                     
                     $tempRMSE = Error::getRootMeanSquaredError($error);

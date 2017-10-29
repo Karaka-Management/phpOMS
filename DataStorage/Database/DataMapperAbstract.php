@@ -377,7 +377,7 @@ class DataMapperAbstract implements DataMapperInterface
     {
         self::extend(__CLASS__);
 
-        $objId           = self::createModelArray($obj);
+        $objId = self::createModelArray($obj);
         settype($objId, static::$columns[static::$primaryField]['type']);
         $obj[static::$columns[static::$primaryField]['internal']] = $objId;
 

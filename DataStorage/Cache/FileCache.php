@@ -262,9 +262,9 @@ class FileCache implements CacheInterface
     private function getExpire(string $raw) : int
     {
         $expireStart = strpos($raw, self::DELIM);
-        $expireEnd   = strpos($raw, self::DELIM, $expireStart+1);
+        $expireEnd   = strpos($raw, self::DELIM, $expireStart + 1);
 
-        return (int) substr($raw, $expireStart+1, $expireEnd - ($expireStart+1));
+        return (int) substr($raw, $expireStart + 1, $expireEnd - ($expireStart + 1));
     }
 
     /**
@@ -294,8 +294,8 @@ class FileCache implements CacheInterface
         $type = $raw[0];
 
         $expireStart = strpos($raw, self::DELIM);
-        $expireEnd   = strpos($raw, self::DELIM, $expireStart+1);
-        $cacheExpire = substr($raw, $expireStart+1, $expireEnd - ($expireStart+1));
+        $expireEnd   = strpos($raw, self::DELIM, $expireStart + 1);
+        $cacheExpire = substr($raw, $expireStart + 1, $expireEnd - ($expireStart + 1));
 
         if ($cacheExpire >= 0 && $created + $cacheExpire < $now) {
             $this->delete($key);
@@ -324,7 +324,7 @@ class FileCache implements CacheInterface
             case CacheType::_SERIALIZABLE:
             case CacheType::_JSONSERIALIZABLE:
                 $namespaceStart = strpos($raw, self::DELIM, $expireEnd);
-                $namespaceEnd   = strpos($raw, self::DELIM, $namespaceStart+1);
+                $namespaceEnd   = strpos($raw, self::DELIM, $namespaceStart + 1);
                 $namespace      = substr($raw, $namespaceStart, $namespaceEnd);
 
                 $value = $namespace::unserialize(substr($raw, $namespaceEnd + 1));
@@ -357,8 +357,8 @@ class FileCache implements CacheInterface
             $now         = time();
             $raw         = file_get_contents($path);
             $expireStart = strpos($raw, self::DELIM);
-            $expireEnd   = strpos($raw, self::DELIM, $expireStart+1);
-            $cacheExpire = substr($raw, $expireStart+1, $expireEnd - ($expireStart+1));
+            $expireEnd   = strpos($raw, self::DELIM, $expireStart + 1);
+            $cacheExpire = substr($raw, $expireStart + 1, $expireEnd - ($expireStart + 1));
 
             if ($cacheExpire >= 0 && $created + $cacheExpire > $now) {
                 File::delete($path);

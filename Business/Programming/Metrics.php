@@ -42,7 +42,7 @@ class Metrics {
      */
     public static function abcScore(int $a, int $b, int $c) : int
     {
-        return (int) sqrt($a*$a+$b*$b+$c*$c);
+        return (int) sqrt($a * $a + $b * $b + $c * $c);
     }
 
     /**

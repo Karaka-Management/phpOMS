@@ -46,7 +46,7 @@ class CholeskyDecomposition
                 }
             }
 
-            for ($k = $i+1; $k < $this->m; ++$k) {
+            for ($k = $i + 1; $k < $this->m; ++$k) {
                 $this->L[$i][$k] = 0.0;
             }
         }

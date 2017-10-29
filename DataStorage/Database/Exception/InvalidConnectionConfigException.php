@@ -37,6 +37,6 @@ class InvalidConnectionConfigException extends \InvalidArgumentException
      */
     public function __construct(string $message = '', int $code = 0, \Exception $previous = null)
     {
-        parent::__construct('Missing config value for "'. $message .'".', $code, $previous);
+        parent::__construct('Missing config value for "' . $message . '".', $code, $previous);
     }
 }

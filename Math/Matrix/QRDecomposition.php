@@ -51,13 +51,13 @@ class QRDecomposition
                     
                 $this->QR[$k][$k] += 1.0;
                 // Apply transformation to remaining columns.
-                for ($j = $k+1; $j < $this->n; ++$j) {
+                for ($j = $k + 1; $j < $this->n; ++$j) {
                     $s = 0.0;
                     for ($i = $k; $i < $this->m; ++$i) {
                         $s += $this->QR[$i][$k] * $this->QR[$i][$j];
                     }
                         
-                    $s = -$s/$this->QR[$k][$k];
+                    $s = -$s / $this->QR[$k][$k];
                     for ($i = $k; $i < $this->m; ++$i) {
                         $this->QR[$i][$j] += $s * $this->QR[$i][$k];
                     }
@@ -125,7 +125,7 @@ class QRDecomposition
     {
         $Q = [[]];
 
-        for ($k = $this->n-1; $k >= 0; --$k) {
+        for ($k = $this->n - 1; $k >= 0; --$k) {
             for ($i = 0; $i < $this->m; ++$i) {
                 $Q[$i][$k] = 0.0;
             }
@@ -137,7 +137,7 @@ class QRDecomposition
                     for ($i = $k; $i < $this->m; ++$i) {
                         $s += $this->QR[$i][$k] * $Q[$i][$j];
                     }
-                    $s = -$s/$this->QR[$k][$k];
+                    $s = -$s / $this->QR[$k][$k];
                     for ($i = $k; $i < $this->m; ++$i) {
                         $Q[$i][$j] += $s * $this->QR[$i][$k];
                     }
@@ -168,20 +168,20 @@ class QRDecomposition
                 for ($i = $k; $i < $this->m; ++$i) {
                     $s += $this->QR[$i][$k] * $X[$i][$j];
                 }
-                $s = -$s/$this->QR[$k][$k];
+                $s = -$s / $this->QR[$k][$k];
                 for ($i = $k; $i < $this->m; ++$i) {
                     $X[$i][$j] += $s * $this->QR[$i][$k];
                 }
             }
         }
         // Solve R*X = Y;
-        for ($k = $this->n-1; $k >= 0; --$k) {
+        for ($k = $this->n - 1; $k >= 0; --$k) {
             for ($j = 0; $j < $nx; ++$j) {
                 $X[$k][$j] /= $this->Rdiag[$k];
             }
             for ($i = 0; $i < $k; ++$i) {
                 for ($j = 0; $j < $nx; ++$j) {
-                    $X[$i][$j] -= $X[$k][$j]* $this->QR[$i][$k];
+                    $X[$i][$j] -= $X[$k][$j] * $this->QR[$i][$k];
                 }
             }
         }
@@ -189,6 +189,6 @@ class QRDecomposition
         $matrix = new Matrix();
         $matrix->setArray($X);
 
-        return $matrix->getMatrix(0, $this->n-1, 0, $nx);
+        return $matrix->getMatrix(0, $this->n - 1, 0, $nx);
     }
 }

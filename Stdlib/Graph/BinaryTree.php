@@ -154,11 +154,11 @@ class BinaryTree extends Tree
         $right = $this->getRight($node);
 
         if (isset($left)) {
-            $this->getVerticalOrder($left, $horizontalDistance-1, $order);
+            $this->getVerticalOrder($left, $horizontalDistance - 1, $order);
         }
 
         if (isset($right)) {
-            $this->getVerticalOrder($right, $horizontalDistance+1, $order);
+            $this->getVerticalOrder($right, $horizontalDistance + 1, $order);
         }
     }
 
