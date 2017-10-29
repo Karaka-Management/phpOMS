@@ -755,6 +755,20 @@ class FinanceFormulas
     }
 
     /**
+     * Get rate to dobule
+     *
+     * @param float $t Time in which to double investment
+     *
+     * @return float
+     *
+     * @since  1.0.0
+     */
+    public static function getDoublingRate(float $t) : float
+    {
+        return exp(log(2) / $t) - 1;
+    }
+
+    /**
      * Doubling Time - Continuous Compounding
      *
      * @param float $r Rate of return
