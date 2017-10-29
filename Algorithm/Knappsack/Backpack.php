@@ -75,7 +75,7 @@ class Backpack
 
     public function pack(int $type) 
     {
-        switch($type) {
+        switch ($type) {
             case AlgorithmType::BRUTEFORCE:
                 return $this->bruteforce();
             default:

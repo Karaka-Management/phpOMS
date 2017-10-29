@@ -78,7 +78,7 @@ final class Storage
                 $env = $env::getInstance();
 
                 self::$registered[$stg] = $env;
-            } catch(\Throwable $e) {
+            } catch (\Throwable $e) {
                 throw new \Exception();
             }
         }

@@ -160,7 +160,7 @@ class L11nManager
                 if (!isset($this->language[$code][$module][$translation])) {
                     return 'ERROR';
                 }
-            } catch(\Exception $e) {
+            } catch (\Exception $e) {
                 FileLogger::getInstance()->warning(FileLogger::MSG_FULL, [
                     'message' => 'Undefined translation for \'' . $code . '/' . $module . '/' . $translation . '\'.',
                 ]);
