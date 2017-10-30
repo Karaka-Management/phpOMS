@@ -44,15 +44,10 @@ class ColorUtils
         $diff     = [];
         $gradient = [];
 
-        if ($value <= $stop[0]) {
-            if ($value < $start[0]) {
-                $value = $start[0];
-            }
+        if ($value <= $stop[0] && $value < $start[0]) {
+            $value = $start[0];
         } else {
-            if ($value > $end[0]) {
-                $value = $end[0];
-            }
-
+            $value = min($value, $end[0]);
             $start = $stop;
             $stop  = $end;
         }
@@ -67,13 +62,7 @@ class ColorUtils
         $gradient['b'] = $start[3] + ($value - $start[0]) / ($diff[0]) * $diff[3];
 
         foreach ($gradient as &$color) {
-            if ($color > 255) {
-                $color = 255;
-            } elseif ($color < 0) {
-                $color = 0;
-            } else {
-                $color = (int) $color;
-            }
+            $color = max(min($color, 255), 0);
         }
 
         return $gradient;
