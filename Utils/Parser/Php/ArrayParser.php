@@ -46,10 +46,38 @@ class ArrayParser
                 $key = '"' . $key . '"';
             }
 
-            $stringify .= '    ' . $key . ' => ' . MemberParser::parseVariable($val) . ',' . PHP_EOL;
+            $stringify .= '    ' . $key . ' => ' . self::parseVariable($val) . ',' . PHP_EOL;
 
         }
 
         return $stringify . ']';
+    }
+
+    /**
+     * Serialize value.
+     *
+     * @param mixed $value Value to serialzie
+     *
+     * @return string
+     *
+     * @since  1.0.0
+     */
+    public static function parseVariable($value) : string
+    {
+        if (is_array($value)) {
+            return ArrayParser::serializeArray($value) . PHP_EOL;
+        } elseif (is_string($value)) {
+            return '"' . $value . '"';
+        } elseif (is_scalar($value)) {
+            return (string) $value;
+        } elseif (is_null($value)) {
+            return 'null';
+        } elseif (is_bool($value)) {
+            return $value ? 'true' : 'false';
+        } elseif ($value instanceOf \Serializable) {
+            return self::parseVariable($value->serialize());
+        } else {
+            throw new \UnexpectedValueException();
+        }
     }
 }
