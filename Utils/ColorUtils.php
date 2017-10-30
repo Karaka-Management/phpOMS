@@ -46,4 +46,22 @@ class ColorUtils
 
         return $rgb;
     }
+
+    /**
+     * Convert rgb to int
+     *
+     * @param array   $rgb Int rgb array
+     *
+     * @return array
+     *
+     * @since  1.0.0
+     */
+    public static function rgbToInt(array $rgb) : int
+    {
+        $i = (255 & $rgb['r']) << 16;
+        $i += (255 & $rgb['g']) << 8;
+        $i += (255 & $rgb['b']);
+
+        return $i;
+    }
 }
