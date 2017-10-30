@@ -50,9 +50,9 @@ class ColorUtils
     /**
      * Convert rgb to int
      *
-     * @param array   $rgb Int rgb array
+     * @param array $rgb Int rgb array
      *
-     * @return array
+     * @return int
      *
      * @since  1.0.0
      */
