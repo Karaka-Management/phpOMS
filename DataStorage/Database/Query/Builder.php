@@ -486,7 +486,7 @@ class Builder extends BuilderAbstract
         }
 
         if (is_string($columns)) {
-            $colums = [$columns];
+            $columns = [$columns];
             $operator = [$operator];
             $values = [$values];
             $boolean = [$boolean];
