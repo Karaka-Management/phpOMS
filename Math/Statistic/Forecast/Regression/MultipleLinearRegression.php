@@ -33,10 +33,16 @@ class MultipleLinearRegression
         return $XT->mult($X)->inverse()->mult($XT)->mult($Y)->getMatrix();
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public static function getVariance() : float
     {
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public static function getPredictionInterval() : array
     {
     }

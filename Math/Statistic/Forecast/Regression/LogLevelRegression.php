@@ -44,11 +44,17 @@ class LogLevelRegression extends RegressionAbstract
         return parent::getRegression($x, $y);
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public static function getSlope(float $b1, float $y, float $x) : float
     {
         return $b1 * $y;
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public static function getElasticity(float $b1, float $y, float $x): float
     {
         return $b1 * $x;
