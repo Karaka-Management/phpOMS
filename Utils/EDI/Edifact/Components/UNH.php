@@ -26,6 +26,8 @@ namespace phpOMS\Utils\EDI\Edifact\Components;
  */
 class UNH
 {
+    private $ref = '';
+
     private $type = '';
 
     private $version = 'D';
@@ -36,8 +38,9 @@ class UNH
 
     private $bdewVersion = '2.6d';
 
-    public function __construct(string $type, string $version, string $subersion, string $un, string $bdewVersion)
+    public function __construct(string $ref, string $type, string $version, string $subersion, string $un, string $bdewVersion)
     {
+        $this->ref = $ref;
         $this->type = $type;
         $this->version = $version;
         $this->subersion = $subersion;
