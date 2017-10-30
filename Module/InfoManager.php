@@ -11,7 +11,7 @@
  * @version    1.0.0
  * @link       http://orange-management.com
  */
-declare(strict_types=1);
+declare(strict_types = 1);
 
 namespace phpOMS\Module;
 
@@ -99,7 +99,7 @@ class InfoManager
      */
     public function update() /* : void */
     {
-    	if (!file_exists($this->path)) {
+        if (!file_exists($this->path)) {
             throw new PathException((string) $this->path);
         }
 

@@ -11,7 +11,7 @@
  * @version    1.0.0
  * @link       http://orange-management.com
  */
-declare(strict_types=1);
+declare(strict_types = 1);
 
 namespace phpOMS\DataStorage\Database\Query\Grammar;
 
@@ -133,7 +133,6 @@ class Grammar extends GrammarAbstract
                 break;
             case QueryType::RAW:
                 return [$query->raw];
-                break;
             default:
                 throw new \InvalidArgumentException('Unknown query type.');
         }
@@ -270,7 +269,7 @@ class Grammar extends GrammarAbstract
     {
         $expression = '';
 
-        if(!$first) {
+        if (!$first) {
             $expression = ' ' . strtoupper($element['boolean']) . ' ';
         }
 
@@ -317,7 +316,7 @@ class Grammar extends GrammarAbstract
     protected function compileValue($value, $prefix = '') : string
     {
         if (is_string($value)) {
-            if(strpos($value, ':') === 0) {
+            if (strpos($value, ':') === 0) {
                 return $value;
             }
 
@@ -420,7 +419,7 @@ class Grammar extends GrammarAbstract
         $expression = '';
 
         foreach ($orders as $key => $order) {
-            foreach($order as $column) {
+            foreach ($order as $column) {
                 $expression .= $this->compileSystem($column, $query->getPrefix()) . ', ';
             }
 

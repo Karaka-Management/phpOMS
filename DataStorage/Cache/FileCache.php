@@ -11,7 +11,7 @@
  * @version    1.0.0
  * @link       http://orange-management.com
  */
-declare(strict_types=1);
+declare(strict_types = 1);
 
 namespace phpOMS\DataStorage\Cache;
 
@@ -108,7 +108,7 @@ class FileCache implements CacheInterface
      */
     public function setStatus(int $status) /* : void */
     {
-        if(!CacheStatus::isValidValue($status)) {
+        if (!CacheStatus::isValidValue($status)) {
             throw new InvalidEnumValue($status);
         }
 
@@ -142,7 +142,7 @@ class FileCache implements CacheInterface
      */
     public function set($key, $value, int $expire = -1) /* : void */
     {
-        if($this->status !== CacheStatus::ACTIVE) {
+        if ($this->status !== CacheStatus::ACTIVE) {
             return false;
         }
 
@@ -159,7 +159,7 @@ class FileCache implements CacheInterface
      */
     public function add($key, $value, int $expire = -1) : bool
     {
-        if($this->status !== CacheStatus::ACTIVE) {
+        if ($this->status !== CacheStatus::ACTIVE) {
             return false;
         }
 
@@ -262,9 +262,9 @@ class FileCache implements CacheInterface
     private function getExpire(string $raw) : int
     {
         $expireStart = strpos($raw, self::DELIM);
-        $expireEnd   = strpos($raw, self::DELIM, $expireStart+1);
+        $expireEnd   = strpos($raw, self::DELIM, $expireStart + 1);
 
-        return (int) substr($raw, $expireStart+1, $expireEnd - ($expireStart+1));
+        return (int) substr($raw, $expireStart + 1, $expireEnd - ($expireStart + 1));
     }
 
     /**
@@ -272,14 +272,14 @@ class FileCache implements CacheInterface
      */
     public function get($key, int $expire = -1)
     {
-        if($this->status !== CacheStatus::ACTIVE) {
+        if ($this->status !== CacheStatus::ACTIVE) {
             return null;
         }
 
         $name = File::sanitize($key, self::SANITIZE);
         $path = $this->cachePath . '/' . trim($name, '/') . '.cache';
 
-        if(!File::exists($path)) {
+        if (!File::exists($path)) {
             return null;
         }
         
@@ -294,8 +294,8 @@ class FileCache implements CacheInterface
         $type = $raw[0];
 
         $expireStart = strpos($raw, self::DELIM);
-        $expireEnd   = strpos($raw, self::DELIM, $expireStart+1);
-        $cacheExpire = substr($raw, $expireStart+1, $expireEnd - ($expireStart+1));
+        $expireEnd   = strpos($raw, self::DELIM, $expireStart + 1);
+        $cacheExpire = substr($raw, $expireStart + 1, $expireEnd - ($expireStart + 1));
 
         if ($cacheExpire >= 0 && $created + $cacheExpire < $now) {
             $this->delete($key);
@@ -324,7 +324,7 @@ class FileCache implements CacheInterface
             case CacheType::_SERIALIZABLE:
             case CacheType::_JSONSERIALIZABLE:
                 $namespaceStart = strpos($raw, self::DELIM, $expireEnd);
-                $namespaceEnd   = strpos($raw, self::DELIM, $namespaceStart+1);
+                $namespaceEnd   = strpos($raw, self::DELIM, $namespaceStart + 1);
                 $namespace      = substr($raw, $namespaceStart, $namespaceEnd);
 
                 $value = $namespace::unserialize(substr($raw, $namespaceEnd + 1));
@@ -339,7 +339,7 @@ class FileCache implements CacheInterface
      */
     public function delete($key, int $expire = -1) : bool
     {
-        if($this->status !== CacheStatus::ACTIVE) {
+        if ($this->status !== CacheStatus::ACTIVE) {
             return false;
         }
 
@@ -357,8 +357,8 @@ class FileCache implements CacheInterface
             $now         = time();
             $raw         = file_get_contents($path);
             $expireStart = strpos($raw, self::DELIM);
-            $expireEnd   = strpos($raw, self::DELIM, $expireStart+1);
-            $cacheExpire = substr($raw, $expireStart+1, $expireEnd - ($expireStart+1));
+            $expireEnd   = strpos($raw, self::DELIM, $expireStart + 1);
+            $cacheExpire = substr($raw, $expireStart + 1, $expireEnd - ($expireStart + 1));
 
             if ($cacheExpire >= 0 && $created + $cacheExpire > $now) {
                 File::delete($path);
@@ -402,7 +402,7 @@ class FileCache implements CacheInterface
      */
     public function replace($key, $value, int $expire = -1) : bool
     {
-        if($this->status !== CacheStatus::ACTIVE) {
+        if ($this->status !== CacheStatus::ACTIVE) {
             return false;
         }
 

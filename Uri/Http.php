@@ -11,7 +11,7 @@
  * @version    1.0.0
  * @link       http://orange-management.com
  */
-declare(strict_types=1);
+declare(strict_types = 1);
 
 namespace phpOMS\Uri;
 
@@ -281,9 +281,9 @@ class Http implements UriInterface
     /**
      * {@inheritdoc}
      */
-    public function getQuery(string $key = null) /* : ?string */
+    public function getQuery(string $key = null)  : string
     {
-        if(isset($key)) {
+        if (isset($key)) {
             $key = strtolower($key);
 
             return $this->query[$key] ?? '';

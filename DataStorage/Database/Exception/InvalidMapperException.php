@@ -11,7 +11,7 @@
  * @version    1.0.0
  * @link       http://orange-management.com
  */
-declare(strict_types=1);
+declare(strict_types = 1);
 
 namespace phpOMS\DataStorage\Database\Exception;
 
@@ -31,13 +31,13 @@ class InvalidMapperException extends \RuntimeException
      *
      * @param string     $message Exception message
      * @param int        $code    Exception code
-     * @param \Exception Previous exception
+     * @param \Exception $previous Previous exception
      *
      * @since  1.0.0
      */
     public function __construct(string $message = '', int $code = 0, \Exception $previous = null)
     {
-        if($message === '') {
+        if ($message === '') {
             parent::__construct('Empty mapper.', $code, $previous);
         } else {
             parent::__construct('Mapper "' . $message . '" is invalid.', $code, $previous);

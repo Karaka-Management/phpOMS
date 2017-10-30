@@ -11,7 +11,7 @@
  * @version    1.0.0
  * @link       http://orange-management.com
  */
-declare(strict_types=1);
+declare(strict_types = 1);
 
 namespace phpOMS\Math\Statistic;
 
@@ -47,7 +47,7 @@ class MeasureOfDispersion
         $end   = end($values);
         $start = reset($values);
 
-        return $start - $end;
+        return $end - $start;
     }
 
     /**

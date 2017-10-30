@@ -11,7 +11,7 @@
  * @version    1.0.0
  * @link       http://orange-management.com
  */
-declare(strict_types=1);
+declare(strict_types = 1);
 
 namespace phpOMS\Message\Http;
 
@@ -106,8 +106,8 @@ class Response extends ResponseAbstract implements RenderableInterface
     {
         $types = $this->header->get('Content-Type');
 
-        foreach($types as $type) {
-            if(stripos($type, MimeType::M_JSON) !== false) {
+        foreach ($types as $type) {
+            if (stripos($type, MimeType::M_JSON) !== false) {
                 return $this->jsonSerialize();
             }
         }
@@ -139,6 +139,12 @@ class Response extends ResponseAbstract implements RenderableInterface
             } else {
                 throw new \Exception('Wrong response type');
             }
+        }
+
+        $types = $this->header->get('Content-Type');
+        
+        if (stripos($types[0], MimeType::M_HTML) !== false) {
+            return trim(preg_replace('/(\s{2,}|\n|\t)(?![^<>]*<\/pre>)/', ' ', $render));
         }
 
         return $render;

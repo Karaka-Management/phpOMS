@@ -11,7 +11,7 @@
  * @version    1.0.0
  * @link       http://orange-management.com
  */
-declare(strict_types=1);
+declare(strict_types = 1);
 
 namespace phpOMS\Utils\RnG;
 
@@ -40,7 +40,7 @@ class LinearCongruentialGenerator
      */
     public static function bsd(int $seed = 0)
     {
-        if($seed !== 0) {
+        if ($seed !== 0) {
             self::$bsdSeed = $seed;
         }
 
@@ -58,7 +58,7 @@ class LinearCongruentialGenerator
      */
     public static function msvcrt(int $seed = 0)
     {
-        if($seed !== 0) {
+        if ($seed !== 0) {
             self::$msvcrtSeed = $seed;
         }
 

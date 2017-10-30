@@ -11,7 +11,7 @@
  * @version    1.0.0
  * @link       http://orange-management.com
  */
-declare(strict_types=1);
+declare(strict_types = 1);
 namespace phpOMS\Utils\IO\Zip;
 /**
  * Zip class for handling zip files.
@@ -31,7 +31,7 @@ class TarGz implements ArchiveInterface
      */
     public static function pack($source, string $destination, bool $overwrite = true) : bool
     {
-        if(!Tar::pack($source, $destination . '.tmp', $overwrite)) {
+        if (!Tar::pack($source, $destination . '.tmp', $overwrite)) {
             return false;
         }
 
@@ -46,7 +46,7 @@ class TarGz implements ArchiveInterface
      */
     public static function unpack(string $source, string $destination) : bool
     {
-        if(!Gz::unpack($source, $destination . '.tmp')) {
+        if (!Gz::unpack($source, $destination . '.tmp')) {
             return false;
         }
 

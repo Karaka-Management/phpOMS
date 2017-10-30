@@ -11,7 +11,7 @@
  * @version    1.0.0
  * @link       http://orange-management.com
  */
-declare(strict_types=1);
+declare(strict_types = 1);
 
 namespace phpOMS\System\File;
 
@@ -29,7 +29,7 @@ namespace phpOMS\System\File;
 interface FileInterface extends ContainerInterface
 {
 
-	/**
+    /**
      * Save content to file.
      *
      * @param string $path File path to save the content to
@@ -106,7 +106,7 @@ interface FileInterface extends ContainerInterface
      */
     public static function extension(string $path) : string;
 
-	/**
+    /**
      * Save content to file.
      *
      * @param string $content Content to save in file

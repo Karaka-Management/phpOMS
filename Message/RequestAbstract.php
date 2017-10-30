@@ -11,12 +11,11 @@
  * @version    1.0.0
  * @link       http://orange-management.com
  */
-declare(strict_types=1);
+declare(strict_types = 1);
 
 namespace phpOMS\Message;
 
 use phpOMS\Stdlib\Base\Exception\InvalidEnumValue;
-use phpOMS\Localization\Localization;
 use phpOMS\Uri\UriInterface;
 
 /**
@@ -75,7 +74,7 @@ abstract class RequestAbstract implements MessageInterface
     /**
      * Request type.
      *
-     * @var \phpOMS\Message\RequestSource
+     * @var int
      * @since 1.0.0
      */
     protected $source = RequestSource::UNDEFINED;
@@ -205,7 +204,7 @@ abstract class RequestAbstract implements MessageInterface
      */
     public function getData($key = null)
     {
-        if(!isset($key)) {
+        if (!isset($key)) {
             return $this->data;
         }
 
@@ -266,7 +265,7 @@ abstract class RequestAbstract implements MessageInterface
     /**
      * {@inheritdoc}
      */
-    public abstract function getOrigin() : string;
+    abstract public function getOrigin() : string;
 
     /**
      * {@inheritdoc}

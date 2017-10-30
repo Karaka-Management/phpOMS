@@ -11,7 +11,7 @@
  * @version    1.0.0
  * @link       http://orange-management.com
  */
-declare(strict_types=1);
+declare(strict_types = 1);
 
 namespace phpOMS\DataStorage\Cookie;
 
@@ -122,12 +122,12 @@ class CookieJar
      */
     public function delete(string $id) : bool
     {
-        if($this->remove($id)) {
+        if ($this->remove($id)) {
             if (self::$isLocked) {
                 throw new LockException('CookieJar');
             }
 
-            if(!headers_sent()) {
+            if (!headers_sent()) {
                 setcookie($id, '', time() - 3600);
 
                 return true;

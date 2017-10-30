@@ -11,7 +11,7 @@
  * @version    1.0.0
  * @link       http://orange-management.com
  */
-declare(strict_types=1);
+declare(strict_types = 1);
 
 namespace phpOMS\Utils\JobQueue;
 
@@ -91,12 +91,7 @@ class JobQueue
         fclose(STDOUT);
         fclose(STDERR);
 
-        function shutdown()
-        {
-            posix_kill(posix_getpid(), SIGHUP);
-        }
-
-        register_shutdown_function('shutdown');
+        register_shutdown_function(function() { posix_kill(posix_getpid(), SIGHUP); });
     }
 
     public function setRunning(bool $run = true) /* : void */

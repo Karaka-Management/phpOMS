@@ -11,7 +11,7 @@
  * @version    1.0.0
  * @link       http://orange-management.com
  */
-declare(strict_types=1);
+declare(strict_types = 1);
 
 namespace phpOMS\Utils\EDI\Edifact;
 
@@ -29,9 +29,9 @@ use phpOMS\Utils\EDI\Edifact\Components\BGM;
  */
 class INVOIC
 {
-	private $unh = null;
+    private $unh = null;
 
-	private $bgm = null;
+    private $bgm = null;
 
     public function __construct()
     {

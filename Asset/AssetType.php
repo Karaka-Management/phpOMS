@@ -11,7 +11,7 @@
  * @version    1.0.0
  * @link       http://orange-management.com
  */
-declare(strict_types=1);
+declare(strict_types = 1);
 
 namespace phpOMS\Asset;
 
@@ -28,7 +28,7 @@ use phpOMS\Stdlib\Base\Enum;
  */
 abstract class AssetType extends Enum
 {
-	/* public */ const CSS    = 0;
-	/* public */ const JS     = 1;
-	/* public */ const JSLATE = 2;
+    /* public */ const CSS    = 0;
+    /* public */ const JS     = 1;
+    /* public */ const JSLATE = 2;
 }

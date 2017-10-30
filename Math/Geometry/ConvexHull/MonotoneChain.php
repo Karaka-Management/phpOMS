@@ -11,7 +11,7 @@
  * @version    1.0.0
  * @link       http://orange-management.com
  */
-declare(strict_types=1);
+declare(strict_types = 1);
 
 namespace phpOMS\Math\Geometry\ConvexHull;
 
@@ -55,7 +55,7 @@ final class MonotoneChain
             }
 
             // Upper hull
-            for ($i = $n - 2, $t = $k+1; $i >= 0; $i--) {
+            for ($i = $n - 2, $t = $k + 1; $i >= 0; $i--) {
                 while ($k >= $t && self::cross($result[$k - 2], $result[$k - 1], $points[$i]) <= 0) {
                     $k--;
                 }
@@ -65,7 +65,7 @@ final class MonotoneChain
 
             ksort($result);
 
-            return array_slice($result, 0, $k-1);
+            return array_slice($result, 0, $k - 1);
         }
 
         return $points;

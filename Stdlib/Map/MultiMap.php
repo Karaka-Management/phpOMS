@@ -11,7 +11,7 @@
  * @version    1.0.0
  * @link       http://orange-management.com
  */
-declare(strict_types=1);
+declare(strict_types = 1);
 
 namespace phpOMS\Stdlib\Map;
 
@@ -92,7 +92,7 @@ class MultiMap implements \Countable
         $inserted = false;
 
         if ($this->keyType !== KeyType::SINGLE) {
-            $keys = [implode($keys, ':')];
+            $keys = [implode(':', $keys)];
         }
 
         foreach ($keys as $key) {
@@ -186,14 +186,14 @@ class MultiMap implements \Countable
                 $keys = Permutation::permut($key);
 
                 foreach ($keys as $key => $value) {
-                    $key = implode($value, ':');
+                    $key = implode(':', $value);
 
                     if (isset($this->keys[$key])) {
                         return $this->values[$this->keys[$key]];
                     }
                 }
             } else {
-                $key = implode($key, ':');
+                $key = implode(':', $key);
             }
         }
 
@@ -235,12 +235,12 @@ class MultiMap implements \Countable
             $permutation = Permutation::permut($key);
 
             foreach ($permutation as $permut) {
-                if ($this->set(implode($permut, ':'), $value)) {
+                if ($this->set(implode(':', $permut), $value)) {
                     return true;
                 }
             }
         } else {
-            return $this->set(implode($key, ':'), $value);
+            return $this->set(implode(':', $key), $value);
         }
 
         return false;
@@ -302,12 +302,12 @@ class MultiMap implements \Countable
             $removed = false;
 
             foreach ($keys as $key => $value) {
-                $removed |= $this->remove(implode($value, ':'));
+                $removed |= $this->remove(implode(':', $value));
             }
 
             return $removed;
         } else {
-            return $this->remove(implode($key, ':'));
+            return $this->remove(implode(':', $key));
         }
     }
 
@@ -403,12 +403,12 @@ class MultiMap implements \Countable
             $removed = false;
 
             foreach ($keys as $key => $value) {
-                $removed |= $this->removeKey(implode($value, ':'));
+                $removed |= $this->removeKey(implode(':', $value));
             }
 
             return $removed;
         } else {
-            return $this->removeKey(implode($key, ':'));
+            return $this->removeKey(implode(':', $key));
         }
     }
 

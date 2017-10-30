@@ -11,7 +11,7 @@
  * @version    1.0.0
  * @link       http://orange-management.com
  */
-declare(strict_types=1);
+declare(strict_types = 1);
 
 namespace phpOMS\Utils\TaskSchedule;
 
@@ -104,22 +104,22 @@ class TaskScheduler extends SchedulerAbstract
             $job->setRun($jobData[8]);
             $job->setStatus($jobData[3]);
 
-            if(DateTime::isValid($jobData[2])) { 
+            if (DateTime::isValid($jobData[2])) { 
                 $job->setNextRunTime(new \DateTime($jobData[2]));
             }
 
-            if(DateTime::isValid($jobData[5])) { 
+            if (DateTime::isValid($jobData[5])) { 
                 $job->setLastRuntime(new \DateTime($jobData[5]));
             }
             
             $job->setAuthor($jobData[7]);
             $job->setComment($jobData[10]);
 
-            if(DateTime::isValid($jobData[20])) { 
+            if (DateTime::isValid($jobData[20])) { 
                 $job->setStart(new \DateTime($jobData[20]));
             }
 
-            if(DateTime::isValid($jobData[21])) { 
+            if (DateTime::isValid($jobData[21])) { 
                 $job->setEnd(new \DateTime($jobData[21]));
             }
 
@@ -137,7 +137,7 @@ class TaskScheduler extends SchedulerAbstract
         unset($lines[0]);
 
         $jobs = [];
-        foreach($lines as $line) {
+        foreach ($lines as $line) {
             $jobs[] = $this->parseJobList(str_getcsv($line));
         }
         
@@ -165,12 +165,12 @@ class TaskScheduler extends SchedulerAbstract
      */
     public function getAllByName(string $name, bool $exact = true) : array
     {
-        if($exact) {
+        if ($exact) {
             $lines = explode("\n", $this->normalize($this->run('/query /v /fo CSV /tn ' . escapeshellarg($name))));
             unset($lines[0]);
 
             $jobs = [];
-            foreach($lines as $line) {
+            foreach ($lines as $line) {
                 $jobs[] = $this->parseJobList(str_getcsv($line));
             }
         } else {
@@ -179,10 +179,10 @@ class TaskScheduler extends SchedulerAbstract
             
             unset($lines[0]);
 
-            foreach($lines as $key => $line) {
+            foreach ($lines as $key => $line) {
                 $line = str_getcsv($line);
 
-                if(strpos($line[1], $name) !== false) {
+                if (strpos($line[1], $name) !== false) {
                     $jobs[] = $this->parseJobList($line);
                 }
             }

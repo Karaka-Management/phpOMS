@@ -11,7 +11,7 @@
  * @version    1.0.0
  * @link       http://orange-management.com
  */
-declare(strict_types=1);
+declare(strict_types = 1);
 
 namespace phpOMS\Utils\EDI\AnsiX12\Components;
 
@@ -45,7 +45,7 @@ class BIG
 
     public function setInvoiceNumber(string $invoice) /* : void */
     {
-        if(strlen($invoice) < 1 || strlen($invoice) > 22) {
+        if (strlen($invoice) < 1 || strlen($invoice) > 22) {
             throw new \Exception();
         }
 
@@ -69,7 +69,7 @@ class BIG
 
     public function setPurchaseNumber(string $purchase) /* : void */
     {
-        if(strlen($purchase) < 1 || strlen($purchase) > 22) {
+        if (strlen($purchase) < 1 || strlen($purchase) > 22) {
             throw new \Exception();
         }
 
@@ -83,7 +83,7 @@ class BIG
 
     public function setTransactionTypeCode(int $code) /* : void */
     {
-        if($code < 10 || $code > 99) {
+        if ($code < 10 || $code > 99) {
             throw new \Exception();
         }
         

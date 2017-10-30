@@ -11,7 +11,7 @@
  * @version    1.0.0
  * @link       http://orange-management.com
  */
-declare(strict_types=1);
+declare(strict_types = 1);
 
 namespace phpOMS\System\File;
 
@@ -61,9 +61,9 @@ final class Storage
     public static function env(string $env = 'local') : StorageAbstract
     {
         if (isset(self::$registered[$env])) {
-            if(is_string(self::$registered[$env])) {
+            if (is_string(self::$registered[$env])) {
                 $env = self::$registered[$env]::getInstance();
-            } elseif(self::$registered[$env] instanceof StorageAbstract || self::$registered[$env] instanceof ContainerInterface) {
+            } elseif (self::$registered[$env] instanceof StorageAbstract || self::$registered[$env] instanceof ContainerInterface) {
                 $env = self::$registered[$env];
             } else {
                 throw new \Exception('Invalid type');
@@ -78,7 +78,7 @@ final class Storage
                 $env = $env::getInstance();
 
                 self::$registered[$stg] = $env;
-            } catch(\Throwable $e) {
+            } catch (\Throwable $e) {
                 throw new \Exception();
             }
         }

@@ -11,7 +11,7 @@
  * @version    1.0.0
  * @link       http://orange-management.com
  */
-declare(strict_types=1);
+declare(strict_types = 1);
 
 namespace phpOMS\Socket\Client;
 
@@ -80,7 +80,7 @@ class Client extends SocketAbstract
 
                 $read = [$this->sock];
 
-                //if(socket_select($read, $write = null, $except = null, 0) < 1) {
+                //if (socket_select($read, $write = null, $except = null, 0) < 1) {
                 // error
                 // socket_last_error();
                 // socket_strerror(socket_last_error());

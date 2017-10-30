@@ -11,7 +11,7 @@
  * @version    1.0.0
  * @link       http://orange-management.com
  */
-declare(strict_types=1);
+declare(strict_types = 1);
 
 namespace phpOMS;
 
@@ -145,7 +145,7 @@ class ApplicationAbstract
      */
     public function __set($name, $value) 
     {
-        if(!empty($this->$name)) {
+        if (!empty($this->$name)) {
             return;
         }
 

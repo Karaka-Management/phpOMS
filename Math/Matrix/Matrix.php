@@ -11,7 +11,7 @@
  * @version    1.0.0
  * @link       http://orange-management.com
  */
-declare(strict_types=1);
+declare(strict_types = 1);
 
 namespace phpOMS\Math\Matrix;
 
@@ -574,7 +574,7 @@ class Matrix implements \ArrayAccess, \Iterator
         $mDim = count($b);
         $matrix = $this->matrix;
 
-        for($col = 0; $col < $mDim; $col++) {
+        for ($col = 0; $col < $mDim; $col++) {
             $j = $col;
             $max = $matrix[$j][$j];
 
@@ -587,7 +587,7 @@ class Matrix implements \ArrayAccess, \Iterator
                 }
             }
      
-            if($col != $j) {
+            if ($col != $j) {
                 $temp = $matrix[$col];
                 $matrix[$col] = $matrix[$j];
                 $matrix[$j] = $temp;

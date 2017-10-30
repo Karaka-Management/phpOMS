@@ -11,7 +11,7 @@
  * @version    1.0.0
  * @link       http://orange-management.com
  */
-declare(strict_types=1);
+declare(strict_types = 1);
 namespace phpOMS\Math\Stochastic;
 /**
  * Bernulli distribution.
@@ -43,13 +43,13 @@ class NaiveBayesFilter
         $normalizedDict = $this->normalizeDictionary();
 
         $n = 0.0;
-        foreach($toMatch as $element) {
-            if(isset($normalizedDict[$element])) {
-                $n += log(1-$normalizedDict[$element]['match'] / $normalizedDict[$element]['total']) - log($normalizedDict[$element]['match'] / $normalizedDict[$element]['total']);
+        foreach ($toMatch as $element) {
+            if (isset($normalizedDict[$element])) {
+                $n += log(1 - $normalizedDict[$element]['match'] / $normalizedDict[$element]['total']) - log($normalizedDict[$element]['match'] / $normalizedDict[$element]['total']);
             }
         }
         
-        return 1 / (1+exp($n));
+        return 1 / (1 + exp($n));
     }
     
     private function normalizeDictionary() : array

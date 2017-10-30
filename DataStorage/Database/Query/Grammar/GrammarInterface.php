@@ -11,10 +11,10 @@
  * @version    1.0.0
  * @link       http://orange-management.com
  */
-declare(strict_types=1);
+declare(strict_types = 1);
 
 namespace phpOMS\DataStorage\Database\Query\Grammar;
 
-class GrammarInterface
+interface GrammarInterface
 {
 }

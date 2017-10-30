@@ -11,7 +11,7 @@
  * @version    1.0.0
  * @link       http://orange-management.com
  */
-declare(strict_types=1);
+declare(strict_types = 1);
 
 namespace phpOMS\Account;
 
@@ -28,8 +28,8 @@ use phpOMS\Stdlib\Base\Enum;
  */
 abstract class AccountStatus extends Enum
 {
-	/* public */ const ACTIVE   = 1;
-	/* public */ const INACTIVE = 2;
-	/* public */ const TIMEOUT  = 3;
-	/* public */ const BANNED   = 4;
+    /* public */ const ACTIVE   = 1;
+    /* public */ const INACTIVE = 2;
+    /* public */ const TIMEOUT  = 3;
+    /* public */ const BANNED   = 4;
 }

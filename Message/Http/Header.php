@@ -11,7 +11,7 @@
  * @version    1.0.0
  * @link       http://orange-management.com
  */
-declare(strict_types=1);
+declare(strict_types = 1);
 
 namespace phpOMS\Message\Http;
 
@@ -71,17 +71,17 @@ class Header extends HeaderAbstract
             throw new LockException('HTTP header');
         }
 
+        if (self::isSecurityHeader($key) && isset($this->header[$key])) {
+            throw new \Exception('Cannot change security headers.');
+        }
+
         $key = strtolower($key);
 
         if (!$overwrite && isset($this->header[$key])) {
             return false;
-        } elseif ($overwrite || !isset($this->header[$key])) {
-            if (self::isSecurityHeader($key) && isset($this->header[$key])) {
-                throw new \Exception('Cannot change security headers.');
-            }
-
-            unset($this->header[$key]);
         }
+
+        unset($this->header[$key]);
 
         if (!isset($this->header[$key])) {
             $this->header[$key] = [];
@@ -128,7 +128,7 @@ class Header extends HeaderAbstract
      */
     public function getStatusCode() : int
     {
-        if($this->status === 0) {
+        if ($this->status === 0) {
             $this->status = (int) \http_response_code();
         }
         

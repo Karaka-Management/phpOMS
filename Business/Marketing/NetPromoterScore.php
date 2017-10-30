@@ -11,7 +11,7 @@
  * @version    1.0.0
  * @link       http://orange-management.com
  */
-declare(strict_types=1);
+declare(strict_types = 1);
 
 namespace phpOMS\Business\Marketing;
 
@@ -72,10 +72,10 @@ class NetPromoterScore {
         $passives   = 0;
         $detractors = 0;
 
-        foreach($this->scores as $score) {
-            if($score > 8) {
+        foreach ($this->scores as $score) {
+            if ($score > 8) {
                 $promoters++;
-            } elseif($score > 6) {
+            } elseif ($score > 6) {
                 $passives++;
             } else {
                 $detractors++;
@@ -99,8 +99,8 @@ class NetPromoterScore {
     public function countDetractors() : int
     {
         $count = 0;
-        foreach($this->scores as $score) {
-            if($score < 7) {
+        foreach ($this->scores as $score) {
+            if ($score < 7) {
                 $count++;
             }
         }
@@ -120,8 +120,8 @@ class NetPromoterScore {
     public function countPassives() : int
     {
         $count = 0;
-        foreach($this->scores as $score) {
-            if($score > 6 && $score < 9) {
+        foreach ($this->scores as $score) {
+            if ($score > 6 && $score < 9) {
                 $count++;
             }
         }
@@ -141,8 +141,8 @@ class NetPromoterScore {
     public function countPromoters() : int
     {
         $count = 0;
-        foreach($this->scores as $score) {
-            if($score > 8) {
+        foreach ($this->scores as $score) {
+            if ($score > 8) {
                 $count++;
             }
         }

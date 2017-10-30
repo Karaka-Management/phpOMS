@@ -11,7 +11,7 @@
  * @version    1.0.0
  * @link       http://orange-management.com
  */
-declare(strict_types=1);
+declare(strict_types = 1);
 
 namespace phpOMS\Math\Optimization;
 
@@ -26,7 +26,7 @@ namespace phpOMS\Math\Optimization;
  */
 interface GeneticAlgorithmInterface
 {
-	public function mutate($a);
+    public function mutate($a);
 
-	public function unfitness($a, $b);
+    public function unfitness($a, $b);
 }

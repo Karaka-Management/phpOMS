@@ -11,7 +11,7 @@
  * @version    1.0.0
  * @link       http://orange-management.com
  */
-declare(strict_types=1);
+declare(strict_types = 1);
 
 namespace phpOMS\Module;
 
@@ -76,7 +76,7 @@ abstract class ModuleAbstract
     /**
      * Dependencies.
      *
-     * @var string
+     * @var string[]
      * @since 1.0.0
      */
     protected static $dependencies = [];

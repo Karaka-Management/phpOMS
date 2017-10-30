@@ -11,7 +11,7 @@
  * @version    1.0.0
  * @link       http://orange-management.com
  */
-declare(strict_types=1);
+declare(strict_types = 1);
 
 namespace phpOMS\Uri;
 
@@ -120,7 +120,7 @@ class UriFactory
         self::setQuery(':pass', $uri->getPass());
 
         $data = $uri->getQueryArray();
-        foreach($data as $key => $value) {
+        foreach ($data as $key => $value) {
             self::setQuery('?' . $key, $value);
         }
     }
@@ -136,7 +136,7 @@ class UriFactory
      */
     public static function clear(string $key) : bool 
     {
-        if(isset(self::$uri[$key])) {
+        if (isset(self::$uri[$key])) {
             unset(self::$uri[$key]);
 
             return true;
@@ -158,8 +158,8 @@ class UriFactory
     {
         $success = false;
 
-        foreach(self::$uri as $key => $value) {
-            if(((bool) preg_match('~^' . $pattern . '$~', $key))) {
+        foreach (self::$uri as $key => $value) {
+            if (((bool) preg_match('~^' . $pattern . '$~', $key))) {
                 unset(self::$uri[$key]);
                 $success = true;
             }
@@ -187,7 +187,6 @@ class UriFactory
             $full   = $parts[1];
             $pars   = explode('&', $full);
             $comps  = [];
-            $spl    = null;
             $length = count($pars);
 
             for ($i = 0; $i < $length; $i++) {

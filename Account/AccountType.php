@@ -11,7 +11,7 @@
  * @version    1.0.0
  * @link       http://orange-management.com
  */
-declare(strict_types=1);
+declare(strict_types = 1);
 
 namespace phpOMS\Account;
 
@@ -28,6 +28,6 @@ use phpOMS\Stdlib\Base\Enum;
  */
 abstract class AccountType extends Enum
 {
-	/* public */ const USER  = 0;
-	/* public */ const GROUP = 1;
+    /* public */ const USER  = 0;
+    /* public */ const GROUP = 1;
 }

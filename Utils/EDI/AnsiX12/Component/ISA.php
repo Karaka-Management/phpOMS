@@ -11,7 +11,7 @@
  * @version    1.0.0
  * @link       http://orange-management.com
  */
-declare(strict_types=1);
+declare(strict_types = 1);
 
 namespace phpOMS\Utils\EDI\AnsiX12\Components;
 
@@ -207,7 +207,7 @@ class ISA
 
     public function setAuthorizationInformationQualifier(int $qualifer) /* : void */
     {
-        if($qualifer > 99) {
+        if ($qualifer > 99) {
             throw new \Exception();
         } 
 
@@ -221,7 +221,7 @@ class ISA
 
     public function setAuthorizationInformation(string $information) /* : void */
     {
-        if(strlen($information) > 10) {
+        if (strlen($information) > 10) {
             throw new \Exception();
         } 
 
@@ -235,7 +235,7 @@ class ISA
 
     public function setSecurityInformationQualifer(int $qualifer) /* : void */
     {
-        if($qualifer > 99) {
+        if ($qualifer > 99) {
             throw new \Exception();
         } 
 
@@ -249,7 +249,7 @@ class ISA
 
     public function setSecurityInformation(string $information) /* : void */
     {
-        if(strlen($information) > 10) {
+        if (strlen($information) > 10) {
             throw new \Exception();
         } 
 
@@ -263,7 +263,7 @@ class ISA
 
     public function setInterchangeIdQualifier(int $qualifer) /* : void */
     {
-        if($qualifer > 99) {
+        if ($qualifer > 99) {
             throw new \Exception();
         } 
 
@@ -278,7 +278,7 @@ class ISA
 
     public function setInterchangeSender(string $information) /* : void */
     {
-        if(strlen($information) > 15) {
+        if (strlen($information) > 15) {
             throw new \Exception();
         } 
 
@@ -292,7 +292,7 @@ class ISA
 
     public function setInterchangeReceiver(string $information) /* : void */
     {
-        if(strlen($information) > 15) {
+        if (strlen($information) > 15) {
             throw new \Exception();
         } 
 
@@ -321,7 +321,7 @@ class ISA
 
     public function setInterchangeControlStandardId(string $id) /* : void */
     {
-        if(strlen($id) !== 1) {
+        if (strlen($id) !== 1) {
             throw new \Exception();
         } 
 
@@ -335,7 +335,7 @@ class ISA
 
     public function setInterchangeControlVersionNumber(int $version) /* : void */
     {
-        if($version > 99999) {
+        if ($version > 99999) {
             throw new \Exception();
         } 
 
@@ -349,7 +349,7 @@ class ISA
 
     public function setInterchangeControlNumber(int $number) /* : void */
     {
-        if($number > 999999999) {
+        if ($number > 999999999) {
             throw new \Exception();
         } 
 
@@ -373,7 +373,7 @@ class ISA
 
     public function setUsageUndicator(string $id) /* : void */
     {
-        if(strlen($id) !== 1) {
+        if (strlen($id) !== 1) {
             throw new \Exception();
         } 
 

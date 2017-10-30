@@ -11,7 +11,7 @@
  * @version    1.0.0
  * @link       http://orange-management.com
  */
-declare(strict_types=1);
+declare(strict_types = 1);
 
 namespace phpOMS\Router;
 
@@ -96,7 +96,7 @@ class Router
      * @param string|RequestAbstract $request Request to route
      * @param int             $verb    Route verb
      *
-     * @return string[]
+     * @return array[]
      *
      * @throws \InvalidArgumentException
      *

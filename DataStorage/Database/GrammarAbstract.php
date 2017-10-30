@@ -11,7 +11,7 @@
  * @version    1.0.0
  * @link       http://orange-management.com
  */
-declare(strict_types=1);
+declare(strict_types = 1);
 
 namespace phpOMS\DataStorage\Database;
 
@@ -170,7 +170,7 @@ abstract class GrammarAbstract
 
         foreach ($elements as $key => $element) {
             if (is_string($element) && $element !== '*') {
-                if(strpos($element, '.') === false) {
+                if (strpos($element, '.') === false) {
                     $prefix = '';
                 }
 
@@ -237,8 +237,8 @@ abstract class GrammarAbstract
         // todo: this is a bad way to handle select count(*) which doesn't need a prefix. Maybe remove prefixes in total?
         $identifier = $this->systemIdentifier;
         
-        foreach($this->specialKeywords as $keyword) {
-            if($keyword === '' || strrpos($system, $keyword, -strlen($system)) !== false) {
+        foreach ($this->specialKeywords as $keyword) {
+            if ($keyword === '' || strrpos($system, $keyword, -strlen($system)) !== false) {
                 $prefix = '';
                 $identifier = '';
             }

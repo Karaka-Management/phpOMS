@@ -11,7 +11,7 @@
  * @version    1.0.0
  * @link       http://orange-management.com
  */
-declare(strict_types=1);
+declare(strict_types = 1);
 
 namespace phpOMS\Account;
 
@@ -208,7 +208,7 @@ class Group implements ArrayableInterface, \JsonSerializable
     /**
      * Json serialize.
      *
-     * @return string
+     * @return array
      *
      * @since  1.0.0
      */

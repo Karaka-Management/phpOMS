@@ -11,7 +11,7 @@
  * @version    1.0.0
  * @link       http://orange-management.com
  */
-declare(strict_types=1);
+declare(strict_types = 1);
 
 namespace phpOMS\DataStorage\Database;
 
@@ -79,11 +79,11 @@ class DatabasePool
      */
     public function get(string $key = '') /* : ?ConnectionAbstract */
     {
-        if((!empty($key) && !isset($this->pool[$key])) || empty($this->pool)) {
+        if ((!empty($key) && !isset($this->pool[$key])) || empty($this->pool)) {
             return null;
         }
 
-        if(empty($key)) {
+        if (empty($key)) {
             return reset($this->pool);
         }
 

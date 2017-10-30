@@ -11,7 +11,7 @@
  * @version    1.0.0
  * @link       http://orange-management.com
  */
-declare(strict_types=1);
+declare(strict_types = 1);
 
 namespace phpOMS\Utils\EDI\AnsiX12\Components;
 
@@ -59,7 +59,7 @@ class GS
 
     public function setFunctionalIdentifierCode(string $code) /* : void */
     {
-        if(!FunctionalIdentifierCode::isValidValue($code)) {
+        if (!FunctionalIdentifierCode::isValidValue($code)) {
             throw \Exception();
         }
 
@@ -73,7 +73,7 @@ class GS
 
     public function setApplicationSenderCode(string $code) /* : void */
     {
-        if(strlen($code) < 2 || strlen($code) > 15) {
+        if (strlen($code) < 2 || strlen($code) > 15) {
             throw new \Exception();
         }
 
@@ -87,7 +87,7 @@ class GS
 
     public function setApplicationReceiverCode(string $code) /* : void */
     {
-        if(strlen($code) < 2 || strlen($code) > 15) {
+        if (strlen($code) < 2 || strlen($code) > 15) {
             throw new \Exception();
         }
 
@@ -116,7 +116,7 @@ class GS
 
     public function setGroupControlNumber(int $number) /* : void */
     {
-        if($number < 0) {
+        if ($number < 0) {
             throw new \Exception();
         }
 
@@ -130,7 +130,7 @@ class GS
 
     public function setResponsibleAgencyCode(int $code) /* : void */
     {
-        if($code < 0 || $code > 99) {
+        if ($code < 0 || $code > 99) {
             throw new \Exception();
         }
 

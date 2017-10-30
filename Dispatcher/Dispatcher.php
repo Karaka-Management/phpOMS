@@ -11,7 +11,7 @@
  * @version    1.0.0
  * @link       http://orange-management.com
  */
-declare(strict_types=1);
+declare(strict_types = 1);
 
 namespace phpOMS\Dispatcher;
 
@@ -175,7 +175,7 @@ class Dispatcher
             }
 
             // If module controller use module manager for initialization
-            if(strpos('\Modules\Controller', $controller) === 0) {
+            if (strpos('\Modules\Controller', $controller) === 0) {
                 $split = explode('\\', $controller);
                 $this->controllers[$controller] = $this->app->moduleManager->get($split[2]);
             } else {

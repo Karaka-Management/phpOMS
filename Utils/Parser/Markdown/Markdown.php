@@ -11,7 +11,7 @@
  * @version    1.0.0
  * @link       http://orange-management.com
  */
-declare(strict_types=1);
+declare(strict_types = 1);
 
 namespace phpOMS\Utils\Parser\Markdown;
 
@@ -102,8 +102,8 @@ class Markdown
         $block = array_keys(self::$blockTypes);
         $inline = array_keys(self::$inlineTypes);
 
-        foreach($lines as $line) {
-            foreach($line as $character) {
+        foreach ($lines as $line) {
+            foreach ($line as $character) {
                 
             }
         }

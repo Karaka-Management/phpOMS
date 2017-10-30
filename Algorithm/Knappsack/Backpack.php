@@ -11,7 +11,7 @@
  * @version    1.0.0
  * @link       http://orange-management.com
  */
-declare(strict_types=1);
+declare(strict_types = 1);
 
 namespace phpOMS\Algorithm\Knappsack;
 use phpOMS\Algorithm\AlgorithmType;
@@ -44,7 +44,7 @@ class Backpack
 
     public function addPopulationItem(ItemInterface $item) : bool
     {
-        if(isset($this->population[$item->getId()])) {
+        if (isset($this->population[$item->getId()])) {
             return false;
         }
 
@@ -75,7 +75,7 @@ class Backpack
 
     public function pack(int $type) 
     {
-        switch($type) {
+        switch ($type) {
             case AlgorithmType::BRUTEFORCE:
                 return $this->bruteforce();
             default:

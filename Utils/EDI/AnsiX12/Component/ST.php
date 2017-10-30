@@ -11,7 +11,7 @@
  * @version    1.0.0
  * @link       http://orange-management.com
  */
-declare(strict_types=1);
+declare(strict_types = 1);
 
 namespace phpOMS\Utils\EDI\AnsiX12\Components;
 
@@ -39,7 +39,7 @@ class ST
 
     public function setTransactionSetIdentifierCode(int $idCode)
     {
-        if($idCode < 100 || $idCode > 999) {
+        if ($idCode < 100 || $idCode > 999) {
             throw new \Exception();
         } 
 
@@ -53,7 +53,7 @@ class ST
 
     public function setTransactionSetControlNumber(string $controlNumber)
     {
-        if(strlen($controlNumber) < 4 || strlen($controlNumber) > 9) {
+        if (strlen($controlNumber) < 4 || strlen($controlNumber) > 9) {
             throw new \Exception();
         } 
 

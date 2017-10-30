@@ -11,7 +11,7 @@
  * @version    1.0.0
  * @link       http://orange-management.com
  */
-declare(strict_types=1);
+declare(strict_types = 1);
 
 namespace phpOMS\Business\Programming;
 
@@ -42,17 +42,16 @@ class Metrics {
      */
     public static function abcScore(int $a, int $b, int $c) : int
     {
-        return (int) sqrt($a*$a+$b*$b+$c*$c);
+        return (int) sqrt($a * $a + $b * $b + $c * $c);
     }
 
     /**
      * Calculate the C.R.A.P score
      *
-     * @latex  r = \sqrt{a^{2} + b^{2} + c^{2}}
+     * @latex  r = com^{2} \times (1 - cov)^{3} + com
      *
-     * @param int $a Assignments
-     * @param int $b Branches
-     * @param int $c Conditionals
+     * @param int $complexity Complexity
+     * @param int $coverage Coverage
      *
      * @return int
      *

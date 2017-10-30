@@ -11,7 +11,7 @@
  * @version    1.0.0
  * @link       http://orange-management.com
  */
-declare(strict_types=1);
+declare(strict_types = 1);
 
 namespace phpOMS\System\File\Local;
 
@@ -115,7 +115,7 @@ class Directory extends FileAbstract implements DirectoryInterface
             new \RecursiveDirectoryIterator($path, \RecursiveDirectoryIterator::SKIP_DOTS),
             \RecursiveIteratorIterator::SELF_FIRST) as $item
         ) {
-            if($item->getExtension() === $extension) {
+            if ($item->getExtension() === $extension) {
                 $list[] = str_replace('\\', '/', $iterator->getSubPathName());
             }
         }
@@ -156,27 +156,23 @@ class Directory extends FileAbstract implements DirectoryInterface
      */
     public static function size(string $dir, bool $recursive = true) : int
     {
-        if (!file_exists($dir)) {
+        if (!file_exists($dir) || !is_readable($dir)) {
             throw new PathException($dir);
         }
 
         $countSize = 0;
-        $count     = 0;
+        $dir_array = scandir($dir);
 
-        if (is_readable($dir)) {
-            $dir_array = scandir($dir);
+        foreach ($dir_array as $key => $filename) {
+            if ($filename === ".." || $filename === ".") {
+                continue;
+            }
 
-            foreach ($dir_array as $key => $filename) {
-                if ($filename != ".." && $filename != ".") {
-                    if (is_dir($dir . "/" . $filename) && $recursive) {
-                        $countSize += self::size($dir . "/" . $filename, $recursive);
-                    } else {
-                        if (is_file($dir . "/" . $filename)) {
-                            $countSize += filesize($dir . "/" . $filename);
-                            $count++;
-                        }
-                    }
-                }
+            $path = $dir . "/" . $filename;
+            if (is_dir($path) && $recursive) {
+                $countSize += self::size($path, $recursive);
+            } elseif (is_file($path)) {
+                $countSize += filesize($path);
             }
         }
 
@@ -254,7 +250,7 @@ class Directory extends FileAbstract implements DirectoryInterface
      */
     public static function created(string $path) : \DateTime
     {
-        if(!file_exists($path)) {
+        if (!file_exists($path)) {
             throw new PathException($path);
         }
 
@@ -312,14 +308,12 @@ class Directory extends FileAbstract implements DirectoryInterface
             throw new PathException($from);
         }
 
-        if(!$overwrite && file_exists($to)) {
-            return false;
-        }
-
         if (!file_exists($to)) {
             self::create($to, 0644, true);
-        } elseif($overwrite && file_exists($to)) {
+        } elseif ($overwrite && file_exists($to)) {
             self::delete($to);
+        } else {
+            return false;
         }
 
         foreach ($iterator = new \RecursiveIteratorIterator(
@@ -347,7 +341,7 @@ class Directory extends FileAbstract implements DirectoryInterface
 
         if (!$overwrite && file_exists($to)) {
             return false;
-        } elseif($overwrite && file_exists($to)) {
+        } elseif ($overwrite && file_exists($to)) {
             self::delete($to);
         }
 
@@ -400,7 +394,7 @@ class Directory extends FileAbstract implements DirectoryInterface
     public static function create(string $path, int $permission = 0644, bool $recursive = false) : bool
     {
         if (!file_exists($path)) {
-            if(!$recursive && !file_exists(self::parent($path))) {
+            if (!$recursive && !file_exists(self::parent($path))) {
                 return false;
             }
 

@@ -11,7 +11,7 @@
  * @version    1.0.0
  * @link       http://orange-management.com
  */
-declare(strict_types=1);
+declare(strict_types = 1);
 
 namespace phpOMS\Message\Http;
 
@@ -148,7 +148,7 @@ class Request extends RequestAbstract
      */
     private function loadRequestLanguage() : string
     {
-        if(!isset($_SERVER['HTTP_ACCEPT_LANGUAGE'])) {
+        if (!isset($_SERVER['HTTP_ACCEPT_LANGUAGE'])) {
             return 'EN';
         }
 
@@ -185,7 +185,7 @@ class Request extends RequestAbstract
         UriFactory::setQuery('/lang', $this->header->getL11n()->getLanguage());
 
         // todo: flush previous
-        foreach($this->data as $key => $value) {
+        foreach ($this->data as $key => $value) {
             UriFactory::setQuery('?' . $key, $value);
         }
     }

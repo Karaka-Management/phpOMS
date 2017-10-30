@@ -11,7 +11,7 @@
  * @version    1.0.0
  * @link       http://orange-management.com
  */
-declare(strict_types=1);
+declare(strict_types = 1);
 
 namespace phpOMS\DataStorage\Database\Query;
 
@@ -152,7 +152,7 @@ class Builder extends BuilderAbstract
     /**
      * Offset.
      *
-     * @var array
+     * @var int
      * @since 1.0.0
      */
     public $offset = null;
@@ -184,7 +184,7 @@ class Builder extends BuilderAbstract
     /**
      * Raw query.
      *
-     * @var bool
+     * @var string
      * @since 1.0.0
      */
     public $raw = '';
@@ -356,23 +356,45 @@ class Builder extends BuilderAbstract
      */
     public function raw(string $raw) : Builder
     {
-        if($this->isReadOnly) {
-            $test = strtolower($raw);
-
-            if(strpos($test, 'insert') !== false 
-            || strpos($test, 'update') !== false
-            || strpos($test, 'drop') !== false
-            || strpos($test, 'delete') !== false
-            || strpos($test, 'create') !== false
-            || strpos($test, 'alter') !== false) {
-                throw new \Exception();
-            }
+        if (!$this->isValidReadOnly($raw)) {
+            throw new \Exception();
         }
 
         $this->type = QueryType::RAW;
         $this->raw  = rtrim($raw, ';');
 
         return $this;
+    }
+
+    /**
+     * Tests if a string contains a non read only component in case the builder is read only.
+     * If the builder is not read only it will always return true
+     *
+     * @param  string $raw Raw query
+     *
+     * @return bool
+     *
+     * @since  1.0.0
+     */
+    private function isValidReadOnly($raw) : bool
+    {
+        if (!$this->isReadOnly) {
+            return true;
+        }
+
+        $test = strtolower($raw);
+
+        if (strpos($test, 'insert') !== false 
+            || strpos($test, 'update') !== false
+            || strpos($test, 'drop') !== false
+            || strpos($test, 'delete') !== false
+            || strpos($test, 'create') !== false
+            || strpos($test, 'alter') !== false
+        ) {
+            return false;
+        }
+
+        return true;
     }
 
     /**
@@ -459,36 +481,31 @@ class Builder extends BuilderAbstract
      */
     public function where($columns, $operator = null, $values = null, $boolean = 'and') : Builder
     {
-        // TODO: handle $value is null -> operator NULL
         if (isset($operator) && !is_array($operator) && !in_array(strtolower($operator), self::OPERATORS)) {
             throw new \InvalidArgumentException('Unknown operator.');
         }
 
-        if (is_array($columns)) {
-            $i = 0;
-            foreach ($columns as $key => $column) {
-                if (isset($operator[$i]) && !in_array(strtolower($operator[$i]), self::OPERATORS)) {
-                    throw new \InvalidArgumentException('Unknown operator.');
-                }
+        if (is_string($columns)) {
+            $colums = [$columns];
+            $operator = [$operator];
+            $values = [$values];
+            $boolean = [$boolean];
+        }
 
-                $this->wheres[self::getPublicColumnName($column)][] = [
-                    'column'   => $column,
-                    'operator' => $operator[$i],
-                    'value'    => $values[$i],
-                    'boolean'  => $boolean[$i],
-                ];
-
-                $i++;
-            }
-        } elseif (is_string($columns)) {
-            if (isset($operator) && !in_array(strtolower($operator), self::OPERATORS)) {
+        $i = 0;
+        foreach ($columns as $key => $column) {
+            if (isset($operator[$i]) && !in_array(strtolower($operator[$i]), self::OPERATORS)) {
                 throw new \InvalidArgumentException('Unknown operator.');
             }
 
-            $this->wheres[self::getPublicColumnName($columns)][] = ['column'  => $columns, 'operator' => $operator, 'value' => $values,
-                                     'boolean' => $boolean,];
-        } else {
-            throw new \InvalidArgumentException();
+            $this->wheres[self::getPublicColumnName($column)][] = [
+                'column'   => $column,
+                'operator' => $operator[$i],
+                'value'    => $values[$i],
+                'boolean'  => $boolean[$i],
+            ];
+
+            $i++;
         }
 
         return $this;
@@ -523,7 +540,7 @@ class Builder extends BuilderAbstract
      */
     public function getTableOfSystem($expression, string $systemIdentifier) /* : ?string */
     {
-        if(($pos = strpos($expression, $systemIdentifier . '.' . $systemIdentifier)) === false) {
+        if (($pos = strpos($expression, $systemIdentifier . '.' . $systemIdentifier)) === false) {
             return null;
         }
 
@@ -677,7 +694,7 @@ class Builder extends BuilderAbstract
     public function orderBy($columns, $order = 'DESC') : Builder
     {
         if (is_string($columns) || $columns instanceof \Closure) {
-            if(!isset($this->orders[$order])) {
+            if (!isset($this->orders[$order])) {
                 $this->orders[$order] = [];
             }
 
@@ -840,7 +857,7 @@ class Builder extends BuilderAbstract
      */
     public function insert(...$columns) : Builder
     {
-        if($this->isReadOnly) {
+        if ($this->isReadOnly) {
             throw new \Exception();
         }
 
@@ -949,7 +966,7 @@ class Builder extends BuilderAbstract
      */
     public function update(...$tables) : Builder
     {
-        if($this->isReadOnly) {
+        if ($this->isReadOnly) {
             throw new \Exception();
         }
 
@@ -968,7 +985,7 @@ class Builder extends BuilderAbstract
 
     public function delete() : Builder
     {
-        if($this->isReadOnly) {
+        if ($this->isReadOnly) {
             throw new \Exception();
         }
 
@@ -1099,7 +1116,7 @@ class Builder extends BuilderAbstract
     {
         $sth = $this->connection->con->prepare($this->toSql());
         
-        foreach($this->binds as $key => $bind) {
+        foreach ($this->binds as $key => $bind) {
             $type = self::getBindParamType($bind);
             
             $sth->bindParam($key, $bind, $type);
@@ -1119,9 +1136,9 @@ class Builder extends BuilderAbstract
      */
     public static function getBindParamType($value)
     {
-        if(is_int($value)) {
+        if (is_int($value)) {
             return PDO::PARAM_INT;
-        } elseif(is_string($value) || is_float($value)) {
+        } elseif (is_string($value) || is_float($value)) {
             return PDO::PARAM_STR;
         }
         
@@ -1130,13 +1147,13 @@ class Builder extends BuilderAbstract
 
     public static function getPublicColumnName($column) : string
     {
-        if(is_string($column)) {
+        if (is_string($column)) {
             return $column;
-        } elseif($column instanceof Column) {
+        } elseif ($column instanceof Column) {
             return $column->getPublicName();
-        } elseif($column instanceof \Closure) {
+        } elseif ($column instanceof \Closure) {
             return $column();
-        } elseif($column instanceof \Serializable) {
+        } elseif ($column instanceof \Serializable) {
             return $column;
         }
 

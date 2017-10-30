@@ -11,7 +11,7 @@
  * @version    1.0.0
  * @link       http://orange-management.com
  */
-declare(strict_types=1);
+declare(strict_types = 1);
 
 namespace phpOMS\Utils;
 
@@ -384,10 +384,10 @@ class StringUtils
         $l      = mb_strlen($input, 'UTF-8');
         $unique = [];
 
-        for($i = 0; $i < $l; $i++) {
+        for ($i = 0; $i < $l; $i++) {
             $char = mb_substr($input, $i, 1, 'UTF-8');
 
-            if(!array_key_exists($char, $unique)) {
+            if (!array_key_exists($char, $unique)) {
                 $unique[$char] = 0;
             }
 

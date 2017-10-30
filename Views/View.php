@@ -11,7 +11,7 @@
  * @version    1.0.0
  * @link       http://orange-management.com
  */
-declare(strict_types=1);
+declare(strict_types = 1);
 
 namespace phpOMS\Views;
 
@@ -82,12 +82,12 @@ class View extends ViewAbstract
      *
      * @since  1.0.0
      */
-    public function __construct(ApplicationAbstract $app, RequestAbstract $request, ResponseAbstract $response)
+    public function __construct(ApplicationAbstract $app = null, RequestAbstract $request = null, ResponseAbstract $response = null)
     {
         $this->app      = $app;
         $this->request  = $request;
         $this->response = $response;
-        $this->l11n     = $response->getHeader()->getL11n();
+        $this->l11n     = isset($response) ? $response->getHeader()->getL11n() : null;
     }
 
     /**
@@ -145,7 +145,7 @@ class View extends ViewAbstract
      */
     public function addData(string $id, $data) : bool
     {
-        if(isset($this->data[$id])) {
+        if (isset($this->data[$id])) {
             return false;
         }
 

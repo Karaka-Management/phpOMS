@@ -11,7 +11,7 @@
  * @version    1.0.0
  * @link       http://orange-management.com
  */
-declare(strict_types=1);
+declare(strict_types = 1);
 
 namespace phpOMS\Math\Statistic;
 
@@ -52,11 +52,11 @@ class Average
      *
      * @since  1.0.0
      */
-    public static function averageChange(array $x, int $h = 1) : float
+    public static function averageDatasetChange(array $x, int $h = 1) : float
     {
         $count = count($x);
 
-        return $x[$count - 1] + $h * ($x[$count - 1] - $x[0]) / ($count - 1);
+        return $h * ($x[$count - 1] - $x[0]) / ($count - 1);
     }
 
     /**
@@ -185,12 +185,12 @@ class Average
      *
      * @since  1.0.0
      */
-    public static function mode($values)
+    public static function mode(array $values)
     {
         $count = array_count_values($values);
         $best  = max($count);
 
-        return array_keys($count, $best);
+        return (float) (array_keys($count, $best)[0] ?? 0.0);
     }
 
     /**

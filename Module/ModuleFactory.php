@@ -11,7 +11,7 @@
  * @version    1.0.0
  * @link       http://orange-management.com
  */
-declare(strict_types=1);
+declare(strict_types = 1);
 
 namespace phpOMS\Module;
 
@@ -75,7 +75,7 @@ class ModuleFactory
         $class = '\\Modules\\' . $module . '\\Controller';
 
         if (!isset(self::$loaded[$module])) {
-            if(Autoloader::exists($class) !== false) {
+            if (Autoloader::exists($class) !== false) {
                 try {
                     $obj                   = new $class($app);
                     self::$loaded[$module] = $obj;

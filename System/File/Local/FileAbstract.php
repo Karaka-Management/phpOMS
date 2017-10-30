@@ -11,7 +11,7 @@
  * @version    1.0.0
  * @link       http://orange-management.com
  */
-declare(strict_types=1);
+declare(strict_types = 1);
 
 namespace phpOMS\System\File\Local;
 use phpOMS\System\File\ContainerInterface;
@@ -88,7 +88,7 @@ abstract class FileAbstract implements ContainerInterface
     /**
      * Permission.
      *
-     * @var string
+     * @var int
      * @since 1.0.0
      */
     protected $permission = 0644;
@@ -176,7 +176,7 @@ abstract class FileAbstract implements ContainerInterface
     /**
      * {@inheritdoc}
      */
-    public function getPermission() : string
+    public function getPermission() : int
     {
         return $this->permission;
     }

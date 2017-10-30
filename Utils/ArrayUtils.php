@@ -11,7 +11,7 @@
  * @version    1.0.0
  * @link       http://orange-management.com
  */
-declare(strict_types=1);
+declare(strict_types = 1);
 
 namespace phpOMS\Utils;
 
@@ -74,7 +74,7 @@ class ArrayUtils
     }
 
     /**
-     * Check if needle exists in multidimensional array.
+     * Set element in array by path
      *
      * @param string $path      Path to element
      * @param array  $data      Array
@@ -97,19 +97,40 @@ class ArrayUtils
 
         if ($overwrite) {
             $current = $value;
+        } elseif (is_array($current) && !is_array($value)) {
+            $current[] = $value;
+        } elseif (is_array($current) && is_array($value)) {
+            $current += $value;
+        } elseif (is_scalar($current) && $current !== null) {
+            $current = [$current, $value];
         } else {
-            if (is_array($current) && !is_array($value)) {
-                $current[] = $value;
-            } elseif (is_array($current) && is_array($value)) {
-                $current += $value;
-            } elseif (is_scalar($current) && $current !== null) {
-                $current = [$current, $value];
-            } else {
-                $current = $value;
-            }
+            $current = $value;
         }
 
         return $data;
+    }
+
+    /**
+     * Get element of array by path
+     *
+     * @param string $path      Path to element
+     * @param array  $data      Array
+     * @param string $delim     Delimiter for path
+     *
+     * @return mixed
+     *
+     * @since  1.0.0
+     */
+    public static function getArray(string $path, array $data, string $delim = '/')
+    {
+        $pathParts = explode($delim, trim($path, $delim));
+        $current   = $data;
+
+        foreach ($pathParts as $key) {
+            $current = $current[$key];
+        }
+
+        return $current;
     }
 
     /**
@@ -133,7 +154,7 @@ class ArrayUtils
                 $found = self::inArrayRecursive($needle, $item);
 
                 if ($found) {
-                    break;
+                    return true;
                 }
             }
         }
@@ -153,8 +174,8 @@ class ArrayUtils
      */
     public static function anyInArray(array $needles, array $haystack) : bool
     {
-        foreach($needles as $needle) {
-            if(in_array($needle, $haystack)) {
+        foreach ($needles as $needle) {
+            if (in_array($needle, $haystack)) {
                 return true;
             }
         }
@@ -174,8 +195,8 @@ class ArrayUtils
      */
     public static function allInArray(array $needles, array $haystack) : bool
     {
-        foreach($needles as $needle) {
-            if(!in_array($needle, $haystack)) {
+        foreach ($needles as $needle) {
+            if (!in_array($needle, $haystack)) {
                 return false;
             }
         }

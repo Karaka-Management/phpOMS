@@ -11,7 +11,7 @@
  * @version    1.0.0
  * @link       http://orange-management.com
  */
-declare(strict_types=1);
+declare(strict_types = 1);
 namespace phpOMS\Utils;
 /**
  * Test utils.
@@ -41,7 +41,7 @@ class TestUtils
     {
         $reflectionClass = new \ReflectionClass(get_class($obj));
         
-        if(!$reflectionClass->hasProperty($name)) {
+        if (!$reflectionClass->hasProperty($name)) {
             return false;
         }
         
@@ -74,7 +74,7 @@ class TestUtils
     {
         $reflectionClass = new \ReflectionClass(get_class($obj));
         
-        if(!$reflectionClass->hasProperty($name)) {
+        if (!$reflectionClass->hasProperty($name)) {
             return null;
         }
         

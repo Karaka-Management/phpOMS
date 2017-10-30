@@ -11,7 +11,7 @@
  * @version    1.0.0
  * @link       http://orange-management.com
  */
-declare(strict_types=1);
+declare(strict_types = 1);
 
 namespace phpOMS\Utils\Encoding;
 
@@ -85,7 +85,7 @@ class Caesar
             $ascii = ord($raw[$i]) - ord($key[$j]);
 
             if ($ascii < self::LIMIT_LOWER) {
-                $ascii = self::LIMIT_UPPER + ($ascii - self::LIMIT_LOWER) ;
+                $ascii = self::LIMIT_UPPER + ($ascii - self::LIMIT_LOWER);
             }
 
             $result .= chr($ascii);

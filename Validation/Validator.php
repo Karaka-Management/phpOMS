@@ -11,7 +11,7 @@
  * @version    1.0.0
  * @link       http://orange-management.com
  */
-declare(strict_types=1);
+declare(strict_types = 1);
 
 namespace phpOMS\Validation;
 
@@ -39,6 +39,10 @@ final class Validator extends ValidatorAbstract
      */
     public static function isValid($var, array $constraints = null) : bool
     {
+        if (!isset($constraints)) {
+            return true;
+        }
+
         foreach ($constraints as $callback => $settings) {
             $callback = StringUtils::endsWith($callback, 'Not') ? substr($callback, 0, -3) : $callback;
             $valid = self::$callback($var, ...$settings);

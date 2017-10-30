@@ -11,7 +11,7 @@
  * @version    1.0.0
  * @link       http://orange-management.com
  */
-declare(strict_types=1);
+declare(strict_types = 1);
 
 namespace phpOMS\Utils\EDI\AnsiX12\Purchase\PurchaseOrder;
 
@@ -49,7 +49,7 @@ class TransactionSetHeader
 
     public function setTransactionSetControlNumber(string $number) /* : void */
     {
-        if(strlen($number) < 4 || strlen($number) > 9) {
+        if (strlen($number) < 4 || strlen($number) > 9) {
             throw new \Exception();
         }
 

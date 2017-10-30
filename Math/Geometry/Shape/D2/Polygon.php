@@ -11,7 +11,7 @@
  * @version    1.0.0
  * @link       http://orange-management.com
  */
-declare(strict_types=1);
+declare(strict_types = 1);
 
 namespace phpOMS\Math\Geometry\Shape\D2;
 
@@ -138,7 +138,8 @@ class Polygon implements D2ShapeInterface
      * @param array $polygon Polygon definition
      *
      * @return int
-     *
+     * 
+     * @link http://erich.realtimerendering.com/ptinpoly/
      * @since  1.0.0
      */
     public static function isPointInPolygon(array $point, array $polygon) : int
@@ -156,7 +157,7 @@ class Polygon implements D2ShapeInterface
         }
 
         // Inside or ontop?
-        $countIntersect    = 0;
+        $countIntersect = 0;
         $polygon_count = count($polygon);
 
         // todo: return based on highest possibility not by first match

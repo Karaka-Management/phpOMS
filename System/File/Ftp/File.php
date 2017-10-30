@@ -11,7 +11,7 @@
  * @version    1.0.0
  * @link       http://orange-management.com
  */
-declare(strict_types=1);
+declare(strict_types = 1);
 
 namespace phpOMS\System\File\Ftp;
 
@@ -43,7 +43,7 @@ class File extends FileAbstract implements FileInterface
     {
         // todo: create all else cases, right now all getting handled the same way which is wrong
         $current = ftp_pwd($con);
-        if(!ftp_chdir($con, File::dirpath($path))) {
+        if (!ftp_chdir($con, File::dirpath($path))) {
             return false;
         }
 
@@ -80,7 +80,7 @@ class File extends FileAbstract implements FileInterface
         $temp = fopen('php://temp', 'r+');
 
         $current = ftp_pwd($con);
-        if(ftp_chdir($con, File::dirpath($path)) && ftp_fget($con, $temp, $path, FTP_BINARY, 0)) {
+        if (ftp_chdir($con, File::dirpath($path)) && ftp_fget($con, $temp, $path, FTP_BINARY, 0)) {
             rewind($temp);
             $content = stream_get_contents($temp);
         }
@@ -121,8 +121,8 @@ class File extends FileAbstract implements FileInterface
     public static function exists(string $path) : bool
     {
         
-        if(($current = ftp_pwd($con)) !== LocalFile::dirpath($path)) {
-            if(!ftp_chdir($con, $path)) {
+        if (($current = ftp_pwd($con)) !== LocalFile::dirpath($path)) {
+            if (!ftp_chdir($con, $path)) {
                 return false;
             }
         }
@@ -203,7 +203,7 @@ class File extends FileAbstract implements FileInterface
 
         if (is_array($files = ftp_rawlist($con, self::dirpath($path)))) { 
             foreach ($files as $fileData) { 
-                if(strpos($fileData, self::name($path)) !== false) {
+                if (strpos($fileData, self::name($path)) !== false) {
                     $chunks = preg_split("/\s+/", $fileData); 
 
                     $items['permission'] = $chungs[0];
@@ -253,7 +253,7 @@ class File extends FileAbstract implements FileInterface
      */
     public static function copy(string $from, string $to, bool $overwrite = false) : bool
     {
-        if(($src = self::get($from)) === false) {
+        if (($src = self::get($from)) === false) {
             return false;
         } 
 

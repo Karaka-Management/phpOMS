@@ -11,7 +11,7 @@
  * @version    1.0.0
  * @link       http://orange-management.com
  */
-declare(strict_types=1);
+declare(strict_types = 1);
 
 namespace phpOMS\Account;
 
@@ -136,7 +136,7 @@ class Account implements ArrayableInterface, \JsonSerializable
     /**
      * Account type.
      *
-     * @var AccountType|int
+     * @var int
      * @since 1.0.0
      */
     protected $type = AccountType::USER;
@@ -144,7 +144,7 @@ class Account implements ArrayableInterface, \JsonSerializable
     /**
      * Account status.
      *
-     * @var AccountStatus|int
+     * @var int
      * @since 1.0.0
      */
     protected $status = AccountStatus::INACTIVE;
@@ -324,8 +324,8 @@ class Account implements ArrayableInterface, \JsonSerializable
     {
         $app = isset($app) ? strtolower($app) : $app;
 
-        foreach($this->permissions as $p) {
-            if(($p->getUnit() === $unit || $p->getUnit() === null || !isset($unit))
+        foreach ($this->permissions as $p) {
+            if (($p->getUnit() === $unit || $p->getUnit() === null || !isset($unit))
                 && ($p->getApp() === $app || $p->getApp() === null || !isset($app)) 
                 && ($p->getModule() === $module || $p->getModule() === null || !isset($module)) 
                 && ($p->getType() === $type || $p->getType() === null || !isset($type)) 
@@ -560,7 +560,7 @@ class Account implements ArrayableInterface, \JsonSerializable
      */
     public function generatePassword(string $password) /* : void */
     {
-        $this->password = password_hash($password, PASSWORD_DEFAULT);
+        $this->password = \password_hash($password, \PASSWORD_DEFAULT);
     }
 
     /**
@@ -624,8 +624,8 @@ class Account implements ArrayableInterface, \JsonSerializable
 
     /**
      * Json serialize.
-     *
-     * @return string
+     * 
+     * @return array
      *
      * @since  1.0.0
      */

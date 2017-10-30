@@ -11,7 +11,7 @@
  * @version    1.0.0
  * @link       http://orange-management.com
  */
-declare(strict_types=1);
+declare(strict_types = 1);
 
 namespace phpOMS\Math\Matrix;
 
@@ -28,9 +28,9 @@ class CholeskyDecomposition
         $this->L = $M->toArray();
         $this->m = $M->getM();
 
-        for($i = 0; $i < $this->m; ++$i) {
-            for($j = $i; $j < $this->m; ++$j) {
-                for($sum = $this->L[$i][$j], $k = $i - 1; $k >= 0; --$k) {
+        for ($i = 0; $i < $this->m; ++$i) {
+            for ($j = $i; $j < $this->m; ++$j) {
+                for ($sum = $this->L[$i][$j], $k = $i - 1; $k >= 0; --$k) {
                     $sum -= $this->L[$i][$k] * $this->L[$j][$k];
                 }
                 if ($i == $j) {
@@ -46,7 +46,7 @@ class CholeskyDecomposition
                 }
             }
 
-            for ($k = $i+1; $k < $this->m; ++$k) {
+            for ($k = $i + 1; $k < $this->m; ++$k) {
                 $this->L[$i][$k] = 0.0;
             }
         }

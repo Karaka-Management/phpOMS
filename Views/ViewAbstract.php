@@ -11,7 +11,7 @@
  * @version    1.0.0
  * @link       http://orange-management.com
  */
-declare(strict_types=1);
+declare(strict_types = 1);
 
 namespace phpOMS\Views;
 
@@ -175,14 +175,14 @@ abstract class ViewAbstract implements \Serializable
     /**
      * Serialize view for rendering.
      *
-     * @return string|array
+     * @return string
      *
      * @since  1.0.0 <d.eichhorn@oms.com>
      */
     public function serialize()
     {
         if (empty($this->template)) {
-            return $this->toArray();
+            return json_encode($this->toArray());
         }
 
         return $this->render();
@@ -215,11 +215,11 @@ abstract class ViewAbstract implements \Serializable
      *
      * @param array $data Data to pass to renderer
      *
-     * @return array|string
+     * @return string
      *
      * @since  1.0.0 <d.eichhorn@oms.com>
      */
-    public function render(...$data)
+    public function render(...$data) : string
     {
         $ob   = '';
         $path = __DIR__ . '/../..' . $this->template . '.tpl.php';
@@ -232,12 +232,12 @@ abstract class ViewAbstract implements \Serializable
             ob_start();
             /** @noinspection PhpIncludeInspection */
             $includeData = include $path;
-            $ob   = ob_get_clean();
+            $ob = ob_get_clean();
 
             if (is_array($includeData)) {
-                return $includeData;
+                return json_encode($includeData);
             }
-        } catch(\Throwable $e) {
+        } catch (\Throwable $e) {
             $ob = '';
         } finally {
             return $ob;

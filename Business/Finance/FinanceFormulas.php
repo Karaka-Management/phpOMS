@@ -11,7 +11,7 @@
  * @version    1.0.0
  * @link       http://orange-management.com
  */
-declare(strict_types=1);
+declare(strict_types = 1);
 
 namespace phpOMS\Business\Finance;
 
@@ -752,6 +752,20 @@ class FinanceFormulas
     public static function getDoublingTime(float $r) : float
     {
         return log(2) / log(1 + $r);
+    }
+
+    /**
+     * Get rate to dobule
+     *
+     * @param float $t Time in which to double investment
+     *
+     * @return float
+     *
+     * @since  1.0.0
+     */
+    public static function getDoublingRate(float $t) : float
+    {
+        return exp(log(2) / $t) - 1;
     }
 
     /**

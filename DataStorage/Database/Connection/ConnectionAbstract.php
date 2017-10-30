@@ -11,7 +11,7 @@
  * @version    1.0.0
  * @link       http://orange-management.com
  */
-declare(strict_types=1);
+declare(strict_types = 1);
 
 namespace phpOMS\DataStorage\Database\Connection;
 
@@ -65,15 +65,15 @@ abstract class ConnectionAbstract implements ConnectionInterface
     /**
      * Database type.
      *
-     * @var \phpOMS\DataStorage\Database\DatabaseType
+     * @var string
      * @since 1.0.0
      */
-    protected $type = null;
+    protected $type = 'undefined';
 
     /**
      * Database status.
      *
-     * @var DatabaseStatus
+     * @var int
      * @since 1.0.0
      */
     protected $status = DatabaseStatus::CLOSED;
@@ -89,7 +89,7 @@ abstract class ConnectionAbstract implements ConnectionInterface
     /**
      * Database grammar.
      *
-     * @var Grammar
+     * @var SchemaGrammar
      * @since 1.0.0
      */
     protected $schemaGrammar = null;

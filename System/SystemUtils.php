@@ -11,7 +11,7 @@
  * @version    1.0.0
  * @link       http://orange-management.com
  */
-declare(strict_types=1);
+declare(strict_types = 1);
 
 namespace phpOMS\System;
 
@@ -46,10 +46,12 @@ class SystemUtils
      */
     public static function getRAM() : int
     {
-        $mem = null;
+        $mem = 0;
 
         if (stristr(PHP_OS, 'WIN')) {
             exec('wmic memorychip get capacity', $mem);
+            
+            /** @var array $mem */
             $mem = array_sum($mem) / 1024;
         } elseif (stristr(PHP_OS, 'LINUX')) {
             $fh  = fopen('/proc/meminfo', 'r');
@@ -62,6 +64,7 @@ class SystemUtils
                     break;
                 }
             }
+            
             fclose($fh);
         }
 
@@ -79,9 +82,7 @@ class SystemUtils
     {
         $memusage = 0;
 
-        if (stristr(PHP_OS, 'WIN')) {
-
-        } elseif (stristr(PHP_OS, 'LINUX')) {
+        if (stristr(PHP_OS, 'LINUX')) {
             $free     = shell_exec('free');
             $free     = (string) trim($free);
             $free_arr = explode("\n", $free);

@@ -11,7 +11,7 @@
  * @version    1.0.0
  * @link       http://orange-management.com
  */
-declare(strict_types=1);
+declare(strict_types = 1);
 
 namespace phpOMS\Utils\IO\Zip;
 
@@ -90,7 +90,7 @@ class Zip implements ArchiveInterface
      */
     public static function unpack(string $source, string $destination) : bool
     {
-        if(!file_exists($source)) {
+        if (!file_exists($source)) {
             return false;
         }
 

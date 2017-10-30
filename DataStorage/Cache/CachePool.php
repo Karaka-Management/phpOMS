@@ -11,7 +11,7 @@
  * @version    1.0.0
  * @link       http://orange-management.com
  */
-declare(strict_types=1);
+declare(strict_types = 1);
 
 namespace phpOMS\DataStorage\Cache;
 
@@ -39,7 +39,7 @@ class CachePool implements OptionsInterface
     /**
      * MemCache instance.
      *
-     * @var \phpOMS\DataStorage\Cache\CacheInterface
+     * @var \phpOMS\DataStorage\Cache\CacheInterface[]
      * @since 1.0.0
      */
     private $pool = null;
@@ -106,11 +106,11 @@ class CachePool implements OptionsInterface
      */
     public function get(string $key = '') /* : ?CacheInterface */
     {
-        if((!empty($key) && !isset($this->pool[$key])) || empty($this->pool)) {
+        if ((!empty($key) && !isset($this->pool[$key])) || empty($this->pool)) {
             return null;
         }
 
-        if(empty($key)) {
+        if (empty($key)) {
             return reset($this->pool);
         }
 
