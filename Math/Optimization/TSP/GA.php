@@ -94,9 +94,9 @@ class GA
             $newPopulation->set($i, $child);
         }
 
-        $count = $newPopulation->count();
+        $count2 = $newPopulation->count();
 
-        for ($i = $shift; $i < $count; $i++) {
+        for ($i = $shift; $i < $count2; $i++) {
             $this->mutate($newPopulation->get($i));
         }
 
@@ -115,7 +115,7 @@ class GA
     private function tournamentSelection(Population $population) : Tour
     {
         $tournament     = new Population($this->cityPool, self::TOURNAMENT, false);
-        $populationSize = $population->count();
+        $populationSize = $population->count() - 1;
 
         for ($i = 0; $i < self::TOURNAMENT; $i++) {
             $tournament->add($population->get(mt_rand(0, $populationSize)));
@@ -138,8 +138,8 @@ class GA
     {
         $child = new Tour($this->cityPool, false);
 
-        $start = mt_rand(0, $tour1->count());
-        $end   = mt_rand(0, $tour1->count());
+        $start = mt_rand(0, $tour1->count() - 1);
+        $end   = mt_rand(0, $tour1->count() - 1);
 
         $count = $child->count(); /* $tour1->count() ???!!!! */
 
@@ -182,7 +182,7 @@ class GA
 
         for ($pos1 = 0; $pos1 < $count; $pos1++) {
             if (mt_rand(0, 1000) < self::MUTATION) {
-                $pos2 = mt_rand(0, $tour->count());
+                $pos2 = mt_rand(0, $tour->count() - 1);
 
                 /* Could be same pos! */
                 $city1 = $tour->getCity($pos1);

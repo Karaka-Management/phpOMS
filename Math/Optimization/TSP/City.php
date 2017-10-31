@@ -61,7 +61,7 @@ class City
      *
      * @since  1.0.0
      */
-    public function __construct(float $lat, float $long, string $name)
+    public function __construct(float $lat = 0, float $long = 0, string $name = '')
     {
         $this->long = $long;
         $this->lat  = $lat;
@@ -107,7 +107,7 @@ class City
     }
 
     /**
-     * Distance to city
+     * Distance to city in meter
      *
      * @param City $city City
      *
