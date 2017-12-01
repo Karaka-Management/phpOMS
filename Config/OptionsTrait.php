@@ -56,7 +56,7 @@ trait OptionsTrait
      */
     public function setOption($key, $value, bool $overwrite = true) : bool
     {
-        if ($overwrite || !array_key_exists($key, $this->options)) {
+        if ($overwrite || !isset($this->options[$key])) {
             $this->options[$key] = $value;
 
             return true;

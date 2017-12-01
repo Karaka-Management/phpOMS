@@ -84,6 +84,7 @@ abstract class SettingsAbstract implements OptionsInterface
      * @return mixed Option value
      *
      * @since  1.0.0
+     * @todo: don't db request if exists. check exists()
      */
     public function get($columns)
     {
@@ -110,7 +111,7 @@ abstract class SettingsAbstract implements OptionsInterface
                     break;
             }
 
-            return $options;
+            return count($options) > 1 ? $options : reset($options);
         } catch (\PDOException $e) {
             $exception = DatabaseExceptionFactory::createException($e);
             $message = DatabaseExceptionFactory::createExceptionMessage($e);
@@ -134,7 +135,16 @@ abstract class SettingsAbstract implements OptionsInterface
         $this->setOptions($options);
 
         if ($store) {
-            // save to db
+            foreach($this->options as $key => $option) {
+                $query = new Builder($this->connection);
+                $sql = $query->update($this->connection->prefix . static::$table)
+                    ->set([static::$columns[1] => $option])
+                    ->where(static::$columns[0], '=', $key)
+                    ->toSql();
+
+                $sth = $this->connection->con->prepare($sql);
+                $sth->execute();
+            }
         }
     }
 }
