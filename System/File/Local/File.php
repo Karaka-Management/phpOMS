@@ -169,7 +169,7 @@ class File extends FileAbstract implements FileInterface
             throw new PathException($path);
         }
 
-        return self::createFileTime($path, filemtime($path));
+        return self::createFileTime(filemtime($path));
     }
 
     /**
@@ -181,10 +181,19 @@ class File extends FileAbstract implements FileInterface
             throw new PathException($path);
         }
 
-        return self::createFileTime($path, filectime($path));
+        return self::createFileTime(filectime($path));
     }
 
-    private static function createFileTime(string $path, int $time)
+    /**
+     * Create file time.
+     *
+     * @param int $time Time of the file
+     *
+     * @return \DateTime
+     *
+     * @since  1.0.0
+     */
+    private static function createFileTime(int $time) : \DateTime
     {
         $fileTime = new \DateTime();
         $fileTime->setTimestamp($time);

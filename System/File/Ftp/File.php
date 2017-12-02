@@ -40,8 +40,20 @@ use phpOMS\Uri\Http;
  */
 class File extends FileAbstract implements FileInterface
 {
+    /**
+     * Ftp connection
+     *
+     * @var resource
+     * @since 1.0.0
+     */
     private $con = null;
 
+    /**
+     * Ftp connection uri.
+     *
+     * @var Http
+     * @since 1.0.0
+     */
     private $uri = null;
 
     public function __construct(string $path)

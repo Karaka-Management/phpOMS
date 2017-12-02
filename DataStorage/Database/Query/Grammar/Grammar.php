@@ -131,6 +131,17 @@ class Grammar extends GrammarAbstract
         return $sql;
     }
 
+    /**
+     * Get query components based on query type.
+     *
+     * @param int $type Query type
+     *
+     * @return array Array of components to build query
+     *
+     * @throws \InvalidArgumentException Throws this exception if the query type is undefined
+     *
+     * @since  1.0.0
+     */
     private function getComponents(int $type) : array
     {
         switch ($type) {

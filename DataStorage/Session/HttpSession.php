@@ -207,6 +207,13 @@ class HttpSession implements SessionInterface
         $this->sid = $sid;
     }
     
+    /**
+     * Destroy the current session.
+     *
+     * @return void
+     *
+     * @since  1.0.0
+     */
     private function destroy() /* : void */
     {
         session_destroy();

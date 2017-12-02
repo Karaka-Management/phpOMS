@@ -633,8 +633,8 @@ class DataMapperAbstract implements DataMapperInterface
     /**
      * Create has many
      *
-     * @param array           $obj             Object to create
-     * @param mixed            $objId           Id to set
+     * @param array $obj   Object to create
+     * @param mixed $objId Id to set
      *
      * @return void
      *
@@ -977,8 +977,6 @@ class DataMapperAbstract implements DataMapperInterface
      * @param mixed  $objId        Model to reference
      *
      * @return mixed
-     *
-     * @throws \Exception
      *
      * @since  1.0.0
      */
@@ -1888,6 +1886,13 @@ class DataMapperAbstract implements DataMapperInterface
         return $obj;
     }
 
+    /**
+     * Creates the current null object
+     *
+     * @return mixed
+     *
+     * @since  1.0.0
+     */
     private static function getNullModelObj()
     {
         $class     = static::class;

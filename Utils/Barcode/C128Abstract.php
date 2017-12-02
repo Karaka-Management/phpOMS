@@ -321,6 +321,15 @@ abstract class C128Abstract
         return $image;
     }
 
+    /**
+     * Calculate the code length for image dimensions
+     *
+     * @param string $codeString Code string to render
+     *
+     * @return int Length of the code
+     *
+     * @since  1.0.0
+     */
     private function calculateCodeLength(string $codeString) : int
     {
         $codeLength = 0;
@@ -331,6 +340,15 @@ abstract class C128Abstract
         return $codeLength;
     }
 
+    /**
+     * Calculate the code dimensions
+     *
+     * @param string $codeString Code string to render
+     *
+     * @return array
+     *
+     * @since  1.0.0
+     */
     private function calculateDimensions(string $codeString) : array
     {
         $codeLength = $this->calculateCodeLength($codeString);
