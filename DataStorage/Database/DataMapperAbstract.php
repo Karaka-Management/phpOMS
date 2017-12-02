@@ -346,7 +346,7 @@ class DataMapperAbstract implements DataMapperInterface
     {
         self::extend(__CLASS__);
 
-        if ($obj === null ||
+        if (!isset($obj) ||
             (strpos($className = get_class($obj), '\Null') !== false && is_object($obj))
         ) {
             return null;
@@ -1152,13 +1152,17 @@ class DataMapperAbstract implements DataMapperInterface
      * @param mixed $obj Object reference (gets filled with insert id)
      * @param int   $relations Create all relations as well
      *
-     * @return int
+     * @return mixed
      *
      * @since  1.0.0
      */
-    public static function update($obj, int $relations = RelationType::ALL) : int
+    public static function update($obj, int $relations = RelationType::ALL)
     {
         self::extend(__CLASS__);
+
+        if(!isset($obj) || strpos(get_class($obj), '\Null') !== false) {
+            return null;
+        }
 
         $reflectionClass = new \ReflectionClass($obj);
         $objId           = self::getObjectId($obj, $reflectionClass);

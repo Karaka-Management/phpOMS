@@ -47,11 +47,11 @@ interface DataMapperInterface
      *
      * @param mixed $obj Object reference (gets filled with insert id)
      *
-     * @return int Status
+     * @return mixed
      *
      * @since  1.0.0
      */
-    public static function update($obj) : int;
+    public static function update($obj);
 
     /**
      * Delete data.
