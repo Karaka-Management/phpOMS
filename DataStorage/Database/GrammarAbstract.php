@@ -238,24 +238,19 @@ abstract class GrammarAbstract
         $identifier = $this->systemIdentifier;
         
         foreach ($this->specialKeywords as $keyword) {
-            if ($keyword === '' || strrpos($system, $keyword, -strlen($system)) !== false) {
+            if (strrpos($system, $keyword, -strlen($system)) !== false) {
                 $prefix = '';
                 $identifier = '';
             }
         }
 
         // todo: move remaining * test also here not just if .* but also if * (should be done in else?)
-        if (count($split = explode('.', $system)) == 2) {
-            if ($split[1] === '*') {
-                $system = $split[1];
-            } else {
-                $system = $this->compileSystem($split[1]);
-            }
+        if (count($split = explode('.', $system)) === 2) {
+            $system = $split[1] === '*' ? $split[1] : $this->compileSystem($split[1]);
 
             return $this->compileSystem($prefix . $split[0]) . '.' . $system;
-        } else {
-            return $identifier . $prefix . $system . $identifier;
         }
-    }
 
+        return $identifier . $prefix . $system . $identifier;
+    }
 }
