@@ -30,12 +30,30 @@ use phpOMS\System\File\PathException;
  */
 class LocalStorage extends StorageAbstract
 {
+    /**
+     * Storage instance.
+     *
+     * @var LocalStorage
+     * @since 1.0.0
+     */
     private static $instance = null;
 
-    public function __construct() {
-        
+    /**
+     * Constructor.
+     *
+     * @since  1.0.0
+     */
+    public function __construct()
+    {
     }
 
+    /**
+     * Get instance.
+     *
+     * @return StorageAbstract
+     *
+     * @since  1.0.0
+     */
     public static function getInstance() : StorageAbstract
     {
         if (!isset(self::$instance)) {
@@ -45,6 +63,15 @@ class LocalStorage extends StorageAbstract
         return self::$instance;
     }
 
+    /**
+     * Get the internal class type (directory or file) based on path.
+     *
+     * @param string $path Path to the directory or file
+     *
+     * @return string Class namespace
+     *
+     * @since  1.0.0
+     */
     protected static function getClassType(string $path) : string
     {
         return is_dir($path) || (!is_file($path) && stripos($path, '.') === false) ? Directory::class : File::class;

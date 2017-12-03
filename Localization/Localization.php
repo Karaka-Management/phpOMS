@@ -366,89 +366,111 @@ class Localization
     }
 
     /**
-     * @return string
+     * @return array
      *
      * @since  1.0.0
      */
-    public function getSpeed() : string
+    public function getSpeed() : array
     {
         return $this->speed;
     }
 
     /**
-     * @param string $speed
+     * @param array $speed
      *
-     * @return string
+     * @return array
      *
      * @since  1.0.0
      */
-    public function setSpeed(string $speed) /* : void */
+    public function setSpeed(array $speed) /* : void */
     {
         $this->speed = $speed;
     }
 
     /**
-     * @return string
+     * @return array
      *
      * @since  1.0.0
      */
-    public function getLength() : string
+    public function getWeight() : array
+    {
+        return $this->weight;
+    }
+
+    /**
+     * @param array $weight
+     *
+     * @return array
+     *
+     * @since  1.0.0
+     */
+    public function setWeight(array $weight) /* : void */
+    {
+        $this->weight= $weight;
+    }
+
+    /**
+     * @return array
+     *
+     * @since  1.0.0
+     */
+    public function getLength() : array
     {
         return $this->length;
     }
 
     /**
-     * @param string $length
+     * @param array $length
      *
-     * @return string
+     * @return array
      *
      * @since  1.0.0
      */
-    public function setLength(string $length) /* : void */
+    public function setLength(array $length) /* : void */
     {
         $this->length = $length;
     }
 
     /**
-     * @return string
+     * @return array
      *
      * @since  1.0.0
      */
-    public function getArea() : string
+    public function getArea() : array
     {
         return $this->area;
     }
 
     /**
-     * @param string $area
+     * @param array $area
      *
-     * @return string
+     * @return array
      *
      * @since  1.0.0
      */
-    public function setArea(string $area) /* : void */
+    public function setArea(array $area) /* : void */
     {
         $this->area = $area;
     }
 
     /**
-     * @return string
+     * @return array
      *
      * @since  1.0.0
      */
-    public function getVolume() : string
+    public function getVolume() : array
     {
         return $this->volume;
     }
 
     /**
-     * @param string $volume
+     * @param array $volume
      *
-     * @return string
+     * @return array
      *
      * @since  1.0.0
      */
-    public function setVolume(string $volume) /* : void */
+    public function setVolume(array $volume) /* : void */
     {
         $this->volume = $volume;
     }

@@ -288,6 +288,8 @@ class Repository
      *
      * @param string|array $files  Files to remove
      *
+     * @return string
+     *
      * @throws \InvalidArgumentException
      *
      * @since  1.0.0
