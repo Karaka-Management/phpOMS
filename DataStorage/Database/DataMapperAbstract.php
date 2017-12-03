@@ -1742,33 +1742,35 @@ class DataMapperAbstract implements DataMapperInterface
         $reflectionClass = new \ReflectionClass($obj);
 
         foreach ($result as $column => $value) {
-            if (isset(static::$columns[$column]['internal']) /* && $reflectionClass->hasProperty(static::$columns[$column]['internal']) */) {
-                $reflectionProperty = $reflectionClass->getProperty(static::$columns[$column]['internal']);
+            if (!isset(static::$columns[$column]['internal']) /* && $reflectionClass->hasProperty(static::$columns[$column]['internal']) */) { 
+                continue;
+            }
 
-                if (!($accessible = $reflectionProperty->isPublic())) {
-                    $reflectionProperty->setAccessible(true);
+            $reflectionProperty = $reflectionClass->getProperty(static::$columns[$column]['internal']);
+
+            if (!($accessible = $reflectionProperty->isPublic())) {
+                $reflectionProperty->setAccessible(true);
+            }
+
+            if (in_array(static::$columns[$column]['type'], ['string', 'int', 'float', 'bool'])) {
+                if ($value !== null || $reflectionProperty->getValue($obj) !== null) {
+                    settype($value, static::$columns[$column]['type']);
                 }
 
-                if (in_array(static::$columns[$column]['type'], ['string', 'int', 'float', 'bool'])) {
-                    if ($value !== null || $reflectionProperty->getValue($obj) !== null) {
-                        settype($value, static::$columns[$column]['type']);
-                    }
+                $reflectionProperty->setValue($obj, $value);
+            } elseif (static::$columns[$column]['type'] === 'DateTime') {
+                $reflectionProperty->setValue($obj, new \DateTime($value ?? ''));
+            } elseif (static::$columns[$column]['type'] === 'Json') {
+                $reflectionProperty->setValue($obj, json_decode($value, true));
+            } elseif (static::$columns[$column]['type'] === 'Serializable') {
+                $member = $reflectionProperty->getValue($obj);
+                $member->unserialize($value);
+            } else {
+                throw new \UnexpectedValueException('Value "' . static::$columns[$column]['type'] . '" is not supported.');
+            }
 
-                    $reflectionProperty->setValue($obj, $value);
-                } elseif (static::$columns[$column]['type'] === 'DateTime') {
-                    $reflectionProperty->setValue($obj, new \DateTime($value ?? ''));
-                } elseif (static::$columns[$column]['type'] === 'Json') {
-                    $reflectionProperty->setValue($obj, json_decode($value, true));
-                } elseif (static::$columns[$column]['type'] === 'Serializable') {
-                    $member = $reflectionProperty->getValue($obj);
-                    $member->unserialize($value);
-                } else {
-                    throw new \UnexpectedValueException('Value "' . static::$columns[$column]['type'] . '" is not supported.');
-                }
-
-                if (!$accessible) {
-                    $reflectionProperty->setAccessible(false);
-                }
+            if (!$accessible) {
+                $reflectionProperty->setAccessible(false);
             }
         }
 
