@@ -1882,7 +1882,7 @@ class DataMapperAbstract implements DataMapperInterface
             self::addInitialized(static::class, $value);
         }
 
-        self::fillRelations($obj, $relations, isset($depth) ? $depth - 1 : null);
+        self::fillRelations($obj, $relations, isset($depth) ? --$depth : null);
         self::clear();
 
         $countResulsts = count($obj);
@@ -1951,7 +1951,7 @@ class DataMapperAbstract implements DataMapperInterface
             self::addInitialized(static::class, $value);
         }
 
-        self::fillRelationsArray($obj, $relations, isset($depth) ? $depth - 1 : null);
+        self::fillRelationsArray($obj, $relations, isset($depth) ? --$depth : null);
         self::clear();
 
         return count($obj) === 1 ? reset($obj) : $obj;
@@ -1994,7 +1994,7 @@ class DataMapperAbstract implements DataMapperInterface
                 $toLoad = self::getPrimaryKeysBy($value, self::getColumnByMember($ref));
             }
 
-            $obj[$value] = self::get($toLoad, $relations, $fill, isset($depth) ?  $depth - 1 : null);
+            $obj[$value] = self::get($toLoad, $relations, $fill, isset($depth) ?  --$depth : null);
         }
 
         $countResulsts = count($obj);
@@ -2068,7 +2068,7 @@ class DataMapperAbstract implements DataMapperInterface
         }
 
         $obj = self::populateIterable(self::getAllRaw($lang));
-        self::fillRelations($obj, $relations, isset($depth) ? $depth - 1 : null);
+        self::fillRelations($obj, $relations, isset($depth) ? --$depth : null);
         self::clear();
 
         return $obj;
@@ -2095,7 +2095,7 @@ class DataMapperAbstract implements DataMapperInterface
         }
 
         $obj = self::populateIterableArray(self::getAllRaw($lang));
-        self::fillRelationsArray($obj, $relations, isset($depth) ? $depth - 1 : null);
+        self::fillRelationsArray($obj, $relations, isset($depth) ? --$depth : null);
         self::clear();
 
         return $obj;
@@ -2161,7 +2161,7 @@ class DataMapperAbstract implements DataMapperInterface
         $results = $sth->fetchAll(\PDO::FETCH_ASSOC);
         $obj     = self::populateIterable(is_bool($results) ? [] : $results);
 
-        self::fillRelations($obj, $relations, isset($depth) ? $depth - 1 : null);
+        self::fillRelations($obj, $relations, isset($depth) ? --$depth : null);
         self::clear();
 
         return $obj;
@@ -2192,7 +2192,7 @@ class DataMapperAbstract implements DataMapperInterface
         $results = is_bool($results) ? [] : $results;
 
         $obj = self::populateIterable($results);
-        self::fillRelations($obj, $relations, isset($depth) ? $depth - 1 : null);
+        self::fillRelations($obj, $relations, isset($depth) ? --$depth : null);
         self::clear();
 
         return $obj;
