@@ -112,11 +112,6 @@ abstract class StorageAbstract
     /**
      * {@inheritdoc}
      */
-    abstract public static function create(string $path) : bool;
-
-    /**
-     * {@inheritdoc}
-     */
     public static function delete(string $path) : bool
     {
         return static::getClassType($path)::delete($path);
@@ -201,39 +196,4 @@ abstract class StorageAbstract
     {
         return static::getClassType($path)::sanitize($path, $replace);
     }
-
-    /**
-     * {@inheritdoc}
-     */
-    abstract public static function list(string $path, string $filter = '*') : array;
-
-    /**
-     * {@inheritdoc}
-     */
-    abstract public static function put(string $path, string $content, int $mode = 0) : bool;
-
-    /**
-     * {@inheritdoc}
-     */
-    abstract public static function get(string $path) : string;
-
-    /**
-     * {@inheritdoc}
-     */
-    abstract public static function set(string $path, string $content) : bool;
-
-    /**
-     * {@inheritdoc}
-     */
-    abstract public static function append(string $path, string $content) : bool;
-
-    /**
-     * {@inheritdoc}
-     */
-    abstract public static function prepend(string $path, string $content) : bool;
-
-    /**
-     * {@inheritdoc}
-     */
-    abstract public static function extension(string $path) : string;
 }

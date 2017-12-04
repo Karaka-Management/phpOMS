@@ -118,7 +118,7 @@ class Sphere implements D3ShapeInterface
      */
     public static function getRadiusByVolume(float $v) : float
     {
-        return pow($v * 3 / (4 * pi()), 1 / 3);
+        return (float) pow($v * 3 / (4 * pi()), 1 / 3);
     }
 
     /**

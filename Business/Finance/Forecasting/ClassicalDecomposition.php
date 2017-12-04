@@ -174,7 +174,7 @@ class ClassicalDecomposition
      */
     public static function getStartOfDecomposition(int $dataSize, int $trendCycleComponents) : int
     {
-        return ($dataSize - $trendCycleComponents) / 2;
+        return (int) (($dataSize - $trendCycleComponents) / 2);
     }
 
     /**

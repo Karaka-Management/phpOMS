@@ -243,7 +243,7 @@ class Average
             throw new ZeroDevisionException();
         }
 
-        return pow(array_product($values), 1 / $count);
+        return (float) pow(array_product($values), 1 / $count);
     }
 
     /**

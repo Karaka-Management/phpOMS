@@ -107,7 +107,7 @@ class Functions
             $fact2 *= $d;
         }
 
-        return $fact / $fact2;
+        return (int) ($fact / $fact2);
     }
 
     /**
@@ -260,6 +260,6 @@ class Functions
      */
     public static function getRelativeDegree(int $value, int $length, int $start = 0) : int
     {
-        return abs(self::mod($value - $start, $length));
+        return (int) abs(self::mod($value - $start, $length));
     }
 }

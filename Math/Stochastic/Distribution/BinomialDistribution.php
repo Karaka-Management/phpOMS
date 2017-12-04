@@ -67,7 +67,7 @@ class BinomialDistribution
      */
     public static function getMgf(int $n, float $t, float $p) : float
     {
-        return pow(1 - $p + $p * exp($t), $n);
+        return (float) pow(1 - $p + $p * exp($t), $n);
     }
 
     /**

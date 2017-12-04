@@ -103,9 +103,9 @@ class Header implements \Serializable
      *
      * @since  1.0.0
      */
-    public function getType()
+    public function getType() : int
     {
-        return $this->type;
+        return (int) $this->type;
     }
 
     /**
@@ -115,7 +115,7 @@ class Header implements \Serializable
      *
      * @since  1.0.0
      */
-    public function setType($type) /* : void */
+    public function setType(int $type) /* : void */
     {
         $this->type = $type;
     }
@@ -125,7 +125,7 @@ class Header implements \Serializable
      *
      * @since  1.0.0
      */
-    public function getSubtype()
+    public function getSubtype() : int
     {
         return $this->subtype;
     }

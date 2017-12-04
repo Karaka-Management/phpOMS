@@ -17,7 +17,6 @@ namespace phpOMS\DataStorage\Cache;
 
 use phpOMS\Config\OptionsInterface;
 use phpOMS\Config\OptionsTrait;
-use phpOMS\DataStorage\Cache\CacheFactory;
 
 
 /**

@@ -159,7 +159,7 @@ class ChiSquaredDistribution
             throw new \Exception('Out of bounds');
         }
 
-        return 1 / (pow(2, $df / 2) * (Functions::getGammaInteger((int) $df / 2))) * pow($x, $df / 2 - 1) * exp(-$x / 2);
+        return 1 / (pow(2, $df / 2) * (Functions::getGammaInteger((int) ($df / 2)))) * pow($x, $df / 2 - 1) * exp(-$x / 2);
     }
 
     /**
@@ -236,7 +236,7 @@ class ChiSquaredDistribution
             throw new \Exception('Out of bounds');
         }
 
-        return pow(1 - 2 * $t, -$df / 2);
+        return (float) pow(1 - 2 * $t, -$df / 2);
     }
 
     /**

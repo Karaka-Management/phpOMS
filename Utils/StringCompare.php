@@ -152,7 +152,7 @@ class StringCompare
      */
     public static function valueLength(string $s1, string $s2) : int
     {
-        return abs(strlen($s1) - strlen($s2));
+        return (int) abs(strlen($s1) - strlen($s2));
     }
 
     /**

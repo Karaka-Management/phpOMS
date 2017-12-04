@@ -129,7 +129,7 @@ class Integer
             }
         }
 
-        return $m;
+        return (int) $m;
     }
 
     /**

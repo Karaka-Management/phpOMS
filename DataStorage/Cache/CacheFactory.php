@@ -15,10 +15,6 @@ declare(strict_types = 1);
 
 namespace phpOMS\DataStorage\Cache;
 
-use phpOMS\DataStorage\Cache\CacheInterface;
-use phpOMS\DataStorage\Cache\FileCache;
-
-
 /**
  * Database connection factory.
  *

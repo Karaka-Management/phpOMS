@@ -132,11 +132,11 @@ class NormalDistribution
      *
      * @param float $sig
      *
-     * @return float
+     * @return array
      *
      * @since  1.0.0
      */
-    public static function getFisherInformation(float $sig) : float
+    public static function getFisherInformation(float $sig) : array
     {
         return [[1 / $sig ** 2, 0], [0, 1 / (2 * $sig ** 4)]];
     }

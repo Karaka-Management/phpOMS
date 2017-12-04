@@ -801,9 +801,13 @@ class Builder extends BuilderAbstract
     /**
      * Count results.
      *
+     * @param string $table Table to count the result set
+     *
+     * @return Builder
+     *
      * @since  1.0.0
      */
-    public function count(string $table = '*')
+    public function count(string $table = '*') : Builder
     {
         // todo: don't do this as string, create new object new Count(); this can get handled by the grammar parser WAY better
         return $this->select('COUNT(' . $table . ')');
@@ -1161,7 +1165,7 @@ class Builder extends BuilderAbstract
         } elseif ($column instanceof \Closure) {
             return $column();
         } elseif ($column instanceof \Serializable) {
-            return $column;
+            return $column->serialize();
         }
 
         throw new \Exception();

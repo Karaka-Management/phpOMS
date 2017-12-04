@@ -47,6 +47,10 @@ class Polygon implements D2ShapeInterface
     /**
      * Constructor.
      *
+     * @param array[] $coord 2 Dimensional coordinate array where the indices are x and y
+     *
+     * @example Polygon([['x' => 1, 'y' => 2], ['x' => ...], ...])
+     *
      * @since  1.0.0
      */
     public function __construct(array $coord)
@@ -182,7 +186,7 @@ class Polygon implements D2ShapeInterface
      */
     public function getSurface() : float
     {
-        return abs($this->getSignedSurface());
+        return (float) abs($this->getSignedSurface());
     }
 
     /**

@@ -91,7 +91,7 @@ class File extends FileAbstract implements FileInterface
             return false;
         }
 
-        $exists = self::ftpExists($con, $http);
+        $exists = self::ftpExists($con, $http->getPath());
 
         if (
             (($mode & ContentPutMode::APPEND) === ContentPutMode::APPEND && $exists)
@@ -128,7 +128,7 @@ class File extends FileAbstract implements FileInterface
     {
         $temp = fopen('php://temp', 'r+');
         $http = new Http($path);
-
+        $content = '';
         $con = self::ftpConnect($http);
 
         if (ftp_chdir($con, File::dirpath($path)) && ftp_fget($con, $temp, $path, FTP_BINARY, 0)) {

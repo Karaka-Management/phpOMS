@@ -687,10 +687,6 @@ class DataMapperAbstract implements DataMapperInterface
     private static function createHasOne(\ReflectionClass $reflectionClass, $obj)
     {
         throw new \Exception();
-
-        foreach (static::$hasOne as $propertyName => $rel) {
-
-        }
     }
 
     /**
@@ -970,7 +966,6 @@ class DataMapperAbstract implements DataMapperInterface
      *
      * Deletes old entries and creates new ones
      *
-     * @param string $propertyName Property name to initialize
      * @param array  $objsIds      Object ids to insert
      * @param mixed  $objId        Model to reference
      *
@@ -1709,6 +1704,7 @@ class DataMapperAbstract implements DataMapperInterface
      * Populate data.
      *
      * @param array $obj Object to add the relations to
+     * @param int $depth Relation depth
      *
      * @return void
      *
@@ -1716,12 +1712,12 @@ class DataMapperAbstract implements DataMapperInterface
      *
      * @since  1.0.0
      */
-    public static function populateBelongsToArray(array &$obj) /* : void */
+    public static function populateBelongsToArray(array &$obj, int $depth = null) /* : void */
     {
         foreach (static::$belongsTo as $member => $one) {
             /** @var string $mapper */
             $mapper = static::$belongsTo[$member]['mapper'];
-            $obj[$member] = self::getInitialized($mapper, $obj[$member]) ?? $mapper::get($obj[$member]);
+            $obj[$member] = self::getInitialized($mapper, $obj[$member]) ?? $mapper::get($obj[$member], RelationType::ALL, null, $depth);
         }
     }
 
@@ -1818,6 +1814,7 @@ class DataMapperAbstract implements DataMapperInterface
      * @param mixed $primaryKey Key
      * @param int   $relations  Load relations
      * @param mixed $fill       Object to fill
+     * @param int $depth Relation depth
      *
      * @return mixed
      * 
@@ -2060,6 +2057,7 @@ class DataMapperAbstract implements DataMapperInterface
      * Get object.
      *
      * @param int $relations Load relations
+     * @param int $depth Relation depth
      * @param string $lang Language
      *
      * @return array

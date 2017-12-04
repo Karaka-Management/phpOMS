@@ -82,6 +82,8 @@ class JobQueue
         }
 
         sleep(1);
+
+        return -1;
     }
 
     private function runAsDeamon()

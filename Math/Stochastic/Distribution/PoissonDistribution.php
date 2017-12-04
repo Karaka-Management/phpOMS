@@ -148,7 +148,7 @@ class PoissonDistribution
      */
     public static function getSkewness(float $lambda) : float
     {
-        return pow($lambda, -1 / 2);
+        return (float) pow($lambda, -1 / 2);
     }
 
     /**
@@ -162,7 +162,7 @@ class PoissonDistribution
      */
     public static function getFisherInformation(float $lambda) : float
     {
-        return pow($lambda, -1);
+        return (float) pow($lambda, -1);
     }
 
     /**
@@ -176,7 +176,7 @@ class PoissonDistribution
      */
     public static function getExKurtosis(float $lambda) : float
     {
-        return pow($lambda, -1);
+        return (float) pow($lambda, -1);
     }
 
     public static function getRandom()
