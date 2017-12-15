@@ -354,7 +354,7 @@ class Markdown
         return $block;
     }
 
-    protected static function blockFencedCodeContinue(array $lineArray, array $block) : array
+    protected static function blockFencedCodeContinue(array $lineArray, array $block) /* : ?array */
     {
         if (isset($block['complete'])) {
             return;
@@ -435,9 +435,10 @@ class Markdown
         if($name === 'ol') {
             $listStart = stristr($matches[0], '.', true);
             
+            /*
             if($listStart !== '1') {
                 $block['element']['attributes'] = ['start' => $listStart];
-            }
+            }*/
         }
 
         $block['li'] = [
@@ -1082,7 +1083,7 @@ class Markdown
 
     protected static function inlineUrl(array $excerpt) /* : ?array */
     {
-        if (self::$urlsLinked !== true || !isset($excerpt['text'][2]) || $excerpt['text'][2] !== '/') {
+        if (!isset($excerpt['text'][2]) || $excerpt['text'][2] !== '/') {
             return;
         }
 
