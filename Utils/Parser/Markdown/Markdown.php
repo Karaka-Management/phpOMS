@@ -802,7 +802,7 @@ class Markdown
         return $block;
     }
 
-    public function line(string $text) : string
+    protected static function line(string $text) : string
     {
         $markup = '';
 
