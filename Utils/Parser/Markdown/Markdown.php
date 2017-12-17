@@ -44,7 +44,6 @@ class Markdown
         '8' => ['List'],
         '9' => ['List'],
         ':' => ['Table'],
-        '<' => [],
         '=' => ['SetextHeader'],
         '>' => ['Quote'],
         '[' => ['Reference'],
