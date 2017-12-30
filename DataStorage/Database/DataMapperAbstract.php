@@ -328,7 +328,7 @@ class DataMapperAbstract implements DataMapperInterface
                 $query->where(static::$table . '.' . $col['name'], 'LIKE', '%' . $search . '%', 'OR');
             }
         }
-        
+
         return static::getAllByQuery($query);
     }
 
