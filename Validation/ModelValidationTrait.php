@@ -4,7 +4,7 @@
  *
  * PHP Version 7.1
  *
- * @category   TBD
+ * @package    TBD
  * @copyright  Dennis Eichhorn
  * @license    OMS License 1.0
  * @version    1.0.0
@@ -18,8 +18,7 @@ namespace phpOMS\Validation;
 /**
  * Model validation trait.
  *
- * @category   Framework
- * @package    phpOMS\Config
+ * @package    Framework
  * @since      1.0.0
  */
 trait ModelValidationTrait

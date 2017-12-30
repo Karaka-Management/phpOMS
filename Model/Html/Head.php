@@ -4,8 +4,7 @@
  *
  * PHP Version 7.1
  *
- * @category   Framework
- * @package    phpOMS/Model
+ * @package    Framework
  * @copyright  Dennis Eichhorn
  * @license    OMS License 1.0
  * @version    1.0.0
@@ -24,8 +23,7 @@ use phpOMS\Localization\ISO639x1Enum;
  *
  * Responsible for handling everything that's going on in the <head>
  *
- * @category   Framework
- * @package    phpOMS/Model
+ * @package    Framework
  * @license    OMS License 1.0
  * @link       http://website.orange-management.de
  * @since      1.0.0

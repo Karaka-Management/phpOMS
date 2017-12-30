@@ -4,8 +4,7 @@
  *
  * PHP Version 7.1
  *
- * @category   Framework
- * @package    phpOMS/Views
+ * @package    Framework
  * @copyright  Dennis Eichhorn
  * @license    OMS License 1.0
  * @version    1.0.0
@@ -20,8 +19,7 @@ use phpOMS\System\File\PathException;
 /**
  * List view.
  *
- * @category   Framework
- * @package    phpOMS/Views
+ * @package    Framework
  * @license    OMS License 1.0
  * @link       http://website.orange-management.de
  * @since      1.0.0

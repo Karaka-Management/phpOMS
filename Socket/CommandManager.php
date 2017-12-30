@@ -4,7 +4,7 @@
  *
  * PHP Version 7.1
  *
- * @category   TBD
+ * @package    TBD
  * @copyright  Dennis Eichhorn
  * @license    OMS License 1.0
  * @version    1.0.0
@@ -17,8 +17,7 @@ namespace phpOMS\Socket;
 /**
  * CommandManager class.
  *
- * @category   Framework
- * @package    phpOMS\Socket
+ * @package    Framework
  * @since      1.0.0
  *
  * @todo       : Hey, this looks like a copy of an event manager!

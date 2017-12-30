@@ -4,8 +4,7 @@
  *
  * PHP Version 7.1
  *
- * @category   Framework
- * @package    phpOMS\Business\Marketing
+ * @package    Framework
  * @copyright  Dennis Eichhorn
  * @license    OMS License 1.0
  * @version    1.0.0
@@ -20,8 +19,7 @@ namespace phpOMS\Business\Marketing;
  * 
  * This class provided basic marketing metric calculations
  *
- * @category   Framework
- * @package    phpOMS\Business\Marketing
+ * @package    Framework
  * @license    OMS License 1.0
  * @link       http://website.orange-management.de
  * @since      1.0.0

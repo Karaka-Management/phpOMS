@@ -4,7 +4,7 @@
  *
  * PHP Version 7.1
  *
- * @category   TBD
+ * @package    TBD
  * @copyright  Dennis Eichhorn
  * @license    OMS License 1.0
  * @license    Original license Emanuil Rusev, erusev.com (MIT)
@@ -18,8 +18,7 @@ namespace phpOMS\Utils\Parser\Markdown;
 /**
  * Markdown parser class.
  *
- * @category   Framework
- * @package    phpOMS\Utils\Parser
+ * @package    Framework
  * @license    OMS License 1.0
  * @license    Original license Emanuil Rusev, erusev.com (MIT)
  * @link       http://website.orange-management.de

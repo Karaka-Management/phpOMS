@@ -4,7 +4,7 @@
  *
  * PHP Version 7.1
  *
- * @category   TBD
+ * @package    TBD
  * @copyright  Dennis Eichhorn
  * @license    OMS License 1.0
  * @version    1.0.0
@@ -19,8 +19,7 @@ namespace phpOMS\Stdlib\Base\Exception;
  *
  * Performing operations on the file system
  *
- * @category   Framework
- * @package    phpOMS\Datatypes
+ * @package    Framework
  * @license    OMS License 1.0
  * @link       http://website.orange-management.de
  * @since      1.0.0

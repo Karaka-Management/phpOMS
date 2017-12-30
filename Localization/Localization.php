@@ -4,8 +4,7 @@
  *
  * PHP Version 7.1
  *
- * @category   Framework
- * @package    phpOMS\Localization
+ * @package    Framework
  * @copyright  Dennis Eichhorn
  * @license    OMS License 1.0
  * @version    1.0.0
@@ -22,8 +21,7 @@ use phpOMS\Utils\Converter\TemperatureType;
 /**
  * Localization class.
  *
- * @category   Framework
- * @package    phpOMS\Localization
+ * @package    Framework
  * @license    OMS License 1.0
  * @link       http://website.orange-management.de
  * @since      1.0.0

@@ -4,8 +4,7 @@
  *
  * PHP Version 7.1
  *
- * @category   Framework
- * @package    phpOMS\Account
+ * @package    Framework
  * @copyright  Dennis Eichhorn
  * @license    OMS License 1.0
  * @version    1.0.0
@@ -21,8 +20,7 @@ namespace phpOMS\Account;
  * This permission abstract is the basis for all permissions. Contrary to it's name it is not an
  * abstract class and can be used directly if needed.
  *
- * @category   Framework
- * @package    phpOMS\Account
+ * @package    Framework
  * @license    OMS License 1.0
  * @link       http://website.orange-management.de
  * @since      1.0.0

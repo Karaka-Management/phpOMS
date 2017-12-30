@@ -4,7 +4,7 @@
  *
  * PHP Version 7.1
  *
- * @category   TBD
+ * @package    TBD
  * @copyright  Dennis Eichhorn
  * @license    OMS License 1.0
  * @version    1.0.0
@@ -31,7 +31,6 @@ namespace phpOMS;
  * @property \phpOMS\Account\AccountManager accountManager
  * @property \phpOMS\Log\FileLogger logger
  *
- * @category   Framework
  * @package    Framework
  * @license    OMS License 1.0
  * @link       http://website.orange-management.de

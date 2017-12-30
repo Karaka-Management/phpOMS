@@ -4,7 +4,7 @@
  *
  * PHP Version 7.1
  *
- * @category   TBD
+ * @package    TBD
  * @copyright  Dennis Eichhorn
  * @license    OMS License 1.0
  * @version    1.0.0
@@ -20,8 +20,7 @@ require_once realpath(__DIR__ . '/../../../Resources/phpexcel/Classes/PHPExcel.p
 /**
  * Excel class.
  *
- * @category   Modules
- * @package    phpOMS\Utils\Excel
+ * @package    Modules
  * @since      1.0.0
  */
 

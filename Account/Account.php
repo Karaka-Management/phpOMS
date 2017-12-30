@@ -4,8 +4,7 @@
  *
  * PHP Version 7.1
  *
- * @category   Framework
- * @package    phpOMS\Account
+ * @package    Framework
  * @copyright  Dennis Eichhorn
  * @license    OMS License 1.0
  * @version    1.0.0
@@ -26,8 +25,7 @@ use phpOMS\Validation\Network\Email;
  * The account class is the base model for accounts. This model contains the most common account 
  * information. This model is not comparable to a profile which contains much more information. 
  *
- * @category   Framework
- * @package    phpOMS\Account
+ * @package    Framework
  * @license    OMS License 1.0
  * @link       http://website.orange-management.de
  * @since      1.0.0
