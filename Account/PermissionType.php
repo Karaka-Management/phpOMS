@@ -4,7 +4,7 @@
  *
  * PHP Version 7.1
  *
- * @package    Framework
+ * @package    phpOMS\Account
  * @copyright  Dennis Eichhorn
  * @license    OMS License 1.0
  * @version    1.0.0
@@ -19,7 +19,7 @@ use phpOMS\Stdlib\Base\Enum;
 /**
  * Permission type enum.
  *
- * @package    Framework
+ * @package    phpOMS\Account
  * @license    OMS License 1.0
  * @link       http://website.orange-management.de
  * @since      1.0.0

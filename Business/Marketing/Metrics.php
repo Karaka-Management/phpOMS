@@ -4,7 +4,7 @@
  *
  * PHP Version 7.1
  *
- * @package    Framework
+ * @package    phpOMS\Business\Marketing
  * @copyright  Dennis Eichhorn
  * @license    OMS License 1.0
  * @version    1.0.0
@@ -19,7 +19,7 @@ namespace phpOMS\Business\Marketing;
  * 
  * This class provided basic marketing metric calculations
  *
- * @package    Framework
+ * @package    phpOMS\Business\Marketing
  * @license    OMS License 1.0
  * @link       http://website.orange-management.de
  * @since      1.0.0
@@ -27,6 +27,8 @@ namespace phpOMS\Business\Marketing;
 class Metrics {
     /**
      * Calculate customer retention
+     * 
+     * @latex  r = \frac{ce - cn}{cs}
      * 
      * @param int $ce Customer at the end of the period
      * @param int $cn New customers during period

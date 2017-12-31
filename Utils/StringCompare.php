@@ -4,7 +4,7 @@
  *
  * PHP Version 7.1
  *
- * @package    TBD
+ * @package    phpOMS\Utils
  * @copyright  Dennis Eichhorn
  * @license    OMS License 1.0
  * @version    1.0.0
@@ -19,7 +19,7 @@ namespace phpOMS\Utils;
  *
  * This class helps to compare two strings
  *
- * @package    Framework
+ * @package    phpOMS\Utils
  * @license    OMS License 1.0
  * @link       http://website.orange-management.de
  * @since      1.0.0

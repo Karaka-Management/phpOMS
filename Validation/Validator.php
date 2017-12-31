@@ -4,7 +4,7 @@
  *
  * PHP Version 7.1
  *
- * @package    TBD
+ * @package    phpOMS\Validation
  * @copyright  Dennis Eichhorn
  * @license    OMS License 1.0
  * @version    1.0.0
@@ -19,7 +19,9 @@ use phpOMS\Utils\StringUtils;
 /**
  * Validator class.
  *
- * @package    Framework
+ * @package    phpOMS\Validation
+ * @license    OMS License 1.0
+ * @link       http://website.orange-management.de
  * @since      1.0.0
  */
 final class Validator extends ValidatorAbstract

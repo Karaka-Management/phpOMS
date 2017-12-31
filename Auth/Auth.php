@@ -4,7 +4,7 @@
  *
  * PHP Version 7.1
  *
- * @package    Framework
+ * @package    phpOMS\Auth
  * @copyright  Dennis Eichhorn
  * @license    OMS License 1.0
  * @version    1.0.0
@@ -21,7 +21,7 @@ use phpOMS\DataStorage\Session\SessionInterface;
  *
  * Responsible for authenticating and initializing the connection
  *
- * @package    Framework
+ * @package    phpOMS\Auth
  * @license    OMS License 1.0
  * @link       http://website.orange-management.de
  * @since      1.0.0

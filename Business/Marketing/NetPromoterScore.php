@@ -4,7 +4,7 @@
  *
  * PHP Version 7.1
  *
- * @package    Framework
+ * @package    phpOMS\Business\Marketing
  * @copyright  Dennis Eichhorn
  * @license    OMS License 1.0
  * @version    1.0.0
@@ -20,7 +20,7 @@ namespace phpOMS\Business\Marketing;
  * The net promoter score is a basic evaluation of the happiness of customers. 
  * Instead of customers the NPS can also be transferred to non-customers.
  *
- * @package    Framework
+ * @package    phpOMS\Business\Marketing
  * @license    OMS License 1.0
  * @link       http://website.orange-management.de
  * @since      1.0.0

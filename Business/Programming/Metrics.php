@@ -4,7 +4,7 @@
  *
  * PHP Version 7.1
  *
- * @package    TBD
+ * @package    phpOMS\Business\Programming
  * @copyright  Dennis Eichhorn
  * @license    OMS License 1.0
  * @version    1.0.0
@@ -19,7 +19,7 @@ namespace phpOMS\Business\Programming;
  * 
  * This class provides basic programming metric calculations.
  *
- * @package    Framework
+ * @package    phpOMS\Business\Programming
  * @license    OMS License 1.0
  * @link       http://website.orange-management.de
  * @since      1.0.0
