@@ -228,18 +228,7 @@ class SmartDateTime extends \DateTime
      */
     public static function getDayOfWeek(int $y, int $m, int $d) : int
     {
-        $w  = 1;
-        $y  = ($y - 1) % 400 + 1;
-        $ly = ($y - 1) / 4;
-        $ly = $ly - ($y - 1) / 100;
-        $ly = $ly + ($y - 1) / 400;
-        $ry = $y - 1 - $ly;
-        $w  = $w + $ry;
-        $w  = $w + 2 * $ly;
-        $w  = $w + date("z", mktime(0, 0, 0, $m, $d, $y)) + 1;
-        $w = ($w - 1) % 7 + 1;
-
-        return $w === 7 ? 0 : $w;
+        return (int) date('w', strtotime($d . '-' . $m . '-' . $y));
     }
     
     /**
