@@ -218,6 +218,20 @@ abstract class RequestAbstract implements MessageInterface
     }
 
     /**
+     * Check if has data.
+     *
+     * @param mixed $key Data key
+     * 
+     * @return bool
+     *
+     * @since  1.0.0
+     */
+    public function hasData($key) : bool
+    {
+        return isset($this->data[$key]);
+    }
+
+    /**
      * Set request data.
      *
      * @param mixed $key       Data key
