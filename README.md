@@ -1,3 +1,5 @@
+[![Maintainability](https://api.codeclimate.com/v1/badges/7e83e9f82ea1b19e1574/maintainability)](https://codeclimate.com/github/Orange-Management/phpOMS/maintainability)
+
 # General
 
 The **phpOMS** framework provides many features to manage and create a web application and its backend. Additionally to the framework features it also includes many utils and api integrations that provides additional functionality.
