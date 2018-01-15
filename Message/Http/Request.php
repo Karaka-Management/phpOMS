@@ -285,7 +285,8 @@ class Request extends RequestAbstract
             foreach ($arr as $key => $val) {
                 if (stripos($httpUserAgent, $val)) {
                     $this->browser = $val;
-                    break;
+                    
+                    return $this->browser;
                 }
             }
         }
@@ -323,7 +324,8 @@ class Request extends RequestAbstract
             foreach ($arr as $key => $val) {
                 if (stripos($httpUserAgent, $val)) {
                     $this->os = $val;
-                    break;
+                    
+                    return $this->os;
                 }
             }
         }
