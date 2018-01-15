@@ -16,8 +16,8 @@ namespace phpOMS\Business\Marketing;
 
 /**
  * Net Promoter Score
- * 
- * The net promoter score is a basic evaluation of the happiness of customers. 
+ *
+ * The net promoter score is a basic evaluation of the happiness of customers.
  * Instead of customers the NPS can also be transferred to non-customers.
  *
  * @package    phpOMS\Business\Marketing

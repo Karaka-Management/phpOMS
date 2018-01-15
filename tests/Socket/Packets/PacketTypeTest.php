@@ -14,7 +14,6 @@
 
 namespace phpOMS\tests\Socket\Packets;
 
-
 use phpOMS\Socket\Packets\PacketType;
 
 class PacketTypeTest extends \PHPUnit\Framework\TestCase

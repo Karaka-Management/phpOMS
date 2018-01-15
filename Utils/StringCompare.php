@@ -36,7 +36,7 @@ class StringCompare
 
     /**
      * Constructor.
-     * 
+     *
      * @param array $dictionary Dictionary
      *
      * @since  1.0.0
@@ -48,9 +48,9 @@ class StringCompare
 
     /**
      * Adds word to dictionary
-     * 
+     *
      * @param string $word Word to add to dictionary
-     * 
+     *
      * @return void
      *
      * @since  1.0.0
@@ -177,5 +177,5 @@ class StringCompare
         return min($phraseValue * $phraseWeight, $wordValue * $wordWeight) * $minWeight
             + max($phraseValue * $phraseWeight, $wordValue * $wordWeight) * $maxWeight
             + $lengthValue * $lengthWeight;
-    } 
+    }
 }

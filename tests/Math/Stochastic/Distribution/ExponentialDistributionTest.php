@@ -14,7 +14,6 @@
 
 namespace phpOMS\tests\Math\Stochastic\Distribution;
 
-
 use phpOMS\Math\Stochastic\Distribution\ExponentialDistribution;
 
 class ExponentialDistributionTest extends \PHPUnit\Framework\TestCase

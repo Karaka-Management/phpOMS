@@ -14,7 +14,6 @@
 
 namespace phpOMS\tests\System\File\Local;
 
-
 use phpOMS\System\File\Local\Directory;
 use phpOMS\System\File\PathException;
 
@@ -52,10 +51,10 @@ class DirectoryTest extends \PHPUnit\Framework\TestCase
     public function testStaticMove()
     {
         $dirTestPath = __DIR__ . '/dirtest';
-        
+
         self::assertTrue(Directory::copy($dirTestPath, __DIR__ . '/newdirtest'));
         self::assertTrue(file_exists(__DIR__ . '/newdirtest/sub/path/test3.txt'));
-        
+
         self::assertTrue(Directory::delete($dirTestPath));
         self::assertFalse(Directory::exists($dirTestPath));
 

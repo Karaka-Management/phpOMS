@@ -14,7 +14,6 @@
 
 namespace phpOMS\tests\Utils\RnG;
 
-
 use phpOMS\Utils\RnG\ArrayRandomize;
 
 class ArrayRandomizeTest extends \PHPUnit\Framework\TestCase

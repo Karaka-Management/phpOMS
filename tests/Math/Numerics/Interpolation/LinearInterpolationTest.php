@@ -14,7 +14,6 @@
 
 namespace phpOMS\tests\Math\Numerics\Interpolation;
 
-
 use phpOMS\Math\Numerics\Interpolation\LinearInterpolation;
 
 class LinearInterpolationTest extends \PHPUnit\Framework\TestCase

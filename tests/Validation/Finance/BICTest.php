@@ -14,7 +14,6 @@
 
 namespace phpOMS\tests\Validation\Finance;
 
-
 use phpOMS\Validation\Finance\BIC;
 
 class BICTest extends \PHPUnit\Framework\TestCase

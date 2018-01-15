@@ -13,7 +13,6 @@
 
 namespace phpOMS\tests\Module\Exception;
 
-
 use phpOMS\Module\Exception\InvalidThemeException;
 
 class InvalidThemeExceptionTest extends \PHPUnit\Framework\TestCase

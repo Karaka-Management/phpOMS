@@ -13,7 +13,6 @@
 
 namespace phpOMS\tests\Math\Matrix\Exception;
 
-
 use phpOMS\Math\Matrix\Exception\InvalidDimensionException;
 
 class InvalidDimensionExceptionTest extends \PHPUnit\Framework\TestCase

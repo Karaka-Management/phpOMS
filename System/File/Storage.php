@@ -33,7 +33,7 @@ final class Storage
      * @since 1.0.0
      */
     private static $registered = [];
-    
+
     /**
      * Constructor.
      *
@@ -42,7 +42,7 @@ final class Storage
      */
     private function __construct()
     {
-        
+
     }
 
     /**

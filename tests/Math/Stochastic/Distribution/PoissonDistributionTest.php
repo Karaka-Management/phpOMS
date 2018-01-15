@@ -14,7 +14,6 @@
 
 namespace phpOMS\tests\Math\Stochastic\Distribution;
 
-
 use phpOMS\Math\Stochastic\Distribution\PoissonDistribution;
 
 class PoissonDistributionTest extends \PHPUnit\Framework\TestCase

@@ -14,7 +14,6 @@
 
 namespace phpOMS\tests\Validation\Barcode;
 
-
 use phpOMS\Validation\Barcode\Barcode39;
 
 class Barcode39Test extends \PHPUnit\Framework\TestCase

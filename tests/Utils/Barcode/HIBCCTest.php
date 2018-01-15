@@ -14,7 +14,6 @@
 
 namespace phpOMS\tests\Utils\Barcode;
 
-
 use phpOMS\Utils\Barcode\HIBCC;
 
 class HIBCCTest extends \PHPUnit\Framework\TestCase

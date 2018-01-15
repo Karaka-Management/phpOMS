@@ -16,7 +16,7 @@ namespace phpOMS\Business\Marketing;
 
 /**
  * Marketing Metrics
- * 
+ *
  * This class provided basic marketing metric calculations
  *
  * @package    phpOMS\Business\Marketing
@@ -27,9 +27,9 @@ namespace phpOMS\Business\Marketing;
 class Metrics {
     /**
      * Calculate customer retention
-     * 
+     *
      * @latex  r = \frac{ce - cn}{cs}
-     * 
+     *
      * @param int $ce Customer at the end of the period
      * @param int $cn New customers during period
      * @param int $cs Customers at the start of the period

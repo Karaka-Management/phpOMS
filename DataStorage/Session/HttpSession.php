@@ -52,7 +52,7 @@ class HttpSession implements SessionInterface
      * @since 1.0.0
      */
     private $sid = null;
-    
+
     /**
      * Inactivity Interval.
      *
@@ -85,23 +85,23 @@ class HttpSession implements SessionInterface
         if (!is_bool($sid)) {
             session_id($sid);
         }
-        
+
         $this->inactivityInterval = $inactivityInterval;
 
         if (session_status() !== PHP_SESSION_ACTIVE && !headers_sent()) {
             session_set_cookie_params($liftetime, '/', '', false, true);
             session_start();
         }
-        
+
         if ($this->inactivityInterval > 0 && ($this->inactivityInterval + ($_SESSION['lastActivity'] ?? 0) < time())) {
             $this->destroy();
         }
-        
+
         $this->sessionData = $_SESSION;
         $_SESSION          = null;
         $this->sessionData['lastActivity'] = time();
         $this->sid = session_id();
-        
+
         $this->setCsrfProtection();
     }
 
@@ -204,7 +204,7 @@ class HttpSession implements SessionInterface
     {
         $this->sid = $sid;
     }
-    
+
     /**
      * Destroy the current session.
      *

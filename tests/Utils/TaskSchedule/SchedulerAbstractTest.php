@@ -14,7 +14,6 @@
 
 namespace phpOMS\tests\Utils\TaskSchedule;
 
-
 use phpOMS\Utils\TaskSchedule\SchedulerAbstract;
 
 class SchedulerAbstractTest extends \PHPUnit\Framework\TestCase

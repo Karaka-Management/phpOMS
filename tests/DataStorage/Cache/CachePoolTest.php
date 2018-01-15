@@ -14,7 +14,6 @@
 
 namespace phpOMS\tests\DataStorage\Cache;
 
-
 use phpOMS\DataStorage\Cache\CachePool;
 use phpOMS\DataStorage\Cache\FileCache;
 

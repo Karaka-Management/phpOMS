@@ -22,11 +22,11 @@ class RouteVerbTest extends \PHPUnit\Framework\TestCase
 {
     public function testEnum()
     {
-        self::assertTrue(defined('phpOMS\Router\RouteVerb::GET')); 
-        self::assertTrue(defined('phpOMS\Router\RouteVerb::PUT')); 
-        self::assertTrue(defined('phpOMS\Router\RouteVerb::SET')); 
-        self::assertTrue(defined('phpOMS\Router\RouteVerb::DELETE')); 
-        self::assertTrue(defined('phpOMS\Router\RouteVerb::ANY')); 
+        self::assertTrue(defined('phpOMS\Router\RouteVerb::GET'));
+        self::assertTrue(defined('phpOMS\Router\RouteVerb::PUT'));
+        self::assertTrue(defined('phpOMS\Router\RouteVerb::SET'));
+        self::assertTrue(defined('phpOMS\Router\RouteVerb::DELETE'));
+        self::assertTrue(defined('phpOMS\Router\RouteVerb::ANY'));
     }
 
     public function testEnumUnique()

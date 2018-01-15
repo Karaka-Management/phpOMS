@@ -14,7 +14,6 @@
 
 namespace phpOMS\tests\DataStorage\Database\Schema;
 
-
 use phpOMS\DataStorage\Database\Schema\QueryType;
 
 class QueryTypeTest extends \PHPUnit\Framework\TestCase
@@ -23,7 +22,7 @@ class QueryTypeTest extends \PHPUnit\Framework\TestCase
     {
         self::assertEquals(4, count(QueryType::getConstants()));
         self::assertEquals(QueryType::getConstants(), array_unique(QueryType::getConstants()));
-        
+
         self::assertEquals(0, QueryType::SELECT);
         self::assertEquals(1, QueryType::CREATE);
         self::assertEquals(2, QueryType::DROP);

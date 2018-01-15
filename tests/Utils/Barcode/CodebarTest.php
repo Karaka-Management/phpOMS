@@ -14,7 +14,6 @@
 
 namespace phpOMS\tests\Utils\Barcode;
 
-
 use phpOMS\Utils\Barcode\Codebar;
 
 class CodebarTest extends \PHPUnit\Framework\TestCase

@@ -14,7 +14,6 @@
 
 namespace phpOMS\tests\Utils\RnG;
 
-
 use phpOMS\Utils\RnG\Name;
 
 class NameTest extends \PHPUnit\Framework\TestCase

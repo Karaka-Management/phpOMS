@@ -229,7 +229,7 @@ abstract class C128Abstract
      * Save to file
      *
      * @param string $file File path/name
-     * 
+     *
      * @return void
      *
      * @since  1.0.0
@@ -246,7 +246,7 @@ abstract class C128Abstract
      * Save to file
      *
      * @param string $file File path/name
-     * 
+     *
      * @return void
      *
      * @since  1.0.0

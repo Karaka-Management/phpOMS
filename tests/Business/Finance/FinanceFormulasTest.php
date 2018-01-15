@@ -16,7 +16,6 @@ namespace phpOMS\tests\Business\Finance;
 
 use phpOMS\Business\Finance\FinanceFormulas;
 
-
 class FinanceFormulasTest extends \PHPUnit\Framework\TestCase
 {
     public function testAnnualPercentageYield()

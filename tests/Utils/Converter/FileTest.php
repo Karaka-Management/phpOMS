@@ -16,7 +16,6 @@ namespace phpOMS\tests\Utils\Converter;
 
 use phpOMS\Utils\Converter\File;
 
-
 class FileTest extends \PHPUnit\Framework\TestCase
 {
     public function testByteSizeToString()

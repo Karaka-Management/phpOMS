@@ -14,7 +14,6 @@
 
 namespace phpOMS\tests\Utils\Barcode;
 
-
 use phpOMS\Utils\Barcode\C39;
 
 class C39Test extends \PHPUnit\Framework\TestCase

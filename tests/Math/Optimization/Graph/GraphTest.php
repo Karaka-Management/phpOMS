@@ -14,7 +14,6 @@
 
 namespace phpOMS\tests\Math\Optimization\Graph;
 
-
 use phpOMS\Math\Optimization\Graph\Graph;
 
 class GraphTest extends \PHPUnit\Framework\TestCase

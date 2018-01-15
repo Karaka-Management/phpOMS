@@ -87,7 +87,7 @@ final class UnhandledHandler
 
     /**
      * Shutdown handler.
-     * 
+     *
      * @return void
      *
      * @since  1.0.0

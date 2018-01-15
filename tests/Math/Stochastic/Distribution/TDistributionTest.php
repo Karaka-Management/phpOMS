@@ -14,7 +14,6 @@
 
 namespace phpOMS\tests\Math\Stochastic\Distribution;
 
-
 use phpOMS\Math\Stochastic\Distribution\TDistribution;
 
 class TDistributionTest extends \PHPUnit\Framework\TestCase

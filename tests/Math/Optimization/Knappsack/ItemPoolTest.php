@@ -14,7 +14,6 @@
 
 namespace phpOMS\tests\Math\Optimization\Knappsack;
 
-
 use phpOMS\Math\Optimization\Knappsack\ItemPool;
 
 class ItemPoolTest extends \PHPUnit\Framework\TestCase

@@ -14,7 +14,6 @@
 
 namespace phpOMS\tests\Utils\RnG;
 
-
 use phpOMS\Utils\RnG\File;
 
 class FileTest extends \PHPUnit\Framework\TestCase

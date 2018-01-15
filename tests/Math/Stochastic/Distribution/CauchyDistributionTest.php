@@ -14,7 +14,6 @@
 
 namespace phpOMS\tests\Math\Stochastic\Distribution;
 
-
 use phpOMS\Math\Stochastic\Distribution\CauchyDistribution;
 
 class CauchyDistributionTest extends \PHPUnit\Framework\TestCase

@@ -14,7 +14,6 @@
 
 namespace phpOMS\tests\Math\Optimization\ShiftScheduling;
 
-
 use phpOMS\Math\Optimization\ShiftScheduling\Workday;
 
 class WorkdayTest extends \PHPUnit\Framework\TestCase

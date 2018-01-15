@@ -14,7 +14,6 @@
 
 namespace phpOMS\tests\Math\Functions;
 
-
 use phpOMS\Math\Functions\Functions;
 
 class FunctionsTest extends \PHPUnit\Framework\TestCase

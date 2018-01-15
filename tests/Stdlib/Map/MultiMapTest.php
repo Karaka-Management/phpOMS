@@ -16,7 +16,6 @@ namespace phpOMS\tests\Utils;
 
 use phpOMS\Stdlib\Map\MultiMap;
 
-
 class MultiMapTest extends \PHPUnit\Framework\TestCase
 {
     public function testAttributes()

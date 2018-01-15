@@ -20,6 +20,6 @@ class BarcodeCodebar extends ValidatorAbstract
 {
     public static function isValid($value, array $constraints = null)
     {
-        
+
     }
 }

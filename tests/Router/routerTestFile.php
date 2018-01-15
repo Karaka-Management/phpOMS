@@ -1,4 +1,4 @@
-<?php 
+<?php
 return [
     "^.*/backend/admin/settings/general.*$" => [
         0 => [

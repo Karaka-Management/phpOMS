@@ -14,7 +14,6 @@
 
 namespace phpOMS\tests\DataStorage\Database;
 
-
 use phpOMS\DataStorage\Database\DatabaseType;
 
 class DatabaseTypeTest extends \PHPUnit\Framework\TestCase

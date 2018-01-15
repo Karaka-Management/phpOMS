@@ -14,7 +14,6 @@
 
 namespace phpOMS\tests\Math\Number;
 
-
 use phpOMS\Math\Number\Numbers;
 
 class NumbersTest extends \PHPUnit\Framework\TestCase

@@ -14,7 +14,6 @@
 
 namespace phpOMS\tests\Business\Finance\Forecasting\ExponentialSmoothing;
 
-
 use phpOMS\Business\Finance\Forecasting\ExponentialSmoothing\TrendType;
 
 class TrendTypeTest extends \PHPUnit\Framework\TestCase
@@ -23,7 +22,7 @@ class TrendTypeTest extends \PHPUnit\Framework\TestCase
     {
         self::assertEquals(4, count(TrendType::getConstants()));
         self::assertEquals(TrendType::getConstants(), array_unique(TrendType::getConstants()));
-        
+
         self::assertEquals(0, TrendType::ALL);
         self::assertEquals(1, TrendType::NONE);
         self::assertEquals(2, TrendType::ADDITIVE);

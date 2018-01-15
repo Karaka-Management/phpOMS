@@ -14,7 +14,6 @@
 
 namespace phpOMS\tests\Message\Http;
 
-
 use phpOMS\Message\Http\BrowserType;
 
 class BrowserTypeTest extends \PHPUnit\Framework\TestCase

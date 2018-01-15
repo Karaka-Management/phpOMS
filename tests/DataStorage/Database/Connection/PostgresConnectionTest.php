@@ -14,7 +14,6 @@
 
 namespace phpOMS\tests\DataStorage\Database\Connection;
 
-
 use phpOMS\DataStorage\Database\Connection\PostgresConnection;
 
 class PostgresConnectionTest extends \PHPUnit\Framework\TestCase

@@ -14,7 +14,6 @@
 
 namespace phpOMS\tests\Math\Geometry\Shape\D3;
 
-
 use phpOMS\Math\Geometry\Shape\D3\Cone;
 
 class ConeTest extends \PHPUnit\Framework\TestCase

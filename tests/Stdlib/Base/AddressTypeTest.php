@@ -14,7 +14,6 @@
 
 namespace phpOMS\tests\Stdlib\Base;
 
-
 use phpOMS\Stdlib\Base\AddressType;
 
 class AddressTypeTest extends \PHPUnit\Framework\TestCase

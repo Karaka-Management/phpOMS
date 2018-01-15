@@ -14,7 +14,6 @@
 
 namespace phpOMS\tests\Stdlib\Base\Exception;
 
-
 use phpOMS\Stdlib\Base\Exception\InvalidEnumValue;
 
 class InvalidEnumValueTest extends \PHPUnit\Framework\TestCase

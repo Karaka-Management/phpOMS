@@ -14,7 +14,6 @@
 
 namespace phpOMS\tests\Math\Geometry\Shape\D3;
 
-
 use phpOMS\Math\Geometry\Shape\D3\Tetrahedron;
 
 class TetrahedronTest extends \PHPUnit\Framework\TestCase

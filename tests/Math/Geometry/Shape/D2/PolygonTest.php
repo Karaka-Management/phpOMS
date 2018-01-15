@@ -14,7 +14,6 @@
 
 namespace phpOMS\tests\Math\Shape\D2;
 
-
 use phpOMS\Math\Geometry\Shape\D2\Polygon;
 
 class PolygonTest extends \PHPUnit\Framework\TestCase
@@ -22,12 +21,12 @@ class PolygonTest extends \PHPUnit\Framework\TestCase
     public function testPoint()
     {
         $polygon = new Polygon([
-            ['x' => 1, 'y' => 1], 
-            ['x' => 1, 'y' => 2], 
-            ['x' => 2, 'y' => 2], 
-            ['x' => 2, 'y' => 1], 
+            ['x' => 1, 'y' => 1],
+            ['x' => 1, 'y' => 2],
+            ['x' => 2, 'y' => 2],
+            ['x' => 2, 'y' => 1],
         ]);
-        
+
         self::assertEquals(-1, $polygon->pointInPolygon(['x' => 1.5, 'y' => 1.5]));
         self::assertEquals(1, $polygon->pointInPolygon(['x' => 4.9, 'y' => 1.2]));
         self::assertEquals(-1, $polygon->pointInPolygon(['x' => 1.8, 'y' => 1.1]));
@@ -56,16 +55,16 @@ class PolygonTest extends \PHPUnit\Framework\TestCase
         self::assertEquals(360, $polygon->getExteriorAngleSum());
     }
 
-    public function testPerimeter() 
+    public function testPerimeter()
     {
         $polygon = new Polygon([
-            ['x' => 2, 'y' => 1], 
-            ['x' => 2, 'y' => 2], 
-            ['x' => 3, 'y' => 3], 
-            ['x' => 4, 'y' => 3], 
-            ['x' => 5, 'y' => 2], 
-            ['x' => 5, 'y' => 1], 
-            ['x' => 4, 'y' => 0], 
+            ['x' => 2, 'y' => 1],
+            ['x' => 2, 'y' => 2],
+            ['x' => 3, 'y' => 3],
+            ['x' => 4, 'y' => 3],
+            ['x' => 5, 'y' => 2],
+            ['x' => 5, 'y' => 1],
+            ['x' => 4, 'y' => 0],
             ['x' => 3, 'y' => 0],
         ]);
         self::assertEquals(9.6568, $polygon->getPerimeter(), '', 0.1);
@@ -74,13 +73,13 @@ class PolygonTest extends \PHPUnit\Framework\TestCase
     public function testArea()
     {
         $polygon = new Polygon([
-            ['x' => 2, 'y' => 1], 
-            ['x' => 2, 'y' => 2], 
-            ['x' => 3, 'y' => 3], 
-            ['x' => 4, 'y' => 3], 
-            ['x' => 5, 'y' => 2], 
-            ['x' => 5, 'y' => 1], 
-            ['x' => 4, 'y' => 0], 
+            ['x' => 2, 'y' => 1],
+            ['x' => 2, 'y' => 2],
+            ['x' => 3, 'y' => 3],
+            ['x' => 4, 'y' => 3],
+            ['x' => 5, 'y' => 2],
+            ['x' => 5, 'y' => 1],
+            ['x' => 4, 'y' => 0],
             ['x' => 3, 'y' => 0],
         ]);
         self::assertEquals(7, $polygon->getSurface());
@@ -89,13 +88,13 @@ class PolygonTest extends \PHPUnit\Framework\TestCase
     public function testBarycenter()
     {
         $polygon = new Polygon([
-            ['x' => 2, 'y' => 1], 
-            ['x' => 2, 'y' => 2], 
-            ['x' => 3, 'y' => 3], 
-            ['x' => 4, 'y' => 3], 
-            ['x' => 5, 'y' => 2], 
-            ['x' => 5, 'y' => 1], 
-            ['x' => 4, 'y' => 0], 
+            ['x' => 2, 'y' => 1],
+            ['x' => 2, 'y' => 2],
+            ['x' => 3, 'y' => 3],
+            ['x' => 4, 'y' => 3],
+            ['x' => 5, 'y' => 2],
+            ['x' => 5, 'y' => 1],
+            ['x' => 4, 'y' => 0],
             ['x' => 3, 'y' => 0],
         ]);
         self::assertEquals(['x' => 3.5, 'y' => 1.5], $polygon->getBarycenter(), '', 0.5);

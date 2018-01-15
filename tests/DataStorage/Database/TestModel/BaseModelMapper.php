@@ -13,7 +13,6 @@
 declare(strict_types = 1);
 namespace phpOMS\tests\DataStorage\Database\TestModel;
 
-
 use phpOMS\DataStorage\Database\DataMapperAbstract;
 use phpOMS\DataStorage\Database\Query\Builder;
 use phpOMS\DataStorage\Database\Query\Column;
@@ -63,7 +62,7 @@ class BaseModelMapper extends DataMapperAbstract
             'dst'            => 'test_has_many_direct_to',
             'src'            => null,
         ],
-        'hasManyRelations' => [ 
+        'hasManyRelations' => [
             'mapper'         => ManyToManyRelModelMapper::class,
             'table'          => 'test_has_many_rel_relations',
             'dst'            => 'test_has_many_rel_relations_dest',

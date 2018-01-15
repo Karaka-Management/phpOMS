@@ -16,7 +16,6 @@ namespace phpOMS\tests\Stdlib\Base;
 
 use phpOMS\Stdlib\Base\Enum;
 
-
 final class EnumDemo extends Enum
 {
     const ENUM1 = 1;

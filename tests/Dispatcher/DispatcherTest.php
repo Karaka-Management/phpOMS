@@ -51,8 +51,8 @@ class DispatcherTest extends \PHPUnit\Framework\TestCase
         self::assertTrue(
             !empty(
                 $this->app->dispatcher->dispatch(
-                    function($req, $resp, $data = null) { return true; }, 
-                    new Request(new Http(''), $localization), 
+                    function($req, $resp, $data = null) { return true; },
+                    new Request(new Http(''), $localization),
                     new Response($localization)
                 )
             )
@@ -67,8 +67,8 @@ class DispatcherTest extends \PHPUnit\Framework\TestCase
         self::assertTrue(
             !empty(
                 $this->app->dispatcher->dispatch(
-                    'phpOMS\tests\Dispatcher\TestController:testFunction', 
-                    new Request(new Http(''), $localization), 
+                    'phpOMS\tests\Dispatcher\TestController:testFunction',
+                    new Request(new Http(''), $localization),
                     new Response($localization)
                 )
             )
@@ -83,8 +83,8 @@ class DispatcherTest extends \PHPUnit\Framework\TestCase
         self::assertTrue(
             !empty(
                 $this->app->dispatcher->dispatch(
-                    'phpOMS\tests\Dispatcher\TestController::testFunctionStatic', 
-                    new Request(new Http(''), $localization), 
+                    'phpOMS\tests\Dispatcher\TestController::testFunctionStatic',
+                    new Request(new Http(''), $localization),
                     new Response($localization)
                 )
             )
@@ -102,9 +102,9 @@ class DispatcherTest extends \PHPUnit\Framework\TestCase
                     [
                         function($req, $resp, $data = null) { return true; },
                         'phpOMS\tests\Dispatcher\TestController:testFunction',
-                        'phpOMS\tests\Dispatcher\TestController::testFunctionStatic', 
-                    ], 
-                    new Request(new Http(''), $localization), 
+                        'phpOMS\tests\Dispatcher\TestController::testFunctionStatic',
+                    ],
+                    new Request(new Http(''), $localization),
                     new Response($localization)
                 )
             )

@@ -14,7 +14,6 @@
 
 namespace phpOMS\tests\Math\Differential;
 
-
 use phpOMS\Math\Differential\FiniteDifference;
 
 class FiniteDifferenceTest extends \PHPUnit\Framework\TestCase

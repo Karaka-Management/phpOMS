@@ -14,7 +14,6 @@
 
 namespace phpOMS\tests\DataStorage\Session;
 
-
 use phpOMS\DataStorage\Session\SocketSession;
 
 class SocketSessionTest extends \PHPUnit\Framework\TestCase

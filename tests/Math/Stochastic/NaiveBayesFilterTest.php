@@ -13,7 +13,6 @@
 
 namespace phpOMS\tests\Math\Stochastic;
 
-
 use phpOMS\Math\Stochastic\NaiveBayesFilter;
 
 class NaiveBayesFilterTest extends \PHPUnit\Framework\TestCase

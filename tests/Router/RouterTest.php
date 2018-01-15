@@ -46,33 +46,33 @@ class RouterTest extends \PHPUnit\Framework\TestCase
         self::assertTrue($router->importFromFile(__Dir__ . '/routerTestFile.php'));
 
         self::assertEquals(
-            [['dest' => '\Modules\Admin\Controller:viewSettingsGeneral']], 
+            [['dest' => '\Modules\Admin\Controller:viewSettingsGeneral']],
             $router->route('http://test.com/backend/admin/settings/general/something?test')
         );
 
         self::assertNotEquals(
-            [['dest' => '\Modules\Admin\Controller:viewSettingsGeneral']], 
+            [['dest' => '\Modules\Admin\Controller:viewSettingsGeneral']],
             $router->route('http://test.com/backend/admin/settings/general/something?test', RouteVerb::PUT)
         );
 
         self::assertNotEquals(
-            [['dest' => '\Modules\Admin\Controller:viewSettingsGeneral']], 
+            [['dest' => '\Modules\Admin\Controller:viewSettingsGeneral']],
             $router->route('http://test.com/backends/admin/settings/general/something?test')
         );
 
         $router->add('^.*/backends/admin/settings/general.*$', 'Controller:test', RouteVerb::GET | RouteVerb::SET);
         self::assertEquals(
-            [['dest' => 'Controller:test']], 
+            [['dest' => 'Controller:test']],
             $router->route('http://test.com/backends/admin/settings/general/something?test', RouteVerb::ANY)
         );
 
         self::assertEquals(
-            [['dest' => 'Controller:test']], 
+            [['dest' => 'Controller:test']],
             $router->route('http://test.com/backends/admin/settings/general/something?test', RouteVerb::SET)
         );
 
         self::assertEquals(
-            [['dest' => 'Controller:test']], 
+            [['dest' => 'Controller:test']],
             $router->route('http://test.com/backends/admin/settings/general/something?test', RouteVerb::GET)
         );
     }

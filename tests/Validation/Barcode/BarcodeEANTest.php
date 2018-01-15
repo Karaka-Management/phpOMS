@@ -14,7 +14,6 @@
 
 namespace phpOMS\tests\Validation\Barcode;
 
-
 use phpOMS\Validation\Barcode\BarcodeEAN;
 
 class BarcodeEANTest extends \PHPUnit\Framework\TestCase

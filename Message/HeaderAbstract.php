@@ -33,7 +33,7 @@ abstract class HeaderAbstract
      * @since 1.0.0
      */
     protected static $isLocked = false;
-    
+
     /**
      * Localization.
      *
@@ -41,7 +41,7 @@ abstract class HeaderAbstract
      * @since 1.0.0
      */
     protected $l11n = null;
-    
+
     /**
      * Account.
      *
@@ -49,7 +49,7 @@ abstract class HeaderAbstract
      * @since 1.0.0
      */
     protected $account = 0;
-    
+
     /**
      * Response status.
      *
@@ -67,7 +67,7 @@ abstract class HeaderAbstract
     {
         $this->l11n = new Localization();
     }
-    
+
     /**
      * Set header locked.
      *
@@ -78,7 +78,7 @@ abstract class HeaderAbstract
         // todo: maybe pass session as member and make lock not static
         self::$isLocked = true;
     }
-    
+
     /**
      * Is header locked?
      *
@@ -107,7 +107,7 @@ abstract class HeaderAbstract
      * Set localization
      *
      * @param Localization $l11n Localization
-     * 
+     *
      * @return void
      *
      * @since  1.0.0
@@ -133,7 +133,7 @@ abstract class HeaderAbstract
      * Set account id
      *
      * @param int $account Account id
-     * 
+     *
      * @return void
      *
      * @since  1.0.0
@@ -142,12 +142,12 @@ abstract class HeaderAbstract
     {
         $this->account = $account;
     }
-    
+
     /**
      * Set status code
      *
      * @param int $status Status code
-     * 
+     *
      * @return void
      *
      * @since  1.0.0

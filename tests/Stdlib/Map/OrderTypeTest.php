@@ -14,7 +14,6 @@
 
 namespace phpOMS\tests\Stdlib\Map;
 
-
 use phpOMS\Stdlib\Map\OrderType;
 
 class OrderTypeTest extends \PHPUnit\Framework\TestCase

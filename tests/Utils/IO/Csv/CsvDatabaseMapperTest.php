@@ -14,7 +14,6 @@
 
 namespace phpOMS\tests\Utils\IO\Csv;
 
-
 use phpOMS\Utils\IO\Csv\CsvDatabaseMapper;
 
 class CsvDatabaseMapperTest extends \PHPUnit\Framework\TestCase

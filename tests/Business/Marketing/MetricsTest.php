@@ -13,7 +13,6 @@
 
 namespace phpOMS\tests\Business\Marketing;
 
-
 use phpOMS\Business\Marketing\Metrics;
 
 class MetricsTest extends \PHPUnit\Framework\TestCase

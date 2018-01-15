@@ -14,7 +14,6 @@
 
 namespace phpOMS\tests\Utils\Git;
 
-
 use phpOMS\Utils\Git\Git;
 
 class GitTest extends \PHPUnit\Framework\TestCase

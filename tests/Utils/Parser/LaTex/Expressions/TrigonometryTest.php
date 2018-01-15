@@ -14,7 +14,6 @@
 
 namespace phpOMS\tests\Utils\Parser\LaTex\Expressions;
 
-
 use phpOMS\Utils\Parser\LaTex\Expressions\Trigonometry;
 
 class TrigonometryTest extends \PHPUnit\Framework\TestCase

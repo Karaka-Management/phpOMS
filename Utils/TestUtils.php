@@ -38,26 +38,26 @@ class TestUtils
     public static function setMember(/* object */ $obj, string $name, $value) : bool
     {
         $reflectionClass = new \ReflectionClass(is_string($obj) ? $obj : get_class($obj));
-        
+
         if (!$reflectionClass->hasProperty($name)) {
             return false;
         }
-        
+
         $reflectionProperty = $reflectionClass->getProperty($name);
-        
+
         if (!($accessible = $reflectionProperty->isPublic())) {
             $reflectionProperty->setAccessible(true);
         }
-        
+
         $reflectionProperty->setValue($obj, $value);
-        
+
         if (!$accessible) {
             $reflectionProperty->setAccessible(false);
         }
-        
+
         return true;
     }
-    
+
     /**
      * Get private object member
      *
@@ -68,26 +68,26 @@ class TestUtils
      *
      * @since  1.0.0
      */
-    public static function getMember($obj, string $name) 
+    public static function getMember($obj, string $name)
     {
         $reflectionClass = new \ReflectionClass(is_string($obj) ? $obj : get_class($obj));
-        
+
         if (!$reflectionClass->hasProperty($name)) {
             return null;
         }
-        
+
         $reflectionProperty = $reflectionClass->getProperty($name);
-        
+
         if (!($accessible = $reflectionProperty->isPublic())) {
             $reflectionProperty->setAccessible(true);
         }
-        
+
         $value = $reflectionProperty->getValue($obj);
-        
+
         if (!$accessible) {
             $reflectionProperty->setAccessible(false);
         }
-        
+
         return $value;
     }
 }

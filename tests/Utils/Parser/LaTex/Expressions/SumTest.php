@@ -14,7 +14,6 @@
 
 namespace phpOMS\tests\Utils\Parser\LaTex\Expressions;
 
-
 use phpOMS\Utils\Parser\LaTex\Expressions\Sum;
 
 class SumTest extends \PHPUnit\Framework\TestCase

@@ -14,7 +14,6 @@
 
 namespace phpOMS\tests\Validation\Finance;
 
-
 use phpOMS\Validation\Finance\IbanEnum;
 
 class IbanEnumTest extends \PHPUnit\Framework\TestCase

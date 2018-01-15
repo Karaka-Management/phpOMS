@@ -14,7 +14,6 @@
 
 namespace phpOMS\tests\Utils\TaskSchedule;
 
-
 use phpOMS\Utils\TaskSchedule\CronJob;
 
 class CronJobTest extends \PHPUnit\Framework\TestCase

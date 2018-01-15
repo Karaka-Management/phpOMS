@@ -14,7 +14,6 @@
 
 namespace phpOMS\tests\DataStorage\Cache;
 
-
 use phpOMS\DataStorage\Cache\CacheFactory;
 
 class CacheFactoryTest extends \PHPUnit\Framework\TestCase
@@ -22,7 +21,7 @@ class CacheFactoryTest extends \PHPUnit\Framework\TestCase
     public function testCreate()
     {
         self::assertInstanceOf(
-            \phpOMS\DataStorage\Cache\FileCache::class, 
+            \phpOMS\DataStorage\Cache\FileCache::class,
             CacheFactory::create(['type' => 'file', 'path' => 'Cache'])
         );
     }

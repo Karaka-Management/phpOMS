@@ -14,7 +14,6 @@
 
 namespace phpOMS\tests\Math\Numerics\Interpolation;
 
-
 use phpOMS\Math\Numerics\Interpolation\PolynomialInterpolation;
 
 class PolynomialInterpolationTest extends \PHPUnit\Framework\TestCase

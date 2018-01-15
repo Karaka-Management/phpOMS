@@ -14,7 +14,6 @@
 
 namespace phpOMS\tests\Math\Optimization\Graph;
 
-
 use phpOMS\Math\Optimization\Graph\Dijkstra;
 
 class DijkstraTest extends \PHPUnit\Framework\TestCase

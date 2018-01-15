@@ -14,7 +14,6 @@
 
 namespace phpOMS\tests\Utils\Converter;
 
-
 use phpOMS\Utils\Converter\FileSizeType;
 
 class FileSizeTypeTest extends \PHPUnit\Framework\TestCase

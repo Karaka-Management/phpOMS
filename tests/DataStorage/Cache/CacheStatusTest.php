@@ -14,7 +14,6 @@
 
 namespace phpOMS\tests\DataStorage\Cache;
 
-
 use phpOMS\DataStorage\Cache\CacheStatus;
 
 class CacheStatusTest extends \PHPUnit\Framework\TestCase

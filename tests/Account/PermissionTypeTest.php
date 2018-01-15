@@ -23,7 +23,7 @@ class PermissionTypeTest extends \PHPUnit\Framework\TestCase
     {
         self::assertEquals(6, count(PermissionType::getConstants()));
         self::assertEquals(PermissionType::getConstants(), array_unique(PermissionType::getConstants()));
-        
+
         self::assertEquals(1, PermissionType::NONE);
         self::assertEquals(2, PermissionType::READ);
         self::assertEquals(4, PermissionType::CREATE);

@@ -14,7 +14,6 @@
 
 namespace phpOMS\tests\Utils\RnG;
 
-
 use phpOMS\Utils\RnG\DistributionType;
 
 class DistributionTypeTest extends \PHPUnit\Framework\TestCase
@@ -23,7 +22,7 @@ class DistributionTypeTest extends \PHPUnit\Framework\TestCase
     {
         self::assertEquals(2, count(DistributionType::getConstants()));
         self::assertEquals(DistributionType::getConstants(), array_unique(DistributionType::getConstants()));
-        
+
         self::assertEquals(0, DistributionType::UNIFORM);
         self::assertEquals(1, DistributionType::NORMAL);
     }

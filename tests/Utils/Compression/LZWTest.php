@@ -16,7 +16,6 @@ namespace phpOMS\tests\Utils\Compression;
 
 use phpOMS\Utils\Compression\LZW;
 
-
 class LZWTest extends \PHPUnit\Framework\TestCase
 {
     public function testLZW()

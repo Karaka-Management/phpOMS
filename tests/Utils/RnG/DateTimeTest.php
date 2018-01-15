@@ -14,7 +14,6 @@
 
 namespace phpOMS\tests\Utils\RnG;
 
-
 use phpOMS\Utils\RnG\DateTime;
 
 class DateTimeTest extends \PHPUnit\Framework\TestCase

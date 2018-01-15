@@ -15,7 +15,6 @@ namespace phpOMS\tests\Business\Sales;
 
 use phpOMS\Business\Sales\MarketShareEstimation;
 
-
 class MarketShareEstimationTest extends \PHPUnit\Framework\TestCase
 {
     public function testZipfRank()

@@ -14,7 +14,6 @@
 
 namespace phpOMS\tests\Utils\IO\Json;
 
-
 use phpOMS\Utils\IO\Json\InvalidJsonException;
 
 class InvalidJsonExceptionTest extends \PHPUnit\Framework\TestCase

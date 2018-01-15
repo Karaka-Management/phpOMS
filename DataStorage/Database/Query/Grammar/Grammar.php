@@ -118,7 +118,7 @@ class Grammar extends GrammarAbstract
         }
 
         $components = $this->getComponents($query->getType());
-        
+
         /* Loop all possible query components and if they exist compile them. */
         foreach ($components as $component) {
             if (isset($query->{$component}) && !empty($query->{$component})) {
@@ -192,7 +192,7 @@ class Grammar extends GrammarAbstract
     protected function compileUpdates(Builder $query, array $table) : string
     {
         $expression = $this->expressionizeTable($table, $query->getPrefix());
-        
+
         if ($expression === '') {
             return '';
         }

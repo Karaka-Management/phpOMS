@@ -14,7 +14,6 @@
 
 namespace phpOMS\tests\Message\Http;
 
-
 use phpOMS\Message\Http\OSType;
 
 class OSTypeTest extends \PHPUnit\Framework\TestCase

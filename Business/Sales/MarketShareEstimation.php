@@ -16,8 +16,8 @@ namespace phpOMS\Business\Sales;
 
 /**
  * Market share calculations (Zipf function)
- * 
- * This class can be used to calculate the market share based on a rank or vice versa 
+ *
+ * This class can be used to calculate the market share based on a rank or vice versa
  * the rank based on a marketshare in a Zipf distributed market.
  *
  * @package    phpOMS\Business\Sales
@@ -45,10 +45,10 @@ class MarketShareEstimation {
         for ($i = 0; $i < $participants; $i++) {
             $sum += 1 / pow($i + 1, $modifier);
         }
-    
+
         return (int) round(pow(1 / ($marketShare * $sum), 1 / $modifier));
     }
-    
+
     /**
      * Calculate market share (m) based on rank (r)
      *
@@ -68,7 +68,7 @@ class MarketShareEstimation {
         for ($i = 0; $i < $participants; $i++) {
             $sum += 1 / pow($i + 1, $modifier);
         }
-        
+
         return (1 / pow($rank, $modifier)) / $sum;
     }
 }

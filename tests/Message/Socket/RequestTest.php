@@ -14,7 +14,6 @@
 
 namespace phpOMS\tests\Message\Socket;
 
-
 use phpOMS\Message\Socket\Request;
 
 class RequestTest extends \PHPUnit\Framework\TestCase

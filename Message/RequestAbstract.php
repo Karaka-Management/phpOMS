@@ -201,7 +201,7 @@ abstract class RequestAbstract implements MessageInterface
      * Get data.
      *
      * @param mixed $key Data key
-     * 
+     *
      * @return mixed
      *
      * @since  1.0.0
@@ -221,7 +221,7 @@ abstract class RequestAbstract implements MessageInterface
      * Check if has data.
      *
      * @param mixed $key Data key
-     * 
+     *
      * @return bool
      *
      * @since  1.0.0

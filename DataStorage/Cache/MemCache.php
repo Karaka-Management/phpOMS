@@ -40,7 +40,7 @@ class MemCache implements CacheInterface
      * @since 1.0.0
      */
     private $threshold = 10;
-    
+
     private $status;
 
     /**

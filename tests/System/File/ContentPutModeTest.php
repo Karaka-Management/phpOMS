@@ -14,7 +14,6 @@
 
 namespace phpOMS\tests\System\File;
 
-
 use phpOMS\System\File\ContentPutMode;
 
 class ContentPutModeTest extends \PHPUnit\Framework\TestCase

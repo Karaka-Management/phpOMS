@@ -14,7 +14,6 @@
 
 namespace phpOMS\tests\Message\Http;
 
-
 use phpOMS\Message\Http\RequestMethod;
 
 class RequestMethodTest extends \PHPUnit\Framework\TestCase
@@ -23,7 +22,7 @@ class RequestMethodTest extends \PHPUnit\Framework\TestCase
     {
         self::assertEquals(6, count(RequestMethod::getConstants()));
         self::assertEquals(RequestMethod::getConstants(), array_unique(RequestMethod::getConstants()));
-        
+
         self::assertEquals('GET', RequestMethod::GET);
         self::assertEquals('POST', RequestMethod::POST);
         self::assertEquals('PUT', RequestMethod::PUT);

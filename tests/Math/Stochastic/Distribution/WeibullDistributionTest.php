@@ -14,7 +14,6 @@
 
 namespace phpOMS\tests\Math\Stochastic\Distribution;
 
-
 use phpOMS\Math\Stochastic\Distribution\WeibullDistribution;
 
 class WeibullDistributionTest extends \PHPUnit\Framework\TestCase

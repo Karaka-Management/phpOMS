@@ -14,7 +14,6 @@
 
 namespace phpOMS\tests\System\File\Local;
 
-
 use phpOMS\System\File\Local\LocalStorage;
 use phpOMS\System\File\ContentPutMode;
 use phpOMS\System\File\PathException;
@@ -31,7 +30,7 @@ class LocalStorageTest extends \PHPUnit\Framework\TestCase
 
         self::assertFalse(LocalStorage::put($testFile, 'test', ContentPutMode::CREATE));
         self::assertTrue(LocalStorage::put($testFile, 'test2', ContentPutMode::REPLACE));
-        
+
         self::assertEquals('test2', LocalStorage::get($testFile));
         self::assertTrue(LocalStorage::set($testFile, 'test3'));
         self::assertTrue(LocalStorage::append($testFile, 'test4'));
@@ -115,13 +114,13 @@ class LocalStorageTest extends \PHPUnit\Framework\TestCase
         $dirTestPath = __DIR__ . '/dirtest';
         self::assertTrue(LocalStorage::copy($dirTestPath, __DIR__ . '/newdirtest'));
         self::assertTrue(file_exists(__DIR__ . '/newdirtest/sub/path/test3.txt'));
-        
+
         self::assertTrue(LocalStorage::delete($dirTestPath));
         self::assertFalse(LocalStorage::exists($dirTestPath));
-        
+
         self::assertTrue(LocalStorage::move(__DIR__ . '/newdirtest', $dirTestPath));
         self::assertTrue(file_exists($dirTestPath . '/sub/path/test3.txt'));
-        
+
         self::assertEquals(4, LocalStorage::count($dirTestPath));
         self::assertEquals(1, LocalStorage::count($dirTestPath, false));
 
@@ -135,7 +134,7 @@ class LocalStorageTest extends \PHPUnit\Framework\TestCase
     {
         LocalStorage::put(__DIR__, 'Test');
     }
-    
+
     /**
      * @expectedException \phpOMS\System\File\PathException
      */
@@ -143,7 +142,7 @@ class LocalStorageTest extends \PHPUnit\Framework\TestCase
     {
         LocalStorage::get(__DIR__);
     }
-    
+
     /**
      * @expectedException \phpOMS\System\File\PathException
      */
@@ -151,7 +150,7 @@ class LocalStorageTest extends \PHPUnit\Framework\TestCase
     {
         LocalStorage::list(__DIR__ . '/LocalStorageTest.php');
     }
-    
+
     /**
      * @expectedException \phpOMS\System\File\PathException
      */
@@ -159,7 +158,7 @@ class LocalStorageTest extends \PHPUnit\Framework\TestCase
     {
         LocalStorage::set(__DIR__, 'Test');
     }
-    
+
     /**
      * @expectedException \phpOMS\System\File\PathException
      */
@@ -167,7 +166,7 @@ class LocalStorageTest extends \PHPUnit\Framework\TestCase
     {
         LocalStorage::append(__DIR__, 'Test');
     }
-    
+
     /**
      * @expectedException \phpOMS\System\File\PathException
      */
@@ -175,7 +174,7 @@ class LocalStorageTest extends \PHPUnit\Framework\TestCase
     {
         LocalStorage::prepend(__DIR__, 'Test');
     }
-    
+
     /**
      * @expectedException \phpOMS\System\File\PathException
      */

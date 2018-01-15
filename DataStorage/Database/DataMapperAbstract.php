@@ -180,7 +180,7 @@ class DataMapperAbstract implements DataMapperInterface
 
     /**
      * Clone.
-     * 
+     *
      * @return void
      *
      * @since  1.0.0
@@ -194,7 +194,7 @@ class DataMapperAbstract implements DataMapperInterface
      * Set database connection.
      *
      * @param ConnectionAbstract $con Database connection
-     * 
+     *
      * @return void
      *
      * @since  1.0.0
@@ -499,7 +499,7 @@ class DataMapperAbstract implements DataMapperInterface
      *
      * @since  1.0.0
      */
-    private static function getObjectId($obj, \ReflectionClass $reflectionClass = null) 
+    private static function getObjectId($obj, \ReflectionClass $reflectionClass = null)
     {
         $reflectionClass    = $reflectionClass ?? new \ReflectionClass($obj);
         $reflectionProperty = $reflectionClass->getProperty(static::$columns[static::$primaryField]['internal']);
@@ -918,8 +918,8 @@ class DataMapperAbstract implements DataMapperInterface
                     $objsIds[$propertyName][$key] = $value;
 
                     continue;
-                } 
-                
+                }
+
                 if (!isset($relReflectionClass)) {
                     $relReflectionClass = new \ReflectionClass($value);
                 }
@@ -1168,7 +1168,7 @@ class DataMapperAbstract implements DataMapperInterface
         if ($relations === RelationType::ALL) {
             self::updateHasMany($reflectionClass, $obj, $objId);
         }
-        
+
         if ($update) {
             self::updateModel($obj, $objId, $reflectionClass);
         }
@@ -1220,8 +1220,8 @@ class DataMapperAbstract implements DataMapperInterface
                     $objsIds[$key] = $value;
 
                     continue;
-                } 
-                
+                }
+
                 if (!isset($relReflectionClass)) {
                     $relReflectionClass = new \ReflectionClass($value);
                 }
@@ -1240,7 +1240,7 @@ class DataMapperAbstract implements DataMapperInterface
                 }
 
                 // todo: could be a problem, relation needs to be removed first?!
-                
+
             }
 
             self::deleteRelationTable($propertyName, $objsIds, $objId);
@@ -1332,7 +1332,7 @@ class DataMapperAbstract implements DataMapperInterface
 
                 // todo: the order of deletion could be a problem. maybe looping through ownsOne and belongsTo first is better.
                 // todo: support other relation types as well (belongsto, ownsone) = for better control
-                
+
                 foreach (static::$columns as $key => $column) {
                     if ($relations === RelationType::ALL && isset(static::$ownsOne[$propertyName]) && $column['internal'] === $propertyName) {
                         self::deleteOwnsOne($propertyName, $property->getValue($obj));
@@ -1378,7 +1378,7 @@ class DataMapperAbstract implements DataMapperInterface
         if ($relations !== RelationType::NONE) {
             self::deleteHasMany($reflectionClass, $obj, $objId, $relations);
         }
-        
+
         self::deleteModel($obj, $objId, $relations, $reflectionClass);
 
         return $objId;
@@ -1467,7 +1467,7 @@ class DataMapperAbstract implements DataMapperInterface
      * @param array[] $result Result set
      * @param mixed   $obj    Object to add the relations to
      * @param int     $depth  Relation depth
-     * 
+     *
      * @return void
      *
      * @since  1.0.0
@@ -1526,7 +1526,7 @@ class DataMapperAbstract implements DataMapperInterface
      *
      * @param mixed $obj Object to add the relations to
      * @param int     $depth  Relation depth
-     * 
+     *
      * @return void
      *
      * @todo   accept reflection class as parameter
@@ -1549,11 +1549,11 @@ class DataMapperAbstract implements DataMapperInterface
                 /** @var string $mapper */
                 $mapper = static::$hasOne[$member]['mapper'];
                 $id = $reflectionProperty->getValue($obj);
-                
+
                 if (self::isNullObject($id)) {
                     continue;
                 }
-                
+
                 $id = is_object($id) ? self::getObjectId($id) : $id;
                 $value = self::getInitialized($mapper, $id) ?? $mapper::get($id, RelationType::ALL, null, $depth);
 
@@ -1658,7 +1658,7 @@ class DataMapperAbstract implements DataMapperInterface
      *
      * @param mixed $obj Object to add the relations to
      * @param int     $depth  Relation depth
-     * 
+     *
      * @return void
      *
      * @todo   accept reflection class as parameter
@@ -1736,7 +1736,7 @@ class DataMapperAbstract implements DataMapperInterface
         $reflectionClass = new \ReflectionClass($obj);
 
         foreach ($result as $column => $value) {
-            if (!isset(static::$columns[$column]['internal']) /* && $reflectionClass->hasProperty(static::$columns[$column]['internal']) */) { 
+            if (!isset(static::$columns[$column]['internal']) /* && $reflectionClass->hasProperty(static::$columns[$column]['internal']) */) {
                 continue;
             }
 
@@ -1815,7 +1815,7 @@ class DataMapperAbstract implements DataMapperInterface
      * @param int $depth Relation depth
      *
      * @return mixed
-     * 
+     *
      * @todo: implement language
      *
      * @since  1.0.0
@@ -2578,7 +2578,7 @@ class DataMapperAbstract implements DataMapperInterface
      *
      * @since  1.0.0
      */
-    private static function getInitialized(string $mapper, $id) 
+    private static function getInitialized(string $mapper, $id)
     {
         return self::$initObjects[$mapper][$id] ?? null;
     }
@@ -2631,7 +2631,7 @@ class DataMapperAbstract implements DataMapperInterface
 
         $sth = self::$db->con->prepare($query->toSql());
         $sth->execute();
-    
+
         $results = $sth->fetchAll(\PDO::FETCH_ASSOC);
 
         return count($results) === 0;
@@ -2643,7 +2643,7 @@ class DataMapperAbstract implements DataMapperInterface
      * @param string $name member name
      *
      * @return string
-     * 
+     *
      * @throws \Exception Throws this exception if the member couldn't be found
      *
      * @since  1.0.0
@@ -2665,7 +2665,7 @@ class DataMapperAbstract implements DataMapperInterface
      * @param object $obj Object to check
      *
      * @return bool
-     * 
+     *
      * @since  1.0.0
      */
     private static function isNullObject($obj) : bool

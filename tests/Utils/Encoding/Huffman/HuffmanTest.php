@@ -14,7 +14,6 @@
 
 namespace phpOMS\tests\Utils\Encoding\Huffman;
 
-
 use phpOMS\Utils\Encoding\Huffman\Huffman;
 use phpOMS\Utils\Encoding\Huffman\Dictionary;
 
@@ -33,7 +32,7 @@ class HuffmanTest extends \PHPUnit\Framework\TestCase
 
         $man = new Huffman();
         $man->setDictionary($huff->getDictionary());
-        
+
         self::assertEquals(
             'This is a test message in order to test the encoding and decoding of the Huffman algorithm.',
             $man->decode(hex2bin('a42f5debafd35bee6a940f78f38638fb3f4d6fd13cc672cf01d61bb1ce59e03cdbe89e8e56b5d63aa61387d1ba10'))

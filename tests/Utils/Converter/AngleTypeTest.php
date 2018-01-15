@@ -14,7 +14,6 @@
 
 namespace phpOMS\tests\Utils\Converter;
 
-
 use phpOMS\Utils\Converter\AngleType;
 
 class AngleTypeTest extends \PHPUnit\Framework\TestCase
@@ -23,7 +22,7 @@ class AngleTypeTest extends \PHPUnit\Framework\TestCase
     {
         self::assertEquals(10, count(AngleType::getConstants()));
         self::assertEquals(AngleType::getConstants(), array_unique(AngleType::getConstants()));
-        
+
         self::assertEquals('deg', AngleType::DEGREE);
         self::assertEquals('rad', AngleType::RADIAN);
         self::assertEquals('arcsec', AngleType::SECOND);

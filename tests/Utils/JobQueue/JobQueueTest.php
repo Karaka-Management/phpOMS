@@ -14,7 +14,6 @@
 
 namespace phpOMS\tests\Utils\JobQueue;
 
-
 use phpOMS\Utils\JobQueue\JobQueue;
 
 class JobQueueTest extends \PHPUnit\Framework\TestCase

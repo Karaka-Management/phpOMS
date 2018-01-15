@@ -33,21 +33,21 @@ class Gz implements ArchiveInterface
         if (!$overwrite && file_exists($destination)) {
             return false;
         }
-        
+
         if (($gz = gzopen($destination, 'w')) === false) {
             return false;
         }
-        
+
         $src = fopen($source, 'r');
         while (!feof($src)) {
             gzwrite($gz, fread($src, 4096));
         }
-        
+
         fclose($src);
-        
+
         return gzclose($gz);
     }
-    
+
     /**
      * {@inheritdoc}
      */
@@ -57,18 +57,18 @@ class Gz implements ArchiveInterface
         if (file_exists($destination)) {
             return false;
         }
-        
+
         if (($gz = gzopen($source, 'w')) === false) {
             return false;
         }
-        
+
         $dest = fopen($destination, 'w');
         while (!gzeof($gz)) {
             fwrite($dest, gzread($gz, 4096));
         }
-        
+
         fclose($dest);
-        
+
         return gzclose($gz);
     }
 }

@@ -86,7 +86,7 @@ class L11nManagerTest extends \PHPUnit\Framework\TestCase
         $l11nManager2 = new L11nManager();
         $l11nManager2->loadLanguageFromFile('en', 'Test', __DIR__ . '/langTestFile.php');
         self::assertEquals('value', $l11nManager2->getHtml('en', 'Test', 'RandomThemeDoesNotMatterAlreadyLoaded', 'key'));
-        
+
         self::assertEquals(['Test' => ['key' => 'value']], $l11nManager2->getModuleLanguage('en'));
         self::assertEquals(['key' => 'value'], $l11nManager2->getModuleLanguage('en', 'Test'));
     }

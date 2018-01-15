@@ -72,7 +72,7 @@ class TaskScheduler extends SchedulerAbstract
      *
      * @since  1.0.0
      */
-    private function normalize(string $raw) : string 
+    private function normalize(string $raw) : string
     {
         return str_replace("\r\n", "\n", $raw);
     }
@@ -89,7 +89,7 @@ class TaskScheduler extends SchedulerAbstract
         foreach ($lines as $line) {
             $jobs[] = Schedule::createWith(str_getcsv($line));
         }
-        
+
         return $jobs;
     }
 

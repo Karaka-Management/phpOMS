@@ -13,7 +13,6 @@
 
 namespace phpOMS\tests\DataStorage\Database\Exception;
 
-
 use phpOMS\DataStorage\Database\Exception\InvalidMapperException;
 
 class InvalidMapperExceptionTest extends \PHPUnit\Framework\TestCase

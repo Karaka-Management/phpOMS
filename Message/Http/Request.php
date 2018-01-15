@@ -226,7 +226,7 @@ class Request extends RequestAbstract
     {
         $this->hash = [];
         $pathArray = $this->uri->getPathElements();
-        
+
         foreach ($pathArray as $key => $path) {
             $paths = [];
             for ($i = $start; $i < $key + 1; $i++) {
@@ -285,7 +285,7 @@ class Request extends RequestAbstract
             foreach ($arr as $key => $val) {
                 if (stripos($httpUserAgent, $val)) {
                     $this->browser = $val;
-                    
+
                     return $this->browser;
                 }
             }
@@ -320,11 +320,11 @@ class Request extends RequestAbstract
         if (!isset($this->os)) {
             $arr           = OSType::getConstants();
             $httpUserAgent = strtolower($_SERVER['HTTP_USER_AGENT']);
-            
+
             foreach ($arr as $key => $val) {
                 if (stripos($httpUserAgent, $val)) {
                     $this->os = $val;
-                    
+
                     return $this->os;
                 }
             }

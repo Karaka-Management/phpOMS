@@ -14,7 +14,6 @@
 
 namespace phpOMS\tests\Utils\Converter;
 
-
 use phpOMS\Utils\Converter\VolumeType;
 
 class VolumeTypeTest extends \PHPUnit\Framework\TestCase
@@ -23,7 +22,7 @@ class VolumeTypeTest extends \PHPUnit\Framework\TestCase
     {
         self::assertEquals(38, count(VolumeType::getConstants()));
         self::assertEquals(VolumeType::getConstants(), array_unique(VolumeType::getConstants()));
-        
+
         self::assertEquals('UK gal', VolumeType::UK_GALLON);
         self::assertEquals('US gal lqd', VolumeType::US_GALLON_LIQUID);
         self::assertEquals('US gal dry', VolumeType::US_GALLON_DRY);

@@ -14,7 +14,6 @@
 
 namespace phpOMS\tests\DataStorage\Database\Schema;
 
-
 use phpOMS\DataStorage\Database\Schema\Builder;
 
 class BuilderTest extends \PHPUnit\Framework\TestCase

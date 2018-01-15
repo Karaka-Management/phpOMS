@@ -16,7 +16,6 @@ namespace phpOMS\tests\Stdlib\Base;
 
 use phpOMS\Stdlib\Base\EnumArray;
 
-
 final class EnumArrayDemo extends EnumArray
 {
     protected static $constants = [

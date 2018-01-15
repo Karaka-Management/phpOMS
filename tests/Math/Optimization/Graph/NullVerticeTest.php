@@ -14,7 +14,6 @@
 
 namespace phpOMS\tests\Math\Optimization\Graph;
 
-
 use phpOMS\Math\Optimization\Graph\NullVertice;
 
 class NullVerticeTest extends \PHPUnit\Framework\TestCase

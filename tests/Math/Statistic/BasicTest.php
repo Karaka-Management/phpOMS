@@ -14,7 +14,6 @@
 
 namespace phpOMS\tests\Math\Statistic;
 
-
 use phpOMS\Math\Statistic\Basic;
 
 class BasicTest extends \PHPUnit\Framework\TestCase

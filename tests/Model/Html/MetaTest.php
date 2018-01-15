@@ -14,7 +14,6 @@
 
 namespace phpOMS\tests\Model\Html;
 
-
 use phpOMS\Model\Html\Meta;
 
 class MetaTest extends \PHPUnit\Framework\TestCase

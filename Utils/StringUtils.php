@@ -350,7 +350,7 @@ class StringUtils
      *
      * @param string $value String to analyze.
      *
-     * @return float 
+     * @return float
      *
      * @since  1.0.0
      */
@@ -373,7 +373,7 @@ class StringUtils
      *
      * @param string $input String to count chars.
      *
-     * @return array 
+     * @return array
      *
      * @since  1.0.0
      */

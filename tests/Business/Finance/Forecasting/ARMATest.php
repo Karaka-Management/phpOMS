@@ -14,7 +14,6 @@
 
 namespace phpOMS\tests\Business\Finance\Forecasting;
 
-
 use phpOMS\Business\Finance\Forecasting\ARMA;
 
 class ARMATest extends \PHPUnit\Framework\TestCase

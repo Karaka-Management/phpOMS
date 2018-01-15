@@ -14,7 +14,6 @@
 
 namespace phpOMS\tests\Math\Number;
 
-
 use phpOMS\Math\Number\Complex;
 
 class ComplexTest extends \PHPUnit\Framework\TestCase

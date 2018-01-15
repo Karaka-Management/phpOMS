@@ -147,7 +147,7 @@ class ModuleManager
 
                     $i = 1;
                     $c = count($uriHash);
-                    
+
                     for ($k = 0; $k < $c; $k++) {
                         $uriPdo .= ':pid' . $i . ',';
                         $i++;
@@ -182,7 +182,7 @@ class ModuleManager
 
     /**
      * Get all installed modules that are active (not just on this uri).
-     * 
+     *
      * @param bool $useCache Use Cache or load new
      *
      * @return array
@@ -253,7 +253,7 @@ class ModuleManager
 
     /**
      * Get all installed modules.
-     * 
+     *
      * @param bool $useCache Use Cache
      *
      * @return array

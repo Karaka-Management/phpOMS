@@ -14,7 +14,6 @@
 
 namespace phpOMS\tests\Math\Shape\D2;
 
-
 use phpOMS\Math\Geometry\Shape\D2\Rectangle;
 
 class RectangleTest extends \PHPUnit\Framework\TestCase

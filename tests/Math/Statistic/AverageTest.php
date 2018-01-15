@@ -14,7 +14,6 @@
 
 namespace phpOMS\tests\Math\Statistic;
 
-
 use phpOMS\Math\Statistic\Average;
 
 class AverageTest extends \PHPUnit\Framework\TestCase

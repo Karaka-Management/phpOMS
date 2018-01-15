@@ -14,7 +14,6 @@
 
 namespace phpOMS\tests\Utils\Encoding;
 
-
 use phpOMS\Utils\Encoding\Caesar;
 use phpOMS\Utils\RnG\StringUtils;
 

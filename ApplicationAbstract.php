@@ -155,7 +155,7 @@ class ApplicationAbstract
      *
      * @since  1.0.0
      */
-    public function __set($name, $value) 
+    public function __set($name, $value)
     {
         if (!empty($this->$name)) {
             return;
@@ -175,8 +175,8 @@ class ApplicationAbstract
      *
      * @since  1.0.0
      */
-    public function __get($name) 
-    { 
-        return $this->$name; 
+    public function __get($name)
+    {
+        return $this->$name;
     }
 }

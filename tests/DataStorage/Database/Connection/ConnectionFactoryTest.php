@@ -14,7 +14,6 @@
 
 namespace phpOMS\tests\DataStorage\Database\Connection;
 
-
 use phpOMS\DataStorage\Database\Connection\ConnectionFactory;
 use phpOMS\DataStorage\Database\Connection\MysqlConnection;
 
@@ -23,7 +22,7 @@ class ConnectionFactoryTest extends \PHPUnit\Framework\TestCase
     public function testCreate()
     {
         self::assertInstanceOf(
-            MysqlConnection::class, 
+            MysqlConnection::class,
             ConnectionFactory::create($GLOBALS['CONFIG']['db']['core']['masters']['admin'])
         );
     }

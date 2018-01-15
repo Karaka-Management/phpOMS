@@ -14,7 +14,6 @@
 
 namespace phpOMS\tests\Utils\RnG;
 
-
 use phpOMS\Utils\RnG\LinearCongruentialGenerator;
 
 class LinearCongruentialGeneratorTest extends \PHPUnit\Framework\TestCase

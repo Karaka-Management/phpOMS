@@ -14,7 +14,6 @@
 
 namespace phpOMS\tests\Validation\Finance;
 
-
 use phpOMS\Validation\Finance\CreditCard;
 
 class CreditCardTest extends \PHPUnit\Framework\TestCase

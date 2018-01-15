@@ -14,7 +14,6 @@
 
 namespace phpOMS\tests\DataStorage\Cache;
 
-
 use phpOMS\DataStorage\Cache\NullCache;
 
 class NullCacheTest extends \PHPUnit\Framework\TestCase

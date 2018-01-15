@@ -14,7 +14,6 @@
 
 namespace phpOMS\tests\DataStorage\Session;
 
-
 use phpOMS\DataStorage\Session\ConsoleSession;
 
 class ConsoleSessionTest extends \PHPUnit\Framework\TestCase

@@ -20,6 +20,6 @@ class Barcode25 extends ValidatorAbstract
 {
     public static function isValid($value, array $constraints = null)
     {
-        
+
     }
 }

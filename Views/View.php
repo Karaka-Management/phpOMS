@@ -158,7 +158,7 @@ class View extends ViewAbstract
      * @param string $translation Text
      * @param string $module      Module name
      * @param string $theme       Theme name
-     * 
+     *
      * @return string
      *
      * @throws InvalidModuleException Throws this exception if no data for the defined module could be found.
@@ -201,7 +201,7 @@ class View extends ViewAbstract
      * @param string $translation Text
      * @param string $module      Module name
      * @param string $theme       Theme name
-     * 
+     *
      * @return string
      *
      * @since  1.0.0

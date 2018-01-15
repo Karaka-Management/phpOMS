@@ -27,7 +27,7 @@ class MimeTypeTest extends \PHPUnit\Framework\TestCase
         foreach ($enums as $key => $value) {
             if (stripos($value, '/') === false) {
                 self::assertFalse(true);
-            } 
+            }
         }
 
         self::assertTrue(true);

@@ -14,12 +14,11 @@
 
 namespace phpOMS\tests\Math\Number;
 
-
 use phpOMS\Math\Number\Integer;
 
 class IntegerTest extends \PHPUnit\Framework\TestCase
 {
-    public function testInteger() 
+    public function testInteger()
     {
         self::assertTrue(Integer::isInteger(4));
         self::assertFalse(Integer::isInteger(1.0));

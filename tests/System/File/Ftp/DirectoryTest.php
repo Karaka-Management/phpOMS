@@ -14,7 +14,6 @@
 
 namespace phpOMS\tests\System\File\Ftp;
 
-
 use phpOMS\System\File\Ftp\Directory;
 use phpOMS\System\File\PathException;
 

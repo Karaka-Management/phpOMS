@@ -79,7 +79,7 @@ class Polygon implements D2ShapeInterface
      * @param array $polygon Polygon definition
      *
      * @return int -1 inside polygon 0 on vertice 1 outside
-     * 
+     *
      * @link http://erich.realtimerendering.com/ptinpoly/
      * @since  1.0.0
      */

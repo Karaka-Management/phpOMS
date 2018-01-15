@@ -14,7 +14,6 @@
 
 namespace phpOMS\tests\DataStorage\Cache;
 
-
 use phpOMS\DataStorage\Cache\CacheType;
 
 class CacheTypeTest extends \PHPUnit\Framework\TestCase

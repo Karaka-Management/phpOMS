@@ -23,7 +23,7 @@ use phpOMS\Utils\StringUtils;
 
 /**
  * Package Manager model.
- * 
+ *
  * The package manager is responsible for handling installation and update packages for modules, frameworks and resources.
  *
  * @package    Framework
@@ -67,13 +67,13 @@ class PackageManager
 
     /**
      * Constructor.
-     * 
+     *
      * @param string $path Package source path e.g. path after download.
      * @param string $basePath Path of the application
      *
      * @since  1.0.0
      */
-    public function __construct(string $path, string $basePath) 
+    public function __construct(string $path, string $basePath)
     {
         $this->path = $path;
         $this->basePath = $basePath;
@@ -81,11 +81,11 @@ class PackageManager
 
     /**
      * Extract package to temporary destination
-     * 
+     *
      * @param string $path Temporary extract path
-     * 
+     *
      * @return void
-     * 
+     *
      * @since  1.0.0
      */
     public function extract(string $path) /* : void */
@@ -114,7 +114,7 @@ class PackageManager
 
     /**
      * Validate package integrity
-     * 
+     *
      * @return bool Returns true if the package is authentic, false otherwise
      *
      * @since  1.0.0
@@ -126,7 +126,7 @@ class PackageManager
 
     /**
      * Hash array of files
-     * 
+     *
      * @return string Hash value of files
      *
      * @since  1.0.0
@@ -138,7 +138,7 @@ class PackageManager
 
         foreach ($files as $file) {
             if ($file === 'package.cert') {
-                continue; 
+                continue;
             }
 
             \sodium_crypto_generichash_update($state, file_get_contents($this->extractPath . '/package/' . $file));
@@ -149,7 +149,7 @@ class PackageManager
 
     /**
      * Install package
-     * 
+     *
      * @return void
      *
      * @throws \Exception
@@ -173,7 +173,7 @@ class PackageManager
      * Move files
      *
      * @param mixed $components Component data
-     * 
+     *
      * @return void
      *
      * @since  1.0.0
@@ -189,7 +189,7 @@ class PackageManager
      * Copy files
      *
      * @param mixed $components Component data
-     * 
+     *
      * @return void
      *
      * @since  1.0.0
@@ -209,7 +209,7 @@ class PackageManager
      * Delete files
      *
      * @param mixed $components Component data
-     * 
+     *
      * @return void
      *
      * @since  1.0.0
@@ -225,12 +225,12 @@ class PackageManager
      * Execute commands
      *
      * @param mixed $components Component data
-     * 
+     *
      * @return void
      *
      * @since  1.0.0
      */
-    private function execute($components) 
+    private function execute($components)
     {
         foreach ($components as $component) {
             include $this->basePath . '/' . $component;
@@ -239,12 +239,12 @@ class PackageManager
 
     /**
      * Cleanup after installation
-     * 
+     *
      * @return void
      *
      * @since  1.0.0
      */
-    public function cleanup() 
+    public function cleanup()
     {
         File::delete($this->path);
         Directory::delete($this->extractPath);
@@ -255,7 +255,7 @@ class PackageManager
      *
      * @param string $signedHash Hash to authenticate
      * @param string $rawHash Hash to compare against
-     * 
+     *
      * @return bool
      *
      * @since  1.0.0

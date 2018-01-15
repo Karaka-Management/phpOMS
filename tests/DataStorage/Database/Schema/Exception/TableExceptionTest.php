@@ -14,7 +14,6 @@
 
 namespace phpOMS\tests\DataStorage\Database\Schema\Exception;
 
-
 use phpOMS\DataStorage\Database\Schema\Exception\TableException;
 
 class TableExceptionTest extends \PHPUnit\Framework\TestCase

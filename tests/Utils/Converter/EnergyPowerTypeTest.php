@@ -14,7 +14,6 @@
 
 namespace phpOMS\tests\Utils\Converter;
 
-
 use phpOMS\Utils\Converter\EnergyPowerType;
 
 class EnergyPowerTypeTest extends \PHPUnit\Framework\TestCase
@@ -23,7 +22,7 @@ class EnergyPowerTypeTest extends \PHPUnit\Framework\TestCase
     {
         self::assertEquals(9, count(EnergyPowerType::getConstants()));
         self::assertEquals(EnergyPowerType::getConstants(), array_unique(EnergyPowerType::getConstants()));
-        
+
         self::assertEquals('kWh', EnergyPowerType::KILOWATT_HOUERS);
         self::assertEquals('MWh', EnergyPowerType::MEGAWATT_HOUERS);
         self::assertEquals('kt', EnergyPowerType::KILOTONS);

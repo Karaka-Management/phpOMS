@@ -29,7 +29,7 @@ class QRDecomposition
         $this->QR = $M->toArray();
         $this->m  = $M->getRowDimension();
         $this->n  = $M->getColumnDimension();
-        
+
         // Main loop.
         for ($k = 0; $k < $this->n; ++$k) {
             // Compute 2-norm of k-th column without under/overflow.
@@ -37,17 +37,17 @@ class QRDecomposition
             for ($i = $k; $i < $this->m; ++$i) {
                 $nrm = hypo($nrm, $this->QR[$i][$k]);
             }
-                
+
             if ($nrm != 0.0) {
                 // Form k-th Householder vector.
                 if ($this->QR[$k][$k] < 0) {
                     $nrm = -$nrm;
                 }
-                    
+
                 for ($i = $k; $i < $this->m; ++$i) {
                     $this->QR[$i][$k] /= $nrm;
                 }
-                    
+
                 $this->QR[$k][$k] += 1.0;
                 // Apply transformation to remaining columns.
                 for ($j = $k + 1; $j < $this->n; ++$j) {
@@ -55,14 +55,14 @@ class QRDecomposition
                     for ($i = $k; $i < $this->m; ++$i) {
                         $s += $this->QR[$i][$k] * $this->QR[$i][$j];
                     }
-                        
+
                     $s = -$s / $this->QR[$k][$k];
                     for ($i = $k; $i < $this->m; ++$i) {
                         $this->QR[$i][$j] += $s * $this->QR[$i][$k];
                     }
                 }
             }
-                
+
             $this->Rdiag[$k] = -$nrm;
         }
     }
@@ -74,7 +74,7 @@ class QRDecomposition
                 return false;
             }
         }
-        
+
         return true;
     }
 
@@ -91,7 +91,7 @@ class QRDecomposition
                 }
             }
         }
-        
+
         $matrix = new Matrix();
         $matrix->setArray($H);
 
@@ -113,7 +113,7 @@ class QRDecomposition
                 }
             }
         }
-        
+
         $matrix = new Matrix();
         $matrix->setArray($R);
 
@@ -128,7 +128,7 @@ class QRDecomposition
             for ($i = 0; $i < $this->m; ++$i) {
                 $Q[$i][$k] = 0.0;
             }
-            
+
             $Q[$k][$k] = 1.0;
             for ($j = $k; $j < $this->n; ++$j) {
                 if ($this->QR[$k][$k] != 0) {
@@ -143,7 +143,7 @@ class QRDecomposition
                 }
             }
         }
-        
+
         $matrix = new Matrix();
         $matrix->setArray($Q);
 

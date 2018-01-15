@@ -276,7 +276,7 @@ class FileCache implements CacheInterface
         if (!File::exists($path)) {
             return null;
         }
-        
+
         $created = Directory::created($path)->getTimestamp();
         $now     = time();
 
@@ -300,7 +300,7 @@ class FileCache implements CacheInterface
         return $this->parseValue($type, $raw, $expireEnd);
     }
 
-    private function parseValue(int $type, string $raw, int $expireEnd) 
+    private function parseValue(int $type, string $raw, int $expireEnd)
     {
         $value = null;
 

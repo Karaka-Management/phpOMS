@@ -14,7 +14,6 @@
 
 namespace phpOMS\tests\Business\Finance;
 
-
 use phpOMS\Business\Finance\Depreciation;
 
 class DepreciationTest extends \PHPUnit\Framework\TestCase

@@ -14,7 +14,6 @@
 
 namespace phpOMS\tests\Utils\Git;
 
-
 use phpOMS\Utils\Git\Author;
 
 class AuthorTest extends \PHPUnit\Framework\TestCase

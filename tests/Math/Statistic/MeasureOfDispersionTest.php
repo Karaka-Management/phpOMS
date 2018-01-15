@@ -14,7 +14,6 @@
 
 namespace phpOMS\tests\Math\Statistic;
 
-
 use phpOMS\Math\Statistic\MeasureOfDispersion;
 
 class MeasureOfDispersionTest extends \PHPUnit\Framework\TestCase

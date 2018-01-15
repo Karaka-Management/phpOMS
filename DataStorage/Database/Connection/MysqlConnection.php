@@ -57,7 +57,7 @@ class MysqlConnection extends ConnectionAbstract
     public function connect(array $dbdata = null) /* : void */
     {
         $this->dbdata = isset($dbdata) ? $dbdata : $this->dbdata;
-        
+
         if (!isset($this->dbdata['db'], $this->dbdata['host'], $this->dbdata['port'], $this->dbdata['database'], $this->dbdata['login'], $this->dbdata['password'])) {
             throw new InvalidConnectionConfigException(json_encode($this->dbdata));
         }

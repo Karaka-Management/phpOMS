@@ -14,7 +14,6 @@
 
 namespace phpOMS\tests\Utils\TaskSchedule;
 
-
 use phpOMS\Utils\TaskSchedule\TaskAbstract;
 
 class TaskAbstractTest extends \PHPUnit\Framework\TestCase

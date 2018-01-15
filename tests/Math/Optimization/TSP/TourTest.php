@@ -14,7 +14,6 @@
 
 namespace phpOMS\tests\Math\Optimization\TSP;
 
-
 use phpOMS\Math\Optimization\TSP\Tour;
 use phpOMS\Math\Optimization\TSP\CityPool;
 use phpOMS\Math\Optimization\TSP\City;

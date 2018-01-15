@@ -14,7 +14,6 @@
 
 namespace phpOMS\tests\Utils\RnG;
 
-
 use phpOMS\Utils\RnG\IBAN;
 
 class IBANTest extends \PHPUnit\Framework\TestCase

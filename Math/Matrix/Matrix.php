@@ -173,7 +173,7 @@ class Matrix implements \ArrayAccess, \Iterator
      *
      * @param array $matrix Matrix
      *
-     * @return Matrix 
+     * @return Matrix
      *
      * @throws \Exception
      *
@@ -566,7 +566,7 @@ class Matrix implements \ArrayAccess, \Iterator
         return $M->solve($B);
     }
 
-    private function gaussElimination($b) : Matrix 
+    private function gaussElimination($b) : Matrix
     {
         $mDim = count($b);
         $matrix = $this->matrix;
@@ -583,17 +583,17 @@ class Matrix implements \ArrayAccess, \Iterator
                     $max = $temp;
                 }
             }
-     
+
             if ($col != $j) {
                 $temp = $matrix[$col];
                 $matrix[$col] = $matrix[$j];
                 $matrix[$j] = $temp;
-             
+
                 $temp = $b[$col];
                 $b[$col] = $b[$j];
                 $b[$j] = $temp;
             }
-     
+
             for ($i = $col + 1; $i < $mDim; $i++) {
                 $temp = $matrix[$i][$col] / $matrix[$col][$col];
 

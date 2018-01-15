@@ -102,12 +102,12 @@ class Currency
 
             if (!isset($xml->Cube)) {
                 throw new \Exception('Invalid xml path');
-                
-            } 
+
+            }
 
             $node = $xml->Cube->Cube->Cube;
             self::$ecbCurrencies = [];
-            
+
             foreach ($node as $key => $value) {
                 self::$ecbCurrencies[strtoupper((string) $value->attributes()['currency'])] = (float) $value->attributes()['rate'];
             }

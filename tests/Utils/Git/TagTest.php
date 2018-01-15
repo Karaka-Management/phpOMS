@@ -14,7 +14,6 @@
 
 namespace phpOMS\tests\Utils\Git;
 
-
 use phpOMS\Utils\Git\Tag;
 
 class TagTest extends \PHPUnit\Framework\TestCase

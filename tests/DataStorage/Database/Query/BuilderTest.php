@@ -56,7 +56,7 @@ class BuilderTest extends \PHPUnit\Framework\TestCase
 
         $query = new Builder($this->con);
         $sql   = 'SELECT `a`.`test`, `b`.`test` FROM `a`, `b` WHERE `a`.`test` = \'abc\' ORDER BY `a`.`test` ASC, `b`.`test` DESC;';
-        self::assertEquals($sql, 
+        self::assertEquals($sql,
             $query->select('a.test', 'b.test')
                 ->from('a', 'b')
                 ->where('a.test', '=', 'abc')
@@ -112,7 +112,7 @@ class BuilderTest extends \PHPUnit\Framework\TestCase
         $query = new Builder($this->con);
         $sql   = 'SELECT `a`.`test` FROM `a` WHERE `a`.`test` = 1 GROUP BY `a`, `b`;';
         self::assertEquals($sql, $query->select('a.test')->from('a')->where('a.test', '=', 1)->groupBy('a')->groupBy('b')->toSql());
-        
+
         $query = new Builder($this->con);
         self::assertEquals($sql, $query->select('a.test')->from('a')->where('a.test', '=', 1)->groupBy('a', 'b')->toSql());
     }
@@ -211,7 +211,7 @@ class BuilderTest extends \PHPUnit\Framework\TestCase
         $query = new Builder($this->con, true);
         $query->raw('DROP DATABASE oms;');
     }
-    
+
     /**
      * @expectedException \Exception
      */
@@ -229,7 +229,7 @@ class BuilderTest extends \PHPUnit\Framework\TestCase
         $query = new Builder($this->con, true);
         $query->update();
     }
-    
+
     /**
      * @expectedException \Exception
      */

@@ -14,7 +14,6 @@
 
 namespace phpOMS\tests\Business\Finance;
 
-
 use phpOMS\Business\Finance\Loan;
 
 class LoanTest extends \PHPUnit\Framework\TestCase

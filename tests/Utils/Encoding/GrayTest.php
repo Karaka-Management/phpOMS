@@ -14,7 +14,6 @@
 
 namespace phpOMS\tests\Utils\Encoding;
 
-
 use phpOMS\Utils\Encoding\Gray;
 
 class GrayTest extends \PHPUnit\Framework\TestCase

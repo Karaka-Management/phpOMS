@@ -14,7 +14,6 @@
 
 namespace phpOMS\tests\Math\Matrix;
 
-
 use phpOMS\Math\Matrix\IdentityMatrix;
 
 class IdentityMatrixTest extends \PHPUnit\Framework\TestCase

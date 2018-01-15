@@ -14,7 +14,6 @@
 
 namespace phpOMS\tests\Math\Statistic\Forecast;
 
-
 use phpOMS\Math\Statistic\Forecast\Error;
 
 class ErrorTest extends \PHPUnit\Framework\TestCase

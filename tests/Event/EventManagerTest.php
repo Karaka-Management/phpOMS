@@ -63,7 +63,7 @@ class EventManagerTest extends \PHPUnit\Framework\TestCase
         self::assertTrue($event->detach('group'));
     }
 
-    public function testDetach() 
+    public function testDetach()
     {
         $event = new EventManager();
         self::assertTrue($event->attach('group', function() { return true; }, false, true));

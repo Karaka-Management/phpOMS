@@ -14,7 +14,6 @@
 
 namespace phpOMS\tests\Utils\Converter;
 
-
 use phpOMS\Utils\Converter\TimeType;
 
 class TimeTypeTest extends \PHPUnit\Framework\TestCase
@@ -23,7 +22,7 @@ class TimeTypeTest extends \PHPUnit\Framework\TestCase
     {
         self::assertEquals(9, count(TimeType::getConstants()));
         self::assertEquals(TimeType::getConstants(), array_unique(TimeType::getConstants()));
-        
+
         self::assertEquals('ms', TimeType::MILLISECONDS);
         self::assertEquals('s', TimeType::SECONDS);
         self::assertEquals('i', TimeType::MINUTES);

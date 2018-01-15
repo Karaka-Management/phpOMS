@@ -88,18 +88,18 @@ class CholeskyDecomposition
 	            for ($i = 0; $i < $k ; $i++) {
 	                $X[$k][$j] -= $X[$i][$j] * $this->L[$k][$i];
                 }
-               
+
 	            $X[$k][$j] /= $this->L[$k][$k];
 	        }
 	    }
-    
+
         // Solve L'*X = Y;
 	    for ($k = $this->m - 1; $k >= 0; $k--) {
 	        for ($j = 0; $j < $n; $j++) {
 	            for ($i = $k + 1; $i < $this->m ; $i++) {
 	                $X[$k][$j] -= $X[$i][$j] * $this->L[$i][$k];
                 }
-               
+
 	            $X[$k][$j] /= $this->L[$k][$k];
 	        }
 	    }

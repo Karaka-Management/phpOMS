@@ -14,7 +14,6 @@
 
 namespace phpOMS\tests\System\File\Local;
 
-
 use phpOMS\System\File\Local\File;
 use phpOMS\System\File\ContentPutMode;
 use phpOMS\System\File\PathException;
@@ -31,7 +30,7 @@ class FileTest extends \PHPUnit\Framework\TestCase
 
         self::assertFalse(File::put($testFile, 'test', ContentPutMode::CREATE));
         self::assertTrue(File::put($testFile, 'test2', ContentPutMode::REPLACE));
-        
+
         self::assertEquals('test2', File::get($testFile));
         self::assertTrue(File::set($testFile, 'test3'));
         self::assertTrue(File::append($testFile, 'test4'));

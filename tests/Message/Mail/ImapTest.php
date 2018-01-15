@@ -14,7 +14,6 @@
 
 namespace phpOMS\tests\Message\Mail;
 
-
 use phpOMS\Message\Mail\Imap;
 
 class ImapTest extends \PHPUnit\Framework\TestCase

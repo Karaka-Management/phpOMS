@@ -14,7 +14,6 @@
 
 namespace phpOMS\tests\Math\Matrix;
 
-
 use phpOMS\Math\Matrix\Matrix;
 use phpOMS\Math\Matrix\Vector;
 use phpOMS\Math\Matrix\LUDecomposition;
@@ -31,13 +30,13 @@ class LUDecompositionTest extends \PHPUnit\Framework\TestCase
         ]);
 
         $lu = new LUDecomposition($B);
-        
+
         self::assertEquals([
             [1, 0, 0],
             [0.6, 1, 0],
             [-0.2, 0.375, 1],
         ], $lu->getL()->toArray(), '', 0.2);
-        
+
         self::assertEquals([
             [25, 15, -5],
             [0, 8, 3],

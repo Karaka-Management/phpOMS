@@ -14,7 +14,6 @@
 
 namespace phpOMS\tests\Utils\Converter;
 
-
 use phpOMS\Utils\Converter\WeightType;
 
 class WeightTypeTest extends \PHPUnit\Framework\TestCase
@@ -23,7 +22,7 @@ class WeightTypeTest extends \PHPUnit\Framework\TestCase
     {
         self::assertEquals(14, count(WeightType::getConstants()));
         self::assertEquals(WeightType::getConstants(), array_unique(WeightType::getConstants()));
-        
+
         self::assertEquals('mg', WeightType::MICROGRAM);
         self::assertEquals('mug', WeightType::MILLIGRAM);
         self::assertEquals('g', WeightType::GRAM);

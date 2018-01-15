@@ -14,7 +14,6 @@
 
 namespace phpOMS\tests\DataStorage\Database\Query\Grammar;
 
-
 use phpOMS\DataStorage\Database\Query\Grammar\SQLiteGrammar;
 use phpOMS\Utils\TestUtils;
 

@@ -14,7 +14,6 @@
 
 namespace phpOMS\tests\Utils\PDF;
 
-
 use phpOMS\Utils\PDF\Pdf;
 
 class PdfTest extends \PHPUnit\Framework\TestCase

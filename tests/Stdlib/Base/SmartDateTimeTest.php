@@ -16,7 +16,6 @@ namespace phpOMS\tests\Stdlib\Base;
 
 use phpOMS\Stdlib\Base\SmartDateTime;
 
-
 class SmartDateTimeTest extends \PHPUnit\Framework\TestCase
 {
     public function testAttributes()

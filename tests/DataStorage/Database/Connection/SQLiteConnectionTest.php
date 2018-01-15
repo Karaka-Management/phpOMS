@@ -14,7 +14,6 @@
 
 namespace phpOMS\tests\DataStorage\Database\Connection;
 
-
 use phpOMS\DataStorage\Database\Connection\SQLiteConnection;
 
 class SQLiteConnectionTest extends \PHPUnit\Framework\TestCase

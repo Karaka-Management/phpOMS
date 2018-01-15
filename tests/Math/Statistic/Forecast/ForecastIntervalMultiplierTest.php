@@ -14,7 +14,6 @@
 
 namespace phpOMS\tests\Math\Statistic\Forecast;
 
-
 use phpOMS\Math\Statistic\Forecast\ForecastIntervalMultiplier;
 
 class ForecastIntervalMultiplierTest extends \PHPUnit\Framework\TestCase

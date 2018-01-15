@@ -25,12 +25,12 @@ namespace phpOMS\Security;
 class PhpCode
 {
     public static $deprecatedFunctions = [
-        'apache_child_terminate', 'apache_setenv', 'define_syslog_variables', 'escapeshellarg', 'escapeshellcmd', 'eval', 
-        'exec', 'fp', 'fput', 'ftp_connect', 'ftp_exec', 'ftp_get', 'ftp_login', 'ftp_nb_fput', 'ftp_put', 'ftp_raw', 
-        'ftp_rawlist', 'highlight_file', 'ini_alter', 'ini_get_all', 'ini_restore', 'inject_code', 'mysql_pconnect', 
-        'openlog', 'passthru', 'php_uname', 'phpAds_remoteInfo', 'phpAds_XmlRpc', 'phpAds_xmlrpcDecode', 
-        'phpAds_xmlrpcEncode', 'popen', 'posix_getpwuid', 'posix_kill', 'posix_mkfifo', 'posix_setpgid', 'posix_setsid', 
-        'posix_setuid', 'posix_uname', 'proc_close', 'proc_get_status', 
+        'apache_child_terminate', 'apache_setenv', 'define_syslog_variables', 'escapeshellarg', 'escapeshellcmd', 'eval',
+        'exec', 'fp', 'fput', 'ftp_connect', 'ftp_exec', 'ftp_get', 'ftp_login', 'ftp_nb_fput', 'ftp_put', 'ftp_raw',
+        'ftp_rawlist', 'highlight_file', 'ini_alter', 'ini_get_all', 'ini_restore', 'inject_code', 'mysql_pconnect',
+        'openlog', 'passthru', 'php_uname', 'phpAds_remoteInfo', 'phpAds_XmlRpc', 'phpAds_xmlrpcDecode',
+        'phpAds_xmlrpcEncode', 'popen', 'posix_getpwuid', 'posix_kill', 'posix_mkfifo', 'posix_setpgid', 'posix_setsid',
+        'posix_setuid', 'posix_uname', 'proc_close', 'proc_get_status',
     ];
 
     private static function normalizeSource(string $source) : string
@@ -43,7 +43,7 @@ class PhpCode
         return (bool) preg_match('/[^\x20-\x7f]/', $source) || !mb_check_encoding($source, 'ASCII');
     }
 
-    public static function isDisabled(array $functions) : bool 
+    public static function isDisabled(array $functions) : bool
     {
         $disabled = ini_get('disable_functions');
         $disabled = str_replace(' ', '', $disabled);

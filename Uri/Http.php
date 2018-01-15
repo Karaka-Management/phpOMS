@@ -156,7 +156,7 @@ class Http implements UriInterface
             $this->path = substr($this->path, 0, -4);
         }
 
-        $this->path        = strpos($this->path, $this->rootPath) === 0 ? substr($this->path, strlen($this->rootPath), strlen($this->path)) : $this->path; 
+        $this->path        = strpos($this->path, $this->rootPath) === 0 ? substr($this->path, strlen($this->rootPath), strlen($this->path)) : $this->path;
         $this->queryString = $url['query'] ?? '';
 
         if (!empty($this->queryString)) {
@@ -246,7 +246,7 @@ class Http implements UriInterface
     {
         return $this->path;
     }
-    
+
     /**
      * Get path offset.
      *
@@ -295,7 +295,7 @@ class Http implements UriInterface
      */
     public function getPathElements() : array
     {
-        return explode('/', $this->path);    
+        return explode('/', $this->path);
     }
 
     /**

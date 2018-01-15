@@ -14,7 +14,6 @@
 
 namespace phpOMS\tests\Stdlib\Graph;
 
-
 use phpOMS\Stdlib\Graph\Edge;
 
 class EdgeTest extends \PHPUnit\Framework\TestCase

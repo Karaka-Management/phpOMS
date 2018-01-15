@@ -13,7 +13,6 @@
 
 namespace phpOMS\tests\Math\Optimization;
 
-
 use phpOMS\Math\Optimization\AssignmentProblem;
 
 class AssignmentProblemTest extends \PHPUnit\Framework\TestCase

@@ -16,7 +16,6 @@ namespace phpOMS\tests\System\File;
 
 use phpOMS\System\File\PathException;
 
-
 class PathExceptionTest extends \PHPUnit\Framework\TestCase
 {
     public function testConstructor()

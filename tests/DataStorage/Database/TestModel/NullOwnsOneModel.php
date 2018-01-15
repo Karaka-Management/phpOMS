@@ -14,7 +14,6 @@
 
 namespace phpOMS\tests\DataStorage\Database\TestModel;
 
-
 class NullOwnsOneModel extends OwnsOneModel
 {
 }

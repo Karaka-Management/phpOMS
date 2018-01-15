@@ -14,7 +14,6 @@
 
 namespace phpOMS\tests\DataStorage\Database\Schema\Grammar;
 
-
 use phpOMS\DataStorage\Database\Schema\Grammar\MysqlGrammar;
 
 class MysqlGrammarTest extends \PHPUnit\Framework\TestCase

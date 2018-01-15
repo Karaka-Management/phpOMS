@@ -14,7 +14,6 @@
 
 namespace phpOMS\tests\Utils\Barcode;
 
-
 use phpOMS\Utils\Barcode\QR;
 
 class QRTest extends \PHPUnit\Framework\TestCase

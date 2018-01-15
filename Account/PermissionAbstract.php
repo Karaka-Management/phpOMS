@@ -16,7 +16,7 @@ namespace phpOMS\Account;
 
 /**
  * Permission class.
- * 
+ *
  * This permission abstract is the basis for all permissions. Contrary to it's name it is not an
  * abstract class and can be used directly if needed.
  *
@@ -342,7 +342,7 @@ class PermissionAbstract
      *
      * @since  1.0.0
      */
-    public function hasPermission(int $permission) : bool 
+    public function hasPermission(int $permission) : bool
     {
         return ($this->permission | $permission) === $this->permission;
     }

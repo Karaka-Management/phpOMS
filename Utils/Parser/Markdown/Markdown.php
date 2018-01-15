@@ -113,11 +113,11 @@ class Markdown
     ];
 
     protected static $safeLinksWhitelist = [
-        'http://', 'https://', 'ftp://', 'ftps://', 'mailto:', 
-        'data:image/png;base64,', 'data:image/gif;base64,', 'data:image/jpeg;base64,', 
+        'http://', 'https://', 'ftp://', 'ftps://', 'mailto:',
+        'data:image/png;base64,', 'data:image/gif;base64,', 'data:image/jpeg;base64,',
         'irc:', 'ircs:', 'git:', 'ssh:', 'news:', 'steam:',
-    ];     
-        
+    ];
+
     private static $definitionData = [];
 
     public static function parse(string $text) : string
@@ -366,7 +366,7 @@ class Markdown
         }
 
         $text = trim($lineArray['text'], '# ');
-        
+
         return [
             'element' => [
                 'name' => 'h' . min(6, $level),
@@ -534,7 +534,7 @@ class Markdown
         ];
 
         self::$definitionData['Reference'][$id] = $data;
-        
+
         return ['hidden' => true];
     }
 
@@ -744,7 +744,7 @@ class Markdown
         if (strpos($excerpt['text'], '>') === false || !preg_match('/^<((mailto:)?\S+?@\S+?)>/i', $excerpt['text'], $matches)) {
             return;
         }
-            
+
         $url = $matches[1];
 
         if (!isset($matches[2])) {
@@ -1066,7 +1066,7 @@ class Markdown
 
         return $element;
     }
-     
+
     protected static function escape(string $text, bool $allowQuotes = false) : string
     {
         return htmlspecialchars($text, $allowQuotes ? ENT_NOQUOTES : ENT_QUOTES, 'UTF-8');

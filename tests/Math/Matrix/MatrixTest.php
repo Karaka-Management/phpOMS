@@ -14,7 +14,6 @@
 
 namespace phpOMS\tests\Math\Matrix;
 
-
 use phpOMS\Math\Matrix\Matrix;
 
 class MatrixTest extends \PHPUnit\Framework\TestCase

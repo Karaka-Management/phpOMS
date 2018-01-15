@@ -36,7 +36,7 @@ class BinaryTree extends Tree
         $list->setLeft($list->invert($list->nodes[1]));
         $list->setRight($list->invert($left));
 
-        return $list;  
+        return $list;
     }
 
     /**
@@ -125,7 +125,7 @@ class BinaryTree extends Tree
      *
      * @since  1.0.0
      */
-    public function inOrder(Node $node, \Closure $callback) 
+    public function inOrder(Node $node, \Closure $callback)
     {
         $this->inOrder($this->getLeft($node), $callback);
         $callback($node);
@@ -141,7 +141,7 @@ class BinaryTree extends Tree
      *
      * @since  1.0.0
      */
-    private function getVerticalOrder(Node $node, int $horizontalDistance = 0, array &$order) 
+    private function getVerticalOrder(Node $node, int $horizontalDistance = 0, array &$order)
     {
         if (!isset($order[$horizontalDistance])) {
             $order[$horizontalDistance] = [];
@@ -190,7 +190,7 @@ class BinaryTree extends Tree
      *
      * @since  1.0.0
      */
-    public function isSymmetric(Node $node1 = null, Node $node2 = null) : bool 
+    public function isSymmetric(Node $node1 = null, Node $node2 = null) : bool
     {
         if (!isset($node1) && !isset($node2)) {
             return true;

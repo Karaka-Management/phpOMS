@@ -13,7 +13,6 @@
 
 namespace phpOMS\tests\Module\Exception;
 
-
 use phpOMS\Module\Exception\InvalidModuleException;
 
 class InvalidModuleExceptionTest extends \PHPUnit\Framework\TestCase

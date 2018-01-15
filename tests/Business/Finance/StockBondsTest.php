@@ -14,7 +14,6 @@
 
 namespace phpOMS\tests\Business\Finance;
 
-
 use phpOMS\Business\Finance\StockBonds;
 
 class StockBondsTest extends \PHPUnit\Framework\TestCase
@@ -45,7 +44,7 @@ class StockBondsTest extends \PHPUnit\Framework\TestCase
 
     public function testCapitalGainsYield()
     {
-        self::assertEquals(0.1, StockBonds::getCapitalGainsYield(100, 110), '', 0.01);   
+        self::assertEquals(0.1, StockBonds::getCapitalGainsYield(100, 110), '', 0.01);
     }
 
     public function testDilutedEarningsPerShare()

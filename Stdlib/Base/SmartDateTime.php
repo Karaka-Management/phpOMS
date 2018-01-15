@@ -51,7 +51,7 @@ class SmartDateTime extends \DateTime
     {
         parent::__construct($time, $timezone);
     }
-    
+
     /**
      * Create object from DateTime
      *
@@ -230,7 +230,7 @@ class SmartDateTime extends \DateTime
     {
         return (int) date('w', strtotime($d . '-' . $m . '-' . $y));
     }
-    
+
     /**
      * Get day of week
      *
@@ -255,10 +255,10 @@ class SmartDateTime extends \DateTime
     public function getMonthCalendar(int $weekStartsWith = 0) : array
     {
         $days = [];
-        
+
         // get day of first day in month
         $firstDay = $this->getFirstDayOfMonth();
-        
+
         // calculate difference to $weekStartsWith
         $diffToWeekStart = Functions::mod($firstDay - $weekStartsWith, 7);
         $diffToWeekStart = $diffToWeekStart === 0 ? 7 : $diffToWeekStart;
@@ -266,18 +266,18 @@ class SmartDateTime extends \DateTime
         // get days of previous month
         $previousMonth = $this->createModify(0, -1);
         $daysPreviousMonth = $previousMonth->getDaysOfMonth();
-        
+
         // add difference to $weekStartsWith counting backwards from days of previous month (reorder so that lowest value first)
         for ($i = $daysPreviousMonth - $diffToWeekStart; $i < $daysPreviousMonth; $i++) {
             $days[] = new \DateTime($previousMonth->format('Y') . '-' . $previousMonth->format('m') . '-' . ($i + 1));
         }
-        
+
         // add normal count of current days
         $daysMonth = $this->getDaysOfMonth();
         for ($i = 1; $i <= $daysMonth; $i++) {
             $days[] = new \DateTime($this->format('Y') . '-' . $this->format('m') . '-' . ($i));
         }
-        
+
         // add remaining days to next month (7*6 - difference+count of current month)
         $remainingDays = 42 - $diffToWeekStart - $daysMonth;
         $nextMonth = $this->createModify(0, 1);

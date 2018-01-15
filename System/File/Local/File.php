@@ -237,9 +237,9 @@ class File extends FileAbstract implements FileInterface
 
     /**
      * Gets the directory name of a file.
-     * 
+     *
      * @param  string $path Path of the file to get the directory name for.
-     * 
+     *
      * @return string Returns the directory name of the file.
      *
      * @since 1.0.0
@@ -251,9 +251,9 @@ class File extends FileAbstract implements FileInterface
 
     /**
      * Gets the directory path of a file.
-     * 
+     *
      * @param  string $path Path of the file to get the directory name for.
-     * 
+     *
      * @return string Returns the directory name of the file.
      *
      * @since 1.0.0
@@ -319,7 +319,7 @@ class File extends FileAbstract implements FileInterface
 
     /**
      * Gets the directory name of a file.
-     * 
+     *
      * @return string Returns the directory name of the file.
      *
      * @since 1.0.0
@@ -331,7 +331,7 @@ class File extends FileAbstract implements FileInterface
 
     /**
      * Gets the directory path of a file.
-     * 
+     *
      * @return string Returns the directory path of the file.
      *
      * @since 1.0.0
@@ -362,7 +362,7 @@ class File extends FileAbstract implements FileInterface
             if (!is_writable(dirname($path))) {
                 return false;
             }
-            
+
             touch($path);
 
             return true;

@@ -14,7 +14,6 @@
 
 namespace phpOMS\tests\Math\Optimization\TSP;
 
-
 use phpOMS\Math\Optimization\TSP\City;
 
 class CityTest extends \PHPUnit\Framework\TestCase

@@ -14,7 +14,6 @@
 
 namespace phpOMS\tests\Business\Marketing;
 
-
 use phpOMS\Business\Marketing\NetPromoterScore;
 
 class NetPromoterScoreTest extends \PHPUnit\Framework\TestCase

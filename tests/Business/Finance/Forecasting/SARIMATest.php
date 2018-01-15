@@ -14,7 +14,6 @@
 
 namespace phpOMS\tests\Business\Finance\Forecasting;
 
-
 use phpOMS\Business\Finance\Forecasting\SARIMA;
 
 class SARIMATest extends \PHPUnit\Framework\TestCase

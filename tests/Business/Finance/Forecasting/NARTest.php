@@ -14,7 +14,6 @@
 
 namespace phpOMS\tests\Business\Finance\Forecasting;
 
-
 use phpOMS\Business\Finance\Forecasting\NAR;
 
 class NARTest extends \PHPUnit\Framework\TestCase

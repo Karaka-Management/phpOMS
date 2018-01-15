@@ -13,7 +13,6 @@
 
 namespace phpOMS\tests\Math\Exception;
 
-
 use phpOMS\Math\Exception\ZeroDevisionException;
 
 class ZeroDevisionExceptionTest extends \PHPUnit\Framework\TestCase

@@ -14,7 +14,6 @@
 
 namespace phpOMS\tests\Stdlib\Map;
 
-
 use phpOMS\Stdlib\Map\KeyType;
 
 class KeyTypeTest extends \PHPUnit\Framework\TestCase

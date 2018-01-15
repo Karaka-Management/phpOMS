@@ -74,7 +74,7 @@ abstract class TaskAbstract
 
     /**
      * Comment
-     * 
+     *
      * @param string $name Name of the task
      * @param string $cmd Command/script to run
      *
@@ -85,7 +85,7 @@ abstract class TaskAbstract
 
     /**
      * Constructor
-     * 
+     *
      * @param string $name Id/name of the task (on linux the same as the executable script)
      * @param string $cmd Command to create the task
      *
@@ -222,7 +222,7 @@ abstract class TaskAbstract
      *
      * @since  1.0.0
      */
-    public function getLastRuntime() 
+    public function getLastRuntime()
     {
         return $this->lastRunTime;
     }
@@ -269,11 +269,11 @@ abstract class TaskAbstract
 
     /**
      * Create task based on job data
-     * 
+     *
      * @param array $jobData Raw job data
-     * 
+     *
      * @return TaskAbstract
-     * 
+     *
      * @since 1.0.0
      */
     abstract public static function createWith(array $jobData) : TaskAbstract;

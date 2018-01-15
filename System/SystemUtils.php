@@ -49,7 +49,7 @@ class SystemUtils
         if (stristr(PHP_OS, 'WIN')) {
             $mem = null;
             exec('wmic memorychip get capacity', $mem);
-            
+
             /** @var array $mem */
             $mem = array_sum($mem) / 1024;
         } elseif (stristr(PHP_OS, 'LINUX')) {
@@ -63,7 +63,7 @@ class SystemUtils
                     break;
                 }
             }
-            
+
             fclose($fh);
         }
 

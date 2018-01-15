@@ -89,7 +89,7 @@ class Header extends HeaderAbstract
 
         return true;
     }
-    
+
     /**
      * Is security header.
      *
@@ -129,7 +129,7 @@ class Header extends HeaderAbstract
         if ($this->status === 0) {
             $this->status = (int) \http_response_code();
         }
-        
+
         return parent::getStatusCode();
     }
 
@@ -146,12 +146,12 @@ class Header extends HeaderAbstract
             return getallheaders();
         }
 
-        $headers = []; 
-        foreach ($_SERVER as $name => $value) { 
-            if (substr($name, 0, 5) == 'HTTP_') { 
-                $headers[str_replace(' ', '-', ucwords(strtolower(str_replace('_', ' ', substr($name, 5)))))] = $value; 
-            } 
-        } 
+        $headers = [];
+        foreach ($_SERVER as $name => $value) {
+            if (substr($name, 0, 5) == 'HTTP_') {
+                $headers[str_replace(' ', '-', ucwords(strtolower(str_replace('_', ' ', substr($name, 5)))))] = $value;
+            }
+        }
 
         return $headers;
     }

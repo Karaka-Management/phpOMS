@@ -136,7 +136,7 @@ class EmailAbstract
      *
      * @param string $user Username
      * @param string $pass Password
-     * 
+     *
      * @return void
      *
      * @since  1.0.0
@@ -408,7 +408,7 @@ class EmailAbstract
 
     /**
      * Create mailbox
-     * 
+     *
      * @param string $mailbox Mailbox to create
      *
      * @return bool
@@ -422,7 +422,7 @@ class EmailAbstract
 
     /**
      * Rename mailbox
-     * 
+     *
      * @param string $old Old mailbox name
      * @param string $new New mailbox name
      *
@@ -437,7 +437,7 @@ class EmailAbstract
 
     /**
      * Delete mailbox
-     * 
+     *
      * @param string $mailbox Mailbox to delete
      *
      * @return bool
@@ -451,7 +451,7 @@ class EmailAbstract
 
     /**
      * Check message to delete
-     * 
+     *
      * @param int $id Message id
      *
      * @return bool
@@ -465,7 +465,7 @@ class EmailAbstract
 
     /**
      * Delete all marked messages
-     * 
+     *
      * @return bool
      *
      * @since  1.0.0
@@ -477,7 +477,7 @@ class EmailAbstract
 
     /**
      * Check message to delete
-     * 
+     *
      * @param int $length Amount of message overview
      * @param int $start Start index of the overview for pagination
      *
@@ -497,7 +497,7 @@ class EmailAbstract
 
     /**
      * Count messages
-     * 
+     *
      * @return int
      *
      * @since  1.0.0
@@ -509,7 +509,7 @@ class EmailAbstract
 
     /**
      * Get message header
-     * 
+     *
      * @param int $id Message id
      *
      * @return string

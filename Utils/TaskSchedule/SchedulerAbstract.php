@@ -90,7 +90,7 @@ abstract class SchedulerAbstract
 
     /**
      * Create task
-     * 
+     *
      * @param TaskAbstract
      *
      * @return void

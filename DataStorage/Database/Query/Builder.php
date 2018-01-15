@@ -377,7 +377,7 @@ class Builder extends BuilderAbstract
 
         $test = strtolower($raw);
 
-        if (strpos($test, 'insert') !== false 
+        if (strpos($test, 'insert') !== false
             || strpos($test, 'update') !== false
             || strpos($test, 'drop') !== false
             || strpos($test, 'delete') !== false
@@ -1120,18 +1120,18 @@ class Builder extends BuilderAbstract
     public function execute()
     {
         $sth = $this->connection->con->prepare($this->toSql());
-        
+
         foreach ($this->binds as $key => $bind) {
             $type = self::getBindParamType($bind);
-            
+
             $sth->bindParam($key, $bind, $type);
         }
-        
+
         $sth->execute();
 
         return $sth;
     }
-    
+
     /**
      * Get bind parameter type.
      *
@@ -1150,7 +1150,7 @@ class Builder extends BuilderAbstract
         } elseif (is_string($value) || is_float($value)) {
             return \PDO::PARAM_STR;
         }
-        
+
         throw new \Exception();
     }
 

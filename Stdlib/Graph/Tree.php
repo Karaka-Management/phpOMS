@@ -70,7 +70,7 @@ class Tree extends Graph
      *
      * @since  1.0.0
      */
-    public function getMaxDepth(Node $node = null) : int 
+    public function getMaxDepth(Node $node = null) : int
     {
         $currentNode = $node ?? $this->root;
 
@@ -146,7 +146,7 @@ class Tree extends Graph
      *
      * @since  1.0.0
      */
-    public function isLeaf(Node $node) : bool 
+    public function isLeaf(Node $node) : bool
     {
         return count($this->getEdgesOfNode($node)) === 1;
     }
@@ -187,7 +187,7 @@ class Tree extends Graph
      *
      * @since  1.0.0
      */
-    public function isFull(int $type) : bool 
+    public function isFull(int $type) : bool
     {
         if (count($this->edges) % $type !== 0) {
             return false;
@@ -225,7 +225,7 @@ class Tree extends Graph
             $this->preOrder($neighbor, $callback);
         }
     }
-    
+
     /**
      * Perform action on tree in post-order.
      *
@@ -238,7 +238,7 @@ class Tree extends Graph
         if (count($this->nodes) === 0) {
             return;
         }
-        
+
         $neighbors = $this->getNeighbors($node);
 
         foreach ($neighbors as $neighbor) {

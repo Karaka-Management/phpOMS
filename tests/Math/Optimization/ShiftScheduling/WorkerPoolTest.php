@@ -14,7 +14,6 @@
 
 namespace phpOMS\tests\Math\Optimization\ShiftScheduling;
 
-
 use phpOMS\Math\Optimization\ShiftScheduling\WorkerPool;
 
 class WorkerPoolTest extends \PHPUnit\Framework\TestCase

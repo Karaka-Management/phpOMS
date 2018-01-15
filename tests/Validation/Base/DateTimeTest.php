@@ -14,7 +14,6 @@
 
 namespace phpOMS\tests\Validation\Base;
 
-
 use phpOMS\Validation\Base\DateTime;
 
 class DateTimeTest extends \PHPUnit\Framework\TestCase

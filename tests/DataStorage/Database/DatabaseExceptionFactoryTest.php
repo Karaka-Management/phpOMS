@@ -14,7 +14,6 @@
 
 namespace phpOMS\tests\DataStorage\Database;
 
-
 use phpOMS\DataStorage\Database\DatabaseExceptionFactory;
 
 class DatabaseExceptionFactoryTest extends \PHPUnit\Framework\TestCase

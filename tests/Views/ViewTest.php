@@ -96,7 +96,7 @@ class ViewTest extends \PHPUnit\Framework\TestCase
         self::assertEquals($response, $view->getResponse());
 
         self::assertEquals('&lt;a href=&quot;test&quot;&gt;Test&lt;/a&gt;', $view->printHtml('<a href="test">Test</a>'));
-        
+
         $tView = new View($this->app, $request, $response);
         self::assertTrue($view->addView('test', $tView));
         self::assertEquals($tView, $view->getView('test'));
@@ -109,7 +109,7 @@ class ViewTest extends \PHPUnit\Framework\TestCase
     public function testRender()
     {
         $view = new View($this->app, new Request(), new Response(new Localization()));
-        
+
         $view->setTemplate('/phpOMS/tests/Views/testTemplate');
         self::assertEquals('<strong>Test</strong>', $view->render());
 

@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 return ['Test' => [
         'key' => 'value'

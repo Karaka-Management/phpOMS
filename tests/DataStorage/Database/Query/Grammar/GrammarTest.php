@@ -14,7 +14,6 @@
 
 namespace phpOMS\tests\DataStorage\Database\Query\Grammar;
 
-
 use phpOMS\DataStorage\Database\Query\Grammar\Grammar;
 
 class GrammarTest extends \PHPUnit\Framework\TestCase

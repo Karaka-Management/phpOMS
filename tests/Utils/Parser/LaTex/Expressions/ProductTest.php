@@ -14,7 +14,6 @@
 
 namespace phpOMS\tests\Utils\Parser\LaTex\Expressions;
 
-
 use phpOMS\Utils\Parser\LaTex\Expressions\Product;
 
 class ProductTest extends \PHPUnit\Framework\TestCase

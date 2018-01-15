@@ -14,7 +14,6 @@
 
 namespace phpOMS\tests\DataStorage\Database\Query;
 
-
 use phpOMS\DataStorage\Database\Query\Into;
 
 class IntoTest extends \PHPUnit\Framework\TestCase

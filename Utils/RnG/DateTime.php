@@ -38,7 +38,7 @@ class DateTime
     public static function generateDateTime(\DateTime $start, \DateTime $end) : \DateTime
     {
         $rng = new \DateTime();
-        
+
         return $rng->setTimestamp(mt_rand($start->getTimestamp(), $end->getTimestamp()));
     }
 }

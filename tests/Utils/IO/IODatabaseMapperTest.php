@@ -14,7 +14,6 @@
 
 namespace phpOMS\tests\Utils\IO;
 
-
 use phpOMS\Utils\IO\IODatabaseMapper;
 
 class IODatabaseMapperTest extends \PHPUnit\Framework\TestCase

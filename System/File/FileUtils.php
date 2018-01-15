@@ -40,7 +40,7 @@ class FileUtils
      * @since  1.0.0
      * @codeCoverageIgnore
      */
-    private function __construct() 
+    private function __construct()
     {
 
     }
@@ -102,7 +102,7 @@ class FileUtils
                 if (empty($part) || $part === '.') {
                     continue;
                 }
-          
+
                 if ($part !== '..') {
                     $path[] = $part;
                 } elseif (!empty($path)) {
@@ -111,7 +111,7 @@ class FileUtils
                     throw new PathException($origPath);
                 }
             }
-          
+
             return $startsWithSlash . implode('/', $path);
         }
 

@@ -15,12 +15,12 @@ namespace phpOMS\tests\Dispatcher;
 
 class TestController
 {
-    public function testFunction($req, $resp, $data = null) 
+    public function testFunction($req, $resp, $data = null)
     {
         return true;
     }
 
-    public static function testFunctionStatic($req, $resp, $data = null) 
+    public static function testFunctionStatic($req, $resp, $data = null)
     {
         return true;
     }

@@ -14,7 +14,6 @@
 
 namespace phpOMS\tests\Utils\Git;
 
-
 use phpOMS\Utils\Git\Branch;
 
 class BranchTest extends \PHPUnit\Framework\TestCase

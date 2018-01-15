@@ -14,7 +14,6 @@
 
 namespace phpOMS\tests\Utils\RnG;
 
-
 use phpOMS\Utils\RnG\Phone;
 
 class PhoneTest extends \PHPUnit\Framework\TestCase

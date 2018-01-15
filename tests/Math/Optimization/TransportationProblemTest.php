@@ -13,7 +13,6 @@
 
 namespace phpOMS\tests\Math\Optimization;
 
-
 use phpOMS\Math\Optimization\TransportationProblem;
 
 class TransportationProblemTest extends \PHPUnit\Framework\TestCase

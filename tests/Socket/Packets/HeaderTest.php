@@ -14,7 +14,6 @@
 
 namespace phpOMS\tests\Socket\Packets;
 
-
 use phpOMS\Socket\Packets\Header;
 
 class HeaderTest extends \PHPUnit\Framework\TestCase

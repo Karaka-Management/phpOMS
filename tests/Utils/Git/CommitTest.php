@@ -14,7 +14,6 @@
 
 namespace phpOMS\tests\Utils\Git;
 
-
 use phpOMS\Utils\Git\Commit;
 use phpOMS\Utils\Git\Author;
 use phpOMS\Utils\Git\Branch;

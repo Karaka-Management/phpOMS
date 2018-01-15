@@ -14,7 +14,6 @@
 
 namespace phpOMS\tests\Math\Parser;
 
-
 use phpOMS\Math\Parser\Evaluator;
 
 class EvaluatorTest extends \PHPUnit\Framework\TestCase

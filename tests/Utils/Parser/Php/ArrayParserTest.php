@@ -14,7 +14,6 @@
 
 namespace phpOMS\tests\Utils\Parser\Php;
 
-
 use phpOMS\Utils\Parser\Php\ArrayParser;
 
 class ArrayParserTest extends \PHPUnit\Framework\TestCase

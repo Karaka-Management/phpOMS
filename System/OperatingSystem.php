@@ -39,7 +39,7 @@ final class OperatingSystem
             return SystemType::WIN;
         } elseif (stristr(PHP_OS, 'LINUX') !== false) {
             return SystemType::LINUX;
-        } 
+        }
 
         return SystemType::UNKNOWN;
     }

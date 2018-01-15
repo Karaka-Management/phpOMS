@@ -59,6 +59,6 @@ class AccountManagerTest extends \PHPUnit\Framework\TestCase
         self::assertTrue($manager->remove($account->getId()));
         self::assertFalse($manager->remove(-1));
         self::assertEquals(0, $manager->count());
-        
+
     }
 }

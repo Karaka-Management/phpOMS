@@ -36,7 +36,7 @@ class ModuleManagerTest extends \PHPUnit\Framework\TestCase
 
     public function testAttributes()
     {
-        $moduleManager = new ModuleManager($this->app, __DIR__ . '/../../../../Modules');
+        $moduleManager = new ModuleManager($this->app, __DIR__ . '/../../../Modules');
         self::assertInstanceOf('\phpOMS\Module\ModuleManager', $moduleManager);
 
         self::assertObjectHasAttribute('running', $moduleManager);
@@ -48,14 +48,14 @@ class ModuleManagerTest extends \PHPUnit\Framework\TestCase
 
     public function testUnknownModuleInit()
     {
-        $moduleManager = new ModuleManager($this->app, __DIR__ . '/../../../../Modules');
+        $moduleManager = new ModuleManager($this->app, __DIR__ . '/../../../Modules');
         $moduleManager->initModule('doesNotExist');
         self::assertInstanceOf('\phpOMS\Module\NullModule', $moduleManager->get('doesNotExist'));
     }
 
     public function testUnknownModuleGet()
     {
-        $moduleManager = new ModuleManager($this->app, __DIR__ . '/../../../../Modules');
+        $moduleManager = new ModuleManager($this->app, __DIR__ . '/../../../Modules');
         self::assertInstanceOf('\phpOMS\Module\NullModule', $moduleManager->get('doesNotExist2'));
     }
 
@@ -64,7 +64,7 @@ class ModuleManagerTest extends \PHPUnit\Framework\TestCase
         $this->app->router = new Router();
         $this->app->dispatcher = new Dispatcher($this->app);
 
-        $moduleManager = new ModuleManager($this->app, __DIR__ . '/../../../../Modules');
+        $moduleManager = new ModuleManager($this->app, __DIR__ . '/../../../Modules');
 
         $active    = $moduleManager->getActiveModules();
         $all       = $moduleManager->getAllModules();

@@ -14,7 +14,6 @@
 
 namespace phpOMS\tests\Validation\Network;
 
-
 use phpOMS\Validation\Network\Email;
 
 class EmailTest extends \PHPUnit\Framework\TestCase

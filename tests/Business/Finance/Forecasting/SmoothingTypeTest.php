@@ -14,7 +14,6 @@
 
 namespace phpOMS\tests\Business\Finance\Forecasting;
 
-
 use phpOMS\Business\Finance\Forecasting\SmoothingType;
 
 class SmoothingTypeTest extends \PHPUnit\Framework\TestCase

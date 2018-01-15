@@ -14,7 +14,6 @@
 
 namespace phpOMS\tests\Math\Geometry\ConvexHull;
 
-
 use phpOMS\Math\Geometry\ConvexHull\MonotoneChain;
 
 class MonotoneChainTest extends \PHPUnit\Framework\TestCase
@@ -34,8 +33,8 @@ class MonotoneChainTest extends \PHPUnit\Framework\TestCase
                 ['x' => 0, 'y' => 0],
                 ['x' => 9, 'y' => 0],
                 ['x' => 9, 'y' => 9],
-                ['x' => 0, 'y' => 9], 
-            ], 
+                ['x' => 0, 'y' => 9],
+            ],
             MonotoneChain::createConvexHull($points)
         );
     }

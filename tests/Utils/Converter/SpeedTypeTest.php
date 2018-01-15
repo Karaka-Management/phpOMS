@@ -14,7 +14,6 @@
 
 namespace phpOMS\tests\Utils\Converter;
 
-
 use phpOMS\Utils\Converter\SpeedType;
 
 class SpeedTypeTest extends \PHPUnit\Framework\TestCase
@@ -23,7 +22,7 @@ class SpeedTypeTest extends \PHPUnit\Framework\TestCase
     {
         self::assertEquals(34, count(SpeedType::getConstants()));
         self::assertEquals(SpeedType::getConstants(), array_unique(SpeedType::getConstants()));
-        
+
         self::assertEquals('mpd', SpeedType::MILES_PER_DAY);
         self::assertEquals('mph', SpeedType::MILES_PER_HOUR);
         self::assertEquals('mpm', SpeedType::MILES_PER_MINUTE);

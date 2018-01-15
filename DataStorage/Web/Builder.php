@@ -33,7 +33,7 @@ class Builder extends DatabaseQueryBuilder
     {
         $finder = [];
         $l11n = new Localization();
-        
+
         foreach ($this->from as $from) {
             $doc = new \DOMDocument();
             $doc->loadHTML(Rest::request($l11n, new Http($from)));
@@ -42,12 +42,12 @@ class Builder extends DatabaseQueryBuilder
 
         return $finder;
     }
-    
+
     public function get(string $xpath)
     {
         $nodes = $finder->query($xpath);
     }
-    
+
     public function execute()
     {
         $finder = $this->download();
@@ -92,7 +92,7 @@ class Builder extends DatabaseQueryBuilder
         foreach ($children as $child) {
             $table[] = $child->asXML();
         }
-        
+
         return $table;
     }
 

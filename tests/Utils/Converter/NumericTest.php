@@ -14,7 +14,6 @@
 
 namespace phpOMS\tests\Utils\Converter;
 
-
 use phpOMS\Utils\Converter\Numeric;
 
 class NumericTest extends \PHPUnit\Framework\TestCase

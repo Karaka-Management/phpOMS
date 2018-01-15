@@ -14,7 +14,6 @@
 
 namespace phpOMS\tests\Utils\Converter;
 
-
 use phpOMS\Utils\Converter\Ip;
 
 class IpTest extends \PHPUnit\Framework\TestCase

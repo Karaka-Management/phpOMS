@@ -14,7 +14,6 @@
 
 namespace phpOMS\tests\Message\Http;
 
-
 use phpOMS\Message\Http\Rest;
 use phpOMS\Message\Http\Request;
 use phpOMS\Message\Http\RequestMethod;

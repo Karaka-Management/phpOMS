@@ -47,7 +47,7 @@ class Permutation
                 $newres[] = $val;
 
                 unset($newArr[$key]);
-                
+
                 $permutations = array_merge($permutations, self::permut($newArr, $newres));
             }
         }

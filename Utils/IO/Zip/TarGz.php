@@ -38,7 +38,7 @@ class TarGz implements ArchiveInterface
 
         return $pack;
     }
-    
+
     /**
      * {@inheritdoc}
      */

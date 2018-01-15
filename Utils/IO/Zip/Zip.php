@@ -81,7 +81,7 @@ class Zip implements ArchiveInterface
 
         return $zip->close();
     }
-    
+
     /**
      * {@inheritdoc}
      */
@@ -98,9 +98,9 @@ class Zip implements ArchiveInterface
         if (!$zip->open($source)) {
             return false;
         }
-        
+
         $zip->extractTo($destination . '/');
-        
+
         return $zip->close();
     }
 }

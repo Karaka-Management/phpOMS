@@ -16,7 +16,6 @@ namespace phpOMS\tests\Utils\RnG;
 
 use phpOMS\Utils\RnG\StringUtils;
 
-
 class StringUtilsTest extends \PHPUnit\Framework\TestCase
 {
     /**

@@ -30,14 +30,14 @@ class Edge
 
     private $directed = false;
 
-    public function __construct(Node $node1, Node $node2, bool $directed = false) 
+    public function __construct(Node $node1, Node $node2, bool $directed = false)
     {
         $this->node1 = $node1;
         $this->node2 = $node2;
         $this->directed = $directed;
     }
 
-    public function getNodes() : array 
+    public function getNodes() : array
     {
         return [$this->node1, $this->node2];
     }

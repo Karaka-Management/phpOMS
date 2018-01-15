@@ -14,7 +14,6 @@
 
 namespace phpOMS\tests\Stdlib\Graph;
 
-
 use phpOMS\Stdlib\Graph\Tree;
 
 class TreeTest extends \PHPUnit\Framework\TestCase

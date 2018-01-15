@@ -14,7 +14,6 @@
 
 namespace phpOMS\tests\Utils\Converter;
 
-
 use phpOMS\Utils\Converter\TemperatureType;
 
 class TemperatureTypeTest extends \PHPUnit\Framework\TestCase
@@ -23,7 +22,7 @@ class TemperatureTypeTest extends \PHPUnit\Framework\TestCase
     {
         self::assertEquals(8, count(TemperatureType::getConstants()));
         self::assertEquals(TemperatureType::getConstants(), array_unique(TemperatureType::getConstants()));
-        
+
         self::assertEquals('celsius', TemperatureType::CELSIUS);
         self::assertEquals('fahrenheit', TemperatureType::FAHRENHEIT);
         self::assertEquals('kelvin', TemperatureType::KELVIN);

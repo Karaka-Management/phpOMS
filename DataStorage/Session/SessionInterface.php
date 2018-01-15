@@ -91,7 +91,7 @@ interface SessionInterface
 
     /**
      * Lock session from further adjustments.
-     * 
+     *
      * @return void
      *
      * @since  1.0.0

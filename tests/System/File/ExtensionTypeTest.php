@@ -14,7 +14,6 @@
 
 namespace phpOMS\tests\System\File;
 
-
 use phpOMS\System\File\ExtensionType;
 
 class ExtensionTypeTest extends \PHPUnit\Framework\TestCase

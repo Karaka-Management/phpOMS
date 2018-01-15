@@ -14,7 +14,6 @@
 
 namespace phpOMS\tests\Validation\Network;
 
-
 use phpOMS\Validation\Network\Ip;
 
 class IpTest extends \PHPUnit\Framework\TestCase

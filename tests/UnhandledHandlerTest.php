@@ -26,7 +26,7 @@ class UnhandledHandlerTest extends \PHPUnit\Framework\TestCase
         register_shutdown_function(['\phpOMS\UnhandledHandler', 'shutdownHandler']);
 
         trigger_error('', E_USER_ERROR);
-        
+
         UnhandledHandler::shutdownHandler();
 
         self::assertFalse(UnhandledHandler::errorHandler(0, '', '', 0));

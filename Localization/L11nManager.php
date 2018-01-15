@@ -131,7 +131,7 @@ class L11nManager
         } elseif (isset($this->language[$language], $this->language[$language][$module])) {
             return $this->language[$language][$module];
         }
-        
+
         return [];
     }
 

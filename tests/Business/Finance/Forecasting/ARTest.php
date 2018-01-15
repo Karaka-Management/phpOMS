@@ -14,7 +14,6 @@
 
 namespace phpOMS\tests\Business\Finance\Forecasting;
 
-
 use phpOMS\Business\Finance\Forecasting\AR;
 
 class ARTest extends \PHPUnit\Framework\TestCase

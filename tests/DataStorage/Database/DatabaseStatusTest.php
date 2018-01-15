@@ -14,7 +14,6 @@
 
 namespace phpOMS\tests\DataStorage\Database;
 
-
 use phpOMS\DataStorage\Database\DatabaseStatus;
 
 class DatabaseStatusTest extends \PHPUnit\Framework\TestCase

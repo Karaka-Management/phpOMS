@@ -14,7 +14,6 @@
 
 namespace phpOMS\tests\Math\Statistic;
 
-
 use phpOMS\Math\Statistic\Correlation;
 
 class CorrelationTest extends \PHPUnit\Framework\TestCase

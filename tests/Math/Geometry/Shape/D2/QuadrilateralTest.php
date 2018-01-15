@@ -14,7 +14,6 @@
 
 namespace phpOMS\tests\Math\Shape\D2;
 
-
 use phpOMS\Math\Geometry\Shape\D2\Quadrilateral;
 
 class QuadrilateralTest extends \PHPUnit\Framework\TestCase

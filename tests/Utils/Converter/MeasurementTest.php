@@ -14,7 +14,6 @@
 
 namespace phpOMS\tests\Utils\Converter;
 
-
 use phpOMS\Utils\Converter\Measurement;
 use phpOMS\Utils\Converter\TemperatureType;
 use phpOMS\Utils\Converter\WeightType;

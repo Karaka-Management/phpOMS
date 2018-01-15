@@ -22,7 +22,7 @@ class ApplicationAbstractTest extends \PHPUnit\Framework\TestCase
     public function testGetSet()
     {
         $obj = new class extends ApplicationAbstract {};
-            
+
         $obj->appName = 'Test';
         self::assertEquals('Test', $obj->appName);
 

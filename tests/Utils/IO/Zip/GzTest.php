@@ -13,7 +13,6 @@
 
 namespace phpOMS\tests\Utils\IO\Zip;
 
-
 use phpOMS\Utils\IO\Zip\Gz;
 
 class GzTest extends \PHPUnit\Framework\TestCase

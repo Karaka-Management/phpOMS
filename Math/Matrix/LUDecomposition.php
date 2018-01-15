@@ -97,7 +97,7 @@ class LUDecomposition
                 }
             }
         }
-        
+
         $matrix = new Matrix();
         $matrix->setMatrix($L);
 
@@ -117,7 +117,7 @@ class LUDecomposition
                 }
             }
         }
-        
+
         $matrix = new Matrix();
         $matrix->setMatrix($U);
 
@@ -136,11 +136,11 @@ class LUDecomposition
                 return false;
             }
         }
-        
+
         return true;
     }
 
-    public function det() 
+    public function det()
     {
         $d = $this->pivSign;
         for ($j = 0; $j < $this->n; ++$j) {

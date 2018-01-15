@@ -14,7 +14,6 @@
 
 namespace phpOMS\tests\Stdlib\Base;
 
-
 use phpOMS\Stdlib\Base\PhoneType;
 
 class PhoneTypeTest extends \PHPUnit\Framework\TestCase

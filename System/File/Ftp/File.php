@@ -213,7 +213,7 @@ class File extends FileAbstract implements FileInterface
         $changed->setTimestamp(ftp_mdtm($con, $http->getPath()));
 
         fclose($con);
-        
+
         return $changed;
     }
 
@@ -269,7 +269,7 @@ class File extends FileAbstract implements FileInterface
         $items = [];
 
         if (is_array($files = ftp_rawlist($con, LocalFile::dirpath($path)))) {
-            foreach ($files as $fileData) { 
+            foreach ($files as $fileData) {
                 if (strpos($fileData, self::name($path)) !== false) {
                     $chunks = preg_split("/\s+/", $fileData);
 
@@ -281,17 +281,17 @@ class File extends FileAbstract implements FileInterface
 
                     break;
                 }
-            } 
-        } 
+            }
+        }
 
-        return $items; 
+        return $items;
     }
 
     /**
      * Gets the directory name of a file.
-     * 
+     *
      * @param  string $path Path of the file to get the directory name for.
-     * 
+     *
      * @return string Returns the directory name of the file.
      *
      * @since 1.0.0
@@ -303,9 +303,9 @@ class File extends FileAbstract implements FileInterface
 
     /**
      * Gets the directory path of a file.
-     * 
+     *
      * @param  string $path Path of the file to get the directory name for.
-     * 
+     *
      * @return string Returns the directory name of the file.
      *
      * @since 1.0.0
@@ -324,7 +324,7 @@ class File extends FileAbstract implements FileInterface
 
         if (($src = self::get($from)) === false) {
             return false;
-        } 
+        }
 
         return self::put($to, $src, $overwrite ? ContentPutMode::REPLACE : ContentPutMode::CREATE);
     }

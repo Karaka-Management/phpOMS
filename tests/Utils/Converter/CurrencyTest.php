@@ -14,7 +14,6 @@
 
 namespace phpOMS\tests\Utils\Converter;
 
-
 use phpOMS\Utils\Converter\Currency;
 use phpOMS\Localization\ISO4217CharEnum;
 
@@ -24,7 +23,7 @@ class CurrencyTest extends \PHPUnit\Framework\TestCase
     {
         self::assertGreaterThan(0, Currency::fromEurTo(1, ISO4217CharEnum::_USD));
         self::assertGreaterThan(0, Currency::fromToEur(1, ISO4217CharEnum::_USD));
-        
+
         Currency::resetCurrencies();
         self::assertGreaterThan(0, Currency::convertCurrency(1, ISO4217CharEnum::_USD, ISO4217CharEnum::_GBP));
     }
@@ -36,7 +35,7 @@ class CurrencyTest extends \PHPUnit\Framework\TestCase
     {
         Currency::fromEurTo(1, 'ERROR');
     }
-    
+
     /**
      * @expectedException \InvalidArgumentException
      */
@@ -44,7 +43,7 @@ class CurrencyTest extends \PHPUnit\Framework\TestCase
     {
         Currency::fromToEur(1, 'ERROR');
     }
-    
+
     /**
      * @expectedException \InvalidArgumentException
      */

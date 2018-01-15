@@ -14,7 +14,6 @@
 
 namespace phpOMS\tests\Utils\Parser\LaTex;
 
-
 use phpOMS\Utils\Parser\LaTex\LaTexParser;
 
 class LaTexParserTest extends \PHPUnit\Framework\TestCase

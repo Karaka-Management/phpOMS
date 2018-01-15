@@ -44,7 +44,7 @@ class Pop3 extends EmailAbstract
      *
      * @param string $user Username
      * @param string $pass Password
-     * 
+     *
      * @return void
      *
      * @since  1.0.0

@@ -88,7 +88,7 @@ class UriFactory
      *
      * @since  1.0.0
      */
-    public static function clearAll() : bool 
+    public static function clearAll() : bool
     {
         self::$uri = [];
 
@@ -132,7 +132,7 @@ class UriFactory
      *
      * @since  1.0.0
      */
-    public static function clear(string $key) : bool 
+    public static function clear(string $key) : bool
     {
         if (isset(self::$uri[$key])) {
             unset(self::$uri[$key]);
@@ -152,7 +152,7 @@ class UriFactory
      *
      * @since  1.0.0
      */
-    public static function clearLike(string $pattern) : bool 
+    public static function clearLike(string $pattern) : bool
     {
         $success = false;
 

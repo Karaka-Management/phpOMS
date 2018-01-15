@@ -14,7 +14,6 @@
 
 namespace phpOMS\tests\DataStorage\Database\Connection;
 
-
 use phpOMS\DataStorage\Database\Connection\SqlServerConnection;
 
 class SqlServerConnectionTest extends \PHPUnit\Framework\TestCase

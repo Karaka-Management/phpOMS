@@ -14,7 +14,6 @@
 
 namespace phpOMS\tests\Math\Optimization\Knappsack;
 
-
 use phpOMS\Math\Optimization\Knappsack\GA;
 
 class GATest extends \PHPUnit\Framework\TestCase

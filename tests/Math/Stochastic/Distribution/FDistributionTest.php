@@ -14,7 +14,6 @@
 
 namespace phpOMS\tests\Math\Stochastic\Distribution;
 
-
 use phpOMS\Math\Stochastic\Distribution\FDistribution;
 
 class FDistributionTest extends \PHPUnit\Framework\TestCase

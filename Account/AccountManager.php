@@ -19,8 +19,8 @@ use phpOMS\DataStorage\Session\SessionInterface;
 
 /**
  * Account manager class.
- * 
- * The account manager is used to manage multiple accounts. 
+ *
+ * The account manager is used to manage multiple accounts.
  *
  * @package    phpOMS\Account
  * @license    OMS License 1.0

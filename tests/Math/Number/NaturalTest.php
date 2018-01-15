@@ -14,7 +14,6 @@
 
 namespace phpOMS\tests\Math\Number;
 
-
 use phpOMS\Math\Number\Natural;
 
 class NaturalTest extends \PHPUnit\Framework\TestCase

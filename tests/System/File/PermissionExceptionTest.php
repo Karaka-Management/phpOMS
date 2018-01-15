@@ -14,7 +14,6 @@
 
 namespace phpOMS\tests\System\File;
 
-
 use phpOMS\System\File\PermissionException;
 
 class PermissionExceptionTest extends \PHPUnit\Framework\TestCase

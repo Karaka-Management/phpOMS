@@ -30,11 +30,11 @@ class MoneyTest extends \PHPUnit\Framework\TestCase
         self::assertObjectHasAttribute('value', $money);
 
         self::assertGreaterThan(0, Money::MAX_DECIMALS);
-        
+
         self::assertEquals(0, $money->getInt());
     }
 
-    public function testMoney() 
+    public function testMoney()
     {
         $money = new Money(12345678);
 
@@ -47,7 +47,7 @@ class MoneyTest extends \PHPUnit\Framework\TestCase
         self::assertEquals(12345600, Money::toInt('1234,56', '.', ','));
     }
 
-    public function testMoneySetters() 
+    public function testMoneySetters()
     {
         $money = new Money(12345678);
         self::assertEquals('999.13', $money->setString('999.13')->getAmount());
@@ -56,7 +56,7 @@ class MoneyTest extends \PHPUnit\Framework\TestCase
         self::assertEquals('€9.992,30', $money->setInt(99923000)->setLocalization('.', ',', ISO4217SymbolEnum::_EUR, 0)->getCurrency());
     }
 
-    public function testMoneySerialization() 
+    public function testMoneySerialization()
     {
         $money = new Money('999.23');
         self::assertEquals(9992300, $money->serialize());

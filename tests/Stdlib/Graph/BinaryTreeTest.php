@@ -14,7 +14,6 @@
 
 namespace phpOMS\tests\Stdlib\Graph;
 
-
 use phpOMS\Stdlib\Graph\BinaryTree;
 
 class BinaryTreeTest extends \PHPUnit\Framework\TestCase

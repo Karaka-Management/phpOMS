@@ -14,10 +14,9 @@
 
 namespace phpOMS\tests\DataStorage\Database\TestModel;
 
-
 class ManyToManyRelModel
 {
     public $id = 0;
-    
+
     public $string = 'ManyToManyRel';
 }

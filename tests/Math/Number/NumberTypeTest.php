@@ -14,7 +14,6 @@
 
 namespace phpOMS\tests\Math\Number;
 
-
 use phpOMS\Math\Number\NumberType;
 
 class NumberTypeTest extends \PHPUnit\Framework\TestCase

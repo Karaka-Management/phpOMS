@@ -16,7 +16,7 @@ namespace phpOMS\Business\Programming;
 
 /**
  * Programming metrics
- * 
+ *
  * This class provides basic programming metric calculations.
  *
  * @package    phpOMS\Business\Programming

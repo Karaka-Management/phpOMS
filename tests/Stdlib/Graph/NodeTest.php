@@ -14,7 +14,6 @@
 
 namespace phpOMS\tests\Stdlib\Graph;
 
-
 use phpOMS\Stdlib\Graph\Node;
 
 class NodeTest extends \PHPUnit\Framework\TestCase

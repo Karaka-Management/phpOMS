@@ -31,7 +31,7 @@ interface ContainerInterface
      *
      * @param string $path Path of the resource
      *
-     * @return \DateTime 
+     * @return \DateTime
      *
      * @since  1.0.0
      */
@@ -42,7 +42,7 @@ interface ContainerInterface
      *
      * @param string $path Path of the resource
      *
-     * @return \DateTime 
+     * @return \DateTime
      *
      * @since  1.0.0
      */
@@ -53,7 +53,7 @@ interface ContainerInterface
      *
      * @param string $path Path of the resource
      *
-     * @return int 
+     * @return int
      *
      * @since  1.0.0
      */
@@ -77,7 +77,7 @@ interface ContainerInterface
      *
      * @param string $path Path of the resource
      *
-     * @return string 
+     * @return string
      *
      * @since  1.0.0
      */
@@ -191,7 +191,7 @@ interface ContainerInterface
     /**
      * Get amount of sub-resources.
      *
-     * A file will always return 1 as it doesn't have any sub-resources. 
+     * A file will always return 1 as it doesn't have any sub-resources.
      *
      * @param bool $recursive Should count also sub-sub-resources
      *
@@ -235,7 +235,7 @@ interface ContainerInterface
      *
      * The parent resource path is always a directory.
      *
-     * @return ContainerInterface 
+     * @return ContainerInterface
      *
      * @since  1.0.0
      */
@@ -286,7 +286,7 @@ interface ContainerInterface
     /**
      * Get the datetime when the resource got created.
      *
-     * @return \DateTime 
+     * @return \DateTime
      *
      * @since  1.0.0
      */
@@ -295,7 +295,7 @@ interface ContainerInterface
     /**
      * Get the datetime when the resource got last modified.
      *
-     * @return \DateTime 
+     * @return \DateTime
      *
      * @since  1.0.0
      */
@@ -304,7 +304,7 @@ interface ContainerInterface
     /**
      * Get the owner id of the resource.
      *
-     * @return int 
+     * @return int
      *
      * @since  1.0.0
      */

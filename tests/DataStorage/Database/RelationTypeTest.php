@@ -14,7 +14,6 @@
 
 namespace phpOMS\tests\DataStorage\Database;
 
-
 use phpOMS\DataStorage\Database\RelationType;
 
 class RelationTypeTest extends \PHPUnit\Framework\TestCase

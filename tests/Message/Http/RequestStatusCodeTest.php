@@ -13,7 +13,6 @@
 
 namespace phpOMS\tests\Message\Http;
 
-
 use phpOMS\Message\Http\RequestStatusCode;
 
 class RequestStatusCodeTest extends \PHPUnit\Framework\TestCase
@@ -22,7 +21,7 @@ class RequestStatusCodeTest extends \PHPUnit\Framework\TestCase
     {
         self::assertEquals(55, count(RequestStatusCode::getConstants()));
         self::assertEquals(RequestStatusCode::getConstants(), array_unique(RequestStatusCode::getConstants()));
-        
+
         self::assertEquals(100, RequestStatusCode::R_100);
         self::assertEquals(101, RequestStatusCode::R_101);
         self::assertEquals(102, RequestStatusCode::R_102);

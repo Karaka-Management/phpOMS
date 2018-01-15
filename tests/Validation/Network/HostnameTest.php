@@ -14,7 +14,6 @@
 
 namespace phpOMS\tests\Validation\Network;
 
-
 use phpOMS\Validation\Network\Hostname;
 
 class HostnameTest extends \PHPUnit\Framework\TestCase

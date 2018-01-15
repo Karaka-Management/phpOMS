@@ -14,7 +14,6 @@
 
 namespace phpOMS\tests\Utils\Barcode;
 
-
 use phpOMS\Utils\Barcode\C128c;
 
 class C128cTest extends \PHPUnit\Framework\TestCase

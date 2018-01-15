@@ -14,7 +14,6 @@
 
 namespace phpOMS\tests\Business\Finance;
 
-
 use phpOMS\Business\Finance\Lorenzkurve;
 
 class LorenzkurveTest extends \PHPUnit\Framework\TestCase

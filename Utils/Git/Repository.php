@@ -214,7 +214,7 @@ class Repository
      * Create repository
      *
      * @param string $source Create repository from source (optional, can be remote)
-     * 
+     *
      * @return string
      *
      * @throws \Exception
@@ -292,7 +292,7 @@ class Repository
      *
      * @since  1.0.0
      */
-    private function parseFileList($files) : string 
+    private function parseFileList($files) : string
     {
         if (is_array($files)) {
             return '"' . implode('" "', $files) . '"';

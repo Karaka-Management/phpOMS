@@ -14,7 +14,6 @@
 
 namespace phpOMS\tests\Message\Http;
 
-
 use phpOMS\Message\Http\Header;
 use phpOMS\Localization\Localization;
 use phpOMS\Message\Http\RequestStatusCode;
@@ -52,7 +51,7 @@ class HeaderTest extends \PHPUnit\Framework\TestCase
         self::assertTrue($header->set('key', 'header'));
         self::assertEquals(['header'], $header->get('key'));
         self::assertTrue($header->has('key'));
-        
+
         self::assertFalse($header->set('key', 'header2'));
         self::assertEquals(['header'], $header->get('key'));
 

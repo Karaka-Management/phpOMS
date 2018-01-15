@@ -14,7 +14,6 @@
 
 namespace phpOMS\tests\DataStorage\Database\Query;
 
-
 use phpOMS\DataStorage\Database\Query\JoinType;
 
 class JoinTypeTest extends \PHPUnit\Framework\TestCase

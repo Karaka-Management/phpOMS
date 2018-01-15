@@ -14,7 +14,6 @@
 
 namespace phpOMS\tests\Message\Http;
 
-
 use phpOMS\Message\Http\RequestStatus;
 
 class RequestStatusTest extends \PHPUnit\Framework\TestCase
@@ -23,7 +22,7 @@ class RequestStatusTest extends \PHPUnit\Framework\TestCase
     {
         self::assertEquals(55, count(RequestStatus::getConstants()));
         self::assertEquals(RequestStatus::getConstants(), array_unique(RequestStatus::getConstants()));
-        
+
         self::assertEquals('Continue', RequestStatus::R_100);
         self::assertEquals('Switching Protocols', RequestStatus::R_101);
         self::assertEquals('Processing', RequestStatus::R_102);

@@ -14,7 +14,6 @@
 
 namespace phpOMS\tests\Math\Statistic\Forecast\Regression;
 
-
 use phpOMS\Math\Statistic\Forecast\Regression\LevelLevelRegression;
 
 class LevelLevelRegressionTest extends \PHPUnit\Framework\TestCase

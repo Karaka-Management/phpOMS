@@ -14,7 +14,6 @@
 
 namespace phpOMS\tests\Math\Stochastic\Distribution;
 
-
 use phpOMS\Math\Stochastic\Distribution\HypergeometricDistribution;
 
 class HypergeometricDistributionTest extends \PHPUnit\Framework\TestCase

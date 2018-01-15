@@ -14,7 +14,6 @@
 
 namespace phpOMS\tests\Utils\Parser\LaTex\Types;
 
-
 use phpOMS\Utils\Parser\LaTex\Types\Variable;
 
 class VariableTest extends \PHPUnit\Framework\TestCase

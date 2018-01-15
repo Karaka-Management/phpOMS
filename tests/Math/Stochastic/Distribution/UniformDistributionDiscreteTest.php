@@ -14,7 +14,6 @@
 
 namespace phpOMS\tests\Math\Stochastic\Distribution;
 
-
 use phpOMS\Math\Stochastic\Distribution\UniformDistributionDiscrete;
 
 class UniformDistributionDiscreteTest extends \PHPUnit\Framework\TestCase

@@ -14,7 +14,6 @@
 
 namespace phpOMS\tests\Business\Finance\Forecasting;
 
-
 use phpOMS\Business\Finance\Forecasting\ARFIMA;
 
 class ARFIMATest extends \PHPUnit\Framework\TestCase

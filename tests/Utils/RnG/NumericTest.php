@@ -14,7 +14,6 @@
 
 namespace phpOMS\tests\Utils\RnG;
 
-
 use phpOMS\Utils\RnG\Numeric;
 
 class NumericTest extends \PHPUnit\Framework\TestCase

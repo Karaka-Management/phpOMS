@@ -14,7 +14,6 @@
 
 namespace phpOMS\tests\Utils\Parser\Markdown;
 
-
 use phpOMS\Utils\Parser\Markdown\Markdown;
 use phpOMS\System\File\Local\Directory;
 
@@ -29,7 +28,7 @@ class MarkdownTest extends \PHPUnit\Framework\TestCase
 
             if ($data[1] === 'md') {
                 self::assertEquals(
-                    file_get_contents(__DIR__ . '/data/' . $data[0] . '.html'), 
+                    file_get_contents(__DIR__ . '/data/' . $data[0] . '.html'),
                     Markdown::parse(file_get_contents(__DIR__ . '/data/' . $data[0] . '.md')),
                     $file
                 );

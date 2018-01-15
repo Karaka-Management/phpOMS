@@ -14,7 +14,6 @@
 
 namespace phpOMS\tests\Validation\Finance;
 
-
 use phpOMS\Validation\Finance\Iban;
 
 class IbanTest extends \PHPUnit\Framework\TestCase

@@ -14,7 +14,6 @@
 
 namespace phpOMS\tests\Utils\IO\Zip;
 
-
 use phpOMS\Utils\IO\Zip\Zip;
 
 class ZipTest extends \PHPUnit\Framework\TestCase
@@ -62,7 +61,7 @@ class ZipTest extends \PHPUnit\Framework\TestCase
         self::assertFalse(file_exists(__DIR__ . '/test/sub/test e.txt'));
         self::assertFalse(file_exists(__DIR__ . '/test/sub'));
         self::assertFalse(file_exists(__DIR__ . '/test'));
-        
+
         self::assertTrue(Zip::unpack(__DIR__ . '/test.zip', __DIR__));
 
         self::assertTrue(file_exists(__DIR__ . '/test a.txt'));

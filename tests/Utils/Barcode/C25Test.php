@@ -14,7 +14,6 @@
 
 namespace phpOMS\tests\Utils\Barcode;
 
-
 use phpOMS\Utils\Barcode\C25;
 
 class C25Test extends \PHPUnit\Framework\TestCase

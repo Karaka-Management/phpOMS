@@ -14,7 +14,6 @@
 
 namespace phpOMS\tests\Utils\Converter;
 
-
 use phpOMS\Utils\Converter\PressureType;
 
 class PressureTypeTest extends \PHPUnit\Framework\TestCase
@@ -23,7 +22,7 @@ class PressureTypeTest extends \PHPUnit\Framework\TestCase
     {
         self::assertEquals(13, count(PressureType::getConstants()));
         self::assertEquals(PressureType::getConstants(), array_unique(PressureType::getConstants()));
-        
+
         self::assertEquals('Pa', PressureType::PASCALS);
         self::assertEquals('bar', PressureType::BAR);
         self::assertEquals('psi', PressureType::POUND_PER_SQUARE_INCH);

@@ -14,7 +14,6 @@
 
 namespace phpOMS\tests\Utils\Converter;
 
-
 use phpOMS\Utils\Converter\AreaType;
 
 class AreaTypeTest extends \PHPUnit\Framework\TestCase
@@ -23,7 +22,7 @@ class AreaTypeTest extends \PHPUnit\Framework\TestCase
     {
         self::assertEquals(13, count(AreaType::getConstants()));
         self::assertEquals(AreaType::getConstants(), array_unique(AreaType::getConstants()));
-       
+
         self::assertEquals('ft', AreaType::SQUARE_FEET);
         self::assertEquals('m', AreaType::SQUARE_METERS);
         self::assertEquals('km', AreaType::SQUARE_KILOMETERS);

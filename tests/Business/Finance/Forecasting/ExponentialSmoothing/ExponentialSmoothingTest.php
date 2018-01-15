@@ -14,7 +14,6 @@
 
 namespace phpOMS\tests\Business\Finance\Forecasting\ExponentialSmoothing;
 
-
 use phpOMS\Business\Finance\Forecasting\ExponentialSmoothing\ExponentialSmoothing;
 
 class ExponentialSmoothingTest extends \PHPUnit\Framework\TestCase

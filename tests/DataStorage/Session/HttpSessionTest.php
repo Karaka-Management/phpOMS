@@ -14,7 +14,6 @@
 
 namespace phpOMS\tests\DataStorage\Session;
 
-
 use phpOMS\DataStorage\Session\HttpSession;
 
 class HttpSessionTest extends \PHPUnit\Framework\TestCase

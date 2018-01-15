@@ -34,7 +34,7 @@ interface FileInterface extends ContainerInterface
      * @param string $content Content to save in file
      * @param int $mode Mode (overwrite, append)
      *
-     * @return bool 
+     * @return bool
      *
      * @since  1.0.0
      */
@@ -110,7 +110,7 @@ interface FileInterface extends ContainerInterface
      * @param string $content Content to save in file
      * @param int $mode Mode (overwrite, append)
      *
-     * @return bool 
+     * @return bool
      *
      * @since  1.0.0
      */

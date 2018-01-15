@@ -14,7 +14,6 @@
 
 namespace phpOMS\tests\Math\Matrix;
 
-
 use phpOMS\Math\Matrix\Matrix;
 use phpOMS\Math\Matrix\Vector;
 use phpOMS\Math\Matrix\CholeskyDecomposition;
@@ -31,7 +30,7 @@ class CholeskyDecompositionTest extends \PHPUnit\Framework\TestCase
         ]);
 
         $cholesky = new CholeskyDecomposition($A);
-        
+
         self::assertEquals([
             [5, 0, 0],
             [3, 3, 0],

@@ -14,7 +14,6 @@
 
 namespace phpOMS\tests\Math\Optimization\Knappsack;
 
-
 use phpOMS\Math\Optimization\Knappsack\Backpack;
 
 class BackpackTest extends \PHPUnit\Framework\TestCase

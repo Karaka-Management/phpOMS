@@ -14,7 +14,6 @@
 
 namespace phpOMS\tests\Utils\Excel;
 
-
 use phpOMS\Utils\Excel\Excel;
 
 class ExcelTest extends \PHPUnit\Framework\TestCase

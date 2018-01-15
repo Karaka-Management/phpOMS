@@ -17,19 +17,19 @@ namespace phpOMS\tests\DataStorage\Database\TestModel;
 class BaseModel
 {
     public $id = 0;
-    
+
     public $string = 'Base';
-    
+
     public $int = 11;
-    
+
     public $bool = false;
-    
+
     public $float = 1.3;
-    
+
     public $null = null;
-    
+
     public $datetime = null;
-    
+
     public $hasManyDirect = [];
 
     public $hasManyRelations = [];
@@ -37,11 +37,11 @@ class BaseModel
     public $ownsOneSelf = 0;
 
     public $belongsToOne = 0;
-    
+
     public $serializable = null;
-    
+
     public $json = [1, 2, 3];
-    
+
     public $jsonSerializable = null;
 
     public function __construct()

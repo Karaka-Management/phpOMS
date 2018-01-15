@@ -14,7 +14,6 @@
 
 namespace phpOMS\tests\Math\Number;
 
-
 use phpOMS\Math\Number\Prime;
 
 class PrimeTest extends \PHPUnit\Framework\TestCase

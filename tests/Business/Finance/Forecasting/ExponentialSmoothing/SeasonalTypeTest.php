@@ -14,7 +14,6 @@
 
 namespace phpOMS\tests\Business\Finance\Forecasting\ExponentialSmoothing;
 
-
 use phpOMS\Business\Finance\Forecasting\ExponentialSmoothing\SeasonalType;
 
 class SeasonalTypeTest extends \PHPUnit\Framework\TestCase
