@@ -14,7 +14,7 @@
 
 namespace Tests\PHPUnit\phpOMS\DataStorage\Session;
 
-require_once __DIR__ . '/../../../../../phpOMS/Autoloader.php';
+require_once __DIR__ . '/../../Autoloader.php';
 
 use phpOMS\DataStorage\Session\SocketSession;
 

@@ -25,7 +25,7 @@ use phpOMS\Router\Router;
 use phpOMS\Uri\Http;
 use phpOMS\System\File\PathException;
 
-require_once __DIR__ . '/../../../../phpOMS/Autoloader.php';
+require_once __DIR__ . '/../Autoloader.php';
 
 class DispatcherTest extends \PHPUnit\Framework\TestCase
 {

@@ -21,8 +21,8 @@ use phpOMS\DataStorage\Database\DatabasePool;
 use Tests\PHPUnit\phpOMS\DataStorage\Database\TestModel\BaseModel;
 use Tests\PHPUnit\phpOMS\DataStorage\Database\TestModel\BaseModelMapper;
 
-require_once __DIR__ . '/../../../../../phpOMS/Autoloader.php';
-require_once __DIR__ . '/../../../../../config.php';
+require_once __DIR__ . '/../../Autoloader.php';
+
 
 class DataMapperAbstractTest extends \PHPUnit\Framework\TestCase
 {

@@ -17,7 +17,7 @@ namespace Tests\PHPUnit\phpOMS\Stdlib\Base;
 use phpOMS\Stdlib\Base\Iban;
 use phpOMS\Localization\ISO3166TwoEnum;
 
-require_once __DIR__ . '/../../../../../phpOMS/Autoloader.php';
+require_once __DIR__ . '/../../Autoloader.php';
 
 class IbanTest extends \PHPUnit\Framework\TestCase
 {

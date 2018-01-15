@@ -16,7 +16,7 @@ namespace Tests\PHPUnit\phpOMS\Stdlib\Base;
 
 use phpOMS\Stdlib\Base\EnumArray;
 
-require_once __DIR__ . '/../../../../../phpOMS/Autoloader.php';
+require_once __DIR__ . '/../../Autoloader.php';
 
 final class EnumArrayDemo extends EnumArray
 {

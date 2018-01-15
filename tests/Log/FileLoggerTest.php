@@ -18,7 +18,7 @@ use phpOMS\Log\FileLogger;
 use phpOMS\Log\LogLevel;
 use phpOMS\Stdlib\Base\Exception\InvalidEnumValue;
 
-require_once __DIR__ . '/../../../../phpOMS/Autoloader.php';
+require_once __DIR__ . '/../Autoloader.php';
 
 class FileLoggerTest extends \PHPUnit\Framework\TestCase
 {

@@ -17,7 +17,7 @@ namespace Tests\PHPUnit\phpOMS\Uri;
 use phpOMS\Uri\UriFactory;
 use phpOMS\Uri\Http;
 
-require_once __DIR__ . '/../../../../phpOMS/Autoloader.php';
+require_once __DIR__ . '/../Autoloader.php';
 
 class UriFactoryTest extends \PHPUnit\Framework\TestCase
 {

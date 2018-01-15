@@ -20,7 +20,7 @@ use phpOMS\DataStorage\Database\DataMapperAbstract;
 use phpOMS\DataStorage\Database\DatabasePool;
 use phpOMS\DataStorage\Session\HttpSession;
 
-require_once __DIR__ . '/../../../../phpOMS/Autoloader.php';
+require_once __DIR__ . '/../Autoloader.php';
 
 class AccountManagerTest extends \PHPUnit\Framework\TestCase
 {

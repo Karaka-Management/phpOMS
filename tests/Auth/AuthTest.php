@@ -20,7 +20,7 @@ use phpOMS\DataStorage\Database\DatabasePool;
 use phpOMS\DataStorage\Session\ConsoleSession;
 use phpOMS\DataStorage\Session\SocketSession;
 
-require_once __DIR__ . '/../../../../phpOMS/Autoloader.php';
+require_once __DIR__ . '/../Autoloader.php';
 
 class AuthTest extends \PHPUnit\Framework\TestCase
 {

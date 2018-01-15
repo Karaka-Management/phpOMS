@@ -24,7 +24,7 @@ use phpOMS\Log\FileLogger;
 use phpOMS\Utils\Converter\AngleType;
 use phpOMS\Utils\Converter\TemperatureType;
 
-require_once __DIR__ . '/../../../../phpOMS/Autoloader.php';
+require_once __DIR__ . '/../Autoloader.php';
 
 class LocalizationTest extends \PHPUnit\Framework\TestCase
 {

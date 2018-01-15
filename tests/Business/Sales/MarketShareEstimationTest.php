@@ -15,7 +15,7 @@ namespace Tests\PHPUnit\phpOMS\Business\Sales;
 
 use phpOMS\Business\Sales\MarketShareEstimation;
 
-require_once __DIR__ . '/../../../../../phpOMS/Autoloader.php';
+require_once __DIR__ . '/../../Autoloader.php';
 
 class MarketShareEstimationTest extends \PHPUnit\Framework\TestCase
 {

@@ -16,7 +16,7 @@ namespace Tests\PHPUnit\phpOMS\Config;
 
 use phpOMS\Config\OptionsTrait;
 
-require_once __DIR__ . '/../../../../phpOMS/Autoloader.php';
+require_once __DIR__ . '/../Autoloader.php';
 
 class OptionsTraitTest extends \PHPUnit\Framework\TestCase
 {

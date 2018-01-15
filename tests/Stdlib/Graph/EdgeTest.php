@@ -14,7 +14,7 @@
 
 namespace Tests\PHPUnit\phpOMS\Stdlib\Graph;
 
-require_once __DIR__ . '/../../../../../phpOMS/Autoloader.php';
+require_once __DIR__ . '/../../Autoloader.php';
 
 use phpOMS\Stdlib\Graph\Edge;
 

@@ -25,7 +25,7 @@ use phpOMS\Localization\Localization;
 use phpOMS\Localization\NullLocalization;
 use phpOMS\Log\FileLogger;
 
-require_once __DIR__ . '/../../../../phpOMS/Autoloader.php';
+require_once __DIR__ . '/../Autoloader.php';
 
 class AccountTest extends \PHPUnit\Framework\TestCase
 {

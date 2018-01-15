@@ -21,7 +21,7 @@ use phpOMS\Localization\Localization;
 use phpOMS\Message\Http\Request;
 use phpOMS\Uri\Http;
 
-require_once __DIR__ . '/../../../../phpOMS/Autoloader.php';
+require_once __DIR__ . '/../Autoloader.php';
 
 class RouterTest extends \PHPUnit\Framework\TestCase
 {

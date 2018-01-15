@@ -14,7 +14,7 @@
 
 namespace Tests\PHPUnit\phpOMS\Views;
 
-require_once __DIR__ . '/../../../../phpOMS/Autoloader.php';
+require_once __DIR__ . '/../Autoloader.php';
 
 use phpOMS\ApplicationAbstract;
 use phpOMS\DataStorage\Database\DatabasePool;

@@ -16,7 +16,7 @@ namespace Tests\PHPUnit\phpOMS\Utils\RnG;
 
 use phpOMS\Utils\RnG\StringUtils;
 
-require_once __DIR__ . '/../../../../../phpOMS/Autoloader.php';
+require_once __DIR__ . '/../../Autoloader.php';
 
 class StringUtilsTest extends \PHPUnit\Framework\TestCase
 {

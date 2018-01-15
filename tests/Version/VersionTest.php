@@ -16,7 +16,7 @@ namespace Tests\PHPUnit\phpOMS\Version;
 
 use phpOMS\Version\Version;
 
-require_once __DIR__ . '/../../../../phpOMS/Autoloader.php';
+require_once __DIR__ . '/../Autoloader.php';
 
 class VersionTest extends \PHPUnit\Framework\TestCase
 {

@@ -279,11 +279,11 @@ class Request extends RequestAbstract
     public function getBrowser() : string
     {
         if (!isset($this->browser)) {
-            $arr               = BrowserType::getConstants();
-            $http_request_type = strtolower($_SERVER['HTTP_USER_AGENT']);
+            $arr           = BrowserType::getConstants();
+            $httpUserAgent = strtolower($_SERVER['HTTP_USER_AGENT']);
 
             foreach ($arr as $key => $val) {
-                if (stripos($http_request_type, $val)) {
+                if (stripos($httpUserAgent, $val)) {
                     $this->browser = $val;
                     break;
                 }
@@ -317,11 +317,11 @@ class Request extends RequestAbstract
     public function getOS() : string
     {
         if (!isset($this->os)) {
-            $arr               = OSType::getConstants();
-            $http_request_type = strtolower($_SERVER['HTTP_USER_AGENT']);
+            $arr           = OSType::getConstants();
+            $httpUserAgent = strtolower($_SERVER['HTTP_USER_AGENT']);
             
             foreach ($arr as $key => $val) {
-                if (stripos($http_request_type, $val)) {
+                if (stripos($httpUserAgent, $val)) {
                     $this->os = $val;
                     break;
                 }

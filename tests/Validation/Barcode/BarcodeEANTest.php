@@ -14,7 +14,7 @@
 
 namespace Tests\PHPUnit\phpOMS\Validation\Barcode;
 
-require_once __DIR__ . '/../../../../../phpOMS/Autoloader.php';
+require_once __DIR__ . '/../../Autoloader.php';
 
 use phpOMS\Validation\Barcode\BarcodeEAN;
 

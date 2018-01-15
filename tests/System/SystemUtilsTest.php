@@ -16,7 +16,7 @@ namespace Tests\PHPUnit\phpOMS\System;
 
 use phpOMS\System\SystemUtils;
 
-require_once __DIR__ . '/../../../../phpOMS/Autoloader.php';
+require_once __DIR__ . '/../Autoloader.php';
 
 class SystemUtilsTest extends \PHPUnit\Framework\TestCase
 {

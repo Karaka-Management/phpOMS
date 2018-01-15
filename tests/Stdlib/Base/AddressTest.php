@@ -17,7 +17,7 @@ namespace Tests\PHPUnit\phpOMS\Stdlib\Base;
 use phpOMS\Stdlib\Base\Address;
 use phpOMS\Stdlib\Base\Location;
 
-require_once __DIR__ . '/../../../../../phpOMS/Autoloader.php';
+require_once __DIR__ . '/../../Autoloader.php';
 
 class AddressTest extends \PHPUnit\Framework\TestCase
 {

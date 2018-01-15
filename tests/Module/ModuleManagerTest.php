@@ -21,7 +21,7 @@ use phpOMS\Module\ModuleManager;
 use phpOMS\Router\Router;
 use phpOMS\Security\Encryption\Encryption;
 
-require_once __DIR__ . '/../../../../phpOMS/Autoloader.php';
+require_once __DIR__ . '/../Autoloader.php';
 
 class ModuleManagerTest extends \PHPUnit\Framework\TestCase
 {

@@ -17,7 +17,7 @@ namespace Tests\PHPUnit\phpOMS\Account;
 use phpOMS\Account\Group;
 use phpOMS\Account\GroupStatus;
 
-require_once __DIR__ . '/../../../../phpOMS/Autoloader.php';
+require_once __DIR__ . '/../Autoloader.php';
 
 class GroupTest extends \PHPUnit\Framework\TestCase
 {

@@ -13,7 +13,7 @@
 
 namespace Tests\PHPUnit\phpOMS\Math\Exception;
 
-require_once __DIR__ . '/../../../../../phpOMS/Autoloader.php';
+require_once __DIR__ . '/../../Autoloader.php';
 
 use phpOMS\Math\Exception\ZeroDevisionException;
 

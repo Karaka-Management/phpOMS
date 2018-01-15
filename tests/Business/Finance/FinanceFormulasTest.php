@@ -16,7 +16,7 @@ namespace Tests\PHPUnit\phpOMS\Business\Finance;
 
 use phpOMS\Business\Finance\FinanceFormulas;
 
-require_once __DIR__ . '/../../../../../phpOMS/Autoloader.php';
+require_once __DIR__ . '/../../Autoloader.php';
 
 class FinanceFormulasTest extends \PHPUnit\Framework\TestCase
 {

@@ -16,7 +16,7 @@ namespace Tests\PHPUnit\phpOMS\Utils;
 
 use phpOMS\Utils\Permutation;
 
-require_once __DIR__ . '/../../../../phpOMS/Autoloader.php';
+require_once __DIR__ . '/../Autoloader.php';
 
 class PermutationTest extends \PHPUnit\Framework\TestCase
 {

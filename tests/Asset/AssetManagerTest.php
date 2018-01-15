@@ -16,7 +16,7 @@ namespace Tests\PHPUnit\phpOMS\Account;
 
 use phpOMS\Asset\AssetManager;
 
-require_once __DIR__ . '/../../../../phpOMS/Autoloader.php';
+require_once __DIR__ . '/../Autoloader.php';
 
 class AssetManagerTest extends \PHPUnit\Framework\TestCase
 {

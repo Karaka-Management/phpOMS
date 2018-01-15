@@ -17,7 +17,7 @@ namespace Tests\PHPUnit\phpOMS\Localization;
 use phpOMS\Localization\L11nManager;
 use phpOMS\Log\FileLogger;
 
-require_once __DIR__ . '/../../../../phpOMS/Autoloader.php';
+require_once __DIR__ . '/../Autoloader.php';
 
 class L11nManagerTest extends \PHPUnit\Framework\TestCase
 {
