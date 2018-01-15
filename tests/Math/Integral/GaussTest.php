@@ -12,9 +12,8 @@
  * @link       http://website.orange-management.de
  */
 
-namespace Tests\PHPUnit\phpOMS\Math\Integral;
+namespace phpOMS\tests\Math\Integral;
 
-require_once __DIR__ . '/../../Autoloader.php';
 
 use phpOMS\Math\Integral\Gauss;
 

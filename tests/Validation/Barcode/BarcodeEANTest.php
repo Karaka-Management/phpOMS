@@ -12,9 +12,8 @@
  * @link       http://website.orange-management.de
  */
 
-namespace Tests\PHPUnit\phpOMS\Validation\Barcode;
+namespace phpOMS\tests\Validation\Barcode;
 
-require_once __DIR__ . '/../../Autoloader.php';
 
 use phpOMS\Validation\Barcode\BarcodeEAN;
 

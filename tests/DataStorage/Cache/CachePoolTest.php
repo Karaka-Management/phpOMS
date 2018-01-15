@@ -12,9 +12,8 @@
  * @link       http://website.orange-management.de
  */
 
-namespace Tests\PHPUnit\phpOMS\DataStorage\Cache;
+namespace phpOMS\tests\DataStorage\Cache;
 
-require_once __DIR__ . '/../../Autoloader.php';
 
 use phpOMS\DataStorage\Cache\CachePool;
 use phpOMS\DataStorage\Cache\FileCache;

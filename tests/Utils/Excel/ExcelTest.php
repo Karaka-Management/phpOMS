@@ -12,9 +12,8 @@
  * @link       http://website.orange-management.de
  */
 
-namespace Tests\PHPUnit\phpOMS\Utils\Excel;
+namespace phpOMS\tests\Utils\Excel;
 
-require_once __DIR__ . '/../../Autoloader.php';
 
 use phpOMS\Utils\Excel\Excel;
 

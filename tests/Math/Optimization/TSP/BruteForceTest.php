@@ -12,9 +12,8 @@
  * @link       http://website.orange-management.de
  */
 
-namespace Tests\PHPUnit\phpOMS\Math\Optimization\TSP;
+namespace phpOMS\tests\Math\Optimization\TSP;
 
-require_once __DIR__ . '/../../../../../../phpOMS/Autoloader.php';
 
 use phpOMS\Math\Optimization\TSP\BruteForce;
 

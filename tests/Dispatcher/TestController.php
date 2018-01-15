@@ -11,7 +11,7 @@
  * @version    1.0.0
  * @link       http://website.orange-management.de
  */
-namespace Tests\PHPUnit\phpOMS\Dispatcher;
+namespace phpOMS\tests\Dispatcher;
 
 class TestController
 {

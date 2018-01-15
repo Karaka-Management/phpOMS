@@ -12,9 +12,8 @@
  * @link       http://website.orange-management.de
  */
 
-namespace Tests\PHPUnit\phpOMS\Math\Matrix;
+namespace phpOMS\tests\Math\Matrix;
 
-require_once __DIR__ . '/../../Autoloader.php';
 
 use phpOMS\Math\Matrix\Vector;
 

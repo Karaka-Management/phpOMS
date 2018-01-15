@@ -12,9 +12,8 @@
  * @link       http://website.orange-management.de
  */
 
-namespace Tests\PHPUnit\phpOMS\Utils\Parser\Markdown;
+namespace phpOMS\tests\Utils\Parser\Markdown;
 
-require_once __DIR__ . '/../../../../../../phpOMS/Autoloader.php';
 
 use phpOMS\Utils\Parser\Markdown\Markdown;
 use phpOMS\System\File\Local\Directory;

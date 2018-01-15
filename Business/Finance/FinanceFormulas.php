@@ -110,7 +110,6 @@ class FinanceFormulas
         return $fva / ((pow(1 + $r, $n) - 1) / $r);
     }
 
-
     /**
      * Annuity - Future Value w/ Continuous Compounding
      *

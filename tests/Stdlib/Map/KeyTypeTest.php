@@ -12,9 +12,8 @@
  * @link       http://website.orange-management.de
  */
 
-namespace Tests\PHPUnit\phpOMS\Stdlib\Map;
+namespace phpOMS\tests\Stdlib\Map;
 
-require_once __DIR__ . '/../../Autoloader.php';
 
 use phpOMS\Stdlib\Map\KeyType;
 

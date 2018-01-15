@@ -12,7 +12,7 @@
  * @link       http://website.orange-management.de
  */
 
-namespace Tests\PHPUnit\phpOMS\Account;
+namespace phpOMS\tests\Account;
 
 use phpOMS\Asset\AssetManager;
 

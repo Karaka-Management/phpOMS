@@ -16,7 +16,6 @@ namespace phpOMS\Utils\TaskSchedule;
 
 use phpOMS\Validation\Base\DateTime;
 
-
 /**
  * Schedule class.
  *

@@ -12,9 +12,8 @@
  * @link       http://website.orange-management.de
  */
 
-namespace Tests\PHPUnit\phpOMS\Math\Geometry\ConvexHull;
+namespace phpOMS\tests\Math\Geometry\ConvexHull;
 
-require_once __DIR__ . '/../../../../../../phpOMS/Autoloader.php';
 
 use phpOMS\Math\Geometry\ConvexHull\MonotoneChain;
 

@@ -12,7 +12,7 @@
  * @link       http://website.orange-management.de
  */
 
-namespace Tests\PHPUnit\phpOMS\Views;
+namespace phpOMS\tests\Views;
 
 require_once __DIR__ . '/../Autoloader.php';
 
@@ -110,11 +110,11 @@ class ViewTest extends \PHPUnit\Framework\TestCase
     {
         $view = new View($this->app, new Request(), new Response(new Localization()));
         
-        $view->setTemplate('/Tests/PHPUnit/phpOMS/Views/testTemplate');
+        $view->setTemplate('/phpOMS/tests/Views/testTemplate');
         self::assertEquals('<strong>Test</strong>', $view->render());
 
         // todo: why is this failing?
-        //$view->setTemplate('/Tests/PHPUnit/phpOMS/Views/testArray');
+        //$view->setTemplate('phpOMS/tests/Views/testArray');
         //self::assertEquals([1, 2, 3], $view->render());
     }
 

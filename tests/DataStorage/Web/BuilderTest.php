@@ -12,9 +12,8 @@
  * @link       http://website.orange-management.de
  */
 
-namespace Tests\PHPUnit\phpOMS\DataStorage\Web;
+namespace phpOMS\tests\DataStorage\Web;
 
-require_once __DIR__ . '/../../Autoloader.php';
 
 use phpOMS\DataStorage\Web\Builder;
 

@@ -12,7 +12,7 @@
  * @link       http://website.orange-management.de
  */
 
-namespace Tests\PHPUnit\phpOMS\Localization;
+namespace phpOMS\tests\Localization;
 
 use phpOMS\Localization\L11nManager;
 use phpOMS\Log\FileLogger;

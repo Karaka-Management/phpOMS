@@ -12,9 +12,8 @@
  * @link       http://website.orange-management.de
  */
 
-namespace Tests\PHPUnit\phpOMS\Stdlib\Base\Exception;
+namespace phpOMS\tests\Stdlib\Base\Exception;
 
-require_once __DIR__ . '/../../../../../../phpOMS/Autoloader.php';
 
 use phpOMS\Stdlib\Base\Exception\InvalidEnumName;
 

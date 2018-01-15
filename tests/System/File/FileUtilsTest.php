@@ -12,9 +12,8 @@
  * @link       http://website.orange-management.de
  */
 
-namespace Tests\PHPUnit\phpOMS\System\File;
+namespace phpOMS\tests\System\File;
 
-require_once __DIR__ . '/../../Autoloader.php';
 
 use phpOMS\System\File\FileUtils;
 use phpOMS\System\File\ExtensionType;

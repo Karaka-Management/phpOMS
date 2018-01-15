@@ -12,9 +12,8 @@
  * @link       http://website.orange-management.de
  */
 
-namespace Tests\PHPUnit\phpOMS\Message\Http;
+namespace phpOMS\tests\Message\Http;
 
-require_once __DIR__ . '/../../Autoloader.php';
 
 use phpOMS\Message\Http\Rest;
 use phpOMS\Message\Http\Request;

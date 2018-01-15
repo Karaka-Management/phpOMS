@@ -12,9 +12,8 @@
  * @link       http://website.orange-management.de
  */
 
-namespace Tests\PHPUnit\phpOMS\Stdlib\Graph;
+namespace phpOMS\tests\Stdlib\Graph;
 
-require_once __DIR__ . '/../../Autoloader.php';
 
 use phpOMS\Stdlib\Graph\Node;
 

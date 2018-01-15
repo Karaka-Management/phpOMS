@@ -12,9 +12,8 @@
  * @link       http://website.orange-management.de
  */
 
-namespace Tests\PHPUnit\phpOMS\Business\Marketing;
+namespace phpOMS\tests\Business\Marketing;
 
-require_once __DIR__ . '/../../Autoloader.php';
 
 use phpOMS\Business\Marketing\NetPromoterScore;
 

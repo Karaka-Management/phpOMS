@@ -12,9 +12,8 @@
  * @link       http://website.orange-management.de
  */
 
-namespace Tests\PHPUnit\phpOMS\Utils\Barcode;
+namespace phpOMS\tests\Utils\Barcode;
 
-require_once __DIR__ . '/../../Autoloader.php';
 
 use phpOMS\Utils\Barcode\Datamatrix;
 

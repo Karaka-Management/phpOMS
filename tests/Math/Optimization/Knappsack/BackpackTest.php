@@ -12,9 +12,8 @@
  * @link       http://website.orange-management.de
  */
 
-namespace Tests\PHPUnit\phpOMS\Math\Optimization\Knappsack;
+namespace phpOMS\tests\Math\Optimization\Knappsack;
 
-require_once __DIR__ . '/../../../../../../phpOMS/Autoloader.php';
 
 use phpOMS\Math\Optimization\Knappsack\Backpack;
 

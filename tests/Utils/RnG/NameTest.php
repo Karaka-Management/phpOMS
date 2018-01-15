@@ -12,9 +12,8 @@
  * @link       http://website.orange-management.de
  */
 
-namespace Tests\PHPUnit\phpOMS\Utils\RnG;
+namespace phpOMS\tests\Utils\RnG;
 
-require_once __DIR__ . '/../../Autoloader.php';
 
 use phpOMS\Utils\RnG\Name;
 

@@ -12,16 +12,15 @@
  * @link       http://website.orange-management.de
  */
 
-namespace Tests\PHPUnit\phpOMS\DataStorage\Database;
+namespace phpOMS\tests\DataStorage\Database;
 
 use phpOMS\DataStorage\Database\Connection\MysqlConnection;
 use phpOMS\DataStorage\Database\DatabaseStatus;
 use phpOMS\DataStorage\Database\DatabasePool;
 
-use Tests\PHPUnit\phpOMS\DataStorage\Database\TestModel\BaseModel;
-use Tests\PHPUnit\phpOMS\DataStorage\Database\TestModel\BaseModelMapper;
+use phpOMS\tests\DataStorage\Database\TestModel\BaseModel;
+use phpOMS\tests\DataStorage\Database\TestModel\BaseModelMapper;
 
-require_once __DIR__ . '/../../Autoloader.php';
 
 
 class DataMapperAbstractTest extends \PHPUnit\Framework\TestCase
@@ -165,10 +164,9 @@ class DataMapperAbstractTest extends \PHPUnit\Framework\TestCase
         BaseModelMapper::delete($this->model);
         $modelR = BaseModelMapper::get($id);
 
-        self::assertInstanceOf('\Tests\PHPUnit\phpOMS\DataStorage\Database\TestModel\NullBaseModel', $modelR);
+        self::assertInstanceOf('phpOMS\tests\DataStorage\Database\TestModel\NullBaseModel', $modelR);
 
         // todo test if relations also deleted
     }
-
 
 }

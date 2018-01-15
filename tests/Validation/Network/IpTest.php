@@ -12,9 +12,8 @@
  * @link       http://website.orange-management.de
  */
 
-namespace Tests\PHPUnit\phpOMS\Validation\Network;
+namespace phpOMS\tests\Validation\Network;
 
-require_once __DIR__ . '/../../Autoloader.php';
 
 use phpOMS\Validation\Network\Ip;
 

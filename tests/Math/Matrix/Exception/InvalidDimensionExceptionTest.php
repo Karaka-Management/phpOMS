@@ -11,9 +11,8 @@
  * @link       http://website.orange-management.de
  */
 
-namespace Tests\PHPUnit\phpOMS\Math\Matrix\Exception;
+namespace phpOMS\tests\Math\Matrix\Exception;
 
-require_once __DIR__ . '/../../../../../../phpOMS/Autoloader.php';
 
 use phpOMS\Math\Matrix\Exception\InvalidDimensionException;
 

@@ -12,9 +12,8 @@
  * @link       http://website.orange-management.de
  */
 
-namespace Tests\PHPUnit\phpOMS\Math\Optimization\ShiftScheduling;
+namespace phpOMS\tests\Math\Optimization\ShiftScheduling;
 
-require_once __DIR__ . '/../../../../../../phpOMS/Autoloader.php';
 
 use phpOMS\Math\Optimization\ShiftScheduling\WorkerPool;
 

@@ -12,9 +12,8 @@
  * @link       http://website.orange-management.de
  */
 
-namespace Tests\PHPUnit\phpOMS\Math\Functions;
+namespace phpOMS\tests\Math\Functions;
 
-require_once __DIR__ . '/../../Autoloader.php';
 
 use phpOMS\Math\Functions\Fibunacci;
 

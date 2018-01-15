@@ -17,7 +17,6 @@ namespace phpOMS\DataStorage\Cache;
 use phpOMS\Config\OptionsInterface;
 use phpOMS\Config\OptionsTrait;
 
-
 /**
  * Cache class.
  *
@@ -40,7 +39,6 @@ class CachePool implements OptionsInterface
      * @since 1.0.0
      */
     private $pool = null;
-
 
     /**
      * Constructor.

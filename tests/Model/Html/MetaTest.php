@@ -12,9 +12,8 @@
  * @link       http://website.orange-management.de
  */
 
-namespace Tests\PHPUnit\phpOMS\Model\Html;
+namespace phpOMS\tests\Model\Html;
 
-require_once __DIR__ . '/../../Autoloader.php';
 
 use phpOMS\Model\Html\Meta;
 

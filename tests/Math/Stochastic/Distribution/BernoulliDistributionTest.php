@@ -12,9 +12,8 @@
  * @link       http://website.orange-management.de
  */
 
-namespace Tests\PHPUnit\phpOMS\Math\Stochastic\Distribution;
+namespace phpOMS\tests\Math\Stochastic\Distribution;
 
-require_once __DIR__ . '/../../../../../../phpOMS/Autoloader.php';
 
 use phpOMS\Math\Stochastic\Distribution\BernoulliDistribution;
 

@@ -12,11 +12,10 @@
  * @link       http://website.orange-management.de
  */
 
-namespace Tests\PHPUnit\phpOMS\Utils;
+namespace phpOMS\tests\Utils;
 
 use phpOMS\Stdlib\Map\MultiMap;
 
-require_once __DIR__ . '/../../Autoloader.php';
 
 class MultiMapTest extends \PHPUnit\Framework\TestCase
 {

@@ -12,9 +12,8 @@
  * @link       http://website.orange-management.de
  */
 
-namespace Tests\PHPUnit\phpOMS\Math\Shape\D2;
+namespace phpOMS\tests\Math\Shape\D2;
 
-require_once __DIR__ . '/../../../../../../../phpOMS/Autoloader.php';
 
 use phpOMS\Math\Geometry\Shape\D2\Circle;
 

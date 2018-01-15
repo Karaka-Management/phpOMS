@@ -12,11 +12,10 @@
  * @link       http://website.orange-management.de
  */
 
-namespace Tests\PHPUnit\phpOMS\Utils\Compression;
+namespace phpOMS\tests\Utils\Compression;
 
 use phpOMS\Utils\Compression\LZW;
 
-require_once __DIR__ . '/../../Autoloader.php';
 
 class LZWTest extends \PHPUnit\Framework\TestCase
 {

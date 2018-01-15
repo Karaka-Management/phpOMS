@@ -12,9 +12,8 @@
  * @link       http://website.orange-management.de
  */
 
-namespace Tests\PHPUnit\phpOMS\Utils\Encoding\Huffman;
+namespace phpOMS\tests\Utils\Encoding\Huffman;
 
-require_once __DIR__ . '/../../../../../../phpOMS/Autoloader.php';
 
 use phpOMS\Utils\Encoding\Huffman\Dictionary;
 

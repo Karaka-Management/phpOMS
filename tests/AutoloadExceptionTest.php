@@ -12,9 +12,8 @@
  * @link       http://website.orange-management.de
  */
 
-namespace Tests\PHPUnit\phpOMS;
+namespace phpOMS\tests;
 
-require_once __DIR__ . '/../../../phpOMS/Autoloader.php';
 
 use phpOMS\AutoloadException;
 

@@ -12,12 +12,11 @@
  * @link       http://website.orange-management.de
  */
 
-namespace Tests\PHPUnit\phpOMS\Stdlib\Base;
+namespace phpOMS\tests\Stdlib\Base;
 
 use phpOMS\Stdlib\Base\Address;
 use phpOMS\Stdlib\Base\Location;
 
-require_once __DIR__ . '/../../Autoloader.php';
 
 class AddressTest extends \PHPUnit\Framework\TestCase
 {

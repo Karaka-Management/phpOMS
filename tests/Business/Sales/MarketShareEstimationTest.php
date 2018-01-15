@@ -11,11 +11,10 @@
  * @version    1.0.0
  * @link       http://website.orange-management.de
  */
-namespace Tests\PHPUnit\phpOMS\Business\Sales;
+namespace phpOMS\tests\Business\Sales;
 
 use phpOMS\Business\Sales\MarketShareEstimation;
 
-require_once __DIR__ . '/../../Autoloader.php';
 
 class MarketShareEstimationTest extends \PHPUnit\Framework\TestCase
 {

@@ -12,9 +12,8 @@
  * @link       http://website.orange-management.de
  */
 
-namespace Tests\PHPUnit\phpOMS\Utils\IO\Json;
+namespace phpOMS\tests\Utils\IO\Json;
 
-require_once __DIR__ . '/../../../../../../phpOMS/Autoloader.php';
 
 use phpOMS\Utils\IO\Json\InvalidJsonException;
 

@@ -12,11 +12,10 @@
  * @link       http://website.orange-management.de
  */
 
-namespace Tests\PHPUnit\phpOMS\System\File;
+namespace phpOMS\tests\System\File;
 
 use phpOMS\System\File\PathException;
 
-require_once __DIR__ . '/../../Autoloader.php';
 
 class PathExceptionTest extends \PHPUnit\Framework\TestCase
 {

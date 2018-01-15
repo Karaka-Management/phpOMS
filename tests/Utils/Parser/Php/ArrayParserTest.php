@@ -12,9 +12,8 @@
  * @link       http://website.orange-management.de
  */
 
-namespace Tests\PHPUnit\phpOMS\Utils\Parser\Php;
+namespace phpOMS\tests\Utils\Parser\Php;
 
-require_once __DIR__ . '/../../../../../../phpOMS/Autoloader.php';
 
 use phpOMS\Utils\Parser\Php\ArrayParser;
 

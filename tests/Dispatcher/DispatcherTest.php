@@ -12,7 +12,7 @@
  * @link       http://website.orange-management.de
  */
 
-namespace Tests\PHPUnit\phpOMS\Dispatcher;
+namespace phpOMS\tests\Dispatcher;
 
 use phpOMS\ApplicationAbstract;
 use phpOMS\Dispatcher\Dispatcher;
@@ -67,7 +67,7 @@ class DispatcherTest extends \PHPUnit\Framework\TestCase
         self::assertTrue(
             !empty(
                 $this->app->dispatcher->dispatch(
-                    'Tests\PHPUnit\phpOMS\Dispatcher\TestController:testFunction', 
+                    'phpOMS\tests\Dispatcher\TestController:testFunction', 
                     new Request(new Http(''), $localization), 
                     new Response($localization)
                 )
@@ -83,7 +83,7 @@ class DispatcherTest extends \PHPUnit\Framework\TestCase
         self::assertTrue(
             !empty(
                 $this->app->dispatcher->dispatch(
-                    'Tests\PHPUnit\phpOMS\Dispatcher\TestController::testFunctionStatic', 
+                    'phpOMS\tests\Dispatcher\TestController::testFunctionStatic', 
                     new Request(new Http(''), $localization), 
                     new Response($localization)
                 )
@@ -101,8 +101,8 @@ class DispatcherTest extends \PHPUnit\Framework\TestCase
                 $this->app->dispatcher->dispatch(
                     [
                         function($req, $resp, $data = null) { return true; },
-                        'Tests\PHPUnit\phpOMS\Dispatcher\TestController:testFunction',
-                        'Tests\PHPUnit\phpOMS\Dispatcher\TestController::testFunctionStatic', 
+                        'phpOMS\tests\Dispatcher\TestController:testFunction',
+                        'phpOMS\tests\Dispatcher\TestController::testFunctionStatic', 
                     ], 
                     new Request(new Http(''), $localization), 
                     new Response($localization)
@@ -124,6 +124,6 @@ class DispatcherTest extends \PHPUnit\Framework\TestCase
      */
     public function testInvalidControllerPath()
     {
-        $this->app->dispatcher->dispatch('Tests\PHPUnit\phpOMS\Dispatcher\TestControllers::testFunctionStatic');
+        $this->app->dispatcher->dispatch('phpOMS\tests\Dispatcher\TestControllers::testFunctionStatic');
     }
 }

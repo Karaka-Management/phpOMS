@@ -12,7 +12,7 @@
  * @link       http://website.orange-management.de
  */
 
-namespace Tests\PHPUnit\phpOMS\Validation;
+namespace phpOMS\tests\Validation;
 
 use phpOMS\Log\FileLogger;
 use phpOMS\Validation\Validator;

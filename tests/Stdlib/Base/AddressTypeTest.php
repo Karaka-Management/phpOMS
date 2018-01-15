@@ -12,9 +12,8 @@
  * @link       http://website.orange-management.de
  */
 
-namespace Tests\PHPUnit\phpOMS\Stdlib\Base;
+namespace phpOMS\tests\Stdlib\Base;
 
-require_once __DIR__ . '/../../Autoloader.php';
 
 use phpOMS\Stdlib\Base\AddressType;
 

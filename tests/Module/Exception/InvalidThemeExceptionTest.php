@@ -11,9 +11,8 @@
  * @link       http://website.orange-management.de
  */
 
-namespace Tests\PHPUnit\phpOMS\Module\Exception;
+namespace phpOMS\tests\Module\Exception;
 
-require_once __DIR__ . '/../../Autoloader.php';
 
 use phpOMS\Module\Exception\InvalidThemeException;
 

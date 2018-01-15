@@ -11,9 +11,8 @@
  * @link       http://website.orange-management.de
  */
 
-namespace Tests\PHPUnit\phpOMS\Business\Programming;
+namespace phpOMS\tests\Business\Programming;
 
-require_once __DIR__ . '/../../Autoloader.php';
 
 use phpOMS\Business\Programming\Metrics;
 

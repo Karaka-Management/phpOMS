@@ -11,9 +11,8 @@
  * @link       http://website.orange-management.de
  */
 
-namespace Tests\PHPUnit\phpOMS\Math\Exception;
+namespace phpOMS\tests\Math\Exception;
 
-require_once __DIR__ . '/../../Autoloader.php';
 
 use phpOMS\Math\Exception\ZeroDevisionException;
 

@@ -12,7 +12,7 @@
  * @link       http://website.orange-management.de
  */
 
-namespace Tests\PHPUnit\phpOMS\System;
+namespace phpOMS\tests\System;
 
 use phpOMS\System\SystemUtils;
 

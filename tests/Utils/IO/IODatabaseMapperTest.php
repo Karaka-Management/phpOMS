@@ -12,9 +12,8 @@
  * @link       http://website.orange-management.de
  */
 
-namespace Tests\PHPUnit\phpOMS\Utils\IO;
+namespace phpOMS\tests\Utils\IO;
 
-require_once __DIR__ . '/../../Autoloader.php';
 
 use phpOMS\Utils\IO\IODatabaseMapper;
 

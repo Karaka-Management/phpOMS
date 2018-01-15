@@ -12,11 +12,10 @@
  * @link       http://website.orange-management.de
  */
 
-namespace Tests\PHPUnit\phpOMS\Utils\Converter;
+namespace phpOMS\tests\Utils\Converter;
 
 use phpOMS\Utils\Converter\File;
 
-require_once __DIR__ . '/../../Autoloader.php';
 
 class FileTest extends \PHPUnit\Framework\TestCase
 {

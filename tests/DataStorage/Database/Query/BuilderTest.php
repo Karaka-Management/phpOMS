@@ -12,13 +12,10 @@
  * @link       http://website.orange-management.de
  */
 
-namespace Tests\PHPUnit\phpOMS\DataStorage\Database\Query;
+namespace phpOMS\tests\DataStorage\Database\Query;
 
 use phpOMS\DataStorage\Database\Connection\MysqlConnection;
 use phpOMS\DataStorage\Database\Query\Builder;
-
-require_once __DIR__ . '/../../../../../../phpOMS/Autoloader.php';
-require_once __DIR__ . '/../../../../../../config.php';
 
 class BuilderTest extends \PHPUnit\Framework\TestCase
 {

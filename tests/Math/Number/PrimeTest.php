@@ -12,9 +12,8 @@
  * @link       http://website.orange-management.de
  */
 
-namespace Tests\PHPUnit\phpOMS\Math\Number;
+namespace phpOMS\tests\Math\Number;
 
-require_once __DIR__ . '/../../Autoloader.php';
 
 use phpOMS\Math\Number\Prime;
 

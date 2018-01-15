@@ -12,7 +12,7 @@
  * @link       http://website.orange-management.de
  */
 
-namespace Tests\PHPUnit\phpOMS\Config;
+namespace phpOMS\tests\Config;
 
 use phpOMS\Config\OptionsTrait;
 

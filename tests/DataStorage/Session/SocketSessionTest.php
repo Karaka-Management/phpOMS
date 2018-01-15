@@ -12,9 +12,8 @@
  * @link       http://website.orange-management.de
  */
 
-namespace Tests\PHPUnit\phpOMS\DataStorage\Session;
+namespace phpOMS\tests\DataStorage\Session;
 
-require_once __DIR__ . '/../../Autoloader.php';
 
 use phpOMS\DataStorage\Session\SocketSession;
 

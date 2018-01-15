@@ -12,9 +12,8 @@
  * @link       http://website.orange-management.de
  */
 
-namespace Tests\PHPUnit\phpOMS\Utils\IO\Zip;
+namespace phpOMS\tests\Utils\IO\Zip;
 
-require_once __DIR__ . '/../../../../../../phpOMS/Autoloader.php';
 
 use phpOMS\Utils\IO\Zip\Zip;
 

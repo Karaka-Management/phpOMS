@@ -11,9 +11,8 @@
  * @link       http://website.orange-management.de
  */
 
-namespace Tests\PHPUnit\phpOMS\Message\Mail;
+namespace phpOMS\tests\Message\Mail;
 
-require_once __DIR__ . '/../../Autoloader.php';
 
 use phpOMS\Message\Mail\Nntp;
 

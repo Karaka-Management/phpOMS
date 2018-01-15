@@ -11,9 +11,8 @@
  * @link       http://website.orange-management.de
  */
 
-namespace Tests\PHPUnit\phpOMS\Math\Stochastic;
+namespace phpOMS\tests\Math\Stochastic;
 
-require_once __DIR__ . '/../../Autoloader.php';
 
 use phpOMS\Math\Stochastic\NaiveBayesFilter;
 

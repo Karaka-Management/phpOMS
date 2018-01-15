@@ -12,9 +12,8 @@
  * @link       http://website.orange-management.de
  */
 
-namespace Tests\PHPUnit\phpOMS\Math\Statistic;
+namespace phpOMS\tests\Math\Statistic;
 
-require_once __DIR__ . '/../../Autoloader.php';
 
 use phpOMS\Math\Statistic\Basic;
 

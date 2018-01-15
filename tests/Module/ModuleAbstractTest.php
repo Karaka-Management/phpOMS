@@ -12,7 +12,7 @@
  * @link       http://website.orange-management.de
  */
 
-namespace Tests\PHPUnit\phpOMS\Module;
+namespace phpOMS\tests\Module;
 
 require_once __DIR__ . '/../Autoloader.php';
 

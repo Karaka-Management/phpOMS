@@ -12,9 +12,8 @@
  * @link       http://website.orange-management.de
  */
 
-namespace Tests\PHPUnit\phpOMS\DataStorage\Database\TestModel;
+namespace phpOMS\tests\DataStorage\Database\TestModel;
 
-require_once __DIR__ . '/../../../../../../phpOMS/Autoloader.php';
 
 class OwnsOneModel
 {

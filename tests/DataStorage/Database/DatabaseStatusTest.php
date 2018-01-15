@@ -12,9 +12,8 @@
  * @link       http://website.orange-management.de
  */
 
-namespace Tests\PHPUnit\phpOMS\DataStorage\Database;
+namespace phpOMS\tests\DataStorage\Database;
 
-require_once __DIR__ . '/../../Autoloader.php';
 
 use phpOMS\DataStorage\Database\DatabaseStatus;
 

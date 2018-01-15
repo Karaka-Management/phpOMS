@@ -14,7 +14,6 @@ declare(strict_types = 1);
 
 namespace phpOMS\Socket\Packets;
 
-
 /**
  * Server class.
  *

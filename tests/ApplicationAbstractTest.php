@@ -12,9 +12,7 @@
  * @link       http://website.orange-management.de
  */
 
-namespace Tests\PHPUnit\phpOMS;
-
-require_once __DIR__ . '/../../../phpOMS/Autoloader.php';
+namespace phpOMS\tests;
 
 use phpOMS\ApplicationAbstract;
 use phpOMS\UnhandledHandler;

@@ -12,9 +12,8 @@
  * @link       http://website.orange-management.de
  */
 
-namespace Tests\PHPUnit\phpOMS\Utils\Parser\LaTex;
+namespace phpOMS\tests\Utils\Parser\LaTex;
 
-require_once __DIR__ . '/../../../../../../phpOMS/Autoloader.php';
 
 use phpOMS\Utils\Parser\LaTex\LaTexParser;
 

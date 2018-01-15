@@ -16,7 +16,6 @@ namespace phpOMS\Validation\Finance;
 
 use phpOMS\Validation\ValidatorAbstract;
 
-
 /**
  * Validator abstract.
  *

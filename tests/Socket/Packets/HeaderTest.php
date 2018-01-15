@@ -12,9 +12,8 @@
  * @link       http://website.orange-management.de
  */
 
-namespace Tests\PHPUnit\phpOMS\Socket\Packets;
+namespace phpOMS\tests\Socket\Packets;
 
-require_once __DIR__ . '/../../Autoloader.php';
 
 use phpOMS\Socket\Packets\Header;
 

@@ -12,9 +12,8 @@
  * @link       http://website.orange-management.de
  */
 
-namespace Tests\PHPUnit\phpOMS\DataStorage\Cookie;
+namespace phpOMS\tests\DataStorage\Cookie;
 
-require_once __DIR__ . '/../../Autoloader.php';
 
 use phpOMS\DataStorage\Cookie\CookieJar;
 use phpOMS\DataStorage\LockException;

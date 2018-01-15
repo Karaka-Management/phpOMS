@@ -12,9 +12,8 @@
  * @link       http://website.orange-management.de
  */
 
-namespace Tests\PHPUnit\phpOMS\Validation\Finance;
+namespace phpOMS\tests\Validation\Finance;
 
-require_once __DIR__ . '/../../Autoloader.php';
 
 use phpOMS\Validation\Finance\CreditCard;
 

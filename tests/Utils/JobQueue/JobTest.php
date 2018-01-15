@@ -12,9 +12,8 @@
  * @link       http://website.orange-management.de
  */
 
-namespace Tests\PHPUnit\phpOMS\Utils\JobQueue;
+namespace phpOMS\tests\Utils\JobQueue;
 
-require_once __DIR__ . '/../../Autoloader.php';
 
 use phpOMS\Utils\JobQueue\Job;
 

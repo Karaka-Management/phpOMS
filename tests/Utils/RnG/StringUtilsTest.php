@@ -12,11 +12,10 @@
  * @link       http://website.orange-management.de
  */
 
-namespace Tests\PHPUnit\phpOMS\Utils\RnG;
+namespace phpOMS\tests\Utils\RnG;
 
 use phpOMS\Utils\RnG\StringUtils;
 
-require_once __DIR__ . '/../../Autoloader.php';
 
 class StringUtilsTest extends \PHPUnit\Framework\TestCase
 {

@@ -12,9 +12,8 @@
  * @link       http://website.orange-management.de
  */
 
-namespace Tests\PHPUnit\phpOMS\Utils\PDF;
+namespace phpOMS\tests\Utils\PDF;
 
-require_once __DIR__ . '/../../Autoloader.php';
 
 use phpOMS\Utils\PDF\Pdf;
 

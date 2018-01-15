@@ -551,7 +551,6 @@ class Matrix implements \ArrayAccess, \Iterator
         return $newMatrix;
     }
 
-
     public function diagonalize() : Matrix
     {
         $newMatrix = new Matrix($this->m, $this->n);

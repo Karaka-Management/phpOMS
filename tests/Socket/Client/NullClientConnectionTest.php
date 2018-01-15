@@ -12,9 +12,8 @@
  * @link       http://website.orange-management.de
  */
 
-namespace Tests\PHPUnit\phpOMS\Socket\Client;
+namespace phpOMS\tests\Socket\Client;
 
-require_once __DIR__ . '/../../Autoloader.php';
 
 use phpOMS\Socket\Client\NullClientConnection;
 

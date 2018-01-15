@@ -12,9 +12,8 @@
  * @link       http://website.orange-management.de
  */
 
-namespace Tests\PHPUnit\phpOMS\Business\Finance\Forecasting\ExponentialSmoothing;
+namespace phpOMS\tests\Business\Finance\Forecasting\ExponentialSmoothing;
 
-require_once __DIR__ . '/../../../../../../../phpOMS/Autoloader.php';
 
 use phpOMS\Business\Finance\Forecasting\ExponentialSmoothing\TrendType;
 

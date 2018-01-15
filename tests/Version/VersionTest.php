@@ -12,7 +12,7 @@
  * @link       http://website.orange-management.de
  */
 
-namespace Tests\PHPUnit\phpOMS\Version;
+namespace phpOMS\tests\Version;
 
 use phpOMS\Version\Version;
 

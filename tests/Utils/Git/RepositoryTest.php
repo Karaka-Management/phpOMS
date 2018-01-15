@@ -12,9 +12,7 @@
  * @link       http://website.orange-management.de
  */
 
-namespace Tests\PHPUnit\phpOMS\Utils\Git;
-
-require_once __DIR__ . '/../../Autoloader.php';
+namespace phpOMS\tests\Utils\Git;
 
 use phpOMS\Utils\Git\Repository;
 
@@ -22,8 +20,8 @@ class RepositoryTest extends \PHPUnit\Framework\TestCase
 {
     public function testDefault()
     {
-        $repo = new Repository(realpath(__DIR__ . '/../../../../../'));
-        self::assertTrue('Orange-Management' === $repo->getName() || 'build' === $repo->getName());
-        self::assertEquals(str_replace('\\', '/', realpath(__DIR__ . '/../../../../../.git')), str_replace('\\', '/', $repo->getDirectoryPath()));
+        $repo = new Repository(realpath(__DIR__ . '/../../../'));
+        self::assertTrue('phpOMS' === $repo->getName() || 'build' === $repo->getName());
+        self::assertEquals(str_replace('\\', '/', realpath(__DIR__ . '/../../../.git')), str_replace('\\', '/', $repo->getDirectoryPath()));
     }
 }

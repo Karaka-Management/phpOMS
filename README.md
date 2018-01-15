@@ -32,3 +32,11 @@ Features this framework provides are:
 # Development Status
 
 The framework reached a point where it can be already used albeit many features are still under development.
+
+# Unit Tests
+
+Run the following command for unit tests:
+
+```
+php .\phpunit.phar --bootstrap .\phpOMS\tests\Bootstrap.php .\phpOMS\tests\
+```

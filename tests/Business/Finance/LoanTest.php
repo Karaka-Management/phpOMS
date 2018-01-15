@@ -12,9 +12,8 @@
  * @link       http://website.orange-management.de
  */
 
-namespace Tests\PHPUnit\phpOMS\Business\Finance;
+namespace phpOMS\tests\Business\Finance;
 
-require_once __DIR__ . '/../../Autoloader.php';
 
 use phpOMS\Business\Finance\Loan;
 

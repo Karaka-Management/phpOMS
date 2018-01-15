@@ -12,9 +12,8 @@
  * @link       http://website.orange-management.de
  */
 
-namespace Tests\PHPUnit\phpOMS\System\File\Ftp;
+namespace phpOMS\tests\System\File\Ftp;
 
-require_once __DIR__ . '/../../../../../../phpOMS/Autoloader.php';
 
 use phpOMS\System\File\Ftp\File;
 use phpOMS\System\File\ContentPutMode;

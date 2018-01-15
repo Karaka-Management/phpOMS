@@ -12,9 +12,8 @@
  * @link       http://website.orange-management.de
  */
 
-namespace Tests\PHPUnit\phpOMS\System\File\Local;
+namespace phpOMS\tests\System\File\Local;
 
-require_once __DIR__ . '/../../../../../../phpOMS/Autoloader.php';
 
 use phpOMS\System\File\Local\LocalStorage;
 use phpOMS\System\File\ContentPutMode;

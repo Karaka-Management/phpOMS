@@ -480,7 +480,6 @@ class Name
     ];
 
 
-
     /**
      * Get a random string.
      *

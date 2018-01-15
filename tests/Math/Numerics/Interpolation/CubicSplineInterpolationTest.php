@@ -12,9 +12,8 @@
  * @link       http://website.orange-management.de
  */
 
-namespace Tests\PHPUnit\phpOMS\Math\Numerics\Interpolation;
+namespace phpOMS\tests\Math\Numerics\Interpolation;
 
-require_once __DIR__ . '/../../../../../../phpOMS/Autoloader.php';
 
 use phpOMS\Math\Numerics\Interpolation\CubicSplineInterpolation;
 

@@ -12,7 +12,7 @@
  * @link       http://website.orange-management.de
  */
 
-namespace Tests\PHPUnit\phpOMS\Log;
+namespace phpOMS\tests\Log;
 
 use phpOMS\Log\FileLogger;
 use phpOMS\Log\LogLevel;

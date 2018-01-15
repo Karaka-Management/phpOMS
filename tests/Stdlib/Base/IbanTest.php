@@ -12,12 +12,11 @@
  * @link       http://website.orange-management.de
  */
 
-namespace Tests\PHPUnit\phpOMS\Stdlib\Base;
+namespace phpOMS\tests\Stdlib\Base;
 
 use phpOMS\Stdlib\Base\Iban;
 use phpOMS\Localization\ISO3166TwoEnum;
 
-require_once __DIR__ . '/../../Autoloader.php';
 
 class IbanTest extends \PHPUnit\Framework\TestCase
 {

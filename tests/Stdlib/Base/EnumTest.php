@@ -12,11 +12,10 @@
  * @link       http://website.orange-management.de
  */
 
-namespace Tests\PHPUnit\phpOMS\Stdlib\Base;
+namespace phpOMS\tests\Stdlib\Base;
 
 use phpOMS\Stdlib\Base\Enum;
 
-require_once __DIR__ . '/../../Autoloader.php';
 
 final class EnumDemo extends Enum
 {

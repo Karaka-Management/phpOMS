@@ -12,9 +12,8 @@
  * @link       http://website.orange-management.de
  */
 
-namespace Tests\PHPUnit\phpOMS\Math\Differential;
+namespace phpOMS\tests\Math\Differential;
 
-require_once __DIR__ . '/../../Autoloader.php';
 
 use phpOMS\Math\Differential\FiniteDifference;
 

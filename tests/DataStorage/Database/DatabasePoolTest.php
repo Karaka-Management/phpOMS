@@ -12,13 +12,12 @@
  * @link       http://website.orange-management.de
  */
 
-namespace Tests\PHPUnit\phpOMS\DataStorage\Database;
+namespace phpOMS\tests\DataStorage\Database;
 
 use phpOMS\DataStorage\Database\Connection\MysqlConnection;
 use phpOMS\DataStorage\Database\DatabaseStatus;
 use phpOMS\DataStorage\Database\DatabasePool;
 
-require_once __DIR__ . '/../../Autoloader.php';
 
 
 class DatabasePoolTest extends \PHPUnit\Framework\TestCase

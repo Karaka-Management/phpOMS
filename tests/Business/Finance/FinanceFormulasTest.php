@@ -12,11 +12,10 @@
  * @link       http://website.orange-management.de
  */
 
-namespace Tests\PHPUnit\phpOMS\Business\Finance;
+namespace phpOMS\tests\Business\Finance;
 
 use phpOMS\Business\Finance\FinanceFormulas;
 
-require_once __DIR__ . '/../../Autoloader.php';
 
 class FinanceFormulasTest extends \PHPUnit\Framework\TestCase
 {

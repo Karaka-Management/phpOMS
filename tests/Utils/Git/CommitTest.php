@@ -12,9 +12,8 @@
  * @link       http://website.orange-management.de
  */
 
-namespace Tests\PHPUnit\phpOMS\Utils\Git;
+namespace phpOMS\tests\Utils\Git;
 
-require_once __DIR__ . '/../../Autoloader.php';
 
 use phpOMS\Utils\Git\Commit;
 use phpOMS\Utils\Git\Author;

@@ -11,9 +11,8 @@
  * @link       http://website.orange-management.de
  */
 declare(strict_types = 1);
-namespace Tests\PHPUnit\phpOMS\DataStorage\Database\TestModel;
+namespace phpOMS\tests\DataStorage\Database\TestModel;
 
-require_once __DIR__ . '/../../../../../../phpOMS/Autoloader.php';
 
 use phpOMS\DataStorage\Database\DataMapperAbstract;
 use phpOMS\DataStorage\Database\Query\Builder;

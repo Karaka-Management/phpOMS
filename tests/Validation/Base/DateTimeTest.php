@@ -12,9 +12,8 @@
  * @link       http://website.orange-management.de
  */
 
-namespace Tests\PHPUnit\phpOMS\Validation\Base;
+namespace phpOMS\tests\Validation\Base;
 
-require_once __DIR__ . '/../../Autoloader.php';
 
 use phpOMS\Validation\Base\DateTime;
 

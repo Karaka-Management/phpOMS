@@ -12,9 +12,8 @@
  * @link       http://website.orange-management.de
  */
 
-namespace Tests\PHPUnit\phpOMS\Math\Statistic\Forecast\Regression;
+namespace phpOMS\tests\Math\Statistic\Forecast\Regression;
 
-require_once __DIR__ . '/../../../../../../../phpOMS/Autoloader.php';
 
 use phpOMS\Math\Statistic\Forecast\Regression\LevelLevelRegression;
 

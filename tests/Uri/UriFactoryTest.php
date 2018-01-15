@@ -12,7 +12,7 @@
  * @link       http://website.orange-management.de
  */
 
-namespace Tests\PHPUnit\phpOMS\Uri;
+namespace phpOMS\tests\Uri;
 
 use phpOMS\Uri\UriFactory;
 use phpOMS\Uri\Http;

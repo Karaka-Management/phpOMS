@@ -12,7 +12,7 @@
  * @link       http://website.orange-management.de
  */
 
-namespace Tests\PHPUnit\phpOMS\Module;
+namespace phpOMS\tests\Module;
 
 use phpOMS\ApplicationAbstract;
 use phpOMS\DataStorage\Database\DatabasePool;

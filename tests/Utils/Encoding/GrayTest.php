@@ -12,9 +12,8 @@
  * @link       http://website.orange-management.de
  */
 
-namespace Tests\PHPUnit\phpOMS\Utils\Encoding;
+namespace phpOMS\tests\Utils\Encoding;
 
-require_once __DIR__ . '/../../Autoloader.php';
 
 use phpOMS\Utils\Encoding\Gray;
 

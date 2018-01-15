@@ -12,9 +12,8 @@
  * @link       http://website.orange-management.de
  */
 
-namespace Tests\PHPUnit\phpOMS\Utils\Parser\LaTex\Types;
+namespace phpOMS\tests\Utils\Parser\LaTex\Types;
 
-require_once __DIR__ . '/../../../../../../../phpOMS/Autoloader.php';
 
 use phpOMS\Utils\Parser\LaTex\Types\Interval;
 

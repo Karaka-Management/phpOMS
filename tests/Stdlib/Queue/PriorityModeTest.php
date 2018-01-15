@@ -12,9 +12,8 @@
  * @link       http://website.orange-management.de
  */
 
-namespace Tests\PHPUnit\phpOMS\Stdlib\Queue;
+namespace phpOMS\tests\Stdlib\Queue;
 
-require_once __DIR__ . '/../../Autoloader.php';
 
 use phpOMS\Stdlib\Queue\PriorityMode;
 

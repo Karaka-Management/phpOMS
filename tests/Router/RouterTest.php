@@ -12,7 +12,7 @@
  * @link       http://website.orange-management.de
  */
 
-namespace Tests\PHPUnit\phpOMS\Router;
+namespace phpOMS\tests\Router;
 
 use phpOMS\Message\Http\RequestMethod;
 use phpOMS\Router\Router;

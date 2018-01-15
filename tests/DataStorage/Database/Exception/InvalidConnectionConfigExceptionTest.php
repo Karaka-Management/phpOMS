@@ -11,9 +11,8 @@
  * @link       http://website.orange-management.de
  */
 
-namespace Tests\PHPUnit\phpOMS\DataStorage\Database\Exception;
+namespace phpOMS\tests\DataStorage\Database\Exception;
 
-require_once __DIR__ . '/../../../../../../phpOMS/Autoloader.php';
 
 use phpOMS\DataStorage\Database\Exception\InvalidConnectionConfigException;
 

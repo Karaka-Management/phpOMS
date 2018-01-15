@@ -12,9 +12,8 @@
  * @link       http://website.orange-management.de
  */
 
-namespace Tests\PHPUnit\phpOMS\Math\Geometry\Shape\D3;
+namespace phpOMS\tests\Math\Geometry\Shape\D3;
 
-require_once __DIR__ . '/../../../../../../../phpOMS/Autoloader.php';
 
 use phpOMS\Math\Geometry\Shape\D3\Cylinder;
 
