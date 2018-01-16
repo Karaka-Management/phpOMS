@@ -138,4 +138,20 @@ abstract class Enum
         return count(self::getConstants());
     }
 
+    /**
+     * Check if flag is set
+     *
+     * This only works for binary flags.
+     *
+     * @param int $flags Set flags
+     * @param int $checkForFlag Check if this flag is part of the set flags
+     *
+     * @return bool
+     *
+     * @since  1.0.0
+     */
+    public static function hasFlag(int $flags, int $checkForFlag) : bool
+    {
+        return ($flags & $checkForFlag) === $checkForFlag;
+    }
 }

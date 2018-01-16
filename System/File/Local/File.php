@@ -67,14 +67,14 @@ class File extends FileAbstract implements FileInterface
         $exists = file_exists($path);
 
         if (
-            (($mode & ContentPutMode::APPEND) === ContentPutMode::APPEND && $exists)
-            || (($mode & ContentPutMode::PREPEND) === ContentPutMode::PREPEND && $exists)
-            || (($mode & ContentPutMode::REPLACE) === ContentPutMode::REPLACE && $exists)
-            || (!$exists && ($mode & ContentPutMode::CREATE) === ContentPutMode::CREATE)
+            (ContentPutMode::hasFlag($mode, ContentPutMode::APPEND) && $exists)
+            || (ContentPutMode::hasFlag($mode, ContentPutMode::PREPEND) && $exists)
+            || (ContentPutMode::hasFlag($mode, ContentPutMode::REPLACE) && $exists)
+            || (!$exists && ContentPutMode::hasFlag($mode, ContentPutMode::CREATE))
         ) {
-            if (($mode & ContentPutMode::APPEND) === ContentPutMode::APPEND && $exists) {
+            if (ContentPutMode::hasFlag($mode, ContentPutMode::APPEND) && $exists) {
                 file_put_contents($path, file_get_contents($path) . $content);
-            } elseif (($mode & ContentPutMode::PREPEND) === ContentPutMode::PREPEND && $exists) {
+            } elseif (ContentPutMode::hasFlag($mode, ContentPutMode::PREPEND) && $exists) {
                 file_put_contents($path, $content . file_get_contents($path));
             } else {
                 if (!Directory::exists(dirname($path))) {

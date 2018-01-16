@@ -25,7 +25,7 @@ Features this framework provides are:
 * Request/Response management
 * Math (e.g. matrix, forecasting, optimization, geometry, stochastics, etc.)
 * Module management
-* Uri 
+* Uri
 * Utils (e.g. barcodes, comporession, unit converter, jobqueue, git, etc.)
 * Value validation
 * View management
