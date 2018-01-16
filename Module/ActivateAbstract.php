@@ -16,6 +16,7 @@ namespace phpOMS\Module;
 
 use phpOMS\DataStorage\Database\DatabaseType;
 use phpOMS\DataStorage\Database\DatabasePool;
+use phpOMS\DataStorage\Database\Exception\InvalidDatabaseTypeException;
 
 /**
  * Installer Abstract class.
@@ -86,6 +87,8 @@ class ActivateAbstract
                 $dbPool->get()->con->commit();
 
                 break;
+            default: 
+                throw new InvalidDatabaseTypeException($dbPool->get()->getType());
         }
     }
 }
