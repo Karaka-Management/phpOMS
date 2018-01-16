@@ -17,6 +17,7 @@ namespace phpOMS\Module;
 use phpOMS\ApplicationAbstract;
 use phpOMS\Autoloader;
 use phpOMS\DataStorage\Database\DatabaseType;
+use phpOMS\DataStorage\Database\Exception\InvalidDatabaseTypeException;
 use phpOMS\Message\Http\Request;
 use phpOMS\Message\RequestAbstract;
 use phpOMS\System\File\PathException;
@@ -174,6 +175,9 @@ class ModuleManager
                     $sth->execute();
 
                     $this->uriLoad = $sth->fetchAll(\PDO::FETCH_GROUP);
+                    break;
+                default: 
+                    throw new InvalidDatabaseTypeException($this->app->dbPool->get('select')->getType());
             }
         }
 
@@ -198,6 +202,8 @@ class ModuleManager
                     $sth->execute();
                     $this->active = $sth->fetchAll(\PDO::FETCH_COLUMN);
                     break;
+                default: 
+                    throw new InvalidDatabaseTypeException($this->app->dbPool->get('select')->getType());
             }
         }
 
@@ -269,6 +275,8 @@ class ModuleManager
                     $sth->execute();
                     $this->installed = $sth->fetchAll(\PDO::FETCH_GROUP);
                     break;
+                default: 
+                    throw new InvalidDatabaseTypeException($this->app->dbPool->get('select')->getType());
             }
         }
 
