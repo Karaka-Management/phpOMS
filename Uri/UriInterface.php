@@ -118,6 +118,17 @@ interface UriInterface
     public function getRootPath() : string;
 
     /**
+     * Set root path.
+     *
+     * @param string $uri Uri
+     *
+     * @return void
+     *
+     * @since  1.0.0
+     */
+    public function setRootPath(string $root) /* : void */;
+
+    /**
      * Get path element.
      *
      * @param int $pos Position of the path
@@ -202,5 +213,5 @@ interface UriInterface
      *
      * @since  1.0.0
      */
-    public function set(string $uri);
+    public function set(string $uri) /* : void */;
 }
