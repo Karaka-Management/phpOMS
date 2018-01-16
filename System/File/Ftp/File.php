@@ -92,14 +92,14 @@ class File extends FileAbstract implements FileInterface
         $exists = self::ftpExists($con, $http->getPath());
 
         if (
-            (($mode & ContentPutMode::APPEND) === ContentPutMode::APPEND && $exists)
-            || (($mode & ContentPutMode::PREPEND) === ContentPutMode::PREPEND && $exists)
-            || (($mode & ContentPutMode::REPLACE) === ContentPutMode::REPLACE && $exists)
-            || (!$exists && ($mode & ContentPutMode::CREATE) === ContentPutMode::CREATE)
+            (ContentPutMode::hasFlag($mode, ContentPutMode::APPEND) && $exists)
+            || (ContentPutMode::hasFlag($mode, ContentPutMode::PREPEND) && $exists)
+            || (ContentPutMode::hasFlag($mode, ContentPutMode::REPLACE) && $exists)
+            || (!$exists && ContentPutMode::hasFlag($mode, ContentPutMode::CREATE))
         ) {
-            if (($mode & ContentPutMode::APPEND) === ContentPutMode::APPEND && $exists) {
+            if (ContentPutMode::hasFlag($mode, ContentPutMode::APPEND) && $exists) {
                 file_put_contents($path, file_get_contents($path) . $content, 0, stream_context_create(['ftp' => ['overwrite' => true]]));
-            } elseif (($mode & ContentPutMode::PREPEND) === ContentPutMode::PREPEND && $exists) {
+            } elseif (ContentPutMode::hasFlag($mode, ContentPutMode::PREPEND) && $exists) {
                 file_put_contents($path, $content . file_get_contents($path), 0, stream_context_create(['ftp' => ['overwrite' => true]]));
             } else {
                 if (!Directory::ftpExists($con, dirname($path))) {
