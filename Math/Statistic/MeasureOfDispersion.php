@@ -236,5 +236,4 @@ class MeasureOfDispersion
 
         return $sum / count($x);
     }
-
 }

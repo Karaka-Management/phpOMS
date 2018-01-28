@@ -76,5 +76,4 @@ trait OptionsTrait
 
         return false;
     }
-
 }

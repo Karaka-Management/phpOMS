@@ -32,4 +32,3 @@ class RestTest extends \PHPUnit\Framework\TestCase
         );
     }
 }
-

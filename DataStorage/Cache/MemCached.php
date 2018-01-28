@@ -173,5 +173,4 @@ class MemCached implements CacheInterface
             $this->memc = null;
         }
     }
-
 }

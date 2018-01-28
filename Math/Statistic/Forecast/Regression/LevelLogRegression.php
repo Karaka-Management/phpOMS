@@ -57,5 +57,4 @@ class LevelLogRegression extends RegressionAbstract
     {
         return $b1 / $x;
     }
-
 }

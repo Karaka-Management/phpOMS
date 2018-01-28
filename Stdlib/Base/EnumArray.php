@@ -97,5 +97,4 @@ abstract class EnumArray
 
         return $constants[$key];
     }
-
 }

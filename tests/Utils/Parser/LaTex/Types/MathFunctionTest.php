@@ -22,4 +22,3 @@ class MathFunctionTest extends \PHPUnit\Framework\TestCase
         self::markTestIncomplete();
     }
 }
-

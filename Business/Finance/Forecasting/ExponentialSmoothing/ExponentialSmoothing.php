@@ -109,5 +109,4 @@ class ExponentialSmoothing
     public function getMMM()
     {
     }
-
 }

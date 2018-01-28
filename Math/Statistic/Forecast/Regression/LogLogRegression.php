@@ -58,5 +58,4 @@ class LogLogRegression extends RegressionAbstract
     {
         return $b1;
     }
-
 }

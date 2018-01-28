@@ -637,5 +637,4 @@ class Account implements ArrayableInterface, \JsonSerializable
     {
         return $this->toArray();
     }
-
 }

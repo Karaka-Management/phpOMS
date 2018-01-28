@@ -133,5 +133,4 @@ class AccountManager implements \Countable
     {
         return count($this->accounts);
     }
-
 }

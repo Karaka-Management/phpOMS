@@ -38,4 +38,3 @@ class StorageTest extends \PHPUnit\Framework\TestCase
         self::assertInstanceOf('\phpOMS\System\File\Local\LocalStorage', Storage::env('invalid'));
     }
 }
-

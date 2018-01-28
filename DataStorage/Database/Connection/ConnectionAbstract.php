@@ -200,5 +200,4 @@ abstract class ConnectionAbstract implements ConnectionInterface
         $this->con    = null;
         $this->status = DatabaseStatus::CLOSED;
     }
-
 }

@@ -126,5 +126,4 @@ class CommandManager implements \Countable
     {
         return $this->count;
     }
-
 }

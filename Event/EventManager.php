@@ -206,5 +206,4 @@ class EventManager
     {
         return count($this->callbacks);
     }
-
 }

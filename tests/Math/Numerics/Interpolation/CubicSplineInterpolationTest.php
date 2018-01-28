@@ -22,4 +22,3 @@ class CubicSplineInterpolationTest extends \PHPUnit\Framework\TestCase
         self::markTestIncomplete();
     }
 }
-

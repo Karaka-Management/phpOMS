@@ -22,4 +22,3 @@ class MicrosoftGrammarTest extends \PHPUnit\Framework\TestCase
         self::assertInstanceOf('\phpOMS\DataStorage\Database\Query\Grammar\Grammar', new MicrosoftGrammar());
     }
 }
-

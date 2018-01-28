@@ -13,7 +13,6 @@
 
 namespace phpOMS\tests;
 
-
 use phpOMS\UnhandledHandler;
 
 class UnhandledHandlerTest extends \PHPUnit\Framework\TestCase
@@ -30,5 +29,4 @@ class UnhandledHandlerTest extends \PHPUnit\Framework\TestCase
 
         self::assertFalse(UnhandledHandler::errorHandler(0, '', '', 0));
     }
-
 }

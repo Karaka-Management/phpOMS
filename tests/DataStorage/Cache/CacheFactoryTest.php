@@ -33,4 +33,3 @@ class CacheFactoryTest extends \PHPUnit\Framework\TestCase
         CacheFactory::create(['type' => 'invalid', 'path' => 'Cache']);
     }
 }
-

@@ -22,4 +22,3 @@ class LinearInterpolationTest extends \PHPUnit\Framework\TestCase
         self::markTestIncomplete();
     }
 }
-

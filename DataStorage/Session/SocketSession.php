@@ -97,5 +97,4 @@ class SocketSession implements SessionInterface
     public function lock()
     {
     }
-
 }

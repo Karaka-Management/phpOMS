@@ -228,5 +228,4 @@ class HttpSession implements SessionInterface
     {
         $this->save();
     }
-
 }

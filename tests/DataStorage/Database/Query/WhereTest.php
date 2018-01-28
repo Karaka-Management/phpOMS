@@ -22,4 +22,3 @@ class WhereTest extends \PHPUnit\Framework\TestCase
         self::markTestIncomplete();
     }
 }
-

@@ -35,4 +35,3 @@ class MarkdownTest extends \PHPUnit\Framework\TestCase
         }
     }
 }
-

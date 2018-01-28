@@ -113,5 +113,4 @@ class AssetManager implements \Countable
     {
         return count($this->assets);
     }
-
 }

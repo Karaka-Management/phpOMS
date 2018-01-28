@@ -61,5 +61,4 @@ class Column
     {
         $this->column = $column;
     }
-
 }

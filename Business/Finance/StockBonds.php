@@ -368,5 +368,4 @@ class StockBonds
     {
         return (float) pow($F / $PV, 1 / $n) - 1;
     }
-
 }

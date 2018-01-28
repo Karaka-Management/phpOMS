@@ -97,5 +97,4 @@ class ConsoleSession implements SessionInterface
     public function lock()
     {
     }
-
 }

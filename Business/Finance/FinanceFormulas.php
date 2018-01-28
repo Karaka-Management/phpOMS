@@ -1403,5 +1403,4 @@ class FinanceFormulas
     {
         return $ownSales / $competitorSales;
     }
-
 }

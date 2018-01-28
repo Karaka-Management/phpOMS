@@ -22,4 +22,3 @@ class PolynomialInterpolationTest extends \PHPUnit\Framework\TestCase
         self::markTestIncomplete();
     }
 }
-

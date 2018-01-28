@@ -22,4 +22,3 @@ class Barcode25Test extends \PHPUnit\Framework\TestCase
         self::markTestIncomplete();
     }
 }
-

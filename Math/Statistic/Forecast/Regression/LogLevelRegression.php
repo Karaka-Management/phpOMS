@@ -57,5 +57,4 @@ class LogLevelRegression extends RegressionAbstract
     {
         return $b1 * $x;
     }
-
 }

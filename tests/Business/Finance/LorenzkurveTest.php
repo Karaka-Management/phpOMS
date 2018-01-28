@@ -24,4 +24,3 @@ class LorenzkurveTest extends \PHPUnit\Framework\TestCase
         self::assertTrue(abs(0.71 - LorenzKurve::getGiniCoefficient($arr)) < 0.01);
     }
 }
-

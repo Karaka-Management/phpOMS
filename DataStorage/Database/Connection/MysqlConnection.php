@@ -78,5 +78,4 @@ class MysqlConnection extends ConnectionAbstract
             $this->dbdata['password'] = '****';
         }
     }
-
 }

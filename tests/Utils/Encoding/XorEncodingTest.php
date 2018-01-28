@@ -35,4 +35,3 @@ class XorEncodingTest extends \PHPUnit\Framework\TestCase
         }
     }
 }
-

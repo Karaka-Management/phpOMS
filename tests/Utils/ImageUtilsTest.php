@@ -29,4 +29,3 @@ class ImageUtilsTest extends \PHPUnit\Framework\TestCase
         );
     }
 }
-

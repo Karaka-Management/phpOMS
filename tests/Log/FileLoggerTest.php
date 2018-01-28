@@ -166,5 +166,4 @@ class FileLoggerTest extends \PHPUnit\Framework\TestCase
             unlink(__DIR__ . '/' . date('Y-m-d') . '.log');
         }
     }
-
 }

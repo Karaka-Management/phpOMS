@@ -13,7 +13,6 @@
 
 namespace phpOMS\tests;
 
-
 use phpOMS\AutoloadException;
 
 class AutoloadExceptionTest extends \PHPUnit\Framework\TestCase

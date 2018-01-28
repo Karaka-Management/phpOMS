@@ -40,5 +40,4 @@ class InvalidEnumValue extends \UnexpectedValueException
     {
         parent::__construct('The enum value "' . $message . '" is not valid.', $code, $previous);
     }
-
 }

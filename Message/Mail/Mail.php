@@ -221,5 +221,4 @@ class Mail
     {
         $this->encoding = $encoding;
     }
-
 }

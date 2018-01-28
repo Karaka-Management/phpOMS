@@ -752,5 +752,4 @@ class Matrix implements \ArrayAccess, \Iterator
         $row = (int) ($offset / $this->m);
         unset($this->matrix[$row][$offset - $row * $this->n]);
     }
-
 }

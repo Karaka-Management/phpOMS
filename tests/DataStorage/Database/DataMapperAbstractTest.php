@@ -20,7 +20,6 @@ use phpOMS\DataStorage\Database\DatabasePool;
 use phpOMS\tests\DataStorage\Database\TestModel\BaseModel;
 use phpOMS\tests\DataStorage\Database\TestModel\BaseModelMapper;
 
-
 class DataMapperAbstractTest extends \PHPUnit\Framework\TestCase
 {
     protected $model = null;
@@ -166,5 +165,4 @@ class DataMapperAbstractTest extends \PHPUnit\Framework\TestCase
 
         // todo test if relations also deleted
     }
-
 }

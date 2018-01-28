@@ -69,5 +69,4 @@ class SqliteConnection extends ConnectionAbstract
             $this->con    = null;
         }
     }
-
 }

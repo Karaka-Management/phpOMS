@@ -120,5 +120,4 @@ class Loan
     {
         return $loan / $collateral;
     }
-
 }

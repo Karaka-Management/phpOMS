@@ -17,7 +17,6 @@ use phpOMS\DataStorage\Database\Connection\MysqlConnection;
 use phpOMS\DataStorage\Database\DatabaseStatus;
 use phpOMS\DataStorage\Database\DatabasePool;
 
-
 class DatabasePoolTest extends \PHPUnit\Framework\TestCase
 {
     public function testBasicConnection()

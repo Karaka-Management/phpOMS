@@ -24,4 +24,3 @@ class LockExceptionTest extends \PHPUnit\Framework\TestCase
         self::assertInstanceOf(\RuntimeException::class, new LockException(''));
     }
 }
-

@@ -202,5 +202,4 @@ class InstallerAbstract
             }
         }
     }
-
 }

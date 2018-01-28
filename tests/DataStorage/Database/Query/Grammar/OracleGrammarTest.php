@@ -23,4 +23,3 @@ class OracleGrammarTest extends \PHPUnit\Framework\TestCase
         self::assertInstanceOf('\phpOMS\DataStorage\Database\Query\Grammar\Grammar', new OracleGrammar());
     }
 }
-
