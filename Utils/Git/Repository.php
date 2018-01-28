@@ -157,9 +157,14 @@ class Repository
     private function run(string $cmd) : array
     {
         if (strtolower(substr(PHP_OS, 0, 3)) == 'win') {
-            $cmd = 'cd ' . escapeshellarg(dirname(Git::getBin())) . ' && ' . basename(Git::getBin()) . ' -C ' . escapeshellarg($this->path) . ' ' . $cmd;
+            $cmd = 'cd ' . escapeshellarg(dirname(Git::getBin())) 
+                . ' && ' . basename(Git::getBin()) 
+                . ' -C ' . escapeshellarg($this->path) . ' ' 
+                . $cmd;
         } else {
-            $cmd = escapeshellarg(Git::getBin()) . ' -C ' . escapeshellarg($this->path) . ' ' . $cmd;
+            $cmd = escapeshellarg(Git::getBin()) 
+                . ' -C ' . escapeshellarg($this->path) . ' ' 
+                . $cmd;
         }
 
         $pipes = [];
@@ -626,7 +631,7 @@ class Repository
      *
      * @since  1.0.0
      */
-    public function getLOC(array $extensions = ['*']) : int
+    public function getLoc(array $extensions = ['*']) : int
     {
         $lines = $this->run('ls-files');
         $loc   = 0;
@@ -750,12 +755,17 @@ class Repository
         }
 
         $addremove = ['added' => 0, 'removed' => 0];
-        $lines     = $this->run('log --author=' . escapeshellarg($author->getName()) . ' --since="' . $start->format('Y-m-d') . '" --before="' . $end->format('Y-m-d') . '" --pretty=tformat: --numstat');
+        $lines     = $this->run(
+            'log --author=' . escapeshellarg($author->getName()) 
+            . ' --since="' . $start->format('Y-m-d') 
+            . '" --before="' . $end->format('Y-m-d') 
+            . '" --pretty=tformat: --numstat'
+        );
 
         foreach ($lines as $line) {
             $nums = explode(' ', $line);
 
-            $addremove['added'] += $nums[0];
+            $addremove['added']   += $nums[0];
             $addremove['removed'] += $nums[1];
         }
 
@@ -801,7 +811,11 @@ class Repository
             $author = ' --author=' . escapeshellarg($author->getName()) . '';
         }
 
-        $lines   = $this->run('git log --before="' . $end->format('Y-m-d') . '" --after="' . $start->format('Y-m-d') . '"' . $author . ' --reverse --date=short');
+        $lines = $this->run(
+            'git log --before="' . $end->format('Y-m-d') 
+            . '" --after="' . $start->format('Y-m-d') . '"' 
+            . $author . ' --reverse --date=short');
+            
         $count   = count($lines);
         $commits = [];
 

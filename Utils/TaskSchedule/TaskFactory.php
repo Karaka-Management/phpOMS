@@ -30,8 +30,8 @@ final class TaskFactory
     /**
      * Create task instance.
      *
-     * @param string $id Task id
-     * @param string   $cmd      Command to run
+     * @param string $id  Task id
+     * @param string $cmd Command to run
      *
      * @return TaskAbstract
      *

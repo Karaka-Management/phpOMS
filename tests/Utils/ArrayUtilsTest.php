@@ -5,7 +5,6 @@
  * PHP Version 7.1
  *
  * @package    TBD
- * @author     OMS Development Team <dev@oms.com>
  * @copyright  Dennis Eichhorn
  * @license    OMS License 1.0
  * @version    1.0.0
@@ -84,7 +83,7 @@ class ArrayUtilsTest extends \PHPUnit\Framework\TestCase
         $expected_str = "['a' => ['aa' => 1, 'ab' => [0 => 'aba', 1 => 'ab0', ], ], 2 => '2a', ]";
 
         self::assertEquals($expected_str, ArrayUtils::stringify($expected));
-        self::assertEquals('2;3;1;"""Text;"' . "\n", ArrayUtils::arrayToCSV(['a' => 2, 3, 1, '"Text;'], ';', '"', '\\'));
+        self::assertEquals('2;3;1;"""Text;"' . "\n", ArrayUtils::arrayToCsv(['a' => 2, 3, 1, '"Text;'], ';', '"', '\\'));
     }
 
     public function testArrayRecursiveManipulation()

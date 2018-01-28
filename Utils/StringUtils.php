@@ -356,12 +356,12 @@ class StringUtils
      */
     public static function getEntropy(string $value) : float
     {
-        $entroy = 0.0;
-        $size = mb_strlen($value);
+        $entroy     = 0.0;
+        $size       = mb_strlen($value);
         $countChars = self::mb_count_chars($value);
 
         foreach ($countChars as $v) {
-            $p = $v / $size;
+            $p       = $v / $size;
             $entroy -= $p * log($p) / log(2);
         }
 

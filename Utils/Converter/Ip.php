@@ -36,6 +36,13 @@ class Ip
     {
     }
 
+    /**
+     * Convert ip to float
+     * 
+     * @param string $ip IP
+     *
+     * @since  1.0.0
+     */
     public static function ip2Float(string $ip) : float
     {
         $split = explode('.', $ip);

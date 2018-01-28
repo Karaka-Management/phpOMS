@@ -120,6 +120,8 @@ class Group implements ArrayableInterface, \JsonSerializable
      * Set group name.
      *
      * @param string $name Group name
+     * 
+     * @return void
      *
      * @since  1.0.0
      */
@@ -144,6 +146,8 @@ class Group implements ArrayableInterface, \JsonSerializable
      * Set group description.
      *
      * @param string $description Group description
+     * 
+     * @return void
      *
      * @since  1.0.0
      */
@@ -168,12 +172,19 @@ class Group implements ArrayableInterface, \JsonSerializable
      * Set group status.
      *
      * @param int $status Group status
+     * 
+     * @return void
+     * 
+     * @throws InvalidEnumValue
      *
      * @since  1.0.0
      */
     public function setStatus(int $status) /* : void */
     {
-        // todo: check valid
+        if (!GroupStatus::isValidValue($status)) {
+            throw new InvalidEnumValue($status);
+        }
+
         $this->status = $status;
     }
 

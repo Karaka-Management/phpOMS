@@ -4,7 +4,7 @@
  *
  * PHP Version 7.1
  *
- * @package    TBD
+ * @package    phpOMS\Validation\Network
  * @copyright  Dennis Eichhorn
  * @license    OMS License 1.0
  * @version    1.0.0
@@ -17,9 +17,9 @@ namespace phpOMS\Validation\Network;
 use phpOMS\Validation\ValidatorAbstract;
 
 /**
- * Validator abstract.
+ * Validate hostname.
  *
- * @package    Validation
+ * @package    phpOMS\Validation\Network
  * @license    OMS License 1.0
  * @link       http://website.orange-management.de
  * @since      1.0.0

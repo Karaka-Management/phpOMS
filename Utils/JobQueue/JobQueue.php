@@ -27,9 +27,13 @@ use phpOMS\Stdlib\Queue\PriorityQueue;
 class JobQueue
 {
     private $queue = null;
+
     private $run = true;
+
     private $suspended = false;
+
     private $isTerminating = true;
+
     private $isDeamonized;
 
     public function __construct()

@@ -47,7 +47,7 @@ final class XorEncoding
                 $j = 0;
             }
 
-            $ascii = ord($source[$i]) ^ ord($key[$j]);
+            $ascii   = ord($source[$i]) ^ ord($key[$j]);
             $result .= chr($ascii);
         }
 

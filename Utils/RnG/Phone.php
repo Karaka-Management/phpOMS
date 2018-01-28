@@ -55,7 +55,10 @@ class Phone
         $numberParts = substr_count($layout['struct'], '$');
 
         for ($i = ($isInt ? 2 : 1); $i < $numberParts; $i++) {
-            $numberString = str_replace('$' . $i, StringUtils::generateString($layout['size'][$i - 1][0], $layout['size'][$i - 1][1], '0123456789'), $numberString);
+            $numberString = str_replace(
+                '$' . $i, StringUtils::generateString($layout['size'][$i - 1][0], $layout['size'][$i - 1][1], '0123456789'), 
+                $numberString
+            );
         }
 
         return $numberString;

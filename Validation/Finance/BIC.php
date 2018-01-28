@@ -4,7 +4,7 @@
  *
  * PHP Version 7.1
  *
- * @package    TBD
+ * @package    phpOMS\Validation\Finance
  * @copyright  Dennis Eichhorn
  * @license    OMS License 1.0
  * @version    1.0.0
@@ -17,14 +17,14 @@ namespace phpOMS\Validation\Finance;
 use phpOMS\Validation\ValidatorAbstract;
 
 /**
- * Validator abstract.
+ * Validate BIC
  *
- * @package    Validation
+ * @package    phpOMS\Validation\Finance
  * @license    OMS License 1.0
  * @link       http://website.orange-management.de
  * @since      1.0.0
  */
-class BIC extends ValidatorAbstract
+abstract class BIC extends ValidatorAbstract
 {
 
     /**

@@ -4,7 +4,7 @@
  *
  * PHP Version 7.1
  *
- * @package    TBD
+ * @package    phpOMS
  * @copyright  Dennis Eichhorn
  * @license    OMS License 1.0
  * @version    1.0.0
@@ -15,9 +15,11 @@ declare(strict_types = 1);
 namespace phpOMS;
 
 /**
- * Permission exception class.
+ * Autoloader exception
+ * 
+ * This exception is thrown if a file couldn't be autoloaded
  *
- * @package    Framework
+ * @package    phpOMS
  * @license    OMS License 1.0
  * @link       http://website.orange-management.de
  * @since      1.0.0

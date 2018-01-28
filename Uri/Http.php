@@ -335,7 +335,8 @@ class Http implements UriInterface
      */
     public function getAuthority() : string
     {
-        return ($this->getUser() !== '' ? $this->getUser() . '@' : '') . $this->host . (isset($this->port) && $this->port !== 0 ? ':' . $this->port : '');
+        return ($this->getUser() !== '' ? $this->getUser() . '@' : '') . $this->host 
+            . (isset($this->port) && $this->port !== 0 ? ':' . $this->port : '');
     }
 
     /**

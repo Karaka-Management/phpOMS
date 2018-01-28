@@ -5,7 +5,6 @@
  * PHP Version 7.1
  *
  * @package    TBD
- * @author     OMS Development Team <dev@oms.com>
  * @copyright  Dennis Eichhorn
  * @license    OMS License 1.0
  * @version    1.0.0
@@ -28,6 +27,7 @@ use phpOMS\Localization\L11nManager;
 class ViewTest extends \PHPUnit\Framework\TestCase
 {
     protected $dbPool = null;
+
     protected $app = null;
 
     public function setUp()
@@ -41,7 +41,7 @@ class ViewTest extends \PHPUnit\Framework\TestCase
         };
 
         $this->app->l11nManager = new L11nManager();
-        $this->app->dbPool = $this->dbPool;
+        $this->app->dbPool      = $this->dbPool;
     }
 
     public function testDefault()

@@ -31,7 +31,11 @@ class Numeric
      * @var array
      * @since 1.0.0
      */
-    /* public */ const ROMANS = ['M' => 1000, 'CM' => 900, 'D' => 500, 'CD' => 400, 'C' => 100, 'XC' => 90, 'L' => 50, 'XL' => 40, 'X' => 10, 'IX' => 9, 'V' => 5, 'IV' => 4, 'I' => 1];
+    /* public */ const ROMANS = [
+        'M' => 1000, 'CM' => 900, 'D' => 500, 'CD' => 400, 'C' => 100, 
+        'XC' => 90, 'L' => 50, 'XL' => 40, 'X' => 10, 
+        'IX' => 9, 'V' => 5, 'IV' => 4, 'I' => 1
+    ];
 
     /**
      * Constructor.
@@ -72,7 +76,13 @@ class Numeric
             $newOutput = 0;
 
             for ($i = 1; $i <= $numberLen; $i++) {
-                $newOutput = bcadd((string) $newOutput, bcmul((string) array_search($number[$i - 1], $fromBase), bcpow((string) $fromLen, (string) ($numberLen - $i))));
+                $newOutput = bcadd(
+                    (string) $newOutput, 
+                    bcmul(
+                        (string) array_search($number[$i - 1], $fromBase), 
+                        bcpow((string) $fromLen, (string) ($numberLen - $i))
+                    )
+                );
             }
 
             return $newOutput;
@@ -136,7 +146,7 @@ class Numeric
         foreach (self::ROMANS as $key => $value) {
             while (strpos($roman, $key) === 0) {
                 $result += $value;
-                $roman = substr($roman, strlen($key));
+                $roman   = substr($roman, strlen($key));
             }
         }
 
@@ -159,7 +169,7 @@ class Numeric
         $alpha = '';
 
         for ($i = 1; $number >= 0 && $i < 10; $i++) {
-            $alpha = chr(0x41 + ($number % pow(26, $i) / pow(26, $i - 1))) . $alpha;
+            $alpha   = chr(0x41 + ($number % pow(26, $i) / pow(26, $i - 1))) . $alpha;
             $number -= pow(26, $i);
         }
 

@@ -17,7 +17,7 @@ namespace phpOMS\Validation\Base;
 use phpOMS\Validation\ValidatorAbstract;
 
 /**
- * Validator abstract.
+ * Validate date.
  *
  * @package    Validation
  * @license    OMS License 1.0

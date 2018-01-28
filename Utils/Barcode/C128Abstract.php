@@ -308,9 +308,23 @@ abstract class C128Abstract
             $cur_size = $location + (int) (substr($codeString, ($position - 1), 1));
 
             if ($this->orientation === OrientationType::HORIZONTAL) {
-                imagefilledrectangle($image, $location + $this->margin, 0 + $this->margin, $cur_size + $this->margin, $dimensions['height'] - $this->margin, ($position % 2 == 0 ? $white : $black));
+                imagefilledrectangle(
+                    $image, 
+                    $location + $this->margin, 
+                    0 + $this->margin, 
+                    $cur_size + $this->margin, 
+                    $dimensions['height'] - $this->margin, 
+                    ($position % 2 == 0 ? $white : $black)
+                );
             } else {
-                imagefilledrectangle($image, 0 + $this->margin, $location + $this->margin, $dimensions['width'] - $this->margin, $cur_size + $this->margin, ($position % 2 == 0 ? $white : $black));
+                imagefilledrectangle(
+                    $image, 
+                    0 + $this->margin, 
+                    $location + $this->margin, 
+                    $dimensions['width'] - $this->margin, 
+                    $cur_size + $this->margin, 
+                    ($position % 2 == 0 ? $white : $black)
+                );
             }
 
             $location = $cur_size;

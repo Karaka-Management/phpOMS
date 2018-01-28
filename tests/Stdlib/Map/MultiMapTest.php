@@ -5,7 +5,6 @@
  * PHP Version 7.1
  *
  * @package    TBD
- * @author     OMS Development Team <dev@oms.com>
  * @copyright  Dennis Eichhorn
  * @license    OMS License 1.0
  * @version    1.0.0
@@ -119,6 +118,7 @@ class MultiMapTest extends \PHPUnit\Framework\TestCase
 
         $inserted = $map->add(['a', 'b'], 'val2');
         $inserted = $map->add(['a', 'c'], 'val3', false);
+
         $set = $map->set('d', 'val4');
         $set = $map->set('b', 'val4');
 
@@ -148,6 +148,7 @@ class MultiMapTest extends \PHPUnit\Framework\TestCase
 
         $inserted = $map->add(['a', 'b'], 'val2');
         $inserted = $map->add(['a', 'c'], 'val3', false);
+
         $set = $map->set('d', 'val4');
         $set = $map->set('b', 'val4');
 
@@ -163,6 +164,7 @@ class MultiMapTest extends \PHPUnit\Framework\TestCase
         $map = new MultiMap();
 
         $inserted = $map->add(['a', 'b'], 'val2');
+
         $set = $map->set('d', 'val4');
         $set = $map->set('b', 'val4');
 
@@ -181,6 +183,7 @@ class MultiMapTest extends \PHPUnit\Framework\TestCase
 
         $inserted = $map->add(['a', 'b'], 'val2');
         $inserted = $map->add(['a', 'c'], 'val3', false);
+        
         $set = $map->set('d', 'val4');
         $set = $map->set('b', 'val4');
 

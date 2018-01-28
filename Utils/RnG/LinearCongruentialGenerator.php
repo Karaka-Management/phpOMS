@@ -24,7 +24,20 @@ namespace phpOMS\Utils\RnG;
  */
 class LinearCongruentialGenerator
 {
+    /**
+     * BSD seed value.
+     *
+     * @var int
+     * @since 1.0.0
+     */
     private static $bsdSeed = 0;
+
+    /**
+     * MSVCRT seed value.
+     *
+     * @var int
+     * @since 1.0.0
+     */
     private static $msvcrtSeed = 0;
 
     /**

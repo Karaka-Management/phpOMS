@@ -88,7 +88,7 @@ class Cron extends SchedulerAbstract
 
         $jobs = [];
         foreach ($lines as $line) {
-            if($line !== '' && strrpos($line, '#', -strlen($line)) === false) {
+            if ($line !== '' && strrpos($line, '#', -strlen($line)) === false) {
                 $jobs[] = CronJob::createWith(str_getcsv($line, ' '));
             }
         }
@@ -109,7 +109,7 @@ class Cron extends SchedulerAbstract
             foreach ($lines as $line) {
                 $csv = str_getcsv($line, ' ');
 
-                if($line !== '' && strrpos($line, '#', -strlen($line)) === false && $csv[5] === $name) {
+                if ($line !== '' && strrpos($line, '#', -strlen($line)) === false && $csv[5] === $name) {
                     $jobs[] = CronJob::createWith($csv);
                 }
             }
@@ -118,7 +118,7 @@ class Cron extends SchedulerAbstract
             foreach ($lines as $line) {
                 $csv = str_getcsv($line, ' ');
 
-                if($line !== '' && strrpos($line, '#', -strlen($line)) === false && stripos($csv[5], $name) !== false) {
+                if ($line !== '' && strrpos($line, '#', -strlen($line)) === false && stripos($csv[5], $name) !== false) {
                     $jobs[] = CronJob::createWith($csv);
                 }
             }

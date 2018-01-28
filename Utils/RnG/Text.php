@@ -31,7 +31,7 @@ class Text
      * @var string[]
      * @since 1.0.0
      */
-    private static $words_west = [
+    private static $wordsWest = [
         'lorem', 'ipsum', 'dolor', 'sit', 'amet', 'consectetur', 'adipiscing', 'elit', 'curabitur', 'vel', 'hendrerit', 'libero',
         'eleifend', 'blandit', 'nunc', 'ornare', 'odio', 'ut', 'orci', 'gravida', 'imperdiet', 'nullam', 'purus', 'lacinia', 'a',
         'pretium', 'quis', 'congue', 'praesent', 'sagittis', 'laoreet', 'auctor', 'mauris', 'non', 'velit', 'eros', 'dictum',
@@ -131,7 +131,7 @@ class Text
         }
 
         if ($words === null) {
-            $words = self::$words_west;
+            $words = self::$wordsWest;
         }
 
         $punctuation       = $this->generatePunctuation($length);
@@ -294,7 +294,7 @@ class Text
                 $paragraphLength = $length - $i;
             }
 
-            $i += $paragraphLength;
+            $i          += $paragraphLength;
             $paragraph[] = $i;
         }
 

@@ -264,7 +264,7 @@ class ArrayUtils
      *
      * @since  1.0.0
      */
-    public static function arrayToCSV(array $data, string $delimiter = ';', string $enclosure = '"', string $escape = '\\') : string
+    public static function arrayToCsv(array $data, string $delimiter = ';', string $enclosure = '"', string $escape = '\\') : string
     {
         $outstream = fopen('php://memory', 'r+');
         /** @noinspection PhpMethodParametersCountMismatchInspection */

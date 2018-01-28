@@ -28,7 +28,7 @@ interface ValidatorInterface
     /**
      * Check if value is valid.
      *
-     * @param mixed $value Value to validate
+     * @param mixed $value       Value to validate
      * @param array $constraints Constraints for validation
      *
      * @return bool
@@ -54,4 +54,13 @@ interface ValidatorInterface
      * @since  1.0.0
      */
     public static function getErrorCode() : int;
+
+    /**
+     * Reset error information
+     *
+     * @return void
+     *
+     * @since  1.0.0
+     */
+    public static function resetError() /* : void */;
 }

@@ -105,7 +105,7 @@ class Currency
 
             }
 
-            $node = $xml->Cube->Cube->Cube;
+            $node                = $xml->Cube->Cube->Cube;
             self::$ecbCurrencies = [];
 
             foreach ($node as $key => $value) {

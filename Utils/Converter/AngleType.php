@@ -26,14 +26,14 @@ use phpOMS\Stdlib\Base\Enum;
  */
 abstract class AngleType extends Enum
 {
-    /* public */ const DEGREE = 'deg';
-    /* public */ const RADIAN = 'rad';
-    /* public */ const SECOND = 'arcsec';
-    /* public */ const MINUTE = 'arcmin';
-    /* public */ const MILLIRADIAN_US = 'mil (us ww2)';
-    /* public */ const MILLIRADIAN_UK = 'mil (uk)';
+    /* public */ const DEGREE           = 'deg';
+    /* public */ const RADIAN           = 'rad';
+    /* public */ const SECOND           = 'arcsec';
+    /* public */ const MINUTE           = 'arcmin';
+    /* public */ const MILLIRADIAN_US   = 'mil (us ww2)';
+    /* public */ const MILLIRADIAN_UK   = 'mil (uk)';
     /* public */ const MILLIRADIAN_USSR = 'mil (ussr)';
     /* public */ const MILLIRADIAN_NATO = 'mil (nato)';
-    /* public */ const GRADIAN = 'g';
-    /* public */ const CENTRAD = 'crad';
+    /* public */ const GRADIAN          = 'g';
+    /* public */ const CENTRAD          = 'crad';
 }

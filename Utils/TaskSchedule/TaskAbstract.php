@@ -91,10 +91,10 @@ abstract class TaskAbstract
      *
      * @since  1.0.0
      */
-    public function __construct(string $name, string $cmd = '') {
-        $this->id = $name;
-        $this->command = $cmd;
-
+    public function __construct(string $name, string $cmd = '')
+    {
+        $this->id          = $name;
+        $this->command     = $cmd;
         $this->lastRunTime = new \DateTime('1900-01-01');
         $this->nextRunTime = new \DateTime('1900-01-01');
     }

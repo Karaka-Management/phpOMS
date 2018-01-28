@@ -4,7 +4,7 @@
  *
  * PHP Version 7.1
  *
- * @package    TBD
+ * @package    phpOMS
  * @copyright  Dennis Eichhorn
  * @license    OMS License 1.0
  * @version    1.0.0
@@ -16,6 +16,10 @@ namespace phpOMS;
 
 /**
  * Application class.
+ * 
+ * This class contains all necessary application members. Access to them 
+ * is restricted to write once in order to prevent manipulation 
+ * and afterwards read only.
  *
  * @property mixed orgId
  * @property string appName
@@ -31,7 +35,7 @@ namespace phpOMS;
  * @property \phpOMS\Account\AccountManager accountManager
  * @property \phpOMS\Log\FileLogger logger
  *
- * @package    Framework
+ * @package    phpOMS
  * @license    OMS License 1.0
  * @link       http://website.orange-management.de
  * @since      1.0.0

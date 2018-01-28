@@ -22,7 +22,7 @@ use phpOMS\Module\Exception\InvalidModuleException;
 use phpOMS\Module\Exception\InvalidThemeException;
 
 /**
- * List view.
+ * Basic view which can be used as basis for specific implementations.
  *
  * @package    phpOMS\Views
  * @license    OMS License 1.0
@@ -89,6 +89,8 @@ class View extends ViewAbstract
     }
 
     /**
+     * Get data attached to view
+     * 
      * @param string $id Data Id
      *
      * @return mixed
@@ -101,6 +103,8 @@ class View extends ViewAbstract
     }
 
     /**
+     * Set data of view
+     * 
      * @param string $id   Data ID
      * @param mixed  $data Data
      *
@@ -134,6 +138,8 @@ class View extends ViewAbstract
     }
 
     /**
+     * Add data to view
+     * 
      * @param string $id   Data ID
      * @param mixed  $data Data
      *
@@ -226,6 +232,8 @@ class View extends ViewAbstract
     }
 
     /**
+     * Get request of view
+     * 
      * @return RequestAbstract
      *
      * @since  1.0.0
@@ -236,6 +244,8 @@ class View extends ViewAbstract
     }
 
     /**
+     * Get response of view
+     * 
      * @return ResponseAbstract
      *
      * @since  1.0.0
@@ -244,5 +254,4 @@ class View extends ViewAbstract
     {
         return $this->response;
     }
-
 }

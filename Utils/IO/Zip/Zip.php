@@ -66,7 +66,7 @@ class Zip implements ArchiveInterface
 
                     $absolute = realpath($file);
                     $absolute = str_replace('\\', '/', $absolute);
-                    $dir = str_replace($source . '/', '', $relative . '/' . $absolute);
+                    $dir      = str_replace($source . '/', '', $relative . '/' . $absolute);
 
                     if (is_dir($absolute)) {
                         $zip->addEmptyDir($dir . '/');

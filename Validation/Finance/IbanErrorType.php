@@ -4,7 +4,7 @@
  *
  * PHP Version 7.1
  *
- * @package    TBD
+ * @package    phpOMS\Validation\Finance
  * @copyright  Dennis Eichhorn
  * @license    OMS License 1.0
  * @version    1.0.0
@@ -19,16 +19,16 @@ use phpOMS\Stdlib\Base\Enum;
 /**
  * Iban error type enum.
  *
- * @package    Framework
+ * @package    phpOMS\Validation\Finance
  * @license    OMS License 1.0
  * @link       http://website.orange-management.de
  * @since      1.0.0
  */
 abstract class IbanErrorType extends Enum
 {
-    /* public */ const INVALID_COUNTRY = 1;
-    /* public */ const INVALID_LENGTH = 2;
+    /* public */ const INVALID_COUNTRY  = 1;
+    /* public */ const INVALID_LENGTH   = 2;
     /* public */ const INVALID_CHECKSUM = 4;
-    /* public */ const EXPECTED_ZERO = 8;
+    /* public */ const EXPECTED_ZERO    = 8;
     /* public */ const EXPECTED_NUMERIC = 16;
 }

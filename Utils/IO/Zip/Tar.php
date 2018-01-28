@@ -11,7 +11,9 @@
  * @link       http://website.orange-management.de
  */
 declare(strict_types = 1);
+
 namespace phpOMS\Utils\IO\Zip;
+
 /**
  * Zip class for handling zip files.
  *
@@ -44,7 +46,10 @@ class Tar implements ArchiveInterface
             }
 
             if (is_dir($source)) {
-                $files = new \RecursiveIteratorIterator(new \RecursiveDirectoryIterator($source), \RecursiveIteratorIterator::SELF_FIRST);
+                $files = new \RecursiveIteratorIterator(
+                    new \RecursiveDirectoryIterator($source), 
+                    \RecursiveIteratorIterator::SELF_FIRST
+                );
 
                 foreach ($files as $file) {
                     $file = str_replace('\\', '/', $file);
