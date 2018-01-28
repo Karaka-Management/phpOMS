@@ -15,16 +15,6 @@ namespace phpOMS\tests\Stdlib\Base;
 
 use phpOMS\Stdlib\Base\EnumArray;
 
-final class EnumArrayDemo extends EnumArray
-{
-    protected static $constants = [
-        'ENUM1' => 1,
-        'ENUM2' => 'abc',
-    ];
-}
-
-;
-
 class EnumArrayTest extends \PHPUnit\Framework\TestCase
 {
     public function testGetSet()

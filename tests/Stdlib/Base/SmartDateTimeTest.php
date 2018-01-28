@@ -44,7 +44,7 @@ class SmartDateTimeTest extends \PHPUnit\Framework\TestCase
         self::assertEquals(0, $datetime->getFirstDayOfMonth());
 
         $expected = new \DateTime('now');
-        $obj = SmartDateTime::createFromDateTime($expected);
+        $obj      = SmartDateTime::createFromDateTime($expected);
         self::assertEquals($expected->format('Y-m-d H:i:s'), $obj->format('Y-m-d H:i:s'));
         self::assertEquals(date("Y-m-t", strtotime($expected->format('Y-m-d'))), $obj->getEndOfMonth()->format('Y-m-d'));
         self::assertEquals(date("Y-m-01", strtotime($expected->format('Y-m-d'))), $obj->getStartOfMonth()->format('Y-m-d'));

@@ -106,7 +106,7 @@ class DataMapperAbstractTest extends \PHPUnit\Framework\TestCase
 
     public function testRead()
     {
-        $id = BaseModelMapper::create($this->model);
+        $id     = BaseModelMapper::create($this->model);
         $modelR = BaseModelMapper::get($id);
 
         self::assertEquals($this->model->id, $modelR->id);
@@ -132,17 +132,17 @@ class DataMapperAbstractTest extends \PHPUnit\Framework\TestCase
 
     public function testUpdate()
     {
-        $id = BaseModelMapper::create($this->model);
+        $id     = BaseModelMapper::create($this->model);
         $modelR = BaseModelMapper::get($id);
 
-        $modelR->string = 'Update';
-        $modelR->int = '321';
-        $modelR->bool = true;
-        $modelR->float = 3.15;
-        $modelR->null = null;
+        $modelR->string   = 'Update';
+        $modelR->int      = '321';
+        $modelR->bool     = true;
+        $modelR->float    = 3.15;
+        $modelR->null     = null;
         $modelR->datetime = new \DateTime('now');
 
-        $id2 = BaseModelMapper::update($modelR);
+        $id2     = BaseModelMapper::update($modelR);
         $modelR2 = BaseModelMapper::get($id2);
 
         self::assertEquals($modelR->string, $modelR2->string);

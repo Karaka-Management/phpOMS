@@ -22,9 +22,9 @@ class TestUtilsTest extends \PHPUnit\Framework\TestCase
     public function testGet()
     {
         $class = new class {
-            private $a = 1;
+            private $a   = 1;
             protected $b = 2;
-            public $c = 3;
+            public $c    = 3;
         };
 
         self::assertEquals(1, TestUtils::getMember($class, 'a'));
@@ -37,9 +37,9 @@ class TestUtilsTest extends \PHPUnit\Framework\TestCase
     public function testSet()
     {
         $class = new class {
-            private $a = 1;
+            private $a   = 1;
             protected $b = 2;
-            public $c = 3;
+            public $c    = 3;
         };
 
         self::assertTrue(TestUtils::setMember($class, 'a', 4));

@@ -24,7 +24,8 @@ require_once __DIR__ . '/../Autoloader.php';
 class AccountManagerTest extends \PHPUnit\Framework\TestCase
 {
 
-    public function testAttributes() {
+    public function testAttributes() 
+    {
         $manager = new AccountManager($GLOBALS['httpSession']);
         self::assertInstanceOf('\phpOMS\Account\AccountManager', $manager);
 
@@ -32,7 +33,8 @@ class AccountManagerTest extends \PHPUnit\Framework\TestCase
         self::assertObjectHasAttribute('accounts', $manager);
     }
 
-    public function testDefault() {
+    public function testDefault() 
+    {
         $manager = new AccountManager($GLOBALS['httpSession']);
 
         self::assertEquals(0, $manager->count());

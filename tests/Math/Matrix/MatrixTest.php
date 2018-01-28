@@ -57,14 +57,14 @@ class MatrixTest extends \PHPUnit\Framework\TestCase
         $A = new Matrix();
         $A->setMatrix([[1, 2], [3, 4]]);
 
-        self::assertEquals([[1-2, 2-2], [3-2, 4-2]], $A->sub(2)->toArray());
-        self::assertEquals([[1+2, 2+2], [3+2, 4+2]], $A->add(2)->toArray());
+        self::assertEquals([[1 - 2, 2 - 2], [3 - 2, 4 - 2]], $A->sub(2)->toArray());
+        self::assertEquals([[1 + 2, 2 + 2], [3 + 2, 4 + 2]], $A->add(2)->toArray());
 
         $B = new Matrix();
         $B->setMatrix([[1, 2], [3, 4]]);
 
-        self::assertEquals([[1-1, 2-2], [3-3, 4-4]], $A->sub($B)->toArray());
-        self::assertEquals([[1+1, 2+2], [3+3, 4+4]], $A->add($B)->toArray());
+        self::assertEquals([[1 - 1, 2 - 2], [3 - 3, 4 - 4]], $A->sub($B)->toArray());
+        self::assertEquals([[1 + 1, 2 + 2], [3 + 3, 4 + 4]], $A->add($B)->toArray());
     }
 
     public function testDet()

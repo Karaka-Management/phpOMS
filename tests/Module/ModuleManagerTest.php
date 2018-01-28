@@ -28,8 +28,8 @@ class ModuleManagerTest extends \PHPUnit\Framework\TestCase
 
     protected function setUp()
     {
-        $this->app = new class extends ApplicationAbstract {};
-        $this->app->dbPool = $GLOBALS['dbpool'];
+        $this->app             = new class extends ApplicationAbstract {};
+        $this->app->dbPool     = $GLOBALS['dbpool'];
         $this->app->dispatcher = new Dispatcher($this->app);
     }
 
@@ -60,7 +60,7 @@ class ModuleManagerTest extends \PHPUnit\Framework\TestCase
 
     public function testGetSet()
     {
-        $this->app->router = new Router();
+        $this->app->router     = new Router();
         $this->app->dispatcher = new Dispatcher($this->app);
 
         $moduleManager = new ModuleManager($this->app, __DIR__ . '/../../../Modules');

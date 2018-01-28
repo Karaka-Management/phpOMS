@@ -22,9 +22,9 @@ class ModuleAbstractTest extends \PHPUnit\Framework\TestCase
     public function testModuleAbstract()
     {
         $moduleClass = new class(null) extends ModuleAbstract {
-            const MODULE_VERSION = '1.2.3';
-            const MODULE_NAME = 'Test';
-            const MODULE_ID = 2;
+            const MODULE_VERSION           = '1.2.3';
+            const MODULE_NAME              = 'Test';
+            const MODULE_ID                = 2;
             protected static $dependencies = [1, 2];
         };
 

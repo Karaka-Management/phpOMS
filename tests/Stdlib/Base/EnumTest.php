@@ -15,12 +15,6 @@ namespace phpOMS\tests\Stdlib\Base;
 
 use phpOMS\Stdlib\Base\Enum;
 
-final class EnumDemo extends Enum
-{
-    const ENUM1 = 1;
-    const ENUM2 = ';l';
-};
-
 class EnumTest extends \PHPUnit\Framework\TestCase
 {
     public function testGetSet()

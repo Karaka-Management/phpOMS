@@ -14,7 +14,7 @@ declare(strict_types = 1);
 
 namespace Tests\PHPUnit;
 
-spl_autoload_register('\Tests\PHPUnit\Autoloader::default_autoloader');
+spl_autoload_register('\Tests\PHPUnit\Autoloader::defaultAutoloader');
 
 /**
  * Autoloader class.
@@ -32,7 +32,7 @@ class Autoloader
      *
      * @param string $class Class path
      *
-     * @example Autoloader::default_autoloader('\Tests\PHPUnit\Autoloader') // void
+     * @example Autoloader::defaultAutoloader('\Tests\PHPUnit\Autoloader') // void
      *
      * @return void
      *
@@ -40,7 +40,7 @@ class Autoloader
      *
      * @since  1.0.0
      */
-    public static function default_autoloader(string $class) /* : void */
+    public static function defaultAutoloader(string $class) /* : void */
     {
         $class = ltrim($class, '\\');
         $class = str_replace(['_', '\\'], '/', $class);

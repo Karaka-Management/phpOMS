@@ -88,7 +88,7 @@ class ArrayUtilsTest extends \PHPUnit\Framework\TestCase
 
     public function testArrayRecursiveManipulation()
     {
-        $numArr = [1, 2, 3, 4];
+        $numArr    = [1, 2, 3, 4];
         $numArrRec = [1, [2, [3, 4]]];
         self::assertEquals(10, ArrayUtils::arraySumRecursive($numArrRec));
         self::assertEquals($numArr, ArrayUtils::arrayFlatten($numArrRec));

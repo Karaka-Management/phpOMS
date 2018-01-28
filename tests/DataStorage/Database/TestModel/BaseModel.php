@@ -57,19 +57,24 @@ class BaseModel
             new ManyToManyRelModel(),
         ];
 
-        $this->ownsOneSelf = new OwnsOneModel();
+        $this->ownsOneSelf  = new OwnsOneModel();
         $this->belongsToOne = new BelongsToModel();
 
         $this->serializable = new class implements \Serializable {
-            public function serialize() {
+            public function serialize() 
+            {
                 return '123';
             }
 
-            public function unserialize($data) {}
+            public function unserialize($data) 
+            {
+                
+            }
         };
 
         $this->jsonSerializable = new class implements \JsonSerializable {
-            public function jsonSerialize() {
+            public function jsonSerialize() 
+            {
                 return [1, 2, 3];
             }
         };
