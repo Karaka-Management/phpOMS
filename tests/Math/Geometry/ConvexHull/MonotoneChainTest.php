@@ -22,8 +22,8 @@ class MonotoneChainTest extends \PHPUnit\Framework\TestCase
         self::assertEquals([['x' => 9, 'y' => 0]], MonotoneChain::createConvexHull([['x' => 9, 'y' => 0]]));
 
         $points = [];
-        for($i = 0; $i < 10; $i++) {
-            for($j = 0; $j < 10; $j++) {
+        for ($i = 0; $i < 10; $i++) {
+            for ($j = 0; $j < 10; $j++) {
                 $points[] = ['x' => $i, 'y' => $j];
             }
         }
