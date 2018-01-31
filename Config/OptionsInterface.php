@@ -71,5 +71,4 @@ interface OptionsInterface
      * @since  1.0.0
      */
     public function getOption($key);
-
 }

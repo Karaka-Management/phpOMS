@@ -29,6 +29,8 @@ use phpOMS\Uri\UriInterface;
  * @license    OMS License 1.0
  * @link       http://website.orange-management.de
  * @since      1.0.0
+ * 
+ * @SuppressWarnings(PHPMD.Superglobals)
  */
 class Request extends RequestAbstract
 {

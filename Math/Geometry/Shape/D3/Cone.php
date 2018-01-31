@@ -79,6 +79,9 @@ class Cone implements D3ShapeInterface
      * @return float
      *
      * @since  1.0.0
+     * 
+     * @SuppressWarnings(PHPMD.CamelCaseVariableName)
+     * @SuppressWarnings(PHPMD.CamelCaseParameterName)
      */
     public static function getHeightFromVolume(float $V, float $r) : float
     {

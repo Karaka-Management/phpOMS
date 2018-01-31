@@ -75,6 +75,9 @@ class Circle implements D2ShapeInterface
      * @return float
      *
      * @since  1.0.0
+     * 
+     * @SuppressWarnings(PHPMD.CamelCaseVariableName)
+     * @SuppressWarnings(PHPMD.CamelCaseParameterName)
      */
     public static function getRadiusByPerimeter(float $C) : float
     {

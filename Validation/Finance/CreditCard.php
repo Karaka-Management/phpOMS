@@ -44,12 +44,12 @@ abstract class CreditCard extends ValidatorAbstract
         $value = preg_replace('/\D/', '', $value);
 
         // Set the string length and parity
-        $number_length = strlen($value);
-        $parity        = $number_length % 2;
+        $numberLength = strlen($value);
+        $parity       = $numberLength % 2;
 
         // Loop through each digit and do the maths
         $total = 0;
-        for ($i = 0; $i < $number_length; $i++) {
+        for ($i = 0; $i < $numberLength; $i++) {
             $digit = $value[$i];
             // Multiply alternate digits by two
             if ($i % 2 == $parity) {

@@ -24,12 +24,14 @@ use phpOMS\System\File\Local\File;
  * @license    OMS License 1.0
  * @link       http://website.orange-management.de
  * @since      1.0.0
+ * 
+ * @SuppressWarnings(PHPMD.Superglobals)
  */
 class FileLogger implements LoggerInterface
 {
     /* public */ const MSG_BACKTRACE = '{datetime}; {level}; {ip}; {message}; {backtrace}';
-    /* public */ const MSG_FULL = '{datetime}; {level}; {ip}; {line}; {version}; {os}; {path}; {message}; {file}; {backtrace}';
-    /* public */ const MSG_SIMPLE = '{datetime}; {level}; {ip}; {message};';
+    /* public */ const MSG_FULL      = '{datetime}; {level}; {ip}; {line}; {version}; {os}; {path}; {message}; {file}; {backtrace}';
+    /* public */ const MSG_SIMPLE    = '{datetime}; {level}; {ip}; {message};';
 
     /**
      * Timing array.

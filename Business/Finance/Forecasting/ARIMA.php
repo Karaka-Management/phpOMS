@@ -18,11 +18,12 @@ use phpOMS\Math\Statistic\Average;
 class ARIMA
 {
     private $data = [];
+
     private $order = 0;
 
     public function __construct(array $data, int $order = 12)
     {
-        $this->data = $data;
+        $this->data  = $data;
         $this->order = $order;
 
         if ($order !== 12 && $order !== 4) {

@@ -13,6 +13,7 @@
 declare(strict_types = 1);
 
 namespace phpOMS\DataStorage\Cache;
+
 use phpOMS\Stdlib\Base\Exception\InvalidEnumValue;
 
 /**
@@ -139,5 +140,4 @@ interface CacheInterface
      * @since  1.0.0
      */
     public function getThreshold() : int;
-
 }

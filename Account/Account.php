@@ -166,10 +166,10 @@ class Account implements ArrayableInterface, \JsonSerializable
      */
     public function __construct(int $id = 0)
     {
-        $this->createdAt = new \DateTime('now');
+        $this->createdAt  = new \DateTime('now');
         $this->lastActive = new \DateTime('now');
-        $this->id        = $id;
-        $this->l11n      = new NullLocalization();
+        $this->id         = $id;
+        $this->l11n       = new NullLocalization();
     }
 
     /**
@@ -329,7 +329,8 @@ class Account implements ArrayableInterface, \JsonSerializable
                 && ($p->getType() === $type || $p->getType() === null || !isset($type))
                 && ($p->getElement() === $element || $p->getElement() === null || !isset($element))
                 && ($p->getComponent() === $component || $p->getComponent() === null || !isset($component))
-                && ($p->getPermission() | $permission) === $p->getPermission()) {
+                && ($p->getPermission() | $permission) === $p->getPermission()
+            ) {
                 return true;
             }
         }

@@ -100,24 +100,24 @@ class SmartDateTime extends \DateTime
      */
     public function smartModify(int $y, int $m = 0, int $d = 0, int $calendar = CAL_GREGORIAN) : SmartDateTime
     {
-        $y_change    = (int) floor(((int) $this->format('m') - 1 + $m) / 12);
-        $y_change    = ((int) $this->format('m') - 1 + $m) < 0 && ((int) $this->format('m') - 1 + $m) % 12 === 0 ? $y_change - 1 : $y_change;
-        $y_new       = (int) $this->format('Y') + $y + $y_change;
-        $m_new       = ((int) $this->format('m') + $m) % 12;
-        $m_new       = $m_new === 0 ? 12 : $m_new < 0 ? 12 + $m_new : $m_new;
-        $d_month_old = cal_days_in_month($calendar, (int) $this->format('m'), (int) $this->format('Y'));
-        $d_month_new = cal_days_in_month($calendar, $m_new, $y_new);
-        $d_old       = (int) $this->format('d');
+        $yearChange  = (int) floor(((int) $this->format('m') - 1 + $m) / 12);
+        $yearChange  = ((int) $this->format('m') - 1 + $m) < 0 && ((int) $this->format('m') - 1 + $m) % 12 === 0 ? $yearChange - 1 : $yearChange;
+        $yearNew     = (int) $this->format('Y') + $y + $yearChange;
+        $monthNew    = ((int) $this->format('m') + $m) % 12;
+        $monthNew    = $monthNew === 0 ? 12 : $monthNew < 0 ? 12 + $monthNew : $monthNew;
+        $dayMonthOld = cal_days_in_month($calendar, (int) $this->format('m'), (int) $this->format('Y'));
+        $dayMonthNew = cal_days_in_month($calendar, $monthNew, $yearNew);
+        $dayOld      = (int) $this->format('d');
 
-        if ($d_old > $d_month_new) {
-            $d_new = $d_month_new;
-        } elseif ($d_old < $d_month_new && $d_old === $d_month_old) {
-            $d_new = $d_month_new;
+        if ($dayOld > $dayMonthNew) {
+            $dayNew = $dayMonthNew;
+        } elseif ($dayOld < $dayMonthNew && $dayOld === $dayMonthOld) {
+            $dayNew = $dayMonthNew;
         } else {
-            $d_new = $d_old;
+            $dayNew = $dayOld;
         }
 
-        $this->setDate($y_new, $m_new, $d_new);
+        $this->setDate($yearNew, $monthNew, $dayNew);
 
         if ($d !== 0) {
             $this->modify($d . ' day');

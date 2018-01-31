@@ -404,7 +404,7 @@ class Localization
      */
     public function setWeight(array $weight) /* : void */
     {
-        $this->weight= $weight;
+        $this->weight = $weight;
     }
 
     /**

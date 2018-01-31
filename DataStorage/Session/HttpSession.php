@@ -25,6 +25,8 @@ use phpOMS\DataStorage\LockException;
  * @license    OMS License 1.0
  * @link       http://website.orange-management.de
  * @since      1.0.0
+ * 
+ * @SuppressWarnings(PHPMD.Superglobals)
  */
 class HttpSession implements SessionInterface
 {
@@ -97,10 +99,10 @@ class HttpSession implements SessionInterface
             $this->destroy();
         }
 
-        $this->sessionData = $_SESSION;
-        $_SESSION          = null;
+        $this->sessionData                 = $_SESSION;
+        $_SESSION                          = null;
         $this->sessionData['lastActivity'] = time();
-        $this->sid = session_id();
+        $this->sid                         = session_id();
 
         $this->setCsrfProtection();
     }
@@ -114,12 +116,12 @@ class HttpSession implements SessionInterface
     {
         $this->set('UID', 0, false);
 
-        if (($CSRF = $this->get('CSRF')) === null) {
-            $CSRF = StringUtils::generateString(10, 16);
-            $this->set('CSRF', $CSRF, false);
+        if (($csrf = $this->get('CSRF')) === null) {
+            $csrf = StringUtils::generateString(10, 16);
+            $this->set('CSRF', $csrf, false);
         }
 
-        UriFactory::setQuery('$CSRF', $CSRF);
+        UriFactory::setQuery('$CSRF', $csrf);
     }
 
     /**

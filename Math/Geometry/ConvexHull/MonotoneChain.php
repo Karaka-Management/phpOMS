@@ -40,7 +40,7 @@ final class MonotoneChain
         if (($n = count($points)) > 1) {
             uasort($points, [self::class, 'sort']);
 
-            $k = 0;
+            $k      = 0;
             $result = [];
 
             // Lower hull

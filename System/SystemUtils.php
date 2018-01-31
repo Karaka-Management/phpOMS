@@ -79,19 +79,19 @@ class SystemUtils
      */
     public static function getRAMUsage() : int
     {
-        $memusage = 0;
+        $memUsage = 0;
 
         if (stristr(PHP_OS, 'LINUX')) {
             $free     = shell_exec('free');
             $free     = (string) trim($free);
-            $free_arr = explode("\n", $free);
-            $mem      = explode(" ", $free_arr[1]);
+            $freeArr  = explode("\n", $free);
+            $mem      = explode(" ", $freeArr[1]);
             $mem      = array_filter($mem);
             $mem      = array_merge($mem);
-            $memusage = $mem[2] / $mem[1] * 100;
+            $memUsage = $mem[2] / $mem[1] * 100;
         }
 
-        return (int) $memusage;
+        return (int) $memUsage;
     }
 
     /**
@@ -103,16 +103,16 @@ class SystemUtils
      */
     public static function getCpuUsage() : int
     {
-        $cpuusage = 0;
+        $cpuUsage = 0;
 
         if (stristr(PHP_OS, 'WIN') !== false) {
-            $cpuusage = null;
-            exec('wmic cpu get LoadPercentage', $cpuusage);
-            $cpuusage = $cpuusage[1];
+            $cpuUsage = null;
+            exec('wmic cpu get LoadPercentage', $cpuUsage);
+            $cpuUsage = $cpuUsage[1];
         } elseif (stristr(PHP_OS, 'LINUX') !== false) {
-            $cpuusage = \sys_getloadavg()[0] * 100;
+            $cpuUsage = \sys_getloadavg()[0] * 100;
         }
 
-        return (int) $cpuusage;
+        return (int) $cpuUsage;
     }
 }

@@ -4,7 +4,7 @@
  *
  * PHP Version 7.1
  *
- * @package    TBD
+ * @package    Framework
  * @copyright  Dennis Eichhorn
  * @license    OMS License 1.0
  * @version    1.0.0
@@ -12,23 +12,22 @@
  */
 declare(strict_types = 1);
 
-namespace phpOMS\DataStorage\Cache;
+namespace phpOMS\Business\Finance\Forecasting\ExponentialSmoothing;
 
 use phpOMS\Stdlib\Base\Enum;
 
 /**
- * Cache status enum.
- *
- * Possible caching status
+ * Smoothing enum.
  *
  * @package    Framework
  * @license    OMS License 1.0
  * @link       http://website.orange-management.de
  * @since      1.0.0
  */
-abstract class CacheStatus extends Enum
+abstract class ErrorType extends Enum
 {
-    /* public */ const ACTIVE   = 0;
-    /* public */ const INACTIVE = 1;
-    /* public */ const ERROR    = 2;
+    /* public */ const ALL            = 0;
+    /* public */ const NONE           = 1;
+    /* public */ const ADDITIVE       = 2;
+    /* public */ const MULTIPLICATIVE = 4;
 }

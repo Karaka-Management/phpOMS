@@ -45,6 +45,8 @@ class CookieJar
      * Constructor.
      *
      * @since  1.0.0
+     * 
+     * @SuppressWarnings(PHPMD.Superglobals)
      */
     public function __construct()
     {

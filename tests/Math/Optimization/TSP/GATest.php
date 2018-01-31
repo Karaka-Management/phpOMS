@@ -22,12 +22,12 @@ class GATest extends \PHPUnit\Framework\TestCase
 {
     public function testTsp()
     {
-        $cities = [new City()];
+        $cities   = [new City()];
         $cityPool = new CityPool($cities);
-        $ga = new Ga($cityPool);
+        $ga       = new Ga($cityPool);
 
         $basePopulation = new Population($cityPool, 1000, true);
-        $population = $ga->evolvePopulation($basePopulation);
+        $population     = $ga->evolvePopulation($basePopulation);
 
     }
 }

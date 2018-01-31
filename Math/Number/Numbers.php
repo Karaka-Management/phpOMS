@@ -43,7 +43,7 @@ class Numbers
             }
         }
 
-        return $sum == $n;
+        return $sum === $n;
     }
 
     /**
@@ -57,7 +57,7 @@ class Numbers
      */
     public static function isSelfdescribing(int $n) : bool
     {
-        $n = (string) $n;
+        $n     = (string) $n;
         $split = str_split($n);
 
         foreach ($split as $place => $value) {

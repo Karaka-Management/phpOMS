@@ -13,6 +13,7 @@
 declare(strict_types = 1);
 
 namespace phpOMS\System\File\Local;
+
 use phpOMS\System\File\ContainerInterface;
 
 /**

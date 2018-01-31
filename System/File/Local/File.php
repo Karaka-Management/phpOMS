@@ -66,8 +66,7 @@ class File extends FileAbstract implements FileInterface
     {
         $exists = file_exists($path);
 
-        if (
-            (ContentPutMode::hasFlag($mode, ContentPutMode::APPEND) && $exists)
+        if ((ContentPutMode::hasFlag($mode, ContentPutMode::APPEND) && $exists)
             || (ContentPutMode::hasFlag($mode, ContentPutMode::PREPEND) && $exists)
             || (ContentPutMode::hasFlag($mode, ContentPutMode::REPLACE) && $exists)
             || (!$exists && ContentPutMode::hasFlag($mode, ContentPutMode::CREATE))

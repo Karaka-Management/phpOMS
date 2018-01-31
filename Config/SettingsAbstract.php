@@ -135,7 +135,7 @@ abstract class SettingsAbstract implements OptionsInterface
         if ($store) {
             foreach($this->options as $key => $option) {
                 $query = new Builder($this->connection);
-                $sql = $query->update($this->connection->prefix . static::$table)
+                $sql   = $query->update($this->connection->prefix . static::$table)
                     ->set([static::$columns[1] => $option])
                     ->where(static::$columns[0], '=', $key)
                     ->toSql();

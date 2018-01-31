@@ -28,11 +28,11 @@ use phpOMS\Stdlib\Base\Enum;
  */
 abstract class CacheType extends Enum
 {
-    /* public */ const _INT = 0; /* Data is integer */
-    /* public */ const _STRING = 1; /* Data is string */
-    /* public */ const _ARRAY = 2; /* Data is array */
-    /* public */ const _SERIALIZABLE = 3; /* Data is object */
-    /* public */ const _FLOAT = 4; /* Data is float */
-    /* public */ const _BOOL = 5; /* Data is bool */
+    /* public */ const _INT              = 0; /* Data is integer */
+    /* public */ const _STRING           = 1; /* Data is string */
+    /* public */ const _ARRAY            = 2; /* Data is array */
+    /* public */ const _SERIALIZABLE     = 3; /* Data is object */
+    /* public */ const _FLOAT            = 4; /* Data is float */
+    /* public */ const _BOOL             = 5; /* Data is bool */
     /* public */ const _JSONSERIALIZABLE = 6;
 }

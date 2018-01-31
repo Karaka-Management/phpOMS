@@ -57,14 +57,14 @@ class Fibunacci
             return $start;
         }
 
-        $old_1 = $start;
-        $old_2 = $start;
-        $fib   = 0;
+        $old1 = $start;
+        $old2 = $start;
+        $fib  = 0;
 
         for ($i = 2; $i < $n; $i++) {
-            $fib   = $old_1 + $old_2;
-            $old_1 = $old_2;
-            $old_2 = $fib;
+            $fib  = $old1 + $old2;
+            $old1 = $old2;
+            $old2 = $fib;
         }
 
         return $fib;

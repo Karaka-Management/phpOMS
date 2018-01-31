@@ -142,8 +142,8 @@ class Directory extends FileAbstract implements DirectoryInterface
      */
     public function addNode($file) : bool
     {
-        $this->count += $file->getCount();
-        $this->size += $file->getSize();
+        $this->count                  += $file->getCount();
+        $this->size                   += $file->getSize();
         $this->nodes[$file->getName()] = $file;
 
         return $file->createNode();
@@ -158,10 +158,10 @@ class Directory extends FileAbstract implements DirectoryInterface
             throw new PathException($dir);
         }
 
-        $countSize = 0;
-        $dir_array = scandir($dir);
+        $countSize   = 0;
+        $directories = scandir($dir);
 
-        foreach ($dir_array as $key => $filename) {
+        foreach ($directories as $key => $filename) {
             if ($filename === ".." || $filename === ".") {
                 continue;
             }
@@ -186,8 +186,8 @@ class Directory extends FileAbstract implements DirectoryInterface
             throw new PathException($path);
         }
 
-        $size  = 0;
-        $files = scandir($path);
+        $size     = 0;
+        $files    = scandir($path);
         $ignore[] = '.';
         $ignore[] = '..';
 
@@ -411,7 +411,7 @@ class Directory extends FileAbstract implements DirectoryInterface
     {
         if (isset($this->nodes[$name])) {
             $this->count -= $this->nodes[$name]->getCount();
-            $this->size -= $this->nodes[$name]->getSize();
+            $this->size  -= $this->nodes[$name]->getSize();
 
             unset($this->nodes[$name]);
 

@@ -383,8 +383,7 @@ class FileCache implements CacheInterface
         foreach ($dir as $file) {
             if ($file instanceof File) {
                 $created = $file->getCreatedAt()->getTimestamp();
-                if (
-                    ($expire >= 0 && $created + $expire < $now)
+                if (($expire >= 0 && $created + $expire < $now)
                     || ($expire < 0 && $created + $this->getExpire($file->getContent()) < $now)
                 ) {
                     File::delete($file->getPath());

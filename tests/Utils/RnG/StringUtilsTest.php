@@ -22,9 +22,9 @@ class StringUtilsTest extends \PHPUnit\Framework\TestCase
      */
     public function testStrings()
     {
-        $haystack = [];
+        $haystack    = [];
         $outOfBounds = false;
-        $randomness = 0;
+        $randomness  = 0;
 
         for ($i = 0; $i < 10000; $i++) {
             $random = StringUtils::generateString(5, 12, '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ!@#$%^&*()_?><|;"');

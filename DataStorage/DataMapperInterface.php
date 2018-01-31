@@ -127,5 +127,4 @@ interface DataMapperInterface
      * @since  1.0.0
      */
     public static function get($primaryKey);
-
 }

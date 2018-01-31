@@ -55,7 +55,7 @@ class DatabasePool
      *
      * @since  1.0.0
      */
-    public function add(string $key = 'core', ConnectionAbstract $db) : bool
+    public function add(string $key, ConnectionAbstract $db) : bool
     {
         if (isset($this->pool[$key])) {
             return false;

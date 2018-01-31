@@ -99,10 +99,10 @@ class Polygon implements D2ShapeInterface
 
         // Inside or ontop?
         $countIntersect = 0;
-        $polygon_count = count($polygon);
+        $polygonCount   = count($polygon);
 
         // todo: return based on highest possibility not by first match
-        for ($i = 1; $i < $polygon_count; $i++) {
+        for ($i = 1; $i < $polygonCount; $i++) {
             $vertex1 = $polygon[$i - 1];
             $vertex2 = $polygon[$i];
 

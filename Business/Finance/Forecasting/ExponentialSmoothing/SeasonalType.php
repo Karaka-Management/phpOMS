@@ -26,8 +26,8 @@ use phpOMS\Stdlib\Base\Enum;
  */
 abstract class SeasonalType extends Enum
 {
-    /* public */ const ALL = 0;
-    /* public */ const NONE = 1;
-    /* public */ const ADDITIVE = 2;
+    /* public */ const ALL            = 0;
+    /* public */ const NONE           = 1;
+    /* public */ const ADDITIVE       = 2;
     /* public */ const MULTIPLICATIVE = 4;
 }

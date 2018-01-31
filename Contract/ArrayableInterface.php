@@ -35,5 +35,4 @@ interface ArrayableInterface
      * @since  1.0.0
      */
     public function toArray() : array;
-
 }

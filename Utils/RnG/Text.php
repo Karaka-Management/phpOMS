@@ -134,8 +134,8 @@ class Text
             $words = self::$wordsWest;
         }
 
-        $punctuation       = $this->generatePunctuation($length);
-        $punctuation_count = array_count_values(
+        $punctuation      = $this->generatePunctuation($length);
+        $punctuationCount = array_count_values(
                 array_map(
                     function ($item) {
                         return $item[1];
@@ -144,7 +144,7 @@ class Text
                 )
             ) + ['.' => 0, '!' => 0, '?' => 0];
 
-        $this->sentences = $punctuation_count['.'] + $punctuation_count['!'] + $punctuation_count['?'];
+        $this->sentences = $punctuationCount['.'] + $punctuationCount['!'] + $punctuationCount['?'];
 
         if ($this->hasParagraphs) {
             $paragraph = $this->generateParagraph($this->sentences);
@@ -233,16 +233,16 @@ class Text
             }
 
             /* Handle comma */
-            $comma_here = (rand(0, 100) <= $probComma * 100 && $sentenceLength >= 2 * $minCommaSpacing ? true : false);
-            $posComma   = [];
+            $commaHere = (rand(0, 100) <= $probComma * 100 && $sentenceLength >= 2 * $minCommaSpacing ? true : false);
+            $posComma  = [];
 
-            if ($comma_here) {
+            if ($commaHere) {
                 $posComma[]    = rand($minCommaSpacing, $sentenceLength - $minCommaSpacing);
                 $punctuation[] = [$i + $posComma[0], ','];
 
-                $comma_here = (rand(0, 100) <= $probComma * 100 && $posComma[0] + $minCommaSpacing * 2 < $sentenceLength ? true : false);
+                $commaHere = (rand(0, 100) <= $probComma * 100 && $posComma[0] + $minCommaSpacing * 2 < $sentenceLength ? true : false);
 
-                if ($comma_here) {
+                if ($commaHere) {
                     $posComma[]    = rand($posComma[0] + $minCommaSpacing, $sentenceLength - $minCommaSpacing);
                     $punctuation[] = [$i + $posComma[1], ','];
                 }
@@ -251,16 +251,16 @@ class Text
             $i += $sentenceLength;
 
             /* Handle sentence ending */
-            $is_dot = (rand(0, 100) <= $probDot * 100 ? true : false);
+            $isDot = (rand(0, 100) <= $probDot * 100 ? true : false);
 
-            if ($is_dot) {
+            if ($isDot) {
                 $punctuation[] = [$i, '.'];
                 continue;
             }
 
-            $is_ex = (rand(0, 100) <= $probExc * 100 ? true : false);
+            $isEx = (rand(0, 100) <= $probExc * 100 ? true : false);
 
-            if ($is_ex) {
+            if ($isEx) {
                 $punctuation[] = [$i, '!'];
                 continue;
             }

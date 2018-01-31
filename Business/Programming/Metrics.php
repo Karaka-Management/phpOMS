@@ -24,7 +24,8 @@ namespace phpOMS\Business\Programming;
  * @link       http://website.orange-management.de
  * @since      1.0.0
  */
-class Metrics {
+class Metrics
+{
     /**
      * Calculate ABC metric score
      *
@@ -54,6 +55,8 @@ class Metrics {
      * @return int
      *
      * @since  1.0.0
+     * 
+     * @SuppressWarnings(PHPMD.CamelCaseMethodName)
      */
     public static function CRAP(int $complexity, float $coverage) : int
     {

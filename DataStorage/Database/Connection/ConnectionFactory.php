@@ -55,10 +55,8 @@ class ConnectionFactory
         switch ($dbdata['db']) {
             case DatabaseType::MYSQL:
                 return new MysqlConnection($dbdata);
-                break;
             case DatabaseType::SQLSRV:
                 return new SqlServerConnection($dbdata);
-                break;
             default:
                 throw new \InvalidArgumentException('Database "' . $dbdata['db'] . '" is not supported.');
         }

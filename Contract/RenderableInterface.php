@@ -36,5 +36,4 @@ interface RenderableInterface
      * @since  1.0.0
      */
     public function render() : string;
-
 }

@@ -99,7 +99,7 @@ class ChiSquaredDistribution
             $sum += ($dataset[$i] - $expected[$i]) * ($dataset[$i] - $expected[$i]) / $expected[$i];
         }
 
-        $P = null;
+        $p = null;
 
         if ($df === 0) {
             $df = self::getDegreesOfFreedom($dataset);
@@ -111,14 +111,14 @@ class ChiSquaredDistribution
 
         foreach (self::TABLE[$df] as $key => $value) {
             if ($value > $sum) {
-                $P = $key;
+                $p = $key;
                 break;
             }
         }
 
-        $P = 1 - ($P ?? key(end(self::TABLE[$df])));
+        $p = 1 - ($p ?? key(end(self::TABLE[$df])));
 
-        return ['P' => $P, 'H0' => ($P > $significance), 'df' => $df];
+        return ['P' => $p, 'H0' => ($p > $significance), 'df' => $df];
     }
 
     /**

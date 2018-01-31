@@ -70,7 +70,7 @@ class DataMapperAbstract implements DataMapperInterface
      * @var string
      * @since 1.0.0
      */
-    protected static $language_field = '';
+    protected static $languageField = '';
 
     /**
      * Columns.
@@ -2129,8 +2129,8 @@ class DataMapperAbstract implements DataMapperInterface
             $query->orderBy(static::$table . '.' . static::$columns[static::$primaryField]['name'], 'DESC');
         }
 
-        if (!empty(self::$language_field) && !empty($lang)) {
-            $query->where(static::$table . '.' . static::$language_field, '=', $lang, 'AND');
+        if (!empty(self::$languageField) && !empty($lang)) {
+            $query->where(static::$table . '.' . static::$languageField, '=', $lang, 'AND');
         }
 
         $sth = self::$db->con->prepare($query->toSql());
@@ -2392,8 +2392,8 @@ class DataMapperAbstract implements DataMapperInterface
     {
         $query = self::getQuery();
 
-        if (!empty(self::$language_field) && !empty($lang)) {
-            $query->where(static::$table . '.' . static::$language_field, '=', $lang, 'AND');
+        if (!empty(self::$languageField) && !empty($lang)) {
+            $query->where(static::$table . '.' . static::$languageField, '=', $lang, 'AND');
         }
 
         $sth = self::$db->con->prepare($query->toSql());

@@ -59,7 +59,7 @@ class CachePool implements OptionsInterface
      *
      * @since  1.0.0
      */
-    public function add(string $key = 'core', CacheInterface $cache) : bool
+    public function add(string $key, CacheInterface $cache) : bool
     {
         if (isset($this->pool[$key])) {
             return false;
