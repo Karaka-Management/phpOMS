@@ -354,7 +354,7 @@ class ModuleManager
      */
     private function deactivateModule(InfoManager $info) /* : void */
     {
-        $class = '\\Modules\\' . $info->getDirectory() . '\\Admin\\Deactivate';
+        $class = '\\Modules\\' . $info->getDirectory() . '\\Admin\\Status';
 
         if (!Autoloader::exists($class)) {
             throw new InvalidModuleException($info->getDirectory());
@@ -412,7 +412,7 @@ class ModuleManager
      */
     private function activateModule(InfoManager $info) /* : void */
     {
-        $class = '\\Modules\\' . $info->getDirectory() . '\\Admin\\Activate';
+        $class = '\\Modules\\' . $info->getDirectory() . '\\Admin\\Status';
 
         if (!Autoloader::exists($class)) {
             throw new InvalidModuleException($info->getDirectory());

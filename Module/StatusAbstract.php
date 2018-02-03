@@ -26,8 +26,71 @@ use phpOMS\DataStorage\Database\Exception\InvalidDatabaseTypeException;
  * @link       http://website.orange-management.de
  * @since      1.0.0
  */
-class DeactivateAbstract
+class StatusAbstract
 {
+
+    /**
+     * Deactivate module.
+     *
+     * @param DatabasePool        $dbPool Database instance
+     * @param InfoManager $info   Module info
+     *
+     * @return void
+     *
+     * @since  1.0.0
+     */
+    public static function activate(DatabasePool $dbPool, InfoManager $info) /* : void */
+    {
+        self::activateRoutes(__DIR__ . '/../../Web/Routes.php', __DIR__ . '/../../Modules/' . $info->getDirectory() . '/Admin/Routes/http.php');
+        self::activateInDatabase($dbPool, $info);
+    }
+
+    /**
+     * Install routes.
+     *
+     * @param string $destRoutePath Destination route path
+     * @param string $srcRoutePath  Source route path
+     *
+     * @return void
+     *
+     * @since  1.0.0
+     */
+    private static function activateRoutes(string $destRoutePath, string $srcRoutePath) /* : void */
+    {
+        // todo: remove route
+    }
+
+    /**
+     * Deactivate module in database.
+     *
+     * @param DatabasePool        $dbPool Database instance
+     * @param InfoManager $info   Module info
+     *
+     * @return void
+     *
+     * @since  1.0.0
+     */
+    public static function activateInDatabase(DatabasePool $dbPool, InfoManager $info) /* : void */
+    {
+        switch ($dbPool->get()->getType()) {
+            case DatabaseType::MYSQL:
+                $dbPool->get()->con->beginTransaction();
+
+                $sth = $dbPool->get()->con->prepare(
+                    'UPDATE `' . $dbPool->get()->prefix . 'module` SET `module_active` = :active WHERE `module_id` = :internal;'
+                );
+
+                $sth->bindValue(':internal', $info->getInternalName(), \PDO::PARAM_INT);
+                $sth->bindValue(':active', 1, \PDO::PARAM_INT);
+                $sth->execute();
+
+                $dbPool->get()->con->commit();
+
+                break;
+            default: 
+                throw new InvalidDatabaseTypeException($dbPool->get()->getType());
+        }
+    }
 
     /**
      * Deactivate module.
