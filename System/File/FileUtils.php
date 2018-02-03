@@ -95,7 +95,7 @@ class FileUtils
         if (!file_exists($origPath)) {
             $startsWithSlash = strpos($origPath, '/') === 0 ? '/' : '';
 
-            $path = [];
+            $path  = [];
             $parts = explode('/', $origPath);
 
             foreach ($parts as $part) {

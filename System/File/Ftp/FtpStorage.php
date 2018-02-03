@@ -32,7 +32,8 @@ class FtpStorage extends StorageAbstract
 {
     private static $instance = null;
 
-    public function __construct() {
+    public function __construct() 
+    {
 
     }
 

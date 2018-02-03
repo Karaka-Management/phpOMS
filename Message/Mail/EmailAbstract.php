@@ -76,10 +76,10 @@ class EmailAbstract
      */
     public function __construct(string $host = 'localhost', int $port = 25, int $timeout = 30, bool $ssl = false)
     {
-        $this->host = $host;
-        $this->port = $port;
+        $this->host    = $host;
+        $this->port    = $port;
         $this->timeout = $timeout;
-        $this->ssl = $ssl;
+        $this->ssl     = $ssl;
 
         imap_timeout(IMAP_OPENTIMEOUT, $timeout);
         imap_timeout(IMAP_READTIMEOUT, $timeout);
@@ -488,7 +488,7 @@ class EmailAbstract
     public function getMessageOverview(int $length = 0, int $start = 1) : array
     {
         if ($length === 0) {
-            $info = imap_check($this->con);
+            $info   = imap_check($this->con);
             $length = $info->Nmsgs;
         }
 

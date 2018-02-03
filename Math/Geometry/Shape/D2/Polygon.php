@@ -67,8 +67,9 @@ class Polygon implements D2ShapeInterface
      */
     public function pointInPolygon(array $point) : int
     {
-        $coord = $this->coord;
+        $coord   = $this->coord;
         $coord[] = $this->coord[0];
+
         return self::isPointInPolygon($point, $coord);
     }
 
@@ -196,7 +197,7 @@ class Polygon implements D2ShapeInterface
      */
     private function getSignedSurface() : float
     {
-        $count = count($this->coord);
+        $count   = count($this->coord);
         $surface = 0;
 
         for ($i = 0; $i < $count - 1; $i++) {
@@ -204,7 +205,6 @@ class Polygon implements D2ShapeInterface
         }
 
         $surface += $this->coord[$count - 1]['x'] * $this->coord[0]['y'] - $this->coord[0]['x'] * $this->coord[$count - 1]['y'];
-
         $surface /= 2;
 
         return $surface;
@@ -219,7 +219,7 @@ class Polygon implements D2ShapeInterface
      */
     public function getPerimeter() : float
     {
-        $count           = count($this->coord);
+        $count     = count($this->coord);
         $perimeter = sqrt(($this->coord[0]['x'] - $this->coord[$count - 1]['x']) ** 2 + ($this->coord[0]['y'] - $this->coord[$count - 1]['y']) ** 2);
 
         for ($i = 0; $i < $count - 1; $i++) {
@@ -239,15 +239,15 @@ class Polygon implements D2ShapeInterface
     public function getBarycenter() : array
     {
         $barycenter = ['x' => 0, 'y' => 0];
-        $count = count($this->coord);
+        $count      = count($this->coord);
 
         for ($i = 0; $i < $count - 1; $i++) {
-            $mult = ($this->coord[$i]['x'] * $this->coord[$i + 1]['y'] - $this->coord[$i + 1]['x'] * $this->coord[$i]['y']);
+            $mult             = ($this->coord[$i]['x'] * $this->coord[$i + 1]['y'] - $this->coord[$i + 1]['x'] * $this->coord[$i]['y']);
             $barycenter['x'] += ($this->coord[$i]['x'] + $this->coord[$i + 1]['x']) * $mult;
             $barycenter['y'] += ($this->coord[$i]['y'] + $this->coord[$i + 1]['y']) * $mult;
         }
 
-        $mult = ($this->coord[$count - 1]['x'] * $this->coord[0]['y'] - $this->coord[0]['x'] * $this->coord[$count - 1]['y']);
+        $mult             = ($this->coord[$count - 1]['x'] * $this->coord[0]['y'] - $this->coord[0]['x'] * $this->coord[$count - 1]['y']);
         $barycenter['x'] += ($this->coord[$count - 1]['x'] + $this->coord[0]['x']) * $mult;
         $barycenter['y'] += ($this->coord[$count - 1]['y'] + $this->coord[0]['y']) * $mult;
 

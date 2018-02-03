@@ -85,5 +85,4 @@ interface ConnectionInterface
      * @since  1.0.0
      */
     public function getSchemaGrammar() : SchemaGrammar;
-
 }

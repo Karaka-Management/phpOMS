@@ -32,8 +32,8 @@ class Edge
 
     public function __construct(Node $node1, Node $node2, bool $directed = false)
     {
-        $this->node1 = $node1;
-        $this->node2 = $node2;
+        $this->node1    = $node1;
+        $this->node2    = $node2;
         $this->directed = $directed;
     }
 

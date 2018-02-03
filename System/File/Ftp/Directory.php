@@ -214,8 +214,8 @@ class Directory extends FileAbstract implements DirectoryInterface
 
     public function addNode($file) : bool
     {
-        $this->count += $file->getCount();
-        $this->size += $file->getSize();
+        $this->count                  += $file->getCount();
+        $this->size                   += $file->getSize();
         $this->nodes[$file->getName()] = $file;
 
         return $file->createNode();

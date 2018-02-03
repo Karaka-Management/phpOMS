@@ -278,9 +278,9 @@ abstract class C128Abstract
         $checksum   = static::$CHECKSUM;
 
         for ($pos = 1; $pos <= $length; $pos++) {
-            $activeKey = substr($this->content, ($pos - 1), 1);
+            $activeKey   = substr($this->content, ($pos - 1), 1);
             $codeString .= static::$CODEARRAY[$activeKey];
-            $checksum += $values[$activeKey] * $pos;
+            $checksum   += $values[$activeKey] * $pos;
         }
 
         $codeString .= static::$CODEARRAY[$keys[($checksum - (intval($checksum / 103) * 103))]];
@@ -348,7 +348,9 @@ abstract class C128Abstract
     private function calculateCodeLength(string $codeString) : int
     {
         $codeLength = 0;
-        for ($i = 1; $i <= strlen($codeString); $i++) {
+        $length     = strlen($codeString);
+        
+        for ($i = 1; $i <= $length; $i++) {
             $codeLength = $codeLength + (int) (substr($codeString, ($i - 1), 1));
         }
 

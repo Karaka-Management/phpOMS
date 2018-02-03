@@ -26,7 +26,7 @@ use phpOMS\Stdlib\Base\Enum;
  */
 abstract class ResponseType extends Enum
 {
-    /* public */ const HTTP = 0; /* HTTP */
-    /* public */ const SOCKET = 1; /* Socket */
+    /* public */ const HTTP    = 0; /* HTTP */
+    /* public */ const SOCKET  = 1; /* Socket */
     /* public */ const CONSOLE = 2; /* Console */
 }

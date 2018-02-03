@@ -118,9 +118,9 @@ class Request extends RequestAbstract
      */
     private function initCurrentRequest() /* : void */
     {
-        $this->uri      = new Http(Http::getCurrent());
-        $this->data     = $_GET ?? [];
-        $this->files    = $_FILES ?? [];
+        $this->uri   = new Http(Http::getCurrent());
+        $this->data  = $_GET ?? [];
+        $this->files = $_FILES ?? [];
         $this->header->getL11n()->setLanguage($this->loadRequestLanguage());
 
         if (isset($_SERVER['CONTENT_TYPE'])) {
@@ -227,7 +227,7 @@ class Request extends RequestAbstract
     public function createRequestHashs(int $start = 0) /* : void */
     {
         $this->hash = [];
-        $pathArray = $this->uri->getPathElements();
+        $pathArray  = $this->uri->getPathElements();
 
         foreach ($pathArray as $key => $path) {
             $paths = [];
@@ -372,8 +372,7 @@ class Request extends RequestAbstract
             throw new \OutOfRangeException('Value "' . $port . '" is out of range.');
         }
 
-        return
-            (!empty($_SERVER['HTTPS'] ?? '') && ($_SERVER['HTTPS'] ?? '') !== 'off')
+        return (!empty($_SERVER['HTTPS'] ?? '') && ($_SERVER['HTTPS'] ?? '') !== 'off')
             || (($_SERVER['HTTP_X_FORWARDED_PROTO'] ?? '') === 'https')
             || (($_SERVER['HTTP_X_FORWARDED_SSL'] ?? '') === 'on')
             || ($_SERVER['SERVER_PORT'] ?? '') == $port;

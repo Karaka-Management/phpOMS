@@ -102,7 +102,7 @@ class ModuleManager
      */
     public function __construct(ApplicationAbstract $app, string $modulePath = '')
     {
-        $this->app = $app;
+        $this->app        = $app;
         $this->modulePath = $modulePath;
     }
 
@@ -435,7 +435,7 @@ class ModuleManager
      */
     public function reInit(string $module) /* : void */
     {
-        $info = $this->loadInfo($module);
+        $info  = $this->loadInfo($module);
         $class = '\\Modules\\' . $info->getDirectory() . '\\Admin\\Installer';
 
         if (!Autoloader::exists($class)) {

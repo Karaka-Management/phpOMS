@@ -237,7 +237,7 @@ abstract class GrammarAbstract
 
         foreach ($this->specialKeywords as $keyword) {
             if (strrpos($system, $keyword, -strlen($system)) !== false) {
-                $prefix = '';
+                $prefix     = '';
                 $identifier = '';
             }
         }

@@ -24,15 +24,4 @@ namespace phpOMS\Math\Matrix;
  */
 class Vector extends Matrix
 {
-    /**
-     * Constructor.
-     *
-     * @param int $m Columns
-     *
-     * @since  1.0.0
-     */
-    public function __construct(int $m = 1)
-    {
-        parent::__construct($m);
-    }
 }

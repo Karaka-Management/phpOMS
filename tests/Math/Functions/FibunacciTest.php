@@ -25,11 +25,11 @@ class FibunacciTest extends \PHPUnit\Framework\TestCase
         self::assertFalse(Fibunacci::isFibunacci(6));
         self::assertFalse(Fibunacci::isFibunacci(87));
 
-        self::assertEquals(1, Fibunacci::fibunacci(1));
+        self::assertEquals(1, Fibunacci::fib(1));
         self::assertTrue(Fibunacci::isFibunacci(Fibunacci::binet(3)));
         self::assertTrue(Fibunacci::isFibunacci(Fibunacci::binet(6)));
 
-        self::assertEquals(Fibunacci::binet(6), Fibunacci::fibunacci(6));
-        self::assertEquals(Fibunacci::binet(8), Fibunacci::fibunacci(8));
+        self::assertEquals(Fibunacci::binet(6), Fibunacci::fib(6));
+        self::assertEquals(Fibunacci::binet(8), Fibunacci::fib(8));
     }
 }

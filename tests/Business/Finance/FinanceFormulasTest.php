@@ -238,7 +238,7 @@ class FinanceFormulasTest extends \PHPUnit\Framework\TestCase
     public function testDiscountedPaybackPeriod()
     {
         $O1 = 5000;
-        $r = 0.05;
+        $r  = 0.05;
         $CF = 1000;
 
         self::assertTrue(abs(5.896 - FinanceFormulas::getDiscountedPaybackPeriod($CF, $O1, $r)) < 0.01);

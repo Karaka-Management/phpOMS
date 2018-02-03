@@ -298,7 +298,7 @@ class MultiMap implements \Countable
             return $this->remove(implode(':', $key));
         }
 
-        $keys = Permutation::permut($key);
+        $keys  = Permutation::permut($key);
         $found = true;
 
         foreach ($keys as $key => $value) {

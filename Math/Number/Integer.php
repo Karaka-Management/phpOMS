@@ -63,7 +63,7 @@ class Integer
 
             while ($value % $prime === 0) {
                 $factors[] = $prime;
-                $value /= $prime;
+                $value    /= $prime;
             }
         }
 
@@ -98,7 +98,7 @@ class Integer
             }
 
             $cycleSize *= 2;
-            $y = $x;
+            $y          = $x;
         }
 
         return $factor;

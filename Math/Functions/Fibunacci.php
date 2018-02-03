@@ -51,7 +51,7 @@ class Fibunacci
      *
      * @since  1.0.0
      */
-    public static function fibunacci(int $n, int $start = 1) : int
+    public static function fib(int $n, int $start = 1) : int
     {
         if ($n < 3) {
             return $start;

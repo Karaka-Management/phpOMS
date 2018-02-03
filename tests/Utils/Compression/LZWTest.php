@@ -19,7 +19,7 @@ class LZWTest extends \PHPUnit\Framework\TestCase
 {
     public function testLZW()
     {
-        $expected = 'This is a test';
+        $expected    = 'This is a test';
         $compression = new LZW();
         self::assertEquals($expected, $compression->decompress($compression->compress($expected)));
     }

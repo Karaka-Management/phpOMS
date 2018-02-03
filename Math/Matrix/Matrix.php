@@ -181,8 +181,8 @@ class Matrix implements \ArrayAccess, \Iterator
      */
     public function setMatrix(array $matrix) : Matrix
     {
-        $this->m = count($matrix);
-        $this->n = count($matrix[0] ?? 1);
+        $this->m      = count($matrix);
+        $this->n      = count($matrix[0] ?? 1);
         $this->matrix = $matrix;
 
         return $this;
@@ -568,30 +568,30 @@ class Matrix implements \ArrayAccess, \Iterator
 
     private function gaussElimination($b) : Matrix
     {
-        $mDim = count($b);
+        $mDim   = count($b);
         $matrix = $this->matrix;
 
         for ($col = 0; $col < $mDim; $col++) {
-            $j = $col;
+            $j   = $col;
             $max = $matrix[$j][$j];
 
             for ($i = $col + 1; $i < $mDim; $i++) {
                 $temp = abs($matrix[$i][$col]);
 
                 if ($temp > $max) {
-                    $j = $i;
+                    $j   = $i;
                     $max = $temp;
                 }
             }
 
             if ($col != $j) {
-                $temp = $matrix[$col];
+                $temp         = $matrix[$col];
                 $matrix[$col] = $matrix[$j];
-                $matrix[$j] = $temp;
+                $matrix[$j]   = $temp;
 
-                $temp = $b[$col];
+                $temp    = $b[$col];
                 $b[$col] = $b[$j];
-                $b[$j] = $temp;
+                $b[$j]   = $temp;
             }
 
             for ($i = $col + 1; $i < $mDim; $i++) {
@@ -602,7 +602,7 @@ class Matrix implements \ArrayAccess, \Iterator
                 }
 
                 $matrix[$i][$col] = 0;
-                $b[$i] -= $temp * $b[$col];
+                $b[$i]           -= $temp * $b[$col];
             }
         }
 

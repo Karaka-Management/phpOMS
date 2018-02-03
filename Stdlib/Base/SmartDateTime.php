@@ -45,14 +45,6 @@ class SmartDateTime extends \DateTime
     /* public */ const TIMEZONE = 'UTC';
 
     /**
-     * {@inheritdoc}
-     */
-    public function __construct($time = 'now', $timezone = null)
-    {
-        parent::__construct($time, $timezone);
-    }
-
-    /**
      * Create object from DateTime
      *
      * @param \DateTime $date DateTime to extend
@@ -264,7 +256,7 @@ class SmartDateTime extends \DateTime
         $diffToWeekStart = $diffToWeekStart === 0 ? 7 : $diffToWeekStart;
 
         // get days of previous month
-        $previousMonth = $this->createModify(0, -1);
+        $previousMonth     = $this->createModify(0, -1);
         $daysPreviousMonth = $previousMonth->getDaysOfMonth();
 
         // add difference to $weekStartsWith counting backwards from days of previous month (reorder so that lowest value first)
@@ -280,7 +272,8 @@ class SmartDateTime extends \DateTime
 
         // add remaining days to next month (7*6 - difference+count of current month)
         $remainingDays = 42 - $diffToWeekStart - $daysMonth;
-        $nextMonth = $this->createModify(0, 1);
+        $nextMonth     = $this->createModify(0, 1);
+
         for ($i = 1; $i <= $remainingDays; $i++) {
             $days[] = new \DateTime($nextMonth->format('Y') . '-' . $nextMonth->format('m') . '-' . ($i));
         }

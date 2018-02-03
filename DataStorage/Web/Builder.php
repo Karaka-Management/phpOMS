@@ -32,7 +32,7 @@ class Builder extends DatabaseQueryBuilder
     private function download($uri)
     {
         $finder = [];
-        $l11n = new Localization();
+        $l11n   = new Localization();
 
         foreach ($this->from as $from) {
             $doc = new \DOMDocument();
@@ -52,7 +52,7 @@ class Builder extends DatabaseQueryBuilder
     {
         $finder = $this->download();
         $result = [];
-        $table = null;
+        $table  = null;
 
         foreach ($this->wheres as $column => $where) {
             if ($column === 'xpath') {
@@ -86,7 +86,7 @@ class Builder extends DatabaseQueryBuilder
 
     private function createTableFromList($node) : array
     {
-        $table = [];
+        $table    = [];
         $children = $node->childNodes;
 
         foreach ($children as $child) {

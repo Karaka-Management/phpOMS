@@ -185,7 +185,7 @@ class Head implements RenderableInterface
      */
     public function render() : string
     {
-        $head = '';
+        $head  = '';
         $head .= $this->meta->render();
         $head .= $this->renderStyle();
         $head .= $this->renderScript();

@@ -83,7 +83,7 @@ class File extends FileAbstract implements FileInterface
     public static function put(string $path, string $content, int $mode = ContentPutMode::REPLACE | ContentPutMode::CREATE) : bool
     {
         $http = new Http($path);
-        $con = self::ftpConnect($http);
+        $con  = self::ftpConnect($http);
 
         if (ftp_pwd($con) !== $http->getPath()) {
             return false;

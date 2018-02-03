@@ -112,7 +112,7 @@ abstract class SettingsAbstract implements OptionsInterface
             return count($options) > 1 ? $options : reset($options);
         } catch (\PDOException $e) {
             $exception = DatabaseExceptionFactory::createException($e);
-            $message = DatabaseExceptionFactory::createExceptionMessage($e);
+            $message   = DatabaseExceptionFactory::createExceptionMessage($e);
 
             throw new $exception($message);
         }
@@ -133,7 +133,7 @@ abstract class SettingsAbstract implements OptionsInterface
         $this->setOptions($options);
 
         if ($store) {
-            foreach($this->options as $key => $option) {
+            foreach ($this->options as $key => $option) {
                 $query = new Builder($this->connection);
                 $sql   = $query->update($this->connection->prefix . static::$table)
                     ->set([static::$columns[1] => $option])

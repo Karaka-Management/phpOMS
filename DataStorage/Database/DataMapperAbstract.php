@@ -648,8 +648,8 @@ class DataMapperAbstract implements DataMapperInterface
             }
 
             /** @var string $mapper */
-            $mapper             = static::$hasMany[$propertyName]['mapper'];
-            $objsIds            = [];
+            $mapper  = static::$hasMany[$propertyName]['mapper'];
+            $objsIds = [];
 
             foreach ($values as $key => &$value) {
                 if (!is_object($value)) {
@@ -817,8 +817,7 @@ class DataMapperAbstract implements DataMapperInterface
     private static function createRelationTable(string $propertyName, array $objsIds, $objId)
     {
         /** @var string $table */
-        if (
-            !empty($objsIds)
+        if (!empty($objsIds)
             && static::$hasMany[$propertyName]['table'] !== static::$table
             && static::$hasMany[$propertyName]['table'] !== static::$hasMany[$propertyName]['mapper']::$table
         ) {
@@ -908,8 +907,8 @@ class DataMapperAbstract implements DataMapperInterface
             }
 
             /** @var string $mapper */
-            $mapper             = static::$hasMany[$propertyName]['mapper'];
-            $relReflectionClass = null;
+            $mapper                 = static::$hasMany[$propertyName]['mapper'];
+            $relReflectionClass     = null;
             $objsIds[$propertyName] = [];
 
             foreach ($values as $key => &$value) {
@@ -1003,8 +1002,7 @@ class DataMapperAbstract implements DataMapperInterface
     private static function deleteRelationTable(string $propertyName, array $objsIds, $objId)
     {
         /** @var string $table */
-        if (
-            !empty($objsIds)
+        if (!empty($objsIds)
             && static::$hasMany[$propertyName]['table'] !== static::$table
             && static::$hasMany[$propertyName]['table'] !== static::$hasMany[$propertyName]['mapper']::$table
         ) {
@@ -1515,7 +1513,7 @@ class DataMapperAbstract implements DataMapperInterface
                 /** @var string $mapper */
                 $mapper = static::$hasMany[$member]['mapper'];
 
-                $objects = $mapper::getArray($values, RelationType::ALL, $depth);
+                $objects      = $mapper::getArray($values, RelationType::ALL, $depth);
                 $obj[$member] = $objects;
             }
         }
@@ -1548,13 +1546,13 @@ class DataMapperAbstract implements DataMapperInterface
 
                 /** @var string $mapper */
                 $mapper = static::$hasOne[$member]['mapper'];
-                $id = $reflectionProperty->getValue($obj);
+                $id     = $reflectionProperty->getValue($obj);
 
                 if (self::isNullObject($id)) {
                     continue;
                 }
 
-                $id = is_object($id) ? self::getObjectId($id) : $id;
+                $id    = is_object($id) ? self::getObjectId($id) : $id;
                 $value = self::getInitialized($mapper, $id) ?? $mapper::get($id, RelationType::ALL, null, $depth);
 
                 $reflectionProperty->setValue($obj, $value);
@@ -1582,7 +1580,7 @@ class DataMapperAbstract implements DataMapperInterface
     {
         foreach (static::$hasOne as $member => $one) {
             /** @var string $mapper */
-            $mapper = static::$hasOne[$member]['mapper'];
+            $mapper       = static::$hasOne[$member]['mapper'];
             $obj[$member] = self::getInitialized($mapper, $obj['member']) ?? $mapper::getArray($obj[$member], RelationType::ALL, $depth);
         }
     }
@@ -1614,13 +1612,13 @@ class DataMapperAbstract implements DataMapperInterface
 
                 /** @var string $mapper */
                 $mapper = static::$ownsOne[$member]['mapper'];
-                $id = $reflectionProperty->getValue($obj);
+                $id     = $reflectionProperty->getValue($obj);
 
                 if (self::isNullObject($id)) {
                     continue;
                 }
 
-                $id = is_object($id) ? self::getObjectId($id) : $id;
+                $id    = is_object($id) ? self::getObjectId($id) : $id;
                 $value = self::getInitialized($mapper, $id) ?? $mapper::get($id, RelationType::ALL, null, $depth);
 
                 $reflectionProperty->setValue($obj, $value);
@@ -1648,7 +1646,7 @@ class DataMapperAbstract implements DataMapperInterface
     {
         foreach (static::$ownsOne as $member => $one) {
             /** @var string $mapper */
-            $mapper = static::$ownsOne[$member]['mapper'];
+            $mapper       = static::$ownsOne[$member]['mapper'];
             $obj[$member] = self::getInitialized($mapper, $obj[$member]) ?? $mapper::getArray($obj[$member], RelationType::ALL, $depth);
         }
     }
@@ -1680,13 +1678,13 @@ class DataMapperAbstract implements DataMapperInterface
 
                 /** @var string $mapper */
                 $mapper = static::$belongsTo[$member]['mapper'];
-                $id = $reflectionProperty->getValue($obj);
+                $id     = $reflectionProperty->getValue($obj);
 
                 if (self::isNullObject($id)) {
                     continue;
                 }
 
-                $id = is_object($id) ? self::getObjectId($id) : $id;
+                $id    = is_object($id) ? self::getObjectId($id) : $id;
                 $value = self::getInitialized($mapper, $id) ?? $mapper::get($id, RelationType::ALL, null, $depth);
 
                 $reflectionProperty->setValue($obj, $value);
@@ -1714,7 +1712,7 @@ class DataMapperAbstract implements DataMapperInterface
     {
         foreach (static::$belongsTo as $member => $one) {
             /** @var string $mapper */
-            $mapper = static::$belongsTo[$member]['mapper'];
+            $mapper       = static::$belongsTo[$member]['mapper'];
             $obj[$member] = self::getInitialized($mapper, $obj[$member]) ?? $mapper::get($obj[$member], RelationType::ALL, null, $depth);
         }
     }
@@ -1971,7 +1969,7 @@ class DataMapperAbstract implements DataMapperInterface
                 $toLoad = self::getPrimaryKeysBy($value, self::getColumnByMember($ref));
             }
 
-            $obj[$value] = self::get($toLoad, $relations, $fill, isset($depth) ?  --$depth : null);
+            $obj[$value] = self::get($toLoad, $relations, $fill, isset($depth) ? --$depth : null);
         }
 
         $countResulsts = count($obj);
