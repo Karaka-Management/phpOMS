@@ -116,7 +116,7 @@ class InstallerAbstract
     private static function activate(DatabasePool $dbPool, InfoManager $info) /* : void */
     {
         /** @var ActivateAbstract $class */
-        $class = '\Modules\\' . $info->getDirectory() . '\Admin\Activate';
+        $class = '\Modules\\' . $info->getDirectory() . '\Admin\Status';
         $class::activate($dbPool, $info);
     }
 
