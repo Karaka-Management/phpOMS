@@ -224,7 +224,7 @@ class Server extends SocketAbstract
     {
         $this->app->logger->debug('Connecting client...');
         $this->clientManager->add($client = new ClientConnection(uniqid(), $socket));
-        $this->conn[$client->getId()] = $socket;
+        $this->conn[$client->getId()]     = $socket;
         $this->app->logger->debug('Connected client.');
     }
 

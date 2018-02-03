@@ -254,7 +254,7 @@ class Grammar extends GrammarAbstract
         foreach ($wheres as $key => $where) {
             foreach ($where as $key2 => $element) {
                 $expression .= $this->compileWhereElement($element, $query, $first);
-                $first = false;
+                $first       = false;
             }
         }
 
@@ -299,7 +299,7 @@ class Grammar extends GrammarAbstract
         if (isset($element['value'])) {
             $expression .= ' ' . strtoupper($element['operator']) . ' ' . $this->compileValue($element['value'], $query->getPrefix());
         } else {
-            $operator = strtoupper($element['operator']) === '=' ? 'IS' : 'IS NOT';
+            $operator    = strtoupper($element['operator']) === '=' ? 'IS' : 'IS NOT';
             $expression .= ' ' . $operator . ' ' . $this->compileValue($element['value'], $query->getPrefix());
         }
 
@@ -434,7 +434,7 @@ class Grammar extends GrammarAbstract
                 $expression .= $this->compileSystem($column, $query->getPrefix()) . ', ';
             }
 
-            $expression = rtrim($expression, ', ');
+            $expression  = rtrim($expression, ', ');
             $expression .= ' ' . $key . ', ';
         }
 

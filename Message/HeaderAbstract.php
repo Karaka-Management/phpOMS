@@ -165,7 +165,7 @@ abstract class HeaderAbstract
      *
      * @since  1.0.0
      */
-    abstract public function generate(int $statusCode) /* : void */;
+    abstract public function generate(int $statusCode); /* : void */
 
     /**
      * Get status code

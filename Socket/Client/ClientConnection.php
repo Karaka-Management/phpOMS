@@ -24,10 +24,10 @@ namespace phpOMS\Socket\Client;
  */
 class ClientConnection
 {
-    private $id = 0;
-    private $socket = null;
+    private $id        = 0;
+    private $socket    = null;
     private $handshake = false;
-    private $pid = null;
+    private $pid       = null;
     private $connected = true;
 
     public function __construct($id, $socket)

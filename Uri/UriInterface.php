@@ -126,7 +126,7 @@ interface UriInterface
      *
      * @since  1.0.0
      */
-    public function setRootPath(string $root) /* : void */;
+    public function setRootPath(string $root); /* : void */
 
     /**
      * Get path element.
@@ -213,5 +213,5 @@ interface UriInterface
      *
      * @since  1.0.0
      */
-    public function set(string $uri) /* : void */;
+    public function set(string $uri); /* : void */
 }

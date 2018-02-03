@@ -12,6 +12,7 @@
  */
 declare(strict_types = 1);
 namespace phpOMS\Math\Stochastic;
+
 /**
  * Bernulli distribution.
  *

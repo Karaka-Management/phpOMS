@@ -71,7 +71,7 @@ interface SessionInterface
      *
      * @since  1.0.0
      */
-    public function save() /* : void */;
+    public function save(); /* : void */
 
     /**
      * @return int|string
@@ -87,7 +87,7 @@ interface SessionInterface
      *
      * @since  1.0.0
      */
-    public function setSID($sid) /* : void */;
+    public function setSID($sid); /* : void */
 
     /**
      * Lock session from further adjustments.
@@ -96,5 +96,5 @@ interface SessionInterface
      *
      * @since  1.0.0
      */
-    public function lock() /* : void */;
+    public function lock(); /* : void */
 }

@@ -38,7 +38,7 @@ interface CacheInterface
      *
      * @since  1.0.0
      */
-    public function set($key, $value, int $expire = -1) /* : void */;
+    public function set($key, $value, int $expire = -1); /* : void */
 
     /**
      * Adding new data if it doesn't exist.
@@ -108,7 +108,7 @@ interface CacheInterface
      *
      * @since  1.0.0
      */
-    public function setStatus(int $status) /* : void */;
+    public function setStatus(int $status); /* : void */
 
     /**
      * Updating existing value/key.

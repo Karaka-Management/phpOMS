@@ -75,7 +75,7 @@ class PackageManager
      */
     public function __construct(string $path, string $basePath)
     {
-        $this->path = $path;
+        $this->path     = $path;
         $this->basePath = $basePath;
     }
 

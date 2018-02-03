@@ -39,7 +39,7 @@ interface ConnectionInterface
      *
      * @since  1.0.0
      */
-    public function connect(array $dbdata) /* : void */;
+    public function connect(array $dbdata); /* : void */
 
     /**
      * Get the database type.
@@ -66,7 +66,7 @@ interface ConnectionInterface
      *
      * @since  1.0.0
      */
-    public function close() /* : void */;
+    public function close(); /* : void */
 
     /**
      * Return grammar for this connection.

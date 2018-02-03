@@ -148,8 +148,8 @@ class BinaryTree extends Tree
         }
 
         $order[$horizontalDistance][] = $node;
-        $left = $this->getLeft($node);
-        $right = $this->getRight($node);
+        $left                         = $this->getLeft($node);
+        $right                        = $this->getRight($node);
 
         if (isset($left)) {
             $this->getVerticalOrder($left, $horizontalDistance - 1, $order);
@@ -196,10 +196,10 @@ class BinaryTree extends Tree
             return true;
         }
 
-        $left1 = $this->getLeft($node1);
+        $left1  = $this->getLeft($node1);
         $right1 = $this->getRight($node1);
 
-        $left2 = isset($node2) ? $this->getLeft($node1) : $this->getLeft($node2);
+        $left2  = isset($node2) ? $this->getLeft($node1) : $this->getLeft($node2);
         $right2 = isset($node2) ? $this->getRight($node1) : $this->getRight($node2);
 
         // todo: compare values? true symmetry requires the values to be the same

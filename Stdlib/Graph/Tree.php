@@ -78,7 +78,7 @@ class Tree extends Graph
             return 0;
         }
 
-        $depth = 1;
+        $depth     = 1;
         $neighbors = $this->getNeighbors($currentNode);
 
         foreach ($neighbors as $neighbor) {
@@ -105,7 +105,7 @@ class Tree extends Graph
             return 0;
         }
 
-        $depth = [];
+        $depth     = [];
         $neighbors = $this->getNeighbors($currentNode);
 
         foreach ($neighbors as $neighbor) {
@@ -165,7 +165,7 @@ class Tree extends Graph
     {
         --$level;
         $neighbors = $this->getNeighbors($node);
-        $nodes = [];
+        $nodes     = [];
 
         if ($level === 1) {
             return $neighbors;
@@ -212,7 +212,8 @@ class Tree extends Graph
      *
      * @since  1.0.0
      */
-    public function preOrder(Node $node, \Closure $callback) {
+    public function preOrder(Node $node, \Closure $callback) 
+    {
         if (count($this->nodes) === 0) {
             return;
         }
@@ -234,7 +235,8 @@ class Tree extends Graph
      *
      * @since  1.0.0
      */
-    public function postOrder(Node $node, \Closure $callback) {
+    public function postOrder(Node $node, \Closure $callback) 
+    {
         if (count($this->nodes) === 0) {
             return;
         }

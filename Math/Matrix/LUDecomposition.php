@@ -36,7 +36,7 @@ class LUDecomposition
         }
 
         $this->pivSign = 1;
-        $LUrowi = $LUcolj = [];
+        $LUrowi        = $LUcolj = [];
 
         for ($j = 0; $j < $this->n; ++$j) {
             for ($i = 0; $i < $this->m; ++$i) {
@@ -45,8 +45,8 @@ class LUDecomposition
 
             for ($i = 0; $i < $this->m; ++$i) {
                 $LUrowi = $this->LU[$i];
-                $kmax = min($i, $j);
-                $s = 0.0;
+                $kmax   = min($i, $j);
+                $s      = 0.0;
 
                 for ($k = 0; $k < $kmax; ++$k) {
                     $s += $LUrowi[$k] * $LUcolj[$k];
@@ -63,12 +63,12 @@ class LUDecomposition
 
             if ($p != $j) {
                 for ($k = 0; $k < $this->n; ++$k) {
-                    $t = $this->LU[$p][$k];
+                    $t                = $this->LU[$p][$k];
                     $this->LU[$p][$k] = $this->LU[$j][$k];
                     $this->LU[$j][$k] = $t;
                 }
 
-                $k = $this->piv[$p];
+                $k             = $this->piv[$p];
                 $this->piv[$p] = $this->piv[$j];
                 $this->piv[$j] = $k;
                 $this->pivSign = $this->pivSign * -1;
@@ -161,7 +161,7 @@ class LUDecomposition
         }
 
         $n = $B->getN();
-        $X  = $B->getMatrix($this->piv, 0, $n - 1);
+        $X = $B->getMatrix($this->piv, 0, $n - 1);
         // todo: fix get extract
 
         // Solve L*Y = B(piv,:)
