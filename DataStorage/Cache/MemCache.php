@@ -4,24 +4,22 @@
  *
  * PHP Version 7.1
  *
- * @category   TBD
  * @package    TBD
  * @copyright  Dennis Eichhorn
  * @license    OMS License 1.0
  * @version    1.0.0
- * @link       http://orange-management.com
+ * @link       http://website.orange-management.de
  */
-declare(strict_types=1);
+declare(strict_types = 1);
 
 namespace phpOMS\DataStorage\Cache;
 
 /**
  * Memcache class.
  *
- * @category   Framework
- * @package    phpOMS\DataStorage\Cache
+ * @package    Framework
  * @license    OMS License 1.0
- * @link       http://orange-management.com
+ * @link       http://website.orange-management.de
  * @since      1.0.0
  */
 class MemCache implements CacheInterface
@@ -43,6 +41,8 @@ class MemCache implements CacheInterface
      */
     private $threshold = 10;
 
+    private $status;
+
     /**
      * Constructor.
      *
@@ -50,7 +50,7 @@ class MemCache implements CacheInterface
      */
     public function __construct()
     {
-        $this->memc = new self();
+        $this->memc = null;
     }
 
     /**
@@ -174,5 +174,4 @@ class MemCache implements CacheInterface
             $this->memc = null;
         }
     }
-
 }

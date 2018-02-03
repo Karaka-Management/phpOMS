@@ -4,14 +4,13 @@
  *
  * PHP Version 7.1
  *
- * @category   TBD
  * @package    TBD
  * @copyright  Dennis Eichhorn
  * @license    OMS License 1.0
  * @version    1.0.0
- * @link       http://orange-management.com
+ * @link       http://website.orange-management.de
  */
-declare(strict_types=1);
+declare(strict_types = 1);
 
 namespace phpOMS\DataStorage\Session;
 
@@ -20,10 +19,9 @@ namespace phpOMS\DataStorage\Session;
  *
  * Sessions can be used by http requests, console interaction and socket connections
  *
- * @category   Framework
- * @package    phpOMS\DataStorage\Cache
+ * @package    Framework
  * @license    OMS License 1.0
- * @link       http://orange-management.com
+ * @link       http://website.orange-management.de
  * @since      1.0.0
  */
 interface SessionInterface
@@ -73,7 +71,7 @@ interface SessionInterface
      *
      * @since  1.0.0
      */
-    public function save() /* : void */;
+    public function save(); /* : void */
 
     /**
      * @return int|string
@@ -89,6 +87,14 @@ interface SessionInterface
      *
      * @since  1.0.0
      */
-    public function setSID($sid) /* : void */;
+    public function setSID($sid); /* : void */
 
+    /**
+     * Lock session from further adjustments.
+     *
+     * @return void
+     *
+     * @since  1.0.0
+     */
+    public function lock(); /* : void */
 }

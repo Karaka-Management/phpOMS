@@ -4,24 +4,22 @@
  *
  * PHP Version 7.1
  *
- * @category   TBD
  * @package    TBD
  * @copyright  Dennis Eichhorn
  * @license    OMS License 1.0
  * @version    1.0.0
- * @link       http://orange-management.com
+ * @link       http://website.orange-management.de
  */
-declare(strict_types=1);
+declare(strict_types = 1);
 
 namespace phpOMS\Math\Geometry\Shape\D3;
 
 /**
  * Sphere shape.
  *
- * @category   Framework
- * @package    phpOMS\Math\Geometry\Shape
+ * @package    Framework
  * @license    OMS License 1.0
- * @link       http://orange-management.com
+ * @link       http://website.orange-management.de
  * @since      1.0.0
  */
 class Sphere implements D3ShapeInterface
@@ -118,7 +116,7 @@ class Sphere implements D3ShapeInterface
      */
     public static function getRadiusByVolume(float $v) : float
     {
-        return pow($v * 3 / (4 * pi()), 1 / 3);
+        return (float) pow($v * 3 / (4 * pi()), 1 / 3);
     }
 
     /**
@@ -143,6 +141,9 @@ class Sphere implements D3ShapeInterface
      * @return float
      *
      * @since  1.0.0
+     * 
+     * @SuppressWarnings(PHPMD.CamelCaseVariableName)
+     * @SuppressWarnings(PHPMD.CamelCaseParameterName)
      */
     public static function getRadiusBySurface(float $S) : float
     {

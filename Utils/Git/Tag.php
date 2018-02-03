@@ -4,24 +4,22 @@
  *
  * PHP Version 7.1
  *
- * @category   TBD
  * @package    TBD
  * @copyright  Dennis Eichhorn
  * @license    OMS License 1.0
  * @version    1.0.0
- * @link       http://orange-management.com
+ * @link       http://website.orange-management.de
  */
-declare(strict_types=1);
+declare(strict_types = 1);
 
 namespace phpOMS\Utils\Git;
 
 /**
  * Gray encoding class
  *
- * @category   Framework
- * @package    phpOMS\Asset
+ * @package    Framework
  * @license    OMS License 1.0
- * @link       http://orange-management.com
+ * @link       http://website.orange-management.de
  * @since      1.0.0
  */
 class Tag
@@ -51,7 +49,7 @@ class Tag
      */
     public function __construct(string $name = '')
     {
-        $this->name = escapeshellarg($name);
+        $this->name = $name;
     }
 
     /**
@@ -75,7 +73,7 @@ class Tag
      */
     public function setMessage(string $message) /* : void */
     {
-        $this->message = escapeshellarg($message);
+        $this->message = $message;
     }
 
     /**
@@ -89,5 +87,4 @@ class Tag
     {
         return $this->name;
     }
-
 }

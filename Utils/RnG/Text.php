@@ -4,24 +4,22 @@
  *
  * PHP Version 7.1
  *
- * @category   TBD
  * @package    TBD
  * @copyright  Dennis Eichhorn
  * @license    OMS License 1.0
  * @version    1.0.0
- * @link       http://orange-management.com
+ * @link       http://website.orange-management.de
  */
-declare(strict_types=1);
+declare(strict_types = 1);
 
 namespace phpOMS\Utils\RnG;
 
 /**
  * Text generator.
  *
- * @category   Framework
- * @package    RnG
+ * @package    Framework
  * @license    OMS License 1.0
- * @link       http://orange-management.com
+ * @link       http://website.orange-management.de
  * @since      1.0.0
  */
 class Text
@@ -33,22 +31,22 @@ class Text
      * @var string[]
      * @since 1.0.0
      */
-    private static $words_west = [
-        'lorem', 'ipsum', 'dolor', 'sit', 'amet', 'consectetur', 'adipiscing', 'elit', 'curabitur', 'vel', 'hendrerit', 'libero', 
-        'eleifend', 'blandit', 'nunc', 'ornare', 'odio', 'ut', 'orci', 'gravida', 'imperdiet', 'nullam', 'purus', 'lacinia', 'a', 
-        'pretium', 'quis', 'congue', 'praesent', 'sagittis', 'laoreet', 'auctor', 'mauris', 'non', 'velit', 'eros', 'dictum', 
-        'proin', 'accumsan', 'sapien', 'nec', 'massa', 'volutpat', 'venenatis', 'sed', 'eu', 'molestie', 'lacus', 'quisque', 
-        'porttitor', 'ligula', 'dui', 'mollis', 'tempus', 'at', 'magna', 'vestibulum', 'turpis', 'ac', 'diam', 'tincidunt', 'id', 
-        'condimentum', 'enim', 'sodales', 'in', 'hac', 'habitasse', 'platea', 'dictumst', 'aenean', 'neque', 'fusce', 'augue', 
-        'leo', 'eget', 'semper', 'mattis', 'tortor', 'scelerisque', 'nulla', 'interdum', 'tellus', 'malesuada', 'rhoncus', 'porta', 
-        'sem', 'aliquet', 'et', 'nam', 'suspendisse', 'potenti', 'vivamus', 'luctus', 'fringilla', 'erat', 'donec', 'justo', 
-        'vehicula', 'ultricies', 'varius', 'ante', 'primis', 'faucibus', 'ultrices', 'posuere', 'cubilia', 'curae', 'etiam', 
-        'cursus', 'aliquam', 'quam', 'dapibus', 'nisl', 'feugiat', 'egestas', 'class', 'aptent', 'taciti', 'sociosqu', 'ad', 
-        'litora', 'torquent', 'per', 'conubia', 'nostra', 'inceptos', 'himenaeos', 'phasellus', 'nibh', 'pulvinar', 'vitae', 
-        'urna', 'iaculis', 'lobortis', 'nisi', 'viverra', 'arcu', 'morbi', 'pellentesque', 'metus', 'commodo', 'ut', 'facilisis', 
-        'felis', 'tristique', 'ullamcorper', 'placerat', 'aenean', 'convallis', 'sollicitudin', 'integer', 'rutrum', 'duis', 'est', 
-        'etiam', 'bibendum', 'donec', 'pharetra', 'vulputate', 'maecenas', 'mi', 'fermentum', 'consequat', 'suscipit', 'aliquam', 
-        'habitant', 'senectus', 'netus', 'fames', 'quisque', 'euismod', 'curabitur', 'lectus', 'elementum', 'tempor', 'risus', 
+    private static $wordsWest = [
+        'lorem', 'ipsum', 'dolor', 'sit', 'amet', 'consectetur', 'adipiscing', 'elit', 'curabitur', 'vel', 'hendrerit', 'libero',
+        'eleifend', 'blandit', 'nunc', 'ornare', 'odio', 'ut', 'orci', 'gravida', 'imperdiet', 'nullam', 'purus', 'lacinia', 'a',
+        'pretium', 'quis', 'congue', 'praesent', 'sagittis', 'laoreet', 'auctor', 'mauris', 'non', 'velit', 'eros', 'dictum',
+        'proin', 'accumsan', 'sapien', 'nec', 'massa', 'volutpat', 'venenatis', 'sed', 'eu', 'molestie', 'lacus', 'quisque',
+        'porttitor', 'ligula', 'dui', 'mollis', 'tempus', 'at', 'magna', 'vestibulum', 'turpis', 'ac', 'diam', 'tincidunt', 'id',
+        'condimentum', 'enim', 'sodales', 'in', 'hac', 'habitasse', 'platea', 'dictumst', 'aenean', 'neque', 'fusce', 'augue',
+        'leo', 'eget', 'semper', 'mattis', 'tortor', 'scelerisque', 'nulla', 'interdum', 'tellus', 'malesuada', 'rhoncus', 'porta',
+        'sem', 'aliquet', 'et', 'nam', 'suspendisse', 'potenti', 'vivamus', 'luctus', 'fringilla', 'erat', 'donec', 'justo',
+        'vehicula', 'ultricies', 'varius', 'ante', 'primis', 'faucibus', 'ultrices', 'posuere', 'cubilia', 'curae', 'etiam',
+        'cursus', 'aliquam', 'quam', 'dapibus', 'nisl', 'feugiat', 'egestas', 'class', 'aptent', 'taciti', 'sociosqu', 'ad',
+        'litora', 'torquent', 'per', 'conubia', 'nostra', 'inceptos', 'himenaeos', 'phasellus', 'nibh', 'pulvinar', 'vitae',
+        'urna', 'iaculis', 'lobortis', 'nisi', 'viverra', 'arcu', 'morbi', 'pellentesque', 'metus', 'commodo', 'ut', 'facilisis',
+        'felis', 'tristique', 'ullamcorper', 'placerat', 'aenean', 'convallis', 'sollicitudin', 'integer', 'rutrum', 'duis', 'est',
+        'etiam', 'bibendum', 'donec', 'pharetra', 'vulputate', 'maecenas', 'mi', 'fermentum', 'consequat', 'suscipit', 'aliquam',
+        'habitant', 'senectus', 'netus', 'fames', 'quisque', 'euismod', 'curabitur', 'lectus', 'elementum', 'tempor', 'risus',
         'cras',
     ];
 
@@ -133,20 +131,20 @@ class Text
         }
 
         if ($words === null) {
-            $words = self::$words_west;
+            $words = self::$wordsWest;
         }
 
-        $punctuation       = $this->generatePunctuation($length);
-        $punctuation_count = array_count_values(
+        $punctuation      = $this->generatePunctuation($length);
+        $punctuationCount = array_count_values(
                 array_map(
                     function ($item) {
                         return $item[1];
                     },
                     $punctuation
                 )
-            ) + ['.' => 0, '!' => 0, '?' => '?'];
+            ) + ['.' => 0, '!' => 0, '?' => 0];
 
-        $this->sentences = $punctuation_count['.'] + $punctuation_count['!'] + $punctuation_count['?'];
+        $this->sentences = $punctuationCount['.'] + $punctuationCount['!'] + $punctuationCount['?'];
 
         if ($this->hasParagraphs) {
             $paragraph = $this->generateParagraph($this->sentences);
@@ -235,16 +233,16 @@ class Text
             }
 
             /* Handle comma */
-            $comma_here = (rand(0, 100) <= $probComma * 100 && $sentenceLength >= 2 * $minCommaSpacing ? true : false);
-            $posComma   = [];
+            $commaHere = (rand(0, 100) <= $probComma * 100 && $sentenceLength >= 2 * $minCommaSpacing ? true : false);
+            $posComma  = [];
 
-            if ($comma_here) {
+            if ($commaHere) {
                 $posComma[]    = rand($minCommaSpacing, $sentenceLength - $minCommaSpacing);
                 $punctuation[] = [$i + $posComma[0], ','];
 
-                $comma_here = (rand(0, 100) <= $probComma * 100 && $posComma[0] + $minCommaSpacing * 2 < $sentenceLength ? true : false);
+                $commaHere = (rand(0, 100) <= $probComma * 100 && $posComma[0] + $minCommaSpacing * 2 < $sentenceLength ? true : false);
 
-                if ($comma_here) {
+                if ($commaHere) {
                     $posComma[]    = rand($posComma[0] + $minCommaSpacing, $sentenceLength - $minCommaSpacing);
                     $punctuation[] = [$i + $posComma[1], ','];
                 }
@@ -253,16 +251,16 @@ class Text
             $i += $sentenceLength;
 
             /* Handle sentence ending */
-            $is_dot = (rand(0, 100) <= $probDot * 100 ? true : false);
+            $isDot = (rand(0, 100) <= $probDot * 100 ? true : false);
 
-            if ($is_dot) {
+            if ($isDot) {
                 $punctuation[] = [$i, '.'];
                 continue;
             }
 
-            $is_ex = (rand(0, 100) <= $probExc * 100 ? true : false);
+            $isEx = (rand(0, 100) <= $probExc * 100 ? true : false);
 
-            if ($is_ex) {
+            if ($isEx) {
                 $punctuation[] = [$i, '!'];
                 continue;
             }
@@ -296,7 +294,7 @@ class Text
                 $paragraphLength = $length - $i;
             }
 
-            $i += $paragraphLength;
+            $i          += $paragraphLength;
             $paragraph[] = $i;
         }
 

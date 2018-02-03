@@ -4,26 +4,24 @@
  *
  * PHP Version 7.1
  *
- * @category   TBD
- * @package    TBD
+ * @package    phpOMS\Views
  * @copyright  Dennis Eichhorn
  * @license    OMS License 1.0
  * @version    1.0.0
- * @link       http://orange-management.com
+ * @link       http://website.orange-management.de
  */
-declare(strict_types=1);
+declare(strict_types = 1);
 
 namespace phpOMS\Views;
 
 use phpOMS\System\File\PathException;
 
 /**
- * List view.
- *
- * @category   Framework
- * @package    phpOMS/Views
+ * View Abstract.
+ * 
+ * @package    phpOMS\Views
  * @license    OMS License 1.0
- * @link       http://orange-management.com
+ * @link       http://website.orange-management.de
  * @since      1.0.0
  */
 abstract class ViewAbstract implements \Serializable
@@ -48,7 +46,7 @@ abstract class ViewAbstract implements \Serializable
     /**
      * Constructor.
      *
-     * @since  1.0.0 <d.eichhorn@oms.com>
+     * @since  1.0.0
      */
     public function __construct()
     {
@@ -62,7 +60,7 @@ abstract class ViewAbstract implements \Serializable
      *
      * @return int
      *
-     * @since  1.0.0 <d.eichhorn@oms.com>
+     * @since  1.0.0
      */
     private static function viewSort(array $a, array $b) : int
     {
@@ -78,7 +76,7 @@ abstract class ViewAbstract implements \Serializable
      *
      * @return string
      *
-     * @since  1.0.0 <d.eichhorn@oms.com>
+     * @since  1.0.0
      */
     public function getTemplate() : string
     {
@@ -88,11 +86,11 @@ abstract class ViewAbstract implements \Serializable
     /**
      * Set the template.
      *
-     * @param string $template
+     * @param string $template View template
      *
      * @return void
      *
-     * @since  1.0.0 <d.eichhorn@oms.com>
+     * @since  1.0.0
      */
     public function setTemplate(string $template) /* : void */
     {
@@ -100,9 +98,11 @@ abstract class ViewAbstract implements \Serializable
     }
 
     /**
+     * Returns all views
+     * 
      * @return View[]
      *
-     * @since  1.0.0 <d.eichhorn@oms.com>
+     * @since  1.0.0
      */
     public function getViews() : array
     {
@@ -110,11 +110,13 @@ abstract class ViewAbstract implements \Serializable
     }
 
     /**
+     * Returns a specific view
+     * 
      * @param string $id View ID
      *
      * @return false|View
      *
-     * @since  1.0.0 <d.eichhorn@oms.com>
+     * @since  1.0.0
      */
     public function getView($id)
     {
@@ -126,13 +128,13 @@ abstract class ViewAbstract implements \Serializable
     }
 
     /**
-     * Remove view.
+     * Remove view bz id
      *
      * @param string $id View ID
      *
      * @return bool
      *
-     * @since  1.0.0 <d.eichhorn@oms.com>
+     * @since  1.0.0
      */
     public function removeView(string $id) : bool
     {
@@ -149,15 +151,15 @@ abstract class ViewAbstract implements \Serializable
      * Add view.
      *
      * @param string $id        View ID
-     * @param View   $view
+     * @param View   $view      View to add
      * @param int    $order     Order of view
      * @param bool   $overwrite Overwrite existing view
      *
      * @return bool
      *
-     * @since  1.0.0 <d.eichhorn@oms.com>
+     * @since  1.0.0
      */
-    public function addView(string $id, View $view, int $order = 0, bool $overwrite = true) : bool 
+    public function addView(string $id, View $view, int $order = 0, bool $overwrite = true) : bool
     {
         if ($overwrite || !isset($this->views[$id])) {
             $this->views[$id] = $view;
@@ -165,24 +167,24 @@ abstract class ViewAbstract implements \Serializable
             if ($order !== 0) {
                 uasort($this->views, ['\phpOMS\Views\View', 'viewSort']);
             }
-            
+
             return true;
         }
-        
+
         return false;
     }
 
     /**
      * Serialize view for rendering.
      *
-     * @return string|array
+     * @return string
      *
-     * @since  1.0.0 <d.eichhorn@oms.com>
+     * @since  1.0.0
      */
     public function serialize()
     {
         if (empty($this->template)) {
-            return $this->toArray();
+            return json_encode($this->toArray());
         }
 
         return $this->render();
@@ -193,7 +195,7 @@ abstract class ViewAbstract implements \Serializable
      *
      * @return array
      *
-     * @since  1.0.0 <d.eichhorn@oms.com>
+     * @since  1.0.0
      */
     public function toArray() : array
     {
@@ -213,13 +215,13 @@ abstract class ViewAbstract implements \Serializable
     /**
      * Get view/template response.
      *
-     * @param array $data Data to pass to renderer
+     * @param array ...$data Data to pass to renderer
      *
-     * @return array|string
+     * @return string
      *
-     * @since  1.0.0 <d.eichhorn@oms.com>
+     * @since  1.0.0
      */
-    public function render(...$data)
+    public function render(...$data) : string
     {
         $ob   = '';
         $path = __DIR__ . '/../..' . $this->template . '.tpl.php';
@@ -232,12 +234,12 @@ abstract class ViewAbstract implements \Serializable
             ob_start();
             /** @noinspection PhpIncludeInspection */
             $includeData = include $path;
-            $ob   = ob_get_clean();
+            $ob          = ob_get_clean();
 
             if (is_array($includeData)) {
-                return $includeData;
+                return json_encode($includeData);
             }
-        } catch(\Throwable $e) {
+        } catch (\Throwable $e) {
             $ob = '';
         } finally {
             return $ob;
@@ -251,11 +253,10 @@ abstract class ViewAbstract implements \Serializable
      *
      * @return void
      *
-     * @since  1.0.0 <d.eichhorn@oms.com>
+     * @since  1.0.0
      * @codeCoverageIgnore
      */
     public function unserialize($raw)
     {
     }
-
 }

@@ -4,14 +4,13 @@
  *
  * PHP Version 7.1
  *
- * @category   TBD
- * @package    TBD
+ * @package    phpOMS\Log
  * @copyright  Dennis Eichhorn
  * @license    OMS License 1.0
  * @version    1.0.0
- * @link       http://orange-management.com
+ * @link       http://website.orange-management.de
  */
-declare(strict_types=1);
+declare(strict_types = 1);
 
 namespace phpOMS\Log;
 
@@ -21,17 +20,18 @@ use phpOMS\System\File\Local\File;
 /**
  * Logging class.
  *
- * @category   Framework
  * @package    phpOMS\Log
  * @license    OMS License 1.0
- * @link       http://orange-management.com
+ * @link       http://website.orange-management.de
  * @since      1.0.0
+ * 
+ * @SuppressWarnings(PHPMD.Superglobals)
  */
 class FileLogger implements LoggerInterface
 {
     /* public */ const MSG_BACKTRACE = '{datetime}; {level}; {ip}; {message}; {backtrace}';
-    /* public */ const MSG_FULL = '{datetime}; {level}; {ip}; {line}; {version}; {os}; {path}; {message}; {file}; {backtrace}';
-    /* public */ const MSG_SIMPLE = '{datetime}; {level}; {ip}; {message};';
+    /* public */ const MSG_FULL      = '{datetime}; {level}; {ip}; {line}; {version}; {os}; {path}; {message}; {file}; {backtrace}';
+    /* public */ const MSG_SIMPLE    = '{datetime}; {level}; {ip}; {message};';
 
     /**
      * Timing array.
@@ -180,7 +180,7 @@ class FileLogger implements LoggerInterface
      */
     public static function startTimeLog($id = '')  : bool
     {
-        if(isset(self::$timings[$id])) {
+        if (isset(self::$timings[$id])) {
             return false;
         }
 
@@ -197,7 +197,7 @@ class FileLogger implements LoggerInterface
      *
      * @param string $id the ID by which this time measurement gets identified
      *
-     * @return int The time measurement in ms
+     * @return float The time measurement in ms
      *
      * @since  1.0.0
      */
@@ -265,7 +265,7 @@ class FileLogger implements LoggerInterface
     private function write(string $message) /* : void */
     {
         $this->createFile();
-        if(!is_writable($this->path)) {
+        if (!is_writable($this->path)) {
             return;
         }
 
@@ -453,23 +453,25 @@ class FileLogger implements LoggerInterface
     {
         $levels = [];
 
-        if (file_exists($this->path)) {
-            $this->fp = fopen($this->path, 'r');
-            fseek($this->fp, 0);
+        if (!file_exists($this->path)) {
+            return $levels;
+        }
 
-            while (($line = fgetcsv($this->fp, 0, ';')) !== false) {
-                $line[1] = trim($line[1]);
+        $this->fp = fopen($this->path, 'r');
+        fseek($this->fp, 0);
 
-                if (!isset($levels[$line[1]])) {
-                    $levels[$line[1]] = 0;
-                }
+        while (($line = fgetcsv($this->fp, 0, ';')) !== false) {
+            $line[1] = trim($line[1]);
 
-                $levels[$line[1]]++;
+            if (!isset($levels[$line[1]])) {
+                $levels[$line[1]] = 0;
             }
 
-            fseek($this->fp, 0, SEEK_END);
-            fclose($this->fp);
+            $levels[$line[1]]++;
         }
+
+        fseek($this->fp, 0, SEEK_END);
+        fclose($this->fp);
 
         return $levels;
     }
@@ -481,28 +483,30 @@ class FileLogger implements LoggerInterface
      *
      * @return array
      */
-    public function getHighestPerpetrator(int $limit = 10)
+    public function getHighestPerpetrator(int $limit = 10) : array
     {
         $connection = [];
 
-        if (file_exists($this->path)) {
-            $this->fp = fopen($this->path, 'r');
-            fseek($this->fp, 0);
+        if (!file_exists($this->path)) {
+            return $connection;
+        }
 
-            while (($line = fgetcsv($this->fp, 0, ';')) !== false) {
-                $line[2] = trim($line[2]);
+        $this->fp = fopen($this->path, 'r');
+        fseek($this->fp, 0);
 
-                if (!isset($connection[$line[2]])) {
-                    $connection[$line[2]] = 0;
-                }
+        while (($line = fgetcsv($this->fp, 0, ';')) !== false) {
+            $line[2] = trim($line[2]);
 
-                $connection[$line[2]]++;
+            if (!isset($connection[$line[2]])) {
+                $connection[$line[2]] = 0;
             }
 
-            fseek($this->fp, 0, SEEK_END);
-            fclose($this->fp);
-            asort($connection);
+            $connection[$line[2]]++;
         }
+
+        fseek($this->fp, 0, SEEK_END);
+        fclose($this->fp);
+        asort($connection);
 
         return array_slice($connection, 0, $limit);
     }
@@ -520,36 +524,37 @@ class FileLogger implements LoggerInterface
         $logs = [];
         $id   = 0;
 
-        if (file_exists($this->path)) {
-            $this->fp = fopen($this->path, 'r');
-            fseek($this->fp, 0);
+        if (!file_exists($this->path)) {
+            return $logs;
+        }
 
-            while (($line = fgetcsv($this->fp, 0, ';')) !== false) {
-                $id++;
+        $this->fp = fopen($this->path, 'r');
+        fseek($this->fp, 0);
 
-                if ($offset > 0) {
-                    $offset--;
-                    continue;
-                }
+        while (($line = fgetcsv($this->fp, 0, ';')) !== false) {
+            $id++;
 
-                if ($limit <= 0) {
-
-                    reset($logs);
-                    unset($logs[key($logs)]);
-                }
-
-                foreach ($line as &$value) {
-                    $value = trim($value);
-                }
-
-                $logs[$id] = $line;
-                $limit--;
-                ksort($logs);
+            if ($offset > 0) {
+                $offset--;
+                continue;
             }
 
-            fseek($this->fp, 0, SEEK_END);
-            fclose($this->fp);
+            if ($limit <= 0) {
+                reset($logs);
+                unset($logs[key($logs)]);
+            }
+
+            foreach ($line as &$value) {
+                $value = trim($value);
+            }
+
+            $logs[$id] = $line;
+            $limit--;
+            ksort($logs);
         }
+
+        fseek($this->fp, 0, SEEK_END);
+        fclose($this->fp);
 
         return $logs;
     }
@@ -566,34 +571,35 @@ class FileLogger implements LoggerInterface
         $log     = [];
         $current = 0;
 
-        if (file_exists($this->path)) {
-            $this->fp = fopen($this->path, 'r');
-            fseek($this->fp, 0);
+        if (!file_exists($this->path)) {
+            return $log;
+        }
 
-            while (($line = fgetcsv($this->fp, 0, ';')) !== false && $current <= $id) {
-                $current++;
+        $this->fp = fopen($this->path, 'r');
+        fseek($this->fp, 0);
 
-                if ($current < $id) {
-                    continue;
-                }
+        while (($line = fgetcsv($this->fp, 0, ';')) !== false && $current <= $id) {
+            $current++;
 
-                $log['datetime']  = trim($line[0] ?? '');
-                $log['level']     = trim($line[1] ?? '');
-                $log['ip']        = trim($line[2] ?? '');
-                $log['line']      = trim($line[3] ?? '');
-                $log['version']   = trim($line[4] ?? '');
-                $log['os']        = trim($line[5] ?? '');
-                $log['path']      = trim($line[6] ?? '');
-                $log['message']   = trim($line[7] ?? '');
-                $log['file']      = trim($line[8] ?? '');
-                $log['backtrace'] = trim($line[9] ?? '');
-
-                break;
+            if ($current < $id) {
+                continue;
             }
 
-            fseek($this->fp, 0, SEEK_END);
-            fclose($this->fp);
+            $log['datetime']  = trim($line[0] ?? '');
+            $log['level']     = trim($line[1] ?? '');
+            $log['ip']        = trim($line[2] ?? '');
+            $log['line']      = trim($line[3] ?? '');
+            $log['version']   = trim($line[4] ?? '');
+            $log['os']        = trim($line[5] ?? '');
+            $log['path']      = trim($line[6] ?? '');
+            $log['message']   = trim($line[7] ?? '');
+            $log['file']      = trim($line[8] ?? '');
+            $log['backtrace'] = trim($line[9] ?? '');
+            break;
         }
+
+        fseek($this->fp, 0, SEEK_END);
+        fclose($this->fp);
 
         return $log;
     }

@@ -4,24 +4,22 @@
  *
  * PHP Version 7.1
  *
- * @category   TBD
- * @package    TBD
+ * @package    phpOMS\Utils
  * @copyright  Dennis Eichhorn
  * @license    OMS License 1.0
  * @version    1.0.0
- * @link       http://orange-management.com
+ * @link       http://website.orange-management.de
  */
-declare(strict_types=1);
+declare(strict_types = 1);
 
 namespace phpOMS\Utils;
 
 /**
  * String utils.
  *
- * @category   Framework
  * @package    phpOMS\Utils
  * @license    OMS License 1.0
- * @link       http://orange-management.com
+ * @link       http://website.orange-management.de
  * @since      1.0.0
  */
 class Permutation
@@ -49,7 +47,7 @@ class Permutation
                 $newres[] = $val;
 
                 unset($newArr[$key]);
-                
+
                 $permutations = array_merge($permutations, self::permut($newArr, $newres));
             }
         }

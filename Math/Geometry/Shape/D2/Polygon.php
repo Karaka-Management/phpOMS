@@ -4,24 +4,22 @@
  *
  * PHP Version 7.1
  *
- * @category   TBD
  * @package    TBD
  * @copyright  Dennis Eichhorn
  * @license    OMS License 1.0
  * @version    1.0.0
- * @link       http://orange-management.com
+ * @link       http://website.orange-management.de
  */
-declare(strict_types=1);
+declare(strict_types = 1);
 
 namespace phpOMS\Math\Geometry\Shape\D2;
 
 /**
  * Polygon class.
  *
- * @category   Framework
- * @package    phpOMS\Math
+ * @package    Framework
  * @license    OMS License 1.0
- * @link       http://orange-management.com
+ * @link       http://website.orange-management.de
  * @since      1.0.0
  */
 class Polygon implements D2ShapeInterface
@@ -45,76 +43,17 @@ class Polygon implements D2ShapeInterface
     private $coord = [];
 
     /**
-     * Polygon perimeter.
-     *
-     * @var float
-     * @since 1.0.0
-     */
-    private $perimeter = 0.0;
-
-    /**
-     * Polygon surface.
-     *
-     * @var float
-     * @since 1.0.0
-     */
-    private $surface = 0.0;
-
-    /**
-     * Interior angle sum of the polygon.
-     *
-     * @var int
-     * @since 1.0.0
-     */
-    private $interiorAngleSum = 0;
-
-    /**
-     * Exterior angle sum of the polygon.
-     *
-     * @var float
-     * @since 1.0.0
-     */
-    private $exteriorAngleSum = 0.0;
-
-    /**
-     * Polygon barycenter.
-     *
-     * @var float[]
-     * @since 1.0.0
-     */
-    private $barycenter = ['x' => 0.0, 'y' => 0.0];
-
-    /**
-     * Polygon edge length.
-     *
-     * @var float
-     * @since 1.0.0
-     */
-    private $edgeLength = 0.0;
-
-    /**
-     * Polygon inner length.
-     *
-     * @var float
-     * @since 1.0.0
-     */
-    private $innerLength = 0.0;
-
-    /**
-     * Polygon inner edge angular.
-     *
-     * @var int
-     * @since 1.0.0
-     */
-    private $innerEdgeAngular = 0;
-
-    /**
      * Constructor.
+     *
+     * @param array[] $coord 2 Dimensional coordinate array where the indices are x and y
+     *
+     * @example Polygon([['x' => 1, 'y' => 2], ['x' => ...], ...])
      *
      * @since  1.0.0
      */
-    public function __construct()
+    public function __construct(array $coord)
     {
+        $this->coord = $coord;
     }
 
     /**
@@ -128,7 +67,10 @@ class Polygon implements D2ShapeInterface
      */
     public function pointInPolygon(array $point) : int
     {
-        return self::isPointInPolygon($point, $this->coord);
+        $coord   = $this->coord;
+        $coord[] = $this->coord[0];
+
+        return self::isPointInPolygon($point, $coord);
     }
 
     /**
@@ -137,8 +79,8 @@ class Polygon implements D2ShapeInterface
      * @param array $point Point location
      * @param array $polygon Polygon definition
      *
-     * @return int
-     * 
+     * @return int -1 inside polygon 0 on vertice 1 outside
+     *
      * @link http://erich.realtimerendering.com/ptinpoly/
      * @since  1.0.0
      */
@@ -157,11 +99,11 @@ class Polygon implements D2ShapeInterface
         }
 
         // Inside or ontop?
-        $countIntersect    = 0;
-        $polygon_count = count($polygon);
+        $countIntersect = 0;
+        $polygonCount   = count($polygon);
 
         // todo: return based on highest possibility not by first match
-        for ($i = 1; $i < $polygon_count; $i++) {
+        for ($i = 1; $i < $polygonCount; $i++) {
             $vertex1 = $polygon[$i - 1];
             $vertex2 = $polygon[$i];
 
@@ -182,25 +124,11 @@ class Polygon implements D2ShapeInterface
             }
         }
 
-        if ($countIntersect % 2 != 0) {
+        if ($countIntersect % 2 !== 0) {
             return -1;
         }
 
         return 1;
-    }
-
-    /**
-     * Is point on vertex?
-     *
-     * @param array $point Point location
-     *
-     * @return bool
-     *
-     * @since  1.0.0
-     */
-    public function onVertex(array $point) : bool
-    {
-        return self::isOnVertex($point, $this->coord);
     }
 
     /**
@@ -225,47 +153,23 @@ class Polygon implements D2ShapeInterface
     }
 
     /**
-     * Set polygon coordinates.
+     * Get interior angle sum
      *
-     * @param array[] $coord Coordinates
-     *
-     * @return void
+     * @return int
      *
      * @since  1.0.0
-     */
-    public function setCoordinates($coord) /* : void */
-    {
-        $this->coord = $coord;
-    }
-
-    /**
-     * Set polygon coordinate.
-     *
-     * @param int       $i Index
-     * @param int|float $x X coordinate
-     * @param int|float $y Y coordinate
-     *
-     * @return void
-     *
-     * @since  1.0.0
-     */
-    public function setCoordinate($i, $x, $y) /* : void */
-    {
-        $this->coord[$i] = ['x' => $x, 'y' => $y];
-    }
-
-    /**
-     * {@inheritdoc}
      */
     public function getInteriorAngleSum() : int
     {
-        $this->interiorAngleSum = (count($this->coord) - 2) * 180;
-
-        return $this->interiorAngleSum;
+        return (count($this->coord) - 2) * 180;
     }
 
     /**
-     * {@inheritdoc}
+     * Get exterior angle sum
+     *
+     * @return int
+     *
+     * @since  1.0.0
      */
     public function getExteriorAngleSum()
     {
@@ -273,121 +177,85 @@ class Polygon implements D2ShapeInterface
     }
 
     /**
-     * {@inheritdoc}
-     */
-    public function getInteriorAngleSumFormula()
-    {
-        return '';
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function getExteriorAngleSumFormula()
-    {
-        return '';
-    }
-
-    /**
-     * {@inheritdoc}
+     * Get surface area
+     *
+     * @return float
+     *
+     * @since  1.0.0
      */
     public function getSurface() : float
     {
-        $this->surface = 0.0;
-        $count         = count($this->coord);
+        return (float) abs($this->getSignedSurface());
+    }
 
-        for ($i = 0; $i < $count - 2; $i++) {
-            $this->surface += $this->coord[$i]['x'] * $this->coord[$i + 1]['y'] - $this->coord[$i + 1]['x'] * $this->coord[$i]['y'];
+    /**
+     * Get signed surface area
+     *
+     * @return float
+     *
+     * @since  1.0.0
+     */
+    private function getSignedSurface() : float
+    {
+        $count   = count($this->coord);
+        $surface = 0;
+
+        for ($i = 0; $i < $count - 1; $i++) {
+            $surface += $this->coord[$i]['x'] * $this->coord[$i + 1]['y'] - $this->coord[$i + 1]['x'] * $this->coord[$i]['y'];
         }
 
-        $this->surface /= 2;
-        $this->surface = abs($this->surface);
+        $surface += $this->coord[$count - 1]['x'] * $this->coord[0]['y'] - $this->coord[0]['x'] * $this->coord[$count - 1]['y'];
+        $surface /= 2;
 
-        return $this->surface;
+        return $surface;
     }
 
     /**
-     * {@inheritdoc}
-     */
-    public function setSurface($surface) /* : void */
-    {
-        $this->reset();
-
-        $this->surface = $surface;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function reset() /* : void */
-    {
-        $this->coord            = [];
-        $this->barycenter       = ['x' => 0.0, 'y' => 0.0];
-        $this->perimeter        = 0.0;
-        $this->surface          = 0.0;
-        $this->interiorAngleSum = 0;
-        $this->edgeLength       = 0.0;
-        $this->innerLength      = 0.0;
-        $this->innerEdgeAngular = 0;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function getSurfaceFormula()
-    {
-        return '';
-    }
-
-    /**
-     * {@inheritdoc}
+     * Get perimeter
+     *
+     * @return float
+     *
+     * @since  1.0.0
      */
     public function getPerimeter() : float
     {
-        $count           = count($this->coord);
-        $this->perimeter = sqrt(($this->coord[0]['x'] - $this->coord[$count - 1]['x']) ** 2 + ($this->coord[0]['y'] - $this->coord[$count - 1]['y']) ** 2);
+        $count     = count($this->coord);
+        $perimeter = sqrt(($this->coord[0]['x'] - $this->coord[$count - 1]['x']) ** 2 + ($this->coord[0]['y'] - $this->coord[$count - 1]['y']) ** 2);
 
-        for ($i = 0; $i < $count - 2; $i++) {
-            $this->perimeter += sqrt(($this->coord[$i + 1]['x'] - $this->coord[$i]['x']) ** 2 + ($this->coord[$i + 1]['y'] - $this->coord[$i]['y']) ** 2);
+        for ($i = 0; $i < $count - 1; $i++) {
+            $perimeter += sqrt(($this->coord[$i + 1]['x'] - $this->coord[$i]['x']) ** 2 + ($this->coord[$i + 1]['y'] - $this->coord[$i]['y']) ** 2);
         }
 
-        return $this->perimeter;
+        return $perimeter;
     }
 
     /**
-     * {@inheritdoc}
+     * Get barycenter
+     *
+     * @return array
+     *
+     * @since  1.0.0
      */
-    public function setPerimeter($perimeter) /* : void */
+    public function getBarycenter() : array
     {
-        $this->reset();
+        $barycenter = ['x' => 0, 'y' => 0];
+        $count      = count($this->coord);
 
-        $this->perimeter = $perimeter;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function getPerimeterFormula()
-    {
-        return '';
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function getBarycenter()
-    {
-        $this->barycenter['x'] = 0;
-        $this->barycenter['y'] = 0;
-
-        $count = count($this->coord);
-
-        for ($i = 0; $i < $count - 2; $i++) {
-            $mult = ($this->coord[$i]['x'] * $this->coord[$i + 1]['y'] - $this->coord[$i + 1]['x'] * $this->coord[$i]['y']);
-            $this->barycenter['x'] += ($this->coord[$i]['x'] + $this->coord[$i + 1]['x']) * $mult;
-            $this->barycenter['y'] += ($this->coord[$i]['y'] + $this->coord[$i + 1]['y']) * $mult;
+        for ($i = 0; $i < $count - 1; $i++) {
+            $mult             = ($this->coord[$i]['x'] * $this->coord[$i + 1]['y'] - $this->coord[$i + 1]['x'] * $this->coord[$i]['y']);
+            $barycenter['x'] += ($this->coord[$i]['x'] + $this->coord[$i + 1]['x']) * $mult;
+            $barycenter['y'] += ($this->coord[$i]['y'] + $this->coord[$i + 1]['y']) * $mult;
         }
 
-        return $this->barycenter;
+        $mult             = ($this->coord[$count - 1]['x'] * $this->coord[0]['y'] - $this->coord[0]['x'] * $this->coord[$count - 1]['y']);
+        $barycenter['x'] += ($this->coord[$count - 1]['x'] + $this->coord[0]['x']) * $mult;
+        $barycenter['y'] += ($this->coord[$count - 1]['y'] + $this->coord[0]['y']) * $mult;
+
+        $surface = $this->getSignedSurface();
+
+        $barycenter['x'] = 1 / (6 * $surface) * $barycenter['x'];
+        $barycenter['y'] = 1 / (6 * $surface) * $barycenter['y'];
+
+        return $barycenter;
     }
 }

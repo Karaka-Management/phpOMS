@@ -4,24 +4,22 @@
  *
  * PHP Version 7.1
  *
- * @category   TBD
- * @package    TBD
+ * @package    phpOMS\Event
  * @copyright  Dennis Eichhorn
  * @license    OMS License 1.0
  * @version    1.0.0
- * @link       http://orange-management.com
+ * @link       http://website.orange-management.de
  */
-declare(strict_types=1);
+declare(strict_types = 1);
 
 namespace phpOMS\Event;
 
 /**
  * EventManager class.
  *
- * @category   Framework
  * @package    phpOMS\Event
  * @license    OMS License 1.0
- * @link       http://orange-management.com
+ * @link       http://website.orange-management.de
  * @since      1.0.0
  *
  * @todo       : make cachable + database storable -> can reload user defined listeners (persistent events)
@@ -89,7 +87,7 @@ class EventManager
      */
     public function trigger(string $group, string $id = '', $data = null) : bool
     {
-        if(!isset($this->callbacks[$group])) {
+        if (!isset($this->callbacks[$group])) {
             return false;
         }
 
@@ -102,7 +100,7 @@ class EventManager
 
             if ($this->callbacks[$group]['remove']) {
                 $this->detach($group);
-            } elseif($this->callbacks[$group]['reset']) {
+            } elseif ($this->callbacks[$group]['reset']) {
                 $this->reset($group);
             }
 
@@ -123,7 +121,7 @@ class EventManager
      */
     private function reset(string $group) /* : void */
     {
-        foreach($this->groups[$group] as $id => $ok) {
+        foreach ($this->groups[$group] as $id => $ok) {
             $this->groups[$group][$id] = false;
         }
     }
@@ -139,12 +137,12 @@ class EventManager
      */
     private function hasOutstanding(string $group) : bool
     {
-        if(!isset($this->groups[$group])) {
+        if (!isset($this->groups[$group])) {
             return false;
         }
 
-        foreach($this->groups[$group] as $id => $ok) {
-            if(!$ok) {
+        foreach ($this->groups[$group] as $id => $ok) {
+            if (!$ok) {
                 return true;
             }
         }
@@ -208,5 +206,4 @@ class EventManager
     {
         return count($this->callbacks);
     }
-
 }

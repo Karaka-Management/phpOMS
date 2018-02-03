@@ -4,14 +4,13 @@
  *
  * PHP Version 7.1
  *
- * @category   TBD
  * @package    TBD
  * @copyright  Dennis Eichhorn
  * @license    OMS License 1.0
  * @version    1.0.0
- * @link       http://orange-management.com
+ * @link       http://website.orange-management.de
  */
-declare(strict_types=1);
+declare(strict_types = 1);
 
 namespace phpOMS\DataStorage\Database;
 
@@ -21,10 +20,9 @@ use phpOMS\DataStorage\Database\Connection\ConnectionFactory;
 /**
  * Database pool handler.
  *
- * @category   Framework
- * @package    phpOMS\DataStorage\Database
+ * @package    Framework
  * @license    OMS License 1.0
- * @link       http://orange-management.com
+ * @link       http://website.orange-management.de
  * @since      1.0.0
  */
 class DatabasePool
@@ -57,7 +55,7 @@ class DatabasePool
      *
      * @since  1.0.0
      */
-    public function add(string $key = 'core', ConnectionAbstract $db) : bool
+    public function add(string $key, ConnectionAbstract $db) : bool
     {
         if (isset($this->pool[$key])) {
             return false;
@@ -79,11 +77,11 @@ class DatabasePool
      */
     public function get(string $key = '') /* : ?ConnectionAbstract */
     {
-        if((!empty($key) && !isset($this->pool[$key])) || empty($this->pool)) {
+        if ((!empty($key) && !isset($this->pool[$key])) || empty($this->pool)) {
             return null;
         }
 
-        if(empty($key)) {
+        if (empty($key)) {
             return reset($this->pool);
         }
 
@@ -130,5 +128,4 @@ class DatabasePool
 
         return true;
     }
-
 }

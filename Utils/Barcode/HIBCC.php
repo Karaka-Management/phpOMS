@@ -4,35 +4,40 @@
  *
  * PHP Version 7.1
  *
- * @category   TBD
  * @package    TBD
  * @copyright  Dennis Eichhorn
  * @license    OMS License 1.0
  * @version    1.0.0
- * @link       http://orange-management.com
+ * @link       http://website.orange-management.de
  */
-declare(strict_types=1);
+declare(strict_types = 1);
 
 namespace phpOMS\Utils\Barcode;
 
 /**
  * Aztec class.
  *
- * @category   Log
- * @package    Framework
+ * @package    Log
  * @license    OMS License 1.0
- * @link       http://orange-management.com
+ * @link       http://website.orange-management.de
  * @since      1.0.0
  */
 class HIBCC
 {
     private $identifier = '';
+
     private $productId = '';
+
     private $measureOfUnit = 0;
+
     private $dateFormat = '';
+
     private $expirationDate = null;
+
     private $productionDate = null;
+
     private $lot = '';
+
     private $checkValue = 0;
 
     public function __construct()
@@ -100,12 +105,12 @@ class HIBCC
         return $this->productionDate;
     }
 
-    public function setLOT(string $lot) /* : void */
+    public function setLot(string $lot) /* : void */
     {
         $this->lot = $lot;
     }
 
-    public function getLOT() : string
+    public function getLot() : string
     {
         return $this->lot;
     }
@@ -115,15 +120,13 @@ class HIBCC
         return $this->checkValue;
     }
 
-    public function getPrimaryDI() : string
+    public function getPrimaryDi() : string
     {
         return '';
     }
 
-    public function getSecondaryDI() : string
+    public function getSecondaryDi() : string
     {
         return '';
     }
-
-
 }

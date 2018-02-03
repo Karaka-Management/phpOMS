@@ -4,14 +4,13 @@
  *
  * PHP Version 7.1
  *
- * @category   TBD
  * @package    TBD
  * @copyright  Dennis Eichhorn
  * @license    OMS License 1.0
  * @version    1.0.0
- * @link       http://orange-management.com
+ * @link       http://website.orange-management.de
  */
-declare(strict_types=1);
+declare(strict_types = 1);
 
 namespace phpOMS\Math\Stochastic\Distribution;
 
@@ -20,10 +19,9 @@ use phpOMS\Math\Functions\Functions;
 /**
  * Chi squared distribution.
  *
- * @category   Framework
- * @package    phpOMS\DataStorage\Database
+ * @package    Framework
  * @license    OMS License 1.0
- * @link       http://orange-management.com
+ * @link       http://website.orange-management.de
  * @since      1.0.0
  */
 class ChiSquaredDistribution
@@ -101,7 +99,7 @@ class ChiSquaredDistribution
             $sum += ($dataset[$i] - $expected[$i]) * ($dataset[$i] - $expected[$i]) / $expected[$i];
         }
 
-        $P = null;
+        $p = null;
 
         if ($df === 0) {
             $df = self::getDegreesOfFreedom($dataset);
@@ -113,14 +111,14 @@ class ChiSquaredDistribution
 
         foreach (self::TABLE[$df] as $key => $value) {
             if ($value > $sum) {
-                $P = $key;
+                $p = $key;
                 break;
             }
         }
 
-        $P = 1 - ($P ?? key(end(self::TABLE[$df])));
+        $p = 1 - ($p ?? key(end(self::TABLE[$df])));
 
-        return ['P' => $P, 'H0' => ($P > $significance), 'df' => $df];
+        return ['P' => $p, 'H0' => ($p > $significance), 'df' => $df];
     }
 
     /**
@@ -159,7 +157,7 @@ class ChiSquaredDistribution
             throw new \Exception('Out of bounds');
         }
 
-        return 1 / (pow(2, $df / 2) * (Functions::getGammaInteger((int) $df / 2))) * pow($x, $df / 2 - 1) * exp(-$x / 2);
+        return 1 / (pow(2, $df / 2) * (Functions::getGammaInteger((int) ($df / 2)))) * pow($x, $df / 2 - 1) * exp(-$x / 2);
     }
 
     /**
@@ -236,7 +234,7 @@ class ChiSquaredDistribution
             throw new \Exception('Out of bounds');
         }
 
-        return pow(1 - 2 * $t, -$df / 2);
+        return (float) pow(1 - 2 * $t, -$df / 2);
     }
 
     /**

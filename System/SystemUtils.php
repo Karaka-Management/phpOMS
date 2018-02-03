@@ -4,24 +4,22 @@
  *
  * PHP Version 7.1
  *
- * @category   TBD
  * @package    TBD
  * @copyright  Dennis Eichhorn
  * @license    OMS License 1.0
  * @version    1.0.0
- * @link       http://orange-management.com
+ * @link       http://website.orange-management.de
  */
-declare(strict_types=1);
+declare(strict_types = 1);
 
 namespace phpOMS\System;
 
 /**
  * System utils
  *
- * @category   Framework
- * @package    phpOMS\System
+ * @package    Framework
  * @license    OMS License 1.0
- * @link       http://orange-management.com
+ * @link       http://website.orange-management.de
  * @since      1.0.0
  */
 class SystemUtils
@@ -46,10 +44,13 @@ class SystemUtils
      */
     public static function getRAM() : int
     {
-        $mem = null;
+        $mem = 0;
 
         if (stristr(PHP_OS, 'WIN')) {
+            $mem = null;
             exec('wmic memorychip get capacity', $mem);
+
+            /** @var array $mem */
             $mem = array_sum($mem) / 1024;
         } elseif (stristr(PHP_OS, 'LINUX')) {
             $fh  = fopen('/proc/meminfo', 'r');
@@ -62,6 +63,7 @@ class SystemUtils
                     break;
                 }
             }
+
             fclose($fh);
         }
 
@@ -77,19 +79,19 @@ class SystemUtils
      */
     public static function getRAMUsage() : int
     {
-        $memusage = 0;
+        $memUsage = 0;
 
         if (stristr(PHP_OS, 'LINUX')) {
             $free     = shell_exec('free');
             $free     = (string) trim($free);
-            $free_arr = explode("\n", $free);
-            $mem      = explode(" ", $free_arr[1]);
+            $freeArr  = explode("\n", $free);
+            $mem      = explode(" ", $freeArr[1]);
             $mem      = array_filter($mem);
             $mem      = array_merge($mem);
-            $memusage = $mem[2] / $mem[1] * 100;
+            $memUsage = $mem[2] / $mem[1] * 100;
         }
 
-        return (int) $memusage;
+        return (int) $memUsage;
     }
 
     /**
@@ -101,15 +103,16 @@ class SystemUtils
      */
     public static function getCpuUsage() : int
     {
-        $cpuusage = 0;
+        $cpuUsage = 0;
 
         if (stristr(PHP_OS, 'WIN') !== false) {
-            exec('wmic cpu get LoadPercentage', $cpuusage);
-            $cpuusage = $cpuusage[1];
+            $cpuUsage = null;
+            exec('wmic cpu get LoadPercentage', $cpuUsage);
+            $cpuUsage = $cpuUsage[1];
         } elseif (stristr(PHP_OS, 'LINUX') !== false) {
-            $cpuusage = \sys_getloadavg()[0] * 100;
+            $cpuUsage = \sys_getloadavg()[0] * 100;
         }
 
-        return (int) $cpuusage;
+        return (int) $cpuUsage;
     }
 }

@@ -4,25 +4,24 @@
  *
  * PHP Version 7.1
  *
- * @category   TBD
  * @package    TBD
  * @copyright  Dennis Eichhorn
  * @license    OMS License 1.0
  * @version    1.0.0
- * @link       http://orange-management.com
+ * @link       http://website.orange-management.de
  */
-declare(strict_types=1);
+declare(strict_types = 1);
 
 namespace phpOMS\DataStorage\Cache;
+
 use phpOMS\Stdlib\Base\Exception\InvalidEnumValue;
 
 /**
  * Cache interface.
  *
- * @category   Framework
- * @package    phpOMS\DataStorage\Cache
+ * @package    Framework
  * @license    OMS License 1.0
- * @link       http://orange-management.com
+ * @link       http://website.orange-management.de
  * @since      1.0.0
  */
 interface CacheInterface
@@ -39,7 +38,7 @@ interface CacheInterface
      *
      * @since  1.0.0
      */
-    public function set($key, $value, int $expire = -1) /* : void */;
+    public function set($key, $value, int $expire = -1); /* : void */
 
     /**
      * Adding new data if it doesn't exist.
@@ -109,7 +108,7 @@ interface CacheInterface
      *
      * @since  1.0.0
      */
-    public function setStatus(int $status) /* : void */;
+    public function setStatus(int $status); /* : void */
 
     /**
      * Updating existing value/key.
@@ -141,5 +140,4 @@ interface CacheInterface
      * @since  1.0.0
      */
     public function getThreshold() : int;
-
 }

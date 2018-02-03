@@ -4,14 +4,13 @@
  *
  * PHP Version 7.1
  *
- * @category   TBD
- * @package    TBD
+ * @package    Framework
  * @copyright  Dennis Eichhorn
  * @license    OMS License 1.0
  * @version    1.0.0
- * @link       http://orange-management.com
+ * @link       http://website.orange-management.de
  */
-declare(strict_types=1);
+declare(strict_types = 1);
 
 namespace phpOMS\Message\Http;
 
@@ -22,10 +21,9 @@ use phpOMS\Stdlib\Base\Enum;
  *
  * OS Types which could be useful in order to create statistics or deliver OS specific content.
  *
- * @category   Request
  * @package    Framework
  * @license    OMS License 1.0
- * @link       http://orange-management.com
+ * @link       http://website.orange-management.de
  * @since      1.0.0
  */
 abstract class OSType extends Enum

@@ -4,25 +4,22 @@
  *
  * PHP Version 7.1
  *
- * @category   TBD
  * @package    TBD
  * @copyright  Dennis Eichhorn
  * @license    OMS License 1.0
  * @version    1.0.0
- * @link       http://orange-management.com
+ * @link       http://website.orange-management.de
  */
-declare(strict_types=1);
+declare(strict_types = 1);
 
 namespace phpOMS\Utils\RnG;
-
 
 /**
  * File generator.
  *
- * @category   DataStorage
- * @package    Framework
+ * @package    DataStorage
  * @license    OMS License 1.0
- * @link       http://orange-management.com
+ * @link       http://website.orange-management.de
  * @since      1.0.0
  */
 class File
@@ -35,16 +32,16 @@ class File
      * @since 1.0.0
      */
     private static $extensions = [
-        ['exe', null], ['dat', null], ['txt', null], ['csv', 'txt'], ['doc', null], ['docx', 'doc'], 
-        ['mp3', null], ['mp4', null], ['avi', null], ['mpeg', null], ['wmv', null], ['ppt', null], 
-        ['xls', null], ['xlsx', 'xls'], ['xlsxm', 'xls'], ['php', null], ['html', null], ['tex', null], 
-        ['js', null], ['c', null], ['cpp', null], ['h', null], ['res', null], ['ico', null], 
-        ['jpg', null], ['png', null], ['gif', null], ['bmp', null], ['ttf', null], ['zip', null], 
-        ['rar', null], ['7z', null], ['tar', 'gz'], ['gz', null], ['gz', null], ['sh', null], 
-        ['bat', null], ['iso', null], ['css', null], ['json', null], ['ini', null], ['psd', null], 
-        ['pptx', 'ppt'], ['xml', null], ['dll', null], ['wav', null], ['wma', null], ['vb', null], 
-        ['tmp', null], ['tif', null], ['sql', null], ['swf', null], ['svg', null], ['rpm', null], 
-        ['rss', null], ['pkg', null], ['pdf', null], ['mpg', null], ['mov', null], ['jar', null], 
+        ['exe', null], ['dat', null], ['txt', null], ['csv', 'txt'], ['doc', null], ['docx', 'doc'],
+        ['mp3', null], ['mp4', null], ['avi', null], ['mpeg', null], ['wmv', null], ['ppt', null],
+        ['xls', null], ['xlsx', 'xls'], ['xlsxm', 'xls'], ['php', null], ['html', null], ['tex', null],
+        ['js', null], ['c', null], ['cpp', null], ['h', null], ['res', null], ['ico', null],
+        ['jpg', null], ['png', null], ['gif', null], ['bmp', null], ['ttf', null], ['zip', null],
+        ['rar', null], ['7z', null], ['tar', 'gz'], ['gz', null], ['gz', null], ['sh', null],
+        ['bat', null], ['iso', null], ['css', null], ['json', null], ['ini', null], ['psd', null],
+        ['pptx', 'ppt'], ['xml', null], ['dll', null], ['wav', null], ['wma', null], ['vb', null],
+        ['tmp', null], ['tif', null], ['sql', null], ['swf', null], ['svg', null], ['rpm', null],
+        ['rss', null], ['pkg', null], ['pdf', null], ['mpg', null], ['mov', null], ['jar', null],
         ['flv', null], ['fla', null], ['deb', null], ['py', null], ['pl', null],
     ];
 

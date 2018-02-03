@@ -4,29 +4,26 @@
  *
  * PHP Version 7.1
  *
- * @category   TBD
  * @package    TBD
  * @copyright  Dennis Eichhorn
  * @license    OMS License 1.0
  * @version    1.0.0
- * @link       http://orange-management.com
+ * @link       http://website.orange-management.de
  */
-declare(strict_types=1);
+declare(strict_types = 1);
 
 namespace phpOMS\Utils\IO\Zip;
 
 use phpOMS\System\File\FileUtils;
-use phpOMS\Utils\StringUtils;
 
 /**
  * Zip class for handling zip files.
  *
  * Providing basic zip support
  *
- * @category   Framework
- * @package    phpOMS\Asset
+ * @package    Framework
  * @license    OMS License 1.0
- * @link       http://orange-management.com
+ * @link       http://website.orange-management.de
  * @since      1.0.0
  */
 class Zip implements ArchiveInterface
@@ -69,7 +66,7 @@ class Zip implements ArchiveInterface
 
                     $absolute = realpath($file);
                     $absolute = str_replace('\\', '/', $absolute);
-                    $dir = str_replace($source . '/', '', $relative . '/' . $absolute);
+                    $dir      = str_replace($source . '/', '', $relative . '/' . $absolute);
 
                     if (is_dir($absolute)) {
                         $zip->addEmptyDir($dir . '/');
@@ -84,13 +81,13 @@ class Zip implements ArchiveInterface
 
         return $zip->close();
     }
-    
+
     /**
      * {@inheritdoc}
      */
     public static function unpack(string $source, string $destination) : bool
     {
-        if(!file_exists($source)) {
+        if (!file_exists($source)) {
             return false;
         }
 
@@ -101,9 +98,9 @@ class Zip implements ArchiveInterface
         if (!$zip->open($source)) {
             return false;
         }
-        
+
         $zip->extractTo($destination . '/');
-        
+
         return $zip->close();
     }
 }

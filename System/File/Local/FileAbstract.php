@@ -4,16 +4,16 @@
  *
  * PHP Version 7.1
  *
- * @category   TBD
  * @package    TBD
  * @copyright  Dennis Eichhorn
  * @license    OMS License 1.0
  * @version    1.0.0
- * @link       http://orange-management.com
+ * @link       http://website.orange-management.de
  */
-declare(strict_types=1);
+declare(strict_types = 1);
 
 namespace phpOMS\System\File\Local;
+
 use phpOMS\System\File\ContainerInterface;
 
 /**
@@ -21,10 +21,9 @@ use phpOMS\System\File\ContainerInterface;
  *
  * Performing operations on the file system
  *
- * @category   Framework
- * @package    phpOMS\System\File
+ * @package    Framework
  * @license    OMS License 1.0
- * @link       http://orange-management.com
+ * @link       http://website.orange-management.de
  * @since      1.0.0
  */
 abstract class FileAbstract implements ContainerInterface
@@ -88,10 +87,10 @@ abstract class FileAbstract implements ContainerInterface
     /**
      * Permission.
      *
-     * @var string
+     * @var int
      * @since 1.0.0
      */
-    protected $permission = 0644;
+    protected $permission = 0755;
 
     /**
      * Constructor.
@@ -176,7 +175,7 @@ abstract class FileAbstract implements ContainerInterface
     /**
      * {@inheritdoc}
      */
-    public function getPermission() : string
+    public function getPermission() : int
     {
         return $this->permission;
     }

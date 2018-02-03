@@ -4,24 +4,24 @@
  *
  * PHP Version 7.1
  *
- * @category   TBD
  * @package    TBD
  * @copyright  Dennis Eichhorn
  * @license    OMS License 1.0
  * @version    1.0.0
- * @link       http://orange-management.com
+ * @link       http://website.orange-management.de
  */
-declare(strict_types=1);
+declare(strict_types = 1);
+
 namespace phpOMS\Utils\IO\Zip;
+
 /**
  * Zip class for handling zip files.
  *
  * Providing basic zip support
  *
- * @category   Framework
- * @package    phpOMS\Asset
+ * @package    Framework
  * @license    OMS License 1.0
- * @link       http://orange-management.com
+ * @link       http://website.orange-management.de
  * @since      1.0.0
  */
 class TarGz implements ArchiveInterface
@@ -31,7 +31,7 @@ class TarGz implements ArchiveInterface
      */
     public static function pack($source, string $destination, bool $overwrite = true) : bool
     {
-        if(!Tar::pack($source, $destination . '.tmp', $overwrite)) {
+        if (!Tar::pack($source, $destination . '.tmp', $overwrite)) {
             return false;
         }
 
@@ -40,13 +40,13 @@ class TarGz implements ArchiveInterface
 
         return $pack;
     }
-    
+
     /**
      * {@inheritdoc}
      */
     public static function unpack(string $source, string $destination) : bool
     {
-        if(!Gz::unpack($source, $destination . '.tmp')) {
+        if (!Gz::unpack($source, $destination . '.tmp')) {
             return false;
         }
 

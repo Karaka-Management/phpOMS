@@ -4,24 +4,22 @@
  *
  * PHP Version 7.1
  *
- * @category   TBD
  * @package    TBD
  * @copyright  Dennis Eichhorn
  * @license    OMS License 1.0
  * @version    1.0.0
- * @link       http://orange-management.com
+ * @link       http://website.orange-management.de
  */
-declare(strict_types=1);
+declare(strict_types = 1);
 
 namespace phpOMS\Math\Geometry\ConvexHull;
 
 /**
  * Andrew's monotone chain convex hull algorithm class.
  *
- * @category   Framework
- * @package    phpOMS\Utils\TaskSchedule
+ * @package    Framework
  * @license    OMS License 1.0
- * @link       http://orange-management.com
+ * @link       http://website.orange-management.de
  * @since      1.0.0
  *
  * @todo       : implement vertice class or use vertice class used by graphs? May be usefull in order to give vertices IDs!
@@ -42,7 +40,7 @@ final class MonotoneChain
         if (($n = count($points)) > 1) {
             uasort($points, [self::class, 'sort']);
 
-            $k = 0;
+            $k      = 0;
             $result = [];
 
             // Lower hull
@@ -55,7 +53,7 @@ final class MonotoneChain
             }
 
             // Upper hull
-            for ($i = $n - 2, $t = $k+1; $i >= 0; $i--) {
+            for ($i = $n - 2, $t = $k + 1; $i >= 0; $i--) {
                 while ($k >= $t && self::cross($result[$k - 2], $result[$k - 1], $points[$i]) <= 0) {
                     $k--;
                 }
@@ -65,7 +63,7 @@ final class MonotoneChain
 
             ksort($result);
 
-            return array_slice($result, 0, $k-1);
+            return array_slice($result, 0, $k - 1);
         }
 
         return $points;

@@ -4,14 +4,13 @@
  *
  * PHP Version 7.1
  *
- * @category   TBD
  * @package    TBD
  * @copyright  Dennis Eichhorn
  * @license    OMS License 1.0
  * @version    1.0.0
- * @link       http://orange-management.com
+ * @link       http://website.orange-management.de
  */
-declare(strict_types=1);
+declare(strict_types = 1);
 
 namespace phpOMS\Utils\Parser\Php;
 
@@ -20,10 +19,9 @@ namespace phpOMS\Utils\Parser\Php;
  *
  * Parsing/serializing arrays to and from php file
  *
- * @category   Framework
- * @package    phpOMS\Utils\Parser
+ * @package    Framework
  * @license    OMS License 1.0
- * @link       http://orange-management.com
+ * @link       http://website.orange-management.de
  * @since      1.0.0
  */
 class ArrayParser
@@ -46,10 +44,38 @@ class ArrayParser
                 $key = '"' . $key . '"';
             }
 
-            $stringify .= '    ' . $key . ' => ' . MemberParser::parseVariable($val) . ',' . PHP_EOL;
+            $stringify .= '    ' . $key . ' => ' . self::parseVariable($val) . ',' . PHP_EOL;
 
         }
 
         return $stringify . ']';
+    }
+
+    /**
+     * Serialize value.
+     *
+     * @param mixed $value Value to serialzie
+     *
+     * @return string
+     *
+     * @since  1.0.0
+     */
+    public static function parseVariable($value) : string
+    {
+        if (is_array($value)) {
+            return ArrayParser::serializeArray($value) . PHP_EOL;
+        } elseif (is_string($value)) {
+            return '"' . $value . '"';
+        } elseif (is_scalar($value)) {
+            return (string) $value;
+        } elseif (is_null($value)) {
+            return 'null';
+        } elseif (is_bool($value)) {
+            return $value ? 'true' : 'false';
+        } elseif ($value instanceOf \Serializable) {
+            return self::parseVariable($value->serialize());
+        } else {
+            throw new \UnexpectedValueException();
+        }
     }
 }

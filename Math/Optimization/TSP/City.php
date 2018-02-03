@@ -4,14 +4,13 @@
  *
  * PHP Version 7.1
  *
- * @category   TBD
  * @package    TBD
  * @copyright  Dennis Eichhorn
  * @license    OMS License 1.0
  * @version    1.0.0
- * @link       http://orange-management.com
+ * @link       http://website.orange-management.de
  */
-declare(strict_types=1);
+declare(strict_types = 1);
 
 namespace phpOMS\Math\Optimization\TSP;
 
@@ -20,10 +19,9 @@ use phpOMS\Math\Geometry\Shape\D3\Sphere;
 /**
  * City class.
  *
- * @category   Framework
- * @package    phpOMS\DataStorage\Database
+ * @package    Framework
  * @license    OMS License 1.0
- * @link       http://orange-management.com
+ * @link       http://website.orange-management.de
  * @since      1.0.0
  */
 class City
@@ -61,7 +59,7 @@ class City
      *
      * @since  1.0.0
      */
-    public function __construct(float $lat, float $long, string $name)
+    public function __construct(float $lat = 0, float $long = 0, string $name = '')
     {
         $this->long = $long;
         $this->lat  = $lat;
@@ -107,7 +105,7 @@ class City
     }
 
     /**
-     * Distance to city
+     * Distance to city in meter
      *
      * @param City $city City
      *

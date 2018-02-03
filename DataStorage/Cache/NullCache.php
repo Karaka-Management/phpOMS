@@ -4,24 +4,22 @@
  *
  * PHP Version 7.1
  *
- * @category   TBD
  * @package    TBD
  * @copyright  Dennis Eichhorn
  * @license    OMS License 1.0
  * @version    1.0.0
- * @link       http://orange-management.com
+ * @link       http://website.orange-management.de
  */
-declare(strict_types=1);
+declare(strict_types = 1);
 
 namespace phpOMS\DataStorage\Cache;
 
 /**
  * Null cache class.
  *
- * @category   Framework
- * @package    phpOMS\DataStorage\Cache
+ * @package    Framework
  * @license    OMS License 1.0
- * @link       http://orange-management.com
+ * @link       http://website.orange-management.de
  * @since      1.0.0
  */
 class NullCache implements CacheInterface
@@ -32,7 +30,6 @@ class NullCache implements CacheInterface
      */
     public function set($key, $value, int $expire = -1) /* : void */
     {
-        // TODO: Implement set() method.
     }
 
     /**
@@ -40,7 +37,7 @@ class NullCache implements CacheInterface
      */
     public function add($key, $value, int $expire = -1) : bool
     {
-        // TODO: Implement add() method.
+        return true;
     }
 
     /**
@@ -48,7 +45,7 @@ class NullCache implements CacheInterface
      */
     public function get($key, int $expire = -1)
     {
-        // TODO: Implement get() method.
+        return null;
     }
 
     /**
@@ -56,7 +53,7 @@ class NullCache implements CacheInterface
      */
     public function delete($key, int $expire = -1) : bool
     {
-        // TODO: Implement delete() method.
+        return true;
     }
 
     /**
@@ -64,8 +61,6 @@ class NullCache implements CacheInterface
      */
     public function flush(int $expire = 0) : bool
     {
-        // TODO: Implement flush() method.
-
         return true;
     }
 
@@ -74,8 +69,6 @@ class NullCache implements CacheInterface
      */
     public function flushAll() : bool
     {
-        // TODO: Implement flush() method.
-
         return true;
     }
 
@@ -84,7 +77,7 @@ class NullCache implements CacheInterface
      */
     public function replace($key, $value, int $expire = -1) : bool
     {
-        // TODO: Implement replace() method.
+        return true;
     }
 
     /**
@@ -92,7 +85,7 @@ class NullCache implements CacheInterface
      */
     public function stats() : array
     {
-        // TODO: Implement stats() method.
+        return [];
     }
 
     /**
@@ -100,7 +93,7 @@ class NullCache implements CacheInterface
      */
     public function getThreshold() : int
     {
-        // TODO: Implement getThreshold() method.
+        return 0;
     }
 
     /**
@@ -108,6 +101,5 @@ class NullCache implements CacheInterface
      */
     public function setStatus(int $status) /* : void */
     {
-        // TODO: Implement setStatus() method.
     }
 }

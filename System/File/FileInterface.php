@@ -4,14 +4,13 @@
  *
  * PHP Version 7.1
  *
- * @category   TBD
  * @package    TBD
  * @copyright  Dennis Eichhorn
  * @license    OMS License 1.0
  * @version    1.0.0
- * @link       http://orange-management.com
+ * @link       http://website.orange-management.de
  */
-declare(strict_types=1);
+declare(strict_types = 1);
 
 namespace phpOMS\System\File;
 
@@ -20,23 +19,22 @@ namespace phpOMS\System\File;
  *
  * Performing operations on the file system
  *
- * @category   Framework
- * @package    phpOMS\System\File
+ * @package    Framework
  * @license    OMS License 1.0
- * @link       http://orange-management.com
+ * @link       http://website.orange-management.de
  * @since      1.0.0
  */
 interface FileInterface extends ContainerInterface
 {
 
-	/**
+    /**
      * Save content to file.
      *
      * @param string $path File path to save the content to
      * @param string $content Content to save in file
      * @param int $mode Mode (overwrite, append)
      *
-     * @return bool 
+     * @return bool
      *
      * @since  1.0.0
      */
@@ -106,13 +104,13 @@ interface FileInterface extends ContainerInterface
      */
     public static function extension(string $path) : string;
 
-	/**
+    /**
      * Save content to file.
      *
      * @param string $content Content to save in file
      * @param int $mode Mode (overwrite, append)
      *
-     * @return bool 
+     * @return bool
      *
      * @since  1.0.0
      */

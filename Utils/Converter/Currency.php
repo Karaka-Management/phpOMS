@@ -4,14 +4,13 @@
  *
  * PHP Version 7.1
  *
- * @category   TBD
  * @package    TBD
  * @copyright  Dennis Eichhorn
  * @license    OMS License 1.0
  * @version    1.0.0
- * @link       http://orange-management.com
+ * @link       http://website.orange-management.de
  */
-declare(strict_types=1);
+declare(strict_types = 1);
 
 namespace phpOMS\Utils\Converter;
 
@@ -19,16 +18,14 @@ use phpOMS\Localization\ISO4217CharEnum;
 use phpOMS\Message\Http\Rest;
 use phpOMS\Message\Http\Request;
 use phpOMS\Message\Http\RequestMethod;
-use phpOMS\Localization\Localization;
 use phpOMS\Uri\Http;
 
 /**
  * Currency converter.
  *
- * @category   Framework
- * @package    phpOMS\Utils\Converter
+ * @package    Framework
  * @license    OMS License 1.0
- * @link       http://orange-management.com
+ * @link       http://website.orange-management.de
  * @since      1.0.0
  */
 class Currency
@@ -99,18 +96,18 @@ class Currency
     {
         if (!isset(self::$ecbCurrencies)) {
             $request = new Request(new Http('http://www.ecb.europa.eu/stats/eurofxref/eurofxref-daily.xml'));
-		    $request->setMethod(RequestMethod::GET);
+            $request->setMethod(RequestMethod::GET);
 
             $xml = new \SimpleXMLElement(Rest::request($request));
 
             if (!isset($xml->Cube)) {
                 throw new \Exception('Invalid xml path');
-                
-            } 
 
-            $node = $xml->Cube->Cube->Cube;
+            }
+
+            $node                = $xml->Cube->Cube->Cube;
             self::$ecbCurrencies = [];
-            
+
             foreach ($node as $key => $value) {
                 self::$ecbCurrencies[strtoupper((string) $value->attributes()['currency'])] = (float) $value->attributes()['rate'];
             }

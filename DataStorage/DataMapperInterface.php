@@ -4,14 +4,13 @@
  *
  * PHP Version 7.1
  *
- * @category   TBD
  * @package    TBD
  * @copyright  Dennis Eichhorn
  * @license    OMS License 1.0
  * @version    1.0.0
- * @link       http://orange-management.com
+ * @link       http://website.orange-management.de
  */
-declare(strict_types=1);
+declare(strict_types = 1);
 
 namespace phpOMS\DataStorage;
 
@@ -22,10 +21,9 @@ use phpOMS\DataStorage\Database\Query\Builder;
  *
  * DB, Cache, Session
  *
- * @category   Framework
- * @package    phpOMS\DataStorage\Database
+ * @package    Framework
  * @license    OMS License 1.0
- * @link       http://orange-management.com
+ * @link       http://website.orange-management.de
  * @since      1.0.0
  */
 interface DataMapperInterface
@@ -47,11 +45,11 @@ interface DataMapperInterface
      *
      * @param mixed $obj Object reference (gets filled with insert id)
      *
-     * @return int Status
+     * @return mixed
      *
      * @since  1.0.0
      */
-    public static function update($obj) : int;
+    public static function update($obj);
 
     /**
      * Delete data.
@@ -129,5 +127,4 @@ interface DataMapperInterface
      * @since  1.0.0
      */
     public static function get($primaryKey);
-
 }

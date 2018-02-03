@@ -4,14 +4,13 @@
  *
  * PHP Version 7.1
  *
- * @category   TBD
  * @package    TBD
  * @copyright  Dennis Eichhorn
  * @license    OMS License 1.0
  * @version    1.0.0
- * @link       http://orange-management.com
+ * @link       http://website.orange-management.de
  */
-declare(strict_types=1);
+declare(strict_types = 1);
 
 namespace phpOMS\DataStorage\Database\Query\Grammar;
 
@@ -25,10 +24,9 @@ use phpOMS\DataStorage\Database\Query\Where;
 /**
  * Database query grammar.
  *
- * @category   Framework
- * @package    phpOMS\DataStorage\Database
+ * @package    Framework
  * @license    OMS License 1.0
- * @link       http://orange-management.com
+ * @link       http://website.orange-management.de
  * @since      1.0.0
  */
 class Grammar extends GrammarAbstract
@@ -115,28 +113,11 @@ class Grammar extends GrammarAbstract
     {
         $sql = [];
 
-        switch ($query->getType()) {
-            case QueryType::SELECT:
-                $components = $this->selectComponents;
-                break;
-            case QueryType::INSERT:
-                $components = $this->insertComponents;
-                break;
-            case QueryType::UPDATE:
-                $components = $this->updateComponents;
-                break;
-            case QueryType::DELETE:
-                $components = $this->deleteComponents;
-                break;
-            case QueryType::RANDOM:
-                $components = $this->selectComponents;
-                break;
-            case QueryType::RAW:
-                return [$query->raw];
-                break;
-            default:
-                throw new \InvalidArgumentException('Unknown query type.');
+        if ($query->getType() === QueryType::RAW) {
+            return [$query->raw];
         }
+
+        $components = $this->getComponents($query->getType());
 
         /* Loop all possible query components and if they exist compile them. */
         foreach ($components as $component) {
@@ -146,6 +127,35 @@ class Grammar extends GrammarAbstract
         }
 
         return $sql;
+    }
+
+    /**
+     * Get query components based on query type.
+     *
+     * @param int $type Query type
+     *
+     * @return array Array of components to build query
+     *
+     * @throws \InvalidArgumentException Throws this exception if the query type is undefined
+     *
+     * @since  1.0.0
+     */
+    private function getComponents(int $type) : array
+    {
+        switch ($type) {
+            case QueryType::SELECT:
+                return $components = $this->selectComponents;
+            case QueryType::INSERT:
+                return $components = $this->insertComponents;
+            case QueryType::UPDATE:
+                return $components = $this->updateComponents;
+            case QueryType::DELETE:
+                return $components = $this->deleteComponents;
+            case QueryType::RANDOM:
+                return $components = $this->selectComponents;
+            default:
+                throw new \InvalidArgumentException('Unknown query type.');
+        }
     }
 
     /**
@@ -173,7 +183,7 @@ class Grammar extends GrammarAbstract
      * Compile select.
      *
      * @param Builder $query   Builder
-     * @param array   $columns Columns
+     * @param array   $table Table
      *
      * @return string
      *
@@ -182,7 +192,7 @@ class Grammar extends GrammarAbstract
     protected function compileUpdates(Builder $query, array $table) : string
     {
         $expression = $this->expressionizeTable($table, $query->getPrefix());
-        
+
         if ($expression === '') {
             return '';
         }
@@ -244,7 +254,7 @@ class Grammar extends GrammarAbstract
         foreach ($wheres as $key => $where) {
             foreach ($where as $key2 => $element) {
                 $expression .= $this->compileWhereElement($element, $query, $first);
-                $first = false;
+                $first       = false;
             }
         }
 
@@ -270,7 +280,7 @@ class Grammar extends GrammarAbstract
     {
         $expression = '';
 
-        if(!$first) {
+        if (!$first) {
             $expression = ' ' . strtoupper($element['boolean']) . ' ';
         }
 
@@ -289,7 +299,7 @@ class Grammar extends GrammarAbstract
         if (isset($element['value'])) {
             $expression .= ' ' . strtoupper($element['operator']) . ' ' . $this->compileValue($element['value'], $query->getPrefix());
         } else {
-            $operator = strtoupper($element['operator']) === '=' ? 'IS' : 'IS NOT';
+            $operator    = strtoupper($element['operator']) === '=' ? 'IS' : 'IS NOT';
             $expression .= ' ' . $operator . ' ' . $this->compileValue($element['value'], $query->getPrefix());
         }
 
@@ -317,7 +327,7 @@ class Grammar extends GrammarAbstract
     protected function compileValue($value, $prefix = '') : string
     {
         if (is_string($value)) {
-            if(strpos($value, ':') === 0) {
+            if (strpos($value, ':') === 0) {
                 return $value;
             }
 
@@ -420,11 +430,11 @@ class Grammar extends GrammarAbstract
         $expression = '';
 
         foreach ($orders as $key => $order) {
-            foreach($order as $column) {
+            foreach ($order as $column) {
                 $expression .= $this->compileSystem($column, $query->getPrefix()) . ', ';
             }
 
-            $expression = rtrim($expression, ', ');
+            $expression  = rtrim($expression, ', ');
             $expression .= ' ' . $key . ', ';
         }
 

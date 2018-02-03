@@ -4,14 +4,13 @@
  *
  * PHP Version 7.1
  *
- * @category   TBD
  * @package    TBD
  * @copyright  Dennis Eichhorn
  * @license    OMS License 1.0
  * @version    1.0.0
- * @link       http://orange-management.com
+ * @link       http://website.orange-management.de
  */
-declare(strict_types=1);
+declare(strict_types = 1);
 
 namespace phpOMS\Socket\Packets;
 
@@ -20,10 +19,9 @@ namespace phpOMS\Socket\Packets;
  *
  * Parsing/serializing arrays to and from php file
  *
- * @category   System
- * @package    Framework
+ * @package    System
  * @license    OMS License 1.0
- * @link       http://orange-management.com
+ * @link       http://website.orange-management.de
  * @since      1.0.0
  */
 class Header implements \Serializable
@@ -103,9 +101,9 @@ class Header implements \Serializable
      *
      * @since  1.0.0
      */
-    public function getType()
+    public function getType() : int
     {
-        return $this->type;
+        return (int) $this->type;
     }
 
     /**
@@ -115,7 +113,7 @@ class Header implements \Serializable
      *
      * @since  1.0.0
      */
-    public function setType($type) /* : void */
+    public function setType(int $type) /* : void */
     {
         $this->type = $type;
     }
@@ -125,7 +123,7 @@ class Header implements \Serializable
      *
      * @since  1.0.0
      */
-    public function getSubtype()
+    public function getSubtype() : int
     {
         return $this->subtype;
     }

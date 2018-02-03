@@ -4,14 +4,13 @@
  *
  * PHP Version 7.1
  *
- * @category   TBD
- * @package    TBD
+ * @package    phpOMS\Config
  * @copyright  Dennis Eichhorn
  * @license    OMS License 1.0
  * @version    1.0.0
- * @link       http://orange-management.com
+ * @link       http://website.orange-management.de
  */
-declare(strict_types=1);
+declare(strict_types = 1);
 
 namespace phpOMS\Config;
 
@@ -24,10 +23,9 @@ use phpOMS\DataStorage\Database\Query\Builder;
  *
  * Responsible for providing a database/cache bound settings manger
  *
- * @category   Framework
  * @package    phpOMS\Config
  * @license    OMS License 1.0
- * @link       http://orange-management.com
+ * @link       http://website.orange-management.de
  * @since      1.0.0
  */
 abstract class SettingsAbstract implements OptionsInterface
@@ -84,6 +82,7 @@ abstract class SettingsAbstract implements OptionsInterface
      * @return mixed Option value
      *
      * @since  1.0.0
+     * @todo: don't db request if exists. check exists()
      */
     public function get($columns)
     {
@@ -110,10 +109,10 @@ abstract class SettingsAbstract implements OptionsInterface
                     break;
             }
 
-            return $options;
+            return count($options) > 1 ? $options : reset($options);
         } catch (\PDOException $e) {
             $exception = DatabaseExceptionFactory::createException($e);
-            $message = DatabaseExceptionFactory::createExceptionMessage($e);
+            $message   = DatabaseExceptionFactory::createExceptionMessage($e);
 
             throw new $exception($message);
         }
@@ -134,7 +133,16 @@ abstract class SettingsAbstract implements OptionsInterface
         $this->setOptions($options);
 
         if ($store) {
-            // save to db
+            foreach ($this->options as $key => $option) {
+                $query = new Builder($this->connection);
+                $sql   = $query->update($this->connection->prefix . static::$table)
+                    ->set([static::$columns[1] => $option])
+                    ->where(static::$columns[0], '=', $key)
+                    ->toSql();
+
+                $sth = $this->connection->con->prepare($sql);
+                $sth->execute();
+            }
         }
     }
 }

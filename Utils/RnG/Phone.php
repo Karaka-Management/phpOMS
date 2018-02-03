@@ -4,25 +4,22 @@
  *
  * PHP Version 7.1
  *
- * @category   TBD
  * @package    TBD
  * @copyright  Dennis Eichhorn
  * @license    OMS License 1.0
  * @version    1.0.0
- * @link       http://orange-management.com
+ * @link       http://website.orange-management.de
  */
-declare(strict_types=1);
+declare(strict_types = 1);
 
 namespace phpOMS\Utils\RnG;
-
 
 /**
  * Phone generator.
  *
- * @category   Framework
- * @package    Utils\RnG
+ * @package    Framework
  * @license    OMS License 1.0
- * @link       http://orange-management.com
+ * @link       http://website.orange-management.de
  * @since      1.0.0
  */
 class Phone
@@ -58,7 +55,10 @@ class Phone
         $numberParts = substr_count($layout['struct'], '$');
 
         for ($i = ($isInt ? 2 : 1); $i < $numberParts; $i++) {
-            $numberString = str_replace('$' . $i, StringUtils::generateString($layout['size'][$i - 1][0], $layout['size'][$i - 1][1], '0123456789'), $numberString);
+            $numberString = str_replace(
+                '$' . $i, StringUtils::generateString($layout['size'][$i - 1][0], $layout['size'][$i - 1][1], '0123456789'), 
+                $numberString
+            );
         }
 
         return $numberString;

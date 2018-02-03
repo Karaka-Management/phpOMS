@@ -4,14 +4,13 @@
  *
  * PHP Version 7.1
  *
- * @category   TBD
- * @package    TBD
+ * @package    phpOMS\Validation
  * @copyright  Dennis Eichhorn
  * @license    OMS License 1.0
  * @version    1.0.0
- * @link       http://orange-management.com
+ * @link       http://website.orange-management.de
  */
-declare(strict_types=1);
+declare(strict_types = 1);
 
 namespace phpOMS\Validation;
 
@@ -20,8 +19,9 @@ use phpOMS\Utils\StringUtils;
 /**
  * Validator class.
  *
- * @category   Framework
  * @package    phpOMS\Validation
+ * @license    OMS License 1.0
+ * @link       http://website.orange-management.de
  * @since      1.0.0
  */
 final class Validator extends ValidatorAbstract
@@ -39,10 +39,14 @@ final class Validator extends ValidatorAbstract
      */
     public static function isValid($var, array $constraints = null) : bool
     {
+        if (!isset($constraints)) {
+            return true;
+        }
+
         foreach ($constraints as $callback => $settings) {
             $callback = StringUtils::endsWith($callback, 'Not') ? substr($callback, 0, -3) : $callback;
-            $valid = self::$callback($var, ...$settings);
-            $valid = (StringUtils::endsWith($callback, 'Not') ? $valid : !$valid);
+            $valid    = self::$callback($var, ...$settings);
+            $valid    = (StringUtils::endsWith($callback, 'Not') ? $valid : !$valid);
 
             if (!$valid) {
                 return false;

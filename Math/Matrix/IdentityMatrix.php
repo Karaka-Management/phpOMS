@@ -4,24 +4,22 @@
  *
  * PHP Version 7.1
  *
- * @category   TBD
  * @package    TBD
  * @copyright  Dennis Eichhorn
  * @license    OMS License 1.0
  * @version    1.0.0
- * @link       http://orange-management.com
+ * @link       http://website.orange-management.de
  */
-declare(strict_types=1);
+declare(strict_types = 1);
 
 namespace phpOMS\Math\Matrix;
 
 /**
  * Matrix class
  *
- * @category   Framework
- * @package    phpOMS\Math\Matrix
+ * @package    Framework
  * @license    OMS License 1.0
- * @link       http://orange-management.com
+ * @link       http://website.orange-management.de
  * @since      1.0.0
  */
 class IdentityMatrix extends Matrix
@@ -33,13 +31,11 @@ class IdentityMatrix extends Matrix
      *
      * @since  1.0.0
      */
-    public function __constrcut(int $n)
+    public function __construct(int $n)
     {
-        $this->n = $n;
-        $this->m = $n;
+        parent::__construct($n, $n);
 
         for ($i = 0; $i < $n; $i++) {
-            $this->matrix[$i]     = array_fill(0, $n, 0);
             $this->matrix[$i][$i] = 1;
         }
     }

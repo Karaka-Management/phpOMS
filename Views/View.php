@@ -4,14 +4,13 @@
  *
  * PHP Version 7.1
  *
- * @category   TBD
- * @package    TBD
+ * @package    phpOMS\Views
  * @copyright  Dennis Eichhorn
  * @license    OMS License 1.0
  * @version    1.0.0
- * @link       http://orange-management.com
+ * @link       http://website.orange-management.de
  */
-declare(strict_types=1);
+declare(strict_types = 1);
 
 namespace phpOMS\Views;
 
@@ -23,12 +22,11 @@ use phpOMS\Module\Exception\InvalidModuleException;
 use phpOMS\Module\Exception\InvalidThemeException;
 
 /**
- * List view.
+ * Basic view which can be used as basis for specific implementations.
  *
- * @category   Framework
- * @package    phpOMS/Views
+ * @package    phpOMS\Views
  * @license    OMS License 1.0
- * @link       http://orange-management.com
+ * @link       http://website.orange-management.de
  * @since      1.0.0
  */
 class View extends ViewAbstract
@@ -82,15 +80,17 @@ class View extends ViewAbstract
      *
      * @since  1.0.0
      */
-    public function __construct(ApplicationAbstract $app, RequestAbstract $request, ResponseAbstract $response)
+    public function __construct(ApplicationAbstract $app = null, RequestAbstract $request = null, ResponseAbstract $response = null)
     {
         $this->app      = $app;
         $this->request  = $request;
         $this->response = $response;
-        $this->l11n     = $response->getHeader()->getL11n();
+        $this->l11n     = isset($response) ? $response->getHeader()->getL11n() : null;
     }
 
     /**
+     * Get data attached to view
+     * 
      * @param string $id Data Id
      *
      * @return mixed
@@ -103,6 +103,8 @@ class View extends ViewAbstract
     }
 
     /**
+     * Set data of view
+     * 
      * @param string $id   Data ID
      * @param mixed  $data Data
      *
@@ -136,6 +138,8 @@ class View extends ViewAbstract
     }
 
     /**
+     * Add data to view
+     * 
      * @param string $id   Data ID
      * @param mixed  $data Data
      *
@@ -145,7 +149,7 @@ class View extends ViewAbstract
      */
     public function addData(string $id, $data) : bool
     {
-        if(isset($this->data[$id])) {
+        if (isset($this->data[$id])) {
             return false;
         }
 
@@ -160,7 +164,7 @@ class View extends ViewAbstract
      * @param string $translation Text
      * @param string $module      Module name
      * @param string $theme       Theme name
-     * 
+     *
      * @return string
      *
      * @throws InvalidModuleException Throws this exception if no data for the defined module could be found.
@@ -203,7 +207,7 @@ class View extends ViewAbstract
      * @param string $translation Text
      * @param string $module      Module name
      * @param string $theme       Theme name
-     * 
+     *
      * @return string
      *
      * @since  1.0.0
@@ -228,6 +232,8 @@ class View extends ViewAbstract
     }
 
     /**
+     * Get request of view
+     * 
      * @return RequestAbstract
      *
      * @since  1.0.0
@@ -238,6 +244,8 @@ class View extends ViewAbstract
     }
 
     /**
+     * Get response of view
+     * 
      * @return ResponseAbstract
      *
      * @since  1.0.0
@@ -246,5 +254,4 @@ class View extends ViewAbstract
     {
         return $this->response;
     }
-
 }

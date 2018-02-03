@@ -4,24 +4,22 @@
  *
  * PHP Version 7.1
  *
- * @category   TBD
- * @package    TBD
+ * @package    phpOMS\Utils
  * @copyright  Dennis Eichhorn
  * @license    OMS License 1.0
  * @version    1.0.0
- * @link       http://orange-management.com
+ * @link       http://website.orange-management.de
  */
-declare(strict_types=1);
+declare(strict_types = 1);
 
 namespace phpOMS\Utils;
 
 /**
  * Array utils.
  *
- * @category   Framework
  * @package    phpOMS\Utils
  * @license    OMS License 1.0
- * @link       http://orange-management.com
+ * @link       http://website.orange-management.de
  * @since      1.0.0
  */
 class ArrayUtils
@@ -97,16 +95,14 @@ class ArrayUtils
 
         if ($overwrite) {
             $current = $value;
+        } elseif (is_array($current) && !is_array($value)) {
+            $current[] = $value;
+        } elseif (is_array($current) && is_array($value)) {
+            $current = array_merge($current, $value);
+        } elseif (is_scalar($current) && $current !== null) {
+            $current = [$current, $value];
         } else {
-            if (is_array($current) && !is_array($value)) {
-                $current[] = $value;
-            } elseif (is_array($current) && is_array($value)) {
-                $current += $value;
-            } elseif (is_scalar($current) && $current !== null) {
-                $current = [$current, $value];
-            } else {
-                $current = $value;
-            }
+            $current = $value;
         }
 
         return $data;
@@ -156,7 +152,7 @@ class ArrayUtils
                 $found = self::inArrayRecursive($needle, $item);
 
                 if ($found) {
-                    break;
+                    return true;
                 }
             }
         }
@@ -176,8 +172,8 @@ class ArrayUtils
      */
     public static function anyInArray(array $needles, array $haystack) : bool
     {
-        foreach($needles as $needle) {
-            if(in_array($needle, $haystack)) {
+        foreach ($needles as $needle) {
+            if (in_array($needle, $haystack)) {
                 return true;
             }
         }
@@ -197,8 +193,8 @@ class ArrayUtils
      */
     public static function allInArray(array $needles, array $haystack) : bool
     {
-        foreach($needles as $needle) {
-            if(!in_array($needle, $haystack)) {
+        foreach ($needles as $needle) {
+            if (!in_array($needle, $haystack)) {
                 return false;
             }
         }
@@ -268,7 +264,7 @@ class ArrayUtils
      *
      * @since  1.0.0
      */
-    public static function arrayToCSV(array $data, string $delimiter = ';', string $enclosure = '"', string $escape = '\\') : string
+    public static function arrayToCsv(array $data, string $delimiter = ';', string $enclosure = '"', string $escape = '\\') : string
     {
         $outstream = fopen('php://memory', 'r+');
         /** @noinspection PhpMethodParametersCountMismatchInspection */

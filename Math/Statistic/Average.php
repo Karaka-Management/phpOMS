@@ -4,14 +4,13 @@
  *
  * PHP Version 7.1
  *
- * @category   TBD
  * @package    TBD
  * @copyright  Dennis Eichhorn
  * @license    OMS License 1.0
  * @version    1.0.0
- * @link       http://orange-management.com
+ * @link       http://website.orange-management.de
  */
-declare(strict_types=1);
+declare(strict_types = 1);
 
 namespace phpOMS\Math\Statistic;
 
@@ -21,26 +20,25 @@ use phpOMS\Math\Matrix\Exception\InvalidDimensionException;
 /**
  * Average class.
  *
- * @category   Framework
- * @package    phpOMS\Math\Statistic
+ * @package    Framework
  * @license    OMS License 1.0
- * @link       http://orange-management.com
+ * @link       http://website.orange-management.de
  * @since      1.0.0
  */
 class Average
 {
 
-    /* public */ const MA3 = [1 / 3, 1 / 3];
-    /* public */ const MA5 = [0.2, 0.2, 0.2];
+    /* public */ const MA3    = [1 / 3, 1 / 3];
+    /* public */ const MA5    = [0.2, 0.2, 0.2];
     /* public */ const MA2x12 = [5 / 6, 5 / 6, 5 / 6, 5 / 6, 5 / 6, 5 / 6, 0.42];
-    /* public */ const MA3x3 = [1 / 3, 2 / 9, 1 / 9];
-    /* public */ const MA3x5 = [0.2, 0.2, 2 / 15, 4 / 6];
-    /* public */ const MAS15 = [0.231, 0.209, 0.144, 2 / 3, 0.009, -0.016, -0.019, -0.009];
-    /* public */ const MAS21 = [0.171, 0.163, 0.134, 0.37, 0.51, 0.017, -0.006, -0.014, -0.014, -0.009, -0.003];
-    /* public */ const MAH5 = [0.558, 0.294, -0.73];
-    /* public */ const MAH9 = [0.330, 0.267, 0.119, -0.010, -0.041];
-    /* public */ const MAH13 = [0.240, 0.214, 0.147, 0.66, 0, -0.028, -0.019];
-    /* public */ const MAH23 = [0.148, 0.138, 0.122, 0.097, 0.068, 0.039, 0.013, -0.005, -0.015, -0.016, -0.011, -0.004];
+    /* public */ const MA3x3  = [1 / 3, 2 / 9, 1 / 9];
+    /* public */ const MA3x5  = [0.2, 0.2, 2 / 15, 4 / 6];
+    /* public */ const MAS15  = [0.231, 0.209, 0.144, 2 / 3, 0.009, -0.016, -0.019, -0.009];
+    /* public */ const MAS21  = [0.171, 0.163, 0.134, 0.37, 0.51, 0.017, -0.006, -0.014, -0.014, -0.009, -0.003];
+    /* public */ const MAH5   = [0.558, 0.294, -0.73];
+    /* public */ const MAH9   = [0.330, 0.267, 0.119, -0.010, -0.041];
+    /* public */ const MAH13  = [0.240, 0.214, 0.147, 0.66, 0, -0.028, -0.019];
+    /* public */ const MAH23  = [0.148, 0.138, 0.122, 0.097, 0.068, 0.039, 0.013, -0.005, -0.015, -0.016, -0.011, -0.004];
 
     /**
      * Average change.
@@ -185,12 +183,12 @@ class Average
      *
      * @since  1.0.0
      */
-    public static function mode($values)
+    public static function mode(array $values)
     {
         $count = array_count_values($values);
         $best  = max($count);
 
-        return array_keys($count, $best);
+        return (float) (array_keys($count, $best)[0] ?? 0.0);
     }
 
     /**
@@ -243,7 +241,7 @@ class Average
             throw new ZeroDevisionException();
         }
 
-        return pow(array_product($values), 1 / $count);
+        return (float) pow(array_product($values), 1 / $count);
     }
 
     /**

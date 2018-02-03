@@ -4,27 +4,25 @@
  *
  * PHP Version 7.1
  *
- * @category   TBD
- * @package    TBD
+ * @package    phpOMS\Account
  * @copyright  Dennis Eichhorn
  * @license    OMS License 1.0
  * @version    1.0.0
- * @link       http://orange-management.com
+ * @link       http://website.orange-management.de
  */
-declare(strict_types=1);
+declare(strict_types = 1);
 
 namespace phpOMS\Account;
 
 /**
  * Permission class.
- * 
+ *
  * This permission abstract is the basis for all permissions. Contrary to it's name it is not an
  * abstract class and can be used directly if needed.
  *
- * @category   Framework
  * @package    phpOMS\Account
  * @license    OMS License 1.0
- * @link       http://orange-management.com
+ * @link       http://website.orange-management.de
  * @since      1.0.0
  */
 class PermissionAbstract
@@ -340,11 +338,11 @@ class PermissionAbstract
      *
      * @param int $permission Permission
      *
-     * @return void
+     * @return bool
      *
      * @since  1.0.0
      */
-    public function hasPermission(int $permission) : bool 
+    public function hasPermission(int $permission) : bool
     {
         return ($this->permission | $permission) === $this->permission;
     }

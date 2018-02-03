@@ -4,30 +4,28 @@
  *
  * PHP Version 7.1
  *
- * @category   TBD
- * @package    TBD
+ * @package    Framework
  * @copyright  Dennis Eichhorn
  * @license    OMS License 1.0
  * @version    1.0.0
- * @link       http://orange-management.com
+ * @link       http://website.orange-management.de
  */
-declare(strict_types=1);
+declare(strict_types = 1);
 
 namespace phpOMS\Model\Html;
 
 use phpOMS\Asset\AssetType;
 use phpOMS\Contract\RenderableInterface;
-
+use phpOMS\Localization\ISO639x1Enum;
 
 /**
  * Head class.
  *
  * Responsible for handling everything that's going on in the <head>
  *
- * @category   Framework
- * @package    phpOMS/Model
+ * @package    Framework
  * @license    OMS License 1.0
- * @link       http://orange-management.com
+ * @link       http://website.orange-management.de
  * @since      1.0.0
  */
 class Head implements RenderableInterface
@@ -39,7 +37,7 @@ class Head implements RenderableInterface
      * @var string
      * @since 1.0.0
      */
-    private $language = '';
+    private $language = ISO639x1Enum::_EN;
 
     /**
      * Page title.
@@ -167,6 +165,18 @@ class Head implements RenderableInterface
     }
 
     /**
+     * Get page language.
+     *
+     * @return string
+     *
+     * @since  1.0.0
+     */
+    public function getLanguage() : string
+    {
+        return $this->language;
+    }
+
+    /**
      * Get the evaluated contents of the object.
      *
      * @return string
@@ -175,12 +185,10 @@ class Head implements RenderableInterface
      */
     public function render() : string
     {
-        $head = '';
-        if ($this->hasContent) {
-            $head .= $this->meta->render();
-            $head .= $this->renderStyle();
-            $head .= $this->renderScript();
-        }
+        $head  = '';
+        $head .= $this->meta->render();
+        $head .= $this->renderStyle();
+        $head .= $this->renderScript();
 
         return $head;
     }

@@ -4,14 +4,13 @@
  *
  * PHP Version 7.1
  *
- * @category   TBD
  * @package    TBD
  * @copyright  Dennis Eichhorn
  * @license    OMS License 1.0
  * @version    1.0.0
- * @link       http://orange-management.com
+ * @link       http://website.orange-management.de
  */
-declare(strict_types=1);
+declare(strict_types = 1);
 
 namespace phpOMS\Utils\JobQueue;
 
@@ -20,18 +19,21 @@ use phpOMS\Stdlib\Queue\PriorityQueue;
 /**
  * Array utils.
  *
- * @category   Framework
- * @package    phpOMS\Utils
+ * @package    Framework
  * @license    OMS License 1.0
- * @link       http://orange-management.com
+ * @link       http://website.orange-management.de
  * @since      1.0.0
  */
 class JobQueue
 {
     private $queue = null;
+
     private $run = true;
+
     private $suspended = false;
+
     private $isTerminating = true;
+
     private $isDeamonized;
 
     public function __construct()
@@ -82,6 +84,8 @@ class JobQueue
         }
 
         sleep(1);
+
+        return -1;
     }
 
     private function runAsDeamon()

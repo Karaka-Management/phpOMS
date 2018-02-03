@@ -4,24 +4,22 @@
  *
  * PHP Version 7.1
  *
- * @category   TBD
  * @package    TBD
  * @copyright  Dennis Eichhorn
  * @license    OMS License 1.0
  * @version    1.0.0
- * @link       http://orange-management.com
+ * @link       http://website.orange-management.de
  */
-declare(strict_types=1);
+declare(strict_types = 1);
 
 namespace phpOMS\Message\Mail;
 
 /**
  * Mail class.
  *
- * @category   Framework
- * @package    phpOMS\Message\Mail
+ * @package    Framework
  * @license    OMS License 1.0
- * @link       http://orange-management.com
+ * @link       http://website.orange-management.de
  * @since      1.0.0
  */
 class EmailAbstract
@@ -32,7 +30,7 @@ class EmailAbstract
      * @var string
      * @since 1.0.0
      */
-    private $host = '';
+    protected $host = '';
 
     /**
      * Port.
@@ -40,7 +38,7 @@ class EmailAbstract
      * @var int
      * @since 1.0.0
      */
-    private $port = 25;
+    protected $port = 25;
 
     /**
      * Use ssl.
@@ -48,7 +46,7 @@ class EmailAbstract
      * @var bool
      * @since 1.0.0
      */
-    private $ssl = false;
+    protected $ssl = false;
 
     /**
      * Mailbox base.
@@ -56,7 +54,7 @@ class EmailAbstract
      * @var string
      * @since 1.0.0
      */
-    private $mailbox = '';
+    protected $mailbox = '';
 
     /**
      * Timeout.
@@ -64,7 +62,7 @@ class EmailAbstract
      * @var int
      * @since 1.0.0
      */
-    private $timeout = 30;
+    protected $timeout = 30;
 
     /**
      * Construct
@@ -78,10 +76,10 @@ class EmailAbstract
      */
     public function __construct(string $host = 'localhost', int $port = 25, int $timeout = 30, bool $ssl = false)
     {
-        $this->host = $host;
-        $this->port = $port;
+        $this->host    = $host;
+        $this->port    = $port;
         $this->timeout = $timeout;
-        $this->ssl = $ssl;
+        $this->ssl     = $ssl;
 
         imap_timeout(IMAP_OPENTIMEOUT, $timeout);
         imap_timeout(IMAP_READTIMEOUT, $timeout);
@@ -92,8 +90,10 @@ class EmailAbstract
     /**
      * Decode
      *
-     * @param string $host Content to decode
+     * @param string $content Content to decode
      * @param int $encoding Encoding type
+     *
+     * @return string
      *
      * @since  1.0.0
      */
@@ -101,12 +101,10 @@ class EmailAbstract
     {
         if ($encoding == 3) {
             return imap_base64($content);
+        } elseif ($encoding == 1) {
+            return imap_8bit($content);
         } else {
-            if ($encoding == 1) {
-                return imap_8bit($content);
-            } else {
-                return imap_qprint($content);
-            }
+            return imap_qprint($content);
         }
     }
 
@@ -127,7 +125,7 @@ class EmailAbstract
      */
     public function disconnect()
     {
-        if(!isset($this->con)) {
+        if (!isset($this->con)) {
             imap_close($this->con);
             $this->con = null;
         }
@@ -138,7 +136,7 @@ class EmailAbstract
      *
      * @param string $user Username
      * @param string $pass Password
-     * 
+     *
      * @return void
      *
      * @since  1.0.0
@@ -148,7 +146,7 @@ class EmailAbstract
         $this->mailbox = substr($this->mailbox, 0, -1) . ($this->ssl ? '/ssl/validate-cert' : '/novalidate-cert') . '}';
 
         // /novalidate-cert
-        if(!isset($this->con)) {
+        if (!isset($this->con)) {
             $this->con = imap_open($this->mailbox . 'INBOX', $user, $pass);
         }
     }
@@ -410,7 +408,7 @@ class EmailAbstract
 
     /**
      * Create mailbox
-     * 
+     *
      * @param string $mailbox Mailbox to create
      *
      * @return bool
@@ -424,7 +422,7 @@ class EmailAbstract
 
     /**
      * Rename mailbox
-     * 
+     *
      * @param string $old Old mailbox name
      * @param string $new New mailbox name
      *
@@ -439,7 +437,7 @@ class EmailAbstract
 
     /**
      * Delete mailbox
-     * 
+     *
      * @param string $mailbox Mailbox to delete
      *
      * @return bool
@@ -453,7 +451,7 @@ class EmailAbstract
 
     /**
      * Check message to delete
-     * 
+     *
      * @param int $id Message id
      *
      * @return bool
@@ -467,7 +465,7 @@ class EmailAbstract
 
     /**
      * Delete all marked messages
-     * 
+     *
      * @return bool
      *
      * @since  1.0.0
@@ -479,7 +477,7 @@ class EmailAbstract
 
     /**
      * Check message to delete
-     * 
+     *
      * @param int $length Amount of message overview
      * @param int $start Start index of the overview for pagination
      *
@@ -489,8 +487,8 @@ class EmailAbstract
      */
     public function getMessageOverview(int $length = 0, int $start = 1) : array
     {
-        if($length === 0) {
-            $info = imap_check($this->con);
+        if ($length === 0) {
+            $info   = imap_check($this->con);
             $length = $info->Nmsgs;
         }
 
@@ -499,7 +497,7 @@ class EmailAbstract
 
     /**
      * Count messages
-     * 
+     *
      * @return int
      *
      * @since  1.0.0
@@ -511,7 +509,7 @@ class EmailAbstract
 
     /**
      * Get message header
-     * 
+     *
      * @param int $id Message id
      *
      * @return string

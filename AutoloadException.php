@@ -4,24 +4,24 @@
  *
  * PHP Version 7.1
  *
- * @category   TBD
- * @package    TBD
+ * @package    phpOMS
  * @copyright  Dennis Eichhorn
  * @license    OMS License 1.0
  * @version    1.0.0
- * @link       http://orange-management.com
+ * @link       http://website.orange-management.de
  */
-declare(strict_types=1);
+declare(strict_types = 1);
 
 namespace phpOMS;
 
 /**
- * Permission exception class.
+ * Autoloader exception
+ * 
+ * This exception is thrown if a file couldn't be autoloaded
  *
- * @category   Framework
- * @package    phpOMS\System\File
+ * @package    phpOMS
  * @license    OMS License 1.0
- * @link       http://orange-management.com
+ * @link       http://website.orange-management.de
  * @since      1.0.0
  */
 class AutoloadException extends \RuntimeException
@@ -31,7 +31,7 @@ class AutoloadException extends \RuntimeException
      *
      * @param string     $message Exception message
      * @param int        $code    Exception code
-     * @param \Exception Previous exception
+     * @param \Exception $previous Previous exception
      *
      * @since  1.0.0
      */

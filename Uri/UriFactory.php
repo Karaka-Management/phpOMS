@@ -4,14 +4,13 @@
  *
  * PHP Version 7.1
  *
- * @category   TBD
- * @package    TBD
+ * @package    phpOMS\Uri
  * @copyright  Dennis Eichhorn
  * @license    OMS License 1.0
  * @version    1.0.0
- * @link       http://orange-management.com
+ * @link       http://website.orange-management.de
  */
-declare(strict_types=1);
+declare(strict_types = 1);
 
 namespace phpOMS\Uri;
 
@@ -20,10 +19,9 @@ namespace phpOMS\Uri;
  *
  * Used in order to create a uri
  *
- * @category   Framework
- * @package    phpOMS/Uri
+ * @package    phpOMS\Uri
  * @license    OMS License 1.0
- * @link       http://orange-management.com
+ * @link       http://website.orange-management.de
  * @since      1.0.0
  */
 class UriFactory
@@ -90,7 +88,7 @@ class UriFactory
      *
      * @since  1.0.0
      */
-    public static function clearAll() : bool 
+    public static function clearAll() : bool
     {
         self::$uri = [];
 
@@ -120,7 +118,7 @@ class UriFactory
         self::setQuery(':pass', $uri->getPass());
 
         $data = $uri->getQueryArray();
-        foreach($data as $key => $value) {
+        foreach ($data as $key => $value) {
             self::setQuery('?' . $key, $value);
         }
     }
@@ -134,9 +132,9 @@ class UriFactory
      *
      * @since  1.0.0
      */
-    public static function clear(string $key) : bool 
+    public static function clear(string $key) : bool
     {
-        if(isset(self::$uri[$key])) {
+        if (isset(self::$uri[$key])) {
             unset(self::$uri[$key]);
 
             return true;
@@ -154,12 +152,12 @@ class UriFactory
      *
      * @since  1.0.0
      */
-    public static function clearLike(string $pattern) : bool 
+    public static function clearLike(string $pattern) : bool
     {
         $success = false;
 
-        foreach(self::$uri as $key => $value) {
-            if(((bool) preg_match('~^' . $pattern . '$~', $key))) {
+        foreach (self::$uri as $key => $value) {
+            if (((bool) preg_match('~^' . $pattern . '$~', $key))) {
                 unset(self::$uri[$key]);
                 $success = true;
             }
@@ -187,7 +185,6 @@ class UriFactory
             $full   = $parts[1];
             $pars   = explode('&', $full);
             $comps  = [];
-            $spl    = null;
             $length = count($pars);
 
             for ($i = 0; $i < $length; $i++) {

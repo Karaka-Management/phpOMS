@@ -4,38 +4,27 @@
  *
  * PHP Version 7.1
  *
- * @category   TBD
  * @package    TBD
  * @copyright  Dennis Eichhorn
  * @license    OMS License 1.0
  * @version    1.0.0
- * @link       http://orange-management.com
+ * @link       http://website.orange-management.de
  */
-declare(strict_types=1);
+declare(strict_types = 1);
 
 namespace phpOMS\Utils\TaskSchedule;
-
-use phpOMS\Validation\Base\DateTime;
 
 /**
  * Task scheduler class.
  *
- * @category   Framework
- * @package    phpOMS\Utils\TaskSchedule
+ * @package    Framework
  * @license    OMS License 1.0
- * @link       http://orange-management.com
+ * @link       http://website.orange-management.de
  * @since      1.0.0
+ * @codeCoverageIgnore
  */
 class TaskScheduler extends SchedulerAbstract
 {
-    /**
-     * {@inheritdoc}
-     */
-    public function save() /* : void */
-    {
-
-    }
-
     /**
      * Run command
      *
@@ -83,49 +72,9 @@ class TaskScheduler extends SchedulerAbstract
      *
      * @since  1.0.0
      */
-    private function normalize(string $raw) : string 
+    private function normalize(string $raw) : string
     {
         return str_replace("\r\n", "\n", $raw);
-    }
-
-    /**
-     * Parse a list of jobs
-     *
-     * @param array $jobData Csv data containing the job information
-     *
-     * @return TaskAbstract Parsed job
-     *
-     * @since  1.0.0
-     */
-    private function parseJobList(array $jobData) : TaskAbstract
-    {
-            $job = TaskFactory::create($jobData[1], '');
-
-            $job->setRun($jobData[8]);
-            $job->setStatus($jobData[3]);
-
-            if(DateTime::isValid($jobData[2])) { 
-                $job->setNextRunTime(new \DateTime($jobData[2]));
-            }
-
-            if(DateTime::isValid($jobData[5])) { 
-                $job->setLastRuntime(new \DateTime($jobData[5]));
-            }
-            
-            $job->setAuthor($jobData[7]);
-            $job->setComment($jobData[10]);
-
-            if(DateTime::isValid($jobData[20])) { 
-                $job->setStart(new \DateTime($jobData[20]));
-            }
-
-            if(DateTime::isValid($jobData[21])) { 
-                $job->setEnd(new \DateTime($jobData[21]));
-            }
-
-            $job->addResult($jobData[6]);
-
-            return $job;
     }
 
     /**
@@ -137,27 +86,11 @@ class TaskScheduler extends SchedulerAbstract
         unset($lines[0]);
 
         $jobs = [];
-        foreach($lines as $line) {
-            $jobs[] = $this->parseJobList(str_getcsv($line));
+        foreach ($lines as $line) {
+            $jobs[] = Schedule::createWith(str_getcsv($line));
         }
-        
+
         return $jobs;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function get(string $id)
-    {
-        // todo: implement
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function getByName(string $name) : Schedule
-    {
-        // todo: implement
     }
 
     /**
@@ -165,37 +98,28 @@ class TaskScheduler extends SchedulerAbstract
      */
     public function getAllByName(string $name, bool $exact = true) : array
     {
-        if($exact) {
+        if ($exact) {
             $lines = explode("\n", $this->normalize($this->run('/query /v /fo CSV /tn ' . escapeshellarg($name))));
             unset($lines[0]);
 
             $jobs = [];
-            foreach($lines as $line) {
-                $jobs[] = $this->parseJobList(str_getcsv($line));
+            foreach ($lines as $line) {
+                $jobs[] = Schedule::createWith(str_getcsv($line));
             }
         } else {
             $lines = explode("\n", $this->normalize($this->run('/query /v /fo CSV')));
-            $jobs = [];
-            
             unset($lines[0]);
 
-            foreach($lines as $key => $line) {
+            $jobs = [];
+            foreach ($lines as $key => $line) {
                 $line = str_getcsv($line);
 
-                if(strpos($line[1], $name) !== false) {
-                    $jobs[] = $this->parseJobList($line);
+                if (stripos($line[1], $name) !== false) {
+                    $jobs[] = Schedule::createWith($line);
                 }
             }
         }
 
         return $jobs;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function create(Schedule $task)
-    {
-        // todo: implement
     }
 }

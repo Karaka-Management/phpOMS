@@ -4,14 +4,13 @@
  *
  * PHP Version 7.1
  *
- * @category   TBD
  * @package    TBD
  * @copyright  Dennis Eichhorn
  * @license    OMS License 1.0
  * @version    1.0.0
- * @link       http://orange-management.com
+ * @link       http://website.orange-management.de
  */
-declare(strict_types=1);
+declare(strict_types = 1);
 
 namespace phpOMS\Math\Matrix;
 
@@ -20,10 +19,9 @@ use phpOMS\Math\Matrix\Exception\InvalidDimensionException;
 /**
  * Matrix class
  *
- * @category   Framework
- * @package    phpOMS\Math\Matrix
+ * @package    Framework
  * @license    OMS License 1.0
- * @link       http://orange-management.com
+ * @link       http://website.orange-management.de
  * @since      1.0.0
  */
 class Matrix implements \ArrayAccess, \Iterator
@@ -175,7 +173,7 @@ class Matrix implements \ArrayAccess, \Iterator
      *
      * @param array $matrix Matrix
      *
-     * @return Matrix 
+     * @return Matrix
      *
      * @throws \Exception
      *
@@ -183,8 +181,8 @@ class Matrix implements \ArrayAccess, \Iterator
      */
     public function setMatrix(array $matrix) : Matrix
     {
-        $this->m = count($matrix);
-        $this->n = count($matrix[0] ?? 1);
+        $this->m      = count($matrix);
+        $this->n      = count($matrix[0] ?? 1);
         $this->matrix = $matrix;
 
         return $this;
@@ -197,7 +195,7 @@ class Matrix implements \ArrayAccess, \Iterator
      *
      * @return Matrix
      *
-     * @throws \Exception
+     * @throws \InvalidArgumentException
      *
      * @since  1.0.0
      */
@@ -209,7 +207,7 @@ class Matrix implements \ArrayAccess, \Iterator
             return $this->add(-$value);
         }
 
-        throw new \Exception('Type');
+        throw new \InvalidArgumentException('Type');
     }
 
     /**
@@ -219,7 +217,7 @@ class Matrix implements \ArrayAccess, \Iterator
      *
      * @return Matrix
      *
-     * @throws \Exception
+     * @throws \InvalidArgumentException
      *
      * @since  1.0.0
      */
@@ -231,7 +229,7 @@ class Matrix implements \ArrayAccess, \Iterator
             return $this->addScalar($value);
         }
 
-        throw new \Exception();
+        throw new \InvalidArgumentException();
     }
 
     /**
@@ -324,7 +322,7 @@ class Matrix implements \ArrayAccess, \Iterator
      *
      * @return Matrix
      *
-     * @throws \Exception
+     * @throws \InvalidArgumentException
      *
      * @since  1.0.0
      */
@@ -336,7 +334,7 @@ class Matrix implements \ArrayAccess, \Iterator
             return $this->multScalar($value);
         }
 
-        throw new \Exception('Type');
+        throw new \InvalidArgumentException('Type');
     }
 
     /**
@@ -553,7 +551,6 @@ class Matrix implements \ArrayAccess, \Iterator
         return $newMatrix;
     }
 
-
     public function diagonalize() : Matrix
     {
         $newMatrix = new Matrix($this->m, $this->n);
@@ -569,34 +566,34 @@ class Matrix implements \ArrayAccess, \Iterator
         return $M->solve($B);
     }
 
-    private function gaussElimination($b) : Matrix 
+    private function gaussElimination($b) : Matrix
     {
-        $mDim = count($b);
+        $mDim   = count($b);
         $matrix = $this->matrix;
 
-        for($col = 0; $col < $mDim; $col++) {
-            $j = $col;
+        for ($col = 0; $col < $mDim; $col++) {
+            $j   = $col;
             $max = $matrix[$j][$j];
 
             for ($i = $col + 1; $i < $mDim; $i++) {
                 $temp = abs($matrix[$i][$col]);
 
                 if ($temp > $max) {
-                    $j = $i;
+                    $j   = $i;
                     $max = $temp;
                 }
             }
-     
-            if($col != $j) {
-                $temp = $matrix[$col];
+
+            if ($col != $j) {
+                $temp         = $matrix[$col];
                 $matrix[$col] = $matrix[$j];
-                $matrix[$j] = $temp;
-             
-                $temp = $b[$col];
+                $matrix[$j]   = $temp;
+
+                $temp    = $b[$col];
                 $b[$col] = $b[$j];
-                $b[$j] = $temp;
+                $b[$j]   = $temp;
             }
-     
+
             for ($i = $col + 1; $i < $mDim; $i++) {
                 $temp = $matrix[$i][$col] / $matrix[$col][$col];
 
@@ -605,7 +602,7 @@ class Matrix implements \ArrayAccess, \Iterator
                 }
 
                 $matrix[$i][$col] = 0;
-                $b[$i] -= $temp * $b[$col];
+                $b[$i]           -= $temp * $b[$col];
             }
         }
 
@@ -679,10 +676,7 @@ class Matrix implements \ArrayAccess, \Iterator
     }
 
     /**
-     * Return the current element
-     * @link  http://php.net/manual/en/iterator.current.php
-     * @return mixed Can return any type.
-     * @since 5.0.0
+     * {@inheritdoc}
      */
     public function current()
     {
@@ -690,13 +684,7 @@ class Matrix implements \ArrayAccess, \Iterator
     }
 
     /**
-     * Offset to retrieve
-     * @link  http://php.net/manual/en/arrayaccess.offsetget.php
-     * @param mixed $offset <p>
-     *                      The offset to retrieve.
-     *                      </p>
-     * @return mixed Can return all value types.
-     * @since 5.0.0
+     * {@inheritdoc}
      */
     public function offsetGet($offset)
     {
@@ -706,10 +694,7 @@ class Matrix implements \ArrayAccess, \Iterator
     }
 
     /**
-     * Move forward to next element
-     * @link  http://php.net/manual/en/iterator.next.php
-     * @return void Any returned value is ignored.
-     * @since 5.0.0
+     * {@inheritdoc}
      */
     public function next()
     {
@@ -717,10 +702,7 @@ class Matrix implements \ArrayAccess, \Iterator
     }
 
     /**
-     * Return the key of the current element
-     * @link  http://php.net/manual/en/iterator.key.php
-     * @return mixed scalar on success, or null on failure.
-     * @since 5.0.0
+     * {@inheritdoc}
      */
     public function key()
     {
@@ -728,11 +710,7 @@ class Matrix implements \ArrayAccess, \Iterator
     }
 
     /**
-     * Checks if current position is valid
-     * @link  http://php.net/manual/en/iterator.valid.php
-     * @return boolean The return value will be casted to boolean and then evaluated.
-     * Returns true on success or false on failure.
-     * @since 5.0.0
+     * {@inheritdoc}
      */
     public function valid()
     {
@@ -740,16 +718,7 @@ class Matrix implements \ArrayAccess, \Iterator
     }
 
     /**
-     * Whether a offset exists
-     * @link  http://php.net/manual/en/arrayaccess.offsetexists.php
-     * @param mixed $offset <p>
-     *                      An offset to check for.
-     *                      </p>
-     * @return boolean true on success or false on failure.
-     *                      </p>
-     *                      <p>
-     *                      The return value will be casted to boolean if non-boolean was returned.
-     * @since 5.0.0
+     * {@inheritdoc}
      */
     public function offsetExists($offset)
     {
@@ -759,10 +728,7 @@ class Matrix implements \ArrayAccess, \Iterator
     }
 
     /**
-     * Rewind the Iterator to the first element
-     * @link  http://php.net/manual/en/iterator.rewind.php
-     * @return void Any returned value is ignored.
-     * @since 5.0.0
+     * {@inheritdoc}
      */
     public function rewind()
     {
@@ -770,16 +736,7 @@ class Matrix implements \ArrayAccess, \Iterator
     }
 
     /**
-     * Offset to set
-     * @link  http://php.net/manual/en/arrayaccess.offsetset.php
-     * @param mixed $offset <p>
-     *                      The offset to assign the value to.
-     *                      </p>
-     * @param mixed $value  <p>
-     *                      The value to set.
-     *                      </p>
-     * @return void
-     * @since 5.0.0
+     * {@inheritdoc}
      */
     public function offsetSet($offset, $value)
     {
@@ -788,18 +745,11 @@ class Matrix implements \ArrayAccess, \Iterator
     }
 
     /**
-     * Offset to unset
-     * @link  http://php.net/manual/en/arrayaccess.offsetunset.php
-     * @param mixed $offset <p>
-     *                      The offset to unset.
-     *                      </p>
-     * @return void
-     * @since 5.0.0
+     * {@inheritdoc}
      */
     public function offsetUnset($offset)
     {
         $row = (int) ($offset / $this->m);
         unset($this->matrix[$row][$offset - $row * $this->n]);
     }
-
 }

@@ -4,36 +4,29 @@
  *
  * PHP Version 7.1
  *
- * @category   TBD
  * @package    TBD
  * @copyright  Dennis Eichhorn
  * @license    OMS License 1.0
  * @version    1.0.0
- * @link       http://orange-management.com
+ * @link       http://website.orange-management.de
  */
-declare(strict_types=1);
+declare(strict_types = 1);
 
 namespace phpOMS\Utils\TaskSchedule;
+
 use phpOMS\System\File\PathException;
 
 /**
  * Scheduler abstract.
  *
- * @category   Framework
- * @package    phpOMS\Utils\TaskSchedule
+ * @package    Framework
  * @license    OMS License 1.0
- * @link       http://orange-management.com
+ * @link       http://website.orange-management.de
  * @since      1.0.0
+ * @codeCoverageIgnore
  */
 abstract class SchedulerAbstract
 {
-    /**
-     * Tasks.
-     *
-     * @var TaskAbstract[]
-     * @since 1.0.0
-     */
-    protected $tasks = [];
 
     /**
      * Bin path.
@@ -79,6 +72,7 @@ abstract class SchedulerAbstract
      * @return bool
      *
      * @since  1.0.0
+     * @codeCoverageIgnore
      */
     public static function test() : bool
     {
@@ -96,85 +90,16 @@ abstract class SchedulerAbstract
     }
 
     /**
-     * Add task
+     * Create task
      *
-     * @param TaskAbstract $task Task to add
-     *
-     * @return void
-     *
-     * @since  1.0.0
-     */
-    public function add(TaskAbstract $task) /* : void */
-    {
-        $this->tasks[$task->getId()] = $task;
-    }
-
-    /**
-     * Remove task
-     *
-     * @param mixed $id Task id
-     *
-     * @return bool
-     *
-     * @since  1.0.0
-     */
-    public function remove(string $id) : bool
-    {
-        if (isset($this->tasks[$id])) {
-            unset($this->tasks[$id]);
-
-            return true;
-        }
-
-        return false;
-    }
-
-    /**
-     * Get task
-     *
-     * @param mixed $id Task id
-     *
-     * @return TaskAbstract|null
-     *
-     * @since  1.0.0
-     */
-    public function get(string $id)
-    {
-        return $this->tasks[$id] ?? null;
-    }
-
-    /**
-     * Get all tasks
-     *
-     * @return TaskAbstract[]
-     *
-     * @since  1.0.0
-     */
-    public function getAll() : array
-    {
-        return $this->tasks;
-    }
-
-    /**
-     * Set task
-     *
-     * @param TaskAbstract $task Task to edit
+     * @param TaskAbstract
      *
      * @return void
      *
      * @since  1.0.0
      */
-    public function set(TaskAbstract $task) /* : void */
+    public function create(TaskAbstract $task) /* : void */
     {
-        $this->tasks[$task->getId()] = $task;
+        $this->run($task->getCommand());
     }
-
-    /**
-     * Save tasks
-     *
-     * @return void
-     *
-     * @since  1.0.0
-     */
-    abstract public function save() /* : void */;
 }

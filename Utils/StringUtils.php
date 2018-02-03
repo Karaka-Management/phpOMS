@@ -4,14 +4,13 @@
  *
  * PHP Version 7.1
  *
- * @category   TBD
- * @package    TBD
+ * @package    phpOMS\Utils
  * @copyright  Dennis Eichhorn
  * @license    OMS License 1.0
  * @version    1.0.0
- * @link       http://orange-management.com
+ * @link       http://website.orange-management.de
  */
-declare(strict_types=1);
+declare(strict_types = 1);
 
 namespace phpOMS\Utils;
 
@@ -20,11 +19,12 @@ namespace phpOMS\Utils;
  *
  * This class provides static helper functionalities for strings.
  *
- * @category   Framework
  * @package    phpOMS\Utils
  * @license    OMS License 1.0
- * @link       http://orange-management.com
+ * @link       http://website.orange-management.de
  * @since      1.0.0
+ * 
+ * @SuppressWarnings(PHPMD.CamelCaseMethodName)
  */
 class StringUtils
 {
@@ -352,18 +352,18 @@ class StringUtils
      *
      * @param string $value String to analyze.
      *
-     * @return float 
+     * @return float
      *
      * @since  1.0.0
      */
     public static function getEntropy(string $value) : float
     {
-        $entroy = 0.0;
-        $size = mb_strlen($value);
+        $entroy     = 0.0;
+        $size       = mb_strlen($value);
         $countChars = self::mb_count_chars($value);
 
         foreach ($countChars as $v) {
-            $p = $v / $size;
+            $p       = $v / $size;
             $entroy -= $p * log($p) / log(2);
         }
 
@@ -375,7 +375,7 @@ class StringUtils
      *
      * @param string $input String to count chars.
      *
-     * @return array 
+     * @return array
      *
      * @since  1.0.0
      */
@@ -384,10 +384,10 @@ class StringUtils
         $l      = mb_strlen($input, 'UTF-8');
         $unique = [];
 
-        for($i = 0; $i < $l; $i++) {
+        for ($i = 0; $i < $l; $i++) {
             $char = mb_substr($input, $i, 1, 'UTF-8');
 
-            if(!array_key_exists($char, $unique)) {
+            if (!array_key_exists($char, $unique)) {
                 $unique[$char] = 0;
             }
 

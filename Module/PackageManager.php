@@ -4,33 +4,31 @@
  *
  * PHP Version 7.1
  *
- * @category   TBD
- * @package    TBD
+ * @package    Framework
  * @copyright  Dennis Eichhorn
  * @license    OMS License 1.0
  * @version    1.0.0
- * @link       http://orange-management.com
+ * @link       http://website.orange-management.de
  */
-declare(strict_types=1);
+declare(strict_types = 1);
 
 namespace phpOMS\Module;
 
 use phpOMS\System\File\PathException;
-use phpOMS\Utils\ArrayUtils;
 use phpOMS\System\File\Local\File;
 use phpOMS\System\File\Local\Directory;
 use phpOMS\System\File\Local\LocalStorage;
 use phpOMS\Utils\IO\Zip\Zip;
+use phpOMS\Utils\StringUtils;
 
 /**
  * Package Manager model.
- * 
+ *
  * The package manager is responsible for handling installation and update packages for modules, frameworks and resources.
  *
- * @category   Framework
- * @package    phpOMS\Account
+ * @package    Framework
  * @license    OMS License 1.0
- * @link       http://orange-management.com
+ * @link       http://website.orange-management.de
  * @since      1.0.0
  */
 class PackageManager
@@ -69,28 +67,28 @@ class PackageManager
 
     /**
      * Constructor.
-     * 
+     *
      * @param string $path Package source path e.g. path after download.
-     * @param string basePath Path of the application
+     * @param string $basePath Path of the application
      *
      * @since  1.0.0
      */
-    public function __construct(string $path, string $basePath) 
+    public function __construct(string $path, string $basePath)
     {
-        $this->path = $path;
+        $this->path     = $path;
         $this->basePath = $basePath;
     }
 
     /**
      * Extract package to temporary destination
-     * 
+     *
      * @param string $path Temporary extract path
-     * 
-     * @return bool
+     *
+     * @return void
      *
      * @since  1.0.0
      */
-    public function extract(string $path) : bool
+    public function extract(string $path) /* : void */
     {
         $this->extractPath = $path;
         Zip::unpack($this->path, $this->extractPath);
@@ -107,7 +105,7 @@ class PackageManager
      */
     public function load() /* : void */
     {
-        if(!file_exists($this->extractPath)) {
+        if (!file_exists($this->extractPath)) {
             throw new PathException($this->extractPath);
         }
 
@@ -116,7 +114,7 @@ class PackageManager
 
     /**
      * Validate package integrity
-     * 
+     *
      * @return bool Returns true if the package is authentic, false otherwise
      *
      * @since  1.0.0
@@ -128,21 +126,19 @@ class PackageManager
 
     /**
      * Hash array of files
-     * 
-     * @param array $files Files to hash
-     * 
+     *
      * @return string Hash value of files
      *
      * @since  1.0.0
      */
-    private function hashFiles(array $files) : string
+    private function hashFiles() : string
     {
         $files = Directory::list($this->extractPath . '/package');
         $state = \sodium_crypto_generichash_init();
 
-        foreach($files as $file) {
-            if($file === 'package.cert') {
-                continue; 
+        foreach ($files as $file) {
+            if ($file === 'package.cert') {
+                continue;
             }
 
             \sodium_crypto_generichash_update($state, file_get_contents($this->extractPath . '/package/' . $file));
@@ -153,19 +149,21 @@ class PackageManager
 
     /**
      * Install package
-     * 
+     *
      * @return void
+     *
+     * @throws \Exception
      *
      * @since  1.0.0
      */
     public function install() /* : void */
     {
-        if(!$this->isValid()) {
+        if (!$this->isValid()) {
             throw new \Exception();
         }
 
-        foreach($this->info as $key => $components) {
-            if(function_exists($this->{$key})) {
+        foreach ($this->info as $key => $components) {
+            if (function_exists($this->{$key})) {
                 $this->{$key}($components);
             }
         }
@@ -173,29 +171,33 @@ class PackageManager
 
     /**
      * Move files
-     * 
+     *
+     * @param mixed $components Component data
+     *
      * @return void
      *
      * @since  1.0.0
      */
     private function move($components)
     {
-        foreach($components as $component) {
+        foreach ($components as $component) {
             LocalStorage::move($this->basePath . '/' . $component['from'], $this->basePath . '/' . $component['to'], true);
         }
     }
 
     /**
      * Copy files
-     * 
+     *
+     * @param mixed $components Component data
+     *
      * @return void
      *
      * @since  1.0.0
      */
     private function copy($components)
     {
-        foreach($components as $component) {
-            if(StringUtils::startsWith($component['from'], 'Package/')) {
+        foreach ($components as $component) {
+            if (StringUtils::startsWith($component['from'], 'Package/')) {
                 LocalStorage::copy($this->path . '/' . $component['from'], $this->basePath . '/' . $component['to'], true);
             } else {
                 LocalStorage::copy($this->basePath . '/' . $component['from'], $this->basePath . '/' . $component['to'], true);
@@ -205,40 +207,44 @@ class PackageManager
 
     /**
      * Delete files
-     * 
+     *
+     * @param mixed $components Component data
+     *
      * @return void
      *
      * @since  1.0.0
      */
     private function delete($components)
     {
-        foreach($components as $component) {
+        foreach ($components as $component) {
             LocalStorage::delete($this->basePath . '/' . $component);
         }
     }
 
     /**
      * Execute commands
-     * 
+     *
+     * @param mixed $components Component data
+     *
      * @return void
      *
      * @since  1.0.0
      */
-    private function execute($components) 
+    private function execute($components)
     {
-        foreach($components as $component) {
+        foreach ($components as $component) {
             include $this->basePath . '/' . $component;
         }
     }
 
     /**
      * Cleanup after installation
-     * 
+     *
      * @return void
      *
      * @since  1.0.0
      */
-    public function cleanup() 
+    public function cleanup()
     {
         File::delete($this->path);
         Directory::delete($this->extractPath);
@@ -246,7 +252,10 @@ class PackageManager
 
     /**
      * Authenticate package
-     * 
+     *
+     * @param string $signedHash Hash to authenticate
+     * @param string $rawHash Hash to compare against
+     *
      * @return bool
      *
      * @since  1.0.0

@@ -4,14 +4,13 @@
  *
  * PHP Version 7.1
  *
- * @category   TBD
- * @package    TBD
+ * @package    Framework
  * @copyright  Dennis Eichhorn
  * @license    OMS License 1.0
  * @version    1.0.0
- * @link       http://orange-management.com
+ * @link       http://website.orange-management.de
  */
-declare(strict_types=1);
+declare(strict_types = 1);
 
 namespace phpOMS\Message\Http;
 
@@ -22,23 +21,22 @@ use phpOMS\Stdlib\Base\Enum;
  *
  * Browser types can be used for statistics or in order to deliver browser specific content.
  *
- * @category   Request
  * @package    Framework
  * @license    OMS License 1.0
- * @link       http://orange-management.com
+ * @link       http://website.orange-management.de
  * @since      1.0.0
  */
 abstract class BrowserType extends Enum
 {
-    /* public */ const IE = 'msie'; /* Internet Explorer */
-    /* public */ const EDGE = 'edge'; /* Internet Explorer Edge 20+ */
-    /* public */ const FIREFOX = 'firefox'; /* Firefox */
-    /* public */ const SAFARI = 'safari'; /* Safari */
-    /* public */ const CHROME = 'chrome'; /* Chrome */
-    /* public */ const OPERA = 'opera'; /* Opera */
-    /* public */ const NETSCAPE = 'netscape'; /* Netscape */
-    /* public */ const MAXTHON = 'maxthon'; /* Maxthon */
+    /* public */ const IE        = 'msie'; /* Internet Explorer */
+    /* public */ const EDGE      = 'edge'; /* Internet Explorer Edge 20+ */
+    /* public */ const FIREFOX   = 'firefox'; /* Firefox */
+    /* public */ const SAFARI    = 'safari'; /* Safari */
+    /* public */ const CHROME    = 'chrome'; /* Chrome */
+    /* public */ const OPERA     = 'opera'; /* Opera */
+    /* public */ const NETSCAPE  = 'netscape'; /* Netscape */
+    /* public */ const MAXTHON   = 'maxthon'; /* Maxthon */
     /* public */ const KONQUEROR = 'konqueror'; /* Konqueror */
-    /* public */ const HANDHELD = 'mobile'; /* Handheld Browser */
-    /* public */ const BLINK = 'blink'; /* Blink Browser */
+    /* public */ const HANDHELD  = 'mobile'; /* Handheld Browser */
+    /* public */ const BLINK     = 'blink'; /* Blink Browser */
 }

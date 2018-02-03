@@ -4,24 +4,22 @@
  *
  * PHP Version 7.1
  *
- * @category   TBD
- * @package    TBD
+ * @package    phpOMS\Log
  * @copyright  Dennis Eichhorn
  * @license    OMS License 1.0
  * @version    1.0.0
- * @link       http://orange-management.com
+ * @link       http://website.orange-management.de
  */
-declare(strict_types=1);
+declare(strict_types = 1);
 
 namespace phpOMS\Log;
 
 /**
  * Logging interface.
  *
- * @category   Framework
  * @package    phpOMS\Log
  * @license    OMS License 1.0
- * @link       http://orange-management.com
+ * @link       http://website.orange-management.de
  * @since      1.0.0
  */
 interface LoggerInterface
@@ -35,7 +33,7 @@ interface LoggerInterface
      *
      * @return null
      */
-    public function emergency(string $message, array $context = []) /* : void */;
+    public function emergency(string $message, array $context = []); /* : void */
 
     /**
      * Action must be taken immediately.
@@ -48,7 +46,7 @@ interface LoggerInterface
      *
      * @return null
      */
-    public function alert(string $message, array $context = []) /* : void */;
+    public function alert(string $message, array $context = []); /* : void */
 
     /**
      * Critical conditions.
@@ -60,7 +58,7 @@ interface LoggerInterface
      *
      * @return null
      */
-    public function critical(string $message, array $context = []) /* : void */;
+    public function critical(string $message, array $context = []); /* : void */
 
     /**
      * Runtime errors that do not require immediate action but should typically
@@ -71,7 +69,7 @@ interface LoggerInterface
      *
      * @return null
      */
-    public function error(string $message, array $context = []) /* : void */;
+    public function error(string $message, array $context = []); /* : void */
 
     /**
      * Exceptional occurrences that are not errors.
@@ -84,7 +82,7 @@ interface LoggerInterface
      *
      * @return null
      */
-    public function warning(string $message, array $context = []) /* : void */;
+    public function warning(string $message, array $context = []); /* : void */
 
     /**
      * Normal but significant events.
@@ -94,7 +92,7 @@ interface LoggerInterface
      *
      * @return null
      */
-    public function notice(string $message, array $context = []) /* : void */;
+    public function notice(string $message, array $context = []); /* : void */
 
     /**
      * Interesting events.
@@ -106,7 +104,7 @@ interface LoggerInterface
      *
      * @return null
      */
-    public function info(string $message, array $context = []) /* : void */;
+    public function info(string $message, array $context = []); /* : void */
 
     /**
      * Detailed debug information.
@@ -116,7 +114,7 @@ interface LoggerInterface
      *
      * @return null
      */
-    public function debug(string $message, array $context = []) /* : void */;
+    public function debug(string $message, array $context = []); /* : void */
 
     /**
      * Logs with an arbitrary level.
@@ -127,5 +125,5 @@ interface LoggerInterface
      *
      * @return null
      */
-    public function log(string $level, string $message, array $context = []) /* : void */;
+    public function log(string $level, string $message, array $context = []); /* : void */
 }

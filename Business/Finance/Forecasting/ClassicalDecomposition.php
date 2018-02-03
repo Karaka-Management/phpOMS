@@ -4,14 +4,13 @@
  *
  * PHP Version 7.1
  *
- * @category   TBD
- * @package    TBD
+ * @package    Framework
  * @copyright  Dennis Eichhorn
  * @license    OMS License 1.0
  * @version    1.0.0
- * @link       http://orange-management.com
+ * @link       http://website.orange-management.de
  */
-declare(strict_types=1);
+declare(strict_types = 1);
 
 namespace phpOMS\Business\Finance\Forecasting;
 
@@ -22,10 +21,9 @@ use phpOMS\Math\Statistic\Average;
  *
  * This can be used to simplify time series patterns for forecasts.
  *
- * @category   Framework
- * @package    phpOMS\Math\Finance\Forecasting
+ * @package    Framework
  * @license    OMS License 1.0
- * @link       http://orange-management.com
+ * @link       http://website.orange-management.de
  * @see        https://www.otexts.org/fpp/6/1
  * @since      1.0.0
  */
@@ -174,7 +172,7 @@ class ClassicalDecomposition
      */
     public static function getStartOfDecomposition(int $dataSize, int $trendCycleComponents) : int
     {
-        return ($dataSize - $trendCycleComponents) / 2;
+        return (int) (($dataSize - $trendCycleComponents) / 2);
     }
 
     /**

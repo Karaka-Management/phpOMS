@@ -4,14 +4,13 @@
  *
  * PHP Version 7.1
  *
- * @category   TBD
- * @package    TBD
+ * @package    Framework
  * @copyright  Dennis Eichhorn
  * @license    OMS License 1.0
  * @version    1.0.0
- * @link       http://orange-management.com
+ * @link       http://website.orange-management.de
  */
-declare(strict_types=1);
+declare(strict_types = 1);
 
 namespace phpOMS\Module;
 
@@ -23,10 +22,9 @@ use phpOMS\ApplicationAbstract;
  *
  * Responsible for initializing modules as singletons
  *
- * @category   Framework
- * @package    phpOMS\Module
+ * @package    Framework
  * @license    OMS License 1.0
- * @link       http://orange-management.com
+ * @link       http://website.orange-management.de
  * @since      1.0.0
  */
 class ModuleFactory
@@ -75,7 +73,7 @@ class ModuleFactory
         $class = '\\Modules\\' . $module . '\\Controller';
 
         if (!isset(self::$loaded[$module])) {
-            if(Autoloader::exists($class) !== false) {
+            if (Autoloader::exists($class) !== false) {
                 try {
                     $obj                   = new $class($app);
                     self::$loaded[$module] = $obj;

@@ -4,14 +4,13 @@
  *
  * PHP Version 7.1
  *
- * @category   TBD
  * @package    TBD
  * @copyright  Dennis Eichhorn
  * @license    OMS License 1.0
  * @version    1.0.0
- * @link       http://orange-management.com
+ * @link       http://website.orange-management.de
  */
-declare(strict_types=1);
+declare(strict_types = 1);
 
 namespace phpOMS\System\File;
 
@@ -20,10 +19,9 @@ namespace phpOMS\System\File;
  *
  * Performing operations on the file system
  *
- * @category   Framework
- * @package    phpOMS\System\File
+ * @package    Framework
  * @license    OMS License 1.0
- * @link       http://orange-management.com
+ * @link       http://website.orange-management.de
  * @since      1.0.0
  */
 abstract class StorageAbstract
@@ -72,120 +70,128 @@ abstract class StorageAbstract
     /**
      * {@inheritdoc}
      */
-    public abstract static function created(string $path) : \DateTime;
+    public static function created(string $path) : \DateTime
+    {
+        return static::getClassType($path)::created($path);
+    }
 
     /**
      * {@inheritdoc}
      */
-    public abstract static function changed(string $path) : \DateTime;
+    public static function changed(string $path) : \DateTime
+    {
+        return static::getClassType($path)::changed($path);
+    }
 
     /**
      * {@inheritdoc}
      */
-    public abstract static function owner(string $path) : int;
+    public static function owner(string $path) : int
+    {
+        return static::getClassType($path)::owner($path);
+    }
 
     /**
      * {@inheritdoc}
      */
-    public abstract static function permission(string $path) : int;
+    public static function permission(string $path) : int
+    {
+        return static::getClassType($path)::permission($path);
+    }
 
     /**
      * {@inheritdoc}
      */
-    public abstract static function parent(string $path) : string;
+    public static function parent(string $path) : string
+    {
+        return static::getClassType($path)::parent($path);
+    }
 
     /**
      * {@inheritdoc}
      */
-    public abstract static function create(string $path) : bool;
+    public static function delete(string $path) : bool
+    {
+        return static::getClassType($path)::delete($path);
+    }
 
     /**
      * {@inheritdoc}
      */
-    public abstract static function delete(string $path) : bool;
+    public static function copy(string $from, string $to, bool $overwrite = false) : bool
+    {
+        return static::getClassType($from)::copy($from, $to, $overwrite);
+    }
 
     /**
      * {@inheritdoc}
      */
-    public abstract static function copy(string $from, string $to, bool $overwrite = false) : bool;
+    public static function move(string $from, string $to, bool $overwrite = false) : bool
+    {
+        return static::getClassType($from)::move($from, $to, $overwrite);
+    }
 
     /**
      * {@inheritdoc}
      */
-    public abstract static function move(string $from, string $to, bool $overwrite = false) : bool;
+    public static function size(string $path, bool $recursive = true) : int
+    {
+        return static::getClassType($path)::size($path, $recursive);
+    }
 
     /**
      * {@inheritdoc}
      */
-    public abstract static function size(string $path, bool $recursive = true) : int;
+    public static function exists(string $path) : bool
+    {
+        return static::getClassType($path)::exists($path);
+    }
 
     /**
      * {@inheritdoc}
      */
-    public abstract static function exists(string $path) : bool;
+    public static function name(string $path) : string
+    {
+        return static::getClassType($path)::name($path);
+    }
 
     /**
      * {@inheritdoc}
      */
-    public abstract static function name(string $path) : string;
+    public static function basename(string $path) : string
+    {
+        return static::getClassType($path)::basename($path);
+    }
 
     /**
      * {@inheritdoc}
      */
-    public abstract static function basename(string $path) : string;
+    public static function dirname(string $path) : string
+    {
+        return static::getClassType($path)::dirname($path);
+    }
 
     /**
      * {@inheritdoc}
      */
-    public abstract static function dirname(string $path) : string;
+    public static function dirpath(string $path) : string
+    {
+        return static::getClassType($path)::dirpath($path);
+    }
 
     /**
      * {@inheritdoc}
      */
-    public abstract static function dirpath(string $path) : string;
+    public static function count(string $path, bool $recursive = true, array $ignore = []) : int
+    {
+        return static::getClassType($path)::count($path, $recursive, $ignore);
+    }
 
     /**
      * {@inheritdoc}
      */
-    public abstract static function list(string $path, string $filter = '*') : array;
-
-    /**
-     * {@inheritdoc}
-     */
-    public abstract static function count(string $path, bool $recursive = true, array $ignore = []) : int;
-
-    /**
-     * {@inheritdoc}
-     */
-    public abstract static function put(string $path, string $content, int $mode = 0) : bool;
-
-    /**
-     * {@inheritdoc}
-     */
-    public abstract static function get(string $path) : string;
-
-    /**
-     * {@inheritdoc}
-     */
-    public abstract static function sanitize(string $path, string $replace = '') : string;
-
-    /**
-     * {@inheritdoc}
-     */
-    public abstract static function set(string $path, string $content) : bool;
-
-    /**
-     * {@inheritdoc}
-     */
-    public abstract static function append(string $path, string $content) : bool;
-
-    /**
-     * {@inheritdoc}
-     */
-    public abstract static function prepend(string $path, string $content) : bool;
-
-    /**
-     * {@inheritdoc}
-     */
-    public abstract static function extension(string $path) : string;
+    public static function sanitize(string $path, string $replace = '') : string
+    {
+        return static::getClassType($path)::sanitize($path, $replace);
+    }
 }

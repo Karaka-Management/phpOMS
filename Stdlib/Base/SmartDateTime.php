@@ -4,14 +4,13 @@
  *
  * PHP Version 7.1
  *
- * @category   TBD
  * @package    TBD
  * @copyright  Dennis Eichhorn
  * @license    OMS License 1.0
  * @version    1.0.0
- * @link       http://orange-management.com
+ * @link       http://website.orange-management.de
  */
-declare(strict_types=1);
+declare(strict_types = 1);
 
 namespace phpOMS\Stdlib\Base;
 
@@ -22,10 +21,9 @@ use phpOMS\Math\Functions\Functions;
  *
  * Providing smarter datetimes
  *
- * @category   Framework
- * @package    phpOMS\Datatypes
+ * @package    Framework
  * @license    OMS License 1.0
- * @link       http://orange-management.com
+ * @link       http://website.orange-management.de
  * @since      1.0.0
  */
 class SmartDateTime extends \DateTime
@@ -46,14 +44,6 @@ class SmartDateTime extends \DateTime
      */
     /* public */ const TIMEZONE = 'UTC';
 
-    /**
-     * {@inheritdoc}
-     */
-    public function __construct($time = 'now', $timezone = null)
-    {
-        parent::__construct($time, $timezone);
-    }
-    
     /**
      * Create object from DateTime
      *
@@ -102,24 +92,24 @@ class SmartDateTime extends \DateTime
      */
     public function smartModify(int $y, int $m = 0, int $d = 0, int $calendar = CAL_GREGORIAN) : SmartDateTime
     {
-        $y_change    = (int) floor(((int) $this->format('m') - 1 + $m) / 12);
-        $y_change    = ((int) $this->format('m') - 1 + $m) < 0 && ((int) $this->format('m') - 1 + $m) % 12 === 0 ? $y_change - 1 : $y_change;
-        $y_new       = (int) $this->format('Y') + $y + $y_change;
-        $m_new       = ((int) $this->format('m') + $m) % 12;
-        $m_new       = $m_new === 0 ? 12 : $m_new < 0 ? 12 + $m_new : $m_new;
-        $d_month_old = cal_days_in_month($calendar, (int) $this->format('m'), (int) $this->format('Y'));
-        $d_month_new = cal_days_in_month($calendar, $m_new, $y_new);
-        $d_old       = (int) $this->format('d');
+        $yearChange  = (int) floor(((int) $this->format('m') - 1 + $m) / 12);
+        $yearChange  = ((int) $this->format('m') - 1 + $m) < 0 && ((int) $this->format('m') - 1 + $m) % 12 === 0 ? $yearChange - 1 : $yearChange;
+        $yearNew     = (int) $this->format('Y') + $y + $yearChange;
+        $monthNew    = ((int) $this->format('m') + $m) % 12;
+        $monthNew    = $monthNew === 0 ? 12 : $monthNew < 0 ? 12 + $monthNew : $monthNew;
+        $dayMonthOld = cal_days_in_month($calendar, (int) $this->format('m'), (int) $this->format('Y'));
+        $dayMonthNew = cal_days_in_month($calendar, $monthNew, $yearNew);
+        $dayOld      = (int) $this->format('d');
 
-        if ($d_old > $d_month_new) {
-            $d_new = $d_month_new;
-        } elseif ($d_old < $d_month_new && $d_old === $d_month_old) {
-            $d_new = $d_month_new;
+        if ($dayOld > $dayMonthNew) {
+            $dayNew = $dayMonthNew;
+        } elseif ($dayOld < $dayMonthNew && $dayOld === $dayMonthOld) {
+            $dayNew = $dayMonthNew;
         } else {
-            $d_new = $d_old;
+            $dayNew = $dayOld;
         }
 
-        $this->setDate($y_new, $m_new, $d_new);
+        $this->setDate($yearNew, $monthNew, $dayNew);
 
         if ($d !== 0) {
             $this->modify($d . ' day');
@@ -230,20 +220,9 @@ class SmartDateTime extends \DateTime
      */
     public static function getDayOfWeek(int $y, int $m, int $d) : int
     {
-        $w  = 1;
-        $y  = ($y - 1) % 400 + 1;
-        $ly = ($y - 1) / 4;
-        $ly = $ly - ($y - 1) / 100;
-        $ly = $ly + ($y - 1) / 400;
-        $ry = $y - 1 - $ly;
-        $w  = $w + $ry;
-        $w  = $w + 2 * $ly;
-        $w  = $w + date("z", mktime(0, 0, 0, $m, $d, $y)) + 1;
-        $w = ($w - 1) % 7 + 1;
-
-        return $w === 7 ? 0 : $w;
+        return (int) date('w', strtotime($d . '-' . $m . '-' . $y));
     }
-    
+
     /**
      * Get day of week
      *
@@ -268,33 +247,34 @@ class SmartDateTime extends \DateTime
     public function getMonthCalendar(int $weekStartsWith = 0) : array
     {
         $days = [];
-        
+
         // get day of first day in month
         $firstDay = $this->getFirstDayOfMonth();
-        
+
         // calculate difference to $weekStartsWith
         $diffToWeekStart = Functions::mod($firstDay - $weekStartsWith, 7);
         $diffToWeekStart = $diffToWeekStart === 0 ? 7 : $diffToWeekStart;
 
         // get days of previous month
-        $previousMonth = $this->createModify(0, -1);
+        $previousMonth     = $this->createModify(0, -1);
         $daysPreviousMonth = $previousMonth->getDaysOfMonth();
-        
+
         // add difference to $weekStartsWith counting backwards from days of previous month (reorder so that lowest value first)
-        for($i = $daysPreviousMonth - $diffToWeekStart; $i < $daysPreviousMonth; $i++) {
-            $days[] = new \DateTime($previousMonth->format('Y') . '-' . $previousMonth->format('m') . '-' . ($i+1));
+        for ($i = $daysPreviousMonth - $diffToWeekStart; $i < $daysPreviousMonth; $i++) {
+            $days[] = new \DateTime($previousMonth->format('Y') . '-' . $previousMonth->format('m') . '-' . ($i + 1));
         }
-        
+
         // add normal count of current days
         $daysMonth = $this->getDaysOfMonth();
-        for($i = 1; $i <= $daysMonth; $i++) {
+        for ($i = 1; $i <= $daysMonth; $i++) {
             $days[] = new \DateTime($this->format('Y') . '-' . $this->format('m') . '-' . ($i));
         }
-        
+
         // add remaining days to next month (7*6 - difference+count of current month)
         $remainingDays = 42 - $diffToWeekStart - $daysMonth;
-        $nextMonth = $this->createModify(0, 1);
-        for($i = 1; $i <= $remainingDays; $i++) {
+        $nextMonth     = $this->createModify(0, 1);
+
+        for ($i = 1; $i <= $remainingDays; $i++) {
             $days[] = new \DateTime($nextMonth->format('Y') . '-' . $nextMonth->format('m') . '-' . ($i));
         }
 

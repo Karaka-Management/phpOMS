@@ -4,14 +4,13 @@
  *
  * PHP Version 7.1
  *
- * @category   TBD
  * @package    TBD
  * @copyright  Dennis Eichhorn
  * @license    OMS License 1.0
  * @version    1.0.0
- * @link       http://orange-management.com
+ * @link       http://website.orange-management.de
  */
-declare(strict_types=1);
+declare(strict_types = 1);
 
 namespace phpOMS\Math\Stochastic\Distribution;
 
@@ -20,10 +19,9 @@ use phpOMS\Math\Functions\Functions;
 /**
  * Binomial distribution.
  *
- * @category   Framework
- * @package    phpOMS\DataStorage\Database
+ * @package    Framework
  * @license    OMS License 1.0
- * @link       http://orange-management.com
+ * @link       http://website.orange-management.de
  * @since      1.0.0
  */
 class BinomialDistribution
@@ -67,7 +65,7 @@ class BinomialDistribution
      */
     public static function getMgf(int $n, float $t, float $p) : float
     {
-        return pow(1 - $p + $p * exp($t), $n);
+        return (float) pow(1 - $p + $p * exp($t), $n);
     }
 
     /**

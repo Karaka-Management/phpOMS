@@ -4,14 +4,13 @@
  *
  * PHP Version 7.1
  *
- * @category   TBD
  * @package    TBD
  * @copyright  Dennis Eichhorn
  * @license    OMS License 1.0
  * @version    1.0.0
- * @link       http://orange-management.com
+ * @link       http://website.orange-management.de
  */
-declare(strict_types=1);
+declare(strict_types = 1);
 
 namespace phpOMS\DataStorage\Database\Connection;
 
@@ -27,10 +26,9 @@ use phpOMS\DataStorage\Database\Exception\InvalidConnectionConfigException;
  * Handles the database connection.
  * Implementing wrapper functions for multiple databases is planned (far away).
  *
- * @category   Framework
- * @package    phpOMS\DataStorage\Database
+ * @package    Framework
  * @license    OMS License 1.0
- * @link       http://orange-management.com
+ * @link       http://website.orange-management.de
  * @since      1.0.0
  */
 class MysqlConnection extends ConnectionAbstract
@@ -59,33 +57,12 @@ class MysqlConnection extends ConnectionAbstract
     public function connect(array $dbdata = null) /* : void */
     {
         $this->dbdata = isset($dbdata) ? $dbdata : $this->dbdata;
-        
-        if(!isset($this->dbdata['db'])) {
-            throw new InvalidConnectionConfigException('db');
-        }
 
-        if(!isset($this->dbdata['host'])) {
-            throw new InvalidConnectionConfigException('host');
-        }
-
-        if(!isset($this->dbdata['port'])) {
-            throw new InvalidConnectionConfigException('port');
-        }
-
-        if(!isset($this->dbdata['database'])) {
-            throw new InvalidConnectionConfigException('database');
-        }
-
-        if(!isset($this->dbdata['login'])) {
-            throw new InvalidConnectionConfigException('login');
-        }
-
-        if(!isset($this->dbdata['password'])) {
-            throw new InvalidConnectionConfigException('password');
+        if (!isset($this->dbdata['db'], $this->dbdata['host'], $this->dbdata['port'], $this->dbdata['database'], $this->dbdata['login'], $this->dbdata['password'])) {
+            throw new InvalidConnectionConfigException(json_encode($this->dbdata));
         }
 
         $this->close();
-        
         $this->prefix = $dbdata['prefix'] ?? '';
 
         try {
@@ -101,5 +78,4 @@ class MysqlConnection extends ConnectionAbstract
             $this->dbdata['password'] = '****';
         }
     }
-
 }

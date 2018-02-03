@@ -4,14 +4,13 @@
  *
  * PHP Version 7.1
  *
- * @category   TBD
- * @package    TBD
+ * @package    Framework
  * @copyright  Dennis Eichhorn
  * @license    OMS License 1.0
  * @version    1.0.0
- * @link       http://orange-management.com
+ * @link       http://website.orange-management.de
  */
-declare(strict_types=1);
+declare(strict_types = 1);
 
 namespace phpOMS\Message;
 
@@ -20,10 +19,9 @@ use phpOMS\Localization\Localization;
 /**
  * Response class.
  *
- * @category   Framework
- * @package    phpOMS\Response
+ * @package    Framework
  * @license    OMS License 1.0
- * @link       http://orange-management.com
+ * @link       http://website.orange-management.de
  * @since      1.0.0
  */
 abstract class HeaderAbstract
@@ -35,7 +33,7 @@ abstract class HeaderAbstract
      * @since 1.0.0
      */
     protected static $isLocked = false;
-    
+
     /**
      * Localization.
      *
@@ -43,7 +41,7 @@ abstract class HeaderAbstract
      * @since 1.0.0
      */
     protected $l11n = null;
-    
+
     /**
      * Account.
      *
@@ -51,7 +49,7 @@ abstract class HeaderAbstract
      * @since 1.0.0
      */
     protected $account = 0;
-    
+
     /**
      * Response status.
      *
@@ -69,7 +67,7 @@ abstract class HeaderAbstract
     {
         $this->l11n = new Localization();
     }
-    
+
     /**
      * Set header locked.
      *
@@ -80,7 +78,7 @@ abstract class HeaderAbstract
         // todo: maybe pass session as member and make lock not static
         self::$isLocked = true;
     }
-    
+
     /**
      * Is header locked?
      *
@@ -109,7 +107,7 @@ abstract class HeaderAbstract
      * Set localization
      *
      * @param Localization $l11n Localization
-     * 
+     *
      * @return void
      *
      * @since  1.0.0
@@ -135,7 +133,7 @@ abstract class HeaderAbstract
      * Set account id
      *
      * @param int $account Account id
-     * 
+     *
      * @return void
      *
      * @since  1.0.0
@@ -144,12 +142,12 @@ abstract class HeaderAbstract
     {
         $this->account = $account;
     }
-    
+
     /**
      * Set status code
      *
      * @param int $status Status code
-     * 
+     *
      * @return void
      *
      * @since  1.0.0
@@ -167,7 +165,7 @@ abstract class HeaderAbstract
      *
      * @since  1.0.0
      */
-    abstract public function generate(int $statusCode) /* : void */;
+    abstract public function generate(int $statusCode); /* : void */
 
     /**
      * Get status code

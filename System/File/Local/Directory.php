@@ -4,14 +4,13 @@
  *
  * PHP Version 7.1
  *
- * @category   TBD
  * @package    TBD
  * @copyright  Dennis Eichhorn
  * @license    OMS License 1.0
  * @version    1.0.0
- * @link       http://orange-management.com
+ * @link       http://website.orange-management.de
  */
-declare(strict_types=1);
+declare(strict_types = 1);
 
 namespace phpOMS\System\File\Local;
 
@@ -25,10 +24,9 @@ use phpOMS\Utils\StringUtils;
  *
  * Performing operations on the file system
  *
- * @category   Framework
- * @package    phpOMS\System\File
+ * @package    Framework
  * @license    OMS License 1.0
- * @link       http://orange-management.com
+ * @link       http://website.orange-management.de
  * @since      1.0.0
  */
 class Directory extends FileAbstract implements DirectoryInterface
@@ -115,7 +113,7 @@ class Directory extends FileAbstract implements DirectoryInterface
             new \RecursiveDirectoryIterator($path, \RecursiveDirectoryIterator::SKIP_DOTS),
             \RecursiveIteratorIterator::SELF_FIRST) as $item
         ) {
-            if($item->getExtension() === $extension) {
+            if ($item->getExtension() === $extension) {
                 $list[] = str_replace('\\', '/', $iterator->getSubPathName());
             }
         }
@@ -144,8 +142,8 @@ class Directory extends FileAbstract implements DirectoryInterface
      */
     public function addNode($file) : bool
     {
-        $this->count += $file->getCount();
-        $this->size += $file->getSize();
+        $this->count                  += $file->getCount();
+        $this->size                   += $file->getSize();
         $this->nodes[$file->getName()] = $file;
 
         return $file->createNode();
@@ -156,27 +154,23 @@ class Directory extends FileAbstract implements DirectoryInterface
      */
     public static function size(string $dir, bool $recursive = true) : int
     {
-        if (!file_exists($dir)) {
+        if (!file_exists($dir) || !is_readable($dir)) {
             throw new PathException($dir);
         }
 
-        $countSize = 0;
-        $count     = 0;
+        $countSize   = 0;
+        $directories = scandir($dir);
 
-        if (is_readable($dir)) {
-            $dir_array = scandir($dir);
+        foreach ($directories as $key => $filename) {
+            if ($filename === ".." || $filename === ".") {
+                continue;
+            }
 
-            foreach ($dir_array as $key => $filename) {
-                if ($filename != ".." && $filename != ".") {
-                    if (is_dir($dir . "/" . $filename) && $recursive) {
-                        $countSize += self::size($dir . "/" . $filename, $recursive);
-                    } else {
-                        if (is_file($dir . "/" . $filename)) {
-                            $countSize += filesize($dir . "/" . $filename);
-                            $count++;
-                        }
-                    }
-                }
+            $path = $dir . "/" . $filename;
+            if (is_dir($path) && $recursive) {
+                $countSize += self::size($path, $recursive);
+            } elseif (is_file($path)) {
+                $countSize += filesize($path);
             }
         }
 
@@ -192,8 +186,8 @@ class Directory extends FileAbstract implements DirectoryInterface
             throw new PathException($path);
         }
 
-        $size  = 0;
-        $files = scandir($path);
+        $size     = 0;
+        $files    = scandir($path);
         $ignore[] = '.';
         $ignore[] = '..';
 
@@ -254,7 +248,7 @@ class Directory extends FileAbstract implements DirectoryInterface
      */
     public static function created(string $path) : \DateTime
     {
-        if(!file_exists($path)) {
+        if (!file_exists($path)) {
             throw new PathException($path);
         }
 
@@ -312,14 +306,12 @@ class Directory extends FileAbstract implements DirectoryInterface
             throw new PathException($from);
         }
 
-        if(!$overwrite && file_exists($to)) {
-            return false;
-        }
-
         if (!file_exists($to)) {
-            self::create($to, 0644, true);
-        } elseif($overwrite && file_exists($to)) {
+            self::create($to, 0755, true);
+        } elseif ($overwrite && file_exists($to)) {
             self::delete($to);
+        } else {
+            return false;
         }
 
         foreach ($iterator = new \RecursiveIteratorIterator(
@@ -347,12 +339,12 @@ class Directory extends FileAbstract implements DirectoryInterface
 
         if (!$overwrite && file_exists($to)) {
             return false;
-        } elseif($overwrite && file_exists($to)) {
+        } elseif ($overwrite && file_exists($to)) {
             self::delete($to);
         }
 
         if (!self::exists(self::parent($to))) {
-            self::create(self::parent($to), 0644, true);
+            self::create(self::parent($to), 0755, true);
         }
 
         rename($from, $to);
@@ -397,10 +389,10 @@ class Directory extends FileAbstract implements DirectoryInterface
     /**
      * {@inheritdoc}
      */
-    public static function create(string $path, int $permission = 0644, bool $recursive = false) : bool
+    public static function create(string $path, int $permission = 0755, bool $recursive = false) : bool
     {
         if (!file_exists($path)) {
-            if(!$recursive && !file_exists(self::parent($path))) {
+            if (!$recursive && !file_exists(self::parent($path))) {
                 return false;
             }
 
@@ -419,7 +411,7 @@ class Directory extends FileAbstract implements DirectoryInterface
     {
         if (isset($this->nodes[$name])) {
             $this->count -= $this->nodes[$name]->getCount();
-            $this->size -= $this->nodes[$name]->getSize();
+            $this->size  -= $this->nodes[$name]->getSize();
 
             unset($this->nodes[$name]);
 
@@ -540,7 +532,7 @@ class Directory extends FileAbstract implements DirectoryInterface
      */
     public function getParent() : ContainerInterface
     {
-        // TODO: Implement getParent() method.
+        return new self(self::parent($this->path));
     }
 
     /**
@@ -548,7 +540,7 @@ class Directory extends FileAbstract implements DirectoryInterface
      */
     public function copyNode(string $to, bool $overwrite = false) : bool
     {
-        // TODO: Implement copyNode() method.
+        return self::copy($this->path, $to, $overwrite);
     }
 
     /**
@@ -556,7 +548,7 @@ class Directory extends FileAbstract implements DirectoryInterface
      */
     public function moveNode(string $to, bool $overwrite = false) : bool
     {
-        // TODO: Implement moveNode() method.
+        return self::move($this->path, $to, $overwrite);
     }
 
     /**
@@ -564,17 +556,13 @@ class Directory extends FileAbstract implements DirectoryInterface
      */
     public function deleteNode() : bool
     {
-        // TODO: Implement deleteNode() method.
+        return self::delete($this->path);
+
+        // todo: remove from node list
     }
 
     /**
-     * Offset to retrieve
-     * @link  http://php.net/manual/en/arrayaccess.offsetget.php
-     * @param mixed $offset <p>
-     *                      The offset to retrieve.
-     *                      </p>
-     * @return mixed Can return all value types.
-     * @since 5.0.0
+     * {@inheritdoc}
      */
     public function offsetGet($offset)
     {

@@ -4,14 +4,13 @@
  *
  * PHP Version 7.1
  *
- * @category   TBD
  * @package    TBD
  * @copyright  Dennis Eichhorn
  * @license    OMS License 1.0
  * @version    1.0.0
- * @link       http://orange-management.com
+ * @link       http://website.orange-management.de
  */
-declare(strict_types=1);
+declare(strict_types = 1);
 
 namespace phpOMS\DataStorage\Session;
 
@@ -22,11 +21,12 @@ use phpOMS\DataStorage\LockException;
 /**
  * Http session class.
  *
- * @category   Framework
- * @package    phpOMS\DataStorage\Session
+ * @package    Framework
  * @license    OMS License 1.0
- * @link       http://orange-management.com
+ * @link       http://website.orange-management.de
  * @since      1.0.0
+ * 
+ * @SuppressWarnings(PHPMD.Superglobals)
  */
 class HttpSession implements SessionInterface
 {
@@ -54,7 +54,7 @@ class HttpSession implements SessionInterface
      * @since 1.0.0
      */
     private $sid = null;
-    
+
     /**
      * Inactivity Interval.
      *
@@ -80,26 +80,30 @@ class HttpSession implements SessionInterface
             throw new LockException('HttpSession');
         }
 
+        if (session_id()) {
+            session_write_close();
+        }
+
         if (!is_bool($sid)) {
             session_id($sid);
         }
-        
+
         $this->inactivityInterval = $inactivityInterval;
 
-        if(session_status() !== PHP_SESSION_ACTIVE && !headers_sent()) {
+        if (session_status() !== PHP_SESSION_ACTIVE && !headers_sent()) {
             session_set_cookie_params($liftetime, '/', '', false, true);
             session_start();
         }
-        
-        if($this->inactivityInterval > 0 && ($this->inactivityInterval + ($_SESSION['lastActivity'] ?? 0) < time())) {
+
+        if ($this->inactivityInterval > 0 && ($this->inactivityInterval + ($_SESSION['lastActivity'] ?? 0) < time())) {
             $this->destroy();
         }
-        
-        $this->sessionData = $_SESSION;
-        $_SESSION          = null;
+
+        $this->sessionData                 = $_SESSION;
+        $_SESSION                          = null;
         $this->sessionData['lastActivity'] = time();
-        $this->sid = session_id();
-        
+        $this->sid                         = session_id();
+
         $this->setCsrfProtection();
     }
 
@@ -112,12 +116,12 @@ class HttpSession implements SessionInterface
     {
         $this->set('UID', 0, false);
 
-        if (($CSRF = $this->get('CSRF')) === null) {
-            $CSRF = StringUtils::generateString(10, 16);
-            $this->set('CSRF', $CSRF, false);
+        if (($csrf = $this->get('CSRF')) === null) {
+            $csrf = StringUtils::generateString(10, 16);
+            $this->set('CSRF', $csrf, false);
         }
 
-        UriFactory::setQuery('$CSRF', $CSRF);
+        UriFactory::setQuery('$CSRF', $csrf);
     }
 
     /**
@@ -143,11 +147,9 @@ class HttpSession implements SessionInterface
     }
 
     /**
-     * Lock session from further adjustments.
-     *
-     * @since  1.0.0
+     * {@inheritdoc}
      */
-    public function lock()
+    public function lock() /* : void */
     {
         self::$isLocked = true;
     }
@@ -169,7 +171,7 @@ class HttpSession implements SessionInterface
      */
     public function save() /* : void */
     {
-        if(!self::$isLocked) {
+        if (!self::$isLocked) {
             $_SESSION = $this->sessionData;
             session_write_close();
         }
@@ -204,7 +206,14 @@ class HttpSession implements SessionInterface
     {
         $this->sid = $sid;
     }
-    
+
+    /**
+     * Destroy the current session.
+     *
+     * @return void
+     *
+     * @since  1.0.0
+     */
     private function destroy() /* : void */
     {
         session_destroy();
@@ -221,5 +230,4 @@ class HttpSession implements SessionInterface
     {
         $this->save();
     }
-
 }

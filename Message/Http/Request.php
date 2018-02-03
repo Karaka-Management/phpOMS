@@ -4,14 +4,13 @@
  *
  * PHP Version 7.1
  *
- * @category   TBD
- * @package    TBD
+ * @package    Framework
  * @copyright  Dennis Eichhorn
  * @license    OMS License 1.0
  * @version    1.0.0
- * @link       http://orange-management.com
+ * @link       http://website.orange-management.de
  */
-declare(strict_types=1);
+declare(strict_types = 1);
 
 namespace phpOMS\Message\Http;
 
@@ -26,11 +25,12 @@ use phpOMS\Uri\UriInterface;
 /**
  * Request class.
  *
- * @category   Framework
- * @package    phpOMS\Request
+ * @package    Framework
  * @license    OMS License 1.0
- * @link       http://orange-management.com
+ * @link       http://website.orange-management.de
  * @since      1.0.0
+ * 
+ * @SuppressWarnings(PHPMD.Superglobals)
  */
 class Request extends RequestAbstract
 {
@@ -76,6 +76,7 @@ class Request extends RequestAbstract
     {
         $this->header = new Header();
         $this->header->setL11n($l11n ?? new Localization());
+        $this->setMethod(RequestMethod::GET);
 
         $this->uri    = $uri;
         $this->source = RequestSource::WEB;
@@ -100,11 +101,10 @@ class Request extends RequestAbstract
             $this->initCurrentRequest();
             $this->lock();
             $this->cleanupGlobals();
+            $this->setupUriBuilder();
         }
 
         $this->data = array_change_key_case($this->data, CASE_LOWER);
-
-        $this->setupUriBuilder();
     }
 
     /**
@@ -118,9 +118,9 @@ class Request extends RequestAbstract
      */
     private function initCurrentRequest() /* : void */
     {
-        $this->uri      = new Http(Http::getCurrent());
-        $this->data     = $_GET ?? [];
-        $this->files    = $_FILES ?? [];
+        $this->uri   = new Http(Http::getCurrent());
+        $this->data  = $_GET ?? [];
+        $this->files = $_FILES ?? [];
         $this->header->getL11n()->setLanguage($this->loadRequestLanguage());
 
         if (isset($_SERVER['CONTENT_TYPE'])) {
@@ -148,7 +148,7 @@ class Request extends RequestAbstract
      */
     private function loadRequestLanguage() : string
     {
-        if(!isset($_SERVER['HTTP_ACCEPT_LANGUAGE'])) {
+        if (!isset($_SERVER['HTTP_ACCEPT_LANGUAGE'])) {
             return 'EN';
         }
 
@@ -185,7 +185,7 @@ class Request extends RequestAbstract
         UriFactory::setQuery('/lang', $this->header->getL11n()->getLanguage());
 
         // todo: flush previous
-        foreach($this->data as $key => $value) {
+        foreach ($this->data as $key => $value) {
             UriFactory::setQuery('?' . $key, $value);
         }
     }
@@ -227,8 +227,8 @@ class Request extends RequestAbstract
     public function createRequestHashs(int $start = 0) /* : void */
     {
         $this->hash = [];
-        $pathArray = $this->uri->getPathElements();
-        
+        $pathArray  = $this->uri->getPathElements();
+
         foreach ($pathArray as $key => $path) {
             $paths = [];
             for ($i = $start; $i < $key + 1; $i++) {
@@ -281,13 +281,14 @@ class Request extends RequestAbstract
     public function getBrowser() : string
     {
         if (!isset($this->browser)) {
-            $arr               = BrowserType::getConstants();
-            $http_request_type = strtolower($_SERVER['HTTP_USER_AGENT']);
+            $arr           = BrowserType::getConstants();
+            $httpUserAgent = strtolower($_SERVER['HTTP_USER_AGENT']);
 
             foreach ($arr as $key => $val) {
-                if (stripos($http_request_type, $val)) {
+                if (stripos($httpUserAgent, $val)) {
                     $this->browser = $val;
-                    break;
+
+                    return $this->browser;
                 }
             }
         }
@@ -319,13 +320,14 @@ class Request extends RequestAbstract
     public function getOS() : string
     {
         if (!isset($this->os)) {
-            $arr               = OSType::getConstants();
-            $http_request_type = strtolower($_SERVER['HTTP_USER_AGENT']);
-            
+            $arr           = OSType::getConstants();
+            $httpUserAgent = strtolower($_SERVER['HTTP_USER_AGENT']);
+
             foreach ($arr as $key => $val) {
-                if (stripos($http_request_type, $val)) {
+                if (stripos($httpUserAgent, $val)) {
                     $this->os = $val;
-                    break;
+
+                    return $this->os;
                 }
             }
         }
@@ -370,8 +372,7 @@ class Request extends RequestAbstract
             throw new \OutOfRangeException('Value "' . $port . '" is out of range.');
         }
 
-        return
-            (!empty($_SERVER['HTTPS'] ?? '') && ($_SERVER['HTTPS'] ?? '') !== 'off')
+        return (!empty($_SERVER['HTTPS'] ?? '') && ($_SERVER['HTTPS'] ?? '') !== 'off')
             || (($_SERVER['HTTP_X_FORWARDED_PROTO'] ?? '') === 'https')
             || (($_SERVER['HTTP_X_FORWARDED_SSL'] ?? '') === 'on')
             || ($_SERVER['SERVER_PORT'] ?? '') == $port;

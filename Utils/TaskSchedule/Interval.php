@@ -4,24 +4,22 @@
  *
  * PHP Version 7.1
  *
- * @category   TBD
  * @package    TBD
  * @copyright  Dennis Eichhorn
  * @license    OMS License 1.0
  * @version    1.0.0
- * @link       http://orange-management.com
+ * @link       http://website.orange-management.de
  */
-declare(strict_types=1);
+declare(strict_types = 1);
 
 namespace phpOMS\Utils\TaskSchedule;
 
 /**
  * Interval class for tasks.
  *
- * @category   Framework
- * @package    phpOMS\Utils\TaskSchedule
+ * @package    Framework
  * @license    OMS License 1.0
- * @link       http://orange-management.com
+ * @link       http://website.orange-management.de
  * @since      1.0.0
  */
 class Interval implements \Serializable
@@ -137,7 +135,7 @@ class Interval implements \Serializable
      */
     private function parseMinute(string $minute) : array
     {
-
+        return [$minute];
     }
 
     /**
@@ -151,7 +149,7 @@ class Interval implements \Serializable
      */
     private function parseHour(string $hour) : array
     {
-
+        return [$hour];
     }
 
     /**
@@ -165,7 +163,7 @@ class Interval implements \Serializable
      */
     private function parseDayOfMonth(string $dayOfMonth) : array
     {
-
+        return [$dayOfMonth];
     }
 
     /**
@@ -179,7 +177,7 @@ class Interval implements \Serializable
      */
     private function parseMonth(string $month) : array
     {
-
+        return [$month];
     }
 
     /**
@@ -193,7 +191,7 @@ class Interval implements \Serializable
      */
     private function parseDayOfWeek(string $dayOfWeek) : array
     {
-
+        return [$dayOfWeek];
     }
 
     /**
@@ -207,7 +205,7 @@ class Interval implements \Serializable
      */
     private function parseYear(string $year) : array
     {
-
+        return [$year];
     }
 
     /**

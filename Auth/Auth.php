@@ -4,18 +4,16 @@
  *
  * PHP Version 7.1
  *
- * @category   TBD
- * @package    TBD
+ * @package    phpOMS\Auth
  * @copyright  Dennis Eichhorn
  * @license    OMS License 1.0
  * @version    1.0.0
- * @link       http://orange-management.com
+ * @link       http://website.orange-management.de
  */
-declare(strict_types=1);
+declare(strict_types = 1);
 
 namespace phpOMS\Auth;
 
-use phpOMS\DataStorage\Database\Connection\ConnectionAbstract;
 use phpOMS\DataStorage\Session\SessionInterface;
 
 /**
@@ -23,44 +21,35 @@ use phpOMS\DataStorage\Session\SessionInterface;
  *
  * Responsible for authenticating and initializing the connection
  *
- * @category   Framework
  * @package    phpOMS\Auth
  * @license    OMS License 1.0
- * @link       http://orange-management.com
+ * @link       http://website.orange-management.de
  * @since      1.0.0
  */
 class Auth
 {
     /**
-     * Session instance.
-     *
-     * @var SessionInterface
-     * @since 1.0.0
-     */
-    private $session = null;
-
-    /**
      * Constructor.
      *
-     * @param SessionInterface   $session    Session
-     *
      * @since  1.0.0
+     * @codeCoverageIgnore
      */
-    public function __construct(SessionInterface $session)
+    private function __construct()
     {
-        $this->session = $session;
     }
 
     /**
      * Authenticates user.
      *
+     * @param SessionInterface   $session    Session
+     *
      * @return int
      *
      * @since  1.0.0
      */
-    public function authenticate() : int
+    public static function authenticate(SessionInterface $session) : int
     {
-        $uid = $this->session->get('UID');
+        $uid = $session->get('UID');
 
         return empty($uid) ? 0 : $uid;
     }
@@ -68,15 +57,14 @@ class Auth
     /**
      * Logout the given user.
      *
-     * @param int $uid User ID
+     * @param SessionInterface   $session    Session
      *
      * @return void
      *
      * @since  1.0.0
      */
-    public function logout(int $uid = null) /* : void */
+    public static function logout(SessionInterface $session) /* : void */
     {
-        // TODO: logout other users? If admin wants to kick a user for updates etc.
-        $this->session->remove('UID');
+        $session->remove('UID');
     }
 }

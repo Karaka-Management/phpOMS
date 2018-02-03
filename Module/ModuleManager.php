@@ -4,21 +4,22 @@
  *
  * PHP Version 7.1
  *
- * @category   TBD
- * @package    TBD
+ * @package    Framework
  * @copyright  Dennis Eichhorn
  * @license    OMS License 1.0
  * @version    1.0.0
- * @link       http://orange-management.com
+ * @link       http://website.orange-management.de
  */
-declare(strict_types=1);
+declare(strict_types = 1);
 
 namespace phpOMS\Module;
 
 use phpOMS\ApplicationAbstract;
 use phpOMS\Autoloader;
 use phpOMS\DataStorage\Database\DatabaseType;
+use phpOMS\DataStorage\Database\Exception\InvalidDatabaseTypeException;
 use phpOMS\Message\Http\Request;
+use phpOMS\Message\RequestAbstract;
 use phpOMS\System\File\PathException;
 use phpOMS\Module\Exception\InvalidModuleException;
 
@@ -27,10 +28,9 @@ use phpOMS\Module\Exception\InvalidModuleException;
  *
  * General module functionality such as listings and initialization.
  *
- * @category   Framework
- * @package    phpOMS\Module
+ * @package    Framework
  * @license    OMS License 1.0
- * @link       http://orange-management.com
+ * @link       http://website.orange-management.de
  * @since      1.0.0
  */
 class ModuleManager
@@ -102,20 +102,20 @@ class ModuleManager
      */
     public function __construct(ApplicationAbstract $app, string $modulePath = '')
     {
-        $this->app = $app;
+        $this->app        = $app;
         $this->modulePath = $modulePath;
     }
 
     /**
      * Get language files.
      *
-     * @param Request $request Request
+     * @param RequestAbstract $request Request
      *
      * @return array
      *
      * @since  1.0.0
      */
-    public function getLanguageFiles(Request $request) : array
+    public function getLanguageFiles(RequestAbstract $request) : array
     {
         $files = $this->getUriLoad($request);
 
@@ -132,13 +132,13 @@ class ModuleManager
     /**
      * Get modules that run on this page.
      *
-     * @param Request $request Request
+     * @param RequestAbstract $request Request
      *
      * @return array
      *
      * @since  1.0.0
      */
-    public function getUriLoad(Request $request) : array
+    public function getUriLoad(RequestAbstract $request) : array
     {
         if (!isset($this->uriLoad)) {
             switch ($this->app->dbPool->get('select')->getType()) {
@@ -148,7 +148,7 @@ class ModuleManager
 
                     $i = 1;
                     $c = count($uriHash);
-                    
+
                     for ($k = 0; $k < $c; $k++) {
                         $uriPdo .= ':pid' . $i . ',';
                         $i++;
@@ -175,6 +175,9 @@ class ModuleManager
                     $sth->execute();
 
                     $this->uriLoad = $sth->fetchAll(\PDO::FETCH_GROUP);
+                    break;
+                default: 
+                    throw new InvalidDatabaseTypeException($this->app->dbPool->get('select')->getType());
             }
         }
 
@@ -184,23 +187,32 @@ class ModuleManager
     /**
      * Get all installed modules that are active (not just on this uri).
      *
+     * @param bool $useCache Use Cache or load new
+     *
      * @return array
      *
      * @since  1.0.0
      */
-    public function getActiveModules() : array
+    public function getActiveModules(bool $useCache = true) : array
     {
-        if ($this->active === null) {
+        if ($this->active === null || !$useCache) {
             switch ($this->app->dbPool->get('select')->getType()) {
                 case DatabaseType::MYSQL:
                     $sth = $this->app->dbPool->get('select')->con->prepare('SELECT `module_path` FROM `' . $this->app->dbPool->get('select')->prefix . 'module` WHERE `module_active` = 1');
                     $sth->execute();
                     $this->active = $sth->fetchAll(\PDO::FETCH_COLUMN);
                     break;
+                default: 
+                    throw new InvalidDatabaseTypeException($this->app->dbPool->get('select')->getType());
             }
         }
 
         return $this->active;
+    }
+
+    public function isActive(string $module) : bool
+    {
+        return in_array($module, $this->getActiveModules(false));
     }
 
     /**
@@ -242,59 +254,29 @@ class ModuleManager
      */
     public function getAvailableModules() : array
     {
-    }
-
-    /**
-     * Deactivate module.
-     *
-     * @param string $module Module name
-     *
-     * @return bool
-     *
-     * @since  1.0.0
-     */
-    public function deactivate(string $module) : bool
-    {
-        $installed = $this->getInstalledModules();
-
-        if (isset($installed[$module])) {
-            return false;
-        }
-
-        try {
-            $info = $this->loadInfo($module);
-
-            $this->deactivateModule($info);
-
-            return true;
-        } catch (PathException $e) {
-            // todo: handle module doesn't exist or files are missing
-            //echo $e->getMessage();
-
-            return false;
-        } catch (\Exception $e) {
-            //echo $e->getMessage();
-
-            return false;
-        }
+        return [];
     }
 
     /**
      * Get all installed modules.
      *
+     * @param bool $useCache Use Cache
+     *
      * @return array
      *
      * @since  1.0.0
      */
-    public function getInstalledModules() : array
+    public function getInstalledModules(bool $useCache = true) : array
     {
-        if ($this->installed === null) {
+        if ($this->installed === null || !$useCache) {
             switch ($this->app->dbPool->get('select')->getType()) {
                 case DatabaseType::MYSQL:
                     $sth = $this->app->dbPool->get('select')->con->prepare('SELECT `module_id`,`module_theme`,`module_version` FROM `' . $this->app->dbPool->get('select')->prefix . 'module`');
                     $sth->execute();
                     $this->installed = $sth->fetchAll(\PDO::FETCH_GROUP);
                     break;
+                default: 
+                    throw new InvalidDatabaseTypeException($this->app->dbPool->get('select')->getType());
             }
         }
 
@@ -327,6 +309,41 @@ class ModuleManager
     /**
      * Deactivate module.
      *
+     * @param string $module Module name
+     *
+     * @return bool
+     *
+     * @since  1.0.0
+     */
+    public function deactivate(string $module) : bool
+    {
+        $installed = $this->getInstalledModules(false);
+
+        if (!isset($installed[$module])) {
+            return false;
+        }
+
+        try {
+            $info = $this->loadInfo($module);
+
+            $this->deactivateModule($info);
+
+            return true;
+        } catch (PathException $e) {
+            // todo: handle module doesn't exist or files are missing
+            //echo $e->getMessage();
+
+            return false;
+        } catch (\Exception $e) {
+            //echo $e->getMessage();
+
+            return false;
+        }
+    }
+
+    /**
+     * Deactivate module.
+     *
      * @param InfoManager $info Module info
      *
      * @return void
@@ -337,7 +354,7 @@ class ModuleManager
      */
     private function deactivateModule(InfoManager $info) /* : void */
     {
-        $class = '\\Modules\\' . $info->getDirectory() . '\\Admin\\Deactivate';
+        $class = '\\Modules\\' . $info->getDirectory() . '\\Admin\\Status';
 
         if (!Autoloader::exists($class)) {
             throw new InvalidModuleException($info->getDirectory());
@@ -358,9 +375,9 @@ class ModuleManager
      */
     public function activate(string $module) : bool
     {
-        $installed = $this->getInstalledModules();
+        $installed = $this->getInstalledModules(false);
 
-        if (isset($installed[$module])) {
+        if (!isset($installed[$module])) {
             return false;
         }
 
@@ -395,7 +412,7 @@ class ModuleManager
      */
     private function activateModule(InfoManager $info) /* : void */
     {
-        $class = '\\Modules\\' . $info->getDirectory() . '\\Admin\\Activate';
+        $class = '\\Modules\\' . $info->getDirectory() . '\\Admin\\Status';
 
         if (!Autoloader::exists($class)) {
             throw new InvalidModuleException($info->getDirectory());
@@ -410,15 +427,15 @@ class ModuleManager
      *
      * @param string $module Module name
      *
-     * @return bool
+     * @return void
      *
      * @throws InvalidModuleException Throws this exception in case the installer doesn't exist
      *
      * @since  1.0.0
      */
-    public function reInit(string $module) : bool
+    public function reInit(string $module) /* : void */
     {
-        $info = $this->loadInfo($module);
+        $info  = $this->loadInfo($module);
         $class = '\\Modules\\' . $info->getDirectory() . '\\Admin\\Installer';
 
         if (!Autoloader::exists($class)) {
@@ -440,7 +457,7 @@ class ModuleManager
      */
     public function install(string $module) : bool
     {
-        $installed = $this->getInstalledModules();
+        $installed = $this->getInstalledModules(false);
 
         if (isset($installed[$module])) {
             return false;
@@ -471,13 +488,8 @@ class ModuleManager
 
             return true;
         } catch (PathException $e) {
-            // todo: handle module doesn't exist or files are missing
-            //echo $e->getMessage();
-
             return false;
         } catch (\Exception $e) {
-            //echo $e->getMessage();
-
             return false;
         }
     }
@@ -537,8 +549,7 @@ class ModuleManager
     {
         if (file_exists($this->modulePath . '/' . $from . '/Admin/Install/' . $for . '.php')) {
             $class = '\\Modules\\' . $from . '\\Admin\\Install\\' . $for;
-            /** @var $class InstallerAbstract */
-            $class::install($this->modulePath, $this->app->dbPool, null);
+            $class::install($this->modulePath, $this->app->dbPool);
         }
     }
 
@@ -626,7 +637,7 @@ class ModuleManager
     {
         $toInit = $this->getRoutedModules($request);
 
-        foreach($toInit as $module) {
+        foreach ($toInit as $module) {
             $this->initModuleController($module);
         }
     }

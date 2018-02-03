@@ -4,14 +4,13 @@
  *
  * PHP Version 7.1
  *
- * @category   TBD
  * @package    TBD
  * @copyright  Dennis Eichhorn
  * @license    OMS License 1.0
  * @version    1.0.0
- * @link       http://orange-management.com
+ * @link       http://website.orange-management.de
  */
-declare(strict_types=1);
+declare(strict_types = 1);
 
 namespace phpOMS\Math\Functions;
 
@@ -20,10 +19,9 @@ use phpOMS\Math\Number\Numbers;
 /**
  * Well known functions class.
  *
- * @category   Framework
- * @package    phpOMS\Math\Function
+ * @package    Framework
  * @license    OMS License 1.0
- * @link       http://orange-management.com
+ * @link       http://website.orange-management.de
  * @since      1.0.0
  */
 class Fibunacci
@@ -53,20 +51,20 @@ class Fibunacci
      *
      * @since  1.0.0
      */
-    public static function fibunacci(int $n, int $start = 1) : int
+    public static function fib(int $n, int $start = 1) : int
     {
         if ($n < 3) {
             return $start;
         }
 
-        $old_1 = $start;
-        $old_2 = $start;
-        $fib   = 0;
+        $old1 = $start;
+        $old2 = $start;
+        $fib  = 0;
 
         for ($i = 2; $i < $n; $i++) {
-            $fib   = $old_1 + $old_2;
-            $old_1 = $old_2;
-            $old_2 = $fib;
+            $fib  = $old1 + $old2;
+            $old1 = $old2;
+            $old2 = $fib;
         }
 
         return $fib;

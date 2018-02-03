@@ -4,14 +4,13 @@
  *
  * PHP Version 7.1
  *
- * @category   TBD
  * @package    TBD
  * @copyright  Dennis Eichhorn
  * @license    OMS License 1.0
  * @version    1.0.0
- * @link       http://orange-management.com
+ * @link       http://website.orange-management.de
  */
-declare(strict_types=1);
+declare(strict_types = 1);
 
 namespace phpOMS\DataStorage\Database\Query;
 
@@ -21,10 +20,9 @@ use phpOMS\DataStorage\Database\Connection\ConnectionAbstract;
 /**
  * Database query builder.
  *
- * @category   Framework
- * @package    phpOMS\DataStorage\Database
+ * @package    Framework
  * @license    OMS License 1.0
- * @link       http://orange-management.com
+ * @link       http://website.orange-management.de
  * @since      1.0.0
  */
 class Builder extends BuilderAbstract
@@ -64,7 +62,7 @@ class Builder extends BuilderAbstract
     /**
      * Into.
      *
-     * @var array
+     * @var string|\Closure
      * @since 1.0.0
      */
     public $into = null;
@@ -152,7 +150,7 @@ class Builder extends BuilderAbstract
     /**
      * Offset.
      *
-     * @var array
+     * @var int
      * @since 1.0.0
      */
     public $offset = null;
@@ -180,14 +178,6 @@ class Builder extends BuilderAbstract
      * @since 1.0.0
      */
     public $lock = false;
-
-    /**
-     * Raw query.
-     *
-     * @var bool
-     * @since 1.0.0
-     */
-    public $raw = '';
 
     /**
      * Comparison OPERATORS.
@@ -229,6 +219,7 @@ class Builder extends BuilderAbstract
      * Constructor.
      *
      * @param ConnectionAbstract $connection Database connection
+     * @param bool $readOnly Query is read only
      *
      * @since  1.0.0
      */
@@ -352,27 +343,51 @@ class Builder extends BuilderAbstract
      *
      * @return Builder
      *
+     * @throws \Exception
+     *
      * @since  1.0.0
      */
     public function raw(string $raw) : Builder
     {
-        if($this->isReadOnly) {
-            $test = strtolower($raw);
-
-            if(strpos($test, 'insert') !== false 
-            || strpos($test, 'update') !== false
-            || strpos($test, 'drop') !== false
-            || strpos($test, 'delete') !== false
-            || strpos($test, 'create') !== false
-            || strpos($test, 'alter') !== false) {
-                throw new \Exception();
-            }
+        if (!$this->isValidReadOnly($raw)) {
+            throw new \Exception();
         }
 
         $this->type = QueryType::RAW;
         $this->raw  = rtrim($raw, ';');
 
         return $this;
+    }
+
+    /**
+     * Tests if a string contains a non read only component in case the builder is read only.
+     * If the builder is not read only it will always return true
+     *
+     * @param  string $raw Raw query
+     *
+     * @return bool
+     *
+     * @since  1.0.0
+     */
+    private function isValidReadOnly($raw) : bool
+    {
+        if (!$this->isReadOnly) {
+            return true;
+        }
+
+        $test = strtolower($raw);
+
+        if (strpos($test, 'insert') !== false
+            || strpos($test, 'update') !== false
+            || strpos($test, 'drop') !== false
+            || strpos($test, 'delete') !== false
+            || strpos($test, 'create') !== false
+            || strpos($test, 'alter') !== false
+        ) {
+            return false;
+        }
+
+        return true;
     }
 
     /**
@@ -398,7 +413,7 @@ class Builder extends BuilderAbstract
      *
      * @since  1.0.0
      */
-    public function distinct(...$columns) : Builder
+    public function distinct() : Builder
     {
         $this->distinct = true;
 
@@ -408,7 +423,7 @@ class Builder extends BuilderAbstract
     /**
      * From.
      *
-     * @param array $tables Tables
+     * @param string|array $tables Tables
      *
      * @return Builder
      *
@@ -446,7 +461,7 @@ class Builder extends BuilderAbstract
     /**
      * Where.
      *
-     * @param string|array|\Closure $columns  Columns
+     * @param Where|string|\Closure|array $columns  Columns
      * @param string|array          $operator Operator
      * @param mixed                 $values   Values
      * @param string|array          $boolean  Boolean condition
@@ -459,36 +474,31 @@ class Builder extends BuilderAbstract
      */
     public function where($columns, $operator = null, $values = null, $boolean = 'and') : Builder
     {
-        // TODO: handle $value is null -> operator NULL
         if (isset($operator) && !is_array($operator) && !in_array(strtolower($operator), self::OPERATORS)) {
             throw new \InvalidArgumentException('Unknown operator.');
         }
 
-        if (is_array($columns)) {
-            $i = 0;
-            foreach ($columns as $key => $column) {
-                if (isset($operator[$i]) && !in_array(strtolower($operator[$i]), self::OPERATORS)) {
-                    throw new \InvalidArgumentException('Unknown operator.');
-                }
+        if (is_string($columns)) {
+            $columns  = [$columns];
+            $operator = [$operator];
+            $values   = [$values];
+            $boolean  = [$boolean];
+        }
 
-                $this->wheres[self::getPublicColumnName($column)][] = [
-                    'column'   => $column,
-                    'operator' => $operator[$i],
-                    'value'    => $values[$i],
-                    'boolean'  => $boolean[$i],
-                ];
-
-                $i++;
-            }
-        } elseif (is_string($columns)) {
-            if (isset($operator) && !in_array(strtolower($operator), self::OPERATORS)) {
+        $i = 0;
+        foreach ($columns as $key => $column) {
+            if (isset($operator[$i]) && !in_array(strtolower($operator[$i]), self::OPERATORS)) {
                 throw new \InvalidArgumentException('Unknown operator.');
             }
 
-            $this->wheres[self::getPublicColumnName($columns)][] = ['column'  => $columns, 'operator' => $operator, 'value' => $values,
-                                     'boolean' => $boolean,];
-        } else {
-            throw new \InvalidArgumentException();
+            $this->wheres[self::getPublicColumnName($column)][] = [
+                'column'   => $column,
+                'operator' => $operator[$i],
+                'value'    => $values[$i],
+                'boolean'  => $boolean[$i],
+            ];
+
+            $i++;
         }
 
         return $this;
@@ -523,7 +533,7 @@ class Builder extends BuilderAbstract
      */
     public function getTableOfSystem($expression, string $systemIdentifier) /* : ?string */
     {
-        if(($pos = strpos($expression, $systemIdentifier . '.' . $systemIdentifier)) === false) {
+        if (($pos = strpos($expression, $systemIdentifier . '.' . $systemIdentifier)) === false) {
             return null;
         }
 
@@ -533,7 +543,9 @@ class Builder extends BuilderAbstract
     /**
      * Where and sub condition.
      *
-     * @param Where $where Where sub condition
+     * @param Where|string|\Closure|array $where Where sub condition
+     * @param mixed $operator Operator
+     * @param mixed $values Values
      *
      * @return Builder
      *
@@ -547,7 +559,9 @@ class Builder extends BuilderAbstract
     /**
      * Where or sub condition.
      *
-     * @param Where $where Where sub condition
+     * @param Where|string|\Closure|array $where Where sub condition
+     * @param mixed $operator Operator
+     * @param mixed $values Values
      *
      * @return Builder
      *
@@ -561,7 +575,7 @@ class Builder extends BuilderAbstract
     /**
      * Where in.
      *
-     * @param string|array|\Closure $column  Column
+     * @param Where|string|\Closure|array $column  Column
      * @param mixed                 $values  Values
      * @param string                $boolean Boolean condition
      *
@@ -579,7 +593,7 @@ class Builder extends BuilderAbstract
     /**
      * Where null.
      *
-     * @param string|array|\Closure $column  Column
+     * @param Where|string|\Closure|array $column  Column
      * @param string                $boolean Boolean condition
      *
      * @return Builder
@@ -596,7 +610,7 @@ class Builder extends BuilderAbstract
     /**
      * Where not null.
      *
-     * @param string|array|\Closure $column  Column
+     * @param Where|string|\Closure|array $column  Column
      * @param string                $boolean Boolean condition
      *
      * @return Builder
@@ -677,7 +691,7 @@ class Builder extends BuilderAbstract
     public function orderBy($columns, $order = 'DESC') : Builder
     {
         if (is_string($columns) || $columns instanceof \Closure) {
-            if(!isset($this->orders[$order])) {
+            if (!isset($this->orders[$order])) {
                 $this->orders[$order] = [];
             }
 
@@ -696,7 +710,7 @@ class Builder extends BuilderAbstract
     /**
      * Offset.
      *
-     * @param int|\Closure $offset Offset
+     * @param int $offset Offset
      *
      * @return Builder
      *
@@ -712,7 +726,7 @@ class Builder extends BuilderAbstract
     /**
      * Limit.
      *
-     * @param int|\Closure $limit Limit
+     * @param int $limit Limit
      *
      * @return Builder
      *
@@ -726,7 +740,7 @@ class Builder extends BuilderAbstract
     }
 
     /**
-     * Limit.
+     * Union.
      *
      * @param string|\phpOMS\DataStorage\Database\Query\Builder $query Query
      *
@@ -785,9 +799,13 @@ class Builder extends BuilderAbstract
     /**
      * Count results.
      *
+     * @param string $table Table to count the result set
+     *
+     * @return Builder
+     *
      * @since  1.0.0
      */
-    public function count(string $table = '*')
+    public function count(string $table = '*') : Builder
     {
         // todo: don't do this as string, create new object new Count(); this can get handled by the grammar parser WAY better
         return $this->select('COUNT(' . $table . ')');
@@ -836,11 +854,13 @@ class Builder extends BuilderAbstract
      *
      * @return Builder
      *
+     * @throws \Exception
+     *
      * @since  1.0.0
      */
     public function insert(...$columns) : Builder
     {
-        if($this->isReadOnly) {
+        if ($this->isReadOnly) {
             throw new \Exception();
         }
 
@@ -941,15 +961,17 @@ class Builder extends BuilderAbstract
     /**
      * Update columns.
      *
-     * @param array $columns Column names to update
+     * @param array $tables Column names to update
      *
      * @return Builder
+     *
+     * @throws \Exception
      *
      * @since  1.0.0
      */
     public function update(...$tables) : Builder
     {
-        if($this->isReadOnly) {
+        if ($this->isReadOnly) {
             throw new \Exception();
         }
 
@@ -968,7 +990,7 @@ class Builder extends BuilderAbstract
 
     public function delete() : Builder
     {
-        if($this->isReadOnly) {
+        if ($this->isReadOnly) {
             throw new \Exception();
         }
 
@@ -1098,46 +1120,50 @@ class Builder extends BuilderAbstract
     public function execute()
     {
         $sth = $this->connection->con->prepare($this->toSql());
-        
-        foreach($this->binds as $key => $bind) {
+
+        foreach ($this->binds as $key => $bind) {
             $type = self::getBindParamType($bind);
-            
+
             $sth->bindParam($key, $bind, $type);
         }
-        
+
         $sth->execute();
 
         return $sth;
     }
-    
+
     /**
      * Get bind parameter type.
      *
+     * @param mixed $value Value to bind
+     *
      * @return mixed
+     *
+     * @throws \Exception
      *
      * @since  1.0.0
      */
     public static function getBindParamType($value)
     {
-        if(is_int($value)) {
-            return PDO::PARAM_INT;
-        } elseif(is_string($value) || is_float($value)) {
-            return PDO::PARAM_STR;
+        if (is_int($value)) {
+            return \PDO::PARAM_INT;
+        } elseif (is_string($value) || is_float($value)) {
+            return \PDO::PARAM_STR;
         }
-        
+
         throw new \Exception();
     }
 
     public static function getPublicColumnName($column) : string
     {
-        if(is_string($column)) {
+        if (is_string($column)) {
             return $column;
-        } elseif($column instanceof Column) {
+        } elseif ($column instanceof Column) {
             return $column->getPublicName();
-        } elseif($column instanceof \Closure) {
+        } elseif ($column instanceof \Closure) {
             return $column();
-        } elseif($column instanceof \Serializable) {
-            return $column;
+        } elseif ($column instanceof \Serializable) {
+            return $column->serialize();
         }
 
         throw new \Exception();

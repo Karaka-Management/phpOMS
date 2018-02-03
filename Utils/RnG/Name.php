@@ -4,24 +4,22 @@
  *
  * PHP Version 7.1
  *
- * @category   TBD
  * @package    TBD
  * @copyright  Dennis Eichhorn
  * @license    OMS License 1.0
  * @version    1.0.0
- * @link       http://orange-management.com
+ * @link       http://website.orange-management.de
  */
-declare(strict_types=1);
+declare(strict_types = 1);
 
 namespace phpOMS\Utils\RnG;
 
 /**
  * Name generator.
  *
- * @category   Framework
- * @package    Utils\RnG
+ * @package    Framework
  * @license    OMS License 1.0
- * @link       http://orange-management.com
+ * @link       http://website.orange-management.de
  * @since      1.0.0
  */
 class Name
@@ -471,17 +469,17 @@ class Name
             'female' => ['none'],
             'male' => ['none'],
             'family' => [
-                'Հովհաննիսյան', 'Հարությունյան', 'Սարգսյան', 'Խաչատրյան', 'Գրիգորյան',
-                'আহমেদ', 'আলী', 'আক্তার', 'বন্দ্যোপাধ্যায়', 'নিক', 'ব্যাপারী', 'বড়ুয়া', 'বিশ্বাস', 'ভৌমিক', 'বসু', 
-                '王', '李', '张', '刘', '陈', '杨', '黄', '赵', '吴', '周', '徐', '孙', '马', '朱', '胡', '郭', '何', '高', '林', '罗',
-                'כהן', 'לוי', 'מזרחי', 'פרץ', 'ביטון', 'דהן', 'אברהם', 'פרידמן', 'מלכה', 'אזולאי', 'כץ', 'יוסף', 'דוד', 'עמר', 'אוחיון', 
-                '김', '리', '박', '최', '정', '강', '조', '윤', '장', '림', '한', '신', '서', '권', '황', '안', '송', '홍', '고', '문', '손', '량', 
-                'Yılmaz', 'Kaya', 'Demir', 'Şahin', 'Çelik', 'Yıldız', 'Yıldırım', 'Öztürk', 'Aydın', 'Özdemir', 'Arslan', 'Doğan', 'Kılıç', 'Aslan', 'Çetin', 'Kara', 'Koç', 'Kurt', 'Özkan', 'Şimşek', 
+                'Հովհաննիսյան', 'Հարությունյան', 'Սարգսյան', 'Խաչատրյան', 'Գրիգորյան', 'আহমেদ', 'আলী', 'আক্তার', 
+                'বন্দ্যোপাধ্যায়', 'নিক', 'ব্যাপারী', 'বড়ুয়া', 'বিশ্বাস', 'ভৌমিক', 'বসু', '王', '李', '张', '刘', '陈', '杨', 
+                '黄', '赵', '吴', '周', '徐', '孙', '马', '朱', '胡', '郭', '何', '高', '林', '罗', 'כהן', 'לוי', 
+                'מזרחי', 'פרץ', 'ביטון', 'דהן', 'אברהם', 'פרידמן', 'מלכה', 'אזולאי', 'כץ', 'יוסף', 'דוד', 'עמר', 
+                'אוחיון', '김', '리', '박', '최', '정', '강', '조', '윤', '장', '림', '한', '신', '서', '권', '황', 
+                '안', '송', '홍', '고', '문', '손', '량', 'Yılmaz', 'Kaya', 'Demir', 'Şahin', 'Çelik', 'Yıldız', 
+                'Yıldırım', 'Öztürk', 'Aydın', 'Özdemir', 'Arslan', 'Doğan', 'Kılıç', 'Aslan', 'Çetin', 'Kara', 
+                'Koç', 'Kurt', 'Özkan', 'Şimşek',
             ],
         ]
     ];
-
-
 
     /**
      * Get a random string.

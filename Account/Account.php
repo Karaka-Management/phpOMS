@@ -4,14 +4,13 @@
  *
  * PHP Version 7.1
  *
- * @category   TBD
- * @package    TBD
+ * @package    phpOMS\Account
  * @copyright  Dennis Eichhorn
  * @license    OMS License 1.0
  * @version    1.0.0
- * @link       http://orange-management.com
+ * @link       http://website.orange-management.de
  */
-declare(strict_types=1);
+declare(strict_types = 1);
 
 namespace phpOMS\Account;
 
@@ -22,14 +21,13 @@ use phpOMS\Validation\Network\Email;
 
 /**
  * Account class.
- * 
- * The account class is the base model for accounts. This model contains the most common account 
- * information. This model is not comparable to a profile which contains much more information. 
  *
- * @category   Framework
+ * The account class is the base model for accounts. This model contains the most common account
+ * information. This model is not comparable to a profile which contains much more information.
+ *
  * @package    phpOMS\Account
  * @license    OMS License 1.0
- * @link       http://orange-management.com
+ * @link       http://website.orange-management.de
  * @since      1.0.0
  */
 class Account implements ArrayableInterface, \JsonSerializable
@@ -136,7 +134,7 @@ class Account implements ArrayableInterface, \JsonSerializable
     /**
      * Account type.
      *
-     * @var AccountType|int
+     * @var int
      * @since 1.0.0
      */
     protected $type = AccountType::USER;
@@ -144,7 +142,7 @@ class Account implements ArrayableInterface, \JsonSerializable
     /**
      * Account status.
      *
-     * @var AccountStatus|int
+     * @var int
      * @since 1.0.0
      */
     protected $status = AccountStatus::INACTIVE;
@@ -159,7 +157,7 @@ class Account implements ArrayableInterface, \JsonSerializable
 
     /**
      * Constructor.
-     * 
+     *
      * The constructor automatically sets the created date as well as the last activity to now.
      *
      * @param int $id Account id
@@ -168,10 +166,10 @@ class Account implements ArrayableInterface, \JsonSerializable
      */
     public function __construct(int $id = 0)
     {
-        $this->createdAt = new \DateTime('now');
+        $this->createdAt  = new \DateTime('now');
         $this->lastActive = new \DateTime('now');
-        $this->id        = $id;
-        $this->l11n      = new NullLocalization();
+        $this->id         = $id;
+        $this->l11n       = new NullLocalization();
     }
 
     /**
@@ -188,7 +186,7 @@ class Account implements ArrayableInterface, \JsonSerializable
 
     /**
      * Get localization.
-     * 
+     *
      * Every account can have a different localization which can be accessed here.
      *
      * @return Localization
@@ -202,8 +200,8 @@ class Account implements ArrayableInterface, \JsonSerializable
 
     /**
      * Get groups.
-     * 
-     * Every account can belong to multiple groups. 
+     *
+     * Every account can belong to multiple groups.
      * These groups usually are used for permissions and categorize accounts.
      *
      * @return array Returns array of all groups
@@ -217,9 +215,9 @@ class Account implements ArrayableInterface, \JsonSerializable
 
     /**
      * Add group.
-     * 
+     *
      * @param mixed $group Group to add
-     * 
+     *
      * @return void
      *
      * @since  1.0.0
@@ -245,7 +243,7 @@ class Account implements ArrayableInterface, \JsonSerializable
 
     /**
      * Set permissions.
-     * 
+     *
      * The method accepts an array of permissions. All existing permissions are replaced.
      *
      * @param PermissionAbstract[] $permissions
@@ -261,7 +259,7 @@ class Account implements ArrayableInterface, \JsonSerializable
 
     /**
      * Add permissions.
-     * 
+     *
      * Adds permissions to the account
      *
      * @param PermissionAbstract[] $permissions Array of permissions to add to the account
@@ -277,7 +275,7 @@ class Account implements ArrayableInterface, \JsonSerializable
 
     /**
      * Add permission.
-     * 
+     *
      * Adds a single permission to the account
      *
      * @param PermissionAbstract $permission Permission to add to the account
@@ -293,7 +291,7 @@ class Account implements ArrayableInterface, \JsonSerializable
 
     /**
      * Get permissions.
-     * 
+     *
      * @return array
      *
      * @since  1.0.0
@@ -307,7 +305,7 @@ class Account implements ArrayableInterface, \JsonSerializable
      * Has permissions.
      *
      * Checks if the account has a permission defined
-     * 
+     *
      * @param int $permission Permission to check
      * @param int $unit Unit Unit to check (null if all are acceptable)
      * @param string $app App App to check  (null if all are acceptable)
@@ -324,14 +322,15 @@ class Account implements ArrayableInterface, \JsonSerializable
     {
         $app = isset($app) ? strtolower($app) : $app;
 
-        foreach($this->permissions as $p) {
-            if(($p->getUnit() === $unit || $p->getUnit() === null || !isset($unit))
-                && ($p->getApp() === $app || $p->getApp() === null || !isset($app)) 
-                && ($p->getModule() === $module || $p->getModule() === null || !isset($module)) 
-                && ($p->getType() === $type || $p->getType() === null || !isset($type)) 
-                && ($p->getElement() === $element || $p->getElement() === null || !isset($element)) 
-                && ($p->getComponent() === $component || $p->getComponent() === null || !isset($component)) 
-                && ($p->getPermission() | $permission) === $p->getPermission()) {
+        foreach ($this->permissions as $p) {
+            if (($p->getUnit() === $unit || $p->getUnit() === null || !isset($unit))
+                && ($p->getApp() === $app || $p->getApp() === null || !isset($app))
+                && ($p->getModule() === $module || $p->getModule() === null || !isset($module))
+                && ($p->getType() === $type || $p->getType() === null || !isset($type))
+                && ($p->getElement() === $element || $p->getElement() === null || !isset($element))
+                && ($p->getComponent() === $component || $p->getComponent() === null || !isset($component))
+                && ($p->getPermission() | $permission) === $p->getPermission()
+            ) {
                 return true;
             }
         }
@@ -447,7 +446,7 @@ class Account implements ArrayableInterface, \JsonSerializable
      * @param string $email Email
      *
      * @return void
-     * 
+     *
      * @throws \InvalidArgumentException Exception is thrown if the provided string is not a valid email
      *
      * @since  1.0.0
@@ -556,11 +555,17 @@ class Account implements ArrayableInterface, \JsonSerializable
      *
      * @return void
      *
+     * @throws \Exception
+     *
      * @since  1.0.0
      */
     public function generatePassword(string $password) /* : void */
     {
-        $this->password = password_hash($password, PASSWORD_DEFAULT);
+        $this->password = \password_hash($password, \PASSWORD_DEFAULT);
+
+        if ($this->password === false) {
+            throw new \Exception();
+        }
     }
 
     /**
@@ -625,7 +630,7 @@ class Account implements ArrayableInterface, \JsonSerializable
     /**
      * Json serialize.
      *
-     * @return string
+     * @return array
      *
      * @since  1.0.0
      */
@@ -633,5 +638,4 @@ class Account implements ArrayableInterface, \JsonSerializable
     {
         return $this->toArray();
     }
-
 }

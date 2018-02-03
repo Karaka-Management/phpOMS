@@ -4,24 +4,40 @@
  *
  * PHP Version 7.1
  *
- * @category   TBD
- * @package    TBD
+ * @package    phpOMS
  * @copyright  Dennis Eichhorn
  * @license    OMS License 1.0
  * @version    1.0.0
- * @link       http://orange-management.com
+ * @link       http://website.orange-management.de
  */
-declare(strict_types=1);
+declare(strict_types = 1);
 
 namespace phpOMS;
 
 /**
  * Application class.
+ * 
+ * This class contains all necessary application members. Access to them 
+ * is restricted to write once in order to prevent manipulation 
+ * and afterwards read only.
  *
- * @category   Framework
- * @package    Framework
+ * @property mixed orgId
+ * @property string appName
+ * @property \phpOMS\DataStorage\Database\DatabasePool dbPool
+ * @property \phpOMS\Localization\L11nManager l11nManager
+ * @property \phpOMS\Router\Router router
+ * @property \phpOMS\DataStorage\Session\SessionInterface sessionManager
+ * @property \phpOMS\Module\ModuleManager moduleManager
+ * @property \phpOMS\Dispatcher\Dispatcher dispatcher
+ * @property \phpOMS\DataStorage\Cache\CachePool cachePool
+ * @property \Model\CoreSettings appSettings
+ * @property \phpOMS\Event\EventManager eventManager
+ * @property \phpOMS\Account\AccountManager accountManager
+ * @property \phpOMS\Log\FileLogger logger
+ *
+ * @package    phpOMS
  * @license    OMS License 1.0
- * @link       http://orange-management.com
+ * @link       http://website.orange-management.de
  * @since      1.0.0
  */
 class ApplicationAbstract
@@ -143,9 +159,9 @@ class ApplicationAbstract
      *
      * @since  1.0.0
      */
-    public function __set($name, $value) 
+    public function __set($name, $value)
     {
-        if(!empty($this->$name)) {
+        if (!empty($this->$name)) {
             return;
         }
 
@@ -163,8 +179,8 @@ class ApplicationAbstract
      *
      * @since  1.0.0
      */
-    public function __get($name) 
-    { 
-        return $this->$name; 
+    public function __get($name)
+    {
+        return $this->$name;
     }
 }

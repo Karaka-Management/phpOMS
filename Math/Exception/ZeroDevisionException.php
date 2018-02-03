@@ -4,24 +4,22 @@
  *
  * PHP Version 7.1
  *
- * @category   TBD
  * @package    TBD
  * @copyright  Dennis Eichhorn
  * @license    OMS License 1.0
  * @version    1.0.0
- * @link       http://orange-management.com
+ * @link       http://website.orange-management.de
  */
-declare(strict_types=1);
+declare(strict_types = 1);
 
 namespace phpOMS\Math\Exception;
 
 /**
  * Zero devision exception.
  *
- * @category   Framework
- * @package    phpOMS/Uri
+ * @package    Framework
  * @license    OMS License 1.0
- * @link       http://orange-management.com
+ * @link       http://website.orange-management.de
  * @since      1.0.0
  */
 class ZeroDevisionException extends \UnexpectedValueException
@@ -31,7 +29,7 @@ class ZeroDevisionException extends \UnexpectedValueException
      *
      * @param string     $message Exception message
      * @param int        $code    Exception code
-     * @param \Exception Previous exception
+     * @param \Exception $previous Previous exception
      *
      * @since  1.0.0
      */

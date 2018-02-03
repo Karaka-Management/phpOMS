@@ -4,14 +4,13 @@
  *
  * PHP Version 7.1
  *
- * @category   TBD
- * @package    TBD
+ * @package    phpOMS\Dispatcher
  * @copyright  Dennis Eichhorn
  * @license    OMS License 1.0
  * @version    1.0.0
- * @link       http://orange-management.com
+ * @link       http://website.orange-management.de
  */
-declare(strict_types=1);
+declare(strict_types = 1);
 
 namespace phpOMS\Dispatcher;
 
@@ -22,10 +21,9 @@ use phpOMS\System\File\PathException;
 /**
  * Dispatcher class.
  *
- * @category   Framework
  * @package    phpOMS\Dispatcher
  * @license    OMS License 1.0
- * @link       http://orange-management.com
+ * @link       http://website.orange-management.de
  * @since      1.0.0
  */
 class Dispatcher
@@ -106,13 +104,17 @@ class Dispatcher
     {
         $views    = [];
         $dispatch = explode(':', $controller);
-        $this->getController($dispatch[0]);
+
+        if (!file_exists($path = __DIR__ . '/../../' . str_replace('\\', '/', $dispatch[0]) . '.php')) {
+            throw new PathException($path);
+        }
 
         if (($c = count($dispatch)) === 3) {
             /* Handling static functions */
             $function           = $dispatch[0] . '::' . $dispatch[2];
             $views[$controller] = $function(...$data);
         } elseif ($c === 2) {
+            $this->getController($dispatch[0]);
             $views[$controller] = $this->controllers[$dispatch[0]]->{$dispatch[1]}(...$data);
         } else {
             throw new \UnexpectedValueException('Unexpected function.');
@@ -170,13 +172,9 @@ class Dispatcher
     private function getController(string $controller) /* : object */
     {
         if (!isset($this->controllers[$controller])) {
-            if (!file_exists($path = __DIR__ . '/../../' . str_replace('\\', '/', $controller) . '.php')) {
-                throw new PathException($path);
-            }
-
             // If module controller use module manager for initialization
-            if(strpos('\Modules\Controller', $controller) === 0) {
-                $split = explode('\\', $controller);
+            if (strpos('\Modules\Controller', $controller) === 0) {
+                $split                          = explode('\\', $controller);
                 $this->controllers[$controller] = $this->app->moduleManager->get($split[2]);
             } else {
                 $this->controllers[$controller] = new $controller($this->app);

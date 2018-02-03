@@ -4,14 +4,13 @@
  *
  * PHP Version 7.1
  *
- * @category   TBD
  * @package    TBD
  * @copyright  Dennis Eichhorn
  * @license    OMS License 1.0
  * @version    1.0.0
- * @link       http://orange-management.com
+ * @link       http://website.orange-management.de
  */
-declare(strict_types=1);
+declare(strict_types = 1);
 
 namespace phpOMS\Utils\Git;
 
@@ -21,11 +20,11 @@ use phpOMS\Utils\StringUtils;
 /**
  * Repository class
  *
- * @category   Framework
- * @package    phpOMS\Asset
+ * @package    Framework
  * @license    OMS License 1.0
- * @link       http://orange-management.com
+ * @link       http://website.orange-management.de
  * @since      1.0.0
+ * @codeCoverageIgnore
  */
 class Repository
 {
@@ -71,7 +70,6 @@ class Repository
     public function __construct(string $path)
     {
         $this->setPath($path);
-        $this->branch = $this->getActiveBranch();
     }
 
     /**
@@ -115,15 +113,11 @@ class Repository
      */
     public function getActiveBranch() : Branch
     {
-        if (!isset($this->branch)) {
-            $branches = $this->getBranches();
-            $active   = preg_grep('/^\*/', $branches);
-            reset($active);
+        $branches = $this->getBranches();
+        $active   = preg_grep('/^\*/', $branches);
+        reset($active);
 
-            $this->branch = new Branch(current($active));
-        }
-
-        return $this->branch;
+        return new Branch(current($active));
     }
 
     /**
@@ -163,9 +157,14 @@ class Repository
     private function run(string $cmd) : array
     {
         if (strtolower(substr(PHP_OS, 0, 3)) == 'win') {
-            $cmd = 'cd ' . escapeshellarg(dirname(Git::getBin())) . ' && ' . basename(Git::getBin()) . ' -C ' . escapeshellarg($this->path) . ' ' . $cmd;
+            $cmd = 'cd ' . escapeshellarg(dirname(Git::getBin())) 
+                . ' && ' . basename(Git::getBin()) 
+                . ' -C ' . escapeshellarg($this->path) . ' ' 
+                . $cmd;
         } else {
-            $cmd = escapeshellarg(Git::getBin()) . ' -C ' . escapeshellarg($this->path) . ' ' . $cmd;
+            $cmd = escapeshellarg(Git::getBin()) 
+                . ' -C ' . escapeshellarg($this->path) . ' ' 
+                . $cmd;
         }
 
         $pipes = [];
@@ -220,23 +219,24 @@ class Repository
      * Create repository
      *
      * @param string $source Create repository from source (optional, can be remote)
-     * @param bool   $bare   Bare repository
+     *
+     * @return string
      *
      * @throws \Exception
      *
      * @since  1.0.0
      */
-    public function create(string $source = null, bool $bare = false)
+    public function create(string $source = null)
     {
         if (!is_dir($this->path) || file_exists($this->path . '/.git')) {
             throw new \Exception('Already repository');
         }
 
         if (isset($source)) {
-            $this->clone($source);
-        } else {
-            $this->init($bare);
+            return stripos($source, '//') !== false ? $this->cloneRemote($source) : $this->cloneFrom($source);
         }
+
+        return $this->run('init');
     }
 
     /**
@@ -264,11 +264,7 @@ class Repository
      */
     public function add($files = '*') : string
     {
-        if (is_array($files)) {
-            $files = '"' . implode('" "', $files) . '"';
-        } elseif (!is_string($files)) {
-            throw new \Exception('Wrong type');
-        }
+        $files = $this->parseFileList($files);
 
         return implode("\n", $this->run('add ' . $files . ' -v'));
     }
@@ -281,19 +277,35 @@ class Repository
      *
      * @return string
      *
-     * @throws \InvalidArgumentException
-     *
      * @since  1.0.0
      */
     public function rm($files = '*', bool $cached = false) : string
     {
+        $files = $this->parseFileList($files);
+
+        return implode("\n", $this->run('rm ' . ($cached ? '--cached ' : '') . $files));
+    }
+
+    /**
+     * Remove file(s) from repository
+     *
+     * @param string|array $files  Files to remove
+     *
+     * @return string
+     *
+     * @throws \InvalidArgumentException
+     *
+     * @since  1.0.0
+     */
+    private function parseFileList($files) : string
+    {
         if (is_array($files)) {
-            $files = '"' . implode('" "', $files) . '"';
+            return '"' . implode('" "', $files) . '"';
         } elseif (!is_string($files)) {
             throw new \InvalidArgumentException('Wrong type for $files.');
         }
 
-        return implode("\n", $this->run('rm ' . ($cached ? '--cached ' : '') . $files));
+        return $files;
     }
 
     /**
@@ -619,7 +631,7 @@ class Repository
      *
      * @since  1.0.0
      */
-    public function getLOC(array $extensions = ['*']) : int
+    public function getLoc(array $extensions = ['*']) : int
     {
         $lines = $this->run('ls-files');
         $loc   = 0;
@@ -734,13 +746,26 @@ class Repository
      */
     public function getAdditionsRemovalsByContributor(Author $author, \DateTime $start = null, \DateTime $end = null) : array
     {
+        if (!isset($start)) {
+            $start = new \DateTime('1900-01-01');
+        }
+
+        if (!isset($end)) {
+            $end = new \DateTime('now');
+        }
+
         $addremove = ['added' => 0, 'removed' => 0];
-        $lines     = $this->run('log --author=' . escapeshellarg($author->getName()) . ' --since="' . $start->format('Y-m-d') . '" --before="' . $end->format('Y-m-d') . '" --pretty=tformat: --numstat');
+        $lines     = $this->run(
+            'log --author=' . escapeshellarg($author->getName()) 
+            . ' --since="' . $start->format('Y-m-d') 
+            . '" --before="' . $end->format('Y-m-d') 
+            . '" --pretty=tformat: --numstat'
+        );
 
         foreach ($lines as $line) {
             $nums = explode(' ', $line);
 
-            $addremove['added'] += $nums[0];
+            $addremove['added']   += $nums[0];
             $addremove['removed'] += $nums[1];
         }
 
@@ -756,7 +781,7 @@ class Repository
      */
     public function getRemote() : string
     {
-        return $this->run('config --get remote.origin.url');
+        return implode("\n", $this->run('config --get remote.origin.url'));
     }
 
     /**
@@ -786,7 +811,11 @@ class Repository
             $author = ' --author=' . escapeshellarg($author->getName()) . '';
         }
 
-        $lines   = $this->run('git log --before="' . $end->format('Y-m-d') . '" --after="' . $start->format('Y-m-d') . '"' . $author . ' --reverse --date=short');
+        $lines = $this->run(
+            'git log --before="' . $end->format('Y-m-d') 
+            . '" --after="' . $start->format('Y-m-d') . '"' 
+            . $author . ' --reverse --date=short');
+            
         $count   = count($lines);
         $commits = [];
 

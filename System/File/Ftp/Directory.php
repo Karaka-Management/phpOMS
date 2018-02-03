@@ -4,37 +4,75 @@
  *
  * PHP Version 7.1
  *
- * @category   TBD
  * @package    TBD
  * @copyright  Dennis Eichhorn
  * @license    OMS License 1.0
  * @version    1.0.0
- * @link       http://orange-management.com
+ * @link       http://website.orange-management.de
  */
-declare(strict_types=1);
+declare(strict_types = 1);
 
 namespace phpOMS\System\File\Ftp;
 
 use phpOMS\System\File\ContainerInterface;
 use phpOMS\System\File\DirectoryInterface;
-use phpOMS\System\File\PathException;
-use phpOMS\Utils\StringUtils;
 use phpOMS\System\File\Local\FileAbstract;
 use phpOMS\System\File\Local\Directory as DirectoryLocal;
+use phpOMS\System\File\Local\File as LocalFile;
+use phpOMS\Uri\Http;
 
 /**
  * Filesystem class.
  *
  * Performing operations on the file system
  *
- * @category   Framework
- * @package    phpOMS\System\File
+ * @package    Framework
  * @license    OMS License 1.0
- * @link       http://orange-management.com
+ * @link       http://website.orange-management.de
  * @since      1.0.0
+ * @codeCoverageIgnore
  */
 class Directory extends FileAbstract implements DirectoryInterface
 {
+    public static function ftpConnect(Http $http)
+    {
+        $con = ftp_connect($http->getBase() . $http->getPath(), $http->getPort());
+
+        ftp_login($con, $http->getUser(), $http->getPass());
+        ftp_chdir($con, $http->getPath()); // todo: is this required ?
+
+        return $con;
+    }
+
+    public static function ftpExists($con, string $path)
+    {
+        $list = ftp_nlist($con, LocalFile::parent($path));
+
+        return in_array(LocalFile::name($path), $list);
+    }
+
+    public static function ftpCreate($con, string $path, int $permission, bool $recursive)
+    {
+        $parts = explode('/', $path);
+        ftp_chdir($con, '/' . $parts[0]);
+
+        foreach ($parts as $part) {
+            if (self::ftpExists($con, $part)) {
+                ftp_mkdir($con, $part);
+                ftp_chdir($con, $part);
+                ftp_chmod($con, $permission, $part);
+            }
+        }
+    }
+
+    /**
+     * Directory nodes (files and directories).
+     *
+     * @var FileAbstract[]
+     * @since 1.0.0
+     */
+    private $nodes = [];
+
     /**
      * {@inheritdoc}
      */
@@ -135,7 +173,7 @@ class Directory extends FileAbstract implements DirectoryInterface
     /**
      * {@inheritdoc}
      */
-    public static function create(string $path, string $permission = '0644', bool $recursive = false) : bool
+    public static function create(string $path, int $permission = 0755, bool $recursive = false) : bool
     {
 
     }
@@ -176,8 +214,8 @@ class Directory extends FileAbstract implements DirectoryInterface
 
     public function addNode($file) : bool
     {
-        $this->count += $file->getCount();
-        $this->size += $file->getSize();
+        $this->count                  += $file->getCount();
+        $this->size                   += $file->getSize();
         $this->nodes[$file->getName()] = $file;
 
         return $file->createNode();

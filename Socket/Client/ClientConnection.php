@@ -4,32 +4,30 @@
  *
  * PHP Version 7.1
  *
- * @category   TBD
  * @package    TBD
  * @copyright  Dennis Eichhorn
  * @license    OMS License 1.0
  * @version    1.0.0
- * @link       http://orange-management.com
+ * @link       http://website.orange-management.de
  */
-declare(strict_types=1);
+declare(strict_types = 1);
 
 namespace phpOMS\Socket\Client;
 
 /**
  * Client socket class.
  *
- * @category   Framework
- * @package    phpOMS\Socket\Client
+ * @package    Framework
  * @license    OMS License 1.0
- * @link       http://orange-management.com
+ * @link       http://website.orange-management.de
  * @since      1.0.0
  */
 class ClientConnection
 {
-    private $id = 0;
-    private $socket = null;
+    private $id        = 0;
+    private $socket    = null;
     private $handshake = false;
-    private $pid = null;
+    private $pid       = null;
     private $connected = true;
 
     public function __construct($id, $socket)

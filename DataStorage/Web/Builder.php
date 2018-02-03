@@ -4,25 +4,26 @@
  *
  * PHP Version 7.1
  *
- * @category   TBD
  * @package    TBD
  * @copyright  Dennis Eichhorn
  * @license    OMS License 1.0
  * @version    1.0.0
- * @link       http://orange-management.com
+ * @link       http://website.orange-management.de
  */
-declare(strict_types=1);
+declare(strict_types = 1);
 namespace phpOMS\Utils\Crawler;
 
 use phpOMs\DataStorage\Database\Query\Builder as DatabaseQueryBuilder;
+use phpOMS\Localization\Localization;
+use phpOMS\Message\Http\Rest;
+use phpOMS\Uri\Http;
 
 /**
  * Array utils.
  *
- * @category   Framework
- * @package    phpOMS\Utils
+ * @package    Framework
  * @license    OMS License 1.0
- * @link       http://orange-management.com
+ * @link       http://website.orange-management.de
  * @since      1.0.0
  */
 class Builder extends DatabaseQueryBuilder
@@ -31,9 +32,9 @@ class Builder extends DatabaseQueryBuilder
     private function download($uri)
     {
         $finder = [];
-        $l11n = new Localization();
-        
-        foreach($this->from as $from) {
+        $l11n   = new Localization();
+
+        foreach ($this->from as $from) {
             $doc = new \DOMDocument();
             $doc->loadHTML(Rest::request($l11n, new Http($from)));
             $finder[$from] = new \DomXPath($doc);
@@ -41,33 +42,33 @@ class Builder extends DatabaseQueryBuilder
 
         return $finder;
     }
-    
+
     public function get(string $xpath)
     {
         $nodes = $finder->query($xpath);
     }
-    
+
     public function execute()
     {
         $finder = $this->download();
         $result = [];
-        $table = null;
+        $table  = null;
 
-        foreach($this->wheres as $column => $where) {
-            if($column === 'xpath') {
+        foreach ($this->wheres as $column => $where) {
+            if ($column === 'xpath') {
                 $table = $this->createTable($finder->query($where['value']));
             }
         }
 
-        foreach($this->columns as $column) {
+        foreach ($this->columns as $column) {
         }
     }
 
     private function createTable($node) : array
     {
-        if(strtolower($node->tagName) === 'table') {
+        if (strtolower($node->tagName) === 'table') {
             return $this->createTableFromTable();
-        } elseif(strtolower($node->tagName) === 'li') {
+        } elseif (strtolower($node->tagName) === 'li') {
             return $this->createTableFromList();
         } else {
             return $this->createTableFromContent();
@@ -85,13 +86,13 @@ class Builder extends DatabaseQueryBuilder
 
     private function createTableFromList($node) : array
     {
-        $table = [];
+        $table    = [];
         $children = $node->childNodes;
 
-        foreach($children as $child) {
+        foreach ($children as $child) {
             $table[] = $child->asXML();
         }
-        
+
         return $table;
     }
 

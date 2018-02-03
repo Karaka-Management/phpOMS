@@ -4,19 +4,17 @@
  *
  * PHP Version 7.1
  *
- * @category   TBD
- * @package    TBD
+ * @package    Framework
  * @copyright  Dennis Eichhorn
  * @license    OMS License 1.0
  * @version    1.0.0
- * @link       http://orange-management.com
+ * @link       http://website.orange-management.de
  */
-declare(strict_types=1);
+declare(strict_types = 1);
 
 namespace phpOMS\Message;
 
 use phpOMS\Stdlib\Base\Exception\InvalidEnumValue;
-use phpOMS\Localization\Localization;
 use phpOMS\Uri\UriInterface;
 
 /**
@@ -24,10 +22,9 @@ use phpOMS\Uri\UriInterface;
  *
  * @property mixed request
  *
- * @category   Request
  * @package    Framework
  * @license    OMS License 1.0
- * @link       http://orange-management.com
+ * @link       http://website.orange-management.de
  * @since      1.0.0
  */
 abstract class RequestAbstract implements MessageInterface
@@ -75,7 +72,7 @@ abstract class RequestAbstract implements MessageInterface
     /**
      * Request type.
      *
-     * @var \phpOMS\Message\RequestSource
+     * @var int
      * @since 1.0.0
      */
     protected $source = RequestSource::UNDEFINED;
@@ -201,17 +198,37 @@ abstract class RequestAbstract implements MessageInterface
     }
 
     /**
-     * {@inheritdoc}
+     * Get data.
+     *
+     * @param mixed $key Data key
+     *
+     * @return mixed
+     *
+     * @since  1.0.0
      */
     public function getData($key = null)
     {
-        if(!isset($key)) {
+        if (!isset($key)) {
             return $this->data;
         }
 
         $key = mb_strtolower($key);
 
         return $this->data[$key] ?? null;
+    }
+
+    /**
+     * Check if has data.
+     *
+     * @param mixed $key Data key
+     *
+     * @return bool
+     *
+     * @since  1.0.0
+     */
+    public function hasData($key) : bool
+    {
+        return isset($this->data[$key]);
     }
 
     /**
@@ -266,7 +283,7 @@ abstract class RequestAbstract implements MessageInterface
     /**
      * {@inheritdoc}
      */
-    public abstract function getOrigin() : string;
+    abstract public function getOrigin() : string;
 
     /**
      * {@inheritdoc}

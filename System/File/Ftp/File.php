@@ -4,14 +4,13 @@
  *
  * PHP Version 7.1
  *
- * @category   TBD
  * @package    TBD
  * @copyright  Dennis Eichhorn
  * @license    OMS License 1.0
  * @version    1.0.0
- * @link       http://orange-management.com
+ * @link       http://website.orange-management.de
  */
-declare(strict_types=1);
+declare(strict_types = 1);
 
 namespace phpOMS\System\File\Ftp;
 
@@ -19,76 +18,124 @@ use phpOMS\System\File\ContainerInterface;
 use phpOMS\System\File\ContentPutMode;
 use phpOMS\System\File\FileInterface;
 use phpOMS\System\File\PathException;
-use phpOMS\System\File\Local\File as FileLocal;
 use phpOMS\System\File\Local\FileAbstract;
-use phpOMS\System\File\Local\Directory as DirectoryLocal;
+use phpOMS\System\File\Local\Directory as LocalDirectory;
+use phpOMS\System\File\Local\File as LocalFile;
+use phpOMS\Uri\Http;
 
 /**
  * Filesystem class.
  *
- * Performing operations on the file system
+ * Performing operations on the file system.
  *
- * @category   Framework
- * @package    phpOMS\System\File
+ * All static implementations require a path/uri in the following form: ftp://user:pass@domain.com/path/subpath...
+ *
+ * @package    Framework
  * @license    OMS License 1.0
- * @link       http://orange-management.com
+ * @link       http://website.orange-management.de
  * @since      1.0.0
+ * @codeCoverageIgnore
  */
 class File extends FileAbstract implements FileInterface
 {
     /**
-     * {@inheritdoc}
+     * Ftp connection
+     *
+     * @var resource
+     * @since 1.0.0
      */
-    public static function put(string $path, string $content, int $mode = ContentPutMode::REPLACE | ContentPutMode::CREATE) : bool
+    private $con = null;
+
+    /**
+     * Ftp connection uri.
+     *
+     * @var Http
+     * @since 1.0.0
+     */
+    private $uri = null;
+
+    public function __construct(string $path)
     {
-        // todo: create all else cases, right now all getting handled the same way which is wrong
-        $current = ftp_pwd($con);
-        if(!ftp_chdir($con, File::dirpath($path))) {
-            return false;
-        }
+        $this->uri = new Http($path);
+        $this->con = self::ftpConnect($this->uri);
+    }
 
-        $exists = self::exists($path);
-        $result = false;
+    public static function ftpConnect(Http $http)
+    {
+        $con = ftp_connect($http->getBase() . $http->getPath(), $http->getPort());
 
-        if (
-            (($mode & ContentPutMode::APPEND) === ContentPutMode::APPEND && $exists)
-            || (($mode & ContentPutMode::PREPEND) === ContentPutMode::PREPEND && $exists)
-            || (($mode & ContentPutMode::REPLACE) === ContentPutMode::REPLACE && $exists)
-            || (!$exists && ($mode & ContentPutMode::CREATE) === ContentPutMode::CREATE)
-        ) {
-            if (!Directory::exists(dirname($path))) {
-                Directory::create(dirname($path), 0644, true);
-            }
+        ftp_login($con, $http->getUser(), $http->getPass());
+        ftp_chdir($con, $http->getPath()); // todo: is this required ?
 
-            $stream = fopen('data://temp,' . $content, 'r');
-            ftp_fput($path, $content);
-            fclose($stream);
+        return $con;
+    }
 
-            $result = true;
-        }
+    public static function ftpExists($con, string $path)
+    {
+        $list = ftp_nlist($con, LocalFile::dirpath($path));
 
-        ftp_chdir($current);
-
-        return $result;
+        return in_array(LocalFile::basename($path), $list);
     }
 
     /**
      * {@inheritdoc}
      */
-    public static function get(string $path) : /* ? */string
+    public static function put(string $path, string $content, int $mode = ContentPutMode::REPLACE | ContentPutMode::CREATE) : bool
     {
-        $temp = fopen('php://temp', 'r+');
+        $http = new Http($path);
+        $con  = self::ftpConnect($http);
 
-        $current = ftp_pwd($con);
-        if(ftp_chdir($con, File::dirpath($path)) && ftp_fget($con, $temp, $path, FTP_BINARY, 0)) {
+        if (ftp_pwd($con) !== $http->getPath()) {
+            return false;
+        }
+
+        $exists = self::ftpExists($con, $http->getPath());
+
+        if ((ContentPutMode::hasFlag($mode, ContentPutMode::APPEND) && $exists)
+            || (ContentPutMode::hasFlag($mode, ContentPutMode::PREPEND) && $exists)
+            || (ContentPutMode::hasFlag($mode, ContentPutMode::REPLACE) && $exists)
+            || (!$exists && ContentPutMode::hasFlag($mode, ContentPutMode::CREATE))
+        ) {
+            if (ContentPutMode::hasFlag($mode, ContentPutMode::APPEND) && $exists) {
+                file_put_contents($path, file_get_contents($path) . $content, 0, stream_context_create(['ftp' => ['overwrite' => true]]));
+            } elseif (ContentPutMode::hasFlag($mode, ContentPutMode::PREPEND) && $exists) {
+                file_put_contents($path, $content . file_get_contents($path), 0, stream_context_create(['ftp' => ['overwrite' => true]]));
+            } else {
+                if (!Directory::ftpExists($con, dirname($path))) {
+                    Directory::ftpCreate($con, dirname($path), 0755, true);
+                }
+
+                file_put_contents($path, $content, 0, stream_context_create(['ftp' => ['overwrite' => true]]));
+            }
+
+            ftp_close($con);
+
+            return true;
+        }
+
+        ftp_close($con);
+
+        return false;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public static function get(string $path) : string
+    {
+        $temp    = fopen('php://temp', 'r+');
+        $http    = new Http($path);
+        $content = '';
+        $con     = self::ftpConnect($http);
+
+        if (ftp_chdir($con, File::dirpath($path)) && ftp_fget($con, $temp, $path, FTP_BINARY, 0)) {
             rewind($temp);
             $content = stream_get_contents($temp);
         }
 
         fclose($temp);
-        ftp_chdir($current);
 
-        return $content ?? null;
+        return $content;
     }
 
     /**
@@ -120,18 +167,13 @@ class File extends FileAbstract implements FileInterface
      */
     public static function exists(string $path) : bool
     {
-        
-        if(($current = ftp_pwd($con)) !== LocalFile::dirpath($path)) {
-            if(!ftp_chdir($con, $path)) {
-                return false;
-            }
-        }
+        $http   = new Http($path);
+        $con    = self::ftpConnect($http);
+        $exists = self::ftpExists($con, $http->getPath());
 
-        $list = ftp_nlist($con, $path);
+        fclose($con);
 
-        ftp_chdir($con, $current);
-
-        return in_array($path, $list);
+        return $exists;
     }
 
     /**
@@ -163,9 +205,14 @@ class File extends FileAbstract implements FileInterface
      */
     public static function changed(string $path) : \DateTime
     {
+        $http    = new Http($path);
+        $con     = self::ftpConnect($http);
         $changed = new \DateTime();
-        $changed->setTimestamp(ftp_mdtm($con, $path));
-        
+
+        $changed->setTimestamp(ftp_mdtm($con, $http->getPath()));
+
+        fclose($con);
+
         return $changed;
     }
 
@@ -174,11 +221,18 @@ class File extends FileAbstract implements FileInterface
      */
     public static function size(string $path, bool $recursive = true) : int
     {
-        if (!self::exists($path)) {
+        $http = new Http($path);
+        $con  = self::ftpConnect($http);
+
+        if (!self::exists($http->getPath())) {
             throw new PathException($path);
         }
 
-        return ftp_size($con, $path);
+        $size = ftp_size($con, $http->getPath());
+
+        fclose($con);
+
+        return $size;
     }
 
     /**
@@ -186,7 +240,13 @@ class File extends FileAbstract implements FileInterface
      */
     public static function owner(string $path) : int
     {
-        return self::parseFtpFileData($path)['user'] ?? '';
+        $http  = new Http($path);
+        $con   = self::ftpConnect($http);
+        $owner = self::parseFtpFileData($con, $path)['user'] ?? '';
+
+        fclose($con);
+
+        return (int) $owner;
     }
 
     /**
@@ -194,58 +254,64 @@ class File extends FileAbstract implements FileInterface
      */
     public static function permission(string $path) : int
     {
-        return (int) self::parseFtpFileData($path)['permission'] ?? 0;
+        $http       = new Http($path);
+        $con        = self::ftpConnect($http);
+        $permission = (int) self::parseFtpFileData($con, $path)['permission'] ?? 0;
+
+        fclose($con);
+
+        return $permission;
     }
 
-    private static function parseFtpFileData(string $path) : array
+    private static function parseFtpFileData($con, string $path) : array
     {
-        $items = []; 
+        $items = [];
 
-        if (is_array($files = ftp_rawlist($con, self::dirpath($path)))) { 
-            foreach ($files as $fileData) { 
-                if(strpos($fileData, self::name($path)) !== false) {
-                    $chunks = preg_split("/\s+/", $fileData); 
+        if (is_array($files = ftp_rawlist($con, LocalFile::dirpath($path)))) {
+            foreach ($files as $fileData) {
+                if (strpos($fileData, self::name($path)) !== false) {
+                    $chunks = preg_split("/\s+/", $fileData);
 
-                    $items['permission'] = $chungs[0];
-                    $items['user'] = $chungs[2];
-                    $items['group'] = $chungs[3];
-                    $items['size'] = $chungs[4];
-                    $items['type'] = $chunks[0][0] === 'd' ? 'directory' : 'file';
+                    $items['permission'] = $chunks[0];
+                    $items['user']       = $chunks[2];
+                    $items['group']      = $chunks[3];
+                    $items['size']       = $chunks[4];
+                    $items['type']       = $chunks[0][0] === 'd' ? 'directory' : 'file';
 
                     break;
                 }
-            } 
-        } 
+            }
+        }
 
-        return $items; 
+        return $items;
     }
 
     /**
      * Gets the directory name of a file.
-     * 
+     *
      * @param  string $path Path of the file to get the directory name for.
-     * 
+     *
      * @return string Returns the directory name of the file.
      *
      * @since 1.0.0
      */
     public static function dirname(string $path) : string
     {
-        return FileLocal::dirname($path);
+        return LocalFile::dirname($path);
     }
 
     /**
      * Gets the directory path of a file.
-     * 
+     *
      * @param  string $path Path of the file to get the directory name for.
-     * 
+     *
      * @return string Returns the directory name of the file.
      *
      * @since 1.0.0
      */
     public static function dirpath(string $path) : string
     {
-        return FileLocal::dirpath($path);
+        return LocalFile::dirpath($path);
     }
 
     /**
@@ -253,9 +319,11 @@ class File extends FileAbstract implements FileInterface
      */
     public static function copy(string $from, string $to, bool $overwrite = false) : bool
     {
-        if(($src = self::get($from)) === false) {
+        // todo: handle different ftp connections AND local to ftp
+
+        if (($src = self::get($from)) === false) {
             return false;
-        } 
+        }
 
         return self::put($to, $src, $overwrite ? ContentPutMode::REPLACE : ContentPutMode::CREATE);
     }
@@ -265,17 +333,26 @@ class File extends FileAbstract implements FileInterface
      */
     public static function move(string $from, string $to, bool $overwrite = false) : bool
     {
-         if (!self::exists($from)) {
+        // todo: handle different ftp connections AND local to ftp
+        $http = new Http($to);
+        $con  = self::ftpConnect($http);
+
+         if (!self::ftpExists($con, $from)) {
             throw new PathException($from);
         }
 
         if ($overwrite || !self::exists($to)) {
             if (!Directory::exists(dirname($to))) {
-                Directory::create(dirname($to), 0644, true);
+                Directory::create(dirname($to), 0755, true);
             }
 
-            return ftp_rename($con, $from, $to);
+            $rename = ftp_rename($con, $from, $to);
+            fclose($con);
+
+            return $rename;
         }
+
+        fclose($con);
 
         return false;
     }
@@ -285,11 +362,15 @@ class File extends FileAbstract implements FileInterface
      */
     public static function delete(string $path) : bool
     {
-        if (!self::exists($path)) {
+        $http = new Http($path);
+        $con  = self::ftpConnect($http);
+
+        if (!self::ftpExists($con, $path)) {
             return false;
         }
 
         ftp_delete($con, $path);
+        fclose($con);
 
         return true;
     }
@@ -307,7 +388,7 @@ class File extends FileAbstract implements FileInterface
      */
     public static function name(string $path) : string
     {
-        return FileLocal::name($path);
+        return LocalFile::name($path);
     }
 
     /**
@@ -315,7 +396,7 @@ class File extends FileAbstract implements FileInterface
      */
     public static function basename(string $path) : string
     {
-        return FileLocal::basename($path);
+        return LocalFile::basename($path);
     }
 
     /**
@@ -323,7 +404,7 @@ class File extends FileAbstract implements FileInterface
      */
     public static function extension(string $path) : string
     {
-        return FileLocal::extension($path);
+        return LocalFile::extension($path);
     }
 
     /**
@@ -337,7 +418,7 @@ class File extends FileAbstract implements FileInterface
      */
     public function getParent() : ContainerInterface
     {
-        // TODO: Implement getParent() method.
+        // todo adjust http link and self();
     }
 
     /**
@@ -349,7 +430,7 @@ class File extends FileAbstract implements FileInterface
      */
     public function createNode() : bool
     {
-        // TODO: Implement createNode() method.
+        return self::ftpCreate($this->con, $this->uri->getPath(), 0755, true);
     }
 
     /**

@@ -4,14 +4,13 @@
  *
  * PHP Version 7.1
  *
- * @category   TBD
- * @package    TBD
+ * @package    phpOMS\Uri
  * @copyright  Dennis Eichhorn
  * @license    OMS License 1.0
  * @version    1.0.0
- * @link       http://orange-management.com
+ * @link       http://website.orange-management.de
  */
-declare(strict_types=1);
+declare(strict_types = 1);
 
 namespace phpOMS\Uri;
 
@@ -22,11 +21,12 @@ use phpOMS\Utils\StringUtils;
  *
  * Used in order to create and evaluate a uri
  *
- * @category   Framework
- * @package    phpOMS/Uri
+ * @package    phpOMS\Uri
  * @license    OMS License 1.0
- * @link       http://orange-management.com
+ * @link       http://website.orange-management.de
  * @since      1.0.0
+ * 
+ * @SuppressWarnings(PHPMD.Superglobals)
  */
 class Http implements UriInterface
 {
@@ -158,7 +158,7 @@ class Http implements UriInterface
             $this->path = substr($this->path, 0, -4);
         }
 
-        $this->path        = strpos($this->path, $this->rootPath) === 0 ? substr($this->path, strlen($this->rootPath), strlen($this->path)) : $this->path; 
+        $this->path        = strpos($this->path, $this->rootPath) === 0 ? substr($this->path, strlen($this->rootPath), strlen($this->path)) : $this->path;
         $this->queryString = $url['query'] ?? '';
 
         if (!empty($this->queryString)) {
@@ -193,11 +193,7 @@ class Http implements UriInterface
     }
 
     /**
-     * Get root path.
-     *
-     * @return string
-     *
-     * @since  1.0.0
+     * {@inheritdoc}
      */
     public function getRootPath() : string
     {
@@ -238,11 +234,7 @@ class Http implements UriInterface
     }
 
     /**
-     * Get password.
-     *
-     * @return string
-     *
-     * @since  1.0.0
+     * {@inheritdoc}
      */
     public function getPass() : string
     {
@@ -256,7 +248,7 @@ class Http implements UriInterface
     {
         return $this->path;
     }
-    
+
     /**
      * Get path offset.
      *
@@ -281,9 +273,9 @@ class Http implements UriInterface
     /**
      * {@inheritdoc}
      */
-    public function getQuery(string $key = null) /* : ?string */
+    public function getQuery(string $key = null)  : string
     {
-        if(isset($key)) {
+        if (isset($key)) {
             $key = strtolower($key);
 
             return $this->query[$key] ?? '';
@@ -305,7 +297,7 @@ class Http implements UriInterface
      */
     public function getPathElements() : array
     {
-        return explode('/', $this->path);    
+        return explode('/', $this->path);
     }
 
     /**
@@ -345,15 +337,12 @@ class Http implements UriInterface
      */
     public function getAuthority() : string
     {
-        return ($this->getUser() !== '' ? $this->getUser() . '@' : '') . $this->host . (isset($this->port) && $this->port !== 0 ? ':' . $this->port : '');
+        return ($this->getUser() !== '' ? $this->getUser() . '@' : '') . $this->host 
+            . (isset($this->port) && $this->port !== 0 ? ':' . $this->port : '');
     }
 
     /**
-     * Get user.
-     *
-     * @return string
-     *
-     * @since  1.0.0
+     * {@inheritdoc}
      */
     public function getUser() : string
     {

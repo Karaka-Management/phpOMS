@@ -4,24 +4,22 @@
  *
  * PHP Version 7.1
  *
- * @category   TBD
- * @package    TBD
+ * @package    phpOMS\Uri
  * @copyright  Dennis Eichhorn
  * @license    OMS License 1.0
  * @version    1.0.0
- * @link       http://orange-management.com
+ * @link       http://website.orange-management.de
  */
-declare(strict_types=1);
+declare(strict_types = 1);
 
 namespace phpOMS\Uri;
 
 /**
  * Uri interface.
  *
- * @category   Framework
- * @package    phpOMS/Uri
+ * @package    phpOMS\Uri
  * @license    OMS License 1.0
- * @link       http://orange-management.com
+ * @link       http://website.orange-management.de
  * @since      1.0.0
  */
 interface UriInterface
@@ -93,6 +91,44 @@ interface UriInterface
     public function getPath() : string;
 
     /**
+     * Get user.
+     *
+     * @return string
+     *
+     * @since  1.0.0
+     */
+    public function getUser() : string;
+
+    /**
+     * Get password.
+     *
+     * @return string
+     *
+     * @since  1.0.0
+     */
+    public function getPass() : string;
+
+    /**
+     * Get root path.
+     *
+     * @return string
+     *
+     * @since  1.0.0
+     */
+    public function getRootPath() : string;
+
+    /**
+     * Set root path.
+     *
+     * @param string $uri Uri
+     *
+     * @return void
+     *
+     * @since  1.0.0
+     */
+    public function setRootPath(string $root); /* : void */
+
+    /**
      * Get path element.
      *
      * @param int $pos Position of the path
@@ -117,11 +153,20 @@ interface UriInterface
      *
      * @param string $key Query key
      *
-     * @return string|array
+     * @return string
      *
      * @since  1.0.0
      */
-    public function getQuery(string $key = null);
+    public function getQuery(string $key = null) : string;
+
+    /**
+     * Get query array.
+     *
+     * @return array
+     *
+     * @since  1.0.0
+     */
+    public function getQueryArray() : array;
 
     /**
      * Get fragment.
@@ -168,5 +213,5 @@ interface UriInterface
      *
      * @since  1.0.0
      */
-    public function set(string $uri);
+    public function set(string $uri); /* : void */
 }

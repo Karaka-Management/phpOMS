@@ -4,24 +4,22 @@
  *
  * PHP Version 7.1
  *
- * @category   TBD
  * @package    TBD
  * @copyright  Dennis Eichhorn
  * @license    OMS License 1.0
  * @version    1.0.0
- * @link       http://orange-management.com
+ * @link       http://website.orange-management.de
  */
-declare(strict_types=1);
+declare(strict_types = 1);
 
 namespace phpOMS\System\File;
 
 /**
  * Path exception class.
  *
- * @category   Framework
- * @package    phpOMS\System\File
+ * @package    Framework
  * @license    OMS License 1.0
- * @link       http://orange-management.com
+ * @link       http://website.orange-management.de
  * @since      1.0.0
  */
 class FileUtils
@@ -42,7 +40,7 @@ class FileUtils
      * @since  1.0.0
      * @codeCoverageIgnore
      */
-    private function __construct() 
+    private function __construct()
     {
 
     }
@@ -60,23 +58,23 @@ class FileUtils
     {
         $extension = strtolower($extension);
 
-        if(in_array($extension, self::CODE_EXTENSION)) {
+        if (in_array($extension, self::CODE_EXTENSION)) {
             return ExtensionType::CODE;
-        } elseif(in_array($extension, self::TEXT_EXTENSION)) {
+        } elseif (in_array($extension, self::TEXT_EXTENSION)) {
             return ExtensionType::TEXT;
-        } elseif(in_array($extension, self::PRESENTATION_EXTENSION)) {
+        } elseif (in_array($extension, self::PRESENTATION_EXTENSION)) {
             return ExtensionType::PRESENTATION;
-        } elseif(in_array($extension, self::PDF_EXTENSION)) {
+        } elseif (in_array($extension, self::PDF_EXTENSION)) {
             return ExtensionType::PDF;
-        } elseif(in_array($extension, self::ARCHIVE_EXTENSION)) {
+        } elseif (in_array($extension, self::ARCHIVE_EXTENSION)) {
             return ExtensionType::ARCHIVE;
-        } elseif(in_array($extension, self::AUDIO_EXTENSION)) {
+        } elseif (in_array($extension, self::AUDIO_EXTENSION)) {
             return ExtensionType::AUDIO;
-        } elseif(in_array($extension, self::VIDEO_EXTENSION)) {
+        } elseif (in_array($extension, self::VIDEO_EXTENSION)) {
             return ExtensionType::VIDEO;
-        } elseif(in_array($extension, self::IMAGE_EXTENSION)) {
+        } elseif (in_array($extension, self::IMAGE_EXTENSION)) {
             return ExtensionType::IMAGE;
-        } elseif(in_array($extension, self::SPREADSHEET_EXTENSION)) {
+        } elseif (in_array($extension, self::SPREADSHEET_EXTENSION)) {
             return ExtensionType::SPREADSHEET;
         }
 
@@ -94,17 +92,17 @@ class FileUtils
      */
     public static function absolute(string $origPath) : string
     {
-        if(!file_exists($origPath)) {
+        if (!file_exists($origPath)) {
             $startsWithSlash = strpos($origPath, '/') === 0 ? '/' : '';
 
-            $path = [];
+            $path  = [];
             $parts = explode('/', $origPath);
 
-            foreach($parts as $part) {
+            foreach ($parts as $part) {
                 if (empty($part) || $part === '.') {
                     continue;
                 }
-          
+
                 if ($part !== '..') {
                     $path[] = $part;
                 } elseif (!empty($path)) {
@@ -113,7 +111,7 @@ class FileUtils
                     throw new PathException($origPath);
                 }
             }
-          
+
             return $startsWithSlash . implode('/', $path);
         }
 

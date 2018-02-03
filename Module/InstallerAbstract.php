@@ -4,18 +4,18 @@
  *
  * PHP Version 7.1
  *
- * @category   TBD
- * @package    TBD
+ * @package    Framework
  * @copyright  Dennis Eichhorn
  * @license    OMS License 1.0
  * @version    1.0.0
- * @link       http://orange-management.com
+ * @link       http://website.orange-management.de
  */
-declare(strict_types=1);
+declare(strict_types = 1);
 
 namespace phpOMS\Module;
 
 use phpOMS\DataStorage\Database\DatabaseType;
+use phpOMS\DataStorage\Database\Exception\InvalidDatabaseTypeException;
 use phpOMS\DataStorage\Database\DatabasePool;
 use phpOMS\System\File\Local\Directory;
 use phpOMS\System\File\PathException;
@@ -25,10 +25,9 @@ use phpOMS\Utils\Parser\Php\ArrayParser;
 /**
  * Installer Abstract class.
  *
- * @category   Framework
- * @package    phpOMS\Module
+ * @package    Framework
  * @license    OMS License 1.0
- * @link       http://orange-management.com
+ * @link       http://website.orange-management.de
  * @since      1.0.0
  */
 class InstallerAbstract
@@ -81,6 +80,8 @@ class InstallerAbstract
 
                 $dbPool->get()->con->commit();
                 break;
+            default: 
+                throw new InvalidDatabaseTypeException($dbPool->get()->getType());
         }
     }
 
@@ -115,7 +116,7 @@ class InstallerAbstract
     private static function activate(DatabasePool $dbPool, InfoManager $info) /* : void */
     {
         /** @var ActivateAbstract $class */
-        $class = '\Modules\\' . $info->getDirectory() . '\Admin\Activate';
+        $class = '\Modules\\' . $info->getDirectory() . '\Admin\Status';
         $class::activate($dbPool, $info);
     }
 
@@ -201,5 +202,4 @@ class InstallerAbstract
             }
         }
     }
-
 }

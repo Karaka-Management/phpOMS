@@ -4,24 +4,22 @@
  *
  * PHP Version 7.1
  *
- * @category   TBD
  * @package    TBD
  * @copyright  Dennis Eichhorn
  * @license    OMS License 1.0
  * @version    1.0.0
- * @link       http://orange-management.com
+ * @link       http://website.orange-management.de
  */
-declare(strict_types=1);
+declare(strict_types = 1);
 
 namespace phpOMS\Stdlib\Queue;
 
 /**
  * Priority queue class.
  *
- * @category   Framework
- * @package    phpOMS\Stdlib
+ * @package    Framework
  * @license    OMS License 1.0
- * @link       http://orange-management.com
+ * @link       http://website.orange-management.de
  * @since      1.0.0
  */
 class PriorityQueue implements \Countable, \Serializable
@@ -192,11 +190,9 @@ class PriorityQueue implements \Countable, \Serializable
      *
      * @param string $data Data to unserialze
      *
-     * @return array
-     *
      * @since  1.0.0
      */
-    public function unserialize($data) : array
+    public function unserialize($data)
     {
         $this->queue = json_decode($data);
         $this->count = count($this->queue);

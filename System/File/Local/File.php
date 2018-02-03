@@ -4,14 +4,13 @@
  *
  * PHP Version 7.1
  *
- * @category   TBD
  * @package    TBD
  * @copyright  Dennis Eichhorn
  * @license    OMS License 1.0
  * @version    1.0.0
- * @link       http://orange-management.com
+ * @link       http://website.orange-management.de
  */
-declare(strict_types=1);
+declare(strict_types = 1);
 
 namespace phpOMS\System\File\Local;
 
@@ -25,10 +24,9 @@ use phpOMS\System\File\PathException;
  *
  * Performing operations on the file system
  *
- * @category   Framework
- * @package    phpOMS\System\File
+ * @package    Framework
  * @license    OMS License 1.0
- * @link       http://orange-management.com
+ * @link       http://website.orange-management.de
  * @since      1.0.0
  */
 class File extends FileAbstract implements FileInterface
@@ -68,19 +66,18 @@ class File extends FileAbstract implements FileInterface
     {
         $exists = file_exists($path);
 
-        if (
-            (($mode & ContentPutMode::APPEND) === ContentPutMode::APPEND && $exists)
-            || (($mode & ContentPutMode::PREPEND) === ContentPutMode::PREPEND && $exists)
-            || (($mode & ContentPutMode::REPLACE) === ContentPutMode::REPLACE && $exists)
-            || (!$exists && ($mode & ContentPutMode::CREATE) === ContentPutMode::CREATE)
+        if ((ContentPutMode::hasFlag($mode, ContentPutMode::APPEND) && $exists)
+            || (ContentPutMode::hasFlag($mode, ContentPutMode::PREPEND) && $exists)
+            || (ContentPutMode::hasFlag($mode, ContentPutMode::REPLACE) && $exists)
+            || (!$exists && ContentPutMode::hasFlag($mode, ContentPutMode::CREATE))
         ) {
-            if(($mode & ContentPutMode::APPEND) === ContentPutMode::APPEND && $exists) {
+            if (ContentPutMode::hasFlag($mode, ContentPutMode::APPEND) && $exists) {
                 file_put_contents($path, file_get_contents($path) . $content);
-            } elseif(($mode & ContentPutMode::PREPEND) === ContentPutMode::PREPEND && $exists) {
+            } elseif (ContentPutMode::hasFlag($mode, ContentPutMode::PREPEND) && $exists) {
                 file_put_contents($path, $content . file_get_contents($path));
             } else {
                 if (!Directory::exists(dirname($path))) {
-                    Directory::create(dirname($path), 0644, true);
+                    Directory::create(dirname($path), 0755, true);
                 }
 
                 file_put_contents($path, $content);
@@ -169,10 +166,7 @@ class File extends FileAbstract implements FileInterface
             throw new PathException($path);
         }
 
-        $created = new \DateTime();
-        $created->setTimestamp(filemtime($path));
-
-        return $created;
+        return self::createFileTime(filemtime($path));
     }
 
     /**
@@ -184,10 +178,24 @@ class File extends FileAbstract implements FileInterface
             throw new PathException($path);
         }
 
-        $changed = new \DateTime();
-        $changed->setTimestamp(filectime($path));
+        return self::createFileTime(filectime($path));
+    }
 
-        return $changed;
+    /**
+     * Create file time.
+     *
+     * @param int $time Time of the file
+     *
+     * @return \DateTime
+     *
+     * @since  1.0.0
+     */
+    private static function createFileTime(int $time) : \DateTime
+    {
+        $fileTime = new \DateTime();
+        $fileTime->setTimestamp($time);
+
+        return $fileTime;
     }
 
     /**
@@ -228,9 +236,9 @@ class File extends FileAbstract implements FileInterface
 
     /**
      * Gets the directory name of a file.
-     * 
+     *
      * @param  string $path Path of the file to get the directory name for.
-     * 
+     *
      * @return string Returns the directory name of the file.
      *
      * @since 1.0.0
@@ -242,9 +250,9 @@ class File extends FileAbstract implements FileInterface
 
     /**
      * Gets the directory path of a file.
-     * 
+     *
      * @param  string $path Path of the file to get the directory name for.
-     * 
+     *
      * @return string Returns the directory name of the file.
      *
      * @since 1.0.0
@@ -265,10 +273,10 @@ class File extends FileAbstract implements FileInterface
 
         if ($overwrite || !file_exists($to)) {
             if (!Directory::exists(dirname($to))) {
-                Directory::create(dirname($to), 0644, true);
+                Directory::create(dirname($to), 0755, true);
             }
 
-            if($overwrite && file_exists($to)) {
+            if ($overwrite && file_exists($to)) {
                 unlink($to);
             }
 
@@ -285,25 +293,13 @@ class File extends FileAbstract implements FileInterface
      */
     public static function move(string $from, string $to, bool $overwrite = false) : bool
     {
-        if (!is_file($from)) {
-            throw new PathException($from);
+        $result = self::copy($from, $to, $overwrite);
+
+        if (!$result) {
+            return false;
         }
 
-        if ($overwrite || !file_exists($to)) {
-            if (!Directory::exists(dirname($to))) {
-                Directory::create(dirname($to), 0644, true);
-            }
-
-            if($overwrite && file_exists($to)) {
-                unlink($to);
-            }
-
-            rename($from, $to);
-
-            return true;
-        }
-
-        return false;
+        return self::delete($from);
     }
 
     /**
@@ -322,7 +318,7 @@ class File extends FileAbstract implements FileInterface
 
     /**
      * Gets the directory name of a file.
-     * 
+     *
      * @return string Returns the directory name of the file.
      *
      * @since 1.0.0
@@ -334,7 +330,7 @@ class File extends FileAbstract implements FileInterface
 
     /**
      * Gets the directory path of a file.
-     * 
+     *
      * @return string Returns the directory path of the file.
      *
      * @since 1.0.0
@@ -359,13 +355,13 @@ class File extends FileAbstract implements FileInterface
     {
         if (!file_exists($path)) {
             if (!Directory::exists(dirname($path))) {
-                Directory::create(dirname($path), 0644, true);
+                Directory::create(dirname($path), 0755, true);
             }
 
-            if(!is_writable(dirname($path))) {
+            if (!is_writable(dirname($path))) {
                 return false;
             }
-            
+
             touch($path);
 
             return true;
@@ -429,7 +425,7 @@ class File extends FileAbstract implements FileInterface
      */
     public function getParent() : ContainerInterface
     {
-        // TODO: Implement getParent() method.
+        return new Directory(self::parent($this->path));
     }
 
     /**
@@ -437,7 +433,7 @@ class File extends FileAbstract implements FileInterface
      */
     public function copyNode(string $to, bool $overwrite = false) : bool
     {
-        // TODO: Implement copyNode() method.
+        return self::copy($this->path, $to, $overwrite);
     }
 
     /**
@@ -445,7 +441,7 @@ class File extends FileAbstract implements FileInterface
      */
     public function moveNode(string $to, bool $overwrite = false) : bool
     {
-        // TODO: Implement moveNode() method.
+        return self::move($this->path, $to, $overwrite);
     }
 
     /**
@@ -453,7 +449,7 @@ class File extends FileAbstract implements FileInterface
      */
     public function deleteNode() : bool
     {
-        // TODO: Implement deleteNode() method.
+        return self::delete($this->path);
     }
 
     /**
@@ -461,7 +457,7 @@ class File extends FileAbstract implements FileInterface
      */
     public function putContent(string $content, int $mode = ContentPutMode::APPEND | ContentPutMode::CREATE) : bool
     {
-        // TODO: Implement putContent() method.
+        return self::put($this->path, $content, $mode);
     }
 
     /**

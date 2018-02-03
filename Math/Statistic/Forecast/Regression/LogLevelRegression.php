@@ -4,14 +4,13 @@
  *
  * PHP Version 7.1
  *
- * @category   TBD
  * @package    TBD
  * @copyright  Dennis Eichhorn
  * @license    OMS License 1.0
  * @version    1.0.0
- * @link       http://orange-management.com
+ * @link       http://website.orange-management.de
  */
-declare(strict_types=1);
+declare(strict_types = 1);
 
 namespace phpOMS\Math\Statistic\Forecast\Regression;
 
@@ -20,10 +19,9 @@ use phpOMS\Math\Matrix\Exception\InvalidDimensionException;
 /**
  * Regression class.
  *
- * @category   Framework
- * @package    phpOMS\DataStorage\Database
+ * @package    Framework
  * @license    OMS License 1.0
- * @link       http://orange-management.com
+ * @link       http://website.orange-management.de
  * @since      1.0.0
  */
 class LogLevelRegression extends RegressionAbstract
@@ -44,14 +42,19 @@ class LogLevelRegression extends RegressionAbstract
         return parent::getRegression($x, $y);
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public static function getSlope(float $b1, float $y, float $x) : float
     {
         return $b1 * $y;
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public static function getElasticity(float $b1, float $y, float $x): float
     {
         return $b1 * $x;
     }
-
 }

@@ -4,14 +4,13 @@
  *
  * PHP Version 7.1
  *
- * @category   TBD
- * @package    TBD
+ * @package    Framework
  * @copyright  Dennis Eichhorn
  * @license    OMS License 1.0
  * @version    1.0.0
- * @link       http://orange-management.com
+ * @link       http://website.orange-management.de
  */
-declare(strict_types=1);
+declare(strict_types = 1);
 
 namespace phpOMS\Model\Html;
 
@@ -20,10 +19,9 @@ use phpOMS\Contract\RenderableInterface;
 /**
  * Meta class.
  *
- * @category   Framework
- * @package    phpOMS/Model
+ * @package    Framework
  * @license    OMS License 1.0
- * @link       http://orange-management.com
+ * @link       http://website.orange-management.de
  * @since      1.0.0
  */
 class Meta implements RenderableInterface
@@ -43,7 +41,7 @@ class Meta implements RenderableInterface
      * @var string
      * @since 1.0.0
      */
-    private $author = null;
+    private $author = '';
 
     /**
      * Charset.
@@ -51,7 +49,7 @@ class Meta implements RenderableInterface
      * @var string
      * @since 1.0.0
      */
-    private $charset = null;
+    private $charset = '';
 
     /**
      * Description.
@@ -59,15 +57,7 @@ class Meta implements RenderableInterface
      * @var string
      * @since 1.0.0
      */
-    private $description = null;
-
-    /**
-     * Language.
-     *
-     * @var string
-     * @since 1.0.0
-     */
-    private $language = 'en';
+    private $description = '';
 
     /**
      * Add keyword.
@@ -176,40 +166,14 @@ class Meta implements RenderableInterface
     }
 
     /**
-     * Get language.
-     *
-     * @return string Language
-     *
-     * @since  1.0.0
-     */
-    public function getLanguage() : string
-    {
-        return $this->language;
-    }
-
-    /**
-     * Set language.
-     *
-     * @param string $language Language
-     *
-     * @return void
-     *
-     * @since  1.0.0
-     */
-    public function setLanguage(string $language) /* : void */
-    {
-        $this->language = $language;
-    }
-
-    /**
      * {@inheritdoc}
      */
     public function render() : string
     {
         return (count($this->keywords) > 0 ? '<meta name="keywords" content="' . implode(',', $this->keywords) . '">"' : '')
-        . (isset($this->author) ? '<meta name="author" content="' . $this->author . '">' : '')
-        . (isset($this->description) ? '<meta name="description" content="' . $this->description . '">' : '')
-        . (isset($this->charset) ? '<meta charset="' . $this->charset . '">' : '')
+        . (!empty($this->author) ? '<meta name="author" content="' . $this->author . '">' : '')
+        . (!empty($this->description) ? '<meta name="description" content="' . $this->description . '">' : '')
+        . (!empty($this->charset) ? '<meta charset="' . $this->charset . '">' : '')
         . '<meta name="generator" content="Orange Management">';
     }
 }

@@ -4,26 +4,24 @@
  *
  * PHP Version 7.1
  *
- * @category   TBD
- * @package    TBD
+ * @package    phpOMS\Validation\Finance
  * @copyright  Dennis Eichhorn
  * @license    OMS License 1.0
  * @version    1.0.0
- * @link       http://orange-management.com
+ * @link       http://website.orange-management.de
  */
-declare(strict_types=1);
+declare(strict_types = 1);
 
 namespace phpOMS\Validation\Finance;
 
 use phpOMS\Validation\ValidatorAbstract;
 
 /**
- * Validator abstract.
+ * Credit card validation
  *
- * @category   Validation
- * @package    Framework
+ * @package    phpOMS\Validation\Finance
  * @license    OMS License 1.0
- * @link       http://orange-management.com
+ * @link       http://website.orange-management.de
  * @since      1.0.0
  */
 abstract class CreditCard extends ValidatorAbstract
@@ -46,12 +44,12 @@ abstract class CreditCard extends ValidatorAbstract
         $value = preg_replace('/\D/', '', $value);
 
         // Set the string length and parity
-        $number_length = strlen($value);
-        $parity        = $number_length % 2;
+        $numberLength = strlen($value);
+        $parity       = $numberLength % 2;
 
         // Loop through each digit and do the maths
         $total = 0;
-        for ($i = 0; $i < $number_length; $i++) {
+        for ($i = 0; $i < $numberLength; $i++) {
             $digit = $value[$i];
             // Multiply alternate digits by two
             if ($i % 2 == $parity) {

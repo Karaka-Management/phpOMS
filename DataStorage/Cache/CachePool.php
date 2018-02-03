@@ -4,21 +4,18 @@
  *
  * PHP Version 7.1
  *
- * @category   TBD
  * @package    TBD
  * @copyright  Dennis Eichhorn
  * @license    OMS License 1.0
  * @version    1.0.0
- * @link       http://orange-management.com
+ * @link       http://website.orange-management.de
  */
-declare(strict_types=1);
+declare(strict_types = 1);
 
 namespace phpOMS\DataStorage\Cache;
 
 use phpOMS\Config\OptionsInterface;
 use phpOMS\Config\OptionsTrait;
-use phpOMS\DataStorage\Cache\CacheFactory;
-
 
 /**
  * Cache class.
@@ -26,10 +23,9 @@ use phpOMS\DataStorage\Cache\CacheFactory;
  * Responsible for caching scalar data types and arrays.
  * Caching HTML output and objects coming soon/is planned.
  *
- * @category   Framework
- * @package    phpOMS\DataStorage\Cache
+ * @package    Framework
  * @license    OMS License 1.0
- * @link       http://orange-management.com
+ * @link       http://website.orange-management.de
  * @since      1.0.0
  */
 class CachePool implements OptionsInterface
@@ -39,11 +35,10 @@ class CachePool implements OptionsInterface
     /**
      * MemCache instance.
      *
-     * @var \phpOMS\DataStorage\Cache\CacheInterface
+     * @var \phpOMS\DataStorage\Cache\CacheInterface[]
      * @since 1.0.0
      */
     private $pool = null;
-
 
     /**
      * Constructor.
@@ -64,7 +59,7 @@ class CachePool implements OptionsInterface
      *
      * @since  1.0.0
      */
-    public function add(string $key = 'core', CacheInterface $cache) : bool
+    public function add(string $key, CacheInterface $cache) : bool
     {
         if (isset($this->pool[$key])) {
             return false;
@@ -106,11 +101,11 @@ class CachePool implements OptionsInterface
      */
     public function get(string $key = '') /* : ?CacheInterface */
     {
-        if((!empty($key) && !isset($this->pool[$key])) || empty($this->pool)) {
+        if ((!empty($key) && !isset($this->pool[$key])) || empty($this->pool)) {
             return null;
         }
 
-        if(empty($key)) {
+        if (empty($key)) {
             return reset($this->pool);
         }
 

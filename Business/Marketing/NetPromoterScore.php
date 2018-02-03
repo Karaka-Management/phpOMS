@@ -4,30 +4,29 @@
  *
  * PHP Version 7.1
  *
- * @category   TBD
- * @package    TBD
+ * @package    phpOMS\Business\Marketing
  * @copyright  Dennis Eichhorn
  * @license    OMS License 1.0
  * @version    1.0.0
- * @link       http://orange-management.com
+ * @link       http://website.orange-management.de
  */
-declare(strict_types=1);
+declare(strict_types = 1);
 
 namespace phpOMS\Business\Marketing;
 
 /**
  * Net Promoter Score
- * 
- * The net promoter score is a basic evaluation of the happiness of customers. 
+ *
+ * The net promoter score is a basic evaluation of the happiness of customers.
  * Instead of customers the NPS can also be transferred to non-customers.
  *
- * @category   Framework
- * @package    phpOMS\Business
+ * @package    phpOMS\Business\Marketing
  * @license    OMS License 1.0
- * @link       http://orange-management.com
+ * @link       http://website.orange-management.de
  * @since      1.0.0
  */
-class NetPromoterScore {
+class NetPromoterScore
+{
     /**
      * Score values
      *
@@ -41,7 +40,8 @@ class NetPromoterScore {
      *
      * @since  1.0.0
      */
-    public function __construct() {
+    public function __construct() 
+    {
 
     }
 
@@ -72,10 +72,10 @@ class NetPromoterScore {
         $passives   = 0;
         $detractors = 0;
 
-        foreach($this->scores as $score) {
-            if($score > 8) {
+        foreach ($this->scores as $score) {
+            if ($score > 8) {
                 $promoters++;
-            } elseif($score > 6) {
+            } elseif ($score > 6) {
                 $passives++;
             } else {
                 $detractors++;
@@ -99,8 +99,8 @@ class NetPromoterScore {
     public function countDetractors() : int
     {
         $count = 0;
-        foreach($this->scores as $score) {
-            if($score < 7) {
+        foreach ($this->scores as $score) {
+            if ($score < 7) {
                 $count++;
             }
         }
@@ -120,8 +120,8 @@ class NetPromoterScore {
     public function countPassives() : int
     {
         $count = 0;
-        foreach($this->scores as $score) {
-            if($score > 6 && $score < 9) {
+        foreach ($this->scores as $score) {
+            if ($score > 6 && $score < 9) {
                 $count++;
             }
         }
@@ -141,8 +141,8 @@ class NetPromoterScore {
     public function countPromoters() : int
     {
         $count = 0;
-        foreach($this->scores as $score) {
-            if($score > 8) {
+        foreach ($this->scores as $score) {
+            if ($score > 8) {
                 $count++;
             }
         }

@@ -4,25 +4,26 @@
  *
  * PHP Version 7.1
  *
- * @category   TBD
  * @package    TBD
  * @copyright  Dennis Eichhorn
  * @license    OMS License 1.0
  * @version    1.0.0
- * @link       http://orange-management.com
+ * @link       http://website.orange-management.de
  */
-declare(strict_types=1);
+declare(strict_types = 1);
 
 namespace phpOMS\Utils\Barcode;
 
 /**
  * Codebar class.
  *
- * @category   Log
- * @package    Framework
+ * @package    Log
  * @license    OMS License 1.0
- * @link       http://orange-management.com
+ * @link       http://website.orange-management.de
  * @since      1.0.0
+ * 
+ * @SuppressWarnings(PHPMD.CamelCasePropertyName)
+ * @SuppressWarnings(PHPMD.CamelCaseVariableName)
  */
 class Codebar extends C128Abstract
 {
@@ -60,22 +61,6 @@ class Codebar extends C128Abstract
      * @since 1.0.0
      */
     protected static $CODE_END = '1122121';
-
-    /**
-     * Constructor
-     *
-     * @param string $content     Content to encrypt
-     * @param int    $size        Barcode height
-     * @param int    $orientation Orientation of the barcode
-     *
-     * @todo   : add mirror parameter
-     *
-     * @since  1.0.0
-     */
-    public function __construct(string $content = '', int $size = 20, int $orientation = OrientationType::HORIZONTAL)
-    {
-        parent::__construct(strtoupper($content), $size, $orientation);
-    }
 
     /**
      * Set content to encrypt

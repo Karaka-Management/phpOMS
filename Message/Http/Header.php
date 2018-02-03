@@ -4,14 +4,13 @@
  *
  * PHP Version 7.1
  *
- * @category   TBD
- * @package    TBD
+ * @package    Framework
  * @copyright  Dennis Eichhorn
  * @license    OMS License 1.0
  * @version    1.0.0
- * @link       http://orange-management.com
+ * @link       http://website.orange-management.de
  */
-declare(strict_types=1);
+declare(strict_types = 1);
 
 namespace phpOMS\Message\Http;
 
@@ -21,11 +20,12 @@ use phpOMS\DataStorage\LockException;
 /**
  * Response class.
  *
- * @category   Framework
- * @package    phpOMS\Response
+ * @package    Framework
  * @license    OMS License 1.0
- * @link       http://orange-management.com
+ * @link       http://website.orange-management.de
  * @since      1.0.0
+ * 
+ * @SuppressWarnings(PHPMD.Superglobals)
  */
 class Header extends HeaderAbstract
 {
@@ -71,17 +71,17 @@ class Header extends HeaderAbstract
             throw new LockException('HTTP header');
         }
 
+        if (self::isSecurityHeader($key) && isset($this->header[$key])) {
+            throw new \Exception('Cannot change security headers.');
+        }
+
         $key = strtolower($key);
 
         if (!$overwrite && isset($this->header[$key])) {
             return false;
-        } elseif ($overwrite || !isset($this->header[$key])) {
-            if (self::isSecurityHeader($key) && isset($this->header[$key])) {
-                throw new \Exception('Cannot change security headers.');
-            }
-
-            unset($this->header[$key]);
         }
+
+        unset($this->header[$key]);
 
         if (!isset($this->header[$key])) {
             $this->header[$key] = [];
@@ -91,7 +91,7 @@ class Header extends HeaderAbstract
 
         return true;
     }
-    
+
     /**
      * Is security header.
      *
@@ -128,10 +128,10 @@ class Header extends HeaderAbstract
      */
     public function getStatusCode() : int
     {
-        if($this->status === 0) {
+        if ($this->status === 0) {
             $this->status = (int) \http_response_code();
         }
-        
+
         return parent::getStatusCode();
     }
 
@@ -148,12 +148,12 @@ class Header extends HeaderAbstract
             return getallheaders();
         }
 
-        $headers = []; 
-        foreach ($_SERVER as $name => $value) { 
-            if (substr($name, 0, 5) == 'HTTP_') { 
-                $headers[str_replace(' ', '-', ucwords(strtolower(str_replace('_', ' ', substr($name, 5)))))] = $value; 
-            } 
-        } 
+        $headers = [];
+        foreach ($_SERVER as $name => $value) {
+            if (substr($name, 0, 5) == 'HTTP_') {
+                $headers[str_replace(' ', '-', ucwords(strtolower(str_replace('_', ' ', substr($name, 5)))))] = $value;
+            }
+        }
 
         return $headers;
     }

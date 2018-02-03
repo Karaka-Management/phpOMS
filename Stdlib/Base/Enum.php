@@ -4,14 +4,13 @@
  *
  * PHP Version 7.1
  *
- * @category   TBD
  * @package    TBD
  * @copyright  Dennis Eichhorn
  * @license    OMS License 1.0
  * @version    1.0.0
- * @link       http://orange-management.com
+ * @link       http://website.orange-management.de
  */
-declare(strict_types=1);
+declare(strict_types = 1);
 
 namespace phpOMS\Stdlib\Base;
 
@@ -20,10 +19,9 @@ namespace phpOMS\Stdlib\Base;
  *
  * Replacing the SplEnum class and providing basic enum.
  *
- * @category   Framework
- * @package    phpOMS\Datatypes
+ * @package    Framework
  * @license    OMS License 1.0
- * @link       http://orange-management.com
+ * @link       http://website.orange-management.de
  * @since      1.0.0
  */
 abstract class Enum
@@ -140,4 +138,20 @@ abstract class Enum
         return count(self::getConstants());
     }
 
+    /**
+     * Check if flag is set
+     *
+     * This only works for binary flags.
+     *
+     * @param int $flags Set flags
+     * @param int $checkForFlag Check if this flag is part of the set flags
+     *
+     * @return bool
+     *
+     * @since  1.0.0
+     */
+    public static function hasFlag(int $flags, int $checkForFlag) : bool
+    {
+        return ($flags & $checkForFlag) === $checkForFlag;
+    }
 }

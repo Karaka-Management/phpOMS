@@ -4,24 +4,22 @@
  *
  * PHP Version 7.1
  *
- * @category   TBD
  * @package    TBD
  * @copyright  Dennis Eichhorn
  * @license    OMS License 1.0
  * @version    1.0.0
- * @link       http://orange-management.com
+ * @link       http://website.orange-management.de
  */
-declare(strict_types=1);
+declare(strict_types = 1);
 
 namespace phpOMS\DataStorage\Database;
 
 /**
  * Grammar.
  *
- * @category   Framework
- * @package    phpOMS\DataStorage\Database
+ * @package    Framework
  * @license    OMS License 1.0
- * @link       http://orange-management.com
+ * @link       http://website.orange-management.de
  * @since      1.0.0
  */
 abstract class GrammarAbstract
@@ -170,7 +168,7 @@ abstract class GrammarAbstract
 
         foreach ($elements as $key => $element) {
             if (is_string($element) && $element !== '*') {
-                if(strpos($element, '.') === false) {
+                if (strpos($element, '.') === false) {
                     $prefix = '';
                 }
 
@@ -236,26 +234,21 @@ abstract class GrammarAbstract
     {
         // todo: this is a bad way to handle select count(*) which doesn't need a prefix. Maybe remove prefixes in total?
         $identifier = $this->systemIdentifier;
-        
-        foreach($this->specialKeywords as $keyword) {
-            if($keyword === '' || strrpos($system, $keyword, -strlen($system)) !== false) {
-                $prefix = '';
+
+        foreach ($this->specialKeywords as $keyword) {
+            if (strrpos($system, $keyword, -strlen($system)) !== false) {
+                $prefix     = '';
                 $identifier = '';
             }
         }
 
         // todo: move remaining * test also here not just if .* but also if * (should be done in else?)
-        if (count($split = explode('.', $system)) == 2) {
-            if ($split[1] === '*') {
-                $system = $split[1];
-            } else {
-                $system = $this->compileSystem($split[1]);
-            }
+        if (count($split = explode('.', $system)) === 2) {
+            $system = $split[1] === '*' ? $split[1] : $this->compileSystem($split[1]);
 
             return $this->compileSystem($prefix . $split[0]) . '.' . $system;
-        } else {
-            return $identifier . $prefix . $system . $identifier;
         }
-    }
 
+        return $identifier . $prefix . $system . $identifier;
+    }
 }

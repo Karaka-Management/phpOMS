@@ -4,14 +4,13 @@
  *
  * PHP Version 7.1
  *
- * @category   TBD
- * @package    TBD
+ * @package    Framework
  * @copyright  Dennis Eichhorn
  * @license    OMS License 1.0
  * @version    1.0.0
- * @link       http://orange-management.com
+ * @link       http://website.orange-management.de
  */
-declare(strict_types=1);
+declare(strict_types = 1);
 
 namespace phpOMS\Localization;
 
@@ -22,10 +21,9 @@ use phpOMS\Utils\Converter\TemperatureType;
 /**
  * Localization class.
  *
- * @category   Framework
- * @package    phpOMS\Localization
+ * @package    Framework
  * @license    OMS License 1.0
- * @link       http://orange-management.com
+ * @link       http://website.orange-management.de
  * @since      1.0.0
  */
 class Localization
@@ -221,7 +219,7 @@ class Localization
     public function setLanguage(string $language) /* : void */
     {
         $language = strtolower($language);
-        
+
         if (!ISO639x1Enum::isValidValue($language)) {
             throw new InvalidEnumValue($language);
         }
@@ -363,5 +361,115 @@ class Localization
     public function setTemperature(string $temperature) /* : void */
     {
         $this->temperature = $temperature;
+    }
+
+    /**
+     * @return array
+     *
+     * @since  1.0.0
+     */
+    public function getSpeed() : array
+    {
+        return $this->speed;
+    }
+
+    /**
+     * @param array $speed
+     *
+     * @return array
+     *
+     * @since  1.0.0
+     */
+    public function setSpeed(array $speed) /* : void */
+    {
+        $this->speed = $speed;
+    }
+
+    /**
+     * @return array
+     *
+     * @since  1.0.0
+     */
+    public function getWeight() : array
+    {
+        return $this->weight;
+    }
+
+    /**
+     * @param array $weight
+     *
+     * @return array
+     *
+     * @since  1.0.0
+     */
+    public function setWeight(array $weight) /* : void */
+    {
+        $this->weight = $weight;
+    }
+
+    /**
+     * @return array
+     *
+     * @since  1.0.0
+     */
+    public function getLength() : array
+    {
+        return $this->length;
+    }
+
+    /**
+     * @param array $length
+     *
+     * @return array
+     *
+     * @since  1.0.0
+     */
+    public function setLength(array $length) /* : void */
+    {
+        $this->length = $length;
+    }
+
+    /**
+     * @return array
+     *
+     * @since  1.0.0
+     */
+    public function getArea() : array
+    {
+        return $this->area;
+    }
+
+    /**
+     * @param array $area
+     *
+     * @return array
+     *
+     * @since  1.0.0
+     */
+    public function setArea(array $area) /* : void */
+    {
+        $this->area = $area;
+    }
+
+    /**
+     * @return array
+     *
+     * @since  1.0.0
+     */
+    public function getVolume() : array
+    {
+        return $this->volume;
+    }
+
+    /**
+     * @param array $volume
+     *
+     * @return array
+     *
+     * @since  1.0.0
+     */
+    public function setVolume(array $volume) /* : void */
+    {
+        $this->volume = $volume;
     }
 }
