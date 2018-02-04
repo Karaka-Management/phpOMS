@@ -482,7 +482,7 @@ class ModuleManager
             }
 
             /* Install receiving */
-            foreach ($installed as $key => $value) {
+            foreach ($this->installed as $key => $value) {
                 $this->installProviding($key, $module);
             }
 
