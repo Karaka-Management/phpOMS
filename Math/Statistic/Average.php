@@ -77,7 +77,7 @@ class Average
         $count   = count($x) - ($symmetric ? $periods : 0);
         $avg     = [];
 
-        for ($i = $periods; $i < $count; $i++) {
+        for ($i = $periods; $i < $count; ++$i) {
             $avg[] = self::movingAverage($x, $i, $order, $weight, $symmetric);
         }
 
@@ -141,7 +141,7 @@ class Average
 
         $avg = 0.0;
 
-        for ($i = 0; $i < $count; $i++) {
+        for ($i = 0; $i < $count; ++$i) {
             $avg += $values[$i] * $weight[$i];
         }
 
@@ -294,10 +294,11 @@ class Average
      */
     public static function angleMean($angles, int $offset = 0) : float
     {
-        $y    = $x = 0;
+        $y    = 0;
+        $x    = 0;
         $size = count($angles);
 
-        for ($i = 0; $i < $size; $i++) {
+        for ($i = 0; $i < $size; ++$i) {
             $x += cos(deg2rad($angles[$i]));
             $y += sin(deg2rad($angles[$i]));
         }

@@ -82,7 +82,7 @@ class Prime
             $s++;
         }
 
-        for ($i = 0; $i < $k; $i++) {
+        for ($i = 0; $i < $k; ++$i) {
             $a = mt_rand(2, $n - 1);
 
             $x = bcpowmod((string) $a, (string) $d, (string) $n);
@@ -91,7 +91,7 @@ class Prime
                 continue;
             }
 
-            for ($j = 1; $j < $s; $j++) {
+            for ($j = 1; $j < $s; ++$j) {
                 $x = bcmod(bcmul($x, $x), (string) $n);
 
                 if ($x == 1) {

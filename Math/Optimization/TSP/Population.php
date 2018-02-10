@@ -44,7 +44,7 @@ class Population implements \Countable
     public function __construct(CityPool $pool, int $size, bool $initialize = false)
     {
         if ($initialize) {
-            for ($i = 0; $i < $size; $i++) {
+            for ($i = 0; $i < $size; ++$i) {
                 $this->tours[] = new Tour($pool, true);
             }
         }
@@ -115,7 +115,7 @@ class Population implements \Countable
         $fittest = $this->tours[0];
         $count   = count($this->tours);
 
-        for ($i = 1; $i < $count; $i++) {
+        for ($i = 1; $i < $count; ++$i) {
             if ($fittest->getFitness() <= $this->tours[$i]->getFitness()) {
                 $fittest = $this->tours[$i];
             }
@@ -136,7 +136,7 @@ class Population implements \Countable
         $unfittest = $this->tours[0];
         $count     = count($this->tours);
 
-        for ($i = 1; $i < $count; $i++) {
+        for ($i = 1; $i < $count; ++$i) {
             if ($unfittest->getFitness() >= $this->tours[$i]->getFitness()) {
                 $unfittest = $this->tours[$i];
             }

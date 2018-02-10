@@ -819,7 +819,7 @@ class Repository
         $count   = count($lines);
         $commits = [];
 
-        for ($i = 0; $i < $count; $i++) {
+        for ($i = 0; $i < $count; ++$i) {
             $match = preg_match('/[0-9ABCDEFabcdef]{40}/', $lines[$i], $matches);
 
             if ($match !== false && $match !== 0) {
@@ -875,7 +875,7 @@ class Repository
         $commit->setRepository($this);
         $commit->setBranch($this->branch);
 
-        for ($i = 4; $i < $count; $i++) {
+        for ($i = 4; $i < $count; ++$i) {
             $commit->addFile($lines[$i]);
         }
 

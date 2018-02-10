@@ -149,9 +149,9 @@ class ModuleManager
                     $i = 1;
                     $c = count($uriHash);
 
-                    for ($k = 0; $k < $c; $k++) {
+                    for ($k = 0; $k < $c; ++$k) {
                         $uriPdo .= ':pid' . $i . ',';
-                        $i++;
+                        ++$i;
                     }
 
                     $uriPdo = rtrim($uriPdo, ',');
@@ -169,7 +169,7 @@ class ModuleManager
                     $i = 1;
                     foreach ($uriHash as $hash) {
                         $sth->bindValue(':pid' . $i, $hash, \PDO::PARAM_STR);
-                        $i++;
+                        ++$i;
                     }
 
                     $sth->execute();
@@ -229,7 +229,7 @@ class ModuleManager
             $files = glob('*', GLOB_ONLYDIR);
             $c     = count($files);
 
-            for ($i = 0; $i < $c; $i++) {
+            for ($i = 0; $i < $c; ++$i) {
                 $path = $this->modulePath . '/' . $files[$i] . '/info.json';
 
                 if (!file_exists($path)) {

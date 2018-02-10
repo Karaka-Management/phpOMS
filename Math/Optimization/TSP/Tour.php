@@ -118,7 +118,7 @@ class Tour implements \Countable
 
             $count = count($this->cities);
 
-            for ($i = 0; $i < $count; $i++) {
+            for ($i = 0; $i < $count; ++$i) {
                 $dest = ($i + 1 < $count) ? $this->cities[$i + 1] : $this->cities[0];
 
                 $distance += $this->cities[$i]->getDistanceTo($dest);

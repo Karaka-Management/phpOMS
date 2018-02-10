@@ -345,7 +345,7 @@ class ArrayUtils
         $sum   = 0;
         $array = array_values($array);
 
-        for ($i = $start; $i <= $count - 1; $i++) {
+        for ($i = $start; $i <= $count - 1; ++$i) {
             $sum += $array[$i];
         }
 

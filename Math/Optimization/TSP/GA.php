@@ -84,7 +84,7 @@ class GA
 
         $newPopulation->add($population->getFittest());
 
-        for ($i = $shift; $i < $count; $i++) {
+        for ($i = $shift; $i < $count; ++$i) {
             $parent1 = $this->tournamentSelection($population);
             $parent2 = $this->tournamentSelection($population);
             $child   = $this->crossover($parent1, $parent2);
@@ -94,7 +94,7 @@ class GA
 
         $count2 = $newPopulation->count();
 
-        for ($i = $shift; $i < $count2; $i++) {
+        for ($i = $shift; $i < $count2; ++$i) {
             $this->mutate($newPopulation->get($i));
         }
 
@@ -115,7 +115,7 @@ class GA
         $tournament     = new Population($this->cityPool, self::TOURNAMENT, false);
         $populationSize = $population->count() - 1;
 
-        for ($i = 0; $i < self::TOURNAMENT; $i++) {
+        for ($i = 0; $i < self::TOURNAMENT; ++$i) {
             $tournament->add($population->get(mt_rand(0, $populationSize)));
         }
 
@@ -141,7 +141,7 @@ class GA
 
         $count = $child->count(); /* $tour1->count() ???!!!! */
 
-        for ($i = 0; $i < $count; $i++) {
+        for ($i = 0; $i < $count; ++$i) {
             if ($start < $end && $i > $start && $i < $end) {
                 $child->setCity($i, $tour1->getCity($i));
             } elseif ($start > $end && !($i < $start && $i > $end)) {
@@ -151,9 +151,9 @@ class GA
 
         $count = $tour2->count();
 
-        for ($i = 0; $i < $count; $i++) {
+        for ($i = 0; $i < $count; ++$i) {
             if (!$child->hasCity($tour2->getCity($i))) {
-                for ($j = 0; $j < $child->count(); $j++) {
+                for ($j = 0; $j < $child->count(); ++$j) {
                     if ($child->getCity($j) === null) {
                         $child->setCity($j, $tour2->getCity($i));
                         break;

@@ -83,9 +83,9 @@ class CholeskyDecomposition
         $n = $B->getN();
 
         // Solve L*Y = B;
-        for ($k = 0; $k < $this->m; $k++) {
-            for ($j = 0; $j < $n; $j++) {
-                for ($i = 0; $i < $k; $i++) {
+        for ($k = 0; $k < $this->m; ++$k) {
+            for ($j = 0; $j < $n; ++$j) {
+                for ($i = 0; $i < $k; ++$i) {
                     $X[$k][$j] -= $X[$i][$j] * $this->L[$k][$i];
                 }
 
@@ -95,8 +95,8 @@ class CholeskyDecomposition
 
         // Solve L'*X = Y;
         for ($k = $this->m - 1; $k >= 0; $k--) {
-            for ($j = 0; $j < $n; $j++) {
-                for ($i = $k + 1; $i < $this->m; $i++) {
+            for ($j = 0; $j < $n; ++$j) {
+                for ($i = $k + 1; $i < $this->m; ++$i) {
                     $X[$k][$j] -= $X[$i][$j] * $this->L[$i][$k];
                 }
 

@@ -57,7 +57,7 @@ class PoissonDistribution
     {
         $sum = 0.0;
 
-        for ($i = 0; $i < $k + 1; $i++) {
+        for ($i = 0; $i < $k + 1; ++$i) {
             $sum += pow($lambda, $i) / Functions::fact($i);
         }
 

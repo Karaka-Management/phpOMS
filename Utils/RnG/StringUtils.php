@@ -44,7 +44,7 @@ class StringUtils
         $charactersLength = strlen($charset);
         $randomString     = '';
 
-        for ($i = 0; $i < $length; $i++) {
+        for ($i = 0; $i < $length; ++$i) {
             $randomString .= $charset[mt_rand(0, $charactersLength - 1)];
         }
 

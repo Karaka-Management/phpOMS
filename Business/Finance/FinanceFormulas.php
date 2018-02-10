@@ -1063,7 +1063,7 @@ class FinanceFormulas
 
         $npv = -$C[0];
 
-        for ($i = 1; $i < $count; $i++) {
+        for ($i = 1; $i < $count; ++$i) {
             $npv += $C[$i] / pow(1 + $r, $i);
         }
 

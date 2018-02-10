@@ -160,7 +160,7 @@ class Text
         $paid          = 0;
         $wordCount     = count($words);
 
-        for ($i = 0; $i < $length + 1; $i++) {
+        for ($i = 0; $i < $length + 1; ++$i) {
             $newSentence = false;
 
             $lastChar = substr($text, -1);
@@ -318,7 +318,7 @@ class Text
 
         $formatting = [];
 
-        for ($i = 0; $i < $length; $i++) {
+        for ($i = 0; $i < $length; ++$i) {
             $isCursive = (rand(0, 1000) <= 1000 * $probCursive ? true : false);
             $isBold    = (rand(0, 1000) <= 1000 * $probBold ? true : false);
             $isUline   = (rand(0, 1000) <= 1000 * $probUline ? true : false);

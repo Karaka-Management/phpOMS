@@ -164,11 +164,11 @@ class Error
         $sum2   = 0;
         $meanY  = Average::arithmeticMean($observed);
 
-        for ($i = 0; $i < $countF; $i++) {
+        for ($i = 0; $i < $countF; ++$i) {
             $sum1 += ($forecasted[$i] - $meanY) ** 2;
         }
 
-        for ($i = 0; $i < $countO; $i++) {
+        for ($i = 0; $i < $countO; ++$i) {
             $sum2 += ($observed[$i] - $meanY) ** 2;
         }
 
@@ -444,7 +444,7 @@ class Error
         $sum   = 0.0;
         $count = count($observed);
 
-        for ($i = 0 + $m; $i < $count; $i++) {
+        for ($i = 0 + $m; $i < $count; ++$i) {
             $sum += abs($observed[$i] - $observed[$i - $m]);
         }
 

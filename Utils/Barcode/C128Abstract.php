@@ -350,7 +350,7 @@ abstract class C128Abstract
         $codeLength = 0;
         $length     = strlen($codeString);
         
-        for ($i = 1; $i <= $length; $i++) {
+        for ($i = 1; $i <= $length; ++$i) {
             $codeLength = $codeLength + (int) (substr($codeString, ($i - 1), 1));
         }
 

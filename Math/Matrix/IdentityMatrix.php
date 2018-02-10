@@ -35,7 +35,7 @@ class IdentityMatrix extends Matrix
     {
         parent::__construct($n, $n);
 
-        for ($i = 0; $i < $n; $i++) {
+        for ($i = 0; $i < $n; ++$i) {
             $this->matrix[$i][$i] = 1;
         }
     }

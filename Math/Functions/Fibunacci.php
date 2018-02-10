@@ -61,7 +61,7 @@ class Fibunacci
         $old2 = $start;
         $fib  = 0;
 
-        for ($i = 2; $i < $n; $i++) {
+        for ($i = 2; $i < $n; ++$i) {
             $fib  = $old1 + $old2;
             $old1 = $old2;
             $old2 = $fib;

@@ -75,7 +75,7 @@ class Numeric
         if ($toBaseInput === '0123456789') {
             $newOutput = 0;
 
-            for ($i = 1; $i <= $numberLen; $i++) {
+            for ($i = 1; $i <= $numberLen; ++$i) {
                 $newOutput = bcadd(
                     (string) $newOutput, 
                     bcmul(
@@ -168,7 +168,7 @@ class Numeric
     {
         $alpha = '';
 
-        for ($i = 1; $number >= 0 && $i < 10; $i++) {
+        for ($i = 1; $number >= 0 && $i < 10; ++$i) {
             $alpha   = chr(0x41 + ($number % pow(26, $i) / pow(26, $i - 1))) . $alpha;
             $number -= pow(26, $i);
         }
@@ -190,7 +190,7 @@ class Numeric
         $numeric = 0;
         $length  = strlen($alpha);
 
-        for ($i = 0; $i < $length; $i++) {
+        for ($i = 0; $i < $length; ++$i) {
             $numeric += pow(26, $i) * (ord($alpha[$length - $i - 1]) - 0x40);
         }
 

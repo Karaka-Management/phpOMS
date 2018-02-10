@@ -35,7 +35,7 @@ class LogLogRegression extends RegressionAbstract
             throw new InvalidDimensionException($c . 'x' . count($y));
         }
 
-        for ($i = 0; $i < $c; $i++) {
+        for ($i = 0; $i < $c; ++$i) {
             $x[$i] = log($x[$i]);
             $y[$i] = log($y[$i]);
         }

@@ -71,7 +71,7 @@ abstract class RegressionAbstract
         $count = count($errors);
         $sum   = 0.0;
 
-        for ($i = 0; $i < $count; $i++) {
+        for ($i = 0; $i < $count; ++$i) {
             $sum += $errors[$i] ** 2;
         }
 
@@ -97,7 +97,7 @@ abstract class RegressionAbstract
         $meanX = Average::arithmeticMean($x);
         $sum   = 0.0;
 
-        for ($i = 0; $i < $count; $i++) {
+        for ($i = 0; $i < $count; ++$i) {
             $sum += ($x[$i] - $meanX) ** 2;
         }
 
@@ -127,7 +127,7 @@ abstract class RegressionAbstract
         $sum1 = 0;
         $sum2 = 0;
 
-        for ($i = 0; $i < $count; $i++) {
+        for ($i = 0; $i < $count; ++$i) {
             $sum1 += ($y[$i] - $meanY) * ($x[$i] - $meanX);
             $sum2 += ($x[$i] - $meanX) ** 2;
         }

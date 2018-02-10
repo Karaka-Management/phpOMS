@@ -336,7 +336,7 @@ class StringUtils
         $count  = 0;
         $length = strlen($string);
 
-        for ($i = 0; $i < $length; $i++) {
+        for ($i = 0; $i < $length; ++$i) {
             if ($string[$i] !== $character) {
                 break;
             }
@@ -384,7 +384,7 @@ class StringUtils
         $l      = mb_strlen($input, 'UTF-8');
         $unique = [];
 
-        for ($i = 0; $i < $l; $i++) {
+        for ($i = 0; $i < $l; ++$i) {
             $char = mb_substr($input, $i, 1, 'UTF-8');
 
             if (!array_key_exists($char, $unique)) {

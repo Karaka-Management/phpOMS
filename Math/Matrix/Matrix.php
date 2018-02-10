@@ -71,7 +71,7 @@ class Matrix implements \ArrayAccess, \Iterator
         $this->n = $n;
         $this->m = $m;
 
-        for ($i = 0; $i < $m; $i++) {
+        for ($i = 0; $i < $m; ++$i) {
             $this->matrix[$i] = array_fill(0, $n, 0);
         }
     }
@@ -361,11 +361,11 @@ class Matrix implements \ArrayAccess, \Iterator
         $newMatrix    = new Matrix($this->m, $nDim);
         $newMatrixArr = $newMatrix->getMatrix();
 
-        for ($i = 0; $i < $this->m; $i++) { // Row of $this
-            for ($c = 0; $c < $nDim; $c++) { // Column of $matrix
+        for ($i = 0; $i < $this->m; ++$i) { // Row of $this
+            for ($c = 0; $c < $nDim; ++$c) { // Column of $matrix
                 $temp = 0;
 
-                for ($j = 0; $j < $mDim; $j++) { // Row of $matrix
+                for ($j = 0; $j < $mDim; ++$j) { // Row of $matrix
                     $temp += $this->matrix[$i][$j] * $matrixArr[$j][$c];
                 }
 
@@ -437,10 +437,10 @@ class Matrix implements \ArrayAccess, \Iterator
         $n    = count($arr);
         $sign = 1;
 
-        for ($i = 0; $i < $n; $i++) {
+        for ($i = 0; $i < $n; ++$i) {
             $max = 0;
 
-            for ($j = $i; $j < $n; $j++) {
+            for ($j = $i; $j < $n; ++$j) {
                 if (abs($arr[$j][$i]) > abs($arr[$max][$i])) {
                     $max = $j;
                 }
@@ -457,14 +457,14 @@ class Matrix implements \ArrayAccess, \Iterator
                 return 0;
             }
 
-            for ($j = $i + 1; $j < $n; $j++) {
+            for ($j = $i + 1; $j < $n; ++$j) {
                 $r = $arr[$j][$i] / $arr[$i][$i];
 
                 if (!$r) {
                     continue;
                 }
 
-                for ($c = $i; $c < $n; $c++) {
+                for ($c = $i; $c < $n; ++$c) {
                     $arr[$j][$c] -= $arr[$i][$c] * $r;
                 }
             }
@@ -514,8 +514,8 @@ class Matrix implements \ArrayAccess, \Iterator
         $newMatrixArr = $this->matrix;
 
         // extending matrix by identity matrix
-        for ($i = 0; $i < $this->n; $i++) {
-            for ($j = $this->n; $j < $this->n * 2; $j++) {
+        for ($i = 0; $i < $this->n; ++$i) {
+            for ($j = $this->n; $j < $this->n * 2; ++$j) {
 
                 if ($j === ($i + $this->n)) {
                     $newMatrixArr[$i][$j] = 1;
@@ -532,16 +532,16 @@ class Matrix implements \ArrayAccess, \Iterator
         $newMatrixArr = $this->diag($newMatrixArr);
 
         /* create unit matrix */
-        for ($i = 0; $i < $mDim; $i++) {
+        for ($i = 0; $i < $mDim; ++$i) {
             $temp = $newMatrixArr[$i][$i];
 
-            for ($j = 0; $j < $nDim; $j++) {
+            for ($j = 0; $j < $nDim; ++$j) {
                 $newMatrixArr[$i][$j] = $newMatrixArr[$i][$j] / $temp;
             }
         }
 
         /* removing identity matrix */
-        for ($i = 0; $i < $mDim; $i++) {
+        for ($i = 0; $i < $mDim; ++$i) {
             $newMatrixArr[$i] = array_slice($newMatrixArr[$i], $mDim);
         }
 
@@ -575,7 +575,7 @@ class Matrix implements \ArrayAccess, \Iterator
             $j   = $col;
             $max = $matrix[$j][$j];
 
-            for ($i = $col + 1; $i < $mDim; $i++) {
+            for ($i = $col + 1; $i < $mDim; ++$i) {
                 $temp = abs($matrix[$i][$col]);
 
                 if ($temp > $max) {
@@ -594,10 +594,10 @@ class Matrix implements \ArrayAccess, \Iterator
                 $b[$j]   = $temp;
             }
 
-            for ($i = $col + 1; $i < $mDim; $i++) {
+            for ($i = $col + 1; $i < $mDim; ++$i) {
                 $temp = $matrix[$i][$col] / $matrix[$col][$col];
 
-                for ($j = $col + 1; $j < $mDim; $j++) {
+                for ($j = $col + 1; $j < $mDim; ++$j) {
                     $matrix[$i][$j] -= $temp * $matrix[$col][$j];
                 }
 
@@ -638,7 +638,7 @@ class Matrix implements \ArrayAccess, \Iterator
 
         for ($i = $mDim - 1; $i > 0; $i--) {
             if ($arr[$i - 1][0] < $arr[$i][0]) {
-                for ($j = 0; $j < $nDim; $j++) {
+                for ($j = 0; $j < $nDim; ++$j) {
                     $temp            = $arr[$i][$j];
                     $arr[$i][$j]     = $arr[$i - 1][$j];
                     $arr[$i - 1][$j] = $temp;
@@ -647,12 +647,12 @@ class Matrix implements \ArrayAccess, \Iterator
         }
 
         /* create diagonal matrix */
-        for ($i = 0; $i < $mDim; $i++) {
-            for ($j = 0; $j < $mDim; $j++) {
+        for ($i = 0; $i < $mDim; ++$i) {
+            for ($j = 0; $j < $mDim; ++$j) {
                 if ($j !== $i) {
                     $temp = $arr[$j][$i] / $arr[$i][$i];
 
-                    for ($c = 0; $c < $nDim; $c++) {
+                    for ($c = 0; $c < $nDim; ++$c) {
                         $arr[$j][$c] -= $arr[$i][$c] * $temp;
                     }
                 }

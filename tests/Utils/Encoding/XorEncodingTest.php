@@ -27,7 +27,7 @@ class XorEncodingTest extends \PHPUnit\Framework\TestCase
 
     public function testVolume()
     {
-        for ($i = 0; $i < 100; $i++) {
+        for ($i = 0; $i < 100; ++$i) {
             $raw = StringUtils::generateString(1, 100);
             $key = StringUtils::generateString(1, 100);
 

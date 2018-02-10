@@ -59,7 +59,7 @@ class Correlation
         $count                = count($x);
         $sum                  = 0.0;
 
-        for ($i = $k + 1; $i < $count; $i++) {
+        for ($i = $k + 1; $i < $count; ++$i) {
             $sum += ($x[$i] - $mean) * ($x[$i - $k] - $mean);
         }
 
@@ -79,7 +79,7 @@ class Correlation
     public static function boxPierceTest(array $autocorrelations, int $h) : float
     {
         $sum = 0;
-        for ($i = 0; $i < $h; $i++) {
+        for ($i = 0; $i < $h; ++$i) {
             $sum += $autocorrelations[$i] ** 2;
         }
 
@@ -101,7 +101,7 @@ class Correlation
         $count = count($autocorrelations);
         $sum   = 0;
 
-        for ($i = 0; $i < $h; $i++) {
+        for ($i = 0; $i < $h; ++$i) {
             $sum += 1 / ($count - $i) * $autocorrelations[$i] ** 2;
         }
 

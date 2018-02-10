@@ -19,7 +19,7 @@ class DateTimeTest extends \PHPUnit\Framework\TestCase
 {
     public function testRnG()
     {
-        for ($i = 0; $i < 100; $i++) {
+        for ($i = 0; $i < 100; ++$i) {
             $dateMin = new \DateTime();
             $dateMax = new \DateTime();
 

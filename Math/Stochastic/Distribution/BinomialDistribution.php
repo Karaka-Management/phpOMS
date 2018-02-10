@@ -128,7 +128,7 @@ class BinomialDistribution
     {
         $sum = 0.0;
 
-        for ($i = 0; $i < $x; $i++) {
+        for ($i = 0; $i < $x; ++$i) {
             $sum += self::getPmf($n, $i, $p);
         }
 

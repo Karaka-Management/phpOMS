@@ -43,7 +43,7 @@ class MarketShareEstimation
     public static function getRankFromMarketShare(int $participants, float $marketShare, float $modifier = 1.0) : int
     {
         $sum = 0.0;
-        for ($i = 0; $i < $participants; $i++) {
+        for ($i = 0; $i < $participants; ++$i) {
             $sum += 1 / pow($i + 1, $modifier);
         }
 
@@ -66,7 +66,7 @@ class MarketShareEstimation
     public static function getMarketShareFromRank(int $participants, int $rank, float $modifier = 1.0) : float
     {
         $sum = 0.0;
-        for ($i = 0; $i < $participants; $i++) {
+        for ($i = 0; $i < $participants; ++$i) {
             $sum += 1 / pow($i + 1, $modifier);
         }
 

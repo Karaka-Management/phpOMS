@@ -95,7 +95,7 @@ class BruteForce
         }
 
         $count = count($cities);
-        for ($i = 0; $i < $count; $i++) {
+        for ($i = 0; $i < $count; ++$i) {
             $extended = clone $tour;
             $extended->addCity($cities[$i]);
             unset($cities[$i]);

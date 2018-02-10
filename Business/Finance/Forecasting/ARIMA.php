@@ -77,7 +77,7 @@ class ARIMA
         $remainder = [];
         $count     = count($prelimSeasonalComponent);
 
-        for ($i = 0; $i < $count; $i++) {
+        for ($i = 0; $i < $count; ++$i) {
             // +1 since 3x3 MA
             $remainder[] = $centeredRatios[$i + 1] / $prelimSeasonalComponent[$i];
         }
@@ -103,7 +103,7 @@ class ARIMA
         $centeredRatio = [];
         $count         = count($seasonal);
 
-        for ($i = 0; $i < $count; $i++) {
+        for ($i = 0; $i < $count; ++$i) {
             // +1 since 3x3 MA
             $centeredRatio[] = $remainder[$i + 1] * $seasonal[$i];
         }
@@ -134,7 +134,7 @@ class ARIMA
         $count    = count($seasonal);
         $start    = ClassicalDecomposition::getStartOfDecomposition(count($this->data), $count);
 
-        for ($i = 0; $i < $count; $i++) {
+        for ($i = 0; $i < $count; ++$i) {
             $adjusted[] = $this->data[$start + $i] / $seasonal[$i];
         }
 
@@ -156,7 +156,7 @@ class ARIMA
         $data  = [];
         $count = count($trendCycleComponent);
 
-        for ($i = 0; $i < $count; $i++) {
+        for ($i = 0; $i < $count; ++$i) {
             $data[] = $trendCycleComponent[$i] * $seasonalAdjustedSeries[$i] * $remainder[$i];
         }
 

@@ -56,7 +56,7 @@ class Functions
     {
         $fact = 1;
 
-        for ($i = $start; $i < $n + 1; $i++) {
+        for ($i = $start; $i < $n + 1; ++$i) {
             $fact *= $i;
         }
 
@@ -85,7 +85,7 @@ class Functions
         $fact  = 1;
         $range = array_reverse(range(1, $min));
 
-        for ($i = $max + 1; $i < $n + 1; $i++) {
+        for ($i = $max + 1; $i < $n + 1; ++$i) {
             $div = 1;
             foreach ($range as $key => $d) {
                 if ($i % $d === 0) {

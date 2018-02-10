@@ -92,7 +92,7 @@ class Integer
     public static function pollardsRho(int $n, int $x = 2, int $factor = 1, int $cycleSize = 2, int $y = 2) : int
     {
         while ($factor === 1) {
-            for ($i = 1; $i < $cycleSize && $factor <= 1; $i++) {
+            for ($i = 1; $i < $cycleSize && $factor <= 1; ++$i) {
                 $x      = ($x * $x + 1) % $n;
                 $factor = self::greatestCommonDivisor($x - $y, $n);
             }

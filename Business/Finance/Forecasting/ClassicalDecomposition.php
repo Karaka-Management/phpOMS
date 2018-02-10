@@ -151,7 +151,7 @@ class ClassicalDecomposition
         $count     = count($trendCycleComponent);
         $start     = self::getStartOfDecomposition(count($data), $count);
 
-        for ($i = 0; $i < $count; $i++) {
+        for ($i = 0; $i < $count; ++$i) {
             $detrended[] = $mode === self::ADDITIVE ? $data[$start + $i] - $trendCycleComponent[$i] : $data[$start + $i] / $trendCycleComponent[$i];
         }
 
@@ -192,7 +192,7 @@ class ClassicalDecomposition
         $seasonalComponent = [];
         $count             = count($detrendedSeries);
 
-        for ($i = 0; $i < $order; $i++) {
+        for ($i = 0; $i < $order; ++$i) {
             $temp = [];
 
             for ($j = $i; $j < $count; $j += $order) {
@@ -225,7 +225,7 @@ class ClassicalDecomposition
         $start              = self::getStartOfDecomposition($dataSize, $count);
         $seasons            = count($seasonalComponent);
 
-        for ($i = 0; $i < $count; $i++) {
+        for ($i = 0; $i < $count; ++$i) {
             $remainderComponent[] = $mode === self::ADDITIVE ? $data[$start + $i] - $trendCycleComponent[$i] - $seasonalComponent[$i % $seasons] : $data[$start + $i] / ($trendCycleComponent[$i] * $seasonalComponent[$i % $seasons]);
         }
 

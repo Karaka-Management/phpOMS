@@ -95,7 +95,7 @@ class ChiSquaredDistribution
 
         $sum = 0.0;
 
-        for ($i = 0; $i < $count; $i++) {
+        for ($i = 0; $i < $count; ++$i) {
             $sum += ($dataset[$i] - $expected[$i]) * ($dataset[$i] - $expected[$i]) / $expected[$i];
         }
 

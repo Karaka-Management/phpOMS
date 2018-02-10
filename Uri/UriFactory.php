@@ -187,7 +187,7 @@ class UriFactory
             $comps  = [];
             $length = count($pars);
 
-            for ($i = 0; $i < $length; $i++) {
+            for ($i = 0; $i < $length; ++$i) {
                 $spl = explode('=', $pars[$i]);
 
                 if (isset($spl[1])) {

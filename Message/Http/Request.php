@@ -231,7 +231,7 @@ class Request extends RequestAbstract
 
         foreach ($pathArray as $key => $path) {
             $paths = [];
-            for ($i = $start; $i < $key + 1; $i++) {
+            for ($i = $start; $i < $key + 1; ++$i) {
                 $paths[] = $pathArray[$i];
             }
 

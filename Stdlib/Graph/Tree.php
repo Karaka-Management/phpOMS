@@ -131,7 +131,7 @@ class Tree extends Graph
     {
         $depth = $this->getMaxDepth();
 
-        for ($i = 1; $i < $depth; $i++) {
+        for ($i = 1; $i < $depth; ++$i) {
             $nodes = $this->getLevel($i);
             callback($nodes);
         }

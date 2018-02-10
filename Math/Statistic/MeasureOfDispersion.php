@@ -174,7 +174,7 @@ class MeasureOfDispersion
 
         $sum = 0.0;
 
-        for ($i = 0; $i < $count; $i++) {
+        for ($i = 0; $i < $count; ++$i) {
             $sum += ($x[$i] - $xMean) * ($y[$i] - $yMean);
         }
 
