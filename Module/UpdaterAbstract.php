@@ -24,7 +24,7 @@ use phpOMS\DataStorage\Database\DatabasePool;
  * @link       http://website.orange-management.de
  * @since      1.0.0
  */
-class UninstallAbstract
+class UpdaterAbstract
 {
 
     /**
@@ -37,8 +37,7 @@ class UninstallAbstract
      *
      * @since  1.0.0
      */
-    public static function uninstall(DatabasePool $dbPool, InfoManager $info) /* : void */
+    public static function update(DatabasePool $dbPool, InfoManager $info) /* : void */
     {
-
     }
 }
