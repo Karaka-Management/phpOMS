@@ -42,6 +42,7 @@ class Request extends RequestAbstract
      * @since 1.0.0
      */
     protected $files = [];
+
     /**
      * Browser type.
      *
@@ -49,6 +50,7 @@ class Request extends RequestAbstract
      * @since 1.0.0
      */
     private $browser = BrowserType::CHROME;
+
     /**
      * OS type.
      *
@@ -56,6 +58,7 @@ class Request extends RequestAbstract
      * @since 1.0.0
      */
     private $os = OSType::LINUX;
+    
     /**
      * Request information.
      *
@@ -76,7 +79,6 @@ class Request extends RequestAbstract
     {
         $this->header = new Header();
         $this->header->setL11n($l11n ?? new Localization());
-        $this->setMethod(RequestMethod::GET);
 
         $this->uri    = $uri;
         $this->source = RequestSource::WEB;
