@@ -161,7 +161,7 @@ class View extends ViewAbstract
     /**
      * Get translation.
      *
-     * @param string $translation Text
+     * @param mixed $translation Text
      * @param string $module      Module name
      * @param string $theme       Theme name
      *
@@ -172,7 +172,7 @@ class View extends ViewAbstract
      *
      * @since  1.0.0
      */
-    public function getText(string $translation, string $module = null, string $theme = null) : string
+    public function getText($translation, string $module = null, string $theme = null) : string
     {
         if (!isset($module)) {
             $match = '/Modules/';
@@ -204,7 +204,7 @@ class View extends ViewAbstract
     /**
      * Get translation.
      *
-     * @param string $translation Text
+     * @param mixed $translation Text
      * @param string $module      Module name
      * @param string $theme       Theme name
      *
@@ -212,7 +212,7 @@ class View extends ViewAbstract
      *
      * @since  1.0.0
      */
-    public function getHtml(string $translation, string $module = null, string $theme = null) : string
+    public function getHtml($translation, string $module = null, string $theme = null) : string
     {
         return htmlspecialchars($this->getText($translation, $module, $theme));
     }
@@ -220,15 +220,15 @@ class View extends ViewAbstract
     /**
      * Print html output.
      *
-     * @param string $text Text
+     * @param mixed $text Text
      *
      * @return string
      *
      * @since  1.0.0
      */
-    public function printHtml(string $text) : string
+    public function printHtml($text) : string
     {
-        return htmlspecialchars($text);
+        return htmlspecialchars((string) $text);
     }
 
     /**

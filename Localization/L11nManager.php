@@ -141,13 +141,13 @@ class L11nManager
      * @param string $code        Country code
      * @param string $module      Module name
      * @param string $theme       Theme
-     * @param string $translation Text
+     * @param mixed $translation Text
      *
      * @return string In case the language element couldn't be found 'ERROR' will be returned
      *
      * @since  1.0.0
      */
-    public function getText(string $code, string $module, string $theme, string $translation) : string
+    public function getText(string $code, string $module, string $theme, $translation) : string
     {
         if (!isset($this->language[$code][$module][$translation])) {
             try {
@@ -176,13 +176,13 @@ class L11nManager
      * @param string $code        Country code
      * @param string $module      Module name
      * @param string $theme       Theme
-     * @param string $translation Text
+     * @param mixed $translation Text
      *
      * @return string In case the language element couldn't be found 'ERROR' will be returned
      *
      * @since  1.0.0
      */
-    public function getHtml(string $code, string $module, string $theme, string $translation) : string
+    public function getHtml(string $code, string $module, string $theme, $translation) : string
     {
         return htmlspecialchars($this->getText($code, $module, $theme, $translation));
     }
