@@ -11,7 +11,7 @@
  * @link       http://website.orange-management.de
  * @see        https://www.otexts.org/fpp/7/7
  */
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace phpOMS\Business\Finance\Forecasting\ExponentialSmoothing;
 
