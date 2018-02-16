@@ -68,6 +68,8 @@ class Tag
      * Set tag name
      *
      * @param string $message Tag message
+     * 
+     * @return void
      *
      * @since  1.0.0
      */

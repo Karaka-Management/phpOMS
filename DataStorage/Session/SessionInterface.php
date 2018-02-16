@@ -81,7 +81,7 @@ interface SessionInterface
     public function getSID();
 
     /**
-     * @param int|string $sid
+     * @param int|string $sid Session id
      *
      * @return void
      *

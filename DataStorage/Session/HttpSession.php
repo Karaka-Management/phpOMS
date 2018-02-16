@@ -109,6 +109,8 @@ class HttpSession implements SessionInterface
 
     /**
      * Set Csrf protection for forms.
+     * 
+     * @return void
      *
      * @since  1.0.0
      */

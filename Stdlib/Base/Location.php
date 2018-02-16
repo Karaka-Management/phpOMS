@@ -151,7 +151,7 @@ class Location implements \JsonSerializable, \Serializable
     /**
      * Set postal or zip code
      *
-     * @param string $postal
+     * @param string $postal Postal code
      *
      * @return void
      *
@@ -177,7 +177,7 @@ class Location implements \JsonSerializable, \Serializable
     /**
      * Set city name
      *
-     * @param string $city
+     * @param string $city City name
      *
      * @return void
      *
@@ -203,7 +203,7 @@ class Location implements \JsonSerializable, \Serializable
     /**
      * Set country code
      *
-     * @param string $country
+     * @param string $country Country name
      *
      * @return void
      *
@@ -229,7 +229,7 @@ class Location implements \JsonSerializable, \Serializable
     /**
      * Set address
      *
-     * @param string $address
+     * @param string $address Address
      *
      * @return void
      *
@@ -255,7 +255,7 @@ class Location implements \JsonSerializable, \Serializable
     /**
      * Set state name
      *
-     * @param string $state
+     * @param string $state State name
      *
      * @return void
      *
@@ -281,7 +281,7 @@ class Location implements \JsonSerializable, \Serializable
     /**
      * Set geo location
      *
-     * @param float[] $geo
+     * @param float[] $geo Geo location lat/long
      *
      * @return void
      *
