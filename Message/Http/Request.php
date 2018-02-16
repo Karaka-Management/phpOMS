@@ -91,8 +91,6 @@ class Request extends RequestAbstract
      *
      * This is used in order to either initialize the current http request or a batch of GET requests
      *
-     * @param void
-     *
      * @return void
      *
      * @since  1.0.0

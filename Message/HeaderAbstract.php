@@ -70,6 +70,8 @@ abstract class HeaderAbstract
 
     /**
      * Set header locked.
+     * 
+     * @return void
      *
      * @since  1.0.0
      */
@@ -162,6 +164,8 @@ abstract class HeaderAbstract
      * Generate header based on status code.
      *
      * @param int $statusCode Status code
+     * 
+     * @return void
      *
      * @since  1.0.0
      */
@@ -194,10 +198,12 @@ abstract class HeaderAbstract
      * @param string $key       Header key
      * @param string $value     Header value
      * @param bool   $overwrite Overwrite if key already exists
+     * 
+     * @return void
      *
      * @since  1.0.0
      */
-    abstract public function set(string $key, string $value, bool $overwrite = false);
+    abstract public function set(string $key, string $value, bool $overwrite = false); /* : void */
 
     /**
      * Get header by key.
