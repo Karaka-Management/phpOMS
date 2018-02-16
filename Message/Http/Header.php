@@ -224,6 +224,8 @@ class Header extends HeaderAbstract
 
     /**
      * Push all headers.
+     * 
+     * @return void
      *
      * @since  1.0.0
      */

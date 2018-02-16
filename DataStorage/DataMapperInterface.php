@@ -109,7 +109,7 @@ interface DataMapperInterface
     /**
      * Load.
      *
-     * @param array $objects Objects to load
+     * @param array ...$objects Objects to load
      *
      * @return $this
      *

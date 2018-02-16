@@ -63,7 +63,7 @@ class Dispatcher
      * Dispatch controller.
      *
      * @param string|array|\Closure $controller Controller string
-     * @param mixed                 $data       Data
+     * @param mixed                 ...$data    Data
      *
      * @return array
      *

@@ -84,6 +84,8 @@ class C128a extends C128Abstract
      * Set content to encrypt
      *
      * @param string $content Content to encrypt
+     * 
+     * @return void
      *
      * @todo   : add mirror parameter
      *

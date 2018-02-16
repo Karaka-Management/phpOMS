@@ -52,6 +52,8 @@ abstract class SchedulerAbstract
      * Set git binary.
      *
      * @param string $path Git path
+     * 
+     * @return void
      *
      * @throws PathException
      *
@@ -92,7 +94,7 @@ abstract class SchedulerAbstract
     /**
      * Create task
      *
-     * @param TaskAbstract
+     * @param TaskAbstract $task Task to create
      *
      * @return void
      *

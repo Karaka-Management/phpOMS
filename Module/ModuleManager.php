@@ -210,6 +210,15 @@ class ModuleManager
         return $this->active;
     }
 
+    /**
+     * Is module active
+     *
+     * @param string $module Module name
+     *
+     * @return bool
+     *
+     * @since  1.0.0
+     */
     public function isActive(string $module) : bool
     {
         return in_array($module, $this->getActiveModules(false));
@@ -294,7 +303,7 @@ class ModuleManager
      */
     private function loadInfo(string $module) : InfoManager
     {
-        $path = realpath($oldPath = $this->modulePath . '/' . $module . '/' . 'info.json');
+        $path = realpath($oldPath = $this->modulePath . '/' . $module . '/info.json');
 
         if ($path === false) {
             throw new PathException($oldPath);

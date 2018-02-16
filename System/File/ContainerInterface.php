@@ -324,8 +324,10 @@ interface ContainerInterface
      *
      * This is used in order to initialize all resources.
      * Sub-sub-resources are only initialized once they are needed.
+     * 
+     * @return void
      *
      * @since  1.0.0
      */
-    public function index();
+    public function index(); /* : void */
 }

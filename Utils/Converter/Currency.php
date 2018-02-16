@@ -53,6 +53,8 @@ class Currency
      * Reset currency rates.
      *
      * Can be used in order to refresh them. Be careful currency rates only get updated once a day from the ECB website.
+     * 
+     * @return void
      *
      * @since  1.0.0
      */

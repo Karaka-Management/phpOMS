@@ -18,6 +18,9 @@ use phpOMS\Validation\ValidatorAbstract;
 
 class BarcodeDatamatrix extends ValidatorAbstract
 {
+    /**
+     * {@inheritdoc}
+     */
     public static function isValid($value, array $constraints = null)
     {
 

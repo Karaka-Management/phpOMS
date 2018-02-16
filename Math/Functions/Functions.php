@@ -70,8 +70,8 @@ class Functions
      *
      * Example: (7, 2)
      *
-     * @param int $n
-     * @param int $k
+     * @param int $n n
+     * @param int $k k
      *
      * @return int
      *
@@ -111,8 +111,8 @@ class Functions
     /**
      * Calculate ackermann function.
      *
-     * @param int $m
-     * @param int $n
+     * @param int $m m
+     * @param int $n n
      *
      * @return int
      *
@@ -152,7 +152,7 @@ class Functions
     /**
      * Calculate inverse modular.
      *
-     * @param int $a
+     * @param int $a a
      * @param int $n Modulo
      *
      * @return int
@@ -198,8 +198,8 @@ class Functions
     /**
      * Modular implementation for negative values.
      *
-     * @param int $a
-     * @param int $b
+     * @param int $a a
+     * @param int $b b
      *
      * @return int
      *

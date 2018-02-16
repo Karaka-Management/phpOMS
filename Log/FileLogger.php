@@ -215,9 +215,9 @@ class FileLogger implements LoggerInterface
     /**
      * Interpolate context
      *
-     * @param string $message
-     * @param array  $context
-     * @param string $level
+     * @param string $message Log schema
+     * @param array  $context Context to log
+     * @param string $level   Log level
      *
      * @return string
      *
@@ -256,7 +256,7 @@ class FileLogger implements LoggerInterface
     /**
      * Write to file.
      *
-     * @param string $message
+     * @param string $message Log message
      *
      * @return void
      *
@@ -285,14 +285,7 @@ class FileLogger implements LoggerInterface
     }
 
     /**
-     * System is unusable.
-     *
-     * @param string $message
-     * @param array  $context
-     *
-     * @return null
-     *
-     * @since  1.0.0
+     * {@inheritdoc}
      */
     public function emergency(string $message, array $context = []) /* : void */
     {
@@ -301,17 +294,7 @@ class FileLogger implements LoggerInterface
     }
 
     /**
-     * Action must be taken immediately.
-     *
-     * Example: Entire website down, database unavailable, etc. This should
-     * trigger the SMS alerts and wake you up.
-     *
-     * @param string $message
-     * @param array  $context
-     *
-     * @return void
-     *
-     * @since  1.0.0
+     * {@inheritdoc}
      */
     public function alert(string $message, array $context = []) /* : void */
     {
@@ -320,16 +303,7 @@ class FileLogger implements LoggerInterface
     }
 
     /**
-     * Critical conditions.
-     *
-     * Example: Application component unavailable, unexpected exception.
-     *
-     * @param string $message
-     * @param array  $context
-     *
-     * @return void
-     *
-     * @since  1.0.0
+     * {@inheritdoc}
      */
     public function critical(string $message, array $context = []) /* : void */
     {
@@ -338,15 +312,7 @@ class FileLogger implements LoggerInterface
     }
 
     /**
-     * Runtime errors that do not require immediate action but should typically
-     * be logged and monitored.
-     *
-     * @param string $message
-     * @param array  $context
-     *
-     * @return void
-     *
-     * @since  1.0.0
+     * {@inheritdoc}
      */
     public function error(string $message, array $context = []) /* : void */
     {
@@ -355,17 +321,7 @@ class FileLogger implements LoggerInterface
     }
 
     /**
-     * Exceptional occurrences that are not errors.
-     *
-     * Example: Use of deprecated APIs, poor use of an API, undesirable things
-     * that are not necessarily wrong.
-     *
-     * @param string $message
-     * @param array  $context
-     *
-     * @return void
-     *
-     * @since  1.0.0
+     * {@inheritdoc}
      */
     public function warning(string $message, array $context = []) /* : void */
     {
@@ -374,14 +330,7 @@ class FileLogger implements LoggerInterface
     }
 
     /**
-     * Normal but significant events.
-     *
-     * @param string $message
-     * @param array  $context
-     *
-     * @return void
-     *
-     * @since  1.0.0
+     * {@inheritdoc}
      */
     public function notice(string $message, array $context = []) /* : void */
     {
@@ -390,16 +339,7 @@ class FileLogger implements LoggerInterface
     }
 
     /**
-     * Interesting events.
-     *
-     * Example: User logs in, SQL logs.
-     *
-     * @param string $message
-     * @param array  $context
-     *
-     * @return void
-     *
-     * @since  1.0.0
+     * {@inheritdoc}
      */
     public function info(string $message, array $context = []) /* : void */
     {
@@ -408,14 +348,7 @@ class FileLogger implements LoggerInterface
     }
 
     /**
-     * Detailed debug information.
-     *
-     * @param string $message
-     * @param array  $context
-     *
-     * @return void
-     *
-     * @since  1.0.0
+     * {@inheritdoc}
      */
     public function debug(string $message, array $context = []) /* : void */
     {
@@ -424,15 +357,7 @@ class FileLogger implements LoggerInterface
     }
 
     /**
-     * Logs with an arbitrary level.
-     *
-     * @param string $level
-     * @param string $message
-     * @param array  $context
-     *
-     * @return void
-     *
-     * @since  1.0.0
+     * {@inheritdoc}
      */
     public function log(string $level, string $message, array $context = []) /* : void */
     {

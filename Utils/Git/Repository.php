@@ -76,6 +76,8 @@ class Repository
      * Set repository path.
      *
      * @param string $path Path to repository
+     * 
+     * @return void
      *
      * @throws PathException
      *

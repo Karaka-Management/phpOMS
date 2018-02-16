@@ -120,7 +120,7 @@ interface UriInterface
     /**
      * Set root path.
      *
-     * @param string $uri Uri
+     * @param string $root Root path
      *
      * @return void
      *

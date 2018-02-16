@@ -194,7 +194,7 @@ class Money implements \Serializable
     /**
      * Add money.
      *
-     * @param Money|string|int|float $value
+     * @param Money|string|int|float $value Value to add
      *
      * @return Money
      *
@@ -228,7 +228,7 @@ class Money implements \Serializable
     /**
      * Sub money.
      *
-     * @param Money|string|int|float $value
+     * @param Money|string|int|float $value Value to subtract
      *
      * @return Money
      *
@@ -250,7 +250,7 @@ class Money implements \Serializable
     /**
      * Mult.
      *
-     * @param int|float $value
+     * @param int|float $value Value to multiply with
      *
      * @return Money
      *
@@ -268,7 +268,7 @@ class Money implements \Serializable
     /**
      * Div.
      *
-     * @param int|float $value
+     * @param int|float $value Value to divide by
      *
      * @return Money
      *
@@ -300,7 +300,7 @@ class Money implements \Serializable
     /**
      * Power.
      *
-     * @param int|float $value
+     * @param int|float $value Value to power
      *
      * @return Money
      *
@@ -330,7 +330,7 @@ class Money implements \Serializable
     /**
      * Unserialize.
      *
-     * @param mixed $value
+     * @param mixed $value Value to unserialize
      *
      * @return void
      *

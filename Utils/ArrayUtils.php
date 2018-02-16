@@ -232,7 +232,7 @@ class ArrayUtils
                     $str .= $key . ' => ' . $value . ', ';
                     break;
                 case 'string':
-                    $str .= $key . ' => \'' . $value . '\'' . ', ';
+                    $str .= $key . ' => \'' . $value . '\', ';
                     break;
                 case 'object':
                     $str .= $key . ' => ' . get_class($value['default']) . '()';

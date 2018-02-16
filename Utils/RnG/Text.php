@@ -77,13 +77,13 @@ class Text
     /**
      * Set if the text should have formatting.
      *
-     * @param bool $hasFormatting
+     * @param bool $hasFormatting Text has formatting.
      *
      * @return void
      *
      * @since  1.0.0
      */
-    public function setFormatting($hasFormatting) /* : void */
+    public function setFormatting(bool $hasFormatting) /* : void */
     {
         $this->hasFormatting = $hasFormatting;
     }
@@ -91,13 +91,13 @@ class Text
     /**
      * Set if the text should have paragraphs.
      *
-     * @param bool $hasParagraphs
+     * @param bool $hasParagraphs Text has paragraphs
      *
      * @return void
      *
      * @since  1.0.0
      */
-    public function setParagraphs($hasParagraphs) /* : void */
+    public function setParagraphs(bool $hasParagraphs) /* : void */
     {
         $this->hasParagraphs = $hasParagraphs;
     }

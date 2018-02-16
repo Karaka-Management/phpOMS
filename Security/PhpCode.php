@@ -24,6 +24,12 @@ namespace phpOMS\Security;
  */
 class PhpCode
 {
+    /**
+     * Deprecated functions
+     *
+     * @var array
+     * @since 1.0.0
+     */
     public static $deprecatedFunctions = [
         'apache_child_terminate', 'apache_setenv', 'define_syslog_variables', 'escapeshellarg', 'escapeshellcmd', 'eval',
         'exec', 'fp', 'fput', 'ftp_connect', 'ftp_exec', 'ftp_get', 'ftp_login', 'ftp_nb_fput', 'ftp_put', 'ftp_raw',
@@ -33,16 +39,43 @@ class PhpCode
         'posix_setuid', 'posix_uname', 'proc_close', 'proc_get_status',
     ];
 
+    /**
+     * Normalize source code for inspection
+     *
+     * @param string $source Source code
+     *
+     * @return string
+     *
+     * @since  1.0.0
+     */
     private static function normalizeSource(string $source) : string
     {
         return str_replace(["\n", "\r\n", "\r", "\t"], ['', '', '', ' '], $source);
     }
 
+    /**
+     * Check if has source unicode
+     *
+     * @param string $source Source code
+     *
+     * @return bool
+     *
+     * @since  1.0.0
+     */
     public static function hasUnicode(string $source) : bool
     {
         return (bool) preg_match('/[^\x20-\x7f]/', $source) || !mb_check_encoding($source, 'ASCII');
     }
 
+    /**
+     * Check if function is disabled
+     *
+     * @param array $functions Functions to check
+     *
+     * @return bool
+     *
+     * @since  1.0.0
+     */
     public static function isDisabled(array $functions) : bool
     {
         $disabled = ini_get('disable_functions');
@@ -58,12 +91,21 @@ class PhpCode
         return true;
     }
 
+    /**
+     * Check if has deprecated functions
+     *
+     * @param string $source Source code
+     *
+     * @return bool
+     *
+     * @since  1.0.0
+     */
     public static function hasDeprecatedFunction(string $source) : bool
     {
         $source = self::normalizeSource($source);
 
         foreach (self::$deprecatedFunctions as $function) {
-            if (preg_match('/' . $function . '\s*\(' . '/', $source) === 1) {
+            if (preg_match('/' . $function . '\s*\(/', $source) === 1) {
                 return true;
             }
         }

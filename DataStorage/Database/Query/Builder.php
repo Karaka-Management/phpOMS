@@ -247,7 +247,7 @@ class Builder extends BuilderAbstract
     /**
      * Select.
      *
-     * @param array $columns Columns
+     * @param array ...$columns Columns
      *
      * @return Builder
      *
@@ -273,7 +273,7 @@ class Builder extends BuilderAbstract
     /**
      * Select.
      *
-     * @param array $columns Columns
+     * @param array ...$columns Columns
      *
      * @return Builder
      *
@@ -423,7 +423,7 @@ class Builder extends BuilderAbstract
     /**
      * From.
      *
-     * @param string|array $tables Tables
+     * @param string|array ...$tables Tables
      *
      * @return Builder
      *
@@ -627,7 +627,7 @@ class Builder extends BuilderAbstract
     /**
      * Group by.
      *
-     * @param string|array|\Closure $columns Grouping result
+     * @param string|array|\Closure ...$columns Grouping result
      *
      * @return Builder
      *
@@ -761,6 +761,8 @@ class Builder extends BuilderAbstract
 
     /**
      * Lock query.
+     * 
+     * @return void
      *
      * @since  1.0.0
      */
@@ -770,6 +772,8 @@ class Builder extends BuilderAbstract
 
     /**
      * Lock for update query.
+     * 
+     * @return void
      *
      * @since  1.0.0
      */
@@ -779,6 +783,8 @@ class Builder extends BuilderAbstract
 
     /**
      * Create query string.
+     * 
+     * @return void
      *
      * @since  1.0.0
      */
@@ -789,6 +795,8 @@ class Builder extends BuilderAbstract
 
     /**
      * Find query.
+     * 
+     * @return void
      *
      * @since  1.0.0
      */
@@ -813,6 +821,8 @@ class Builder extends BuilderAbstract
 
     /**
      * Select minimum.
+     * 
+     * @return void
      *
      * @since  1.0.0
      */
@@ -822,6 +832,8 @@ class Builder extends BuilderAbstract
 
     /**
      * Select maximum.
+     * 
+     * @return void
      *
      * @since  1.0.0
      */
@@ -831,6 +843,8 @@ class Builder extends BuilderAbstract
 
     /**
      * Select sum.
+     * 
+     * @return void
      *
      * @since  1.0.0
      */
@@ -840,6 +854,8 @@ class Builder extends BuilderAbstract
 
     /**
      * Select average.
+     * 
+     * @return void
      *
      * @since  1.0.0
      */
@@ -850,7 +866,7 @@ class Builder extends BuilderAbstract
     /**
      * Insert into columns.
      *
-     * @param array $columns Columns
+     * @param array ...$columns Columns
      *
      * @return Builder
      *
@@ -892,7 +908,7 @@ class Builder extends BuilderAbstract
     /**
      * Values to insert.
      *
-     * @param array $values Values
+     * @param array ...$values Values
      *
      * @return Builder
      *
@@ -928,7 +944,7 @@ class Builder extends BuilderAbstract
     /**
      * Values to insert.
      *
-     * @param array $sets Values
+     * @param array ...$sets Values
      *
      * @return Builder
      *
@@ -961,7 +977,7 @@ class Builder extends BuilderAbstract
     /**
      * Update columns.
      *
-     * @param array $tables Column names to update
+     * @param array ...$tables Column names to update
      *
      * @return Builder
      *
@@ -988,6 +1004,13 @@ class Builder extends BuilderAbstract
         return $this;
     }
 
+    /**
+     * Delete query
+     * 
+     * @return Builder
+     *
+     * @since  1.0.0
+     */
     public function delete() : Builder
     {
         if ($this->isReadOnly) {
@@ -1001,6 +1024,8 @@ class Builder extends BuilderAbstract
 
     /**
      * Increment value.
+     * 
+     * @return void
      *
      * @since  1.0.0
      */
@@ -1010,6 +1035,8 @@ class Builder extends BuilderAbstract
 
     /**
      * Decrement value.
+     * 
+     * @return void
      *
      * @since  1.0.0
      */
@@ -1019,6 +1046,8 @@ class Builder extends BuilderAbstract
 
     /**
      * Join.
+     * 
+     * @return Builder
      *
      * @since  1.0.0
      */
@@ -1029,6 +1058,8 @@ class Builder extends BuilderAbstract
 
     /**
      * Join where.
+     * 
+     * @return void
      *
      * @since  1.0.0
      */
@@ -1038,6 +1069,8 @@ class Builder extends BuilderAbstract
 
     /**
      * Left join.
+     * 
+     * @return void
      *
      * @since  1.0.0
      */
@@ -1047,6 +1080,8 @@ class Builder extends BuilderAbstract
 
     /**
      * Left join where.
+     * 
+     * @return void
      *
      * @since  1.0.0
      */
@@ -1056,6 +1091,8 @@ class Builder extends BuilderAbstract
 
     /**
      * Right join.
+     * 
+     * @return void
      *
      * @since  1.0.0
      */
@@ -1065,6 +1102,8 @@ class Builder extends BuilderAbstract
 
     /**
      * Right join where.
+     * 
+     * @return void
      *
      * @since  1.0.0
      */
@@ -1086,6 +1125,8 @@ class Builder extends BuilderAbstract
 
     /**
      * On.
+     * 
+     * @return void
      *
      * @since  1.0.0
      */
