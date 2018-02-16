@@ -156,13 +156,13 @@ class StringCompare
     /**
      * Calculate fuzzy match score.
      *
-     * @param string $s1          Word 1
-     * @param string $s2          Word 2
-     * @param float $phraseWeight Weighting for phrase score
-     * @param float $wordWeight   Weighting for word score
-     * @param float $minWeight    Min weight
-     * @param float $maxWeight    Max weight
-     * @param float $lengthWeight Weighting for word length
+     * @param string $s1           Word 1
+     * @param string $s2           Word 2
+     * @param float  $phraseWeight Weighting for phrase score
+     * @param float  $wordWeight   Weighting for word score
+     * @param float  $minWeight    Min weight
+     * @param float  $maxWeight    Max weight
+     * @param float  $lengthWeight Weighting for word length
      *
      * @return float
      *

@@ -198,9 +198,9 @@ class Error
     /**
      * Get R Bar Squared
      *
-     * @param float $R R
-     * @param int $observations Amount of observations
-     * @param int $predictors Amount of predictors
+     * @param float $R            R
+     * @param int   $observations Amount of observations
+     * @param int   $predictors   Amount of predictors
      *
      * @return float
      *
@@ -214,9 +214,9 @@ class Error
     /**
      * Get Aike's information criterion (AIC)
      *
-     * @param float $sse SSE
-     * @param int $observations Amount of observations
-     * @param int $predictors Amount of predictors
+     * @param float $sse          SSE
+     * @param int   $observations Amount of observations
+     * @param int   $predictors   Amount of predictors
      *
      * @return float
      *
@@ -232,9 +232,9 @@ class Error
      *
      * Correction for small amount of observations
      *
-     * @param float $aic AIC
-     * @param int $observations Amount of observations
-     * @param int $predictors Amount of predictors
+     * @param float $aic          AIC
+     * @param int   $observations Amount of observations
+     * @param int   $predictors   Amount of predictors
      *
      * @return float
      *
@@ -248,9 +248,9 @@ class Error
     /**
      * Get Bayesian information criterion (BIC)
      *
-     * @param float $sse SSE
-     * @param int $observations Amount of observations
-     * @param int $predictors Amount of predictors
+     * @param float $sse          SSE
+     * @param int   $observations Amount of observations
+     * @param int   $predictors   Amount of predictors
      *
      * @return float
      *

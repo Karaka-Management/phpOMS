@@ -31,6 +31,8 @@ trait ModelValidationTrait
      *
      * @param mixed  $var  Variable to set
      * @param string $name Name of the variable
+     * 
+     * @return void
      *
      * @throws \Exception
      *

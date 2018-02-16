@@ -49,7 +49,7 @@ class AccountManager implements \Countable
     /**
      * Constructor.
      *
-     * @param SessionInterface   $session    Session
+     * @param SessionInterface $session Session
      *
      * @since  1.0.0
      */

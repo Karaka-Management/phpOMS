@@ -161,7 +161,7 @@ class View extends ViewAbstract
     /**
      * Get translation.
      *
-     * @param mixed $translation Text
+     * @param mixed  $translation Text
      * @param string $module      Module name
      * @param string $theme       Theme name
      *
@@ -204,7 +204,7 @@ class View extends ViewAbstract
     /**
      * Get translation.
      *
-     * @param mixed $translation Text
+     * @param mixed  $translation Text
      * @param string $module      Module name
      * @param string $theme       Theme name
      *

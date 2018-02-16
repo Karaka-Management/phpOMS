@@ -41,7 +41,7 @@ class Auth
     /**
      * Authenticates user.
      *
-     * @param SessionInterface   $session    Session
+     * @param SessionInterface $session Session
      *
      * @return int
      *
@@ -57,7 +57,7 @@ class Auth
     /**
      * Logout the given user.
      *
-     * @param SessionInterface   $session    Session
+     * @param SessionInterface $session Session
      *
      * @return void
      *

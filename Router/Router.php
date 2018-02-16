@@ -92,7 +92,7 @@ class Router
      * Route request.
      *
      * @param string|RequestAbstract $request Request to route
-     * @param int             $verb    Route verb
+     * @param int                    $verb    Route verb
      *
      * @return array[]
      *

@@ -246,7 +246,7 @@ class Account implements ArrayableInterface, \JsonSerializable
      *
      * The method accepts an array of permissions. All existing permissions are replaced.
      *
-     * @param PermissionAbstract[] $permissions
+     * @param PermissionAbstract[] $permissions Account permissions
      *
      * @return void
      *
@@ -306,13 +306,13 @@ class Account implements ArrayableInterface, \JsonSerializable
      *
      * Checks if the account has a permission defined
      *
-     * @param int $permission Permission to check
-     * @param int $unit Unit Unit to check (null if all are acceptable)
-     * @param string $app App App to check  (null if all are acceptable)
-     * @param int $module Module Module to check  (null if all are acceptable)
-     * @param int $type Type (e.g. customer) (null if all are acceptable)
-     * @param int $element (e.g. customer id) (null if all are acceptable)
-     * @param int $component (e.g. address) (null if all are acceptable)
+     * @param int    $permission Permission to check
+     * @param int    $unit       Unit Unit to check (null if all are acceptable)
+     * @param string $app        App App to check  (null if all are acceptable)
+     * @param int    $module     Module Module to check  (null if all are acceptable)
+     * @param int    $type       Type (e.g. customer) (null if all are acceptable)
+     * @param int    $element    (e.g. customer id) (null if all are acceptable)
+     * @param int    $component  (e.g. address) (null if all are acceptable)
      *
      * @return bool Returns true if the account has the permission, false otherwise
      *

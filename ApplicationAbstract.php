@@ -150,7 +150,7 @@ class ApplicationAbstract
     /**
      * Set values
      *
-     * @param string $name Variable name
+     * @param string $name  Variable name
      * @param string $value Variable value
      *
      * @return void
