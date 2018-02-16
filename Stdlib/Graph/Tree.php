@@ -120,7 +120,7 @@ class Tree extends Graph
     /**
      * Perform task on tree nodes in level order.
      *
-     * @param Node $node Tree node
+     * @param Node     $node     Tree node
      * @param \Closure $callback Task to perform
      *
      * @return void
@@ -154,8 +154,8 @@ class Tree extends Graph
     /**
      * Get all nodes of a specific level.
      *
-     * @param int $level Level to retrieve
-     * @param Node $node Tree node
+     * @param int  $level Level to retrieve
+     * @param Node $node  Tree node
      *
      * @return Node[]
      *
@@ -207,7 +207,7 @@ class Tree extends Graph
     /**
      * Perform action on tree in pre-order.
      *
-     * @param Node $node Tree node
+     * @param Node     $node     Tree node
      * @param \Closure $callback Task to perform on node
      *
      * @since  1.0.0
@@ -230,7 +230,7 @@ class Tree extends Graph
     /**
      * Perform action on tree in post-order.
      *
-     * @param Node $node Tree node
+     * @param Node     $node     Tree node
      * @param \Closure $callback Task to perform on node
      *
      * @since  1.0.0

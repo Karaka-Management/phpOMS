@@ -54,10 +54,10 @@ class EventManager
     /**
      * Attach new event
      *
-     * @param string $group Name of the event (unique)
+     * @param string   $group    Name of the event (unique)
      * @param \Closure $callback Callback for the event
-     * @param bool $remove Remove event after triggering it?
-     * @param bool $reset Reset event after triggering it? Remove must be false!
+     * @param bool     $remove   Remove event after triggering it?
+     * @param bool     $reset    Reset event after triggering it? Remove must be false!
      *
      * @return bool
      *
@@ -78,8 +78,8 @@ class EventManager
      * Trigger event
      *
      * @param string $group Name of the event
-     * @param string $id Sub-requirement for event
-     * @param mixed $data Data to pass to the callback
+     * @param string $id    Sub-requirement for event
+     * @param mixed  $data  Data to pass to the callback
      *
      * @return bool Returns true on sucessfully triggering the event, false if the event couldn't be triggered which also includes sub-requirements missing.
      *
@@ -180,7 +180,7 @@ class EventManager
      * Add sub-requirement for event
      *
      * @param string $group Name of the event
-     * @param string $id ID of the sub-requirement
+     * @param string $id    ID of the sub-requirement
      *
      * @return void
      *

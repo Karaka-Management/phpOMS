@@ -165,7 +165,7 @@ abstract class C128Abstract
     /**
      * Set barcode margins
      *
-     * @param int $margin  Barcode margin
+     * @param int $margin Barcode margin
      *
      * @since  1.0.0
      */

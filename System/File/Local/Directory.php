@@ -97,7 +97,7 @@ class Directory extends FileAbstract implements DirectoryInterface
     /**
      * List all files by extension directory.
      *
-     * @param string $path   Path
+     * @param string $path      Path
      * @param string $extension Extension
      *
      * @return array

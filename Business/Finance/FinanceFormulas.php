@@ -1380,7 +1380,7 @@ class FinanceFormulas
     /**
      * Relative market share by share
      *
-     * @param float $ownShare Own market share
+     * @param float $ownShare        Own market share
      * @param float $competitorShare Largest competitor market share
      *
      * @return float
@@ -1395,7 +1395,7 @@ class FinanceFormulas
     /**
      * Relative market share by sales
      *
-     * @param float $ownSales Own sales
+     * @param float $ownSales        Own sales
      * @param float $competitorSales Largest competitor sales
      *
      * @return float

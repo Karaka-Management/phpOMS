@@ -27,9 +27,9 @@ class Forecasts
     /**
      * Get forecast/prediction interval.
      *
-     * @param float $forecast Forecast value
+     * @param float $forecast          Forecast value
      * @param float $standardDeviation Standard Deviation of forecast
-     * @param float $interval Forecast multiplier for prediction intervals
+     * @param float $interval          Forecast multiplier for prediction intervals
      *
      * @return array
      *

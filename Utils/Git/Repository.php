@@ -289,7 +289,7 @@ class Repository
     /**
      * Remove file(s) from repository
      *
-     * @param string|array $files  Files to remove
+     * @param string|array $files Files to remove
      *
      * @return string
      *

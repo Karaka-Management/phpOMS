@@ -87,7 +87,7 @@ abstract class TaskAbstract
      * Constructor
      *
      * @param string $name Id/name of the task (on linux the same as the executable script)
-     * @param string $cmd Command to create the task
+     * @param string $cmd  Command to create the task
      *
      * @since  1.0.0
      */

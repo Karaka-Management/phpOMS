@@ -95,9 +95,9 @@ class L11nManager
      * One module can only be loaded once. Once the module got loaded it's not
      * possible to load more language files later on.
      *
-     * @param string     $language    Language iso code
-     * @param string     $from        Module name
-     * @param string     $file File to import language from
+     * @param string $language Language iso code
+     * @param string $from     Module name
+     * @param string $file     File to import language from
      *
      * @return void
      *
@@ -141,7 +141,7 @@ class L11nManager
      * @param string $code        Country code
      * @param string $module      Module name
      * @param string $theme       Theme
-     * @param mixed $translation Text
+     * @param mixed  $translation Text
      *
      * @return string In case the language element couldn't be found 'ERROR' will be returned
      *
@@ -176,7 +176,7 @@ class L11nManager
      * @param string $code        Country code
      * @param string $module      Module name
      * @param string $theme       Theme
-     * @param mixed $translation Text
+     * @param mixed  $translation Text
      *
      * @return string In case the language element couldn't be found 'ERROR' will be returned
      *

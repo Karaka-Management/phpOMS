@@ -182,7 +182,7 @@ class Grammar extends GrammarAbstract
     /**
      * Compile select.
      *
-     * @param Builder $query   Builder
+     * @param Builder $query Builder
      * @param array   $table Table
      *
      * @return string
@@ -268,9 +268,9 @@ class Grammar extends GrammarAbstract
     /**
      * Compile where element.
      *
-     * @param array $element Element data
-     * @param Builder $query Query builder
-     * @param bool    $first  Is first element (usefull for nesting)
+     * @param array   $element Element data
+     * @param Builder $query   Query builder
+     * @param bool    $first   Is first element (usefull for nesting)
      *
      * @return string
      *

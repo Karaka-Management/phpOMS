@@ -35,8 +35,8 @@ class InstallerAbstract
     /**
      * Register module in database.
      *
-     * @param DatabasePool        $dbPool Database instance
-     * @param InfoManager $info   Module info
+     * @param DatabasePool $dbPool Database instance
+     * @param InfoManager  $info   Module info
      *
      * @return void
      *
@@ -88,9 +88,9 @@ class InstallerAbstract
     /**
      * Install module.
      *
-     * @param string      $modulePath Route Path
-     * @param DatabasePool        $dbPool    Database instance
-     * @param InfoManager $info      Module info
+     * @param string       $modulePath Route Path
+     * @param DatabasePool $dbPool     Database instance
+     * @param InfoManager  $info       Module info
      *
      * @return void
      *
@@ -106,8 +106,8 @@ class InstallerAbstract
     /**
      * Activate after install.
      *
-     * @param DatabasePool        $dbPool Database instance
-     * @param InfoManager $info   Module info
+     * @param DatabasePool $dbPool Database instance
+     * @param InfoManager  $info   Module info
      *
      * @return void
      *
@@ -124,7 +124,7 @@ class InstallerAbstract
      * Re-init module.
      *
      * @param string      $modulePath Route Path
-     * @param InfoManager $info Module info
+     * @param InfoManager $info       Module info
      *
      * @return void
      *
@@ -139,7 +139,7 @@ class InstallerAbstract
      * Init routes.
      *
      * @param string      $modulePath Path to the module
-     * @param InfoManager $info Module info
+     * @param InfoManager $info       Module info
      *
      * @return void
      *

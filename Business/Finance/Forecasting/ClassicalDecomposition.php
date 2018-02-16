@@ -137,9 +137,9 @@ class ClassicalDecomposition
     /**
      * Calculate detrended series
      *
-     * @param array $data  Data to analyze
+     * @param array $data                Data to analyze
      * @param array $trendCycleComponent Trend cycle component
-     * @param int $mode Detrend mode
+     * @param int   $mode                Detrend mode
      *
      * @return array Detrended series / seasonal normalized data
      *
@@ -163,7 +163,7 @@ class ClassicalDecomposition
      *
      * By using averaging methods some initial data get's incorporated into the average which reduces the data points.
      *
-     * @param int $dataSize Original data size
+     * @param int $dataSize             Original data size
      * @param int $trendCycleComponents Trend cycle component size
      *
      * @return int New data start index
@@ -181,7 +181,7 @@ class ClassicalDecomposition
      * Average of the detrended values for every month, quarter, day etc.
      *
      * @param array $detrendedSeries Detrended series
-     * @param int $order Seasonal period (e.g. 4 = quarterly, 12 = monthly, 7 = weekly pattern in daily data)
+     * @param int   $order           Seasonal period (e.g. 4 = quarterly, 12 = monthly, 7 = weekly pattern in daily data)
      *
      * @return array
      *
@@ -208,10 +208,10 @@ class ClassicalDecomposition
     /**
      * Calculate the remainder component or error
      *
-     * @param array $data Raw data
+     * @param array $data                Raw data
      * @param array $trendCycleComponent Trend cycle component
-     * @param array $seasonalComponent Seasonal component
-     * @param int $mode Detrend mode
+     * @param array $seasonalComponent   Seasonal component
+     * @param int   $mode                Detrend mode
      *
      * @return array All remainders or absolute errors
      *

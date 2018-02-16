@@ -219,7 +219,7 @@ class Builder extends BuilderAbstract
      * Constructor.
      *
      * @param ConnectionAbstract $connection Database connection
-     * @param bool $readOnly Query is read only
+     * @param bool               $readOnly   Query is read only
      *
      * @since  1.0.0
      */
@@ -462,9 +462,9 @@ class Builder extends BuilderAbstract
      * Where.
      *
      * @param Where|string|\Closure|array $columns  Columns
-     * @param string|array          $operator Operator
-     * @param mixed                 $values   Values
-     * @param string|array          $boolean  Boolean condition
+     * @param string|array                $operator Operator
+     * @param mixed                       $values   Values
+     * @param string|array                $boolean  Boolean condition
      *
      * @return Builder
      *
@@ -524,7 +524,7 @@ class Builder extends BuilderAbstract
     /**
      * Get table name of system
      *
-     * @param mixed $expression System expression
+     * @param mixed  $expression       System expression
      * @param string $systemIdentifier System identifier
      *
      * @return string|null
@@ -543,9 +543,9 @@ class Builder extends BuilderAbstract
     /**
      * Where and sub condition.
      *
-     * @param Where|string|\Closure|array $where Where sub condition
-     * @param mixed $operator Operator
-     * @param mixed $values Values
+     * @param Where|string|\Closure|array $where    Where sub condition
+     * @param mixed                       $operator Operator
+     * @param mixed                       $values   Values
      *
      * @return Builder
      *
@@ -559,9 +559,9 @@ class Builder extends BuilderAbstract
     /**
      * Where or sub condition.
      *
-     * @param Where|string|\Closure|array $where Where sub condition
-     * @param mixed $operator Operator
-     * @param mixed $values Values
+     * @param Where|string|\Closure|array $where    Where sub condition
+     * @param mixed                       $operator Operator
+     * @param mixed                       $values   Values
      *
      * @return Builder
      *
@@ -576,8 +576,8 @@ class Builder extends BuilderAbstract
      * Where in.
      *
      * @param Where|string|\Closure|array $column  Column
-     * @param mixed                 $values  Values
-     * @param string                $boolean Boolean condition
+     * @param mixed                       $values  Values
+     * @param string                      $boolean Boolean condition
      *
      * @return Builder
      *
@@ -594,7 +594,7 @@ class Builder extends BuilderAbstract
      * Where null.
      *
      * @param Where|string|\Closure|array $column  Column
-     * @param string                $boolean Boolean condition
+     * @param string                      $boolean Boolean condition
      *
      * @return Builder
      *
@@ -611,7 +611,7 @@ class Builder extends BuilderAbstract
      * Where not null.
      *
      * @param Where|string|\Closure|array $column  Column
-     * @param string                $boolean Boolean condition
+     * @param string                      $boolean Boolean condition
      *
      * @return Builder
      *
@@ -944,8 +944,8 @@ class Builder extends BuilderAbstract
     /**
      * Values to insert.
      *
-     * @param mixed  $set Values
-     * @param string $type  Data type to insert
+     * @param mixed  $set  Values
+     * @param string $type Data type to insert
      *
      * @return Builder
      *

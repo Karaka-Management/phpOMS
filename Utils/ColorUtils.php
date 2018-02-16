@@ -28,7 +28,7 @@ class ColorUtils
     /**
      * Convert int to rgb
      *
-     * @param int   $rgbInt Value to convert
+     * @param int $rgbInt Value to convert
      *
      * @return array
      *

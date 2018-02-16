@@ -30,9 +30,9 @@ interface FileInterface extends ContainerInterface
     /**
      * Save content to file.
      *
-     * @param string $path File path to save the content to
+     * @param string $path    File path to save the content to
      * @param string $content Content to save in file
-     * @param int $mode Mode (overwrite, append)
+     * @param int    $mode    Mode (overwrite, append)
      *
      * @return bool
      *
@@ -45,7 +45,7 @@ interface FileInterface extends ContainerInterface
      *
      * Creates new file if it doesn't exist or overwrites existing file.
      *
-     * @param string $path File path to save the content to
+     * @param string $path    File path to save the content to
      * @param string $content Content to save in file
      *
      * @return bool
@@ -59,7 +59,7 @@ interface FileInterface extends ContainerInterface
      *
      * Creates new file if it doesn't exist or appends existing file.
      *
-     * @param string $path File path to save the content to
+     * @param string $path    File path to save the content to
      * @param string $content Content to save in file
      *
      * @return bool
@@ -73,7 +73,7 @@ interface FileInterface extends ContainerInterface
      *
      * Creates new file if it doesn't exist or prepends existing file.
      *
-     * @param string $path File path to save the content to
+     * @param string $path    File path to save the content to
      * @param string $content Content to save in file
      *
      * @return bool
@@ -108,7 +108,7 @@ interface FileInterface extends ContainerInterface
      * Save content to file.
      *
      * @param string $content Content to save in file
-     * @param int $mode Mode (overwrite, append)
+     * @param int    $mode    Mode (overwrite, append)
      *
      * @return bool
      *

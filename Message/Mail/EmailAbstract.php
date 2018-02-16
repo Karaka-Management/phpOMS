@@ -67,10 +67,10 @@ class EmailAbstract
     /**
      * Construct
      *
-     * @param string $host Host
-     * @param int $port Host port
-     * @param int $timeout Timeout
-     * @param bool $ssl Use ssl
+     * @param string $host    Host
+     * @param int    $port    Host port
+     * @param int    $timeout Timeout
+     * @param bool   $ssl     Use ssl
      *
      * @since  1.0.0
      */
@@ -90,8 +90,8 @@ class EmailAbstract
     /**
      * Decode
      *
-     * @param string $content Content to decode
-     * @param int $encoding Encoding type
+     * @param string $content  Content to decode
+     * @param int    $encoding Encoding type
      *
      * @return string
      *
@@ -479,7 +479,7 @@ class EmailAbstract
      * Check message to delete
      *
      * @param int $length Amount of message overview
-     * @param int $start Start index of the overview for pagination
+     * @param int $start  Start index of the overview for pagination
      *
      * @return array
      *

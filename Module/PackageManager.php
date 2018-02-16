@@ -68,7 +68,7 @@ class PackageManager
     /**
      * Constructor.
      *
-     * @param string $path Package source path e.g. path after download.
+     * @param string $path     Package source path e.g. path after download.
      * @param string $basePath Path of the application
      *
      * @since  1.0.0
@@ -254,7 +254,7 @@ class PackageManager
      * Authenticate package
      *
      * @param string $signedHash Hash to authenticate
-     * @param string $rawHash Hash to compare against
+     * @param string $rawHash    Hash to compare against
      *
      * @return bool
      *

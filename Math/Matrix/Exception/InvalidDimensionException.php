@@ -27,8 +27,8 @@ class InvalidDimensionException extends \UnexpectedValueException
     /**
      * Constructor.
      *
-     * @param mixed     $message Exception message
-     * @param int        $code    Exception code
+     * @param mixed      $message  Exception message
+     * @param int        $code     Exception code
      * @param \Exception $previous Previous exception
      *
      * @since  1.0.0

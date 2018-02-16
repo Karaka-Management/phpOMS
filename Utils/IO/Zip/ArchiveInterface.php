@@ -28,8 +28,8 @@ interface ArchiveInterface
      * Create archive.
      *
      * @param string $sources     Files and directories to compress
-     * @param string   $destination Output destination
-     * @param bool     $overwrite   Overwrite if destination is existing
+     * @param string $destination Output destination
+     * @param bool   $overwrite   Overwrite if destination is existing
      *
      * @return bool
      *
@@ -40,8 +40,8 @@ interface ArchiveInterface
     /**
      * Unpack archive.
      *
-     * @param string   $source     File to decompress
-     * @param string   $destination Output destination
+     * @param string $source      File to decompress
+     * @param string $destination Output destination
      *
      * @return bool
      *

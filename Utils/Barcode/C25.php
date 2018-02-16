@@ -66,8 +66,8 @@ class C25 extends C128Abstract
      * Constructor
      *
      * @param string $content     Content to encrypt
-     * @param int    $width        Barcode width
-     * @param int    $height        Barcode height
+     * @param int    $width       Barcode width
+     * @param int    $height      Barcode height
      * @param int    $orientation Orientation of the barcode
      *
      * @todo   : add mirror parameter

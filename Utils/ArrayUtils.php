@@ -111,9 +111,9 @@ class ArrayUtils
     /**
      * Get element of array by path
      *
-     * @param string $path      Path to element
-     * @param array  $data      Array
-     * @param string $delim     Delimiter for path
+     * @param string $path  Path to element
+     * @param array  $data  Array
+     * @param string $delim Delimiter for path
      *
      * @return mixed
      *
@@ -163,7 +163,7 @@ class ArrayUtils
     /**
      * Check if any of the needles are in the array
      *
-     * @param mixed $needles   Needles for search
+     * @param mixed $needles  Needles for search
      * @param array $haystack Haystack for search
      *
      * @return bool
@@ -184,7 +184,7 @@ class ArrayUtils
     /**
      * Check if all of the needles are in the array
      *
-     * @param mixed $needles   Needles for search
+     * @param mixed $needles  Needles for search
      * @param array $haystack Haystack for search
      *
      * @return bool
@@ -332,8 +332,8 @@ class ArrayUtils
      * Sum of array elements
      *
      * @param array $array Array to sum
-     * @param int $start Start index
-     * @param int $count Amount of elements to sum
+     * @param int   $start Start index
+     * @param int   $count Amount of elements to sum
      *
      * @return int|float
      *

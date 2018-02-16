@@ -108,9 +108,9 @@ interface ContainerInterface
     /**
      * Copy resource to different location.
      *
-     * @param string $from Path of the resource to copy
-     * @param string $to Path of the resource to copy to
-     * @param bool $overwrite Overwrite/replace existing file
+     * @param string $from      Path of the resource to copy
+     * @param string $to        Path of the resource to copy to
+     * @param bool   $overwrite Overwrite/replace existing file
      *
      * @return bool True on success and false on failure
      *
@@ -121,9 +121,9 @@ interface ContainerInterface
     /**
      * Move resource to different location.
      *
-     * @param string $from Path of the resource to move
-     * @param string $to Path of the resource to move to
-     * @param bool $overwrite Overwrite/replace existing file
+     * @param string $from      Path of the resource to move
+     * @param string $to        Path of the resource to move to
+     * @param bool   $overwrite Overwrite/replace existing file
      *
      * @return bool True on success and false on failure
      *
@@ -134,8 +134,8 @@ interface ContainerInterface
     /**
      * Get size of resource.
      *
-     * @param string $path Path of the resource
-     * @param bool $recursive Should include sub-sub-resources
+     * @param string $path      Path of the resource
+     * @param bool   $recursive Should include sub-sub-resources
      *
      * @return int
      *
@@ -179,7 +179,7 @@ interface ContainerInterface
     /**
      * Make name/path operating system safe.
      *
-     * @param string $path Path of the resource
+     * @param string $path    Path of the resource
      * @param string $replace Replace invalid chars with
      *
      * @return string
@@ -253,8 +253,8 @@ interface ContainerInterface
     /**
      * Copy resource to different location.
      *
-     * @param string $to Path of the resource to copy to
-     * @param bool $overwrite Overwrite/replace existing file
+     * @param string $to        Path of the resource to copy to
+     * @param bool   $overwrite Overwrite/replace existing file
      *
      * @return bool True on success and false on failure
      *
@@ -265,8 +265,8 @@ interface ContainerInterface
     /**
      * Move resource to different location.
      *
-     * @param string $to Path of the resource to move to
-     * @param bool $overwrite Overwrite/replace existing file
+     * @param string $to        Path of the resource to move to
+     * @param bool   $overwrite Overwrite/replace existing file
      *
      * @return bool True on success and false on failure
      *

@@ -30,8 +30,8 @@ class UninstallerAbstract
     /**
      * Install module.
      *
-     * @param DatabasePool        $dbPool Database instance
-     * @param InfoManager $info   Module info
+     * @param DatabasePool $dbPool Database instance
+     * @param InfoManager  $info   Module info
      *
      * @return void
      *

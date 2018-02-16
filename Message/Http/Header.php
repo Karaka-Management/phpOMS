@@ -52,9 +52,9 @@ class Header extends HeaderAbstract
     /**
      * Set header.
      *
-     * @param string $key Header key (case insensitive)
-     * @param string $header Header value
-     * @param bool $overwrite Overwrite if already existing
+     * @param string $key       Header key (case insensitive)
+     * @param string $header    Header value
+     * @param bool   $overwrite Overwrite if already existing
      *
      * @return bool
      *

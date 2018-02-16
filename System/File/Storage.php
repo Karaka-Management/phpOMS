@@ -87,7 +87,7 @@ final class Storage
     /**
      * Register storage environment.
      *
-     * @param string $name Name of the environment
+     * @param string                       $name  Name of the environment
      * @param string|StorageAbstract|mixed $class Class to register. This can be either a namespace path, a anonymous class or storage implementation.
      *
      * @return bool

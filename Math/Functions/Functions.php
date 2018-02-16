@@ -248,9 +248,9 @@ class Functions
      * @example The relative fiscal month (August) in a company where the fiscal year starts in July.
      * @example 2 = getRelativeDegree(8, 12, 7);
      *
-     * @param int $value Value to get degree
+     * @param int $value  Value to get degree
      * @param int $length Circle size
-     * @param int $start Start value
+     * @param int $start  Start value
      *
      * @return int Lowest value is 0 and highest value is length - 1
      *

@@ -60,10 +60,10 @@ class Average
     /**
      * Moving average of dataset
      *
-     * @param array $x       Dataset
-     * @param int   $order  Periods to use for average
-     * @param array $weight Weight for moving average
-     * @param bool $symmetric Cyclic moving average
+     * @param array $x         Dataset
+     * @param int   $order     Periods to use for average
+     * @param array $weight    Weight for moving average
+     * @param bool  $symmetric Cyclic moving average
      *
      * @return array Moving average of data
      *
@@ -87,11 +87,11 @@ class Average
     /**
      * Moving average of element in dataset
      *
-     * @param array $x       Dataset
-     * @param int   $t       Current period
-     * @param int   $order  Periods to use for average
-     * @param array $weight Weight for moving average
-     * @param bool $symmetric Cyclic moving average
+     * @param array $x         Dataset
+     * @param int   $t         Current period
+     * @param int   $order     Periods to use for average
+     * @param array $weight    Weight for moving average
+     * @param bool  $symmetric Cyclic moving average
      *
      * @return float Moving average
      *

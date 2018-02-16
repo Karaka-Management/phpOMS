@@ -143,7 +143,7 @@ abstract class Enum
      *
      * This only works for binary flags.
      *
-     * @param int $flags Set flags
+     * @param int $flags        Set flags
      * @param int $checkForFlag Check if this flag is part of the set flags
      *
      * @return bool

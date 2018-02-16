@@ -49,8 +49,8 @@ class Metrics
      *
      * @latex  r = com^{2} \times (1 - cov)^{3} + com
      *
-     * @param int $complexity Complexity
-     * @param float $coverage Coverage
+     * @param int   $complexity Complexity
+     * @param float $coverage   Coverage
      *
      * @return int
      *

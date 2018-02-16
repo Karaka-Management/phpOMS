@@ -76,7 +76,7 @@ class Polygon implements D2ShapeInterface
     /**
      * Point polygon relative position
      *
-     * @param array $point Point location
+     * @param array $point   Point location
      * @param array $polygon Polygon definition
      *
      * @return int -1 inside polygon 0 on vertice 1 outside
@@ -134,7 +134,7 @@ class Polygon implements D2ShapeInterface
     /**
      * Is point on vertex?
      *
-     * @param array $point Point location
+     * @param array $point   Point location
      * @param array $polygon Polygon definition
      *
      * @return bool

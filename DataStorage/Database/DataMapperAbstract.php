@@ -721,7 +721,7 @@ class DataMapperAbstract implements DataMapperInterface
      * The reference is stored in the main model
      *
      * @param string $propertyName Property name to initialize
-     * @param array $obj          Object to create
+     * @param array  $obj          Object to create
      *
      * @return mixed
      *
@@ -778,7 +778,7 @@ class DataMapperAbstract implements DataMapperInterface
      * The reference is stored in the main model
      *
      * @param string $propertyName Property name to initialize
-     * @param array $obj          Object to create
+     * @param array  $obj          Object to create
      *
      * @return mixed
      *
@@ -963,8 +963,8 @@ class DataMapperAbstract implements DataMapperInterface
      *
      * Deletes old entries and creates new ones
      *
-     * @param array  $objsIds      Object ids to insert
-     * @param mixed  $objId        Model to reference
+     * @param array $objsIds Object ids to insert
+     * @param mixed $objId   Model to reference
      *
      * @return mixed
      *
@@ -1073,7 +1073,7 @@ class DataMapperAbstract implements DataMapperInterface
      * Update object in db.
      *
      * @param Object           $obj             Model to update
-     * @param mixed           $objId             Model id
+     * @param mixed            $objId           Model id
      * @param \ReflectionClass $reflectionClass Reflection class
      *
      * @return mixed
@@ -1136,7 +1136,7 @@ class DataMapperAbstract implements DataMapperInterface
     /**
      * Update object in db.
      *
-     * @param mixed $obj Object reference (gets filled with insert id)
+     * @param mixed $obj       Object reference (gets filled with insert id)
      * @param int   $relations Create all relations as well
      *
      * @return mixed
@@ -1180,7 +1180,7 @@ class DataMapperAbstract implements DataMapperInterface
      * @param \ReflectionClass $reflectionClass Reflection class
      * @param Object           $obj             Object to create
      * @param mixed            $objId           Id to set
-     * @param int   $relations Delete all relations as well
+     * @param int              $relations       Delete all relations as well
      *
      * @return void
      *
@@ -1298,8 +1298,8 @@ class DataMapperAbstract implements DataMapperInterface
      * Delete object in db.
      *
      * @param Object           $obj             Model to delete
-     * @param mixed           $objId             Model id
-     * @param int   $relations Delete all relations as well
+     * @param mixed            $objId           Model id
+     * @param int              $relations       Delete all relations as well
      * @param \ReflectionClass $reflectionClass Reflection class
      *
      * @return mixed
@@ -1353,7 +1353,7 @@ class DataMapperAbstract implements DataMapperInterface
     /**
      * Delete object in db.
      *
-     * @param mixed $obj Object reference (gets filled with insert id)
+     * @param mixed $obj       Object reference (gets filled with insert id)
      * @param int   $relations Create all relations as well
      *
      * @return mixed
@@ -1522,8 +1522,8 @@ class DataMapperAbstract implements DataMapperInterface
     /**
      * Populate data.
      *
-     * @param mixed $obj Object to add the relations to
-     * @param int     $depth  Relation depth
+     * @param mixed $obj   Object to add the relations to
+     * @param int   $depth Relation depth
      *
      * @return void
      *
@@ -1567,7 +1567,7 @@ class DataMapperAbstract implements DataMapperInterface
     /**
      * Populate data.
      *
-     * @param array $obj Object to add the relations to
+     * @param array $obj   Object to add the relations to
      * @param int   $depth Relation depth
      *
      * @return void
@@ -1588,8 +1588,8 @@ class DataMapperAbstract implements DataMapperInterface
     /**
      * Populate data.
      *
-     * @param mixed $obj Object to add the relations to
-     * @param int     $depth  Relation depth
+     * @param mixed $obj   Object to add the relations to
+     * @param int   $depth Relation depth
      *
      * @return void
      *
@@ -1633,7 +1633,7 @@ class DataMapperAbstract implements DataMapperInterface
     /**
      * Populate data.
      *
-     * @param array $obj Object to add the relations to
+     * @param array $obj   Object to add the relations to
      * @param int   $depth Relation depth
      *
      * @return void
@@ -1654,8 +1654,8 @@ class DataMapperAbstract implements DataMapperInterface
     /**
      * Populate data.
      *
-     * @param mixed $obj Object to add the relations to
-     * @param int     $depth  Relation depth
+     * @param mixed $obj   Object to add the relations to
+     * @param int   $depth Relation depth
      *
      * @return void
      *
@@ -1699,8 +1699,8 @@ class DataMapperAbstract implements DataMapperInterface
     /**
      * Populate data.
      *
-     * @param array $obj Object to add the relations to
-     * @param int $depth Relation depth
+     * @param array $obj   Object to add the relations to
+     * @param int   $depth Relation depth
      *
      * @return void
      *
@@ -1810,7 +1810,7 @@ class DataMapperAbstract implements DataMapperInterface
      * @param mixed $primaryKey Key
      * @param int   $relations  Load relations
      * @param mixed $fill       Object to fill
-     * @param int $depth Relation depth
+     * @param int   $depth      Relation depth
      *
      * @return mixed
      *
@@ -1894,7 +1894,7 @@ class DataMapperAbstract implements DataMapperInterface
      *
      * @param mixed $primaryKey Key
      * @param int   $relations  Load relations
-     * @param int $depth Relation depth
+     * @param int   $depth      Relation depth
      *
      * @return mixed
      *
@@ -1935,11 +1935,11 @@ class DataMapperAbstract implements DataMapperInterface
     /**
      * Get object.
      *
-     * @param mixed $refKey Key
-     * @param string $ref  The field that defines the for
-     * @param int   $relations  Load relations
-     * @param mixed $fill       Object to fill
-     * @param int   $depth Relation depth
+     * @param mixed  $refKey    Key
+     * @param string $ref       The field that defines the for
+     * @param int    $relations Load relations
+     * @param mixed  $fill      Object to fill
+     * @param int    $depth     Relation depth
      *
      * @return mixed
      *
@@ -1986,10 +1986,10 @@ class DataMapperAbstract implements DataMapperInterface
     /**
      * Get object.
      *
-     * @param mixed $refKey Key
-     * @param string $ref  The field that defines the for
-     * @param int   $relations  Load relations
-     * @param mixed $fill       Object to fill
+     * @param mixed  $refKey    Key
+     * @param string $ref       The field that defines the for
+     * @param int    $relations Load relations
+     * @param mixed  $fill      Object to fill
      *
      * @return mixed
      *
@@ -2024,9 +2024,9 @@ class DataMapperAbstract implements DataMapperInterface
     /**
      * Get object.
      *
-     * @param int $relations Load relations
-     * @param int $depth Relation depth
-     * @param string $lang Language
+     * @param int    $relations Load relations
+     * @param int    $depth     Relation depth
+     * @param string $lang      Language
      *
      * @return array
      *
@@ -2052,9 +2052,9 @@ class DataMapperAbstract implements DataMapperInterface
     /**
      * Get object.
      *
-     * @param int $relations Load relations
-     * @param int $depth Relation depth
-     * @param string $lang Language
+     * @param int    $relations Load relations
+     * @param int    $depth     Relation depth
+     * @param string $lang      Language
      *
      * @return array
      *
@@ -2102,8 +2102,8 @@ class DataMapperAbstract implements DataMapperInterface
      * @param int     $limit     Newest limit
      * @param Builder $query     Pre-defined query
      * @param int     $relations Load relations
-     * @param int $depth Relation depth
-     * @param string $lang Language
+     * @param int     $depth     Relation depth
+     * @param string  $lang      Language
      *
      * @return mixed
      *
@@ -2149,7 +2149,7 @@ class DataMapperAbstract implements DataMapperInterface
      *
      * @param Builder $query     Query
      * @param int     $relations Relations
-     * @param int     $depth Relation depth
+     * @param int     $depth     Relation depth
      *
      * @return array
      *
@@ -2328,8 +2328,8 @@ class DataMapperAbstract implements DataMapperInterface
     /**
      * Get object.
      *
-     * @param mixed $refKey Key
-     * @param string $ref Ref
+     * @param mixed  $refKey Key
+     * @param string $ref    Ref
      *
      * @return mixed
      *
@@ -2354,8 +2354,8 @@ class DataMapperAbstract implements DataMapperInterface
     /**
      * Get object.
      *
-     * @param mixed $refKey Key
-     * @param string $ref Ref
+     * @param mixed  $refKey Key
+     * @param string $ref    Ref
      *
      * @return mixed
      *
@@ -2535,8 +2535,8 @@ class DataMapperAbstract implements DataMapperInterface
      * Add initialized object to local cache
      *
      * @param string $mapper Mapper name
-     * @param mixed $id Object id
-     * @param object $obj Model to cache locally
+     * @param mixed  $id     Object id
+     * @param object $obj    Model to cache locally
      *
      * @return void
      *
@@ -2555,7 +2555,7 @@ class DataMapperAbstract implements DataMapperInterface
      * Check if a object is initialized
      *
      * @param string $mapper Mapper name
-     * @param mixed $id Object id
+     * @param mixed  $id     Object id
      *
      * @return bool
      *
@@ -2570,7 +2570,7 @@ class DataMapperAbstract implements DataMapperInterface
      * Get initialized object
      *
      * @param string $mapper Mapper name
-     * @param mixed $id Object id
+     * @param mixed  $id     Object id
      *
      * @return mixed
      *
@@ -2585,7 +2585,7 @@ class DataMapperAbstract implements DataMapperInterface
      * Remove initialized object
      *
      * @param string $mapper Mapper name
-     * @param mixed $id Object id
+     * @param mixed  $id     Object id
      *
      * @return mixed
      *

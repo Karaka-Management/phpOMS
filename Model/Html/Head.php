@@ -138,7 +138,7 @@ class Head implements RenderableInterface
     /**
      * Set page title.
      *
-     * @param int $type Asset type
+     * @param int    $type Asset type
      * @param string $uri  Asset uri
      *
      * @return void

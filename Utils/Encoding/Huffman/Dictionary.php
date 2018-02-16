@@ -98,7 +98,7 @@ final class Dictionary
     /**
      * Fill dictionary.
      *
-     * @param array $entry Source data to generate dictionary from
+     * @param array  $entry Source data to generate dictionary from
      * @param string $value Dictionary value
      *
      * @return void

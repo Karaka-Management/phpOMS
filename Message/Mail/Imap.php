@@ -27,10 +27,10 @@ class Imap extends EmailAbstract
     /**
      * Construct
      *
-     * @param string $host Host
-     * @param int $port Host port
-     * @param int $timeout Timeout
-     * @param bool $ssl Use ssl
+     * @param string $host    Host
+     * @param int    $port    Host port
+     * @param int    $timeout Timeout
+     * @param bool   $ssl     Use ssl
      *
      * @since  1.0.0
      */

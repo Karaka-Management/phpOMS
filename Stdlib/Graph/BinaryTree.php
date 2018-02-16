@@ -99,7 +99,7 @@ class BinaryTree extends Tree
     /**
      * Set right node of node.
      *
-     * @param Node $base Base node
+     * @param Node $base  Base node
      * @param Node $right Right node
      *
      * @return BinaryTree
@@ -120,7 +120,7 @@ class BinaryTree extends Tree
     /**
      * Perform action on tree in in-order.
      *
-     * @param Node $node Tree node
+     * @param Node     $node     Tree node
      * @param \Closure $callback Task to perform on node
      *
      * @since  1.0.0
@@ -135,9 +135,9 @@ class BinaryTree extends Tree
     /**
      * Get nodes in vertical order.
      *
-     * @param Node $node Tree node
-     * @param int $horizontalDistance Horizontal distance
-     * @param Node[] &$order Ordered nodes by horizontal distance
+     * @param Node   $node               Tree node
+     * @param int    $horizontalDistance Horizontal distance
+     * @param Node[] &$order             Ordered nodes by horizontal distance
      *
      * @since  1.0.0
      */
@@ -163,7 +163,7 @@ class BinaryTree extends Tree
     /**
      * Perform action on tree in vertical-order.
      *
-     * @param Node $node Tree node
+     * @param Node     $node     Tree node
      * @param \Closure $callback Task to perform on node
      *
      * @since  1.0.0

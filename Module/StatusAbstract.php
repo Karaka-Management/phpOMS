@@ -32,8 +32,8 @@ class StatusAbstract
     /**
      * Deactivate module.
      *
-     * @param DatabasePool        $dbPool Database instance
-     * @param InfoManager $info   Module info
+     * @param DatabasePool $dbPool Database instance
+     * @param InfoManager  $info   Module info
      *
      * @return void
      *
@@ -63,8 +63,8 @@ class StatusAbstract
     /**
      * Deactivate module in database.
      *
-     * @param DatabasePool        $dbPool Database instance
-     * @param InfoManager $info   Module info
+     * @param DatabasePool $dbPool Database instance
+     * @param InfoManager  $info   Module info
      *
      * @return void
      *
@@ -95,8 +95,8 @@ class StatusAbstract
     /**
      * Deactivate module.
      *
-     * @param DatabasePool        $dbPool Database instance
-     * @param InfoManager $info   Module info
+     * @param DatabasePool $dbPool Database instance
+     * @param InfoManager  $info   Module info
      *
      * @return void
      *
@@ -126,8 +126,8 @@ class StatusAbstract
     /**
      * Deactivate module in database.
      *
-     * @param DatabasePool        $dbPool Database instance
-     * @param InfoManager $info   Module info
+     * @param DatabasePool $dbPool Database instance
+     * @param InfoManager  $info   Module info
      *
      * @return void
      *
