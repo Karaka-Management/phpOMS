@@ -121,9 +121,11 @@ class EmailAbstract
     /**
      * Disconnect server
      *
+     * @return void
+     *
      * @since  1.0.0
      */
-    public function disconnect()
+    public function disconnect() /* : void */
     {
         if (!isset($this->con)) {
             imap_close($this->con);

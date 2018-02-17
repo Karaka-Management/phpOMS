@@ -1219,6 +1219,17 @@ class Builder extends BuilderAbstract
         throw new \Exception();
     }
 
+    /**
+     * Get column name
+     *
+     * @param mixed $column Column name
+     *
+     * @return string
+     *
+     * @throws \Exception
+     *
+     * @since  1.0.0
+     */
     public static function getPublicColumnName($column) : string
     {
         if (is_string($column)) {

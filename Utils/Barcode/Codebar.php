@@ -66,6 +66,8 @@ class Codebar extends C128Abstract
      * Set content to encrypt
      *
      * @param string $content Barcode content
+     * 
+     * @return void
      *
      * @since  1.0.0
      */

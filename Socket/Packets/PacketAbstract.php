@@ -40,7 +40,6 @@ abstract class PacketAbstract implements \Serializable
      *
      * This is using a json format
      *
-     * @var Header
      * @since 1.0.0
      */
     abstract public function __toString();
@@ -52,7 +51,6 @@ abstract class PacketAbstract implements \Serializable
      *
      * @return string Json string
      *
-     * @var Header
      * @since 1.0.0
      */
     abstract public function serialize();
@@ -64,7 +62,8 @@ abstract class PacketAbstract implements \Serializable
      *
      * @param string $string Json string
      *
-     * @var Header
+     * @return void
+     *
      * @since 1.0.0
      */
     abstract public function unserialize($string);
@@ -74,7 +73,6 @@ abstract class PacketAbstract implements \Serializable
      *
      * @return Header
      *
-     * @var Header
      * @since 1.0.0
      */
     public function getHeader() : Header
@@ -87,7 +85,8 @@ abstract class PacketAbstract implements \Serializable
      *
      * @param Header $header Header
      *
-     * @var Header
+     * @return void
+     *
      * @since 1.0.0
      */
     public function setHeader(Header $header) /* : void */

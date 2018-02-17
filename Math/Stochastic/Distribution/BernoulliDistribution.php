@@ -27,8 +27,8 @@ class BernoulliDistribution
     /**
      * Get probability mass function.
      *
-     * @param float $p
-     * @param int   $k
+     * @param float $p Value p
+     * @param int   $k Value k
      *
      * @return float
      *
@@ -50,7 +50,7 @@ class BernoulliDistribution
     /**
      * Get mode.
      *
-     * @param float $p
+     * @param float $p Value p
      *
      * @return int
      *
@@ -70,7 +70,7 @@ class BernoulliDistribution
     /**
      * Get expected value.
      *
-     * @param float $p
+     * @param float $p Value p
      *
      * @return float
      *
@@ -84,7 +84,7 @@ class BernoulliDistribution
     /**
      * Get expected value.
      *
-     * @param float $p
+     * @param float $p Value p
      *
      * @return float
      *
@@ -104,7 +104,7 @@ class BernoulliDistribution
     /**
      * Get variance.
      *
-     * @param float $p
+     * @param float $p Value p
      *
      * @return float
      *
@@ -118,8 +118,8 @@ class BernoulliDistribution
     /**
      * Get moment generating function.
      *
-     * @param float $p
-     * @param float $t
+     * @param float $p Value p
+     * @param float $t Value t
      *
      * @return float
      *
@@ -133,7 +133,7 @@ class BernoulliDistribution
     /**
      * Get skewness.
      *
-     * @param float $p
+     * @param float $p Value p
      *
      * @return float
      *
@@ -147,7 +147,7 @@ class BernoulliDistribution
     /**
      * Get Fisher information.
      *
-     * @param float $p
+     * @param float $p Value p
      *
      * @return float
      *
@@ -161,7 +161,7 @@ class BernoulliDistribution
     /**
      * Get Ex. kurtosis.
      *
-     * @param float $p
+     * @param float $p Value p
      *
      * @return float
      *

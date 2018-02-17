@@ -47,9 +47,11 @@ interface EdgeInterface
      *
      * @param mixed $weight Weight of edge
      *
+     * @return void
+     *
      * @since  1.0.0
      */
-    public function setWeight($weight);
+    public function setWeight($weight); /* : void */
 
     /**
      * Get vertices.
@@ -66,7 +68,9 @@ interface EdgeInterface
      * @param VerticeInterface $a Vertice a
      * @param VerticeInterface $b Vertice b
      *
+     * @return void
+     *
      * @since  1.0.0
      */
-    public function setVertices(VerticeInterface $a, VerticeInterface $b);
+    public function setVertices(VerticeInterface $a, VerticeInterface $b); /* : void */
 }

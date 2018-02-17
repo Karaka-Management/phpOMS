@@ -27,9 +27,9 @@ class LaplaceDistribution
     /**
      * Get probability density function.
      *
-     * @param float $x
-     * @param float $mu
-     * @param float $b
+     * @param float $x  Value x
+     * @param float $mu Value mu
+     * @param float $b  Value b
      *
      * @return float
      *
@@ -43,9 +43,9 @@ class LaplaceDistribution
     /**
      * Get cumulative distribution function.
      *
-     * @param float $x
-     * @param float $mu
-     * @param float $b
+     * @param float $x  Value x
+     * @param float $mu Value mu
+     * @param float $b  Value b
      *
      * @return float
      *
@@ -59,7 +59,7 @@ class LaplaceDistribution
     /**
      * Get mode.
      *
-     * @param float $mu
+     * @param float $mu Value mu
      *
      * @return float
      *
@@ -73,7 +73,7 @@ class LaplaceDistribution
     /**
      * Get expected value.
      *
-     * @param float $mu
+     * @param float $mu Value mu
      *
      * @return float
      *
@@ -87,7 +87,7 @@ class LaplaceDistribution
     /**
      * Get expected value.
      *
-     * @param float $mu
+     * @param float $mu Value mu
      *
      * @return float
      *
@@ -101,7 +101,7 @@ class LaplaceDistribution
     /**
      * Get variance.
      *
-     * @param float $b
+     * @param float $b Value b
      *
      * @return float
      *
@@ -115,9 +115,9 @@ class LaplaceDistribution
     /**
      * Get moment generating function.
      *
-     * @param float $t
-     * @param float $mu
-     * @param float $b
+     * @param float $t  Valute t
+     * @param float $mu Value mu
+     * @param float $b  Value b
      *
      * @return float
      *

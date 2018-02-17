@@ -4,7 +4,7 @@
  *
  * PHP Version 7.1
  *
- * @package    TBD
+ * @package    phpOMS\Math\Matrix
  * @copyright  Dennis Eichhorn
  * @license    OMS License 1.0
  * @version    1.0.0
@@ -19,7 +19,7 @@ use phpOMS\Math\Matrix\Exception\InvalidDimensionException;
 /**
  * Matrix class
  *
- * @package    Framework
+ * @package    phpOMS\Math\Matrix
  * @license    OMS License 1.0
  * @link       http://website.orange-management.de
  * @since      1.0.0
@@ -82,6 +82,8 @@ class Matrix implements \ArrayAccess, \Iterator
      * @param int $m     Row
      * @param int $n     Column
      * @param int $value Value
+     * 
+     * @return void
      *
      * @throws InvalidDimensionException
      *
@@ -551,6 +553,13 @@ class Matrix implements \ArrayAccess, \Iterator
         return $newMatrix;
     }
 
+    /**
+     * Diagonalize matrix
+     *
+     * @return Matrix
+     *
+     * @since  1.0.0
+     */
     public function diagonalize() : Matrix
     {
         $newMatrix = new Matrix($this->m, $this->n);
@@ -559,6 +568,15 @@ class Matrix implements \ArrayAccess, \Iterator
         return $newMatrix;
     }
 
+    /**
+     * Solve matrix
+     * 
+     * @param Matix $B Matrix/Vector b
+     *
+     * @return Matrix
+     *
+     * @since  1.0.0
+     */
     public function solve(Matrix $B) : Matrix
     {
         $M = $this->m === $this->n ? new LUDecomposition($this) : new QRDecomposition($this);
@@ -566,6 +584,15 @@ class Matrix implements \ArrayAccess, \Iterator
         return $M->solve($B);
     }
 
+    /**
+     * Perform gauss elimination on Matrix
+     * 
+     * @param mixed $b Vector b
+     *
+     * @return Matrix
+     *
+     * @since  1.0.0
+     */
     private function gaussElimination($b) : Matrix
     {
         $mDim   = count($b);

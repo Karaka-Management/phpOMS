@@ -31,8 +31,8 @@ class PoissonDistribution
      *
      * Formula: e^(k * ln(lambda) - lambda - log(gamma(k+1))
      *
-     * @param int   $k
-     * @param float $lambda
+     * @param int   $k      Value k
+     * @param float $lambda Lambda
      *
      * @return float
      *
@@ -46,8 +46,8 @@ class PoissonDistribution
     /**
      * Get cumulative distribution function.
      *
-     * @param int   $k
-     * @param float $lambda
+     * @param int   $k      Value k
+     * @param float $lambda Lambda
      *
      * @return float
      *
@@ -123,8 +123,8 @@ class PoissonDistribution
     /**
      * Get moment generating function.
      *
-     * @param float $lambda
-     * @param float $t
+     * @param float $lambda Lambda
+     * @param float $t      Value t
      *
      * @return float
      *
@@ -138,7 +138,7 @@ class PoissonDistribution
     /**
      * Get skewness.
      *
-     * @param float $lambda
+     * @param float $lambda Lambda
      *
      * @return float
      *
@@ -152,7 +152,7 @@ class PoissonDistribution
     /**
      * Get Fisher information.
      *
-     * @param float $lambda
+     * @param float $lambda Lambda
      *
      * @return float
      *
@@ -166,7 +166,7 @@ class PoissonDistribution
     /**
      * Get Ex. kurtosis.
      *
-     * @param float $lambda
+     * @param float $lambda Lambda
      *
      * @return float
      *

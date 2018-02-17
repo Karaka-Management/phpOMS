@@ -4,7 +4,7 @@
  *
  * PHP Version 7.1
  *
- * @package    TBD
+ * @package    phpOMS\DataStorage\Database\Query\Grammar
  * @copyright  Dennis Eichhorn
  * @license    OMS License 1.0
  * @version    1.0.0
@@ -24,7 +24,7 @@ use phpOMS\DataStorage\Database\Query\Where;
 /**
  * Database query grammar.
  *
- * @package    Framework
+ * @package    phpOMS\DataStorage\Database\Query\Grammar
  * @license    OMS License 1.0
  * @link       http://website.orange-management.de
  * @since      1.0.0

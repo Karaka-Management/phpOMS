@@ -27,8 +27,8 @@ class GeometricDistribution
     /**
      * Get probability mass function.
      *
-     * @param float $p
-     * @param int   $k
+     * @param float $p Value p
+     * @param int   $k Value k
      *
      * @return float
      *
@@ -42,8 +42,8 @@ class GeometricDistribution
     /**
      * Get cumulative distribution function.
      *
-     * @param float $p
-     * @param int   $k
+     * @param float $p Value p
+     * @param int   $k Value k
      *
      * @return float
      *
@@ -69,7 +69,7 @@ class GeometricDistribution
     /**
      * Get expected value.
      *
-     * @param float $p
+     * @param float $p Value p
      *
      * @return float
      *
@@ -83,7 +83,7 @@ class GeometricDistribution
     /**
      * Get expected value.
      *
-     * @param float $p
+     * @param float $p Value p
      *
      * @return float
      *
@@ -97,7 +97,7 @@ class GeometricDistribution
     /**
      * Get variance.
      *
-     * @param float $p
+     * @param float $p Value p
      *
      * @return float
      *
@@ -111,8 +111,8 @@ class GeometricDistribution
     /**
      * Get moment generating function.
      *
-     * @param float $p
-     * @param float $t
+     * @param float $p Value p
+     * @param float $t Value t
      *
      * @return float
      *
@@ -126,7 +126,7 @@ class GeometricDistribution
     /**
      * Get skewness.
      *
-     * @param float $lambda
+     * @param float $lambda Lambda
      *
      * @return float
      *
@@ -140,7 +140,7 @@ class GeometricDistribution
     /**
      * Get Ex. kurtosis.
      *
-     * @param float $lambda
+     * @param float $lambda Lambda
      *
      * @return float
      *

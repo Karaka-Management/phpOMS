@@ -28,8 +28,8 @@ class UniformDistributionDiscrete
     /**
      * Get probability mass function.
      *
-     * @param float $a
-     * @param float $b
+     * @param float $a Value a
+     * @param float $b Value b
      *
      * @return float
      *
@@ -43,9 +43,9 @@ class UniformDistributionDiscrete
     /**
      * Get cumulative distribution function.
      *
-     * @param float $k
-     * @param float $a
-     * @param float $b
+     * @param float $k Value k
+     * @param float $a Value a
+     * @param float $b Value b
      *
      * @return float
      *
@@ -65,9 +65,9 @@ class UniformDistributionDiscrete
     /**
      * Get moment generating function.
      *
-     * @param int   $t
-     * @param float $a
-     * @param float $b
+     * @param int   $t Value t
+     * @param float $a Value a
+     * @param float $b Value b
      *
      * @return float
      *
@@ -93,8 +93,8 @@ class UniformDistributionDiscrete
     /**
      * Get Ex. kurtosis.
      *
-     * @param float $a
-     * @param float $b
+     * @param float $a Value a
+     * @param float $b Value b
      *
      * @return float
      *
@@ -110,8 +110,8 @@ class UniformDistributionDiscrete
     /**
      * Get expected value.
      *
-     * @param float $a
-     * @param float $b
+     * @param float $a Value a
+     * @param float $b Value b
      *
      * @return float
      *
@@ -125,8 +125,8 @@ class UniformDistributionDiscrete
     /**
      * Get expected value.
      *
-     * @param float $a
-     * @param float $b
+     * @param float $a Value a
+     * @param float $b Value b
      *
      * @return float
      *
@@ -140,8 +140,8 @@ class UniformDistributionDiscrete
     /**
      * Get variance.
      *
-     * @param float $a
-     * @param float $b
+     * @param float $a Value a
+     * @param float $b Value b
      *
      * @return float
      *

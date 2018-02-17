@@ -113,6 +113,16 @@ class PhpCode
         return false;
     }
 
+    /**
+     * Validate file integrety
+     *
+     * @param string $source Source code
+     * @param string $hash   Source hash
+     *
+     * @return bool
+     *
+     * @since  1.0.0
+     */
     public static function validateFileIntegrity(string $source, string $hash) : array
     {
 

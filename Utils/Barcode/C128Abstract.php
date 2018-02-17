@@ -145,6 +145,8 @@ abstract class C128Abstract
      *
      * @param int $width  Barcode width
      * @param int $height Barcode height
+     * 
+     * @return void
      *
      * @since  1.0.0
      */
@@ -166,6 +168,8 @@ abstract class C128Abstract
      * Set barcode margins
      *
      * @param int $margin Barcode margin
+     * 
+     * @return void
      *
      * @since  1.0.0
      */
@@ -178,6 +182,8 @@ abstract class C128Abstract
      * Set barcode orientation
      *
      * @param int $orientation Barcode orientation
+     * 
+     * @return void
      *
      * @since  1.0.0
      */
@@ -206,6 +212,8 @@ abstract class C128Abstract
      * Set content to encrypt
      *
      * @param string $content Barcode content
+     * 
+     * @return void
      *
      * @since  1.0.0
      */

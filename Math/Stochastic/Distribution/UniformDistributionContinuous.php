@@ -28,8 +28,8 @@ class UniformDistributionContinuous
     /**
      * Get mode.
      *
-     * @param float $a
-     * @param float $b
+     * @param float $a Value a
+     * @param float $b Value b
      *
      * @return float
      *
@@ -43,9 +43,9 @@ class UniformDistributionContinuous
     /**
      * Get probability density function.
      *
-     * @param float $x
-     * @param float $a
-     * @param float $b
+     * @param float $x Value x
+     * @param float $a Value a
+     * @param float $b Value b
      *
      * @return float
      *
@@ -59,9 +59,9 @@ class UniformDistributionContinuous
     /**
      * Get cumulative distribution function.
      *
-     * @param float $x
-     * @param float $a
-     * @param float $b
+     * @param float $x Value x
+     * @param float $a Value a
+     * @param float $b Value b
      *
      * @return float
      *
@@ -81,9 +81,9 @@ class UniformDistributionContinuous
     /**
      * Get moment generating function.
      *
-     * @param int   $t
-     * @param float $a
-     * @param float $b
+     * @param int   $t Value t
+     * @param float $a Value a
+     * @param float $b Value b
      *
      * @return float
      *
@@ -121,8 +121,8 @@ class UniformDistributionContinuous
     /**
      * Get expected value.
      *
-     * @param float $a
-     * @param float $b
+     * @param float $a Value a
+     * @param float $b Value b
      *
      * @return float
      *
@@ -136,8 +136,8 @@ class UniformDistributionContinuous
     /**
      * Get expected value.
      *
-     * @param float $a
-     * @param float $b
+     * @param float $a Value a
+     * @param float $b Value b
      *
      * @return float
      *
@@ -151,8 +151,8 @@ class UniformDistributionContinuous
     /**
      * Get variance.
      *
-     * @param float $a
-     * @param float $b
+     * @param float $a Value a
+     * @param float $b Value b
      *
      * @return float
      *

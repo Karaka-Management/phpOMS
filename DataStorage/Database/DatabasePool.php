@@ -4,7 +4,7 @@
  *
  * PHP Version 7.1
  *
- * @package    TBD
+ * @package    phpOMS\DataStorage\Database
  * @copyright  Dennis Eichhorn
  * @license    OMS License 1.0
  * @version    1.0.0
@@ -20,7 +20,7 @@ use phpOMS\DataStorage\Database\Connection\ConnectionFactory;
 /**
  * Database pool handler.
  *
- * @package    Framework
+ * @package    phpOMS\DataStorage\Database
  * @license    OMS License 1.0
  * @link       http://website.orange-management.de
  * @since      1.0.0

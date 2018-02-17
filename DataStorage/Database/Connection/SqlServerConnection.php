@@ -4,7 +4,7 @@
  *
  * PHP Version 7.1
  *
- * @package    TBD
+ * @package    phpOMS\DataStorage\Database\Connection
  * @copyright  Dennis Eichhorn
  * @license    OMS License 1.0
  * @version    1.0.0
@@ -25,7 +25,7 @@ use phpOMS\DataStorage\Database\Schema\Grammar\MysqlGrammar as MysqlSchemaGramma
  * Handles the database connection.
  * Implementing wrapper functions for multiple databases is planned (far away).
  *
- * @package    Framework
+ * @package    phpOMS\DataStorage\Database\Connection
  * @license    OMS License 1.0
  * @link       http://website.orange-management.de
  * @since      1.0.0

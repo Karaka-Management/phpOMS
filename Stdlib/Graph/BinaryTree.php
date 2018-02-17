@@ -123,9 +123,11 @@ class BinaryTree extends Tree
      * @param Node     $node     Tree node
      * @param \Closure $callback Task to perform on node
      *
+     * @return void
+     *
      * @since  1.0.0
      */
-    public function inOrder(Node $node, \Closure $callback)
+    public function inOrder(Node $node, \Closure $callback) /* : void */
     {
         $this->inOrder($this->getLeft($node), $callback);
         $callback($node);
@@ -137,11 +139,13 @@ class BinaryTree extends Tree
      *
      * @param Node   $node               Tree node
      * @param int    $horizontalDistance Horizontal distance
-     * @param Node[] &$order             Ordered nodes by horizontal distance
+     * @param Node[] $order              Ordered nodes by horizontal distance
+     *
+     * @return void
      *
      * @since  1.0.0
      */
-    private function getVerticalOrder(Node $node, int $horizontalDistance = 0, array &$order)
+    private function getVerticalOrder(Node $node, int $horizontalDistance = 0, array &$order) /* : void */
     {
         if (!isset($order[$horizontalDistance])) {
             $order[$horizontalDistance] = [];

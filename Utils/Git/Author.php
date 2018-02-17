@@ -4,7 +4,7 @@
  *
  * PHP Version 7.1
  *
- * @package    TBD
+ * @package    phpOMS\Utils\Git
  * @copyright  Dennis Eichhorn
  * @license    OMS License 1.0
  * @version    1.0.0
@@ -17,7 +17,7 @@ namespace phpOMS\Utils\Git;
 /**
  * Gray encoding class
  *
- * @package    Framework
+ * @package    phpOMS\Utils\Git
  * @license    OMS License 1.0
  * @link       http://website.orange-management.de
  * @since      1.0.0

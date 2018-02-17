@@ -38,14 +38,18 @@ interface SocketInterface
     /**
      * Close socket.
      *
+     * @return void
+     *
      * @since    1.0.0
      */
-    public function close();
+    public function close(); /* : void */
 
     /**
      * Run socket.
      *
+     * @return void
+     *
      * @since    1.0.0
      */
-    public function run();
+    public function run(); /* : void */
 }

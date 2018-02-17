@@ -164,9 +164,11 @@ class MemCached implements CacheInterface
     /**
      * Closing cache.
      *
+     * @return void
+     *
      * @since  1.0.0
      */
-    public function close()
+    public function close() /* : void */
     {
         if ($this->memc !== null) {
             $this->memc->close();

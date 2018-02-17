@@ -30,8 +30,8 @@ class BinomialDistribution
     /**
      * Get mode.
      *
-     * @param int   $n
-     * @param float $p
+     * @param int   $n Value n
+     * @param float $p Value p
      *
      * @return float
      *
@@ -55,9 +55,9 @@ class BinomialDistribution
     /**
      * Get moment generating function.
      *
-     * @param int   $n
-     * @param float $t
-     * @param float $p
+     * @param int   $n Value n
+     * @param float $t Value t
+     * @param float $p Value p
      *
      * @return float
      *
@@ -71,8 +71,8 @@ class BinomialDistribution
     /**
      * Get skewness.
      *
-     * @param int   $n
-     * @param float $p
+     * @param int   $n Value n
+     * @param float $p Value p
      *
      * @return float
      *
@@ -86,8 +86,8 @@ class BinomialDistribution
     /**
      * Get Fisher information.
      *
-     * @param int   $n
-     * @param float $p
+     * @param int   $n Value n
+     * @param float $p Value p
      *
      * @return float
      *
@@ -101,8 +101,8 @@ class BinomialDistribution
     /**
      * Get Ex. kurtosis.
      *
-     * @param int   $n
-     * @param float $p
+     * @param int   $n Value n
+     * @param float $p Value p
      *
      * @return float
      *
@@ -116,9 +116,9 @@ class BinomialDistribution
     /**
      * Get cumulative distribution function.
      *
-     * @param int   $n
-     * @param int   $x
-     * @param float $p
+     * @param int   $n Value n
+     * @param int   $x Value x
+     * @param float $p Value p
      *
      * @return float
      *
@@ -140,9 +140,9 @@ class BinomialDistribution
      *
      * Formula: C(n, k) * p^k * (1-p)^(n-k)
      *
-     * @param int   $n
-     * @param int   $k
-     * @param float $p
+     * @param int   $n Value n
+     * @param int   $k Value k
+     * @param float $p Value p
      *
      * @return float
      *
@@ -156,8 +156,8 @@ class BinomialDistribution
     /**
      * Get expected value.
      *
-     * @param int   $n
-     * @param float $p
+     * @param int   $n Value n
+     * @param float $p Value p
      *
      * @return float
      *
@@ -171,8 +171,8 @@ class BinomialDistribution
     /**
      * Get expected value.
      *
-     * @param int   $n
-     * @param float $p
+     * @param int   $n Value n
+     * @param float $p Value p
      *
      * @return float
      *
@@ -186,8 +186,8 @@ class BinomialDistribution
     /**
      * Get variance.
      *
-     * @param int   $n
-     * @param float $p
+     * @param int   $n Value n
+     * @param float $p Value p
      *
      * @return float
      *
