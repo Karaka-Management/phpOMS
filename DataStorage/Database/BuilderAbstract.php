@@ -83,6 +83,20 @@ abstract class BuilderAbstract
     }
 
     /**
+     * Escape string value
+     *
+     * @param string $value Value to escape
+     * 
+     * @return string
+     *
+     * @since  1.0.0
+     */
+    public function quote(string $value) : string
+    {
+        return $this->connection->con->quote($value);
+    }
+
+    /**
      * Get prefix.
      *
      * @return string

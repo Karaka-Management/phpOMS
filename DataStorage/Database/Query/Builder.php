@@ -325,7 +325,7 @@ class Builder extends BuilderAbstract
     }
 
     /**
-     * Parsing to string.
+     * Parsing to sql string.
      *
      * @return string
      *
@@ -334,6 +334,18 @@ class Builder extends BuilderAbstract
     public function toSql() : string
     {
         return $this->grammar->compileQuery($this);
+    }
+
+    /**
+     * Parsing to prepared string.
+     *
+     * @return string
+     *
+     * @since  1.0.0
+     */
+    public function toPrepared() : string
+    {
+        return $this->grammar->compilePreparedQuery($this);
     }
 
     /**

@@ -297,10 +297,10 @@ class Grammar extends GrammarAbstract
         // todo: handle IN(...) as operator
 
         if (isset($element['value'])) {
-            $expression .= ' ' . strtoupper($element['operator']) . ' ' . $this->compileValue($element['value'], $query->getPrefix());
+            $expression .= ' ' . strtoupper($element['operator']) . ' ' . $this->compileValue($query, $element['value'], $query->getPrefix());
         } else {
             $operator    = strtoupper($element['operator']) === '=' ? 'IS' : 'IS NOT';
-            $expression .= ' ' . $operator . ' ' . $this->compileValue($element['value'], $query->getPrefix());
+            $expression .= ' ' . $operator . ' ' . $this->compileValue($query, $element['value'], $query->getPrefix());
         }
 
         return $expression;
@@ -315,6 +315,7 @@ class Grammar extends GrammarAbstract
     /**
      * Compile value.
      *
+     * @param Builder               $query  Query builder
      * @param array|string|\Closure $value  Value
      * @param string                $prefix Prefix in case value is a table
      *
@@ -324,26 +325,26 @@ class Grammar extends GrammarAbstract
      *
      * @since  1.0.0
      */
-    protected function compileValue($value, $prefix = '') : string
+    protected function compileValue(Builder $query, $value, string $prefix = '') : string
     {
         if (is_string($value)) {
             if (strpos($value, ':') === 0) {
                 return $value;
             }
 
-            return $this->valueQuotes . $value . $this->valueQuotes;
+            return $query->quote($value);
         } elseif (is_int($value)) {
             return (string) $value;
         } elseif (is_array($value)) {
             $values = '';
 
             foreach ($value as $val) {
-                $values .= $this->compileValue($val) . ', ';
+                $values .= $this->compileValue($query, $val, $prefix) . ', ';
             }
 
             return '(' . rtrim($values, ', ') . ')';
         } elseif ($value instanceof \DateTime) {
-            return $this->valueQuotes . $value->format('Y-m-d H:i:s') . $this->valueQuotes;
+            return $query->quote($value->format('Y-m-d H:i:s'));
         } elseif (is_null($value)) {
             return 'NULL';
         } elseif (is_bool($value)) {
@@ -512,7 +513,7 @@ class Grammar extends GrammarAbstract
         $vals = '';
 
         foreach ($values as $value) {
-            $vals .= $this->compileValue($value) . ', ';
+            $vals .= $this->compileValue($query, $value) . ', ';
         }
 
         if ($vals === '') {
@@ -540,7 +541,7 @@ class Grammar extends GrammarAbstract
             // todo change expressionizeTableColumn to accept single column and create additionl for Columns
             $expression = $this->expressionizeTableColumn([$column], $query->getPrefix());
 
-            $vals .= $expression . ' = ' . $this->compileValue($value) . ', ';
+            $vals .= $expression . ' = ' . $this->compileValue($query, $value) . ', ';
         }
 
         if ($vals === '') {
