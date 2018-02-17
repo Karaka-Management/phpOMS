@@ -728,7 +728,7 @@ class Builder extends BuilderAbstract
      *
      * @since  1.0.0
      */
-    public function offset($offset) : Builder
+    public function offset(int $offset) : Builder
     {
         $this->offset = $offset;
 
@@ -744,7 +744,7 @@ class Builder extends BuilderAbstract
      *
      * @since  1.0.0
      */
-    public function limit($limit) : Builder
+    public function limit(int $limit) : Builder
     {
         $this->limit = $limit;
 
@@ -931,6 +931,18 @@ class Builder extends BuilderAbstract
         $this->values[] = $values;
 
         return $this;
+    }
+
+    /**
+     * Get insert values
+     *
+     * @return array
+     *
+     * @since  1.0.0
+     */
+    public function getValues() : array
+    {
+        return $this->values;
     }
 
     /**

@@ -62,6 +62,16 @@ class BuilderTest extends \PHPUnit\Framework\TestCase
                 ->orderBy(['a.test', 'b.test', ], ['ASC', 'DESC', ])
                 ->toSql()
         );
+
+        $query = new Builder($this->con);
+        $sql   = 'SELECT `a`.`test`, `b`.`test` FROM `a`, `b` WHERE `a`.`test` = :abcValue ORDER BY `a`.`test` ASC, `b`.`test` DESC;';
+        self::assertEquals($sql,
+            $query->select('a.test', 'b.test')
+                ->from('a', 'b')
+                ->where('a.test', '=', ':abcValue')
+                ->orderBy(['a.test', 'b.test', ], ['ASC', 'DESC', ])
+                ->toSql()
+        );
     }
 
     public function testMysqlOrder()
@@ -114,6 +124,10 @@ class BuilderTest extends \PHPUnit\Framework\TestCase
 
         $query = new Builder($this->con);
         self::assertEquals($sql, $query->select('a.test')->from('a')->where('a.test', '=', 1)->groupBy('a', 'b')->toSql());
+
+        $query = new Builder($this->con);
+        $sql   = 'SELECT `a`.`test` FROM `a` WHERE `a`.`test` = :test GROUP BY `a`, `b`;';
+        self::assertEquals($sql, $query->select('a.test')->from('a')->where('a.test', '=', ':test')->groupBy('a', 'b')->toSql());
     }
 
     public function testMysqlWheres()
@@ -169,6 +183,10 @@ class BuilderTest extends \PHPUnit\Framework\TestCase
         $query = new Builder($this->con);
         $sql   = 'SELECT `a`.`test` FROM `a` WHERE `a`.`test` = 1 OR `a`.`test2` IN (\'a\', \'b\', \'c\');';
         self::assertEquals($sql, $query->select('a.test')->from('a')->where('a.test', '=', 1)->whereIn('a.test2', ['a', 'b', 'c'], 'or')->toSql());
+
+        $query = new Builder($this->con);
+        $sql   = 'SELECT `a`.`test` FROM `a` WHERE `a`.`test` = :testWhere OR `a`.`test2` IN (\'a\', :bValue, \'c\');';
+        self::assertEquals($sql, $query->select('a.test')->from('a')->where('a.test', '=', ':testWhere')->whereIn('a.test2', ['a', ':bValue', 'c'], 'or')->toSql());
     }
 
     public function testMysqlInsert()
@@ -180,6 +198,10 @@ class BuilderTest extends \PHPUnit\Framework\TestCase
         $query = new Builder($this->con);
         $sql   = 'INSERT INTO `a` (`test`, `test2`) VALUES (1, \'test\');';
         self::assertEquals($sql, $query->insert('test', 'test2')->into('a')->values(1, 'test')->toSql());
+
+        $query = new Builder($this->con);
+        $sql   = 'INSERT INTO `a` (`test`, `test2`) VALUES (:test, :test2);';
+        self::assertEquals($sql, $query->insert('test', 'test2')->into('a')->values(':test', ':test2')->toSql());
     }
 
     public function testMysqlDelete()
@@ -187,6 +209,10 @@ class BuilderTest extends \PHPUnit\Framework\TestCase
         $query = new Builder($this->con);
         $sql   = 'DELETE FROM `a` WHERE `a`.`test` = 1;';
         self::assertEquals($sql, $query->delete()->from('a')->where('a.test', '=', 1)->toSql());
+
+        $query = new Builder($this->con);
+        $sql   = 'DELETE FROM `a` WHERE `a`.`test` = :testVal;';
+        self::assertEquals($sql, $query->delete()->from('a')->where('a.test', '=', ':testVal')->toSql());
     }
 
     public function testMysqlUpdate()
@@ -194,6 +220,10 @@ class BuilderTest extends \PHPUnit\Framework\TestCase
         $query = new Builder($this->con);
         $sql   = 'UPDATE `a` SET `a`.`test` = 1, `a`.`test2` = 2 WHERE `a`.`test` = 1;';
         self::assertEquals($sql, $query->update('a')->set(['a.test' => 1])->set(['a.test2' => 2])->where('a.test', '=', 1)->toSql());
+
+        $query = new Builder($this->con);
+        $sql   = 'UPDATE `a` SET `a`.`test` = 1, `a`.`test2` = :test2 WHERE `a`.`test` = :test3;';
+        self::assertEquals($sql, $query->update('a')->set(['a.test' => 1])->set(['a.test2' => ':test2'])->where('a.test', '=', ':test3')->toSql());
     }
 
     public function testRaw()
