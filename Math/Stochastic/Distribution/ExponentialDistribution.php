@@ -27,8 +27,8 @@ class ExponentialDistribution
     /**
      * Get probability density function.
      *
-     * @param float $x
-     * @param float $lambda
+     * @param float $x      Value x
+     * @param float $lambda Lambda
      *
      * @return float
      *
@@ -42,8 +42,8 @@ class ExponentialDistribution
     /**
      * Get cumulative distribution function.
      *
-     * @param float $x
-     * @param float $lambda
+     * @param float $x      Value x
+     * @param float $lambda Lambda
      *
      * @return float
      *
@@ -69,7 +69,7 @@ class ExponentialDistribution
     /**
      * Get expected value.
      *
-     * @param float $lambda
+     * @param float $lambda Lambda
      *
      * @return float
      *
@@ -83,7 +83,7 @@ class ExponentialDistribution
     /**
      * Get expected value.
      *
-     * @param float $lambda
+     * @param float $lambda Lambda
      *
      * @return float
      *
@@ -97,7 +97,7 @@ class ExponentialDistribution
     /**
      * Get variance.
      *
-     * @param float $lambda
+     * @param float $lambda Lambda
      *
      * @return float
      *
@@ -111,8 +111,8 @@ class ExponentialDistribution
     /**
      * Get moment generating function.
      *
-     * @param float $t
-     * @param float $lambda
+     * @param float $t      Value t
+     * @param float $lambda Lambda
      *
      * @return float
      *

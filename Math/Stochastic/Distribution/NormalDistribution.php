@@ -28,9 +28,9 @@ class NormalDistribution
     /**
      * Get probability density function.
      *
-     * @param float $x
-     * @param float $mu
-     * @param float $sig
+     * @param float $x   Value x
+     * @param float $mu  Value mu
+     * @param float $sig Sigma
      *
      * @return float
      *
@@ -44,7 +44,7 @@ class NormalDistribution
     /**
      * Get mode.
      *
-     * @param float $mu
+     * @param float $mu Value mu
      *
      * @return float
      *
@@ -58,7 +58,7 @@ class NormalDistribution
     /**
      * Get expected value.
      *
-     * @param float $mu
+     * @param float $mu Value mu
      *
      * @return float
      *
@@ -72,7 +72,7 @@ class NormalDistribution
     /**
      * Get expected value.
      *
-     * @param float $mu
+     * @param float $mu Value mu
      *
      * @return float
      *
@@ -86,7 +86,7 @@ class NormalDistribution
     /**
      * Get variance.
      *
-     * @param float $sig
+     * @param float $sig Sigma
      *
      * @return float
      *
@@ -100,9 +100,9 @@ class NormalDistribution
     /**
      * Get moment generating function.
      *
-     * @param float $t
-     * @param float $mu
-     * @param float $sig
+     * @param float $t   Value t
+     * @param float $mu  Value mu
+     * @param float $sig Sigma
      *
      * @return float
      *
@@ -128,7 +128,7 @@ class NormalDistribution
     /**
      * Get Fisher information.
      *
-     * @param float $sig
+     * @param float $sig Sigma
      *
      * @return array
      *
