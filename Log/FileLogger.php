@@ -161,6 +161,8 @@ class FileLogger implements LoggerInterface
 
     /**
      * Protect instance from getting copied from outside.
+     * 
+     * @return void
      *
      * @since  1.0.0
      * @codeCoverageIgnore
@@ -373,6 +375,8 @@ class FileLogger implements LoggerInterface
      * Analyse logging file.
      *
      * @return array
+     * 
+     * @since  1.0.0
      */
     public function countLogs()
     {
@@ -407,6 +411,8 @@ class FileLogger implements LoggerInterface
      * @param int $limit Amout of perpetrators
      *
      * @return array
+     * 
+     * @since  1.0.0
      */
     public function getHighestPerpetrator(int $limit = 10) : array
     {
@@ -443,6 +449,8 @@ class FileLogger implements LoggerInterface
      * @param int $offset Offset
      *
      * @return array
+     * 
+     * @since  1.0.0
      */
     public function get(int $limit = 25, int $offset = 0) : array
     {
@@ -490,6 +498,8 @@ class FileLogger implements LoggerInterface
      * @param int $id Id/Line number of the logging message
      *
      * @return array
+     * 
+     * @since  1.0.0
      */
     public function getByLine(int $id = 1) : array
     {
@@ -535,7 +545,10 @@ class FileLogger implements LoggerInterface
      * @param string $message Log message
      * @param bool   $verbose Is verbose
      * @param array  $context Context
+     * 
+     * @return void
      *
+     * @since  1.0.0
      */
     public function console(string $message, bool $verbose = true, array $context = []) /* : void */
     {

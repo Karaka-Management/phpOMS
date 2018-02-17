@@ -4,7 +4,7 @@
  *
  * PHP Version 7.1
  *
- * @package    TBD
+ * @package    phpOMS\DataStorage\Database\Query
  * @copyright  Dennis Eichhorn
  * @license    OMS License 1.0
  * @version    1.0.0
@@ -20,7 +20,7 @@ use phpOMS\DataStorage\Database\Connection\ConnectionAbstract;
 /**
  * Database query builder.
  *
- * @package    Framework
+ * @package    phpOMS\DataStorage\Database\Query
  * @license    OMS License 1.0
  * @link       http://website.orange-management.de
  * @since      1.0.0
@@ -234,7 +234,7 @@ class Builder extends BuilderAbstract
      *
      * @param ConnectionAbstract $connection Database connection
      *
-     * @return  void
+     * @return void
      *
      * @since  1.0.0
      */
@@ -1075,7 +1075,7 @@ class Builder extends BuilderAbstract
      *
      * @since  1.0.0
      */
-    public function join($table1, $table2, $column1, $opperator, $column2)
+    public function join($table1, $table2, $column1, $opperator, $column2) : Builder
     {
         return $this;
     }
