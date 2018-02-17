@@ -56,9 +56,11 @@ class Population implements \Countable
      * @param int  $index Position to insert at
      * @param Tour $tour  Tour to insert
      *
+     * @return void
+     *
      * @since  1.0.0
      */
-    public function insertAt(int $index, Tour $tour)
+    public function insertAt(int $index, Tour $tour) /* : void */
     {
         $this->tours = array_slice($this->tours, 0, $index) + [$tour] + array_slice($this->tours, $index);
     }
@@ -68,6 +70,8 @@ class Population implements \Countable
      *
      * @param int  $index Position to set/replace
      * @param Tour $tour  Tour to set
+     *
+     * @return void
      *
      * @since  1.0.0
      */
@@ -82,9 +86,11 @@ class Population implements \Countable
      *
      * @param Tour $tour Tour to add
      *
+     * @return void
+     *
      * @since  1.0.0
      */
-    public function add(Tour $tour)
+    public function add(Tour $tour) /* : void */
     {
         $this->tours[] = $tour;
     }

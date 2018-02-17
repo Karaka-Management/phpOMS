@@ -165,6 +165,8 @@ class MemCache implements CacheInterface
     /**
      * Closing cache.
      *
+     * @return void
+     *
      * @since  1.0.0
      */
     public function close()

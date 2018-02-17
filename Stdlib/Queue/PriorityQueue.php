@@ -133,6 +133,8 @@ class PriorityQueue implements \Countable, \Serializable
     /**
      * Delete last element.
      *
+     * @return mixed
+     *
      * @since  1.0.0
      */
     public function remove()
@@ -189,6 +191,8 @@ class PriorityQueue implements \Countable, \Serializable
      * Unserialize queue.
      *
      * @param string $data Data to unserialze
+     *
+     * @return void
      *
      * @since  1.0.0
      */

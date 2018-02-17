@@ -170,9 +170,11 @@ class BinaryTree extends Tree
      * @param Node     $node     Tree node
      * @param \Closure $callback Task to perform on node
      *
+     * @return void
+     *
      * @since  1.0.0
      */
-    public function verticalOrder(Node $node, \Closure $callback)
+    public function verticalOrder(Node $node, \Closure $callback) /* : void */
     {
         $order = [];
         $this->getVerticalOrder($node, 0, $order);

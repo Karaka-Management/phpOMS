@@ -27,9 +27,9 @@ class CauchyDistribution
     /**
      * Get probability density function.
      *
-     * @param float $x
-     * @param float $x0
-     * @param float $gamma
+     * @param float $x     Value x
+     * @param float $x0    Value x0
+     * @param float $gamma Gamma
      *
      * @return float
      *
@@ -43,9 +43,9 @@ class CauchyDistribution
     /**
      * Get cumulative distribution function.
      *
-     * @param float $x
-     * @param float $x0
-     * @param float $gamma
+     * @param float $x     Value x
+     * @param float $x0    Value x0
+     * @param float $gamma Gamma
      *
      * @return float
      *
@@ -59,7 +59,7 @@ class CauchyDistribution
     /**
      * Get mode.
      *
-     * @param float $x0
+     * @param float $x0 Value x0
      *
      * @return float
      *
@@ -73,7 +73,7 @@ class CauchyDistribution
     /**
      * Get expected value.
      *
-     * @param float $x0
+     * @param float $x0 Value x0
      *
      * @return float
      *

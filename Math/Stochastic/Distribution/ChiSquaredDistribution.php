@@ -142,7 +142,7 @@ class ChiSquaredDistribution
     /**
      * Get probability density function.
      *
-     * @param float $x
+     * @param float $x  Value x
      * @param int   $df Degreegs of freedom
      *
      * @return float
@@ -220,7 +220,7 @@ class ChiSquaredDistribution
      * Get moment generating function.
      *
      * @param int   $df Degrees of freedom
-     * @param float $t
+     * @param float $t  Value t
      *
      * @return float
      *
@@ -240,7 +240,7 @@ class ChiSquaredDistribution
     /**
      * Get skewness.
      *
-     * @param int $df
+     * @param int $df Degrees of freedom
      *
      * @return float
      *
@@ -254,7 +254,7 @@ class ChiSquaredDistribution
     /**
      * Get Ex. kurtosis.
      *
-     * @param int $df
+     * @param int $df Degrees of freedom
      *
      * @return float
      *

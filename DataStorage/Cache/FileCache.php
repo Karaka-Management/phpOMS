@@ -300,6 +300,17 @@ class FileCache implements CacheInterface
         return $this->parseValue($type, $raw, $expireEnd);
     }
 
+    /**
+     * Parse cached value
+     *
+     * @param int    $type      Cached value type
+     * @param string $raw       Cached value
+     * @param int    $expireEnd Value end position
+     *
+     * @return mixed
+     *
+     * @since  1.0.0
+     */
     private function parseValue(int $type, string $raw, int $expireEnd)
     {
         $value = null;
@@ -414,6 +425,15 @@ class FileCache implements CacheInterface
         return false;
     }
 
+    /**
+     * Get cache path
+     *
+     * @param mixed $key Key for cached value
+     *
+     * @return string Path to cache file
+     *
+     * @since  1.0.0
+     */
     private function getPath($key) : string
     {
         $path = File::sanitize($key, self::SANITIZE);

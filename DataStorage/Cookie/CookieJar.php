@@ -56,6 +56,8 @@ class CookieJar
     /**
      * Lock
      *
+     * @return void
+     *
      * @since  1.0.0
      */
     public static function lock() /* : void */

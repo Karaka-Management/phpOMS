@@ -40,6 +40,8 @@ abstract class PacketAbstract implements \Serializable
      *
      * This is using a json format
      *
+     * @return string
+     *
      * @since 1.0.0
      */
     abstract public function __toString();

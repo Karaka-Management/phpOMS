@@ -135,9 +135,11 @@ class Tour implements \Countable
      *
      * @param City $city City
      *
+     * @return void
+     *
      * @since  1.0.0
      */
-    public function addCity(City $city)
+    public function addCity(City $city) /* : void */
     {
         $this->cities[] = $city;
 
@@ -150,6 +152,8 @@ class Tour implements \Countable
      *
      * @param int  $index Index to set/replace
      * @param City $city  City
+     *
+     * @return void
      *
      * @since  1.0.0
      */

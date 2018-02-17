@@ -210,9 +210,11 @@ class Tree extends Graph
      * @param Node     $node     Tree node
      * @param \Closure $callback Task to perform on node
      *
+     * @return void
+     *
      * @since  1.0.0
      */
-    public function preOrder(Node $node, \Closure $callback) 
+    public function preOrder(Node $node, \Closure $callback) /* : void */
     {
         if (count($this->nodes) === 0) {
             return;
@@ -233,9 +235,11 @@ class Tree extends Graph
      * @param Node     $node     Tree node
      * @param \Closure $callback Task to perform on node
      *
+     * @return void
+     *
      * @since  1.0.0
      */
-    public function postOrder(Node $node, \Closure $callback) 
+    public function postOrder(Node $node, \Closure $callback) /* : void */
     {
         if (count($this->nodes) === 0) {
             return;
