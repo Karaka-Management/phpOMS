@@ -4,7 +4,7 @@
  *
  * PHP Version 7.1
  *
- * @package    Framework
+ * @package    phpOMS\Module
  * @copyright  Dennis Eichhorn
  * @license    OMS License 1.0
  * @version    1.0.0
@@ -21,7 +21,7 @@ use phpOMS\DataStorage\Database\Exception\InvalidDatabaseTypeException;
 /**
  * Installer Abstract class.
  *
- * @package    Framework
+ * @package    phpOMS\Module
  * @license    OMS License 1.0
  * @link       http://website.orange-management.de
  * @since      1.0.0

@@ -4,7 +4,7 @@
  *
  * PHP Version 7.1
  *
- * @package    Framework
+ * @package    phpOMS\Module\Exception
  * @copyright  Dennis Eichhorn
  * @license    OMS License 1.0
  * @version    1.0.0
@@ -17,7 +17,7 @@ namespace phpOMS\Module\Exception;
 /**
  * Zero devision exception.
  *
- * @package    Framework
+ * @package    phpOMS\Module\Exception
  * @license    OMS License 1.0
  * @link       http://website.orange-management.de
  * @since      1.0.0

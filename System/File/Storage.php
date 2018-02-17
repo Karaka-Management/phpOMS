@@ -4,7 +4,7 @@
  *
  * PHP Version 7.1
  *
- * @package    TBD
+ * @package    phpOMS\System\File
  * @copyright  Dennis Eichhorn
  * @license    OMS License 1.0
  * @version    1.0.0
@@ -19,7 +19,7 @@ namespace phpOMS\System\File;
  *
  * Performing operations on the file system
  *
- * @package    Framework
+ * @package    phpOMS\System\File
  * @license    OMS License 1.0
  * @link       http://website.orange-management.de
  * @since      1.0.0

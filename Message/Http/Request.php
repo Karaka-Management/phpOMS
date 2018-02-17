@@ -4,7 +4,7 @@
  *
  * PHP Version 7.1
  *
- * @package    Framework
+ * @package    phpOMS\Message\Http
  * @copyright  Dennis Eichhorn
  * @license    OMS License 1.0
  * @version    1.0.0
@@ -25,7 +25,7 @@ use phpOMS\Uri\UriInterface;
 /**
  * Request class.
  *
- * @package    Framework
+ * @package    phpOMS\Message\Http
  * @license    OMS License 1.0
  * @link       http://website.orange-management.de
  * @since      1.0.0

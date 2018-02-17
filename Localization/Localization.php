@@ -4,7 +4,7 @@
  *
  * PHP Version 7.1
  *
- * @package    Framework
+ * @package    phpOMS\Localization
  * @copyright  Dennis Eichhorn
  * @license    OMS License 1.0
  * @version    1.0.0
@@ -21,7 +21,7 @@ use phpOMS\Utils\Converter\TemperatureType;
 /**
  * Localization class.
  *
- * @package    Framework
+ * @package    phpOMS\Localization
  * @license    OMS License 1.0
  * @link       http://website.orange-management.de
  * @since      1.0.0
@@ -146,6 +146,8 @@ class Localization
     }
 
     /**
+     * Get country
+     * 
      * @return string
      *
      * @since  1.0.0
@@ -156,7 +158,9 @@ class Localization
     }
 
     /**
-     * @param string $country
+     * Set country name
+     * 
+     * @param string $country Contry name
      *
      * @return void
      *
@@ -172,6 +176,8 @@ class Localization
     }
 
     /**
+     * Get timezone
+     *
      * @return string
      *
      * @since  1.0.0
@@ -182,7 +188,11 @@ class Localization
     }
 
     /**
-     * @param string $timezone
+     * Set timezone
+     * 
+     * @param string $timezone Timezone
+     * 
+     * @return void
      *
      * @todo   : maybe make parameter int
      *
@@ -198,6 +208,8 @@ class Localization
     }
 
     /**
+     * Get language
+     * 
      * @return string
      *
      * @since  1.0.0
@@ -208,7 +220,9 @@ class Localization
     }
 
     /**
-     * @param string $language
+     * Set language code
+     * 
+     * @param string $language Language code
      *
      * @return void
      *
@@ -228,6 +242,8 @@ class Localization
     }
 
     /**
+     * Get currency
+     * 
      * @return string
      *
      * @since  1.0.0
@@ -238,7 +254,9 @@ class Localization
     }
 
     /**
-     * @param string $currency
+     * Set currency code
+     * 
+     * @param string $currency Currency code
      *
      * @return void
      *
@@ -254,6 +272,8 @@ class Localization
     }
 
     /**
+     * get datetime format
+     * 
      * @return string
      *
      * @since  1.0.0
@@ -264,7 +284,9 @@ class Localization
     }
 
     /**
-     * @param string $datetime
+     * Set datetime format
+     * 
+     * @param string $datetime Datetime format
      *
      * @return void
      *
@@ -276,6 +298,8 @@ class Localization
     }
 
     /**
+     * Set decimal char
+     * 
      * @return string
      *
      * @since  1.0.0
@@ -286,7 +310,9 @@ class Localization
     }
 
     /**
-     * @param string $decimal
+     * Get decimal char
+     * 
+     * @param string $decimal Decimal char
      *
      * @return string
      *
@@ -298,6 +324,8 @@ class Localization
     }
 
     /**
+     * Get thousands char
+     * 
      * @return string
      *
      * @since  1.0.0
@@ -308,7 +336,9 @@ class Localization
     }
 
     /**
-     * @param string $thousands
+     * Set thousands char
+     * 
+     * @param string $thousands Thousands char
      *
      * @return string
      *
@@ -320,6 +350,8 @@ class Localization
     }
 
     /**
+     * Get angle type
+     * 
      * @return string
      *
      * @since  1.0.0
@@ -330,7 +362,9 @@ class Localization
     }
 
     /**
-     * @param string $angle
+     * Set angle type
+     * 
+     * @param string $angle Angle
      *
      * @return string
      *
@@ -342,6 +376,8 @@ class Localization
     }
 
     /**
+     * Get temperature type
+     * 
      * @return string
      *
      * @since  1.0.0
@@ -352,7 +388,9 @@ class Localization
     }
 
     /**
-     * @param string $temperature
+     * Set temperature string
+     * 
+     * @param string $temperature Temperature
      *
      * @return string
      *
@@ -364,6 +402,8 @@ class Localization
     }
 
     /**
+     * Get speed type
+     * 
      * @return array
      *
      * @since  1.0.0
@@ -374,7 +414,9 @@ class Localization
     }
 
     /**
-     * @param array $speed
+     * Set speed type
+     * 
+     * @param array $speed Speed
      *
      * @return array
      *
@@ -386,6 +428,8 @@ class Localization
     }
 
     /**
+     * Get weight type
+     * 
      * @return array
      *
      * @since  1.0.0
@@ -396,7 +440,9 @@ class Localization
     }
 
     /**
-     * @param array $weight
+     * Set weight type
+     * 
+     * @param array $weight Weight type
      *
      * @return array
      *
@@ -408,6 +454,8 @@ class Localization
     }
 
     /**
+     * Get length type
+     * 
      * @return array
      *
      * @since  1.0.0
@@ -418,7 +466,9 @@ class Localization
     }
 
     /**
-     * @param array $length
+     * Set length type
+     * 
+     * @param array $length Length type
      *
      * @return array
      *
@@ -430,6 +480,8 @@ class Localization
     }
 
     /**
+     * Get area type
+     * 
      * @return array
      *
      * @since  1.0.0
@@ -440,7 +492,9 @@ class Localization
     }
 
     /**
-     * @param array $area
+     * Set area type
+     * 
+     * @param array $area Area type
      *
      * @return array
      *
@@ -452,6 +506,8 @@ class Localization
     }
 
     /**
+     * Get volume type
+     * 
      * @return array
      *
      * @since  1.0.0
@@ -462,7 +518,9 @@ class Localization
     }
 
     /**
-     * @param array $volume
+     * Set volume type
+     * 
+     * @param array $volume Volume type
      *
      * @return array
      *

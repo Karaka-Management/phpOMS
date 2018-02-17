@@ -4,7 +4,7 @@
  *
  * PHP Version 7.1
  *
- * @package    Framework
+ * @package    phpOMS\Message
  * @copyright  Dennis Eichhorn
  * @license    OMS License 1.0
  * @version    1.0.0
@@ -22,7 +22,7 @@ use phpOMS\Uri\UriInterface;
  *
  * @property mixed request
  *
- * @package    Framework
+ * @package    phpOMS\Message
  * @license    OMS License 1.0
  * @link       http://website.orange-management.de
  * @since      1.0.0
@@ -125,7 +125,9 @@ abstract class RequestAbstract implements MessageInterface
     /**
      * Set request uri.
      *
-     * @param UriInterface $uri
+     * @param UriInterface $uri Uri
+     * 
+     * @return void
      *
      * @since  1.0.0
      */
@@ -188,7 +190,9 @@ abstract class RequestAbstract implements MessageInterface
     /**
      * Set request method.
      *
-     * @param string $method
+     * @param string $method Request method
+     * 
+     * @return void
      *
      * @since  1.0.0
      */
