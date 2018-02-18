@@ -1364,6 +1364,10 @@ class DataMapperAbstract implements DataMapperInterface
     {
         self::extend(__CLASS__);
 
+        if (is_scalar($obj)) {
+            $obj = static::get($obj);
+        }
+
         $reflectionClass = new \ReflectionClass($obj);
         $objId           = self::getObjectId($obj, $reflectionClass);
 
