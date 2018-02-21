@@ -4,7 +4,7 @@
  *
  * PHP Version 7.1
  *
- * @package    TBD
+ * @package    phpOMS\DataStorage\Session
  * @copyright  Dennis Eichhorn
  * @license    OMS License 1.0
  * @version    1.0.0
@@ -21,7 +21,7 @@ use phpOMS\DataStorage\LockException;
 /**
  * Http session class.
  *
- * @package    Framework
+ * @package    phpOMS\DataStorage\Session
  * @license    OMS License 1.0
  * @link       http://website.orange-management.de
  * @since      1.0.0

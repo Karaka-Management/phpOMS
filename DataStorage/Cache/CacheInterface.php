@@ -4,7 +4,7 @@
  *
  * PHP Version 7.1
  *
- * @package    TBD
+ * @package    phpOMS\DataStorage\Cache
  * @copyright  Dennis Eichhorn
  * @license    OMS License 1.0
  * @version    1.0.0
@@ -19,7 +19,7 @@ use phpOMS\Stdlib\Base\Exception\InvalidEnumValue;
 /**
  * Cache interface.
  *
- * @package    Framework
+ * @package    phpOMS\DataStorage\Cache
  * @license    OMS License 1.0
  * @link       http://website.orange-management.de
  * @since      1.0.0

@@ -4,7 +4,7 @@
  *
  * PHP Version 7.1
  *
- * @package    TBD
+ * @package    phpOMS\DataStorage
  * @copyright  Dennis Eichhorn
  * @license    OMS License 1.0
  * @version    1.0.0
@@ -21,7 +21,7 @@ use phpOMS\DataStorage\Database\Query\Builder;
  *
  * DB, Cache, Session
  *
- * @package    Framework
+ * @package    phpOMS\DataStorage
  * @license    OMS License 1.0
  * @link       http://website.orange-management.de
  * @since      1.0.0

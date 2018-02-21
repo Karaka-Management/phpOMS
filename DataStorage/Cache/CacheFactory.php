@@ -4,7 +4,7 @@
  *
  * PHP Version 7.1
  *
- * @package    TBD
+ * @package    phpOMS\DataStorage\Cache
  * @copyright  Dennis Eichhorn
  * @license    OMS License 1.0
  * @version    1.0.0
@@ -15,9 +15,9 @@ declare(strict_types=1);
 namespace phpOMS\DataStorage\Cache;
 
 /**
- * Database connection factory.
+ * Cache connection factory.
  *
- * @package    Framework
+ * @package    phpOMS\DataStorage\Cache
  * @license    OMS License 1.0
  * @link       http://website.orange-management.de
  * @since      1.0.0

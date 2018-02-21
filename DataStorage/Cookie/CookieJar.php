@@ -4,7 +4,7 @@
  *
  * PHP Version 7.1
  *
- * @package    TBD
+ * @package    phpOMS\DataStorage\Cookie
  * @copyright  Dennis Eichhorn
  * @license    OMS License 1.0
  * @version    1.0.0
@@ -19,7 +19,7 @@ use phpOMS\DataStorage\LockException;
 /**
  * CookieJar class
  *
- * @package    Framework
+ * @package    phpOMS\DataStorage\Cookie
  * @license    OMS License 1.0
  * @link       http://website.orange-management.de
  * @since      1.0.0

@@ -33,6 +33,9 @@ class FinanceFormulas
 
     /**
      * Annual Percentage Yield
+     * 
+     * The annual percentage yield (APY) calculates the yield taking compounding
+     * into consideration.
      *
      * @latex  APY = \left(1+ \frac{r}{n}\right)^{n}-1
      *
@@ -811,7 +814,7 @@ class FinanceFormulas
      */
     public static function getPeriodsOfEAA(float $C, float $NPV, float $r) : int
     {
-        return (int) round(log(-$r * $NPV / $C + 1) / log(1 + $r));
+        return (int) round(-log(1 - $r * $NPV / $C) / log(1 + $r));
     }
 
     /**
@@ -827,7 +830,7 @@ class FinanceFormulas
      */
     public static function getNetPresentValueOfEAA(float $C, float $r, int $n) : float
     {
-        return $C / $r * (1 - pow(1 + $r, -$n));
+        return $C * (1 - pow(1 + $r, -$n)) / $r;
     }
 
     /**
@@ -868,6 +871,10 @@ class FinanceFormulas
 
     /**
      * Future Value
+     * 
+     * The Future Value (FV) is used to calculate the value of a cash flow after a specific amount of periods.
+     * 
+     * @latex  FV = C_{0} \cdot \left(1 + r\right)^{n}
      *
      * @param float $C Cash flow at period 0
      * @param float $r Rate of return
@@ -900,6 +907,11 @@ class FinanceFormulas
 
     /**
      * Future Value Factor
+     * 
+     * The future value factor is used to calculate a facture which can be used to calculate 
+     * the future value after a certain amount of periods at a give interest rate. 
+     * 
+     * @latex  f = \left(1 + r\right)^{n}
      *
      * @param float $r Rate of return
      * @param int   $n Number of periods
@@ -924,7 +936,7 @@ class FinanceFormulas
      */
     public static function getGeometricMeanReturn(array $r) : float
     {
-        return Average::geometricMean($r) - 1;
+        return Average::geometricMean($r);
     }
 
     /**

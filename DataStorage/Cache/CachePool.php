@@ -4,7 +4,7 @@
  *
  * PHP Version 7.1
  *
- * @package    TBD
+ * @package    phpOMS\DataStorage\Cache
  * @copyright  Dennis Eichhorn
  * @license    OMS License 1.0
  * @version    1.0.0
@@ -23,7 +23,7 @@ use phpOMS\Config\OptionsTrait;
  * Responsible for caching scalar data types and arrays.
  * Caching HTML output and objects coming soon/is planned.
  *
- * @package    Framework
+ * @package    phpOMS\DataStorage\Cache
  * @license    OMS License 1.0
  * @link       http://website.orange-management.de
  * @since      1.0.0

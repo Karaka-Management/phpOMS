@@ -230,11 +230,6 @@ class FinanceFormulasTest extends \PHPUnit\Framework\TestCase
         self::assertEquals($t, FinanceFormulas::getSimpleInterestTime($I, $P, $r));
     }
 
-    public function testNetPresentValue()
-    {
-        self::assertTrue(abs(1009.23 - FinanceFormulas::getNetPresentValue([10000, 500, 1000, 1500, 2000, 2500, 3000, 3500], 0.05)) < 0.01);
-    }
-
     public function testDiscountedPaybackPeriod()
     {
         $O1 = 5000;
@@ -250,5 +245,143 @@ class FinanceFormulasTest extends \PHPUnit\Framework\TestCase
 
         self::assertTrue(abs(14.207 - FinanceFormulas::getDoublingTime($r)) < 0.01);
         self::assertTrue(abs($r - FinanceFormulas::getDoublingRate(14.207)) < 0.01);
+    }
+
+    public function testDoublingTimeContinuousCompounding()
+    {
+        $r = 0.05;
+
+        self::assertEquals(13.863, FinanceFormulas::getDoublingTimeContinuousCompounding($r), '', 0.01);
+    }
+
+    public function testEquivalentAnnualAnnuity()
+    {
+        $npv = 1000;
+        $r   = 0.15;
+        $n   = 7;
+
+        self::assertEquals(240.36, FinanceFormulas::getEquivalentAnnualAnnuity($npv, $r, $n), '', 0.01);
+        self::assertEquals($n, FinanceFormulas::getPeriodsOfEAA(240.36, $npv, $r));
+        self::assertEquals($npv, FinanceFormulas::getNetPresentValueOfEAA(240.36, $r, $n), '', 0.01);
+    }
+
+    public function testFreeCashFlowToEquity()
+    {
+        $income    = 1000;
+        $depamo    = 300;
+        $capital   = 400;
+        $wc        = 200;
+        $borrowing = 500;
+
+        self::assertEquals(1200, FinanceFormulas::getFreeCashFlowToEquity($income, $depamo, $capital, $wc, $borrowing), '', 0.01);
+    }
+
+    public function testFreeCashFlowToFirm()
+    {
+        $ebit    = 1000;
+        $depamo  = 300;
+        $t       = 0.15;
+        $capital = 400;
+        $wc      = 200;
+
+        self::assertEquals(550, FinanceFormulas::getFreeCashFlowToFirm($ebit, $t, $depamo, $capital, $wc), '', 0.01);
+    }
+
+    public function testFutureValue()
+    {
+        $c = 1000;
+        $r = 0.15;
+        $n = 7;
+
+        self::assertEquals(2660.02, FinanceFormulas::getFutureValue($c, $r, $n), '', 0.01);
+    }
+
+    public function testFutureValueContinuousCompounding()
+    {
+        $pv = 1000;
+        $r  = 0.15;
+        $t  = 7;
+
+        self::assertEquals(2857.65, FinanceFormulas::getFutureValueContinuousCompounding($pv, $r, $t), '', 0.01);
+    }
+
+    public function testFutureValueFactor()
+    {
+        $r = 0.15;
+        $n = 7;
+
+        self::assertEquals(2.66, FinanceFormulas::getFutureValueFactor($r, $n), '', 0.01);
+    }
+
+    public function testGeometricMeanReturn()
+    {
+        $r = [0.01, 0.02, 0.03, 0.04, 0.05, 0.06, 0.07];
+
+        self::assertEquals(0.04123, FinanceFormulas::getGeometricMeanReturn($r), '', 0.01);
+    }
+
+    public function testGrowingAnnuityFV()
+    {
+        $p = 1000;
+        $r = 0.15;
+        $g = 0.1;
+        $n = 7;
+
+        self::assertEquals(14226.06, FinanceFormulas::getGrowingAnnuityFV($p, $r, $g, $n), '', 0.01);
+    }
+
+    public function testGrowingAnnuityPaymentPV()
+    {
+        $p = 1000;
+        $r = 0.15;
+        $g = 0.1;
+        $n = 7;
+
+        self::assertEquals(186.98, FinanceFormulas::getGrowingAnnuityPaymentPV($p, $r, $g, $n), '', 0.01);
+    }
+
+    public function testGrowingAnnuityPaymentFV()
+    {
+        $fv = 1000;
+        $r  = 0.15;
+        $g  = 0.1;
+        $n  = 7;
+
+        self::assertEquals(70.29, FinanceFormulas::getGrowingAnnuityPaymentFV($fv, $r, $g, $n), '', 0.01);
+    }
+
+    public function testGrowingAnnuityPV()
+    {
+        $p = 1000;
+        $r = 0.15;
+        $g = 0.1;
+        $n = 7;
+
+        self::assertEquals(5348.1, FinanceFormulas::getGrowingAnnuityPV($p, $r, $g, $n), '', 0.01);
+    }
+
+    public function testGrowingPerpetuityPV()
+    {
+        $d = 1000;
+        $r = 0.15;
+        $g = 0.1;
+
+        self::assertEquals(20000, FinanceFormulas::getGrowingPerpetuityPV($d, $r, $g), '', 0.01);
+    }
+
+    public function testNetPresentValue()
+    {
+        $c = [1000, 100, 200, 300, 400, 500, 600];
+        $r = 0.15;
+
+        self::assertEquals(172.13, FinanceFormulas::getNetPresentValue($c, $r), '', 0.01);
+    }
+
+    public function testRealRateOfReturn()
+    {
+        $nominal   = 0.15;
+        $inflation = 0.05;
+
+        self::assertEquals(0.09524, FinanceFormulas::getRealRateOfReturn($nominal, $inflation), '', 0.01);
     }
 }
