@@ -157,7 +157,7 @@ class Average
      *
      * @return float
      *
-     * @throws \Exception
+     * @throws phpOMS\Math\Exception\ZeroDevisionException
      *
      * @since  1.0.0
      */
@@ -307,52 +307,6 @@ class Average
         $y /= $size;
 
         return rad2deg(atan2($y, $x));
-    }
-
-    /**
-     * Calculate angle based on time.
-     *
-     * Example: ('08:44:28')
-     *
-     * @param string $time Time
-     *
-     * @return float
-     *
-     * @throws \Exception
-     *
-     * @since  1.0.0
-     */
-    public static function timeToAngle(string $time) : float
-    {
-        $parts = explode(':', $time);
-
-        if (count($parts) !== 3) {
-            throw new \Exception('Wrong time format');
-        }
-
-        $sec   = ($parts[0] * 3600) + ($parts[1] * 60) + $parts[2];
-        $angle = 360.0 * ($sec / 86400.0);
-
-        return $angle;
-    }
-
-    /**
-     * Calculate time based on angle.
-     *
-     * Example: ('08:44:28')
-     *
-     * @param float $angle Angle
-     *
-     * @return string
-     *
-     * @since  1.0.0
-     */
-    public static function angleToTime(float $angle) : string
-    {
-        $sec  = 86400.0 * $angle / 360.0;
-        $time = sprintf('%02d:%02d:%02d', floor($sec / 3600), floor(($sec % 3600) / 60), $sec % 60);
-
-        return $time;
     }
 
     /**

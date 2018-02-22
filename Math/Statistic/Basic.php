@@ -36,7 +36,7 @@ class Basic
      *
      * @since  1.0.0
      */
-    public static function freaquency(array $values) : array
+    public static function frequency(array $values) : array
     {
         $freaquency = [];
         $sum        = 1;
@@ -46,8 +46,8 @@ class Basic
         }
 
         foreach ($values as $value) {
-            if ($isArray) {
-                $freaquency[] = self::freaquency($value);
+            if (is_array($value)) {
+                $freaquency[] = self::frequency($value);
             } else {
                 $freaquency[] = $value / $sum;
             }

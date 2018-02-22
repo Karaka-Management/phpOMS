@@ -59,11 +59,11 @@ class Correlation
         $count                = count($x);
         $sum                  = 0.0;
 
-        for ($i = $k + 1; $i < $count; ++$i) {
+        for ($i = $k; $i < $count; ++$i) {
             $sum += ($x[$i] - $mean) * ($x[$i - $k] - $mean);
         }
 
-        return $sum / ($squaredMeanDeviation * count($x));
+        return $sum / ($squaredMeanDeviation * $count);
     }
 
     /**
@@ -71,40 +71,41 @@ class Correlation
      *
      * @param array $autocorrelations Autocorrelations
      * @param int   $h                Maximum leg considered
+     * @param int   $n                Amount of observations
      *
      * @return float
      *
      * @since  1.0.0
      */
-    public static function boxPierceTest(array $autocorrelations, int $h) : float
+    public static function boxPierceTest(array $autocorrelations, int $h, int $n) : float
     {
         $sum = 0;
         for ($i = 0; $i < $h; ++$i) {
             $sum += $autocorrelations[$i] ** 2;
         }
 
-        return count($autocorrelations) * $sum;
+        return $n * $sum;
     }
 
     /**
-     * Box Pierce test (portmanteau test).
+     * Ljung Box test (portmanteau test).
      *
      * @param array $autocorrelations Autocorrelations
      * @param int   $h                Maximum leg considered
+     * @param int   $n                Amount of observations
      *
      * @return float
      *
      * @since  1.0.0
      */
-    public static function ljungBoxTest(array $autocorrelations, int $h) : float
+    public static function ljungBoxTest(array $autocorrelations, int $h, int $n) : float
     {
-        $count = count($autocorrelations);
-        $sum   = 0;
+        $sum = 0;
 
         for ($i = 0; $i < $h; ++$i) {
-            $sum += 1 / ($count - $i) * $autocorrelations[$i] ** 2;
+            $sum += 1 / ($n - ($i + 1)) * $autocorrelations[$i] ** 2;
         }
 
-        return $count * ($count + 2) * $sum;
+        return $n * ($n + 2) * $sum;
     }
 }

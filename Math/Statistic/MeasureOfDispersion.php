@@ -85,7 +85,14 @@ class MeasureOfDispersion
      */
     public static function standardDeviation(array $values) : float
     {
-        return sqrt(self::sampleVariance($values));
+        $mean = Average::arithmeticMean($values);
+        $sum  = 0.0;
+
+        foreach ($values as $value) {
+            $sum += ($value - $mean) ** 2;
+        }
+
+        return sqrt($sum / (count($values) - 1));
     }
 
     /**
@@ -109,7 +116,7 @@ class MeasureOfDispersion
             throw new ZeroDevisionException();
         }
 
-        return $count * self::empiricalVariance($values) / ($count - 1);
+        return self::empiricalVariance($values) * $count / ($count - 1);
     }
 
     /**
@@ -117,7 +124,8 @@ class MeasureOfDispersion
      *
      * Example: ([4, 5, 9, 1, 3])
      *
-     * @param array $values Values
+     * @param array $values        Values
+     * @param array $probabilities Probabilities
      *
      * @return float
      *
@@ -125,22 +133,23 @@ class MeasureOfDispersion
      *
      * @since  1.0.0
      */
-    public static function empiricalVariance(array $values) : float
+    public static function empiricalVariance(array $values, array $probabilities = []) : float
     {
-        $count = count($values);
+        $count          = count($values);
+        $hasProbability = !empty($probabilities);
 
         if ($count === 0) {
             throw new ZeroDevisionException();
         }
 
-        $mean = Average::arithmeticMean($values);
+        $mean = $hasProbability ? Average::weightedAverage($values, $probabilities) : Average::arithmeticMean($values);
         $sum  = 0;
 
-        foreach ($values as $value) {
-            $sum += $value - $mean;
+        foreach ($values as $key => $value) {
+            $sum += ($hasProbability ? $probabilities[$key] : 1) * ($value - $mean) ** 2;
         }
 
-        return $sum / ($count - 1);
+        return $hasProbability ? $sum : $sum / $count;
     }
 
     /**
@@ -211,6 +220,27 @@ class MeasureOfDispersion
 
         foreach ($x as $xi) {
             $sum += ($xi - $mean);
+        }
+
+        return $sum / count($x);
+    }
+
+    /**
+     * Get mean absolute deviation.
+     *
+     * @param array $x Values
+     *
+     * @return float
+     *
+     * @since  1.0.0
+     */
+    public static function meanAbsoluteDeviation(array $x) : float
+    {
+        $mean = Average::arithmeticMean($x);
+        $sum  = 0.0;
+
+        foreach ($x as $xi) {
+            $sum += abs($xi - $mean);
         }
 
         return $sum / count($x);
