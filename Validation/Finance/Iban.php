@@ -24,18 +24,8 @@ use phpOMS\Validation\ValidatorAbstract;
  * @link       http://website.orange-management.de
  * @since      1.0.0
  */
-abstract class Iban extends ValidatorAbstract
+final class Iban extends ValidatorAbstract
 {
-    /**
-     * Constructor.
-     *
-     * @since  1.0.0
-     * @codeCoverageIgnore
-     */
-    private function __construct()
-    {
-    }
-
     /**
      * {@inheritdoc}
      */

@@ -41,6 +41,7 @@ class FunctionsTest extends \PHPUnit\Framework\TestCase
     {
         self::assertEquals(4, Functions::invMod(3, -11));
         self::assertEquals(12, Functions::invMod(10, 17));
+        self::assertEquals(5, Functions::invMod(-10, 17));
     }
 
     public function testAbs()

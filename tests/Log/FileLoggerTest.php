@@ -55,7 +55,7 @@ class FileLoggerTest extends \PHPUnit\Framework\TestCase
             unlink(__DIR__ . '/test.log');
         }
 
-        $log = new FileLogger(__DIR__ . '/test.log');
+        $log = new FileLogger(__DIR__ . '/test.log', true);
 
         $log->emergency(FileLogger::MSG_FULL, [
             'message' => 'msg',
@@ -125,6 +125,16 @@ class FileLoggerTest extends \PHPUnit\Framework\TestCase
         self::assertEquals('alert', $log->getByLine(2)['level']);
 
         ob_start();
+        $log->console(FileLogger::MSG_FULL, false, [
+            'message' => 'msg',
+            'line'    => 11,
+            'file'    => FileLoggerTest::class,
+        ]); 
+        $ob = ob_get_clean();
+        self::assertEquals(2, $log->countLogs()['info'] ?? 0);
+        self::assertTrue(stripos($ob, 'msg;') !== false);
+
+        ob_start();
         $log->console('test', true);
         $ob = ob_get_clean();
         self::assertEquals(date('[Y-m-d H:i:s] ') . "test\r\n", $ob);
@@ -134,6 +144,8 @@ class FileLoggerTest extends \PHPUnit\Framework\TestCase
         if (file_exists(__DIR__ . '/' . date('Y-m-d') . '.log')) {
             unlink(__DIR__ . '/' . date('Y-m-d') . '.log');
         }
+
+        ob_clean();
     }
 
     /**

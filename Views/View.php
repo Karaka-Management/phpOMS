@@ -218,20 +218,6 @@ class View extends ViewAbstract
     }
 
     /**
-     * Print html output.
-     *
-     * @param mixed $text Text
-     *
-     * @return string
-     *
-     * @since  1.0.0
-     */
-    public function printHtml($text) : string
-    {
-        return htmlspecialchars((string) $text);
-    }
-
-    /**
      * Get request of view
      * 
      * @return RequestAbstract

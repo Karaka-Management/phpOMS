@@ -24,17 +24,8 @@ use phpOMS\Validation\ValidatorAbstract;
  * @link       http://website.orange-management.de
  * @since      1.0.0
  */
-abstract class CreditCard extends ValidatorAbstract
+final class CreditCard extends ValidatorAbstract
 {
-
-    /**
-     * Constructor.
-     *
-     * @since  1.0.0
-     */
-    public function __construct()
-    {
-    }
 
     /**
      * {@inheritdoc}

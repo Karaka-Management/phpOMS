@@ -39,5 +39,15 @@ class ValidatorTest extends \PHPUnit\Framework\TestCase
         Validator::resetError();
         self::assertEquals('', Validator::getMessage());
         self::assertEquals(0, Validator::getErrorCode());
+
+        self::assertTrue(Validator::isValid('testVar'));
+        self::assertTrue(Validator::isValid('value', ['\is_string' => []]));
+        self::assertFalse(Validator::isValid('value', ['\is_stringNot' => []]));
+        self::assertTrue(Validator::isValid('value', ['phpOMS\Validation\Validator::hasLength' => [4]]));
+
+        self::assertTrue(Validator::matches('ThisTestVar', '/.*/'));
+        self::assertFalse(Validator::matches('ThisTestVar', '/.*\d+/'));
+        self::assertTrue(Validator::matches('ThisTestVar', '/TestVar/'));
+        self::assertFalse(Validator::matches('ThisTestVar', '/ThisTest$/'));
     }
 }

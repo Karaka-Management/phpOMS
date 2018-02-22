@@ -43,10 +43,16 @@ final class Validator extends ValidatorAbstract
             return true;
         }
 
-        foreach ($constraints as $callback => $settings) {
-            $callback = StringUtils::endsWith($callback, 'Not') ? substr($callback, 0, -3) : $callback;
-            $valid    = self::$callback($var, ...$settings);
-            $valid    = (StringUtils::endsWith($callback, 'Not') ? $valid : !$valid);
+        foreach ($constraints as $test => $settings) {
+            $callback = StringUtils::endsWith($test, 'Not') ? substr($test, 0, -3) : $test;
+
+            if (!empty($settings)) {
+                $valid = $callback($var, ...$settings);
+            } else {
+                $valid = $callback($var);
+            }
+
+            $valid = (StringUtils::endsWith($test, 'Not') ? !$valid : $valid);
 
             if (!$valid) {
                 return false;
@@ -130,7 +136,7 @@ final class Validator extends ValidatorAbstract
      */
     public static function matches(string $var, string $pattern) : bool
     {
-        return (preg_match($pattern, $var) !== false ? true : false);
+        return (preg_match($pattern, $var) === 1 ? true : false);
     }
 
     /**

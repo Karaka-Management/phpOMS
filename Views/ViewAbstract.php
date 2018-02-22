@@ -98,6 +98,34 @@ abstract class ViewAbstract implements \Serializable
     }
 
     /**
+     * Print html output.
+     *
+     * @param mixed $text Text
+     *
+     * @return string
+     *
+     * @since  1.0.0
+     */
+    public function printHtml($text) : string
+    {
+        return htmlspecialchars((string) $text);
+    }
+
+    /**
+     * Print html output.
+     *
+     * @param mixed $text Text
+     *
+     * @return string
+     *
+     * @since  1.0.0
+     */
+    public static function html($text) : string
+    {
+        return htmlspecialchars((string) $text);
+    }
+
+    /**
      * Returns all views
      * 
      * @return View[]

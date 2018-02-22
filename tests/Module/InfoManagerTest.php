@@ -21,10 +21,10 @@ class InfoManagerTest extends \PHPUnit\Framework\TestCase
 {
     public function testInfoManager()
     {
-        $info = new InfoManager(__Dir__ . '/info-test.json');
+        $info = new InfoManager(__DIR__ . '/info-test.json');
         $info->load();
 
-        $jarray = json_decode(file_get_contents(__Dir__ . '/info-test.json'), true);
+        $jarray = json_decode(file_get_contents(__DIR__ . '/info-test.json'), true);
 
         self::assertEquals($jarray, $info->get());
         self::assertEquals($jarray['name']['internal'], $info->getInternalName());
@@ -35,12 +35,13 @@ class InfoManagerTest extends \PHPUnit\Framework\TestCase
         self::assertEquals($jarray['directory'], $info->getDirectory());
         self::assertEquals($jarray['version'], $info->getVersion());
         self::assertEquals($jarray['load'], $info->getLoad());
+        self::assertEquals(__DIR__ . '/info-test.json', $info->getPath());
 
         $info->set('/name/internal', 'ABC');
         self::assertEquals('ABC', $info->getInternalName());
         $info->update();
 
-        $info2 = new InfoManager(__Dir__ . '/info-test.json');
+        $info2 = new InfoManager(__DIR__ . '/info-test.json');
         $info2->load();
         self::assertEquals($info->getInternalName(), $info2->getInternalName());
 
@@ -53,7 +54,7 @@ class InfoManagerTest extends \PHPUnit\Framework\TestCase
      */
     public function testInvalidPathLoad()
     {
-        $info = new InfoManager(__Dir__ . '/invalid.json');
+        $info = new InfoManager(__DIR__ . '/invalid.json');
         $info->load();
     }
 
@@ -62,7 +63,7 @@ class InfoManagerTest extends \PHPUnit\Framework\TestCase
      */
     public function testInvalidPathUpdate()
     {
-        $info = new InfoManager(__Dir__ . '/invalid.json');
+        $info = new InfoManager(__DIR__ . '/invalid.json');
         $info->update();
     }
 
@@ -71,7 +72,7 @@ class InfoManagerTest extends \PHPUnit\Framework\TestCase
      */
     public function testInvalidDataSet()
     {
-        $info = new InfoManager(__Dir__ . '/info-test.json');
+        $info = new InfoManager(__DIR__ . '/info-test.json');
         $info->load();
 
         $testObj = new class { 

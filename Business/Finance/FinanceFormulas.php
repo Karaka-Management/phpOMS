@@ -1061,7 +1061,7 @@ class FinanceFormulas
      *
      * @return float
      *
-     * @throws InvalidDimensionException Throws this exception if the length of the array is 0
+     * @throws \UnexpectedValueException Throws this exception if the length of the array is 0
      *
      * @since  1.0.0
      */
@@ -1070,7 +1070,7 @@ class FinanceFormulas
         $count = count($C);
 
         if ($count === 0) {
-            throw new InvalidDimensionException($count);
+            throw new \UnexpectedValueException((string) $count);
         }
 
         $npv = -$C[0];

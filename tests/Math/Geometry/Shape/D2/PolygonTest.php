@@ -19,16 +19,23 @@ class PolygonTest extends \PHPUnit\Framework\TestCase
 {
     public function testPoint()
     {
-        $polygon = new Polygon([
+        $polyArray = [
             ['x' => 1, 'y' => 1],
             ['x' => 1, 'y' => 2],
             ['x' => 2, 'y' => 2],
             ['x' => 2, 'y' => 1],
-        ]);
+        ];
+
+        $polygon = new Polygon($polyArray);
 
         self::assertEquals(-1, $polygon->pointInPolygon(['x' => 1.5, 'y' => 1.5]));
         self::assertEquals(1, $polygon->pointInPolygon(['x' => 4.9, 'y' => 1.2]));
         self::assertEquals(-1, $polygon->pointInPolygon(['x' => 1.8, 'y' => 1.1]));
+
+        self::assertEquals(-1, Polygon::isPointInPolygon(['x' => 1.5, 'y' => 1.5], $polyArray));
+        self::assertEquals(1, Polygon::isPointInPolygon(['x' => 4.9, 'y' => 1.2], $polyArray));
+        self::assertEquals(0, Polygon::isPointInPolygon(['x' => 1, 'y' => 2], $polyArray));
+        self::assertEquals(-1, Polygon::isPointInPolygon(['x' => 1.8, 'y' => 1.1], $polyArray));
     }
 
     public function testAngle()

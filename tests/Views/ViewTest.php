@@ -22,6 +22,7 @@ use phpOMS\Message\Http\Request;
 use phpOMS\Message\Http\Response;
 use phpOMS\Uri\Http;
 use phpOMS\Views\View;
+use phpOMS\Views\ViewAbstract;
 use phpOMS\Localization\L11nManager;
 
 class ViewTest extends \PHPUnit\Framework\TestCase
@@ -60,7 +61,7 @@ class ViewTest extends \PHPUnit\Framework\TestCase
 
     public function testGetText()
     {
-        $view = new View($this->app, $request = new Request(new Http('')), $response = new Response(new Localization()));
+        $view = new View($this->app, $request = new Request(new Http('')), $response = new Response());
         $view->setTemplate('/Modules/Admin/Theme/Backend/accounts-list');
 
         $expected = [
@@ -80,7 +81,7 @@ class ViewTest extends \PHPUnit\Framework\TestCase
 
     public function testGetSet()
     {
-        $view = new View($this->app, $request = new Request(new Http('')), $response = new Response(new Localization()));
+        $view = new View($this->app, $request = new Request(new Http('')), $response = new Response());
 
         $view->setData('key', 'value');
         self::assertEquals('value', $view->getData('key'));
@@ -96,6 +97,7 @@ class ViewTest extends \PHPUnit\Framework\TestCase
         self::assertEquals($response, $view->getResponse());
 
         self::assertEquals('&lt;a href=&quot;test&quot;&gt;Test&lt;/a&gt;', $view->printHtml('<a href="test">Test</a>'));
+        self::assertEquals('&lt;a href=&quot;test&quot;&gt;Test&lt;/a&gt;', ViewAbstract::html('<a href="test">Test</a>'));
 
         $tView = new View($this->app, $request, $response);
         self::assertTrue($view->addView('test', $tView));
@@ -108,7 +110,7 @@ class ViewTest extends \PHPUnit\Framework\TestCase
 
     public function testRender()
     {
-        $view = new View($this->app, new Request(), new Response(new Localization()));
+        $view = new View($this->app, new Request(), new Response());
 
         $view->setTemplate('/phpOMS/tests/Views/testTemplate');
         self::assertEquals('<strong>Test</strong>', $view->render());
@@ -123,7 +125,7 @@ class ViewTest extends \PHPUnit\Framework\TestCase
      */
     public function testRenderException()
     {
-        $view = new View($this->app, new Request(new Http('')), new Response(new Localization()));
+        $view = new View($this->app, new Request(new Http('')), new Response());
         $view->setTemplate('something.txt');
 
         $view->render();
@@ -134,7 +136,7 @@ class ViewTest extends \PHPUnit\Framework\TestCase
      */
     public function testSerializeException()
     {
-        $view = new View($this->app, new Request(new Http('')), new Response(new Localization()));
+        $view = new View($this->app, new Request(new Http('')), new Response());
         $view->setTemplate('something.txt');
 
         $view->serialize();

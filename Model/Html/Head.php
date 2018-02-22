@@ -189,8 +189,9 @@ class Head implements RenderableInterface
     {
         $head  = '';
         $head .= $this->meta->render();
-        $head .= $this->renderStyle();
-        $head .= $this->renderScript();
+        $head .= $this->renderAssets();
+        $head .= empty($this->style) ? '' : '<style>' . $this->renderStyle() . '</style>';
+        $head .= empty($this->script) ? '' : '<script>' . $this->renderScript() . '</script>';
 
         return $head;
     }

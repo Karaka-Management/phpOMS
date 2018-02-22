@@ -26,4 +26,21 @@ class MetaTest extends \PHPUnit\Framework\TestCase
         self::assertEquals([], $meta->getKeywords());
         self::assertEquals('<meta name="generator" content="Orange Management">', $meta->render());
     }
+
+    public function testGetSet()
+    {
+        $meta = new Meta();
+
+        $meta->addKeyword('orange');
+        self::assertEquals(['orange'], $meta->getKeywords());
+
+        $meta->setAuthor('oms');
+        self::assertEquals('oms', $meta->getAuthor());
+        
+        $meta->setCharset('utf-8');
+        self::assertEquals('utf-8', $meta->getCharset());
+
+        $meta->setDescription('some description');
+        self::assertEquals('some description', $meta->getDescription());
+    }
 }

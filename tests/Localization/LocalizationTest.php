@@ -56,6 +56,12 @@ class LocalizationTest extends \PHPUnit\Framework\TestCase
         self::assertEquals('.', $localization->getDecimal());
         self::assertEquals(',', $localization->getThousands());
         self::assertEquals('Y-m-d H:i:s', $localization->getDatetime());
+
+        self::assertEquals([], $localization->getSpeed());
+        self::assertEquals([], $localization->getWeight());
+        self::assertEquals([], $localization->getLength());
+        self::assertEquals([], $localization->getArea());
+        self::assertEquals([], $localization->getVolume());
     }
 
     /**

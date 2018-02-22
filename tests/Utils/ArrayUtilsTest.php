@@ -117,4 +117,15 @@ class ArrayUtilsTest extends \PHPUnit\Framework\TestCase
         self::assertTrue(ArrayUtils::anyInArray($numArr, [2, 6, 8]));
         self::assertFalse(ArrayUtils::anyInArray($numArr, [10, 22]));
     }
+
+    public function testArg()
+    {
+        self::assertEquals(null, ArrayUtils::hasArg('--testNull', $_SERVER['argv']));
+        self::assertEquals(null, ArrayUtils::getArg('--testNull', $_SERVER['argv']));
+
+        if (ArrayUtils::getArg('--configuration', $_SERVER['argv']) !== null) {
+            self::assertGreaterThan(0, ArrayUtils::hasArg('--configuration', $_SERVER['argv']));
+            self::assertTrue(stripos(ArrayUtils::getArg('--configuration', $_SERVER['argv']), '.xml') !== false);
+        }
+    }
 }

@@ -298,6 +298,25 @@ class ArrayUtils
     }
 
     /**
+     * Check if flag is set
+     *
+     * @param string $id   Id to find
+     * @param array  $args CLI command list
+     *
+     * @return int
+     *
+     * @since  1.0.0
+     */
+    public static function hasArg(string $id, array $args) /* : ?int */
+    {
+        if (($key = array_search($id, $args)) === false) {
+            return null;
+        }
+
+        return $key;
+    }
+
+    /**
      * Flatten array
      *
      * Reduces multi dimensional array to one dimensional array. Flatten tries to maintain the index as far as possible.

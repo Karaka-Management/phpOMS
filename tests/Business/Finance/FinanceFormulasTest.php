@@ -183,6 +183,9 @@ class FinanceFormulasTest extends \PHPUnit\Framework\TestCase
         self::assertEquals(500 / 1000 - 1, FinanceFormulas::getReturnOnInvestment(500, 1000));
         self::assertEquals((500 - 300) / 500, FinanceFormulas::getRetentionRatio(500, 300));
         self::assertEquals(500 / 1000 - 1, FinanceFormulas::getRateOfOnflation(500, 1000));
+
+        self::assertEquals(1000 / 500, FinanceFormulas::getPaybackPeriod(1000, 500));
+        self::assertEquals(100 / 0.15, FinanceFormulas::getPresentValueOfPerpetuity(100, 0.15));
     }
 
     public function testCompound()
@@ -305,12 +308,13 @@ class FinanceFormulasTest extends \PHPUnit\Framework\TestCase
         self::assertEquals(2857.65, FinanceFormulas::getFutureValueContinuousCompounding($pv, $r, $t), '', 0.01);
     }
 
-    public function testFutureValueFactor()
+    public function testValueFactor()
     {
         $r = 0.15;
         $n = 7;
 
         self::assertEquals(2.66, FinanceFormulas::getFutureValueFactor($r, $n), '', 0.01);
+        self::assertEquals(0.37594, FinanceFormulas::getPresentValueFactor($r, $n), '', 0.01);
     }
 
     public function testGeometricMeanReturn()
@@ -377,11 +381,51 @@ class FinanceFormulasTest extends \PHPUnit\Framework\TestCase
         self::assertEquals(172.13, FinanceFormulas::getNetPresentValue($c, $r), '', 0.01);
     }
 
+    /**
+     * @expectedException \UnexpectedValueException
+     */
+    public function testInvalidNetPresentValue()
+    {
+        FinanceFormulas::getNetPresentValue([], 0.1);
+    }
+
     public function testRealRateOfReturn()
     {
         $nominal   = 0.15;
         $inflation = 0.05;
 
         self::assertEquals(0.09524, FinanceFormulas::getRealRateOfReturn($nominal, $inflation), '', 0.01);
+    }
+
+    public function testNetWorkingCapital()
+    {
+        self::assertEquals(1000 - 600, FinanceFormulas::getNetWorkingCapital(1000, 600), '', 0.01);
+    }
+
+    public function testNumberOfPeriodsPVFV()
+    {
+        $fv = 1200;
+        $pv = 1000;
+        $r  = 0.03;
+
+        self::assertEquals(6.1681, FinanceFormulas::getNumberOfPeriodsPVFV($fv, $pv, $r), '', 0.01);
+    }
+
+    public function testPresentValue()
+    {
+        $c = 1000;
+        $r = 0.15;
+        $n = 7;
+
+        self::assertEquals(375.94, FinanceFormulas::getPresentValue($c, $r, $n), '', 0.01);
+    }
+
+    public function testPresentValueContinuousCompounding()
+    {
+        $c = 1000;
+        $r = 0.15;
+        $t = 7;
+
+        self::assertEquals(349.94, FinanceFormulas::getPresentValueContinuousCompounding($c, $r, $t), '', 0.01);
     }
 }

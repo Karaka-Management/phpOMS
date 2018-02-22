@@ -48,7 +48,7 @@ class PhpCode
      *
      * @since  1.0.0
      */
-    private static function normalizeSource(string $source) : string
+    public static function normalizeSource(string $source) : string
     {
         return str_replace(["\n", "\r\n", "\r", "\t"], ['', '', '', ' '], $source);
     }
@@ -102,8 +102,6 @@ class PhpCode
      */
     public static function hasDeprecatedFunction(string $source) : bool
     {
-        $source = self::normalizeSource($source);
-
         foreach (self::$deprecatedFunctions as $function) {
             if (preg_match('/' . $function . '\s*\(/', $source) === 1) {
                 return true;

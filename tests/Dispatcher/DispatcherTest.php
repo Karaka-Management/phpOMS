@@ -125,4 +125,12 @@ class DispatcherTest extends \PHPUnit\Framework\TestCase
     {
         $this->app->dispatcher->dispatch('phpOMS\tests\Dispatcher\TestControllers::testFunctionStatic');
     }
+
+    /**
+     * @expectedException \UnexpectedValueException
+     */
+    public function testInvalidControllerString()
+    {
+        $this->app->dispatcher->dispatch('phpOMS\tests\Dispatcher\TestController::testFunctionStatic:failure');
+    }
 }

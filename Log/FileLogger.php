@@ -552,7 +552,9 @@ class FileLogger implements LoggerInterface
      */
     public function console(string $message, bool $verbose = true, array $context = []) /* : void */
     {
-        $message = date('[Y-m-d H:i:s] ') . $message . "\r\n";
+        if (empty($context)) {
+            $message = date('[Y-m-d H:i:s] ') . $message . "\r\n";
+        }
 
         if ($verbose) {
             echo $message;

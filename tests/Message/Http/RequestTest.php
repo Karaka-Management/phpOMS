@@ -45,6 +45,8 @@ class RequestTest extends \PHPUnit\Framework\TestCase
         self::assertInstanceOf('\phpOMS\Message\Http\Header', $request->getHeader());
         self::assertInstanceOf('\phpOMS\Message\Http\Request', Request::createFromSuperglobals());
         self::assertEquals('http://', $request->__toString());
+        self::assertFalse($request->hasData('key'));
+        self::assertEquals(null, $request->getData('key'));
     }
 
     public function testSetGet()
@@ -84,6 +86,7 @@ class RequestTest extends \PHPUnit\Framework\TestCase
         self::assertTrue($request->setData('key', 'value'));
         self::assertFalse($request->setData('key', 'value2', false));
         self::assertEquals('value', $request->getData('key'));
+        self::assertTrue($request->hasData('key'));
         self::assertEquals(['key' => 'value'], $request->getData());
 
         $request->setRequestSource(RequestSource::SOCKET);
@@ -111,5 +114,15 @@ class RequestTest extends \PHPUnit\Framework\TestCase
     {
         $request = new Request(new Http('http://www.google.com/test/path'));
         $request->isHttps(-1);
+    }
+
+    /**
+     * @expectedException \Exception
+     */
+    public function testInvalidRouteVerb()
+    {
+        $request = new Request(new Http('http://www.google.com/test/path'));
+        $request->setMethod('failure');
+        $request->getRouteVerb();
     }
 }

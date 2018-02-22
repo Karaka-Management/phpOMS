@@ -27,7 +27,7 @@ abstract class ResponseAbstract implements MessageInterface, \JsonSerializable
     /**
      * Responses.
      *
-     * @var string[]
+     * @var array
      * @since 1.0.0
      */
     protected $response = [];
@@ -49,9 +49,9 @@ abstract class ResponseAbstract implements MessageInterface, \JsonSerializable
      *
      * @since  1.0.0
      */
-    public function &get($id)
+    public function get($id)
     {
-        return $this->response[$id];
+        return $this->response[$id] ?? null;
     }
 
     /**
@@ -77,7 +77,7 @@ abstract class ResponseAbstract implements MessageInterface, \JsonSerializable
      */
     public function jsonSerialize()
     {
-        return json_encode($this->toArray());
+        return $this->toArray();
     }
 
     /**

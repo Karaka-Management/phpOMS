@@ -24,17 +24,8 @@ use phpOMS\Validation\ValidatorAbstract;
  * @link       http://website.orange-management.de
  * @since      1.0.0
  */
-abstract class BIC extends ValidatorAbstract
+final class BIC extends ValidatorAbstract
 {
-
-    /**
-     * Constructor.
-     *
-     * @since  1.0.0
-     */
-    public function __construct()
-    {
-    }
 
     /**
      * {@inheritdoc}

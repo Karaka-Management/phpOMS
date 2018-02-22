@@ -15,6 +15,7 @@ declare(strict_types=1);
 namespace phpOMS\Model\Html;
 
 use phpOMS\Contract\RenderableInterface;
+use phpOMS\Views\ViewAbstract;
 
 /**
  * Meta class.
@@ -170,10 +171,10 @@ class Meta implements RenderableInterface
      */
     public function render() : string
     {
-        return (count($this->keywords) > 0 ? '<meta name="keywords" content="' . implode(',', $this->keywords) . '">"' : '')
-        . (!empty($this->author) ? '<meta name="author" content="' . $this->author . '">' : '')
-        . (!empty($this->description) ? '<meta name="description" content="' . $this->description . '">' : '')
-        . (!empty($this->charset) ? '<meta charset="' . $this->charset . '">' : '')
+        return (count($this->keywords) > 0 ? '<meta name="keywords" content="' . ViewAbstract::html(implode(',', $this->keywords)) . '">"' : '')
+        . (!empty($this->author) ? '<meta name="author" content="' . ViewAbstract::html($this->author) . '">' : '')
+        . (!empty($this->description) ? '<meta name="description" content="' . ViewAbstract::html($this->description) . '">' : '')
+        . (!empty($this->charset) ? '<meta charset="' . ViewAbstract::html($this->charset) . '">' : '')
         . '<meta name="generator" content="Orange Management">';
     }
 }

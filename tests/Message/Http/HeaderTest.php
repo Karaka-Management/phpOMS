@@ -16,6 +16,8 @@ namespace phpOMS\tests\Message\Http;
 use phpOMS\Message\Http\Header;
 use phpOMS\Localization\Localization;
 use phpOMS\Message\Http\RequestStatusCode;
+use phpOMS\DataStorage\LockException;
+use phpOMS\Utils\TestUtils;
 
 class HeaderTest extends \PHPUnit\Framework\TestCase
 {
@@ -63,6 +65,38 @@ class HeaderTest extends \PHPUnit\Framework\TestCase
 
         $header->setAccount(2);
         self::AssertEquals(2, $header->getAccount(2));
+    }
+
+    /**
+     * @expectedException phpOMS\DataStorage\LockException
+     */
+    public function testLockedHeaderSet()
+    {
+        try {
+            $header = new Header();
+            Header::lock();
+            self::assertTrue(Header::isLocked());
+
+            $header->set('key', 'value');
+        } finally {
+            TestUtils::setMember('phpOMS\Message\Http\Header', 'isLocked', false);
+        }
+    }
+
+    /**
+     * @expectedException phpOMS\DataStorage\LockException
+     */
+    public function testLockedHeaderRemove()
+    {
+        try {
+            $header = new Header();
+            Header::lock();
+            self::assertTrue(Header::isLocked());
+
+            $header->remove('key');
+        } finally {
+            TestUtils::setMember('phpOMS\Message\Http\Header', 'isLocked', false);
+        }
     }
 
     public function testGeneration()

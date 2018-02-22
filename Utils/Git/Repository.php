@@ -107,6 +107,18 @@ class Repository
     }
 
     /**
+     * Get repository path.
+     *
+     * @return string
+     *
+     * @since  1.0.0
+     */
+    public function getPath() : string
+    {
+        return $this->path;
+    }
+
+    /**
      * Get active Branch.
      *
      * @return Branch

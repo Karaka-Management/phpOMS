@@ -28,15 +28,6 @@ abstract class DateTime extends ValidatorAbstract
 {
 
     /**
-     * Constructor.
-     *
-     * @since  1.0.0
-     */
-    public function __construct()
-    {
-    }
-
-    /**
      * {@inheritdoc}
      */
     public static function isValid($value, array $constraints = null) : bool

@@ -66,4 +66,50 @@ class StockBondsTest extends \PHPUnit\Framework\TestCase
 
         self::assertEquals(1.75, StockBonds::getNetAssetValue($assets, $liabilities, $shares), '', 0.01);
     }
+
+    public function testPresentValueOfStockConstantGrowth()
+    {
+        $div = 500;
+        $r   = 0.15;
+        $g   = 0.05;
+
+        self::assertEquals(5000, StockBonds::getPresentValueOfStockConstantGrowth($div, $r, $g), '', 0.01);
+    }
+
+    public function testTotalStockReturn()
+    {
+        $p0 = 1000;
+        $p1 = 1200;
+        $d  = 100;
+
+        self::assertEquals(0.3, StockBonds::getTotalStockReturn($p0, $p1, $d), '', 0.01);
+    }
+
+    public function testYieldToMaturity()
+    {
+        $c = 100;
+        $f = 1000;
+        $p = 920;
+        $n = 10;
+
+        self::assertEquals(0.1138, StockBonds::getYieldToMaturity($c, $f, $p, $n), '', 0.01);
+    }
+
+    public function testZeroCouponBondValue()
+    {
+        $f = 100;
+        $r = 0.06;
+        $t = 5;
+
+        self::assertEquals(74.73, StockBonds::getZeroCouponBondValue($f, $r, $t), '', 0.01);
+    }
+
+    public function testZeroCouponBondEffectiveYield()
+    {
+        $f  = 100;
+        $pv = 90;
+        $n  = 5;
+
+        self::assertEquals(0.01517, StockBonds::getZeroCouponBondEffectiveYield($f, $pv, $n), '', 0.01);
+    }
 }
