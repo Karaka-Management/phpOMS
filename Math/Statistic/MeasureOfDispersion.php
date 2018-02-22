@@ -61,7 +61,7 @@ class MeasureOfDispersion
      *
      * @since  1.0.0
      */
-    public static function empiricalVariationcoefficient(array $values) : float
+    public static function empiricalVariationCoefficient(array $values) : float
     {
         $mean = Average::arithmeticMean($values);
 
@@ -76,6 +76,8 @@ class MeasureOfDispersion
      * Calculage standard deviation.
      *
      * Example: ([4, 5, 9, 1, 3])
+     * 
+     * @latex \sigma = \sqrt{\sigma^{2}} = \sqrt{Var(X)}
      *
      * @param array $values Values
      *
@@ -97,8 +99,12 @@ class MeasureOfDispersion
 
     /**
      * Calculage sample variance.
+     * 
+     * Similar to `empiricalVariance`.
      *
      * Example: ([4, 5, 9, 1, 3])
+     * 
+     * @latex \sigma^{2} = Var(X) = \frac{1}{N - 1} \sum_{i = 1}^{N}\left(x_{i} - \bar{X}\right)^{2}
      *
      * @param array $values Values
      *
@@ -121,8 +127,12 @@ class MeasureOfDispersion
 
     /**
      * Calculage empirical variance.
+     * 
+     * Similar to `sampleVariance`.
      *
      * Example: ([4, 5, 9, 1, 3])
+     * 
+     * @latex \sigma^{2} = Var(X) = \frac{1}{N} \sum_{i = 1}^{N}\left(x_{i} - \bar{X}\right)^{2}
      *
      * @param array $values        Values
      * @param array $probabilities Probabilities
@@ -156,6 +166,8 @@ class MeasureOfDispersion
      * Calculage empirical covariance.
      *
      * Example: ([4, 5, 9, 1, 3], [4, 5, 9, 1, 3])
+     * 
+     * @latex \sigma_{XY} = cov(X, Y) = \sum_{i = 1}^{N}\frac{\left(x_{i} - \bar{X}\right) \left(y_{i} - \bar{Y}\right)}{N - 1}
      *
      * @param array $x Values
      * @param array $y Values
