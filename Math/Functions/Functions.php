@@ -258,7 +258,7 @@ class Functions
         $squared = [];
 
         foreach ($values as $value) {
-            $squared[] = $value * $exp;
+            $squared[] = $value ** $exp;
         }
 
         return $squared;
@@ -280,7 +280,7 @@ class Functions
         $squared = [];
 
         foreach ($values as $value) {
-            $squared[] = $value * $exp;
+            $squared[] = $value ** $exp;
         }
 
         return $squared;

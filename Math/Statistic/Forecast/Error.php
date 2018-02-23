@@ -111,7 +111,7 @@ class Error
      */
     public static function getMeanAbsoulteError(array $errors) : float
     {
-        return Average::arithmeticMean(Functions::abs($errors));
+        return MeasureOfDispersion::meanAbsoluteDeviation($errors);
     }
 
     /**
@@ -125,7 +125,7 @@ class Error
      */
     public static function getMeanSquaredError(array $errors) : float
     {
-        return Average::arithmeticMean(Functions::powerInt($errors, 2));
+        return MeasureOfDispersion::squaredMeanDeviation($errors);
     }
 
     /**
