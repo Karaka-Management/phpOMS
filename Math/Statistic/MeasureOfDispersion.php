@@ -54,6 +54,7 @@ class MeasureOfDispersion
      * Example: ([4, 5, 9, 1, 3])
      *
      * @param array $values Values
+     * @param float $mean   Mean
      *
      * @return float
      *
@@ -61,9 +62,9 @@ class MeasureOfDispersion
      *
      * @since  1.0.0
      */
-    public static function empiricalVariationCoefficient(array $values) : float
+    public static function empiricalVariationCoefficient(array $values, float $mean = null) : float
     {
-        $mean = Average::arithmeticMean($values);
+        $mean = isset($mean) ? $mean : Average::arithmeticMean($values);
 
         if ($mean === 0) {
             throw new ZeroDevisionException();
@@ -80,14 +81,15 @@ class MeasureOfDispersion
      * @latex \sigma = \sqrt{\sigma^{2}} = \sqrt{Var(X)}
      *
      * @param array $values Values
+     * @param float $mean   Mean
      *
      * @return float
      *
      * @since  1.0.0
      */
-    public static function standardDeviation(array $values) : float
+    public static function standardDeviation(array $values, float $mean = null) : float
     {
-        $mean = Average::arithmeticMean($values);
+        $mean = isset($mean) ? $mean : Average::arithmeticMean($values);
         $sum  = 0.0;
 
         foreach ($values as $value) {
@@ -107,6 +109,7 @@ class MeasureOfDispersion
      * @latex \sigma^{2} = Var(X) = \frac{1}{N - 1} \sum_{i = 1}^{N}\left(x_{i} - \bar{X}\right)^{2}
      *
      * @param array $values Values
+     * @param float $mean   Mean
      *
      * @return float
      *
@@ -114,7 +117,7 @@ class MeasureOfDispersion
      *
      * @since  1.0.0
      */
-    public static function sampleVariance(array $values) : float
+    public static function sampleVariance(array $values, float $mean = null) : float
     {
         $count = count($values);
 
@@ -122,7 +125,7 @@ class MeasureOfDispersion
             throw new ZeroDevisionException();
         }
 
-        return self::empiricalVariance($values) * $count / ($count - 1);
+        return self::empiricalVariance($values, [], $mean) * $count / ($count - 1);
     }
 
     /**
@@ -136,6 +139,7 @@ class MeasureOfDispersion
      *
      * @param array $values        Values
      * @param array $probabilities Probabilities
+     * @param float $mean          Mean
      *
      * @return float
      *
@@ -143,7 +147,7 @@ class MeasureOfDispersion
      *
      * @since  1.0.0
      */
-    public static function empiricalVariance(array $values, array $probabilities = []) : float
+    public static function empiricalVariance(array $values, array $probabilities = [], float $mean = null) : float
     {
         $count          = count($values);
         $hasProbability = !empty($probabilities);
@@ -152,7 +156,7 @@ class MeasureOfDispersion
             throw new ZeroDevisionException();
         }
 
-        $mean = $hasProbability ? Average::weightedAverage($values, $probabilities) : Average::arithmeticMean($values);
+        $mean = $hasProbability ? Average::weightedAverage($values, $probabilities) : (isset($mean) ? $mean : Average::arithmeticMean($values));
         $sum  = 0;
 
         foreach ($values as $key => $value) {
@@ -169,8 +173,10 @@ class MeasureOfDispersion
      * 
      * @latex \sigma_{XY} = cov(X, Y) = \sum_{i = 1}^{N}\frac{\left(x_{i} - \bar{X}\right) \left(y_{i} - \bar{Y}\right)}{N - 1}
      *
-     * @param array $x Values
-     * @param array $y Values
+     * @param array $x     Values
+     * @param array $y     Values
+     * @param array $meanX Mean
+     * @param array $meanY Mean
      *
      * @return float
      *
@@ -178,7 +184,7 @@ class MeasureOfDispersion
      *
      * @since  1.0.0
      */
-    public static function empiricalCovariance(array $x, array $y) : float
+    public static function empiricalCovariance(array $x, array $y, float $meanX = null, float $meanY = null) : float
     {
         $count = count($x);
 
@@ -190,8 +196,8 @@ class MeasureOfDispersion
             throw new InvalidDimensionException($count . 'x' . count($y));
         }
 
-        $xMean = Average::arithmeticMean($x);
-        $yMean = Average::arithmeticMean($y);
+        $xMean = isset($meanX) ? $meanX : Average::arithmeticMean($x);
+        $yMean = isset($meanY) ? $meanY : Average::arithmeticMean($y);
 
         $sum = 0.0;
 
@@ -219,15 +225,16 @@ class MeasureOfDispersion
     /**
      * Get mean deviation.
      *
-     * @param array $x Values
+     * @param array $x    Values
+     * @param float $mean Mean
      *
      * @return float
      *
      * @since  1.0.0
      */
-    public static function meanDeviation(array $x) : float
+    public static function meanDeviation(array $x, float $mean = null) : float
     {
-        $mean = Average::arithmeticMean($x);
+        $mean = isset($mean) ? $mean : Average::arithmeticMean($x);
         $sum  = 0.0;
 
         foreach ($x as $xi) {
@@ -240,15 +247,16 @@ class MeasureOfDispersion
     /**
      * Get mean absolute deviation.
      *
-     * @param array $x Values
+     * @param array $x    Values
+     * @param float $mean Mean
      *
      * @return float
      *
      * @since  1.0.0
      */
-    public static function meanAbsoluteDeviation(array $x) : float
+    public static function meanAbsoluteDeviation(array $x, float $mean = null) : float
     {
-        $mean = Average::arithmeticMean($x);
+        $mean = isset($mean) ? $mean : Average::arithmeticMean($x);
         $sum  = 0.0;
 
         foreach ($x as $xi) {
@@ -261,15 +269,16 @@ class MeasureOfDispersion
     /**
      * Get squared mean deviation.
      *
-     * @param array $x Values
+     * @param array $x    Values
+     * @param float $mean Mean
      *
      * @return float
      *
      * @since  1.0.0
      */
-    public static function squaredMeanDeviation(array $x) : float
+    public static function squaredMeanDeviation(array $x, float $mean = null) : float
     {
-        $mean = Average::arithmeticMean($x);
+        $mean = isset($mean) ? $mean : Average::arithmeticMean($x);
         $sum  = 0.0;
 
         foreach ($x as $xi) {
