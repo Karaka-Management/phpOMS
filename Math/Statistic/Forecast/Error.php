@@ -125,7 +125,7 @@ class Error
      */
     public static function getMeanSquaredError(array $errors) : float
     {
-        return Average::arithmeticMean(self::square($errors));
+        return Average::arithmeticMean(Functions::powerInt($errors, 2));
     }
 
     /**
@@ -139,7 +139,7 @@ class Error
      */
     public static function getRootMeanSquaredError(array $errors) : float
     {
-        return sqrt(Average::arithmeticMean(self::square($errors)));
+        return sqrt(Average::arithmeticMean(Functions::powerInt($errors, 2)));
     }
 
     /**
@@ -298,27 +298,6 @@ class Error
     }
 
     /**
-     * Square all values in array.
-     *
-     * @param array $values Values to square
-     *
-     * @return array
-     *
-     * @since  1.0.0
-     *         todo: move to utils?! implement sqrt for array as well... could be usefull for others (e.g. matrix)
-     */
-    private static function square(array $values) : array
-    {
-        $squared = [];
-
-        foreach ($values as $value) {
-            $squared[] = $value * $value;
-        }
-
-        return $squared;
-    }
-
-    /**
      * Get cross sectional scaled errors (CSSE)
      *
      * @param array $errors   Errors
@@ -387,7 +366,7 @@ class Error
      */
     public static function getMeanSquaredScaledError(array $scaledErrors) : float
     {
-        return Average::arithmeticMean(self::square($scaledErrors));
+        return Average::arithmeticMean(Functions::powerInt($scaledErrors, 2));
     }
 
     /**
