@@ -71,26 +71,10 @@ class FunctionsTest extends \PHPUnit\Framework\TestCase
     
     public function testPower()
     {
-        self::assertEquals(
-            [4, 9, 16],
-            Functions::powerInt([2, 3, 4], 2)
-        );
+        self::assertEquals([4, 9, 16], Functions::powerInt([2, 3, 4], 2));
+        self::assertEquals([8, 27, 64], Functions::powerInt([2, 3, 4], 3));
         
-        self::assertEquals(
-            [8, 27, 64],
-            Functions::powerInt([2, 3, 4], 3)
-        );
-        
-        self::assertEquals(
-            [2, 3, 8],
-            Functions::powerInt([4, 9, 16], 1/2),
-            '', 0.0
-        );
-        
-        self::assertEquals(
-            [2, 3, 8],
-            Functions::powerInt([8, 27, 64], 1/3),
-            '', 0.0
-        );
+        self::assertEquals([2, 3, 8], Functions::powerInt([4, 9, 16], 1/2), '', 0.0);
+        self::assertEquals([2, 3, 8], Functions::powerInt([8, 27, 64], 1/3), '', 0.0);
     }
 }
