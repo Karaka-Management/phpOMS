@@ -15,7 +15,7 @@ declare(strict_types=1);
 namespace phpOMS\Math\Functions;
 
 /**
- * Well known functions class.
+ * Well known functions and helpers class.
  *
  * @package    Framework
  * @license    OMS License 1.0
