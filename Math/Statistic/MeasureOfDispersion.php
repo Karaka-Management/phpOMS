@@ -146,7 +146,7 @@ class MeasureOfDispersion
             throw new ZeroDevisionException();
         }
 
-        $mean = $hasProbability ? Average::weightedAverage($values, $probabilities) : (isset($mean) ? $mean : Average::arithmeticMean($values););
+        $mean = $hasProbability ? Average::weightedAverage($values, $probabilities) : (isset($mean) ? $mean : Average::arithmeticMean($values));
         $sum  = 0;
 
         foreach ($values as $key => $value) {
