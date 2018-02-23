@@ -17,8 +17,42 @@ use phpOMS\Math\Statistic\Forecast\Error;
 
 class ErrorTest extends \PHPUnit\Framework\TestCase
 {
-    public function testPlaceholder()
+    public function testForecastError()
     {
-        self::markTestIncomplete();
+        self::assertEquals(1000 - 700, Error::getForecastError(1000, 700));
+        
+        self::assertEquals(
+            [
+                400 - 300,
+                600 - 700,
+                200 - 200,
+                500 - -300
+            ],
+            Error::getForecastErrorArray(
+                [400, 600, 200, 500],
+                [300, 700, 200, -300]
+            )
+        );
+    }
+    
+    public function testErrorPercentage()
+    {
+        self::assertEquals(300 / 1000, Error::getPercentageError(300, 1000), '', 0.01);
+        
+        self::assertEquals(
+            [
+                (400 - 300) / 400,
+                (600 - 700) / 600,
+                (200 - 200) / 200,
+                (500 - -300) / 500
+            ],
+            Error::getPercentageErrorArray(
+                Error::getForecastErrorArray(
+                    [400, 600, 200, 500],
+                    [300, 700, 200, -300]
+                ),
+                [400, 600, 200, 500]
+            )
+        );
     }
 }
