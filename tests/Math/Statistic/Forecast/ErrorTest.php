@@ -20,7 +20,6 @@ class ErrorTest extends \PHPUnit\Framework\TestCase
     public function testForecastError()
     {
         self::assertEquals(1000 - 700, Error::getForecastError(1000, 700));
-        
         self::assertEquals(
             [
                 400 - 300,
@@ -38,7 +37,6 @@ class ErrorTest extends \PHPUnit\Framework\TestCase
     public function testErrorPercentage()
     {
         self::assertEquals(300 / 1000, Error::getPercentageError(300, 1000), '', 0.01);
-        
         self::assertEquals(
             [
                 (400 - 300) / 400,
