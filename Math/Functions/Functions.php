@@ -241,6 +241,50 @@ class Functions
     {
         return !((bool) ($a & 1));
     }
+    
+    /**
+     * Power all values in array.
+     *
+     * @param array $values Values to square
+     * @param float $exp    Exponent
+     *
+     * @return array
+     *
+     * @since  1.0.0
+     *         todo: move to utils?! implement sqrt for array as well... could be usefull for others (e.g. matrix)
+     */
+    public static function powerFloat(array $values, float $exp = 2.0) : array
+    {
+        $squared = [];
+
+        foreach ($values as $value) {
+            $squared[] = $value * $exp;
+        }
+
+        return $squared;
+    }
+    
+    /**
+     * Power all values in array.
+     *
+     * @param array $values Values to square
+     * @param int   $exp    Exponent
+     *
+     * @return array
+     *
+     * @since  1.0.0
+     *         todo: move to utils?! implement sqrt for array as well... could be usefull for others (e.g. matrix)
+     */
+    public static function powerInt(array $values, int $exp = 2) : array
+    {
+        $squared = [];
+
+        foreach ($values as $value) {
+            $squared[] = $value * $exp;
+        }
+
+        return $squared;
+    }
 
     /**
      * Gets the relative position on a circular construct.
