@@ -55,4 +55,18 @@ class ErrorTest extends \PHPUnit\Framework\TestCase
             )
         );
     }
+    
+    public function testMeanError()
+    {
+        $errors = [
+            400 - 300,
+            600 - 700,
+            200 - 200,
+            500 - -300
+        ];
+        
+        self::assertEquals(300, Error::getMeanAbsoulteError($errors), '', 0.01);
+        self::assertEquals(125000, Error::getMeanSquaredError($errors), '', 0.01);
+        self::assertEquals(406.2019, Error::getRootMeanSquaredError($errors), '', 0.01);
+    }
 }
