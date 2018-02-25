@@ -17,8 +17,27 @@ use phpOMS\Math\Stochastic\Distribution\CauchyDistribution;
 
 class CauchyDistributionTest extends \PHPUnit\Framework\TestCase
 {
-    public function testPlaceholder()
+    public function testMedianMode()
     {
-        self::markTestIncomplete();
+        self::assertEquals(3.2, CauchyDistribution::getMedian(3.2));
+        self::assertEquals(3.2, CauchyDistribution::getMode(3.2));
+    }
+
+    public function testPdf()
+    {
+        $x     = 1;
+        $x0    = 0.5;
+        $gamma = 2; 
+
+        self::assertEquals(0.14979, CauchyDistribution::getPdf($x, $x0, $gamma), '', 0.01);
+    }
+
+    public function testCdf()
+    {
+        $x     = 1;
+        $x0    = 0.5;
+        $gamma = 2; 
+
+        self::assertEquals(0.57798, CauchyDistribution::getCdf($x, $x0, $gamma), '', 0.01);
     }
 }

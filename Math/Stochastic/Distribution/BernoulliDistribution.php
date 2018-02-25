@@ -42,9 +42,30 @@ class BernoulliDistribution
             return 1 - $p;
         } elseif ($k === 1) {
             return $p;
-        } else {
-            throw new \Exception('wrong parameter');
         }
+
+        throw new \Exception('wrong parameter');
+    }
+
+    /**
+     * Get cummulative distribution function.
+     *
+     * @param float $p Value p
+     * @param float $k Value k
+     *
+     * @return float
+     *
+     * @since  1.0.0
+     */
+    public static function getCdf(float $p, float $k) : float
+    {
+        if ($k < 0) {
+            return 0;
+        } elseif ($k >= 1) {
+            return 1;
+        }
+        
+        return 1 - $p;
     }
 
     /**
@@ -62,9 +83,9 @@ class BernoulliDistribution
             return 0;
         } elseif ($p > 0.5) {
             return 1;
-        } else {
-            return 0;
         }
+        
+        return 0;
     }
 
     /**
@@ -96,9 +117,9 @@ class BernoulliDistribution
             return 0.5;
         } elseif ($p > 0.5) {
             return 1;
-        } else {
-            return 0;
         }
+
+        return 0;
     }
 
     /**
@@ -142,6 +163,20 @@ class BernoulliDistribution
     public static function getSkewness(float $p) : float
     {
         return (1 - 2 * $p) / sqrt($p * (1 - $p));
+    }
+
+    /**
+     * Get entropy.
+     *
+     * @param float $p Value p
+     *
+     * @return float
+     *
+     * @since  1.0.0
+     */
+    public static function getEntropy(float $p) : float
+    {
+        return -(1 - $p) * log(1 - $p) - $p * log($p);
     }
 
     /**

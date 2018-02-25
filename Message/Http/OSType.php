@@ -51,4 +51,5 @@ abstract class OSType extends Enum
     /* public */ const ANDROID        = 'android'; /* Android */
     /* public */ const BLACKBERRY     = 'blackberry'; /* Blackberry */
     /* public */ const MOBILE         = 'webos'; /* Mobile */
+    /* public */ const UNKNOWN        = 'unknown';
 }

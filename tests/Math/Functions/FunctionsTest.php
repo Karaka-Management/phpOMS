@@ -19,8 +19,6 @@ class FunctionsTest extends \PHPUnit\Framework\TestCase
 {
     public function testFactorial()
     {
-        self::assertEquals(Functions::fact(4), Functions::getGammaInteger(5));
-
         self::assertEquals(120, Functions::fact(5));
         self::assertEquals(39916800, Functions::fact(11));
 

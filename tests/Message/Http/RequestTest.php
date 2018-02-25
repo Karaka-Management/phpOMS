@@ -29,10 +29,12 @@ class RequestTest extends \PHPUnit\Framework\TestCase
     {
         $request = new Request();
 
+        $_SERVER['HTTP_USER_AGENT'] = OSType::UNKNOWN . BrowserType::UNKNOWN;
+
         self::assertEquals('en', $request->getHeader()->getL11n()->getLanguage());
         self::assertFalse($request->isMobile());
-        self::assertEquals(BrowserType::CHROME, $request->getBrowser());
-        self::assertEquals(OSType::LINUX, $request->getOS());
+        self::assertEquals(BrowserType::UNKNOWN, $request->getBrowser());
+        self::assertEquals(OSType::UNKNOWN, $request->getOS());
         self::assertEquals('127.0.0.1', $request->getOrigin());
         self::assertFalse($request->isHttps());
         self::assertEquals([], $request->getHash());

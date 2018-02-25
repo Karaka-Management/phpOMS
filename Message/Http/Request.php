@@ -49,7 +49,7 @@ class Request extends RequestAbstract
      * @var string
      * @since 1.0.0
      */
-    private $browser = BrowserType::CHROME;
+    private $browser = null;
 
     /**
      * OS type.
@@ -57,7 +57,7 @@ class Request extends RequestAbstract
      * @var string
      * @since 1.0.0
      */
-    private $os = OSType::LINUX;
+    private $os = null;
     
     /**
      * Request information.
@@ -291,6 +291,8 @@ class Request extends RequestAbstract
                     return $this->browser;
                 }
             }
+
+            $this->browser = BrowserType::UNKNOWN;
         }
 
         return $this->browser;
@@ -330,6 +332,8 @@ class Request extends RequestAbstract
                     return $this->os;
                 }
             }
+
+            $this->os = OSType::UNKNOWN;
         }
 
         return $this->os;

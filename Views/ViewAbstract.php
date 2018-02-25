@@ -44,15 +44,6 @@ abstract class ViewAbstract implements \Serializable
     protected $views = [];
 
     /**
-     * Constructor.
-     *
-     * @since  1.0.0
-     */
-    public function __construct()
-    {
-    }
-
-    /**
      * Sort views by order.
      *
      * @param array $a Array 1

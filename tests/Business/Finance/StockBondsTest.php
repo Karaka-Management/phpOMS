@@ -58,6 +58,14 @@ class StockBondsTest extends \PHPUnit\Framework\TestCase
         self::assertEquals(0.10355, StockBonds::getHoldingPeriodReturn($r), '', 0.01);
     }
 
+    public function testTaxEquivalentYield()
+    {
+        $free = 0.15;
+        $rate = 0.05;
+
+        self::assertEquals(0.15789, StockBonds::getTaxEquivalentYield($free, $rate), '', 0.01);
+    }
+
     public function testNetAssetValue()
     {
         $assets      = 1000;

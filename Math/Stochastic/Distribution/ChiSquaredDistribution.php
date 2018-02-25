@@ -15,6 +15,7 @@ declare(strict_types=1);
 namespace phpOMS\Math\Stochastic\Distribution;
 
 use phpOMS\Math\Functions\Functions;
+use phpOMS\Math\Functions\Gamma;
 
 /**
  * Chi squared distribution.
@@ -157,7 +158,7 @@ class ChiSquaredDistribution
             throw new \Exception('Out of bounds');
         }
 
-        return 1 / (pow(2, $df / 2) * (Functions::getGammaInteger((int) ($df / 2)))) * pow($x, $df / 2 - 1) * exp(-$x / 2);
+        return 1 / (pow(2, $df / 2) * Gamma::lanczosApproximationReal(($df / 2))) * pow($x, $df / 2 - 1) * exp(-$x / 2);
     }
 
     /**

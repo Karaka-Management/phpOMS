@@ -39,4 +39,5 @@ abstract class BrowserType extends Enum
     /* public */ const KONQUEROR = 'konqueror'; /* Konqueror */
     /* public */ const HANDHELD  = 'mobile'; /* Handheld Browser */
     /* public */ const BLINK     = 'blink'; /* Blink Browser */
+    /* public */ const UNKNOWN   = 'unknown';
 }

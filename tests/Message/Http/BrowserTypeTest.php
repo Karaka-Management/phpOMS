@@ -19,7 +19,7 @@ class BrowserTypeTest extends \PHPUnit\Framework\TestCase
 {
     public function testEnums()
     {
-        self::assertEquals(11, BrowserType::count());
+        self::assertEquals(12, BrowserType::count());
         self::assertEquals(BrowserType::getConstants(), array_unique(BrowserType::getConstants()));
 
         self::assertEquals('msie', BrowserType::IE);
@@ -33,5 +33,6 @@ class BrowserTypeTest extends \PHPUnit\Framework\TestCase
         self::assertEquals('konqueror', BrowserType::KONQUEROR);
         self::assertEquals('mobile', BrowserType::HANDHELD);
         self::assertEquals('blink', BrowserType::BLINK);
+        self::assertEquals('unknown', BrowserType::UNKNOWN);
     }
 }

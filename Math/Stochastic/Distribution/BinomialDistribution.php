@@ -41,15 +41,7 @@ class BinomialDistribution
      */
     public static function getMode(int $n, float $p) : float
     {
-        if (($temp = ($n + 1) * $p) === 0 || !is_int($temp)) {
-            return floor($temp);
-        } elseif ($temp >= 1 && $temp <= $n) {
-            return $temp;
-        } elseif ($temp === $n + 1) {
-            return $n;
-        } else {
-            throw new \Exception('Unexpected Values');
-        }
+        return floor(($n + 1) * $p);
     }
 
     /**
@@ -128,7 +120,7 @@ class BinomialDistribution
     {
         $sum = 0.0;
 
-        for ($i = 0; $i < $x; ++$i) {
+        for ($i = 1; $i < $x; ++$i) {
             $sum += self::getPmf($n, $i, $p);
         }
 

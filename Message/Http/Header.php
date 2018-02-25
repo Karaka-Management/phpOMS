@@ -145,7 +145,9 @@ class Header extends HeaderAbstract
     public static function getAllHeaders() : array
     {
         if (function_exists('getallheaders')) {
+            // @codeCoverageIgnoreStart
             return getallheaders();
+            // @codeCoverageIgnoreEnd
         }
 
         $headers = [];
@@ -228,6 +230,7 @@ class Header extends HeaderAbstract
      * @return void
      *
      * @since  1.0.0
+     * @codeCoverageIgnore
      */
     public function push() /* : void */
     {

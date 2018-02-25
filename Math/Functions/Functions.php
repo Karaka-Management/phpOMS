@@ -4,7 +4,7 @@
  *
  * PHP Version 7.1
  *
- * @package    TBD
+ * @package    phpOMS\Math\Functions
  * @copyright  Dennis Eichhorn
  * @license    OMS License 1.0
  * @version    1.0.0
@@ -17,29 +17,14 @@ namespace phpOMS\Math\Functions;
 /**
  * Well known functions and helpers class.
  *
- * @package    Framework
+ * @package    phpOMS\Math\Functions
  * @license    OMS License 1.0
  * @link       http://website.orange-management.de
  * @since      1.0.0
  */
 class Functions
 {
-    /**
-     * Calculate gammar function value.
-     *
-     * Example: (7)
-     *
-     * @param int $k Variable
-     *
-     * @return int
-     *
-     * @since  1.0.0
-     */
-    public static function getGammaInteger(int $k) : int
-    {
-        return self::fact($k - 1);
-    }
-
+    
     /**
      * Calculate gammar function value.
      *
