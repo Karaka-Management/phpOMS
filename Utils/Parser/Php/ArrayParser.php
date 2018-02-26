@@ -68,7 +68,7 @@ class ArrayParser
             return '"' . $value . '"';
         } elseif (is_scalar($value)) {
             return (string) $value;
-        } elseif (is_null($value)) {
+        } elseif (!isset($value)) {
             return 'null';
         } elseif (is_bool($value)) {
             return $value ? 'true' : 'false';

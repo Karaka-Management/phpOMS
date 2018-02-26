@@ -844,10 +844,10 @@ class DataMapperAbstract implements DataMapperInterface
      *
      * @since  1.0.0
      */
-    private static function parseValue(string $type, $value)
+    private static function parseValue(string $type, $value = null)
     {
         // todo: checking for string === string and is_* is slow. maybe only check type or only string
-        if (is_null($value)) {
+        if ($value === null) {
             return null;
         } elseif ($type === 'DateTime' || $value instanceof \DateTime) {
             return $value->format('Y-m-d H:i:s');
@@ -2503,9 +2503,9 @@ class DataMapperAbstract implements DataMapperInterface
      */
     public static function getByRequest(RequestAbstract $request)
     {
-        if (!is_null($request->getData('id'))) {
+        if ($request->getData('id') !== null) {
             $result = static::get((int) $request->getData('id'));
-        } elseif (!is_null($filter = ((string) $request->getData('filter')))) {
+        } elseif (($filter = ((string) $request->getData('filter'))) !== null) {
             $filter = strtolower($filter);
 
             if ($filter === 'all') {
@@ -2515,8 +2515,8 @@ class DataMapperAbstract implements DataMapperInterface
                 $result = static::get(json_decode($list, true));
             } else {
                 $limit = (int) ($request->getData('limit') ?? 1);
-                $from  = !is_null($request->getData('from')) ? new \DateTime((string) $request->getData('from')) : null;
-                $to    = !is_null($request->getData('to')) ? new \DateTime((string) $request->getData('to')) : null;
+                $from  = $request->getData('from') === null ? null : new \DateTime((string) $request->getData('from'));
+                $to    = $request->getData('to') === null ?  null : new \DateTime((string) $request->getData('to'));
 
                 $query = static::getQuery();
                 $query->limit($limit);
