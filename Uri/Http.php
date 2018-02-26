@@ -275,7 +275,7 @@ class Http implements UriInterface
      */
     public function getQuery(string $key = null)  : string
     {
-        if (isset($key)) {
+        if ($key !== null) {
             $key = strtolower($key);
 
             return $this->query[$key] ?? '';
@@ -338,7 +338,7 @@ class Http implements UriInterface
     public function getAuthority() : string
     {
         return ($this->getUser() !== '' ? $this->getUser() . '@' : '') . $this->host 
-            . (isset($this->port) && $this->port !== 0 ? ':' . $this->port : '');
+            . ($this->port !== null && $this->port !== 0 ? ':' . $this->port : '');
     }
 
     /**

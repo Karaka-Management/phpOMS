@@ -170,7 +170,7 @@ class Markdown
             if (isset($currentBlock['continuable'])) {
                 $block = self::{'block' . $currentBlock['type'] . 'Continue'}($lineArray, $currentBlock);
 
-                if (isset($block)) {
+                if ($block !== null) {
                     $currentBlock = $block;
 
                     continue;
@@ -191,7 +191,7 @@ class Markdown
             foreach ($blockTypes as $blockType) {
                 $block = self::{'block' . $blockType}($lineArray, $currentBlock);
 
-                if (isset($block)) {
+                if ($block !== null) {
                     $block['type'] = $blockType;
 
                     if (!isset($block['identified'])) {
@@ -243,7 +243,7 @@ class Markdown
 
     protected static function blockCode(array $lineArray, array $block = null) /* : ?array */
     {
-        if (isset($block) && !isset($block['type']) && !isset($block['interrupted'])) {
+        if ($block !== null && !isset($block['type']) && !isset($block['interrupted'])) {
             return;
         }
 
@@ -676,7 +676,7 @@ class Markdown
             foreach (self::$inlineTypes[$marker] as $inlineType) {
                 $inline = self::{'inline' . $inlineType}($excerptArray);
 
-                if (!isset($inline)) {
+                if ($inline === null) {
                     continue;
                 }
 
@@ -794,7 +794,7 @@ class Markdown
         $excerpt['text'] = substr($excerpt['text'], 1);
         $link            = self::inlineLink($excerpt);
 
-        if (!isset($link)) {
+        if ($link === null) {
             return;
         }
 

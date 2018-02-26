@@ -320,15 +320,15 @@ class Account implements ArrayableInterface, \JsonSerializable
      */
     public function hasPermission(int $permission, int $unit = null, string $app = null, int $module = null, int $type = null, $element = null, $component = null) : bool
     {
-        $app = isset($app) ? strtolower($app) : $app;
+        $app = $app !== null ? strtolower($app) : $app;
 
         foreach ($this->permissions as $p) {
-            if (($p->getUnit() === $unit || $p->getUnit() === null || !isset($unit))
-                && ($p->getApp() === $app || $p->getApp() === null || !isset($app))
-                && ($p->getModule() === $module || $p->getModule() === null || !isset($module))
-                && ($p->getType() === $type || $p->getType() === null || !isset($type))
-                && ($p->getElement() === $element || $p->getElement() === null || !isset($element))
-                && ($p->getComponent() === $component || $p->getComponent() === null || !isset($component))
+            if (($p->getUnit() === $unit || $p->getUnit() === null || $unit === null)
+                && ($p->getApp() === $app || $p->getApp() === null || $app === null)
+                && ($p->getModule() === $module || $p->getModule() === null || $module === null)
+                && ($p->getType() === $type || $p->getType() === null || $type === null)
+                && ($p->getElement() === $element || $p->getElement() === null || $element === null)
+                && ($p->getComponent() === $component || $p->getComponent() === null || $component === null)
                 && ($p->getPermission() | $permission) === $p->getPermission()
             ) {
                 return true;

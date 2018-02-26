@@ -55,7 +55,7 @@ class SqliteConnection extends ConnectionAbstract
     {
         $this->close();
 
-        $this->dbdata = isset($dbdata) ? $dbdata : $this->dbdata;
+        $this->dbdata = $dbdata !== null ? $dbdata : $this->dbdata;
         $this->prefix = $dbdata['prefix'];
 
         try {

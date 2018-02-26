@@ -39,7 +39,7 @@ final class Validator extends ValidatorAbstract
      */
     public static function isValid($var, array $constraints = null) : bool
     {
-        if (!isset($constraints)) {
+        if ($constraints === null) {
             return true;
         }
 

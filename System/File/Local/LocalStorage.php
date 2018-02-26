@@ -55,7 +55,7 @@ class LocalStorage extends StorageAbstract
      */
     public static function getInstance() : StorageAbstract
     {
-        if (!isset(self::$instance)) {
+        if (self::$instance === null) {
             self::$instance = new self();
         }
 

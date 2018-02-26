@@ -161,7 +161,7 @@ abstract class ConnectionAbstract implements ConnectionInterface
      */
     public function getGrammar() : Grammar
     {
-        if (!isset($this->grammar)) {
+        if ($this->grammar === null) {
             $this->grammar = new Grammar();
         }
 
@@ -173,7 +173,7 @@ abstract class ConnectionAbstract implements ConnectionInterface
      */
     public function getSchemaGrammar() : SchemaGrammar
     {
-        if (!isset($this->schemaGrammar)) {
+        if ($this->schemaGrammar === null) {
             $this->schemaGrammar = new SchemaGrammar();
         }
 

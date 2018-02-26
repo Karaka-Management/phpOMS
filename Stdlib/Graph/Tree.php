@@ -74,7 +74,7 @@ class Tree extends Graph
     {
         $currentNode = $node ?? $this->root;
 
-        if (!isset($currentNode)) {
+        if ($currentNode === null) {
             return 0;
         }
 
@@ -101,7 +101,7 @@ class Tree extends Graph
     {
         $currentNode = $node ?? $this->root;
 
-        if (!isset($currentNode)) {
+        if ($currentNode === null) {
             return 0;
         }
 

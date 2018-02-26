@@ -97,7 +97,7 @@ class Request extends RequestAbstract
      */
     private function init() /* : void */
     {
-        if (!isset($this->uri)) {
+        if ($this->uri === null) {
             $this->initCurrentRequest();
             $this->lock();
             $this->cleanupGlobals();
@@ -263,7 +263,7 @@ class Request extends RequestAbstract
      */
     public function getRequestInfo() : array
     {
-        if (!isset($this->info)) {
+        if ($this->info === null) {
             $this->info['browser'] = $this->getBrowser();
             $this->info['os']      = $this->getOS();
         }
@@ -280,7 +280,7 @@ class Request extends RequestAbstract
      */
     public function getBrowser() : string
     {
-        if (!isset($this->browser)) {
+        if ($this->browser === null) {
             $arr           = BrowserType::getConstants();
             $httpUserAgent = strtolower($_SERVER['HTTP_USER_AGENT']);
 
@@ -321,7 +321,7 @@ class Request extends RequestAbstract
      */
     public function getOS() : string
     {
-        if (!isset($this->os)) {
+        if ($this->os === null) {
             $arr           = OSType::getConstants();
             $httpUserAgent = strtolower($_SERVER['HTTP_USER_AGENT']);
 
@@ -444,7 +444,7 @@ class Request extends RequestAbstract
      */
     public function getMethod() : string
     {
-        if (!isset($this->method)) {
+        if ($this->method === null) {
             $this->method = $_SERVER['REQUEST_METHOD'] ?? RequestMethod::GET;
         }
 

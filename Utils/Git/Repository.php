@@ -246,7 +246,7 @@ class Repository
             throw new \Exception('Already repository');
         }
 
-        if (isset($source)) {
+        if ($source !== null) {
             return stripos($source, '//') !== false ? $this->cloneRemote($source) : $this->cloneFrom($source);
         }
 
@@ -688,11 +688,11 @@ class Repository
      */
     public function getContributors(\DateTime $start = null, \DateTime $end = null) : array
     {
-        if (!isset($start)) {
+        if ($start === null) {
             $start = new \DateTime('1970-12-31');
         }
 
-        if (!isset($end)) {
+        if ($end === null) {
             $end = new \DateTime('now');
         }
 
@@ -727,11 +727,11 @@ class Repository
      */
     public function getCommitsCount(\DateTime $start = null, \DateTime $end = null) : array
     {
-        if (!isset($start)) {
+        if ($start === null) {
             $start = new \DateTime('1970-12-31');
         }
 
-        if (!isset($end)) {
+        if ($end === null) {
             $end = new \DateTime('now');
         }
 
@@ -760,11 +760,11 @@ class Repository
      */
     public function getAdditionsRemovalsByContributor(Author $author, \DateTime $start = null, \DateTime $end = null) : array
     {
-        if (!isset($start)) {
+        if ($start === null) {
             $start = new \DateTime('1900-01-01');
         }
 
-        if (!isset($end)) {
+        if ($end === null) {
             $end = new \DateTime('now');
         }
 
@@ -811,15 +811,15 @@ class Repository
      */
     public function getCommitsBy(\DateTime $start = null, \DateTime $end = null, Author $author = null) : array
     {
-        if (!isset($start)) {
+        if ($start === null) {
             $start = new \DateTime('1970-12-31');
         }
 
-        if (!isset($end)) {
+        if ($end === null) {
             $end = new \DateTime('now');
         }
 
-        if (!isset($author)) {
+        if ($author === null) {
             $author = '';
         } else {
             $author = ' --author=' . escapeshellarg($author->getName()) . '';

@@ -155,11 +155,11 @@ class BinaryTree extends Tree
         $left                         = $this->getLeft($node);
         $right                        = $this->getRight($node);
 
-        if (isset($left)) {
+        if ($left !== null) {
             $this->getVerticalOrder($left, $horizontalDistance - 1, $order);
         }
 
-        if (isset($right)) {
+        if ($right !== null) {
             $this->getVerticalOrder($right, $horizontalDistance + 1, $order);
         }
     }
@@ -198,18 +198,18 @@ class BinaryTree extends Tree
      */
     public function isSymmetric(Node $node1 = null, Node $node2 = null) : bool
     {
-        if (!isset($node1) && !isset($node2)) {
+        if ($node1 === null && $node2 === null) {
             return true;
         }
 
         $left1  = $this->getLeft($node1);
         $right1 = $this->getRight($node1);
 
-        $left2  = isset($node2) ? $this->getLeft($node1) : $this->getLeft($node2);
-        $right2 = isset($node2) ? $this->getRight($node1) : $this->getRight($node2);
+        $left2  = $node2 !== null ? $this->getLeft($node1) : $this->getLeft($node2);
+        $right2 = $node2 !== null ? $this->getRight($node1) : $this->getRight($node2);
 
         // todo: compare values? true symmetry requires the values to be the same
-        if (isset($node1, $node2)) {
+        if ($node1 !== null && $node2 !== null) {
             return $this->isSymmetric($left1, $right2) && $this->isSymmetric($right1, $left2);
         }
 

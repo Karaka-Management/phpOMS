@@ -486,7 +486,7 @@ class Builder extends BuilderAbstract
      */
     public function where($columns, $operator = null, $values = null, $boolean = 'and') : Builder
     {
-        if (isset($operator) && !is_array($operator) && !in_array(strtolower($operator), self::OPERATORS)) {
+        if ($operator !== null && !is_array($operator) && !in_array(strtolower($operator), self::OPERATORS)) {
             throw new \InvalidArgumentException('Unknown operator.');
         }
 

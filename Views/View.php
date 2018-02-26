@@ -85,7 +85,7 @@ class View extends ViewAbstract
         $this->app      = $app;
         $this->request  = $request;
         $this->response = $response;
-        $this->l11n     = isset($response) ? $response->getHeader()->getL11n() : null;
+        $this->l11n     = $response !== null ? $response->getHeader()->getL11n() : null;
     }
 
     /**
@@ -174,7 +174,7 @@ class View extends ViewAbstract
      */
     public function getText($translation, string $module = null, string $theme = null) : string
     {
-        if (!isset($module)) {
+        if ($module === null) {
             $match = '/Modules/';
 
             if (($start = strripos($this->template, $match)) === false) {
@@ -186,7 +186,7 @@ class View extends ViewAbstract
             $module = substr($this->template, $start, $end - $start);
         }
 
-        if (!isset($theme)) {
+        if ($theme === null) {
             $match = '/Theme/';
 
             if (($start = strripos($this->template, $match)) === false) {

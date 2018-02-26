@@ -64,7 +64,7 @@ class MeasureOfDispersion
      */
     public static function empiricalVariationCoefficient(array $values, float $mean = null) : float
     {
-        $mean = isset($mean) ? $mean : Average::arithmeticMean($values);
+        $mean = $mean !== null ? $mean : Average::arithmeticMean($values);
 
         if ($mean === 0) {
             throw new ZeroDevisionException();
@@ -89,7 +89,7 @@ class MeasureOfDispersion
      */
     public static function standardDeviation(array $values, float $mean = null) : float
     {
-        $mean = isset($mean) ? $mean : Average::arithmeticMean($values);
+        $mean = $mean !== null ? $mean : Average::arithmeticMean($values);
         $sum  = 0.0;
 
         foreach ($values as $value) {
@@ -156,7 +156,7 @@ class MeasureOfDispersion
             throw new ZeroDevisionException();
         }
 
-        $mean = $hasProbability ? Average::weightedAverage($values, $probabilities) : (isset($mean) ? $mean : Average::arithmeticMean($values));
+        $mean = $hasProbability ? Average::weightedAverage($values, $probabilities) : ($mean !== null ? $mean : Average::arithmeticMean($values));
         $sum  = 0;
 
         foreach ($values as $key => $value) {
@@ -196,8 +196,8 @@ class MeasureOfDispersion
             throw new InvalidDimensionException($count . 'x' . count($y));
         }
 
-        $xMean = isset($meanX) ? $meanX : Average::arithmeticMean($x);
-        $yMean = isset($meanY) ? $meanY : Average::arithmeticMean($y);
+        $xMean = $meanX !== null ? $meanX : Average::arithmeticMean($x);
+        $yMean = $meanY !== null ? $meanY : Average::arithmeticMean($y);
 
         $sum = 0.0;
 
@@ -234,7 +234,7 @@ class MeasureOfDispersion
      */
     public static function meanDeviation(array $x, float $mean = null) : float
     {
-        $mean = isset($mean) ? $mean : Average::arithmeticMean($x);
+        $mean = $mean !== null ? $mean : Average::arithmeticMean($x);
         $sum  = 0.0;
 
         foreach ($x as $xi) {
@@ -256,7 +256,7 @@ class MeasureOfDispersion
      */
     public static function meanAbsoluteDeviation(array $x, float $mean = null) : float
     {
-        $mean = isset($mean) ? $mean : Average::arithmeticMean($x);
+        $mean = $mean !== null ? $mean : Average::arithmeticMean($x);
         $sum  = 0.0;
 
         foreach ($x as $xi) {
@@ -278,7 +278,7 @@ class MeasureOfDispersion
      */
     public static function squaredMeanDeviation(array $x, float $mean = null) : float
     {
-        $mean = isset($mean) ? $mean : Average::arithmeticMean($x);
+        $mean = $mean !== null ? $mean : Average::arithmeticMean($x);
         $sum  = 0.0;
 
         foreach ($x as $xi) {

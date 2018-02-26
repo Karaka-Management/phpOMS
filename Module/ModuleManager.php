@@ -140,7 +140,7 @@ class ModuleManager
      */
     public function getUriLoad(RequestAbstract $request) : array
     {
-        if (!isset($this->uriLoad)) {
+        if ($this->uriLoad === null) {
             switch ($this->app->dbPool->get('select')->getType()) {
                 case DatabaseType::MYSQL:
                     $uriHash = $request->getHash();
@@ -233,7 +233,7 @@ class ModuleManager
      */
     public function getAllModules() : array
     {
-        if (!isset($this->all)) {
+        if ($this->all === null) {
             chdir($this->modulePath);
             $files = glob('*', GLOB_ONLYDIR);
             $c     = count($files);

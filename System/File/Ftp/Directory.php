@@ -300,7 +300,7 @@ class Directory extends FileAbstract implements DirectoryInterface
      */
     public function offsetSet($offset, $value)
     {
-        if (!isset($offset)) {
+        if ($offset === null) {
             $this->addNode($value);
         } else {
             $this->nodes[$offset] = $value;

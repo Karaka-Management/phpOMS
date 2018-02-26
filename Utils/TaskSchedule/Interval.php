@@ -100,7 +100,7 @@ class Interval implements \Serializable
     {
         $this->start = new \DateTime('now');
 
-        if (isset($interval)) {
+        if ($interval !== null) {
             $this->unserialize($interval);
         }
     }

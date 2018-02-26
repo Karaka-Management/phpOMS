@@ -126,7 +126,7 @@ class L11nManager
      */
     public function getModuleLanguage(string $language, string $module = null) : array
     {
-        if (!isset($module) && isset($this->language[$language])) {
+        if ($module === null && isset($this->language[$language])) {
             return $this->language[$language];
         } elseif (isset($this->language[$language], $this->language[$language][$module])) {
             return $this->language[$language][$module];
