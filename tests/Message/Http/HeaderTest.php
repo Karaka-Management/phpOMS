@@ -67,36 +67,24 @@ class HeaderTest extends \PHPUnit\Framework\TestCase
         self::AssertEquals(2, $header->getAccount(2));
     }
 
-    /**
-     * @expectedException phpOMS\DataStorage\LockException
-     */
     public function testLockedHeaderSet()
     {
-        try {
-            $header = new Header();
-            Header::lock();
-            self::assertTrue(Header::isLocked());
+        $header = new Header();
+        Header::lock();
+        self::assertTrue(Header::isLocked());
+        self::assertFalse($header->set('key', 'value'));
 
-            $header->set('key', 'value');
-        } finally {
-            TestUtils::setMember('phpOMS\Message\Http\Header', 'isLocked', false);
-        }
+        TestUtils::setMember('phpOMS\Message\Http\Header', 'isLocked', false);
     }
 
-    /**
-     * @expectedException phpOMS\DataStorage\LockException
-     */
     public function testLockedHeaderRemove()
     {
-        try {
-            $header = new Header();
-            Header::lock();
-            self::assertTrue(Header::isLocked());
+        $header = new Header();
+        Header::lock();
+        self::assertTrue(Header::isLocked());
+        self::assertFalse($header->remove('key'));
 
-            $header->remove('key');
-        } finally {
-            TestUtils::setMember('phpOMS\Message\Http\Header', 'isLocked', false);
-        }
+        TestUtils::setMember('phpOMS\Message\Http\Header', 'isLocked', false);
     }
 
     public function testGeneration()
@@ -122,13 +110,10 @@ class HeaderTest extends \PHPUnit\Framework\TestCase
         self::assertEquals(500, \http_response_code());
     }
 
-    /**
-     * @expectedException \Exception
-     */
     public function testOverwriteSecurityHeader()
     {
         $header = new Header();
         self::assertTrue($header->set('content-security-policy', 'header'));
-        $header->set('content-security-policy', 'header', true);
+        self::assertFalse($header->set('content-security-policy', 'header', true));
     }
 }

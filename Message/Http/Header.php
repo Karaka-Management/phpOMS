@@ -58,9 +58,6 @@ class Header extends HeaderAbstract
      *
      * @return bool
      *
-     * @throws LockException The http header needs to be defined at the beginning. If it is already pushed further interactions are impossible and locked.
-     * @throws \Exception If the header already exists and cannot be overwritten this exception will be thrown.
-     *
      * @todo Allow to extend header key with additional values.
      *
      * @since  1.0.0
@@ -68,11 +65,11 @@ class Header extends HeaderAbstract
     public function set(string $key, string $header, bool $overwrite = false) : bool
     {
         if (self::$isLocked) {
-            throw new LockException('HTTP header');
+            return false;
         }
 
         if (self::isSecurityHeader($key) && isset($this->header[$key])) {
-            throw new \Exception('Cannot change security headers.');
+            return false;
         }
 
         $key = strtolower($key);
@@ -167,14 +164,12 @@ class Header extends HeaderAbstract
      *
      * @return bool
      *
-     * @throws LockException The http header needs to be defined at the beginning. If it is already pushed further interactions are impossible and locked.
-     *
      * @since  1.0.0
      */
     public function remove($key) : bool
     {
         if (self::$isLocked) {
-            throw new LockException('HTTP header');
+            return false;
         }
 
         if (isset($this->header[$key])) {
