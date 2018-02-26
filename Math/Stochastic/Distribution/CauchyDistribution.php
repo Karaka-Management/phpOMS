@@ -83,6 +83,20 @@ class CauchyDistribution
     {
         return $x0;
     }
+    
+    /**
+     * Get entropy.
+     *
+     * @param float $gamma Gamma / scale parameter
+     *
+     * @return float
+     *
+     * @since  1.0.0
+     */
+    public static function getEntropy(float $gamma) : float
+    {
+        return log(4 * M_PI * $gamma);
+    }
 
     public static function getRandom()
     {
