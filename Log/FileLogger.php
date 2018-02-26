@@ -102,7 +102,7 @@ class FileLogger implements LoggerInterface
         $this->verbose = $verbose;
 
         if (is_dir($lpath) || strpos($lpath, '.') === false) {
-            $path = $path . '/' . date('Y-m-d') . '.log';
+            $path = $lpath . '/' . date('Y-m-d') . '.log';
         } else {
             $path = $lpath;
         }
