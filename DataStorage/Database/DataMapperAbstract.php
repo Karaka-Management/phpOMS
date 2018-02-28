@@ -2516,7 +2516,7 @@ class DataMapperAbstract implements DataMapperInterface
             } else {
                 $limit = (int) ($request->getData('limit') ?? 1);
                 $from  = $request->getData('from') === null ? null : new \DateTime((string) $request->getData('from'));
-                $to    = $request->getData('to') === null ?  null : new \DateTime((string) $request->getData('to'));
+                $to    = $request->getData('to') === null ? null : new \DateTime((string) $request->getData('to'));
 
                 $query = static::getQuery();
                 $query->limit($limit);
