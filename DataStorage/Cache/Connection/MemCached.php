@@ -4,7 +4,7 @@
  *
  * PHP Version 7.1
  *
- * @package    phpOMS\DataStorage\Cache
+ * @package    phpOMS\DataStorage\Cache\Connection
  * @copyright  Dennis Eichhorn
  * @license    OMS License 1.0
  * @version    1.0.0
@@ -12,17 +12,17 @@
  */
 declare(strict_types=1);
 
-namespace phpOMS\DataStorage\Cache;
+namespace phpOMS\DataStorage\Cache\Connection;
 
 /**
  * Memcache class.
  *
- * @package    phpOMS\DataStorage\Cache
+ * @package    phpOMS\DataStorage\Cache\Connection
  * @license    OMS License 1.0
  * @link       http://website.orange-management.de
  * @since      1.0.0
  */
-class MemCache implements CacheInterface
+class MemCached extends ConnectionAbstract
 {
 
     /**
@@ -40,7 +40,6 @@ class MemCache implements CacheInterface
      * @since 1.0.0
      */
     private $threshold = 10;
-
     private $status;
 
     /**
@@ -169,7 +168,7 @@ class MemCache implements CacheInterface
      *
      * @since  1.0.0
      */
-    public function close()
+    public function close() /* : void */
     {
         if ($this->memc !== null) {
             $this->memc->close();

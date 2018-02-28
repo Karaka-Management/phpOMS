@@ -25,49 +25,8 @@ use phpOMS\DataStorage\Database\Schema\Grammar\Grammar as SchemaGrammar;
  * @link       http://website.orange-management.de
  * @since      1.0.0
  */
-interface ConnectionInterface
+interface ConnectionInterface extends DataStorageConnectionInterface
 {
-
-    /**
-     * Connect to database.
-     *
-     * Overwrites current connection if existing
-     *
-     * @param string[] $dbdata the basic database information for establishing a connection
-     *
-     * @return void
-     *
-     * @since  1.0.0
-     */
-    public function connect(array $dbdata); /* : void */
-
-    /**
-     * Get the database type.
-     *
-     * @return string
-     *
-     * @since  1.0.0
-     */
-    public function getType() : string;
-
-    /**
-     * Get the database status.
-     *
-     * @return int
-     *
-     * @since  1.0.0
-     */
-    public function getStatus() : int;
-
-    /**
-     * Close database connection.
-     *
-     * @return void
-     *
-     * @since  1.0.0
-     */
-    public function close(); /* : void */
-
     /**
      * Return grammar for this connection.
      *

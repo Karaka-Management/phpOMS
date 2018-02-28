@@ -4,7 +4,7 @@
  *
  * PHP Version 7.1
  *
- * @package    phpOMS\DataStorage\Cache
+ * @package    phpOMS\DataStorage\Cache\Connection
  * @copyright  Dennis Eichhorn
  * @license    OMS License 1.0
  * @version    1.0.0
@@ -12,19 +12,17 @@
  */
 declare(strict_types=1);
 
-namespace phpOMS\DataStorage\Cache;
+namespace phpOMS\DataStorage\Cache\Connection;
 
 /**
- * RedisCache class.
+ * Null cache class.
  *
- * PHP Version 5.6
- *
- * @package    phpOMS\DataStorage\Cache
+ * @package    phpOMS\DataStorage\Cache\Connection
  * @license    OMS License 1.0
  * @link       http://website.orange-management.de
  * @since      1.0.0
  */
-class RedisCache implements CacheInterface
+class NullCache extends ConnectionAbstract
 {
 
     /**
@@ -32,7 +30,6 @@ class RedisCache implements CacheInterface
      */
     public function set($key, $value, int $expire = -1) /* : void */
     {
-        // TODO: Implement set() method.
     }
 
     /**
@@ -40,7 +37,7 @@ class RedisCache implements CacheInterface
      */
     public function add($key, $value, int $expire = -1) : bool
     {
-        // TODO: Implement add() method.
+        return true;
     }
 
     /**
@@ -48,7 +45,7 @@ class RedisCache implements CacheInterface
      */
     public function get($key, int $expire = -1)
     {
-        // TODO: Implement get() method.
+        return null;
     }
 
     /**
@@ -56,7 +53,7 @@ class RedisCache implements CacheInterface
      */
     public function delete($key, int $expire = -1) : bool
     {
-        // TODO: Implement delete() method.
+        return true;
     }
 
     /**
@@ -64,8 +61,6 @@ class RedisCache implements CacheInterface
      */
     public function flush(int $expire = 0) : bool
     {
-        // TODO: Implement flush() method.
-
         return true;
     }
 
@@ -74,8 +69,6 @@ class RedisCache implements CacheInterface
      */
     public function flushAll() : bool
     {
-        // TODO: Implement flush() method.
-
         return true;
     }
 
@@ -84,7 +77,7 @@ class RedisCache implements CacheInterface
      */
     public function replace($key, $value, int $expire = -1) : bool
     {
-        // TODO: Implement replace() method.
+        return true;
     }
 
     /**
@@ -92,7 +85,7 @@ class RedisCache implements CacheInterface
      */
     public function stats() : array
     {
-        // TODO: Implement stats() method.
+        return [];
     }
 
     /**
@@ -100,7 +93,7 @@ class RedisCache implements CacheInterface
      */
     public function getThreshold() : int
     {
-        // TODO: Implement getThreshold() method.
+        return 0;
     }
 
     /**
@@ -108,6 +101,5 @@ class RedisCache implements CacheInterface
      */
     public function setStatus(int $status) /* : void */
     {
-        // TODO: Implement setStatus() method.
     }
 }

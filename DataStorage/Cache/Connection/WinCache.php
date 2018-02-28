@@ -4,7 +4,7 @@
  *
  * PHP Version 7.1
  *
- * @package    phpOMS\DataStorage\Cache
+ * @package    phpOMS\DataStorage\Cache\Connection
  * @copyright  Dennis Eichhorn
  * @license    OMS License 1.0
  * @version    1.0.0
@@ -12,19 +12,19 @@
  */
 declare(strict_types=1);
 
-namespace phpOMS\DataStorage\Cache;
+namespace phpOMS\DataStorage\Cache\Connection;
 
 /**
  * WinCache class.
  *
  * PHP Version 5.6
  *
- * @package    phpOMS\DataStorage\Cache
+ * @package    phpOMS\DataStorage\Cache\Connection
  * @license    OMS License 1.0
  * @link       http://website.orange-management.de
  * @since      1.0.0
  */
-class WinCache implements CacheInterface
+class WinCache extends ConnectionAbstract
 {
 
     /**

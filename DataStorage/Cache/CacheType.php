@@ -19,7 +19,7 @@ use phpOMS\Stdlib\Base\Enum;
 /**
  * Cache type enum.
  *
- * Possible caching types
+ * Cache types that are supported by the application
  *
  * @package    phpOMS\DataStorage\Cache
  * @license    OMS License 1.0
@@ -28,11 +28,8 @@ use phpOMS\Stdlib\Base\Enum;
  */
 abstract class CacheType extends Enum
 {
-    /* public */ const _INT              = 0; /* Data is integer */
-    /* public */ const _STRING           = 1; /* Data is string */
-    /* public */ const _ARRAY            = 2; /* Data is array */
-    /* public */ const _SERIALIZABLE     = 3; /* Data is object */
-    /* public */ const _FLOAT            = 4; /* Data is float */
-    /* public */ const _BOOL             = 5; /* Data is bool */
-    /* public */ const _JSONSERIALIZABLE = 6;
+    /* public */ const FILE      = 'file';
+    /* public */ const MEMCACHED = 'sqlite';
+    /* public */ const REDIS     = 'redis';
+    /* public */ const WINCACHE  = 'win';
 }

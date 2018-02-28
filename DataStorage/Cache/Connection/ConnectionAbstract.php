@@ -4,7 +4,7 @@
  *
  * PHP Version 7.1
  *
- * @package    phpOMS\DataStorage\Database\Connection
+ * @package    phpOMS\DataStorage\Cache\Connection
  * @copyright  Dennis Eichhorn
  * @license    OMS License 1.0
  * @version    1.0.0
@@ -12,19 +12,17 @@
  */
 declare(strict_types=1);
 
-namespace phpOMS\DataStorage\Database\Connection;
+namespace phpOMS\DataStorage\Cache\Connection;
 
-use phpOMS\DataStorage\Database\DatabaseStatus;
-use phpOMS\DataStorage\Database\Query\Grammar\Grammar;
-use phpOMS\DataStorage\Database\Schema\Grammar\Grammar as SchemaGrammar;
+use phpOMS\DataStorage\Cache\CacheStatus;
 
 /**
- * Database handler.
+ * Cache handler.
  *
- * Handles the database connection.
- * Implementing wrapper functions for multiple databases is planned (far away).
+ * Handles the cache connection.
+ * Implementing wrapper functions for multiple caches is planned (far away).
  *
- * @package    phpOMS\DataStorage\Database\Connection
+ * @package    phpOMS\DataStorage\Cache\Connection
  * @license    OMS License 1.0
  * @link       http://website.orange-management.de
  * @since      1.0.0
@@ -37,17 +35,15 @@ abstract class ConnectionAbstract implements ConnectionInterface
      *
      * This can be used externally to define queries and execute them.
      *
-     * @var \PDO
+     * @var ConnectionInterface
      * @since 1.0.0
      */
-    public $con = null;
+    private $con = null;
 
     /**
      * Database prefix.
      *
      * The database prefix name for unique table names
-     * 
-     * @todo: make private? could add huge overhead since function call required
      *
      * @var string
      * @since 1.0.0
@@ -76,23 +72,7 @@ abstract class ConnectionAbstract implements ConnectionInterface
      * @var int
      * @since 1.0.0
      */
-    protected $status = DatabaseStatus::CLOSED;
-
-    /**
-     * Database grammar.
-     *
-     * @var Grammar
-     * @since 1.0.0
-     */
-    protected $grammar = null;
-
-    /**
-     * Database grammar.
-     *
-     * @var SchemaGrammar
-     * @since 1.0.0
-     */
-    protected $schemaGrammar = null;
+    protected $status = CacheStatus::INACTIVE;
 
     /**
      * {@inheritdoc}
@@ -117,7 +97,7 @@ abstract class ConnectionAbstract implements ConnectionInterface
      *
      * @since  1.0.0
      */
-    public function getDatabase() : string
+    public function getCache() : string
     {
         return $this->dbdata['database'] ?? '';
     }
@@ -159,30 +139,6 @@ abstract class ConnectionAbstract implements ConnectionInterface
     }
 
     /**
-     * {@inheritdoc}
-     */
-    public function getGrammar() : Grammar
-    {
-        if ($this->grammar === null) {
-            $this->grammar = new Grammar();
-        }
-
-        return $this->grammar;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function getSchemaGrammar() : SchemaGrammar
-    {
-        if ($this->schemaGrammar === null) {
-            $this->schemaGrammar = new SchemaGrammar();
-        }
-
-        return $this->schemaGrammar;
-    }
-
-    /**
      * Object destructor.
      *
      * Sets the database connection to null
@@ -200,6 +156,6 @@ abstract class ConnectionAbstract implements ConnectionInterface
     public function close() /* : void */
     {
         $this->con    = null;
-        $this->status = DatabaseStatus::CLOSED;
+        $this->status = CacheStatus::INACTIVE;
     }
 }

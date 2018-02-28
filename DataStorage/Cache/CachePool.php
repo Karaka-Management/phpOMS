@@ -14,8 +14,7 @@ declare(strict_types=1);
 
 namespace phpOMS\DataStorage\Cache;
 
-use phpOMS\Config\OptionsInterface;
-use phpOMS\Config\OptionsTrait;
+use phpOMS\DataStorage\DataStoragePoolInterface;
 
 /**
  * Cache class.
@@ -28,10 +27,8 @@ use phpOMS\Config\OptionsTrait;
  * @link       http://website.orange-management.de
  * @since      1.0.0
  */
-class CachePool implements OptionsInterface
+class CachePool implements DataStoragePoolInterface
 {
-    use OptionsTrait;
-
     /**
      * MemCache instance.
      *

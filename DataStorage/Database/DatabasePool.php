@@ -14,6 +14,8 @@ declare(strict_types=1);
 
 namespace phpOMS\DataStorage\Database;
 
+use phpOMS\DataStorage\DataStoragePoolInterface;
+use phpOMS\DataStorage\DataStorageConnectionInterface;
 use phpOMS\DataStorage\Database\Connection\ConnectionAbstract;
 use phpOMS\DataStorage\Database\Connection\ConnectionFactory;
 
@@ -25,7 +27,7 @@ use phpOMS\DataStorage\Database\Connection\ConnectionFactory;
  * @link       http://website.orange-management.de
  * @since      1.0.0
  */
-class DatabasePool
+class DatabasePool implements DataStoragePoolInterface
 {
 
     /**
@@ -48,14 +50,14 @@ class DatabasePool
     /**
      * Add database.
      *
-     * @param mixed              $key Database key
-     * @param ConnectionAbstract $db  Database
+     * @param mixed               $key Database key
+     * @param ConnectionInterface $db  Database
      *
      * @return bool
      *
      * @since  1.0.0
      */
-    public function add(string $key, ConnectionAbstract $db) : bool
+    public function add(string $key, ConnectionInterface $db) : bool
     {
         if (isset($this->pool[$key])) {
             return false;
@@ -71,11 +73,11 @@ class DatabasePool
      *
      * @param mixed $key Database key
      *
-     * @return ConnectionAbstract|null
+     * @return ConnectionInterface|null
      *
      * @since  1.0.0
      */
-    public function get(string $key = '') /* : ?ConnectionAbstract */
+    public function get(string $key = '') /* : ?ConnectionInterface */
     {
         if ((!empty($key) && !isset($this->pool[$key])) || empty($this->pool)) {
             return null;
