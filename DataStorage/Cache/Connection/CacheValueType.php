@@ -35,4 +35,5 @@ abstract class CacheValueType extends Enum
     /* public */ const _FLOAT            = 4; /* Data is float */
     /* public */ const _BOOL             = 5; /* Data is bool */
     /* public */ const _JSONSERIALIZABLE = 6;
+    /* public */ const _NULL             = 7;
 }

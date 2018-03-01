@@ -14,6 +14,7 @@ declare(strict_types=1);
 
 namespace phpOMS\DataStorage\Database\Connection;
 
+use phpOMS\DataStorage\DataStorageConnectionInterface;
 use phpOMS\DataStorage\Database\Query\Grammar\Grammar;
 use phpOMS\DataStorage\Database\Schema\Grammar\Grammar as SchemaGrammar;
 

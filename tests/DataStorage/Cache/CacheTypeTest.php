@@ -19,13 +19,11 @@ class CacheTypeTest extends \PHPUnit\Framework\TestCase
 {
     public function testEnums()
     {
-        self::assertEquals(7, count(CacheType::getConstants()));
-        self::assertEquals(0, CacheType::_INT);
-        self::assertEquals(1, CacheType::_STRING);
-        self::assertEquals(2, CacheType::_ARRAY);
-        self::assertEquals(3, CacheType::_SERIALIZABLE);
-        self::assertEquals(4, CacheType::_FLOAT);
-        self::assertEquals(5, CacheType::_BOOL);
-        self::assertEquals(6, CacheType::_JSONSERIALIZABLE);
+        self::assertEquals(5, count(CacheType::getConstants()));
+        self::assertEquals('file', CacheType::FILE);
+        self::assertEquals('mem', CacheType::MEMCACHED);
+        self::assertEquals('redis', CacheType::REDIS);
+        self::assertEquals('win', CacheType::WINCACHE);
+        self::assertEquals('na', CacheType::UNDEFINED);
     }
 }

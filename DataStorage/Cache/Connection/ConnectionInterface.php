@@ -14,6 +14,7 @@ declare(strict_types=1);
 
 namespace phpOMS\DataStorage\Cache\Connection;
 
+use phpOMS\DataStorage\DataStorageConnectionInterface;
 use phpOMS\Stdlib\Base\Exception\InvalidEnumValue;
 
 /**
@@ -96,19 +97,6 @@ interface ConnectionInterface extends DataStorageConnectionInterface
      * @since  1.0.0
      */
     public function flushAll() : bool;
-
-    /**
-     * Set cache status
-     *
-     * @param int $status Cache status
-     *
-     * @return void
-     *
-     * @throws InvalidEnumValue
-     *
-     * @since  1.0.0
-     */
-    public function setStatus(int $status); /* : void */
 
     /**
      * Updating existing value/key.

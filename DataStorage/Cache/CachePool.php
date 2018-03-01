@@ -15,6 +15,8 @@ declare(strict_types=1);
 namespace phpOMS\DataStorage\Cache;
 
 use phpOMS\DataStorage\DataStoragePoolInterface;
+use phpOMS\DataStorage\DataStorageConnectionInterface;
+use phpOMS\DataStorage\Cache\Connection\ConnectionFactory;
 
 /**
  * Cache class.
@@ -32,7 +34,7 @@ class CachePool implements DataStoragePoolInterface
     /**
      * MemCache instance.
      *
-     * @var \phpOMS\DataStorage\Cache\CacheInterface[]
+     * @var DataStorageConnectionInterface[]
      * @since 1.0.0
      */
     private $pool = null;
@@ -49,14 +51,14 @@ class CachePool implements DataStoragePoolInterface
     /**
      * Add database.
      *
-     * @param mixed          $key   Database key
-     * @param CacheInterface $cache Cache
+     * @param mixed                          $key   Database key
+     * @param DataStorageConnectionInterface $cache Cache
      *
      * @return bool
      *
      * @since  1.0.0
      */
-    public function add(string $key, CacheInterface $cache) : bool
+    public function add(string $key, DataStorageConnectionInterface $cache) : bool
     {
         if (isset($this->pool[$key])) {
             return false;
@@ -125,7 +127,7 @@ class CachePool implements DataStoragePoolInterface
             return false;
         }
 
-        $this->pool[$key] = CacheFactory::create($config);
+        $this->pool[$key] = ConnectionFactory::create($config);
 
         return true;
     }

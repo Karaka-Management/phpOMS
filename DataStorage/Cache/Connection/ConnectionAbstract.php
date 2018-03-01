@@ -35,7 +35,7 @@ abstract class ConnectionAbstract implements ConnectionInterface
      *
      * This can be used externally to define queries and execute them.
      *
-     * @var ConnectionInterface
+     * @var mixed
      * @since 1.0.0
      */
     private $con = null;
@@ -64,7 +64,7 @@ abstract class ConnectionAbstract implements ConnectionInterface
      * @var string
      * @since 1.0.0
      */
-    protected $type = 'undefined';
+    protected $type = CacheStatus::UNDEFINED;
 
     /**
      * Database status.

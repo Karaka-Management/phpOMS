@@ -48,7 +48,7 @@ class MysqlConnection extends ConnectionAbstract
         $this->type          = DatabaseType::MYSQL;
         $this->grammar       = new MysqlGrammar();
         $this->schemaGrammar = new MysqlSchemaGrammar();
-        $this->connect($dbdata);
+        $this->connect($dbdata); // todo: remove since this is a side effect that doesn't belong to constructor
     }
 
     /**

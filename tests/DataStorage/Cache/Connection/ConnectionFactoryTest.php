@@ -11,17 +11,17 @@
  * @link       http://website.orange-management.de
  */
 
-namespace phpOMS\tests\DataStorage\Cache;
+namespace phpOMS\tests\DataStorage\Cache\Connection;
 
-use phpOMS\DataStorage\Cache\CacheFactory;
+use phpOMS\DataStorage\Cache\Connection\ConnectionFactory;
 
-class CacheFactoryTest extends \PHPUnit\Framework\TestCase
+class ConnectionFactoryTest extends \PHPUnit\Framework\TestCase
 {
     public function testCreate()
     {
         self::assertInstanceOf(
-            \phpOMS\DataStorage\Cache\FileCache::class,
-            CacheFactory::create(['type' => 'file', 'path' => 'Cache'])
+            \phpOMS\DataStorage\Cache\Connection\FileCache::class,
+            ConnectionFactory::create(['type' => 'file', 'path' => 'Cache'])
         );
     }
 
@@ -30,6 +30,6 @@ class CacheFactoryTest extends \PHPUnit\Framework\TestCase
      */
     public function testInvalidCacheType()
     {
-        CacheFactory::create(['type' => 'invalid', 'path' => 'Cache']);
+        ConnectionFactory::create(['type' => 'invalid', 'path' => 'Cache']);
     }
 }

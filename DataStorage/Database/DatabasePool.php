@@ -18,6 +18,7 @@ use phpOMS\DataStorage\DataStoragePoolInterface;
 use phpOMS\DataStorage\DataStorageConnectionInterface;
 use phpOMS\DataStorage\Database\Connection\ConnectionAbstract;
 use phpOMS\DataStorage\Database\Connection\ConnectionFactory;
+use phpOMS\DataStorage\Database\Connection\ConnectionInterface;
 
 /**
  * Database pool handler.
@@ -50,14 +51,14 @@ class DatabasePool implements DataStoragePoolInterface
     /**
      * Add database.
      *
-     * @param mixed               $key Database key
-     * @param ConnectionInterface $db  Database
+     * @param mixed                          $key Database key
+     * @param DataStorageConnectionInterface $db  Database
      *
      * @return bool
      *
      * @since  1.0.0
      */
-    public function add(string $key, ConnectionInterface $db) : bool
+    public function add(string $key, DataStorageConnectionInterface $db) : bool
     {
         if (isset($this->pool[$key])) {
             return false;
@@ -113,14 +114,14 @@ class DatabasePool implements DataStoragePoolInterface
     /**
      * Create database.
      *
-     * @param mixed $key    Database key
-     * @param array $config Database config data
+     * @param string $key    Database key
+     * @param array  $config Database config data
      *
      * @return bool
      *
      * @since  1.0.0
      */
-    public function create($key, array $config) : bool
+    public function create(string $key, array $config) : bool
     {
         if (isset($this->pool[$key])) {
             return false;

@@ -11,9 +11,9 @@
  * @link       http://website.orange-management.de
  */
 
-namespace phpOMS\tests\DataStorage\Cache;
+namespace phpOMS\tests\DataStorage\Cache\Connection;
 
-use phpOMS\DataStorage\Cache\NullCache;
+use phpOMS\DataStorage\Cache\Connection\NullCache;
 
 class NullCacheTest extends \PHPUnit\Framework\TestCase
 {

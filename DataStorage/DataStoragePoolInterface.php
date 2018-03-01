@@ -30,14 +30,14 @@ interface DataStoragePoolInterface
     /**
      * Add connection.
      *
-     * @param mixed               $key Connection key
-     * @param ConnectionInterface $db  Connection
+     * @param mixed                          $key Connection key
+     * @param DataStorageConnectionInterface $db  Connection
      *
      * @return bool
      *
      * @since  1.0.0
      */
-    public function add(string $key, ConnectionInterface $db);
+    public function add(string $key, DataStorageConnectionInterface $db) : bool;
 
     /**
      * Get connection.
@@ -64,12 +64,12 @@ interface DataStoragePoolInterface
     /**
      * Create connection.
      *
-     * @param mixed $key    Connection key
-     * @param array $config Connection config data
+     * @param string $key    Connection key
+     * @param array  $config Connection config data
      *
      * @return bool
      *
      * @since  1.0.0
      */
-    public function create($key, array $config) : bool;
+    public function create(string $key, array $config) : bool;
 }

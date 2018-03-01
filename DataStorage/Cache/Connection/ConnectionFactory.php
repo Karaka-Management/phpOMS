@@ -14,7 +14,7 @@ declare(strict_types=1);
 
 namespace phpOMS\DataStorage\Cache\Connection;
 
-use phpOMS\DataStorage\Cache\CacheStatus;
+use phpOMS\DataStorage\Cache\CacheType;
 
 /**
  * Cache connection factory.
@@ -24,7 +24,7 @@ use phpOMS\DataStorage\Cache\CacheStatus;
  * @link       http://website.orange-management.de
  * @since      1.0.0
  */
-class CacheFactory
+class ConnectionFactory
 {
 
     /**
@@ -44,22 +44,22 @@ class CacheFactory
      *
      * @param string[] $cacheData the basic cache information for establishing a connection
      *
-     * @return CacheInterface
+     * @return ConnectionInterface
      *
      * @throws \InvalidArgumentException Throws this exception if the cache is not supported.
      *
      * @since  1.0.0
      */
-    public static function create(array $cacheData) : CacheInterface
+    public static function create(array $cacheData) : ConnectionInterface
     {
         switch ($cacheData['type']) {
-            case CacheStatus::FILE:
+            case CacheType::FILE:
                 return new FileCache($cacheData['path']);
-            case CacheStatus::REDIS:
+            case CacheType::REDIS:
                 return new RedisCache($cacheData);
-            case CacheStatus::MEMCACHED:
+            case CacheType::MEMCACHED:
                 return new MemcachedCache($cacheData);
-            case CacheStatus::WINCACHE:
+            case CacheType::WINCACHE:
                 return new WinCache($cacheData);
             default:
                 throw new \InvalidArgumentException('Cache "' . $cacheData['type'] . '" is not supported.');

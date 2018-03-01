@@ -14,6 +14,7 @@ declare(strict_types=1);
 
 namespace phpOMS\DataStorage\Cache\Connection;
 
+use phpOMS\DataStorage\Cache\CacheStatus;
 use phpOMS\Stdlib\Base\Exception\InvalidEnumValue;
 use phpOMS\System\File\Local\Directory;
 use phpOMS\System\File\Local\File;
@@ -48,28 +49,12 @@ class FileCache extends ConnectionAbstract
     /* private */ const SANITIZE = '~';
 
     /**
-     * Cache path.
-     *
-     * @var string
-     * @since 1.0.0
-     */
-    private $cachePath = __DIR__ . '/../../../Cache';
-
-    /**
      * Only cache if data is larger than threshold (0-100).
      *
      * @var int
      * @since 1.0.0
      */
     private $threshold = 50;
-
-    /**
-     * Cache status.
-     *
-     * @var int
-     * @since 1.0.0
-     */
-    private $status = CacheStatus::ACTIVE;
 
     /**
      * Constructor
@@ -80,11 +65,20 @@ class FileCache extends ConnectionAbstract
      */
     public function __construct(string $path)
     {
-        if (!Directory::exists(File::parent($path))) {
+        if (!Directory::exists($path)) {
             Directory::create($path, 0664, true);
         }
 
-        $this->cachePath = realpath($path);
+        $this->status = CacheStatus::ACTIVE;
+        $this->con    = realpath($path);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function connect(array $dbdata) /* : void */
+    {
+        $this->status = CacheStatus::ACTIVE;
     }
 
     /**
@@ -96,21 +90,9 @@ class FileCache extends ConnectionAbstract
             return false;
         }
 
-        array_map('unlink', glob($this->cachePath . '/*'));
+        array_map('unlink', glob($this->con . '/*'));
 
         return true;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function setStatus(int $status) /* : void */
-    {
-        if (!CacheStatus::isValidValue($status)) {
-            throw new InvalidEnumValue($status);
-        }
-
-        $this->status = $status;
     }
 
     /**
@@ -120,9 +102,9 @@ class FileCache extends ConnectionAbstract
     {
         $stats            = [];
         $stats['status']  = $this->status;
-        $stats['count']   = Directory::count($this->cachePath);
-        $stats['size']    = Directory::size($this->cachePath);
-        $stats['changed'] = Directory::changed($this->cachePath);
+        $stats['count']   = Directory::count($this->con);
+        $stats['size']    = Directory::size($this->con);
+        $stats['changed'] = Directory::changed($this->con);
 
         return $stats;
     }
@@ -147,7 +129,7 @@ class FileCache extends ConnectionAbstract
         // todo: allow $key to contain / as char and create subdirectory if necessary. This is important for cleaner caching.
         $path = File::sanitize($key, self::SANITIZE);
 
-        File::put($this->cachePath . '/' . trim($path, '/') . '.cache', $this->build($value, $expire));
+        File::put($this->con . '/' . trim($path, '/') . '.cache', $this->build($value, $expire));
     }
 
     /**
@@ -200,19 +182,21 @@ class FileCache extends ConnectionAbstract
     private function dataType($value) : int
     {
         if (is_int($value)) {
-            return CacheType::_INT;
+            return CacheValueType::_INT;
         } elseif (is_float($value)) {
-            return CacheType::_FLOAT;
+            return CacheValueType::_FLOAT;
         } elseif (is_string($value)) {
-            return CacheType::_STRING;
+            return CacheValueType::_STRING;
         } elseif (is_bool($value)) {
-            return CacheType::_BOOL;
+            return CacheValueType::_BOOL;
         } elseif (is_array($value)) {
-            return CacheType::_ARRAY;
+            return CacheValueType::_ARRAY;
+        } elseif ($value === null) {
+            return CacheValueType::_NULL;
         } elseif ($value instanceof \Serializable) {
-            return CacheType::_SERIALIZABLE;
+            return CacheValueType::_SERIALIZABLE;
         } elseif ($value instanceof \JsonSerializable) {
-            return CacheType::_JSONSERIALIZABLE;
+            return CacheValueType::_JSONSERIALIZABLE;
         }
 
         throw new \InvalidArgumentException('Invalid value');
@@ -232,14 +216,16 @@ class FileCache extends ConnectionAbstract
      */
     private function stringify($value, int $type) : string
     {
-        if ($type === CacheType::_INT || $type === CacheType::_FLOAT || $type === CacheType::_STRING || $type === CacheType::_BOOL) {
+        if ($type === CacheValueType::_INT || $type === CacheValueType::_FLOAT || $type === CacheValueType::_STRING || $type === CacheValueType::_BOOL) {
             return (string) $value;
-        } elseif ($type === CacheType::_ARRAY) {
+        } elseif ($type === CacheValueType::_ARRAY) {
             return json_encode($value);
-        } elseif ($type === CacheType::_SERIALIZABLE) {
+        } elseif ($type === CacheValueType::_SERIALIZABLE) {
             return get_class($value) . self::DELIM . $value->serialize();
-        } elseif ($type === CacheType::_JSONSERIALIZABLE) {
+        } elseif ($type === CacheValueType::_JSONSERIALIZABLE) {
             return get_class($value) . self::DELIM . $value->jsonSerialize();
+        } elseif ($type === CacheValueType::_NULL) {
+            return '';
         }
 
         throw new InvalidEnumValue($type);
@@ -316,23 +302,26 @@ class FileCache extends ConnectionAbstract
         $value = null;
 
         switch ($type) {
-            case CacheType::_INT:
+            case CacheValueType::_INT:
                 $value = (int) substr($raw, $expireEnd + 1);
                 break;
-            case CacheType::_FLOAT:
+            case CacheValueType::_FLOAT:
                 $value = (float) substr($raw, $expireEnd + 1);
                 break;
-            case CacheType::_BOOL:
+            case CacheValueType::_BOOL:
                 $value = (bool) substr($raw, $expireEnd + 1);
                 break;
-            case CacheType::_STRING:
+            case CacheValueType::_STRING:
                 $value = substr($raw, $expireEnd + 1);
                 break;
-            case CacheType::_ARRAY:
+            case CacheValueType::_ARRAY:
                 $value = json_decode(substr($raw, $expireEnd + 1));
                 break;
-            case CacheType::_SERIALIZABLE:
-            case CacheType::_JSONSERIALIZABLE:
+            case CacheValueType::_NULL:
+                $value = null;
+                break;
+            case CacheValueType::_SERIALIZABLE:
+            case CacheValueType::_JSONSERIALIZABLE:
                 $namespaceStart = strpos($raw, self::DELIM, $expireEnd);
                 $namespaceEnd   = strpos($raw, self::DELIM, $namespaceStart + 1);
                 $namespace      = substr($raw, $namespaceStart, $namespaceEnd);
@@ -388,7 +377,7 @@ class FileCache extends ConnectionAbstract
             return false;
         }
 
-        $dir = new Directory($this->cachePath);
+        $dir = new Directory($this->con);
         $now = time();
 
         foreach ($dir as $file) {
@@ -437,6 +426,6 @@ class FileCache extends ConnectionAbstract
     private function getPath($key) : string
     {
         $path = File::sanitize($key, self::SANITIZE);
-        return $this->cachePath . '/' . trim($path, '/') . '.cache';
+        return $this->con . '/' . trim($path, '/') . '.cache';
     }
 }
