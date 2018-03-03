@@ -39,5 +39,26 @@ class CholeskyDecompositionTest extends \PHPUnit\Framework\TestCase
         $vec = new Vector();
         $vec->setMatrix([[40], [49], [28]]);
         self::assertEquals([[1], [2], [3]], $cholesky->solve($vec)->toArray(), '', 0.2);
+
+        self::assertTrue($cholesky->isSpd());
+    }
+
+    /**
+     * @expectedException \phpOMS\Math\Matrix\Exception\InvalidDimensionException
+     */
+    public function testInvalidDimension()
+    {
+        $A = new Matrix();
+        $A->setMatrix([
+            [25, 15, -5],
+            [15, 17, 0],
+            [-5, 0, 11],
+        ]);
+
+        $cholesky = new CholeskyDecomposition($A);
+
+        $vec = new Vector();
+        $vec->setMatrix([[40], [49]]);
+        $cholesky->solve($vec);
     }
 }

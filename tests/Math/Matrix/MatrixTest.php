@@ -159,7 +159,7 @@ class MatrixTest extends \PHPUnit\Framework\TestCase
     /**
      * @expectedException \phpOMS\Math\Matrix\Exception\InvalidDimensionException
      */
-    public function invalidSetIndexException()
+    public function testInvalidSetIndexException()
     {
         $id = new Matrix();
         $id->setMatrix([
@@ -172,7 +172,7 @@ class MatrixTest extends \PHPUnit\Framework\TestCase
     /**
      * @expectedException \phpOMS\Math\Matrix\Exception\InvalidDimensionException
      */
-    public function invalidGetIndexException()
+    public function testInvalidGetIndexException()
     {
         $id = new Matrix();
         $id->setMatrix([
@@ -185,7 +185,7 @@ class MatrixTest extends \PHPUnit\Framework\TestCase
     /**
      * @expectedException \InvalidArgumentException
      */
-    public function invalidSub()
+    public function testInvalidSub()
     {
         $id = new Matrix();
         $id->setMatrix([
@@ -193,13 +193,13 @@ class MatrixTest extends \PHPUnit\Framework\TestCase
             [0, 1],
         ]);
 
-        $id->sub([]);
+        $id->sub(true);
     }
 
     /**
      * @expectedException \InvalidArgumentException
      */
-    public function invalidAdd()
+    public function testInvalidAdd()
     {
         $id = new Matrix();
         $id->setMatrix([
@@ -207,13 +207,13 @@ class MatrixTest extends \PHPUnit\Framework\TestCase
             [0, 1],
         ]);
 
-        $id->add([]);
+        $id->add(true);
     }
 
     /**
      * @expectedException \InvalidArgumentException
      */
-    public function invalidMult()
+    public function testInvalidMult()
     {
         $id = new Matrix();
         $id->setMatrix([
@@ -221,19 +221,19 @@ class MatrixTest extends \PHPUnit\Framework\TestCase
             [0, 1],
         ]);
 
-        $id->mult([]);
+        $id->mult(true);
     }
 
     /**
      * @expectedException \phpOMS\Math\Matrix\Exception\InvalidDimensionException
      */
-    public function invalidDimensionAdd()
+    public function testInvalidDimensionAdd()
     {
         $A = new Matrix();
         $A->setMatrix([[1, 2], [3, 4]]);
 
         $B = new Matrix();
-        $B->setMatrix([[1, 2], [3, 4], [5, 6]]);
+        $B->setMatrix([[1, 2, 1], [3, 4, 1], [5, 6, 1]]);
 
         $A->add($B);
     }
@@ -241,13 +241,13 @@ class MatrixTest extends \PHPUnit\Framework\TestCase
     /**
      * @expectedException \phpOMS\Math\Matrix\Exception\InvalidDimensionException
      */
-    public function invalidDimensionSub()
+    public function testInvalidDimensionSub()
     {
         $A = new Matrix();
         $A->setMatrix([[1, 2], [3, 4]]);
 
         $B = new Matrix();
-        $B->setMatrix([[1, 2], [3, 4], [5, 6]]);
+        $B->setMatrix([[1, 2, 1], [3, 4, 1], [5, 6, 1]]);
 
         $A->sub($B);
     }
@@ -255,13 +255,13 @@ class MatrixTest extends \PHPUnit\Framework\TestCase
     /**
      * @expectedException \phpOMS\Math\Matrix\Exception\InvalidDimensionException
      */
-    public function invalidDimensionMult()
+    public function testInvalidDimensionMult()
     {
         $A = new Matrix();
         $A->setMatrix([[1, 2], [3, 4]]);
 
         $B = new Matrix();
-        $B->setMatrix([[1, 2], [3, 4], [5, 6]]);
+        $B->setMatrix([[1, 2, 1], [3, 4, 1], [5, 6, 1]]);
 
         $A->mult($B);
     }

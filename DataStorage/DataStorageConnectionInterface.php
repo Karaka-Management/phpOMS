@@ -30,7 +30,7 @@ interface DataStorageConnectionInterface
      *
      * Overwrites current connection if existing
      *
-     * @param string[] $dbdata the basic datastorage information for establishing a connection
+     * @param string[] $data the basic datastorage information for establishing a connection
      *
      * @return void
      * 
@@ -38,7 +38,7 @@ interface DataStorageConnectionInterface
      *
      * @since  1.0.0
      */
-    public function connect(array $dbdata); /* : void */
+    public function connect(array $data); /* : void */
 
     /**
      * Get the datastorage type.

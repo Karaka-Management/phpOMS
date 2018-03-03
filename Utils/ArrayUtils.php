@@ -234,10 +234,6 @@ class ArrayUtils
                 case 'string':
                     $str .= $key . ' => \'' . $value . '\', ';
                     break;
-                case 'object':
-                    $str .= $key . ' => ' . get_class($value['default']) . '()';
-                    // TODO: implement object with parameters -> Reflection
-                    break;
                 case 'boolean':
                     $str .= $key . ' => ' . ($value['default'] ? 'true' : 'false') . ', ';
                     break;

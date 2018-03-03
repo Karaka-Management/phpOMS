@@ -4,7 +4,7 @@
  *
  * PHP Version 7.1
  *
- * @package    TBD
+ * @package    phpOMS\Math\Matrix
  * @copyright  Dennis Eichhorn
  * @license    OMS License 1.0
  * @version    1.0.0
@@ -14,18 +14,49 @@ declare(strict_types=1);
 
 namespace phpOMS\Math\Matrix;
 
+use phpOMS\Math\Matrix\Exception\InvalidDimensionException;
+
+/**
+ * Cholesky decomposition
+ *
+ * @package    phpOMS\Math\Matrix
+ * @license    OMS License 1.0
+ * @link       http://website.orange-management.de
+ * @since      1.0.0
+ */
 class CholeskyDecomposition
 {
+    /**
+     * L matrix.
+     *
+     * @var array
+     * @since 1.0.0
+     */
     private $L = [];
 
+    /**
+     * Dimension of L
+     *
+     * @var int
+     * @since 1.0.0
+     */
     private $m = 0;
 
     /**
-     * Is symmetric positive definite
+     * Is symmetric positiv definite
+     *
+     * @var bool
+     * @since 1.0.0
      */
     private $isSpd = true;
 
-    // see http://www.aip.de/groups/soe/local/numres/bookfpdf/f2-9.pdf
+    /**
+     * Constructor.
+     *
+     * @param Matrix $M Matrix
+     *
+     * @since  1.0.0
+     */
     public function __construct(Matrix $M)
     {
         $this->L = $M->toArray();
@@ -56,11 +87,25 @@ class CholeskyDecomposition
         }
     }
 
+    /**
+     * Is matrix symmetric positiv definite.
+     *
+     * @return bool
+     *
+     * @since  1.0.0
+     */
     public function isSpd() : bool
     {
         return $this->isSpd;
     }
 
+    /**
+     * Get L matrix
+     *
+     * @return Matrix
+     *
+     * @since  1.0.0
+     */
     public function getL() : Matrix
     {
         $matrix = new Matrix();
@@ -69,10 +114,19 @@ class CholeskyDecomposition
         return $matrix;
     }
 
+    /**
+     * Solve Ax = b
+     *
+     * @param Matrix $B Matrix
+     * 
+     * @return Matrix
+     *
+     * @since  1.0.0
+     */
     public function solve(Matrix $B) : Matrix
     {
         if ($B->getM() !== $this->m) {
-            throw new \Exception();
+            throw new InvalidDimensionException((string) $B->getM());
         }
 
         if (!$this->isSpd) {

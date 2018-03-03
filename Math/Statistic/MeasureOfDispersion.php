@@ -4,7 +4,7 @@
  *
  * PHP Version 7.1
  *
- * @package    TBD
+ * @package    phpOMS\Math\Statistic
  * @copyright  Dennis Eichhorn
  * @license    OMS License 1.0
  * @version    1.0.0
@@ -20,7 +20,7 @@ use phpOMS\Math\Matrix\Exception\InvalidDimensionException;
 /**
  * Measure of dispersion.
  *
- * @package    Framework
+ * @package    phpOMS\Math\Statistic
  * @license    OMS License 1.0
  * @link       http://website.orange-management.de
  * @since      1.0.0
@@ -66,7 +66,7 @@ class MeasureOfDispersion
     {
         $mean = $mean !== null ? $mean : Average::arithmeticMean($values);
 
-        if ($mean === 0) {
+        if ($mean === 0.0) {
             throw new ZeroDevisionException();
         }
 

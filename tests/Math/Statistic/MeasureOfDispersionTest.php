@@ -59,6 +59,14 @@ class MeasureOfDispersionTest extends \PHPUnit\Framework\TestCase
     /**
      * @expectedException phpOMS\Math\Exception\ZeroDevisionException
      */
+    public function testInvalidEmpiricalVariationCoefficient()
+    {
+        MeasureOfDispersion::empiricalVariationCoefficient([1, 2, 3, 4, 5, 6, 7], 0);
+    }
+
+    /**
+     * @expectedException phpOMS\Math\Exception\ZeroDevisionException
+     */
     public function testInvalidEmpiricalCovariance()
     {
         MeasureOfDispersion::empiricalCovariance([], []);

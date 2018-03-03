@@ -91,7 +91,7 @@ class Matrix implements \ArrayAccess, \Iterator
      */
     public function set(int $m, int $n, $value) /* : void */
     {
-        if (!isset($this->matrix[$m][$n])) {
+        if (!isset($this->matrix[$m], $this->matrix[$m][$n])) {
             throw new InvalidDimensionException($m . 'x' . $n);
         }
 
@@ -112,7 +112,7 @@ class Matrix implements \ArrayAccess, \Iterator
      */
     public function get(int $m, int $n)
     {
-        if (!isset($this->matrix[$m][$n])) {
+        if (!isset($this->matrix[$m], $this->matrix[$m][$n])) {
             throw new InvalidDimensionException($m . 'x' . $n);
         }
 
@@ -203,9 +203,9 @@ class Matrix implements \ArrayAccess, \Iterator
      */
     public function sub($value) : Matrix
     {
-        if ($value instanceOf Matrix) {
-            return $this->add($this->mult(-1));
-        } elseif (is_scalar($value)) {
+        if ($value instanceof Matrix) {
+            return $this->add($value->mult(-1));
+        } elseif (is_numeric($value)) {
             return $this->add(-$value);
         }
 
@@ -225,9 +225,9 @@ class Matrix implements \ArrayAccess, \Iterator
      */
     public function add($value) : Matrix
     {
-        if ($value instanceOf Matrix) {
+        if ($value instanceof Matrix) {
             return $this->addMatrix($value);
-        } elseif (is_scalar($value)) {
+        } elseif (is_numeric($value)) {
             return $this->addScalar($value);
         }
 
@@ -330,9 +330,9 @@ class Matrix implements \ArrayAccess, \Iterator
      */
     public function mult($value) : Matrix
     {
-        if ($value instanceOf Matrix) {
+        if ($value instanceof Matrix) {
             return $this->multMatrix($value);
-        } elseif (is_scalar($value)) {
+        } elseif (is_numeric($value)) {
             return $this->multScalar($value);
         }
 

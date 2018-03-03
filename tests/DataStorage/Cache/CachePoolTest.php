@@ -33,7 +33,9 @@ class CachePoolTest extends \PHPUnit\Framework\TestCase
         self::assertTrue($pool->add('test', new FileCache(__DIR__)));
         self::assertFalse($pool->add('test', new FileCache(__DIR__)));
         self::assertInstanceOf('\phpOMS\DataStorage\Cache\Connection\ConnectionInterface', $pool->get('test'));
+        self::assertInstanceOf('\phpOMS\DataStorage\Cache\Connection\ConnectionInterface', $pool->get());
         self::assertTrue($pool->create('abc', ['type' => 'file', 'path' => __DIR__]));
+        self::assertFalse($pool->create('abc', ['type' => 'file', 'path' => __DIR__]));
         self::assertInstanceOf('\phpOMS\DataStorage\Cache\Connection\ConnectionInterface', $pool->get('abc'));
         self::assertTrue($pool->remove('abc'));
         self::assertEquals(null, $pool->get('abc'));

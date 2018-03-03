@@ -450,4 +450,30 @@ class Request extends RequestAbstract
 
         return $this->method;
     }
+
+    /**
+     * Perform rest request
+     *
+     * @return string
+     *
+     * @since  1.0.0
+     */
+    public function rest() : string
+    {
+        return Rest::request($this);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function __toString() : string
+    {
+        if ($this->getMethod() === RequestMethod::GET && !empty($this->data)) {
+            return $this->uri->__toString() 
+                . (parse_url($this->uri->__toString(), PHP_URL_QUERY) ? '&' : '?') 
+                . http_build_query($this->data);
+        }
+
+        return parent::__toString();
+    }
 }

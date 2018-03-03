@@ -58,6 +58,14 @@ class ModuleManagerTest extends \PHPUnit\Framework\TestCase
         self::assertInstanceOf('\phpOMS\Module\NullModule', $moduleManager->get('doesNotExist2'));
     }
 
+    public function testUnknwonModuleModification()
+    {
+        $moduleManager = new ModuleManager($this->app, __DIR__ . '/../../../Modules');
+
+        self::assertFalse($moduleManager->activate('randomErrorTest1'));
+        self::assertFalse($moduleManager->deactivate('randomErrorTest1'));
+    }
+
     public function testGetSet()
     {
         $this->app->router     = new Router();

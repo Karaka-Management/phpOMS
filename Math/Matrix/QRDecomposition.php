@@ -4,7 +4,7 @@
  *
  * PHP Version 7.1
  *
- * @package    TBD
+ * @package    phpOMS\Math\Matrix
  * @copyright  Dennis Eichhorn
  * @license    OMS License 1.0
  * @version    1.0.0
@@ -14,6 +14,14 @@ declare(strict_types=1);
 
 namespace phpOMS\Math\Matrix;
 
+/**
+ * QR decomposition
+ *
+ * @package    phpOMS\Math\Matrix
+ * @license    OMS License 1.0
+ * @link       http://website.orange-management.de
+ * @since      1.0.0
+ */
 class QRDecomposition
 {
     private $QR = [];

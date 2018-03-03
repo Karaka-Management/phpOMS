@@ -4,7 +4,7 @@
  *
  * PHP Version 7.1
  *
- * @package    TBD
+ * @package    phpOMS\Math\Matrix
  * @copyright  Dennis Eichhorn
  * @license    OMS License 1.0
  * @version    1.0.0
@@ -14,17 +14,65 @@ declare(strict_types=1);
 
 namespace phpOMS\Math\Matrix;
 
+use phpOMS\Math\Matrix\Exception\InvalidDimensionException;
+
+/**
+ * LU decomposition
+ *
+ * @package    phpOMS\Math\Matrix
+ * @license    OMS License 1.0
+ * @link       http://website.orange-management.de
+ * @since      1.0.0
+ */
 class LUDecomposition
 {
+    /**
+     * LU matrix.
+     *
+     * @var array
+     * @since 1.0.0
+     */
     private $LU = [];
 
+    /**
+     * Dimension m
+     *
+     * @var int
+     * @since 1.0.0
+     */
     private $m = 0;
+
+    /**
+     * Dimension n
+     *
+     * @var int
+     * @since 1.0.0
+     */
     private $n = 0;
 
+    /**
+     * Pivot sign
+     *
+     * @var int
+     * @since 1.0.0
+     */
     private $pivSign = 1;
 
+    /**
+     * Pivot
+     *
+     * @var array
+     * @since 1.0.0
+     */
     private $piv = [];
 
+    /**
+     * Constructor.
+     *
+     * @param Matrix $M Matrix
+     *
+     * @since  1.0.0
+     */
     public function __construct(Matrix $M)
     {
         $this->LU = $M->toArray();
@@ -82,6 +130,13 @@ class LUDecomposition
         }
     }
 
+    /**
+     * Get L matrix
+     *
+     * @return Matrix
+     *
+     * @since  1.0.0
+     */
     public function getL() : Matrix
     {
         $L = [[]];
@@ -104,6 +159,13 @@ class LUDecomposition
         return $matrix;
     }
 
+    /**
+     * Get U matrix
+     *
+     * @return Matrix
+     *
+     * @since  1.0.0
+     */
     public function getU() : Matrix
     {
         $U = [[]];
@@ -124,11 +186,25 @@ class LUDecomposition
         return $matrix;
     }
 
-    public function getPivot()
+    /**
+     * Get pivot
+     *
+     * @return array
+     *
+     * @since  1.0.0
+     */
+    public function getPivot() : array
     {
         return $this->piv;
     }
 
+    /**
+     * Is matrix nonsingular
+     *
+     * @return bool
+     *
+     * @since  1.0.0
+     */
     public function isNonsingular() : bool
     {
         for ($j = 0; $j < $this->n; ++$j) {
@@ -140,6 +216,13 @@ class LUDecomposition
         return true;
     }
 
+    /**
+     * Get determinant
+     *
+     * @return mixed
+     *
+     * @since  1.0.0
+     */
     public function det()
     {
         $d = $this->pivSign;
@@ -150,10 +233,19 @@ class LUDecomposition
         return $d;
     }
 
+    /**
+     * Solve Ax = b
+     *
+     * @param Matrix $B Matrix
+     * 
+     * @return Matrix
+     *
+     * @since  1.0.0
+     */
     public function solve(Matrix $B) : Matrix
     {
         if ($B->getM() !== $this->m) {
-            throw new \Exception();
+            throw new InvalidDimensionException((string) $B->getM());
         }
 
         if (!$this->isNonsingular()) {

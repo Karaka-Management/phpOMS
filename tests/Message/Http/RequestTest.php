@@ -77,8 +77,6 @@ class RequestTest extends \PHPUnit\Framework\TestCase
         self::assertEquals('http://www.google.com/test/path', $request->getUri()->__toString());
 
         $request->createRequestHashs(0);
-        self::assertEquals('http://www.google.com/test/path', $request->__toString());
-
         self::assertEquals([
             'a94a8fe5ccb19ba61c4c0873d391e987982fbbd3',
             '328413d996ab9b79af9d4098af3a65b885c4ca64'
@@ -98,6 +96,34 @@ class RequestTest extends \PHPUnit\Framework\TestCase
         $request->createRequestHashs(0);
 
         self::assertEquals('http://www.google.com/test/path2', $request->__toString());
+    }
+
+    public function testToString()
+    {
+        $request = new Request(new Http('http://www.google.com/test/path'));
+        self::assertEquals('http://www.google.com/test/path', $request->__toString());
+
+        $request->setData('test', 'data');
+        $request->setData('test2', 3);
+        self::assertEquals('http://www.google.com/test/path?test=data&test2=3', $request->__toString());
+
+        $request = new Request(new Http('http://www.google.com/test/path?test=var'));
+        self::assertEquals('http://www.google.com/test/path?test=var', $request->__toString());
+
+        $request->setData('test', 'data');
+        $request->setData('test2', 3);
+        self::assertEquals('http://www.google.com/test/path?test=var&test=data&test2=3', $request->__toString());
+    }
+
+    public function testRestRequest()
+    {
+        $request = new Request(new Http('http://orange-management.de/phpOMS/LICENSE.txt'));
+        $request->setMethod(RequestMethod::GET);
+
+        self::assertEquals(
+            "The OMS License 1.0\n\nCopyright (c) <Dennis Eichhorn> All Rights Reserved\n\nTHE SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR\nIMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,\nFITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE\nAUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER\nLIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,\nOUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN\nTHE SOFTWARE.",
+           $request->rest()
+        );
     }
 
     /**

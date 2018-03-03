@@ -76,7 +76,7 @@ class FileCache extends ConnectionAbstract
     /**
      * {@inheritdoc}
      */
-    public function connect(array $dbdata) /* : void */
+    public function connect(array $data) /* : void */
     {
         $this->status = CacheStatus::ACTIVE;
     }

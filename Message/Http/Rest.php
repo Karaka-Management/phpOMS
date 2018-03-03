@@ -39,22 +39,26 @@ class Rest
         $curl = curl_init();
 
         switch ($request->getMethod()) {
-            case RequestMethod::POST:
-                curl_setopt($curl, CURLOPT_POST, 1);
-
-                if ($request->getData() !== null) {
-                    curl_setopt($curl, CURLOPT_POSTFIELDS, $request->getData());
-                }
-                break;
             case RequestMethod::PUT:
-                curl_setopt($curl, CURLOPT_PUT, 1);
+                curl_setopt($curl, CURLOPT_CUSTOMREQUEST, 'PUT');
+                break;
+            case RequestMethod::DELETE:
+                curl_setopt($curl, CURLOPT_CUSTOMREQUEST, 'DELETE');
                 break;
         }
 
-        curl_setopt($curl, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
-        curl_setopt($curl, CURLOPT_USERPWD, "username:password");
+        if ($request->getMethod() !== RequestMethod::GET) {
+            curl_setopt($curl, CURLOPT_POST, 1);
 
-        curl_setopt($curl, CURLOPT_URL, $request->getUri()->__toString());
+            if ($request->getData() !== null) {
+                curl_setopt($curl, CURLOPT_POSTFIELDS, $request->getData());
+            }
+        }
+
+        curl_setopt($curl, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
+        curl_setopt($curl, CURLOPT_USERPWD, 'username:password');
+
+        curl_setopt($curl, CURLOPT_URL, $request->__toString());
         curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
 
         $result = curl_exec($curl);

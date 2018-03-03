@@ -78,9 +78,11 @@ class ArrayUtilsTest extends \PHPUnit\Framework\TestCase
                 ],
             ],
             2 => '2a',
+            3 => false,
+            'c' => null
         ];
 
-        $expected_str = "['a' => ['aa' => 1, 'ab' => [0 => 'aba', 1 => 'ab0', ], ], 2 => '2a', ]";
+        $expected_str = "['a' => ['aa' => 1, 'ab' => [0 => 'aba', 1 => 'ab0', ], ], 2 => '2a', 3 => false, 'c' => null, ]";
 
         self::assertEquals($expected_str, ArrayUtils::stringify($expected));
         self::assertEquals('2;3;1;"""Text;"' . "\n", ArrayUtils::arrayToCsv(['a' => 2, 3, 1, '"Text;'], ';', '"', '\\'));

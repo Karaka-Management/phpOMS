@@ -31,4 +31,36 @@ class RestTest extends \PHPUnit\Framework\TestCase
             Rest::request($request)
         );
     }
+
+    public function testPost()
+    {
+        $request = new Request(new Http('http://httpbin.org/post'));
+        $request->setMethod(RequestMethod::POST);
+        self::assertTrue($request->setData('pdata', 'abc'));
+        self::assertEquals('abc', json_decode(REST::request($request), true)['form']['pdata']);
+    }
+
+    public function testPut()
+    {
+        $request = new Request(new Http('http://httpbin.org/put'));
+        $request->setMethod(RequestMethod::PUT);
+        self::assertTrue($request->setData('pdata', 'abc'));
+        self::assertEquals('abc', json_decode(REST::request($request), true)['form']['pdata']);
+    }
+
+    public function testDelete()
+    {
+        $request = new Request(new Http('http://httpbin.org/delete'));
+        $request->setMethod(RequestMethod::DELETE);
+        self::assertTrue($request->setData('ddata', 'abc'));
+        self::assertEquals('abc', json_decode(REST::request($request), true)['form']['ddata']);
+    }
+
+    public function testGet()
+    {
+        $request = new Request(new Http('http://httpbin.org/get'));
+        $request->setMethod(RequestMethod::GET);
+        self::assertTrue($request->setData('gdata', 'abc'));
+        self::assertEquals('abc', json_decode(REST::request($request), true)['args']['gdata']);
+    }
 }

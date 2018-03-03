@@ -24,6 +24,7 @@ class IntegerTest extends \PHPUnit\Framework\TestCase
         self::assertFalse(Integer::isInteger('3'));
 
         self::assertArraySubset([2, 2, 5, 5], Integer::trialFactorization(100));
+        self::assertArraySubset([2], Integer::trialFactorization(2));
         self::assertEquals([], Integer::trialFactorization(1));
 
         self::assertEquals(101, Integer::pollardsRho(10403, 2, 1, 2, 2));
