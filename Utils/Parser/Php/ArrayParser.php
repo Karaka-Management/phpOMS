@@ -4,7 +4,7 @@
  *
  * PHP Version 7.1
  *
- * @package    TBD
+ * @package    phpOMS\Utils\Parser\Php
  * @copyright  Dennis Eichhorn
  * @license    OMS License 1.0
  * @version    1.0.0
@@ -19,7 +19,7 @@ namespace phpOMS\Utils\Parser\Php;
  *
  * Parsing/serializing arrays to and from php file
  *
- * @package    Framework
+ * @package    phpOMS\Utils\Parser\Php
  * @license    OMS License 1.0
  * @link       http://website.orange-management.de
  * @since      1.0.0

@@ -4,7 +4,7 @@
  *
  * PHP Version 7.1
  *
- * @package    TBD
+ * @package    phpOMS\Utils\Parser\Markdown
  * @copyright  Dennis Eichhorn
  * @license    OMS License 1.0
  * @license    Original license Emanuil Rusev, erusev.com (MIT)
@@ -18,7 +18,7 @@ namespace phpOMS\Utils\Parser\Markdown;
 /**
  * Markdown parser class.
  *
- * @package    Framework
+ * @package    phpOMS\Utils\Parser\Markdown
  * @license    OMS License 1.0
  * @license    Original license Emanuil Rusev, erusev.com (MIT)
  * @link       http://website.orange-management.de
@@ -26,6 +26,12 @@ namespace phpOMS\Utils\Parser\Markdown;
  */
 class Markdown
 {
+    /**
+     * Blocktypes.
+     *
+     * @var string[]
+     * @since 1.0.0
+     */
     protected static $blockTypes = [
         '#' => ['Header'],
         '*' => ['Rule', 'List'],
@@ -51,30 +57,72 @@ class Markdown
         '~' => ['FencedCode'],
     ];
 
+    /**
+     * Blocktypes.
+     *
+     * @var string[]
+     * @since 1.0.0
+     */
     protected static $unmarkedBlockTypes = [
         'Code',
     ];
 
+    /**
+     * Special reserved characters.
+     *
+     * @var string[]
+     * @since 1.0.0
+     */
     protected static $specialCharacters = [
         '\\', '`', '*', '_', '{', '}', '[', ']', '(', ')', '>', '#', '+', '-', '.', '!', '|',
     ];
 
+    /**
+     * Regex for strong.
+     *
+     * @var string[]
+     * @since 1.0.0
+     */
     protected static $strongRegex = [
         '*' => '/^[*]{2}((?:\\\\\*|[^*]|[*][^*]*[*])+?)[*]{2}(?![*])/s',
         '_' => '/^__((?:\\\\_|[^_]|_[^_]*_)+?)__(?!_)/us',
     ];
 
+    /**
+     * Regex for em.
+     *
+     * @var string[]
+     * @since 1.0.0
+     */
     protected static $emRegex = [
         '*' => '/^[*]((?:\\\\\*|[^*]|[*][*][^*]+?[*][*])+?)[*](?![*])/s',
         '_' => '/^_((?:\\\\_|[^_]|__[^_]*__)+?)_(?!_)\b/us',
     ];
 
+    /**
+     * Regex for identifying html attributes.
+     *
+     * @var string
+     * @since 1.0.0
+     */
     protected static $regexHtmlAttribute = '[a-zA-Z_:][\w:.-]*(?:\s*=\s*(?:[^"\'=<>`\s]+|"[^"]*"|\'[^\']*\'))?';
 
+    /**
+     * Regex for strong.
+     *
+     * @var string[]
+     * @since 1.0.0
+     */
     protected static $voidElements = [
         'area', 'base', 'br', 'col', 'command', 'embed', 'hr', 'img', 'input', 'link', 'meta', 'param', 'source',
     ];
 
+    /**
+     * Text elements.
+     *
+     * @var string[]
+     * @since 1.0.0
+     */
     protected static $textLevelElements = [
         'a', 'br', 'bdo', 'abbr', 'blink', 'nextid', 'acronym', 'basefont',
         'b', 'em', 'big', 'cite', 'small', 'spacer', 'listing',
@@ -87,6 +135,12 @@ class Markdown
                    'wbr', 'time',
     ];
 
+    /**
+     * Inline identifiers.
+     *
+     * @var string[]
+     * @since 1.0.0
+     */
     protected static $inlineTypes = [
         '"' => ['SpecialCharacter'],
         '!' => ['Image'],
@@ -102,24 +156,65 @@ class Markdown
         '\\' => ['EscapeSequence'],
     ];
 
+    /**
+     * List of inline start markers.
+     *
+     * @var string
+     * @since 1.0.0
+     */
     protected static $inlineMarkerList = '!"*_&[:<>`~\\';
 
+    /**
+     * Continuable elements.
+     *
+     * @var string[]
+     * @since 1.0.0
+     */
     private static $continuable = [
         'Code', 'FencedCode', 'List', 'Quote', 'Table'
     ];
 
+    /**
+     * Completable elments.
+     *
+     * @var string[]
+     * @since 1.0.0
+     */
     private static $completable = [
         'Code', 'FencedCode'
     ];
 
+    /**
+     * Safe link types whitelist.
+     *
+     * @var string[]
+     * @since 1.0.0
+     */
     protected static $safeLinksWhitelist = [
         'http://', 'https://', 'ftp://', 'ftps://', 'mailto:',
         'data:image/png;base64,', 'data:image/gif;base64,', 'data:image/jpeg;base64,',
         'irc:', 'ircs:', 'git:', 'ssh:', 'news:', 'steam:',
     ];
 
+    /**
+     * Some definition data for elements
+     * 
+     * @todo: figure out what it is for
+     *
+     * @var string[]
+     * @since 1.0.0
+     */
     private static $definitionData = [];
 
+    /**
+     * Parse markdown
+     *
+     * @param string $text Markdown text
+     * 
+     * @return string
+     *
+     * @since  1.0.0
+     */
     public static function parse(string $text) : string
     {
         self::$definitionData = [];
@@ -132,6 +227,15 @@ class Markdown
         return trim($markup, "\n");
     }
 
+    /**
+     * Parse lines
+     *
+     * @param array $lines Markdown lines
+     * 
+     * @return string
+     *
+     * @since  1.0.0
+     */
     protected static function lines(array $lines) : string
     {
         $currentBlock = null;
@@ -241,6 +345,16 @@ class Markdown
         return $markup;
     }
 
+    /**
+     * Handle block code
+     *
+     * @param array $lineArray Line information
+     * @param array $block     Block information
+     * 
+     * @return null|array
+     *
+     * @since  1.0.0
+     */
     protected static function blockCode(array $lineArray, array $block = null) /* : ?array */
     {
         if ($block !== null && !isset($block['type']) && !isset($block['interrupted'])) {
@@ -263,6 +377,16 @@ class Markdown
         ];
     }
 
+    /**
+     * Handle continuable block code
+     *
+     * @param array $lineArray Line information
+     * @param array $block     Block information
+     * 
+     * @return null|array
+     *
+     * @since  1.0.0
+     */
     protected static function blockCodeContinue(array $lineArray, array $block) /* : ?array */
     {
         if ($lineArray['indent'] < 4) {
@@ -281,14 +405,32 @@ class Markdown
         return $block;
     }
 
+    /**
+     * Handle completed code
+     *
+     * @param array $block Block information
+     * 
+     * @return null|array
+     *
+     * @since  1.0.0
+     */
     protected static function blockCodeComplete(array $block) : array
     {
         return $block;
     }
 
+    /**
+     * Handle fenced code
+     *
+     * @param array $lineArray Line information
+     * 
+     * @return null|array
+     *
+     * @since  1.0.0
+     */
     protected static function blockFencedCode(array $lineArray) /* : ?array */
     {
-        if (!preg_match('/^[' . $lineArray['text'][0] . ']{3,}[ ]*([\w-]+)?[ ]*$/', $lineArray['text'], $matches)) {
+        if (!preg_match('/^[' . $lineArray['text'][0] . ']{3,}[ ]*([^`]+)?[ ]*$/', $lineArray['text'], $matches)) {
             return;
         }
 
@@ -313,6 +455,16 @@ class Markdown
         ];
     }
 
+    /**
+     * Handle continued fenced code
+     *
+     * @param array $lineArray Line information
+     * @param array $block     Block information
+     * 
+     * @return null|array
+     *
+     * @since  1.0.0
+     */
     protected static function blockFencedCodeContinue(array $lineArray, array $block) /* : ?array */
     {
         if (isset($block['complete'])) {
@@ -337,11 +489,29 @@ class Markdown
         return $block;
     }
 
+    /**
+     * Handle completed fenced block code
+     *
+     * @param array $block Block information
+     * 
+     * @return null|array
+     *
+     * @since  1.0.0
+     */
     protected static function blockFencedCodeComplete(array $block) : array
     {
         return $block;
     }
 
+    /**
+     * Handle header element
+     *
+     * @param array $lineArray Line information
+     * 
+     * @return null|array
+     *
+     * @since  1.0.0
+     */
     protected static function blockHeader(array $lineArray) /* : ?array */
     {
         if (!isset($lineArray['text'][1])) {
@@ -366,6 +536,15 @@ class Markdown
         ];
     }
 
+    /**
+     * Handle list
+     *
+     * @param array $lineArray Line information
+     * 
+     * @return null|array
+     *
+     * @since  1.0.0
+     */
     protected static function blockList(array $lineArray) /* : ?array */
     {
         list($name, $pattern) = $lineArray['text'][0] <= '-' ? ['ul', '[*+-]'] : ['ol', '[0-9]+[.]'];
@@ -404,6 +583,16 @@ class Markdown
         return $block;
     }
 
+    /**
+     * Handle continue list
+     *
+     * @param array $lineArray Line information
+     * @param array $block     Block information
+     * 
+     * @return null|array
+     *
+     * @since  1.0.0
+     */
     protected static function blockListContinue(array $lineArray, array $block) /* : ?array */
     {
         if ($block['indent'] === $lineArray['indent'] && preg_match('/^' . $block['pattern'] . '(?:[ ]+(.*)|$)/', $lineArray['text'], $matches)) {
@@ -448,6 +637,15 @@ class Markdown
         }
     }
 
+    /**
+     * Handle block quote
+     *
+     * @param array $lineArray Line information
+     * 
+     * @return null|array
+     *
+     * @since  1.0.0
+     */
     protected static function blockQuote(array $lineArray) /* : ?array */
     {
         if (!preg_match('/^>[ ]?(.*)/', $lineArray['text'], $matches)) {
@@ -463,6 +661,16 @@ class Markdown
         ];
     }
 
+    /**
+     * Handle continue quote
+     *
+     * @param array $lineArray Line information
+     * @param array $block     Block information
+     * 
+     * @return null|array
+     *
+     * @since  1.0.0
+     */
     protected static function blockQuoteContinue(array $lineArray, array $block) /* : ?array */
     {
         if ($lineArray['text'][0] === '>' && preg_match('/^>[ ]?(.*)/', $lineArray['text'], $matches)) {
@@ -484,6 +692,15 @@ class Markdown
         }
     }
 
+    /**
+     * Handle HR element
+     *
+     * @param array $lineArray Line information
+     * 
+     * @return null|array
+     *
+     * @since  1.0.0
+     */
     protected static function blockRule(array $lineArray) /* : ?array */
     {
         if (!preg_match('/^([' . $lineArray['text'][0] . '])([ ]*\1){2,}[ ]*$/', $lineArray['text'])) {
@@ -497,6 +714,16 @@ class Markdown
         ];
     }
 
+    /**
+     * Handle header for '=' indicator
+     *
+     * @param array $lineArray Line information
+     * @param array $block     Block information
+     * 
+     * @return null|array
+     *
+     * @since  1.0.0
+     */
     protected static function blockSetextHeader(array $lineArray, array $block = null) /* : ?array */
     {
         if (!isset($block) || isset($block['type']) || isset($block['interrupted'])) {
@@ -512,6 +739,15 @@ class Markdown
         return $block;
     }
 
+    /**
+     * Handle content reference
+     *
+     * @param array $lineArray Line information
+     * 
+     * @return null|array
+     *
+     * @since  1.0.0
+     */
     protected static function blockReference(array $lineArray) /* : ?array */
     {
         if (!preg_match('/^\[(.+?)\]:[ ]*<?(\S+?)>?(?:[ ]+["\'(](.+)["\')])?[ ]*$/', $lineArray['text'], $matches)) {
@@ -528,6 +764,16 @@ class Markdown
         return ['hidden' => true];
     }
 
+    /**
+     * Handle table
+     *
+     * @param array $lineArray Line information
+     * @param array $block     Block information
+     * 
+     * @return null|array
+     *
+     * @since  1.0.0
+     */
     protected static function blockTable($lineArray, array $block = null) /* : ?array */
     {
         if (!isset($block) || isset($block['type']) || isset($block['interrupted'])) {
@@ -613,6 +859,16 @@ class Markdown
         }
     }
 
+    /**
+     * Handle continue table
+     *
+     * @param array $lineArray Line information
+     * @param array $block     Block information
+     * 
+     * @return null|array
+     *
+     * @since  1.0.0
+     */
     protected static function blockTableContinue(array $lineArray, array $block) /* : ?array */
     {
         if (isset($block['interrupted'])) {
@@ -653,6 +909,15 @@ class Markdown
         }
     }
 
+    /**
+     * Handle paragraph
+     *
+     * @param array $lineArray Line information
+     * 
+     * @return array
+     *
+     * @since  1.0.0
+     */
     protected static function paragraph(array $lineArray) : array
     {
         return [
@@ -664,6 +929,15 @@ class Markdown
         ];
     }
 
+    /**
+     * Handle a single line
+     *
+     * @param string $text Line of text
+     * 
+     * @return array
+     *
+     * @since  1.0.0
+     */
     protected static function line(string $text) : string
     {
         $markup = '';
@@ -706,6 +980,15 @@ class Markdown
         return $markup;
     }
 
+    /**
+     * Handle inline code
+     *
+     * @param array $excerpt Markdown excerpt
+     * 
+     * @return null|array
+     *
+     * @since  1.0.0
+     */
     protected static function inlineCode(array $excerpt) /* : ?array */
     {
         $marker = $excerpt['text'][0];
@@ -723,6 +1006,15 @@ class Markdown
         ];
     }
 
+    /**
+     * Handle inline email
+     *
+     * @param array $excerpt Markdown excerpt
+     * 
+     * @return null|array
+     *
+     * @since  1.0.0
+     */
     protected static function inlineEmailTag(array $excerpt) /* : ?array */
     {
         if (strpos($excerpt['text'], '>') === false || !preg_match('/^<((mailto:)?\S+?@\S+?)>/i', $excerpt['text'], $matches)) {
@@ -747,6 +1039,15 @@ class Markdown
         ];
     }
 
+    /**
+     * Handle inline emphasis
+     *
+     * @param array $excerpt Markdown excerpt
+     * 
+     * @return null|array
+     *
+     * @since  1.0.0
+     */
     protected static function inlineEmphasis(array $excerpt) /* : ?array */
     {
         if (!isset($excerpt['text'][1])) {
@@ -773,6 +1074,15 @@ class Markdown
         ];
     }
 
+    /**
+     * Handle escape of special char
+     *
+     * @param array $excerpt Markdown excerpt
+     * 
+     * @return null|array
+     *
+     * @since  1.0.0
+     */
     protected static function inlineEscapeSequence(array $excerpt) /* : ?array */
     {
         if (!isset($excerpt['text'][1]) || !in_array($excerpt['text'][1], self::$specialCharacters)) {
@@ -785,6 +1095,15 @@ class Markdown
         ];
     }
 
+    /**
+     * Handle inline image
+     *
+     * @param array $excerpt Markdown excerpt
+     * 
+     * @return null|array
+     *
+     * @since  1.0.0
+     */
     protected static function inlineImage(array $excerpt) /* : ?array */
     {
         if (!isset($excerpt['text'][1]) || $excerpt['text'][1] !== '[') {
@@ -816,6 +1135,15 @@ class Markdown
         return $inline;
     }
 
+    /**
+     * Handle inline link
+     *
+     * @param array $excerpt Markdown excerpt
+     * 
+     * @return null|array
+     *
+     * @since  1.0.0
+     */
     protected static function inlineLink(array $excerpt) /* : ?array */
     {
         $element = [
@@ -873,6 +1201,15 @@ class Markdown
         ];
     }
 
+    /**
+     * Handle special char to html
+     *
+     * @param array $excerpt Markdown excerpt
+     * 
+     * @return null|array
+     *
+     * @since  1.0.0
+     */
     protected static function inlineSpecialCharacter(array $excerpt) /* : ?array */
     {
         if ($excerpt['text'][0] === '&' && !preg_match('/^&#?\w+;/', $excerpt['text'])) {
@@ -892,6 +1229,15 @@ class Markdown
         }
     }
 
+    /**
+     * Handle inline strike through
+     *
+     * @param array $excerpt Markdown excerpt
+     * 
+     * @return null|array
+     *
+     * @since  1.0.0
+     */
     protected static function inlineStrikethrough(array $excerpt) /* : ?array */
     {
         if (!isset($excerpt['text'][1])) {
@@ -912,6 +1258,15 @@ class Markdown
         ];
     }
 
+    /**
+     * Handle inline url
+     *
+     * @param array $excerpt Markdown excerpt
+     * 
+     * @return null|array
+     *
+     * @since  1.0.0
+     */
     protected static function inlineUrl(array $excerpt) /* : ?array */
     {
         if (!isset($excerpt['text'][2]) || $excerpt['text'][2] !== '/') {
@@ -935,6 +1290,15 @@ class Markdown
         ];
     }
 
+    /**
+     * Handle inline url
+     *
+     * @param array $excerpt Markdown excerpt
+     * 
+     * @return null|array
+     *
+     * @since  1.0.0
+     */
     protected static function inlineUrlTag(array $excerpt) /* : ?array */
     {
         if (strpos($excerpt['text'], '>') === false || !preg_match('/^<(\w+:\/{2}[^ >]+)>/i', $excerpt['text'], $matches)) {
@@ -953,6 +1317,15 @@ class Markdown
         ];
     }
 
+    /**
+     * Clean up normal text
+     *
+     * @param string $text Normal text
+     * 
+     * @return null|array
+     *
+     * @since  1.0.0
+     */
     protected static function unmarkedText(string $text) : string
     {
         $text = preg_replace('/(?:[ ][ ]+|[ ]*\\\\)\n/', "<br />\n", $text);
@@ -961,6 +1334,15 @@ class Markdown
         return $text;
     }
 
+    /**
+     * Handle general html element
+     *
+     * @param array $element Html element
+     * 
+     * @return null|array
+     *
+     * @since  1.0.0
+     */
     protected static function element(array $element) : string
     {
         $element = self::sanitizeElement($element);
@@ -987,6 +1369,15 @@ class Markdown
         return $markup;
     }
 
+    /**
+     * Handle an array of elements
+     *
+     * @param array $elements Elements
+     * 
+     * @return string
+     *
+     * @since  1.0.0
+     */
     protected static function elements(array $elements) : string
     {
         $markup = '';
@@ -1000,6 +1391,15 @@ class Markdown
         return $markup;
     }
 
+    /**
+     * Remove blocks
+     * 
+     * @param array $lines Lines
+     * 
+     * @return string
+     * 
+     * @since  1.0.0
+     */
     protected static function li(array $lines) : string
     {
         $markup        = self::lines($lines);
@@ -1015,6 +1415,15 @@ class Markdown
         return $markup;
     }
 
+    /**
+     * Sanitize an element
+     * 
+     * @param array $element Element to sanitize
+     * 
+     * @return string
+     *
+     * @since  1.0.0
+     */
     protected static function sanitizeElement(array $element) : array
     {
         $safeUrlNameToAtt = [
@@ -1039,6 +1448,16 @@ class Markdown
         return $element;
     }
 
+    /**
+     * Replace unsafe url
+     * 
+     * @param array  $element   Element to sanitize
+     * @param string $attribute Element attribute
+     * 
+     * @return array
+     *
+     * @since  1.0.0
+     */
     protected static function filterUnsafeUrlInAttribute(array $element, string $attribute) : array
     {
         foreach (self::$safeLinksWhitelist as $scheme) {
@@ -1052,12 +1471,32 @@ class Markdown
         return $element;
     }
 
+    /**
+     * Escape html elements
+     * 
+     * @param string $text        Text to escape
+     * @param string $allowQuotes Are quotes allowed
+     * 
+     * @return string
+     *
+     * @since  1.0.0
+     */
     protected static function escape(string $text, bool $allowQuotes = false) : string
     {
         return htmlspecialchars($text, $allowQuotes ? ENT_NOQUOTES : ENT_QUOTES, 'UTF-8');
     }
 
-    protected static function striAtStart(string $string, string $needle)
+    /**
+     * Check if string starts with
+     * 
+     * @param string $string Text to check against
+     * @param string $needle Needle to check
+     * 
+     * @return bool|string
+     *
+     * @since  1.0.0
+     */
+    protected static function striAtStart(string $string, string $needle) : bool
     {
         $length = strlen($needle);
 
