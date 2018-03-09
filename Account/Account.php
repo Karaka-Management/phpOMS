@@ -309,7 +309,7 @@ class Account implements ArrayableInterface, \JsonSerializable
      * @param int    $permission Permission to check
      * @param int    $unit       Unit Unit to check (null if all are acceptable)
      * @param string $app        App App to check  (null if all are acceptable)
-     * @param int    $module     Module Module to check  (null if all are acceptable)
+     * @param string $module     Module Module to check  (null if all are acceptable)
      * @param int    $type       Type (e.g. customer) (null if all are acceptable)
      * @param int    $element    (e.g. customer id) (null if all are acceptable)
      * @param int    $component  (e.g. address) (null if all are acceptable)
@@ -318,7 +318,7 @@ class Account implements ArrayableInterface, \JsonSerializable
      *
      * @since  1.0.0
      */
-    public function hasPermission(int $permission, int $unit = null, string $app = null, int $module = null, int $type = null, $element = null, $component = null) : bool
+    public function hasPermission(int $permission, int $unit = null, string $app = null, string $module = null, int $type = null, $element = null, $component = null) : bool
     {
         $app = $app !== null ? strtolower($app) : $app;
 

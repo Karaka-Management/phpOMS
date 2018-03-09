@@ -38,4 +38,5 @@ abstract class LoginReturnType extends Enum
     /* public */ const TIMEOUTED            = -7; /* User received a timeout and can not log in until a certain date */
     /* public */ const BANNED               = -8; /* User is banned */
     /* public */ const INACTIVE             = -9; /* User is inactive */
+    /* public */ const EMPTY_PASSWORD       = -10; /* Empty password in database */
 }
