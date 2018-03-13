@@ -38,7 +38,7 @@ class PermissionAbstract
     /**
      * Unit id.
      *
-     * @var int
+     * @var int|null
      * @since 1.0.0
      */
     protected $unit = null;
@@ -46,7 +46,7 @@ class PermissionAbstract
     /**
      * App name.
      *
-     * @var string
+     * @var string|null
      * @since 1.0.0
      */
     protected $app = null;
@@ -54,7 +54,7 @@ class PermissionAbstract
     /**
      * Module id.
      *
-     * @var int
+     * @var int|null
      * @since 1.0.0
      */
     protected $module = null;
@@ -62,7 +62,7 @@ class PermissionAbstract
     /**
      * Providing module id.
      *
-     * @var int
+     * @var int|null
      * @since 1.0.0
      */
     protected $from = 0;
@@ -70,7 +70,7 @@ class PermissionAbstract
     /**
      * Type.
      *
-     * @var int
+     * @var int|null
      * @since 1.0.0
      */
     protected $type = null;
@@ -78,7 +78,7 @@ class PermissionAbstract
     /**
      * Element id.
      *
-     * @var int
+     * @var int|null
      * @since 1.0.0
      */
     protected $element = null;
@@ -86,7 +86,7 @@ class PermissionAbstract
     /**
      * Component id.
      *
-     * @var int
+     * @var int|null
      * @since 1.0.0
      */
     protected $component = null;
@@ -114,7 +114,7 @@ class PermissionAbstract
     /**
      * Get unit id.
      *
-     * @return int
+     * @return int|null
      *
      * @since  1.0.0
      */
@@ -126,7 +126,7 @@ class PermissionAbstract
     /**
      * Set unit id.
      *
-     * @param int $unit Unit
+     * @param int|null $unit Unit
      *
      * @return void
      *
@@ -140,7 +140,7 @@ class PermissionAbstract
     /**
      * Get app name.
      *
-     * @return string
+     * @return string|null
      *
      * @since  1.0.0
      */
@@ -166,7 +166,7 @@ class PermissionAbstract
     /**
      * Get module id.
      *
-     * @return int
+     * @return int|null
      *
      * @since  1.0.0
      */
@@ -192,7 +192,7 @@ class PermissionAbstract
     /**
      * Get providing module id.
      *
-     * @return int
+     * @return int|null
      *
      * @since  1.0.0
      */
@@ -218,7 +218,7 @@ class PermissionAbstract
     /**
      * Get type.
      *
-     * @return int
+     * @return int|null
      *
      * @since  1.0.0
      */
@@ -244,7 +244,7 @@ class PermissionAbstract
     /**
      * Get element id.
      *
-     * @return int
+     * @return int|null
      *
      * @since  1.0.0
      */
@@ -270,7 +270,7 @@ class PermissionAbstract
     /**
      * Get component id.
      *
-     * @return int
+     * @return int|null
      *
      * @since  1.0.0
      */

@@ -306,19 +306,19 @@ class Account implements ArrayableInterface, \JsonSerializable
      *
      * Checks if the account has a permission defined
      *
-     * @param int    $permission Permission to check
-     * @param int    $unit       Unit Unit to check (null if all are acceptable)
-     * @param string $app        App App to check  (null if all are acceptable)
-     * @param string $module     Module Module to check  (null if all are acceptable)
-     * @param int    $type       Type (e.g. customer) (null if all are acceptable)
-     * @param int    $element    (e.g. customer id) (null if all are acceptable)
-     * @param int    $component  (e.g. address) (null if all are acceptable)
+     * @param int         $permission Permission to check
+     * @param int|null    $unit       Unit Unit to check (null if all are acceptable)
+     * @param string|null $app        App App to check  (null if all are acceptable)
+     * @param string|null $module     Module Module to check  (null if all are acceptable)
+     * @param int|null    $type       Type (e.g. customer) (null if all are acceptable)
+     * @param int|null    $element    (e.g. customer id) (null if all are acceptable)
+     * @param int|null    $component  (e.g. address) (null if all are acceptable)
      *
      * @return bool Returns true if the account has the permission, false otherwise
      *
      * @since  1.0.0
      */
-    public function hasPermission(int $permission, int $unit = null, string $app = null, string $module = null, int $type = null, $element = null, $component = null) : bool
+    public function hasPermission(int $permission, ?int $unit = null, ?string $app = null, ?string $module = null, ?int $type = null, ?int $element = null, ?int $component = null) : bool
     {
         $app = $app !== null ? strtolower($app) : $app;
 

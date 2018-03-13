@@ -40,7 +40,6 @@ class MemCached extends ConnectionAbstract
      * @since 1.0.0
      */
     private $threshold = 10;
-    private $status;
 
     /**
      * Constructor.
@@ -50,6 +49,14 @@ class MemCached extends ConnectionAbstract
     public function __construct()
     {
         $this->memc = null;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function connect(array $data) /* : void */
+    {
+        $this->status = CacheStatus::ACTIVE;
     }
 
     /**

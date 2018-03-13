@@ -30,6 +30,14 @@ class RedisCache extends ConnectionAbstract
     /**
      * {@inheritdoc}
      */
+    public function connect(array $data) /* : void */
+    {
+        $this->status = CacheStatus::ACTIVE;
+    }
+    
+    /**
+     * {@inheritdoc}
+     */
     public function set($key, $value, int $expire = -1) /* : void */
     {
         // TODO: Implement set() method.

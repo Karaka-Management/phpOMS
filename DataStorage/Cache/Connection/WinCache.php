@@ -26,6 +26,13 @@ namespace phpOMS\DataStorage\Cache\Connection;
  */
 class WinCache extends ConnectionAbstract
 {
+    /**
+     * {@inheritdoc}
+     */
+    public function connect(array $data) /* : void */
+    {
+        $this->status = CacheStatus::ACTIVE;
+    }
 
     /**
      * {@inheritdoc}

@@ -15,6 +15,7 @@ declare(strict_types=1);
 namespace phpOMS\Account;
 
 use phpOMS\Contract\ArrayableInterface;
+use phpOMS\Stdlib\Base\Exception\InvalidEnumValue;
 
 /**
  * Account group class.
@@ -54,7 +55,7 @@ class Group implements ArrayableInterface, \JsonSerializable
     /**
      * Account name.
      *
-     * @var int
+     * @var array
      * @since 1.0.0
      */
     protected $members = [];
