@@ -27,7 +27,7 @@ final class OperatingSystem
     /**
      * Get OS.
      *
-     * @return int|SystemType
+     * @return int
      *
      * @since  1.0.0
      */

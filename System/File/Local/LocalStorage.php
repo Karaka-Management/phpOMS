@@ -38,15 +38,6 @@ class LocalStorage extends StorageAbstract
     private static $instance = null;
 
     /**
-     * Constructor.
-     *
-     * @since  1.0.0
-     */
-    public function __construct()
-    {
-    }
-
-    /**
      * Get instance.
      *
      * @return StorageAbstract

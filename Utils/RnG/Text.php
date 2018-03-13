@@ -280,7 +280,7 @@ class Text
      *
      * @since  1.0.0
      */
-    private function generateParagraph(int $length) : void
+    private function generateParagraph(int $length) : string
     {
         $minSentence = 3;
         $maxSentence = 10;

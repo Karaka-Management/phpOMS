@@ -42,7 +42,7 @@ interface SocketInterface
      *
      * @since    1.0.0
      */
-    public function close(); /* : void */
+    public function close() : void;
 
     /**
      * Run socket.
@@ -51,5 +51,5 @@ interface SocketInterface
      *
      * @since    1.0.0
      */
-    public function run(); /* : void */
+    public function run() : void;
 }

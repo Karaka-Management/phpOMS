@@ -63,7 +63,7 @@ class Dispatcher
      * Dispatch controller.
      *
      * @param string|array|\Closure $controller Controller string
-     * @param mixed                 ...$data    Data
+     * @param array|null            ...$data    Data
      *
      * @return array
      *
@@ -93,8 +93,8 @@ class Dispatcher
     /**
      * Dispatch string.
      *
-     * @param string|array|\Closure $controller Controller string
-     * @param array                 $data       Data
+     * @param string      $controller Controller string
+     * @param array|null  $data       Data
      *
      * @return array
      *
@@ -126,8 +126,8 @@ class Dispatcher
     /**
      * Dispatch array.
      *
-     * @param string|array|\Closure $controller Controller string
-     * @param array                 $data       Data
+     * @param array      $controller Controller string
+     * @param array|null $data       Data
      *
      * @return array
      *
@@ -146,14 +146,14 @@ class Dispatcher
     /**
      * Dispatch closure.
      *
-     * @param string|array|\Closure $controller Controller string
-     * @param array                 $data       Data
+     * @param \Closure   $controller Controller string
+     * @param array|null $data       Data
      *
      * @return mixed
      *
      * @since  1.0.0
      */
-    private function dispatchClosure(\Closure $controller, array $data = null) : void
+    private function dispatchClosure(\Closure $controller, array $data = null)
     {
         return $controller($this->app, ...$data);
     }

@@ -42,7 +42,9 @@ class ConsoleSession implements SessionInterface
      */
     public function __construct($sid = false)
     {
-        $this->sid = $sid;
+        if ($sid !== false) {
+            $this->sid = $sid;
+        }
     }
 
     /**

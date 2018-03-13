@@ -197,7 +197,7 @@ class Directory extends FileAbstract implements DirectoryInterface
     /**
      * {@inheritdoc}
      */
-    public function getNode(string $name) : FileAbstract
+    public function getNode(string $name) : ?ContainerInterface
     {
         return $this->nodes[$name] ?? null;
     }

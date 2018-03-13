@@ -315,9 +315,9 @@ class Grammar extends GrammarAbstract
     /**
      * Compile value.
      *
-     * @param Builder               $query  Query builder
-     * @param array|string|\Closure $value  Value
-     * @param string                $prefix Prefix in case value is a table
+     * @param Builder $query  Query builder
+     * @param mixed   $value  Value
+     * @param string  $prefix Prefix in case value is a table
      *
      * @return string Returns a string representation of the value.
      *

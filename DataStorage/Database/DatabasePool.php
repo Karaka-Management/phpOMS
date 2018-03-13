@@ -19,6 +19,7 @@ use phpOMS\DataStorage\DataStorageConnectionInterface;
 use phpOMS\DataStorage\Database\Connection\ConnectionAbstract;
 use phpOMS\DataStorage\Database\Connection\ConnectionFactory;
 use phpOMS\DataStorage\Database\Connection\ConnectionInterface;
+use phpOMS\DataStorage\Database\Connection\NullConnection;
 
 /**
  * Database pool handler.
@@ -34,7 +35,7 @@ class DatabasePool implements DataStoragePoolInterface
     /**
      * Databases.
      *
-     * @var ConnectionAbstract[]
+     * @var DataStorageConnectionInterface[]
      * @since 1.0.0
      */
     private $pool = [];
@@ -51,7 +52,7 @@ class DatabasePool implements DataStoragePoolInterface
     /**
      * Add database.
      *
-     * @param mixed                          $key Database key
+     * @param string                         $key Database key
      * @param DataStorageConnectionInterface $db  Database
      *
      * @return bool
@@ -72,16 +73,16 @@ class DatabasePool implements DataStoragePoolInterface
     /**
      * Get database.
      *
-     * @param mixed $key Database key
+     * @param string $key Database key
      *
-     * @return ConnectionInterface|null
+     * @return ConnectionAbstract
      *
      * @since  1.0.0
      */
-    public function get(string $key = '') /* : ?ConnectionInterface */
+    public function get(string $key = '') : ConnectionAbstract
     {
         if ((!empty($key) && !isset($this->pool[$key])) || empty($this->pool)) {
-            return null;
+            return new NullConnection();
         }
 
         if (empty($key)) {
@@ -94,7 +95,7 @@ class DatabasePool implements DataStoragePoolInterface
     /**
      * Remove database.
      *
-     * @param mixed $key Database key
+     * @param string $key Database key
      *
      * @return bool
      *

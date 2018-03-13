@@ -89,7 +89,7 @@ class AssetManager implements \Countable
      *
      * @param string $id Asset id
      *
-     * @return mixed Asset
+     * @return string|null
      *
      * @since  1.0.0
      */

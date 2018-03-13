@@ -30,11 +30,11 @@ interface OptionsInterface
      *
      * @param mixed $key Key to check for existence
      *
-     * @return void
+     * @return bool
      *
      * @since  1.0.0
      */
-    public function exists($key);
+    public function exists($key) : bool;
 
     /**
      * Updating or adding settings.

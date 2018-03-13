@@ -99,7 +99,7 @@ class Localization
     /**
      * Weight.
      *
-     * @var string
+     * @var array
      * @since 1.0.0
      */
     private $weight = [];
@@ -107,7 +107,7 @@ class Localization
     /**
      * Speed.
      *
-     * @var string
+     * @var array
      * @since 1.0.0
      */
     private $speed = [];
@@ -115,7 +115,7 @@ class Localization
     /**
      * Length.
      *
-     * @var string
+     * @var array
      * @since 1.0.0
      */
     private $length = [];
@@ -123,7 +123,7 @@ class Localization
     /**
      * Area.
      *
-     * @var string
+     * @var array
      * @since 1.0.0
      */
     private $area = [];
@@ -131,7 +131,7 @@ class Localization
     /**
      * Volume.
      *
-     * @var string
+     * @var array
      * @since 1.0.0
      */
     private $volume = [];
@@ -314,7 +314,7 @@ class Localization
      * 
      * @param string $decimal Decimal char
      *
-     * @return string
+     * @return void
      *
      * @since  1.0.0
      */
@@ -340,7 +340,7 @@ class Localization
      * 
      * @param string $thousands Thousands char
      *
-     * @return string
+     * @return void
      *
      * @since  1.0.0
      */
@@ -366,7 +366,7 @@ class Localization
      * 
      * @param string $angle Angle
      *
-     * @return string
+     * @return void
      *
      * @since  1.0.0
      */
@@ -392,7 +392,7 @@ class Localization
      * 
      * @param string $temperature Temperature
      *
-     * @return string
+     * @return void
      *
      * @since  1.0.0
      */
@@ -418,7 +418,7 @@ class Localization
      * 
      * @param array $speed Speed
      *
-     * @return array
+     * @return void
      *
      * @since  1.0.0
      */
@@ -444,7 +444,7 @@ class Localization
      * 
      * @param array $weight Weight type
      *
-     * @return array
+     * @return void
      *
      * @since  1.0.0
      */
@@ -470,7 +470,7 @@ class Localization
      * 
      * @param array $length Length type
      *
-     * @return array
+     * @return void
      *
      * @since  1.0.0
      */
@@ -496,7 +496,7 @@ class Localization
      * 
      * @param array $area Area type
      *
-     * @return array
+     * @return void
      *
      * @since  1.0.0
      */
@@ -522,7 +522,7 @@ class Localization
      * 
      * @param array $volume Volume type
      *
-     * @return array
+     * @return void
      *
      * @since  1.0.0
      */

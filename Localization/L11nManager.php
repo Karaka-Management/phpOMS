@@ -31,7 +31,7 @@ class L11nManager
     /**
      * Language.
      *
-     * @var string[][]
+     * @var array
      * @since 1.0.0
      */
     private $language = [];
@@ -65,9 +65,9 @@ class L11nManager
      * One module can only be loaded once. Once the module got loaded it's not
      * possible to load more language files later on.
      *
-     * @param string     $language    Language iso code
-     * @param string     $from        Module name
-     * @param string[][] $translation Language files content
+     * @param string $language    Language iso code
+     * @param string $from        Module name
+     * @param array  $translation Language files content
      *
      * @return void
      *

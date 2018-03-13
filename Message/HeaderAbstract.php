@@ -169,7 +169,7 @@ abstract class HeaderAbstract
      *
      * @since  1.0.0
      */
-    abstract public function generate(int $statusCode); /* : void */
+    abstract public function generate(int $statusCode) : void;
 
     /**
      * Get status code
@@ -203,7 +203,7 @@ abstract class HeaderAbstract
      *
      * @since  1.0.0
      */
-    abstract public function set(string $key, string $value, bool $overwrite = false); /* : void */
+    abstract public function set(string $key, string $value, bool $overwrite = false) : void;
 
     /**
      * Get header by key.

@@ -620,7 +620,7 @@ class Interval implements \Serializable
      *
      * @since  1.0.0
      */
-    public function serializeTime($time, $step) : void
+    public function serializeTime($time, $step) : string
     {
         if (($count = count($time)) > 0) {
             $serialize = implode(',', $time);
@@ -643,7 +643,7 @@ class Interval implements \Serializable
      *
      * @since  1.0.0
      */
-    public function serializeDayOfMonth() : void
+    public function serializeDayOfMonth() : string
     {
         if (($count = count($this->dayOfMonth['dayOfMonth'])) > 0) {
             $serialize = implode(',', $this->dayOfMonth['dayOfMonth']);
@@ -670,7 +670,7 @@ class Interval implements \Serializable
      *
      * @since  1.0.0
      */
-    public function serializeDayOfWeek() : void
+    public function serializeDayOfWeek() : string
     {
         if (($count = count($this->dayOfWeek['dayOfWeek'])) > 0) {
             $serialize = implode(',', $this->dayOfWeek['dayOfWeek']);

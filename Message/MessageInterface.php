@@ -27,11 +27,11 @@ interface MessageInterface
     /**
      * Retrieves all message header values.
      *
-     * @return HeaderAbstract
+     * @return HeaderAbstract|null
      *
      * @since  1.0.0
      */
-    public function getHeader() : HeaderAbstract;
+    public function getHeader() : ?HeaderAbstract;
 
     /**
      * Gets the body of the message.

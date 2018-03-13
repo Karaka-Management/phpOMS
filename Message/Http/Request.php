@@ -80,7 +80,10 @@ class Request extends RequestAbstract
         $this->header = new Header();
         $this->header->setL11n($l11n ?? new Localization());
 
-        $this->uri    = $uri;
+        if ($uri !== null) {
+            $this->uri = $uri;
+        }
+
         $this->source = RequestSource::WEB;
 
         $this->init();

@@ -51,7 +51,7 @@ interface EdgeInterface
      *
      * @since  1.0.0
      */
-    public function setWeight($weight); /* : void */
+    public function setWeight($weight) : void;
 
     /**
      * Get vertices.
@@ -72,5 +72,5 @@ interface EdgeInterface
      *
      * @since  1.0.0
      */
-    public function setVertices(VerticeInterface $a, VerticeInterface $b); /* : void */
+    public function setVertices(VerticeInterface $a, VerticeInterface $b) : void;
 }

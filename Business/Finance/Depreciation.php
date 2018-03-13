@@ -167,7 +167,7 @@ class Depreciation
      * Calculate the depreciation rate
      *
      * @param float $start    Value to depreciate (reduced by residual value if required)
-     * @param int   $residual Residual value
+     * @param float $residual Residual value
      * @param int   $duration Useful life time
      *
      * @return float
@@ -183,7 +183,7 @@ class Depreciation
      * Calculate the depreciation value in a period
      *
      * @param float $start    Value to depreciate (reduced by residual value if required)
-     * @param int   $residual Residual value
+     * @param float $residual Residual value
      * @param int   $duration Useful life time
      * @param int   $t        Period
      *
@@ -202,7 +202,7 @@ class Depreciation
      * Calculate the residual value after some periods
      *
      * @param float $start    Value to depreciate (reduced by residual value if required)
-     * @param int   $residual Residual value
+     * @param float $residual Residual value
      * @param int   $duration Useful life time
      * @param int   $t        Period
      *
@@ -225,7 +225,7 @@ class Depreciation
      * Calculate the depreciation rate
      *
      * @param float $start    Value to depreciate (reduced by residual value if required)
-     * @param int   $residual Residual value
+     * @param float $residual Residual value
      * @param int   $duration Useful life time
      *
      * @return float
@@ -241,7 +241,7 @@ class Depreciation
      * Calculate the depreciation value in a period
      *
      * @param float $start    Value to depreciate (reduced by residual value if required)
-     * @param int   $residual Residual value
+     * @param float $residual Residual value
      * @param int   $duration Useful life time
      * @param int   $t        Period
      *
@@ -259,7 +259,7 @@ class Depreciation
      * Calculate the residual value after some periods
      *
      * @param float $start    Value to depreciate (reduced by residual value if required)
-     * @param int   $residual Residual value
+     * @param float $residual Residual value
      * @param int   $duration Useful life time
      * @param int   $t        Period
      *

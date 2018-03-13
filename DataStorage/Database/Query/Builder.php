@@ -490,7 +490,7 @@ class Builder extends BuilderAbstract
             throw new \InvalidArgumentException('Unknown operator.');
         }
 
-        if (is_string($columns)) {
+        if (!is_array($columns)) {
             $columns  = [$columns];
             $operator = [$operator];
             $values   = [$values];
@@ -703,6 +703,10 @@ class Builder extends BuilderAbstract
     public function orderBy($columns, $order = 'DESC') : Builder
     {
         if (is_string($columns) || $columns instanceof \Closure) {
+            if (!is_string($order)) {
+                throw new \InvalidArgumentException();
+            }
+
             if (!isset($this->orders[$order])) {
                 $this->orders[$order] = [];
             }
@@ -754,7 +758,7 @@ class Builder extends BuilderAbstract
     /**
      * Union.
      *
-     * @param string|\phpOMS\DataStorage\Database\Query\Builder $query Query
+     * @param mixed $query Query
      *
      * @return Builder
      *
@@ -796,7 +800,7 @@ class Builder extends BuilderAbstract
     /**
      * Create query string.
      * 
-     * @return void
+     * @return string
      *
      * @since  1.0.0
      */

@@ -358,11 +358,11 @@ class Markdown
     protected static function blockCode(array $lineArray, array $block = null) : ?array
     {
         if ($block !== null && !isset($block['type']) && !isset($block['interrupted'])) {
-            return;
+            return null;
         }
 
         if ($lineArray['indent'] < 4) {
-            return;
+            return null;
         }
 
         return [
@@ -390,7 +390,7 @@ class Markdown
     protected static function blockCodeContinue(array $lineArray, array $block) : ?array
     {
         if ($lineArray['indent'] < 4) {
-            return;
+            return null;
         }
 
         if (isset($block['interrupted'])) {
@@ -431,7 +431,7 @@ class Markdown
     protected static function blockFencedCode(array $lineArray) : ?array
     {
         if (!preg_match('/^[' . $lineArray['text'][0] . ']{3,}[ ]*([^`]+)?[ ]*$/', $lineArray['text'], $matches)) {
-            return;
+            return null;
         }
 
         $elementArray = [
@@ -468,7 +468,7 @@ class Markdown
     protected static function blockFencedCodeContinue(array $lineArray, array $block) : ?array
     {
         if (isset($block['complete'])) {
-            return;
+            return null;
         }
 
         if (isset($block['interrupted'])) {
@@ -515,7 +515,7 @@ class Markdown
     protected static function blockHeader(array $lineArray) : ?array
     {
         if (!isset($lineArray['text'][1])) {
-            return;
+            return null;
         }
 
         $level = 1;
@@ -524,7 +524,7 @@ class Markdown
         }
 
         if ($level > 6) {
-            return;
+            return null;
         }
 
         return [
@@ -550,7 +550,7 @@ class Markdown
         list($name, $pattern) = $lineArray['text'][0] <= '-' ? ['ul', '[*+-]'] : ['ol', '[0-9]+[.]'];
 
         if (!preg_match('/^(' . $pattern . '[ ]+)(.*)/', $lineArray['text'], $matches)) {
-            return;
+            return null;
         }
 
         $block = [
@@ -649,7 +649,7 @@ class Markdown
     protected static function blockQuote(array $lineArray) : ?array
     {
         if (!preg_match('/^>[ ]?(.*)/', $lineArray['text'], $matches)) {
-            return;
+            return null;
         }
 
         return [
@@ -704,7 +704,7 @@ class Markdown
     protected static function blockRule(array $lineArray) : ?array
     {
         if (!preg_match('/^([' . $lineArray['text'][0] . '])([ ]*\1){2,}[ ]*$/', $lineArray['text'])) {
-            return;
+            return null;
         }
 
         return [
@@ -727,11 +727,11 @@ class Markdown
     protected static function blockSetextHeader(array $lineArray, array $block = null) : ?array
     {
         if (!isset($block) || isset($block['type']) || isset($block['interrupted'])) {
-            return;
+            return null;
         }
 
         if (chop($lineArray['text'], $lineArray['text'][0]) !== '') {
-            return;
+            return null;
         }
 
         $block['element']['name'] = $lineArray['text'][0] === '=' ? 'h1' : 'h2';
@@ -751,7 +751,7 @@ class Markdown
     protected static function blockReference(array $lineArray) : ?array
     {
         if (!preg_match('/^\[(.+?)\]:[ ]*<?(\S+?)>?(?:[ ]+["\'(](.+)["\')])?[ ]*$/', $lineArray['text'], $matches)) {
-            return;
+            return null;
         }
 
         $data = [
@@ -777,7 +777,7 @@ class Markdown
     protected static function blockTable($lineArray, array $block = null) : ?array
     {
         if (!isset($block) || isset($block['type']) || isset($block['interrupted'])) {
-            return;
+            return null;
         }
 
         if (strpos($block['element']['text'], '|') !== false && chop($lineArray['text'], ' -:|') === '') {
@@ -872,7 +872,7 @@ class Markdown
     protected static function blockTableContinue(array $lineArray, array $block) : ?array
     {
         if (isset($block['interrupted'])) {
-            return;
+            return null;
         }
 
         if ($lineArray['text'][0] === '|' || strpos($lineArray['text'], '|')) {
@@ -994,7 +994,7 @@ class Markdown
         $marker = $excerpt['text'][0];
 
         if (!preg_match('/^(' . $marker . '+)[ ]*(.+?)[ ]*(?<!' . $marker . ')\1(?!' . $marker . ')/s', $excerpt['text'], $matches)) {
-            return;
+            return null;
         }
 
         return [
@@ -1018,7 +1018,7 @@ class Markdown
     protected static function inlineEmailTag(array $excerpt) : ?array
     {
         if (strpos($excerpt['text'], '>') === false || !preg_match('/^<((mailto:)?\S+?@\S+?)>/i', $excerpt['text'], $matches)) {
-            return;
+            return null;
         }
 
         $url = $matches[1];
@@ -1051,7 +1051,7 @@ class Markdown
     protected static function inlineEmphasis(array $excerpt) : ?array
     {
         if (!isset($excerpt['text'][1])) {
-            return;
+            return null;
         }
 
         $marker = $excerpt['text'][0];
@@ -1061,7 +1061,7 @@ class Markdown
         } elseif (preg_match(self::$emRegex[$marker], $excerpt['text'], $matches)) {
             $emphasis = 'em';
         } else {
-            return;
+            return null;
         }
 
         return [
@@ -1086,7 +1086,7 @@ class Markdown
     protected static function inlineEscapeSequence(array $excerpt) : ?array
     {
         if (!isset($excerpt['text'][1]) || !in_array($excerpt['text'][1], self::$specialCharacters)) {
-            return;
+            return null;
         }
 
         return [
@@ -1107,14 +1107,14 @@ class Markdown
     protected static function inlineImage(array $excerpt) : ?array
     {
         if (!isset($excerpt['text'][1]) || $excerpt['text'][1] !== '[') {
-            return;
+            return null;
         }
 
         $excerpt['text'] = substr($excerpt['text'], 1);
         $link            = self::inlineLink($excerpt);
 
         if ($link === null) {
-            return;
+            return null;
         }
 
         $inline = [
@@ -1160,7 +1160,7 @@ class Markdown
         $remainder = $excerpt['text'];
 
         if (!preg_match('/\[((?:[^][]++|(?R))*+)\]/', $remainder, $matches)) {
-            return;
+            return null;
         }
 
         $element['text'] = $matches[1];
@@ -1186,7 +1186,7 @@ class Markdown
             }
 
             if (!isset(self::$definitionData['Reference'][$definition])) {
-                return;
+                return null;
             }
 
             $def = self::$definitionData['Reference'][$definition];
@@ -1241,11 +1241,11 @@ class Markdown
     protected static function inlineStrikethrough(array $excerpt) : ?array
     {
         if (!isset($excerpt['text'][1])) {
-            return;
+            return null;
         }
 
         if ($excerpt['text'][1] !== '~' || !preg_match('/^~~(?=\S)(.+?)(?<=\S)~~/', $excerpt['text'], $matches)) {
-            return;
+            return null;
         }
 
         return [
@@ -1270,11 +1270,11 @@ class Markdown
     protected static function inlineUrl(array $excerpt) : ?array
     {
         if (!isset($excerpt['text'][2]) || $excerpt['text'][2] !== '/') {
-            return;
+            return null;
         }
 
         if (!preg_match('/\bhttps?:[\/]{2}[^\s<]+\b\/*/ui', $excerpt['context'], $matches, PREG_OFFSET_CAPTURE)) {
-            return;
+            return null;
         }
 
         return [
@@ -1302,7 +1302,7 @@ class Markdown
     protected static function inlineUrlTag(array $excerpt) : ?array
     {
         if (strpos($excerpt['text'], '>') === false || !preg_match('/^<(\w+:\/{2}[^ >]+)>/i', $excerpt['text'], $matches)) {
-            return;
+            return null;
         }
 
         return [
@@ -1322,7 +1322,7 @@ class Markdown
      *
      * @param string $text Normal text
      * 
-     * @return null|array
+     * @return string
      *
      * @since  1.0.0
      */
@@ -1339,7 +1339,7 @@ class Markdown
      *
      * @param array $element Html element
      * 
-     * @return null|array
+     * @return string
      *
      * @since  1.0.0
      */
@@ -1420,7 +1420,7 @@ class Markdown
      * 
      * @param array $element Element to sanitize
      * 
-     * @return string
+     * @return array
      *
      * @since  1.0.0
      */
@@ -1492,7 +1492,7 @@ class Markdown
      * @param string $string Text to check against
      * @param string $needle Needle to check
      * 
-     * @return bool|string
+     * @return bool
      *
      * @since  1.0.0
      */

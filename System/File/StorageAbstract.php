@@ -35,26 +35,14 @@ abstract class StorageAbstract
     protected $type = 0;
 
     /**
-     * Constructor.
-     *
-     * @since  1.0.0
-     * @codeCoverageIgnore
-     */
-    private function __construct()
-    {
-    }
-
-    /**
      * Get instance.
      *
-     * @return mixed Storage instance.
+     * @return StorageAbstract Storage instance.
      *
      * @since  1.0.0
      */
-    public static function getInstance() : StorageAbstract
-    {
-        return null;
-    }
+    abstract public static function getInstance() : StorageAbstract;
+
     /**
      * Get storage type.
      *

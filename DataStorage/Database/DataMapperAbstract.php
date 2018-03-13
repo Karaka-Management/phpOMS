@@ -1076,7 +1076,7 @@ class DataMapperAbstract implements DataMapperInterface
      * @param mixed            $objId           Model id
      * @param \ReflectionClass $reflectionClass Reflection class
      *
-     * @return mixed
+     * @return void
      *
      * @since  1.0.0
      */
@@ -1302,7 +1302,7 @@ class DataMapperAbstract implements DataMapperInterface
      * @param int              $relations       Delete all relations as well
      * @param \ReflectionClass $reflectionClass Reflection class
      *
-     * @return mixed
+     * @return void
      *
      * @since  1.0.0
      */
@@ -2271,7 +2271,7 @@ class DataMapperAbstract implements DataMapperInterface
     public static function fillRelationsArray(array &$obj, int $relations = RelationType::ALL, int $depth = null) : void
     {
         if (isset($depth) && $depth < 1) {
-            return null;
+            return;
         }
 
         if ($relations !== RelationType::NONE) {
@@ -2335,7 +2335,7 @@ class DataMapperAbstract implements DataMapperInterface
      * @param mixed  $refKey Key
      * @param string $ref    Ref
      *
-     * @return mixed
+     * @return array
      *
      * @since  1.0.0
      */
@@ -2361,7 +2361,7 @@ class DataMapperAbstract implements DataMapperInterface
      * @param mixed  $refKey Key
      * @param string $ref    Ref
      *
-     * @return mixed
+     * @return array
      *
      * @since  1.0.0
      */

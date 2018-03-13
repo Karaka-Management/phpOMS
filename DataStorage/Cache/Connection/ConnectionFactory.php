@@ -58,7 +58,7 @@ class ConnectionFactory
             case CacheType::REDIS:
                 return new RedisCache($cacheData);
             case CacheType::MEMCACHED:
-                return new MemcachedCache($cacheData);
+                return new MemCached($cacheData);
             case CacheType::WINCACHE:
                 return new WinCache($cacheData);
             default:

@@ -38,7 +38,7 @@ interface DataStorageConnectionInterface
      *
      * @since  1.0.0
      */
-    public function connect(array $data); /* : void */
+    public function connect(array $data) : void;
 
     /**
      * Get the datastorage type.
@@ -65,5 +65,5 @@ interface DataStorageConnectionInterface
      *
      * @since  1.0.0
      */
-    public function close(); /* : void */
+    public function close() : void;
 }

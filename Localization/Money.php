@@ -117,7 +117,7 @@ class Money implements \Serializable
 
         $right = substr($right, 0, self::MAX_DECIMALS);
 
-        return (int) (((int) $left) * 10 ** self::MAX_DECIMALS + (int) str_pad($right, self::MAX_DECIMALS, '0'));
+        return ((int) $left) * 10 ** self::MAX_DECIMALS + (int) str_pad($right, self::MAX_DECIMALS, '0');
     }
 
     /**
@@ -132,7 +132,7 @@ class Money implements \Serializable
      *
      * @since  1.0.0
      */
-    public function setLocalization(string $thousands = ',', string $decimal = '.', string $symbol = '', int $position = 0) : void
+    public function setLocalization(string $thousands = ',', string $decimal = '.', string $symbol = '', int $position = 0) : Money
     {
         $this->thousands = $thousands;
         $this->decimal   = $decimal;

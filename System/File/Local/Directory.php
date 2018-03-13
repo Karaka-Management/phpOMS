@@ -88,7 +88,7 @@ class Directory extends FileAbstract implements DirectoryInterface
             new \RecursiveDirectoryIterator($path, \RecursiveDirectoryIterator::SKIP_DOTS),
             \RecursiveIteratorIterator::SELF_FIRST) as $item
         ) {
-            $list[] = str_replace('\\', '/', $iterator->getSubPathName());
+            $list[] = str_replace('\\', '/', $iterator->getSubPathname());
         }
 
         return $list;
@@ -114,7 +114,7 @@ class Directory extends FileAbstract implements DirectoryInterface
             \RecursiveIteratorIterator::SELF_FIRST) as $item
         ) {
             if ($item->getExtension() === $extension) {
-                $list[] = str_replace('\\', '/', $iterator->getSubPathName());
+                $list[] = str_replace('\\', '/', $iterator->getSubPathname());
             }
         }
 
@@ -319,9 +319,9 @@ class Directory extends FileAbstract implements DirectoryInterface
             \RecursiveIteratorIterator::SELF_FIRST) as $item
         ) {
             if ($item->isDir()) {
-                mkdir($to . '/' . $iterator->getSubPathName());
+                mkdir($to . '/' . $iterator->getSubPathname());
             } else {
-                copy($from . '/' . $iterator->getSubPathName(), $to . '/' . $iterator->getSubPathName());
+                copy($from . '/' . $iterator->getSubPathname(), $to . '/' . $iterator->getSubPathname());
             }
         }
 
@@ -371,7 +371,7 @@ class Directory extends FileAbstract implements DirectoryInterface
     /**
      * {@inheritdoc}
      */
-    public function getNode(string $name) : FileAbstract
+    public function getNode(string $name) : ?ContainerInterface
     {
         return $this->nodes[$name] ?? null;
     }

@@ -62,5 +62,5 @@ interface ValidatorInterface
      *
      * @since  1.0.0
      */
-    public static function resetError(); /* : void */
+    public static function resetError() : void;
 }

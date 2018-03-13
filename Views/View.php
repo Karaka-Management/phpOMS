@@ -50,7 +50,7 @@ class View extends ViewAbstract
     /**
      * Application.
      *
-     * @var ApplicationAbstract
+     * @var ApplicationAbstract|null
      * @since 1.0.0
      */
     protected $app = null;
@@ -58,7 +58,7 @@ class View extends ViewAbstract
     /**
      * Request.
      *
-     * @var RequestAbstract
+     * @var RequestAbstract|null
      * @since 1.0.0
      */
     protected $request = null;
@@ -66,7 +66,7 @@ class View extends ViewAbstract
     /**
      * Request.
      *
-     * @var ResponseAbstract
+     * @var ResponseAbstract|null
      * @since 1.0.0
      */
     protected $response = null;
@@ -85,7 +85,7 @@ class View extends ViewAbstract
         $this->app      = $app;
         $this->request  = $request;
         $this->response = $response;
-        $this->l11n     = $response !== null ? $response->getHeader()->getL11n() : null;
+        $this->l11n     = $response !== null ? $response->getHeader()->getL11n() : new Localization();
     }
 
     /**
@@ -178,7 +178,7 @@ class View extends ViewAbstract
             $match = '/Modules/';
 
             if (($start = strripos($this->template, $match)) === false) {
-                throw new InvalidModuleException($module);
+                throw new InvalidModuleException($module ?? '');
             }
 
             $start  = $start + strlen($match);
@@ -190,7 +190,7 @@ class View extends ViewAbstract
             $match = '/Theme/';
 
             if (($start = strripos($this->template, $match)) === false) {
-                throw new InvalidThemeException($theme);
+                throw new InvalidThemeException($theme ?? '');
             }
 
             $start = $start + strlen($match);
@@ -220,11 +220,11 @@ class View extends ViewAbstract
     /**
      * Get request of view
      * 
-     * @return RequestAbstract
+     * @return RequestAbstract|null
      *
      * @since  1.0.0
      */
-    public function getRequest() : RequestAbstract
+    public function getRequest() : ?RequestAbstract
     {
         return $this->request;
     }
@@ -232,11 +232,11 @@ class View extends ViewAbstract
     /**
      * Get response of view
      * 
-     * @return ResponseAbstract
+     * @return ResponseAbstract|null
      *
      * @since  1.0.0
      */
-    public function getResponse() : ResponseAbstract
+    public function getResponse() : ?ResponseAbstract
     {
         return $this->response;
     }

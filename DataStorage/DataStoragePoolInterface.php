@@ -30,7 +30,7 @@ interface DataStoragePoolInterface
     /**
      * Add connection.
      *
-     * @param mixed                          $key Connection key
+     * @param string                         $key Connection key
      * @param DataStorageConnectionInterface $db  Connection
      *
      * @return bool
@@ -42,7 +42,7 @@ interface DataStoragePoolInterface
     /**
      * Get connection.
      *
-     * @param mixed $key Connection key
+     * @param string $key Connection key
      *
      * @return mixed
      *
@@ -53,7 +53,7 @@ interface DataStoragePoolInterface
     /**
      * Remove connection.
      *
-     * @param mixed $key Connection key
+     * @param string $key Connection key
      *
      * @return bool
      *

@@ -37,7 +37,7 @@ abstract class ConnectionAbstract implements ConnectionInterface
      *
      * This can be used externally to define queries and execute them.
      *
-     * @var \PDO
+     * @var \PDO|null
      * @since 1.0.0
      */
     public $con = null;

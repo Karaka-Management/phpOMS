@@ -90,9 +90,9 @@ final class Validator extends ValidatorAbstract
     /**
      * Validate variable by length.
      *
-     * @param string    $var Variable to validate
-     * @param int|float $min Min. length
-     * @param int|float $max Max. length
+     * @param string $var Variable to validate
+     * @param int    $min Min. length
+     * @param int    $max Max. length
      *
      * @return bool
      *

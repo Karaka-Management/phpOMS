@@ -39,7 +39,7 @@ interface ConnectionInterface extends DataStorageConnectionInterface
      *
      * @since  1.0.0
      */
-    public function set($key, $value, int $expire = -1); /* : void */
+    public function set($key, $value, int $expire = -1) : void;
 
     /**
      * Adding new data if it doesn't exist.

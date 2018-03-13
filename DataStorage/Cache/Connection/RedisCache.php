@@ -14,6 +14,8 @@ declare(strict_types=1);
 
 namespace phpOMS\DataStorage\Cache\Connection;
 
+use phpOMS\DataStorage\Cache\CacheStatus;
+
 /**
  * RedisCache class.
  *
@@ -26,6 +28,17 @@ namespace phpOMS\DataStorage\Cache\Connection;
  */
 class RedisCache extends ConnectionAbstract
 {
+
+    /**
+     * Constructor
+     *
+     * @param array $data Cache data
+     *
+     * @since  1.0.0
+     */
+    public function __construct(array $data)
+    {
+    }
 
     /**
      * {@inheritdoc}

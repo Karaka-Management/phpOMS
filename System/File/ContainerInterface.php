@@ -329,5 +329,5 @@ interface ContainerInterface
      *
      * @since  1.0.0
      */
-    public function index(); /* : void */
+    public function index() : void;
 }

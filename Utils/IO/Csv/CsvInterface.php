@@ -48,6 +48,6 @@ namespace phpOMS\Utils\IO\Csv {
          * @since  1.0.0
          * @author Dennis Eichhorn <d.eichhorn@oms.com>
          */
-        public function importCsv($path); /* : void */
+        public function importCsv($path) : void;
     }
 }

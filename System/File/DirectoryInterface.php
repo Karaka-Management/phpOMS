@@ -46,11 +46,11 @@ interface DirectoryInterface extends ContainerInterface, \Iterator, \ArrayAccess
      *
      * @param string $name File/direcotry name
      *
-     * @return mixed
+     * @return ContainerInterface|null
      *
      * @since  1.0.0
      */
-    public function getNode(string $name);
+    public function getNode(string $name) : ?ContainerInterface;
 
     /**
      * Add file or directory.

@@ -20,8 +20,6 @@ use phpOMS\Uri\UriInterface;
 /**
  * Request class.
  *
- * @property mixed request
- *
  * @package    phpOMS\Message
  * @license    OMS License 1.0
  * @link       http://website.orange-management.de
