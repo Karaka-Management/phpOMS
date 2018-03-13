@@ -66,7 +66,7 @@ class FileCache extends ConnectionAbstract
     public function __construct(string $path)
     {
         if (!Directory::exists($path)) {
-            Directory::create($path, 0664, true);
+            Directory::create($path, 0766, true);
         }
 
         $this->status = CacheStatus::ACTIVE;
