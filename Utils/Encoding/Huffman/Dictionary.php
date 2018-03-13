@@ -71,7 +71,7 @@ final class Dictionary
      *
      * @since  1.0.0
      */
-    public function generate(string $source) /* : void */
+    public function generate(string $source) : void
     {
         $this->dictionary = [];
         $this->min        = -1;
@@ -105,7 +105,7 @@ final class Dictionary
      *
      * @since  1.0.0
      */
-    private function fill(array $entry, string $value = '') /* : void */
+    private function fill(array $entry, string $value = '') : void
     {
         if (!is_array($entry[0][1])) {
             $this->set($entry[0][1], $value . '0');
@@ -134,7 +134,7 @@ final class Dictionary
      *
      * @since  1.0.0
      */
-    public function set(string $entry, string $value) /* : void */
+    public function set(string $entry, string $value) : void
     {
         if (strlen($entry) !== 1) {
             throw new \InvalidArgumentException('Must be a character.');
@@ -194,7 +194,7 @@ final class Dictionary
      *
      * @since  1.0.0
      */
-    public function getEntry(&$value) /* : ?string */
+    public function getEntry(&$value) : ?string
     {
         $length = strlen($value);
         if ($length < $this->min) {

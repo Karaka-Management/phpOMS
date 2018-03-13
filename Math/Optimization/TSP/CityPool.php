@@ -53,7 +53,7 @@ class CityPool implements \Countable
      *
      * @since  1.0.0
      */
-    public function addCity(City $city) /* : void */
+    public function addCity(City $city) : void
     {
         $this->cities[$city->getName() . $city->getLatitude() . $city->getLongitude()] = $city;
     }

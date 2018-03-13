@@ -83,7 +83,7 @@ class Repository
      *
      * @since  1.0.0
      */
-    private function setPath(string $path) /* : void */
+    private function setPath(string $path) : void
     {
         if (!is_dir($path)) {
             throw new PathException($path);
@@ -601,7 +601,7 @@ class Repository
      *
      * @since  1.0.0
      */
-    public function setDescription(string $description) /* : void */
+    public function setDescription(string $description) : void
     {
         file_put_contents($this->getDirectoryPath(), $description);
     }

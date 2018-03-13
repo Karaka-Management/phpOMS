@@ -118,7 +118,7 @@ class PermissionAbstract
      *
      * @since  1.0.0
      */
-    public function getUnit() /* : ?int */
+    public function getUnit() : ?int
     {
         return $this->unit;
     }
@@ -132,7 +132,7 @@ class PermissionAbstract
      *
      * @since  1.0.0
      */
-    public function setUnit(int $unit = null) /* : void */
+    public function setUnit(int $unit = null) : void
     {
         $this->unit = $unit;
     }
@@ -144,7 +144,7 @@ class PermissionAbstract
      *
      * @since  1.0.0
      */
-    public function getApp() /* : ?string */
+    public function getApp() : ?string
     {
         return $this->app;
     }
@@ -158,7 +158,7 @@ class PermissionAbstract
      *
      * @since  1.0.0
      */
-    public function setApp(string $app = null) /* : void */
+    public function setApp(string $app = null) : void
     {
         $this->app = $app;
     }
@@ -170,7 +170,7 @@ class PermissionAbstract
      *
      * @since  1.0.0
      */
-    public function getModule() /* : ?int */
+    public function getModule() : ?int
     {
         return $this->module;
     }
@@ -184,7 +184,7 @@ class PermissionAbstract
      *
      * @since  1.0.0
      */
-    public function setModule(int $module = null) /* : void */
+    public function setModule(int $module = null) : void
     {
         $this->module = $module;
     }
@@ -196,7 +196,7 @@ class PermissionAbstract
      *
      * @since  1.0.0
      */
-    public function getFrom() /* : ?int */
+    public function getFrom() : ?int
     {
         return $this->from;
     }
@@ -210,7 +210,7 @@ class PermissionAbstract
      *
      * @since  1.0.0
      */
-    public function setFrom(int $from = null) /* : void */
+    public function setFrom(int $from = null) : void
     {
         $this->from = $from;
     }
@@ -222,7 +222,7 @@ class PermissionAbstract
      *
      * @since  1.0.0
      */
-    public function getType() /* : ?int */
+    public function getType() : ?int
     {
         return $this->type;
     }
@@ -236,7 +236,7 @@ class PermissionAbstract
      *
      * @since  1.0.0
      */
-    public function setType(int $type = null) /* : void */
+    public function setType(int $type = null) : void
     {
         $this->type = $type;
     }
@@ -248,7 +248,7 @@ class PermissionAbstract
      *
      * @since  1.0.0
      */
-    public function getElement() /* : ?int */
+    public function getElement() : ?int
     {
         return $this->element;
     }
@@ -262,7 +262,7 @@ class PermissionAbstract
      *
      * @since  1.0.0
      */
-    public function setElement(int $element = null) /* : void */
+    public function setElement(int $element = null) : void
     {
         $this->element = $element;
     }
@@ -274,7 +274,7 @@ class PermissionAbstract
      *
      * @since  1.0.0
      */
-    public function getComponent() /* : ?int */
+    public function getComponent() : ?int
     {
         return $this->component;
     }
@@ -288,7 +288,7 @@ class PermissionAbstract
      *
      * @since  1.0.0
      */
-    public function setComponent(int $component = null) /* : void */
+    public function setComponent(int $component = null) : void
     {
         $this->component = $component;
     }
@@ -314,7 +314,7 @@ class PermissionAbstract
      *
      * @since  1.0.0
      */
-    public function setPermission(int $permission = 0) /* : void */
+    public function setPermission(int $permission = 0) : void
     {
         $this->permission = $permission;
     }
@@ -328,7 +328,7 @@ class PermissionAbstract
      *
      * @since  1.0.0
      */
-    public function addPermission(int $permission = 0) /* : void */
+    public function addPermission(int $permission = 0) : void
     {
         $this->permission |= $permission;
     }

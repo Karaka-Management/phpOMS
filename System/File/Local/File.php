@@ -52,7 +52,7 @@ class File extends FileAbstract implements FileInterface
     /**
      * {@inheritdoc}
      */
-    public function index() /* : void */
+    public function index() : void
     {
         parent::index();
 

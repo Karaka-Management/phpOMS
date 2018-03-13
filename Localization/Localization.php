@@ -166,7 +166,7 @@ class Localization
      *
      * @since  1.0.0
      */
-    public function setCountry(string $country) /* : void */
+    public function setCountry(string $country) : void
     {
         if (!ISO3166TwoEnum::isValidValue($country)) {
             throw new InvalidEnumValue($country);
@@ -198,7 +198,7 @@ class Localization
      *
      * @since  1.0.0
      */
-    public function setTimezone(string $timezone) /* : void */
+    public function setTimezone(string $timezone) : void
     {
         if (!TimeZoneEnumArray::isValidValue($timezone)) {
             throw new InvalidEnumValue($timezone);
@@ -230,7 +230,7 @@ class Localization
      *
      * @since  1.0.0
      */
-    public function setLanguage(string $language) /* : void */
+    public function setLanguage(string $language) : void
     {
         $language = strtolower($language);
 
@@ -262,7 +262,7 @@ class Localization
      *
      * @since  1.0.0
      */
-    public function setCurrency(string $currency) /* : void */
+    public function setCurrency(string $currency) : void
     {
         if (!ISO4217Enum::isValidValue($currency)) {
             throw new InvalidEnumValue($currency);
@@ -292,7 +292,7 @@ class Localization
      *
      * @since  1.0.0
      */
-    public function setDatetime(string $datetime) /* : void */
+    public function setDatetime(string $datetime) : void
     {
         $this->datetime = $datetime;
     }
@@ -318,7 +318,7 @@ class Localization
      *
      * @since  1.0.0
      */
-    public function setDecimal(string $decimal) /* : void */
+    public function setDecimal(string $decimal) : void
     {
         $this->decimal = $decimal;
     }
@@ -344,7 +344,7 @@ class Localization
      *
      * @since  1.0.0
      */
-    public function setThousands(string $thousands) /* : void */
+    public function setThousands(string $thousands) : void
     {
         $this->thousands = $thousands;
     }
@@ -370,7 +370,7 @@ class Localization
      *
      * @since  1.0.0
      */
-    public function setAngle(string $angle) /* : void */
+    public function setAngle(string $angle) : void
     {
         $this->angle = $angle;
     }
@@ -396,7 +396,7 @@ class Localization
      *
      * @since  1.0.0
      */
-    public function setTemperature(string $temperature) /* : void */
+    public function setTemperature(string $temperature) : void
     {
         $this->temperature = $temperature;
     }
@@ -422,7 +422,7 @@ class Localization
      *
      * @since  1.0.0
      */
-    public function setSpeed(array $speed) /* : void */
+    public function setSpeed(array $speed) : void
     {
         $this->speed = $speed;
     }
@@ -448,7 +448,7 @@ class Localization
      *
      * @since  1.0.0
      */
-    public function setWeight(array $weight) /* : void */
+    public function setWeight(array $weight) : void
     {
         $this->weight = $weight;
     }
@@ -474,7 +474,7 @@ class Localization
      *
      * @since  1.0.0
      */
-    public function setLength(array $length) /* : void */
+    public function setLength(array $length) : void
     {
         $this->length = $length;
     }
@@ -500,7 +500,7 @@ class Localization
      *
      * @since  1.0.0
      */
-    public function setArea(array $area) /* : void */
+    public function setArea(array $area) : void
     {
         $this->area = $area;
     }
@@ -526,7 +526,7 @@ class Localization
      *
      * @since  1.0.0
      */
-    public function setVolume(array $volume) /* : void */
+    public function setVolume(array $volume) : void
     {
         $this->volume = $volume;
     }

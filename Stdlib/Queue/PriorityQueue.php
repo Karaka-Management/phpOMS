@@ -93,7 +93,7 @@ class PriorityQueue implements \Countable, \Serializable
      *
      * @since  1.0.0
      */
-    public function increaseAll(float $increase = 0.1) /* : void */
+    public function increaseAll(float $increase = 0.1) : void
     {
         foreach ($this->queue as $key => &$ele) {
             $ele['priority'] += $increase;
@@ -121,7 +121,7 @@ class PriorityQueue implements \Countable, \Serializable
      *
      * @since  1.0.0
      */
-    public function delete(int $id = null) /* : void */
+    public function delete(int $id = null) : void
     {
         if ($id === null) {
             $this->remove();
@@ -152,7 +152,7 @@ class PriorityQueue implements \Countable, \Serializable
      *
      * @since  1.0.0
      */
-    public function setPriority(int $id, float $priority) /* : void */
+    public function setPriority(int $id, float $priority) : void
     {
         $this->queue[$id]['priority'] = $priority;
     }

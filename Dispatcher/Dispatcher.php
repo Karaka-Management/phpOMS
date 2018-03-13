@@ -153,7 +153,7 @@ class Dispatcher
      *
      * @since  1.0.0
      */
-    private function dispatchClosure(\Closure $controller, array $data = null) /* : void */
+    private function dispatchClosure(\Closure $controller, array $data = null) : void
     {
         return $controller($this->app, ...$data);
     }
@@ -194,7 +194,7 @@ class Dispatcher
      *
      * @since  1.0.0
      */
-    public function set(ModuleAbstract $controller, string $name) /* : void */
+    public function set(ModuleAbstract $controller, string $name) : void
     {
         $this->controllers[$name] = $controller;
     }

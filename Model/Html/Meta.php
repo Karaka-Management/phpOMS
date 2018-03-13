@@ -69,7 +69,7 @@ class Meta implements RenderableInterface
      *
      * @since  1.0.0
      */
-    public function addKeyword(string $keyword) /* : void */
+    public function addKeyword(string $keyword) : void
     {
         if (!in_array($keyword, $this->keywords)) {
             $this->keywords[] = $keyword;
@@ -109,7 +109,7 @@ class Meta implements RenderableInterface
      *
      * @since  1.0.0
      */
-    public function setAuthor(string $author) /* : void */
+    public function setAuthor(string $author) : void
     {
         $this->author = $author;
     }
@@ -135,7 +135,7 @@ class Meta implements RenderableInterface
      *
      * @since  1.0.0
      */
-    public function setCharset(string $charset) /* : void */
+    public function setCharset(string $charset) : void
     {
         $this->charset = $charset;
     }
@@ -161,7 +161,7 @@ class Meta implements RenderableInterface
      *
      * @since  1.0.0
      */
-    public function setDescription(string $description) /* : void */
+    public function setDescription(string $description) : void
     {
         $this->description = $description;
     }

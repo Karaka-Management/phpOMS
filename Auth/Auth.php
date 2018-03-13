@@ -63,7 +63,7 @@ class Auth
      *
      * @since  1.0.0
      */
-    public static function logout(SessionInterface $session) /* : void */
+    public static function logout(SessionInterface $session) : void
     {
         $session->remove('UID');
     }

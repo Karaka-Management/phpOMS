@@ -150,7 +150,7 @@ abstract class C128Abstract
      *
      * @since  1.0.0
      */
-    public function setDimension(int $width, int $height) /* : void */
+    public function setDimension(int $width, int $height) : void
     {
         if ($width < 0) {
             throw new \OutOfBoundsException($width);
@@ -173,7 +173,7 @@ abstract class C128Abstract
      *
      * @since  1.0.0
      */
-    public function setMargin(int $margin) /* : void */
+    public function setMargin(int $margin) : void
     {
         $this->margin = $margin;
     }
@@ -187,7 +187,7 @@ abstract class C128Abstract
      *
      * @since  1.0.0
      */
-    public function setOrientation(int $orientation) /* : void */
+    public function setOrientation(int $orientation) : void
     {
         if (!OrientationType::isValidValue($orientation)) {
             throw new InvalidEnumValue($orientation);
@@ -217,7 +217,7 @@ abstract class C128Abstract
      *
      * @since  1.0.0
      */
-    public function setContent(string $content) /* : void */
+    public function setContent(string $content) : void
     {
         $this->content = $content;
     }
@@ -245,7 +245,7 @@ abstract class C128Abstract
      *
      * @since  1.0.0
      */
-    public function saveToPngFile(string $file) /* : void */
+    public function saveToPngFile(string $file) : void
     {
         $res = $this->get();
 
@@ -262,7 +262,7 @@ abstract class C128Abstract
      *
      * @since  1.0.0
      */
-    public function saveToJpgFile(string $file) /* : void */
+    public function saveToJpgFile(string $file) : void
     {
         $res = $this->get();
 

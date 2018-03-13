@@ -59,7 +59,7 @@ abstract class SchedulerAbstract
      *
      * @since  1.0.0
      */
-    public static function setBin(string $path) /* : void */
+    public static function setBin(string $path) : void
     {
         if (realpath($path) === false) {
             throw new PathException($path);
@@ -100,7 +100,7 @@ abstract class SchedulerAbstract
      *
      * @since  1.0.0
      */
-    public function create(TaskAbstract $task) /* : void */
+    public function create(TaskAbstract $task) : void
     {
         $this->run($task->getCommand());
     }

@@ -183,7 +183,7 @@ abstract class FileAbstract implements ContainerInterface
     /**
      * {@inheritdoc}
      */
-    public function index() /* : void */
+    public function index() : void
     {
         $this->createdAt->setTimestamp(filemtime($this->path));
         $this->changedAt->setTimestamp(filectime($this->path));

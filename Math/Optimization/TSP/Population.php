@@ -60,7 +60,7 @@ class Population implements \Countable
      *
      * @since  1.0.0
      */
-    public function insertAt(int $index, Tour $tour) /* : void */
+    public function insertAt(int $index, Tour $tour) : void
     {
         $this->tours = array_slice($this->tours, 0, $index) + [$tour] + array_slice($this->tours, $index);
     }
@@ -75,7 +75,7 @@ class Population implements \Countable
      *
      * @since  1.0.0
      */
-    public function set(int $index, Tour $tour) /* : void */
+    public function set(int $index, Tour $tour) : void
     {
         $this->tours[$index] = $tour;
         asort($this->tours);
@@ -90,7 +90,7 @@ class Population implements \Countable
      *
      * @since  1.0.0
      */
-    public function add(Tour $tour) /* : void */
+    public function add(Tour $tour) : void
     {
         $this->tours[] = $tour;
     }

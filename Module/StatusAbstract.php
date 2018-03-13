@@ -39,7 +39,7 @@ class StatusAbstract
      *
      * @since  1.0.0
      */
-    public static function activate(DatabasePool $dbPool, InfoManager $info) /* : void */
+    public static function activate(DatabasePool $dbPool, InfoManager $info) : void
     {
         self::activateRoutes(__DIR__ . '/../../Web/Routes.php', __DIR__ . '/../../Modules/' . $info->getDirectory() . '/Admin/Routes/http.php');
         self::activateInDatabase($dbPool, $info);
@@ -55,7 +55,7 @@ class StatusAbstract
      *
      * @since  1.0.0
      */
-    private static function activateRoutes(string $destRoutePath, string $srcRoutePath) /* : void */
+    private static function activateRoutes(string $destRoutePath, string $srcRoutePath) : void
     {
         // todo: remove route
     }
@@ -70,7 +70,7 @@ class StatusAbstract
      *
      * @since  1.0.0
      */
-    public static function activateInDatabase(DatabasePool $dbPool, InfoManager $info) /* : void */
+    public static function activateInDatabase(DatabasePool $dbPool, InfoManager $info) : void
     {
         switch ($dbPool->get()->getType()) {
             case DatabaseType::MYSQL:
@@ -102,7 +102,7 @@ class StatusAbstract
      *
      * @since  1.0.0
      */
-    public static function deactivate(DatabasePool $dbPool, InfoManager $info) /* : void */
+    public static function deactivate(DatabasePool $dbPool, InfoManager $info) : void
     {
         self::deactivateRoutes(__DIR__ . '/../../Web/Routes.php', __DIR__ . '/../../Modules/' . $info->getDirectory() . '/Admin/Routes/http.php');
         self::deactivateInDatabase($dbPool, $info);
@@ -118,7 +118,7 @@ class StatusAbstract
      *
      * @since  1.0.0
      */
-    private static function deactivateRoutes(string $destRoutePath, string $srcRoutePath) /* : void */
+    private static function deactivateRoutes(string $destRoutePath, string $srcRoutePath) : void
     {
         // todo: remove route
     }
@@ -133,7 +133,7 @@ class StatusAbstract
      *
      * @since  1.0.0
      */
-    public static function deactivateInDatabase(DatabasePool $dbPool, InfoManager $info) /* : void */
+    public static function deactivateInDatabase(DatabasePool $dbPool, InfoManager $info) : void
     {
         switch ($dbPool->get()->getType()) {
             case DatabaseType::MYSQL:

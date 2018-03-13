@@ -95,7 +95,7 @@ class Request extends RequestAbstract
      *
      * @since  1.0.0
      */
-    private function init() /* : void */
+    private function init() : void
     {
         if ($this->uri === null) {
             $this->initCurrentRequest();
@@ -116,7 +116,7 @@ class Request extends RequestAbstract
      *
      * @since  1.0.0
      */
-    private function initCurrentRequest() /* : void */
+    private function initCurrentRequest() : void
     {
         $this->uri   = new Http(Http::getCurrent());
         $this->data  = $_GET ?? [];
@@ -165,7 +165,7 @@ class Request extends RequestAbstract
      *
      * @since  1.0.0
      */
-    private function cleanupGlobals() /* : void */
+    private function cleanupGlobals() : void
     {
         unset($_FILES);
         unset($_GET);
@@ -180,7 +180,7 @@ class Request extends RequestAbstract
      *
      * @since  1.0.0
      */
-    private function setupUriBuilder() /* : void */
+    private function setupUriBuilder() : void
     {
         UriFactory::setQuery('/lang', $this->header->getL11n()->getLanguage());
 
@@ -205,7 +205,7 @@ class Request extends RequestAbstract
     /**
      * {@inheritdoc}
      */
-    public function setUri(UriInterface $uri) /* : void */
+    public function setUri(UriInterface $uri) : void
     {
         parent::setUri($uri);
         $this->data += $uri->getQueryArray();
@@ -224,7 +224,7 @@ class Request extends RequestAbstract
      *
      * @since  1.0.0
      */
-    public function createRequestHashs(int $start = 0) /* : void */
+    public function createRequestHashs(int $start = 0) : void
     {
         $this->hash = [];
         $pathArray  = $this->uri->getPathElements();
@@ -307,7 +307,7 @@ class Request extends RequestAbstract
      *
      * @since  1.0.0
      */
-    public function setBrowser(string $browser) /* : void */
+    public function setBrowser(string $browser) : void
     {
         $this->browser = $browser;
     }
@@ -348,7 +348,7 @@ class Request extends RequestAbstract
      *
      * @since  1.0.0
      */
-    public function setOS(string $os) /* : void */
+    public function setOS(string $os) : void
     {
         $this->os = $os;
     }

@@ -58,7 +58,7 @@ class Currency
      *
      * @since  1.0.0
      */
-    public static function resetCurrencies() /* : void */
+    public static function resetCurrencies() : void
     {
         self::$ecbCurrencies = null;
     }

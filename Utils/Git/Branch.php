@@ -65,7 +65,7 @@ class Branch
      *
      * @since  1.0.0
      */
-    public function setName(string $name) /* : void */
+    public function setName(string $name) : void
     {
         $this->name = $name;
     }

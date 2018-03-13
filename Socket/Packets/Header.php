@@ -59,7 +59,7 @@ class Header implements \Serializable
         return $this->sendFrom;
     }
 
-    public function setSendFrom($sendFrom) /* : void */
+    public function setSendFrom($sendFrom) : void
     {
         $this->sendFrom = $sendFrom;
     }
@@ -69,7 +69,7 @@ class Header implements \Serializable
         return $this->sendTo;
     }
 
-    public function setSendTo($sendTo) /* : void */
+    public function setSendTo($sendTo) : void
     {
         $this->sendTo = $sendTo;
     }
@@ -91,7 +91,7 @@ class Header implements \Serializable
      *
      * @since  1.0.0
      */
-    public function setLength($length) /* : void */
+    public function setLength($length) : void
     {
         $this->length = $length;
     }
@@ -113,7 +113,7 @@ class Header implements \Serializable
      *
      * @since  1.0.0
      */
-    public function setType(int $type) /* : void */
+    public function setType(int $type) : void
     {
         $this->type = $type;
     }
@@ -135,7 +135,7 @@ class Header implements \Serializable
      *
      * @since  1.0.0
      */
-    public function setSubtype($subtype) /* : void */
+    public function setSubtype($subtype) : void
     {
         $this->subtype = $subtype;
     }

@@ -60,7 +60,7 @@ abstract class ValidatorAbstract implements ValidatorInterface
     /**
      * {@inheritdoc}
      */
-    public static function resetError() /* : void */
+    public static function resetError() : void
     {
         self::$error = 0;
         self::$msg   = '';

@@ -79,7 +79,7 @@ class InfoManager
      *
      * @since  1.0.0
      */
-    public function load() /* : void */
+    public function load() : void
     {
         if (!file_exists($this->path)) {
             throw new PathException($this->path);
@@ -95,7 +95,7 @@ class InfoManager
      *
      * @since  1.0.0
      */
-    public function update() /* : void */
+    public function update() : void
     {
         if (!file_exists($this->path)) {
             throw new PathException((string) $this->path);
@@ -115,7 +115,7 @@ class InfoManager
      *
      * @since  1.0.0
      */
-    public function set(string $path, $data, string $delim = '/') /* : void */
+    public function set(string $path, $data, string $delim = '/') : void
     {
         if (!is_scalar($data) && !is_array($data) && !($data instanceof \JsonSerializable)) {
             throw new \InvalidArgumentException('Type of $data "' . gettype($data) . '" is not supported.');

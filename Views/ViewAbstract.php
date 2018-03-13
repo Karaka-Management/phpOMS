@@ -83,7 +83,7 @@ abstract class ViewAbstract implements \Serializable
      *
      * @since  1.0.0
      */
-    public function setTemplate(string $template) /* : void */
+    public function setTemplate(string $template) : void
     {
         $this->template = $template;
     }

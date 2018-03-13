@@ -132,7 +132,7 @@ abstract class TaskAbstract
      *
      * @since  1.0.0
      */
-    public function setCommand(string $command) /* : void */
+    public function setCommand(string $command) : void
     {
         $this->command = $command;
     }
@@ -158,7 +158,7 @@ abstract class TaskAbstract
      *
      * @since  1.0.0
      */
-    public function setRun(string $run) /* : void */
+    public function setRun(string $run) : void
     {
         $this->run = $run;
     }
@@ -184,7 +184,7 @@ abstract class TaskAbstract
      *
      * @since  1.0.0
      */
-    public function setStatus(string $status) /* : void */
+    public function setStatus(string $status) : void
     {
         $this->status = $status;
     }
@@ -210,7 +210,7 @@ abstract class TaskAbstract
      *
      * @since  1.0.0
      */
-    public function setNextRunTime(\DateTime $nextRunTime) /* : void */
+    public function setNextRunTime(\DateTime $nextRunTime) : void
     {
         $this->nextRunTime = $nextRunTime;
     }
@@ -236,7 +236,7 @@ abstract class TaskAbstract
      *
      * @since  1.0.0
      */
-    public function setLastRuntime(\DateTime $lastRunTime) /* : void */
+    public function setLastRuntime(\DateTime $lastRunTime) : void
     {
         $this->lastRunTime = $lastRunTime;
     }
@@ -262,7 +262,7 @@ abstract class TaskAbstract
      *
      * @since  1.0.0
      */
-    public function setComment(string $comment) /* : void */
+    public function setComment(string $comment) : void
     {
         $this->comment = $comment;
     }

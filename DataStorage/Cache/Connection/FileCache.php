@@ -76,7 +76,7 @@ class FileCache extends ConnectionAbstract
     /**
      * {@inheritdoc}
      */
-    public function connect(array $data) /* : void */
+    public function connect(array $data) : void
     {
         $this->status = CacheStatus::ACTIVE;
     }
@@ -120,7 +120,7 @@ class FileCache extends ConnectionAbstract
     /**
      * {@inheritdoc}
      */
-    public function set($key, $value, int $expire = -1) /* : void */
+    public function set($key, $value, int $expire = -1) : void
     {
         if ($this->status !== CacheStatus::ACTIVE) {
             return;

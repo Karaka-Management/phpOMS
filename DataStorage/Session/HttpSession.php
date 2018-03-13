@@ -114,7 +114,7 @@ class HttpSession implements SessionInterface
      *
      * @since  1.0.0
      */
-    private function setCsrfProtection() /* : void */
+    private function setCsrfProtection() : void
     {
         $this->set('UID', 0, false);
 
@@ -151,7 +151,7 @@ class HttpSession implements SessionInterface
     /**
      * {@inheritdoc}
      */
-    public function lock() /* : void */
+    public function lock() : void
     {
         self::$isLocked = true;
     }
@@ -171,7 +171,7 @@ class HttpSession implements SessionInterface
     /**
      * {@inheritdoc}
      */
-    public function save() /* : void */
+    public function save() : void
     {
         if (!self::$isLocked) {
             $_SESSION = $this->sessionData;
@@ -204,7 +204,7 @@ class HttpSession implements SessionInterface
     /**
      * {@inheritdoc}
      */
-    public function setSID($sid) /* : void */
+    public function setSID($sid) : void
     {
         $this->sid = $sid;
     }
@@ -216,7 +216,7 @@ class HttpSession implements SessionInterface
      *
      * @since  1.0.0
      */
-    private function destroy() /* : void */
+    private function destroy() : void
     {
         session_destroy();
         $this->sessionData = [];

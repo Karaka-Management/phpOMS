@@ -29,11 +29,11 @@ class NaiveBayesFilter
     {
     }
 
-    public function trainMatch($matched) /* : void */
+    public function trainMatch($matched) : void
     {
     }
 
-    public function trainMismatch($mismatch) /* : void */
+    public function trainMismatch($mismatch) : void
     {
     }
 

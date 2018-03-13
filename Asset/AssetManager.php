@@ -93,7 +93,7 @@ class AssetManager implements \Countable
      *
      * @since  1.0.0
      */
-    public function get(string $id) /* : ?string */
+    public function get(string $id) : ?string
     {
         if (isset($this->assets[$id])) {
             return $this->assets[$id];

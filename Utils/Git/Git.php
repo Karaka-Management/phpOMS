@@ -80,7 +80,7 @@ class Git
      *
      * @since  1.0.0
      */
-    public static function setBin(string $path) /* : void */
+    public static function setBin(string $path) : void
     {
         if (realpath($path) === false) {
             throw new PathException($path);

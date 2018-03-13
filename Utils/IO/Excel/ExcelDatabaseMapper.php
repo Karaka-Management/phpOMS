@@ -27,12 +27,12 @@ class ExcelDatabaseMapper implements IODatabaseMapper
         $this->sources[] = $source;
     }
 
-    public function setLineBuffer(int $buffer) /* : void */
+    public function setLineBuffer(int $buffer) : void
     {
         $this->lineBuffer = $buffer;
     }
 
-    public function setSources(array $sources) /* : void */
+    public function setSources(array $sources) : void
     {
         $this->sources = $sources;
     }

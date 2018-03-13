@@ -52,7 +52,7 @@ class SqlServerConnection extends ConnectionAbstract
     /**
      * {@inheritdoc}
      */
-    public function connect(array $dbdata = null) /* : void */
+    public function connect(array $dbdata = null) : void
     {
         $this->close();
 

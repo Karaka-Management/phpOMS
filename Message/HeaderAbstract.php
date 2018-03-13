@@ -75,7 +75,7 @@ abstract class HeaderAbstract
      *
      * @since  1.0.0
      */
-    public static function lock() /* : void */
+    public static function lock() : void
     {
         // todo: maybe pass session as member and make lock not static
         self::$isLocked = true;
@@ -114,7 +114,7 @@ abstract class HeaderAbstract
      *
      * @since  1.0.0
      */
-    public function setL11n(Localization $l11n) /* : void */
+    public function setL11n(Localization $l11n) : void
     {
         $this->l11n = $l11n;
     }
@@ -140,7 +140,7 @@ abstract class HeaderAbstract
      *
      * @since  1.0.0
      */
-    public function setAccount(int $account) /* : void */
+    public function setAccount(int $account) : void
     {
         $this->account = $account;
     }
@@ -154,7 +154,7 @@ abstract class HeaderAbstract
      *
      * @since  1.0.0
      */
-    public function setStatusCode(int $status) /* : void */
+    public function setStatusCode(int $status) : void
     {
         $this->status = $status;
         $this->generate($status);

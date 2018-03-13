@@ -127,7 +127,7 @@ class BinaryTree extends Tree
      *
      * @since  1.0.0
      */
-    public function inOrder(Node $node, \Closure $callback) /* : void */
+    public function inOrder(Node $node, \Closure $callback) : void
     {
         $this->inOrder($this->getLeft($node), $callback);
         $callback($node);
@@ -145,7 +145,7 @@ class BinaryTree extends Tree
      *
      * @since  1.0.0
      */
-    private function getVerticalOrder(Node $node, int $horizontalDistance = 0, array &$order) /* : void */
+    private function getVerticalOrder(Node $node, int $horizontalDistance = 0, array &$order) : void
     {
         if (!isset($order[$horizontalDistance])) {
             $order[$horizontalDistance] = [];
@@ -174,7 +174,7 @@ class BinaryTree extends Tree
      *
      * @since  1.0.0
      */
-    public function verticalOrder(Node $node, \Closure $callback) /* : void */
+    public function verticalOrder(Node $node, \Closure $callback) : void
     {
         $order = [];
         $this->getVerticalOrder($node, 0, $order);

@@ -39,7 +39,7 @@ final class Huffman
      *
      * @since  1.0.0
      */
-    public function removeDictionary() /* : void */
+    public function removeDictionary() : void
     {
         $this->dictionary = null;
     }
@@ -65,7 +65,7 @@ final class Huffman
      *
      * @since  1.0.0
      */
-    public function setDictionary(Dictionary $dictionary) /* : void */
+    public function setDictionary(Dictionary $dictionary) : void
     {
         $this->dictionary = $dictionary;
     }

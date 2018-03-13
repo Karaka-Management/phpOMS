@@ -355,7 +355,7 @@ class Markdown
      *
      * @since  1.0.0
      */
-    protected static function blockCode(array $lineArray, array $block = null) /* : ?array */
+    protected static function blockCode(array $lineArray, array $block = null) : ?array
     {
         if ($block !== null && !isset($block['type']) && !isset($block['interrupted'])) {
             return;
@@ -387,7 +387,7 @@ class Markdown
      *
      * @since  1.0.0
      */
-    protected static function blockCodeContinue(array $lineArray, array $block) /* : ?array */
+    protected static function blockCodeContinue(array $lineArray, array $block) : ?array
     {
         if ($lineArray['indent'] < 4) {
             return;
@@ -428,7 +428,7 @@ class Markdown
      *
      * @since  1.0.0
      */
-    protected static function blockFencedCode(array $lineArray) /* : ?array */
+    protected static function blockFencedCode(array $lineArray) : ?array
     {
         if (!preg_match('/^[' . $lineArray['text'][0] . ']{3,}[ ]*([^`]+)?[ ]*$/', $lineArray['text'], $matches)) {
             return;
@@ -465,7 +465,7 @@ class Markdown
      *
      * @since  1.0.0
      */
-    protected static function blockFencedCodeContinue(array $lineArray, array $block) /* : ?array */
+    protected static function blockFencedCodeContinue(array $lineArray, array $block) : ?array
     {
         if (isset($block['complete'])) {
             return;
@@ -512,7 +512,7 @@ class Markdown
      *
      * @since  1.0.0
      */
-    protected static function blockHeader(array $lineArray) /* : ?array */
+    protected static function blockHeader(array $lineArray) : ?array
     {
         if (!isset($lineArray['text'][1])) {
             return;
@@ -545,7 +545,7 @@ class Markdown
      *
      * @since  1.0.0
      */
-    protected static function blockList(array $lineArray) /* : ?array */
+    protected static function blockList(array $lineArray) : ?array
     {
         list($name, $pattern) = $lineArray['text'][0] <= '-' ? ['ul', '[*+-]'] : ['ol', '[0-9]+[.]'];
 
@@ -593,7 +593,7 @@ class Markdown
      *
      * @since  1.0.0
      */
-    protected static function blockListContinue(array $lineArray, array $block) /* : ?array */
+    protected static function blockListContinue(array $lineArray, array $block) : ?array
     {
         if ($block['indent'] === $lineArray['indent'] && preg_match('/^' . $block['pattern'] . '(?:[ ]+(.*)|$)/', $lineArray['text'], $matches)) {
             if (isset($block['interrupted'])) {
@@ -646,7 +646,7 @@ class Markdown
      *
      * @since  1.0.0
      */
-    protected static function blockQuote(array $lineArray) /* : ?array */
+    protected static function blockQuote(array $lineArray) : ?array
     {
         if (!preg_match('/^>[ ]?(.*)/', $lineArray['text'], $matches)) {
             return;
@@ -671,7 +671,7 @@ class Markdown
      *
      * @since  1.0.0
      */
-    protected static function blockQuoteContinue(array $lineArray, array $block) /* : ?array */
+    protected static function blockQuoteContinue(array $lineArray, array $block) : ?array
     {
         if ($lineArray['text'][0] === '>' && preg_match('/^>[ ]?(.*)/', $lineArray['text'], $matches)) {
             if (isset($block['interrupted'])) {
@@ -701,7 +701,7 @@ class Markdown
      *
      * @since  1.0.0
      */
-    protected static function blockRule(array $lineArray) /* : ?array */
+    protected static function blockRule(array $lineArray) : ?array
     {
         if (!preg_match('/^([' . $lineArray['text'][0] . '])([ ]*\1){2,}[ ]*$/', $lineArray['text'])) {
             return;
@@ -724,7 +724,7 @@ class Markdown
      *
      * @since  1.0.0
      */
-    protected static function blockSetextHeader(array $lineArray, array $block = null) /* : ?array */
+    protected static function blockSetextHeader(array $lineArray, array $block = null) : ?array
     {
         if (!isset($block) || isset($block['type']) || isset($block['interrupted'])) {
             return;
@@ -748,7 +748,7 @@ class Markdown
      *
      * @since  1.0.0
      */
-    protected static function blockReference(array $lineArray) /* : ?array */
+    protected static function blockReference(array $lineArray) : ?array
     {
         if (!preg_match('/^\[(.+?)\]:[ ]*<?(\S+?)>?(?:[ ]+["\'(](.+)["\')])?[ ]*$/', $lineArray['text'], $matches)) {
             return;
@@ -774,7 +774,7 @@ class Markdown
      *
      * @since  1.0.0
      */
-    protected static function blockTable($lineArray, array $block = null) /* : ?array */
+    protected static function blockTable($lineArray, array $block = null) : ?array
     {
         if (!isset($block) || isset($block['type']) || isset($block['interrupted'])) {
             return;
@@ -869,7 +869,7 @@ class Markdown
      *
      * @since  1.0.0
      */
-    protected static function blockTableContinue(array $lineArray, array $block) /* : ?array */
+    protected static function blockTableContinue(array $lineArray, array $block) : ?array
     {
         if (isset($block['interrupted'])) {
             return;
@@ -989,7 +989,7 @@ class Markdown
      *
      * @since  1.0.0
      */
-    protected static function inlineCode(array $excerpt) /* : ?array */
+    protected static function inlineCode(array $excerpt) : ?array
     {
         $marker = $excerpt['text'][0];
 
@@ -1015,7 +1015,7 @@ class Markdown
      *
      * @since  1.0.0
      */
-    protected static function inlineEmailTag(array $excerpt) /* : ?array */
+    protected static function inlineEmailTag(array $excerpt) : ?array
     {
         if (strpos($excerpt['text'], '>') === false || !preg_match('/^<((mailto:)?\S+?@\S+?)>/i', $excerpt['text'], $matches)) {
             return;
@@ -1048,7 +1048,7 @@ class Markdown
      *
      * @since  1.0.0
      */
-    protected static function inlineEmphasis(array $excerpt) /* : ?array */
+    protected static function inlineEmphasis(array $excerpt) : ?array
     {
         if (!isset($excerpt['text'][1])) {
             return;
@@ -1083,7 +1083,7 @@ class Markdown
      *
      * @since  1.0.0
      */
-    protected static function inlineEscapeSequence(array $excerpt) /* : ?array */
+    protected static function inlineEscapeSequence(array $excerpt) : ?array
     {
         if (!isset($excerpt['text'][1]) || !in_array($excerpt['text'][1], self::$specialCharacters)) {
             return;
@@ -1104,7 +1104,7 @@ class Markdown
      *
      * @since  1.0.0
      */
-    protected static function inlineImage(array $excerpt) /* : ?array */
+    protected static function inlineImage(array $excerpt) : ?array
     {
         if (!isset($excerpt['text'][1]) || $excerpt['text'][1] !== '[') {
             return;
@@ -1144,7 +1144,7 @@ class Markdown
      *
      * @since  1.0.0
      */
-    protected static function inlineLink(array $excerpt) /* : ?array */
+    protected static function inlineLink(array $excerpt) : ?array
     {
         $element = [
             'name' => 'a',
@@ -1210,7 +1210,7 @@ class Markdown
      *
      * @since  1.0.0
      */
-    protected static function inlineSpecialCharacter(array $excerpt) /* : ?array */
+    protected static function inlineSpecialCharacter(array $excerpt) : ?array
     {
         if ($excerpt['text'][0] === '&' && !preg_match('/^&#?\w+;/', $excerpt['text'])) {
             return [
@@ -1238,7 +1238,7 @@ class Markdown
      *
      * @since  1.0.0
      */
-    protected static function inlineStrikethrough(array $excerpt) /* : ?array */
+    protected static function inlineStrikethrough(array $excerpt) : ?array
     {
         if (!isset($excerpt['text'][1])) {
             return;
@@ -1267,7 +1267,7 @@ class Markdown
      *
      * @since  1.0.0
      */
-    protected static function inlineUrl(array $excerpt) /* : ?array */
+    protected static function inlineUrl(array $excerpt) : ?array
     {
         if (!isset($excerpt['text'][2]) || $excerpt['text'][2] !== '/') {
             return;
@@ -1299,7 +1299,7 @@ class Markdown
      *
      * @since  1.0.0
      */
-    protected static function inlineUrlTag(array $excerpt) /* : ?array */
+    protected static function inlineUrlTag(array $excerpt) : ?array
     {
         if (strpos($excerpt['text'], '>') === false || !preg_match('/^<(\w+:\/{2}[^ >]+)>/i', $excerpt['text'], $matches)) {
             return;

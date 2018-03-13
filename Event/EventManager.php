@@ -119,7 +119,7 @@ class EventManager
      *
      * @since  1.0.0
      */
-    private function reset(string $group) /* : void */
+    private function reset(string $group) : void
     {
         foreach ($this->groups[$group] as $id => $ok) {
             $this->groups[$group][$id] = false;
@@ -186,7 +186,7 @@ class EventManager
      *
      * @since  1.0.0
      */
-    public function addGroup(string $group, string $id) /* : void */
+    public function addGroup(string $group, string $id) : void
     {
         if (!isset($this->groups[$group])) {
             $this->groups[$group] = [];

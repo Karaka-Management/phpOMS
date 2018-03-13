@@ -222,7 +222,7 @@ class Account implements ArrayableInterface, \JsonSerializable
      *
      * @since  1.0.0
      */
-    public function addGroup($group) /* : void */
+    public function addGroup($group) : void
     {
         $this->groups[] = $group;
     }
@@ -236,7 +236,7 @@ class Account implements ArrayableInterface, \JsonSerializable
      *
      * @since  1.0.0
      */
-    public function setL11n(Localization $l11n) /* : void */
+    public function setL11n(Localization $l11n) : void
     {
         $this->l11n = $l11n;
     }
@@ -252,7 +252,7 @@ class Account implements ArrayableInterface, \JsonSerializable
      *
      * @since  1.0.0
      */
-    public function setPermissions(array $permissions) /* : void */
+    public function setPermissions(array $permissions) : void
     {
         $this->permissions = $permissions;
     }
@@ -268,7 +268,7 @@ class Account implements ArrayableInterface, \JsonSerializable
      *
      * @since  1.0.0
      */
-    public function addPermissions(array $permissions) /* : void */
+    public function addPermissions(array $permissions) : void
     {
         $this->permissions = array_merge($this->permissions, $permissions);
     }
@@ -284,7 +284,7 @@ class Account implements ArrayableInterface, \JsonSerializable
      *
      * @since  1.0.0
      */
-    public function addPermission(PermissionAbstract $permission) /* : void */
+    public function addPermission(PermissionAbstract $permission) : void
     {
         $this->permissions[] = $permission;
     }
@@ -371,7 +371,7 @@ class Account implements ArrayableInterface, \JsonSerializable
      *
      * @since  1.0.0
      */
-    public function setName1(string $name) /* : void */
+    public function setName1(string $name) : void
     {
         $this->name1 = $name;
     }
@@ -397,7 +397,7 @@ class Account implements ArrayableInterface, \JsonSerializable
      *
      * @since  1.0.0
      */
-    public function setName2(string $name) /* : void */
+    public function setName2(string $name) : void
     {
         $this->name2 = $name;
     }
@@ -423,7 +423,7 @@ class Account implements ArrayableInterface, \JsonSerializable
      *
      * @since  1.0.0
      */
-    public function setName3(string $name) /* : void */
+    public function setName3(string $name) : void
     {
         $this->name3 = $name;
     }
@@ -451,7 +451,7 @@ class Account implements ArrayableInterface, \JsonSerializable
      *
      * @since  1.0.0
      */
-    public function setEmail(string $email) /* : void */
+    public function setEmail(string $email) : void
     {
         if (!Email::isValid($email)) {
             throw new \InvalidArgumentException();
@@ -483,7 +483,7 @@ class Account implements ArrayableInterface, \JsonSerializable
      *
      * @since  1.0.0
      */
-    public function setStatus(int $status) /* : void */
+    public function setStatus(int $status) : void
     {
         if (!AccountStatus::isValidValue($status)) {
             throw new \InvalidArgumentException();
@@ -515,7 +515,7 @@ class Account implements ArrayableInterface, \JsonSerializable
      *
      * @since  1.0.0
      */
-    public function setType(int $type) /* : void */
+    public function setType(int $type) : void
     {
         if (!AccountType::isValidValue($type)) {
             throw new \InvalidArgumentException();
@@ -559,7 +559,7 @@ class Account implements ArrayableInterface, \JsonSerializable
      *
      * @since  1.0.0
      */
-    public function generatePassword(string $password) /* : void */
+    public function generatePassword(string $password) : void
     {
         $this->password = \password_hash($password, \PASSWORD_DEFAULT);
 
@@ -577,7 +577,7 @@ class Account implements ArrayableInterface, \JsonSerializable
      *
      * @since  1.0.0
      */
-    public function setName(string $name) /* : void */
+    public function setName(string $name) : void
     {
         $this->login = $name;
     }
@@ -589,7 +589,7 @@ class Account implements ArrayableInterface, \JsonSerializable
      *
      * @since  1.0.0
      */
-    public function updateLastActive() /* : void */
+    public function updateLastActive() : void
     {
         $this->lastActive = new \DateTime('NOW');
     }

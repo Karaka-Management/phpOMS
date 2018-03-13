@@ -35,7 +35,7 @@ final class UnhandledHandler
      * @since  1.0.0
      * @codeCoverageIgnore
      */
-    public static function exceptionHandler(\Throwable $e) /* : void */
+    public static function exceptionHandler(\Throwable $e) : void
     {
         $logger = FileLogger::getInstance(__DIR__ . '/../Logs');
         $logger->critical(FileLogger::MSG_FULL, [
@@ -93,7 +93,7 @@ final class UnhandledHandler
      * @since  1.0.0
      * @codeCoverageIgnore
      */
-    public static function shutdownHandler() /* : void */
+    public static function shutdownHandler() : void
     {
         $e = error_get_last();
 

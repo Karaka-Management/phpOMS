@@ -37,7 +37,7 @@ class UpdaterAbstract
      *
      * @since  1.0.0
      */
-    public static function update(DatabasePool $dbPool, InfoManager $info) /* : void */
+    public static function update(DatabasePool $dbPool, InfoManager $info) : void
     {
     }
 }

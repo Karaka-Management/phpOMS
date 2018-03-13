@@ -132,7 +132,7 @@ class Head implements RenderableInterface
      *
      * @since  1.0.0
      */
-    public function setTitle(string $title) /* : void */
+    public function setTitle(string $title) : void
     {
         $this->title = $title;
     }
@@ -147,7 +147,7 @@ class Head implements RenderableInterface
      *
      * @since  1.0.0
      */
-    public function addAsset(int $type, string $uri) /* : void */
+    public function addAsset(int $type, string $uri) : void
     {
         $this->assets[$uri] = $type;
     }
@@ -161,7 +161,7 @@ class Head implements RenderableInterface
      *
      * @since  1.0.0
      */
-    public function setLanguage(string $language) /* : void */
+    public function setLanguage(string $language) : void
     {
         $this->language = $language;
     }
@@ -241,7 +241,7 @@ class Head implements RenderableInterface
      *
      * @since  1.0.0
      */
-    public function setStyle(string $key, string $style, bool $overwrite = true) /* : void */
+    public function setStyle(string $key, string $style, bool $overwrite = true) : void
     {
         if ($overwrite || !isset($this->script[$key])) {
             $this->style[$key] = $style;
@@ -259,7 +259,7 @@ class Head implements RenderableInterface
      *
      * @since  1.0.0
      */
-    public function setScript(string $key, string $script, bool $overwrite = true) /* : void */
+    public function setScript(string $key, string $script, bool $overwrite = true) : void
     {
         if ($overwrite || !isset($this->script[$key])) {
             $this->script[$key] = $script;

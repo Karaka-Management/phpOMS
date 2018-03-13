@@ -125,7 +125,7 @@ class EmailAbstract
      *
      * @since  1.0.0
      */
-    public function disconnect() /* : void */
+    public function disconnect() : void
     {
         if ($this->con === null) {
             imap_close($this->con);
@@ -143,7 +143,7 @@ class EmailAbstract
      *
      * @since  1.0.0
      */
-    public function connect(string $user = '', string $pass = '') /* : void */
+    public function connect(string $user = '', string $pass = '') : void
     {
         $this->mailbox = substr($this->mailbox, 0, -1) . ($this->ssl ? '/ssl/validate-cert' : '/novalidate-cert') . '}';
 

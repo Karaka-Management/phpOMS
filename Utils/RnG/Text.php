@@ -83,7 +83,7 @@ class Text
      *
      * @since  1.0.0
      */
-    public function setFormatting(bool $hasFormatting) /* : void */
+    public function setFormatting(bool $hasFormatting) : void
     {
         $this->hasFormatting = $hasFormatting;
     }
@@ -97,7 +97,7 @@ class Text
      *
      * @since  1.0.0
      */
-    public function setParagraphs(bool $hasParagraphs) /* : void */
+    public function setParagraphs(bool $hasParagraphs) : void
     {
         $this->hasParagraphs = $hasParagraphs;
     }
@@ -280,7 +280,7 @@ class Text
      *
      * @since  1.0.0
      */
-    private function generateParagraph(int $length) /* : void */
+    private function generateParagraph(int $length) : void
     {
         $minSentence = 3;
         $maxSentence = 10;

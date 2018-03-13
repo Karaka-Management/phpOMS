@@ -37,7 +37,7 @@ class UninstallerAbstract
      *
      * @since  1.0.0
      */
-    public static function uninstall(DatabasePool $dbPool, InfoManager $info) /* : void */
+    public static function uninstall(DatabasePool $dbPool, InfoManager $info) : void
     {
 
     }

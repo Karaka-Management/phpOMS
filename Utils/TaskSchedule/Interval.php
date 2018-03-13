@@ -231,7 +231,7 @@ class Interval implements \Serializable
      *
      * @since  1.0.0
      */
-    public function setStart(\DateTime $start) /* : void */
+    public function setStart(\DateTime $start) : void
     {
         $this->start = $start;
     }
@@ -257,7 +257,7 @@ class Interval implements \Serializable
      *
      * @since  1.0.0
      */
-    public function setEnd(\DateTime $end) /* : void */
+    public function setEnd(\DateTime $end) : void
     {
         $this->end = $end;
     }
@@ -287,7 +287,7 @@ class Interval implements \Serializable
      *
      * @since  1.0.0
      */
-    public function setMinute(array $minute, int $step = 0, bool $any = false) /* : void */
+    public function setMinute(array $minute, int $step = 0, bool $any = false) : void
     {
         if ($this->validateTime($minute, $step, 0, 59)) {
             $this->hour = [
@@ -352,7 +352,7 @@ class Interval implements \Serializable
      *
      * @since  1.0.0
      */
-    public function setHour(array $hour, int $step = 0, bool $any = false) /* : void */
+    public function setHour(array $hour, int $step = 0, bool $any = false) : void
     {
         if ($this->validateTime($hour, $step, 0, 23)) {
             $this->hour = [
@@ -392,7 +392,7 @@ class Interval implements \Serializable
      *
      * @since  1.0.0
      */
-    public function setDayOfMonth(array $dayOfMonth, int $step = 0, bool $any = false, bool $last = false, int $nearest = 0) /* : void */
+    public function setDayOfMonth(array $dayOfMonth, int $step = 0, bool $any = false, bool $last = false, int $nearest = 0) : void
     {
         if ($this->validateDayOfMonth($arr = [
             'dayOfMonth' => $dayOfMonth,
@@ -461,7 +461,7 @@ class Interval implements \Serializable
      *
      * @since  1.0.0
      */
-    public function setDayOfWeek(array $dayOfWeek, int $step = 0, bool $any = false, bool $last = false) /* : void */
+    public function setDayOfWeek(array $dayOfWeek, int $step = 0, bool $any = false, bool $last = false) : void
     {
         if ($this->validateDayOfWeek($arr = [
             'dayOfWeek' => $dayOfWeek,
@@ -525,7 +525,7 @@ class Interval implements \Serializable
      *
      * @since  1.0.0
      */
-    public function setMonth(array $month, int $step = 0, bool $any = false) /* : void */
+    public function setMonth(array $month, int $step = 0, bool $any = false) : void
     {
         if ($this->validateTime($month, $step, 1, 12)) {
             $this->month = [
@@ -563,7 +563,7 @@ class Interval implements \Serializable
      *
      * @since  1.0.0
      */
-    public function setYear(array $year, int $step = 0, bool $any = false) /* : void */
+    public function setYear(array $year, int $step = 0, bool $any = false) : void
     {
         if ($this->validateYear($arr = [
             'year' => $year,
@@ -620,7 +620,7 @@ class Interval implements \Serializable
      *
      * @since  1.0.0
      */
-    public function serializeTime($time, $step) /* : void */
+    public function serializeTime($time, $step) : void
     {
         if (($count = count($time)) > 0) {
             $serialize = implode(',', $time);
@@ -643,7 +643,7 @@ class Interval implements \Serializable
      *
      * @since  1.0.0
      */
-    public function serializeDayOfMonth() /* : void */
+    public function serializeDayOfMonth() : void
     {
         if (($count = count($this->dayOfMonth['dayOfMonth'])) > 0) {
             $serialize = implode(',', $this->dayOfMonth['dayOfMonth']);
@@ -670,7 +670,7 @@ class Interval implements \Serializable
      *
      * @since  1.0.0
      */
-    public function serializeDayOfWeek() /* : void */
+    public function serializeDayOfWeek() : void
     {
         if (($count = count($this->dayOfWeek['dayOfWeek'])) > 0) {
             $serialize = implode(',', $this->dayOfWeek['dayOfWeek']);

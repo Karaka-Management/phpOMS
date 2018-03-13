@@ -75,7 +75,7 @@ class L11nManager
      *
      * @since  1.0.0
      */
-    public function loadLanguage(string $language, string $from, array $translation) /* : void */
+    public function loadLanguage(string $language, string $from, array $translation) : void
     {
         if (!isset($translation[$from])) {
             throw new \UnexpectedValueException($from);
@@ -103,7 +103,7 @@ class L11nManager
      *
      * @since  1.0.0
      */
-    public function loadLanguageFromFile(string $language, string $from, string $file) /* : void */
+    public function loadLanguageFromFile(string $language, string $from, string $file) : void
     {
         $lang = [];
         if (file_exists($file)) {

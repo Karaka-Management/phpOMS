@@ -129,7 +129,7 @@ abstract class ModuleAbstract
     /**
      * {@inheritdoc}
      */
-    public function addReceiving(string $module) /* : void */
+    public function addReceiving(string $module) : void
     {
         $this->receiving[] = $module;
     }

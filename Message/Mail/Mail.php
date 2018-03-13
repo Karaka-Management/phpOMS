@@ -189,7 +189,7 @@ class Mail
      *
      * @since  1.0.0
      */
-    public function setBody(string $body) /* : void */
+    public function setBody(string $body) : void
     {
         $this->body = $body;
     }
@@ -203,7 +203,7 @@ class Mail
      *
      * @since  1.0.0
      */
-    public function setOverview(string $overview) /* : void */
+    public function setOverview(string $overview) : void
     {
         $this->overview = $overview;
     }
@@ -217,7 +217,7 @@ class Mail
      *
      * @since  1.0.0
      */
-    public function setEncoding(int $encoding) /* : void */
+    public function setEncoding(int $encoding) : void
     {
         $this->encoding = $encoding;
     }

@@ -76,7 +76,7 @@ class Router
      *
      * @since  1.0.0
      */
-    public function add(string $route, $destination, int $verb = RouteVerb::GET) /* : void */
+    public function add(string $route, $destination, int $verb = RouteVerb::GET) : void
     {
         if (!isset($this->routes[$route])) {
             $this->routes[$route] = [];

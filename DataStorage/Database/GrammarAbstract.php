@@ -149,7 +149,7 @@ abstract class GrammarAbstract
      *
      * @since  1.0.0
      */
-    public function setTablePrefix(string $prefix) /* : void */
+    public function setTablePrefix(string $prefix) : void
     {
         $this->tablePrefix = $prefix;
     }

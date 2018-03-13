@@ -42,7 +42,7 @@ class InstallerAbstract
      *
      * @since  1.0.0
      */
-    public static function registerInDatabase(DatabasePool $dbPool, InfoManager $info) /* : void */
+    public static function registerInDatabase(DatabasePool $dbPool, InfoManager $info) : void
     {
         switch ($dbPool->get()->getType()) {
             case DatabaseType::MYSQL:
@@ -96,7 +96,7 @@ class InstallerAbstract
      *
      * @since  1.0.0
      */
-    public static function install(string $modulePath, DatabasePool $dbPool, InfoManager $info) /* : void */
+    public static function install(string $modulePath, DatabasePool $dbPool, InfoManager $info) : void
     {
         self::registerInDatabase($dbPool, $info);
         self::initRoutes($modulePath, $info);
@@ -113,7 +113,7 @@ class InstallerAbstract
      *
      * @since  1.0.0
      */
-    private static function activate(DatabasePool $dbPool, InfoManager $info) /* : void */
+    private static function activate(DatabasePool $dbPool, InfoManager $info) : void
     {
         /** @var ActivateAbstract $class */
         $class = '\Modules\\' . $info->getDirectory() . '\Admin\Status';
@@ -130,7 +130,7 @@ class InstallerAbstract
      *
      * @since  1.0.0
      */
-    public static function reInit(string $modulePath, InfoManager $info) /* : void */
+    public static function reInit(string $modulePath, InfoManager $info) : void
     {
         self::initRoutes($modulePath, $info);
     }
@@ -147,7 +147,7 @@ class InstallerAbstract
      *
      * @since  1.0.0
      */
-    private static function initRoutes(string $modulePath, InfoManager $info) /* : void */
+    private static function initRoutes(string $modulePath, InfoManager $info) : void
     {
         // todo: maybe use static::__DIR__ ?
         $directories = new Directory($modulePath . '/Admin/Routes');
@@ -173,7 +173,7 @@ class InstallerAbstract
      *
      * @since  1.0.0
      */
-    private static function installRoutes(string $destRoutePath, string $srcRoutePath) /* : void */
+    private static function installRoutes(string $destRoutePath, string $srcRoutePath) : void
     {
         if (!file_exists($destRoutePath)) {
             file_put_contents($destRoutePath, '<?php return [];');

@@ -238,7 +238,7 @@ class Builder extends BuilderAbstract
      *
      * @since  1.0.0
      */
-    public function setConnection(ConnectionAbstract $connection) /* : void */
+    public function setConnection(ConnectionAbstract $connection) : void
     {
         $this->connection = $connection;
         $this->grammar    = $connection->getGrammar();
@@ -528,7 +528,7 @@ class Builder extends BuilderAbstract
      *
      * @since  1.0.0
      */
-    public function getWhereByColumn($column) /* : ?array */
+    public function getWhereByColumn($column) : ?array
     {
         return $this->wheres[self::getPublicColumnName($column)] ?? null;
     }
@@ -543,7 +543,7 @@ class Builder extends BuilderAbstract
      *
      * @since  1.0.0
      */
-    public function getTableOfSystem($expression, string $systemIdentifier) /* : ?string */
+    public function getTableOfSystem($expression, string $systemIdentifier) : ?string
     {
         if (($pos = strpos($expression, $systemIdentifier . '.' . $systemIdentifier)) === false) {
             return null;

@@ -57,7 +57,7 @@ class Column
         return $this->column;
     }
 
-    public function setColumn(string $column) /* : void */
+    public function setColumn(string $column) : void
     {
         $this->column = $column;
     }

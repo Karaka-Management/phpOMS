@@ -54,7 +54,7 @@ class NetPromoterScore
      *
      * @since  1.0.0
      */
-    public function add(int $score) /* : void */
+    public function add(int $score) : void
     {
         $this->scores[] = $score;
     }

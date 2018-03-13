@@ -25,7 +25,7 @@ class HeaderAbstractTest extends \PHPUnit\Framework\TestCase
     {
         $this->header = new class extends HeaderAbstract
         {
-            public function generate(int $statusCode) /* : void */
+            public function generate(int $statusCode) : void
             {
             }
 
@@ -34,7 +34,7 @@ class HeaderAbstractTest extends \PHPUnit\Framework\TestCase
                 return '1';
             }
 
-            public function set(string $key, string $value, bool $overwrite = false) /* : void */
+            public function set(string $key, string $value, bool $overwrite = false) : void
             {
 
             }

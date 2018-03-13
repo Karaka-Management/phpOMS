@@ -65,7 +65,7 @@ abstract class ResponseAbstract implements MessageInterface, \JsonSerializable
      *
      * @since  1.0.0
      */
-    public function set($key, $response, bool $overwrite = true) /* : void */
+    public function set($key, $response, bool $overwrite = true) : void
     {
         // This is not working since the key kontains :: from http://
         //$this->response = ArrayUtils::setArray((string) $key, $this->response, $response, ':', $overwrite);

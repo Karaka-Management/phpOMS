@@ -49,7 +49,7 @@ class Nntp extends EmailAbstract
      *
      * @since  1.0.0
      */
-    public function connect(string $user = '', string $pass = '') /* : void */
+    public function connect(string $user = '', string $pass = '') : void
     {
         $this->mailbox = '{' . $this->host . ':' . $this->port . '/nntp}';
         parent::connect();

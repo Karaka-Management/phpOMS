@@ -60,7 +60,7 @@ class CookieJar
      *
      * @since  1.0.0
      */
-    public static function lock() /* : void */
+    public static function lock() : void
     {
         self::$isLocked = true;
     }
@@ -170,7 +170,7 @@ class CookieJar
      *
      * @since  1.0.0
      */
-    public function save() /* : void */
+    public function save() : void
     {
         if (self::$isLocked) {
             throw new LockException('CookieJar');

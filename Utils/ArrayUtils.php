@@ -284,7 +284,7 @@ class ArrayUtils
      *
      * @since  1.0.0
      */
-    public static function getArg(string $id, array $args) /* : ?string */
+    public static function getArg(string $id, array $args) : ?string
     {
         if (($key = array_search($id, $args)) === false || $key === count($args) - 1) {
             return null;
@@ -303,7 +303,7 @@ class ArrayUtils
      *
      * @since  1.0.0
      */
-    public static function hasArg(string $id, array $args) /* : ?int */
+    public static function hasArg(string $id, array $args) : ?int
     {
         if (($key = array_search($id, $args)) === false) {
             return null;

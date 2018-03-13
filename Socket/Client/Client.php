@@ -51,7 +51,7 @@ class Client extends SocketAbstract
      *
      * @since  1.0.0
      */
-    private function disconnect() /* : void */
+    private function disconnect() : void
     {
         $this->run = false;
     }

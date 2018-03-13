@@ -54,7 +54,7 @@ class MemCached extends ConnectionAbstract
     /**
      * {@inheritdoc}
      */
-    public function connect(array $data) /* : void */
+    public function connect(array $data) : void
     {
         $this->status = CacheStatus::ACTIVE;
     }
@@ -76,7 +76,7 @@ class MemCached extends ConnectionAbstract
     /**
      * {@inheritdoc}
      */
-    public function set($key, $value, int $expire = -1) /* : void */
+    public function set($key, $value, int $expire = -1) : void
     {
         $this->memc->set($key, $value, false, $expire);
     }
@@ -175,7 +175,7 @@ class MemCached extends ConnectionAbstract
      *
      * @since  1.0.0
      */
-    public function close() /* : void */
+    public function close() : void
     {
         if ($this->memc !== null) {
             $this->memc->close();

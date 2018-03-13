@@ -214,7 +214,7 @@ class Tree extends Graph
      *
      * @since  1.0.0
      */
-    public function preOrder(Node $node, \Closure $callback) /* : void */
+    public function preOrder(Node $node, \Closure $callback) : void
     {
         if (count($this->nodes) === 0) {
             return;
@@ -239,7 +239,7 @@ class Tree extends Graph
      *
      * @since  1.0.0
      */
-    public function postOrder(Node $node, \Closure $callback) /* : void */
+    public function postOrder(Node $node, \Closure $callback) : void
     {
         if (count($this->nodes) === 0) {
             return;

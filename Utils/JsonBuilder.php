@@ -65,7 +65,7 @@ class JsonBuilder implements \Serializable, \JsonSerializable
      *
      * @since  1.0.0
      */
-    public function add(string $path, $value, bool $overwrite = true) /* : void */
+    public function add(string $path, $value, bool $overwrite = true) : void
     {
         $this->json = ArrayUtils::setArray($path, $this->json, $value, '/', $overwrite);
     }
@@ -79,7 +79,7 @@ class JsonBuilder implements \Serializable, \JsonSerializable
      *
      * @since  1.0.0
      */
-    public function remove(string $path) /* : void */
+    public function remove(string $path) : void
     {
         $this->json = ArrayUtils::unsetArray($path, $this->json, '/');
     }

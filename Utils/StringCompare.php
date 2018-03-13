@@ -55,7 +55,7 @@ class StringCompare
      *
      * @since  1.0.0
      */
-    public function add(string $word) /* : void */
+    public function add(string $word) : void
     {
         $this->dictionary[] = $word;
     }

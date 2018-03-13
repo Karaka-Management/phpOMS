@@ -131,7 +131,7 @@ class Location implements \JsonSerializable, \Serializable
      *
      * @since  1.0.0
      */
-    public function setType(int $type) /* : void */
+    public function setType(int $type) : void
     {
         $this->type = $type;
     }
@@ -157,7 +157,7 @@ class Location implements \JsonSerializable, \Serializable
      *
      * @since  1.0.0
      */
-    public function setPostal(string $postal) /* : void */
+    public function setPostal(string $postal) : void
     {
         $this->postal = $postal;
     }
@@ -183,7 +183,7 @@ class Location implements \JsonSerializable, \Serializable
      *
      * @since  1.0.0
      */
-    public function setCity(string $city) /* : void */
+    public function setCity(string $city) : void
     {
         $this->city = $city;
     }
@@ -209,7 +209,7 @@ class Location implements \JsonSerializable, \Serializable
      *
      * @since  1.0.0
      */
-    public function setCountry(string $country) /* : void */
+    public function setCountry(string $country) : void
     {
         $this->country = $country;
     }
@@ -235,7 +235,7 @@ class Location implements \JsonSerializable, \Serializable
      *
      * @since  1.0.0
      */
-    public function setAddress(string $address) /* : void */
+    public function setAddress(string $address) : void
     {
         $this->address = $address;
     }
@@ -261,7 +261,7 @@ class Location implements \JsonSerializable, \Serializable
      *
      * @since  1.0.0
      */
-    public function setState(string $state) /* : void */
+    public function setState(string $state) : void
     {
         $this->state = $state;
     }
@@ -287,7 +287,7 @@ class Location implements \JsonSerializable, \Serializable
      *
      * @since  1.0.0
      */
-    public function setGeo(array $geo) /* : void */
+    public function setGeo(array $geo) : void
     {
         $this->geo = $geo;
     }

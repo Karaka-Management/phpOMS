@@ -128,7 +128,7 @@ abstract class SettingsAbstract implements OptionsInterface
      *
      * @since  1.0.0
      */
-    public function set(array $options, bool $store = false) /* : void */
+    public function set(array $options, bool $store = false) : void
     {
         $this->setOptions($options);
 

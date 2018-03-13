@@ -70,7 +70,7 @@ class C39 extends C128Abstract
      *
      * @since  1.0.0
      */
-    public function setContent(string $content) /* : void */
+    public function setContent(string $content) : void
     {
         parent::setContent(strtoupper($content));
     }

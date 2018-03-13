@@ -55,7 +55,7 @@ class Iban implements \Serializable
      *
      * @since  1.0.0
      */
-    private function parse(string $iban) /* : void */
+    private function parse(string $iban) : void
     {
         $this->iban = self::normalize($iban);
 

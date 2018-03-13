@@ -60,7 +60,7 @@ class Response extends ResponseAbstract implements RenderableInterface
      *
      * @since  1.0.0
      */
-    public function setResponse(array $response) /* : void */
+    public function setResponse(array $response) : void
     {
         $this->response = $response;
     }

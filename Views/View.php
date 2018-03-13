@@ -112,7 +112,7 @@ class View extends ViewAbstract
      *
      * @since  1.0.0
      */
-    public function setData(string $id, $data) /* : void */
+    public function setData(string $id, $data) : void
     {
         $this->data[$id] = $data;
     }

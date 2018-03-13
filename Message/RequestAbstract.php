@@ -122,7 +122,7 @@ abstract class RequestAbstract implements MessageInterface
      *
      * @since  1.0.0
      */
-    public function setUri(UriInterface $uri) /* : void */
+    public function setUri(UriInterface $uri) : void
     {
         $this->uri = $uri;
     }
@@ -160,7 +160,7 @@ abstract class RequestAbstract implements MessageInterface
      *
      * @since  1.0.0
      */
-    public function setRequestSource(int $source) /* : void */
+    public function setRequestSource(int $source) : void
     {
         if (!RequestSource::isValidValue($source)) {
             throw new InvalidEnumValue((string) $source);
@@ -187,7 +187,7 @@ abstract class RequestAbstract implements MessageInterface
      *
      * @since  1.0.0
      */
-    public function setMethod(string $method) /* : void */
+    public function setMethod(string $method) : void
     {
         $this->method = $method;
     }
@@ -258,7 +258,7 @@ abstract class RequestAbstract implements MessageInterface
      *
      * @since  1.0.0
      */
-    public function lock() /* : void */
+    public function lock() : void
     {
         $this->lock = true;
     }

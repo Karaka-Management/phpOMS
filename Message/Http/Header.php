@@ -227,7 +227,7 @@ class Header extends HeaderAbstract
      * @since  1.0.0
      * @codeCoverageIgnore
      */
-    public function push() /* : void */
+    public function push() : void
     {
         if (self::$isLocked) {
             throw new \Exception('Already locked');
@@ -247,7 +247,7 @@ class Header extends HeaderAbstract
     /**
      * {@inheritdoc}
      */
-    public function generate(int $code) /* : void */
+    public function generate(int $code) : void
     {
         switch ($code) {
             case RequestStatusCode::R_403:
@@ -277,7 +277,7 @@ class Header extends HeaderAbstract
      *
      * @since  1.0.0
      */
-    private function generate403() /* : void */
+    private function generate403() : void
     {
         $this->set('HTTP', 'HTTP/1.0 403 Forbidden');
         $this->set('Status', 'Status: HTTP/1.0 403 Forbidden');
@@ -291,7 +291,7 @@ class Header extends HeaderAbstract
      *
      * @since  1.0.0
      */
-    private function generate404() /* : void */
+    private function generate404() : void
     {
         $this->set('HTTP', 'HTTP/1.0 404 Not Found');
         $this->set('Status', 'Status: HTTP/1.0 404 Not Found');
@@ -305,7 +305,7 @@ class Header extends HeaderAbstract
      *
      * @since  1.0.0
      */
-    private function generate406() /* : void */
+    private function generate406() : void
     {
         $this->set('HTTP', 'HTTP/1.0 406 Not acceptable');
         $this->set('Status', 'Status: 406 Not acceptable');
@@ -319,7 +319,7 @@ class Header extends HeaderAbstract
      *
      * @since  1.0.0
      */
-    private function generate407() /* : void */
+    private function generate407() : void
     {
         \http_response_code(407);
     }
@@ -331,7 +331,7 @@ class Header extends HeaderAbstract
      *
      * @since  1.0.0
      */
-    private function generate503() /* : void */
+    private function generate503() : void
     {
         $this->set('HTTP', 'HTTP/1.0 503 Service Temporarily Unavailable');
         $this->set('Status', 'Status: 503 Service Temporarily Unavailable');
@@ -346,7 +346,7 @@ class Header extends HeaderAbstract
      *
      * @since  1.0.0
      */
-    private function generate500() /* : void */
+    private function generate500() : void
     {
         $this->set('HTTP', 'HTTP/1.0 500 Internal Server Error');
         $this->set('Status', 'Status: 500 Internal Server Error');

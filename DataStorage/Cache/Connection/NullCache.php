@@ -28,14 +28,14 @@ class NullCache extends ConnectionAbstract
     /**
      * {@inheritdoc}
      */
-    public function connect(array $data) /* : void */
+    public function connect(array $data) : void
     {
     }
 
     /**
      * {@inheritdoc}
      */
-    public function set($key, $value, int $expire = -1) /* : void */
+    public function set($key, $value, int $expire = -1) : void
     {
     }
 
@@ -106,7 +106,7 @@ class NullCache extends ConnectionAbstract
     /**
      * {@inheritdoc}
      */
-    public function setStatus(int $status) /* : void */
+    public function setStatus(int $status) : void
     {
     }
 }

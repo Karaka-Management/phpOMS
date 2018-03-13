@@ -80,7 +80,7 @@ class Address implements \JsonSerializable
      *
      * @since  1.0.0
      */
-    public function setRecipient(string $recipient) /* : void */
+    public function setRecipient(string $recipient) : void
     {
         $this->recipient = $recipient;
     }
@@ -106,7 +106,7 @@ class Address implements \JsonSerializable
      *
      * @since  1.0.0
      */
-    public function setFAO(string $fao) /* : void */
+    public function setFAO(string $fao) : void
     {
         $this->fao = $fao;
     }
@@ -132,7 +132,7 @@ class Address implements \JsonSerializable
      *
      * @since  1.0.0
      */
-    public function setLocation(Location $location) /* : void */
+    public function setLocation(Location $location) : void
     {
         $this->location = $location;
     }

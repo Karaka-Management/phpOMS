@@ -89,7 +89,7 @@ class Matrix implements \ArrayAccess, \Iterator
      *
      * @since  1.0.0
      */
-    public function set(int $m, int $n, $value) /* : void */
+    public function set(int $m, int $n, $value) : void
     {
         if (!isset($this->matrix[$m], $this->matrix[$m][$n])) {
             throw new InvalidDimensionException($m . 'x' . $n);

@@ -45,7 +45,7 @@ class HIBCC
 
     }
 
-    public function setIdentifier(string $identifier) /* : void */
+    public function setIdentifier(string $identifier) : void
     {
         $this->identifier = $identifier;
     }
@@ -55,7 +55,7 @@ class HIBCC
         return $this->identifier;
     }
 
-    public function setProductId(string $id) /* : void */
+    public function setProductId(string $id) : void
     {
         $this->productId = $id;
     }
@@ -65,7 +65,7 @@ class HIBCC
         return $this->productId;
     }
 
-    public function setMeasureOfUnit(int $measure) /* : void */
+    public function setMeasureOfUnit(int $measure) : void
     {
         $this->measureOfUnit = $measure;
     }
@@ -75,7 +75,7 @@ class HIBCC
         return $this->measureOfUnit;
     }
 
-    public function setDateFormat(string $format) /* : void */
+    public function setDateFormat(string $format) : void
     {
         $this->dateFormat = $format;
     }
@@ -85,7 +85,7 @@ class HIBCC
         return $this->dateFormat();
     }
 
-    public function setExpirationDate(\DateTime $date) /* : void */
+    public function setExpirationDate(\DateTime $date) : void
     {
         $this->expirationDate = $date;
     }
@@ -95,7 +95,7 @@ class HIBCC
         return $this->expirationDate;
     }
 
-    public function setPrductionDate(\DateTime $date) /* : void */
+    public function setPrductionDate(\DateTime $date) : void
     {
         $this->productionDate = $date;
     }
@@ -105,7 +105,7 @@ class HIBCC
         return $this->productionDate;
     }
 
-    public function setLot(string $lot) /* : void */
+    public function setLot(string $lot) : void
     {
         $this->lot = $lot;
     }

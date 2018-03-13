@@ -123,7 +123,7 @@ class Author
      *
      * @since  1.0.0
      */
-    public function setCommitCount(int $count) /* : void */
+    public function setCommitCount(int $count) : void
     {
         $this->commitCount = $count;
     }
@@ -137,7 +137,7 @@ class Author
      *
      * @since  1.0.0
      */
-    public function setAdditionCount(int $count) /* : void */
+    public function setAdditionCount(int $count) : void
     {
         $this->additionsCount = $count;
     }
@@ -163,7 +163,7 @@ class Author
      *
      * @since  1.0.0
      */
-    public function setRemovalCount(int $count) /* : void */
+    public function setRemovalCount(int $count) : void
     {
         $this->removalsCount = $count;
     }

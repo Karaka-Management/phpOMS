@@ -157,7 +157,7 @@ class Commit
      *
      * @since  1.0.0
      */
-    public function setMessage(string $message) /* : void */
+    public function setMessage(string $message) : void
     {
         $this->message = $message;
     }
@@ -215,7 +215,7 @@ class Commit
      *
      * @since  1.0.0
      */
-    public function setAuthor(Author $author) /* : void */
+    public function setAuthor(Author $author) : void
     {
         $this->author = $author;
     }
@@ -241,7 +241,7 @@ class Commit
      *
      * @since  1.0.0
      */
-    public function setBranch(Branch $branch) /* : void */
+    public function setBranch(Branch $branch) : void
     {
         $this->branch = $branch;
     }
@@ -267,7 +267,7 @@ class Commit
      *
      * @since  1.0.0
      */
-    public function setTag(Tag $tag) /* : void */
+    public function setTag(Tag $tag) : void
     {
         $this->tag = $tag;
     }
@@ -293,7 +293,7 @@ class Commit
      *
      * @since  1.0.0
      */
-    public function setDate(\DateTime $date) /* : void */
+    public function setDate(\DateTime $date) : void
     {
         $this->date = $date;
     }
@@ -319,7 +319,7 @@ class Commit
      *
      * @since  1.0.0
      */
-    public function setRepository(Repository $repository) /* : void */
+    public function setRepository(Repository $repository) : void
     {
         $this->repository = $repository;
     }
@@ -338,7 +338,7 @@ class Commit
      *
      * @since  1.0.0
      */
-    private function addChange(string $path, int $line, string $old, string $new) /* : void */
+    private function addChange(string $path, int $line, string $old, string $new) : void
     {
         if (!isset($this->files[$path])) {
             throw new \Exception();

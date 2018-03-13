@@ -119,7 +119,7 @@ class MultiMap implements \Countable
      *
      * @since  1.0.0
      */
-    private function garbageCollect() /* : void */
+    private function garbageCollect() : void
     {
         /* garbage collect keys */
         foreach ($this->keys as $key => $keyValue) {

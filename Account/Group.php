@@ -126,7 +126,7 @@ class Group implements ArrayableInterface, \JsonSerializable
      *
      * @since  1.0.0
      */
-    public function setName(string $name) /* : void */
+    public function setName(string $name) : void
     {
         $this->name = $name;
     }
@@ -152,7 +152,7 @@ class Group implements ArrayableInterface, \JsonSerializable
      *
      * @since  1.0.0
      */
-    public function setDescription(string $description) /* : void */
+    public function setDescription(string $description) : void
     {
         $this->description = $description;
     }
@@ -180,7 +180,7 @@ class Group implements ArrayableInterface, \JsonSerializable
      *
      * @since  1.0.0
      */
-    public function setStatus(int $status) /* : void */
+    public function setStatus(int $status) : void
     {
         if (!GroupStatus::isValidValue($status)) {
             throw new InvalidEnumValue($status);

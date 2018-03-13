@@ -361,7 +361,7 @@ class ModuleManager
      *
      * @since  1.0.0
      */
-    private function deactivateModule(InfoManager $info) /* : void */
+    private function deactivateModule(InfoManager $info) : void
     {
         $class = '\\Modules\\' . $info->getDirectory() . '\\Admin\\Status';
 
@@ -419,7 +419,7 @@ class ModuleManager
      *
      * @since  1.0.0
      */
-    private function activateModule(InfoManager $info) /* : void */
+    private function activateModule(InfoManager $info) : void
     {
         $class = '\\Modules\\' . $info->getDirectory() . '\\Admin\\Status';
 
@@ -442,7 +442,7 @@ class ModuleManager
      *
      * @since  1.0.0
      */
-    public function reInit(string $module) /* : void */
+    public function reInit(string $module) : void
     {
         $info  = $this->loadInfo($module);
         $class = '\\Modules\\' . $info->getDirectory() . '\\Admin\\Installer';
@@ -512,7 +512,7 @@ class ModuleManager
      *
      * @since  1.0.0
      */
-    private function installDependencies(array $dependencies) /* : void */
+    private function installDependencies(array $dependencies) : void
     {
         foreach ($dependencies as $key => $version) {
             $this->install($key);
@@ -530,7 +530,7 @@ class ModuleManager
      *
      * @since  1.0.0
      */
-    private function installModule(InfoManager $info) /* : void */
+    private function installModule(InfoManager $info) : void
     {
         $class = '\\Modules\\' . $info->getDirectory() . '\\Admin\\Installer';
 
@@ -554,7 +554,7 @@ class ModuleManager
      *
      * @since  1.0.0
      */
-    public function installProviding(string $from, string $for) /* : void */
+    public function installProviding(string $from, string $for) : void
     {
         if (file_exists($this->modulePath . '/' . $from . '/Admin/Install/' . $for . '.php')) {
             $class = '\\Modules\\' . $from . '\\Admin\\Install\\' . $for;
@@ -597,7 +597,7 @@ class ModuleManager
      *
      * @since  1.0.0
      */
-    public function initModule($modules) /* : void */
+    public function initModule($modules) : void
     {
         $modules = (array) $modules;
 
@@ -623,7 +623,7 @@ class ModuleManager
      *
      * @since  1.0.0
      */
-    private function initModuleController(string $module) /* : void */
+    private function initModuleController(string $module) : void
     {
         try {
             $this->running[$module] = ModuleFactory::getInstance($module, $this->app);
@@ -642,7 +642,7 @@ class ModuleManager
      *
      * @since  1.0.0
      */
-    public function initRequestModules(Request $request) /* : void */
+    public function initRequestModules(Request $request) : void
     {
         $toInit = $this->getRoutedModules($request);
 

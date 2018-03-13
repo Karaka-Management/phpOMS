@@ -79,7 +79,7 @@ class ConsoleSession implements SessionInterface
     /**
      * {@inheritdoc}
      */
-    public function setSID($sid) /* : void */
+    public function setSID($sid) : void
     {
         $this->sid = $sid;
     }

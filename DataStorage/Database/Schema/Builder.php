@@ -44,7 +44,7 @@ class Builder extends BuilderAbstract
         $this->grammar    = $connection->getSchemaGrammar();
     }
 
-    public function select(...$table) /* : void */
+    public function select(...$table) : void
     {
         $this->type   = QueryType::SELECT;
         $this->table += $table;

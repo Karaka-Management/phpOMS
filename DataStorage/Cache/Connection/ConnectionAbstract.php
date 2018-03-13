@@ -153,7 +153,7 @@ abstract class ConnectionAbstract implements ConnectionInterface
     /**
      * {@inheritdoc}
      */
-    public function close() /* : void */
+    public function close() : void
     {
         $this->con    = null;
         $this->status = CacheStatus::INACTIVE;

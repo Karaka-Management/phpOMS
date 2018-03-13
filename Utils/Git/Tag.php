@@ -73,7 +73,7 @@ class Tag
      *
      * @since  1.0.0
      */
-    public function setMessage(string $message) /* : void */
+    public function setMessage(string $message) : void
     {
         $this->message = $message;
     }

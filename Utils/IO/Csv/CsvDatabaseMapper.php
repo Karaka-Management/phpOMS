@@ -44,7 +44,7 @@ class CsvDatabaseMapper implements IODatabaseMapper
         $this->sources = array_unique($this->sources);
     }
 
-    public function setSources(array $sources) /* : void */
+    public function setSources(array $sources) : void
     {
         $this->sources = $sources;
     }
@@ -54,7 +54,7 @@ class CsvDatabaseMapper implements IODatabaseMapper
         $this->autoIdentifyCsvSettings = $identify;
     }
 
-    public function setLineBuffer(int $buffer) /* : void */
+    public function setLineBuffer(int $buffer) : void
     {
         $this->lineBuffer = $buffer;
     }

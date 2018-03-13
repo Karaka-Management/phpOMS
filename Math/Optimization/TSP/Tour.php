@@ -139,7 +139,7 @@ class Tour implements \Countable
      *
      * @since  1.0.0
      */
-    public function addCity(City $city) /* : void */
+    public function addCity(City $city) : void
     {
         $this->cities[] = $city;
 
@@ -157,7 +157,7 @@ class Tour implements \Countable
      *
      * @since  1.0.0
      */
-    public function setCity(int $index, City $city) /* : void */
+    public function setCity(int $index, City $city) : void
     {
         $this->cities[$index] = $city;
         asort($this->cities);

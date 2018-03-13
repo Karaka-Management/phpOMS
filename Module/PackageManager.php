@@ -88,7 +88,7 @@ class PackageManager
      *
      * @since  1.0.0
      */
-    public function extract(string $path) /* : void */
+    public function extract(string $path) : void
     {
         $this->extractPath = $path;
         Zip::unpack($this->path, $this->extractPath);
@@ -103,7 +103,7 @@ class PackageManager
      *
      * @since  1.0.0
      */
-    public function load() /* : void */
+    public function load() : void
     {
         if (!file_exists($this->extractPath)) {
             throw new PathException($this->extractPath);
@@ -156,7 +156,7 @@ class PackageManager
      *
      * @since  1.0.0
      */
-    public function install() /* : void */
+    public function install() : void
     {
         if (!$this->isValid()) {
             throw new \Exception();

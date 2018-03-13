@@ -120,7 +120,7 @@ class Server extends SocketAbstract
      *
      * @since  1.0.0
      */
-    public function setLimit(int $limit) /* : void */
+    public function setLimit(int $limit) : void
     {
         $this->limit = $limit;
     }
