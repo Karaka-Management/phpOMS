@@ -318,7 +318,7 @@ class Account implements ArrayableInterface, \JsonSerializable
      *
      * @since  1.0.0
      */
-    public function hasPermission(int $permission, ?int $unit = null, ?string $app = null, ?string $module = null, ?int $type = null, ?int $element = null, ?int $component = null) : bool
+    public function hasPermission(int $permission, int $unit = null, string $app = null, string $module = null, int $type = null, int $element = null, int $component = null) : bool
     {
         $app = $app !== null ? strtolower($app) : $app;
 

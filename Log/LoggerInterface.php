@@ -31,7 +31,7 @@ interface LoggerInterface
      * @param string $message Logging message schema
      * @param array  $context Context to log
      *
-     * @return null
+     * @return void
      */
     public function emergency(string $message, array $context = []) : void;
 
@@ -44,7 +44,7 @@ interface LoggerInterface
      * @param string $message Logging message schema
      * @param array  $context Context to log
      *
-     * @return null
+     * @return void
      */
     public function alert(string $message, array $context = []) : void;
 
@@ -56,7 +56,7 @@ interface LoggerInterface
      * @param string $message Logging message schema
      * @param array  $context Context to log
      *
-     * @return null
+     * @return void
      */
     public function critical(string $message, array $context = []) : void;
 
@@ -67,7 +67,7 @@ interface LoggerInterface
      * @param string $message Logging message schema
      * @param array  $context Context to log
      *
-     * @return null
+     * @return void
      */
     public function error(string $message, array $context = []) : void;
 
@@ -80,7 +80,7 @@ interface LoggerInterface
      * @param string $message Logging message schema
      * @param array  $context Context to log
      *
-     * @return null
+     * @return void
      */
     public function warning(string $message, array $context = []) : void;
 
@@ -90,7 +90,7 @@ interface LoggerInterface
      * @param string $message Logging message schema
      * @param array  $context Context to log
      *
-     * @return null
+     * @return void
      */
     public function notice(string $message, array $context = []) : void;
 
@@ -102,7 +102,7 @@ interface LoggerInterface
      * @param string $message Logging message schema
      * @param array  $context Context to log
      *
-     * @return null
+     * @return void
      */
     public function info(string $message, array $context = []) : void;
 
@@ -112,7 +112,7 @@ interface LoggerInterface
      * @param string $message Logging message schema
      * @param array  $context Context to log
      *
-     * @return null
+     * @return void
      */
     public function debug(string $message, array $context = []) : void;
 
@@ -123,7 +123,7 @@ interface LoggerInterface
      * @param string $message Logging message schema
      * @param array  $context Context to log
      *
-     * @return null
+     * @return void
      */
     public function log(string $level, string $message, array $context = []) : void;
 }
