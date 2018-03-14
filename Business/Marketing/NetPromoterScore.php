@@ -36,16 +36,6 @@ class NetPromoterScore
     private $scores = [];
 
     /**
-     * Constructor.
-     *
-     * @since  1.0.0
-     */
-    public function __construct() 
-    {
-
-    }
-
-    /**
      * Add score.
      *
      * @param int $score Net promoter score
