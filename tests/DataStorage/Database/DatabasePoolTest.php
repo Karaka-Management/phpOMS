@@ -14,6 +14,7 @@
 namespace phpOMS\tests\DataStorage\Database;
 
 use phpOMS\DataStorage\Database\Connection\MysqlConnection;
+use phpOMS\DataStorage\Database\Connection\NullConnection;
 use phpOMS\DataStorage\Database\DatabaseStatus;
 use phpOMS\DataStorage\Database\DatabasePool;
 
@@ -37,13 +38,13 @@ class DatabasePoolTest extends \PHPUnit\Framework\TestCase
         self::assertFalse($dbPool->create('core', $GLOBALS['CONFIG']['db']['core']['masters']['admin']));
 
         self::assertInstanceOf('\phpOMS\DataStorage\Database\Connection\ConnectionAbstract', $dbPool->get());
-        self::assertNull($dbPool->get('doesNotExist'));
+        self::assertInstanceOf('\phpOMS\DataStorage\Database\Connection\NullConnection', $dbPool->get('doesNotExist'));
         self::assertEquals($dbPool->get('core'), $dbPool->get());
 
         self::assertFalse($dbPool->remove('cores'));
         self::assertTrue($dbPool->remove('core'));
 
-        self::assertNull($dbPool->get());
+        self::assertInstanceOf('\phpOMS\DataStorage\Database\Connection\NullConnection', $dbPool->get());
 
         self::assertTrue($dbPool->add('core', new MysqlConnection($GLOBALS['CONFIG']['db']['core']['masters']['admin'])));
         self::assertFalse($dbPool->add('core', new MysqlConnection($GLOBALS['CONFIG']['db']['core']['masters']['admin'])));

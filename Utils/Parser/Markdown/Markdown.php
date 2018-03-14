@@ -29,7 +29,7 @@ class Markdown
     /**
      * Blocktypes.
      *
-     * @var string[]
+     * @var string[][]
      * @since 1.0.0
      */
     protected static $blockTypes = [
@@ -138,7 +138,7 @@ class Markdown
     /**
      * Inline identifiers.
      *
-     * @var string[]
+     * @var string[][]
      * @since 1.0.0
      */
     protected static $inlineTypes = [
@@ -414,7 +414,7 @@ class Markdown
      *
      * @since  1.0.0
      */
-    protected static function blockCodeComplete(array $block) : array
+    protected static function blockCodeComplete(?array $block) : ?array
     {
         return $block;
     }
@@ -498,7 +498,7 @@ class Markdown
      *
      * @since  1.0.0
      */
-    protected static function blockFencedCodeComplete(array $block) : array
+    protected static function blockFencedCodeComplete(?array $block) : ?array
     {
         return $block;
     }
@@ -635,6 +635,8 @@ class Markdown
 
             return $block;
         }
+
+        return null;
     }
 
     /**
@@ -690,6 +692,8 @@ class Markdown
 
             return $block;
         }
+
+        return null;
     }
 
     /**
@@ -857,6 +861,8 @@ class Markdown
 
             return $block;
         }
+
+        return null;
     }
 
     /**
@@ -934,7 +940,7 @@ class Markdown
      *
      * @param string $text Line of text
      * 
-     * @return array
+     * @return string
      *
      * @since  1.0.0
      */
@@ -1475,7 +1481,7 @@ class Markdown
      * Escape html elements
      * 
      * @param string $text        Text to escape
-     * @param string $allowQuotes Are quotes allowed
+     * @param bool   $allowQuotes Are quotes allowed
      * 
      * @return string
      *

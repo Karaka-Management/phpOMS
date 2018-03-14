@@ -199,11 +199,11 @@ abstract class HeaderAbstract
      * @param string $value     Header value
      * @param bool   $overwrite Overwrite if key already exists
      * 
-     * @return void
+     * @return bool
      *
      * @since  1.0.0
      */
-    abstract public function set(string $key, string $value, bool $overwrite = false) : void;
+    abstract public function set(string $key, string $value, bool $overwrite = false) : bool;
 
     /**
      * Get header by key.

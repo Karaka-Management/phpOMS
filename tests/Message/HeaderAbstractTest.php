@@ -34,9 +34,9 @@ class HeaderAbstractTest extends \PHPUnit\Framework\TestCase
                 return '1';
             }
 
-            public function set(string $key, string $value, bool $overwrite = false) : void
+            public function set(string $key, string $value, bool $overwrite = false) : bool
             {
-
+                return true;
             }
 
             public function get(string $key) : array
