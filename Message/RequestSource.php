@@ -26,8 +26,8 @@ use phpOMS\Stdlib\Base\Enum;
  */
 abstract class RequestSource extends Enum
 {
-    /* public */ const WEB       = 0; /* This is a http request */
-    /* public */ const CONSOLE   = 1; /* Request is a console command */
-    /* public */ const SOCKET    = 2; /* Request through socket connection */
-    /* public */ const UNDEFINED = 3; 
+    public const WEB       = 0; /* This is a http request */
+    public const CONSOLE   = 1; /* Request is a console command */
+    public const SOCKET    = 2; /* Request through socket connection */
+    public const UNDEFINED = 3; 
 }

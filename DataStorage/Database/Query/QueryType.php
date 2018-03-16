@@ -26,10 +26,10 @@ use phpOMS\Stdlib\Base\Enum;
  */
 abstract class QueryType extends Enum
 {
-    /* public */ const SELECT = 0;
-    /* public */ const INSERT = 1;
-    /* public */ const UPDATE = 2;
-    /* public */ const DELETE = 3;
-    /* public */ const RANDOM = 4;
-    /* public */ const RAW    = 5;
+    public const SELECT = 0;
+    public const INSERT = 1;
+    public const UPDATE = 2;
+    public const DELETE = 3;
+    public const RANDOM = 4;
+    public const RAW    = 5;
 }

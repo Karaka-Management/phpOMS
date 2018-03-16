@@ -24,7 +24,7 @@ namespace phpOMS\Utils\Converter;
  */
 class Ip
 {
-    /* public */ const IP_TABLE_ITERATIONS = 100;
+    public const IP_TABLE_ITERATIONS = 100;
 
     /**
      * Constructor.

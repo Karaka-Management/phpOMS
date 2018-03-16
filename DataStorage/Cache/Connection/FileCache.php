@@ -38,7 +38,7 @@ class FileCache extends ConnectionAbstract
      * @var string
      * @since 1.0.0
      */
-    /* private */ const DELIM = '$';
+    private const DELIM = '$';
 
     /**
      * File path sanitizer
@@ -46,7 +46,7 @@ class FileCache extends ConnectionAbstract
      * @var string
      * @since 1.0.0
      */
-    /* private */ const SANITIZE = '~';
+    private const SANITIZE = '~';
 
     /**
      * Only cache if data is larger than threshold (0-100).

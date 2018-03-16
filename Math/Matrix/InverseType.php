@@ -26,5 +26,5 @@ use phpOMS\Stdlib\Base\Enum;
  */
 abstract class InverseType extends Enum
 {
-    /* public */ const GAUSS_JORDAN = 0;
+    public const GAUSS_JORDAN = 0;
 }

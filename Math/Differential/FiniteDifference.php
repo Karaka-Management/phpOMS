@@ -32,7 +32,7 @@ class FiniteDifference
      * @var float
      * @since 1.0.0
      */
-    /* public */ const EPSILON = 0.00001;
+    public const EPSILON = 0.00001;
 
     /**
      * Differentiate by using the Newton difference quotient.

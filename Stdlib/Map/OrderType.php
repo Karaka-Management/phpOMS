@@ -26,6 +26,6 @@ use phpOMS\Stdlib\Base\Enum;
  */
 abstract class OrderType extends Enum
 {
-    /* public */ const LOOSE  = 0;
-    /* public */ const STRICT = 1;
+    public const LOOSE  = 0;
+    public const STRICT = 1;
 }

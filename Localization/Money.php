@@ -31,7 +31,7 @@ class Money implements \Serializable
      * @var int
      * @since 1.0.0
      */
-    /* public */ const MAX_DECIMALS = 4;
+    public const MAX_DECIMALS = 4;
 
     /**
      * Thousands separator.

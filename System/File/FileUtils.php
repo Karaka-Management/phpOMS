@@ -24,15 +24,15 @@ namespace phpOMS\System\File;
  */
 class FileUtils
 {
-    /* public */ const CODE_EXTENSION         = ['cpp', 'c', 'h', 'hpp', 'cs', 'css', 'htm', 'html', 'php', 'rb'];
-    /* public */ const TEXT_EXTENSION         = ['doc', 'docx', 'txt', 'md', 'csv'];
-    /* public */ const PRESENTATION_EXTENSION = ['ppt', 'pptx'];
-    /* public */ const PDF_EXTENSION          = ['pdf'];
-    /* public */ const ARCHIVE_EXTENSION      = ['zip', '7z', 'rar'];
-    /* public */ const AUDIO_EXTENSION        = ['mp3', 'wav'];
-    /* public */ const VIDEO_EXTENSION        = ['mp4'];
-    /* public */ const SPREADSHEET_EXTENSION  = ['xls', 'xlsm'];
-    /* public */ const IMAGE_EXTENSION        = ['png', 'gif', 'jpg', 'jpeg', 'tiff', 'bmp'];
+    public const CODE_EXTENSION         = ['cpp', 'c', 'h', 'hpp', 'cs', 'css', 'htm', 'html', 'php', 'rb'];
+    public const TEXT_EXTENSION         = ['doc', 'docx', 'txt', 'md', 'csv'];
+    public const PRESENTATION_EXTENSION = ['ppt', 'pptx'];
+    public const PDF_EXTENSION          = ['pdf'];
+    public const ARCHIVE_EXTENSION      = ['zip', '7z', 'rar'];
+    public const AUDIO_EXTENSION        = ['mp3', 'wav'];
+    public const VIDEO_EXTENSION        = ['mp4'];
+    public const SPREADSHEET_EXTENSION  = ['xls', 'xlsm'];
+    public const IMAGE_EXTENSION        = ['png', 'gif', 'jpg', 'jpeg', 'tiff', 'bmp'];
 
     /**
      * Constructor.

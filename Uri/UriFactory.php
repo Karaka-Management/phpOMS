@@ -219,13 +219,13 @@ class UriFactory
      * @param string $uri     Path data
      * @param array  $toMatch Optional special replacements
      *
-     * @return null|string
+     * @return string
      *
      * @throws \Exception
      *
      * @since  1.0.0
      */
-    public static function build(string $uri, array $toMatch = []) : ?string
+    public static function build(string $uri, array $toMatch = []) : string
     {
         $parsed = preg_replace_callback('(\{[\/#\?%@\.\$][a-zA-Z0-9\-]*\})', function ($match) use ($toMatch) {
             $match = substr($match[0], 1, strlen($match[0]) - 2);

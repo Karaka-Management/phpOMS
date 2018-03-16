@@ -26,6 +26,6 @@ use phpOMS\Stdlib\Base\Enum;
  */
 abstract class KeyType extends Enum
 {
-    /* public */ const SINGLE   = 0;
-    /* public */ const MULTIPLE = 1;
+    public const SINGLE   = 0;
+    public const MULTIPLE = 1;
 }

@@ -29,9 +29,9 @@ use phpOMS\System\File\Local\File;
  */
 class FileLogger implements LoggerInterface
 {
-    /* public */ const MSG_BACKTRACE = '{datetime}; {level}; {ip}; {message}; {backtrace}';
-    /* public */ const MSG_FULL      = '{datetime}; {level}; {ip}; {line}; {version}; {os}; {path}; {message}; {file}; {backtrace}';
-    /* public */ const MSG_SIMPLE    = '{datetime}; {level}; {ip}; {message};';
+    public const MSG_BACKTRACE = '{datetime}; {level}; {ip}; {message}; {backtrace}';
+    public const MSG_FULL      = '{datetime}; {level}; {ip}; {line}; {version}; {os}; {path}; {message}; {file}; {backtrace}';
+    public const MSG_SIMPLE    = '{datetime}; {level}; {ip}; {message};';
 
     /**
      * Timing array.

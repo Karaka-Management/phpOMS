@@ -26,5 +26,5 @@ use phpOMS\Stdlib\Base\Enum;
  */
 abstract class SmoothingType extends Enum
 {
-    /* public */ const CENTERED_MOVING_AVERAGE = 1;
+    public const CENTERED_MOVING_AVERAGE = 1;
 }

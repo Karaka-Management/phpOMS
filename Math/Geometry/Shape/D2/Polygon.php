@@ -30,7 +30,7 @@ class Polygon implements D2ShapeInterface
      * @var float
      * @since 1.0.0
      */
-    /* public */ const EPSILON = 0.00001;
+    public const EPSILON = 0.00001;
 
     /**
      * Coordinates.

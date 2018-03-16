@@ -26,10 +26,10 @@ use phpOMS\Stdlib\Base\Enum;
  */
 abstract class PriorityMode extends Enum
 {
-    /* public */ const FIFO              = 1;
-    /* public */ const LIFO              = 2;
-    /* public */ const EARLIEST_DEADLINE = 4;
-    /* public */ const SHORTEST_JOB      = 8;
-    /* public */ const HIGHEST           = 16;
-    /* public */ const LOWEST            = 32;
+    public const FIFO              = 1;
+    public const LIFO              = 2;
+    public const EARLIEST_DEADLINE = 4;
+    public const SHORTEST_JOB      = 8;
+    public const HIGHEST           = 16;
+    public const LOWEST            = 32;
 }

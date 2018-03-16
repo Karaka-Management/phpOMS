@@ -30,7 +30,7 @@ class BruteForce
      * @var float
      * @since 1.0.0
      */
-    /* public */ const LIMIT = 22;
+    public const LIMIT = 22;
 
     /**
      * City pool.

@@ -28,9 +28,9 @@ use phpOMS\Stdlib\Base\Enum;
  */
 abstract class DatabaseType extends Enum
 {
-    /* public */ const MYSQL  = 'mysql'; /* MySQL */
-    /* public */ const SQLITE = 'sqlite'; /* SQLITE */
-    /* public */ const PGSQL  = 2; /* PostgreSQL */
-    /* public */ const ORACLE = 3; /* Oracle */
-    /* public */ const SQLSRV = 'mssql'; /* Microsoft SQL Server */
+    public const MYSQL  = 'mysql'; /* MySQL */
+    public const SQLITE = 'sqlite'; /* SQLITE */
+    public const PGSQL  = 2; /* PostgreSQL */
+    public const ORACLE = 3; /* Oracle */
+    public const SQLSRV = 'mssql'; /* Microsoft SQL Server */
 }

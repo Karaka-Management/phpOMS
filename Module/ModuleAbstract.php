@@ -31,7 +31,7 @@ abstract class ModuleAbstract
      * @var string
      * @since 1.0.0
      */
-    /* public */ const MODULE_NAME = '';
+    public const MODULE_NAME = '';
 
     /**
      * Module path.
@@ -39,7 +39,7 @@ abstract class ModuleAbstract
      * @var string
      * @since 1.0.0
      */
-    /* public */ const MODULE_PATH = __DIR__ . '/../../Modules';
+    public const MODULE_PATH = __DIR__ . '/../../Modules';
 
     /**
      * Module version.
@@ -47,7 +47,7 @@ abstract class ModuleAbstract
      * @var string
      * @since 1.0.0
      */
-    /* public */ const MODULE_VERSION = '1.0.0';
+    public const MODULE_VERSION = '1.0.0';
 
     /**
      * Module id.
@@ -55,7 +55,7 @@ abstract class ModuleAbstract
      * @var string
      * @since 1.0.0
      */
-    /* public */ const MODULE_ID = 0;
+    public const MODULE_ID = 0;
 
     /**
      * Receiving modules from?

@@ -26,7 +26,7 @@ use phpOMS\Stdlib\Base\Enum;
  */
 abstract class AssetType extends Enum
 {
-    /* public */ const CSS    = 0;
-    /* public */ const JS     = 1;
-    /* public */ const JSLATE = 2;
+    public const CSS    = 0;
+    public const JS     = 1;
+    public const JSLATE = 2;
 }

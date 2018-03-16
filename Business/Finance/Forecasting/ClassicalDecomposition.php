@@ -35,7 +35,7 @@ class ClassicalDecomposition
      * @var int
      * @since 1.0.0
      */
-    /* public */ const ADDITIVE = 0;
+    public const ADDITIVE = 0;
 
     /**
      * Decomposition mode.
@@ -43,7 +43,7 @@ class ClassicalDecomposition
      * @var int
      * @since 1.0.0
      */
-    /* public */ const MULTIPLICATIVE = 1;
+    public const MULTIPLICATIVE = 1;
 
     /**
      * Decomposition mode.
