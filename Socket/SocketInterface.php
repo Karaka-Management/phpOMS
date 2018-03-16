@@ -30,10 +30,12 @@ interface SocketInterface
      *
      * @param string $ip   IP address
      * @param int    $port Port
+     * 
+     * @return void
      *
      * @since    1.0.0
      */
-    public function create(string $ip, int $port);
+    public function create(string $ip, int $port) : void;
 
     /**
      * Close socket.

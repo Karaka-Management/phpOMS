@@ -59,7 +59,7 @@ class Client extends SocketAbstract
     /**
      * {@inheritdoc}
      */
-    public function create(string $ip, int $port)
+    public function create(string $ip, int $port) : void
     {
         parent::create($ip, $port);
     }
@@ -67,7 +67,7 @@ class Client extends SocketAbstract
     /**
      * {@inheritdoc}
      */
-    public function run()
+    public function run() : void
     {
         socket_connect($this->sock, $this->ip, $this->port);
         $i = 0;
@@ -113,7 +113,7 @@ class Client extends SocketAbstract
     /**
      * {@inheritdoc}
      */
-    public function close()
+    public function close() : void
     {
         parent::close();
     }

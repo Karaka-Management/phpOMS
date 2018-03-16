@@ -28,7 +28,7 @@ class ConsoleSession implements SessionInterface
     /**
      * Session ID.
      *
-     * @var string|int
+     * @var string|int|null
      * @since 1.0.0
      */
     private $sid = null;
@@ -36,13 +36,13 @@ class ConsoleSession implements SessionInterface
     /**
      * Constructor.
      *
-     * @param string|int|bool $sid Session id
+     * @param string|int|null $sid Session id
      *
      * @since  1.0.0
      */
-    public function __construct($sid = false)
+    public function __construct($sid = null)
     {
-        if ($sid !== false) {
+        if ($sid !== null) {
             $this->sid = $sid;
         }
     }
@@ -89,14 +89,14 @@ class ConsoleSession implements SessionInterface
     /**
      * {@inheritdoc}
      */
-    public function save()
+    public function save() : void
     {
     }
 
     /**
      * {@inheritdoc}
      */
-    public function lock()
+    public function lock() : void
     {
     }
 }

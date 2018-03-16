@@ -51,7 +51,7 @@ class SqliteConnection extends ConnectionAbstract
     /**
      * {@inheritdoc}
      */
-    public function connect(array $dbdata = null)
+    public function connect(array $dbdata = null) : void
     {
         $this->close();
 

@@ -103,7 +103,7 @@ class Server extends SocketAbstract
     /**
      * {@inheritdoc}
      */
-    public function create(string $ip, int $port)
+    public function create(string $ip, int $port) : void
     {
         $this->app->logger->info('Creating socket...');
         parent::create($ip, $port);
@@ -125,7 +125,7 @@ class Server extends SocketAbstract
         $this->limit = $limit;
     }
 
-    public function handshake($client, $headers)
+    public function handshake($client, $headers) : bool
     {
         // todo: different handshake for normal tcp connection
         return true;
@@ -173,7 +173,7 @@ class Server extends SocketAbstract
     /**
      * {@inheritdoc}
      */
-    public function run()
+    public function run() : void
     {
         $this->app->logger->info('Start listening...');
         socket_listen($this->sock);
@@ -220,7 +220,7 @@ class Server extends SocketAbstract
         $this->close();
     }
 
-    public function connectClient($socket)
+    public function connectClient($socket) : void
     {
         $this->app->logger->debug('Connecting client...');
         $this->clientManager->add($client = new ClientConnection(uniqid(), $socket));
@@ -228,7 +228,7 @@ class Server extends SocketAbstract
         $this->app->logger->debug('Connected client.');
     }
 
-    public function disconnectClient($client)
+    public function disconnectClient($client) : void
     {
         $this->app->logger->debug('Disconnecting client...');
         $client->setConnected(false);
@@ -247,7 +247,7 @@ class Server extends SocketAbstract
     /**
      * {@inheritdoc}
      */
-    public function close()
+    public function close() : void
     {
         parent::close();
     }
@@ -260,7 +260,7 @@ class Server extends SocketAbstract
         parent::__destruct();
     }
 
-    private function unmask($payload)
+    private function unmask($payload) : string
     {
         $length = ord($payload[1]) & 127;
         if ($length == 126) {

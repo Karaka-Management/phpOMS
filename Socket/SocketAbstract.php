@@ -60,7 +60,7 @@ abstract class SocketAbstract implements SocketInterface
     /**
      * {@inheritdoc}
      */
-    public function create(string $ip, int $port)
+    public function create(string $ip, int $port) : void
     {
         $this->ip   = $ip;
         $this->port = $port;
@@ -82,7 +82,7 @@ abstract class SocketAbstract implements SocketInterface
     /**
      * {@inheritdoc}
      */
-    public function close()
+    public function close() : void
     {
         if ($this->sock !== null) {
             socket_shutdown($this->sock, 2);
