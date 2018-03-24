@@ -165,6 +165,8 @@ class Response extends ResponseAbstract implements RenderableInterface
                     $result[] = $response;
                 } elseif ($response instanceof \JsonSerializable) {
                     $result[] = $response->jsonSerialize();
+                } elseif ($response === null) {
+                    continue;
                 } else {
                     throw new \Exception('Wrong response type');
                 }
