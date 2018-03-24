@@ -196,7 +196,7 @@ class Group implements ArrayableInterface, \JsonSerializable
      *
      * @since  1.0.0
      */
-    public function __toString()
+    public function __toString() : string
     {
         return json_encode($this->toArray());
     }

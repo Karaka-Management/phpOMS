@@ -84,8 +84,6 @@ class Request extends RequestAbstract
             $this->uri = $uri;
         }
 
-        $this->source = RequestSource::WEB;
-
         $this->init();
     }
 

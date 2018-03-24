@@ -183,7 +183,7 @@ class Average
      *
      * @since  1.0.0
      */
-    public static function mode(array $values)
+    public static function mode(array $values) : float
     {
         $count = array_count_values($values);
         $best  = max($count);

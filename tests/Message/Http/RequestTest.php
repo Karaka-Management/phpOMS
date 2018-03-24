@@ -43,7 +43,6 @@ class RequestTest extends \PHPUnit\Framework\TestCase
         self::assertEmpty([], $request->getFiles());
         self::assertEquals(RouteVerb::GET, $request->getRouteVerb());
         self::assertEquals(RequestMethod::GET, $request->getMethod());
-        self::assertEquals(RequestSource::WEB, $request->getRequestSource());
         self::assertInstanceOf('\phpOMS\Message\Http\Header', $request->getHeader());
         self::assertInstanceOf('\phpOMS\Message\Http\Request', Request::createFromSuperglobals());
         self::assertEquals('http://', $request->__toString());
@@ -88,9 +87,6 @@ class RequestTest extends \PHPUnit\Framework\TestCase
         self::assertEquals('value', $request->getData('key'));
         self::assertTrue($request->hasData('key'));
         self::assertEquals(['key' => 'value'], $request->getData());
-
-        $request->setRequestSource(RequestSource::SOCKET);
-        self::assertEquals(RequestSource::SOCKET, $request->getRequestSource());
 
         $request->setUri(new Http('http://www.google.com/test/path2'));
         $request->createRequestHashs(0);

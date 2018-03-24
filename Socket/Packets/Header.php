@@ -147,7 +147,7 @@ class Header implements \Serializable
      *
      * @since  1.0.0
      */
-    public function serialize()
+    public function serialize() : string
     {
         return $this->__toString();
     }

@@ -219,18 +219,18 @@ class LUDecomposition
     /**
      * Get determinant
      *
-     * @return mixed
+     * @return float
      *
      * @since  1.0.0
      */
-    public function det()
+    public function det() : float
     {
         $d = $this->pivSign;
         for ($j = 0; $j < $this->n; ++$j) {
             $d *= $this->LU[$j][$j];
         }
 
-        return $d;
+        return (float) $d;
     }
 
     /**

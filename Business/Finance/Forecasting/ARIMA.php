@@ -141,7 +141,7 @@ class ARIMA
         return $adjusted;
     }
 
-    private function getRemainder(array $seasonal, array $trendCycle)
+    private function getRemainder(array $seasonal, array $trendCycle) : array
     {
         $remainder = [];
         foreach ($seasonal as $key => $e) {

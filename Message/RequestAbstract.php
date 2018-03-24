@@ -68,14 +68,6 @@ abstract class RequestAbstract implements MessageInterface
     protected $data = [];
 
     /**
-     * Request type.
-     *
-     * @var int
-     * @since 1.0.0
-     */
-    protected $source = RequestSource::UNDEFINED;
-
-    /**
      * Request hash.
      *
      * @var array
@@ -135,36 +127,6 @@ abstract class RequestAbstract implements MessageInterface
     public function getHash() : array
     {
         return $this->hash;
-    }
-
-    /**
-     * Get request source.
-     *
-     * @return int
-     *
-     * @since  1.0.0
-     */
-    public function getRequestSource() : int
-    {
-        return $this->source;
-    }
-
-    /**
-     * Set request source.
-     *
-     * @param int $source Request source
-     *
-     * @return void
-     *
-     * @since  1.0.0
-     */
-    public function setRequestSource(int $source) : void
-    {
-        if (!RequestSource::isValidValue($source)) {
-            throw new InvalidEnumValue((string) $source);
-        }
-
-        $this->source = $source;
     }
 
     /**
@@ -281,7 +243,7 @@ abstract class RequestAbstract implements MessageInterface
     /**
      * {@inheritdoc}
      */
-    public function __toString()
+    public function __toString() : string
     {
         return $this->uri->__toString();
     }

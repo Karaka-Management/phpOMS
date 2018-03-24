@@ -171,7 +171,7 @@ class Polygon implements D2ShapeInterface
      *
      * @since  1.0.0
      */
-    public function getExteriorAngleSum()
+    public function getExteriorAngleSum() : int
     {
         return 360;
     }

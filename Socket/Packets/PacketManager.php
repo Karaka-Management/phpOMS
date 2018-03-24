@@ -69,7 +69,7 @@ class PacketManager
      *
      * @since  1.0.0
      */
-    public function handle(string $data, $client)
+    public function handle(string $data, $client) : void
     {
         echo $data;
     }

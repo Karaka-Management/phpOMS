@@ -21,19 +21,18 @@ namespace phpOMS;
  * is restricted to write once in order to prevent manipulation 
  * and afterwards read only.
  *
- * @property mixed orgId
- * @property string appName
- * @property \phpOMS\DataStorage\Database\DatabasePool dbPool
- * @property \phpOMS\Localization\L11nManager l11nManager
- * @property \phpOMS\Router\Router router
- * @property \phpOMS\DataStorage\Session\SessionInterface sessionManager
- * @property \phpOMS\Module\ModuleManager moduleManager
- * @property \phpOMS\Dispatcher\Dispatcher dispatcher
- * @property \phpOMS\DataStorage\Cache\CachePool cachePool
- * @property \Model\CoreSettings appSettings
- * @property \phpOMS\Event\EventManager eventManager
- * @property \phpOMS\Account\AccountManager accountManager
- * @property \phpOMS\Log\FileLogger logger
+ * @property string $appName
+ * @property \phpOMS\DataStorage\Database\DatabasePool $dbPool
+ * @property \phpOMS\Localization\L11nManager 4l11nManager
+ * @property \phpOMS\Router\Router $router
+ * @property \phpOMS\DataStorage\Session\SessionInterface $sessionManager
+ * @property \phpOMS\Module\ModuleManager $moduleManager
+ * @property \phpOMS\Dispatcher\Dispatcher $dispatcher
+ * @property \phpOMS\DataStorage\Cache\CachePool $cachePool
+ * @property \Model\CoreSettings $appSettings
+ * @property \phpOMS\Event\EventManager $eventManager
+ * @property \phpOMS\Account\AccountManager $accountManager
+ * @property \phpOMS\Log\FileLogger $logger
  *
  * @package    phpOMS
  * @license    OMS License 1.0
@@ -159,7 +158,7 @@ class ApplicationAbstract
      *
      * @since  1.0.0
      */
-    public function __set($name, $value)
+    public function __set($name, $value) : void
     {
         if (!empty($this->$name)) {
             return;

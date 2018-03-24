@@ -178,7 +178,7 @@ class PackageManager
      *
      * @since  1.0.0
      */
-    private function move($components)
+    private function move($components) : void
     {
         foreach ($components as $component) {
             LocalStorage::move($this->basePath . '/' . $component['from'], $this->basePath . '/' . $component['to'], true);
@@ -194,7 +194,7 @@ class PackageManager
      *
      * @since  1.0.0
      */
-    private function copy($components)
+    private function copy($components) : void
     {
         foreach ($components as $component) {
             if (StringUtils::startsWith($component['from'], 'Package/')) {
@@ -214,7 +214,7 @@ class PackageManager
      *
      * @since  1.0.0
      */
-    private function delete($components)
+    private function delete($components) : void
     {
         foreach ($components as $component) {
             LocalStorage::delete($this->basePath . '/' . $component);
@@ -230,7 +230,7 @@ class PackageManager
      *
      * @since  1.0.0
      */
-    private function execute($components)
+    private function execute($components) : void
     {
         foreach ($components as $component) {
             include $this->basePath . '/' . $component;
@@ -244,7 +244,7 @@ class PackageManager
      *
      * @since  1.0.0
      */
-    public function cleanup()
+    public function cleanup() : void
     {
         File::delete($this->path);
         Directory::delete($this->extractPath);

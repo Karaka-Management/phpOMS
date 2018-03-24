@@ -61,7 +61,7 @@ class CommandManager implements \Countable
      *
      * @since  1.0.0
      */
-    public function attach(string $cmd, $callback, $source)
+    public function attach(string $cmd, $callback, $source) : void
     {
         $this->commands[$cmd] = [$callback, $source];
         $this->count++;
@@ -77,7 +77,7 @@ class CommandManager implements \Countable
      *
      * @since  1.0.0
      */
-    public function detach(string $cmd, $source)
+    public function detach(string $cmd, $source) : void
     {
         if (array_key_exists($cmd, $this->commands)) {
             unset($this->commands[$cmd]);

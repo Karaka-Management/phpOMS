@@ -200,7 +200,7 @@ abstract class ViewAbstract implements \Serializable
      *
      * @since  1.0.0
      */
-    public function serialize()
+    public function serialize() : string
     {
         if (empty($this->template)) {
             return json_encode($this->toArray());

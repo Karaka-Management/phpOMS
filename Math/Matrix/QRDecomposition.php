@@ -86,7 +86,7 @@ class QRDecomposition
         return true;
     }
 
-    public function getH()
+    public function getH() : Matrix
     {
         $H = [[]];
 
@@ -103,10 +103,10 @@ class QRDecomposition
         $matrix = new Matrix();
         $matrix->setArray($H);
 
-        return $this->matrix;
+        return $matrix;
     }
 
-    public function getR()
+    public function getR() : Matrix
     {
         $R = [[]];
 
@@ -125,10 +125,10 @@ class QRDecomposition
         $matrix = new Matrix();
         $matrix->setArray($R);
 
-        return $this->matrix;
+        return $matrix;
     }
 
-    public function getQ()
+    public function getQ() : Matrix
     {
         $Q = [[]];
 
@@ -155,7 +155,7 @@ class QRDecomposition
         $matrix = new Matrix();
         $matrix->setArray($Q);
 
-        return $this->matrix;
+        return $matrix;
     }
 
     public function solve(Matrix $B) : Matrix

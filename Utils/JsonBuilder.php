@@ -87,7 +87,7 @@ class JsonBuilder implements \Serializable, \JsonSerializable
     /**
      * {@inheritdoc}
      */
-    public function serialize()
+    public function serialize() : string
     {
         return json_encode($this->json);
     }
