@@ -2,7 +2,7 @@
 /**
  * Orange Management
  *
- * PHP Version 7.1
+ * PHP Version 7.2
  *
  * @package    phpOMS\Message\Console
  * @copyright  Dennis Eichhorn
