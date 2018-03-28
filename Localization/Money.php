@@ -318,13 +318,13 @@ class Money implements \Serializable
     /**
      * Searialze.
      *
-     * @return int
+     * @return string
      *
      * @since  1.0.0
      */
     public function serialize() : string
     {
-        return $this->getInt();
+        return (string) $this->getInt();
     }
 
     /**
@@ -338,7 +338,7 @@ class Money implements \Serializable
      */
     public function unserialize($value) : void
     {
-        $this->setInt($value);
+        $this->setInt((int) $value);
     }
 
     /**

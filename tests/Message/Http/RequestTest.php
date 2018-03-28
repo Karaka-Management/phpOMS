@@ -123,15 +123,6 @@ class RequestTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @expectedException \phpOMS\Stdlib\Base\Exception\InvalidEnumValue
-     */
-    public function testInvalidRequestSource()
-    {
-        $request = new Request(new Http('http://www.google.com/test/path'));
-        $request->setRequestSource(999);
-    }
-
-    /**
      * @expectedException \OutOfRangeException
      */
     public function testInvalidHttpsPort()
