@@ -72,7 +72,7 @@ class Autoloader
         $class = str_replace(['_', '\\'], '/', $class);
 
         foreach (self::$paths as $path) {
-             if (file_exists($file = $path . $class . '.php')) {
+            if (file_exists($file = $path . $class . '.php')) {
                 include_once $file;
                  
                 return;
