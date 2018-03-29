@@ -96,6 +96,12 @@ class Autoloader
         $class = ltrim($class, '\\');
         $class = str_replace(['_', '\\'], '/', $class);
 
-        return file_exists(__DIR__ . '/../' . $class . '.php');
+        foreach (self::$paths as $path) {
+            if (file_exists($file = $path . $class . '.php')) {
+                return true;
+            }
+        }
+        
+        return false;
     }
 }
