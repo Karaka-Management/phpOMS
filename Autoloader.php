@@ -26,6 +26,32 @@ spl_autoload_register('\phpOMS\Autoloader::defaultAutoloader');
  */
 class Autoloader
 {
+    /**
+     * Base paths for autoloading
+     *
+     * @var string[]
+     * @since 1.0.0
+     */
+    private static $paths = [
+        __DIR__ . '/../',
+        __DIR__ . '/../../',
+        __DIR__ . '/../vendor/',
+        __DIR__ . '/../../vendor/',
+    ];
+    
+    /**
+     * Add base path for autoloading
+     *
+     * @param string $path Absolute base path with / at the end
+     *
+     * @return void
+     *
+     * @since  1.0.0
+     */
+    public static function addPath(string $path) : void 
+    {
+        self::$paths[] = $path;
+    }
 
     /**
      * Loading classes by namespace + class name.
@@ -45,12 +71,13 @@ class Autoloader
         $class = ltrim($class, '\\');
         $class = str_replace(['_', '\\'], '/', $class);
 
-        if (!file_exists($path = __DIR__ . '/../' . $class . '.php')) {
-            return;
+        foreach (self::$paths as $path) {
+             if (file_exists($path = __DIR__ . '/../' . $class . '.php')) {
+                include_once $path;
+                 
+                return;
+            }
         }
-
-        /** @noinspection PhpIncludeInspection */
-        include_once $path;
     }
 
     /**
