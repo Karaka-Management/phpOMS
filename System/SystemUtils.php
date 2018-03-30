@@ -86,7 +86,7 @@ class SystemUtils
             $free     = (string) trim($free);
             $freeArr  = explode("\n", $free);
             $mem      = explode(" ", $freeArr[1]);
-            $mem      = array_filter($mem);
+            $mem      = array_values(array_filter($mem));
             $memUsage = $mem[2] / $mem[1] * 100;
         }
 
