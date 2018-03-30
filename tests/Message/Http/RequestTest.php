@@ -40,7 +40,7 @@ class RequestTest extends \PHPUnit\Framework\TestCase
         self::assertEquals([], $request->getHash());
         self::assertEmpty($request->getBody());
         self::assertEquals('/', $request->getRequestTarget());
-        self::assertEmpty([], $request->getFiles());
+        self::assertEmpty($request->getFiles());
         self::assertEquals(RouteVerb::GET, $request->getRouteVerb());
         self::assertEquals(RequestMethod::GET, $request->getMethod());
         self::assertInstanceOf('\phpOMS\Message\Http\Header', $request->getHeader());
