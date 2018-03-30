@@ -175,8 +175,8 @@ class MeasureOfDispersion
      *
      * @param array $x     Values
      * @param array $y     Values
-     * @param array $meanX Mean
-     * @param array $meanY Mean
+     * @param float $meanX Mean
+     * @param float $meanY Mean
      *
      * @return float
      *

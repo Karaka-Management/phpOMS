@@ -501,7 +501,7 @@ class Matrix implements \ArrayAccess, \Iterator
      */
     public function inverse(int $algorithm = InverseType::GAUSS_JORDAN) : Matrix
     {
-        return $this->solve(new IdentityMatrix($this->m, $this->m));
+        return $this->solve(new IdentityMatrix($this->m));
     }
 
     /**

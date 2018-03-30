@@ -121,8 +121,8 @@ class PhpCode
      *
      * @since  1.0.0
      */
-    public static function validateFileIntegrity(string $source, string $hash) : array
+    public static function validateFileIntegrity(string $source, string $hash) : bool
     {
-
+        return true;
     }
 }

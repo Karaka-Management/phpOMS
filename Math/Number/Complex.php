@@ -143,7 +143,7 @@ class Complex
      */
     public function square() : Complex
     {
-        return $this->multComplex($this, $this);
+        return $this->multComplex($this);
     }
 
     public function pow($value) : Complex

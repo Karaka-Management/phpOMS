@@ -41,7 +41,7 @@ class Header implements \Serializable
     /**
      * Packet type.
      *
-     * @var \phpOMS\Socket\Packets\PacketType
+     * @var int
      * @since 1.0.0
      */
     private $type = 0;
