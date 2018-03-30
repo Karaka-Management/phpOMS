@@ -83,7 +83,7 @@ class Commit
     /**
      * Files.
      *
-     * @var string[]
+     * @var array
      * @since 1.0.0
      */
     private $files = [];

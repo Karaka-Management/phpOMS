@@ -48,7 +48,7 @@ interface DataStoragePoolInterface
      *
      * @since  1.0.0
      */
-    public function get(string $key = '');
+    public function get(string $key = '') : DataStorageConnectionInterface;
 
     /**
      * Remove connection.

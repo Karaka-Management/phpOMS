@@ -39,7 +39,7 @@ final class TaskFactory
      *
      * @since  1.0.0
      */
-    public static function create(string $id = null, string $cmd = '') : TaskAbstract
+    public static function create(string $id = '', string $cmd = '') : TaskAbstract
     {
         switch (OperatingSystem::getSystem()) {
             case SystemType::WIN:

@@ -119,4 +119,13 @@ abstract class BuilderAbstract
     {
         return $this->type;
     }
+
+    /**
+     * Parsing to sql string.
+     *
+     * @return string
+     *
+     * @since  1.0.0
+     */
+    abstract public function toSql() : string;
 }

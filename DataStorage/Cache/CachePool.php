@@ -17,6 +17,7 @@ namespace phpOMS\DataStorage\Cache;
 use phpOMS\DataStorage\DataStoragePoolInterface;
 use phpOMS\DataStorage\DataStorageConnectionInterface;
 use phpOMS\DataStorage\Cache\Connection\ConnectionFactory;
+use phpOMS\DataStorage\Cache\Connection\NullCache;
 
 /**
  * Cache class.
@@ -51,7 +52,7 @@ class CachePool implements DataStoragePoolInterface
     /**
      * Add database.
      *
-     * @param mixed                          $key   Database key
+     * @param string                         $key   Database key
      * @param DataStorageConnectionInterface $cache Cache
      *
      * @return bool
@@ -72,7 +73,7 @@ class CachePool implements DataStoragePoolInterface
     /**
      * Remove database.
      *
-     * @param mixed $key Database key
+     * @param string $key Database key
      *
      * @return bool
      *
@@ -94,14 +95,14 @@ class CachePool implements DataStoragePoolInterface
      *
      * @param string $key Cache to request
      *
-     * @return \phpOMS\DataStorage\Cache\CacheInterface
+     * @return DataStorageConnectionInterface
      *
      * @since  1.0.0
      */
-    public function get(string $key = '') /* : ?CacheInterface */
+    public function get(string $key = '') : DataStorageConnectionInterface
     {
         if ((!empty($key) && !isset($this->pool[$key])) || empty($this->pool)) {
-            return null;
+            return new NullCache();
         }
 
         if (empty($key)) {
@@ -114,8 +115,8 @@ class CachePool implements DataStoragePoolInterface
     /**
      * Create Cache.
      *
-     * @param mixed $key    Database key
-     * @param array $config Database config data
+     * @param string $key    Database key
+     * @param array  $config Database config data
      *
      * @return bool
      *

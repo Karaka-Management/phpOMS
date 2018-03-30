@@ -404,7 +404,11 @@ class MultiMap implements \Countable
             $removed = false;
 
             foreach ($keys as $key => $value) {
-                $removed |= $this->removeKey(implode(':', $value));
+                $removed = $this->removeKey(implode(':', $value));
+
+                if (!$removed) {
+                    return false;
+                }
             }
 
             return $removed;

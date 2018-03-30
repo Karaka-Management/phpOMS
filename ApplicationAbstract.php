@@ -23,7 +23,7 @@ namespace phpOMS;
  *
  * @property string $appName
  * @property \phpOMS\DataStorage\Database\DatabasePool $dbPool
- * @property \phpOMS\Localization\L11nManager 4l11nManager
+ * @property \phpOMS\Localization\L11nManager $l11nManager
  * @property \phpOMS\Router\Router $router
  * @property \phpOMS\DataStorage\Session\SessionInterface $sessionManager
  * @property \phpOMS\Module\ModuleManager $moduleManager

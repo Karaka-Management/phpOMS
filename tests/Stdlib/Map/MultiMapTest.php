@@ -11,7 +11,7 @@
  * @link       http://website.orange-management.de
  */
 
-namespace phpOMS\tests\Utils;
+namespace phpOMS\tests\Stdlib\Map;
 
 use phpOMS\Stdlib\Map\MultiMap;
 

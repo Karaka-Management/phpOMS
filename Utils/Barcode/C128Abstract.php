@@ -92,15 +92,15 @@ abstract class C128Abstract
     /**
      * Content to encrypt.
      *
-     * @var string|int
+     * @var string
      * @since 1.0.0
      */
-    protected $content = 0;
+    protected $content = '';
 
     /**
      * Show text below barcode.
      *
-     * @var string
+     * @var bool
      * @since 1.0.0
      */
     protected $showText = true;

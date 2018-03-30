@@ -23,7 +23,7 @@ class CachePoolTest extends \PHPUnit\Framework\TestCase
         $pool = new CachePool();
 
         self::assertFalse($pool->remove('core'));
-        self::assertEquals(null, $pool->get());
+        self::assertInstanceOf('\phpOMS\DataStorage\Cache\Connection\NullCache', $pool->get());
     }
 
     public function testGetSet()
@@ -38,7 +38,7 @@ class CachePoolTest extends \PHPUnit\Framework\TestCase
         self::assertFalse($pool->create('abc', ['type' => 'file', 'path' => __DIR__]));
         self::assertInstanceOf('\phpOMS\DataStorage\Cache\Connection\ConnectionInterface', $pool->get('abc'));
         self::assertTrue($pool->remove('abc'));
-        self::assertEquals(null, $pool->get('abc'));
+        self::assertInstanceOf('\phpOMS\DataStorage\Cache\Connection\NullCache', $pool->get('abc'));
         self::assertInstanceOf('\phpOMS\DataStorage\Cache\Connection\ConnectionInterface', $pool->get('test'));
         self::assertFalse($pool->remove('abc'));
     }

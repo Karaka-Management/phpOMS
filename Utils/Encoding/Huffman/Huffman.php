@@ -33,18 +33,6 @@ final class Huffman
     private $dictionary = null;
 
     /**
-     * Remove dictionary
-     * 
-     * @return void
-     *
-     * @since  1.0.0
-     */
-    public function removeDictionary() : void
-    {
-        $this->dictionary = null;
-    }
-
-    /**
      * Get dictionary
      *
      * @return Dictionary

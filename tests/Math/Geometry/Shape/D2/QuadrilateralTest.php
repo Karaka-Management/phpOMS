@@ -11,7 +11,7 @@
  * @link       http://website.orange-management.de
  */
 
-namespace phpOMS\tests\Math\Shape\D2;
+namespace phpOMS\tests\Math\Geometry\Shape\D2;
 
 use phpOMS\Math\Geometry\Shape\D2\Quadrilateral;
 

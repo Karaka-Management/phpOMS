@@ -11,7 +11,7 @@
  * @link       http://website.orange-management.de
  */
 
-namespace phpOMS\tests\Account;
+namespace phpOMS\tests\Auth;
 
 use phpOMS\Auth\Auth;
 use phpOMS\Auth\LoginReturnType;

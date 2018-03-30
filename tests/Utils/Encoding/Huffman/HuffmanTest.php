@@ -38,8 +38,5 @@ class HuffmanTest extends \PHPUnit\Framework\TestCase
         );
 
         self::assertEquals('', $man->decode(''));
-
-        $huff->removeDictionary();
-        self::assertEquals(null, $huff->getDictionary());
     }
 }

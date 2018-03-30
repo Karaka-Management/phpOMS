@@ -682,6 +682,17 @@ class DataMapperAbstract implements DataMapperInterface
         }
     }
 
+    /**
+     * Create has one
+     *
+     * @param string $propertyName Property name to initialize
+     * @param Object $obj          Object to create
+     *
+     * @return mixed
+     * @todo implement???
+     *
+     * @since  1.0.0
+     */
     private static function createHasOne(\ReflectionClass $reflectionClass, $obj)
     {
         throw new \Exception();
@@ -2431,16 +2442,13 @@ class DataMapperAbstract implements DataMapperInterface
                 $query->select($value['table'] . '.' . $src)
                     ->from($value['table'])
                     ->where($value['table'] . '.' . $value['dst'], '=', $primaryKey);
-            } elseif ($relations === RelationType::NEWEST) {
-                /*
+            } /*elseif ($relations === RelationType::NEWEST) {
                 SELECT c.*, p1.*
                 FROM customer c
                 JOIN purchase p1 ON (c.id = p1.customer_id)
                 LEFT OUTER JOIN purchase p2 ON (c.id = p2.customer_id AND
                     (p1.date < p2.date OR p1.date = p2.date AND p1.id < p2.id))
                 WHERE p2.id IS NULL;
-                */
-                /*
                                     $query->select(static::$table . '.' . static::$primaryField, $value['table'] . '.' . $value['src'])
                                           ->from(static::$table)
                                           ->join($value['table'])
@@ -2448,8 +2456,8 @@ class DataMapperAbstract implements DataMapperInterface
                                           ->leftOuterJoin($value['table'])
                                           ->on(new And('1', new And(new Or('d1', 'd2'), 'id')))
                                           ->where($value['table'] . '.' . $value['dst'], '=', 'NULL');
-                                          */
-            }
+                                          
+            }*/
 
             $sth = self::$db->con->prepare($query->toSql());
             $sth->execute();

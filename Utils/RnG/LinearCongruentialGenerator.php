@@ -45,11 +45,11 @@ class LinearCongruentialGenerator
      *
      * @param int $seed Starting seed
      *
-     * @return \Closure
+     * @return int
      *
      * @since  1.0.0
      */
-    public static function bsd(int $seed = 0)
+    public static function bsd(int $seed = 0) : int
     {
         if ($seed !== 0) {
             self::$bsdSeed = $seed;
@@ -63,11 +63,11 @@ class LinearCongruentialGenerator
      *
      * @param int $seed Starting seed
      *
-     * @return \Closure
+     * @return int
      *
      * @since  1.0.0
      */
-    public static function msvcrt(int $seed = 0)
+    public static function msvcrt(int $seed = 0) : int
     {
         if ($seed !== 0) {
             self::$msvcrtSeed = $seed;

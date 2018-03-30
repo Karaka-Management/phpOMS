@@ -75,11 +75,11 @@ class DatabasePool implements DataStoragePoolInterface
      *
      * @param string $key Database key
      *
-     * @return ConnectionAbstract
+     * @return DataStorageConnectionInterface
      *
      * @since  1.0.0
      */
-    public function get(string $key = '') : ConnectionAbstract
+    public function get(string $key = '') : DataStorageConnectionInterface
     {
         if ((!empty($key) && !isset($this->pool[$key])) || empty($this->pool)) {
             return new NullConnection();

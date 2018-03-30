@@ -234,23 +234,27 @@ class Repository
      *
      * @param string $source Create repository from source (optional, can be remote)
      *
-     * @return string
+     * @return void
      *
      * @throws \Exception
      *
      * @since  1.0.0
      */
-    public function create(string $source = null)
+    public function create(string $source = null) : void
     {
         if (!is_dir($this->path) || file_exists($this->path . '/.git')) {
             throw new \Exception('Already repository');
         }
 
         if ($source !== null) {
-            return stripos($source, '//') !== false ? $this->cloneRemote($source) : $this->cloneFrom($source);
+            stripos($source, '//') !== false ? $this->cloneRemote($source) : $this->cloneFrom($source);
+
+            return;
         }
 
-        return $this->run('init');
+        $this->run('init');
+
+        return;
     }
 
     /**
@@ -491,7 +495,7 @@ class Repository
     public function checkout(Branch $branch) : string
     {
         $result       = implode("\n", $this->run('checkout ' . $branch->getName()));
-        $this->branch = null;
+        $this->branch = $branch;
 
         return $result;
     }
