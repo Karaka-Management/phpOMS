@@ -35,8 +35,6 @@ class Autoloader
     private static $paths = [
         __DIR__ . '/../',
         __DIR__ . '/../../',
-        __DIR__ . '/../vendor/',
-        __DIR__ . '/../../vendor/',
     ];
     
     /**
