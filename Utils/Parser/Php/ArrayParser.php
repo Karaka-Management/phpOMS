@@ -42,7 +42,7 @@ class ArrayParser
 
         foreach ($arr as $key => $val) {
             if (is_string($key)) {
-                $key = '"' . $key . '"';
+                $key = '\'' . str_replace('\'', '\\\'', $key) . '\'';
             }
 
             $stringify .= str_repeat(' ', $depth * 4) . $key . ' => ' . self::parseVariable($val, $depth + 1) . ',' . PHP_EOL;
@@ -67,7 +67,7 @@ class ArrayParser
         if (is_array($value)) {
             return ArrayParser::serializeArray($value, $depth);
         } elseif (is_string($value)) {
-            return '"' . $value . '"';
+            return '\'' . str_replace('\'', '\\\'', $value) . '\'';
         } elseif (is_scalar($value)) {
             return (string) $value;
         } elseif ($value === null) {
