@@ -38,14 +38,14 @@ class ArrayParser
      */
     public static function serializeArray(array $arr, int $depth = 1) : string
     {
-        $stringify = '[' . PHP_EOL;
+        $stringify = '[' . "\n";
 
         foreach ($arr as $key => $val) {
             if (is_string($key)) {
                 $key = '\'' . str_replace('\'', '\\\'', $key) . '\'';
             }
 
-            $stringify .= str_repeat(' ', $depth * 4) . $key . ' => ' . self::parseVariable($val, $depth + 1) . ',' . PHP_EOL;
+            $stringify .= str_repeat(' ', $depth * 4) . $key . ' => ' . self::parseVariable($val, $depth + 1) . ',' . "\n";
 
         }
 
