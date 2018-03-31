@@ -29,13 +29,14 @@ class ArrayParser
     /**
      * Serializing array (recursively).
      *
-     * @param array $arr Array to serialize
+     * @param array $arr   Array to serialize
+     * @param int   $depth Array depth
      *
      * @return string
      *
      * @since  1.0.0
      */
-    public static function serializeArray(array $arr) : string
+    public static function serializeArray(array $arr, int $depth = 1) : string
     {
         $stringify = '[' . PHP_EOL;
 
@@ -44,26 +45,27 @@ class ArrayParser
                 $key = '"' . $key . '"';
             }
 
-            $stringify .= '    ' . $key . ' => ' . self::parseVariable($val) . ',' . PHP_EOL;
+            $stringify .= str_repeat(' ', $depth * 4) . $key . ' => ' . self::parseVariable($val, $depth + 1) . ',' . PHP_EOL;
 
         }
 
-        return $stringify . ']';
+        return $stringify . str_repeat(' ', ($depth - 1) * 4) . ']';
     }
 
     /**
      * Serialize value.
      *
      * @param mixed $value Value to serialzie
+     * @param int   $depth Array depth
      *
      * @return string
      *
      * @since  1.0.0
      */
-    public static function parseVariable($value) : string
+    public static function parseVariable($value, int $depth = 1) : string
     {
         if (is_array($value)) {
-            return ArrayParser::serializeArray($value) . PHP_EOL;
+            return ArrayParser::serializeArray($value, $depth);
         } elseif (is_string($value)) {
             return '"' . $value . '"';
         } elseif (is_scalar($value)) {

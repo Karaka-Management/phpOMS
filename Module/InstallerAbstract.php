@@ -188,7 +188,7 @@ class InstallerAbstract
             $appRoutes = array_merge_recursive($appRoutes, $moduleRoutes);
 
             if (is_writable($destRoutePath)) {
-                file_put_contents($destRoutePath, '<?php return' . ArrayParser::serializeArray($appRoutes) . ';', LOCK_EX);
+                file_put_contents($destRoutePath, '<?php return ' . ArrayParser::serializeArray($appRoutes) . ';', LOCK_EX);
             } else {
                 throw new PermissionException($destRoutePath);
             }

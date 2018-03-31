@@ -54,16 +54,16 @@ class EventManager
     /**
      * Attach new event
      *
-     * @param string   $group    Name of the event (unique)
-     * @param \Closure $callback Callback for the event
-     * @param bool     $remove   Remove event after triggering it?
-     * @param bool     $reset    Reset event after triggering it? Remove must be false!
+     * @param string $group    Name of the event (unique)
+     * @param mixed  $callback Callback or route for the event
+     * @param bool   $remove   Remove event after triggering it?
+     * @param bool   $reset    Reset event after triggering it? Remove must be false!
      *
      * @return bool
      *
      * @since  1.0.0
      */
-    public function attach(string $group, \Closure $callback, bool $remove = false, bool $reset = false) : bool
+    public function attach(string $group, $callback, bool $remove = false, bool $reset = false) : bool
     {
         if (isset($this->callbacks[$group])) {
             return false;
@@ -96,6 +96,7 @@ class EventManager
         }
 
         if (!$this->hasOutstanding($group)) {
+            // todo if it is route then call dispatcher?
             $this->callbacks[$group]['func']($data);
 
             if ($this->callbacks[$group]['remove']) {
