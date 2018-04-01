@@ -46,7 +46,6 @@ class ArrayParser
             }
 
             $stringify .= str_repeat(' ', $depth * 4) . $key . ' => ' . self::parseVariable($val, $depth + 1) . ',' . "\n";
-
         }
 
         return $stringify . str_repeat(' ', ($depth - 1) * 4) . ']';
