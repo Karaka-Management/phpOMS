@@ -100,6 +100,7 @@ class InstallerAbstract
     {
         self::registerInDatabase($dbPool, $info);
         self::initRoutes($modulePath, $info);
+        self::initHooks($modulePath, $info);
         self::activate($dbPool, $info);
     }
 
@@ -133,6 +134,7 @@ class InstallerAbstract
     public static function reInit(string $modulePath, InfoManager $info) : void
     {
         self::initRoutes($modulePath, $info);
+        self::initHooks($modulePath, $info);
     }
 
     /**
@@ -149,7 +151,6 @@ class InstallerAbstract
      */
     private static function initRoutes(string $modulePath, InfoManager $info) : void
     {
-        // todo: maybe use static::__DIR__ ?
         $directories = new Directory($modulePath . '/Admin/Routes');
 
         foreach ($directories as $key => $subdir) {
@@ -179,27 +180,90 @@ class InstallerAbstract
             file_put_contents($destRoutePath, '<?php return [];');
         }
 
-        if (file_exists($destRoutePath) && file_exists($srcRoutePath)) {
-            /** @noinspection PhpIncludeInspection */
-            $appRoutes = include $destRoutePath;
-            /** @noinspection PhpIncludeInspection */
-            $moduleRoutes = include $srcRoutePath;
+        if (!file_exists($srcRoutePath)) {
+            return;
+        }
 
-            $appRoutes = array_merge_recursive($appRoutes, $moduleRoutes);
+        if (!file_exists($destRoutePath)) {
+            throw new PathException($destRoutePath);
+        }
 
-            if (is_writable($destRoutePath)) {
-                file_put_contents($destRoutePath, '<?php return ' . ArrayParser::serializeArray($appRoutes) . ';', LOCK_EX);
-            } else {
-                throw new PermissionException($destRoutePath);
-            }
-        } else {
-            if (!file_exists($srcRoutePath)) {
-                throw new PathException($srcRoutePath);
-            }
+        if (!is_writable($destRoutePath)) {
+            throw new PermissionException($destRoutePath);
+        }
 
-            if (!file_exists($destRoutePath)) {
-                throw new PathException($destRoutePath);
+        /** @noinspection PhpIncludeInspection */
+        $appRoutes = include $destRoutePath;
+        /** @noinspection PhpIncludeInspection */
+        $moduleRoutes = include $srcRoutePath;
+
+        $appRoutes = array_merge_recursive($appRoutes, $moduleRoutes);
+
+        file_put_contents($destRoutePath, '<?php return ' . ArrayParser::serializeArray($appRoutes) . ';', LOCK_EX);
+    }
+
+    /**
+     * Init hooks.
+     *
+     * @param string      $modulePath Path to the module
+     * @param InfoManager $info       Module info
+     *
+     * @return void
+     *
+     * @throws PermissionException
+     *
+     * @since  1.0.0
+     */
+    private static function initHooks(string $modulePath, InfoManager $info) : void
+    {
+        $directories = new Directory($modulePath . '/Admin/Hooks');
+
+        foreach ($directories as $key => $subdir) {
+            if ($subdir instanceof Directory) {
+                foreach ($subdir as $key2 => $file) {
+                    self::installHooks(__DIR__ . '/../../' . $subdir->getName() . '/' . basename($file->getName(), '.php') . '/Hooks.php', $file->getPath());
+                }
             }
         }
+    }
+
+    /**
+     * Install hooks.
+     *
+     * @param string $destHookPath Destination hook path
+     * @param string $srcHookPath  Source hook path
+     *
+     * @return void
+     *
+     * @throws PermissionException
+     *
+     * @since  1.0.0
+     */
+    private static function installHooks(string $destHookPath, string $srcHookPath) : void
+    {
+        if (!file_exists($destHookPath)) {
+            file_put_contents($destHookPath, '<?php return [];');
+        }
+
+        if (!file_exists($srcHookPath)) {
+            return;
+        }
+
+        if (!file_exists($destHookPath)) {
+            throw new PathException($destHookPath);
+        }
+
+        if (!is_writable($destHookPath)) {
+            throw new PermissionException($destHookPath);
+        }
+
+        /** @noinspection PhpIncludeInspection */
+        $appHooks = include $destHookPath;
+        /** @noinspection PhpIncludeInspection */
+        $moduleHooks = include $srcHookPath;
+
+        $appHooks = array_merge_recursive($appHooks, $moduleHooks);
+
+        file_put_contents($destHookPath, '<?php return ' . ArrayParser::serializeArray($appHooks) . ';', LOCK_EX);
     }
 }
