@@ -114,7 +114,7 @@ class PhpCode
     /**
      * Validate file integrety
      *
-     * @param string $source Source code
+     * @param string $source Source code path
      * @param string $hash   Source hash
      *
      * @return bool
@@ -123,6 +123,6 @@ class PhpCode
      */
     public static function validateFileIntegrity(string $source, string $hash) : bool
     {
-        return true;
+        return md5_file($source) === $hash;
     }
 }
