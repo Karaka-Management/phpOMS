@@ -81,12 +81,17 @@ class Directory extends FileAbstract implements DirectoryInterface
             throw new PathException($path);
         }
 
-        $list = [];
-        $path = rtrim($path, '\\/');
-
-        foreach ($iterator = new \RecursiveIteratorIterator(
+        $list     = [];
+        $path     = rtrim($path, '\\/');
+        $iterator = new \RecursiveIteratorIterator(
             new \RecursiveDirectoryIterator($path, \RecursiveDirectoryIterator::SKIP_DOTS),
-            \RecursiveIteratorIterator::SELF_FIRST) as $item
+            \RecursiveIteratorIterator::SELF_FIRST);
+
+        if ($filter !== '*') {
+            return \RegexIterator($iterator, '/' . $filter . '/i', \RecursiveRegexIterator::GET_MATCH);
+        }
+
+        foreach ($iterator as $item
         ) {
             $list[] = str_replace('\\', '/', $iterator->getSubPathname());
         }
