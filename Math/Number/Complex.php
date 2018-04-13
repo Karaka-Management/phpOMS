@@ -148,7 +148,9 @@ class Complex
 
     public function pow($value) : Complex
     {
-        if (is_numeric($value)) {
+        if (is_int($value)) {
+            return $this->powInteger($value);
+        } elseif (is_numeric($value)) {
             return $this->powScalar($value);
         } elseif ($value instanceof Complex) {
             return $this->powComplex($value);
@@ -160,6 +162,28 @@ class Complex
     public function powComplex() : Complex
     {
 
+    }
+
+    /**
+     * Power with integer
+     * 
+     * @param int $value Power
+     * 
+     * @return Complex
+     * 
+     * @since  1.0.0
+     */
+    public function powInteger(int $value) : Complex
+    {
+        if ($value === 0) {
+            return new self(1, 0);
+        } elseif ($value === 1) {
+            return $this;
+        }
+
+        for ($i = $value; $i > 0; --$i) {
+            return $this->multComplex($this->powInteger($i));
+        }
     }
 
     public function powScalar() : Complex
