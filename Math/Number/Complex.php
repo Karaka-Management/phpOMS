@@ -181,9 +181,7 @@ class Complex
             return $this;
         }
 
-        for ($i = $value; $i > 0; --$i) {
-            return $this->multComplex($this->powInteger($i));
-        }
+        return $this->multComplex($this->powInteger(--$value));
     }
 
     public function powScalar() : Complex

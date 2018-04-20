@@ -59,7 +59,7 @@ class ComplexTest extends \PHPUnit\Framework\TestCase
 
         self::assertEquals('7.00 + 24.00i', $cpl->square()->render());
         self::assertEquals('7.00 + 24.00i', $cpl->pow(2)->render());
-        self::assertEquals('-44.00 - 117.00i', $cpl->pow(3)->render());
+        self::assertEquals('-44.00 + 117.00i', $cpl->pow(3)->render());
 
         self::assertEquals(5, $cpl->abs(), '', 0.01);
 

@@ -69,14 +69,57 @@ class MatrixTest extends \PHPUnit\Framework\TestCase
 
     public function testDet()
     {
-        $this->B = new Matrix();
-        $this->B->setMatrix([
+        $B = new Matrix();
+        $B->setMatrix([
             [6, 1, 1],
             [4, -2, 5],
             [2, 8, 7],
         ]);
 
-        self::assertEquals(-306, $this->B->det());
+        self::assertEquals(-306, $B->det());
+    }
+
+    public function testTranspose()
+    {
+        $B = new Matrix();
+        $B->setMatrix([
+            [6, 1, 1],
+            [4, -2, 5],
+        ]);
+
+        self::assertEquals([[6, 4], [1, -2], [1, 5],], $B->transpose()->toArray());
+    }
+
+    public function testRank()
+    {
+        $B = new Matrix();
+        $B->setMatrix([
+            [0, 1, 2],
+            [1, 2, 1],
+            [2, 7, 8],
+        ]);
+
+        self::assertEquals(2, $B->rank());
+
+        $B->setMatrix([
+            [1, 0, 2],
+            [2, 1, 0],
+            [3, 2, 1],
+        ]);
+        self::assertEquals(3, $B->rank());
+
+        $B->setMatrix([
+            [1, 0, 2],
+            [2, 1, 0],
+        ]);
+        self::assertEquals(2, $B->rank());
+
+        $B->setMatrix([
+            [1, 2],
+            [0, 1],
+            [2, 0],
+        ]);
+        self::assertEquals(2, $B->rank());
     }
 
     public function testInverse()
@@ -88,6 +131,8 @@ class MatrixTest extends \PHPUnit\Framework\TestCase
             [2, 1, 1],
         ]);
 
+        self::markTestIncomplete();
+        // todo: result column 0 and 1 are swapped. why? still correct?
         /*self::assertEquals([
             [-0.9, -0.5, 2.2],
             [0.7, 0.5, -1.6],

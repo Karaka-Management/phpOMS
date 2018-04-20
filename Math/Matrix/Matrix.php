@@ -167,7 +167,74 @@ class Matrix implements \ArrayAccess, \Iterator
      */
     public function rank() : int
     {
-        return 0;
+        $matrix = $this->matrix;
+        $mDim   = $this->m;
+        $nDim   = $this->n;
+
+        if ($this->m > $this->n) {
+            $mDim   = $this->n;
+            $nDim   = $this->m;
+            $matrix = array_map(null, ...$matrix);
+        }
+
+        $rank = $mDim;
+
+        for ($row = 0; $row < $rank; ++$row) {
+            if (isset($matrix[$row][$row]) && $matrix[$row][$row] !== 0) {
+                for ($col = 0; $col < $mDim; ++$col) {
+                    if ($col !== $row) {
+                        $mult = $matrix[$col][$row] / $matrix[$row][$row];
+
+                        for ($i = 0; $i < $rank; ++$i) {
+                            $matrix[$col][$i] -= $mult * $matrix[$row][$i];
+                        }
+                    }
+                }
+            } else {
+                $reduce = true;
+
+                for ($i = $row + 1; $i < $mDim; ++$i) {
+                    if (isset($matrix[$i][$row]) && $matrix[$i][$row] !== 0) {
+                        $this->swapRow($matrix, $row, $i, $rank);
+                        $reduce = false;
+                        break;
+                    }
+                }
+
+                if ($reduce) {
+                    --$rank;
+
+                    for ($i = 0; $i < $mDim; ++$i) {
+                        $matrix[$i][$row] = $matrix[$i][$rank];
+                    }
+
+                    --$row;
+                }
+            }
+        }
+
+        return $rank;
+    }
+
+    /**
+     * Swap values in rows
+     * 
+     * @param array $matrix Matrix reference to modify
+     * @param int   $row1   Row to swap
+     * @param int   $row2   Row to swap
+     * @param int   $col    Max col to swap to
+     *
+     * @return void
+     *
+     * @since  1.0.0
+     */
+    private function swapRow(array &$matrix, int $row1, int $row2, int $col) : void
+    {
+        for ($i = 0; $i < $col; ++$i) {
+            $temp          = $matrix[$row1][$i];
+            $matrix[$row1] = $matrix[$row2][$i];
+            $matrix[$row2] = $temp;
+        }
     }
 
     /**
@@ -436,7 +503,7 @@ class Matrix implements \ArrayAccess, \Iterator
      */
     private function upperTrianglize(array &$arr) : int
     {
-        $n    = count($arr);
+        $n    = $this->n;
         $sign = 1;
 
         for ($i = 0; $i < $n; ++$i) {
@@ -505,70 +572,6 @@ class Matrix implements \ArrayAccess, \Iterator
     }
 
     /**
-     * Inverse matrix using gauss jordan.
-     *
-     * @return Matrix
-     *
-     * @since  1.0.0
-     */
-    private function inverseGaussJordan() : Matrix
-    {
-        $newMatrixArr = $this->matrix;
-
-        // extending matrix by identity matrix
-        for ($i = 0; $i < $this->n; ++$i) {
-            for ($j = $this->n; $j < $this->n * 2; ++$j) {
-
-                if ($j === ($i + $this->n)) {
-                    $newMatrixArr[$i][$j] = 1;
-                } else {
-                    $newMatrixArr[$i][$j] = 0;
-                }
-            }
-        }
-
-        $mDim = count($newMatrixArr);
-        $nDim = count($newMatrixArr[0]);
-
-        // pivoting
-        $newMatrixArr = $this->diag($newMatrixArr);
-
-        /* create unit matrix */
-        for ($i = 0; $i < $mDim; ++$i) {
-            $temp = $newMatrixArr[$i][$i];
-
-            for ($j = 0; $j < $nDim; ++$j) {
-                $newMatrixArr[$i][$j] = $newMatrixArr[$i][$j] / $temp;
-            }
-        }
-
-        /* removing identity matrix */
-        for ($i = 0; $i < $mDim; ++$i) {
-            $newMatrixArr[$i] = array_slice($newMatrixArr[$i], $mDim);
-        }
-
-        $newMatrix = new Matrix($this->n, $this->n);
-        $newMatrix->setMatrix($newMatrixArr);
-
-        return $newMatrix;
-    }
-
-    /**
-     * Diagonalize matrix
-     *
-     * @return Matrix
-     *
-     * @since  1.0.0
-     */
-    public function diagonalize() : Matrix
-    {
-        $newMatrix = new Matrix($this->m, $this->n);
-        $newMatrix->setMatrix($this->diag($this->matrix));
-
-        return $newMatrix;
-    }
-
-    /**
      * Solve matrix
      * 
      * @param Matix $B Matrix/Vector b
@@ -582,111 +585,6 @@ class Matrix implements \ArrayAccess, \Iterator
         $M = $this->m === $this->n ? new LUDecomposition($this) : new QRDecomposition($this);
 
         return $M->solve($B);
-    }
-
-    /**
-     * Perform gauss elimination on Matrix
-     * 
-     * @param mixed $b Vector b
-     *
-     * @return Matrix
-     *
-     * @since  1.0.0
-     */
-    private function gaussElimination($b) : Matrix
-    {
-        $mDim   = count($b);
-        $matrix = $this->matrix;
-
-        for ($col = 0; $col < $mDim; $col++) {
-            $j   = $col;
-            $max = $matrix[$j][$j];
-
-            for ($i = $col + 1; $i < $mDim; ++$i) {
-                $temp = abs($matrix[$i][$col]);
-
-                if ($temp > $max) {
-                    $j   = $i;
-                    $max = $temp;
-                }
-            }
-
-            if ($col != $j) {
-                $temp         = $matrix[$col];
-                $matrix[$col] = $matrix[$j];
-                $matrix[$j]   = $temp;
-
-                $temp    = $b[$col];
-                $b[$col] = $b[$j];
-                $b[$j]   = $temp;
-            }
-
-            for ($i = $col + 1; $i < $mDim; ++$i) {
-                $temp = $matrix[$i][$col] / $matrix[$col][$col];
-
-                for ($j = $col + 1; $j < $mDim; ++$j) {
-                    $matrix[$i][$j] -= $temp * $matrix[$col][$j];
-                }
-
-                $matrix[$i][$col] = 0;
-                $b[$i]           -= $temp * $b[$col];
-            }
-        }
-
-        $x = [];
-        for ($col = $mDim - 1; $col >= 0; $col--) {
-            $temp = $b[$col];
-            for ($j = $mDim - 1; $j > $col; $j--) {
-                $temp -= $x[$j] * $matrix[$col][$j];
-            }
-
-            $x[$col] = $temp / $matrix[$col][$col];
-        }
-
-        $solution = new self(count($x), count($x[0]));
-        $solution->setMatrix($x);
-
-        return $solution;
-    }
-
-    /**
-     * Diagonalize matrix.
-     *
-     * @param array $arr Matrix to diagonalize
-     *
-     * @return array
-     *
-     * @since  1.0.0
-     */
-    private function diag(array $arr) : array
-    {
-        $mDim = count($arr);
-        $nDim = count($arr[0]);
-
-        for ($i = $mDim - 1; $i > 0; $i--) {
-            if ($arr[$i - 1][0] < $arr[$i][0]) {
-                for ($j = 0; $j < $nDim; ++$j) {
-                    $temp            = $arr[$i][$j];
-                    $arr[$i][$j]     = $arr[$i - 1][$j];
-                    $arr[$i - 1][$j] = $temp;
-                }
-            }
-        }
-
-        /* create diagonal matrix */
-        for ($i = 0; $i < $mDim; ++$i) {
-            for ($j = 0; $j < $mDim; ++$j) {
-                if ($j !== $i) {
-                    $temp = $arr[$j][$i] / $arr[$i][$i];
-
-                    for ($c = 0; $c < $nDim; ++$c) {
-                        $arr[$j][$c] -= $arr[$i][$c] * $temp;
-                    }
-                }
-            }
-        }
-
-        return $arr;
     }
 
     /**
