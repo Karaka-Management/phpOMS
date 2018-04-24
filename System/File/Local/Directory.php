@@ -104,12 +104,13 @@ class Directory extends FileAbstract implements DirectoryInterface
      *
      * @param string $path      Path
      * @param string $extension Extension
+     * @param string $exclude   Pattern to exclude
      *
      * @return array
      *
      * @since  1.0.0
      */
-    public static function listByExtension(string $path, string $extension) : array
+    public static function listByExtension(string $path, string $extension = '', string $exclude = '') : array
     {
         $list = [];
         $path = rtrim($path, '\\/');
@@ -118,7 +119,9 @@ class Directory extends FileAbstract implements DirectoryInterface
             new \RecursiveDirectoryIterator($path, \RecursiveDirectoryIterator::SKIP_DOTS),
             \RecursiveIteratorIterator::SELF_FIRST) as $item
         ) {
-            if ($item->getExtension() === $extension) {
+            if ((empty($extension) || $item->getExtension() === $extension) 
+                && (empty($exclude) || (!(bool) preg_match('/' . $exclude . '/', $iterator->getSubPathname())))
+            ) {
                 $list[] = str_replace('\\', '/', $iterator->getSubPathname());
             }
         }
