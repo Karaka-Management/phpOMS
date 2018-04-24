@@ -178,7 +178,7 @@ class File extends FileAbstract implements FileInterface
             throw new PathException($path);
         }
 
-        return self::createFileTime(filectime($path));
+        return self::createFileTime(filemtime($path));
     }
 
     /**
