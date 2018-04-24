@@ -79,7 +79,7 @@ class PhpCode
      */
     public static function hasUnicode(string $source) : bool
     {
-        return (bool) preg_match('/[^\x20-\x7f]/', $source) || !mb_check_encoding($source, 'ASCII');
+        return (bool) preg_match('/[^\x00-\x7f]/', $source);
     }
 
     /**

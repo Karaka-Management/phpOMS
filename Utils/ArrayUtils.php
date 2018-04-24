@@ -325,7 +325,6 @@ class ArrayUtils
      */
     public static function arrayFlatten(array $array) : array
     {
-
         // see collection collapse as alternative?!
         $flat  = [];
         $stack = array_values($array);
