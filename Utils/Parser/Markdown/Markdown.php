@@ -85,8 +85,18 @@ class Markdown
      */
     protected static $strongRegex = [
         '*' => '/^[*]{2}((?:\\\\\*|[^*]|[*][^*]*[*])+?)[*]{2}(?![*])/s',
+    ];
+
+    /**
+     * Regex for underline.
+     *
+     * @var string[]
+     * @since 1.0.0
+     */
+    protected static $underlineRegex = [
         '_' => '/^__((?:\\\\_|[^_]|_[^_]*_)+?)__(?!_)/us',
     ];
+
 
     /**
      * Regex for em.
@@ -108,7 +118,7 @@ class Markdown
     protected static $regexHtmlAttribute = '[a-zA-Z_:][\w:.-]*(?:\s*=\s*(?:[^"\'=<>`\s]+|"[^"]*"|\'[^\']*\'))?';
 
     /**
-     * Regex for strong.
+     * Void elements.
      *
      * @var string[]
      * @since 1.0.0
@@ -1062,8 +1072,10 @@ class Markdown
 
         $marker = $excerpt['text'][0];
 
-        if ($excerpt['text'][1] === $marker && preg_match(self::$strongRegex[$marker], $excerpt['text'], $matches)) {
+        if ($excerpt['text'][1] === $marker && isset(self::$strongRegex[$marker]) && preg_match(self::$strongRegex[$marker], $excerpt['text'], $matches)) {
             $emphasis = 'strong';
+        } elseif ($excerpt['text'][1] === $marker && isset(self::$underlineRegex[$marker]) && preg_match(self::$underlineRegex[$marker], $excerpt['text'], $matches)) {
+            $emphasis = 'u';
         } elseif (preg_match(self::$emRegex[$marker], $excerpt['text'], $matches)) {
             $emphasis = 'em';
         } else {
