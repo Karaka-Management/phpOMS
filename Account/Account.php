@@ -169,7 +169,7 @@ class Account implements ArrayableInterface, \JsonSerializable
         $this->createdAt  = new \DateTime('now');
         $this->lastActive = new \DateTime('now');
         $this->id         = $id;
-        $this->l11n       = new NullLocalization();
+        $this->l11n       = new Localization();
     }
 
     /**

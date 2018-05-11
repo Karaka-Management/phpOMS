@@ -22,7 +22,7 @@ namespace phpOMS\System\File;
  * @link       http://website.orange-management.de
  * @since      1.0.0
  */
-class FileUtils
+final class FileUtils
 {
     public const CODE_EXTENSION         = ['cpp', 'c', 'h', 'hpp', 'cs', 'css', 'htm', 'html', 'php', 'rb'];
     public const TEXT_EXTENSION         = ['doc', 'docx', 'txt', 'md', 'csv'];

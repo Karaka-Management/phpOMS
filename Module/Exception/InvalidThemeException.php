@@ -22,7 +22,7 @@ namespace phpOMS\Module\Exception;
  * @link       http://website.orange-management.de
  * @since      1.0.0
  */
-class InvalidThemeException extends \UnexpectedValueException
+final class InvalidThemeException extends \UnexpectedValueException
 {
     /**
      * Constructor.

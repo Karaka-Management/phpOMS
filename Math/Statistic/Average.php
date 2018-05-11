@@ -25,7 +25,7 @@ use phpOMS\Math\Matrix\Exception\InvalidDimensionException;
  * @link       http://website.orange-management.de
  * @since      1.0.0
  */
-class Average
+final class Average
 {
 
     public const MA3    = [1 / 3, 1 / 3];
@@ -40,6 +40,17 @@ class Average
     public const MAH13  = [0.240, 0.214, 0.147, 0.66, 0, -0.028, -0.019];
     public const MAH23  = [0.148, 0.138, 0.122, 0.097, 0.068, 0.039, 0.013, -0.005, -0.015, -0.016, -0.011, -0.004];
 
+    /**
+     * Constructor.
+     *
+     * @since  1.0.0
+     * @codeCoverageIgnore
+     */
+    private function __construct()
+    {
+
+    }
+    
     /**
      * Average change.
      *

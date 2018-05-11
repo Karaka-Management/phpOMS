@@ -22,7 +22,7 @@ namespace phpOMS\Utils;
  * @link       http://website.orange-management.de
  * @since      1.0.0
  */
-class ArrayUtils
+final class ArrayUtils
 {
 
     /**

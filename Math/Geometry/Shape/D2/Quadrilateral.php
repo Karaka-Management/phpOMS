@@ -13,7 +13,7 @@
 declare(strict_types=1);
 namespace phpOMS\Math\Geometry\Shape\D2;
 
-class Quadrilateral implements D2ShapeInterface
+final class Quadrilateral implements D2ShapeInterface
 {
 
 }

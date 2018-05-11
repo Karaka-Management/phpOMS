@@ -22,7 +22,7 @@ namespace phpOMS\Math\Number;
  * @link       http://website.orange-management.de
  * @since      1.0.0
  */
-class Complex
+final class Complex
 {
     /**
      * Real part.

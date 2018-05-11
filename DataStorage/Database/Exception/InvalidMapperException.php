@@ -22,7 +22,7 @@ namespace phpOMS\DataStorage\Database\Exception;
  * @link       http://website.orange-management.de
  * @since      1.0.0
  */
-class InvalidMapperException extends \RuntimeException
+final class InvalidMapperException extends \RuntimeException
 {
     /**
      * Constructor.

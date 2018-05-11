@@ -25,7 +25,7 @@ namespace phpOMS\Business\Finance;
  * @SuppressWarnings(PHPMD.CamelCaseParameterName)
  * @SuppressWarnings(PHPMD.CamelCaseVariableName)
  */
-class StockBonds
+final class StockBonds
 {
     /**
      * Bond Equivalent Yield

@@ -22,7 +22,7 @@ namespace phpOMS\Security;
  * @link       http://website.orange-management.de
  * @since      1.0.0
  */
-class PhpCode
+final class PhpCode
 {
     /**
      * Disabled functions
@@ -53,6 +53,17 @@ class PhpCode
         'phpAds_xmlrpcEncode', 'popen', 'posix_getpwuid', 'posix_kill', 'posix_mkfifo', 'posix_setpgid', 'posix_setsid',
         'posix_setuid', 'posix_uname', 'proc_close', 'proc_get_status',
     ];
+
+    /**
+     * Constructor.
+     *
+     * @since  1.0.0
+     * @codeCoverageIgnore
+     */
+    private function __construct()
+    {
+
+    }
 
     /**
      * Normalize source code for inspection

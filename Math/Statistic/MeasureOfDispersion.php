@@ -25,8 +25,18 @@ use phpOMS\Math\Matrix\Exception\InvalidDimensionException;
  * @link       http://website.orange-management.de
  * @since      1.0.0
  */
-class MeasureOfDispersion
+final class MeasureOfDispersion
 {
+    /**
+     * Constructor.
+     *
+     * @since  1.0.0
+     * @codeCoverageIgnore
+     */
+    private function __construct()
+    {
+
+    }
 
     /**
      * Get range.

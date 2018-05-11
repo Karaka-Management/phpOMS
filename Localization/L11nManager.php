@@ -25,7 +25,7 @@ use phpOMS\Module\ModuleAbstract;
  * @link       http://website.orange-management.de
  * @since      1.0.0
  */
-class L11nManager
+final class L11nManager
 {
 
     /**

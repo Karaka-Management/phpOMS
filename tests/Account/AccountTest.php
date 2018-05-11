@@ -65,7 +65,7 @@ class AccountTest extends \PHPUnit\Framework\TestCase
         self::assertTrue(is_int($account->getId()));
         self::assertEquals(0, $account->getId());
 
-        self::assertInstanceOf('\phpOMS\Localization\NullLocalization', $account->getL11n());
+        self::assertInstanceOf('\phpOMS\Localization\Localization', $account->getL11n());
 
         self::assertEquals([], $account->getGroups());
 
@@ -154,11 +154,8 @@ class AccountTest extends \PHPUnit\Framework\TestCase
         self::assertFalse($account->hasPermission(PermissionType::READ, 1, 'a', 1, 1, 1, 1));
         self::assertTrue($account->hasPermission(PermissionType::NONE));
 
-        $account->setL11n(new NullLocalization());
-        self::assertInstanceOf('\phpOMS\Localization\NullLocalization', $account->getL11n());
         $account->setL11n(new Localization());
         self::assertInstanceOf('\phpOMS\Localization\Localization', $account->getL11n());
-        self::assertNotInstanceOf('\phpOMS\Localization\NullLocalization', $account->getL11n());
 
         $datetime = new \DateTime('now');
         $account->updateLastActive();

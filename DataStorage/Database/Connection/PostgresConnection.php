@@ -25,7 +25,7 @@ namespace phpOMS\DataStorage\Database\Connection;
  * @link       http://website.orange-management.de
  * @since      1.0.0
  */
-abstract class PostgresConnection extends \Exception
+final  class PostgresConnection extends \Exception
 {
 
 }

@@ -29,7 +29,7 @@ use phpOMS\System\File\PathException;
  * @link       http://website.orange-management.de
  * @since      1.0.0
  */
-class File extends FileAbstract implements FileInterface
+final class File extends FileAbstract implements FileInterface
 {
 
     /**

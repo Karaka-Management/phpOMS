@@ -29,7 +29,7 @@ use phpOMS\DataStorage\Database\Connection\NullConnection;
  * @link       http://website.orange-management.de
  * @since      1.0.0
  */
-class DatabasePool implements DataStoragePoolInterface
+final class DatabasePool implements DataStoragePoolInterface
 {
 
     /**

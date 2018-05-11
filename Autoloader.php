@@ -24,7 +24,7 @@ spl_autoload_register('\phpOMS\Autoloader::defaultAutoloader');
  * @link       http://website.orange-management.de
  * @since      1.0.0
  */
-class Autoloader
+final class Autoloader
 {
     /**
      * Base paths for autoloading
@@ -36,6 +36,17 @@ class Autoloader
         __DIR__ . '/../',
         __DIR__ . '/../../',
     ];
+
+    /**
+     * Constructor.
+     *
+     * @since  1.0.0
+     * @codeCoverageIgnore
+     */
+    private function __construct()
+    {
+
+    }
     
     /**
      * Add base path for autoloading

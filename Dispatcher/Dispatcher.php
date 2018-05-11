@@ -26,7 +26,7 @@ use phpOMS\System\File\PathException;
  * @link       http://website.orange-management.de
  * @since      1.0.0
  */
-class Dispatcher
+final class Dispatcher
 {
 
     /**

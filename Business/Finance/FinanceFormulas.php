@@ -28,7 +28,7 @@ use phpOMS\Math\Matrix\Exception\InvalidDimensionException;
  * @SuppressWarnings(PHPMD.CamelCaseParameterName)
  * @SuppressWarnings(PHPMD.CamelCaseVariableName)
  */
-class FinanceFormulas
+final class FinanceFormulas
 {
 
     /**

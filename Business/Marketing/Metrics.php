@@ -24,7 +24,7 @@ namespace phpOMS\Business\Marketing;
  * @link       http://website.orange-management.de
  * @since      1.0.0
  */
-class Metrics
+final class Metrics
 {
     /**
      * Calculate customer retention

@@ -22,7 +22,7 @@ namespace phpOMS\Math\Geometry\Shape\D2;
  * @link       http://website.orange-management.de
  * @since      1.0.0
  */
-class Trapezoid implements D2ShapeInterface
+final class Trapezoid implements D2ShapeInterface
 {
 
     /**

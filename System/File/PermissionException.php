@@ -22,7 +22,7 @@ namespace phpOMS\System\File;
  * @link       http://website.orange-management.de
  * @since      1.0.0
  */
-class PermissionException extends \RuntimeException
+final class PermissionException extends \RuntimeException
 {
     /**
      * Constructor.

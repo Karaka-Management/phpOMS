@@ -22,8 +22,18 @@ namespace phpOMS\Math\Functions;
  * @link       http://website.orange-management.de
  * @since      1.0.0
  */
-class Functions
+final class Functions
 {
+    /**
+     * Constructor.
+     *
+     * @since  1.0.0
+     * @codeCoverageIgnore
+     */
+    private function __construct()
+    {
+
+    }
     
     /**
      * Calculate gammar function value.

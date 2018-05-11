@@ -24,7 +24,7 @@ namespace phpOMS\Event;
  *
  * @todo       : make cachable + database storable -> can reload user defined listeners (persistent events)
  */
-class EventManager
+final class EventManager
 {
     /**
      * Events.

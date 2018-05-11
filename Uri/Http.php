@@ -28,7 +28,7 @@ use phpOMS\Utils\StringUtils;
  * 
  * @SuppressWarnings(PHPMD.Superglobals)
  */
-class Http implements UriInterface
+final class Http implements UriInterface
 {
 
     /**

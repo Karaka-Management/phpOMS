@@ -22,8 +22,18 @@ namespace phpOMS\Utils;
  * @link       http://website.orange-management.de
  * @since      1.0.0
  */
-class ColorUtils
+final class ColorUtils
 {
+    /**
+     * Constructor.
+     *
+     * @since  1.0.0
+     * @codeCoverageIgnore
+     */
+    private function __construct()
+    {
+
+    }
 
     /**
      * Convert int to rgb

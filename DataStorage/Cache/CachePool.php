@@ -30,7 +30,7 @@ use phpOMS\DataStorage\Cache\Connection\NullCache;
  * @link       http://website.orange-management.de
  * @since      1.0.0
  */
-class CachePool implements DataStoragePoolInterface
+final class CachePool implements DataStoragePoolInterface
 {
     /**
      * MemCache instance.

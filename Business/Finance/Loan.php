@@ -25,7 +25,7 @@ namespace phpOMS\Business\Finance;
  * @SuppressWarnings(PHPMD.CamelCaseParameterName)
  * @SuppressWarnings(PHPMD.CamelCaseVariableName)
  */
-class Loan
+final class Loan
 {
     /**
      * Balloon Loan - Payments

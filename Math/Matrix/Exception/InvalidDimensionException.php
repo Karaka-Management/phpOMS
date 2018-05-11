@@ -22,7 +22,7 @@ namespace phpOMS\Math\Matrix\Exception;
  * @link       http://website.orange-management.de
  * @since      1.0.0
  */
-class InvalidDimensionException extends \UnexpectedValueException
+final class InvalidDimensionException extends \UnexpectedValueException
 {
     /**
      * Constructor.

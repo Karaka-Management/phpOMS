@@ -27,6 +27,17 @@ namespace phpOMS\Math\Geometry\ConvexHull;
 final class MonotoneChain
 {
     /**
+     * Constructor.
+     *
+     * @since  1.0.0
+     * @codeCoverageIgnore
+     */
+    private function __construct()
+    {
+
+    }
+    
+    /**
      * Create convex hull
      *
      * @param array $points Points (Point Cloud)

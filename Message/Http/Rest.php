@@ -22,7 +22,7 @@ namespace phpOMS\Message\Http;
  * @link       http://website.orange-management.de
  * @since      1.0.0
  */
-class Rest
+final class Rest
 {
 
     /**

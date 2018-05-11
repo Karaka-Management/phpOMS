@@ -22,7 +22,7 @@ namespace phpOMS\Math\Geometry\Shape\D2;
  * @link       http://website.orange-management.de
  * @since      1.0.0
  */
-class Polygon implements D2ShapeInterface
+final class Polygon implements D2ShapeInterface
 {
     /**
      * Epsilon for float comparison.

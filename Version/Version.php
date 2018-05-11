@@ -24,7 +24,7 @@ namespace phpOMS\Version;
  * @link       http://website.orange-management.de
  * @since      1.0.0
  */
-class Version
+final class Version
 {
 
     /**

@@ -22,7 +22,7 @@ namespace phpOMS\Math\Geometry\Shape\D3;
  * @link       http://website.orange-management.de
  * @since      1.0.0
  */
-class RectangularPyramid implements D3ShapeInterface
+final class RectangularPyramid implements D3ShapeInterface
 {
 
     /**

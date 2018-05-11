@@ -27,7 +27,7 @@ use phpOMS\DataStorage\LockException;
  * 
  * @SuppressWarnings(PHPMD.Superglobals)
  */
-class Header extends HeaderAbstract
+final class Header extends HeaderAbstract
 {
 
     /**

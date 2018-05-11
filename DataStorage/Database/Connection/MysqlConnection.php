@@ -31,7 +31,7 @@ use phpOMS\DataStorage\Database\Exception\InvalidConnectionConfigException;
  * @link       http://website.orange-management.de
  * @since      1.0.0
  */
-class MysqlConnection extends ConnectionAbstract
+final class MysqlConnection extends ConnectionAbstract
 {
 
     /**

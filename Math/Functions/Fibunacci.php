@@ -24,8 +24,18 @@ use phpOMS\Math\Number\Numbers;
  * @link       http://website.orange-management.de
  * @since      1.0.0
  */
-class Fibunacci
+final class Fibunacci
 {
+    /**
+     * Constructor.
+     *
+     * @since  1.0.0
+     * @codeCoverageIgnore
+     */
+    private function __construct()
+    {
+
+    }
 
     /**
      * Is fibunacci number.

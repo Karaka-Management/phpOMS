@@ -24,7 +24,7 @@ use phpOMS\DataStorage\LockException;
  * @link       http://website.orange-management.de
  * @since      1.0.0
  */
-class CookieJar
+final class CookieJar
 {
     /**
      * Locked.

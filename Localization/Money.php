@@ -22,7 +22,7 @@ namespace phpOMS\Localization;
  * @link       http://website.orange-management.de
  * @since      1.0.0
  */
-class Money implements \Serializable
+final class Money implements \Serializable
 {
 
     /**

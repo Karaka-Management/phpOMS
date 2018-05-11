@@ -22,8 +22,18 @@ namespace phpOMS\Math\Statistic;
  * @link       http://website.orange-management.de
  * @since      1.0.0
  */
-class Correlation
+final class Correlation
 {
+    /**
+     * Constructor.
+     *
+     * @since  1.0.0
+     * @codeCoverageIgnore
+     */
+    private function __construct()
+    {
+
+    }
 
     /**
      * Calculage bravais person correlation coefficient.

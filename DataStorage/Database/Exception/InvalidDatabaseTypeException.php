@@ -22,7 +22,7 @@ namespace phpOMS\DataStorage\Database\Exception;
  * @link       http://website.orange-management.de
  * @since      1.0.0
  */
-class InvalidDatabaseTypeException extends \InvalidArgumentException
+final class InvalidDatabaseTypeException extends \InvalidArgumentException
 {
     /**
      * Constructor.

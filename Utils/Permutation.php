@@ -22,8 +22,19 @@ namespace phpOMS\Utils;
  * @link       http://website.orange-management.de
  * @since      1.0.0
  */
-class Permutation
+final class Permutation
 {
+    /**
+     * Constructor.
+     *
+     * @since  1.0.0
+     * @codeCoverageIgnore
+     */
+    private function __construct()
+    {
+
+    }
+
     /**
      * Create all permutations.
      *

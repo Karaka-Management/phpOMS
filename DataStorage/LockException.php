@@ -22,7 +22,7 @@ namespace phpOMS\DataStorage;
  * @link       http://website.orange-management.de
  * @since      1.0.0
  */
-class LockException extends \RuntimeException
+final class LockException extends \RuntimeException
 {
     /**
      * Constructor.

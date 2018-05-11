@@ -32,7 +32,7 @@ use phpOMS\Uri\UriInterface;
  * 
  * @SuppressWarnings(PHPMD.Superglobals)
  */
-class Request extends RequestAbstract
+final class Request extends RequestAbstract
 {
 
     /**

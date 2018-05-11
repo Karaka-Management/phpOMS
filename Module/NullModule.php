@@ -22,6 +22,6 @@ namespace phpOMS\Module;
  * @link       http://website.orange-management.de
  * @since      1.0.0
  */
-class NullModule extends ModuleAbstract
+final class NullModule extends ModuleAbstract
 {
 }

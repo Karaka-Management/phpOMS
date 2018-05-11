@@ -28,7 +28,7 @@ use phpOMS\Views\View;
  * @link       http://website.orange-management.de
  * @since      1.0.0
  */
-class Response extends ResponseAbstract implements RenderableInterface
+final class Response extends ResponseAbstract implements RenderableInterface
 {
     /**
      * Response status.

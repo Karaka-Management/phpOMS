@@ -22,7 +22,7 @@ namespace phpOMS\Math\Geometry\Shape\D3;
  * @link       http://website.orange-management.de
  * @since      1.0.0
  */
-class Cylinder implements D3ShapeInterface
+final class Cylinder implements D3ShapeInterface
 {
 
     /**

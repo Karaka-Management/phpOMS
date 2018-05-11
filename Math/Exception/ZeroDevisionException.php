@@ -22,7 +22,7 @@ namespace phpOMS\Math\Exception;
  * @link       http://website.orange-management.de
  * @since      1.0.0
  */
-class ZeroDevisionException extends \UnexpectedValueException
+final class ZeroDevisionException extends \UnexpectedValueException
 {
     /**
      * Constructor.

@@ -24,8 +24,19 @@ namespace phpOMS\Utils;
  * @link       http://website.orange-management.de
  * @since      1.0.0
  */
-class TestUtils
+final class TestUtils
 {
+    /**
+     * Constructor.
+     *
+     * @since  1.0.0
+     * @codeCoverageIgnore
+     */
+    private function __construct()
+    {
+
+    }
+    
     /**
      * Set private object member
      *

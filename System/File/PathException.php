@@ -22,7 +22,7 @@ namespace phpOMS\System\File;
  * @link       http://website.orange-management.de
  * @since      1.0.0
  */
-class PathException extends \UnexpectedValueException
+final class PathException extends \UnexpectedValueException
 {
     /**
      * Constructor.

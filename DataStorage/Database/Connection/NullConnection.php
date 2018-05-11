@@ -24,7 +24,7 @@ use phpOMS\DataStorage\Database\Exception\InvalidConnectionConfigException;
  * @link       http://website.orange-management.de
  * @since      1.0.0
  */
-class NullConnection extends ConnectionAbstract
+final class NullConnection extends ConnectionAbstract
 {
 
     /**

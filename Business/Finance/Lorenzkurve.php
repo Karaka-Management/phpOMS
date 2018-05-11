@@ -22,7 +22,7 @@ namespace phpOMS\Business\Finance;
  * @link       http://website.orange-management.de
  * @since      1.0.0
  */
-class Lorenzkurve
+final class Lorenzkurve
 {
     /**
      * Calculate Gini coefficient

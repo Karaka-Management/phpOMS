@@ -27,7 +27,7 @@ use phpOMS\DataStorage\Session\SessionInterface;
  * @link       http://website.orange-management.de
  * @since      1.0.0
  */
-class AccountManager implements \Countable
+final class AccountManager implements \Countable
 {
 
     /**

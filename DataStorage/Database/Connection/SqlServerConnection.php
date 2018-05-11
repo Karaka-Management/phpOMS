@@ -30,7 +30,7 @@ use phpOMS\DataStorage\Database\Schema\Grammar\MysqlGrammar as MysqlSchemaGramma
  * @link       http://website.orange-management.de
  * @since      1.0.0
  */
-class SqlServerConnection extends ConnectionAbstract
+final class SqlServerConnection extends ConnectionAbstract
 {
     /**
      * Object constructor.

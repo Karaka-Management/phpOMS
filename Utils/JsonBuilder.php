@@ -22,7 +22,7 @@ namespace phpOMS\Utils;
  * @link       http://website.orange-management.de
  * @since      1.0.0
  */
-class JsonBuilder implements \Serializable, \JsonSerializable
+final class JsonBuilder implements \Serializable, \JsonSerializable
 {
 
     /**
@@ -32,15 +32,6 @@ class JsonBuilder implements \Serializable, \JsonSerializable
      * @since 1.0.0
      */
     private $json = [];
-
-    /**
-     * Constructor.
-     *
-     * @since  1.0.0
-     */
-    public function __construct()
-    {
-    }
 
     /**
      * Get json data.

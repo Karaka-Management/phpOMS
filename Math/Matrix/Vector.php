@@ -22,6 +22,6 @@ namespace phpOMS\Math\Matrix;
  * @link       http://website.orange-management.de
  * @since      1.0.0
  */
-class Vector extends Matrix
+final class Vector extends Matrix
 {
 }

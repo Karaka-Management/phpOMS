@@ -25,6 +25,17 @@ namespace phpOMS\System;
 final class OperatingSystem
 {
     /**
+     * Constructor.
+     *
+     * @since  1.0.0
+     * @codeCoverageIgnore
+     */
+    private function __construct()
+    {
+
+    }
+    
+    /**
      * Get OS.
      *
      * @return int

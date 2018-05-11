@@ -13,7 +13,7 @@
 declare(strict_types=1);
 namespace phpOMS\Math\Geometry\Shape\D3;
 
-class Prism implements D3ShapeInterface
+final class Prism implements D3ShapeInterface
 {
 
 }

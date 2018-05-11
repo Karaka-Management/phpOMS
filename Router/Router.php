@@ -24,7 +24,7 @@ use phpOMS\Message\RequestAbstract;
  * @link       http://website.orange-management.de
  * @since      1.0.0
  */
-class Router
+final class Router
 {
 
     /**

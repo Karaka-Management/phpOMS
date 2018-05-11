@@ -22,8 +22,19 @@ namespace phpOMS\Math\Number;
  * @link       http://website.orange-management.de
  * @since      1.0.0
  */
-class Prime
+final class Prime
 {
+    /**
+     * Constructor.
+     *
+     * @since  1.0.0
+     * @codeCoverageIgnore
+     */
+    private function __construct()
+    {
+
+    }
+    
     /**
      * Is mersenne number?
      *

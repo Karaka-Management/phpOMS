@@ -24,7 +24,7 @@ use phpOMS\Math\Matrix\Exception\InvalidDimensionException;
  * @link       http://website.orange-management.de
  * @since      1.0.0
  */
-class LUDecomposition
+final class LUDecomposition
 {
     /**
      * LU matrix.

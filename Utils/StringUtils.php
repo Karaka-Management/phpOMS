@@ -26,7 +26,7 @@ namespace phpOMS\Utils;
  * 
  * @SuppressWarnings(PHPMD.CamelCaseMethodName)
  */
-class StringUtils
+final class StringUtils
 {
 
     /**

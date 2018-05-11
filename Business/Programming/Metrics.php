@@ -24,7 +24,7 @@ namespace phpOMS\Business\Programming;
  * @link       http://website.orange-management.de
  * @since      1.0.0
  */
-class Metrics
+final class Metrics
 {
     /**
      * Calculate ABC metric score

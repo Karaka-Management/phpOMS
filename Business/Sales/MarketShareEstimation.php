@@ -25,7 +25,7 @@ namespace phpOMS\Business\Sales;
  * @link       http://website.orange-management.de
  * @since      1.0.0
  */
-class MarketShareEstimation
+final class MarketShareEstimation
 {
     /**
      * Calculate rank (r) based on market share (m)
