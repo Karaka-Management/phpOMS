@@ -93,8 +93,8 @@ final class Dispatcher
     /**
      * Dispatch string.
      *
-     * @param string      $controller Controller string
-     * @param array|null  $data       Data
+     * @param string     $controller Controller string
+     * @param array|null $data       Data
      *
      * @return array
      *

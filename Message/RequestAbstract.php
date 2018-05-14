@@ -249,15 +249,6 @@ abstract class RequestAbstract implements MessageInterface
     }
 
     /**
-     * Get request target.
-     *
-     * @return string
-     *
-     * @since  1.0.0
-     */
-    abstract public function getRequestTarget() : string;
-
-    /**
      * Get route verb.
      *
      * @return int

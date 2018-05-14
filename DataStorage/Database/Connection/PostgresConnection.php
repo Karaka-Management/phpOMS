@@ -14,6 +14,12 @@ declare(strict_types=1);
 
 namespace phpOMS\DataStorage\Database\Connection;
 
+use phpOMS\DataStorage\Database\DatabaseStatus;
+use phpOMS\DataStorage\Database\DatabaseType;
+use phpOMS\DataStorage\Database\Query\Grammar\PostgresGrammar;
+use phpOMS\DataStorage\Database\Schema\Grammar\PostgresGrammar as PostgresSchemaGrammar;
+use phpOMS\DataStorage\Database\Exception\InvalidConnectionConfigException;
+
 /**
  * Database handler.
  *
@@ -25,7 +31,50 @@ namespace phpOMS\DataStorage\Database\Connection;
  * @link       http://website.orange-management.de
  * @since      1.0.0
  */
-final  class PostgresConnection extends \Exception
+final class PostgresConnection extends ConnectionAbstract
 {
+    /**
+     * Object constructor.
+     *
+     * Creates the database object and overwrites all default values.
+     *
+     * @param string[] $dbdata the basic database information for establishing a connection
+     *
+     * @since  1.0.0
+     */
+    public function __construct(array $dbdata)
+    {
+        $this->type          = DatabaseType::PGSQL;
+        $this->grammar       = new PostgresGrammar();
+        $this->schemaGrammar = new PostgresSchemaGrammar();
+        $this->connect($dbdata); // todo: remove since this is a side effect that doesn't belong to constructor
+    }
 
+    /**
+     * {@inheritdoc}
+     */
+    public function connect(array $dbdata = null) : void
+    {
+        $this->dbdata = isset($dbdata) ? $dbdata : $this->dbdata;
+
+        if (!isset($this->dbdata['db'], $this->dbdata['host'], $this->dbdata['port'], $this->dbdata['database'], $this->dbdata['login'], $this->dbdata['password'])) {
+            throw new InvalidConnectionConfigException(json_encode($this->dbdata));
+        }
+
+        $this->close();
+        $this->prefix = $dbdata['prefix'] ?? '';
+
+        try {
+            $this->con = new \PDO($this->dbdata['db'] . ':host=' . $this->dbdata['host'] . ':' . $this->dbdata['port'] . ';dbname=' . $this->dbdata['database'] . ';charset=utf8', $this->dbdata['login'], $this->dbdata['password']);
+            $this->con->setAttribute(\PDO::ATTR_EMULATE_PREPARES, false);
+            $this->con->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
+
+            $this->status = DatabaseStatus::OK;
+        } catch (\PDOException $e) {
+            $this->status = DatabaseStatus::MISSING_DATABASE;
+            $this->con    = null;
+        } finally {
+            $this->dbdata['password'] = '****';
+        }
+    }
 }

@@ -253,8 +253,6 @@ class Repository
         }
 
         $this->run('init');
-
-        return;
     }
 
     /**

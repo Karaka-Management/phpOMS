@@ -4,7 +4,7 @@
  *
  * PHP Version 7.2
  *
- * @package    TBD
+ * @package    phpOMS\Business\Finance\Forecasting
  * @copyright  Dennis Eichhorn
  * @license    OMS License 1.0
  * @version    1.0.0
@@ -15,12 +15,40 @@ namespace phpOMS\Business\Finance\Forecasting;
 
 use phpOMS\Math\Statistic\Average;
 
+/**
+ * Arima forecasting class.
+ *
+ * @package    phpOMS\Business\Finance\Forecasting
+ * @license    OMS License 1.0
+ * @link       http://website.orange-management.de
+ * @since      1.0.0
+ */
 class ARIMA
 {
+    /**
+     * Data points
+     *
+     * @var array
+     * @since 1.0.0
+     */
     private $data = [];
 
+    /**
+     * Intervals of the time series
+     *
+     * @var array
+     * @since 1.0.0
+     */
     private $order = 0;
 
+    /**
+     * Constructor.
+     * 
+     * @param array $data  Data points
+     * @param int   $order Data intervals (only 12 and 4 are valid).
+     *
+     * @since  1.0.0
+     */
     public function __construct(array $data, int $order = 12)
     {
         $this->data  = $data;
@@ -31,6 +59,13 @@ class ARIMA
         }
     }
 
+    /**
+     * Return data decomposition.
+     * 
+     * @return array
+     *
+     * @since  1.0.0
+     */
     public function getDecomposition() : array
     {
         $iteration1 = $this->getIteration($this->data);

@@ -12,7 +12,7 @@
  */
 declare(strict_types=1);
 
-namespace phpOMS\Message\Http;
+namespace phpOMS\Message\Console;
 
 use phpOMS\Localization\Localization;
 use phpOMS\Message\RequestAbstract;
@@ -29,7 +29,7 @@ use phpOMS\Router\RouteVerb;
  * 
  * @SuppressWarnings(PHPMD.Superglobals)
  */
-class Request extends RequestAbstract
+final class Request extends RequestAbstract
 {
     /**
      * OS type.
@@ -100,5 +100,54 @@ class Request extends RequestAbstract
         }
 
         return $this->os;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getOrigin() : string
+    {
+        // todo: maybe return execution path?
+        return '127.0.0.1';
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getMethod() : string
+    {
+        if ($this->method === null) {
+            $this->method = RequestMethod::GET;
+        }
+
+        return $this->method;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getBody() : string
+    {
+        // todo: implement
+        return '';
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getRouteVerb() : int
+    {
+        switch ($this->getMethod()) {
+            case RequestMethod::GET:
+                return RouteVerb::GET;
+            case RequestMethod::PUT:
+                return RouteVerb::PUT;
+            case RequestMethod::POST:
+                return RouteVerb::SET;
+            case RequestMethod::DELETE:
+                return RouteVerb::DELETE;
+            default:
+                throw new \Exception();
+        }
     }
 }

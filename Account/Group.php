@@ -85,15 +85,6 @@ class Group implements ArrayableInterface, \JsonSerializable
     protected $permissions = [];
 
     /**
-     * Constructor.
-     *
-     * @since  1.0.0
-     */
-    public function __construct()
-    {
-    }
-
-    /**
      * Get group id.
      *
      * @return int

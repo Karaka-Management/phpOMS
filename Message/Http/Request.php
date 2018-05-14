@@ -392,14 +392,6 @@ final class Request extends RequestAbstract
     }
 
     /**
-     * {@inheritdoc}
-     */
-    public function getRequestTarget() : string
-    {
-        return '/';
-    }
-
-    /**
      * Get files passed in request.
      *
      * @return array
@@ -412,13 +404,7 @@ final class Request extends RequestAbstract
     }
 
     /**
-     * Get route verb for this request.
-     *
-     * @return int
-     *
-     * @throws \Exception
-     *
-     * @since  1.0.0
+     * {@inheritdoc}
      */
     public function getRouteVerb() : int
     {
@@ -437,11 +423,7 @@ final class Request extends RequestAbstract
     }
 
     /**
-     * Get request type.
-     *
-     * @return string
-     *
-     * @since  1.0.0
+     * {@inheritdoc}
      */
     public function getMethod() : string
     {
