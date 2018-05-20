@@ -539,7 +539,7 @@ final class ModuleManager
         }
 
         /** @var $class InstallerAbstract */
-        $class::install($this->modulePath, $this->app->dbPool, $info);
+        $class::install($this->app->dbPool, $info);
     }
 
     /**

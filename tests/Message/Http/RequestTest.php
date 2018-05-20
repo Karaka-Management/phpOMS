@@ -39,7 +39,6 @@ class RequestTest extends \PHPUnit\Framework\TestCase
         self::assertFalse($request->isHttps());
         self::assertEquals([], $request->getHash());
         self::assertEmpty($request->getBody());
-        self::assertEquals('/', $request->getRequestTarget());
         self::assertEmpty($request->getFiles());
         self::assertEquals(RouteVerb::GET, $request->getRouteVerb());
         self::assertEquals(RequestMethod::GET, $request->getMethod());

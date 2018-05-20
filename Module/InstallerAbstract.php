@@ -88,19 +88,18 @@ class InstallerAbstract
     /**
      * Install module.
      *
-     * @param string       $modulePath Route Path
-     * @param DatabasePool $dbPool     Database instance
-     * @param InfoManager  $info       Module info
+     * @param DatabasePool $dbPool Database instance
+     * @param InfoManager  $info   Module info
      *
      * @return void
      *
      * @since  1.0.0
      */
-    public static function install(string $modulePath, DatabasePool $dbPool, InfoManager $info) : void
+    public static function install(DatabasePool $dbPool, InfoManager $info) : void
     {
         self::registerInDatabase($dbPool, $info);
-        self::initRoutes($modulePath, $info);
-        self::initHooks($modulePath, $info);
+        self::initRoutes($info);
+        self::initHooks($info);
         self::activate($dbPool, $info);
     }
 
@@ -124,24 +123,22 @@ class InstallerAbstract
     /**
      * Re-init module.
      *
-     * @param string      $modulePath Route Path
-     * @param InfoManager $info       Module info
+     * @param InfoManager $info Module info
      *
      * @return void
      *
      * @since  1.0.0
      */
-    public static function reInit(string $modulePath, InfoManager $info) : void
+    public static function reInit(InfoManager $info) : void
     {
-        self::initRoutes($modulePath, $info);
-        self::initHooks($modulePath, $info);
+        self::initRoutes($info);
+        self::initHooks($info);
     }
 
     /**
      * Init routes.
      *
-     * @param string      $modulePath Path to the module
-     * @param InfoManager $info       Module info
+     * @param InfoManager $info Module info
      *
      * @return void
      *
@@ -149,9 +146,9 @@ class InstallerAbstract
      *
      * @since  1.0.0
      */
-    private static function initRoutes(string $modulePath, InfoManager $info) : void
+    private static function initRoutes(InfoManager $info) : void
     {
-        $directories = new Directory($modulePath . '/Admin/Routes');
+        $directories = new Directory(dirname($info->getPath()) . '/Admin/Routes');
 
         foreach ($directories as $key => $subdir) {
             if ($subdir instanceof Directory) {
@@ -205,8 +202,7 @@ class InstallerAbstract
     /**
      * Init hooks.
      *
-     * @param string      $modulePath Path to the module
-     * @param InfoManager $info       Module info
+     * @param InfoManager $info Module info
      *
      * @return void
      *
@@ -214,9 +210,9 @@ class InstallerAbstract
      *
      * @since  1.0.0
      */
-    private static function initHooks(string $modulePath, InfoManager $info) : void
+    private static function initHooks(InfoManager $info) : void
     {
-        $directories = new Directory($modulePath . '/Admin/Hooks');
+        $directories = new Directory(dirname($info->getPath()) . '/Admin/Hooks');
 
         foreach ($directories as $key => $subdir) {
             if ($subdir instanceof Directory) {
