@@ -28,17 +28,17 @@ class BaseModelMapper extends DataMapperAbstract
      * @since 1.0.0
      */
     protected static $columns = [
-        'test_base_id'          => ['name' => 'test_base_id', 'type' => 'int', 'internal' => 'id'],
-        'test_base_string'        => ['name' => 'test_base_string', 'type' => 'string', 'internal' => 'string'],
-        'test_base_int'        => ['name' => 'test_base_int', 'type' => 'int', 'internal' => 'int'],
-        'test_base_bool'        => ['name' => 'test_base_bool', 'type' => 'bool', 'internal' => 'bool'],
-        'test_base_null' => ['name' => 'test_base_null', 'type' => 'int', 'internal' => 'null'],
-        'test_base_float' => ['name' => 'test_base_float', 'type' => 'float', 'internal' => 'float'],
-        'test_base_json' => ['name' => 'test_base_json', 'type' => 'Json', 'internal' => 'json'],
-        'test_base_jsonSerialize' => ['name' => 'test_base_jsonSerialize', 'type' => 'jsonSerializable', 'internal' => 'jsonSerialize'],
-        'test_base_datetime'  => ['name' => 'test_base_datetime', 'type' => 'DateTime', 'internal' => 'datetime'],
-        'test_base_owns_one_self'  => ['name' => 'test_base_owns_one_self', 'type' => 'int', 'internal' => 'ownsOneSelf'],
-        'test_base_belongs_to_one'  => ['name' => 'test_base_belongs_to_one', 'type' => 'int', 'internal' => 'belongsToOne'],
+        'test_base_id'                => ['name' => 'test_base_id', 'type' => 'int', 'internal' => 'id'],
+        'test_base_string'            => ['name' => 'test_base_string', 'type' => 'string', 'internal' => 'string'],
+        'test_base_int'               => ['name' => 'test_base_int', 'type' => 'int', 'internal' => 'int'],
+        'test_base_bool'              => ['name' => 'test_base_bool', 'type' => 'bool', 'internal' => 'bool'],
+        'test_base_null'              => ['name' => 'test_base_null', 'type' => 'int', 'internal' => 'null'],
+        'test_base_float'             => ['name' => 'test_base_float', 'type' => 'float', 'internal' => 'float'],
+        'test_base_json'              => ['name' => 'test_base_json', 'type' => 'Json', 'internal' => 'json'],
+        'test_base_json_serializable' => ['name' => 'test_base_json_serializable', 'type' => 'Json', 'internal' => 'jsonSerializable'],
+        'test_base_datetime'          => ['name' => 'test_base_datetime', 'type' => 'DateTime', 'internal' => 'datetime'],
+        'test_base_owns_one_self'     => ['name' => 'test_base_owns_one_self', 'type' => 'int', 'internal' => 'ownsOneSelf'],
+        'test_base_belongs_to_one'    => ['name' => 'test_base_belongs_to_one', 'type' => 'int', 'internal' => 'belongsToOne'],
     ];
 
     protected static $belongsTo = [

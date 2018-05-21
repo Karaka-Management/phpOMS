@@ -19,7 +19,7 @@ class QueryTypeTest extends \PHPUnit\Framework\TestCase
 {
     public function testEnums()
     {
-        self::assertEquals(6, count(QueryType::getConstants()));
+        self::assertEquals(7, count(QueryType::getConstants()));
         self::assertEquals(QueryType::getConstants(), array_unique(QueryType::getConstants()));
 
         self::assertEquals(0, QueryType::SELECT);
@@ -28,5 +28,6 @@ class QueryTypeTest extends \PHPUnit\Framework\TestCase
         self::assertEquals(3, QueryType::DELETE);
         self::assertEquals(4, QueryType::RANDOM);
         self::assertEquals(5, QueryType::RAW);
+        self::assertEquals(6, QueryType::EMPTY);
     }
 }

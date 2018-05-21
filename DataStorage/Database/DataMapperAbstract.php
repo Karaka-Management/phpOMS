@@ -20,6 +20,7 @@ use phpOMS\DataStorage\DataMapperInterface;
 use phpOMS\Message\RequestAbstract;
 use phpOMS\DataStorage\Database\Exception\InvalidMapperException;
 use phpOMS\Util\ArrayUtils;
+use phpOMS\DataStorage\Database\Query\QueryType;
 
 /**
  * Datamapper for databases.
@@ -400,45 +401,39 @@ class DataMapperAbstract implements DataMapperInterface
         $query = new Builder(self::$db);
         $query->prefix(self::$db->getPrefix())->into(static::$table);
 
-        $properties = $refClass->getProperties();
-
-        foreach ($properties as $property) {
-            $propertyName = $property->getName();
-
+        foreach (static::$columns as $key => $column) {
+            $propertyName = $column['internal'];
             if (isset(static::$hasMany[$propertyName]) || isset(static::$hasOne[$propertyName])) {
                 continue;
             }
+
+            $property = $refClass->getProperty($propertyName);
 
             if (!($isPublic = $property->isPublic())) {
                 $property->setAccessible(true);
             }
 
-            foreach (static::$columns as $key => $column) {
-                if (isset(static::$ownsOne[$propertyName]) && $column['internal'] === $propertyName) {
-                    $id    = self::createOwnsOne($propertyName, $property->getValue($obj));
-                    $value = self::parseValue($column['type'], $id);
+            if (isset(static::$ownsOne[$propertyName])) {
+                $id    = self::createOwnsOne($propertyName, $property->getValue($obj));
+                $value = self::parseValue($column['type'], $id);
 
-                    $query->insert($column['name'])->value($value, $column['type']);
-                    break;
-                } elseif (isset(static::$belongsTo[$propertyName]) && $column['internal'] === $propertyName) {
-                    $id    = self::createBelongsTo($propertyName, $property->getValue($obj));
-                    $value = self::parseValue($column['type'], $id);
+                $query->insert($column['name'])->value($value, $column['type']);
+            } elseif (isset(static::$belongsTo[$propertyName])) {
+                $id    = self::createBelongsTo($propertyName, $property->getValue($obj));
+                $value = self::parseValue($column['type'], $id);
 
-                    $query->insert($column['name'])->value($value, $column['type']);
-                    break;
-                } elseif ($column['internal'] === $propertyName && $column['type'] !== static::$primaryField) {
-                    $tValue = $property->getValue($obj);
-                    if (stripos($column['internal'], '/') !== false) {
-                        $path   = explode($column['internal']);
-                        $path   = implode('/', array_shift($path));
-                        $tValue = ArrayUtils::getArray($path, $tValue, '/');
-                    }
-
-                    $value = self::parseValue($column['type'], $tValue);
-
-                    $query->insert($column['name'])->value($value, $column['type']);
-                    break;
+                $query->insert($column['name'])->value($value, $column['type']);
+            } elseif ($column['name'] !== static::$primaryField) {
+                $tValue = $property->getValue($obj);
+                if (stripos($column['internal'], '/') !== false) {
+                    $path   = explode($column['internal']);
+                    $path   = implode('/', array_shift($path));
+                    $tValue = ArrayUtils::getArray($path, $tValue, '/');
                 }
+
+                $value = self::parseValue($column['type'], $tValue);
+
+                $query->insert($column['name'])->value($value, $column['type']);
             }
 
             if (!($isPublic)) {
@@ -446,8 +441,9 @@ class DataMapperAbstract implements DataMapperInterface
             }
         }
 
-        if (static::$table === 'exchange') {
-            var_dump($query->toSql());
+        // if a table only has a single column = primary key column. This must be done otherwise the query is empty
+        if ($query->getType() === QueryType::EMPTY) {
+            $query->insert(static::$primaryField)->value(0, static::$columns[static::$primaryField]['type']);
         }
 
         self::$db->con->prepare($query->toSql())->execute();
@@ -470,7 +466,9 @@ class DataMapperAbstract implements DataMapperInterface
         $query->prefix(self::$db->getPrefix())->into(static::$table);
 
         foreach (static::$columns as $key => $column) {
-            if (isset(static::$hasMany[$key]) || isset(static::$hasOne[$key])) {
+            if (isset(static::$hasMany[$key]) 
+                || isset(static::$hasOne[$key])
+            ) {
                 continue;
             }
 
@@ -494,7 +492,7 @@ class DataMapperAbstract implements DataMapperInterface
 
                 $query->insert($column['name'])->value($value, $column['type']);
                 break;
-            } elseif ($column['internal'] === $path && $column['type'] !== static::$primaryField) {
+            } elseif ($column['internal'] === $path) {
                 $value = self::parseValue($column['type'], $property);
 
                 $query->insert($column['name'])->value($value, $column['type']);
@@ -519,8 +517,8 @@ class DataMapperAbstract implements DataMapperInterface
      */
     private static function getObjectId($obj, \ReflectionClass $refClass = null)
     {
-        $refClass    = $refClass ?? new \ReflectionClass($obj);
-        $refProp = $refClass->getProperty(static::$columns[static::$primaryField]['internal']);
+        $refClass = $refClass ?? new \ReflectionClass($obj);
+        $refProp  = $refClass->getProperty(static::$columns[static::$primaryField]['internal']);
 
         if (!($isPublic = $refProp->isPublic())) {
             $refProp->setAccessible(true);
@@ -539,8 +537,8 @@ class DataMapperAbstract implements DataMapperInterface
      * Set id to model
      *
      * @param \ReflectionClass $refClass Reflection class
-     * @param Object           $obj             Object to create
-     * @param mixed            $objId           Id to set
+     * @param Object           $obj      Object to create
+     * @param mixed            $objId    Id to set
      *
      * @return void
      *
@@ -566,8 +564,8 @@ class DataMapperAbstract implements DataMapperInterface
      * Create has many
      *
      * @param \ReflectionClass $refClass Reflection class
-     * @param Object           $obj             Object to create
-     * @param mixed            $objId           Id to set
+     * @param Object           $obj      Object to create
+     * @param mixed            $objId    Id to set
      *
      * @return void
      *
@@ -704,7 +702,7 @@ class DataMapperAbstract implements DataMapperInterface
      * Create has one
      *
      * @param \ReflectionClass $refClass Property name to initialize
-     * @param Object           $obj             Object to create
+     * @param Object           $obj      Object to create
      *
      * @return mixed
      * @todo implement???
@@ -905,8 +903,8 @@ class DataMapperAbstract implements DataMapperInterface
      * Update has many
      *
      * @param \ReflectionClass $refClass Reflection class
-     * @param Object           $obj             Object to create
-     * @param mixed            $objId           Id to set
+     * @param Object           $obj      Object to create
+     * @param mixed            $objId    Id to set
      *
      * @return void
      *
@@ -1101,8 +1099,8 @@ class DataMapperAbstract implements DataMapperInterface
     /**
      * Update object in db.
      *
-     * @param Object           $obj             Model to update
-     * @param mixed            $objId           Model id
+     * @param Object           $obj      Model to update
+     * @param mixed            $objId    Model id
      * @param \ReflectionClass $refClass Reflection class
      *
      * @return void
@@ -1116,48 +1114,43 @@ class DataMapperAbstract implements DataMapperInterface
             ->update(static::$table)
             ->where(static::$table . '.' . static::$primaryField, '=', $objId);
 
-        $properties = $refClass->getProperties();
-
-        foreach ($properties as $property) {
-            $propertyName = $property->getName();
-
-            if (isset(static::$hasMany[$propertyName]) || isset(static::$hasOne[$propertyName])) {
+        foreach (static::$columns as $key => $column) {
+            $propertyName = $column['internal'];
+            if (isset(static::$hasMany[$propertyName]) 
+                || isset(static::$hasOne[$propertyName]) 
+                || $column['internal'] === static::$primaryField
+            ) {
                 continue;
             }
+
+            $property = $refClass->getProperty($propertyName);
 
             if (!($isPublic = $property->isPublic())) {
                 $property->setAccessible(true);
             }
 
-            // todo: the order of updating could be a problem. maybe looping through ownsOne and belongsTo first is better.
+            if (isset(static::$ownsOne[$propertyName])) {
+                $id    = self::updateOwnsOne($propertyName, $property->getValue($obj));
+                $value = self::parseValue($column['type'], $id);
 
-            foreach (static::$columns as $key => $column) {
-                if (isset(static::$ownsOne[$propertyName]) && $column['internal'] === $propertyName) {
-                    $id    = self::updateOwnsOne($propertyName, $property->getValue($obj));
-                    $value = self::parseValue($column['type'], $id);
+                // todo: should not be done if the id didn't change. but for now don't know if id changed
+                $query->set([static::$table . '.' . $column['name'] => $value], $column['type']);
+            } elseif (isset(static::$belongsTo[$propertyName])) {
+                $id    = self::updateBelongsTo($propertyName, $property->getValue($obj));
+                $value = self::parseValue($column['type'], $id);
 
-                    // todo: should not be done if the id didn't change. but for now don't know if id changed
-                    $query->set([static::$table . '.' . $column['name'] => $value], $column['type']);
-                    break;
-                } elseif (isset(static::$belongsTo[$propertyName]) && $column['internal'] === $propertyName) {
-                    $id    = self::updateBelongsTo($propertyName, $property->getValue($obj));
-                    $value = self::parseValue($column['type'], $id);
-
-                    // todo: should not be done if the id didn't change. but for now don't know if id changed
-                    $query->set([static::$table . '.' . $column['name'] => $value], $column['type']);
-                    break;
-                } elseif ($column['internal'] === $propertyName && $column['type'] !== static::$primaryField) {
-                    $tValue = $property->getValue($obj);
-                    if (stripos($column['internal'], '/') !== false) {
-                        $path   = explode($column['internal']);
-                        $path   = implode('/', array_shift($path));
-                        $tValue = ArrayUtils::getArray($path, $tValue, '/');
-                    }
-                    $value = self::parseValue($column['type'], $tValue);
-
-                    $query->set([static::$table . '.' . $column['name'] => $value], $column['type']);
-                    break;
+                // todo: should not be done if the id didn't change. but for now don't know if id changed
+                $query->set([static::$table . '.' . $column['name'] => $value], $column['type']);
+            } elseif ($column['name'] !== static::$primaryField) {
+                $tValue = $property->getValue($obj);
+                if (stripos($column['internal'], '/') !== false) {
+                    $path   = explode($column['internal']);
+                    $path   = implode('/', array_shift($path));
+                    $tValue = ArrayUtils::getArray($path, $tValue, '/');
                 }
+                $value = self::parseValue($column['type'], $tValue);
+
+                $query->set([static::$table . '.' . $column['name'] => $value], $column['type']);
             }
 
             if (!($isPublic)) {
@@ -1212,10 +1205,10 @@ class DataMapperAbstract implements DataMapperInterface
     /**
      * Delete has many
      *
-     * @param \ReflectionClass $refClass Reflection class
-     * @param Object           $obj             Object to create
-     * @param mixed            $objId           Id to set
-     * @param int              $relations       Delete all relations as well
+     * @param \ReflectionClass $refClass  Reflection class
+     * @param Object           $obj       Object to create
+     * @param mixed            $objId     Id to set
+     * @param int              $relations Delete all relations as well
      *
      * @return void
      *
@@ -1332,10 +1325,10 @@ class DataMapperAbstract implements DataMapperInterface
     /**
      * Delete object in db.
      *
-     * @param Object           $obj             Model to delete
-     * @param mixed            $objId           Model id
-     * @param int              $relations       Delete all relations as well
-     * @param \ReflectionClass $refClass Reflection class
+     * @param Object           $obj       Model to delete
+     * @param mixed            $objId     Model id
+     * @param int              $relations Delete all relations as well
+     * @param \ReflectionClass $refClass  Reflection class
      *
      * @return void
      *

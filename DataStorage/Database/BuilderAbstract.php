@@ -15,6 +15,7 @@ declare(strict_types=1);
 namespace phpOMS\DataStorage\Database;
 
 use phpOMS\DataStorage\Database\Connection\ConnectionAbstract;
+use phpOMS\DataStorage\Database\Query\QueryType;
 
 /**
  * Database query builder.
@@ -48,7 +49,7 @@ abstract class BuilderAbstract
      * @var int
      * @since 1.0.0
      */
-    protected $type = null;
+    protected $type = QueryType::EMPTY;
 
     /**
      * Prefix.
