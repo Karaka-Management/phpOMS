@@ -510,7 +510,7 @@ class DataMapperAbstract implements DataMapperInterface
     /**
      * Get id of object
      *
-     * @param Object           $obj             Model to create
+     * @param Object           $obj      Model to create
      * @param \ReflectionClass $refClass Reflection class
      *
      * @return mixed
