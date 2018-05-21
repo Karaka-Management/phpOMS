@@ -19,7 +19,7 @@ use phpOMS\DataStorage\Database\Query\Builder;
 use phpOMS\DataStorage\DataMapperInterface;
 use phpOMS\Message\RequestAbstract;
 use phpOMS\DataStorage\Database\Exception\InvalidMapperException;
-use phpOMS\Util\ArrayUtils;
+use phpOMS\Utils\ArrayUtils;
 use phpOMS\DataStorage\Database\Query\QueryType;
 
 /**
@@ -402,7 +402,7 @@ class DataMapperAbstract implements DataMapperInterface
         $query->prefix(self::$db->getPrefix())->into(static::$table);
 
         foreach (static::$columns as $key => $column) {
-            $propertyName = $column['internal'];
+            $propertyName = stripos($column['internal'], '/') !== false ? explode('/', $column['internal'])[0] : $column['internal'];
             if (isset(static::$hasMany[$propertyName]) || isset(static::$hasOne[$propertyName])) {
                 continue;
             }
@@ -426,8 +426,10 @@ class DataMapperAbstract implements DataMapperInterface
             } elseif ($column['name'] !== static::$primaryField) {
                 $tValue = $property->getValue($obj);
                 if (stripos($column['internal'], '/') !== false) {
-                    $path   = explode($column['internal']);
-                    $path   = implode('/', array_shift($path));
+                    $path = explode('/', $column['internal']);
+
+                    array_shift($path);
+                    $path   = implode('/', $path);
                     $tValue = ArrayUtils::getArray($path, $tValue, '/');
                 }
 
@@ -474,8 +476,10 @@ class DataMapperAbstract implements DataMapperInterface
 
             $path = $column['internal'];
             if (stripos($column['internal'], '/') !== false) {
-                $path = explode($column['internal']);
-                $path = implode('/', array_shift($path));
+                $path = explode('/', $column['internal']);
+
+                array_shift($path);
+                $path = implode('/', $path);
             }
 
             $property = ArrayUtils::getArray($path, $obj, '/');
@@ -1115,7 +1119,7 @@ class DataMapperAbstract implements DataMapperInterface
             ->where(static::$table . '.' . static::$primaryField, '=', $objId);
 
         foreach (static::$columns as $key => $column) {
-            $propertyName = $column['internal'];
+            $propertyName = stripos($column['internal'], '/') !== false ? explode('/', $column['internal'])[0] : $column['internal'];
             if (isset(static::$hasMany[$propertyName]) 
                 || isset(static::$hasOne[$propertyName]) 
                 || $column['internal'] === static::$primaryField
@@ -1144,8 +1148,10 @@ class DataMapperAbstract implements DataMapperInterface
             } elseif ($column['name'] !== static::$primaryField) {
                 $tValue = $property->getValue($obj);
                 if (stripos($column['internal'], '/') !== false) {
-                    $path   = explode($column['internal']);
-                    $path   = implode('/', array_shift($path));
+                    $path   = explode('/', $column['internal']);
+
+                    array_shift($path);
+                    $path   = implode('/', $path);
                     $tValue = ArrayUtils::getArray($path, $tValue, '/');
                 }
                 $value = self::parseValue($column['type'], $tValue);
@@ -1773,7 +1779,9 @@ class DataMapperAbstract implements DataMapperInterface
             if (stripos(static::$columns[$column]['internal'], '/') !== false) {
                 $refProp = $refClass->getProperty(explode('/', static::$columns[$column]['internal'])[0]);
                 $path    = explode(static::$columns[$column]['internal']);
-                $path    = implode('/', array_shift($path));
+
+                array_shift($path);
+                $path    = implode('/', $path);
                 $aValue  = $refProp->getValue($obj);
             } else {
                 $refProp = $refClass->getProperty(static::$columns[$column]['internal']);
@@ -1840,8 +1848,10 @@ class DataMapperAbstract implements DataMapperInterface
             if (isset(static::$columns[$column]['internal'])) {
                 $path = static::$columns[$column]['internal'];
                 if (stripos($path, '/') !== false) {
-                    $path = explode($path);
-                    $path = implode('/', array_shift($path));
+                    $path = explode('/', $path);
+
+                    array_shift($path);
+                    $path = implode('/', $path);
                 }
 
                 if (in_array(static::$columns[$column]['type'], ['string', 'int', 'float', 'bool'])) {
