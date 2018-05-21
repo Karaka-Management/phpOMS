@@ -55,7 +55,7 @@ final class Metrics
      * @return int
      *
      * @since  1.0.0
-     * 
+     *
      * @SuppressWarnings(PHPMD.CamelCaseMethodName)
      */
     public static function CRAP(int $complexity, float $coverage) : int

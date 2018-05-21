@@ -57,8 +57,8 @@ final class Depreciation
 
     /**
      * Calculate the degression factor
-     * 
-     * This factor is the amount of years 
+     *
+     * This factor is the amount of years
      *
      * @param float $start    Value to depreciate (reduced by residual value if required)
      * @param float $residual Residual value
@@ -160,7 +160,7 @@ final class Depreciation
      */
     public static function getArithmeticProgressivDepreciationResidualInT(float $start, float $residual, int $duration, int $t) : float
     {
-        return $start - self::getArithmeticProgressivDepreciationFactor($start, $residual, $duration) * $t * ($t + 1) / 2; 
+        return $start - self::getArithmeticProgressivDepreciationFactor($start, $residual, $duration) * $t * ($t + 1) / 2;
     }
 
     /**

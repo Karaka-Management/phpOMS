@@ -34,7 +34,7 @@ final class Integer
     {
 
     }
-    
+
     /**
      * Is integer.
      *

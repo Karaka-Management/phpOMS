@@ -144,7 +144,7 @@ abstract class GrammarAbstract
      * Set table prefix.
      *
      * @param string $prefix Table prefix
-     * 
+     *
      * @return void
      *
      * @since  1.0.0

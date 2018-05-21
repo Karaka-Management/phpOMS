@@ -107,7 +107,7 @@ abstract class RequestAbstract implements MessageInterface
      * Set request uri.
      *
      * @param UriInterface $uri Uri
-     * 
+     *
      * @return void
      *
      * @since  1.0.0
@@ -142,7 +142,7 @@ abstract class RequestAbstract implements MessageInterface
      * Set request method.
      *
      * @param string $method Request method
-     * 
+     *
      * @return void
      *
      * @since  1.0.0

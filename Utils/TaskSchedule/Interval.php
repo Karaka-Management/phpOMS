@@ -109,7 +109,7 @@ class Interval implements \Serializable
      * Unserialize.
      *
      * @param string $serialized String to unserialize
-     * 
+     *
      * @return void
      *
      * @since  1.0.0
@@ -282,7 +282,7 @@ class Interval implements \Serializable
      * @param bool  $any    Any
      *
      * @return void
-     * 
+     *
      * @throws \Exception
      *
      * @since  1.0.0
@@ -345,7 +345,7 @@ class Interval implements \Serializable
      * @param array $hour Hour
      * @param int   $step Step
      * @param bool  $any  Any
-     * 
+     *
      * @return void
      *
      * @throws \Exception
@@ -385,7 +385,7 @@ class Interval implements \Serializable
      * @param bool  $any        Any
      * @param bool  $last       Last
      * @param int   $nearest    Nearest day
-     * 
+     *
      * @return void
      *
      * @throws \Exception
@@ -454,7 +454,7 @@ class Interval implements \Serializable
      * @param int   $step      Step
      * @param bool  $any       Any
      * @param bool  $last      Last
-     * 
+     *
      * @return void
      *
      * @throws \Exception
@@ -518,7 +518,7 @@ class Interval implements \Serializable
      * @param array $month Month
      * @param int   $step  Step
      * @param bool  $any   Any
-     * 
+     *
      * @return void
      *
      * @throws \Exception
@@ -556,7 +556,7 @@ class Interval implements \Serializable
      * @param array $year Year
      * @param int   $step Step
      * @param bool  $any  Any
-     * 
+     *
      * @return void
      *
      * @throws \Exception

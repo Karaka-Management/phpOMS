@@ -34,7 +34,7 @@ final class Natural
     {
 
     }
-    
+
     /**
      * Is natural number.
      *

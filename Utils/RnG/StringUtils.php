@@ -36,7 +36,7 @@ class StringUtils
      *
      * @since  1.0.0
      */
-    public static function generateString(int $min = 10, int $max = 10, 
+    public static function generateString(int $min = 10, int $max = 10,
         string $charset = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'
     ) : string
     {

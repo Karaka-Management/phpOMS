@@ -118,7 +118,7 @@ final class Directory extends FileAbstract implements DirectoryInterface
             new \RecursiveDirectoryIterator($path, \RecursiveDirectoryIterator::SKIP_DOTS),
             \RecursiveIteratorIterator::SELF_FIRST) as $item
         ) {
-            if ((empty($extension) || $item->getExtension() === $extension) 
+            if ((empty($extension) || $item->getExtension() === $extension)
                 && (empty($exclude) || (!(bool) preg_match('/' . $exclude . '/', $iterator->getSubPathname())))
             ) {
                 $list[] = str_replace('\\', '/', $iterator->getSubPathname());

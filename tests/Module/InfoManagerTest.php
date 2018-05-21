@@ -75,12 +75,12 @@ class InfoManagerTest extends \PHPUnit\Framework\TestCase
         $info = new InfoManager(__DIR__ . '/info-test.json');
         $info->load();
 
-        $testObj = new class { 
-            public $test = 1; 
-            
-            public function test() 
-            { 
-                echo $this->test; 
+        $testObj = new class {
+            public $test = 1;
+
+            public function test()
+            {
+                echo $this->test;
             }
         };
 

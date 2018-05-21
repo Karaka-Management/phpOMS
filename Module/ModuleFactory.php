@@ -94,7 +94,7 @@ final class ModuleFactory
      * Load modules this module is requesting from
      *
      * @param ModuleAbstract $obj Current module
-     * 
+     *
      * @return void
      *
      * @since  1.0.0
@@ -114,7 +114,7 @@ final class ModuleFactory
      * Register modules this module is receiving from
      *
      * @param ModuleAbstract $obj Current module
-     * 
+     *
      * @return void
      *
      * @since  1.0.0

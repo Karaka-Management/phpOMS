@@ -22,7 +22,7 @@ class TaskAbstractTest extends \PHPUnit\Framework\TestCase
     protected function setUp()
     {
         $this->class = new class('') extends TaskAbstract {
-            public static function createWith(array $jobData) : TaskAbstract 
+            public static function createWith(array $jobData) : TaskAbstract
             {
 
             }

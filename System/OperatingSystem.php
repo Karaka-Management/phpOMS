@@ -34,7 +34,7 @@ final class OperatingSystem
     {
 
     }
-    
+
     /**
      * Get OS.
      *

@@ -27,7 +27,7 @@ interface UploadedFileInterface
 
     /**
      * Retrieve a stream representing the uploaded file.
-     * 
+     *
      * @since  1.0.0
      */
     public function getStream();
@@ -45,7 +45,7 @@ interface UploadedFileInterface
 
     /**
      * Retrieve the file size.
-     * 
+     *
      * @return int
      *
      * @since  1.0.0
@@ -54,7 +54,7 @@ interface UploadedFileInterface
 
     /**
      * Retrieve the error associated with the uploaded file.
-     * 
+     *
      * @return int
      *
      * @since  1.0.0
@@ -63,7 +63,7 @@ interface UploadedFileInterface
 
     /**
      * Retrieve the filename sent by the client.
-     * 
+     *
      * @return string
      *
      * @since  1.0.0
@@ -72,7 +72,7 @@ interface UploadedFileInterface
 
     /**
      * Retrieve the media type sent by the client.
-     * 
+     *
      * @return string
      *
      * @since  1.0.0

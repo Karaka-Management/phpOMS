@@ -118,7 +118,7 @@ final class CholeskyDecomposition
      * Solve Ax = b
      *
      * @param Matrix $B Matrix
-     * 
+     *
      * @return Matrix
      *
      * @since  1.0.0

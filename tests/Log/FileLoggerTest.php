@@ -129,7 +129,7 @@ class FileLoggerTest extends \PHPUnit\Framework\TestCase
             'message' => 'msg',
             'line'    => 11,
             'file'    => FileLoggerTest::class,
-        ]); 
+        ]);
         $ob = ob_get_clean();
         self::assertEquals(2, $log->countLogs()['info'] ?? 0);
         self::assertTrue(stripos($ob, 'msg;') !== false);

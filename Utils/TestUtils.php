@@ -36,7 +36,7 @@ final class TestUtils
     {
 
     }
-    
+
     /**
      * Set private object member
      *

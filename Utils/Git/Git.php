@@ -73,7 +73,7 @@ class Git
      * Set git binary.
      *
      * @param string $path Git path
-     * 
+     *
      * @return void
      *
      * @throws PathException

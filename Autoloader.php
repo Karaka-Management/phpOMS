@@ -47,7 +47,7 @@ final class Autoloader
     {
 
     }
-    
+
     /**
      * Add base path for autoloading
      *
@@ -57,7 +57,7 @@ final class Autoloader
      *
      * @since  1.0.0
      */
-    public static function addPath(string $path) : void 
+    public static function addPath(string $path) : void
     {
         self::$paths[] = $path;
     }
@@ -83,7 +83,7 @@ final class Autoloader
         foreach (self::$paths as $path) {
             if (file_exists($file = $path . $class . '.php')) {
                 include_once $file;
-                 
+
                 return;
             }
         }
@@ -110,7 +110,7 @@ final class Autoloader
                 return true;
             }
         }
-        
+
         return false;
     }
 }

@@ -141,7 +141,7 @@ final class Sphere implements D3ShapeInterface
      * @return float
      *
      * @since  1.0.0
-     * 
+     *
      * @SuppressWarnings(PHPMD.CamelCaseVariableName)
      * @SuppressWarnings(PHPMD.CamelCaseParameterName)
      */

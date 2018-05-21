@@ -101,7 +101,7 @@ class Head implements RenderableInterface
 
     /**
      * Set page meta.
-     * 
+     *
      * @return Meta
      *
      * @since  1.0.0

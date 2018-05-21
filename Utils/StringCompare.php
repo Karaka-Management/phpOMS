@@ -169,9 +169,9 @@ final class StringCompare
      * @since  1.0.0
      */
     public static function fuzzyMatch(
-        string $s1, string $s2, 
-        float $phraseWeight = 0.5, float $wordWeight = 1, 
-        float $minWeight = 10, float $maxWeight = 1, 
+        string $s1, string $s2,
+        float $phraseWeight = 0.5, float $wordWeight = 1,
+        float $minWeight = 10, float $maxWeight = 1,
         float $lengthWeight = -0.3
     ) : float
     {

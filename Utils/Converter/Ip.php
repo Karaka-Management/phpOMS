@@ -38,9 +38,9 @@ class Ip
 
     /**
      * Convert ip to float
-     * 
+     *
      * @param string $ip IP
-     * 
+     *
      * @return float
      *
      * @since  1.0.0

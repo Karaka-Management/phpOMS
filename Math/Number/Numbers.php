@@ -34,7 +34,7 @@ final class Numbers
     {
 
     }
-    
+
     /**
      * Is perfect number?
      *

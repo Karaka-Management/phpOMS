@@ -43,7 +43,7 @@ class MemCached extends ConnectionAbstract
 
     /**
      * Constructor.
-     * 
+     *
      * @param array $data Cache data
      *
      * @since  1.0.0

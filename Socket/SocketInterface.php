@@ -30,7 +30,7 @@ interface SocketInterface
      *
      * @param string $ip   IP address
      * @param int    $port Port
-     * 
+     *
      * @return void
      *
      * @since    1.0.0

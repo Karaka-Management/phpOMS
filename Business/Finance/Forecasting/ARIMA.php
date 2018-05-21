@@ -43,7 +43,7 @@ class ARIMA
 
     /**
      * Constructor.
-     * 
+     *
      * @param array $data  Data points
      * @param int   $order Data intervals (only 12 and 4 are valid).
      *
@@ -61,7 +61,7 @@ class ARIMA
 
     /**
      * Return data decomposition.
-     * 
+     *
      * @return array
      *
      * @since  1.0.0

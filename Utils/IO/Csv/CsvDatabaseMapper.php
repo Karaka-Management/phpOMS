@@ -27,7 +27,7 @@ class CsvDatabaseMapper implements IODatabaseMapper
     private $delimiter = ';';
 
     private $enclosure = '"';
-    
+
     private $lineBuffer = 500;
 
     private $autoIdentifyCsvSettings = false;

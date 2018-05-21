@@ -36,7 +36,7 @@ class MetaTest extends \PHPUnit\Framework\TestCase
 
         $meta->setAuthor('oms');
         self::assertEquals('oms', $meta->getAuthor());
-        
+
         $meta->setCharset('utf-8');
         self::assertEquals('utf-8', $meta->getCharset());
 

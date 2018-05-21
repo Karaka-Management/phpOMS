@@ -30,7 +30,7 @@ class MeasureOfDispersionTest extends \PHPUnit\Framework\TestCase
     public function testEmpiricalCovariance()
     {
         self::assertEquals(
-            4.667, 
+            4.667,
             MeasureOfDispersion::empiricalCovariance(
                 [1, 2, 3, 4, 5, 6, 7],
                 [3, 4, 5, 9, 7, 8, 9]

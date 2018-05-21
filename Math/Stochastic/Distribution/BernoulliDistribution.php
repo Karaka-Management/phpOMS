@@ -64,7 +64,7 @@ class BernoulliDistribution
         } elseif ($k >= 1) {
             return 1;
         }
-        
+
         return 1 - $p;
     }
 
@@ -84,7 +84,7 @@ class BernoulliDistribution
         } elseif ($p > 0.5) {
             return 1;
         }
-        
+
         return 0;
     }
 

@@ -36,7 +36,7 @@ final class MonotoneChain
     {
 
     }
-    
+
     /**
      * Create convex hull
      *

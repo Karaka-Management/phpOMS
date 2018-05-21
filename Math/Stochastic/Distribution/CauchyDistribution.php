@@ -83,7 +83,7 @@ class CauchyDistribution
     {
         return $x0;
     }
-    
+
     /**
      * Get entropy.
      *

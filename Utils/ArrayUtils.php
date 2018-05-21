@@ -128,7 +128,7 @@ final class ArrayUtils
             if (!isset($current[$key])) {
                 return null;
             }
-            
+
             $current = $current[$key];
         }
 

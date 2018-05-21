@@ -152,7 +152,7 @@ class Commit
      * Set commit message.
      *
      * @param string $message Commit message
-     * 
+     *
      * @return void
      *
      * @since  1.0.0
@@ -210,7 +210,7 @@ class Commit
      * Set commit author.
      *
      * @param Author $author Commit author
-     * 
+     *
      * @return void
      *
      * @since  1.0.0
@@ -236,7 +236,7 @@ class Commit
      * Set commit branch.
      *
      * @param Branch $branch Commit branch
-     * 
+     *
      * @return void
      *
      * @since  1.0.0
@@ -262,7 +262,7 @@ class Commit
      * Set commit tag.
      *
      * @param Tag $tag Commit tag
-     * 
+     *
      * @return void
      *
      * @since  1.0.0
@@ -314,7 +314,7 @@ class Commit
      * Set commit repository.
      *
      * @param Repository $repository Commit repository
-     * 
+     *
      * @return void
      *
      * @since  1.0.0
@@ -331,7 +331,7 @@ class Commit
      * @param int    $line Line number
      * @param string $old  Old line
      * @param string $new  New line
-     * 
+     *
      * @return void
      *
      * @throws \Exception

@@ -147,7 +147,7 @@ final class Localization
 
     /**
      * Get country
-     * 
+     *
      * @return string
      *
      * @since  1.0.0
@@ -159,7 +159,7 @@ final class Localization
 
     /**
      * Set country name
-     * 
+     *
      * @param string $country Contry name
      *
      * @return void
@@ -189,9 +189,9 @@ final class Localization
 
     /**
      * Set timezone
-     * 
+     *
      * @param string $timezone Timezone
-     * 
+     *
      * @return void
      *
      * @todo   : maybe make parameter int
@@ -209,7 +209,7 @@ final class Localization
 
     /**
      * Get language
-     * 
+     *
      * @return string
      *
      * @since  1.0.0
@@ -221,7 +221,7 @@ final class Localization
 
     /**
      * Set language code
-     * 
+     *
      * @param string $language Language code
      *
      * @return void
@@ -243,7 +243,7 @@ final class Localization
 
     /**
      * Get currency
-     * 
+     *
      * @return string
      *
      * @since  1.0.0
@@ -255,7 +255,7 @@ final class Localization
 
     /**
      * Set currency code
-     * 
+     *
      * @param string $currency Currency code
      *
      * @return void
@@ -273,7 +273,7 @@ final class Localization
 
     /**
      * get datetime format
-     * 
+     *
      * @return string
      *
      * @since  1.0.0
@@ -285,7 +285,7 @@ final class Localization
 
     /**
      * Set datetime format
-     * 
+     *
      * @param string $datetime Datetime format
      *
      * @return void
@@ -299,7 +299,7 @@ final class Localization
 
     /**
      * Set decimal char
-     * 
+     *
      * @return string
      *
      * @since  1.0.0
@@ -311,7 +311,7 @@ final class Localization
 
     /**
      * Get decimal char
-     * 
+     *
      * @param string $decimal Decimal char
      *
      * @return void
@@ -325,7 +325,7 @@ final class Localization
 
     /**
      * Get thousands char
-     * 
+     *
      * @return string
      *
      * @since  1.0.0
@@ -337,7 +337,7 @@ final class Localization
 
     /**
      * Set thousands char
-     * 
+     *
      * @param string $thousands Thousands char
      *
      * @return void
@@ -351,7 +351,7 @@ final class Localization
 
     /**
      * Get angle type
-     * 
+     *
      * @return string
      *
      * @since  1.0.0
@@ -363,7 +363,7 @@ final class Localization
 
     /**
      * Set angle type
-     * 
+     *
      * @param string $angle Angle
      *
      * @return void
@@ -377,7 +377,7 @@ final class Localization
 
     /**
      * Get temperature type
-     * 
+     *
      * @return string
      *
      * @since  1.0.0
@@ -389,7 +389,7 @@ final class Localization
 
     /**
      * Set temperature string
-     * 
+     *
      * @param string $temperature Temperature
      *
      * @return void
@@ -403,7 +403,7 @@ final class Localization
 
     /**
      * Get speed type
-     * 
+     *
      * @return array
      *
      * @since  1.0.0
@@ -415,7 +415,7 @@ final class Localization
 
     /**
      * Set speed type
-     * 
+     *
      * @param array $speed Speed
      *
      * @return void
@@ -429,7 +429,7 @@ final class Localization
 
     /**
      * Get weight type
-     * 
+     *
      * @return array
      *
      * @since  1.0.0
@@ -441,7 +441,7 @@ final class Localization
 
     /**
      * Set weight type
-     * 
+     *
      * @param array $weight Weight type
      *
      * @return void
@@ -455,7 +455,7 @@ final class Localization
 
     /**
      * Get length type
-     * 
+     *
      * @return array
      *
      * @since  1.0.0
@@ -467,7 +467,7 @@ final class Localization
 
     /**
      * Set length type
-     * 
+     *
      * @param array $length Length type
      *
      * @return void
@@ -481,7 +481,7 @@ final class Localization
 
     /**
      * Get area type
-     * 
+     *
      * @return array
      *
      * @since  1.0.0
@@ -493,7 +493,7 @@ final class Localization
 
     /**
      * Set area type
-     * 
+     *
      * @param array $area Area type
      *
      * @return void
@@ -507,7 +507,7 @@ final class Localization
 
     /**
      * Get volume type
-     * 
+     *
      * @return array
      *
      * @since  1.0.0
@@ -519,7 +519,7 @@ final class Localization
 
     /**
      * Set volume type
-     * 
+     *
      * @param array $volume Volume type
      *
      * @return void

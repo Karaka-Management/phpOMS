@@ -52,7 +52,7 @@ abstract class SchedulerAbstract
      * Set git binary.
      *
      * @param string $path Git path
-     * 
+     *
      * @return void
      *
      * @throws PathException

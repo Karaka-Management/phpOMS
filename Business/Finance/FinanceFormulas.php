@@ -24,7 +24,7 @@ use phpOMS\Math\Matrix\Exception\InvalidDimensionException;
  * @license    OMS License 1.0
  * @link       http://website.orange-management.de
  * @since      1.0.0
- * 
+ *
  * @SuppressWarnings(PHPMD.CamelCaseParameterName)
  * @SuppressWarnings(PHPMD.CamelCaseVariableName)
  */
@@ -33,7 +33,7 @@ final class FinanceFormulas
 
     /**
      * Annual Percentage Yield
-     * 
+     *
      * The annual percentage yield (APY) calculates the yield taking compounding
      * into consideration.
      *
@@ -871,9 +871,9 @@ final class FinanceFormulas
 
     /**
      * Future Value
-     * 
+     *
      * The Future Value (FV) is used to calculate the value of a cash flow after a specific amount of periods.
-     * 
+     *
      * @latex  FV = C_{0} \cdot \left(1 + r\right)^{n}
      *
      * @param float $C Cash flow at period 0
@@ -907,10 +907,10 @@ final class FinanceFormulas
 
     /**
      * Future Value Factor
-     * 
-     * The future value factor is used to calculate a facture which can be used to calculate 
-     * the future value after a certain amount of periods at a give interest rate. 
-     * 
+     *
+     * The future value factor is used to calculate a facture which can be used to calculate
+     * the future value after a certain amount of periods at a give interest rate.
+     *
      * @latex  f = \left(1 + r\right)^{n}
      *
      * @param float $r Rate of return

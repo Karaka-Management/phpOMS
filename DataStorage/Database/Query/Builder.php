@@ -777,7 +777,7 @@ final class Builder extends BuilderAbstract
 
     /**
      * Lock query.
-     * 
+     *
      * @return void
      *
      * @since  1.0.0
@@ -788,7 +788,7 @@ final class Builder extends BuilderAbstract
 
     /**
      * Lock for update query.
-     * 
+     *
      * @return void
      *
      * @since  1.0.0
@@ -799,7 +799,7 @@ final class Builder extends BuilderAbstract
 
     /**
      * Create query string.
-     * 
+     *
      * @return string
      *
      * @since  1.0.0
@@ -811,7 +811,7 @@ final class Builder extends BuilderAbstract
 
     /**
      * Find query.
-     * 
+     *
      * @return void
      *
      * @since  1.0.0
@@ -837,7 +837,7 @@ final class Builder extends BuilderAbstract
 
     /**
      * Select minimum.
-     * 
+     *
      * @return void
      *
      * @since  1.0.0
@@ -848,7 +848,7 @@ final class Builder extends BuilderAbstract
 
     /**
      * Select maximum.
-     * 
+     *
      * @return void
      *
      * @since  1.0.0
@@ -859,7 +859,7 @@ final class Builder extends BuilderAbstract
 
     /**
      * Select sum.
-     * 
+     *
      * @return void
      *
      * @since  1.0.0
@@ -870,7 +870,7 @@ final class Builder extends BuilderAbstract
 
     /**
      * Select average.
-     * 
+     *
      * @return void
      *
      * @since  1.0.0
@@ -1034,7 +1034,7 @@ final class Builder extends BuilderAbstract
 
     /**
      * Delete query
-     * 
+     *
      * @return Builder
      *
      * @since  1.0.0
@@ -1052,7 +1052,7 @@ final class Builder extends BuilderAbstract
 
     /**
      * Increment value.
-     * 
+     *
      * @return void
      *
      * @since  1.0.0
@@ -1063,7 +1063,7 @@ final class Builder extends BuilderAbstract
 
     /**
      * Decrement value.
-     * 
+     *
      * @return void
      *
      * @since  1.0.0
@@ -1074,7 +1074,7 @@ final class Builder extends BuilderAbstract
 
     /**
      * Join.
-     * 
+     *
      * @return Builder
      *
      * @since  1.0.0
@@ -1086,7 +1086,7 @@ final class Builder extends BuilderAbstract
 
     /**
      * Join where.
-     * 
+     *
      * @return void
      *
      * @since  1.0.0
@@ -1097,7 +1097,7 @@ final class Builder extends BuilderAbstract
 
     /**
      * Left join.
-     * 
+     *
      * @return void
      *
      * @since  1.0.0
@@ -1108,7 +1108,7 @@ final class Builder extends BuilderAbstract
 
     /**
      * Left join where.
-     * 
+     *
      * @return void
      *
      * @since  1.0.0
@@ -1119,7 +1119,7 @@ final class Builder extends BuilderAbstract
 
     /**
      * Right join.
-     * 
+     *
      * @return void
      *
      * @since  1.0.0
@@ -1130,7 +1130,7 @@ final class Builder extends BuilderAbstract
 
     /**
      * Right join where.
-     * 
+     *
      * @return void
      *
      * @since  1.0.0
@@ -1153,7 +1153,7 @@ final class Builder extends BuilderAbstract
 
     /**
      * On.
-     * 
+     *
      * @return void
      *
      * @since  1.0.0

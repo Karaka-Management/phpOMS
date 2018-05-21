@@ -20,7 +20,7 @@ require_once __DIR__ . '/../Autoloader.php';
 
 class GroupTest extends \PHPUnit\Framework\TestCase
 {
-    public function testAttributes() 
+    public function testAttributes()
     {
         $group = new Group();
         self::assertInstanceOf('\phpOMS\Account\Group', $group);
@@ -35,7 +35,7 @@ class GroupTest extends \PHPUnit\Framework\TestCase
         self::assertObjectHasAttribute('status', $group);
     }
 
-    public function testDefault() 
+    public function testDefault()
     {
         $group = new Group();
 

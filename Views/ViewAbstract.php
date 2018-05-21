@@ -18,7 +18,7 @@ use phpOMS\System\File\PathException;
 
 /**
  * View Abstract.
- * 
+ *
  * @package    phpOMS\Views
  * @license    OMS License 1.0
  * @link       http://website.orange-management.de
@@ -118,7 +118,7 @@ abstract class ViewAbstract implements \Serializable
 
     /**
      * Returns all views
-     * 
+     *
      * @return View[]
      *
      * @since  1.0.0
@@ -130,7 +130,7 @@ abstract class ViewAbstract implements \Serializable
 
     /**
      * Returns a specific view
-     * 
+     *
      * @param string $id View ID
      *
      * @return false|View

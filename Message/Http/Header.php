@@ -24,7 +24,7 @@ use phpOMS\DataStorage\LockException;
  * @license    OMS License 1.0
  * @link       http://website.orange-management.de
  * @since      1.0.0
- * 
+ *
  * @SuppressWarnings(PHPMD.Superglobals)
  */
 final class Header extends HeaderAbstract
@@ -221,7 +221,7 @@ final class Header extends HeaderAbstract
 
     /**
      * Push all headers.
-     * 
+     *
      * @return void
      *
      * @since  1.0.0

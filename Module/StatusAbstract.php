@@ -87,7 +87,7 @@ class StatusAbstract
                 $dbPool->get()->con->commit();
 
                 break;
-            default: 
+            default:
                 throw new InvalidDatabaseTypeException($dbPool->get()->getType());
         }
     }
@@ -150,7 +150,7 @@ class StatusAbstract
                 $dbPool->get()->con->commit();
 
                 break;
-            default: 
+            default:
                 throw new InvalidDatabaseTypeException($dbPool->get()->getType());
         }
     }

@@ -47,7 +47,7 @@ class RedisCache extends ConnectionAbstract
     {
         $this->status = CacheStatus::ACTIVE;
     }
-    
+
     /**
      * {@inheritdoc}
      */

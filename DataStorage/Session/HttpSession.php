@@ -25,7 +25,7 @@ use phpOMS\DataStorage\LockException;
  * @license    OMS License 1.0
  * @link       http://website.orange-management.de
  * @since      1.0.0
- * 
+ *
  * @SuppressWarnings(PHPMD.Superglobals)
  */
 class HttpSession implements SessionInterface
@@ -109,7 +109,7 @@ class HttpSession implements SessionInterface
 
     /**
      * Set Csrf protection for forms.
-     * 
+     *
      * @return void
      *
      * @since  1.0.0

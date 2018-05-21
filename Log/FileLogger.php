@@ -24,7 +24,7 @@ use phpOMS\System\File\Local\File;
  * @license    OMS License 1.0
  * @link       http://website.orange-management.de
  * @since      1.0.0
- * 
+ *
  * @SuppressWarnings(PHPMD.Superglobals)
  */
 final class FileLogger implements LoggerInterface
@@ -161,7 +161,7 @@ final class FileLogger implements LoggerInterface
 
     /**
      * Protect instance from getting copied from outside.
-     * 
+     *
      * @return void
      *
      * @since  1.0.0
@@ -375,7 +375,7 @@ final class FileLogger implements LoggerInterface
      * Analyse logging file.
      *
      * @return array
-     * 
+     *
      * @since  1.0.0
      */
     public function countLogs()
@@ -411,7 +411,7 @@ final class FileLogger implements LoggerInterface
      * @param int $limit Amout of perpetrators
      *
      * @return array
-     * 
+     *
      * @since  1.0.0
      */
     public function getHighestPerpetrator(int $limit = 10) : array
@@ -449,7 +449,7 @@ final class FileLogger implements LoggerInterface
      * @param int $offset Offset
      *
      * @return array
-     * 
+     *
      * @since  1.0.0
      */
     public function get(int $limit = 25, int $offset = 0) : array
@@ -498,7 +498,7 @@ final class FileLogger implements LoggerInterface
      * @param int $id Id/Line number of the logging message
      *
      * @return array
-     * 
+     *
      * @since  1.0.0
      */
     public function getByLine(int $id = 1) : array
@@ -545,7 +545,7 @@ final class FileLogger implements LoggerInterface
      * @param string $message Log message
      * @param bool   $verbose Is verbose
      * @param array  $context Context
-     * 
+     *
      * @return void
      *
      * @since  1.0.0

@@ -87,7 +87,7 @@ abstract class BuilderAbstract
      * Escape string value
      *
      * @param string $value Value to escape
-     * 
+     *
      * @return string
      *
      * @since  1.0.0

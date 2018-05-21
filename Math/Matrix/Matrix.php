@@ -82,7 +82,7 @@ class Matrix implements \ArrayAccess, \Iterator
      * @param int $m     Row
      * @param int $n     Column
      * @param int $value Value
-     * 
+     *
      * @return void
      *
      * @throws InvalidDimensionException
@@ -218,7 +218,7 @@ class Matrix implements \ArrayAccess, \Iterator
 
     /**
      * Swap values in rows
-     * 
+     *
      * @param array $matrix Matrix reference to modify
      * @param int   $row1   Row to swap
      * @param int   $row2   Row to swap
@@ -573,7 +573,7 @@ class Matrix implements \ArrayAccess, \Iterator
 
     /**
      * Solve matrix
-     * 
+     *
      * @param Matix $B Matrix/Vector b
      *
      * @return Matrix

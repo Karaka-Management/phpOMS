@@ -468,7 +468,7 @@ class DataMapperAbstract implements DataMapperInterface
         $query->prefix(self::$db->getPrefix())->into(static::$table);
 
         foreach (static::$columns as $key => $column) {
-            if (isset(static::$hasMany[$key]) 
+            if (isset(static::$hasMany[$key])
                 || isset(static::$hasOne[$key])
             ) {
                 continue;
@@ -609,7 +609,7 @@ class DataMapperAbstract implements DataMapperInterface
                     continue;
                 }
 
-                if (!isset($relReflectionClass)) {
+                if ($relReflectionClass === null) {
                     $relReflectionClass = new \ReflectionClass($value);
                 }
 
@@ -877,12 +877,19 @@ class DataMapperAbstract implements DataMapperInterface
      */
     private static function parseValue(string $type, $value = null)
     {
-        // todo: checking for string === string and is_* is slow. maybe only check type or only string
         if ($value === null) {
             return null;
-        } elseif ($type === 'DateTime' || $value instanceof \DateTime) {
+        } elseif ($type === 'int') {
+            return (int) $value;
+        } elseif ($type === 'string') {
+            return (string) $value;
+        } elseif ($type === 'float') {
+            return (float) $value;
+        } elseif ($type === 'bool') {
+            return (bool) $value;
+        } elseif ($type === 'DateTime') {
             return $value->format('Y-m-d H:i:s');
-        } elseif ($type === 'Json' || $type === 'jsonSerializable' || is_array($value)) {
+        } elseif ($type === 'Json' || $type === 'jsonSerializable') {
             return json_encode($value);
         } elseif ($type === 'Serializable') {
             return $value->serialize();
@@ -890,14 +897,6 @@ class DataMapperAbstract implements DataMapperInterface
             return json_encode($value->jsonSerialize());
         } elseif (is_object($value) && method_exists($value, 'getId')) {
             return $value->getId();
-        } elseif ($type === 'int' || is_int($value)) {
-            return (int) $value;
-        } elseif ($type === 'string' || is_string($value)) {
-            return (string) $value;
-        } elseif ($type === 'float' || is_float($value)) {
-            return (float) $value;
-        } elseif ($type === 'bool' || is_bool($value)) {
-            return (bool) $value;
         }
 
         return $value;
@@ -950,7 +949,7 @@ class DataMapperAbstract implements DataMapperInterface
                     continue;
                 }
 
-                if (!isset($relReflectionClass)) {
+                if ($relReflectionClass === null) {
                     $relReflectionClass = new \ReflectionClass($value);
                 }
 
@@ -1120,8 +1119,8 @@ class DataMapperAbstract implements DataMapperInterface
 
         foreach (static::$columns as $key => $column) {
             $propertyName = stripos($column['internal'], '/') !== false ? explode('/', $column['internal'])[0] : $column['internal'];
-            if (isset(static::$hasMany[$propertyName]) 
-                || isset(static::$hasOne[$propertyName]) 
+            if (isset(static::$hasMany[$propertyName])
+                || isset(static::$hasOne[$propertyName])
                 || $column['internal'] === static::$primaryField
             ) {
                 continue;
@@ -1148,7 +1147,7 @@ class DataMapperAbstract implements DataMapperInterface
             } elseif ($column['name'] !== static::$primaryField) {
                 $tValue = $property->getValue($obj);
                 if (stripos($column['internal'], '/') !== false) {
-                    $path   = explode('/', $column['internal']);
+                    $path = explode('/', $column['internal']);
 
                     array_shift($path);
                     $path   = implode('/', $path);
@@ -1254,7 +1253,7 @@ class DataMapperAbstract implements DataMapperInterface
                     continue;
                 }
 
-                if (!isset($relReflectionClass)) {
+                if ($relReflectionClass === null) {
                     $relReflectionClass = new \ReflectionClass($value);
                 }
 
@@ -1776,19 +1775,26 @@ class DataMapperAbstract implements DataMapperInterface
                 continue;
             }
 
+            $hasPath = false;
+
             if (stripos(static::$columns[$column]['internal'], '/') !== false) {
-                $refProp = $refClass->getProperty(explode('/', static::$columns[$column]['internal'])[0]);
-                $path    = explode(static::$columns[$column]['internal']);
+                $hasPath = true;
+                $path    = explode('/', static::$columns[$column]['internal']);
+                $refProp = $refClass->getProperty($path[0]);
+
+                if (!($accessible = $refProp->isPublic())) {
+                    $refProp->setAccessible(true);
+                }
 
                 array_shift($path);
-                $path    = implode('/', $path);
-                $aValue  = $refProp->getValue($obj);
+                $path   = implode('/', $path);
+                $aValue = $refProp->getValue($obj);
             } else {
                 $refProp = $refClass->getProperty(static::$columns[$column]['internal']);
-            }
 
-            if (!($accessible = $refProp->isPublic())) {
-                $refProp->setAccessible(true);
+                if (!($accessible = $refProp->isPublic())) {
+                    $refProp->setAccessible(true);
+                }
             }
 
             if (in_array(static::$columns[$column]['type'], ['string', 'int', 'float', 'bool'])) {
@@ -1797,20 +1803,20 @@ class DataMapperAbstract implements DataMapperInterface
                     settype($value, static::$columns[$column]['type']);
                 }
 
-                if (isset($path)) {
+                if ($hasPath) {
                     $value = ArrayUtils::setArray($path, $aValue, $value, '/', true);
                 }
 
                 $refProp->setValue($obj, $value);
             } elseif (static::$columns[$column]['type'] === 'DateTime') {
                 $value = new \DateTime($value ?? '');
-                if (stripos(static::$columns[$column]['internal'], '/') !== false) {
+                if ($hasPath) {
                     $value = ArrayUtils::setArray($path, $aValue, $value, '/', true);
                 }
 
                 $refProp->setValue($obj, $value);
             } elseif (static::$columns[$column]['type'] === 'Json') {
-                if (stripos(static::$columns[$column]['internal'], '/') !== false) {
+                if ($hasPath) {
                     $value = ArrayUtils::setArray($path, $aValue, $value, '/', true);
                 }
 
@@ -1836,8 +1842,6 @@ class DataMapperAbstract implements DataMapperInterface
      * @param array $result Query result set
      *
      * @return array
-     *
-     * @throws \UnexpectedValueException
      *
      * @since  1.0.0
      */
@@ -1890,7 +1894,7 @@ class DataMapperAbstract implements DataMapperInterface
         }
 
         if (!isset(self::$parentMapper)) {
-            self::setUpParentMapper();
+            self::$parentMapper = static::class;
         }
 
         self::extend(__CLASS__);
@@ -1972,7 +1976,7 @@ class DataMapperAbstract implements DataMapperInterface
         }
 
         if (!isset(self::$parentMapper)) {
-            self::setUpParentMapper();
+            self::$parentMapper = static::class;
         }
 
         self::extend(__CLASS__);
@@ -2017,7 +2021,7 @@ class DataMapperAbstract implements DataMapperInterface
         }
 
         if (!isset(self::$parentMapper)) {
-            self::setUpParentMapper();
+            self::$parentMapper = static::class;
         }
 
         self::extend(__CLASS__);
@@ -2063,7 +2067,7 @@ class DataMapperAbstract implements DataMapperInterface
     public static function getForArray($refKey, string $ref, int $relations = RelationType::ALL, $fill = null)
     {
         if (!isset(self::$parentMapper)) {
-            self::setUpParentMapper();
+            self::$parentMapper = static::class;
         }
 
         self::extend(__CLASS__);
@@ -2104,7 +2108,7 @@ class DataMapperAbstract implements DataMapperInterface
         }
 
         if (!isset(self::$parentMapper)) {
-            self::setUpParentMapper();
+            self::$parentMapper = static::class;
         }
 
         $obj = self::populateIterable(self::getAllRaw($lang));
@@ -2132,7 +2136,7 @@ class DataMapperAbstract implements DataMapperInterface
         }
 
         if (!isset(self::$parentMapper)) {
-            self::setUpParentMapper();
+            self::$parentMapper = static::class;
         }
 
         $obj = self::populateIterableArray(self::getAllRaw($lang));
@@ -2506,7 +2510,7 @@ class DataMapperAbstract implements DataMapperInterface
                                           ->leftOuterJoin($value['table'])
                                           ->on(new And('1', new And(new Or('d1', 'd2'), 'id')))
                                           ->where($value['table'] . '.' . $value['dst'], '=', 'NULL');
-                                          
+        
             }*/
 
             $sth = self::$db->con->prepare($query->toSql());
@@ -2658,18 +2662,6 @@ class DataMapperAbstract implements DataMapperInterface
         if (self::isInitialized($mapper, $id)) {
             unset(self::$initObjects[$mapper][$id]);
         }
-    }
-
-    /**
-     * Define the highest mapper of this request
-     *
-     * @return void
-     *
-     * @since  1.0.0
-     */
-    private static function setUpParentMapper() : void
-    {
-        self::$parentMapper = static::class;
     }
 
     /**

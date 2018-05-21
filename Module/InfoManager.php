@@ -110,7 +110,7 @@ final class InfoManager
      * @param string $path  Value path
      * @param mixed  $data  Scalar or array of data to set
      * @param string $delim Delimiter of path
-     * 
+     *
      * @return void
      *
      * @since  1.0.0

@@ -34,7 +34,7 @@ final class Prime
     {
 
     }
-    
+
     /**
      * Is mersenne number?
      *

@@ -90,7 +90,7 @@ class View extends ViewAbstract
 
     /**
      * Get data attached to view
-     * 
+     *
      * @param string $id Data Id
      *
      * @return mixed
@@ -104,7 +104,7 @@ class View extends ViewAbstract
 
     /**
      * Set data of view
-     * 
+     *
      * @param string $id   Data ID
      * @param mixed  $data Data
      *
@@ -139,7 +139,7 @@ class View extends ViewAbstract
 
     /**
      * Add data to view
-     * 
+     *
      * @param string $id   Data ID
      * @param mixed  $data Data
      *
@@ -219,7 +219,7 @@ class View extends ViewAbstract
 
     /**
      * Get request of view
-     * 
+     *
      * @return RequestAbstract|null
      *
      * @since  1.0.0
@@ -231,7 +231,7 @@ class View extends ViewAbstract
 
     /**
      * Get response of view
-     * 
+     *
      * @return ResponseAbstract|null
      *
      * @since  1.0.0

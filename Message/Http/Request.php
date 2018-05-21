@@ -29,7 +29,7 @@ use phpOMS\Uri\UriInterface;
  * @license    OMS License 1.0
  * @link       http://website.orange-management.de
  * @since      1.0.0
- * 
+ *
  * @SuppressWarnings(PHPMD.Superglobals)
  */
 final class Request extends RequestAbstract
@@ -58,7 +58,7 @@ final class Request extends RequestAbstract
      * @since 1.0.0
      */
     private $os = null;
-    
+
     /**
      * Request information.
      *
@@ -452,8 +452,8 @@ final class Request extends RequestAbstract
     public function __toString() : string
     {
         if ($this->getMethod() === RequestMethod::GET && !empty($this->data)) {
-            return $this->uri->__toString() 
-                . (parse_url($this->uri->__toString(), PHP_URL_QUERY) ? '&' : '?') 
+            return $this->uri->__toString()
+                . (parse_url($this->uri->__toString(), PHP_URL_QUERY) ? '&' : '?')
                 . http_build_query($this->data);
         }
 

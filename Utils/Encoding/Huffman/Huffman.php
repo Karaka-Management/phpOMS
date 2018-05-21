@@ -48,7 +48,7 @@ final class Huffman
      * Set dictionary
      *
      * @param Dictionary $dictionary Huffman dictionary
-     * 
+     *
      * @return void
      *
      * @since  1.0.0

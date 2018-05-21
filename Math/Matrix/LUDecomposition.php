@@ -237,7 +237,7 @@ final class LUDecomposition
      * Solve Ax = b
      *
      * @param Matrix $B Matrix
-     * 
+     *
      * @return Matrix
      *
      * @since  1.0.0

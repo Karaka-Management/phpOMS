@@ -76,7 +76,7 @@ class Repository
      * Set repository path.
      *
      * @param string $path Path to repository
-     * 
+     *
      * @return void
      *
      * @throws PathException
@@ -171,13 +171,13 @@ class Repository
     private function run(string $cmd) : array
     {
         if (strtolower(substr(PHP_OS, 0, 3)) == 'win') {
-            $cmd = 'cd ' . escapeshellarg(dirname(Git::getBin())) 
-                . ' && ' . basename(Git::getBin()) 
-                . ' -C ' . escapeshellarg($this->path) . ' ' 
+            $cmd = 'cd ' . escapeshellarg(dirname(Git::getBin()))
+                . ' && ' . basename(Git::getBin())
+                . ' -C ' . escapeshellarg($this->path) . ' '
                 . $cmd;
         } else {
-            $cmd = escapeshellarg(Git::getBin()) 
-                . ' -C ' . escapeshellarg($this->path) . ' ' 
+            $cmd = escapeshellarg(Git::getBin())
+                . ' -C ' . escapeshellarg($this->path) . ' '
                 . $cmd;
         }
 
@@ -772,9 +772,9 @@ class Repository
 
         $addremove = ['added' => 0, 'removed' => 0];
         $lines     = $this->run(
-            'log --author=' . escapeshellarg($author->getName()) 
-            . ' --since="' . $start->format('Y-m-d') 
-            . '" --before="' . $end->format('Y-m-d') 
+            'log --author=' . escapeshellarg($author->getName())
+            . ' --since="' . $start->format('Y-m-d')
+            . '" --before="' . $end->format('Y-m-d')
             . '" --pretty=tformat: --numstat'
         );
 
@@ -828,10 +828,10 @@ class Repository
         }
 
         $lines = $this->run(
-            'git log --before="' . $end->format('Y-m-d') 
-            . '" --after="' . $start->format('Y-m-d') . '"' 
+            'git log --before="' . $end->format('Y-m-d')
+            . '" --after="' . $start->format('Y-m-d') . '"'
             . $author . ' --reverse --date=short');
-            
+
         $count   = count($lines);
         $commits = [];
 

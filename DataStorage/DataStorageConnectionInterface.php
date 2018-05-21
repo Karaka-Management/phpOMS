@@ -33,7 +33,7 @@ interface DataStorageConnectionInterface
      * @param string[] $data the basic datastorage information for establishing a connection
      *
      * @return void
-     * 
+     *
      * @todo make private, reason was that not everyone wants to connect during initialization?!
      *
      * @since  1.0.0

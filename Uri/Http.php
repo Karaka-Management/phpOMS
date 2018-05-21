@@ -25,7 +25,7 @@ use phpOMS\Utils\StringUtils;
  * @license    OMS License 1.0
  * @link       http://website.orange-management.de
  * @since      1.0.0
- * 
+ *
  * @SuppressWarnings(PHPMD.Superglobals)
  */
 final class Http implements UriInterface
@@ -337,7 +337,7 @@ final class Http implements UriInterface
      */
     public function getAuthority() : string
     {
-        return ($this->getUser() !== '' ? $this->getUser() . '@' : '') . $this->host 
+        return ($this->getUser() !== '' ? $this->getUser() . '@' : '') . $this->host
             . ($this->port !== null && $this->port !== 0 ? ':' . $this->port : '');
     }
 

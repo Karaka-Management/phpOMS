@@ -208,7 +208,7 @@ class Markdown
 
     /**
      * Some definition data for elements
-     * 
+     *
      * @todo: figure out what it is for
      *
      * @var string[]
@@ -220,7 +220,7 @@ class Markdown
      * Parse markdown
      *
      * @param string $text Markdown text
-     * 
+     *
      * @return string
      *
      * @since  1.0.0
@@ -241,7 +241,7 @@ class Markdown
      * Parse lines
      *
      * @param array $lines Markdown lines
-     * 
+     *
      * @return string
      *
      * @since  1.0.0
@@ -360,7 +360,7 @@ class Markdown
      *
      * @param array $lineArray Line information
      * @param array $block     Block information
-     * 
+     *
      * @return null|array
      *
      * @since  1.0.0
@@ -392,7 +392,7 @@ class Markdown
      *
      * @param array $lineArray Line information
      * @param array $block     Block information
-     * 
+     *
      * @return null|array
      *
      * @since  1.0.0
@@ -419,7 +419,7 @@ class Markdown
      * Handle completed code
      *
      * @param array $block Block information
-     * 
+     *
      * @return null|array
      *
      * @since  1.0.0
@@ -433,7 +433,7 @@ class Markdown
      * Handle fenced code
      *
      * @param array $lineArray Line information
-     * 
+     *
      * @return null|array
      *
      * @since  1.0.0
@@ -470,7 +470,7 @@ class Markdown
      *
      * @param array $lineArray Line information
      * @param array $block     Block information
-     * 
+     *
      * @return null|array
      *
      * @since  1.0.0
@@ -503,7 +503,7 @@ class Markdown
      * Handle completed fenced block code
      *
      * @param array $block Block information
-     * 
+     *
      * @return null|array
      *
      * @since  1.0.0
@@ -517,7 +517,7 @@ class Markdown
      * Handle header element
      *
      * @param array $lineArray Line information
-     * 
+     *
      * @return null|array
      *
      * @since  1.0.0
@@ -550,7 +550,7 @@ class Markdown
      * Handle list
      *
      * @param array $lineArray Line information
-     * 
+     *
      * @return null|array
      *
      * @since  1.0.0
@@ -598,7 +598,7 @@ class Markdown
      *
      * @param array $lineArray Line information
      * @param array $block     Block information
-     * 
+     *
      * @return null|array
      *
      * @since  1.0.0
@@ -653,7 +653,7 @@ class Markdown
      * Handle block quote
      *
      * @param array $lineArray Line information
-     * 
+     *
      * @return null|array
      *
      * @since  1.0.0
@@ -678,7 +678,7 @@ class Markdown
      *
      * @param array $lineArray Line information
      * @param array $block     Block information
-     * 
+     *
      * @return null|array
      *
      * @since  1.0.0
@@ -710,7 +710,7 @@ class Markdown
      * Handle HR element
      *
      * @param array $lineArray Line information
-     * 
+     *
      * @return null|array
      *
      * @since  1.0.0
@@ -733,7 +733,7 @@ class Markdown
      *
      * @param array $lineArray Line information
      * @param array $block     Block information
-     * 
+     *
      * @return null|array
      *
      * @since  1.0.0
@@ -757,7 +757,7 @@ class Markdown
      * Handle content reference
      *
      * @param array $lineArray Line information
-     * 
+     *
      * @return null|array
      *
      * @since  1.0.0
@@ -783,7 +783,7 @@ class Markdown
      *
      * @param array $lineArray Line information
      * @param array $block     Block information
-     * 
+     *
      * @return null|array
      *
      * @since  1.0.0
@@ -880,7 +880,7 @@ class Markdown
      *
      * @param array $lineArray Line information
      * @param array $block     Block information
-     * 
+     *
      * @return null|array
      *
      * @since  1.0.0
@@ -929,7 +929,7 @@ class Markdown
      * Handle paragraph
      *
      * @param array $lineArray Line information
-     * 
+     *
      * @return array
      *
      * @since  1.0.0
@@ -949,7 +949,7 @@ class Markdown
      * Handle a single line
      *
      * @param string $text Line of text
-     * 
+     *
      * @return string
      *
      * @since  1.0.0
@@ -1000,7 +1000,7 @@ class Markdown
      * Handle inline code
      *
      * @param array $excerpt Markdown excerpt
-     * 
+     *
      * @return null|array
      *
      * @since  1.0.0
@@ -1026,7 +1026,7 @@ class Markdown
      * Handle inline email
      *
      * @param array $excerpt Markdown excerpt
-     * 
+     *
      * @return null|array
      *
      * @since  1.0.0
@@ -1059,7 +1059,7 @@ class Markdown
      * Handle inline emphasis
      *
      * @param array $excerpt Markdown excerpt
-     * 
+     *
      * @return null|array
      *
      * @since  1.0.0
@@ -1096,7 +1096,7 @@ class Markdown
      * Handle escape of special char
      *
      * @param array $excerpt Markdown excerpt
-     * 
+     *
      * @return null|array
      *
      * @since  1.0.0
@@ -1117,7 +1117,7 @@ class Markdown
      * Handle inline image
      *
      * @param array $excerpt Markdown excerpt
-     * 
+     *
      * @return null|array
      *
      * @since  1.0.0
@@ -1157,7 +1157,7 @@ class Markdown
      * Handle inline link
      *
      * @param array $excerpt Markdown excerpt
-     * 
+     *
      * @return null|array
      *
      * @since  1.0.0
@@ -1223,7 +1223,7 @@ class Markdown
      * Handle special char to html
      *
      * @param array $excerpt Markdown excerpt
-     * 
+     *
      * @return null|array
      *
      * @since  1.0.0
@@ -1251,7 +1251,7 @@ class Markdown
      * Handle inline strike through
      *
      * @param array $excerpt Markdown excerpt
-     * 
+     *
      * @return null|array
      *
      * @since  1.0.0
@@ -1280,7 +1280,7 @@ class Markdown
      * Handle inline url
      *
      * @param array $excerpt Markdown excerpt
-     * 
+     *
      * @return null|array
      *
      * @since  1.0.0
@@ -1312,7 +1312,7 @@ class Markdown
      * Handle inline url
      *
      * @param array $excerpt Markdown excerpt
-     * 
+     *
      * @return null|array
      *
      * @since  1.0.0
@@ -1339,7 +1339,7 @@ class Markdown
      * Clean up normal text
      *
      * @param string $text Normal text
-     * 
+     *
      * @return string
      *
      * @since  1.0.0
@@ -1356,7 +1356,7 @@ class Markdown
      * Handle general html element
      *
      * @param array $element Html element
-     * 
+     *
      * @return string
      *
      * @since  1.0.0
@@ -1391,7 +1391,7 @@ class Markdown
      * Handle an array of elements
      *
      * @param array $elements Elements
-     * 
+     *
      * @return string
      *
      * @since  1.0.0
@@ -1411,11 +1411,11 @@ class Markdown
 
     /**
      * Remove blocks
-     * 
+     *
      * @param array $lines Lines
-     * 
+     *
      * @return string
-     * 
+     *
      * @since  1.0.0
      */
     protected static function li(array $lines) : string
@@ -1435,9 +1435,9 @@ class Markdown
 
     /**
      * Sanitize an element
-     * 
+     *
      * @param array $element Element to sanitize
-     * 
+     *
      * @return array
      *
      * @since  1.0.0
@@ -1468,10 +1468,10 @@ class Markdown
 
     /**
      * Replace unsafe url
-     * 
+     *
      * @param array  $element   Element to sanitize
      * @param string $attribute Element attribute
-     * 
+     *
      * @return array
      *
      * @since  1.0.0
@@ -1491,10 +1491,10 @@ class Markdown
 
     /**
      * Escape html elements
-     * 
+     *
      * @param string $text        Text to escape
      * @param bool   $allowQuotes Are quotes allowed
-     * 
+     *
      * @return string
      *
      * @since  1.0.0
@@ -1506,10 +1506,10 @@ class Markdown
 
     /**
      * Check if string starts with
-     * 
+     *
      * @param string $string Text to check against
      * @param string $needle Needle to check
-     * 
+     *
      * @return bool
      *
      * @since  1.0.0

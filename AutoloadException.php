@@ -16,7 +16,7 @@ namespace phpOMS;
 
 /**
  * Autoloader exception
- * 
+ *
  * This exception is thrown if a file couldn't be autoloaded
  *
  * @package    phpOMS

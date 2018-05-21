@@ -21,7 +21,7 @@ namespace phpOMS\Utils\Barcode;
  * @license    OMS License 1.0
  * @link       http://website.orange-management.de
  * @since      1.0.0
- * 
+ *
  * @SuppressWarnings(PHPMD.CamelCasePropertyName)
  * @SuppressWarnings(PHPMD.CamelCaseVariableName)
  */
@@ -65,7 +65,7 @@ class C39 extends C128Abstract
      * Set content to encrypt
      *
      * @param string $content Barcode content
-     * 
+     *
      * @return void
      *
      * @since  1.0.0

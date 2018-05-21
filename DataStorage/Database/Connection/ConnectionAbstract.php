@@ -46,7 +46,7 @@ abstract class ConnectionAbstract implements ConnectionInterface
      * Database prefix.
      *
      * The database prefix name for unique table names
-     * 
+     *
      * @todo: make private? could add huge overhead since function call required
      *
      * @var string

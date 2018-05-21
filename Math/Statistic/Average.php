@@ -50,7 +50,7 @@ final class Average
     {
 
     }
-    
+
     /**
      * Average change.
      *

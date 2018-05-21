@@ -183,7 +183,7 @@ class MultiMapTest extends \PHPUnit\Framework\TestCase
 
         $inserted = $map->add(['a', 'b'], 'val2');
         $inserted = $map->add(['a', 'c'], 'val3', false);
-        
+
         $set = $map->set('d', 'val4');
         $set = $map->set('b', 'val4');
 

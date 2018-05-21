@@ -176,7 +176,7 @@ final class ModuleManager
 
                     $this->uriLoad = $sth->fetchAll(\PDO::FETCH_GROUP);
                     break;
-                default: 
+                default:
                     throw new InvalidDatabaseTypeException($this->app->dbPool->get('select')->getType());
             }
         }
@@ -202,7 +202,7 @@ final class ModuleManager
                     $sth->execute();
                     $this->active = $sth->fetchAll(\PDO::FETCH_COLUMN);
                     break;
-                default: 
+                default:
                     throw new InvalidDatabaseTypeException($this->app->dbPool->get('select')->getType());
             }
         }
@@ -284,7 +284,7 @@ final class ModuleManager
                     $sth->execute();
                     $this->installed = $sth->fetchAll(\PDO::FETCH_GROUP);
                     break;
-                default: 
+                default:
                     throw new InvalidDatabaseTypeException($this->app->dbPool->get('select')->getType());
             }
         }

@@ -23,7 +23,7 @@ use phpOMS\Stdlib\Base\Exception\InvalidEnumValue;
  * @license    OMS License 1.0
  * @link       http://website.orange-management.de
  * @since      1.0.0
- * 
+ *
  * @SuppressWarnings(PHPMD.CamelCasePropertyName)
  * @SuppressWarnings(PHPMD.CamelCaseVariableName)
  */
@@ -145,7 +145,7 @@ abstract class C128Abstract
      *
      * @param int $width  Barcode width
      * @param int $height Barcode height
-     * 
+     *
      * @return void
      *
      * @since  1.0.0
@@ -168,7 +168,7 @@ abstract class C128Abstract
      * Set barcode margins
      *
      * @param int $margin Barcode margin
-     * 
+     *
      * @return void
      *
      * @since  1.0.0
@@ -182,7 +182,7 @@ abstract class C128Abstract
      * Set barcode orientation
      *
      * @param int $orientation Barcode orientation
-     * 
+     *
      * @return void
      *
      * @since  1.0.0
@@ -212,7 +212,7 @@ abstract class C128Abstract
      * Set content to encrypt
      *
      * @param string $content Barcode content
-     * 
+     *
      * @return void
      *
      * @since  1.0.0
@@ -320,20 +320,20 @@ abstract class C128Abstract
 
             if ($this->orientation === OrientationType::HORIZONTAL) {
                 imagefilledrectangle(
-                    $image, 
-                    $location + $this->margin, 
-                    0 + $this->margin, 
-                    $cur_size + $this->margin, 
-                    $dimensions['height'] - $this->margin, 
+                    $image,
+                    $location + $this->margin,
+                    0 + $this->margin,
+                    $cur_size + $this->margin,
+                    $dimensions['height'] - $this->margin,
                     ($position % 2 == 0 ? $white : $black)
                 );
             } else {
                 imagefilledrectangle(
-                    $image, 
-                    0 + $this->margin, 
-                    $location + $this->margin, 
-                    $dimensions['width'] - $this->margin, 
-                    $cur_size + $this->margin, 
+                    $image,
+                    0 + $this->margin,
+                    $location + $this->margin,
+                    $dimensions['width'] - $this->margin,
+                    $cur_size + $this->margin,
                     ($position % 2 == 0 ? $white : $black)
                 );
             }
@@ -357,7 +357,7 @@ abstract class C128Abstract
     {
         $codeLength = 0;
         $length     = strlen($codeString);
-        
+
         for ($i = 1; $i <= $length; ++$i) {
             $codeLength = $codeLength + (int) (substr($codeString, ($i - 1), 1));
         }

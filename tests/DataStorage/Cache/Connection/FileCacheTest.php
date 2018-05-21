@@ -40,7 +40,7 @@ class FileCacheTest extends \PHPUnit\Framework\TestCase
         if (file_exists(__DIR__ . '/Cache')) {
             rmdir(__DIR__ . '/Cache');
         }
-        
+
         $cache = new FileCache(__DIR__ . '/Cache');
 
         $cache->set('key1', 'testVal');

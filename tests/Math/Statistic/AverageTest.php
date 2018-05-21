@@ -27,7 +27,7 @@ class AverageTest extends \PHPUnit\Framework\TestCase
         self::assertEquals(4, Average::arithmeticMean([1, 2, 3, 4, 5, 6, 7]), '', 0.01);
 
         self::assertEquals(69 / 20, Average::weightedAverage(
-            [1, 2, 3, 4, 5, 6, 7], 
+            [1, 2, 3, 4, 5, 6, 7],
             [0.1, 0.2, 0.3, 0.1, 0.2, 0.05, 0.05]
         ), '', 0.01);
 

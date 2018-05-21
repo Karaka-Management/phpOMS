@@ -60,7 +60,7 @@ class Branch
      * Set branch name
      *
      * @param string $name Branch name
-     * 
+     *
      * @return void
      *
      * @since  1.0.0

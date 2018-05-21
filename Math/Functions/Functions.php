@@ -34,7 +34,7 @@ final class Functions
     {
 
     }
-    
+
     /**
      * Calculate gammar function value.
      *
@@ -236,7 +236,7 @@ final class Functions
     {
         return !((bool) ($a & 1));
     }
-    
+
     /**
      * Power all values in array.
      *
@@ -258,7 +258,7 @@ final class Functions
 
         return $squared;
     }
-    
+
     /**
      * Power all values in array.
      *

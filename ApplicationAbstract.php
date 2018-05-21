@@ -16,9 +16,9 @@ namespace phpOMS;
 
 /**
  * Application class.
- * 
- * This class contains all necessary application members. Access to them 
- * is restricted to write once in order to prevent manipulation 
+ *
+ * This class contains all necessary application members. Access to them
+ * is restricted to write once in order to prevent manipulation
  * and afterwards read only.
  *
  * @property string $appName
