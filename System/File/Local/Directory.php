@@ -88,11 +88,10 @@ final class Directory extends FileAbstract implements DirectoryInterface
             \RecursiveIteratorIterator::SELF_FIRST);
 
         if ($filter !== '*') {
-            return \RegexIterator($iterator, '/' . $filter . '/i', \RecursiveRegexIterator::GET_MATCH);
+            $iterator = new \RegexIterator($iterator, '/' . $filter . '/i', \RecursiveRegexIterator::GET_MATCH);
         }
 
-        foreach ($iterator as $item
-        ) {
+        foreach ($iterator as $item) {
             $list[] = str_replace('\\', '/', $iterator->getSubPathname());
         }
 

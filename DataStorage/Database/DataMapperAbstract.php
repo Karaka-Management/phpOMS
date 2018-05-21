@@ -19,6 +19,7 @@ use phpOMS\DataStorage\Database\Query\Builder;
 use phpOMS\DataStorage\DataMapperInterface;
 use phpOMS\Message\RequestAbstract;
 use phpOMS\DataStorage\Database\Exception\InvalidMapperException;
+use phpOMS\Util\ArrayUtils;
 
 /**
  * Datamapper for databases.
@@ -348,12 +349,12 @@ class DataMapperAbstract implements DataMapperInterface
             return null;
         }
 
-        $reflectionClass = new \ReflectionClass($obj);
-        $objId           = self::createModel($obj, $reflectionClass);
-        self::setObjectId($reflectionClass, $obj, $objId);
+        $refClass = new \ReflectionClass($obj);
+        $objId    = self::createModel($obj, $refClass);
+        self::setObjectId($refClass, $obj, $objId);
 
         if ($relations === RelationType::ALL) {
-            self::createHasMany($reflectionClass, $obj, $objId);
+            self::createHasMany($refClass, $obj, $objId);
         }
 
         return $objId;
@@ -387,19 +388,19 @@ class DataMapperAbstract implements DataMapperInterface
     /**
      * Create base model.
      *
-     * @param Object           $obj             Model to create
-     * @param \ReflectionClass $reflectionClass Reflection class
+     * @param Object           $obj      Model to create
+     * @param \ReflectionClass $refClass Reflection class
      *
      * @return mixed
      *
      * @since  1.0.0
      */
-    private static function createModel($obj, \ReflectionClass $reflectionClass)
+    private static function createModel($obj, \ReflectionClass $refClass)
     {
         $query = new Builder(self::$db);
         $query->prefix(self::$db->getPrefix())->into(static::$table);
 
-        $properties = $reflectionClass->getProperties();
+        $properties = $refClass->getProperties();
 
         foreach ($properties as $property) {
             $propertyName = $property->getName();
@@ -426,7 +427,14 @@ class DataMapperAbstract implements DataMapperInterface
                     $query->insert($column['name'])->value($value, $column['type']);
                     break;
                 } elseif ($column['internal'] === $propertyName && $column['type'] !== static::$primaryField) {
-                    $value = self::parseValue($column['type'], $property->getValue($obj));
+                    $tValue = $property->getValue($obj);
+                    if (stripos($column['internal'], '/') !== false) {
+                        $path   = explode($column['internal']);
+                        $path   = implode('/', array_shift($path));
+                        $tValue = ArrayUtils::getArray($path, $tValue, '/');
+                    }
+
+                    $value = self::parseValue($column['type'], $tValue);
 
                     $query->insert($column['name'])->value($value, $column['type']);
                     break;
@@ -436,6 +444,10 @@ class DataMapperAbstract implements DataMapperInterface
             if (!($isPublic)) {
                 $property->setAccessible(false);
             }
+        }
+
+        if (static::$table === 'exchange') {
+            var_dump($query->toSql());
         }
 
         self::$db->con->prepare($query->toSql())->execute();
@@ -452,35 +464,41 @@ class DataMapperAbstract implements DataMapperInterface
      *
      * @since  1.0.0
      */
-    private static function createModelArray($obj)
+    private static function createModelArray(array $obj)
     {
         $query = new Builder(self::$db);
         $query->prefix(self::$db->getPrefix())->into(static::$table);
 
-        foreach ($obj as $propertyName => &$property) {
-            if (isset(static::$hasMany[$propertyName]) || isset(static::$hasOne[$propertyName])) {
+        foreach (static::$columns as $key => $column) {
+            if (isset(static::$hasMany[$key]) || isset(static::$hasOne[$key])) {
                 continue;
             }
 
-            foreach (static::$columns as $key => $column) {
-                if (isset(static::$ownsOne[$propertyName]) && $column['internal'] === $propertyName) {
-                    $id    = self::createOwnsOneArray($propertyName, $property);
-                    $value = self::parseValue($column['type'], $id);
+            $path = $column['internal'];
+            if (stripos($column['internal'], '/') !== false) {
+                $path = explode($column['internal']);
+                $path = implode('/', array_shift($path));
+            }
 
-                    $query->insert($column['name'])->value($value, $column['type']);
-                    break;
-                } elseif (isset(static::$belongsTo[$propertyName]) && $column['internal'] === $propertyName) {
-                    $id    = self::createBelongsToArray($propertyName, $property);
-                    $value = self::parseValue($column['type'], $id);
+            $property = ArrayUtils::getArray($path, $obj, '/');
 
-                    $query->insert($column['name'])->value($value, $column['type']);
-                    break;
-                } elseif ($column['internal'] === $propertyName && $column['type'] !== static::$primaryField) {
-                    $value = self::parseValue($column['type'], $property);
+            if (isset(static::$ownsOne[$path])) {
+                $id    = self::createOwnsOneArray($column['internal'], $property);
+                $value = self::parseValue($column['type'], $id);
 
-                    $query->insert($column['name'])->value($value, $column['type']);
-                    break;
-                }
+                $query->insert($column['name'])->value($value, $column['type']);
+                break;
+            } elseif (isset(static::$belongsTo[$path])) {
+                $id    = self::createBelongsToArray($column['internal'], $property);
+                $value = self::parseValue($column['type'], $id);
+
+                $query->insert($column['name'])->value($value, $column['type']);
+                break;
+            } elseif ($column['internal'] === $path && $column['type'] !== static::$primaryField) {
+                $value = self::parseValue($column['type'], $property);
+
+                $query->insert($column['name'])->value($value, $column['type']);
+                break;
             }
         }
 
@@ -493,25 +511,25 @@ class DataMapperAbstract implements DataMapperInterface
      * Get id of object
      *
      * @param Object           $obj             Model to create
-     * @param \ReflectionClass $reflectionClass Reflection class
+     * @param \ReflectionClass $refClass Reflection class
      *
      * @return mixed
      *
      * @since  1.0.0
      */
-    private static function getObjectId($obj, \ReflectionClass $reflectionClass = null)
+    private static function getObjectId($obj, \ReflectionClass $refClass = null)
     {
-        $reflectionClass    = $reflectionClass ?? new \ReflectionClass($obj);
-        $reflectionProperty = $reflectionClass->getProperty(static::$columns[static::$primaryField]['internal']);
+        $refClass    = $refClass ?? new \ReflectionClass($obj);
+        $refProp = $refClass->getProperty(static::$columns[static::$primaryField]['internal']);
 
-        if (!($isPublic = $reflectionProperty->isPublic())) {
-            $reflectionProperty->setAccessible(true);
+        if (!($isPublic = $refProp->isPublic())) {
+            $refProp->setAccessible(true);
         }
 
-        $objectId = $reflectionProperty->getValue($obj);
+        $objectId = $refProp->getValue($obj);
 
         if (!$isPublic) {
-            $reflectionProperty->setAccessible(false);
+            $refProp->setAccessible(false);
         }
 
         return $objectId;
@@ -520,7 +538,7 @@ class DataMapperAbstract implements DataMapperInterface
     /**
      * Set id to model
      *
-     * @param \ReflectionClass $reflectionClass Reflection class
+     * @param \ReflectionClass $refClass Reflection class
      * @param Object           $obj             Object to create
      * @param mixed            $objId           Id to set
      *
@@ -528,26 +546,26 @@ class DataMapperAbstract implements DataMapperInterface
      *
      * @since  1.0.0
      */
-    private static function setObjectId(\ReflectionClass $reflectionClass, $obj, $objId) : void
+    private static function setObjectId(\ReflectionClass $refClass, $obj, $objId) : void
     {
-        $reflectionProperty = $reflectionClass->getProperty(static::$columns[static::$primaryField]['internal']);
+        $refProp = $refClass->getProperty(static::$columns[static::$primaryField]['internal']);
 
-        if (!($isPublic = $reflectionProperty->isPublic())) {
-            $reflectionProperty->setAccessible(true);
+        if (!($isPublic = $refProp->isPublic())) {
+            $refProp->setAccessible(true);
         }
 
         settype($objId, static::$columns[static::$primaryField]['type']);
-        $reflectionProperty->setValue($obj, $objId);
+        $refProp->setValue($obj, $objId);
 
         if (!$isPublic) {
-            $reflectionProperty->setAccessible(false);
+            $refProp->setAccessible(false);
         }
     }
 
     /**
      * Create has many
      *
-     * @param \ReflectionClass $reflectionClass Reflection class
+     * @param \ReflectionClass $refClass Reflection class
      * @param Object           $obj             Object to create
      * @param mixed            $objId           Id to set
      *
@@ -557,10 +575,10 @@ class DataMapperAbstract implements DataMapperInterface
      *
      * @since  1.0.0
      */
-    private static function createHasMany(\ReflectionClass $reflectionClass, $obj, $objId) : void
+    private static function createHasMany(\ReflectionClass $refClass, $obj, $objId) : void
     {
         foreach (static::$hasMany as $propertyName => $rel) {
-            $property = $reflectionClass->getProperty($propertyName);
+            $property = $refClass->getProperty($propertyName);
 
             if (!($isPublic = $property->isPublic())) {
                 $property->setAccessible(true);
@@ -685,15 +703,15 @@ class DataMapperAbstract implements DataMapperInterface
     /**
      * Create has one
      *
-     * @param string $propertyName Property name to initialize
-     * @param Object $obj          Object to create
+     * @param \ReflectionClass $refClass Property name to initialize
+     * @param Object           $obj             Object to create
      *
      * @return mixed
      * @todo implement???
      *
      * @since  1.0.0
      */
-    private static function createHasOne(\ReflectionClass $reflectionClass, $obj)
+    private static function createHasOne(\ReflectionClass $refClass, $obj)
     {
         throw new \Exception();
     }
@@ -886,7 +904,7 @@ class DataMapperAbstract implements DataMapperInterface
     /**
      * Update has many
      *
-     * @param \ReflectionClass $reflectionClass Reflection class
+     * @param \ReflectionClass $refClass Reflection class
      * @param Object           $obj             Object to create
      * @param mixed            $objId           Id to set
      *
@@ -896,12 +914,12 @@ class DataMapperAbstract implements DataMapperInterface
      *
      * @since  1.0.0
      */
-    private static function updateHasMany(\ReflectionClass $reflectionClass, $obj, $objId) : void
+    private static function updateHasMany(\ReflectionClass $refClass, $obj, $objId) : void
     {
         $objsIds = [];
 
         foreach (static::$hasMany as $propertyName => $rel) {
-            $property = $reflectionClass->getProperty($propertyName);
+            $property = $refClass->getProperty($propertyName);
 
             if (!($isPublic = $property->isPublic())) {
                 $property->setAccessible(true);
@@ -1085,20 +1103,20 @@ class DataMapperAbstract implements DataMapperInterface
      *
      * @param Object           $obj             Model to update
      * @param mixed            $objId           Model id
-     * @param \ReflectionClass $reflectionClass Reflection class
+     * @param \ReflectionClass $refClass Reflection class
      *
      * @return void
      *
      * @since  1.0.0
      */
-    private static function updateModel($obj, $objId, \ReflectionClass $reflectionClass = null) : void
+    private static function updateModel($obj, $objId, \ReflectionClass $refClass = null) : void
     {
         $query = new Builder(self::$db);
         $query->prefix(self::$db->getPrefix())
             ->update(static::$table)
             ->where(static::$table . '.' . static::$primaryField, '=', $objId);
 
-        $properties = $reflectionClass->getProperties();
+        $properties = $refClass->getProperties();
 
         foreach ($properties as $property) {
             $propertyName = $property->getName();
@@ -1129,7 +1147,13 @@ class DataMapperAbstract implements DataMapperInterface
                     $query->set([static::$table . '.' . $column['name'] => $value], $column['type']);
                     break;
                 } elseif ($column['internal'] === $propertyName && $column['type'] !== static::$primaryField) {
-                     $value = self::parseValue($column['type'], $property->getValue($obj));
+                    $tValue = $property->getValue($obj);
+                    if (stripos($column['internal'], '/') !== false) {
+                        $path   = explode($column['internal']);
+                        $path   = implode('/', array_shift($path));
+                        $tValue = ArrayUtils::getArray($path, $tValue, '/');
+                    }
+                    $value = self::parseValue($column['type'], $tValue);
 
                     $query->set([static::$table . '.' . $column['name'] => $value], $column['type']);
                     break;
@@ -1162,9 +1186,9 @@ class DataMapperAbstract implements DataMapperInterface
             return null;
         }
 
-        $reflectionClass = new \ReflectionClass($obj);
-        $objId           = self::getObjectId($obj, $reflectionClass);
-        $update          = true;
+        $refClass = new \ReflectionClass($obj);
+        $objId    = self::getObjectId($obj, $refClass);
+        $update   = true;
 
         // todo: maybe don't remove obj and just update cache... ? since it might have to be loaded again
         self::removeInitialized(static::class, $objId);
@@ -1175,11 +1199,11 @@ class DataMapperAbstract implements DataMapperInterface
         }
 
         if ($relations === RelationType::ALL) {
-            self::updateHasMany($reflectionClass, $obj, $objId);
+            self::updateHasMany($refClass, $obj, $objId);
         }
 
         if ($update) {
-            self::updateModel($obj, $objId, $reflectionClass);
+            self::updateModel($obj, $objId, $refClass);
         }
 
         return $objId;
@@ -1188,7 +1212,7 @@ class DataMapperAbstract implements DataMapperInterface
     /**
      * Delete has many
      *
-     * @param \ReflectionClass $reflectionClass Reflection class
+     * @param \ReflectionClass $refClass Reflection class
      * @param Object           $obj             Object to create
      * @param mixed            $objId           Id to set
      * @param int              $relations       Delete all relations as well
@@ -1199,10 +1223,10 @@ class DataMapperAbstract implements DataMapperInterface
      *
      * @since  1.0.0
      */
-    private static function deleteHasMany(\ReflectionClass $reflectionClass, $obj, $objId, int $relations) : void
+    private static function deleteHasMany(\ReflectionClass $refClass, $obj, $objId, int $relations) : void
     {
         foreach (static::$hasMany as $propertyName => $rel) {
-            $property = $reflectionClass->getProperty($propertyName);
+            $property = $refClass->getProperty($propertyName);
 
             if (!($isPublic = $property->isPublic())) {
                 $property->setAccessible(true);
@@ -1311,13 +1335,13 @@ class DataMapperAbstract implements DataMapperInterface
      * @param Object           $obj             Model to delete
      * @param mixed            $objId           Model id
      * @param int              $relations       Delete all relations as well
-     * @param \ReflectionClass $reflectionClass Reflection class
+     * @param \ReflectionClass $refClass Reflection class
      *
      * @return void
      *
      * @since  1.0.0
      */
-    private static function deleteModel($obj, $objId, int $relations = RelationType::REFERENCE, \ReflectionClass $reflectionClass = null) : void
+    private static function deleteModel($obj, $objId, int $relations = RelationType::REFERENCE, \ReflectionClass $refClass = null) : void
     {
         $query = new Builder(self::$db);
         $query->prefix(self::$db->getPrefix())
@@ -1325,7 +1349,7 @@ class DataMapperAbstract implements DataMapperInterface
             ->from(static::$table)
             ->where(static::$table . '.' . static::$primaryField, '=', $objId);
 
-        $properties = $reflectionClass->getProperties();
+        $properties = $refClass->getProperties();
 
         if ($relations === RelationType::ALL) {
             foreach ($properties as $property) {
@@ -1379,8 +1403,8 @@ class DataMapperAbstract implements DataMapperInterface
             $obj = static::get($obj);
         }
 
-        $reflectionClass = new \ReflectionClass($obj);
-        $objId           = self::getObjectId($obj, $reflectionClass);
+        $refClass = new \ReflectionClass($obj);
+        $objId    = self::getObjectId($obj, $refClass);
 
         if (empty($objId)) {
             return null;
@@ -1389,10 +1413,10 @@ class DataMapperAbstract implements DataMapperInterface
         self::removeInitialized(static::class, $objId);
 
         if ($relations !== RelationType::NONE) {
-            self::deleteHasMany($reflectionClass, $obj, $objId, $relations);
+            self::deleteHasMany($refClass, $obj, $objId, $relations);
         }
 
-        self::deleteModel($obj, $objId, $relations, $reflectionClass);
+        self::deleteModel($obj, $objId, $relations, $refClass);
 
         return $objId;
     }
@@ -1488,23 +1512,23 @@ class DataMapperAbstract implements DataMapperInterface
     public static function populateManyToMany(array $result, &$obj, int $depth = null) : void
     {
         // todo: maybe pass reflectionClass as optional parameter for performance increase
-        $reflectionClass = new \ReflectionClass($obj);
+        $refClass = new \ReflectionClass($obj);
 
         foreach ($result as $member => $values) {
-            if (!empty($values) && $reflectionClass->hasProperty($member)) {
+            if (!empty($values) && $refClass->hasProperty($member)) {
                 /** @var string $mapper */
-                $mapper             = static::$hasMany[$member]['mapper'];
-                $reflectionProperty = $reflectionClass->getProperty($member);
+                $mapper  = static::$hasMany[$member]['mapper'];
+                $refProp = $refClass->getProperty($member);
 
-                if (!($accessible = $reflectionProperty->isPublic())) {
-                    $reflectionProperty->setAccessible(true);
+                if (!($accessible = $refProp->isPublic())) {
+                    $refProp->setAccessible(true);
                 }
 
                 $objects = $mapper::get($values, RelationType::ALL, null, $depth);
-                $reflectionProperty->setValue($obj, !is_array($objects) ? [$objects->getId() => $objects] : $objects);
+                $refProp->setValue($obj, !is_array($objects) ? [$objects->getId() => $objects] : $objects);
 
                 if (!$accessible) {
-                    $reflectionProperty->setAccessible(false);
+                    $refProp->setAccessible(false);
                 }
             }
         }
@@ -1548,20 +1572,20 @@ class DataMapperAbstract implements DataMapperInterface
      */
     public static function populateHasOne(&$obj, int $depth = null) : void
     {
-        $reflectionClass = new \ReflectionClass($obj);
+        $refClass = new \ReflectionClass($obj);
 
         foreach (static::$hasOne as $member => $one) {
             // todo: is that if necessary? performance is suffering for sure!
-            if ($reflectionClass->hasProperty($member)) {
-                $reflectionProperty = $reflectionClass->getProperty($member);
+            if ($refClass->hasProperty($member)) {
+                $refProp = $refClass->getProperty($member);
 
-                if (!($accessible = $reflectionProperty->isPublic())) {
-                    $reflectionProperty->setAccessible(true);
+                if (!($accessible = $refProp->isPublic())) {
+                    $refProp->setAccessible(true);
                 }
 
                 /** @var string $mapper */
                 $mapper = static::$hasOne[$member]['mapper'];
-                $id     = $reflectionProperty->getValue($obj);
+                $id     = $refProp->getValue($obj);
 
                 if (self::isNullObject($id)) {
                     continue;
@@ -1570,10 +1594,10 @@ class DataMapperAbstract implements DataMapperInterface
                 $id    = is_object($id) ? self::getObjectId($id) : $id;
                 $value = self::getInitialized($mapper, $id) ?? $mapper::get($id, RelationType::ALL, null, $depth);
 
-                $reflectionProperty->setValue($obj, $value);
+                $refProp->setValue($obj, $value);
 
                 if (!$accessible) {
-                    $reflectionProperty->setAccessible(false);
+                    $refProp->setAccessible(false);
                 }
             }
         }
@@ -1614,20 +1638,20 @@ class DataMapperAbstract implements DataMapperInterface
      */
     public static function populateOwnsOne(&$obj, int $depth = null) : void
     {
-        $reflectionClass = new \ReflectionClass($obj);
+        $refClass = new \ReflectionClass($obj);
 
         foreach (static::$ownsOne as $member => $one) {
             // todo: is that if necessary? performance is suffering for sure!
-            if ($reflectionClass->hasProperty($member)) {
-                $reflectionProperty = $reflectionClass->getProperty($member);
+            if ($refClass->hasProperty($member)) {
+                $refProp = $refClass->getProperty($member);
 
-                if (!($accessible = $reflectionProperty->isPublic())) {
-                    $reflectionProperty->setAccessible(true);
+                if (!($accessible = $refProp->isPublic())) {
+                    $refProp->setAccessible(true);
                 }
 
                 /** @var string $mapper */
                 $mapper = static::$ownsOne[$member]['mapper'];
-                $id     = $reflectionProperty->getValue($obj);
+                $id     = $refProp->getValue($obj);
 
                 if (self::isNullObject($id)) {
                     continue;
@@ -1636,10 +1660,10 @@ class DataMapperAbstract implements DataMapperInterface
                 $id    = is_object($id) ? self::getObjectId($id) : $id;
                 $value = self::getInitialized($mapper, $id) ?? $mapper::get($id, RelationType::ALL, null, $depth);
 
-                $reflectionProperty->setValue($obj, $value);
+                $refProp->setValue($obj, $value);
 
                 if (!$accessible) {
-                    $reflectionProperty->setAccessible(false);
+                    $refProp->setAccessible(false);
                 }
             }
         }
@@ -1680,20 +1704,20 @@ class DataMapperAbstract implements DataMapperInterface
      */
     public static function populateBelongsTo(&$obj, int $depth = null) : void
     {
-        $reflectionClass = new \ReflectionClass($obj);
+        $refClass = new \ReflectionClass($obj);
 
         foreach (static::$belongsTo as $member => $one) {
             // todo: is that if necessary? performance is suffering for sure!
-            if ($reflectionClass->hasProperty($member)) {
-                $reflectionProperty = $reflectionClass->getProperty($member);
+            if ($refClass->hasProperty($member)) {
+                $refProp = $refClass->getProperty($member);
 
-                if (!($accessible = $reflectionProperty->isPublic())) {
-                    $reflectionProperty->setAccessible(true);
+                if (!($accessible = $refProp->isPublic())) {
+                    $refProp->setAccessible(true);
                 }
 
                 /** @var string $mapper */
                 $mapper = static::$belongsTo[$member]['mapper'];
-                $id     = $reflectionProperty->getValue($obj);
+                $id     = $refProp->getValue($obj);
 
                 if (self::isNullObject($id)) {
                     continue;
@@ -1702,10 +1726,10 @@ class DataMapperAbstract implements DataMapperInterface
                 $id    = is_object($id) ? self::getObjectId($id) : $id;
                 $value = self::getInitialized($mapper, $id) ?? $mapper::get($id, RelationType::ALL, null, $depth);
 
-                $reflectionProperty->setValue($obj, $value);
+                $refProp->setValue($obj, $value);
 
                 if (!$accessible) {
-                    $reflectionProperty->setAccessible(false);
+                    $refProp->setAccessible(false);
                 }
             }
         }
@@ -1746,38 +1770,59 @@ class DataMapperAbstract implements DataMapperInterface
      */
     public static function populateAbstract(array $result, $obj)
     {
-        $reflectionClass = new \ReflectionClass($obj);
+        $refClass = new \ReflectionClass($obj);
 
         foreach ($result as $column => $value) {
-            if (!isset(static::$columns[$column]['internal']) /* && $reflectionClass->hasProperty(static::$columns[$column]['internal']) */) {
+            if (!isset(static::$columns[$column]['internal']) /* && $refClass->hasProperty(static::$columns[$column]['internal']) */) {
                 continue;
             }
 
-            $reflectionProperty = $reflectionClass->getProperty(static::$columns[$column]['internal']);
+            if (stripos(static::$columns[$column]['internal'], '/') !== false) {
+                $refProp = $refClass->getProperty(explode('/', static::$columns[$column]['internal'])[0]);
+                $path    = explode(static::$columns[$column]['internal']);
+                $path    = implode('/', array_shift($path));
+                $aValue  = $refProp->getValue($obj);
+            } else {
+                $refProp = $refClass->getProperty(static::$columns[$column]['internal']);
+            }
 
-            if (!($accessible = $reflectionProperty->isPublic())) {
-                $reflectionProperty->setAccessible(true);
+            if (!($accessible = $refProp->isPublic())) {
+                $refProp->setAccessible(true);
             }
 
             if (in_array(static::$columns[$column]['type'], ['string', 'int', 'float', 'bool'])) {
-                if ($value !== null || $reflectionProperty->getValue($obj) !== null) {
+                // todo: what is this or condition for? seems to be wrong if obj null then it doesn't work anyways
+                if ($value !== null || $refProp->getValue($obj) !== null) {
                     settype($value, static::$columns[$column]['type']);
                 }
 
-                $reflectionProperty->setValue($obj, $value);
+                if (isset($path)) {
+                    $value = ArrayUtils::setArray($path, $aValue, $value, '/', true);
+                }
+
+                $refProp->setValue($obj, $value);
             } elseif (static::$columns[$column]['type'] === 'DateTime') {
-                $reflectionProperty->setValue($obj, new \DateTime($value ?? ''));
+                $value = new \DateTime($value ?? '');
+                if (stripos(static::$columns[$column]['internal'], '/') !== false) {
+                    $value = ArrayUtils::setArray($path, $aValue, $value, '/', true);
+                }
+
+                $refProp->setValue($obj, $value);
             } elseif (static::$columns[$column]['type'] === 'Json') {
-                $reflectionProperty->setValue($obj, json_decode($value, true));
+                if (stripos(static::$columns[$column]['internal'], '/') !== false) {
+                    $value = ArrayUtils::setArray($path, $aValue, $value, '/', true);
+                }
+
+                $refProp->setValue($obj, json_decode($value, true));
             } elseif (static::$columns[$column]['type'] === 'Serializable') {
-                $member = $reflectionProperty->getValue($obj);
+                $member = $refProp->getValue($obj);
                 $member->unserialize($value);
             } else {
                 throw new \UnexpectedValueException('Value "' . static::$columns[$column]['type'] . '" is not supported.');
             }
 
             if (!$accessible) {
-                $reflectionProperty->setAccessible(false);
+                $refProp->setAccessible(false);
             }
         }
 
@@ -1798,21 +1843,23 @@ class DataMapperAbstract implements DataMapperInterface
     public static function populateAbstractArray(array $result) : array
     {
         $obj = [];
-
         foreach ($result as $column => $value) {
             if (isset(static::$columns[$column]['internal'])) {
+                $path = static::$columns[$column]['internal'];
+                if (stripos($path, '/') !== false) {
+                    $path = explode($path);
+                    $path = implode('/', array_shift($path));
+                }
+
                 if (in_array(static::$columns[$column]['type'], ['string', 'int', 'float', 'bool'])) {
                     settype($value, static::$columns[$column]['type']);
-                    $obj[static::$columns[$column]['internal']] = $value;
                 } elseif (static::$columns[$column]['type'] === 'DateTime') {
-                    $obj[static::$columns[$column]['internal']] = new \DateTime($value ?? '');
+                    $value = new \DateTime($value ?? '');
                 } elseif (static::$columns[$column]['type'] === 'Json') {
-                    $obj[static::$columns[$column]['internal']] = json_decode($value, true);
-                } elseif (static::$columns[$column]['type'] === 'Serializable') {
-                    $obj[static::$columns[$column]['internal']] = $value;
-                } else {
-                    throw new \UnexpectedValueException('Value "' . static::$columns[$column]['type'] . '" is not supported.');
+                    $value = json_decode($value, true);
                 }
+
+                $obj = ArrayUtils::setArray($path, $obj, $value, '/', true);
             }
         }
 

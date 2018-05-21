@@ -125,6 +125,10 @@ final class ArrayUtils
         $current   = $data;
 
         foreach ($pathParts as $key) {
+            if (!isset($current[$key])) {
+                return null;
+            }
+            
             $current = $current[$key];
         }
 
