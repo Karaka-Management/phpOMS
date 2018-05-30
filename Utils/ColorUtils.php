@@ -40,7 +40,7 @@ final class ColorUtils
      *
      * @param int $rgbInt Value to convert
      *
-     * @return array
+     * @return array<string, int>
      *
      * @since  1.0.0
      */

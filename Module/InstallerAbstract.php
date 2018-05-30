@@ -68,7 +68,7 @@ class InstallerAbstract
                 $load = $info->getLoad();
                 foreach ($load as $val) {
                     foreach ($val['pid'] as $pid) {
-                        $sth->bindValue(':pid', sha1(str_replace('/', '', $pid)), \PDO::PARAM_STR);
+                        $sth->bindValue(':pid', sha1(\str_replace('/', '', $pid)), \PDO::PARAM_STR);
                         $sth->bindValue(':type', $val['type'], \PDO::PARAM_INT);
                         $sth->bindValue(':from', $val['from'], \PDO::PARAM_STR);
                         $sth->bindValue(':for', $val['for'], \PDO::PARAM_STR);
@@ -148,7 +148,7 @@ class InstallerAbstract
      */
     private static function initRoutes(InfoManager $info) : void
     {
-        $directories = new Directory(dirname($info->getPath()) . '/Admin/Routes');
+        $directories = new Directory(\dirname($info->getPath()) . '/Admin/Routes');
 
         foreach ($directories as $key => $subdir) {
             if ($subdir instanceof Directory) {
@@ -173,15 +173,15 @@ class InstallerAbstract
      */
     private static function installRoutes(string $destRoutePath, string $srcRoutePath) : void
     {
-        if (!file_exists($destRoutePath)) {
-            file_put_contents($destRoutePath, '<?php return [];');
+        if (!\file_exists($destRoutePath)) {
+            \file_put_contents($destRoutePath, '<?php return [];');
         }
 
-        if (!file_exists($srcRoutePath)) {
+        if (!\file_exists($srcRoutePath)) {
             return;
         }
 
-        if (!file_exists($destRoutePath)) {
+        if (!\file_exists($destRoutePath)) {
             throw new PathException($destRoutePath);
         }
 
@@ -196,7 +196,7 @@ class InstallerAbstract
 
         $appRoutes = array_merge_recursive($appRoutes, $moduleRoutes);
 
-        file_put_contents($destRoutePath, '<?php return ' . ArrayParser::serializeArray($appRoutes) . ';', LOCK_EX);
+        \file_put_contents($destRoutePath, '<?php return ' . ArrayParser::serializeArray($appRoutes) . ';', LOCK_EX);
     }
 
     /**
@@ -212,7 +212,7 @@ class InstallerAbstract
      */
     private static function initHooks(InfoManager $info) : void
     {
-        $directories = new Directory(dirname($info->getPath()) . '/Admin/Hooks');
+        $directories = new Directory(\dirname($info->getPath()) . '/Admin/Hooks');
 
         foreach ($directories as $key => $subdir) {
             if ($subdir instanceof Directory) {
@@ -237,15 +237,15 @@ class InstallerAbstract
      */
     private static function installHooks(string $destHookPath, string $srcHookPath) : void
     {
-        if (!file_exists($destHookPath)) {
-            file_put_contents($destHookPath, '<?php return [];');
+        if (!\file_exists($destHookPath)) {
+            \file_put_contents($destHookPath, '<?php return [];');
         }
 
-        if (!file_exists($srcHookPath)) {
+        if (!\file_exists($srcHookPath)) {
             return;
         }
 
-        if (!file_exists($destHookPath)) {
+        if (!\file_exists($destHookPath)) {
             throw new PathException($destHookPath);
         }
 
@@ -260,6 +260,6 @@ class InstallerAbstract
 
         $appHooks = array_merge_recursive($appHooks, $moduleHooks);
 
-        file_put_contents($destHookPath, '<?php return ' . ArrayParser::serializeArray($appHooks) . ';', LOCK_EX);
+        \file_put_contents($destHookPath, '<?php return ' . ArrayParser::serializeArray($appHooks) . ';', LOCK_EX);
     }
 }

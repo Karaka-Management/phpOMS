@@ -105,11 +105,11 @@ final class PackageManager
      */
     public function load() : void
     {
-        if (!file_exists($this->extractPath)) {
+        if (!\file_exists($this->extractPath)) {
             throw new PathException($this->extractPath);
         }
 
-        $this->info = json_decode(file_get_contents($this->extractPath . '/info.json'), true);
+        $this->info = \json_decode(file_get_contents($this->extractPath . '/info.json'), true);
     }
 
     /**
@@ -141,7 +141,7 @@ final class PackageManager
                 continue;
             }
 
-            \sodium_crypto_generichash_update($state, file_get_contents($this->extractPath . '/package/' . $file));
+            \sodium_crypto_generichash_update($state, \file_get_contents($this->extractPath . '/package/' . $file));
         }
 
         return \sodium_crypto_generichash_final();

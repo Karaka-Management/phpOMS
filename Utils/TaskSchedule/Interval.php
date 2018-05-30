@@ -116,7 +116,7 @@ class Interval implements \Serializable
      */
     public function unserialize($serialized)
     {
-        $elements = explode(' ', trim($serialized));
+        $elements = \explode(' ', trim($serialized));
 
         $this->minute     = $this->parseMinute($elements[0]);
         $this->hour       = $this->parseHour($elements[1]);

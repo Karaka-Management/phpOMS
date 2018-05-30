@@ -75,7 +75,7 @@ class Iban implements \Serializable
      */
     public static function normalize(string $iban) : string
     {
-        return strtoupper(str_replace(' ', '', $iban));
+        return strtoupper(\str_replace(' ', '', $iban));
     }
 
     /**
@@ -114,9 +114,9 @@ class Iban implements \Serializable
     private function getSequence(string $sequence) : string
     {
         $country = $this->getCountry();
-        $layout  = str_replace(' ', '', IbanEnum::getByName('C_' . $country));
+        $layout  = \str_replace(' ', '', IbanEnum::getByName('C_' . $country));
 
-        $start = stripos($layout, $sequence);
+        $start = \stripos($layout, $sequence);
         $end   = strrpos($layout, $sequence);
 
         if ($start === false) {

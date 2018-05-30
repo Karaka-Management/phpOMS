@@ -14,8 +14,13 @@ declare(strict_types=1);
 
 namespace phpOMS\Math\Matrix;
 
+use phpOMS\Math\Matrix\Exception\InvalidDimensionException;
+use phpOMS\Math\Geometry\Shape\D2\Triangle;
+
 /**
  * QR decomposition
+ * 
+ * For every matrix A = Q*R
  *
  * @package    phpOMS\Math\Matrix
  * @license    OMS License 1.0
@@ -24,26 +29,58 @@ namespace phpOMS\Math\Matrix;
  */
 final class QRDecomposition
 {
+    /**
+     * QR matrix.
+     *
+     * @var array[]
+     * @since 1.0.0
+     */
     private $QR = [];
 
+    /**
+     * Dimension m
+     *
+     * @var int
+     * @since 1.0.0
+     */
     private $m = 0;
+
+    /**
+     * Dimension n
+     *
+     * @var int
+     * @since 1.0.0
+     */
     private $n = 0;
 
+    /**
+     * R diagonal
+     *
+     * @var array
+     * @since 1.0.0
+     */
     private $Rdiag = [];
 
+    /**
+     * Constructor.
+     *
+     * @param Matrix $M Matrix
+     *
+     * @since  1.0.0
+     */
     public function __construct(Matrix $M)
     {
         // Initialize.
         $this->QR = $M->toArray();
-        $this->m  = $M->getRowDimension();
-        $this->n  = $M->getColumnDimension();
+        $this->m  = $M->getM();
+        $this->n  = $M->getN();
 
         // Main loop.
         for ($k = 0; $k < $this->n; ++$k) {
             // Compute 2-norm of k-th column without under/overflow.
             $nrm = 0.0;
             for ($i = $k; $i < $this->m; ++$i) {
-                $nrm = hypo($nrm, $this->QR[$i][$k]);
+                $nrm = Triangle::getHypot($nrm, $this->QR[$i][$k]);
             }
 
             if ($nrm != 0.0) {
@@ -57,6 +94,7 @@ final class QRDecomposition
                 }
 
                 $this->QR[$k][$k] += 1.0;
+
                 // Apply transformation to remaining columns.
                 for ($j = $k + 1; $j < $this->n; ++$j) {
                     $s = 0.0;
@@ -75,6 +113,13 @@ final class QRDecomposition
         }
     }
 
+    /**
+     * Matrix has full rank
+     *
+     * @return bool
+     *
+     * @since  1.0.0
+     */
     public function isFullRank() : bool
     {
         for ($j = 0; $j < $this->n; ++$j) {
@@ -86,6 +131,13 @@ final class QRDecomposition
         return true;
     }
 
+    /**
+     * Get H matrix
+     *
+     * @return Matrix
+     *
+     * @since  1.0.0
+     */
     public function getH() : Matrix
     {
         $H = [[]];
@@ -101,11 +153,18 @@ final class QRDecomposition
         }
 
         $matrix = new Matrix();
-        $matrix->setArray($H);
+        $matrix->setMatrix($H);
 
         return $matrix;
     }
 
+    /**
+     * Get R matrix
+     *
+     * @return Matrix
+     *
+     * @since  1.0.0
+     */
     public function getR() : Matrix
     {
         $R = [[]];
@@ -123,11 +182,18 @@ final class QRDecomposition
         }
 
         $matrix = new Matrix();
-        $matrix->setArray($R);
+        $matrix->setMatrix($R);
 
         return $matrix;
     }
 
+    /**
+     * Get Q matrix
+     *
+     * @return Matrix
+     *
+     * @since  1.0.0
+     */
     public function getQ() : Matrix
     {
         $Q = [[]];
@@ -144,6 +210,7 @@ final class QRDecomposition
                     for ($i = $k; $i < $this->m; ++$i) {
                         $s += $this->QR[$i][$k] * $Q[$i][$j];
                     }
+
                     $s = -$s / $this->QR[$k][$k];
                     for ($i = $k; $i < $this->m; ++$i) {
                         $Q[$i][$j] += $s * $this->QR[$i][$k];
@@ -153,21 +220,33 @@ final class QRDecomposition
         }
 
         $matrix = new Matrix();
-        $matrix->setArray($Q);
+        $matrix->setMatrix($Q);
 
         return $matrix;
     }
 
+    /**
+     * Solve Ax = b
+     *
+     * @param Matrix $B Matrix
+     *
+     * @return Matrix
+     *
+     * @since  1.0.0
+     */
     public function solve(Matrix $B) : Matrix
     {
-        if ($B->getRowDimension() !== $this->m) {
+        if ($B->getM() !== $this->m) {
+            throw new InvalidDimensionException($B->getM());
         }
 
         if (!$this->isFullRank()) {
+            throw new \Exception('Rank');
         }
 
-        $nx = $B->getColumnDimension();
-        $X  = $B->getArrayCopy();
+        $nx = $B->getN();
+        $X  = $B->toArray();
+        
         // Compute Y = transpose(Q)*B
         for ($k = 0; $k < $this->n; ++$k) {
             for ($j = 0; $j < $nx; ++$j) {
@@ -175,17 +254,20 @@ final class QRDecomposition
                 for ($i = $k; $i < $this->m; ++$i) {
                     $s += $this->QR[$i][$k] * $X[$i][$j];
                 }
+
                 $s = -$s / $this->QR[$k][$k];
                 for ($i = $k; $i < $this->m; ++$i) {
                     $X[$i][$j] += $s * $this->QR[$i][$k];
                 }
             }
         }
+
         // Solve R*X = Y;
         for ($k = $this->n - 1; $k >= 0; --$k) {
             for ($j = 0; $j < $nx; ++$j) {
                 $X[$k][$j] /= $this->Rdiag[$k];
             }
+
             for ($i = 0; $i < $k; ++$i) {
                 for ($j = 0; $j < $nx; ++$j) {
                     $X[$i][$j] -= $X[$k][$j] * $this->QR[$i][$k];
@@ -194,8 +276,8 @@ final class QRDecomposition
         }
 
         $matrix = new Matrix();
-        $matrix->setArray($X);
+        $matrix->setMatrix($X);
 
-        return $matrix;
+        return $matrix->getSubMatrix(0, $this->n - 1, 0, $nx - 1);
     }
 }

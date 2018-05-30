@@ -270,7 +270,7 @@ final class StringUtils
         if ($charlist === ' ') {
             return trim($string);
         } else {
-            $charlist = str_replace('/', '\/', preg_quote($charlist));
+            $charlist = \str_replace('/', '\/', preg_quote($charlist));
 
             return preg_replace('/(^[' . $charlist . ']+)|([ ' . $charlist . ']+$)/us', '', $string);
         }
@@ -291,7 +291,7 @@ final class StringUtils
         if ($charlist === ' ') {
             return rtrim($string);
         } else {
-            $charlist = str_replace('/', '\/', preg_quote($charlist));
+            $charlist = \str_replace('/', '\/', preg_quote($charlist));
 
             return preg_replace('/([' . $charlist . ']+$)/us', '', $string);
         }
@@ -310,9 +310,9 @@ final class StringUtils
     public static function mb_ltrim(string $string, string $charlist = ' ') : string
     {
         if ($charlist === ' ') {
-            return ltrim($string);
+            return \ltrim($string);
         } else {
-            $charlist = str_replace('/', '\/', preg_quote($charlist));
+            $charlist = \str_replace('/', '\/', preg_quote($charlist));
 
             return preg_replace('/(^[' . $charlist . ']+)/us', '', $string);
         }
@@ -375,7 +375,7 @@ final class StringUtils
      *
      * @param string $input String to count chars.
      *
-     * @return array
+     * @return array<string, int>
      *
      * @since  1.0.0
      */

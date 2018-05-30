@@ -297,7 +297,7 @@ class Location implements \JsonSerializable, \Serializable
      */
     public function serialize() : string
     {
-        return json_encode($this->jsonSerialize());
+        return \json_encode($this->jsonSerialize());
     }
 
     /**

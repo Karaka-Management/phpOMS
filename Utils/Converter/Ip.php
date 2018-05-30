@@ -47,7 +47,7 @@ class Ip
      */
     public static function ip2Float(string $ip) : float
     {
-        $split = explode('.', $ip);
+        $split = \explode('.', $ip);
 
         return $split[0] * (256 ** 3) + $split[1] * (256 ** 2) + $split[2] * (256 ** 1) + $split[3];
     }

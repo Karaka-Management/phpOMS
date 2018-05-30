@@ -24,7 +24,7 @@ class RouteVerbTest extends \PHPUnit\Framework\TestCase
         self::assertTrue(
             PhpCode::hasUnicode(
                 PhpCode::normalizeSource(
-                    file_get_contents(__DIR__ . '/Sample/hasUnicode.php')
+                    \file_get_contents(__DIR__ . '/Sample/hasUnicode.php')
                 )
             )
         );
@@ -32,7 +32,7 @@ class RouteVerbTest extends \PHPUnit\Framework\TestCase
         self::assertFalse(
             PhpCode::hasUnicode(
                 PhpCode::normalizeSource(
-                    file_get_contents(__DIR__ . '/Sample/noUnicode.php')
+                    \file_get_contents(__DIR__ . '/Sample/noUnicode.php')
                 )
             )
         );
@@ -49,7 +49,7 @@ class RouteVerbTest extends \PHPUnit\Framework\TestCase
         self::assertTrue(
             PhpCode::hasDeprecatedFunction(
                 PhpCode::normalizeSource(
-                    file_get_contents(__DIR__ . '/Sample/hasDeprecated.php')
+                    \file_get_contents(__DIR__ . '/Sample/hasDeprecated.php')
                 )
             )
         );
@@ -57,7 +57,7 @@ class RouteVerbTest extends \PHPUnit\Framework\TestCase
         self::assertFalse(
             PhpCode::hasDeprecatedFunction(
                 PhpCode::normalizeSource(
-                    file_get_contents(__DIR__ . '/Sample/noDeprecated.php')
+                    \file_get_contents(__DIR__ . '/Sample/noDeprecated.php')
                 )
             )
         );

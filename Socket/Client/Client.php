@@ -98,7 +98,7 @@ class Client extends SocketAbstract
                     $data = trim($data);
 
                     if (!empty($data)) {
-                        $data = explode(' ', $data);
+                        $data = \explode(' ', $data);
                         $this->commands->trigger($data[0], 0, $data);
                     }
                 }

@@ -44,7 +44,7 @@ class FileTest extends \PHPUnit\Framework\TestCase
         self::assertTrue(File::prepend($testFile, 'test5'));
         self::assertEquals('test5test3test4', File::get($testFile));
 
-        self::assertEquals(str_replace('\\', '/', realpath(dirname($testFile) . '/../')), File::parent($testFile));
+        self::assertEquals(\str_replace('\\', '/', realpath(\dirname($testFile) . '/../')), File::parent($testFile));
         self::assertEquals('txt', File::extension($testFile));
         self::assertEquals('test', File::name($testFile));
         self::assertEquals('test.txt', File::basename($testFile));

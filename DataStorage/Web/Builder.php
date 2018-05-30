@@ -11,7 +11,7 @@
  * @link       http://website.orange-management.de
  */
 declare(strict_types=1);
-namespace phpOMS\Utils\Crawler;
+namespace phpOMS\DataStorage\Web;
 
 use phpOMs\DataStorage\Database\Query\Builder as DatabaseQueryBuilder;
 use phpOMS\Localization\Localization;
@@ -26,7 +26,7 @@ use phpOMS\Uri\Http;
  * @link       http://website.orange-management.de
  * @since      1.0.0
  */
-class Builder extends DatabaseQueryBuilder
+class Builder
 {
 
     private function download($uri)

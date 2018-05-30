@@ -136,7 +136,7 @@ final class Validator extends ValidatorAbstract
      */
     public static function matches(string $var, string $pattern) : bool
     {
-        return (preg_match($pattern, $var) === 1 ? true : false);
+        return (\preg_match($pattern, $var) === 1 ? true : false);
     }
 
     /**

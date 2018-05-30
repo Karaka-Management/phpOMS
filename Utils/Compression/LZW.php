@@ -65,7 +65,7 @@ class LZW implements CompressionInterface
      */
     public function decompress(string $compressed) : string
     {
-        $compressed = explode(',', $compressed);
+        $compressed = \explode(',', $compressed);
         $dictionary = [];
         $entry      = '';
         $dictSize   = 256;

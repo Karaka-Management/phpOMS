@@ -130,27 +130,27 @@ class Server extends SocketAbstract
         // todo: different handshake for normal tcp connection
         return true;
 
-        if (preg_match("/Sec-WebSocket-Version: (.*)\r\n/", $headers, $match)) {
+        if (\preg_match("/Sec-WebSocket-Version: (.*)\r\n/", $headers, $match)) {
             $version = $match[1];
         } else {
             return false;
         }
 
         if ($version == 13) {
-            if (preg_match("/GET (.*) HTTP/", $headers, $match)) {
+            if (\preg_match("/GET (.*) HTTP/", $headers, $match)) {
                 $root = $match[1];
             }
 
-            if (preg_match("/Host: (.*)\r\n/", $headers, $match)) {
+            if (\preg_match("/Host: (.*)\r\n/", $headers, $match)) {
                 $host = $match[1];
             }
 
-            if (preg_match("/Origin: (.*)\r\n/", $headers, $match)) {
+            if (\preg_match("/Origin: (.*)\r\n/", $headers, $match)) {
                 $origin = $match[1];
             }
 
             $key = '';
-            if (preg_match("/Sec-WebSocket-Key: (.*)\r\n/", $headers, $match)) {
+            if (\preg_match("/Sec-WebSocket-Key: (.*)\r\n/", $headers, $match)) {
                 $key = $match[1];
             }
 

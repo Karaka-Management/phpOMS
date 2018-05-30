@@ -370,7 +370,7 @@ abstract class C128Abstract
      *
      * @param string $codeString Code string to render
      *
-     * @return array
+     * @return array<string, int>
      *
      * @since  1.0.0
      */

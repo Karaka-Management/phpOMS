@@ -219,7 +219,7 @@ class FileCache extends ConnectionAbstract
         if ($type === CacheValueType::_INT || $type === CacheValueType::_FLOAT || $type === CacheValueType::_STRING || $type === CacheValueType::_BOOL) {
             return (string) $value;
         } elseif ($type === CacheValueType::_ARRAY) {
-            return json_encode($value);
+            return \json_encode($value);
         } elseif ($type === CacheValueType::_SERIALIZABLE) {
             return get_class($value) . self::DELIM . $value->serialize();
         } elseif ($type === CacheValueType::_JSONSERIALIZABLE) {
@@ -315,7 +315,7 @@ class FileCache extends ConnectionAbstract
                 $value = substr($raw, $expireEnd + 1);
                 break;
             case CacheValueType::_ARRAY:
-                $value = json_decode(substr($raw, $expireEnd + 1));
+                $value = \json_decode(substr($raw, $expireEnd + 1));
                 break;
             case CacheValueType::_NULL:
                 $value = null;
@@ -353,7 +353,7 @@ class FileCache extends ConnectionAbstract
         if ($expire >= 0) {
             $created     = Directory::created(File::sanitize($key, self::SANITIZE))->getTimestamp();
             $now         = time();
-            $raw         = file_get_contents($path);
+            $raw         = \file_get_contents($path);
             $expireStart = strpos($raw, self::DELIM);
             $expireEnd   = strpos($raw, self::DELIM, $expireStart + 1);
             $cacheExpire = substr($raw, $expireStart + 1, $expireEnd - ($expireStart + 1));

@@ -38,7 +38,7 @@ class TaskScheduler extends SchedulerAbstract
      */
     private function run(string $cmd) : string
     {
-        $cmd = 'cd ' . escapeshellarg(dirname(self::$bin)) . ' && ' . basename(self::$bin) . ' ' . $cmd;
+        $cmd = 'cd ' . escapeshellarg(\dirname(self::$bin)) . ' && ' . basename(self::$bin) . ' ' . $cmd;
 
         $pipes = [];
         $desc  = [
@@ -74,7 +74,7 @@ class TaskScheduler extends SchedulerAbstract
      */
     private function normalize(string $raw) : string
     {
-        return str_replace("\r\n", "\n", $raw);
+        return \str_replace("\r\n", "\n", $raw);
     }
 
     /**
@@ -82,7 +82,7 @@ class TaskScheduler extends SchedulerAbstract
      */
     public function getAll() : array
     {
-        $lines = explode("\n", $this->normalize($this->run('/query /v /fo CSV')));
+        $lines = \explode("\n", $this->normalize($this->run('/query /v /fo CSV')));
         unset($lines[0]);
 
         $jobs = [];
@@ -99,7 +99,7 @@ class TaskScheduler extends SchedulerAbstract
     public function getAllByName(string $name, bool $exact = true) : array
     {
         if ($exact) {
-            $lines = explode("\n", $this->normalize($this->run('/query /v /fo CSV /tn ' . escapeshellarg($name))));
+            $lines = \explode("\n", $this->normalize($this->run('/query /v /fo CSV /tn ' . escapeshellarg($name))));
             unset($lines[0]);
 
             $jobs = [];
@@ -107,7 +107,7 @@ class TaskScheduler extends SchedulerAbstract
                 $jobs[] = Schedule::createWith(str_getcsv($line));
             }
         } else {
-            $lines = explode("\n", $this->normalize($this->run('/query /v /fo CSV')));
+            $lines = \explode("\n", $this->normalize($this->run('/query /v /fo CSV')));
             unset($lines[0]);
 
             $jobs = [];

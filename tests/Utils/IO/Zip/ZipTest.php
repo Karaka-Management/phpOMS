@@ -39,11 +39,11 @@ class ZipTest extends \PHPUnit\Framework\TestCase
             false
         ));
 
-        $a = file_get_contents(__DIR__ . '/test a.txt');
-        $b = file_get_contents(__DIR__ . '/test b.md');
-        $c = file_get_contents(__DIR__ . '/test/test c.txt');
-        $d = file_get_contents(__DIR__ . '/test/test d.txt');
-        $e = file_get_contents(__DIR__ . '/test/sub/test e.txt');
+        $a = \file_get_contents(__DIR__ . '/test a.txt');
+        $b = \file_get_contents(__DIR__ . '/test b.md');
+        $c = \file_get_contents(__DIR__ . '/test/test c.txt');
+        $d = \file_get_contents(__DIR__ . '/test/test d.txt');
+        $e = \file_get_contents(__DIR__ . '/test/sub/test e.txt');
 
         unlink(__DIR__ . '/test a.txt');
         unlink(__DIR__ . '/test b.md');
@@ -71,11 +71,11 @@ class ZipTest extends \PHPUnit\Framework\TestCase
         self::assertTrue(file_exists(__DIR__ . '/test/sub'));
         self::assertTrue(file_exists(__DIR__ . '/test'));
 
-        self::assertEquals($a, file_get_contents(__DIR__ . '/test a.txt'));
-        self::assertEquals($b, file_get_contents(__DIR__ . '/test b.md'));
-        self::assertEquals($c, file_get_contents(__DIR__ . '/test/test c.txt'));
-        self::assertEquals($d, file_get_contents(__DIR__ . '/test/test d.txt'));
-        self::assertEquals($e, file_get_contents(__DIR__ . '/test/sub/test e.txt'));
+        self::assertEquals($a, \file_get_contents(__DIR__ . '/test a.txt'));
+        self::assertEquals($b, \file_get_contents(__DIR__ . '/test b.md'));
+        self::assertEquals($c, \file_get_contents(__DIR__ . '/test/test c.txt'));
+        self::assertEquals($d, \file_get_contents(__DIR__ . '/test/test d.txt'));
+        self::assertEquals($e, \file_get_contents(__DIR__ . '/test/sub/test e.txt'));
 
         unlink(__DIR__ . '/test.zip');
         self::assertFalse(file_exists(__DIR__ . '/test.zip'));

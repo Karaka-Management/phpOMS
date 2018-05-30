@@ -106,7 +106,7 @@ final class Response extends ResponseAbstract implements RenderableInterface
 
         foreach ($types as $type) {
             if (stripos($type, MimeType::M_JSON) !== false) {
-                return json_encode($this->jsonSerialize());
+                return \json_encode($this->jsonSerialize());
             }
         }
 
@@ -132,7 +132,7 @@ final class Response extends ResponseAbstract implements RenderableInterface
             } elseif (is_string($response) || is_numeric($response)) {
                 $render .= $response;
             } elseif (is_array($response)) {
-                $render .= json_encode($response);
+                $render .= \json_encode($response);
                 // TODO: remove this. This should never happen since then someone forgot to set the correct header. it should be json header!
             } else {
                 throw new \Exception('Wrong response type');

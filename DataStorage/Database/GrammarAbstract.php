@@ -245,7 +245,7 @@ abstract class GrammarAbstract
         }
 
         // todo: move remaining * test also here not just if .* but also if * (should be done in else?)
-        if (count($split = explode('.', $system)) === 2) {
+        if (count($split = \explode('.', $system)) === 2) {
             $system = $split[1] === '*' ? $split[1] : $this->compileSystem($split[1]);
 
             return $this->compileSystem($prefix . $split[0]) . '.' . $system;

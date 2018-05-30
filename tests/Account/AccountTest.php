@@ -98,7 +98,7 @@ class AccountTest extends \PHPUnit\Framework\TestCase
         $array = $account->toArray();
         self::assertTrue(is_array($array));
         self::assertGreaterThan(0, count($array));
-        self::assertEquals(json_encode($array), $account->__toString());
+        self::assertEquals(\json_encode($array), $account->__toString());
         self::assertEquals($array, $account->jsonSerialize());
     }
 

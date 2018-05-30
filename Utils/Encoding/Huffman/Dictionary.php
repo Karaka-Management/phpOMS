@@ -80,7 +80,7 @@ final class Dictionary
         $count = [];
         while (isset($source[0])) {
             $count[] = [substr_count($source, $source[0]), $source[0]];
-            $source  = str_replace($source[0], '', $source);
+            $source  = \str_replace($source[0], '', $source);
         }
 
         sort($count);
@@ -144,7 +144,7 @@ final class Dictionary
             throw new \InvalidArgumentException('Character already exists');
         }
 
-        if (strlen(str_replace('0', '', str_replace('1', '', $value))) !== 0) {
+        if (strlen(\str_replace('0', '', \str_replace('1', '', $value))) !== 0) {
             throw new \InvalidArgumentException('Bad formatting.');
         }
 

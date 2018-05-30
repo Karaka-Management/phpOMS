@@ -292,7 +292,7 @@ class Account implements ArrayableInterface, \JsonSerializable
     /**
      * Get permissions.
      *
-     * @return array
+     * @return PermissionAbstract[]
      *
      * @since  1.0.0
      */
@@ -603,7 +603,7 @@ class Account implements ArrayableInterface, \JsonSerializable
      */
     public function __toString() : string
     {
-        return json_encode($this->toArray());
+        return \json_encode($this->toArray());
     }
 
     /**
@@ -630,7 +630,7 @@ class Account implements ArrayableInterface, \JsonSerializable
     /**
      * Json serialize.
      *
-     * @return array
+     * @return array<string, mixed>
      *
      * @since  1.0.0
      */

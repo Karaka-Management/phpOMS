@@ -58,23 +58,23 @@ final class FileUtils
     {
         $extension = strtolower($extension);
 
-        if (in_array($extension, self::CODE_EXTENSION)) {
+        if (\in_array($extension, self::CODE_EXTENSION)) {
             return ExtensionType::CODE;
-        } elseif (in_array($extension, self::TEXT_EXTENSION)) {
+        } elseif (\in_array($extension, self::TEXT_EXTENSION)) {
             return ExtensionType::TEXT;
-        } elseif (in_array($extension, self::PRESENTATION_EXTENSION)) {
+        } elseif (\in_array($extension, self::PRESENTATION_EXTENSION)) {
             return ExtensionType::PRESENTATION;
-        } elseif (in_array($extension, self::PDF_EXTENSION)) {
+        } elseif (\in_array($extension, self::PDF_EXTENSION)) {
             return ExtensionType::PDF;
-        } elseif (in_array($extension, self::ARCHIVE_EXTENSION)) {
+        } elseif (\in_array($extension, self::ARCHIVE_EXTENSION)) {
             return ExtensionType::ARCHIVE;
-        } elseif (in_array($extension, self::AUDIO_EXTENSION)) {
+        } elseif (\in_array($extension, self::AUDIO_EXTENSION)) {
             return ExtensionType::AUDIO;
-        } elseif (in_array($extension, self::VIDEO_EXTENSION)) {
+        } elseif (\in_array($extension, self::VIDEO_EXTENSION)) {
             return ExtensionType::VIDEO;
-        } elseif (in_array($extension, self::IMAGE_EXTENSION)) {
+        } elseif (\in_array($extension, self::IMAGE_EXTENSION)) {
             return ExtensionType::IMAGE;
-        } elseif (in_array($extension, self::SPREADSHEET_EXTENSION)) {
+        } elseif (\in_array($extension, self::SPREADSHEET_EXTENSION)) {
             return ExtensionType::SPREADSHEET;
         }
 
@@ -92,11 +92,11 @@ final class FileUtils
      */
     public static function absolute(string $origPath) : string
     {
-        if (!file_exists($origPath)) {
+        if (!\file_exists($origPath)) {
             $startsWithSlash = strpos($origPath, '/') === 0 ? '/' : '';
 
             $path  = [];
-            $parts = explode('/', $origPath);
+            $parts = \explode('/', $origPath);
 
             foreach ($parts as $part) {
                 if (empty($part) || $part === '.') {

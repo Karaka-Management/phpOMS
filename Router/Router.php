@@ -137,6 +137,6 @@ final class Router
      */
     private function match(string $route, int $routeVerb, string $uri, int $remoteVerb = RouteVerb::GET) : bool
     {
-        return (bool) preg_match('~^' . $route . '$~', $uri) && ($routeVerb === RouteVerb::ANY || $remoteVerb === RouteVerb::ANY || ($remoteVerb & $routeVerb) === $remoteVerb);
+        return (bool) \preg_match('~^' . $route . '$~', $uri) && ($routeVerb === RouteVerb::ANY || $remoteVerb === RouteVerb::ANY || ($remoteVerb & $routeVerb) === $remoteVerb);
     }
 }

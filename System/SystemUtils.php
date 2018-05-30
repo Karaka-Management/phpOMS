@@ -58,7 +58,7 @@ final class SystemUtils
 
             while ($line = fgets($fh)) {
                 $pieces = [];
-                if (preg_match('/^MemTotal:\s+(\d+)\skB$/', $line, $pieces)) {
+                if (\preg_match('/^MemTotal:\s+(\d+)\skB$/', $line, $pieces)) {
                     $mem = $pieces[1] * 1024;
                     break;
                 }
@@ -84,8 +84,8 @@ final class SystemUtils
         if (stristr(PHP_OS, 'LINUX')) {
             $free     = shell_exec('free');
             $free     = (string) trim($free);
-            $freeArr  = explode("\n", $free);
-            $mem      = explode(" ", $freeArr[1]);
+            $freeArr  = \explode("\n", $free);
+            $mem      = \explode(" ", $freeArr[1]);
             $mem      = array_values(array_filter($mem));
             $memUsage = $mem[2] / $mem[1] * 100;
         }

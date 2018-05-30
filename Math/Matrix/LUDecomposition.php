@@ -18,6 +18,8 @@ use phpOMS\Math\Matrix\Exception\InvalidDimensionException;
 
 /**
  * LU decomposition
+ * 
+ * A(piv,:) = L*U
  *
  * @package    phpOMS\Math\Matrix
  * @license    OMS License 1.0
@@ -253,8 +255,7 @@ final class LUDecomposition
         }
 
         $n = $B->getN();
-        $X = $B->getMatrix($this->piv, 0, $n - 1);
-        // todo: fix get extract
+        $X = $B->getSubMatrixByRows($this->piv, 0, $n - 1)->toArray();
 
         // Solve L*Y = B(piv,:)
         for ($k = 0; $k < $this->n; ++$k) {

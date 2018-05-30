@@ -36,12 +36,13 @@ class Phone
      *
      * @since  1.0.0
      */
-    public static function generatePhone($isInt = true, $layout = ['struct' => '+$1 ($2) $3-$4',
-                                                                   'size'   => [null,
-                                                                                [3, 4],
-                                                                                [3, 5],
-                                                                                [3, 8],],], $countries = null)
-    {
+    public static function generatePhone(
+        $isInt = true, 
+        $layout = [
+            'struct' => '+$1 ($2) $3-$4',
+            'size'   => [null, [3, 4], [3, 5], [3, 8],],], 
+            $countries = null
+    ) {
         $numberString = $layout['struct'];
 
         if ($isInt) {
@@ -49,13 +50,13 @@ class Phone
                 $countries = ['de' => 49, 'us' => 1];
             }
 
-            $numberString = str_replace('$1', $countries[array_keys($countries)[rand(0, count($countries))]], $numberString);
+            $numberString = \str_replace('$1', $countries[array_keys($countries)[rand(0, count($countries))]], $numberString);
         }
 
         $numberParts = substr_count($layout['struct'], '$');
 
         for ($i = ($isInt ? 2 : 1); $i < $numberParts; ++$i) {
-            $numberString = str_replace(
+            $numberString = \str_replace(
                 '$' . $i, StringUtils::generateString($layout['size'][$i - 1][0], $layout['size'][$i - 1][1], '0123456789'),
                 $numberString
             );

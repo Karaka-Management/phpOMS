@@ -95,7 +95,7 @@ class Repository
             throw new PathException($path);
         }
 
-        if (file_exists($this->path . '/.git') && is_dir($this->path . '/.git')) {
+        if (file_exists($this->path . '/.git') && \is_dir($this->path . '/.git')) {
             $this->bare = false;
         } elseif (is_file($this->path . '/config')) { // Is this a bare repo?
             $parseIni = parse_ini_file($this->path . '/config');
@@ -171,7 +171,7 @@ class Repository
     private function run(string $cmd) : array
     {
         if (strtolower(substr(PHP_OS, 0, 3)) == 'win') {
-            $cmd = 'cd ' . escapeshellarg(dirname(Git::getBin()))
+            $cmd = 'cd ' . escapeshellarg(\dirname(Git::getBin()))
                 . ' && ' . basename(Git::getBin())
                 . ' -C ' . escapeshellarg($this->path) . ' '
                 . $cmd;
@@ -242,12 +242,12 @@ class Repository
      */
     public function create(string $source = null) : void
     {
-        if (!is_dir($this->path) || file_exists($this->path . '/.git')) {
+        if (!is_dir($this->path) || \file_exists($this->path . '/.git')) {
             throw new \Exception('Already repository');
         }
 
         if ($source !== null) {
-            stripos($source, '//') !== false ? $this->cloneRemote($source) : $this->cloneFrom($source);
+            \stripos($source, '//') !== false ? $this->cloneRemote($source) : $this->cloneFrom($source);
 
             return;
         }
@@ -438,8 +438,8 @@ class Repository
     {
         if (empty($this->name)) {
             $path       = $this->getDirectoryPath();
-            $path       = str_replace('\\', '/', $path);
-            $path       = explode('/', $path);
+            $path       = \str_replace('\\', '/', $path);
+            $path       = \explode('/', $path);
             $this->name = $path[count($path) - ($this->bare ? 1 : 2)];
         }
 
@@ -605,7 +605,7 @@ class Repository
      */
     public function setDescription(string $description) : void
     {
-        file_put_contents($this->getDirectoryPath(), $description);
+        \file_put_contents($this->getDirectoryPath(), $description);
     }
 
     /**
@@ -617,7 +617,7 @@ class Repository
      */
     public function getDescription() : string
     {
-        return file_get_contents($this->getDirectoryPath() . '/description');
+        return \file_get_contents($this->getDirectoryPath() . '/description');
     }
 
     /**
@@ -657,7 +657,7 @@ class Repository
                 continue;
             }
 
-            if (!file_exists($path = $this->getDirectoryPath() . ($this->bare ? '/' : '/../') . $line)) {
+            if (!\file_exists($path = $this->getDirectoryPath() . ($this->bare ? '/' : '/../') . $line)) {
                 return 0;
             }
 
@@ -702,7 +702,7 @@ class Repository
         $contributors = [];
 
         foreach ($lines as $line) {
-            preg_match('/^[0-9]*/', $line, $matches);
+            \preg_match('/^[0-9]*/', $line, $matches);
 
             $contributor = new Author(substr($line, strlen($matches[0]) + 1));
             $contributor->setCommitCount($this->getCommitsCount($start, $end)[$contributor->getName()]);
@@ -741,7 +741,7 @@ class Repository
         $commits = [];
 
         foreach ($lines as $line) {
-            preg_match('/^[0-9]*/', $line, $matches);
+            \preg_match('/^[0-9]*/', $line, $matches);
 
             $commits[substr($line, strlen($matches[0]) + 1)] = (int) $matches[0];
         }
@@ -779,7 +779,7 @@ class Repository
         );
 
         foreach ($lines as $line) {
-            $nums = explode(' ', $line);
+            $nums = \explode(' ', $line);
 
             $addremove['added']   += $nums[0];
             $addremove['removed'] += $nums[1];
@@ -836,7 +836,7 @@ class Repository
         $commits = [];
 
         for ($i = 0; $i < $count; ++$i) {
-            $match = preg_match('/[0-9ABCDEFabcdef]{40}/', $lines[$i], $matches);
+            $match = \preg_match('/[0-9ABCDEFabcdef]{40}/', $lines[$i], $matches);
 
             if ($match !== false && $match !== 0) {
                 $commit                    = $this->getCommit($matches[0]);
@@ -868,7 +868,7 @@ class Repository
             return new Commit();
         }
 
-        preg_match('/[0-9ABCDEFabcdef]{40}/', $lines[0], $matches);
+        \preg_match('/[0-9ABCDEFabcdef]{40}/', $lines[0], $matches);
 
         if (!isset($matches[0]) || strlen($matches[0]) !== 40) {
             throw new \Exception('Invalid commit id');
@@ -879,8 +879,8 @@ class Repository
         }
 
         // todo: validate if array values are all initialized
-        $author = explode(':', $lines[1]);
-        $author = explode('<', trim($author[1]));
+        $author = \explode(':', $lines[1]);
+        $author = \explode('<', trim($author[1]));
         $date   = substr($lines[2], 6);
 
         $commit = new Commit($matches[0]);
@@ -918,7 +918,7 @@ class Repository
             return new Commit();
         }
 
-        preg_match('/[0-9ABCDEFabcdef]{40}/', $lines[0], $matches);
+        \preg_match('/[0-9ABCDEFabcdef]{40}/', $lines[0], $matches);
 
         if (!isset($matches[0]) || strlen($matches[0]) !== 40) {
             throw new \Exception('Invalid commit id');

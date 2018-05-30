@@ -31,17 +31,17 @@ class Tar implements ArchiveInterface
      */
     public static function pack($sources, string $destination, bool $overwrite = true) : bool
     {
-        $destination = str_replace('\\', '/', realpath($destination));
+        $destination = \str_replace('\\', '/', realpath($destination));
 
-        if (!$overwrite && file_exists($destination)) {
+        if (!$overwrite && \file_exists($destination)) {
             return false;
         }
 
         /** @var array $sources */
         foreach ($sources as $source) {
-            $source = str_replace('\\', '/', realpath($source));
+            $source = \str_replace('\\', '/', realpath($source));
 
-            if (!file_exists($source)) {
+            if (!\file_exists($source)) {
                 continue;
             }
 
@@ -52,10 +52,10 @@ class Tar implements ArchiveInterface
                 );
 
                 foreach ($files as $file) {
-                    $file = str_replace('\\', '/', $file);
+                    $file = \str_replace('\\', '/', $file);
 
                     /* Ignore . and .. */
-                    if (in_array(mb_substr($file, mb_strrpos($file, '/') + 1), ['.', '..'])) {
+                    if (\in_array(mb_substr($file, mb_strrpos($file, '/') + 1), ['.', '..'])) {
                         continue;
                     }
 

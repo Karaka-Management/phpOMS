@@ -14,6 +14,8 @@ declare(strict_types=1);
 
 namespace phpOMS\Math\Geometry\Shape\D2;
 
+use phpOMS\Math\Functions\Functions;
+
 /**
  * Triangle shape.
  *
@@ -75,5 +77,24 @@ final class Triangle implements D2ShapeInterface
     public static function getHeight(float $area, float $b) : float
     {
         return 2 * $area / $b;
+    }
+
+    /**
+     * Calculate the hypothenuse
+     *
+     * @param mixed ...$vec Vector of values
+     *
+     * @return float
+     *
+     * @since  1.0.0
+     */
+    public static function getHypot(...$vec) : float
+    {
+        $hypot = 0.0;
+        foreach ($vec as $val) {
+            $hypot += $val * $val;
+        }
+
+        return \sqrt($hypot);
     }
 }

@@ -189,7 +189,7 @@ class Group implements ArrayableInterface, \JsonSerializable
      */
     public function __toString() : string
     {
-        return json_encode($this->toArray());
+        return \json_encode($this->toArray());
     }
 
     /**
@@ -209,7 +209,7 @@ class Group implements ArrayableInterface, \JsonSerializable
     /**
      * Json serialize.
      *
-     * @return array
+     * @return array<string, mixed>
      *
      * @since  1.0.0
      */

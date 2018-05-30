@@ -157,7 +157,7 @@ final class UriFactory
         $success = false;
 
         foreach (self::$uri as $key => $value) {
-            if (((bool) preg_match('~^' . $pattern . '$~', $key))) {
+            if (((bool) \preg_match('~^' . $pattern . '$~', $key))) {
                 unset(self::$uri[$key]);
                 $success = true;
             }
@@ -179,16 +179,16 @@ final class UriFactory
      */
     private static function unique(string $url) : string
     {
-        $parts = explode('?', $url);
+        $parts = \explode('?', $url);
 
         if (count($parts) >= 2) {
             $full   = $parts[1];
-            $pars   = explode('&', $full);
+            $pars   = \explode('&', $full);
             $comps  = [];
             $length = count($pars);
 
             for ($i = 0; $i < $length; ++$i) {
-                $spl = explode('=', $pars[$i]);
+                $spl = \explode('=', $pars[$i]);
 
                 if (isset($spl[1])) {
                     $comps[$spl[0]] = $spl[1];
@@ -200,7 +200,7 @@ final class UriFactory
                 $pars[] = $key . '=' . $value;
             }
 
-            $url = $parts[0] . (empty($pars) ? '' : '?' . implode('&', $pars));
+            $url = $parts[0] . (empty($pars) ? '' : '?' . \implode('&', $pars));
         }
 
         return $url;
@@ -227,15 +227,15 @@ final class UriFactory
      */
     public static function build(string $uri, array $toMatch = []) : string
     {
-        $parsed = preg_replace_callback('(\{[\/#\?%@\.\$][a-zA-Z0-9\-]*\})', function ($match) use ($toMatch) {
-            $match = substr($match[0], 1, strlen($match[0]) - 2);
+        $parsed = \preg_replace_callback('(\{[\/#\?%@\.\$][a-zA-Z0-9\-]*\})', function ($match) use ($toMatch) {
+            $match = \substr($match[0], 1, \strlen($match[0]) - 2);
 
             return $toMatch[$match] ?? self::$uri[$match] ?? $match;
         }, $uri);
 
         // todo: maybe don't do this and adjust unique?!
-        if (strpos($parsed, '?')) {
-            str_replace('&', '?', $parsed);
+        if (\strpos($parsed, '?')) {
+            \str_replace('&', '?', $parsed);
         }
 
         return self::unique($parsed);

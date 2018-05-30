@@ -71,7 +71,7 @@ class CsvDatabaseMapper implements IODatabaseMapper
             }
 
             $query = new Builder($this->db);
-            $query->insert(...$header)->into(str_replace(' ', '', explode($source, '.')));
+            $query->insert(...$header)->into(\str_replace(' ', '', explode($source, '.')));
 
             while (feof($file)) {
                 $c = 0;

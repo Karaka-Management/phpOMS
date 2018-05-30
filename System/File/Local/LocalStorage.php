@@ -64,7 +64,7 @@ class LocalStorage extends StorageAbstract
      */
     protected static function getClassType(string $path) : string
     {
-        return is_dir($path) || (!is_file($path) && stripos($path, '.') === false) ? Directory::class : File::class;
+        return \is_dir($path) || (!is_file($path) && \stripos($path, '.') === false) ? Directory::class : File::class;
     }
 
     /**
@@ -72,7 +72,7 @@ class LocalStorage extends StorageAbstract
      */
     public static function put(string $path, string $content, int $mode = 0) : bool
     {
-        if (is_dir($path)) {
+        if (\is_dir($path)) {
             throw new PathException($path);
         }
 
@@ -84,7 +84,7 @@ class LocalStorage extends StorageAbstract
      */
     public static function get(string $path) : string
     {
-        if (is_dir($path)) {
+        if (\is_dir($path)) {
             throw new PathException($path);
         }
 
@@ -96,7 +96,7 @@ class LocalStorage extends StorageAbstract
      */
     public static function list(string $path, string $filter = '*') : array
     {
-        if (is_file($path)) {
+        if (\is_file($path)) {
             throw new PathException($path);
         }
 
@@ -108,7 +108,7 @@ class LocalStorage extends StorageAbstract
      */
     public static function create(string $path) : bool
     {
-        return stripos($path, '.') === false ? Directory::create($path, 0755, true) : File::create($path);
+        return \stripos($path, '.') === false ? Directory::create($path, 0755, true) : File::create($path);
     }
 
     /**
@@ -116,7 +116,7 @@ class LocalStorage extends StorageAbstract
      */
     public static function set(string $path, string $content) : bool
     {
-        if (is_dir($path)) {
+        if (\is_dir($path)) {
             throw new PathException($path);
         }
 
@@ -128,7 +128,7 @@ class LocalStorage extends StorageAbstract
      */
     public static function append(string $path, string $content) : bool
     {
-        if (is_dir($path)) {
+        if (\is_dir($path)) {
             throw new PathException($path);
         }
 
@@ -140,7 +140,7 @@ class LocalStorage extends StorageAbstract
      */
     public static function prepend(string $path, string $content) : bool
     {
-        if (is_dir($path)) {
+        if (\is_dir($path)) {
             throw new PathException($path);
         }
 
@@ -152,7 +152,7 @@ class LocalStorage extends StorageAbstract
      */
     public static function extension(string $path) : string
     {
-        if (is_dir($path)) {
+        if (\is_dir($path)) {
             throw new PathException($path);
         }
 

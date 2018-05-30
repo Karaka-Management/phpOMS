@@ -103,9 +103,9 @@ final class Dispatcher
     private function dispatchString(string $controller, array $data = null) : array
     {
         $views    = [];
-        $dispatch = explode(':', $controller);
+        $dispatch = \explode(':', $controller);
 
-        if (!file_exists($path = __DIR__ . '/../../' . str_replace('\\', '/', $dispatch[0]) . '.php')) {
+        if (!\file_exists($path = __DIR__ . '/../../' . \str_replace('\\', '/', $dispatch[0]) . '.php')) {
             throw new PathException($path);
         }
 
@@ -174,7 +174,7 @@ final class Dispatcher
         if (!isset($this->controllers[$controller])) {
             // If module controller use module manager for initialization
             if (strpos('\Modules\Controller', $controller) === 0) {
-                $split                          = explode('\\', $controller);
+                $split                          = \explode('\\', $controller);
                 $this->controllers[$controller] = $this->app->moduleManager->get($split[2]);
             } else {
                 $this->controllers[$controller] = new $controller($this->app);

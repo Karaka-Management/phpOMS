@@ -106,9 +106,9 @@ final class Money implements \Serializable
      */
     public static function toInt(string $value, string $thousands = ',', string $decimal = '.')  : int
     {
-        $split = explode($decimal, $value);
+        $split = \explode($decimal, $value);
         $left  = $split[0];
-        $left  = str_replace($thousands, '', $left);
+        $left  = \str_replace($thousands, '', $left);
         $right = '';
 
         if (count($split) > 1) {

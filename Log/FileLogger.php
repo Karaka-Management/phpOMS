@@ -119,7 +119,7 @@ final class FileLogger implements LoggerInterface
      */
     private function createFile() : void
     {
-        if (!$this->created && !file_exists($this->path)) {
+        if (!$this->created && !\file_exists($this->path)) {
             File::create($this->path);
             $this->created = true;
         }
@@ -186,7 +186,7 @@ final class FileLogger implements LoggerInterface
             return false;
         }
 
-        $mtime = explode(' ', microtime());
+        $mtime = \explode(' ', microtime());
         $mtime = $mtime[1] + $mtime[0];
 
         self::$timings[$id] = ['start' => $mtime];
@@ -205,7 +205,7 @@ final class FileLogger implements LoggerInterface
      */
     public static function endTimeLog($id = '') : float
     {
-        $mtime = explode(' ', microtime());
+        $mtime = \explode(' ', microtime());
         $mtime = $mtime[1] + $mtime[0];
 
         self::$timings[$id]['end']  = $mtime;
@@ -241,7 +241,7 @@ final class FileLogger implements LoggerInterface
             }
         }
 
-        $backtrace = json_encode($backtrace);
+        $backtrace = \json_encode($backtrace);
 
         $replace['{backtrace}'] = $backtrace;
         $replace['{datetime}']  = sprintf('%--19s', (new \DateTime('NOW'))->format('Y-m-d H:i:s'));
@@ -382,7 +382,7 @@ final class FileLogger implements LoggerInterface
     {
         $levels = [];
 
-        if (!file_exists($this->path)) {
+        if (!\file_exists($this->path)) {
             return $levels;
         }
 
@@ -418,7 +418,7 @@ final class FileLogger implements LoggerInterface
     {
         $connection = [];
 
-        if (!file_exists($this->path)) {
+        if (!\file_exists($this->path)) {
             return $connection;
         }
 
@@ -457,7 +457,7 @@ final class FileLogger implements LoggerInterface
         $logs = [];
         $id   = 0;
 
-        if (!file_exists($this->path)) {
+        if (!\file_exists($this->path)) {
             return $logs;
         }
 
@@ -506,7 +506,7 @@ final class FileLogger implements LoggerInterface
         $log     = [];
         $current = 0;
 
-        if (!file_exists($this->path)) {
+        if (!\file_exists($this->path)) {
             return $log;
         }
 

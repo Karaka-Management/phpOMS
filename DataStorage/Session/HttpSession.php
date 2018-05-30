@@ -80,29 +80,29 @@ class HttpSession implements SessionInterface
             throw new LockException('HttpSession');
         }
 
-        if (session_id()) {
-            session_write_close();
+        if (\session_id()) {
+            \session_write_close();
         }
 
-        if (!is_bool($sid)) {
-            session_id($sid);
+        if (!\is_bool($sid)) {
+            \session_id($sid);
         }
 
         $this->inactivityInterval = $inactivityInterval;
 
         if (session_status() !== PHP_SESSION_ACTIVE && !headers_sent()) {
-            session_set_cookie_params($liftetime, '/', '', false, true);
-            session_start();
+            \session_set_cookie_params($liftetime, '/', '', false, true);
+            \session_start();
         }
 
-        if ($this->inactivityInterval > 0 && ($this->inactivityInterval + ($_SESSION['lastActivity'] ?? 0) < time())) {
+        if ($this->inactivityInterval > 0 && ($this->inactivityInterval + ($_SESSION['lastActivity'] ?? 0) < \time())) {
             $this->destroy();
         }
 
         $this->sessionData                 = $_SESSION;
         $_SESSION                          = null;
-        $this->sessionData['lastActivity'] = time();
-        $this->sid                         = session_id();
+        $this->sessionData['lastActivity'] = \time();
+        $this->sid                         = \session_id();
 
         $this->setCsrfProtection();
     }
@@ -175,7 +175,7 @@ class HttpSession implements SessionInterface
     {
         if (!self::$isLocked) {
             $_SESSION = $this->sessionData;
-            session_write_close();
+            \session_write_close();
         }
     }
 
@@ -218,9 +218,9 @@ class HttpSession implements SessionInterface
      */
     private function destroy() : void
     {
-        session_destroy();
+        \session_destroy();
         $this->sessionData = [];
-        session_start();
+        \session_start();
     }
 
     /**

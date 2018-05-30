@@ -240,7 +240,7 @@ class SmartDateTime extends \DateTime
      *
      * @param int $weekStartsWith Day of the week start (0 = Sunday)
      *
-     * @return array
+     * @return \DateTime[]
      *
      * @since  1.0.0
      */

@@ -22,5 +22,6 @@ class TriangleTest extends \PHPUnit\Framework\TestCase
         self::assertEquals(3, Triangle::getSurface(2, 3), '', 0.001);
         self::assertEquals(9, Triangle::getPerimeter(2, 3, 4), '', 0.001);
         self::assertEquals(3, Triangle::getHeight(3, 2), '', 0.001);
+        self::assertEquals(5, Triangle::getHypot(4, 3), '', 0.001);
     }
 }

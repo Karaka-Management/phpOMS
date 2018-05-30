@@ -196,7 +196,7 @@ class Text
             }
         }
 
-        $text = ltrim($text);
+        $text = \ltrim($text);
 
         if ($this->hasParagraphs) {
             $text = '<p>' . $text . '</p>';

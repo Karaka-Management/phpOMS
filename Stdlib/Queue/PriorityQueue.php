@@ -184,7 +184,7 @@ class PriorityQueue implements \Countable, \Serializable
      */
     public function serialize() : string
     {
-        return json_encode($this->queue);
+        return \json_encode($this->queue);
     }
 
     /**
@@ -198,7 +198,7 @@ class PriorityQueue implements \Countable, \Serializable
      */
     public function unserialize($data)
     {
-        $this->queue = json_decode($data);
+        $this->queue = \json_decode($data);
         $this->count = count($this->queue);
     }
 }

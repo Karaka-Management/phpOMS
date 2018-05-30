@@ -33,7 +33,7 @@ class StringUtilsTest extends \PHPUnit\Framework\TestCase
                 $outOfBounds = true;
             }
 
-            if (in_array($random, $haystack)) {
+            if (\in_array($random, $haystack)) {
                 $randomness++;
             }
 

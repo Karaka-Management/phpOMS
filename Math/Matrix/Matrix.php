@@ -137,7 +137,7 @@ class Matrix implements \ArrayAccess, \Iterator
     /**
      * Get matrix array.
      *
-     * @return array
+     * @return array<int, array<int, mixed>>
      *
      * @since  1.0.0
      */
@@ -147,15 +147,138 @@ class Matrix implements \ArrayAccess, \Iterator
     }
 
     /**
+     * Get sub matrix array.
+     * 
+     * @param int $iRow Start row
+     * @param int $lRow End row
+     * @param int $iCol Start col
+     * @param int $lCol End col
+     *
+     * @return Matrix
+     *
+     * @since  1.0.0
+     */
+    public function getSubMatrix(int $iRow, int $lRow, int $iCol, int $lCol) : Matrix
+    {
+        $X = [[]];
+        for ($i = $iRow; $i <= $lRow; ++$i) {
+            for ($j = $iCol; $j <= $lCol; ++$j) {
+                $X[$i - $iRow][$j - $iCol] = $this->matrix[$i][$j];
+            }
+        }
+
+        $matrix = new self();
+        $matrix->setMatrix($X);
+
+        return $matrix;
+    }
+
+    /**
+     * Get sub matrix array.
+     * 
+     * @param array $rows Row indices
+     * @param array $cols Row indices
+     *
+     * @return Matrix
+     *
+     * @since  1.0.0
+     */
+    public function getSubMatrixByColumnsRows(array $rows, array $cols) : Matrix
+    {
+        $X      = [[]];
+        $rlength = count($rows);
+        $clength = count($cols);
+
+        for ($i = 0; $i <= $rlength; ++$i) {
+            for ($j = 0; $j <= $clength; ++$j) {
+                $X[$i][$j] = $this->matrix[$rows[$i]][$cols[$j]];
+            }
+        }
+
+        $matrix = new self();
+        $matrix->setMatrix($X);
+
+        return $matrix;
+    }
+
+    /**
+     * Get sub matrix array.
+     * 
+     * @param int   $iRow Start row
+     * @param int   $lRow End row
+     * @param array $cols Row indices
+     *
+     * @return Matrix
+     *
+     * @since  1.0.0
+     */
+    public function getSubMatrixByColumns(int $iRow, int $lRow, array $cols) : Matrix
+    {
+        $X      = [[]];
+        $length = count($cols);
+
+        for ($i = $iRow; $i <= $lRow; ++$i) {
+            for ($j = 0; $j <= $length; ++$j) {
+                $X[$i - $iRow][$j] = $this->matrix[$i][$cols[$j]];
+            }
+        }
+
+        $matrix = new self();
+        $matrix->setMatrix($X);
+
+        return $matrix;
+    }
+
+    /**
+     * Get sub matrix array.
+     * 
+     * @param array $rows Row indices
+     * @param int   $iCol Start col
+     * @param int   $lCol End col
+     *
+     * @return Matrix
+     *
+     * @since  1.0.0
+     */
+    public function getSubMatrixByRows(array $rows, int $iCol, int $lCol) : Matrix
+    {
+        $X      = [[]];
+        $length = count($rows);
+
+        for ($i = 0; $i < $length; ++$i) {
+            for ($j = $iCol; $j <= $lCol; ++$j) {
+                $X[$i][$j - $iCol] = $this->matrix[$rows[$i]][$j];
+            }
+        }
+
+        $matrix = new self();
+        $matrix->setMatrix($X);
+
+        return $matrix;
+    }
+
+    /**
      * Get matrix array.
      *
-     * @return array
+     * @return array<int, array<int, mixed>>
      *
      * @since  1.0.0
      */
     public function toArray() : array
     {
         return $this->matrix;
+    }
+
+    /**
+     * Is symmetric.
+     *
+     * @return bool
+     *
+     * @since  1.0.0
+     */
+    public function isSymmetric() : bool
+    {
+        return (new EigenvalueDecomposition($this))->isSymmetric();
     }
 
     /**
@@ -574,7 +697,7 @@ class Matrix implements \ArrayAccess, \Iterator
     /**
      * Solve matrix
      *
-     * @param Matix $B Matrix/Vector b
+     * @param Matrix $B Matrix/Vector b
      *
      * @return Matrix
      *

@@ -81,11 +81,11 @@ final class InfoManager
      */
     public function load() : void
     {
-        if (!file_exists($this->path)) {
+        if (!\file_exists($this->path)) {
             throw new PathException($this->path);
         }
 
-        $this->info = json_decode(file_get_contents($this->path), true);
+        $this->info = \json_decode(file_get_contents($this->path), true);
     }
 
     /**
@@ -97,11 +97,11 @@ final class InfoManager
      */
     public function update() : void
     {
-        if (!file_exists($this->path)) {
+        if (!\file_exists($this->path)) {
             throw new PathException($this->path);
         }
 
-        file_put_contents($this->path, json_encode($this->info, JSON_PRETTY_PRINT));
+        \file_put_contents($this->path, \json_encode($this->info, JSON_PRETTY_PRINT));
     }
 
     /**

@@ -34,9 +34,9 @@ class Zip implements ArchiveInterface
      */
     public static function pack($sources, string $destination, bool $overwrite = true) : bool
     {
-        $destination = FileUtils::absolute(str_replace('\\', '/', $destination));
+        $destination = FileUtils::absolute(\str_replace('\\', '/', $destination));
 
-        if (!$overwrite && file_exists($destination)) {
+        if (!$overwrite && \file_exists($destination)) {
             return false;
         }
 
@@ -47,9 +47,9 @@ class Zip implements ArchiveInterface
 
         /** @var array $sources */
         foreach ($sources as $source => $relative) {
-            $source = str_replace('\\', '/', realpath($source));
+            $source = \str_replace('\\', '/', realpath($source));
 
-            if (!file_exists($source)) {
+            if (!\file_exists($source)) {
                 continue;
             }
 
@@ -57,16 +57,16 @@ class Zip implements ArchiveInterface
                 $files = new \RecursiveIteratorIterator(new \RecursiveDirectoryIterator($source), \RecursiveIteratorIterator::SELF_FIRST);
 
                 foreach ($files as $file) {
-                    $file = str_replace('\\', '/', $file);
+                    $file = \str_replace('\\', '/', $file);
 
                     /* Ignore . and .. */
-                    if (in_array(mb_substr($file, mb_strrpos($file, '/') + 1), ['.', '..'])) {
+                    if (\in_array(mb_substr($file, mb_strrpos($file, '/') + 1), ['.', '..'])) {
                         continue;
                     }
 
                     $absolute = realpath($file);
-                    $absolute = str_replace('\\', '/', $absolute);
-                    $dir      = str_replace($source . '/', '', $relative . '/' . $absolute);
+                    $absolute = \str_replace('\\', '/', $absolute);
+                    $dir      = \str_replace($source . '/', '', $relative . '/' . $absolute);
 
                     if (is_dir($absolute)) {
                         $zip->addEmptyDir($dir . '/');
@@ -87,11 +87,11 @@ class Zip implements ArchiveInterface
      */
     public static function unpack(string $source, string $destination) : bool
     {
-        if (!file_exists($source)) {
+        if (!\file_exists($source)) {
             return false;
         }
 
-        $destination = str_replace('\\', '/', $destination);
+        $destination = \str_replace('\\', '/', $destination);
         $destination = rtrim($destination, '/');
 
         $zip = new \ZipArchive();

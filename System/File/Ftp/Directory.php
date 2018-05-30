@@ -48,17 +48,17 @@ class Directory extends FileAbstract implements DirectoryInterface
     {
         $list = ftp_nlist($con, LocalFile::parent($path));
 
-        return in_array(LocalFile::name($path), $list);
+        return \in_array(LocalFile::name($path), $list);
     }
 
     public static function ftpCreate($con, string $path, int $permission, bool $recursive)
     {
-        $parts = explode('/', $path);
+        $parts = \explode('/', $path);
         ftp_chdir($con, '/' . $parts[0]);
 
         foreach ($parts as $part) {
             if (self::ftpExists($con, $part)) {
-                ftp_mkdir($con, $part);
+                ftp_\mkdir($con, $part);
                 ftp_chdir($con, $part);
                 ftp_chmod($con, $permission, $part);
             }

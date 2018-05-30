@@ -42,7 +42,7 @@ abstract class Enum
     {
         $constants = self::getConstants();
 
-        return in_array($value, $constants, true);
+        return \in_array($value, $constants, true);
     }
 
     /**

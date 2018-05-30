@@ -25,7 +25,7 @@ class IbanEnumTest extends \PHPUnit\Framework\TestCase
         foreach ($enums as $enum) {
             $temp = substr($enum, 2);
 
-            if (preg_match('/[^kbsxcinm0at\ ]/', $temp) === 1) {
+            if (\preg_match('/[^kbsxcinm0at\ ]/', $temp) === 1) {
                 $ok = false;
 
                 break;

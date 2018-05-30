@@ -203,7 +203,7 @@ abstract class ViewAbstract implements \Serializable
     public function serialize() : string
     {
         if (empty($this->template)) {
-            return json_encode($this->toArray());
+            return \json_encode($this->toArray());
         }
 
         return $this->render();
@@ -245,7 +245,7 @@ abstract class ViewAbstract implements \Serializable
         $ob   = '';
         $path = __DIR__ . '/../..' . $this->template . '.tpl.php';
 
-        if (!file_exists($path)) {
+        if (!\file_exists($path)) {
             throw new PathException($path);
         }
 
@@ -256,7 +256,7 @@ abstract class ViewAbstract implements \Serializable
             $ob          = ob_get_clean();
 
             if (is_array($includeData)) {
-                return json_encode($includeData);
+                return \json_encode($includeData);
             }
         } catch (\Throwable $e) {
             $ob = '';

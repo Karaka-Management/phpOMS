@@ -73,7 +73,7 @@ abstract class EnumArray
     {
         $constants = self::getConstants();
 
-        return in_array($value, $constants, true);
+        return \in_array($value, $constants, true);
     }
 
     /**

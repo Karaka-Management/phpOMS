@@ -221,7 +221,7 @@ final class ModuleManager
      */
     public function isActive(string $module) : bool
     {
-        return in_array($module, $this->getActiveModules(false));
+        return \in_array($module, $this->getActiveModules(false));
     }
 
     /**
@@ -241,12 +241,12 @@ final class ModuleManager
             for ($i = 0; $i < $c; ++$i) {
                 $path = $this->modulePath . '/' . $files[$i] . '/info.json';
 
-                if (!file_exists($path)) {
+                if (!\file_exists($path)) {
                     continue;
                     // throw new PathException($path);
                 }
 
-                $json                                 = json_decode(file_get_contents($path), true);
+                $json                                 = \json_decode(file_get_contents($path), true);
                 $this->all[$json['name']['internal']] = $json;
             }
         }
@@ -472,7 +472,7 @@ final class ModuleManager
             return false;
         }
 
-        if (!file_exists($this->modulePath . '/' . $module . '/Admin/Installer.php')) {
+        if (!\file_exists($this->modulePath . '/' . $module . '/Admin/Installer.php')) {
             // todo download;
             return false;
         }

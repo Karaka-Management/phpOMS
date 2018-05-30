@@ -130,7 +130,7 @@ class MultiMap implements \Countable
 
         /* garbage collect values */
         foreach ($this->values as $valueKey => $value) {
-            if (!in_array($valueKey, $this->keys)) {
+            if (!\in_array($valueKey, $this->keys)) {
                 unset($this->values[$valueKey]);
             }
         }

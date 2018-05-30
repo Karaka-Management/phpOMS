@@ -38,7 +38,7 @@ final class Builder extends BuilderAbstract
     /**
      * Columns.
      *
-     * @var array
+     * @var array<string, array<string, string>>
      * @since 1.0.0
      */
     public $selects = [];
@@ -46,7 +46,7 @@ final class Builder extends BuilderAbstract
     /**
      * Columns.
      *
-     * @var array
+     * @var array<string, array<string, string>>
      * @since 1.0.0
      */
     public $updates = [];
@@ -486,7 +486,7 @@ final class Builder extends BuilderAbstract
      */
     public function where($columns, $operator = null, $values = null, $boolean = 'and') : Builder
     {
-        if ($operator !== null && !is_array($operator) && !in_array(strtolower($operator), self::OPERATORS)) {
+        if ($operator !== null && !is_array($operator) && !\in_array(strtolower($operator), self::OPERATORS)) {
             throw new \InvalidArgumentException('Unknown operator.');
         }
 
@@ -499,7 +499,7 @@ final class Builder extends BuilderAbstract
 
         $i = 0;
         foreach ($columns as $key => $column) {
-            if (isset($operator[$i]) && !in_array(strtolower($operator[$i]), self::OPERATORS)) {
+            if (isset($operator[$i]) && !\in_array(strtolower($operator[$i]), self::OPERATORS)) {
                 throw new \InvalidArgumentException('Unknown operator.');
             }
 

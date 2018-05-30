@@ -41,10 +41,10 @@ class Evaluator
     public static function evaluate(string $formula, array $vars) : float
     {
         // todo: do i need array_values here?
-        $formula = str_replace(array_keys($vars), array_values($vars), $formula);
+        $formula = \str_replace(array_keys($vars), array_values($vars), $formula);
 
         // todo: this is horrible in case things like mod etc. need to be supported
-        if (preg_match('#[^0-9\+\-\*\/\(\)]#', $formula)) {
+        if (\preg_match('#[^0-9\+\-\*\/\(\)]#', $formula)) {
             throw new \Exception('Bad elements');
         }
 

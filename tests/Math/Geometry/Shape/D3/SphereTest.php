@@ -22,6 +22,8 @@ class SphereTest extends \PHPUnit\Framework\TestCase
         $sphere = new Sphere(3);
         self::assertEquals(113.1, $sphere->getVolume(), '', 0.1);
         self::assertEquals(113.1, $sphere->getSurface(), '', 0.1);
+
+        self::assertEquals(422740, Sphere::distance2PointsOnSphere(32.9697, -96.80322, 29.46786, -98.53506), '', 50);
     }
 
     public function testGetBy()

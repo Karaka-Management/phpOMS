@@ -14,7 +14,7 @@ declare(strict_types=1);
 
 namespace phpOMS\DataStorage\Database;
 
-use phpOMS\DataStorage\Database\Connection\ConnectionAbstract;
+use phpOMS\DataStorage\DataStorageConnectionInterface;
 use phpOMS\DataStorage\Database\Query\Builder;
 use phpOMS\DataStorage\DataMapperInterface;
 use phpOMS\Message\RequestAbstract;
@@ -37,7 +37,7 @@ class DataMapperAbstract implements DataMapperInterface
     /**
      * Database connection.
      *
-     * @var ConnectionAbstract
+     * @var DataStorageConnectionInterface
      * @since 1.0.0
      */
     protected static $db = null;
@@ -77,7 +77,7 @@ class DataMapperAbstract implements DataMapperInterface
     /**
      * Columns.
      *
-     * @var array
+     * @var array<string, array<string, string>>
      * @since 1.0.0
      */
     protected static $columns = [];
@@ -195,13 +195,13 @@ class DataMapperAbstract implements DataMapperInterface
     /**
      * Set database connection.
      *
-     * @param ConnectionAbstract $con Database connection
+     * @param DataStorageConnectionInterface $con Database connection
      *
      * @return void
      *
      * @since  1.0.0
      */
-    public static function setConnection(ConnectionAbstract $con) : void
+    public static function setConnection(DataStorageConnectionInterface $con) : void
     {
         self::$db = $con;
     }
@@ -402,7 +402,7 @@ class DataMapperAbstract implements DataMapperInterface
         $query->prefix(self::$db->getPrefix())->into(static::$table);
 
         foreach (static::$columns as $key => $column) {
-            $propertyName = stripos($column['internal'], '/') !== false ? explode('/', $column['internal'])[0] : $column['internal'];
+            $propertyName = \stripos($column['internal'], '/') !== false ? explode('/', $column['internal'])[0] : $column['internal'];
             if (isset(static::$hasMany[$propertyName]) || isset(static::$hasOne[$propertyName])) {
                 continue;
             }
@@ -426,7 +426,7 @@ class DataMapperAbstract implements DataMapperInterface
             } elseif ($column['name'] !== static::$primaryField) {
                 $tValue = $property->getValue($obj);
                 if (stripos($column['internal'], '/') !== false) {
-                    $path = explode('/', $column['internal']);
+                    $path = \explode('/', $column['internal']);
 
                     array_shift($path);
                     $path   = implode('/', $path);
@@ -476,7 +476,7 @@ class DataMapperAbstract implements DataMapperInterface
 
             $path = $column['internal'];
             if (stripos($column['internal'], '/') !== false) {
-                $path = explode('/', $column['internal']);
+                $path = \explode('/', $column['internal']);
 
                 array_shift($path);
                 $path = implode('/', $path);
@@ -890,11 +890,11 @@ class DataMapperAbstract implements DataMapperInterface
         } elseif ($type === 'DateTime') {
             return $value->format('Y-m-d H:i:s');
         } elseif ($type === 'Json' || $type === 'jsonSerializable') {
-            return json_encode($value);
+            return \json_encode($value);
         } elseif ($type === 'Serializable') {
             return $value->serialize();
         } elseif ($value instanceof \JsonSerializable) {
-            return json_encode($value->jsonSerialize());
+            return \json_encode($value->jsonSerialize());
         } elseif (is_object($value) && method_exists($value, 'getId')) {
             return $value->getId();
         }
@@ -1118,7 +1118,7 @@ class DataMapperAbstract implements DataMapperInterface
             ->where(static::$table . '.' . static::$primaryField, '=', $objId);
 
         foreach (static::$columns as $key => $column) {
-            $propertyName = stripos($column['internal'], '/') !== false ? explode('/', $column['internal'])[0] : $column['internal'];
+            $propertyName = \stripos($column['internal'], '/') !== false ? explode('/', $column['internal'])[0] : $column['internal'];
             if (isset(static::$hasMany[$propertyName])
                 || isset(static::$hasOne[$propertyName])
                 || $column['internal'] === static::$primaryField
@@ -1147,7 +1147,7 @@ class DataMapperAbstract implements DataMapperInterface
             } elseif ($column['name'] !== static::$primaryField) {
                 $tValue = $property->getValue($obj);
                 if (stripos($column['internal'], '/') !== false) {
-                    $path = explode('/', $column['internal']);
+                    $path = \explode('/', $column['internal']);
 
                     array_shift($path);
                     $path   = implode('/', $path);
@@ -1480,10 +1480,10 @@ class DataMapperAbstract implements DataMapperInterface
     public static function populate(array $result, $obj = null)
     {
         $class = static::class;
-        $class = str_replace('Mapper', '', $class);
+        $class = \str_replace('Mapper', '', $class);
 
         if (empty($result)) {
-            $parts     = explode('\\', $class);
+            $parts     = \explode('\\', $class);
             $name      = $parts[$c = (count($parts) - 1)];
             $parts[$c] = 'Null' . $name;
             $class     = implode('\\', $parts);
@@ -1779,7 +1779,7 @@ class DataMapperAbstract implements DataMapperInterface
 
             if (stripos(static::$columns[$column]['internal'], '/') !== false) {
                 $hasPath = true;
-                $path    = explode('/', static::$columns[$column]['internal']);
+                $path    = \explode('/', static::$columns[$column]['internal']);
                 $refProp = $refClass->getProperty($path[0]);
 
                 if (!($accessible = $refProp->isPublic())) {
@@ -1797,7 +1797,7 @@ class DataMapperAbstract implements DataMapperInterface
                 }
             }
 
-            if (in_array(static::$columns[$column]['type'], ['string', 'int', 'float', 'bool'])) {
+            if (\in_array(static::$columns[$column]['type'], ['string', 'int', 'float', 'bool'])) {
                 // todo: what is this or condition for? seems to be wrong if obj null then it doesn't work anyways
                 if ($value !== null || $refProp->getValue($obj) !== null) {
                     settype($value, static::$columns[$column]['type']);
@@ -1820,7 +1820,7 @@ class DataMapperAbstract implements DataMapperInterface
                     $value = ArrayUtils::setArray($path, $aValue, $value, '/', true);
                 }
 
-                $refProp->setValue($obj, json_decode($value, true));
+                $refProp->setValue($obj, \json_decode($value, true));
             } elseif (static::$columns[$column]['type'] === 'Serializable') {
                 $member = $refProp->getValue($obj);
                 $member->unserialize($value);
@@ -1852,18 +1852,18 @@ class DataMapperAbstract implements DataMapperInterface
             if (isset(static::$columns[$column]['internal'])) {
                 $path = static::$columns[$column]['internal'];
                 if (stripos($path, '/') !== false) {
-                    $path = explode('/', $path);
+                    $path = \explode('/', $path);
 
                     array_shift($path);
                     $path = implode('/', $path);
                 }
 
-                if (in_array(static::$columns[$column]['type'], ['string', 'int', 'float', 'bool'])) {
+                if (\in_array(static::$columns[$column]['type'], ['string', 'int', 'float', 'bool'])) {
                     settype($value, static::$columns[$column]['type']);
                 } elseif (static::$columns[$column]['type'] === 'DateTime') {
                     $value = new \DateTime($value ?? '');
                 } elseif (static::$columns[$column]['type'] === 'Json') {
-                    $value = json_decode($value, true);
+                    $value = \json_decode($value, true);
                 }
 
                 $obj = ArrayUtils::setArray($path, $obj, $value, '/', true);
@@ -1949,8 +1949,8 @@ class DataMapperAbstract implements DataMapperInterface
     private static function getNullModelObj()
     {
         $class     = static::class;
-        $class     = str_replace('Mapper', '', $class);
-        $parts     = explode('\\', $class);
+        $class     = \str_replace('Mapper', '', $class);
+        $parts     = \explode('\\', $class);
         $name      = $parts[$c = (count($parts) - 1)];
         $parts[$c] = 'Null' . $name;
         $class     = implode('\\', $parts);
@@ -1965,7 +1965,7 @@ class DataMapperAbstract implements DataMapperInterface
      * @param int   $relations  Load relations
      * @param int   $depth      Relation depth
      *
-     * @return mixed
+     * @return array
      *
      * @since  1.0.0
      */
@@ -2574,7 +2574,7 @@ class DataMapperAbstract implements DataMapperInterface
                 $result = static::getAll();
             } elseif ($filter === 'list') {
                 $list   = $request->getData('list');
-                $result = static::get(json_decode($list, true));
+                $result = static::get(\json_decode($list, true));
             } else {
                 $limit = (int) ($request->getData('limit') ?? 1);
                 $from  = $request->getData('from') === null ? null : new \DateTime((string) $request->getData('from'));

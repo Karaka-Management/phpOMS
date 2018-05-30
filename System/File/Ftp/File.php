@@ -62,19 +62,19 @@ class File extends FileAbstract implements FileInterface
 
     public static function ftpConnect(Http $http)
     {
-        $con = ftp_connect($http->getBase() . $http->getPath(), $http->getPort());
+        $con = \ftp_connect($http->getBase() . $http->getPath(), $http->getPort());
 
-        ftp_login($con, $http->getUser(), $http->getPass());
-        ftp_chdir($con, $http->getPath()); // todo: is this required ?
+        \ftp_login($con, $http->getUser(), $http->getPass());
+        \ftp_chdir($con, $http->getPath()); // todo: is this required ?
 
         return $con;
     }
 
     public static function ftpExists($con, string $path)
     {
-        $list = ftp_nlist($con, LocalFile::dirpath($path));
+        $list = \ftp_nlist($con, LocalFile::dirpath($path));
 
-        return in_array(LocalFile::basename($path), $list);
+        return \in_array(LocalFile::basename($path), $list);
     }
 
     /**
@@ -85,7 +85,7 @@ class File extends FileAbstract implements FileInterface
         $http = new Http($path);
         $con  = self::ftpConnect($http);
 
-        if (ftp_pwd($con) !== $http->getPath()) {
+        if (\ftp_pwd($con) !== $http->getPath()) {
             return false;
         }
 
@@ -97,23 +97,23 @@ class File extends FileAbstract implements FileInterface
             || (!$exists && ContentPutMode::hasFlag($mode, ContentPutMode::CREATE))
         ) {
             if (ContentPutMode::hasFlag($mode, ContentPutMode::APPEND) && $exists) {
-                file_put_contents($path, file_get_contents($path) . $content, 0, stream_context_create(['ftp' => ['overwrite' => true]]));
+                \file_put_contents($path, \file_get_contents($path) . $content, 0, \stream_context_create(['ftp' => ['overwrite' => true]]));
             } elseif (ContentPutMode::hasFlag($mode, ContentPutMode::PREPEND) && $exists) {
-                file_put_contents($path, $content . file_get_contents($path), 0, stream_context_create(['ftp' => ['overwrite' => true]]));
+                \file_put_contents($path, $content . \file_get_contents($path), 0, \stream_context_create(['ftp' => ['overwrite' => true]]));
             } else {
-                if (!Directory::ftpExists($con, dirname($path))) {
-                    Directory::ftpCreate($con, dirname($path), 0755, true);
+                if (!Directory::ftpExists($con, \dirname($path))) {
+                    Directory::ftpCreate($con, \dirname($path), 0755, true);
                 }
 
-                file_put_contents($path, $content, 0, stream_context_create(['ftp' => ['overwrite' => true]]));
+                \file_put_contents($path, $content, 0, \stream_context_create(['ftp' => ['overwrite' => true]]));
             }
 
-            ftp_close($con);
+            \ftp_close($con);
 
             return true;
         }
 
-        ftp_close($con);
+        \ftp_close($con);
 
         return false;
     }
@@ -123,17 +123,17 @@ class File extends FileAbstract implements FileInterface
      */
     public static function get(string $path) : string
     {
-        $temp    = fopen('php://temp', 'r+');
+        $temp    = \fopen('php://temp', 'r+');
         $http    = new Http($path);
         $content = '';
         $con     = self::ftpConnect($http);
 
-        if (ftp_chdir($con, File::dirpath($path)) && ftp_fget($con, $temp, $path, FTP_BINARY, 0)) {
-            rewind($temp);
-            $content = stream_get_contents($temp);
+        if (\ftp_chdir($con, File::dirpath($path)) && \ftp_fget($con, $temp, $path, FTP_BINARY, 0)) {
+            \rewind($temp);
+            $content = \stream_get_contents($temp);
         }
 
-        fclose($temp);
+        \fclose($temp);
 
         return $content;
     }
@@ -211,7 +211,7 @@ class File extends FileAbstract implements FileInterface
 
         $changed->setTimestamp(ftp_mdtm($con, $http->getPath()));
 
-        fclose($con);
+        \fclose($con);
 
         return $changed;
     }
@@ -228,9 +228,9 @@ class File extends FileAbstract implements FileInterface
             throw new PathException($path);
         }
 
-        $size = ftp_size($con, $http->getPath());
+        $size = \ftp_size($con, $http->getPath());
 
-        fclose($con);
+        \fclose($con);
 
         return $size;
     }
@@ -244,7 +244,7 @@ class File extends FileAbstract implements FileInterface
         $con   = self::ftpConnect($http);
         $owner = self::parseFtpFileData($con, $path)['user'] ?? '';
 
-        fclose($con);
+        \fclose($con);
 
         return (int) $owner;
     }
@@ -258,7 +258,7 @@ class File extends FileAbstract implements FileInterface
         $con        = self::ftpConnect($http);
         $permission = (int) self::parseFtpFileData($con, $path)['permission'] ?? 0;
 
-        fclose($con);
+        \fclose($con);
 
         return $permission;
     }
@@ -267,10 +267,10 @@ class File extends FileAbstract implements FileInterface
     {
         $items = [];
 
-        if (is_array($files = ftp_rawlist($con, LocalFile::dirpath($path)))) {
+        if (\is_array($files = \ftp_rawlist($con, LocalFile::dirpath($path)))) {
             foreach ($files as $fileData) {
-                if (strpos($fileData, self::name($path)) !== false) {
-                    $chunks = preg_split("/\s+/", $fileData);
+                if (\strpos($fileData, self::name($path)) !== false) {
+                    $chunks = \preg_split("/\s+/", $fileData);
 
                     $items['permission'] = $chunks[0];
                     $items['user']       = $chunks[2];
@@ -342,17 +342,17 @@ class File extends FileAbstract implements FileInterface
         }
 
         if ($overwrite || !self::exists($to)) {
-            if (!Directory::exists(dirname($to))) {
-                Directory::create(dirname($to), 0755, true);
+            if (!Directory::exists(\dirname($to))) {
+                Directory::create(\dirname($to), 0755, true);
             }
 
-            $rename = ftp_rename($con, $from, $to);
-            fclose($con);
+            $rename = \ftp_rename($con, $from, $to);
+            \fclose($con);
 
             return $rename;
         }
 
-        fclose($con);
+        \fclose($con);
 
         return false;
     }
@@ -369,8 +369,8 @@ class File extends FileAbstract implements FileInterface
             return false;
         }
 
-        ftp_delete($con, $path);
-        fclose($con);
+        \ftp_delete($con, $path);
+        \fclose($con);
 
         return true;
     }

@@ -39,7 +39,7 @@ class JsonBuilderTest extends \PHPUnit\Framework\TestCase
         $arr = $builder->getJson();
 
         self::assertEquals($arr, $builder->jsonSerialize());
-        self::assertEquals(json_encode($arr), $builder->serialize());
+        self::assertEquals(\json_encode($arr), $builder->serialize());
 
         $builder->unserialize($builder->serialize());
         self::assertEquals($arr, $builder->getJson());

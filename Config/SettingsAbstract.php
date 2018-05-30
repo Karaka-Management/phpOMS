@@ -77,7 +77,7 @@ abstract class SettingsAbstract implements OptionsInterface
     /**
      * Get option by key.
      *
-     * @param string|string[] $columns Column values for filtering
+     * @param string|string[]|int|int[] $columns Column values for filtering
      *
      * @return mixed Option value
      *

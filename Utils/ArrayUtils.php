@@ -48,7 +48,7 @@ final class ArrayUtils
      */
     public static function unsetArray(string $path, array $data, string $delim = '/') : array
     {
-        $nodes  = explode($delim, trim($path, $delim));
+        $nodes  = \explode($delim, trim($path, $delim));
         $prevEl = null;
         $el     = &$data;
 
@@ -86,7 +86,7 @@ final class ArrayUtils
      */
     public static function setArray(string $path, array $data, $value, string $delim = '/', bool $overwrite = false) : array
     {
-        $pathParts = explode($delim, trim($path, $delim));
+        $pathParts = \explode($delim, trim($path, $delim));
         $current   = &$data;
 
         foreach ($pathParts as $key) {
@@ -121,7 +121,7 @@ final class ArrayUtils
      */
     public static function getArray(string $path, array $data, string $delim = '/')
     {
-        $pathParts = explode($delim, trim($path, $delim));
+        $pathParts = \explode($delim, trim($path, $delim));
         $current   = $data;
 
         foreach ($pathParts as $key) {
@@ -167,7 +167,7 @@ final class ArrayUtils
     /**
      * Check if any of the needles are in the array
      *
-     * @param mixed $needles  Needles for search
+     * @param array $needles  Needles for search
      * @param array $haystack Haystack for search
      *
      * @return bool
@@ -177,7 +177,7 @@ final class ArrayUtils
     public static function anyInArray(array $needles, array $haystack) : bool
     {
         foreach ($needles as $needle) {
-            if (in_array($needle, $haystack)) {
+            if (\in_array($needle, $haystack)) {
                 return true;
             }
         }
@@ -188,7 +188,7 @@ final class ArrayUtils
     /**
      * Check if all of the needles are in the array
      *
-     * @param mixed $needles  Needles for search
+     * @param array $needles  Needles for search
      * @param array $haystack Haystack for search
      *
      * @return bool
@@ -198,7 +198,7 @@ final class ArrayUtils
     public static function allInArray(array $needles, array $haystack) : bool
     {
         foreach ($needles as $needle) {
-            if (!in_array($needle, $haystack)) {
+            if (!\in_array($needle, $haystack)) {
                 return false;
             }
         }

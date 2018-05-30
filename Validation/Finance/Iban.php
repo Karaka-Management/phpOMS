@@ -31,7 +31,7 @@ final class Iban extends ValidatorAbstract
      */
     public static function isValid($value, array $constraints = null) : bool
     {
-        $value    = str_replace(' ', '', strtolower($value));
+        $value    = \str_replace(' ', '', strtolower($value));
         $enumName = 'C_' . strtoupper(substr($value, 0, 2));
 
         if (!IbanEnum::isValidName($enumName)) {
@@ -40,7 +40,7 @@ final class Iban extends ValidatorAbstract
             return false;
         }
 
-        $layout = str_replace(' ', '', IbanEnum::getByName($enumName));
+        $layout = \str_replace(' ', '', IbanEnum::getByName($enumName));
 
         if (strlen($value) !== strlen($layout)) {
             self::$error = IbanErrorType::INVALID_LENGTH;

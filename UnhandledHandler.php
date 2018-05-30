@@ -28,7 +28,7 @@ final class UnhandledHandler
     /**
      * Exception handler.
      *
-     * @param mixed $e Exception
+     * @param \Throwable $e Exception
      *
      * @return void
      *

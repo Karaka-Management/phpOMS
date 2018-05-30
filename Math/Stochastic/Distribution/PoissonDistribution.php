@@ -15,6 +15,7 @@ declare(strict_types=1);
 namespace phpOMS\Math\Stochastic\Distribution;
 
 use phpOMS\Math\Functions\Functions;
+use phpOMS\Math\Functions\Gamma;
 
 /**
  * Well known functions class.
@@ -40,7 +41,7 @@ class PoissonDistribution
      */
     public static function getPmf(int $k, float $lambda) : float
     {
-        return exp($k * log($lambda) - $lambda - log(Functions::getGammaInteger($k + 1)));
+        return exp($k * log($lambda) - $lambda - log(Gamma::getGammaInteger($k + 1)));
     }
 
     /**

@@ -39,7 +39,7 @@ class Cron extends SchedulerAbstract
      */
     private function run(string $cmd) : string
     {
-        $cmd = 'cd ' . escapeshellarg(dirname(self::$bin)) . ' && ' . basename(self::$bin) . ' ' . $cmd;
+        $cmd = 'cd ' . escapeshellarg(\dirname(self::$bin)) . ' && ' . basename(self::$bin) . ' ' . $cmd;
 
         $pipes = [];
         $desc  = [
@@ -75,7 +75,7 @@ class Cron extends SchedulerAbstract
      */
     private function normalize(string $raw) : string
     {
-        return str_replace("\r\n", "\n", $raw);
+        return \str_replace("\r\n", "\n", $raw);
     }
 
     /**
@@ -83,7 +83,7 @@ class Cron extends SchedulerAbstract
      */
     public function getAll() : array
     {
-        $lines = explode("\n", $this->normalize($this->run('-l')));
+        $lines = \explode("\n", $this->normalize($this->run('-l')));
         unset($lines[0]);
 
         $jobs = [];
@@ -101,7 +101,7 @@ class Cron extends SchedulerAbstract
      */
     public function getAllByName(string $name, bool $exact = true) : array
     {
-        $lines = explode("\n", $this->normalize($this->run('-l')));
+        $lines = \explode("\n", $this->normalize($this->run('-l')));
         unset($lines[0]);
 
         if ($exact) {
@@ -118,7 +118,7 @@ class Cron extends SchedulerAbstract
             foreach ($lines as $line) {
                 $csv = str_getcsv($line, ' ');
 
-                if ($line !== '' && strrpos($line, '#', -strlen($line)) === false && stripos($csv[5], $name) !== false) {
+                if ($line !== '' && strrpos($line, '#', -strlen($line)) === false && \stripos($csv[5], $name) !== false) {
                     $jobs[] = CronJob::createWith($csv);
                 }
             }

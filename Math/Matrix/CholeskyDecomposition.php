@@ -18,6 +18,8 @@ use phpOMS\Math\Matrix\Exception\InvalidDimensionException;
 
 /**
  * Cholesky decomposition
+ * 
+ * A is syymetric, positive definite then A = L*L'
  *
  * @package    phpOMS\Math\Matrix
  * @license    OMS License 1.0
