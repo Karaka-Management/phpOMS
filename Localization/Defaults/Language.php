@@ -65,6 +65,14 @@ final class Language
     private $code3 = '';
 
     /**
+     * Language code.
+     *
+     * @var string
+     * @since 1.0.0
+     */
+    private $code3Native = '';
+
+    /**
      * Get language name
      *
      * @return string
@@ -110,5 +118,17 @@ final class Language
     public function getCode3() : string
     {
         return $this->code3;
+    }
+
+    /**
+     * Get language code
+     *
+     * @return string
+     *
+     * @since  1.0.0
+     */
+    public function getCode3Native() : string
+    {
+        return $this->code3Native;
     }
 }

@@ -65,6 +65,7 @@ final class SqliteConnection extends ConnectionAbstract
 
             $this->status = DatabaseStatus::OK;
         } catch (\PDOException $e) {
+            var_dump($e->getMessage());
             $this->status = DatabaseStatus::MISSING_DATABASE;
             $this->con    = null;
         }

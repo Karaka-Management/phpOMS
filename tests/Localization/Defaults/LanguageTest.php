@@ -26,5 +26,6 @@ class LanguageTest extends \PHPUnit\Framework\TestCase
         self::assertEquals('', $obj->getNative());
         self::assertEquals('', $obj->getCode2());
         self::assertEquals('', $obj->getCode3());
+        self::assertEquals('', $obj->getCode3Native());
     }
 }

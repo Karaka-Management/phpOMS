@@ -46,7 +46,7 @@ final class Iban
      * @var string
      * @since 1.0.0
      */
-    private $chars = '';
+    private $chars = 2;
 
     /**
      * Iban bban.
@@ -79,11 +79,11 @@ final class Iban
     /**
      * Get iban chars
      *
-     * @return string
+     * @return int
      *
      * @since  1.0.0
      */
-    public function getChars() : string
+    public function getChars() : int
     {
         return $this->chars;
     }

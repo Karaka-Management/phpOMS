@@ -23,7 +23,7 @@ class IbanTest extends \PHPUnit\Framework\TestCase
     {
         $obj = new Iban();
         self::assertEquals('', $obj->getCountry());
-        self::assertEquals('', $obj->getChars());
+        self::assertEquals(2, $obj->getChars());
         self::assertEquals('', $obj->getBban());
         self::assertEquals('', $obj->getFields());
     }

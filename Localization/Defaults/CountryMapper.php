@@ -42,7 +42,7 @@ class CountryMapper extends DataMapperAbstract
         'country_code2'       => ['name' => 'country_code2', 'type' => 'string', 'internal' => 'code2'],
         'country_code3'       => ['name' => 'country_code3', 'type' => 'string', 'internal' => 'code3'],
         'country_numeric'     => ['name' => 'country_numeric', 'type' => 'int', 'internal' => 'numeric'],
-        'country_subdevision' => ['name' => 'country_subdevision', 'type' => 'float', 'internal' => 'subdevision'],
+        'country_subdevision' => ['name' => 'country_subdevision', 'type' => 'string', 'internal' => 'subdevision'],
     ];
 
     /**

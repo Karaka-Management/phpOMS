@@ -17,7 +17,34 @@ require_once __DIR__ . '/../../Autoloader.php';
 
 use phpOMS\Localization\Defaults\Country;
 use phpOMS\Localization\Defaults\CountryMapper;
+use phpOMS\DataStorage\Database\DataMapperAbstract;
+use phpOMS\DataStorage\Database\Connection\SQLiteConnection;
 
 class CountryMapperTest extends \PHPUnit\Framework\TestCase
 {
+    static function setUpBeforeClass() 
+    {
+        $con = new SqliteConnection([
+            'prefix' => '',
+            'db'     => 'sqlite',
+            'path'   => realpath(__DIR__ . '/../../../Localization/Defaults/localization.sqlite'),
+        ]);
+
+        DataMapperAbstract::setConnection($con);
+    }
+
+    public function testR()
+    {
+        $obj = CountryMapper::get(83);
+        self::assertEquals('Germany', $obj->getName());
+        self::assertEquals('DE', $obj->getCode2());
+        self::assertEquals('DEU', $obj->getCode3());
+        self::assertEquals(276, $obj->getNumeric());
+        self::assertEquals('ISO 3166-2:DE', $obj->getSubdevision());
+    }
+
+    static function tearDownAfterClass() 
+    {
+        DataMapperAbstract::setConnection($GLOBALS['dbpool']->get());
+    }
 }

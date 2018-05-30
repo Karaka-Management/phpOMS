@@ -39,7 +39,7 @@ class IbanMapper extends DataMapperAbstract
     protected static $columns = [
         'iban_id'      => ['name' => 'iban_id', 'type' => 'int', 'internal' => 'id'],
         'iban_country' => ['name' => 'iban_country', 'type' => 'string', 'internal' => 'country'],
-        'iban_chars'   => ['name' => 'iban_chars', 'type' => 'string', 'internal' => 'chars'],
+        'iban_chars'   => ['name' => 'iban_chars', 'type' => 'int', 'internal' => 'chars'],
         'iban_bban'    => ['name' => 'iban_bban', 'type' => 'string', 'internal' => 'bban'],
         'iban_fields'  => ['name' => 'iban_fields', 'type' => 'string', 'internal' => 'fields'],
     ];
