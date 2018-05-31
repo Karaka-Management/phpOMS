@@ -217,9 +217,9 @@ final class FileLogger implements LoggerInterface
     /**
      * Interpolate context
      *
-     * @param string $message Log schema
-     * @param array  $context Context to log
-     * @param string $level   Log level
+     * @param string                $message Log schema
+     * @param array<string, string> $context Context to log
+     * @param string                $level   Log level
      *
      * @return string
      *
@@ -542,9 +542,9 @@ final class FileLogger implements LoggerInterface
     /**
      * Create console log.
      *
-     * @param string $message Log message
-     * @param bool   $verbose Is verbose
-     * @param array  $context Context
+     * @param string                $message Log message
+     * @param bool                  $verbose Is verbose
+     * @param array<string, string> $context Context
      *
      * @return void
      *

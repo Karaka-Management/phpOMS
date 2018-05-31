@@ -54,8 +54,8 @@ final class Average
     /**
      * Average change.
      *
-     * @param array $x Dataset
-     * @param int   $h Future steps
+     * @param array<int, float|int> $x Dataset
+     * @param int                   $h Future steps
      *
      * @return float
      *
@@ -71,10 +71,10 @@ final class Average
     /**
      * Moving average of dataset
      *
-     * @param array $x         Dataset
-     * @param int   $order     Periods to use for average
-     * @param array $weight    Weight for moving average
-     * @param bool  $symmetric Cyclic moving average
+     * @param array<int, float|int> $x         Dataset
+     * @param int                   $order     Periods to use for average
+     * @param array<int, float|int> $weight    Weight for moving average
+     * @param bool                  $symmetric Cyclic moving average
      *
      * @return array Moving average of data
      *
@@ -98,11 +98,11 @@ final class Average
     /**
      * Moving average of element in dataset
      *
-     * @param array $x         Dataset
-     * @param int   $t         Current period
-     * @param int   $order     Periods to use for average
-     * @param array $weight    Weight for moving average
-     * @param bool  $symmetric Cyclic moving average
+     * @param array<int, float|int> $x         Dataset
+     * @param int                   $t         Current period
+     * @param int                   $order     Periods to use for average
+     * @param array<int, float|int> $weight    Weight for moving average
+     * @param bool                  $symmetric Cyclic moving average
      *
      * @return float Moving average
      *
@@ -135,8 +135,8 @@ final class Average
      *
      * Example: ([1, 2, 3, 4], [0.25, 0.5, 0.125, 0.125])
      *
-     * @param array $values Values
-     * @param array $weight Weight for values
+     * @param array<int, float|int> $values Values
+     * @param array<int, float|int> $weight Weight for values
      *
      * @return float
      *
@@ -164,7 +164,7 @@ final class Average
      *
      * Example: ([1, 2, 2, 3, 4, 4, 2])
      *
-     * @param array $values Values
+     * @param array<int, float|int> $values Values
      *
      * @return float
      *
@@ -188,7 +188,7 @@ final class Average
      *
      * Example: ([1, 2, 2, 3, 4, 4, 2])
      *
-     * @param array $values Values
+     * @param array<int, float|int> $values Values
      *
      * @return float
      *
@@ -207,7 +207,7 @@ final class Average
      *
      * Example: ([1, 2, 2, 3, 4, 4, 2])
      *
-     * @param array $values Values
+     * @param array<int, float|int> $values Values
      *
      * @return float
      *
@@ -235,8 +235,8 @@ final class Average
      *
      * Example: ([1, 2, 2, 3, 4, 4, 2])
      *
-     * @param array $values Values
-     * @param int   $offset Offset for outlier
+     * @param array<int, float|int> $values Values
+     * @param int                   $offset Offset for outlier
      *
      * @return float
      *
@@ -260,8 +260,8 @@ final class Average
      *
      * Example: ([1, 2, 2, 3, 4, 4, 2])
      *
-     * @param array $values Values
-     * @param int   $offset Offset for outlier
+     * @param array<int, float|int> $values Values
+     * @param int                   $offset Offset for outlier
      *
      * @return float
      *
@@ -296,8 +296,8 @@ final class Average
      *
      * Example: ([1, 2, 2, 3, 4, 4, 2])
      *
-     * @param array $angles Angles
-     * @param int   $offset Offset for outlier
+     * @param array<int, float|int> $angles Angles
+     * @param int                   $offset Offset for outlier
      *
      * @return float
      *
@@ -325,8 +325,8 @@ final class Average
      *
      * Example: ([1, 2, 2, 3, 4, 4, 2])
      *
-     * @param array $angles Angles
-     * @param int   $offset Offset for outlier
+     * @param array<int, float|int> $angles Angles
+     * @param int                   $offset Offset for outlier
      *
      * @return float
      *

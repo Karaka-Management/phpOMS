@@ -39,8 +39,8 @@ class FiniteDifference
      *
      * Example: ('2*x^3-4x', ['x' => 99])
      *
-     * @param string $formula  Formula to differentiate
-     * @param array  $variable Variable to differentiate (name value assiziation)
+     * @param string                   $formula  Formula to differentiate
+     * @param array<string, int|float> $variable Variable to differentiate (name value assiziation)
      *
      * @return float
      *
@@ -56,8 +56,8 @@ class FiniteDifference
      *
      * Example: ('2*x^3-4x', ['x' => 99])
      *
-     * @param string $formula  Formula to differentiate
-     * @param array  $variable Variable to differentiate (name value assiziation)
+     * @param string                   $formula  Formula to differentiate
+     * @param array<string, int|float> $variable Variable to differentiate (name value assiziation)
      *
      * @return float
      *
@@ -73,9 +73,9 @@ class FiniteDifference
      *
      * Example: ('2*x^3-4x', ['x' => 99], 3)
      *
-     * @param string $formula    Formula to differentiate
-     * @param array  $variable   Variable to differentiate (name value assiziation)
-     * @param int    $derivative Derivative (4th = highest)
+     * @param string                   $formula    Formula to differentiate
+     * @param array<string, int|float> $variable   Variable to differentiate (name value assiziation)
+     * @param int                      $derivative Derivative (4th = highest)
      *
      * @return float
      *
