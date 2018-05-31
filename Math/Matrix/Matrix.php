@@ -278,7 +278,14 @@ class Matrix implements \ArrayAccess, \Iterator
      */
     public function isSymmetric() : bool
     {
-        return (new EigenvalueDecomposition($this))->isSymmetric();
+        $isSymmetric = true;
+        for ($j = 0; ($j < $this->m) & $isSymmetric; ++$j) {
+            for ($i = 0; ($i < $this->n) & $isSymmetric; ++$i) {
+                $isSymmetric = ($this->matrix[$i][$j] === $this->matrix[$j][$i]);
+            }
+        }
+
+        return $isSymmetric;
     }
 
     /**
