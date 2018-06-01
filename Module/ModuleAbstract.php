@@ -127,7 +127,13 @@ abstract class ModuleAbstract
     }
 
     /**
-     * {@inheritdoc}
+     * Add modules this module receives from
+     *
+     * @param string $module Module name
+     *
+     * @return void
+     *
+     * @since  1.0.0
      */
     public function addReceiving(string $module) : void
     {
@@ -135,7 +141,11 @@ abstract class ModuleAbstract
     }
 
     /**
-     * {@inheritdoc}
+     * Get modules this module is providing for
+     *
+     * @return array<int, string>
+     *
+     * @since  1.0.0
      */
     public function getProviding() : array
     {
@@ -144,7 +154,11 @@ abstract class ModuleAbstract
     }
 
     /**
-     * {@inheritdoc}
+     * Get the name of the module
+     *
+     * @return string
+     *
+     * @since  1.0.0
      */
     public function getName() : string
     {
@@ -153,7 +167,11 @@ abstract class ModuleAbstract
     }
 
     /**
-     * {@inheritdoc}
+     * Get module dependencies
+     *
+     * @return array
+     *
+     * @since  1.0.0
      */
     public function getDependencies() : array
     {
