@@ -101,7 +101,8 @@ final class ModuleFactory
      */
     private static function registerRequesting(ModuleAbstract $obj) : void
     {
-        foreach ($obj->getProviding() as $providing) {
+        $providings = $obj->getProviding();
+        foreach ($providings as $providing) {
             if (isset(self::$loaded[$providing])) {
                 self::$loaded[$providing]->addReceiving($obj->getName());
             } else {
@@ -124,7 +125,7 @@ final class ModuleFactory
         $name = $obj->getName();
         if (isset(self::$providing[$name])) {
             foreach (self::$providing[$name] as $providing) {
-                self::$loaded[$name]->addReceiving($providing);
+                $obj->addReceiving($providing);
             }
         }
     }
