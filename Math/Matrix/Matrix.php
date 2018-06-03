@@ -185,7 +185,7 @@ class Matrix implements \ArrayAccess, \Iterator
      */
     public function getSubMatrixByColumnsRows(array $rows, array $cols) : Matrix
     {
-        $X      = [[]];
+        $X       = [[]];
         $rlength = count($rows);
         $clength = count($cols);
 
