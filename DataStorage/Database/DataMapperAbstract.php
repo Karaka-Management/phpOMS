@@ -2188,7 +2188,7 @@ class DataMapperAbstract implements DataMapperInterface
 
         $query = $query ?? new Builder(self::$db);
         $query = self::getQuery($query);
-        $query->limit($limit); /* todo: limit is not working, setting this to 2 doesn't have any effect!!! */
+        $query->limit($limit);
 
         if (!empty(static::$createdAt)) {
             $query->orderBy(static::$table . '.' . static::$columns[static::$createdAt]['name'], 'DESC');
