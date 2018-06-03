@@ -72,8 +72,6 @@ abstract class C128Abstract
     /**
      * Barcode dimension.
      *
-     * @todo  : Implement!
-     *
      * @var int[]
      * @since 1.0.0
      */
@@ -81,8 +79,6 @@ abstract class C128Abstract
 
     /**
      * Barcode dimension.
-     *
-     * @todo  : Implement!
      *
      * @var int
      * @since 1.0.0
@@ -128,8 +124,6 @@ abstract class C128Abstract
      * @param int    $width       Barcode width
      * @param int    $height      Barcode height
      * @param int    $orientation Orientation of the barcode
-     *
-     * @todo   : add mirror parameter
      *
      * @since  1.0.0
      */
