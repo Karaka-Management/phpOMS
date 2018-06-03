@@ -27,6 +27,7 @@ use phpOMS\Stdlib\Base\Enum;
 abstract class NotificationLevel extends Enum
 {
     public const OK      = 'ok';
+    public const INFO    = 'info';
     public const WARNING = 'warning';
     public const ERROR   = 'error';
 }
