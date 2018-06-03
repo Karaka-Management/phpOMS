@@ -56,7 +56,13 @@ abstract class StorageAbstract
     }
 
     /**
-     * {@inheritdoc}
+     * Get the datetime when the resource got created.
+     *
+     * @param string $path Path of the resource
+     *
+     * @return \DateTime
+     *
+     * @since  1.0.0
      */
     public static function created(string $path) : \DateTime
     {
@@ -64,7 +70,13 @@ abstract class StorageAbstract
     }
 
     /**
-     * {@inheritdoc}
+     * Get the datetime when the resource got last modified.
+     *
+     * @param string $path Path of the resource
+     *
+     * @return \DateTime
+     *
+     * @since  1.0.0
      */
     public static function changed(string $path) : \DateTime
     {
@@ -72,7 +84,13 @@ abstract class StorageAbstract
     }
 
     /**
-     * {@inheritdoc}
+     * Get the owner id of the resource.
+     *
+     * @param string $path Path of the resource
+     *
+     * @return int
+     *
+     * @since  1.0.0
      */
     public static function owner(string $path) : int
     {
@@ -80,7 +98,13 @@ abstract class StorageAbstract
     }
 
     /**
-     * {@inheritdoc}
+     * Get the permissions id of the resource.
+     *
+     * @param string $path Path of the resource
+     *
+     * @return int Permissions (e.g. 0755);
+     *
+     * @since  1.0.0
      */
     public static function permission(string $path) : int
     {
@@ -88,7 +112,15 @@ abstract class StorageAbstract
     }
 
     /**
-     * {@inheritdoc}
+     * Get the parent path of the resource.
+     *
+     * The parent resource path is always a directory.
+     *
+     * @param string $path Path of the resource
+     *
+     * @return string
+     *
+     * @since  1.0.0
      */
     public static function parent(string $path) : string
     {
@@ -96,7 +128,13 @@ abstract class StorageAbstract
     }
 
     /**
-     * {@inheritdoc}
+     * Delete resource at destination path.
+     *
+     * @param string $path Path of the resource
+     *
+     * @return bool True on success and false on failure
+     *
+     * @since  1.0.0
      */
     public static function delete(string $path) : bool
     {
@@ -104,7 +142,15 @@ abstract class StorageAbstract
     }
 
     /**
-     * {@inheritdoc}
+     * Copy resource to different location.
+     *
+     * @param string $from      Path of the resource to copy
+     * @param string $to        Path of the resource to copy to
+     * @param bool   $overwrite Overwrite/replace existing file
+     *
+     * @return bool True on success and false on failure
+     *
+     * @since  1.0.0
      */
     public static function copy(string $from, string $to, bool $overwrite = false) : bool
     {
@@ -112,7 +158,15 @@ abstract class StorageAbstract
     }
 
     /**
-     * {@inheritdoc}
+     * Move resource to different location.
+     *
+     * @param string $from      Path of the resource to move
+     * @param string $to        Path of the resource to move to
+     * @param bool   $overwrite Overwrite/replace existing file
+     *
+     * @return bool True on success and false on failure
+     *
+     * @since  1.0.0
      */
     public static function move(string $from, string $to, bool $overwrite = false) : bool
     {
@@ -120,7 +174,14 @@ abstract class StorageAbstract
     }
 
     /**
-     * {@inheritdoc}
+     * Get size of resource.
+     *
+     * @param string $path      Path of the resource
+     * @param bool   $recursive Should include sub-sub-resources
+     *
+     * @return int
+     *
+     * @since  1.0.0
      */
     public static function size(string $path, bool $recursive = true) : int
     {
@@ -128,7 +189,13 @@ abstract class StorageAbstract
     }
 
     /**
-     * {@inheritdoc}
+     * Check existence of resource.
+     *
+     * @param string $path Path of the resource
+     *
+     * @return bool
+     *
+     * @since  1.0.0
      */
     public static function exists(string $path) : bool
     {
@@ -136,7 +203,13 @@ abstract class StorageAbstract
     }
 
     /**
-     * {@inheritdoc}
+     * Get name of resource.
+     *
+     * @param string $path Path of the resource
+     *
+     * @return string
+     *
+     * @since  1.0.0
      */
     public static function name(string $path) : string
     {
@@ -144,7 +217,13 @@ abstract class StorageAbstract
     }
 
     /**
-     * {@inheritdoc}
+     * Get basename of resource.
+     *
+     * @param string $path Path of the resource
+     *
+     * @return string
+     *
+     * @since  1.0.0
      */
     public static function basename(string $path) : string
     {
@@ -152,7 +231,13 @@ abstract class StorageAbstract
     }
 
     /**
-     * {@inheritdoc}
+     * Get the directoryname of the resource.
+     *
+     * @param string $path Path of the resource
+     *
+     * @return string
+     *
+     * @since  1.0.0
      */
     public static function dirname(string $path) : string
     {
@@ -160,7 +245,13 @@ abstract class StorageAbstract
     }
 
     /**
-     * {@inheritdoc}
+     * Get the directory path of the resource.
+     *
+     * @param string $path Path of the resource
+     *
+     * @return string
+     *
+     * @since  1.0.0
      */
     public static function dirpath(string $path) : string
     {
@@ -168,7 +259,15 @@ abstract class StorageAbstract
     }
 
     /**
-     * {@inheritdoc}
+     * Count subresources.
+     *
+     * @param string $path      Path of the resource
+     * @param bool   $recursive Consider subdirectories
+     * @param array  $ignore    Files/paths to ignore (no regex)
+     *
+     * @return string
+     *
+     * @since  1.0.0
      */
     public static function count(string $path, bool $recursive = true, array $ignore = []) : int
     {
@@ -176,9 +275,17 @@ abstract class StorageAbstract
     }
 
     /**
-     * {@inheritdoc}
+     * Make name/path operating system safe.
+     *
+     * @param string $path    Path of the resource
+     * @param string $replace Replace invalid chars with
+     * @param string $invalid Invalid chars to sanitize
+     *
+     * @return string
+     *
+     * @since  1.0.0
      */
-    public static function sanitize(string $path, string $replace = '') : string
+    public static function sanitize(string $path, string $replace = '', string $invalid = '/[^\w\s\d\.\-_~,;\/\[\]\(\]]/') : string
     {
         return static::getClassType($path)::sanitize($path, $replace);
     }

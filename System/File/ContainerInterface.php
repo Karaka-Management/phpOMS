@@ -177,6 +177,41 @@ interface ContainerInterface
     public static function basename(string $path) : string;
 
     /**
+     * Get the directory name of the resource.
+     *
+     * @param string $path Path of the resource
+     *
+     * @return string
+     *
+     * @since  1.0.0
+     */
+    public static function dirname(string $path) : string;
+
+    /**
+     * Get the directory path of the resource.
+     *
+     * @param string $path Path of the resource
+     *
+     * @return string
+     *
+     * @since  1.0.0
+     */
+    public static function dirpath(string $path) : string;
+
+    /**
+     * Count subresources.
+     *
+     * @param string $path      Path of the resource
+     * @param bool   $recursive Consider subdirectories
+     * @param array  $ignore    Files/paths to ignore (no regex)
+     *
+     * @return string
+     *
+     * @since  1.0.0
+     */
+    public static function count(string $path, bool $recursive = true, array $ignore = []) : int;
+
+    /**
      * Make name/path operating system safe.
      *
      * @param string $path    Path of the resource
