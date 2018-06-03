@@ -47,8 +47,6 @@ abstract class ConnectionAbstract implements ConnectionInterface
      *
      * The database prefix name for unique table names
      *
-     * @todo: make private? could add huge overhead since function call required
-     *
      * @var string
      * @since 1.0.0
      */
@@ -93,6 +91,25 @@ abstract class ConnectionAbstract implements ConnectionInterface
      * @since 1.0.0
      */
     protected $schemaGrammar = null;
+
+    /**
+     * Set values
+     *
+     * @param string $name  Variable name
+     * @param string $value Variable value
+     *
+     * @return void
+     *
+     * @since  1.0.0
+     */
+    public function __set($name, $value) : void
+    {
+        if (!empty($this->$name)) {
+            return;
+        }
+
+        $this->$name = $value;
+    }
 
     /**
      * {@inheritdoc}

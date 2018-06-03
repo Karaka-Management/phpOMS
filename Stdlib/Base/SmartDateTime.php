@@ -151,8 +151,7 @@ class SmartDateTime extends \DateTime
      */
     public function getDaysOfMonth() : int
     {
-        // todo: maybe ->format('t') is better
-        return cal_days_in_month(CAL_GREGORIAN, (int) $this->format('m'), (int) $this->format('Y'));
+        return (int) $this->format('t');
     }
 
     /**

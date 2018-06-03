@@ -673,19 +673,6 @@ class Matrix implements \ArrayAccess, \Iterator
     }
 
     /**
-     * Lower triangulize matrix.
-     *
-     * @return Matrix
-     *
-     * @since  1.0.0
-     */
-    public function lowerTriangular() : Matrix
-    {
-        // todo: implement
-        return new Matrix($this->m, $this->n);
-    }
-
-    /**
      * Inverse matrix.
      *
      * @param int $algorithm Algorithm for inversion

@@ -67,8 +67,6 @@ final class Request extends RequestAbstract
      *
      * @return void
      *
-     * @todo: maybe change to normal path string e.g. /some/path/here instead of hash! Remember to adjust navigation elements
-     *
      * @since  1.0.0
      */
     public function createRequestHashs(int $start = 0) : void

@@ -60,6 +60,28 @@ final class UriFactory
     }
 
     /**
+     * Cleanup
+     *
+     * @param string $identifier Identifier for cleaning up (e.g. * = everything, / = only path, ? = only query parameters, # only fragment etc.)
+     *
+     * @return void
+     *
+     * @since  1.0.0
+     */
+    public static function clean(string $identifier = '?') : void
+    {
+        if ($identifier === '*') {
+            self::$uri = [];
+        } else {
+            foreach (self::$uri as $key => $value) {
+                if (\stripos($key, $identifier) === 0) {
+                    unset(self::$uri[$key]);
+                }
+            }    
+        }
+    }
+
+    /**
      * Set global query replacements.
      *
      * @param string $key       Replacement key
@@ -79,20 +101,6 @@ final class UriFactory
         }
 
         return false;
-    }
-
-    /**
-     * Clear all uri components
-     *
-     * @return bool
-     *
-     * @since  1.0.0
-     */
-    public static function clearAll() : bool
-    {
-        self::$uri = [];
-
-        return true;
     }
 
     /**

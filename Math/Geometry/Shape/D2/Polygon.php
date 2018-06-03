@@ -102,16 +102,23 @@ final class Polygon implements D2ShapeInterface
         $countIntersect = 0;
         $polygonCount   = count($polygon);
 
-        // todo: return based on highest possibility not by first match
         for ($i = 1; $i < $polygonCount; ++$i) {
             $vertex1 = $polygon[$i - 1];
             $vertex2 = $polygon[$i];
 
-            if (abs($vertex1['y'] - $vertex2['y']) < self::EPSILON && abs($vertex1['y'] - $point['y']) < self::EPSILON && $point['x'] > min($vertex1['x'], $vertex2['x']) && $point['x'] < max($vertex1['x'], $vertex2['x'])) {
+            if (abs($vertex1['y'] - $vertex2['y']) < self::EPSILON
+                && abs($vertex1['y'] - $point['y']) < self::EPSILON
+                && $point['x'] > min($vertex1['x'], $vertex2['x'])
+                && $point['x'] < max($vertex1['x'], $vertex2['x'])
+            ) {
                 return 0; // boundary
             }
 
-            if ($point['y'] > min($vertex1['y'], $vertex2['y']) && $point['y'] <= max($vertex1['y'], $vertex2['y']) && $point['x'] <= max($vertex1['x'], $vertex2['x']) && abs($vertex1['y'] - $vertex2['y']) >= self::EPSILON) {
+            if ($point['y'] > min($vertex1['y'], $vertex2['y'])
+                && $point['y'] <= max($vertex1['y'], $vertex2['y'])
+                && $point['x'] <= max($vertex1['x'], $vertex2['x'])
+                && abs($vertex1['y'] - $vertex2['y']) >= self::EPSILON
+            ) {
                 $xinters = ($point['y'] - $vertex1['y']) * ($vertex2['x'] - $vertex1['x']) / ($vertex2['y'] - $vertex1['y']) + $vertex1['x'];
 
                 if (abs($xinters - $point['x']) < self::EPSILON) {

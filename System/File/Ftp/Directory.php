@@ -165,9 +165,9 @@ class Directory extends FileAbstract implements DirectoryInterface
     /**
      * {@inheritdoc}
      */
-    public static function sanitize(string $path, string $replace = '') : string
+    public static function sanitize(string $path, string $replace = '', string $invalid = '/[^\w\s\d\.\-_~,;\/\[\]\(\]]/') : string
     {
-        return DirectoryLocal::sanitize($path, $replace);
+        return DirectoryLocal::sanitize($path, $replace, $invalid);
     }
 
     /**

@@ -114,10 +114,6 @@ class ViewTest extends \PHPUnit\Framework\TestCase
 
         $view->setTemplate('/phpOMS/tests/Views/testTemplate');
         self::assertEquals('<strong>Test</strong>', $view->render());
-
-        // todo: why is this failing?
-        //$view->setTemplate('phpOMS/tests/Views/testArray');
-        //self::assertEquals([1, 2, 3], $view->render());
     }
 
     /**

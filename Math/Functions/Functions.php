@@ -246,7 +246,6 @@ final class Functions
      * @return array
      *
      * @since  1.0.0
-     *         todo: move to utils?! implement sqrt for array as well... could be usefull for others (e.g. matrix)
      */
     public static function powerFloat(array $values, float $exp = 2.0) : array
     {
@@ -268,7 +267,6 @@ final class Functions
      * @return array
      *
      * @since  1.0.0
-     *         todo: move to utils?! implement sqrt for array as well... could be usefull for others (e.g. matrix)
      */
     public static function powerInt(array $values, int $exp = 2) : array
     {
@@ -276,6 +274,26 @@ final class Functions
 
         foreach ($values as $value) {
             $squared[] = $value ** $exp;
+        }
+
+        return $squared;
+    }
+
+    /**
+     * Sqrt all values in array.
+     *
+     * @param array $values Values to sqrt
+     *
+     * @return array
+     *
+     * @since  1.0.0
+     */
+    public static function sqrt(array $values) : array
+    {
+        $squared = [];
+
+        foreach ($values as $value) {
+            $squared[] = sqrt($value);
         }
 
         return $squared;

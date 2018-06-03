@@ -187,9 +187,9 @@ class File extends FileAbstract implements FileInterface
     /**
      * {@inheritdoc}
      */
-    public static function sanitize(string $path, string $replace = '') : string
+    public static function sanitize(string $path, string $replace = '', string $invalid = '/[^\w\s\d\.\-_~,;\/\[\]\(\]]/') : string
     {
-        return LocalFile::sanitize($path, $replace);
+        return LocalFile::sanitize($path, $replace, $invalid);
     }
 
     /**

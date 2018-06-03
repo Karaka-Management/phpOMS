@@ -376,8 +376,6 @@ class Repository
             throw new PathException($source);
         }
 
-        // todo: is valid git repository?
-
         return implode("\n", $this->run('clone --local ' . $source . ' ' . $this->path));
     }
 
@@ -392,8 +390,6 @@ class Repository
      */
     public function cloneRemote(string $source) : string
     {
-        // todo: is valid remote git repository?
-
         return implode("\n", $this->run('clone ' . $source . ' ' . $this->path));
     }
 

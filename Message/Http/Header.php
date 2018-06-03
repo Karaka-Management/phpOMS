@@ -58,8 +58,6 @@ final class Header extends HeaderAbstract
      *
      * @return bool
      *
-     * @todo Allow to extend header key with additional values.
-     *
      * @since  1.0.0
      */
     public function set(string $key, string $header, bool $overwrite = false) : bool

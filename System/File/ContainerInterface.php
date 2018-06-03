@@ -181,12 +181,13 @@ interface ContainerInterface
      *
      * @param string $path    Path of the resource
      * @param string $replace Replace invalid chars with
+     * @param string $invalid Invalid chars to sanitize
      *
      * @return string
      *
      * @since  1.0.0
      */
-    public static function sanitize(string $path, string $replace = '') : string;
+    public static function sanitize(string $path, string $replace = '', string $invalid = '/[^\w\s\d\.\-_~,;\/\[\]\(\]]/') : string;
 
     /**
      * Get amount of sub-resources.

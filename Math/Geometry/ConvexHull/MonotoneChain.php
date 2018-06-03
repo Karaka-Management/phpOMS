@@ -21,8 +21,6 @@ namespace phpOMS\Math\Geometry\ConvexHull;
  * @license    OMS License 1.0
  * @link       http://website.orange-management.de
  * @since      1.0.0
- *
- * @todo       : implement vertice class or use vertice class used by graphs? May be usefull in order to give vertices IDs!
  */
 final class MonotoneChain
 {
@@ -40,7 +38,7 @@ final class MonotoneChain
     /**
      * Create convex hull
      *
-     * @param array<string, int|float> $points Points (Point Cloud)
+     * @param array<int, array<string, int|float>> $points Points (Point Cloud)
      *
      * @return array
      *
