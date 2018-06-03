@@ -41,7 +41,7 @@ class StatusAbstract
      */
     public static function activate(DatabasePool $dbPool, InfoManager $info) : void
     {
-        self::activateRoutes(__DIR__ . '/../../Web/Routes.php', __DIR__ . '/../../Modules/' . $info->getDirectory() . '/Admin/Routes/http.php');
+        self::activateRoutes(__DIR__ . '/../../Web/Routes.php', __DIR__ . '/../../Modules/' . $info->getDirectory() . '/Admin/Routes/');
         self::activateInDatabase($dbPool, $info);
     }
 
@@ -104,7 +104,7 @@ class StatusAbstract
      */
     public static function deactivate(DatabasePool $dbPool, InfoManager $info) : void
     {
-        self::deactivateRoutes(__DIR__ . '/../../Web/Routes.php', __DIR__ . '/../../Modules/' . $info->getDirectory() . '/Admin/Routes/http.php');
+        self::deactivateRoutes(__DIR__ . '/../../Web/Routes.php', __DIR__ . '/../../Modules/' . $info->getDirectory() . '/Admin/Routes/');
         self::deactivateInDatabase($dbPool, $info);
     }
 

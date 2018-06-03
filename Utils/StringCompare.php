@@ -117,6 +117,7 @@ final class StringCompare
                 }
             }
 
+            // todo: is this correct?
             $total += $total + $best;
         }
 

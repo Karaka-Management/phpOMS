@@ -162,19 +162,45 @@ final class EventManager
      */
     public function detach(string $group) : bool
     {
-        $found = false;
+        return $this->detachCallback($group) || $this->detachGroup($group);
+    }
 
+    /**
+     * Detach an event
+     *
+     * @param string $group Name of the event
+     *
+     * @return bool
+     *
+     * @since  1.0.0
+     */
+    private function detachCallback(string $group) : bool
+    {
         if (isset($this->callbacks[$group])) {
             unset($this->callbacks[$group]);
             $found = true;
         }
 
+        return false;
+    }
+
+    /**
+     * Detach an event
+     *
+     * @param string $group Name of the event
+     *
+     * @return bool
+     *
+     * @since  1.0.0
+     */
+    private function detachGroup(string $group) : bool 
+    {
         if (isset($this->groups[$group])) {
             unset($this->groups[$group]);
             $found = true;
         }
 
-        return $found;
+        return false;
     }
 
     /**

@@ -113,8 +113,6 @@ final class Request extends RequestAbstract
      *
      * @return void
      *
-     * @throws \Exception
-     *
      * @since  1.0.0
      */
     private function initCurrentRequest() : void
@@ -124,20 +122,34 @@ final class Request extends RequestAbstract
         $this->files = $_FILES ?? [];
         $this->header->getL11n()->setLanguage($this->loadRequestLanguage());
 
+        $this->initNonGetData();
+
+        $this->uri = $this->uri ?? new Http(Http::getCurrent());
+    }
+
+    /**
+     * Init non get data
+     *
+     * @return void
+     *
+     * @throws \Exception
+     *
+     * @since  1.0.0
+     */
+    private function initNonGetData() : void
+    {
         if (isset($_SERVER['CONTENT_TYPE'])) {
-            if (strpos($_SERVER['CONTENT_TYPE'], 'application/json') !== false) {
+            if (\stripos($_SERVER['CONTENT_TYPE'], 'application/json') !== false) {
                 if (($json = \json_decode(($input = \file_get_contents('php://input')), true)) === false || $json === null) {
                     throw new \Exception('Is not valid json ' . $input);
                 }
 
                 $this->data += $json;
-            } elseif (strpos($_SERVER['CONTENT_TYPE'], 'application/x-www-form-urlencoded') !== false) {
+            } elseif (\stripos($_SERVER['CONTENT_TYPE'], 'application/x-www-form-urlencoded') !== false) {
                 parse_str(file_get_contents('php://input'), $temp);
                 $this->data += $temp;
             }
         }
-
-        $this->uri = $this->uri ?? new Http(Http::getCurrent());
     }
 
     /**

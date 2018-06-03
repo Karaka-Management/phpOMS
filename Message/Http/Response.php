@@ -105,7 +105,7 @@ final class Response extends ResponseAbstract implements RenderableInterface
         $types = $this->header->get('Content-Type');
 
         foreach ($types as $type) {
-            if (stripos($type, MimeType::M_JSON) !== false) {
+            if (\stripos($type, MimeType::M_JSON) !== false) {
                 return \json_encode($this->jsonSerialize());
             }
         }
@@ -129,20 +129,30 @@ final class Response extends ResponseAbstract implements RenderableInterface
         foreach ($this->response as $key => $response) {
             if ($response instanceOf \Serializable) {
                 $render .= $response->serialize();
-            } elseif (is_string($response) || is_numeric($response)) {
+            } elseif (\is_string($response) || \is_numeric($response)) {
                 $render .= $response;
-            } elseif (is_array($response)) {
-                $render .= \json_encode($response);
-                // TODO: remove this. This should never happen since then someone forgot to set the correct header. it should be json header!
             } else {
                 throw new \Exception('Wrong response type');
             }
         }
 
-        $types = $this->header->get('Content-Type');
+        return $this->removeWhitespaceAndLineBreak($render);
+    }
 
-        if (stripos($types[0], MimeType::M_HTML) !== false) {
-            return trim(preg_replace('/(\s{2,}|\n|\t)(?![^<>]*<\/pre>)/', ' ', $render));
+    /**
+     * Remove whitespace and line break from render
+     * 
+     * @param string $render Rendered string
+     *
+     * @return string
+     *
+     * @since  1.0.0
+     */
+    private function removeWhitespaceAndLineBreak(string $render) : string
+    {
+        $types = $this->header->get('Content-Type');
+        if (\stripos($types[0], MimeType::M_HTML) !== false) {
+            return \trim(\preg_replace('/(\s{2,}|\n|\t)(?![^<>]*<\/pre>)/', ' ', $render));
         }
 
         return $render;
@@ -159,9 +169,9 @@ final class Response extends ResponseAbstract implements RenderableInterface
             foreach ($this->response as $key => $response) {
                 if ($response instanceof View) {
                     $result += $response->toArray();
-                } elseif (is_array($response)) {
+                } elseif (\is_array($response)) {
                     $result += $response;
-                } elseif (is_scalar($response)) {
+                } elseif (\is_scalar($response)) {
                     $result[] = $response;
                 } elseif ($response instanceof \JsonSerializable) {
                     $result[] = $response->jsonSerialize();

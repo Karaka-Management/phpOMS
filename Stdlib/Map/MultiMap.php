@@ -121,14 +121,35 @@ class MultiMap implements \Countable
      */
     private function garbageCollect() : void
     {
-        /* garbage collect keys */
+        $this->garbageCollectKeys();
+        $this->garbageCollectValues();
+    }
+
+    /**
+     * Garbage collect unreferenced keys
+     *
+     * @return void
+     *
+     * @since  1.0.0
+     */
+    private function garbageCollectKeys() : void
+    {
         foreach ($this->keys as $key => $keyValue) {
             if (!isset($this->values[$keyValue])) {
                 unset($this->keys[$key]);
             }
         }
+    }
 
-        /* garbage collect values */
+    /**
+     * Garbage collect unreferenced values
+     *
+     * @return void
+     *
+     * @since  1.0.0
+     */
+    private function garbageCollectValues() : void
+    {
         foreach ($this->values as $valueKey => $value) {
             if (!\in_array($valueKey, $this->keys)) {
                 unset($this->values[$valueKey]);

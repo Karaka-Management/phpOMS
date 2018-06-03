@@ -43,8 +43,8 @@ class StringCompareTest extends \PHPUnit\Framework\TestCase
         self::assertEquals('Cartoon', $dict->matchDictionary('Cartoon'));
         self::assertEquals('Bathtub Sidewalk Table', $dict->matchDictionary('Sidewalk Table'));
 
-        // todo: this doesn't match since the length is too far apart
-        //self::assertEquals('Snowflake Bathtub Snowflake Toothbrush Sidewalk', $dict->matchDictionary('Toothbrush'));
+        // too far apart
+        self::assertNotEquals('Snowflake Bathtub Snowflake Toothbrush Sidewalk', $dict->matchDictionary('Toothbrush'));
 
         $dict->add('Carton');
         self::assertEquals('Carton', $dict->matchDictionary('carton'));
