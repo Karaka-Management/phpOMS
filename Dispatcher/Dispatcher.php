@@ -163,13 +163,13 @@ final class Dispatcher
      *
      * @param string $controller Controller
      *
-     * @return mixed
+     * @return object
      *
      * @throws PathException This exception is thrown in case the controller couldn't be found.
      *
      * @since  1.0.0
      */
-    private function getController(string $controller) /* : object */
+    private function getController(string $controller) : object
     {
         if (!isset($this->controllers[$controller])) {
             // If module controller use module manager for initialization
