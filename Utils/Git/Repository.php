@@ -864,8 +864,7 @@ class Repository
         $count = count($lines);
 
         if (empty($lines)) {
-            // todo: return null commit
-            return new Commit();
+            return new NullCommit();
         }
 
         \preg_match('/[0-9ABCDEFabcdef]{40}/', $lines[0], $matches);
@@ -878,10 +877,9 @@ class Repository
             return new Commit();
         }
 
-        // todo: validate if array values are all initialized
-        $author = \explode(':', $lines[1]);
-        $author = \explode('<', trim($author[1]));
-        $date   = substr($lines[2], 6);
+        $author = \explode(':', $lines[1] ?? '');
+        $author = \explode('<', trim($author[1] ?? ''));
+        $date   = substr($lines[2] ?? '', 6);
 
         $commit = new Commit($matches[0]);
         $commit->setAuthor(new Author(trim($author[0] ?? ''), rtrim($author[1] ?? '', '>')));
@@ -914,8 +912,7 @@ class Repository
         $lines = $this->run('log -n ' . $limit);
 
         if (empty($lines)) {
-            // todo: return nullcommit
-            return new Commit();
+            return new NullCommit();
         }
 
         \preg_match('/[0-9ABCDEFabcdef]{40}/', $lines[0], $matches);
