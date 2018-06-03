@@ -48,7 +48,7 @@ class UriFactoryTest extends \PHPUnit\Framework\TestCase
         self::assertNull(UriFactory::getQuery('Valid'));
         self::assertEquals('query4', UriFactory::getQuery('/valid2'));
 
-        self::assertTrue(UriFactory::clean('*'));
+        UriFactory::clean('*');
         self::assertNull(UriFactory::getQuery('/valid2'));
 
         self::assertTrue(UriFactory::setQuery('/abc', 'query1'));
@@ -60,7 +60,7 @@ class UriFactoryTest extends \PHPUnit\Framework\TestCase
         self::assertNull(UriFactory::getQuery('/valid3'));
         self::assertEquals('query1', UriFactory::getQuery('/abc'));
 
-        self::assertTrue(UriFactory::clean('/'));
+        UriFactory::clean('/');
         self::assertNull(UriFactory::getQuery('/abc'));
     }
 

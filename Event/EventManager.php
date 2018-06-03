@@ -178,7 +178,7 @@ final class EventManager
     {
         if (isset($this->callbacks[$group])) {
             unset($this->callbacks[$group]);
-            $found = true;
+            return true;
         }
 
         return false;
@@ -197,7 +197,7 @@ final class EventManager
     {
         if (isset($this->groups[$group])) {
             unset($this->groups[$group]);
-            $found = true;
+            return true;
         }
 
         return false;
