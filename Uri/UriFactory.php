@@ -233,11 +233,6 @@ final class UriFactory
             return $toMatch[$match] ?? self::$uri[$match] ?? $match;
         }, $uri);
 
-        // todo: maybe don't do this and adjust unique?!
-        if (\strpos($parsed, '?')) {
-            \str_replace('&', '?', $parsed);
-        }
-
         return self::unique($parsed);
     }
 }
