@@ -61,6 +61,30 @@ class Meta implements RenderableInterface
     private $description = '';
 
     /**
+     * Itemprop.
+     *
+     * @var array
+     * @since 1.0.0
+     */
+    private $itemprops = [];
+
+    /**
+     * Property.
+     *
+     * @var array
+     * @since 1.0.0
+     */
+    private $properties = [];
+
+    /**
+     * Name.
+     *
+     * @var array
+     * @since 1.0.0
+     */
+    private $names = [];
+
+    /**
      * Add keyword.
      *
      * @param string $keyword Keyword
@@ -167,6 +191,51 @@ class Meta implements RenderableInterface
     }
 
     /**
+     * Set property.
+     *
+     * @param string $property Property
+     * @param string $content  Content
+     *
+     * @return void
+     *
+     * @since  1.0.0
+     */
+    public function setProperty(string $property, string $content) : void
+    {
+        $this->properties[$property] = $content;
+    }
+
+    /**
+     * Set itemprop.
+     *
+     * @param string $itemprop Property
+     * @param string $content  Content
+     *
+     * @return void
+     *
+     * @since  1.0.0
+     */
+    public function setItemprop(string $itemprop, string $content) : void
+    {
+        $this->itemprops[$itemprop] = $content;
+    }
+
+    /**
+     * Set name.
+     *
+     * @param string $name    Property
+     * @param string $content Content
+     *
+     * @return void
+     *
+     * @since  1.0.0
+     */
+    public function setName(string $name, string $content) : void
+    {
+        $this->names[$name] = $content;
+    }
+
+    /**
      * {@inheritdoc}
      */
     public function render() : string
@@ -175,6 +244,60 @@ class Meta implements RenderableInterface
         . (!empty($this->author) ? '<meta name="author" content="' . ViewAbstract::html($this->author) . '">' : '')
         . (!empty($this->description) ? '<meta name="description" content="' . ViewAbstract::html($this->description) . '">' : '')
         . (!empty($this->charset) ? '<meta charset="' . ViewAbstract::html($this->charset) . '">' : '')
-        . '<meta name="generator" content="Orange Management">';
+        . '<meta name="generator" content="Orange Management">'
+        . $this->renderProperty()
+        . $this->renderItemprop()
+        . $this->renderName();
+    }
+
+    /**
+     * Render property meta tags.
+     *
+     * @return string
+     *
+     * @since  1.0.0
+     */
+    private function renderProperty() : string
+    {
+        $properties = '';
+        foreach ($this->properties as $key => $content) {
+            $properties .= '<meta property="' . $key . '" content="' . $content . '">';
+        }
+
+        return $properties;
+    }
+
+    /**
+     * Render itemprop meta tags.
+     *
+     * @return string
+     *
+     * @since  1.0.0
+     */
+    private function renderItemprop() : string
+    {
+        $itemprops = '';
+        foreach ($this->itemprops as $key => $content) {
+            $itemprops .= '<meta itemprop="' . $key . '" content="' . $content . '">';
+        }
+
+        return $itemprops;
+    }
+
+    /**
+     * Render name meta tags.
+     *
+     * @return string
+     *
+     * @since  1.0.0
+     */
+    private function renderName() : string
+    {
+        $names = '';
+        foreach ($this->names as $key => $content) {
+            $names .= '<meta name="' . $key . '" content="' . $content . '">';
+        }
+
+        return $names;
     }
 }
