@@ -17,7 +17,7 @@ namespace phpOMS\Utils\IO\Csv {
     /**
      * Cvs interface.
      *
-     * PHP Version 7.1
+     * PHP Version 7.2
      *
      * @package    Framework
          * @copyright  Dennis Eichhorn

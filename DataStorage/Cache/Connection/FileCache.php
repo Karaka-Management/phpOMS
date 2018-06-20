@@ -22,7 +22,7 @@ use phpOMS\System\File\Local\File;
 /**
  * MemCache class.
  *
- * PHP Version 7.1
+ * PHP Version 7.2
  *
  * @package    phpOMS\DataStorage\Cache\Connection
  * @license    OMS License 1.0
