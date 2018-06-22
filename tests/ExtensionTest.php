@@ -20,6 +20,7 @@ class ExtensionTest extends \PHPUnit\Framework\TestCase
         self::assertTrue(extension_loaded('mbstring'));
         self::assertTrue(extension_loaded('curl'));
         self::assertTrue(extension_loaded('imap'));
+        self::assertTrue(extension_loaded('pdo'));
         self::assertTrue(extension_loaded('gd') || extension_loaded('gd2'));
     }
 }
