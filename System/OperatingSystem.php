@@ -32,7 +32,6 @@ final class OperatingSystem
      */
     private function __construct()
     {
-
     }
 
     /**
