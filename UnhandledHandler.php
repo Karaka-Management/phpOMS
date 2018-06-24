@@ -43,6 +43,9 @@ final class UnhandledHandler
             'line'    => $e->getLine(),
             'file'    => $e->getFile(),
         ]);
+
+        $r=   2;
+        var_dump('test');
     }
 
     /**
