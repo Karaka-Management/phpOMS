@@ -17,16 +17,22 @@ use phpOMS\Math\Number\Integer;
 
 class IntegerTest extends \PHPUnit\Framework\TestCase
 {
-    public function testInteger()
+    public function testIsInteger()
     {
         self::assertTrue(Integer::isInteger(4));
         self::assertFalse(Integer::isInteger(1.0));
         self::assertFalse(Integer::isInteger('3'));
+    }
 
+    public function testFactorization()
+    {
         self::assertArraySubset([2, 2, 5, 5], Integer::trialFactorization(100));
         self::assertArraySubset([2], Integer::trialFactorization(2));
         self::assertEquals([], Integer::trialFactorization(1));
+    }
 
+    public function testOther()
+    {
         self::assertEquals(101, Integer::pollardsRho(10403, 2, 1, 2, 2));
 
         self::assertEquals([59, 101], Integer::fermatFactor(5959));

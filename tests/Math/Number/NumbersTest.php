@@ -37,7 +37,10 @@ class NumbersTest extends \PHPUnit\Framework\TestCase
         self::assertTrue(Numbers::isSquare(81));
         self::assertTrue(Numbers::isSquare(6561));
         self::assertFalse(Numbers::isSquare(5545348));
+    }
 
+    public function testZeroCounting()
+    {
         self::assertEquals(3, Numbers::countTrailingZeros(1000));
         self::assertEquals(5, Numbers::countTrailingZeros(12300000));
     }
