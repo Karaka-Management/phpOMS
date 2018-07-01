@@ -162,7 +162,10 @@ final class EventManager
      */
     public function detach(string $group) : bool
     {
-        return $this->detachCallback($group) | $this->detachGroup($group);
+        $result1 = $this->detachCallback($group);
+        $result2 = $this->detachGroup($group);
+
+        return $result1 || $result2;
     }
 
     /**
