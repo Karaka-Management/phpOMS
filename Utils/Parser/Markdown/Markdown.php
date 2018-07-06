@@ -15,6 +15,8 @@ declare(strict_types=1);
 
 namespace phpOMS\Utils\Parser\Markdown;
 
+use phpOMS\Uri\UriFactory;
+
 /**
  * Markdown parser class.
  *
@@ -769,7 +771,7 @@ class Markdown
         }
 
         $data = [
-            'url' => $matches[2],
+            'url' => UriFactory::build($matches[2]),
             'title' => $matches[3] ?? null,
         ];
 
@@ -1049,7 +1051,7 @@ class Markdown
                 'name' => 'a',
                 'text' => $matches[1],
                 'attributes' => [
-                    'href' => $url,
+                    'href' => UriFactory::build($url),
                 ],
             ],
         ];
@@ -1140,7 +1142,7 @@ class Markdown
             'element' => [
                 'name' => 'img',
                 'attributes' => [
-                    'src' => $link['element']['attributes']['href'],
+                    'src' => UriFactory::build($link['element']['attributes']['href']),
                     'alt' => $link['element']['text'],
                 ],
             ],
@@ -1186,7 +1188,7 @@ class Markdown
         $remainder       = \substr($remainder, $extent);
 
         if (\preg_match('/^[(]\s*+((?:[^ ()]++|[(][^ )]+[)])++)(?:[ ]+("[^"]*"|\'[^\']*\'))?\s*[)]/', $remainder, $matches)) {
-            $element['attributes']['href'] = $matches[1];
+            $element['attributes']['href'] = UriFactory::build($matches[1]);
 
             if (isset($matches[2])) {
                 $element['attributes']['title'] = \substr($matches[2], 1, - 1);
@@ -1209,7 +1211,7 @@ class Markdown
 
             $def = self::$definitionData['Reference'][$definition];
 
-            $element['attributes']['href']  = $def['url'];
+            $element['attributes']['href']  = UriFactory::build($def['url']);
             $element['attributes']['title'] = $def['title'];
         }
 
@@ -1302,7 +1304,7 @@ class Markdown
                 'name' => 'a',
                 'text' => $matches[0][0],
                 'attributes' => [
-                    'href' => $matches[0][0],
+                    'href' => UriFactory::build($matches[0][0]),
                 ],
             ],
         ];
@@ -1329,7 +1331,7 @@ class Markdown
                 'name' => 'a',
                 'text' => $matches[1],
                 'attributes' => [
-                    'href' => $matches[1],
+                    'href' => UriFactory::build($matches[1]),
                 ],
             ],
         ];
@@ -1363,7 +1365,7 @@ class Markdown
      */
     protected static function element(array $element) : string
     {
-        $element = self::sanitizeElement($element);
+        $element = self::sanitizeAndBuildElement($element);
         $markup  = '<' . $element['name'];
 
         if (isset($element['attributes'])) {
@@ -1442,7 +1444,7 @@ class Markdown
      *
      * @since  1.0.0
      */
-    protected static function sanitizeElement(array $element) : array
+    protected static function sanitizeAndBuildElement(array $element) : array
     {
         $safeUrlNameToAtt = [
             'a'   => 'href',
