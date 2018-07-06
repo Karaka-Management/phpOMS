@@ -66,7 +66,7 @@ class UriFactoryTest extends \PHPUnit\Framework\TestCase
 
     public function testBuilder()
     {
-        $uri = 'www.test-uri.com?id={@ID}&test={.mTest}&two={/path}&hash={#hash}&none=#none&found={/not}&v={/valid2}';
+        $uri = 'www.test-uri.com?id={@ID}&test={.mTest}&two={/path}&hash={#hash}&none=#none&found={/not}?v={/valid2}';
 
         $vars = [
             '@ID'    => 1,
