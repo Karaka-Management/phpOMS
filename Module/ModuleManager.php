@@ -58,7 +58,7 @@ final class ModuleManager
      * @var array
      * @since 1.0.0
      */
-    private $installed = null;
+    private $installed = [];
 
     /**
      * All active modules (on all pages not just the ones that are running now).
@@ -66,7 +66,7 @@ final class ModuleManager
      * @var array
      * @since 1.0.0
      */
-    private $active = null;
+    private $active = [];
 
     /**
      * Module path.
@@ -82,7 +82,7 @@ final class ModuleManager
      * @var array
      * @since 1.0.0
      */
-    private $all = null;
+    private $all = [];
 
     /**
      * To load based on request uri.
@@ -195,17 +195,31 @@ final class ModuleManager
      */
     public function getActiveModules(bool $useCache = true) : array
     {
-        if ($this->active === null || !$useCache) {
+        if (empty($this->active) || !$useCache) {
             switch ($this->app->dbPool->get('select')->getType()) {
                 case DatabaseType::MYSQL:
                     $sth = $this->app->dbPool->get('select')->con->prepare('SELECT `module_path` FROM `' . $this->app->dbPool->get('select')->prefix . 'module` WHERE `module_active` = 1');
                     $sth->execute();
-                    $this->active = $sth->fetchAll(\PDO::FETCH_COLUMN);
+                    $active = $sth->fetchAll(\PDO::FETCH_COLUMN);
+
+                    foreach ($active as $module) {
+                        $path = $this->modulePath . '/' . $module . '/info.json';
+        
+                        if (!\file_exists($path)) {
+                            continue;
+                            // throw new PathException($path);
+                        }
+        
+                        $json                                    = \json_decode(file_get_contents($path), true);
+                        $this->active[$json['name']['internal']] = $json;
+                    }
                     break;
                 default:
                     throw new InvalidDatabaseTypeException($this->app->dbPool->get('select')->getType());
             }
         }
+
+        
 
         return $this->active;
     }
@@ -233,7 +247,7 @@ final class ModuleManager
      */
     public function getAllModules() : array
     {
-        if ($this->all === null) {
+        if (empty($this->all)) {
             chdir($this->modulePath);
             $files = glob('*', GLOB_ONLYDIR);
             $c     = count($files);
@@ -277,12 +291,25 @@ final class ModuleManager
      */
     public function getInstalledModules(bool $useCache = true) : array
     {
-        if ($this->installed === null || !$useCache) {
+        if (empty($this->installed) || !$useCache) {
             switch ($this->app->dbPool->get('select')->getType()) {
                 case DatabaseType::MYSQL:
-                    $sth = $this->app->dbPool->get('select')->con->prepare('SELECT `module_id`,`module_theme`,`module_version` FROM `' . $this->app->dbPool->get('select')->prefix . 'module`');
+                    $sth = $this->app->dbPool->get('select')->con->prepare('SELECT `module_path` FROM `' . $this->app->dbPool->get('select')->prefix . 'module`');
                     $sth->execute();
-                    $this->installed = $sth->fetchAll(\PDO::FETCH_GROUP);
+                    $installed = $sth->fetchAll(\PDO::FETCH_COLUMN);
+
+                    foreach ($installed as $module) {
+                        $path = $this->modulePath . '/' . $module . '/info.json';
+        
+                        if (!\file_exists($path)) {
+                            continue;
+                            // throw new PathException($path);
+                        }
+        
+                        $json                                       = \json_decode(file_get_contents($path), true);
+                        $this->installed[$json['name']['internal']] = $json;
+                    }
+
                     break;
                 default:
                     throw new InvalidDatabaseTypeException($this->app->dbPool->get('select')->getType());
