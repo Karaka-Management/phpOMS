@@ -235,7 +235,7 @@ final class ModuleManager
      */
     public function isActive(string $module) : bool
     {
-        return \in_array($module, $this->getActiveModules(false));
+        return isset($this->getActiveModules(false)[$module]);
     }
 
     /**
