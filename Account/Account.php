@@ -594,7 +594,7 @@ class Account implements ArrayableInterface, \JsonSerializable
     public function updateLastActive() : void
     {
         $this->lastActive = new \DateTime('NOW');
-    }
+    } 
 
     /**
      * Get string representation.
