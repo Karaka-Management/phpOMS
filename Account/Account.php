@@ -606,7 +606,7 @@ class Account implements ArrayableInterface, \JsonSerializable
     public function __toString() : string
     {
         return (string) \json_encode($this->toArray());
-    }
+    } 
 
     /**
      * {@inheritdoc}
