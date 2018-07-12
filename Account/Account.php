@@ -561,11 +561,13 @@ class Account implements ArrayableInterface, \JsonSerializable
      */
     public function generatePassword(string $password) : void
     {
-        $this->password = \password_hash($password, \PASSWORD_DEFAULT);
+        $temp = \password_hash($password, \PASSWORD_DEFAULT);
 
-        if ($this->password === false) {
+        if ($temp === false) {
             throw new \Exception();
         }
+
+        $this->password = $temp;
     }
 
     /**
