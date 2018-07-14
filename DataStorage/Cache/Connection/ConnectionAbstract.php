@@ -15,6 +15,7 @@ declare(strict_types=1);
 namespace phpOMS\DataStorage\Cache\Connection;
 
 use phpOMS\DataStorage\Cache\CacheStatus;
+use phpOMS\DataStorage\Cache\CacheType;
 
 /**
  * Cache handler.
