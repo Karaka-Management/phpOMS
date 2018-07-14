@@ -210,8 +210,9 @@ final class ModuleManager
                             // throw new PathException($path);
                         }
         
-                        $json                                    = \json_decode(file_get_contents($path), true);
-                        $this->active[$json['name']['internal']] = $json;
+                        $content                                 = \file_get_contents($path);
+                        $json                                    = \json_decode($content === false ? '[]' : $content, true);
+                        $this->active[$json['name']['internal']] = $json === false ? [] : $json;
                     }
                     break;
                 default:
@@ -260,8 +261,9 @@ final class ModuleManager
                     // throw new PathException($path);
                 }
 
-                $json                                 = \json_decode(file_get_contents($path), true);
-                $this->all[$json['name']['internal']] = $json;
+                $content                              = \file_get_contents($path);
+                $json                                 = \json_decode($content === false ? '[]' : $content, true);
+                $this->all[$json['name']['internal']] = $json === false ? [] : $json;
             }
         }
 
@@ -306,8 +308,9 @@ final class ModuleManager
                             // throw new PathException($path);
                         }
         
-                        $json                                       = \json_decode(file_get_contents($path), true);
-                        $this->installed[$json['name']['internal']] = $json;
+                        $content                                    = \file_get_contents($path);
+                        $json                                       = \json_decode($content === false ? '[]' : $content, true);
+                        $this->installed[$json['name']['internal']] = $json === false ? [] : $json;
                     }
 
                     break;
@@ -330,7 +333,7 @@ final class ModuleManager
      */
     private function loadInfo(string $module) : InfoManager
     {
-        $path = realpath($oldPath = $this->modulePath . '/' . $module . '/info.json');
+        $path = \realpath($oldPath = $this->modulePath . '/' . $module . '/info.json');
 
         if ($path === false) {
             throw new PathException($oldPath);

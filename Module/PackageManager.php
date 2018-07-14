@@ -109,7 +109,9 @@ final class PackageManager
             throw new PathException($this->extractPath);
         }
 
-        $this->info = \json_decode(file_get_contents($this->extractPath . '/info.json'), true);
+        $contents   = \file_get_contents($this->extractPath . '/info.json');
+        $info       = \json_decode($contents === false ? '[]' : $contents, true);
+        $this->info = $info === false ? [] : $info;
     }
 
     /**
@@ -121,7 +123,8 @@ final class PackageManager
      */
     public function isValid() : bool
     {
-        return $this->authenticate(file_get_contents($this->extractPath . '/package.cert'), $this->hashFiles());
+        $contents = \file_get_contents($this->extractPath . '/package.cert');
+        return $this->authenticate($contents === false ? '' : $contents, $this->hashFiles());
     }
 
     /**
@@ -141,10 +144,15 @@ final class PackageManager
                 continue;
             }
 
-            \sodium_crypto_generichash_update($state, \file_get_contents($this->extractPath . '/package/' . $file));
+            $contents = \file_get_contents($this->extractPath . '/package/' . $file);
+            if ($contents === false) {
+                throw new \Exception();
+            }
+
+            \sodium_crypto_generichash_update($state, $contents);
         }
 
-        return \sodium_crypto_generichash_final();
+        return \sodium_crypto_generichash_final($state);
     }
 
     /**

@@ -85,7 +85,9 @@ final class InfoManager
             throw new PathException($this->path);
         }
 
-        $this->info = \json_decode(file_get_contents($this->path), true);
+        $contents   = \file_get_contents($this->path . '/info.json');
+        $info       = \json_decode($contents === false ? '[]' : $contents, true);
+        $this->info = $info === false ? [] : $info;
     }
 
     /**
