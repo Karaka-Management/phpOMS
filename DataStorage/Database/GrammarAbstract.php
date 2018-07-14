@@ -225,20 +225,20 @@ abstract class GrammarAbstract
      *
      * A system is a table, a sub query or special keyword.
      *
-     * @param array|string $system System
-     * @param string       $prefix Prefix for table
+     * @param string $system System
+     * @param string $prefix Prefix for table
      *
      * @return string
      *
      * @since  1.0.0
      */
-    protected function compileSystem($system, string $prefix = '') : string
+    protected function compileSystem(string $system, string $prefix = '') : string
     {
         // todo: this is a bad way to handle select count(*) which doesn't need a prefix. Maybe remove prefixes in total?
         $identifier = $this->systemIdentifier;
 
         foreach ($this->specialKeywords as $keyword) {
-            if (strrpos($system, $keyword, -strlen($system)) !== false) {
+            if (\strrpos($system, $keyword, -\strlen($system)) !== false) {
                 $prefix     = '';
                 $identifier = '';
             }

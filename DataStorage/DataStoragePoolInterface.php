@@ -44,7 +44,7 @@ interface DataStoragePoolInterface
      *
      * @param string $key Connection key
      *
-     * @return mixed
+     * @return DataStorageConnectionInterface
      *
      * @since  1.0.0
      */
