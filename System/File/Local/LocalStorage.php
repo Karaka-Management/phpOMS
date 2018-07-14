@@ -54,13 +54,7 @@ class LocalStorage extends StorageAbstract
     }
 
     /**
-     * Get the internal class type (directory or file) based on path.
-     *
-     * @param string $path Path to the directory or file
-     *
-     * @return string Class namespace
-     *
-     * @since  1.0.0
+     * {@inheritdoc}
      */
     protected static function getClassType(string $path) : string
     {

@@ -44,6 +44,17 @@ abstract class StorageAbstract
     abstract public static function getInstance() : StorageAbstract;
 
     /**
+     * Get the internal class type (directory or file) based on path.
+     *
+     * @param string $path Path to the directory or file
+     *
+     * @return string Class namespace
+     *
+     * @since  1.0.0
+     */
+    abstract protected static function getClassType(string $path) : string;
+
+    /**
      * Get storage type.
      *
      * @return int Storage type.
@@ -265,7 +276,7 @@ abstract class StorageAbstract
      * @param bool   $recursive Consider subdirectories
      * @param array  $ignore    Files/paths to ignore (no regex)
      *
-     * @return string
+     * @return int
      *
      * @since  1.0.0
      */

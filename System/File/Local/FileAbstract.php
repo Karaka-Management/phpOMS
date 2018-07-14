@@ -185,9 +185,15 @@ abstract class FileAbstract implements ContainerInterface
      */
     public function index() : void
     {
-        $this->createdAt->setTimestamp(filemtime($this->path));
-        $this->changedAt->setTimestamp(filectime($this->path));
-        $this->owner      = fileowner($this->path);
-        $this->permission = (int) substr(sprintf('%o', fileperms($this->path)), -4);
+        $mtime = \filemtime($this->path);
+        $ctime = \filectime($this->path);
+
+        $this->createdAt->setTimestamp($mtime === false ? 0 : $mtime);
+        $this->changedAt->setTimestamp($ctime === false ? 0 : $ctime);
+
+        $owner = \fileowner($this->path);
+
+        $this->owner      = $owner === false ? 0 : $owner;
+        $this->permission = (int) \substr(\sprintf('%o', \fileperms($this->path)), -4);
     }
 }
