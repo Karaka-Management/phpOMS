@@ -181,6 +181,22 @@ class Directory extends FileAbstract implements DirectoryInterface
     /**
      * {@inheritdoc}
      */
+    public static function dirname(string $path) : string
+    {
+
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public static function dirpath(string $path) : string
+    {
+
+    }
+
+    /**
+     * {@inheritdoc}
+     */
     public static function name(string $path) : string
     {
         return DirectoryLocal::name($path);

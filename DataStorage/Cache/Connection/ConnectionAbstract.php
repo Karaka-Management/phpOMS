@@ -64,7 +64,7 @@ abstract class ConnectionAbstract implements ConnectionInterface
      * @var string
      * @since 1.0.0
      */
-    protected $type = CacheStatus::UNDEFINED;
+    protected $type = CacheType::UNDEFINED;
 
     /**
      * Database status.

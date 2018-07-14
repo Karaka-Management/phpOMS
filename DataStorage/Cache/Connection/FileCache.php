@@ -218,7 +218,7 @@ class FileCache extends ConnectionAbstract
         if ($type === CacheValueType::_INT || $type === CacheValueType::_FLOAT || $type === CacheValueType::_STRING || $type === CacheValueType::_BOOL) {
             return (string) $value;
         } elseif ($type === CacheValueType::_ARRAY) {
-            return \json_encode($value);
+            return (string) \json_encode($value);
         } elseif ($type === CacheValueType::_SERIALIZABLE) {
             return get_class($value) . self::DELIM . $value->serialize();
         } elseif ($type === CacheValueType::_JSONSERIALIZABLE) {
@@ -241,8 +241,8 @@ class FileCache extends ConnectionAbstract
      */
     private function getExpire(string $raw) : int
     {
-        $expireStart = \strpos($raw, self::DELIM);
-        $expireEnd   = \strpos($raw, self::DELIM, $expireStart + 1);
+        $expireStart = (int) \strpos($raw, self::DELIM);
+        $expireEnd   = (int) \strpos($raw, self::DELIM, $expireStart + 1);
 
         return (int) \substr($raw, $expireStart + 1, $expireEnd - ($expireStart + 1));
     }

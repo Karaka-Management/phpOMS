@@ -98,15 +98,19 @@ final class StringCompare
      */
     public static function valueWords(string $s1, string $s2) : int
     {
-        $words1 = preg_split('/[ _-]/', $s1);
-        $words2 = preg_split('/[ _-]/', $s2);
+        $words1 = \preg_split('/[ _-]/', $s1);
+        $words2 = \preg_split('/[ _-]/', $s2);
         $total  = 0;
 
+        if ($words1 === false || $words2 === false) {
+            return PHP_INT_MAX;
+        }
+
         foreach ($words1 as $word1) {
-            $best = strlen($s2);
+            $best = \strlen($s2);
 
             foreach ($words2 as $word2) {
-                $wordDist = levenshtein($word1, $word2);
+                $wordDist = \levenshtein($word1, $word2);
 
                 if ($wordDist < $best) {
                     $best = $wordDist;
@@ -136,7 +140,7 @@ final class StringCompare
      */
     public static function valuePhrase(string $s1, string $s2) : int
     {
-        return levenshtein($s1, $s2);
+        return \levenshtein($s1, $s2);
     }
 
     /**
@@ -151,7 +155,7 @@ final class StringCompare
      */
     public static function valueLength(string $s1, string $s2) : int
     {
-        return (int) abs(strlen($s1) - strlen($s2));
+        return abs(\strlen($s1) - \strlen($s2));
     }
 
     /**

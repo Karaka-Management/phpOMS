@@ -101,7 +101,7 @@ class Commit
         $this->author     = new Author();
         $this->branch     = new Branch();
         $this->tag        = new Tag();
-        $this->repository = new Repository(realpath(__DIR__ . '/../../../../../'));
+        $this->repository = new Repository();
     }
 
     /**

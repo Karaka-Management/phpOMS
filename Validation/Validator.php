@@ -34,6 +34,8 @@ final class Validator extends ValidatorAbstract
      * @param array $constraints Constraints for validation
      *
      * @return bool
+     * 
+     * @throws \Exception
      *
      * @since  1.0.0
      */
@@ -44,14 +46,13 @@ final class Validator extends ValidatorAbstract
         }
 
         foreach ($constraints as $test => $settings) {
-            $callback = StringUtils::endsWith($test, 'Not') ? substr($test, 0, -3) : $test;
+            $callback = StringUtils::endsWith($test, 'Not') ? \substr($test, 0, -3) : (string) $test;
 
-            if (!empty($settings)) {
-                $valid = $callback($var, ...$settings);
-            } else {
-                $valid = $callback($var);
+            if (!\is_callable($callback)) {
+                throw new \Exception();
             }
 
+            $valid = !empty($settings) ? $callback($var, ...$settings) : $callback($var);
             $valid = (StringUtils::endsWith($test, 'Not') ? !$valid : $valid);
 
             if (!$valid) {
