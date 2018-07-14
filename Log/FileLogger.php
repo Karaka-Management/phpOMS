@@ -186,8 +186,8 @@ final class FileLogger implements LoggerInterface
             return false;
         }
 
-        $mtime = \explode(' ', microtime());
-        $mtime = (int) $mtime[1] + (int) $mtime[0];
+        $temp  = \explode(' ', \microtime());
+        $mtime = ((float) $temp[1]) + ((float) $temp[0]);
 
         self::$timings[$id] = ['start' => $mtime];
 
@@ -205,8 +205,8 @@ final class FileLogger implements LoggerInterface
      */
     public static function endTimeLog($id = '') : float
     {
-        $mtime = \explode(' ', microtime());
-        $mtime = (int) $mtime[1] + (int) $mtime[0];
+        $temp  = \explode(' ', \microtime());
+        $mtime = ((float) $temp[1]) + ((float) $temp[0]);
 
         self::$timings[$id]['end']  = $mtime;
         self::$timings[$id]['time'] = $mtime - self::$timings[$id]['start'];
@@ -532,7 +532,7 @@ final class FileLogger implements LoggerInterface
         if ($this->fp === false) {
             return $log;
         }
-        
+
         \fseek($this->fp, 0);
 
         while (($line = \fgetcsv($this->fp, 0, ';')) !== false && $current <= $id) {
@@ -579,7 +579,7 @@ final class FileLogger implements LoggerInterface
         }
 
         if ($verbose) {
-            echo $message;
+            echo $this->interpolate($message, $context);
         } else {
             $this->info($message, $context);
         }

@@ -55,7 +55,7 @@ class FileLoggerTest extends \PHPUnit\Framework\TestCase
             unlink(__DIR__ . '/test.log');
         }
 
-        $log = new FileLogger(__DIR__ . '/test.log', true);
+        $log = new FileLogger(__DIR__ . '/test.log', false);
 
         $log->emergency(FileLogger::MSG_FULL, [
             'message' => 'msg',
@@ -121,17 +121,17 @@ class FileLoggerTest extends \PHPUnit\Framework\TestCase
         self::assertEquals(2, $log->countLogs()['debug'] ?? 0);
 
         self::assertEquals(['0.0.0.0' => 9], $log->getHighestPerpetrator());
-        self::assertEquals([5, 6, 7, 8, 9], array_keys($log->get(5, 1)));
+        self::assertEquals([6, 7, 8, 9, 10], array_keys($log->get(5, 1)));
         self::assertEquals('alert', $log->getByLine(2)['level']);
 
         ob_start();
-        $log->console(FileLogger::MSG_FULL, false, [
+        $log->console(FileLogger::MSG_FULL, true, [
             'message' => 'msg',
             'line'    => 11,
             'file'    => FileLoggerTest::class,
         ]);
         $ob = ob_get_clean();
-        self::assertEquals(2, $log->countLogs()['info'] ?? 0);
+        self::assertEquals(1, $log->countLogs()['info'] ?? 0);
         self::assertTrue(stripos($ob, 'msg;') !== false);
 
         ob_start();
@@ -165,7 +165,7 @@ class FileLoggerTest extends \PHPUnit\Framework\TestCase
     {
         self::assertTrue(FileLogger::startTimeLog('test'));
         self::assertFalse(FileLogger::startTimeLog('test'));
-        self::assertGreaterThan(0, FileLogger::endTimeLog('test'));
+        self::assertGreaterThan(0.0, FileLogger::endTimeLog('test'));
     }
 
     public static function tearDownAfterClass()
