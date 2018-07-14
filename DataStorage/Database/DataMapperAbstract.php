@@ -724,22 +724,26 @@ class DataMapperAbstract implements DataMapperInterface
      * The reference is stored in the main model
      *
      * @param string $propertyName Property name to initialize
-     * @param object $obj          Object to create
+     * @param mixed  $obj          Object to create
      *
      * @return mixed
      *
      * @since  1.0.0
      */
-    private static function createOwnsOne(string $propertyName, object $obj)
+    private static function createOwnsOne(string $propertyName, $obj)
     {
-        $mapper     = static::$ownsOne[$propertyName]['mapper'];
-        $primaryKey = $mapper::getObjectId($obj);
+        if (is_object($obj)) {
+            $mapper     = static::$ownsOne[$propertyName]['mapper'];
+            $primaryKey = $mapper::getObjectId($obj);
 
-        if (empty($primaryKey)) {
-            return $mapper::create($obj);
+            if (empty($primaryKey)) {
+                return $mapper::create($obj);
+            }
+
+            return $primaryKey;
         }
 
-        return $primaryKey;
+        return $obj;
     }
 
     /**
@@ -776,23 +780,27 @@ class DataMapperAbstract implements DataMapperInterface
      * The reference is stored in the main model
      *
      * @param string $propertyName Property name to initialize
-     * @param object $obj          Object to create
+     * @param mixed  $obj          Object to create
      *
      * @return mixed
      *
      * @since  1.0.0
      */
-    private static function createBelongsTo(string $propertyName, object $obj)
+    private static function createBelongsTo(string $propertyName, $obj)
     {
-        /** @var string $mapper */
-        $mapper     = static::$belongsTo[$propertyName]['mapper'];
-        $primaryKey = $mapper::getObjectId($obj);
+        if (is_object($obj)) {
+            /** @var string $mapper */
+            $mapper     = static::$belongsTo[$propertyName]['mapper'];
+            $primaryKey = $mapper::getObjectId($obj);
 
-        if (empty($primaryKey)) {
-            return $mapper::create($obj);
+            if (empty($primaryKey)) {
+                return $mapper::create($obj);
+            }
+
+            return $primaryKey;
         }
 
-        return $primaryKey;
+        return $obj;
     }
 
     /**
@@ -1069,18 +1077,22 @@ class DataMapperAbstract implements DataMapperInterface
      * The reference is stored in the main model
      *
      * @param string $propertyName Property name to initialize
-     * @param object $obj          Object to update
+     * @param mixed  $obj          Object to update
      *
      * @return mixed
      *
      * @since  1.0.0
      */
-    private static function updateBelongsTo(string $propertyName, object $obj)
+    private static function updateBelongsTo(string $propertyName, $obj)
     {
-        /** @var string $mapper */
-        $mapper = static::$belongsTo[$propertyName]['mapper'];
+        if (is_object($obj)) {
+            /** @var string $mapper */
+            $mapper = static::$belongsTo[$propertyName]['mapper'];
 
-        return $mapper::update($obj);
+            return $mapper::update($obj);
+        }
+
+        return $obj;
     }
 
     /**
@@ -1269,19 +1281,23 @@ class DataMapperAbstract implements DataMapperInterface
      * The reference is stored in the main model
      *
      * @param string $propertyName Property name to initialize
-     * @param object $obj          Object to delete
+     * @param mixed  $obj          Object to delete
      *
      * @return mixed
      *
      * @since  1.0.0
      */
-    private static function deleteOwnsOne(string $propertyName, object $obj)
+    private static function deleteOwnsOne(string $propertyName, $obj)
     {
-        /** @var string $mapper */
-        $mapper = static::$ownsOne[$propertyName]['mapper'];
+        if (is_object($obj)) {
+            /** @var string $mapper */
+            $mapper = static::$ownsOne[$propertyName]['mapper'];
 
-        // todo: delete owned one object is not recommended since it can be owned by by something else? or does owns one mean that nothing else can have a relation to this one?
-        return $mapper::delete($obj);
+            // todo: delete owned one object is not recommended since it can be owned by by something else? or does owns one mean that nothing else can have a relation to this one?
+            return $mapper::delete($obj);
+        }
+
+        return $obj;
     }
 
     /**
@@ -1290,18 +1306,22 @@ class DataMapperAbstract implements DataMapperInterface
      * The reference is stored in the main model
      *
      * @param string $propertyName Property name to initialize
-     * @param object $obj          Object to delete
+     * @param mixed  $obj          Object to delete
      *
      * @return mixed
      *
      * @since  1.0.0
      */
-    private static function deleteBelongsTo(string $propertyName, object $obj)
+    private static function deleteBelongsTo(string $propertyName, $obj)
     {
-        /** @var string $mapper */
-        $mapper = static::$belongsTo[$propertyName]['mapper'];
+        if (is_object($obj)) {
+            /** @var string $mapper */
+            $mapper = static::$belongsTo[$propertyName]['mapper'];
 
-        return $mapper::delete($obj);
+            return $mapper::delete($obj);
+        }
+
+        return $obj;
     }
 
     /**
@@ -2694,14 +2714,14 @@ class DataMapperAbstract implements DataMapperInterface
     /**
      * Test if object is null object
      *
-     * @param object $obj Object to check
+     * @param mixed $obj Object to check
      *
      * @return bool
      *
      * @since  1.0.0
      */
-    private static function isNullObject(object $obj) : bool
+    private static function isNullObject($obj) : bool
     {
-        return strpos(get_class($obj), '\Null') !== false;
+        return \is_object($obj) && \strpos(\get_class($obj), '\Null') !== false;
     }
 }
