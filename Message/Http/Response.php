@@ -106,7 +106,7 @@ final class Response extends ResponseAbstract implements RenderableInterface
 
         foreach ($types as $type) {
             if (\stripos($type, MimeType::M_JSON) !== false) {
-                return \json_encode($this->jsonSerialize());
+                return (string) \json_encode($this->jsonSerialize());
             }
         }
 

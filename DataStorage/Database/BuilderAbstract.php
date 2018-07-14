@@ -72,11 +72,11 @@ abstract class BuilderAbstract
      *
      * @param string $prefix Prefix
      *
-     * @return BuilderAbstract
+     * @return self
      *
      * @since  1.0.0
      */
-    public function prefix(string $prefix) : BuilderAbstract
+    public function prefix(string $prefix) : self
     {
         $this->prefix = $prefix;
 
