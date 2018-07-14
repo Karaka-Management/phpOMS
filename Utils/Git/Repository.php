@@ -191,8 +191,8 @@ class Repository
             throw new \Exception();
         }
 
-        $stdout   = \stream_get_contents($pipes[1]);
-        $stderr   = \stream_get_contents($pipes[2]);
+        $stdout = \stream_get_contents($pipes[1]);
+        $stderr = \stream_get_contents($pipes[2]);
 
         foreach ($pipes as $pipe) {
             \fclose($pipe);
