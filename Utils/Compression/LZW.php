@@ -39,17 +39,17 @@ class LZW implements CompressionInterface
             $dictionary[chr($i)] = $i;
         }
 
-        $length = strlen($source);
+        $length = \strlen($source);
         for ($i = 0; $i < $length; ++$i) {
             $c  = $source[$i];
             $wc = $w . $c;
 
-            if (array_key_exists($w . $c, $dictionary)) {
+            if (\array_key_exists($w . $c, $dictionary)) {
                 $w = $w . $c;
             } else {
                 $result[]        = $dictionary[$w];
                 $dictionary[$wc] = $dictSize++;
-                $w               = (string) $c;
+                $w               = $c;
             }
         }
 
@@ -57,7 +57,7 @@ class LZW implements CompressionInterface
             $result[] = $dictionary[$w];
         }
 
-        return implode(',', $result);
+        return \implode(',', $result);
     }
 
     /**
@@ -70,16 +70,20 @@ class LZW implements CompressionInterface
         $entry      = '';
         $dictSize   = 256;
 
+        if (empty($compressed)) {
+            return '';
+        }
+
         for ($i = 0; $i < 256; ++$i) {
             $dictionary[$i] = chr($i);
         }
 
-        $w      = chr($compressed[0]);
-        $result = $dictionary[$compressed[0]];
+        $w      = chr((int) $compressed[0]);
+        $result = $dictionary[(int) ($compressed[0])] ?? 0;
         $count  = count($compressed);
 
         for ($i = 1; $i < $count; ++$i) {
-            $k = $compressed[$i];
+            $k = (int) $compressed[$i];
 
             if ($dictionary[$k]) {
                 $entry = $dictionary[$k];

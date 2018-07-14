@@ -92,7 +92,7 @@ final class FileUtils
      */
     public static function absolute(string $origPath) : string
     {
-        if (!\file_exists($origPath)) {
+        if (!\file_exists($origPath) || \realpath($origPath) === false) {
             $startsWithSlash = strpos($origPath, '/') === 0 ? '/' : '';
 
             $path  = [];
@@ -106,15 +106,15 @@ final class FileUtils
                 if ($part !== '..') {
                     $path[] = $part;
                 } elseif (!empty($path)) {
-                    array_pop($path);
+                    \array_pop($path);
                 } else {
                     throw new PathException($origPath);
                 }
             }
 
-            return $startsWithSlash . implode('/', $path);
+            return $startsWithSlash . \implode('/', $path);
         }
 
-        return realpath($origPath);
+        return \realpath($origPath);
     }
 }

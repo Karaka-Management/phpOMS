@@ -46,25 +46,27 @@ final class SystemUtils
     {
         $mem = 0;
 
-        if (stristr(PHP_OS, 'WIN')) {
-            $mem = null;
-            exec('wmic memorychip get capacity', $mem);
+        if (\stristr(PHP_OS, 'WIN')) {
+            $memArr = [];
+            exec('wmic memorychip get capacity', $memArr);
 
-            /** @var array $mem */
-            $mem = array_sum($mem) / 1024;
-        } elseif (stristr(PHP_OS, 'LINUX')) {
-            $fh  = fopen('/proc/meminfo', 'r');
-            $mem = 0;
+            $mem = \array_sum($memArr) / 1024;
+        } elseif (\stristr(PHP_OS, 'LINUX')) {
+            $fh  = \fopen('/proc/meminfo', 'r');
 
-            while ($line = fgets($fh)) {
+            if ($fh === false) {
+                return $mem;
+            }
+
+            while ($line = \fgets($fh)) {
                 $pieces = [];
                 if (\preg_match('/^MemTotal:\s+(\d+)\skB$/', $line, $pieces)) {
-                    $mem = $pieces[1] * 1024;
+                    $mem = (int) ($pieces[1] ?? 0) * 1024;
                     break;
                 }
             }
 
-            fclose($fh);
+            \fclose($fh);
         }
 
         return (int) $mem;
@@ -81,12 +83,17 @@ final class SystemUtils
     {
         $memUsage = 0;
 
-        if (stristr(PHP_OS, 'LINUX')) {
-            $free     = shell_exec('free');
-            $free     = (string) trim($free);
+        if (\stristr(PHP_OS, 'LINUX')) {
+            $free = \shell_exec('free');
+
+            if ($free === null) {
+                return $memUsage;
+            }
+
+            $free     = trim($free);
             $freeArr  = \explode("\n", $free);
-            $mem      = \explode(" ", $freeArr[1]);
-            $mem      = array_values(array_filter($mem));
+            $mem      = \explode(' ', $freeArr[1]);
+            $mem      = \array_values(\array_filter($mem));
             $memUsage = $mem[2] / $mem[1] * 100;
         }
 
@@ -104,11 +111,11 @@ final class SystemUtils
     {
         $cpuUsage = 0;
 
-        if (stristr(PHP_OS, 'WIN') !== false) {
+        if (\stristr(PHP_OS, 'WIN') !== false) {
             $cpuUsage = null;
             exec('wmic cpu get LoadPercentage', $cpuUsage);
             $cpuUsage = $cpuUsage[1];
-        } elseif (stristr(PHP_OS, 'LINUX') !== false) {
+        } elseif (\stristr(PHP_OS, 'LINUX') !== false) {
             $cpuUsage = \sys_getloadavg()[0] * 100;
         }
 

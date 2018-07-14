@@ -82,11 +82,15 @@ final class Huffman
             $binary .= $this->dictionary->get($source[$i]);
         }
 
-        $splittedBinaryString = str_split('1' . $binary . '1', 8);
+        $splittedBinaryString = \str_split('1' . $binary . '1', 8);
         $binary               = '';
 
+        if ($splittedBinaryString === false) {
+            return $binary;
+        }
+
         foreach ($splittedBinaryString as $i => $c) {
-            while (strlen($c) < 8) {
+            while (\strlen($c) < 8) {
                 $c .= '0';
             }
 
@@ -112,22 +116,34 @@ final class Huffman
         }
 
         $binary    = '';
-        $rawLenght = strlen($raw);
+        $rawLenght = \strlen($raw);
         $source    = '';
 
         for ($i = 0; $i < $rawLenght; ++$i) {
             $decbin = decbin(ord($raw[$i]));
 
-            while (strlen($decbin) < 8) {
+            while (\strlen($decbin) < 8) {
                 $decbin = '0' . $decbin;
             }
 
             if ($i === 0) {
-                $decbin = substr($decbin, strpos($decbin, '1') + 1);
+                $pos = \strpos($decbin, '1');
+
+                if ($pos === false) {
+                    throw new \Exception();
+                }
+
+                $decbin = \substr($decbin, $pos + 1);
             }
 
             if ($i + 1 === $rawLenght) {
-                $decbin = substr($decbin, 0, strrpos($decbin, '1'));
+                $pos = \strrpos($decbin, '1');
+
+                if ($pos === false) {
+                    throw new \Exception();
+                }
+
+                $decbin = \substr($decbin, 0, $pos);
             }
 
             $binary .= $decbin;
