@@ -198,6 +198,6 @@ class Numeric
             $numeric += pow(26, $i) * (ord($alpha[$length - $i - 1]) - 0x40);
         }
 
-        return $numeric - 1;
+        return (int) $numeric - 1;
     }
 }
