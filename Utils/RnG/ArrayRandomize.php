@@ -27,7 +27,7 @@ class ArrayRandomize
     /**
      * Yates array shuffler.
      *
-     * @param array $arr Array to randomize
+     * @param array $arr Array to randomize. Array must NOT be associative
      *
      * @return array
      *
@@ -38,8 +38,8 @@ class ArrayRandomize
         $shuffled = [];
 
         while (!empty($arr)) {
-            $rnd        = array_rand($arr);
-            $shuffled[] = $arr[$rnd];
+            $rnd        = (int) array_rand($arr);
+            $shuffled[] = $arr[$rnd] ?? null;
             array_splice($arr, $rnd, 1);
         }
 
