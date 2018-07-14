@@ -138,7 +138,7 @@ final class Integer
             }
         }
 
-        return (int) $m;
+        return $m;
     }
 
     /**
@@ -160,13 +160,13 @@ final class Integer
         }
 
         $a  = (int) ceil(sqrt($value));
-        $b2 = (int) ($a * $a - $value);
+        $b2 = ($a * $a - $value);
         $i  = 1;
 
         while (!Numbers::isSquare($b2) && $i < $limit) {
             $i++;
             $a += 1;
-            $b2 = (int) ($a * $a - $value);
+            $b2 = ($a * $a - $value);
         }
 
         return [(int) round($a - sqrt($b2)), (int) round($a + sqrt($b2))];

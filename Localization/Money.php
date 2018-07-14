@@ -107,6 +107,11 @@ final class Money implements \Serializable
     public static function toInt(string $value, string $thousands = ',', string $decimal = '.')  : int
     {
         $split = \explode($decimal, $value);
+
+        if ($split === false) {
+            throw new \Exception();
+        }
+
         $left  = $split[0];
         $left  = \str_replace($thousands, '', $left);
         $right = '';
@@ -115,9 +120,9 @@ final class Money implements \Serializable
             $right = $split[1];
         }
 
-        $right = substr($right, 0, self::MAX_DECIMALS);
+        $right = \substr($right, 0, self::MAX_DECIMALS);
 
-        return ((int) $left) * 10 ** self::MAX_DECIMALS + (int) str_pad($right, self::MAX_DECIMALS, '0');
+        return ((int) $left) * 10 ** self::MAX_DECIMALS + (int) \str_pad($right, self::MAX_DECIMALS, '0');
     }
 
     /**
@@ -185,10 +190,10 @@ final class Money implements \Serializable
     {
         $value = (string) round($this->value, -self::MAX_DECIMALS + $decimals);
 
-        $left  = substr($value, 0, -self::MAX_DECIMALS);
-        $right = substr($value, -self::MAX_DECIMALS);
+        $left  = \substr($value, 0, -self::MAX_DECIMALS);
+        $right = \substr($value, -self::MAX_DECIMALS);
 
-        return ($decimals > 0) ? number_format((float) $left, 0, $this->decimal, $this->thousands) . $this->decimal . substr($right, 0, $decimals) : (string) $left;
+        return ($decimals > 0) ? number_format((float) $left, 0, $this->decimal, $this->thousands) . $this->decimal . \substr($right, 0, $decimals) : $left;
     }
 
     /**
@@ -309,7 +314,7 @@ final class Money implements \Serializable
     public function pow($value) : Money
     {
         if (is_float($value) || is_int($value)) {
-            $this->value = $this->value ** $value;
+            $this->value = (int) ($this->value ** $value);
         }
 
         return $this;
