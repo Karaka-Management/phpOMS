@@ -69,6 +69,6 @@ final class Rest
 
         \curl_close($curl);
 
-        return $result === false ? '' : $result;
+        return \is_bool($result) ? '' : $result;
     }
 }
