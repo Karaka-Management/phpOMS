@@ -51,6 +51,14 @@ class ApplicationAbstract
     protected $appName = '';
 
     /**
+     * Organization id.
+     *
+     * @var int
+     * @since 1.0.0
+     */
+    protected $orgId = 1;
+
+    /**
      * Database object.
      *
      * @var \phpOMS\DataStorage\Database\DatabasePool

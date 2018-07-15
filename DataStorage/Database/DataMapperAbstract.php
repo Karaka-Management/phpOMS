@@ -14,7 +14,7 @@ declare(strict_types=1);
 
 namespace phpOMS\DataStorage\Database;
 
-use phpOMS\DataStorage\Database\Connection\ConnectionAbstract;
+use phpOMS\DataStorage\DataStorageConnectionInterface;
 use phpOMS\DataStorage\Database\Query\Builder;
 use phpOMS\DataStorage\DataMapperInterface;
 use phpOMS\Message\RequestAbstract;
@@ -37,7 +37,7 @@ class DataMapperAbstract implements DataMapperInterface
     /**
      * Database connection.
      *
-     * @var ConnectionAbstract
+     * @var DataStorageConnectionInterface
      * @since 1.0.0
      */
     protected static $db = null;
@@ -195,13 +195,13 @@ class DataMapperAbstract implements DataMapperInterface
     /**
      * Set database connection.
      *
-     * @param ConnectionAbstract $con Database connection
+     * @param DataStorageConnectionInterface $con Database connection
      *
      * @return void
      *
      * @since  1.0.0
      */
-    public static function setConnection(ConnectionAbstract $con) : void
+    public static function setConnection(DataStorageConnectionInterface $con) : void
     {
         self::$db = $con;
     }
