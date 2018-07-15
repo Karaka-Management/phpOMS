@@ -105,7 +105,7 @@ class ExponentialDistribution
      */
     public static function getVariance(float $lambda) : float
     {
-        return (float) pow($lambda, -2);
+        return pow($lambda, -2);
     }
 
     /**

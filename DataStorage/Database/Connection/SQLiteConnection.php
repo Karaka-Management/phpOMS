@@ -16,7 +16,7 @@ namespace phpOMS\DataStorage\Database\Connection;
 
 use phpOMS\DataStorage\Database\DatabaseStatus;
 use phpOMS\DataStorage\Database\DatabaseType;
-use phpOMS\DataStorage\Database\Query\Grammar\SqliteGrammar;
+use phpOMS\DataStorage\Database\Query\Grammar\SQLiteGrammar;
 
 /**
  * Database handler.
@@ -29,7 +29,7 @@ use phpOMS\DataStorage\Database\Query\Grammar\SqliteGrammar;
  * @link       http://website.orange-management.de
  * @since      1.0.0
  */
-final class SqliteConnection extends ConnectionAbstract
+final class SQLiteConnection extends ConnectionAbstract
 {
 
     /**
@@ -43,8 +43,8 @@ final class SqliteConnection extends ConnectionAbstract
      */
     public function __construct(array $dbdata)
     {
-        $this->type    = DatabaseType::MYSQL;
-        $this->grammar = new SqliteGrammar();
+        $this->type    = DatabaseType::SQLITE;
+        $this->grammar = new SQLiteGrammar();
         $this->connect($dbdata);
     }
 
@@ -65,9 +65,10 @@ final class SqliteConnection extends ConnectionAbstract
 
             $this->status = DatabaseStatus::OK;
         } catch (\PDOException $e) {
-            var_dump($e->getMessage());
             $this->status = DatabaseStatus::MISSING_DATABASE;
             $this->con    = null;
+        } finally {
+            $this->dbdata['password'] = '****';
         }
     }
 }

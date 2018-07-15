@@ -74,14 +74,14 @@ interface SessionInterface
     public function save() : void;
 
     /**
-     * @return int|string
+     * @return int|string|null
      *
      * @since  1.0.0
      */
     public function getSID();
 
     /**
-     * @param int|string $sid Session id
+     * @param int|string|null $sid Session id
      *
      * @return void
      *

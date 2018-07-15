@@ -140,13 +140,16 @@ final class Request extends RequestAbstract
     {
         if (isset($_SERVER['CONTENT_TYPE'])) {
             if (\stripos($_SERVER['CONTENT_TYPE'], 'application/json') !== false) {
-                if (($json = \json_decode(($input = \file_get_contents('php://input')), true)) === false || $json === null) {
+                $input = \file_get_contents('php://input');
+                $json  = \json_decode($input === false ? '' : $input, true);
+                if ($input === false || $json === false || $json === null) {
                     throw new \Exception('Is not valid json ' . $input);
                 }
 
                 $this->data += $json;
             } elseif (\stripos($_SERVER['CONTENT_TYPE'], 'application/x-www-form-urlencoded') !== false) {
-                parse_str(file_get_contents('php://input'), $temp);
+                $content = \file_get_contents('php://input');
+                \parse_str($content === false ? '' : $content, $temp);
                 $this->data += $temp;
             }
         }
@@ -292,7 +295,7 @@ final class Request extends RequestAbstract
     {
         if ($this->browser === null) {
             $arr           = BrowserType::getConstants();
-            $httpUserAgent = strtolower($_SERVER['HTTP_USER_AGENT']);
+            $httpUserAgent = \strtolower($_SERVER['HTTP_USER_AGENT']);
 
             foreach ($arr as $key => $val) {
                 if (stripos($httpUserAgent, $val)) {
@@ -333,10 +336,10 @@ final class Request extends RequestAbstract
     {
         if ($this->os === null) {
             $arr           = OSType::getConstants();
-            $httpUserAgent = strtolower($_SERVER['HTTP_USER_AGENT']);
+            $httpUserAgent = \strtolower($_SERVER['HTTP_USER_AGENT']);
 
             foreach ($arr as $key => $val) {
-                if (stripos($httpUserAgent, $val)) {
+                if (\stripos($httpUserAgent, $val)) {
                     $this->os = $val;
 
                     return $this->os;
@@ -397,7 +400,8 @@ final class Request extends RequestAbstract
      */
     public function getBody() : string
     {
-        return \file_get_contents('php://input');
+        $body = \file_get_contents('php://input');
+        return $body === false ? '' : $body;
     }
 
     /**

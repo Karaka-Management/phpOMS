@@ -67,7 +67,7 @@ class MysqlGrammar extends Grammar
      */
     protected function compileFrom(Builder $query, array $table) : string
     {
-        $expression = $this->expressionizeTableColumn('information_schema.tables');
+        $expression = $this->expressionizeTableColumn(['information_schema.tables']);
 
         return 'FROM ' . $expression;
     }

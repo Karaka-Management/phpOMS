@@ -39,7 +39,7 @@ abstract class ConnectionAbstract implements ConnectionInterface
      * @var mixed
      * @since 1.0.0
      */
-    private $con = null;
+    protected $con = null;
 
     /**
      * Database prefix.

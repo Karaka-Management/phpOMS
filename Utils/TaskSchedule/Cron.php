@@ -39,7 +39,7 @@ class Cron extends SchedulerAbstract
      */
     private function run(string $cmd) : string
     {
-        $cmd = 'cd ' . escapeshellarg(\dirname(self::$bin)) . ' && ' . basename(self::$bin) . ' ' . $cmd;
+        $cmd = 'cd ' . \escapeshellarg(\dirname(self::$bin)) . ' && ' . \basename(self::$bin) . ' ' . $cmd;
 
         $pipes = [];
         $desc  = [
@@ -47,15 +47,19 @@ class Cron extends SchedulerAbstract
             2 => ['pipe', 'w'],
         ];
 
-        $resource = proc_open($cmd, $desc, $pipes, __DIR__, null);
-        $stdout   = stream_get_contents($pipes[1]);
-        $stderr   = stream_get_contents($pipes[2]);
+        $resource = \proc_open($cmd, $desc, $pipes, __DIR__, null);
+        $stdout   = \stream_get_contents($pipes[1]);
+        $stderr   = \stream_get_contents($pipes[2]);
 
         foreach ($pipes as $pipe) {
-            fclose($pipe);
+            \fclose($pipe);
         }
 
-        $status = trim((string) proc_close($resource));
+        if ($resource === false) {
+            throw new \Exception();
+        }
+
+        $status = \proc_close($resource);
 
         if ($status == -1) {
             throw new \Exception($stderr);
@@ -88,8 +92,8 @@ class Cron extends SchedulerAbstract
 
         $jobs = [];
         foreach ($lines as $line) {
-            if ($line !== '' && strrpos($line, '#', -strlen($line)) === false) {
-                $jobs[] = CronJob::createWith(str_getcsv($line, ' '));
+            if ($line !== '' && \strrpos($line, '#', -\strlen($line)) === false) {
+                $jobs[] = CronJob::createWith(\str_getcsv($line, ' '));
             }
         }
 
@@ -107,18 +111,18 @@ class Cron extends SchedulerAbstract
         if ($exact) {
             $jobs = [];
             foreach ($lines as $line) {
-                $csv = str_getcsv($line, ' ');
+                $csv = \str_getcsv($line, ' ');
 
-                if ($line !== '' && strrpos($line, '#', -strlen($line)) === false && $csv[5] === $name) {
+                if ($line !== '' && \strrpos($line, '#', -\strlen($line)) === false && $csv[5] === $name) {
                     $jobs[] = CronJob::createWith($csv);
                 }
             }
         } else {
             $jobs = [];
             foreach ($lines as $line) {
-                $csv = str_getcsv($line, ' ');
+                $csv = \str_getcsv($line, ' ');
 
-                if ($line !== '' && strrpos($line, '#', -strlen($line)) === false && \stripos($csv[5], $name) !== false) {
+                if ($line !== '' && \strrpos($line, '#', -\strlen($line)) === false && \stripos($csv[5], $name) !== false) {
                     $jobs[] = CronJob::createWith($csv);
                 }
             }

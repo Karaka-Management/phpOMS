@@ -24,7 +24,7 @@ use phpOMS\DataStorage\Database\Query\Builder;
  * @link       http://website.orange-management.de
  * @since      1.0.0
  */
-class SqliteGrammar extends Grammar
+class SQLiteGrammar extends Grammar
 {
 
     /**
