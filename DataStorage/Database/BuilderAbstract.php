@@ -49,7 +49,7 @@ abstract class BuilderAbstract
      * @var int
      * @since 1.0.0
      */
-    protected $type = QueryType::EMPTY;
+    protected $type = QueryType::NONE;
 
     /**
      * Prefix.

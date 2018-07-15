@@ -444,7 +444,7 @@ class DataMapperAbstract implements DataMapperInterface
         }
 
         // if a table only has a single column = primary key column. This must be done otherwise the query is empty
-        if ($query->getType() === QueryType::EMPTY) {
+        if ($query->getType() === QueryType::NONE) {
             $query->insert(static::$primaryField)->value(0, static::$columns[static::$primaryField]['type']);
         }
 
