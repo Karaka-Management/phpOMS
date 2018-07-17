@@ -100,7 +100,7 @@ class Zip implements ArchiveInterface
         }
 
         $destination = \str_replace('\\', '/', $destination);
-        $destination = rtrim($destination, '/');
+        $destination = \rtrim($destination, '/');
 
         $zip = new \ZipArchive();
         if (!$zip->open($source)) {

@@ -25,9 +25,9 @@ class CsvSettings
     /**
      * Get csv file delimiter.
      *
-     * @param mixed $file       File resource
-     * @param int   $checkLines Lines to check for evaluation
-     * @param array $delimiters Potential delimiters
+     * @param mixed    $file       File resource
+     * @param int      $checkLines Lines to check for evaluation
+     * @param string[] $delimiters Potential delimiters
      *
      * @return string
      *
@@ -36,14 +36,23 @@ class CsvSettings
     public static function getFileDelimiter($file, int $checkLines = 2, array $delimiters = [',', '\t', ';', '|', ':']) : string
     {
         $results = [];
+        $i       = 0;
+        $line    = \fgets($file);
 
-        $i = 0;
-        while (($line = fgets($file)) !== false && $i < $checkLines) {
+        if ($line === false) {
+            return ';';
+        }
+
+        while ($line !== false && $i < $checkLines) {
             $i++;
 
             foreach ($delimiters as $delimiter) {
                 $regExp = '/[' . $delimiter . ']/';
-                $fields = preg_split($regExp, $line);
+                $fields = \preg_split($regExp, $line);
+
+                if ($fields === false) {
+                    return ';';
+                }
 
                 if (count($fields) > 1) {
                     if (!empty($results[$delimiter])) {
@@ -55,7 +64,7 @@ class CsvSettings
             }
         }
 
-        $results = array_keys($results, max($results));
+        $results = \array_keys($results, max($results));
 
         return $results[0];
     }
