@@ -95,7 +95,7 @@ abstract class GrammarAbstract
     {
         return trim(
             implode(' ',
-                array_filter(
+                \array_filter(
                     $this->compileComponents($query),
                     function ($value) {
                         return (string) $value !== '';
@@ -169,13 +169,13 @@ abstract class GrammarAbstract
         $expression = '';
 
         foreach ($elements as $key => $element) {
-            if (is_string($element) && $element !== '*') {
-                if (strpos($element, '.') === false) {
+            if (\is_string($element) && $element !== '*') {
+                if (\strpos($element, '.') === false) {
                     $prefix = '';
                 }
 
                 $expression .= $this->compileSystem($element, $prefix) . ', ';
-            } elseif (is_string($element) && $element === '*') {
+            } elseif (\is_string($element) && $element === '*') {
                 $expression .= '*, ';
             } elseif ($element instanceof \Closure) {
                 $expression .= $element() . ', ';
@@ -204,9 +204,9 @@ abstract class GrammarAbstract
         $expression = '';
 
         foreach ($elements as $key => $element) {
-            if (is_string($element) && $element !== '*') {
+            if (\is_string($element) && $element !== '*') {
                 $expression .= $this->compileSystem($element, $prefix) . ', ';
-            } elseif (is_string($element) && $element === '*') {
+            } elseif (\is_string($element) && $element === '*') {
                 $expression .= '*, ';
             } elseif ($element instanceof \Closure) {
                 $expression .= $element() . ', ';

@@ -63,6 +63,6 @@ class TableException extends \PDOException
 
         $table = \substr($message, $pos1 + 1, $pos2 - $pos1 - 1);
 
-        return $table === false ? '' : $table;
+        return $table === false ? $message : $table;
     }
 }
