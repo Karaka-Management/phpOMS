@@ -38,7 +38,7 @@ final class Builder extends BuilderAbstract
     /**
      * Columns.
      *
-     * @var array<string, array<string, string>>
+     * @var array
      * @since 1.0.0
      */
     public $selects = [];
@@ -46,7 +46,7 @@ final class Builder extends BuilderAbstract
     /**
      * Columns.
      *
-     * @var array<string, array<string, string>>
+     * @var array
      * @since 1.0.0
      */
     public $updates = [];
@@ -260,7 +260,7 @@ final class Builder extends BuilderAbstract
         $this->type = QueryType::SELECT;
 
         foreach ($columns as $key => $column) {
-            if (is_string($column) || $column instanceof \Closure) {
+            if (\is_string($column) || $column instanceof \Closure) {
                 $this->selects[] = $column;
             } else {
                 throw new \InvalidArgumentException();
@@ -293,7 +293,7 @@ final class Builder extends BuilderAbstract
     /**
      * Bind parameter.
      *
-     * @param string|array|\Closure $binds Binds
+     * @param mixed $binds Binds
      *
      * @return Builder
      *
@@ -301,9 +301,9 @@ final class Builder extends BuilderAbstract
      */
     public function bind($binds) : Builder
     {
-        if (is_array($binds)) {
+        if (\is_array($binds)) {
             $this->binds += $binds;
-        } elseif (is_string($binds) || $binds instanceof \Closure) {
+        } elseif (\is_string($binds) || $binds instanceof \Closure) {
             $this->binds[] = $binds;
         } else {
             throw new \InvalidArgumentException();
@@ -334,18 +334,6 @@ final class Builder extends BuilderAbstract
     public function toSql() : string
     {
         return $this->grammar->compileQuery($this);
-    }
-
-    /**
-     * Parsing to prepared string.
-     *
-     * @return string
-     *
-     * @since  1.0.0
-     */
-    public function toPrepared() : string
-    {
-        return $this->grammar->compilePreparedQuery($this);
     }
 
     /**
@@ -387,14 +375,14 @@ final class Builder extends BuilderAbstract
             return true;
         }
 
-        $test = strtolower($raw);
+        $test = \strtolower($raw);
 
-        if (strpos($test, 'insert') !== false
-            || strpos($test, 'update') !== false
-            || strpos($test, 'drop') !== false
-            || strpos($test, 'delete') !== false
-            || strpos($test, 'create') !== false
-            || strpos($test, 'alter') !== false
+        if (\strpos($test, 'insert') !== false
+            || \strpos($test, 'update') !== false
+            || \strpos($test, 'drop') !== false
+            || \strpos($test, 'delete') !== false
+            || \strpos($test, 'create') !== false
+            || \strpos($test, 'alter') !== false
         ) {
             return false;
         }
@@ -435,7 +423,7 @@ final class Builder extends BuilderAbstract
     /**
      * From.
      *
-     * @param string|array ...$tables Tables
+     * @param array ...$tables Tables
      *
      * @return Builder
      *
@@ -444,7 +432,7 @@ final class Builder extends BuilderAbstract
     public function from(...$tables) : Builder
     {
         foreach ($tables as $key => $table) {
-            if (is_string($table) || $table instanceof \Closure) {
+            if (\is_string($table) || $table instanceof \Closure) {
                 $this->from[] = $table;
             } else {
                 throw new \InvalidArgumentException();
@@ -486,11 +474,11 @@ final class Builder extends BuilderAbstract
      */
     public function where($columns, $operator = null, $values = null, $boolean = 'and') : Builder
     {
-        if ($operator !== null && !is_array($operator) && !\in_array(strtolower($operator), self::OPERATORS)) {
+        if ($operator !== null && !\is_array($operator) && !\in_array(\strtolower($operator), self::OPERATORS)) {
             throw new \InvalidArgumentException('Unknown operator.');
         }
 
-        if (!is_array($columns)) {
+        if (!\is_array($columns)) {
             $columns  = [$columns];
             $operator = [$operator];
             $values   = [$values];
@@ -499,7 +487,7 @@ final class Builder extends BuilderAbstract
 
         $i = 0;
         foreach ($columns as $key => $column) {
-            if (isset($operator[$i]) && !\in_array(strtolower($operator[$i]), self::OPERATORS)) {
+            if (isset($operator[$i]) && !\in_array(\strtolower($operator[$i]), self::OPERATORS)) {
                 throw new \InvalidArgumentException('Unknown operator.');
             }
 
@@ -545,11 +533,11 @@ final class Builder extends BuilderAbstract
      */
     public function getTableOfSystem($expression, string $systemIdentifier) : ?string
     {
-        if (($pos = strpos($expression, $systemIdentifier . '.' . $systemIdentifier)) === false) {
+        if (($pos = \strpos($expression, $systemIdentifier . '.' . $systemIdentifier)) === false) {
             return null;
         }
 
-        return explode('.', $expression)[0];
+        return \explode('.', $expression)[0];
     }
 
     /**
@@ -648,7 +636,7 @@ final class Builder extends BuilderAbstract
     public function groupBy(...$columns) : Builder
     {
         foreach ($columns as $key => $column) {
-            if (is_string($column) || $column instanceof \Closure) {
+            if (\is_string($column) || $column instanceof \Closure) {
                 $this->groups[] = $column;
             } else {
                 throw new \InvalidArgumentException();
@@ -702,8 +690,8 @@ final class Builder extends BuilderAbstract
      */
     public function orderBy($columns, $order = 'DESC') : Builder
     {
-        if (is_string($columns) || $columns instanceof \Closure) {
-            if (!is_string($order)) {
+        if (\is_string($columns) || $columns instanceof \Closure) {
+            if (!\is_string($order)) {
                 throw new \InvalidArgumentException();
             }
 
@@ -712,9 +700,9 @@ final class Builder extends BuilderAbstract
             }
 
             $this->orders[$order][] = $columns;
-        } elseif (is_array($columns)) {
+        } elseif (\is_array($columns)) {
             foreach ($columns as $key => $column) {
-                $this->orders[is_string($order) ? $order : $order[$key]][] = $column;
+                $this->orders[\is_string($order) ? $order : $order[$key]][] = $column;
             }
         } else {
             throw new \InvalidArgumentException();
@@ -766,7 +754,7 @@ final class Builder extends BuilderAbstract
      */
     public function union($query) : Builder
     {
-        if (!is_array($query)) {
+        if (!\is_array($query)) {
             $this->unions[] = $query;
         } else {
             $this->unions += $query;
@@ -1022,7 +1010,7 @@ final class Builder extends BuilderAbstract
         $this->type = QueryType::UPDATE;
 
         foreach ($tables as $key => $table) {
-            if (is_string($table) || $table instanceof \Closure) {
+            if (\is_string($table) || $table instanceof \Closure) {
                 $this->updates[] = $table;
             } else {
                 throw new \InvalidArgumentException();
@@ -1214,9 +1202,9 @@ final class Builder extends BuilderAbstract
      */
     public static function getBindParamType($value)
     {
-        if (is_int($value)) {
+        if (\is_int($value)) {
             return \PDO::PARAM_INT;
-        } elseif (is_string($value) || is_float($value)) {
+        } elseif (\is_string($value) || \is_float($value)) {
             return \PDO::PARAM_STR;
         }
 
@@ -1236,10 +1224,10 @@ final class Builder extends BuilderAbstract
      */
     public static function getPublicColumnName($column) : string
     {
-        if (is_string($column)) {
+        if (\is_string($column)) {
             return $column;
         } elseif ($column instanceof Column) {
-            return $column->getPublicName();
+            return $column->getColumn();
         } elseif ($column instanceof \Closure) {
             return $column();
         } elseif ($column instanceof \Serializable) {
