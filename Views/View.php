@@ -177,25 +177,33 @@ class View extends ViewAbstract
         if ($module === null) {
             $match = '/Modules/';
 
-            if (($start = strripos($this->template, $match)) === false) {
+            if (($start = \strripos($this->template, $match)) === false) {
                 throw new InvalidModuleException($module ?? '');
             }
 
-            $start  = $start + strlen($match);
-            $end    = strpos($this->template, '/', $start);
-            $module = substr($this->template, $start, $end - $start);
+            $start  = $start + \strlen($match);
+            $end    = \strpos($this->template, '/', $start);
+            $module = \substr($this->template, $start, $end - $start);
+        }
+
+        if ($module === false) {
+            $module = '0';
         }
 
         if ($theme === null) {
             $match = '/Theme/';
 
-            if (($start = strripos($this->template, $match)) === false) {
+            if (($start = \strripos($this->template, $match)) === false) {
                 throw new InvalidThemeException($theme ?? '');
             }
 
-            $start = $start + strlen($match);
-            $end   = strpos($this->template, '/', $start);
-            $theme = substr($this->template, $start, $end - $start);
+            $start = $start + \strlen($match);
+            $end   = \strpos($this->template, '/', $start);
+            $theme = \substr($this->template, $start, $end - $start);
+        }
+
+        if ($theme === false) {
+            $theme = '0';
         }
 
         return $this->app->l11nManager->getText($this->l11n->getLanguage(), $module, $theme, $translation);

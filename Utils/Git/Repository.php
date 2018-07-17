@@ -168,7 +168,7 @@ class Repository
      */
     private function run(string $cmd) : array
     {
-        if (\strtolower(\substr(PHP_OS, 0, 3)) == 'win') {
+        if (\strtolower((string) \substr(PHP_OS, 0, 3)) == 'win') {
             $cmd = 'cd ' . \escapeshellarg(\dirname(Git::getBin()))
                 . ' && ' . \basename(Git::getBin())
                 . ' -C ' . \escapeshellarg($this->path) . ' '
@@ -707,7 +707,8 @@ class Repository
         foreach ($lines as $line) {
             \preg_match('/^[0-9]*/', $line, $matches);
 
-            $contributor = new Author(\substr($line, \strlen($matches[0]) + 1));
+            $author      = \substr($line, \strlen($matches[0]) + 1);
+            $contributor = new Author($author === false ? '' : $author);
             $contributor->setCommitCount($this->getCommitsCount($start, $end)[$contributor->getName()]);
 
             $addremove = $this->getAdditionsRemovalsByContributor($contributor, $start, $end);
@@ -881,8 +882,16 @@ class Repository
         }
 
         $author = \explode(':', $lines[1] ?? '');
-        $author = \explode('<', trim($author[1] ?? ''));
-        $date   = \substr($lines[2] ?? '', 6);
+        if (count($author) < 2) {
+            $author = ['none', 'none'];
+        } else {
+            $author = \explode('<', trim($author[1] ?? ''));
+        }
+
+        $date = \substr($lines[2] ?? '', 6);
+        if ($date === false) {
+            $date = 'now';
+        }
 
         $commit = new Commit($matches[0]);
         $commit->setAuthor(new Author(trim($author[0] ?? ''), rtrim($author[1] ?? '', '>')));

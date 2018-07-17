@@ -115,15 +115,16 @@ class Iban implements \Serializable
     {
         $country = $this->getCountry();
         $layout  = \str_replace(' ', '', IbanEnum::getByName('C_' . $country));
+        $start   = \stripos($layout, $sequence);
+        $end     = \strrpos($layout, $sequence);
 
-        $start = \stripos($layout, $sequence);
-        $end   = strrpos($layout, $sequence);
-
-        if ($start === false) {
+        if ($start === false || $end === false) {
             return '';
         }
 
-        return substr($this->iban, $start, $end - $start + 1);
+        $sequence = \substr($this->iban, $start, $end - $start + 1);
+
+        return $sequence === false ? '' : $sequence;
     }
 
     /**
@@ -135,7 +136,9 @@ class Iban implements \Serializable
      */
     public function getCountry() : string
     {
-        return substr($this->iban, 0, 2);
+        $country = \substr($this->iban, 0, 2);
+        
+        return $country === false ? '?' : $country;
     }
 
     /**

@@ -148,9 +148,13 @@ class Numeric
         $result = 0;
 
         foreach (self::ROMANS as $key => $value) {
-            while (strpos($roman, $key) === 0) {
+            while (\strpos($roman, $key) === 0) {
                 $result += $value;
-                $roman   = substr($roman, \strlen($key));
+                $temp    = \substr($roman, \strlen($key));
+
+                if ($temp !== false) {
+                    $roman = $temp;
+                }
             }
         }
 

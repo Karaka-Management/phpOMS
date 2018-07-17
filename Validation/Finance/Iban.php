@@ -31,8 +31,14 @@ final class Iban extends ValidatorAbstract
      */
     public static function isValid($value, array $constraints = null) : bool
     {
-        $value    = \str_replace(' ', '', \strtolower($value));
-        $enumName = 'C_' . \strtoupper(\substr($value, 0, 2));
+        $value = \str_replace(' ', '', \strtolower($value));
+
+        $temp = \substr($value, 0, 2);
+        if ($temp === false) {
+            return false;
+        }
+
+        $enumName = 'C_' . \strtoupper($temp);
 
         if (!IbanEnum::isValidName($enumName)) {
             self::$error = IbanErrorType::INVALID_COUNTRY;

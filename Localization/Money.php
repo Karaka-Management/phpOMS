@@ -121,6 +121,9 @@ final class Money implements \Serializable
         }
 
         $right = \substr($right, 0, self::MAX_DECIMALS);
+        if ($right === false) {
+            return 0;
+        }
 
         return ((int) $left) * 10 ** self::MAX_DECIMALS + (int) \str_pad($right, self::MAX_DECIMALS, '0');
     }
@@ -192,6 +195,9 @@ final class Money implements \Serializable
 
         $left  = \substr($value, 0, -self::MAX_DECIMALS);
         $right = \substr($value, -self::MAX_DECIMALS);
+        if ($left === false || $right === false) {
+            return '0';
+        }
 
         return ($decimals > 0) ? number_format((float) $left, 0, $this->decimal, $this->thousands) . $this->decimal . \substr($right, 0, $decimals) : $left;
     }

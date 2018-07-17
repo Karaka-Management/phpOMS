@@ -134,6 +134,9 @@ final class Huffman
                 }
 
                 $decbin = \substr($decbin, $pos + 1);
+                if ($decbin === false) {
+                    throw new \Exception();
+                }
             }
 
             if ($i + 1 === $rawLenght) {
@@ -144,6 +147,9 @@ final class Huffman
                 }
 
                 $decbin = \substr($decbin, 0, $pos);
+                if ($decbin === false) {
+                    throw new \Exception();
+                }
             }
 
             $binary .= $decbin;

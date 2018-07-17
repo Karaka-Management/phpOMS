@@ -145,7 +145,7 @@ final class Http implements UriInterface
     public function set(string $uri) : void
     {
         $this->uri = $uri;
-        $url       = parse_url($this->uri);
+        $url       = \parse_url($this->uri);
 
         $this->scheme = $url['scheme'] ?? '';
         $this->host   = $url['host'] ?? '';
@@ -155,17 +155,23 @@ final class Http implements UriInterface
         $this->path   = $url['path'] ?? '';
 
         if (StringUtils::endsWith($this->path, '.php')) {
-            $this->path = substr($this->path, 0, -4);
+            $path = \substr($this->path, 0, -4);
+
+            if ($path === false) {
+                return;
+            }
+
+            $this->path = $path;
         }
 
-        $this->path        = strpos($this->path, $this->rootPath) === 0 ? substr($this->path, strlen($this->rootPath), strlen($this->path)) : $this->path;
+        $this->path        = \strpos($this->path, $this->rootPath) === 0 ? \substr($this->path, \strlen($this->rootPath), \strlen($this->path)) : $this->path;
         $this->queryString = $url['query'] ?? '';
 
         if (!empty($this->queryString)) {
-            parse_str($this->queryString, $this->query);
+            \parse_str($this->queryString, $this->query);
         }
 
-        $this->query = array_change_key_case($this->query, CASE_LOWER);
+        $this->query = \array_change_key_case($this->query, CASE_LOWER);
 
         $this->fragment = $url['fragment'] ?? '';
         $this->base     = $this->scheme . '://' . $this->host . $this->rootPath;

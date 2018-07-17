@@ -2160,7 +2160,13 @@ class DataMapperAbstract implements DataMapperInterface
         $sth = self::$db->con->prepare($query->toSql());
         $sth->execute();
 
-        return self::populateIterable($sth->fetchAll(\PDO::FETCH_ASSOC));
+        $result = $sth->fetchAll(\PDO::FETCH_ASSOC);
+
+        if ($result === false) {
+            return [];
+        }
+
+        return self::populateIterable($result);
     }
 
     /**
@@ -2415,9 +2421,12 @@ class DataMapperAbstract implements DataMapperInterface
         $sth = self::$db->con->prepare($query->toSql());
         $sth->execute();
 
-        $results = array_column($sth->fetchAll(\PDO::FETCH_NUM) ?? [], 0);
+        $result = $sth->fetchAll(\PDO::FETCH_NUM);
+        if ($result === false) {
+            return [];
+        }
 
-        return $results;
+        return \array_column($result, 0);
     }
 
     /**
@@ -2441,9 +2450,12 @@ class DataMapperAbstract implements DataMapperInterface
         $sth = self::$db->con->prepare($query->toSql());
         $sth->execute();
 
-        $results = array_column($sth->fetchAll(\PDO::FETCH_NUM) ?? [], 0);
-
-        return $results;
+        $result = $sth->fetchAll(\PDO::FETCH_NUM);
+        if ($result === false) {
+            return [];
+        }
+        
+        return \array_column($result, 0);
     }
 
     /**
@@ -2686,7 +2698,7 @@ class DataMapperAbstract implements DataMapperInterface
 
         $results = $sth->fetchAll(\PDO::FETCH_ASSOC);
 
-        return count($results) === 0;
+        return $results && count($results) === 0;
     }
 
     /**
