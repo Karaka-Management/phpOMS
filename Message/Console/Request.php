@@ -17,6 +17,7 @@ namespace phpOMS\Message\Console;
 use phpOMS\Localization\Localization;
 use phpOMS\Message\RequestAbstract;
 use phpOMS\Message\RequestSource;
+use phpOMS\Message\Http\RequestMethod;
 use phpOMS\Router\RouteVerb;
 use phpOMS\Uri\UriInterface;
 
