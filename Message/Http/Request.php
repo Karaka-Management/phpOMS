@@ -105,7 +105,7 @@ final class Request extends RequestAbstract
             $this->setupUriBuilder();
         }
 
-        $this->data = array_change_key_case($this->data, CASE_LOWER);
+        $this->data = \array_change_key_case($this->data, CASE_LOWER);
     }
 
     /**
@@ -249,7 +249,7 @@ final class Request extends RequestAbstract
                 $paths[] = $pathArray[$i];
             }
 
-            $this->hash[] = sha1(implode('', $paths));
+            $this->hash[] = sha1(\implode('', $paths));
         }
     }
 
@@ -298,7 +298,7 @@ final class Request extends RequestAbstract
             $httpUserAgent = \strtolower($_SERVER['HTTP_USER_AGENT']);
 
             foreach ($arr as $key => $val) {
-                if (stripos($httpUserAgent, $val)) {
+                if (\stripos($httpUserAgent, $val)) {
                     $this->browser = $val;
 
                     return $this->browser;
@@ -466,7 +466,7 @@ final class Request extends RequestAbstract
     {
         if ($this->getMethod() === RequestMethod::GET && !empty($this->data)) {
             return $this->uri->__toString()
-                . (parse_url($this->uri->__toString(), PHP_URL_QUERY) ? '&' : '?')
+                . (\parse_url($this->uri->__toString(), PHP_URL_QUERY) ? '&' : '?')
                 . http_build_query($this->data);
         }
 

@@ -18,6 +18,7 @@ use phpOMS\Localization\Localization;
 use phpOMS\Message\RequestAbstract;
 use phpOMS\Message\RequestSource;
 use phpOMS\Router\RouteVerb;
+use phpOMS\Uri\UriInterface;
 
 /**
  * Request class.
@@ -50,12 +51,9 @@ final class Request extends RequestAbstract
     public function __construct(UriInterface $uri, Localization $l11n = null)
     {
         $this->header = new Header();
+        $this->header->setL11n($l11n ?? new Localization());
 
-        if ($l11n === null) {
-            $l11n = $l11n ?? new Localization();
-        }
-
-        $this->header->setL11n($l11n);
+        $this->uri = $uri;
     }
 
     /**
@@ -80,7 +78,7 @@ final class Request extends RequestAbstract
                 $paths[] = $pathArray[$i];
             }
 
-            $this->hash[] = sha1(implode('', $paths));
+            $this->hash[] = sha1(\implode('', $paths));
         }
     }
 

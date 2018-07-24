@@ -28,9 +28,9 @@ use phpOMS\Utils\StringUtils;
  *
  * @SuppressWarnings(PHPMD.Superglobals)
  */
-final class Http implements UriInterface
+final class Argument implements UriInterface
 {
-
+    
     /**
      * Root path.
      *
@@ -145,49 +145,6 @@ final class Http implements UriInterface
     public function set(string $uri) : void
     {
         $this->uri = $uri;
-        $url       = \parse_url($this->uri);
-
-        $this->scheme = $url['scheme'] ?? '';
-        $this->host   = $url['host'] ?? '';
-        $this->port   = $url['port'] ?? 80;
-        $this->user   = $url['user'] ?? '';
-        $this->pass   = $url['pass'] ?? '';
-        $this->path   = $url['path'] ?? '';
-
-        if (StringUtils::endsWith($this->path, '.php')) {
-            $path = \substr($this->path, 0, -4);
-
-            if ($path === false) {
-                throw new \Exception();
-            }
-
-            $this->path = $path;
-        }
-
-        $this->path        = \strpos($this->path, $this->rootPath) === 0 ? \substr($this->path, \strlen($this->rootPath), \strlen($this->path)) : $this->path;
-        $this->queryString = $url['query'] ?? '';
-
-        if (!empty($this->queryString)) {
-            \parse_str($this->queryString, $this->query);
-        }
-
-        $this->query = \array_change_key_case($this->query, CASE_LOWER);
-
-        $this->fragment = $url['fragment'] ?? '';
-        $this->base     = $this->scheme . '://' . $this->host . $this->rootPath;
-    }
-
-    /**
-     * Get current uri.
-     *
-     * @return string
-     *
-     * @since  1.0.0
-     */
-    public static function getCurrent() : string
-    {
-        /** @noinspection PhpUndefinedConstantInspection */
-        return 'http://' . ($_SERVER['HTTP_HOST'] ?? '') . ($_SERVER['REQUEST_URI'] ?? '');
     }
 
     /**
@@ -195,7 +152,7 @@ final class Http implements UriInterface
      */
     public static function isValid(string $uri) : bool
     {
-        return (bool) \filter_var($uri, FILTER_VALIDATE_URL);
+        return true;
     }
 
     /**
@@ -295,7 +252,7 @@ final class Http implements UriInterface
      */
     public function getPathElement(int $pos = null) : string
     {
-        return \explode('/', $this->path)[$pos] ?? '';
+        return explode('/', $this->path)[$pos] ?? '';
     }
 
     /**
@@ -303,7 +260,7 @@ final class Http implements UriInterface
      */
     public function getPathElements() : array
     {
-        return \explode('/', $this->path);
+        return explode('/', $this->path);
     }
 
     /**
@@ -343,8 +300,7 @@ final class Http implements UriInterface
      */
     public function getAuthority() : string
     {
-        return ($this->getUser() !== '' ? $this->getUser() . '@' : '') . $this->host
-            . ($this->port !== null && $this->port !== 0 ? ':' . $this->port : '');
+        return '';
     }
 
     /**
@@ -360,6 +316,6 @@ final class Http implements UriInterface
      */
     public function getUserInfo() : string
     {
-        return $this->user . (!empty($this->pass) ? ':' . $this->pass : '');
+        return '';
     }
 }

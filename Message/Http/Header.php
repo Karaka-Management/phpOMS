@@ -70,7 +70,7 @@ final class Header extends HeaderAbstract
             return false;
         }
 
-        $key = strtolower($key);
+        $key = \strtolower($key);
 
         if (!$overwrite && isset($this->header[$key])) {
             return false;
@@ -98,7 +98,7 @@ final class Header extends HeaderAbstract
      */
     public static function isSecurityHeader(string $key) : bool
     {
-        $key = strtolower($key);
+        $key = \strtolower($key);
 
         return $key === 'content-security-policy'
             || $key === 'x-xss-protection'
@@ -139,9 +139,9 @@ final class Header extends HeaderAbstract
      */
     public static function getAllHeaders() : array
     {
-        if (function_exists('getallheaders')) {
+        if (\function_exists('getallheaders')) {
             // @codeCoverageIgnoreStart
-            return getallheaders();
+            return \getallheaders();
             // @codeCoverageIgnoreEnd
         }
 
@@ -201,7 +201,7 @@ final class Header extends HeaderAbstract
      */
     public function get(string $key) : array
     {
-        return $this->header[strtolower($key)] ?? [];
+        return $this->header[\strtolower($key)] ?? [];
     }
 
     /**

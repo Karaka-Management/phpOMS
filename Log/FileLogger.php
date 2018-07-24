@@ -266,6 +266,10 @@ final class FileLogger implements LoggerInterface
      */
     private function write(string $message) : void
     {
+        if ($this->verbose) {
+            echo $message, "\n";
+        }
+
         $this->createFile();
         if (!\is_writable($this->path)) {
             return;
@@ -279,10 +283,6 @@ final class FileLogger implements LoggerInterface
             \flock($this->fp, LOCK_UN);
             \fclose($this->fp);
             $this->fp = false;
-        }
-
-        if ($this->verbose) {
-            echo $message, "\n";
         }
     }
 
