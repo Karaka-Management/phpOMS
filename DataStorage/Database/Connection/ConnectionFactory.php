@@ -44,13 +44,13 @@ final class ConnectionFactory
      *
      * @param string[] $dbdata the basic database information for establishing a connection
      *
-     * @return ConnectionInterface
+     * @return ConnectionAbstract
      *
      * @throws \InvalidArgumentException Throws this exception if the database is not supported.
      *
      * @since  1.0.0
      */
-    public static function create(array $dbdata) : ConnectionInterface
+    public static function create(array $dbdata) : ConnectionAbstract
     {
         switch ($dbdata['db']) {
             case DatabaseType::MYSQL:
