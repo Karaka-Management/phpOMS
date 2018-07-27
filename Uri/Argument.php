@@ -145,6 +145,11 @@ final class Argument implements UriInterface
     public function set(string $uri) : void
     {
         $this->uri = $uri;
+
+        $temp       = $this->__toString();
+        $found      = \stripos($temp, ':');
+        $path       = $found !== false && $found > 3 && $found < 8 ? \substr($temp, $found) : $temp;
+        $this->path = $path === false ? '' : $path;
     }
 
     /**

@@ -55,6 +55,36 @@ final class Request extends RequestAbstract
         $this->header->setL11n($l11n ?? new Localization());
 
         $this->uri = $uri;
+        $this->init();
+    }
+
+    /**
+     * Init request.
+     *
+     * This is used in order to either initialize the current http request or a batch of GET requests
+     *
+     * @return void
+     *
+     * @since  1.0.0
+     */
+    private function init() : void
+    {
+        $lang = \explode('_', $_SERVER['LANG'] ?? '');
+        $this->header->getL11n()->setLanguage($lang[0] ?? 'en');
+
+        $this->cleanupGlobals();
+    }
+
+    /**
+     * Clean up globals that musn't be used any longer
+     *
+     * @return void
+     *
+     * @since  1.0.0
+     */
+    private function cleanupGlobals() : void
+    {
+        unset($_SERVER);
     }
 
     /**
@@ -114,7 +144,11 @@ final class Request extends RequestAbstract
     public function getMethod() : string
     {
         if ($this->method === null) {
-            $this->method = RequestMethod::GET;
+            $temp   = $this->uri->__toString();
+            $found  = \stripos($temp, ':');
+            $method = $found !== false && $found > 3 && $found < 8 ? \substr($temp, 0, $found) : RequestMethod::GET;
+
+            $this->method = $method === false ? RequestMethod::GET : $method;
         }
 
         return $this->method;

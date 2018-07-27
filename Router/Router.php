@@ -36,15 +36,6 @@ final class Router
     private $routes = [];
 
     /**
-     * Constructor.
-     *
-     * @since  1.0.0
-     */
-    public function __construct()
-    {
-    }
-
-    /**
      * Add routes from file.
      *
      * @param string $path Route file path
@@ -55,7 +46,7 @@ final class Router
      */
     public function importFromFile(string $path) : bool
     {
-        if (file_exists($path)) {
+        if (\file_exists($path)) {
             /** @noinspection PhpIncludeInspection */
             $this->routes += include $path;
 
@@ -105,7 +96,7 @@ final class Router
         if ($request instanceof RequestAbstract) {
             $uri  = $request->getUri()->getRoute();
             $verb = $request->getRouteVerb();
-        } elseif (is_string($request)) {
+        } elseif (\is_string($request)) {
             $uri = $request;
         } else {
             throw new \InvalidArgumentException();

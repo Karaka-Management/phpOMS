@@ -137,25 +137,6 @@ final class Response extends ResponseAbstract implements RenderableInterface
             }
         }
 
-        return $this->removeWhitespaceAndLineBreak($render);
-    }
-
-    /**
-     * Remove whitespace and line break from render
-     * 
-     * @param string $render Rendered string
-     *
-     * @return string
-     *
-     * @since  1.0.0
-     */
-    private function removeWhitespaceAndLineBreak(string $render) : string
-    {
-        $types = $this->header->get('Content-Type');
-        if (\stripos($types[0], MimeType::M_HTML) !== false) {
-            return \trim(\preg_replace('/(\s{2,}|\n|\t)(?![^<>]*<\/pre>)/', ' ', $render));
-        }
-
         return $render;
     }
 
