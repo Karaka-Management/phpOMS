@@ -453,11 +453,11 @@ class Account implements ArrayableInterface, \JsonSerializable
      */
     public function setEmail(string $email) : void
     {
-        if (!Email::isValid($email)) {
+        if ($email !== '' && !Email::isValid($email)) {
             throw new \InvalidArgumentException();
         }
 
-        $this->email = mb_strtolower($email);
+        $this->email = \mb_strtolower($email);
     }
 
     /**
