@@ -131,6 +131,8 @@ final class Response extends ResponseAbstract implements RenderableInterface
                 $render .= $response->serialize();
             } elseif (\is_string($response) || \is_numeric($response)) {
                 $render .= $response;
+            } elseif (\is_array($response)) {
+                $render .= \json_encode($response);
             } else {
                 throw new \Exception('Wrong response type');
             }
