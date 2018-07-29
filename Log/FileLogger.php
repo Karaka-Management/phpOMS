@@ -393,8 +393,13 @@ final class FileLogger implements LoggerInterface
         }
 
         \fseek($this->fp, 0);
+        $line = \fgetcsv($this->fp, 0, ';');
 
-        while (($line = \fgetcsv($this->fp, 0, ';')) !== false) {
+        while ($line !== false && $line !== null) {
+            if (count($line) < 2) {
+                continue;
+            }
+
             $line[1] = trim($line[1]);
 
             if (!isset($levels[$line[1]])) {
@@ -402,6 +407,7 @@ final class FileLogger implements LoggerInterface
             }
 
             $levels[$line[1]]++;
+            $line = \fgetcsv($this->fp, 0, ';');
         }
 
         \fseek($this->fp, 0, SEEK_END);
@@ -434,8 +440,13 @@ final class FileLogger implements LoggerInterface
         }
 
         \fseek($this->fp, 0);
+        $line = \fgetcsv($this->fp, 0, ';');
 
-        while (($line = \fgetcsv($this->fp, 0, ';')) !== false) {
+        while ($line !== false && $line !== null) {
+            if (count($line) < 3) {
+                continue;
+            }
+
             $line[2] = trim($line[2]);
 
             if (!isset($connection[$line[2]])) {
@@ -443,6 +454,7 @@ final class FileLogger implements LoggerInterface
             }
 
             $connection[$line[2]]++;
+            $line = \fgetcsv($this->fp, 0, ';');
         }
 
         \fseek($this->fp, 0, SEEK_END);
