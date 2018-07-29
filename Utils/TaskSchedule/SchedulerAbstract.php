@@ -181,4 +181,16 @@ abstract class SchedulerAbstract
     {
         $this->run($task->getCommand());
     }
+
+    /**
+     * Get all jobs/tasks by name
+     *
+     * @param string $name  Name of the job
+     * @param bool   $exact Name has to be exact
+     *
+     * @return array
+     *
+     * @since  1.0.0
+     */
+    abstract public function getAllByName(string $name, bool $exact = true) : array;
 }
