@@ -102,7 +102,7 @@ final class FileLogger implements LoggerInterface
         $this->verbose = $verbose;
 
         if (\is_dir($lpath) || \strpos($lpath, '.') === false) {
-            $path = $lpath . '/' . date('Y-m-d') . '.log';
+            $path = $lpath . '/' . \date('Y-m-d') . '.log';
         } else {
             $path = $lpath;
         }
@@ -154,7 +154,7 @@ final class FileLogger implements LoggerInterface
      */
     public function __destruct()
     {
-        if (is_resource($this->fp)) {
+        if (\is_resource($this->fp)) {
             \fclose($this->fp);
         }
     }
@@ -232,7 +232,7 @@ final class FileLogger implements LoggerInterface
             $replace['{' . $key . '}'] = $val;
         }
 
-        $backtrace = debug_backtrace();
+        $backtrace = \debug_backtrace();
 
         // Removing sensitive config data from logging
         foreach ($backtrace as $key => $value) {
@@ -244,15 +244,15 @@ final class FileLogger implements LoggerInterface
         $backtrace = \json_encode($backtrace);
 
         $replace['{backtrace}'] = $backtrace;
-        $replace['{datetime}']  = sprintf('%--19s', (new \DateTime('NOW'))->format('Y-m-d H:i:s'));
-        $replace['{level}']     = sprintf('%--12s', $level);
+        $replace['{datetime}']  = \sprintf('%--19s', (new \DateTime('NOW'))->format('Y-m-d H:i:s'));
+        $replace['{level}']     = \sprintf('%--12s', $level);
         $replace['{path}']      = $_SERVER['REQUEST_URI'] ?? 'REQUEST_URI';
-        $replace['{ip}']        = sprintf('%--15s', $_SERVER['REMOTE_ADDR'] ?? '0.0.0.0');
-        $replace['{version}']   = sprintf('%--15s', PHP_VERSION);
-        $replace['{os}']        = sprintf('%--15s', PHP_OS);
-        $replace['{line}']      = sprintf('%--15s', $context['line'] ?? '?');
+        $replace['{ip}']        = \sprintf('%--15s', $_SERVER['REMOTE_ADDR'] ?? '0.0.0.0');
+        $replace['{version}']   = \sprintf('%--15s', PHP_VERSION);
+        $replace['{os}']        = \sprintf('%--15s', PHP_OS);
+        $replace['{line}']      = \sprintf('%--15s', $context['line'] ?? '?');
 
-        return strtr($message, $replace);
+        return \strtr($message, $replace);
     }
 
     /**
@@ -400,7 +400,7 @@ final class FileLogger implements LoggerInterface
                 continue;
             }
 
-            $line[1] = trim($line[1]);
+            $line[1] = \trim($line[1]);
 
             if (!isset($levels[$line[1]])) {
                 $levels[$line[1]] = 0;
@@ -447,7 +447,7 @@ final class FileLogger implements LoggerInterface
                 continue;
             }
 
-            $line[2] = trim($line[2]);
+            $line[2] = \trim($line[2]);
 
             if (!isset($connection[$line[2]])) {
                 $connection[$line[2]] = 0;
@@ -459,9 +459,9 @@ final class FileLogger implements LoggerInterface
 
         \fseek($this->fp, 0, SEEK_END);
         \fclose($this->fp);
-        asort($connection);
+        \asort($connection);
 
-        return array_slice($connection, 0, $limit);
+        return \array_slice($connection, 0, $limit);
     }
 
     /**
@@ -506,7 +506,7 @@ final class FileLogger implements LoggerInterface
             }
 
             foreach ($line as &$value) {
-                $value = trim($value);
+                $value = \trim($value);
             }
 
             $logs[$id] = $line;
@@ -554,16 +554,16 @@ final class FileLogger implements LoggerInterface
                 continue;
             }
 
-            $log['datetime']  = trim($line[0] ?? '');
-            $log['level']     = trim($line[1] ?? '');
-            $log['ip']        = trim($line[2] ?? '');
-            $log['line']      = trim($line[3] ?? '');
-            $log['version']   = trim($line[4] ?? '');
-            $log['os']        = trim($line[5] ?? '');
-            $log['path']      = trim($line[6] ?? '');
-            $log['message']   = trim($line[7] ?? '');
-            $log['file']      = trim($line[8] ?? '');
-            $log['backtrace'] = trim($line[9] ?? '');
+            $log['datetime']  = \trim($line[0] ?? '');
+            $log['level']     = \trim($line[1] ?? '');
+            $log['ip']        = \trim($line[2] ?? '');
+            $log['line']      = \trim($line[3] ?? '');
+            $log['version']   = \trim($line[4] ?? '');
+            $log['os']        = \trim($line[5] ?? '');
+            $log['path']      = \trim($line[6] ?? '');
+            $log['message']   = \trim($line[7] ?? '');
+            $log['file']      = \trim($line[8] ?? '');
+            $log['backtrace'] = \trim($line[9] ?? '');
             break;
         }
 
@@ -587,7 +587,7 @@ final class FileLogger implements LoggerInterface
     public function console(string $message, bool $verbose = true, array $context = []) : void
     {
         if (empty($context)) {
-            $message = date('[Y-m-d H:i:s] ') . $message . "\r\n";
+            $message = \date('[Y-m-d H:i:s] ') . $message . "\r\n";
         }
 
         if ($verbose) {
