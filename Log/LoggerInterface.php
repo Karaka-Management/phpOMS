@@ -119,7 +119,7 @@ interface LoggerInterface
     /**
      * Logs with an arbitrary level.
      *
-     * @param string                $level   Log level/severeness
+     * @param string               $level   Log level/severeness
      * @param string               $message Logging message schema
      * @param array<string, mixed> $context Context to log
      *
