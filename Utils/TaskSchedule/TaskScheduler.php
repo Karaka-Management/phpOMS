@@ -26,48 +26,6 @@ namespace phpOMS\Utils\TaskSchedule;
 class TaskScheduler extends SchedulerAbstract
 {
     /**
-     * Run command
-     *
-     * @param string $cmd Command to run
-     *
-     * @return string
-     *
-     * @throws \Exception
-     *
-     * @since  1.0.0
-     */
-    private function run(string $cmd) : string
-    {
-        $cmd = 'cd ' . \escapeshellarg(\dirname(self::$bin)) . ' && ' . \basename(self::$bin) . ' ' . $cmd;
-
-        $pipes = [];
-        $desc  = [
-            1 => ['pipe', 'w'],
-            2 => ['pipe', 'w'],
-        ];
-
-        $resource = \proc_open($cmd, $desc, $pipes, __DIR__, null);
-        if ($resource === false) {
-            return '';
-        }
-
-        $stdout = \stream_get_contents($pipes[1]);
-        $stderr = \stream_get_contents($pipes[2]);
-
-        foreach ($pipes as $pipe) {
-            \fclose($pipe);
-        }
-
-        $status = \proc_close($resource);
-
-        if ($status == -1) {
-            throw new \Exception($stderr);
-        }
-
-        return trim($stdout);
-    }
-
-    /**
      * Normalize run result for easier parsing
      *
      * @param string $raw Raw command output

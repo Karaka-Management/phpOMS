@@ -61,11 +61,42 @@ abstract class SchedulerAbstract
      */
     public static function setBin(string $path) : void
     {
-        if (realpath($path) === false) {
+        if (\realpath($path) === false) {
             throw new PathException($path);
         }
 
-        self::$bin = realpath($path);
+        self::$bin = \realpath($path);
+    }
+
+    /**
+     * Gues git binary.
+     *
+     * @return bool
+     *
+     * @since  1.0.0
+     */
+    public static function guessBin() : bool
+    {
+        $paths = [
+            'c:/WINDOWS/system32/schtasks.exe',
+            'd:/WINDOWS/system32/schtasks.exe',
+            'e:/WINDOWS/system32/schtasks.exe',
+            'f:/WINDOWS/system32/schtasks.exe',
+            '/usr/bin/crontab',
+            '/usr/sbin/crontab',
+            '/bin/crontab',
+            '/sbin/crontab',
+        ];
+
+        foreach ($paths as $path) {
+            if (\file_exists($path)) {
+                self::setBin($path);
+
+                return true;
+            }
+        }
+
+        return false;
     }
 
     /**
@@ -79,16 +110,62 @@ abstract class SchedulerAbstract
     public static function test() : bool
     {
         $pipes    = [];
-        $resource = proc_open(escapeshellarg(self::$bin), [1 => ['pipe', 'w'], 2 => ['pipe', 'w']], $pipes);
+        $resource = \proc_open(\escapeshellarg(self::$bin), [1 => ['pipe', 'w'], 2 => ['pipe', 'w']], $pipes);
 
-        $stdout = stream_get_contents($pipes[1]);
-        $stderr = stream_get_contents($pipes[2]);
-
-        foreach ($pipes as $pipe) {
-            fclose($pipe);
+        if ($resource === false) {
+            return false;
         }
 
-        return trim(proc_close($resource)) !== 127;
+        $stdout = \stream_get_contents($pipes[1]);
+        $stderr = \stream_get_contents($pipes[2]);
+
+        foreach ($pipes as $pipe) {
+            \fclose($pipe);
+        }
+
+        return \proc_close($resource) !== 127;
+    }
+
+    /**
+     * Run command
+     *
+     * @param string $cmd Command to run
+     *
+     * @return string
+     *
+     * @throws \Exception
+     *
+     * @since  1.0.0
+     */
+    protected function run(string $cmd) : string
+    {
+        $cmd = 'cd ' . \escapeshellarg(\dirname(self::$bin)) . ' && ' . \basename(self::$bin) . ' ' . $cmd;
+
+        $pipes = [];
+        $desc  = [
+            1 => ['pipe', 'w'],
+            2 => ['pipe', 'w'],
+        ];
+
+        $resource = \proc_open($cmd, $desc, $pipes, __DIR__, null);
+        if ($resource === false) {
+            return '';
+        }
+
+        $stdout = \stream_get_contents($pipes[1]);
+        $stderr = \stream_get_contents($pipes[2]);
+
+        foreach ($pipes as $pipe) {
+            \fclose($pipe);
+        }
+
+        $status = \proc_close($resource);
+
+        if ($status === -1) {
+            throw new \Exception($stderr);
+        }
+
+        return trim($stdout);
     }
 
     /**
