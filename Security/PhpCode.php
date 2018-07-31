@@ -156,4 +156,19 @@ final class PhpCode
     {
         return \md5_file($source) === $hash;
     }
+
+    /**
+     * Validate code integrety
+     *
+     * @param string $source Source code
+     * @param string $remote Remote code
+     *
+     * @return bool
+     *
+     * @since  1.0.0
+     */
+    public static function validateStringIntegrity(string $source, string $remote) : bool
+    {
+        return $source === $remote;
+    }
 }

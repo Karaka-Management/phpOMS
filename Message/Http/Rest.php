@@ -42,7 +42,13 @@ final class Rest
             throw new \Exception();
         }
 
+        curl_setopt($curl, CURLOPT_NOBODY, true);
+        curl_setopt($curl, CURLOPT_HEADER, false);
+
         switch ($request->getMethod()) {
+            case RequestMethod::GET:
+                curl_setopt($curl, CURLOPT_HTTPGET, true);
+                break;
             case RequestMethod::PUT:
                 \curl_setopt($curl, CURLOPT_CUSTOMREQUEST, 'PUT');
                 break;
@@ -59,8 +65,10 @@ final class Rest
             }
         }
 
-        \curl_setopt($curl, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
-        \curl_setopt($curl, CURLOPT_USERPWD, 'username:password');
+        if ($request->getUri()->getUser() !== '') {
+            \curl_setopt($curl, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
+            \curl_setopt($curl, CURLOPT_USERPWD, $request->getUri()->getUserInfo());
+        }
 
         \curl_setopt($curl, CURLOPT_URL, $request->__toString());
         \curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
