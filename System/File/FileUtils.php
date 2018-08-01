@@ -117,4 +117,23 @@ final class FileUtils
 
         return \realpath($origPath);
     }
+
+    /**
+     * Change encoding of file
+     *
+     * @param string $file     Path to file which should be re-encoded
+     * @param string $encoding New file encoding
+     *
+     * @return void
+     *
+     * @since  1.0.0
+     */
+    public static function changeFileEncoding(string $file, string $encoding) : void
+    {
+        $content = \file_get_contents($file);
+
+        if ($content !== false && preg_match('!!u', $content)) {
+            \file_put_contents($file, \mb_convert_encoding($content, 'UTF-8', mb_list_encodings()));
+        }
+    }
 }
