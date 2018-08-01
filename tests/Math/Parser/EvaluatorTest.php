@@ -17,8 +17,11 @@ use phpOMS\Math\Parser\Evaluator;
 
 class EvaluatorTest extends \PHPUnit\Framework\TestCase
 {
-    public function testPlaceholder()
+    public function testBasicEvaluation()
     {
-        self::markTestIncomplete();
+        self::assertEquals(4.5, Evaluator::evaluate('3 + 4 * 2 / ( 1 - 5 ) ^ 2 ^ 3 + 1.5'), '', 2);
+        self::assertEquals(4.5, Evaluator::evaluate('3+4*2/(1-5)^2^3+1.5'), '', 2);
+        self::assertEquals(null, Evaluator::evaluate('invalid'));
+        self::assertEquals(null, Evaluator::evaluate('3+4*2/(1-5^2^3+1.5'));
     }
 }
