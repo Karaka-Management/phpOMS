@@ -25,21 +25,6 @@ namespace phpOMS\Utils\TaskSchedule;
  */
 class Cron extends SchedulerAbstract
 {
-
-    /**
-     * Normalize run result for easier parsing
-     *
-     * @param string $raw Raw command output
-     *
-     * @return string Normalized string for parsing
-     *
-     * @since  1.0.0
-     */
-    private function normalize(string $raw) : string
-    {
-        return \str_replace("\r\n", "\n", $raw);
-    }
-
     /**
      * {@inheritdoc}
      */

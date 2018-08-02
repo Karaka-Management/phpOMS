@@ -183,6 +183,20 @@ abstract class SchedulerAbstract
     }
 
     /**
+     * Normalize run result for easier parsing
+     *
+     * @param string $raw Raw command output
+     *
+     * @return string Normalized string for parsing
+     *
+     * @since  1.0.0
+     */
+    protected function normalize(string $raw) : string
+    {
+        return \str_replace("\r\n", "\n", $raw);
+    }
+
+    /**
      * Get all jobs/tasks by name
      *
      * @param string $name  Name of the job
