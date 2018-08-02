@@ -183,6 +183,28 @@ abstract class SchedulerAbstract
     }
 
     /**
+     * Update task
+     *
+     * @param TaskAbstract $task Task to update
+     *
+     * @return void
+     *
+     * @since  1.0.0
+     */
+    abstract public function update(TaskAbstract $task) : void;
+
+    /**
+     * Delete task
+     *
+     * @param TaskAbstract $task Task to delete
+     *
+     * @return void
+     *
+     * @since  1.0.0
+     */
+    abstract public function delete(TaskAbstract $task) : void;
+
+    /**
      * Normalize run result for easier parsing
      *
      * @param string $raw Raw command output
