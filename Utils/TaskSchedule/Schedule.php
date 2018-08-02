@@ -45,7 +45,6 @@ class Schedule extends TaskAbstract
         }
 
         $job->setComment($jobData[10]);
-        $job->addResult($jobData[6]);
 
         return $job;
     }
