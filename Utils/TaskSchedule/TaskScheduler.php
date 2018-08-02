@@ -28,6 +28,30 @@ class TaskScheduler extends SchedulerAbstract
     /**
      * {@inheritdoc}
      */
+    public function create(TaskAbstract $task) : void
+    {
+        $this->run('/Create ' . $task->__toString());
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function update(TaskAbstract $task) : void
+    {
+        $this->run('/Change ' . $task->__toString());
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function delete(TaskAbstract $task) : void
+    {
+        $this->run('/Delete /TN ' . $task->getId());
+    }
+
+    /**
+     * {@inheritdoc}
+     */
     public function getAll() : array
     {
         $lines = \explode("\n", $this->normalize($this->run('/query /v /fo CSV')));

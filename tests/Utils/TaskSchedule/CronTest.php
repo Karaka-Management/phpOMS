@@ -25,23 +25,25 @@ class CronTest extends \PHPUnit\Framework\TestCase
 
     public function testCRUD()
     {
-        $cron = new Cron();
+        if (\stristr(PHP_OS, 'LINUX')) {
+            $cron = new Cron();
 
-        self::assertInstanceOf('\phpOMS\Utils\TaskSchedule\NullCronJob', $cron->getAllByName('testCronJob', false));
-        
-        $cron->create(
-            new CronJob('testCronJob', 'testFile')
-        );
-        self::assertEquals('testFile', $cron->getRun());
+            self::assertInstanceOf('\phpOMS\Utils\TaskSchedule\NullCronJob', $cron->getAllByName('testCronJob', false));
+            
+            $cron->create(
+                new CronJob('testCronJob', 'testFile')
+            );
+            self::assertEquals('testFile', $cron->getRun());
 
-        $cron->update(
-            new CronJob('testCronJob', 'testFile2')
-        );
-        self::assertEquals('testFile2', $cron->getRun());
+            $cron->update(
+                new CronJob('testCronJob', 'testFile2')
+            );
+            self::assertEquals('testFile2', $cron->getRun());
 
-        $cron->delete(
-            new CronJob('testCronJob', 'testFile2')
-        );
-        self::assertInstanceOf('\phpOMS\Utils\TaskSchedule\NullCronJob', $cron->getAllByName('testCronJob', false));
+            $cron->delete(
+                new CronJob('testCronJob', 'testFile2')
+            );
+            self::assertInstanceOf('\phpOMS\Utils\TaskSchedule\NullCronJob', $cron->getAllByName('testCronJob', false));
+        }
     }
 }

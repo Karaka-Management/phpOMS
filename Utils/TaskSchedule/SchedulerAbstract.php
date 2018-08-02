@@ -177,10 +177,7 @@ abstract class SchedulerAbstract
      *
      * @since  1.0.0
      */
-    public function create(TaskAbstract $task) : void
-    {
-        $this->run($task->getCommand());
-    }
+    abstract public function create(TaskAbstract $task) : void;
 
     /**
      * Update task

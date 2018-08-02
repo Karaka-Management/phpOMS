@@ -29,6 +29,14 @@ class Schedule extends TaskAbstract
     /**
      * {@inheritdoc}
      */
+    public function __toString() : string
+    {
+        return '';
+    }
+    
+    /**
+     * {@inheritdoc}
+     */
     public static function createWith(array $jobData) : TaskAbstract
     {
         $job = new self($jobData[1], '');

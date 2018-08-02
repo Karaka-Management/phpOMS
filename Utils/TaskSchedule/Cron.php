@@ -28,6 +28,74 @@ class Cron extends SchedulerAbstract
     /**
      * {@inheritdoc}
      */
+    public function create(TaskAbstract $task) : void
+    {
+        $this->run('-l > tmpcron');
+        \file_put_contents('tmpcron', "\n" . $task->__toString(), FILE_APPEND);
+        $this->run('tmpcron');
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function update(TaskAbstract $task) : void
+    {
+        $this->run('-l > tmpcron');
+
+        $new = '';
+        $fp  = \fopen('tmpcron', 'r+');
+
+        if ($fp) {
+            $line = \fgets($fp);
+            while ($line !== false) {
+                if ($line[0] !== '#' && \stripos($line, '/tn = ' . $task->getId()) !== false) {
+                    $new .= $task->__toString();
+                } else {
+                    $new .= $line . "\n";
+                }
+
+                $line = \fgets($fp);
+            }
+
+            \fwrite($fp, $new);
+            \fclose($fp);
+        }
+
+        $this->run('tmpcron');
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function delete(TaskAbstract $task) : void
+    {
+        $this->run('-l > tmpcron');
+
+        $new = '';
+        $fp  = \fopen('tmpcron', 'r+');
+
+        if ($fp) {
+            $line = \fgets($fp);
+            while ($line !== false) {
+                if ($line[0] !== '#' && \stripos($line, '/tn = ' . $task->getId()) !== false) {
+                    $line = \fgets($fp);
+                    continue;
+                }
+
+                $new .= $line . "\n";
+                $line = \fgets($fp);
+            }
+
+            \fwrite($fp, $new);
+            \fclose($fp);
+        }
+
+        $this->run('tmpcron');
+    }
+
+    /**
+     * {@inheritdoc}
+     */
     public function getAll() : array
     {
         $lines = \explode("\n", $this->normalize($this->run('-l')));

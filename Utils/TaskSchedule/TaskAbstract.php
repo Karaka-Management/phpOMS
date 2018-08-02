@@ -112,6 +112,15 @@ abstract class TaskAbstract
     }
 
     /**
+     * Stringify task for direct handling
+     *
+     * @return string
+     *
+     * @since  1.0.0
+     */
+    abstract public function __toString() : string;
+
+    /**
      * Get command to create the task
      *
      * @return string
