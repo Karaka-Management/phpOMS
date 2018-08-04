@@ -12,7 +12,7 @@
         <testsuite name="phpOMS">
             <directory>.*</directory>
             <exclude>Module/ModuleManagerTest.php</exclude>
-            <directory>vendor*</directory>
+            <exclude>vendor*</exclude>
         </testsuite>
     </testsuites>
     <filter>
