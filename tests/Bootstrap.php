@@ -2,7 +2,7 @@
 
 ini_set('memory_limit', '2048M');
 
-require_once __DIR__ . '/../../vendor/autoload.php';
+require_once __DIR__ . 'vendor/autoload.php';
 require_once __DIR__ . '/../Autoloader.php';
 
 use phpOMS\DataStorage\Session\HttpSession;
