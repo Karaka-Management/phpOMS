@@ -2,8 +2,12 @@
 
 ini_set('memory_limit', '2048M');
 
-include_once 'vendor/autoload.php';
-include_once '../../vendor/autoload.php';
+if (file_exists('vendor/autoload.php')) {
+    include_once 'vendor/autoload.php';
+} elseif (file_exists('../../vendor/autoload.php')) {
+    include_once '../../vendor/autoload.php';
+}
+
 require_once __DIR__ . '/../Autoloader.php';
 
 use phpOMS\DataStorage\Session\HttpSession;
@@ -19,7 +23,7 @@ $CONFIG = [
                     'host'     => '127.0.0.1', /* db host address */
                     'port'     => '3306', /* db host port */
                     'login'    => 'root', /* db login name */
-                    'password' => '', /* db login password */
+                    'password' => '123456', /* db login password */
                     'database' => 'oms', /* db name */
                     'prefix'   => 'oms_', /* db table prefix */
                     'weight'   => 1000, /* db table prefix */
@@ -29,7 +33,7 @@ $CONFIG = [
                     'host'     => '127.0.0.1', /* db host address */
                     'port'     => '3306', /* db host port */
                     'login'    => 'root', /* db login name */
-                    'password' => '', /* db login password */
+                    'password' => '123456', /* db login password */
                     'database' => 'oms', /* db name */
                     'prefix'   => 'oms_', /* db table prefix */
                     'weight'   => 1000, /* db table prefix */
@@ -39,7 +43,7 @@ $CONFIG = [
                     'host'     => '127.0.0.1', /* db host address */
                     'port'     => '3306', /* db host port */
                     'login'    => 'root', /* db login name */
-                    'password' => '', /* db login password */
+                    'password' => '123456', /* db login password */
                     'database' => 'oms', /* db name */
                     'prefix'   => 'oms_', /* db table prefix */
                     'weight'   => 1000, /* db table prefix */
@@ -49,7 +53,7 @@ $CONFIG = [
                     'host'     => '127.0.0.1', /* db host address */
                     'port'     => '3306', /* db host port */
                     'login'    => 'root', /* db login name */
-                    'password' => '', /* db login password */
+                    'password' => '123456', /* db login password */
                     'database' => 'oms', /* db name */
                     'prefix'   => 'oms_', /* db table prefix */
                     'weight'   => 1000, /* db table prefix */
@@ -59,7 +63,7 @@ $CONFIG = [
                     'host'     => '127.0.0.1', /* db host address */
                     'port'     => '3306', /* db host port */
                     'login'    => 'root', /* db login name */
-                    'password' => '', /* db login password */
+                    'password' => '123456', /* db login password */
                     'database' => 'oms', /* db name */
                     'prefix'   => 'oms_', /* db table prefix */
                     'weight'   => 1000, /* db table prefix */
@@ -69,7 +73,7 @@ $CONFIG = [
                     'host'     => '127.0.0.1', /* db host address */
                     'port'     => '3306', /* db host port */
                     'login'    => 'root', /* db login name */
-                    'password' => '', /* db login password */
+                    'password' => '123456', /* db login password */
                     'database' => 'oms', /* db name */
                     'prefix'   => 'oms_', /* db table prefix */
                     'weight'   => 1000, /* db table prefix */
