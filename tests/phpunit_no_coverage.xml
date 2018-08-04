@@ -10,13 +10,13 @@
         >
     <testsuites>
         <testsuite name="phpOMS">
-            <directory>../*</directory>
+            <directory>.*</directory>
             <exclude>Module/ModuleManagerTest.php</exclude>
         </testsuite>
     </testsuites>
     <filter>
         <whitelist addUncoveredFilesFromWhitelist="false" processUncoveredFilesFromWhitelist="false">
-            <directory suffix=".php">../*</directory>
+            <directory suffix=".php">.*</directory>
             <exclude>
                 <directory suffix="tpl.php">../*</directory>
                 <directory suffix="lang.php">../*</directory>
