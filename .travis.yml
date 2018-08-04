@@ -6,4 +6,4 @@ before_script:
     - pecl install ast
     - composer install
 script:
-    - vendor/bin/phpunit --configuration tests/phpunit_no_coverage.xm
+    - vendor/bin/phpunit --configuration tests/phpunit_no_coverage.xml
