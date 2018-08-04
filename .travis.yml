@@ -1,4 +1,5 @@
 language: php
+dist: trusty
 sudo: required
 php:
     - '7.2'
@@ -6,10 +7,10 @@ php:
 addons:
   apt:
     sources:
-      - mysql-5.7-trusty
+        - mysql-5.7-trusty
     packages:
-      - mysql-server
-      - mysql-client
+        - mysql-server
+        - mysql-client
 before_script:
     - sudo mysql -e "use mysql; update user set authentication_string=PASSWORD('123456') where User='root'; update user set plugin='mysql_native_password';FLUSH PRIVILEGES;"
     - sudo mysql_upgrade
