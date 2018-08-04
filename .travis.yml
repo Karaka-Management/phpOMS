@@ -3,6 +3,7 @@ php:
     - '7.2'
     - nightly
 before_script:
+    - pecl install ast
     - composer install
 script:
     - vendor/bin/phpunit --configuration tests/phpunit_no_coverage.xm
