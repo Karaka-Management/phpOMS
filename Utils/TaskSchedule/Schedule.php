@@ -39,9 +39,8 @@ class Schedule extends TaskAbstract
      */
     public static function createWith(array $jobData) : TaskAbstract
     {
-        $job = new self($jobData[1], '');
+        $job = new self($jobData[1], $jobData[8]);
 
-        $job->setRun($jobData[8]);
         $job->setStatus($jobData[3]);
 
         if (DateTime::isValid($jobData[2])) {

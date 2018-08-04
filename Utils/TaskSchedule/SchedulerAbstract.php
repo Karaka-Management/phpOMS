@@ -83,6 +83,8 @@ abstract class SchedulerAbstract
             'e:/WINDOWS/system32/schtasks.exe',
             'f:/WINDOWS/system32/schtasks.exe',
             '/usr/bin/crontab',
+            '/usr/local/bin/crontab',
+            '/usr/local/sbin/crontab',
             '/usr/sbin/crontab',
             '/bin/crontab',
             '/sbin/crontab',
@@ -189,6 +191,17 @@ abstract class SchedulerAbstract
      * @since  1.0.0
      */
     abstract public function update(TaskAbstract $task) : void;
+
+    /**
+     * Delete task by name
+     *
+     * @param string $name Task name
+     *
+     * @return void
+     *
+     * @since  1.0.0
+     */
+    abstract public function deleteByName(string $name) : void;
 
     /**
      * Delete task

@@ -22,6 +22,11 @@ class TaskAbstractTest extends \PHPUnit\Framework\TestCase
     protected function setUp()
     {
         $this->class = new class('') extends TaskAbstract {
+            public function __toString() : string
+            {
+                return '';
+            }
+
             public static function createWith(array $jobData) : TaskAbstract
             {
 
@@ -33,7 +38,6 @@ class TaskAbstractTest extends \PHPUnit\Framework\TestCase
     {
         self::assertEquals('', $this->class->getId());
         self::assertEquals('', $this->class->getCommand());
-        self::assertEquals('', $this->class->getRun());
         self::assertEquals('', $this->class->getStatus());
         self::assertInstanceOf('\DateTime', $this->class->getNextRunTime());
         self::assertInstanceOf('\DateTime', $this->class->getLastRuntime());
@@ -44,9 +48,6 @@ class TaskAbstractTest extends \PHPUnit\Framework\TestCase
     {
         $this->class->setCommand('Command');
         self::assertEquals('Command', $this->class->getCommand());
-
-        $this->class->setRun('Run');
-        self::assertEquals('Run', $this->class->getRun());
 
         $this->class->setStatus('Status');
         self::assertEquals('Status', $this->class->getStatus());

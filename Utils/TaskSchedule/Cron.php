@@ -30,9 +30,10 @@ class Cron extends SchedulerAbstract
      */
     public function create(TaskAbstract $task) : void
     {
-        $this->run('-l > tmpcron');
-        \file_put_contents('tmpcron', "\n" . $task->__toString(), FILE_APPEND);
-        $this->run('tmpcron');
+        $this->run('-l > ' . __DIR__ . '/tmpcron.tmp');
+        \file_put_contents(__DIR__ . '/tmpcron.tmp', $task->__toString() . "\n", FILE_APPEND);
+        $this->run(__DIR__ . '/tmpcron.tmp');
+        unlink(__DIR__ . '/tmpcron.tmp');
     }
 
     /**
@@ -40,16 +41,16 @@ class Cron extends SchedulerAbstract
      */
     public function update(TaskAbstract $task) : void
     {
-        $this->run('-l > tmpcron');
+        $this->run('-l > ' . __DIR__ . '/tmpcron.tmp');
 
         $new = '';
-        $fp  = \fopen('tmpcron', 'r+');
+        $fp  = \fopen(__DIR__ . '/tmpcron.tmp', 'r+');
 
         if ($fp) {
             $line = \fgets($fp);
             while ($line !== false) {
-                if ($line[0] !== '#' && \stripos($line, '/tn = ' . $task->getId()) !== false) {
-                    $new .= $task->__toString();
+                if ($line[0] !== '#' && \stripos($line, 'name="' . $task->getId()) !== false) {
+                    $new .= $task->__toString() . "\n";
                 } else {
                     $new .= $line . "\n";
                 }
@@ -57,11 +58,12 @@ class Cron extends SchedulerAbstract
                 $line = \fgets($fp);
             }
 
-            \fwrite($fp, $new);
             \fclose($fp);
+            \file_put_contents(__DIR__ . '/tmpcron.tmp', $new);
         }
 
-        $this->run('tmpcron');
+        $this->run(__DIR__ . '/tmpcron.tmp');
+        unlink(__DIR__ . '/tmpcron.tmp');
     }
 
     /**
@@ -69,15 +71,23 @@ class Cron extends SchedulerAbstract
      */
     public function delete(TaskAbstract $task) : void
     {
-        $this->run('-l > tmpcron');
+        $this->deleteByName($task->getId());
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function deleteByName(string $name) : void
+    {
+        $this->run('-l > ' . __DIR__ . '/tmpcron.tmp');
 
         $new = '';
-        $fp  = \fopen('tmpcron', 'r+');
+        $fp  = \fopen(__DIR__ . '/tmpcron.tmp', 'r+');
 
         if ($fp) {
             $line = \fgets($fp);
             while ($line !== false) {
-                if ($line[0] !== '#' && \stripos($line, '/tn = ' . $task->getId()) !== false) {
+                if ($line[0] !== '#' && \stripos($line, 'name="' . $name) !== false) {
                     $line = \fgets($fp);
                     continue;
                 }
@@ -86,11 +96,12 @@ class Cron extends SchedulerAbstract
                 $line = \fgets($fp);
             }
 
-            \fwrite($fp, $new);
             \fclose($fp);
+            \file_put_contents(__DIR__ . '/tmpcron.tmp', $new);
         }
 
-        $this->run('tmpcron');
+        $this->run(__DIR__ . '/tmpcron.tmp');
+        unlink(__DIR__ . '/tmpcron.tmp');
     }
 
     /**
@@ -98,15 +109,30 @@ class Cron extends SchedulerAbstract
      */
     public function getAll() : array
     {
-        $lines = \explode("\n", $this->normalize($this->run('-l')));
-        unset($lines[0]);
+        $this->run('-l > ' . __DIR__ . '/tmpcron.tmp');
 
         $jobs = [];
-        foreach ($lines as $line) {
-            if ($line !== '' && \strrpos($line, '#', -\strlen($line)) === false) {
-                $jobs[] = CronJob::createWith(\str_getcsv($line, ' '));
+        $fp   = \fopen(__DIR__ . '/tmpcron.tmp', 'r+');
+
+        if ($fp) {
+            $line = \fgets($fp);
+            while ($line !== false) {
+                if ($line[0] !== '#') {
+                    $elements   = [];
+                    $namePos    = \stripos($line, 'name="');
+                    $elements[] = \substr($line, $namePos + 6, \stripos($line, '"', $namePos + 7) - 1);
+                    $elements  += \explode(' ', $line);
+                    $jobs[]     = CronJob::createWith($elements);
+                }
+
+                $line = \fgets($fp);
             }
+
+            \fclose($fp);
         }
+
+        $this->run(__DIR__ . '/tmpcron.tmp');
+        unlink(__DIR__ . '/tmpcron.tmp');
 
         return $jobs;
     }
@@ -116,28 +142,29 @@ class Cron extends SchedulerAbstract
      */
     public function getAllByName(string $name, bool $exact = true) : array
     {
-        $lines = \explode("\n", $this->normalize($this->run('-l')));
-        unset($lines[0]);
+        $this->run('-l > ' . __DIR__ . '/tmpcron.tmp');
 
-        if ($exact) {
-            $jobs = [];
-            foreach ($lines as $line) {
-                $csv = \str_getcsv($line, ' ');
+        $jobs = [];
+        $fp   = \fopen(__DIR__ . '/tmpcron.tmp', 'r+');
 
-                if ($line !== '' && \strrpos($line, '#', -\strlen($line)) === false && $csv[5] === $name) {
-                    $jobs[] = CronJob::createWith($csv);
+        if ($fp) {
+            $line = \fgets($fp);
+            while ($line !== false) {
+                if ($line[0] !== '#' && \stripos($line, '# name="' . $name) !== false) {
+                    $elements   = [];
+                    $elements[] = $name;
+                    $elements  += \explode(' ', $line);
+                    $jobs[]     = CronJob::createWith($elements);
                 }
-            }
-        } else {
-            $jobs = [];
-            foreach ($lines as $line) {
-                $csv = \str_getcsv($line, ' ');
 
-                if ($line !== '' && \strrpos($line, '#', -\strlen($line)) === false && \stripos($csv[5], $name) !== false) {
-                    $jobs[] = CronJob::createWith($csv);
-                }
+                $line = \fgets($fp);
             }
+
+            \fclose($fp);
         }
+
+        $this->run(__DIR__ . '/tmpcron.tmp');
+        unlink(__DIR__ . '/tmpcron.tmp');
 
         return $jobs;
     }

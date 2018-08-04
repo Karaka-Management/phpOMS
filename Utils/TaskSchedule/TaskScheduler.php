@@ -44,9 +44,17 @@ class TaskScheduler extends SchedulerAbstract
     /**
      * {@inheritdoc}
      */
+    public function deleteByName(string $name) : void
+    {
+        $this->run('/Delete /TN ' . $name);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
     public function delete(TaskAbstract $task) : void
     {
-        $this->run('/Delete /TN ' . $task->getId());
+        $this->deleteByName($task->getId());
     }
 
     /**

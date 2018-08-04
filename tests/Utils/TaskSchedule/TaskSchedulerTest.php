@@ -14,6 +14,7 @@
 namespace phpOMS\tests\Utils\TaskSchedule;
 
 use phpOMS\Utils\TaskSchedule\TaskScheduler;
+use phpOMS\Utils\TaskSchedule\Schedule;
 
 class TaskSchedulerTest extends \PHPUnit\Framework\TestCase
 {
@@ -25,24 +26,29 @@ class TaskSchedulerTest extends \PHPUnit\Framework\TestCase
     public function testCRUD()
     {
         if (\stristr(PHP_OS, 'WIN')) {
-            $cron = new Cron();
+            TaskScheduler::guessBin();
+            $cron = new TaskScheduler();
 
-            self::assertInstanceOf('\phpOMS\Utils\TaskSchedule\NullCronJob', $cron->getAllByName('testCronJob', false));
+            self::assertEquals([], $cron->getAllByName('testCronJob', false));
             
-            $cron->create(
-                new CronJob('testCronJob', 'testFile')
-            );
-            self::assertEquals('testFile', $cron->getRun());
+            $job = new Schedule('testCronJob', 'testFile', '0 0 1 1 *');
+            $cron->create($job);
+            
+            self::assertTrue(!empty($cron->getAllByName('testCronJob', false)));
+            if (!empty($cron->getAllByName('testCronJob', false))) {
+                self::assertEquals('testFile', $cron->getAllByName('testCronJob', false)[0]->getCommand());
+            }
 
-            $cron->update(
-                new CronJob('testCronJob', 'testFile2')
-            );
-            self::assertEquals('testFile2', $cron->getRun());
+            $job->setCommand('testFile2');
+            $cron->update($job);
 
-            $cron->delete(
-                new CronJob('testCronJob', 'testFile2')
-            );
-            self::assertInstanceOf('\phpOMS\Utils\TaskSchedule\NullCronJob', $cron->getAllByName('testCronJob', false));
+            self::assertTrue(!empty($cron->getAllByName('testCronJob', false)));
+            if (!empty($cron->getAllByName('testCronJob', false))) {
+                self::assertEquals('testFile2', $cron->getAllByName('testCronJob', false)[0]->getCommand());
+            }
+
+            $cron->delete($job);
+            self::assertEquals([], $cron->getAllByName('testCronJob', false));
         }
     }
 }

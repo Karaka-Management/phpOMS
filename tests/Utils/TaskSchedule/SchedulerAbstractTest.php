@@ -19,6 +19,6 @@ class SchedulerAbstractTest extends \PHPUnit\Framework\TestCase
 {
     public function testDefault()
     {
-        self::assertEquals('', SchedulerAbstract::getBin());
+        self::assertTrue(SchedulerAbstract::getBin() === '' || \file_exists(SchedulerAbstract::getBin() ));
     }
 }
