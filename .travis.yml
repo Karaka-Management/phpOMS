@@ -1,19 +1,11 @@
 language: php
-dist: trusty
-sudo: required
 php:
     - '7.2'
     - nightly
-addons:
-  apt:
-    sources:
-        - mysql-5.7-trusty
-    packages:
-        - mysql-server
-        - mysql-client
+services:
+    - mysql
 before_script:
     - mysql -e "use mysql; update user set authentication_string=PASSWORD('123456') where User='root'; update user set plugin='mysql_native_password';FLUSH PRIVILEGES;"
-    - mysql_upgrade
     - service mysql restart
     - pecl install ast
     - composer install
