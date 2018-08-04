@@ -31,9 +31,9 @@ class Schedule extends TaskAbstract
      */
     public function __toString() : string
     {
-        return '';
+        return '/tn ' . $this->id . ' ' . $this->interval .  ' ' . $this->command;
     }
-    
+
     /**
      * {@inheritdoc}
      */
