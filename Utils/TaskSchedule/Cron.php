@@ -120,9 +120,14 @@ class Cron extends SchedulerAbstract
                 if ($line[0] !== '#') {
                     $elements   = [];
                     $namePos    = \stripos($line, 'name="');
-                    $elements[] = \substr($line, $namePos + 6, \stripos($line, '"', $namePos + 7) - 1);
-                    $elements  += \explode(' ', $line);
-                    $jobs[]     = CronJob::createWith($elements);
+                    $nameEndPos = \stripos($line, '"', $namePos + 7);
+
+                    if ($namePos !== false && $nameEndPos !== false) {
+                        $elements[] = \substr($line, $namePos + 6, $nameEndPos - 1);
+                    }
+
+                    $elements = \array_merge($elements, \explode(' ', $line));
+                    $jobs[]   = CronJob::createWith($elements);
                 }
 
                 $line = \fgets($fp);
