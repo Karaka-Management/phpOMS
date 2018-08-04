@@ -1,6 +1,4 @@
 language: php
-dist: trusty
-sudo: required
 php:
     - '7.2'
     - nightly
