@@ -36,11 +36,23 @@ class CholeskyDecompositionTest extends \PHPUnit\Framework\TestCase
             [-1, 1, 3],
         ], $cholesky->getL()->toArray(), '', 0.2);
 
+        self::assertTrue($cholesky->isSpd());
+    }
+
+    public function testSolve()
+    {
+        $A = new Matrix();
+        $A->setMatrix([
+            [25, 15, -5],
+            [15, 17, 0],
+            [-5, 0, 11],
+        ]);
+
+        $cholesky = new CholeskyDecomposition($A);
+
         $vec = new Vector();
         $vec->setMatrix([[40], [49], [28]]);
         self::assertEquals([[1], [2], [3]], $cholesky->solve($vec)->toArray(), '', 0.2);
-
-        self::assertTrue($cholesky->isSpd());
     }
 
     /**
