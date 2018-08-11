@@ -672,7 +672,7 @@ class DataMapperAbstract implements DataMapperInterface
             $objsIds = [];
 
             foreach ($values as $key => &$value) {
-                if (!is_array($value)) {
+                if (!\is_array($value)) {
                     // Is scalar => already in database
                     $objsIds[$key] = $value;
 
@@ -760,7 +760,7 @@ class DataMapperAbstract implements DataMapperInterface
      */
     private static function createOwnsOneArray(string $propertyName, array &$obj)
     {
-        if (is_array($obj)) {
+        if (\is_array($obj)) {
             $mapper     = static::$ownsOne[$propertyName]['mapper'];
             $primaryKey = $obj[static::$columns[static::$primaryField]['internal']];
 
@@ -817,7 +817,7 @@ class DataMapperAbstract implements DataMapperInterface
      */
     private static function createBelongsToArray(string $propertyName, array $obj)
     {
-        if (is_array($obj)) {
+        if (\is_array($obj)) {
             /** @var string $mapper */
             $mapper     = static::$belongsTo[$propertyName]['mapper'];
             $primaryKey = $obj[static::$columns[static::$primaryField]['internal']];
@@ -1533,7 +1533,7 @@ class DataMapperAbstract implements DataMapperInterface
                 }
 
                 $objects = $mapper::get($values, RelationType::ALL, null, $depth);
-                $refProp->setValue($obj, !is_array($objects) ? [$objects->getId() => $objects] : $objects);
+                $refProp->setValue($obj, !\is_array($objects) ? [$objects->getId() => $objects] : $objects);
 
                 if (!$accessible) {
                     $refProp->setAccessible(false);
@@ -1599,7 +1599,7 @@ class DataMapperAbstract implements DataMapperInterface
                     continue;
                 }
 
-                $id    = is_object($id) ? self::getObjectId($id) : $id;
+                $id    = \is_object($id) ? self::getObjectId($id) : $id;
                 $value = self::getInitialized($mapper, $id) ?? $mapper::get($id, RelationType::ALL, null, $depth);
 
                 $refProp->setValue($obj, $value);
@@ -1665,7 +1665,7 @@ class DataMapperAbstract implements DataMapperInterface
                     continue;
                 }
 
-                $id    = is_object($id) ? self::getObjectId($id) : $id;
+                $id    = \is_object($id) ? self::getObjectId($id) : $id;
                 $value = self::getInitialized($mapper, $id) ?? $mapper::get($id, RelationType::ALL, null, $depth);
 
                 $refProp->setValue($obj, $value);
@@ -1731,7 +1731,7 @@ class DataMapperAbstract implements DataMapperInterface
                     continue;
                 }
 
-                $id    = is_object($id) ? self::getObjectId($id) : $id;
+                $id    = \is_object($id) ? self::getObjectId($id) : $id;
                 $value = self::getInitialized($mapper, $id) ?? $mapper::get($id, RelationType::ALL, null, $depth);
 
                 $refProp->setValue($obj, $value);
