@@ -25,7 +25,7 @@ class CronTest extends \PHPUnit\Framework\TestCase
 
     public function testCRUD()
     {
-        if (\stristr(PHP_OS, 'LINUX')) {
+        if (\stripos(PHP_OS, 'LINUX') !== false && \stripos(__DIR__, '/travis/') === false) {
             self::assertTrue(Cron::guessBin());
             $cron = new Cron();
 
