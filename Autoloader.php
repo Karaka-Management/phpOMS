@@ -12,7 +12,7 @@
  */
 declare(strict_types=1);
 
-namespace phpOMS; 
+namespace phpOMS;  
 
 spl_autoload_register('\phpOMS\Autoloader::defaultAutoloader');
 
