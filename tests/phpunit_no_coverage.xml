@@ -10,9 +10,10 @@
         >
     <testsuites>
         <testsuite name="phpOMS">
-            <directory>.*</directory>
+            <directory>tests</directory>
             <exclude>Module/ModuleManagerTest.php</exclude>
             <exclude>vendor*</exclude>
+            <exclude>Build*</exclude>
         </testsuite>
     </testsuites>
     <filter>
