@@ -25,9 +25,8 @@ class CronTest extends \PHPUnit\Framework\TestCase
 
     public function testCRUD()
     {
-        self::assertTrue(Cron::guessBin());
-
         if (\stristr(PHP_OS, 'LINUX')) {
+            self::assertTrue(Cron::guessBin());
             $cron = new Cron();
 
             self::assertEquals([], $cron->getAllByName('testCronJob', false));

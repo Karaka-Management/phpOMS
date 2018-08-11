@@ -26,7 +26,7 @@ class TaskSchedulerTest extends \PHPUnit\Framework\TestCase
     public function testCRUD()
     {
         if (\stristr(PHP_OS, 'WIN')) {
-            TaskScheduler::guessBin();
+            self::assertTrue(TaskScheduler::guessBin());
             $cron = new TaskScheduler();
 
             self::assertEquals([], $cron->getAllByName('testCronJob', false));
