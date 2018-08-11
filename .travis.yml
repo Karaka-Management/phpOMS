@@ -13,6 +13,6 @@ before_script:
 script:
     - phpunit --version && phpunit --configuration tests/phpunit_no_coverage.xml
     - pwd
-    - Build/Hooks/travis.sh
+    - ./Build/Hooks/travis.sh
 notifications:
     email: false
