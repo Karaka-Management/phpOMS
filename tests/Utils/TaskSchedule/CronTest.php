@@ -25,15 +25,16 @@ class CronTest extends \PHPUnit\Framework\TestCase
 
     public function testCRUD()
     {
+        self::assertTrue(Cron::guessBin());
+
         if (\stristr(PHP_OS, 'LINUX')) {
-            Cron::guessBin();
             $cron = new Cron();
 
             self::assertEquals([], $cron->getAllByName('testCronJob', false));
-            
+
             $job = new CronJob('testCronJob', 'testFile', '0 0 1 1 *');
             $cron->create($job);
-            
+
             self::assertTrue(!empty($cron->getAllByName('testCronJob', false)));
             if (!empty($cron->getAllByName('testCronJob', false))) {
                 self::assertEquals('testFile', $cron->getAllByName('testCronJob', false)[0]->getCommand());
