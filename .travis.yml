@@ -9,9 +9,8 @@ before_script:
     - composer install
     - git clone -b develop https://github.com/Orange-Management/Build.git
     - chmod -R 755 Build/Hooks
-    - ls -l
 script:
-    - phpunit --version && phpunit --configuration tests/phpunit_no_coverage.xml
+    - vendor/bin/phpunit --version && vendor/bin/phpunit --configuration tests/phpunit_no_coverage.xml
     - pwd
     - ./Build/Hooks/travis.sh
 notifications:
