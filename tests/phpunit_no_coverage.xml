@@ -23,7 +23,7 @@
                 <directory suffix="tpl.php">../*</directory>
                 <directory suffix="lang.php">../*</directory>
                 <directory suffix="Test.php">../*</directory>
-                <directory>../Build/*</directory>
+                <directory>Build/*</directory>
             </exclude>
         </whitelist>
     </filter>
