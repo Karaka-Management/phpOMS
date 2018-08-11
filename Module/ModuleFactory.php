@@ -79,7 +79,7 @@ final class ModuleFactory
                     self::$loaded[$module] = $obj;
                     self::registerRequesting($obj);
                     self::registerProvided($obj);
-                } catch (\Exception $e) {
+                } catch (\Throwable $e) {
                     self::$loaded[$module] = new NullModule($app);
                 }
             } else {
