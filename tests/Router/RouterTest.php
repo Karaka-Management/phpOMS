@@ -75,13 +75,4 @@ class RouterTest extends \PHPUnit\Framework\TestCase
             $router->route('http://test.com/backends/admin/settings/general/something?test', RouteVerb::GET)
         );
     }
-
-    /**
-     * @expectedException \InvalidArgumentException
-     */
-    public function testInvalidRequestType()
-    {
-        $router = new Router();
-        $router->route([]);
-    }
 }
