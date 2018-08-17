@@ -91,16 +91,16 @@ final class Router
      *
      * @since  1.0.0
      */
-    public function route(string $request, int $verb = RouteVerb::GET, string $app = '', string $orgId = '', $account = null) : array
+    public function route(string $request, int $verb = RouteVerb::GET, string $app = '', int $orgId = 1, $account = null) : array
     {
         $bound = [];
         foreach ($this->routes as $route => $destination) {
             foreach ($destination as $d) {
                 if ($this->match($route, $d['verb'], $request, $verb)) {
-                    if (!isset($d['permission']) 
-                        || !isset($account) 
-                        || (isset($d['permission']) 
-                            && isset($account) 
+                    if (!isset($d['permission'])
+                        || !isset($account)
+                        || (isset($d['permission'])
+                            && isset($account)
                             && $account->hasPermission($d['permission']['type'], $orgId, $app, $d['permission']['module'], $d['permission']['state']))
                     ) {
                         $bound[] = ['dest' => $d['dest']];
