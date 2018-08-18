@@ -105,7 +105,7 @@ final class Router
                     ) {
                         $bound[] = ['dest' => $d['dest']];
                     } else {
-                        array_merge($bound, $this->route('/' . $app . '/e403', $verb));
+                        \array_merge($bound, $this->route('/' . $app . '/e403', $verb));
                     }
                 }
             }

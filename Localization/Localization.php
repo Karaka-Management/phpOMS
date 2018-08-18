@@ -17,6 +17,7 @@ namespace phpOMS\Localization;
 use phpOMS\Stdlib\Base\Exception\InvalidEnumValue;
 use phpOMS\Utils\Converter\AngleType;
 use phpOMS\Utils\Converter\TemperatureType;
+use phpOMS\System\File\Local\Directory;
 
 /**
  * Localization class.
@@ -91,10 +92,10 @@ final class Localization
     /**
      * Time format.
      *
-     * @var string
+     * @var array
      * @since 1.0.0
      */
-    private $datetime = 'Y-m-d H:i:s';
+    private $datetime = [];
 
     /**
      * Weight.
@@ -137,12 +138,68 @@ final class Localization
     private $volume = [];
 
     /**
-     * Constructor.
+     * Load localization from language code
+     *
+     * @param string $langCode Language code
+     *
+     * @return void
      *
      * @since  1.0.0
      */
-    public function __construct()
+    public function loadFromLanguage(string $langCode) : void
     {
+        $langCode = \strtolower($langCode);
+
+        if (!ISO639x1Enum::isValidValue($langCode)) {
+            throw new InvalidEnumValue($langCode);
+        }
+
+        $files = Directory::list(__DIR__ . '/../Localization/Defaults/Definitions');
+
+        foreach ($files as $file) {
+            if (\stripos($file, $langCode) === 0) {
+                $this->importLocale(
+                    json_decode(
+                        \file_get_contents(__DIR__ . '/../Localization/Defaults/Definitions/' . $file),
+                        true
+                    )
+                );
+                return;
+            }
+        }
+
+        $this->importLocale(
+            json_decode(
+                \file_get_contents(__DIR__ . '/../Localization/Defaults/Definitions/en_US.json'),
+                true
+            )
+        );
+    }
+
+    /**
+     * Load localization from locale
+     *
+     * @param array $locale Locale data
+     *
+     * @return void
+     *
+     * @since  1.0.0
+     */
+    public function importLocale(array $locale) : void
+    {
+        $this->setLanguage($locale['language'] ?? 'en');
+        $this->setCountry($locale['country'] ?? 'US');
+        $this->setCurrency($locale['currency']['code'] ?? ISO4217Enum::_USD);
+        $this->setThousands($locale['thousand'] ?? ',');
+        $this->setDecimal($locale['decimal'] ?? '.');
+        $this->setAngle($locale['angle'] ?? AngleType::DEGREE);
+        $this->setTemperature($locale['temperature'] ?? emperatureType::CELSIUS);
+        $this->setWeight($locale['weight'] ?? []);
+        $this->setSpeed($locale['speed'] ?? []);
+        $this->setLength($locale['length'] ?? []);
+        $this->setArea($locale['area'] ?? []);
+        $this->setVolume($locale['volume'] ?? []);
+        $this->setDatetime($locale['datetime'] ?? []);
     }
 
     /**
@@ -232,7 +289,7 @@ final class Localization
      */
     public function setLanguage(string $language) : void
     {
-        $language = strtolower($language);
+        $language = \strtolower($language);
 
         if (!ISO639x1Enum::isValidValue($language)) {
             throw new InvalidEnumValue($language);
@@ -264,7 +321,7 @@ final class Localization
      */
     public function setCurrency(string $currency) : void
     {
-        if (!ISO4217Enum::isValidValue($currency)) {
+        if (!ISO4217CharEnum::isValidValue($currency)) {
             throw new InvalidEnumValue($currency);
         }
 
@@ -274,11 +331,11 @@ final class Localization
     /**
      * get datetime format
      *
-     * @return string
+     * @return array
      *
      * @since  1.0.0
      */
-    public function getDatetime() : string
+    public function getDatetime() : array
     {
         return $this->datetime;
     }
@@ -286,13 +343,13 @@ final class Localization
     /**
      * Set datetime format
      *
-     * @param string $datetime Datetime format
+     * @param array $datetime Datetime format
      *
      * @return void
      *
      * @since  1.0.0
      */
-    public function setDatetime(string $datetime) : void
+    public function setDatetime(array $datetime) : void
     {
         $this->datetime = $datetime;
     }
