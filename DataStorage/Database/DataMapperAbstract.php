@@ -895,7 +895,7 @@ class DataMapperAbstract implements DataMapperInterface
             return $value->serialize();
         } elseif ($value instanceof \JsonSerializable) {
             return \json_encode($value->jsonSerialize());
-        } elseif (is_object($value) && method_exists($value, 'getId')) {
+        } elseif (is_object($value) && \method_exists($value, 'getId')) {
             return $value->getId();
         }
 
@@ -1918,7 +1918,7 @@ class DataMapperAbstract implements DataMapperInterface
 
             $obj[$value] = self::populate(self::getRaw($value), $toFill);
 
-            if (method_exists($obj[$value], 'initialize')) {
+            if (\method_exists($obj[$value], 'initialize')) {
                 $obj[$value]->initialize();
             }
 

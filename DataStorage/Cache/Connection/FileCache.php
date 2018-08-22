@@ -70,7 +70,7 @@ class FileCache extends ConnectionAbstract
         }
 
         $this->status = CacheStatus::ACTIVE;
-        $this->con    = realpath($path);
+        $this->con    = \realpath($path);
     }
 
     /**
@@ -90,7 +90,7 @@ class FileCache extends ConnectionAbstract
             return false;
         }
 
-        array_map('unlink', glob($this->con . '/*'));
+        \array_map('unlink', \glob($this->con . '/*'));
 
         return true;
     }
@@ -128,7 +128,7 @@ class FileCache extends ConnectionAbstract
 
         $path = Directory::sanitize($key, self::SANITIZE);
 
-        File::put($this->con . '/' . trim($path, '/') . '.cache', $this->build($value, $expire));
+        File::put($this->con . '/' . \trim($path, '/') . '.cache', $this->build($value, $expire));
     }
 
     /**
@@ -180,15 +180,15 @@ class FileCache extends ConnectionAbstract
      */
     private function dataType($value) : int
     {
-        if (is_int($value)) {
+        if (\is_int($value)) {
             return CacheValueType::_INT;
-        } elseif (is_float($value)) {
+        } elseif (\is_float($value)) {
             return CacheValueType::_FLOAT;
-        } elseif (is_string($value)) {
+        } elseif (\is_string($value)) {
             return CacheValueType::_STRING;
-        } elseif (is_bool($value)) {
+        } elseif (\is_bool($value)) {
             return CacheValueType::_BOOL;
-        } elseif (is_array($value)) {
+        } elseif (\is_array($value)) {
             return CacheValueType::_ARRAY;
         } elseif ($value === null) {
             return CacheValueType::_NULL;
@@ -220,9 +220,9 @@ class FileCache extends ConnectionAbstract
         } elseif ($type === CacheValueType::_ARRAY) {
             return \json_encode($value);
         } elseif ($type === CacheValueType::_SERIALIZABLE) {
-            return get_class($value) . self::DELIM . $value->serialize();
+            return \get_class($value) . self::DELIM . $value->serialize();
         } elseif ($type === CacheValueType::_JSONSERIALIZABLE) {
-            return get_class($value) . self::DELIM . $value->jsonSerialize();
+            return \get_class($value) . self::DELIM . $value->jsonSerialize();
         } elseif ($type === CacheValueType::_NULL) {
             return '';
         }
@@ -263,7 +263,7 @@ class FileCache extends ConnectionAbstract
         }
 
         $created = Directory::created($path)->getTimestamp();
-        $now     = time();
+        $now     = \time();
 
         if ($expire >= 0 && $created + $expire < $now) {
             return null;
@@ -377,7 +377,7 @@ class FileCache extends ConnectionAbstract
         }
 
         $dir = new Directory($this->con);
-        $now = time();
+        $now = \time();
 
         foreach ($dir as $file) {
             if ($file instanceof File) {
@@ -425,6 +425,6 @@ class FileCache extends ConnectionAbstract
     private function getPath($key) : string
     {
         $path = Directory::sanitize($key, self::SANITIZE);
-        return $this->con . '/' . trim($path, '/') . '.cache';
+        return $this->con . '/' . \trim($path, '/') . '.cache';
     }
 }

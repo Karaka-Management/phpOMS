@@ -281,7 +281,7 @@ class Grammar extends GrammarAbstract
         $expression = '';
 
         if (!$first) {
-            $expression = ' ' . strtoupper($element['boolean']) . ' ';
+            $expression = ' ' . \strtoupper($element['boolean']) . ' ';
         }
 
         if (is_string($element['column'])) {
@@ -297,9 +297,9 @@ class Grammar extends GrammarAbstract
         // todo: handle IN(...) as operator
 
         if (isset($element['value'])) {
-            $expression .= ' ' . strtoupper($element['operator']) . ' ' . $this->compileValue($query, $element['value'], $query->getPrefix());
+            $expression .= ' ' . \strtoupper($element['operator']) . ' ' . $this->compileValue($query, $element['value'], $query->getPrefix());
         } else {
-            $operator    = strtoupper($element['operator']) === '=' ? 'IS' : 'IS NOT';
+            $operator    = \strtoupper($element['operator']) === '=' ? 'IS' : 'IS NOT';
             $expression .= ' ' . $operator . ' ' . $this->compileValue($query, $element['value'], $query->getPrefix());
         }
 
@@ -342,7 +342,7 @@ class Grammar extends GrammarAbstract
                 $values .= $this->compileValue($query, $val, $prefix) . ', ';
             }
 
-            return '(' . rtrim($values, ', ') . ')';
+            return '(' . \rtrim($values, ', ') . ')';
         } elseif ($value instanceof \DateTime) {
             return $query->quote($value->format('Y-m-d H:i:s'));
         } elseif ($value === null) {
@@ -411,7 +411,7 @@ class Grammar extends GrammarAbstract
             $expression .= $this->compileSystem($group, $query->getPrefix()) . ', ';
         }
 
-        $expression = rtrim($expression, ', ');
+        $expression = \rtrim($expression, ', ');
 
         return 'GROUP BY ' . $expression;
     }
@@ -435,7 +435,7 @@ class Grammar extends GrammarAbstract
                 $expression .= $this->compileSystem($column, $query->getPrefix()) . ', ';
             }
 
-            $expression  = rtrim($expression, ', ');
+            $expression  = \rtrim($expression, ', ');
             $expression .= ' ' . $key . ', ';
         }
 
@@ -443,7 +443,7 @@ class Grammar extends GrammarAbstract
             return '';
         }
 
-        $expression = rtrim($expression, ', ');
+        $expression = \rtrim($expression, ', ');
 
         return 'ORDER BY ' . $expression;
     }
@@ -495,7 +495,7 @@ class Grammar extends GrammarAbstract
             return '';
         }
 
-        return '(' . rtrim($cols, ', ') . ')';
+        return '(' . \rtrim($cols, ', ') . ')';
     }
 
     /**
@@ -520,7 +520,7 @@ class Grammar extends GrammarAbstract
             return '';
         }
 
-        return 'VALUES ' . rtrim($vals, ', ');
+        return 'VALUES ' . \rtrim($vals, ', ');
     }
 
     /**
@@ -548,6 +548,6 @@ class Grammar extends GrammarAbstract
             return '';
         }
 
-        return 'SET ' . rtrim($vals, ', ');
+        return 'SET ' . \rtrim($vals, ', ');
     }
 }
