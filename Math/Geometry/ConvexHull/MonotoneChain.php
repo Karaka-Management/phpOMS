@@ -104,7 +104,7 @@ final class MonotoneChain
      *
      * @since  1.0.0
      */
-    private static function \sort(array $a, array $b) : float
+    private static function sort(array $a, array $b) : float
     {
         return $a['x'] === $b['x'] ? $a['y'] - $b['y'] : $a['x'] - $b['x'];
     }

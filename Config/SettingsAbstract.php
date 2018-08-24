@@ -87,32 +87,27 @@ abstract class SettingsAbstract implements OptionsInterface
     public function get($columns)
     {
         try {
-            if (!is_array($columns)) {
+            if (!\is_array($columns)) {
                 $columns = [$columns];
             }
 
             $options = [];
+            $query   = new Builder($this->connection);
+            $sql     = $query->select(...static::$columns)
+                ->from($this->connection->prefix . static::$table)
+                ->where(static::$columns[0], 'in', $columns)
+                ->toSql();
 
-            switch ($this->connection->getType()) {
-                case DatabaseType::MYSQL:
-                    $query = new Builder($this->connection);
-                    $sql   = $query->select(...static::$columns)
-                        ->from($this->connection->prefix . static::$table)
-                        ->where(static::$columns[0], 'in', $columns)
-                        ->toSql();
+            $sth = $this->connection->con->prepare($sql);
+            $sth->execute();
 
-                    $sth = $this->connection->con->prepare($sql);
-                    $sth->execute();
+            $options = $sth->fetchAll(\PDO::FETCH_KEY_PAIR);
 
-                    $options = $sth->fetchAll(\PDO::FETCH_KEY_PAIR);
-
-                    if ($options === false) {
-                        return [];
-                    }
-
-                    $this->setOptions($options);
-                    break;
+            if ($options === false) {
+                return [];
             }
+
+            $this->setOptions($options);
 
             return \count($options) > 1 ? $options : \reset($options);
         } catch (\PDOException $e) {
@@ -138,7 +133,13 @@ abstract class SettingsAbstract implements OptionsInterface
         $this->setOptions($options);
 
         if ($store) {
+            $this->connection->con->beginTransaction();
+
             foreach ($this->options as $key => $option) {
+                if (\is_string($key)) {
+                    $key = (int) \preg_replace('/[^0-9.]/', '', $key);
+                }
+
                 $query = new Builder($this->connection);
                 $sql   = $query->update($this->connection->prefix . static::$table)
                     ->set([static::$columns[1] => $option])
@@ -148,6 +149,8 @@ abstract class SettingsAbstract implements OptionsInterface
                 $sth = $this->connection->con->prepare($sql);
                 $sth->execute();
             }
+
+            $this->connection->con->commit();
         }
     }
 }

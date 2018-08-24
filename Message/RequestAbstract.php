@@ -167,9 +167,30 @@ abstract class RequestAbstract implements MessageInterface
             return $this->data;
         }
 
-        $key = mb_strtolower($key);
+        $key = \mb_strtolower($key);
 
         return $this->data[$key] ?? null;
+    }
+
+    /**
+     * Get data based on wildcard.
+     *
+     * @param string $regex Regex data key
+     *
+     * @return array
+     *
+     * @since  1.0.0
+     */
+    public function getLike(string $regex) : array
+    {
+        $data = [];
+        foreach ($this->data as $key => $value) {
+            if (\preg_match('/' . $regex . '/', $key) === 1) {
+                $data[$key] = $value;
+            }
+        }
+
+        return $data;
     }
 
     /**
@@ -200,7 +221,7 @@ abstract class RequestAbstract implements MessageInterface
     public function setData($key, $value, bool $overwrite = true) : bool
     {
         if (!$this->lock) {
-            $key = mb_strtolower($key);
+            $key = \mb_strtolower($key);
             if ($overwrite || !isset($this->data[$key])) {
                 $this->data[$key] = $value;
 
