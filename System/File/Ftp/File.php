@@ -179,7 +179,7 @@ class File extends FileAbstract implements FileInterface
         $con    = self::ftpConnect($http);
         $exists = self::ftpExists($con, $http->getPath());
 
-        fclose($con);
+        \fclose($con);
 
         return $exists;
     }

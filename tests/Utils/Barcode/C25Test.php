@@ -20,13 +20,13 @@ class C25Test extends \PHPUnit\Framework\TestCase
     public function testImage()
     {
         $path = __DIR__ . '/c25.png';
-        if (file_exists($path)) {
-            unlink($path);
+        if (\file_exists($path)) {
+            \unlink($path);
         }
 
         $img = new C25('1234567890', 150, 50);
         $img->saveToPngFile($path);
 
-        self::assertTrue(file_exists($path));
+        self::assertTrue(\file_exists($path));
     }
 }

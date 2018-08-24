@@ -80,22 +80,22 @@ class JobQueue
                 $this->run       = false;
             }
 
-            sleep(1);
+            \sleep(1);
         }
 
-        sleep(1);
+        \sleep(1);
 
         return -1;
     }
 
     private function runAsDeamon()
     {
-        ob_end_clean();
-        fclose(STDIN);
-        fclose(STDOUT);
-        fclose(STDERR);
+        \ob_end_clean();
+        \fclose(STDIN);
+        \fclose(STDOUT);
+        \fclose(STDERR);
 
-        register_shutdown_function(function() { posix_kill(posix_getpid(), SIGHUP); });
+        \register_shutdown_function(function() { \posix_kill(\posix_getpid(), SIGHUP); });
     }
 
     public function setRunning(bool $run = true) : void

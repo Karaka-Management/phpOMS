@@ -79,7 +79,7 @@ class CommandManager implements \Countable
      */
     public function detach(string $cmd, $source) : void
     {
-        if (array_key_exists($cmd, $this->commands)) {
+        if (\array_key_exists($cmd, $this->commands)) {
             unset($this->commands[$cmd]);
             $this->count--;
         }
@@ -98,7 +98,7 @@ class CommandManager implements \Countable
      */
     public function trigger(string $cmd, $conn, $para)
     {
-        if (array_key_exists($cmd, $this->commands)) {
+        if (\array_key_exists($cmd, $this->commands)) {
             return $this->commands[$cmd][0]($conn, $para);
         }
 

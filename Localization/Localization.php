@@ -159,7 +159,7 @@ final class Localization
         foreach ($files as $file) {
             if (\stripos($file, $langCode) === 0) {
                 $this->importLocale(
-                    json_decode(
+                    \json_decode(
                         \file_get_contents(__DIR__ . '/../Localization/Defaults/Definitions/' . $file),
                         true
                     )
@@ -169,7 +169,7 @@ final class Localization
         }
 
         $this->importLocale(
-            json_decode(
+            \json_decode(
                 \file_get_contents(__DIR__ . '/../Localization/Defaults/Definitions/en_US.json'),
                 true
             )

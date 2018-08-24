@@ -199,7 +199,7 @@ final class Average
         $count = array_count_values($values);
         $best  = \max($count);
 
-        return (float) (array_keys($count, $best)[0] ?? 0.0);
+        return (float) (\array_keys($count, $best)[0] ?? 0.0);
     }
 
     /**
@@ -215,7 +215,7 @@ final class Average
      */
     public static function median(array $values) : float
     {
-        sort($values);
+        \sort($values);
         $count     = \count($values);
         $middleval = (int) floor(($count - 1) / 2);
 
@@ -271,7 +271,7 @@ final class Average
      */
     public static function harmonicMean(array $values, int $offset = 0) : float
     {
-        sort($values);
+        \sort($values);
 
         if ($offset > 0) {
             $values = array_slice($values, $offset, -$offset);
@@ -334,7 +334,7 @@ final class Average
      */
     public static function angleMean2(array $angles, int $offset = 0) : float
     {
-        sort($angles);
+        \sort($angles);
 
         if ($offset > 0) {
             $angles = array_slice($angles, $offset, -$offset);

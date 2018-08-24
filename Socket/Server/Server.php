@@ -92,7 +92,7 @@ class Server extends SocketAbstract
         $connected = @fsockopen("www.google.com", 80);
 
         if ($connected) {
-            fclose($connected);
+            \fclose($connected);
 
             return true;
         } else {

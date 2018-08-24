@@ -83,13 +83,13 @@ final class Dictionary
             $source  = \str_replace($source[0], '', $source);
         }
 
-        sort($count);
+        \sort($count);
         while (\count($count) > 1) {
             $row1    = array_shift($count);
             $row2    = array_shift($count);
             $count[] = [$row1[0] + $row2[0], [$row1, $row2]];
 
-            sort($count);
+            \sort($count);
         }
 
         $this->fill(\is_array($count[0][1]) ? $count[0][1] : $count);

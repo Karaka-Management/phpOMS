@@ -33,7 +33,7 @@ class Cron extends SchedulerAbstract
         $this->run('-l > ' . __DIR__ . '/tmpcron.tmp');
         \file_put_contents(__DIR__ . '/tmpcron.tmp', $task->__toString() . "\n", FILE_APPEND);
         $this->run(__DIR__ . '/tmpcron.tmp');
-        unlink(__DIR__ . '/tmpcron.tmp');
+        \unlink(__DIR__ . '/tmpcron.tmp');
     }
 
     /**
@@ -63,7 +63,7 @@ class Cron extends SchedulerAbstract
         }
 
         $this->run(__DIR__ . '/tmpcron.tmp');
-        unlink(__DIR__ . '/tmpcron.tmp');
+        \unlink(__DIR__ . '/tmpcron.tmp');
     }
 
     /**
@@ -101,7 +101,7 @@ class Cron extends SchedulerAbstract
         }
 
         $this->run(__DIR__ . '/tmpcron.tmp');
-        unlink(__DIR__ . '/tmpcron.tmp');
+        \unlink(__DIR__ . '/tmpcron.tmp');
     }
 
     /**
@@ -137,7 +137,7 @@ class Cron extends SchedulerAbstract
         }
 
         $this->run(__DIR__ . '/tmpcron.tmp');
-        unlink(__DIR__ . '/tmpcron.tmp');
+        \unlink(__DIR__ . '/tmpcron.tmp');
 
         return $jobs;
     }
@@ -169,7 +169,7 @@ class Cron extends SchedulerAbstract
         }
 
         $this->run(__DIR__ . '/tmpcron.tmp');
-        unlink(__DIR__ . '/tmpcron.tmp');
+        \unlink(__DIR__ . '/tmpcron.tmp');
 
         return $jobs;
     }

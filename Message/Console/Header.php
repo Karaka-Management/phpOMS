@@ -146,7 +146,7 @@ final class Header extends HeaderAbstract
      */
     public static function getAllHeaders() : array
     {
-        if (function_exists('getallheaders')) {
+        if (\function_exists('getallheaders')) {
             // @codeCoverageIgnoreStart
             return getallheaders();
             // @codeCoverageIgnoreEnd
@@ -241,7 +241,7 @@ final class Header extends HeaderAbstract
 
         foreach ($this->header as $name => $arr) {
             foreach ($arr as $ele => $value) {
-                header($name . ': ' . $value);
+                \header($name . ': ' . $value);
             }
         }
     }

@@ -82,9 +82,9 @@ class Numeric
             for ($i = 1; $i <= $numberLen; ++$i) {
                 $newOutput = \bcadd(
                     $newOutput,
-                    bcmul(
+                    \bcmul(
                         (string) \array_search($number[$i - 1], $fromBase),
-                        bcpow((string) $fromLen, (string) ($numberLen - $i))
+                        \bcpow((string) $fromLen, (string) ($numberLen - $i))
                     )
                 );
             }

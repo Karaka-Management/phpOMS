@@ -234,11 +234,11 @@ final class Header extends HeaderAbstract
 
         foreach ($this->header as $name => $arr) {
             foreach ($arr as $ele => $value) {
-                header($name . ': ' . $value);
+                \header($name . ': ' . $value);
             }
         }
 
-        header("X-Powered-By: hidden");
+        \header("X-Powered-By: hidden");
 
         $this->lock();
     }

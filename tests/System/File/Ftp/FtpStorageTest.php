@@ -76,15 +76,15 @@ class FtpStorageTest extends \PHPUnit\Framework\TestCase
         self::assertFalse(FtpStorage::exists($newPath2));
         self::assertFalse(FtpStorage::delete($newPath2));
 
-        unlink($newPath);
-        rmdir(self::BASE . '/sub/path/');
-        rmdir(self::BASE . '/sub/');
+        \unlink($newPath);
+        \rmdir(self::BASE . '/sub/path/');
+        \rmdir(self::BASE . '/sub/');
 
         self::assertTrue(FtpStorage::create($testFile));
         self::assertFalse(FtpStorage::create($testFile));
         self::assertEquals('', FtpStorage::get($testFile));
 
-        unlink($testFile);
+        \unlink($testFile);
     }
 
     public function testDirectory()
@@ -127,13 +127,13 @@ class FtpStorageTest extends \PHPUnit\Framework\TestCase
 
         $dirTestPath = self::BASE . '/dirtest';
         self::assertTrue(FtpStorage::copy($dirTestPath, self::BASE . '/newdirtest'));
-        self::assertTrue(file_exists(self::BASE . '/newdirtest/sub/path/test3.txt'));
+        self::assertTrue(\file_exists(self::BASE . '/newdirtest/sub/path/test3.txt'));
 
         self::assertTrue(FtpStorage::delete($dirTestPath));
         self::assertFalse(FtpStorage::exists($dirTestPath));
 
         self::assertTrue(FtpStorage::move(self::BASE . '/newdirtest', $dirTestPath));
-        self::assertTrue(file_exists($dirTestPath . '/sub/path/test3.txt'));
+        self::assertTrue(\file_exists($dirTestPath . '/sub/path/test3.txt'));
 
         self::assertEquals(4, FtpStorage::count($dirTestPath));
         self::assertEquals(1, FtpStorage::count($dirTestPath, false));

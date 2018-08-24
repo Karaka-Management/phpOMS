@@ -51,7 +51,7 @@ final class MeasureOfDispersion
      */
     public static function range(array $values) : float
     {
-        sort($values);
+        \sort($values);
         $end   = \end($values);
         $start = \reset($values);
 

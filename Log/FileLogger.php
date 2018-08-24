@@ -511,7 +511,7 @@ final class FileLogger implements LoggerInterface
 
             $logs[$id] = $line;
             $limit--;
-            ksort($logs);
+            \ksort($logs);
             $line = \fgetcsv($this->fp, 0, ';');
         }
 

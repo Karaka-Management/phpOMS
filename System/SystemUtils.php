@@ -48,11 +48,11 @@ final class SystemUtils
 
         if (\stristr(PHP_OS, 'WIN')) {
             $memArr = [];
-            exec('wmic memorychip get capacity', $memArr);
+            \exec('wmic memorychip get capacity', $memArr);
 
             $mem = \array_sum($memArr) / 1024;
         } elseif (\stristr(PHP_OS, 'LINUX')) {
-            $fh  = \fopen('/proc/meminfo', 'r');
+            $fh = \fopen('/proc/meminfo', 'r');
 
             if ($fh === false) {
                 return $mem;
@@ -113,7 +113,7 @@ final class SystemUtils
 
         if (\stristr(PHP_OS, 'WIN') !== false) {
             $cpuUsage = null;
-            exec('wmic cpu get LoadPercentage', $cpuUsage);
+            \exec('wmic cpu get LoadPercentage', $cpuUsage);
             $cpuUsage = $cpuUsage[1];
         } elseif (\stristr(PHP_OS, 'LINUX') !== false) {
             $cpuUsage = \sys_getloadavg()[0] * 100;

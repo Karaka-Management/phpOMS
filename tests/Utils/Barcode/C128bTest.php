@@ -20,13 +20,13 @@ class C128bTest extends \PHPUnit\Framework\TestCase
     public function testImage()
     {
         $path = __DIR__ . '/c128b.png';
-        if (file_exists($path)) {
-            unlink($path);
+        if (\file_exists($path)) {
+            \unlink($path);
         }
 
         $img = new C128b('ABcdeFG0123+-!@?', 200, 50);
         $img->saveToPngFile($path);
 
-        self::assertTrue(file_exists($path));
+        self::assertTrue(\file_exists($path));
     }
 }

@@ -47,7 +47,7 @@ final class MonotoneChain
     public static function createConvexHull(array $points) : array
     {
         if (($n = \count($points)) > 1) {
-            uasort($points, [self::class, 'sort']);
+            \uasort($points, [self::class, 'sort']);
 
             $k      = 0;
             $result = [];
@@ -70,9 +70,9 @@ final class MonotoneChain
                 $result[$k++] = $points[$i];
             }
 
-            ksort($result);
+            \ksort($result);
 
-            return array_slice($result, 0, $k - 1);
+            return \array_slice($result, 0, $k - 1);
         }
 
         return $points;
@@ -104,7 +104,7 @@ final class MonotoneChain
      *
      * @since  1.0.0
      */
-    private static function sort(array $a, array $b) : float
+    private static function \sort(array $a, array $b) : float
     {
         return $a['x'] === $b['x'] ? $a['y'] - $b['y'] : $a['x'] - $b['x'];
     }

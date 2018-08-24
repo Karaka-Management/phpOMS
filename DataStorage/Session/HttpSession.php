@@ -90,7 +90,7 @@ class HttpSession implements SessionInterface
 
         $this->inactivityInterval = $inactivityInterval;
 
-        if (session_status() !== PHP_SESSION_ACTIVE && !headers_sent()) {
+        if (\session_status() !== PHP_SESSION_ACTIVE && !\headers_sent()) {
             \session_set_cookie_params($liftetime, '/', '', false, true);
             \session_start();
         }

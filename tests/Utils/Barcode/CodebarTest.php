@@ -20,13 +20,13 @@ class CodebarTest extends \PHPUnit\Framework\TestCase
     public function testImage()
     {
         $path = __DIR__ . '/codebar.png';
-        if (file_exists($path)) {
-            unlink($path);
+        if (\file_exists($path)) {
+            \unlink($path);
         }
 
         $img = new Codebar('412163', 200, 50);
         $img->saveToPngFile($path);
 
-        self::assertTrue(file_exists($path));
+        self::assertTrue(\file_exists($path));
     }
 }

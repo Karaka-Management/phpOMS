@@ -63,13 +63,13 @@ class DirectoryTest extends \PHPUnit\Framework\TestCase
         $dirTestPath = self::BASE . '/dirtest';
 
         self::assertTrue(Directory::copy($dirTestPath, self::BASE . '/newdirtest'));
-        self::assertTrue(file_exists(self::BASE . '/newdirtest/sub/path/test3.txt'));
+        self::assertTrue(\file_exists(self::BASE . '/newdirtest/sub/path/test3.txt'));
 
         self::assertTrue(Directory::delete($dirTestPath));
         self::assertFalse(Directory::exists($dirTestPath));
 
         self::assertTrue(Directory::move(self::BASE . '/newdirtest', $dirTestPath));
-        self::assertTrue(file_exists($dirTestPath . '/sub/path/test3.txt'));
+        self::assertTrue(\file_exists($dirTestPath . '/sub/path/test3.txt'));
 
         self::assertEquals(4, Directory::count($dirTestPath));
         self::assertEquals(1, Directory::count($dirTestPath, false));

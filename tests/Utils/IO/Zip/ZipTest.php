@@ -28,7 +28,7 @@ class ZipTest extends \PHPUnit\Framework\TestCase
             __DIR__ . '/test.zip'
         ));
 
-        self::assertTrue(file_exists(__DIR__ . '/test.zip'));
+        self::assertTrue(\file_exists(__DIR__ . '/test.zip'));
 
         self::assertFalse(Zip::pack(
             [
@@ -45,31 +45,31 @@ class ZipTest extends \PHPUnit\Framework\TestCase
         $d = \file_get_contents(__DIR__ . '/test/test d.txt');
         $e = \file_get_contents(__DIR__ . '/test/sub/test e.txt');
 
-        unlink(__DIR__ . '/test a.txt');
-        unlink(__DIR__ . '/test b.md');
-        unlink(__DIR__ . '/test/test c.txt');
-        unlink(__DIR__ . '/test/test d.txt');
-        unlink(__DIR__ . '/test/sub/test e.txt');
-        rmdir(__DIR__ . '/test/sub');
-        rmdir(__DIR__ . '/test');
+        \unlink(__DIR__ . '/test a.txt');
+        \unlink(__DIR__ . '/test b.md');
+        \unlink(__DIR__ . '/test/test c.txt');
+        \unlink(__DIR__ . '/test/test d.txt');
+        \unlink(__DIR__ . '/test/sub/test e.txt');
+        \rmdir(__DIR__ . '/test/sub');
+        \rmdir(__DIR__ . '/test');
 
-        self::assertFalse(file_exists(__DIR__ . '/test a.txt'));
-        self::assertFalse(file_exists(__DIR__ . '/test b.md'));
-        self::assertFalse(file_exists(__DIR__ . '/test/test c.txt'));
-        self::assertFalse(file_exists(__DIR__ . '/test/test d.txt'));
-        self::assertFalse(file_exists(__DIR__ . '/test/sub/test e.txt'));
-        self::assertFalse(file_exists(__DIR__ . '/test/sub'));
-        self::assertFalse(file_exists(__DIR__ . '/test'));
+        self::assertFalse(\file_exists(__DIR__ . '/test a.txt'));
+        self::assertFalse(\file_exists(__DIR__ . '/test b.md'));
+        self::assertFalse(\file_exists(__DIR__ . '/test/test c.txt'));
+        self::assertFalse(\file_exists(__DIR__ . '/test/test d.txt'));
+        self::assertFalse(\file_exists(__DIR__ . '/test/sub/test e.txt'));
+        self::assertFalse(\file_exists(__DIR__ . '/test/sub'));
+        self::assertFalse(\file_exists(__DIR__ . '/test'));
 
         self::assertTrue(Zip::unpack(__DIR__ . '/test.zip', __DIR__));
 
-        self::assertTrue(file_exists(__DIR__ . '/test a.txt'));
-        self::assertTrue(file_exists(__DIR__ . '/test b.md'));
-        self::assertTrue(file_exists(__DIR__ . '/test/test c.txt'));
-        self::assertTrue(file_exists(__DIR__ . '/test/test d.txt'));
-        self::assertTrue(file_exists(__DIR__ . '/test/sub/test e.txt'));
-        self::assertTrue(file_exists(__DIR__ . '/test/sub'));
-        self::assertTrue(file_exists(__DIR__ . '/test'));
+        self::assertTrue(\file_exists(__DIR__ . '/test a.txt'));
+        self::assertTrue(\file_exists(__DIR__ . '/test b.md'));
+        self::assertTrue(\file_exists(__DIR__ . '/test/test c.txt'));
+        self::assertTrue(\file_exists(__DIR__ . '/test/test d.txt'));
+        self::assertTrue(\file_exists(__DIR__ . '/test/sub/test e.txt'));
+        self::assertTrue(\file_exists(__DIR__ . '/test/sub'));
+        self::assertTrue(\file_exists(__DIR__ . '/test'));
 
         self::assertEquals($a, \file_get_contents(__DIR__ . '/test a.txt'));
         self::assertEquals($b, \file_get_contents(__DIR__ . '/test b.md'));
@@ -77,8 +77,8 @@ class ZipTest extends \PHPUnit\Framework\TestCase
         self::assertEquals($d, \file_get_contents(__DIR__ . '/test/test d.txt'));
         self::assertEquals($e, \file_get_contents(__DIR__ . '/test/sub/test e.txt'));
 
-        unlink(__DIR__ . '/test.zip');
-        self::assertFalse(file_exists(__DIR__ . '/test.zip'));
+        \unlink(__DIR__ . '/test.zip');
+        self::assertFalse(\file_exists(__DIR__ . '/test.zip'));
         self::assertFalse(Zip::unpack(__DIR__ . '/test.zip', __DIR__));
     }
 }

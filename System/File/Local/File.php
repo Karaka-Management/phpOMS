@@ -283,10 +283,10 @@ final class File extends FileAbstract implements FileInterface
             }
 
             if ($overwrite && \file_exists($to)) {
-                unlink($to);
+                \unlink($to);
             }
 
-            copy($from, $to);
+            \copy($from, $to);
 
             return true;
         }
@@ -317,7 +317,7 @@ final class File extends FileAbstract implements FileInterface
             return false;
         }
 
-        unlink($path);
+        \unlink($path);
 
         return true;
     }

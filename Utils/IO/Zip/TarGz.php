@@ -36,7 +36,7 @@ class TarGz implements ArchiveInterface
         }
 
         $pack = Gz::pack($destination . '.tmp', $destination, $overwrite);
-        unlink($destination . '.tmp');
+        \unlink($destination . '.tmp');
 
         return $pack;
     }
@@ -51,7 +51,7 @@ class TarGz implements ArchiveInterface
         }
 
         $unpacked = Tar::unpack($destination . '.tmp', $destination);
-        unlink($destination . '.tmp');
+        \unlink($destination . '.tmp');
 
         return $unpacked;
     }

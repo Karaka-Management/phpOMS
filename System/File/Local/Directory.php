@@ -60,7 +60,7 @@ final class Directory extends FileAbstract implements DirectoryInterface
         $this->filter = \ltrim($filter, '\\/');
         parent::__construct($path);
 
-        if (file_exists($this->path)) {
+        if (\file_exists($this->path)) {
             $this->index();
         }
     }
@@ -449,7 +449,7 @@ final class Directory extends FileAbstract implements DirectoryInterface
     /**
      * {@inheritdoc}
      */
-    public function rewind()
+    public function \rewind()
     {
         \reset($this->nodes);
     }

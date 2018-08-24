@@ -285,7 +285,7 @@ final class ArrayUtils
 
         /** @noinspection PhpMethodParametersCountMismatchInspection */
         \fputcsv($outstream, $data, $delimiter, $enclosure, $escape);
-        rewind($outstream);
+        \rewind($outstream);
         $csv = \fgets($outstream);
         \fclose($outstream);
 

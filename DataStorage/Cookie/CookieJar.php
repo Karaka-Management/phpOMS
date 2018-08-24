@@ -130,7 +130,7 @@ final class CookieJar
             }
 
             if (!headers_sent()) {
-                setcookie($id, '', time() - 3600);
+                \setcookie($id, '', time() - 3600);
 
                 return true;
             }
@@ -177,7 +177,7 @@ final class CookieJar
         }
 
         foreach ($this->cookies as $key => $cookie) {
-            setcookie($key, $cookie['value'], $cookie['expiry'], $cookie['path'], $cookie['domain'], $cookie['secure'], $cookie['httponly']);
+            \setcookie($key, $cookie['value'], $cookie['expiry'], $cookie['path'], $cookie['domain'], $cookie['secure'], $cookie['httponly']);
         }
     }
 }

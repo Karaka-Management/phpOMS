@@ -19,8 +19,8 @@ class FileCacheTest extends \PHPUnit\Framework\TestCase
 {
     public function testDefault()
     {
-        if (file_exists(__DIR__ . '/Cache')) {
-            rmdir(__DIR__ . '/Cache');
+        if (\file_exists(__DIR__ . '/Cache')) {
+            \rmdir(__DIR__ . '/Cache');
         }
 
         $cache = new FileCache(__DIR__ . '/Cache');
@@ -30,15 +30,15 @@ class FileCacheTest extends \PHPUnit\Framework\TestCase
         self::assertEquals(50, $cache->getThreshold());
         self::assertEquals(null, $cache->get('test'));
 
-        if (file_exists(__DIR__ . '/Cache')) {
-            rmdir(__DIR__ . '/Cache');
+        if (\file_exists(__DIR__ . '/Cache')) {
+            \rmdir(__DIR__ . '/Cache');
         }
     }
 
     public function testGetSet()
     {
-        if (file_exists(__DIR__ . '/Cache')) {
-            rmdir(__DIR__ . '/Cache');
+        if (\file_exists(__DIR__ . '/Cache')) {
+            \rmdir(__DIR__ . '/Cache');
         }
 
         $cache = new FileCache(__DIR__ . '/Cache');
@@ -70,8 +70,8 @@ class FileCacheTest extends \PHPUnit\Framework\TestCase
         $cache->flushAll();
         self::assertEquals(null, $cache->get('key5'));
 
-        if (file_exists(__DIR__ . '/Cache')) {
-            rmdir(__DIR__ . '/Cache');
+        if (\file_exists(__DIR__ . '/Cache')) {
+            \rmdir(__DIR__ . '/Cache');
         }
     }
 }

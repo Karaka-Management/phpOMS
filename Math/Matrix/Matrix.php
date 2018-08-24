@@ -772,7 +772,7 @@ class Matrix implements \ArrayAccess, \Iterator
     /**
      * {@inheritdoc}
      */
-    public function rewind()
+    public function \rewind()
     {
         $this->position = 0;
     }

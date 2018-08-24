@@ -184,7 +184,7 @@ abstract class ViewAbstract implements \Serializable
             $this->views[$id] = $view;
 
             if ($order !== 0) {
-                uasort($this->views, ['\phpOMS\Views\View', 'viewSort']);
+                \uasort($this->views, ['\phpOMS\Views\View', 'viewSort']);
             }
 
             return true;
@@ -250,7 +250,7 @@ abstract class ViewAbstract implements \Serializable
         }
 
         try {
-            ob_start();
+            \ob_start();
             /** @noinspection PhpIncludeInspection */
             $includeData = include $path;
             $ob          = (string) ob_get_clean();

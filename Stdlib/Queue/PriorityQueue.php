@@ -65,7 +65,7 @@ class PriorityQueue implements \Countable, \Serializable
     {
         do {
             $key = \rand();
-        } while (array_key_exists($key, $this->queue));
+        } while (\array_key_exists($key, $this->queue));
 
         if ($this->count === 0) {
             $this->queue[$key] = ['key' => $key, 'job' => $job, 'priority' => $priority];
@@ -80,7 +80,7 @@ class PriorityQueue implements \Countable, \Serializable
             }
 
             $original = [];
-            array_splice($original, $pos, 0, [$key => ['key' => $key, 'job' => $job, 'priority' => $priority]]);
+            \array_splice($original, $pos, 0, [$key => ['key' => $key, 'job' => $job, 'priority' => $priority]]);
         }
 
         return $key;

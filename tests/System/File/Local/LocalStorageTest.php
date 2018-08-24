@@ -69,15 +69,15 @@ class LocalStorageTest extends \PHPUnit\Framework\TestCase
         self::assertFalse(LocalStorage::exists($newPath2));
         self::assertFalse(LocalStorage::delete($newPath2));
 
-        unlink($newPath);
-        rmdir(__DIR__ . '/sub/path/');
-        rmdir(__DIR__ . '/sub/');
+        \unlink($newPath);
+        \rmdir(__DIR__ . '/sub/path/');
+        \rmdir(__DIR__ . '/sub/');
 
         self::assertTrue(LocalStorage::create($testFile));
         self::assertFalse(LocalStorage::create($testFile));
         self::assertEquals('', LocalStorage::get($testFile));
 
-        unlink($testFile);
+        \unlink($testFile);
     }
 
     public function testDirectory()
@@ -112,13 +112,13 @@ class LocalStorageTest extends \PHPUnit\Framework\TestCase
     {
         $dirTestPath = __DIR__ . '/dirtest';
         self::assertTrue(LocalStorage::copy($dirTestPath, __DIR__ . '/newdirtest'));
-        self::assertTrue(file_exists(__DIR__ . '/newdirtest/sub/path/test3.txt'));
+        self::assertTrue(\file_exists(__DIR__ . '/newdirtest/sub/path/test3.txt'));
 
         self::assertTrue(LocalStorage::delete($dirTestPath));
         self::assertFalse(LocalStorage::exists($dirTestPath));
 
         self::assertTrue(LocalStorage::move(__DIR__ . '/newdirtest', $dirTestPath));
-        self::assertTrue(file_exists($dirTestPath . '/sub/path/test3.txt'));
+        self::assertTrue(\file_exists($dirTestPath . '/sub/path/test3.txt'));
 
         self::assertEquals(4, LocalStorage::count($dirTestPath));
         self::assertEquals(1, LocalStorage::count($dirTestPath, false));

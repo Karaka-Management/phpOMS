@@ -76,15 +76,15 @@ class FileTest extends \PHPUnit\Framework\TestCase
         self::assertFalse(File::exists($newPath2));
         self::assertFalse(File::delete($newPath2));
 
-        unlink($newPath);
-        rmdir(self::BASE . '/sub/path/');
-        rmdir(self::BASE . '/sub/');
+        \unlink($newPath);
+        \rmdir(self::BASE . '/sub/path/');
+        \rmdir(self::BASE . '/sub/');
 
         self::assertTrue(File::create($testFile));
         self::assertFalse(File::create($testFile));
         self::assertEquals('', File::get($testFile));
 
-        unlink($testFile);
+        \unlink($testFile);
     }
 
     /**

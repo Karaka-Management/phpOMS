@@ -249,7 +249,7 @@ final class ModuleManager
     public function getAllModules() : array
     {
         if (empty($this->all)) {
-            chdir($this->modulePath);
+            \chdir($this->modulePath);
             $files = \glob('*', GLOB_ONLYDIR);
             $c     = \count($files);
 
@@ -572,7 +572,7 @@ final class ModuleManager
      */
     public function installProviding(string $from, string $for) : void
     {
-        if (file_exists($this->modulePath . '/' . $from . '/Admin/Install/' . $for . '.php')) {
+        if (\file_exists($this->modulePath . '/' . $from . '/Admin/Install/' . $for . '.php')) {
             $class = '\\Modules\\' . $from . '\\Admin\\Install\\' . $for;
             $class::install($this->modulePath, $this->app->dbPool);
         }

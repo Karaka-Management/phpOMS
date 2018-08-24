@@ -376,7 +376,7 @@ class DataMapperAbstract implements DataMapperInterface
         self::extend(__CLASS__);
 
         $objId = self::createModelArray($obj);
-        settype($objId, static::$columns[static::$primaryField]['type']);
+        \settype($objId, static::$columns[static::$primaryField]['type']);
         $obj[static::$columns[static::$primaryField]['internal']] = $objId;
 
         if ($relations === RelationType::ALL) {
@@ -556,7 +556,7 @@ class DataMapperAbstract implements DataMapperInterface
             $refProp->setAccessible(true);
         }
 
-        settype($objId, static::$columns[static::$primaryField]['type']);
+        \settype($objId, static::$columns[static::$primaryField]['type']);
         $refProp->setValue($obj, $objId);
 
         if (!$isPublic) {
@@ -1812,7 +1812,7 @@ class DataMapperAbstract implements DataMapperInterface
             if (\in_array(static::$columns[$column]['type'], ['string', 'int', 'float', 'bool'])) {
                 // todo: what is this or condition for? seems to be wrong if obj null then it doesn't work anyways
                 if ($value !== null || $refProp->getValue($obj) !== null) {
-                    settype($value, static::$columns[$column]['type']);
+                    \settype($value, static::$columns[$column]['type']);
                 }
 
                 if ($hasPath) {
@@ -1871,7 +1871,7 @@ class DataMapperAbstract implements DataMapperInterface
                 }
 
                 if (\in_array(static::$columns[$column]['type'], ['string', 'int', 'float', 'bool'])) {
-                    settype($value, static::$columns[$column]['type']);
+                    \settype($value, static::$columns[$column]['type']);
                 } elseif (static::$columns[$column]['type'] === 'DateTime') {
                     $value = new \DateTime($value ?? '');
                 } elseif (static::$columns[$column]['type'] === 'Json') {

@@ -2,9 +2,9 @@
 
 ini_set('memory_limit', '2048M');
 
-if (file_exists('vendor/autoload.php')) {
+if (\file_exists('vendor/autoload.php')) {
     include_once 'vendor/autoload.php';
-} elseif (file_exists('../../vendor/autoload.php')) {
+} elseif (\file_exists('../../vendor/autoload.php')) {
     include_once '../../vendor/autoload.php';
 }
 
