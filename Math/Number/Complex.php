@@ -117,8 +117,8 @@ final class Complex
     public function sqrt() : Complex
     {
         return new self(
-            sqrt(($this->re + sqrt($this->re ** 2 + $this->im ** 2)) / 2),
-            ($this->im <=> 0) * sqrt((-$this->re + sqrt($this->re ** 2 + $this->im ** 2)) / 2)
+            \sqrt(($this->re + \sqrt($this->re ** 2 + $this->im ** 2)) / 2),
+            ($this->im <=> 0) * \sqrt((-$this->re + \sqrt($this->re ** 2 + $this->im ** 2)) / 2)
         );
     }
 
@@ -131,7 +131,7 @@ final class Complex
      */
     public function abs()
     {
-        return sqrt($this->re ** 2 + $this->im ** 2);
+        return \sqrt($this->re ** 2 + $this->im ** 2);
     }
 
     /**
@@ -411,7 +411,7 @@ final class Complex
         . ($this->im < 0 && $this->re !== 0 ? ' -' : '')
         . ($this->im !== 0 ? (
             ($this->re !== 0 ? ' ' : '') . number_format(
-                ($this->im < 0 && $this->re === 0 ? $this->im : abs($this->im)), $precision
+                ($this->im < 0 && $this->re === 0 ? $this->im : \abs($this->im)), $precision
                 ) . 'i'
             ) : '');
     }

@@ -51,7 +51,7 @@ final class Basic
         $freaquency = [];
         $sum        = 1;
 
-        if (!($isArray = is_array(reset($values)))) {
+        if (!($isArray = is_array(\reset($values)))) {
             $sum = array_sum($values);
         }
 

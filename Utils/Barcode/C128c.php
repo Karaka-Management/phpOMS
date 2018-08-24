@@ -91,15 +91,15 @@ class C128c extends C128Abstract
         $keys       = array_keys(self::$CODEARRAY);
         $values     = array_flip($keys);
         $codeString = '';
-        $length     = strlen($this->content);
+        $length     = \strlen($this->content);
         $checksum   = self::$CHECKSUM;
         $checkPos   = 1;
 
         for ($pos = 1; $pos <= $length; $pos += 2) {
             if ($pos + 1 <= $length) {
-                $activeKey = substr($this->content, ($pos - 1), 2);
+                $activeKey = \substr($this->content, ($pos - 1), 2);
             } else {
-                $activeKey = substr($this->content, ($pos - 1), 1) . '0';
+                $activeKey = \substr($this->content, ($pos - 1), 1) . '0';
             }
 
             $codeString .= self::$CODEARRAY[$activeKey];
@@ -107,7 +107,7 @@ class C128c extends C128Abstract
             $checkPos++;
         }
 
-        $codeString .= self::$CODEARRAY[$keys[($checksum - (intval($checksum / 103) * 103))]];
+        $codeString .= self::$CODEARRAY[$keys[($checksum - (\intval($checksum / 103) * 103))]];
 
         return $codeString;
     }

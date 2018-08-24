@@ -91,6 +91,6 @@ final class Fibunacci
      */
     public static function binet(int $n) : int
     {
-        return (int) (((1 + sqrt(5)) ** $n - (1 - sqrt(5)) ** $n) / (2 ** $n * sqrt(5)));
+        return (int) (((1 + \sqrt(5)) ** $n - (1 - \sqrt(5)) ** $n) / (2 ** $n * \sqrt(5)));
     }
 }

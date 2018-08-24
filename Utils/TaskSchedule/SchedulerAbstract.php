@@ -167,7 +167,7 @@ abstract class SchedulerAbstract
             throw new \Exception($stderr);
         }
 
-        return trim($stdout);
+        return \trim($stdout);
     }
 
     /**

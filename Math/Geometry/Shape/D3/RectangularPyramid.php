@@ -54,7 +54,7 @@ final class RectangularPyramid implements D3ShapeInterface
      */
     public static function getSurface(float $a, float $b, float $h) : float
     {
-        return $a * $b + $a * sqrt(($b / 2) ** 2 + $h ** 2) + $b * sqrt(($a / 2) ** 2 + $h ** 2);
+        return $a * $b + $a * \sqrt(($b / 2) ** 2 + $h ** 2) + $b * \sqrt(($a / 2) ** 2 + $h ** 2);
     }
 
     /**
@@ -70,6 +70,6 @@ final class RectangularPyramid implements D3ShapeInterface
      */
     public static function getLateralSurface(float $a, float $b, float $h) : float
     {
-        return $a * sqrt(($b / 2) ** 2 + $h ** 2) + $b * sqrt(($a / 2) ** 2 + $h ** 2);
+        return $a * \sqrt(($b / 2) ** 2 + $h ** 2) + $b * \sqrt(($a / 2) ** 2 + $h ** 2);
     }
 }

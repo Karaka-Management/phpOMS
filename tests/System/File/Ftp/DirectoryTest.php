@@ -74,8 +74,8 @@ class DirectoryTest extends \PHPUnit\Framework\TestCase
         self::assertEquals(4, Directory::count($dirTestPath));
         self::assertEquals(1, Directory::count($dirTestPath, false));
 
-        self::assertEquals(6, count(Directory::list($dirTestPath)));
-        self::assertEquals(3, count(Directory::listByExtension($dirTestPath, 'txt')));
+        self::assertEquals(6, \count(Directory::list($dirTestPath)));
+        self::assertEquals(3, \count(Directory::listByExtension($dirTestPath, 'txt')));
     }
 
     /**

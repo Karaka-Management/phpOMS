@@ -101,8 +101,8 @@ abstract class FileAbstract implements ContainerInterface
      */
     public function __construct(string $path)
     {
-        $this->path = rtrim($path, '/\\');
-        $this->name = basename($path);
+        $this->path = \rtrim($path, '/\\');
+        $this->name = \basename($path);
 
         $this->createdAt = new \DateTime('now');
         $this->changedAt = new \DateTime('now');

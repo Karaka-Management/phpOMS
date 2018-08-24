@@ -21,7 +21,7 @@ class AccountTypeTest extends \PHPUnit\Framework\TestCase
 {
     public function testEnums()
     {
-        self::assertEquals(2, count(AccountType::getConstants()));
+        self::assertEquals(2, \count(AccountType::getConstants()));
         self::assertEquals(0, AccountType::USER);
         self::assertEquals(1, AccountType::GROUP);
     }

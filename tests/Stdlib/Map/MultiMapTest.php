@@ -152,8 +152,8 @@ class MultiMapTest extends \PHPUnit\Framework\TestCase
         $set = $map->set('d', 'val4');
         $set = $map->set('b', 'val4');
 
-        self::assertEquals(3, count($map->keys()));
-        self::assertEquals(2, count($map->values()));
+        self::assertEquals(3, \count($map->keys()));
+        self::assertEquals(2, \count($map->values()));
 
         self::assertTrue(is_array($map->keys()));
         self::assertTrue(is_array($map->values()));
@@ -170,10 +170,10 @@ class MultiMapTest extends \PHPUnit\Framework\TestCase
 
         $siblings = $map->getSiblings('d');
         self::assertEmpty($siblings);
-        self::assertEquals(0, count($siblings));
+        self::assertEquals(0, \count($siblings));
 
         $siblings = $map->getSiblings('b');
-        self::assertEquals(1, count($siblings));
+        self::assertEquals(1, \count($siblings));
         self::assertEquals(['a'], $siblings);
     }
 
@@ -195,15 +195,15 @@ class MultiMapTest extends \PHPUnit\Framework\TestCase
 
         $removed = $map->remove('c');
         self::assertTrue($removed);
-        self::assertEquals(2, count($map->keys()));
-        self::assertEquals(1, count($map->values()));
+        self::assertEquals(2, \count($map->keys()));
+        self::assertEquals(1, \count($map->values()));
 
         $removed = $map->removeKey('d');
         self::assertFalse($removed);
 
         $removed = $map->removeKey('a');
         self::assertTrue($removed);
-        self::assertEquals(1, count($map->keys()));
-        self::assertEquals(1, count($map->values()));
+        self::assertEquals(1, \count($map->keys()));
+        self::assertEquals(1, \count($map->values()));
     }
 }

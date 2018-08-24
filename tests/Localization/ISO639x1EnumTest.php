@@ -26,13 +26,13 @@ class ISO639x1EnumTest extends \PHPUnit\Framework\TestCase
         $enum = ISO639x1Enum::getConstants();
 
         foreach ($enum as $code) {
-            if (strlen($code) !== 2) {
+            if (\strlen($code) !== 2) {
                 $ok = false;
                 break;
             }
         }
 
         self::assertTrue($ok);
-        self::assertEquals(count($enum), count(array_unique($enum)));
+        self::assertEquals(\count($enum), \count(array_unique($enum)));
     }
 }

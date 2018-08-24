@@ -92,7 +92,7 @@ class ClassicalDecomposition
         $this->data  = $data;
         $this->order = $order;
 
-        $this->dataSize = count($data);
+        $this->dataSize = \count($data);
     }
 
     /**
@@ -148,8 +148,8 @@ class ClassicalDecomposition
     public static function computeDetrendedSeries(array $data, array $trendCycleComponent, int $mode) : array
     {
         $detrended = [];
-        $count     = count($trendCycleComponent);
-        $start     = self::getStartOfDecomposition(count($data), $count);
+        $count     = \count($trendCycleComponent);
+        $start     = self::getStartOfDecomposition(\count($data), $count);
 
         for ($i = 0; $i < $count; ++$i) {
             $detrended[] = $mode === self::ADDITIVE ? $data[$start + $i] - $trendCycleComponent[$i] : $data[$start + $i] / $trendCycleComponent[$i];
@@ -190,7 +190,7 @@ class ClassicalDecomposition
     private function computeSeasonalComponent(array $detrendedSeries, int $order) : array
     {
         $seasonalComponent = [];
-        $count             = count($detrendedSeries);
+        $count             = \count($detrendedSeries);
 
         for ($i = 0; $i < $order; ++$i) {
             $temp = [];
@@ -219,11 +219,11 @@ class ClassicalDecomposition
      */
     public static function computeRemainderComponent(array $data, array $trendCycleComponent, array $seasonalComponent, int $mode = self::ADDITIVE) : array
     {
-        $dataSize           = count($data);
+        $dataSize           = \count($data);
         $remainderComponent = [];
-        $count              = count($trendCycleComponent);
+        $count              = \count($trendCycleComponent);
         $start              = self::getStartOfDecomposition($dataSize, $count);
-        $seasons            = count($seasonalComponent);
+        $seasons            = \count($seasonalComponent);
 
         for ($i = 0; $i < $count; ++$i) {
             $remainderComponent[] = $mode === self::ADDITIVE ? $data[$start + $i] - $trendCycleComponent[$i] - $seasonalComponent[$i % $seasons] : $data[$start + $i] / ($trendCycleComponent[$i] * $seasonalComponent[$i % $seasons]);

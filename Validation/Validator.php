@@ -101,7 +101,7 @@ final class Validator extends ValidatorAbstract
      */
     public static function hasLength(string $var, int $min = 0, int $max = PHP_INT_MAX) : bool
     {
-        $length = strlen($var);
+        $length = \strlen($var);
 
         if ($length <= $max && $length >= $min) {
             return true;
@@ -122,7 +122,7 @@ final class Validator extends ValidatorAbstract
      */
     public static function contains(string $var, $substr) : bool
     {
-        return is_string($substr) ? strpos($var, $substr) !== false : StringUtils::contains($var, $substr);
+        return is_string($substr) ? \strpos($var, $substr) !== false : StringUtils::contains($var, $substr);
     }
 
     /**

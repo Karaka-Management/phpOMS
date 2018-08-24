@@ -75,7 +75,7 @@ class Iban implements \Serializable
      */
     public static function normalize(string $iban) : string
     {
-        return strtoupper(\str_replace(' ', '', $iban));
+        return \strtoupper(\str_replace(' ', '', $iban));
     }
 
     /**
@@ -87,7 +87,7 @@ class Iban implements \Serializable
      */
     public function getLength() : int
     {
-        return strlen($this->iban);
+        return \strlen($this->iban);
     }
 
     /**

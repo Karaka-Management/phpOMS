@@ -19,7 +19,7 @@ class CacheStatusTest extends \PHPUnit\Framework\TestCase
 {
     public function testEnums()
     {
-        self::assertEquals(4, count(CacheStatus::getConstants()));
+        self::assertEquals(4, \count(CacheStatus::getConstants()));
         self::assertEquals(0, CacheStatus::ACTIVE);
         self::assertEquals(1, CacheStatus::INACTIVE);
         self::assertEquals(2, CacheStatus::ERROR);

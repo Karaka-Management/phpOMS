@@ -396,7 +396,7 @@ final class FileLogger implements LoggerInterface
         $line = \fgetcsv($this->fp, 0, ';');
 
         while ($line !== false && $line !== null) {
-            if (count($line) < 2) {
+            if (\count($line) < 2) {
                 continue;
             }
 
@@ -443,7 +443,7 @@ final class FileLogger implements LoggerInterface
         $line = \fgetcsv($this->fp, 0, ';');
 
         while ($line !== false && $line !== null) {
-            if (count($line) < 3) {
+            if (\count($line) < 3) {
                 continue;
             }
 
@@ -501,7 +501,7 @@ final class FileLogger implements LoggerInterface
             }
 
             if ($limit <= 0) {
-                reset($logs);
+                \reset($logs);
                 unset($logs[key($logs)]);
             }
 

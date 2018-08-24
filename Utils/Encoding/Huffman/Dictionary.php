@@ -84,7 +84,7 @@ final class Dictionary
         }
 
         sort($count);
-        while (count($count) > 1) {
+        while (\count($count) > 1) {
             $row1    = array_shift($count);
             $row2    = array_shift($count);
             $count[] = [$row1[0] + $row2[0], [$row1, $row2]];
@@ -136,7 +136,7 @@ final class Dictionary
      */
     public function set(string $entry, string $value) : void
     {
-        if (strlen($entry) !== 1) {
+        if (\strlen($entry) !== 1) {
             throw new \InvalidArgumentException('Must be a character.');
         }
 
@@ -144,11 +144,11 @@ final class Dictionary
             throw new \InvalidArgumentException('Character already exists');
         }
 
-        if (strlen(\str_replace('0', '', \str_replace('1', '', $value))) !== 0) {
+        if (\strlen(\str_replace('0', '', \str_replace('1', '', $value))) !== 0) {
             throw new \InvalidArgumentException('Bad formatting.');
         }
 
-        $length = strlen($value);
+        $length = \strlen($value);
 
         if ($this->min === -1 || $length < $this->min) {
             $this->min = $length;
@@ -174,7 +174,7 @@ final class Dictionary
      */
     public function get(string $entry) : string
     {
-        if (strlen($entry) !== 1) {
+        if (\strlen($entry) !== 1) {
             throw new \InvalidArgumentException('Must be a character.');
         }
 
@@ -196,17 +196,17 @@ final class Dictionary
      */
     public function getEntry(&$value) : ?string
     {
-        $length = strlen($value);
+        $length = \strlen($value);
         if ($length < $this->min) {
             return null;
         }
 
         for ($i = $this->min; $i <= $this->max; ++$i) {
-            $needle = substr($value, 0, $i);
+            $needle = \substr($value, 0, $i);
 
             foreach ($this->dictionary as $key => $val) {
                 if ($needle === $val) {
-                    $value = substr($value, $i);
+                    $value = \substr($value, $i);
 
                     return $key;
                 }

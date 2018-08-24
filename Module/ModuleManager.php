@@ -147,14 +147,14 @@ final class ModuleManager
                     $uriPdo  = '';
 
                     $i = 1;
-                    $c = count($uriHash);
+                    $c = \count($uriHash);
 
                     for ($k = 0; $k < $c; ++$k) {
                         $uriPdo .= ':pid' . $i . ',';
                         ++$i;
                     }
 
-                    $uriPdo = rtrim($uriPdo, ',');
+                    $uriPdo = \rtrim($uriPdo, ',');
 
                     /* TODO: make join in order to see if they are active */
                     $sth = $this->app->dbPool->get('select')->con->prepare(
@@ -250,8 +250,8 @@ final class ModuleManager
     {
         if (empty($this->all)) {
             chdir($this->modulePath);
-            $files = glob('*', GLOB_ONLYDIR);
-            $c     = count($files);
+            $files = \glob('*', GLOB_ONLYDIR);
+            $c     = \count($files);
 
             for ($i = 0; $i < $c; ++$i) {
                 $path = $this->modulePath . '/' . $files[$i] . '/info.json';

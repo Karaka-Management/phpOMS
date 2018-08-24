@@ -19,7 +19,7 @@ class WeightTypeTest extends \PHPUnit\Framework\TestCase
 {
     public function testEnums()
     {
-        self::assertEquals(14, count(WeightType::getConstants()));
+        self::assertEquals(14, \count(WeightType::getConstants()));
         self::assertEquals(WeightType::getConstants(), array_unique(WeightType::getConstants()));
 
         self::assertEquals('mg', WeightType::MICROGRAM);

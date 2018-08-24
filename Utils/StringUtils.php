@@ -58,7 +58,7 @@ final class StringUtils
     public static function contains(string $haystack, array $needles) : bool
     {
         foreach ($needles as $needle) {
-            if (strpos($haystack, $needle) !== false) {
+            if (\strpos($haystack, $needle) !== false) {
                 return true;
             }
         }
@@ -113,7 +113,7 @@ final class StringUtils
         }
 
         foreach ($needles as $needle) {
-            if ($needle === '' || (($temp = strlen($haystack) - strlen($needle)) >= 0 && strpos($haystack, $needle, $temp) !== false)) {
+            if ($needle === '' || (($temp = \strlen($haystack) - \strlen($needle)) >= 0 && \strpos($haystack, $needle, $temp) !== false)) {
                 return true;
             }
         }
@@ -262,7 +262,7 @@ final class StringUtils
     public static function mb_trim(string $string, string $charlist = ' ') : string
     {
         if ($charlist === ' ') {
-            return trim($string);
+            return \trim($string);
         } else {
             $charlist = \str_replace('/', '\/', preg_quote($charlist));
 
@@ -283,7 +283,7 @@ final class StringUtils
     public static function mb_rtrim(string $string, string $charlist = ' ') : string
     {
         if ($charlist === ' ') {
-            return rtrim($string);
+            return \rtrim($string);
         } else {
             $charlist = \str_replace('/', '\/', preg_quote($charlist));
 
@@ -328,7 +328,7 @@ final class StringUtils
     public static function countCharacterFromStart(string $string, string $character) : int
     {
         $count  = 0;
-        $length = strlen($string);
+        $length = \strlen($string);
 
         for ($i = 0; $i < $length; ++$i) {
             if ($string[$i] !== $character) {
@@ -358,7 +358,7 @@ final class StringUtils
 
         foreach ($countChars as $v) {
             $p       = $v / $size;
-            $entroy -= $p * log($p) / log(2);
+            $entroy -= $p * \log($p) / \log(2);
         }
 
         return $entroy;

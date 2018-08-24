@@ -19,7 +19,7 @@ class KeyTypeTest extends \PHPUnit\Framework\TestCase
 {
     public function testEnums()
     {
-        self::assertEquals(2, count(KeyType::getConstants()));
+        self::assertEquals(2, \count(KeyType::getConstants()));
         self::assertEquals(0, KeyType::SINGLE);
         self::assertEquals(1, KeyType::MULTIPLE);
     }

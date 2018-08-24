@@ -320,7 +320,7 @@ class Account implements ArrayableInterface, \JsonSerializable
      */
     public function hasPermission(int $permission, int $unit = null, string $app = null, string $module = null, int $type = null, int $element = null, int $component = null) : bool
     {
-        $app = $app !== null ? strtolower($app) : $app;
+        $app = $app !== null ? \strtolower($app) : $app;
 
         foreach ($this->permissions as $p) {
             if (($p->getUnit() === $unit || $p->getUnit() === null || $unit === null)

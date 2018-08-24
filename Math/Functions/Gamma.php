@@ -58,7 +58,7 @@ final class Gamma
     public static function lanczosApproximationReal($z) : float
     {
         if ($z < 0.5) {
-            return M_PI / (sin(M_PI * $z) * self::lanczosApproximationReal(1 - $z));
+            return M_PI / (\sin(M_PI * $z) * self::lanczosApproximationReal(1 - $z));
         }
 
         $z -= 1;
@@ -69,7 +69,7 @@ final class Gamma
             $a += self::LANCZOSAPPROXIMATION[$i] / ($z + $i);
         }
 
-        return sqrt(2 * M_PI) * pow($t, $z + 0.5) * exp(-$t) * $a;
+        return \sqrt(2 * M_PI) * \pow($t, $z + 0.5) * \exp(-$t) * $a;
     }
 
     /**
@@ -83,7 +83,7 @@ final class Gamma
      */
     public static function stirlingApproximation($x) : float
     {
-        return sqrt(2.0 * M_PI / $x) * pow($x / M_E, $x);
+        return \sqrt(2.0 * M_PI / $x) * \pow($x / M_E, $x);
     }
 
     /**
@@ -101,7 +101,7 @@ final class Gamma
         $c       = [sqrt(2.0 * M_PI)];
 
         for ($k = 1; $k < 12; ++$k) {
-            $c[$k]    = exp(12 - $k) * pow(12 - $k, $k - 0.5) / $k1_fact;
+            $c[$k]    = \exp(12 - $k) * \pow(12 - $k, $k - 0.5) / $k1_fact;
             $k1_fact *= -$k;
         }
 
@@ -110,7 +110,7 @@ final class Gamma
             $accm += $c[$k] / ($z + $k);
         }
 
-        $accm *= exp(-$z - 12) * pow($z + 12, $z + 0.5);
+        $accm *= \exp(-$z - 12) * \pow($z + 12, $z + 0.5);
 
         return $accm / $z;
     }

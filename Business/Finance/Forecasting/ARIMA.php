@@ -110,7 +110,7 @@ class ARIMA
     private function getPrelimRemainder(array $centeredRatios, array $prelimSeasonalComponent) : array
     {
         $remainder = [];
-        $count     = count($prelimSeasonalComponent);
+        $count     = \count($prelimSeasonalComponent);
 
         for ($i = 0; $i < $count; ++$i) {
             // +1 since 3x3 MA
@@ -136,7 +136,7 @@ class ARIMA
     private function getModifiedCenteredRatios(array $seasonal, array $remainder) : array
     {
         $centeredRatio = [];
-        $count         = count($seasonal);
+        $count         = \count($seasonal);
 
         for ($i = 0; $i < $count; ++$i) {
             // +1 since 3x3 MA
@@ -148,7 +148,7 @@ class ARIMA
 
     private function getTrendCycleEstimation(array $seasonal) : array
     {
-        $count = count($seasonal);
+        $count = \count($seasonal);
 
         if ($count >= 12) {
             $weight = Average::MAH23;
@@ -166,8 +166,8 @@ class ARIMA
     private function getSeasonalAdjustedSeries(array $seasonal) : array
     {
         $adjusted = [];
-        $count    = count($seasonal);
-        $start    = ClassicalDecomposition::getStartOfDecomposition(count($this->data), $count);
+        $count    = \count($seasonal);
+        $start    = ClassicalDecomposition::getStartOfDecomposition(\count($this->data), $count);
 
         for ($i = 0; $i < $count; ++$i) {
             $adjusted[] = $this->data[$start + $i] / $seasonal[$i];
@@ -189,7 +189,7 @@ class ARIMA
     private function getModifiedData(array $trendCycleComponent, array $seasonalAdjustedSeries, array $remainder) : array
     {
         $data  = [];
-        $count = count($trendCycleComponent);
+        $count = \count($trendCycleComponent);
 
         for ($i = 0; $i < $count; ++$i) {
             $data[] = $trendCycleComponent[$i] * $seasonalAdjustedSeries[$i] * $remainder[$i];

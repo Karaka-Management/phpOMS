@@ -74,11 +74,11 @@ final class Functions
      */
     public static function binomialCoefficient(int $n, int $k) : int
     {
-        $max = max([$k, $n - $k]);
-        $min = min([$k, $n - $k]);
+        $max = \max([$k, $n - $k]);
+        $min = \min([$k, $n - $k]);
 
         $fact  = 1;
-        $range = array_reverse(range(1, $min));
+        $range = array_reverse(\range(1, $min));
 
         for ($i = $max + 1; $i < $n + 1; ++$i) {
             $div = 1;
@@ -138,7 +138,7 @@ final class Functions
         $abs = [];
 
         foreach ($values as $value) {
-            $abs[] = abs($value);
+            $abs[] = \abs($value);
         }
 
         return $abs;
@@ -293,7 +293,7 @@ final class Functions
         $squared = [];
 
         foreach ($values as $value) {
-            $squared[] = sqrt($value);
+            $squared[] = \sqrt($value);
         }
 
         return $squared;
@@ -315,6 +315,6 @@ final class Functions
      */
     public static function getRelativeDegree(int $value, int $length, int $start = 0) : int
     {
-        return abs(self::mod($value - $start, $length));
+        return \abs(self::mod($value - $start, $length));
     }
 }

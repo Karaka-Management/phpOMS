@@ -109,13 +109,13 @@ class C25 extends C128Abstract
     protected function generateCodeString() : string
     {
         $codeString  = '';
-        $length      = strlen($this->content);
-        $arrayLength = count(self::$CODEARRAY);
+        $length      = \strlen($this->content);
+        $arrayLength = \count(self::$CODEARRAY);
         $temp        = [];
 
         for ($posX = 1; $posX <= $length; $posX++) {
             for ($posY = 0; $posY < $arrayLength; $posY++) {
-                if (substr($this->content, ($posX - 1), 1) == self::$CODEARRAY[$posY]) {
+                if (\substr($this->content, ($posX - 1), 1) == self::$CODEARRAY[$posY]) {
                     $temp[$posX] = self::$CODEARRAY2[$posY];
                 }
             }
@@ -126,7 +126,7 @@ class C25 extends C128Abstract
                 $temp1 = \explode('-', $temp[$posX]);
                 $temp2 = \explode('-', $temp[($posX + 1)]);
 
-                $count = count($temp1);
+                $count = \count($temp1);
                 for ($posY = 0; $posY < $count; $posY++) {
                     $codeString .= $temp1[$posY] . $temp2[$posY];
                 }

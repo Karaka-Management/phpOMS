@@ -155,7 +155,7 @@ final class StringCompare
      */
     public static function valueLength(string $s1, string $s2) : int
     {
-        return abs(\strlen($s1) - \strlen($s2));
+        return \abs(\strlen($s1) - \strlen($s2));
     }
 
     /**
@@ -184,8 +184,8 @@ final class StringCompare
         $wordValue   = self::valueWords($s1, $s2);
         $lengthValue = self::valueLength($s1, $s2);
 
-        return min($phraseValue * $phraseWeight, $wordValue * $wordWeight) * $minWeight
-            + max($phraseValue * $phraseWeight, $wordValue * $wordWeight) * $maxWeight
+        return \min($phraseValue * $phraseWeight, $wordValue * $wordWeight) * $minWeight
+            + \max($phraseValue * $phraseWeight, $wordValue * $wordWeight) * $maxWeight
             + $lengthValue * $lengthWeight;
     }
 }

@@ -19,7 +19,7 @@ class FileSizeTypeTest extends \PHPUnit\Framework\TestCase
 {
     public function testEnums()
     {
-        self::assertEquals(10, count(FileSizeType::getConstants()));
+        self::assertEquals(10, \count(FileSizeType::getConstants()));
         self::assertEquals('TB', FileSizeType::TERRABYTE);
         self::assertEquals('GB', FileSizeType::GIGABYTE);
         self::assertEquals('MB', FileSizeType::MEGABYTE);

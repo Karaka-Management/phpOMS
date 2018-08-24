@@ -26,13 +26,13 @@ class ISO3166TwoEnumTest extends \PHPUnit\Framework\TestCase
         $countryCodes = ISO3166TwoEnum::getConstants();
 
         foreach ($countryCodes as $code) {
-            if (strlen($code) !== 2) {
+            if (\strlen($code) !== 2) {
                 $ok = false;
                 break;
             }
         }
 
         self::assertTrue($ok);
-        self::assertEquals(count($countryCodes), count(array_unique($countryCodes)));
+        self::assertEquals(\count($countryCodes), \count(array_unique($countryCodes)));
     }
 }

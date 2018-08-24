@@ -21,7 +21,7 @@ class AccountStatusTest extends \PHPUnit\Framework\TestCase
 {
     public function testEnums()
     {
-        self::assertEquals(4, count(AccountStatus::getConstants()));
+        self::assertEquals(4, \count(AccountStatus::getConstants()));
         self::assertEquals(1, AccountStatus::ACTIVE);
         self::assertEquals(2, AccountStatus::INACTIVE);
         self::assertEquals(3, AccountStatus::TIMEOUT);

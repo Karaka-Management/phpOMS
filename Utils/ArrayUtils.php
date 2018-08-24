@@ -48,7 +48,7 @@ final class ArrayUtils
      */
     public static function unsetArray(string $path, array $data, string $delim = '/') : array
     {
-        $nodes  = \explode($delim, trim($path, $delim));
+        $nodes  = \explode($delim, \trim($path, $delim));
         $prevEl = null;
         $el     = &$data;
         $node   = null;
@@ -89,7 +89,7 @@ final class ArrayUtils
      */
     public static function setArray(string $path, array $data, $value, string $delim = '/', bool $overwrite = false) : array
     {
-        $pathParts = \explode($delim, trim($path, $delim));
+        $pathParts = \explode($delim, \trim($path, $delim));
         $current   = &$data;
 
         if ($pathParts === false) {
@@ -128,7 +128,7 @@ final class ArrayUtils
      */
     public static function getArray(string $path, array $data, string $delim = '/')
     {
-        $pathParts = \explode($delim, trim($path, $delim));
+        $pathParts = \explode($delim, \trim($path, $delim));
         $current   = $data;
 
         if ($pathParts === false) {
@@ -237,7 +237,7 @@ final class ArrayUtils
                 $key = '\'' . $key . '\'';
             }
 
-            switch (gettype($value)) {
+            switch (\gettype($value)) {
                 case 'array':
                     $str .= $key . ' => ' . self::stringify($value) . ', ';
                     break;
@@ -306,11 +306,11 @@ final class ArrayUtils
      */
     public static function getArg(string $id, array $args) : ?string
     {
-        if (($key = \array_search($id, $args)) === false || $key === count($args) - 1) {
+        if (($key = \array_search($id, $args)) === false || $key === \count($args) - 1) {
             return null;
         }
 
-        return trim($args[(int) $key + 1], '" ');
+        return \trim($args[(int) $key + 1], '" ');
     }
 
     /**
@@ -375,7 +375,7 @@ final class ArrayUtils
      */
     public static function arraySum(array $array, int $start = 0, int $count = 0)
     {
-        $count = $count === 0 ? count($array) : $start + $count;
+        $count = $count === 0 ? \count($array) : $start + $count;
         $sum   = 0;
         $array = array_values($array);
 

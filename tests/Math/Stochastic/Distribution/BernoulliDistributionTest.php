@@ -62,7 +62,7 @@ class BernoulliDistributionTest extends \PHPUnit\Framework\TestCase
         $p = 0.3;
         $q = 1 - $p;
 
-        self::assertEquals((1 - 2 * $p) / sqrt($p * $q), BernoulliDistribution::getSkewness($p), '', 0.01);
+        self::assertEquals((1 - 2 * $p) / \sqrt($p * $q), BernoulliDistribution::getSkewness($p), '', 0.01);
     }
 
     public function testExKurtosis()
@@ -78,7 +78,7 @@ class BernoulliDistributionTest extends \PHPUnit\Framework\TestCase
         $p = 0.3;
         $q = 1 - $p;
 
-        self::assertEquals(-$q * log($q) - $p * log($p), BernoulliDistribution::getEntropy($p), '', 0.01);
+        self::assertEquals(-$q * \log($q) - $p * \log($p), BernoulliDistribution::getEntropy($p), '', 0.01);
     }
 
     public function testMgf()
@@ -87,7 +87,7 @@ class BernoulliDistributionTest extends \PHPUnit\Framework\TestCase
         $q = 1 - $p;
         $t = 2;
 
-        self::assertEquals($q + $p * exp($t), BernoulliDistribution::getMgf($p, $t), '', 0.01);
+        self::assertEquals($q + $p * \exp($t), BernoulliDistribution::getMgf($p, $t), '', 0.01);
     }
 
     public function testFisherInformation()

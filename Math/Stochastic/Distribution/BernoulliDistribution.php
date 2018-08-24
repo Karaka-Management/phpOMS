@@ -148,7 +148,7 @@ class BernoulliDistribution
      */
     public static function getMgf(float $p, float $t) : float
     {
-        return (1 - $p) + $p * exp($t);
+        return (1 - $p) + $p * \exp($t);
     }
 
     /**
@@ -162,7 +162,7 @@ class BernoulliDistribution
      */
     public static function getSkewness(float $p) : float
     {
-        return (1 - 2 * $p) / sqrt($p * (1 - $p));
+        return (1 - 2 * $p) / \sqrt($p * (1 - $p));
     }
 
     /**
@@ -176,7 +176,7 @@ class BernoulliDistribution
      */
     public static function getEntropy(float $p) : float
     {
-        return -(1 - $p) * log(1 - $p) - $p * log($p);
+        return -(1 - $p) * \log(1 - $p) - $p * \log($p);
     }
 
     /**

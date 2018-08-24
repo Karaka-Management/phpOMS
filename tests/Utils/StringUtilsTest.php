@@ -21,7 +21,7 @@ class StringUtilsTest extends \PHPUnit\Framework\TestCase
 {
     public function testEvaluation()
     {
-        self::assertTrue(abs(2.5 - StringUtils::getEntropy('akj@!0aj')) < 0.1);
+        self::assertTrue(\abs(2.5 - StringUtils::getEntropy('akj@!0aj')) < 0.1);
     }
 
     public function testStartsEnds()

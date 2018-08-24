@@ -75,12 +75,12 @@ class LZW implements CompressionInterface
         }
 
         for ($i = 0; $i < 256; ++$i) {
-            $dictionary[$i] = chr($i);
+            $dictionary[$i] = \chr($i);
         }
 
-        $w      = chr((int) $compressed[0]);
+        $w      = \chr((int) $compressed[0]);
         $result = $dictionary[(int) ($compressed[0])] ?? 0;
-        $count  = count($compressed);
+        $count  = \count($compressed);
 
         for ($i = 1; $i < $count; ++$i) {
             $k = (int) $compressed[$i];

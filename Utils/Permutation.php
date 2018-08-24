@@ -50,7 +50,7 @@ final class Permutation
         $permutations = [];
 
         if (empty($toPermute)) {
-            $permutations[] = implode('', $result);
+            $permutations[] = \implode('', $result);
         } else {
             foreach ($toPermute as $key => $val) {
                 $newArr   = $toPermute;
@@ -93,9 +93,9 @@ final class Permutation
      */
     public static function isPalindrome(string $a, string $filter = 'a-zA-Z0-9') : bool
     {
-        $a = strtolower(preg_replace('/[^' . $filter . ']/', '', $a));
+        $a = \strtolower(preg_replace('/[^' . $filter . ']/', '', $a));
 
-        return $a === strrev($a);
+        return $a === \strrev($a);
     }
 
     /**
@@ -116,9 +116,9 @@ final class Permutation
             throw new \InvalidArgumentException('Parameter has to be array or string');
         }
 
-        $length = is_array($toPermute) ? count($toPermute) : strlen($toPermute);
+        $length = is_array($toPermute) ? \count($toPermute) : \strlen($toPermute);
 
-        if (count($key) > $length) {
+        if (\count($key) > $length) {
             throw new \InvalidArgumentException('There mustn not be more keys than permutation elements.');
         }
 

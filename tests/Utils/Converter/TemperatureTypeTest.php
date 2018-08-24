@@ -19,7 +19,7 @@ class TemperatureTypeTest extends \PHPUnit\Framework\TestCase
 {
     public function testEnums()
     {
-        self::assertEquals(8, count(TemperatureType::getConstants()));
+        self::assertEquals(8, \count(TemperatureType::getConstants()));
         self::assertEquals(TemperatureType::getConstants(), array_unique(TemperatureType::getConstants()));
 
         self::assertEquals('celsius', TemperatureType::CELSIUS);

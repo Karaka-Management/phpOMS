@@ -63,7 +63,7 @@ class File
 
         switch ($distribution) {
             case DistributionType::UNIFORM:
-                $key = rand(0, count($source) - 1);
+                $key = \rand(0, \count($source) - 1);
                 break;
             default:
                 return false;

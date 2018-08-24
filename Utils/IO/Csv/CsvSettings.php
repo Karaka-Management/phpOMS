@@ -54,7 +54,7 @@ class CsvSettings
                     return ';';
                 }
 
-                if (count($fields) > 1) {
+                if (\count($fields) > 1) {
                     if (!empty($results[$delimiter])) {
                         $results[$delimiter]++;
                     } else {
@@ -64,7 +64,7 @@ class CsvSettings
             }
         }
 
-        $results = \array_keys($results, max($results));
+        $results = \array_keys($results, \max($results));
 
         return $results[0];
     }

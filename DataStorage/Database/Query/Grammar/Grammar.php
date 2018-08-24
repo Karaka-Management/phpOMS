@@ -122,7 +122,7 @@ class Grammar extends GrammarAbstract
         /* Loop all possible query components and if they exist compile them. */
         foreach ($components as $component) {
             if (isset($query->{$component}) && !empty($query->{$component})) {
-                $sql[$component] = $this->{'compile' . ucfirst($component)}($query, $query->{$component});
+                $sql[$component] = $this->{'compile' . \ucfirst($component)}($query, $query->{$component});
             }
         }
 
@@ -286,7 +286,7 @@ class Grammar extends GrammarAbstract
 
         if (\is_string($element['column'])) {
             // handle bug when no table is specified in the where column
-            if (count($query->from) === 1 && \stripos($element['column'], '.') === false) {
+            if (\count($query->from) === 1 && \stripos($element['column'], '.') === false) {
                 $element['column'] = $query->from[0] . '.' . $element['column'];
             }
 
@@ -359,7 +359,7 @@ class Grammar extends GrammarAbstract
         } elseif ($value instanceof Column) {
             return $this->compileSystem($value->getColumn(), $prefix);
         } else {
-            throw new \InvalidArgumentException(gettype($value));
+            throw new \InvalidArgumentException(\gettype($value));
         }
     }
 

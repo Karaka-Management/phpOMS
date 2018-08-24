@@ -19,7 +19,7 @@ class SmoothingTypeTest extends \PHPUnit\Framework\TestCase
 {
     public function testEnums()
     {
-        self::assertEquals(1, count(SmoothingType::getConstants()));
+        self::assertEquals(1, \count(SmoothingType::getConstants()));
         self::assertEquals(SmoothingType::getConstants(), array_unique(SmoothingType::getConstants()));
 
         self::assertEquals(1, SmoothingType::CENTERED_MOVING_AVERAGE);

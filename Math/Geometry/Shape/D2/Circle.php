@@ -64,7 +64,7 @@ final class Circle implements D2ShapeInterface
      */
     public static function getRadiusBySurface(float $surface) : float
     {
-        return sqrt($surface / pi());
+        return \sqrt($surface / pi());
     }
 
     /**

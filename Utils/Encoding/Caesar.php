@@ -46,21 +46,21 @@ class Caesar
     public static function encode(string $source, string $key) : string
     {
         $result    = '';
-        $length    = strlen($source);
-        $keyLength = strlen($key) - 1;
+        $length    = \strlen($source);
+        $keyLength = \strlen($key) - 1;
 
         for ($i = 0, $j = 0; $i < $length; ++$i, $j++) {
             if ($j > $keyLength) {
                 $j = 0;
             }
 
-            $ascii = ord($source[$i]) + ord($key[$j]);
+            $ascii = \ord($source[$i]) + \ord($key[$j]);
 
             if ($ascii > self::LIMIT_UPPER) {
                 $ascii = self::LIMIT_LOWER + ($ascii - self::LIMIT_UPPER);
             }
 
-            $result .= chr($ascii);
+            $result .= \chr($ascii);
         }
 
         return $result;
@@ -72,21 +72,21 @@ class Caesar
     public static function decode(string $raw, string $key) : string
     {
         $result    = '';
-        $length    = strlen($raw);
-        $keyLength = strlen($key) - 1;
+        $length    = \strlen($raw);
+        $keyLength = \strlen($key) - 1;
 
         for ($i = 0, $j = 0; $i < $length; ++$i, $j++) {
             if ($j > $keyLength) {
                 $j = 0;
             }
 
-            $ascii = ord($raw[$i]) - ord($key[$j]);
+            $ascii = \ord($raw[$i]) - \ord($key[$j]);
 
             if ($ascii < self::LIMIT_LOWER) {
                 $ascii = self::LIMIT_UPPER + ($ascii - self::LIMIT_LOWER);
             }
 
-            $result .= chr($ascii);
+            $result .= \chr($ascii);
         }
 
         return $result;

@@ -38,7 +38,7 @@ final class Lorenzkurve
         $sum1 = 0;
         $sum2 = 0;
         $i    = 1;
-        $n    = count($data);
+        $n    = \count($data);
 
         sort($data);
 

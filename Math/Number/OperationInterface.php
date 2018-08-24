@@ -77,7 +77,7 @@ interface OperationInterface
      *
      * @since  1.0.0
      */
-    public function pow($p);
+    public function \pow($p);
 
     /**
      * Abs of value.
@@ -86,5 +86,5 @@ interface OperationInterface
      *
      * @since  1.0.0
      */
-    public function abs();
+    public function \abs();
 }

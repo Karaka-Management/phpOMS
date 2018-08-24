@@ -369,7 +369,7 @@ class Graph
      */
     public function getOrder() : int
     {
-        return count($this->nodes);
+        return \count($this->nodes);
     }
 
     /**
@@ -383,7 +383,7 @@ class Graph
      */
     public function getSize() : int
     {
-        return count($this->edges);
+        return \count($this->edges);
     }
 
     /**
@@ -405,7 +405,7 @@ class Graph
                     continue;
                 }
 
-                $diameter = max($diameter, $this->getFloydWarshallShortestPath($node1, $node2));
+                $diameter = \max($diameter, $this->getFloydWarshallShortestPath($node1, $node2));
             }
         }
 

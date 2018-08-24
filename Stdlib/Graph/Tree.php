@@ -82,7 +82,7 @@ class Tree extends Graph
         $neighbors = $this->getNeighbors($currentNode);
 
         foreach ($neighbors as $neighbor) {
-            $depth = max($depth, $depth + $this->getMaxDepth($neighbor));
+            $depth = \max($depth, $depth + $this->getMaxDepth($neighbor));
         }
 
         return $depth;
@@ -114,7 +114,7 @@ class Tree extends Graph
 
         $depth = empty($depth) ? 0 : $depth;
 
-        return min($depth) + 1;
+        return \min($depth) + 1;
     }
 
     /**
@@ -148,7 +148,7 @@ class Tree extends Graph
      */
     public function isLeaf(Node $node) : bool
     {
-        return count($this->getEdgesOfNode($node)) === 1;
+        return \count($this->getEdgesOfNode($node)) === 1;
     }
 
     /**
@@ -189,12 +189,12 @@ class Tree extends Graph
      */
     public function isFull(int $type) : bool
     {
-        if (count($this->edges) % $type !== 0) {
+        if (\count($this->edges) % $type !== 0) {
             return false;
         }
 
         foreach ($this->nodes as $node) {
-            $neighbors = count($this->getNeighbors($node));
+            $neighbors = \count($this->getNeighbors($node));
 
             if ($neighbors !== $type && $neighbors !== 0) {
                 return false;
@@ -216,7 +216,7 @@ class Tree extends Graph
      */
     public function preOrder(Node $node, \Closure $callback) : void
     {
-        if (count($this->nodes) === 0) {
+        if (\count($this->nodes) === 0) {
             return;
         }
 
@@ -241,7 +241,7 @@ class Tree extends Graph
      */
     public function postOrder(Node $node, \Closure $callback) : void
     {
-        if (count($this->nodes) === 0) {
+        if (\count($this->nodes) === 0) {
             return;
         }
 

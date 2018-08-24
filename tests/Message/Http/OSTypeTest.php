@@ -19,7 +19,7 @@ class OSTypeTest extends \PHPUnit\Framework\TestCase
 {
     public function testEnums()
     {
-        self::assertEquals(24, count(OSType::getConstants()));
+        self::assertEquals(24, \count(OSType::getConstants()));
         self::assertEquals(OSType::getConstants(), array_unique(OSType::getConstants()));
     }
 }

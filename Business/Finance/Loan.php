@@ -41,7 +41,7 @@ final class Loan
      */
     public static function getPaymentsOnBalloonLoan(float $PV, float $r, int $n, float $balloon = 0) : float
     {
-        return ($PV - $balloon / pow(1 + $r, $n)) * $r / (1 - pow(1 + $r, -$n));
+        return ($PV - $balloon / \pow(1 + $r, $n)) * $r / (1 - \pow(1 + $r, -$n));
     }
 
     /**
@@ -58,7 +58,7 @@ final class Loan
      */
     public static function getBalloonBalanceOfLoan(float $PV, float $P, float $r, int $n) : float
     {
-        return $PV * pow(1 + $r, $n) - $P * (pow(1 + $r, $n) - 1) / $r;
+        return $PV * \pow(1 + $r, $n) - $P * (\pow(1 + $r, $n) - 1) / $r;
     }
 
     /**
@@ -74,7 +74,7 @@ final class Loan
      */
     public static function getLoanPayment(float $PV, float $r, int $n) : float
     {
-        return $r * $PV / (1 - pow(1 + $r, -$n));
+        return $r * $PV / (1 - \pow(1 + $r, -$n));
     }
 
     /**
@@ -91,7 +91,7 @@ final class Loan
      */
     public static function getRemainingBalanceLoan(float $PV, float $P, float $r, int $n) : float
     {
-        return $PV * pow(1 + $r, $n) - $P * (pow(1 + $r, $n) - 1) / $r;
+        return $PV * \pow(1 + $r, $n) - $P * (\pow(1 + $r, $n) - 1) / $r;
     }
 
     /**

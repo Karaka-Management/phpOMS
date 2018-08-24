@@ -36,17 +36,17 @@ class Directory extends FileAbstract implements DirectoryInterface
 {
     public static function ftpConnect(Http $http)
     {
-        $con = ftp_connect($http->getBase() . $http->getPath(), $http->getPort());
+        $con = \ftp_connect($http->getBase() . $http->getPath(), $http->getPort());
 
-        ftp_login($con, $http->getUser(), $http->getPass());
-        ftp_chdir($con, $http->getPath()); // todo: is this required ?
+        \ftp_login($con, $http->getUser(), $http->getPass());
+        \ftp_chdir($con, $http->getPath()); // todo: is this required ?
 
         return $con;
     }
 
     public static function ftpExists($con, string $path)
     {
-        $list = ftp_nlist($con, LocalFile::parent($path));
+        $list = \ftp_nlist($con, LocalFile::parent($path));
 
         return \in_array(LocalFile::name($path), $list);
     }
@@ -54,13 +54,13 @@ class Directory extends FileAbstract implements DirectoryInterface
     public static function ftpCreate($con, string $path, int $permission, bool $recursive)
     {
         $parts = \explode('/', $path);
-        ftp_chdir($con, '/' . $parts[0]);
+        \ftp_chdir($con, '/' . $parts[0]);
 
         foreach ($parts as $part) {
             if (self::ftpExists($con, $part)) {
-                ftp_\mkdir($con, $part);
-                ftp_chdir($con, $part);
-                ftp_chmod($con, $permission, $part);
+                \ftp_\kdir($con, $part);
+                \ftp_chdir($con, $part);
+                \ftp_chmod($con, $permission, $part);
             }
         }
     }
@@ -274,7 +274,7 @@ class Directory extends FileAbstract implements DirectoryInterface
      */
     public function rewind()
     {
-        reset($this->nodes);
+        \reset($this->nodes);
     }
 
     /**
@@ -282,7 +282,7 @@ class Directory extends FileAbstract implements DirectoryInterface
      */
     public function current()
     {
-        return current($this->nodes);
+        return \current($this->nodes);
     }
 
     /**
@@ -290,7 +290,7 @@ class Directory extends FileAbstract implements DirectoryInterface
      */
     public function key()
     {
-        return key($this->nodes);
+        return \key($this->nodes);
     }
 
     /**
@@ -298,7 +298,7 @@ class Directory extends FileAbstract implements DirectoryInterface
      */
     public function next()
     {
-        return next($this->nodes);
+        return \next($this->nodes);
     }
 
     /**
@@ -306,7 +306,7 @@ class Directory extends FileAbstract implements DirectoryInterface
      */
     public function valid()
     {
-        $key = key($this->nodes);
+        $key = \key($this->nodes);
 
         return ($key !== null && $key !== false);
     }

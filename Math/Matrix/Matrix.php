@@ -186,8 +186,8 @@ class Matrix implements \ArrayAccess, \Iterator
     public function getSubMatrixByColumnsRows(array $rows, array $cols) : Matrix
     {
         $X       = [[]];
-        $rlength = count($rows);
-        $clength = count($cols);
+        $rlength = \count($rows);
+        $clength = \count($cols);
 
         for ($i = 0; $i <= $rlength; ++$i) {
             for ($j = 0; $j <= $clength; ++$j) {
@@ -215,7 +215,7 @@ class Matrix implements \ArrayAccess, \Iterator
     public function getSubMatrixByColumns(int $iRow, int $lRow, array $cols) : Matrix
     {
         $X      = [[]];
-        $length = count($cols);
+        $length = \count($cols);
 
         for ($i = $iRow; $i <= $lRow; ++$i) {
             for ($j = 0; $j <= $length; ++$j) {
@@ -243,7 +243,7 @@ class Matrix implements \ArrayAccess, \Iterator
     public function getSubMatrixByRows(array $rows, int $iCol, int $lCol) : Matrix
     {
         $X      = [[]];
-        $length = count($rows);
+        $length = \count($rows);
 
         for ($i = 0; $i < $length; ++$i) {
             for ($j = $iCol; $j <= $lCol; ++$j) {
@@ -380,8 +380,8 @@ class Matrix implements \ArrayAccess, \Iterator
      */
     public function setMatrix(array $matrix) : Matrix
     {
-        $this->m      = count($matrix);
-        $this->n      = count($matrix[0] ?? 1);
+        $this->m      = \count($matrix);
+        $this->n      = \count($matrix[0] ?? 1);
         $this->matrix = $matrix;
 
         return $this;
@@ -640,7 +640,7 @@ class Matrix implements \ArrayAccess, \Iterator
             $max = 0;
 
             for ($j = $i; $j < $n; ++$j) {
-                if (abs($arr[$j][$i]) > abs($arr[$max][$i])) {
+                if (\abs($arr[$j][$i]) > \abs($arr[$max][$i])) {
                     $max = $j;
                 }
             }

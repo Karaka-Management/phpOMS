@@ -24,7 +24,7 @@ class SystemUtilsTest extends \PHPUnit\Framework\TestCase
         self::assertGreaterThan(0, SystemUtils::getRAM());
         self::assertGreaterThan(0, SystemUtils::getCpuUsage());
 
-        if (stristr(PHP_OS, 'WIN')) {
+        if (\stristr(PHP_OS, 'WIN')) {
             self::assertEquals(0, SystemUtils::getRAMUsage());
         }
 

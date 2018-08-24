@@ -39,16 +39,16 @@ final class XorEncoding
     public static function encode(string $source, string $key) : string
     {
         $result    = '';
-        $length    = strlen($source);
-        $keyLength = strlen($key) - 1;
+        $length    = \strlen($source);
+        $keyLength = \strlen($key) - 1;
 
         for ($i = 0, $j = 0; $i < $length; ++$i, $j++) {
             if ($j > $keyLength) {
                 $j = 0;
             }
 
-            $ascii   = ord($source[$i]) ^ ord($key[$j]);
-            $result .= chr($ascii);
+            $ascii   = \ord($source[$i]) ^ \ord($key[$j]);
+            $result .= \chr($ascii);
         }
 
         return $result;

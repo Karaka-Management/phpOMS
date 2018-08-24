@@ -41,8 +41,8 @@ class FileTest extends \PHPUnit\Framework\TestCase
         self::assertEquals('txt', File::extension($testFile));
         self::assertEquals('test', File::name($testFile));
         self::assertEquals('test.txt', File::basename($testFile));
-        self::assertEquals(basename(realpath(__DIR__)), File::dirname($testFile));
-        self::assertEquals(realpath(__DIR__), File::dirpath($testFile));
+        self::assertEquals(\basename(\realpath(__DIR__)), File::dirname($testFile));
+        self::assertEquals(\realpath(__DIR__), File::dirpath($testFile));
         self::assertEquals(1, File::count($testFile));
 
         $now = new \DateTime('now');

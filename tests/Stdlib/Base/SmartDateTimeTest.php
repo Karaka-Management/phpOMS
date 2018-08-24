@@ -46,18 +46,18 @@ class SmartDateTimeTest extends \PHPUnit\Framework\TestCase
         $expected = new \DateTime('now');
         $obj      = SmartDateTime::createFromDateTime($expected);
         self::assertEquals($expected->format('Y-m-d H:i:s'), $obj->format('Y-m-d H:i:s'));
-        self::assertEquals(date("Y-m-t", strtotime($expected->format('Y-m-d'))), $obj->getEndOfMonth()->format('Y-m-d'));
-        self::assertEquals(date("Y-m-01", strtotime($expected->format('Y-m-d'))), $obj->getStartOfMonth()->format('Y-m-d'));
+        self::assertEquals(\date("Y-m-t", strtotime($expected->format('Y-m-d'))), $obj->getEndOfMonth()->format('Y-m-d'));
+        self::assertEquals(\date("Y-m-01", strtotime($expected->format('Y-m-d'))), $obj->getStartOfMonth()->format('Y-m-d'));
 
         self::assertFalse((new SmartDateTime('2103-07-20'))->isLeapYear());
         self::assertTrue((new SmartDateTime('2104-07-20'))->isLeapYear());
         self::assertFalse(SmartDateTime::leapYear(2103));
         self::assertTrue(SmartDateTime::leapYear(2104));
 
-        self::assertEquals(date('w', $expected->getTimestamp()), SmartDateTime::getDayOfWeek((int) $expected->format('Y'), (int) $expected->format('m'), (int) $expected->format('d')));
-        self::assertEquals(date('w', $expected->getTimestamp()), $obj->getFirstDayOfWeek());
+        self::assertEquals(\date('w', $expected->getTimestamp()), SmartDateTime::getDayOfWeek((int) $expected->format('Y'), (int) $expected->format('m'), (int) $expected->format('d')));
+        self::assertEquals(\date('w', $expected->getTimestamp()), $obj->getFirstDayOfWeek());
 
-        self::assertEquals(42, count($obj->getMonthCalendar()));
-        self::assertEquals(42, count($obj->getMonthCalendar(1)));
+        self::assertEquals(42, \count($obj->getMonthCalendar()));
+        self::assertEquals(42, \count($obj->getMonthCalendar(1)));
     }
 }

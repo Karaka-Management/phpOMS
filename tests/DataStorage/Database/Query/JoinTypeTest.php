@@ -19,7 +19,7 @@ class JoinTypeTest extends \PHPUnit\Framework\TestCase
 {
     public function testEnums()
     {
-        self::assertEquals(11, count(JoinType::getConstants()));
+        self::assertEquals(11, \count(JoinType::getConstants()));
         self::assertEquals(JoinType::getConstants(), array_unique(JoinType::getConstants()));
 
         self::assertEquals('JOIN', JoinType::JOIN);

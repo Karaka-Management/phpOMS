@@ -31,12 +31,12 @@ class LogLevelRegression extends RegressionAbstract
      */
     public static function getRegression(array $x, array $y) : array
     {
-        if (($c = count($x)) !== count($y)) {
-            throw new InvalidDimensionException($c . 'x' . count($y));
+        if (($c = \count($x)) !== \count($y)) {
+            throw new InvalidDimensionException($c . 'x' . \count($y));
         }
 
         for ($i = 0; $i < $c; ++$i) {
-            $y[$i] = log($y[$i]);
+            $y[$i] = \log($y[$i]);
         }
 
         return parent::getRegression($x, $y);

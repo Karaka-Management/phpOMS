@@ -29,7 +29,7 @@ class StringUtilsTest extends \PHPUnit\Framework\TestCase
         for ($i = 0; $i < 10000; ++$i) {
             $random = StringUtils::generateString(5, 12, '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ!@#$%^&*()_?><|;"');
 
-            if (strlen($random) > 12 || strlen($random) < 5) {
+            if (\strlen($random) > 12 || \strlen($random) < 5) {
                 $outOfBounds = true;
             }
 

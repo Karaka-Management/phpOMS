@@ -93,8 +93,8 @@ abstract class GrammarAbstract
      */
     public function compileQuery(BuilderAbstract $query) : string
     {
-        return trim(
-            implode(' ',
+        return \trim(
+            \implode(' ',
                 \array_filter(
                     $this->compileComponents($query),
                     function ($value) {
@@ -186,7 +186,7 @@ abstract class GrammarAbstract
             }
         }
 
-        return rtrim($expression, ', ');
+        return \rtrim($expression, ', ');
     }
 
     /**
@@ -217,7 +217,7 @@ abstract class GrammarAbstract
             }
         }
 
-        return rtrim($expression, ', ');
+        return \rtrim($expression, ', ');
     }
 
     /**
@@ -234,7 +234,7 @@ abstract class GrammarAbstract
      */
     protected function compileSystem(string $system, string $prefix = '') : string
     {
-        // todo: this is a bad way to handle select count(*) which doesn't need a prefix. Maybe remove prefixes in total?
+        // todo: this is a bad way to handle select \count(*) which doesn't need a prefix. Maybe remove prefixes in total?
         $identifier = $this->systemIdentifier;
 
         foreach ($this->specialKeywords as $keyword) {
@@ -245,7 +245,7 @@ abstract class GrammarAbstract
         }
 
         // todo: move remaining * test also here not just if .* but also if * (should be done in else?)
-        if (count($split = \explode('.', $system)) === 2) {
+        if (\count($split = \explode('.', $system)) === 2) {
             $system = $split[1] === '*' ? $split[1] : $this->compileSystem($split[1]);
 
             return $this->compileSystem($prefix . $split[0]) . '.' . $system;

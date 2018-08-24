@@ -26,7 +26,7 @@ class PhoneEnumTest extends \PHPUnit\Framework\TestCase
         $countryCodes = PhoneEnum::getConstants();
 
         foreach ($countryCodes as $code) {
-            if (strlen($code) < 0 || $code > 9999) {
+            if (\strlen($code) < 0 || $code > 9999) {
                 $ok = false;
                 break;
             }

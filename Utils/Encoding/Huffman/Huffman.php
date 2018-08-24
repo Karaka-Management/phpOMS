@@ -94,7 +94,7 @@ final class Huffman
                 $c .= '0';
             }
 
-            $binary .= chr(bindec($c));
+            $binary .= \chr(\bindec($c));
         }
 
         return $binary;
@@ -120,7 +120,7 @@ final class Huffman
         $source    = '';
 
         for ($i = 0; $i < $rawLenght; ++$i) {
-            $decbin = decbin(ord($raw[$i]));
+            $decbin = \decbin(\ord($raw[$i]));
 
             while (\strlen($decbin) < 8) {
                 $decbin = '0' . $decbin;

@@ -22,11 +22,11 @@ class MultipleLinearRegression
      */
     public static function getRegression(array $x, array $y) : array
     {
-        $X = new Matrix(count($x), count($x[0]));
+        $X = new Matrix(\count($x), \count($x[0]));
         $X->setMatrix($x);
         $XT = $X->transpose();
 
-        $Y = new Matrix(count($y));
+        $Y = new Matrix(\count($y));
         $Y->setMatrix($y);
 
         return $XT->mult($X)->inverse()->mult($XT)->mult($Y)->getMatrix();

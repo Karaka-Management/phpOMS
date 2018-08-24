@@ -21,7 +21,7 @@ class RequestSourceTest extends \PHPUnit\Framework\TestCase
 {
     public function testEnums()
     {
-        self::assertEquals(4, count(RequestSource::getConstants()));
+        self::assertEquals(4, \count(RequestSource::getConstants()));
         self::assertEquals(0, RequestSource::WEB);
         self::assertEquals(1, RequestSource::CONSOLE);
         self::assertEquals(2, RequestSource::SOCKET);

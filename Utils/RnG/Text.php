@@ -158,7 +158,7 @@ class Text
         $text          = '';
         $puid          = 0;
         $paid          = 0;
-        $wordCount     = count($words);
+        $wordCount     = \count($words);
 
         for ($i = 0; $i < $length + 1; ++$i) {
             $newSentence = false;
@@ -226,24 +226,24 @@ class Text
         $punctuation = [];
 
         for ($i = 0; $i < $length;) {
-            $sentenceLength = rand($minSentences, $maxSentences);
+            $sentenceLength = \rand($minSentences, $maxSentences);
 
             if ($i + $sentenceLength > $length || $length - ($i + $sentenceLength) < $minSentences) {
                 $sentenceLength = $length - $i;
             }
 
             /* Handle comma */
-            $commaHere = (rand(0, 100) <= $probComma * 100 && $sentenceLength >= 2 * $minCommaSpacing ? true : false);
+            $commaHere = (\rand(0, 100) <= $probComma * 100 && $sentenceLength >= 2 * $minCommaSpacing ? true : false);
             $posComma  = [];
 
             if ($commaHere) {
-                $posComma[]    = rand($minCommaSpacing, $sentenceLength - $minCommaSpacing);
+                $posComma[]    = \rand($minCommaSpacing, $sentenceLength - $minCommaSpacing);
                 $punctuation[] = [$i + $posComma[0], ','];
 
-                $commaHere = (rand(0, 100) <= $probComma * 100 && $posComma[0] + $minCommaSpacing * 2 < $sentenceLength ? true : false);
+                $commaHere = (\rand(0, 100) <= $probComma * 100 && $posComma[0] + $minCommaSpacing * 2 < $sentenceLength ? true : false);
 
                 if ($commaHere) {
-                    $posComma[]    = rand($posComma[0] + $minCommaSpacing, $sentenceLength - $minCommaSpacing);
+                    $posComma[]    = \rand($posComma[0] + $minCommaSpacing, $sentenceLength - $minCommaSpacing);
                     $punctuation[] = [$i + $posComma[1], ','];
                 }
             }
@@ -251,14 +251,14 @@ class Text
             $i += $sentenceLength;
 
             /* Handle sentence ending */
-            $isDot = (rand(0, 100) <= $probDot * 100 ? true : false);
+            $isDot = (\rand(0, 100) <= $probDot * 100 ? true : false);
 
             if ($isDot) {
                 $punctuation[] = [$i, '.'];
                 continue;
             }
 
-            $isEx = (rand(0, 100) <= $probExc * 100 ? true : false);
+            $isEx = (\rand(0, 100) <= $probExc * 100 ? true : false);
 
             if ($isEx) {
                 $punctuation[] = [$i, '!'];
@@ -288,7 +288,7 @@ class Text
         $paragraph = [];
 
         for ($i = 0; $i < $length;) {
-            $paragraphLength = rand($minSentence, $maxSentence);
+            $paragraphLength = \rand($minSentence, $maxSentence);
 
             if ($i + $paragraphLength > $length || $length - ($i + $paragraphLength) < $minSentence) {
                 $paragraphLength = $length - $i;
@@ -319,9 +319,9 @@ class Text
         $formatting = [];
 
         for ($i = 0; $i < $length; ++$i) {
-            $isCursive = (rand(0, 1000) <= 1000 * $probCursive ? true : false);
-            $isBold    = (rand(0, 1000) <= 1000 * $probBold ? true : false);
-            $isUline   = (rand(0, 1000) <= 1000 * $probUline ? true : false);
+            $isCursive = (\rand(0, 1000) <= 1000 * $probCursive ? true : false);
+            $isBold    = (\rand(0, 1000) <= 1000 * $probBold ? true : false);
+            $isUline   = (\rand(0, 1000) <= 1000 * $probUline ? true : false);
 
             if ($isUline) {
                 $formatting[$i] = 'u';

@@ -19,7 +19,7 @@ class NumberTypeTest extends \PHPUnit\Framework\TestCase
 {
     public function testEnums()
     {
-        self::assertEquals(9, count(NumberType::getConstants()));
+        self::assertEquals(9, \count(NumberType::getConstants()));
         self::assertEquals(NumberType::getConstants(), array_unique(NumberType::getConstants()));
 
         self::assertEquals(0, NumberType::N_INTEGER);

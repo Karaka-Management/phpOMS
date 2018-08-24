@@ -19,7 +19,7 @@ class RequestStatusCodeTest extends \PHPUnit\Framework\TestCase
 {
     public function testEnums()
     {
-        self::assertEquals(55, count(RequestStatusCode::getConstants()));
+        self::assertEquals(55, \count(RequestStatusCode::getConstants()));
         self::assertEquals(RequestStatusCode::getConstants(), array_unique(RequestStatusCode::getConstants()));
 
         self::assertEquals(100, RequestStatusCode::R_100);

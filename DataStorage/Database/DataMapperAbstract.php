@@ -1494,7 +1494,7 @@ class DataMapperAbstract implements DataMapperInterface
 
         if (empty($result)) {
             $parts     = \explode('\\', $class);
-            $name      = $parts[$c = (count($parts) - 1)];
+            $name      = $parts[$c = (\count($parts) - 1)];
             $parts[$c] = 'Null' . $name;
             $class     = \implode('\\', $parts);
         }
@@ -1914,7 +1914,7 @@ class DataMapperAbstract implements DataMapperInterface
         $primaryKey = (array) $primaryKey;
         $fill       = (array) $fill;
         $obj        = [];
-        $fCount     = count($fill);
+        $fCount     = \count($fill);
         $toFill     = null;
 
         foreach ($primaryKey as $key => $value) {
@@ -1924,8 +1924,8 @@ class DataMapperAbstract implements DataMapperInterface
             }
 
             if ($fCount > 0) {
-                $toFill = current($fill);
-                next($fill);
+                $toFill = \current($fill);
+                \next($fill);
             }
 
             $obj[$value] = self::populate(self::getRaw($value), $toFill);
@@ -1940,12 +1940,12 @@ class DataMapperAbstract implements DataMapperInterface
         self::fillRelations($obj, $relations, --$depth);
         self::clear();
 
-        $countResulsts = count($obj);
+        $countResulsts = \count($obj);
 
         if ($countResulsts === 0) {
             return self::getNullModelObj();
         } elseif ($countResulsts === 1) {
-            return reset($obj);
+            return \reset($obj);
         }
 
         return $obj;
@@ -1963,7 +1963,7 @@ class DataMapperAbstract implements DataMapperInterface
         $class     = static::class;
         $class     = \str_replace('Mapper', '', $class);
         $parts     = \explode('\\', $class);
-        $name      = $parts[$c = (count($parts) - 1)];
+        $name      = $parts[$c = (\count($parts) - 1)];
         $parts[$c] = 'Null' . $name;
         $class     = \implode('\\', $parts);
 
@@ -2010,7 +2010,7 @@ class DataMapperAbstract implements DataMapperInterface
         self::fillRelationsArray($obj, $relations, --$depth);
         self::clear();
 
-        return count($obj) === 1 ? reset($obj) : $obj;
+        return \count($obj) === 1 ? \reset($obj) : $obj;
     }
 
     /**
@@ -2053,12 +2053,12 @@ class DataMapperAbstract implements DataMapperInterface
             $obj[$value] = self::get($toLoad, $relations, $fill, --$depth);
         }
 
-        $countResulsts = count($obj);
+        $countResulsts = \count($obj);
 
         if ($countResulsts === 0) {
             return self::getNullModelObj();
         } elseif ($countResulsts === 1) {
-            return reset($obj);
+            return \reset($obj);
         }
 
         return $obj;
@@ -2099,7 +2099,7 @@ class DataMapperAbstract implements DataMapperInterface
             $obj[$value] = self::get($toLoad, $relations, $fill);
         }
 
-        return count($obj) === 1 ? reset($obj) : $obj;
+        return \count($obj) === 1 ? \reset($obj) : $obj;
     }
 
     /**
@@ -2591,7 +2591,7 @@ class DataMapperAbstract implements DataMapperInterface
         if ($request->getData('id') !== null) {
             $result = static::get((int) $request->getData('id'));
         } elseif (($filter = ((string) $request->getData('filter'))) !== null) {
-            $filter = strtolower($filter);
+            $filter = \strtolower($filter);
 
             if ($filter === 'all') {
                 $result = static::getAll();
@@ -2709,7 +2709,7 @@ class DataMapperAbstract implements DataMapperInterface
 
         $results = $sth->fetchAll(\PDO::FETCH_ASSOC);
 
-        return $results && count($results) === 0;
+        return $results && \count($results) === 0;
     }
 
     /**

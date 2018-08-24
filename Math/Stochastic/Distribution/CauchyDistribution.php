@@ -95,7 +95,7 @@ class CauchyDistribution
      */
     public static function getEntropy(float $gamma) : float
     {
-        return log(4 * M_PI * $gamma);
+        return \log(4 * M_PI * $gamma);
     }
 
     public static function getRandom()

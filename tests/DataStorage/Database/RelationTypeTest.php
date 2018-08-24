@@ -19,7 +19,7 @@ class RelationTypeTest extends \PHPUnit\Framework\TestCase
 {
     public function testEnums()
     {
-        self::assertEquals(7, count(RelationType::getConstants()));
+        self::assertEquals(7, \count(RelationType::getConstants()));
         self::assertEquals(1, RelationType::NONE);
         self::assertEquals(2, RelationType::NEWEST);
         self::assertEquals(4, RelationType::BELONGS_TO);

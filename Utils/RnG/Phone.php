@@ -50,7 +50,7 @@ class Phone
                 $countries = ['de' => 49, 'us' => 1];
             }
 
-            $numberString = \str_replace('$1', $countries[array_keys($countries)[rand(0, count($countries))]], $numberString);
+            $numberString = \str_replace('$1', $countries[array_keys($countries)[rand(0, \count($countries))]], $numberString);
         }
 
         $numberParts = substr_count($layout['struct'], '$');

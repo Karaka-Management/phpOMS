@@ -136,7 +136,7 @@ final class Directory extends FileAbstract implements DirectoryInterface
         parent::index();
 
         foreach (\glob($this->path . DIRECTORY_SEPARATOR . $this->filter) as $filename) {
-            if (!StringUtils::endsWith(trim($filename), '.')) {
+            if (!StringUtils::endsWith(\trim($filename), '.')) {
                 $file = \is_dir($filename) ? new self($filename) : new File($filename);
 
                 $this->addNode($file);

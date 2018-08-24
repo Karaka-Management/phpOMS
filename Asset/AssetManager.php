@@ -111,6 +111,6 @@ final class AssetManager implements \Countable
      */
     public function count() : int
     {
-        return count($this->assets);
+        return \count($this->assets);
     }
 }

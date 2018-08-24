@@ -116,7 +116,7 @@ final class UriFactory
     {
         self::setQuery('/scheme', $uri->getScheme());
         self::setQuery('/host', $uri->getHost());
-        self::setQuery('/base', rtrim($uri->getBase(), '/'));
+        self::setQuery('/base', \rtrim($uri->getBase(), '/'));
         self::setQuery('/rootPath', $uri->getRootPath());
         self::setQuery('?', $uri->getQuery());
         self::setQuery('%', $uri->__toString());
@@ -189,10 +189,10 @@ final class UriFactory
     {
         $parts = \explode('&', \str_replace('?', '&', $url));
 
-        if (count($parts) >= 2) {
+        if (\count($parts) >= 2) {
             $pars   = \array_slice($parts, 1);
             $comps  = [];
-            $length = count($pars);
+            $length = \count($pars);
 
             for ($i = 0; $i < $length; ++$i) {
                 $spl = \explode('=', $pars[$i]);

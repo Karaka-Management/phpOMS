@@ -52,8 +52,8 @@ final class MeasureOfDispersion
     public static function range(array $values) : float
     {
         sort($values);
-        $end   = end($values);
-        $start = reset($values);
+        $end   = \end($values);
+        $start = \reset($values);
 
         return $end - $start;
     }
@@ -106,7 +106,7 @@ final class MeasureOfDispersion
             $sum += ($value - $mean) ** 2;
         }
 
-        return sqrt($sum / (count($values) - 1));
+        return \sqrt($sum / (\count($values) - 1));
     }
 
     /**
@@ -129,7 +129,7 @@ final class MeasureOfDispersion
      */
     public static function sampleVariance(array $values, float $mean = null) : float
     {
-        $count = count($values);
+        $count = \count($values);
 
         if ($count < 2) {
             throw new ZeroDevisionException();
@@ -159,7 +159,7 @@ final class MeasureOfDispersion
      */
     public static function empiricalVariance(array $values, array $probabilities = [], float $mean = null) : float
     {
-        $count          = count($values);
+        $count          = \count($values);
         $hasProbability = !empty($probabilities);
 
         if ($count === 0) {
@@ -196,14 +196,14 @@ final class MeasureOfDispersion
      */
     public static function empiricalCovariance(array $x, array $y, float $meanX = null, float $meanY = null) : float
     {
-        $count = count($x);
+        $count = \count($x);
 
         if ($count < 2) {
             throw new ZeroDevisionException();
         }
 
-        if ($count !== count($y)) {
-            throw new InvalidDimensionException($count . 'x' . count($y));
+        if ($count !== \count($y)) {
+            throw new InvalidDimensionException($count . 'x' . \count($y));
         }
 
         $xMean = $meanX !== null ? $meanX : Average::arithmeticMean($x);
@@ -251,7 +251,7 @@ final class MeasureOfDispersion
             $sum += ($xi - $mean);
         }
 
-        return $sum / count($x);
+        return $sum / \count($x);
     }
 
     /**
@@ -270,10 +270,10 @@ final class MeasureOfDispersion
         $sum  = 0.0;
 
         foreach ($x as $xi) {
-            $sum += abs($xi - $mean);
+            $sum += \abs($xi - $mean);
         }
 
-        return $sum / count($x);
+        return $sum / \count($x);
     }
 
     /**
@@ -295,6 +295,6 @@ final class MeasureOfDispersion
             $sum += ($xi - $mean) ** 2;
         }
 
-        return $sum / count($x);
+        return $sum / \count($x);
     }
 }

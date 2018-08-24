@@ -80,7 +80,7 @@ class Numeric
             $newOutput = '0';
 
             for ($i = 1; $i <= $numberLen; ++$i) {
-                $newOutput = bcadd(
+                $newOutput = \bcadd(
                     $newOutput,
                     bcmul(
                         (string) \array_search($number[$i - 1], $fromBase),
@@ -99,8 +99,8 @@ class Numeric
         }
 
         while ($base10 !== '0') {
-            $newOutput = $toBase[(int) bcmod((string) $base10, (string) $toLen)] . $newOutput;
-            $base10    = bcdiv((string) $base10, (string) $toLen, 0);
+            $newOutput = $toBase[(int) \bcmod((string) $base10, (string) $toLen)] . $newOutput;
+            $base10    = \bcdiv((string) $base10, (string) $toLen, 0);
         }
 
         return $newOutput;
@@ -177,8 +177,8 @@ class Numeric
         $alpha = '';
 
         for ($i = 1; $number >= 0 && $i < 10; ++$i) {
-            $alpha   = chr(0x41 + (int) ($number % pow(26, $i) / pow(26, $i - 1))) . $alpha;
-            $number -= pow(26, $i);
+            $alpha   = \chr(0x41 + (int) ($number % \pow(26, $i) / \pow(26, $i - 1))) . $alpha;
+            $number -= \pow(26, $i);
         }
 
         return $alpha;
@@ -199,7 +199,7 @@ class Numeric
         $length  = \strlen($alpha);
 
         for ($i = 0; $i < $length; ++$i) {
-            $numeric += pow(26, $i) * (ord($alpha[$length - $i - 1]) - 0x40);
+            $numeric += \pow(26, $i) * (\ord($alpha[$length - $i - 1]) - 0x40);
         }
 
         return (int) $numeric - 1;

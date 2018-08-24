@@ -64,7 +64,7 @@ class PriorityQueue implements \Countable, \Serializable
     public function insert($data, string $job, float $priority = 1.0) : int
     {
         do {
-            $key = rand();
+            $key = \rand();
         } while (array_key_exists($key, $this->queue));
 
         if ($this->count === 0) {
@@ -201,6 +201,6 @@ class PriorityQueue implements \Countable, \Serializable
     public function unserialize($data)
     {
         $this->queue = \json_decode($data);
-        $this->count = count($this->queue);
+        $this->count = \count($this->queue);
     }
 }

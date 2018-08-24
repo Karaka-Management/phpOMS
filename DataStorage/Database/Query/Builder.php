@@ -819,7 +819,7 @@ final class Builder extends BuilderAbstract
      */
     public function count(string $table = '*') : Builder
     {
-        // todo: don't do this as string, create new object new Count(); this can get handled by the grammar parser WAY better
+        // todo: don't do this as string, create new object new \count(); this can get handled by the grammar parser WAY better
         return $this->select('COUNT(' . $table . ')');
     }
 
@@ -949,10 +949,10 @@ final class Builder extends BuilderAbstract
      */
     public function value($value, string $type = 'string') : Builder
     {
-        end($this->values);
-        $key                  = key($this->values);
+        \end($this->values);
+        $key                  = \key($this->values);
         $this->values[$key][] = $value;
-        reset($this->values);
+        \reset($this->values);
 
         return $this;
     }
@@ -985,7 +985,7 @@ final class Builder extends BuilderAbstract
      */
     public function set($set, string $type = 'string') : Builder
     {
-        $this->sets[key($set)] = current($set);
+        $this->sets[key($set)] = \current($set);
 
         return $this;
     }

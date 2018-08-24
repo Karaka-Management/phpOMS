@@ -122,10 +122,10 @@ class DataMapperAbstractTest extends \PHPUnit\Framework\TestCase
         //self::assertEquals($this->model->json, $modelR->json);
         //self::assertEquals([1, 2, 3], $modelR->jsonSerializable);
 
-        self::assertEquals(2, count($modelR->hasManyDirect));
-        self::assertEquals(2, count($modelR->hasManyRelations));
-        self::assertEquals(reset($this->model->hasManyDirect)->string, reset($modelR->hasManyDirect)->string);
-        self::assertEquals(reset($this->model->hasManyRelations)->string, reset($modelR->hasManyRelations)->string);
+        self::assertEquals(2, \count($modelR->hasManyDirect));
+        self::assertEquals(2, \count($modelR->hasManyRelations));
+        self::assertEquals(\reset($this->model->hasManyDirect)->string, \reset($modelR->hasManyDirect)->string);
+        self::assertEquals(\reset($this->model->hasManyRelations)->string, \reset($modelR->hasManyRelations)->string);
         self::assertEquals($this->model->ownsOneSelf->string, $modelR->ownsOneSelf->string);
         self::assertEquals($this->model->belongsToOne->string, $modelR->belongsToOne->string);
     }

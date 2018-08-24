@@ -54,7 +54,7 @@ class GroupTest extends \PHPUnit\Framework\TestCase
 
         $array = $group->toArray();
         self::assertTrue(is_array($array));
-        self::assertGreaterThan(0, count($array));
+        self::assertGreaterThan(0, \count($array));
         self::assertEquals(\json_encode($array), $group->__toString());
         self::assertEquals($array, $group->jsonSerialize());
     }

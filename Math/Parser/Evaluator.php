@@ -121,21 +121,21 @@ class Evaluator
                 $output[] = $token;
             } elseif (\strpbrk($token, '^*/+-') !== false) {
                 $o1 = $token;
-                $o2 = end($stack);
+                $o2 = \end($stack);
 
                 while ($o2 !== false && \strpbrk($o2, '^*/+-') !== false
                     && (($operators[$o1]['order'] === -1 && $operators[$o1]['precedence'] <= $operators[$o2]['precedence'])
                         || ($operators[$o1]['order'] === 1 && $operators[$o1]['precedence'] < $operators[$o2]['precedence']))
                 ) {
                     $output[] = \array_pop($stack);
-                    $o2       = end($stack);
+                    $o2       = \end($stack);
                 }
 
                 $stack[] = $o1;
             } elseif ($token === '(') {
                 $stack[] = $token;
             } elseif ($token === ')') {
-                while (end($stack) !== '(') {
+                while (\end($stack) !== '(') {
                     $output[] = \array_pop($stack);
                 }
 
@@ -143,7 +143,7 @@ class Evaluator
             }
         }
 
-        while (count($stack) > 0) {
+        while (\count($stack) > 0) {
             $output[] = \array_pop($stack);
         }
 

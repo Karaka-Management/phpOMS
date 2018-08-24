@@ -36,7 +36,7 @@ final class Tetrahedron implements D3ShapeInterface
      */
     public static function getVolume(float $a) : float
     {
-        return $a ** 3 / (6 * sqrt(2));
+        return $a ** 3 / (6 * \sqrt(2));
     }
 
     /**
@@ -50,7 +50,7 @@ final class Tetrahedron implements D3ShapeInterface
      */
     public static function getSurface(float $a) : float
     {
-        return sqrt(3) * $a ** 2;
+        return \sqrt(3) * $a ** 2;
     }
 
     /**
@@ -64,6 +64,6 @@ final class Tetrahedron implements D3ShapeInterface
      */
     public static function getFaceArea(float $a) : float
     {
-        return sqrt(3) / 4 * $a ** 2;
+        return \sqrt(3) / 4 * $a ** 2;
     }
 }

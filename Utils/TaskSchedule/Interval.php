@@ -116,7 +116,7 @@ class Interval implements \Serializable
      */
     public function unserialize($serialized)
     {
-        $elements = \explode(' ', trim($serialized));
+        $elements = \explode(' ', \trim($serialized));
 
         $this->minute     = $this->parseMinute($elements[0]);
         $this->hour       = $this->parseHour($elements[1]);
@@ -622,8 +622,8 @@ class Interval implements \Serializable
      */
     public function serializeTime($time, $step) : string
     {
-        if (($count = count($time)) > 0) {
-            $serialize = implode(',', $time);
+        if (($count = \count($time)) > 0) {
+            $serialize = \implode(',', $time);
         } else {
             $serialize = '*';
             $count     = 1;
@@ -645,8 +645,8 @@ class Interval implements \Serializable
      */
     public function serializeDayOfMonth() : string
     {
-        if (($count = count($this->dayOfMonth['dayOfMonth'])) > 0) {
-            $serialize = implode(',', $this->dayOfMonth['dayOfMonth']);
+        if (($count = \count($this->dayOfMonth['dayOfMonth'])) > 0) {
+            $serialize = \implode(',', $this->dayOfMonth['dayOfMonth']);
         } else {
             $serialize = '*';
             $count     = 1;
@@ -672,8 +672,8 @@ class Interval implements \Serializable
      */
     public function serializeDayOfWeek() : string
     {
-        if (($count = count($this->dayOfWeek['dayOfWeek'])) > 0) {
-            $serialize = implode(',', $this->dayOfWeek['dayOfWeek']);
+        if (($count = \count($this->dayOfWeek['dayOfWeek'])) > 0) {
+            $serialize = \implode(',', $this->dayOfWeek['dayOfWeek']);
         } else {
             $serialize = '*';
             $count     = 1;

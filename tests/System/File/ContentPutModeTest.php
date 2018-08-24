@@ -19,7 +19,7 @@ class ContentPutModeTest extends \PHPUnit\Framework\TestCase
 {
     public function testEnums()
     {
-        self::assertEquals(4, count(ContentPutMode::getConstants()));
+        self::assertEquals(4, \count(ContentPutMode::getConstants()));
         self::assertEquals(ContentPutMode::getConstants(), array_unique(ContentPutMode::getConstants()));
 
         self::assertEquals(1, ContentPutMode::APPEND);

@@ -19,7 +19,7 @@ class TimeTypeTest extends \PHPUnit\Framework\TestCase
 {
     public function testEnums()
     {
-        self::assertEquals(9, count(TimeType::getConstants()));
+        self::assertEquals(9, \count(TimeType::getConstants()));
         self::assertEquals(TimeType::getConstants(), array_unique(TimeType::getConstants()));
 
         self::assertEquals('ms', TimeType::MILLISECONDS);

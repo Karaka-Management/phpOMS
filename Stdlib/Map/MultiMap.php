@@ -86,7 +86,7 @@ class MultiMap implements \Countable
      */
     public function add(array $keys, $value, bool $overwrite = true) : bool
     {
-        $id       = count($this->values);
+        $id       = \count($this->values);
         $inserted = false;
 
         if ($this->keyType !== KeyType::SINGLE) {
@@ -205,14 +205,14 @@ class MultiMap implements \Countable
                 $keys = Permutation::permut($key);
 
                 foreach ($keys as $key => $value) {
-                    $key = implode(':', $value);
+                    $key = \implode(':', $value);
 
                     if (isset($this->keys[$key])) {
                         return $this->values[$this->keys[$key]];
                     }
                 }
             } else {
-                $key = implode(':', $key);
+                $key = \implode(':', $key);
             }
         }
 
@@ -558,6 +558,6 @@ class MultiMap implements \Countable
      */
     public function count() : int
     {
-        return count($this->values);
+        return \count($this->values);
     }
 }

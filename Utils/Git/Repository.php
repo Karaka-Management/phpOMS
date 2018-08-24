@@ -127,9 +127,9 @@ class Repository
     {
         $branches = $this->getBranches();
         $active   = \preg_grep('/^\*/', $branches);
-        reset($active);
+        \reset($active);
 
-        return new Branch(current($active));
+        return new Branch(\current($active));
     }
 
     /**
@@ -145,7 +145,7 @@ class Repository
         $result   = [];
 
         foreach ($branches as $key => $branch) {
-            $branch = trim($branch, '* ');
+            $branch = \trim($branch, '* ');
 
             if ($branch !== '') {
                 $result[] = $branch;
@@ -204,7 +204,7 @@ class Repository
             throw new \Exception($stderr);
         }
 
-        return $this->parseLines(trim($stdout));
+        return $this->parseLines(\trim($stdout));
     }
 
     /**
@@ -226,7 +226,7 @@ class Repository
         }
 
         foreach ($lineArray as $key => $line) {
-            $temp = \preg_replace('/\s+/', ' ', trim($line, ' '));
+            $temp = \preg_replace('/\s+/', ' ', \trim($line, ' '));
 
             if (!empty($temp)) {
                 $lines[] = $temp;
@@ -474,7 +474,7 @@ class Repository
         $result   = [];
 
         foreach ($branches as $key => $branch) {
-            $branch = trim($branch, '* ');
+            $branch = \trim($branch, '* ');
 
             if ($branch !== '') {
                 $result[] = $branch;
@@ -592,7 +592,7 @@ class Repository
      */
     public function pull(string $remote, Branch $branch) : string
     {
-        $remote = escapeshellarg($remote);
+        $remote = \escapeshellarg($remote);
 
         return \implode("\n", $this->run('pull ' . $remote . ' ' . $branch->getName()));
     }
@@ -636,7 +636,7 @@ class Repository
     {
         $lines = $this->run('ls-files');
 
-        return count($lines);
+        return \count($lines);
     }
 
     /**
@@ -836,7 +836,7 @@ class Repository
             . '" --after="' . $start->format('Y-m-d') . '"'
             . $author . ' --reverse --date=short');
 
-        $count   = count($lines);
+        $count   = \count($lines);
         $commits = [];
 
         for ($i = 0; $i < $count; ++$i) {
@@ -864,8 +864,8 @@ class Repository
      */
     public function getCommit(string $commit) : Commit
     {
-        $lines = $this->run('show --name-only ' . escapeshellarg($commit));
-        $count = count($lines);
+        $lines = $this->run('show --name-only ' . \escapeshellarg($commit));
+        $count = \count($lines);
 
         if (empty($lines)) {
             return new NullCommit();
@@ -882,10 +882,10 @@ class Repository
         }
 
         $author = \explode(':', $lines[1] ?? '');
-        if (count($author) < 2) {
+        if (\count($author) < 2) {
             $author = ['none', 'none'];
         } else {
-            $author = \explode('<', trim($author[1] ?? ''));
+            $author = \explode('<', \trim($author[1] ?? ''));
         }
 
         $date = \substr($lines[2] ?? '', 6);
@@ -894,8 +894,8 @@ class Repository
         }
 
         $commit = new Commit($matches[0]);
-        $commit->setAuthor(new Author(trim($author[0] ?? ''), rtrim($author[1] ?? '', '>')));
-        $commit->setDate(new \DateTime(trim($date ?? 'now')));
+        $commit->setAuthor(new Author(\trim($author[0] ?? ''), \rtrim($author[1] ?? '', '>')));
+        $commit->setDate(new \DateTime(\trim($date ?? 'now')));
         $commit->setMessage($lines[3]);
         $commit->setTag(new Tag());
         $commit->setRepository($this);

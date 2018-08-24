@@ -73,7 +73,7 @@ class Grammar extends GrammarAbstract
         /* Loop all possible query components and if they exist compile them. */
         foreach ($components as $component) {
             if (isset($query->{$component}) && !empty($query->{$component})) {
-                $sql[$component] = $this->{'compile' . ucfirst($component)}($query, $query->{$component});
+                $sql[$component] = $this->{'compile' . \ucfirst($component)}($query, $query->{$component});
             }
         }
 

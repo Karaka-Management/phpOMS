@@ -19,7 +19,7 @@ class DatabaseStatusTest extends \PHPUnit\Framework\TestCase
 {
     public function testEnums()
     {
-        self::assertEquals(6, count(DatabaseStatus::getConstants()));
+        self::assertEquals(6, \count(DatabaseStatus::getConstants()));
         self::assertEquals(0, DatabaseStatus::OK);
         self::assertEquals(1, DatabaseStatus::MISSING_DATABASE);
         self::assertEquals(2, DatabaseStatus::MISSING_TABLE);

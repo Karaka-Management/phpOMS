@@ -90,7 +90,7 @@ class ChiSquaredDistribution
      */
     public static function testHypothesis(array $dataset, array $expected, float $significance = 0.05, int $df = 0) : array
     {
-        if (($count = count($dataset)) !== count($expected)) {
+        if (($count = \count($dataset)) !== \count($expected)) {
             throw new \Exception('Dimension');
         }
 
@@ -117,7 +117,7 @@ class ChiSquaredDistribution
             }
         }
 
-        $key = key(end(self::TABLE[$df]));
+        $key = \key(\end(self::TABLE[$df]));
         $p   = 1 - ($p ?? ($key === false ? 1 : (float) $key));
 
         return ['P' => $p, 'H0' => ($p > $significance), 'df' => $df];
@@ -134,10 +134,10 @@ class ChiSquaredDistribution
      */
     public static function getDegreesOfFreedom(array $values) : int
     {
-        if (is_array($first = reset($values))) {
-            return (count($values) - 1) * (count($first) - 1);
+        if (is_array($first = \reset($values))) {
+            return (\count($values) - 1) * (\count($first) - 1);
         } else {
-            return count($values) - 1;
+            return \count($values) - 1;
         }
     }
 
@@ -159,7 +159,7 @@ class ChiSquaredDistribution
             throw new \Exception('Out of bounds');
         }
 
-        return 1 / (pow(2, $df / 2) * Gamma::lanczosApproximationReal(($df / 2))) * pow($x, $df / 2 - 1) * exp(-$x / 2);
+        return 1 / (\pow(2, $df / 2) * Gamma::lanczosApproximationReal(($df / 2))) * \pow($x, $df / 2 - 1) * \exp(-$x / 2);
     }
 
     /**
@@ -173,7 +173,7 @@ class ChiSquaredDistribution
      */
     public static function getMode(int $df) : int
     {
-        return max([$df - 2, 0]);
+        return \max([$df - 2, 0]);
     }
 
     /**
@@ -236,7 +236,7 @@ class ChiSquaredDistribution
             throw new \Exception('Out of bounds');
         }
 
-        return pow(1 - 2 * $t, -$df / 2);
+        return \pow(1 - 2 * $t, -$df / 2);
     }
 
     /**
@@ -250,7 +250,7 @@ class ChiSquaredDistribution
      */
     public static function getSkewness(int $df) : float
     {
-        return sqrt(8 / $df);
+        return \sqrt(8 / $df);
     }
 
     /**

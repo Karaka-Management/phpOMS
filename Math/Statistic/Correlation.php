@@ -66,7 +66,7 @@ final class Correlation
     {
         $squaredMeanDeviation = MeasureOfDispersion::squaredMeanDeviation($x);
         $mean                 = Average::arithmeticMean($x);
-        $count                = count($x);
+        $count                = \count($x);
         $sum                  = 0.0;
 
         for ($i = $k; $i < $count; ++$i) {

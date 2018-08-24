@@ -95,7 +95,7 @@ final class Numbers
      */
     public static function isSquare(int $n) : bool
     {
-        return abs(((int) sqrt($n)) * ((int) sqrt($n)) - $n) < 0.001;
+        return \abs(((int) \sqrt($n)) * ((int) \sqrt($n)) - $n) < 0.001;
     }
 
     /**

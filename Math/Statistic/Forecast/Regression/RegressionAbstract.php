@@ -44,8 +44,8 @@ abstract class RegressionAbstract
      */
     public static function getRegression(array $x, array $y) : array
     {
-        if (count($x) !== count($y)) {
-            throw new InvalidDimensionException(count($x) . 'x' . count($y));
+        if (\count($x) !== \count($y)) {
+            throw new InvalidDimensionException(\count($x) . 'x' . \count($y));
         }
 
         $b1 = self::getBeta1($x, $y);
@@ -68,7 +68,7 @@ abstract class RegressionAbstract
      */
     public static function getStandardErrorOfRegression(array $errors) : float
     {
-        $count = count($errors);
+        $count = \count($errors);
         $sum   = 0.0;
 
         for ($i = 0; $i < $count; ++$i) {
@@ -76,7 +76,7 @@ abstract class RegressionAbstract
         }
 
         // todo: could this be - 1 depending on the different definitions?!
-        return sqrt(1 / ($count - 2) * $sum);
+        return \sqrt(1 / ($count - 2) * $sum);
     }
 
     /**
@@ -93,7 +93,7 @@ abstract class RegressionAbstract
      */
     public static function getPredictionInterval(float $forecasted, array $x, array $errors, float $multiplier = ForecastIntervalMultiplier::P_95) : array
     {
-        $count = count($x);
+        $count = \count($x);
         $meanX = Average::arithmeticMean($x);
         $sum   = 0.0;
 
@@ -101,7 +101,7 @@ abstract class RegressionAbstract
             $sum += ($x[$i] - $meanX) ** 2;
         }
 
-        $interval = $multiplier * self::getStandardErrorOfRegression($errors) * sqrt(1 + 1 / $count + $sum / (($count - 1) * MeasureOfDispersion::standardDeviation($x) ** 2));
+        $interval = $multiplier * self::getStandardErrorOfRegression($errors) * \sqrt(1 + 1 / $count + $sum / (($count - 1) * MeasureOfDispersion::standardDeviation($x) ** 2));
 
         return [$forecasted - $interval, $forecasted + $interval];
     }
@@ -120,7 +120,7 @@ abstract class RegressionAbstract
      */
     private static function getBeta1(array $x, array $y) : float
     {
-        $count = count($x);
+        $count = \count($x);
         $meanX = Average::arithmeticMean($x);
         $meanY = Average::arithmeticMean($y);
 

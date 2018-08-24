@@ -116,7 +116,7 @@ final class Money implements \Serializable
         $left  = \str_replace($thousands, '', $left);
         $right = '';
 
-        if (count($split) > 1) {
+        if (\count($split) > 1) {
             $right = $split[1];
         }
 
@@ -191,7 +191,7 @@ final class Money implements \Serializable
      */
     public function getAmount(int $decimals = 2) : string
     {
-        $value = (string) round($this->value, -self::MAX_DECIMALS + $decimals);
+        $value = (string) \round($this->value, -self::MAX_DECIMALS + $decimals);
 
         $left  = \substr($value, 0, -self::MAX_DECIMALS);
         $right = \substr($value, -self::MAX_DECIMALS);

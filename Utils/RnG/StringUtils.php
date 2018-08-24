@@ -41,7 +41,7 @@ class StringUtils
     ) : string
     {
         $length           = mt_rand($min, $max);
-        $charactersLength = strlen($charset);
+        $charactersLength = \strlen($charset);
         $randomString     = '';
 
         for ($i = 0; $i < $length; ++$i) {

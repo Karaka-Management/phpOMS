@@ -19,7 +19,7 @@ class SpeedTypeTest extends \PHPUnit\Framework\TestCase
 {
     public function testEnums()
     {
-        self::assertEquals(34, count(SpeedType::getConstants()));
+        self::assertEquals(34, \count(SpeedType::getConstants()));
         self::assertEquals(SpeedType::getConstants(), array_unique(SpeedType::getConstants()));
 
         self::assertEquals('mpd', SpeedType::MILES_PER_DAY);

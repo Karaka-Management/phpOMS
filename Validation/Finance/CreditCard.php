@@ -35,7 +35,7 @@ final class CreditCard extends ValidatorAbstract
         $value = preg_replace('/\D/', '', $value);
 
         // Set the string length and parity
-        $numberLength = strlen($value);
+        $numberLength = \strlen($value);
         $parity       = $numberLength % 2;
 
         // Loop through each digit and do the maths
@@ -69,11 +69,11 @@ final class CreditCard extends ValidatorAbstract
      */
     public static function luhnTest(string $num) : bool
     {
-        $len = strlen($num);
+        $len = \strlen($num);
         $sum = 0;
 
         for ($i = $len - 1; $i >= 0; $i--) {
-            $ord = ord($num[$i]);
+            $ord = \ord($num[$i]);
 
             if (($len - 1) & $i) {
                 $sum += $ord;

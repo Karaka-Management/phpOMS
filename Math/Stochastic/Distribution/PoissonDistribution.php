@@ -30,7 +30,7 @@ class PoissonDistribution
     /**
      * Get density.
      *
-     * Formula: e^(k * ln(lambda) - lambda - log(gamma(k+1))
+     * Formula: e^(k * ln(lambda) - lambda - \log(gamma(k+1))
      *
      * @param int   $k      Value k
      * @param float $lambda Lambda
@@ -41,7 +41,7 @@ class PoissonDistribution
      */
     public static function getPmf(int $k, float $lambda) : float
     {
-        return exp($k * log($lambda) - $lambda - log(Gamma::getGammaInteger($k + 1)));
+        return \exp($k * \log($lambda) - $lambda - \log(Gamma::getGammaInteger($k + 1)));
     }
 
     /**
@@ -59,10 +59,10 @@ class PoissonDistribution
         $sum = 0.0;
 
         for ($i = 0; $i < $k + 1; ++$i) {
-            $sum += pow($lambda, $i) / Functions::fact($i);
+            $sum += \pow($lambda, $i) / Functions::fact($i);
         }
 
-        return exp(-$lambda) * $sum;
+        return \exp(-$lambda) * $sum;
     }
 
     /**
@@ -133,7 +133,7 @@ class PoissonDistribution
      */
     public static function getMgf(float $lambda, float $t) : float
     {
-        return exp($lambda * (exp($t) - 1));
+        return \exp($lambda * (\exp($t) - 1));
     }
 
     /**
@@ -147,7 +147,7 @@ class PoissonDistribution
      */
     public static function getSkewness(float $lambda) : float
     {
-        return pow($lambda, -1 / 2);
+        return \pow($lambda, -1 / 2);
     }
 
     /**
@@ -161,7 +161,7 @@ class PoissonDistribution
      */
     public static function getFisherInformation(float $lambda) : float
     {
-        return pow($lambda, -1);
+        return \pow($lambda, -1);
     }
 
     /**
@@ -175,7 +175,7 @@ class PoissonDistribution
      */
     public static function getExKurtosis(float $lambda) : float
     {
-        return pow($lambda, -1);
+        return \pow($lambda, -1);
     }
 
     public static function getRandom()

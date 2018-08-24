@@ -19,7 +19,7 @@ class PhoneTypeTest extends \PHPUnit\Framework\TestCase
 {
     public function testEnums()
     {
-        self::assertEquals(4, count(PhoneType::getConstants()));
+        self::assertEquals(4, \count(PhoneType::getConstants()));
         self::assertEquals(1, PhoneType::HOME);
         self::assertEquals(2, PhoneType::BUSINESS);
         self::assertEquals(3, PhoneType::MOBILE);

@@ -66,9 +66,9 @@ class Builder
 
     private function createTable($node) : array
     {
-        if (strtolower($node->tagName) === 'table') {
+        if (\strtolower($node->tagName) === 'table') {
             return $this->createTableFromTable();
-        } elseif (strtolower($node->tagName) === 'li') {
+        } elseif (\strtolower($node->tagName) === 'li') {
             return $this->createTableFromList();
         } else {
             return $this->createTableFromContent();

@@ -77,7 +77,7 @@ final class Header extends HeaderAbstract
             return false;
         }
 
-        $key = strtolower($key);
+        $key = \strtolower($key);
 
         if (!$overwrite && isset($this->header[$key])) {
             return false;
@@ -105,7 +105,7 @@ final class Header extends HeaderAbstract
      */
     public static function isSecurityHeader(string $key) : bool
     {
-        $key = strtolower($key);
+        $key = \strtolower($key);
 
         return $key === 'content-security-policy'
             || $key === 'x-xss-protection'

@@ -25,8 +25,8 @@ class MarketShareEstimationTest extends \PHPUnit\Framework\TestCase
 
     public function testZipfShare()
     {
-        self::assertTrue(abs(0.01 - MarketShareEstimation::getMarketShareFromRank(1000, 13)) < 0.01);
-        self::assertTrue(abs(0.01 - MarketShareEstimation::getMarketShareFromRank(100, 19)) < 0.01);
-        self::assertTrue(abs(0.01 - MarketShareEstimation::getMarketShareFromRank(100000, 8)) < 0.01);
+        self::assertTrue(\abs(0.01 - MarketShareEstimation::getMarketShareFromRank(1000, 13)) < 0.01);
+        self::assertTrue(\abs(0.01 - MarketShareEstimation::getMarketShareFromRank(100, 19)) < 0.01);
+        self::assertTrue(\abs(0.01 - MarketShareEstimation::getMarketShareFromRank(100000, 8)) < 0.01);
     }
 }

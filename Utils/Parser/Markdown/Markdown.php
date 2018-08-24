@@ -541,7 +541,7 @@ class Markdown
 
         return [
             'element' => [
-                'name' => 'h' . min(6, $level),
+                'name' => 'h' . \min(6, $level),
                 'text' => \trim($lineArray['text'], '# '),
                 'handler' => 'line',
             ],
@@ -575,7 +575,7 @@ class Markdown
         ];
 
         if ($name === 'ol') {
-            $listStart = stristr($matches[0], '.', true);
+            $listStart = \stristr($matches[0], '.', true);
 
             if ($listStart !== '1') {
                 $block['element']['attributes'] = ['start' => $listStart];
@@ -816,7 +816,7 @@ class Markdown
                     $alignment = 'left';
                 }
 
-                if (substr($dividerCell, -1) === ':') {
+                if (\substr($dividerCell, -1) === ':') {
                     $alignment = $alignment === 'left' ? 'center' : 'right';
                 }
 

@@ -72,7 +72,7 @@ class C39 extends C128Abstract
      */
     public function setContent(string $content) : void
     {
-        parent::setContent(strtoupper($content));
+        parent::setContent(\strtoupper($content));
     }
 
     /**
@@ -85,7 +85,7 @@ class C39 extends C128Abstract
     protected function generateCodeString() : string
     {
         $codeString = '';
-        $length     = strlen($this->content);
+        $length     = \strlen($this->content);
 
         for ($X = 1; $X <= $length; $X++) {
             $codeString .= self::$CODEARRAY[substr($this->content, ($X - 1), 1)] . '1';

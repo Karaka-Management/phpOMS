@@ -19,7 +19,7 @@ class SeasonalTypeTest extends \PHPUnit\Framework\TestCase
 {
     public function testEnums()
     {
-        self::assertEquals(4, count(SeasonalType::getConstants()));
+        self::assertEquals(4, \count(SeasonalType::getConstants()));
         self::assertEquals(SeasonalType::getConstants(), array_unique(SeasonalType::getConstants()));
 
         self::assertEquals(0, SeasonalType::ALL);

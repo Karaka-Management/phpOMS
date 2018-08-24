@@ -59,7 +59,7 @@ class UniformDistributionDiscrete
             throw new \Exception('Out of bounds');
         }
 
-        return (floor($k) - $a + 1) / ($b - $a + 1);
+        return (\floor($k) - $a + 1) / ($b - $a + 1);
     }
 
     /**
@@ -75,7 +75,7 @@ class UniformDistributionDiscrete
      */
     public static function getMgf(int $t, float $a, float $b) : float
     {
-        return (exp($a * $t) - exp(($b + 1) * $t)) / (($b - $a + 1) * (1 - exp($t)));
+        return (\exp($a * $t) - \exp(($b + 1) * $t)) / (($b - $a + 1) * (1 - \exp($t)));
     }
 
     /**

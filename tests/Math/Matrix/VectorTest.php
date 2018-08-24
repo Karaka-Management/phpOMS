@@ -22,6 +22,6 @@ class VectorTest extends \PHPUnit\Framework\TestCase
         self::assertInstanceOf('\phpOMS\Math\Matrix\Vector', new Vector());
 
         $vec = new Vector(5);
-        self::assertEquals(5, count($vec->toArray()));
+        self::assertEquals(5, \count($vec->toArray()));
     }
 }

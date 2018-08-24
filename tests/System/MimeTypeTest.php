@@ -24,7 +24,7 @@ class MimeTypeTest extends \PHPUnit\Framework\TestCase
         $enums = MimeType::getConstants();
 
         foreach ($enums as $key => $value) {
-            if (stripos($value, '/') === false) {
+            if (\stripos($value, '/') === false) {
                 self::assertFalse(true);
             }
         }

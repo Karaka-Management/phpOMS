@@ -37,7 +37,7 @@ class LaplaceDistribution
      */
     public static function getPdf(float $x, float $mu, float $b) : float
     {
-        return 1 / (2 * $b) * exp(-abs($x - $mu) / $b);
+        return 1 / (2 * $b) * \exp(-abs($x - $mu) / $b);
     }
 
     /**
@@ -53,7 +53,7 @@ class LaplaceDistribution
      */
     public static function getCdf(float $x, float $mu, float $b) : float
     {
-        return $x < $mu ? exp(($x - $mu) / $b) / 2 : 1 - exp(-($x - $mu) / $b) / 2;
+        return $x < $mu ? \exp(($x - $mu) / $b) / 2 : 1 - \exp(-($x - $mu) / $b) / 2;
     }
 
     /**
@@ -131,7 +131,7 @@ class LaplaceDistribution
             throw new \Exception('Out of bounds');
         }
 
-        return exp($mu * $t) / (1 - $b ** 2 * $t ** 2);
+        return \exp($mu * $t) / (1 - $b ** 2 * $t ** 2);
     }
 
     /**

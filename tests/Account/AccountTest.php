@@ -97,7 +97,7 @@ class AccountTest extends \PHPUnit\Framework\TestCase
 
         $array = $account->toArray();
         self::assertTrue(is_array($array));
-        self::assertGreaterThan(0, count($array));
+        self::assertGreaterThan(0, \count($array));
         self::assertEquals(\json_encode($array), $account->__toString());
         self::assertEquals($array, $account->jsonSerialize());
     }
@@ -110,7 +110,7 @@ class AccountTest extends \PHPUnit\Framework\TestCase
         $account->generatePassword('abcd');
 
         $account->addGroup(new Group());
-        self::assertEquals(1, count($account->getGroups()));
+        self::assertEquals(1, \count($account->getGroups()));
 
         $account->setName('Login');
         self::assertEquals('Login', $account->getName());
@@ -137,19 +137,19 @@ class AccountTest extends \PHPUnit\Framework\TestCase
         self::assertEquals(AccountType::GROUP, $account->getType());
 
         $account->addPermission(new class extends PermissionAbstract {});
-        self::assertEquals(1, count($account->getPermissions()));
+        self::assertEquals(1, \count($account->getPermissions()));
 
         $account->setPermissions([
             new class extends PermissionAbstract {},
             new class extends PermissionAbstract {},
         ]);
-        self::assertEquals(2, count($account->getPermissions()));
+        self::assertEquals(2, \count($account->getPermissions()));
 
         $account->addPermissions([
             new class extends PermissionAbstract {},
             new class extends PermissionAbstract {},
         ]);
-        self::assertEquals(4, count($account->getPermissions()));
+        self::assertEquals(4, \count($account->getPermissions()));
 
         self::assertFalse($account->hasPermission(PermissionType::READ, 1, 'a', 1, 1, 1, 1));
         self::assertTrue($account->hasPermission(PermissionType::NONE));

@@ -114,7 +114,7 @@ abstract class SettingsAbstract implements OptionsInterface
                     break;
             }
 
-            return count($options) > 1 ? $options : reset($options);
+            return \count($options) > 1 ? $options : \reset($options);
         } catch (\PDOException $e) {
             $exception = DatabaseExceptionFactory::createException($e);
             $message   = DatabaseExceptionFactory::createExceptionMessage($e);

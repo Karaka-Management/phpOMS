@@ -45,6 +45,6 @@ class CauchyDistributionTest extends \PHPUnit\Framework\TestCase
     {
         $gamma = 1.5;
 
-        self::assertEquals(log(4 * M_PI * $gamma), CauchyDistribution::getEntropy($gamma), '', 0.01);
+        self::assertEquals(\log(4 * M_PI * $gamma), CauchyDistribution::getEntropy($gamma), '', 0.01);
     }
 }

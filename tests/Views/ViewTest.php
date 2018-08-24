@@ -102,7 +102,7 @@ class ViewTest extends \PHPUnit\Framework\TestCase
         $tView = new View($this->app, $request, $response);
         self::assertTrue($view->addView('test', $tView));
         self::assertEquals($tView, $view->getView('test'));
-        self::assertEquals(1, count($view->getViews()));
+        self::assertEquals(1, \count($view->getViews()));
         self::assertTrue($view->removeView('test'));
         self::assertFalse($view->removeView('test'));
         self::assertFalse($view->getView('test'));

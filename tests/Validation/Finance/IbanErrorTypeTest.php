@@ -19,7 +19,7 @@ class IbanErrorTypeTest extends \PHPUnit\Framework\TestCase
 {
     public function testEnums()
     {
-        self::assertEquals(5, count(IbanErrorType::getConstants()));
+        self::assertEquals(5, \count(IbanErrorType::getConstants()));
         self::assertEquals(1, IbanErrorType::INVALID_COUNTRY);
         self::assertEquals(2, IbanErrorType::INVALID_LENGTH);
         self::assertEquals(4, IbanErrorType::INVALID_CHECKSUM);

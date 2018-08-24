@@ -127,7 +127,7 @@ class ArrayUtilsTest extends \PHPUnit\Framework\TestCase
 
         if (ArrayUtils::getArg('--configuration', $_SERVER['argv']) !== null) {
             self::assertGreaterThan(0, ArrayUtils::hasArg('--configuration', $_SERVER['argv']));
-            self::assertTrue(stripos(ArrayUtils::getArg('--configuration', $_SERVER['argv']), '.xml') !== false);
+            self::assertTrue(\stripos(ArrayUtils::getArg('--configuration', $_SERVER['argv']), '.xml') !== false);
         }
     }
 }

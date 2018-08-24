@@ -76,7 +76,7 @@ class Client extends SocketAbstract
             try {
                 $i++;
                 $msg = 'disconnect';
-                socket_write($this->sock, $msg, strlen($msg));
+                socket_write($this->sock, $msg, \strlen($msg));
 
                 $read = [$this->sock];
 
@@ -86,7 +86,7 @@ class Client extends SocketAbstract
                 // socket_strerror(socket_last_error());
                 //}
 
-                if (count($read) > 0) {
+                if (\count($read) > 0) {
                     $data = socket_read($this->sock, 1024);
 
                     /* Server no data */
@@ -95,7 +95,7 @@ class Client extends SocketAbstract
                     }
 
                     /* Normalize */
-                    $data = trim($data);
+                    $data = \trim($data);
 
                     if (!empty($data)) {
                         $data = \explode(' ', $data);

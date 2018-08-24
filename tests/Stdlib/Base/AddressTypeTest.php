@@ -19,7 +19,7 @@ class AddressTypeTest extends \PHPUnit\Framework\TestCase
 {
     public function testEnums()
     {
-        self::assertEquals(7, count(AddressType::getconstants()));
+        self::assertEquals(7, \count(AddressType::getconstants()));
         self::assertEquals(1, AddressType::HOME);
         self::assertEquals(2, AddressType::BUSINESS);
         self::assertEquals(3, AddressType::SHIPPING);

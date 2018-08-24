@@ -21,6 +21,6 @@ class ISO8601EnumArrayTest extends \PHPUnit\Framework\TestCase
 {
     public function testEnums()
     {
-        self::assertEquals(4, count(ISO8601EnumArray::getConstants()));
+        self::assertEquals(4, \count(ISO8601EnumArray::getConstants()));
     }
 }

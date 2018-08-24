@@ -234,6 +234,6 @@ final class EventManager
      */
     public function count() : int
     {
-        return count($this->callbacks);
+        return \count($this->callbacks);
     }
 }

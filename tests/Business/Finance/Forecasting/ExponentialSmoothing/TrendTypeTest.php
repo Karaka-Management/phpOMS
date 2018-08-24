@@ -19,7 +19,7 @@ class TrendTypeTest extends \PHPUnit\Framework\TestCase
 {
     public function testEnums()
     {
-        self::assertEquals(4, count(TrendType::getConstants()));
+        self::assertEquals(4, \count(TrendType::getConstants()));
         self::assertEquals(TrendType::getConstants(), array_unique(TrendType::getConstants()));
 
         self::assertEquals(0, TrendType::ALL);

@@ -145,7 +145,7 @@ class EmailAbstract
      */
     public function connect(string $user = '', string $pass = '') : void
     {
-        $this->mailbox = substr($this->mailbox, 0, -1) . ($this->ssl ? '/ssl/validate-cert' : '/novalidate-cert') . '}';
+        $this->mailbox = \substr($this->mailbox, 0, -1) . ($this->ssl ? '/ssl/validate-cert' : '/novalidate-cert') . '}';
 
         // /novalidate-cert
         if ($this->con === null) {
@@ -235,7 +235,7 @@ class EmailAbstract
     {
         $ids = imap_search($this->con, $option, SE_FREE, 'UTF-8');
 
-        return is_array($ids) ? imap_fetch_overview($this->con, implode(',', $ids)) : [];
+        return is_array($ids) ? imap_fetch_overview($this->con, \implode(',', $ids)) : [];
     }
 
     /**

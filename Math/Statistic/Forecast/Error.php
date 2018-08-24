@@ -139,7 +139,7 @@ class Error
      */
     public static function getRootMeanSquaredError(array $errors) : float
     {
-        return sqrt(Average::arithmeticMean(Functions::powerInt($errors, 2)));
+        return \sqrt(Average::arithmeticMean(Functions::powerInt($errors, 2)));
     }
 
     /**
@@ -158,8 +158,8 @@ class Error
      */
     public static function getCoefficientOfDetermination(array $observed, array $forecasted) : float
     {
-        $countO = count($observed);
-        $countF = count($forecasted);
+        $countO = \count($observed);
+        $countF = \count($forecasted);
         $sum1   = 0;
         $sum2   = 0;
         $meanY  = Average::arithmeticMean($observed);
@@ -224,7 +224,7 @@ class Error
      */
     public static function getAkaikeInformationCriterion(float $sse, int $observations, int $predictors) : float
     {
-        return $observations * log($sse / $observations) + 2 * ($predictors + 2);
+        return $observations * \log($sse / $observations) + 2 * ($predictors + 2);
     }
 
     /**
@@ -258,7 +258,7 @@ class Error
      */
     public static function getSchwarzBayesianInformationCriterion(float $sse, int $observations, int $predictors) : float
     {
-        return $observations * log($sse / $observations) + ($predictors + 2) * log($observations);
+        return $observations * \log($sse / $observations) + ($predictors + 2) * \log($observations);
     }
 
     /**
@@ -291,7 +291,7 @@ class Error
         $error = [];
 
         foreach ($observed as $key => $value) {
-            $error[] = 200 * abs($value - $forecasted[$key]) / ($value + $forecasted[$key]);
+            $error[] = 200 * \abs($value - $forecasted[$key]) / ($value + $forecasted[$key]);
         }
 
         return Average::arithmeticMean($error);
@@ -335,7 +335,7 @@ class Error
         $sum  = 0.0;
 
         foreach ($observed as $value) {
-            $sum += abs($value - $mean);
+            $sum += \abs($value - $mean);
         }
 
         return $error / MeasureOfDispersion::meanDeviation($observed);
@@ -383,7 +383,7 @@ class Error
     public static function getScaledErrorArray(array $errors, array $observed, int $m = 1) : array
     {
         $scaled = [];
-        $naive  = 1 / (count($observed) - $m) * self::getNaiveForecast($observed, $m);
+        $naive  = 1 / (\count($observed) - $m) * self::getNaiveForecast($observed, $m);
 
         foreach ($errors as $error) {
             $error[] = $error / $naive;
@@ -405,7 +405,7 @@ class Error
      */
     public static function getScaledError(float $error, array $observed, int $m = 1) : float
     {
-        return $error / (1 / (count($observed) - $m) * self::getNaiveForecast($observed, $m));
+        return $error / (1 / (\count($observed) - $m) * self::getNaiveForecast($observed, $m));
     }
 
     /**
@@ -421,10 +421,10 @@ class Error
     private static function getNaiveForecast(array $observed, int $m = 1) : float
     {
         $sum   = 0.0;
-        $count = count($observed);
+        $count = \count($observed);
 
         for ($i = 0 + $m; $i < $count; ++$i) {
-            $sum += abs($observed[$i] - $observed[$i - $m]);
+            $sum += \abs($observed[$i] - $observed[$i - $m]);
         }
 
         return $sum;

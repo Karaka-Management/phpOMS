@@ -21,7 +21,7 @@ class ResponseTypeTest extends \PHPUnit\Framework\TestCase
 {
     public function testEnums()
     {
-        self::assertEquals(3, count(ResponseType::getConstants()));
+        self::assertEquals(3, \count(ResponseType::getConstants()));
         self::assertEquals(0, ResponseType::HTTP);
         self::assertEquals(1, ResponseType::SOCKET);
         self::assertEquals(2, ResponseType::CONSOLE);

@@ -56,7 +56,7 @@ final class FileUtils
      */
     public static function getExtensionType(string $extension) : int
     {
-        $extension = strtolower($extension);
+        $extension = \strtolower($extension);
 
         if (\in_array($extension, self::CODE_EXTENSION)) {
             return ExtensionType::CODE;
@@ -93,7 +93,7 @@ final class FileUtils
     public static function absolute(string $origPath) : string
     {
         if (!\file_exists($origPath) || \realpath($origPath) === false) {
-            $startsWithSlash = strpos($origPath, '/') === 0 ? '/' : '';
+            $startsWithSlash = \strpos($origPath, '/') === 0 ? '/' : '';
 
             $path  = [];
             $parts = \explode('/', $origPath);

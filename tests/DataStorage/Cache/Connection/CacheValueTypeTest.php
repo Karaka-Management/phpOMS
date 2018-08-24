@@ -19,7 +19,7 @@ class CacheValueTypeTest extends \PHPUnit\Framework\TestCase
 {
     public function testEnums()
     {
-        self::assertEquals(8, count(CacheValueType::getConstants()));
+        self::assertEquals(8, \count(CacheValueType::getConstants()));
         self::assertEquals(0, CacheValueType::_INT);
         self::assertEquals(1, CacheValueType::_STRING);
         self::assertEquals(2, CacheValueType::_ARRAY);

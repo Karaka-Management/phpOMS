@@ -63,7 +63,7 @@ final class Average
      */
     public static function averageDatasetChange(array $x, int $h = 1) : float
     {
-        $count = count($x);
+        $count = \count($x);
 
         return $h * ($x[$count - 1] - $x[0]) / ($count - 1);
     }
@@ -85,7 +85,7 @@ final class Average
     public static function totalMovingAverage(array $x, int $order, array $weight = null, bool $symmetric = false) : array
     {
         $periods = (int) ($order / 2);
-        $count   = count($x) - ($symmetric ? $periods : 0);
+        $count   = \count($x) - ($symmetric ? $periods : 0);
         $avg     = [];
 
         for ($i = $periods; $i < $count; ++$i) {
@@ -113,7 +113,7 @@ final class Average
     public static function movingAverage(array $x, int $t, int $order, array $weight = null, bool $symmetric = false) : float
     {
         $periods = (int) ($order / 2);
-        $count   = count($x);
+        $count   = \count($x);
 
         if ($t < $periods || ($count < $periods) || ($symmetric && $t + $periods < $count)) {
             throw new \Exception('Periods');
@@ -146,8 +146,8 @@ final class Average
      */
     public static function weightedAverage(array $values, array $weight) : float
     {
-        if (($count = count($values)) !== count($weight)) {
-            throw new InvalidDimensionException(count($values) . 'x' . count($weight));
+        if (($count = \count($values)) !== \count($weight)) {
+            throw new InvalidDimensionException(\count($values) . 'x' . \count($weight));
         }
 
         $avg = 0.0;
@@ -174,7 +174,7 @@ final class Average
      */
     public static function arithmeticMean(array $values) : float
     {
-        $count = count($values);
+        $count = \count($values);
 
         if ($count === 0) {
             throw new ZeroDevisionException();
@@ -197,7 +197,7 @@ final class Average
     public static function mode(array $values) : float
     {
         $count = array_count_values($values);
-        $best  = max($count);
+        $best  = \max($count);
 
         return (float) (array_keys($count, $best)[0] ?? 0.0);
     }
@@ -216,7 +216,7 @@ final class Average
     public static function median(array $values) : float
     {
         sort($values);
-        $count     = count($values);
+        $count     = \count($values);
         $middleval = (int) floor(($count - 1) / 2);
 
         if ($count % 2) {
@@ -246,13 +246,13 @@ final class Average
      */
     public static function geometricMean(array $values, int $offset = 0) : float
     {
-        $count = count($values);
+        $count = \count($values);
 
         if ($count === 0) {
             throw new ZeroDevisionException();
         }
 
-        return pow(\array_product($values), 1 / $count);
+        return \pow(\array_product($values), 1 / $count);
     }
 
     /**
@@ -277,7 +277,7 @@ final class Average
             $values = array_slice($values, $offset, -$offset);
         }
 
-        $count = count($values);
+        $count = \count($values);
         $sum   = 0.0;
 
         foreach ($values as $value) {
@@ -307,11 +307,11 @@ final class Average
     {
         $y    = 0;
         $x    = 0;
-        $size = count($angles);
+        $size = \count($angles);
 
         for ($i = 0; $i < $size; ++$i) {
-            $x += cos(deg2rad($angles[$i]));
-            $y += sin(deg2rad($angles[$i]));
+            $x += \cos(deg2rad($angles[$i]));
+            $y += \sin(deg2rad($angles[$i]));
         }
 
         $x /= $size;
@@ -344,12 +344,12 @@ final class Average
         $coss = 0.0;
 
         foreach ($angles as $a) {
-            $sins += sin(deg2rad($a));
-            $coss += cos(deg2rad($a));
+            $sins += \sin(deg2rad($a));
+            $coss += \cos(deg2rad($a));
         }
 
-        $avgsin = $sins / (0.0 + count($angles));
-        $avgcos = $coss / (0.0 + count($angles));
+        $avgsin = $sins / (0.0 + \count($angles));
+        $avgcos = $coss / (0.0 + \count($angles));
         $avgang = rad2deg(atan2($avgsin, $avgcos));
 
         while ($avgang < 0.0) {

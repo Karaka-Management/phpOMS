@@ -21,7 +21,7 @@ class AssetTypeTest extends \PHPUnit\Framework\TestCase
 {
     public function testEnums()
     {
-        self::assertEquals(3, count(AssetType::getConstants()));
+        self::assertEquals(3, \count(AssetType::getConstants()));
         self::assertEquals(0, AssetType::CSS);
         self::assertEquals(1, AssetType::JS);
         self::assertEquals(2, AssetType::JSLATE);

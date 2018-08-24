@@ -109,7 +109,7 @@ final class Dispatcher
             throw new PathException($path);
         }
 
-        if (($c = count($dispatch)) === 3) {
+        if (($c = \count($dispatch)) === 3) {
             /* Handling static functions */
             $function = $dispatch[0] . '::' . $dispatch[2];
 
@@ -183,7 +183,7 @@ final class Dispatcher
     {
         if (!isset($this->controllers[$controller])) {
             // If module controller use module manager for initialization
-            if (strpos('\Modules\Controller', $controller) === 0) {
+            if (\strpos('\Modules\Controller', $controller) === 0) {
                 $split                          = \explode('\\', $controller);
                 $this->controllers[$controller] = $this->app->moduleManager->get($split[2]);
             } else {

@@ -90,7 +90,7 @@ final class SystemUtils
                 return $memUsage;
             }
 
-            $free     = trim($free);
+            $free     = \trim($free);
             $freeArr  = \explode("\n", $free);
             $mem      = \explode(' ', $freeArr[1]);
             $mem      = \array_values(\array_filter($mem));

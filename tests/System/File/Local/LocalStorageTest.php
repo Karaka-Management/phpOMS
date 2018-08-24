@@ -41,8 +41,8 @@ class LocalStorageTest extends \PHPUnit\Framework\TestCase
         self::assertEquals('txt', LocalStorage::extension($testFile));
         self::assertEquals('test', LocalStorage::name($testFile));
         self::assertEquals('test.txt', LocalStorage::basename($testFile));
-        self::assertEquals(basename(realpath(__DIR__)), LocalStorage::dirname($testFile));
-        self::assertEquals(realpath(__DIR__), LocalStorage::dirpath($testFile));
+        self::assertEquals(\basename(\realpath(__DIR__)), LocalStorage::dirname($testFile));
+        self::assertEquals(\realpath(__DIR__), LocalStorage::dirpath($testFile));
         self::assertEquals(1, LocalStorage::count($testFile));
 
         $now = new \DateTime('now');
@@ -123,7 +123,7 @@ class LocalStorageTest extends \PHPUnit\Framework\TestCase
         self::assertEquals(4, LocalStorage::count($dirTestPath));
         self::assertEquals(1, LocalStorage::count($dirTestPath, false));
 
-        self::assertEquals(6, count(LocalStorage::list($dirTestPath)));
+        self::assertEquals(6, \count(LocalStorage::list($dirTestPath)));
     }
 
     /**

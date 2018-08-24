@@ -71,7 +71,7 @@ abstract class Enum
         $constants = self::getConstants();
         $keys      = array_keys($constants);
 
-        return $constants[$keys[mt_rand(0, count($constants) - 1)]];
+        return $constants[$keys[mt_rand(0, \count($constants) - 1)]];
     }
 
     /**
@@ -135,7 +135,7 @@ abstract class Enum
      */
     public static function count() : int
     {
-        return count(self::getConstants());
+        return \count(self::getConstants());
     }
 
     /**

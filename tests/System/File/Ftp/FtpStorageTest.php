@@ -48,8 +48,8 @@ class FtpStorageTest extends \PHPUnit\Framework\TestCase
         self::assertEquals('txt', FtpStorage::extension($testFile));
         self::assertEquals('test', FtpStorage::name($testFile));
         self::assertEquals('test.txt', FtpStorage::basename($testFile));
-        self::assertEquals(basename(realpath(self::BASE)), FtpStorage::dirname($testFile));
-        self::assertEquals(realpath(self::BASE), FtpStorage::dirpath($testFile));
+        self::assertEquals(\basename(\realpath(self::BASE)), FtpStorage::dirname($testFile));
+        self::assertEquals(\realpath(self::BASE), FtpStorage::dirpath($testFile));
         self::assertEquals(1, FtpStorage::count($testFile));
 
         $now = new \DateTime('now');
@@ -138,7 +138,7 @@ class FtpStorageTest extends \PHPUnit\Framework\TestCase
         self::assertEquals(4, FtpStorage::count($dirTestPath));
         self::assertEquals(1, FtpStorage::count($dirTestPath, false));
 
-        self::assertEquals(6, count(FtpStorage::list($dirTestPath)));
+        self::assertEquals(6, \count(FtpStorage::list($dirTestPath)));
     }
 
     /**

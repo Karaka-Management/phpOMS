@@ -22,6 +22,6 @@ class ISO639EnumTest extends \PHPUnit\Framework\TestCase
     public function testEnums()
     {
         $enum = ISO639Enum::getConstants();
-        self::assertEquals(count($enum), count(array_unique($enum)));
+        self::assertEquals(\count($enum), \count(array_unique($enum)));
     }
 }

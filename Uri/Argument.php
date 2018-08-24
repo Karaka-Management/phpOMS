@@ -257,7 +257,7 @@ final class Argument implements UriInterface
      */
     public function getPathElement(int $pos = null) : string
     {
-        return explode('/', $this->path)[$pos] ?? '';
+        return \explode('/', $this->path)[$pos] ?? '';
     }
 
     /**
@@ -265,7 +265,7 @@ final class Argument implements UriInterface
      */
     public function getPathElements() : array
     {
-        return explode('/', $this->path);
+        return \explode('/', $this->path);
     }
 
     /**

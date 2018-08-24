@@ -132,12 +132,12 @@ class FileLoggerTest extends \PHPUnit\Framework\TestCase
         ]);
         $ob = ob_get_clean();
         self::assertEquals(1, $log->countLogs()['info'] ?? 0);
-        self::assertTrue(stripos($ob, 'msg;') !== false);
+        self::assertTrue(\stripos($ob, 'msg;') !== false);
 
         ob_start();
         $log->console('test', true);
         $ob = ob_get_clean();
-        self::assertEquals(date('[Y-m-d H:i:s] ') . "test\r\n", $ob);
+        self::assertEquals(\date('[Y-m-d H:i:s] ') . "test\r\n", $ob);
 
         unlink(__DIR__ . '/test.log');
 

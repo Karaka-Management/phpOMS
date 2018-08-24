@@ -36,7 +36,7 @@ class ExponentialDistribution
      */
     public static function getPdf(float $x, float $lambda) : float
     {
-        return $x >= 0 ? $lambda * exp(-$lambda * $x) : 0;
+        return $x >= 0 ? $lambda * \exp(-$lambda * $x) : 0;
     }
 
     /**
@@ -51,7 +51,7 @@ class ExponentialDistribution
      */
     public static function getCdf(float $x, float $lambda) : float
     {
-        return $x >= 0 ? 1 - exp($lambda * $x) : 0;
+        return $x >= 0 ? 1 - \exp($lambda * $x) : 0;
     }
 
     /**
@@ -105,7 +105,7 @@ class ExponentialDistribution
      */
     public static function getVariance(float $lambda) : float
     {
-        return pow($lambda, -2);
+        return \pow($lambda, -2);
     }
 
     /**

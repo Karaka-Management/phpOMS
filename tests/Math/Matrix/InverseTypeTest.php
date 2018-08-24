@@ -19,7 +19,7 @@ class InverseTypeTest extends \PHPUnit\Framework\TestCase
 {
     public function testEnums()
     {
-        self::assertEquals(1, count(InverseType::getConstants()));
+        self::assertEquals(1, \count(InverseType::getConstants()));
         self::assertEquals(InverseType::getConstants(), array_unique(InverseType::getConstants()));
 
         self::assertEquals(0, InverseType::GAUSS_JORDAN);

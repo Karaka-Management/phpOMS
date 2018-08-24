@@ -131,6 +131,6 @@ final class AccountManager implements \Countable
      */
     public function count() : int
     {
-        return count($this->accounts);
+        return \count($this->accounts);
     }
 }

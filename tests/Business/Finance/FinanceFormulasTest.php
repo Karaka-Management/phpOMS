@@ -25,7 +25,7 @@ class FinanceFormulasTest extends \PHPUnit\Framework\TestCase
         $n   = 12;
         $apy = FinanceFormulas::getAnnualPercentageYield($r, $n);
 
-        self::assertEquals(round($expected, 5), round($apy, 5));
+        self::assertEquals(round($expected, 5), \round($apy, 5));
         self::assertEquals(round($r, 2), FinanceFormulas::getStateAnnualInterestRateOfAPY($apy, $n));
     }
 
@@ -38,9 +38,9 @@ class FinanceFormulasTest extends \PHPUnit\Framework\TestCase
         $n   = 5;
         $fva = FinanceFormulas::getFutureValueOfAnnuity($P, $r, $n);
 
-        self::assertEquals(round($expected, 2), round($fva, 2));
+        self::assertEquals(round($expected, 2), \round($fva, 2));
         self::assertEquals($n, FinanceFormulas::getNumberOfPeriodsOfFVA($fva, $P, $r));
-        self::assertEquals(round($P, 2), round(FinanceFormulas::getPeriodicPaymentOfFVA($fva, $r, $n), 2));
+        self::assertEquals(round($P, 2), \round(FinanceFormulas::getPeriodicPaymentOfFVA($fva, $r, $n), 2));
     }
 
     public function testFutureValueOfAnnuityContinuousCompounding()
@@ -52,8 +52,8 @@ class FinanceFormulasTest extends \PHPUnit\Framework\TestCase
         $t     = 12;
         $fvacc = FinanceFormulas::getFutureValueOfAnnuityConinuousCompounding($cf, $r, $t);
 
-        self::assertEquals(round($expected, 2), round($fvacc, 2));
-        self::assertEquals(round($cf, 2), round(FinanceFormulas::getCashFlowOfFVACC($fvacc, $r, $t), 2));
+        self::assertEquals(round($expected, 2), \round($fvacc, 2));
+        self::assertEquals(round($cf, 2), \round(FinanceFormulas::getCashFlowOfFVACC($fvacc, $r, $t), 2));
         self::assertEquals($t, FinanceFormulas::getTimeOfFVACC($fvacc, $cf, $r));
     }
 
@@ -66,9 +66,9 @@ class FinanceFormulasTest extends \PHPUnit\Framework\TestCase
         $n  = 5;
         $p  = FinanceFormulas::getAnnuityPaymentPV($pv, $r, $n);
 
-        self::assertEquals(round($expected, 2), round($p, 2));
+        self::assertEquals(round($expected, 2), \round($p, 2));
         self::assertEquals($n, FinanceFormulas::getNumberOfAPPV($p, $pv, $r));
-        self::assertEquals(round($pv, 2), round(FinanceFormulas::getPresentValueOfAPPV($p, $r, $n), 2));
+        self::assertEquals(round($pv, 2), \round(FinanceFormulas::getPresentValueOfAPPV($p, $r, $n), 2));
     }
 
     public function testAnnuityPaymentFV()
@@ -80,9 +80,9 @@ class FinanceFormulasTest extends \PHPUnit\Framework\TestCase
         $n  = 5;
         $p  = FinanceFormulas::getAnnuityPaymentFV($fv, $r, $n);
 
-        self::assertEquals(round($expected, 2), round($p, 2));
+        self::assertEquals(round($expected, 2), \round($p, 2));
         self::assertEquals($n, FinanceFormulas::getNumberOfAPFV($p, $fv, $r));
-        self::assertEquals(round($fv, 2), round(FinanceFormulas::getFutureValueOfAPFV($p, $r, $n), 2));
+        self::assertEquals(round($fv, 2), \round(FinanceFormulas::getFutureValueOfAPFV($p, $r, $n), 2));
     }
 
     public function testAnnutiyPaymentFactorPV()
@@ -93,7 +93,7 @@ class FinanceFormulasTest extends \PHPUnit\Framework\TestCase
         $n = 5;
         $p = FinanceFormulas::getAnnutiyPaymentFactorPV($r, $n);
 
-        self::assertEquals(round($expected, 5), round($p, 5));
+        self::assertEquals(round($expected, 5), \round($p, 5));
         self::assertEquals($n, FinanceFormulas::getNumberOfAPFPV($p, $r));
     }
 
@@ -106,9 +106,9 @@ class FinanceFormulasTest extends \PHPUnit\Framework\TestCase
         $n   = 5;
         $pva = FinanceFormulas::getPresentValueOfAnnuity($P, $r, $n);
 
-        self::assertEquals(round($expected, 2), round($pva, 2));
+        self::assertEquals(round($expected, 2), \round($pva, 2));
         self::assertEquals($n, FinanceFormulas::getNumberOfPeriodsOfPVA($pva, $P, $r));
-        self::assertEquals(round($P, 2), round(FinanceFormulas::getPeriodicPaymentOfPVA($pva, $r, $n), 2));
+        self::assertEquals(round($P, 2), \round(FinanceFormulas::getPeriodicPaymentOfPVA($pva, $r, $n), 2));
     }
 
     public function testPresentValueAnnuityFactor()
@@ -119,7 +119,7 @@ class FinanceFormulasTest extends \PHPUnit\Framework\TestCase
         $n = 5;
         $p = FinanceFormulas::getPresentValueAnnuityFactor($r, $n);
 
-        self::assertEquals(round($expected, 4), round($p, 4));
+        self::assertEquals(round($expected, 4), \round($p, 4));
         self::assertEquals($n, FinanceFormulas::getPeriodsOfPVAF($p, $r));
     }
 
@@ -133,7 +133,7 @@ class FinanceFormulasTest extends \PHPUnit\Framework\TestCase
 
         $PV = FinanceFormulas::getPresentValueOfAnnuityDue($P, $r, $n);
 
-        self::assertEquals(round($expected, 2), round($PV, 2));
+        self::assertEquals(round($expected, 2), \round($PV, 2));
         self::assertEquals(round($P, 2), FinanceFormulas::getPeriodicPaymentOfPVAD($PV, $r, $n));
         self::assertEquals($n, FinanceFormulas::getPeriodsOfPVAD($PV, $P, $r));
     }
@@ -148,7 +148,7 @@ class FinanceFormulasTest extends \PHPUnit\Framework\TestCase
 
         $FV = FinanceFormulas::getFutureValueOfAnnuityDue($P, $r, $n);
 
-        self::assertEquals(round($expected, 2), round($FV, 2));
+        self::assertEquals(round($expected, 2), \round($FV, 2));
         self::assertEquals(round($P, 2), FinanceFormulas::getPeriodicPaymentOfFVAD($FV, $r, $n));
         self::assertEquals($n, FinanceFormulas::getPeriodsOfFVAD($FV, $P, $r));
     }
@@ -196,11 +196,11 @@ class FinanceFormulasTest extends \PHPUnit\Framework\TestCase
         $r = 0.05;
         $t = 3;
 
-        $C = round(FinanceFormulas::getCompoundInterest($P, $r, $t), 2);
+        $C = \round(FinanceFormulas::getCompoundInterest($P, $r, $t), 2);
 
         self::assertEquals(round($expected, 2), $C);
-        self::assertTrue(abs($P - FinanceFormulas::getPrincipalOfCompundInterest($C, $r, $t)) < 0.1);
-        self::assertEquals($t, (int) round(FinanceFormulas::getPeriodsOfCompundInterest($P, $C, $r), 0));
+        self::assertTrue(\abs($P - FinanceFormulas::getPrincipalOfCompundInterest($C, $r, $t)) < 0.1);
+        self::assertEquals($t, (int) \round(FinanceFormulas::getPeriodsOfCompundInterest($P, $C, $r), 0));
     }
 
     public function testContinuousCompounding()
@@ -211,12 +211,12 @@ class FinanceFormulasTest extends \PHPUnit\Framework\TestCase
         $r = 0.05;
         $t = 3;
 
-        $C = round(FinanceFormulas::getContinuousCompounding($P, $r, $t), 2);
+        $C = \round(FinanceFormulas::getContinuousCompounding($P, $r, $t), 2);
 
         self::assertEquals(round($expected, 2), $C);
-        self::assertEquals(round($P, 2), round(FinanceFormulas::getPrincipalOfContinuousCompounding($C, $r, $t), 2));
-        self::assertTrue(abs($t - FinanceFormulas::getPeriodsOfContinuousCompounding($P, $C, $r)) < 0.01);
-        self::assertTrue(abs($r - FinanceFormulas::getRateOfContinuousCompounding($P, $C, $t)) < 0.01);
+        self::assertEquals(round($P, 2), \round(FinanceFormulas::getPrincipalOfContinuousCompounding($C, $r, $t), 2));
+        self::assertTrue(\abs($t - FinanceFormulas::getPeriodsOfContinuousCompounding($P, $C, $r)) < 0.01);
+        self::assertTrue(\abs($r - FinanceFormulas::getRateOfContinuousCompounding($P, $C, $t)) < 0.01);
     }
 
     public function testSimpleInterest()
@@ -227,9 +227,9 @@ class FinanceFormulasTest extends \PHPUnit\Framework\TestCase
 
         $I = $P * $r * $t;
 
-        self::assertTrue(abs($I - FinanceFormulas::getSimpleInterest($P, $r, $t)) < 0.01);
-        self::assertTrue(abs($P - FinanceFormulas::getSimpleInterestPrincipal($I, $r, $t)) < 0.01);
-        self::assertTrue(abs($r - FinanceFormulas::getSimpleInterestRate($I, $P, $t)) < 0.01);
+        self::assertTrue(\abs($I - FinanceFormulas::getSimpleInterest($P, $r, $t)) < 0.01);
+        self::assertTrue(\abs($P - FinanceFormulas::getSimpleInterestPrincipal($I, $r, $t)) < 0.01);
+        self::assertTrue(\abs($r - FinanceFormulas::getSimpleInterestRate($I, $P, $t)) < 0.01);
         self::assertEquals($t, FinanceFormulas::getSimpleInterestTime($I, $P, $r));
     }
 
@@ -239,15 +239,15 @@ class FinanceFormulasTest extends \PHPUnit\Framework\TestCase
         $r  = 0.05;
         $CF = 1000;
 
-        self::assertTrue(abs(5.896 - FinanceFormulas::getDiscountedPaybackPeriod($CF, $O1, $r)) < 0.01);
+        self::assertTrue(\abs(5.896 - FinanceFormulas::getDiscountedPaybackPeriod($CF, $O1, $r)) < 0.01);
     }
 
     public function testDoublingTime()
     {
         $r = 0.05;
 
-        self::assertTrue(abs(14.207 - FinanceFormulas::getDoublingTime($r)) < 0.01);
-        self::assertTrue(abs($r - FinanceFormulas::getDoublingRate(14.207)) < 0.01);
+        self::assertTrue(\abs(14.207 - FinanceFormulas::getDoublingTime($r)) < 0.01);
+        self::assertTrue(\abs($r - FinanceFormulas::getDoublingRate(14.207)) < 0.01);
     }
 
     public function testDoublingTimeContinuousCompounding()
