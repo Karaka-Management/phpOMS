@@ -4,7 +4,7 @@
  *
  * PHP Version 7.2
  *
- * @package    TBD
+ * @package    phpOMS\Math\Number
  * @copyright  Dennis Eichhorn
  * @license    OMS License 1.0
  * @version    1.0.0
@@ -17,7 +17,7 @@ namespace phpOMS\Math\Number;
 /**
  * Basic operation interface.
  *
- * @package    Framework
+ * @package    phpOMS\Math\Number
  * @license    OMS License 1.0
  * @link       http://website.orange-management.de
  * @since      1.0.0
@@ -77,7 +77,7 @@ interface OperationInterface
      *
      * @since  1.0.0
      */
-    public function \pow($p);
+    public function pow($p);
 
     /**
      * Abs of value.
@@ -86,5 +86,5 @@ interface OperationInterface
      *
      * @since  1.0.0
      */
-    public function \abs();
+    public function abs();
 }
