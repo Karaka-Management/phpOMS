@@ -4,7 +4,7 @@
  *
  * PHP Version 7.2
  *
- * @package    TBD
+ * @package    phpOMS\Utils\IO\Csv
  * @copyright  Dennis Eichhorn
  * @license    OMS License 1.0
  * @version    1.0.0
@@ -17,7 +17,7 @@ namespace phpOMS\Utils\IO\Csv;
 /**
  * Options trait.
  *
- * @package    Framework
+ * @package    phpOMS\Utils\IO\Csv
  * @since      1.0.0
  */
 class CsvSettings

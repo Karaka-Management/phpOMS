@@ -4,7 +4,7 @@
  *
  * PHP Version 7.2
  *
- * @package    TBD
+ * @package    phpOMS\Utils\PDF
  * @copyright  Dennis Eichhorn
  * @license    OMS License 1.0
  * @version    1.0.0
@@ -20,7 +20,7 @@ include __DIR__ . '/../../../Resources/tcpdf/tcpdf.php';
 /**
  * Pdf class.
  *
- * @package    Modules
+ * @package    phpOMS\Utils\PDF
  * @since      1.0.0
  */
 

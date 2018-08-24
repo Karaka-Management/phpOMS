@@ -4,7 +4,7 @@
  *
  * PHP Version 7.2
  *
- * @package    TBD
+ * @package    phpOMS\Utils\Encoding
  * @copyright  Dennis Eichhorn
  * @license    OMS License 1.0
  * @version    1.0.0
@@ -17,7 +17,7 @@ namespace phpOMS\Utils\Encoding;
 /**
  * XOR encoding class
  *
- * @package    Framework
+ * @package    phpOMS\Utils\Encoding
  * @license    OMS License 1.0
  * @link       http://website.orange-management.de
  * @since      1.0.0

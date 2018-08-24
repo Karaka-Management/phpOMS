@@ -4,7 +4,7 @@
  *
  * PHP Version 7.2
  *
- * @package    TBD
+ * @package    phpOMS\Socket\Packets
  * @copyright  Dennis Eichhorn
  * @license    OMS License 1.0
  * @version    1.0.0
@@ -19,7 +19,7 @@ namespace phpOMS\Socket\Packets;
  *
  * Parsing/serializing arrays to and from php file
  *
- * @package    System
+ * @package    phpOMS\Socket\Packets
  * @license    OMS License 1.0
  * @link       http://website.orange-management.de
  * @since      1.0.0

@@ -4,7 +4,7 @@
  *
  * PHP Version 7.2
  *
- * @package    TBD
+ * @package    phpOMS\DataStorage\Database\Schema\Exception
  * @copyright  Dennis Eichhorn
  * @license    OMS License 1.0
  * @version    1.0.0
@@ -17,7 +17,7 @@ namespace phpOMS\DataStorage\Database\Schema\Exception;
 /**
  * Path exception class.
  *
- * @package    System
+ * @package    phpOMS\DataStorage\Database\Schema\Exception
  * @license    OMS License 1.0
  * @link       http://website.orange-management.de
  * @since      1.0.0

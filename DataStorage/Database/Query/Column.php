@@ -4,7 +4,7 @@
  *
  * PHP Version 7.2
  *
- * @package    TBD
+ * @package    phpOMS\DataStorage\Database\Query
  * @copyright  Dennis Eichhorn
  * @license    OMS License 1.0
  * @version    1.0.0
@@ -17,7 +17,7 @@ namespace phpOMS\DataStorage\Database\Query;
 /**
  * Database query builder.
  *
- * @package    Framework
+ * @package    phpOMS\DataStorage\Database\Query
  * @license    OMS License 1.0
  * @link       http://website.orange-management.de
  * @since      1.0.0

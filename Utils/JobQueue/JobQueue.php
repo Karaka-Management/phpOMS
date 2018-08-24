@@ -4,7 +4,7 @@
  *
  * PHP Version 7.2
  *
- * @package    TBD
+ * @package    phpOMS\Utils\JobQueue
  * @copyright  Dennis Eichhorn
  * @license    OMS License 1.0
  * @version    1.0.0
@@ -19,7 +19,7 @@ use phpOMS\Stdlib\Queue\PriorityQueue;
 /**
  * Array utils.
  *
- * @package    Framework
+ * @package    phpOMS\Utils\JobQueue
  * @license    OMS License 1.0
  * @link       http://website.orange-management.de
  * @since      1.0.0

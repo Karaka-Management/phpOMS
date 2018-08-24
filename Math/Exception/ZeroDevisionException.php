@@ -4,7 +4,7 @@
  *
  * PHP Version 7.2
  *
- * @package    TBD
+ * @package    phpOMS\Math\Exception
  * @copyright  Dennis Eichhorn
  * @license    OMS License 1.0
  * @version    1.0.0
@@ -17,7 +17,7 @@ namespace phpOMS\Math\Exception;
 /**
  * Zero devision exception.
  *
- * @package    Framework
+ * @package    phpOMS\Math\Exception
  * @license    OMS License 1.0
  * @link       http://website.orange-management.de
  * @since      1.0.0

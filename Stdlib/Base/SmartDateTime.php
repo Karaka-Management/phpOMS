@@ -4,7 +4,7 @@
  *
  * PHP Version 7.2
  *
- * @package    TBD
+ * @package    phpOMS\Stdlib\Base
  * @copyright  Dennis Eichhorn
  * @license    OMS License 1.0
  * @version    1.0.0
@@ -21,7 +21,7 @@ use phpOMS\Math\Functions\Functions;
  *
  * Providing smarter datetimes
  *
- * @package    Framework
+ * @package    phpOMS\Stdlib\Base
  * @license    OMS License 1.0
  * @link       http://website.orange-management.de
  * @since      1.0.0

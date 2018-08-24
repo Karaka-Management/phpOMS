@@ -4,7 +4,7 @@
  *
  * PHP Version 7.2
  *
- * @package    TBD
+ * @package    phpOMS\System\File\Ftp
  * @copyright  Dennis Eichhorn
  * @license    OMS License 1.0
  * @version    1.0.0
@@ -30,7 +30,7 @@ use phpOMS\Uri\Http;
  *
  * All static implementations require a path/uri in the following form: ftp://user:pass@domain.com/path/subpath...
  *
- * @package    Framework
+ * @package    phpOMS\System\File\Ftp
  * @license    OMS License 1.0
  * @link       http://website.orange-management.de
  * @since      1.0.0

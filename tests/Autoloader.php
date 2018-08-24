@@ -4,7 +4,7 @@
  *
  * PHP Version 7.2
  *
- * @package    TBD
+ * @package    Tests\PHPUnit
  * @copyright  Dennis Eichhorn
  * @license    OMS License 1.0
  * @version    1.0.0
@@ -19,7 +19,7 @@ spl_autoload_register('\Tests\PHPUnit\Autoloader::defaultAutoloader');
 /**
  * Autoloader class.
  *
- * @package    Framework
+ * @package    Tests\PHPUnit
  * @license    OMS License 1.0
  * @link       http://website.orange-management.de
  * @since      1.0.0
