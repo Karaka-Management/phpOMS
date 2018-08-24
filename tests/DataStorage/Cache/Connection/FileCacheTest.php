@@ -25,7 +25,7 @@ class FileCacheTest extends \PHPUnit\Framework\TestCase
 
         $cache = new FileCache(__DIR__ . '/Cache');
 
-        self::assertTrue(is_dir(__DIR__ . '/Cache'));
+        self::assertTrue(\is_dir(__DIR__ . '/Cache'));
         self::assertTrue($cache->flushAll());
         self::assertEquals(50, $cache->getThreshold());
         self::assertEquals(null, $cache->get('test'));

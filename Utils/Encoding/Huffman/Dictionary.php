@@ -92,7 +92,7 @@ final class Dictionary
             sort($count);
         }
 
-        $this->fill(is_array($count[0][1]) ? $count[0][1] : $count);
+        $this->fill(\is_array($count[0][1]) ? $count[0][1] : $count);
     }
 
     /**

@@ -1407,7 +1407,7 @@ class DataMapperAbstract implements DataMapperInterface
     {
         self::extend(__CLASS__);
 
-        if (is_scalar($obj)) {
+        if (\is_scalar($obj)) {
             $obj = static::get($obj);
         }
 

@@ -59,7 +59,7 @@ final class Storage
     public static function env(string $env = 'local') : StorageAbstract
     {
         if (isset(self::$registered[$env])) {
-            if (is_string(self::$registered[$env])) {
+            if (\is_string(self::$registered[$env])) {
                 $env = self::$registered[$env]::getInstance();
             } elseif (self::$registered[$env] instanceof StorageAbstract || self::$registered[$env] instanceof ContainerInterface) {
                 $env = self::$registered[$env];

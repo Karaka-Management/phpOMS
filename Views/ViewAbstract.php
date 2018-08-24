@@ -255,7 +255,7 @@ abstract class ViewAbstract implements \Serializable
             $includeData = include $path;
             $ob          = (string) ob_get_clean();
 
-            if (is_array($includeData)) {
+            if (\is_array($includeData)) {
                 return (string) \json_encode($includeData);
             }
         } catch (\Throwable $e) {

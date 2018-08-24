@@ -200,7 +200,7 @@ class MultiMap implements \Countable
      */
     private function getMultiple($key)
     {
-        if (is_array($key)) {
+        if (\is_array($key)) {
             if ($this->orderType === OrderType::LOOSE) {
                 $keys = Permutation::permut($key);
 

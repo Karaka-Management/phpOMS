@@ -73,13 +73,13 @@ final class Dispatcher
     {
         $views = [];
 
-        if (is_array($controller) && isset($controller['dest'])) {
+        if (\is_array($controller) && isset($controller['dest'])) {
             $controller = $controller['dest'];
         }
 
-        if (is_string($controller)) {
+        if (\is_string($controller)) {
             $views += $this->dispatchString($controller, $data);
-        } elseif (is_array($controller)) {
+        } elseif (\is_array($controller)) {
             $views += $this->dispatchArray($controller, $data);
         } elseif ($controller instanceof \Closure) {
             $views[] = $this->dispatchClosure($controller, $data);

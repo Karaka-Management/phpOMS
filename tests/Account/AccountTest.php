@@ -62,32 +62,32 @@ class AccountTest extends \PHPUnit\Framework\TestCase
         $account = new Account();
 
         /* Testing default values */
-        self::assertTrue(is_int($account->getId()));
+        self::assertTrue(\is_int($account->getId()));
         self::assertEquals(0, $account->getId());
 
         self::assertInstanceOf('\phpOMS\Localization\Localization', $account->getL11n());
 
         self::assertEquals([], $account->getGroups());
 
-        self::assertTrue(is_string($account->getName()));
+        self::assertTrue(\is_string($account->getName()));
         self::assertEquals('', $account->getName());
 
-        self::assertTrue(is_string($account->getName1()));
+        self::assertTrue(\is_string($account->getName1()));
         self::assertEquals('', $account->getName1());
 
-        self::assertTrue(is_string($account->getName2()));
+        self::assertTrue(\is_string($account->getName2()));
         self::assertEquals('', $account->getName2());
 
-        self::assertTrue(is_string($account->getName3()));
+        self::assertTrue(\is_string($account->getName3()));
         self::assertEquals('', $account->getName3());
 
-        self::assertTrue(is_string($account->getEmail()));
+        self::assertTrue(\is_string($account->getEmail()));
         self::assertEquals('', $account->getEmail());
 
-        self::assertTrue(is_int($account->getStatus()));
+        self::assertTrue(\is_int($account->getStatus()));
         self::assertEquals(AccountStatus::INACTIVE, $account->getStatus());
 
-        self::assertTrue(is_int($account->getType()));
+        self::assertTrue(\is_int($account->getType()));
         self::assertEquals(AccountType::USER, $account->getType());
 
         self::assertEquals([], $account->getPermissions());
@@ -96,7 +96,7 @@ class AccountTest extends \PHPUnit\Framework\TestCase
         self::assertInstanceOf('\DateTime', $account->getCreatedAt());
 
         $array = $account->toArray();
-        self::assertTrue(is_array($array));
+        self::assertTrue(\is_array($array));
         self::assertGreaterThan(0, \count($array));
         self::assertEquals(\json_encode($array), $account->__toString());
         self::assertEquals($array, $account->jsonSerialize());

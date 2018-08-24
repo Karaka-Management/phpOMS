@@ -155,8 +155,8 @@ class MultiMapTest extends \PHPUnit\Framework\TestCase
         self::assertEquals(3, \count($map->keys()));
         self::assertEquals(2, \count($map->values()));
 
-        self::assertTrue(is_array($map->keys()));
-        self::assertTrue(is_array($map->values()));
+        self::assertTrue(\is_array($map->keys()));
+        self::assertTrue(\is_array($map->values()));
     }
 
     public function testSiblings()

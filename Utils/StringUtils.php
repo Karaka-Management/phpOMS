@@ -108,7 +108,7 @@ final class StringUtils
      */
     public static function endsWith(string $haystack, $needles) : bool
     {
-        if (is_string($needles)) {
+        if (\is_string($needles)) {
             $needles = [$needles];
         }
 
@@ -140,7 +140,7 @@ final class StringUtils
      */
     public static function startsWith(string $haystack, $needles) : bool
     {
-        if (is_string($needles)) {
+        if (\is_string($needles)) {
             $needles = [$needles];
         }
 
@@ -168,7 +168,7 @@ final class StringUtils
      */
     public static function mb_startsWith(string $haystack, $needles) : bool
     {
-        if (is_string($needles)) {
+        if (\is_string($needles)) {
             $needles = [$needles];
         }
 
@@ -200,7 +200,7 @@ final class StringUtils
      */
     public static function mb_endsWith(string $haystack, $needles) : bool
     {
-        if (is_string($needles)) {
+        if (\is_string($needles)) {
             $needles = [$needles];
         }
 

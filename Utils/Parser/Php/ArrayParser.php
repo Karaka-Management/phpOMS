@@ -41,7 +41,7 @@ class ArrayParser
         $stringify = '[' . "\n";
 
         foreach ($arr as $key => $val) {
-            if (is_string($key)) {
+            if (\is_string($key)) {
                 $key = '\'' . \str_replace('\'', '\\\'', $key) . '\'';
             }
 
@@ -63,15 +63,15 @@ class ArrayParser
      */
     public static function parseVariable($value, int $depth = 1) : string
     {
-        if (is_array($value)) {
+        if (\is_array($value)) {
             return ArrayParser::serializeArray($value, $depth);
-        } elseif (is_string($value)) {
+        } elseif (\is_string($value)) {
             return '\'' . \str_replace('\'', '\\\'', $value) . '\'';
-        } elseif (is_scalar($value)) {
+        } elseif (\is_scalar($value)) {
             return (string) $value;
         } elseif ($value === null) {
             return 'null';
-        } elseif (is_bool($value)) {
+        } elseif (\is_bool($value)) {
             return $value ? 'true' : 'false';
         } elseif ($value instanceOf \Serializable) {
             return self::parseVariable($value->serialize());

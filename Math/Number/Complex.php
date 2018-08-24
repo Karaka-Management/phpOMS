@@ -148,9 +148,9 @@ final class Complex
 
     public function pow($value) : Complex
     {
-        if (is_int($value)) {
+        if (\is_int($value)) {
             return $this->powInteger($value);
-        } elseif (is_numeric($value)) {
+        } elseif (\is_numeric($value)) {
             return $this->powScalar($value);
         } elseif ($value instanceof Complex) {
             return $this->powComplex($value);
@@ -202,7 +202,7 @@ final class Complex
      */
     public function add($value) : Complex
     {
-        if (is_numeric($value)) {
+        if (\is_numeric($value)) {
             return $this->addScalar($value);
         } elseif ($value instanceof Complex) {
             return $this->addComplex($value);
@@ -252,7 +252,7 @@ final class Complex
      */
     public function sub($value) : Complex
     {
-        if (is_numeric($value)) {
+        if (\is_numeric($value)) {
             return $this->subScalar($value);
         } elseif ($value instanceof Complex) {
             return $this->subComplex($value);
@@ -302,7 +302,7 @@ final class Complex
      */
     public function mult($value) : Complex
     {
-        if (is_numeric($value)) {
+        if (\is_numeric($value)) {
             return $this->multScalar($value);
         } elseif ($value instanceof Complex) {
             return $this->multComplex($value);
@@ -355,7 +355,7 @@ final class Complex
      */
     public function div($value) : Complex
     {
-        if (is_numeric($value)) {
+        if (\is_numeric($value)) {
             return $this->divScalar($value);
         } elseif ($value instanceof Complex) {
             return $this->divComplex($value);

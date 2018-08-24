@@ -40,20 +40,20 @@ class GroupTest extends \PHPUnit\Framework\TestCase
         $group = new Group();
 
         /* Testing default values */
-        self::assertTrue(is_int($group->getId()));
+        self::assertTrue(\is_int($group->getId()));
         self::assertEquals(0, $group->getId());
 
-        self::assertTrue(is_string($group->getName()));
+        self::assertTrue(\is_string($group->getName()));
         self::assertEquals('', $group->getName());
 
-        self::assertTrue(is_int($group->getStatus()));
+        self::assertTrue(\is_int($group->getStatus()));
         self::assertEquals(GroupStatus::INACTIVE, $group->getStatus());
 
-        self::assertTrue(is_string($group->getDescription()));
+        self::assertTrue(\is_string($group->getDescription()));
         self::assertEquals('', $group->getDescription());
 
         $array = $group->toArray();
-        self::assertTrue(is_array($array));
+        self::assertTrue(\is_array($array));
         self::assertGreaterThan(0, \count($array));
         self::assertEquals(\json_encode($array), $group->__toString());
         self::assertEquals($array, $group->jsonSerialize());

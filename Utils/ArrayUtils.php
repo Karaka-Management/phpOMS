@@ -102,11 +102,11 @@ final class ArrayUtils
 
         if ($overwrite) {
             $current = $value;
-        } elseif (is_array($current) && !is_array($value)) {
+        } elseif (\is_array($current) && !is_array($value)) {
             $current[] = $value;
-        } elseif (is_array($current) && is_array($value)) {
+        } elseif (\is_array($current) && is_array($value)) {
             $current = array_merge($current, $value);
-        } elseif (is_scalar($current) && $current !== null) {
+        } elseif (\is_scalar($current) && $current !== null) {
             $current = [$current, $value];
         } else {
             $current = $value;
@@ -163,7 +163,7 @@ final class ArrayUtils
         foreach ($haystack as $item) {
             if ($item === $needle) {
                 return true;
-            } elseif (is_array($item)) {
+            } elseif (\is_array($item)) {
                 $found = self::inArrayRecursive($needle, $item);
 
                 if ($found) {
@@ -233,7 +233,7 @@ final class ArrayUtils
         $str = '[';
 
         foreach ($array as $key => $value) {
-            if (is_string($key)) {
+            if (\is_string($key)) {
                 $key = '\'' . $key . '\'';
             }
 
@@ -352,7 +352,7 @@ final class ArrayUtils
         while (!empty($stack)) {
             $value = array_shift($stack);
 
-            if (is_array($value)) {
+            if (\is_array($value)) {
                 $stack = array_merge(array_values($value), $stack);
             } else {
                 $flat[] = $value;

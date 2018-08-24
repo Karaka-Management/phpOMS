@@ -56,7 +56,7 @@ final class Basic
         }
 
         foreach ($values as $value) {
-            if (is_array($value)) {
+            if (\is_array($value)) {
                 $freaquency[] = self::frequency($value);
             } else {
                 $freaquency[] = $value / $sum;

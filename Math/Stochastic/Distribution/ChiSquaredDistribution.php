@@ -134,7 +134,7 @@ class ChiSquaredDistribution
      */
     public static function getDegreesOfFreedom(array $values) : int
     {
-        if (is_array($first = \reset($values))) {
+        if (\is_array($first = \reset($values))) {
             return (\count($values) - 1) * (\count($first) - 1);
         } else {
             return \count($values) - 1;

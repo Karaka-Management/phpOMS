@@ -51,7 +51,7 @@ class ViewTest extends \PHPUnit\Framework\TestCase
 
         self::assertEmpty($view->getTemplate());
         self::assertEmpty($view->getViews());
-        self::assertTrue(is_array($view->getViews()));
+        self::assertTrue(\is_array($view->getViews()));
         self::assertFalse($view->getView(0));
         self::assertFalse($view->removeView(0));
         self::assertNull($view->getData(0));
