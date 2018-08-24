@@ -25,57 +25,83 @@ namespace phpOMS\Utils\TaskSchedule;
  */
 class Cron extends SchedulerAbstract
 {
-
     /**
-     * Run command
-     *
-     * @param string $cmd Command to run
-     *
-     * @return string
-     *
-     * @throws \Exception
-     *
-     * @since  1.0.0
+     * {@inheritdoc}
      */
-    private function run(string $cmd) : string
+    public function create(TaskAbstract $task) : void
     {
-        $cmd = 'cd ' . escapeshellarg(\dirname(self::$bin)) . ' && ' . basename(self::$bin) . ' ' . $cmd;
-
-        $pipes = [];
-        $desc  = [
-            1 => ['pipe', 'w'],
-            2 => ['pipe', 'w'],
-        ];
-
-        $resource = proc_open($cmd, $desc, $pipes, __DIR__, null);
-        $stdout   = stream_get_contents($pipes[1]);
-        $stderr   = stream_get_contents($pipes[2]);
-
-        foreach ($pipes as $pipe) {
-            fclose($pipe);
-        }
-
-        $status = trim((string) proc_close($resource));
-
-        if ($status == -1) {
-            throw new \Exception($stderr);
-        }
-
-        return trim($stdout);
+        $this->run('-l > ' . __DIR__ . '/tmpcron.tmp');
+        \file_put_contents(__DIR__ . '/tmpcron.tmp', $task->__toString() . "\n", FILE_APPEND);
+        $this->run(__DIR__ . '/tmpcron.tmp');
+        unlink(__DIR__ . '/tmpcron.tmp');
     }
 
     /**
-     * Normalize run result for easier parsing
-     *
-     * @param string $raw Raw command output
-     *
-     * @return string Normalized string for parsing
-     *
-     * @since  1.0.0
+     * {@inheritdoc}
      */
-    private function normalize(string $raw) : string
+    public function update(TaskAbstract $task) : void
     {
-        return \str_replace("\r\n", "\n", $raw);
+        $this->run('-l > ' . __DIR__ . '/tmpcron.tmp');
+
+        $new = '';
+        $fp  = \fopen(__DIR__ . '/tmpcron.tmp', 'r+');
+
+        if ($fp) {
+            $line = \fgets($fp);
+            while ($line !== false) {
+                if ($line[0] !== '#' && \stripos($line, 'name="' . $task->getId()) !== false) {
+                    $new .= $task->__toString() . "\n";
+                } else {
+                    $new .= $line . "\n";
+                }
+
+                $line = \fgets($fp);
+            }
+
+            \fclose($fp);
+            \file_put_contents(__DIR__ . '/tmpcron.tmp', $new);
+        }
+
+        $this->run(__DIR__ . '/tmpcron.tmp');
+        unlink(__DIR__ . '/tmpcron.tmp');
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function delete(TaskAbstract $task) : void
+    {
+        $this->deleteByName($task->getId());
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function deleteByName(string $name) : void
+    {
+        $this->run('-l > ' . __DIR__ . '/tmpcron.tmp');
+
+        $new = '';
+        $fp  = \fopen(__DIR__ . '/tmpcron.tmp', 'r+');
+
+        if ($fp) {
+            $line = \fgets($fp);
+            while ($line !== false) {
+                if ($line[0] !== '#' && \stripos($line, 'name="' . $name) !== false) {
+                    $line = \fgets($fp);
+                    continue;
+                }
+
+                $new .= $line . "\n";
+                $line = \fgets($fp);
+            }
+
+            \fclose($fp);
+            \file_put_contents(__DIR__ . '/tmpcron.tmp', $new);
+        }
+
+        $this->run(__DIR__ . '/tmpcron.tmp');
+        unlink(__DIR__ . '/tmpcron.tmp');
     }
 
     /**
@@ -83,15 +109,35 @@ class Cron extends SchedulerAbstract
      */
     public function getAll() : array
     {
-        $lines = \explode("\n", $this->normalize($this->run('-l')));
-        unset($lines[0]);
+        $this->run('-l > ' . __DIR__ . '/tmpcron.tmp');
 
         $jobs = [];
-        foreach ($lines as $line) {
-            if ($line !== '' && strrpos($line, '#', -strlen($line)) === false) {
-                $jobs[] = CronJob::createWith(str_getcsv($line, ' '));
+        $fp   = \fopen(__DIR__ . '/tmpcron.tmp', 'r+');
+
+        if ($fp) {
+            $line = \fgets($fp);
+            while ($line !== false) {
+                if ($line[0] !== '#') {
+                    $elements   = [];
+                    $namePos    = \stripos($line, 'name="');
+                    $nameEndPos = \stripos($line, '"', $namePos + 7);
+
+                    if ($namePos !== false && $nameEndPos !== false) {
+                        $elements[] = \substr($line, $namePos + 6, $nameEndPos - 1);
+                    }
+
+                    $elements = \array_merge($elements, \explode(' ', $line));
+                    $jobs[]   = CronJob::createWith($elements);
+                }
+
+                $line = \fgets($fp);
             }
+
+            \fclose($fp);
         }
+
+        $this->run(__DIR__ . '/tmpcron.tmp');
+        unlink(__DIR__ . '/tmpcron.tmp');
 
         return $jobs;
     }
@@ -101,28 +147,29 @@ class Cron extends SchedulerAbstract
      */
     public function getAllByName(string $name, bool $exact = true) : array
     {
-        $lines = \explode("\n", $this->normalize($this->run('-l')));
-        unset($lines[0]);
+        $this->run('-l > ' . __DIR__ . '/tmpcron.tmp');
 
-        if ($exact) {
-            $jobs = [];
-            foreach ($lines as $line) {
-                $csv = str_getcsv($line, ' ');
+        $jobs = [];
+        $fp   = \fopen(__DIR__ . '/tmpcron.tmp', 'r+');
 
-                if ($line !== '' && strrpos($line, '#', -strlen($line)) === false && $csv[5] === $name) {
-                    $jobs[] = CronJob::createWith($csv);
+        if ($fp) {
+            $line = \fgets($fp);
+            while ($line !== false) {
+                if ($line[0] !== '#' && \stripos($line, '# name="' . $name) !== false) {
+                    $elements   = [];
+                    $elements[] = $name;
+                    $elements  += \explode(' ', $line);
+                    $jobs[]     = CronJob::createWith($elements);
                 }
-            }
-        } else {
-            $jobs = [];
-            foreach ($lines as $line) {
-                $csv = str_getcsv($line, ' ');
 
-                if ($line !== '' && strrpos($line, '#', -strlen($line)) === false && \stripos($csv[5], $name) !== false) {
-                    $jobs[] = CronJob::createWith($csv);
-                }
+                $line = \fgets($fp);
             }
+
+            \fclose($fp);
         }
+
+        $this->run(__DIR__ . '/tmpcron.tmp');
+        unlink(__DIR__ . '/tmpcron.tmp');
 
         return $jobs;
     }

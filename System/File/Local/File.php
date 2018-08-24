@@ -56,7 +56,7 @@ final class File extends FileAbstract implements FileInterface
     {
         parent::index();
 
-        $this->size = \filesize($this->path);
+        $this->size = (int) \filesize($this->path);
     }
 
     /**
@@ -98,7 +98,9 @@ final class File extends FileAbstract implements FileInterface
             throw new PathException($path);
         }
 
-        return \file_get_contents($path);
+        $contents = \file_get_contents($path);
+
+        return $contents === false ? '' : $contents;
     }
 
     /**
@@ -166,7 +168,9 @@ final class File extends FileAbstract implements FileInterface
             throw new PathException($path);
         }
 
-        return self::createFileTime(\filemtime($path));
+        $time = \filemtime($path);
+
+        return self::createFileTime($time === false ? 0 : $time);
     }
 
     /**
@@ -178,7 +182,9 @@ final class File extends FileAbstract implements FileInterface
             throw new PathException($path);
         }
 
-        return self::createFileTime(\filemtime($path));
+        $time = \filemtime($path);
+
+        return self::createFileTime($time === false ? 0 : $time);
     }
 
     /**
@@ -207,7 +213,7 @@ final class File extends FileAbstract implements FileInterface
             throw new PathException($path);
         }
 
-        return filesize($path);
+        return (int) \filesize($path);
     }
 
     /**
@@ -219,7 +225,7 @@ final class File extends FileAbstract implements FileInterface
             throw new PathException($path);
         }
 
-        return \fileowner($path);
+        return (int) \fileowner($path);
     }
 
     /**
@@ -231,7 +237,7 @@ final class File extends FileAbstract implements FileInterface
             throw new PathException($path);
         }
 
-        return \fileperms($path);
+        return (int) \fileperms($path);
     }
 
     /**
@@ -245,7 +251,7 @@ final class File extends FileAbstract implements FileInterface
      */
     public static function dirname(string $path) : string
     {
-        return basename(\dirname($path));
+        return \basename(\dirname($path));
     }
 
     /**
@@ -259,7 +265,7 @@ final class File extends FileAbstract implements FileInterface
      */
     public static function dirpath(string $path) : string
     {
-        return dirname($path);
+        return \dirname($path);
     }
 
     /**
@@ -267,7 +273,7 @@ final class File extends FileAbstract implements FileInterface
      */
     public static function copy(string $from, string $to, bool $overwrite = false) : bool
     {
-        if (!is_file($from)) {
+        if (!\is_file($from)) {
             throw new PathException($from);
         }
 
@@ -325,7 +331,7 @@ final class File extends FileAbstract implements FileInterface
      */
     public function getDirName() : string
     {
-        return basename(\dirname($this->path));
+        return \basename(\dirname($this->path));
     }
 
     /**
@@ -375,7 +381,9 @@ final class File extends FileAbstract implements FileInterface
      */
     public function getContent() : string
     {
-        return \file_get_contents($this->path);
+        $contents = \file_get_contents($this->path);
+
+        return $contents === false ? '' : $contents;
     }
 
     /**

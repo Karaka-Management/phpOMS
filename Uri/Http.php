@@ -145,7 +145,7 @@ final class Http implements UriInterface
     public function set(string $uri) : void
     {
         $this->uri = $uri;
-        $url       = parse_url($this->uri);
+        $url       = \parse_url($this->uri);
 
         $this->scheme = $url['scheme'] ?? '';
         $this->host   = $url['host'] ?? '';
@@ -155,17 +155,23 @@ final class Http implements UriInterface
         $this->path   = $url['path'] ?? '';
 
         if (StringUtils::endsWith($this->path, '.php')) {
-            $this->path = substr($this->path, 0, -4);
+            $path = \substr($this->path, 0, -4);
+
+            if ($path === false) {
+                throw new \Exception();
+            }
+
+            $this->path = $path;
         }
 
-        $this->path        = strpos($this->path, $this->rootPath) === 0 ? substr($this->path, strlen($this->rootPath), strlen($this->path)) : $this->path;
+        $this->path        = \strpos($this->path, $this->rootPath) === 0 ? \substr($this->path, \strlen($this->rootPath), \strlen($this->path)) : $this->path;
         $this->queryString = $url['query'] ?? '';
 
         if (!empty($this->queryString)) {
-            parse_str($this->queryString, $this->query);
+            \parse_str($this->queryString, $this->query);
         }
 
-        $this->query = array_change_key_case($this->query, CASE_LOWER);
+        $this->query = \array_change_key_case($this->query, CASE_LOWER);
 
         $this->fragment = $url['fragment'] ?? '';
         $this->base     = $this->scheme . '://' . $this->host . $this->rootPath;
@@ -189,7 +195,7 @@ final class Http implements UriInterface
      */
     public static function isValid(string $uri) : bool
     {
-        return (bool) filter_var($uri, FILTER_VALIDATE_URL);
+        return (bool) \filter_var($uri, FILTER_VALIDATE_URL);
     }
 
     /**
@@ -258,7 +264,7 @@ final class Http implements UriInterface
      */
     public function getPathOffset() : int
     {
-        return substr_count($this->rootPath, '/') - 1;
+        return \substr_count($this->rootPath, '/') - 1;
     }
 
     /**
@@ -276,7 +282,7 @@ final class Http implements UriInterface
     public function getQuery(string $key = null)  : string
     {
         if ($key !== null) {
-            $key = strtolower($key);
+            $key = \strtolower($key);
 
             return $this->query[$key] ?? '';
         }
@@ -289,7 +295,7 @@ final class Http implements UriInterface
      */
     public function getPathElement(int $pos = null) : string
     {
-        return explode('/', $this->path)[$pos] ?? '';
+        return \explode('/', $this->path)[$pos] ?? '';
     }
 
     /**
@@ -297,7 +303,7 @@ final class Http implements UriInterface
      */
     public function getPathElements() : array
     {
-        return explode('/', $this->path);
+        return \explode('/', $this->path);
     }
 
     /**

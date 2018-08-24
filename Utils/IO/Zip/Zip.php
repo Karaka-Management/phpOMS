@@ -47,34 +47,42 @@ class Zip implements ArchiveInterface
 
         /** @var array $sources */
         foreach ($sources as $source => $relative) {
-            $source = \str_replace('\\', '/', realpath($source));
+            $source = \realpath($source);
+
+            if ($source === false) {
+                continue;
+            }
+
+            $source = \str_replace('\\', '/', $source);
 
             if (!\file_exists($source)) {
                 continue;
             }
 
-            if (is_dir($source)) {
+            if (\is_dir($source)) {
                 $files = new \RecursiveIteratorIterator(new \RecursiveDirectoryIterator($source), \RecursiveIteratorIterator::SELF_FIRST);
 
                 foreach ($files as $file) {
                     $file = \str_replace('\\', '/', $file);
 
                     /* Ignore . and .. */
-                    if (\in_array(mb_substr($file, mb_strrpos($file, '/') + 1), ['.', '..'])) {
+                    if (($pos = \mb_strrpos($file, '/')) === false
+                        || \in_array(\mb_substr($file, $pos + 1), ['.', '..'])
+                    ) {
                         continue;
                     }
 
-                    $absolute = realpath($file);
-                    $absolute = \str_replace('\\', '/', $absolute);
+                    $absolute = \realpath($file);
+                    $absolute = \str_replace('\\', '/', (string) $absolute);
                     $dir      = \str_replace($source . '/', '', $relative . '/' . $absolute);
 
-                    if (is_dir($absolute)) {
+                    if (\is_dir($absolute)) {
                         $zip->addEmptyDir($dir . '/');
-                    } elseif (is_file($absolute)) {
+                    } elseif (\is_file($absolute)) {
                         $zip->addFile($absolute, $dir);
                     }
                 }
-            } elseif (is_file($source)) {
+            } elseif (\is_file($source)) {
                 $zip->addFile($source, $relative);
             }
         }
@@ -92,7 +100,7 @@ class Zip implements ArchiveInterface
         }
 
         $destination = \str_replace('\\', '/', $destination);
-        $destination = rtrim($destination, '/');
+        $destination = \rtrim($destination, '/');
 
         $zip = new \ZipArchive();
         if (!$zip->open($source)) {

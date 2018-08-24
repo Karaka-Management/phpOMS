@@ -22,6 +22,7 @@ namespace phpOMS;
  * and afterwards read only.
  *
  * @property string $appName
+ * @property int $orgId
  * @property \phpOMS\DataStorage\Database\DatabasePool $dbPool
  * @property \phpOMS\Localization\L11nManager $l11nManager
  * @property \phpOMS\Router\Router $router
@@ -49,6 +50,14 @@ class ApplicationAbstract
      * @since 1.0.0
      */
     protected $appName = '';
+
+    /**
+     * Organization id.
+     *
+     * @var int
+     * @since 1.0.0
+     */
+    protected $orgId = 1;
 
     /**
      * Database object.

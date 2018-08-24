@@ -38,7 +38,7 @@ final class Builder extends BuilderAbstract
     /**
      * Columns.
      *
-     * @var array<string, array<string, string>>
+     * @var array
      * @since 1.0.0
      */
     public $selects = [];
@@ -46,7 +46,7 @@ final class Builder extends BuilderAbstract
     /**
      * Columns.
      *
-     * @var array<string, array<string, string>>
+     * @var array
      * @since 1.0.0
      */
     public $updates = [];
@@ -293,7 +293,7 @@ final class Builder extends BuilderAbstract
     /**
      * Bind parameter.
      *
-     * @param string|array|\Closure $binds Binds
+     * @param mixed $binds Binds
      *
      * @return Builder
      *
@@ -334,18 +334,6 @@ final class Builder extends BuilderAbstract
     public function toSql() : string
     {
         return $this->grammar->compileQuery($this);
-    }
-
-    /**
-     * Parsing to prepared string.
-     *
-     * @return string
-     *
-     * @since  1.0.0
-     */
-    public function toPrepared() : string
-    {
-        return $this->grammar->compilePreparedQuery($this);
     }
 
     /**
@@ -435,7 +423,7 @@ final class Builder extends BuilderAbstract
     /**
      * From.
      *
-     * @param string|array ...$tables Tables
+     * @param array ...$tables Tables
      *
      * @return Builder
      *
@@ -486,7 +474,7 @@ final class Builder extends BuilderAbstract
      */
     public function where($columns, $operator = null, $values = null, $boolean = 'and') : Builder
     {
-        if ($operator !== null && !\is_array($operator) && !\in_array(strtolower($operator), self::OPERATORS)) {
+        if ($operator !== null && !\is_array($operator) && !\in_array(\strtolower($operator), self::OPERATORS)) {
             throw new \InvalidArgumentException('Unknown operator.');
         }
 
@@ -499,7 +487,7 @@ final class Builder extends BuilderAbstract
 
         $i = 0;
         foreach ($columns as $key => $column) {
-            if (isset($operator[$i]) && !\in_array(strtolower($operator[$i]), self::OPERATORS)) {
+            if (isset($operator[$i]) && !\in_array(\strtolower($operator[$i]), self::OPERATORS)) {
                 throw new \InvalidArgumentException('Unknown operator.');
             }
 
@@ -1214,9 +1202,9 @@ final class Builder extends BuilderAbstract
      */
     public static function getBindParamType($value)
     {
-        if (is_int($value)) {
+        if (\is_int($value)) {
             return \PDO::PARAM_INT;
-        } elseif (\is_string($value) || is_float($value)) {
+        } elseif (\is_string($value) || \is_float($value)) {
             return \PDO::PARAM_STR;
         }
 
@@ -1239,7 +1227,7 @@ final class Builder extends BuilderAbstract
         if (\is_string($column)) {
             return $column;
         } elseif ($column instanceof Column) {
-            return $column->getPublicName();
+            return $column->getColumn();
         } elseif ($column instanceof \Closure) {
             return $column();
         } elseif ($column instanceof \Serializable) {

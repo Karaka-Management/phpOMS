@@ -49,6 +49,9 @@ class Ip
     {
         $split = \explode('.', $ip);
 
-        return $split[0] * (256 ** 3) + $split[1] * (256 ** 2) + $split[2] * (256 ** 1) + $split[3];
+        return ((int) $split[0] ?? 0) * (256 ** 3) 
+            + ((int) $split[1] ?? 0) * (256 ** 2) 
+            + ((int) $split[2] ?? 0) * (256 ** 1) 
+            + ((int) $split[3] ?? 0);
     }
 }

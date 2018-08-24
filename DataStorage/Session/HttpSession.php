@@ -50,7 +50,7 @@ class HttpSession implements SessionInterface
     /**
      * Session ID.
      *
-     * @var string|int
+     * @var string|int|null
      * @since 1.0.0
      */
     private $sid = null;
@@ -85,7 +85,7 @@ class HttpSession implements SessionInterface
         }
 
         if (!\is_bool($sid)) {
-            \session_id($sid);
+            \session_id((string) $sid);
         }
 
         $this->inactivityInterval = $inactivityInterval;

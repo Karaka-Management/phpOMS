@@ -123,7 +123,7 @@ class Mail
     /**
      * Word wrap.
      *
-     * @var string
+     * @var int
      * @since 1.0.0
      */
     protected $wordWrap = 78;

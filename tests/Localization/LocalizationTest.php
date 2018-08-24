@@ -16,6 +16,7 @@ namespace phpOMS\tests\Localization;
 use phpOMS\Localization\ISO3166TwoEnum;
 use phpOMS\Localization\ISO4217Enum;
 use phpOMS\Localization\ISO639x1Enum;
+use phpOMS\Localization\ISO4217CharEnum;
 use phpOMS\Localization\L11nManager;
 use phpOMS\Localization\Localization;
 use phpOMS\Localization\TimeZoneEnumArray;
@@ -55,7 +56,7 @@ class LocalizationTest extends \PHPUnit\Framework\TestCase
         self::assertTrue(ISO4217Enum::isValidValue($localization->getCurrency()));
         self::assertEquals('.', $localization->getDecimal());
         self::assertEquals(',', $localization->getThousands());
-        self::assertEquals('Y-m-d H:i:s', $localization->getDatetime());
+        self::assertEquals([], $localization->getDatetime());
 
         self::assertEquals([], $localization->getSpeed());
         self::assertEquals([], $localization->getWeight());
@@ -113,11 +114,11 @@ class LocalizationTest extends \PHPUnit\Framework\TestCase
         $localization->setLanguage(ISO639x1Enum::_DE);
         self::assertEquals(ISO639x1Enum::_DE, $localization->getLanguage());
 
-        $localization->setCurrency(ISO4217Enum::_EUR);
-        self::assertEquals(ISO4217Enum::_EUR, $localization->getCurrency());
+        $localization->setCurrency(ISO4217CharEnum::_EUR);
+        self::assertEquals(ISO4217CharEnum::_EUR, $localization->getCurrency());
 
-        $localization->setDatetime('Y-m-d H:i:s');
-        self::assertEquals('Y-m-d H:i:s', $localization->getDatetime());
+        $localization->setDatetime(['Y-m-d H:i:s']);
+        self::assertEquals(['Y-m-d H:i:s'], $localization->getDatetime());
 
         $localization->setDecimal(',');
         self::assertEquals(',', $localization->getDecimal());

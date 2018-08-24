@@ -21,7 +21,6 @@ class HttpSessionTest extends \PHPUnit\Framework\TestCase
     {
         $session = new HttpSession();
         self::assertEquals(null, $session->get('key'));
-        self::assertGreaterThan(0, strlen($session->getSID()));
         self::assertFalse(HttpSession::isLocked());
     }
 

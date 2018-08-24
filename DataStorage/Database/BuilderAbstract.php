@@ -14,7 +14,7 @@ declare(strict_types=1);
 
 namespace phpOMS\DataStorage\Database;
 
-use phpOMS\DataStorage\Database\Connection\ConnectionAbstract;
+use phpOMS\DataStorage\DataStorageConnectionInterface;
 use phpOMS\DataStorage\Database\Query\QueryType;
 
 /**
@@ -38,7 +38,7 @@ abstract class BuilderAbstract
     /**
      * Database connection.
      *
-     * @var ConnectionAbstract
+     * @var DataStorageConnectionInterface
      * @since 1.0.0
      */
     protected $connection = null;
@@ -49,7 +49,7 @@ abstract class BuilderAbstract
      * @var int
      * @since 1.0.0
      */
-    protected $type = QueryType::EMPTY;
+    protected $type = QueryType::NONE;
 
     /**
      * Prefix.
@@ -68,15 +68,9 @@ abstract class BuilderAbstract
     public $raw = '';
 
     /**
-     * Set prefix.
-     *
-     * @param string $prefix Prefix
-     *
-     * @return BuilderAbstract
-     *
-     * @since  1.0.0
+     * {@inheritdoc}
      */
-    public function prefix(string $prefix) : BuilderAbstract
+    public function prefix(string $prefix) : self
     {
         $this->prefix = $prefix;
 

@@ -43,7 +43,7 @@ final class Iban
     /**
      * Iban chars.
      *
-     * @var string
+     * @var int
      * @since 1.0.0
      */
     private $chars = 2;

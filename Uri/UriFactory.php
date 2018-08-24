@@ -187,11 +187,10 @@ final class UriFactory
      */
     private static function unique(string $url) : string
     {
-        $parts = \explode('?', $url);
+        $parts = \explode('&', \str_replace('?', '&', $url));
 
         if (count($parts) >= 2) {
-            $full   = $parts[1];
-            $pars   = \explode('&', $full);
+            $pars   = \array_slice($parts, 1);
             $comps  = [];
             $length = count($pars);
 

@@ -17,11 +17,17 @@ require_once __DIR__ . '/../Autoloader.php';
 
 use phpOMS\ApplicationAbstract;
 use phpOMS\Module\ModuleFactory;
+use phpOMS\Module\NullModule;
 
 class ModuleFactoryTest extends \PHPUnit\Framework\TestCase
 {
     public function testFactory()
     {
-        self::assertInstanceOf(\Modules\Admin\Controller::class, ModuleFactory::getInstance('Admin', new class extends ApplicationAbstract {}));
+        $instance = NullModule::class;
+        if (\file_exists(__DIR__ . '/../../../Modules')) {
+            $instance = \Modules\Admin\Controller::class;
+        } 
+        
+        self::assertInstanceOf($instance, ModuleFactory::getInstance('Admin', new class extends ApplicationAbstract {}));
     }
 }

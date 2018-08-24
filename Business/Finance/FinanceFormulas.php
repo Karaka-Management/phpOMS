@@ -48,7 +48,7 @@ final class FinanceFormulas
      */
     public static function getAnnualPercentageYield(float $r, int $n) : float
     {
-        return (float) pow(1 + $r / $n, $n) - 1;
+        return pow(1 + $r / $n, $n) - 1;
     }
 
     /**
@@ -65,7 +65,7 @@ final class FinanceFormulas
      */
     public static function getStateAnnualInterestRateOfAPY(float $apy, int $n) : float
     {
-        return (float) (pow($apy + 1, 1 / $n) - 1) * $n;
+        return (pow($apy + 1, 1 / $n) - 1) * $n;
     }
 
     /**
@@ -922,7 +922,7 @@ final class FinanceFormulas
      */
     public static function getFutureValueFactor(float $r, int $n) : float
     {
-        return (float) pow(1 + $r, $n);
+        return pow(1 + $r, $n);
     }
 
     /**

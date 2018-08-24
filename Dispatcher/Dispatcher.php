@@ -63,7 +63,7 @@ final class Dispatcher
      * Dispatch controller.
      *
      * @param string|array|\Closure $controller Controller string
-     * @param array|null            ...$data    Data
+     * @param array|null|mixed      ...$data    Data
      *
      * @return array
      *
@@ -111,7 +111,12 @@ final class Dispatcher
 
         if (($c = count($dispatch)) === 3) {
             /* Handling static functions */
-            $function           = $dispatch[0] . '::' . $dispatch[2];
+            $function = $dispatch[0] . '::' . $dispatch[2];
+
+            if (!\is_callable($function)) {
+                throw new \Exception();
+            }
+
             $views[$controller] = $function(...$data);
         } elseif ($c === 2) {
             $this->getController($dispatch[0]);
@@ -135,9 +140,14 @@ final class Dispatcher
      */
     private function dispatchArray(array $controller, array $data = null) : array
     {
+
         $views = [];
         foreach ($controller as $controllerSingle) {
-            $views += $this->dispatch($controllerSingle, ...$data);
+            if ($data === null) {
+                $views += $this->dispatch($controllerSingle);
+            } else {
+                $views += $this->dispatch($controllerSingle, ...$data);
+            }
         }
 
         return $views;

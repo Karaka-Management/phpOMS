@@ -18,6 +18,7 @@ use phpOMS\DataStorage\Database\DatabaseType;
 use phpOMS\DataStorage\Database\Exception\InvalidDatabaseTypeException;
 use phpOMS\DataStorage\Database\DatabasePool;
 use phpOMS\System\File\Local\Directory;
+use phpOMS\System\File\Local\File;
 use phpOMS\System\File\PathException;
 use phpOMS\System\File\PermissionException;
 use phpOMS\Utils\Parser\Php\ArrayParser;
@@ -73,7 +74,6 @@ class InstallerAbstract
                         $sth->bindValue(':from', $val['from'], \PDO::PARAM_STR);
                         $sth->bindValue(':for', $val['for'], \PDO::PARAM_STR);
                         $sth->bindValue(':file', $val['file'], \PDO::PARAM_STR);
-
                         $sth->execute();
                     }
                 }
@@ -115,7 +115,7 @@ class InstallerAbstract
      */
     private static function activate(DatabasePool $dbPool, InfoManager $info) : void
     {
-        /** @var ActivateAbstract $class */
+        /** @var StatusAbstract $class */
         $class = '\Modules\\' . $info->getDirectory() . '\Admin\Status';
         $class::activate($dbPool, $info);
     }
@@ -150,11 +150,13 @@ class InstallerAbstract
     {
         $directories = new Directory(\dirname($info->getPath()) . '/Admin/Routes');
 
-        foreach ($directories as $key => $subdir) {
-            if ($subdir instanceof Directory) {
-                foreach ($subdir as $key2 => $file) {
-                    self::installRoutes(__DIR__ . '/../../' . $subdir->getName() . '/' . basename($file->getName(), '.php') . '/Routes.php', $file->getPath());
+        foreach ($directories as $key => $child) {
+            if ($child instanceof Directory) {
+                foreach ($child as $key2 => $file) {
+                    self::installRoutes(__DIR__ . '/../../' . $child->getName() . '/' . \basename($file->getName(), '.php') . '/Routes.php', $file->getPath());
                 }
+            } elseif ($child instanceof File) {
+                self::installRoutes(__DIR__ . '/../../' . $child->getName() . '/Routes.php', $child->getPath());
             }
         }
     }
@@ -185,7 +187,7 @@ class InstallerAbstract
             throw new PathException($destRoutePath);
         }
 
-        if (!is_writable($destRoutePath)) {
+        if (!\is_writable($destRoutePath)) {
             throw new PermissionException($destRoutePath);
         }
 
@@ -194,7 +196,7 @@ class InstallerAbstract
         /** @noinspection PhpIncludeInspection */
         $moduleRoutes = include $srcRoutePath;
 
-        $appRoutes = array_merge_recursive($appRoutes, $moduleRoutes);
+        $appRoutes = \array_merge_recursive($appRoutes, $moduleRoutes);
 
         \file_put_contents($destRoutePath, '<?php return ' . ArrayParser::serializeArray($appRoutes) . ';', LOCK_EX);
     }
@@ -214,11 +216,13 @@ class InstallerAbstract
     {
         $directories = new Directory(\dirname($info->getPath()) . '/Admin/Hooks');
 
-        foreach ($directories as $key => $subdir) {
-            if ($subdir instanceof Directory) {
-                foreach ($subdir as $key2 => $file) {
-                    self::installHooks(__DIR__ . '/../../' . $subdir->getName() . '/' . basename($file->getName(), '.php') . '/Hooks.php', $file->getPath());
+        foreach ($directories as $key => $child) {
+            if ($child instanceof Directory) {
+                foreach ($child as $key2 => $file) {
+                    self::installHooks(__DIR__ . '/../../' . $child->getName() . '/' . \basename($file->getName(), '.php') . '/Hooks.php', $file->getPath());
                 }
+            } elseif ($child instanceof File) {
+                self::installRoutes(__DIR__ . '/../../' . $child->getName() . '/Hooks.php', $child->getPath());
             }
         }
     }
@@ -249,7 +253,7 @@ class InstallerAbstract
             throw new PathException($destHookPath);
         }
 
-        if (!is_writable($destHookPath)) {
+        if (!\is_writable($destHookPath)) {
             throw new PermissionException($destHookPath);
         }
 
@@ -258,7 +262,7 @@ class InstallerAbstract
         /** @noinspection PhpIncludeInspection */
         $moduleHooks = include $srcHookPath;
 
-        $appHooks = array_merge_recursive($appHooks, $moduleHooks);
+        $appHooks = \array_merge_recursive($appHooks, $moduleHooks);
 
         \file_put_contents($destHookPath, '<?php return ' . ArrayParser::serializeArray($appHooks) . ';', LOCK_EX);
     }

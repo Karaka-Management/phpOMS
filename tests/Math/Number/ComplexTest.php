@@ -32,37 +32,75 @@ class ComplexTest extends \PHPUnit\Framework\TestCase
         self::assertEquals(2, $cpl->im());
     }
 
-    public function testBasics()
+    public function testAdd()
     {
         $cpl1 = new Complex(2, 3);
         $cpl2 = new Complex(3, 4);
 
         self::assertEquals('5.00 + 7.00i', $cpl1->add($cpl2)->render());
         self::assertEquals('6.00 + 3.00i', $cpl1->add(4)->render());
+    }
+
+    public function testSub()
+    {
+        $cpl1 = new Complex(2, 3);
+        $cpl2 = new Complex(3, 4);
 
         self::assertEquals('-1.00 - 1.00i', $cpl1->sub($cpl2)->render());
         self::assertEquals('-2.00 + 3.00i', $cpl1->sub(4)->render());
+    }
+
+    public function testMult()
+    {
+        $cpl1 = new Complex(2, 3);
+        $cpl2 = new Complex(3, 4);
 
         self::assertEquals('-6.00 + 17.00i', $cpl1->mult($cpl2)->render());
         self::assertEquals('8.00 + 12.00i', $cpl1->mult(4)->render());
+    }
+
+    public function testDiv()
+    {
+        $cpl1 = new Complex(2, 3);
+        $cpl2 = new Complex(3, 4);
 
         self::assertEquals('0.72 + 0.04i', $cpl1->div($cpl2)->render(2));
         self::assertEquals('0.50 + 0.75i', $cpl1->div(4)->render(2));
     }
 
-    public function testSpecial()
+    public function testConjugate()
     {
         $cpl = new Complex(4, 3);
 
         self::assertEquals('4 - 3i', $cpl->conjugate()->render(0));
+    }
+
+    public function testReciprocal()
+    {
+        $cpl = new Complex(4, 3);
+
         self::assertEquals('0.16 - 0.12i', $cpl->reciprocal()->render(2));
+    }
+
+    public function testPower()
+    {
+        $cpl = new Complex(4, 3);
 
         self::assertEquals('7.00 + 24.00i', $cpl->square()->render());
         self::assertEquals('7.00 + 24.00i', $cpl->pow(2)->render());
         self::assertEquals('-44.00 + 117.00i', $cpl->pow(3)->render());
+    }
+
+    public function testAbs()
+    {
+        $cpl = new Complex(4, 3);
 
         self::assertEquals(5, $cpl->abs(), '', 0.01);
+    }
 
+    public function testSqrt()
+    {
+        $cpl = new Complex(4, 3);
         self::assertEquals('2.12 + 0.71i', $cpl->sqrt()->render());
 
         $cpl2 = new Complex(-1, 3);

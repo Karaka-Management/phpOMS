@@ -36,7 +36,7 @@ class GeometricDistribution
      */
     public static function getPmf(float $p, int $k) : float
     {
-        return (float) pow(1 - $p, $k - 1) * $p;
+        return pow(1 - $p, $k - 1) * $p;
     }
 
     /**

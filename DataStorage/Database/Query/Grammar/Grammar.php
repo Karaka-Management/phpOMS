@@ -284,7 +284,12 @@ class Grammar extends GrammarAbstract
             $expression = ' ' . \strtoupper($element['boolean']) . ' ';
         }
 
-        if (is_string($element['column'])) {
+        if (\is_string($element['column'])) {
+            // handle bug when no table is specified in the where column
+            if (count($query->from) === 1 && \stripos($element['column'], '.') === false) {
+                $element['column'] = $query->from[0] . '.' . $element['column'];
+            }
+
             $expression .= $this->compileSystem($element['column'], $query->getPrefix());
         } elseif ($element['column'] instanceof \Closure) {
             $expression .= $element['column']();
@@ -327,15 +332,15 @@ class Grammar extends GrammarAbstract
      */
     protected function compileValue(Builder $query, $value, string $prefix = '') : string
     {
-        if (is_string($value)) {
-            if (strpos($value, ':') === 0) {
+        if (\is_string($value)) {
+            if (\strpos($value, ':') === 0) {
                 return $value;
             }
 
             return $query->quote($value);
-        } elseif (is_int($value)) {
+        } elseif (\is_int($value)) {
             return (string) $value;
-        } elseif (is_array($value)) {
+        } elseif (\is_array($value)) {
             $values = '';
 
             foreach ($value as $val) {
@@ -347,9 +352,9 @@ class Grammar extends GrammarAbstract
             return $query->quote($value->format('Y-m-d H:i:s'));
         } elseif ($value === null) {
             return 'NULL';
-        } elseif (is_bool($value)) {
+        } elseif (\is_bool($value)) {
             return (string) ((int) $value);
-        } elseif (is_float($value)) {
+        } elseif (\is_float($value)) {
             return (string) $value;
         } elseif ($value instanceof Column) {
             return $this->compileSystem($value->getColumn(), $prefix);

@@ -315,6 +315,6 @@ final class Functions
      */
     public static function getRelativeDegree(int $value, int $length, int $start = 0) : int
     {
-        return (int) abs(self::mod($value - $start, $length));
+        return abs(self::mod($value - $start, $length));
     }
 }

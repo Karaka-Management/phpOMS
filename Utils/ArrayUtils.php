@@ -51,8 +51,11 @@ final class ArrayUtils
         $nodes  = \explode($delim, trim($path, $delim));
         $prevEl = null;
         $el     = &$data;
+        $node   = null;
 
-        $node = null;
+        if ($nodes === false) {
+            throw new \Exception();
+        }
 
         foreach ($nodes as &$node) {
             $prevEl = &$el;
@@ -89,6 +92,10 @@ final class ArrayUtils
         $pathParts = \explode($delim, trim($path, $delim));
         $current   = &$data;
 
+        if ($pathParts === false) {
+            throw new \Exception();
+        }
+
         foreach ($pathParts as $key) {
             $current = &$current[$key];
         }
@@ -123,6 +130,10 @@ final class ArrayUtils
     {
         $pathParts = \explode($delim, trim($path, $delim));
         $current   = $data;
+
+        if ($pathParts === false) {
+            throw new \Exception();
+        }
 
         foreach ($pathParts as $key) {
             if (!isset($current[$key])) {
@@ -266,14 +277,19 @@ final class ArrayUtils
      */
     public static function arrayToCsv(array $data, string $delimiter = ';', string $enclosure = '"', string $escape = '\\') : string
     {
-        $outstream = fopen('php://memory', 'r+');
-        /** @noinspection PhpMethodParametersCountMismatchInspection */
-        fputcsv($outstream, $data, $delimiter, $enclosure, $escape);
-        rewind($outstream);
-        $csv = fgets($outstream);
-        fclose($outstream);
+        $outstream = \fopen('php://memory', 'r+');
 
-        return $csv;
+        if ($outstream === false) {
+            throw new \Exception();
+        }
+
+        /** @noinspection PhpMethodParametersCountMismatchInspection */
+        \fputcsv($outstream, $data, $delimiter, $enclosure, $escape);
+        rewind($outstream);
+        $csv = \fgets($outstream);
+        \fclose($outstream);
+
+        return $csv === false ? '' : $csv;
     }
 
     /**
@@ -290,11 +306,11 @@ final class ArrayUtils
      */
     public static function getArg(string $id, array $args) : ?string
     {
-        if (($key = array_search($id, $args)) === false || $key === count($args) - 1) {
+        if (($key = \array_search($id, $args)) === false || $key === count($args) - 1) {
             return null;
         }
 
-        return trim($args[$key + 1], '" ');
+        return trim($args[(int) $key + 1], '" ');
     }
 
     /**
@@ -309,11 +325,11 @@ final class ArrayUtils
      */
     public static function hasArg(string $id, array $args) : ?int
     {
-        if (($key = array_search($id, $args)) === false) {
+        if (($key = \array_search($id, $args)) === false) {
             return null;
         }
 
-        return $key;
+        return (int) $key;
     }
 
     /**

@@ -97,8 +97,8 @@ class SmartDateTime extends \DateTime
         $yearNew     = (int) $this->format('Y') + $y + $yearChange;
         $monthNew    = ((int) $this->format('m') + $m) % 12;
         $monthNew    = $monthNew === 0 ? 12 : $monthNew < 0 ? 12 + $monthNew : $monthNew;
-        $dayMonthOld = cal_days_in_month($calendar, (int) $this->format('m'), (int) $this->format('Y'));
-        $dayMonthNew = cal_days_in_month($calendar, $monthNew, $yearNew);
+        $dayMonthOld = \cal_days_in_month($calendar, (int) $this->format('m'), (int) $this->format('Y'));
+        $dayMonthNew = \cal_days_in_month($calendar, $monthNew, $yearNew);
         $dayOld      = (int) $this->format('d');
 
         if ($dayOld > $dayMonthNew) {
@@ -219,7 +219,13 @@ class SmartDateTime extends \DateTime
      */
     public static function getDayOfWeek(int $y, int $m, int $d) : int
     {
-        return (int) date('w', strtotime($d . '-' . $m . '-' . $y));
+        $time = \strtotime($d . '-' . $m . '-' . $y);
+
+        if ($time === false) {
+            return -1;
+        }
+
+        return (int) date('w', $time);
     }
 
     /**

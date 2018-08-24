@@ -120,7 +120,7 @@ abstract class ModuleAbstract
         $lang = [];
         if (file_exists($oldPath = __DIR__ . '/../../Modules/' . static::MODULE_NAME . '/Theme/' . $destination . '/Lang/' . $language . '.lang.php')) {
             /** @noinspection PhpIncludeInspection */
-            $lang = include $oldPath;
+            return include $oldPath;
         }
 
         return $lang;

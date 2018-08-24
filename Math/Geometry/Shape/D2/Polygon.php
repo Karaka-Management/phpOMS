@@ -192,7 +192,7 @@ final class Polygon implements D2ShapeInterface
      */
     public function getSurface() : float
     {
-        return (float) abs($this->getSignedSurface());
+        return abs($this->getSignedSurface());
     }
 
     /**

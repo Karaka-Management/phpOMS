@@ -117,14 +117,14 @@ class Text
     /**
      * Get a random string.
      *
-     * @param int $length Text length
-     * @param int $words  Vocabulary
+     * @param int   $length Text length
+     * @param array $words  Vocabulary
      *
      * @return string
      *
      * @since  1.0.0
      */
-    public function generateText(int $length, $words = null) : string
+    public function generateText(int $length, array $words = null) : string
     {
         if ($length === 0) {
             return '';
@@ -135,8 +135,8 @@ class Text
         }
 
         $punctuation      = $this->generatePunctuation($length);
-        $punctuationCount = array_count_values(
-                array_map(
+        $punctuationCount = \array_count_values(
+                \array_map(
                     function ($item) {
                         return $item[1];
                     },
@@ -163,20 +163,20 @@ class Text
         for ($i = 0; $i < $length + 1; ++$i) {
             $newSentence = false;
 
-            $lastChar = substr($text, -1);
+            $lastChar = \substr($text, -1);
 
             if ($lastChar === '.' || $lastChar === '!' || $lastChar === '?' || !$lastChar) {
                 $newSentence = true;
             }
 
-            $word = $words[rand(0, $wordCount - 1)];
+            $word = $words[rand(0, $wordCount - 1)] ?? '';
 
             if ($newSentence) {
-                $word = ucfirst($word);
+                $word = \ucfirst($word);
                 $sentenceCount++;
 
                 /** @noinspection PhpUndefinedVariableInspection */
-                if ($this->hasParagraphs && $sentenceCount === $paragraph[$paid]) {
+                if ($this->hasParagraphs) {
                     $paid++;
 
                     $text .= '</p><p>';
@@ -184,7 +184,7 @@ class Text
             }
 
             /** @noinspection PhpUndefinedVariableInspection */
-            if ($this->hasFormatting && array_key_exists($i, $formatting)) {
+            if ($this->hasFormatting && isset($formatting[$i])) {
                 $word = '<' . $formatting[$i] . '>' . $word . '</' . $formatting[$i] . '>';
             }
 
@@ -276,11 +276,11 @@ class Text
      *
      * @param int $length Amount of sentences
      *
-     * @return string
+     * @return array
      *
      * @since  1.0.0
      */
-    private function generateParagraph(int $length) : string
+    private function generateParagraph(int $length) : array
     {
         $minSentence = 3;
         $maxSentence = 10;

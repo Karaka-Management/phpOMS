@@ -69,10 +69,14 @@ final class Numbers
     public static function isSelfdescribing(int $n) : bool
     {
         $n     = (string) $n;
-        $split = str_split($n);
+        $split = \str_split($n);
+
+        if ($split === false) {
+            return false;
+        }
 
         foreach ($split as $place => $value) {
-            if (substr_count($n, (string) $place) != $value) {
+            if (\substr_count($n, (string) $place) != $value) {
                 return false;
             }
         }

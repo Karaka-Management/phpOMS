@@ -36,35 +36,47 @@ final class Rest
      */
     public static function request(Request $request) : string
     {
-        $curl = curl_init();
+        $curl = \curl_init();
+
+        if ($curl === false) {
+            throw new \Exception();
+        }
+
+        curl_setopt($curl, CURLOPT_NOBODY, true);
+        curl_setopt($curl, CURLOPT_HEADER, false);
 
         switch ($request->getMethod()) {
+            case RequestMethod::GET:
+                curl_setopt($curl, CURLOPT_HTTPGET, true);
+                break;
             case RequestMethod::PUT:
-                curl_setopt($curl, CURLOPT_CUSTOMREQUEST, 'PUT');
+                \curl_setopt($curl, CURLOPT_CUSTOMREQUEST, 'PUT');
                 break;
             case RequestMethod::DELETE:
-                curl_setopt($curl, CURLOPT_CUSTOMREQUEST, 'DELETE');
+                \curl_setopt($curl, CURLOPT_CUSTOMREQUEST, 'DELETE');
                 break;
         }
 
         if ($request->getMethod() !== RequestMethod::GET) {
-            curl_setopt($curl, CURLOPT_POST, 1);
+            \curl_setopt($curl, CURLOPT_POST, 1);
 
             if ($request->getData() !== null) {
-                curl_setopt($curl, CURLOPT_POSTFIELDS, $request->getData());
+                \curl_setopt($curl, CURLOPT_POSTFIELDS, $request->getData());
             }
         }
 
-        curl_setopt($curl, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
-        curl_setopt($curl, CURLOPT_USERPWD, 'username:password');
+        if ($request->getUri()->getUser() !== '') {
+            \curl_setopt($curl, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
+            \curl_setopt($curl, CURLOPT_USERPWD, $request->getUri()->getUserInfo());
+        }
 
-        curl_setopt($curl, CURLOPT_URL, $request->__toString());
-        curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
+        \curl_setopt($curl, CURLOPT_URL, $request->__toString());
+        \curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
 
-        $result = curl_exec($curl);
+        $result = \curl_exec($curl);
 
-        curl_close($curl);
+        \curl_close($curl);
 
-        return $result;
+        return \is_bool($result) ? '' : $result;
     }
 }

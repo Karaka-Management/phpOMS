@@ -49,18 +49,20 @@ class TableException extends \PDOException
      */
     public static function findTable(string $message) : string
     {
-        $pos1 = strpos($message, '\'');
+        $pos1 = \strpos($message, '\'');
 
         if ($pos1 === false) {
             return $message;
         }
 
-        $pos2 = strpos($message, '\'', $pos1 + 1);
+        $pos2 = \strpos($message, '\'', $pos1 + 1);
 
         if ($pos2 === false) {
             return $message;
         }
 
-        return substr($message, $pos1 + 1, $pos2 - $pos1 - 1);
+        $table = \substr($message, $pos1 + 1, $pos2 - $pos1 - 1);
+
+        return $table === false ? $message : $table;
     }
 }

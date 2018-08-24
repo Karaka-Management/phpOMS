@@ -36,15 +36,6 @@ final class Router
     private $routes = [];
 
     /**
-     * Constructor.
-     *
-     * @since  1.0.0
-     */
-    public function __construct()
-    {
-    }
-
-    /**
      * Add routes from file.
      *
      * @param string $path Route file path
@@ -55,7 +46,7 @@ final class Router
      */
     public function importFromFile(string $path) : bool
     {
-        if (file_exists($path)) {
+        if (\file_exists($path)) {
             /** @noinspection PhpIncludeInspection */
             $this->routes += include $path;
 
@@ -69,7 +60,7 @@ final class Router
      * Add route.
      *
      * @param string $route       Route regex
-     * @param mixed  $destination Destination e.g. Module:function & verb
+     * @param mixed  $destination Destination e.g. Module:function string or callback
      * @param int    $verb        Request verb
      *
      * @return void
@@ -100,22 +91,22 @@ final class Router
      *
      * @since  1.0.0
      */
-    public function route($request, int $verb = RouteVerb::GET) : array
+    public function route(string $request, int $verb = RouteVerb::GET, string $app = '', int $orgId = 1, $account = null) : array
     {
-        if ($request instanceof RequestAbstract) {
-            $uri  = $request->getUri()->getRoute();
-            $verb = $request->getRouteVerb();
-        } elseif (is_string($request)) {
-            $uri = $request;
-        } else {
-            throw new \InvalidArgumentException();
-        }
-
         $bound = [];
         foreach ($this->routes as $route => $destination) {
             foreach ($destination as $d) {
-                if ($this->match($route, $d['verb'], $uri, $verb)) {
-                    $bound[] = ['dest' => $d['dest']];
+                if ($this->match($route, $d['verb'], $request, $verb)) {
+                    if (!isset($d['permission'])
+                        || !isset($account)
+                        || (isset($d['permission'])
+                            && isset($account)
+                            && $account->hasPermission($d['permission']['type'], $orgId, $app, $d['permission']['module'], $d['permission']['state']))
+                    ) {
+                        $bound[] = ['dest' => $d['dest']];
+                    } else {
+                        \array_merge($bound, $this->route('/' . $app . '/e403', $verb));
+                    }
                 }
             }
         }

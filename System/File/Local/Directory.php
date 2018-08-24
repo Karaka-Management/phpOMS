@@ -71,7 +71,7 @@ final class Directory extends FileAbstract implements DirectoryInterface
      * @param string $path   Path
      * @param string $filter Filter
      *
-     * @return string[]
+     * @return array
      *
      * @since  1.0.0
      */
@@ -105,7 +105,7 @@ final class Directory extends FileAbstract implements DirectoryInterface
      * @param string $extension Extension
      * @param string $exclude   Pattern to exclude
      *
-     * @return string[]
+     * @return array
      *
      * @since  1.0.0
      */
@@ -168,6 +168,10 @@ final class Directory extends FileAbstract implements DirectoryInterface
         $countSize   = 0;
         $directories = \scandir($dir);
 
+        if ($directories === false) {
+            return $countSize;
+        }
+
         foreach ($directories as $key => $filename) {
             if ($filename === ".." || $filename === ".") {
                 continue;
@@ -181,7 +185,7 @@ final class Directory extends FileAbstract implements DirectoryInterface
             }
         }
 
-        return (int) $countSize;
+        return $countSize;
     }
 
     /**
@@ -197,6 +201,10 @@ final class Directory extends FileAbstract implements DirectoryInterface
         $files    = \scandir($path);
         $ignore[] = '.';
         $ignore[] = '..';
+
+        if ($files === false) {
+            return $size;
+        }
 
         foreach ($files as $t) {
             if (\in_array($t, $ignore)) {
@@ -220,6 +228,10 @@ final class Directory extends FileAbstract implements DirectoryInterface
     public static function delete(string $path) : bool
     {
         $files = \scandir($path);
+
+        if ($files === false) {
+            return false;
+        }
 
         /* Removing . and .. */
         unset($files[1]);
@@ -260,7 +272,9 @@ final class Directory extends FileAbstract implements DirectoryInterface
         }
 
         $created = new \DateTime('now');
-        $created->setTimestamp(\filemtime($path));
+        $time    = \filemtime($path);
+
+        $created->setTimestamp($time === false ? 0 : $time);
 
         return $created;
     }
@@ -275,7 +289,9 @@ final class Directory extends FileAbstract implements DirectoryInterface
         }
 
         $changed = new \DateTime();
-        $changed->setTimestamp(\filectime($path));
+        $time    = \filectime($path);
+
+        $changed->setTimestamp($time === false ? 0 : $time);
 
         return $changed;
     }
@@ -289,7 +305,7 @@ final class Directory extends FileAbstract implements DirectoryInterface
             throw new PathException($path);
         }
 
-        return \fileowner($path);
+        return (int) \fileowner($path);
     }
 
     /**
@@ -301,7 +317,7 @@ final class Directory extends FileAbstract implements DirectoryInterface
             throw new PathException($path);
         }
 
-        return \fileperms($path);
+        return (int) \fileperms($path);
     }
 
     /**

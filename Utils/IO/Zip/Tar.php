@@ -14,6 +14,8 @@ declare(strict_types=1);
 
 namespace phpOMS\Utils\IO\Zip;
 
+use phpOMS\System\File\FileUtils;
+
 /**
  * Zip class for handling zip files.
  *
@@ -31,48 +33,57 @@ class Tar implements ArchiveInterface
      */
     public static function pack($sources, string $destination, bool $overwrite = true) : bool
     {
-        $destination = \str_replace('\\', '/', realpath($destination));
+        $destination = FileUtils::absolute(\str_replace('\\', '/', $destination));
 
         if (!$overwrite && \file_exists($destination)) {
             return false;
         }
 
+        $tar = new \PharData($destination);
+
         /** @var array $sources */
-        foreach ($sources as $source) {
-            $source = \str_replace('\\', '/', realpath($source));
+        foreach ($sources as $source => $relative) {
+            $source = \realpath($source);
+
+            if ($source === false) {
+                continue;
+            }
+
+            $source = \str_replace('\\', '/', $source);
 
             if (!\file_exists($source)) {
                 continue;
             }
 
-            if (is_dir($source)) {
-                $files = new \RecursiveIteratorIterator(
-                    new \RecursiveDirectoryIterator($source),
-                    \RecursiveIteratorIterator::SELF_FIRST
-                );
+            if (\is_dir($source)) {
+                $files = new \RecursiveIteratorIterator(new \RecursiveDirectoryIterator($source), \RecursiveIteratorIterator::SELF_FIRST);
 
                 foreach ($files as $file) {
                     $file = \str_replace('\\', '/', $file);
 
                     /* Ignore . and .. */
-                    if (\in_array(mb_substr($file, mb_strrpos($file, '/') + 1), ['.', '..'])) {
+                    if (($pos = \mb_strrpos($file, '/')) === false
+                        || \in_array(\mb_substr($file, $pos + 1), ['.', '..'])
+                    ) {
                         continue;
                     }
 
-                    $file = realpath($file);
+                    $absolute = \realpath($file);
+                    $absolute = \str_replace('\\', '/', (string) $absolute);
+                    $dir      = \str_replace($source . '/', '', $relative . '/' . $absolute);
 
-                    if (is_dir($file)) {
-                        // todo: do work here
-                    } elseif (is_file($file)) {
-                        // todo: do work here
+                    if (\is_dir($absolute)) {
+                        $tar->addEmptyDir($dir . '/');
+                    } elseif (\is_file($absolute)) {
+                        $tar->addFile($absolute, $dir);
                     }
                 }
-            } elseif (is_file($source)) {
-                // todo: do work here
+            } elseif (\is_file($source)) {
+                $tar->addFile($source, $relative);
             }
         }
 
-        fwrite($tar, pack('a1024', ''));
+        return true;
     }
 
     /**
@@ -80,6 +91,16 @@ class Tar implements ArchiveInterface
      */
     public static function unpack(string $source, string $destination) : bool
     {
+        if (!\file_exists($source)) {
+            return false;
+        }
 
+        $destination = \str_replace('\\', '/', $destination);
+        $destination = \rtrim($destination, '/');
+        $tar         = new \PharData($destination);
+
+        $tar->extractTo($destination . '/');
+
+        return true;
     }
 }

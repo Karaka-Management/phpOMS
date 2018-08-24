@@ -34,7 +34,7 @@ class CommitTest extends \PHPUnit\Framework\TestCase
         self::assertInstanceOf('\DateTime', $commit->getDate());
     }
 
-    public function testGetSet()
+    public function testAddRemoveFile()
     {
         $commit = new Commit();
 
@@ -51,21 +51,51 @@ class CommitTest extends \PHPUnit\Framework\TestCase
         self::assertEquals([
             '/some/file/path2' => []
         ], $commit->getFiles());
+    }
+
+    public function testMessage()
+    {
+        $commit = new Commit();
 
         $commit->setMessage('My Message');
         self::assertEquals('My Message', $commit->getMessage());
+    }
+
+    public function testAuthor()
+    {
+        $commit = new Commit();
 
         $commit->setAuthor(new Author('Orange'));
         self::assertEquals('Orange', $commit->getAuthor()->getName());
+    }
+
+    public function testBranch()
+    {
+        $commit = new Commit();
 
         $commit->setBranch(new Branch('develop'));
         self::assertEquals('develop', $commit->getBranch()->getName());
+    }
+
+    public function testTag()
+    {
+        $commit = new Commit();
 
         $commit->setTag(new Tag('1.0.0'));
         self::assertEquals('1.0.0', $commit->getTag()->getName());
+    }
+
+    public function testDate()
+    {
+        $commit = new Commit();
 
         $commit->setDate($date = new \DateTime('now'));
         self::assertEquals($date->format('Y-m-d'), $commit->getDate()->format('Y-m-d'));
+    }
+
+    public function testRepository()
+    {
+        $commit = new Commit();
 
         $commit->setRepository(new Repository(realpath(__DIR__ . '/../../../')));
         self::assertEquals(realpath(__DIR__ . '/../../../'), $commit->getRepository()->getPath());

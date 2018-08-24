@@ -28,6 +28,17 @@ class NumericTest extends \PHPUnit\Framework\TestCase
         self::assertEquals('XI', Numeric::arabicToRoman(11));
     }
 
+    public function testAlphaNumeric()
+    {
+        self::assertEquals(0, Numeric::alphaToNumeric('A'));
+        self::assertEquals(1, Numeric::alphaToNumeric('B'));
+        self::assertEquals(53, Numeric::alphaToNumeric('BB'));
+
+        self::assertEquals('A', Numeric::numericToAlpha(0));
+        self::assertEquals('B', Numeric::numericToAlpha(1));
+        self::assertEquals('BB', Numeric::numericToAlpha(53));
+    }
+
     public function testBase()
     {
         self::assertEquals('443', Numeric::convertBase('123', '0123456789', '01234'));

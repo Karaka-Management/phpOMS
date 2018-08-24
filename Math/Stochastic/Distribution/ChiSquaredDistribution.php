@@ -31,7 +31,7 @@ class ChiSquaredDistribution
     /**
      * Chi square table.
      *
-     * @var array
+     * @var array<int, array<string, float>>
      * @since 1.0.0
      */
     public const TABLE = [
@@ -106,7 +106,7 @@ class ChiSquaredDistribution
             $df = self::getDegreesOfFreedom($dataset);
         }
 
-        if (!defined(self::TABLE[$df])) {
+        if (!defined('self::TABLE') || !array_key_exists($df, self::TABLE)) {
             throw new \Exception('Degrees of freedom not supported');
         }
 
@@ -117,7 +117,8 @@ class ChiSquaredDistribution
             }
         }
 
-        $p = 1 - ($p ?? key(end(self::TABLE[$df])));
+        $key = key(end(self::TABLE[$df]));
+        $p   = 1 - ($p ?? ($key === false ? 1 : (float) $key));
 
         return ['P' => $p, 'H0' => ($p > $significance), 'df' => $df];
     }
@@ -235,7 +236,7 @@ class ChiSquaredDistribution
             throw new \Exception('Out of bounds');
         }
 
-        return (float) pow(1 - 2 * $t, -$df / 2);
+        return pow(1 - 2 * $t, -$df / 2);
     }
 
     /**

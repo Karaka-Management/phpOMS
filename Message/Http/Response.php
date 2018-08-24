@@ -106,7 +106,7 @@ final class Response extends ResponseAbstract implements RenderableInterface
 
         foreach ($types as $type) {
             if (\stripos($type, MimeType::M_JSON) !== false) {
-                return \json_encode($this->jsonSerialize());
+                return (string) \json_encode($this->jsonSerialize());
             }
         }
 
@@ -131,6 +131,8 @@ final class Response extends ResponseAbstract implements RenderableInterface
                 $render .= $response->serialize();
             } elseif (\is_string($response) || \is_numeric($response)) {
                 $render .= $response;
+            } elseif (\is_array($response)) {
+                $render .= \json_encode($response);
             } else {
                 throw new \Exception('Wrong response type');
             }
@@ -141,7 +143,7 @@ final class Response extends ResponseAbstract implements RenderableInterface
 
     /**
      * Remove whitespace and line break from render
-     * 
+     *
      * @param string $render Rendered string
      *
      * @return string
@@ -152,7 +154,7 @@ final class Response extends ResponseAbstract implements RenderableInterface
     {
         $types = $this->header->get('Content-Type');
         if (\stripos($types[0], MimeType::M_HTML) !== false) {
-            return \trim(\preg_replace('/(\s{2,}|\n|\t)(?![^<>]*<\/pre>)/', ' ', $render));
+            return \trim(\preg_replace('/(?s)<pre[^<]*>.*?<\/pre>(*SKIP)(*F)|(\s{2,}|\n|\t)/', ' ', $render));
         }
 
         return $render;

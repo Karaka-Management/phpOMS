@@ -141,6 +141,14 @@ class File extends FileAbstract implements FileInterface
     /**
      * {@inheritdoc}
      */
+    public static function count(string $path, bool $recursive = true, array $ignore = []) : int
+    {
+
+    }
+
+    /**
+     * {@inheritdoc}
+     */
     public static function set(string $path, string $content) : bool
     {
         return self::put($path, $content, ContentPutMode::REPLACE | ContentPutMode::CREATE);

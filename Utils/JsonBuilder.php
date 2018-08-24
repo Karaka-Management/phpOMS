@@ -80,7 +80,7 @@ final class JsonBuilder implements \Serializable, \JsonSerializable
      */
     public function serialize() : string
     {
-        return \json_encode($this->json);
+        return (string) \json_encode($this->json);
     }
 
     /**

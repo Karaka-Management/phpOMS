@@ -26,6 +26,13 @@ namespace phpOMS\Stdlib\Base;
  */
 abstract class EnumArray
 {
+    /**
+     * Constants.
+     *
+     * @var array
+     * @since 1.0.0
+     */
+    protected static $constants = [];
 
     /**
      * Checking enum name.

@@ -28,6 +28,6 @@ class QueryTypeTest extends \PHPUnit\Framework\TestCase
         self::assertEquals(3, QueryType::DELETE);
         self::assertEquals(4, QueryType::RANDOM);
         self::assertEquals(5, QueryType::RAW);
-        self::assertEquals(6, QueryType::EMPTY);
+        self::assertEquals(6, QueryType::NONE);
     }
 }

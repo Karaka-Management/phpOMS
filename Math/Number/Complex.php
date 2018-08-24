@@ -159,7 +159,7 @@ final class Complex
         throw new \InvalidArgumentException();
     }
 
-    public function powComplex() : Complex
+    public function powComplex(Complex $value) : Complex
     {
 
     }
@@ -184,7 +184,7 @@ final class Complex
         return $this->multComplex($this->powInteger(--$value));
     }
 
-    public function powScalar() : Complex
+    public function powScalar($value) : Complex
     {
 
     }

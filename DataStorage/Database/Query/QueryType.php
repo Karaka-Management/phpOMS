@@ -32,5 +32,5 @@ abstract class QueryType extends Enum
     public const DELETE = 3;
     public const RANDOM = 4;
     public const RAW    = 5;
-    public const EMPTY  = 6;
+    public const NONE   = 6;
 }

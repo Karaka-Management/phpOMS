@@ -2,13 +2,107 @@
 
 ini_set('memory_limit', '2048M');
 
-require_once __DIR__ . '/../../vendor/autoload.php';
-require_once __DIR__ . '/Autoloader.php';
-$CONFIG = require_once __DIR__ . '/../../config.php';
+if (file_exists('vendor/autoload.php')) {
+    include_once 'vendor/autoload.php';
+} elseif (file_exists('../../vendor/autoload.php')) {
+    include_once '../../vendor/autoload.php';
+}
+
+require_once __DIR__ . '/../Autoloader.php';
 
 use phpOMS\DataStorage\Session\HttpSession;
 use phpOMS\DataStorage\Database\DatabasePool;
 use phpOMS\DataStorage\Database\DataMapperAbstract;
+
+$CONFIG = [
+    'db'       => [
+        'core' => [
+            'masters' => [
+                'admin'  => [
+                    'db'       => 'mysql', /* db type */
+                    'host'     => '127.0.0.1', /* db host address */
+                    'port'     => '3306', /* db host port */
+                    'login'    => 'root', /* db login name */
+                    'password' => '', /* db login password */
+                    'database' => 'oms', /* db name */
+                    'prefix'   => 'oms_', /* db table prefix */
+                    'weight'   => 1000, /* db table prefix */
+                ],
+                'insert'  => [
+                    'db'       => 'mysql', /* db type */
+                    'host'     => '127.0.0.1', /* db host address */
+                    'port'     => '3306', /* db host port */
+                    'login'    => 'root', /* db login name */
+                    'password' => '', /* db login password */
+                    'database' => 'oms', /* db name */
+                    'prefix'   => 'oms_', /* db table prefix */
+                    'weight'   => 1000, /* db table prefix */
+                ],
+                'select'  => [
+                    'db'       => 'mysql', /* db type */
+                    'host'     => '127.0.0.1', /* db host address */
+                    'port'     => '3306', /* db host port */
+                    'login'    => 'root', /* db login name */
+                    'password' => '', /* db login password */
+                    'database' => 'oms', /* db name */
+                    'prefix'   => 'oms_', /* db table prefix */
+                    'weight'   => 1000, /* db table prefix */
+                ],
+                'update'  => [
+                    'db'       => 'mysql', /* db type */
+                    'host'     => '127.0.0.1', /* db host address */
+                    'port'     => '3306', /* db host port */
+                    'login'    => 'root', /* db login name */
+                    'password' => '', /* db login password */
+                    'database' => 'oms', /* db name */
+                    'prefix'   => 'oms_', /* db table prefix */
+                    'weight'   => 1000, /* db table prefix */
+                ],
+                'delete'  => [
+                    'db'       => 'mysql', /* db type */
+                    'host'     => '127.0.0.1', /* db host address */
+                    'port'     => '3306', /* db host port */
+                    'login'    => 'root', /* db login name */
+                    'password' => '', /* db login password */
+                    'database' => 'oms', /* db name */
+                    'prefix'   => 'oms_', /* db table prefix */
+                    'weight'   => 1000, /* db table prefix */
+                ],
+                'schema'  => [
+                    'db'       => 'mysql', /* db type */
+                    'host'     => '127.0.0.1', /* db host address */
+                    'port'     => '3306', /* db host port */
+                    'login'    => 'root', /* db login name */
+                    'password' => '', /* db login password */
+                    'database' => 'oms', /* db name */
+                    'prefix'   => 'oms_', /* db table prefix */
+                    'weight'   => 1000, /* db table prefix */
+                ],
+            ],
+        ],
+    ],
+    'log'      => [
+        'file' => [
+            'path' => __DIR__ . '/Logs',
+        ],
+    ],
+    'page'     => [
+        'root'  => '/',
+        'https' => false,
+    ],
+    'socket'   => [
+        'master' => [
+            'host'  => '127.0.0.1',
+            'limit' => 300,
+            'port'  => 4310,
+        ],
+    ],
+    'language' => [
+        'en',
+    ],
+    'apis'     => [
+    ]
+];
 
 // Reset database
 $db = new \PDO($CONFIG['db']['core']['masters']['admin']['db'] . ':host=' .

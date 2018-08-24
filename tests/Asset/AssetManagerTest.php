@@ -64,14 +64,12 @@ class AssetManagerTest extends \PHPUnit\Framework\TestCase
         self::assertEquals(2, $manager->count());
 
         /* Test remove */
-        $rem = $manager->remove('myAsset');
-        self::assertTrue($rem);
+        self::assertTrue($manager->remove('myAsset'));
         self::assertEquals(1, $manager->count());
 
         self::assertNull($manager->get('myAsset'));
 
-        $rem = $manager->remove('myAsset');
-        self::assertFalse($rem);
+        self::assertFalse($manager->remove('myAsset'));
         self::assertEquals(1, $manager->count());
 
     }

@@ -31,8 +31,14 @@ final class Iban extends ValidatorAbstract
      */
     public static function isValid($value, array $constraints = null) : bool
     {
-        $value    = \str_replace(' ', '', strtolower($value));
-        $enumName = 'C_' . strtoupper(substr($value, 0, 2));
+        $value = \str_replace(' ', '', \strtolower($value));
+
+        $temp = \substr($value, 0, 2);
+        if ($temp === false) {
+            return false;
+        }
+
+        $enumName = 'C_' . \strtoupper($temp);
 
         if (!IbanEnum::isValidName($enumName)) {
             self::$error = IbanErrorType::INVALID_COUNTRY;
@@ -42,7 +48,7 @@ final class Iban extends ValidatorAbstract
 
         $layout = \str_replace(' ', '', IbanEnum::getByName($enumName));
 
-        if (strlen($value) !== strlen($layout)) {
+        if (\strlen($value) !== \strlen($layout)) {
             self::$error = IbanErrorType::INVALID_LENGTH;
 
             return false;
@@ -81,12 +87,12 @@ final class Iban extends ValidatorAbstract
      */
     private static function validateZeros(string $iban, string $layout) : bool
     {
-        if (strpos($layout, '0') === false) {
+        if (\strpos($layout, '0') === false) {
             return true;
         }
 
         $lastPos = 0;
-        while (($lastPos = strpos($layout, '0', $lastPos)) !== false) {
+        while (($lastPos = \strpos($layout, '0', $lastPos)) !== false) {
             if ($iban[$lastPos] !== '0') {
                 return false;
             }
@@ -109,13 +115,13 @@ final class Iban extends ValidatorAbstract
      */
     private static function validateNumeric(string $iban, string $layout) : bool
     {
-        if (strpos($layout, 'n') === false) {
+        if (\strpos($layout, 'n') === false) {
             return true;
         }
 
         $lastPos = 0;
-        while (($lastPos = strpos($layout, 'n', $lastPos)) !== false) {
-            if (!is_numeric($iban[$lastPos])) {
+        while (($lastPos = \strpos($layout, 'n', $lastPos)) !== false) {
+            if (!\is_numeric($iban[$lastPos])) {
                 return false;
             }
 
@@ -139,18 +145,18 @@ final class Iban extends ValidatorAbstract
         $chars      = ['a' => 10, 'b' => 11, 'c' => 12, 'd' => 13, 'e' => 14, 'f' => 15, 'g' => 16, 'h' => 17, 'i' => 18,
                        'j' => 19, 'k' => 20, 'l' => 21, 'm' => 22, 'n' => 23, 'o' => 24, 'p' => 25, 'q' => 26, 'r' => 27,
                        's' => 28, 't' => 29, 'u' => 30, 'v' => 31, 'w' => 32, 'x' => 33, 'y' => 34, 'z' => 35,];
-        $moved      = substr($iban, 4) . substr($iban, 0, 4);
-        $movedArray = str_split($moved);
+        $moved      = \substr($iban, 4) . \substr($iban, 0, 4);
+        $movedArray = (array) \str_split($moved);
         $new        = '';
 
         foreach ($movedArray as $key => $value) {
-            if (!is_numeric($movedArray[$key])) {
+            if (!\is_numeric($movedArray[$key])) {
                 $movedArray[$key] = $chars[$movedArray[$key]];
             }
 
             $new .= $movedArray[$key];
         }
 
-        return bcmod($new, '97') == 1;
+        return \bcmod($new, '97') == 1;
     }
 }

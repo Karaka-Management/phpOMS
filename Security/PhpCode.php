@@ -104,7 +104,12 @@ final class PhpCode
      */
     public static function isDisabled(array $functions) : bool
     {
-        $disabled = ini_get('disable_functions');
+        $disabled = \ini_get('disable_functions');
+
+        if ($disabled === false) {
+            return true;
+        }
+
         $disabled = \str_replace(' ', '', $disabled);
         $disabled = \explode(',', $disabled);
 
@@ -149,6 +154,21 @@ final class PhpCode
      */
     public static function validateFileIntegrity(string $source, string $hash) : bool
     {
-        return md5_file($source) === $hash;
+        return \md5_file($source) === $hash;
+    }
+
+    /**
+     * Validate code integrety
+     *
+     * @param string $source Source code
+     * @param string $remote Remote code
+     *
+     * @return bool
+     *
+     * @since  1.0.0
+     */
+    public static function validateStringIntegrity(string $source, string $remote) : bool
+    {
+        return $source === $remote;
     }
 }

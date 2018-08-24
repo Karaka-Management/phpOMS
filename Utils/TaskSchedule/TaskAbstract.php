@@ -41,12 +41,12 @@ abstract class TaskAbstract
     protected $command = '';
 
     /**
-     * Command/script to run.
+     * Run interval
      *
      * @var string
      * @since 1.0.0
      */
-    protected $run = '';
+    protected $interval = '';
 
     /**
      * Status of the task
@@ -91,10 +91,11 @@ abstract class TaskAbstract
      *
      * @since  1.0.0
      */
-    public function __construct(string $name, string $cmd = '')
+    public function __construct(string $name, string $cmd = '', string $interval = '')
     {
         $this->id          = $name;
         $this->command     = $cmd;
+        $this->interval    = $interval;
         $this->lastRunTime = new \DateTime('1900-01-01');
         $this->nextRunTime = new \DateTime('1900-01-01');
     }
@@ -110,6 +111,15 @@ abstract class TaskAbstract
     {
         return $this->id;
     }
+
+    /**
+     * Stringify task for direct handling
+     *
+     * @return string
+     *
+     * @since  1.0.0
+     */
+    abstract public function __toString() : string;
 
     /**
      * Get command to create the task
@@ -138,29 +148,29 @@ abstract class TaskAbstract
     }
 
     /**
-     * Get command/script to run
+     * Get interval to create the task
      *
      * @return string
      *
      * @since  1.0.0
      */
-    public function getRun() : string
+    public function getInterval() : string
     {
-        return $this->run;
+        return $this->interval;
     }
 
     /**
-     * Set script to run
+     * Set interval to create the task
      *
-     * @param string $run Command/script to run
+     * @param string $interval Interval
      *
      * @return void
      *
      * @since  1.0.0
      */
-    public function setRun(string $run) : void
+    public function setInterval(string $interval) : void
     {
-        $this->run = $run;
+        $this->interval = $interval;
     }
 
     /**

@@ -48,9 +48,9 @@ final class TestUtils
      *
      * @since  1.0.0
      */
-    public static function setMember(/* object */ $obj, string $name, $value) : bool
+    public static function setMember($obj, string $name, $value) : bool
     {
-        $reflectionClass = new \ReflectionClass(is_string($obj) ? $obj : get_class($obj));
+        $reflectionClass = new \ReflectionClass(\is_string($obj) ? $obj : \get_class($obj));
 
         if (!$reflectionClass->hasProperty($name)) {
             return false;
@@ -62,7 +62,11 @@ final class TestUtils
             $reflectionProperty->setAccessible(true);
         }
 
-        $reflectionProperty->setValue($obj, $value);
+        if (\is_string($obj)) {
+            $reflectionProperty->setValue($value);
+        } elseif (\is_object($obj)) {
+            $reflectionProperty->setValue($obj, $value);
+        }
 
         if (!$accessible) {
             $reflectionProperty->setAccessible(false);
@@ -83,7 +87,7 @@ final class TestUtils
      */
     public static function getMember($obj, string $name)
     {
-        $reflectionClass = new \ReflectionClass(is_string($obj) ? $obj : get_class($obj));
+        $reflectionClass = new \ReflectionClass(\is_string($obj) ? $obj : \get_class($obj));
 
         if (!$reflectionClass->hasProperty($name)) {
             return null;
@@ -95,7 +99,12 @@ final class TestUtils
             $reflectionProperty->setAccessible(true);
         }
 
-        $value = $reflectionProperty->getValue($obj);
+        $value = null;
+        if (\is_string($obj)) {
+            $value = $reflectionProperty->getValue();
+        } elseif (\is_object($obj)) {
+            $value = $reflectionProperty->getValue($obj);
+        }
 
         if (!$accessible) {
             $reflectionProperty->setAccessible(false);

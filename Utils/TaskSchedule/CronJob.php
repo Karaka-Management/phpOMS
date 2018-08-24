@@ -14,6 +14,8 @@ declare(strict_types=1);
 
 namespace phpOMS\Utils\TaskSchedule;
 
+use phpOMS\Validation\Base\DateTime;
+
 /**
  * CronJob class.
  *
@@ -27,12 +29,19 @@ class CronJob extends TaskAbstract
     /**
      * {@inheritdoc}
      */
+    public function __toString() : string
+    {
+        return $this->interval . ' ' . $this->command . ' # name="' . $this->id . '" ' . $this->comment;
+    }
+    
+    /**
+     * {@inheritdoc}
+     */
     public static function createWith(array $jobData) : TaskAbstract
     {
-            $job = new self($jobData[5], '');
+        $interval = \array_splice($jobData, 1, 4);
+        $job      = new self($jobData[0], $jobData[1], \implode(' ', $interval));
 
-            $job->setRun($jobData[5]);
-
-            return $job;
+        return $job;
     }
 }

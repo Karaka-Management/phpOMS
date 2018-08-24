@@ -105,6 +105,11 @@ abstract class SettingsAbstract implements OptionsInterface
                     $sth->execute();
 
                     $options = $sth->fetchAll(\PDO::FETCH_KEY_PAIR);
+
+                    if ($options === false) {
+                        return [];
+                    }
+
                     $this->setOptions($options);
                     break;
             }

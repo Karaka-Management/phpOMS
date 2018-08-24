@@ -64,22 +64,26 @@ class Numeric
             return $numberInput;
         }
 
-        $fromBase  = str_split($fromBaseInput, 1);
-        $toBase    = str_split($toBaseInput, 1);
-        $number    = str_split($numberInput, 1);
-        $fromLen   = strlen($fromBaseInput);
-        $toLen     = strlen($toBaseInput);
-        $numberLen = strlen($numberInput);
+        $fromBase  = \str_split($fromBaseInput, 1);
+        $toBase    = \str_split($toBaseInput, 1);
+        $number    = \str_split($numberInput, 1);
+        $fromLen   = \strlen($fromBaseInput);
+        $toLen     = \strlen($toBaseInput);
+        $numberLen = \strlen($numberInput);
         $newOutput = '';
 
+        if ($fromBase === false || $toBase === false || $number === false) {
+            throw new \Exception();
+        }
+
         if ($toBaseInput === '0123456789') {
-            $newOutput = 0;
+            $newOutput = '0';
 
             for ($i = 1; $i <= $numberLen; ++$i) {
                 $newOutput = bcadd(
-                    (string) $newOutput,
+                    $newOutput,
                     bcmul(
-                        (string) array_search($number[$i - 1], $fromBase),
+                        (string) \array_search($number[$i - 1], $fromBase),
                         bcpow((string) $fromLen, (string) ($numberLen - $i))
                     )
                 );
@@ -88,15 +92,15 @@ class Numeric
             return $newOutput;
         }
 
-        $base10 = $fromBaseInput != '0123456789' ? self::convertBase($numberInput, $fromBaseInput, '0123456789') : $numberInput;
+        $base10 = (int) ($fromBaseInput != '0123456789' ? self::convertBase($numberInput, $fromBaseInput, '0123456789') : $numberInput);
 
-        if ($base10 < strlen($toBaseInput)) {
+        if ($base10 < \strlen($toBaseInput)) {
             return $toBase[$base10];
         }
 
         while ($base10 !== '0') {
-            $newOutput = $toBase[bcmod($base10, (string) $toLen)] . $newOutput;
-            $base10    = bcdiv($base10, (string) $toLen, 0);
+            $newOutput = $toBase[(int) bcmod((string) $base10, (string) $toLen)] . $newOutput;
+            $base10    = bcdiv((string) $base10, (string) $toLen, 0);
         }
 
         return $newOutput;
@@ -144,9 +148,13 @@ class Numeric
         $result = 0;
 
         foreach (self::ROMANS as $key => $value) {
-            while (strpos($roman, $key) === 0) {
+            while (\strpos($roman, $key) === 0) {
                 $result += $value;
-                $roman   = substr($roman, strlen($key));
+                $temp    = \substr($roman, \strlen($key));
+
+                if ($temp !== false) {
+                    $roman = $temp;
+                }
             }
         }
 
@@ -169,7 +177,7 @@ class Numeric
         $alpha = '';
 
         for ($i = 1; $number >= 0 && $i < 10; ++$i) {
-            $alpha   = chr(0x41 + ($number % pow(26, $i) / pow(26, $i - 1))) . $alpha;
+            $alpha   = chr(0x41 + (int) ($number % pow(26, $i) / pow(26, $i - 1))) . $alpha;
             $number -= pow(26, $i);
         }
 
@@ -188,12 +196,12 @@ class Numeric
     public static function alphaToNumeric(string $alpha) : int
     {
         $numeric = 0;
-        $length  = strlen($alpha);
+        $length  = \strlen($alpha);
 
         for ($i = 0; $i < $length; ++$i) {
             $numeric += pow(26, $i) * (ord($alpha[$length - $i - 1]) - 0x40);
         }
 
-        return $numeric - 1;
+        return (int) $numeric - 1;
     }
 }

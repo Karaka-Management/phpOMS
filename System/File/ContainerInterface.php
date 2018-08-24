@@ -205,7 +205,7 @@ interface ContainerInterface
      * @param bool   $recursive Consider subdirectories
      * @param array  $ignore    Files/paths to ignore (no regex)
      *
-     * @return string
+     * @return int
      *
      * @since  1.0.0
      */

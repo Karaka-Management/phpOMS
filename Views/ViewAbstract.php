@@ -203,7 +203,7 @@ abstract class ViewAbstract implements \Serializable
     public function serialize() : string
     {
         if (empty($this->template)) {
-            return \json_encode($this->toArray());
+            return (string) \json_encode($this->toArray());
         }
 
         return $this->render();
@@ -253,10 +253,10 @@ abstract class ViewAbstract implements \Serializable
             ob_start();
             /** @noinspection PhpIncludeInspection */
             $includeData = include $path;
-            $ob          = ob_get_clean();
+            $ob          = (string) ob_get_clean();
 
             if (is_array($includeData)) {
-                return \json_encode($includeData);
+                return (string) \json_encode($includeData);
             }
         } catch (\Throwable $e) {
             $ob = '';

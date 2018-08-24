@@ -53,14 +53,15 @@ class PriorityQueue implements \Countable, \Serializable
     /**
      * Insert element into queue.
      *
-     * @param mixed $data     Queue element
-     * @param float $priority Priority of this element
+     * @param mixed  $data     Queue element
+     * @param string $job      Job cmd
+     * @param float  $priority Priority of this element
      *
      * @return int
      *
      * @since  1.0.0
      */
-    public function insert($data, float $priority = 1.0) : int
+    public function insert($data, string $job, float $priority = 1.0) : int
     {
         do {
             $key = rand();
@@ -78,6 +79,7 @@ class PriorityQueue implements \Countable, \Serializable
                 $pos++;
             }
 
+            $original = [];
             array_splice($original, $pos, 0, [$key => ['key' => $key, 'job' => $job, 'priority' => $priority]]);
         }
 
@@ -184,7 +186,7 @@ class PriorityQueue implements \Countable, \Serializable
      */
     public function serialize() : string
     {
-        return \json_encode($this->queue);
+        return (string) \json_encode($this->queue);
     }
 
     /**

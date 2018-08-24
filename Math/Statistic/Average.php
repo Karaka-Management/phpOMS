@@ -168,7 +168,7 @@ final class Average
      *
      * @return float
      *
-     * @throws phpOMS\Math\Exception\ZeroDevisionException
+     * @throws ZeroDevisionException
      *
      * @since  1.0.0
      */
@@ -252,7 +252,7 @@ final class Average
             throw new ZeroDevisionException();
         }
 
-        return (float) pow(array_product($values), 1 / $count);
+        return pow(\array_product($values), 1 / $count);
     }
 
     /**

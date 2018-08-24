@@ -106,7 +106,7 @@ final class L11nManager
     public function loadLanguageFromFile(string $language, string $from, string $file) : void
     {
         $lang = [];
-        if (file_exists($file)) {
+        if (\file_exists($file)) {
             /** @noinspection PhpIncludeInspection */
             $lang = include $file;
         }
@@ -158,7 +158,7 @@ final class L11nManager
                 if (!isset($this->language[$code][$module][$translation])) {
                     return 'ERROR';
                 }
-            } catch (\Exception $e) {
+            } catch (\Throwable $e) {
                 FileLogger::getInstance()->warning(FileLogger::MSG_FULL, [
                     'message' => 'Undefined translation for \'' . $code . '/' . $module . '/' . $translation . '\'.',
                 ]);
@@ -184,6 +184,6 @@ final class L11nManager
      */
     public function getHtml(string $code, string $module, string $theme, $translation) : string
     {
-        return htmlspecialchars($this->getText($code, $module, $theme, $translation));
+        return \htmlspecialchars($this->getText($code, $module, $theme, $translation));
     }
 }

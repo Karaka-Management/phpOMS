@@ -453,11 +453,11 @@ class Account implements ArrayableInterface, \JsonSerializable
      */
     public function setEmail(string $email) : void
     {
-        if (!Email::isValid($email)) {
+        if ($email !== '' && !Email::isValid($email)) {
             throw new \InvalidArgumentException();
         }
 
-        $this->email = mb_strtolower($email);
+        $this->email = \mb_strtolower($email);
     }
 
     /**
@@ -561,11 +561,13 @@ class Account implements ArrayableInterface, \JsonSerializable
      */
     public function generatePassword(string $password) : void
     {
-        $this->password = \password_hash($password, \PASSWORD_DEFAULT);
+        $temp = \password_hash($password, \PASSWORD_DEFAULT);
 
-        if ($this->password === false) {
+        if ($temp === false) {
             throw new \Exception();
         }
+
+        $this->password = $temp;
     }
 
     /**
@@ -603,7 +605,7 @@ class Account implements ArrayableInterface, \JsonSerializable
      */
     public function __toString() : string
     {
-        return \json_encode($this->toArray());
+        return (string) \json_encode($this->toArray());
     }
 
     /**

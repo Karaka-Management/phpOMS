@@ -50,8 +50,6 @@ final class StringUtils
      * @param array  $needles  Needles to check if any of them are part of the haystack
      *
      * @example StringUtils::contains('This string', ['This', 'test']); // true
-     * @example StringUtils::contains('This string', 'is st'); // true
-     * @example StringUtils::contains('This string', 'something'); // false
      *
      * @return bool The function returns true if any of the needles is part of the haystack, false otherwise.
      *
@@ -77,8 +75,6 @@ final class StringUtils
      * @param array  $needles  Needles to check if any of them are part of the haystack
      *
      * @example StringUtils::mb_contains('This string', ['This', 'test']); // true
-     * @example StringUtils::mb_contains('This string', 'is st'); // true
-     * @example StringUtils::mb_contains('This string', 'something'); // false
      *
      * @return bool The function returns true if any of the needles is part of the haystack, false otherwise.
      *
@@ -105,8 +101,6 @@ final class StringUtils
      * @param string|array $needles  Needles to check if they are at the end of the haystack.
      *
      * @example StringUtils::endsWith('Test string', ['test1', 'string']); // true
-     * @example StringUtils::endsWith('Test string', 'string'); // true
-     * @example StringUtils::endsWith('Test string', 'String'); // false
      *
      * @return bool The function returns true if any of the needles is at the end of the haystack, false otherwise.
      *

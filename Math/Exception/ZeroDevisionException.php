@@ -27,13 +27,12 @@ final class ZeroDevisionException extends \UnexpectedValueException
     /**
      * Constructor.
      *
-     * @param string     $message  Exception message
      * @param int        $code     Exception code
      * @param \Exception $previous Previous exception
      *
      * @since  1.0.0
      */
-    public function __construct(string $message = '', int $code = 0, \Exception $previous = null)
+    public function __construct(int $code = 0, \Exception $previous = null)
     {
         parent::__construct('Devision by zero is not defined.', $code, $previous);
     }

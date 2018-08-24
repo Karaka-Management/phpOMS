@@ -51,6 +51,6 @@ final class ImageUtils
         $img = \str_replace('data:image/png;base64,', '', $img);
         $img = \str_replace(' ', '+', $img);
 
-        return base64_decode($img);
+        return (string) base64_decode($img);
     }
 }

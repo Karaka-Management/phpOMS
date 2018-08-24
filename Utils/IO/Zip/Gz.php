@@ -31,23 +31,25 @@ class Gz implements ArchiveInterface
      */
     public static function pack($source, string $destination, bool $overwrite = true) : bool
     {
-        $destination = \str_replace('\\', '/', realpath($destination));
+        $destination = \str_replace('\\', '/', $destination);
         if (!$overwrite && \file_exists($destination)) {
             return false;
         }
 
-        if (($gz = gzopen($destination, 'w')) === false) {
+        $gz  = \gzopen($destination, 'w');
+        $src = \fopen($source, 'r');
+        if ($gz === false || $src === false) {
             return false;
         }
 
-        $src = fopen($source, 'r');
-        while (!feof($src)) {
-            gzwrite($gz, fread($src, 4096));
+        while (!\feof($src)) {
+            $read = \fread($src, 4096);
+            \gzwrite($gz, $read === false ? '' : $read);
         }
 
-        fclose($src);
+        \fclose($src);
 
-        return gzclose($gz);
+        return \gzclose($gz);
     }
 
     /**
@@ -55,22 +57,23 @@ class Gz implements ArchiveInterface
      */
     public static function unpack(string $source, string $destination) : bool
     {
-        $destination = \str_replace('\\', '/', realpath($destination));
-        if (file_exists($destination)) {
+        $destination = \str_replace('\\', '/', $destination);
+        if (\file_exists($destination)) {
             return false;
         }
 
-        if (($gz = gzopen($source, 'w')) === false) {
+        $gz   = \gzopen($source, 'w');
+        $dest = \fopen($destination, 'w');
+        if ($gz === false || $dest === false) {
             return false;
         }
 
-        $dest = fopen($destination, 'w');
-        while (!gzeof($gz)) {
-            fwrite($dest, gzread($gz, 4096));
+        while (!\gzeof($gz)) {
+            \fwrite($dest, \gzread($gz, 4096));
         }
 
-        fclose($dest);
+        \fclose($dest);
 
-        return gzclose($gz);
+        return \gzclose($gz);
     }
 }

@@ -34,7 +34,7 @@ abstract class SchedulerAbstract
      * @var string
      * @since 1.0.0
      */
-    protected static $bin = '';
+    private static $bin = '';
 
     /**
      * Get git binary.
@@ -61,11 +61,44 @@ abstract class SchedulerAbstract
      */
     public static function setBin(string $path) : void
     {
-        if (realpath($path) === false) {
+        if (\realpath($path) === false) {
             throw new PathException($path);
         }
 
-        self::$bin = realpath($path);
+        self::$bin = \realpath($path);
+    }
+
+    /**
+     * Gues git binary.
+     *
+     * @return bool
+     *
+     * @since  1.0.0
+     */
+    public static function guessBin() : bool
+    {
+        $paths = [
+            'c:/WINDOWS/system32/schtasks.exe',
+            'd:/WINDOWS/system32/schtasks.exe',
+            'e:/WINDOWS/system32/schtasks.exe',
+            'f:/WINDOWS/system32/schtasks.exe',
+            '/usr/bin/crontab',
+            '/usr/local/bin/crontab',
+            '/usr/local/sbin/crontab',
+            '/usr/sbin/crontab',
+            '/bin/crontab',
+            '/sbin/crontab',
+        ];
+
+        foreach ($paths as $path) {
+            if (\file_exists($path)) {
+                self::setBin($path);
+
+                return true;
+            }
+        }
+
+        return false;
     }
 
     /**
@@ -79,16 +112,62 @@ abstract class SchedulerAbstract
     public static function test() : bool
     {
         $pipes    = [];
-        $resource = proc_open(escapeshellarg(self::$bin), [1 => ['pipe', 'w'], 2 => ['pipe', 'w']], $pipes);
+        $resource = \proc_open(\escapeshellarg(self::$bin), [1 => ['pipe', 'w'], 2 => ['pipe', 'w']], $pipes);
 
-        $stdout = stream_get_contents($pipes[1]);
-        $stderr = stream_get_contents($pipes[2]);
-
-        foreach ($pipes as $pipe) {
-            fclose($pipe);
+        if ($resource === false) {
+            return false;
         }
 
-        return trim(proc_close($resource)) !== 127;
+        $stdout = \stream_get_contents($pipes[1]);
+        $stderr = \stream_get_contents($pipes[2]);
+
+        foreach ($pipes as $pipe) {
+            \fclose($pipe);
+        }
+
+        return \proc_close($resource) !== 127;
+    }
+
+    /**
+     * Run command
+     *
+     * @param string $cmd Command to run
+     *
+     * @return string
+     *
+     * @throws \Exception
+     *
+     * @since  1.0.0
+     */
+    protected function run(string $cmd) : string
+    {
+        $cmd = 'cd ' . \escapeshellarg(\dirname(self::$bin)) . ' && ' . \basename(self::$bin) . ' ' . $cmd;
+
+        $pipes = [];
+        $desc  = [
+            1 => ['pipe', 'w'],
+            2 => ['pipe', 'w'],
+        ];
+
+        $resource = \proc_open($cmd, $desc, $pipes, __DIR__, null);
+        if ($resource === false) {
+            return '';
+        }
+
+        $stdout = \stream_get_contents($pipes[1]);
+        $stderr = \stream_get_contents($pipes[2]);
+
+        foreach ($pipes as $pipe) {
+            \fclose($pipe);
+        }
+
+        $status = \proc_close($resource);
+
+        if ($status === -1) {
+            throw new \Exception($stderr);
+        }
+
+        return trim($stdout);
     }
 
     /**
@@ -100,8 +179,64 @@ abstract class SchedulerAbstract
      *
      * @since  1.0.0
      */
-    public function create(TaskAbstract $task) : void
+    abstract public function create(TaskAbstract $task) : void;
+
+    /**
+     * Update task
+     *
+     * @param TaskAbstract $task Task to update
+     *
+     * @return void
+     *
+     * @since  1.0.0
+     */
+    abstract public function update(TaskAbstract $task) : void;
+
+    /**
+     * Delete task by name
+     *
+     * @param string $name Task name
+     *
+     * @return void
+     *
+     * @since  1.0.0
+     */
+    abstract public function deleteByName(string $name) : void;
+
+    /**
+     * Delete task
+     *
+     * @param TaskAbstract $task Task to delete
+     *
+     * @return void
+     *
+     * @since  1.0.0
+     */
+    abstract public function delete(TaskAbstract $task) : void;
+
+    /**
+     * Normalize run result for easier parsing
+     *
+     * @param string $raw Raw command output
+     *
+     * @return string Normalized string for parsing
+     *
+     * @since  1.0.0
+     */
+    protected function normalize(string $raw) : string
     {
-        $this->run($task->getCommand());
+        return \str_replace("\r\n", "\n", $raw);
     }
+
+    /**
+     * Get all jobs/tasks by name
+     *
+     * @param string $name  Name of the job
+     * @param bool   $exact Name has to be exact
+     *
+     * @return array
+     *
+     * @since  1.0.0
+     */
+    abstract public function getAllByName(string $name, bool $exact = true) : array;
 }
