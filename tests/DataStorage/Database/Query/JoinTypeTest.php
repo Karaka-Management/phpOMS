@@ -19,7 +19,7 @@ class JoinTypeTest extends \PHPUnit\Framework\TestCase
 {
     public function testEnums()
     {
-        self::assertEquals(11, \count(JoinType::getConstants()));
+        self::assertEquals(12, \count(JoinType::getConstants()));
         self::assertEquals(JoinType::getConstants(), array_unique(JoinType::getConstants()));
 
         self::assertEquals('JOIN', JoinType::JOIN);
@@ -32,6 +32,7 @@ class JoinTypeTest extends \PHPUnit\Framework\TestCase
         self::assertEquals('OUTER JOIN', JoinType::OUTER_JOIN);
         self::assertEquals('INNER JOIN', JoinType::INNER_JOIN);
         self::assertEquals('CROSS JOIN', JoinType::CROSS_JOIN);
+        self::assertEquals('FULL JOIN', JoinType::FULL_JOIN);
         self::assertEquals('FULL OUTER JOIN', JoinType::FULL_OUTER_JOIN);
     }
 }
