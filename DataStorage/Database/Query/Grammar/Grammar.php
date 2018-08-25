@@ -393,9 +393,55 @@ class Grammar extends GrammarAbstract
         return 'OFFSET ' . $offset;
     }
 
-    private function compileJoins()
+    /**
+     * Compile joins.
+     *
+     * @param Builder $query Builder
+     * @param array   $joins Joins
+     *
+     * @return string
+     *
+     * @since  1.0.0
+     */
+    private function compileJoins(Builder $query, array $joins) : string
     {
-        return '';
+        $expression = '';
+
+        foreach ($joins as $key => $join) {
+            $expression .= $join['type'] . ' ';
+            $expression .= $this->compileSystem($join, $prefix);
+            $expression .= $this->compileOn($query, $query->ons[$key]);
+        }
+
+        $expression = \rtrim($expression, ', ');
+
+        return $expression;
+    }
+
+    /**
+     * Compile on.
+     *
+     * @param Builder $query Builder
+     * @param array   $joins Joins
+     *
+     * @return string
+     *
+     * @since  1.0.0
+     */
+    private function compileOn(Builder $query, array $ons, bool $first = true) : string
+    {
+        $expression = '';
+
+        foreach ($ons as $key => $on) {
+            $expression .= $this->compileWhereElement($on, $query, $first);
+            $first       = false;
+        }
+
+        if ($expression === '') {
+            return '';
+        }
+
+        return 'ON ' . $expression;
     }
 
     /**

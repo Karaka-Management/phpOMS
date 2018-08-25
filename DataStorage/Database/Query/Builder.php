@@ -116,6 +116,14 @@ final class Builder extends BuilderAbstract
     public $joins = [];
 
     /**
+     * Ons of joins.
+     *
+     * @var array
+     * @since 1.0.0
+     */
+    public $ons = [];
+
+    /**
      * Where.
      *
      * @var array
@@ -1067,64 +1075,147 @@ final class Builder extends BuilderAbstract
      *
      * @since  1.0.0
      */
-    public function join($table1, $table2, $column1, $opperator, $column2) : Builder
+    public function join($column, string $type = JoinType::JOIN) : Builder
     {
+        if (\is_string($column) || $column instanceof \Closure) {
+            $this->joins[] = ['type' => $type, 'column' => $column];
+        } else {
+            throw new \InvalidArgumentException();
+        }
+
         return $this;
     }
 
     /**
-     * Join where.
+     * Join.
      *
-     * @return void
+     * @return Builder
      *
      * @since  1.0.0
      */
-    public function joinWhere()
+    public function leftJoin($column) : Builder
     {
+        return $this->join($column, JoinType::LEFT_JOIN);
     }
 
     /**
-     * Left join.
+     * Join.
      *
-     * @return void
+     * @return Builder
      *
      * @since  1.0.0
      */
-    public function leftJoin()
+    public function leftOuterJoin($column) : Builder
     {
+        return $this->join($column, JoinType::LEFT_OUTER_JOIN);
     }
 
     /**
-     * Left join where.
+     * Join.
      *
-     * @return void
+     * @return Builder
      *
      * @since  1.0.0
      */
-    public function leftJoinWhere()
+    public function leftInnerJoin($column) : Builder
     {
+        return $this->join($column, JoinType::LEFT_INNER_JOIN);
     }
 
     /**
-     * Right join.
+     * Join.
      *
-     * @return void
+     * @return Builder
      *
      * @since  1.0.0
      */
-    public function rightJoin()
+    public function rightJoin($column) : Builder
     {
+        return $this->join($column, JoinType::RIGHT_JOIN);
     }
 
     /**
-     * Right join where.
+     * Join.
      *
-     * @return void
+     * @return Builder
      *
      * @since  1.0.0
      */
-    public function rightJoinWhere()
+    public function rightOuterJoin($column) : Builder
     {
+        return $this->join($column, JoinType::RIGHT_OUTER_JOIN);
+    }
+
+    /**
+     * Join.
+     *
+     * @return Builder
+     *
+     * @since  1.0.0
+     */
+    public function rightInnerJoin($column) : Builder
+    {
+        return $this->join($column, JoinType::RIGHT_INNER_JOIN);
+    }
+
+    /**
+     * Join.
+     *
+     * @return Builder
+     *
+     * @since  1.0.0
+     */
+    public function outerJoin($column) : Builder
+    {
+        return $this->join($column, JoinType::OUTER_JOIN);
+    }
+
+    /**
+     * Join.
+     *
+     * @return Builder
+     *
+     * @since  1.0.0
+     */
+    public function innerJoin($column) : Builder
+    {
+        return $this->join($column, JoinType::INNER_JOIN);
+    }
+
+    /**
+     * Join.
+     *
+     * @return Builder
+     *
+     * @since  1.0.0
+     */
+    public function crossJoin($column) : Builder
+    {
+        return $this->join($column, JoinType::CROSS_JOIN);
+    }
+
+    /**
+     * Join.
+     *
+     * @return Builder
+     *
+     * @since  1.0.0
+     */
+    public function fullJoin($column) : Builder
+    {
+        return $this->join($column, JoinType::FULL_JOIN);
+    }
+
+    /**
+     * Join.
+     *
+     * @return Builder
+     *
+     * @since  1.0.0
+     */
+    public function fullOuterJoin($column) : Builder
+    {
+        return $this->join($column, JoinType::FULL_OUTER_JOIN);
     }
 
     /**
@@ -1134,7 +1225,7 @@ final class Builder extends BuilderAbstract
      *
      * @since  1.0.0
      */
-    public function rollback()
+    public function rollback() : Builder
     {
         return $this;
     }
@@ -1142,13 +1233,42 @@ final class Builder extends BuilderAbstract
     /**
      * On.
      *
-     * @return void
+     * @return Builder
      *
      * @since  1.0.0
      */
-    public function on()
+    public function on($columns, $operator = null, $values = null, $boolean = 'and') : Builder
     {
+        if ($operator !== null && !\is_array($operator) && !\in_array(\strtolower($operator), self::OPERATORS)) {
+            throw new \InvalidArgumentException('Unknown operator.');
+        }
 
+        if (!\is_array($columns)) {
+            $columns  = [$columns];
+            $operator = [$operator];
+            $values   = [$values];
+            $boolean  = [$boolean];
+        }
+
+        $joinCount = \count($this->joins);
+        $i         = 0;
+
+        foreach ($columns as $key => $column) {
+            if (isset($operator[$i]) && !\in_array(\strtolower($operator[$i]), self::OPERATORS)) {
+                throw new \InvalidArgumentException('Unknown operator.');
+            }
+
+            $this->ons[$joinCount][] = [
+                'column'   => $column,
+                'operator' => $operator[$i],
+                'value'    => $values[$i],
+                'boolean'  => $boolean[$i],
+            ];
+
+            $i++;
+        }
+
+        return $this;
     }
 
     /**
@@ -1194,13 +1314,13 @@ final class Builder extends BuilderAbstract
      *
      * @param mixed $value Value to bind
      *
-     * @return mixed
+     * @return int
      *
      * @throws \Exception
      *
      * @since  1.0.0
      */
-    public static function getBindParamType($value)
+    public static function getBindParamType($value) : int
     {
         if (\is_int($value)) {
             return \PDO::PARAM_INT;

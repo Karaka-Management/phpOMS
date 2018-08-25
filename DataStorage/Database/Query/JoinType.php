@@ -36,5 +36,6 @@ abstract class JoinType extends Enum
     public const OUTER_JOIN       = 'OUTER JOIN';
     public const INNER_JOIN       = 'INNER JOIN';
     public const CROSS_JOIN       = 'CROSS JOIN';
+    public const FULL_JOIN        = 'FULL JOIN';
     public const FULL_OUTER_JOIN  = 'FULL OUTER JOIN';
 }
