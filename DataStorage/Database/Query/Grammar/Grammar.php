@@ -299,8 +299,6 @@ class Grammar extends GrammarAbstract
             $expression .= '(' . $this->compileWhere($element['column'], $query->getPrefix()) . ')';
         }
 
-        // todo: handle IN(...) as operator
-
         if (isset($element['value'])) {
             $expression .= ' ' . \strtoupper($element['operator']) . ' ' . $this->compileValue($query, $element['value'], $query->getPrefix());
         } else {
