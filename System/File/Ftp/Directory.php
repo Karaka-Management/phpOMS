@@ -272,7 +272,7 @@ class Directory extends FileAbstract implements DirectoryInterface
     /**
      * {@inheritdoc}
      */
-    public function \rewind()
+    public function rewind()
     {
         \reset($this->nodes);
     }
