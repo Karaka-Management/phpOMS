@@ -95,9 +95,17 @@ final class ArrayUtils
         if ($pathParts === false) {
             throw new \Exception();
         }
+        
+        $pathPartCount = \count($pathParts);
+        $c             = 1;
 
         foreach ($pathParts as $key) {
+            if (!isset($current[$key]) && $pathPartCount < $c) {
+                $current = [];
+            }
+            
             $current = &$current[$key];
+            ++$c;
         }
 
         if ($overwrite) {
