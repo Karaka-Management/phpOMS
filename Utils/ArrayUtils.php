@@ -57,7 +57,7 @@ final class ArrayUtils
             throw new \Exception();
         }
 
-        foreach ($nodes as &$node) {
+        foreach ($nodes as $node) {
             $prevEl = &$el;
 
             if (!isset($el[$node])) {
