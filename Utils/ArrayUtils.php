@@ -57,7 +57,7 @@ final class ArrayUtils
             throw new \Exception();
         }
 
-        foreach ($nodes as &$node) {
+        foreach ($nodes as $node) {
             $prevEl = &$el;
 
             if (!isset($el[$node])) {
@@ -102,10 +102,10 @@ final class ArrayUtils
 
         if ($overwrite) {
             $current = $value;
-        } elseif (\is_array($current) && !is_array($value)) {
+        } elseif (\is_array($current) && !\is_array($value)) {
             $current[] = $value;
-        } elseif (\is_array($current) && is_array($value)) {
-            $current = array_merge($current, $value);
+        } elseif (\is_array($current) && \is_array($value)) {
+            $current = \array_merge($current, $value);
         } elseif (\is_scalar($current) && $current !== null) {
             $current = [$current, $value];
         } else {
