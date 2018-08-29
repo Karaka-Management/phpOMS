@@ -54,7 +54,7 @@ final class Dispatcher
      *
      * @since  1.0.0
      */
-    public function __construct(ApplicationAbstract $app)
+    public function __construct(ApplicationAbstract $app = null)
     {
         $this->app = $app;
     }
