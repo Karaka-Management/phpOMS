@@ -18,9 +18,10 @@
         </testsuite>
     </testsuites>
     <filter>
-        <whitelist addUncoveredFilesFromWhitelist="false" processUncoveredFilesFromWhitelist="false">
+        <whitelist addUncoveredFilesFromWhitelist="true" processUncoveredFilesFromWhitelist="false">
             <directory suffix=".php">.*</directory>
             <exclude>
+                <directory>../*/tests*</directory>
                 <directory suffix="tpl.php">../*</directory>
                 <directory suffix="lang.php">../*</directory>
                 <directory suffix="Test.php">../*</directory>
