@@ -18,6 +18,7 @@ use phpOMS\Contract\ArrayableInterface;
 use phpOMS\Localization\Localization;
 use phpOMS\Localization\NullLocalization;
 use phpOMS\Validation\Network\Email;
+use phpOMS\Stdlib\Base\Exception\InvalidEnumValue;
 
 /**
  * Account class.
@@ -481,12 +482,14 @@ class Account implements ArrayableInterface, \JsonSerializable
      *
      * @return void
      *
+     * @throws InvalidEnumValue
+     *
      * @since  1.0.0
      */
     public function setStatus(int $status) : void
     {
         if (!AccountStatus::isValidValue($status)) {
-            throw new \InvalidArgumentException();
+            throw new InvalidEnumValue($status);
         }
 
         $this->status = $status;
@@ -513,12 +516,14 @@ class Account implements ArrayableInterface, \JsonSerializable
      *
      * @return void
      *
+     * @throws InvalidEnumValue
+     *
      * @since  1.0.0
      */
     public function setType(int $type) : void
     {
         if (!AccountType::isValidValue($type)) {
-            throw new \InvalidArgumentException();
+            throw new InvalidEnumValue($type);
         }
 
         $this->type = $type;

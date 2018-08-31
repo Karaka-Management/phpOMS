@@ -172,7 +172,7 @@ class AccountTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @expectedException \InvalidArgumentException
+     * @expectedException \phpOMS\Stdlib\Base\Exception\InvalidEnumValue
      */
     public function testStatusException()
     {
@@ -181,7 +181,7 @@ class AccountTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @expectedException \InvalidArgumentException
+     * @expectedException \phpOMS\Stdlib\Base\Exception\InvalidEnumValue
      */
     public function testTypeException()
     {

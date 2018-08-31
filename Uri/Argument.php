@@ -130,11 +130,11 @@ final class Argument implements UriInterface
     /**
      * Constructor.
      *
-     * @param string $uri Root path for subdirectory
+     * @param string $uri Uri
      *
      * @since  1.0.0
      */
-    public function __construct(string $uri)
+    public function __construct(string $uri = '')
     {
         $this->set($uri);
     }

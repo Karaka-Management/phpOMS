@@ -520,6 +520,44 @@ final class ModuleManager
     }
 
     /**
+     * Uninstall module.
+     *
+     * @param string $module Module name
+     *
+     * @return bool
+     *
+     * @since  1.0.0
+     */
+    public function uninstall(string $module) : bool
+    {
+        $installed = $this->getInstalledModules(false);
+
+        if (!isset($installed[$module])) {
+            return false;
+        }
+
+        if (!\file_exists($this->modulePath . '/' . $module . '/Admin/Uninstaller.php')) {
+            return false;
+        }
+
+        try {
+            $info = $this->loadInfo($module);
+
+            $this->installed[$module] = $info;
+            // uninstall dependencies if not used by others
+            // uninstall providing for
+            // uninstall receiving from? no?
+            // uninstall module
+
+            return true;
+        } catch (PathException $e) {
+            return false;
+        } catch (\Exception $e) {
+            return false;
+        }
+    }
+
+    /**
      * Install module dependencies.
      *
      * @param array $dependencies Module dependencies
