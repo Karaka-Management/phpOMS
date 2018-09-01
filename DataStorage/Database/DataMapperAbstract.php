@@ -874,7 +874,7 @@ class DataMapperAbstract implements DataMapperInterface
             return $value->serialize();
         } elseif ($value instanceof \JsonSerializable) {
             return (string) \json_encode($value->jsonSerialize());
-        } elseif (\is_object($value) && method_exists($value, 'getId')) {
+        } elseif (\is_object($value) && \method_exists($value, 'getId')) {
             return $value->getId();
         }
 
@@ -2860,31 +2860,6 @@ class DataMapperAbstract implements DataMapperInterface
         if (self::isInitializedArray($mapper, $id)) {
             unset(self::$initArrays[$mapper][$id]);
         }
-    }
-
-    /**
-     * Check if model exists in database
-     *
-     * @param mixed $id Object id
-     *
-     * @return bool
-     *
-     * @since  1.0.0
-     */
-    public static function exists($id) : bool
-    {
-        $query = $query ?? new Builder(self::$db);
-        $query->prefix(self::$db->getPrefix())
-            ->select(static::$primaryField)
-            ->from(static::$table)
-            ->where(static::$primaryField, '=', $id);
-
-        $sth = self::$db->con->prepare($query->toSql());
-        $sth->execute();
-
-        $results = $sth->fetchAll(\PDO::FETCH_ASSOC);
-
-        return $results && \count($results) === 0;
     }
 
     /**
