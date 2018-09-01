@@ -29,4 +29,10 @@ class C25Test extends \PHPUnit\Framework\TestCase
 
         self::assertTrue(\file_exists($path));
     }
+
+    public function testValidString()
+    {
+        self::assertTrue(C25::isValidString('1234567890'));
+        self::assertFalse(C25::isValidString('1234567A890'));
+    }
 }

@@ -189,6 +189,65 @@ class BuilderTest extends \PHPUnit\Framework\TestCase
         self::assertEquals($sql, $query->select('a.test')->from('a')->where('a.test', '=', ':testWhere')->whereIn('a.test2', ['a', ':bValue', 'c'], 'or')->toSql());
     }
 
+    public function testMysqlJoins()
+    {
+        $query = new Builder($this->con);
+        $sql   = 'SELECT `a`.`test` FROM `a` JOIN `b` ON `a`.`id` = `b`.`id` WHERE `a`.`test` = 1;';
+        self::assertEquals($sql, $query->select('a.test')->from('a')->join('b')->on('a.id', '=', 'b.id')->where('a.test', '=', 1)->toSql());
+
+        $query = new Builder($this->con);
+        $sql   = 'SELECT `a`.`test` FROM `a` JOIN `b` ON `a`.`id` = `b`.`id` OR `a`.`id2` = `b`.`id2` WHERE `a`.`test` = 1;';
+        self::assertEquals($sql, $query->select('a.test')->from('a')->join('b')->on('a.id', '=', 'b.id')->orOn('a.id2', '=', 'b.id2')->where('a.test', '=', 1)->toSql());
+
+        $query = new Builder($this->con);
+        $sql   = 'SELECT `a`.`test` FROM `a` JOIN `b` ON `a`.`id` = `b`.`id` AND `a`.`id2` = `b`.`id2` WHERE `a`.`test` = 1;';
+        self::assertEquals($sql, $query->select('a.test')->from('a')->join('b')->on('a.id', '=', 'b.id')->andOn('a.id2', '=', 'b.id2')->where('a.test', '=', 1)->toSql());
+    
+        $query = new Builder($this->con);
+        $sql   = 'SELECT `a`.`test` FROM `a` LEFT JOIN `b` ON `a`.`id` = `b`.`id` WHERE `a`.`test` = 1;';
+        self::assertEquals($sql, $query->select('a.test')->from('a')->leftJoin('b')->on('a.id', '=', 'b.id')->where('a.test', '=', 1)->toSql());
+
+        $query = new Builder($this->con);
+        $sql   = 'SELECT `a`.`test` FROM `a` LEFT OUTER JOIN `b` ON `a`.`id` = `b`.`id` WHERE `a`.`test` = 1;';
+        self::assertEquals($sql, $query->select('a.test')->from('a')->leftOuterJoin('b')->on('a.id', '=', 'b.id')->where('a.test', '=', 1)->toSql());
+
+        $query = new Builder($this->con);
+        $sql   = 'SELECT `a`.`test` FROM `a` LEFT INNER JOIN `b` ON `a`.`id` = `b`.`id` WHERE `a`.`test` = 1;';
+        self::assertEquals($sql, $query->select('a.test')->from('a')->leftInnerJoin('b')->on('a.id', '=', 'b.id')->where('a.test', '=', 1)->toSql());
+
+        $query = new Builder($this->con);
+        $sql   = 'SELECT `a`.`test` FROM `a` RIGHT JOIN `b` ON `a`.`id` = `b`.`id` WHERE `a`.`test` = 1;';
+        self::assertEquals($sql, $query->select('a.test')->from('a')->rightJoin('b')->on('a.id', '=', 'b.id')->where('a.test', '=', 1)->toSql());
+
+        $query = new Builder($this->con);
+        $sql   = 'SELECT `a`.`test` FROM `a` RIGHT OUTER JOIN `b` ON `a`.`id` = `b`.`id` WHERE `a`.`test` = 1;';
+        self::assertEquals($sql, $query->select('a.test')->from('a')->rightOuterJoin('b')->on('a.id', '=', 'b.id')->where('a.test', '=', 1)->toSql());
+
+        $query = new Builder($this->con);
+        $sql   = 'SELECT `a`.`test` FROM `a` RIGHT INNER JOIN `b` ON `a`.`id` = `b`.`id` WHERE `a`.`test` = 1;';
+        self::assertEquals($sql, $query->select('a.test')->from('a')->rightInnerJoin('b')->on('a.id', '=', 'b.id')->where('a.test', '=', 1)->toSql());
+
+        $query = new Builder($this->con);
+        $sql   = 'SELECT `a`.`test` FROM `a` OUTER JOIN `b` ON `a`.`id` = `b`.`id` WHERE `a`.`test` = 1;';
+        self::assertEquals($sql, $query->select('a.test')->from('a')->outerJoin('b')->on('a.id', '=', 'b.id')->where('a.test', '=', 1)->toSql());
+
+        $query = new Builder($this->con);
+        $sql   = 'SELECT `a`.`test` FROM `a` INNER JOIN `b` ON `a`.`id` = `b`.`id` WHERE `a`.`test` = 1;';
+        self::assertEquals($sql, $query->select('a.test')->from('a')->innerJoin('b')->on('a.id', '=', 'b.id')->where('a.test', '=', 1)->toSql());
+
+        $query = new Builder($this->con);
+        $sql   = 'SELECT `a`.`test` FROM `a` CROSS JOIN `b` ON `a`.`id` = `b`.`id` WHERE `a`.`test` = 1;';
+        self::assertEquals($sql, $query->select('a.test')->from('a')->crossJoin('b')->on('a.id', '=', 'b.id')->where('a.test', '=', 1)->toSql());
+
+        $query = new Builder($this->con);
+        $sql   = 'SELECT `a`.`test` FROM `a` FULL JOIN `b` ON `a`.`id` = `b`.`id` WHERE `a`.`test` = 1;';
+        self::assertEquals($sql, $query->select('a.test')->from('a')->fullJoin('b')->on('a.id', '=', 'b.id')->where('a.test', '=', 1)->toSql());
+    
+        $query = new Builder($this->con);
+        $sql   = 'SELECT `a`.`test` FROM `a` FULL OUTER JOIN `b` ON `a`.`id` = `b`.`id` WHERE `a`.`test` = 1;';
+        self::assertEquals($sql, $query->select('a.test')->from('a')->fullOuterJoin('b')->on('a.id', '=', 'b.id')->where('a.test', '=', 1)->toSql());
+    }
+
     public function testMysqlInsert()
     {
         $query = new Builder($this->con);
@@ -198,6 +257,7 @@ class BuilderTest extends \PHPUnit\Framework\TestCase
         $query = new Builder($this->con);
         $sql   = 'INSERT INTO `a` (`test`, `test2`) VALUES (1, \'test\');';
         self::assertEquals($sql, $query->insert('test', 'test2')->into('a')->values(1, 'test')->toSql());
+        self::assertEquals([[1, 'test']], $query->getValues());
 
         $query = new Builder($this->con);
         $sql   = 'INSERT INTO `a` (`test`, `test2`) VALUES (:test, :test2);';
@@ -266,5 +326,50 @@ class BuilderTest extends \PHPUnit\Framework\TestCase
     {
         $query = new Builder($this->con, true);
         $query->delete();
+    }
+
+    /**
+     * @expectedException \InvalidArgumentException
+     */
+    public function testInvalidWhereOperator()
+    {
+        $query = new Builder($this->con, true);
+        $query->where('a', 'invalid', 'b');
+    }
+
+    /**
+     * @expectedException \InvalidArgumentException
+     */
+    public function testInvalidJoinTable()
+    {
+        $query = new Builder($this->con, true);
+        $query->join(null);
+    }
+
+    /**
+     * @expectedException \InvalidArgumentException
+     */
+    public function testInvalidJoinOperator()
+    {
+        $query = new Builder($this->con, true);
+        $query->join('b')->on('a', 'invalid', 'b');
+    }
+
+    /**
+     * @expectedException \InvalidArgumentException
+     */
+    public function testInvalidOrOrderType()
+    {
+        $query = new Builder($this->con, true);
+        $query->orderBy('a', 1);
+    }
+
+    /**
+     * @expectedException \InvalidArgumentException
+     */
+    public function testInvalidOrColumnType()
+    {
+        $query = new Builder($this->con, true);
+        $query->orderBy(null, 'DESC');
     }
 }

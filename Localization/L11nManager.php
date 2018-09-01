@@ -159,11 +159,13 @@ final class L11nManager
                     return 'ERROR';
                 }
             } catch (\Throwable $e) {
+                // @codeCoverageIgnoreStart
                 FileLogger::getInstance()->warning(FileLogger::MSG_FULL, [
                     'message' => 'Undefined translation for \'' . $code . '/' . $module . '/' . $translation . '\'.',
                 ]);
 
                 return 'ERROR';
+                // @codeCoverageIgnoreEnd
             }
         }
 

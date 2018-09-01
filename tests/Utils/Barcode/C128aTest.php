@@ -29,4 +29,10 @@ class C128aTest extends \PHPUnit\Framework\TestCase
 
         self::assertTrue(\file_exists($path));
     }
+
+    public function testValidString()
+    {
+        self::assertTrue(C128a::isValidString('ABCDEFG0123+-'));
+        self::assertFalse(C128a::isValidString('ABCDE~FG0123+-'));
+    }
 }

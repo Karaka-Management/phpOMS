@@ -48,5 +48,7 @@ class NumericTest extends \PHPUnit\Framework\TestCase
         self::assertEquals('123', Numeric::convertBase('443', '01234', '0123456789'));
         self::assertEquals('123', Numeric::convertBase('7B', '0123456789ABCDEF', '0123456789'));
         self::assertEquals('123', Numeric::convertBase('173', '01234567', '0123456789'));
+
+        self::assertEquals('173', Numeric::convertBase('173', '01234567', '01234567'));
     }
 }

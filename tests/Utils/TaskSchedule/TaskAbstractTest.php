@@ -42,6 +42,7 @@ class TaskAbstractTest extends \PHPUnit\Framework\TestCase
         self::assertInstanceOf('\DateTime', $this->class->getNextRunTime());
         self::assertInstanceOf('\DateTime', $this->class->getLastRuntime());
         self::assertEquals('', $this->class->getComment());
+        self::assertEquals('', $this->class->getInterval());
     }
 
     public function testGetSet()

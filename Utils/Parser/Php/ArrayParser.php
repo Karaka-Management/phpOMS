@@ -67,14 +67,16 @@ class ArrayParser
             return ArrayParser::serializeArray($value, $depth);
         } elseif (\is_string($value)) {
             return '\'' . \str_replace('\'', '\\\'', $value) . '\'';
-        } elseif (\is_scalar($value)) {
-            return (string) $value;
-        } elseif ($value === null) {
-            return 'null';
         } elseif (\is_bool($value)) {
             return $value ? 'true' : 'false';
+        } elseif ($value === null) {
+            return 'null';
+        } elseif (\is_scalar($value)) {
+            return (string) $value;
         } elseif ($value instanceOf \Serializable) {
             return self::parseVariable($value->serialize());
+        } elseif ($value instanceOf \jsonSerializable) {
+            return self::parseVariable($value->jsonSerialize());
         } else {
             throw new \UnexpectedValueException();
         }

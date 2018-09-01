@@ -407,7 +407,7 @@ class Grammar extends GrammarAbstract
 
         foreach ($joins as $key => $join) {
             $expression .= $join['type'] . ' ';
-            $expression .= $this->compileSystem($join, $prefix);
+            $expression .= $this->compileSystem($join['table'], $query->getPrefix());
             $expression .= $this->compileOn($query, $query->ons[$key]);
         }
 
@@ -431,7 +431,7 @@ class Grammar extends GrammarAbstract
         $expression = '';
 
         foreach ($ons as $key => $on) {
-            $expression .= $this->compileWhereElement($on, $query, $first);
+            $expression .= $this->compileOnElement($on, $query, $first);
             $first       = false;
         }
 
@@ -439,7 +439,48 @@ class Grammar extends GrammarAbstract
             return '';
         }
 
-        return 'ON ' . $expression;
+        return ' ON ' . $expression;
+    }
+
+    /**
+     * Compile where element.
+     *
+     * @param array   $element Element data
+     * @param Builder $query   Query builder
+     * @param bool    $first   Is first element (usefull for nesting)
+     *
+     * @return string
+     *
+     * @since  1.0.0
+     */
+    protected function compileOnElement(array $element, Builder $query, bool $first = true) : string
+    {
+        $expression = '';
+
+        if (!$first) {
+            $expression = ' ' . \strtoupper($element['boolean']) . ' ';
+        }
+
+        if (\is_string($element['column'])) {
+            // handle bug when no table is specified in the where column
+            if (\count($query->from) === 1 && \stripos($element['column'], '.') === false) {
+                $element['column'] = $query->from[0] . '.' . $element['column'];
+            }
+
+            $expression .= $this->compileSystem($element['column'], $query->getPrefix());
+        } elseif ($element['column'] instanceof \Closure) {
+            $expression .= $element['column']();
+        } elseif ($element['column'] instanceof Builder) {
+            $expression .= '(' . $element['column']->toSql() . ')';
+        } elseif ($element['column'] instanceof Where) {
+            $expression .= '(' . $this->compileWhere($element['column'], $query->getPrefix()) . ')';
+        }
+
+        if (isset($element['value'])) {
+            $expression .= ' ' . \strtoupper($element['operator']) . ' ' . $this->compileSystem($element['value'], $query->getPrefix());
+        }
+
+        return $expression;
     }
 
     /**

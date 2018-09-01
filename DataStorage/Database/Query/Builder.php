@@ -383,14 +383,12 @@ final class Builder extends BuilderAbstract
             return true;
         }
 
-        $test = \strtolower($raw);
-
-        if (\strpos($test, 'insert') !== false
-            || \strpos($test, 'update') !== false
-            || \strpos($test, 'drop') !== false
-            || \strpos($test, 'delete') !== false
-            || \strpos($test, 'create') !== false
-            || \strpos($test, 'alter') !== false
+        if (\stripos($raw, 'insert') !== false
+            || \stripos($raw, 'update') !== false
+            || \stripos($raw, 'drop') !== false
+            || \stripos($raw, 'delete') !== false
+            || \stripos($raw, 'create') !== false
+            || \stripos($raw, 'alter') !== false
         ) {
             return false;
         }
@@ -482,10 +480,6 @@ final class Builder extends BuilderAbstract
      */
     public function where($columns, $operator = null, $values = null, $boolean = 'and') : Builder
     {
-        if ($operator !== null && !\is_array($operator) && !\in_array(\strtolower($operator), self::OPERATORS)) {
-            throw new \InvalidArgumentException('Unknown operator.');
-        }
-
         if (!\is_array($columns)) {
             $columns  = [$columns];
             $operator = [$operator];
@@ -1075,10 +1069,10 @@ final class Builder extends BuilderAbstract
      *
      * @since  1.0.0
      */
-    public function join($column, string $type = JoinType::JOIN) : Builder
+    public function join($table, string $type = JoinType::JOIN) : Builder
     {
-        if (\is_string($column) || $column instanceof \Closure) {
-            $this->joins[] = ['type' => $type, 'column' => $column];
+        if (\is_string($table) || $table instanceof \Closure) {
+            $this->joins[] = ['type' => $type, 'table' => $table];
         } else {
             throw new \InvalidArgumentException();
         }
@@ -1250,7 +1244,7 @@ final class Builder extends BuilderAbstract
             $boolean  = [$boolean];
         }
 
-        $joinCount = \count($this->joins);
+        $joinCount = \count($this->joins) - 1;
         $i         = 0;
 
         foreach ($columns as $key => $column) {
@@ -1269,6 +1263,30 @@ final class Builder extends BuilderAbstract
         }
 
         return $this;
+    }
+
+    /**
+     * On.
+     *
+     * @return Builder
+     *
+     * @since  1.0.0
+     */
+    public function orOn($columns, $operator = null, $values = null) : Builder
+    {
+        return $this->on($columns, $operator, $values, 'or');
+    }
+
+    /**
+     * On.
+     *
+     * @return Builder
+     *
+     * @since  1.0.0
+     */
+    public function andOn($columns, $operator = null, $values = null) : Builder
+    {
+        return $this->on($columns, $operator, $values, 'and');
     }
 
     /**

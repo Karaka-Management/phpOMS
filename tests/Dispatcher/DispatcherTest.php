@@ -74,6 +74,22 @@ class DispatcherTest extends \PHPUnit\Framework\TestCase
         );
     }
 
+    public function testPathMethodInArray()
+    {
+        $l11nManager  = new L11nManager();
+        $localization = new Localization($l11nManager);
+
+        self::assertTrue(
+            !empty(
+                $this->app->dispatcher->dispatch(
+                    ['dest' => 'phpOMS\tests\Dispatcher\TestController:testFunction'],
+                    new Request(new Http(''), $localization),
+                    new Response($localization)
+                )
+            )
+        );
+    }
+
     public function testPathStatic()
     {
         $l11nManager  = new L11nManager();
@@ -124,6 +140,14 @@ class DispatcherTest extends \PHPUnit\Framework\TestCase
     public function testInvalidControllerPath()
     {
         $this->app->dispatcher->dispatch('phpOMS\tests\Dispatcher\TestControllers::testFunctionStatic');
+    }
+
+    /**
+     * @expectedException \Exception
+     */
+    public function testInvalidControllerFunction()
+    {
+        $this->app->dispatcher->dispatch('phpOMS\tests\Dispatcher\TestController::testFunctionStaticINVALID');
     }
 
     /**

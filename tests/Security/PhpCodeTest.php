@@ -62,4 +62,16 @@ class RouteVerbTest extends \PHPUnit\Framework\TestCase
             )
         );
     }
+
+    public function testFileIntegrity()
+    {
+        self::assertTrue(PhpCode::validateFileIntegrity(__DIR__ . '/Sample/hasDeprecated.php', \md5_file(__DIR__ . '/Sample/hasDeprecated.php')));
+        self::assertFalse(PhpCode::validateFileIntegrity(__DIR__ . '/Sample/hasUnicode.php', \md5_file(__DIR__ . '/Sample/hasDeprecated.php')));
+    }
+
+    public function testStringIntegrity()
+    {
+        self::assertTrue(PhpCode::validateStringIntegrity('aa', 'aa'));
+        self::assertFalse(PhpCode::validateStringIntegrity('aa', 'aA'));
+    }
 }

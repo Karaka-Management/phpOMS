@@ -147,6 +147,14 @@ class DataMapperAbstract implements DataMapperInterface
     protected static $initObjects = [];
 
     /**
+     * Initialized arrays for cross reference to reduce initialization costs
+     *
+     * @var array[]
+     * @since 1.0.0
+     */
+    protected static $initArrays = [];
+
+    /**
      * Highest mapper to know when to clear initialized objects
      *
      * @var null|string
@@ -304,6 +312,7 @@ class DataMapperAbstract implements DataMapperInterface
         // clear parent and objects
         if (static::class === self::$parentMapper) {
             //self::$initObjects = []; // todo: now all objects are cached for the whole request
+            //self::$initArrays = []; // todo: now all objects are cached for the whole request
             self::$parentMapper = null;
         }
     }
@@ -462,15 +471,13 @@ class DataMapperAbstract implements DataMapperInterface
      *
      * @since  1.0.0
      */
-    private static function createModelArray(array $obj)
+    private static function createModelArray(array &$obj)
     {
         $query = new Builder(self::$db);
         $query->prefix(self::$db->getPrefix())->into(static::$table);
 
         foreach (static::$columns as $key => $column) {
-            if (isset(static::$hasMany[$key])
-                || isset(static::$hasOne[$key])
-            ) {
+            if (isset(static::$hasMany[$key]) || isset(static::$hasOne[$key])) {
                 continue;
             }
 
@@ -478,7 +485,7 @@ class DataMapperAbstract implements DataMapperInterface
             if (\stripos($column['internal'], '/') !== false) {
                 $path = \explode('/', $column['internal']);
 
-                \array_shift($path);
+                \array_shift($path); // todo: why am I doing this?
                 $path = \implode('/', $path);
             }
 
@@ -489,19 +496,21 @@ class DataMapperAbstract implements DataMapperInterface
                 $value = self::parseValue($column['type'], $id);
 
                 $query->insert($column['name'])->value($value, $column['type']);
-                break;
             } elseif (isset(static::$belongsTo[$path])) {
                 $id    = self::createBelongsToArray($column['internal'], $property);
                 $value = self::parseValue($column['type'], $id);
 
                 $query->insert($column['name'])->value($value, $column['type']);
-                break;
-            } elseif ($column['internal'] === $path) {
+            } elseif ($column['internal'] === $path && $column['name'] !== static::$primaryField) {
                 $value = self::parseValue($column['type'], $property);
 
                 $query->insert($column['name'])->value($value, $column['type']);
-                break;
             }
+            }
+
+        // if a table only has a single column = primary key column. This must be done otherwise the query is empty
+        if ($query->getType() === QueryType::NONE) {
+            $query->insert(static::$primaryField)->value(0, static::$columns[static::$primaryField]['type']);
         }
 
         self::$db->con->prepare($query->toSql())->execute();
@@ -679,7 +688,7 @@ class DataMapperAbstract implements DataMapperInterface
                     continue;
                 }
 
-                $primaryKey = $obj[static::$columns[static::$primaryField]['internal']];
+                $primaryKey = $value[$mapper::$columns[$mapper::$primaryField]['internal']];
 
                 // already in db
                 if (!empty($primaryKey)) {
@@ -1628,7 +1637,7 @@ class DataMapperAbstract implements DataMapperInterface
         foreach (static::$hasOne as $member => $one) {
             /** @var string $mapper */
             $mapper       = static::$hasOne[$member]['mapper'];
-            $obj[$member] = self::getInitialized($mapper, $obj['member']) ?? $mapper::getArray($obj[$member], RelationType::ALL, $depth);
+            $obj[$member] = self::getInitializedArray($mapper, $obj['member']) ?? $mapper::getArray($obj[$member], RelationType::ALL, $depth);
         }
     }
 
@@ -1694,7 +1703,7 @@ class DataMapperAbstract implements DataMapperInterface
         foreach (static::$ownsOne as $member => $one) {
             /** @var string $mapper */
             $mapper       = static::$ownsOne[$member]['mapper'];
-            $obj[$member] = self::getInitialized($mapper, $obj[$member]) ?? $mapper::getArray($obj[$member], RelationType::ALL, $depth);
+            $obj[$member] = self::getInitializedArray($mapper, $obj[$member]) ?? $mapper::getArray($obj[$member], RelationType::ALL, $depth);
         }
     }
 
@@ -1760,7 +1769,7 @@ class DataMapperAbstract implements DataMapperInterface
         foreach (static::$belongsTo as $member => $one) {
             /** @var string $mapper */
             $mapper       = static::$belongsTo[$member]['mapper'];
-            $obj[$member] = self::getInitialized($mapper, $obj[$member]) ?? $mapper::get($obj[$member], RelationType::ALL, null, $depth);
+            $obj[$member] = self::getInitializedArray($mapper, $obj[$member]) ?? $mapper::getArray($obj[$member], RelationType::ALL, $depth);
         }
     }
 
@@ -1997,14 +2006,14 @@ class DataMapperAbstract implements DataMapperInterface
         $obj        = [];
 
         foreach ($primaryKey as $key => $value) {
-            if (self::isInitialized(static::class, $value)) {
-                $obj[$value] = self::$initObjects[static::class][$value];
+            if (self::isInitializedArray(static::class, $value)) {
+                $obj[$value] = self::$initArrays[static::class][$value];
                 continue;
             }
 
             $obj[$value] = self::populateAbstractArray(self::getRaw($value));
 
-            self::addInitialized(static::class, $value, $obj[$value]);
+            self::addInitializedArray(static::class, $value, $obj[$value]);
         }
 
         self::fillRelationsArray($obj, $relations, --$depth);
@@ -2070,13 +2079,13 @@ class DataMapperAbstract implements DataMapperInterface
      * @param mixed  $refKey    Key
      * @param string $ref       The field that defines the for
      * @param int    $relations Load relations
-     * @param mixed  $fill      Object to fill
+     * @param int    $depth     Relation depth
      *
      * @return mixed
      *
      * @since  1.0.0
      */
-    public static function getForArray($refKey, string $ref, int $relations = RelationType::ALL, $fill = null)
+    public static function getForArray($refKey, string $ref, int $relations = RelationType::ALL, int $depth = 3)
     {
         if (!isset(self::$parentMapper)) {
             self::$parentMapper = static::class;
@@ -2096,7 +2105,7 @@ class DataMapperAbstract implements DataMapperInterface
                 $toLoad = self::getPrimaryKeysBy($value, self::getColumnByMember($ref));
             }
 
-            $obj[$value] = self::get($toLoad, $relations, $fill);
+            $obj[$value] = self::getArray($toLoad, $relations, $depth);
         }
 
         return \count($obj) === 1 ? \reset($obj) : $obj;
@@ -2356,7 +2365,7 @@ class DataMapperAbstract implements DataMapperInterface
             return;
         }
 
-        if ($relations !== RelationType::NONE) {
+        if ($relations === RelationType::NONE) {
             return;
         }
 
@@ -2641,6 +2650,26 @@ class DataMapperAbstract implements DataMapperInterface
     }
 
     /**
+     * Add initialized object to local cache
+     *
+     * @param string $mapper Mapper name
+     * @param mixed  $id     Object id
+     * @param array  $obj    Model to cache locally
+     *
+     * @return void
+     *
+     * @since  1.0.0
+     */
+    private static function addInitializedArray(string $mapper, $id, array $obj = null) : void
+    {
+        if (!isset(self::$initArrays[$mapper])) {
+            self::$initArrays[$mapper] = [];
+        }
+
+        self::$initArrays[$mapper][$id] = $obj;
+    }
+
+    /**
      * Check if a object is initialized
      *
      * @param string $mapper Mapper name
@@ -2653,6 +2682,21 @@ class DataMapperAbstract implements DataMapperInterface
     private static function isInitialized(string $mapper, $id) : bool
     {
         return isset(self::$initObjects[$mapper]) && isset(self::$initObjects[$mapper][$id]);
+    }
+
+    /**
+     * Check if a object is initialized
+     *
+     * @param string $mapper Mapper name
+     * @param mixed  $id     Object id
+     *
+     * @return bool
+     *
+     * @since  1.0.0
+     */
+    private static function isInitializedArray(string $mapper, $id) : bool
+    {
+        return isset(self::$initArrays[$mapper]) && isset(self::$initArrays[$mapper][$id]);
     }
 
     /**
@@ -2671,6 +2715,21 @@ class DataMapperAbstract implements DataMapperInterface
     }
 
     /**
+     * Get initialized object
+     *
+     * @param string $mapper Mapper name
+     * @param mixed  $id     Object id
+     *
+     * @return mixed
+     *
+     * @since  1.0.0
+     */
+    private static function getInitializedArray(string $mapper, $id)
+    {
+        return self::$initArrays[$mapper][$id] ?? null;
+    }
+
+    /**
      * Remove initialized object
      *
      * @param string $mapper Mapper name
@@ -2684,6 +2743,10 @@ class DataMapperAbstract implements DataMapperInterface
     {
         if (self::isInitialized($mapper, $id)) {
             unset(self::$initObjects[$mapper][$id]);
+        }
+
+        if (self::isInitializedArray($mapper, $id)) {
+            unset(self::$initArrays[$mapper][$id]);
         }
     }
 

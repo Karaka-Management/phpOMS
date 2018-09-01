@@ -19,14 +19,62 @@ use phpOMS\DataStorage\Database\DatabasePool;
 
 use phpOMS\tests\DataStorage\Database\TestModel\BaseModel;
 use phpOMS\tests\DataStorage\Database\TestModel\BaseModelMapper;
+use phpOMS\tests\DataStorage\Database\TestModel\ManyToManyDirectModelMapper;
 
 class DataMapperAbstractTest extends \PHPUnit\Framework\TestCase
 {
-    protected $model = null;
+    protected $model      = null;
+    protected $modelArray = null;
 
     protected function setUp()
     {
-        $this->model = new BaseModel();
+        $this->model      = new BaseModel();
+        $this->modelArray = [
+            'id' => 0,
+            'string' => 'Base',
+            'int' => 11,
+            'bool' => false,
+            'null' => null,
+            'float' => 1.3,
+            'json' => [1, 2, 3],
+            'jsonSerializable' => new class implements \JsonSerializable {
+                public function jsonSerialize()
+                {
+                    return [1, 2, 3];
+                }
+            },
+            'datetime' => new \DateTime('2005-10-11'),
+            'ownsOneSelf' => [
+                'id' => 0,
+                'string' => 'OwnsOne',
+            ],
+            'belongsToOne' => [
+                'id' => 0,
+                'string' => 'BelongsTo',
+            ],
+            'hasManyDirect' => [
+                [
+                    'id' => 0,
+                    'string' => 'ManyToManyDirect',
+                    'to' => 0,
+                ],
+                [
+                    'id' => 0,
+                    'string' => 'ManyToManyDirect',
+                    'to' => 0,
+                ]
+            ],
+            'hasManyRelations' => [
+                [
+                    'id' => 0,
+                    'string' => 'ManyToManyRel',
+                ],
+                [
+                    'id' => 0,
+                    'string' => 'ManyToManyRel',
+                ]
+            ],
+        ];
 
         $GLOBALS['dbpool']->get()->con->prepare(
             'CREATE TABLE `oms_test_base` (
@@ -104,6 +152,12 @@ class DataMapperAbstractTest extends \PHPUnit\Framework\TestCase
         self::assertGreaterThan(0, $this->model->id);
     }
 
+    public function testCreateArray()
+    {
+        self::assertGreaterThan(0, BaseModelMapper::createArray($this->modelArray));
+        self::assertGreaterThan(0, $this->modelArray['id']);
+    }
+
     public function testRead()
     {
         $id     = BaseModelMapper::create($this->model);
@@ -128,6 +182,37 @@ class DataMapperAbstractTest extends \PHPUnit\Framework\TestCase
         self::assertEquals(\reset($this->model->hasManyRelations)->string, \reset($modelR->hasManyRelations)->string);
         self::assertEquals($this->model->ownsOneSelf->string, $modelR->ownsOneSelf->string);
         self::assertEquals($this->model->belongsToOne->string, $modelR->belongsToOne->string);
+
+        $for = ManyToManyDirectModelMapper::getFor($id, 'to');
+        self::assertEquals(\reset($this->model->hasManyDirect)->string, \reset($for)->string);
+
+        self::assertEquals(1, count(BaseModelMapper::getAll()));
+    }
+
+    public function testReadArray()
+    {
+        $id     = BaseModelMapper::createArray($this->modelArray);
+        $modelR = BaseModelMapper::getArray($id);
+
+        self::assertEquals($this->modelArray['id'], $modelR['id']);
+        self::assertEquals($this->modelArray['string'], $modelR['string']);
+        self::assertEquals($this->modelArray['int'], $modelR['int']);
+        self::assertEquals($this->modelArray['bool'], $modelR['bool']);
+        self::assertEquals($this->modelArray['float'], $modelR['float']);
+        self::assertEquals($this->modelArray['null'], $modelR['null']);
+        self::assertEquals($this->modelArray['datetime']->format('Y-m-d'), $modelR['datetime']->format('Y-m-d'));
+
+        self::assertEquals(2, \count($modelR['hasManyDirect']));
+        self::assertEquals(2, \count($modelR['hasManyRelations']));
+        self::assertEquals(\reset($this->modelArray['hasManyDirect'])['string'], \reset($modelR['hasManyDirect'])['string']);
+        self::assertEquals(\reset($this->modelArray['hasManyRelations'])['string'], \reset($modelR['hasManyRelations'])['string']);
+        self::assertEquals($this->modelArray['ownsOneSelf']['string'], $modelR['ownsOneSelf']['string']);
+        self::assertEquals($this->modelArray['belongsToOne']['string'], $modelR['belongsToOne']['string']);
+
+        $for = ManyToManyDirectModelMapper::getForArray($id, 'to');
+        self::assertEquals(\reset($this->modelArray['hasManyDirect'])['string'], \reset($for)['string']);
+
+        self::assertEquals(1, count(BaseModelMapper::getAllArray()));
     }
 
     public function testUpdate()
@@ -154,6 +239,31 @@ class DataMapperAbstractTest extends \PHPUnit\Framework\TestCase
 
         // todo test update relations
     }
+
+    /*public function testUpdateArray()
+    {
+        $id     = BaseModelMapper::createArray($this->modelArray);
+        $modelR = BaseModelMapper::getArray($id);
+
+        $modelR['string']   = 'Update';
+        $modelR['int']      = '321';
+        $modelR['bool']     = true;
+        $modelR['float']    = 3.15;
+        $modelR['null']     = null;
+        $modelR['datetime'] = new \DateTime('now');
+
+        $id2     = BaseModelMapper::updateArray($modelR);
+        $modelR2 = BaseModelMapper::getArray($id2);
+
+        self::assertEquals($modelR['string'], $modelR2['string']);
+        self::assertEquals($modelR['int'], $modelR2['int']);
+        self::assertEquals($modelR['bool'], $modelR2['bool']);
+        self::assertEquals($modelR['float'], $modelR2['float']);
+        self::assertEquals($modelR['null'], $modelR2['null']);
+        self::assertEquals($modelR['datetime']->format('Y-m-d'), $modelR2['datetime']->format('Y-m-d'));
+
+        // todo test update relations
+    }*/
 
     public function testDelete()
     {

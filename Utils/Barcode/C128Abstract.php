@@ -265,6 +265,28 @@ abstract class C128Abstract
     }
 
     /**
+     * Validate the barcode string
+     *
+     * @param string $code Barcode string
+     *
+     * @return void
+     *
+     * @since  1.0.0
+     */
+    public function isValidString(string $barcode) : bool
+    {
+        $length = \strlen($barcode);
+
+        for ($i = 0; $i < $length; ++$i) {
+            if (!isset(static::$CODEARRAY[$barcode[$i]]) && !\in_array($barcode[$i], static::$CODEARRAY)) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    /**
      * Generate weighted code string
      *
      * @return string

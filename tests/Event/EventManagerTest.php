@@ -70,6 +70,8 @@ class EventManagerTest extends \PHPUnit\Framework\TestCase
         self::assertTrue($event->detach('group'));
         self::assertEquals(0, $event->count());
         self::assertFalse($event->trigger('group'));
+        
+        self::assertFalse($event->detach('group'));
     }
 
     public function testRemove()

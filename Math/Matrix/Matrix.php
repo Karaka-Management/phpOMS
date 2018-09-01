@@ -189,8 +189,8 @@ class Matrix implements \ArrayAccess, \Iterator
         $rlength = \count($rows);
         $clength = \count($cols);
 
-        for ($i = 0; $i <= $rlength; ++$i) {
-            for ($j = 0; $j <= $clength; ++$j) {
+        for ($i = 0; $i < $rlength; ++$i) {
+            for ($j = 0; $j < $clength; ++$j) {
                 $X[$i][$j] = $this->matrix[$rows[$i]][$cols[$j]];
             }
         }
@@ -218,7 +218,7 @@ class Matrix implements \ArrayAccess, \Iterator
         $length = \count($cols);
 
         for ($i = $iRow; $i <= $lRow; ++$i) {
-            for ($j = 0; $j <= $length; ++$j) {
+            for ($j = 0; $j < $length; ++$j) {
                 $X[$i - $iRow][$j] = $this->matrix[$i][$cols[$j]];
             }
         }

@@ -29,4 +29,10 @@ class CodebarTest extends \PHPUnit\Framework\TestCase
 
         self::assertTrue(\file_exists($path));
     }
+
+    public function testValidString()
+    {
+        self::assertTrue(Codebar::isValidString('412163'));
+        self::assertFalse(Codebar::isValidString('412163F'));
+    }
 }

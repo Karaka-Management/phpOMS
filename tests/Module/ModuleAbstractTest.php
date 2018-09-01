@@ -31,5 +31,6 @@ class ModuleAbstractTest extends \PHPUnit\Framework\TestCase
         self::assertEquals([1, 2], $moduleClass->getDependencies());
         self::assertEquals(2, $moduleClass::MODULE_ID);
         self::assertEquals('1.2.3', $moduleClass::MODULE_VERSION);
+        self::assertEquals([], $moduleClass::getLocalization('invalid', 'invalid'));
     }
 }

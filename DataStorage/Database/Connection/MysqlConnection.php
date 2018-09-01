@@ -59,6 +59,7 @@ final class MysqlConnection extends ConnectionAbstract
         $this->dbdata = isset($dbdata) ? $dbdata : $this->dbdata;
 
         if (!isset($this->dbdata['db'], $this->dbdata['host'], $this->dbdata['port'], $this->dbdata['database'], $this->dbdata['login'], $this->dbdata['password'])) {
+            $this->status = DatabaseStatus::FAILURE;
             throw new InvalidConnectionConfigException((string) \json_encode($this->dbdata));
         }
 
@@ -73,7 +74,7 @@ final class MysqlConnection extends ConnectionAbstract
             $this->status = DatabaseStatus::OK;
         } catch (\PDOException $e) {
             $this->status = DatabaseStatus::MISSING_DATABASE;
-            $this->con    = null;
+            throw new InvalidConnectionConfigException((string) \json_encode($this->dbdata));
         } finally {
             $this->dbdata['password'] = '****';
         }

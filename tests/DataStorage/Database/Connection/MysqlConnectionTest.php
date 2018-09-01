@@ -95,4 +95,15 @@ class MysqlConnectionTest extends \PHPUnit\Framework\TestCase
 
         $mysql = new MysqlConnection($db);
     }
+
+    /**
+     * @expectedException \phpOMS\DataStorage\Database\Exception\InvalidConnectionConfigException
+     */
+    public function testInvalidDatabaseName()
+    {
+        $db       = $GLOBALS['CONFIG']['db']['core']['masters']['admin'];
+        $db['db'] = 'invalid';
+
+        $mysql = new MysqlConnection($db);
+    }
 }

@@ -131,5 +131,35 @@ class LocalizationTest extends \PHPUnit\Framework\TestCase
 
         $localization->setTemperature(TemperatureType::FAHRENHEIT);
         self::assertEquals(TemperatureType::FAHRENHEIT, $localization->getTemperature());
+
+        $localization->setWeight([1]);
+        $localization->setLength([1]);
+        $localization->setArea([1]);
+        $localization->setVolume([1]);
+        $localization->setSpeed([1]);
+        self::assertEquals([1], $localization->getWeight());
+        self::assertEquals([1], $localization->getLength());
+        self::assertEquals([1], $localization->getArea());
+        self::assertEquals([1], $localization->getVolume());
+        self::assertEquals([1], $localization->getSpeed());
+    }
+
+    public function testLocalizationLoading()
+    {
+        $localization = new Localization();
+        $localization->loadFromLanguage(ISO639x1Enum::_EN);
+        self::assertEquals(ISO4217CharEnum::_USD, $localization->getCurrency());
+
+        $localization->loadFromLanguage(ISO639x1Enum::_AA);
+        self::assertEquals(ISO4217CharEnum::_USD, $localization->getCurrency());
+    }
+
+    /**
+     * @expectedException \phpOMS\Stdlib\Base\Exception\InvalidEnumValue
+     */
+    public function testInvalidLocalizationLoading()
+    {
+        $localization = new Localization();
+        $localization->loadFromLanguage('INVALID');
     }
 }

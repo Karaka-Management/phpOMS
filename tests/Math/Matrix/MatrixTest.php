@@ -14,6 +14,7 @@
 namespace phpOMS\tests\Math\Matrix;
 
 use phpOMS\Math\Matrix\Matrix;
+use phpOMS\Math\Matrix\Vector;
 
 class MatrixTest extends \PHPUnit\Framework\TestCase
 {
@@ -79,6 +80,27 @@ class MatrixTest extends \PHPUnit\Framework\TestCase
         self::assertEquals(-306, $B->det());
     }
 
+    public function testSymmetry()
+    {
+        $B = new Matrix();
+        $B->setMatrix([
+            [1, 7, 3],
+            [7, -2, -5],
+            [3, -5, 6],
+        ]);
+
+        self::assertTrue($B->isSymmetric());
+
+        $C = new Matrix();
+        $C->setMatrix([
+            [1, 7, 4],
+            [7, -2, -5],
+            [3, -5, 6],
+        ]);
+
+        self::assertFalse($C->isSymmetric());
+    }
+
     public function testTranspose()
     {
         $B = new Matrix();
@@ -88,6 +110,21 @@ class MatrixTest extends \PHPUnit\Framework\TestCase
         ]);
 
         self::assertEquals([[6, 4], [1, -2], [1, 5],], $B->transpose()->toArray());
+    }
+
+    public function testSolve()
+    {
+        $A = new Matrix();
+        $A->setMatrix([
+            [25, 15, -5],
+            [15, 17, 0],
+            [-5, 0, 11],
+        ]);
+
+        $vec = new Vector();
+        $vec->setMatrix([[40], [49], [28]]);
+
+        self::assertEquals([[1], [2], [3]], $A->solve($vec)->toArray(), '', 0.2);
     }
 
     public function testRank()
@@ -199,6 +236,37 @@ class MatrixTest extends \PHPUnit\Framework\TestCase
 
         unset($A[6]);
         self::assertFalse(isset($A[6]));
+    }
+
+    public function testSubMatrix()
+    {
+        $A = new Matrix();
+        $A->setMatrix([
+            [0, 1, 2, 3],
+            [4, 5, 6, 7],
+            [8, 9, 10, 11],
+            [12, 13, 14, 15],
+        ]);
+
+        self::assertEquals(
+            [[1, 2], [5, 6], [9, 10]],
+            $A->getSubMatrix(0, 2, 1, 2)->toArray()
+        );
+
+        self::assertEquals(
+            [[1, 2], [5, 6], [9, 10]],
+            $A->getSubMatrixByColumnsRows([0, 1, 2], [1, 2])->toArray()
+        );
+
+        self::assertEquals(
+            [[1, 2], [5, 6], [9, 10]],
+            $A->getSubMatrixByColumns(0, 2, [1, 2])->toArray()
+        );
+
+        self::assertEquals(
+            [[1, 2], [5, 6], [9, 10]],
+            $A->getSubMatrixByRows([0, 1, 2], 1, 2)->toArray()
+        );
     }
 
     /**

@@ -29,4 +29,10 @@ class C39Test extends \PHPUnit\Framework\TestCase
 
         self::assertTrue(\file_exists($path));
     }
+
+    public function testValidString()
+    {
+        self::assertTrue(C39::isValidString('ABCDEFG0123+-'));
+        self::assertFalse(C39::isValidString('ABC(DEFG0123+-'));
+    }
 }

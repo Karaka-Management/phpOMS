@@ -78,14 +78,14 @@ final class TestUtils
     /**
      * Get private object member
      *
-     * @param object|string $obj  Object to read
-     * @param string        $name Member name to read
+     * @param object $obj  Object to read
+     * @param string $name Member name to read
      *
      * @return mixed Returns the member variable value
      *
      * @since  1.0.0
      */
-    public static function getMember($obj, string $name)
+    public static function getMember(object $obj, string $name)
     {
         $reflectionClass = new \ReflectionClass(\is_string($obj) ? $obj : \get_class($obj));
 
@@ -99,12 +99,7 @@ final class TestUtils
             $reflectionProperty->setAccessible(true);
         }
 
-        $value = null;
-        if (\is_string($obj)) {
-            $value = $reflectionProperty->getValue();
-        } elseif (\is_object($obj)) {
-            $value = $reflectionProperty->getValue($obj);
-        }
+        $value = $reflectionProperty->getValue($obj);
 
         if (!$accessible) {
             $reflectionProperty->setAccessible(false);

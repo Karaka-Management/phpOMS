@@ -111,10 +111,12 @@ abstract class SettingsAbstract implements OptionsInterface
 
             return \count($options) > 1 ? $options : \reset($options);
         } catch (\PDOException $e) {
+            // @codeCoverageIgnoreStart
             $exception = DatabaseExceptionFactory::createException($e);
             $message   = DatabaseExceptionFactory::createExceptionMessage($e);
 
             throw new $exception($message);
+            // @codeCoverageIgnoreEnd
         }
     }
 
