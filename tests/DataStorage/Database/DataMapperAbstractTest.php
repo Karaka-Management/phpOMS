@@ -240,7 +240,7 @@ class DataMapperAbstractTest extends \PHPUnit\Framework\TestCase
         // todo test update relations
     }
 
-    /*public function testUpdateArray()
+    public function testUpdateArray()
     {
         $id     = BaseModelMapper::createArray($this->modelArray);
         $modelR = BaseModelMapper::getArray($id);
@@ -263,7 +263,7 @@ class DataMapperAbstractTest extends \PHPUnit\Framework\TestCase
         self::assertEquals($modelR['datetime']->format('Y-m-d'), $modelR2['datetime']->format('Y-m-d'));
 
         // todo test update relations
-    }*/
+    }
 
     public function testDelete()
     {
