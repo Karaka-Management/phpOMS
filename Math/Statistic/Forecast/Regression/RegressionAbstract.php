@@ -164,10 +164,7 @@ abstract class RegressionAbstract
      *
      * @since  1.0.0
      */
-    public static function getSlope(float $b1, float $x, float $y) : float
-    {
-        return 0.0;
-    }
+    abstract public static function getSlope(float $b1, float $x, float $y) : float;
 
     /**
      * Get elasticity
@@ -180,8 +177,5 @@ abstract class RegressionAbstract
      *
      * @since  1.0.0
      */
-    public static function getElasticity(float $b1, float $x, float $y): float
-    {
-        return 0.0;
-    }
+    abstract public static function getElasticity(float $b1, float $x, float $y): float;
 }

@@ -56,6 +56,12 @@ class MeasureOfDispersionTest extends \PHPUnit\Framework\TestCase
         self::assertEquals(0.5400, MeasureOfDispersion::empiricalVariationCoefficient([1, 2, 3, 4, 5, 6, 7]), '', 0.01);
     }
 
+    public function testIQR()
+    {
+        $x = [7, 7, 31, 31, 47, 75, 87, 115, 116, 119, 119, 155, 177];
+        self::assertEquals(88, MeasureOfDispersion::getIQR($x));
+    }
+
     /**
      * @expectedException phpOMS\Math\Exception\ZeroDevisionException
      */

@@ -146,6 +146,13 @@ class DataMapperAbstractTest extends \PHPUnit\Framework\TestCase
         $GLOBALS['dbpool']->get()->con->prepare('DROP TABLE oms_test_has_many_rel_relations')->execute();
     }
 
+    public function testDefault()
+    {
+        self::assertEquals('test_base_id', BaseModelMapper::getPrimaryField());
+        self::assertEquals('test_base', BaseModelMapper::getTable());
+        self::assertEquals('test_base_datetime', BaseModelMapper::getCreatedAt());
+    }
+
     public function testCreate()
     {
         self::assertGreaterThan(0, BaseModelMapper::create($this->model));

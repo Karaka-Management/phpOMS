@@ -356,7 +356,7 @@ class Error
     }
 
     /**
-     * Get mean absolute scaled error (MASE)
+     * Get mean absolute scaled error (MSSE)
      *
      * @param array $scaledErrors Scaled errors
      *
@@ -386,7 +386,7 @@ class Error
         $naive  = 1 / (\count($observed) - $m) * self::getNaiveForecast($observed, $m);
 
         foreach ($errors as $error) {
-            $error[] = $error / $naive;
+            $scaled[] = $error / $naive;
         }
 
         return $scaled;

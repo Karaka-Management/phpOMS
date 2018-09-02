@@ -45,4 +45,20 @@ class MultipleLinearRegression
     public static function getPredictionInterval() : array
     {
     }
+
+    /**
+     * {@inheritdoc}
+     */
+    public static function getSlope(float $b1, float $y, float $x) : float
+    {
+        return 0.0;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public static function getElasticity(float $b1, float $y, float $x): float
+    {
+        return 0.0;
+    }
 }

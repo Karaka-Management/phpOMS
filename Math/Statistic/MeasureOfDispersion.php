@@ -229,7 +229,20 @@ final class MeasureOfDispersion
      */
     public static function getIQR(array $x) : float
     {
-        return 0.0;
+        $count = \count($x);
+
+        if ($count % 2 !== 0) {
+            --$count;
+        }
+
+        $count /= 2;
+
+        \sort($x);
+
+        $Q1 = Average::median(\array_slice($x, 0, $count));
+        $Q3 = Average::median(\array_slice($x, -$count, $count));
+
+        return $Q3 - $Q1;
     }
 
     /**

@@ -129,7 +129,7 @@ final class CookieJar
                 throw new LockException('CookieJar');
             }
 
-            if (!headers_sent()) {
+            if (!\headers_sent()) {
                 \setcookie($id, '', time() - 3600);
 
                 return true;
