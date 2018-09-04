@@ -44,8 +44,43 @@ class LUDecompositionTest extends \PHPUnit\Framework\TestCase
 
         $vec = new Vector();
         $vec->setMatrix([[40], [49], [28]]);
+        self::assertTrue($lu->isNonSingular());
         self::assertEquals([[1], [2], [3]], $lu->solve($vec)->toArray(), '', 0.2);
         self::assertEquals([0, 1, 2], $lu->getPivot());
+    }
+
+    public function testSingularMatrix()
+    {
+        $B = new Matrix();
+        $B->setMatrix([
+            [25, 15, -5],
+            [0, 0, 1],
+            [0, 0, 2],
+        ]);
+
+        $lu = new LUDecomposition($B);
+
+        self::assertFalse($lu->isNonSingular());
+    }
+
+    /**
+     * @expectedException \Exception
+     */
+    public function testSolveOfSingularMatrix()
+    {
+        $B = new Matrix();
+        $B->setMatrix([
+            [25, 15, -5],
+            [0, 0, 1],
+            [0, 0, 2],
+        ]);
+
+        $lu = new LUDecomposition($B);
+
+        $vec = new Vector();
+        $vec->setMatrix([[40], [49], [28]]);
+
+        $lu->solve($vec);
     }
 
     /**
