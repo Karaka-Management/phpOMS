@@ -338,10 +338,10 @@ class Commit
      *
      * @since  1.0.0
      */
-    private function addChange(string $path, int $line, string $old, string $new) : void
+    public function addChanges(string $path, int $line, string $old, string $new) : void
     {
         if (!isset($this->files[$path])) {
-            throw new \Exception();
+            $this->files[$path] = [];
         }
 
         if (!isset($this->files[$path][$line])) {
