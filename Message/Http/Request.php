@@ -171,10 +171,10 @@ final class Request extends RequestAbstract
         $components = \explode(';', $_SERVER['HTTP_ACCEPT_LANGUAGE']);
         
         if (\stripos($components[0], ',') !== false) {
-            $locals = \explode(',', $components[]);
+            $locals = \explode(',', $components[0]);
         }
         
-        $firstLocalComponents = \explode('-', $locals[]);
+        $firstLocalComponents = \explode('-', $locals[0]);
 
         return $firstLocalComponents[0];
     }
