@@ -273,7 +273,7 @@ abstract class C128Abstract
      *
      * @since  1.0.0
      */
-    public function isValidString(string $barcode) : bool
+    public static function isValidString(string $barcode) : bool
     {
         $length = \strlen($barcode);
 
