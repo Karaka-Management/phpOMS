@@ -51,9 +51,14 @@ class CommitTest extends \PHPUnit\Framework\TestCase
         self::assertEquals([
             '/some/file/path2' => []
         ], $commit->getFiles());
+    }
+
+    public function testChanges()
+    {
+        $commit = new Commit();
 
         $commit->addChanges(__DIR__ . '/CommitTest.php', 1, '<?php', 'test');
-        self::assertTrue(
+        self::assertEquals(
             [
                 __DIR__ . '/CommitTest.php' => [
                     1 => [

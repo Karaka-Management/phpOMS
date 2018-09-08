@@ -91,8 +91,8 @@ class ErrorTest extends \PHPUnit\Framework\TestCase
     public function testScaledError()
     {
         self::assertEquals(
-            [Error::getScaledError(Error::getForecastError(1000, 700), 1000)], 
-            Error::getScaledErrorArray([Error::getForecastError(1000, 700)], [1000])
+            [Error::getScaledError(Error::getForecastError(1000, 700), [1000, 800])], 
+            Error::getScaledErrorArray([Error::getForecastError(1000, 700)], [1000, 800])
         );
     }
 }

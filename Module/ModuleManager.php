@@ -22,7 +22,7 @@ use phpOMS\Message\Http\Request;
 use phpOMS\Message\RequestAbstract;
 use phpOMS\System\File\PathException;
 use phpOMS\Module\Exception\InvalidModuleException;
-use phpOMs\DataStorage\Database\Query\Builder;
+use phpOMS\DataStorage\Database\Query\Builder;
 
 /**
  * Modules class.
@@ -143,7 +143,6 @@ final class ModuleManager
     {
         if ($this->uriLoad === null) {
             $uriHash = $request->getHash();
-            $uriPdo  = '';
 
             $query = new Builder($this->app->dbPool->get('select'));
             $query->prefix($this->app->dbPool->get('select')->prefix);
@@ -183,12 +182,12 @@ final class ModuleManager
 
             foreach ($active as $module) {
                 $path = $this->modulePath . '/' . $module . '/info.json';
-        
+
                 if (!\file_exists($path)) {
                     continue;
                     // throw new PathException($path);
                 }
-        
+
                 $content                                 = \file_get_contents($path);
                 $json                                    = \json_decode($content === false ? '[]' : $content, true);
                 $this->active[$json['name']['internal']] = $json === false ? [] : $json;
@@ -278,12 +277,12 @@ final class ModuleManager
 
             foreach ($installed as $module) {
                 $path = $this->modulePath . '/' . $module . '/info.json';
-        
+
                 if (!\file_exists($path)) {
                     continue;
                     // throw new PathException($path);
                 }
-        
+
                 $content                                    = \file_get_contents($path);
                 $json                                       = \json_decode($content === false ? '[]' : $content, true);
                 $this->installed[$json['name']['internal']] = $json === false ? [] : $json;

@@ -107,6 +107,7 @@ final class StringCompare
         }
 
         foreach ($words1 as $word1) {
+            // todo: is this correct?
             $best = \strlen($s2);
 
             foreach ($words2 as $word2) {
