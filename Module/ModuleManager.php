@@ -22,6 +22,7 @@ use phpOMS\Message\Http\Request;
 use phpOMS\Message\RequestAbstract;
 use phpOMS\System\File\PathException;
 use phpOMS\Module\Exception\InvalidModuleException;
+use phpOMs\DataStorage\Database\Query\Builder;
 
 /**
  * Modules class.
@@ -141,44 +142,19 @@ final class ModuleManager
     public function getUriLoad(RequestAbstract $request) : array
     {
         if ($this->uriLoad === null) {
-            switch ($this->app->dbPool->get('select')->getType()) {
-                case DatabaseType::MYSQL:
-                    $uriHash = $request->getHash();
-                    $uriPdo  = '';
+            $uriHash = $request->getHash();
+            $uriPdo  = '';
 
-                    $i = 1;
-                    $c = \count($uriHash);
+            $query = new Builder($this->app->dbPool->get('select'));
+            $query->prefix($this->app->dbPool->get('select')->prefix);
+            $sth = $query->select('module_load.module_load_type', 'module_load.*')
+                ->from('module_load')
+                ->innerJoin('module')->on('module_load.module_load_from', '=', 'module.module_id')->orOn('module_load.module_load_for', '=', 'module.module_id')
+                ->whereIn('module_load.module_load_pid', $uriHash)
+                ->andWhere('module.module_active', '=', 1)
+                ->execute();
 
-                    for ($k = 0; $k < $c; ++$k) {
-                        $uriPdo .= ':pid' . $i . ',';
-                        ++$i;
-                    }
-
-                    $uriPdo = \rtrim($uriPdo, ',');
-
-                    /* TODO: make join in order to see if they are active */
-                    $sth = $this->app->dbPool->get('select')->con->prepare(
-                        'SELECT
-                    `' . $this->app->dbPool->get('select')->prefix . 'module_load`.`module_load_type`, `' . $this->app->dbPool->get('select')->prefix . 'module_load`.*
-                    FROM
-                    `' . $this->app->dbPool->get('select')->prefix . 'module_load`
-                    WHERE
-                    `module_load_pid` IN(' . $uriPdo . ')'
-                    );
-
-                    $i = 1;
-                    foreach ($uriHash as $hash) {
-                        $sth->bindValue(':pid' . $i, $hash, \PDO::PARAM_STR);
-                        ++$i;
-                    }
-
-                    $sth->execute();
-
-                    $this->uriLoad = $sth->fetchAll(\PDO::FETCH_GROUP);
-                    break;
-                default:
-                    throw new InvalidDatabaseTypeException($this->app->dbPool->get('select')->getType());
-            }
+            $this->uriLoad = $sth->fetchAll(\PDO::FETCH_GROUP);
         }
 
         return $this->uriLoad;
@@ -196,31 +172,29 @@ final class ModuleManager
     public function getActiveModules(bool $useCache = true) : array
     {
         if (empty($this->active) || !$useCache) {
-            switch ($this->app->dbPool->get('select')->getType()) {
-                case DatabaseType::MYSQL:
-                    $sth = $this->app->dbPool->get('select')->con->prepare('SELECT `module_path` FROM `' . $this->app->dbPool->get('select')->prefix . 'module` WHERE `module_active` = 1');
-                    $sth->execute();
-                    $active = $sth->fetchAll(\PDO::FETCH_COLUMN);
+            $query = new Builder($this->app->dbPool->get('select'));
+            $query->prefix($this->app->dbPool->get('select')->prefix);
+            $sth = $query->select('module.module_path')
+                ->from('module')
+                ->where('module.module_active', '=', 1)
+                ->execute();
 
-                    foreach ($active as $module) {
-                        $path = $this->modulePath . '/' . $module . '/info.json';
+            $active = $sth->fetchAll(\PDO::FETCH_COLUMN);
+
+            foreach ($active as $module) {
+                $path = $this->modulePath . '/' . $module . '/info.json';
         
-                        if (!\file_exists($path)) {
-                            continue;
-                            // throw new PathException($path);
-                        }
+                if (!\file_exists($path)) {
+                    continue;
+                    // throw new PathException($path);
+                }
         
-                        $content                                 = \file_get_contents($path);
-                        $json                                    = \json_decode($content === false ? '[]' : $content, true);
-                        $this->active[$json['name']['internal']] = $json === false ? [] : $json;
-                    }
-                    break;
-                default:
-                    throw new InvalidDatabaseTypeException($this->app->dbPool->get('select')->getType());
+                $content                                 = \file_get_contents($path);
+                $json                                    = \json_decode($content === false ? '[]' : $content, true);
+                $this->active[$json['name']['internal']] = $json === false ? [] : $json;
             }
-        }
 
-        
+        }
 
         return $this->active;
     }
@@ -294,28 +268,25 @@ final class ModuleManager
     public function getInstalledModules(bool $useCache = true) : array
     {
         if (empty($this->installed) || !$useCache) {
-            switch ($this->app->dbPool->get('select')->getType()) {
-                case DatabaseType::MYSQL:
-                    $sth = $this->app->dbPool->get('select')->con->prepare('SELECT `module_path` FROM `' . $this->app->dbPool->get('select')->prefix . 'module`');
-                    $sth->execute();
-                    $installed = $sth->fetchAll(\PDO::FETCH_COLUMN);
+            $query = new Builder($this->app->dbPool->get('select'));
+            $query->prefix($this->app->dbPool->get('select')->prefix);
+            $sth = $query->select('module.module_path')
+                ->from('module')
+                ->execute();
 
-                    foreach ($installed as $module) {
-                        $path = $this->modulePath . '/' . $module . '/info.json';
-        
-                        if (!\file_exists($path)) {
-                            continue;
-                            // throw new PathException($path);
-                        }
-        
-                        $content                                    = \file_get_contents($path);
-                        $json                                       = \json_decode($content === false ? '[]' : $content, true);
-                        $this->installed[$json['name']['internal']] = $json === false ? [] : $json;
-                    }
+            $installed = $sth->fetchAll(\PDO::FETCH_COLUMN);
 
-                    break;
-                default:
-                    throw new InvalidDatabaseTypeException($this->app->dbPool->get('select')->getType());
+            foreach ($installed as $module) {
+                $path = $this->modulePath . '/' . $module . '/info.json';
+        
+                if (!\file_exists($path)) {
+                    continue;
+                    // throw new PathException($path);
+                }
+        
+                $content                                    = \file_get_contents($path);
+                $json                                       = \json_decode($content === false ? '[]' : $content, true);
+                $this->installed[$json['name']['internal']] = $json === false ? [] : $json;
             }
         }
 

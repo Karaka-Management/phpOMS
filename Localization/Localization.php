@@ -251,8 +251,6 @@ final class Localization
      *
      * @return void
      *
-     * @todo   : maybe make parameter int
-     *
      * @since  1.0.0
      */
     public function setTimezone(string $timezone) : void

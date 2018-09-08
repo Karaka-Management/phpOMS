@@ -82,7 +82,6 @@ abstract class SettingsAbstract implements OptionsInterface
      * @return mixed Option value
      *
      * @since  1.0.0
-     * @todo: don't db request if exists. check exists()
      */
     public function get($columns)
     {

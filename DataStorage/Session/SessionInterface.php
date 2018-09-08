@@ -65,8 +65,6 @@ interface SessionInterface
     /**
      * Save session.
      *
-     * @todo   : implement save type (session, cache, database)
-     *
      * @return void
      *
      * @since  1.0.0
