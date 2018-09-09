@@ -45,12 +45,12 @@ final class Permutation
      *
      * @since  1.0.0
      */
-    public static function permut(array $toPermute, array $result = []) : array
+    public static function permut(array $toPermute, array $result = [], bool $concat = true) : array
     {
         $permutations = [];
 
         if (empty($toPermute)) {
-            $permutations[] = \implode('', $result);
+            $permutations[] = $concat ? \implode('', $result) : $result;
         } else {
             foreach ($toPermute as $key => $val) {
                 $newArr   = $toPermute;
@@ -59,7 +59,7 @@ final class Permutation
 
                 unset($newArr[$key]);
 
-                $permutations = array_merge($permutations, self::permut($newArr, $newres));
+                $permutations = \array_merge($permutations, self::permut($newArr, $newres, $concat));
             }
         }
 
@@ -78,7 +78,7 @@ final class Permutation
      */
     public static function isPermutation(string $a, string $b) : bool
     {
-        return count_chars($a, 1) === count_chars($b, 1);
+        return \count_chars($a, 1) === \count_chars($b, 1);
     }
 
     /**
@@ -93,7 +93,7 @@ final class Permutation
      */
     public static function isPalindrome(string $a, string $filter = 'a-zA-Z0-9') : bool
     {
-        $a = \strtolower(preg_replace('/[^' . $filter . ']/', '', $a));
+        $a = \strtolower(\preg_replace('/[^' . $filter . ']/', '', $a));
 
         return $a === \strrev($a);
     }
@@ -112,11 +112,11 @@ final class Permutation
      */
     public static function permutate($toPermute, array $key)
     {
-        if (!is_array($toPermute) && !is_string($toPermute)) {
+        if (!\is_array($toPermute) && !\is_string($toPermute)) {
             throw new \InvalidArgumentException('Parameter has to be array or string');
         }
 
-        $length = is_array($toPermute) ? \count($toPermute) : \strlen($toPermute);
+        $length = \is_array($toPermute) ? \count($toPermute) : \strlen($toPermute);
 
         if (\count($key) > $length) {
             throw new \InvalidArgumentException('There mustn not be more keys than permutation elements.');
