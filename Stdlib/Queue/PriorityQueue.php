@@ -24,14 +24,13 @@ namespace phpOMS\Stdlib\Queue;
  */
 class PriorityQueue implements \Countable, \Serializable
 {
-
     /**
-     * Queue elements.
+     * Queue type.
      *
      * @var int
      * @since 1.0.0
      */
-    private $count = 0;
+    private $type = PriorityMode::FIFO;
 
     /**
      * Queue.
@@ -46,44 +45,149 @@ class PriorityQueue implements \Countable, \Serializable
      *
      * @since  1.0.0
      */
-    public function __construct()
+    public function __construct(int $type = PriorityMode::FIFO)
     {
+        $this->type = $type;
+    }
+
+    /**
+     * Get priority queue type
+     *
+     * @return int
+     *
+     * @since  1.0.0
+     */
+    public function getType() : int
+    {
+        return $this->type;
     }
 
     /**
      * Insert element into queue.
      *
      * @param mixed  $data     Queue element
-     * @param string $job      Job cmd
      * @param float  $priority Priority of this element
      *
      * @return int
      *
      * @since  1.0.0
      */
-    public function insert($data, string $job, float $priority = 1.0) : int
+    public function insert($data, $priority = 1) : int
     {
         do {
-            $key = \rand();
-        } while (\array_key_exists($key, $this->queue));
+            $key = \mt_rand();
+        } while (isset($this->queue[$key]));
 
-        if ($this->count === 0) {
-            $this->queue[$key] = ['key' => $key, 'job' => $job, 'priority' => $priority];
+        if (\count($this->queue) === 0) {
+            $this->queue[$key] = ['data' => $data, 'priority' => $priority];
         } else {
-            $pos = 0;
-            foreach ($this->queue as $ele) {
-                if ($ele['priority'] < $priority) {
-                    break;
-                }
+            $pos = $this->getInsertPosition($priority);
 
-                $pos++;
-            }
-
-            $original = [];
-            \array_splice($original, $pos, 0, [$key => ['key' => $key, 'job' => $job, 'priority' => $priority]]);
+            $this->queue = \array_slice($this->queue, 0, $pos, true)
+                + [$key => ['data' => $data, 'priority' => $priority]]
+                + \array_slice($this->queue, $pos, null, true);
         }
 
         return $key;
+    }
+
+    /**
+     * Get insert position
+     *
+     * @param float  $priority Priority of new element
+     *
+     * @return int
+     *
+     * @since  1.0.0
+     */
+    private function getInsertPosition($priority) : int
+    {
+        switch($this->type) {
+            case PriorityMode::FIFO:
+                return $this->getInsertFIFO($priority);
+            case PriorityMode::LIFO:
+                return $this->getInsertLIFO($priority);
+            case PriorityMode::HIGHEST:
+                return $this->getInsertHighest($priority);
+            case PriorityMode::LOWEST:
+                return $this->getInsertLowest($priority);
+            default:
+                throw new \InvalidArgumentException();
+        }
+    }
+
+    /**
+     * Get insert position
+     *
+     * @param float  $priority Priority of new element
+     *
+     * @return int
+     *
+     * @since  1.0.0
+     */
+    private function getInsertFIFO($priority) : int
+    {
+        return 0;
+    }
+
+    /**
+     * Get insert position
+     *
+     * @param float  $priority Priority of new element
+     *
+     * @return int
+     *
+     * @since  1.0.0
+     */
+    private function getInsertLIFO($priority) : int
+    {
+        return \count($this->queue);
+    }
+
+    /**
+     * Get insert position
+     *
+     * @param float  $priority Priority of new element
+     *
+     * @return int
+     *
+     * @since  1.0.0
+     */
+    private function getInsertHighest($priority) : int
+    {
+        $pos = 0;
+        foreach ($this->queue as $ele) {
+            if ($ele['priority'] > $priority) {
+                break;
+            }
+
+            ++$pos;
+        }
+
+        return $pos;
+    }
+
+    /**
+     * Get insert position
+     *
+     * @param float  $priority Priority of new element
+     *
+     * @return int
+     *
+     * @since  1.0.0
+     */
+    private function getInsertLowest($priority) : int
+    {
+        $pos = 0;
+        foreach ($this->queue as $ele) {
+            if ($ele['priority'] < $priority) {
+                break;
+            }
+
+            ++$pos;
+        }
+
+        return $pos;
     }
 
     /**
@@ -95,7 +199,7 @@ class PriorityQueue implements \Countable, \Serializable
      *
      * @since  1.0.0
      */
-    public function increaseAll(float $increase = 0.1) : void
+    public function increaseAll($increase = 1) : void
     {
         foreach ($this->queue as $key => &$ele) {
             $ele['priority'] += $increase;
@@ -109,68 +213,83 @@ class PriorityQueue implements \Countable, \Serializable
      *
      * @since  1.0.0
      */
-    public function pop()
+    public function pop() : array
     {
-        return array_pop($this->queue);
+        return \array_pop($this->queue);
     }
 
     /**
      * Delete element.
      *
-     * @param int $id Element to delete
+     * @param mixed $id Element to delete
      *
-     * @return void
+     * @return bool
      *
      * @since  1.0.0
      */
-    public function delete(int $id = null) : void
+    public function delete($id) : bool
     {
-        if ($id === null) {
-            $this->remove();
-        } else {
+        if (isset($this->queue[$id])) {
             unset($this->queue[$id]);
-        }
-    }
 
-    /**
-     * Delete last element.
-     *
-     * @return mixed
-     *
-     * @since  1.0.0
-     */
-    public function remove()
-    {
-        return array_pop($this->queue);
+            return true;
+        }
+
+        return false;
     }
 
     /**
      * Set element priority.
      *
-     * @param int   $id       Element ID
-     * @param float $priority Element priority
+     * @param mixed $id       Element ID
+     * @param mixed $priority Element priority
      *
      * @return void
      *
      * @since  1.0.0
      */
-    public function setPriority(int $id, float $priority) : void
+    public function setPriority($id, $priority) : void
     {
-        $this->queue[$id]['priority'] = $priority;
+        if ($this->type === PriorityMode::FIFO || $this->type === PriorityMode::LIFO) {
+            $this->queue[$id]['priority'] = $priority;
+            
+            return;
+        }
+
+        $temp = $this->queue[$id];
+        $this->delete($id);
+
+        $pos = $this->getInsertPosition($priority);
+
+        $this->queue = \array_slice($this->queue, 0, $pos, true)
+            + [$id => ['data' => $temp['data'], 'priority' => $priority]]
+            + \array_slice($this->queue, $pos, null, true);
     }
 
     /**
-     * Set element priority.
+     * Get element
      *
-     * @param int $id Element ID
+     * @param mixed $id Element ID
      *
-     * @return float
+     * @return array
      *
      * @since  1.0.0
      */
-    public function getPriority(int $id) : float
+    public function get($id) : array
     {
-        return $this->queue[$id]['priority'];
+        return $this->queue[$id] ?? [];
+    }
+
+    /**
+     * Get element
+     *
+     * @return array
+     *
+     * @since  1.0.0
+     */
+    public function getAll() : array
+    {
+        return $this->queue;
     }
 
     /**
@@ -178,7 +297,7 @@ class PriorityQueue implements \Countable, \Serializable
      */
     public function count() : int
     {
-        return $this->count;
+        return \count($this->queue);
     }
 
     /**
@@ -201,6 +320,5 @@ class PriorityQueue implements \Countable, \Serializable
     public function unserialize($data)
     {
         $this->queue = \json_decode($data);
-        $this->count = \count($this->queue);
     }
 }

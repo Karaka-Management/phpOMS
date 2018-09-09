@@ -19,12 +19,10 @@ class PriorityModeTest extends \PHPUnit\Framework\TestCase
 {
     public function testEnums()
     {
-        self::assertEquals(6, \count(PriorityMode::getConstants()));
+        self::assertEquals(4, \count(PriorityMode::getConstants()));
         self::assertEquals(1, PriorityMode::FIFO);
         self::assertEquals(2, PriorityMode::LIFO);
-        self::assertEquals(4, PriorityMode::EARLIEST_DEADLINE);
-        self::assertEquals(8, PriorityMode::SHORTEST_JOB);
-        self::assertEquals(16, PriorityMode::HIGHEST);
-        self::assertEquals(32, PriorityMode::LOWEST);
+        self::assertEquals(4, PriorityMode::HIGHEST);
+        self::assertEquals(8, PriorityMode::LOWEST);
     }
 }
