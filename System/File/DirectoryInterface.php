@@ -31,9 +31,9 @@ interface DirectoryInterface extends ContainerInterface, \Iterator, \ArrayAccess
      *
      * A file will always return 1 as it doesn't have any sub-resources.
      *
-     * @param string $path      Path of the resource
-     * @param bool   $recursive Should count also sub-sub-resources
-     * @param array  $ignore    Ignore files
+     * @param string        $path      Path of the resource
+     * @param bool          $recursive Should count also sub-sub-resources
+     * @param array<string> $ignore    Ignore files
      *
      * @return int
      *

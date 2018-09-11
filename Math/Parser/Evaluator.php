@@ -89,7 +89,7 @@ class Evaluator
      *
      * @param string $equation Equation to convert
      *
-     * @return array
+     * @return array<string>
      *
      * @since  1.0.0
      */

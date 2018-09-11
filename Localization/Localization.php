@@ -179,7 +179,7 @@ final class Localization
     /**
      * Load localization from locale
      *
-     * @param array $locale Locale data
+     * @param array<string, mixed> $locale Locale data
      *
      * @return void
      *
@@ -193,7 +193,7 @@ final class Localization
         $this->setThousands($locale['thousand'] ?? ',');
         $this->setDecimal($locale['decimal'] ?? '.');
         $this->setAngle($locale['angle'] ?? AngleType::DEGREE);
-        $this->setTemperature($locale['temperature'] ?? emperatureType::CELSIUS);
+        $this->setTemperature($locale['temperature'] ?? TemperatureType::CELSIUS);
         $this->setWeight($locale['weight'] ?? []);
         $this->setSpeed($locale['speed'] ?? []);
         $this->setLength($locale['length'] ?? []);
@@ -459,7 +459,7 @@ final class Localization
     /**
      * Get speed type
      *
-     * @return array
+     * @return array<string, string>
      *
      * @since  1.0.0
      */
@@ -471,7 +471,7 @@ final class Localization
     /**
      * Set speed type
      *
-     * @param array $speed Speed
+     * @param array<string, string> $speed Speed
      *
      * @return void
      *
@@ -485,7 +485,7 @@ final class Localization
     /**
      * Get weight type
      *
-     * @return array
+     * @return array<string, string>
      *
      * @since  1.0.0
      */
@@ -497,7 +497,7 @@ final class Localization
     /**
      * Set weight type
      *
-     * @param array $weight Weight type
+     * @param array<string, string> $weight Weight type
      *
      * @return void
      *
@@ -511,7 +511,7 @@ final class Localization
     /**
      * Get length type
      *
-     * @return array
+     * @return array<string, string>
      *
      * @since  1.0.0
      */
@@ -523,7 +523,7 @@ final class Localization
     /**
      * Set length type
      *
-     * @param array $length Length type
+     * @param array<string, string> $length Length type
      *
      * @return void
      *
@@ -537,7 +537,7 @@ final class Localization
     /**
      * Get area type
      *
-     * @return array
+     * @return array<string, string>
      *
      * @since  1.0.0
      */
@@ -549,7 +549,7 @@ final class Localization
     /**
      * Set area type
      *
-     * @param array $area Area type
+     * @param array<string, string> $area Area type
      *
      * @return void
      *
@@ -563,7 +563,7 @@ final class Localization
     /**
      * Get volume type
      *
-     * @return array
+     * @return array<string, string>
      *
      * @since  1.0.0
      */
@@ -575,7 +575,7 @@ final class Localization
     /**
      * Set volume type
      *
-     * @param array $volume Volume type
+     * @param array<string, string> $volume Volume type
      *
      * @return void
      *

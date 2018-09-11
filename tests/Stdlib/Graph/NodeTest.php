@@ -17,8 +17,18 @@ use phpOMS\Stdlib\Graph\Node;
 
 class NodeTest extends \PHPUnit\Framework\TestCase
 {
-    public function testPlaceholder()
+    public function testDefault()
     {
-        self::markTestIncomplete();
+        $node = new Node();
+        self::assertEquals(null, $node->getData());
+    }
+
+    public function testGetSet()
+    {
+        $node = new Node(1);
+        self::assertEquals(1, $node->getData());
+        
+        $node->setData(false);
+        self::assertEquals(false, $node->getData());
     }
 }

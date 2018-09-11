@@ -297,8 +297,8 @@ final class ArrayUtils
      *
      * Useful for parsing command line parsing
      *
-     * @param string $id   Id to find
-     * @param array  $args CLI command list
+     * @param string        $id   Id to find
+     * @param array<string> $args CLI command list
      *
      * @return string
      *
@@ -316,8 +316,8 @@ final class ArrayUtils
     /**
      * Check if flag is set
      *
-     * @param string $id   Id to find
-     * @param array  $args CLI command list
+     * @param string        $id   Id to find
+     * @param array<string> $args CLI command list
      *
      * @return int
      *
@@ -347,13 +347,13 @@ final class ArrayUtils
     {
         // see collection collapse as alternative?!
         $flat  = [];
-        $stack = array_values($array);
+        $stack = \array_values($array);
 
         while (!empty($stack)) {
-            $value = array_shift($stack);
+            $value = \array_shift($stack);
 
             if (\is_array($value)) {
-                $stack = array_merge(array_values($value), $stack);
+                $stack = \array_merge(\array_values($value), $stack);
             } else {
                 $flat[] = $value;
             }
@@ -377,7 +377,7 @@ final class ArrayUtils
     {
         $count = $count === 0 ? \count($array) : $start + $count;
         $sum   = 0;
-        $array = array_values($array);
+        $array = \array_values($array);
 
         for ($i = $start; $i <= $count - 1; ++$i) {
             $sum += $array[$i];
@@ -397,6 +397,6 @@ final class ArrayUtils
      */
     public static function arraySumRecursive(array $array)
     {
-        return array_sum(self::arrayFlatten($array));
+        return \array_sum(self::arrayFlatten($array));
     }
 }

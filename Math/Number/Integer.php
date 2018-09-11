@@ -54,7 +54,7 @@ final class Integer
      *
      * @param int $value Integer to factorize
      *
-     * @return array
+     * @return array<int>
      *
      * @since  1.0.0
      */
@@ -147,7 +147,7 @@ final class Integer
      * @param int $value Integer to factorize
      * @param int $limit Max amount of iterations
      *
-     * @return array
+     * @return array<int>
      *
      * @throws \Exception
      *

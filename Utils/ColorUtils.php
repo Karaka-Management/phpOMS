@@ -58,7 +58,7 @@ final class ColorUtils
     /**
      * Convert rgb to int
      *
-     * @param array $rgb Int rgb array
+     * @param array<string, int> $rgb Int rgb array
      *
      * @return int
      *

@@ -112,7 +112,7 @@ final class ModuleManager
      *
      * @param RequestAbstract $request Request
      *
-     * @return array
+     * @return array<string>
      *
      * @since  1.0.0
      */
@@ -135,7 +135,7 @@ final class ModuleManager
      *
      * @param RequestAbstract $request Request
      *
-     * @return array
+     * @return array<string, array>
      *
      * @since  1.0.0
      */
@@ -164,7 +164,7 @@ final class ModuleManager
      *
      * @param bool $useCache Use Cache or load new
      *
-     * @return array
+     * @return array<string, array>
      *
      * @since  1.0.0
      */
@@ -215,7 +215,7 @@ final class ModuleManager
     /**
      * Get all modules in the module directory.
      *
-     * @return array
+     * @return array<string, array>
      *
      * @since  1.0.0
      */
@@ -260,7 +260,7 @@ final class ModuleManager
      *
      * @param bool $useCache Use Cache
      *
-     * @return array
+     * @return array<string, array>
      *
      * @since  1.0.0
      */
@@ -530,7 +530,7 @@ final class ModuleManager
     /**
      * Install module dependencies.
      *
-     * @param array $dependencies Module dependencies
+     * @param array<string, string> $dependencies Module dependencies
      *
      * @return void
      *
@@ -680,7 +680,7 @@ final class ModuleManager
      *
      * @param Request $request Request
      *
-     * @return array
+     * @return array<string>
      *
      * @since  1.0.0
      */

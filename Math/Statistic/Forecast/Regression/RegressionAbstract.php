@@ -33,8 +33,8 @@ abstract class RegressionAbstract
      *
      * @latex y = b_{0} + b_{1} \cdot x
      *
-     * @param array $x Obersved x values
-     * @param array $y Observed y values
+     * @param array<int|float> $x Obersved x values
+     * @param array<int|float> $y Observed y values
      *
      * @return array [b0 => ?, b1 => ?]
      *
@@ -60,7 +60,7 @@ abstract class RegressionAbstract
      *
      * @latex s_{e} = \sqrt{\frac{1}{N - 2}\sum_{i = 1}^{N} e_{i}^{2}}
      *
-     * @param array $errors Errors (e = y - y_forecasted)
+     * @param array<int|float> $errors Errors (e = y - y_forecasted)
      *
      * @return float
      *
@@ -82,12 +82,12 @@ abstract class RegressionAbstract
     /**
      * Get predictional interval for linear regression.
      *
-     * @param float $forecasted Forecasted y value
-     * @param array $x          observex x values
-     * @param array $errors     Errors for y values (y - y_forecasted)
-     * @param float $multiplier Multiplier for interval
+     * @param float            $forecasted Forecasted y value
+     * @param array<int|float> $x          observex x values
+     * @param array<int|float> $errors     Errors for y values (y - y_forecasted)
+     * @param float            $multiplier Multiplier for interval
      *
-     * @return array
+     * @return array<int|float>
      *
      * @since  1.0.0
      */
@@ -111,8 +111,8 @@ abstract class RegressionAbstract
      *
      * @latex \beta_{1} = \frac{\sum_{i=1}^{N} \left(y_{i} - \bar{y}\right)\left(x_{i} - \bar{x}\right)}{\sum_{i=1}^{N} \left(x_{i} - \bar{x}\right)^{2}}
      *
-     * @param array $x Obersved x values
-     * @param array $y Observed y values
+     * @param array<int|float> $x Obersved x values
+     * @param array<int|float> $y Observed y values
      *
      * @return float
      *
@@ -140,9 +140,9 @@ abstract class RegressionAbstract
      *
      * @latex \beta_{0} = \bar{x} - b_{1} \cdot \bar{x}
      *
-     * @param array $x  Obersved x values
-     * @param array $y  Observed y values
-     * @param float $b1 Beta 1
+     * @param array<int|float> $x  Obersved x values
+     * @param array<int|float> $y  Observed y values
+     * @param float            $b1 Beta 1
      *
      * @return float
      *

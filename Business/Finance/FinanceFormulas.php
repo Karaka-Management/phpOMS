@@ -928,7 +928,7 @@ final class FinanceFormulas
     /**
      * Future Value Factor
      *
-     * @param array $r Rate of return
+     * @param array<int|float> $r Rate of return
      *
      * @return float
      *
@@ -1056,8 +1056,8 @@ final class FinanceFormulas
     /**
      * Net Present Value
      *
-     * @param array $C Cash flow ($C[0] = initial investment)
-     * @param float $r Discount rate
+     * @param array<int|float> $C Cash flow ($C[0] = initial investment)
+     * @param float            $r Discount rate
      *
      * @return float
      *

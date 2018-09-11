@@ -127,9 +127,9 @@ final class Functions
     /**
      * Applying abs to every array value
      *
-     * @param array $values Numeric values
+     * @param array<int|float> $values Numeric values
      *
-     * @return array
+     * @return array<int|float>
      *
      * @since  1.0.0
      */
@@ -240,10 +240,10 @@ final class Functions
     /**
      * Power all values in array.
      *
-     * @param array $values Values to square
-     * @param float $exp    Exponent
+     * @param array<int|float> $values Values to square
+     * @param float            $exp    Exponent
      *
-     * @return array
+     * @return array<float>
      *
      * @since  1.0.0
      */
@@ -261,10 +261,10 @@ final class Functions
     /**
      * Power all values in array.
      *
-     * @param array $values Values to square
-     * @param int   $exp    Exponent
+     * @param array<int|float> $values Values to square
+     * @param int              $exp    Exponent
      *
-     * @return array
+     * @return array<int|float>
      *
      * @since  1.0.0
      */
@@ -282,9 +282,9 @@ final class Functions
     /**
      * Sqrt all values in array.
      *
-     * @param array $values Values to sqrt
+     * @param array<int|float> $values Values to sqrt
      *
-     * @return array
+     * @return array<int|float>
      *
      * @since  1.0.0
      */

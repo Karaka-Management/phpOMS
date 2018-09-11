@@ -215,7 +215,7 @@ class PriorityQueue implements \Countable, \Serializable
      */
     public function pop() : array
     {
-        return \array_pop($this->queue);
+        return \array_pop($this->queue) ?? [];
     }
 
     /**
@@ -283,7 +283,7 @@ class PriorityQueue implements \Countable, \Serializable
     /**
      * Get element
      *
-     * @return array
+     * @return array<array>
      *
      * @since  1.0.0
      */

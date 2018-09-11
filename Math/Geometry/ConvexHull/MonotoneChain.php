@@ -40,7 +40,7 @@ final class MonotoneChain
      *
      * @param array<int, array<string, int|float>> $points Points (Point Cloud)
      *
-     * @return array
+     * @return array<int, array<string, int|float>>
      *
      * @since  1.0.0
      */

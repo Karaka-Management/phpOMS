@@ -22,6 +22,9 @@ class PriorityQueueTest extends \PHPUnit\Framework\TestCase
     {
         $queue = new PriorityQueue();
         self::assertEquals(0, $queue->count());
+        self::assertEquals([], $queue->get(1));
+        self::assertEquals([], $queue->pop());
+        self::assertEquals([], $queue->getAll());
         self::assertEquals(PriorityMode::FIFO, $queue->getType());
     }
 

@@ -119,8 +119,8 @@ final class InfoManager
      */
     public function set(string $path, $data, string $delim = '/') : void
     {
-        if (!is_scalar($data) && !is_array($data) && !($data instanceof \JsonSerializable)) {
-            throw new \InvalidArgumentException('Type of $data "' . gettype($data) . '" is not supported.');
+        if (!\is_scalar($data) && !\is_array($data) && !($data instanceof \JsonSerializable)) {
+            throw new \InvalidArgumentException('Type of $data "' . \gettype($data) . '" is not supported.');
         }
 
         ArrayUtils::setArray($path, $this->info, $data, $delim, true);
@@ -129,7 +129,7 @@ final class InfoManager
     /**
      * Get info data.
      *
-     * @return array
+     * @return array<string, array>
      *
      * @since  1.0.0
      */
@@ -165,7 +165,7 @@ final class InfoManager
     /**
      * Get info data.
      *
-     * @return array
+     * @return array<string, string>
      *
      * @since  1.0.0
      */
@@ -177,7 +177,7 @@ final class InfoManager
     /**
      * Get info data.
      *
-     * @return array
+     * @return array<string, string>
      *
      * @since  1.0.0
      */
@@ -225,7 +225,7 @@ final class InfoManager
     /**
      * Get info data.
      *
-     * @return array
+     * @return array<array>
      *
      * @since  1.0.0
      */

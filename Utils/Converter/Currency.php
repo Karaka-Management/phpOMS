@@ -88,7 +88,7 @@ class Currency
     /**
      * Get ECB currency rates.
      *
-     * @return array
+     * @return array<string, float>
      *
      * @throws \Exception
      *
@@ -111,7 +111,7 @@ class Currency
             self::$ecbCurrencies = [];
 
             foreach ($node as $key => $value) {
-                self::$ecbCurrencies[strtoupper((string) $value->attributes()['currency'])] = (float) $value->attributes()['rate'];
+                self::$ecbCurrencies[\strtoupper((string) $value->attributes()['currency'])] = (float) $value->attributes()['rate'];
             }
         }
 

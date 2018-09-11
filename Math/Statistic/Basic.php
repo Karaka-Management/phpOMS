@@ -40,9 +40,9 @@ final class Basic
      *
      * Example: ([4, 5, 9, 1, 3])
      *
-     * @param array $values Values
+     * @param array<int|float|array> $values Values
      *
-     * @return array
+     * @return array<int|float|array>
      *
      * @since  1.0.0
      */
@@ -51,8 +51,8 @@ final class Basic
         $freaquency = [];
         $sum        = 1;
 
-        if (!($isArray = is_array(\reset($values)))) {
-            $sum = array_sum($values);
+        if (!($isArray = \is_array(\reset($values)))) {
+            $sum = \array_sum($values);
         }
 
         foreach ($values as $value) {

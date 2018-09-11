@@ -40,8 +40,8 @@ final class Correlation
      *
      * Example: ([4, 5, 9, 1, 3], [4, 5, 9, 1, 3])
      *
-     * @param array $x Values
-     * @param array $y Values
+     * @param array<int|float> $x Values
+     * @param array<int|float> $y Values
      *
      * @return float
      *
@@ -55,8 +55,8 @@ final class Correlation
     /**
      * Get the autocorrelation coefficient (ACF).
      *
-     * @param array $x Dataset
-     * @param int   $k k-th coefficient
+     * @param array<int|float> $x Dataset
+     * @param int              $k k-th coefficient
      *
      * @return float
      *
@@ -79,9 +79,9 @@ final class Correlation
     /**
      * Box Pierce test (portmanteau test).
      *
-     * @param array $autocorrelations Autocorrelations
-     * @param int   $h                Maximum leg considered
-     * @param int   $n                Amount of observations
+     * @param array<float> $autocorrelations Autocorrelations
+     * @param int          $h                Maximum leg considered
+     * @param int          $n                Amount of observations
      *
      * @return float
      *
@@ -100,9 +100,9 @@ final class Correlation
     /**
      * Ljung Box test (portmanteau test).
      *
-     * @param array $autocorrelations Autocorrelations
-     * @param int   $h                Maximum leg considered
-     * @param int   $n                Amount of observations
+     * @param array<float> $autocorrelations Autocorrelations
+     * @param int          $h                Maximum leg considered
+     * @param int          $n                Amount of observations
      *
      * @return float
      *

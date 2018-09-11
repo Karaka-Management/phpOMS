@@ -79,14 +79,14 @@ final class Dictionary
 
         $count = [];
         while (isset($source[0])) {
-            $count[] = [substr_count($source, $source[0]), $source[0]];
+            $count[] = [\substr_count($source, $source[0]), $source[0]];
             $source  = \str_replace($source[0], '', $source);
         }
 
         \sort($count);
         while (\count($count) > 1) {
-            $row1    = array_shift($count);
-            $row2    = array_shift($count);
+            $row1    = \array_shift($count);
+            $row2    = \array_shift($count);
             $count[] = [$row1[0] + $row2[0], [$row1, $row2]];
 
             \sort($count);
@@ -107,14 +107,14 @@ final class Dictionary
      */
     private function fill(array $entry, string $value = '') : void
     {
-        if (!is_array($entry[0][1])) {
+        if (!\is_array($entry[0][1])) {
             $this->set($entry[0][1], $value . '0');
         } else {
             $this->fill($entry[0][1], $value . '0');
         }
 
         if (isset($entry[1])) {
-            if (!is_array($entry[1][1])) {
+            if (!\is_array($entry[1][1])) {
                 $this->set($entry[1][1], $value . '1');
             } else {
                 $this->fill($entry[1][1], $value . '1');

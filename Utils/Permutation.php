@@ -41,7 +41,7 @@ final class Permutation
      * @param array $toPermute data to permutate
      * @param array $result    existing permutations
      *
-     * @return array
+     * @return array<string|array>
      *
      * @since  1.0.0
      */

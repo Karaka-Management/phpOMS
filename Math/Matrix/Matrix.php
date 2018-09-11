@@ -176,8 +176,8 @@ class Matrix implements \ArrayAccess, \Iterator
     /**
      * Get sub matrix array.
      * 
-     * @param array $rows Row indices
-     * @param array $cols Row indices
+     * @param array<int> $rows Row indices
+     * @param array<int> $cols Row indices
      *
      * @return Matrix
      *
@@ -204,9 +204,9 @@ class Matrix implements \ArrayAccess, \Iterator
     /**
      * Get sub matrix array.
      * 
-     * @param int   $iRow Start row
-     * @param int   $lRow End row
-     * @param array $cols Row indices
+     * @param int        $iRow Start row
+     * @param int        $lRow End row
+     * @param array<int> $cols Row indices
      *
      * @return Matrix
      *
@@ -232,9 +232,9 @@ class Matrix implements \ArrayAccess, \Iterator
     /**
      * Get sub matrix array.
      * 
-     * @param array $rows Row indices
-     * @param int   $iCol Start col
-     * @param int   $lCol End col
+     * @param array<int> $rows Row indices
+     * @param int        $iCol Start col
+     * @param int        $lCol End col
      *
      * @return Matrix
      *
@@ -304,7 +304,7 @@ class Matrix implements \ArrayAccess, \Iterator
         if ($this->m > $this->n) {
             $mDim   = $this->n;
             $nDim   = $this->m;
-            $matrix = array_map(null, ...$matrix);
+            $matrix = \array_map(null, ...$matrix);
         }
 
         $rank = $mDim;
@@ -349,10 +349,10 @@ class Matrix implements \ArrayAccess, \Iterator
     /**
      * Swap values in rows
      *
-     * @param array $matrix Matrix reference to modify
-     * @param int   $row1   Row to swap
-     * @param int   $row2   Row to swap
-     * @param int   $col    Max col to swap to
+     * @param array<array> $matrix Matrix reference to modify
+     * @param int          $row1   Row to swap
+     * @param int          $row2   Row to swap
+     * @param int          $col    Max col to swap to
      *
      * @return void
      *
@@ -370,7 +370,7 @@ class Matrix implements \ArrayAccess, \Iterator
     /**
      * Set matrix array.
      *
-     * @param array $matrix Matrix
+     * @param array<int, array<int|float>> $matrix Matrix
      *
      * @return Matrix
      *
@@ -625,7 +625,7 @@ class Matrix implements \ArrayAccess, \Iterator
     /**
      * Trianglize matrix.
      *
-     * @param array $arr Matrix to trianglize
+     * @param array<int, array<int|float>> $arr Matrix to trianglize
      *
      * @return int Det sign
      *

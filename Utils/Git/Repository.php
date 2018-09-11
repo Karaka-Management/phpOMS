@@ -135,7 +135,7 @@ class Repository
     /**
      * Get all branches.
      *
-     * @return array
+     * @return array<string>
      *
      * @since  1.0.0
      */
@@ -160,7 +160,7 @@ class Repository
      *
      * @param string $cmd Command to run
      *
-     * @return array
+     * @return array<string>
      *
      * @throws \Exception
      *
@@ -212,7 +212,7 @@ class Repository
      *
      * @param string $lines Result of git command
      *
-     * @return array
+     * @return array<string>
      *
      * @since  1.0.0
      */
@@ -464,7 +464,7 @@ class Repository
     /**
      * Get all remote branches.
      *
-     * @return array
+     * @return array<string>
      *
      * @since  1.0.0
      */
@@ -642,7 +642,7 @@ class Repository
     /**
      * Get LOC.
      *
-     * @param array $extensions Extensions whitelist
+     * @param array<string> $extensions Extensions whitelist
      *
      * @return int
      *
@@ -687,7 +687,7 @@ class Repository
      * @param \DateTime $start Start date
      * @param \DateTime $end   End date
      *
-     * @return array
+     * @return array<string>
      *
      * @since  1.0.0
      */
@@ -727,7 +727,7 @@ class Repository
      * @param \DateTime $start Start date
      * @param \DateTime $end   End date
      *
-     * @return array
+     * @return array<string, int>
      *
      * @since  1.0.0
      */

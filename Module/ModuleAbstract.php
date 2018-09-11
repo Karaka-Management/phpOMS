@@ -111,7 +111,7 @@ abstract class ModuleAbstract
      * @param string $language    Language key
      * @param string $destination Application destination (e.g. Backend)
      *
-     * @return array
+     * @return array<string, array<string, string>>
      *
      * @since  1.0.0
      */

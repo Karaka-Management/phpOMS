@@ -27,7 +27,7 @@ final class Lorenzkurve
     /**
      * Calculate Gini coefficient
      *
-     * @param array $data Datapoints (can be unsorted)
+     * @param array<int|float> $data Datapoints (can be unsorted)
      *
      * @return float
      *

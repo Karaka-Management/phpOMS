@@ -198,7 +198,7 @@ final class StockBonds
     /**
      * Holding Period Return
      *
-     * @param array $r Rate of return
+     * @param array<int|float> $r Rate of return
      *
      * @return float
      *

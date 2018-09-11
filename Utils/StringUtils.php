@@ -42,12 +42,12 @@ final class StringUtils
     }
 
     /**
-     * Check if a string contains any of the provided needles.
+     * Check if a string contains any of the provided needles (case sensitive).
      *
      * The validation is done case sensitive.
      *
-     * @param string $haystack Haystack
-     * @param array  $needles  Needles to check if any of them are part of the haystack
+     * @param string                    $haystack Haystack
+     * @param array<string, float, int> $needles  Needles to check if any of them are part of the haystack
      *
      * @example StringUtils::contains('This string', ['This', 'test']); // true
      *
@@ -67,12 +67,12 @@ final class StringUtils
     }
 
     /**
-     * Check if a string contains any of the provided needles.
+     * Check if a string contains any of the provided needles (case sensitive).
      *
      * The validation is done case sensitive.
      *
-     * @param string $haystack Haystack
-     * @param array  $needles  Needles to check if any of them are part of the haystack
+     * @param string                    $haystack Haystack
+     * @param array<string, float, int> $needles  Needles to check if any of them are part of the haystack
      *
      * @example StringUtils::mb_contains('This string', ['This', 'test']); // true
      *
@@ -92,7 +92,7 @@ final class StringUtils
     }
 
     /**
-     * Tests if a string ends with a certain string.
+     * Tests if a string ends with a certain string (case sensitive).
      *
      * The validation is done case sensitive. The function takes strings or an array of strings for the validation.
      * In case of an array the function will test if any of the needles is at the end of the haystack string.
@@ -122,7 +122,7 @@ final class StringUtils
     }
 
     /**
-     * Tests if a string starts with a certain string.
+     * Tests if a string starts with a certain string (case sensitive).
      *
      * The validation is done case sensitive. The function takes strings or an array of strings for the validation.
      * In case of an array the function will test if any of the needles is at the beginning of the haystack string.
@@ -154,7 +154,7 @@ final class StringUtils
     }
 
     /**
-     * Tests if a multi byte string starts with a certain string.
+     * Tests if a multi byte string starts with a certain string (case sensitive).
      *
      * The validation is done case sensitive. The function takes strings or an array of strings for the validation.
      * In case of an array the function will test if any of the needles is at the beginning of the haystack string.
@@ -182,7 +182,7 @@ final class StringUtils
     }
 
     /**
-     * Tests if a multi byte string ends with a certain string.
+     * Tests if a multi byte string ends with a certain string (case sensitive).
      *
      * The validation is done case sensitive. The function takes strings or an array of strings for the validation.
      * In case of an array the function will test if any of the needles is at the end of the haystack string.

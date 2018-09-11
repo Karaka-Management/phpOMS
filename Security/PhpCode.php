@@ -96,7 +96,7 @@ final class PhpCode
     /**
      * Check if function is disabled
      *
-     * @param array $functions Functions to check
+     * @param array<string> $functions Functions to check
      *
      * @return bool
      *
