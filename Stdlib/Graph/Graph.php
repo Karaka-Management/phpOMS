@@ -68,6 +68,8 @@ class Graph
      */
     public function addNodeRelative(Node $relative, Node $node) : Graph
     {
+        $this->edges[] = new Edge($relative, $node);
+        
         return $this;
     }
 
@@ -199,10 +201,6 @@ class Graph
      */
     public function getNeighbors($node) : array
     {
-        if (!($node instanceof Node)) {
-            $node = $this->getNode($node);
-        }
-
         $edges     = $this->getEdgesOfNode($node);
         $neighbors = [];
 
