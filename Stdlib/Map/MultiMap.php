@@ -202,6 +202,7 @@ class MultiMap implements \Countable
     {
         if (\is_array($key)) {
             if ($this->orderType === OrderType::LOOSE) {
+                /** @var array<array<string>> $keys */
                 $keys = Permutation::permut($key, [], false);
 
                 foreach ($keys as $key => $value) {
@@ -251,6 +252,7 @@ class MultiMap implements \Countable
     private function setMultiple($key, $value) : bool
     {
         if ($this->orderType !== OrderType::STRICT) {
+            /** @var array<array<string>> $permutation */
             $permutation = Permutation::permut($key, [], false);
 
             foreach ($permutation as $permut) {
@@ -317,6 +319,7 @@ class MultiMap implements \Countable
             return $this->remove(\implode(':', $key));
         }
 
+        /** @var array $keys */
         $keys  = Permutation::permut($key, [], false);
         $found = false;
 
