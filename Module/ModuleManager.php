@@ -121,8 +121,8 @@ final class ModuleManager
         $files = $this->getUriLoad($request);
 
         $lang = [];
-        if (isset($files[5])) {
-            foreach ($files[5] as $module) {
+        if (isset($files['5'])) {
+            foreach ($files['5'] as $module) {
                 $lang[] = '/Modules/' . $module['module_load_from'] . '/Theme/' . $this->app->appName . '/Lang/' . $module['module_load_file'];
             }
         }
@@ -689,8 +689,8 @@ final class ModuleManager
         $files   = $this->getUriLoad($request);
         $modules = [];
 
-        if (isset($files[4])) {
-            foreach ($files[4] as $module) {
+        if (isset($files['4'])) {
+            foreach ($files['4'] as $module) {
                 $modules[] = $module['module_load_file'];
             }
         }

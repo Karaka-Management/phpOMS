@@ -36,8 +36,6 @@ class Autoloader
      *
      * @return void
      *
-     * @throws AutoloadException Throws this exception if the class to autoload doesn't exist. This could also be related to a wrong namespace/file path correlation.
-     *
      * @since  1.0.0
      */
     public static function defaultAutoloader(string $class) : void

@@ -87,7 +87,7 @@ final class TestUtils
      */
     public static function getMember(object $obj, string $name)
     {
-        $reflectionClass = new \ReflectionClass(\is_string($obj) ? $obj : \get_class($obj));
+        $reflectionClass = new \ReflectionClass($obj);
 
         if (!$reflectionClass->hasProperty($name)) {
             return null;

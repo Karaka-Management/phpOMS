@@ -44,8 +44,7 @@ class DispatcherTest extends \PHPUnit\Framework\TestCase
 
     public function testClosure()
     {
-        $l11nManager  = new L11nManager();
-        $localization = new Localization($l11nManager);
+        $localization = new Localization();
 
         self::assertTrue(
             !empty(
@@ -60,8 +59,7 @@ class DispatcherTest extends \PHPUnit\Framework\TestCase
 
     public function testPathMethod()
     {
-        $l11nManager  = new L11nManager();
-        $localization = new Localization($l11nManager);
+        $localization = new Localization();
 
         self::assertTrue(
             !empty(
@@ -76,8 +74,7 @@ class DispatcherTest extends \PHPUnit\Framework\TestCase
 
     public function testPathMethodInArray()
     {
-        $l11nManager  = new L11nManager();
-        $localization = new Localization($l11nManager);
+        $localization = new Localization();
 
         self::assertTrue(
             !empty(
@@ -92,8 +89,7 @@ class DispatcherTest extends \PHPUnit\Framework\TestCase
 
     public function testPathStatic()
     {
-        $l11nManager  = new L11nManager();
-        $localization = new Localization($l11nManager);
+        $localization = new Localization();
 
         self::assertTrue(
             !empty(
@@ -108,8 +104,7 @@ class DispatcherTest extends \PHPUnit\Framework\TestCase
 
     public function testArray()
     {
-        $l11nManager  = new L11nManager();
-        $localization = new Localization($l11nManager);
+        $localization = new Localization();
 
         self::assertTrue(
             !empty(

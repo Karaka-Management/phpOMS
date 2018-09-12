@@ -24,7 +24,7 @@ class ArrayParserTest extends \PHPUnit\Framework\TestCase
             public function unserialize($raw) {}
         };
 
-        $jsonSerialize = new class implements \jsonSerializable {
+        $jsonSerialize = new class implements \JsonSerializable {
             public function jsonSerialize() { return [6, 7]; }
         };
 

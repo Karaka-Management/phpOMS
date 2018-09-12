@@ -47,7 +47,7 @@ class Edge
     /**
      * Is graph/edge directed
      *
-     * @var Node
+     * @var bool
      * @since 1.0.0
      */
     private $isDirected = false;

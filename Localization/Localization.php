@@ -158,22 +158,25 @@ final class Localization
 
         foreach ($files as $file) {
             if (\stripos($file, $langCode) === 0) {
-                $this->importLocale(
-                    \json_decode(
-                        \file_get_contents(__DIR__ . '/../Localization/Defaults/Definitions/' . $file),
-                        true
-                    )
-                );
+                $fileContent = \file_get_contents(__DIR__ . '/../Localization/Defaults/Definitions/' . $file);
+
+                if ($fileContent === false) {
+                    return;
+                } 
+
+                $this->importLocale(\json_decode($fileContent, true));
+
                 return;
             }
         }
 
-        $this->importLocale(
-            \json_decode(
-                \file_get_contents(__DIR__ . '/../Localization/Defaults/Definitions/en_US.json'),
-                true
-            )
-        );
+        $fileContent = \file_get_contents(__DIR__ . '/../Localization/Defaults/Definitions/en_US.json');
+
+        if ($fileContent === false) {
+            return;
+        } 
+
+        $this->importLocale(\json_decode($fileContent, true));
     }
 
     /**

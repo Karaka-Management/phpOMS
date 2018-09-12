@@ -54,7 +54,7 @@ final class Integer
      *
      * @param int $value Integer to factorize
      *
-     * @return array<int>
+     * @return array<float|int>
      *
      * @since  1.0.0
      */

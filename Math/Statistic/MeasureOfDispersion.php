@@ -235,6 +235,7 @@ final class MeasureOfDispersion
             --$count;
         }
 
+        /** @var int $count */
         $count /= 2;
 
         \sort($x);

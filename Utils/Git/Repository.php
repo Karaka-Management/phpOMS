@@ -687,7 +687,7 @@ class Repository
      * @param \DateTime $start Start date
      * @param \DateTime $end   End date
      *
-     * @return array<string>
+     * @return array<Author>
      *
      * @since  1.0.0
      */
@@ -747,7 +747,10 @@ class Repository
         foreach ($lines as $line) {
             \preg_match('/^[0-9]*/', $line, $matches);
 
-            $commits[\substr($line, \strlen($matches[0]) + 1)] = (int) $matches[0];
+            $temp = \substr($line, \strlen($matches[0]) + 1);
+            if ($temp !== false) {
+                $commits[$temp] = (int) $matches[0];
+            }
         }
 
         return $commits;

@@ -381,7 +381,7 @@ class Matrix implements \ArrayAccess, \Iterator
     public function setMatrix(array $matrix) : Matrix
     {
         $this->m      = \count($matrix);
-        $this->n      = \count($matrix[0] ?? 1);
+        $this->n      = \count($matrix[0] ?? [1]);
         $this->matrix = $matrix;
 
         return $this;

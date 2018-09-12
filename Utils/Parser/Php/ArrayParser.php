@@ -73,9 +73,9 @@ class ArrayParser
             return 'null';
         } elseif (\is_scalar($value)) {
             return (string) $value;
-        } elseif ($value instanceOf \Serializable) {
+        } elseif ($value instanceof \Serializable) {
             return self::parseVariable($value->serialize());
-        } elseif ($value instanceOf \jsonSerializable) {
+        } elseif ($value instanceof \JsonSerializable) {
             return self::parseVariable($value->jsonSerialize());
         } else {
             throw new \UnexpectedValueException();

@@ -117,8 +117,9 @@ class ChiSquaredDistribution
             }
         }
 
-        $key = \key(\end(self::TABLE[$df]));
-        $p   = 1 - ($p ?? ($key === false ? 1 : (float) $key));
+        $tableCopy = self::TABLE[$df];
+        $key       = \key(\end($tableCopy));
+        $p         = 1 - ($p ?? ($key === false ? 1 : (float) $key));
 
         return ['P' => $p, 'H0' => ($p > $significance), 'df' => $df];
     }

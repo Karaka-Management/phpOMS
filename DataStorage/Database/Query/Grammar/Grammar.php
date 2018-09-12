@@ -420,7 +420,8 @@ class Grammar extends GrammarAbstract
      * Compile on.
      *
      * @param Builder $query Builder
-     * @param array   $joins Joins
+     * @param array   $ons   On values
+     * @param bool    $first Is first on element
      *
      * @return string
      *

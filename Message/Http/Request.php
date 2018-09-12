@@ -168,12 +168,8 @@ final class Request extends RequestAbstract
             return 'EN';
         }
 
-        $components = \explode(';', $_SERVER['HTTP_ACCEPT_LANGUAGE']);
-        
-        if (\stripos($components[0], ',') !== false) {
-            $locals = \explode(',', $components[0]);
-        }
-        
+        $components           = \explode(';', $_SERVER['HTTP_ACCEPT_LANGUAGE']);
+        $locals               = \stripos($components[0], ',') !== false ? $locals = \explode(',', $components[0]) : $components;
         $firstLocalComponents = \explode('-', $locals[0]);
 
         return $firstLocalComponents[0];

@@ -40,7 +40,7 @@ class BuilderTest extends \PHPUnit\Framework\TestCase
         self::assertEquals($sql, $query->select('a.test', 'b.test')->from('a', 'b')->where('a.test', '=', 'abc')->toSql());
 
         $query    = new Builder($this->con);
-        $datetime = new \Datetime('now');
+        $datetime = new \DateTime('now');
         $sql      = 'SELECT `a`.`test`, `b`.`test` FROM `a`, `b` WHERE `a`.`test` = \'' . $datetime->format('Y-m-d H:i:s') . '\';';
         self::assertEquals($sql, $query->select('a.test', 'b.test')->from('a', 'b')->where('a.test', '=', $datetime)->toSql());
 

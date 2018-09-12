@@ -151,7 +151,7 @@ class AccountTest extends \PHPUnit\Framework\TestCase
         ]);
         self::assertEquals(4, \count($account->getPermissions()));
 
-        self::assertFalse($account->hasPermission(PermissionType::READ, 1, 'a', 1, 1, 1, 1));
+        self::assertFalse($account->hasPermission(PermissionType::READ, 1, 'a', 'a', 1, 1, 1));
         self::assertTrue($account->hasPermission(PermissionType::NONE));
 
         $account->setL11n(new Localization());

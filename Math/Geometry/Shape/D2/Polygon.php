@@ -76,8 +76,8 @@ final class Polygon implements D2ShapeInterface
     /**
      * Point polygon relative position
      *
-     * @param array<string, int|float>            $point   Point location
-     * @param array<int, array<string, int|float> $polygon Polygon definition
+     * @param array<string, int|float>             $point   Point location
+     * @param array<int, array<string, int|float>> $polygon Polygon definition
      *
      * @return int -1 inside polygon 0 on vertice 1 outside
      *
@@ -141,8 +141,8 @@ final class Polygon implements D2ShapeInterface
     /**
      * Is point on vertex?
      *
-     * @param array<string, int|float>            $point   Point location
-     * @param array<int, array<string, int|float> $polygon Polygon definition
+     * @param array<string, int|float>             $point   Point location
+     * @param array<int, array<string, int|float>> $polygon Polygon definition
      *
      * @return bool
      *

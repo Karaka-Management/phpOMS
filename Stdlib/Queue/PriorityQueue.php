@@ -209,7 +209,7 @@ class PriorityQueue implements \Countable, \Serializable
     /**
      * Pop element.
      *
-     * @return mixed
+     * @return array
      *
      * @since  1.0.0
      */
