@@ -21,10 +21,12 @@ class PermutationTest extends \PHPUnit\Framework\TestCase
 {
     public function testPermute()
     {
-        $arr          = ['a', 'b', 'c'];
-        $permutations = ['abc', 'acb', 'bac', 'bca', 'cab', 'cba'];
+        $arr           = ['a', 'b', 'c'];
+        $permutations  = ['abc', 'acb', 'bac', 'bca', 'cab', 'cba'];
+        $permutations2 = [['a', 'b', 'c'], ['a', 'c', 'b'], ['b', 'a', 'c'], ['b', 'c', 'a'], ['c', 'a', 'b'], ['c', 'b', 'a']];
 
         self::assertEquals($permutations, Permutation::permut($arr));
+        self::assertEquals($permutations2, Permutation::permut($arr, [], false));
     }
 
     public function testIsPermutation()
