@@ -214,7 +214,7 @@ abstract class RequestAbstract implements MessageInterface
 
         $list = \explode($delim, $this->data[$key]);
 
-        return $list === false ? [] : $json;
+        return $list === false ? [] : \trim($list);
     }
 
     /**
