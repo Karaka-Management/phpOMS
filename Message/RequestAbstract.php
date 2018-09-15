@@ -214,11 +214,15 @@ abstract class RequestAbstract implements MessageInterface
 
         $list = \explode($delim, $this->data[$key]);
 
+        if ($list === false) {
+            return [];
+        }
+
         foreach ($list as $i => $e) {
             $list[$i] = \trim($e);
         }
 
-        return $list === false ? [] : $list;
+        return $list;
     }
 
     /**
