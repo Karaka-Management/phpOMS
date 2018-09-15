@@ -27,6 +27,7 @@ class InfoManagerTest extends \PHPUnit\Framework\TestCase
         $jarray = \json_decode(file_get_contents(__DIR__ . '/info-test.json'), true);
 
         self::assertEquals($jarray, $info->get());
+        self::assertEquals($jarray['name']['id'], $info->getId());
         self::assertEquals($jarray['name']['internal'], $info->getInternalName());
         self::assertEquals($jarray['name']['external'], $info->getExternalName());
         self::assertEquals($jarray['category'], $info->getCategory());

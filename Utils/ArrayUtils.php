@@ -151,20 +151,21 @@ final class ArrayUtils
      *
      * @param mixed $needle   Needle for search
      * @param array $haystack Haystack for search
+     * @param mixed $key      Key that has to match (optional)
      *
      * @return bool
      *
      * @since  1.0.0
      */
-    public static function inArrayRecursive($needle, array $haystack) : bool
+    public static function inArrayRecursive($needle, array $haystack, $key = null) : bool
     {
         $found = false;
 
-        foreach ($haystack as $item) {
-            if ($item === $needle) {
+        foreach ($haystack as $k => $item) {
+            if ($item === $needle && ($key === null || $key === $k)) {
                 return true;
             } elseif (\is_array($item)) {
-                $found = self::inArrayRecursive($needle, $item);
+                $found = self::inArrayRecursive($needle, $item, $key);
 
                 if ($found) {
                     return true;

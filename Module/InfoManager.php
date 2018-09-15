@@ -141,6 +141,18 @@ final class InfoManager
     /**
      * Get info data.
      *
+     * @return int
+     *
+     * @since  1.0.0
+     */
+    public function getId() : int
+    {
+        return $this->info['name']['id'] ?? 0;
+    }
+
+    /**
+     * Get info data.
+     *
      * @return string
      *
      * @since  1.0.0

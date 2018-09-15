@@ -64,6 +64,9 @@ class ArrayUtilsTest extends \PHPUnit\Framework\TestCase
         ];
 
         self::assertTrue(ArrayUtils::inArrayRecursive('aba', $expected));
+        self::assertTrue(ArrayUtils::inArrayRecursive('2a', $expected));
+        self::assertTrue(ArrayUtils::inArrayRecursive('2a', $expected, 2));
+        self::assertFalse(ArrayUtils::inArrayRecursive('2a', $expected, 3));
         self::assertFalse(ArrayUtils::inArrayRecursive('aba', ArrayUtils::unsetArray('a/ab', $expected, '/')));
     }
 
