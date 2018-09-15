@@ -141,15 +141,25 @@ final class Request extends RequestAbstract
         if (isset($_SERVER['CONTENT_TYPE'])) {
             if (\stripos($_SERVER['CONTENT_TYPE'], 'application/json') !== false) {
                 $input = \file_get_contents('php://input');
-                $json  = \json_decode($input === false ? '' : $input, true);
-                if ($input === false || $json === false || $json === null) {
+
+                if ($input === false || empty($input)) {
+                    return;
+                }
+
+                $json = \json_decode($input === false || empty($input) ? '' : $input, true);
+                if ($json === false || $json === null) {
                     throw new \Exception('Is not valid json ' . $input);
                 }
 
                 $this->data += $json;
             } elseif (\stripos($_SERVER['CONTENT_TYPE'], 'application/x-www-form-urlencoded') !== false) {
                 $content = \file_get_contents('php://input');
-                \parse_str($content === false ? '' : $content, $temp);
+
+                if ($content === false || empty($content)) {
+                    return;
+                }
+
+                \parse_str($content, $temp);
                 $this->data += $temp;
             }
         }
