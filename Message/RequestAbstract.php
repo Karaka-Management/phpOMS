@@ -173,6 +173,51 @@ abstract class RequestAbstract implements MessageInterface
     }
 
     /**
+     * Get data.
+     *
+     * @param mixed $key Data key
+     *
+     * @return array
+     *
+     * @since  1.0.0
+     */
+    public function getDataJson($key) : array
+    {
+        $key = \mb_strtolower($key);
+
+        if (!isset($this->data[$key])) {
+            return [];
+        }
+
+        $json = \json_decode($this->data[$key]);
+
+        return $json === false ? [] : $json;
+    }
+
+    /**
+     * Get data.
+     *
+     * @param mixed $key    Data key
+     * @param string $delim Data delimiter
+     *
+     * @return array
+     *
+     * @since  1.0.0
+     */
+    public function getDataList($key, string $delim = ',') : array
+    {
+        $key = \mb_strtolower($key);
+
+        if (!isset($this->data[$key])) {
+            return [];
+        }
+
+        $list = \explode($delim, $this->data[$key]);
+
+        return $list === false ? [] : $json;
+    }
+
+    /**
      * Get data based on wildcard.
      *
      * @param string $regex Regex data key
