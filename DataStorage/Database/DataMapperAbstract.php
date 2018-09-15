@@ -346,8 +346,13 @@ class DataMapperAbstract implements DataMapperInterface
         }
 
         $refClass = new \ReflectionClass($obj);
-        $objId    = self::createModel($obj, $refClass);
-        self::setObjectId($refClass, $obj, $objId);
+
+        if (!empty($id = self::getObjectId($obj, $refClass))) {
+            $objId = $id;
+        } else {
+            $objId = self::createModel($obj, $refClass);
+            self::setObjectId($refClass, $obj, $objId);
+        }
 
         if ($relations === RelationType::ALL) {
             self::createHasMany($refClass, $obj, $objId);
@@ -370,9 +375,13 @@ class DataMapperAbstract implements DataMapperInterface
     {
         self::extend(__CLASS__);
 
-        $objId = self::createModelArray($obj);
-        \settype($objId, static::$columns[static::$primaryField]['type']);
-        $obj[static::$columns[static::$primaryField]['internal']] = $objId;
+        if (!empty($id = $obj[static::$columns[static::$primaryField]['internal']])) {
+            $objId = $id;
+        } else {
+            $objId = self::createModelArray($obj);
+            \settype($objId, static::$columns[static::$primaryField]['type']);
+            $obj[static::$columns[static::$primaryField]['internal']] = $objId;
+        }
 
         if ($relations === RelationType::ALL) {
             self::createHasManyArray($obj, $objId);
@@ -1378,7 +1387,7 @@ class DataMapperAbstract implements DataMapperInterface
     {
         self::extend(__CLASS__);
 
-        if (!isset($obj)) {
+        if (empty($obj)) {
             return null;
         }
 
