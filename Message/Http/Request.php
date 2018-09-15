@@ -146,7 +146,7 @@ final class Request extends RequestAbstract
                     return;
                 }
 
-                $json = \json_decode($input === false || empty($input) ? '' : $input, true);
+                $json = \json_decode($input, true);
                 if ($json === false || $json === null) {
                     throw new \Exception('Is not valid json ' . $input);
                 }
