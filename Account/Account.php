@@ -263,7 +263,7 @@ class Account implements ArrayableInterface, \JsonSerializable
      *
      * Adds permissions to the account
      *
-     * @param PermissionAbstract[] $permissions Array of permissions to add to the account
+     * @param array<array|PermissionAbstract> $permissions Array of permissions to add to the account
      *
      * @return void
      *
