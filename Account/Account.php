@@ -271,7 +271,13 @@ class Account implements ArrayableInterface, \JsonSerializable
      */
     public function addPermissions(array $permissions) : void
     {
-        $this->permissions = array_merge($this->permissions, $permissions);
+        foreach ($permissions as $permission) {
+            if (\is_array($permission)) {
+                $this->permissions = \array_merge($this->permissions, $permission);
+            } else {
+                $this->permissions[] = $permission;
+            }
+        }
     }
 
     /**

@@ -442,7 +442,7 @@ class DataMapperAbstract implements DataMapperInterface
                 $query->insert($column['name'])->value($value, $column['type']);
             }
 
-            if (!($isPublic)) {
+            if (!$isPublic) {
                 $property->setAccessible(false);
             }
         }
@@ -569,6 +569,30 @@ class DataMapperAbstract implements DataMapperInterface
     }
 
     /**
+     * Create relation
+     * 
+     * This is only possible for hasMany objects which are stored in a relation table
+     *
+     * @param string $member Member name of the relation
+     * @param mixed  $id1    Id of the primary object
+     * @param mixed  $id2    Id of the secondary object
+     *
+     * @return bool
+     *
+     * @since  1.0.0
+     */
+    public static function createRelation(string $member, $id1, $id2) : bool
+    {
+        if (!isset(static::$hasMany[$member]) || !isset(static::$hasMany[$member]['src'])) {
+            return false;
+        }
+
+        self::createRelationTable($member, \is_array($id2) ? $id2 : [$id2], $id1);
+
+        return true;
+    }
+
+    /**
      * Create has many
      *
      * @param \ReflectionClass $refClass Reflection class
@@ -592,7 +616,7 @@ class DataMapperAbstract implements DataMapperInterface
 
             $values = $property->getValue($obj);
 
-            if (!($isPublic)) {
+            if (!$isPublic) {
                 $property->setAccessible(false);
             }
 
@@ -627,6 +651,11 @@ class DataMapperAbstract implements DataMapperInterface
                 }
 
                 // Setting relation value (id) for relation (since the relation is not stored in an extra relation table)
+                /** 
+                 * @todo: this if comparison is correct, trust me. however, 
+                 * manybe it makes more sense to simply check if 'src' isset(static::$hasMany[$propertyName]['src']) 
+                 * source shouldn't be set if the relation is stored in the object itself
+                 */
                 /** @var string $table */
                 /** @var array $columns */
                 if (static::$hasMany[$propertyName]['table'] === static::$hasMany[$propertyName]['mapper']::$table) {
@@ -638,7 +667,7 @@ class DataMapperAbstract implements DataMapperInterface
 
                     $relProperty->setValue($value, $objId);
 
-                    if (!($isPublic)) {
+                    if (!$isPublic) {
                         $relProperty->setAccessible(false);
                     }
                 }
@@ -829,12 +858,13 @@ class DataMapperAbstract implements DataMapperInterface
      * @param array  $objsIds      Object ids to insert
      * @param mixed  $objId        Model to reference
      *
-     * @return mixed
+     * @return void
      *
      * @since  1.0.0
      */
-    private static function createRelationTable(string $propertyName, array $objsIds, $objId)
+    private static function createRelationTable(string $propertyName, array $objsIds, $objId) : void
     {
+        /** @todo: see hasMany implementation, checking isset(src) might be enough. although second condition MUST remain. */
         /** @var string $table */
         if (!empty($objsIds)
             && static::$hasMany[$propertyName]['table'] !== static::$table
@@ -918,7 +948,7 @@ class DataMapperAbstract implements DataMapperInterface
 
             $values = $property->getValue($obj);
 
-            if (!($isPublic)) {
+            if (!$isPublic) {
                 $property->setAccessible(false);
             }
 
@@ -966,7 +996,7 @@ class DataMapperAbstract implements DataMapperInterface
 
                     $relProperty->setValue($value, $objId);
 
-                    if (!($isPublic)) {
+                    if (!$isPublic) {
                         $relProperty->setAccessible(false);
                     }
                 }
@@ -1263,7 +1293,7 @@ class DataMapperAbstract implements DataMapperInterface
                 $query->set([static::$table . '.' . $column['name'] => $value], $column['type']);
             }
 
-            if (!($isPublic)) {
+            if (!$isPublic) {
                 $property->setAccessible(false);
             }
         }
@@ -1441,7 +1471,7 @@ class DataMapperAbstract implements DataMapperInterface
 
             $values = $property->getValue($obj);
 
-            if (!($isPublic)) {
+            if (!$isPublic) {
                 $property->setAccessible(false);
             }
 
@@ -1584,7 +1614,7 @@ class DataMapperAbstract implements DataMapperInterface
                     }
                 }
 
-                if (!($isPublic)) {
+                if (!$isPublic) {
                     $property->setAccessible(false);
                 }
             }
