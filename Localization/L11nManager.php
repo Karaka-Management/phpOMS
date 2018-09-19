@@ -37,12 +37,21 @@ final class L11nManager
     private $language = [];
 
     /**
+     * App Name.
+     *
+     * @var string
+     * @since 1.0.0
+     */
+    private $appName = '';
+
+    /**
      * Construct.
      *
      * @since  1.0.0
      */
-    public function __construct()
+    public function __construct(string $appName)
     {
+        $this->appName = $appName;
     }
 
     /**
@@ -152,7 +161,7 @@ final class L11nManager
         if (!isset($this->language[$code][$module][$translation])) {
             try {
                 /** @var ModuleAbstract $class */
-                $class = '\Modules\\' . $module . '\\Controller';
+                $class = '\Modules\\' . $module . '\\Controller\\' . $this->appName . 'Controller';
                 $this->loadLanguage($code, $module, $class::getLocalization($code, $theme));
 
                 if (!isset($this->language[$code][$module][$translation])) {

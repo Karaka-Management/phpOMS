@@ -182,13 +182,7 @@ final class Dispatcher
     private function getController(string $controller) : object
     {
         if (!isset($this->controllers[$controller])) {
-            // If module controller use module manager for initialization
-            if (\strpos('\Modules\Controller', $controller) === 0) {
-                $split                          = \explode('\\', $controller);
-                $this->controllers[$controller] = $this->app->moduleManager->get($split[2]);
-            } else {
-                $this->controllers[$controller] = new $controller($this->app);
-            }
+            $this->controllers[$controller] = new $controller($this->app);
         }
 
         return $this->controllers[$controller];

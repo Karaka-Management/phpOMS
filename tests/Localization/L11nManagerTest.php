@@ -22,13 +22,13 @@ class L11nManagerTest extends \PHPUnit\Framework\TestCase
 {
     public function testAttributes()
     {
-        $l11nManager = new L11nManager();
+        $l11nManager = new L11nManager('Api');
         self::assertObjectHasAttribute('language', $l11nManager);
     }
 
     public function testDefault()
     {
-        $l11nManager = new L11nManager();
+        $l11nManager = new L11nManager('Api');
         self::assertFalse($l11nManager->isLanguageLoaded('en'));
         self::assertEquals([], $l11nManager->getModuleLanguage('en'));
         self::assertEquals([], $l11nManager->getModuleLanguage('en', 'Admin'));
@@ -49,7 +49,7 @@ class L11nManagerTest extends \PHPUnit\Framework\TestCase
             ]
         ];
 
-        $localization = new L11nManager();
+        $localization = new L11nManager('Api');
         $localization->loadLanguage('en', 'doesNotExist', $expected);
     }
 
@@ -71,7 +71,7 @@ class L11nManagerTest extends \PHPUnit\Framework\TestCase
             ]
         ];
 
-        $l11nManager = new L11nManager();
+        $l11nManager = new L11nManager('Api');
         $l11nManager->loadLanguage('en', 'Admin', $expected['en']);
         $l11nManager->loadLanguage('en', 'Admin', $expected2['en']);
         self::assertTrue($l11nManager->isLanguageLoaded('en'));
@@ -82,7 +82,7 @@ class L11nManagerTest extends \PHPUnit\Framework\TestCase
 
     public function testGetSetFromFile()
     {
-        $l11nManager2 = new L11nManager();
+        $l11nManager2 = new L11nManager('Api');
         $l11nManager2->loadLanguageFromFile('en', 'Test', __DIR__ . '/langTestFile.php');
         self::assertEquals('value', $l11nManager2->getHtml('en', 'Test', 'RandomThemeDoesNotMatterAlreadyLoaded', 'key'));
 

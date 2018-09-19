@@ -39,9 +39,10 @@ class ViewTest extends \PHPUnit\Framework\TestCase
 
         $this->app = new class extends ApplicationAbstract
         {
+            protected $appName = 'Api';
         };
 
-        $this->app->l11nManager = new L11nManager();
+        $this->app->l11nManager = new L11nManager($this->app->appName);
         $this->app->dbPool      = $this->dbPool;
     }
 
@@ -72,7 +73,7 @@ class ViewTest extends \PHPUnit\Framework\TestCase
             ]
         ];
 
-        $this->app->l11nManager = new L11nManager();
+        $this->app->l11nManager = new L11nManager('Api');
         $this->app->l11nManager->loadLanguage('en', 'Admin', $expected['en']);
 
         self::assertEquals('<a href="test">Test</a>', $view->getText('Test'));

@@ -28,7 +28,8 @@ class ModuleManagerTest extends \PHPUnit\Framework\TestCase
 
     protected function setUp()
     {
-        $this->app             = new class extends ApplicationAbstract {};
+        $this->app             = new class extends ApplicationAbstract { protected $appName = 'Api'; };
+        $this->app->appName    = 'Api';
         $this->app->dbPool     = $GLOBALS['dbpool'];
         $this->app->dispatcher = new Dispatcher($this->app);
     }
@@ -82,6 +83,6 @@ class ModuleManagerTest extends \PHPUnit\Framework\TestCase
         self::assertNotEmpty($installed);
 
         self::assertInstanceOf('\phpOMS\Module\ModuleAbstract', $moduleManager->get('Admin'));
-        self::assertInstanceOf('\Modules\Admin\Controller', $moduleManager->get('Admin'));
+        self::assertInstanceOf('\Modules\Admin\Controller\ApiController', $moduleManager->get('Admin'));
     }
 }

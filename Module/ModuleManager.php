@@ -651,7 +651,7 @@ final class ModuleManager
     {
         try {
             $this->running[$module] = ModuleFactory::getInstance($module, $this->app);
-            $this->app->dispatcher->set($this->running[$module], '\Modules\\' . $module . '\\Controller');
+            $this->app->dispatcher->set($this->running[$module], '\Modules\\Controller\\' . $module . '\\' . $this->app->appName . 'Controller');
         } catch (\Exception $e) {
             throw $e;
         }

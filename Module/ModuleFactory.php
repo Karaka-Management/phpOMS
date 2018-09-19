@@ -70,7 +70,7 @@ final class ModuleFactory
      */
     public static function getInstance(string $module, ApplicationAbstract $app) : ModuleAbstract
     {
-        $class = '\\Modules\\' . $module . '\\Controller';
+        $class = '\\Modules\\' . $module . '\\Controller\\' . $app->appName . 'Controller';
 
         if (!isset(self::$loaded[$module])) {
             if (Autoloader::exists($class) !== false) {

@@ -32,7 +32,7 @@ class AccountTest extends \PHPUnit\Framework\TestCase
 
     protected function setUp()
     {
-        $this->l11nManager = new L11nManager();
+        $this->l11nManager = new L11nManager('Api');
     }
 
     public function testAttributes()

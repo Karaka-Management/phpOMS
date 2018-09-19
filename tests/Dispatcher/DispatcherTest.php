@@ -32,7 +32,7 @@ class DispatcherTest extends \PHPUnit\Framework\TestCase
 
     protected function setUp()
     {
-        $this->app             = new class extends ApplicationAbstract {};
+        $this->app             = new class extends ApplicationAbstract { protected $appName = 'Api'; };
         $this->app->router     = new Router();
         $this->app->dispatcher = new Dispatcher($this->app);
     }
