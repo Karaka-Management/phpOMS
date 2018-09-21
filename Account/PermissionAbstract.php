@@ -25,7 +25,7 @@ namespace phpOMS\Account;
  * @link       http://website.orange-management.de
  * @since      1.0.0
  */
-class PermissionAbstract
+class PermissionAbstract implements \JsonSerializable
 {
     /**
      * Permission id.
@@ -54,7 +54,7 @@ class PermissionAbstract
     /**
      * Module id.
      *
-     * @var int|null
+     * @var string|null
      * @since 1.0.0
      */
     protected $module = null;
@@ -166,11 +166,11 @@ class PermissionAbstract
     /**
      * Get module id.
      *
-     * @return int|null
+     * @return string|null
      *
      * @since  1.0.0
      */
-    public function getModule() : ?int
+    public function getModule() : ?string
     {
         return $this->module;
     }
@@ -178,13 +178,13 @@ class PermissionAbstract
     /**
      * Set module id.
      *
-     * @param int $module Module
+     * @param string $module Module
      *
      * @return void
      *
      * @since  1.0.0
      */
-    public function setModule(int $module = null) : void
+    public function setModule(string $module = null) : void
     {
         $this->module = $module;
     }
@@ -345,5 +345,23 @@ class PermissionAbstract
     public function hasPermission(int $permission) : bool
     {
         return ($this->permission | $permission) === $this->permission;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function jsonSerialize()
+    {
+        return [
+            'id' => $this->id,
+            'unit' => $this->unit,
+            'app' => $this->app,
+            'module' => $this->module,
+            'from' => $this->from,
+            'type' => $this->type,
+            'element' => $this->element,
+            'component' => $this->component,
+            'permission' => $this->permission,
+        ];
     }
 }

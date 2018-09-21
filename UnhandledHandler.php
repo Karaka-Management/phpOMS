@@ -62,25 +62,18 @@ final class UnhandledHandler
         $logger = FileLogger::getInstance(__DIR__ . '/../Logs');
 
         if (!(\error_reporting() & $errno)) {
-            $logger->error(FileLogger::MSG_FULL, [
-                'message' => 'Undefined error',
-                'line'    => $errline,
-                'file'    => $errfile,
-            ]);
-
             \error_clear_last();
 
             return false;
         }
 
+        \error_clear_last();
 
         $logger->error(FileLogger::MSG_FULL, [
-            'message' => 'Unhandled error',
+            'message' => 'Undefined error',
             'line'    => $errline,
             'file'    => $errfile,
         ]);
-
-        \error_clear_last();
 
         return true;
     }
@@ -96,6 +89,7 @@ final class UnhandledHandler
     public static function shutdownHandler() : void
     {
         $e = \error_get_last();
+        \error_clear_last();
 
         if ($e !== null) {
             $logger = FileLogger::getInstance(__DIR__ . '/../Logs');
