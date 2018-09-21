@@ -162,7 +162,7 @@ final class Localization
 
                 if ($fileContent === false) {
                     return;
-                } 
+                }
 
                 $this->importLocale(\json_decode($fileContent, true));
 
@@ -174,7 +174,7 @@ final class Localization
 
         if ($fileContent === false) {
             return;
-        } 
+        }
 
         $this->importLocale(\json_decode($fileContent, true));
     }

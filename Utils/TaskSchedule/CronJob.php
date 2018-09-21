@@ -33,7 +33,7 @@ class CronJob extends TaskAbstract
     {
         return $this->interval . ' ' . $this->command . ' # name="' . $this->id . '" ' . $this->comment;
     }
-    
+
     /**
      * {@inheritdoc}
      */

@@ -18,7 +18,7 @@ use phpOMS\Math\Matrix\Exception\InvalidDimensionException;
 
 /**
  * LU decomposition
- * 
+ *
  * A(piv,:) = L*U
  *
  * @package    phpOMS\Math\Matrix

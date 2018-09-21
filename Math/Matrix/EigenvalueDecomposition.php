@@ -18,7 +18,7 @@ use phpOMS\Math\Geometry\Shape\D2\Triangle;
 
 /**
  * Eigenvalue decomposition
- * 
+ *
  * A symmetric then A = V*D*V'
  * A not symmetric then (potentially) A = V*D*inverse(V)
  *
@@ -645,7 +645,7 @@ final class EigenvalueDecomposition
                     ) {
                         break;
                     }
-                    
+
                     --$m;
                 }
 
@@ -657,7 +657,7 @@ final class EigenvalueDecomposition
                     }
                 }
 
-                
+
             }
         }
     }
@@ -667,7 +667,7 @@ final class EigenvalueDecomposition
         return $this->isSymmetric;
     }
 
-    public function getV() : Matrix 
+    public function getV() : Matrix
     {
         $matrix = new Matrix();
         $matrix->setMatrix($this->V);

@@ -26,7 +26,7 @@ class Edge
 {
     /**
      * Node1.
-     * 
+     *
      * In case of directed edges this is the from node/starting node.
      *
      * @var Node
@@ -36,7 +36,7 @@ class Edge
 
     /**
      * Node2.
-     * 
+     *
      * In case of directed edges this is the to node/end node.
      *
      * @var Node

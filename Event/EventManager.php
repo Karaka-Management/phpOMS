@@ -196,7 +196,7 @@ final class EventManager
      *
      * @since  1.0.0
      */
-    private function detachGroup(string $group) : bool 
+    private function detachGroup(string $group) : bool
     {
         if (isset($this->groups[$group])) {
             unset($this->groups[$group]);

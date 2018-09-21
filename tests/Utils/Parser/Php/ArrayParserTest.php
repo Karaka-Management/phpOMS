@@ -19,8 +19,8 @@ class ArrayParserTest extends \PHPUnit\Framework\TestCase
 {
     public function testParser()
     {
-        $serializable = new class implements \Serializable { 
-            public function serialize() { return 2; } 
+        $serializable = new class implements \Serializable {
+            public function serialize() { return 2; }
             public function unserialize($raw) {}
         };
 

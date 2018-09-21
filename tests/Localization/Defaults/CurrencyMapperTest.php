@@ -22,7 +22,7 @@ use phpOMS\DataStorage\Database\Connection\SQLiteConnection;
 
 class CurrencyMapperTest extends \PHPUnit\Framework\TestCase
 {
-    static function setUpBeforeClass() 
+    static function setUpBeforeClass()
     {
         $con = new SqliteConnection([
             'prefix' => '',
@@ -43,7 +43,7 @@ class CurrencyMapperTest extends \PHPUnit\Framework\TestCase
         self::assertContains('Germany', $obj->getCountries());
     }
 
-    static function tearDownAfterClass() 
+    static function tearDownAfterClass()
     {
         DataMapperAbstract::setConnection($GLOBALS['dbpool']->get());
     }

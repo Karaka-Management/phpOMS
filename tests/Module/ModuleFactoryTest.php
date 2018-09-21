@@ -26,8 +26,8 @@ class ModuleFactoryTest extends \PHPUnit\Framework\TestCase
         $instance = NullModule::class;
         if (\file_exists(__DIR__ . '/../../../Modules')) {
             $instance = \Modules\Admin\Controller\ApiController::class;
-        } 
-        
+        }
+
         self::assertInstanceOf($instance, ModuleFactory::getInstance('Admin', new class extends ApplicationAbstract { protected $appName = 'Api'; }));
     }
 }

@@ -34,7 +34,7 @@ final class Validator extends ValidatorAbstract
      * @param array $constraints Constraints for validation
      *
      * @return bool
-     * 
+     *
      * @throws \Exception
      *
      * @since  1.0.0

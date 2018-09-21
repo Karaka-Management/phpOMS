@@ -86,7 +86,7 @@ class PriorityQueueTest extends \PHPUnit\Framework\TestCase
         self::assertEquals(['data' => 'a', 'priority' => -2], $queue->get($id1));
         self::assertEquals(['data' => 'a', 'priority' => -2], $queue->pop());
         self::assertEquals(2, $queue->count());
-        
+
         self::assertTrue($queue->delete($id3));
         self::assertFalse($queue->delete($id3));
         self::assertEquals(1, $queue->count());
@@ -124,7 +124,7 @@ class PriorityQueueTest extends \PHPUnit\Framework\TestCase
         self::assertEquals(['data' => 'c', 'priority' => -1], $queue->get($id3));
         self::assertEquals(['data' => 'c', 'priority' => -1], $queue->pop());
         self::assertEquals(2, $queue->count());
-        
+
         self::assertTrue($queue->delete($id1));
         self::assertFalse($queue->delete($id1));
         self::assertEquals(1, $queue->count());
@@ -162,7 +162,7 @@ class PriorityQueueTest extends \PHPUnit\Framework\TestCase
         self::assertEquals(['data' => 'a', 'priority' => 3], $queue->get($id1));
         self::assertEquals(['data' => 'a', 'priority' => 3], $queue->pop());
         self::assertEquals(2, $queue->count());
-        
+
         self::assertTrue($queue->delete($id2));
         self::assertFalse($queue->delete($id2));
         self::assertEquals(1, $queue->count());
@@ -200,7 +200,7 @@ class PriorityQueueTest extends \PHPUnit\Framework\TestCase
         self::assertEquals(['data' => 'a', 'priority' => 1], $queue->get($id1));
         self::assertEquals(['data' => 'a', 'priority' => 1], $queue->pop());
         self::assertEquals(2, $queue->count());
-        
+
         self::assertTrue($queue->delete($id2));
         self::assertFalse($queue->delete($id2));
         self::assertEquals(1, $queue->count());

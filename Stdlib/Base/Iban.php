@@ -137,7 +137,7 @@ class Iban implements \Serializable
     public function getCountry() : string
     {
         $country = \substr($this->iban, 0, 2);
-        
+
         return $country === false ? '?' : $country;
     }
 

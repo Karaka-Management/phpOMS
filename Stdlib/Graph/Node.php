@@ -28,7 +28,7 @@ class Node
 {
     /**
      * Node data.
-     * 
+     *
      * @var mixed
      * @since 1.0.0
      */

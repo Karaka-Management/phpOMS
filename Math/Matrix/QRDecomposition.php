@@ -19,7 +19,7 @@ use phpOMS\Math\Geometry\Shape\D2\Triangle;
 
 /**
  * QR decomposition
- * 
+ *
  * For every matrix A = Q*R
  *
  * @package    phpOMS\Math\Matrix
@@ -246,7 +246,7 @@ final class QRDecomposition
 
         $nx = $B->getN();
         $X  = $B->toArray();
-        
+
         // Compute Y = transpose(Q)*B
         for ($k = 0; $k < $this->n; ++$k) {
             for ($j = 0; $j < $nx; ++$j) {

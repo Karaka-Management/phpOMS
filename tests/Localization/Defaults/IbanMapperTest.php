@@ -22,7 +22,7 @@ use phpOMS\DataStorage\Database\Connection\SQLiteConnection;
 
 class IbanMapperTest extends \PHPUnit\Framework\TestCase
 {
-    static function setUpBeforeClass() 
+    static function setUpBeforeClass()
     {
         $con = new SqliteConnection([
             'prefix' => '',
@@ -42,7 +42,7 @@ class IbanMapperTest extends \PHPUnit\Framework\TestCase
         self::assertEquals('DEkk bbbb bbbb cccc cccc cc', $obj->getFields());
     }
 
-    static function tearDownAfterClass() 
+    static function tearDownAfterClass()
     {
         DataMapperAbstract::setConnection($GLOBALS['dbpool']->get());
     }

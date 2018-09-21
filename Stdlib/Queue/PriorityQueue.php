@@ -252,7 +252,7 @@ class PriorityQueue implements \Countable, \Serializable
     {
         if ($this->type === PriorityMode::FIFO || $this->type === PriorityMode::LIFO) {
             $this->queue[$id]['priority'] = $priority;
-            
+
             return;
         }
 

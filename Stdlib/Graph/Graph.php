@@ -69,7 +69,7 @@ class Graph
     public function addNodeRelative(Node $relative, Node $node) : Graph
     {
         $this->edges[] = new Edge($relative, $node);
-        
+
         return $this;
     }
 

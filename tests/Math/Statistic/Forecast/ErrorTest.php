@@ -73,12 +73,12 @@ class ErrorTest extends \PHPUnit\Framework\TestCase
     public function testMASE()
     {
         $observed = [
-            -2.9, -2.83, -0.95, -0.88, 1.21, -1.67, 0.83, -0.27, 1.36, 
+            -2.9, -2.83, -0.95, -0.88, 1.21, -1.67, 0.83, -0.27, 1.36,
             -0.34, 0.48, -2.83, -0.95, -0.88, 1.21, -1.67, -2.99, 1.24, 0.64
         ];
-            
+
         $forecast = [
-            -2.95, -2.7, -1.00, -0.68, 1.50, -1.00, 0.90, -0.37, 1.26, 
+            -2.95, -2.7, -1.00, -0.68, 1.50, -1.00, 0.90, -0.37, 1.26,
             -0.54, 0.58, -2.13, -0.75, -0.89, 1.25, -1.65, -3.20, 1.29, 0.60
         ];
 
@@ -91,7 +91,7 @@ class ErrorTest extends \PHPUnit\Framework\TestCase
     public function testScaledError()
     {
         self::assertEquals(
-            [Error::getScaledError(Error::getForecastError(1000, 700), [1000, 800])], 
+            [Error::getScaledError(Error::getForecastError(1000, 700), [1000, 800])],
             Error::getScaledErrorArray([Error::getForecastError(1000, 700)], [1000, 800])
         );
     }

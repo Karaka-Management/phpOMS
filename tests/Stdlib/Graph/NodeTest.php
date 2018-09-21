@@ -27,7 +27,7 @@ class NodeTest extends \PHPUnit\Framework\TestCase
     {
         $node = new Node(1);
         self::assertEquals(1, $node->getData());
-        
+
         $node->setData(false);
         self::assertEquals(false, $node->getData());
     }

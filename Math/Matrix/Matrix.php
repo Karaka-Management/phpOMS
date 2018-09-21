@@ -148,7 +148,7 @@ class Matrix implements \ArrayAccess, \Iterator
 
     /**
      * Get sub matrix array.
-     * 
+     *
      * @param int $iRow Start row
      * @param int $lRow End row
      * @param int $iCol Start col
@@ -175,7 +175,7 @@ class Matrix implements \ArrayAccess, \Iterator
 
     /**
      * Get sub matrix array.
-     * 
+     *
      * @param array<int> $rows Row indices
      * @param array<int> $cols Row indices
      *
@@ -203,7 +203,7 @@ class Matrix implements \ArrayAccess, \Iterator
 
     /**
      * Get sub matrix array.
-     * 
+     *
      * @param int        $iRow Start row
      * @param int        $lRow End row
      * @param array<int> $cols Row indices
@@ -231,7 +231,7 @@ class Matrix implements \ArrayAccess, \Iterator
 
     /**
      * Get sub matrix array.
-     * 
+     *
      * @param array<int> $rows Row indices
      * @param int        $iCol Start col
      * @param int        $lCol End col

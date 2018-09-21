@@ -22,7 +22,7 @@ use phpOMS\DataStorage\Database\Connection\SQLiteConnection;
 
 class CityMapperTest extends \PHPUnit\Framework\TestCase
 {
-    static function setUpBeforeClass() 
+    static function setUpBeforeClass()
     {
         $con = new SqliteConnection([
             'prefix' => '',
@@ -45,7 +45,7 @@ class CityMapperTest extends \PHPUnit\Framework\TestCase
         self::assertLessThan(9, $obj->getLong());
     }
 
-    static function tearDownAfterClass() 
+    static function tearDownAfterClass()
     {
         DataMapperAbstract::setConnection($GLOBALS['dbpool']->get());
     }

@@ -79,7 +79,7 @@ class Evaluator
      *
      * @since  1.0.0
      */
-    private static function parseValue($value) 
+    private static function parseValue($value)
     {
         return !\is_string($value) ? $value : (\stripos($value, '.') === false ? (int) $value : (float) $value);
     }
@@ -112,8 +112,8 @@ class Evaluator
             return [];
         }
 
-        $equation = \array_filter($equation, function($n) { 
-            return $n !== ''; 
+        $equation = \array_filter($equation, function($n) {
+            return $n !== '';
         });
 
         foreach ($equation as $i => $token) {

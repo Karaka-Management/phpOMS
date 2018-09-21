@@ -77,7 +77,7 @@ final class UriFactory
                 if (\stripos($key, $identifier) === 0) {
                     unset(self::$uri[$key]);
                 }
-            }    
+            }
         }
     }
 

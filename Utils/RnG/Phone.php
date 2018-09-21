@@ -37,10 +37,10 @@ class Phone
      * @since  1.0.0
      */
     public static function generatePhone(
-        $isInt = true, 
+        $isInt = true,
         $layout = [
             'struct' => '+$1 ($2) $3-$4',
-            'size'   => [null, [3, 4], [3, 5], [3, 8],],], 
+            'size'   => [null, [3, 4], [3, 5], [3, 8],],],
             $countries = null
     ) {
         $numberString = $layout['struct'];

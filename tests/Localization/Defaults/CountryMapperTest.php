@@ -22,7 +22,7 @@ use phpOMS\DataStorage\Database\Connection\SQLiteConnection;
 
 class CountryMapperTest extends \PHPUnit\Framework\TestCase
 {
-    static function setUpBeforeClass() 
+    static function setUpBeforeClass()
     {
         $con = new SqliteConnection([
             'prefix' => '',
@@ -43,7 +43,7 @@ class CountryMapperTest extends \PHPUnit\Framework\TestCase
         self::assertEquals('ISO 3166-2:DE', $obj->getSubdevision());
     }
 
-    static function tearDownAfterClass() 
+    static function tearDownAfterClass()
     {
         DataMapperAbstract::setConnection($GLOBALS['dbpool']->get());
     }

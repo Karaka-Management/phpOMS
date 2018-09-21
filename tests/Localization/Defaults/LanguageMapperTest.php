@@ -22,7 +22,7 @@ use phpOMS\DataStorage\Database\Connection\SQLiteConnection;
 
 class LanguageMapperTest extends \PHPUnit\Framework\TestCase
 {
-    static function setUpBeforeClass() 
+    static function setUpBeforeClass()
     {
         $con = new SqliteConnection([
             'prefix' => '',
@@ -43,7 +43,7 @@ class LanguageMapperTest extends \PHPUnit\Framework\TestCase
         self::assertEquals('ger', $obj->getCode3());
     }
 
-    static function tearDownAfterClass() 
+    static function tearDownAfterClass()
     {
         DataMapperAbstract::setConnection($GLOBALS['dbpool']->get());
     }

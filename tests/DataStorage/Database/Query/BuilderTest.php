@@ -202,7 +202,7 @@ class BuilderTest extends \PHPUnit\Framework\TestCase
         $query = new Builder($this->con);
         $sql   = 'SELECT `a`.`test` FROM `a` JOIN `b` ON `a`.`id` = `b`.`id` AND `a`.`id2` = `b`.`id2` WHERE `a`.`test` = 1;';
         self::assertEquals($sql, $query->select('a.test')->from('a')->join('b')->on('a.id', '=', 'b.id')->andOn('a.id2', '=', 'b.id2')->where('a.test', '=', 1)->toSql());
-    
+
         $query = new Builder($this->con);
         $sql   = 'SELECT `a`.`test` FROM `a` LEFT JOIN `b` ON `a`.`id` = `b`.`id` WHERE `a`.`test` = 1;';
         self::assertEquals($sql, $query->select('a.test')->from('a')->leftJoin('b')->on('a.id', '=', 'b.id')->where('a.test', '=', 1)->toSql());
@@ -242,7 +242,7 @@ class BuilderTest extends \PHPUnit\Framework\TestCase
         $query = new Builder($this->con);
         $sql   = 'SELECT `a`.`test` FROM `a` FULL JOIN `b` ON `a`.`id` = `b`.`id` WHERE `a`.`test` = 1;';
         self::assertEquals($sql, $query->select('a.test')->from('a')->fullJoin('b')->on('a.id', '=', 'b.id')->where('a.test', '=', 1)->toSql());
-    
+
         $query = new Builder($this->con);
         $sql   = 'SELECT `a`.`test` FROM `a` FULL OUTER JOIN `b` ON `a`.`id` = `b`.`id` WHERE `a`.`test` = 1;';
         self::assertEquals($sql, $query->select('a.test')->from('a')->fullOuterJoin('b')->on('a.id', '=', 'b.id')->where('a.test', '=', 1)->toSql());

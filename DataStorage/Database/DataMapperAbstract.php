@@ -570,7 +570,7 @@ class DataMapperAbstract implements DataMapperInterface
 
     /**
      * Create relation
-     * 
+     *
      * This is only possible for hasMany objects which are stored in a relation table
      *
      * @param string $member Member name of the relation
@@ -651,9 +651,9 @@ class DataMapperAbstract implements DataMapperInterface
                 }
 
                 // Setting relation value (id) for relation (since the relation is not stored in an extra relation table)
-                /** 
-                 * @todo: this if comparison is correct, trust me. however, 
-                 * manybe it makes more sense to simply check if 'src' isset(static::$hasMany[$propertyName]['src']) 
+                /**
+                 * @todo: this if comparison is correct, trust me. however,
+                 * manybe it makes more sense to simply check if 'src' isset(static::$hasMany[$propertyName]['src'])
                  * source shouldn't be set if the relation is stored in the object itself
                  */
                 /** @var string $table */
