@@ -403,7 +403,7 @@ class Graph
                     continue;
                 }
 
-                $diameter = \max($diameter, $this->getFloydWarshallShortestPath($node1, $node2));
+                $diameter = \max($diameter, $this->getFloydWarshallShortestPath());
             }
         }
 

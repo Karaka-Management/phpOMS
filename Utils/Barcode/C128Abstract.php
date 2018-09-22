@@ -267,9 +267,9 @@ abstract class C128Abstract
     /**
      * Validate the barcode string
      *
-     * @param string $code Barcode string
+     * @param string $barcode Barcode string
      *
-     * @return void
+     * @return bool
      *
      * @since  1.0.0
      */
