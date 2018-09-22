@@ -330,10 +330,10 @@ abstract class C128Abstract
             throw new \Exception();
         }
 
-        $black      = \imagecolorallocate($image, 0, 0, 0);
-        $white      = \imagecolorallocate($image, 255, 255, 255);
-        $location   = 0;
-        $length     = \strlen($codeString);
+        $black    = \imagecolorallocate($image, 0, 0, 0);
+        $white    = \imagecolorallocate($image, 255, 255, 255);
+        $location = 0;
+        $length   = \strlen($codeString);
         \imagefill($image, 0, 0, $white);
 
         for ($position = 1; $position <= $length; $position++) {
