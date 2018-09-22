@@ -71,7 +71,7 @@ final class Directory extends FileAbstract implements DirectoryInterface
      * @param string $path   Path
      * @param string $filter Filter
      *
-     * @return array<string|array>
+     * @return array<string>
      *
      * @since  1.0.0
      */

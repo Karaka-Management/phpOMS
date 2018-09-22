@@ -77,7 +77,7 @@ class DataMapperAbstract implements DataMapperInterface
     /**
      * Columns.
      *
-     * @var array<string, array<string, string|bool>>
+     * @var array<string, array<string, string>>
      * @since 1.0.0
      */
     protected static $columns = [];
