@@ -403,10 +403,12 @@ class Graph
                     continue;
                 }
 
+                /** @var int $diameter */
                 $diameter = \max($diameter, $this->getFloydWarshallShortestPath());
             }
         }
 
+        /** @var int $diameter */
         return $diameter;
     }
 

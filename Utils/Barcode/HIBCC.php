@@ -82,7 +82,7 @@ class HIBCC
 
     public function getDateFormat() : string
     {
-        return $this->dateFormat();
+        return $this->dateFormat;
     }
 
     public function setExpirationDate(\DateTime $date) : void
