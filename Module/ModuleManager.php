@@ -135,7 +135,7 @@ final class ModuleManager
      *
      * @param RequestAbstract $request Request
      *
-     * @return array<string, array>
+     * @return array<string|int, array>
      *
      * @since  1.0.0
      */

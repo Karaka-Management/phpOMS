@@ -32,7 +32,7 @@ final class Dispatcher
     /**
      * Application.
      *
-     * @var ApplicationAbstract
+     * @var ApplicationAbstract|null
      * @since 1.0.0
      */
     private $app = null;
@@ -54,7 +54,7 @@ final class Dispatcher
      *
      * @since  1.0.0
      */
-    public function __construct(ApplicationAbstract $app = null)
+    public function __construct(ApplicationAbstract $app)
     {
         $this->app = $app;
     }
