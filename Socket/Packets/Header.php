@@ -103,7 +103,7 @@ class Header implements \Serializable
      */
     public function getType() : int
     {
-        return (int) $this->type;
+        return $this->type;
     }
 
     /**
