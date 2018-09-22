@@ -71,7 +71,7 @@ final class Directory extends FileAbstract implements DirectoryInterface
      * @param string $path   Path
      * @param string $filter Filter
      *
-     * @return array<string>
+     * @return array<string|array>
      *
      * @since  1.0.0
      */
@@ -105,7 +105,7 @@ final class Directory extends FileAbstract implements DirectoryInterface
      * @param string $extension Extension
      * @param string $exclude   Pattern to exclude
      *
-     * @return array<string>
+     * @return array<string|array>
      *
      * @since  1.0.0
      */
