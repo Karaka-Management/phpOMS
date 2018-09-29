@@ -140,7 +140,6 @@ final class Dispatcher
      */
     private function dispatchArray(array $controller, array $data = null) : array
     {
-
         $views = [];
         foreach ($controller as $controllerSingle) {
             if ($data === null) {
