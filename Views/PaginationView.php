@@ -39,7 +39,7 @@ class PaginationView extends View
      * @var int
      * @since 1.0.0
      */
-    protected $page = 50;
+    protected $page = 1;
 
     /**
      * How many pages exists?
@@ -47,7 +47,7 @@ class PaginationView extends View
      * @var int
      * @since 1.0.0
      */
-    protected $pages = 100;
+    protected $pages = 1;
 
     /**
      * How many results exists?

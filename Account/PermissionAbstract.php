@@ -62,7 +62,7 @@ class PermissionAbstract implements \JsonSerializable
     /**
      * Providing module id.
      *
-     * @var int|null
+     * @var int
      * @since 1.0.0
      */
     protected $from = 0;
@@ -192,11 +192,11 @@ class PermissionAbstract implements \JsonSerializable
     /**
      * Get providing module id.
      *
-     * @return int|null
+     * @return int
      *
      * @since  1.0.0
      */
-    public function getFrom() : ?int
+    public function getFrom() : int
     {
         return $this->from;
     }
@@ -210,7 +210,7 @@ class PermissionAbstract implements \JsonSerializable
      *
      * @since  1.0.0
      */
-    public function setFrom(int $from = null) : void
+    public function setFrom(int $from = 0) : void
     {
         $this->from = $from;
     }
@@ -353,14 +353,14 @@ class PermissionAbstract implements \JsonSerializable
     public function jsonSerialize()
     {
         return [
-            'id' => $this->id,
-            'unit' => $this->unit,
-            'app' => $this->app,
-            'module' => $this->module,
-            'from' => $this->from,
-            'type' => $this->type,
-            'element' => $this->element,
-            'component' => $this->component,
+            'id'         => $this->id,
+            'unit'       => $this->unit,
+            'app'        => $this->app,
+            'module'     => $this->module,
+            'from'       => $this->from,
+            'type'       => $this->type,
+            'element'    => $this->element,
+            'component'  => $this->component,
             'permission' => $this->permission,
         ];
     }

@@ -28,11 +28,26 @@ class PermissionAbstractTest extends \PHPUnit\Framework\TestCase
         self::assertEquals(null, $perm->getUnit());
         self::assertEquals(null, $perm->getApp());
         self::assertEquals(null, $perm->getModule());
-        self::assertEquals(null, $perm->getFrom());
+        self::assertEquals(0, $perm->getFrom());
         self::assertEquals(null, $perm->getType());
         self::assertEquals(null, $perm->getElement());
         self::assertEquals(null, $perm->getComponent());
         self::assertEquals(PermissionType::NONE, $perm->getPermission());
+
+        self::assertEquals(
+            [
+                'id'         => 0,
+                'unit'       => null,
+                'app'        => null,
+                'module'     => null,
+                'from'       => 0,
+                'type'       => null,
+                'element'    => null,
+                'component'  => null,
+                'permission' => PermissionType::NONE,
+            ],
+            $perm->jsonSerialize()
+        );
     }
 
     public function testAbstractGetSet()
