@@ -42,5 +42,21 @@ class MetaTest extends \PHPUnit\Framework\TestCase
 
         $meta->setDescription('some description');
         self::assertEquals('some description', $meta->getDescription());
+
+        $meta->setProperty('og:title', 'TestProperty');
+        $meta->setItemprop('title', 'TestItemprop');
+        $meta->setName('title', 'TestName');
+
+        self::assertEquals(
+            '<meta name="keywords" content="orange">'
+            . '<meta name="author" content="oms">'
+            . '<meta name="description" content="some description">'
+            . '<meta charset="utf-8">'
+            . '<meta name="generator" content="Orange Management">'
+            . '<meta property="og:title" content="TestProperty">'
+            . '<meta itemprop="title" content="TestItemprop">'
+            . '<meta name="title" content="TestName">',
+            $meta->render()
+        );
     }
 }

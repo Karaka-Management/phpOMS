@@ -14,6 +14,7 @@ declare(strict_types=1);
 
 namespace phpOMS\Module;
 
+use phpOMS\DataStorage\Database\Query\Builder;
 use phpOMS\DataStorage\Database\DatabaseType;
 use phpOMS\DataStorage\Database\Exception\InvalidDatabaseTypeException;
 use phpOMS\DataStorage\Database\DatabasePool;
@@ -45,43 +46,33 @@ class InstallerAbstract
      */
     public static function registerInDatabase(DatabasePool $dbPool, InfoManager $info) : void
     {
-        switch ($dbPool->get()->getType()) {
-            case DatabaseType::MYSQL:
-                $dbPool->get()->con->beginTransaction();
+        $queryModule = new Builder($dbPool->get('insert'));
+        $queryModule->prefix($dbPool->get('insert')->prefix);
+        $queryModule->insert('module_id', 'module_theme', 'module_path', 'module_active', 'module_version')
+            ->into('module')
+            ->values($info->getInternalName(), 'Default', $info->getDirectory(), 0, $info->getVersion())
+            ->execute();
 
-                $sth = $dbPool->get()->con->prepare(
-                    'INSERT INTO `' . $dbPool->get()->prefix . 'module` (`module_id`, `module_theme`, `module_path`, `module_active`, `module_version`) VALUES
-                (:internal, :theme, :path, :active, :version);'
+        $queryLoad = new Builder($dbPool->get('insert'));
+        $queryLoad->prefix($dbPool->get('insert')->prefix);
+        $queryLoad->insert('module_load_pid', 'module_load_type', 'module_load_from', 'module_load_for', 'module_load_file')
+            ->into('module_load');
+
+        $load = $info->getLoad();
+        foreach ($load as $val) {
+            foreach ($val['pid'] as $pid) {
+                $queryLoad->values(
+                    sha1(\str_replace('/', '', $pid)),
+                    (int) $val['type'],
+                    $val['from'],
+                    $val['for'],
+                    $val['file']
                 );
+            }
+        }
 
-                $sth->bindValue(':internal', $info->getInternalName(), \PDO::PARAM_INT);
-                $sth->bindValue(':theme', 'Default', \PDO::PARAM_STR);
-                $sth->bindValue(':path', $info->getDirectory(), \PDO::PARAM_STR);
-                $sth->bindValue(':active', 0, \PDO::PARAM_INT);
-                $sth->bindValue(':version', $info->getVersion(), \PDO::PARAM_STR);
-                $sth->execute();
-
-                $sth = $dbPool->get()->con->prepare(
-                    'INSERT INTO `' . $dbPool->get()->prefix . 'module_load` (`module_load_pid`, `module_load_type`, `module_load_from`, `module_load_for`, `module_load_file`) VALUES
-                (:pid, :type, :from, :for, :file);'
-                );
-
-                $load = $info->getLoad();
-                foreach ($load as $val) {
-                    foreach ($val['pid'] as $pid) {
-                        $sth->bindValue(':pid', sha1(\str_replace('/', '', $pid)), \PDO::PARAM_STR);
-                        $sth->bindValue(':type', $val['type'], \PDO::PARAM_INT);
-                        $sth->bindValue(':from', $val['from'], \PDO::PARAM_STR);
-                        $sth->bindValue(':for', $val['for'], \PDO::PARAM_STR);
-                        $sth->bindValue(':file', $val['file'], \PDO::PARAM_STR);
-                        $sth->execute();
-                    }
-                }
-
-                $dbPool->get()->con->commit();
-                break;
-            default:
-                throw new InvalidDatabaseTypeException($dbPool->get()->getType());
+        if (!empty($queryLoad->getValues())) {
+            $queryLoad->execute();
         }
     }
 

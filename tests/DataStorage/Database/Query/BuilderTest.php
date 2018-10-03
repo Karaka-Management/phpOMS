@@ -255,9 +255,17 @@ class BuilderTest extends \PHPUnit\Framework\TestCase
         self::assertEquals($sql, $query->insert()->into('a')->values(1, 'test')->toSql());
 
         $query = new Builder($this->con);
+        $sql   = 'INSERT INTO `a` VALUES (1, \'test\');';
+        self::assertEquals($sql, $query->insert()->into('a')->value([1, 'test'])->toSql());
+
+        $query = new Builder($this->con);
         $sql   = 'INSERT INTO `a` (`test`, `test2`) VALUES (1, \'test\');';
         self::assertEquals($sql, $query->insert('test', 'test2')->into('a')->values(1, 'test')->toSql());
         self::assertEquals([[1, 'test']], $query->getValues());
+
+        $query = new Builder($this->con);
+        $sql   = 'INSERT INTO `a` (`test`, `test2`) VALUES (1, \'test\'), (2, \'test2\');';
+        self::assertEquals($sql, $query->insert('test', 'test2')->into('a')->values(1, 'test')->values(2, 'test2')->toSql());
 
         $query = new Builder($this->con);
         $sql   = 'INSERT INTO `a` (`test`, `test2`) VALUES (:test, :test2);';
@@ -280,6 +288,10 @@ class BuilderTest extends \PHPUnit\Framework\TestCase
         $query = new Builder($this->con);
         $sql   = 'UPDATE `a` SET `a`.`test` = 1, `a`.`test2` = 2 WHERE `a`.`test` = 1;';
         self::assertEquals($sql, $query->update('a')->set(['a.test' => 1])->set(['a.test2' => 2])->where('a.test', '=', 1)->toSql());
+
+        $query = new Builder($this->con);
+        $sql   = 'UPDATE `a` SET `a`.`test` = 1, `a`.`test2` = 2 WHERE `a`.`test` = 1;';
+        self::assertEquals($sql, $query->update('a')->sets('a.test', 1)->sets('a.test2', 2)->where('a.test', '=', 1)->toSql());
 
         $query = new Builder($this->con);
         $sql   = 'UPDATE `a` SET `a`.`test` = 1, `a`.`test2` = :test2 WHERE `a`.`test` = :test3;';

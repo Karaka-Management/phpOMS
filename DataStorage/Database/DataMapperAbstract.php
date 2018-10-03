@@ -421,12 +421,12 @@ class DataMapperAbstract implements DataMapperInterface
                 $id    = self::createOwnsOne($propertyName, $property->getValue($obj));
                 $value = self::parseValue($column['type'], $id);
 
-                $query->insert($column['name'])->value($value, $column['type']);
+                $query->insert($column['name'])->value($value);
             } elseif (isset(static::$belongsTo[$propertyName])) {
                 $id    = self::createBelongsTo($propertyName, $property->getValue($obj));
                 $value = self::parseValue($column['type'], $id);
 
-                $query->insert($column['name'])->value($value, $column['type']);
+                $query->insert($column['name'])->value($value);
             } elseif ($column['name'] !== static::$primaryField) {
                 $tValue = $property->getValue($obj);
                 if (\stripos($column['internal'], '/') !== false) {
@@ -439,7 +439,7 @@ class DataMapperAbstract implements DataMapperInterface
 
                 $value = self::parseValue($column['type'], $tValue);
 
-                $query->insert($column['name'])->value($value, $column['type']);
+                $query->insert($column['name'])->value($value);
             }
 
             if (!$isPublic) {
@@ -449,7 +449,7 @@ class DataMapperAbstract implements DataMapperInterface
 
         // if a table only has a single column = primary key column. This must be done otherwise the query is empty
         if ($query->getType() === QueryType::NONE) {
-            $query->insert(static::$primaryField)->value(0, static::$columns[static::$primaryField]['type']);
+            $query->insert(static::$primaryField)->value(0);
         }
 
         self::$db->con->prepare($query->toSql())->execute();
@@ -490,22 +490,22 @@ class DataMapperAbstract implements DataMapperInterface
                 $id    = self::createOwnsOneArray($column['internal'], $property);
                 $value = self::parseValue($column['type'], $id);
 
-                $query->insert($column['name'])->value($value, $column['type']);
+                $query->insert($column['name'])->value($value);
             } elseif (isset(static::$belongsTo[$path])) {
                 $id    = self::createBelongsToArray($column['internal'], $property);
                 $value = self::parseValue($column['type'], $id);
 
-                $query->insert($column['name'])->value($value, $column['type']);
+                $query->insert($column['name'])->value($value);
             } elseif ($column['internal'] === $path && $column['name'] !== static::$primaryField) {
                 $value = self::parseValue($column['type'], $property);
 
-                $query->insert($column['name'])->value($value, $column['type']);
+                $query->insert($column['name'])->value($value);
             }
         }
 
         // if a table only has a single column = primary key column. This must be done otherwise the query is empty
         if ($query->getType() === QueryType::NONE) {
-            $query->insert(static::$primaryField)->value(0, static::$columns[static::$primaryField]['type']);
+            $query->insert(static::$primaryField)->value(0);
         }
 
         self::$db->con->prepare($query->toSql())->execute();
@@ -1272,13 +1272,13 @@ class DataMapperAbstract implements DataMapperInterface
                 $value = self::parseValue($column['type'], $id);
 
                 // todo: should not be done if the id didn't change. but for now don't know if id changed
-                $query->set([static::$table . '.' . $column['name'] => $value], $column['type']);
+                $query->set([static::$table . '.' . $column['name'] => $value]);
             } elseif (isset(static::$belongsTo[$propertyName])) {
                 $id    = self::updateBelongsTo($propertyName, $property->getValue($obj), $relations, $depth);
                 $value = self::parseValue($column['type'], $id);
 
                 // todo: should not be done if the id didn't change. but for now don't know if id changed
-                $query->set([static::$table . '.' . $column['name'] => $value], $column['type']);
+                $query->set([static::$table . '.' . $column['name'] => $value]);
             } elseif ($column['name'] !== static::$primaryField) {
                 $tValue = $property->getValue($obj);
                 if (\stripos($column['internal'], '/') !== false) {
@@ -1290,7 +1290,7 @@ class DataMapperAbstract implements DataMapperInterface
                 }
                 $value = self::parseValue($column['type'], $tValue);
 
-                $query->set([static::$table . '.' . $column['name'] => $value], $column['type']);
+                $query->set([static::$table . '.' . $column['name'] => $value]);
             }
 
             if (!$isPublic) {
@@ -1340,17 +1340,17 @@ class DataMapperAbstract implements DataMapperInterface
                 $value = self::parseValue($column['type'], $id);
 
                 // todo: should not be done if the id didn't change. but for now don't know if id changed
-                $query->set([static::$table . '.' . $column['name'] => $value], $column['type']);
+                $query->set([static::$table . '.' . $column['name'] => $value]);
             } elseif (isset(static::$belongsTo[$path])) {
                 $id    = self::updateBelongsToArray($column['internal'], $property, $relations, $depth);
                 $value = self::parseValue($column['type'], $id);
 
                 // todo: should not be done if the id didn't change. but for now don't know if id changed
-                $query->set([static::$table . '.' . $column['name'] => $value], $column['type']);
+                $query->set([static::$table . '.' . $column['name'] => $value]);
             } elseif ($column['name'] !== static::$primaryField) {
                 $value = self::parseValue($column['type'], $property);
 
-                $query->set([static::$table . '.' . $column['name'] => $value], $column['type']);
+                $query->set([static::$table . '.' . $column['name'] => $value]);
             }
         }
 

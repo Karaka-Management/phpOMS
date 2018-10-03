@@ -14,6 +14,7 @@ declare(strict_types=1);
 
 namespace phpOMS\Module;
 
+use phpOMS\DataStorage\Database\Query\Builder;
 use phpOMS\DataStorage\Database\DatabaseType;
 use phpOMS\DataStorage\Database\DatabasePool;
 use phpOMS\DataStorage\Database\Exception\InvalidDatabaseTypeException;
@@ -72,24 +73,12 @@ class StatusAbstract
      */
     public static function activateInDatabase(DatabasePool $dbPool, InfoManager $info) : void
     {
-        switch ($dbPool->get()->getType()) {
-            case DatabaseType::MYSQL:
-                $dbPool->get()->con->beginTransaction();
-
-                $sth = $dbPool->get()->con->prepare(
-                    'UPDATE `' . $dbPool->get()->prefix . 'module` SET `module_active` = :active WHERE `module_id` = :internal;'
-                );
-
-                $sth->bindValue(':internal', $info->getInternalName(), \PDO::PARAM_INT);
-                $sth->bindValue(':active', 1, \PDO::PARAM_INT);
-                $sth->execute();
-
-                $dbPool->get()->con->commit();
-
-                break;
-            default:
-                throw new InvalidDatabaseTypeException($dbPool->get()->getType());
-        }
+        $query = new Builder($dbPool->get('update'));
+        $query->prefix($dbPool->get('update')->prefix);
+        $query->update('module')
+            ->sets('module.module_active', 1)
+            ->where('module.module_id', '=', $info->getInternalName())
+            ->execute();
     }
 
     /**
@@ -135,23 +124,11 @@ class StatusAbstract
      */
     public static function deactivateInDatabase(DatabasePool $dbPool, InfoManager $info) : void
     {
-        switch ($dbPool->get()->getType()) {
-            case DatabaseType::MYSQL:
-                $dbPool->get()->con->beginTransaction();
-
-                $sth = $dbPool->get()->con->prepare(
-                    'UPDATE `' . $dbPool->get()->prefix . 'module` SET `module_active` = :active WHERE `module_id` = :internal;'
-                );
-
-                $sth->bindValue(':internal', $info->getInternalName(), \PDO::PARAM_INT);
-                $sth->bindValue(':active', 0, \PDO::PARAM_INT);
-                $sth->execute();
-
-                $dbPool->get()->con->commit();
-
-                break;
-            default:
-                throw new InvalidDatabaseTypeException($dbPool->get()->getType());
-        }
+        $query = new Builder($dbPool->get('update'));
+        $query->prefix($dbPool->get('update')->prefix);
+        $query->update('module')
+            ->sets('module.module_active', 0)
+            ->where('module.module_id', '=', $info->getInternalName())
+            ->execute();
     }
 }

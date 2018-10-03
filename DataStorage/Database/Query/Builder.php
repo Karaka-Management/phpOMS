@@ -943,17 +943,22 @@ final class Builder extends BuilderAbstract
      * Values to insert.
      *
      * @param mixed  $value Values
-     * @param string $type  Data type to insert
      *
      * @return Builder
      *
      * @since  1.0.0
      */
-    public function value($value, string $type = 'string') : Builder
+    public function value($value) : Builder
     {
         \end($this->values);
-        $key                  = \key($this->values);
-        $this->values[$key][] = $value;
+        $key = \key($this->values);
+
+        if (\is_array($value)) {
+            $this->values[$key] = $value;
+        } else {
+            $this->values[$key][] = $value;
+        }
+
         \reset($this->values);
 
         return $this;
@@ -970,7 +975,7 @@ final class Builder extends BuilderAbstract
      */
     public function sets(...$sets) : Builder
     {
-        $this->sets[] = $sets;
+        $this->sets[$sets[0]] = $sets[1] ?? null;
 
         return $this;
     }
@@ -979,15 +984,14 @@ final class Builder extends BuilderAbstract
      * Values to insert.
      *
      * @param mixed  $set  Values
-     * @param string $type Data type to insert
      *
      * @return Builder
      *
      * @since  1.0.0
      */
-    public function set($set, string $type = 'string') : Builder
+    public function set($set) : Builder
     {
-        $this->sets[key($set)] = \current($set);
+        $this->sets[\key($set)] = \current($set);
 
         return $this;
     }
