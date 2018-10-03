@@ -48,27 +48,20 @@ class File
     /**
      * Get a random file extension.
      *
-     * @param array<array<string>> $source       Source array for possible extensions
-     * @param DistributionType|int $distribution Distribution type for the extensions
+     * @param array<array<string>> $source Source array for possible extensions
      *
-     * @return false|array
+     * @return string
      *
      * @since  1.0.0
      */
-    public static function generateExtension($source = null, $distribution = DistributionType::UNIFORM)
+    public static function generateExtension(array $source = null) : string
     {
         if ($source === null) {
             $source = self::$extensions;
         }
 
-        switch ($distribution) {
-            case DistributionType::UNIFORM:
-                $key = \rand(0, \count($source) - 1);
-                break;
-            default:
-                return false;
-        }
+        $key = \rand(0, \count($source) - 1);
 
-        return $source[$key][0];
+        return $source[$key][\rand(0, \count($source[$key]) - 1)];
     }
 }

@@ -28,36 +28,46 @@ class Phone
     /**
      * Get a random phone number.
      *
-     * @param bool  $isInt     This number uses a country code
-     * @param array $layout    Number layout
-     * @param array $countries Country codes
+     * @param bool              $isInt     This number uses a country code
+     * @param string            $struct    Number layout
+     * @param array<null|array> $size      Digits per placeholder [min, max]
+     * @param array|null        $countries Country codes
      *
-     * @return \DateTime
+     * @return string
      *
      * @since  1.0.0
      */
     public static function generatePhone(
-        $isInt = true,
-        $layout = [
-            'struct' => '+$1 ($2) $3-$4',
-            'size'   => [null, [3, 4], [3, 5], [3, 8],],],
-            $countries = null
-    ) {
-        $numberString = $layout['struct'];
+        bool $isInt = true,
+        string $struct = '+$1 ($2) $3-$4',
+        array $size = [null, [3, 4], [3, 5], [3, 8],],
+        array $countries = null
+    ) : string
+    {
+        $numberString = $struct;
 
         if ($isInt) {
             if ($countries === null) {
                 $countries = ['de' => 49, 'us' => 1];
             }
 
-            $numberString = \str_replace('$1', $countries[array_keys($countries)[rand(0, \count($countries))]], $numberString);
+            $numberString = \str_replace(
+                '$1',
+                $countries[\array_keys($countries)[\rand(0, \count($countries) - 1)]],
+                $numberString
+            );
         }
 
-        $numberParts = substr_count($layout['struct'], '$');
+        $numberParts = \substr_count($struct, '$');
 
-        for ($i = ($isInt ? 2 : 1); $i < $numberParts; ++$i) {
+        for ($i = ($isInt ? 2 : 1); $i <= $numberParts; ++$i) {
             $numberString = \str_replace(
-                '$' . $i, StringUtils::generateString($layout['size'][$i - 1][0], $layout['size'][$i - 1][1], '0123456789'),
+                '$' . $i,
+                StringUtils::generateString(
+                    $size[$i - 1][0],
+                    $size[$i - 1][1],
+                    '0123456789'
+                ),
                 $numberString
             );
         }

@@ -17,8 +17,8 @@ use phpOMS\Utils\RnG\File;
 
 class FileTest extends \PHPUnit\Framework\TestCase
 {
-    public function testPlaceholder()
+    public function testRnGExtension()
     {
-        self::markTestIncomplete();
+        self::assertRegExp('/^[a-z]{2,5}$/', File::generateExtension());
     }
 }
