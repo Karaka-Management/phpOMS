@@ -11,12 +11,9 @@ before_script:
     - composer install
     - git clone -b develop https://github.com/Orange-Management/Build.git
     - chmod -R 755 Build/Hooks
+    - apt-get install -qq --no-install-recommends libmemcached-dev
     - printf "\n" | pecl install memcached
 addons:
-    addons:
-        apt:
-            packages:
-                - libmemcached-dev
     code_climate:
         repo_token:
             secure: "zXoveZL6QPXXcdyGxfgjlIRGSFbTgwi2NU6V9tROypLMA+5IWRd0CvvQkl4vx2lIAF5Pn3jOGqG6p6qinqwSzX2tE/RsdDEDz8LPKpN+AShyxLzzYu2ohDSqm3rSXysdgbjQBB1YoUIumhUGABfYIdZk+7g1Yjc3RLFdAs3YzB7CdG4zeBA1Xe82KHUDwZb2M/MG/Bf9jsi9HmjrBeMTmCiW8v6wclYG9rbkIoXY4mv4H0ywiTv4lHuyRWs19kJn4kKI3oLqmv0UcUmLv0wNgPrww2STtN/7ghlaiLNSrdKQV1EuVi/nRxxNlH2z+h8cMPAcksqZ29TT9RYkK32433QIUHYzN6t4LB8PgNkFPMc6zI6uzD9We4oYAw4bVIxkEgHXJBInfYSNRfoGPGHZ9WU+Ph9zt2nyB4mS6014gHgjBZSF+DV/r1mHa9XtXPDzxrbHJF7rIp99iOBnpGBcn4ERVhLP6onuam86TSgXjgyUrnTGazwKoc6cfwvb9RswpVtTvNJIYgzfJG6+QFAsltOSo3iRvKq+F2X3Lh/3dOAAcqh3TOZaSPee2sHCDFYq5d0qpNFJq/o6tEcPP9J6PmKsD7Ql9Zu1qNJ2MevheE/U/3sh2dy/5rhDSFCig2TRMy/53QATcCm2ngIfBJkeVyLQ2VMUsMXOk5v2uF16E6k="
