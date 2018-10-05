@@ -102,11 +102,4 @@ class NullCache extends ConnectionAbstract
     {
         return 0;
     }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function setStatus(int $status) : void
-    {
-    }
 }

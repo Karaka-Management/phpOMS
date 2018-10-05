@@ -52,17 +52,15 @@ class ConnectionFactory
      */
     public static function create(array $cacheData) : ConnectionInterface
     {
-        switch ($cacheData['type']) {
+        switch ($cacheData['type'] ?? '') {
             case CacheType::FILE:
-                return new FileCache($cacheData['path']);
+                return new FileCache($cacheData['path'] ?? '');
             case CacheType::REDIS:
-                return new RedisCache($cacheData);
+                return new RedisCache($cacheData['data'] ?? []);
             case CacheType::MEMCACHED:
-                return new MemCached($cacheData);
-            case CacheType::WINCACHE:
-                return new WinCache($cacheData);
+                return new MemCached($cacheData['data'] ?? []);
             default:
-                throw new \InvalidArgumentException('Cache "' . $cacheData['type'] . '" is not supported.');
+                throw new \InvalidArgumentException('Cache "' . ($cacheData['type'] ?? '') . '" is not supported.');
         }
     }
 }

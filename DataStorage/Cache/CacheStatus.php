@@ -28,8 +28,8 @@ use phpOMS\Stdlib\Base\Enum;
  */
 abstract class CacheStatus extends Enum
 {
-    public const ACTIVE    = 0;
-    public const INACTIVE  = 1;
-    public const ERROR     = 2;
-    public const UNDEFINED = 3;
+    public const OK       = 0;
+    public const FAILURE  = 1;
+    public const READONLY = 2;
+    public const CLOSED   = 3;
 }

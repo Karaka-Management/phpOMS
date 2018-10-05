@@ -73,7 +73,7 @@ abstract class ConnectionAbstract implements ConnectionInterface
      * @var int
      * @since 1.0.0
      */
-    protected $status = CacheStatus::INACTIVE;
+    protected $status = CacheStatus::CLOSED;
 
     /**
      * {@inheritdoc}
@@ -100,7 +100,7 @@ abstract class ConnectionAbstract implements ConnectionInterface
      */
     public function getCache() : string
     {
-        return $this->dbdata['database'] ?? '';
+        return (string) ($this->dbdata['db'] ?? '');
     }
 
     /**
@@ -157,6 +157,24 @@ abstract class ConnectionAbstract implements ConnectionInterface
     public function close() : void
     {
         $this->con    = null;
-        $this->status = CacheStatus::INACTIVE;
+        $this->status = CacheStatus::CLOSED;
+    }
+
+    /**
+     * Parse values for cache storage
+     *
+     * @param mixed $value Value to parse
+     *
+     * @return mixed
+     *
+     * @since  1.0.0
+     */
+    protected function parseValue($value)
+    {
+        if (\is_array($value)) {
+            return \json_encode($value);
+        }
+
+        return $value;
     }
 }

@@ -15,6 +15,8 @@ declare(strict_types=1);
 namespace phpOMS\DataStorage\Cache\Connection;
 
 use phpOMS\DataStorage\Cache\CacheStatus;
+use phpOMS\DataStorage\Cache\CacheType;
+use phpOMS\DataStorage\Cache\Exception\InvalidConnectionConfigException;
 
 /**
  * RedisCache class.
@@ -28,6 +30,10 @@ use phpOMS\DataStorage\Cache\CacheStatus;
  */
 class RedisCache extends ConnectionAbstract
 {
+    /**
+     * {@inheritdoc}
+     */
+    protected $type = CacheType::REDIS;
 
     /**
      * Constructor
@@ -38,6 +44,8 @@ class RedisCache extends ConnectionAbstract
      */
     public function __construct(array $data)
     {
+        $this->con = new \Redis();
+        $this->connect($data);
     }
 
     /**
@@ -45,7 +53,37 @@ class RedisCache extends ConnectionAbstract
      */
     public function connect(array $data) : void
     {
-        $this->status = CacheStatus::ACTIVE;
+        $this->dbdata = isset($data) ? $data : $this->dbdata;
+
+        if (!isset($this->dbdata['host'], $this->dbdata['port'], $this->dbdata['db'])) {
+            $this->status = CacheStatus::FAILURE;
+            throw new InvalidConnectionConfigException((string) \json_encode($this->dbdata));
+        }
+
+        $this->con->connect($this->dbdata['host'], $this->dbdata['port']);
+
+        try {
+            $this->con->ping();
+        } catch (\Throwable $e) {
+            $this->status = CacheStatus::FAILURE;
+            return;
+        }
+
+        $this->con->setOption(\Redis::OPT_SERIALIZER, (string) \Redis::SERIALIZER_NONE);
+        $this->con->setOption(\Redis::OPT_SCAN, (string) \Redis::SCAN_NORETRY);
+        $this->con->select($this->dbdata['db']);
+
+        $this->status = CacheStatus::OK;
+    }
+
+
+    public function close() : void
+    {
+        if ($this->con !== null) {
+            $this->con->close();
+        }
+
+        parent::close();
     }
 
     /**
@@ -53,7 +91,13 @@ class RedisCache extends ConnectionAbstract
      */
     public function set($key, $value, int $expire = -1) : void
     {
-        // TODO: Implement set() method.
+        $value = $this->parseValue($value);
+
+        if ($expire > 0) {
+            $this->con->set($key, $value, $expire);
+        }
+
+        $this->con->set($key, $value);
     }
 
     /**
@@ -61,7 +105,17 @@ class RedisCache extends ConnectionAbstract
      */
     public function add($key, $value, int $expire = -1) : bool
     {
-        // TODO: Implement add() method.
+        if ($this->status !== CacheStatus::OK) {
+            return false;
+        }
+
+        $value = $this->parseValue($value);
+
+        if ($expire > 0) {
+            return $this->con->setNx($key, $value, $expire);
+        }
+
+        return $this->con->setNx($key, $value);
     }
 
     /**
@@ -69,7 +123,13 @@ class RedisCache extends ConnectionAbstract
      */
     public function get($key, int $expire = -1)
     {
-        // TODO: Implement get() method.
+        if ($this->status !== CacheStatus::OK) {
+            return null;
+        }
+
+        $result = $this->con->get($key);
+
+        return $result === false ? null : $result;
     }
 
     /**
@@ -77,7 +137,11 @@ class RedisCache extends ConnectionAbstract
      */
     public function delete($key, int $expire = -1) : bool
     {
-        // TODO: Implement delete() method.
+        if ($this->status !== CacheStatus::OK) {
+            return false;
+        }
+
+        return $this->con->delete($key) > 0;
     }
 
     /**
@@ -85,7 +149,11 @@ class RedisCache extends ConnectionAbstract
      */
     public function flush(int $expire = 0) : bool
     {
-        // TODO: Implement flush() method.
+        if ($this->status !== CacheStatus::OK) {
+            return false;
+        }
+
+        $this->con->flushDb();
 
         return true;
     }
@@ -95,7 +163,11 @@ class RedisCache extends ConnectionAbstract
      */
     public function flushAll() : bool
     {
-        // TODO: Implement flush() method.
+        if ($this->status !== CacheStatus::OK) {
+            return false;
+        }
+
+        $this->con->flushDb();
 
         return true;
     }
@@ -105,7 +177,19 @@ class RedisCache extends ConnectionAbstract
      */
     public function replace($key, $value, int $expire = -1) : bool
     {
-        // TODO: Implement replace() method.
+        if ($this->status !== CacheStatus::OK) {
+            return false;
+        }
+
+        $value = $this->parseValue($value);
+
+        if ($this->con->exists($key) > 0) {
+            $this->set($key, $value, $expire);
+
+            return true;
+        }
+
+        return false;
     }
 
     /**
@@ -113,7 +197,18 @@ class RedisCache extends ConnectionAbstract
      */
     public function stats() : array
     {
-        // TODO: Implement stats() method.
+        if ($this->status !== CacheStatus::OK) {
+            return [];
+        }
+
+        $info = $this->con->info();
+
+        $stats           = [];
+        $stats['status'] = $this->status;
+        $stats['count']  = $this->con->dbSize();
+        $stats['size']   = $info['used_memory'];
+
+        return $stats;
     }
 
     /**
@@ -121,14 +216,16 @@ class RedisCache extends ConnectionAbstract
      */
     public function getThreshold() : int
     {
-        // TODO: Implement getThreshold() method.
+        return 0;
     }
 
     /**
-     * {@inheritdoc}
+     * Destructor.
+     *
+     * @since  1.0.0
      */
-    public function setStatus(int $status) : void
+    public function __destruct()
     {
-        // TODO: Implement setStatus() method.
+        $this->close();
     }
 }

@@ -14,6 +14,7 @@
 namespace phpOMS\tests\DataStorage\Cache\Connection;
 
 use phpOMS\DataStorage\Cache\Connection\ConnectionFactory;
+use phpOMS\DataStorage\Cache\CacheType;
 
 class ConnectionFactoryTest extends \PHPUnit\Framework\TestCase
 {
@@ -21,7 +22,17 @@ class ConnectionFactoryTest extends \PHPUnit\Framework\TestCase
     {
         self::assertInstanceOf(
             \phpOMS\DataStorage\Cache\Connection\FileCache::class,
-            ConnectionFactory::create(['type' => 'file', 'path' => 'Cache'])
+            ConnectionFactory::create(['type' => CacheType::FILE, 'path' => 'Cache'])
+        );
+
+        self::assertInstanceOf(
+            \phpOMS\DataStorage\Cache\Connection\MemCached::class,
+            ConnectionFactory::create(['type' => CacheType::MEMCACHED, 'data' => $GLOBALS['CONFIG']['cache']['memcached']])
+        );
+
+        self::assertInstanceOf(
+            \phpOMS\DataStorage\Cache\Connection\RedisCache::class,
+            ConnectionFactory::create(['type' => CacheType::REDIS, 'data' => $GLOBALS['CONFIG']['cache']['redis']])
         );
     }
 

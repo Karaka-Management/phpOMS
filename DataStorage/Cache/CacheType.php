@@ -31,6 +31,5 @@ abstract class CacheType extends Enum
     public const FILE      = 'file';
     public const MEMCACHED = 'mem';
     public const REDIS     = 'redis';
-    public const WINCACHE  = 'win';
     public const UNDEFINED = 'na';
 }

@@ -19,6 +19,6 @@ class FileTest extends \PHPUnit\Framework\TestCase
 {
     public function testRnGExtension()
     {
-        self::assertRegExp('/^[a-z]{2,5}$/', File::generateExtension());
+        self::assertRegExp('/^[a-z0-9]{1,5}$/', File::generateExtension());
     }
 }

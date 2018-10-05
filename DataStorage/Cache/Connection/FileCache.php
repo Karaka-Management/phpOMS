@@ -15,9 +15,11 @@ declare(strict_types=1);
 namespace phpOMS\DataStorage\Cache\Connection;
 
 use phpOMS\DataStorage\Cache\CacheStatus;
+use phpOMS\DataStorage\Cache\CacheType;
 use phpOMS\Stdlib\Base\Exception\InvalidEnumValue;
 use phpOMS\System\File\Local\Directory;
 use phpOMS\System\File\Local\File;
+use phpOMS\DataStorage\Cache\Exception\InvalidConnectionConfigException;
 
 /**
  * MemCache class.
@@ -31,6 +33,10 @@ use phpOMS\System\File\Local\File;
  */
 class FileCache extends ConnectionAbstract
 {
+    /**
+     * {@inheritdoc}
+     */
+    protected $type = CacheType::FILE;
 
     /**
      * Delimiter for cache meta data
@@ -65,12 +71,7 @@ class FileCache extends ConnectionAbstract
      */
     public function __construct(string $path)
     {
-        if (!Directory::exists($path)) {
-            Directory::create($path, 0766, true);
-        }
-
-        $this->status = CacheStatus::ACTIVE;
-        $this->con    = \realpath($path);
+        $this->connect([$path]);
     }
 
     /**
@@ -78,7 +79,19 @@ class FileCache extends ConnectionAbstract
      */
     public function connect(array $data) : void
     {
-        $this->status = CacheStatus::ACTIVE;
+        $this->dbdata = $data;
+
+        if (!Directory::exists($data[0])) {
+            Directory::create($data[0], 0766, true);
+        }
+
+        if (\realpath($data[0]) === false) {
+            $this->status = CacheStatus::FAILURE;
+            throw new InvalidConnectionConfigException((string) \json_encode($this->dbdata));
+        }
+
+        $this->status = CacheStatus::OK;
+        $this->con    = \realpath($data[0]);
     }
 
     /**
@@ -86,7 +99,7 @@ class FileCache extends ConnectionAbstract
      */
     public function flushAll() : bool
     {
-        if ($this->status !== CacheStatus::ACTIVE) {
+        if ($this->status !== CacheStatus::OK) {
             return false;
         }
 
@@ -100,11 +113,14 @@ class FileCache extends ConnectionAbstract
      */
     public function stats() : array
     {
-        $stats            = [];
-        $stats['status']  = $this->status;
-        $stats['count']   = Directory::count($this->con);
-        $stats['size']    = Directory::size($this->con);
-        $stats['changed'] = Directory::changed($this->con);
+        if ($this->status !== CacheStatus::OK) {
+            return [];
+        }
+
+        $stats           = [];
+        $stats['status'] = $this->status;
+        $stats['count']  = Directory::count($this->con);
+        $stats['size']   = Directory::size($this->con);
 
         return $stats;
     }
@@ -122,7 +138,7 @@ class FileCache extends ConnectionAbstract
      */
     public function set($key, $value, int $expire = -1) : void
     {
-        if ($this->status !== CacheStatus::ACTIVE) {
+        if ($this->status !== CacheStatus::OK) {
             return;
         }
 
@@ -136,7 +152,7 @@ class FileCache extends ConnectionAbstract
      */
     public function add($key, $value, int $expire = -1) : bool
     {
-        if ($this->status !== CacheStatus::ACTIVE) {
+        if ($this->status !== CacheStatus::OK) {
             return false;
         }
 
@@ -252,7 +268,7 @@ class FileCache extends ConnectionAbstract
      */
     public function get($key, int $expire = -1)
     {
-        if ($this->status !== CacheStatus::ACTIVE) {
+        if ($this->status !== CacheStatus::OK) {
             return null;
         }
 
@@ -290,7 +306,7 @@ class FileCache extends ConnectionAbstract
             return null;
         }
 
-        return $this->parseValue($type, $raw, $expireEnd);
+        return $this->reverseValue($type, $raw, $expireEnd);
     }
 
     /**
@@ -304,7 +320,7 @@ class FileCache extends ConnectionAbstract
      *
      * @since  1.0.0
      */
-    private function parseValue(int $type, string $raw, int $expireEnd)
+    private function reverseValue(int $type, string $raw, int $expireEnd)
     {
         $value = null;
 
@@ -350,7 +366,7 @@ class FileCache extends ConnectionAbstract
      */
     public function delete($key, int $expire = -1) : bool
     {
-        if ($this->status !== CacheStatus::ACTIVE) {
+        if ($this->status !== CacheStatus::OK) {
             return false;
         }
 
@@ -401,7 +417,7 @@ class FileCache extends ConnectionAbstract
      */
     public function flush(int $expire = 0) : bool
     {
-        if ($this->status !== CacheStatus::ACTIVE) {
+        if ($this->status !== CacheStatus::OK) {
             return false;
         }
 
@@ -427,7 +443,7 @@ class FileCache extends ConnectionAbstract
      */
     public function replace($key, $value, int $expire = -1) : bool
     {
-        if ($this->status !== CacheStatus::ACTIVE) {
+        if ($this->status !== CacheStatus::OK) {
             return false;
         }
 

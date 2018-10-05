@@ -13,55 +13,36 @@
 
 namespace phpOMS\tests\DataStorage\Cache\Connection;
 
-use phpOMS\DataStorage\Cache\Connection\FileCache;
+use phpOMS\DataStorage\Cache\Connection\MemCached;
 use phpOMS\DataStorage\Cache\CacheStatus;
 use phpOMS\DataStorage\Cache\CacheType;
 use phpOMS\Utils\TestUtils;
 
-class FileCacheTest extends \PHPUnit\Framework\TestCase
+class MemCachedTest extends \PHPUnit\Framework\TestCase
 {
     public function testDefault()
     {
-        if (\file_exists(__DIR__ . '/Cache')) {
-            \rmdir(__DIR__ . '/Cache');
-        }
-
-        $cache = new FileCache(__DIR__ . '/Cache');
+        $cache = new MemCached($GLOBALS['CONFIG']['cache']['memcached']);
 
         self::assertEquals('', $cache->getPrefix());
-        self::assertEquals(CacheType::FILE, $cache->getType());
-        self::assertTrue(\is_dir(__DIR__ . '/Cache'));
+        self::assertEquals(CacheType::MEMCACHED, $cache->getType());
         self::assertTrue($cache->flushAll());
-        self::assertEquals(50, $cache->getThreshold());
+        self::assertEquals(0, $cache->getThreshold());
         self::assertEquals(null, $cache->get('test'));
-
-        if (\file_exists(__DIR__ . '/Cache')) {
-            \rmdir(__DIR__ . '/Cache');
-        }
     }
 
     public function testConnect()
     {
-        if (\file_exists(__DIR__ . '/Cache')) {
-            \rmdir(__DIR__ . '/Cache');
-        }
-
-        $cache = new FileCache(__DIR__ . '/Cache');
+        $cache = new MemCached($GLOBALS['CONFIG']['cache']['memcached']);
 
         self::assertEquals(CacheStatus::OK, $cache->getStatus());
-
-        if (\file_exists(__DIR__ . '/Cache')) {
-            \rmdir(__DIR__ . '/Cache');
-        }
+        self::assertEquals($GLOBALS['CONFIG']['cache']['memcached']['host'], $cache->getHost());
+        self::assertEquals((int) $GLOBALS['CONFIG']['cache']['memcached']['port'], $cache->getPort());
     }
 
     public function testGetSet()
     {
-        if (\file_exists(__DIR__ . '/Cache')) {
-            \rmdir(__DIR__ . '/Cache');
-        }
-
-        $cache = new FileCache(__DIR__ . '/Cache');
+        $cache = new MemCached($GLOBALS['CONFIG']['cache']['memcached']);
 
         $cache->flushAll();
 
@@ -85,7 +66,7 @@ class FileCacheTest extends \PHPUnit\Framework\TestCase
         self::assertEquals(5.12, $cache->get('key5'));
 
         $cache->set('key6', ['asdf', 1, true, 2.3]); // 7
-        self::assertEquals(['asdf', 1, true, 2.3], $cache->get('key6'));
+        self::assertEquals(json_encode(['asdf', 1, true, 2.3]), $cache->get('key6'));
 
         self::assertTrue($cache->replace('key4', 5));
         self::assertFalse($cache->replace('keyInvalid', 5));
@@ -95,41 +76,32 @@ class FileCacheTest extends \PHPUnit\Framework\TestCase
         self::assertFalse($cache->delete('keyInvalid'));
         self::assertEquals(null, $cache->get('key4'));
 
-        self::assertEquals(
+        self::assertArraySubset(
             [
                 'status'  => CacheStatus::OK,
                 'count'   => 6,
-                'size'    => 70,
             ],
             $cache->stats()
         );
 
         self::assertTrue($cache->flushAll());
-        self::assertEquals(null, $cache->get('key5'));
+        self::assertTrue($cache->flush());
+        self::assertEquals(null, $cache->get('key5')); // This reduces the stat count by one see stat comment. Stupid memcached!
 
         $cache->flushAll();
 
-        self::assertEquals(
+        self::assertArraySubset(
             [
                 'status'  => CacheStatus::OK,
-                'count'   => 0,
-                'size'    => 0,
+                'count'   => 5, // Carefull memcached is dumb and keeps expired elements which were not acessed after flushing in stats
             ],
             $cache->stats()
         );
-
-        if (\file_exists(__DIR__ . '/Cache')) {
-            \rmdir(__DIR__ . '/Cache');
-        }
     }
 
     public function testBadCacheStatus()
     {
-        if (\file_exists(__DIR__ . '/Cache')) {
-            \rmdir(__DIR__ . '/Cache');
-        }
-
-        $cache = new FileCache(__DIR__ . '/Cache');
+        $cache = new MemCached($GLOBALS['CONFIG']['cache']['memcached']);
         $cache->flushAll();
 
         TestUtils::setMember($cache, 'status', CacheStatus::FAILURE);
@@ -140,18 +112,29 @@ class FileCacheTest extends \PHPUnit\Framework\TestCase
         self::assertFalse($cache->replace('key1', 5));
         self::assertFalse($cache->delete('key1'));
         self::assertFalse($cache->flushAll());
+        self::assertFalse($cache->flush());
         self::assertEquals([], $cache->stats());
-
-        if (\file_exists(__DIR__ . '/Cache')) {
-            \rmdir(__DIR__ . '/Cache');
-        }
     }
 
     /**
      * @expectedException \phpOMS\DataStorage\Cache\Exception\InvalidConnectionConfigException
      */
-    public function testInvalidCachePath()
+    public function testInvalidCacheHost()
     {
-        $cache = new FileCache('/etc/invalidPathOrPermission^$:?><');
+        $db = $GLOBALS['CONFIG']['cache']['memcached'];
+        unset($db['host']);
+
+        $cache = new MemCached($db);
+    }
+
+    /**
+     * @expectedException \phpOMS\DataStorage\Cache\Exception\InvalidConnectionConfigException
+     */
+    public function testInvalidCachePort()
+    {
+        $db = $GLOBALS['CONFIG']['cache']['memcached'];
+        unset($db['port']);
+
+        $cache = new MemCached($db);
     }
 }

@@ -419,7 +419,11 @@ final class Directory extends FileAbstract implements DirectoryInterface
                 return false;
             }
 
-            \mkdir($path, $permission, $recursive);
+            try {
+                \mkdir($path, $permission, $recursive);
+            } catch (\Throwable $t) {
+                return false;
+            }
 
             return true;
         }

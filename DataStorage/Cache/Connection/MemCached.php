@@ -14,6 +14,10 @@ declare(strict_types=1);
 
 namespace phpOMS\DataStorage\Cache\Connection;
 
+use phpOMS\DataStorage\Cache\CacheStatus;
+use phpOMS\DataStorage\Cache\CacheType;
+use phpOMS\DataStorage\Cache\Exception\InvalidConnectionConfigException;
+
 /**
  * Memcache class.
  *
@@ -24,14 +28,10 @@ namespace phpOMS\DataStorage\Cache\Connection;
  */
 class MemCached extends ConnectionAbstract
 {
-
     /**
-     * Memcache instance.
-     *
-     * @var \Memcache
-     * @since 1.0.0
+     * {@inheritdoc}
      */
-    private $memc = null;
+    protected $type = CacheType::MEMCACHED;
 
     /**
      * Only cache if data is larger than threshold (0-100).
@@ -39,7 +39,7 @@ class MemCached extends ConnectionAbstract
      * @var int
      * @since 1.0.0
      */
-    private $threshold = 10;
+    private $threshold = 0;
 
     /**
      * Constructor.
@@ -50,7 +50,8 @@ class MemCached extends ConnectionAbstract
      */
     public function __construct(array $data)
     {
-        $this->memc = null;
+        $this->con = new \Memcached();
+        $this->connect($data);
     }
 
     /**
@@ -58,21 +59,16 @@ class MemCached extends ConnectionAbstract
      */
     public function connect(array $data) : void
     {
-        $this->status = CacheStatus::ACTIVE;
-    }
+        $this->dbdata = isset($data) ? $data : $this->dbdata;
 
-    /**
-     * Adding server to server pool.
-     *
-     * @param mixed $data Server data array
-     *
-     * @return void
-     *
-     * @since  1.0.0
-     */
-    public function addServer($data)
-    {
-        $this->memc->addServer($data['host'], $data['port'], $data['timeout']);
+        if (!isset($this->dbdata['host'], $this->dbdata['port'])) {
+            $this->status = CacheStatus::FAILURE;
+            throw new InvalidConnectionConfigException((string) \json_encode($this->dbdata));
+        }
+
+        $this->con->addServer($this->dbdata['host'], $this->dbdata['port']);
+
+        $this->status = CacheStatus::OK;
     }
 
     /**
@@ -80,7 +76,9 @@ class MemCached extends ConnectionAbstract
      */
     public function set($key, $value, int $expire = -1) : void
     {
-        $this->memc->set($key, $value, false, $expire);
+        $value = $this->parseValue($value);
+
+        $this->con->set($key, $value, \max($expire, 0));
     }
 
     /**
@@ -88,7 +86,13 @@ class MemCached extends ConnectionAbstract
      */
     public function add($key, $value, int $expire = -1) : bool
     {
-        return $this->memc->add($key, $value, false, $expire);
+        if ($this->status !== CacheStatus::OK) {
+            return false;
+        }
+
+        $value = $this->parseValue($value);
+
+        return $this->con->add($key, $value, \max($expire, 0));
     }
 
     /**
@@ -96,7 +100,13 @@ class MemCached extends ConnectionAbstract
      */
     public function get($key, int $expire = -1)
     {
-        return $this->memc->get($key);
+        if ($this->status !== CacheStatus::OK) {
+            return null;
+        }
+
+        $result = $this->con->get($key);
+
+        return $result === false ? null : $result;
     }
 
     /**
@@ -104,7 +114,11 @@ class MemCached extends ConnectionAbstract
      */
     public function delete($key, int $expire = -1) : bool
     {
-        $this->memc->delete($key);
+        if ($this->status !== CacheStatus::OK) {
+            return false;
+        }
+
+        return $this->con->delete($key);
     }
 
     /**
@@ -112,7 +126,11 @@ class MemCached extends ConnectionAbstract
      */
     public function flush(int $expire = 0) : bool
     {
-        $this->memc->flush();
+        if ($this->status !== CacheStatus::OK) {
+            return false;
+        }
+
+        $this->con->flush();
 
         return true;
     }
@@ -122,7 +140,11 @@ class MemCached extends ConnectionAbstract
      */
     public function flushAll() : bool
     {
-        $this->memc->flush();
+        if ($this->status !== CacheStatus::OK) {
+            return false;
+        }
+
+        $this->con->flush();
 
         return true;
     }
@@ -132,7 +154,13 @@ class MemCached extends ConnectionAbstract
      */
     public function replace($key, $value, int $expire = -1) : bool
     {
-        $this->memc->replace($key, $value, false, $expire);
+        if ($this->status !== CacheStatus::OK) {
+            return false;
+        }
+
+        $value = $this->parseValue($value);
+
+        return $this->con->replace($key, $value, \max($expire, 0));
     }
 
     /**
@@ -140,8 +168,19 @@ class MemCached extends ConnectionAbstract
      */
     public function stats() : array
     {
-        /** @noinspection PhpMethodOrClassCallIsNotCaseSensitiveInspection */
-        return $this->memc->getExtendedStats();
+        if ($this->status !== CacheStatus::OK) {
+            return [];
+        }
+
+        $stat = $this->con->getStats();
+        $temp = \reset($stat);
+
+        $stats           = [];
+        $stats['status'] = $this->status;
+        $stats['count']  = $temp['curr_items'];
+        $stats['size']   = $temp['bytes'];
+
+        return $stats;
     }
 
     /**
@@ -150,14 +189,6 @@ class MemCached extends ConnectionAbstract
     public function getThreshold() : int
     {
         return $this->threshold;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function setStatus(int $status)  /* : void */
-    {
-        $this->status = $status;
     }
 
     /**
@@ -179,9 +210,10 @@ class MemCached extends ConnectionAbstract
      */
     public function close() : void
     {
-        if ($this->memc !== null) {
-            $this->memc->close();
-            $this->memc = null;
+        if ($this->con !== null) {
+            $this->con->quit();
         }
+
+        parent::close();
     }
 }

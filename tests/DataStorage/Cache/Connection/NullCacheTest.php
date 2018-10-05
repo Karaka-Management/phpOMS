@@ -14,14 +14,22 @@
 namespace phpOMS\tests\DataStorage\Cache\Connection;
 
 use phpOMS\DataStorage\Cache\Connection\NullCache;
+use phpOMS\DataStorage\Cache\CacheType;
 
 class NullCacheTest extends \PHPUnit\Framework\TestCase
 {
     public function testCache()
     {
         $cache = new NullCache();
+        $cache->connect([]);
+
+        self::assertEquals('', $cache->getPrefix());
+        self::assertEquals(CacheType::UNDEFINED, $cache->getType());
         self::assertTrue($cache->add(1, 1));
+
+        $cache->set(1, 1);
         self::assertEquals(null, $cache->get(1));
+
         self::assertTrue($cache->delete(1));
         self::assertTrue($cache->flush(1));
         self::assertTrue($cache->flushAll());
