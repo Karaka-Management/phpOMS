@@ -97,7 +97,7 @@ class ChiSquaredDistribution
         $sum = 0.0;
 
         for ($i = 0; $i < $count; ++$i) {
-            $sum += ($dataset[$i] - $expected[$i]) * ($dataset[$i] - $expected[$i]) / $expected[$i];
+            $sum += ($dataset[$i] - $expected[$i]) ** 2 / $expected[$i];
         }
 
         $p = null;
@@ -106,7 +106,7 @@ class ChiSquaredDistribution
             $df = self::getDegreesOfFreedom($dataset);
         }
 
-        if (!defined('self::TABLE') || !array_key_exists($df, self::TABLE)) {
+        if (!defined('self::TABLE') || !\array_key_exists($df, self::TABLE)) {
             throw new \Exception('Degrees of freedom not supported');
         }
 
@@ -117,11 +117,14 @@ class ChiSquaredDistribution
             }
         }
 
-        $tableCopy = self::TABLE[$df];
-        $key       = \key(\end($tableCopy));
-        $p         = 1 - ($p ?? ($key === false ? 1 : (float) $key));
+        $p = $p ?? 0;
 
-        return ['P' => $p, 'H0' => ($p > $significance), 'df' => $df];
+        return [
+            'Chi2' => $sum,
+            'P'   => $p,
+            'H0'  => ($p > $significance),
+            'df'  => $df
+        ];
     }
 
     /**
@@ -150,17 +153,17 @@ class ChiSquaredDistribution
      *
      * @return float
      *
-     * @throws \Exception
+     * @throws \OutOfBoundsException
      *
      * @since  1.0.0
      */
     public static function getPdf(float $x, int $df) : float
     {
         if ($x < 0) {
-            throw new \Exception('Out of bounds');
+            throw new \OutOfBoundsException('Out of bounds');
         }
 
-        return 1 / (\pow(2, $df / 2) * Gamma::lanczosApproximationReal(($df / 2))) * \pow($x, $df / 2 - 1) * \exp(-$x / 2);
+        return 0.0;
     }
 
     /**
@@ -174,7 +177,7 @@ class ChiSquaredDistribution
      */
     public static function getMode(int $df) : int
     {
-        return \max([$df - 2, 0]);
+        return \max($df - 2, 0);
     }
 
     /**
@@ -227,14 +230,14 @@ class ChiSquaredDistribution
      *
      * @return float
      *
-     * @throws \Exception
+     * @throws \OutOfBoundsException
      *
      * @since  1.0.0
      */
     public static function getMgf(int $df, float $t) : float
     {
         if ($t > 0.5) {
-            throw new \Exception('Out of bounds');
+            throw new \OutOfBoundsException('Out of bounds');
         }
 
         return \pow(1 - 2 * $t, -$df / 2);
@@ -266,10 +269,5 @@ class ChiSquaredDistribution
     public static function getExKurtosis(int $df) : float
     {
         return 12 / $df;
-    }
-
-    public static function getRandom()
-    {
-
     }
 }

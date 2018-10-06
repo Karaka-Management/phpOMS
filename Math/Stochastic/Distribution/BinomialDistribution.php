@@ -189,9 +189,4 @@ class BinomialDistribution
     {
         return $n * $p * (1 - $p);
     }
-
-    public static function getRandom()
-    {
-
-    }
 }

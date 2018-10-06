@@ -20,6 +20,15 @@ use phpOMS\Utils\TestUtils;
 
 class MemCachedTest extends \PHPUnit\Framework\TestCase
 {
+    protected function setUp()
+    {
+        if (!extension_loaded('memcached')) {
+            $this->markTestSkipped(
+              'The Memcached extension is not available.'
+            );
+        }
+    }
+
     public function testDefault()
     {
         $cache = new MemCached($GLOBALS['CONFIG']['cache']['memcached']);

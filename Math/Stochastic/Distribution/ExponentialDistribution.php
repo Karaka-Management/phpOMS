@@ -51,7 +51,7 @@ class ExponentialDistribution
      */
     public static function getCdf(float $x, float $lambda) : float
     {
-        return $x >= 0 ? 1 - \exp($lambda * $x) : 0;
+        return $x >= 0 ? 1 - 1 / \exp($lambda * $x) : 0;
     }
 
     /**
@@ -91,7 +91,7 @@ class ExponentialDistribution
      */
     public static function getMedian(float $lambda) : float
     {
-        return 1 / $lambda;
+        return 1 / $lambda * \log(2);
     }
 
     /**
@@ -116,14 +116,14 @@ class ExponentialDistribution
      *
      * @return float
      *
-     * @throws \Exception
+     * @throws \OutOfBoundsException
      *
      * @since  1.0.0
      */
     public static function getMgf(float $t, float $lambda) : float
     {
         if ($t >= $lambda) {
-            throw new \Exception('Out of bounds');
+            throw new \OutOfBoundsException('Out of bounds');
         }
 
         return $lambda / ($lambda - $t);
@@ -151,10 +151,5 @@ class ExponentialDistribution
     public static function getExKurtosis() : float
     {
         return 6;
-    }
-
-    public static function getRandom()
-    {
-
     }
 }

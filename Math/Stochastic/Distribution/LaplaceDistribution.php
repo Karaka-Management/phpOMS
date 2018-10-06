@@ -157,9 +157,4 @@ class LaplaceDistribution
     {
         return 3;
     }
-
-    public static function getRandom()
-    {
-
-    }
 }

@@ -206,9 +206,4 @@ class BernoulliDistribution
     {
         return (1 - 6 * $p * (1 - $p)) / ($p * (1 - $p));
     }
-
-    public static function getRandom()
-    {
-
-    }
 }

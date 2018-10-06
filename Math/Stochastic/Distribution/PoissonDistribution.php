@@ -177,9 +177,4 @@ class PoissonDistribution
     {
         return \pow($lambda, -1);
     }
-
-    public static function getRandom()
-    {
-
-    }
 }

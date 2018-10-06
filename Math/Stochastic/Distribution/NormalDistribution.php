@@ -150,9 +150,4 @@ class NormalDistribution
     {
         return 0;
     }
-
-    public static function getRandom()
-    {
-
-    }
 }

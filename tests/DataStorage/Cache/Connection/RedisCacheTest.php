@@ -20,6 +20,15 @@ use phpOMS\Utils\TestUtils;
 
 class RedisCacheTest extends \PHPUnit\Framework\TestCase
 {
+    protected function setUp()
+    {
+        if (!extension_loaded('redis')) {
+            $this->markTestSkipped(
+              'The Redis extension is not available.'
+            );
+        }
+    }
+
     public function testDefault()
     {
         $cache = new RedisCache($GLOBALS['CONFIG']['cache']['redis']);
@@ -82,7 +91,7 @@ class RedisCacheTest extends \PHPUnit\Framework\TestCase
             [
                 'status'  => CacheStatus::OK,
                 'count'   => 6,
-            ], 
+            ],
             $cache->stats()
         );
 
@@ -96,7 +105,7 @@ class RedisCacheTest extends \PHPUnit\Framework\TestCase
             [
                 'status'  => CacheStatus::OK,
                 'count'   => 0,
-            ], 
+            ],
             $cache->stats()
         );
     }

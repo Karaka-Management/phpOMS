@@ -97,9 +97,4 @@ class CauchyDistribution
     {
         return \log(4 * M_PI * $gamma);
     }
-
-    public static function getRandom()
-    {
-
-    }
 }

@@ -120,7 +120,7 @@ class GeometricDistribution
      */
     public static function getMgf(float $p, float $t) : float
     {
-        return $p * \exp($t) / (1 - (1 - $p) * \exp($t));
+        return $t < -\log(1 - $p) ? $p * \exp($t) / (1 - (1 - $p) * \exp($t)) : $p / (1 - (1 - $p) * \exp($t));
     }
 
     /**
@@ -149,10 +149,5 @@ class GeometricDistribution
     public static function getExKurtosis(float $lambda) : float
     {
         return 6 + $lambda ** 2 / (1 - $lambda);
-    }
-
-    public static function getRandom()
-    {
-
     }
 }

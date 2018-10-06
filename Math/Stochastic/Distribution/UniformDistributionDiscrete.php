@@ -151,9 +151,4 @@ class UniformDistributionDiscrete
     {
         return (($b - $a + 1) ** 2 - 1) / 12;
     }
-
-    public static function getRandom()
-    {
-
-    }
 }

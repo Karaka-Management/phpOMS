@@ -17,8 +17,59 @@ use phpOMS\Math\Stochastic\Distribution\GeometricDistribution;
 
 class GeometricDistributionTest extends \PHPUnit\Framework\TestCase
 {
-    public function testPlaceholder()
+    public function testPmf()
     {
-        self::markTestIncomplete();
+        $p = 0.2;
+        $k = 4;
+
+        self::assertEquals(0.1024, GeometricDistribution::getPmf($p, $k), '', 0.01);
+    }
+
+    public function testCdf()
+    {
+        $p = 0.2;
+        $k = 6;
+
+        // P(X > 6) = P(X <= 6) => 1 - CDF
+        self::assertEquals(0.262, 1 - GeometricDistribution::getCdf($p, $k), '', 0.01);
+    }
+
+    public function testMode()
+    {
+        self::assertEquals(1, GeometricDistribution::getMode());
+    }
+
+    public function testMean()
+    {
+        $p = 0.3;
+        self::assertEquals(1 / $p, GeometricDistribution::getMean($p));
+    }
+
+    public function testVariance()
+    {
+        $p = 0.3;
+
+        self::assertEquals((1 - $p) / $p ** 2, GeometricDistribution::getVariance($p));
+    }
+
+    public function testSkewness()
+    {
+        $p = 0.3;
+
+        self::assertEquals((2 - $p) / sqrt(1 - $p), GeometricDistribution::getSkewness($p));
+    }
+
+    public function testExKurtosis()
+    {
+        $p = 0.3;
+
+        self::assertEquals(6 + ($p ** 2) / (1 - $p), GeometricDistribution::getExKurtosis($p));
+    }
+
+    public function testMedian()
+    {
+        $p = 0.3;
+
+        self::assertEquals(ceil(-1 / log(1 - $p, 2)), GeometricDistribution::getMedian($p));
     }
 }
