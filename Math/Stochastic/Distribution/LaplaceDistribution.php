@@ -121,14 +121,14 @@ class LaplaceDistribution
      *
      * @return float
      *
-     * @throws \Exception
+     * @throws \OutOfBoundsException
      *
      * @since  1.0.0
      */
     public static function getMgf(float $t, float $mu, float $b) : float
     {
-        if ($t >= 1 / $b) {
-            throw new \Exception('Out of bounds');
+        if (\abs($t) >= 1 / $b) {
+            throw new \OutOfBoundsException('Out of bounds');
         }
 
         return \exp($mu * $t) / (1 - $b ** 2 * $t ** 2);

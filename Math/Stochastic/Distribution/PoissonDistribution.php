@@ -76,7 +76,7 @@ class PoissonDistribution
      */
     public static function getMode(float $lambda) : float
     {
-        return floor($lambda);
+        return \floor($lambda);
     }
 
     /**
@@ -104,7 +104,7 @@ class PoissonDistribution
      */
     public static function getMedian(float $lambda) : float
     {
-        return floor($lambda + 1 / 3 - 0.02 / $lambda);
+        return \floor($lambda + 1 / 3 - 0.02 / $lambda);
     }
 
     /**

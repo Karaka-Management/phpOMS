@@ -43,20 +43,20 @@ class UniformDistributionDiscrete
     /**
      * Get cumulative distribution function.
      *
-     * @param float $k Value k
+     * @param float $k Value k element of [a, b]
      * @param float $a Value a
      * @param float $b Value b
      *
      * @return float
      *
-     * @throws \Exception
+     * @throws \OutOfBoundsException
      *
      * @since  1.0.0
      */
     public static function getCdf(float $k, float $a, float $b) : float
     {
         if ($k > $b || $k < $a) {
-            throw new \Exception('Out of bounds');
+            throw new \OutOfBoundsException('Out of bounds');
         }
 
         return (\floor($k) - $a + 1) / ($b - $a + 1);

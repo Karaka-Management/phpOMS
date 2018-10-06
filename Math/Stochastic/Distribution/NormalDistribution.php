@@ -42,6 +42,42 @@ class NormalDistribution
     }
 
     /**
+     * Get probability density function.
+     *
+     * @param float $x   Value x
+     * @param float $mu  Value mu
+     * @param float $sig Sigma
+     *
+     * @return float
+     *
+     * @since  1.0.0
+     */
+    public static function getCdf(float $x, float $mu, float $sig) : float
+    {
+        return 1 / 2 * (1 + self::erf(($x - $mu) / ($sig * \sqrt(2))));
+    }
+
+    /**
+     * Error function approximation
+     *
+     * @param float $x Value x
+     *
+     * @return float
+     *
+     * @since  1.0.0
+     */
+    private static function erf(float $x) : float
+    {
+        if ($x < 0) {
+            return -self::erf(-$x);
+        }
+
+        $a = 8 * (pi() - 3) / (3 * pi() * (4 - pi()));
+
+        return \sqrt(1 - \exp(-($x ** 2) * (4 / pi() + $a * $x ** 2) / (1 + $a * $x ** 2)));
+    }
+
+    /**
      * Get mode.
      *
      * @param float $mu Value mu
