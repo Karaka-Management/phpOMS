@@ -19,7 +19,7 @@ use phpOMS\Math\Matrix\QRDecomposition;
 
 class QRDecompositionTest extends \PHPUnit\Framework\TestCase
 {
-    /**public function testDecomposition()
+    public function testDecomposition()
     {
         $A = new Matrix();
         $A->setMatrix([
@@ -33,23 +33,25 @@ class QRDecompositionTest extends \PHPUnit\Framework\TestCase
         self::assertTrue($QR->isFullRank());
 
         self::assertEquals([
+            [-6 / 7, 69 / 175, 58 / 175],
+            [-3 / 7, -158 / 175, -6 / 175],
+            [2 / 7, -6 / 35, 33 / 35],
+        ], $QR->getQ()->toArray(), '', 0.2);
+
+        self::assertEquals([
+            [-14, -21, 14],
+            [0, -175, 70],
+            [0, 0, -35],
+        ], $QR->getR()->toArray(), '', 0.2);
+
+        self::assertEquals($A->toArray(), $QR->getQ()->mult($QR->getR()), '', 0.2);
+
+        self::assertEquals([
             [12, -69, -58 / 5],
             [6, 158, 6 / 5],
             [-4, 30, -33],
         ], $QR->getH()->toArray(), '', 0.2);
-
-        self::assertEquals([
-            [6 / 7, -69 / 175, -58 / 175],
-            [3 / 7, 158 / 175, 6 / 175],
-            [-2 / 7, 6 / 35, -33 / 35],
-        ], $QR->getQ()->toArray(), '', 0.2);
-
-        self::assertEquals([
-            [14, 21, -14],
-            [0, 175, -70],
-            [0, 0, 35],
-        ], $QR->getR()->toArray(), '', 0.2);
-    }*/
+    }
 
     public function testSolve()
     {

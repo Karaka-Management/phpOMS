@@ -83,7 +83,7 @@ final class QRDecomposition
                 $nrm = Triangle::getHypot($nrm, $this->QR[$i][$k]);
             }
 
-            if ($nrm != 0.0) {
+            if ($nrm != 0) {
                 // Form k-th Householder vector.
                 if ($this->QR[$k][$k] < 0) {
                     $nrm = -$nrm;
