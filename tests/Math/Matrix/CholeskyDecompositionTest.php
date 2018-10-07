@@ -19,6 +19,24 @@ use phpOMS\Math\Matrix\CholeskyDecomposition;
 
 class CholeskyDecompositionTest extends \PHPUnit\Framework\TestCase
 {
+    public function testCombination()
+    {
+        $A = new Matrix();
+        $A->setMatrix([
+            [25, 15, -5],
+            [15, 17, 0],
+            [-5, 0, 11],
+        ]);
+
+        $cholesky = new CholeskyDecomposition($A);
+
+        self::assertEquals([
+            [25, 15, -5],
+            [15, 17, 0],
+            [-5, 0, 11],
+        ], $cholesky->getL()->mult($cholesky->getL()->transpose())->toArray(), '', 0.2);
+    }
+
     public function testDecomposition()
     {
         $A = new Matrix();
