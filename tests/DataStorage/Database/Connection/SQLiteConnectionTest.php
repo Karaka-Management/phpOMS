@@ -53,4 +53,11 @@ class SQLiteConnectionTest extends \PHPUnit\Framework\TestCase
         unset($db['database']);
         $sqlite = new SQLiteConnection($db);
     }
+
+    static function tearDownAfterClass()
+    {
+        if (\file_exists($GLOBALS['CONFIG']['db']['core']['sqlite']['admin']['database'])) {
+            \unlink($GLOBALS['CONFIG']['db']['core']['sqlite']['admin']['database']);
+        }
+    }
 }
