@@ -79,6 +79,168 @@ $CONFIG = [
                     'weight'   => 1000, /* db table prefix */
                 ],
             ],
+            'postgresql' => [
+                'admin'  => [
+                    'db'       => 'pgsql', /* db type */
+                    'host'     => '127.0.0.1', /* db host address */
+                    'port'     => '5432', /* db host port */
+                    'login'    => 'postgres', /* db login name */
+                    'password' => '', /* db login password */
+                    'database' => 'oms', /* db name */
+                    'prefix'   => 'oms_', /* db table prefix */
+                    'weight'   => 1000, /* db table prefix */
+                ],
+                'insert'  => [
+                    'db'       => 'pgsql', /* db type */
+                    'host'     => '127.0.0.1', /* db host address */
+                    'port'     => '5432', /* db host port */
+                    'login'    => 'postgres', /* db login name */
+                    'password' => '', /* db login password */
+                    'database' => 'oms', /* db name */
+                    'prefix'   => 'oms_', /* db table prefix */
+                    'weight'   => 1000, /* db table prefix */
+                ],
+                'select'  => [
+                    'db'       => 'pgsql', /* db type */
+                    'host'     => '127.0.0.1', /* db host address */
+                    'port'     => '5432', /* db host port */
+                    'login'    => 'postgres', /* db login name */
+                    'password' => '', /* db login password */
+                    'database' => 'oms', /* db name */
+                    'prefix'   => 'oms_', /* db table prefix */
+                    'weight'   => 1000, /* db table prefix */
+                ],
+                'update'  => [
+                    'db'       => 'pgsql', /* db type */
+                    'host'     => '127.0.0.1', /* db host address */
+                    'port'     => '5432', /* db host port */
+                    'login'    => 'postgres', /* db login name */
+                    'password' => '', /* db login password */
+                    'database' => 'oms', /* db name */
+                    'prefix'   => 'oms_', /* db table prefix */
+                    'weight'   => 1000, /* db table prefix */
+                ],
+                'delete'  => [
+                    'db'       => 'pgsql', /* db type */
+                    'host'     => '127.0.0.1', /* db host address */
+                    'port'     => '5432', /* db host port */
+                    'login'    => 'postgres', /* db login name */
+                    'password' => '', /* db login password */
+                    'database' => 'oms', /* db name */
+                    'prefix'   => 'oms_', /* db table prefix */
+                    'weight'   => 1000, /* db table prefix */
+                ],
+                'schema'  => [
+                    'db'       => 'pgsql', /* db type */
+                    'host'     => '127.0.0.1', /* db host address */
+                    'port'     => '5432', /* db host port */
+                    'login'    => 'postgres', /* db login name */
+                    'password' => '', /* db login password */
+                    'database' => 'oms', /* db name */
+                    'prefix'   => 'oms_', /* db table prefix */
+                    'weight'   => 1000, /* db table prefix */
+                ],
+            ],
+            'sqlite' => [
+                'admin'  => [
+                    'db'       => 'sqlite', /* db type */
+                    'database' => __DIR__ . '/test.sqlite', /* db name */
+                    'prefix'   => 'oms_', /* db table prefix */
+                    'weight'   => 1000, /* db table prefix */
+                ],
+                'insert'  => [
+                    'db'       => 'sqlite', /* db type */
+                    'database' => __DIR__ . '/test.sqlite', /* db name */
+                    'prefix'   => 'oms_', /* db table prefix */
+                    'weight'   => 1000, /* db table prefix */
+                ],
+                'select'  => [
+                    'db'       => 'sqlite', /* db type */
+                    'database' => __DIR__ . '/test.sqlite', /* db name */
+                    'prefix'   => 'oms_', /* db table prefix */
+                    'weight'   => 1000, /* db table prefix */
+                ],
+                'update'  => [
+                    'db'       => 'sqlite', /* db type */
+                    'database' => __DIR__ . '/test.sqlite', /* db name */
+                    'prefix'   => 'oms_', /* db table prefix */
+                    'weight'   => 1000, /* db table prefix */
+                ],
+                'delete'  => [
+                    'db'       => 'sqlite', /* db type */
+                    'database' => __DIR__ . '/test.sqlite', /* db name */
+                    'prefix'   => 'oms_', /* db table prefix */
+                    'weight'   => 1000, /* db table prefix */
+                ],
+                'schema'  => [
+                    'db'       => 'sqlite', /* db type */
+                    'database' => __DIR__ . '/test.sqlite', /* db name */
+                    'prefix'   => 'oms_', /* db table prefix */
+                    'weight'   => 1000, /* db table prefix */
+                ],
+            ],
+            'mssql' => [
+                'admin'  => [
+                    'db'       => 'mssql', /* db type */
+                    'host'     => '127.0.0.1', /* db host address */
+                    'port'     => '5432', /* db host port */
+                    'login'    => 'postgres', /* db login name */
+                    'password' => '', /* db login password */
+                    'database' => 'oms', /* db name */
+                    'prefix'   => 'oms_', /* db table prefix */
+                    'weight'   => 1000, /* db table prefix */
+                ],
+                'insert'  => [
+                    'db'       => 'mssql', /* db type */
+                    'host'     => '127.0.0.1', /* db host address */
+                    'port'     => '5432', /* db host port */
+                    'login'    => 'postgres', /* db login name */
+                    'password' => '', /* db login password */
+                    'database' => 'oms', /* db name */
+                    'prefix'   => 'oms_', /* db table prefix */
+                    'weight'   => 1000, /* db table prefix */
+                ],
+                'select'  => [
+                    'db'       => 'mssql', /* db type */
+                    'host'     => '127.0.0.1', /* db host address */
+                    'port'     => '5432', /* db host port */
+                    'login'    => 'postgres', /* db login name */
+                    'password' => '', /* db login password */
+                    'database' => 'oms', /* db name */
+                    'prefix'   => 'oms_', /* db table prefix */
+                    'weight'   => 1000, /* db table prefix */
+                ],
+                'update'  => [
+                    'db'       => 'mssql', /* db type */
+                    'host'     => '127.0.0.1', /* db host address */
+                    'port'     => '5432', /* db host port */
+                    'login'    => 'postgres', /* db login name */
+                    'password' => '', /* db login password */
+                    'database' => 'oms', /* db name */
+                    'prefix'   => 'oms_', /* db table prefix */
+                    'weight'   => 1000, /* db table prefix */
+                ],
+                'delete'  => [
+                    'db'       => 'mssql', /* db type */
+                    'host'     => '127.0.0.1', /* db host address */
+                    'port'     => '5432', /* db host port */
+                    'login'    => 'postgres', /* db login name */
+                    'password' => '', /* db login password */
+                    'database' => 'oms', /* db name */
+                    'prefix'   => 'oms_', /* db table prefix */
+                    'weight'   => 1000, /* db table prefix */
+                ],
+                'schema'  => [
+                    'db'       => 'mssql', /* db type */
+                    'host'     => '127.0.0.1', /* db host address */
+                    'port'     => '5432', /* db host port */
+                    'login'    => 'postgres', /* db login name */
+                    'password' => '', /* db login password */
+                    'database' => 'oms', /* db name */
+                    'prefix'   => 'oms_', /* db table prefix */
+                    'weight'   => 1000, /* db table prefix */
+                ],
+            ],
         ],
     ],
     'cache' => [
@@ -123,6 +285,15 @@ $db = new \PDO($CONFIG['db']['core']['masters']['admin']['db'] . ':host=' .
 );
 $db->exec('DROP DATABASE IF EXISTS ' .  $CONFIG['db']['core']['masters']['admin']['database']);
 $db->exec('CREATE DATABASE IF NOT EXISTS ' .  $CONFIG['db']['core']['masters']['admin']['database']);
+$db = null;
+
+$db = new \PDO($CONFIG['db']['core']['postgresql']['admin']['db'] . ':host=' .
+    $CONFIG['db']['core']['postgresql']['admin']['host'],
+    $CONFIG['db']['core']['postgresql']['admin']['login'],
+    $CONFIG['db']['core']['postgresql']['admin']['password']
+);
+$db->exec('DROP DATABASE ' .  $CONFIG['db']['core']['postgresql']['admin']['database']);
+$db->exec('CREATE DATABASE ' .  $CONFIG['db']['core']['postgresql']['admin']['database']);
 $db = null;
 
 $httpSession        = new HttpSession();

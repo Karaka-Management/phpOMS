@@ -72,7 +72,7 @@ class Matrix implements \ArrayAccess, \Iterator
         $this->m = $m;
 
         for ($i = 0; $i < $m; ++$i) {
-            $this->matrix[$i] = array_fill(0, $n, 0);
+            $this->matrix[$i] = \array_fill(0, $n, 0);
         }
     }
 
@@ -675,15 +675,13 @@ class Matrix implements \ArrayAccess, \Iterator
     /**
      * Inverse matrix.
      *
-     * @param int $algorithm Algorithm for inversion
-     *
      * @return Matrix
      *
      * @throws InvalidDimensionException
      *
      * @since  1.0.0
      */
-    public function inverse(int $algorithm = InverseType::GAUSS_JORDAN) : Matrix
+    public function inverse() : Matrix
     {
         return $this->solve(new IdentityMatrix($this->m));
     }

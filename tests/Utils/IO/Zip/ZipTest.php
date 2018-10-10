@@ -17,6 +17,15 @@ use phpOMS\Utils\IO\Zip\Zip;
 
 class ZipTest extends \PHPUnit\Framework\TestCase
 {
+    protected function setUp()
+    {
+        if (!extension_loaded('zip')) {
+            $this->markTestSkipped(
+              'The ZIP extension is not available.'
+            );
+        }
+    }
+
     public function testZip()
     {
         self::assertTrue(Zip::pack(

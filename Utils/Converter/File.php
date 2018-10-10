@@ -38,42 +38,46 @@ class File
     /**
      * Get file size string.
      *
-     * @param int $bytes Amount of bytes
+     * @param int    $bytes     Amount of bytes
+     * @param string $decimal   Decimal char
+     * @param string $thousands Thousands char
      *
      * @return string
      *
      * @since  1.0.0
      */
-    public static function byteSizeToString(int $bytes) : string
+    public static function byteSizeToString(int $bytes, string $decimal = '.', string $thousands = ',') : string
     {
         if ($bytes < 1000) {
             return $bytes . 'b';
         } elseif ($bytes > 999 && $bytes < 1000000) {
-            return ((float) number_format($bytes / 1000, 1)) . 'kb';
+            return \rtrim(\rtrim(\number_format($bytes / 1000, 1, $decimal, $thousands), '0'), $decimal) . 'kb';
         } elseif ($bytes > 999999 && $bytes < 1000000000) {
-            return ((float) number_format($bytes / 1000000, 1)) . 'mb';
+            return \rtrim(\rtrim(\number_format($bytes / 1000000, 1, $decimal, $thousands), '0'), $decimal) . 'mb';
         } else {
-            return ((float) number_format($bytes / 1000000000, 1)) . 'gb';
+            return \rtrim(\rtrim(\number_format($bytes / 1000000000, 1, $decimal, $thousands), '0'), $decimal) . 'gb';
         }
     }
 
     /**
      * Get file size string.
      *
-     * @param int $kilobytes Amount of kilobytes
+     * @param int    $kilobytes Amount of kilobytes
+     * @param string $decimal   Decimal char
+     * @param string $thousands Thousands char
      *
      * @return string
      *
      * @since  1.0.0
      */
-    public static function kilobyteSizeToString(int $kilobytes) : string
+    public static function kilobyteSizeToString(int $kilobytes, string $decimal = '.', string $thousands = ',') : string
     {
         if ($kilobytes < 1000) {
-            return ((float) number_format($kilobytes, 1)) . 'kb';
+            return \rtrim(\rtrim(\number_format($kilobytes, 1, $decimal, $thousands), '0'), $decimal) . 'kb';
         } elseif ($kilobytes > 999 && $kilobytes < 1000000) {
-            return ((float) number_format($kilobytes / 1000, 1)) . 'mb';
+            return \rtrim(\rtrim(\number_format($kilobytes / 1000, 1, $decimal, $thousands), '0'), $decimal) . 'mb';
         } else {
-            return ((float) number_format($kilobytes / 1000000, 1)) . 'gb';
+            return \rtrim(\rtrim(\number_format($kilobytes / 1000000, 1, $decimal, $thousands), '0'), $decimal) . 'gb';
         }
     }
 }

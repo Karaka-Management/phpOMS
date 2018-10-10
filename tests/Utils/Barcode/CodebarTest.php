@@ -17,6 +17,15 @@ use phpOMS\Utils\Barcode\Codebar;
 
 class CodebarTest extends \PHPUnit\Framework\TestCase
 {
+    protected function setUp()
+    {
+        if (!extension_loaded('gd')) {
+            $this->markTestSkipped(
+              'The GD extension is not available.'
+            );
+        }
+    }
+
     public function testImage()
     {
         $path = __DIR__ . '/codebar.png';

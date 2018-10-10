@@ -21,7 +21,9 @@ class DatabaseTypeTest extends \PHPUnit\Framework\TestCase
     {
         self::assertEquals(5, \count(DatabaseType::getConstants()));
         self::assertEquals('mysql', DatabaseType::MYSQL);
+        self::assertEquals('pgsql', DatabaseType::PGSQL);
         self::assertEquals('sqlite', DatabaseType::SQLITE);
         self::assertEquals('mssql', DatabaseType::SQLSRV);
+        self::assertEquals('undefined', DatabaseType::UNDEFINED);
     }
 }

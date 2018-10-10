@@ -353,7 +353,7 @@ class Grammar extends GrammarAbstract
         } elseif (\is_bool($value)) {
             return (string) ((int) $value);
         } elseif (\is_float($value)) {
-            return (string) $value;
+            return \rtrim(\rtrim(\number_format($value, 5, '.', ''), '0'), '.');
         } elseif ($value instanceof Column) {
             return $this->compileSystem($value->getColumn(), $prefix);
         } else {

@@ -17,6 +17,15 @@ use phpOMS\Utils\Barcode\C128b;
 
 class C128bTest extends \PHPUnit\Framework\TestCase
 {
+    protected function setUp()
+    {
+        if (!extension_loaded('gd')) {
+            $this->markTestSkipped(
+              'The GD extension is not available.'
+            );
+        }
+    }
+
     public function testImage()
     {
         $path = __DIR__ . '/c128b.png';

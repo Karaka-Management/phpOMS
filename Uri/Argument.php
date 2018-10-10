@@ -30,7 +30,7 @@ use phpOMS\Utils\StringUtils;
  */
 final class Argument implements UriInterface
 {
-    
+
     /**
      * Root path.
      *

@@ -55,8 +55,12 @@ final class ConnectionFactory
         switch ($dbdata['db']) {
             case DatabaseType::MYSQL:
                 return new MysqlConnection($dbdata);
+            case DatabaseType::PGSQL:
+                return new PostgresConnection($dbdata);
             case DatabaseType::SQLSRV:
                 return new SqlServerConnection($dbdata);
+            case DatabaseType::SQLITE:
+                return new SQLiteConnection($dbdata);
             default:
                 throw new \InvalidArgumentException('Database "' . $dbdata['db'] . '" is not supported.');
         }

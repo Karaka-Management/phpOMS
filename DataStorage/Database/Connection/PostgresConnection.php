@@ -57,7 +57,10 @@ final class PostgresConnection extends ConnectionAbstract
     {
         $this->dbdata = isset($dbdata) ? $dbdata : $this->dbdata;
 
-        if (!isset($this->dbdata['db'], $this->dbdata['host'], $this->dbdata['port'], $this->dbdata['database'], $this->dbdata['login'], $this->dbdata['password'])) {
+        if (!isset($this->dbdata['db'], $this->dbdata['host'], $this->dbdata['port'], $this->dbdata['database'], $this->dbdata['login'], $this->dbdata['password'])
+            || !DatabaseType::isValidValue($this->dbdata['db'])
+        ) {
+            $this->status = DatabaseStatus::FAILURE;
             throw new InvalidConnectionConfigException((string) \json_encode($this->dbdata));
         }
 
@@ -65,7 +68,7 @@ final class PostgresConnection extends ConnectionAbstract
         $this->prefix = $dbdata['prefix'] ?? '';
 
         try {
-            $this->con = new \PDO($this->dbdata['db'] . ':host=' . $this->dbdata['host'] . ':' . $this->dbdata['port'] . ';dbname=' . $this->dbdata['database'] . ';charset=utf8', $this->dbdata['login'], $this->dbdata['password']);
+            $this->con = new \PDO($this->dbdata['db'] . ':host=' . $this->dbdata['host'] . ';port=' . $this->dbdata['port'] . ';dbname=' . $this->dbdata['database'], $this->dbdata['login'], $this->dbdata['password']);
             $this->con->setAttribute(\PDO::ATTR_EMULATE_PREPARES, false);
             $this->con->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
 

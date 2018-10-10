@@ -15,6 +15,7 @@ declare(strict_types=1);
 namespace phpOMS\DataStorage\Database\Connection;
 
 use phpOMS\DataStorage\Database\DatabaseStatus;
+use phpOMS\DataStorage\Database\DatabaseType;
 use phpOMS\DataStorage\Database\Query\Grammar\Grammar;
 use phpOMS\DataStorage\Database\Schema\Grammar\Grammar as SchemaGrammar;
 
@@ -66,7 +67,7 @@ abstract class ConnectionAbstract implements ConnectionInterface
      * @var string
      * @since 1.0.0
      */
-    protected $type = 'undefined';
+    protected $type = DatabaseType::UNDEFINED;
 
     /**
      * Database status.
@@ -91,25 +92,6 @@ abstract class ConnectionAbstract implements ConnectionInterface
      * @since 1.0.0
      */
     protected $schemaGrammar = null;
-
-    /**
-     * Set values
-     *
-     * @param string $name  Variable name
-     * @param string $value Variable value
-     *
-     * @return void
-     *
-     * @since  1.0.0
-     */
-    public function __set($name, $value) : void
-    {
-        if (!empty($this->$name)) {
-            return;
-        }
-
-        $this->$name = $value;
-    }
 
     /**
      * {@inheritdoc}
@@ -180,11 +162,7 @@ abstract class ConnectionAbstract implements ConnectionInterface
      */
     public function getGrammar() : Grammar
     {
-        if ($this->grammar === null) {
-            $this->grammar = new Grammar();
-        }
-
-        return $this->grammar;
+        return $this->grammar ?? new Grammar();
     }
 
     /**
@@ -192,11 +170,7 @@ abstract class ConnectionAbstract implements ConnectionInterface
      */
     public function getSchemaGrammar() : SchemaGrammar
     {
-        if ($this->schemaGrammar === null) {
-            $this->schemaGrammar = new SchemaGrammar();
-        }
-
-        return $this->schemaGrammar;
+        return $this->schemaGrammar ?? new SchemaGrammar();
     }
 
     /**

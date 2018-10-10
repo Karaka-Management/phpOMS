@@ -18,6 +18,15 @@ use phpOMS\DataStorage\Database\DatabaseStatus;
 
 class MysqlConnectionTest extends \PHPUnit\Framework\TestCase
 {
+    protected function setUp()
+    {
+        if (!extension_loaded('pdo_mysql')) {
+            $this->markTestSkipped(
+              'The Mysql extension is not available.'
+            );
+        }
+    }
+
     public function testConnect()
     {
         $mysql = new MysqlConnection($GLOBALS['CONFIG']['db']['core']['masters']['admin']);
@@ -98,10 +107,21 @@ class MysqlConnectionTest extends \PHPUnit\Framework\TestCase
     /**
      * @expectedException \phpOMS\DataStorage\Database\Exception\InvalidConnectionConfigException
      */
-    public function testInvalidDatabaseName()
+    public function testInvalidDatabaseTypeName()
     {
         $db       = $GLOBALS['CONFIG']['db']['core']['masters']['admin'];
         $db['db'] = 'invalid';
+
+        $mysql = new MysqlConnection($db);
+    }
+
+    /**
+     * @expectedException \phpOMS\DataStorage\Database\Exception\InvalidConnectionConfigException
+     */
+    public function testInvalidDatabaseName()
+    {
+        $db = $GLOBALS['CONFIG']['db']['core']['masters']['admin'];
+        $db['database'] = 'invalid';
 
         $mysql = new MysqlConnection($db);
     }

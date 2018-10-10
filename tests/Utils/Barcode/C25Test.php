@@ -17,6 +17,15 @@ use phpOMS\Utils\Barcode\C25;
 
 class C25Test extends \PHPUnit\Framework\TestCase
 {
+    protected function setUp()
+    {
+        if (!extension_loaded('gd')) {
+            $this->markTestSkipped(
+              'The GD extension is not available.'
+            );
+        }
+    }
+
     public function testImage()
     {
         $path = __DIR__ . '/c25.png';

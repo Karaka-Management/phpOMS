@@ -17,6 +17,8 @@ namespace phpOMS\DataStorage\Database\Connection;
 use phpOMS\DataStorage\Database\DatabaseStatus;
 use phpOMS\DataStorage\Database\DatabaseType;
 use phpOMS\DataStorage\Database\Query\Grammar\SQLiteGrammar;
+use phpOMS\DataStorage\Database\Schema\Grammar\SQLiteGrammar as SQLiteSchemaGrammar;
+use phpOMS\DataStorage\Database\Exception\InvalidConnectionConfigException;
 
 /**
  * Database handler.
@@ -43,8 +45,9 @@ final class SQLiteConnection extends ConnectionAbstract
      */
     public function __construct(array $dbdata)
     {
-        $this->type    = DatabaseType::SQLITE;
-        $this->grammar = new SQLiteGrammar();
+        $this->type          = DatabaseType::SQLITE;
+        $this->grammar       = new SQLiteGrammar();
+        $this->schemaGrammar = new SQLiteSchemaGrammar();
         $this->connect($dbdata);
     }
 
@@ -53,13 +56,20 @@ final class SQLiteConnection extends ConnectionAbstract
      */
     public function connect(array $dbdata = null) : void
     {
-        $this->close();
+        $this->dbdata = isset($dbdata) ? $dbdata : $this->dbdata;
 
-        $this->dbdata = $dbdata !== null ? $dbdata : $this->dbdata;
-        $this->prefix = $dbdata['prefix'];
+        if (!isset($this->dbdata['db'], $this->dbdata['database'])
+            || !DatabaseType::isValidValue($this->dbdata['db'])
+        ) {
+            $this->status = DatabaseStatus::FAILURE;
+            throw new InvalidConnectionConfigException((string) \json_encode($this->dbdata));
+        }
+
+        $this->close();
+        $this->prefix = $dbdata['prefix'] ?? '';
 
         try {
-            $this->con = new \PDO($this->dbdata['db'] . ':' . $this->dbdata['path']);
+            $this->con = new \PDO($this->dbdata['db'] . ':' . $this->dbdata['database']);
             $this->con->setAttribute(\PDO::ATTR_EMULATE_PREPARES, false);
             $this->con->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
 

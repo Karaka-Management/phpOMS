@@ -58,7 +58,9 @@ final class MysqlConnection extends ConnectionAbstract
     {
         $this->dbdata = isset($dbdata) ? $dbdata : $this->dbdata;
 
-        if (!isset($this->dbdata['db'], $this->dbdata['host'], $this->dbdata['port'], $this->dbdata['database'], $this->dbdata['login'], $this->dbdata['password'])) {
+        if (!isset($this->dbdata['db'], $this->dbdata['host'], $this->dbdata['port'], $this->dbdata['database'], $this->dbdata['login'], $this->dbdata['password'])
+            || !DatabaseType::isValidValue($this->dbdata['db'])
+        ) {
             $this->status = DatabaseStatus::FAILURE;
             throw new InvalidConnectionConfigException((string) \json_encode($this->dbdata));
         }

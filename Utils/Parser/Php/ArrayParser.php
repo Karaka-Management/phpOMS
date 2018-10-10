@@ -45,10 +45,10 @@ class ArrayParser
                 $key = '\'' . \str_replace('\'', '\\\'', $key) . '\'';
             }
 
-            $stringify .= str_repeat(' ', $depth * 4) . $key . ' => ' . self::parseVariable($val, $depth + 1) . ',' . "\n";
+            $stringify .= \str_repeat(' ', $depth * 4) . $key . ' => ' . self::parseVariable($val, $depth + 1) . ',' . "\n";
         }
 
-        return $stringify . str_repeat(' ', ($depth - 1) * 4) . ']';
+        return $stringify . \str_repeat(' ', ($depth - 1) * 4) . ']';
     }
 
     /**
@@ -71,6 +71,8 @@ class ArrayParser
             return $value ? 'true' : 'false';
         } elseif ($value === null) {
             return 'null';
+        } elseif (\is_float($value)) {
+            return \rtrim(\rtrim(\number_format($value, 5, '.', ''), '0'), '.');
         } elseif (\is_scalar($value)) {
             return (string) $value;
         } elseif ($value instanceof \Serializable) {
