@@ -83,6 +83,26 @@ class LUDecompositionTest extends \PHPUnit\Framework\TestCase
         $lu->solve($vec);
     }
 
+    public function testComposition()
+    {
+        $A = new Matrix();
+        $A->setMatrix([
+            [25, 15, -5],
+            [15, 17, 0],
+            [-5, 0, 11],
+        ]);
+
+        $lu = new LUDecomposition($A);
+
+        self::assertEquals(
+            $A->toArray(),
+            $lu->getL()
+                ->mult($lu->getU())
+                ->toArray(),
+            '', 0.2
+        );
+    }
+
     /**
      * @expectedException \phpOMS\Math\Matrix\Exception\InvalidDimensionException
      */

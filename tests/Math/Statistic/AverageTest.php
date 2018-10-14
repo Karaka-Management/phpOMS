@@ -22,23 +22,48 @@ class AverageTest extends \PHPUnit\Framework\TestCase
         self::assertEquals(-3 / 2, Average::averageDatasetChange([6, 7, 6, 3, 0]));
     }
 
-    public function testMean()
+    public function testAngleMean()
     {
-        self::assertEquals(4, Average::arithmeticMean([1, 2, 3, 4, 5, 6, 7]), '', 0.01);
-
-        self::assertEquals(69 / 20, Average::weightedAverage(
-            [1, 2, 3, 4, 5, 6, 7],
-            [0.1, 0.2, 0.3, 0.1, 0.2, 0.05, 0.05]
-        ), '', 0.01);
-
-        self::assertEquals(3.3800151591413, Average::geometricMean([1, 2, 3, 4, 5, 6, 7]), '', 0.01);
-        self::assertEquals(2.6997245179063, Average::harmonicMean([1, 2, 3, 4, 5, 6, 7]), '', 0.01);
-
         self::assertEquals(-90, Average::angleMean([90.0, 180.0, 270.0, 360.0]), '', 0.01);
         self::assertEquals(9.999999999999977, Average::angleMean([370.0]), '', 0.01);
 
         self::assertEquals(270, Average::angleMean2([90.0, 180.0, 270.0, 360.0]), '', 0.01);
         self::assertEquals(9.999999999999977, Average::angleMean2([370.0]), '', 0.01);
+    }
+
+    public function testArithmeticMean()
+    {
+        self::assertEquals(4, Average::arithmeticMean([1, 2, 3, 4, 5, 6, 7]), '', 0.01);
+    }
+
+    public function testWeightedAverage()
+    {
+        self::assertEquals(69 / 20, Average::weightedAverage(
+            [1, 2, 3, 4, 5, 6, 7],
+            [0.1, 0.2, 0.3, 0.1, 0.2, 0.05, 0.05]
+        ), '', 0.01);
+    }
+
+    public function testGeometricMean()
+    {
+        self::assertEquals(3.3800151591413, Average::geometricMean([1, 2, 3, 4, 5, 6, 7]), '', 0.01);
+    }
+
+    public function testHarmonicMean()
+    {
+        self::assertEquals(2.6997245179063, Average::harmonicMean([1, 2, 3, 4, 5, 6, 7]), '', 0.01);
+    }
+
+    public function testMovingAverage()
+    {
+        $data = [
+            67.5, 66.5, 66.44, 66.44, 66.25, 65.88, 66.63, 66.56, 65.63, 66.06,
+            63.94, 64.13, 64.50, 62.81, 61.88, 62.50, 61.44, 60.13, 61.31, 61.38,
+        ];
+
+        $average = [66.39, 66.03, 65.79, 65.6, 65.24, 64.8, 64.46, 63.94, 63.3, 62.87, 62.4];
+
+        self::assertEquals($average, Average::totalMovingAverage($data, 10), '', 0.1);
     }
 
     /**

@@ -48,4 +48,24 @@ class SingularValueDecompositionTest extends \PHPUnit\Framework\TestCase
             [-0.6071, 0.1267, 0.7845],
         ], $svd->getV()->toArray(), '', 0.2);
     }
+
+    public function testComposition()
+    {
+        $A = new Matrix();
+        $A->setMatrix([
+            [2, -2, 1],
+            [5, 1, 4],
+        ]);
+
+        $svd = new SingularValueDecomposition($A);
+
+        self::assertEquals(
+            $A->toArray(),
+            $svd->getU()
+                ->mult($svd->getS())
+                ->mult($svd->getV()->transpose())
+                ->toArray(),
+            '', 0.2
+        );
+    }
 }

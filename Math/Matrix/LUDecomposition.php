@@ -175,7 +175,7 @@ final class LUDecomposition
         for ($i = 0; $i < $this->n; ++$i) {
             for ($j = 0; $j < $this->n; ++$j) {
                 if ($i <= $j) {
-                    $U[$i][$j] = $this->LU[$i][$j];
+                    $U[$i][$j] = $this->LU[$i][$j] ?? 0;
                 } else {
                     $U[$i][$j] = 0.0;
                 }

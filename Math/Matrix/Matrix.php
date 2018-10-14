@@ -552,10 +552,6 @@ class Matrix implements \ArrayAccess, \Iterator
         $nDim = $matrix->getN();
         $mDim = $matrix->getM();
 
-        if ($this->n !== $mDim) {
-            throw new InvalidDimensionException($mDim . 'x' . $nDim);
-        }
-
         $matrixArr    = $matrix->getMatrix();
         $newMatrix    = new Matrix($this->m, $nDim);
         $newMatrixArr = $newMatrix->getMatrix();
@@ -565,7 +561,7 @@ class Matrix implements \ArrayAccess, \Iterator
                 $temp = 0;
 
                 for ($j = 0; $j < $mDim; ++$j) { // Row of $matrix
-                    $temp += $this->matrix[$i][$j] * $matrixArr[$j][$c];
+                    $temp += ($this->matrix[$i][$j] ?? 0) * ($matrixArr[$j][$c] ?? 0);
                 }
 
                 $newMatrixArr[$i][$c] = $temp;

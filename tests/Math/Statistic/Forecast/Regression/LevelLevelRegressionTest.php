@@ -17,16 +17,40 @@ use phpOMS\Math\Statistic\Forecast\Regression\LevelLevelRegression;
 
 class LevelLevelRegressionTest extends \PHPUnit\Framework\TestCase
 {
-    public function testRegression()
+    protected $reg = null;
+
+    protected function setUp()
     {
         // y = 3 + 4 * x
         $x = [0, 1, 2, 3, 4];
         $y = [3, 7, 11, 15, 19];
 
-        $reg = LevelLevelRegression::getRegression($x, $y);
+        $this->reg = LevelLevelRegression::getRegression($x, $y);
+    }
 
-        self::assertEquals(['b0' => 3, 'b1' => 4], $reg, '', 0.2);
-        self::assertEquals(4, LevelLevelRegression::getSlope($reg['b1'], 0, 0));
-        self::assertEquals(22, LevelLevelRegression::getElasticity($reg['b1'], 11, 2));
+    public function testRegression()
+    {
+        self::assertEquals(['b0' => 3, 'b1' => 4], $this->reg, '', 0.2);
+    }
+
+    public function testSlope()
+    {
+        self::assertEquals(4, LevelLevelRegression::getSlope($this->reg['b1'], 0, 0));
+    }
+
+    public function testElasticity()
+    {
+        self::assertEquals(0.7273, LevelLevelRegression::getElasticity($this->reg['b1'], 11, 2), '', 0.01);
+    }
+
+    /**
+     * @expectedException \phpOMS\Math\Matrix\Exception\InvalidDimensionException
+     */
+    public function testInvalidDimension()
+    {
+        $x = [1,2, 3];
+        $y = [1,2, 3, 4];
+
+        LevelLevelRegression::getRegression($x, $y);
     }
 }

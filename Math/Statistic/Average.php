@@ -69,7 +69,7 @@ final class Average
     }
 
     /**
-     * Moving average of dataset
+     * Moving average of dataset (SMA)
      *
      * @param array<int, float|int> $x         Dataset
      * @param int                   $order     Periods to use for average
@@ -84,11 +84,11 @@ final class Average
      */
     public static function totalMovingAverage(array $x, int $order, array $weight = null, bool $symmetric = false) : array
     {
-        $periods = (int) ($order / 2);
+        $periods = (int) ($order / ($symmetric ? 2 : 1));
         $count   = \count($x) - ($symmetric ? $periods : 0);
         $avg     = [];
 
-        for ($i = $periods; $i < $count; ++$i) {
+        for ($i = $periods - 1; $i < $count; ++$i) {
             $avg[] = self::movingAverage($x, $i, $order, $weight, $symmetric);
         }
 
@@ -96,7 +96,7 @@ final class Average
     }
 
     /**
-     * Moving average of element in dataset
+     * Moving average of element in dataset (SMA)
      *
      * @param array<int, float|int> $x         Dataset
      * @param int                   $t         Current period
@@ -112,16 +112,16 @@ final class Average
      */
     public static function movingAverage(array $x, int $t, int $order, array $weight = null, bool $symmetric = false) : float
     {
-        $periods = (int) ($order / 2);
+        $periods = (int) ($order / ($symmetric ? 2 : 1));
         $count   = \count($x);
 
-        if ($t < $periods || ($count < $periods) || ($symmetric && $t + $periods < $count)) {
+        if ($count < $t || $count < $periods || ($symmetric && $t + $periods >= $count)) {
             throw new \Exception('Periods');
         }
 
-        $end   = $symmetric ? $periods - 1 : 0;
-        $end   = $order % 2 === 0 ? $end - 1 : $end;
-        $start = $t - 1 - ($periods - 2);
+        $t    += 2;
+        $end   = $symmetric ? $t + $periods - 1 : $t - 1;
+        $start = $t - 1 - $periods;
 
         if (!empty($weight)) {
             return self::weightedAverage(\array_slice($x, $start, $end - $start), \array_slice($weight, $start, $end - $start));

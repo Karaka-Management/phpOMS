@@ -17,14 +17,42 @@ use phpOMS\Math\Statistic\Forecast\Regression\LogLogRegression;
 
 class LogLogRegressionTest extends \PHPUnit\Framework\TestCase
 {
-    public function testRegression()
+    protected $reg = null;
+
+    protected function setUp()
     {
         // ln(y) = 2 + 3 * ln(x) => y = e^(2 + 3 * ln(x))
         $x = [0.25, 0.5, 1, 1.5];
         $y = [0.115, 0.924, 7.389, 24.938];
 
-        $reg = LogLogRegression::getRegression($x, $y);
+        $this->reg = LogLogRegression::getRegression($x, $y);
+    }
 
-        self::assertEquals(['b0' => 2, 'b1' => 3], $reg, '', 0.2);
+    public function testRegression()
+    {
+        self::assertEquals(['b0' => 2, 'b1' => 3], $this->reg, '', 0.2);
+    }
+
+    public function testSlope()
+    {
+        $y = 3;
+        $x = 2;
+        self::assertEquals($this->reg['b1'] * $y / $x, LogLogRegression::getSlope($this->reg['b1'], $y, $x), '', 0.2);
+    }
+
+    public function testElasticity()
+    {
+        self::assertEquals($this->reg['b1'], LogLogRegression::getElasticity($this->reg['b1'], 0, 0), '', 0.2);
+    }
+
+    /**
+     * @expectedException \phpOMS\Math\Matrix\Exception\InvalidDimensionException
+     */
+    public function testInvalidDimension()
+    {
+        $x = [1,2, 3];
+        $y = [1,2, 3, 4];
+
+        LogLogRegression::getRegression($x, $y);
     }
 }

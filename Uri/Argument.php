@@ -69,7 +69,7 @@ final class Argument implements UriInterface
      * @var int
      * @since 1.0.0
      */
-    private $port = 80;
+    private $port = 0;
 
     /**
      * Uri user.
@@ -146,10 +146,89 @@ final class Argument implements UriInterface
     {
         $this->uri = $uri;
 
-        $temp       = $this->__toString();
-        $found      = \stripos($temp, ':');
-        $path       = $found !== false && $found > 3 && $found < 8 ? \substr($temp, $found) : $temp;
-        $this->path = $path === false ? '' : $path;
+        $this->setPath($uri);
+        $this->setQuery($uri);
+        $this->setFragment($uri);
+    }
+
+    /**
+     * Set path from uri.
+     *
+     * @param string $uri Uri to parse
+     *
+     * @return void
+     *
+     * @since  1.0.0
+     */
+    private function setPath(string $uri) : void
+    {
+        $start = \stripos($uri, ':');
+
+        if ($start === false) {
+            return;
+        }
+
+        $end = \stripos($uri, ' ', $start + 1);
+
+        if ($end === false) {
+            $end = \strlen($uri);
+        }
+
+        $path       = $start < 8 ? \substr($uri, $start + 1, $end - $start - 1) : $uri;
+        $this->path = $path === false ? '' : \ltrim($path, ':');
+
+        if (StringUtils::endsWith($this->path, '.php')) {
+            $path = \substr($this->path, 0, -4);
+
+            if ($path === false) {
+                throw new \Exception();
+            }
+
+            $this->path = $path;
+        }
+    }
+
+    /**
+     * Set query from uri.
+     *
+     * @param string $uri Uri to parse
+     *
+     * @return void
+     *
+     * @since  1.0.0
+     */
+    private function setQuery(string $uri) : void
+    {
+        $result = \preg_match_all('/\?([a-zA-Z0-9]*)(=)([a-zA-Z0-9]*)/', $uri, $matches);
+
+        if ($result === false || empty($matches)) {
+            return;
+        }
+
+        foreach ($matches[1] as $key => $value) {
+            $this->query[$value] = $matches[3][$key];
+            $this->queryString  .= ' ?' . $value . '=' . $matches[3][$key];
+        }
+
+        $this->queryString = \ltrim($this->queryString);
+    }
+
+    /**
+     * Set fragment from uri.
+     *
+     * @param string $uri Uri to parse
+     *
+     * @return void
+     *
+     * @since  1.0.0
+     */
+    private function setFragment(string $uri) : void
+    {
+        $result = \preg_match('/#([a-zA-Z0-9]*)/', $uri, $matches);
+
+        if ($result === 1) {
+            $this->fragment = $matches[1] ?? '';
+        }
     }
 
     /**
@@ -235,7 +314,7 @@ final class Argument implements UriInterface
     public function getRoute() : string
     {
         $query = $this->getQuery();
-        return $this->path . (!empty($query) ? '?' . $this->getQuery() : '');
+        return $this->path . (!empty($query) ? ' ' . $this->getQuery() : '');
     }
 
     /**

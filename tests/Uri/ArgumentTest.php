@@ -15,13 +15,13 @@ namespace phpOMS\tests\Uri;
 
 require_once __DIR__ . '/../Autoloader.php';
 
-use phpOMS\Uri\Http;
+use phpOMS\Uri\Argument;
 
-class HttpTest extends \PHPUnit\Framework\TestCase
+class ArgumentTest extends \PHPUnit\Framework\TestCase
 {
     public function testAttributes()
     {
-        $obj = new Http('');
+        $obj = new Argument('');
 
         /* Testing members */
         self::assertObjectHasAttribute('rootPath', $obj);
@@ -40,33 +40,34 @@ class HttpTest extends \PHPUnit\Framework\TestCase
 
     public function testHelper()
     {
-        self::assertTrue(Http::isValid('http://www.google.de'));
-        self::assertTrue(Http::isValid('http://google.de'));
-        self::assertTrue(Http::isValid('https://google.de'));
-        self::assertFalse(Http::isValid('https:/google.de'));
+        self::assertTrue(Argument::isValid('http://www.google.de'));
+        self::assertTrue(Argument::isValid('http://google.de'));
+        self::assertTrue(Argument::isValid('https://google.de'));
+        self::assertTrue(Argument::isValid('skladf klsdee; eleklt ,- -sdf er'));
+        self::assertTrue(Argument::isValid('https:/google.de'));
     }
 
     public function testSetGet()
     {
-        $obj = new Http($uri = 'https://www.google.com/test/path.php?para1=abc&para2=2#frag');
+        $obj = new Argument($uri = ':modules/admin/test/path.php ?para1=abc ?para2=2 #frag');
 
         self::assertEquals('/', $obj->getRootPath());
         self::assertEquals(0, $obj->getPathOffset());
-        self::assertEquals('https', $obj->getScheme());
-        self::assertEquals('www.google.com', $obj->getHost());
-        self::assertEquals(80, $obj->getPort());
+        self::assertEquals('', $obj->getScheme());
+        self::assertEquals('', $obj->getHost());
+        self::assertEquals(0, $obj->getPort());
         self::assertEquals('', $obj->getPass());
         self::assertEquals('', $obj->getUser());
-        self::assertEquals('test/path', $obj->getPath());
-        self::assertEquals('test/path?para1=abc&para2=2', $obj->getRoute());
-        self::assertEquals('test', $obj->getPathElement(0));
-        self::assertEquals('para1=abc&para2=2', $obj->getQuery());
+        self::assertEquals('modules/admin/test/path', $obj->getPath());
+        self::assertEquals('modules/admin/test/path ?para1=abc ?para2=2', $obj->getRoute());
+        self::assertEquals('modules', $obj->getPathElement(0));
+        self::assertEquals('?para1=abc ?para2=2', $obj->getQuery());
         self::assertEquals(['para1' => 'abc', 'para2' => '2'], $obj->getQueryArray());
         self::assertEquals('2', $obj->getQuery('para2'));
         self::assertEquals('frag', $obj->getFragment());
-        self::assertEquals('https://www.google.com/', $obj->getBase());
+        self::assertEquals('', $obj->getBase());
         self::assertEquals($uri, $obj->__toString());
-        self::assertEquals('www.google.com:80', $obj->getAuthority());
+        self::assertEquals('', $obj->getAuthority());
         self::assertEquals('', $obj->getUserInfo());
 
         $obj->setRootPath('a');

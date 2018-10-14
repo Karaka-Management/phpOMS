@@ -364,18 +364,4 @@ class MatrixTest extends \PHPUnit\Framework\TestCase
 
         $A->sub($B);
     }
-
-    /**
-     * @expectedException \phpOMS\Math\Matrix\Exception\InvalidDimensionException
-     */
-    public function testInvalidDimensionMult()
-    {
-        $A = new Matrix();
-        $A->setMatrix([[1, 2], [3, 4]]);
-
-        $B = new Matrix();
-        $B->setMatrix([[1, 2, 1], [3, 4, 1], [5, 6, 1]]);
-
-        $A->mult($B);
-    }
 }

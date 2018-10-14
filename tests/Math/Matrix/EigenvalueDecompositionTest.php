@@ -44,12 +44,6 @@ class EigenvalueDecompositionTest extends \PHPUnit\Framework\TestCase
             [0, 2, 0],
             [0, 0, 5],
         ], $eig->getD()->toArray(), '', 0.2);
-
-        self::assertEquals([
-            [3, 1, 1],
-            [1, 2, 2],
-            [1, 2, 2],
-        ], $eig->getV()->mult($eig->getD())->mult($eig->getV()->transpose())->toArray(), '', 0.2);
     }
 
     public function testNonSymmetricMatrix()
@@ -77,11 +71,46 @@ class EigenvalueDecompositionTest extends \PHPUnit\Framework\TestCase
             [0, 3, 0],
             [0, 0, 6],
         ], $eig->getD()->toArray(), '', 0.2);
+    }
 
-        self::assertEquals([
+    public function testCompositeSymmetric()
+    {
+        $A = new Matrix();
+        $A->setMatrix([
+            [3, 1, 1],
+            [1, 2, 2],
+            [1, 2, 2],
+        ]);
+
+        $eig = new EigenvalueDecomposition($A);
+
+        self::assertEquals(
+            $A->toArray(),
+            $eig->getV()
+                ->mult($eig->getD())
+                ->mult($eig->getV()->transpose())
+                ->toArray()
+        , '', 0.2);
+    }
+
+    public function testCompositeNonSymmetric()
+    {
+        $A = new Matrix();
+        $A->setMatrix([
             [-2, -4, 2],
             [-2, 1, 2],
             [4, 2, 5],
-        ], $eig->getV()->mult($eig->getD())->mult($eig->getV()->transpose())->toArray(), '', 0.2);
+        ]);
+
+        $eig = new EigenvalueDecomposition($A);
+
+        self::assertEquals(
+            $A->toArray(),
+            $eig->getV()
+                ->mult($eig->getD())
+                ->mult($eig->getV()->transpose())
+                ->toArray(),
+            '', 0.2
+        );
     }
 }

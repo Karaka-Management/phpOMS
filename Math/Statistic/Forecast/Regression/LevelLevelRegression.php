@@ -37,6 +37,6 @@ class LevelLevelRegression extends RegressionAbstract
      */
     public static function getElasticity(float $b1, float $y, float $x): float
     {
-        return $b1 * $y / $x;
+        return $b1 * $x / $y;
     }
 }
