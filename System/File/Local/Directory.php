@@ -227,6 +227,10 @@ final class Directory extends FileAbstract implements DirectoryInterface
      */
     public static function delete(string $path) : bool
     {
+        if (empty($path)) {
+            return false;
+        }
+
         $files = \scandir($path);
 
         if ($files === false) {

@@ -34,6 +34,10 @@ class PackageManagerTest extends \PHPUnit\Framework\TestCase
             \array_map('unlink', \glob(__DIR__ . '/testPackageExtracted/*'));
         }
 
+        if (file_exists(__DIR__ . '/public.key')) {
+            unlink(__DIR__ . '/public.key');
+        }
+
         // create keys
         $alice_sign_kp = \sodium_crypto_sign_keypair();
 
@@ -93,6 +97,7 @@ class PackageManagerTest extends \PHPUnit\Framework\TestCase
             \file_get_contents(__DIR__ . '/public.key')
         );
 
+        $package->extract(__DIR__ . '/testPackageExtracted');
         $package->cleanup();
 
         self::assertFalse(file_exists(__DIR__ . '/testPackage.zip'));
@@ -107,6 +112,13 @@ class PackageManagerTest extends \PHPUnit\Framework\TestCase
 
         if (file_exists(__DIR__ . '/testPackageExtracted')) {
             \array_map('unlink', \glob(__DIR__ . '/testPackageExtracted/*'));
+            \rmdir(__DIR__ . '/testPackageExtracted');
         }
+
+        if (file_exists(__DIR__ . '/public.key')) {
+            unlink(__DIR__ . '/public.key');
+        }
+
+        file_put_contents(__DIR__ . '/testPackage/package.cert', '');
     }
 }
