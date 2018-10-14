@@ -40,6 +40,7 @@ class DirectoryTest extends \PHPUnit\Framework\TestCase
 
         self::assertTrue(Directory::delete($dirPath));
         self::assertFalse(Directory::exists($dirPath));
+        self::assertFalse(Directory::delete(''));
 
         $dirTestPath = __DIR__ . '/dirtest';
         self::assertGreaterThan(0, Directory::size($dirTestPath));
