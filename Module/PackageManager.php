@@ -58,6 +58,14 @@ final class PackageManager
     private $extractPath = '';
 
     /**
+     * Public key.
+     *
+     * @var string
+     * @since 1.0.0
+     */
+    private $publicKey = '';
+
+    /**
      * Info data.
      *
      * @var array
@@ -68,15 +76,17 @@ final class PackageManager
     /**
      * Constructor.
      *
-     * @param string $path     Package source path e.g. path after download.
-     * @param string $basePath Path of the application
+     * @param string $path      Package source path e.g. path after download.
+     * @param string $basePath  Path of the application
+     * @param string $publicKey Public key
      *
      * @since  1.0.0
      */
-    public function __construct(string $path, string $basePath)
+    public function __construct(string $path, string $basePath, string $publicKey)
     {
-        $this->path     = $path;
-        $this->basePath = $basePath;
+        $this->path      = $path;
+        $this->basePath  = $basePath; // todo: maybe remove from here because stupid
+        $this->publicKey = $publicKey;
     }
 
     /**
@@ -136,7 +146,7 @@ final class PackageManager
      */
     private function hashFiles() : string
     {
-        $files = Directory::list($this->extractPath . '/package');
+        $files = Directory::list($this->extractPath);
         $state = \sodium_crypto_generichash_init();
 
         foreach ($files as $file) {
@@ -144,7 +154,7 @@ final class PackageManager
                 continue;
             }
 
-            $contents = \file_get_contents($this->extractPath . '/package/' . $file);
+            $contents = \file_get_contents($this->extractPath . '/' . $file);
             if ($contents === false) {
                 throw new \Exception();
             }
@@ -171,7 +181,7 @@ final class PackageManager
         }
 
         foreach ($this->info as $key => $components) {
-            if (function_exists($this->{$key})) {
+            if (\function_exists($this->{$key})) {
                 $this->{$key}($components);
             }
         }
@@ -270,9 +280,8 @@ final class PackageManager
      */
     private function authenticate(string $signedHash, string $rawHash) : bool
     {
-        // https://3v4l.org/PN9Xl
-        $publicKey    = 'MIICIjANBgkqhkiG9w0BAQEFAAOCAg8AMIICCgKCAgEAjr73rerPRq3ZwWmrUKsNBjg8Wy5lnyWu9HCRQz0fix6grz+NOOsr4m/jazB2knfdtn7fi5XifbIbmrNJY8e6musCJ0FTgJPVBqVk7XAFVSRe2gUaCPZrTPtfZ00C3cynjwTlxSdjNtU9N0ZAo17sVWghH8ki4T2d5Mg1erGOtMJzp5yw47UHUa+KbxUmUV25WMcRYyi7+itD2xANF2AE+PQZT1dSEU8++NI+zT6tXD/Orv5ikk0whoVqvo6duWejx5n5cpJB4EiMo4Q7epbw9uMo9uIKqgQ9y3KdT36GBQkBErFf1dhf8KYJBGYMhO1UJE11dY3XrA7Ij1+zK+aiduQHOc5EMClUGZQzCJAIU5lj4WEHQ4Lo0gop+fx9hzuBTDxdyOjWSJzkqyuWMkq3zEpRBay785iaglaue9XDLee58wY+toiGLBfXe73gsbDqDSOll+cQYNjrronVN7sUDc2WyTIVW1Z8KFwK10D3SW0oEylCaGLtClyyihuW7JPu/8Or1Zjf87W82XTm31FpYkRgoEMDtVHZq0N2eHpLz1L8zKyT0ogZYN5eH5VlGrPcpwbAludNKlgAJ0hrgED19YsCBLwJQpFa4VZP7A5a/Qcw8EFAvNkgaPpBbAAtWoDbyOQsez6Jsdan/enfZ18+LL7qOB5oFFM/pKlTIeVS+UsCAwEAAQ==';
-        $unsignedHash = \sodium_crypto_sign_open($signedHash, $publicKey);
+        return \sodium_crypto_sign_verify_detached($signedHash, $rawHash, $this->publicKey);
+        //$unsignedHash = \sodium_crypto_sign_open($signedHash, $this->publicKey);
 
         return $unsignedHash === $rawHash;
     }

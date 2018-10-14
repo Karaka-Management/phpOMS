@@ -213,7 +213,7 @@ class InstallerAbstract
                     self::installHooks(__DIR__ . '/../../' . $child->getName() . '/' . \basename($file->getName(), '.php') . '/Hooks.php', $file->getPath());
                 }
             } elseif ($child instanceof File) {
-                self::installRoutes(__DIR__ . '/../../' . $child->getName() . '/Hooks.php', $child->getPath());
+                self::installHooks(__DIR__ . '/../../' . $child->getName() . '/Hooks.php', $child->getPath());
             }
         }
     }
