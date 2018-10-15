@@ -31,6 +31,8 @@ class PackageManagerTest extends \PHPUnit\Framework\TestCase
         }
 
         if (file_exists(__DIR__ . '/testPackageExtracted')) {
+            \array_map('unlink', \glob(__DIR__ . '/testPackageExtracted/testSubPackage/*'));
+            \rmdir(__DIR__ . '/testPackageExtracted/testSubPackage');
             \array_map('unlink', \glob(__DIR__ . '/testPackageExtracted/*'));
         }
 
@@ -89,6 +91,33 @@ class PackageManagerTest extends \PHPUnit\Framework\TestCase
         self::assertTrue($package->isValid());
     }
 
+    public function testPackageInvalidKey()
+    {
+        $package = new PackageManager(
+            __DIR__ . '/testPackage.zip',
+            '/invalid',
+            \file_get_contents(__DIR__ . '/public.key') . ' '
+        );
+
+        $package->extract(__DIR__ . '/testPackageExtracted');
+
+        self::assertFalse($package->isValid());
+    }
+
+    public function testPackageInvalidContent()
+    {
+        $package = new PackageManager(
+            __DIR__ . '/testPackage.zip',
+            '/invalid',
+            \file_get_contents(__DIR__ . '/public.key')
+        );
+
+        $package->extract(__DIR__ . '/testPackageExtracted');
+        \file_put_contents(__DIR__ . '/testPackageExtracted/info.json', ' ', FILE_APPEND);
+
+        self::assertFalse($package->isValid());
+    }
+
     public function testCleanup()
     {
         $package = new PackageManager(
@@ -111,6 +140,8 @@ class PackageManagerTest extends \PHPUnit\Framework\TestCase
         }
 
         if (file_exists(__DIR__ . '/testPackageExtracted')) {
+            \array_map('unlink', \glob(__DIR__ . '/testPackageExtracted/testSubPackage/*'));
+            \rmdir(__DIR__ . '/testPackageExtracted/testSubPackage');
             \array_map('unlink', \glob(__DIR__ . '/testPackageExtracted/*'));
             \rmdir(__DIR__ . '/testPackageExtracted');
         }

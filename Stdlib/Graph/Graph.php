@@ -128,13 +128,13 @@ class Graph
      *
      * @param mixed $key Node key
      *
-     * @return Node
+     * @return Node|null
      *
      * @since  1.0.0
      */
-    public function getNode($key) : Node
+    public function getNode($key) : ?Node
     {
-        return $this->nodes[$key];
+        return $this->nodes[$key] ?? null;
     }
 
     /**
@@ -154,13 +154,25 @@ class Graph
      *
      * @param mixed $key Edge key
      *
-     * @return Edge
+     * @return Edge|null
      *
      * @since  1.0.0
      */
-    public function getEdge($key) : Edge
+    public function getEdge($key) : ?Edge
     {
-        return $this->edges[$key];
+        return $this->edges[$key] ?? null;
+    }
+
+    /**
+     * Get graph edges
+     *
+     * @return Node[]
+     *
+     * @since  1.0.0
+     */
+    public function getEdges() : array
+    {
+        return $this->edges;
     }
 
     /**
@@ -193,7 +205,7 @@ class Graph
     /**
      * Get all node neighbors.
      *
-     * @param Node $node Graph node
+     * @param mixed $node Graph node
      *
      * @return Node[]
      *
@@ -201,6 +213,10 @@ class Graph
      */
     public function getNeighbors($node) : array
     {
+        if (!($node instanceof Node)) {
+            $node = $this->getNode($node);
+        }
+
         $edges     = $this->getEdgesOfNode($node);
         $neighbors = [];
 
@@ -278,7 +294,7 @@ class Graph
      */
     public function getCircle() : array
     {
-        // todo: implement
+        return [];
     }
 
     /**
@@ -290,7 +306,7 @@ class Graph
      */
     public function getFloydWarshallShortestPath() : array
     {
-        // todo: implement
+        return [];
     }
 
     /**
@@ -302,7 +318,7 @@ class Graph
      */
     public function getDijkstraShortestPath() : array
     {
-        // todo: implement
+        return [];
     }
 
     /**
@@ -314,7 +330,7 @@ class Graph
      */
     public function depthFirstTraversal() : array
     {
-        // todo: implement
+        return [];
     }
 
     /**
@@ -326,7 +342,7 @@ class Graph
      */
     public function breadthFirstTraversal() : array
     {
-        // todo: implement
+        return [];
     }
 
     /**
@@ -338,22 +354,30 @@ class Graph
      */
     public function longestPath() : array
     {
-        // todo: implement
+        return [];
     }
 
     /**
      * Get longest path between two nodes.
      *
-     * @param Node $node1 Graph node
-     * @param Node $node2 Graph node
+     * @param mixed $node1 Graph node
+     * @param mixed $node2 Graph node
      *
      * @return Node[]
      *
      * @since  1.0.0
      */
-    public function longestPathBetweenNodes(Node $node1, Node $node2) : array
+    public function longestPathBetweenNodes($node1, $node2) : array
     {
-        // todo: implement
+        if (!($node1 instanceof Node)) {
+            $node1 = $this->getNode($node1);
+        }
+
+        if (!($node2 instanceof Node)) {
+            $node2 = $this->getNode($node2);
+        }
+
+        return [];
     }
 
     /**
@@ -414,22 +438,22 @@ class Graph
 
     public function getGirth() : int
     {
-        // todo: implement
+        return 0;
     }
 
     public function getCircuitRank() : int
     {
-        // todo: implement
+        return 0;
     }
 
     public function getNodeConnectivity() : int
     {
-        // todo: implement
+        return 0;
     }
 
     public function getEdgeConnectivity() : int
     {
-        // todo: implement
+        return 0;
     }
 
     public function isConnected() : bool
@@ -442,6 +466,8 @@ class Graph
     {
         // todo: implement
         // get all unconnected sub graphs
+
+        return [];
     }
 
     public function isBipartite() : bool
