@@ -20,7 +20,7 @@ class GzTest extends \PHPUnit\Framework\TestCase
     public function testGz()
     {
         self::assertTrue(Gz::pack(
-            'test a.txt',
+            __DIR__ . '/test a.txt',
             __DIR__ . '/test.gz'
         ));
 
