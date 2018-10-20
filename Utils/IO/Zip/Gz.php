@@ -62,7 +62,7 @@ class Gz implements ArchiveInterface
             return false;
         }
 
-        $gz   = \gzopen($source, 'w');
+        $gz   = \gzopen($source, 'r');
         $dest = \fopen($destination, 'w');
         if ($gz === false || $dest === false) {
             return false;
