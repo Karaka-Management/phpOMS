@@ -31,12 +31,12 @@ class GzTest extends \PHPUnit\Framework\TestCase
         \unlink(__DIR__ . '/test a.txt');
 
         self::assertFalse(\file_exists(__DIR__ . '/test a.txt'));
-        self::assertTrue(Gz::unpack(__DIR__ . '/test.gz', __DIR__));
+        self::assertTrue(Gz::unpack(__DIR__ . '/test.gz', __DIR__ . '/test a.txt'));
         self::assertTrue(\file_exists(__DIR__ . '/test a.txt'));
         self::assertEquals($a, \file_get_contents(__DIR__ . '/test a.txt'));
 
         \unlink(__DIR__ . '/test.gz');
         self::assertFalse(\file_exists(__DIR__ . '/test.gz'));
-        self::assertFalse(Gz::unpack(__DIR__ . '/test.gz', __DIR__));
+        self::assertFalse(Gz::unpack(__DIR__ . '/test.gz', __DIR__ . '/test a.txt'));
     }
 }
