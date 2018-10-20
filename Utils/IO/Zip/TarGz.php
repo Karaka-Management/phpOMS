@@ -14,6 +14,8 @@ declare(strict_types=1);
 
 namespace phpOMS\Utils\IO\Zip;
 
+use phpOMS\System\File\Local\File;
+
 /**
  * Zip class for handling zip files.
  *
@@ -54,12 +56,12 @@ class TarGz implements ArchiveInterface
             return false;
         }
 
-        if (!Gz::unpack($source, $destination . '.tmp')) {
+        if (!Gz::unpack($source, $destination . File::name($source) . '.tmp')) {
             return false;
         }
 
-        $unpacked = Tar::unpack($destination . '.tmp', $destination);
-        \unlink($destination . '.tmp');
+        $unpacked = Tar::unpack($destination . File::name($source) . '.tmp', $destination);
+        \unlink($destination . File::name($source) . '.tmp');
 
         return $unpacked;
     }
