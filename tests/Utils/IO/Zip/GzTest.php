@@ -11,14 +11,32 @@
  * @link       http://website.orange-management.de
  */
 
-namespace phpOMS\tests\Utils\IO\Zip;
+namespace phpOMS\tests\Utils\IO\Gz;
 
 use phpOMS\Utils\IO\Zip\Gz;
 
 class GzTest extends \PHPUnit\Framework\TestCase
 {
-    public function testPlaceholder()
+    public function testGz()
     {
-        self::markTestIncomplete();
+        self::assertTrue(Gz::pack(
+            'test a.txt',
+            __DIR__ . '/test.gz'
+        ));
+
+        self::assertTrue(\file_exists(__DIR__ . '/test.gz'));
+
+        $a = \file_get_contents(__DIR__ . '/test a.txt');
+
+        \unlink(__DIR__ . '/test a.txt');
+
+        self::assertFalse(\file_exists(__DIR__ . '/test a.txt'));
+        self::assertTrue(Gz::unpack(__DIR__ . '/test.gz', __DIR__));
+        self::assertTrue(\file_exists(__DIR__ . '/test a.txt'));
+        self::assertEquals($a, \file_get_contents(__DIR__ . '/test a.txt'));
+
+        \unlink(__DIR__ . '/test.gz');
+        self::assertFalse(\file_exists(__DIR__ . '/test.gz'));
+        self::assertFalse(Gz::unpack(__DIR__ . '/test.gz', __DIR__));
     }
 }

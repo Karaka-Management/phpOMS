@@ -19,6 +19,7 @@ use phpOMS\Message\RequestAbstract;
 use phpOMS\Message\RequestSource;
 use phpOMS\Message\Http\RequestMethod;
 use phpOMS\Router\RouteVerb;
+use phpOMS\Uri\Argument;
 use phpOMS\Uri\UriInterface;
 
 /**
@@ -49,12 +50,12 @@ final class Request extends RequestAbstract
      *
      * @since  1.0.0
      */
-    public function __construct(UriInterface $uri, Localization $l11n = null)
+    public function __construct(UriInterface $uri = null, Localization $l11n = null)
     {
         $this->header = new Header();
         $this->header->setL11n($l11n ?? new Localization());
 
-        $this->uri = $uri;
+        $this->uri = $uri ?? new Argument();
         $this->init();
     }
 
@@ -71,20 +72,6 @@ final class Request extends RequestAbstract
     {
         $lang = \explode('_', $_SERVER['LANG'] ?? '');
         $this->header->getL11n()->setLanguage($lang[0] ?? 'en');
-
-        $this->cleanupGlobals();
-    }
-
-    /**
-     * Clean up globals that musn't be used any longer
-     *
-     * @return void
-     *
-     * @since  1.0.0
-     */
-    private function cleanupGlobals() : void
-    {
-        unset($_SERVER);
     }
 
     /**
@@ -123,10 +110,24 @@ final class Request extends RequestAbstract
     public function getOS() : string
     {
         if ($this->os === null) {
-            $this->os = PHP_OS;
+            $this->os = \strtolower(PHP_OS);
         }
 
         return $this->os;
+    }
+
+    /**
+     * Set OS type
+     *
+     * @param string $os OS type
+     *
+     * @return void
+     *
+     * @since  1.0.0
+     */
+    public function setOS(string $os) : void
+    {
+        $this->os = $os;
     }
 
     /**
@@ -134,7 +135,6 @@ final class Request extends RequestAbstract
      */
     public function getOrigin() : string
     {
-        // todo: maybe return execution path?
         return '127.0.0.1';
     }
 
@@ -159,7 +159,6 @@ final class Request extends RequestAbstract
      */
     public function getBody() : string
     {
-        // todo: implement
         return '';
     }
 

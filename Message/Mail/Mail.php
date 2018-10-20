@@ -197,13 +197,13 @@ class Mail
     /**
      * Set body.
      *
-     * @param string $overview Mail overview
+     * @param array $overview Mail overview
      *
      * @return void
      *
      * @since  1.0.0
      */
-    public function setOverview(string $overview) : void
+    public function setOverview(array $overview) : void
     {
         $this->overview = $overview;
     }

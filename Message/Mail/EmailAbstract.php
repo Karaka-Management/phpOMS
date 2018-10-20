@@ -65,6 +65,14 @@ class EmailAbstract
     protected $timeout = 30;
 
     /**
+     * Connection.
+     *
+     * @var mixed
+     * @since 1.0.0
+     */
+    protected $con = null;
+
+    /**
      * Construct
      *
      * @param string $host    Host
@@ -81,10 +89,10 @@ class EmailAbstract
         $this->timeout = $timeout;
         $this->ssl     = $ssl;
 
-        imap_timeout(IMAP_OPENTIMEOUT, $timeout);
-        imap_timeout(IMAP_READTIMEOUT, $timeout);
-        imap_timeout(IMAP_WRITETIMEOUT, $timeout);
-        imap_timeout(IMAP_CLOSETIMEOUT, $timeout);
+        \imap_timeout(IMAP_OPENTIMEOUT, $timeout);
+        \imap_timeout(IMAP_READTIMEOUT, $timeout);
+        \imap_timeout(IMAP_WRITETIMEOUT, $timeout);
+        \imap_timeout(IMAP_CLOSETIMEOUT, $timeout);
     }
 
     /**
@@ -99,13 +107,13 @@ class EmailAbstract
      */
     public static function decode(string $content, int $encoding)
     {
-        if ($encoding == 3) {
-            return imap_base64($content);
-        } elseif ($encoding == 1) {
-            return imap_8bit($content);
-        } else {
-            return imap_qprint($content);
+        if ($encoding === ContentEncoding::BASE64) {
+            return \imap_base64($content);
+        } elseif ($encoding === ContentEncoding::EIGHTBIT) {
+            return \imap_8bit($content);
         }
+
+        return \imap_qprint($content);
     }
 
     /**
@@ -127,8 +135,8 @@ class EmailAbstract
      */
     public function disconnect() : void
     {
-        if ($this->con === null) {
-            imap_close($this->con);
+        if ($this->con !== null) {
+            \imap_close($this->con);
             $this->con = null;
         }
     }
@@ -139,17 +147,22 @@ class EmailAbstract
      * @param string $user Username
      * @param string $pass Password
      *
-     * @return void
+     * @return bool
      *
      * @since  1.0.0
      */
-    public function connect(string $user = '', string $pass = '') : void
+    public function connect(string $user = '', string $pass = '') : bool
     {
         $this->mailbox = \substr($this->mailbox, 0, -1) . ($this->ssl ? '/ssl/validate-cert' : '/novalidate-cert') . '}';
 
-        // /novalidate-cert
-        if ($this->con === null) {
-            $this->con = imap_open($this->mailbox . 'INBOX', $user, $pass);
+        try {
+            $this->con = \imap_open($this->mailbox . 'INBOX', $user, $pass);
+
+            return true;
+        } catch (\Throwable $t) {
+            $this->con = null;
+
+            return false;
         }
     }
 
@@ -162,7 +175,7 @@ class EmailAbstract
      */
     public function isConnected() : bool
     {
-        return imap_ping($this->con);
+        return $this->con === null ? false : \imap_ping($this->con);
     }
 
     /**
@@ -176,36 +189,49 @@ class EmailAbstract
      */
     public function getBoxes(string $pattern = '*') : array
     {
-        return imap_list($this->con, $this->host, $pattern);
+        $list = \imap_list($this->con, $this->host, $pattern);
+
+        return $list === false ? [] : $list;
     }
 
     /**
      * Get inbox quota.
      *
-     * @return mixed
+     * @return array
      *
      * @since  1.0.0
      */
-    public function getQuota()
+    public function getQuota() : array
     {
-        return imap_get_quotaroot($this->con, "INBOX");
+        $quota = [];
+
+        try {
+            $quota = \imap_get_quotaroot($this->con, "INBOX");
+        } finally {
+            return $quota === false ? [] : $quota;
+        }
     }
 
     /**
      * Get email.
      *
-     * @param mixed $id mail id
+     * @param string $id mail id
      *
      * @return Mail
      *
      * @since  1.0.0
      */
-    public function getEmail($id) : Mail
+    public function getEmail(string $id) : Mail
     {
         $mail = new Mail($id);
-        $mail->setOverview(imap_fetch_overview($this->con, $id));
-        $mail->setBody(imap_fetchbody($this->con, $id, 2));
-        $mail->setEncoding(imap_fetchstructure($this->con, $id));
+
+        if ((int) $id > $this->countMessages()) {
+            return $mail;
+        }
+
+        $mail->setOverview(\imap_fetch_overview($this->con, $id));
+        $mail->setBody(\imap_fetchbody($this->con, (int) $id, '1.1'));
+        //$mail->setEncoding(\imap_fetchstructure($this->con, (int) $id));
 
         return $mail;
     }
@@ -233,9 +259,9 @@ class EmailAbstract
      */
     public function getInboxOverview(string $option = 'ALL') : array
     {
-        $ids = imap_search($this->con, $option, SE_FREE, 'UTF-8');
+        $ids = \imap_search($this->con, $option, SE_FREE, 'UTF-8');
 
-        return is_array($ids) ? imap_fetch_overview($this->con, \implode(',', $ids)) : [];
+        return \is_array($ids) ? \imap_fetch_overview($this->con, \implode(',', $ids)) : [];
     }
 
     /**
@@ -397,18 +423,6 @@ class EmailAbstract
     }
 
     /**
-     * List mailboxes
-     *
-     * @return array
-     *
-     * @since  1.0.0
-     */
-    public function listMailbox() : array
-    {
-        return imap_listmailbox($this->con, $this->mailbox, '*');
-    }
-
-    /**
      * Create mailbox
      *
      * @param string $mailbox Mailbox to create
@@ -419,7 +433,7 @@ class EmailAbstract
      */
     public function createMailbox(string $mailbox) : bool
     {
-        return imap_createmailbox($this->con, $mailbox);
+        return \imap_createmailbox($this->con, $mailbox);
     }
 
     /**
@@ -434,7 +448,7 @@ class EmailAbstract
      */
     public function renameMailbox(string $old, string $new) : bool
     {
-        return imap_renamemailbox($this->con, $old, $new);
+        return \imap_renamemailbox($this->con, $old, $new);
     }
 
     /**
@@ -448,7 +462,7 @@ class EmailAbstract
      */
     public function deleteMailbox(string $mailbox) : bool
     {
-        return imap_deletemailbox($this->con, $mailbox);
+        return \imap_deletemailbox($this->con, $mailbox);
     }
 
     /**
@@ -462,7 +476,7 @@ class EmailAbstract
      */
     public function deleteMessage(int $id) : bool
     {
-        return imap_delete($this->con, $id);
+        return \imap_delete($this->con, $id);
     }
 
     /**
@@ -474,7 +488,7 @@ class EmailAbstract
      */
     public function deleteMarkedMessages() : bool
     {
-        return imap_expunge($this->con);
+        return \imap_expunge($this->con);
     }
 
     /**
@@ -490,11 +504,11 @@ class EmailAbstract
     public function getMessageOverview(int $length = 0, int $start = 1) : array
     {
         if ($length === 0) {
-            $info   = imap_check($this->con);
+            $info   = \imap_check($this->con);
             $length = $info->Nmsgs;
         }
 
-        return imap_fetch_overview($mbox, $start . ':' . ($length + $start), 0);
+        return \imap_fetch_overview($this->con, $start . ':' . ($length - 1 + $start), 0);
     }
 
     /**
@@ -506,7 +520,7 @@ class EmailAbstract
      */
     public function countMessages() : int
     {
-        return imap_num_msg($this->con);
+        return \imap_num_msg($this->con);
     }
 
     /**
@@ -520,6 +534,10 @@ class EmailAbstract
      */
     public function getMessageHeader(int $id) : string
     {
-        return imap_fetchheader($this->con, $id);
+        if ($id > $this->countMessages()) {
+            return '';
+        }
+
+        return \imap_fetchheader($this->con, $id);
     }
 }

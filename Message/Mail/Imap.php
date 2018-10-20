@@ -34,7 +34,7 @@ class Imap extends EmailAbstract
      *
      * @since  1.0.0
      */
-    public function __construct(string $host = 'localhost', int $port = 25, int $timeout = 30, bool $ssl = false)
+    public function __construct(string $host = 'localhost', int $port = 143, int $timeout = 30, bool $ssl = false)
     {
         parent::__construct($host, $port, $timeout, $ssl);
     }
@@ -45,13 +45,14 @@ class Imap extends EmailAbstract
      * @param string $user Username
      * @param string $pass Password
      *
-     * @return void
+     * @return bool
      *
      * @since  1.0.0
      */
-    public function connect(string $user = '', string $pass = '') : void
+    public function connect(string $user = '', string $pass = '') : bool
     {
         $this->mailbox = '{' . $this->host . ':' . $this->port . '/imap}';
-        parent::connect();
+
+        return parent::connect($user, $pass);
     }
 }

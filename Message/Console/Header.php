@@ -73,10 +73,6 @@ final class Header extends HeaderAbstract
             return false;
         }
 
-        if (self::isSecurityHeader($key) && isset($this->header[$key])) {
-            return false;
-        }
-
         $key = \strtolower($key);
 
         if (!$overwrite && isset($this->header[$key])) {
@@ -95,72 +91,11 @@ final class Header extends HeaderAbstract
     }
 
     /**
-     * Is security header.
-     *
-     * @param string $key Header key
-     *
-     * @return bool
-     *
-     * @since  1.0.0
-     */
-    public static function isSecurityHeader(string $key) : bool
-    {
-        $key = \strtolower($key);
-
-        return $key === 'content-security-policy'
-            || $key === 'x-xss-protection'
-            || $key === 'x-content-type-options'
-            || $key === 'x-frame-options';
-    }
-
-    /**
      * {@inheritdoc}
      */
     public function getProtocolVersion() : string
     {
         return self::VERSION;
-    }
-
-    /**
-     * Get status code.
-     *
-     * @return int
-     *
-     * @since  1.0.0
-     */
-    public function getStatusCode() : int
-    {
-        if ($this->status === 0) {
-            $this->status = (int) \http_response_code();
-        }
-
-        return parent::getStatusCode();
-    }
-
-    /**
-     * Get all headers for apache and nginx
-     *
-     * @return array
-     *
-     * @since  1.0.0
-     */
-    public static function getAllHeaders() : array
-    {
-        if (\function_exists('getallheaders')) {
-            // @codeCoverageIgnoreStart
-            return getallheaders();
-            // @codeCoverageIgnoreEnd
-        }
-
-        $headers = [];
-        foreach ($_SERVER as $name => $value) {
-            $part = \substr($name, 5);
-            if ($part === 'HTTP_') {
-                $headers[\str_replace(' ', '-', \ucwords(\strtolower(\str_replace('_', ' ', $part))))] = $value;
-            }
-        }
-
-        return $headers;
     }
 
     /**
@@ -223,27 +158,6 @@ final class Header extends HeaderAbstract
     public function has(string $key) : bool
     {
         return isset($this->header[$key]);
-    }
-
-    /**
-     * Push all headers.
-     *
-     * @return void
-     *
-     * @since  1.0.0
-     * @codeCoverageIgnore
-     */
-    public function push() : void
-    {
-        if (self::$isLocked) {
-            throw new \Exception('Already locked');
-        }
-
-        foreach ($this->header as $name => $arr) {
-            foreach ($arr as $ele => $value) {
-                \header($name . ': ' . $value);
-            }
-        }
     }
 
     /**
