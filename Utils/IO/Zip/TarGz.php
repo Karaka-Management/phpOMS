@@ -31,6 +31,10 @@ class TarGz implements ArchiveInterface
      */
     public static function pack($source, string $destination, bool $overwrite = true) : bool
     {
+        if (!$overwrite && \file_exists($destination)) {
+            return false;
+        }
+
         if (!Tar::pack($source, $destination . '.tmp', $overwrite)) {
             return false;
         }
@@ -46,6 +50,10 @@ class TarGz implements ArchiveInterface
      */
     public static function unpack(string $source, string $destination) : bool
     {
+        if (!\file_exists($source)) {
+            return false;
+        }
+
         if (!Gz::unpack($source, $destination . '.tmp')) {
             return false;
         }
