@@ -56,12 +56,12 @@ class TarGz implements ArchiveInterface
             return false;
         }
 
-        if (!Gz::unpack($source, $destination . File::name($source) . '.tmp')) {
+        if (!Gz::unpack($source, $destination . '/' . File::name($source) . '.tmp')) {
             return false;
         }
 
-        $unpacked = Tar::unpack($destination . File::name($source) . '.tmp', $destination);
-        \unlink($destination . File::name($source) . '.tmp');
+        $unpacked = Tar::unpack($destination . '/' . File::name($source) . '.tmp', $destination);
+        \unlink($destination . '/' . File::name($source) . '.tmp');
 
         return $unpacked;
     }
