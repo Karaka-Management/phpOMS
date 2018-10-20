@@ -47,7 +47,7 @@ class Tar implements ArchiveInterface
                 $source   = $relative;
                 $relative = '';
             }
-            
+
             $source = \realpath($source);
 
             if ($source === false) {
@@ -102,7 +102,7 @@ class Tar implements ArchiveInterface
 
         $destination = \str_replace('\\', '/', $destination);
         $destination = \rtrim($destination, '/');
-        $tar         = new \PharData($destination);
+        $tar         = new \PharData($source);
 
         $tar->extractTo($destination . '/');
 
