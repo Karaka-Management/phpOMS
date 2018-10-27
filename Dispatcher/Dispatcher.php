@@ -105,7 +105,7 @@ final class Dispatcher
         $views    = [];
         $dispatch = \explode(':', $controller);
 
-        if (!\file_exists($path = __DIR__ . '/../../' . \str_replace('\\', '/', $dispatch[0]) . '.php')) {
+        if (!\file_exists($path = __DIR__ . '/../../' . \ltrim(\str_replace('\\', '/', $dispatch[0]), '/') . '.php')) {
             throw new PathException($path);
         }
 
