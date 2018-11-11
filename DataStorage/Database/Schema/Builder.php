@@ -14,7 +14,7 @@ declare(strict_types=1);
 
 namespace phpOMS\DataStorage\Database\Schema;
 
-use phpOMS\DataStorage\Database\BuilderAbstract;
+use phpOMS\DataStorage\Database\Query\Builder as QueryBuilder;
 use phpOMS\DataStorage\Database\Connection\ConnectionAbstract;
 
 /**
@@ -25,10 +25,8 @@ use phpOMS\DataStorage\Database\Connection\ConnectionAbstract;
  * @link       http://website.orange-management.de
  * @since      1.0.0
  */
-class Builder extends BuilderAbstract
+class Builder extends QueryBuilder
 {
-    public $table = [];
-
     public $drop = [];
 
     /**
@@ -42,13 +40,6 @@ class Builder extends BuilderAbstract
     {
         $this->connection = $connection;
         $this->grammar    = $connection->getSchemaGrammar();
-    }
-
-    public function select(...$table) : void
-    {
-        $this->type   = QueryType::SELECT;
-        $this->table += $table;
-        $this->table  = array_unique($this->table);
     }
 
     public function drop(...$table)

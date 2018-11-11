@@ -144,15 +144,15 @@ class Grammar extends GrammarAbstract
     {
         switch ($type) {
             case QueryType::SELECT:
-                return $components = $this->selectComponents;
+                return $this->selectComponents;
             case QueryType::INSERT:
-                return $components = $this->insertComponents;
+                return $this->insertComponents;
             case QueryType::UPDATE:
-                return $components = $this->updateComponents;
+                return $this->updateComponents;
             case QueryType::DELETE:
-                return $components = $this->deleteComponents;
+                return $this->deleteComponents;
             case QueryType::RANDOM:
-                return $components = $this->selectComponents;
+                return $this->selectComponents;
             default:
                 throw new \InvalidArgumentException('Unknown query type.');
         }

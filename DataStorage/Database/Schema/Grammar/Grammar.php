@@ -15,7 +15,7 @@ declare(strict_types=1);
 namespace phpOMS\DataStorage\Database\Schema\Grammar;
 
 use phpOMS\DataStorage\Database\BuilderAbstract;
-use phpOMS\DataStorage\Database\GrammarAbstract;
+use phpOMS\DataStorage\Database\Query\Grammar\Grammar as QueryGrammar;
 use phpOMS\DataStorage\Database\Schema\QueryType;
 
 /**
@@ -26,19 +26,8 @@ use phpOMS\DataStorage\Database\Schema\QueryType;
  * @link       http://website.orange-management.de
  * @since      1.0.0
  */
-class Grammar extends GrammarAbstract
+class Grammar extends QueryGrammar
 {
-    /**
-     * Select components.
-     *
-     * @var string[]
-     * @since 1.0.0
-     */
-    protected $selectComponents = [
-        'selects',
-        'from',
-    ];
-
     /**
      * Select components.
      *
@@ -50,34 +39,22 @@ class Grammar extends GrammarAbstract
     ];
 
     /**
-     * Compile components based on query type.
+     * Get query components based on query type.
      *
-     * @param BuilderAbstract $query Query
+     * @param int $type Query type
      *
-     * @return array
+     * @return array Array of components to build query
      *
      * @since  1.0.0
      */
-    public function compileComponents(BuilderAbstract $query) : array
+    private function getComponents(int $type) : array
     {
-        $sql = [];
-
-        switch ($query->getType()) {
+        switch ($type) {
             case QueryType::DROP:
-                $components = $this->dropComponents;
-                break;
+                return $this->dropComponents;
             default:
-                throw new \InvalidArgumentException('Unknown query type.');
+                return parent::getComponents($type);
         }
-
-        /* Loop all possible query components and if they exist compile them. */
-        foreach ($components as $component) {
-            if (isset($query->{$component}) && !empty($query->{$component})) {
-                $sql[$component] = $this->{'compile' . \ucfirst($component)}($query, $query->{$component});
-            }
-        }
-
-        return $sql;
     }
 
     /**

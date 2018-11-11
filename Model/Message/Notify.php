@@ -24,7 +24,7 @@ use phpOMS\Contract\ArrayableInterface;
  * @link       http://website.orange-management.de
  * @since      1.0.0
  */
-class Notify implements \Serializable, ArrayableInterface
+class Notify implements \Serializable, ArrayableInterface, \JsonSerializable
 {
 
     /**

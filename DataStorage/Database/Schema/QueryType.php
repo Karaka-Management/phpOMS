@@ -14,7 +14,7 @@ declare(strict_types=1);
 
 namespace phpOMS\DataStorage\Database\Schema;
 
-use phpOMS\Stdlib\Base\Enum;
+use phpOMS\DataStorage\Database\Query\QueryType as DefaultQueryType;
 
 /**
  * Database type enum.
@@ -26,10 +26,8 @@ use phpOMS\Stdlib\Base\Enum;
  * @link       http://website.orange-management.de
  * @since      1.0.0
  */
-abstract class QueryType extends Enum
+abstract class QueryType extends DefaultQueryType
 {
-    public const SELECT = 0;
-    public const CREATE = 1;
-    public const DROP   = 2;
-    public const ALTER  = 3;
+    public const DROP  = 128;
+    public const ALTER = 129;
 }

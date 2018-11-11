@@ -25,7 +25,7 @@ use phpOMS\DataStorage\Database\Connection\ConnectionAbstract;
  * @link       http://website.orange-management.de
  * @since      1.0.0
  */
-final class Builder extends BuilderAbstract
+class Builder extends BuilderAbstract
 {
     /**
      * Is read only.

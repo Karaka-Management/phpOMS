@@ -17,8 +17,31 @@ use phpOMS\DataStorage\Database\Schema\Builder;
 
 class BuilderTest extends \PHPUnit\Framework\TestCase
 {
-    public function testPlaceholder()
+    protected $con = null;
+
+    protected function setUp()
     {
-        self::markTestIncomplete();
+        $this->con = new MysqlConnection($GLOBALS['CONFIG']['db']['core']['masters']['admin']);
+    }
+
+    public function testMysqlDrop()
+    {
+        $query = new Builder($this->con);
+        $sql   = 'DROP DATABASE `test`;';
+        self::assertEquals($sql, $query->drop('test'));
+    }
+
+    public function testMysqlShowTables()
+    {
+        $query = new Builder($this->con);
+        $sql   = 'SELECT `table_name` FROM `information_schema`.`tables` WHERE `table_schema` = \'' . $GLOBALS['CONFIG']['db']['core']['masters']['admin']['database']. '\';';
+        self::assertEquals($sql, $query->selectTables());
+    }
+
+    public function testMysqlShowFields()
+    {
+        $query = new Builder($this->con);
+        $sql   = 'SELECT * FROM `information_schema`.`columns` WHERE `table_schema` = \'' . $GLOBALS['CONFIG']['db']['core']['masters']['admin']['database']. '\' AND t`able_name` = \'test\';';
+        self::assertEquals($sql, $query->selectFields('test'));
     }
 }
