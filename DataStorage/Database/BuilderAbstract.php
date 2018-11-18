@@ -68,7 +68,25 @@ abstract class BuilderAbstract
     public $raw = '';
 
     /**
-     * {@inheritdoc}
+     * Get connection
+     *
+     * @return DataStorageConnectionInterface
+     *
+     * @since  1.0.0
+     */
+    public function getConnection() : DataStorageConnectionInterface
+    {
+        return $this->connection;
+    }
+
+    /**
+     * Set table name prefix prefix
+     *
+     * @param string $prefix Table name prefix
+     *
+     * @return self
+     *
+     * @since  1.0.0
      */
     public function prefix(string $prefix) : self
     {

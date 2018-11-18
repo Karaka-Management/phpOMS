@@ -35,24 +35,23 @@ class MysqlGrammar extends Grammar
     protected $systemIdentifier = '`';
 
     /**
-     * Compile select.
+     * Compile from.
      *
-     * @param Builder $query   Builder
-     * @param array   $columns Columns
+     * @param Builder $query Builder
+     * @param array   $table Tables
      *
      * @return string
      *
      * @since  1.0.0
      */
-    protected function compileSelects(Builder $query, array $columns) : string
+    protected function compileSelectTables(Builder $query, array $table) : string
     {
-        $expression = $this->expressionizeTableColumn($columns);
+        $builder = new Builder($query->getConnection());
+        $builder->select('table_name')
+            ->from('information_schema.tables')
+            ->where('table_schema', '=', $query->getConnection()->getDatabase());
 
-        if ($expression === '') {
-            $expression = '*';
-        }
-
-        return $expression;
+        return \rtrim($builder->toSql(), ';');
     }
 
     /**
@@ -65,10 +64,14 @@ class MysqlGrammar extends Grammar
      *
      * @since  1.0.0
      */
-    protected function compileFrom(Builder $query, array $table) : string
+    protected function compileSelectFields(Builder $query, array $table) : string
     {
-        $expression = $this->expressionizeTableColumn(['information_schema.tables']);
+        $builder = new Builder($query->getConnection());
+        $builder->select('*')
+            ->from('information_schema.columns')
+            ->where('table_schema', '=', $query->getConnection()->getDatabase())
+            ->andWhere('table_name', '=', 'test');
 
-        return 'FROM ' . $expression;
+        return \rtrim($builder->toSql(), ';');
     }
 }

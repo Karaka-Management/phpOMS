@@ -99,48 +99,9 @@ class Grammar extends GrammarAbstract
     ];
 
     /**
-     * Compile components.
-     *
-     * @param BuilderAbstract $query Builder
-     *
-     * @return string[]
-     *
-     * @throws \InvalidArgumentException
-     *
-     * @since  1.0.0
+     * {@inheritdoc}
      */
-    protected function compileComponents(BuilderAbstract $query) : array
-    {
-        $sql = [];
-
-        if ($query->getType() === QueryType::RAW) {
-            return [$query->raw];
-        }
-
-        $components = $this->getComponents($query->getType());
-
-        /* Loop all possible query components and if they exist compile them. */
-        foreach ($components as $component) {
-            if (isset($query->{$component}) && !empty($query->{$component})) {
-                $sql[$component] = $this->{'compile' . \ucfirst($component)}($query, $query->{$component});
-            }
-        }
-
-        return $sql;
-    }
-
-    /**
-     * Get query components based on query type.
-     *
-     * @param int $type Query type
-     *
-     * @return array Array of components to build query
-     *
-     * @throws \InvalidArgumentException Throws this exception if the query type is undefined
-     *
-     * @since  1.0.0
-     */
-    private function getComponents(int $type) : array
+    protected function getComponents(int $type) : array
     {
         switch ($type) {
             case QueryType::SELECT:
@@ -401,7 +362,7 @@ class Grammar extends GrammarAbstract
      *
      * @since  1.0.0
      */
-    private function compileJoins(Builder $query, array $joins) : string
+    protected function compileJoins(Builder $query, array $joins) : string
     {
         $expression = '';
 
@@ -427,7 +388,7 @@ class Grammar extends GrammarAbstract
      *
      * @since  1.0.0
      */
-    private function compileOn(Builder $query, array $ons, bool $first = true) : string
+    protected function compileOn(Builder $query, array $ons, bool $first = true) : string
     {
         $expression = '';
 
@@ -494,7 +455,7 @@ class Grammar extends GrammarAbstract
      *
      * @since  1.0.0
      */
-    private function compileGroups(Builder $query, array $groups)
+    protected function compileGroups(Builder $query, array $groups)
     {
         $expression = '';
 
@@ -517,7 +478,7 @@ class Grammar extends GrammarAbstract
      *
      * @since  1.0.0
      */
-    private function compileOrders(Builder $query, array $orders) : string
+    protected function compileOrders(Builder $query, array $orders) : string
     {
         $expression = '';
 
@@ -539,12 +500,12 @@ class Grammar extends GrammarAbstract
         return 'ORDER BY ' . $expression;
     }
 
-    private function compileUnions()
+    protected function compileUnions()
     {
         return '';
     }
 
-    private function compileLock()
+    protected function compileLock()
     {
         return '';
     }

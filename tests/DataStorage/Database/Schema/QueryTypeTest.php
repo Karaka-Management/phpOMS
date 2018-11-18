@@ -19,10 +19,12 @@ class QueryTypeTest extends \PHPUnit\Framework\TestCase
 {
     public function testEnums()
     {
-        self::assertEquals(2, \count(QueryType::getConstants()));
+        self::assertEquals(11, \count(QueryType::getConstants()));
         self::assertEquals(QueryType::getConstants(), array_unique(QueryType::getConstants()));
 
         self::assertEquals(128, QueryType::DROP);
         self::assertEquals(129, QueryType::ALTER);
+        self::assertEquals(130, QueryType::TABLES);
+        self::assertEquals(131, QueryType::FIELDS);
     }
 }

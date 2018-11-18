@@ -29,6 +29,10 @@ class Builder extends QueryBuilder
 {
     public $drop = [];
 
+    public $selectTables = ['*'];
+
+    public $selectFields = [];
+
     /**
      * Constructor.
      *
@@ -42,11 +46,29 @@ class Builder extends QueryBuilder
         $this->grammar    = $connection->getSchemaGrammar();
     }
 
-    public function drop(...$table)
+    public function drop(...$table) : Builder
     {
         $this->type  = QueryType::DROP;
         $this->drop += $table;
-        $this->drop  = array_unique($this->drop);
+        $this->drop  = \array_unique($this->drop);
+
+        return $this;
+    }
+
+    public function selectTables() : Builder
+    {
+        $this->type = QueryType::TABLES;
+
+        return $this;
+    }
+
+    public function selectFields(string $table) : Builder
+    {
+        $this->type = QueryType::FIELDS;
+
+        $this->selectFields[0] = $table;
+
+        return $this;
     }
 
     public function create(string $table)

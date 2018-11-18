@@ -14,6 +14,8 @@ declare(strict_types=1);
 
 namespace phpOMS\DataStorage\Database;
 
+use phpOMS\DataStorage\Database\Query\QueryType;
+
 /**
  * Grammar.
  *
@@ -106,15 +108,48 @@ abstract class GrammarAbstract
     }
 
     /**
-     * Compile query components.
+     * Compile components.
      *
      * @param BuilderAbstract $query Builder
      *
-     * @return array Parsed query components
+     * @return string[]
+     *
+     * @throws \InvalidArgumentException
      *
      * @since  1.0.0
      */
-    abstract protected function compileComponents(BuilderAbstract $query) : array;
+    protected function compileComponents(BuilderAbstract $query) : array
+    {
+        $sql = [];
+
+        if ($query->getType() === QueryType::RAW) {
+            return [$query->raw];
+        }
+
+        $components = $this->getComponents($query->getType());
+
+        /* Loop all possible query components and if they exist compile them. */
+        foreach ($components as $component) {
+            if (isset($query->{$component}) && !empty($query->{$component})) {
+                $sql[$component] = $this->{'compile' . \ucfirst($component)}($query, $query->{$component});
+            }
+        }
+
+        return $sql;
+    }
+
+    /**
+     * Get query components based on query type.
+     *
+     * @param int $type Query type
+     *
+     * @return array Array of components to build query
+     *
+     * @throws \InvalidArgumentException Throws this exception if the query type is undefined
+     *
+     * @since  1.0.0
+     */
+    abstract protected function getComponents(int $type) : array;
 
     /**
      * Get date format.
@@ -245,10 +280,18 @@ abstract class GrammarAbstract
         }
 
         // todo: move remaining * test also here not just if .* but also if * (should be done in else?)
-        if (\count($split = \explode('.', $system)) === 2) {
-            $system = $split[1] === '*' ? $split[1] : $this->compileSystem($split[1]);
+        if (\count($split = \explode('.', $system)) > 1) {
+            $fullSystem = '';
 
-            return $this->compileSystem($prefix . $split[0]) . '.' . $system;
+            foreach ($split as $key => $system) {
+                if ($key === 0) {
+                    $fullSystem .= $this->compileSystem($prefix . $system);
+                } else {
+                    $fullSystem .= '.' . ($system === '*' ? '*' : $this->compileSystem($system));
+                }
+            }
+
+            return $fullSystem;
         }
 
         return $identifier . $prefix . $system . $identifier;

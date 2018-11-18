@@ -13,6 +13,7 @@
 
 namespace phpOMS\tests\DataStorage\Database\Schema;
 
+use phpOMS\DataStorage\Database\Connection\MysqlConnection;
 use phpOMS\DataStorage\Database\Schema\Builder;
 
 class BuilderTest extends \PHPUnit\Framework\TestCase
@@ -28,20 +29,20 @@ class BuilderTest extends \PHPUnit\Framework\TestCase
     {
         $query = new Builder($this->con);
         $sql   = 'DROP DATABASE `test`;';
-        self::assertEquals($sql, $query->drop('test'));
+        self::assertEquals($sql, $query->drop('test')->toSql());
     }
 
     public function testMysqlShowTables()
     {
         $query = new Builder($this->con);
-        $sql   = 'SELECT `table_name` FROM `information_schema`.`tables` WHERE `table_schema` = \'' . $GLOBALS['CONFIG']['db']['core']['masters']['admin']['database']. '\';';
-        self::assertEquals($sql, $query->selectTables());
+        $sql   = 'SELECT `table_name` FROM `information_schema`.`tables` WHERE `information_schema`.`tables`.`table_schema` = \'' . $GLOBALS['CONFIG']['db']['core']['masters']['admin']['database']. '\';';
+        self::assertEquals($sql, $query->selectTables()->toSql());
     }
 
     public function testMysqlShowFields()
     {
         $query = new Builder($this->con);
-        $sql   = 'SELECT * FROM `information_schema`.`columns` WHERE `table_schema` = \'' . $GLOBALS['CONFIG']['db']['core']['masters']['admin']['database']. '\' AND t`able_name` = \'test\';';
-        self::assertEquals($sql, $query->selectFields('test'));
+        $sql   = 'SELECT * FROM `information_schema`.`columns` WHERE `information_schema`.`columns`.`table_schema` = \'' . $GLOBALS['CONFIG']['db']['core']['masters']['admin']['database']. '\' AND `information_schema`.`columns`.`table_name` = \'test\';';
+        self::assertEquals($sql, $query->selectFields('test')->toSql());
     }
 }

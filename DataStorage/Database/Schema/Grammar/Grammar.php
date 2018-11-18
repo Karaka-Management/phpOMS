@@ -29,7 +29,7 @@ use phpOMS\DataStorage\Database\Schema\QueryType;
 class Grammar extends QueryGrammar
 {
     /**
-     * Select components.
+     * Drop components.
      *
      * @var string[]
      * @since 1.0.0
@@ -39,19 +39,37 @@ class Grammar extends QueryGrammar
     ];
 
     /**
-     * Get query components based on query type.
+     * Select tables components.
      *
-     * @param int $type Query type
-     *
-     * @return array Array of components to build query
-     *
-     * @since  1.0.0
+     * @var string[]
+     * @since 1.0.0
      */
-    private function getComponents(int $type) : array
+    protected $tablesComponents = [
+        'selectTables'
+    ];
+
+    /**
+     * Select field components.
+     *
+     * @var string[]
+     * @since 1.0.0
+     */
+    protected $fieldsComponents = [
+        'selectFields'
+    ];
+
+    /**
+     * {@inheritdoc}
+     */
+    protected function getComponents(int $type) : array
     {
         switch ($type) {
             case QueryType::DROP:
                 return $this->dropComponents;
+            case QueryType::TABLES:
+                return $this->tablesComponents;
+            case QueryType::FIELDS:
+                return $this->fieldsComponents;
             default:
                 return parent::getComponents($type);
         }
@@ -75,6 +93,6 @@ class Grammar extends QueryGrammar
             $expression = '*';
         }
 
-        return 'DROP TABLE ' . $expression;
+        return 'DROP DATABASE ' . $expression;
     }
 }
