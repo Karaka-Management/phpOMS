@@ -62,7 +62,7 @@ final class Header extends HeaderAbstract
      */
     public function set(string $key, string $header, bool $overwrite = false) : bool
     {
-        if (self::$isLocked) {
+        if ($this->isLocked) {
             return false;
         }
 
@@ -167,7 +167,7 @@ final class Header extends HeaderAbstract
      */
     public function remove($key) : bool
     {
-        if (self::$isLocked) {
+        if ($this->isLocked) {
             return false;
         }
 
@@ -228,7 +228,7 @@ final class Header extends HeaderAbstract
      */
     public function push() : void
     {
-        if (self::$isLocked) {
+        if ($this->isLocked) {
             throw new \Exception('Already locked');
         }
 

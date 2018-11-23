@@ -37,7 +37,7 @@ class HttpSession implements SessionInterface
      * @var bool
      * @since 1.0.0
      */
-    private static $isLocked = false;
+    private $isLocked = false;
 
     /**
      * Raw session data.
@@ -76,7 +76,7 @@ class HttpSession implements SessionInterface
      */
     public function __construct(int $liftetime = 3600, $sid = false, int $inactivityInterval = 0)
     {
-        if (self::$isLocked) {
+        if ($this->isLocked) {
             throw new LockException('HttpSession');
         }
 
@@ -153,7 +153,7 @@ class HttpSession implements SessionInterface
      */
     public function lock() : void
     {
-        self::$isLocked = true;
+        $this->isLocked = true;
     }
 
     /**
@@ -163,9 +163,9 @@ class HttpSession implements SessionInterface
      *
      * @since  1.0.0
      */
-    public static function isLocked() : bool
+    public function isLocked() : bool
     {
-        return self::$isLocked;
+        return $this->isLocked;
     }
 
     /**
@@ -173,7 +173,7 @@ class HttpSession implements SessionInterface
      */
     public function save() : void
     {
-        if (!self::$isLocked) {
+        if (!$this->isLocked) {
             $_SESSION = $this->sessionData;
             \session_write_close();
         }

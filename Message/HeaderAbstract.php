@@ -32,7 +32,7 @@ abstract class HeaderAbstract
      * @var bool
      * @since 1.0.0
      */
-    protected static $isLocked = false;
+    protected $isLocked = false;
 
     /**
      * Localization.
@@ -75,10 +75,9 @@ abstract class HeaderAbstract
      *
      * @since  1.0.0
      */
-    public static function lock() : void
+    public function lock() : void
     {
-        // todo: maybe pass session as member and make lock not static
-        self::$isLocked = true;
+        $this->isLocked = true;
     }
 
     /**
@@ -88,9 +87,9 @@ abstract class HeaderAbstract
      *
      * @since  1.0.0
      */
-    public static function isLocked() : bool
+    public function isLocked() : bool
     {
-        return self::$isLocked;
+        return $this->isLocked;
     }
 
     /**

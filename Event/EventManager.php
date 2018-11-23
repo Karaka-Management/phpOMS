@@ -43,15 +43,6 @@ final class EventManager
     private $callbacks = [];
 
     /**
-     * Constructor.
-     *
-     * @since  1.0.0
-     */
-    public function __construct()
-    {
-    }
-
-    /**
      * Attach new event
      *
      * @param string $group    Name of the event (unique)
@@ -96,7 +87,6 @@ final class EventManager
         }
 
         if (!$this->hasOutstanding($group)) {
-            // todo if it is route then call dispatcher?
             $this->callbacks[$group]['func']($data);
 
             if ($this->callbacks[$group]['remove']) {

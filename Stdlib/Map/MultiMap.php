@@ -107,7 +107,7 @@ class MultiMap implements \Countable
         }
 
         // todo: is this really required???? - i don't think so!
-        $this->garbageCollect();
+        //$this->garbageCollect();
 
         return $inserted;
     }

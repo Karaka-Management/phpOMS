@@ -20,6 +20,8 @@ use phpOMS\Message\ResponseAbstract;
 use phpOMS\System\MimeType;
 use phpOMS\Views\View;
 use phpOMS\Message\Http\RequestStatusCode;
+use phpOMS\Log\FileLogger;
+use phpOMS\Log\LogLevel;
 
 /**
  * Response class.
@@ -164,8 +166,15 @@ final class Response extends ResponseAbstract implements RenderableInterface
                 }
             }
         } catch (\Exception $e) {
-            // todo: handle exception
-            // need to to try catch for logging. otherwise the json_encode in the logger will have a problem with this
+            FileLogger::getInstance('', false)
+                ->error(
+                    FileLogger::MSG_FULL, [
+                        'message' => $e->getMessage(),
+                        'line'    => __LINE__,
+                        'file'    => Response::class,
+                    ]
+                );
+
             $result = [];
         } finally {
             return $result;

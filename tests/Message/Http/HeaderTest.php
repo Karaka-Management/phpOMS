@@ -70,8 +70,8 @@ class HeaderTest extends \PHPUnit\Framework\TestCase
     public function testLockedHeaderSet()
     {
         $header = new Header();
-        Header::lock();
-        self::assertTrue(Header::isLocked());
+        $header->lock();
+        self::assertTrue($header->isLocked());
         self::assertFalse($header->set('key', 'value'));
 
         TestUtils::setMember('phpOMS\Message\Http\Header', 'isLocked', false);
@@ -80,8 +80,8 @@ class HeaderTest extends \PHPUnit\Framework\TestCase
     public function testLockedHeaderRemove()
     {
         $header = new Header();
-        Header::lock();
-        self::assertTrue(Header::isLocked());
+        $header->lock();
+        self::assertTrue($header->isLocked());
         self::assertFalse($header->remove('key'));
 
         TestUtils::setMember('phpOMS\Message\Http\Header', 'isLocked', false);

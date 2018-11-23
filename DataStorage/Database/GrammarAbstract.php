@@ -269,9 +269,9 @@ abstract class GrammarAbstract
      */
     protected function compileSystem(string $system, string $prefix = '') : string
     {
-        // todo: this is a bad way to handle select \count(*) which doesn't need a prefix. Maybe remove prefixes in total?
         $identifier = $this->systemIdentifier;
 
+        // todo: this is a bad way to handle select \count(*) which doesn't need a prefix. Maybe remove prefixes in total?
         foreach ($this->specialKeywords as $keyword) {
             if (\strrpos($system, $keyword, -\strlen($system)) !== false) {
                 $prefix     = '';
@@ -279,7 +279,6 @@ abstract class GrammarAbstract
             }
         }
 
-        // todo: move remaining * test also here not just if .* but also if * (should be done in else?)
         if (\count($split = \explode('.', $system)) > 1) {
             $fullSystem = '';
 

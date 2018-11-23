@@ -98,11 +98,11 @@ final class FileLogger implements LoggerInterface
      */
     public function __construct(string $lpath, bool $verbose = false)
     {
-        $path          = \realpath($lpath);
+        $path          = \realpath(empty($lpath) ? __DIR__ . '/../../' : $lpath);
         $this->verbose = $verbose;
 
         if (\is_dir($lpath) || \strpos($lpath, '.') === false) {
-            $path = $lpath . '/' . \date('Y-m-d') . '.log';
+            $path = \rtrim($lpath, '/') . '/' . \date('Y-m-d') . '.log';
         } else {
             $path = $lpath;
         }
