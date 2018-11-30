@@ -41,7 +41,6 @@ class HeaderTest extends \PHPUnit\Framework\TestCase
         self::assertTrue(Header::isSecurityHeader('X-xss-protection'));
         self::assertTrue(Header::isSecurityHeader('x-conTent-tYpe-options'));
         self::assertTrue(Header::isSecurityHeader('x-frame-options'));
-
         self::assertFalse(Header::isSecurityHeader('x-frame-optionss'));
     }
 
@@ -73,8 +72,6 @@ class HeaderTest extends \PHPUnit\Framework\TestCase
         $header->lock();
         self::assertTrue($header->isLocked());
         self::assertFalse($header->set('key', 'value'));
-
-        TestUtils::setMember('phpOMS\Message\Http\Header', 'isLocked', false);
     }
 
     public function testLockedHeaderRemove()
@@ -83,8 +80,6 @@ class HeaderTest extends \PHPUnit\Framework\TestCase
         $header->lock();
         self::assertTrue($header->isLocked());
         self::assertFalse($header->remove('key'));
-
-        TestUtils::setMember('phpOMS\Message\Http\Header', 'isLocked', false);
     }
 
     public function testGeneration()
