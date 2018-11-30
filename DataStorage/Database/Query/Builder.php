@@ -524,25 +524,6 @@ class Builder extends BuilderAbstract
     }
 
     /**
-     * Get table name of system
-     *
-     * @param mixed  $expression       System expression
-     * @param string $systemIdentifier System identifier
-     *
-     * @return string|null
-     *
-     * @since  1.0.0
-     */
-    public function getTableOfSystem($expression, string $systemIdentifier) : ?string
-    {
-        if (($pos = \strpos($expression, $systemIdentifier . '.' . $systemIdentifier)) === false) {
-            return null;
-        }
-
-        return \explode('.', $expression)[0];
-    }
-
-    /**
      * Where and sub condition.
      *
      * @param Where|string|\Closure|array $where    Where sub condition
