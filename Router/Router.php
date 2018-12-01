@@ -46,14 +46,14 @@ final class Router
      */
     public function importFromFile(string $path) : bool
     {
-        if (\file_exists($path)) {
-            /** @noinspection PhpIncludeInspection */
-            $this->routes += include $path;
-
-            return true;
+        if (!\file_exists($path)) {
+            return false;
         }
 
-        return false;
+        /** @noinspection PhpIncludeInspection */
+        $this->routes += include $path;
+
+        return true;
     }
 
     /**
