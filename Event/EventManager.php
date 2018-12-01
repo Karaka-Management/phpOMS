@@ -78,10 +78,35 @@ final class EventManager
      */
     public function trigger(string $group, string $id = '', $data = null) : bool
     {
-        if (!isset($this->callbacks[$group])) {
-            return false;
+        if (isset($this->callbacks[$group])) {
+            return $this->triggerSingleEvent($group, $id, $data);
         }
 
+        $allGroups = \array_keys($this->callbacks);
+        $result    = false;
+
+        foreach ($allGroups as $match) {
+            if(\preg_match('~^' . $group . '$~', $match) === 1) {
+                $result = $result || $this->triggerSingleEvent($match, $id, $data);
+            }
+        }
+
+        return $result;
+    }
+
+    /**
+     * Trigger event
+     *
+     * @param string $group Name of the event
+     * @param string $id    Sub-requirement for event
+     * @param mixed  $data  Data to pass to the callback
+     *
+     * @return bool Returns true on sucessfully triggering the event, false if the event couldn't be triggered which also includes sub-requirements missing.
+     *
+     * @since  1.0.0
+     */
+    private function triggerSingleEvent(string $group, string $id = '', $data = null) : bool
+    {
         if (isset($this->groups[$group])) {
             $this->groups[$group][$id] = true;
         }
