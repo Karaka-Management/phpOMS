@@ -70,6 +70,35 @@ final class EventManager
     }
 
     /**
+     * Add events from file.
+     *
+     * @param string $path Hook file path
+     *
+     * @return bool
+     *
+     * @since  1.0.0
+     */
+    public function importFromFile(string $path) : bool
+    {
+        if (!\file_exists($path)) {
+            return false;
+        }
+
+        /** @noinspection PhpIncludeInspection */
+        $hooks = include $path;
+
+        foreach ($hooks as $group => $hook) {
+            foreach ($hook['callback'] as $callbacks) {
+                foreach ($callbacks as $callback) {
+                    $this->attach($group, $callback, $hook['remove'] ?? false, $hook['reset'] ?? true);
+                }
+            }
+        }
+
+        return true;
+    }
+
+    /**
      * Attach new event
      *
      * @param string $group    Name of the event (unique)
