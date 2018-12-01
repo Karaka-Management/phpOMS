@@ -86,7 +86,7 @@ final class EventManager
         $result    = false;
 
         foreach ($allGroups as $match) {
-            if(\preg_match('~^' . $group . '$~', $match) === 1) {
+            if (\preg_match('~^' . $group . '$~', $match) === 1) {
                 $result = $result || $this->triggerSingleEvent($match, $id, $data);
             }
         }
