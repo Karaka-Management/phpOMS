@@ -14,6 +14,8 @@ declare(strict_types=1);
 
 namespace phpOMS\Event;
 
+use phpOMS\Dispatcher\Dispatcher;
+
 /**
  * EventManager class.
  *
@@ -43,6 +45,31 @@ final class EventManager
     private $callbacks = [];
 
     /**
+     * Dispatcher.
+     *
+     * @var Dispatcher|Object<dispatch>
+     * @since 1.0.0
+     */
+    private $dispatcher = null;
+
+    /**
+     * Constructor.
+     *
+     * @param Dispatcher $dispatcher Dispatcher
+     *
+     * @since  1.0.0
+     */
+    public function __construct(Dispatcher $dispatcher = null)
+    {
+        $this->dispatcher = $dispatcher ?? new class {
+            function dispatch($func, array $data)
+            {
+                $func(...$data);
+            }
+        };
+    }
+
+    /**
      * Attach new event
      *
      * @param string $group    Name of the event (unique)
@@ -56,11 +83,11 @@ final class EventManager
      */
     public function attach(string $group, $callback, bool $remove = false, bool $reset = false) : bool
     {
-        if (isset($this->callbacks[$group])) {
-            return false;
+        if (!isset($this->callbacks[$group])) {
+            $this->callbacks[$group] = ['remove' => $remove, 'reset' => $reset, 'callbacks' => []];
         }
 
-        $this->callbacks[$group] = ['remove' => $remove, 'reset' => $reset, 'func' => $callback];
+        $this->callbacks[$group]['callbacks'][] = $callback;
 
         return true;
     }
@@ -112,7 +139,9 @@ final class EventManager
         }
 
         if (!$this->hasOutstanding($group)) {
-            $this->callbacks[$group]['func']($data);
+            foreach ($this->callbacks[$group]['callbacks'] as $func) {
+                $this->dispatcher->disptach($func, ...$data);
+            }
 
             if ($this->callbacks[$group]['remove']) {
                 $this->detach($group);
