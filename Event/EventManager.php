@@ -62,9 +62,13 @@ final class EventManager
     public function __construct(Dispatcher $dispatcher = null)
     {
         $this->dispatcher = $dispatcher ?? new class {
-            function dispatch($func, array $data)
+            public function dispatch($func, $data)
             {
-                $func(...$data);
+                if (\is_array($data)) {
+                    $func(...$data);
+                } else {
+                    $func($data);
+                }
             }
         };
     }
@@ -88,10 +92,8 @@ final class EventManager
         $hooks = include $path;
 
         foreach ($hooks as $group => $hook) {
-            foreach ($hook['callback'] as $callbacks) {
-                foreach ($callbacks as $callback) {
-                    $this->attach($group, $callback, $hook['remove'] ?? false, $hook['reset'] ?? true);
-                }
+            foreach ($hook['callback'] as $callback) {
+                $this->attach($group, $callback, $hook['remove'] ?? false, $hook['reset'] ?? true);
             }
         }
 
@@ -142,7 +144,7 @@ final class EventManager
         $result    = false;
 
         foreach ($allGroups as $match) {
-            if (\preg_match('~^' . $group . '$~', $match) === 1) {
+            if (\preg_match('~^' . $match . '$~', $group) === 1) {
                 $result = $result || $this->triggerSingleEvent($match, $id, $data);
             }
         }
@@ -169,7 +171,11 @@ final class EventManager
 
         if (!$this->hasOutstanding($group)) {
             foreach ($this->callbacks[$group]['callbacks'] as $func) {
-                $this->dispatcher->disptach($func, ...$data);
+                if (\is_array($data)) {
+                    $this->dispatcher->dispatch($func, ...$data);
+                } else {
+                    $this->dispatcher->dispatch($func, $data);
+                }
             }
 
             if ($this->callbacks[$group]['remove']) {
@@ -195,6 +201,10 @@ final class EventManager
      */
     private function reset(string $group) : void
     {
+        if (!isset($this->groups[$group])) {
+            return;
+        }
+
         foreach ($this->groups[$group] as $id => $ok) {
             $this->groups[$group][$id] = false;
         }

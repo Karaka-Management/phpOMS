@@ -1730,6 +1730,8 @@ class DataMapperAbstract implements DataMapperInterface
         }
 
         if (!isset($obj)) {
+            // todo: implement solution for classes with constructor arguments
+            // maybe implement a factory pattern for every datamapper model
             $obj = new $class();
         }
 

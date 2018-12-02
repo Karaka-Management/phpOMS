@@ -40,7 +40,7 @@ class EventManagerTest extends \PHPUnit\Framework\TestCase
         $event = new EventManager();
 
         self::assertTrue($event->attach('group', function() { return true; }, false, false));
-        self::assertFalse($event->attach('group', function() { return true; }, false, false));
+        self::assertTrue($event->attach('group', function() { return true; }, false, false));
         self::assertEquals(1, $event->count());
     }
 
