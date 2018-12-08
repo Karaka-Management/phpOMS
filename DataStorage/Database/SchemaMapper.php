@@ -48,8 +48,7 @@ class SchemaMapper
         $tNames  = $builder->selectTables()->execute();
 
         $tables = [];
-        foreach ($tNames as $name)
-        {
+        foreach ($tNames as $name) {
             $tables[] = $this->getTable($name);
         }
 
@@ -69,8 +68,7 @@ class SchemaMapper
         $tNames  = $builder->selectFields()->execute();
 
         $fields = [];
-        foreach ($tNames as $name)
-        {
+        foreach ($tNames as $name) {
             $fields[] = $this->getField($name);
         }
 
