@@ -25,7 +25,13 @@ namespace phpOMS\Utils\Encoding;
 final class Gray
 {
     /**
-     * {@inheritdoc}
+     * Encode source text
+     *
+     * @param int $source Source to encode
+     *
+     * @return int
+     *
+     * @since  1.0.0
      */
     public static function encode(int $source) : int
     {
@@ -33,7 +39,13 @@ final class Gray
     }
 
     /**
-     * {@inheritdoc}
+     * Dedecodes text
+     *
+     * @param int $gray encoded value to dedecode
+     *
+     * @return int
+     *
+     * @since  1.0.0
      */
     public static function decode(int $gray) : int
     {

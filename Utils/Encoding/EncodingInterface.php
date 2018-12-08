@@ -38,7 +38,7 @@ interface EncodingInterface
     /**
      * Dedecodes text
      *
-     * @param string $decoded decoded text to dedecode
+     * @param string $decoded encoded text to dedecode
      *
      * @return string
      *

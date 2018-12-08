@@ -26,7 +26,14 @@ final class XorEncoding
 {
 
     /**
-     * {@inheritdoc}
+     * Decode text
+     *
+     * @param string $raw Source to encode
+     * @param string $key Key used for decoding
+     *
+     * @return string
+     *
+     * @since  1.0.0
      */
     public static function decode(string $raw, string $key) : string
     {
@@ -34,7 +41,14 @@ final class XorEncoding
     }
 
     /**
-     * {@inheritdoc}
+     * Encode source text
+     *
+     * @param string $source Source to encode
+     * @param string $key    Key used for encoding
+     *
+     * @return string
+     *
+     * @since  1.0.0
      */
     public static function encode(string $source, string $key) : string
     {
