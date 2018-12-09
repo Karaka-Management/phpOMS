@@ -14,6 +14,10 @@ declare(strict_types=1);
 
 namespace phpOMS\Module;
 
+use phpOMS\Message\RequestAbstract;
+use phpOMS\Message\ResponseAbstract;
+use phpOMS\System\MimeType;
+
 /**
  * Module abstraction class.
  *
@@ -21,6 +25,9 @@ namespace phpOMS\Module;
  * @license    OMS License 1.0
  * @link       http://website.orange-management.de
  * @since      1.0.0
+ *
+ * @todo: maybe move to Modules because this is very project specific and not general enough for a framework
+ * @todo: maybe move all of the Module\classes parts to the Modules\?
  */
 abstract class ModuleAbstract
 {
@@ -177,5 +184,153 @@ abstract class ModuleAbstract
     {
         /** @noinspection PhpUndefinedFieldInspection */
         return static::$dependencies;
+    }
+
+    /**
+     * Fills the response object
+     *
+     * @param RequestAbstract  $request  Request
+     * @param ResponseAbstract $response Response
+     * @param string           $status   Response status
+     * @param string           $title    Response title
+     * @param string           $message  Response message
+     * @param mixed            $obj      Response object
+     *
+     * @return void
+     *
+     * @since  1.0.0
+     */
+    protected function fillJsonResponse(
+        RequestAbstract $request,
+        ResponseAbstract $response,
+        string $status,
+        string $title,
+        string $message,
+        $obj
+    ) : void
+    {
+        $response->getHeader()->set('Content-Type', MimeType::M_JSON . '; charset=utf-8', true);
+        $response->set($request->getUri()->__toString(), [
+            'status' => $status,
+            'title' => $title,
+            'message' => $message,
+            'response' => $obj,
+        ]);
+    }
+
+    /**
+     * Fills the response object
+     *
+     * @param RequestAbstract  $request  Request
+     * @param ResponseAbstract $response Response
+     * @param mixed            $obj      Response object
+     *
+     * @return void
+     *
+     * @since  1.0.0
+     */
+    protected function fillJsonRawResponse(RequestAbstract $request, ResponseAbstract $response, $obj) : void
+    {
+        $response->getHeader()->set('Content-Type', MimeType::M_JSON . '; charset=utf-8', true);
+        $response->set($request->getUri()->__toString(), $obj);
+    }
+
+    /**
+     * Create a model
+     *
+     * @param RequestAbstract $request  Request
+     * @param mixed           $obj      Response object
+     * @param string          $mapper   Object mapper
+     * @param string          $trigger  Trigger for the event manager
+     *
+     * @return void
+     *
+     * @since  1.0.0
+     */
+    protected function createModel(RequestAbstract $request, $obj, string $mapper, string $trigger) : void
+    {
+        $this->app->eventManager->trigger('PRE:Module:' . self::MODULE_NAME . '-' . $trigger . '-create', '', $obj);
+        $mapper::create($obj);
+        $this->app->eventManager->trigger('POST:Module:' . self::MODULE_NAME . '-' . $trigger . '-create', '', [
+            $request->getHEader()->getAccount(),
+            null,
+            $obj,
+        ]);
+    }
+
+    /**
+     * Update a model
+     *
+     * @param RequestAbstract $request  Request
+     * @param mixed           $old      Response object old
+     * @param mixed           $new      Response object new
+     * @param string|\Closure $mapper   Object mapper
+     * @param string          $trigger  Trigger for the event manager
+     *
+     * @return void
+     *
+     * @since  1.0.0
+     */
+    protected function updateModel(RequestAbstract $request, $old, $new, $mapper, string $trigger) : void
+    {
+        $this->app->eventManager->trigger('PRE:Module:' . self::MODULE_NAME . '-' . $trigger . '-update', '', $old);
+        if (\is_string($mapper)) {
+            $mapper::update($new);
+        } elseif ($mapper instanceof \Closure) {
+            $mapper();
+        }
+        $this->app->eventManager->trigger('POST:Module:' . self::MODULE_NAME . '-' . $trigger . '-update', '', [
+            $request->getHEader()->getAccount(),
+            $old,
+            $new,
+        ]);
+    }
+
+    /**
+     * Delete a model
+     *
+     * @param RequestAbstract $request  Request
+     * @param mixed           $obj      Response object
+     * @param string          $mapper   Object mapper
+     * @param string          $trigger  Trigger for the event manager
+     *
+     * @return void
+     *
+     * @since  1.0.0
+     */
+    protected function deleteModel(RequestAbstract $request, $obj, string $mapper, string $trigger) : void
+    {
+        $this->app->eventManager->trigger('PRE:Module:' . self::MODULE_NAME . '-' . $trigger . '-delete', '', $obj);
+        $mapper::delete($obj);
+        $this->app->eventManager->trigger('POST:Module:' . self::MODULE_NAME . '-' . $trigger . '-delete', '', [
+            $request->getHEader()->getAccount(),
+            $obj,
+            null,
+        ]);
+    }
+
+    /**
+     * Create a model relation
+     *
+     * @param RequestAbstract $request  Request
+     * @param mixed           $rel1     Response object relation1
+     * @param mixed           $rel2     Response object relation2
+     * @param string          $mapper   Object mapper
+     * @param string          $field    Relation field
+     * @param string          $trigger  Trigger for the event manager
+     *
+     * @return void
+     *
+     * @since  1.0.0
+     */
+    protected function createModelRelation(RequestAbstract $request, $rel1, $rel2, string $mapper, string $field, string $trigger) : void
+    {
+        $this->app->eventManager->trigger('PRE:Module:' . self::MODULE_NAME . '-' . $trigger . '-relation', '', $$rel1);
+        $mapper::createRelation($field, $rel1, $rel2);
+        $this->app->eventManager->trigger('POST:Module:' . self::MODULE_NAME . '-' . $trigger . '-relation', '', [
+            $request->getHEader()->getAccount(),
+            $rel1,
+            $rel2,
+        ]);
     }
 }
