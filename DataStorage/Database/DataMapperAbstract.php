@@ -1162,7 +1162,7 @@ class DataMapperAbstract implements DataMapperInterface
      * The reference is stored in the main model
      *
      * @param string $propertyName Property name to initialize
-     * @param array $obj          Object to update
+     * @param array  $obj          Object to update
      * @param int    $relations    Create all relations as well
      * @param int    $depth        Depth of relations to update (default = 1 = none)
      *

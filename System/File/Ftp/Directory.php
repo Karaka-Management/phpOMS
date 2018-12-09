@@ -344,9 +344,9 @@ class Directory extends FileAbstract implements DirectoryInterface
     /**
      * Offset to retrieve
      * @link  http://php.net/manual/en/arrayaccess.offsetget.php
-     * @param mixed $offset <p>
-     *                      The offset to retrieve.
-     *                      </p>
+     * @param  mixed $offset <p>
+     *                       The offset to retrieve.
+     *                       </p>
      * @return mixed Can return all value types.
      * @since 5.0.0
      */

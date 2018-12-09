@@ -274,9 +274,9 @@ class Iban implements \Serializable
     /**
      * Constructs the object
      * @link  http://php.net/manual/en/serializable.unserialize.php
-     * @param string $serialized <p>
-     *                           The string representation of the object.
-     *                           </p>
+     * @param  string $serialized <p>
+     *                            The string representation of the object.
+     *                            </p>
      * @return void
      * @since 5.1.0
      */

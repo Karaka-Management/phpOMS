@@ -238,10 +238,10 @@ abstract class ModuleAbstract
     /**
      * Create a model
      *
-     * @param RequestAbstract $request  Request
-     * @param mixed           $obj      Response object
-     * @param string          $mapper   Object mapper
-     * @param string          $trigger  Trigger for the event manager
+     * @param RequestAbstract $request Request
+     * @param mixed           $obj     Response object
+     * @param string          $mapper  Object mapper
+     * @param string          $trigger Trigger for the event manager
      *
      * @return void
      *
@@ -261,11 +261,11 @@ abstract class ModuleAbstract
     /**
      * Update a model
      *
-     * @param RequestAbstract $request  Request
-     * @param mixed           $old      Response object old
-     * @param mixed           $new      Response object new
-     * @param string|\Closure $mapper   Object mapper
-     * @param string          $trigger  Trigger for the event manager
+     * @param RequestAbstract $request Request
+     * @param mixed           $old     Response object old
+     * @param mixed           $new     Response object new
+     * @param string|\Closure $mapper  Object mapper
+     * @param string          $trigger Trigger for the event manager
      *
      * @return void
      *
@@ -289,10 +289,10 @@ abstract class ModuleAbstract
     /**
      * Delete a model
      *
-     * @param RequestAbstract $request  Request
-     * @param mixed           $obj      Response object
-     * @param string          $mapper   Object mapper
-     * @param string          $trigger  Trigger for the event manager
+     * @param RequestAbstract $request Request
+     * @param mixed           $obj     Response object
+     * @param string          $mapper  Object mapper
+     * @param string          $trigger Trigger for the event manager
      *
      * @return void
      *
@@ -312,12 +312,12 @@ abstract class ModuleAbstract
     /**
      * Create a model relation
      *
-     * @param RequestAbstract $request  Request
-     * @param mixed           $rel1     Response object relation1
-     * @param mixed           $rel2     Response object relation2
-     * @param string          $mapper   Object mapper
-     * @param string          $field    Relation field
-     * @param string          $trigger  Trigger for the event manager
+     * @param RequestAbstract $request Request
+     * @param mixed           $rel1    Response object relation1
+     * @param mixed           $rel2    Response object relation2
+     * @param string          $mapper  Object mapper
+     * @param string          $field   Relation field
+     * @param string          $trigger Trigger for the event manager
      *
      * @return void
      *

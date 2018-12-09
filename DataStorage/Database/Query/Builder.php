@@ -347,7 +347,7 @@ class Builder extends BuilderAbstract
     /**
      * Set raw query.
      *
-     * @param  string $raw Raw query
+     * @param string $raw Raw query
      *
      * @return Builder
      *
@@ -371,7 +371,7 @@ class Builder extends BuilderAbstract
      * Tests if a string contains a non read only component in case the builder is read only.
      * If the builder is not read only it will always return true
      *
-     * @param  string $raw Raw query
+     * @param string $raw Raw query
      *
      * @return bool
      *
@@ -923,7 +923,7 @@ class Builder extends BuilderAbstract
     /**
      * Values to insert.
      *
-     * @param mixed  $value Values
+     * @param mixed $value Values
      *
      * @return Builder
      *
@@ -964,7 +964,7 @@ class Builder extends BuilderAbstract
     /**
      * Values to insert.
      *
-     * @param mixed  $set  Values
+     * @param mixed $set Values
      *
      * @return Builder
      *

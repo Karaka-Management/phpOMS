@@ -102,7 +102,7 @@ interface ConnectionInterface extends DataStorageConnectionInterface
      *
      * @param mixed $key    Unique cache key
      * @param mixed $value  Cache value
-     * @param  int   $expire Valid duration (in s)
+     * @param int   $expire Valid duration (in s)
      *
      * @return bool
      *

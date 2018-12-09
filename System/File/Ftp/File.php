@@ -296,7 +296,7 @@ class File extends FileAbstract implements FileInterface
     /**
      * Gets the directory name of a file.
      *
-     * @param  string $path Path of the file to get the directory name for.
+     * @param string $path Path of the file to get the directory name for.
      *
      * @return string Returns the directory name of the file.
      *
@@ -310,7 +310,7 @@ class File extends FileAbstract implements FileInterface
     /**
      * Gets the directory path of a file.
      *
-     * @param  string $path Path of the file to get the directory name for.
+     * @param string $path Path of the file to get the directory name for.
      *
      * @return string Returns the directory name of the file.
      *

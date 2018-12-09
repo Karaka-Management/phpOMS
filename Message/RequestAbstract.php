@@ -196,7 +196,7 @@ abstract class RequestAbstract implements MessageInterface
     /**
      * Get data.
      *
-     * @param mixed $key    Data key
+     * @param mixed  $key   Data key
      * @param string $delim Data delimiter
      *
      * @return array

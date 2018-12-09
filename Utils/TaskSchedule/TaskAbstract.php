@@ -76,7 +76,7 @@ abstract class TaskAbstract
      * Comment
      *
      * @param string $name Name of the task
-     * @param string $cmd Command/script to run
+     * @param string $cmd  Command/script to run
      *
      * @var string
      * @since 1.0.0

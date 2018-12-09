@@ -46,7 +46,7 @@ final class StringUtils
      *
      * The validation is done case sensitive.
      *
-     * @param string                       $haystack Haystack
+     * @param string        $haystack Haystack
      * @param array<string> $needles  Needles to check if any of them are part of the haystack
      *
      * @example StringUtils::contains('This string', ['This', 'test']); // true
