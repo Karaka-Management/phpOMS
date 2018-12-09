@@ -52,7 +52,7 @@ class Pop3 extends EmailAbstract
     public function connect(string $user = '', string $pass = '') : bool
     {
         $this->mailbox = '{' . $this->host . ':' . $this->port . '/pop3}';
-        
+
         return parent::connect();
     }
 }
