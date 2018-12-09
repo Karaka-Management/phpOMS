@@ -20,6 +20,7 @@ use phpOMS\Message\ResponseAbstract;
 use phpOMS\System\MimeType;
 use phpOMS\Views\View;
 use phpOMS\Log\FileLogger;
+use phpOMS\Utils\StringUtils;
 
 /**
  * Response class.
@@ -128,15 +129,7 @@ final class Response extends ResponseAbstract implements RenderableInterface
         $render = '';
 
         foreach ($this->response as $key => $response) {
-            if ($response instanceOf \Serializable) {
-                $render .= $response->serialize();
-            } elseif (\is_string($response) || \is_numeric($response)) {
-                $render .= $response;
-            } elseif (\is_array($response)) {
-                $render .= \json_encode($response);
-            } else {
-                throw new \Exception('Wrong response type');
-            }
+            $render .= StringUtils::stringify($response);
         }
 
         return $this->removeWhitespaceAndLineBreak($render);
@@ -163,6 +156,7 @@ final class Response extends ResponseAbstract implements RenderableInterface
 
     /**
      * {@inheritdoc}
+     * @todo: this whole workflow with json got improved a little bit but this part looks bad. do i really need so much code or could i simplify it
      */
     public function toArray() : array
     {
