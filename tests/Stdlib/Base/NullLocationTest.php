@@ -13,7 +13,6 @@
 
 namespace phpOMS\tests\Stdlib\Base;
 
-use phpOMS\Stdlib\Base\NullLocation;
 
 class NullLocationTest extends \PHPUnit\Framework\TestCase
 {

@@ -15,7 +15,6 @@ namespace phpOMS\tests\Socket;
 
 require_once __DIR__ . '/../Autoloader.php';
 
-use phpOMS\Socket\SocketType;
 
 class SocketTypeTest extends \PHPUnit\Framework\TestCase
 {

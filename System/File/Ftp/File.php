@@ -19,7 +19,6 @@ use phpOMS\System\File\ContentPutMode;
 use phpOMS\System\File\FileInterface;
 use phpOMS\System\File\PathException;
 use phpOMS\System\File\Local\FileAbstract;
-use phpOMS\System\File\Local\Directory as LocalDirectory;
 use phpOMS\System\File\Local\File as LocalFile;
 use phpOMS\Uri\Http;
 

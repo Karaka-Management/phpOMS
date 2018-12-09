@@ -20,7 +20,6 @@ use phpOMS\Localization\ISO4217CharEnum;
 use phpOMS\Localization\L11nManager;
 use phpOMS\Localization\Localization;
 use phpOMS\Localization\TimeZoneEnumArray;
-use phpOMS\Log\FileLogger;
 use phpOMS\Utils\Converter\AngleType;
 use phpOMS\Utils\Converter\TemperatureType;
 

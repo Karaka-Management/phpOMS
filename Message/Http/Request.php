@@ -16,7 +16,6 @@ namespace phpOMS\Message\Http;
 
 use phpOMS\Localization\Localization;
 use phpOMS\Message\RequestAbstract;
-use phpOMS\Message\RequestSource;
 use phpOMS\Router\RouteVerb;
 use phpOMS\Uri\Http;
 use phpOMS\Uri\UriFactory;

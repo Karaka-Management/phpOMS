@@ -14,7 +14,6 @@
 namespace phpOMS\tests\System\File\Local;
 
 use phpOMS\System\File\Local\Directory;
-use phpOMS\System\File\PathException;
 
 class DirectoryTest extends \PHPUnit\Framework\TestCase
 {

@@ -14,10 +14,6 @@
 namespace phpOMS\tests\Auth;
 
 use phpOMS\Auth\Auth;
-use phpOMS\Auth\LoginReturnType;
-use phpOMS\DataStorage\Database\DatabasePool;
-use phpOMS\DataStorage\Session\ConsoleSession;
-use phpOMS\DataStorage\Session\SocketSession;
 
 require_once __DIR__ . '/../Autoloader.php';
 

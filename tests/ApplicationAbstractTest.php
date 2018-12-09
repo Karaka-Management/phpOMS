@@ -14,7 +14,6 @@
 namespace phpOMS\tests;
 
 use phpOMS\ApplicationAbstract;
-use phpOMS\UnhandledHandler;
 
 class ApplicationAbstractTest extends \PHPUnit\Framework\TestCase
 {

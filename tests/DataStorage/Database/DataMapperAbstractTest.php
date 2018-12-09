@@ -13,9 +13,6 @@
 
 namespace phpOMS\tests\DataStorage\Database;
 
-use phpOMS\DataStorage\Database\Connection\MysqlConnection;
-use phpOMS\DataStorage\Database\DatabaseStatus;
-use phpOMS\DataStorage\Database\DatabasePool;
 
 use phpOMS\tests\DataStorage\Database\TestModel\BaseModel;
 use phpOMS\tests\DataStorage\Database\TestModel\BaseModelMapper;

@@ -13,7 +13,6 @@
 
 namespace phpOMS\tests\Math\Numerics\Interpolation;
 
-use phpOMS\Math\Numerics\Interpolation\CubicSplineInterpolation;
 
 class CubicSplineInterpolationTest extends \PHPUnit\Framework\TestCase
 {

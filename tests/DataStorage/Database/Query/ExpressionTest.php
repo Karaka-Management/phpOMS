@@ -13,7 +13,6 @@
 
 namespace phpOMS\tests\DataStorage\Database\Query;
 
-use phpOMS\DataStorage\Database\Query\Expression;
 
 class ExpressionTest extends \PHPUnit\Framework\TestCase
 {

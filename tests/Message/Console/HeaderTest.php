@@ -15,9 +15,6 @@ namespace phpOMS\tests\Message\Console;
 
 use phpOMS\Message\Console\Header;
 use phpOMS\Localization\Localization;
-use phpOMS\Message\Http\RequestStatusCode;
-use phpOMS\DataStorage\LockException;
-use phpOMS\Utils\TestUtils;
 
 class HeaderTest extends \PHPUnit\Framework\TestCase
 {

@@ -14,7 +14,6 @@
 namespace phpOMS\tests\DataStorage\Database;
 
 use phpOMS\DataStorage\Database\Connection\MysqlConnection;
-use phpOMS\DataStorage\Database\Connection\NullConnection;
 use phpOMS\DataStorage\Database\DatabaseStatus;
 use phpOMS\DataStorage\Database\DatabasePool;
 

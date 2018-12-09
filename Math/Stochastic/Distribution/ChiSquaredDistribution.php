@@ -14,9 +14,6 @@ declare(strict_types=1);
 
 namespace phpOMS\Math\Stochastic\Distribution;
 
-use phpOMS\Math\Functions\Functions;
-use phpOMS\Math\Functions\Gamma;
-
 /**
  * Chi squared distribution.
  *

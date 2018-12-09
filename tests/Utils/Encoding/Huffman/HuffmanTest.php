@@ -14,7 +14,6 @@
 namespace phpOMS\tests\Utils\Encoding\Huffman;
 
 use phpOMS\Utils\Encoding\Huffman\Huffman;
-use phpOMS\Utils\Encoding\Huffman\Dictionary;
 
 class HuffmanTest extends \PHPUnit\Framework\TestCase
 {

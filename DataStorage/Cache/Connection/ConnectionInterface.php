@@ -15,7 +15,6 @@ declare(strict_types=1);
 namespace phpOMS\DataStorage\Cache\Connection;
 
 use phpOMS\DataStorage\DataStorageConnectionInterface;
-use phpOMS\Stdlib\Base\Exception\InvalidEnumValue;
 
 /**
  * Cache interface.

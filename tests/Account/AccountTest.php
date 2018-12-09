@@ -21,8 +21,6 @@ use phpOMS\Account\PermissionAbstract;
 use phpOMS\Account\PermissionType;
 use phpOMS\Localization\L11nManager;
 use phpOMS\Localization\Localization;
-use phpOMS\Localization\NullLocalization;
-use phpOMS\Log\FileLogger;
 
 require_once __DIR__ . '/../Autoloader.php';
 

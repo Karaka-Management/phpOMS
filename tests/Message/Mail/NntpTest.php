@@ -13,7 +13,6 @@
 
 namespace phpOMS\tests\Message\Mail;
 
-use phpOMS\Message\Mail\Nntp;
 
 class NntpTest extends \PHPUnit\Framework\TestCase
 {

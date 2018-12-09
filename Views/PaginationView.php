@@ -12,8 +12,6 @@
  */
 namespace phpOMS\Views;
 
-use phpOMS\Views\View;
-
 /**
  * Pagination view.
  *

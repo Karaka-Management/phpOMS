@@ -15,7 +15,6 @@ namespace phpOMS\tests\Log;
 
 use phpOMS\Log\FileLogger;
 use phpOMS\Log\LogLevel;
-use phpOMS\Stdlib\Base\Exception\InvalidEnumValue;
 
 require_once __DIR__ . '/../Autoloader.php';
 

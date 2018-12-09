@@ -13,7 +13,6 @@
 
 namespace phpOMS\tests\Socket\Server;
 
-use phpOMS\Socket\Server\Server;
 
 class ServerTest extends \PHPUnit\Framework\TestCase
 {

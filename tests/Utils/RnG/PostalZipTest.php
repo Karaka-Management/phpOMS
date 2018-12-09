@@ -13,7 +13,6 @@
 
 namespace phpOMS\tests\Utils\RnG;
 
-use phpOMS\Utils\RnG\PostalZip;
 
 class PostalZipTest extends \PHPUnit\Framework\TestCase
 {

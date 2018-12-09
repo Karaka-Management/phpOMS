@@ -16,11 +16,8 @@ namespace phpOMS\tests\Module;
 require_once __DIR__ . '/../Autoloader.php';
 
 use phpOMS\Module\PackageManager;
-use phpOMS\System\File\Local\File;
 use phpOMS\System\File\Local\Directory;
-use phpOMS\System\File\Local\LocalStorage;
 use phpOMS\Utils\IO\Zip\Zip;
-use phpOMS\Utils\StringUtils;
 
 class PackageManagerTest extends \PHPUnit\Framework\TestCase
 {

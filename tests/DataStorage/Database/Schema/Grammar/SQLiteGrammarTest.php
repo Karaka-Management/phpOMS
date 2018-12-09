@@ -13,7 +13,6 @@
 
 namespace phpOMS\tests\DataStorage\Database\Schema\Grammar;
 
-use phpOMS\DataStorage\Database\Schema\Grammar\SQLiteGrammar;
 
 class SQLiteGrammarTest extends \PHPUnit\Framework\TestCase
 {

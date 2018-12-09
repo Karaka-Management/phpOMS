@@ -13,7 +13,6 @@
 
 namespace phpOMS\tests\Math\Integral;
 
-use phpOMS\Math\Integral\Gauss;
 
 class GaussTest extends \PHPUnit\Framework\TestCase
 {

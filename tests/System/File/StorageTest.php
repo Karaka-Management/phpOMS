@@ -15,7 +15,6 @@ namespace phpOMS\tests\System\File;
 
 use phpOMS\System\File\Storage;
 use phpOMS\System\File\Local\LocalStorage;
-use phpOMS\System\File\Ftp\FtpStorage;
 
 class StorageTest extends \PHPUnit\Framework\TestCase
 {

@@ -15,8 +15,6 @@ declare(strict_types=1);
 namespace phpOMS\Module;
 
 use phpOMS\DataStorage\Database\Query\Builder;
-use phpOMS\DataStorage\Database\DatabaseType;
-use phpOMS\DataStorage\Database\Exception\InvalidDatabaseTypeException;
 use phpOMS\DataStorage\Database\DatabasePool;
 use phpOMS\System\File\Local\Directory;
 use phpOMS\System\File\Local\File;

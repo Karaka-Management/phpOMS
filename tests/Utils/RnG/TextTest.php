@@ -13,7 +13,6 @@
 
 namespace phpOMS\tests\Utils\RnG;
 
-use phpOMS\Utils\RnG\Text;
 
 class TextTest extends \PHPUnit\Framework\TestCase
 {

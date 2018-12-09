@@ -13,7 +13,6 @@
 
 namespace phpOMS\tests\Stdlib\Base;
 
-use phpOMS\Stdlib\Base\EnumArray;
 
 class EnumArrayTest extends \PHPUnit\Framework\TestCase
 {

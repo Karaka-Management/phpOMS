@@ -13,7 +13,6 @@
 
 namespace phpOMS\tests\Utils\TaskSchedule;
 
-use phpOMS\Utils\TaskSchedule\Interval;
 
 class IntervalTest extends \PHPUnit\Framework\TestCase
 {

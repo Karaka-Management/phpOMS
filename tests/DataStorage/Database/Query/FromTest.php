@@ -13,7 +13,6 @@
 
 namespace phpOMS\tests\DataStorage\Database\Query;
 
-use phpOMS\DataStorage\Database\Query\From;
 
 class FromTest extends \PHPUnit\Framework\TestCase
 {

@@ -13,7 +13,6 @@
 
 namespace phpOMS\tests\Utils\IO\Csv;
 
-use phpOMS\Utils\IO\Csv\CsvSettings;
 
 class CsvSettingsTest extends \PHPUnit\Framework\TestCase
 {

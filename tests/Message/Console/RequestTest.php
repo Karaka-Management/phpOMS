@@ -14,13 +14,10 @@
 namespace phpOMS\tests\Message\Console;
 
 use phpOMS\Message\Console\Request;
-use phpOMS\Message\Console\Header;
 use phpOMS\Message\Http\OSType;
 use phpOMS\Message\Http\RequestMethod;
-use phpOMS\Message\RequestSource;
 use phpOMS\Localization\Localization;
 use phpOMS\Router\RouteVerb;
-use phpOMS\Uri\Console;
 use phpOMS\Uri\Argument;
 
 class RequestTest extends \PHPUnit\Framework\TestCase

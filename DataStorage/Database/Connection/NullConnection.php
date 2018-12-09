@@ -14,8 +14,6 @@ declare(strict_types=1);
 
 namespace phpOMS\DataStorage\Database\Connection;
 
-use phpOMS\DataStorage\Database\Exception\InvalidConnectionConfigException;
-
 /**
  * Database handler.
  *

@@ -15,7 +15,6 @@ namespace phpOMS\tests\System\File\Local;
 
 use phpOMS\System\File\Local\File;
 use phpOMS\System\File\ContentPutMode;
-use phpOMS\System\File\PathException;
 
 class FileTest extends \PHPUnit\Framework\TestCase
 {

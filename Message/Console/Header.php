@@ -15,7 +15,6 @@ declare(strict_types=1);
 namespace phpOMS\Message\Console;
 
 use phpOMS\Message\HeaderAbstract;
-use phpOMS\DataStorage\LockException;
 
 /**
  * Response class.

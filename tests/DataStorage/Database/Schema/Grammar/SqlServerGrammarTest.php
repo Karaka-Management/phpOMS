@@ -13,7 +13,6 @@
 
 namespace phpOMS\tests\DataStorage\Database\Schema\Grammar;
 
-use phpOMS\DataStorage\Database\Schema\Grammar\SqlServerGrammar;
 
 class SqlServerGrammarTest extends \PHPUnit\Framework\TestCase
 {

@@ -14,7 +14,6 @@ declare(strict_types=1);
 
 namespace phpOMS\DataStorage\Database\Query\Grammar;
 
-use phpOMS\DataStorage\Database\BuilderAbstract;
 use phpOMS\DataStorage\Database\GrammarAbstract;
 use phpOMS\DataStorage\Database\Query\Builder;
 use phpOMS\DataStorage\Database\Query\Column;

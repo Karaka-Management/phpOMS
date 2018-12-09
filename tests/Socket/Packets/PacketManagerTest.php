@@ -13,7 +13,6 @@
 
 namespace phpOMS\tests\Socket\Packets;
 
-use phpOMS\Socket\Packets\PacketManager;
 
 class PacketManagerTest extends \PHPUnit\Framework\TestCase
 {

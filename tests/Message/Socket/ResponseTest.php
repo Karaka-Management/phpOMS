@@ -13,7 +13,6 @@
 
 namespace phpOMS\tests\Message\Socket;
 
-use phpOMS\Message\Socket\Response;
 
 class ResponseTest extends \PHPUnit\Framework\TestCase
 {

@@ -13,7 +13,6 @@
 
 namespace phpOMS\tests\Socket\Client;
 
-use phpOMS\Socket\Client\NullClientConnection;
 
 class NullClientConnectionTest extends \PHPUnit\Framework\TestCase
 {

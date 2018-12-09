@@ -13,7 +13,6 @@
 
 namespace phpOMS\tests\Utils\IO\Excel;
 
-use phpOMS\Utils\IO\Excel\ExcelDatabaseMapper;
 
 class ExcelDatabaseMapperTest extends \PHPUnit\Framework\TestCase
 {

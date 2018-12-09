@@ -13,7 +13,6 @@
 
 namespace phpOMS\tests\Math\Stochastic\Distribution;
 
-use phpOMS\Math\Stochastic\Distribution\ParetoDistribution;
 
 class ParetoDistributionTest extends \PHPUnit\Framework\TestCase
 {

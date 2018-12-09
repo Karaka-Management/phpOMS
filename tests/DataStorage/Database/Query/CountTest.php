@@ -13,7 +13,6 @@
 
 namespace phpOMS\tests\DataStorage\Database\Query;
 
-use phpOMS\DataStorage\Database\Query\Count;
 
 class CountTest extends \PHPUnit\Framework\TestCase
 {

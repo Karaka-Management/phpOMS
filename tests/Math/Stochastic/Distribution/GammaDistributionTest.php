@@ -13,7 +13,6 @@
 
 namespace phpOMS\tests\Math\Stochastic\Distribution;
 
-use phpOMS\Math\Stochastic\Distribution\GammaDistribution;
 
 class GammaDistributionTest extends \PHPUnit\Framework\TestCase
 {

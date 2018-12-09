@@ -15,7 +15,6 @@ declare(strict_types=1);
 namespace phpOMS\Business\Finance;
 
 use phpOMS\Math\Statistic\Average;
-use phpOMS\Math\Matrix\Exception\InvalidDimensionException;
 
 /**
  * Finance class.

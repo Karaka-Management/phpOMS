@@ -13,7 +13,6 @@
 
 namespace phpOMS\tests\Utils\RnG;
 
-use phpOMS\Utils\RnG\Address;
 
 class AddressTest extends \PHPUnit\Framework\TestCase
 {

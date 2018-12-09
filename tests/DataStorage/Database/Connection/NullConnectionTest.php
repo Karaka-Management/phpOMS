@@ -14,7 +14,6 @@
 namespace phpOMS\tests\DataStorage\Database\Connection;
 
 use phpOMS\DataStorage\Database\Connection\NullConnection;
-use phpOMS\DataStorage\Database\DatabaseStatus;
 use phpOMS\DataStorage\Database\DatabaseType;
 
 class NullConnectionTest extends \PHPUnit\Framework\TestCase

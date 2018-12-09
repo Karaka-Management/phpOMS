@@ -14,7 +14,6 @@
 namespace phpOMS\tests\Localization;
 
 use phpOMS\Localization\L11nManager;
-use phpOMS\Log\FileLogger;
 
 require_once __DIR__ . '/../Autoloader.php';
 

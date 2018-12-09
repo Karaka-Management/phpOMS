@@ -13,7 +13,6 @@
 
 namespace phpOMS\tests\Socket\Server;
 
-use phpOMS\Socket\Server\ClientManager;
 
 class ClientManagerTest extends \PHPUnit\Framework\TestCase
 {

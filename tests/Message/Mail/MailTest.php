@@ -13,7 +13,6 @@
 
 namespace phpOMS\tests\Message\Mail;
 
-use phpOMS\Message\Mail\Mail;
 
 class MailTest extends \PHPUnit\Framework\TestCase
 {

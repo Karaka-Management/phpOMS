@@ -13,7 +13,6 @@
 
 namespace phpOMS\tests\Socket\Client;
 
-use phpOMS\Socket\Client\ClientConnection;
 
 class ClientConnectionTest extends \PHPUnit\Framework\TestCase
 {

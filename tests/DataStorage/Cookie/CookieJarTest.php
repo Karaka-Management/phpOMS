@@ -14,7 +14,6 @@
 namespace phpOMS\tests\DataStorage\Cookie;
 
 use phpOMS\DataStorage\Cookie\CookieJar;
-use phpOMS\DataStorage\LockException;
 
 class CookieJarTest extends \PHPUnit\Framework\TestCase
 {

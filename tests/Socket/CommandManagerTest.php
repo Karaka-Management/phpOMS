@@ -15,7 +15,6 @@ namespace phpOMS\tests\Socket;
 
 require_once __DIR__ . '/../Autoloader.php';
 
-use phpOMS\Socket\CommandManager;
 
 class CommandManagerTest extends \PHPUnit\Framework\TestCase
 {

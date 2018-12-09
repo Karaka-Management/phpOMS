@@ -14,8 +14,6 @@ declare(strict_types=1);
 
 namespace phpOMS\Math\Geometry\Shape\D2;
 
-use phpOMS\Math\Functions\Functions;
-
 /**
  * Triangle shape.
  *

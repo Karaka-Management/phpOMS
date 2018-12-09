@@ -16,9 +16,7 @@ namespace phpOMS\DataStorage\Database;
 
 use phpOMS\DataStorage\DataStoragePoolInterface;
 use phpOMS\DataStorage\DataStorageConnectionInterface;
-use phpOMS\DataStorage\Database\Connection\ConnectionAbstract;
 use phpOMS\DataStorage\Database\Connection\ConnectionFactory;
-use phpOMS\DataStorage\Database\Connection\ConnectionInterface;
 use phpOMS\DataStorage\Database\Connection\NullConnection;
 
 /**

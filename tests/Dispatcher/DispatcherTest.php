@@ -15,14 +15,11 @@ namespace phpOMS\tests\Dispatcher;
 
 use phpOMS\ApplicationAbstract;
 use phpOMS\Dispatcher\Dispatcher;
-use phpOMS\Localization\L11nManager;
 use phpOMS\Localization\Localization;
-use phpOMS\Log\FileLogger;
 use phpOMS\Message\Http\Request;
 use phpOMS\Message\Http\Response;
 use phpOMS\Router\Router;
 use phpOMS\Uri\Http;
-use phpOMS\System\File\PathException;
 
 require_once __DIR__ . '/../Autoloader.php';
 

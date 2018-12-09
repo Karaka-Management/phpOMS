@@ -14,11 +14,9 @@
 namespace phpOMS\tests\Module;
 
 use phpOMS\ApplicationAbstract;
-use phpOMS\DataStorage\Database\DatabasePool;
 use phpOMS\Dispatcher\Dispatcher;
 use phpOMS\Module\ModuleManager;
 use phpOMS\Router\Router;
-use phpOMS\Security\Encryption\Encryption;
 
 require_once __DIR__ . '/../Autoloader.php';
 

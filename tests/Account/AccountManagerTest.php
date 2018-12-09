@@ -15,9 +15,6 @@ namespace phpOMS\tests\Account;
 
 use phpOMS\Account\Account;
 use phpOMS\Account\AccountManager;
-use phpOMS\DataStorage\Database\DataMapperAbstract;
-use phpOMS\DataStorage\Database\DatabasePool;
-use phpOMS\DataStorage\Session\HttpSession;
 
 require_once __DIR__ . '/../Autoloader.php';
 

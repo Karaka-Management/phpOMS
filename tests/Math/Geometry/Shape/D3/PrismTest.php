@@ -13,7 +13,6 @@
 
 namespace phpOMS\tests\Math\Geometry\Shape\D3;
 
-use phpOMS\Math\Geometry\Shape\D3\Prism;
 
 class PrismTest extends \PHPUnit\Framework\TestCase
 {

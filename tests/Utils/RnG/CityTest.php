@@ -13,7 +13,6 @@
 
 namespace phpOMS\tests\Utils\RnG;
 
-use phpOMS\Utils\RnG\City;
 
 class CityTest extends \PHPUnit\Framework\TestCase
 {

@@ -13,7 +13,6 @@
 
 namespace phpOMS\tests\Utils\RnG;
 
-use phpOMS\Utils\RnG\Email;
 
 class EmailTest extends \PHPUnit\Framework\TestCase
 {

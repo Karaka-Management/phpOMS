@@ -16,8 +16,6 @@ namespace phpOMS\Module;
 
 use phpOMS\ApplicationAbstract;
 use phpOMS\Autoloader;
-use phpOMS\DataStorage\Database\DatabaseType;
-use phpOMS\DataStorage\Database\Exception\InvalidDatabaseTypeException;
 use phpOMS\Message\Http\Request;
 use phpOMS\Message\RequestAbstract;
 use phpOMS\System\File\PathException;

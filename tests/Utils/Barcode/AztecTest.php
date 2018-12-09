@@ -13,7 +13,6 @@
 
 namespace phpOMS\tests\Utils\Barcode;
 
-use phpOMS\Utils\Barcode\Aztec;
 
 class AztecTest extends \PHPUnit\Framework\TestCase
 {

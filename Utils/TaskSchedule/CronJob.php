@@ -14,8 +14,6 @@ declare(strict_types=1);
 
 namespace phpOMS\Utils\TaskSchedule;
 
-use phpOMS\Validation\Base\DateTime;
-
 /**
  * CronJob class.
  *

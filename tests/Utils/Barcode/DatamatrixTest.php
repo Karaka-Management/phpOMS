@@ -13,7 +13,6 @@
 
 namespace phpOMS\tests\Utils\Barcode;
 
-use phpOMS\Utils\Barcode\Datamatrix;
 
 class DatamatrixTest extends \PHPUnit\Framework\TestCase
 {

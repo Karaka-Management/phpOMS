@@ -13,7 +13,6 @@
 
 namespace phpOMS\tests\Message\Mail;
 
-use phpOMS\Message\Mail\Pop3;
 
 class Pop3Test extends \PHPUnit\Framework\TestCase
 {

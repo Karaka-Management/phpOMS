@@ -13,10 +13,8 @@
 
 namespace phpOMS\tests\Router;
 
-use phpOMS\Message\Http\RequestMethod;
 use phpOMS\Router\Router;
 use phpOMS\Router\RouteVerb;
-use phpOMS\Localization\Localization;
 use phpOMS\Message\Http\Request;
 use phpOMS\Uri\Http;
 

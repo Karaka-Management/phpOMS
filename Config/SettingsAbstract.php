@@ -15,7 +15,6 @@ declare(strict_types=1);
 namespace phpOMS\Config;
 
 use phpOMS\DataStorage\Database\DatabaseExceptionFactory;
-use phpOMS\DataStorage\Database\DatabaseType;
 use phpOMS\DataStorage\Database\Query\Builder;
 
 /**

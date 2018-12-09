@@ -21,7 +21,6 @@ use phpOMS\System\MimeType;
 use phpOMS\Views\View;
 use phpOMS\Message\Http\RequestStatusCode;
 use phpOMS\Log\FileLogger;
-use phpOMS\Log\LogLevel;
 
 /**
  * Response class.

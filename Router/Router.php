@@ -14,8 +14,6 @@ declare(strict_types=1);
 
 namespace phpOMS\Router;
 
-use phpOMS\Message\RequestAbstract;
-
 /**
  * Router class.
  *

@@ -15,7 +15,6 @@ namespace phpOMS\tests\Localization\Defaults;
 
 require_once __DIR__ . '/../../Autoloader.php';
 
-use phpOMS\Localization\Defaults\Country;
 use phpOMS\Localization\Defaults\CountryMapper;
 use phpOMS\DataStorage\Database\DataMapperAbstract;
 use phpOMS\DataStorage\Database\Connection\SQLiteConnection;
