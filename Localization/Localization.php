@@ -15,9 +15,9 @@ declare(strict_types=1);
 namespace phpOMS\Localization;
 
 use phpOMS\Stdlib\Base\Exception\InvalidEnumValue;
+use phpOMS\System\File\Local\Directory;
 use phpOMS\Utils\Converter\AngleType;
 use phpOMS\Utils\Converter\TemperatureType;
-use phpOMS\System\File\Local\Directory;
 
 /**
  * Localization class.

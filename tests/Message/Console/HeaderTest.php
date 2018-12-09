@@ -13,8 +13,8 @@
 
 namespace phpOMS\tests\Message\Console;
 
-use phpOMS\Message\Console\Header;
 use phpOMS\Localization\Localization;
+use phpOMS\Message\Console\Header;
 
 class HeaderTest extends \PHPUnit\Framework\TestCase
 {

@@ -14,10 +14,10 @@ declare(strict_types=1);
 
 namespace phpOMS\DataStorage\Cache;
 
-use phpOMS\DataStorage\DataStoragePoolInterface;
-use phpOMS\DataStorage\DataStorageConnectionInterface;
 use phpOMS\DataStorage\Cache\Connection\ConnectionFactory;
 use phpOMS\DataStorage\Cache\Connection\NullCache;
+use phpOMS\DataStorage\DataStorageConnectionInterface;
+use phpOMS\DataStorage\DataStoragePoolInterface;
 
 /**
  * Cache class.

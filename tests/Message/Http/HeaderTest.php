@@ -13,8 +13,8 @@
 
 namespace phpOMS\tests\Message\Http;
 
-use phpOMS\Message\Http\Header;
 use phpOMS\Localization\Localization;
+use phpOMS\Message\Http\Header;
 use phpOMS\Message\Http\RequestStatusCode;
 
 class HeaderTest extends \PHPUnit\Framework\TestCase

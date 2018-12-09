@@ -13,11 +13,11 @@
 
 namespace phpOMS\tests\Message\Http;
 
-use phpOMS\Message\Http\Request;
-use phpOMS\Message\Http\OSType;
-use phpOMS\Message\Http\BrowserType;
-use phpOMS\Message\Http\RequestMethod;
 use phpOMS\Localization\Localization;
+use phpOMS\Message\Http\BrowserType;
+use phpOMS\Message\Http\OSType;
+use phpOMS\Message\Http\Request;
+use phpOMS\Message\Http\RequestMethod;
 use phpOMS\Router\RouteVerb;
 use phpOMS\Uri\Http;
 

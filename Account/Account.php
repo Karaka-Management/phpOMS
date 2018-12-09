@@ -16,8 +16,8 @@ namespace phpOMS\Account;
 
 use phpOMS\Contract\ArrayableInterface;
 use phpOMS\Localization\Localization;
-use phpOMS\Validation\Network\Email;
 use phpOMS\Stdlib\Base\Exception\InvalidEnumValue;
+use phpOMS\Validation\Network\Email;
 
 /**
  * Account class.

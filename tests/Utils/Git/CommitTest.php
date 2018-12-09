@@ -13,11 +13,11 @@
 
 namespace phpOMS\tests\Utils\Git;
 
-use phpOMS\Utils\Git\Commit;
 use phpOMS\Utils\Git\Author;
 use phpOMS\Utils\Git\Branch;
-use phpOMS\Utils\Git\Tag;
+use phpOMS\Utils\Git\Commit;
 use phpOMS\Utils\Git\Repository;
+use phpOMS\Utils\Git\Tag;
 
 class CommitTest extends \PHPUnit\Framework\TestCase
 {

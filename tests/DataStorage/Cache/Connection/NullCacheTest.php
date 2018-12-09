@@ -13,8 +13,8 @@
 
 namespace phpOMS\tests\DataStorage\Cache\Connection;
 
-use phpOMS\DataStorage\Cache\Connection\NullCache;
 use phpOMS\DataStorage\Cache\CacheType;
+use phpOMS\DataStorage\Cache\Connection\NullCache;
 
 class NullCacheTest extends \PHPUnit\Framework\TestCase
 {

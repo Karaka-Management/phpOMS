@@ -13,9 +13,9 @@
 
 namespace phpOMS\tests\Utils\TaskSchedule;
 
-use phpOMS\Utils\TaskSchedule\TaskFactory;
-use phpOMS\Utils\TaskSchedule\Schedule;
 use phpOMS\Utils\TaskSchedule\CronJob;
+use phpOMS\Utils\TaskSchedule\Schedule;
+use phpOMS\Utils\TaskSchedule\TaskFactory;
 
 class TaskFactoryTest extends \PHPUnit\Framework\TestCase
 {

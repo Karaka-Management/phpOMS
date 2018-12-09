@@ -16,11 +16,11 @@ namespace phpOMS\Module;
 
 use phpOMS\ApplicationAbstract;
 use phpOMS\Autoloader;
+use phpOMS\DataStorage\Database\Query\Builder;
 use phpOMS\Message\Http\Request;
 use phpOMS\Message\RequestAbstract;
-use phpOMS\System\File\PathException;
 use phpOMS\Module\Exception\InvalidModuleException;
-use phpOMS\DataStorage\Database\Query\Builder;
+use phpOMS\System\File\PathException;
 
 /**
  * Modules class.

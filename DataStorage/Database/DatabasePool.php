@@ -14,10 +14,10 @@ declare(strict_types=1);
 
 namespace phpOMS\DataStorage\Database;
 
-use phpOMS\DataStorage\DataStoragePoolInterface;
-use phpOMS\DataStorage\DataStorageConnectionInterface;
 use phpOMS\DataStorage\Database\Connection\ConnectionFactory;
 use phpOMS\DataStorage\Database\Connection\NullConnection;
+use phpOMS\DataStorage\DataStorageConnectionInterface;
+use phpOMS\DataStorage\DataStoragePoolInterface;
 
 /**
  * Database pool handler.

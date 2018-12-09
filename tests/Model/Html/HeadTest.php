@@ -13,8 +13,8 @@
 
 namespace phpOMS\tests\Model\Html;
 
-use phpOMS\Model\Html\Head;
 use phpOMS\Asset\AssetType;
+use phpOMS\Model\Html\Head;
 
 class HeadTest extends \PHPUnit\Framework\TestCase
 {

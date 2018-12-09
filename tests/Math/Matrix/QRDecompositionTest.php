@@ -14,8 +14,8 @@
 namespace phpOMS\tests\Math\Matrix;
 
 use phpOMS\Math\Matrix\Matrix;
-use phpOMS\Math\Matrix\Vector;
 use phpOMS\Math\Matrix\QRDecomposition;
+use phpOMS\Math\Matrix\Vector;
 
 class QRDecompositionTest extends \PHPUnit\Framework\TestCase
 {

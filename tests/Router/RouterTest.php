@@ -13,9 +13,9 @@
 
 namespace phpOMS\tests\Router;
 
+use phpOMS\Message\Http\Request;
 use phpOMS\Router\Router;
 use phpOMS\Router\RouteVerb;
-use phpOMS\Message\Http\Request;
 use phpOMS\Uri\Http;
 
 require_once __DIR__ . '/../Autoloader.php';

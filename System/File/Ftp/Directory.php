@@ -16,9 +16,9 @@ namespace phpOMS\System\File\Ftp;
 
 use phpOMS\System\File\ContainerInterface;
 use phpOMS\System\File\DirectoryInterface;
-use phpOMS\System\File\Local\FileAbstract;
 use phpOMS\System\File\Local\Directory as DirectoryLocal;
 use phpOMS\System\File\Local\File as LocalFile;
+use phpOMS\System\File\Local\FileAbstract;
 use phpOMS\Uri\Http;
 
 /**

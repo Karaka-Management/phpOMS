@@ -13,10 +13,10 @@
 
 namespace phpOMS\tests\Message\Console;
 
+use phpOMS\Localization\Localization;
 use phpOMS\Message\Console\Request;
 use phpOMS\Message\Http\OSType;
 use phpOMS\Message\Http\RequestMethod;
-use phpOMS\Localization\Localization;
 use phpOMS\Router\RouteVerb;
 use phpOMS\Uri\Argument;
 

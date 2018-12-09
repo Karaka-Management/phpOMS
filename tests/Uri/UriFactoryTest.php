@@ -13,8 +13,8 @@
 
 namespace phpOMS\tests\Uri;
 
-use phpOMS\Uri\UriFactory;
 use phpOMS\Uri\Http;
+use phpOMS\Uri\UriFactory;
 
 require_once __DIR__ . '/../Autoloader.php';
 

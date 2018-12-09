@@ -14,8 +14,8 @@ declare(strict_types=1);
 
 namespace phpOMS\Math\Matrix;
 
-use phpOMS\Math\Matrix\Exception\InvalidDimensionException;
 use phpOMS\Math\Geometry\Shape\D2\Triangle;
+use phpOMS\Math\Matrix\Exception\InvalidDimensionException;
 
 /**
  * QR decomposition

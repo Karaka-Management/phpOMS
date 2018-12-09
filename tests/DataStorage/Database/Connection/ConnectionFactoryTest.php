@@ -16,8 +16,8 @@ namespace phpOMS\tests\DataStorage\Database\Connection;
 use phpOMS\DataStorage\Database\Connection\ConnectionFactory;
 use phpOMS\DataStorage\Database\Connection\MysqlConnection;
 use phpOMS\DataStorage\Database\Connection\PostgresConnection;
-use phpOMS\DataStorage\Database\Connection\SqlServerConnection;
 use phpOMS\DataStorage\Database\Connection\SQLiteConnection;
+use phpOMS\DataStorage\Database\Connection\SqlServerConnection;
 
 class ConnectionFactoryTest extends \PHPUnit\Framework\TestCase
 {

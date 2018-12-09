@@ -13,10 +13,10 @@
 declare(strict_types=1);
 namespace phpOMS\Math\Statistic\Forecast\Regression;
 
+use phpOMS\Math\Matrix\Exception\InvalidDimensionException;
 use phpOMS\Math\Statistic\Average;
 use phpOMS\Math\Statistic\Forecast\ForecastIntervalMultiplier;
 use phpOMS\Math\Statistic\MeasureOfDispersion;
-use phpOMS\Math\Matrix\Exception\InvalidDimensionException;
 
 /**
  * Regression abstract class.

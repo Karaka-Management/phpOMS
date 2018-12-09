@@ -13,8 +13,8 @@
 
 namespace phpOMS\tests\Stdlib\Queue;
 
-use phpOMS\Stdlib\Queue\PriorityQueue;
 use phpOMS\Stdlib\Queue\PriorityMode;
+use phpOMS\Stdlib\Queue\PriorityQueue;
 
 class PriorityQueueTest extends \PHPUnit\Framework\TestCase
 {

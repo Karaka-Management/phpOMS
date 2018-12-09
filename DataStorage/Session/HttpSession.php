@@ -14,9 +14,9 @@ declare(strict_types=1);
 
 namespace phpOMS\DataStorage\Session;
 
+use phpOMS\DataStorage\LockException;
 use phpOMS\Uri\UriFactory;
 use phpOMS\Utils\RnG\StringUtils;
-use phpOMS\DataStorage\LockException;
 
 /**
  * Http session class.

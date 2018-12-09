@@ -13,8 +13,8 @@
 
 namespace phpOMS\tests\DataStorage\Cache\Connection;
 
-use phpOMS\DataStorage\Cache\Connection\ConnectionFactory;
 use phpOMS\DataStorage\Cache\CacheType;
+use phpOMS\DataStorage\Cache\Connection\ConnectionFactory;
 
 class ConnectionFactoryTest extends \PHPUnit\Framework\TestCase
 {

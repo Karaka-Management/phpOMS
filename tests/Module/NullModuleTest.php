@@ -15,8 +15,8 @@ namespace phpOMS\tests\Module;
 
 require_once __DIR__ . '/../Autoloader.php';
 
-use phpOMS\Module\NullModule;
 use phpOMS\ApplicationAbstract;
+use phpOMS\Module\NullModule;
 
 class NullModuleTest extends \PHPUnit\Framework\TestCase
 {

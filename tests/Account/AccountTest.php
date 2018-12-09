@@ -14,9 +14,9 @@
 namespace phpOMS\tests\Account;
 
 use phpOMS\Account\Account;
-use phpOMS\Account\Group;
 use phpOMS\Account\AccountStatus;
 use phpOMS\Account\AccountType;
+use phpOMS\Account\Group;
 use phpOMS\Account\PermissionAbstract;
 use phpOMS\Account\PermissionType;
 use phpOMS\Localization\L11nManager;

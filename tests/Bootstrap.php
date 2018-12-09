@@ -13,9 +13,9 @@ if (\file_exists('vendor/autoload.php')) {
 
 require_once __DIR__ . '/../Autoloader.php';
 
-use phpOMS\DataStorage\Session\HttpSession;
 use phpOMS\DataStorage\Database\DatabasePool;
 use phpOMS\DataStorage\Database\DataMapperAbstract;
+use phpOMS\DataStorage\Session\HttpSession;
 
 $CONFIG = [
     'db'       => [

@@ -13,18 +13,18 @@
 
 namespace phpOMS\tests\Utils\Converter;
 
-use phpOMS\Utils\Converter\Measurement;
-use phpOMS\Utils\Converter\TemperatureType;
-use phpOMS\Utils\Converter\WeightType;
-use phpOMS\Utils\Converter\LengthType;
-use phpOMS\Utils\Converter\AreaType;
-use phpOMS\Utils\Converter\VolumeType;
-use phpOMS\Utils\Converter\SpeedType;
-use phpOMS\Utils\Converter\TimeType;
 use phpOMS\Utils\Converter\AngleType;
-use phpOMS\Utils\Converter\PressureType;
+use phpOMS\Utils\Converter\AreaType;
 use phpOMS\Utils\Converter\EnergyPowerType;
 use phpOMS\Utils\Converter\FileSizeType;
+use phpOMS\Utils\Converter\LengthType;
+use phpOMS\Utils\Converter\Measurement;
+use phpOMS\Utils\Converter\PressureType;
+use phpOMS\Utils\Converter\SpeedType;
+use phpOMS\Utils\Converter\TemperatureType;
+use phpOMS\Utils\Converter\TimeType;
+use phpOMS\Utils\Converter\VolumeType;
+use phpOMS\Utils\Converter\WeightType;
 
 class MeasurementTest extends \PHPUnit\Framework\TestCase
 {

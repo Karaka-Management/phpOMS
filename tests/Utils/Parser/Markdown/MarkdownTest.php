@@ -13,8 +13,8 @@
 
 namespace phpOMS\tests\Utils\Parser\Markdown;
 
-use phpOMS\Utils\Parser\Markdown\Markdown;
 use phpOMS\System\File\Local\Directory;
+use phpOMS\Utils\Parser\Markdown\Markdown;
 
 class MarkdownTest extends \PHPUnit\Framework\TestCase
 {

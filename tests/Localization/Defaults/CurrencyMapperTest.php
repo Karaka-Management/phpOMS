@@ -15,9 +15,9 @@ namespace phpOMS\tests\Localization\Defaults;
 
 require_once __DIR__ . '/../../Autoloader.php';
 
-use phpOMS\Localization\Defaults\CurrencyMapper;
-use phpOMS\DataStorage\Database\DataMapperAbstract;
 use phpOMS\DataStorage\Database\Connection\SQLiteConnection;
+use phpOMS\DataStorage\Database\DataMapperAbstract;
+use phpOMS\Localization\Defaults\CurrencyMapper;
 
 class CurrencyMapperTest extends \PHPUnit\Framework\TestCase
 {

@@ -13,8 +13,8 @@
 
 namespace phpOMS\tests\Stdlib\Map;
 
-use phpOMS\Stdlib\Map\MultiMap;
 use phpOMS\Stdlib\Map\KeyType;
+use phpOMS\Stdlib\Map\MultiMap;
 use phpOMS\Stdlib\Map\OrderType;
 
 class MultiMapTest extends \PHPUnit\Framework\TestCase

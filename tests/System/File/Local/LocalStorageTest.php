@@ -13,8 +13,8 @@
 
 namespace phpOMS\tests\System\File\Local;
 
-use phpOMS\System\File\Local\LocalStorage;
 use phpOMS\System\File\ContentPutMode;
+use phpOMS\System\File\Local\LocalStorage;
 
 class LocalStorageTest extends \PHPUnit\Framework\TestCase
 {

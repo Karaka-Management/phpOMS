@@ -13,8 +13,8 @@
 
 namespace phpOMS\tests\Stdlib\Base;
 
-use phpOMS\Stdlib\Base\Location;
 use phpOMS\Stdlib\Base\AddressType;
+use phpOMS\Stdlib\Base\Location;
 
 class LocationTest extends \PHPUnit\Framework\TestCase
 {

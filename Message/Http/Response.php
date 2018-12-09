@@ -16,11 +16,11 @@ namespace phpOMS\Message\Http;
 
 use phpOMS\Contract\RenderableInterface;
 use phpOMS\Localization\Localization;
+use phpOMS\Log\FileLogger;
 use phpOMS\Message\ResponseAbstract;
 use phpOMS\System\MimeType;
-use phpOMS\Views\View;
-use phpOMS\Log\FileLogger;
 use phpOMS\Utils\StringUtils;
+use phpOMS\Views\View;
 
 /**
  * Response class.

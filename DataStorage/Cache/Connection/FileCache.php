@@ -16,10 +16,10 @@ namespace phpOMS\DataStorage\Cache\Connection;
 
 use phpOMS\DataStorage\Cache\CacheStatus;
 use phpOMS\DataStorage\Cache\CacheType;
+use phpOMS\DataStorage\Cache\Exception\InvalidConnectionConfigException;
 use phpOMS\Stdlib\Base\Exception\InvalidEnumValue;
 use phpOMS\System\File\Local\Directory;
 use phpOMS\System\File\Local\File;
-use phpOMS\DataStorage\Cache\Exception\InvalidConnectionConfigException;
 
 /**
  * MemCache class.

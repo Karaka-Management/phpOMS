@@ -14,8 +14,8 @@ declare(strict_types=1);
 
 namespace phpOMS\System\File\Ftp;
 
-use phpOMS\System\File\StorageAbstract;
 use phpOMS\System\File\PathException;
+use phpOMS\System\File\StorageAbstract;
 
 /**
  * Filesystem class.

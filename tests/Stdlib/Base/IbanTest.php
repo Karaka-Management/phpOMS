@@ -13,8 +13,8 @@
 
 namespace phpOMS\tests\Stdlib\Base;
 
-use phpOMS\Stdlib\Base\Iban;
 use phpOMS\Localization\ISO3166TwoEnum;
+use phpOMS\Stdlib\Base\Iban;
 
 class IbanTest extends \PHPUnit\Framework\TestCase
 {

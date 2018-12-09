@@ -15,12 +15,12 @@ declare(strict_types=1);
 namespace phpOMS\DataStorage\Database;
 
 use phpOMS\DataStorage\Database\Connection\ConnectionAbstract;
+use phpOMS\DataStorage\Database\Exception\InvalidMapperException;
 use phpOMS\DataStorage\Database\Query\Builder;
+use phpOMS\DataStorage\Database\Query\QueryType;
 use phpOMS\DataStorage\DataMapperInterface;
 use phpOMS\Message\RequestAbstract;
-use phpOMS\DataStorage\Database\Exception\InvalidMapperException;
 use phpOMS\Utils\ArrayUtils;
-use phpOMS\DataStorage\Database\Query\QueryType;
 
 /**
  * Datamapper for databases.

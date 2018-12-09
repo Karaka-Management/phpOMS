@@ -13,9 +13,9 @@
 
 namespace phpOMS\tests\DataStorage\Cache\Connection;
 
-use phpOMS\DataStorage\Cache\Connection\MemCached;
 use phpOMS\DataStorage\Cache\CacheStatus;
 use phpOMS\DataStorage\Cache\CacheType;
+use phpOMS\DataStorage\Cache\Connection\MemCached;
 use phpOMS\Utils\TestUtils;
 
 class MemCachedTest extends \PHPUnit\Framework\TestCase

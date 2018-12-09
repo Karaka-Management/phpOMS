@@ -13,8 +13,8 @@
 
 namespace phpOMS\tests\Math\Matrix;
 
-use phpOMS\Math\Matrix\Matrix;
 use phpOMS\Math\Matrix\EigenvalueDecomposition;
+use phpOMS\Math\Matrix\Matrix;
 
 class EigenvalueDecompositionTest extends \PHPUnit\Framework\TestCase
 {

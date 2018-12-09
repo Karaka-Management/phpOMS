@@ -13,9 +13,9 @@
 
 namespace phpOMS\tests\DataStorage\Cache\Connection;
 
-use phpOMS\DataStorage\Cache\Connection\RedisCache;
 use phpOMS\DataStorage\Cache\CacheStatus;
 use phpOMS\DataStorage\Cache\CacheType;
+use phpOMS\DataStorage\Cache\Connection\RedisCache;
 use phpOMS\Utils\TestUtils;
 
 class RedisCacheTest extends \PHPUnit\Framework\TestCase

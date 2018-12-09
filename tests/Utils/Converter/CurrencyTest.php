@@ -13,8 +13,8 @@
 
 namespace phpOMS\tests\Utils\Converter;
 
-use phpOMS\Utils\Converter\Currency;
 use phpOMS\Localization\ISO4217CharEnum;
+use phpOMS\Utils\Converter\Currency;
 
 class CurrencyTest extends \PHPUnit\Framework\TestCase
 {

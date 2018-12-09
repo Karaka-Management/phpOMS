@@ -13,8 +13,8 @@
 
 namespace phpOMS\tests\Message\Http;
 
-use phpOMS\Message\Http\Response;
 use phpOMS\Localization\Localization;
+use phpOMS\Message\Http\Response;
 
 class ResponseTest extends \PHPUnit\Framework\TestCase
 {

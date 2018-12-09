@@ -17,13 +17,13 @@ require_once __DIR__ . '/../Autoloader.php';
 
 use phpOMS\ApplicationAbstract;
 use phpOMS\DataStorage\Database\DatabasePool;
+use phpOMS\Localization\L11nManager;
 use phpOMS\Localization\Localization;
 use phpOMS\Message\Http\Request;
 use phpOMS\Message\Http\Response;
 use phpOMS\Uri\Http;
 use phpOMS\Views\View;
 use phpOMS\Views\ViewAbstract;
-use phpOMS\Localization\L11nManager;
 
 class ViewTest extends \PHPUnit\Framework\TestCase
 {

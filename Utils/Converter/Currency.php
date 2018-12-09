@@ -15,9 +15,9 @@ declare(strict_types=1);
 namespace phpOMS\Utils\Converter;
 
 use phpOMS\Localization\ISO4217CharEnum;
-use phpOMS\Message\Http\Rest;
 use phpOMS\Message\Http\Request;
 use phpOMS\Message\Http\RequestMethod;
+use phpOMS\Message\Http\Rest;
 use phpOMS\Uri\Http;
 
 /**

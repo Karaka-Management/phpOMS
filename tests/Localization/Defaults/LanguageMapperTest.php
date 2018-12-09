@@ -15,9 +15,9 @@ namespace phpOMS\tests\Localization\Defaults;
 
 require_once __DIR__ . '/../../Autoloader.php';
 
-use phpOMS\Localization\Defaults\LanguageMapper;
-use phpOMS\DataStorage\Database\DataMapperAbstract;
 use phpOMS\DataStorage\Database\Connection\SQLiteConnection;
+use phpOMS\DataStorage\Database\DataMapperAbstract;
+use phpOMS\Localization\Defaults\LanguageMapper;
 
 class LanguageMapperTest extends \PHPUnit\Framework\TestCase
 {

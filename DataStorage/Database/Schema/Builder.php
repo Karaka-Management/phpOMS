@@ -14,8 +14,8 @@ declare(strict_types=1);
 
 namespace phpOMS\DataStorage\Database\Schema;
 
-use phpOMS\DataStorage\Database\Query\Builder as QueryBuilder;
 use phpOMS\DataStorage\Database\Connection\ConnectionAbstract;
+use phpOMS\DataStorage\Database\Query\Builder as QueryBuilder;
 
 /**
  * Database query builder.
