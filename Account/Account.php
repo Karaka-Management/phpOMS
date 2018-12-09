@@ -87,10 +87,10 @@ class Account implements ArrayableInterface, \JsonSerializable
     /**
      * Login.
      *
-     * @var string
+     * @var string|null
      * @since 1.0.0
      */
-    protected $login = '';
+    protected $login = null;
 
     /**
      * Last activity.
@@ -352,7 +352,7 @@ class Account implements ArrayableInterface, \JsonSerializable
      *
      * @since  1.0.0
      */
-    public function getName() : string
+    public function getName() : ?string
     {
         return $this->login;
     }

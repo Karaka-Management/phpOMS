@@ -69,8 +69,7 @@ class AccountTest extends \PHPUnit\Framework\TestCase
 
         self::assertEquals([], $account->getGroups());
 
-        self::assertTrue(\is_string($account->getName()));
-        self::assertEquals('', $account->getName());
+        self::assertEquals(null, $account->getName());
 
         self::assertTrue(\is_string($account->getName1()));
         self::assertEquals('', $account->getName1());

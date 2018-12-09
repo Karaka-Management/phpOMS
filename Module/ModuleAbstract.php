@@ -325,7 +325,7 @@ abstract class ModuleAbstract
      */
     protected function createModelRelation(RequestAbstract $request, $rel1, $rel2, string $mapper, string $field, string $trigger) : void
     {
-        $this->app->eventManager->trigger('PRE:Module:' . self::MODULE_NAME . '-' . $trigger . '-relation', '', $$rel1);
+        $this->app->eventManager->trigger('PRE:Module:' . self::MODULE_NAME . '-' . $trigger . '-relation', '', $rel1);
         $mapper::createRelation($field, $rel1, $rel2);
         $this->app->eventManager->trigger('POST:Module:' . self::MODULE_NAME . '-' . $trigger . '-relation', '', [
             $request->getHEader()->getAccount(),
