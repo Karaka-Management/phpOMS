@@ -390,4 +390,36 @@ final class StringUtils
 
         return $unique;
     }
+
+    /**
+     * Turn value into string
+     *
+     * @param mixed $element Value to stringify.
+     *
+     * @return null|string
+     *
+     * @since  1.0.0
+     */
+    public static function stringify($element) : ?string
+    {
+        if ($element instanceof \JsonSerializable || \is_array($element)) {
+            $encoded = \json_encode($element);
+
+            return $encoded ? $encoded : null;
+        } elseif ($element instanceof \Serializable) {
+            return $element->serialize();
+        } elseif (\is_string($element)) {
+            return $element;
+        } elseif (\is_int($element) || \is_float($element)) {
+            return (string) $element;
+        } elseif (\is_bool($element)) {
+            return (string) $element;
+        } elseif ($element === null) {
+            return null;
+        } elseif ($element instanceof \DateTime) {
+            return $element->format('Y-m-d H:i:s');
+        } else {
+            return $element->__toString();
+        }
+    }
 }
