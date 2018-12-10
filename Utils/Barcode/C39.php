@@ -87,7 +87,7 @@ class C39 extends C128Abstract
         $codeString = '';
         $length     = \strlen($this->content);
 
-        for ($X = 1; $X <= $length; $X++) {
+        for ($X = 1; $X <= $length; ++$X) {
             $codeString .= self::$CODEARRAY[substr($this->content, ($X - 1), 1)] . '1';
         }
 

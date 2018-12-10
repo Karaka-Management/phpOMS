@@ -89,8 +89,8 @@ class Codebar extends C128Abstract
         $length     = \strlen($this->content);
         $lenCodearr = \count(self::$CODEARRAY);
 
-        for ($posX = 1; $posX <= $length; $posX++) {
-            for ($posY = 0; $posY < $lenCodearr; $posY++) {
+        for ($posX = 1; $posX <= $length; ++$posX) {
+            for ($posY = 0; $posY < $lenCodearr; ++$posY) {
                 if (\substr($this->content, ($posX - 1), 1) == self::$CODEARRAY[$posY]) {
                     $codeString .= self::$CODEARRAY2[$posY] . '1';
                 }

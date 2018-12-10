@@ -301,7 +301,7 @@ abstract class C128Abstract
         $length     = \strlen($this->content);
         $checksum   = static::$CHECKSUM;
 
-        for ($pos = 1; $pos <= $length; $pos++) {
+        for ($pos = 1; $pos <= $length; ++$pos) {
             $activeKey   = \substr($this->content, ($pos - 1), 1);
             $codeString .= static::$CODEARRAY[$activeKey];
             $checksum   += $values[$activeKey] * $pos;
@@ -336,7 +336,7 @@ abstract class C128Abstract
         $length   = \strlen($codeString);
         \imagefill($image, 0, 0, $white);
 
-        for ($position = 1; $position <= $length; $position++) {
+        for ($position = 1; $position <= $length; ++$position) {
             $cur_size = $location + (int) (\substr($codeString, ($position - 1), 1));
 
             if ($this->orientation === OrientationType::HORIZONTAL) {

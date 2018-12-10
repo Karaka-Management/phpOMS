@@ -113,8 +113,8 @@ class C25 extends C128Abstract
         $arrayLength = \count(self::$CODEARRAY);
         $temp        = [];
 
-        for ($posX = 1; $posX <= $length; $posX++) {
-            for ($posY = 0; $posY < $arrayLength; $posY++) {
+        for ($posX = 1; $posX <= $length; ++$posX) {
+            for ($posY = 0; $posY < $arrayLength; ++$posY) {
                 if (\substr($this->content, ($posX - 1), 1) == self::$CODEARRAY[$posY]) {
                     $temp[$posX] = self::$CODEARRAY2[$posY];
                 }
@@ -127,7 +127,7 @@ class C25 extends C128Abstract
                 $temp2 = \explode('-', $temp[($posX + 1)]);
 
                 $count = \count($temp1);
-                for ($posY = 0; $posY < $count; $posY++) {
+                for ($posY = 0; $posY < $count; ++$posY) {
                     $codeString .= $temp1[$posY] . $temp2[$posY];
                 }
             }

@@ -56,7 +56,7 @@ final class XorEncoding
         $length    = \strlen($source);
         $keyLength = \strlen($key) - 1;
 
-        for ($i = 0, $j = 0; $i < $length; ++$i, $j++) {
+        for ($i = 0, $j = 0; $i < $length; ++$i, ++$j) {
             if ($j > $keyLength) {
                 $j = 0;
             }
