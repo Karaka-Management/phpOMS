@@ -49,7 +49,7 @@ class Graph
      *
      * @since  1.0.0
      */
-    public function addNode(Node $node) : Graph
+    public function addNode(Node $node) : self
     {
         $this->nodes[] = $node;
 
@@ -66,7 +66,7 @@ class Graph
      *
      * @since  1.0.0
      */
-    public function addNodeRelative(Node $relative, Node $node) : Graph
+    public function addNodeRelative(Node $relative, Node $node) : self
     {
         $this->edges[] = new Edge($relative, $node);
 
@@ -83,7 +83,7 @@ class Graph
      *
      * @since  1.0.0
      */
-    public function setNode($key, Node $node) : Graph
+    public function setNode($key, Node $node) : self
     {
         $this->nodes[$key] = $node;
 
@@ -99,7 +99,7 @@ class Graph
      *
      * @since  1.0.0
      */
-    public function addEdge(Edge $edge) : Graph
+    public function addEdge(Edge $edge) : self
     {
         $this->edges[] = $edge;
 

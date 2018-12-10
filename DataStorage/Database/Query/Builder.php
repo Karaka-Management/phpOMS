@@ -263,7 +263,7 @@ class Builder extends BuilderAbstract
      *
      * @since  1.0.0
      */
-    public function select(...$columns) : Builder
+    public function select(...$columns) : self
     {
         $this->type = QueryType::SELECT;
 
@@ -289,7 +289,7 @@ class Builder extends BuilderAbstract
      *
      * @since  1.0.0
      */
-    public function random(...$columns) : Builder
+    public function random(...$columns) : self
     {
         $this->select(...$columns);
 
@@ -307,7 +307,7 @@ class Builder extends BuilderAbstract
      *
      * @since  1.0.0
      */
-    public function bind($binds) : Builder
+    public function bind($binds) : self
     {
         if (\is_array($binds)) {
             $this->binds += $binds;
@@ -327,7 +327,7 @@ class Builder extends BuilderAbstract
      *
      * @since  1.0.0
      */
-    public function newQuery() : Builder
+    public function newQuery() : self
     {
         return new static($this->connection, $this->isReadOnly);
     }
@@ -355,7 +355,7 @@ class Builder extends BuilderAbstract
      *
      * @since  1.0.0
      */
-    public function raw(string $raw) : Builder
+    public function raw(string $raw) : self
     {
         if (!$this->isValidReadOnly($raw)) {
             throw new \Exception();
@@ -405,7 +405,7 @@ class Builder extends BuilderAbstract
      *
      * @since  1.0.0
      */
-    public function selectRaw($expression) : Builder
+    public function selectRaw($expression) : self
     {
         $this->selects[null][] = $expression;
 
@@ -419,7 +419,7 @@ class Builder extends BuilderAbstract
      *
      * @since  1.0.0
      */
-    public function distinct() : Builder
+    public function distinct() : self
     {
         $this->distinct = true;
 
@@ -435,7 +435,7 @@ class Builder extends BuilderAbstract
      *
      * @since  1.0.0
      */
-    public function from(...$tables) : Builder
+    public function from(...$tables) : self
     {
         foreach ($tables as $key => $table) {
             if (\is_string($table) || $table instanceof \Closure) {
@@ -457,7 +457,7 @@ class Builder extends BuilderAbstract
      *
      * @since  1.0.0
      */
-    public function fromRaw($expression) : Builder
+    public function fromRaw($expression) : self
     {
         $this->from[null][] = $expression;
 
@@ -478,7 +478,7 @@ class Builder extends BuilderAbstract
      *
      * @since  1.0.0
      */
-    public function where($columns, $operator = null, $values = null, $boolean = 'and') : Builder
+    public function where($columns, $operator = null, $values = null, $boolean = 'and') : self
     {
         if (!\is_array($columns)) {
             $columns  = [$columns];
@@ -534,7 +534,7 @@ class Builder extends BuilderAbstract
      *
      * @since  1.0.0
      */
-    public function andWhere($where, $operator = null, $values = null) : Builder
+    public function andWhere($where, $operator = null, $values = null) : self
     {
         return $this->where($where, $operator, $values, 'and');
     }
@@ -550,7 +550,7 @@ class Builder extends BuilderAbstract
      *
      * @since  1.0.0
      */
-    public function orWhere($where, $operator = null, $values = null) : Builder
+    public function orWhere($where, $operator = null, $values = null) : self
     {
         return $this->where($where, $operator, $values, 'or');
     }
@@ -566,7 +566,7 @@ class Builder extends BuilderAbstract
      *
      * @since  1.0.0
      */
-    public function whereIn($column, $values = null, string $boolean = 'and') : Builder
+    public function whereIn($column, $values = null, string $boolean = 'and') : self
     {
         $this->where($column, 'in', $values, $boolean);
 
@@ -583,7 +583,7 @@ class Builder extends BuilderAbstract
      *
      * @since  1.0.0
      */
-    public function whereNull($column, string $boolean = 'and') : Builder
+    public function whereNull($column, string $boolean = 'and') : self
     {
         $this->where($column, '=', null, $boolean);
 
@@ -600,7 +600,7 @@ class Builder extends BuilderAbstract
      *
      * @since  1.0.0
      */
-    public function whereNotNull($column, string $boolean = 'and') : Builder
+    public function whereNotNull($column, string $boolean = 'and') : self
     {
         $this->where($column, '!=', null, $boolean);
 
@@ -616,7 +616,7 @@ class Builder extends BuilderAbstract
      *
      * @since  1.0.0
      */
-    public function groupBy(...$columns) : Builder
+    public function groupBy(...$columns) : self
     {
         foreach ($columns as $key => $column) {
             if (\is_string($column) || $column instanceof \Closure) {
@@ -638,7 +638,7 @@ class Builder extends BuilderAbstract
      *
      * @since  1.0.0
      */
-    public function newest($column) : Builder
+    public function newest($column) : self
     {
         $this->orderBy($column, 'DESC');
 
@@ -654,7 +654,7 @@ class Builder extends BuilderAbstract
      *
      * @since  1.0.0
      */
-    public function oldest($column) : Builder
+    public function oldest($column) : self
     {
         $this->orderBy($column, 'ASC');
 
@@ -671,7 +671,7 @@ class Builder extends BuilderAbstract
      *
      * @since  1.0.0
      */
-    public function orderBy($columns, $order = 'DESC') : Builder
+    public function orderBy($columns, $order = 'DESC') : self
     {
         if (\is_string($columns) || $columns instanceof \Closure) {
             if (!\is_string($order)) {
@@ -703,7 +703,7 @@ class Builder extends BuilderAbstract
      *
      * @since  1.0.0
      */
-    public function offset(int $offset) : Builder
+    public function offset(int $offset) : self
     {
         $this->offset = $offset;
 
@@ -719,7 +719,7 @@ class Builder extends BuilderAbstract
      *
      * @since  1.0.0
      */
-    public function limit(int $limit) : Builder
+    public function limit(int $limit) : self
     {
         $this->limit = $limit;
 
@@ -735,7 +735,7 @@ class Builder extends BuilderAbstract
      *
      * @since  1.0.0
      */
-    public function union($query) : Builder
+    public function union($query) : self
     {
         if (!\is_array($query)) {
             $this->unions[] = $query;
@@ -800,7 +800,7 @@ class Builder extends BuilderAbstract
      *
      * @since  1.0.0
      */
-    public function count(string $table = '*') : Builder
+    public function count(string $table = '*') : self
     {
         // todo: don't do this as string, create new object new \count(); this can get handled by the grammar parser WAY better
         return $this->select('COUNT(' . $table . ')');
@@ -861,7 +861,7 @@ class Builder extends BuilderAbstract
      *
      * @since  1.0.0
      */
-    public function insert(...$columns) : Builder
+    public function insert(...$columns) : self
     {
         if ($this->isReadOnly) {
             throw new \Exception();
@@ -885,7 +885,7 @@ class Builder extends BuilderAbstract
      *
      * @since  1.0.0
      */
-    public function into($table) : Builder
+    public function into($table) : self
     {
         $this->into = $table;
 
@@ -901,7 +901,7 @@ class Builder extends BuilderAbstract
      *
      * @since  1.0.0
      */
-    public function values(...$values) : Builder
+    public function values(...$values) : self
     {
         $this->values[] = $values;
 
@@ -929,7 +929,7 @@ class Builder extends BuilderAbstract
      *
      * @since  1.0.0
      */
-    public function value($value) : Builder
+    public function value($value) : self
     {
         \end($this->values);
         $key = \key($this->values);
@@ -954,7 +954,7 @@ class Builder extends BuilderAbstract
      *
      * @since  1.0.0
      */
-    public function sets(...$sets) : Builder
+    public function sets(...$sets) : self
     {
         $this->sets[$sets[0]] = $sets[1] ?? null;
 
@@ -970,7 +970,7 @@ class Builder extends BuilderAbstract
      *
      * @since  1.0.0
      */
-    public function set($set) : Builder
+    public function set($set) : self
     {
         $this->sets[\key($set)] = \current($set);
 
@@ -988,7 +988,7 @@ class Builder extends BuilderAbstract
      *
      * @since  1.0.0
      */
-    public function update(...$tables) : Builder
+    public function update(...$tables) : self
     {
         if ($this->isReadOnly) {
             throw new \Exception();
@@ -1014,7 +1014,7 @@ class Builder extends BuilderAbstract
      *
      * @since  1.0.0
      */
-    public function delete() : Builder
+    public function delete() : self
     {
         if ($this->isReadOnly) {
             throw new \Exception();
@@ -1054,7 +1054,7 @@ class Builder extends BuilderAbstract
      *
      * @since  1.0.0
      */
-    public function join($table, string $type = JoinType::JOIN) : Builder
+    public function join($table, string $type = JoinType::JOIN) : self
     {
         if (\is_string($table) || $table instanceof \Closure) {
             $this->joins[] = ['type' => $type, 'table' => $table];
@@ -1072,7 +1072,7 @@ class Builder extends BuilderAbstract
      *
      * @since  1.0.0
      */
-    public function leftJoin($column) : Builder
+    public function leftJoin($column) : self
     {
         return $this->join($column, JoinType::LEFT_JOIN);
     }
@@ -1084,7 +1084,7 @@ class Builder extends BuilderAbstract
      *
      * @since  1.0.0
      */
-    public function leftOuterJoin($column) : Builder
+    public function leftOuterJoin($column) : self
     {
         return $this->join($column, JoinType::LEFT_OUTER_JOIN);
     }
@@ -1096,7 +1096,7 @@ class Builder extends BuilderAbstract
      *
      * @since  1.0.0
      */
-    public function leftInnerJoin($column) : Builder
+    public function leftInnerJoin($column) : self
     {
         return $this->join($column, JoinType::LEFT_INNER_JOIN);
     }
@@ -1108,7 +1108,7 @@ class Builder extends BuilderAbstract
      *
      * @since  1.0.0
      */
-    public function rightJoin($column) : Builder
+    public function rightJoin($column) : self
     {
         return $this->join($column, JoinType::RIGHT_JOIN);
     }
@@ -1120,7 +1120,7 @@ class Builder extends BuilderAbstract
      *
      * @since  1.0.0
      */
-    public function rightOuterJoin($column) : Builder
+    public function rightOuterJoin($column) : self
     {
         return $this->join($column, JoinType::RIGHT_OUTER_JOIN);
     }
@@ -1132,7 +1132,7 @@ class Builder extends BuilderAbstract
      *
      * @since  1.0.0
      */
-    public function rightInnerJoin($column) : Builder
+    public function rightInnerJoin($column) : self
     {
         return $this->join($column, JoinType::RIGHT_INNER_JOIN);
     }
@@ -1144,7 +1144,7 @@ class Builder extends BuilderAbstract
      *
      * @since  1.0.0
      */
-    public function outerJoin($column) : Builder
+    public function outerJoin($column) : self
     {
         return $this->join($column, JoinType::OUTER_JOIN);
     }
@@ -1156,7 +1156,7 @@ class Builder extends BuilderAbstract
      *
      * @since  1.0.0
      */
-    public function innerJoin($column) : Builder
+    public function innerJoin($column) : self
     {
         return $this->join($column, JoinType::INNER_JOIN);
     }
@@ -1168,7 +1168,7 @@ class Builder extends BuilderAbstract
      *
      * @since  1.0.0
      */
-    public function crossJoin($column) : Builder
+    public function crossJoin($column) : self
     {
         return $this->join($column, JoinType::CROSS_JOIN);
     }
@@ -1180,7 +1180,7 @@ class Builder extends BuilderAbstract
      *
      * @since  1.0.0
      */
-    public function fullJoin($column) : Builder
+    public function fullJoin($column) : self
     {
         return $this->join($column, JoinType::FULL_JOIN);
     }
@@ -1192,7 +1192,7 @@ class Builder extends BuilderAbstract
      *
      * @since  1.0.0
      */
-    public function fullOuterJoin($column) : Builder
+    public function fullOuterJoin($column) : self
     {
         return $this->join($column, JoinType::FULL_OUTER_JOIN);
     }
@@ -1204,7 +1204,7 @@ class Builder extends BuilderAbstract
      *
      * @since  1.0.0
      */
-    public function rollback() : Builder
+    public function rollback() : self
     {
         return $this;
     }
@@ -1216,7 +1216,7 @@ class Builder extends BuilderAbstract
      *
      * @since  1.0.0
      */
-    public function on($columns, $operator = null, $values = null, $boolean = 'and') : Builder
+    public function on($columns, $operator = null, $values = null, $boolean = 'and') : self
     {
         if ($operator !== null && !\is_array($operator) && !\in_array(\strtolower($operator), self::OPERATORS)) {
             throw new \InvalidArgumentException('Unknown operator.');
@@ -1257,7 +1257,7 @@ class Builder extends BuilderAbstract
      *
      * @since  1.0.0
      */
-    public function orOn($columns, $operator = null, $values = null) : Builder
+    public function orOn($columns, $operator = null, $values = null) : self
     {
         return $this->on($columns, $operator, $values, 'or');
     }
@@ -1269,7 +1269,7 @@ class Builder extends BuilderAbstract
      *
      * @since  1.0.0
      */
-    public function andOn($columns, $operator = null, $values = null) : Builder
+    public function andOn($columns, $operator = null, $values = null) : self
     {
         return $this->on($columns, $operator, $values, 'and');
     }
@@ -1285,7 +1285,7 @@ class Builder extends BuilderAbstract
      *
      * @since  1.0.0
      */
-    public function merge(Builder $query) : Builder
+    public function merge(self $query) : self
     {
         return clone($this);
     }

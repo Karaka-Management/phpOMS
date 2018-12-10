@@ -170,7 +170,7 @@ final class Response extends ResponseAbstract implements RenderableInterface
                     FileLogger::MSG_FULL, [
                         'message' => $e->getMessage(),
                         'line'    => __LINE__,
-                        'file'    => Response::class,
+                        'file'    => self::class,
                     ]
                 );
 

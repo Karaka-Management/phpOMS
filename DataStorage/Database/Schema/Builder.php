@@ -46,7 +46,7 @@ class Builder extends QueryBuilder
         $this->grammar    = $connection->getSchemaGrammar();
     }
 
-    public function drop(...$table) : Builder
+    public function drop(...$table) : self
     {
         $this->type  = QueryType::DROP;
         $this->drop += $table;
@@ -55,14 +55,14 @@ class Builder extends QueryBuilder
         return $this;
     }
 
-    public function selectTables() : Builder
+    public function selectTables() : self
     {
         $this->type = QueryType::TABLES;
 
         return $this;
     }
 
-    public function selectFields(string $table) : Builder
+    public function selectFields(string $table) : self
     {
         $this->type = QueryType::FIELDS;
 

@@ -53,7 +53,7 @@ class Tree extends Graph
      *
      * @since  1.0.0
      */
-    public function addRelativeNode(Node $base, Node $node) : Tree
+    public function addRelativeNode(Node $base, Node $node) : self
     {
         parent::addNode($node);
         parent::addEdge(new Edge($base, $node));

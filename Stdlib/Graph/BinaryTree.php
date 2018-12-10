@@ -26,7 +26,7 @@ namespace phpOMS\Stdlib\Graph;
  */
 class BinaryTree extends Tree
 {
-    public static function invert($list) : BinaryTree
+    public static function invert($list) : self
     {
         if (empty($list->getNodes())) {
             return $list;
@@ -83,7 +83,7 @@ class BinaryTree extends Tree
      *
      * @since  1.0.0
      */
-    public function setLeft(Node $base, Node $left) : BinaryTree
+    public function setLeft(Node $base, Node $left) : self
     {
         if ($this->getLeft($base) === null) {
             $this->addNodeRelative($base, $left);

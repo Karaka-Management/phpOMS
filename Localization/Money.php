@@ -140,7 +140,7 @@ final class Money implements \Serializable
      *
      * @since  1.0.0
      */
-    public function setLocalization(string $thousands = ',', string $decimal = '.', string $symbol = '', int $position = 0) : Money
+    public function setLocalization(string $thousands = ',', string $decimal = '.', string $symbol = '', int $position = 0) : self
     {
         $this->thousands = $thousands;
         $this->decimal   = $decimal;
@@ -159,7 +159,7 @@ final class Money implements \Serializable
      *
      * @since  1.0.0
      */
-    public function setString(string $value) : Money
+    public function setString(string $value) : self
     {
         $this->value = self::toInt($value, $this->thousands, $this->decimal);
 
@@ -211,13 +211,13 @@ final class Money implements \Serializable
      *
      * @since  1.0.0
      */
-    public function add($value) : Money
+    public function add($value) : self
     {
         if (\is_string($value) || is_float($value)) {
             $this->value += self::toInt((string) $value, $this->thousands, $this->decimal);
         } elseif (\is_int($value)) {
             $this->value += $value;
-        } elseif ($value instanceof Money) {
+        } elseif ($value instanceof self) {
             $this->value += $value->getInt();
         }
 
@@ -245,13 +245,13 @@ final class Money implements \Serializable
      *
      * @since  1.0.0
      */
-    public function sub($value) : Money
+    public function sub($value) : self
     {
         if (\is_string($value) || is_float($value)) {
             $this->value -= self::toInt((string) $value, $this->thousands, $this->decimal);
         } elseif (\is_int($value)) {
             $this->value -= $value;
-        } elseif ($value instanceof Money) {
+        } elseif ($value instanceof self) {
             $this->value -= $value->getInt();
         }
 
@@ -267,7 +267,7 @@ final class Money implements \Serializable
      *
      * @since  1.0.0
      */
-    public function mult($value) : Money
+    public function mult($value) : self
     {
         if (\is_float($value) || is_int($value)) {
             $this->value = (int) ($this->value * $value);
@@ -285,7 +285,7 @@ final class Money implements \Serializable
      *
      * @since  1.0.0
      */
-    public function div($value) : Money
+    public function div($value) : self
     {
         if (\is_float($value) || is_int($value)) {
             $this->value = (int) ($this->value / $value);
@@ -301,7 +301,7 @@ final class Money implements \Serializable
      *
      * @since  1.0.0
      */
-    public function abs() : Money
+    public function abs() : self
     {
         $this->value = \abs($this->value);
 
@@ -317,7 +317,7 @@ final class Money implements \Serializable
      *
      * @since  1.0.0
      */
-    public function pow($value) : Money
+    public function pow($value) : self
     {
         if (\is_float($value) || is_int($value)) {
             $this->value = (int) ($this->value ** $value);
@@ -361,7 +361,7 @@ final class Money implements \Serializable
      *
      * @since  1.0.0
      */
-    public function setInt(int $value) : Money
+    public function setInt(int $value) : self
     {
         $this->value = $value;
 

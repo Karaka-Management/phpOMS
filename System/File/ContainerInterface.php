@@ -275,7 +275,7 @@ interface ContainerInterface
      *
      * @since  1.0.0
      */
-    public function getParent() : ContainerInterface;
+    public function getParent() : self;
 
     /**
      * Create resource at destination path.

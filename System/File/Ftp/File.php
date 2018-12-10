@@ -127,7 +127,7 @@ class File extends FileAbstract implements FileInterface
         $content = '';
         $con     = self::ftpConnect($http);
 
-        if (\ftp_chdir($con, File::dirpath($path)) && \ftp_fget($con, $temp, $path, FTP_BINARY, 0)) {
+        if (\ftp_chdir($con, self::dirpath($path)) && \ftp_fget($con, $temp, $path, FTP_BINARY, 0)) {
             \rewind($temp);
             $content = \stream_get_contents($temp);
         }

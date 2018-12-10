@@ -86,7 +86,7 @@ final class Sphere implements D3ShapeInterface
      *
      * @since  1.0.0
      */
-    public static function byRadius(float $r) : Sphere
+    public static function byRadius(float $r) : self
     {
         return new self($r);
     }
@@ -100,7 +100,7 @@ final class Sphere implements D3ShapeInterface
      *
      * @since  1.0.0
      */
-    public static function byVolume(float $v) : Sphere
+    public static function byVolume(float $v) : self
     {
         return new self(self::getRadiusByVolume($v));
     }
@@ -128,7 +128,7 @@ final class Sphere implements D3ShapeInterface
      *
      * @since  1.0.0
      */
-    public static function bySurface(float $s) : Sphere
+    public static function bySurface(float $s) : self
     {
         return new self(self::getRadiusBySurface($s));
     }

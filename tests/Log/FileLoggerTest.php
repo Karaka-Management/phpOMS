@@ -59,55 +59,55 @@ class FileLoggerTest extends \PHPUnit\Framework\TestCase
         $log->emergency(FileLogger::MSG_FULL, [
             'message' => 'msg',
             'line'    => 11,
-            'file'    => FileLoggerTest::class,
+            'file'    => self::class,
         ]);
 
         $log->alert(FileLogger::MSG_FULL, [
             'message' => 'msg',
             'line'    => 11,
-            'file'    => FileLoggerTest::class,
+            'file'    => self::class,
         ]);
 
         $log->critical(FileLogger::MSG_FULL, [
             'message' => 'msg',
             'line'    => 11,
-            'file'    => FileLoggerTest::class,
+            'file'    => self::class,
         ]);
 
         $log->error(FileLogger::MSG_FULL, [
             'message' => 'msg',
             'line'    => 11,
-            'file'    => FileLoggerTest::class,
+            'file'    => self::class,
         ]);
 
         $log->warning(FileLogger::MSG_FULL, [
             'message' => 'msg',
             'line'    => 11,
-            'file'    => FileLoggerTest::class,
+            'file'    => self::class,
         ]);
 
         $log->notice(FileLogger::MSG_FULL, [
             'message' => 'msg',
             'line'    => 11,
-            'file'    => FileLoggerTest::class,
+            'file'    => self::class,
         ]);
 
         $log->info(FileLogger::MSG_FULL, [
             'message' => 'msg',
             'line'    => 11,
-            'file'    => FileLoggerTest::class,
+            'file'    => self::class,
         ]);
 
         $log->debug(FileLogger::MSG_FULL, [
             'message' => 'msg',
             'line'    => 11,
-            'file'    => FileLoggerTest::class,
+            'file'    => self::class,
         ]);
 
         $log->log(LogLevel::DEBUG, FileLogger::MSG_FULL, [
             'message' => 'msg',
             'line'    => 11,
-            'file'    => FileLoggerTest::class,
+            'file'    => self::class,
         ]);
 
         self::assertEquals(1, $log->countLogs()['emergency'] ?? 0);
@@ -127,7 +127,7 @@ class FileLoggerTest extends \PHPUnit\Framework\TestCase
         $log->console(FileLogger::MSG_FULL, true, [
             'message' => 'msg',
             'line'    => 11,
-            'file'    => FileLoggerTest::class,
+            'file'    => self::class,
         ]);
         $ob = ob_get_clean();
         self::assertEquals(1, $log->countLogs()['info'] ?? 0);
@@ -156,7 +156,7 @@ class FileLoggerTest extends \PHPUnit\Framework\TestCase
         $log->log('testException', FileLogger::MSG_FULL, [
             'message' => 'msg',
             'line'    => 11,
-            'file'    => FileLoggerTest::class,
+            'file'    => self::class,
         ]);
     }
 

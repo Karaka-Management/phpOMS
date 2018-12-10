@@ -64,7 +64,7 @@ class ArrayParser
     public static function parseVariable($value, int $depth = 1) : string
     {
         if (\is_array($value)) {
-            return ArrayParser::serializeArray($value, $depth);
+            return self::serializeArray($value, $depth);
         } elseif (\is_string($value)) {
             return '\'' . \str_replace('\'', '\\\'', $value) . '\'';
         } elseif (\is_bool($value)) {

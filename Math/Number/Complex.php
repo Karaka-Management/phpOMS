@@ -87,7 +87,7 @@ final class Complex
      *
      * @since  1.0.0
      */
-    public function conjugate() : Complex
+    public function conjugate() : self
     {
         return new self($this->re, -$this->im);
     }
@@ -99,7 +99,7 @@ final class Complex
      *
      * @since  1.0.0
      */
-    public function reciprocal() : Complex
+    public function reciprocal() : self
     {
         return new self(
             $this->re / ($this->re ** 2 + $this->im ** 2),
@@ -114,7 +114,7 @@ final class Complex
      *
      * @since  1.0.0
      */
-    public function sqrt() : Complex
+    public function sqrt() : self
     {
         return new self(
             \sqrt(($this->re + \sqrt($this->re ** 2 + $this->im ** 2)) / 2),
@@ -141,25 +141,25 @@ final class Complex
      *
      * @since  1.0.0
      */
-    public function square() : Complex
+    public function square() : self
     {
         return $this->multComplex($this);
     }
 
-    public function pow($value) : Complex
+    public function pow($value) : self
     {
         if (\is_int($value)) {
             return $this->powInteger($value);
         } elseif (\is_numeric($value)) {
             return $this->powScalar($value);
-        } elseif ($value instanceof Complex) {
+        } elseif ($value instanceof self) {
             return $this->powComplex($value);
         }
 
         throw new \InvalidArgumentException();
     }
 
-    public function powComplex(Complex $value) : Complex
+    public function powComplex(self $value) : self
     {
 
     }
@@ -173,7 +173,7 @@ final class Complex
      *
      * @since  1.0.0
      */
-    public function powInteger(int $value) : Complex
+    public function powInteger(int $value) : self
     {
         if ($value === 0) {
             return new self(1, 0);
@@ -184,7 +184,7 @@ final class Complex
         return $this->multComplex($this->powInteger(--$value));
     }
 
-    public function powScalar($value) : Complex
+    public function powScalar($value) : self
     {
 
     }
@@ -200,11 +200,11 @@ final class Complex
      *
      * @since  1.0.0
      */
-    public function add($value) : Complex
+    public function add($value) : self
     {
         if (\is_numeric($value)) {
             return $this->addScalar($value);
-        } elseif ($value instanceof Complex) {
+        } elseif ($value instanceof self) {
             return $this->addComplex($value);
         }
 
@@ -220,7 +220,7 @@ final class Complex
      *
      * @since  1.0.0
      */
-    private function addComplex(Complex $cpl) : Complex
+    private function addComplex(self $cpl) : self
     {
         return new self($this->re + $cpl->re(), $this->im + $cpl->im());
     }
@@ -234,7 +234,7 @@ final class Complex
      *
      * @since  1.0.0
      */
-    private function addScalar($val) : Complex
+    private function addScalar($val) : self
     {
         return new self($this->re + $val, $this->im);
     }
@@ -250,11 +250,11 @@ final class Complex
      *
      * @since  1.0.0
      */
-    public function sub($value) : Complex
+    public function sub($value) : self
     {
         if (\is_numeric($value)) {
             return $this->subScalar($value);
-        } elseif ($value instanceof Complex) {
+        } elseif ($value instanceof self) {
             return $this->subComplex($value);
         }
 
@@ -270,7 +270,7 @@ final class Complex
      *
      * @since  1.0.0
      */
-    private function subComplex(Complex $cpl) : Complex
+    private function subComplex(self $cpl) : self
     {
         return new self($this->re - $cpl->re(), $this->im - $cpl->im());
     }
@@ -284,7 +284,7 @@ final class Complex
      *
      * @since  1.0.0
      */
-    private function subScalar($val) : Complex
+    private function subScalar($val) : self
     {
         return new self($this->re - $val, $this->im);
     }
@@ -300,11 +300,11 @@ final class Complex
      *
      * @since  1.0.0
      */
-    public function mult($value) : Complex
+    public function mult($value) : self
     {
         if (\is_numeric($value)) {
             return $this->multScalar($value);
-        } elseif ($value instanceof Complex) {
+        } elseif ($value instanceof self) {
             return $this->multComplex($value);
         }
 
@@ -320,7 +320,7 @@ final class Complex
      *
      * @since  1.0.0
      */
-    private function multComplex(Complex $cpl) : Complex
+    private function multComplex(self $cpl) : self
     {
         return new self(
             $this->re * $cpl->re() - $this->im * $cpl->im(),
@@ -337,7 +337,7 @@ final class Complex
      *
      * @since  1.0.0
      */
-    private function multScalar($val) : Complex
+    private function multScalar($val) : self
     {
         return new self($this->re * $val, $this->im * $val);
     }
@@ -353,11 +353,11 @@ final class Complex
      *
      * @since  1.0.0
      */
-    public function div($value) : Complex
+    public function div($value) : self
     {
         if (\is_numeric($value)) {
             return $this->divScalar($value);
-        } elseif ($value instanceof Complex) {
+        } elseif ($value instanceof self) {
             return $this->divComplex($value);
         }
 
@@ -373,7 +373,7 @@ final class Complex
      *
      * @since  1.0.0
      */
-    private function divComplex(Complex $cpl) : Complex
+    private function divComplex(self $cpl) : self
     {
         return new self(
             ($this->re * $cpl->re() + $this->im * $cpl->im()) / ($cpl->re() ** 2 + $cpl->im() ** 2),
@@ -390,7 +390,7 @@ final class Complex
      *
      * @since  1.0.0
      */
-    private function divScalar($val) : Complex
+    private function divScalar($val) : self
     {
         return new self($this->re / $val, $this->im / $val);
     }

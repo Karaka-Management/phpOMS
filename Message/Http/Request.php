@@ -223,7 +223,7 @@ final class Request extends RequestAbstract
      *
      * @since  1.0.0
      */
-    public static function createFromSuperglobals() : Request
+    public static function createFromSuperglobals() : self
     {
         return new self();
     }

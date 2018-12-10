@@ -126,9 +126,9 @@ class Matrix implements \ArrayAccess, \Iterator
      *
      * @since  1.0.0
      */
-    public function transpose() : Matrix
+    public function transpose() : self
     {
-        $matrix = new Matrix($this->n, $this->m);
+        $matrix = new self($this->n, $this->m);
         $matrix->setMatrix(\array_map(null, ...$this->matrix));
 
         return $matrix;
@@ -158,7 +158,7 @@ class Matrix implements \ArrayAccess, \Iterator
      *
      * @since  1.0.0
      */
-    public function getSubMatrix(int $iRow, int $lRow, int $iCol, int $lCol) : Matrix
+    public function getSubMatrix(int $iRow, int $lRow, int $iCol, int $lCol) : self
     {
         $X = [[]];
         for ($i = $iRow; $i <= $lRow; ++$i) {
@@ -183,7 +183,7 @@ class Matrix implements \ArrayAccess, \Iterator
      *
      * @since  1.0.0
      */
-    public function getSubMatrixByColumnsRows(array $rows, array $cols) : Matrix
+    public function getSubMatrixByColumnsRows(array $rows, array $cols) : self
     {
         $X       = [[]];
         $rlength = \count($rows);
@@ -212,7 +212,7 @@ class Matrix implements \ArrayAccess, \Iterator
      *
      * @since  1.0.0
      */
-    public function getSubMatrixByColumns(int $iRow, int $lRow, array $cols) : Matrix
+    public function getSubMatrixByColumns(int $iRow, int $lRow, array $cols) : self
     {
         $X      = [[]];
         $length = \count($cols);
@@ -240,7 +240,7 @@ class Matrix implements \ArrayAccess, \Iterator
      *
      * @since  1.0.0
      */
-    public function getSubMatrixByRows(array $rows, int $iCol, int $lCol) : Matrix
+    public function getSubMatrixByRows(array $rows, int $iCol, int $lCol) : self
     {
         $X      = [[]];
         $length = \count($rows);
@@ -378,7 +378,7 @@ class Matrix implements \ArrayAccess, \Iterator
      *
      * @since  1.0.0
      */
-    public function setMatrix(array $matrix) : Matrix
+    public function setMatrix(array $matrix) : self
     {
         $this->m      = \count($matrix);
         $this->n      = !\is_array($matrix[0] ?? 1) ? 1 : \count($matrix[0]);
@@ -398,9 +398,9 @@ class Matrix implements \ArrayAccess, \Iterator
      *
      * @since  1.0.0
      */
-    public function sub($value) : Matrix
+    public function sub($value) : self
     {
-        if ($value instanceof Matrix) {
+        if ($value instanceof self) {
             return $this->add($value->mult(-1));
         } elseif (!is_string($value) && is_numeric($value)) {
             return $this->add(-$value);
@@ -420,9 +420,9 @@ class Matrix implements \ArrayAccess, \Iterator
      *
      * @since  1.0.0
      */
-    public function add($value) : Matrix
+    public function add($value) : self
     {
-        if ($value instanceof Matrix) {
+        if ($value instanceof self) {
             return $this->addMatrix($value);
         } elseif (!is_string($value) && is_numeric($value)) {
             return $this->addScalar($value);
@@ -442,7 +442,7 @@ class Matrix implements \ArrayAccess, \Iterator
      *
      * @since  1.0.0
      */
-    private function addMatrix(Matrix $matrix) : Matrix
+    private function addMatrix(self $matrix) : self
     {
         if ($this->m !== $matrix->getM() || $this->n !== $matrix->getN()) {
             throw new InvalidDimensionException($matrix->getM() . 'x' . $matrix->getN());
@@ -457,7 +457,7 @@ class Matrix implements \ArrayAccess, \Iterator
             }
         }
 
-        $newMatrix = new Matrix($this->m, $this->n);
+        $newMatrix = new self($this->m, $this->n);
         $newMatrix->setMatrix($newMatrixArr);
 
         return $newMatrix;
@@ -498,7 +498,7 @@ class Matrix implements \ArrayAccess, \Iterator
      *
      * @since  1.0.0
      */
-    private function addScalar($scalar) : Matrix
+    private function addScalar($scalar) : self
     {
         $newMatrixArr = $this->matrix;
 
@@ -508,7 +508,7 @@ class Matrix implements \ArrayAccess, \Iterator
             }
         }
 
-        $newMatrix = new Matrix($this->m, $this->n);
+        $newMatrix = new self($this->m, $this->n);
         $newMatrix->setMatrix($newMatrixArr);
 
         return $newMatrix;
@@ -525,9 +525,9 @@ class Matrix implements \ArrayAccess, \Iterator
      *
      * @since  1.0.0
      */
-    public function mult($value) : Matrix
+    public function mult($value) : self
     {
-        if ($value instanceof Matrix) {
+        if ($value instanceof self) {
             return $this->multMatrix($value);
         } elseif (!is_string($value) && is_numeric($value)) {
             return $this->multScalar($value);
@@ -547,13 +547,13 @@ class Matrix implements \ArrayAccess, \Iterator
      *
      * @since  1.0.0
      */
-    private function multMatrix(Matrix $matrix) : Matrix
+    private function multMatrix(self $matrix) : self
     {
         $nDim = $matrix->getN();
         $mDim = $matrix->getM();
 
         $matrixArr    = $matrix->getMatrix();
-        $newMatrix    = new Matrix($this->m, $nDim);
+        $newMatrix    = new self($this->m, $nDim);
         $newMatrixArr = $newMatrix->getMatrix();
 
         for ($i = 0; $i < $this->m; ++$i) { // Row of $this
@@ -584,7 +584,7 @@ class Matrix implements \ArrayAccess, \Iterator
      *
      * @since  1.0.0
      */
-    private function multScalar($scalar) : Matrix
+    private function multScalar($scalar) : self
     {
         $newMatrixArr = $this->matrix;
 
@@ -594,7 +594,7 @@ class Matrix implements \ArrayAccess, \Iterator
             }
         }
 
-        $newMatrix = new Matrix($this->m, $this->n);
+        $newMatrix = new self($this->m, $this->n);
         $newMatrix->setMatrix($newMatrixArr);
 
         return $newMatrix;
@@ -607,9 +607,9 @@ class Matrix implements \ArrayAccess, \Iterator
      *
      * @since  1.0.0
      */
-    public function upperTriangular() : Matrix
+    public function upperTriangular() : self
     {
-        $matrix = new Matrix($this->n, $this->n);
+        $matrix = new self($this->n, $this->n);
 
         $matrixArr = $this->matrix;
         $this->upperTrianglize($matrixArr);
@@ -677,7 +677,7 @@ class Matrix implements \ArrayAccess, \Iterator
      *
      * @since  1.0.0
      */
-    public function inverse() : Matrix
+    public function inverse() : self
     {
         return $this->solve(new IdentityMatrix($this->m));
     }
@@ -691,7 +691,7 @@ class Matrix implements \ArrayAccess, \Iterator
      *
      * @since  1.0.0
      */
-    public function solve(Matrix $B) : Matrix
+    public function solve(self $B) : self
     {
         $M = $this->m === $this->n ? new LUDecomposition($this) : new QRDecomposition($this);
 

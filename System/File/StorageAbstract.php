@@ -41,7 +41,7 @@ abstract class StorageAbstract
      *
      * @since  1.0.0
      */
-    abstract public static function getInstance() : StorageAbstract;
+    abstract public static function getInstance() : self;
 
     /**
      * Get the internal class type (directory or file) based on path.

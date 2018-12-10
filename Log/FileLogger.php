@@ -135,7 +135,7 @@ final class FileLogger implements LoggerInterface
      *
      * @since  1.0.0
      */
-    public static function getInstance(string $path = '', bool $verbose = false) : FileLogger
+    public static function getInstance(string $path = '', bool $verbose = false) : self
     {
         if (self::$instance === null) {
             self::$instance = new self($path, $verbose);

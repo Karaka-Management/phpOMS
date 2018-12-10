@@ -286,5 +286,5 @@ abstract class TaskAbstract
      *
      * @since 1.0.0
      */
-    abstract public static function createWith(array $jobData) : TaskAbstract;
+    abstract public static function createWith(array $jobData) : self;
 }
