@@ -76,7 +76,7 @@ class MultiMap implements \Countable
     /**
      * Add data.
      *
-     * @param array<string|int|float> $keys      Keys for value
+     * @param array<float|int|string> $keys      Keys for value
      * @param mixed                   $value     Value to store
      * @param bool                    $overwrite Add value if key exists
      *

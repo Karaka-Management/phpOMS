@@ -98,7 +98,7 @@ final class StringUtils
      * In case of an array the function will test if any of the needles is at the end of the haystack string.
      *
      * @param string       $haystack Haystack
-     * @param string|array $needles  Needles to check if they are at the end of the haystack.
+     * @param array|string $needles  Needles to check if they are at the end of the haystack.
      *
      * @example StringUtils::endsWith('Test string', ['test1', 'string']); // true
      *
@@ -128,7 +128,7 @@ final class StringUtils
      * In case of an array the function will test if any of the needles is at the beginning of the haystack string.
      *
      * @param string       $haystack Haystack
-     * @param string|array $needles  Needles to check if they are at the beginning of the haystack.
+     * @param array|string $needles  Needles to check if they are at the beginning of the haystack.
      *
      * @example StringUtils::startsWith('Test string', ['Test', 'something']); // true
      * @example StringUtils::startsWith('Test string', 'string'); // false
@@ -160,7 +160,7 @@ final class StringUtils
      * In case of an array the function will test if any of the needles is at the beginning of the haystack string.
      *
      * @param string       $haystack Haystack
-     * @param string|array $needles  Needles to check if they are at the beginning of the haystack.
+     * @param array|string $needles  Needles to check if they are at the beginning of the haystack.
      *
      * @return bool The function returns true if any of the needles is at the beginning of the haystack, false otherwise.
      *
@@ -188,7 +188,7 @@ final class StringUtils
      * In case of an array the function will test if any of the needles is at the end of the haystack string.
      *
      * @param string       $haystack Haystack
-     * @param string|array $needles  Needles to check if they are at the end of the haystack.
+     * @param array|string $needles  Needles to check if they are at the end of the haystack.
      *
      * @example StringUtils::endsWith('Test string', ['test1', 'string']); // true
      * @example StringUtils::endsWith('Test string', 'string'); // true

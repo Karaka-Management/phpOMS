@@ -62,7 +62,7 @@ class Builder extends BuilderAbstract
     /**
      * Into.
      *
-     * @var string|\Closure
+     * @var \Closure|string
      * @since 1.0.0
      */
     public $into = null;
@@ -399,7 +399,7 @@ class Builder extends BuilderAbstract
     /**
      * Make raw column selection.
      *
-     * @param string|\Closure $expression Raw expression
+     * @param \Closure|string $expression Raw expression
      *
      * @return Builder
      *
@@ -451,7 +451,7 @@ class Builder extends BuilderAbstract
     /**
      * Make raw from.
      *
-     * @param string|array|\Closure $expression Expression
+     * @param array|\Closure|string $expression Expression
      *
      * @return Builder
      *
@@ -467,10 +467,10 @@ class Builder extends BuilderAbstract
     /**
      * Where.
      *
-     * @param Where|string|\Closure|array $columns  Columns
-     * @param string|array                $operator Operator
+     * @param array|\Closure|string|Where $columns  Columns
+     * @param array|string                $operator Operator
      * @param mixed                       $values   Values
-     * @param string|array                $boolean  Boolean condition
+     * @param array|string                $boolean  Boolean condition
      *
      * @return Builder
      *
@@ -514,7 +514,7 @@ class Builder extends BuilderAbstract
      *
      * @param mixed $column Column
      *
-     * @return array|null
+     * @return null|array
      *
      * @since  1.0.0
      */
@@ -526,7 +526,7 @@ class Builder extends BuilderAbstract
     /**
      * Where and sub condition.
      *
-     * @param Where|string|\Closure|array $where    Where sub condition
+     * @param array|\Closure|string|Where $where    Where sub condition
      * @param mixed                       $operator Operator
      * @param mixed                       $values   Values
      *
@@ -542,7 +542,7 @@ class Builder extends BuilderAbstract
     /**
      * Where or sub condition.
      *
-     * @param Where|string|\Closure|array $where    Where sub condition
+     * @param array|\Closure|string|Where $where    Where sub condition
      * @param mixed                       $operator Operator
      * @param mixed                       $values   Values
      *
@@ -558,7 +558,7 @@ class Builder extends BuilderAbstract
     /**
      * Where in.
      *
-     * @param Where|string|\Closure|array $column  Column
+     * @param array|\Closure|string|Where $column  Column
      * @param mixed                       $values  Values
      * @param string                      $boolean Boolean condition
      *
@@ -576,7 +576,7 @@ class Builder extends BuilderAbstract
     /**
      * Where null.
      *
-     * @param Where|string|\Closure|array $column  Column
+     * @param array|\Closure|string|Where $column  Column
      * @param string                      $boolean Boolean condition
      *
      * @return Builder
@@ -593,7 +593,7 @@ class Builder extends BuilderAbstract
     /**
      * Where not null.
      *
-     * @param Where|string|\Closure|array $column  Column
+     * @param array|\Closure|string|Where $column  Column
      * @param string                      $boolean Boolean condition
      *
      * @return Builder
@@ -610,7 +610,7 @@ class Builder extends BuilderAbstract
     /**
      * Group by.
      *
-     * @param string|array|\Closure ...$columns Grouping result
+     * @param array|\Closure|string ...$columns Grouping result
      *
      * @return Builder
      *
@@ -632,7 +632,7 @@ class Builder extends BuilderAbstract
     /**
      * Order by newest.
      *
-     * @param string|\Closure $column Column
+     * @param \Closure|string $column Column
      *
      * @return Builder
      *
@@ -648,7 +648,7 @@ class Builder extends BuilderAbstract
     /**
      * Order by oldest.
      *
-     * @param string|\Closure $column Column
+     * @param \Closure|string $column Column
      *
      * @return Builder
      *
@@ -664,7 +664,7 @@ class Builder extends BuilderAbstract
     /**
      * Order by oldest.
      *
-     * @param string|array|\Closure $columns Columns
+     * @param array|\Closure|string $columns Columns
      * @param string|string[]       $order   Orders
      *
      * @return Builder
@@ -879,7 +879,7 @@ class Builder extends BuilderAbstract
     /**
      * Table to insert into.
      *
-     * @param string|\Closure $table Table
+     * @param \Closure|string $table Table
      *
      * @return Builder
      *

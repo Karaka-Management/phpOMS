@@ -30,7 +30,7 @@ interface SessionInterface
     /**
      * Get session variable by key.
      *
-     * @param string|int $key Value key
+     * @param int|string $key Value key
      *
      * @return mixed
      *
@@ -41,7 +41,7 @@ interface SessionInterface
     /**
      * Store session value by key.
      *
-     * @param string|int $key       Value key
+     * @param int|string $key       Value key
      * @param mixed      $value     Value to store
      * @param bool       $overwrite Overwrite existing values
      *
@@ -54,7 +54,7 @@ interface SessionInterface
     /**
      * Remove value from session by key.
      *
-     * @param string|int $key Value key
+     * @param int|string $key Value key
      *
      * @return bool
      *
@@ -72,14 +72,14 @@ interface SessionInterface
     public function save() : void;
 
     /**
-     * @return int|string|null
+     * @return null|int|string
      *
      * @since  1.0.0
      */
     public function getSID();
 
     /**
-     * @param int|string|null $sid Session id
+     * @param null|int|string $sid Session id
      *
      * @return void
      *

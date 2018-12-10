@@ -92,7 +92,7 @@ class CommandManager implements \Countable
      * @param mixed  $conn Client ID
      * @param mixed  $para Parameters to pass
      *
-     * @return mixed|bool
+     * @return bool|mixed
      *
      * @since  1.0.0
      */

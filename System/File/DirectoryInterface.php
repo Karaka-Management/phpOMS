@@ -46,7 +46,7 @@ interface DirectoryInterface extends ContainerInterface, \Iterator, \ArrayAccess
      *
      * @param string $name File/direcotry name
      *
-     * @return ContainerInterface|null
+     * @return null|ContainerInterface
      *
      * @since  1.0.0
      */

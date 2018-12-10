@@ -65,7 +65,7 @@ final class FileLogger implements LoggerInterface
      *
      * Potential values are null or a valid file pointer
      *
-     * @var resource|false
+     * @var false|resource
      * @since 1.0.0
      */
     private $fp = false;

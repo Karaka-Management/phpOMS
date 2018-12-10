@@ -50,7 +50,7 @@ class View extends ViewAbstract
     /**
      * Application.
      *
-     * @var ApplicationAbstract|null
+     * @var null|ApplicationAbstract
      * @since 1.0.0
      */
     protected $app = null;
@@ -58,7 +58,7 @@ class View extends ViewAbstract
     /**
      * Request.
      *
-     * @var RequestAbstract|null
+     * @var null|RequestAbstract
      * @since 1.0.0
      */
     protected $request = null;
@@ -66,7 +66,7 @@ class View extends ViewAbstract
     /**
      * Request.
      *
-     * @var ResponseAbstract|null
+     * @var null|ResponseAbstract
      * @since 1.0.0
      */
     protected $response = null;
@@ -228,7 +228,7 @@ class View extends ViewAbstract
     /**
      * Get request of view
      *
-     * @return RequestAbstract|null
+     * @return null|RequestAbstract
      *
      * @since  1.0.0
      */
@@ -240,7 +240,7 @@ class View extends ViewAbstract
     /**
      * Get response of view
      *
-     * @return ResponseAbstract|null
+     * @return null|ResponseAbstract
      *
      * @since  1.0.0
      */

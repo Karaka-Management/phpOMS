@@ -27,7 +27,7 @@ interface MessageInterface
     /**
      * Retrieves all message header values.
      *
-     * @return HeaderAbstract|null
+     * @return null|HeaderAbstract
      *
      * @since  1.0.0
      */

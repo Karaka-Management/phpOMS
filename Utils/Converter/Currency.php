@@ -34,7 +34,7 @@ class Currency
     /**
      * ECB currency rates.
      *
-     * @var array|null
+     * @var null|array
      * @since 1.0.0
      */
     private static $ecbCurrencies = null;

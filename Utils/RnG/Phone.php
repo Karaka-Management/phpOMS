@@ -31,7 +31,7 @@ class Phone
      * @param bool              $isInt     This number uses a country code
      * @param string            $struct    Number layout
      * @param array<null|array> $size      Digits per placeholder [min, max]
-     * @param array|null        $countries Country codes
+     * @param null|array        $countries Country codes
      *
      * @return string
      *

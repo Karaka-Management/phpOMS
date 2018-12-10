@@ -128,7 +128,7 @@ class Graph
      *
      * @param mixed $key Node key
      *
-     * @return Node|null
+     * @return null|Node
      *
      * @since  1.0.0
      */
@@ -154,7 +154,7 @@ class Graph
      *
      * @param mixed $key Edge key
      *
-     * @return Edge|null
+     * @return null|Edge
      *
      * @since  1.0.0
      */

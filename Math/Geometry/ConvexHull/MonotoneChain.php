@@ -38,9 +38,9 @@ final class MonotoneChain
     /**
      * Create convex hull
      *
-     * @param array<int, array<string, int|float>> $points Points (Point Cloud)
+     * @param array<int, array<string, float|int>> $points Points (Point Cloud)
      *
-     * @return array<int, array<string, int|float>>
+     * @return array<int, array<string, float|int>>
      *
      * @since  1.0.0
      */
@@ -81,9 +81,9 @@ final class MonotoneChain
     /**
      * Counter clock wise turn?
      *
-     * @param array<string, int|float> $a Point a
-     * @param array<string, int|float> $b Point b
-     * @param array<string, int|float> $c Point c
+     * @param array<string, float|int> $a Point a
+     * @param array<string, float|int> $b Point b
+     * @param array<string, float|int> $c Point c
      *
      * @return float
      *
@@ -97,8 +97,8 @@ final class MonotoneChain
     /**
      * Sort by x coordinate then by z coordinate
      *
-     * @param array<string, int|float> $a Point a
-     * @param array<string, int|float> $b Point b
+     * @param array<string, float|int> $a Point a
+     * @param array<string, float|int> $b Point b
      *
      * @return float
      *

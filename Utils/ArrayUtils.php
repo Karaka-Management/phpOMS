@@ -370,7 +370,7 @@ final class ArrayUtils
      * @param int   $start Start index
      * @param int   $count Amount of elements to sum
      *
-     * @return int|float
+     * @return float|int
      *
      * @since  1.0.0
      */

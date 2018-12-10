@@ -264,7 +264,7 @@ abstract class ModuleAbstract
      * @param RequestAbstract $request Request
      * @param mixed           $old     Response object old
      * @param mixed           $new     Response object new
-     * @param string|\Closure $mapper  Object mapper
+     * @param \Closure|string $mapper  Object mapper
      * @param string          $trigger Trigger for the event manager
      *
      * @return void

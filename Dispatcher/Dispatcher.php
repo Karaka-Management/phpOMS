@@ -32,7 +32,7 @@ final class Dispatcher
     /**
      * Application.
      *
-     * @var ApplicationAbstract|null
+     * @var null|ApplicationAbstract
      * @since 1.0.0
      */
     private $app = null;
@@ -62,8 +62,8 @@ final class Dispatcher
     /**
      * Dispatch controller.
      *
-     * @param string|array|\Closure $controller Controller string
-     * @param array|null|mixed      ...$data    Data
+     * @param array|\Closure|string $controller Controller string
+     * @param null|array|mixed      ...$data    Data
      *
      * @return array
      *
@@ -94,7 +94,7 @@ final class Dispatcher
      * Dispatch string.
      *
      * @param string     $controller Controller string
-     * @param array|null $data       Data
+     * @param null|array $data       Data
      *
      * @return array
      *
@@ -132,7 +132,7 @@ final class Dispatcher
      * Dispatch array.
      *
      * @param array      $controller Controller string
-     * @param array|null $data       Data
+     * @param null|array $data       Data
      *
      * @return array
      *
@@ -156,7 +156,7 @@ final class Dispatcher
      * Dispatch closure.
      *
      * @param \Closure   $controller Controller string
-     * @param array|null $data       Data
+     * @param null|array $data       Data
      *
      * @return mixed
      *

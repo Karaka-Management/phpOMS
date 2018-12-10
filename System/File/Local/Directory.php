@@ -105,7 +105,7 @@ final class Directory extends FileAbstract implements DirectoryInterface
      * @param string $extension Extension
      * @param string $exclude   Pattern to exclude
      *
-     * @return array<string|array>
+     * @return array<array|string>
      *
      * @since  1.0.0
      */

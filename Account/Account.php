@@ -86,7 +86,7 @@ class Account implements ArrayableInterface, \JsonSerializable
     /**
      * Login.
      *
-     * @var string|null
+     * @var null|string
      * @since 1.0.0
      */
     protected $login = null;
@@ -313,12 +313,12 @@ class Account implements ArrayableInterface, \JsonSerializable
      * Checks if the account has a permission defined
      *
      * @param int         $permission Permission to check
-     * @param int|null    $unit       Unit Unit to check (null if all are acceptable)
-     * @param string|null $app        App App to check  (null if all are acceptable)
-     * @param string|null $module     Module Module to check  (null if all are acceptable)
-     * @param int|null    $type       Type (e.g. customer) (null if all are acceptable)
-     * @param int|null    $element    (e.g. customer id) (null if all are acceptable)
-     * @param int|null    $component  (e.g. address) (null if all are acceptable)
+     * @param null|int    $unit       Unit Unit to check (null if all are acceptable)
+     * @param null|string $app        App App to check  (null if all are acceptable)
+     * @param null|string $module     Module Module to check  (null if all are acceptable)
+     * @param null|int    $type       Type (e.g. customer) (null if all are acceptable)
+     * @param null|int    $element    (e.g. customer id) (null if all are acceptable)
+     * @param null|int    $component  (e.g. address) (null if all are acceptable)
      *
      * @return bool Returns true if the account has the permission, false otherwise
      *

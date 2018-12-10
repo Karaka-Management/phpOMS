@@ -50,7 +50,7 @@ class HttpSession implements SessionInterface
     /**
      * Session ID.
      *
-     * @var string|int|null
+     * @var null|int|string
      * @since 1.0.0
      */
     private $sid = null;
@@ -67,7 +67,7 @@ class HttpSession implements SessionInterface
      * Constructor.
      *
      * @param int             $liftetime          Session life time
-     * @param string|int|bool $sid                Session id
+     * @param bool|int|string $sid                Session id
      * @param int             $inactivityInterval Interval for session activity
      *
      * @throws LockException Throws this exception if the session is alrady locked for further interaction.

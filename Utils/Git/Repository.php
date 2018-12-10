@@ -277,7 +277,7 @@ class Repository
     /**
      * Files to add to commit.
      *
-     * @param string|array $files Files to commit
+     * @param array|string $files Files to commit
      *
      * @return string
      *
@@ -295,7 +295,7 @@ class Repository
     /**
      * Remove file(s) from repository
      *
-     * @param string|array $files  Files to remove
+     * @param array|string $files  Files to remove
      * @param bool         $cached ?
      *
      * @return string
@@ -312,7 +312,7 @@ class Repository
     /**
      * Remove file(s) from repository
      *
-     * @param string|array $files Files to remove
+     * @param array|string $files Files to remove
      *
      * @return string
      *

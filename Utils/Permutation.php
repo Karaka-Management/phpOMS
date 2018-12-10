@@ -41,7 +41,7 @@ final class Permutation
      * @param array $toPermute data to permutate
      * @param array $result    existing permutations
      *
-     * @return array<string|array>
+     * @return array<array|string>
      *
      * @since  1.0.0
      */
@@ -101,7 +101,7 @@ final class Permutation
     /**
      * Permutate based on transposition key.
      *
-     * @param string|array $toPermute To permutate
+     * @param array|string $toPermute To permutate
      * @param array        $key       Permutation keys
      *
      * @return mixed

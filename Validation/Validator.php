@@ -67,7 +67,7 @@ final class Validator extends ValidatorAbstract
      * Validate variable by type.
      *
      * @param mixed           $var        Variable to validate
-     * @param string[]|string $constraint Array of allowed types
+     * @param string|string[] $constraint Array of allowed types
      *
      * @return bool
      *
@@ -114,7 +114,7 @@ final class Validator extends ValidatorAbstract
      * Validate variable by substring.
      *
      * @param string       $var    Variable to validate
-     * @param string|array $substr Substring
+     * @param array|string $substr Substring
      *
      * @return bool
      *
@@ -143,9 +143,9 @@ final class Validator extends ValidatorAbstract
     /**
      * Validate variable by interval.
      *
-     * @param int|float $var Variable to validate
-     * @param int|float $min Min. value
-     * @param int|float $max Max. value
+     * @param float|int $var Variable to validate
+     * @param float|int $min Min. value
+     * @param float|int $max Max. value
      *
      * @return bool
      *
