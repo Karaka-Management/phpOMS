@@ -62,7 +62,7 @@ final class MonotoneChain
             }
 
             // Upper hull
-            for ($i = $n - 2, $t = $k + 1; $i >= 0; $i--) {
+            for ($i = $n - 2, $t = $k + 1; $i >= 0; --$i) {
                 while ($k >= $t && self::cross($result[$k - 2], $result[$k - 1], $points[$i]) <= 0) {
                     $k--;
                 }

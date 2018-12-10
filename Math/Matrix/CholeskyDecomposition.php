@@ -150,7 +150,7 @@ final class CholeskyDecomposition
         }
 
         // Solve L'*X = Y;
-        for ($k = $this->m - 1; $k >= 0; $k--) {
+        for ($k = $this->m - 1; $k >= 0; --$k) {
             for ($j = 0; $j < $n; ++$j) {
                 for ($i = $k + 1; $i < $this->m; ++$i) {
                     $X[$k][$j] -= $X[$i][$j] * $this->L[$i][$k];

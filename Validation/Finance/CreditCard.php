@@ -72,7 +72,7 @@ final class CreditCard extends ValidatorAbstract
         $len = \strlen($num);
         $sum = 0;
 
-        for ($i = $len - 1; $i >= 0; $i--) {
+        for ($i = $len - 1; $i >= 0; --$i) {
             $ord = \ord($num[$i]);
 
             if (($len - 1) & $i) {
