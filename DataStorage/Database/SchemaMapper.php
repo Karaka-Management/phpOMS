@@ -18,9 +18,7 @@ use phpOMS\DataStorage\Database\Connection\ConnectionAbstract;
 use phpOMS\DataStorage\Database\Schema\Builder;
 
 /**
- * Database type enum.
- *
- * Database types that are supported by the application
+ * Database schema mapper.
  *
  * @package    phpOMS\DataStorage\Database
  * @license    OMS License 1.0
@@ -42,6 +40,13 @@ class SchemaMapper
         $this->db = $db;
     }
 
+    /**
+     * Get all tables of database
+     *
+     * @return array
+     *
+     * @since 1.0.0
+     */
     public function getTables() : array
     {
         $builder = new Builder($this->db);
@@ -55,6 +60,15 @@ class SchemaMapper
         return $tables;
     }
 
+    /**
+     * Get table by name
+     *
+     * @param string $name Name of the table
+     *
+     * @return Table
+     *
+     * @since 1.0.0
+     */
     public function getTable(string $name) : Table
     {
         $table = new Table();
@@ -62,6 +76,15 @@ class SchemaMapper
         return $table;
     }
 
+    /**
+     * Get fields of table
+     *
+     * @param string $table Name of the table
+     *
+     * @return array
+     *
+     * @since 1.0.0
+     */
     public function getFields(string $table) : array
     {
         $builder = new Builder($this->db);
@@ -75,6 +98,16 @@ class SchemaMapper
         return $fields;
     }
 
+    /**
+     * Get field of table
+     *
+     * @param string $table Name of the table
+     * @param string $name  Name of the field
+     *
+     * @return Field
+     *
+     * @since 1.0.0
+     */
     public function getField(string $table, string $name) : Field
     {
         $field = new Field();
