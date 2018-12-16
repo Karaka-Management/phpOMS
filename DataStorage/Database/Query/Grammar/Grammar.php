@@ -316,6 +316,8 @@ class Grammar extends GrammarAbstract
             return \rtrim(\rtrim(\number_format($value, 5, '.', ''), '0'), '.');
         } elseif ($value instanceof Column) {
             return $this->compileSystem($value->getColumn(), $prefix);
+        } elseif ($value instanceof Builder) {
+            return '(' . \rtrim($value->toSql(), ';') . ')';
         } else {
             throw new \InvalidArgumentException(\gettype($value));
         }

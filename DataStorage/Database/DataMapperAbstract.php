@@ -1386,18 +1386,15 @@ class DataMapperAbstract implements DataMapperInterface
 
         self::addInitialized(static::class, $objId, $obj);
 
-        if (empty($objId)) {
-            $update = false;
-            self::create($obj, $relations);
-        }
-
         if ($relations === RelationType::ALL) {
             self::updateHasMany($refClass, $obj, $objId, --$depth);
         }
 
-        if ($update) {
-            self::updateModel($obj, $objId, $refClass, --$depth);
+        if (empty($objId)) {
+            return self::create($obj, $relations);
         }
+
+        self::updateModel($obj, $objId, $refClass, --$depth);
 
         return $objId;
     }
