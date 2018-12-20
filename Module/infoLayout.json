@@ -1,0 +1,35 @@
+{
+    "name": {
+        "id": "^[1-9]\\d*",
+        "internal": "[a-zA-Z0-9]+",
+        "external": "[a-zA-Z0-9]+"
+    },
+    "category": "[a-zA-Z0-9]+",
+    "version": "([0-9]+\\.){2}[0-9]+",
+    "requirements": {
+        ".*": ".*"
+    },
+    "creator": {
+        "name": ".+",
+        "website": ".*"
+    },
+    "description": ".+",
+    "directory": "[a-zA-Z0-9]+",
+    "dependencies": {
+        ".*": ".*"
+    },
+    "providing": {
+        ".*": ".*"
+    },
+    "load": [
+        {
+            "pid": [
+                ".*"
+            ],
+            "type": "^[1-9]\\d*",
+            "for": "^([1-9]\\d*)|([a-zA-Z0-9]+)",
+            "from": "[a-zA-Z0-9]+",
+            "file": "[a-zA-Z0-9]*"
+        }
+    ]
+}
