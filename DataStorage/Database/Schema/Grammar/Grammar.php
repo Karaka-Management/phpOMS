@@ -44,8 +44,20 @@ class Grammar extends QueryGrammar
      * @var string[]
      * @since 1.0.0
      */
+    protected $createTablesComponents = [
+        'createTable',
+        'createFields',
+        'createTableSettings'
+    ];
+
+    /**
+     * Select tables components.
+     *
+     * @var string[]
+     * @since 1.0.0
+     */
     protected $tablesComponents = [
-        'selectTables'
+        'selectTables',
     ];
 
     /**
@@ -55,7 +67,7 @@ class Grammar extends QueryGrammar
      * @since 1.0.0
      */
     protected $fieldsComponents = [
-        'selectFields'
+        'selectFields',
     ];
 
     /**
@@ -70,9 +82,41 @@ class Grammar extends QueryGrammar
                 return $this->tablesComponents;
             case QueryType::FIELDS:
                 return $this->fieldsComponents;
+            case QueryType::CREATE_TABLE:
+                return $this->createTablesComponents;
             default:
                 return parent::getComponents($type);
         }
+    }
+
+    /**
+     * Compile create table query.
+     *
+     * @param BuilderAbstract $query Query
+     * @param string          $table Tables to drop
+     *
+     * @return string
+     *
+     * @since  1.0.0
+     */
+    protected function compileCreateTable(BuilderAbstract $query, string $table) : string
+    {
+        return 'CREATE TABLE ' . $this->expressionizeTable([$table], $query->getPrefix());
+    }
+
+    /**
+     * Compile create table settings query.
+     *
+     * @param BuilderAbstract $query    Query
+     * @param bool            $settings Has settings
+     *
+     * @return string
+     *
+     * @since  1.0.0
+     */
+    protected function compileCreateTableSettings(BuilderAbstract $query, bool $settings) : string
+    {
+        return '';
     }
 
     /**

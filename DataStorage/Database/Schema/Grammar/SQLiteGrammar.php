@@ -16,5 +16,11 @@ namespace phpOMS\DataStorage\Database\Schema\Grammar;
 
 class SQLiteGrammar extends Grammar
 {
-
+    /**
+     * System identifier.
+     *
+     * @var string
+     * @since 1.0.0
+     */
+    protected $systemIdentifier = '`';
 }

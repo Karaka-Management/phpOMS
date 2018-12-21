@@ -28,8 +28,9 @@ use phpOMS\DataStorage\Database\Query\QueryType as DefaultQueryType;
  */
 abstract class QueryType extends DefaultQueryType
 {
-    public const DROP   = 128;
-    public const ALTER  = 129;
-    public const TABLES = 130;
-    public const FIELDS = 131;
+    public const DROP         = 128;
+    public const ALTER        = 129;
+    public const TABLES       = 130;
+    public const FIELDS       = 131;
+    public const CREATE_TABLE = 132;
 }

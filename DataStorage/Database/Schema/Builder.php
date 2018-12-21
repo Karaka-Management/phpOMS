@@ -27,11 +27,17 @@ use phpOMS\DataStorage\Database\Query\Builder as QueryBuilder;
  */
 class Builder extends QueryBuilder
 {
+    public $createTable = '';
+
+    public $createFields = [];
+
     public $drop = [];
 
     public $selectTables = ['*'];
 
     public $selectFields = [];
+
+    public $createTableSettings = true;
 
     /**
      * Constructor.
@@ -64,21 +70,42 @@ class Builder extends QueryBuilder
 
     public function selectFields(string $table) : self
     {
-        $this->type = QueryType::FIELDS;
-
+        $this->type            = QueryType::FIELDS;
         $this->selectFields[0] = $table;
 
         return $this;
     }
 
-    public function create(string $table)
+    public function createTable(string $name) : self
     {
+        $this->type        = QueryType::CREATE_TABLE;
+        $this->createTable = $name;
 
+        return $this;
+    }
+
+    // todo: consider to work with flags instead of all these booleans
+    public function field(
+        string $name, string $type, $default = null, 
+        bool $isNullable = true, bool $isPrimary = false, bool $autoincrement = false, 
+        string $foreignTable = null, string $foreignKey = null
+    ) : self {
+        $this->createFields[$name] = [
+            'name'          => $name,
+            'type'          => $type,
+            'default'       => $default,
+            'null'          => $isNullable,
+            'primary'       => $isPrimary,
+            'autoincrement' => $autoincrement,
+            'foreignTable'  => $foreignTable,
+            'foreignKey'    => $foreignKey,
+        ];
+
+        return $this;
     }
 
     public function alter(array $column)
     {
-
     }
 
     /**

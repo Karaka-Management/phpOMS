@@ -14,6 +14,7 @@ declare(strict_types=1);
 
 namespace phpOMS\DataStorage\Database\Schema\Grammar;
 
+use phpOMS\DataStorage\Database\BuilderAbstract;
 use phpOMS\DataStorage\Database\Query\Builder;
 
 /**
@@ -73,5 +74,68 @@ class MysqlGrammar extends Grammar
             ->andWhere('table_name', '=', 'test');
 
         return \rtrim($builder->toSql(), ';');
+    }
+
+    /**
+     * Compile create table fields query.
+     *
+     * @param Builder $query  Query
+     * @param array   $tables Tables to drop
+     *
+     * @return string
+     *
+     * @since  1.0.0
+     */
+    protected function compileCreateFields(Builder $query, array $fields) : string
+    {
+        $fieldQuery = '';
+        $keys       = '';
+
+        foreach ($fields as $name => $field) {
+            $fieldQuery .= ' ' . $this->expressionizeTableColumn([$name], '') . ' ' . $field['type'];
+
+            if (isset($field['default'])) {
+                $fieldQuery .= ' DEFAULT ' . $this->compileValue($query, $field['default']);
+            }
+
+            if (isset($field['null'])) {
+                $fieldQuery .= ' ' . ($field['null'] ? '' : 'NOT ') . 'NULL';
+            }
+
+            if (isset($field['autoincrement']) && $field['autoincrement']) {
+                $fieldQuery .= ' AUTO_INCREMENT';
+            }
+
+            $fieldQuery .= ',';
+
+            if (isset($field['primary']) && $field['primary']) {
+                $keys .= ' PRIMARY KEY (' .  $this->expressionizeTableColumn([$name], '') . '),';
+            }
+
+            if (isset($field['foreignTable'], $field['foreignKey'])
+                && !empty($field['foreignTable']) && !empty($field['foreignKey'])
+            ) {
+                $keys .= ' FOREIGN KEY (' .  $this->expressionizeTableColumn([$name], '') . ') REFERENCES ' 
+                    . $this->expressionizeTable([$field['foreignTable']], $query->getPrefix()) 
+                    . ' (' . $this->expressionizeTableColumn([$field['foreignKey']], '') . '),';
+            }
+        }
+
+        return '(' . \ltrim(\rtrim($fieldQuery . $keys, ','), ' ') . ')';
+    }
+
+    /**
+     * Compile create table settings query.
+     *
+     * @param BuilderAbstract $query    Query
+     * @param bool            $settings Has settings
+     *
+     * @return string
+     *
+     * @since  1.0.0
+     */
+    protected function compileCreateTableSettings(BuilderAbstract $query, bool $settings) : string
+    {
+        return 'ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1';
     }
 }

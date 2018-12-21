@@ -13,11 +13,13 @@
 
 namespace phpOMS\tests\DataStorage\Database\Schema\Grammar;
 
+use phpOMS\DataStorage\Database\Schema\Grammar\PostgresGrammar;
+use phpOMS\Utils\TestUtils;
 
 class PostgresGrammarTest extends \PHPUnit\Framework\TestCase
 {
-    public function testPlaceholder()
+    public function testDefault()
     {
-        self::markTestIncomplete();
+        self::assertInstanceOf('\phpOMS\DataStorage\Database\Schema\Grammar\Grammar', new PostgresGrammar());
     }
 }

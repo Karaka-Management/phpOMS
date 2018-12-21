@@ -14,7 +14,7 @@ declare(strict_types=1);
 
 namespace phpOMS\DataStorage\Database\Schema\Grammar;
 
-class SqlServerGrammar extends Grammar
+class OracleGrammar extends Grammar
 {
 
 }

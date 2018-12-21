@@ -13,14 +13,13 @@
 
 namespace phpOMS\tests\DataStorage\Database\Schema\Grammar;
 
-use phpOMS\DataStorage\Database\Schema\Grammar\MysqlGrammar;
+use phpOMS\DataStorage\Database\Schema\Grammar\OracleGrammar;
 use phpOMS\Utils\TestUtils;
 
-class MysqlGrammarTest extends \PHPUnit\Framework\TestCase
+class OracleGrammarTest extends \PHPUnit\Framework\TestCase
 {
     public function testDefault()
     {
-        self::assertInstanceOf('\phpOMS\DataStorage\Database\Schema\Grammar\Grammar', new MysqlGrammar());
-        self::assertEquals('`', TestUtils::getMember(new MysqlGrammar(), 'systemIdentifier'));
+        self::assertInstanceOf('\phpOMS\DataStorage\Database\Schema\Grammar\Grammar', new OracleGrammar());
     }
 }
