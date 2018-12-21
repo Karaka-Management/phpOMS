@@ -16,6 +16,7 @@ namespace phpOMS\Module;
 
 use phpOMS\DataStorage\Database\DatabasePool;
 use phpOMS\DataStorage\Database\Query\Builder;
+use phpOMS\DataStorage\Database\Schema\Builder as SchemaBuilder;
 use phpOMS\System\File\Local\Directory;
 use phpOMS\System\File\Local\File;
 use phpOMS\System\File\PathException;
@@ -86,11 +87,70 @@ class InstallerAbstract
      */
     public static function install(DatabasePool $dbPool, InfoManager $info) : void
     {
+        self::createTables($dbPool, $info);
         self::registerInDatabase($dbPool, $info);
         self::initRoutes($info);
         self::initHooks($info);
         self::activate($dbPool, $info);
     }
+
+    /**
+     * Create tables for module.
+     *
+     * @param DatabasePool $dbPool Database instance
+     * @param InfoManager  $info   Module info
+     *
+     * @return void
+     *
+     * @since  1.0.0
+     */
+    public static function createTables(DatabasePool $dbPool, InfoManager $info) : void
+	{
+        $path = \dirname($info->getPath()) . '/Admin/Install/db.json';
+
+        if (!\file_exists($path)) {
+            return;
+        }
+
+        $content = \file_get_contents($path);
+        if ($content === false) {
+            return;
+        }
+
+        $definitions = \json_decode($content, true);
+
+		foreach ($definitions as $definition) {
+			self::createTable($definition, $dbPool);
+		}
+	}
+
+    /**
+     * Create table module.
+     *
+     * @param array        $definition Table definition
+     * @param DatabasePool $dbPool     Database instance
+     *
+     * @return void
+     *
+     * @since  1.0.0
+     */
+	public static function createTable(array $definition, DatabasePool $dbPool) : void
+	{
+		$builder = new SchemaBuilder($dbPool->get('schema'));
+		$builder->prefix($dbPool->get('schema')->prefix);
+		$builder->createTable($definition['table'] ?? '');
+
+		foreach ($definition['fields'] as $name => $def) {
+			$builder->field(
+                $name, $def['type'], $def['default'],
+                $def['null'], $def['primary'], $def['autoincrement'],
+                $def['foreign']['table'], $def['foreign']['field']
+            );
+		}
+
+		$builder->execute();
+		
+	}
 
     /**
      * Activate after install.
