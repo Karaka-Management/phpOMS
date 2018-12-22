@@ -115,8 +115,8 @@ class MysqlGrammar extends Grammar
             if (isset($field['foreignTable'], $field['foreignKey'])
                 && !empty($field['foreignTable']) && !empty($field['foreignKey'])
             ) {
-                $keys .= ' FOREIGN KEY (' .  $this->expressionizeTableColumn([$name], '') . ') REFERENCES ' 
-                    . $this->expressionizeTable([$field['foreignTable']], $query->getPrefix()) 
+                $keys .= ' FOREIGN KEY (' .  $this->expressionizeTableColumn([$name], '') . ') REFERENCES '
+                    . $this->expressionizeTable([$field['foreignTable']], $query->getPrefix())
                     . ' (' . $this->expressionizeTableColumn([$field['foreignKey']], '') . '),';
             }
         }

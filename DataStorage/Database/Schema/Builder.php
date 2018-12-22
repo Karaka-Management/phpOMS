@@ -86,8 +86,8 @@ class Builder extends QueryBuilder
 
     // todo: consider to work with flags instead of all these booleans
     public function field(
-        string $name, string $type, $default = null, 
-        bool $isNullable = true, bool $isPrimary = false, bool $autoincrement = false, 
+        string $name, string $type, $default = null,
+        bool $isNullable = true, bool $isPrimary = false, bool $autoincrement = false,
         string $foreignTable = null, string $foreignKey = null
     ) : self {
         $this->createFields[$name] = [

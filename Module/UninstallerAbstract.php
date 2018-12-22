@@ -74,7 +74,7 @@ class UninstallerAbstract
 		foreach ($definitions as $definition) {
 			$builder->dropTable($definition['table'] ?? '');
         }
-        
+
         $builder->execute();
 	}
 }

@@ -146,7 +146,7 @@ class InstallerAbstract
                 $def['foreignTable'] ?? null, $def['foreignKey'] ?? null
             );
         }
-        
+
 		$builder->execute();
 	}
 
