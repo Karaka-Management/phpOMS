@@ -94,7 +94,7 @@ class MysqlGrammar extends Grammar
         foreach ($fields as $name => $field) {
             $fieldQuery .= ' ' . $this->expressionizeTableColumn([$name], '') . ' ' . $field['type'];
 
-            if (isset($field['default'])) {
+            if (isset($field['default']) || ($field['default'] === null && isset($field['null']) && $field['null'])) {
                 $fieldQuery .= ' DEFAULT ' . $this->compileValue($query, $field['default']);
             }
 
