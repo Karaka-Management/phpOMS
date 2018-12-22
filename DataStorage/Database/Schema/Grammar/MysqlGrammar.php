@@ -80,7 +80,7 @@ class MysqlGrammar extends Grammar
      * Compile create table fields query.
      *
      * @param Builder $query  Query
-     * @param array   $tables Tables to drop
+     * @param array   $fields Fields to create
      *
      * @return string
      *
