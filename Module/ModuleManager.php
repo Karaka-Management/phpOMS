@@ -436,7 +436,7 @@ final class ModuleManager
         }
 
         /** @var $class InstallerAbstract */
-        $class::reInit($this->modulePath, $info);
+        $class::reInit($info);
     }
 
     /**
