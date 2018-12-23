@@ -51,6 +51,11 @@ class PriorityQueueTest extends \PHPUnit\Framework\TestCase
 
         $queue->setPriority($id1, 3);
         self::assertEquals(3, $queue->get($id1)['priority']);
+
+        $queue2 = new PriorityQueue();
+        $queue2->unserialize($queue->serialize());
+
+        self::assertEquals($queue->serialize(), $queue2->serialize());
     }
 
     public function testFIFO()
@@ -204,5 +209,13 @@ class PriorityQueueTest extends \PHPUnit\Framework\TestCase
         self::assertTrue($queue->delete($id2));
         self::assertFalse($queue->delete($id2));
         self::assertEquals(1, $queue->count());
+    }
+
+    /**
+     * @expectedException \phpOMS\Stdlib\Base\Exception\InvalidEnumValue
+     */
+    public function testInvalidPriority()
+    {
+        $queue = new PriorityQueue(99999);
     }
 }

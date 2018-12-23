@@ -413,7 +413,7 @@ final class StringUtils
         } elseif (\is_int($element) || \is_float($element)) {
             return (string) $element;
         } elseif (\is_bool($element)) {
-            return (string) $element;
+            return $element ? '1' : '0';
         } elseif ($element === null) {
             return null;
         } elseif ($element instanceof \DateTime) {

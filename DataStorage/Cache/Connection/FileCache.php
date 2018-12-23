@@ -240,7 +240,7 @@ class FileCache extends ConnectionAbstract
         } elseif ($type === CacheValueType::_SERIALIZABLE) {
             return \get_class($value) . self::DELIM . $value->serialize();
         } elseif ($type === CacheValueType::_JSONSERIALIZABLE) {
-            return \get_class($value) . self::DELIM . $value->jsonSerialize();
+            return \get_class($value) . self::DELIM . ((string) \json_encode($value->jsonSerialize()));
         } elseif ($type === CacheValueType::_NULL) {
             return '';
         }
@@ -279,7 +279,7 @@ class FileCache extends ConnectionAbstract
             return null;
         }
 
-        $created = Directory::created($path)->getTimestamp();
+        $created = File::created($path)->getTimestamp();
         $now     = \time();
 
         if ($expire >= 0 && $created + $expire < $now) {
@@ -300,7 +300,7 @@ class FileCache extends ConnectionAbstract
         }
 
         $cacheExpire = \substr($raw, $expireStart + 1, $expireEnd - ($expireStart + 1));
-        $cacheExpire = ($cacheExpire === false) ? $created : (int) $cacheExpire;
+        $cacheExpire = ($cacheExpire === -1) ? $created : (int) $cacheExpire;
 
         if ($cacheExpire >= 0 && $created + $cacheExpire < $now) {
             $this->delete($key);
@@ -324,43 +324,37 @@ class FileCache extends ConnectionAbstract
      */
     private function reverseValue(int $type, string $raw, int $expireEnd)
     {
-        $value = null;
-
         switch ($type) {
             case CacheValueType::_INT:
-                $value = (int) \substr($raw, $expireEnd + 1);
-                break;
+                return (int) \substr($raw, $expireEnd + 1);
             case CacheValueType::_FLOAT:
-                $value = (float) \substr($raw, $expireEnd + 1);
-                break;
+                return (float) \substr($raw, $expireEnd + 1);
             case CacheValueType::_BOOL:
-                $value = (bool) \substr($raw, $expireEnd + 1);
-                break;
+                return (bool) \substr($raw, $expireEnd + 1);
             case CacheValueType::_STRING:
-                $value = \substr($raw, $expireEnd + 1);
-                break;
+                return \substr($raw, $expireEnd + 1);
             case CacheValueType::_ARRAY:
                 $array = \substr($raw, $expireEnd + 1);
-                $value = \json_decode($array === false ? '[]' : $array, true);
-                break;
+                return \json_decode($array === false ? '[]' : $array, true);
             case CacheValueType::_NULL:
-                $value = null;
-                break;
-            case CacheValueType::_SERIALIZABLE:
+                return null;
             case CacheValueType::_JSONSERIALIZABLE:
+            case CacheValueType::_SERIALIZABLE:
                 $namespaceStart = (int) \strpos($raw, self::DELIM, $expireEnd);
                 $namespaceEnd   = (int) \strpos($raw, self::DELIM, $namespaceStart + 1);
-                $namespace      = \substr($raw, $namespaceStart, $namespaceEnd);
+                $namespace      = \substr($raw, $namespaceStart + 1, $namespaceEnd - $namespaceStart - 1);
 
                 if ($namespace === false) {
                     return null;
                 }
 
-                $value = $namespace::unserialize(\substr($raw, $namespaceEnd + 1));
-                break;
-        }
+                $obj = new $namespace();
+                $obj->unserialize(\substr($raw, $namespaceEnd + 1));
 
-        return $value;
+                return $obj;
+            default:
+                return null;
+        }
     }
 
     /**
@@ -373,14 +367,18 @@ class FileCache extends ConnectionAbstract
         }
 
         $path = $this->getPath($key);
-        if ($expire < 0 && File::exists($path)) {
+        if (!File::exists($path)) {
+            return true;
+        }
+
+        if ($expire < 0) {
             File::delete($path);
 
             return true;
         }
 
         if ($expire >= 0) {
-            $created = Directory::created(Directory::sanitize($key, self::SANITIZE))->getTimestamp();
+            $created = File::created($path)->getTimestamp();
             $now     = \time();
             $raw     = \file_get_contents($path);
 
@@ -388,26 +386,15 @@ class FileCache extends ConnectionAbstract
                 return false;
             }
 
-            $expireStart = (int) \strpos($raw, self::DELIM);
-            $expireEnd   = (int) \strpos($raw, self::DELIM, $expireStart + 1);
-
-            if ($expireStart < 0 || $expireEnd < 0) {
-                return false;
-            }
-
-            $cacheExpire = \substr($raw, $expireStart + 1, $expireEnd - ($expireStart + 1));
-            $cacheExpire = ($cacheExpire === false) ? $created : (int) $cacheExpire;
+            $cacheExpire = $this->getExpire($raw);
+            $cacheExpire = ($cacheExpire === -1) ? $created : (int) $cacheExpire;
 
             if ($cacheExpire >= 0 && $created + $cacheExpire < $now) {
-                $this->delete($key);
-
-                return false;
+                return $this->delete($key);
             }
 
-            if ($cacheExpire >= 0 && $created + $cacheExpire > $now) {
-                File::delete($path);
-
-                return true;
+            if ($cacheExpire >= 0 && \abs($now - $created) > $expire) {
+                return $this->delete($key);
             }
         }
 

@@ -41,5 +41,8 @@ class HttpSessionTest extends \PHPUnit\Framework\TestCase
 
         $session->setSID('abc');
         self::assertEquals('abc', $session->getSID());
+
+        $session->lock();
+        self::assertTrue($session->isLocked());
     }
 }

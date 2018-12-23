@@ -14,6 +14,8 @@ declare(strict_types=1);
 
 namespace phpOMS\Stdlib\Queue;
 
+use phpOMS\Stdlib\Base\Exception\InvalidEnumValue;
+
 /**
  * Priority queue class.
  *
@@ -47,6 +49,10 @@ class PriorityQueue implements \Countable, \Serializable
      */
     public function __construct(int $type = PriorityMode::FIFO)
     {
+        if (!PriorityMode::isValidValue($type)) {
+            throw new InvalidEnumValue($type);
+        }
+
         $this->type = $type;
     }
 
@@ -112,7 +118,7 @@ class PriorityQueue implements \Countable, \Serializable
             case PriorityMode::LOWEST:
                 return $this->getInsertLowest($priority);
             default:
-                throw new \InvalidArgumentException();
+                throw new InvalidEnumValue($this->type);
         }
     }
 

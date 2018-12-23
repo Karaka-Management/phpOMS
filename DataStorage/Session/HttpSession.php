@@ -76,10 +76,6 @@ class HttpSession implements SessionInterface
      */
     public function __construct(int $liftetime = 3600, $sid = false, int $inactivityInterval = 0)
     {
-        if ($this->isLocked) {
-            throw new LockException('HttpSession');
-        }
-
         if (\session_id()) {
             \session_write_close();
         }

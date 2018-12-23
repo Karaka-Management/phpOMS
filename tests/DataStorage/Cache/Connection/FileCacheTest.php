@@ -87,27 +87,31 @@ class FileCacheTest extends \PHPUnit\Framework\TestCase
         $cache->set('key6', ['asdf', 1, true, 2.3]); // 7
         self::assertEquals(['asdf', 1, true, 2.3], $cache->get('key6'));
 
+        $cache->set('key7', new FileCacheSerializable()); // 8
+        self::assertEquals('abc', $cache->get('key7')->val);
+
+        $cache->set('key8', new FileCacheJsonSerializable()); // 9
+        self::assertEquals('abc', $cache->get('key8')->val);
+
         self::assertTrue($cache->replace('key4', 5));
         self::assertFalse($cache->replace('keyInvalid', 5));
         self::assertEquals(5, $cache->get('key4'));
 
-        self::assertTrue($cache->delete('key4')); // 6
-        self::assertFalse($cache->delete('keyInvalid'));
+        self::assertTrue($cache->delete('key4')); // 8
+        self::assertTrue($cache->delete('keyInvalid'));
         self::assertEquals(null, $cache->get('key4'));
 
         self::assertEquals(
             [
                 'status'  => CacheStatus::OK,
-                'count'   => 6,
-                'size'    => 70,
+                'count'   => 8,
+                'size'    => 220,
             ],
             $cache->stats()
         );
 
         self::assertTrue($cache->flushAll());
         self::assertEquals(null, $cache->get('key5'));
-
-        $cache->flushAll();
 
         self::assertEquals(
             [
@@ -117,6 +121,49 @@ class FileCacheTest extends \PHPUnit\Framework\TestCase
             ],
             $cache->stats()
         );
+
+        if (\file_exists(__DIR__ . '/Cache')) {
+            \rmdir(__DIR__ . '/Cache');
+        }
+    }
+
+    public function testExpire()
+    {
+        if (\file_exists(__DIR__ . '/Cache')) {
+            \rmdir(__DIR__ . '/Cache');
+        }
+
+        $cache = new FileCache(__DIR__ . '/Cache');
+
+        $cache->flushAll();
+
+        $cache->set('key1', 'testVal', 1);
+        self::assertEquals('testVal', $cache->get('key1'));
+
+        $cache->set('key2', 'testVal2', 1);
+        self::assertEquals('testVal2', $cache->get('key2', 1));
+        sleep(3);
+        self::assertEquals(null, $cache->get('key2', 1));
+
+        $cache->set('key3', 'testVal3', 1);
+        self::assertEquals('testVal3', $cache->get('key3', 1));
+        sleep(3);
+        self::assertEquals(null, $cache->get('key3', 1));
+
+        $cache->set('key4', 'testVal4', 1);
+        self::assertFalse($cache->delete('key4', 0));
+        sleep(3);
+        self::assertTrue($cache->delete('key4', 1));
+
+        $cache->set('key5', 'testVal5', 10000);
+        sleep(3);
+        self::assertFalse($cache->delete('key5', 1000000));
+        self::assertTrue($cache->delete('key5', 1));
+
+        $cache->set('key6', 'testVal6', 1);
+        sleep(2);
+
+        $cache->flush(0);
 
         if (\file_exists(__DIR__ . '/Cache')) {
             \rmdir(__DIR__ . '/Cache');
@@ -140,6 +187,7 @@ class FileCacheTest extends \PHPUnit\Framework\TestCase
         self::assertFalse($cache->replace('key1', 5));
         self::assertFalse($cache->delete('key1'));
         self::assertFalse($cache->flushAll());
+        self::assertFalse($cache->flush());
         self::assertEquals([], $cache->stats());
 
         if (\file_exists(__DIR__ . '/Cache')) {
