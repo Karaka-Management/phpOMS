@@ -332,12 +332,13 @@ class DataMapperAbstract implements DataMapperInterface
      *
      * @param mixed $obj       Object reference (gets filled with insert id)
      * @param int   $relations Create all relations as well
+     * @param bool  $force     Force creation even if id is set in model
      *
      * @return mixed
      *
      * @since  1.0.0
      */
-    public static function create($obj, int $relations = RelationType::ALL)
+    public static function create($obj, int $relations = RelationType::ALL, bool $force = false)
     {
         self::extend(__CLASS__);
 
@@ -347,7 +348,8 @@ class DataMapperAbstract implements DataMapperInterface
 
         $refClass = new \ReflectionClass($obj);
 
-        if (!empty($id = self::getObjectId($obj, $refClass))) {
+        // todo: remove force and instead check if object is autoincrement. if not autoincrement then create even if id is set!!!
+        if (!empty($id = self::getObjectId($obj, $refClass)) && !$force) {
             $objId = $id;
         } else {
             $objId = self::createModel($obj, $refClass);
@@ -427,7 +429,7 @@ class DataMapperAbstract implements DataMapperInterface
                 $value = self::parseValue($column['type'], $id);
 
                 $query->insert($column['name'])->value($value);
-            } elseif ($column['name'] !== static::$primaryField) {
+            } elseif ($column['name'] !== static::$primaryField || !empty($property->getValue($obj))) {
                 $tValue = $property->getValue($obj);
                 if (\stripos($column['internal'], '/') !== false) {
                     $path = \explode('/', $column['internal']);
