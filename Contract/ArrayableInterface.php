@@ -15,9 +15,9 @@ declare(strict_types=1);
 namespace phpOMS\Contract;
 
 /**
- * Defines an object arrayable.
+ * This interface forces classes to implement an array representation of themselves.
  *
- * This stands always in combination with a jsonable instance.
+ * This can be helpful for \JsonSerializable classes or classes which need to be represented as array.
  *
  * @package    phpOMS\Contract
  * @license    OMS License 1.0

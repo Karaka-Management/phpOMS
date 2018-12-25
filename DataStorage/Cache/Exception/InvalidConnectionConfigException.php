@@ -15,7 +15,7 @@ declare(strict_types=1);
 namespace phpOMS\DataStorage\Cache\Exception;
 
 /**
- * Permission exception class.
+ * Invalid cache config exception class.
  *
  * @package    phpOMS\DataStorage\Cache\Exception
  * @license    OMS License 1.0
@@ -35,6 +35,6 @@ final class InvalidConnectionConfigException extends \InvalidArgumentException
      */
     public function __construct(string $message = '', int $code = 0, \Exception $previous = null)
     {
-        parent::__construct('Missing config value for "' . $message . '".', $code, $previous);
+        parent::__construct('Invalid/missing config value for "' . $message . '".', $code, $previous);
     }
 }

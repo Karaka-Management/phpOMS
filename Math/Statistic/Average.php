@@ -168,7 +168,7 @@ final class Average
      *
      * @return float
      *
-     * @throws ZeroDevisionException
+     * @throws ZeroDevisionException This exception is thrown if the values array is empty
      *
      * @since  1.0.0
      */
@@ -240,7 +240,7 @@ final class Average
      *
      * @return float
      *
-     * @throws \Exception
+     * @throws ZeroDevisionException This exception is thrown if the values array is empty
      *
      * @since  1.0.0
      */
@@ -265,7 +265,7 @@ final class Average
      *
      * @return float
      *
-     * @throws \Exception
+     * @throws ZeroDevisionException This exception is thrown if a value in the values array is 0 or if the values array is empty
      *
      * @since  1.0.0
      */
@@ -279,6 +279,10 @@ final class Average
 
         $count = \count($values);
         $sum   = 0.0;
+
+        if ($count === 0) {
+            throw new ZeroDevisionException();
+        }
 
         foreach ($values as $value) {
             if ($value === 0) {

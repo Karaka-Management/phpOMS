@@ -17,6 +17,8 @@ namespace phpOMS\Config;
 /**
  * Options trait.
  *
+ * This trait basically implements the OptionsInterface
+ *
  * @package    phpOMS\Config
  * @license    OMS License 1.0
  * @link       http://website.orange-management.de

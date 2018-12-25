@@ -76,7 +76,7 @@ class Git
      *
      * @return void
      *
-     * @throws PathException
+     * @throws PathException This exceptio is thrown if the binary path doesn't exist
      *
      * @since  1.0.0
      */

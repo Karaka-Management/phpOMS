@@ -22,8 +22,7 @@ use phpOMS\DataStorage\DataStoragePoolInterface;
 /**
  * Cache class.
  *
- * Responsible for caching scalar data types and arrays.
- * Caching HTML output and objects coming soon/is planned.
+ * Responsible for storing cache implementation.
  *
  * @package    phpOMS\DataStorage\Cache
  * @license    OMS License 1.0
@@ -39,15 +38,6 @@ final class CachePool implements DataStoragePoolInterface
      * @since 1.0.0
      */
     private $pool = null;
-
-    /**
-     * Constructor.
-     *
-     * @since  1.0.0
-     */
-    public function __construct()
-    {
-    }
 
     /**
      * Add database.

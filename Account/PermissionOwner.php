@@ -17,7 +17,7 @@ namespace phpOMS\Account;
 use phpOMS\Stdlib\Base\Enum;
 
 /**
- * Permision state enum.
+ * Permision type/owner enum.
  *
  * @package    phpOMS\Account
  * @license    OMS License 1.0

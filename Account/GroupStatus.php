@@ -17,7 +17,7 @@ namespace phpOMS\Account;
 use phpOMS\Stdlib\Base\Enum;
 
 /**
- * Accept status enum.
+ * Group status enum.
  *
  * @package    phpOMS\Account
  * @license    OMS License 1.0

@@ -603,7 +603,7 @@ class DataMapperAbstract implements DataMapperInterface
      *
      * @return void
      *
-     * @throws InvalidMapperException
+     * @throws InvalidMapperException Throws this exception if the mapper in the has many relation is invalid
      *
      * @since  1.0.0
      */
@@ -689,7 +689,7 @@ class DataMapperAbstract implements DataMapperInterface
      *
      * @return void
      *
-     * @throws InvalidMapperException
+     * @throws InvalidMapperException Throws this exception if the mapper in the has many relation is invalid
      *
      * @since  1.0.0
      */
@@ -933,7 +933,7 @@ class DataMapperAbstract implements DataMapperInterface
      *
      * @return void
      *
-     * @throws InvalidMapperException
+     * @throws InvalidMapperException Throws this exception if the mapper in the has many relation is invalid
      *
      * @since  1.0.0
      */
@@ -1020,7 +1020,7 @@ class DataMapperAbstract implements DataMapperInterface
      *
      * @return void
      *
-     * @throws InvalidMapperException
+     * @throws InvalidMapperException Throws this exception if the mapper in the has many relation is invalid
      *
      * @since  1.0.0
      */
@@ -1455,7 +1455,7 @@ class DataMapperAbstract implements DataMapperInterface
      *
      * @return void
      *
-     * @throws InvalidMapperException
+     * @throws InvalidMapperException Throws this exception if the mapper in the has many relation is invalid
      *
      * @since  1.0.0
      */

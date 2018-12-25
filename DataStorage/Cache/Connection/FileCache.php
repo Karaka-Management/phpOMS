@@ -22,9 +22,18 @@ use phpOMS\System\File\Local\Directory;
 use phpOMS\System\File\Local\File;
 
 /**
- * MemCache class.
+ * File cache.
  *
- * PHP Version 7.2
+ * This implementation uses the hard drive as cache by saving data to the disc as text files.
+ * The text files follow a defined strucuture which allows this implementation to parse the cached data.
+ *
+ * Allowed datatypes: null, int, bool, float, string, \DateTime, \JsonSerializable, \Serializable
+ * File structure:
+ *      data type (1 byte)
+ *      delimiter (1 byte)
+ *      expiration duration in seconds (1 - n bytes) (based on the file creation date)
+ *      delimiter (1 byte)
+ *      data (n bytes)
  *
  * @package    phpOMS\DataStorage\Cache\Connection
  * @license    OMS License 1.0
@@ -190,7 +199,9 @@ class FileCache extends ConnectionAbstract
      *
      * @param mixed $value Data to cache
      *
-     * @return int
+     * @return int Returns the cache type for a value
+     * 
+     * @throws \InvalidArgumentException This exception is thrown if an unsupported datatype is used
      *
      * @since  1.0.0
      */
@@ -225,7 +236,7 @@ class FileCache extends ConnectionAbstract
      *
      * @return string
      *
-     * @throws InvalidEnumValue
+     * @throws InvalidEnumValue This exception is thrown if an unsupported cache value type is used
      *
      * @since  1.0.0
      */

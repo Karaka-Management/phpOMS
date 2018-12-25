@@ -19,14 +19,18 @@ use phpOMS\Dispatcher\Dispatcher;
 /**
  * EventManager class.
  *
+ * The event manager allows to define events which can be triggered/executed in an application.
+ * This implementation allows to create sub-conditions which need to be met (triggered in advance) bevore the actual
+ * callback is getting executed.
+ *
+ * What happens after triggering an event (removing the callback, resetting the sub-conditions etc.) depends on the setup.
+ *
  * @package    phpOMS\Event
  * @license    OMS License 1.0
  * @link       http://website.orange-management.de
  * @since      1.0.0
- *
- * @todo       : make cachable + database storable -> can reload user defined listeners (persistent events)
  */
-final class EventManager
+final class EventManager implements \Countable
 {
     /**
      * Events.
@@ -55,7 +59,7 @@ final class EventManager
     /**
      * Constructor.
      *
-     * @param Dispatcher $dispatcher Dispatcher
+     * @param Dispatcher $dispatcher Dispatcher. If no dispatcher is provided a simple general purpose dispatcher is used.
      *
      * @since  1.0.0
      */
@@ -305,11 +309,7 @@ final class EventManager
     }
 
     /**
-     * Count events.
-     *
-     * @return int
-     *
-     * @since  1.0.0
+     * {@inheritdoc}
      */
     public function count() : int
     {

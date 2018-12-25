@@ -144,6 +144,8 @@ final class Localization
      *
      * @return void
      *
+     * @throws InvalidEnumValue This exception is thrown if the language is invalid
+     *
      * @since  1.0.0
      */
     public function loadFromLanguage(string $langCode) : void
@@ -224,6 +226,8 @@ final class Localization
      *
      * @return void
      *
+     * @throws InvalidEnumValue This exception is thrown if the country is invalid
+     *
      * @since  1.0.0
      */
     public function setCountry(string $country) : void
@@ -253,6 +257,8 @@ final class Localization
      * @param string $timezone Timezone
      *
      * @return void
+     *
+     * @throws InvalidEnumValue This exception is thrown if the timezone is invalid
      *
      * @since  1.0.0
      */
@@ -284,7 +290,7 @@ final class Localization
      *
      * @return void
      *
-     * @throws InvalidEnumValue
+     * @throws InvalidEnumValue This exception is thrown if the language is invalid
      *
      * @since  1.0.0
      */
@@ -317,6 +323,8 @@ final class Localization
      * @param string $currency Currency code
      *
      * @return void
+     *
+     * @throws InvalidEnumValue This exception is thrown if the currency is invalid
      *
      * @since  1.0.0
      */

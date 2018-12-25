@@ -102,6 +102,8 @@ final class Money implements \Serializable
      *
      * @return int
      *
+     * @throws \Exception
+     *
      * @since  1.0.0
      */
     public static function toInt(string $value, string $thousands = ',', string $decimal = '.')  : int
@@ -186,6 +188,8 @@ final class Money implements \Serializable
      * @param int $decimals Precision
      *
      * @return string
+     *
+     * @throws \Exception
      *
      * @since  1.0.0
      */

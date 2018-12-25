@@ -487,7 +487,7 @@ class Account implements ArrayableInterface, \JsonSerializable
      *
      * @return void
      *
-     * @throws InvalidEnumValue
+     * @throws InvalidEnumValue This exception is thrown if a invalid status is used
      *
      * @since  1.0.0
      */
@@ -521,7 +521,7 @@ class Account implements ArrayableInterface, \JsonSerializable
      *
      * @return void
      *
-     * @throws InvalidEnumValue
+     * @throws InvalidEnumValue This exception is thrown if an invalid type is used
      *
      * @since  1.0.0
      */
@@ -640,11 +640,7 @@ class Account implements ArrayableInterface, \JsonSerializable
     }
 
     /**
-     * Json serialize.
-     *
-     * @return array<string, mixed>
-     *
-     * @since  1.0.0
+     * {@inheritdoc}
      */
     public function jsonSerialize()
     {

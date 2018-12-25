@@ -391,6 +391,8 @@ final class Request extends RequestAbstract
      *
      * @return bool
      *
+     * @throws \OutOfRangeException This exception is thrown if the port is out of range
+     *
      * @since  1.0.0
      */
     public function isHttps(int $port = 443) : bool

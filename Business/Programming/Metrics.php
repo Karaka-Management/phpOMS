@@ -35,7 +35,7 @@ final class Metrics
      * @param int $b Branches
      * @param int $c Conditionals
      *
-     * @return int
+     * @return int ABC metric score
      *
      * @since  1.0.0
      */
@@ -52,7 +52,7 @@ final class Metrics
      * @param int   $complexity Complexity
      * @param float $coverage   Coverage
      *
-     * @return int
+     * @return int CRAP score
      *
      * @since  1.0.0
      *

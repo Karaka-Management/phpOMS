@@ -14,6 +14,7 @@ declare(strict_types=1);
 
 namespace phpOMS\Dispatcher;
 
+use phpOMS\Autoloader;
 use phpOMS\ApplicationAbstract;
 use phpOMS\Module\ModuleAbstract;
 use phpOMS\System\File\PathException;
@@ -62,10 +63,12 @@ final class Dispatcher
     /**
      * Dispatch controller.
      *
-     * @param array|\Closure|string $controller Controller string
+     * @param array|\Closure|string $controller Controller
      * @param null|array|mixed      ...$data    Data
      *
-     * @return array
+     * @return array Returns array of all dispatched results
+     *
+     * @throws \UnexpectedValueException This exception is thrown for unsupported controller representations
      *
      * @since  1.0.0
      */
@@ -93,10 +96,21 @@ final class Dispatcher
     /**
      * Dispatch string.
      *
+     * The disptacher can dispatch static functions.
+     * String: `some/namespace/path::myStaticFunction`
+     *
+     * Additionally it's also possible to dispatch functions of modules.
+     * Modules are classes which can get instantiated with `new Class(ApplicationAbstract $app)`
+     * String: `some/namespace/path:myMethod`
+     *
      * @param string     $controller Controller string
      * @param null|array $data       Data
      *
      * @return array
+     *
+     * @throws PathException             This exception is thrown if the function cannot be autoloaded.
+     * @throws \Exception                This exception is thrown if the function is not callable.
+     * @throws \UnexpectedValueException This exception is thrown if the controller string is malformed.
      *
      * @since  1.0.0
      */
@@ -105,8 +119,8 @@ final class Dispatcher
         $views    = [];
         $dispatch = \explode(':', $controller);
 
-        if (!\file_exists($path = __DIR__ . '/../../' . \ltrim(\str_replace('\\', '/', $dispatch[0]), '/') . '.php')) {
-            throw new PathException($path);
+        if (!Autoloader::exists($dispatch[0])) {
+            throw new PathException($dispatch[0]);
         }
 
         if (($c = \count($dispatch)) === 3) {

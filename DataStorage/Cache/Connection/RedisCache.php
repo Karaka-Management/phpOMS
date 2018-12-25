@@ -21,8 +21,6 @@ use phpOMS\DataStorage\Cache\Exception\InvalidConnectionConfigException;
 /**
  * RedisCache class.
  *
- * PHP Version 5.6
- *
  * @package    phpOMS\DataStorage\Cache\Connection
  * @license    OMS License 1.0
  * @link       http://website.orange-management.de

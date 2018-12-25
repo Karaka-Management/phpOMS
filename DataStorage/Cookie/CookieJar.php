@@ -118,7 +118,7 @@ final class CookieJar
      *
      * @return bool
      *
-     * @throws LockException
+     * @throws LockException Throws this exception if the cookie is already sent
      *
      * @since  1.0.0
      */
@@ -166,7 +166,7 @@ final class CookieJar
      *
      * @return void
      *
-     * @throws LockException
+     * @throws LockException Throws this exception if the cookie is already sent
      *
      * @since  1.0.0
      */

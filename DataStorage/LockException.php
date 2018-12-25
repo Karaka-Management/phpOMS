@@ -15,7 +15,10 @@ declare(strict_types=1);
 namespace phpOMS\DataStorage;
 
 /**
- * Permission exception class.
+ * Lock exception class.
+ *
+ * This exception is used for instances that have a lock componenent/state after which rendering,
+ * header manipulation etc. are no longer allowed/possible.
  *
  * @package    phpOMS\DataStorage
  * @license    OMS License 1.0

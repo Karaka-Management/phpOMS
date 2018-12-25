@@ -152,7 +152,9 @@ abstract class ConnectionAbstract implements ConnectionInterface
     }
 
     /**
-     * {@inheritdoc}
+     * Closes the chache.
+     *
+     * @since  1.0.0
      */
     public function close() : void
     {

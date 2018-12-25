@@ -56,7 +56,7 @@ class PermutationTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @expectedException \InvalidArgumentException
+     * @expectedException \OutOfBoundsException
      */
     public function testWrongPermuteKeyLength()
     {

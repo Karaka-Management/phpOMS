@@ -68,7 +68,7 @@ final class MeasureOfDispersion
      *
      * @return float
      *
-     * @throws \Exception
+     * @throws ZeroDevisionException This exception is thrown if the mean is 0
      *
      * @since  1.0.0
      */
@@ -123,7 +123,7 @@ final class MeasureOfDispersion
      *
      * @return float
      *
-     * @throws \Exception
+     * @throws ZeroDevisionException This exception is thrown if the size of the values array is less than 2
      *
      * @since  1.0.0
      */
@@ -153,7 +153,7 @@ final class MeasureOfDispersion
      *
      * @return float
      *
-     * @throws \Exception
+     * @throws ZeroDevisionException This exception is thrown if the values array is empty
      *
      * @since  1.0.0
      */
@@ -190,7 +190,8 @@ final class MeasureOfDispersion
      *
      * @return float
      *
-     * @throws InvalidDimensionException
+     * @throws ZeroDevisionException This exception is thrown if the size of the x array is less than 2
+     * @throws InvalidDimensionException This exception is thrown if x and y have different dimensions
      *
      * @since  1.0.0
      */

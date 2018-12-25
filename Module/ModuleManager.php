@@ -468,10 +468,12 @@ final class ModuleManager
             $this->installDependencies($info->getDependencies());
             $this->installModule($info);
 
-            /* Install providing */
+            /* Install providing but only if receiving module is already installed */
             $providing = $info->getProviding();
             foreach ($providing as $key => $version) {
-                $this->installProviding($module, $key);
+                if (isset($installed[$key])) {
+                    $this->installProviding($module, $key);
+                }
             }
 
             /* Install receiving */

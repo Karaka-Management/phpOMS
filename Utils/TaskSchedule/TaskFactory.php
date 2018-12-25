@@ -35,7 +35,7 @@ final class TaskFactory
      *
      * @return TaskAbstract
      *
-     * @throws \Exception
+     * @throws \Exception This exception is thrown if the operating system is not supported
      *
      * @since  1.0.0
      */

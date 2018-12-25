@@ -106,7 +106,8 @@ final class Permutation
      *
      * @return mixed
      *
-     * @throws \Exception
+     * @throws \InvalidArgumentException This exception is thrown if the $toPermute argument is neither array or string
+     * @throws \OutOfBoundsException This exception is thrown if the permutation key is larger than the data to permute
      *
      * @since  1.0.0
      */
@@ -119,7 +120,7 @@ final class Permutation
         $length = \is_array($toPermute) ? \count($toPermute) : \strlen($toPermute);
 
         if (\count($key) > $length) {
-            throw new \InvalidArgumentException('There mustn not be more keys than permutation elements.');
+            throw new \OutOfBoundsException('There mustn not be more keys than permutation elements.');
         }
 
         $i = 0;

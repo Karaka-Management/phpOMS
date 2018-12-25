@@ -40,8 +40,6 @@ class ConnectionFactory
     /**
      * Create cache connection.
      *
-     * Overwrites current connection if existing
-     *
      * @param string[] $cacheData the basic cache information for establishing a connection
      *
      * @return ConnectionInterface

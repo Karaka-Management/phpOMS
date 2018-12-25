@@ -59,6 +59,8 @@ class ArrayParser
      *
      * @return string
      *
+     * @throws \UnexpectedValueException Throws this exception if the value cannot be parsed (invalid data type)
+     *
      * @since  1.0.0
      */
     public static function parseVariable($value, int $depth = 1) : string

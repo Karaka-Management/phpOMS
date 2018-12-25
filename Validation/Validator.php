@@ -35,7 +35,7 @@ final class Validator extends ValidatorAbstract
      *
      * @return bool
      *
-     * @throws \Exception
+     * @throws \BadFunctionCallException This exception is thrown if the callback is not callable.
      *
      * @since  1.0.0
      */
@@ -49,7 +49,7 @@ final class Validator extends ValidatorAbstract
             $callback = StringUtils::endsWith($test, 'Not') ? \substr($test, 0, -3) : (string) $test;
 
             if (!\is_callable($callback)) {
-                throw new \Exception();
+                throw new \BadFunctionCallException();
             }
 
             $valid = !empty($settings) ? $callback($var, ...$settings) : $callback($var);

@@ -149,7 +149,7 @@ final class Integer
      *
      * @return array<int>
      *
-     * @throws \Exception
+     * @throws \Exception This exception is thrown if the value is not odd
      *
      * @since  1.0.0
      */

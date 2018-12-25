@@ -120,7 +120,7 @@ final class Response extends ResponseAbstract implements RenderableInterface
      *
      * @return string
      *
-     * @throws \Exception
+     * @throws \Exception This exception is thrown if the response cannot be rendered.
      *
      * @since  1.0.0
      */

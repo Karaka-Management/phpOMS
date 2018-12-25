@@ -52,7 +52,12 @@ final class NetPromoterScore
     /**
      * Get total NPS.
      *
-     * @return int
+     * Values of > 0 are considered good and above 50 is considered excellent.
+     * Remark: Amazon had a NPS of 69 in NA in 2016
+     *
+     * @latex NPS = Promoters - Detractors
+     *
+     * @return int Retunrs the NPS
      *
      * @since  1.0.0
      */

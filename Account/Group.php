@@ -167,7 +167,7 @@ class Group implements ArrayableInterface, \JsonSerializable
      *
      * @return void
      *
-     * @throws InvalidEnumValue
+     * @throws InvalidEnumValue This exception is thrown if an invalid status is used
      *
      * @since  1.0.0
      */

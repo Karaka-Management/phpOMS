@@ -34,15 +34,6 @@ final class AssetManager implements \Countable
     private $assets = [];
 
     /**
-     * Constructor.
-     *
-     * @since  1.0.0
-     */
-    public function __construct()
-    {
-    }
-
-    /**
      * Add asset.
      *
      * @param string $id        Asset id

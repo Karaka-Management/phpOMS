@@ -19,7 +19,7 @@ use phpOMS\DataStorage\Database\Query\Builder;
 /**
  * Datamapper interface.
  *
- * DB, Cache, Session
+ * This interface is used for DB, Cache & Session implementations
  *
  * @package    phpOMS\DataStorage
  * @license    OMS License 1.0

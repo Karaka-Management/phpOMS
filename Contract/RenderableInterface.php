@@ -18,7 +18,7 @@ namespace phpOMS\Contract;
  * Make a class renderable.
  *
  * This is primarily used for classes that provide formatted output or output,
- * that get's rendered in third party applications.
+ * that get rendered.
  *
  * @package    phpOMS\Contract
  * @license    OMS License 1.0
