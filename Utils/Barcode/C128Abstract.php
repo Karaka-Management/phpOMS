@@ -129,7 +129,7 @@ abstract class C128Abstract
      */
     public function __construct(string $content = '', int $width = 100, int $height = 20, int $orientation = OrientationType::HORIZONTAL)
     {
-        $this->content = $content;
+        $this->setContent($content);
         $this->setDimension($width, $height);
         $this->setOrientation($orientation);
     }
@@ -345,7 +345,7 @@ abstract class C128Abstract
                     $location + $this->margin,
                     0 + $this->margin,
                     $cur_size + $this->margin,
-                    $dimensions['height'] - $this->margin,
+                    $dimensions['height'] - $this->margin - 1,
                     ($position % 2 == 0 ? $white : $black)
                 );
             } else {
@@ -353,7 +353,7 @@ abstract class C128Abstract
                     $image,
                     0 + $this->margin,
                     $location + $this->margin,
-                    $dimensions['width'] - $this->margin,
+                    $dimensions['width'] - $this->margin - 1,
                     $cur_size + $this->margin,
                     ($position % 2 == 0 ? $white : $black)
                 );
@@ -401,11 +401,11 @@ abstract class C128Abstract
         $dimensions = ['width' => 0, 'height' => 0];
 
         if ($this->orientation === OrientationType::HORIZONTAL) {
-            $dimensions['width']  = $codeLength + $this->margin * 2;
+            $dimensions['width']  = $codeLength + $this->margin * 2 + 1;
             $dimensions['height'] = $this->dimension['height'];
         } else {
             $dimensions['width']  = $this->dimension['width'];
-            $dimensions['height'] = $codeLength + $this->margin;
+            $dimensions['height'] = $codeLength + $this->margin * 2 + 1;
         }
 
         return $dimensions;

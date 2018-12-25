@@ -17,7 +17,7 @@ namespace phpOMS\Utils\Barcode;
 use phpOMS\Stdlib\Base\Enum;
 
 /**
- * Account type enum.
+ * Orientation type enum.
  *
  * @package    phpOMS\Utils\Barcode
  * @license    OMS License 1.0

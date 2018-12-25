@@ -40,17 +40,17 @@ final class TestUtils
     /**
      * Set private object member
      *
-     * @param object|string $obj   Object to modify
-     * @param string        $name  Member name to modify
-     * @param mixed         $value Value to set
+     * @param object $obj   Object to modify
+     * @param string $name  Member name to modify
+     * @param mixed  $value Value to set
      *
      * @return bool The function returns true after setting the member
      *
      * @since  1.0.0
      */
-    public static function setMember($obj, string $name, $value) : bool
+    public static function setMember(object $obj, string $name, $value) : bool
     {
-        $reflectionClass = new \ReflectionClass(\is_string($obj) ? $obj : \get_class($obj));
+        $reflectionClass = new \ReflectionClass(\get_class($obj));
 
         if (!$reflectionClass->hasProperty($name)) {
             return false;
@@ -62,11 +62,7 @@ final class TestUtils
             $reflectionProperty->setAccessible(true);
         }
 
-        if (\is_string($obj)) {
-            $reflectionProperty->setValue($value);
-        } elseif (\is_object($obj)) {
-            $reflectionProperty->setValue($obj, $value);
-        }
+        $reflectionProperty->setValue($obj, $value);
 
         if (!$accessible) {
             $reflectionProperty->setAccessible(false);

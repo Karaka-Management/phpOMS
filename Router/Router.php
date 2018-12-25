@@ -95,11 +95,8 @@ final class Router
         foreach ($this->routes as $route => $destination) {
             foreach ($destination as $d) {
                 if ($this->match($route, $d['verb'], $request, $verb)) {
-                    if (!isset($d['permission'])
-                        || !isset($account)
-                        || (isset($d['permission'])
-                            && isset($account)
-                            && $account->hasPermission($d['permission']['type'], $orgId, $app, $d['permission']['module'], $d['permission']['state']))
+                    if (!isset($d['permission'], $account)
+                        || $account->hasPermission($d['permission']['type'], $orgId, $app, $d['permission']['module'], $d['permission']['state'])
                     ) {
                         $bound[] = ['dest' => $d['dest']];
                     } else {

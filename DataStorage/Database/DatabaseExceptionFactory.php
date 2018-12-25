@@ -27,7 +27,7 @@ use phpOMS\DataStorage\Database\Schema\Exception\TableException;
 class DatabaseExceptionFactory
 {
     /**
-     * Constructor.
+     * Create exception class string based on exception.
      *
      * @param \PDOException $e Exception
      *
@@ -46,7 +46,7 @@ class DatabaseExceptionFactory
     }
 
     /**
-     * Constructor.
+     * Create exception message based on exception.
      *
      * @param \PDOException $e Exception
      *

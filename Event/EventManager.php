@@ -62,13 +62,9 @@ final class EventManager
     public function __construct(Dispatcher $dispatcher = null)
     {
         $this->dispatcher = $dispatcher ?? new class {
-            public function dispatch($func, $data)
+            public function dispatch($func, ...$data)
             {
-                if (\is_array($data)) {
-                    $func(...$data);
-                } else {
-                    $func($data);
-                }
+                $func(...$data);
             }
         };
     }

@@ -21,35 +21,30 @@ class TestUtilsTest extends \PHPUnit\Framework\TestCase
 {
     public function testGet()
     {
-        $class = new class {
-            private $a   = 1;
-            protected $b = 2;
-            public $c    = 3;
-        };
+        $class = new TestUtilsClass();
 
         self::assertEquals(1, TestUtils::getMember($class, 'a'));
         self::assertEquals(2, TestUtils::getMember($class, 'b'));
         self::assertEquals(3, TestUtils::getMember($class, 'c'));
+        self::assertEquals('4', TestUtils::getMember($class, 'd'));
 
-        self::assertNull(TestUtils::getMember($class, 'd'));
+        self::assertNull(TestUtils::getMember($class, 'e'));
     }
 
     public function testSet()
     {
-        $class = new class {
-            private $a   = 1;
-            protected $b = 2;
-            public $c    = 3;
-        };
+        $class = new TestUtilsClass();
 
         self::assertTrue(TestUtils::setMember($class, 'a', 4));
         self::assertTrue(TestUtils::setMember($class, 'b', 5));
         self::assertTrue(TestUtils::setMember($class, 'c', 6));
+        self::assertTrue(TestUtils::setMember($class, 'd', '7'));
 
         self::assertEquals(4, TestUtils::getMember($class, 'a'));
         self::assertEquals(5, TestUtils::getMember($class, 'b'));
         self::assertEquals(6, TestUtils::getMember($class, 'c'));
+        self::assertEquals('7', TestUtils::getMember($class, 'd'));
 
-        self::assertFalse(TestUtils::setMember($class, 'd', 7));
+        self::assertFalse(TestUtils::setMember($class, 'e', 8));
     }
 }

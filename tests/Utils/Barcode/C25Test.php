@@ -14,6 +14,7 @@
 namespace phpOMS\tests\Utils\Barcode;
 
 use phpOMS\Utils\Barcode\C25;
+use phpOMS\Utils\Barcode\OrientationType;
 
 class C25Test extends \PHPUnit\Framework\TestCase
 {
@@ -26,7 +27,7 @@ class C25Test extends \PHPUnit\Framework\TestCase
         }
     }
 
-    public function testImage()
+    public function testImagePng()
     {
         $path = __DIR__ . '/c25.png';
         if (\file_exists($path)) {
@@ -39,9 +40,44 @@ class C25Test extends \PHPUnit\Framework\TestCase
         self::assertTrue(\file_exists($path));
     }
 
+    public function testImageJpg()
+    {
+        $path = __DIR__ . '/c25.jpg';
+        if (\file_exists($path)) {
+            \unlink($path);
+        }
+
+        $img = new C25('1234567890', 150, 50);
+        $img->saveToJpgFile($path);
+
+        self::assertTrue(\file_exists($path));
+    }
+
+    public function testOrientationAndMargin()
+    {
+        $path = __DIR__ . '/c25_vertical.png';
+        if (\file_exists($path)) {
+            \unlink($path);
+        }
+
+        $img = new C25('1234567890', 50, 200, OrientationType::VERTICAL);
+        $img->setMargin(2);
+        $img->saveToPngFile($path);
+
+        self::assertTrue(\file_exists($path));
+    }
+
     public function testValidString()
     {
         self::assertTrue(C25::isValidString('1234567890'));
         self::assertFalse(C25::isValidString('1234567A890'));
+    }
+
+    /**
+     * @expectedException \InvalidArgumentException
+     */
+    public function testInvalidOrientation()
+    {
+        $img = new C25('45f!a?12');
     }
 }

@@ -159,4 +159,180 @@ class MeasurementTest extends \PHPUnit\Framework\TestCase
             }
         }
     }
+
+    /**
+     * @expectedException \InvalidArgumentException
+     */
+    public function testInvalidTemperatureFrom()
+    {
+        Measurement::convertTemperature(1.1, 'invalid', TemperatureType::CELSIUS);
+    }
+
+    /**
+     * @expectedException \InvalidArgumentException
+     */
+    public function testInvalidTemperatureTo()
+    {
+        Measurement::convertTemperature(1.1, TemperatureType::CELSIUS, 'invalid');
+    }
+
+    /**
+     * @expectedException \InvalidArgumentException
+     */
+    public function testInvalidWeightFrom()
+    {
+        Measurement::convertWeight(1.1, 'invalid', WeightType::KILOGRAM);
+    }
+
+    /**
+     * @expectedException \InvalidArgumentException
+     */
+    public function testInvalidWeightTo()
+    {
+        Measurement::convertWeight(1.1, WeightType::KILOGRAM, 'invalid');
+    }
+
+    /**
+     * @expectedException \InvalidArgumentException
+     */
+    public function testInvalidLengthFrom()
+    {
+        Measurement::convertLength(1.1, 'invalid', LengthType::METERS);
+    }
+
+    /**
+     * @expectedException \InvalidArgumentException
+     */
+    public function testInvalidLengthTo()
+    {
+        Measurement::convertLength(1.1, LengthType::METERS, 'invalid');
+    }
+
+    /**
+     * @expectedException \InvalidArgumentException
+     */
+    public function testInvalidAreaFrom()
+    {
+        Measurement::convertArea(1.1, 'invalid', AreaType::SQUARE_METERS);
+    }
+
+    /**
+     * @expectedException \InvalidArgumentException
+     */
+    public function testInvalidAreaTo()
+    {
+        Measurement::convertArea(1.1, AreaType::SQUARE_METERS, 'invalid');
+    }
+
+    /**
+     * @expectedException \InvalidArgumentException
+     */
+    public function testInvalidVolumeFrom()
+    {
+        Measurement::convertVolume(1.1, 'invalid', VolumeType::LITER);
+    }
+
+    /**
+     * @expectedException \InvalidArgumentException
+     */
+    public function testInvalidVolumeTo()
+    {
+        Measurement::convertVolume(1.1, VolumeType::LITER, 'invalid');
+    }
+
+    /**
+     * @expectedException \InvalidArgumentException
+     */
+    public function testInvalidSpeedFrom()
+    {
+        Measurement::convertSpeed(1.1, 'invalid', SpeedType::KILOMETERS_PER_HOUR);
+    }
+
+    /**
+     * @expectedException \InvalidArgumentException
+     */
+    public function testInvalidSpeedTo()
+    {
+        Measurement::convertSpeed(1.1, SpeedType::KILOMETERS_PER_HOUR, 'invalid');
+    }
+
+    /**
+     * @expectedException \InvalidArgumentException
+     */
+    public function testInvalidTimeFrom()
+    {
+        Measurement::convertTime(1.1, 'invalid', TimeType::HOURS);
+    }
+
+    /**
+     * @expectedException \InvalidArgumentException
+     */
+    public function testInvalidTimeTo()
+    {
+        Measurement::convertTime(1.1, TimeType::HOURS, 'invalid');
+    }
+
+    /**
+     * @expectedException \InvalidArgumentException
+     */
+    public function testInvalidAngleFrom()
+    {
+        Measurement::convertAngle(1.1, 'invalid', AngleType::RADIAN);
+    }
+
+    /**
+     * @expectedException \InvalidArgumentException
+     */
+    public function testInvalidAngleTo()
+    {
+        Measurement::convertAngle(1.1, AngleType::RADIAN, 'invalid');
+    }
+
+    /**
+     * @expectedException \InvalidArgumentException
+     */
+    public function testInvalidPressureFrom()
+    {
+        Measurement::convertPressure(1.1, 'invalid', PressureType::BAR);
+    }
+
+    /**
+     * @expectedException \InvalidArgumentException
+     */
+    public function testInvalidPressureTo()
+    {
+        Measurement::convertPressure(1.1, PressureType::BAR, 'invalid');
+    }
+
+    /**
+     * @expectedException \InvalidArgumentException
+     */
+    public function testInvalidEnergyPowerFrom()
+    {
+        Measurement::convertEnergy(1.1, 'invalid', EnergyPowerType::JOULS);
+    }
+
+    /**
+     * @expectedException \InvalidArgumentException
+     */
+    public function testInvalidEnergyPowerTo()
+    {
+        Measurement::convertEnergy(1.1, EnergyPowerType::JOULS, 'invalid');
+    }
+
+    /**
+     * @expectedException \InvalidArgumentException
+     */
+    public function testInvalidFileSizeFrom()
+    {
+        Measurement::convertFileSize(1.1, 'invalid', FileSizeType::KILOBYTE);
+    }
+
+    /**
+     * @expectedException \InvalidArgumentException
+     */
+    public function testInvalidFileSizeTo()
+    {
+        Measurement::convertFileSize(1.1, FileSizeType::KILOBYTE, 'invalid');
+    }
 }

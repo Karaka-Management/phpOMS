@@ -84,4 +84,15 @@ class EventManagerTest extends \PHPUnit\Framework\TestCase
         $event->trigger('group1');
         self::assertEquals(1, $event->count());
     }
+
+    public function testImportEvents()
+    {
+        $event = new EventManager();
+        self::assertFalse($event->importFromFile(__DIR__ . '/invalid.php'));
+        self::assertTrue($event->importFromFile(__DIR__ . '/events.php'));
+
+        self::assertEquals(2, $event->count());
+        self::assertTrue($event->trigger('SomeName1', '', [1, 2, 3]));
+        self::assertTrue($event->trigger('SomeName2', '', 4));
+    }
 }
