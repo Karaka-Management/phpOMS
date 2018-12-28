@@ -14,7 +14,6 @@
 namespace phpOMS\tests\DataStorage\Database\Schema\Grammar;
 
 use phpOMS\DataStorage\Database\Schema\Grammar\OracleGrammar;
-use phpOMS\Utils\TestUtils;
 
 class OracleGrammarTest extends \PHPUnit\Framework\TestCase
 {

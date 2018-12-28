@@ -15,7 +15,6 @@ declare(strict_types=1);
 namespace phpOMS\Validation\Base;
 
 use phpOMS\Validation\ValidatorAbstract;
-use phpOMS\Utils\ArrayUtils;
 
 /**
  * Validate date.

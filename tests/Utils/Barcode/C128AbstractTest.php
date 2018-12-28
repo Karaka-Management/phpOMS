@@ -14,7 +14,6 @@
 namespace phpOMS\tests\Utils\Barcode;
 
 use phpOMS\Utils\Barcode\C128Abstract;
-use phpOMS\Utils\Barcode\OrientationType;
 
 class C128AbstractTest extends \PHPUnit\Framework\TestCase
 {

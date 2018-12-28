@@ -14,7 +14,6 @@
 namespace phpOMS\tests\DataStorage\Database\Schema\Grammar;
 
 use phpOMS\DataStorage\Database\Schema\Grammar\PostgresGrammar;
-use phpOMS\Utils\TestUtils;
 
 class PostgresGrammarTest extends \PHPUnit\Framework\TestCase
 {

@@ -14,7 +14,6 @@
 namespace phpOMS\tests\DataStorage\Database\Schema\Grammar;
 
 use phpOMS\DataStorage\Database\Schema\Grammar\SqlServerGrammar;
-use phpOMS\Utils\TestUtils;
 
 class SqlServerGrammarTest extends \PHPUnit\Framework\TestCase
 {
