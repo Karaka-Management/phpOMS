@@ -173,7 +173,7 @@ final class Prime
                 return false;
             }
 
-            $i++;
+            ++$i;
         }
 
         return true;

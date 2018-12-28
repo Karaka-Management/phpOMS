@@ -128,7 +128,7 @@ final class Permutation
             $temp                = $toPermute[$i];
             $toPermute[$i]       = $toPermute[$pos - 1];
             $toPermute[$pos - 1] = $temp;
-            $i++;
+            ++$i;
         }
 
         return $toPermute;

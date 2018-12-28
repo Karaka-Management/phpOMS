@@ -164,7 +164,7 @@ final class Integer
         $i  = 1;
 
         while (!Numbers::isSquare($b2) && $i < $limit) {
-            $i++;
+            ++$i;
             $a += 1;
             $b2 = ($a * $a - $value);
         }

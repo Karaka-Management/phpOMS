@@ -500,7 +500,7 @@ class Builder extends BuilderAbstract
                 'boolean'  => $boolean[$i],
             ];
 
-            $i++;
+            ++$i;
         }
 
         return $this;
@@ -1244,7 +1244,7 @@ class Builder extends BuilderAbstract
                 'boolean'  => $boolean[$i],
             ];
 
-            $i++;
+            ++$i;
         }
 
         return $this;

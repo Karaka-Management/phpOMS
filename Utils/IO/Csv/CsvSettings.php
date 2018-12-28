@@ -44,7 +44,7 @@ class CsvSettings
         }
 
         while ($line !== false && $i < $checkLines) {
-            $i++;
+            ++$i;
 
             foreach ($delimiters as $delimiter) {
                 $regExp = '/[' . $delimiter . ']/';

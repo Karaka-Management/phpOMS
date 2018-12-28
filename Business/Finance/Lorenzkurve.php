@@ -45,7 +45,7 @@ final class Lorenzkurve
         foreach ($data as $key => $value) {
             $sum1 += $i * $value;
             $sum2 += $value;
-            $i++;
+            ++$i;
         }
 
         return 2 * $sum1 / ($n * $sum2) - ($n + 1) / $n;
