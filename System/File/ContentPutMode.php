@@ -17,9 +17,9 @@ namespace phpOMS\System\File;
 use phpOMS\Stdlib\Base\Enum;
 
 /**
- * Database type enum.
+ * Content put type enum.
  *
- * Database types that are supported by the application
+ * Defines how the content manipulation should be handled.
  *
  * @package    phpOMS\System\File
  * @license    OMS License 1.0

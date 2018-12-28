@@ -76,6 +76,16 @@ final class EventManager implements \Countable
     /**
      * Add events from file.
      *
+     * Files need to return a php array of the following structure:
+     * return [
+     *      '{EVENT_ID}' => [
+     *          'callback' => [
+     *              '{DESTINATION_NAMESPACE:method}', // can also be static by using :: between namespace and functio name
+     *              // more callbacks here
+     *          ],
+     *      ],
+     * ];
+     *
      * @param string $path Hook file path
      *
      * @return bool

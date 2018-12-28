@@ -80,11 +80,7 @@ class C128c extends C128Abstract
     protected static $CODE_END = '2331112';
 
     /**
-     * Generate weighted code string
-     *
-     * @return string
-     *
-     * @since  1.0.0
+     * {@inheritdoc}
      */
     protected function generateCodeString() : string
     {

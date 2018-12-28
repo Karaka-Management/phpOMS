@@ -53,7 +53,7 @@ final class UnhandledHandler
      * @param string $errfile Error file
      * @param int    $errline Error line
      *
-     * @return bool
+     * @return bool Returns true if the error could be logged otherwise false is returned
      *
      * @since  1.0.0
      */

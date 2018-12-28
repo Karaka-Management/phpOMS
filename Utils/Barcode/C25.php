@@ -98,11 +98,7 @@ class C25 extends C128Abstract
     }
 
     /**
-     * Generate weighted code string
-     *
-     * @return string
-     *
-     * @since  1.0.0
+     * {@inheritdoc}
      */
     protected function generateCodeString() : string
     {

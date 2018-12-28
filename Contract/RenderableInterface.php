@@ -31,7 +31,7 @@ interface RenderableInterface
     /**
      * Get the evaluated contents of the object.
      *
-     * @return string
+     * @return string Returns rendered output
      *
      * @since  1.0.0
      */

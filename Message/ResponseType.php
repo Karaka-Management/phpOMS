@@ -17,7 +17,7 @@ namespace phpOMS\Message;
 use phpOMS\Stdlib\Base\Enum;
 
 /**
- * Request type enum.
+ * Response type enum.
  *
  * @package    phpOMS\Message
  * @license    OMS License 1.0

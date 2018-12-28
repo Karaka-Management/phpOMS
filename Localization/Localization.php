@@ -140,6 +140,14 @@ final class Localization
     /**
      * Load localization from language code
      *
+     * Files need to return a php array of the following structure:
+     * return [
+     *      '{MODULE_NAME}' => [
+     *          '{INTERNAL_STRING_REPRESENTATION}' => '{OUTPUT_STRING}',
+     *          // more key/value pairs here
+     *      ],
+     * ];
+     *
      * @param string $langCode Language code
      *
      * @return void

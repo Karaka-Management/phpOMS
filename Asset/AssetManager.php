@@ -40,7 +40,7 @@ final class AssetManager implements \Countable
      * @param string $asset     Asset
      * @param bool   $overwrite Overwrite
      *
-     * @return bool
+     * @return bool Returns true if the asset could be set otherwise false
      *
      * @since  1.0.0
      */
@@ -60,7 +60,7 @@ final class AssetManager implements \Countable
      *
      * @param string $id Asset id
      *
-     * @return bool
+     * @return bool Returns true if the asset could be removed otherwise false
      *
      * @since  1.0.0
      */
@@ -96,7 +96,7 @@ final class AssetManager implements \Countable
     /**
      * Get asset count.
      *
-     * @return int
+     * @return int Returns the amount of assets (>= 0)
      *
      * @since  1.0.0
      */

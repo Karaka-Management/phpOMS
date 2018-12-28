@@ -102,7 +102,7 @@ class PermissionAbstract implements \JsonSerializable
     /**
      * Get permission id.
      *
-     * @return int
+     * @return int Retunrs the id of the permission
      *
      * @since  1.0.0
      */
@@ -192,7 +192,7 @@ class PermissionAbstract implements \JsonSerializable
     /**
      * Get providing module id.
      *
-     * @return int
+     * @return int Returns the module responsible for setting this permission
      *
      * @since  1.0.0
      */
@@ -296,7 +296,7 @@ class PermissionAbstract implements \JsonSerializable
     /**
      * Get permission
      *
-     * @return int
+     * @return int Returns the permission (PermissionType)
      *
      * @since  1.0.0
      */
@@ -338,7 +338,7 @@ class PermissionAbstract implements \JsonSerializable
      *
      * @param int $permission Permission
      *
-     * @return bool
+     * @return bool Returns true if the permission is set otherwise returns false
      *
      * @since  1.0.0
      */

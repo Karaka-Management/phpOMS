@@ -35,7 +35,7 @@ final class Metrics
      * @param int $cn New customers during period
      * @param int $cs Customers at the start of the period
      *
-     * @return float
+     * @return float Returns the customer retention
      *
      * @since  1.0.0
      */

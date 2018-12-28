@@ -30,7 +30,7 @@ final class Rest
      *
      * @param Request $request Request
      *
-     * @return string
+     * @return string Returns the request result
      *
      * @since  1.0.0
      */

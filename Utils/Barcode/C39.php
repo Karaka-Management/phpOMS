@@ -62,13 +62,7 @@ class C39 extends C128Abstract
     protected static $CODE_END = '121121211';
 
     /**
-     * Set content to encrypt
-     *
-     * @param string $content Barcode content
-     *
-     * @return void
-     *
-     * @since  1.0.0
+     * {@inheritdoc}
      */
     public function setContent(string $content) : void
     {
@@ -76,11 +70,7 @@ class C39 extends C128Abstract
     }
 
     /**
-     * Generate weighted code string
-     *
-     * @return string
-     *
-     * @since  1.0.0
+     * {@inheritdoc}
      */
     protected function generateCodeString() : string
     {

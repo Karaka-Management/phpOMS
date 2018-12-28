@@ -122,7 +122,7 @@ final class Validator extends ValidatorAbstract
      */
     public static function contains(string $var, $substr) : bool
     {
-        return is_string($substr) ? \strpos($var, $substr) !== false : StringUtils::contains($var, $substr);
+        return \is_string($substr) ? \strpos($var, $substr) !== false : StringUtils::contains($var, $substr);
     }
 
     /**

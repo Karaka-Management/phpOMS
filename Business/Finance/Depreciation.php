@@ -30,7 +30,7 @@ final class Depreciation
      * @param float $start    Value to depreciate
      * @param int   $duration Useful life time
      *
-     * @return float
+     * @return float Returns the straight line depreciation
      *
      * @since  1.0.0
      */

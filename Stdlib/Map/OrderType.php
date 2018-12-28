@@ -17,7 +17,9 @@ namespace phpOMS\Stdlib\Map;
 use phpOMS\Stdlib\Base\Enum;
 
 /**
- * Account type enum.
+ * Muli map order type enum.
+ *
+ * Specifies if keys in the map can be ordered in any way or need to match the exact order.
  *
  * @package    phpOMS\Stdlib\Map
  * @license    OMS License 1.0
@@ -26,6 +28,6 @@ use phpOMS\Stdlib\Base\Enum;
  */
 abstract class OrderType extends Enum
 {
-    public const LOOSE  = 0;
-    public const STRICT = 1;
+    public const LOOSE  = 0; // Doesn't matter in which order the keys are ordered
+    public const STRICT = 1; // The exact key order matters for setting/getting values
 }

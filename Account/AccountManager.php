@@ -87,7 +87,7 @@ final class AccountManager implements \Countable
      *
      * @param Account $account Account
      *
-     * @return bool
+     * @return bool Returns true if the account could be added otherwise false is returned
      *
      * @since  1.0.0
      */
@@ -107,7 +107,7 @@ final class AccountManager implements \Countable
      *
      * @param int $id Account id
      *
-     * @return bool
+     * @return bool Returns true if the account could be removed otherwise false
      *
      * @since  1.0.0
      */
@@ -125,7 +125,7 @@ final class AccountManager implements \Countable
     /**
      * Get accounts count.
      *
-     * @return int
+     * @return int Returns the amount of accounts in the manager (>= 0)
      *
      * @since  1.0.0
      */

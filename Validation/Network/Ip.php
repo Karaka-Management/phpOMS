@@ -42,7 +42,7 @@ abstract class Ip extends ValidatorAbstract
      */
     public static function isValid($value, array $constraints = null) : bool
     {
-        return filter_var($value, FILTER_VALIDATE_IP) !== false;
+        return \filter_var($value, FILTER_VALIDATE_IP) !== false;
     }
 
     /**
@@ -50,13 +50,13 @@ abstract class Ip extends ValidatorAbstract
      *
      * @param mixed $value to validate
      *
-     * @return bool
+     * @return bool Returns true if value is valid ip6 otherwise false
      *
      * @since  1.0.0
      */
     public static function isValidIpv6($value) : bool
     {
-        return filter_var($value, FILTER_VALIDATE_IP, FILTER_FLAG_IPV6) !== false;
+        return \filter_var($value, FILTER_VALIDATE_IP, FILTER_FLAG_IPV6) !== false;
     }
 
     /**
@@ -64,12 +64,12 @@ abstract class Ip extends ValidatorAbstract
      *
      * @param mixed $value to validate
      *
-     * @return bool
+     * @return bool eturns true if value is valid ip4 otherwise false
      *
      * @since  1.0.0
      */
     public static function isValidIpv4($value) : bool
     {
-        return filter_var($value, FILTER_VALIDATE_IP, FILTER_FLAG_IPV4) !== false;
+        return \filter_var($value, FILTER_VALIDATE_IP, FILTER_FLAG_IPV4) !== false;
     }
 }

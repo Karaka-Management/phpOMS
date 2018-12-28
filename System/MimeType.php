@@ -17,9 +17,9 @@ namespace phpOMS\System;
 use phpOMS\Stdlib\Base\Enum;
 
 /**
- * Database type enum.
+ * Mime type enum.
  *
- * Database types that are supported by the application
+ * Common mime types which can be helpful for responses where a specific mime needs to be set.
  *
  * @package    phpOMS\System
  * @license    OMS License 1.0

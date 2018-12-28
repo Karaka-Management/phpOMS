@@ -17,6 +17,9 @@ namespace phpOMS\Security;
 /**
  * Php code security class.
  *
+ * This can be used to ensure php code doesn't contain malicious functions and or characters.
+ * Additionally this can also be used in order verify that the source code is not altered compared to some expected source code.
+ *
  * @package    phpOMS\Security
  * @license    OMS License 1.0
  * @link       http://website.orange-management.de
@@ -70,7 +73,7 @@ final class PhpCode
      *
      * @param string $source Source code
      *
-     * @return string
+     * @return string Normalized source code
      *
      * @since  1.0.0
      */
@@ -84,7 +87,7 @@ final class PhpCode
      *
      * @param string $source Source code
      *
-     * @return bool
+     * @return bool Returns true if the code has unicode characters otherwise false is returned
      *
      * @since  1.0.0
      */
@@ -98,7 +101,7 @@ final class PhpCode
      *
      * @param array<string> $functions Functions to check
      *
-     * @return bool
+     * @return bool Returns true if code has disabled function calls otherwise false is returned
      *
      * @since  1.0.0
      */
@@ -127,7 +130,7 @@ final class PhpCode
      *
      * @param string $source Source code
      *
-     * @return bool
+     * @return bool Returns true if code contains deprecated functions otherwise false is returned
      *
      * @since  1.0.0
      */
@@ -148,7 +151,7 @@ final class PhpCode
      * @param string $source Source code path
      * @param string $hash   Source hash
      *
-     * @return bool
+     * @return bool Returns true if filee matches expected signature otherwise false is returned
      *
      * @since  1.0.0
      */
@@ -163,7 +166,7 @@ final class PhpCode
      * @param string $source Source code
      * @param string $remote Remote code
      *
-     * @return bool
+     * @return bool Returns true if source code is the same as the expected code otherwise false is returned
      *
      * @since  1.0.0
      */

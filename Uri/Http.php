@@ -17,9 +17,9 @@ namespace phpOMS\Uri;
 use phpOMS\Utils\StringUtils;
 
 /**
- * Uri interface.
+ * HTTP Uri.
  *
- * Used in order to create and evaluate a uri
+ * Uri used for http requests (incoming & outgoing)
  *
  * @package    phpOMS\Uri
  * @license    OMS License 1.0
@@ -180,7 +180,7 @@ final class Http implements UriInterface
     /**
      * Get current uri.
      *
-     * @return string
+     * @return string Returns the current uri
      *
      * @since  1.0.0
      */

@@ -19,7 +19,7 @@ class ExtensionTypeTest extends \PHPUnit\Framework\TestCase
 {
     public function testEnums() : void
     {
-        self::assertEquals(10, \count(ExtensionType::getConstants()));
+        self::assertEquals(11, \count(ExtensionType::getConstants()));
         self::assertEquals(ExtensionType::getConstants(), array_unique(ExtensionType::getConstants()));
 
         self::assertEquals(1, ExtensionType::UNKNOWN);
@@ -32,5 +32,6 @@ class ExtensionTypeTest extends \PHPUnit\Framework\TestCase
         self::assertEquals(128, ExtensionType::ARCHIVE);
         self::assertEquals(256, ExtensionType::PRESENTATION);
         self::assertEquals(512, ExtensionType::IMAGE);
+        self::assertEquals(1024, ExtensionType::EXECUTABLE);
     }
 }

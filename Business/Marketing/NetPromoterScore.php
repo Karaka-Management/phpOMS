@@ -87,7 +87,7 @@ final class NetPromoterScore
      *
      * Detractors are all ratings below 7.
      *
-     * @return int
+     * @return int Returns the amount of detractors (>= 0)
      *
      * @since  1.0.0
      */
@@ -108,7 +108,7 @@ final class NetPromoterScore
      *
      * Passives are all ratings between 7 and 8 (inclusive)
      *
-     * @return int
+     * @return int Returns the amount of passives (>= 0)
      *
      * @since  1.0.0
      */
@@ -129,7 +129,7 @@ final class NetPromoterScore
      *
      * Promotoers are all ratings larger 8
      *
-     * @return int
+     * @return int Returns the amount of promoters (>= 0)
      *
      * @since  1.0.0
      */

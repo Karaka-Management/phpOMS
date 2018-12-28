@@ -43,7 +43,7 @@ final class Auth
      *
      * @param SessionInterface $session Session
      *
-     * @return int
+     * @return int Returns the user id
      *
      * @since  1.0.0
      */

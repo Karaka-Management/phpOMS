@@ -18,14 +18,14 @@ use phpOMS\DataStorage\Database\DatabasePool;
 use phpOMS\DataStorage\Database\Schema\Builder as SchemaBuilder;
 
 /**
- * Installer Abstract class.
+ * Uninstaller abstract class.
  *
  * @package    phpOMS\Module
  * @license    OMS License 1.0
  * @link       http://website.orange-management.de
  * @since      1.0.0
  */
-class UninstallerAbstract
+abstract class UninstallerAbstract
 {
 
     /**

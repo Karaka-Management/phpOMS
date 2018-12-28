@@ -347,7 +347,7 @@ class Account implements ArrayableInterface, \JsonSerializable
     /**
      * Get name.
      *
-     * @return string
+     * @return string Returns the login name or null
      *
      * @since  1.0.0
      */
@@ -359,7 +359,7 @@ class Account implements ArrayableInterface, \JsonSerializable
     /**
      * Get name1.
      *
-     * @return string
+     * @return string Returns the name1
      *
      * @since  1.0.0
      */
@@ -385,7 +385,7 @@ class Account implements ArrayableInterface, \JsonSerializable
     /**
      * Get name2.
      *
-     * @return string
+     * @return string Returns name 2
      *
      * @since  1.0.0
      */
@@ -411,7 +411,7 @@ class Account implements ArrayableInterface, \JsonSerializable
     /**
      * Get name3.
      *
-     * @return string
+     * @return string Returns name 3
      *
      * @since  1.0.0
      */
@@ -437,7 +437,7 @@ class Account implements ArrayableInterface, \JsonSerializable
     /**
      * Get email.
      *
-     * @return string
+     * @return string Returns the email address
      *
      * @since  1.0.0
      */
@@ -469,9 +469,7 @@ class Account implements ArrayableInterface, \JsonSerializable
     /**
      * Get status.
      *
-     * AccountStatus
-     *
-     * @return int
+     * @return int Returns the status (AccountStatus)
      *
      * @since  1.0.0
      */
@@ -503,9 +501,7 @@ class Account implements ArrayableInterface, \JsonSerializable
     /**
      * Get type.
      *
-     * AccountType
-     *
-     * @return int
+     * @return int Returns the type (AccountType)
      *
      * @since  1.0.0
      */
@@ -609,7 +605,7 @@ class Account implements ArrayableInterface, \JsonSerializable
     /**
      * Get string representation.
      *
-     * @return string
+     * @return string Returns the json_encode of this object
      *
      * @since  1.0.0
      */

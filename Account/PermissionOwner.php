@@ -19,6 +19,8 @@ use phpOMS\Stdlib\Base\Enum;
 /**
  * Permision type/owner enum.
  *
+ * A permission can be long to a group or an account.
+ *
  * @package    phpOMS\Account
  * @license    OMS License 1.0
  * @link       http://website.orange-management.de

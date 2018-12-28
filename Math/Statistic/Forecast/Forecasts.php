@@ -15,7 +15,7 @@ declare(strict_types=1);
 namespace phpOMS\Math\Statistic\Forecast;
 
 /**
- * Address type enum.
+ * General forecasts helper class.
  *
  * @package    phpOMS\Math\Statistic\Forecast
  * @license    OMS License 1.0

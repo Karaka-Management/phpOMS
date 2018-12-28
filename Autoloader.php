@@ -96,7 +96,7 @@ final class Autoloader
      *
      * @example Autoloader::exists('\phpOMS\Autoloader') // true
      *
-     * @return bool
+     * @return bool Returns true if the namespace/class exists, otherwise false
      *
      * @since  1.0.0
      */

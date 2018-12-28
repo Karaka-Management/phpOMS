@@ -193,7 +193,7 @@ abstract class C128Abstract
     /**
      * Get content
      *
-     * @return string
+     * @return string Returns the string representation of the code
      *
      * @since  1.0.0
      */
@@ -269,7 +269,7 @@ abstract class C128Abstract
      *
      * @param string $barcode Barcode string
      *
-     * @return bool
+     * @return bool Returns true if the string is valid for the specific code implementetion otherwise false is returned
      *
      * @since  1.0.0
      */
@@ -289,7 +289,7 @@ abstract class C128Abstract
     /**
      * Generate weighted code string
      *
-     * @return string
+     * @return string Returns the code string generated from the human readable content
      *
      * @since  1.0.0
      */

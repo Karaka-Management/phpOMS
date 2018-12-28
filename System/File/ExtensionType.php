@@ -17,9 +17,9 @@ namespace phpOMS\System\File;
 use phpOMS\Stdlib\Base\Enum;
 
 /**
- * Database type enum.
+ * Extension type enum.
  *
- * Database types that are supported by the application
+ * Defines what kind of category a file belongs to.
  *
  * @package    phpOMS\System\File
  * @license    OMS License 1.0
@@ -38,4 +38,5 @@ abstract class ExtensionType extends Enum
     public const ARCHIVE      = 128;
     public const PRESENTATION = 256;
     public const IMAGE        = 512;
+    public const EXECUTABLE   = 1024;
 }

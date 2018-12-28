@@ -87,7 +87,7 @@ class Group implements ArrayableInterface, \JsonSerializable
     /**
      * Get group id.
      *
-     * @return int
+     * @return int Returns the id of the group
      *
      * @since  1.0.0
      */
@@ -99,7 +99,7 @@ class Group implements ArrayableInterface, \JsonSerializable
     /**
      * Get group name.
      *
-     * @return string
+     * @return string Returns the name of the group
      *
      * @since  1.0.0
      */
@@ -125,7 +125,7 @@ class Group implements ArrayableInterface, \JsonSerializable
     /**
      * Get group description.
      *
-     * @return string
+     * @return string Returns the description of the group
      *
      * @since  1.0.0
      */
@@ -183,7 +183,7 @@ class Group implements ArrayableInterface, \JsonSerializable
     /**
      * Get string representation.
      *
-     * @return string
+     * @return string Returns the json_encode of this object
      *
      * @since  1.0.0
      */

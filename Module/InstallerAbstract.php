@@ -24,14 +24,14 @@ use phpOMS\System\File\PermissionException;
 use phpOMS\Utils\Parser\Php\ArrayParser;
 
 /**
- * Installer Abstract class.
+ * Installer abstract class.
  *
  * @package    phpOMS\Module
  * @license    OMS License 1.0
  * @link       http://website.orange-management.de
  * @since      1.0.0
  */
-class InstallerAbstract
+abstract class InstallerAbstract
 {
     /**
      * Register module in database.

@@ -57,7 +57,7 @@ class ArrayParser
      * @param mixed $value Value to serialzie
      * @param int   $depth Array depth
      *
-     * @return string
+     * @return string Returns the parsed value as string representation
      *
      * @throws \UnexpectedValueException Throws this exception if the value cannot be parsed (invalid data type)
      *

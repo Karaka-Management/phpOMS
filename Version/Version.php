@@ -43,12 +43,12 @@ final class Version
      * @param string $ver1 Version
      * @param string $ver2 Version
      *
-     * @return int
+     * @return int Returns the version comparison (0 = equals; -1 = lower; 1 = higher)
      *
      * @since  1.0.0
      */
     public static function compare(string $ver1, string $ver2) : int
     {
-        return version_compare($ver1, $ver2);
+        return \version_compare($ver1, $ver2);
     }
 }

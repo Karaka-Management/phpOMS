@@ -17,9 +17,9 @@ namespace phpOMS\DataStorage\Database;
 use phpOMS\Stdlib\Base\Enum;
 
 /**
- * Database type enum.
+ * Relation type enum.
  *
- * Database types that are supported by the application
+ * Relations which can be used in order to specifiy how the DataMapper is supposed to work (level of detail)
  *
  * @package    phpOMS\DataStorage\Database
  * @license    OMS License 1.0

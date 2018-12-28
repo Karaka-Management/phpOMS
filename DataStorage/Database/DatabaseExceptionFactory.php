@@ -31,7 +31,7 @@ class DatabaseExceptionFactory
      *
      * @param \PDOException $e Exception
      *
-     * @return string
+     * @return string Returns exception namespace/class
      *
      * @since  1.0.0
      */
@@ -50,7 +50,7 @@ class DatabaseExceptionFactory
      *
      * @param \PDOException $e Exception
      *
-     * @return string
+     * @return string Returns exception pessage
      *
      * @since  1.0.0
      */

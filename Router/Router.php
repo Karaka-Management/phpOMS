@@ -36,6 +36,21 @@ final class Router
     /**
      * Add routes from file.
      *
+     * Files need to return a php array of the following structure:
+     * return [
+     *      '{REGEX_PATH}' => [
+     *          'dest' => '{DESTINATION_NAMESPACE:method}', // can also be static by using :: between namespace and functio name
+     *          'verb' => RouteVerb::{VERB},
+     *          'permission' => [ // optional
+     *              'module' => '{MODULE_NAME}',
+     *              'type' => PermissionType::{TYPE},
+     *              'state' => PermissionState::{STATE},
+     *          ],
+     *          // define different destination for different verb
+     *      ],
+     *      // define another regex path, destination, permission here
+     * ];
+     *
      * @param string $path Route file path
      *
      * @return bool

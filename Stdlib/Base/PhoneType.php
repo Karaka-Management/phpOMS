@@ -15,7 +15,7 @@ declare(strict_types=1);
 namespace phpOMS\Stdlib\Base;
 
 /**
- * Address type enum.
+ * Phone type enum.
  *
  * @package    phpOMS\Stdlib\Base
  * @license    OMS License 1.0

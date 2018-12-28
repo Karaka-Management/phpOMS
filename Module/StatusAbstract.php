@@ -18,14 +18,16 @@ use phpOMS\DataStorage\Database\DatabasePool;
 use phpOMS\DataStorage\Database\Query\Builder;
 
 /**
- * Installer Abstract class.
+ * Status abstract class.
+ *
+ * This abstraction can be used by modules in order to manipulate their basic status/state.
  *
  * @package    phpOMS\Module
  * @license    OMS License 1.0
  * @link       http://website.orange-management.de
  * @since      1.0.0
  */
-class StatusAbstract
+abstract class StatusAbstract
 {
 
     /**

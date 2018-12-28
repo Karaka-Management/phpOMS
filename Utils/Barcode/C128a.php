@@ -81,13 +81,7 @@ class C128a extends C128Abstract
     protected static $CODE_END = '2331112';
 
     /**
-     * Set content to encrypt
-     *
-     * @param string $content Content to encrypt
-     *
-     * @return void
-     *
-     * @since  1.0.0
+     * {@inheritdoc}
      */
     public function setContent(string $content) : void
     {

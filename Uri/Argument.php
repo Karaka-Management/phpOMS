@@ -17,9 +17,9 @@ namespace phpOMS\Uri;
 use phpOMS\Utils\StringUtils;
 
 /**
- * Uri interface.
+ * Console argument class.
  *
- * Used in order to create and evaluate a uri
+ * Considers arguments used in ca CLI as uri
  *
  * @package    phpOMS\Uri
  * @license    OMS License 1.0

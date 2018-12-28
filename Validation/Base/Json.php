@@ -17,7 +17,7 @@ namespace phpOMS\Validation\Base;
 use phpOMS\Validation\ValidatorAbstract;
 
 /**
- * Validate date.
+ * Validate json.
  *
  * @package    phpOMS\Validation\Base
  * @license    OMS License 1.0
@@ -42,7 +42,7 @@ abstract class Json extends ValidatorAbstract
      * @param array $source   Source structure
      * @param bool  $perfect  No additional elements in source allowed
      *
-     * @return bool
+     * @return bool Returns true if the template validates the source otherwise false
      *
      * @since  1.0.0
      */
@@ -141,7 +141,7 @@ abstract class Json extends ValidatorAbstract
      * @param array $template Template structure
      * @param array $source   Source structure
      *
-     * @return bool
+     * @return bool Returns true if the source implements all required elements otherwise false is returned
      *
      * @since  1.0.0
      */
@@ -180,7 +180,7 @@ abstract class Json extends ValidatorAbstract
      * @param array $template Template structure
      * @param array $source   Source structure
      *
-     * @return bool
+     * @return bool Returns true if the source is correct in relation to the template otherwise false is returned
      *
      * @since  1.0.0
      */

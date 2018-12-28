@@ -17,7 +17,7 @@ namespace phpOMS\Utils\Converter;
 use phpOMS\Stdlib\Base\Enum;
 
 /**
- * Speed type enum.
+ * Energy/Power type enum.
  *
  * @package    phpOMS\Utils\Converter
  * @license    OMS License 1.0

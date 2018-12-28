@@ -17,9 +17,9 @@ namespace phpOMS\DataStorage\Database\Schema;
 use phpOMS\DataStorage\Database\Query\QueryType as DefaultQueryType;
 
 /**
- * Database type enum.
+ * Query type enum.
  *
- * Database types that are supported by the application
+ * Types used by the schema grammar in order to build the correct query.
  *
  * @package    phpOMS\DataStorage\Database\Schema
  * @license    OMS License 1.0

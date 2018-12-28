@@ -181,7 +181,7 @@ class ApplicationAbstract
      *
      * @param string $name Variable name
      *
-     * @return mixed
+     * @return mixed Returns the value of the application member
      *
      * @todo replace with proper getter (faster)
      *

@@ -41,7 +41,7 @@ final class FinanceFormulas
      * @param float $r Stated annual interest rate
      * @param int   $n number of times compounded
      *
-     * @return float
+     * @return float Returns the APY
      *
      * @since  1.0.0
      */
@@ -280,7 +280,7 @@ final class FinanceFormulas
      * @param float $p Payment factor
      * @param float $r Rate per period
      *
-     * @return int
+     * @return int Returns the PV
      *
      * @since  1.0.0
      */

@@ -17,9 +17,7 @@ namespace phpOMS\System;
 use phpOMS\Stdlib\Base\Enum;
 
 /**
- * Database type enum.
- *
- * Database types that are supported by the application
+ * Operating system type enum.
  *
  * @package    phpOMS\System
  * @license    OMS License 1.0
