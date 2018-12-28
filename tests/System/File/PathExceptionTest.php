@@ -17,7 +17,7 @@ use phpOMS\System\File\PathException;
 
 class PathExceptionTest extends \PHPUnit\Framework\TestCase
 {
-    public function testConstructor()
+    public function testConstructor() : void
     {
         $e = new PathException('test.file');
         self::assertContains('test.file', $e->getMessage());

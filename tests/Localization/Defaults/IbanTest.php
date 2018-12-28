@@ -19,7 +19,7 @@ use phpOMS\Localization\Defaults\Iban;
 
 class IbanTest extends \PHPUnit\Framework\TestCase
 {
-    public function testDefaults()
+    public function testDefaults() : void
     {
         $obj = new Iban();
         self::assertEquals('', $obj->getCountry());

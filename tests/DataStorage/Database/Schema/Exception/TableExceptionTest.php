@@ -16,7 +16,7 @@ namespace phpOMS\tests\DataStorage\Database\Schema\Exception;
 
 class TableExceptionTest extends \PHPUnit\Framework\TestCase
 {
-    public function testPlaceholder()
+    public function testPlaceholder() : void
     {
         self::markTestIncomplete();
     }

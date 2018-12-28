@@ -17,7 +17,7 @@ use phpOMS\Utils\Git\Repository;
 
 class RepositoryTest extends \PHPUnit\Framework\TestCase
 {
-    public function testDefault()
+    public function testDefault() : void
     {
         $repo = new Repository(\realpath(__DIR__ . '/../../../'));
         self::assertTrue('phpOMS' === $repo->getName() || 'build' === $repo->getName());

@@ -18,7 +18,7 @@ use phpOMS\DataStorage\Database\DatabaseType;
 
 class NullConnectionTest extends \PHPUnit\Framework\TestCase
 {
-    public function testConnect()
+    public function testConnect() : void
     {
         $null = new NullConnection([]);
         $null->connect();

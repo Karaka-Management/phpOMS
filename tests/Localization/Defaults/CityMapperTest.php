@@ -21,7 +21,7 @@ use phpOMS\Localization\Defaults\CityMapper;
 
 class CityMapperTest extends \PHPUnit\Framework\TestCase
 {
-    static function setUpBeforeClass()
+    public static function setUpBeforeClass() : void
     {
         $con = new SqliteConnection([
             'prefix' => '',
@@ -32,7 +32,7 @@ class CityMapperTest extends \PHPUnit\Framework\TestCase
         DataMapperAbstract::setConnection($con);
     }
 
-    public function testR()
+    public function testR() : void
     {
         $obj = CityMapper::get(101079);
         self::assertEquals('DE', $obj->getCountryCode());
@@ -44,7 +44,7 @@ class CityMapperTest extends \PHPUnit\Framework\TestCase
         self::assertLessThan(9, $obj->getLong());
     }
 
-    static function tearDownAfterClass()
+    public static function tearDownAfterClass() : void
     {
         DataMapperAbstract::setConnection($GLOBALS['dbpool']->get());
     }

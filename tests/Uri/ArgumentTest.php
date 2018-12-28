@@ -19,7 +19,7 @@ use phpOMS\Uri\Argument;
 
 class ArgumentTest extends \PHPUnit\Framework\TestCase
 {
-    public function testAttributes()
+    public function testAttributes() : void
     {
         $obj = new Argument('');
 
@@ -38,7 +38,7 @@ class ArgumentTest extends \PHPUnit\Framework\TestCase
         self::assertObjectHasAttribute('base', $obj);
     }
 
-    public function testHelper()
+    public function testHelper() : void
     {
         self::assertTrue(Argument::isValid('http://www.google.de'));
         self::assertTrue(Argument::isValid('http://google.de'));
@@ -47,7 +47,7 @@ class ArgumentTest extends \PHPUnit\Framework\TestCase
         self::assertTrue(Argument::isValid('https:/google.de'));
     }
 
-    public function testSetGet()
+    public function testSetGet() : void
     {
         $obj = new Argument($uri = ':modules/admin/test/path.php ?para1=abc ?para2=2 #frag');
 

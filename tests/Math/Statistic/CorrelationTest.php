@@ -17,7 +17,7 @@ use phpOMS\Math\Statistic\Correlation;
 
 class CorrelationTest extends \PHPUnit\Framework\TestCase
 {
-    public function testBravisPersonCorrelationCoefficient()
+    public function testBravisPersonCorrelationCoefficient() : void
     {
         self::assertEquals(
             0.8854,
@@ -28,7 +28,7 @@ class CorrelationTest extends \PHPUnit\Framework\TestCase
         );
     }
 
-    public function testAutocorrelationCoefficient()
+    public function testAutocorrelationCoefficient() : void
     {
         $data = [
             1, 20, 31, 8, 40, 41, 46, 89, 72, 45, 81, 93,
@@ -41,7 +41,7 @@ class CorrelationTest extends \PHPUnit\Framework\TestCase
         self::assertEquals(0.098, Correlation::autocorrelationCoefficient($data, 2), '', 0.01);
     }
 
-    public function testPortmanteauTest()
+    public function testPortmanteauTest() : void
     {
         $data = [
             1, 20, 31, 8, 40, 41, 46, 89, 72, 45, 81, 93,

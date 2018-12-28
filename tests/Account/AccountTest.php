@@ -28,12 +28,12 @@ class AccountTest extends \PHPUnit\Framework\TestCase
 {
     protected $l11nManager = null;
 
-    protected function setUp()
+    protected function setUp() : void
     {
         $this->l11nManager = new L11nManager('Api');
     }
 
-    public function testAttributes()
+    public function testAttributes() : void
     {
         $account = new Account();
         self::assertInstanceOf('\phpOMS\Account\Account', $account);
@@ -55,7 +55,7 @@ class AccountTest extends \PHPUnit\Framework\TestCase
         self::assertObjectHasAttribute('l11n', $account);
     }
 
-    public function testDefault()
+    public function testDefault() : void
     {
         $account = new Account();
 
@@ -99,7 +99,7 @@ class AccountTest extends \PHPUnit\Framework\TestCase
         self::assertEquals($array, $account->jsonSerialize());
     }
 
-    public function testSetGet()
+    public function testSetGet() : void
     {
         $account = new Account();
 
@@ -168,7 +168,7 @@ class AccountTest extends \PHPUnit\Framework\TestCase
     /**
      * @expectedException \InvalidArgumentException
      */
-    public function testEmailException()
+    public function testEmailException() : void
     {
         $account = new Account();
         $account->setEmail('d.duck!@#%@duckburg');
@@ -177,7 +177,7 @@ class AccountTest extends \PHPUnit\Framework\TestCase
     /**
      * @expectedException \phpOMS\Stdlib\Base\Exception\InvalidEnumValue
      */
-    public function testStatusException()
+    public function testStatusException() : void
     {
         $account = new Account();
         $account->setStatus(99);
@@ -186,7 +186,7 @@ class AccountTest extends \PHPUnit\Framework\TestCase
     /**
      * @expectedException \phpOMS\Stdlib\Base\Exception\InvalidEnumValue
      */
-    public function testTypeException()
+    public function testTypeException() : void
     {
         $account = new Account();
         $account->setType(99);

@@ -17,7 +17,7 @@ use phpOMS\Business\Finance\Depreciation;
 
 class DepreciationTest extends \PHPUnit\Framework\TestCase
 {
-    public function testStraightLine()
+    public function testStraightLine() : void
     {
         $start    = 23280;
         $duration = 6;
@@ -27,7 +27,7 @@ class DepreciationTest extends \PHPUnit\Framework\TestCase
         self::assertEquals(23280 - 3880 * $t, Depreciation::getStraightLineResidualInT($start, $duration, $t), '', 5);
     }
 
-    public function testArithmeticDegressivDepreciation()
+    public function testArithmeticDegressivDepreciation() : void
     {
         $start    = 150000;
         $residual = 18000;
@@ -39,7 +39,7 @@ class DepreciationTest extends \PHPUnit\Framework\TestCase
         self::assertEquals(70800, Depreciation::getArithmeticDegressivDepreciationResidualInT($start, $residual, $duration, $t), '', 5);
     }
 
-    public function testArithmeticProgressivDepreciation()
+    public function testArithmeticProgressivDepreciation() : void
     {
         $start    = 40000;
         $residual = 4700;
@@ -51,7 +51,7 @@ class DepreciationTest extends \PHPUnit\Framework\TestCase
         self::assertEquals(29410, Depreciation::getArithmeticProgressivDepreciationResidualInT($start, $residual, $duration, $t), '', 5);
     }
 
-    public function testGeometicProgressivDepreciation()
+    public function testGeometicProgressivDepreciation() : void
     {
         $start    = 150000;
         $residual = 18000;
@@ -63,7 +63,7 @@ class DepreciationTest extends \PHPUnit\Framework\TestCase
         self::assertEquals(125965, Depreciation::getGeometicProgressivDepreciationResidualInT($start, $residual, $duration, $t), '', 5);
     }
 
-    public function testGeometicDegressivDepreciation()
+    public function testGeometicDegressivDepreciation() : void
     {
         $start    = 150000;
         $residual = 18000;

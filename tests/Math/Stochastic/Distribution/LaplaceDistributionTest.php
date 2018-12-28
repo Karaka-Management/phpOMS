@@ -17,7 +17,7 @@ use phpOMS\Math\Stochastic\Distribution\LaplaceDistribution;
 
 class LaplaceDistributionTest extends \PHPUnit\Framework\TestCase
 {
-    public function testPdf()
+    public function testPdf() : void
     {
         $x = 2;
         $m = 1;
@@ -26,7 +26,7 @@ class LaplaceDistributionTest extends \PHPUnit\Framework\TestCase
         self::assertEquals(0.17118, LaplaceDistribution::getPdf($x, $m, $b), '', 0.01);
     }
 
-    public function testCdf()
+    public function testCdf() : void
     {
         $x = 2;
         $m = 1;
@@ -35,39 +35,39 @@ class LaplaceDistributionTest extends \PHPUnit\Framework\TestCase
         self::assertEquals(0.88017, LaplaceDistribution::getCdf($x, $m, $b), '', 0.01);
     }
 
-    public function testMode()
+    public function testMode() : void
     {
         self::assertEquals(2, LaplaceDistribution::getMode(2));
     }
 
-    public function testMean()
+    public function testMean() : void
     {
         self::assertEquals(2, LaplaceDistribution::getMean(2));
     }
 
-    public function testMedian()
+    public function testMedian() : void
     {
         self::assertEquals(2, LaplaceDistribution::getMedian(2));
     }
 
-    public function testExKurtosis()
+    public function testExKurtosis() : void
     {
         self::assertEquals(3, LaplaceDistribution::getExKurtosis());
     }
 
-    public function testSkewness()
+    public function testSkewness() : void
     {
         self::assertEquals(0, LaplaceDistribution::getSkewness());
     }
 
-    public function testVariance()
+    public function testVariance() : void
     {
         $b = 3;
 
         self::assertEquals(2 * $b ** 2, LaplaceDistribution::getVariance($b));
     }
 
-    public function testMgf()
+    public function testMgf() : void
     {
         $t = 2;
         $b = 0.4;
@@ -79,7 +79,7 @@ class LaplaceDistributionTest extends \PHPUnit\Framework\TestCase
     /**
      * @expectedException \OutOfBoundsException
      */
-    public function testMgfException()
+    public function testMgfException() : void
     {
         LaplaceDistribution::getMgf(3, 2, 4);
     }

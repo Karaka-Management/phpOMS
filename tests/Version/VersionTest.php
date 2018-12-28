@@ -19,7 +19,7 @@ require_once __DIR__ . '/../Autoloader.php';
 
 class VersionTest extends \PHPUnit\Framework\TestCase
 {
-    public function testVersionCompare()
+    public function testVersionCompare() : void
     {
         $version1 = '1.23.456';
         $version2 = '1.23.567';

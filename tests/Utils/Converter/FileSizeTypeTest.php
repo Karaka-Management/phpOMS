@@ -17,7 +17,7 @@ use phpOMS\Utils\Converter\FileSizeType;
 
 class FileSizeTypeTest extends \PHPUnit\Framework\TestCase
 {
-    public function testEnums()
+    public function testEnums() : void
     {
         self::assertEquals(10, \count(FileSizeType::getConstants()));
         self::assertEquals('TB', FileSizeType::TERRABYTE);

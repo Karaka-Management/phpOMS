@@ -19,7 +19,7 @@ use phpOMS\Uri\InvalidUriException;
 
 class InvalidUriExceptionTest extends \PHPUnit\Framework\TestCase
 {
-    public function testException()
+    public function testException() : void
     {
         self::assertInstanceOf(\UnexpectedValueException::class, new InvalidUriException(''));
     }

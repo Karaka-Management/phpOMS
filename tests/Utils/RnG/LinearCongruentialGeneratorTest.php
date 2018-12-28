@@ -17,7 +17,7 @@ use phpOMS\Utils\RnG\LinearCongruentialGenerator;
 
 class LinearCongruentialGeneratorTest extends \PHPUnit\Framework\TestCase
 {
-    public function testBsdRng()
+    public function testBsdRng() : void
     {
         self::assertEquals(12345, LinearCongruentialGenerator::bsd());
 
@@ -31,7 +31,7 @@ class LinearCongruentialGeneratorTest extends \PHPUnit\Framework\TestCase
         self::assertNotEquals(LinearCongruentialGenerator::bsd(0), LinearCongruentialGenerator::bsd(1));
     }
 
-    public function testMsRng()
+    public function testMsRng() : void
     {
         self::assertEquals(38, LinearCongruentialGenerator::msvcrt());
         self::assertEquals(7719, LinearCongruentialGenerator::msvcrt());

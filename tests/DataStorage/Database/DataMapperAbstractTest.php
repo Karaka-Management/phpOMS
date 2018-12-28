@@ -23,7 +23,7 @@ class DataMapperAbstractTest extends \PHPUnit\Framework\TestCase
     protected $model      = null;
     protected $modelArray = null;
 
-    protected function setUp()
+    protected function setUp() : void
     {
         $this->model      = new BaseModel();
         $this->modelArray = [
@@ -133,7 +133,7 @@ class DataMapperAbstractTest extends \PHPUnit\Framework\TestCase
         )->execute();
     }
 
-    protected function  tearDown()
+    protected function tearDown() : void
     {
         $GLOBALS['dbpool']->get()->con->prepare('DROP TABLE oms_test_base')->execute();
         $GLOBALS['dbpool']->get()->con->prepare('DROP TABLE oms_test_belongs_to_one')->execute();
@@ -143,26 +143,26 @@ class DataMapperAbstractTest extends \PHPUnit\Framework\TestCase
         $GLOBALS['dbpool']->get()->con->prepare('DROP TABLE oms_test_has_many_rel_relations')->execute();
     }
 
-    public function testDefault()
+    public function testDefault() : void
     {
         self::assertEquals('test_base_id', BaseModelMapper::getPrimaryField());
         self::assertEquals('test_base', BaseModelMapper::getTable());
         self::assertEquals('test_base_datetime', BaseModelMapper::getCreatedAt());
     }
 
-    public function testCreate()
+    public function testCreate() : void
     {
         self::assertGreaterThan(0, BaseModelMapper::create($this->model));
         self::assertGreaterThan(0, $this->model->id);
     }
 
-    public function testCreateArray()
+    public function testCreateArray() : void
     {
         self::assertGreaterThan(0, BaseModelMapper::createArray($this->modelArray));
         self::assertGreaterThan(0, $this->modelArray['id']);
     }
 
-    public function testRead()
+    public function testRead() : void
     {
         $id     = BaseModelMapper::create($this->model);
         $modelR = BaseModelMapper::get($id);
@@ -193,7 +193,7 @@ class DataMapperAbstractTest extends \PHPUnit\Framework\TestCase
         self::assertEquals(1, count(BaseModelMapper::getAll()));
     }
 
-    public function testReadArray()
+    public function testReadArray() : void
     {
         $id     = BaseModelMapper::createArray($this->modelArray);
         $modelR = BaseModelMapper::getArray($id);
@@ -219,7 +219,7 @@ class DataMapperAbstractTest extends \PHPUnit\Framework\TestCase
         self::assertEquals(1, count(BaseModelMapper::getAllArray()));
     }
 
-    public function testUpdate()
+    public function testUpdate() : void
     {
         $id     = BaseModelMapper::create($this->model);
         $modelR = BaseModelMapper::get($id);
@@ -244,7 +244,7 @@ class DataMapperAbstractTest extends \PHPUnit\Framework\TestCase
         // todo test update relations
     }
 
-    public function testUpdateArray()
+    public function testUpdateArray() : void
     {
         $id     = BaseModelMapper::createArray($this->modelArray);
         $modelR = BaseModelMapper::getArray($id);
@@ -269,7 +269,7 @@ class DataMapperAbstractTest extends \PHPUnit\Framework\TestCase
         // todo test update relations
     }
 
-    public function testDelete()
+    public function testDelete() : void
     {
         $id = BaseModelMapper::create($this->model);
         BaseModelMapper::delete($this->model);

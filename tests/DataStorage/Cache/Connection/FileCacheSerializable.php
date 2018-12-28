@@ -22,7 +22,7 @@ class FileCacheSerializable implements \Serializable
         return 'abc';
     }
 
-    public function unserialize($val)
+    public function unserialize($val) : void
     {
         $this->val = $val;
     }

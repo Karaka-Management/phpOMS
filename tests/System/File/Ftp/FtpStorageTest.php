@@ -22,7 +22,7 @@ class FtpStorageTest extends \PHPUnit\Framework\TestCase
     const TEST = false;
     const BASE = 'ftp://user:password@localhost';
 
-    public function testFile()
+    public function testFile() : void
     {
         if (!self::TEST) {
             return;
@@ -87,7 +87,7 @@ class FtpStorageTest extends \PHPUnit\Framework\TestCase
         \unlink($testFile);
     }
 
-    public function testDirectory()
+    public function testDirectory() : void
     {
         if (!self::TEST) {
             return;
@@ -119,7 +119,7 @@ class FtpStorageTest extends \PHPUnit\Framework\TestCase
         self::assertGreaterThan(0, FtpStorage::permission($dirTestPath));
     }
 
-    public function testDirectoryMove()
+    public function testDirectoryMove() : void
     {
         if (!self::TEST) {
             return;
@@ -144,7 +144,7 @@ class FtpStorageTest extends \PHPUnit\Framework\TestCase
     /**
      * @expectedException \phpOMS\System\File\PathException
      */
-    public function testInvalidPutPath()
+    public function testInvalidPutPath() : void
     {
         if (!self::TEST) {
             throw new PathException('');
@@ -156,7 +156,7 @@ class FtpStorageTest extends \PHPUnit\Framework\TestCase
     /**
      * @expectedException \phpOMS\System\File\PathException
      */
-    public function testInvalidGetPath()
+    public function testInvalidGetPath() : void
     {
         if (!self::TEST) {
             throw new PathException('');
@@ -168,7 +168,7 @@ class FtpStorageTest extends \PHPUnit\Framework\TestCase
     /**
      * @expectedException \phpOMS\System\File\PathException
      */
-    public function testInvalidListPath()
+    public function testInvalidListPath() : void
     {
         if (!self::TEST) {
             throw new PathException('');
@@ -180,7 +180,7 @@ class FtpStorageTest extends \PHPUnit\Framework\TestCase
     /**
      * @expectedException \phpOMS\System\File\PathException
      */
-    public function testInvalidSetPath()
+    public function testInvalidSetPath() : void
     {
         if (!self::TEST) {
             throw new PathException('');
@@ -192,7 +192,7 @@ class FtpStorageTest extends \PHPUnit\Framework\TestCase
     /**
      * @expectedException \phpOMS\System\File\PathException
      */
-    public function testInvalidAppendPath()
+    public function testInvalidAppendPath() : void
     {
         if (!self::TEST) {
             throw new PathException('');
@@ -204,7 +204,7 @@ class FtpStorageTest extends \PHPUnit\Framework\TestCase
     /**
      * @expectedException \phpOMS\System\File\PathException
      */
-    public function testInvalidPrependPath()
+    public function testInvalidPrependPath() : void
     {
         if (!self::TEST) {
             throw new PathException('');
@@ -216,7 +216,7 @@ class FtpStorageTest extends \PHPUnit\Framework\TestCase
     /**
      * @expectedException \phpOMS\System\File\PathException
      */
-    public function testInvalidExtensionPath()
+    public function testInvalidExtensionPath() : void
     {
         if (!self::TEST) {
             throw new PathException('');

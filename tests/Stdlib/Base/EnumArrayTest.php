@@ -16,7 +16,7 @@ namespace phpOMS\tests\Stdlib\Base;
 
 class EnumArrayTest extends \PHPUnit\Framework\TestCase
 {
-    public function testGetSet()
+    public function testGetSet() : void
     {
         self::assertEquals(1, EnumArrayDemo::get('ENUM1'));
         self::assertEquals('abc', EnumArrayDemo::get('ENUM2'));
@@ -34,7 +34,7 @@ class EnumArrayTest extends \PHPUnit\Framework\TestCase
     /**
      * @expectedException \OutOfBoundsException
      */
-    public function testInvalidConstantException()
+    public function testInvalidConstantException() : void
     {
         EnumArrayDemo::get('enum2');
     }

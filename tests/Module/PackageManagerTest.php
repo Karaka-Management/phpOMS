@@ -21,7 +21,7 @@ use phpOMS\Utils\IO\Zip\Zip;
 
 class PackageManagerTest extends \PHPUnit\Framework\TestCase
 {
-    public static function setUpBeforeClass()
+    public static function setUpBeforeClass() : void
     {
         if (file_exists(__DIR__ . '/testPackage.zip')) {
             unlink(__DIR__ . '/testPackage.zip');
@@ -75,7 +75,7 @@ class PackageManagerTest extends \PHPUnit\Framework\TestCase
         );
     }
 
-    public function testPackageValid()
+    public function testPackageValid() : void
     {
         $package = new PackageManager(
             __DIR__ . '/testPackage.zip',
@@ -88,7 +88,7 @@ class PackageManagerTest extends \PHPUnit\Framework\TestCase
         self::assertTrue($package->isValid());
     }
 
-    public function testPackageInvalidKey()
+    public function testPackageInvalidKey() : void
     {
         $package = new PackageManager(
             __DIR__ . '/testPackage.zip',
@@ -101,7 +101,7 @@ class PackageManagerTest extends \PHPUnit\Framework\TestCase
         self::assertFalse($package->isValid());
     }
 
-    public function testPackageInvalidContent()
+    public function testPackageInvalidContent() : void
     {
         $package = new PackageManager(
             __DIR__ . '/testPackage.zip',
@@ -115,7 +115,7 @@ class PackageManagerTest extends \PHPUnit\Framework\TestCase
         self::assertFalse($package->isValid());
     }
 
-    public function testCleanup()
+    public function testCleanup() : void
     {
         $package = new PackageManager(
             __DIR__ . '/testPackage.zip',
@@ -130,7 +130,7 @@ class PackageManagerTest extends \PHPUnit\Framework\TestCase
         self::assertFalse(file_exists(__DIR__ . '/testPackageExtracted'));
     }
 
-    public static function tearDownAfterClass()
+    public static function tearDownAfterClass() : void
     {
         if (file_exists(__DIR__ . '/testPackage.zip')) {
             unlink(__DIR__ . '/testPackage.zip');

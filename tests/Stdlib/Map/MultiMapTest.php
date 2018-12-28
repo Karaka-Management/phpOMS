@@ -19,7 +19,7 @@ use phpOMS\Stdlib\Map\OrderType;
 
 class MultiMapTest extends \PHPUnit\Framework\TestCase
 {
-    public function testAttributes()
+    public function testAttributes() : void
     {
         $map = new MultiMap();
         self::assertInstanceOf('\phpOMS\Stdlib\Map\MultiMap', $map);
@@ -29,7 +29,7 @@ class MultiMapTest extends \PHPUnit\Framework\TestCase
         self::assertObjectHasAttribute('keys', $map);
     }
 
-    public function testDefault()
+    public function testDefault() : void
     {
         $map = new MultiMap();
 
@@ -45,7 +45,7 @@ class MultiMapTest extends \PHPUnit\Framework\TestCase
         self::assertFalse($map->remove('someKey'));
     }
 
-    public function testBasicAddAny()
+    public function testBasicAddAny() : void
     {
         $map = new MultiMap();
 
@@ -56,7 +56,7 @@ class MultiMapTest extends \PHPUnit\Framework\TestCase
         self::assertEquals('val1', $map->get('b'));
     }
 
-    public function testOverwriteAny()
+    public function testOverwriteAny() : void
     {
         $map = new MultiMap();
 
@@ -68,7 +68,7 @@ class MultiMapTest extends \PHPUnit\Framework\TestCase
         self::assertEquals('val2', $map->get('b'));
     }
 
-    public function testOverwritePartialFalseAny()
+    public function testOverwritePartialFalseAny() : void
     {
         $map = new MultiMap();
 
@@ -81,7 +81,7 @@ class MultiMapTest extends \PHPUnit\Framework\TestCase
         self::assertEquals('val3', $map->get('c'));
     }
 
-    public function testOverwriteFalseFalseAny()
+    public function testOverwriteFalseFalseAny() : void
     {
         $map = new MultiMap();
 
@@ -95,7 +95,7 @@ class MultiMapTest extends \PHPUnit\Framework\TestCase
         self::assertEquals('val3', $map->get('c'));
     }
 
-    public function testSetAny()
+    public function testSetAny() : void
     {
         $map = new MultiMap();
 
@@ -114,7 +114,7 @@ class MultiMapTest extends \PHPUnit\Framework\TestCase
         self::assertEquals('val3', $map->get('c'));
     }
 
-    public function testRemapAny()
+    public function testRemapAny() : void
     {
         $map = new MultiMap();
 
@@ -144,7 +144,7 @@ class MultiMapTest extends \PHPUnit\Framework\TestCase
         self::assertEquals('val3', $map->get('c'));
     }
 
-    public function testMapInfoAny()
+    public function testMapInfoAny() : void
     {
         $map = new MultiMap();
 
@@ -161,7 +161,7 @@ class MultiMapTest extends \PHPUnit\Framework\TestCase
         self::assertTrue(\is_array($map->values()));
     }
 
-    public function testSiblingsAny()
+    public function testSiblingsAny() : void
     {
         $map = new MultiMap();
 
@@ -179,7 +179,7 @@ class MultiMapTest extends \PHPUnit\Framework\TestCase
         self::assertEquals(['a'], $siblings);
     }
 
-    public function testRemoveAny()
+    public function testRemoveAny() : void
     {
         $map = new MultiMap();
 
@@ -206,7 +206,7 @@ class MultiMapTest extends \PHPUnit\Framework\TestCase
         self::assertEquals(1, \count($map->values()));
     }
 
-    public function testBasicAddExact()
+    public function testBasicAddExact() : void
     {
         $map = new MultiMap(KeyType::MULTIPLE);
 
@@ -217,7 +217,7 @@ class MultiMapTest extends \PHPUnit\Framework\TestCase
         self::assertEquals('val1', $map->get(['b', 'a']));
     }
 
-    public function testBasicAddExactOrdered()
+    public function testBasicAddExactOrdered() : void
     {
         $map = new MultiMap(KeyType::MULTIPLE, OrderType::STRICT);
 
@@ -228,7 +228,7 @@ class MultiMapTest extends \PHPUnit\Framework\TestCase
         self::assertEquals(null, $map->get(['b', 'a']));
     }
 
-    public function testOverwriteExact()
+    public function testOverwriteExact() : void
     {
         $map = new MultiMap(KeyType::MULTIPLE);
 
@@ -239,7 +239,7 @@ class MultiMapTest extends \PHPUnit\Framework\TestCase
         self::assertEquals('val2', $map->get(['a', 'b']));
     }
 
-    public function testOverwritePartialFalseExact()
+    public function testOverwritePartialFalseExact() : void
     {
         $map = new MultiMap(KeyType::MULTIPLE);
 
@@ -251,7 +251,7 @@ class MultiMapTest extends \PHPUnit\Framework\TestCase
         self::assertEquals('val3', $map->get(['c', 'a']));
     }
 
-    public function testOverwriteFalseFalseExact()
+    public function testOverwriteFalseFalseExact() : void
     {
         $map = new MultiMap(KeyType::MULTIPLE);
 
@@ -264,7 +264,7 @@ class MultiMapTest extends \PHPUnit\Framework\TestCase
         self::assertEquals('val3', $map->get(['a', 'c']));
     }
 
-    public function testSetExact()
+    public function testSetExact() : void
     {
         $map = new MultiMap(KeyType::MULTIPLE);
 
@@ -282,7 +282,7 @@ class MultiMapTest extends \PHPUnit\Framework\TestCase
         self::assertEquals('val4', $map->get(['b', 'a']));
     }
 
-    public function testSetExactOrdered()
+    public function testSetExactOrdered() : void
     {
         $map = new MultiMap(KeyType::MULTIPLE, OrderType::STRICT);
 
@@ -303,7 +303,7 @@ class MultiMapTest extends \PHPUnit\Framework\TestCase
         self::assertFalse($set);
     }
 
-    public function testRemapExact()
+    public function testRemapExact() : void
     {
         $map = new MultiMap(KeyType::MULTIPLE);
 
@@ -313,7 +313,7 @@ class MultiMapTest extends \PHPUnit\Framework\TestCase
         self::assertFalse($remap);
     }
 
-    public function testSiblingsExact()
+    public function testSiblingsExact() : void
     {
         $map = new MultiMap(KeyType::MULTIPLE);
 
@@ -321,7 +321,7 @@ class MultiMapTest extends \PHPUnit\Framework\TestCase
         self::assertEquals([['a', 'b'], ['b', 'a']], $map->getSiblings(['a', 'b']));
     }
 
-    public function testSiblingsExactOrdered()
+    public function testSiblingsExactOrdered() : void
     {
         $map = new MultiMap(KeyType::MULTIPLE, OrderType::STRICT);
 
@@ -329,7 +329,7 @@ class MultiMapTest extends \PHPUnit\Framework\TestCase
         self::assertEquals([], $map->getSiblings(['a', 'b']));
     }
 
-    public function testRemoveExact()
+    public function testRemoveExact() : void
     {
         $map = new MultiMap(KeyType::MULTIPLE);
 
@@ -350,7 +350,7 @@ class MultiMapTest extends \PHPUnit\Framework\TestCase
         self::assertFalse($map->removeKey(['a', 'b']));
     }
 
-    public function testRemoveExactOrdered()
+    public function testRemoveExactOrdered() : void
     {
         $map = new MultiMap(KeyType::MULTIPLE, OrderType::STRICT);
 

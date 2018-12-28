@@ -17,7 +17,7 @@ use phpOMS\Utils\Converter\WeightType;
 
 class WeightTypeTest extends \PHPUnit\Framework\TestCase
 {
-    public function testEnums()
+    public function testEnums() : void
     {
         self::assertEquals(14, \count(WeightType::getConstants()));
         self::assertEquals(WeightType::getConstants(), array_unique(WeightType::getConstants()));

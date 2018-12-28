@@ -17,7 +17,7 @@ use phpOMS\Math\Geometry\Shape\D2\Rectangle;
 
 class RectangleTest extends \PHPUnit\Framework\TestCase
 {
-    public function testRectanle()
+    public function testRectanle() : void
     {
         self::assertEquals(10, Rectangle::getSurface(5, 2), '', 0.001);
         self::assertEquals(10, Rectangle::getPerimeter(2, 3), '', 0.001);

@@ -17,7 +17,7 @@ use phpOMS\Math\Stochastic\Distribution\NormalDistribution;
 
 class NormalDistributionTest extends \PHPUnit\Framework\TestCase
 {
-    public function testPdf()
+    public function testPdf() : void
     {
         $mean = 2;
         $sig  = 1;
@@ -26,7 +26,7 @@ class NormalDistributionTest extends \PHPUnit\Framework\TestCase
         self::assertEquals(0.24197, NormalDistribution::getPdf($x, $mean, $sig), '', 0.01);
     }
 
-    public function testCdf()
+    public function testCdf() : void
     {
         $mean = 2;
         $sig  = 1;
@@ -35,38 +35,38 @@ class NormalDistributionTest extends \PHPUnit\Framework\TestCase
         self::assertEquals(0.84134, NormalDistribution::getCdf($x, $mean, $sig), '', 0.01);
     }
 
-    public function testMean()
+    public function testMean() : void
     {
         $mu = 4;
 
         self::assertEquals($mu, NormalDistribution::getMean($mu));
     }
 
-    public function testMedian()
+    public function testMedian() : void
     {
         $mu = 4;
 
         self::assertEquals($mu, NormalDistribution::getMedian($mu));
     }
 
-    public function testMode()
+    public function testMode() : void
     {
         $mu = 4;
 
         self::assertEquals($mu, NormalDistribution::getMode($mu));
     }
 
-    public function testSkewness()
+    public function testSkewness() : void
     {
         self::assertEquals(0, NormalDistribution::getSkewness());
     }
 
-    public function testExKurtosis()
+    public function testExKurtosis() : void
     {
         self::assertEquals(0, NormalDistribution::getExKurtosis());
     }
 
-    public function testVariance()
+    public function testVariance() : void
     {
         $sig = 0.8;
 

@@ -41,7 +41,7 @@ interface UploadedFileInterface
      *
      * @since  1.0.0
      */
-    public function moveTo(string $targetPath);
+    public function moveTo(string $targetPath) : void;
 
     /**
      * Retrieve the file size.

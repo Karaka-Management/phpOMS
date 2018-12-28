@@ -19,7 +19,7 @@ use phpOMS\Message\Http\RequestStatusCode;
 
 class HeaderTest extends \PHPUnit\Framework\TestCase
 {
-    public function testDefaults()
+    public function testDefaults() : void
     {
         $header = new Header();
         self::assertFalse($header->isLocked());
@@ -33,7 +33,7 @@ class HeaderTest extends \PHPUnit\Framework\TestCase
         self::assertEquals(0, $header->getAccount());
     }
 
-    public function testSecurityHeader()
+    public function testSecurityHeader() : void
     {
         self::assertTrue(Header::isSecurityHeader('content-security-policy'));
         self::assertTrue(Header::isSecurityHeader('X-xss-protection'));
@@ -42,7 +42,7 @@ class HeaderTest extends \PHPUnit\Framework\TestCase
         self::assertFalse(Header::isSecurityHeader('x-frame-optionss'));
     }
 
-    public function testGetSet()
+    public function testGetSet() : void
     {
         $header = new Header();
 
@@ -64,7 +64,7 @@ class HeaderTest extends \PHPUnit\Framework\TestCase
         self::AssertEquals(2, $header->getAccount(2));
     }
 
-    public function testLockedHeaderSet()
+    public function testLockedHeaderSet() : void
     {
         $header = new Header();
         $header->lock();
@@ -72,7 +72,7 @@ class HeaderTest extends \PHPUnit\Framework\TestCase
         self::assertFalse($header->set('key', 'value'));
     }
 
-    public function testLockedHeaderRemove()
+    public function testLockedHeaderRemove() : void
     {
         $header = new Header();
         $header->lock();
@@ -80,7 +80,7 @@ class HeaderTest extends \PHPUnit\Framework\TestCase
         self::assertFalse($header->remove('key'));
     }
 
-    public function testGeneration()
+    public function testGeneration() : void
     {
         $header = new Header();
 
@@ -103,7 +103,7 @@ class HeaderTest extends \PHPUnit\Framework\TestCase
         self::assertEquals(500, \http_response_code());
     }
 
-    public function testOverwriteSecurityHeader()
+    public function testOverwriteSecurityHeader() : void
     {
         $header = new Header();
         self::assertTrue($header->set('content-security-policy', 'header'));

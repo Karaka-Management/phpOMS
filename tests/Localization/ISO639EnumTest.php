@@ -19,7 +19,7 @@ use phpOMS\Localization\ISO639Enum;
 
 class ISO639EnumTest extends \PHPUnit\Framework\TestCase
 {
-    public function testEnums()
+    public function testEnums() : void
     {
         $enum = ISO639Enum::getConstants();
         self::assertEquals(\count($enum), \count(array_unique($enum)));

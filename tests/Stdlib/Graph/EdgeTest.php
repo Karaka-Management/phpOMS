@@ -18,7 +18,7 @@ use phpOMS\Stdlib\Graph\Node;
 
 class EdgeTest extends \PHPUnit\Framework\TestCase
 {
-    public function testDefault()
+    public function testDefault() : void
     {
         $edge = new Edge(new Node(), new Node());
         self::assertEquals([new Node(), new Node()], $edge->getNodes());

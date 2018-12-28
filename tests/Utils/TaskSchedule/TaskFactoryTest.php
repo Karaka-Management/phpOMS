@@ -19,7 +19,7 @@ use phpOMS\Utils\TaskSchedule\TaskFactory;
 
 class TaskFactoryTest extends \PHPUnit\Framework\TestCase
 {
-    public function testFactory()
+    public function testFactory() : void
     {
         self::assertTrue((TaskFactory::create('') instanceof CronJob) || (TaskFactory::create('') instanceof Schedule));
     }

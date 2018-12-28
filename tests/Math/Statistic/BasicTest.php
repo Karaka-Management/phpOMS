@@ -17,7 +17,7 @@ use phpOMS\Math\Statistic\Basic;
 
 class BasicTest extends \PHPUnit\Framework\TestCase
 {
-    public function testFrequency()
+    public function testFrequency() : void
     {
         self::assertEquals(
             [1 / 10, 2 / 10, 3 / 10, 4 / 10],

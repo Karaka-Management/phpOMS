@@ -17,7 +17,7 @@ use phpOMS\Message\Http\OSType;
 
 class OSTypeTest extends \PHPUnit\Framework\TestCase
 {
-    public function testEnums()
+    public function testEnums() : void
     {
         self::assertEquals(24, \count(OSType::getConstants()));
         self::assertEquals(OSType::getConstants(), array_unique(OSType::getConstants()));

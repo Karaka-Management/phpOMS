@@ -17,7 +17,7 @@ use phpOMS\DataStorage\Database\DatabaseStatus;
 
 class PostgresConnectionTest extends \PHPUnit\Framework\TestCase
 {
-    protected function setUp()
+    protected function setUp() : void
     {
         if (!extension_loaded('pdo_pgsql')) {
             $this->markTestSkipped(
@@ -26,7 +26,7 @@ class PostgresConnectionTest extends \PHPUnit\Framework\TestCase
         }
     }
 
-    public function testConnect()
+    public function testConnect() : void
     {
         $psql = new PostgresConnection($GLOBALS['CONFIG']['db']['core']['postgresql']['admin']);
         self::assertEquals(DatabaseStatus::OK, $psql->getStatus());
@@ -39,7 +39,7 @@ class PostgresConnectionTest extends \PHPUnit\Framework\TestCase
     /**
      * @expectedException \phpOMS\DataStorage\Database\Exception\InvalidConnectionConfigException
      */
-    public function testInvalidDatabaseType()
+    public function testInvalidDatabaseType() : void
     {
         $db = $GLOBALS['CONFIG']['db']['core']['postgresql']['admin'];
         unset($db['db']);
@@ -49,7 +49,7 @@ class PostgresConnectionTest extends \PHPUnit\Framework\TestCase
     /**
      * @expectedException \phpOMS\DataStorage\Database\Exception\InvalidConnectionConfigException
      */
-    public function testInvalidHost()
+    public function testInvalidHost() : void
     {
         $db = $GLOBALS['CONFIG']['db']['core']['postgresql']['admin'];
         unset($db['host']);
@@ -59,7 +59,7 @@ class PostgresConnectionTest extends \PHPUnit\Framework\TestCase
     /**
      * @expectedException \phpOMS\DataStorage\Database\Exception\InvalidConnectionConfigException
      */
-    public function testInvalidPort()
+    public function testInvalidPort() : void
     {
         $db = $GLOBALS['CONFIG']['db']['core']['postgresql']['admin'];
         unset($db['port']);
@@ -69,7 +69,7 @@ class PostgresConnectionTest extends \PHPUnit\Framework\TestCase
     /**
      * @expectedException \phpOMS\DataStorage\Database\Exception\InvalidConnectionConfigException
      */
-    public function testInvalidDatabase()
+    public function testInvalidDatabase() : void
     {
         $db = $GLOBALS['CONFIG']['db']['core']['postgresql']['admin'];
         unset($db['database']);
@@ -79,7 +79,7 @@ class PostgresConnectionTest extends \PHPUnit\Framework\TestCase
     /**
      * @expectedException \phpOMS\DataStorage\Database\Exception\InvalidConnectionConfigException
      */
-    public function testInvalidLogin()
+    public function testInvalidLogin() : void
     {
         $db = $GLOBALS['CONFIG']['db']['core']['postgresql']['admin'];
         unset($db['login']);
@@ -89,7 +89,7 @@ class PostgresConnectionTest extends \PHPUnit\Framework\TestCase
     /**
      * @expectedException \phpOMS\DataStorage\Database\Exception\InvalidConnectionConfigException
      */
-    public function testInvalidPassword()
+    public function testInvalidPassword() : void
     {
         $db = $GLOBALS['CONFIG']['db']['core']['postgresql']['admin'];
         unset($db['password']);
@@ -99,7 +99,7 @@ class PostgresConnectionTest extends \PHPUnit\Framework\TestCase
     /**
      * @expectedException \phpOMS\DataStorage\Database\Exception\InvalidConnectionConfigException
      */
-    public function testInvalidDatabaseTypeName()
+    public function testInvalidDatabaseTypeName() : void
     {
         $db       = $GLOBALS['CONFIG']['db']['core']['postgresql']['admin'];
         $db['db'] = 'invalid';
@@ -109,7 +109,7 @@ class PostgresConnectionTest extends \PHPUnit\Framework\TestCase
     /**
      * todo: apparently this doesn't throw an exception in postgresql?!
      */
-    public function testInvalidDatabaseName()
+    public function testInvalidDatabaseName() : void
     {
         $db = $GLOBALS['CONFIG']['db']['core']['postgresql']['admin'];
         $db['database'] = 'invalid';

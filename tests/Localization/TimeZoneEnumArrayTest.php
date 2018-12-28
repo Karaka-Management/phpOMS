@@ -19,7 +19,7 @@ use phpOMS\Localization\TimeZoneEnumArray;
 
 class TimeZoneEnumArrayTest extends \PHPUnit\Framework\TestCase
 {
-    public function testEnums()
+    public function testEnums() : void
     {
         self::assertEquals(\count(TimeZoneEnumArray::getConstants()), \count(array_unique(TimeZoneEnumArray::getConstants())));
     }

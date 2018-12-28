@@ -19,7 +19,7 @@ require_once __DIR__ . '/../Autoloader.php';
 
 class AssetManagerTest extends \PHPUnit\Framework\TestCase
 {
-    public function testAttributes()
+    public function testAttributes() : void
     {
         $manager = new AssetManager();
         self::assertInstanceOf('\phpOMS\Asset\AssetManager', $manager);
@@ -28,7 +28,7 @@ class AssetManagerTest extends \PHPUnit\Framework\TestCase
         self::assertObjectHasAttribute('assets', $manager);
     }
 
-    public function testDefault()
+    public function testDefault() : void
     {
         $manager = new AssetManager();
 
@@ -37,7 +37,7 @@ class AssetManagerTest extends \PHPUnit\Framework\TestCase
         self::assertEquals(0, $manager->count());
     }
 
-    public function testSetGet()
+    public function testSetGet() : void
     {
         $manager = new AssetManager();
 

@@ -17,7 +17,7 @@ use phpOMS\Utils\Converter\TemperatureType;
 
 class TemperatureTypeTest extends \PHPUnit\Framework\TestCase
 {
-    public function testEnums()
+    public function testEnums() : void
     {
         self::assertEquals(8, \count(TemperatureType::getConstants()));
         self::assertEquals(TemperatureType::getConstants(), array_unique(TemperatureType::getConstants()));

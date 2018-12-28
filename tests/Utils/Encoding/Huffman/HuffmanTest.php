@@ -17,7 +17,7 @@ use phpOMS\Utils\Encoding\Huffman\Huffman;
 
 class HuffmanTest extends \PHPUnit\Framework\TestCase
 {
-    public function testHuffman()
+    public function testHuffman() : void
     {
         $huff = new Huffman();
 

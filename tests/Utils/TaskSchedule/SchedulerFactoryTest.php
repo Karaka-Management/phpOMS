@@ -19,7 +19,7 @@ use phpOMS\Utils\TaskSchedule\TaskScheduler;
 
 class SchedulerFactoryTest extends \PHPUnit\Framework\TestCase
 {
-    public function testFactory()
+    public function testFactory() : void
     {
         self::assertTrue((SchedulerFactory::create('') instanceof Cron) || (SchedulerFactory::create('') instanceof TaskScheduler));
 

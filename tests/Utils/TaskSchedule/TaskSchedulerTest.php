@@ -18,12 +18,12 @@ use phpOMS\Utils\TaskSchedule\TaskScheduler;
 
 class TaskSchedulerTest extends \PHPUnit\Framework\TestCase
 {
-    public function testDefault()
+    public function testDefault() : void
     {
         self::assertInstanceOf('\phpOMS\Utils\TaskSchedule\SchedulerAbstract', new TaskScheduler());
     }
 
-    public function testCRUD()
+    public function testCRUD() : void
     {
         if (\stristr(PHP_OS, 'WIN')) {
             self::assertTrue(TaskScheduler::guessBin());

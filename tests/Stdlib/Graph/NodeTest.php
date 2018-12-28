@@ -17,13 +17,13 @@ use phpOMS\Stdlib\Graph\Node;
 
 class NodeTest extends \PHPUnit\Framework\TestCase
 {
-    public function testDefault()
+    public function testDefault() : void
     {
         $node = new Node();
         self::assertEquals(null, $node->getData());
     }
 
-    public function testGetSet()
+    public function testGetSet() : void
     {
         $node = new Node(1);
         self::assertEquals(1, $node->getData());

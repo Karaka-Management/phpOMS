@@ -21,7 +21,7 @@ use phpOMS\DataStorage\Database\Connection\SqlServerConnection;
 
 class ConnectionFactoryTest extends \PHPUnit\Framework\TestCase
 {
-    public function testCreateMysql()
+    public function testCreateMysql() : void
     {
         if (!extension_loaded('pdo_mysql')) {
             $this->markTestSkipped(
@@ -37,7 +37,7 @@ class ConnectionFactoryTest extends \PHPUnit\Framework\TestCase
         );
     }
 
-    public function testCreatePostgres()
+    public function testCreatePostgres() : void
     {
         if (!extension_loaded('pdo_pgsql')) {
             $this->markTestSkipped(
@@ -53,7 +53,7 @@ class ConnectionFactoryTest extends \PHPUnit\Framework\TestCase
         );
     }
 
-    public function testCreateSqlsrv()
+    public function testCreateSqlsrv() : void
     {
         if (!extension_loaded('pdo_sqlsrv')) {
             $this->markTestSkipped(
@@ -69,7 +69,7 @@ class ConnectionFactoryTest extends \PHPUnit\Framework\TestCase
         );
     }
 
-    public function testCreateSqlite()
+    public function testCreateSqlite() : void
     {
         if (!extension_loaded('pdo_sqlite')) {
             $this->markTestSkipped(
@@ -88,7 +88,7 @@ class ConnectionFactoryTest extends \PHPUnit\Framework\TestCase
     /**
      * @expectedException \InvalidArgumentException
      */
-    public function testInvalidDatabaseType()
+    public function testInvalidDatabaseType() : void
     {
         ConnectionFactory::create(['db' => 'invalid']);
     }

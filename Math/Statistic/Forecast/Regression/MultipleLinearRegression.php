@@ -18,7 +18,7 @@ use phpOMS\Math\Matrix\Matrix;
 class MultipleLinearRegression
 {
     /**
-     * {@inheritdoc}
+     * 
      */
     public static function getRegression(array $x, array $y) : array
     {
@@ -33,21 +33,21 @@ class MultipleLinearRegression
     }
 
     /**
-     * {@inheritdoc}
+     * 
      */
     public static function getVariance() : float
     {
     }
 
     /**
-     * {@inheritdoc}
+     * 
      */
     public static function getPredictionInterval() : array
     {
     }
 
     /**
-     * {@inheritdoc}
+     * 
      */
     public static function getSlope(float $b1, float $y, float $x) : float
     {
@@ -55,7 +55,7 @@ class MultipleLinearRegression
     }
 
     /**
-     * {@inheritdoc}
+     * 
      */
     public static function getElasticity(float $b1, float $y, float $x): float
     {

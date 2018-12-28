@@ -18,7 +18,7 @@ use phpOMS\System\File\Local\File;
 
 class FileTest extends \PHPUnit\Framework\TestCase
 {
-    public function testStatic()
+    public function testStatic() : void
     {
         $testFile = __DIR__ . '/test.txt';
         self::assertFalse(File::put($testFile, 'test', ContentPutMode::REPLACE));
@@ -82,7 +82,7 @@ class FileTest extends \PHPUnit\Framework\TestCase
     /**
      * @expectedException \phpOMS\System\File\PathException
      */
-    public function testInvalidGetPath()
+    public function testInvalidGetPath() : void
     {
         File::get(__DIR__ . '/invalid.txt');
     }
@@ -90,7 +90,7 @@ class FileTest extends \PHPUnit\Framework\TestCase
     /**
      * @expectedException \phpOMS\System\File\PathException
      */
-    public function testInvalidCopyPath()
+    public function testInvalidCopyPath() : void
     {
         File::copy(__DIR__ . '/invalid.txt', __DIR__ . '/invalid2.txt');
     }
@@ -98,7 +98,7 @@ class FileTest extends \PHPUnit\Framework\TestCase
     /**
      * @expectedException \phpOMS\System\File\PathException
      */
-    public function testInvalidMovePath()
+    public function testInvalidMovePath() : void
     {
         File::move(__DIR__ . '/invalid.txt', __DIR__ . '/invalid2.txt');
     }
@@ -106,7 +106,7 @@ class FileTest extends \PHPUnit\Framework\TestCase
     /**
      * @expectedException \phpOMS\System\File\PathException
      */
-    public function testInvalidCreatedPath()
+    public function testInvalidCreatedPath() : void
     {
         File::created(__DIR__ . '/invalid.txt');
     }
@@ -114,7 +114,7 @@ class FileTest extends \PHPUnit\Framework\TestCase
     /**
      * @expectedException \phpOMS\System\File\PathException
      */
-    public function testInvalidChangedPath()
+    public function testInvalidChangedPath() : void
     {
         File::changed(__DIR__ . '/invalid.txt');
     }
@@ -122,7 +122,7 @@ class FileTest extends \PHPUnit\Framework\TestCase
     /**
      * @expectedException \phpOMS\System\File\PathException
      */
-    public function testInvalidSizePath()
+    public function testInvalidSizePath() : void
     {
         File::size(__DIR__ . '/invalid.txt');
     }
@@ -130,7 +130,7 @@ class FileTest extends \PHPUnit\Framework\TestCase
     /**
      * @expectedException \phpOMS\System\File\PathException
      */
-    public function testInvalidPermissionPath()
+    public function testInvalidPermissionPath() : void
     {
         File::permission(__DIR__ . '/invalid.txt');
     }
@@ -138,7 +138,7 @@ class FileTest extends \PHPUnit\Framework\TestCase
     /**
      * @expectedException \phpOMS\System\File\PathException
      */
-    public function testInvalidOwnerPath()
+    public function testInvalidOwnerPath() : void
     {
         File::owner(__DIR__ . '/invalid.txt');
     }

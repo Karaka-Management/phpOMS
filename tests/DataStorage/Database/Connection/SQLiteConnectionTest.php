@@ -17,7 +17,7 @@ use phpOMS\DataStorage\Database\DatabaseStatus;
 
 class SQLiteConnectionTest extends \PHPUnit\Framework\TestCase
 {
-    protected function setUp()
+    protected function setUp() : void
     {
         if (!extension_loaded('pdo_sqlite')) {
             $this->markTestSkipped(
@@ -26,7 +26,7 @@ class SQLiteConnectionTest extends \PHPUnit\Framework\TestCase
         }
     }
 
-    public function testConnect()
+    public function testConnect() : void
     {
         $sqlite = new SQLiteConnection($GLOBALS['CONFIG']['db']['core']['sqlite']['admin']);
         self::assertEquals(DatabaseStatus::OK, $sqlite->getStatus());
@@ -37,7 +37,7 @@ class SQLiteConnectionTest extends \PHPUnit\Framework\TestCase
     /**
      * @expectedException \phpOMS\DataStorage\Database\Exception\InvalidConnectionConfigException
      */
-    public function testInvalidDatabaseType()
+    public function testInvalidDatabaseType() : void
     {
         $db = $GLOBALS['CONFIG']['db']['core']['sqlite']['admin'];
         unset($db['db']);
@@ -47,14 +47,14 @@ class SQLiteConnectionTest extends \PHPUnit\Framework\TestCase
     /**
      * @expectedException \phpOMS\DataStorage\Database\Exception\InvalidConnectionConfigException
      */
-    public function testInvalidDatabase()
+    public function testInvalidDatabase() : void
     {
         $db = $GLOBALS['CONFIG']['db']['core']['sqlite']['admin'];
         unset($db['database']);
         $sqlite = new SQLiteConnection($db);
     }
 
-    static function tearDownAfterClass()
+    public static function tearDownAfterClass() : void
     {
         if (\file_exists($GLOBALS['CONFIG']['db']['core']['sqlite']['admin']['database'])) {
             \unlink($GLOBALS['CONFIG']['db']['core']['sqlite']['admin']['database']);

@@ -18,7 +18,7 @@ use phpOMS\Utils\Barcode\OrientationType;
 
 class CodebarTest extends \PHPUnit\Framework\TestCase
 {
-    protected function setUp()
+    protected function setUp() : void
     {
         if (!extension_loaded('gd')) {
             $this->markTestSkipped(
@@ -27,7 +27,7 @@ class CodebarTest extends \PHPUnit\Framework\TestCase
         }
     }
 
-    public function testImagePng()
+    public function testImagePng() : void
     {
         $path = __DIR__ . '/codebar.png';
         if (\file_exists($path)) {
@@ -40,7 +40,7 @@ class CodebarTest extends \PHPUnit\Framework\TestCase
         self::assertTrue(\file_exists($path));
     }
 
-    public function testImageJpg()
+    public function testImageJpg() : void
     {
         $path = __DIR__ . '/codebar.jpg';
         if (\file_exists($path)) {
@@ -53,7 +53,7 @@ class CodebarTest extends \PHPUnit\Framework\TestCase
         self::assertTrue(\file_exists($path));
     }
 
-    public function testOrientationAndMargin()
+    public function testOrientationAndMargin() : void
     {
         $path = __DIR__ . '/ccodebar_vertical.png';
         if (\file_exists($path)) {
@@ -67,7 +67,7 @@ class CodebarTest extends \PHPUnit\Framework\TestCase
         self::assertTrue(\file_exists($path));
     }
 
-    public function testValidString()
+    public function testValidString() : void
     {
         self::assertTrue(Codebar::isValidString('412163'));
         self::assertFalse(Codebar::isValidString('412163F'));

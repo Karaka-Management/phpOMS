@@ -17,7 +17,7 @@ use phpOMS\Model\Html\Meta;
 
 class MetaTest extends \PHPUnit\Framework\TestCase
 {
-    public function testDefault()
+    public function testDefault() : void
     {
         $meta = new Meta();
         self::assertEquals('', $meta->getDescription());
@@ -27,7 +27,7 @@ class MetaTest extends \PHPUnit\Framework\TestCase
         self::assertEquals('<meta name="generator" content="Orange Management">', $meta->render());
     }
 
-    public function testGetSet()
+    public function testGetSet() : void
     {
         $meta = new Meta();
 

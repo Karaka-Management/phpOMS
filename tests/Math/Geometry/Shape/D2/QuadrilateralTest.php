@@ -16,7 +16,7 @@ namespace phpOMS\tests\Math\Geometry\Shape\D2;
 
 class QuadrilateralTest extends \PHPUnit\Framework\TestCase
 {
-    public function testPlaceholder()
+    public function testPlaceholder() : void
     {
         self::markTestIncomplete();
     }

@@ -17,7 +17,7 @@ use phpOMS\Validation\Finance\BIC;
 
 class BICTest extends \PHPUnit\Framework\TestCase
 {
-    public function testBic()
+    public function testBic() : void
     {
         self::assertTrue(BIC::isValid('ASPKAT2LXXX'));
         self::assertTrue(BIC::isValid('ASPKAT2L'));

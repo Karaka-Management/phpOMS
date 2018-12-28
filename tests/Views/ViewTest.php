@@ -31,7 +31,7 @@ class ViewTest extends \PHPUnit\Framework\TestCase
 
     protected $app = null;
 
-    public function setUp()
+    public function setUp() : void
     {
         $this->dbPool = new DatabasePool();
         /** @var array $CONFIG */
@@ -46,7 +46,7 @@ class ViewTest extends \PHPUnit\Framework\TestCase
         $this->app->dbPool      = $this->dbPool;
     }
 
-    public function testDefault()
+    public function testDefault() : void
     {
         $view = new View($this->app, new Request(new Http('')), new Response(new Localization()));
 
@@ -60,7 +60,7 @@ class ViewTest extends \PHPUnit\Framework\TestCase
         self::assertEmpty($view->toArray());
     }
 
-    public function testGetText()
+    public function testGetText() : void
     {
         $view = new View($this->app, $request = new Request(new Http('')), $response = new Response());
         $view->setTemplate('/Modules/Admin/Theme/Backend/accounts-list');
@@ -80,7 +80,7 @@ class ViewTest extends \PHPUnit\Framework\TestCase
         self::assertEquals('&lt;a href=&quot;test&quot;&gt;Test&lt;/a&gt;', $view->getHtml('Test'));
     }
 
-    public function testGetSet()
+    public function testGetSet() : void
     {
         $view = new View($this->app, $request = new Request(new Http('')), $response = new Response());
 
@@ -109,7 +109,7 @@ class ViewTest extends \PHPUnit\Framework\TestCase
         self::assertFalse($view->getView('test'));
     }
 
-    public function testRender()
+    public function testRender() : void
     {
         $view = new View($this->app, new Request(), new Response());
 
@@ -120,7 +120,7 @@ class ViewTest extends \PHPUnit\Framework\TestCase
     /**
      * @expectedException \phpOMS\System\File\PathException
      */
-    public function testRenderException()
+    public function testRenderException() : void
     {
         $view = new View($this->app, new Request(new Http('')), new Response());
         $view->setTemplate('something.txt');
@@ -131,7 +131,7 @@ class ViewTest extends \PHPUnit\Framework\TestCase
     /**
      * @expectedException \phpOMS\System\File\PathException
      */
-    public function testSerializeException()
+    public function testSerializeException() : void
     {
         $view = new View($this->app, new Request(new Http('')), new Response());
         $view->setTemplate('something.txt');

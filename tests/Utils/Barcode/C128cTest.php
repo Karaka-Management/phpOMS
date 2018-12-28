@@ -18,7 +18,7 @@ use phpOMS\Utils\Barcode\OrientationType;
 
 class C128cTest extends \PHPUnit\Framework\TestCase
 {
-    protected function setUp()
+    protected function setUp() : void
     {
         if (!extension_loaded('gd')) {
             $this->markTestSkipped(
@@ -27,7 +27,7 @@ class C128cTest extends \PHPUnit\Framework\TestCase
         }
     }
 
-    public function testImagePng()
+    public function testImagePng() : void
     {
         $path = __DIR__ . '/c128c.png';
         if (\file_exists($path)) {
@@ -40,7 +40,7 @@ class C128cTest extends \PHPUnit\Framework\TestCase
         self::assertTrue(\file_exists($path));
     }
 
-    public function testImageJpg()
+    public function testImageJpg() : void
     {
         $path = __DIR__ . '/c128c.jpg';
         if (\file_exists($path)) {
@@ -53,7 +53,7 @@ class C128cTest extends \PHPUnit\Framework\TestCase
         self::assertTrue(\file_exists($path));
     }
 
-    public function testOrientationAndMargin()
+    public function testOrientationAndMargin() : void
     {
         $path = __DIR__ . '/c128c_vertical.png';
         if (\file_exists($path)) {

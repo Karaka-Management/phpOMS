@@ -17,7 +17,7 @@ use phpOMS\Utils\RnG\Phone;
 
 class PhoneTest extends \PHPUnit\Framework\TestCase
 {
-    public function testRnG()
+    public function testRnG() : void
     {
         self::assertRegExp('/^\+\d{1,2} \(\d{3,4}\) \d{3,5}\-\d{3,8}$/', Phone::generatePhone());
     }

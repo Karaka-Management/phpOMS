@@ -19,7 +19,7 @@ use phpOMS\Localization\ISO3166TwoEnum;
 
 class ISO3166TwoEnumTest extends \PHPUnit\Framework\TestCase
 {
-    public function testEnums()
+    public function testEnums() : void
     {
         $ok = true;
 

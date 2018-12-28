@@ -18,7 +18,7 @@ use phpOMS\Math\Stochastic\Distribution\ZTest;
 class ZTestTest extends \PHPUnit\Framework\TestCase
 {
     // http://sphweb.bumc.bu.edu/otlt/MPH-Modules/BS/BS704_HypothesisTesting-ChiSquare/BS704_HypothesisTesting-ChiSquare_print.html
-    public function testHypothesisFalse()
+    public function testHypothesisFalse() : void
     {
         $a = 0.95;
         $observed = 0.512;

@@ -18,7 +18,7 @@ use phpOMS\Math\Matrix\Matrix;
 
 class EigenvalueDecompositionTest extends \PHPUnit\Framework\TestCase
 {
-    public function testSymmetricMatrix()
+    public function testSymmetricMatrix() : void
     {
         $A = new Matrix();
         $A->setMatrix([
@@ -45,7 +45,7 @@ class EigenvalueDecompositionTest extends \PHPUnit\Framework\TestCase
         ], $eig->getD()->toArray(), '', 0.2);
     }
 
-    public function testNonSymmetricMatrix()
+    public function testNonSymmetricMatrix() : void
     {
         $A = new Matrix();
         $A->setMatrix([
@@ -72,7 +72,7 @@ class EigenvalueDecompositionTest extends \PHPUnit\Framework\TestCase
         ], $eig->getD()->toArray(), '', 0.2);
     }
 
-    public function testCompositeSymmetric()
+    public function testCompositeSymmetric() : void
     {
         $A = new Matrix();
         $A->setMatrix([
@@ -92,7 +92,7 @@ class EigenvalueDecompositionTest extends \PHPUnit\Framework\TestCase
         , '', 0.2);
     }
 
-    public function testCompositeNonSymmetric()
+    public function testCompositeNonSymmetric() : void
     {
         $A = new Matrix();
         $A->setMatrix([

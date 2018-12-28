@@ -18,13 +18,13 @@ use phpOMS\Stdlib\Base\Iban;
 
 class IbanTest extends \PHPUnit\Framework\TestCase
 {
-    public function testAttributes()
+    public function testAttributes() : void
     {
         $iban = new Iban('DE22 6008 0000 0960 0280 00');
         self::assertObjectHasAttribute('iban', $iban);
     }
 
-    public function testMethods()
+    public function testMethods() : void
     {
         $strRepresentation = 'DE22 6008 0000 0960 0280 00';
         $iban              = new Iban($strRepresentation);
@@ -52,7 +52,7 @@ class IbanTest extends \PHPUnit\Framework\TestCase
     /**
      * @expectedException \InvalidArgumentException
      */
-    public function testInvalidIbanCountry()
+    public function testInvalidIbanCountry() : void
     {
         $iban = new Iban('ZZ22 6008 0000 0960 0280 00');
     }
@@ -60,7 +60,7 @@ class IbanTest extends \PHPUnit\Framework\TestCase
     /**
      * @expectedException \InvalidArgumentException
      */
-    public function testInvalidIbanLength()
+    public function testInvalidIbanLength() : void
     {
         $iban = new Iban('DE22 6008 0000 0960 0280 0');
     }
@@ -68,7 +68,7 @@ class IbanTest extends \PHPUnit\Framework\TestCase
     /**
      * @expectedException \InvalidArgumentException
      */
-    public function testInvalidIbanChecksum()
+    public function testInvalidIbanChecksum() : void
     {
         $iban = new Iban('DEA9 6008 0000 0960 0280 00');
     }

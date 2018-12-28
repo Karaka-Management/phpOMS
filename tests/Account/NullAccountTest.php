@@ -19,7 +19,7 @@ use phpOMS\Account\NullAccount;
 
 class NullAccountTest extends \PHPUnit\Framework\TestCase
 {
-    public function testNull()
+    public function testNull() : void
     {
         self::assertInstanceOf('\phpOMS\Account\Account', new NullAccount());
     }

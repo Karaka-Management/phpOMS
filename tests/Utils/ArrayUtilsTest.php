@@ -19,7 +19,7 @@ require_once __DIR__ . '/../Autoloader.php';
 
 class ArrayUtilsTest extends \PHPUnit\Framework\TestCase
 {
-    public function testArrayGetSet()
+    public function testArrayGetSet() : void
     {
         $expected = [
             'a' => [
@@ -50,7 +50,7 @@ class ArrayUtilsTest extends \PHPUnit\Framework\TestCase
         self::assertEquals('ab0', ArrayUtils::getArray('a/ab/1', $expected));
     }
 
-    public function testArrayInRecursive()
+    public function testArrayInRecursive() : void
     {
         $expected = [
             'a' => [
@@ -70,7 +70,7 @@ class ArrayUtilsTest extends \PHPUnit\Framework\TestCase
         self::assertFalse(ArrayUtils::inArrayRecursive('aba', ArrayUtils::unsetArray('a/ab', $expected, '/')));
     }
 
-    public function testArrayConversion()
+    public function testArrayConversion() : void
     {
         $expected = [
             'a' => [
@@ -91,7 +91,7 @@ class ArrayUtilsTest extends \PHPUnit\Framework\TestCase
         self::assertEquals('2;3;1;"""Text;"' . "\n", ArrayUtils::arrayToCsv(['a' => 2, 3, 1, '"Text;'], ';', '"', '\\'));
     }
 
-    public function testArrayRecursiveManipulation()
+    public function testArrayRecursiveManipulation() : void
     {
         $numArr    = [1, 2, 3, 4];
         $numArrRec = [1, [2, [3, 4]]];
@@ -99,7 +99,7 @@ class ArrayUtilsTest extends \PHPUnit\Framework\TestCase
         self::assertEquals($numArr, ArrayUtils::arrayFlatten($numArrRec));
     }
 
-    public function testArraySum()
+    public function testArraySum() : void
     {
         $numArr = [1, 2, 3, 4];
         self::assertEquals(10, ArrayUtils::arraySum($numArr));
@@ -107,7 +107,7 @@ class ArrayUtilsTest extends \PHPUnit\Framework\TestCase
         self::assertEquals(5, ArrayUtils::arraySum($numArr, 1, 2));
     }
 
-    public function testArrayAllIn()
+    public function testArrayAllIn() : void
     {
         $numArr = [1, 2, 3, 4];
         self::assertTrue(ArrayUtils::allInArray([], $numArr));
@@ -116,14 +116,14 @@ class ArrayUtilsTest extends \PHPUnit\Framework\TestCase
         self::assertFalse(ArrayUtils::allInArray([1, 5, 3], $numArr));
     }
 
-    public function testArrayAnyIn()
+    public function testArrayAnyIn() : void
     {
         $numArr = [1, 2, 3, 4];
         self::assertTrue(ArrayUtils::anyInArray($numArr, [2, 6, 8]));
         self::assertFalse(ArrayUtils::anyInArray($numArr, [10, 22]));
     }
 
-    public function testArg()
+    public function testArg() : void
     {
         self::assertEquals(null, ArrayUtils::hasArg('--testNull', $_SERVER['argv']));
         self::assertEquals(null, ArrayUtils::getArg('--testNull', $_SERVER['argv']));

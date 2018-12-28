@@ -23,7 +23,7 @@ use phpOMS\Uri\Http;
 
 class RequestTest extends \PHPUnit\Framework\TestCase
 {
-    public function testDefault()
+    public function testDefault() : void
     {
         $request = new Request();
 
@@ -47,7 +47,7 @@ class RequestTest extends \PHPUnit\Framework\TestCase
         self::assertEquals(null, $request->getData('key'));
     }
 
-    public function testSetGet()
+    public function testSetGet() : void
     {
         $request = new Request(new Http('http://www.google.com/test/path'), $l11n = new Localization());
 
@@ -91,7 +91,7 @@ class RequestTest extends \PHPUnit\Framework\TestCase
         self::assertEquals('http://www.google.com/test/path2', $request->__toString());
     }
 
-    public function testToString()
+    public function testToString() : void
     {
         $request = new Request(new Http('http://www.google.com/test/path'));
         self::assertEquals('http://www.google.com/test/path', $request->__toString());
@@ -108,7 +108,7 @@ class RequestTest extends \PHPUnit\Framework\TestCase
         self::assertEquals('http://www.google.com/test/path?test=var&test=data&test2=3', $request->__toString());
     }
 
-    public function testRestRequest()
+    public function testRestRequest() : void
     {
         $request = new Request(new Http('http://orange-management.de/phpOMS/LICENSE.txt'));
         $request->setMethod(RequestMethod::GET);
@@ -122,7 +122,7 @@ class RequestTest extends \PHPUnit\Framework\TestCase
     /**
      * @expectedException \OutOfRangeException
      */
-    public function testInvalidHttpsPort()
+    public function testInvalidHttpsPort() : void
     {
         $request = new Request(new Http('http://www.google.com/test/path'));
         $request->isHttps(-1);
@@ -131,7 +131,7 @@ class RequestTest extends \PHPUnit\Framework\TestCase
     /**
      * @expectedException \Exception
      */
-    public function testInvalidRouteVerb()
+    public function testInvalidRouteVerb() : void
     {
         $request = new Request(new Http('http://www.google.com/test/path'));
         $request->setMethod('failure');

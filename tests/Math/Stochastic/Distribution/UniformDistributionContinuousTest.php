@@ -17,7 +17,7 @@ use phpOMS\Math\Stochastic\Distribution\UniformDistributionContinuous;
 
 class UniformDistributionContinuousTest extends \PHPUnit\Framework\TestCase
 {
-    public function testPdf()
+    public function testPdf() : void
     {
         $a = 1;
         $b = 4;
@@ -27,7 +27,7 @@ class UniformDistributionContinuousTest extends \PHPUnit\Framework\TestCase
         self::assertEquals(0, UniformDistributionContinuous::getPdf(5, $a, $b));
     }
 
-    public function testCdf()
+    public function testCdf() : void
     {
         $a = 1;
         $b = 4;
@@ -38,7 +38,7 @@ class UniformDistributionContinuousTest extends \PHPUnit\Framework\TestCase
         self::assertEquals(1, UniformDistributionContinuous::getCdf(5, $a, $b));
     }
 
-    public function testMode()
+    public function testMode() : void
     {
         $a = 1;
         $b = 4;
@@ -52,7 +52,7 @@ class UniformDistributionContinuousTest extends \PHPUnit\Framework\TestCase
         );
     }
 
-    public function testMean()
+    public function testMean() : void
     {
         $a = 1;
         $b = 4;
@@ -60,7 +60,7 @@ class UniformDistributionContinuousTest extends \PHPUnit\Framework\TestCase
         self::assertEquals(1 / 2 * ($b + $a), UniformDistributionContinuous::getMean($a, $b));
     }
 
-    public function testMedian()
+    public function testMedian() : void
     {
         $a = 1;
         $b = 4;
@@ -68,7 +68,7 @@ class UniformDistributionContinuousTest extends \PHPUnit\Framework\TestCase
         self::assertEquals(1 / 2 * ($b + $a), UniformDistributionContinuous::getMedian($a, $b));
     }
 
-    public function testVariance()
+    public function testVariance() : void
     {
         $a = 1;
         $b = 4;
@@ -76,12 +76,12 @@ class UniformDistributionContinuousTest extends \PHPUnit\Framework\TestCase
         self::assertEquals(1 / 12 * ($b - $a) ** 2, UniformDistributionContinuous::getVariance($a, $b));
     }
 
-    public function testSkewness()
+    public function testSkewness() : void
     {
         self::assertEquals(0, UniformDistributionContinuous::getSkewness());
     }
 
-    public function testExKurtosis()
+    public function testExKurtosis() : void
     {
         self::assertEquals(-6 / 5, UniformDistributionContinuous::getExKurtosis());
     }

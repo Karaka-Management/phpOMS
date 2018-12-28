@@ -17,7 +17,7 @@ use phpOMS\DataStorage\Database\Schema\QueryType;
 
 class QueryTypeTest extends \PHPUnit\Framework\TestCase
 {
-    public function testEnums()
+    public function testEnums() : void
     {
         self::assertEquals(12, \count(QueryType::getConstants()));
         self::assertEquals(QueryType::getConstants(), array_unique(QueryType::getConstants()));

@@ -19,7 +19,7 @@ use phpOMS\Event\EventManager;
 
 class EventManagerTest extends \PHPUnit\Framework\TestCase
 {
-    public function testAttributes()
+    public function testAttributes() : void
     {
         $event = new EventManager();
 
@@ -27,7 +27,7 @@ class EventManagerTest extends \PHPUnit\Framework\TestCase
         self::assertObjectHasAttribute('callbacks', $event);
     }
 
-    public function testDefault()
+    public function testDefault() : void
     {
         $event = new EventManager();
 
@@ -35,7 +35,7 @@ class EventManagerTest extends \PHPUnit\Framework\TestCase
         self::assertFalse($event->trigger('invalid'));
     }
 
-    public function testBase()
+    public function testBase() : void
     {
         $event = new EventManager();
 
@@ -44,7 +44,7 @@ class EventManagerTest extends \PHPUnit\Framework\TestCase
         self::assertEquals(1, $event->count());
     }
 
-    public function testReset()
+    public function testReset() : void
     {
         $event = new EventManager();
 
@@ -58,7 +58,7 @@ class EventManagerTest extends \PHPUnit\Framework\TestCase
         self::assertEquals(1, $event->count());
     }
 
-    public function testDetach()
+    public function testDetach() : void
     {
         $event = new EventManager();
 
@@ -74,7 +74,7 @@ class EventManagerTest extends \PHPUnit\Framework\TestCase
         self::assertFalse($event->detach('group'));
     }
 
-    public function testRemove()
+    public function testRemove() : void
     {
         $event = new EventManager();
 
@@ -85,7 +85,7 @@ class EventManagerTest extends \PHPUnit\Framework\TestCase
         self::assertEquals(1, $event->count());
     }
 
-    public function testImportEvents()
+    public function testImportEvents() : void
     {
         $event = new EventManager();
         self::assertFalse($event->importFromFile(__DIR__ . '/invalid.php'));

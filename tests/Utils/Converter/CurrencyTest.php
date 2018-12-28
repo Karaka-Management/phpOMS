@@ -18,7 +18,7 @@ use phpOMS\Utils\Converter\Currency;
 
 class CurrencyTest extends \PHPUnit\Framework\TestCase
 {
-    public function testCurrency()
+    public function testCurrency() : void
     {
         self::assertGreaterThan(0, Currency::fromEurTo(1, ISO4217CharEnum::_USD));
         self::assertGreaterThan(0, Currency::fromToEur(1, ISO4217CharEnum::_USD));
@@ -30,7 +30,7 @@ class CurrencyTest extends \PHPUnit\Framework\TestCase
     /**
      * @expectedException \InvalidArgumentException
      */
-    public function testInvalidFromEur()
+    public function testInvalidFromEur() : void
     {
         Currency::fromEurTo(1, 'ERROR');
     }
@@ -38,7 +38,7 @@ class CurrencyTest extends \PHPUnit\Framework\TestCase
     /**
      * @expectedException \InvalidArgumentException
      */
-    public function testInvalidToEur()
+    public function testInvalidToEur() : void
     {
         Currency::fromToEur(1, 'ERROR');
     }
@@ -46,7 +46,7 @@ class CurrencyTest extends \PHPUnit\Framework\TestCase
     /**
      * @expectedException \InvalidArgumentException
      */
-    public function testInvalidConvert()
+    public function testInvalidConvert() : void
     {
         Currency::convertCurrency(1, 'ERROR', 'TEST');
     }

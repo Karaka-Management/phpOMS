@@ -19,7 +19,7 @@ use phpOMS\Utils\StringCompare;
 
 class StringCompareTest extends \PHPUnit\Framework\TestCase
 {
-    public function testDictionary()
+    public function testDictionary() : void
     {
         $dict = new StringCompare(
             [

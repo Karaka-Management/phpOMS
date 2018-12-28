@@ -17,7 +17,7 @@ use phpOMS\Utils\Converter\VolumeType;
 
 class VolumeTypeTest extends \PHPUnit\Framework\TestCase
 {
-    public function testEnums()
+    public function testEnums() : void
     {
         self::assertEquals(38, \count(VolumeType::getConstants()));
         self::assertEquals(VolumeType::getConstants(), array_unique(VolumeType::getConstants()));

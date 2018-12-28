@@ -17,12 +17,12 @@ use phpOMS\Math\Statistic\Average;
 
 class AverageTest extends \PHPUnit\Framework\TestCase
 {
-    public function testAverage()
+    public function testAverage() : void
     {
         self::assertEquals(-3 / 2, Average::averageDatasetChange([6, 7, 6, 3, 0]));
     }
 
-    public function testAngleMean()
+    public function testAngleMean() : void
     {
         self::assertEquals(-90, Average::angleMean([90.0, 180.0, 270.0, 360.0]), '', 0.01);
         self::assertEquals(9.999999999999977, Average::angleMean([370.0]), '', 0.01);
@@ -31,12 +31,12 @@ class AverageTest extends \PHPUnit\Framework\TestCase
         self::assertEquals(9.999999999999977, Average::angleMean2([370.0]), '', 0.01);
     }
 
-    public function testArithmeticMean()
+    public function testArithmeticMean() : void
     {
         self::assertEquals(4, Average::arithmeticMean([1, 2, 3, 4, 5, 6, 7]), '', 0.01);
     }
 
-    public function testWeightedAverage()
+    public function testWeightedAverage() : void
     {
         self::assertEquals(69 / 20, Average::weightedAverage(
             [1, 2, 3, 4, 5, 6, 7],
@@ -44,17 +44,17 @@ class AverageTest extends \PHPUnit\Framework\TestCase
         ), '', 0.01);
     }
 
-    public function testGeometricMean()
+    public function testGeometricMean() : void
     {
         self::assertEquals(3.3800151591413, Average::geometricMean([1, 2, 3, 4, 5, 6, 7]), '', 0.01);
     }
 
-    public function testHarmonicMean()
+    public function testHarmonicMean() : void
     {
         self::assertEquals(2.6997245179063, Average::harmonicMean([1, 2, 3, 4, 5, 6, 7]), '', 0.01);
     }
 
-    public function testMovingAverage()
+    public function testMovingAverage() : void
     {
         $data = [
             67.5, 66.5, 66.44, 66.44, 66.25, 65.88, 66.63, 66.56, 65.63, 66.06,
@@ -69,7 +69,7 @@ class AverageTest extends \PHPUnit\Framework\TestCase
     /**
      * @expectedException phpOMS\Math\Matrix\Exception\InvalidDimensionException
      */
-    public function testInvalidWeightedAverageDimension()
+    public function testInvalidWeightedAverageDimension() : void
     {
         Average::weightedAverage([1, 2, 3, 4, 5, 6, 7], [0.1, 0.2, 0.3, 0.1, 0.2, 0.05]);
     }
@@ -77,7 +77,7 @@ class AverageTest extends \PHPUnit\Framework\TestCase
     /**
      * @expectedException phpOMS\Math\Exception\ZeroDevisionException
      */
-    public function testInvalidArithmeticMeanZeroDevision()
+    public function testInvalidArithmeticMeanZeroDevision() : void
     {
         Average::arithmeticMean([]);
     }
@@ -85,7 +85,7 @@ class AverageTest extends \PHPUnit\Framework\TestCase
     /**
      * @expectedException phpOMS\Math\Exception\ZeroDevisionException
      */
-    public function testInvalidGeometricMean()
+    public function testInvalidGeometricMean() : void
     {
         Average::geometricMean([]);
     }
@@ -93,17 +93,17 @@ class AverageTest extends \PHPUnit\Framework\TestCase
     /**
      * @expectedException phpOMS\Math\Exception\ZeroDevisionException
      */
-    public function testInvalidHarmonicMean()
+    public function testInvalidHarmonicMean() : void
     {
         Average::harmonicMean([1, 2, 3, 0, 5, 6, 7]);
     }
 
-    public function testMode()
+    public function testMode() : void
     {
         self::assertEquals(2, Average::mode([1, 2, 2, 3, 4, 4, 2]), '', 0.01);
     }
 
-    public function testMedia()
+    public function testMedia() : void
     {
         self::assertEquals(4, Average::median([1, 2, 3, 4, 5, 6, 7]), '', 0.01);
         self::assertEquals(3.5, Average::median([1, 2, 3, 4, 5, 6]), '', 0.01);

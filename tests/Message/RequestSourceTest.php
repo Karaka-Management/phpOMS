@@ -19,7 +19,7 @@ use phpOMS\Message\RequestSource;
 
 class RequestSourceTest extends \PHPUnit\Framework\TestCase
 {
-    public function testEnums()
+    public function testEnums() : void
     {
         self::assertEquals(4, \count(RequestSource::getConstants()));
         self::assertEquals(0, RequestSource::WEB);

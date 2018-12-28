@@ -17,7 +17,7 @@ use phpOMS\Math\Functions\Functions;
 
 class FunctionsTest extends \PHPUnit\Framework\TestCase
 {
-    public function testFactorial()
+    public function testFactorial() : void
     {
         self::assertEquals(120, Functions::fact(5));
         self::assertEquals(39916800, Functions::fact(11));
@@ -27,7 +27,7 @@ class FunctionsTest extends \PHPUnit\Framework\TestCase
         self::assertEquals(13983816, Functions::binomialCoefficient(49, 6));
     }
 
-    public function testAckermann()
+    public function testAckermann() : void
     {
         self::assertEquals(5, Functions::ackermann(2, 1));
         self::assertEquals(125, Functions::ackermann(3, 4));
@@ -35,19 +35,19 @@ class FunctionsTest extends \PHPUnit\Framework\TestCase
         self::assertEquals(13, Functions::ackermann(4, 0));
     }
 
-    public function testMultiplicativeInverseModulo()
+    public function testMultiplicativeInverseModulo() : void
     {
         self::assertEquals(4, Functions::invMod(3, -11));
         self::assertEquals(12, Functions::invMod(10, 17));
         self::assertEquals(5, Functions::invMod(-10, 17));
     }
 
-    public function testAbs()
+    public function testAbs() : void
     {
         self::assertEquals([1, 3, 4], Functions::abs([-1, 3, -4]));
     }
 
-    public function testProperties()
+    public function testProperties() : void
     {
         self::assertTrue(Functions::isOdd(3));
         self::assertTrue(Functions::isOdd(-3));
@@ -60,14 +60,14 @@ class FunctionsTest extends \PHPUnit\Framework\TestCase
         self::assertFalse(Functions::isEven(-3));
     }
 
-    public function testCircularPosition()
+    public function testCircularPosition() : void
     {
         self::assertEquals(0, Functions::getRelativeDegree(7, 12, 7));
         self::assertEquals(5, Functions::getRelativeDegree(12, 12, 7));
         self::assertEquals(11, Functions::getRelativeDegree(6, 12, 7));
     }
 
-    public function testPower()
+    public function testPower() : void
     {
         self::assertEquals([4, 9, 16], Functions::powerInt([2, 3, 4], 2));
         self::assertEquals([8, 27, 64], Functions::powerInt([2, 3, 4], 3));

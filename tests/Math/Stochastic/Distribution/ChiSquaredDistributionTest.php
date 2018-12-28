@@ -17,7 +17,7 @@ use phpOMS\Math\Stochastic\Distribution\ChiSquaredDistribution;
 
 class ChiSquaredDistributionTest extends \PHPUnit\Framework\TestCase
 {
-    public function testHypothesisFalse()
+    public function testHypothesisFalse() : void
     {
         $p = [0.6, 0.25, 0.15];
         $a = 0.05;
@@ -34,7 +34,7 @@ class ChiSquaredDistributionTest extends \PHPUnit\Framework\TestCase
         self::assertEquals(2, $test['df']);
     }
 
-    public function testDegreesOfFreedom()
+    public function testDegreesOfFreedom() : void
     {
         self::assertEquals(2, ChiSquaredDistribution::getDegreesOfFreedom([1, 2, 3]));
         self::assertEquals(6, ChiSquaredDistribution::getDegreesOfFreedom([
@@ -44,47 +44,47 @@ class ChiSquaredDistributionTest extends \PHPUnit\Framework\TestCase
         ]));
     }
 
-    public function testMode()
+    public function testMode() : void
     {
         self::assertEquals(max(5 - 2, 0), ChiSquaredDistribution::getMode(5));
     }
 
-    public function testMean()
+    public function testMean() : void
     {
         $df = 5;
 
         self::assertEquals($df, ChiSquaredDistribution::getMean($df));
     }
 
-    public function testVariance()
+    public function testVariance() : void
     {
         $df = 5;
 
         self::assertEquals(2 * $df, ChiSquaredDistribution::getVariance($df));
     }
 
-    public function testMedian()
+    public function testMedian() : void
     {
         $df = 5;
 
         self::assertEquals($df * (1 - 2 / (9 * $df)) ** 3, ChiSquaredDistribution::getMedian($df));
     }
 
-    public function testSkewness()
+    public function testSkewness() : void
     {
         $df = 5;
 
         self::assertEquals(sqrt(8 / $df), ChiSquaredDistribution::getSkewness($df));
     }
 
-    public function testExKurtosis()
+    public function testExKurtosis() : void
     {
         $df = 5;
 
         self::assertEquals(12 / $df, ChiSquaredDistribution::getExKurtosis($df));
     }
 
-    public function testMgdf()
+    public function testMgdf() : void
     {
         $df = 5;
         $t  = 0.3;
@@ -95,7 +95,7 @@ class ChiSquaredDistributionTest extends \PHPUnit\Framework\TestCase
     /**
      * @expectedException \Exception
      */
-    public function testHypothesisSizeException()
+    public function testHypothesisSizeException() : void
     {
         ChiSquaredDistribution::testHypothesis([1, 2], [2]);
     }
@@ -103,7 +103,7 @@ class ChiSquaredDistributionTest extends \PHPUnit\Framework\TestCase
     /**
      * @expectedException \Exception
      */
-    public function testHypothesisDegreesOfFreedomException()
+    public function testHypothesisDegreesOfFreedomException() : void
     {
         ChiSquaredDistribution::testHypothesis([], []);
     }
@@ -111,7 +111,7 @@ class ChiSquaredDistributionTest extends \PHPUnit\Framework\TestCase
     /**
      * @expectedException \OutOfBoundsException
      */
-    public function testPdfOutOfBoundsException()
+    public function testPdfOutOfBoundsException() : void
     {
         ChiSquaredDistribution::getPdf(-1, 0);
     }
@@ -119,7 +119,7 @@ class ChiSquaredDistributionTest extends \PHPUnit\Framework\TestCase
     /**
      * @expectedException \OutOfBoundsException
      */
-    public function testMgfOutOfBoundsException()
+    public function testMgfOutOfBoundsException() : void
     {
         ChiSquaredDistribution::getMgf(1, 0.6);
     }

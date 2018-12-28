@@ -17,7 +17,7 @@ use phpOMS\Math\Functions\Fibunacci;
 
 class FibunacciTest extends \PHPUnit\Framework\TestCase
 {
-    public function testFibunacci()
+    public function testFibunacci() : void
     {
         self::assertTrue(Fibunacci::isFibunacci(13));
         self::assertTrue(Fibunacci::isFibunacci(55));

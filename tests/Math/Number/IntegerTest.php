@@ -17,21 +17,21 @@ use phpOMS\Math\Number\Integer;
 
 class IntegerTest extends \PHPUnit\Framework\TestCase
 {
-    public function testIsInteger()
+    public function testIsInteger() : void
     {
         self::assertTrue(Integer::isInteger(4));
         self::assertFalse(Integer::isInteger(1.0));
         self::assertFalse(Integer::isInteger('3'));
     }
 
-    public function testFactorization()
+    public function testFactorization() : void
     {
         self::assertArraySubset([2, 2, 5, 5], Integer::trialFactorization(100));
         self::assertArraySubset([2], Integer::trialFactorization(2));
         self::assertEquals([], Integer::trialFactorization(1));
     }
 
-    public function testOther()
+    public function testOther() : void
     {
         self::assertEquals(101, Integer::pollardsRho(10403, 2, 1, 2, 2));
 
@@ -41,12 +41,12 @@ class IntegerTest extends \PHPUnit\Framework\TestCase
     /**
      * @expectedException \Exception
      */
-    public function testInvalidFermatParameter()
+    public function testInvalidFermatParameter() : void
     {
         Integer::fermatFactor(8);
     }
 
-    public function testGCD()
+    public function testGCD() : void
     {
         self::assertEquals(4, Integer::greatestCommonDivisor(4, 4));
         self::assertEquals(6, Integer::greatestCommonDivisor(54, 24));

@@ -19,7 +19,7 @@ require_once __DIR__ . '/../Autoloader.php';
 
 class SystemUtilsTest extends \PHPUnit\Framework\TestCase
 {
-    public function testSystem()
+    public function testSystem() : void
     {
         self::assertGreaterThan(0, SystemUtils::getRAM());
         self::assertGreaterThan(0, SystemUtils::getCpuUsage());

@@ -17,7 +17,7 @@ use phpOMS\Utils\RnG\DateTime;
 
 class DateTimeTest extends \PHPUnit\Framework\TestCase
 {
-    public function testRnG()
+    public function testRnG() : void
     {
         for ($i = 0; $i < 100; ++$i) {
             $dateMin = new \DateTime();

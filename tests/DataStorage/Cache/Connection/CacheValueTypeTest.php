@@ -17,7 +17,7 @@ use phpOMS\DataStorage\Cache\Connection\CacheValueType;
 
 class CacheValueTypeTest extends \PHPUnit\Framework\TestCase
 {
-    public function testEnums()
+    public function testEnums() : void
     {
         self::assertEquals(8, \count(CacheValueType::getConstants()));
         self::assertEquals(0, CacheValueType::_INT);

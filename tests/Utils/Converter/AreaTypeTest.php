@@ -17,7 +17,7 @@ use phpOMS\Utils\Converter\AreaType;
 
 class AreaTypeTest extends \PHPUnit\Framework\TestCase
 {
-    public function testEnums()
+    public function testEnums() : void
     {
         self::assertEquals(13, \count(AreaType::getConstants()));
         self::assertEquals(AreaType::getConstants(), array_unique(AreaType::getConstants()));

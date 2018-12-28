@@ -17,7 +17,7 @@ use phpOMS\Math\Geometry\Shape\D2\Polygon;
 
 class PolygonTest extends \PHPUnit\Framework\TestCase
 {
-    public function testPoint()
+    public function testPoint() : void
     {
         $polyArray = [
             ['x' => 1, 'y' => 1],
@@ -38,7 +38,7 @@ class PolygonTest extends \PHPUnit\Framework\TestCase
         self::assertEquals(-1, Polygon::isPointInPolygon(['x' => 1.8, 'y' => 1.1], $polyArray));
     }
 
-    public function testAngle()
+    public function testAngle() : void
     {
         $polygon = new Polygon([[1, 2], [2, 3], [3, 4]]);
         self::assertEquals(180, $polygon->getInteriorAngleSum());
@@ -61,7 +61,7 @@ class PolygonTest extends \PHPUnit\Framework\TestCase
         self::assertEquals(360, $polygon->getExteriorAngleSum());
     }
 
-    public function testPerimeter()
+    public function testPerimeter() : void
     {
         $polygon = new Polygon([
             ['x' => 2, 'y' => 1],
@@ -76,7 +76,7 @@ class PolygonTest extends \PHPUnit\Framework\TestCase
         self::assertEquals(9.6568, $polygon->getPerimeter(), '', 0.1);
     }
 
-    public function testArea()
+    public function testArea() : void
     {
         $polygon = new Polygon([
             ['x' => 2, 'y' => 1],
@@ -91,7 +91,7 @@ class PolygonTest extends \PHPUnit\Framework\TestCase
         self::assertEquals(7, $polygon->getSurface());
     }
 
-    public function testBarycenter()
+    public function testBarycenter() : void
     {
         $polygon = new Polygon([
             ['x' => 2, 'y' => 1],

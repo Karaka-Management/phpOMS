@@ -17,7 +17,7 @@ use phpOMS\Utils\IO\Zip\Tar;
 
 class TarTest extends \PHPUnit\Framework\TestCase
 {
-    protected function setUp()
+    protected function setUp() : void
     {
         if (!extension_loaded('phar')) {
             $this->markTestSkipped(
@@ -26,7 +26,7 @@ class TarTest extends \PHPUnit\Framework\TestCase
         }
     }
 
-    public function testTar()
+    public function testTar() : void
     {
         self::assertTrue(Tar::pack(
             [

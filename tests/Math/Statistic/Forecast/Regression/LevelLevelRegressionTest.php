@@ -19,7 +19,7 @@ class LevelLevelRegressionTest extends \PHPUnit\Framework\TestCase
 {
     protected $reg = null;
 
-    protected function setUp()
+    protected function setUp() : void
     {
         // y = 3 + 4 * x
         $x = [0, 1, 2, 3, 4];
@@ -28,17 +28,17 @@ class LevelLevelRegressionTest extends \PHPUnit\Framework\TestCase
         $this->reg = LevelLevelRegression::getRegression($x, $y);
     }
 
-    public function testRegression()
+    public function testRegression() : void
     {
         self::assertEquals(['b0' => 3, 'b1' => 4], $this->reg, '', 0.2);
     }
 
-    public function testSlope()
+    public function testSlope() : void
     {
         self::assertEquals(4, LevelLevelRegression::getSlope($this->reg['b1'], 0, 0));
     }
 
-    public function testElasticity()
+    public function testElasticity() : void
     {
         self::assertEquals(0.7273, LevelLevelRegression::getElasticity($this->reg['b1'], 11, 2), '', 0.01);
     }
@@ -46,7 +46,7 @@ class LevelLevelRegressionTest extends \PHPUnit\Framework\TestCase
     /**
      * @expectedException \phpOMS\Math\Matrix\Exception\InvalidDimensionException
      */
-    public function testInvalidDimension()
+    public function testInvalidDimension() : void
     {
         $x = [1,2, 3];
         $y = [1,2, 3, 4];

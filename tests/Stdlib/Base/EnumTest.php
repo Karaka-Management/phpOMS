@@ -16,7 +16,7 @@ namespace phpOMS\tests\Stdlib\Base;
 
 class EnumTest extends \PHPUnit\Framework\TestCase
 {
-    public function testGetSet()
+    public function testGetSet() : void
     {
         self::assertTrue(EnumDemo::isValidName('ENUM1'));
         self::assertFalse(EnumDemo::isValidName('enum1'));
@@ -37,7 +37,7 @@ class EnumTest extends \PHPUnit\Framework\TestCase
     /**
      * @expectedException \Exception
      */
-    public function testEmailException()
+    public function testEmailException() : void
     {
         EnumDemo::getByName('ENUM3');
     }

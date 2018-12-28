@@ -17,7 +17,7 @@ use phpOMS\Utils\IO\Zip\TarGz;
 
 class TarGzTest extends \PHPUnit\Framework\TestCase
 {
-    protected function setUp()
+    protected function setUp() : void
     {
         if (!extension_loaded('phar')) {
             $this->markTestSkipped(
@@ -26,7 +26,7 @@ class TarGzTest extends \PHPUnit\Framework\TestCase
         }
     }
 
-    public function testTarGz()
+    public function testTarGz() : void
     {
         self::assertTrue(TarGz::pack(
             [

@@ -19,7 +19,7 @@ use phpOMS\Math\Matrix\Vector;
 
 class QRDecompositionTest extends \PHPUnit\Framework\TestCase
 {
-    public function testDecomposition()
+    public function testDecomposition() : void
     {
         $A = new Matrix();
         $A->setMatrix([
@@ -45,7 +45,7 @@ class QRDecompositionTest extends \PHPUnit\Framework\TestCase
         ], $QR->getR()->toArray(), '', 0.2);
     }
 
-    public function testComposition()
+    public function testComposition() : void
     {
         $A = new Matrix();
         $A->setMatrix([
@@ -65,7 +65,7 @@ class QRDecompositionTest extends \PHPUnit\Framework\TestCase
         );
     }
 
-    public function testSolve()
+    public function testSolve() : void
     {
         $A = new Matrix();
         $A->setMatrix([

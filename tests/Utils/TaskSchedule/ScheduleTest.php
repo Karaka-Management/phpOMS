@@ -17,7 +17,7 @@ use phpOMS\Utils\TaskSchedule\Schedule;
 
 class ScheduleTest extends \PHPUnit\Framework\TestCase
 {
-    public function testDefault()
+    public function testDefault() : void
     {
         self::assertInstanceOf('\phpOMS\Utils\TaskSchedule\TaskAbstract', new Schedule(''));
     }

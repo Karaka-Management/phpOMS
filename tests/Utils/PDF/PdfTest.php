@@ -16,7 +16,7 @@ namespace phpOMS\tests\Utils\PDF;
 
 class PdfTest extends \PHPUnit\Framework\TestCase
 {
-    public function testPlaceholder()
+    public function testPlaceholder() : void
     {
         self::markTestIncomplete();
     }

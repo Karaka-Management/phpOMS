@@ -16,7 +16,7 @@ namespace phpOMS\tests\Utils\IO;
 
 class IODatabaseMapperTest extends \PHPUnit\Framework\TestCase
 {
-    public function testPlaceholder()
+    public function testPlaceholder() : void
     {
         self::markTestIncomplete();
     }

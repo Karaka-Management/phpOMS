@@ -17,7 +17,7 @@ use phpOMS\DataStorage\Database\Exception\InvalidDatabaseTypeException;
 
 class InvalidDatabaseTypeExceptionTest extends \PHPUnit\Framework\TestCase
 {
-    public function testException()
+    public function testException() : void
     {
         self::assertInstanceOf(\InvalidArgumentException::class, new InvalidDatabaseTypeException(''));
     }

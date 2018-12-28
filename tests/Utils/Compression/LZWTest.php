@@ -17,7 +17,7 @@ use phpOMS\Utils\Compression\LZW;
 
 class LZWTest extends \PHPUnit\Framework\TestCase
 {
-    public function testLZW()
+    public function testLZW() : void
     {
         $expected    = 'This is a test';
         $compression = new LZW();

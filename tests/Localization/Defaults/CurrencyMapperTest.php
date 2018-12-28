@@ -21,7 +21,7 @@ use phpOMS\Localization\Defaults\CurrencyMapper;
 
 class CurrencyMapperTest extends \PHPUnit\Framework\TestCase
 {
-    static function setUpBeforeClass()
+    public static function setUpBeforeClass() : void
     {
         $con = new SqliteConnection([
             'prefix' => '',
@@ -32,7 +32,7 @@ class CurrencyMapperTest extends \PHPUnit\Framework\TestCase
         DataMapperAbstract::setConnection($con);
     }
 
-    public function testR()
+    public function testR() : void
     {
         $obj = CurrencyMapper::get(50);
         self::assertEquals('Euro', $obj->getName());
@@ -42,7 +42,7 @@ class CurrencyMapperTest extends \PHPUnit\Framework\TestCase
         self::assertContains('Germany', $obj->getCountries());
     }
 
-    static function tearDownAfterClass()
+    public static function tearDownAfterClass() : void
     {
         DataMapperAbstract::setConnection($GLOBALS['dbpool']->get());
     }

@@ -19,7 +19,7 @@ use phpOMS\Localization\ISO4217SubUnitEnum;
 
 class ISO4217SubUnitEnumTest extends \PHPUnit\Framework\TestCase
 {
-    public function testEnums()
+    public function testEnums() : void
     {
         $ok = true;
 

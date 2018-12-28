@@ -17,7 +17,7 @@ use phpOMS\Validation\Finance\Iban;
 
 class IbanTest extends \PHPUnit\Framework\TestCase
 {
-    public function testValid()
+    public function testValid() : void
     {
         self::assertTrue(Iban::isValid('DE22 6008 0000 0960 0280 00'));
         self::assertFalse(Iban::isValid('DE22 6008 0000 0960 0280 0'));

@@ -17,7 +17,7 @@ use phpOMS\Math\Stochastic\Distribution\ExponentialDistribution;
 
 class ExponentialDistributionTest extends \PHPUnit\Framework\TestCase
 {
-    public function testPdf()
+    public function testPdf() : void
     {
         $lambda = 0.1;
         $x      = 7;
@@ -25,7 +25,7 @@ class ExponentialDistributionTest extends \PHPUnit\Framework\TestCase
         self::assertEquals(0.049659, ExponentialDistribution::getPdf($x, $lambda), '', 0.01);
     }
 
-    public function testCdf()
+    public function testCdf() : void
     {
         $lambda = 0.1;
         $x      = 7;
@@ -33,22 +33,22 @@ class ExponentialDistributionTest extends \PHPUnit\Framework\TestCase
         self::assertEquals(0.5034, ExponentialDistribution::getCdf($x, $lambda), '', 0.01);
     }
 
-    public function testMean()
+    public function testMean() : void
     {
         self::assertEquals(1/3, ExponentialDistribution::getMean(3));
     }
 
-    public function testMode()
+    public function testMode() : void
     {
         self::assertEquals(0, ExponentialDistribution::getMode());
     }
 
-    public function testMedian()
+    public function testMedian() : void
     {
         self::assertEquals(1/3 * log(2), ExponentialDistribution::getMedian(3));
     }
 
-    public function testMgf()
+    public function testMgf() : void
     {
         $lambda = 3;
         $t      = 2;
@@ -56,17 +56,17 @@ class ExponentialDistributionTest extends \PHPUnit\Framework\TestCase
         self::assertEquals($lambda / ($lambda - $t), ExponentialDistribution::getMgf($t, $lambda));
     }
 
-    public function testVariance()
+    public function testVariance() : void
     {
         self::assertEquals(1/(3 ** 2), ExponentialDistribution::getVariance(3));
     }
 
-    public function testExKurtosis()
+    public function testExKurtosis() : void
     {
         self::assertEquals(6, ExponentialDistribution::getExKurtosis());
     }
 
-    public function testSkewness()
+    public function testSkewness() : void
     {
         self::assertEquals(2, ExponentialDistribution::getSkewness());
     }
@@ -74,7 +74,7 @@ class ExponentialDistributionTest extends \PHPUnit\Framework\TestCase
     /**
      * @expectedException \OutOfBoundsException
      */
-    public function testMgfException()
+    public function testMgfException() : void
     {
         ExponentialDistribution::getMgf(3, 3);
     }

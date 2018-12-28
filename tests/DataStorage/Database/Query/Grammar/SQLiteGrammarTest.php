@@ -18,7 +18,7 @@ use phpOMS\Utils\TestUtils;
 
 class SQLiteGrammarTest extends \PHPUnit\Framework\TestCase
 {
-    public function testDefault()
+    public function testDefault() : void
     {
         self::assertInstanceOf('\phpOMS\DataStorage\Database\Query\Grammar\Grammar', new SqliteGrammar());
         self::assertEquals('`', TestUtils::getMember(new SqliteGrammar(), 'systemIdentifier'));

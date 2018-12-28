@@ -17,7 +17,7 @@ use phpOMS\Utils\IO\Zip\Gz;
 
 class GzTest extends \PHPUnit\Framework\TestCase
 {
-    public function testGz()
+    public function testGz() : void
     {
         self::assertTrue(Gz::pack(
             __DIR__ . '/test a.txt',

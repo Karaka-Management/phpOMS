@@ -17,7 +17,7 @@ use phpOMS\Business\Finance\StockBonds;
 
 class StockBondsTest extends \PHPUnit\Framework\TestCase
 {
-    public function testRatios()
+    public function testRatios() : void
     {
         self::assertEquals(100 / 50, StockBonds::getBookValuePerShare(100, 50));
         self::assertEquals(100 / 50, StockBonds::getCurrentYield(100, 50));
@@ -31,34 +31,34 @@ class StockBondsTest extends \PHPUnit\Framework\TestCase
         self::assertEquals(100 / 50, StockBonds::getPriceToSalesRatio(100, 50));
     }
 
-    public function testBondEquivalentYield()
+    public function testBondEquivalentYield() : void
     {
         self::assertEquals(0.40556, StockBonds::getBondEquivalentYield(100, 90, 100), '', 0.01);
     }
 
-    public function testExpectedReturnCAPM()
+    public function testExpectedReturnCAPM() : void
     {
         self::assertEquals(7, StockBonds::getExpectedReturnCAPM(3, 2, 5), '', 0.01);
     }
 
-    public function testCapitalGainsYield()
+    public function testCapitalGainsYield() : void
     {
         self::assertEquals(0.1, StockBonds::getCapitalGainsYield(100, 110), '', 0.01);
     }
 
-    public function testDilutedEarningsPerShare()
+    public function testDilutedEarningsPerShare() : void
     {
         self::assertEquals(9.09, StockBonds::getDilutedEarningsPerShare(1000, 100, 10), '', 0.1);
     }
 
-    public function testHoldingPeriodReturn()
+    public function testHoldingPeriodReturn() : void
     {
         $r = [0.01, 0.02, 0.03, 0.04];
 
         self::assertEquals(0.10355, StockBonds::getHoldingPeriodReturn($r), '', 0.01);
     }
 
-    public function testTaxEquivalentYield()
+    public function testTaxEquivalentYield() : void
     {
         $free = 0.15;
         $rate = 0.05;
@@ -66,7 +66,7 @@ class StockBondsTest extends \PHPUnit\Framework\TestCase
         self::assertEquals(0.15789, StockBonds::getTaxEquivalentYield($free, $rate), '', 0.01);
     }
 
-    public function testNetAssetValue()
+    public function testNetAssetValue() : void
     {
         $assets      = 1000;
         $liabilities = 300;
@@ -75,7 +75,7 @@ class StockBondsTest extends \PHPUnit\Framework\TestCase
         self::assertEquals(1.75, StockBonds::getNetAssetValue($assets, $liabilities, $shares), '', 0.01);
     }
 
-    public function testPresentValueOfStockConstantGrowth()
+    public function testPresentValueOfStockConstantGrowth() : void
     {
         $div = 500;
         $r   = 0.15;
@@ -84,7 +84,7 @@ class StockBondsTest extends \PHPUnit\Framework\TestCase
         self::assertEquals(5000, StockBonds::getPresentValueOfStockConstantGrowth($div, $r, $g), '', 0.01);
     }
 
-    public function testTotalStockReturn()
+    public function testTotalStockReturn() : void
     {
         $p0 = 1000;
         $p1 = 1200;
@@ -93,7 +93,7 @@ class StockBondsTest extends \PHPUnit\Framework\TestCase
         self::assertEquals(0.3, StockBonds::getTotalStockReturn($p0, $p1, $d), '', 0.01);
     }
 
-    public function testYieldToMaturity()
+    public function testYieldToMaturity() : void
     {
         $c = 100;
         $f = 1000;
@@ -103,7 +103,7 @@ class StockBondsTest extends \PHPUnit\Framework\TestCase
         self::assertEquals(0.1138, StockBonds::getYieldToMaturity($c, $f, $p, $n), '', 0.01);
     }
 
-    public function testZeroCouponBondValue()
+    public function testZeroCouponBondValue() : void
     {
         $f = 100;
         $r = 0.06;
@@ -112,7 +112,7 @@ class StockBondsTest extends \PHPUnit\Framework\TestCase
         self::assertEquals(74.73, StockBonds::getZeroCouponBondValue($f, $r, $t), '', 0.01);
     }
 
-    public function testZeroCouponBondEffectiveYield()
+    public function testZeroCouponBondEffectiveYield() : void
     {
         $f  = 100;
         $pv = 90;

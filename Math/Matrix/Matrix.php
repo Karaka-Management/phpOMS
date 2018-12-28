@@ -732,7 +732,7 @@ class Matrix implements \ArrayAccess, \Iterator
     /**
      * {@inheritdoc}
      */
-    public function next()
+    public function next() : void
     {
         ++$this->position;
     }
@@ -766,7 +766,7 @@ class Matrix implements \ArrayAccess, \Iterator
     /**
      * {@inheritdoc}
      */
-    public function rewind()
+    public function rewind() : void
     {
         $this->position = 0;
     }
@@ -774,7 +774,7 @@ class Matrix implements \ArrayAccess, \Iterator
     /**
      * {@inheritdoc}
      */
-    public function offsetSet($offset, $value)
+    public function offsetSet($offset, $value) : void
     {
         $row                                           = (int) ($offset / $this->m);
         $this->matrix[$row][$offset - $row * $this->n] = $value;
@@ -783,7 +783,7 @@ class Matrix implements \ArrayAccess, \Iterator
     /**
      * {@inheritdoc}
      */
-    public function offsetUnset($offset)
+    public function offsetUnset($offset) : void
     {
         $row = (int) ($offset / $this->m);
         unset($this->matrix[$row][$offset - $row * $this->n]);

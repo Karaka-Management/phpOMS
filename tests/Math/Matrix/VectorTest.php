@@ -17,7 +17,7 @@ use phpOMS\Math\Matrix\Vector;
 
 class VectorTest extends \PHPUnit\Framework\TestCase
 {
-    public function testDefault()
+    public function testDefault() : void
     {
         self::assertInstanceOf('\phpOMS\Math\Matrix\Vector', new Vector());
 

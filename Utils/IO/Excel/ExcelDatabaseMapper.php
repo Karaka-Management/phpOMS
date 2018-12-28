@@ -22,7 +22,7 @@ class ExcelDatabaseMapper implements IODatabaseMapper
 
     private $lineBuffer = 500;
 
-    public function addSource(string $source)
+    public function addSource(string $source) : void
     {
         $this->sources[] = $source;
     }
@@ -37,7 +37,7 @@ class ExcelDatabaseMapper implements IODatabaseMapper
         $this->sources = $sources;
     }
 
-    public function insert()
+    public function insert() : void
     {
     }
 }

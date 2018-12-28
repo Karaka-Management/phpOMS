@@ -22,21 +22,21 @@ require_once __DIR__ . '/../Autoloader.php';
 
 class RouterTest extends \PHPUnit\Framework\TestCase
 {
-    public function testAttributes()
+    public function testAttributes() : void
     {
         $router = new Router();
         self::assertInstanceOf('\phpOMS\Router\Router', $router);
         self::assertObjectHasAttribute('routes', $router);
     }
 
-    public function testDefault()
+    public function testDefault() : void
     {
         $router = new Router();
         self::assertEmpty($router->route(new Request(new Http('http://test.com'))));
         self::assertEmpty($router->route('http://test.com'));
     }
 
-    public function testGetSet()
+    public function testGetSet() : void
     {
         $router = new Router();
         self::assertFalse($router->importFromFile(__Dir__ . '/invalidFile.php'));

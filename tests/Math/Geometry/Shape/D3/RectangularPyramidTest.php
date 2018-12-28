@@ -17,7 +17,7 @@ use phpOMS\Math\Geometry\Shape\D3\RectangularPyramid;
 
 class RectangularPyramidTest extends \PHPUnit\Framework\TestCase
 {
-    public function testCylinder()
+    public function testCylinder() : void
     {
         self::assertEquals(8, RectangularPyramid::getVolume(2, 3, 4), '', 0.01);
         self::assertEquals(26.91, RectangularPyramid::getSurface(2, 3, 4), '', 0.01);

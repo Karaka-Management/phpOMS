@@ -753,7 +753,7 @@ class Builder extends BuilderAbstract
      *
      * @since  1.0.0
      */
-    public function lock()
+    public function lock() : void
     {
     }
 
@@ -764,7 +764,7 @@ class Builder extends BuilderAbstract
      *
      * @since  1.0.0
      */
-    public function lockUpdate()
+    public function lockUpdate() : void
     {
     }
 
@@ -787,7 +787,7 @@ class Builder extends BuilderAbstract
      *
      * @since  1.0.0
      */
-    public function find()
+    public function find() : void
     {
     }
 
@@ -813,7 +813,7 @@ class Builder extends BuilderAbstract
      *
      * @since  1.0.0
      */
-    public function min()
+    public function min() : void
     {
     }
 
@@ -824,7 +824,7 @@ class Builder extends BuilderAbstract
      *
      * @since  1.0.0
      */
-    public function max()
+    public function max() : void
     {
     }
 
@@ -835,7 +835,7 @@ class Builder extends BuilderAbstract
      *
      * @since  1.0.0
      */
-    public function sum()
+    public function sum() : void
     {
     }
 
@@ -846,7 +846,7 @@ class Builder extends BuilderAbstract
      *
      * @since  1.0.0
      */
-    public function avg()
+    public function avg() : void
     {
     }
 
@@ -1032,7 +1032,7 @@ class Builder extends BuilderAbstract
      *
      * @since  1.0.0
      */
-    public function increment()
+    public function increment() : void
     {
     }
 
@@ -1043,7 +1043,7 @@ class Builder extends BuilderAbstract
      *
      * @since  1.0.0
      */
-    public function decrement()
+    public function decrement() : void
     {
     }
 

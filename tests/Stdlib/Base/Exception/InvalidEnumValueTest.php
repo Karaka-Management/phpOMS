@@ -17,7 +17,7 @@ use phpOMS\Stdlib\Base\Exception\InvalidEnumValue;
 
 class InvalidEnumValueTest extends \PHPUnit\Framework\TestCase
 {
-    public function testException()
+    public function testException() : void
     {
         self::assertInstanceOf(\UnexpectedValueException::class, new InvalidEnumValue(''));
     }

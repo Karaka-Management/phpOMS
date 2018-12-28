@@ -19,7 +19,7 @@ use phpOMS\Log\LogLevel;
 
 class LogLevelTest extends \PHPUnit\Framework\TestCase
 {
-    public function testEnums()
+    public function testEnums() : void
     {
         self::assertEquals(8, \count(LogLevel::getConstants()));
         self::assertEquals('emergency', LogLevel::EMERGENCY);

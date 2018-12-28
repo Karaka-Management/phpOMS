@@ -16,7 +16,7 @@ namespace phpOMS\tests\Stdlib\Base;
 
 class NullLocationTest extends \PHPUnit\Framework\TestCase
 {
-    public function testPlaceholder()
+    public function testPlaceholder() : void
     {
         self::markTestIncomplete();
     }

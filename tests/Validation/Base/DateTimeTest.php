@@ -17,7 +17,7 @@ use phpOMS\Validation\Base\DateTime;
 
 class DateTimeTest extends \PHPUnit\Framework\TestCase
 {
-    public function testDateTime()
+    public function testDateTime() : void
     {
         self::assertTrue(DateTime::isValid('now'));
         self::assertTrue(DateTime::isValid('10 September 2000'));

@@ -17,7 +17,7 @@ use phpOMS\DataStorage\Cookie\CookieJar;
 
 class CookieJarTest extends \PHPUnit\Framework\TestCase
 {
-    public function testDefault()
+    public function testDefault() : void
     {
         $jar = new CookieJar();
 
@@ -26,7 +26,7 @@ class CookieJarTest extends \PHPUnit\Framework\TestCase
         self::assertFalse($jar->delete('asd'));
     }
 
-    public function testCookie()
+    public function testCookie() : void
     {
         $jar = new CookieJar();
 
@@ -46,7 +46,7 @@ class CookieJarTest extends \PHPUnit\Framework\TestCase
     /**
      * @expectedException \phpOMS\DataStorage\LockException
      */
-    public function testDeleteLocked()
+    public function testDeleteLocked() : void
     {
         $jar = new CookieJar();
         self::assertTrue($jar->set('test', 'value'));
@@ -58,7 +58,7 @@ class CookieJarTest extends \PHPUnit\Framework\TestCase
     /**
      * @expectedException \phpOMS\DataStorage\LockException
      */
-    public function testSaveLocked()
+    public function testSaveLocked() : void
     {
         CookieJar::lock();
 

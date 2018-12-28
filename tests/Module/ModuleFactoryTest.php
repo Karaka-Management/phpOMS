@@ -21,7 +21,7 @@ use phpOMS\Module\NullModule;
 
 class ModuleFactoryTest extends \PHPUnit\Framework\TestCase
 {
-    public function testFactory()
+    public function testFactory() : void
     {
         $instance = NullModule::class;
         if (\file_exists(__DIR__ . '/../../../Modules')) {

@@ -20,7 +20,7 @@ class StringUtilsTest extends \PHPUnit\Framework\TestCase
     /**
      * @slowThreshold 1500
      */
-    public function testStrings()
+    public function testStrings() : void
     {
         $haystack    = [];
         $outOfBounds = false;

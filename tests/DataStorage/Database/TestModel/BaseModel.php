@@ -66,7 +66,7 @@ class BaseModel
                 return '123';
             }
 
-            public function unserialize($data)
+            public function unserialize($data) : void
             {
 
             }

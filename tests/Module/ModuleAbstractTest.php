@@ -19,7 +19,7 @@ use phpOMS\Module\ModuleAbstract;
 
 class ModuleAbstractTest extends \PHPUnit\Framework\TestCase
 {
-    public function testModuleAbstract()
+    public function testModuleAbstract() : void
     {
         $moduleClass = new class(null) extends ModuleAbstract {
             const MODULE_VERSION           = '1.2.3';

@@ -19,7 +19,7 @@ use phpOMS\Utils\ColorUtils;
 
 class ColorUtilsTest extends \PHPUnit\Framework\TestCase
 {
-    public function testColor()
+    public function testColor() : void
     {
         self::assertEquals(['r' => 0xbc, 'g' => 0x39, 'b' => 0x6c], ColorUtils::intToRgb(12335468));
         self::assertEquals(12335468, ColorUtils::rgbToInt(['r' => 0xbc, 'g' => 0x39, 'b' => 0x6c]));

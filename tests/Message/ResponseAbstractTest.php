@@ -21,7 +21,7 @@ class ResponseAbstractTest extends \PHPUnit\Framework\TestCase
 {
     protected $response = null;
 
-    protected function setUp()
+    protected function setUp() : void
     {
         $this->response = new class extends ResponseAbstract
         {
@@ -37,13 +37,13 @@ class ResponseAbstractTest extends \PHPUnit\Framework\TestCase
         };
     }
 
-    public function testDefault()
+    public function testDefault() : void
     {
         self::assertEquals(null, $this->response->get('asdf'));
         self::assertEquals('', $this->response->getBody());
     }
 
-    public function testSetGet()
+    public function testSetGet() : void
     {
         self::assertEquals([1], $this->response->jsonSerialize());
 

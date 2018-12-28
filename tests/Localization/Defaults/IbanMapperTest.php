@@ -21,7 +21,7 @@ use phpOMS\Localization\Defaults\IbanMapper;
 
 class IbanMapperTest extends \PHPUnit\Framework\TestCase
 {
-    static function setUpBeforeClass()
+    public static function setUpBeforeClass() : void
     {
         $con = new SqliteConnection([
             'prefix' => '',
@@ -32,7 +32,7 @@ class IbanMapperTest extends \PHPUnit\Framework\TestCase
         DataMapperAbstract::setConnection($con);
     }
 
-    public function testR()
+    public function testR() : void
     {
         $obj = IbanMapper::get(22);
         self::assertEquals('DE', $obj->getCountry());
@@ -41,7 +41,7 @@ class IbanMapperTest extends \PHPUnit\Framework\TestCase
         self::assertEquals('DEkk bbbb bbbb cccc cccc cc', $obj->getFields());
     }
 
-    static function tearDownAfterClass()
+    public static function tearDownAfterClass() : void
     {
         DataMapperAbstract::setConnection($GLOBALS['dbpool']->get());
     }

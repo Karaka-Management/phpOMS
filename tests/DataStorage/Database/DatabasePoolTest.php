@@ -19,7 +19,7 @@ use phpOMS\DataStorage\Database\DatabaseStatus;
 
 class DatabasePoolTest extends \PHPUnit\Framework\TestCase
 {
-    public function testBasicConnection()
+    public function testBasicConnection() : void
     {
         $dbPool = new DatabasePool();
         /** @var array $CONFIG */
@@ -28,7 +28,7 @@ class DatabasePoolTest extends \PHPUnit\Framework\TestCase
         self::assertEquals($dbPool->get()->getStatus(), DatabaseStatus::OK);
     }
 
-    public function testGetSet()
+    public function testGetSet() : void
     {
         $dbPool = new DatabasePool();
         /** @var array $CONFIG */

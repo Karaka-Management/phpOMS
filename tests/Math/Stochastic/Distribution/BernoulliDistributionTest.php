@@ -17,39 +17,39 @@ use phpOMS\Math\Stochastic\Distribution\BernoulliDistribution;
 
 class BernoulliDistributionTest extends \PHPUnit\Framework\TestCase
 {
-    public function testPmf()
+    public function testPmf() : void
     {
         self::assertEquals(0.3, BernoulliDistribution::getPmf(0.7, 0), '', 0.01);
         self::assertEquals(0.7, BernoulliDistribution::getPmf(0.7, 1), '', 0.01);
     }
 
-    public function testMode()
+    public function testMode() : void
     {
         self::assertEquals(1, BernoulliDistribution::getMode(0.7), '', 0.01);
         self::assertEquals(0, BernoulliDistribution::getMode(0.5), '', 0.01);
         self::assertEquals(0, BernoulliDistribution::getMode(0.3), '', 0.01);
     }
 
-    public function testMean()
+    public function testMean() : void
     {
         self::assertEquals(0.4, BernoulliDistribution::getMean(0.4), '', 0.01);
     }
 
-    public function testCdf()
+    public function testCdf() : void
     {
         self::assertEquals(0, BernoulliDistribution::getCdf(0.4, -2), '', 0.01);
         self::assertEquals(1, BernoulliDistribution::getCdf(0.4, 2), '', 0.01);
         self::assertEquals(0.3, BernoulliDistribution::getCdf(0.7, 0.4), '', 0.01);
     }
 
-    public function testMedian()
+    public function testMedian() : void
     {
         self::assertEquals(0.5, BernoulliDistribution::getMedian(0.5), '', 0.01);
         self::assertEquals(1, BernoulliDistribution::getMedian(0.7), '', 0.01);
         self::assertEquals(0, BernoulliDistribution::getMedian(0.3), '', 0.01);
     }
 
-    public function testVariance()
+    public function testVariance() : void
     {
         $p = 0.3;
         $q = 1 - $p;
@@ -57,7 +57,7 @@ class BernoulliDistributionTest extends \PHPUnit\Framework\TestCase
         self::assertEquals($p * $q, BernoulliDistribution::getVariance($p), '', 0.01);
     }
 
-    public function testSkewness()
+    public function testSkewness() : void
     {
         $p = 0.3;
         $q = 1 - $p;
@@ -65,7 +65,7 @@ class BernoulliDistributionTest extends \PHPUnit\Framework\TestCase
         self::assertEquals((1 - 2 * $p) / \sqrt($p * $q), BernoulliDistribution::getSkewness($p), '', 0.01);
     }
 
-    public function testExKurtosis()
+    public function testExKurtosis() : void
     {
         $p = 0.3;
         $q = 1 - $p;
@@ -73,7 +73,7 @@ class BernoulliDistributionTest extends \PHPUnit\Framework\TestCase
         self::assertEquals((1 - 6 * $p * $q) / ($p * $q), BernoulliDistribution::getExKurtosis($p), '', 0.01);
     }
 
-    public function testEntropy()
+    public function testEntropy() : void
     {
         $p = 0.3;
         $q = 1 - $p;
@@ -81,7 +81,7 @@ class BernoulliDistributionTest extends \PHPUnit\Framework\TestCase
         self::assertEquals(-$q * \log($q) - $p * \log($p), BernoulliDistribution::getEntropy($p), '', 0.01);
     }
 
-    public function testMgf()
+    public function testMgf() : void
     {
         $p = 0.3;
         $q = 1 - $p;
@@ -90,7 +90,7 @@ class BernoulliDistributionTest extends \PHPUnit\Framework\TestCase
         self::assertEquals($q + $p * \exp($t), BernoulliDistribution::getMgf($p, $t), '', 0.01);
     }
 
-    public function testFisherInformation()
+    public function testFisherInformation() : void
     {
         $p = 0.3;
         $q = 1 - $p;

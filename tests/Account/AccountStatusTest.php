@@ -19,7 +19,7 @@ use phpOMS\Account\AccountStatus;
 
 class AccountStatusTest extends \PHPUnit\Framework\TestCase
 {
-    public function testEnums()
+    public function testEnums() : void
     {
         self::assertEquals(4, \count(AccountStatus::getConstants()));
         self::assertEquals(1, AccountStatus::ACTIVE);

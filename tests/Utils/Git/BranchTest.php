@@ -17,13 +17,13 @@ use phpOMS\Utils\Git\Branch;
 
 class BranchTest extends \PHPUnit\Framework\TestCase
 {
-    public function testDefault()
+    public function testDefault() : void
     {
         $branch = new Branch();
         self::assertEquals('', $branch->getName());
     }
 
-    public function testGetSet()
+    public function testGetSet() : void
     {
         $branch = new Branch('test');
         self::assertEquals('test', $branch->getName());

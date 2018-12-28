@@ -22,7 +22,7 @@ class FileTest extends \PHPUnit\Framework\TestCase
     const TEST = false;
     const BASE = 'ftp://user:password@localhost';
 
-    public function testStatic()
+    public function testStatic() : void
     {
         if (!self::TEST) {
             return;
@@ -90,7 +90,7 @@ class FileTest extends \PHPUnit\Framework\TestCase
     /**
      * @expectedException \phpOMS\System\File\PathException
      */
-    public function testInvalidGetPath()
+    public function testInvalidGetPath() : void
     {
         if (!self::TEST) {
             throw new PathException('');
@@ -102,7 +102,7 @@ class FileTest extends \PHPUnit\Framework\TestCase
     /**
      * @expectedException \phpOMS\System\File\PathException
      */
-    public function testInvalidCopyPath()
+    public function testInvalidCopyPath() : void
     {
         if (!self::TEST) {
             throw new PathException('');
@@ -114,7 +114,7 @@ class FileTest extends \PHPUnit\Framework\TestCase
     /**
      * @expectedException \phpOMS\System\File\PathException
      */
-    public function testInvalidMovePath()
+    public function testInvalidMovePath() : void
     {
         if (!self::TEST) {
             throw new PathException('');
@@ -126,7 +126,7 @@ class FileTest extends \PHPUnit\Framework\TestCase
     /**
      * @expectedException \phpOMS\System\File\PathException
      */
-    public function testInvalidCreatedPath()
+    public function testInvalidCreatedPath() : void
     {
         if (!self::TEST) {
             throw new PathException('');
@@ -138,7 +138,7 @@ class FileTest extends \PHPUnit\Framework\TestCase
     /**
      * @expectedException \phpOMS\System\File\PathException
      */
-    public function testInvalidChangedPath()
+    public function testInvalidChangedPath() : void
     {
         if (!self::TEST) {
             throw new PathException('');
@@ -150,7 +150,7 @@ class FileTest extends \PHPUnit\Framework\TestCase
     /**
      * @expectedException \phpOMS\System\File\PathException
      */
-    public function testInvalidSizePath()
+    public function testInvalidSizePath() : void
     {
         if (!self::TEST) {
             throw new PathException('');
@@ -162,7 +162,7 @@ class FileTest extends \PHPUnit\Framework\TestCase
     /**
      * @expectedException \phpOMS\System\File\PathException
      */
-    public function testInvalidPermissionPath()
+    public function testInvalidPermissionPath() : void
     {
         if (!self::TEST) {
             throw new PathException('');
@@ -174,7 +174,7 @@ class FileTest extends \PHPUnit\Framework\TestCase
     /**
      * @expectedException \phpOMS\System\File\PathException
      */
-    public function testInvalidOwnerPath()
+    public function testInvalidOwnerPath() : void
     {
         if (!self::TEST) {
             throw new PathException('');

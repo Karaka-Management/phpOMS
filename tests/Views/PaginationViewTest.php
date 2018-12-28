@@ -19,7 +19,7 @@ use phpOMS\Views\PaginationView;
 
 class PaginationViewTest extends \PHPUnit\Framework\TestCase
 {
-    public function testDefault()
+    public function testDefault() : void
     {
         $view = new PaginationView();
         self::assertEquals(7, $view->getMaxPages());
@@ -28,7 +28,7 @@ class PaginationViewTest extends \PHPUnit\Framework\TestCase
         self::assertEquals(0, $view->getResults());
     }
 
-    public function testGetSet()
+    public function testGetSet() : void
     {
         $view = new PaginationView();
 

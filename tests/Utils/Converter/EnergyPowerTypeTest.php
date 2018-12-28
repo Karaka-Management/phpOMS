@@ -17,7 +17,7 @@ use phpOMS\Utils\Converter\EnergyPowerType;
 
 class EnergyPowerTypeTest extends \PHPUnit\Framework\TestCase
 {
-    public function testEnums()
+    public function testEnums() : void
     {
         self::assertEquals(9, \count(EnergyPowerType::getConstants()));
         self::assertEquals(EnergyPowerType::getConstants(), array_unique(EnergyPowerType::getConstants()));

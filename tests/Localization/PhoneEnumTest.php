@@ -19,7 +19,7 @@ use phpOMS\Localization\PhoneEnum;
 
 class PhoneEnumTest extends \PHPUnit\Framework\TestCase
 {
-    public function testEnums()
+    public function testEnums() : void
     {
         $ok = true;
 

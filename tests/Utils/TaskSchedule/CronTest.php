@@ -18,12 +18,12 @@ use phpOMS\Utils\TaskSchedule\CronJob;
 
 class CronTest extends \PHPUnit\Framework\TestCase
 {
-    public function testDefault()
+    public function testDefault() : void
     {
         self::assertInstanceOf('\phpOMS\Utils\TaskSchedule\SchedulerAbstract', new Cron());
     }
 
-    public function testCRUD()
+    public function testCRUD() : void
     {
         if (\stripos(PHP_OS, 'LINUX') !== false && \stripos(__DIR__, '/travis/') === false) {
             self::assertTrue(Cron::guessBin());

@@ -17,7 +17,7 @@ use phpOMS\DataStorage\Database\DatabaseStatus;
 
 class DatabaseStatusTest extends \PHPUnit\Framework\TestCase
 {
-    public function testEnums()
+    public function testEnums() : void
     {
         self::assertEquals(6, \count(DatabaseStatus::getConstants()));
         self::assertEquals(0, DatabaseStatus::OK);

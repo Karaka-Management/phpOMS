@@ -18,7 +18,7 @@ use phpOMS\DataStorage\Cache\Connection\NullCache;
 
 class NullCacheTest extends \PHPUnit\Framework\TestCase
 {
-    public function testCache()
+    public function testCache() : void
     {
         $cache = new NullCache();
         $cache->connect([]);

@@ -19,7 +19,7 @@ use phpOMS\Account\GroupStatus;
 
 class GroupStatusTest extends \PHPUnit\Framework\TestCase
 {
-    public function testEnums()
+    public function testEnums() : void
     {
         self::assertEquals(3, \count(GroupStatus::getConstants()));
         self::assertEquals(1, GroupStatus::ACTIVE);

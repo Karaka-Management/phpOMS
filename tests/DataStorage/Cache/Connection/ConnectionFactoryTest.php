@@ -18,7 +18,7 @@ use phpOMS\DataStorage\Cache\Connection\ConnectionFactory;
 
 class ConnectionFactoryTest extends \PHPUnit\Framework\TestCase
 {
-    public function testCreateFileCache()
+    public function testCreateFileCache() : void
     {
         self::assertInstanceOf(
             \phpOMS\DataStorage\Cache\Connection\FileCache::class,
@@ -26,7 +26,7 @@ class ConnectionFactoryTest extends \PHPUnit\Framework\TestCase
         );
     }
 
-    public function testCreateMemCached()
+    public function testCreateMemCached() : void
     {
         if (!extension_loaded('memcached')) {
             $this->markTestSkipped(
@@ -40,7 +40,7 @@ class ConnectionFactoryTest extends \PHPUnit\Framework\TestCase
         );
     }
 
-    public function testCreateRedisCache()
+    public function testCreateRedisCache() : void
     {
         if (!extension_loaded('redis')) {
             $this->markTestSkipped(
@@ -57,7 +57,7 @@ class ConnectionFactoryTest extends \PHPUnit\Framework\TestCase
     /**
      * @expectedException \InvalidArgumentException
      */
-    public function testInvalidCacheType()
+    public function testInvalidCacheType() : void
     {
         ConnectionFactory::create(['type' => 'invalid', 'path' => 'Cache']);
     }

@@ -17,7 +17,7 @@ use phpOMS\Math\Matrix\IdentityMatrix;
 
 class IdentityMatrixTest extends \PHPUnit\Framework\TestCase
 {
-    public function testIdentity()
+    public function testIdentity() : void
     {
         $id = new IdentityMatrix(5);
         self::assertEquals(

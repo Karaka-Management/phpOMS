@@ -19,7 +19,7 @@ use phpOMS\Asset\AssetType;
 
 class AssetTypeTest extends \PHPUnit\Framework\TestCase
 {
-    public function testEnums()
+    public function testEnums() : void
     {
         self::assertEquals(3, \count(AssetType::getConstants()));
         self::assertEquals(0, AssetType::CSS);

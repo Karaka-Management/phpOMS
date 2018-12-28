@@ -20,7 +20,7 @@ use phpOMS\Utils\TestUtils;
 
 class RedisCacheTest extends \PHPUnit\Framework\TestCase
 {
-    protected function setUp()
+    protected function setUp() : void
     {
         if (!extension_loaded('redis')) {
             $this->markTestSkipped(
@@ -29,7 +29,7 @@ class RedisCacheTest extends \PHPUnit\Framework\TestCase
         }
     }
 
-    public function testDefault()
+    public function testDefault() : void
     {
         $cache = new RedisCache($GLOBALS['CONFIG']['cache']['redis']);
 
@@ -41,7 +41,7 @@ class RedisCacheTest extends \PHPUnit\Framework\TestCase
         self::assertEquals(null, $cache->get('test'));
     }
 
-    public function testConnect()
+    public function testConnect() : void
     {
         $cache = new RedisCache($GLOBALS['CONFIG']['cache']['redis']);
 
@@ -51,7 +51,7 @@ class RedisCacheTest extends \PHPUnit\Framework\TestCase
         self::assertEquals((int) $GLOBALS['CONFIG']['cache']['redis']['port'], $cache->getPort());
     }
 
-    public function testGetSet()
+    public function testGetSet() : void
     {
         $cache = new RedisCache($GLOBALS['CONFIG']['cache']['redis']);
 
@@ -110,7 +110,7 @@ class RedisCacheTest extends \PHPUnit\Framework\TestCase
         );
     }
 
-    public function testBadCacheStatus()
+    public function testBadCacheStatus() : void
     {
         $cache = new RedisCache($GLOBALS['CONFIG']['cache']['redis']);
         $cache->flushAll();
@@ -130,7 +130,7 @@ class RedisCacheTest extends \PHPUnit\Framework\TestCase
     /**
      * @expectedException \phpOMS\DataStorage\Cache\Exception\InvalidConnectionConfigException
      */
-    public function testInvalidCacheHost()
+    public function testInvalidCacheHost() : void
     {
         $db = $GLOBALS['CONFIG']['cache']['redis'];
         unset($db['host']);
@@ -141,7 +141,7 @@ class RedisCacheTest extends \PHPUnit\Framework\TestCase
     /**
      * @expectedException \phpOMS\DataStorage\Cache\Exception\InvalidConnectionConfigException
      */
-    public function testInvalidCachePort()
+    public function testInvalidCachePort() : void
     {
         $db = $GLOBALS['CONFIG']['cache']['redis'];
         unset($db['port']);
@@ -152,7 +152,7 @@ class RedisCacheTest extends \PHPUnit\Framework\TestCase
     /**
      * @expectedException \phpOMS\DataStorage\Cache\Exception\InvalidConnectionConfigException
      */
-    public function testInvalidCacheDatabase()
+    public function testInvalidCacheDatabase() : void
     {
         $db = $GLOBALS['CONFIG']['cache']['redis'];
         unset($db['db']);

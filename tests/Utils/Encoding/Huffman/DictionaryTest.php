@@ -20,7 +20,7 @@ class DictionaryTest extends \PHPUnit\Framework\TestCase
     /**
      * @expectedException \InvalidArgumentException
      */
-    public function testInvalidGetCharacter()
+    public function testInvalidGetCharacter() : void
     {
         $dict = new Dictionary();
         $dict->get('as');
@@ -29,7 +29,7 @@ class DictionaryTest extends \PHPUnit\Framework\TestCase
     /**
      * @expectedException \InvalidArgumentException
      */
-    public function testNotExistingGetCharacter()
+    public function testNotExistingGetCharacter() : void
     {
         $dict = new Dictionary();
         $dict->get('a');
@@ -38,7 +38,7 @@ class DictionaryTest extends \PHPUnit\Framework\TestCase
     /**
      * @expectedException \InvalidArgumentException
      */
-    public function testInvalidSetCharacter()
+    public function testInvalidSetCharacter() : void
     {
         $dict = new Dictionary();
         $dict->set('as', 'test');
@@ -47,7 +47,7 @@ class DictionaryTest extends \PHPUnit\Framework\TestCase
     /**
      * @expectedException \InvalidArgumentException
      */
-    public function testInvalidSetDuplicateCharacter()
+    public function testInvalidSetDuplicateCharacter() : void
     {
         $dict = new Dictionary();
         $dict->set('a', '1');
@@ -57,7 +57,7 @@ class DictionaryTest extends \PHPUnit\Framework\TestCase
     /**
      * @expectedException \InvalidArgumentException
      */
-    public function testInvalidFormattedValue()
+    public function testInvalidFormattedValue() : void
     {
         $dict = new Dictionary();
         $dict->set('a', '1a');

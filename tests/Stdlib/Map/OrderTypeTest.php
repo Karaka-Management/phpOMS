@@ -17,7 +17,7 @@ use phpOMS\Stdlib\Map\OrderType;
 
 class OrderTypeTest extends \PHPUnit\Framework\TestCase
 {
-    public function testEnums()
+    public function testEnums() : void
     {
         self::assertEquals(2, \count(OrderType::getConstants()));
         self::assertEquals(0, OrderType::LOOSE);

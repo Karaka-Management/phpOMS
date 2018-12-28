@@ -20,7 +20,7 @@ use phpOMS\Localization\Money;
 
 class MoneyTest extends \PHPUnit\Framework\TestCase
 {
-    public function testDefault()
+    public function testDefault() : void
     {
         $money = new Money(0);
 
@@ -33,7 +33,7 @@ class MoneyTest extends \PHPUnit\Framework\TestCase
         self::assertEquals(0, $money->getInt());
     }
 
-    public function testMoney()
+    public function testMoney() : void
     {
         $money = new Money(12345678);
 
@@ -46,7 +46,7 @@ class MoneyTest extends \PHPUnit\Framework\TestCase
         self::assertEquals(12345600, Money::toInt('1234,56', '.', ','));
     }
 
-    public function testMoneySetters()
+    public function testMoneySetters() : void
     {
         $money = new Money(12345678);
         self::assertEquals('999.13', $money->setString('999.13')->getAmount());
@@ -55,7 +55,7 @@ class MoneyTest extends \PHPUnit\Framework\TestCase
         self::assertEquals('€9.992,30', $money->setInt(99923000)->setLocalization('.', ',', ISO4217SymbolEnum::_EUR, 0)->getCurrency());
     }
 
-    public function testMoneySerialization()
+    public function testMoneySerialization() : void
     {
         $money = new Money('999.23');
         self::assertEquals(9992300, $money->serialize());
@@ -64,7 +64,7 @@ class MoneyTest extends \PHPUnit\Framework\TestCase
         self::assertEquals('333.12', $money->getAmount());
     }
 
-    public function testMoneyAddSub()
+    public function testMoneyAddSub() : void
     {
         $money = new Money(10000);
 
@@ -81,7 +81,7 @@ class MoneyTest extends \PHPUnit\Framework\TestCase
         self::assertEquals('1.0000', $money->sub(new Money(10000))->getAmount(4));
     }
 
-    public function testMoneyMultDiv()
+    public function testMoneyMultDiv() : void
     {
         $money = new Money(19100);
 
@@ -89,7 +89,7 @@ class MoneyTest extends \PHPUnit\Framework\TestCase
         self::assertEquals('1.9100', $money->div(2.0)->getAmount(4));
     }
 
-    public function testMoneyOtherOperations()
+    public function testMoneyOtherOperations() : void
     {
         $money = new Money(-38200);
 

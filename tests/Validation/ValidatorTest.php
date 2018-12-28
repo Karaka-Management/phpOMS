@@ -20,7 +20,7 @@ require_once __DIR__ . '/../Autoloader.php';
 
 class ValidatorTest extends \PHPUnit\Framework\TestCase
 {
-    public function testValidation()
+    public function testValidation() : void
     {
         self::assertTrue(Validator::contains('Test string contains something.', 'contains'));
         self::assertFalse(Validator::contains('Test string contains something.', 'contains2'));

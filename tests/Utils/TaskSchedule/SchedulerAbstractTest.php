@@ -17,7 +17,7 @@ use phpOMS\Utils\TaskSchedule\SchedulerAbstract;
 
 class SchedulerAbstractTest extends \PHPUnit\Framework\TestCase
 {
-    public function testDefault()
+    public function testDefault() : void
     {
         self::assertTrue(SchedulerAbstract::getBin() === '' || \file_exists(SchedulerAbstract::getBin() ));
     }

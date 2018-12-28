@@ -19,7 +19,7 @@ use phpOMS\Localization\ISO639x1Enum;
 
 class ISO639x1EnumTest extends \PHPUnit\Framework\TestCase
 {
-    public function testEnums()
+    public function testEnums() : void
     {
         $ok = true;
 

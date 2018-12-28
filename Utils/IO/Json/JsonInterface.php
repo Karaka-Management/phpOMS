@@ -34,7 +34,7 @@ interface JsonInterface
      *
      * @since  1.0.0
      */
-    public function exportJson($path);
+    public function exportJson($path) : void;
 
     /**
      * Import Json.
@@ -45,5 +45,5 @@ interface JsonInterface
      *
      * @since  1.0.0
      */
-    public function importJson($path);
+    public function importJson($path) : void;
 }

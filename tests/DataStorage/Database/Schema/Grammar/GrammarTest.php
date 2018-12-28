@@ -17,7 +17,7 @@ use phpOMS\DataStorage\Database\Schema\Grammar\Grammar;
 
 class GrammarTest extends \PHPUnit\Framework\TestCase
 {
-    public function testDefault()
+    public function testDefault() : void
     {
         $grammar = new Grammar();
         self::assertEquals('Y-m-d H:i:s', $grammar->getDateFormat());

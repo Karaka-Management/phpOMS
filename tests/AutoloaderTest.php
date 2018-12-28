@@ -17,7 +17,7 @@ use phpOMS\Autoloader;
 
 class AutoloaderTest extends \PHPUnit\Framework\TestCase
 {
-    public function testAutoloader()
+    public function testAutoloader() : void
     {
         self::assertTrue(Autoloader::exists('\phpOMS\Autoloader'));
         self::assertFalse(Autoloader::exists('\Does\Not\Exist'));

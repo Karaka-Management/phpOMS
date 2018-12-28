@@ -21,7 +21,7 @@ use phpOMS\Localization\Defaults\LanguageMapper;
 
 class LanguageMapperTest extends \PHPUnit\Framework\TestCase
 {
-    static function setUpBeforeClass()
+    public static function setUpBeforeClass() : void
     {
         $con = new SqliteConnection([
             'prefix' => '',
@@ -32,7 +32,7 @@ class LanguageMapperTest extends \PHPUnit\Framework\TestCase
         DataMapperAbstract::setConnection($con);
     }
 
-    public function testR()
+    public function testR() : void
     {
         $obj = LanguageMapper::get(53);
         self::assertEquals('German', $obj->getName());
@@ -42,7 +42,7 @@ class LanguageMapperTest extends \PHPUnit\Framework\TestCase
         self::assertEquals('ger', $obj->getCode3());
     }
 
-    static function tearDownAfterClass()
+    public static function tearDownAfterClass() : void
     {
         DataMapperAbstract::setConnection($GLOBALS['dbpool']->get());
     }

@@ -17,7 +17,7 @@ use phpOMS\DataStorage\Database\Schema\Grammar\PostgresGrammar;
 
 class PostgresGrammarTest extends \PHPUnit\Framework\TestCase
 {
-    public function testDefault()
+    public function testDefault() : void
     {
         self::assertInstanceOf('\phpOMS\DataStorage\Database\Schema\Grammar\Grammar', new PostgresGrammar());
     }

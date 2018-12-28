@@ -17,7 +17,7 @@ use phpOMS\Utils\TaskSchedule\CronJob;
 
 class CronJobTest extends \PHPUnit\Framework\TestCase
 {
-    public function testDefault()
+    public function testDefault() : void
     {
         self::assertInstanceOf('\phpOMS\Utils\TaskSchedule\TaskAbstract', new CronJob(''));
     }

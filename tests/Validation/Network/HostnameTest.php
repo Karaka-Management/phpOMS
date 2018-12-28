@@ -17,7 +17,7 @@ use phpOMS\Validation\Network\Hostname;
 
 class HostnameTest extends \PHPUnit\Framework\TestCase
 {
-    public function testHostname()
+    public function testHostname() : void
     {
         self::assertTrue(Hostname::isValid('test.com'));
         self::assertFalse(Hostname::isValid('http://test.com'));

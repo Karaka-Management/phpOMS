@@ -17,7 +17,7 @@ use phpOMS\DataStorage\Cache\CacheType;
 
 class CacheTypeTest extends \PHPUnit\Framework\TestCase
 {
-    public function testEnums()
+    public function testEnums() : void
     {
         self::assertEquals(4, \count(CacheType::getConstants()));
         self::assertEquals('file', CacheType::FILE);

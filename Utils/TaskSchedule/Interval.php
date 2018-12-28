@@ -114,7 +114,7 @@ class Interval implements \Serializable
      *
      * @since  1.0.0
      */
-    public function unserialize($serialized)
+    public function unserialize($serialized) : void
     {
         $elements = \explode(' ', \trim($serialized));
 

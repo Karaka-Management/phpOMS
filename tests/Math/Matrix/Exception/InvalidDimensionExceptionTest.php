@@ -17,7 +17,7 @@ use phpOMS\Math\Matrix\Exception\InvalidDimensionException;
 
 class InvalidDimensionExceptionTest extends \PHPUnit\Framework\TestCase
 {
-    public function testException()
+    public function testException() : void
     {
         self::assertInstanceOf(\UnexpectedValueException::class, new InvalidDimensionException(''));
     }

@@ -19,7 +19,7 @@ require_once __DIR__ . '/../Autoloader.php';
 
 class JsonBuilderTest extends \PHPUnit\Framework\TestCase
 {
-    public function testDefault()
+    public function testDefault() : void
     {
         $builder = new JsonBuilder();
         self::assertEquals([], $builder->getJson());
@@ -27,7 +27,7 @@ class JsonBuilderTest extends \PHPUnit\Framework\TestCase
         self::assertEquals([], $builder->getJson());
     }
 
-    public function testBuilder()
+    public function testBuilder() : void
     {
         // main test is/should be done on ArrayUtils::setArray etc.
         $builder = new JsonBuilder();

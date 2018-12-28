@@ -18,7 +18,7 @@ use phpOMS\DataStorage\Database\DatabaseStatus;
 
 class MysqlConnectionTest extends \PHPUnit\Framework\TestCase
 {
-    protected function setUp()
+    protected function setUp() : void
     {
         if (!extension_loaded('pdo_mysql')) {
             $this->markTestSkipped(
@@ -27,7 +27,7 @@ class MysqlConnectionTest extends \PHPUnit\Framework\TestCase
         }
     }
 
-    public function testConnect()
+    public function testConnect() : void
     {
         $mysql = new MysqlConnection($GLOBALS['CONFIG']['db']['core']['masters']['admin']);
 
@@ -41,7 +41,7 @@ class MysqlConnectionTest extends \PHPUnit\Framework\TestCase
     /**
      * @expectedException \phpOMS\DataStorage\Database\Exception\InvalidConnectionConfigException
      */
-    public function testInvalidDatabaseType()
+    public function testInvalidDatabaseType() : void
     {
         $db = $GLOBALS['CONFIG']['db']['core']['masters']['admin'];
         unset($db['db']);
@@ -52,7 +52,7 @@ class MysqlConnectionTest extends \PHPUnit\Framework\TestCase
     /**
      * @expectedException \phpOMS\DataStorage\Database\Exception\InvalidConnectionConfigException
      */
-    public function testInvalidHost()
+    public function testInvalidHost() : void
     {
         $db = $GLOBALS['CONFIG']['db']['core']['masters']['admin'];
         unset($db['host']);
@@ -63,7 +63,7 @@ class MysqlConnectionTest extends \PHPUnit\Framework\TestCase
     /**
      * @expectedException \phpOMS\DataStorage\Database\Exception\InvalidConnectionConfigException
      */
-    public function testInvalidPort()
+    public function testInvalidPort() : void
     {
         $db = $GLOBALS['CONFIG']['db']['core']['masters']['admin'];
         unset($db['port']);
@@ -74,7 +74,7 @@ class MysqlConnectionTest extends \PHPUnit\Framework\TestCase
     /**
      * @expectedException \phpOMS\DataStorage\Database\Exception\InvalidConnectionConfigException
      */
-    public function testInvalidDatabase()
+    public function testInvalidDatabase() : void
     {
         $db = $GLOBALS['CONFIG']['db']['core']['masters']['admin'];
         unset($db['database']);
@@ -85,7 +85,7 @@ class MysqlConnectionTest extends \PHPUnit\Framework\TestCase
     /**
      * @expectedException \phpOMS\DataStorage\Database\Exception\InvalidConnectionConfigException
      */
-    public function testInvalidLogin()
+    public function testInvalidLogin() : void
     {
         $db = $GLOBALS['CONFIG']['db']['core']['masters']['admin'];
         unset($db['login']);
@@ -96,7 +96,7 @@ class MysqlConnectionTest extends \PHPUnit\Framework\TestCase
     /**
      * @expectedException \phpOMS\DataStorage\Database\Exception\InvalidConnectionConfigException
      */
-    public function testInvalidPassword()
+    public function testInvalidPassword() : void
     {
         $db = $GLOBALS['CONFIG']['db']['core']['masters']['admin'];
         unset($db['password']);
@@ -107,7 +107,7 @@ class MysqlConnectionTest extends \PHPUnit\Framework\TestCase
     /**
      * @expectedException \phpOMS\DataStorage\Database\Exception\InvalidConnectionConfigException
      */
-    public function testInvalidDatabaseTypeName()
+    public function testInvalidDatabaseTypeName() : void
     {
         $db       = $GLOBALS['CONFIG']['db']['core']['masters']['admin'];
         $db['db'] = 'invalid';
@@ -118,7 +118,7 @@ class MysqlConnectionTest extends \PHPUnit\Framework\TestCase
     /**
      * @expectedException \phpOMS\DataStorage\Database\Exception\InvalidConnectionConfigException
      */
-    public function testInvalidDatabaseName()
+    public function testInvalidDatabaseName() : void
     {
         $db = $GLOBALS['CONFIG']['db']['core']['masters']['admin'];
         $db['database'] = 'invalid';

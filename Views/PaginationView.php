@@ -72,7 +72,7 @@ class PaginationView extends View
      *
      * @since  1.0.0
      */
-    public function setMaxPages(int $maxPages)
+    public function setMaxPages(int $maxPages) : void
     {
         $this->maxPages = $maxPages;
     }
@@ -94,7 +94,7 @@ class PaginationView extends View
      *
      * @since  1.0.0
      */
-    public function setPages(int $pages)
+    public function setPages(int $pages) : void
     {
         $this->pages = $pages;
     }
@@ -116,7 +116,7 @@ class PaginationView extends View
      *
      * @since  1.0.0
      */
-    public function setPage(int $page = 1)
+    public function setPage(int $page = 1) : void
     {
         $this->page = $page;
     }
@@ -138,7 +138,7 @@ class PaginationView extends View
      *
      * @since  1.0.0
      */
-    public function setResults(int $results = 0)
+    public function setResults(int $results = 0) : void
     {
         $this->results = $results;
     }

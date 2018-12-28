@@ -17,7 +17,7 @@ use phpOMS\Business\Finance\Lorenzkurve;
 
 class LorenzkurveTest extends \PHPUnit\Framework\TestCase
 {
-    public function testLorenz()
+    public function testLorenz() : void
     {
         $arr = [1, 1, 1, 1, 1, 1, 1, 10, 33, 50];
 

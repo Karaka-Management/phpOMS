@@ -17,14 +17,14 @@ use phpOMS\DataStorage\Session\HttpSession;
 
 class HttpSessionTest extends \PHPUnit\Framework\TestCase
 {
-    public function testDefault()
+    public function testDefault() : void
     {
         $session = new HttpSession();
         self::assertEquals(null, $session->get('key'));
         self::assertFalse($session->isLocked());
     }
 
-    public function testGetSet()
+    public function testGetSet() : void
     {
         $session = new HttpSession(1, false, 1);
         self::assertTrue($session->set('test', 'value'));

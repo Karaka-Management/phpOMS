@@ -27,19 +27,19 @@ class DispatcherTest extends \PHPUnit\Framework\TestCase
 {
     protected $app = null;
 
-    protected function setUp()
+    protected function setUp() : void
     {
         $this->app             = new class extends ApplicationAbstract { protected $appName = 'Api'; };
         $this->app->router     = new Router();
         $this->app->dispatcher = new Dispatcher($this->app);
     }
 
-    public function testAttributes()
+    public function testAttributes() : void
     {
         self::assertObjectHasAttribute('controllers', $this->app->dispatcher);
     }
 
-    public function testClosure()
+    public function testClosure() : void
     {
         $localization = new Localization();
 
@@ -54,7 +54,7 @@ class DispatcherTest extends \PHPUnit\Framework\TestCase
         );
     }
 
-    public function testPathMethod()
+    public function testPathMethod() : void
     {
         $localization = new Localization();
 
@@ -69,7 +69,7 @@ class DispatcherTest extends \PHPUnit\Framework\TestCase
         );
     }
 
-    public function testPathMethodInArray()
+    public function testPathMethodInArray() : void
     {
         $localization = new Localization();
 
@@ -84,7 +84,7 @@ class DispatcherTest extends \PHPUnit\Framework\TestCase
         );
     }
 
-    public function testPathStatic()
+    public function testPathStatic() : void
     {
         $localization = new Localization();
 
@@ -99,7 +99,7 @@ class DispatcherTest extends \PHPUnit\Framework\TestCase
         );
     }
 
-    public function testArray()
+    public function testArray() : void
     {
         $localization = new Localization();
 
@@ -121,7 +121,7 @@ class DispatcherTest extends \PHPUnit\Framework\TestCase
     /**
      * @expectedException \UnexpectedValueException
      */
-    public function testInvalidDestination()
+    public function testInvalidDestination() : void
     {
         $this->app->dispatcher->dispatch(true);
     }
@@ -129,7 +129,7 @@ class DispatcherTest extends \PHPUnit\Framework\TestCase
     /**
      * @expectedException \phpOMS\System\File\PathException
      */
-    public function testInvalidControllerPath()
+    public function testInvalidControllerPath() : void
     {
         $this->app->dispatcher->dispatch('phpOMS\tests\Dispatcher\TestControllers::testFunctionStatic');
     }
@@ -137,7 +137,7 @@ class DispatcherTest extends \PHPUnit\Framework\TestCase
     /**
      * @expectedException \Exception
      */
-    public function testInvalidControllerFunction()
+    public function testInvalidControllerFunction() : void
     {
         $this->app->dispatcher->dispatch('phpOMS\tests\Dispatcher\TestController::testFunctionStaticINVALID');
     }
@@ -145,7 +145,7 @@ class DispatcherTest extends \PHPUnit\Framework\TestCase
     /**
      * @expectedException \UnexpectedValueException
      */
-    public function testInvalidControllerString()
+    public function testInvalidControllerString() : void
     {
         $this->app->dispatcher->dispatch('phpOMS\tests\Dispatcher\TestController::testFunctionStatic:failure');
     }

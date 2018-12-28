@@ -17,7 +17,7 @@ use phpOMS\Math\Geometry\Shape\D2\Trapezoid;
 
 class TrapezoidTest extends \PHPUnit\Framework\TestCase
 {
-    public function testTrapezoid()
+    public function testTrapezoid() : void
     {
         self::assertEquals(10, Trapezoid::getSurface(2, 3, 4), '', 0.001);
         self::assertEquals(14, Trapezoid::getPerimeter(2, 3, 4, 5), '', 0.001);

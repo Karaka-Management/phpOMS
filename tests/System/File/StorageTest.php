@@ -18,7 +18,7 @@ use phpOMS\System\File\Storage;
 
 class StorageTest extends \PHPUnit\Framework\TestCase
 {
-    public function testStorage()
+    public function testStorage() : void
     {
         self::assertInstanceOf('\phpOMS\System\File\Local\LocalStorage', Storage::env('local'));
         self::assertInstanceOf('\phpOMS\System\File\Local\LocalStorage', Storage::env());
@@ -32,7 +32,7 @@ class StorageTest extends \PHPUnit\Framework\TestCase
     /**
      * @expectedException \Exception
      */
-    public function testInvalidStorage()
+    public function testInvalidStorage() : void
     {
         self::assertInstanceOf('\phpOMS\System\File\Local\LocalStorage', Storage::env('invalid'));
     }

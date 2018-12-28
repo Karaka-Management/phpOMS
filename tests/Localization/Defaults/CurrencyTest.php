@@ -19,7 +19,7 @@ use phpOMS\Localization\Defaults\Currency;
 
 class CurrencyTest extends \PHPUnit\Framework\TestCase
 {
-    public function testDefaults()
+    public function testDefaults() : void
     {
         $obj = new Currency();
         self::assertEquals('', $obj->getName());

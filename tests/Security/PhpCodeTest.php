@@ -19,7 +19,7 @@ use phpOMS\Security\PhpCode;
 
 class RouteVerbTest extends \PHPUnit\Framework\TestCase
 {
-    public function testHasUnicode()
+    public function testHasUnicode() : void
     {
         self::assertTrue(
             PhpCode::hasUnicode(
@@ -38,13 +38,13 @@ class RouteVerbTest extends \PHPUnit\Framework\TestCase
         );
     }
 
-    public function testDisabledFunctions()
+    public function testDisabledFunctions() : void
     {
         self::assertFalse(PhpCode::isDisabled(['file_get_contents']));
         self::assertFalse(PhpCode::isDisabled(['eval', 'file_get_contents']));
     }
 
-    public function testHasDeprecatedFunction()
+    public function testHasDeprecatedFunction() : void
     {
         self::assertTrue(
             PhpCode::hasDeprecatedFunction(
@@ -63,13 +63,13 @@ class RouteVerbTest extends \PHPUnit\Framework\TestCase
         );
     }
 
-    public function testFileIntegrity()
+    public function testFileIntegrity() : void
     {
         self::assertTrue(PhpCode::validateFileIntegrity(__DIR__ . '/Sample/hasDeprecated.php', \md5_file(__DIR__ . '/Sample/hasDeprecated.php')));
         self::assertFalse(PhpCode::validateFileIntegrity(__DIR__ . '/Sample/hasUnicode.php', \md5_file(__DIR__ . '/Sample/hasDeprecated.php')));
     }
 
-    public function testStringIntegrity()
+    public function testStringIntegrity() : void
     {
         self::assertTrue(PhpCode::validateStringIntegrity('aa', 'aa'));
         self::assertFalse(PhpCode::validateStringIntegrity('aa', 'aA'));

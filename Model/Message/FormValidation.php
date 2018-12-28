@@ -82,7 +82,7 @@ class FormValidation implements \Serializable, ArrayableInterface, \JsonSerializ
     /**
      * {@inheritdoc}
      */
-    public function unserialize($raw)
+    public function unserialize($raw) : void
     {
         $unserialized = \json_decode($raw, true);
 

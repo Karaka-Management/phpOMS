@@ -275,7 +275,7 @@ abstract class ViewAbstract implements \Serializable
      * @since  1.0.0
      * @codeCoverageIgnore
      */
-    public function unserialize($raw)
+    public function unserialize($raw) : void
     {
     }
 }

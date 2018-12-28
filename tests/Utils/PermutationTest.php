@@ -19,7 +19,7 @@ require_once __DIR__ . '/../Autoloader.php';
 
 class PermutationTest extends \PHPUnit\Framework\TestCase
 {
-    public function testPermute()
+    public function testPermute() : void
     {
         $arr           = ['a', 'b', 'c'];
         $permutations  = ['abc', 'acb', 'bac', 'bca', 'cab', 'cba'];
@@ -29,20 +29,20 @@ class PermutationTest extends \PHPUnit\Framework\TestCase
         self::assertEquals($permutations2, Permutation::permut($arr, [], false));
     }
 
-    public function testIsPermutation()
+    public function testIsPermutation() : void
     {
         self::assertTrue(Permutation::isPermutation('abc', 'bca'));
         self::assertFalse(Permutation::isPermutation('abc', 'bda'));
     }
 
-    public function testIsPalindrome()
+    public function testIsPalindrome() : void
     {
         self::assertTrue(Permutation::isPalindrome('abba'));
         self::assertTrue(Permutation::isPalindrome('abb1a', 'a-z'));
         self::assertFalse(Permutation::isPalindrome('abb1a'));
     }
 
-    public function testPermutate()
+    public function testPermutate() : void
     {
         self::assertEquals(['c', 'b', 'a'], Permutation::permutate(['a', 'b', 'c'], [2, 1, 1]));
     }
@@ -50,7 +50,7 @@ class PermutationTest extends \PHPUnit\Framework\TestCase
     /**
      * @expectedException \InvalidArgumentException
      */
-    public function testWrongPermuteParameterType()
+    public function testWrongPermuteParameterType() : void
     {
         Permutation::permutate(4, [2, 1, 1]);
     }
@@ -58,7 +58,7 @@ class PermutationTest extends \PHPUnit\Framework\TestCase
     /**
      * @expectedException \OutOfBoundsException
      */
-    public function testWrongPermuteKeyLength()
+    public function testWrongPermuteKeyLength() : void
     {
         Permutation::permutate('abc', [2, 1, 1, 6]);
     }

@@ -17,7 +17,7 @@ use phpOMS\ApplicationAbstract;
 
 class ApplicationAbstractTest extends \PHPUnit\Framework\TestCase
 {
-    public function testGetSet()
+    public function testGetSet() : void
     {
         $obj = new class extends ApplicationAbstract {};
 

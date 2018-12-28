@@ -19,7 +19,7 @@ class LogLogRegressionTest extends \PHPUnit\Framework\TestCase
 {
     protected $reg = null;
 
-    protected function setUp()
+    protected function setUp() : void
     {
         // ln(y) = 2 + 3 * ln(x) => y = e^(2 + 3 * ln(x))
         $x = [0.25, 0.5, 1, 1.5];
@@ -28,19 +28,19 @@ class LogLogRegressionTest extends \PHPUnit\Framework\TestCase
         $this->reg = LogLogRegression::getRegression($x, $y);
     }
 
-    public function testRegression()
+    public function testRegression() : void
     {
         self::assertEquals(['b0' => 2, 'b1' => 3], $this->reg, '', 0.2);
     }
 
-    public function testSlope()
+    public function testSlope() : void
     {
         $y = 3;
         $x = 2;
         self::assertEquals($this->reg['b1'] * $y / $x, LogLogRegression::getSlope($this->reg['b1'], $y, $x), '', 0.2);
     }
 
-    public function testElasticity()
+    public function testElasticity() : void
     {
         self::assertEquals($this->reg['b1'], LogLogRegression::getElasticity($this->reg['b1'], 0, 0), '', 0.2);
     }
@@ -48,7 +48,7 @@ class LogLogRegressionTest extends \PHPUnit\Framework\TestCase
     /**
      * @expectedException \phpOMS\Math\Matrix\Exception\InvalidDimensionException
      */
-    public function testInvalidDimension()
+    public function testInvalidDimension() : void
     {
         $x = [1,2, 3];
         $y = [1,2, 3, 4];

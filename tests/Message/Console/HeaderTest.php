@@ -18,7 +18,7 @@ use phpOMS\Message\Console\Header;
 
 class HeaderTest extends \PHPUnit\Framework\TestCase
 {
-    public function testDefaults()
+    public function testDefaults() : void
     {
         $header = new Header();
         self::assertFalse($header->isLocked());
@@ -31,7 +31,7 @@ class HeaderTest extends \PHPUnit\Framework\TestCase
         self::assertEquals(0, $header->getAccount());
     }
 
-    public function testGetSet()
+    public function testGetSet() : void
     {
         $header = new Header();
 
@@ -53,7 +53,7 @@ class HeaderTest extends \PHPUnit\Framework\TestCase
         self::AssertEquals(2, $header->getAccount(2));
     }
 
-    public function testLockedHeaderSet()
+    public function testLockedHeaderSet() : void
     {
         $header = new Header();
         $header->lock();
@@ -61,7 +61,7 @@ class HeaderTest extends \PHPUnit\Framework\TestCase
         self::assertFalse($header->set('key', 'value'));
     }
 
-    public function testLockedHeaderRemove()
+    public function testLockedHeaderRemove() : void
     {
         $header = new Header();
         $header->lock();

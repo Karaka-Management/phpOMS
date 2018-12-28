@@ -32,5 +32,5 @@ interface ConsoleInterface
      *
      * @since  1.0.0
      */
-    public function callConsole();
+    public function callConsole() : void;
 }

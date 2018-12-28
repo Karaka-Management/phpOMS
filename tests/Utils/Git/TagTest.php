@@ -17,14 +17,14 @@ use phpOMS\Utils\Git\Tag;
 
 class TagTest extends \PHPUnit\Framework\TestCase
 {
-    public function testDefault()
+    public function testDefault() : void
     {
         $tag = new Tag();
         self::assertEquals('', $tag->getMessage());
         self::assertEquals('', $tag->getName());
     }
 
-    public function testGetSet()
+    public function testGetSet() : void
     {
         $tag = new Tag('test');
         self::assertEquals('test', $tag->getName());

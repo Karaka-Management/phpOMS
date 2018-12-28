@@ -16,7 +16,7 @@ namespace phpOMS\tests\Utils\IO\Excel;
 
 class ExcelDatabaseMapperTest extends \PHPUnit\Framework\TestCase
 {
-    public function testPlaceholder()
+    public function testPlaceholder() : void
     {
         self::markTestIncomplete();
     }

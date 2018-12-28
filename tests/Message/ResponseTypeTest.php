@@ -19,7 +19,7 @@ use phpOMS\Message\ResponseType;
 
 class ResponseTypeTest extends \PHPUnit\Framework\TestCase
 {
-    public function testEnums()
+    public function testEnums() : void
     {
         self::assertEquals(3, \count(ResponseType::getConstants()));
         self::assertEquals(0, ResponseType::HTTP);

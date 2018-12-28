@@ -16,7 +16,7 @@ namespace phpOMS\tests\Utils\Barcode;
 
 class QRTest extends \PHPUnit\Framework\TestCase
 {
-    public function testPlaceholder()
+    public function testPlaceholder() : void
     {
         self::markTestIncomplete();
     }

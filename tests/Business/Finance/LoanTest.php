@@ -17,13 +17,13 @@ use phpOMS\Business\Finance\Loan;
 
 class LoanTest extends \PHPUnit\Framework\TestCase
 {
-    public function testRatios()
+    public function testRatios() : void
     {
         self::assertEquals(100 / 50, Loan::getLoanToDepositRatio(100, 50));
         self::assertEquals(100 / 50, Loan::getLoanToValueRatio(100, 50));
     }
 
-    public function testPaymentsOnBalloonLoan()
+    public function testPaymentsOnBalloonLoan() : void
     {
         $pv      = 1000;
         $r       = 0.15;
@@ -33,7 +33,7 @@ class LoanTest extends \PHPUnit\Framework\TestCase
         self::assertEquals(213.25, Loan::getPaymentsOnBalloonLoan($pv, $r, $n, $balloon), '', 0.01);
     }
 
-    public function testBalloonBalanceOfLoan()
+    public function testBalloonBalanceOfLoan() : void
     {
         $pv = 1000;
         $p  = 300;
@@ -43,7 +43,7 @@ class LoanTest extends \PHPUnit\Framework\TestCase
         self::assertEquals(-660.02, Loan::getBalloonBalanceOfLoan($pv, $p, $r, $n), '', 0.01);
     }
 
-    public function testLoanPayment()
+    public function testLoanPayment() : void
     {
         $pv = 1000;
         $r  = 0.15;
@@ -52,7 +52,7 @@ class LoanTest extends \PHPUnit\Framework\TestCase
         self::assertEquals(240.36, Loan::getLoanPayment($pv, $r, $n), '', 0.01);
     }
 
-    public function testRemainingBalanceLoan()
+    public function testRemainingBalanceLoan() : void
     {
         $pv = 1000;
         $p  = 200;

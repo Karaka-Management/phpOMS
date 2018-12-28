@@ -17,7 +17,7 @@ use phpOMS\Business\Finance\FinanceFormulas;
 
 class FinanceFormulasTest extends \PHPUnit\Framework\TestCase
 {
-    public function testAnnualPercentageYield()
+    public function testAnnualPercentageYield() : void
     {
         $expected = 0.06168;
 
@@ -29,7 +29,7 @@ class FinanceFormulasTest extends \PHPUnit\Framework\TestCase
         self::assertEquals(round($r, 2), FinanceFormulas::getStateAnnualInterestRateOfAPY($apy, $n));
     }
 
-    public function testFutureValueOfAnnuity()
+    public function testFutureValueOfAnnuity() : void
     {
         $expected = 5204.04;
 
@@ -43,7 +43,7 @@ class FinanceFormulasTest extends \PHPUnit\Framework\TestCase
         self::assertEquals(round($P, 2), \round(FinanceFormulas::getPeriodicPaymentOfFVA($fva, $r, $n), 2));
     }
 
-    public function testFutureValueOfAnnuityContinuousCompounding()
+    public function testFutureValueOfAnnuityContinuousCompounding() : void
     {
         $expected = 12336.42;
 
@@ -57,7 +57,7 @@ class FinanceFormulasTest extends \PHPUnit\Framework\TestCase
         self::assertEquals($t, FinanceFormulas::getTimeOfFVACC($fvacc, $cf, $r));
     }
 
-    public function testAnnuityPaymentPV()
+    public function testAnnuityPaymentPV() : void
     {
         $expected = 212.16;
 
@@ -71,7 +71,7 @@ class FinanceFormulasTest extends \PHPUnit\Framework\TestCase
         self::assertEquals(round($pv, 2), \round(FinanceFormulas::getPresentValueOfAPPV($p, $r, $n), 2));
     }
 
-    public function testAnnuityPaymentFV()
+    public function testAnnuityPaymentFV() : void
     {
         $expected = 192.16;
 
@@ -85,7 +85,7 @@ class FinanceFormulasTest extends \PHPUnit\Framework\TestCase
         self::assertEquals(round($fv, 2), \round(FinanceFormulas::getFutureValueOfAPFV($p, $r, $n), 2));
     }
 
-    public function testAnnutiyPaymentFactorPV()
+    public function testAnnutiyPaymentFactorPV() : void
     {
         $expected = 0.21216;
 
@@ -97,7 +97,7 @@ class FinanceFormulasTest extends \PHPUnit\Framework\TestCase
         self::assertEquals($n, FinanceFormulas::getNumberOfAPFPV($p, $r));
     }
 
-    public function testPresentValueOfAnnuity()
+    public function testPresentValueOfAnnuity() : void
     {
         $expected = 4713.46;
 
@@ -111,7 +111,7 @@ class FinanceFormulasTest extends \PHPUnit\Framework\TestCase
         self::assertEquals(round($P, 2), \round(FinanceFormulas::getPeriodicPaymentOfPVA($pva, $r, $n), 2));
     }
 
-    public function testPresentValueAnnuityFactor()
+    public function testPresentValueAnnuityFactor() : void
     {
         $expected = 4.7135;
 
@@ -123,7 +123,7 @@ class FinanceFormulasTest extends \PHPUnit\Framework\TestCase
         self::assertEquals($n, FinanceFormulas::getPeriodsOfPVAF($p, $r));
     }
 
-    public function testPresentValueOfAnnuityDue()
+    public function testPresentValueOfAnnuityDue() : void
     {
         $expected = 454.60;
 
@@ -138,7 +138,7 @@ class FinanceFormulasTest extends \PHPUnit\Framework\TestCase
         self::assertEquals($n, FinanceFormulas::getPeriodsOfPVAD($PV, $P, $r));
     }
 
-    public function testFutureValueOfAnnuityDue()
+    public function testFutureValueOfAnnuityDue() : void
     {
         $expected = 580.19;
 
@@ -153,7 +153,7 @@ class FinanceFormulasTest extends \PHPUnit\Framework\TestCase
         self::assertEquals($n, FinanceFormulas::getPeriodsOfFVAD($FV, $P, $r));
     }
 
-    public function testRatios()
+    public function testRatios() : void
     {
         self::assertEquals(300 / 400, FinanceFormulas::getRelativeMarketShareByShare(300, 400));
         self::assertEquals(300 / 400, FinanceFormulas::getRelativeMarketShareBySales(300, 400));
@@ -188,7 +188,7 @@ class FinanceFormulasTest extends \PHPUnit\Framework\TestCase
         self::assertEquals(100 / 0.15, FinanceFormulas::getPresentValueOfPerpetuity(100, 0.15));
     }
 
-    public function testCompound()
+    public function testCompound() : void
     {
         $expected = 15.76;
 
@@ -203,7 +203,7 @@ class FinanceFormulasTest extends \PHPUnit\Framework\TestCase
         self::assertEquals($t, (int) \round(FinanceFormulas::getPeriodsOfCompundInterest($P, $C, $r), 0));
     }
 
-    public function testContinuousCompounding()
+    public function testContinuousCompounding() : void
     {
         $expected = 116.18;
 
@@ -219,7 +219,7 @@ class FinanceFormulasTest extends \PHPUnit\Framework\TestCase
         self::assertTrue(\abs($r - FinanceFormulas::getRateOfContinuousCompounding($P, $C, $t)) < 0.01);
     }
 
-    public function testSimpleInterest()
+    public function testSimpleInterest() : void
     {
         $P = 100.00;
         $r = 0.05;
@@ -233,7 +233,7 @@ class FinanceFormulasTest extends \PHPUnit\Framework\TestCase
         self::assertEquals($t, FinanceFormulas::getSimpleInterestTime($I, $P, $r));
     }
 
-    public function testDiscountedPaybackPeriod()
+    public function testDiscountedPaybackPeriod() : void
     {
         $O1 = 5000;
         $r  = 0.05;
@@ -242,7 +242,7 @@ class FinanceFormulasTest extends \PHPUnit\Framework\TestCase
         self::assertTrue(\abs(5.896 - FinanceFormulas::getDiscountedPaybackPeriod($CF, $O1, $r)) < 0.01);
     }
 
-    public function testDoublingTime()
+    public function testDoublingTime() : void
     {
         $r = 0.05;
 
@@ -250,14 +250,14 @@ class FinanceFormulasTest extends \PHPUnit\Framework\TestCase
         self::assertTrue(\abs($r - FinanceFormulas::getDoublingRate(14.207)) < 0.01);
     }
 
-    public function testDoublingTimeContinuousCompounding()
+    public function testDoublingTimeContinuousCompounding() : void
     {
         $r = 0.05;
 
         self::assertEquals(13.863, FinanceFormulas::getDoublingTimeContinuousCompounding($r), '', 0.01);
     }
 
-    public function testEquivalentAnnualAnnuity()
+    public function testEquivalentAnnualAnnuity() : void
     {
         $npv = 1000;
         $r   = 0.15;
@@ -268,7 +268,7 @@ class FinanceFormulasTest extends \PHPUnit\Framework\TestCase
         self::assertEquals($npv, FinanceFormulas::getNetPresentValueOfEAA(240.36, $r, $n), '', 0.01);
     }
 
-    public function testFreeCashFlowToEquity()
+    public function testFreeCashFlowToEquity() : void
     {
         $income    = 1000;
         $depamo    = 300;
@@ -279,7 +279,7 @@ class FinanceFormulasTest extends \PHPUnit\Framework\TestCase
         self::assertEquals(1200, FinanceFormulas::getFreeCashFlowToEquity($income, $depamo, $capital, $wc, $borrowing), '', 0.01);
     }
 
-    public function testFreeCashFlowToFirm()
+    public function testFreeCashFlowToFirm() : void
     {
         $ebit    = 1000;
         $depamo  = 300;
@@ -290,7 +290,7 @@ class FinanceFormulasTest extends \PHPUnit\Framework\TestCase
         self::assertEquals(550, FinanceFormulas::getFreeCashFlowToFirm($ebit, $t, $depamo, $capital, $wc), '', 0.01);
     }
 
-    public function testFutureValue()
+    public function testFutureValue() : void
     {
         $c = 1000;
         $r = 0.15;
@@ -299,7 +299,7 @@ class FinanceFormulasTest extends \PHPUnit\Framework\TestCase
         self::assertEquals(2660.02, FinanceFormulas::getFutureValue($c, $r, $n), '', 0.01);
     }
 
-    public function testFutureValueContinuousCompounding()
+    public function testFutureValueContinuousCompounding() : void
     {
         $pv = 1000;
         $r  = 0.15;
@@ -308,7 +308,7 @@ class FinanceFormulasTest extends \PHPUnit\Framework\TestCase
         self::assertEquals(2857.65, FinanceFormulas::getFutureValueContinuousCompounding($pv, $r, $t), '', 0.01);
     }
 
-    public function testValueFactor()
+    public function testValueFactor() : void
     {
         $r = 0.15;
         $n = 7;
@@ -317,14 +317,14 @@ class FinanceFormulasTest extends \PHPUnit\Framework\TestCase
         self::assertEquals(0.37594, FinanceFormulas::getPresentValueFactor($r, $n), '', 0.01);
     }
 
-    public function testGeometricMeanReturn()
+    public function testGeometricMeanReturn() : void
     {
         $r = [0.01, 0.02, 0.03, 0.04, 0.05, 0.06, 0.07];
 
         self::assertEquals(0.04123, FinanceFormulas::getGeometricMeanReturn($r), '', 0.01);
     }
 
-    public function testGrowingAnnuityFV()
+    public function testGrowingAnnuityFV() : void
     {
         $p = 1000;
         $r = 0.15;
@@ -334,7 +334,7 @@ class FinanceFormulasTest extends \PHPUnit\Framework\TestCase
         self::assertEquals(14226.06, FinanceFormulas::getGrowingAnnuityFV($p, $r, $g, $n), '', 0.01);
     }
 
-    public function testGrowingAnnuityPaymentPV()
+    public function testGrowingAnnuityPaymentPV() : void
     {
         $p = 1000;
         $r = 0.15;
@@ -344,7 +344,7 @@ class FinanceFormulasTest extends \PHPUnit\Framework\TestCase
         self::assertEquals(186.98, FinanceFormulas::getGrowingAnnuityPaymentPV($p, $r, $g, $n), '', 0.01);
     }
 
-    public function testGrowingAnnuityPaymentFV()
+    public function testGrowingAnnuityPaymentFV() : void
     {
         $fv = 1000;
         $r  = 0.15;
@@ -354,7 +354,7 @@ class FinanceFormulasTest extends \PHPUnit\Framework\TestCase
         self::assertEquals(70.29, FinanceFormulas::getGrowingAnnuityPaymentFV($fv, $r, $g, $n), '', 0.01);
     }
 
-    public function testGrowingAnnuityPV()
+    public function testGrowingAnnuityPV() : void
     {
         $p = 1000;
         $r = 0.15;
@@ -364,7 +364,7 @@ class FinanceFormulasTest extends \PHPUnit\Framework\TestCase
         self::assertEquals(5348.1, FinanceFormulas::getGrowingAnnuityPV($p, $r, $g, $n), '', 0.01);
     }
 
-    public function testGrowingPerpetuityPV()
+    public function testGrowingPerpetuityPV() : void
     {
         $d = 1000;
         $r = 0.15;
@@ -373,7 +373,7 @@ class FinanceFormulasTest extends \PHPUnit\Framework\TestCase
         self::assertEquals(20000, FinanceFormulas::getGrowingPerpetuityPV($d, $r, $g), '', 0.01);
     }
 
-    public function testNetPresentValue()
+    public function testNetPresentValue() : void
     {
         $c = [1000, 100, 200, 300, 400, 500, 600];
         $r = 0.15;
@@ -384,12 +384,12 @@ class FinanceFormulasTest extends \PHPUnit\Framework\TestCase
     /**
      * @expectedException \UnexpectedValueException
      */
-    public function testInvalidNetPresentValue()
+    public function testInvalidNetPresentValue() : void
     {
         FinanceFormulas::getNetPresentValue([], 0.1);
     }
 
-    public function testRealRateOfReturn()
+    public function testRealRateOfReturn() : void
     {
         $nominal   = 0.15;
         $inflation = 0.05;
@@ -397,12 +397,12 @@ class FinanceFormulasTest extends \PHPUnit\Framework\TestCase
         self::assertEquals(0.09524, FinanceFormulas::getRealRateOfReturn($nominal, $inflation), '', 0.01);
     }
 
-    public function testNetWorkingCapital()
+    public function testNetWorkingCapital() : void
     {
         self::assertEquals(1000 - 600, FinanceFormulas::getNetWorkingCapital(1000, 600), '', 0.01);
     }
 
-    public function testNumberOfPeriodsPVFV()
+    public function testNumberOfPeriodsPVFV() : void
     {
         $fv = 1200;
         $pv = 1000;
@@ -411,7 +411,7 @@ class FinanceFormulasTest extends \PHPUnit\Framework\TestCase
         self::assertEquals(6.1681, FinanceFormulas::getNumberOfPeriodsPVFV($fv, $pv, $r), '', 0.01);
     }
 
-    public function testPresentValue()
+    public function testPresentValue() : void
     {
         $c = 1000;
         $r = 0.15;
@@ -420,7 +420,7 @@ class FinanceFormulasTest extends \PHPUnit\Framework\TestCase
         self::assertEquals(375.94, FinanceFormulas::getPresentValue($c, $r, $n), '', 0.01);
     }
 
-    public function testPresentValueContinuousCompounding()
+    public function testPresentValueContinuousCompounding() : void
     {
         $c = 1000;
         $r = 0.15;

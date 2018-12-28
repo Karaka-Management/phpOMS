@@ -17,7 +17,7 @@ use phpOMS\Math\Number\NumberType;
 
 class NumberTypeTest extends \PHPUnit\Framework\TestCase
 {
-    public function testEnums()
+    public function testEnums() : void
     {
         self::assertEquals(9, \count(NumberType::getConstants()));
         self::assertEquals(NumberType::getConstants(), array_unique(NumberType::getConstants()));

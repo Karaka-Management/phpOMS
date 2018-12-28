@@ -17,7 +17,7 @@ use phpOMS\Math\Geometry\Shape\D3\Cuboid;
 
 class CuboidTest extends \PHPUnit\Framework\TestCase
 {
-    public function testCuboid()
+    public function testCuboid() : void
     {
         self::assertEquals(200, Cuboid::getVolume(10, 5, 4), '', 0.001);
         self::assertEquals(220, Cuboid::getSurface(10, 5, 4), '', 0.001);

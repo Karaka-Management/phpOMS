@@ -18,7 +18,7 @@ use phpOMS\Utils\Barcode\OrientationType;
 
 class C39Test extends \PHPUnit\Framework\TestCase
 {
-    protected function setUp()
+    protected function setUp() : void
     {
         if (!extension_loaded('gd')) {
             $this->markTestSkipped(
@@ -27,7 +27,7 @@ class C39Test extends \PHPUnit\Framework\TestCase
         }
     }
 
-    public function testImagePng()
+    public function testImagePng() : void
     {
         $path = __DIR__ . '/c39.png';
         if (\file_exists($path)) {
@@ -40,7 +40,7 @@ class C39Test extends \PHPUnit\Framework\TestCase
         self::assertTrue(\file_exists($path));
     }
 
-    public function testImageJpg()
+    public function testImageJpg() : void
     {
         $path = __DIR__ . '/c39.jpg';
         if (\file_exists($path)) {
@@ -53,7 +53,7 @@ class C39Test extends \PHPUnit\Framework\TestCase
         self::assertTrue(\file_exists($path));
     }
 
-    public function testOrientationAndMargin()
+    public function testOrientationAndMargin() : void
     {
         $path = __DIR__ . '/c39_vertical.png';
         if (\file_exists($path)) {
@@ -67,7 +67,7 @@ class C39Test extends \PHPUnit\Framework\TestCase
         self::assertTrue(\file_exists($path));
     }
 
-    public function testValidString()
+    public function testValidString() : void
     {
         self::assertTrue(C39::isValidString('ABCDEFG0123+-'));
         self::assertFalse(C39::isValidString('ABC(DEFG0123+-'));

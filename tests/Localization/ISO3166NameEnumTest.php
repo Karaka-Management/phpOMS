@@ -19,7 +19,7 @@ use phpOMS\Localization\ISO3166NameEnum;
 
 class ISO3166NameEnumTest extends \PHPUnit\Framework\TestCase
 {
-    public function testEnums()
+    public function testEnums() : void
     {
         $enum = ISO3166NameEnum::getConstants();
         self::assertEquals(\count($enum), \count(array_unique($enum)));

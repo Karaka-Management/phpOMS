@@ -16,14 +16,14 @@ use phpOMS\Business\Sales\MarketShareEstimation;
 
 class MarketShareEstimationTest extends \PHPUnit\Framework\TestCase
 {
-    public function testZipfRank()
+    public function testZipfRank() : void
     {
         self::assertEquals(13, MarketShareEstimation::getRankFromMarketShare(1000, 0.01));
         self::assertEquals(19, MarketShareEstimation::getRankFromMarketShare(100, 0.01));
         self::assertEquals(8, MarketShareEstimation::getRankFromMarketShare(100000, 0.01));
     }
 
-    public function testZipfShare()
+    public function testZipfShare() : void
     {
         self::assertTrue(\abs(0.01 - MarketShareEstimation::getMarketShareFromRank(1000, 13)) < 0.01);
         self::assertTrue(\abs(0.01 - MarketShareEstimation::getMarketShareFromRank(100, 19)) < 0.01);

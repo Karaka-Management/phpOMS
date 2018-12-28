@@ -20,7 +20,7 @@ require_once __DIR__ . '/../Autoloader.php';
 class OptionsTraitTest extends \PHPUnit\Framework\TestCase
 {
 
-    public function testOptionTrait()
+    public function testOptionTrait() : void
     {
         $class = new class {
             use OptionsTrait;
@@ -30,7 +30,7 @@ class OptionsTraitTest extends \PHPUnit\Framework\TestCase
         self::assertObjectHasAttribute('options', $class);
     }
 
-    public function testDefault()
+    public function testDefault() : void
     {
         $class = new class {
             use OptionsTrait;
@@ -40,7 +40,7 @@ class OptionsTraitTest extends \PHPUnit\Framework\TestCase
         self::assertNull($class->getOption('someKey'));
     }
 
-    public function testSetGet()
+    public function testSetGet() : void
     {
         $class = new class {
             use OptionsTrait;

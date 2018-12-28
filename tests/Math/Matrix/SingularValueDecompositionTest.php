@@ -18,7 +18,7 @@ use phpOMS\Math\Matrix\SingularValueDecomposition;
 
 class SingularValueDecompositionTest extends \PHPUnit\Framework\TestCase
 {
-    public function testDecomposition()
+    public function testDecomposition() : void
     {
         $A = new Matrix();
         $A->setMatrix([
@@ -48,7 +48,7 @@ class SingularValueDecompositionTest extends \PHPUnit\Framework\TestCase
         ], $svd->getV()->toArray(), '', 0.2);
     }
 
-    public function testComposition()
+    public function testComposition() : void
     {
         $A = new Matrix();
         $A->setMatrix([

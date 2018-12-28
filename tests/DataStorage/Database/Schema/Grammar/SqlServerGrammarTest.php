@@ -17,7 +17,7 @@ use phpOMS\DataStorage\Database\Schema\Grammar\SqlServerGrammar;
 
 class SqlServerGrammarTest extends \PHPUnit\Framework\TestCase
 {
-    public function testDefault()
+    public function testDefault() : void
     {
         self::assertInstanceOf('\phpOMS\DataStorage\Database\Schema\Grammar\Grammar', new SqlServerGrammar());
     }

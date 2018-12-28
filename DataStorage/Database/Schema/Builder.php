@@ -104,7 +104,7 @@ class Builder extends QueryBuilder
         return $this;
     }
 
-    public function alter(array $column)
+    public function alter(array $column) : void
     {
     }
 

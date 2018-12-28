@@ -17,7 +17,7 @@ use phpOMS\Stdlib\Base\PhoneType;
 
 class PhoneTypeTest extends \PHPUnit\Framework\TestCase
 {
-    public function testEnums()
+    public function testEnums() : void
     {
         self::assertEquals(4, \count(PhoneType::getConstants()));
         self::assertEquals(1, PhoneType::HOME);

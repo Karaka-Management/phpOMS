@@ -17,7 +17,7 @@ use phpOMS\Utils\Git\Author;
 
 class AuthorTest extends \PHPUnit\Framework\TestCase
 {
-    public function testDefault()
+    public function testDefault() : void
     {
         $author = new Author();
         self::assertEquals('', $author->getName());
@@ -27,7 +27,7 @@ class AuthorTest extends \PHPUnit\Framework\TestCase
         self::assertEquals(0, $author->getRemovalCount());
     }
 
-    public function testGetSet()
+    public function testGetSet() : void
     {
         $author = new Author('test', 'email');
         self::assertEquals('test', $author->getName());

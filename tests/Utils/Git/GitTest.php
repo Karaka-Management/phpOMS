@@ -17,7 +17,7 @@ use phpOMS\Utils\Git\Git;
 
 class GitTest extends \PHPUnit\Framework\TestCase
 {
-    public function testDefault()
+    public function testDefault() : void
     {
         self::assertEquals('/usr/bin/git', Git::getBin());
     }

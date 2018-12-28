@@ -21,7 +21,7 @@ class ClientManager
 {
     private $clients = [];
 
-    public function add(ClientConnection $client)
+    public function add(ClientConnection $client) : void
     {
         $this->clients[$client->getId()] = $client;
     }

@@ -17,7 +17,7 @@ use phpOMS\Stdlib\Graph\Graph;
 
 class GraphTest extends \PHPUnit\Framework\TestCase
 {
-    public function testDefault()
+    public function testDefault() : void
     {
         $graph = new Graph();
 

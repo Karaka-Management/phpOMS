@@ -173,7 +173,7 @@ class Header implements \Serializable
      *
      * @since  1.0.0
      */
-    public function unserialize($string)
+    public function unserialize($string) : void
     {
     }
 }

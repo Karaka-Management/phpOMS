@@ -22,7 +22,7 @@ class MatrixTest extends \PHPUnit\Framework\TestCase
     protected $B = null;
     protected $C = null;
 
-    protected function setUp()
+    protected function setUp() : void
     {
         $this->A = new Matrix(2, 3);
         $this->A->setMatrix([
@@ -40,20 +40,20 @@ class MatrixTest extends \PHPUnit\Framework\TestCase
         $this->C = $this->A->mult($this->B);
     }
 
-    public function testBase()
+    public function testBase() : void
     {
         self::assertEquals(2, $this->A->getM());
         self::assertEquals(3, $this->A->getN());
         // LU decomposition
     }
 
-    public function testMult()
+    public function testMult() : void
     {
         self::assertEquals([[0, -5], [-6, -7]], $this->C->getMatrix());
         self::assertEquals([[0, -10], [-12, -14]], $this->C->mult(2)->getMatrix());
     }
 
-    public function testAddSub()
+    public function testAddSub() : void
     {
         $A = new Matrix();
         $A->setMatrix([[1, 2], [3, 4]]);
@@ -68,7 +68,7 @@ class MatrixTest extends \PHPUnit\Framework\TestCase
         self::assertEquals([[1 + 1, 2 + 2], [3 + 3, 4 + 4]], $A->add($B)->toArray());
     }
 
-    public function testDet()
+    public function testDet() : void
     {
         $B = new Matrix();
         $B->setMatrix([
@@ -80,7 +80,7 @@ class MatrixTest extends \PHPUnit\Framework\TestCase
         self::assertEquals(-306, $B->det());
     }
 
-    public function testSymmetry()
+    public function testSymmetry() : void
     {
         $B = new Matrix();
         $B->setMatrix([
@@ -101,7 +101,7 @@ class MatrixTest extends \PHPUnit\Framework\TestCase
         self::assertFalse($C->isSymmetric());
     }
 
-    public function testTranspose()
+    public function testTranspose() : void
     {
         $B = new Matrix();
         $B->setMatrix([
@@ -112,7 +112,7 @@ class MatrixTest extends \PHPUnit\Framework\TestCase
         self::assertEquals([[6, 4], [1, -2], [1, 5],], $B->transpose()->toArray());
     }
 
-    public function testSolve()
+    public function testSolve() : void
     {
         $A = new Matrix();
         $A->setMatrix([
@@ -127,7 +127,7 @@ class MatrixTest extends \PHPUnit\Framework\TestCase
         self::assertEquals([[1], [2], [3]], $A->solve($vec)->toArray(), '', 0.2);
     }
 
-    public function testRank()
+    public function testRank() : void
     {
         $B = new Matrix();
         $B->setMatrix([
@@ -159,7 +159,7 @@ class MatrixTest extends \PHPUnit\Framework\TestCase
         self::assertEquals(2, $B->rank());
     }
 
-    public function testInverse()
+    public function testInverse() : void
     {
         $A = new Matrix();
         $A->setMatrix([
@@ -177,14 +177,14 @@ class MatrixTest extends \PHPUnit\Framework\TestCase
         ], $A->inverse()->toArray(), '', 0.2);*/
     }
 
-    public function testReduce()
+    public function testReduce() : void
     {
         self::assertEquals([[-6, -7], [0, -5]], $this->C->upperTriangular()->getMatrix());
         //self::assertEquals([], $this->C->lowerTriangular()->getMatrix());
         //self::assertEquals([], $this->C->diagonalize()->getMatrix());
     }
 
-    public function testGetSet()
+    public function testGetSet() : void
     {
         $id = new Matrix();
         $id->setMatrix([
@@ -212,7 +212,7 @@ class MatrixTest extends \PHPUnit\Framework\TestCase
         );
     }
 
-    public function testArrayAccess()
+    public function testArrayAccess() : void
     {
         $A = new Matrix();
         $A->setMatrix([
@@ -238,7 +238,7 @@ class MatrixTest extends \PHPUnit\Framework\TestCase
         self::assertFalse(isset($A[6]));
     }
 
-    public function testSubMatrix()
+    public function testSubMatrix() : void
     {
         $A = new Matrix();
         $A->setMatrix([
@@ -272,7 +272,7 @@ class MatrixTest extends \PHPUnit\Framework\TestCase
     /**
      * @expectedException \phpOMS\Math\Matrix\Exception\InvalidDimensionException
      */
-    public function testInvalidSetIndexException()
+    public function testInvalidSetIndexException() : void
     {
         $id = new Matrix();
         $id->setMatrix([
@@ -285,7 +285,7 @@ class MatrixTest extends \PHPUnit\Framework\TestCase
     /**
      * @expectedException \phpOMS\Math\Matrix\Exception\InvalidDimensionException
      */
-    public function testInvalidGetIndexException()
+    public function testInvalidGetIndexException() : void
     {
         $id = new Matrix();
         $id->setMatrix([
@@ -298,7 +298,7 @@ class MatrixTest extends \PHPUnit\Framework\TestCase
     /**
      * @expectedException \InvalidArgumentException
      */
-    public function testInvalidSub()
+    public function testInvalidSub() : void
     {
         $id = new Matrix();
         $id->setMatrix([
@@ -312,7 +312,7 @@ class MatrixTest extends \PHPUnit\Framework\TestCase
     /**
      * @expectedException \InvalidArgumentException
      */
-    public function testInvalidAdd()
+    public function testInvalidAdd() : void
     {
         $id = new Matrix();
         $id->setMatrix([
@@ -326,7 +326,7 @@ class MatrixTest extends \PHPUnit\Framework\TestCase
     /**
      * @expectedException \InvalidArgumentException
      */
-    public function testInvalidMult()
+    public function testInvalidMult() : void
     {
         $id = new Matrix();
         $id->setMatrix([
@@ -340,7 +340,7 @@ class MatrixTest extends \PHPUnit\Framework\TestCase
     /**
      * @expectedException \phpOMS\Math\Matrix\Exception\InvalidDimensionException
      */
-    public function testInvalidDimensionAdd()
+    public function testInvalidDimensionAdd() : void
     {
         $A = new Matrix();
         $A->setMatrix([[1, 2], [3, 4]]);
@@ -354,7 +354,7 @@ class MatrixTest extends \PHPUnit\Framework\TestCase
     /**
      * @expectedException \phpOMS\Math\Matrix\Exception\InvalidDimensionException
      */
-    public function testInvalidDimensionSub()
+    public function testInvalidDimensionSub() : void
     {
         $A = new Matrix();
         $A->setMatrix([[1, 2], [3, 4]]);

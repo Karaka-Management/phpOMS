@@ -17,7 +17,7 @@ use phpOMS\Message\Mail\Imap;
 
 class ImapTest extends \PHPUnit\Framework\TestCase
 {
-    public function testDefault()
+    public function testDefault() : void
     {
         $email = new Imap(
             $GLOBALS['CONFIG']['mail']['imap']['host'],

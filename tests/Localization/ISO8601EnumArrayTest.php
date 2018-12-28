@@ -19,7 +19,7 @@ use phpOMS\Localization\ISO8601EnumArray;
 
 class ISO8601EnumArrayTest extends \PHPUnit\Framework\TestCase
 {
-    public function testEnums()
+    public function testEnums() : void
     {
         self::assertEquals(4, \count(ISO8601EnumArray::getConstants()));
     }

@@ -17,7 +17,7 @@ use phpOMS\DataStorage\Database\Exception\InvalidMapperException;
 
 class InvalidMapperExceptionTest extends \PHPUnit\Framework\TestCase
 {
-    public function testException()
+    public function testException() : void
     {
         self::assertInstanceOf(\RuntimeException::class, new InvalidMapperException(''));
     }

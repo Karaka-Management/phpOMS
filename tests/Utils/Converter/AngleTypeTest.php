@@ -17,7 +17,7 @@ use phpOMS\Utils\Converter\AngleType;
 
 class AngleTypeTest extends \PHPUnit\Framework\TestCase
 {
-    public function testEnums()
+    public function testEnums() : void
     {
         self::assertEquals(10, \count(AngleType::getConstants()));
         self::assertEquals(AngleType::getConstants(), array_unique(AngleType::getConstants()));

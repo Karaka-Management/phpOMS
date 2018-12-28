@@ -17,7 +17,7 @@ use phpOMS\Validation\Finance\IbanErrorType;
 
 class IbanErrorTypeTest extends \PHPUnit\Framework\TestCase
 {
-    public function testEnums()
+    public function testEnums() : void
     {
         self::assertEquals(5, \count(IbanErrorType::getConstants()));
         self::assertEquals(1, IbanErrorType::INVALID_COUNTRY);

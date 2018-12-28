@@ -17,7 +17,7 @@ use phpOMS\Math\Number\Natural;
 
 class NaturalTest extends \PHPUnit\Framework\TestCase
 {
-    public function testIsNatural()
+    public function testIsNatural() : void
     {
         self::assertTrue(Natural::isNatural(1235));
         self::assertTrue(Natural::isNatural(0));

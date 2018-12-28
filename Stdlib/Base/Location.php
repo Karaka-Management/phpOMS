@@ -332,7 +332,7 @@ class Location implements \JsonSerializable, \Serializable
      * @return void
      * @since 5.1.0
      */
-    public function unserialize($serialized)
+    public function unserialize($serialized) : void
     {
     }
 }

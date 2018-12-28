@@ -18,7 +18,7 @@ require_once __DIR__ . '/../Autoloader.php';
 
 class SocketTypeTest extends \PHPUnit\Framework\TestCase
 {
-    public function testPlaceholder()
+    public function testPlaceholder() : void
     {
         self::markTestIncomplete();
     }

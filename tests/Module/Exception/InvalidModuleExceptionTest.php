@@ -17,7 +17,7 @@ use phpOMS\Module\Exception\InvalidModuleException;
 
 class InvalidModuleExceptionTest extends \PHPUnit\Framework\TestCase
 {
-    public function testException()
+    public function testException() : void
     {
         self::assertInstanceOf(\UnexpectedValueException::class, new InvalidModuleException(''));
     }

@@ -18,7 +18,7 @@ use phpOMS\Stdlib\Base\Location;
 
 class AddressTest extends \PHPUnit\Framework\TestCase
 {
-    public function testAttributes()
+    public function testAttributes() : void
     {
         $address = new Address();
         self::assertObjectHasAttribute('recipient', $address);
@@ -26,7 +26,7 @@ class AddressTest extends \PHPUnit\Framework\TestCase
         self::assertObjectHasAttribute('location', $address);
     }
 
-    public function testDefault()
+    public function testDefault() : void
     {
         $expected = [
             'recipient' => '',
@@ -52,7 +52,7 @@ class AddressTest extends \PHPUnit\Framework\TestCase
         self::assertEquals($expected, $address->jsonSerialize());
     }
 
-    public function testGetSet()
+    public function testGetSet() : void
     {
         $expected = [
             'recipient' => 'recipient',

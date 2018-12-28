@@ -20,7 +20,7 @@ use phpOMS\Uri\Http;
 
 class RestTest extends \PHPUnit\Framework\TestCase
 {
-    public function testRequest()
+    public function testRequest() : void
     {
         $request = new Request(new Http('http://orange-management.de/phpOMS/LICENSE.txt'));
         $request->setMethod(RequestMethod::GET);
@@ -31,7 +31,7 @@ class RestTest extends \PHPUnit\Framework\TestCase
         );
     }
 
-    public function testPost()
+    public function testPost() : void
     {
         $request = new Request(new Http('http://httpbin.org/post'));
         $request->setMethod(RequestMethod::POST);
@@ -39,7 +39,7 @@ class RestTest extends \PHPUnit\Framework\TestCase
         self::assertEquals('abc', \json_decode(REST::request($request), true)['form']['pdata']);
     }
 
-    public function testPut()
+    public function testPut() : void
     {
         $request = new Request(new Http('http://httpbin.org/put'));
         $request->setMethod(RequestMethod::PUT);
@@ -47,7 +47,7 @@ class RestTest extends \PHPUnit\Framework\TestCase
         self::assertEquals('abc', \json_decode(REST::request($request), true)['form']['pdata']);
     }
 
-    public function testDelete()
+    public function testDelete() : void
     {
         $request = new Request(new Http('http://httpbin.org/delete'));
         $request->setMethod(RequestMethod::DELETE);
@@ -55,7 +55,7 @@ class RestTest extends \PHPUnit\Framework\TestCase
         self::assertEquals('abc', \json_decode(REST::request($request), true)['form']['ddata']);
     }
 
-    public function testGet()
+    public function testGet() : void
     {
         $request = new Request(new Http('http://httpbin.org/get'));
         $request->setMethod(RequestMethod::GET);

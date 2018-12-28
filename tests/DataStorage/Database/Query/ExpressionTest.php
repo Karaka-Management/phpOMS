@@ -16,7 +16,7 @@ namespace phpOMS\tests\DataStorage\Database\Query;
 
 class ExpressionTest extends \PHPUnit\Framework\TestCase
 {
-    public function testPlaceholder()
+    public function testPlaceholder() : void
     {
         self::markTestIncomplete();
     }

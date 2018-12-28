@@ -18,7 +18,7 @@ use phpOMS\Stdlib\Queue\PriorityQueue;
 
 class PriorityQueueTest extends \PHPUnit\Framework\TestCase
 {
-    public function testDefault()
+    public function testDefault() : void
     {
         $queue = new PriorityQueue();
         self::assertEquals(0, $queue->count());
@@ -28,7 +28,7 @@ class PriorityQueueTest extends \PHPUnit\Framework\TestCase
         self::assertEquals(PriorityMode::FIFO, $queue->getType());
     }
 
-    public function testGeneral()
+    public function testGeneral() : void
     {
         $queue = new PriorityQueue();
 
@@ -58,7 +58,7 @@ class PriorityQueueTest extends \PHPUnit\Framework\TestCase
         self::assertEquals($queue->serialize(), $queue2->serialize());
     }
 
-    public function testFIFO()
+    public function testFIFO() : void
     {
         $queue = new PriorityQueue(PriorityMode::FIFO);
 
@@ -97,7 +97,7 @@ class PriorityQueueTest extends \PHPUnit\Framework\TestCase
         self::assertEquals(1, $queue->count());
     }
 
-    public function testLIFO()
+    public function testLIFO() : void
     {
         $queue = new PriorityQueue(PriorityMode::LIFO);
 
@@ -135,7 +135,7 @@ class PriorityQueueTest extends \PHPUnit\Framework\TestCase
         self::assertEquals(1, $queue->count());
     }
 
-    public function testHighest()
+    public function testHighest() : void
     {
         $queue = new PriorityQueue(PriorityMode::HIGHEST);
 
@@ -173,7 +173,7 @@ class PriorityQueueTest extends \PHPUnit\Framework\TestCase
         self::assertEquals(1, $queue->count());
     }
 
-    public function testLowest()
+    public function testLowest() : void
     {
         $queue = new PriorityQueue(PriorityMode::LOWEST);
 
@@ -214,7 +214,7 @@ class PriorityQueueTest extends \PHPUnit\Framework\TestCase
     /**
      * @expectedException \phpOMS\Stdlib\Base\Exception\InvalidEnumValue
      */
-    public function testInvalidPriority()
+    public function testInvalidPriority() : void
     {
         $queue = new PriorityQueue(99999);
     }

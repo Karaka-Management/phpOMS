@@ -17,11 +17,11 @@ use phpOMS\Utils\Parser\Php\ArrayParser;
 
 class ArrayParserTest extends \PHPUnit\Framework\TestCase
 {
-    public function testParser()
+    public function testParser() : void
     {
         $serializable = new class implements \Serializable {
             public function serialize() { return 2; }
-            public function unserialize($raw) {}
+            public function unserialize($raw) : void {}
         };
 
         $jsonSerialize = new class implements \JsonSerializable {
@@ -62,7 +62,7 @@ class ArrayParserTest extends \PHPUnit\Framework\TestCase
     /**
      * @expectedException \UnexpectedValueException
      */
-    public function testInvalidValueType()
+    public function testInvalidValueType() : void
     {
         ArrayParser::parseVariable(new class {});
     }

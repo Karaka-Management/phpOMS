@@ -17,7 +17,7 @@ use phpOMS\Utils\Converter\File;
 
 class FileTest extends \PHPUnit\Framework\TestCase
 {
-    public function testByteSizeToString()
+    public function testByteSizeToString() : void
     {
         self::assertEquals('400b', File::byteSizeToString(400));
         self::assertEquals('5kb', File::byteSizeToString(5000));
@@ -25,7 +25,7 @@ class FileTest extends \PHPUnit\Framework\TestCase
         self::assertEquals('1.5gb', File::byteSizeToString(1500000000));
     }
 
-    public function testKilobyteSizeToString()
+    public function testKilobyteSizeToString() : void
     {
         self::assertEquals('500kb', File::kilobyteSizeToString(500));
         self::assertEquals('5mb', File::kilobyteSizeToString(5000));

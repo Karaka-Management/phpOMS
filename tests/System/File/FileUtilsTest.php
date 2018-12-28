@@ -18,7 +18,7 @@ use phpOMS\System\File\FileUtils;
 
 class FileUtilsTest extends \PHPUnit\Framework\TestCase
 {
-    public function testExtension()
+    public function testExtension() : void
     {
         self::assertEquals(ExtensionType::UNKNOWN, FileUtils::getExtensionType('test'));
         self::assertEquals(ExtensionType::CODE, FileUtils::getExtensionType('php'));
@@ -32,7 +32,7 @@ class FileUtilsTest extends \PHPUnit\Framework\TestCase
         self::assertEquals(ExtensionType::IMAGE, FileUtils::getExtensionType('png'));
     }
 
-    public function testAbsolute()
+    public function testAbsolute() : void
     {
         self::assertEquals('/test/ative', FileUtils::absolute('/test/path/for/../rel/../../ative'));
     }

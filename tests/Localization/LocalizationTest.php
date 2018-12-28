@@ -29,12 +29,12 @@ class LocalizationTest extends \PHPUnit\Framework\TestCase
 {
     protected $l11nManager = null;
 
-    protected function setUp()
+    protected function setUp() : void
     {
         $this->l11nManager = new L11nManager('Api');
     }
 
-    public function testAttributes()
+    public function testAttributes() : void
     {
         $localization = new Localization();
         self::assertObjectHasAttribute('country', $localization);
@@ -46,7 +46,7 @@ class LocalizationTest extends \PHPUnit\Framework\TestCase
         self::assertObjectHasAttribute('datetime', $localization);
     }
 
-    public function testDefault()
+    public function testDefault() : void
     {
         $localization = new Localization();
         self::assertTrue(ISO3166TwoEnum::isValidValue($localization->getCountry()));
@@ -67,7 +67,7 @@ class LocalizationTest extends \PHPUnit\Framework\TestCase
     /**
      * @expectedException \phpOMS\Stdlib\Base\Exception\InvalidEnumValue
      */
-    public function testInvalidLanguage()
+    public function testInvalidLanguage() : void
     {
         $localization = new Localization();
         $localization->setLanguage('abc');
@@ -76,7 +76,7 @@ class LocalizationTest extends \PHPUnit\Framework\TestCase
     /**
      * @expectedException \phpOMS\Stdlib\Base\Exception\InvalidEnumValue
      */
-    public function testInvalidCountry()
+    public function testInvalidCountry() : void
     {
         $localization = new Localization();
         $localization->setCountry('abc');
@@ -85,7 +85,7 @@ class LocalizationTest extends \PHPUnit\Framework\TestCase
     /**
      * @expectedException \phpOMS\Stdlib\Base\Exception\InvalidEnumValue
      */
-    public function testInvalidTimezone()
+    public function testInvalidTimezone() : void
     {
         $localization = new Localization();
         $localization->setTimezone('abc');
@@ -94,13 +94,13 @@ class LocalizationTest extends \PHPUnit\Framework\TestCase
     /**
      * @expectedException \phpOMS\Stdlib\Base\Exception\InvalidEnumValue
      */
-    public function testInvalidCurrency()
+    public function testInvalidCurrency() : void
     {
         $localization = new Localization();
         $localization->setCurrency('abc');
     }
 
-    public function testGetSet()
+    public function testGetSet() : void
     {
         $localization = new Localization();
 
@@ -143,7 +143,7 @@ class LocalizationTest extends \PHPUnit\Framework\TestCase
         self::assertEquals([1], $localization->getSpeed());
     }
 
-    public function testLocalizationLoading()
+    public function testLocalizationLoading() : void
     {
         $localization = new Localization();
         $localization->loadFromLanguage(ISO639x1Enum::_EN);
@@ -156,7 +156,7 @@ class LocalizationTest extends \PHPUnit\Framework\TestCase
     /**
      * @expectedException \phpOMS\Stdlib\Base\Exception\InvalidEnumValue
      */
-    public function testInvalidLocalizationLoading()
+    public function testInvalidLocalizationLoading() : void
     {
         $localization = new Localization();
         $localization->loadFromLanguage('INVALID');

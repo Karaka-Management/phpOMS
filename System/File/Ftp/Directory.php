@@ -51,7 +51,7 @@ class Directory extends FileAbstract implements DirectoryInterface
         return \in_array(LocalFile::name($path), $list);
     }
 
-    public static function ftpCreate($con, string $path, int $permission, bool $recursive)
+    public static function ftpCreate($con, string $path, int $permission, bool $recursive) : void
     {
         $parts = \explode('/', $path);
         \ftp_chdir($con, '/' . $parts[0]);
@@ -272,7 +272,7 @@ class Directory extends FileAbstract implements DirectoryInterface
     /**
      * {@inheritdoc}
      */
-    public function rewind()
+    public function rewind() : void
     {
         \reset($this->nodes);
     }
@@ -314,7 +314,7 @@ class Directory extends FileAbstract implements DirectoryInterface
     /**
      * {@inheritdoc}
      */
-    public function offsetSet($offset, $value)
+    public function offsetSet($offset, $value) : void
     {
         if ($offset === null) {
             $this->addNode($value);
@@ -334,7 +334,7 @@ class Directory extends FileAbstract implements DirectoryInterface
     /**
      * {@inheritdoc}
      */
-    public function offsetUnset($offset)
+    public function offsetUnset($offset) : void
     {
         if (isset($this->nodes[$offset])) {
             unset($this->nodes[$offset]);

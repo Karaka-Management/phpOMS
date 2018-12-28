@@ -18,7 +18,7 @@ use phpOMS\System\File\Local\LocalStorage;
 
 class LocalStorageTest extends \PHPUnit\Framework\TestCase
 {
-    public function testFile()
+    public function testFile() : void
     {
         $testFile = __DIR__ . '/test.txt';
         self::assertFalse(LocalStorage::put($testFile, 'test', ContentPutMode::REPLACE));
@@ -79,7 +79,7 @@ class LocalStorageTest extends \PHPUnit\Framework\TestCase
         \unlink($testFile);
     }
 
-    public function testDirectory()
+    public function testDirectory() : void
     {
         $dirPath = __DIR__ . '/test';
         self::assertTrue(LocalStorage::create($dirPath));
@@ -107,7 +107,7 @@ class LocalStorageTest extends \PHPUnit\Framework\TestCase
         self::assertGreaterThan(0, LocalStorage::permission($dirTestPath));
     }
 
-    public function testDirectoryMove()
+    public function testDirectoryMove() : void
     {
         $dirTestPath = __DIR__ . '/dirtest';
         self::assertTrue(LocalStorage::copy($dirTestPath, __DIR__ . '/newdirtest'));
@@ -128,7 +128,7 @@ class LocalStorageTest extends \PHPUnit\Framework\TestCase
     /**
      * @expectedException \phpOMS\System\File\PathException
      */
-    public function testInvalidPutPath()
+    public function testInvalidPutPath() : void
     {
         LocalStorage::put(__DIR__, 'Test');
     }
@@ -136,7 +136,7 @@ class LocalStorageTest extends \PHPUnit\Framework\TestCase
     /**
      * @expectedException \phpOMS\System\File\PathException
      */
-    public function testInvalidGetPath()
+    public function testInvalidGetPath() : void
     {
         LocalStorage::get(__DIR__);
     }
@@ -144,7 +144,7 @@ class LocalStorageTest extends \PHPUnit\Framework\TestCase
     /**
      * @expectedException \phpOMS\System\File\PathException
      */
-    public function testInvalidListPath()
+    public function testInvalidListPath() : void
     {
         LocalStorage::list(__DIR__ . '/LocalStorageTest.php');
     }
@@ -152,7 +152,7 @@ class LocalStorageTest extends \PHPUnit\Framework\TestCase
     /**
      * @expectedException \phpOMS\System\File\PathException
      */
-    public function testInvalidSetPath()
+    public function testInvalidSetPath() : void
     {
         LocalStorage::set(__DIR__, 'Test');
     }
@@ -160,7 +160,7 @@ class LocalStorageTest extends \PHPUnit\Framework\TestCase
     /**
      * @expectedException \phpOMS\System\File\PathException
      */
-    public function testInvalidAppendPath()
+    public function testInvalidAppendPath() : void
     {
         LocalStorage::append(__DIR__, 'Test');
     }
@@ -168,7 +168,7 @@ class LocalStorageTest extends \PHPUnit\Framework\TestCase
     /**
      * @expectedException \phpOMS\System\File\PathException
      */
-    public function testInvalidPrependPath()
+    public function testInvalidPrependPath() : void
     {
         LocalStorage::prepend(__DIR__, 'Test');
     }
@@ -176,7 +176,7 @@ class LocalStorageTest extends \PHPUnit\Framework\TestCase
     /**
      * @expectedException \phpOMS\System\File\PathException
      */
-    public function testInvalidExtensionPath()
+    public function testInvalidExtensionPath() : void
     {
         LocalStorage::extension(__DIR__);
     }

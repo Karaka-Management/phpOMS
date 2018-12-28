@@ -16,7 +16,7 @@ namespace phpOMS\tests\Math\Integral;
 
 class GaussTest extends \PHPUnit\Framework\TestCase
 {
-    public function testPlaceholder()
+    public function testPlaceholder() : void
     {
         self::markTestIncomplete();
     }

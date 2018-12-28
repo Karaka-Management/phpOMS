@@ -20,12 +20,12 @@ class BuilderTest extends \PHPUnit\Framework\TestCase
 {
     protected $con = null;
 
-    protected function setUp()
+    protected function setUp() : void
     {
         $this->con = new MysqlConnection($GLOBALS['CONFIG']['db']['core']['masters']['admin']);
     }
 
-    public function testMysqlSelect()
+    public function testMysqlSelect() : void
     {
         $query = new Builder($this->con);
         $sql   = 'SELECT `a`.`test` FROM `a` WHERE `a`.`test` = 1;';
@@ -74,7 +74,7 @@ class BuilderTest extends \PHPUnit\Framework\TestCase
         );
     }
 
-    public function testMysqlOrder()
+    public function testMysqlOrder() : void
     {
         $query = new Builder($this->con);
         $sql   = 'SELECT `a`.`test` FROM `a` WHERE `a`.`test` = 1 ORDER BY `a`.`test` DESC;';
@@ -101,7 +101,7 @@ class BuilderTest extends \PHPUnit\Framework\TestCase
         self::assertEquals($sql, $query->select('a.test')->from('a')->where('a.test', '=', 1)->orderBy(['a.test', 'a.test2'], 'ASC')->toSql());
     }
 
-    public function testMysqlOffsetLimit()
+    public function testMysqlOffsetLimit() : void
     {
         $query = new Builder($this->con);
         $sql   = 'SELECT `a`.`test` FROM `a` WHERE `a`.`test` = 1 LIMIT 3;';
@@ -112,7 +112,7 @@ class BuilderTest extends \PHPUnit\Framework\TestCase
         self::assertEquals($sql, $query->select('a.test')->from('a')->where('a.test', '=', 1)->offset(3)->toSql());
     }
 
-    public function testMysqlGroup()
+    public function testMysqlGroup() : void
     {
         $query = new Builder($this->con);
         $sql   = 'SELECT `a`.`test` FROM `a` WHERE `a`.`test` = 1 GROUP BY `a`;';
@@ -130,7 +130,7 @@ class BuilderTest extends \PHPUnit\Framework\TestCase
         self::assertEquals($sql, $query->select('a.test')->from('a')->where('a.test', '=', ':test')->groupBy('a', 'b')->toSql());
     }
 
-    public function testMysqlWheres()
+    public function testMysqlWheres() : void
     {
         $query = new Builder($this->con);
         $sql   = 'SELECT `a`.`test` FROM `a` WHERE `a`.`test` = 1;';
@@ -189,7 +189,7 @@ class BuilderTest extends \PHPUnit\Framework\TestCase
         self::assertEquals($sql, $query->select('a.test')->from('a')->where('a.test', '=', ':testWhere')->whereIn('a.test2', ['a', ':bValue', 'c'], 'or')->toSql());
     }
 
-    public function testMysqlJoins()
+    public function testMysqlJoins() : void
     {
         $query = new Builder($this->con);
         $sql   = 'SELECT `a`.`test` FROM `a` JOIN `b` ON `a`.`id` = `b`.`id` WHERE `a`.`test` = 1;';
@@ -248,7 +248,7 @@ class BuilderTest extends \PHPUnit\Framework\TestCase
         self::assertEquals($sql, $query->select('a.test')->from('a')->fullOuterJoin('b')->on('a.id', '=', 'b.id')->where('a.test', '=', 1)->toSql());
     }
 
-    public function testMysqlInsert()
+    public function testMysqlInsert() : void
     {
         $query = new Builder($this->con);
         $sql   = 'INSERT INTO `a` VALUES (1, \'test\');';
@@ -272,7 +272,7 @@ class BuilderTest extends \PHPUnit\Framework\TestCase
         self::assertEquals($sql, $query->insert('test', 'test2')->into('a')->values(':test', ':test2')->toSql());
     }
 
-    public function testMysqlDelete()
+    public function testMysqlDelete() : void
     {
         $query = new Builder($this->con);
         $sql   = 'DELETE FROM `a` WHERE `a`.`test` = 1;';
@@ -283,7 +283,7 @@ class BuilderTest extends \PHPUnit\Framework\TestCase
         self::assertEquals($sql, $query->delete()->from('a')->where('a.test', '=', ':testVal')->toSql());
     }
 
-    public function testMysqlUpdate()
+    public function testMysqlUpdate() : void
     {
         $query = new Builder($this->con);
         $sql   = 'UPDATE `a` SET `a`.`test` = 1, `a`.`test2` = 2 WHERE `a`.`test` = 1;';
@@ -298,7 +298,7 @@ class BuilderTest extends \PHPUnit\Framework\TestCase
         self::assertEquals($sql, $query->update('a')->set(['a.test' => 1])->set(['a.test2' => ':test2'])->where('a.test', '=', ':test3')->toSql());
     }
 
-    public function testRaw()
+    public function testRaw() : void
     {
         $query = new Builder($this->con);
         self::assertEquals('SELECT test.val FROM test;', $query->raw('SELECT test.val FROM test;')->toSql());
@@ -307,7 +307,7 @@ class BuilderTest extends \PHPUnit\Framework\TestCase
     /**
      * @expectedException \Exception
      */
-    public function testReadOnlyRaw()
+    public function testReadOnlyRaw() : void
     {
         $query = new Builder($this->con, true);
         $query->raw('DROP DATABASE oms;');
@@ -316,7 +316,7 @@ class BuilderTest extends \PHPUnit\Framework\TestCase
     /**
      * @expectedException \Exception
      */
-    public function testReadOnlyInsert()
+    public function testReadOnlyInsert() : void
     {
         $query = new Builder($this->con, true);
         $query->insert('test');
@@ -325,7 +325,7 @@ class BuilderTest extends \PHPUnit\Framework\TestCase
     /**
      * @expectedException \Exception
      */
-    public function testReadOnlyUpdate()
+    public function testReadOnlyUpdate() : void
     {
         $query = new Builder($this->con, true);
         $query->update();
@@ -334,7 +334,7 @@ class BuilderTest extends \PHPUnit\Framework\TestCase
     /**
      * @expectedException \Exception
      */
-    public function testReadOnlyDelete()
+    public function testReadOnlyDelete() : void
     {
         $query = new Builder($this->con, true);
         $query->delete();
@@ -343,7 +343,7 @@ class BuilderTest extends \PHPUnit\Framework\TestCase
     /**
      * @expectedException \InvalidArgumentException
      */
-    public function testInvalidWhereOperator()
+    public function testInvalidWhereOperator() : void
     {
         $query = new Builder($this->con, true);
         $query->where('a', 'invalid', 'b');
@@ -352,7 +352,7 @@ class BuilderTest extends \PHPUnit\Framework\TestCase
     /**
      * @expectedException \InvalidArgumentException
      */
-    public function testInvalidJoinTable()
+    public function testInvalidJoinTable() : void
     {
         $query = new Builder($this->con, true);
         $query->join(null);
@@ -361,7 +361,7 @@ class BuilderTest extends \PHPUnit\Framework\TestCase
     /**
      * @expectedException \InvalidArgumentException
      */
-    public function testInvalidJoinOperator()
+    public function testInvalidJoinOperator() : void
     {
         $query = new Builder($this->con, true);
         $query->join('b')->on('a', 'invalid', 'b');
@@ -370,7 +370,7 @@ class BuilderTest extends \PHPUnit\Framework\TestCase
     /**
      * @expectedException \InvalidArgumentException
      */
-    public function testInvalidOrOrderType()
+    public function testInvalidOrOrderType() : void
     {
         $query = new Builder($this->con, true);
         $query->orderBy('a', 1);
@@ -379,7 +379,7 @@ class BuilderTest extends \PHPUnit\Framework\TestCase
     /**
      * @expectedException \InvalidArgumentException
      */
-    public function testInvalidOrColumnType()
+    public function testInvalidOrColumnType() : void
     {
         $query = new Builder($this->con, true);
         $query->orderBy(null, 'DESC');

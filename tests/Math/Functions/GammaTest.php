@@ -18,12 +18,12 @@ use phpOMS\Math\Functions\Gamma;
 
 class GammaTest extends \PHPUnit\Framework\TestCase
 {
-    public function testFactorial()
+    public function testFactorial() : void
     {
         self::assertEquals(Functions::fact(4), Gamma::getGammaInteger(5));
     }
 
-    public function testApproximations()
+    public function testApproximations() : void
     {
         $stirling = [
             2.15697602, 1.20285073, 0.92213701, 0.83974270, 0.85919025, 0.95950218, 1.14910642, 1.45849038, 1.94540320, 2.70976382,

@@ -28,7 +28,7 @@ use phpOMS\Utils\Converter\WeightType;
 
 class MeasurementTest extends \PHPUnit\Framework\TestCase
 {
-    public function testTemperature()
+    public function testTemperature() : void
     {
         $temps = TemperatureType::getConstants();
 
@@ -40,7 +40,7 @@ class MeasurementTest extends \PHPUnit\Framework\TestCase
         }
     }
 
-    public function testWeight()
+    public function testWeight() : void
     {
         $weights = WeightType::getConstants();
 
@@ -52,7 +52,7 @@ class MeasurementTest extends \PHPUnit\Framework\TestCase
         }
     }
 
-    public function testLength()
+    public function testLength() : void
     {
         $lengths = LengthType::getConstants();
 
@@ -64,7 +64,7 @@ class MeasurementTest extends \PHPUnit\Framework\TestCase
         }
     }
 
-    public function testArea()
+    public function testArea() : void
     {
         $areas = AreaType::getConstants();
 
@@ -76,7 +76,7 @@ class MeasurementTest extends \PHPUnit\Framework\TestCase
         }
     }
 
-    public function testVolume()
+    public function testVolume() : void
     {
         $volumes = VolumeType::getConstants();
 
@@ -88,7 +88,7 @@ class MeasurementTest extends \PHPUnit\Framework\TestCase
         }
     }
 
-    public function testSpeed()
+    public function testSpeed() : void
     {
         $speeds = SpeedType::getConstants();
 
@@ -100,7 +100,7 @@ class MeasurementTest extends \PHPUnit\Framework\TestCase
         }
     }
 
-    public function testTime()
+    public function testTime() : void
     {
         $times = TimeType::getConstants();
 
@@ -112,7 +112,7 @@ class MeasurementTest extends \PHPUnit\Framework\TestCase
         }
     }
 
-    public function testAngle()
+    public function testAngle() : void
     {
         $angles = AngleType::getConstants();
 
@@ -124,7 +124,7 @@ class MeasurementTest extends \PHPUnit\Framework\TestCase
         }
     }
 
-    public function testPressure()
+    public function testPressure() : void
     {
         $pressures = PressureType::getConstants();
 
@@ -136,7 +136,7 @@ class MeasurementTest extends \PHPUnit\Framework\TestCase
         }
     }
 
-    public function testEnergy()
+    public function testEnergy() : void
     {
         $energies = EnergyPowerType::getConstants();
 
@@ -148,7 +148,7 @@ class MeasurementTest extends \PHPUnit\Framework\TestCase
         }
     }
 
-    public function testFileSize()
+    public function testFileSize() : void
     {
         $fileSizes = FileSizeType::getConstants();
 
@@ -163,7 +163,7 @@ class MeasurementTest extends \PHPUnit\Framework\TestCase
     /**
      * @expectedException \InvalidArgumentException
      */
-    public function testInvalidTemperatureFrom()
+    public function testInvalidTemperatureFrom() : void
     {
         Measurement::convertTemperature(1.1, 'invalid', TemperatureType::CELSIUS);
     }
@@ -171,7 +171,7 @@ class MeasurementTest extends \PHPUnit\Framework\TestCase
     /**
      * @expectedException \InvalidArgumentException
      */
-    public function testInvalidTemperatureTo()
+    public function testInvalidTemperatureTo() : void
     {
         Measurement::convertTemperature(1.1, TemperatureType::CELSIUS, 'invalid');
     }
@@ -179,7 +179,7 @@ class MeasurementTest extends \PHPUnit\Framework\TestCase
     /**
      * @expectedException \InvalidArgumentException
      */
-    public function testInvalidWeightFrom()
+    public function testInvalidWeightFrom() : void
     {
         Measurement::convertWeight(1.1, 'invalid', WeightType::KILOGRAM);
     }
@@ -187,7 +187,7 @@ class MeasurementTest extends \PHPUnit\Framework\TestCase
     /**
      * @expectedException \InvalidArgumentException
      */
-    public function testInvalidWeightTo()
+    public function testInvalidWeightTo() : void
     {
         Measurement::convertWeight(1.1, WeightType::KILOGRAM, 'invalid');
     }
@@ -195,7 +195,7 @@ class MeasurementTest extends \PHPUnit\Framework\TestCase
     /**
      * @expectedException \InvalidArgumentException
      */
-    public function testInvalidLengthFrom()
+    public function testInvalidLengthFrom() : void
     {
         Measurement::convertLength(1.1, 'invalid', LengthType::METERS);
     }
@@ -203,7 +203,7 @@ class MeasurementTest extends \PHPUnit\Framework\TestCase
     /**
      * @expectedException \InvalidArgumentException
      */
-    public function testInvalidLengthTo()
+    public function testInvalidLengthTo() : void
     {
         Measurement::convertLength(1.1, LengthType::METERS, 'invalid');
     }
@@ -211,7 +211,7 @@ class MeasurementTest extends \PHPUnit\Framework\TestCase
     /**
      * @expectedException \InvalidArgumentException
      */
-    public function testInvalidAreaFrom()
+    public function testInvalidAreaFrom() : void
     {
         Measurement::convertArea(1.1, 'invalid', AreaType::SQUARE_METERS);
     }
@@ -219,7 +219,7 @@ class MeasurementTest extends \PHPUnit\Framework\TestCase
     /**
      * @expectedException \InvalidArgumentException
      */
-    public function testInvalidAreaTo()
+    public function testInvalidAreaTo() : void
     {
         Measurement::convertArea(1.1, AreaType::SQUARE_METERS, 'invalid');
     }
@@ -227,7 +227,7 @@ class MeasurementTest extends \PHPUnit\Framework\TestCase
     /**
      * @expectedException \InvalidArgumentException
      */
-    public function testInvalidVolumeFrom()
+    public function testInvalidVolumeFrom() : void
     {
         Measurement::convertVolume(1.1, 'invalid', VolumeType::LITER);
     }
@@ -235,7 +235,7 @@ class MeasurementTest extends \PHPUnit\Framework\TestCase
     /**
      * @expectedException \InvalidArgumentException
      */
-    public function testInvalidVolumeTo()
+    public function testInvalidVolumeTo() : void
     {
         Measurement::convertVolume(1.1, VolumeType::LITER, 'invalid');
     }
@@ -243,7 +243,7 @@ class MeasurementTest extends \PHPUnit\Framework\TestCase
     /**
      * @expectedException \InvalidArgumentException
      */
-    public function testInvalidSpeedFrom()
+    public function testInvalidSpeedFrom() : void
     {
         Measurement::convertSpeed(1.1, 'invalid', SpeedType::KILOMETERS_PER_HOUR);
     }
@@ -251,7 +251,7 @@ class MeasurementTest extends \PHPUnit\Framework\TestCase
     /**
      * @expectedException \InvalidArgumentException
      */
-    public function testInvalidSpeedTo()
+    public function testInvalidSpeedTo() : void
     {
         Measurement::convertSpeed(1.1, SpeedType::KILOMETERS_PER_HOUR, 'invalid');
     }
@@ -259,7 +259,7 @@ class MeasurementTest extends \PHPUnit\Framework\TestCase
     /**
      * @expectedException \InvalidArgumentException
      */
-    public function testInvalidTimeFrom()
+    public function testInvalidTimeFrom() : void
     {
         Measurement::convertTime(1.1, 'invalid', TimeType::HOURS);
     }
@@ -267,7 +267,7 @@ class MeasurementTest extends \PHPUnit\Framework\TestCase
     /**
      * @expectedException \InvalidArgumentException
      */
-    public function testInvalidTimeTo()
+    public function testInvalidTimeTo() : void
     {
         Measurement::convertTime(1.1, TimeType::HOURS, 'invalid');
     }
@@ -275,7 +275,7 @@ class MeasurementTest extends \PHPUnit\Framework\TestCase
     /**
      * @expectedException \InvalidArgumentException
      */
-    public function testInvalidAngleFrom()
+    public function testInvalidAngleFrom() : void
     {
         Measurement::convertAngle(1.1, 'invalid', AngleType::RADIAN);
     }
@@ -283,7 +283,7 @@ class MeasurementTest extends \PHPUnit\Framework\TestCase
     /**
      * @expectedException \InvalidArgumentException
      */
-    public function testInvalidAngleTo()
+    public function testInvalidAngleTo() : void
     {
         Measurement::convertAngle(1.1, AngleType::RADIAN, 'invalid');
     }
@@ -291,7 +291,7 @@ class MeasurementTest extends \PHPUnit\Framework\TestCase
     /**
      * @expectedException \InvalidArgumentException
      */
-    public function testInvalidPressureFrom()
+    public function testInvalidPressureFrom() : void
     {
         Measurement::convertPressure(1.1, 'invalid', PressureType::BAR);
     }
@@ -299,7 +299,7 @@ class MeasurementTest extends \PHPUnit\Framework\TestCase
     /**
      * @expectedException \InvalidArgumentException
      */
-    public function testInvalidPressureTo()
+    public function testInvalidPressureTo() : void
     {
         Measurement::convertPressure(1.1, PressureType::BAR, 'invalid');
     }
@@ -307,7 +307,7 @@ class MeasurementTest extends \PHPUnit\Framework\TestCase
     /**
      * @expectedException \InvalidArgumentException
      */
-    public function testInvalidEnergyPowerFrom()
+    public function testInvalidEnergyPowerFrom() : void
     {
         Measurement::convertEnergy(1.1, 'invalid', EnergyPowerType::JOULS);
     }
@@ -315,7 +315,7 @@ class MeasurementTest extends \PHPUnit\Framework\TestCase
     /**
      * @expectedException \InvalidArgumentException
      */
-    public function testInvalidEnergyPowerTo()
+    public function testInvalidEnergyPowerTo() : void
     {
         Measurement::convertEnergy(1.1, EnergyPowerType::JOULS, 'invalid');
     }
@@ -323,7 +323,7 @@ class MeasurementTest extends \PHPUnit\Framework\TestCase
     /**
      * @expectedException \InvalidArgumentException
      */
-    public function testInvalidFileSizeFrom()
+    public function testInvalidFileSizeFrom() : void
     {
         Measurement::convertFileSize(1.1, 'invalid', FileSizeType::KILOBYTE);
     }
@@ -331,7 +331,7 @@ class MeasurementTest extends \PHPUnit\Framework\TestCase
     /**
      * @expectedException \InvalidArgumentException
      */
-    public function testInvalidFileSizeTo()
+    public function testInvalidFileSizeTo() : void
     {
         Measurement::convertFileSize(1.1, FileSizeType::KILOBYTE, 'invalid');
     }

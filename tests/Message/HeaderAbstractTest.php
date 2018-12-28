@@ -21,7 +21,7 @@ class HeaderAbstractTest extends \PHPUnit\Framework\TestCase
 {
     protected $header = null;
 
-    protected function setUp()
+    protected function setUp() : void
     {
         $this->header = new class extends HeaderAbstract
         {
@@ -51,7 +51,7 @@ class HeaderAbstractTest extends \PHPUnit\Framework\TestCase
         };
     }
 
-    public function testSetGet()
+    public function testSetGet() : void
     {
         $this->header->setStatusCode(2);
         self::assertEquals(2, $this->header->getStatusCode());

@@ -17,12 +17,12 @@ use phpOMS\DataStorage\Database\DatabaseExceptionFactory;
 
 class DatabaseExceptionFactoryTest extends \PHPUnit\Framework\TestCase
 {
-    public function testException()
+    public function testException() : void
     {
         self::assertEquals('\PDOException', DatabaseExceptionFactory::createException(new \PDOException()));
     }
 
-    public function testExceptionMessage()
+    public function testExceptionMessage() : void
     {
         self::assertEquals('', DatabaseExceptionFactory::createExceptionMessage(new \PDOException()));
     }

@@ -17,7 +17,7 @@ use phpOMS\Message\Http\RequestMethod;
 
 class RequestMethodTest extends \PHPUnit\Framework\TestCase
 {
-    public function testEnums()
+    public function testEnums() : void
     {
         self::assertEquals(6, \count(RequestMethod::getConstants()));
         self::assertEquals(RequestMethod::getConstants(), array_unique(RequestMethod::getConstants()));

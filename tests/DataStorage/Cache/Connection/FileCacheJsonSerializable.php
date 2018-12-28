@@ -22,7 +22,7 @@ class FileCacheJsonSerializable implements \JsonSerializable
         return 'abc';
     }
 
-    public function unserialize($val)
+    public function unserialize($val) : void
     {
         $this->val = \json_decode($val, true);
     }

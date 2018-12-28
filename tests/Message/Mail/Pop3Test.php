@@ -16,7 +16,7 @@ namespace phpOMS\tests\Message\Mail;
 
 class Pop3Test extends \PHPUnit\Framework\TestCase
 {
-    public function testPlaceholder()
+    public function testPlaceholder() : void
     {
         self::markTestIncomplete();
     }

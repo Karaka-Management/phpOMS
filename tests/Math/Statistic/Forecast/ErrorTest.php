@@ -17,7 +17,7 @@ use phpOMS\Math\Statistic\Forecast\Error;
 
 class ErrorTest extends \PHPUnit\Framework\TestCase
 {
-    public function testForecastError()
+    public function testForecastError() : void
     {
         self::assertEquals(1000 - 700, Error::getForecastError(1000, 700));
         self::assertEquals(
@@ -36,7 +36,7 @@ class ErrorTest extends \PHPUnit\Framework\TestCase
         self::assertEquals([Error::getForecastError(1000, 700)], Error::getForecastErrorArray([1000], [700]));
     }
 
-    public function testErrorPercentage()
+    public function testErrorPercentage() : void
     {
         self::assertEquals(300 / 1000, Error::getPercentageError(300, 1000), '', 0.01);
         self::assertEquals(
@@ -56,7 +56,7 @@ class ErrorTest extends \PHPUnit\Framework\TestCase
         );
     }
 
-    public function testMeanError()
+    public function testMeanError() : void
     {
         $errors = [
             400 - 300,
@@ -70,7 +70,7 @@ class ErrorTest extends \PHPUnit\Framework\TestCase
         self::assertEquals(406.2019, Error::getRootMeanSquaredError($errors), '', 0.01);
     }
 
-    public function testMASE()
+    public function testMASE() : void
     {
         $observed = [
             -2.9, -2.83, -0.95, -0.88, 1.21, -1.67, 0.83, -0.27, 1.36,
@@ -88,7 +88,7 @@ class ErrorTest extends \PHPUnit\Framework\TestCase
         self::assertEquals(0.0983, Error::getMeanAbsoluteScaledError($scaledErrors), '', 0.01);
     }
 
-    public function testScaledError()
+    public function testScaledError() : void
     {
         self::assertEquals(
             [Error::getScaledError(Error::getForecastError(1000, 700), [1000, 800])],

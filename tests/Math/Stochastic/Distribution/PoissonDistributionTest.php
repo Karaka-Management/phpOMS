@@ -17,7 +17,7 @@ use phpOMS\Math\Stochastic\Distribution\PoissonDistribution;
 
 class PoissonDistributionTest extends \PHPUnit\Framework\TestCase
 {
-    public function testPmf()
+    public function testPmf() : void
     {
         $k = 4;
         $l = 3;
@@ -25,7 +25,7 @@ class PoissonDistributionTest extends \PHPUnit\Framework\TestCase
         self::assertEquals(0.16803, PoissonDistribution::getPmf(4, 3), '', 0.01);
     }
 
-    public function testCdf()
+    public function testCdf() : void
     {
         $k = 4;
         $l = 3;
@@ -33,56 +33,56 @@ class PoissonDistributionTest extends \PHPUnit\Framework\TestCase
         self::assertEquals(0.81526, PoissonDistribution::getCdf(4, 3), '', 0.01);
     }
 
-    public function testMode()
+    public function testMode() : void
     {
         $l = 4.6;
 
         self::assertEquals(4, PoissonDistribution::getMode($l), '', 0.01);
     }
 
-    public function testMean()
+    public function testMean() : void
     {
         $l = 4.6;
 
         self::assertEquals($l, PoissonDistribution::getMean($l));
     }
 
-    public function testVariance()
+    public function testVariance() : void
     {
         $l = 4.6;
 
         self::assertEquals($l, PoissonDistribution::getVariance($l));
     }
 
-    public function testSkewness()
+    public function testSkewness() : void
     {
         $l = 4.6;
 
         self::assertEquals(1 / sqrt($l), PoissonDistribution::getSkewness($l));
     }
 
-    public function testExKurtosis()
+    public function testExKurtosis() : void
     {
         $l = 4.6;
 
         self::assertEquals(1 / $l, PoissonDistribution::getExKurtosis($l));
     }
 
-    public function testMedian()
+    public function testMedian() : void
     {
         $l = 4.6;
 
         self::assertEquals(\floor($l + 1 / 3 - 0.02 / $l), PoissonDistribution::getMedian($l));
     }
 
-    public function testFisherInformation()
+    public function testFisherInformation() : void
     {
         $l = 4.6;
 
         self::assertEquals(1 / $l, PoissonDistribution::getFisherInformation($l));
     }
 
-    public function testMgf()
+    public function testMgf() : void
     {
         $l = 4.6;
         $t = 3;

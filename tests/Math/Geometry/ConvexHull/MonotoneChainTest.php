@@ -17,7 +17,7 @@ use phpOMS\Math\Geometry\ConvexHull\MonotoneChain;
 
 class MonotoneChainTest extends \PHPUnit\Framework\TestCase
 {
-    public function testMonotoneChain()
+    public function testMonotoneChain() : void
     {
         self::assertEquals([['x' => 9, 'y' => 0]], MonotoneChain::createConvexHull([['x' => 9, 'y' => 0]]));
 

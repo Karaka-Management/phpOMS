@@ -17,7 +17,7 @@ use phpOMS\Validation\Network\Email;
 
 class EmailTest extends \PHPUnit\Framework\TestCase
 {
-    public function testValidation()
+    public function testValidation() : void
     {
         self::assertTrue(Email::isValid('test.string@email.com'));
         self::assertFalse(Email::isValid('test.string@email'));

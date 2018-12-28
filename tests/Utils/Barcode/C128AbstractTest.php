@@ -19,12 +19,12 @@ class C128AbstractTest extends \PHPUnit\Framework\TestCase
 {
     protected $obj = null;
 
-    protected function setUp()
+    protected function setUp() : void
     {
         $this->obj = new class extends C128Abstract {};
     }
 
-    public function testSetGet()
+    public function testSetGet() : void
     {
         $this->obj->setContent('abc');
         self::assertEquals('abc', $this->obj->getContent());
@@ -33,7 +33,7 @@ class C128AbstractTest extends \PHPUnit\Framework\TestCase
     /**
      * @expectedException \OutOfBoundsException
      */
-    public function testInvalidDimensionWidth()
+    public function testInvalidDimensionWidth() : void
     {
         $this->obj->setDimension(-2, 1);
     }
@@ -41,7 +41,7 @@ class C128AbstractTest extends \PHPUnit\Framework\TestCase
     /**
      * @expectedException \OutOfBoundsException
      */
-    public function testInvalidDimensionHeight()
+    public function testInvalidDimensionHeight() : void
     {
         $this->obj->setDimension(1, -2);
     }
@@ -49,7 +49,7 @@ class C128AbstractTest extends \PHPUnit\Framework\TestCase
     /**
      * @expectedException \phpOMS\Stdlib\Base\Exception\InvalidEnumValue
      */
-    public function testInvalidOrientation()
+    public function testInvalidOrientation() : void
     {
         $this->obj->setOrientation(99);
     }

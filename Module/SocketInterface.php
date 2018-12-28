@@ -32,5 +32,5 @@ interface SocketInterface
      *
      * @since  1.0.0
      */
-    public function callSock();
+    public function callSock() : void;
 }

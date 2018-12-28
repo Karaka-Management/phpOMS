@@ -68,7 +68,7 @@ abstract class PacketAbstract implements \Serializable
      *
      * @since 1.0.0
      */
-    abstract public function unserialize($string);
+    abstract public function unserialize($string) : void;
 
     /**
      * Get packet header.

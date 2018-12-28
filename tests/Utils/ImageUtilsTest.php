@@ -19,7 +19,7 @@ use phpOMS\Utils\ImageUtils;
 
 class ImageUtilsTest extends \PHPUnit\Framework\TestCase
 {
-    public function testImage()
+    public function testImage() : void
     {
         self::assertEquals(
             \file_get_contents(__DIR__ . '/logo.png'),

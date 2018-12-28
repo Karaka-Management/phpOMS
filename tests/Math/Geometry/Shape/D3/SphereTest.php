@@ -17,7 +17,7 @@ use phpOMS\Math\Geometry\Shape\D3\Sphere;
 
 class SphereTest extends \PHPUnit\Framework\TestCase
 {
-    public function testSphere()
+    public function testSphere() : void
     {
         $sphere = new Sphere(3);
         self::assertEquals(113.1, $sphere->getVolume(), '', 0.1);
@@ -26,7 +26,7 @@ class SphereTest extends \PHPUnit\Framework\TestCase
         self::assertEquals(422740, Sphere::distance2PointsOnSphere(32.9697, -96.80322, 29.46786, -98.53506), '', 50);
     }
 
-    public function testGetBy()
+    public function testGetBy() : void
     {
         $sphere = Sphere::byRadius(3);
         self::assertEquals(3, $sphere->getRadius(), '', 0.1);

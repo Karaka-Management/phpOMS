@@ -19,7 +19,7 @@ class TaskAbstractTest extends \PHPUnit\Framework\TestCase
 {
     private $class = null;
 
-    protected function setUp()
+    protected function setUp() : void
     {
         $this->class = new class('') extends TaskAbstract {
             public function __toString() : string
@@ -34,7 +34,7 @@ class TaskAbstractTest extends \PHPUnit\Framework\TestCase
         };
     }
 
-    public function testDefault()
+    public function testDefault() : void
     {
         self::assertEquals('', $this->class->getId());
         self::assertEquals('', $this->class->getCommand());
@@ -45,7 +45,7 @@ class TaskAbstractTest extends \PHPUnit\Framework\TestCase
         self::assertEquals('', $this->class->getInterval());
     }
 
-    public function testGetSet()
+    public function testGetSet() : void
     {
         $this->class->setCommand('Command');
         self::assertEquals('Command', $this->class->getCommand());

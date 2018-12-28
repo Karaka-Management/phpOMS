@@ -21,12 +21,12 @@ require_once __DIR__ . '/../Autoloader.php';
 class UriFactoryTest extends \PHPUnit\Framework\TestCase
 {
 
-    public function testDefault()
+    public function testDefault() : void
     {
         self::assertNull(UriFactory::getQuery('Invalid'));
     }
 
-    public function testSetGet()
+    public function testSetGet() : void
     {
         self::assertTrue(UriFactory::setQuery('Valid', 'query1'));
         self::assertEquals('query1', UriFactory::getQuery('Valid'));
@@ -41,7 +41,7 @@ class UriFactoryTest extends \PHPUnit\Framework\TestCase
         self::assertEquals('query4', UriFactory::getQuery('/valid2'));
     }
 
-    public function testClearing()
+    public function testClearing() : void
     {
         self::assertTrue(UriFactory::clear('Valid'));
         self::assertFalse(UriFactory::clear('Valid'));
@@ -64,7 +64,7 @@ class UriFactoryTest extends \PHPUnit\Framework\TestCase
         self::assertNull(UriFactory::getQuery('/abc'));
     }
 
-    public function testBuilder()
+    public function testBuilder() : void
     {
         $uri = 'www.test-uri.com?id={@ID}&test={.mTest}&two={/path}&hash={#hash}&none=#none&found={/not}?v={/valid2}';
 
@@ -82,7 +82,7 @@ class UriFactoryTest extends \PHPUnit\Framework\TestCase
         self::assertEquals($expected, UriFactory::build($uri, $vars));
     }
 
-    public function testSetup()
+    public function testSetup() : void
     {
         $uri = 'http://www.test-uri.com/path/here?id=123&ab=c#fragi';
 

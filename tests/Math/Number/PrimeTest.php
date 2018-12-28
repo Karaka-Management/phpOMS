@@ -17,20 +17,20 @@ use phpOMS\Math\Number\Prime;
 
 class PrimeTest extends \PHPUnit\Framework\TestCase
 {
-    public function testPrime()
+    public function testPrime() : void
     {
         self::assertTrue(Prime::isPrime(2));
         self::assertTrue(Prime::isPrime(997));
         self::assertFalse(Prime::isPrime(998));
     }
 
-    public function testSieve()
+    public function testSieve() : void
     {
         self::assertTrue(Prime::isPrime(Prime::sieveOfEratosthenes(12)[3]));
         self::assertTrue(Prime::isPrime(Prime::sieveOfEratosthenes(51)[7]));
     }
 
-    public function testRabin()
+    public function testRabin() : void
     {
         self::assertTrue(Prime::rabinTest(2));
         self::assertFalse(Prime::rabinTest(4));
@@ -39,7 +39,7 @@ class PrimeTest extends \PHPUnit\Framework\TestCase
         self::assertFalse(Prime::rabinTest(998));
     }
 
-    public function testMersenne()
+    public function testMersenne() : void
     {
         self::assertEquals(2047, Prime::mersenne(11));
         self::assertTrue(Prime::isMersenne(Prime::mersenne(2)));

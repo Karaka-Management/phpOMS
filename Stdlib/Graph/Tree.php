@@ -127,7 +127,7 @@ class Tree extends Graph
      *
      * @since  1.0.0
      */
-    public function levelOrder(Node $node, \Closure $callback)
+    public function levelOrder(Node $node, \Closure $callback) : void
     {
         $depth = $this->getMaxDepth();
 

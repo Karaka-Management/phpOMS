@@ -86,7 +86,7 @@ final class JsonBuilder implements \Serializable, \JsonSerializable
     /**
      * {@inheritdoc}
      */
-    public function unserialize($serialized)
+    public function unserialize($serialized) : void
     {
         $this->json = \json_decode($serialized, true);
     }

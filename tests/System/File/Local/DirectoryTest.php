@@ -17,7 +17,7 @@ use phpOMS\System\File\Local\Directory;
 
 class DirectoryTest extends \PHPUnit\Framework\TestCase
 {
-    public function testStatic()
+    public function testStatic() : void
     {
         $dirPath = __DIR__ . '/test';
         self::assertTrue(Directory::create($dirPath));
@@ -47,7 +47,7 @@ class DirectoryTest extends \PHPUnit\Framework\TestCase
         self::assertGreaterThan(0, Directory::permission($dirTestPath));
     }
 
-    public function testStaticMove()
+    public function testStaticMove() : void
     {
         $dirTestPath = __DIR__ . '/dirtest';
 
@@ -70,7 +70,7 @@ class DirectoryTest extends \PHPUnit\Framework\TestCase
     /**
      * @expectedException \phpOMS\System\File\PathException
      */
-    public function testInvalidListPath()
+    public function testInvalidListPath() : void
     {
         Directory::list(__DIR__ . '/invalid.txt');
     }
@@ -78,7 +78,7 @@ class DirectoryTest extends \PHPUnit\Framework\TestCase
     /**
      * @expectedException \phpOMS\System\File\PathException
      */
-    public function testInvalidCopyPath()
+    public function testInvalidCopyPath() : void
     {
         Directory::copy(__DIR__ . '/invalid', __DIR__ . '/invalid2');
     }
@@ -86,7 +86,7 @@ class DirectoryTest extends \PHPUnit\Framework\TestCase
     /**
      * @expectedException \phpOMS\System\File\PathException
      */
-    public function testInvalidMovePath()
+    public function testInvalidMovePath() : void
     {
         Directory::move(__DIR__ . '/invalid', __DIR__ . '/invalid2');
     }
@@ -94,7 +94,7 @@ class DirectoryTest extends \PHPUnit\Framework\TestCase
     /**
      * @expectedException \phpOMS\System\File\PathException
      */
-    public function testInvalidCreatedPath()
+    public function testInvalidCreatedPath() : void
     {
         Directory::created(__DIR__ . '/invalid');
     }
@@ -102,7 +102,7 @@ class DirectoryTest extends \PHPUnit\Framework\TestCase
     /**
      * @expectedException \phpOMS\System\File\PathException
      */
-    public function testInvalidChangedPath()
+    public function testInvalidChangedPath() : void
     {
         Directory::changed(__DIR__ . '/invalid');
     }
@@ -110,7 +110,7 @@ class DirectoryTest extends \PHPUnit\Framework\TestCase
     /**
      * @expectedException \phpOMS\System\File\PathException
      */
-    public function testInvalidSizePath()
+    public function testInvalidSizePath() : void
     {
         Directory::size(__DIR__ . '/invalid');
     }
@@ -118,7 +118,7 @@ class DirectoryTest extends \PHPUnit\Framework\TestCase
     /**
      * @expectedException \phpOMS\System\File\PathException
      */
-    public function testInvalidPermissionPath()
+    public function testInvalidPermissionPath() : void
     {
         Directory::permission(__DIR__ . '/invalid');
     }
@@ -126,7 +126,7 @@ class DirectoryTest extends \PHPUnit\Framework\TestCase
     /**
      * @expectedException \phpOMS\System\File\PathException
      */
-    public function testInvalidOwnerPath()
+    public function testInvalidOwnerPath() : void
     {
         Directory::owner(__DIR__ . '/invalid');
     }

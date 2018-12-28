@@ -19,7 +19,7 @@ use phpOMS\Localization\Defaults\City;
 
 class CityTest extends \PHPUnit\Framework\TestCase
 {
-    public function testDefaults()
+    public function testDefaults() : void
     {
         $obj = new City();
         self::assertEquals('', $obj->getName());

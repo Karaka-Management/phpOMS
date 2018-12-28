@@ -18,7 +18,7 @@ use phpOMS\Message\Http\Response;
 
 class ResponseTest extends \PHPUnit\Framework\TestCase
 {
-    public function testDefault()
+    public function testDefault() : void
     {
         $response = new Response(new Localization());
         self::assertEquals('', $response->getBody());
@@ -28,7 +28,7 @@ class ResponseTest extends \PHPUnit\Framework\TestCase
         self::assertInstanceOf('\phpOMS\Message\Http\Header', $response->getHeader());
     }
 
-    public function testSetGet()
+    public function testSetGet() : void
     {
         $response = new Response(new Localization());
 

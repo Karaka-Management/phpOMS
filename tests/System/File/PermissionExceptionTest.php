@@ -17,7 +17,7 @@ use phpOMS\System\File\PermissionException;
 
 class PermissionExceptionTest extends \PHPUnit\Framework\TestCase
 {
-    public function testConstructor()
+    public function testConstructor() : void
     {
         $e = new PermissionException('test.file');
         self::assertContains('test.file', $e->getMessage());

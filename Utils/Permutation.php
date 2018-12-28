@@ -107,7 +107,7 @@ final class Permutation
      * @return mixed
      *
      * @throws \InvalidArgumentException This exception is thrown if the $toPermute argument is neither array or string
-     * @throws \OutOfBoundsException This exception is thrown if the permutation key is larger than the data to permute
+     * @throws \OutOfBoundsException     This exception is thrown if the permutation key is larger than the data to permute
      *
      * @since  1.0.0
      */

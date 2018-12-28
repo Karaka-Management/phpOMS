@@ -19,7 +19,7 @@ use phpOMS\System\SystemType;
 
 class SystemTypeTest extends \PHPUnit\Framework\TestCase
 {
-    public function testEnums()
+    public function testEnums() : void
     {
         self::assertEquals(4, \count(SystemType::getConstants()));
         self::assertEquals(1, SystemType::UNKNOWN);

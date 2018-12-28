@@ -186,7 +186,7 @@ class Notify implements \Serializable, ArrayableInterface, \JsonSerializable
     /**
      * {@inheritdoc}
      */
-    public function unserialize($raw)
+    public function unserialize($raw) : void
     {
         $unserialized = \json_decode($raw, true);
 

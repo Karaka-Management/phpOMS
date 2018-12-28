@@ -19,7 +19,7 @@ use phpOMS\Localization\Defaults\Language;
 
 class LanguageTest extends \PHPUnit\Framework\TestCase
 {
-    public function testDefaults()
+    public function testDefaults() : void
     {
         $obj = new Language();
         self::assertEquals('', $obj->getName());

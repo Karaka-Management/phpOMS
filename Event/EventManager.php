@@ -66,7 +66,7 @@ final class EventManager implements \Countable
     public function __construct(Dispatcher $dispatcher = null)
     {
         $this->dispatcher = $dispatcher ?? new class {
-            public function dispatch($func, ...$data)
+            public function dispatch($func, ...$data) : void
             {
                 $func(...$data);
             }

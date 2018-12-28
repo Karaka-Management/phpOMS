@@ -16,7 +16,7 @@ namespace phpOMS\tests\Socket\Server;
 
 class ClientManagerTest extends \PHPUnit\Framework\TestCase
 {
-    public function testPlaceholder()
+    public function testPlaceholder() : void
     {
         self::markTestIncomplete();
     }

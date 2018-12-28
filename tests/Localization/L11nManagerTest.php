@@ -19,13 +19,13 @@ require_once __DIR__ . '/../Autoloader.php';
 
 class L11nManagerTest extends \PHPUnit\Framework\TestCase
 {
-    public function testAttributes()
+    public function testAttributes() : void
     {
         $l11nManager = new L11nManager('Api');
         self::assertObjectHasAttribute('language', $l11nManager);
     }
 
-    public function testDefault()
+    public function testDefault() : void
     {
         $l11nManager = new L11nManager('Api');
         self::assertFalse($l11nManager->isLanguageLoaded('en'));
@@ -38,7 +38,7 @@ class L11nManagerTest extends \PHPUnit\Framework\TestCase
     /**
      * @expectedException \Exception
      */
-    public function testInvalidModule()
+    public function testInvalidModule() : void
     {
         $expected = [
             'en' => [
@@ -52,7 +52,7 @@ class L11nManagerTest extends \PHPUnit\Framework\TestCase
         $localization->loadLanguage('en', 'doesNotExist', $expected);
     }
 
-    public function testGetSet()
+    public function testGetSet() : void
     {
         $expected = [
             'en' => [
@@ -79,7 +79,7 @@ class L11nManagerTest extends \PHPUnit\Framework\TestCase
         self::assertEquals('Test strin&amp;g2', $l11nManager->getHtml('en', 'Admin', 'RandomThemeDoesNotMatterAlreadyLoaded', 'Test2'));
     }
 
-    public function testGetSetFromFile()
+    public function testGetSetFromFile() : void
     {
         $l11nManager2 = new L11nManager('Api');
         $l11nManager2->loadLanguageFromFile('en', 'Test', __DIR__ . '/langTestFile.php');

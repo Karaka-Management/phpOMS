@@ -17,13 +17,13 @@ use phpOMS\Utils\Encoding\Gray;
 
 class GrayTest extends \PHPUnit\Framework\TestCase
 {
-    public function testEncoding()
+    public function testEncoding() : void
     {
         self::assertEquals(55, Gray::encode(37));
         self::assertEquals(37, Gray::decode(55));
     }
 
-    public function testVolume()
+    public function testVolume() : void
     {
         for ($i = 0; $i < 100; ++$i) {
             $raw = mt_rand(0, 2040140512);

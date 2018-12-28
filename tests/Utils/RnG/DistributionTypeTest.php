@@ -17,7 +17,7 @@ use phpOMS\Utils\RnG\DistributionType;
 
 class DistributionTypeTest extends \PHPUnit\Framework\TestCase
 {
-    public function testEnums()
+    public function testEnums() : void
     {
         self::assertEquals(2, \count(DistributionType::getConstants()));
         self::assertEquals(DistributionType::getConstants(), array_unique(DistributionType::getConstants()));

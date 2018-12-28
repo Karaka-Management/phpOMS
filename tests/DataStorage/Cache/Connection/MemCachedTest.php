@@ -20,7 +20,7 @@ use phpOMS\Utils\TestUtils;
 
 class MemCachedTest extends \PHPUnit\Framework\TestCase
 {
-    protected function setUp()
+    protected function setUp() : void
     {
         if (!extension_loaded('memcached')) {
             $this->markTestSkipped(
@@ -29,7 +29,7 @@ class MemCachedTest extends \PHPUnit\Framework\TestCase
         }
     }
 
-    public function testDefault()
+    public function testDefault() : void
     {
         $cache = new MemCached($GLOBALS['CONFIG']['cache']['memcached']);
 
@@ -40,7 +40,7 @@ class MemCachedTest extends \PHPUnit\Framework\TestCase
         self::assertEquals(null, $cache->get('test'));
     }
 
-    public function testConnect()
+    public function testConnect() : void
     {
         $cache = new MemCached($GLOBALS['CONFIG']['cache']['memcached']);
 
@@ -49,7 +49,7 @@ class MemCachedTest extends \PHPUnit\Framework\TestCase
         self::assertEquals((int) $GLOBALS['CONFIG']['cache']['memcached']['port'], $cache->getPort());
     }
 
-    public function testGetSet()
+    public function testGetSet() : void
     {
         $cache = new MemCached($GLOBALS['CONFIG']['cache']['memcached']);
 
@@ -108,7 +108,7 @@ class MemCachedTest extends \PHPUnit\Framework\TestCase
         );
     }
 
-    public function testBadCacheStatus()
+    public function testBadCacheStatus() : void
     {
         $cache = new MemCached($GLOBALS['CONFIG']['cache']['memcached']);
         $cache->flushAll();
@@ -128,7 +128,7 @@ class MemCachedTest extends \PHPUnit\Framework\TestCase
     /**
      * @expectedException \phpOMS\DataStorage\Cache\Exception\InvalidConnectionConfigException
      */
-    public function testInvalidCacheHost()
+    public function testInvalidCacheHost() : void
     {
         $db = $GLOBALS['CONFIG']['cache']['memcached'];
         unset($db['host']);
@@ -139,7 +139,7 @@ class MemCachedTest extends \PHPUnit\Framework\TestCase
     /**
      * @expectedException \phpOMS\DataStorage\Cache\Exception\InvalidConnectionConfigException
      */
-    public function testInvalidCachePort()
+    public function testInvalidCachePort() : void
     {
         $db = $GLOBALS['CONFIG']['cache']['memcached'];
         unset($db['port']);

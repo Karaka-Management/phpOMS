@@ -18,7 +18,7 @@ use phpOMS\Utils\RnG\StringUtils;
 
 class CaesarTest extends \PHPUnit\Framework\TestCase
 {
-    public function testVolume()
+    public function testVolume() : void
     {
         for ($i = 0; $i < 100; ++$i) {
             $raw = StringUtils::generateString(1, 100);

@@ -39,7 +39,7 @@ class Client extends SocketAbstract
         $this->commands = new CommandManager();
 
         /** @noinspection PhpUnusedParameterInspection */
-        $this->commands->attach('disconnect', function ($conn, $para) {
+        $this->commands->attach('disconnect', function ($conn, $para) : void {
             $this->disconnect();
         }, $this);
     }

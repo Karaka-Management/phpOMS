@@ -20,7 +20,7 @@ use phpOMS\Utils\TestUtils;
 
 class FileCacheTest extends \PHPUnit\Framework\TestCase
 {
-    public function testDefault()
+    public function testDefault() : void
     {
         if (\file_exists(__DIR__ . '/Cache')) {
             \rmdir(__DIR__ . '/Cache');
@@ -40,7 +40,7 @@ class FileCacheTest extends \PHPUnit\Framework\TestCase
         }
     }
 
-    public function testConnect()
+    public function testConnect() : void
     {
         if (\file_exists(__DIR__ . '/Cache')) {
             \rmdir(__DIR__ . '/Cache');
@@ -55,7 +55,7 @@ class FileCacheTest extends \PHPUnit\Framework\TestCase
         }
     }
 
-    public function testGetSet()
+    public function testGetSet() : void
     {
         if (\file_exists(__DIR__ . '/Cache')) {
             \rmdir(__DIR__ . '/Cache');
@@ -127,7 +127,7 @@ class FileCacheTest extends \PHPUnit\Framework\TestCase
         }
     }
 
-    public function testExpire()
+    public function testExpire() : void
     {
         if (\file_exists(__DIR__ . '/Cache')) {
             \rmdir(__DIR__ . '/Cache');
@@ -170,7 +170,7 @@ class FileCacheTest extends \PHPUnit\Framework\TestCase
         }
     }
 
-    public function testBadCacheStatus()
+    public function testBadCacheStatus() : void
     {
         if (\file_exists(__DIR__ . '/Cache')) {
             \rmdir(__DIR__ . '/Cache');
@@ -198,7 +198,7 @@ class FileCacheTest extends \PHPUnit\Framework\TestCase
     /**
      * @expectedException \phpOMS\DataStorage\Cache\Exception\InvalidConnectionConfigException
      */
-    public function testInvalidCachePath()
+    public function testInvalidCachePath() : void
     {
         $cache = new FileCache('/etc/invalidPathOrPermission^$:?><');
     }

@@ -19,7 +19,7 @@ use phpOMS\Router\RouteVerb;
 
 class RouteVerbTest extends \PHPUnit\Framework\TestCase
 {
-    public function testEnum()
+    public function testEnum() : void
     {
         self::assertTrue(\defined('phpOMS\Router\RouteVerb::GET'));
         self::assertTrue(\defined('phpOMS\Router\RouteVerb::PUT'));
@@ -28,7 +28,7 @@ class RouteVerbTest extends \PHPUnit\Framework\TestCase
         self::assertTrue(\defined('phpOMS\Router\RouteVerb::ANY'));
     }
 
-    public function testEnumUnique()
+    public function testEnumUnique() : void
     {
         $values = RouteVerb::getConstants();
         self::assertEquals(\count($values), array_sum(array_count_values($values)));

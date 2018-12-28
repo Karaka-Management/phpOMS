@@ -19,7 +19,7 @@ use phpOMS\Module\InfoManager;
 
 class InfoManagerTest extends \PHPUnit\Framework\TestCase
 {
-    public function testInfoManager()
+    public function testInfoManager() : void
     {
         $info = new InfoManager(__DIR__ . '/info-test.json');
         $info->load();
@@ -53,7 +53,7 @@ class InfoManagerTest extends \PHPUnit\Framework\TestCase
     /**
      * @expectedException \phpOMS\System\File\PathException
      */
-    public function testInvalidPathLoad()
+    public function testInvalidPathLoad() : void
     {
         $info = new InfoManager(__DIR__ . '/invalid.json');
         $info->load();
@@ -62,7 +62,7 @@ class InfoManagerTest extends \PHPUnit\Framework\TestCase
     /**
      * @expectedException \phpOMS\System\File\PathException
      */
-    public function testInvalidPathUpdate()
+    public function testInvalidPathUpdate() : void
     {
         $info = new InfoManager(__DIR__ . '/invalid.json');
         $info->update();
@@ -71,7 +71,7 @@ class InfoManagerTest extends \PHPUnit\Framework\TestCase
     /**
      * @expectedException \InvalidArgumentException
      */
-    public function testInvalidDataSet()
+    public function testInvalidDataSet() : void
     {
         $info = new InfoManager(__DIR__ . '/info-test.json');
         $info->load();
@@ -79,7 +79,7 @@ class InfoManagerTest extends \PHPUnit\Framework\TestCase
         $testObj = new class {
             public $test = 1;
 
-            public function test()
+            public function test() : void
             {
                 echo $this->test;
             }

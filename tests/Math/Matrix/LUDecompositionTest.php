@@ -19,7 +19,7 @@ use phpOMS\Math\Matrix\Vector;
 
 class LUDecompositionTest extends \PHPUnit\Framework\TestCase
 {
-    public function testDecomposition()
+    public function testDecomposition() : void
     {
         $B = new Matrix();
         $B->setMatrix([
@@ -49,7 +49,7 @@ class LUDecompositionTest extends \PHPUnit\Framework\TestCase
         self::assertEquals([0, 1, 2], $lu->getPivot());
     }
 
-    public function testSingularMatrix()
+    public function testSingularMatrix() : void
     {
         $B = new Matrix();
         $B->setMatrix([
@@ -66,7 +66,7 @@ class LUDecompositionTest extends \PHPUnit\Framework\TestCase
     /**
      * @expectedException \Exception
      */
-    public function testSolveOfSingularMatrix()
+    public function testSolveOfSingularMatrix() : void
     {
         $B = new Matrix();
         $B->setMatrix([
@@ -83,7 +83,7 @@ class LUDecompositionTest extends \PHPUnit\Framework\TestCase
         $lu->solve($vec);
     }
 
-    public function testComposition()
+    public function testComposition() : void
     {
         $A = new Matrix();
         $A->setMatrix([
@@ -106,7 +106,7 @@ class LUDecompositionTest extends \PHPUnit\Framework\TestCase
     /**
      * @expectedException \phpOMS\Math\Matrix\Exception\InvalidDimensionException
      */
-    public function testInvalidDimension()
+    public function testInvalidDimension() : void
     {
         $B = new Matrix();
         $B->setMatrix([

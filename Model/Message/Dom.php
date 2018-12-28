@@ -146,7 +146,7 @@ class Dom implements \Serializable, ArrayableInterface
     /**
      * {@inheritdoc}
      */
-    public function unserialize($raw)
+    public function unserialize($raw) : void
     {
         $unserialized = \json_decode($raw, true);
 

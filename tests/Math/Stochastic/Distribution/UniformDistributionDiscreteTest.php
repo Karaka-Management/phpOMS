@@ -17,7 +17,7 @@ use phpOMS\Math\Stochastic\Distribution\UniformDistributionDiscrete;
 
 class UniformDistributionDiscreteTest extends \PHPUnit\Framework\TestCase
 {
-    public function testPmf()
+    public function testPmf() : void
     {
         $a = 1;
         $b = 4;
@@ -25,7 +25,7 @@ class UniformDistributionDiscreteTest extends \PHPUnit\Framework\TestCase
         self::assertEquals(1 / ($b - $a + 1), UniformDistributionDiscrete::getPmf($a, $b));
     }
 
-    public function testCdf()
+    public function testCdf() : void
     {
         $a = 1;
         $b = 4;
@@ -34,12 +34,12 @@ class UniformDistributionDiscreteTest extends \PHPUnit\Framework\TestCase
         self::assertEquals(($k - $a + 1) / ($b - $a + 1), UniformDistributionDiscrete::getCdf($k, $a, $b));
     }
 
-    public function testSkewness()
+    public function testSkewness() : void
     {
         self::assertEquals(0, UniformDistributionDiscrete::getSkewness());
     }
 
-    public function testMean()
+    public function testMean() : void
     {
         $a = 1;
         $b = 4;
@@ -47,7 +47,7 @@ class UniformDistributionDiscreteTest extends \PHPUnit\Framework\TestCase
         self::assertEquals(1 / 2 * ($a + $b), UniformDistributionDiscrete::getMean($a, $b));
     }
 
-    public function testMedian()
+    public function testMedian() : void
     {
         $a = 1;
         $b = 4;
@@ -55,7 +55,7 @@ class UniformDistributionDiscreteTest extends \PHPUnit\Framework\TestCase
         self::assertEquals(1 / 2 * ($a + $b), UniformDistributionDiscrete::getMedian($a, $b));
     }
 
-    public function testVariance()
+    public function testVariance() : void
     {
         $a = 1;
         $b = 4;
@@ -63,7 +63,7 @@ class UniformDistributionDiscreteTest extends \PHPUnit\Framework\TestCase
         self::assertEquals((($b - $a + 1) ** 2 - 1) / 12, UniformDistributionDiscrete::getVariance($a, $b));
     }
 
-    public function testExKurtosis()
+    public function testExKurtosis() : void
     {
         $a = 1;
         $b = 4;
@@ -75,7 +75,7 @@ class UniformDistributionDiscreteTest extends \PHPUnit\Framework\TestCase
     /**
      * @expectedException \OutOfBoundsException
      */
-    public function testCdfExceptionUpper()
+    public function testCdfExceptionUpper() : void
     {
         UniformDistributionDiscrete::getCdf(5, 2, 4);
     }
@@ -83,7 +83,7 @@ class UniformDistributionDiscreteTest extends \PHPUnit\Framework\TestCase
     /**
      * @expectedException \OutOfBoundsException
      */
-    public function testCdfExceptionLower()
+    public function testCdfExceptionLower() : void
     {
         UniformDistributionDiscrete::getCdf(1, 2, 4);
     }

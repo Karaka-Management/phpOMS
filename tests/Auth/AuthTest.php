@@ -19,7 +19,7 @@ require_once __DIR__ . '/../Autoloader.php';
 
 class AuthTest extends \PHPUnit\Framework\TestCase
 {
-    public function testWithHttpSession()
+    public function testWithHttpSession() : void
     {
         self::assertEquals(0, Auth::authenticate($GLOBALS['httpSession']));
 

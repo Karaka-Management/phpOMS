@@ -18,7 +18,7 @@ use phpOMS\DataStorage\Cache\Connection\FileCache;
 
 class CachePoolTest extends \PHPUnit\Framework\TestCase
 {
-    public function testDefault()
+    public function testDefault() : void
     {
         $pool = new CachePool();
 
@@ -26,7 +26,7 @@ class CachePoolTest extends \PHPUnit\Framework\TestCase
         self::assertInstanceOf('\phpOMS\DataStorage\Cache\Connection\NullCache', $pool->get());
     }
 
-    public function testGetSet()
+    public function testGetSet() : void
     {
         $pool = new CachePool();
 

@@ -18,7 +18,7 @@ use phpOMS\Model\Html\Head;
 
 class HeadTest extends \PHPUnit\Framework\TestCase
 {
-    public function testDefault()
+    public function testDefault() : void
     {
         $head = new Head();
         self::assertInstanceOf('\phpOMS\Model\Html\Meta', $head->getMeta());
@@ -33,7 +33,7 @@ class HeadTest extends \PHPUnit\Framework\TestCase
         self::assertEquals('<meta name="generator" content="Orange Management">', $head->render());
     }
 
-    public function testSetGet()
+    public function testSetGet() : void
     {
         $head = new Head();
 

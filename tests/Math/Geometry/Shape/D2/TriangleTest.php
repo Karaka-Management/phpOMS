@@ -17,7 +17,7 @@ use phpOMS\Math\Geometry\Shape\D2\Triangle;
 
 class TriangleTest extends \PHPUnit\Framework\TestCase
 {
-    public function testTriangle()
+    public function testTriangle() : void
     {
         self::assertEquals(3, Triangle::getSurface(2, 3), '', 0.001);
         self::assertEquals(9, Triangle::getPerimeter(2, 3, 4), '', 0.001);

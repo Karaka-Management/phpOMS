@@ -20,7 +20,7 @@ require_once __DIR__ . '/../Autoloader.php';
 
 class FileLoggerTest extends \PHPUnit\Framework\TestCase
 {
-    public function testAttributes()
+    public function testAttributes() : void
     {
         $log = FileLogger::getInstance(__DIR__);
         self::assertObjectHasAttribute('fp', $log);
@@ -31,7 +31,7 @@ class FileLoggerTest extends \PHPUnit\Framework\TestCase
         }
     }
 
-    public function testDefault()
+    public function testDefault() : void
     {
         if (\file_exists(__DIR__ . '/' . date('Y-m-d') . '.log')) {
             \unlink(__DIR__ . '/' . date('Y-m-d') . '.log');
@@ -48,7 +48,7 @@ class FileLoggerTest extends \PHPUnit\Framework\TestCase
         }
     }
 
-    public function testGetSet()
+    public function testGetSet() : void
     {
         if (\file_exists(__DIR__ . '/test.log')) {
             \unlink(__DIR__ . '/test.log');
@@ -150,7 +150,7 @@ class FileLoggerTest extends \PHPUnit\Framework\TestCase
     /**
      * @expectedException phpOMS\Stdlib\Base\Exception\InvalidEnumValue
      */
-    public function testLogException()
+    public function testLogException() : void
     {
         $log = new FileLogger(__DIR__ . '/test.log');
         $log->log('testException', FileLogger::MSG_FULL, [
@@ -160,14 +160,14 @@ class FileLoggerTest extends \PHPUnit\Framework\TestCase
         ]);
     }
 
-    public function testTiming()
+    public function testTiming() : void
     {
         self::assertTrue(FileLogger::startTimeLog('test'));
         self::assertFalse(FileLogger::startTimeLog('test'));
         self::assertGreaterThan(0.0, FileLogger::endTimeLog('test'));
     }
 
-    public static function tearDownAfterClass()
+    public static function tearDownAfterClass() : void
     {
         if (\file_exists(__DIR__ . '/test.log')) {
             \unlink(__DIR__ . '/test.log');

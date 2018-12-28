@@ -19,7 +19,7 @@ use phpOMS\Uri\UriScheme;
 
 class UriSchemeTest extends \PHPUnit\Framework\TestCase
 {
-    public function testEnum()
+    public function testEnum() : void
     {
         self::assertTrue(\defined('phpOMS\Uri\UriScheme::HTTP'));
         self::assertTrue(\defined('phpOMS\Uri\UriScheme::FILE'));
@@ -38,7 +38,7 @@ class UriSchemeTest extends \PHPUnit\Framework\TestCase
         self::assertTrue(\defined('phpOMS\Uri\UriScheme::ITMS'));
     }
 
-    public function testEnumUnique()
+    public function testEnumUnique() : void
     {
         $values = UriScheme::getConstants();
         self::assertEquals(\count($values), array_sum(array_count_values($values)));

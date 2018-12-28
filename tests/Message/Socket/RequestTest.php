@@ -16,7 +16,7 @@ namespace phpOMS\tests\Message\Socket;
 
 class RequestTest extends \PHPUnit\Framework\TestCase
 {
-    public function testPlaceholder()
+    public function testPlaceholder() : void
     {
         self::markTestIncomplete();
     }

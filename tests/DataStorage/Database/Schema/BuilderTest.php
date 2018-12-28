@@ -20,33 +20,33 @@ class BuilderTest extends \PHPUnit\Framework\TestCase
 {
     protected $con = null;
 
-    protected function setUp()
+    protected function setUp() : void
     {
         $this->con = new MysqlConnection($GLOBALS['CONFIG']['db']['core']['masters']['admin']);
     }
 
-    public function testMysqlDrop()
+    public function testMysqlDrop() : void
     {
         $query = new Builder($this->con);
         $sql   = 'DROP DATABASE `test`;';
         self::assertEquals($sql, $query->drop('test')->toSql());
     }
 
-    public function testMysqlShowTables()
+    public function testMysqlShowTables() : void
     {
         $query = new Builder($this->con);
         $sql   = 'SELECT `table_name` FROM `information_schema`.`tables` WHERE `information_schema`.`tables`.`table_schema` = \'' . $GLOBALS['CONFIG']['db']['core']['masters']['admin']['database']. '\';';
         self::assertEquals($sql, $query->selectTables()->toSql());
     }
 
-    public function testMysqlShowFields()
+    public function testMysqlShowFields() : void
     {
         $query = new Builder($this->con);
         $sql   = 'SELECT * FROM `information_schema`.`columns` WHERE `information_schema`.`columns`.`table_schema` = \'' . $GLOBALS['CONFIG']['db']['core']['masters']['admin']['database']. '\' AND `information_schema`.`columns`.`table_name` = \'test\';';
         self::assertEquals($sql, $query->selectFields('test')->toSql());
     }
 
-    public function testMysqlCreateTable()
+    public function testMysqlCreateTable() : void
     {
         $query = new Builder($this->con);
         $sql   = 'CREATE TABLE `user_roles` (`user_id` INT NOT NULL AUTO_INCREMENT, `role_id` VARCHAR(10) DEFAULT \'1\' NULL, PRIMARY KEY (`user_id`), FOREIGN KEY (`user_id`) REFERENCES `users` (`ext1_id`), FOREIGN KEY (`role_id`) REFERENCES `roles` (`ext2_id`)) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1;';

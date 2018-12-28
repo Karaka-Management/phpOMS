@@ -17,7 +17,7 @@ use phpOMS\Utils\IO\Zip\Zip;
 
 class ZipTest extends \PHPUnit\Framework\TestCase
 {
-    protected function setUp()
+    protected function setUp() : void
     {
         if (!extension_loaded('zip')) {
             $this->markTestSkipped(
@@ -26,7 +26,7 @@ class ZipTest extends \PHPUnit\Framework\TestCase
         }
     }
 
-    public function testZip()
+    public function testZip() : void
     {
         self::assertTrue(Zip::pack(
             [

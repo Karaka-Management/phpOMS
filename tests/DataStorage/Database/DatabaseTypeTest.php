@@ -17,7 +17,7 @@ use phpOMS\DataStorage\Database\DatabaseType;
 
 class DatabaseTypeTest extends \PHPUnit\Framework\TestCase
 {
-    public function testEnums()
+    public function testEnums() : void
     {
         self::assertEquals(5, \count(DatabaseType::getConstants()));
         self::assertEquals('mysql', DatabaseType::MYSQL);

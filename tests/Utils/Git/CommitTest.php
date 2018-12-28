@@ -21,7 +21,7 @@ use phpOMS\Utils\Git\Tag;
 
 class CommitTest extends \PHPUnit\Framework\TestCase
 {
-    public function testDefault()
+    public function testDefault() : void
     {
         $commit = new Commit();
         self::assertEquals('', $commit->getId());
@@ -34,7 +34,7 @@ class CommitTest extends \PHPUnit\Framework\TestCase
         self::assertInstanceOf('\DateTime', $commit->getDate());
     }
 
-    public function testAddRemoveFile()
+    public function testAddRemoveFile() : void
     {
         $commit = new Commit();
 
@@ -53,7 +53,7 @@ class CommitTest extends \PHPUnit\Framework\TestCase
         ], $commit->getFiles());
     }
 
-    public function testChanges()
+    public function testChanges() : void
     {
         $commit = new Commit();
 
@@ -72,14 +72,14 @@ class CommitTest extends \PHPUnit\Framework\TestCase
     /**
      * @expectedException \Exception
      */
-    public function testDuplicateLineChange()
+    public function testDuplicateLineChange() : void
     {
         $commit = new Commit();
         $commit->addChanges(__DIR__ . '/CommitTest.php', 1, '<?php', 'test');
         $commit->addChanges(__DIR__ . '/CommitTest.php', 1, '<?php', 'test');
     }
 
-    public function testMessage()
+    public function testMessage() : void
     {
         $commit = new Commit();
 
@@ -87,7 +87,7 @@ class CommitTest extends \PHPUnit\Framework\TestCase
         self::assertEquals('My Message', $commit->getMessage());
     }
 
-    public function testAuthor()
+    public function testAuthor() : void
     {
         $commit = new Commit();
 
@@ -95,7 +95,7 @@ class CommitTest extends \PHPUnit\Framework\TestCase
         self::assertEquals('Orange', $commit->getAuthor()->getName());
     }
 
-    public function testBranch()
+    public function testBranch() : void
     {
         $commit = new Commit();
 
@@ -103,7 +103,7 @@ class CommitTest extends \PHPUnit\Framework\TestCase
         self::assertEquals('develop', $commit->getBranch()->getName());
     }
 
-    public function testTag()
+    public function testTag() : void
     {
         $commit = new Commit();
 
@@ -111,7 +111,7 @@ class CommitTest extends \PHPUnit\Framework\TestCase
         self::assertEquals('1.0.0', $commit->getTag()->getName());
     }
 
-    public function testDate()
+    public function testDate() : void
     {
         $commit = new Commit();
 
@@ -119,7 +119,7 @@ class CommitTest extends \PHPUnit\Framework\TestCase
         self::assertEquals($date->format('Y-m-d'), $commit->getDate()->format('Y-m-d'));
     }
 
-    public function testRepository()
+    public function testRepository() : void
     {
         $commit = new Commit();
 

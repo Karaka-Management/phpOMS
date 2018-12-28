@@ -457,7 +457,7 @@ final class Directory extends FileAbstract implements DirectoryInterface
     /**
      * {@inheritdoc}
      */
-    public function rewind()
+    public function rewind() : void
     {
         \reset($this->nodes);
     }
@@ -499,7 +499,7 @@ final class Directory extends FileAbstract implements DirectoryInterface
     /**
      * {@inheritdoc}
      */
-    public function offsetSet($offset, $value)
+    public function offsetSet($offset, $value) : void
     {
         if ($offset === null) {
             $this->addNode($value);
@@ -519,7 +519,7 @@ final class Directory extends FileAbstract implements DirectoryInterface
     /**
      * {@inheritdoc}
      */
-    public function offsetUnset($offset)
+    public function offsetUnset($offset) : void
     {
         if (isset($this->nodes[$offset])) {
             unset($this->nodes[$offset]);
@@ -595,7 +595,7 @@ final class Directory extends FileAbstract implements DirectoryInterface
     /**
      * {@inheritdoc}
      */
-    public function offsetGet($offset)
+    public function offsetGet($offset) : void
     {
         // TODO: Implement offsetGet() method.
     }

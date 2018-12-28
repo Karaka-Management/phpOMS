@@ -22,7 +22,7 @@ use phpOMS\Uri\Argument;
 
 class RequestTest extends \PHPUnit\Framework\TestCase
 {
-    public function testDefault()
+    public function testDefault() : void
     {
         $request = new Request();
 
@@ -39,7 +39,7 @@ class RequestTest extends \PHPUnit\Framework\TestCase
         self::assertEquals(null, $request->getData('key'));
     }
 
-    public function testSetGet()
+    public function testSetGet() : void
     {
         $request = new Request(new Argument('get:some/test/path'), $l11n = new Localization());
 
@@ -80,7 +80,7 @@ class RequestTest extends \PHPUnit\Framework\TestCase
         self::assertEquals('get:some/test/path2', $request->__toString());
     }
 
-    public function testToString()
+    public function testToString() : void
     {
         $request = new Request(new Argument('get:some/test/path'));
         self::assertEquals('get:some/test/path', $request->__toString());
@@ -96,7 +96,7 @@ class RequestTest extends \PHPUnit\Framework\TestCase
     /**
      * @expectedException \Exception
      */
-    public function testInvalidRouteVerb()
+    public function testInvalidRouteVerb() : void
     {
         $request = new Request(new Argument('get:some/test/path'));
         $request->setMethod('failure');

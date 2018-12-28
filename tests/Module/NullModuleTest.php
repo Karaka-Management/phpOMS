@@ -20,7 +20,7 @@ use phpOMS\Module\NullModule;
 
 class NullModuleTest extends \PHPUnit\Framework\TestCase
 {
-    public function testModule()
+    public function testModule() : void
     {
         $app = new class extends ApplicationAbstract
         {

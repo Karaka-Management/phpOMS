@@ -16,7 +16,7 @@ namespace phpOMS\tests\Socket\Packets;
 
 class HeaderTest extends \PHPUnit\Framework\TestCase
 {
-    public function testPlaceholder()
+    public function testPlaceholder() : void
     {
         self::markTestIncomplete();
     }

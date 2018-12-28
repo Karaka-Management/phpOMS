@@ -15,27 +15,27 @@ namespace phpOMS\tests;
 
 class ExtensionTest extends \PHPUnit\Framework\TestCase
 {
-    public function testExtensionMbstring()
+    public function testExtensionMbstring() : void
     {
         self::assertTrue(extension_loaded('mbstring'));
     }
 
-    public function testExtensionCurl()
+    public function testExtensionCurl() : void
     {
         self::assertTrue(extension_loaded('curl'));
     }
 
-    public function testExtensionImap()
+    public function testExtensionImap() : void
     {
         self::assertTrue(extension_loaded('imap'));
     }
 
-    public function testExtensionPdo()
+    public function testExtensionPdo() : void
     {
         self::assertTrue(extension_loaded('pdo'));
     }
 
-    public function testExtensionGD()
+    public function testExtensionGD() : void
     {
         self::assertTrue(extension_loaded('gd') || extension_loaded('gd2'));
     }

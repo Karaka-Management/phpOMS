@@ -19,7 +19,7 @@ use phpOMS\Localization\Defaults\Country;
 
 class CountryTest extends \PHPUnit\Framework\TestCase
 {
-    public function testDefaults()
+    public function testDefaults() : void
     {
         $obj = new Country();
         self::assertEquals('', $obj->getName());

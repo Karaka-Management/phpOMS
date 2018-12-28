@@ -17,7 +17,7 @@ use phpOMS\Validation\Base\Json;
 
 class JsonTest extends \PHPUnit\Framework\TestCase
 {
-    public function testJson()
+    public function testJson() : void
     {
         $template = \json_decode(file_get_contents(__DIR__ . '/json/template.json'), true);
 

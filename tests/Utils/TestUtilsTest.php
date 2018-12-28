@@ -19,7 +19,7 @@ use phpOMS\Utils\TestUtils;
 
 class TestUtilsTest extends \PHPUnit\Framework\TestCase
 {
-    public function testGet()
+    public function testGet() : void
     {
         $class = new TestUtilsClass();
 
@@ -31,7 +31,7 @@ class TestUtilsTest extends \PHPUnit\Framework\TestCase
         self::assertNull(TestUtils::getMember($class, 'e'));
     }
 
-    public function testSet()
+    public function testSet() : void
     {
         $class = new TestUtilsClass();
 

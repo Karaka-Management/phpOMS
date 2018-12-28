@@ -17,13 +17,13 @@ use phpOMS\Stdlib\Base\SmartDateTime;
 
 class SmartDateTimeTest extends \PHPUnit\Framework\TestCase
 {
-    public function testAttributes()
+    public function testAttributes() : void
     {
         $datetime = new SmartDateTime();
         self::assertInstanceOf('\DateTime', $datetime);
     }
 
-    public function testGetSet()
+    public function testGetSet() : void
     {
         $datetime = new SmartDateTime('1970-01-01');
         self::assertEquals('1970-01-01', $datetime->format('Y-m-d'));

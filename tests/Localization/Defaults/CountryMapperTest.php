@@ -21,7 +21,7 @@ use phpOMS\Localization\Defaults\CountryMapper;
 
 class CountryMapperTest extends \PHPUnit\Framework\TestCase
 {
-    static function setUpBeforeClass()
+    public static function setUpBeforeClass() : void
     {
         $con = new SqliteConnection([
             'prefix' => '',
@@ -32,7 +32,7 @@ class CountryMapperTest extends \PHPUnit\Framework\TestCase
         DataMapperAbstract::setConnection($con);
     }
 
-    public function testR()
+    public function testR() : void
     {
         $obj = CountryMapper::get(83);
         self::assertEquals('Germany', $obj->getName());
@@ -42,7 +42,7 @@ class CountryMapperTest extends \PHPUnit\Framework\TestCase
         self::assertEquals('ISO 3166-2:DE', $obj->getSubdevision());
     }
 
-    static function tearDownAfterClass()
+    public static function tearDownAfterClass() : void
     {
         DataMapperAbstract::setConnection($GLOBALS['dbpool']->get());
     }

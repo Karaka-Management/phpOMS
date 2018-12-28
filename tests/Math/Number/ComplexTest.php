@@ -17,7 +17,7 @@ use phpOMS\Math\Number\Complex;
 
 class ComplexTest extends \PHPUnit\Framework\TestCase
 {
-    public function testDefault()
+    public function testDefault() : void
     {
         $cpl = new Complex();
         self::assertEquals(0, $cpl->re());
@@ -25,14 +25,14 @@ class ComplexTest extends \PHPUnit\Framework\TestCase
         self::assertEquals('', $cpl->render());
     }
 
-    public function testSetGet()
+    public function testSetGet() : void
     {
         $cpl = new Complex(1, 2);
         self::assertEquals(1, $cpl->re());
         self::assertEquals(2, $cpl->im());
     }
 
-    public function testAdd()
+    public function testAdd() : void
     {
         $cpl1 = new Complex(2, 3);
         $cpl2 = new Complex(3, 4);
@@ -41,7 +41,7 @@ class ComplexTest extends \PHPUnit\Framework\TestCase
         self::assertEquals('6.00 + 3.00i', $cpl1->add(4)->render());
     }
 
-    public function testSub()
+    public function testSub() : void
     {
         $cpl1 = new Complex(2, 3);
         $cpl2 = new Complex(3, 4);
@@ -50,7 +50,7 @@ class ComplexTest extends \PHPUnit\Framework\TestCase
         self::assertEquals('-2.00 + 3.00i', $cpl1->sub(4)->render());
     }
 
-    public function testMult()
+    public function testMult() : void
     {
         $cpl1 = new Complex(2, 3);
         $cpl2 = new Complex(3, 4);
@@ -59,7 +59,7 @@ class ComplexTest extends \PHPUnit\Framework\TestCase
         self::assertEquals('8.00 + 12.00i', $cpl1->mult(4)->render());
     }
 
-    public function testDiv()
+    public function testDiv() : void
     {
         $cpl1 = new Complex(2, 3);
         $cpl2 = new Complex(3, 4);
@@ -68,21 +68,21 @@ class ComplexTest extends \PHPUnit\Framework\TestCase
         self::assertEquals('0.50 + 0.75i', $cpl1->div(4)->render(2));
     }
 
-    public function testConjugate()
+    public function testConjugate() : void
     {
         $cpl = new Complex(4, 3);
 
         self::assertEquals('4 - 3i', $cpl->conjugate()->render(0));
     }
 
-    public function testReciprocal()
+    public function testReciprocal() : void
     {
         $cpl = new Complex(4, 3);
 
         self::assertEquals('0.16 - 0.12i', $cpl->reciprocal()->render(2));
     }
 
-    public function testPower()
+    public function testPower() : void
     {
         $cpl = new Complex(4, 3);
 
@@ -91,14 +91,14 @@ class ComplexTest extends \PHPUnit\Framework\TestCase
         self::assertEquals('-44.00 + 117.00i', $cpl->pow(3)->render());
     }
 
-    public function testAbs()
+    public function testAbs() : void
     {
         $cpl = new Complex(4, 3);
 
         self::assertEquals(5, $cpl->abs(), '', 0.01);
     }
 
-    public function testSqrt()
+    public function testSqrt() : void
     {
         $cpl = new Complex(4, 3);
         self::assertEquals('2.12 + 0.71i', $cpl->sqrt()->render());
@@ -110,7 +110,7 @@ class ComplexTest extends \PHPUnit\Framework\TestCase
     /**
      * @expectedException \InvalidArgumentException
      */
-    public function testInvalidAdd()
+    public function testInvalidAdd() : void
     {
         $cpl = new Complex(4, 3);
         $cpl->add(true);
@@ -119,7 +119,7 @@ class ComplexTest extends \PHPUnit\Framework\TestCase
     /**
      * @expectedException \InvalidArgumentException
      */
-    public function testInvalidSub()
+    public function testInvalidSub() : void
     {
         $cpl = new Complex(4, 3);
         $cpl->sub(true);
@@ -128,7 +128,7 @@ class ComplexTest extends \PHPUnit\Framework\TestCase
     /**
      * @expectedException \InvalidArgumentException
      */
-    public function testInvalidMult()
+    public function testInvalidMult() : void
     {
         $cpl = new Complex(4, 3);
         $cpl->mult(true);
@@ -137,7 +137,7 @@ class ComplexTest extends \PHPUnit\Framework\TestCase
     /**
      * @expectedException \InvalidArgumentException
      */
-    public function testInvalidDiv()
+    public function testInvalidDiv() : void
     {
         $cpl = new Complex(4, 3);
         $cpl->div(true);
@@ -146,7 +146,7 @@ class ComplexTest extends \PHPUnit\Framework\TestCase
     /**
      * @expectedException \InvalidArgumentException
      */
-    public function testInvalidPow()
+    public function testInvalidPow() : void
     {
         $cpl = new Complex(4, 3);
         $cpl->pow(true);

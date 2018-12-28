@@ -24,7 +24,7 @@ class ModuleManagerTest extends \PHPUnit\Framework\TestCase
 {
     protected $app = null;
 
-    protected function setUp()
+    protected function setUp() : void
     {
         $this->app             = new class extends ApplicationAbstract { protected $appName = 'Api'; };
         $this->app->appName    = 'Api';
@@ -32,7 +32,7 @@ class ModuleManagerTest extends \PHPUnit\Framework\TestCase
         $this->app->dispatcher = new Dispatcher($this->app);
     }
 
-    public function testAttributes()
+    public function testAttributes() : void
     {
         $moduleManager = new ModuleManager($this->app, __DIR__ . '/../../../Modules');
         self::assertInstanceOf('\phpOMS\Module\ModuleManager', $moduleManager);
@@ -44,20 +44,20 @@ class ModuleManagerTest extends \PHPUnit\Framework\TestCase
         self::assertObjectHasAttribute('uriLoad', $moduleManager);
     }
 
-    public function testUnknownModuleInit()
+    public function testUnknownModuleInit() : void
     {
         $moduleManager = new ModuleManager($this->app, __DIR__ . '/../../../Modules');
         $moduleManager->initModule('doesNotExist');
         self::assertInstanceOf('\phpOMS\Module\NullModule', $moduleManager->get('doesNotExist'));
     }
 
-    public function testUnknownModuleGet()
+    public function testUnknownModuleGet() : void
     {
         $moduleManager = new ModuleManager($this->app, __DIR__ . '/../../../Modules');
         self::assertInstanceOf('\phpOMS\Module\NullModule', $moduleManager->get('doesNotExist2'));
     }
 
-    public function testUnknwonModuleModification()
+    public function testUnknwonModuleModification() : void
     {
         $moduleManager = new ModuleManager($this->app, __DIR__ . '/../../../Modules');
 
@@ -65,7 +65,7 @@ class ModuleManagerTest extends \PHPUnit\Framework\TestCase
         self::assertFalse($moduleManager->deactivate('randomErrorTest1'));
     }
 
-    public function testGetSet()
+    public function testGetSet() : void
     {
         $this->app->router     = new Router();
         $this->app->dispatcher = new Dispatcher($this->app);

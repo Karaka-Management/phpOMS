@@ -17,7 +17,7 @@ use phpOMS\Message\Http\RequestStatus;
 
 class RequestStatusTest extends \PHPUnit\Framework\TestCase
 {
-    public function testEnums()
+    public function testEnums() : void
     {
         self::assertEquals(55, \count(RequestStatus::getConstants()));
         self::assertEquals(RequestStatus::getConstants(), array_unique(RequestStatus::getConstants()));

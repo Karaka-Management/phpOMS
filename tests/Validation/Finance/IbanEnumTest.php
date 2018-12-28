@@ -17,7 +17,7 @@ use phpOMS\Validation\Finance\IbanEnum;
 
 class IbanEnumTest extends \PHPUnit\Framework\TestCase
 {
-    public function testEnums()
+    public function testEnums() : void
     {
         $enums = IbanEnum::getConstants();
         $ok    = true;

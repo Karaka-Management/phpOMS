@@ -19,12 +19,12 @@ require_once __DIR__ . '/../Autoloader.php';
 
 class StringUtilsTest extends \PHPUnit\Framework\TestCase
 {
-    public function testEvaluation()
+    public function testEvaluation() : void
     {
         self::assertTrue(\abs(2.5 - StringUtils::getEntropy('akj@!0aj')) < 0.1);
     }
 
-    public function testStartsEnds()
+    public function testStartsEnds() : void
     {
         $string = 'This is a test string.';
         self::assertTrue(StringUtils::startsWith($string, 'This '));
@@ -38,7 +38,7 @@ class StringUtilsTest extends \PHPUnit\Framework\TestCase
         self::assertFalse(StringUtils::mb_endsWith($string, 'strng.'));
     }
 
-    public function testTransform()
+    public function testTransform() : void
     {
         self::assertEquals('This ', StringUtils::mb_ucfirst('this '));
         self::assertNotEquals('this ', StringUtils::mb_ucfirst('this '));
@@ -46,7 +46,7 @@ class StringUtilsTest extends \PHPUnit\Framework\TestCase
         self::assertNotEquals('Thss', StringUtils::mb_lcfirst('Thss'));
     }
 
-    public function testTrim()
+    public function testTrim() : void
     {
         $string = 'This is a test string.';
 
@@ -62,7 +62,7 @@ class StringUtilsTest extends \PHPUnit\Framework\TestCase
         self::assertEquals('asdf%', StringUtils::mb_ltrim('%asdf%', '%'));
     }
 
-    public function testContains()
+    public function testContains() : void
     {
         $string = 'This is a test string.';
 
@@ -73,14 +73,14 @@ class StringUtilsTest extends \PHPUnit\Framework\TestCase
         self::assertFalse(StringUtils::mb_contains($string, ['iss', 'nothing', 'false']));
     }
 
-    public function testCount()
+    public function testCount() : void
     {
         self::assertEquals(5, StringUtils::mb_count_chars('αααααΕεΙιΜμΨψ')['α']);
         self::assertEquals(4, StringUtils::countCharacterFromStart('    Test string', ' '));
         self::assertEquals(0, StringUtils::countCharacterFromStart('    Test string', 's'));
     }
 
-    public function testStringify()
+    public function testStringify() : void
     {
         self::assertEquals('"abc"', StringUtils::stringify(new class implements \JsonSerializable {
             public function jsonSerialize()
@@ -97,7 +97,7 @@ class StringUtilsTest extends \PHPUnit\Framework\TestCase
                 return 'abc';
             }
 
-            public function unserialize($val)
+            public function unserialize($val) : void
             {
             }
         }));

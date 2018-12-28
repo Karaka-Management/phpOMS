@@ -19,7 +19,7 @@ use phpOMS\System\MimeType;
 
 class MimeTypeTest extends \PHPUnit\Framework\TestCase
 {
-    public function testEnum()
+    public function testEnum() : void
     {
         $enums = MimeType::getConstants();
 

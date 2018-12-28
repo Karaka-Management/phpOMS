@@ -17,14 +17,14 @@ use phpOMS\Business\Marketing\NetPromoterScore;
 
 class NetPromoterScoreTest extends \PHPUnit\Framework\TestCase
 {
-    public function testDefault()
+    public function testDefault() : void
     {
         $nps = new NetPromoterScore();
 
         self::assertEquals(0, $nps->getScore());
     }
 
-    public function testGetSet()
+    public function testGetSet() : void
     {
         $nps = new NetPromoterScore();
 

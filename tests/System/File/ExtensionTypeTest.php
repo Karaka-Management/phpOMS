@@ -17,7 +17,7 @@ use phpOMS\System\File\ExtensionType;
 
 class ExtensionTypeTest extends \PHPUnit\Framework\TestCase
 {
-    public function testEnums()
+    public function testEnums() : void
     {
         self::assertEquals(10, \count(ExtensionType::getConstants()));
         self::assertEquals(ExtensionType::getConstants(), array_unique(ExtensionType::getConstants()));

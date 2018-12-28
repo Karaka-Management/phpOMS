@@ -34,7 +34,7 @@ interface ExcelInterface
      *
      * @since  1.0.0
      */
-    public function exportExcel($path);
+    public function exportExcel($path) : void;
 
     /**
      * Import Excel.
@@ -45,5 +45,5 @@ interface ExcelInterface
      *
      * @since  1.0.0
      */
-    public function importExcel($path);
+    public function importExcel($path) : void;
 }

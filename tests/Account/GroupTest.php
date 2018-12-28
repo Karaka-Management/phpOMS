@@ -20,7 +20,7 @@ require_once __DIR__ . '/../Autoloader.php';
 
 class GroupTest extends \PHPUnit\Framework\TestCase
 {
-    public function testAttributes()
+    public function testAttributes() : void
     {
         $group = new Group();
         self::assertInstanceOf('\phpOMS\Account\Group', $group);
@@ -35,7 +35,7 @@ class GroupTest extends \PHPUnit\Framework\TestCase
         self::assertObjectHasAttribute('status', $group);
     }
 
-    public function testDefault()
+    public function testDefault() : void
     {
         $group = new Group();
 
@@ -59,7 +59,7 @@ class GroupTest extends \PHPUnit\Framework\TestCase
         self::assertEquals($array, $group->jsonSerialize());
     }
 
-    public function testSetGet()
+    public function testSetGet() : void
     {
         $group = new Group();
 
@@ -76,7 +76,7 @@ class GroupTest extends \PHPUnit\Framework\TestCase
     /**
      * @expectedException \phpOMS\Stdlib\Base\Exception\InvalidEnumValue
      */
-    public function testStatusException()
+    public function testStatusException() : void
     {
         $account = new Group();
         $account->setStatus(99);

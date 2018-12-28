@@ -20,7 +20,7 @@ use phpOMS\Account\PermissionType;
 
 class PermissionAbstractTest extends \PHPUnit\Framework\TestCase
 {
-    public function testAbstractDefault()
+    public function testAbstractDefault() : void
     {
         $perm = new class extends PermissionAbstract {};
 
@@ -50,7 +50,7 @@ class PermissionAbstractTest extends \PHPUnit\Framework\TestCase
         );
     }
 
-    public function testAbstractGetSet()
+    public function testAbstractGetSet() : void
     {
         $perm = new class extends PermissionAbstract {};
 

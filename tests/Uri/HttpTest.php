@@ -19,7 +19,7 @@ use phpOMS\Uri\Http;
 
 class HttpTest extends \PHPUnit\Framework\TestCase
 {
-    public function testAttributes()
+    public function testAttributes() : void
     {
         $obj = new Http('');
 
@@ -38,7 +38,7 @@ class HttpTest extends \PHPUnit\Framework\TestCase
         self::assertObjectHasAttribute('base', $obj);
     }
 
-    public function testHelper()
+    public function testHelper() : void
     {
         self::assertTrue(Http::isValid('http://www.google.de'));
         self::assertTrue(Http::isValid('http://google.de'));
@@ -46,7 +46,7 @@ class HttpTest extends \PHPUnit\Framework\TestCase
         self::assertFalse(Http::isValid('https:/google.de'));
     }
 
-    public function testSetGet()
+    public function testSetGet() : void
     {
         $obj = new Http($uri = 'https://www.google.com/test/path.php?para1=abc&para2=2#frag');
 
