@@ -15,7 +15,6 @@ declare(strict_types=1);
 namespace phpOMS\Localization;
 
 use phpOMS\Stdlib\Base\Exception\InvalidEnumValue;
-use phpOMS\System\File\Local\Directory;
 use phpOMS\Utils\Converter\AngleType;
 use phpOMS\Utils\Converter\TemperatureType;
 
@@ -140,15 +139,8 @@ final class Localization
     /**
      * Load localization from language code
      *
-     * Files need to return a php array of the following structure:
-     * return [
-     *      '{MODULE_NAME}' => [
-     *          '{INTERNAL_STRING_REPRESENTATION}' => '{OUTPUT_STRING}',
-     *          // more key/value pairs here
-     *      ],
-     * ];
-     *
-     * @param string $langCode Language code
+     * @param string $langCode    Language code
+     * @param string $countryCode Country code
      *
      * @return void
      *
@@ -156,28 +148,27 @@ final class Localization
      *
      * @since  1.0.0
      */
-    public function loadFromLanguage(string $langCode) : void
+    public function loadFromLanguage(string $langCode, string $countryCode = '*') : void
     {
-        $langCode = \strtolower($langCode);
+        $langCode    = \strtolower($langCode);
+        $countryCode = \strtoupper($countryCode);
 
         if (!ISO639x1Enum::isValidValue($langCode)) {
             throw new InvalidEnumValue($langCode);
         }
 
-        $files = Directory::list(__DIR__ . '/../Localization/Defaults/Definitions');
+        $files = \glob(__DIR__ . '/../Localization/Defaults/Definitions/' . $langCode . '_' . $countryCode);
 
         foreach ($files as $file) {
-            if (\stripos($file, $langCode) === 0) {
-                $fileContent = \file_get_contents(__DIR__ . '/../Localization/Defaults/Definitions/' . $file);
+            $fileContent = \file_get_contents(__DIR__ . '/../Localization/Defaults/Definitions/' . $file);
 
-                if ($fileContent === false) {
-                    return;
-                }
-
-                $this->importLocale(\json_decode($fileContent, true));
-
-                return;
+            if ($fileContent === false) {
+                break;
             }
+
+            $this->importLocale(\json_decode($fileContent, true));
+
+            return;
         }
 
         $fileContent = \file_get_contents(__DIR__ . '/../Localization/Defaults/Definitions/en_US.json');

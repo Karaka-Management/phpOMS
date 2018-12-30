@@ -72,6 +72,22 @@ class View extends ViewAbstract
     protected $response = null;
 
     /**
+     * Theme name.
+     *
+     * @var null|string
+     * @since 1.0.0
+     */
+    protected $theme = null;
+
+    /**
+     * Module name.
+     *
+     * @var null|string
+     * @since 1.0.0
+     */
+    protected $module = null;
+
+    /**
      * Constructor.
      *
      * @param ApplicationAbstract $app      Application
@@ -167,46 +183,78 @@ class View extends ViewAbstract
      *
      * @return string
      *
-     * @throws InvalidModuleException Throws this exception if no data for the defined module could be found.
-     * @throws InvalidThemeException  Throws this exception if no data for the defined theme could be found.
-     *
      * @since  1.0.0
      */
     public function getText($translation, string $module = null, string $theme = null) : string
     {
-        if ($module === null) {
-            $match = '/Modules/';
-
-            if (($start = \strripos($this->template, $match)) === false) {
-                throw new InvalidModuleException($module ?? '');
-            }
-
-            $start  = $start + \strlen($match);
-            $end    = \strpos($this->template, '/', $start);
-            $module = \substr($this->template, $start, $end - $start);
+        if ($module === null && $this->module === null) {
+            $this->setModuleDynamically();
         }
 
-        if ($module === false) {
-            $module = '0';
+        if ($theme === null && $this->theme === null) {
+            $this->setThemeDynamically();
         }
 
-        if ($theme === null) {
-            $match = '/Theme/';
-
-            if (($start = \strripos($this->template, $match)) === false) {
-                throw new InvalidThemeException($theme ?? '');
-            }
-
-            $start = $start + \strlen($match);
-            $end   = \strpos($this->template, '/', $start);
-            $theme = \substr($this->template, $start, $end - $start);
-        }
-
-        if ($theme === false) {
-            $theme = '0';
-        }
+        $module = $module ?? $this->module;
+        $theme  = $theme ?? $this->theme;
 
         return $this->app->l11nManager->getText($this->l11n->getLanguage(), $module, $theme, $translation);
+    }
+
+    /**
+     * Set the view module dynamically.
+     *
+     * Sets the view module based on the template path
+     *
+     * @return void
+     *
+     * @throws InvalidModuleException Throws this exception if no data for the defined module could be found.
+     *
+     * @since  1.0.0
+     */
+    private function setModuleDynamically() : void
+    {
+        $match = '/Modules/';
+
+        if (($start = \strripos($this->template, $match)) === false) {
+            throw new InvalidModuleException('');
+        }
+
+        $start        = $start + \strlen($match);
+        $end          = \strpos($this->template, '/', $start);
+        $this->module = \substr($this->template, $start, $end - $start);
+
+        if ($this->module === false) {
+            $this->module = '0';
+        }
+    }
+
+    /**
+     * Set the view theme dynamically.
+     *
+     * Sets the view theme based on the template path
+     *
+     * @return void
+     *
+     * @throws InvalidThemeException  Throws this exception if no data for the defined theme could be found.
+     *
+     * @since  1.0.0
+     */
+    private function setThemeDynamically() : void
+    {
+        $match = '/Theme/';
+
+        if (($start = \strripos($this->template, $match)) === false) {
+            throw new InvalidThemeException('');
+        }
+
+        $start       = $start + \strlen($match);
+        $end         = \strpos($this->template, '/', $start);
+        $this->theme = \substr($this->template, $start, $end - $start);
+
+        if ($this->theme === false) {
+            $this->theme = '0';
+        }
     }
 
     /**
@@ -222,7 +270,7 @@ class View extends ViewAbstract
      */
     public function getHtml($translation, string $module = null, string $theme = null) : string
     {
-        return htmlspecialchars($this->getText($translation, $module, $theme));
+        return \htmlspecialchars($this->getText($translation, $module, $theme));
     }
 
     /**

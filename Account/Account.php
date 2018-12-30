@@ -329,12 +329,12 @@ class Account implements ArrayableInterface, \JsonSerializable
         $app = $app !== null ? \strtolower($app) : $app;
 
         foreach ($this->permissions as $p) {
-            if (($p->getUnit() === $unit || $p->getUnit() === null || $unit === null)
-                && ($p->getApp() === $app || $p->getApp() === null || $app === null)
-                && ($p->getModule() === $module || $p->getModule() === null || $module === null)
-                && ($p->getType() === $type || $p->getType() === null || $type === null)
-                && ($p->getElement() === $element || $p->getElement() === null || $element === null)
-                && ($p->getComponent() === $component || $p->getComponent() === null || $component === null)
+            if (($unit === null || $p->getUnit() === $unit || $p->getUnit() === null)
+                && ($app === null || $p->getApp() === $app || $p->getApp() === null)
+                && ($module === null || $p->getModule() === $module || $p->getModule() === null)
+                && ($type === null || $p->getType() === $type || $p->getType() === null)
+                && ($element === null || $p->getElement() === $element || $p->getElement() === null)
+                && ($component === null || $p->getComponent() === $component || $p->getComponent() === null)
                 && ($p->getPermission() | $permission) === $p->getPermission()
             ) {
                 return true;

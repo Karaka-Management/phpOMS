@@ -276,23 +276,18 @@ abstract class GrammarAbstract
             if (\strrpos($system, $keyword, -\strlen($system)) !== false) {
                 $prefix     = '';
                 $identifier = '';
+
+                break;
             }
         }
 
-        if (\count($split = \explode('.', $system)) > 1) {
-            $fullSystem = '';
+        $split      = \explode('.', $system);
+        $fullSystem = '';
 
-            foreach ($split as $key => $system) {
-                if ($key === 0) {
-                    $fullSystem .= $this->compileSystem($prefix . $system);
-                } else {
-                    $fullSystem .= '.' . ($system === '*' ? '*' : $this->compileSystem($system));
-                }
-            }
-
-            return $fullSystem;
+        foreach ($split as $key => $system) {
+            $fullSystem .= '.' . $identifier . ($key === 0 ? $prefix : '') . $system . $identifier;
         }
 
-        return $identifier . $prefix . $system . $identifier;
+        return \ltrim($fullSystem, '.');
     }
 }
