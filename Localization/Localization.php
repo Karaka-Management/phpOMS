@@ -160,7 +160,7 @@ final class Localization
         $files = \glob(__DIR__ . '/../Localization/Defaults/Definitions/' . $langCode . '_' . $countryCode);
 
         foreach ($files as $file) {
-            $fileContent = \file_get_contents(__DIR__ . '/../Localization/Defaults/Definitions/' . $file);
+            $fileContent = \file_get_contents($file);
 
             if ($fileContent === false) {
                 break;
