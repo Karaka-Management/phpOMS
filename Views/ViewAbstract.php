@@ -99,7 +99,7 @@ abstract class ViewAbstract implements \Serializable
      */
     public function printHtml($text) : string
     {
-        return htmlspecialchars((string) $text);
+        return \htmlspecialchars((string) $text);
     }
 
     /**
@@ -113,7 +113,7 @@ abstract class ViewAbstract implements \Serializable
      */
     public static function html($text) : string
     {
-        return htmlspecialchars((string) $text);
+        return \htmlspecialchars((string) $text);
     }
 
     /**
@@ -253,7 +253,7 @@ abstract class ViewAbstract implements \Serializable
             \ob_start();
             /** @noinspection PhpIncludeInspection */
             $includeData = include $path;
-            $ob          = (string) ob_get_clean();
+            $ob          = (string) \ob_get_clean();
 
             if (\is_array($includeData)) {
                 return (string) \json_encode($includeData);
