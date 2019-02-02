@@ -15,6 +15,7 @@ declare(strict_types=1);
 namespace phpOMS\Message\Http;
 
 use phpOMS\Message\HeaderAbstract;
+use phpOMS\System\MimeType;
 
 /**
  * Response class.
@@ -84,6 +85,25 @@ final class Header extends HeaderAbstract
         $this->header[$key][] = $header;
 
         return true;
+    }
+
+    /**
+     * Set header as downloadable
+     *
+     * @param string $name Download name
+     * @param string $type Download file type
+     *
+     * @return void
+     *
+     * @since  1.0.0
+     */
+    public function setDownloadable(string $name, string $type) : void
+    {
+        $this->set('Content-Type', MimeType::M_BIN, true);
+        $this->set('Content-Transfer-Encoding', 'Binary', true);
+        $this->set(
+            'Content-disposition', 'attachment; filename="' . $name . '.' . $type . '"'
+        , true);
     }
 
     /**

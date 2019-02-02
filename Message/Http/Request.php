@@ -212,7 +212,11 @@ final class Request extends RequestAbstract
         UriFactory::setQuery('/lang', $this->header->getL11n()->getLanguage());
 
         foreach ($this->data as $key => $value) {
-            UriFactory::setQuery('?' . $key, $value);
+            if (\is_array($value)) {
+                UriFactory::setQuery('?' . $key, \implode(',', $value));
+            } else {
+                UriFactory::setQuery('?' . $key, $value);
+            }
         }
     }
 
