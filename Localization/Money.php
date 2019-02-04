@@ -86,7 +86,7 @@ final class Money implements \Serializable
      */
     public function __construct($value = 0, string $thousands = ',', string $decimal = '.', string $symbol = '', int $position = 0)
     {
-        $this->value     = is_int($value) ? $value : self::toInt((string) $value);
+        $this->value     = \is_int($value) ? $value : self::toInt((string) $value);
         $this->thousands = $thousands;
         $this->decimal   = $decimal;
         $this->symbol    = $symbol;
@@ -273,7 +273,7 @@ final class Money implements \Serializable
      */
     public function mult($value) : self
     {
-        if (\is_float($value) || is_int($value)) {
+        if (\is_float($value) || \is_int($value)) {
             $this->value = (int) ($this->value * $value);
         }
 
@@ -291,7 +291,7 @@ final class Money implements \Serializable
      */
     public function div($value) : self
     {
-        if (\is_float($value) || is_int($value)) {
+        if (\is_float($value) || \is_int($value)) {
             $this->value = (int) ($this->value / $value);
         }
 
@@ -323,7 +323,7 @@ final class Money implements \Serializable
      */
     public function pow($value) : self
     {
-        if (\is_float($value) || is_int($value)) {
+        if (\is_float($value) || \is_int($value)) {
             $this->value = (int) ($this->value ** $value);
         }
 

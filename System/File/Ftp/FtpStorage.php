@@ -48,7 +48,7 @@ class FtpStorage extends StorageAbstract
 
     protected static function getClassType(string $path) : string
     {
-        return \is_dir($path) || (!is_file($path) && \stripos($path, '.') === false) ? Directory::class : File::class;
+        return \is_dir($path) || (!\is_file($path) && \stripos($path, '.') === false) ? Directory::class : File::class;
     }
 
     /**

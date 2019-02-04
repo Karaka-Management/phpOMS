@@ -75,12 +75,12 @@ final class Validator extends ValidatorAbstract
      */
     public static function isType($var, $constraint) : bool
     {
-        if (!is_array($constraint)) {
+        if (!\is_array($constraint)) {
             $constraint = [$constraint];
         }
 
         foreach ($constraint as $key => $value) {
-            if (!is_a($var, $value)) {
+            if (!\is_a($var, $value)) {
                 return false;
             }
         }

@@ -17,6 +17,9 @@ class FileCacheJsonSerializable implements \JsonSerializable
 {
     public $val = 'asdf';
 
+    /**
+     * {@inheritdoc}
+     */
     public function jsonSerialize()
     {
         return 'abc';

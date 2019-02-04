@@ -171,7 +171,7 @@ abstract class Json extends ValidatorAbstract
             }
         }
 
-        return count($completePaths) === 0;
+        return \count($completePaths) === 0;
     }
 
     /**

@@ -26,7 +26,7 @@ class CountryMapperTest extends \PHPUnit\Framework\TestCase
         $con = new SqliteConnection([
             'prefix' => '',
             'db'     => 'sqlite',
-            'database'   => realpath(__DIR__ . '/../../../Localization/Defaults/localization.sqlite'),
+            'database'   => \realpath(__DIR__ . '/../../../Localization/Defaults/localization.sqlite'),
         ]);
 
         DataMapperAbstract::setConnection($con);

@@ -132,8 +132,8 @@ final class FileUtils
     {
         $content = \file_get_contents($file);
 
-        if ($content !== false && preg_match('!!u', $content)) {
-            \file_put_contents($file, \mb_convert_encoding($content, 'UTF-8', mb_list_encodings()));
+        if ($content !== false && \preg_match('!!u', $content)) {
+            \file_put_contents($file, \mb_convert_encoding($content, 'UTF-8', \mb_list_encodings()));
         }
     }
 }

@@ -343,7 +343,7 @@ final class File extends FileAbstract implements FileInterface
      */
     public function getDirPath() : string
     {
-        return dirname($this->path);
+        return \dirname($this->path);
     }
 
     /**
@@ -364,7 +364,7 @@ final class File extends FileAbstract implements FileInterface
                 Directory::create(\dirname($path), 0755, true);
             }
 
-            if (!is_writable(\dirname($path))) {
+            if (!\is_writable(\dirname($path))) {
                 return false;
             }
 

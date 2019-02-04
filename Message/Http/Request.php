@@ -122,8 +122,6 @@ final class Request extends RequestAbstract
         $this->header->getL11n()->setLanguage($this->loadRequestLanguage());
 
         $this->initNonGetData();
-
-        $this->uri = $this->uri ?? new Http(Http::getCurrent());
     }
 
     /**
@@ -483,7 +481,7 @@ final class Request extends RequestAbstract
         if ($this->getMethod() === RequestMethod::GET && !empty($this->data)) {
             return $this->uri->__toString()
                 . (\parse_url($this->uri->__toString(), PHP_URL_QUERY) ? '&' : '?')
-                . http_build_query($this->data);
+                . \http_build_query($this->data);
         }
 
         return parent::__toString();

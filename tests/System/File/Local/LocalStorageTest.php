@@ -36,7 +36,7 @@ class LocalStorageTest extends \PHPUnit\Framework\TestCase
         self::assertTrue(LocalStorage::prepend($testFile, 'test5'));
         self::assertEquals('test5test3test4', LocalStorage::get($testFile));
 
-        self::assertEquals(\str_replace('\\', '/', realpath(\dirname($testFile) . '/../')), LocalStorage::parent($testFile));
+        self::assertEquals(\str_replace('\\', '/', \realpath(\dirname($testFile) . '/../')), LocalStorage::parent($testFile));
         self::assertEquals('txt', LocalStorage::extension($testFile));
         self::assertEquals('test', LocalStorage::name($testFile));
         self::assertEquals('test.txt', LocalStorage::basename($testFile));
@@ -91,7 +91,7 @@ class LocalStorageTest extends \PHPUnit\Framework\TestCase
         self::assertEquals('test', LocalStorage::name($dirPath));
         self::assertEquals('test', LocalStorage::basename($dirPath));
         self::assertEquals('test', LocalStorage::dirname($dirPath));
-        self::assertEquals(\str_replace('\\', '/', realpath($dirPath . '/../')), LocalStorage::parent($dirPath));
+        self::assertEquals(\str_replace('\\', '/', \realpath($dirPath . '/../')), LocalStorage::parent($dirPath));
         self::assertEquals($dirPath, LocalStorage::dirpath($dirPath));
 
         $now = new \DateTime('now');

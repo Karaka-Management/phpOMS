@@ -30,7 +30,7 @@ class DirectoryTest extends \PHPUnit\Framework\TestCase
         self::assertEquals('test', Directory::name($dirPath));
         self::assertEquals('test', Directory::basename($dirPath));
         self::assertEquals('test', Directory::dirname($dirPath));
-        self::assertEquals(\str_replace('\\', '/', realpath($dirPath . '/../')), Directory::parent($dirPath));
+        self::assertEquals(\str_replace('\\', '/', \realpath($dirPath . '/../')), Directory::parent($dirPath));
         self::assertEquals($dirPath, Directory::dirpath($dirPath));
 
         $now = new \DateTime('now');

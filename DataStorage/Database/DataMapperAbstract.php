@@ -89,6 +89,11 @@ class DataMapperAbstract implements DataMapperInterface
      *
      * @var string[]
      * @since 1.0.0
+     */    /**
+     * Has many relation.
+     *
+     * @var array<string, array<string, string>>
+     * @since 1.0.0
      */
     protected static $hasMany = [];
 
@@ -108,6 +113,11 @@ class DataMapperAbstract implements DataMapperInterface
      * Relation is defined in current mapper
      *
      * @var string[]
+     * @since 1.0.0
+     */    /**
+     * Belongs to.
+     *
+     * @var array<string, array<string, string>>
      * @since 1.0.0
      */
     protected static $belongsTo = [];

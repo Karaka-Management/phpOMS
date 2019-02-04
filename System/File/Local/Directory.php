@@ -329,7 +329,7 @@ final class Directory extends FileAbstract implements DirectoryInterface
      */
     public static function copy(string $from, string $to, bool $overwrite = false) : bool
     {
-        if (!is_dir($from)) {
+        if (!\is_dir($from)) {
             throw new PathException($from);
         }
 
@@ -360,7 +360,7 @@ final class Directory extends FileAbstract implements DirectoryInterface
      */
     public static function move(string $from, string $to, bool $overwrite = false) : bool
     {
-        if (!is_dir($from)) {
+        if (!\is_dir($from)) {
             throw new PathException($from);
         }
 

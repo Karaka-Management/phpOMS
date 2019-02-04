@@ -28,7 +28,7 @@ class MarkdownTest extends \PHPUnit\Framework\TestCase
             if ($data[1] === 'md') {
                 self::assertEquals(
                     \file_get_contents(__DIR__ . '/data/' . $data[0] . '.html'),
-                    Markdown::parse(file_get_contents(__DIR__ . '/data/' . $data[0] . '.md')),
+                    Markdown::parse(\file_get_contents(__DIR__ . '/data/' . $data[0] . '.md')),
                     $file
                 );
             }

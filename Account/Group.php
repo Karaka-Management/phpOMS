@@ -213,6 +213,9 @@ class Group implements ArrayableInterface, \JsonSerializable
      *
      * @since  1.0.0
      */
+    /**
+     * {@inheritdoc}
+     */
     public function jsonSerialize()
     {
         return $this->toArray();

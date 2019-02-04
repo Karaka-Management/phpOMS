@@ -38,6 +38,12 @@ class BaseModelMapper extends DataMapperAbstract
         'test_base_belongs_to_one'    => ['name' => 'test_base_belongs_to_one', 'type' => 'int', 'internal' => 'belongsToOne'],
     ];
 
+    /**
+     * Belongs to.
+     *
+     * @var array<string, array<string, string>>
+     * @since 1.0.0
+     */
     protected static $belongsTo = [
         'belongsToOne' => [
             'mapper'         => BelongsToModelMapper::class,
@@ -50,8 +56,12 @@ class BaseModelMapper extends DataMapperAbstract
             'mapper'         => OwnsOneModelMapper::class,
             'dest'            => 'test_base_owns_one_self',
         ],
-    ];
-
+    ];    /**
+     * Has many relation.
+     *
+     * @var array<string, array<string, string>>
+     * @since 1.0.0
+     */
     protected static $hasMany = [
         'hasManyDirect' => [
             'mapper'         => ManyToManyDirectModelMapper::class,

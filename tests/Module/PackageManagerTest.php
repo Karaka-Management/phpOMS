@@ -23,17 +23,17 @@ class PackageManagerTest extends \PHPUnit\Framework\TestCase
 {
     public static function setUpBeforeClass() : void
     {
-        if (file_exists(__DIR__ . '/testPackage.zip')) {
+        if (\file_exists(__DIR__ . '/testPackage.zip')) {
             unlink(__DIR__ . '/testPackage.zip');
         }
 
-        if (file_exists(__DIR__ . '/testPackageExtracted')) {
+        if (\file_exists(__DIR__ . '/testPackageExtracted')) {
             \array_map('unlink', \glob(__DIR__ . '/testPackageExtracted/testSubPackage/*'));
             \rmdir(__DIR__ . '/testPackageExtracted/testSubPackage');
             \array_map('unlink', \glob(__DIR__ . '/testPackageExtracted/*'));
         }
 
-        if (file_exists(__DIR__ . '/public.key')) {
+        if (\file_exists(__DIR__ . '/public.key')) {
             unlink(__DIR__ . '/public.key');
         }
 
@@ -126,24 +126,24 @@ class PackageManagerTest extends \PHPUnit\Framework\TestCase
         $package->extract(__DIR__ . '/testPackageExtracted');
         $package->cleanup();
 
-        self::assertFalse(file_exists(__DIR__ . '/testPackage.zip'));
-        self::assertFalse(file_exists(__DIR__ . '/testPackageExtracted'));
+        self::assertFalse(\file_exists(__DIR__ . '/testPackage.zip'));
+        self::assertFalse(\file_exists(__DIR__ . '/testPackageExtracted'));
     }
 
     public static function tearDownAfterClass() : void
     {
-        if (file_exists(__DIR__ . '/testPackage.zip')) {
+        if (\file_exists(__DIR__ . '/testPackage.zip')) {
             unlink(__DIR__ . '/testPackage.zip');
         }
 
-        if (file_exists(__DIR__ . '/testPackageExtracted')) {
+        if (\file_exists(__DIR__ . '/testPackageExtracted')) {
             \array_map('unlink', \glob(__DIR__ . '/testPackageExtracted/testSubPackage/*'));
             \rmdir(__DIR__ . '/testPackageExtracted/testSubPackage');
             \array_map('unlink', \glob(__DIR__ . '/testPackageExtracted/*'));
             \rmdir(__DIR__ . '/testPackageExtracted');
         }
 
-        if (file_exists(__DIR__ . '/public.key')) {
+        if (\file_exists(__DIR__ . '/public.key')) {
             unlink(__DIR__ . '/public.key');
         }
 

@@ -44,7 +44,7 @@ class FtpStorageTest extends \PHPUnit\Framework\TestCase
         self::assertTrue(FtpStorage::prepend($testFile, 'test5'));
         self::assertEquals('test5test3test4', FtpStorage::get($testFile));
 
-        self::assertEquals(\str_replace('\\', '/', realpath(\dirname($testFile) . '/../')), FtpStorage::parent($testFile));
+        self::assertEquals(\str_replace('\\', '/', \realpath(\dirname($testFile) . '/../')), FtpStorage::parent($testFile));
         self::assertEquals('txt', FtpStorage::extension($testFile));
         self::assertEquals('test', FtpStorage::name($testFile));
         self::assertEquals('test.txt', FtpStorage::basename($testFile));
@@ -103,7 +103,7 @@ class FtpStorageTest extends \PHPUnit\Framework\TestCase
         self::assertEquals('test', FtpStorage::name($dirPath));
         self::assertEquals('test', FtpStorage::basename($dirPath));
         self::assertEquals('test', FtpStorage::dirname($dirPath));
-        self::assertEquals(\str_replace('\\', '/', realpath($dirPath . '/../')), FtpStorage::parent($dirPath));
+        self::assertEquals(\str_replace('\\', '/', \realpath($dirPath . '/../')), FtpStorage::parent($dirPath));
         self::assertEquals($dirPath, FtpStorage::dirpath($dirPath));
 
         $now = new \DateTime('now');

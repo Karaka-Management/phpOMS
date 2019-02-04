@@ -15,7 +15,7 @@ declare(strict_types=1);
 namespace phpOMS\Utils\Excel;
 
 /** @noinspection PhpIncludeInspection */
-require_once realpath(__DIR__ . '/../../../Resources/phpexcel/Classes/PHPExcel.php');
+require_once \realpath(__DIR__ . '/../../../Resources/phpexcel/Classes/PHPExcel.php');
 
 /**
  * Excel class.
