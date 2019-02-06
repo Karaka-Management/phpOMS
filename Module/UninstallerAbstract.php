@@ -54,7 +54,7 @@ abstract class UninstallerAbstract
      * @since  1.0.0
      */
     public static function dropTables(DatabasePool $dbPool, InfoManager $info) : void
-	{
+    {
         $path = \dirname($info->getPath()) . '/Admin/Install/db.json';
 
         if (!\file_exists($path)) {
@@ -69,12 +69,12 @@ abstract class UninstallerAbstract
         $definitions = \json_decode($content, true);
 
         $builder = new SchemaBuilder($dbPool->get('schema'));
-		$builder->prefix($dbPool->get('schema')->prefix);
+        $builder->prefix($dbPool->get('schema')->prefix);
 
-		foreach ($definitions as $definition) {
-			$builder->dropTable($definition['table'] ?? '');
+        foreach ($definitions as $definition) {
+            $builder->dropTable($definition['table'] ?? '');
         }
 
         $builder->execute();
-	}
+    }
 }

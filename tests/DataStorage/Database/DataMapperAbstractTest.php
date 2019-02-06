@@ -10,9 +10,7 @@
  * @version    1.0.0
  * @link       http://website.orange-management.de
  */
-
 namespace phpOMS\tests\DataStorage\Database;
-
 
 use phpOMS\tests\DataStorage\Database\TestModel\BaseModel;
 use phpOMS\tests\DataStorage\Database\TestModel\BaseModelMapper;

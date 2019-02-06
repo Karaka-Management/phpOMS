@@ -105,7 +105,7 @@ abstract class InstallerAbstract
      * @since  1.0.0
      */
     private static function createTables(DatabasePool $dbPool, InfoManager $info) : void
-	{
+    {
         $path = \dirname($info->getPath()) . '/Admin/Install/db.json';
 
         if (!\file_exists($path)) {
@@ -118,10 +118,10 @@ abstract class InstallerAbstract
         }
 
         $definitions = \json_decode($content, true);
-		foreach ($definitions as $definition) {
-			self::createTable($definition, $dbPool);
-		}
-	}
+        foreach ($definitions as $definition) {
+            self::createTable($definition, $dbPool);
+        }
+    }
 
     /**
      * Create table module.
@@ -133,22 +133,22 @@ abstract class InstallerAbstract
      *
      * @since  1.0.0
      */
-	private static function createTable(array $definition, DatabasePool $dbPool) : void
-	{
-		$builder = new SchemaBuilder($dbPool->get('schema'));
-		$builder->prefix($dbPool->get('schema')->prefix);
-		$builder->createTable($definition['name'] ?? '');
+    private static function createTable(array $definition, DatabasePool $dbPool) : void
+    {
+        $builder = new SchemaBuilder($dbPool->get('schema'));
+        $builder->prefix($dbPool->get('schema')->prefix);
+        $builder->createTable($definition['name'] ?? '');
 
-		foreach ($definition['fields'] as $name => $def) {
-			$builder->field(
+        foreach ($definition['fields'] as $name => $def) {
+            $builder->field(
                 $name, $def['type'], $def['default'] ?? null,
                 $def['null'] ?? true, $def['primary'] ?? false, $def['autoincrement'] ?? false,
                 $def['foreignTable'] ?? null, $def['foreignKey'] ?? null
             );
         }
 
-		$builder->execute();
-	}
+        $builder->execute();
+    }
 
     /**
      * Activate after install.

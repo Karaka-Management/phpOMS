@@ -242,6 +242,7 @@ final class MeasureOfDispersion
 
         /** @var int $count */
         $Q1 = Average::median(\array_slice($x, 0, $count));
+        /** @var int $count */
         $Q3 = Average::median(\array_slice($x, -$count, $count));
 
         return $Q3 - $Q1;

@@ -71,7 +71,7 @@ final class Directory extends FileAbstract implements DirectoryInterface
      * @param string $path   Path
      * @param string $filter Filter
      *
-     * @return array<string>
+     * @return array<int, string>
      *
      * @since  1.0.0
      */
@@ -95,6 +95,7 @@ final class Directory extends FileAbstract implements DirectoryInterface
             $list[] = \str_replace('\\', '/', $iterator->getSubPathname());
         }
 
+        /** @var array<int, string> $list */
         return $list;
     }
 

@@ -14,6 +14,8 @@ declare(strict_types=1);
 
 namespace phpOMS\Utils;
 
+use phpOMS\Contract\RenderableInterface;
+
 /**
  * String utils class.
  *
@@ -418,6 +420,8 @@ final class StringUtils
             return null;
         } elseif ($element instanceof \DateTime) {
             return $element->format('Y-m-d H:i:s');
+        } elseif ($element instanceof RenderableInterface) {
+            return $element->render();
         } else {
             return $element->__toString();
         }

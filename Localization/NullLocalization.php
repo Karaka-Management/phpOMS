@@ -22,7 +22,7 @@ namespace phpOMS\Localization;
  * @link       http://website.orange-management.de
  * @since      1.0.0
  */
-final class NullLocalizations
+final class NullLocalization extends Localization
 {
 
 }

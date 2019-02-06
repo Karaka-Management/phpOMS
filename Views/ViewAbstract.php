@@ -14,6 +14,7 @@ declare(strict_types=1);
 
 namespace phpOMS\Views;
 
+use phpOMS\Contract\RenderableInterface;
 use phpOMS\System\File\PathException;
 
 /**
@@ -24,7 +25,7 @@ use phpOMS\System\File\PathException;
  * @link       http://website.orange-management.de
  * @since      1.0.0
  */
-abstract class ViewAbstract implements \Serializable
+abstract class ViewAbstract implements RenderableInterface
 {
 
     /**

@@ -26,7 +26,7 @@ use phpOMS\Utils\Converter\TemperatureType;
  * @link       http://website.orange-management.de
  * @since      1.0.0
  */
-final class Localization
+class Localization
 {
 
     /**
@@ -36,6 +36,7 @@ final class Localization
      * @since 1.0.0
      */
     private $country = ISO3166TwoEnum::_USA;
+
     /**
      * Timezone.
      *
@@ -43,6 +44,7 @@ final class Localization
      * @since 1.0.0
      */
     private $timezone = 'America/New_York';
+
     /**
      * Language ISO code.
      *
@@ -50,6 +52,7 @@ final class Localization
      * @since 1.0.0
      */
     private $language = ISO639x1Enum::_EN;
+
     /**
      * Currency.
      *
@@ -57,6 +60,7 @@ final class Localization
      * @since 1.0.0
      */
     private $currency = ISO4217Enum::_USD;
+
     /**
      * Number format.
      *
@@ -64,6 +68,7 @@ final class Localization
      * @since 1.0.0
      */
     private $decimal = '.';
+
     /**
      * Number format.
      *
