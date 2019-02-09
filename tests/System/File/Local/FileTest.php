@@ -87,20 +87,14 @@ class FileTest extends \PHPUnit\Framework\TestCase
         File::get(__DIR__ . '/invalid.txt');
     }
 
-    /**
-     * @expectedException \phpOMS\System\File\PathException
-     */
     public function testInvalidCopyPath() : void
     {
-        File::copy(__DIR__ . '/invalid.txt', __DIR__ . '/invalid2.txt');
+        self::assertFalse(File::copy(__DIR__ . '/invalid.txt', __DIR__ . '/invalid2.txt'));
     }
 
-    /**
-     * @expectedException \phpOMS\System\File\PathException
-     */
     public function testInvalidMovePath() : void
     {
-        File::move(__DIR__ . '/invalid.txt', __DIR__ . '/invalid2.txt');
+        self::assertFalse(File::move(__DIR__ . '/invalid.txt', __DIR__ . '/invalid2.txt'));
     }
 
     /**

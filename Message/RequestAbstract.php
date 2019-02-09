@@ -75,6 +75,14 @@ abstract class RequestAbstract implements MessageInterface
     protected $hash = [];
 
     /**
+     * Uploaded files.
+     *
+     * @var array
+     * @since 1.0.0
+     */
+    protected $files = [];
+
+    /**
      * Request lock.
      *
      * @var bool
@@ -329,4 +337,16 @@ abstract class RequestAbstract implements MessageInterface
      * @since  1.0.0
      */
     abstract public function getRouteVerb() : int;
+
+    /**
+     * Get files.
+     *
+     * @return array
+     *
+     * @since  1.0.0
+     */
+    public function getFiles() : array
+    {
+        return $this->files;
+    }
 }

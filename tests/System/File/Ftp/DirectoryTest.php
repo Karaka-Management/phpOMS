@@ -15,25 +15,32 @@ namespace phpOMS\tests\System\File\Ftp;
 
 use phpOMS\System\File\Ftp\Directory;
 use phpOMS\System\File\PathException;
+use phpOMS\Uri\Http;
 
 class DirectoryTest extends \PHPUnit\Framework\TestCase
 {
-    const TEST = false;
-    const BASE = 'ftp://user:password@localhost';
+    const BASE = 'ftp://test:123456@127.0.0.1:20';
+
+    private $con = null;
+
+    protected function setUp() : void
+    {
+        if ($this->con === null) {
+            $this->con = Directory::ftpConnect(new Http(self::BASE));
+        }
+    }
 
     public function testStatic() : void
     {
-        if (!self::TEST) {
-            return;
-        }
+        self::assertNotFalse($this->con);
 
-        $dirPath = self::BASE . '/test';
-        self::assertTrue(Directory::create($dirPath));
-        self::assertTrue(Directory::exists($dirPath));
-        self::assertFalse(Directory::create($dirPath));
-        self::assertFalse(Directory::create(self::BASE . '/test/sub/path'));
-        self::assertTrue(Directory::create(self::BASE . '/test/sub/path', 0755, true));
-        self::assertTrue(Directory::exists(self::BASE . '/test/sub/path'));
+        $dirPath = __DIR__ . '/test';
+        self::assertTrue(Directory::create($this->con, $dirPath));
+        self::assertTrue(Directory::exists($this->con, $dirPath));
+        self::assertFalse(Directory::create($this->con, $dirPath));
+        self::assertFalse(Directory::create($this->con, __DIR__ . '/test/sub/path'));
+        self::assertTrue(Directory::create($this->con, __DIR__ . '/test/sub/path', 0755, true));
+        self::assertTrue(Directory::exists($this->con, __DIR__ . '/test/sub/path'));
 
         self::assertEquals('test', Directory::name($dirPath));
         self::assertEquals('test', Directory::basename($dirPath));
@@ -42,76 +49,55 @@ class DirectoryTest extends \PHPUnit\Framework\TestCase
         self::assertEquals($dirPath, Directory::dirpath($dirPath));
 
         $now = new \DateTime('now');
-        self::assertEquals($now->format('Y-m-d'), Directory::created($dirPath)->format('Y-m-d'));
-        self::assertEquals($now->format('Y-m-d'), Directory::changed($dirPath)->format('Y-m-d'));
+        // todo: implement, doesn't work for ftp yet
+        //self::assertEquals($now->format('Y-m-d'), Directory::created($this->con, $dirPath)->format('Y-m-d'));
+        //self::assertEquals($now->format('Y-m-d'), Directory::changed($this->con, $dirPath)->format('Y-m-d'));
 
-        self::assertTrue(Directory::delete($dirPath));
-        self::assertFalse(Directory::exists($dirPath));
+        self::assertTrue(Directory::delete($this->con, $dirPath));
+        self::assertFalse(Directory::exists($this->con, $dirPath));
 
-        $dirTestPath = self::BASE . '/dirtest';
-        self::assertGreaterThan(0, Directory::size($dirTestPath));
-        self::assertGreaterThan(Directory::size($dirTestPath, false), Directory::size($dirTestPath));
-        self::assertGreaterThan(0, Directory::permission($dirTestPath));
+        $dirTestPath = __DIR__ . '/dirtest';
+        self::assertGreaterThan(0, Directory::size($this->con, $dirTestPath));
+        self::assertGreaterThan(Directory::size($this->con, $dirTestPath, false), Directory::size($this->con, $dirTestPath));
+        self::assertGreaterThan(0, Directory::permission($this->con, $dirTestPath));
     }
 
     public function testStaticMove() : void
     {
-        if (!self::TEST) {
-            return;
-        }
+        self::assertNotFalse($this->con);
 
-        $dirTestPath = self::BASE . '/dirtest';
+        $dirTestPath = __DIR__ . '/dirtest';
+        self::assertTrue(Directory::copy($this->con, $dirTestPath, __DIR__ . '/newdirtest'));
+        self::assertTrue(\file_exists(__DIR__ . '/newdirtest/sub/path/test3.txt'));
 
-        self::assertTrue(Directory::copy($dirTestPath, self::BASE . '/newdirtest'));
-        self::assertTrue(\file_exists(self::BASE . '/newdirtest/sub/path/test3.txt'));
+        self::assertTrue(Directory::delete($this->con, $dirTestPath));
+        self::assertFalse(Directory::exists($this->con, $dirTestPath));
 
-        self::assertTrue(Directory::delete($dirTestPath));
-        self::assertFalse(Directory::exists($dirTestPath));
-
-        self::assertTrue(Directory::move(self::BASE . '/newdirtest', $dirTestPath));
+        self::assertTrue(Directory::move($this->con, __DIR__ . '/newdirtest', $dirTestPath));
         self::assertTrue(\file_exists($dirTestPath . '/sub/path/test3.txt'));
 
-        self::assertEquals(4, Directory::count($dirTestPath));
-        self::assertEquals(1, Directory::count($dirTestPath, false));
+        self::assertEquals(4, Directory::count($this->con, $dirTestPath));
+        self::assertEquals(1, Directory::count($this->con, $dirTestPath, false));
 
-        self::assertEquals(6, \count(Directory::list($dirTestPath)));
-        self::assertEquals(3, \count(Directory::listByExtension($dirTestPath, 'txt')));
+        self::assertEquals(6, \count(Directory::list($this->con, $dirTestPath)));
     }
 
-    /**
-     * @expectedException \phpOMS\System\File\PathException
-     */
     public function testInvalidListPath() : void
     {
-        if (!self::TEST) {
-            throw new PathException('');
-        }
-
-        Directory::list(self::BASE . '/invalid.txt');
+        self::assertNotFalse($this->con);
+        self::assertEquals([], Directory::list($this->con, __DIR__ . '/invalid.txt'));
     }
 
-    /**
-     * @expectedException \phpOMS\System\File\PathException
-     */
     public function testInvalidCopyPath() : void
     {
-        if (!self::TEST) {
-            throw new PathException('');
-        }
-
-        Directory::copy(self::BASE . '/invalid', self::BASE . '/invalid2');
+        self::assertNotFalse($this->con);
+        self::assertFalse(Directory::copy($this->con, __DIR__ . '/invalid', __DIR__ . '/invalid2'));
     }
 
-    /**
-     * @expectedException \phpOMS\System\File\PathException
-     */
     public function testInvalidMovePath() : void
     {
-        if (!self::TEST) {
-            throw new PathException('');
-        }
-
-        Directory::move(self::BASE . '/invalid', self::BASE . '/invalid2');
+        self::assertNotFalse($this->con);
+        self::assertFalse(Directory::move($this->con, __DIR__ . '/invalid', __DIR__ . '/invalid2'));
     }
 
     /**
@@ -119,11 +105,9 @@ class DirectoryTest extends \PHPUnit\Framework\TestCase
      */
     public function testInvalidCreatedPath() : void
     {
-        if (!self::TEST) {
-            throw new PathException('');
-        }
+        self::assertNotFalse($this->con);
 
-        Directory::created(self::BASE . '/invalid');
+        Directory::created($this->con, __DIR__ . '/invalid');
     }
 
     /**
@@ -131,11 +115,9 @@ class DirectoryTest extends \PHPUnit\Framework\TestCase
      */
     public function testInvalidChangedPath() : void
     {
-        if (!self::TEST) {
-            throw new PathException('');
-        }
+        self::assertNotFalse($this->con);
 
-        Directory::changed(self::BASE . '/invalid');
+        Directory::changed($this->con, __DIR__ . '/invalid');
     }
 
     /**
@@ -143,11 +125,9 @@ class DirectoryTest extends \PHPUnit\Framework\TestCase
      */
     public function testInvalidSizePath() : void
     {
-        if (!self::TEST) {
-            throw new PathException('');
-        }
+        self::assertNotFalse($this->con);
 
-        Directory::size(self::BASE . '/invalid');
+        Directory::size($this->con, __DIR__ . '/invalid');
     }
 
     /**
@@ -155,11 +135,9 @@ class DirectoryTest extends \PHPUnit\Framework\TestCase
      */
     public function testInvalidPermissionPath() : void
     {
-        if (!self::TEST) {
-            throw new PathException('');
-        }
+        self::assertNotFalse($this->con);
 
-        Directory::permission(self::BASE . '/invalid');
+        Directory::permission($this->con, __DIR__ . '/invalid');
     }
 
     /**
@@ -167,10 +145,8 @@ class DirectoryTest extends \PHPUnit\Framework\TestCase
      */
     public function testInvalidOwnerPath() : void
     {
-        if (!self::TEST) {
-            throw new PathException('');
-        }
+        self::assertNotFalse($this->con);
 
-        Directory::owner(self::BASE . '/invalid');
+        Directory::owner($this->con, __DIR__ . '/invalid');
     }
 }

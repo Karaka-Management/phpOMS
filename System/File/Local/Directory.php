@@ -29,7 +29,7 @@ use phpOMS\Utils\StringUtils;
  * @link       http://website.orange-management.de
  * @since      1.0.0
  */
-final class Directory extends FileAbstract implements DirectoryInterface
+final class Directory extends FileAbstract implements LocalContainerInterface, DirectoryInterface
 {
     /**
      * Directory list filter.
@@ -78,7 +78,7 @@ final class Directory extends FileAbstract implements DirectoryInterface
     public static function list(string $path, string $filter = '*') : array
     {
         if (!\file_exists($path)) {
-            throw new PathException($path);
+            return [];
         }
 
         $list     = [];
@@ -174,11 +174,11 @@ final class Directory extends FileAbstract implements DirectoryInterface
         }
 
         foreach ($directories as $key => $filename) {
-            if ($filename === ".." || $filename === ".") {
+            if ($filename === '..' || $filename === '.') {
                 continue;
             }
 
-            $path = $dir . "/" . $filename;
+            $path = $dir . '/' . $filename;
             if (\is_dir($path) && $recursive) {
                 $countSize += self::size($path, $recursive);
             } elseif (\is_file($path)) {
@@ -190,7 +190,17 @@ final class Directory extends FileAbstract implements DirectoryInterface
     }
 
     /**
-     * {@inheritdoc}
+     * Get amount of sub-resources.
+     *
+     * A file will always return 1 as it doesn't have any sub-resources.
+     *
+     * @param string        $path      Path of the resource
+     * @param bool          $recursive Should count also sub-sub-resources
+     * @param array<string> $ignore    Ignore files
+     *
+     * @return int
+     *
+     * @since  1.0.0
      */
     public static function count(string $path, bool $recursive = true, array $ignore = []) : int
     {
@@ -216,7 +226,7 @@ final class Directory extends FileAbstract implements DirectoryInterface
                     $size += self::count(\rtrim($path, '/') . '/' . $t, true, $ignore);
                 }
             } else {
-                $size++;
+                ++$size;
             }
         }
 
@@ -331,7 +341,7 @@ final class Directory extends FileAbstract implements DirectoryInterface
     public static function copy(string $from, string $to, bool $overwrite = false) : bool
     {
         if (!\is_dir($from)) {
-            throw new PathException($from);
+            return false;
         }
 
         if (!\file_exists($to)) {
@@ -362,7 +372,7 @@ final class Directory extends FileAbstract implements DirectoryInterface
     public static function move(string $from, string $to, bool $overwrite = false) : bool
     {
         if (!\is_dir($from)) {
-            throw new PathException($from);
+            return false;
         }
 
         if (!$overwrite && \file_exists($to)) {
@@ -415,7 +425,15 @@ final class Directory extends FileAbstract implements DirectoryInterface
     }
 
     /**
-     * {@inheritdoc}
+     * Create directory
+     *
+     * @param string $path       Path of the resource
+     * @param int    $permission Permission
+     * @param bool   $recursive  Create recursive in case of subdirectories
+     *
+     * @return bool
+     *
+     * @since  1.0.0
      */
     public static function create(string $path, int $permission = 0755, bool $recursive = false) : bool
     {

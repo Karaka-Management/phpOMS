@@ -29,7 +29,7 @@ use phpOMS\System\File\PathException;
  * @link       http://website.orange-management.de
  * @since      1.0.0
  */
-final class File extends FileAbstract implements FileInterface
+final class File extends FileAbstract implements LocalContainerInterface, FileInterface
 {
 
     /**
@@ -60,7 +60,15 @@ final class File extends FileAbstract implements FileInterface
     }
 
     /**
-     * {@inheritdoc}
+     * Save content to file.
+     *
+     * @param string $path    File path to save the content to
+     * @param string $content Content to save in file
+     * @param int    $mode    Mode (overwrite, append)
+     *
+     * @return bool
+     *
+     * @since  1.0.0
      */
     public static function put(string $path, string $content, int $mode = ContentPutMode::REPLACE | ContentPutMode::CREATE) : bool
     {
@@ -90,7 +98,13 @@ final class File extends FileAbstract implements FileInterface
     }
 
     /**
-     * {@inheritdoc}
+     * Get content from file.
+     *
+     * @param string $path File path of content
+     *
+     * @return string Content of file
+     *
+     * @since  1.0.0
      */
     public static function get(string $path) : string
     {
@@ -112,7 +126,16 @@ final class File extends FileAbstract implements FileInterface
     }
 
     /**
-     * {@inheritdoc}
+     * Save content to file.
+     *
+     * Creates new file if it doesn't exist or overwrites existing file.
+     *
+     * @param string $path    File path to save the content to
+     * @param string $content Content to save in file
+     *
+     * @return bool
+     *
+     * @since  1.0.0
      */
     public static function set(string $path, string $content) : bool
     {
@@ -120,7 +143,16 @@ final class File extends FileAbstract implements FileInterface
     }
 
     /**
-     * {@inheritdoc}
+     * Save content to file.
+     *
+     * Creates new file if it doesn't exist or appends existing file.
+     *
+     * @param string $path    File path to save the content to
+     * @param string $content Content to save in file
+     *
+     * @return bool
+     *
+     * @since  1.0.0
      */
     public static function append(string $path, string $content) : bool
     {
@@ -128,7 +160,16 @@ final class File extends FileAbstract implements FileInterface
     }
 
     /**
-     * {@inheritdoc}
+     * Save content to file.
+     *
+     * Creates new file if it doesn't exist or prepends existing file.
+     *
+     * @param string $path    File path to save the content to
+     * @param string $content Content to save in file
+     *
+     * @return bool
+     *
+     * @since  1.0.0
      */
     public static function prepend(string $path, string $content) : bool
     {
@@ -274,7 +315,7 @@ final class File extends FileAbstract implements FileInterface
     public static function copy(string $from, string $to, bool $overwrite = false) : bool
     {
         if (!\is_file($from)) {
-            throw new PathException($from);
+            return false;
         }
 
         if ($overwrite || !\file_exists($to)) {
@@ -485,7 +526,13 @@ final class File extends FileAbstract implements FileInterface
     }
 
     /**
-     * {@inheritdoc}
+     * Get file extension.
+     *
+     * @param string $path File path
+     *
+     * @return string
+     *
+     * @since  1.0.0
      */
     public static function extension(string $path) : string
     {

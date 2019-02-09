@@ -14,75 +14,82 @@
 namespace phpOMS\tests\System\File\Ftp;
 
 use phpOMS\System\File\ContentPutMode;
+use phpOMS\System\File\Ftp\Directory;
 use phpOMS\System\File\Ftp\File;
 use phpOMS\System\File\PathException;
+use phpOMS\Uri\Http;
 
 class FileTest extends \PHPUnit\Framework\TestCase
 {
-    const TEST = false;
-    const BASE = 'ftp://user:password@localhost';
+    const BASE = 'ftp://test:123456@127.0.0.1:20';
+
+    private $con = null;
+
+    protected function setUp() : void
+    {
+        if ($this->con === null) {
+            $this->con = File::ftpConnect(new Http(self::BASE));
+        }
+    }
 
     public function testStatic() : void
     {
-        if (!self::TEST) {
-            return;
-        }
+        self::assertNotFalse($this->con);
 
-        $testFile = self::BASE . '/test.txt';
-        self::assertFalse(File::put($testFile, 'test', ContentPutMode::REPLACE));
-        self::assertFalse(File::exists($testFile));
-        self::assertTrue(File::put($testFile, 'test', ContentPutMode::CREATE));
-        self::assertTrue(File::exists($testFile));
+        $testFile = __DIR__ . '/test.txt';
+        self::assertFalse(File::put($this->con, $testFile, 'test', ContentPutMode::REPLACE));
+        self::assertFalse(File::exists($this->con, $testFile));
+        self::assertTrue(File::put($this->con, $testFile, 'test', ContentPutMode::CREATE));
+        self::assertTrue(File::exists($this->con, $testFile));
 
-        self::assertFalse(File::put($testFile, 'test', ContentPutMode::CREATE));
-        self::assertTrue(File::put($testFile, 'test2', ContentPutMode::REPLACE));
+        self::assertFalse(File::put($this->con, $testFile, 'test', ContentPutMode::CREATE));
+        self::assertTrue(File::put($this->con, $testFile, 'test2', ContentPutMode::REPLACE));
 
-        self::assertEquals('test2', File::get($testFile));
-        self::assertTrue(File::set($testFile, 'test3'));
-        self::assertTrue(File::append($testFile, 'test4'));
-        self::assertEquals('test3test4', File::get($testFile));
-        self::assertTrue(File::prepend($testFile, 'test5'));
-        self::assertEquals('test5test3test4', File::get($testFile));
+        self::assertEquals('test2', File::get($this->con, $testFile));
+        self::assertTrue(File::set($this->con, $testFile, 'test3'));
+        self::assertTrue(File::append($this->con, $testFile, 'test4'));
+        self::assertEquals('test3test4', File::get($this->con, $testFile));
+        self::assertTrue(File::prepend($this->con, $testFile, 'test5'));
+        self::assertEquals('test5test3test4', File::get($this->con, $testFile));
 
-        self::assertEquals(\str_replace('\\', '/', \realpath(\dirname($testFile) . '/../')), File::parent($testFile));
+        self::assertEquals(\str_replace('\\', '/', \realpath(\dirname($testFile))), File::parent($testFile));
         self::assertEquals('txt', File::extension($testFile));
         self::assertEquals('test', File::name($testFile));
         self::assertEquals('test.txt', File::basename($testFile));
-        self::assertEquals(\basename(\realpath(self::BASE)), File::dirname($testFile));
-        self::assertEquals(\realpath(self::BASE), File::dirpath($testFile));
+        self::assertEquals(\basename(\realpath(__DIR__)), File::dirname($testFile));
+        self::assertEquals(\realpath(__DIR__), File::dirpath($testFile));
         self::assertEquals(1, File::count($testFile));
 
         $now = new \DateTime('now');
-        self::assertEquals($now->format('Y-m-d'), File::created($testFile)->format('Y-m-d'));
-        self::assertEquals($now->format('Y-m-d'), File::changed($testFile)->format('Y-m-d'));
+        self::assertEquals($now->format('Y-m-d'), File::created($this->con, $testFile)->format('Y-m-d'));
+        self::assertEquals($now->format('Y-m-d'), File::changed($this->con, $testFile)->format('Y-m-d'));
 
-        self::assertGreaterThan(0, File::size($testFile));
-        self::assertGreaterThan(0, File::permission($testFile));
+        self::assertGreaterThan(0, File::size($this->con, $testFile));
+        self::assertGreaterThan(0, File::permission($this->con, $testFile));
 
-        $newPath = self::BASE . '/sub/path/testing.txt';
-        self::assertTrue(File::copy($testFile, $newPath));
-        self::assertTrue(File::exists($newPath));
-        self::assertFalse(File::copy($testFile, $newPath));
-        self::assertTrue(File::copy($testFile, $newPath, true));
-        self::assertEquals('test5test3test4', File::get($newPath));
+        $newPath = __DIR__ . '/sub/path/testing.txt';
+        self::assertTrue(File::copy($this->con, $testFile, $newPath));
+        self::assertTrue(File::exists($this->con, $newPath));
+        self::assertFalse(File::copy($this->con, $testFile, $newPath));
+        self::assertTrue(File::copy($this->con, $testFile, $newPath, true));
+        self::assertEquals('test5test3test4', File::get($this->con, $newPath));
 
-        $newPath2 = self::BASE . '/sub/path/testing2.txt';
-        self::assertTrue(File::move($testFile, $newPath2));
-        self::assertTrue(File::exists($newPath2));
-        self::assertFalse(File::exists($testFile));
-        self::assertEquals('test5test3test4', File::get($newPath2));
+        $newPath2 = __DIR__ . '/sub/path/testing2.txt';
+        self::assertTrue(File::move($this->con, $testFile, $newPath2));
+        self::assertTrue(File::exists($this->con, $newPath2));
+        self::assertFalse(File::exists($this->con, $testFile));
+        self::assertEquals('test5test3test4', File::get($this->con, $newPath2));
 
-        self::assertTrue(File::delete($newPath2));
-        self::assertFalse(File::exists($newPath2));
-        self::assertFalse(File::delete($newPath2));
+        self::assertTrue(File::delete($this->con, $newPath2));
+        self::assertFalse(File::exists($this->con, $newPath2));
+        self::assertFalse(File::delete($this->con, $newPath2));
 
-        \unlink($newPath);
-        \rmdir(self::BASE . '/sub/path/');
-        \rmdir(self::BASE . '/sub/');
+        File::delete($this->con, $newPath);
+        Directory::delete($this->con, __DIR__ . '/sub');
 
-        self::assertTrue(File::create($testFile));
-        self::assertFalse(File::create($testFile));
-        self::assertEquals('', File::get($testFile));
+        self::assertTrue(File::create($this->con, $testFile));
+        self::assertFalse(File::create($this->con, $testFile));
+        self::assertEquals('', File::get($this->con, $testFile));
 
         \unlink($testFile);
     }
@@ -92,35 +99,21 @@ class FileTest extends \PHPUnit\Framework\TestCase
      */
     public function testInvalidGetPath() : void
     {
-        if (!self::TEST) {
-            throw new PathException('');
-        }
+        self::assertNotFalse($this->con);
 
-        File::get(self::BASE . '/invalid.txt');
+        File::get($this->con, __DIR__ . '/invalid.txt');
     }
 
-    /**
-     * @expectedException \phpOMS\System\File\PathException
-     */
     public function testInvalidCopyPath() : void
     {
-        if (!self::TEST) {
-            throw new PathException('');
-        }
-
-        File::copy(self::BASE . '/invalid.txt', self::BASE . '/invalid2.txt');
+        self::assertNotFalse($this->con);
+        self::assertFalse(File::copy($this->con, __DIR__ . '/invalid.txt', __DIR__ . '/invalid2.txt'));
     }
 
-    /**
-     * @expectedException \phpOMS\System\File\PathException
-     */
     public function testInvalidMovePath() : void
     {
-        if (!self::TEST) {
-            throw new PathException('');
-        }
-
-        File::move(self::BASE . '/invalid.txt', self::BASE . '/invalid2.txt');
+        self::assertNotFalse($this->con);
+        self::assertFalse(File::move($this->con, __DIR__ . '/invalid.txt', __DIR__ . '/invalid2.txt'));
     }
 
     /**
@@ -128,11 +121,9 @@ class FileTest extends \PHPUnit\Framework\TestCase
      */
     public function testInvalidCreatedPath() : void
     {
-        if (!self::TEST) {
-            throw new PathException('');
-        }
+        self::assertNotFalse($this->con);
 
-        File::created(self::BASE . '/invalid.txt');
+        File::created($this->con, __DIR__ . '/invalid.txt');
     }
 
     /**
@@ -140,11 +131,9 @@ class FileTest extends \PHPUnit\Framework\TestCase
      */
     public function testInvalidChangedPath() : void
     {
-        if (!self::TEST) {
-            throw new PathException('');
-        }
+        self::assertNotFalse($this->con);
 
-        File::changed(self::BASE . '/invalid.txt');
+        File::changed($this->con, __DIR__ . '/invalid.txt');
     }
 
     /**
@@ -152,11 +141,9 @@ class FileTest extends \PHPUnit\Framework\TestCase
      */
     public function testInvalidSizePath() : void
     {
-        if (!self::TEST) {
-            throw new PathException('');
-        }
+        self::assertNotFalse($this->con);
 
-        File::size(self::BASE . '/invalid.txt');
+        File::size($this->con, __DIR__ . '/invalid.txt');
     }
 
     /**
@@ -164,11 +151,9 @@ class FileTest extends \PHPUnit\Framework\TestCase
      */
     public function testInvalidPermissionPath() : void
     {
-        if (!self::TEST) {
-            throw new PathException('');
-        }
+        self::assertNotFalse($this->con);
 
-        File::permission(self::BASE . '/invalid.txt');
+        File::permission($this->con, __DIR__ . '/invalid.txt');
     }
 
     /**
@@ -176,10 +161,8 @@ class FileTest extends \PHPUnit\Framework\TestCase
      */
     public function testInvalidOwnerPath() : void
     {
-        if (!self::TEST) {
-            throw new PathException('');
-        }
+        self::assertNotFalse($this->con);
 
-        File::owner(self::BASE . '/invalid.txt');
+        File::owner($this->con, __DIR__ . '/invalid.txt');
     }
 }

@@ -36,4 +36,9 @@ class FileUtilsTest extends \PHPUnit\Framework\TestCase
     {
         self::assertEquals('/test/ative', FileUtils::absolute('/test/path/for/../rel/../../ative'));
     }
+
+    public function testPermissionToOctal() : void
+    {
+        self::assertEquals(0742, FileUtils::permissionToOctal('rwxr---w-'));
+    }
 }

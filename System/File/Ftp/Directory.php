@@ -16,9 +16,10 @@ namespace phpOMS\System\File\Ftp;
 
 use phpOMS\System\File\ContainerInterface;
 use phpOMS\System\File\DirectoryInterface;
-use phpOMS\System\File\Local\Directory as DirectoryLocal;
+use phpOMS\System\File\FileUtils;
+use phpOMS\System\File\Local\Directory as LocalDirectory;
 use phpOMS\System\File\Local\File as LocalFile;
-use phpOMS\System\File\Local\FileAbstract;
+use phpOMS\System\File\PathException;
 use phpOMS\Uri\Http;
 
 /**
@@ -30,41 +31,9 @@ use phpOMS\Uri\Http;
  * @license    OMS License 1.0
  * @link       http://website.orange-management.de
  * @since      1.0.0
- * @codeCoverageIgnore
  */
-class Directory extends FileAbstract implements DirectoryInterface
+class Directory extends FileAbstract implements FtpContainerInterface, DirectoryInterface
 {
-    public static function ftpConnect(Http $http)
-    {
-        $con = \ftp_connect($http->getBase() . $http->getPath(), $http->getPort());
-
-        \ftp_login($con, $http->getUser(), $http->getPass());
-        \ftp_chdir($con, $http->getPath()); // todo: is this required ?
-
-        return $con;
-    }
-
-    public static function ftpExists($con, string $path)
-    {
-        $list = \ftp_nlist($con, LocalFile::parent($path));
-
-        return \in_array(LocalFile::name($path), $list);
-    }
-
-    public static function ftpCreate($con, string $path, int $permission, bool $recursive) : void
-    {
-        $parts = \explode('/', $path);
-        \ftp_chdir($con, '/' . $parts[0]);
-
-        foreach ($parts as $part) {
-            if (self::ftpExists($con, $part)) {
-                \ftp_\kdir($con, $part);
-                \ftp_chdir($con, $part);
-                \ftp_chmod($con, $permission, $part);
-            }
-        }
-    }
-
     /**
      * Directory nodes (files and directories).
      *
@@ -74,28 +43,193 @@ class Directory extends FileAbstract implements DirectoryInterface
     private $nodes = [];
 
     /**
-     * {@inheritdoc}
+     * Create ftp connection.
+     *
+     * @param HTTP $http Uri
+     *
+     * @return mixed
+     *
+     * @since  1.0.0
      */
-    public static function size(string $dir, bool $recursive = true) : int
+    public static function ftpConnect(Http $http)
     {
+        $con = \ftp_connect($http->getHost(), $http->getPort());
 
+        \ftp_login($con, $http->getUser(), $http->getPass());
+
+        if ($http->getPath() !== '') {
+            \ftp_chdir($con, $http->getPath());
+        }
+
+        return $con;
+    }
+
+    /**
+     * List all files in directory.
+     *
+     * @param resource $con    FTP connection
+     * @param string   $path   Path
+     * @param string   $filter Filter
+     *
+     * @return array<int, string>
+     *
+     * @since  1.0.0
+     */
+    public static function list($con, string $path, string $filter = '*') : array
+    {
+        if (!self::exists($con, $path)) {
+            return [];
+        }
+
+        $list     = [];
+        $path     = \rtrim($path, '\\/');
+        $detailed = self::parseRawList($con, $path);
+
+        foreach ($detailed as $key => $item) {
+            $list[] = $key;
+
+            if ($item['type'] === 'dir') {
+                $list = \array_merge($list, self::list($con, $key));
+            }
+        }
+
+        /** @var array<int, string> $list */
+        return $list;
     }
 
     /**
      * {@inheritdoc}
      */
-    public static function count(string $path, bool $recursive = true, array $ignore = ['.', '..', 'cgi-bin',
-                                                                                               '.DS_Store']) : int
+    public static function exists($con, string $path) : bool
     {
+        return File::exists($con, $path);
+    }
 
+    /**
+     * Create directory
+     *
+     * @param resource $con        FTP connection
+     * @param string   $path       Path of the resource
+     * @param int      $permission Permission
+     * @param bool     $recursive  Create recursive in case of subdirectories
+     *
+     * @return bool
+     *
+     * @since  1.0.0
+     */
+    public static function create($con, string $path, int $permission = 0755, bool $recursive = false) : bool
+    {
+        if (self::exists($con, $path)) {
+            return false;
+        }
+
+        $parts = \explode('/', $path);
+        if ($parts[0] === '') {
+            $parts[0] = '/';
+        }
+
+        $depth = \count($parts);
+
+        $currentPath = '';
+        foreach ($parts as $key => $part) {
+            $currentPath .= ($currentPath !== '' && $currentPath !== '/' ? '/' : '') . $part;
+
+            if (!self::exists($con, $currentPath)) {
+                if (!$recursive && $key < $depth - 1) {
+                    return false;
+                }
+
+                \ftp_mkdir($con, $part);
+                \ftp_chmod($con, $permission, $part);
+            }
+
+            \ftp_chdir($con, $part);
+        }
+
+        return self::exists($con, $path);
     }
 
     /**
      * {@inheritdoc}
      */
-    public static function delete(string $path) : bool
+    public static function size($con, string $dir, bool $recursive = true) : int
     {
+        if (!self::exists($con, $dir)) {
+            throw new PathException($dir);
+        }
 
+        $countSize   = 0;
+        $directories = self::parseRawList($con, $dir);
+
+        if ($directories === false) {
+            return $countSize;
+        }
+
+        foreach ($directories as $key => $filename) {
+            if ($key === '..' || $key === '.') {
+                continue;
+            }
+
+            if ($filename['type'] === 'dir' && $recursive) {
+                $countSize += self::size($con, $key, $recursive);
+            } elseif ($filename['type'] === 'file' ) {
+                $countSize += \ftp_size($con, $key);
+            }
+        }
+
+        return $countSize;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public static function count($con, string $path, bool $recursive = true, array $ignore = []) : int
+    {
+        if (!self::exists($con, $path)) {
+            throw new PathException($path);
+        }
+
+        $size     = 0;
+        $files    = self::parseRawList($con, $path);
+        $ignore[] = '.';
+        $ignore[] = '..';
+
+        if ($files === false) {
+            return $size;
+        }
+
+        foreach ($files as $key => $t) {
+            if (\in_array($key, $ignore)) {
+                continue;
+            }
+            if ($t['type'] === 'dir') {
+                if ($recursive) {
+                    $size += self::count($con, $key, true, $ignore);
+                }
+            } else {
+                ++$size;
+            }
+        }
+
+        return $size;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public static function delete($con, string $path) : bool
+    {
+        $list = self::parseRawList($con, $path);
+
+        foreach ($list as $key => $item) {
+            if ($item['type'] === 'dir') {
+                self::delete($con, $key);
+            } else {
+                File::delete($con, $key);
+            }
+        }
+
+        return \ftp_rmdir($con, $path);
     }
 
     /**
@@ -103,63 +237,224 @@ class Directory extends FileAbstract implements DirectoryInterface
      */
     public static function parent(string $path) : string
     {
-
-    }
-
-    /**
-     * {@inheritdoc}
-     * todo: move to fileAbastract since it should be the same for file and directory?
-     */
-    public static function created(string $path) : \DateTime
-    {
-
+        return LocalDirectory::parent($path);
     }
 
     /**
      * {@inheritdoc}
      */
-    public static function changed(string $path) : \DateTime
+    public static function created($con, string $path) : \DateTime
     {
-        // TODO: Implement changed() method.
+        return self::changed($con, $path);
     }
 
     /**
      * {@inheritdoc}
      */
-    public static function owner(string $path) : int
+    public static function changed($con, string $path) : \DateTime
     {
-        // TODO: Implement owner() method.
+        if (!self::exists($con, $path)) {
+            throw new PathException($path);
+        }
+
+        $changed = new \DateTime();
+        $time    = \ftp_mdtm($con, $path);
+
+        $changed->setTimestamp($time === false ? 0 : $time);
+
+        return $changed;
     }
 
     /**
      * {@inheritdoc}
      */
-    public static function permission(string $path) : int
+    public static function owner($con, string $path) : string
     {
-        // TODO: Implement permission() method.
+        if (!self::exists($con, $path)) {
+            throw new PathException($path);
+        }
+
+        return self::parseRawList($con, self::parent($path))[$path]['user'];
+    }
+
+    /**
+     * Get detailed file/dir list.
+     *
+     * @param resource $con  FTP connection
+     * @param string   $path Path of the resource
+     *
+     * @return array
+     *
+     * @since  1.0.0
+     */
+    public static function parseRawList($con, string $path) : array
+    {
+        $listData = \ftp_rawlist($con, $path);
+        $names    = \ftp_nlist($con, $path);
+        $data     = [];
+
+        foreach ($listData as $key => $item) {
+            $chunks = \preg_split("/\s+/", $item);
+            list(
+                $e['permission'],
+                $e['number'],
+                $e['user'],
+                $e['group'],
+                $e['size'],
+                $e['month'],
+                $e['day'],
+                $e['time']
+            ) = $chunks;
+
+            $e['permission'] = FileUtils::permissionToOctal(\substr($e['permission'], 1));
+            $e['type']       = $chunks[0]{0} === 'd' ? 'dir' : 'file';
+
+            $data[$names[$key]] = $e;
+        }
+
+        return $data;
     }
 
     /**
      * {@inheritdoc}
      */
-    public static function copy(string $from, string $to, bool $overwrite = false) : bool
+    public static function permission($con, string $path) : int
     {
-        // TODO: Implement copy() method.
+        if (!self::exists($con, $path)) {
+            throw new PathException($path);
+        }
+
+        return self::parseRawList($con, self::parent($path))[$path]['permission'];
     }
 
     /**
      * {@inheritdoc}
      */
-    public static function move(string $from, string $to, bool $overwrite = false) : bool
+    public static function copy($con, string $from, string $to, bool $overwrite = false) : bool
     {
-        // TODO: Implement move() method.
+        if (!self::exists($con, $from)) {
+            return false;
+        }
+
+        $tempName = 'temp' . \mt_rand();
+        \mkdir($tempName);
+        $download = self::get($con, $from, $tempName . '/' . self::name($from));
+
+        if (!$download) {
+            return false;
+        }
+
+        $upload = self::put($con, \realpath($tempName) . '/' . self::name($from), $to);
+
+        if (!$upload) {
+            return false;
+        }
+
+        LocalDirectory::delete($tempName);
+
+        return self::exists($con, $to);
     }
 
     /**
-     * {@inheritdoc}
+     * Download file.
+     *
+     * @param resource $con       FTP connection
+     * @param string   $from      Path of the resource to copy
+     * @param string   $to        Path of the resource to copy to
+     *
+     * @return bool True on success and false on failure
+     *
+     * @since  1.0.0
      */
-    public static function exists(string $path) : bool
+    public static function get($con, string $from, string $to) : bool
     {
+        if (!self::exists($con, $from)) {
+            return false;
+        }
+
+        if (!\file_exists($to)) {
+            \mkdir($to);
+        }
+
+        $list = self::parseRawList($con, $from);
+        foreach ($list as $key => $item) {
+            if ($item['type'] === 'dir') {
+                self::get($con, $key, $to . '/' . self::name($key));
+            } else {
+                \file_put_contents($to . '/' . self::name($key), File::get($con, $key));
+            }
+        }
+
+        return \file_exists($to);
+    }
+
+    /**
+     * Upload file.
+     *
+     * @param resource $con       FTP connection
+     * @param string   $from      Path of the resource to copy
+     * @param string   $to        Path of the resource to copy to
+     *
+     * @return bool True on success and false on failure
+     *
+     * @since  1.0.0
+     */
+    public static function put($con, string $from, string $to) : bool
+    {
+        if (!\file_exists($from)) {
+            return false;
+        }
+
+        if (!self::exists($con, $to)) {
+            self::create($con, $to, 0755, true);
+        }
+
+        $list = \scandir($from);
+        foreach ($list as $key => $item) {
+            if ($item === '.' || $item === '..') {
+                continue;
+            }
+
+            $item = $from . '/' . \ltrim($item, '/');
+
+            if (\is_dir($item)) {
+                self::put($con, $item, $to . '/' . self::name($item));
+            } else {
+                File::put($con, $to . '/' . self::name($item), \file_get_contents($item));
+            }
+        }
+
+        return self::exists($con, $to);
+    }
+
+    /**
+     * Move resource to different location.
+     *
+     * @param resource $con       FTP connection
+     * @param string   $from      Path of the resource to move
+     * @param string   $to        Path of the resource to move to
+     * @param bool     $overwrite Overwrite/replace existing file
+     *
+     * @return bool True on success and false on failure
+     *
+     * @since  1.0.0
+     */
+    public static function move($con, string $from, string $to, bool $overwrite = false) : bool
+    {
+        if (!self::exists($con, $from)) {
+            return false;
+        }
+
+        if ($overwrite && self::exists($con, $to)) {
+            self::delete($con, $to);
+        } elseif (self::exists($con, $to)) {
+            return false;
+        }
+
+        $copy = self::copy($con, $from, $to);
+        self::delete($con, $from);
+
+        return $copy;
     }
 
     /**
@@ -167,15 +462,7 @@ class Directory extends FileAbstract implements DirectoryInterface
      */
     public static function sanitize(string $path, string $replace = '', string $invalid = '/[^\w\s\d\.\-_~,;\/\[\]\(\]]/') : string
     {
-        return DirectoryLocal::sanitize($path, $replace, $invalid);
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public static function create(string $path, int $permission = 0755, bool $recursive = false) : bool
-    {
-
+        return LocalDirectory::sanitize($path, $replace, $invalid);
     }
 
     /**
@@ -183,7 +470,7 @@ class Directory extends FileAbstract implements DirectoryInterface
      */
     public static function dirname(string $path) : string
     {
-
+        return LocalDirectory::dirname($path);
     }
 
     /**
@@ -191,7 +478,7 @@ class Directory extends FileAbstract implements DirectoryInterface
      */
     public static function dirpath(string $path) : string
     {
-
+        return LocalDirectory::dirpath($path);
     }
 
     /**
@@ -199,7 +486,7 @@ class Directory extends FileAbstract implements DirectoryInterface
      */
     public static function name(string $path) : string
     {
-        return DirectoryLocal::name($path);
+        return LocalDirectory::name($path);
     }
 
     /**
@@ -207,7 +494,7 @@ class Directory extends FileAbstract implements DirectoryInterface
      */
     public static function basename(string $path) : string
     {
-        return DirectoryLocal::basename($path);
+        return LocalDirectory::basename($path);
     }
 
     /**

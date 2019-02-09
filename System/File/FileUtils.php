@@ -136,4 +136,37 @@ final class FileUtils
             \file_put_contents($file, \mb_convert_encoding($content, 'UTF-8', \mb_list_encodings()));
         }
     }
+
+    /**
+     * Converts a string permisseion (rwx) to octal
+     *
+     * @param string $permission Permission string (e.g. rwx-w-r--)
+     *
+     * @return int
+     *
+     * @since  1.0.0
+     */
+    public static function permissionToOctal(string $permission) : int
+    {
+        $permissionLength = \strlen($permission);
+        $perm             = '';
+        $tempPermission   = 0;
+
+        for ($i = 0; $i < $permissionLength; ++$i) {
+            if ($permission[$i] === 'r') {
+                $tempPermission += 4;
+            } elseif ($permission[$i] === 'w') {
+                $tempPermission += 2;
+            } elseif ($permission[$i] === 'x') {
+                $tempPermission += 1;
+            }
+
+            if (($i + 1) % 3 === 0) {
+                $perm          .= $tempPermission;
+                $tempPermission = 0;
+            }
+        }
+
+        return \intval($perm, 8);
+    }
 }

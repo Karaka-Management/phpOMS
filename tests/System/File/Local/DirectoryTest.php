@@ -50,7 +50,6 @@ class DirectoryTest extends \PHPUnit\Framework\TestCase
     public function testStaticMove() : void
     {
         $dirTestPath = __DIR__ . '/dirtest';
-
         self::assertTrue(Directory::copy($dirTestPath, __DIR__ . '/newdirtest'));
         self::assertTrue(\file_exists(__DIR__ . '/newdirtest/sub/path/test3.txt'));
 
@@ -67,28 +66,19 @@ class DirectoryTest extends \PHPUnit\Framework\TestCase
         self::assertEquals(3, \count(Directory::listByExtension($dirTestPath, 'txt')));
     }
 
-    /**
-     * @expectedException \phpOMS\System\File\PathException
-     */
     public function testInvalidListPath() : void
     {
-        Directory::list(__DIR__ . '/invalid.txt');
+        self::assertEquals([], Directory::list(__DIR__ . '/invalid.txt'));
     }
 
-    /**
-     * @expectedException \phpOMS\System\File\PathException
-     */
     public function testInvalidCopyPath() : void
     {
-        Directory::copy(__DIR__ . '/invalid', __DIR__ . '/invalid2');
+        self::assertFalse(Directory::copy(__DIR__ . '/invalid', __DIR__ . '/invalid2'));
     }
 
-    /**
-     * @expectedException \phpOMS\System\File\PathException
-     */
     public function testInvalidMovePath() : void
     {
-        Directory::move(__DIR__ . '/invalid', __DIR__ . '/invalid2');
+        self::assertFalse(Directory::move(__DIR__ . '/invalid', __DIR__ . '/invalid2'));
     }
 
     /**

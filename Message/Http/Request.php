@@ -35,14 +35,6 @@ final class Request extends RequestAbstract
 {
 
     /**
-     * Uploaded files.
-     *
-     * @var array
-     * @since 1.0.0
-     */
-    protected $files = [];
-
-    /**
      * Browser type.
      *
      * @var string
@@ -416,18 +408,6 @@ final class Request extends RequestAbstract
     {
         $body = \file_get_contents('php://input');
         return $body === false ? '' : $body;
-    }
-
-    /**
-     * Get files passed in request.
-     *
-     * @return array
-     *
-     * @since  1.0.0
-     */
-    public function getFiles() : array
-    {
-        return $this->files;
     }
 
     /**
