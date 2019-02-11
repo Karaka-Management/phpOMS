@@ -114,7 +114,7 @@ final class Numbers
             if ($n & 1 == 1) {
                 break;
             } else {
-                $count++;
+                ++$count;
                 $n = $n >> 1;
             }
         }

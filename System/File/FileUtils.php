@@ -130,10 +130,11 @@ final class FileUtils
      */
     public static function changeFileEncoding(string $file, string $encoding) : void
     {
-        $content = \file_get_contents($file);
+        $content  = \file_get_contents($file);
+        $detected = \mb_detect_encoding($content);
 
-        if ($content !== false && \preg_match('!!u', $content)) {
-            \file_put_contents($file, \mb_convert_encoding($content, 'UTF-8', \mb_list_encodings()));
+        if ($content !== false) {
+            \file_put_contents($file, \mb_convert_encoding($content, $encoding, $detected === false ? \mb_list_encodings() : $detected));
         }
     }
 

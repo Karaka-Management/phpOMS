@@ -96,7 +96,7 @@ final class NetPromoterScore
         $count = 0;
         foreach ($this->scores as $score) {
             if ($score < 7) {
-                $count++;
+                ++$count;
             }
         }
 
@@ -117,7 +117,7 @@ final class NetPromoterScore
         $count = 0;
         foreach ($this->scores as $score) {
             if ($score > 6 && $score < 9) {
-                $count++;
+                ++$count;
             }
         }
 
@@ -138,7 +138,7 @@ final class NetPromoterScore
         $count = 0;
         foreach ($this->scores as $score) {
             if ($score > 8) {
-                $count++;
+                ++$count;
             }
         }
 
