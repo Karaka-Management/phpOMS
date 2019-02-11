@@ -42,7 +42,7 @@ class HeadTest extends \PHPUnit\Framework\TestCase
 
         $head->addAsset(AssetType::CSS, '/path/styles.css');
         $head->addAsset(AssetType::JS, '/path/logic.js');
-        $head->addAsset(AssetType::JSLATE, '/path/late.js');
+        $head->addAsset(AssetType::JSLATE, 'path/late.js');
 
         $head->setStyle('base', '#test .class { color: #000; }');
         self::assertEquals(['base' => '#test .class { color: #000; }'], $head->getStyleAll());
