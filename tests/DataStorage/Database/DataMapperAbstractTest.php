@@ -188,7 +188,7 @@ class DataMapperAbstractTest extends \PHPUnit\Framework\TestCase
         $for = ManyToManyDirectModelMapper::getFor($id, 'to');
         self::assertEquals(\reset($this->model->hasManyDirect)->string, \reset($for)->string);
 
-        self::assertEquals(1, count(BaseModelMapper::getAll()));
+        self::assertEquals(1, \count(BaseModelMapper::getAll()));
     }
 
     public function testReadArray() : void
@@ -214,7 +214,7 @@ class DataMapperAbstractTest extends \PHPUnit\Framework\TestCase
         $for = ManyToManyDirectModelMapper::getForArray($id, 'to');
         self::assertEquals(\reset($this->modelArray['hasManyDirect'])['string'], \reset($for)['string']);
 
-        self::assertEquals(1, count(BaseModelMapper::getAllArray()));
+        self::assertEquals(1, \count(BaseModelMapper::getAllArray()));
     }
 
     public function testUpdate() : void

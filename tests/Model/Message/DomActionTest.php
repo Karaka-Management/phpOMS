@@ -19,7 +19,7 @@ class DomActionTest extends \PHPUnit\Framework\TestCase
 {
     public function testEnums() : void
     {
-        self::assertEquals(9, count(DomAction::getConstants()));
+        self::assertEquals(9, \count(DomAction::getConstants()));
         self::assertEquals(DomAction::getConstants(), array_unique(DomAction::getConstants()));
 
         self::assertEquals(0, DomAction::CREATE_BEFORE);
