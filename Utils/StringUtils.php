@@ -494,7 +494,7 @@ final class StringUtils
                 break;
         }
 
-        return $result;
+        return \str_replace(['<ins></ins>', '<del></del>'], ['', ''], $result);
     }
 
     /**
