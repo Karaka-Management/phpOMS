@@ -427,45 +427,87 @@ final class StringUtils
         }
     }
 
-    public static function diffline(string $line1, string $line2) : string
+    /**
+     * Create string difference markup
+     *
+     * @param string $old Old strings
+     * @param string $new New strings
+     *
+     * @return string Markup using <del> and <ins> tags
+     *
+     * @since  1.0.0
+     */
+    public static function createDiffMarkup(string $old, string $new) : string
     {
-        $diff = self::computeLCSDiff(str_split($line1), str_split($line2));
-        $diffval = $diff['values'];
+        $splitOld = \str_split($old);
+        $splitNew = \str_split($new);
+
+        if ($splitOld === false) {
+            return '<ins>' . $new . '</ins>';
+        }
+
+        if ($splitNew === false) {
+            return '<del>' . $old . '</del>';
+        }
+
+        $diff     = self::computeLCSDiff($splitOld, $splitNew);
+        $diffval  = $diff['values'];
         $diffmask = $diff['mask'];
 
-        $n = count($diffval);
-        $pmc = 0;
+        $n      = \count($diffval);
+        $pmc    = 0;
         $result = '';
-        for ($i = 0; $i < $n; $i++)
-        {
+
+        for ($i = 0; $i < $n; ++$i) {
             $mc = $diffmask[$i];
-            if ($mc != $pmc)
-            {
-                switch ($pmc)
-                {
-                    case -1: $result .= '</del>'; break;
-                    case 1: $result .= '</ins>'; break;
+
+            if ($mc != $pmc) {
+                switch ($pmc) {
+                    case -1:
+                        $result .= '</del>';
+                        break;
+                    case 1:
+                        $result .= '</ins>';
+                        break;
                 }
-                switch ($mc)
-                {
-                    case -1: $result .= '<del>'; break;
-                    case 1: $result .= '<ins>'; break;
+
+                switch ($mc) {
+                    case -1: 
+                        $result .= '<del>';
+                        break;
+                    case 1:
+                        $result .= '<ins>';
+                        break;
                 }
             }
-            $result .= $diffval[$i];
 
-            $pmc = $mc;
+            $result .= $diffval[$i];
+            $pmc     = $mc;
         }
-        switch ($pmc)
-        {
-            case -1: $result .= '</del>'; break;
-            case 1: $result .= '</ins>'; break;
+
+        switch ($pmc) {
+            case -1:
+                $result .= '</del>';
+                break;
+            case 1:
+                $result .= '</ins>';
+                break;
         }
 
         return $result;
     }
 
-    private static function computeLCSDiff(string $from, string $to) : array
+    /**
+     * Create LCS diff masks
+     *
+     * @param array<string> $from From/old strings
+     * @param array<string> $to   To/new strings
+     *
+     * @return array
+     *
+     * @since  1.0.0
+     */
+    private static function computeLCSDiff(array $from, array $to) : array
     {
         $diffValues = [];
         $diffMask   = [];
@@ -474,23 +516,26 @@ final class StringUtils
         $n1 = \count($from);
         $n2 = \count($to);
 
-        for ($j = -1; $j < $n2; $j++) {
+        if ($n1 < 1 || $n2 < 1) {
+            throw new \Exception();
+        }
+
+        for ($j = -1; $j < $n2; ++$j) {
             $dm[-1][$j] = 0;
         }
 
-        for ($i = -1; $i < $n1; $i++) {
+        for ($i = -1; $i < $n1; ++$i) {
             $dm[$i][-1] = 0;
         }
 
-        for ($i = 0; $i < $n1; $i++) {
-            for ($j = 0; $j < $n2; $j++) {
-                if ($from[$i] == $to[$j]) {
-                    $ad = $dm[$i - 1][$j - 1];
+        for ($i = 0; $i < $n1; ++$i) {
+            for ($j = 0; $j < $n2; ++$j) {
+                if ($from[$i] === $to[$j]) {
+                    $ad         = $dm[$i - 1][$j - 1];
                     $dm[$i][$j] = $ad + 1;
-                }
-                else {
-                    $a1 = $dm[$i - 1][$j];
-                    $a2 = $dm[$i][$j - 1];
+                } else {
+                    $a1         = $dm[$i - 1][$j];
+                    $a2         = $dm[$i][$j - 1];
                     $dm[$i][$j] = \max($a1, $a2);
                 }
             }
@@ -498,29 +543,25 @@ final class StringUtils
 
         $i = $n1 - 1;
         $j = $n2 - 1;
-        while (($i > -1) || ($j > -1)) {
-            if ($j > -1) {
-                if ($dm[$i][$j - 1] == $dm[$i][$j]) {
-                    $diffValues[] = $to[$j];
-                    $diffMask[]   = 1;
-                    --$j;
+        while ($i > -1 || $j > -1) {
+            if ($j > -1 && $dm[$i][$j - 1] === $dm[$i][$j]) {
+                $diffValues[] = $to[$j];
+                $diffMask[]   = 1;
+                --$j;
 
-                    continue;
-                }
+                continue;
             }
 
-            if ($i > -1) {
-                if ($dm[$i - 1][$j] == $dm[$i][$j]) {
-                    $diffValues[] = $from[$i];
-                    $diffMask[]   = -1;
-                    --$i;
+            if ($i > -1 && $dm[$i - 1][$j] === $dm[$i][$j]) {
+                $diffValues[] = $from[$i];
+                $diffMask[]   = -1;
+                --$i;
 
-                    continue;
-                }
+                continue;
             }
 
             $diffValues[] = $from[$i];
-            $diffMask[] = 0;
+            $diffMask[]   = 0;
             --$i;
             --$j;
         }
