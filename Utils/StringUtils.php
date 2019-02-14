@@ -427,7 +427,45 @@ final class StringUtils
         }
     }
 
-    public static function computeLCSDiff(string $from, string $to) : array
+    public static function diffline(string $line1, string $line2) : string
+    {
+        $diff = self::computeLCSDiff(str_split($line1), str_split($line2));
+        $diffval = $diff['values'];
+        $diffmask = $diff['mask'];
+
+        $n = count($diffval);
+        $pmc = 0;
+        $result = '';
+        for ($i = 0; $i < $n; $i++)
+        {
+            $mc = $diffmask[$i];
+            if ($mc != $pmc)
+            {
+                switch ($pmc)
+                {
+                    case -1: $result .= '</del>'; break;
+                    case 1: $result .= '</ins>'; break;
+                }
+                switch ($mc)
+                {
+                    case -1: $result .= '<del>'; break;
+                    case 1: $result .= '<ins>'; break;
+                }
+            }
+            $result .= $diffval[$i];
+
+            $pmc = $mc;
+        }
+        switch ($pmc)
+        {
+            case -1: $result .= '</del>'; break;
+            case 1: $result .= '</ins>'; break;
+        }
+
+        return $result;
+    }
+
+    private static function computeLCSDiff(string $from, string $to) : array
     {
         $diffValues = [];
         $diffMask   = [];
