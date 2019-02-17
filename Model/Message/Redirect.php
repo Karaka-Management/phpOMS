@@ -137,7 +137,7 @@ class Redirect implements \Serializable, ArrayableInterface, \JsonSerializable
 
         $this->delay = $unserialized['time'] ?? 0;
         $this->uri   = $unserialized['uri'] ?? '';
-        $this->new   = $unserialized['new'] ?? '';
+        $this->new   = $unserialized['new'] ?? false;
     }
 
     /**

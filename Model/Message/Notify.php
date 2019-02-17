@@ -194,7 +194,7 @@ class Notify implements \Serializable, ArrayableInterface, \JsonSerializable
         $unserialized = \json_decode($raw, true);
 
         $this->delay   = $unserialized['time'] ?? 0;
-        $this->stay    = $unserialized['stay'] ?? '';
+        $this->stay    = $unserialized['stay'] ?? 0;
         $this->message = $unserialized['msg'] ?? '';
         $this->title   = $unserialized['title'] ?? '';
         $this->level   = $unserialized['level'] ?? 0;

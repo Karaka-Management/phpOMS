@@ -153,7 +153,7 @@ class Dom implements \Serializable, ArrayableInterface
         $this->delay    = $unserialized['time'] ?? 0;
         $this->selector = $unserialized['selector'] ?? '';
         $this->action   = $unserialized['action'] ?? '';
-        $this->content  = $unserialized['content'] ?? '';
+        $this->content  = $unserialized['content'] ?? DomAction::MODIFY;
     }
 
     /**
