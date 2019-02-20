@@ -604,7 +604,7 @@ final class ModuleManager
                 $this->initModule($module);
             }
 
-            return $this->running[$module];
+            return $this->running[$module] ?? new NullModule();
         } catch (\Exception $e) {
             throw $e;
         }
