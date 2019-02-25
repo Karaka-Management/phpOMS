@@ -14,6 +14,7 @@ declare(strict_types=1);
 
 namespace phpOMS\Validation\Base;
 
+use phpOMS\Utils\StringUtils;
 use phpOMS\Validation\ValidatorAbstract;
 
 /**
@@ -193,28 +194,26 @@ abstract class Json extends ValidatorAbstract
         }
 
         foreach ($source as $sPath => $sValue) {
-            $sourceIsValid = false;
-            $foundPath     = false;
+            $isValidValue = false;
+            $pathFound    = false;
 
             foreach ($validPaths as $tPath => $tValue) {
-                if (!$foundPath
-                    && ($tPath === $sPath
-                        || \preg_match('~' . \str_replace('/', '\\/', $tPath) . '~', $sPath) === 1)
+                if ($tPath === $sPath
+                    || \preg_match('~' . \str_replace('/', '\\/', $tPath) . '~', $sPath) === 1
                 ) {
-                    $foundPath = true;
-                }
+                    $pathFound = true;
+                    $sValue    = StringUtils::stringify($sValue);
 
-                if (($tPath === $sPath
-                        || \preg_match('~' . \str_replace('/', '\\/', $tPath) . '~', $sPath) === 1)
-                    && ($tValue === $sValue
+                    if (($tValue === $sValue
                         || \preg_match('~' . ((string) $tValue) . '~', (string) $sValue) === 1)
-                ) {
-                    $sourceIsValid = true;
-                    break;
+                    ) {
+                        $isValidValue = true;
+                        break;
+                    }
                 }
             }
 
-            if (!$sourceIsValid && $foundPath) {
+            if (!$isValidValue && $pathFound) {
                 return false;
             }
         }

@@ -1,16 +1,19 @@
 {
-    "name": "[a-z]+",
-    "fields": {
-        ".*": {
-            "name": "[a-z]+",
-            "type": ".+",
-            ".*?default": "1|0",
-            ".*?null": "1|0",
-            ".*?primary": "1|0",
-            ".*?unique": "1|0",
-            ".*?autoincrement": "1|0",
-            ".*?foreignTable": "[a-z]+",
-            ".*?foreignKey": "[a-z]+"
+    ".*": {
+        "name": "[a-z\\_]+",
+        "fields": {
+            ".*": {
+                "name": "[a-z\\_]+",
+                "type": "[A-Z0-9\\(\\)]+",
+                ".*?default": ".*",
+                ".*?null": "1|0",
+                ".*?primary": "1|0",
+                ".*?unique": "1|0",
+                ".*?autoincrement": "1|0",
+                ".*?foreignTable": "[a-z\\_]+",
+                ".*?foreignKey": "[a-z\\_]+",
+                ".*?annotations": ".*"
+            }
         }
     }
 }
