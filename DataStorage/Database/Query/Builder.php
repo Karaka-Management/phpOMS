@@ -33,7 +33,7 @@ class Builder extends BuilderAbstract
      * @var bool
      * @since 1.0.0
      */
-    private $isReadOnly = false;
+    protected $isReadOnly = false;
 
     /**
      * Columns.
