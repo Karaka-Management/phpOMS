@@ -65,13 +65,13 @@ class MysqlGrammar extends Grammar
      *
      * @since  1.0.0
      */
-    protected function compileSelectFields(Builder $query, array $table) : string
+    protected function compileSelectFields(Builder $query, string $table) : string
     {
         $builder = new Builder($query->getConnection());
         $builder->select('*')
             ->from('information_schema.columns')
             ->where('table_schema', '=', $query->getConnection()->getDatabase())
-            ->andWhere('table_name', '=', 'test');
+            ->andWhere('table_name', '=', $query->getPrefix() . $table);
 
         return \rtrim($builder->toSql(), ';');
     }

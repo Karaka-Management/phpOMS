@@ -119,35 +119,8 @@ abstract class InstallerAbstract
 
         $definitions = \json_decode($content, true);
         foreach ($definitions as $definition) {
-            self::createTable($definition, $dbPool);
+            SchemaBuilder::createFromSchema($definition, $dbPool->get('schema'))->execute();
         }
-    }
-
-    /**
-     * Create table module.
-     *
-     * @param array        $definition Table definition
-     * @param DatabasePool $dbPool     Database instance
-     *
-     * @return void
-     *
-     * @since  1.0.0
-     */
-    private static function createTable(array $definition, DatabasePool $dbPool) : void
-    {
-        $builder = new SchemaBuilder($dbPool->get('schema'));
-        $builder->prefix($dbPool->get('schema')->prefix);
-        $builder->createTable($definition['name'] ?? '');
-
-        foreach ($definition['fields'] as $name => $def) {
-            $builder->field(
-                $name, $def['type'], $def['default'] ?? null,
-                $def['null'] ?? true, $def['primary'] ?? false, $def['autoincrement'] ?? false,
-                $def['foreignTable'] ?? null, $def['foreignKey'] ?? null
-            );
-        }
-
-        $builder->execute();
     }
 
     /**

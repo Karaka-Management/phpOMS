@@ -205,10 +205,6 @@ abstract class GrammarAbstract
 
         foreach ($elements as $key => $element) {
             if (\is_string($element) && $element !== '*') {
-                if (\strpos($element, '.') === false) {
-                    $prefix = '';
-                }
-
                 $expression .= $this->compileSystem($element, $prefix) . ', ';
             } elseif (\is_string($element) && $element === '*') {
                 $expression .= '*, ';

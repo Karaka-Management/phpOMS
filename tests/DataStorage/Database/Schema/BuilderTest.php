@@ -29,7 +29,7 @@ class BuilderTest extends \PHPUnit\Framework\TestCase
     {
         $query = new Builder($this->con);
         $sql   = 'DROP DATABASE `test`;';
-        self::assertEquals($sql, $query->drop('test')->toSql());
+        self::assertEquals($sql, $query->dropDatabase('test')->toSql());
     }
 
     public function testMysqlShowTables() : void

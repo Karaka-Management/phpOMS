@@ -31,11 +31,13 @@ class Builder extends QueryBuilder
 
     public $createFields = [];
 
-    public $drop = [];
+    public $dropDatabase = '';
+
+    public $dropTable = '';
 
     public $selectTables = ['*'];
 
-    public $selectFields = [];
+    public $selectFields = '';
 
     public $createTableSettings = true;
 
@@ -43,20 +45,70 @@ class Builder extends QueryBuilder
      * Constructor.
      *
      * @param ConnectionAbstract $connection Database connection
+     * @param bool               $readOnly   Query is read only
      *
      * @since  1.0.0
      */
-    public function __construct(ConnectionAbstract $connection)
+    public function __construct(ConnectionAbstract $connection, bool $readOnly = false)
+    {
+        $this->isReadOnly = $readOnly;
+        $this->setConnection($connection);
+    }
+
+    /**
+     * Set connection for grammar.
+     *
+     * @param ConnectionAbstract $connection Database connection
+     *
+     * @return void
+     *
+     * @since  1.0.0
+     */
+    public function setConnection(ConnectionAbstract $connection) : void
     {
         $this->connection = $connection;
         $this->grammar    = $connection->getSchemaGrammar();
     }
 
-    public function drop(...$table) : self
+    /**
+     * Create schema builder from schema definition.
+     *
+     * @param array              $definition Database schema definition
+     * @param ConnectionAbstract $connection Database connection
+     *
+     * @return self
+     *
+     * @since  1.0.0
+     */
+    public static function createFromSchema(array $definition, ConnectionAbstract $connection) : self
     {
-        $this->type  = QueryType::DROP;
-        $this->drop += $table;
-        $this->drop  = \array_unique($this->drop);
+        $builder = new self($connection);
+        $builder->prefix($connection->prefix);
+        $builder->createTable($definition['name'] ?? '');
+
+        foreach ($definition['fields'] as $name => $def) {
+            $builder->field(
+                $name, $def['type'], $def['default'] ?? null,
+                $def['null'] ?? true, $def['primary'] ?? false, $def['autoincrement'] ?? false,
+                $def['foreignTable'] ?? null, $def['foreignKey'] ?? null
+            );
+        }
+
+        return $builder;
+    }
+
+    public function dropDatabase(string $database) : self
+    {
+        $this->type         = QueryType::DROP_DATABASE;
+        $this->dropDatabase = $database;
+
+        return $this;
+    }
+
+    public function dropTable(string $table) : self
+    {
+        $this->type      = QueryType::DROP_TABLE;
+        $this->dropTable = $table;
 
         return $this;
     }
@@ -70,8 +122,8 @@ class Builder extends QueryBuilder
 
     public function selectFields(string $table) : self
     {
-        $this->type            = QueryType::FIELDS;
-        $this->selectFields[0] = $table;
+        $this->type         = QueryType::FIELDS;
+        $this->selectFields = $table;
 
         return $this;
     }

@@ -1,0 +1,81 @@
+{
+    "test_foreign": {
+        "name": "test_foreign",
+        "fields": {
+            "test_foreign_id": {
+                "name": "test_foreign_id",
+                "type": "INT",
+                "null": false,
+                "primary": true,
+                "autoincrement": true
+            }
+        }
+    },
+    "test": {
+        "name": "test",
+        "fields": {
+            "test_id": {
+                "name": "test_id",
+                "type": "INT",
+                "null": false,
+                "primary": true,
+                "autoincrement": true
+            },
+            "test_varchar": {
+                "name": "test_varchar",
+                "type": "VARCHAR(255)",
+                "null": false
+            },
+            "test_text": {
+                "name": "test_text",
+                "type": "TEXT",
+                "null": false
+            },
+            "test_tinyint": {
+                "name": "test_tinyint",
+                "type": "TINYINT",
+                "null": false
+            },
+            "test_smallint": {
+                "name": "test_smallint",
+                "type": "SMALLINT",
+                "null": false
+            },
+            "test_int": {
+                "name": "test_int",
+                "type": "INT",
+                "null": false
+            },
+            "test_bigint": {
+                "name": "test_bigint",
+                "type": "BIGINT",
+                "null": false
+            },
+            "test_datetime": {
+                "name": "test_datetime",
+                "type": "DATETIME",
+                "null": false
+            },
+            "test_null": {
+                "name": "test_null",
+                "type": "VARCHAR(2)",
+                "default": null,
+                "null": true
+            },
+            "test_default": {
+                "name": "test_default",
+                "type": "VARCHAR(10)",
+                "default": "TeSt1",
+                "null": true
+            },
+            "test_foreign": {
+                "name": "test_foreign",
+                "type": "INT",
+                "default": null,
+                "null": true,
+                "foreignTable": "test_foreign",
+                "foreignKey": "test_foreign_id"
+            }
+        }
+    }
+}

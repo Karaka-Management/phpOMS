@@ -34,8 +34,18 @@ class Grammar extends QueryGrammar
      * @var string[]
      * @since 1.0.0
      */
-    protected $dropComponents = [
-        'drop',
+    protected $dropDatabaseComponents = [
+        'dropDatabase',
+    ];
+
+    /**
+     * Drop components.
+     *
+     * @var string[]
+     * @since 1.0.0
+     */
+    protected $dropTableComponents = [
+        'dropTable',
     ];
 
     /**
@@ -76,14 +86,16 @@ class Grammar extends QueryGrammar
     protected function getComponents(int $type) : array
     {
         switch ($type) {
-            case QueryType::DROP:
-                return $this->dropComponents;
+            case QueryType::DROP_DATABASE:
+                return $this->dropDatabaseComponents;
             case QueryType::TABLES:
                 return $this->tablesComponents;
             case QueryType::FIELDS:
                 return $this->fieldsComponents;
             case QueryType::CREATE_TABLE:
                 return $this->createTablesComponents;
+            case QueryType::DROP_TABLE:
+                return $this->dropTableComponents;
             default:
                 return parent::getComponents($type);
         }
@@ -123,20 +135,41 @@ class Grammar extends QueryGrammar
      * Compile drop query.
      *
      * @param BuilderAbstract $query  Query
-     * @param array           $tables Tables to drop
+     * @param string          $table Tables to drop
      *
      * @return string
      *
      * @since  1.0.0
      */
-    protected function compileDrop(BuilderAbstract $query, array $tables) : string
+    protected function compileDropDatabase(BuilderAbstract $query, string $table) : string
     {
-        $expression = $this->expressionizeTableColumn($tables, $query->getPrefix());
+        $expression = $this->expressionizeTableColumn([$table], $query->getPrefix());
 
         if ($expression === '') {
             $expression = '*';
         }
 
         return 'DROP DATABASE ' . $expression;
+    }
+
+    /**
+     * Compile drop query.
+     *
+     * @param BuilderAbstract $query  Query
+     * @param string          $table Tables to drop
+     *
+     * @return string
+     *
+     * @since  1.0.0
+     */
+    protected function compileDropTable(BuilderAbstract $query, string $table) : string
+    {
+        $expression = $this->expressionizeTableColumn([$table], $query->getPrefix());
+
+        if ($expression === '') {
+            $expression = '*';
+        }
+
+        return 'DROP TABLE ' . $expression;
     }
 }
