@@ -60,9 +60,9 @@ class EigenvalueDecompositionTest extends \PHPUnit\Framework\TestCase
         self::assertEquals([-5, 3, 6], $eig->getRealEigenvalues()->toArray(), '', 0.2);
 
         self::assertEquals([
-            [sqrt(2/3), sqrt(2/7), 1/sqrt(293)],
-            [-1/sqrt(6), -3/sqrt(14), 6/sqrt(293)],
-            [1/sqrt(6), -1/sqrt(14), 16/sqrt(293)],
+            [-sqrt(2/3), sqrt(2/7), -1/sqrt(293)],
+            [-1/sqrt(6), -3/sqrt(14), -6/sqrt(293)],
+            [1/sqrt(6), -1/sqrt(14), -16/sqrt(293)],
         ], $eig->getV()->toArray(), '', 0.2);
 
         self::assertEquals([
@@ -107,7 +107,7 @@ class EigenvalueDecompositionTest extends \PHPUnit\Framework\TestCase
             $A->toArray(),
             $eig->getV()
                 ->mult($eig->getD())
-                ->mult($eig->getV()->transpose())
+                ->mult($eig->getV()->inverse())
                 ->toArray(),
             '', 0.2
         );

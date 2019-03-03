@@ -32,7 +32,7 @@ class SingularValueDecompositionTest extends \PHPUnit\Framework\TestCase
 
         self::assertEquals([
             [-0.3092, -0.9510],
-            [-0.9510, -0.3092],
+            [-0.9510, 0.3092],
         ], $svd->getU()->toArray(), '', 0.2);
 
         self::assertEquals([

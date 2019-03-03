@@ -66,6 +66,13 @@ final class SingularValueDecomposition
      */
     private $n = 0;
 
+    /**
+     * Constructor.
+     *
+     * @param Matrix $M Matrix
+     *
+     * @since  1.0.0
+     */
     public function __construct(Matrix $M)
     {
         $A       = $M->toArray();
@@ -78,7 +85,9 @@ final class SingularValueDecomposition
         $nrt     = \max(0, \min($this->n - 2, $this->m));
         $eps     = 0.00001;
 
-        for ($k = 0; $k < \max($nct, $nrt); ++$k) {
+        $maxNctNrt = \max($nct, $nrt);
+
+        for ($k = 0; $k < $maxNctNrt; ++$k) {
             if ($k < $nct) {
                 $this->S[$k] = 0;
                 for ($i = $k; $i < $this->m; ++$i) {
@@ -207,7 +216,7 @@ final class SingularValueDecomposition
                     $this->U[$i][$k] = -$this->U[$i][$k];
                 }
 
-                $this->U[$k][$k] = 1.0 + $this->U[$k][$k];
+                $this->U[$k][$k] += 1.0;
                 for ($i = 0; $i < $k - 1; ++$i) {
                     $this->U[$i][$k] = 0.0;
                 }
@@ -245,7 +254,7 @@ final class SingularValueDecomposition
         $pp   = $p - 1;
         $iter = 0;
 
-        while ($p > 0) {
+        while (true) {
             for ($k = $p - 2; $k >= -1; --$k) {
                 if ($k === -1) {
                     break;
@@ -257,8 +266,9 @@ final class SingularValueDecomposition
                 }
             }
 
+            $case = 0;
             if ($k === $p - 2) {
-                $kase = 4;
+                $case = 4;
             } else {
                 for ($ks = $p - 1; $ks >= $k; --$ks) {
                     if ($ks === $k) {
@@ -266,6 +276,7 @@ final class SingularValueDecomposition
                     }
 
                     $t = ($ks !== $p ? \abs($e[$ks]) : 0) + ($ks !== $k + 1 ? \abs($e[$ks - 1]) : 0);
+
                     if (\abs($this->S[$ks]) <= $eps * $t) {
                         $this->S[$ks] = 0.0;
                         break;
@@ -273,23 +284,23 @@ final class SingularValueDecomposition
                 }
 
                 if ($ks === $k) {
-                    $kase = 3;
+                    $case = 3;
                 } elseif ($ks === $p - 1) {
-                    $kase = 1;
+                    $case = 1;
                 } else {
-                    $kase = 2;
+                    $case = 2;
                     $k    = $ks;
                 }
             }
             ++$k;
 
-            switch ($kase) {
+            switch ($case) {
                 case 1:
                     $f         = $e[$p - 2];
                     $e[$p - 2] = 0.0;
 
                     for ($j = $p - 2; $j >= $k; --$j) {
-                        $t           = Triangle::getHypot($this->S[$j],$f);
+                        $t           = Triangle::getHypot($this->S[$j], $f);
                         $cs          = $this->S[$j] / $t;
                         $sn          = $f / $t;
                         $this->S[$j] = $t;
@@ -362,7 +373,7 @@ final class SingularValueDecomposition
                     $g = $sk * $ek;
 
                     for ($j = $k; $j < $p - 1; ++$j) {
-                        $t  = Triangle::getHypot($f,$g);
+                        $t  = Triangle::getHypot($f, $g);
                         $cs = $f / $t;
                         $sn = $g / $t;
 
@@ -370,10 +381,10 @@ final class SingularValueDecomposition
                             $e[$j - 1] = $t;
                         }
 
-                        $f               = $cs * $this->S[$j] + $sn * $e[$j];
-                        $e[$j]           = $cs * $e[$j] - $sn * $this->S[$j];
-                        $g               = $sn * $this->S[$j + 1];
-                        $this->S[$j + 1] = $cs * $this->S[$j + 1];
+                        $f                = $cs * $this->S[$j] + $sn * $e[$j];
+                        $e[$j]            = $cs * $e[$j] - $sn * $this->S[$j];
+                        $g                = $sn * $this->S[$j + 1];
+                        $this->S[$j + 1] *= $cs;
 
                         for ($i = 0; $i < $this->n; ++$i) {
                             $t                   = $cs * $this->V[$i][$j] + $sn * $this->V[$i][$j + 1];
@@ -381,7 +392,7 @@ final class SingularValueDecomposition
                             $this->V[$i][$j]     = $t;
                         }
 
-                        $t               = Triangle::getHypot($f,$g);
+                        $t               = Triangle::getHypot($f, $g);
                         $cs              = $f / $t;
                         $sn              = $g / $t;
                         $this->S[$j]     = $t;
@@ -400,7 +411,7 @@ final class SingularValueDecomposition
                     }
 
                     $e[$p - 2] = $f;
-                    $iter      = $iter + 1;
+                    ++$iter;
                     break;
                 case 4:
                     if ($this->S[$k] <= 0.0) {
@@ -445,6 +456,13 @@ final class SingularValueDecomposition
         }
     }
 
+    /**
+     * Get U matrix
+     *
+     * @return Matrix
+     *
+     * @since  1.0.0
+     */
     public function getU() : Matrix
     {
         $matrix = new Matrix();
@@ -453,6 +471,13 @@ final class SingularValueDecomposition
         return $matrix;
     }
 
+    /**
+     * Get V matrix
+     *
+     * @return Matrix
+     *
+     * @since  1.0.0
+     */
     public function getV() : Matrix
     {
         $matrix = new Matrix();
@@ -461,6 +486,13 @@ final class SingularValueDecomposition
         return $matrix;
     }
 
+    /**
+     * Get S matrix
+     *
+     * @return Matrix
+     *
+     * @since  1.0.0
+     */
     public function getS() : Matrix
     {
         $S = [[]];
@@ -468,15 +500,23 @@ final class SingularValueDecomposition
             for ($j = 0; $j < $this->n; ++$j) {
                 $S[$i][$j] = 0.0;
             }
+
             $S[$i][$i] = $this->S[$i];
         }
 
         $matrix = new Matrix();
-        $matrix->setMatrix($this->V);
+        $matrix->setMatrix($S);
 
         return $matrix;
     }
 
+    /**
+     * Get singular Values
+     *
+     * @return Vector
+     *
+     * @since  1.0.0
+     */
     public function getSingularValues() : Vector
     {
         $vector = new Vector();
@@ -485,16 +525,37 @@ final class SingularValueDecomposition
         return $vector;
     }
 
+    /**
+     * Get norm
+     *
+     * @return float
+     *
+     * @since  1.0.0
+     */
     public function norm2() : float
     {
         return $this->S[0];
     }
 
+    /**
+     * Get condition
+     *
+     * @return float
+     *
+     * @since  1.0.0
+     */
     public function cond() : float
     {
         return $this->S[0] / $this->S[\min($this->m, $this->n) - 1];
     }
 
+    /**
+     * Get rank
+     *
+     * @return int
+     *
+     * @since  1.0.0
+     */
     public function rank() : int
     {
         $eps = 0.00001;

@@ -432,7 +432,7 @@ final class EigenvalueDecomposition
             }
         }
 
-        for ($m = $high - 1; $m >= $low + 1; --$m) {
+        for ($m = $high - 1; $m > $low; --$m) {
             if ($this->H[$m][$m - 1] != 0) {
                 for ($i = $m + 1; $i <= $high; ++$i) {
                     $this->ort[$i] = $this->H[$i][$m - 1];
@@ -463,7 +463,7 @@ final class EigenvalueDecomposition
             $d = $yr + $r * $yi;
 
             $this->cdivr = ($xr + $r * $xi) / $d;
-            $this->cdivi = ($xi + $r * $xr) / $d;
+            $this->cdivi = ($xi - $r * $xr) / $d;
         } else {
             $r = $yr / $yi;
             $d = $yi + $r * $yr;
@@ -479,7 +479,7 @@ final class EigenvalueDecomposition
         $n       = $nn - 1;
         $low     = 0;
         $high    = $nn - 1;
-        $eps     = 0.0001;
+        $eps     = 0.00001;
         $exshift = 0.0;
         $p       = 0;
         $q       = 0;
@@ -654,15 +654,13 @@ final class EigenvalueDecomposition
                         $r = ($notlast ? $this->H[$k + 2][$k - 1] : 0.0);
                         $x = \abs($p) + \abs($q) + \abs($r);
 
-                        if ($x != 0) {
-                            $p /= $x;
-                            $q /= $x;
-                            $r /= $x;
+                        if ($x == 0) {
+                            continue;
                         }
-                    }
 
-                    if ($x == 0) {
-                        break;
+                        $p /= $x;
+                        $q /= $x;
+                        $r /= $x;
                     }
 
                     $s = $p < 0 ? -\sqrt($p * $p + $q * $q + $r * $r) : \sqrt($p * $p + $q * $q + $r * $r);
@@ -709,7 +707,7 @@ final class EigenvalueDecomposition
                             $p = $x * $this->V[$i][$k] + $y * $this->V[$i][$k + 1];
 
                             if ($notlast) {
-                                $p                   = $p + $z * $this->V[$i][$k + 2];
+                                $p                  += $z * $this->V[$i][$k + 2];
                                 $this->V[$i][$k + 2] = $this->V[$i][$k + 2] - $p * $r;
                             }
                             $this->V[$i][$k]     = $this->V[$i][$k] - $p;
@@ -853,7 +851,7 @@ final class EigenvalueDecomposition
 
                 $min = \min($j, $high);
                 for ($k = $low; $k <= $min; ++$k) {
-                    $z = $z + $this->V[$i][$k] * $this->H[$k][$j];
+                    $z += $this->V[$i][$k] * $this->H[$k][$j];
                 }
 
                 $this->V[$i][$j] = $z;
