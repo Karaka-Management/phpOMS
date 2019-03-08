@@ -116,6 +116,7 @@ final class UriFactory
     {
         self::setQuery('/scheme', $uri->getScheme());
         self::setQuery('/host', $uri->getHost());
+        self::setQuery('/port', (string) $uri->getPort());
         self::setQuery('/base', \rtrim($uri->getBase(), '/'));
         self::setQuery('/rootPath', $uri->getRootPath());
         self::setQuery('?', $uri->getQuery());
