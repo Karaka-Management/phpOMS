@@ -232,6 +232,25 @@ final class Http implements UriInterface
     }
 
     /**
+     * Return the subdomain of a host
+     *
+     * @return string
+     *
+     * @since  1.0.0
+     */
+    public function getSubdomain() : string
+    {
+        $host   = explode('.', $this->host);
+        $length = \count($host) - 2;
+
+        if ($length < 1) {
+            return '';
+        }
+
+        return \array_slice($host, 0, $length);
+    }
+
+    /**
      * {@inheritdoc}
      */
     public function getPort() : int
