@@ -108,7 +108,7 @@ final class Request extends RequestAbstract
      */
     private function initCurrentRequest() : void
     {
-        $this->uri   = new Http(Http::getCurrent());
+        $this->uri   = Http::fromCurrent();
         $this->data  = $_GET ?? [];
         $this->files = $_FILES ?? [];
         $this->header->getL11n()->setLanguage($this->loadRequestLanguage());

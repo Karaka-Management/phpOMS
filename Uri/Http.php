@@ -194,6 +194,18 @@ final class Http implements UriInterface
     }
 
     /**
+     * Create uri from current url
+     *
+     * @return Http Returns the current uri
+     *
+     * @since  1.0.0
+     */
+    public static function fromCurrent() : self
+    {
+        return new self(self::getCurrent());
+    }
+
+    /**
      * {@inheritdoc}
      */
     public static function isValid(string $uri) : bool
@@ -250,7 +262,7 @@ final class Http implements UriInterface
             return '';
         }
 
-        return \array_slice($host, 0, $length);
+        return \implode('.', \array_slice($host, 0, $length));
     }
 
     /**
