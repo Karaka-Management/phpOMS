@@ -187,7 +187,10 @@ final class Http implements UriInterface
     public static function getCurrent() : string
     {
         /** @noinspection PhpUndefinedConstantInspection */
-        return (\stripos($_SERVER['SERVER_PROTOCOL'], 'https') !== false ? 'https' : 'http' ) . '://' . ($_SERVER['HTTP_HOST'] ?? '') . ($_SERVER['REQUEST_URI'] ?? '');
+        return ((!empty($_SERVER['HTTPS'] ?? '') && ($_SERVER['HTTPS'] ?? '') !== 'off')
+            || (($_SERVER['HTTP_X_FORWARDED_PROTO'] ?? '') === 'https')
+            || (($_SERVER['HTTP_X_FORWARDED_SSL'] ?? '') === 'on'))
+            . '://' . ($_SERVER['HTTP_HOST'] ?? ''). ($_SERVER['REQUEST_URI'] ?? '');
     }
 
     /**
