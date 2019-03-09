@@ -162,6 +162,10 @@ class Localization
             throw new InvalidEnumValue($langCode);
         }
 
+        if ($countryCode !== '*' && !\file_exists(__DIR__ . '/../Localization/Defaults/Definitions/' . $langCode . '_' . $countryCode . '.json')) {
+            $countryCode = '*';
+        }
+
         $files = \glob(__DIR__ . '/../Localization/Defaults/Definitions/' . $langCode . '_' . $countryCode);
 
         foreach ($files as $file) {

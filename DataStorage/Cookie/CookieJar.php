@@ -112,6 +112,20 @@ final class CookieJar
     }
 
     /**
+     * Get cookie value
+     *
+     * @param string $id Cookie id
+     *
+     * @return mixed
+     *
+     * @since  1.0.0
+     */
+    public function get(string $id)
+    {
+        return $this->cookies[$id] ?? null;
+    }
+
+    /**
      * Delete already set cookie
      *
      * @param string $id Cookie id to remove

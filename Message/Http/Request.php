@@ -111,7 +111,7 @@ final class Request extends RequestAbstract
         $this->uri   = Http::fromCurrent();
         $this->data  = $_GET ?? [];
         $this->files = $_FILES ?? [];
-        $this->header->getL11n()->setLanguage($this->loadRequestLanguage());
+        $this->header->getL11n()->setLanguage($this->getRequestLanguage());
 
         $this->initNonGetData();
     }
@@ -155,23 +155,42 @@ final class Request extends RequestAbstract
     }
 
     /**
-     * Load request language
+     * Get request language
      *
      * @return string
      *
      * @since  1.0.0
      */
-    private function loadRequestLanguage() : string
+    public function getRequestLanguage() : string
     {
         if (!isset($_SERVER['HTTP_ACCEPT_LANGUAGE'])) {
-            return 'EN';
+            return 'en';
         }
 
         $components           = \explode(';', $_SERVER['HTTP_ACCEPT_LANGUAGE']);
         $locals               = \stripos($components[0], ',') !== false ? $locals = \explode(',', $components[0]) : $components;
         $firstLocalComponents = \explode('-', $locals[0]);
 
-        return $firstLocalComponents[0];
+        return \strtolower($firstLocalComponents[0]);
+    }
+
+    /**
+     * Get request locale
+     *
+     * @return string
+     *
+     * @since  1.0.0
+     */
+    public function getLocale() : string
+    {
+        if (!isset($_SERVER['HTTP_ACCEPT_LANGUAGE'])) {
+            return 'en_US';
+        }
+
+        $components = \explode(';', $_SERVER['HTTP_ACCEPT_LANGUAGE']);
+        $locals     = \stripos($components[0], ',') !== false ? $locals = \explode(',', $components[0]) : $components;
+
+        return \str_replace('-', '_', $locals[0]);
     }
 
     /**
@@ -253,7 +272,7 @@ final class Request extends RequestAbstract
                 $paths[] = $pathArray[$i];
             }
 
-            $this->hash[] = sha1(\implode('', $paths));
+            $this->hash[] = \sha1(\implode('', $paths));
         }
     }
 
