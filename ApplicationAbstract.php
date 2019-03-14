@@ -27,6 +27,7 @@ namespace phpOMS;
  * @property \phpOMS\Localization\L11nManager $l11nManager
  * @property \phpOMS\Router\Router $router
  * @property \phpOMS\DataStorage\Session\SessionInterface $sessionManager
+ * @property \phpOMS\DataStorage\Cookie\CookieJar $cookieJar
  * @property \phpOMS\Module\ModuleManager $moduleManager
  * @property \phpOMS\Dispatcher\Dispatcher $dispatcher
  * @property \phpOMS\DataStorage\Cache\CachePool $cachePool
@@ -122,6 +123,14 @@ class ApplicationAbstract
      * @since 1.0.0
      */
     protected $sessionManager = null;
+
+    /**
+     * Cookie instance.
+     *
+     * @var \phpOMS\DataStorage\Cookie\CookieJar
+     * @since 1.0.0
+     */
+    protected $cookieJar = null;
 
     /**
      * Server localization.

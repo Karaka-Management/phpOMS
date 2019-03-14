@@ -254,13 +254,11 @@ final class SingularValueDecomposition
         $pp   = $p - 1;
         $iter = 0;
 
-        while (true) {
+        while ($p > 0) {
             for ($k = $p - 2; $k >= -1; --$k) {
                 if ($k === -1) {
                     break;
-                }
-
-                if (\abs($e[$k]) <= $eps * (\abs($this->S[$k]) + \abs($this->S[$k + 1]))) {
+                } elseif (\abs($e[$k]) <= $eps * (\abs($this->S[$k]) + \abs($this->S[$k + 1]))) {
                     $e[$k] = 0.0;
                     break;
                 }

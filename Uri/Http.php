@@ -194,6 +194,18 @@ final class Http implements UriInterface
     }
 
     /**
+     * Create uri from current url
+     *
+     * @return Http Returns the current uri
+     *
+     * @since  1.0.0
+     */
+    public static function fromCurrent() : self
+    {
+        return new self(self::getCurrent());
+    }
+
+    /**
      * {@inheritdoc}
      */
     public static function isValid(string $uri) : bool
@@ -232,6 +244,25 @@ final class Http implements UriInterface
     public function getHost() : string
     {
         return $this->host;
+    }
+
+    /**
+     * Return the subdomain of a host
+     *
+     * @return string
+     *
+     * @since  1.0.0
+     */
+    public function getSubdomain() : string
+    {
+        $host   = explode('.', $this->host);
+        $length = \count($host) - 2;
+
+        if ($length < 1) {
+            return '';
+        }
+
+        return \implode('.', \array_slice($host, 0, $length));
     }
 
     /**

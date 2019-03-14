@@ -196,7 +196,7 @@ abstract class RequestAbstract implements MessageInterface
             return [];
         }
 
-        $json = \json_decode($this->data[$key]);
+        $json = \json_decode($this->data[$key], true);
 
         return $json === false ? [] : $json;
     }
