@@ -55,6 +55,10 @@ class Directory extends FileAbstract implements FtpContainerInterface, Directory
     {
         $con = \ftp_connect($http->getHost(), $http->getPort());
 
+        if ($con === false) {
+            return false;
+        }
+
         \ftp_login($con, $http->getUser(), $http->getPass());
 
         if ($http->getPath() !== '') {

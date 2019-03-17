@@ -71,6 +71,10 @@ class File extends FileAbstract implements FileInterface
     {
         $con = \ftp_connect($http->getHost(), $http->getPort());
 
+        if ($con === false) {
+            return false;
+        }
+
         \ftp_login($con, $http->getUser(), $http->getPass());
 
         if ($http->getPath() !== '') {
