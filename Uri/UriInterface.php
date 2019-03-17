@@ -129,6 +129,19 @@ interface UriInterface
     public function setRootPath(string $root) : void;
 
     /**
+     * Set path offset.
+     *
+     * This can be used if the uri path starts with elements which are not relevant later on.
+     *
+     * @param int $offset Path offset
+     *
+     * @return void
+     *
+     * @since  1.0.0
+     */
+    public function setPathOffset(int $offset = 0) : void;
+
+    /**
      * Get path element.
      *
      * @param int $pos Position of the path

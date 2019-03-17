@@ -248,7 +248,7 @@ final class Http implements UriInterface
     /**
      * {@inheritdoc}
      */
-    public function setPathOffset(int $offset) : void
+    public function setPathOffset(int $offset = 0) : void
     {
         $this->pathOffset = $offset;
     }
