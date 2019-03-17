@@ -38,9 +38,9 @@ class GammaTest extends \PHPUnit\Framework\TestCase
         ];
 
         for ($i = 1; $i <= 10; $i++) {
-            self::assertEquals($stirling[$i - 1], Gamma::stirlingApproximation($i / 3), '', 0.01);
-            self::assertEquals($spouge[$i - 1], Gamma::spougeApproximation($i / 3), '', 0.01);
-            self::assertEquals($gsl[$i - 1], Gamma::lanczosApproximationReal($i / 3), '', 0.01);
+            self::assertEqualsWithDelta($stirling[$i - 1], Gamma::stirlingApproximation($i / 3), 0.01);
+            self::assertEqualsWithDelta($spouge[$i - 1], Gamma::spougeApproximation($i / 3), 0.01);
+            self::assertEqualsWithDelta($gsl[$i - 1], Gamma::lanczosApproximationReal($i / 3), 0.01);
         }
     }
 }

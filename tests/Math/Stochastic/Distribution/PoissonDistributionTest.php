@@ -22,7 +22,7 @@ class PoissonDistributionTest extends \PHPUnit\Framework\TestCase
         $k = 4;
         $l = 3;
 
-        self::assertEquals(0.16803, PoissonDistribution::getPmf(4, 3), '', 0.01);
+        self::assertEqualsWithDelta(0.16803, PoissonDistribution::getPmf(4, 3), 0.01);
     }
 
     public function testCdf() : void
@@ -30,14 +30,14 @@ class PoissonDistributionTest extends \PHPUnit\Framework\TestCase
         $k = 4;
         $l = 3;
 
-        self::assertEquals(0.81526, PoissonDistribution::getCdf(4, 3), '', 0.01);
+        self::assertEqualsWithDelta(0.81526, PoissonDistribution::getCdf(4, 3), 0.01);
     }
 
     public function testMode() : void
     {
         $l = 4.6;
 
-        self::assertEquals(4, PoissonDistribution::getMode($l), '', 0.01);
+        self::assertEqualsWithDelta(4, PoissonDistribution::getMode($l), 0.01);
     }
 
     public function testMean() : void

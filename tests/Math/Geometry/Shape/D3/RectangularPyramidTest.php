@@ -19,8 +19,8 @@ class RectangularPyramidTest extends \PHPUnit\Framework\TestCase
 {
     public function testCylinder() : void
     {
-        self::assertEquals(8, RectangularPyramid::getVolume(2, 3, 4), '', 0.01);
-        self::assertEquals(26.91, RectangularPyramid::getSurface(2, 3, 4), '', 0.01);
-        self::assertEquals(20.91, RectangularPyramid::getLateralSurface(2, 3, 4), '', 0.01);
+        self::assertEqualsWithDelta(8, RectangularPyramid::getVolume(2, 3, 4), 0.01);
+        self::assertEqualsWithDelta(26.91, RectangularPyramid::getSurface(2, 3, 4), 0.01);
+        self::assertEqualsWithDelta(20.91, RectangularPyramid::getLateralSurface(2, 3, 4), 0.01);
     }
 }

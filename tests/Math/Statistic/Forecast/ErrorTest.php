@@ -38,7 +38,7 @@ class ErrorTest extends \PHPUnit\Framework\TestCase
 
     public function testErrorPercentage() : void
     {
-        self::assertEquals(300 / 1000, Error::getPercentageError(300, 1000), '', 0.01);
+        self::assertEqualsWithDelta(300 / 1000, Error::getPercentageError(300, 1000), 0.01);
         self::assertEquals(
             [
                 (400 - 300) / 400,
@@ -65,9 +65,9 @@ class ErrorTest extends \PHPUnit\Framework\TestCase
             500 - -300
         ];
 
-        self::assertEquals(300, Error::getMeanAbsoulteError($errors), '', 0.01);
-        self::assertEquals(125000, Error::getMeanSquaredError($errors), '', 0.01);
-        self::assertEquals(406.2019, Error::getRootMeanSquaredError($errors), '', 0.01);
+        self::assertEqualsWithDelta(300, Error::getMeanAbsoulteError($errors), 0.01);
+        self::assertEqualsWithDelta(125000, Error::getMeanSquaredError($errors), 0.01);
+        self::assertEqualsWithDelta(406.2019, Error::getRootMeanSquaredError($errors), 0.01);
     }
 
     public function testMASE() : void
@@ -85,7 +85,7 @@ class ErrorTest extends \PHPUnit\Framework\TestCase
         $errors       = Error::getForecastErrorArray($observed, $forecast);
         $scaledErrors = Error::getScaledErrorArray($errors, $observed);
 
-        self::assertEquals(0.0983, Error::getMeanAbsoluteScaledError($scaledErrors), '', 0.01);
+        self::assertEqualsWithDelta(0.0983, Error::getMeanAbsoluteScaledError($scaledErrors), 0.01);
     }
 
     public function testScaledError() : void

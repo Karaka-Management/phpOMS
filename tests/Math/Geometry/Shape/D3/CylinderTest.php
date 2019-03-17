@@ -19,8 +19,8 @@ class CylinderTest extends \PHPUnit\Framework\TestCase
 {
     public function testCylinder() : void
     {
-        self::assertEquals(37.7, Cylinder::getVolume(2, 3), '', 0.01);
-        self::assertEquals(62.83, Cylinder::getSurface(2, 3), '', 0.01);
-        self::assertEquals(37.7, Cylinder::getLateralSurface(2, 3), '', 0.01);
+        self::assertEqualsWithDelta(37.7, Cylinder::getVolume(2, 3), 0.01);
+        self::assertEqualsWithDelta(62.83, Cylinder::getSurface(2, 3), 0.01);
+        self::assertEqualsWithDelta(37.7, Cylinder::getLateralSurface(2, 3), 0.01);
     }
 }

@@ -33,29 +33,29 @@ class StockBondsTest extends \PHPUnit\Framework\TestCase
 
     public function testBondEquivalentYield() : void
     {
-        self::assertEquals(0.40556, StockBonds::getBondEquivalentYield(100, 90, 100), '', 0.01);
+        self::assertEqualsWithDelta(0.40556, StockBonds::getBondEquivalentYield(100, 90, 100), 0.01);
     }
 
     public function testExpectedReturnCAPM() : void
     {
-        self::assertEquals(7, StockBonds::getExpectedReturnCAPM(3, 2, 5), '', 0.01);
+        self::assertEqualsWithDelta(7, StockBonds::getExpectedReturnCAPM(3, 2, 5), 0.01);
     }
 
     public function testCapitalGainsYield() : void
     {
-        self::assertEquals(0.1, StockBonds::getCapitalGainsYield(100, 110), '', 0.01);
+        self::assertEqualsWithDelta(0.1, StockBonds::getCapitalGainsYield(100, 110), 0.01);
     }
 
     public function testDilutedEarningsPerShare() : void
     {
-        self::assertEquals(9.09, StockBonds::getDilutedEarningsPerShare(1000, 100, 10), '', 0.1);
+        self::assertEqualsWithDelta(9.09, StockBonds::getDilutedEarningsPerShare(1000, 100, 10), 0.1);
     }
 
     public function testHoldingPeriodReturn() : void
     {
         $r = [0.01, 0.02, 0.03, 0.04];
 
-        self::assertEquals(0.10355, StockBonds::getHoldingPeriodReturn($r), '', 0.01);
+        self::assertEqualsWithDelta(0.10355, StockBonds::getHoldingPeriodReturn($r), 0.01);
     }
 
     public function testTaxEquivalentYield() : void
@@ -63,7 +63,7 @@ class StockBondsTest extends \PHPUnit\Framework\TestCase
         $free = 0.15;
         $rate = 0.05;
 
-        self::assertEquals(0.15789, StockBonds::getTaxEquivalentYield($free, $rate), '', 0.01);
+        self::assertEqualsWithDelta(0.15789, StockBonds::getTaxEquivalentYield($free, $rate), 0.01);
     }
 
     public function testNetAssetValue() : void
@@ -72,7 +72,7 @@ class StockBondsTest extends \PHPUnit\Framework\TestCase
         $liabilities = 300;
         $shares      = 400;
 
-        self::assertEquals(1.75, StockBonds::getNetAssetValue($assets, $liabilities, $shares), '', 0.01);
+        self::assertEqualsWithDelta(1.75, StockBonds::getNetAssetValue($assets, $liabilities, $shares), 0.01);
     }
 
     public function testPresentValueOfStockConstantGrowth() : void
@@ -81,7 +81,7 @@ class StockBondsTest extends \PHPUnit\Framework\TestCase
         $r   = 0.15;
         $g   = 0.05;
 
-        self::assertEquals(5000, StockBonds::getPresentValueOfStockConstantGrowth($div, $r, $g), '', 0.01);
+        self::assertEqualsWithDelta(5000, StockBonds::getPresentValueOfStockConstantGrowth($div, $r, $g), 0.01);
     }
 
     public function testTotalStockReturn() : void
@@ -90,7 +90,7 @@ class StockBondsTest extends \PHPUnit\Framework\TestCase
         $p1 = 1200;
         $d  = 100;
 
-        self::assertEquals(0.3, StockBonds::getTotalStockReturn($p0, $p1, $d), '', 0.01);
+        self::assertEqualsWithDelta(0.3, StockBonds::getTotalStockReturn($p0, $p1, $d), 0.01);
     }
 
     public function testYieldToMaturity() : void
@@ -100,7 +100,7 @@ class StockBondsTest extends \PHPUnit\Framework\TestCase
         $p = 920;
         $n = 10;
 
-        self::assertEquals(0.1138, StockBonds::getYieldToMaturity($c, $f, $p, $n), '', 0.01);
+        self::assertEqualsWithDelta(0.1138, StockBonds::getYieldToMaturity($c, $f, $p, $n), 0.01);
     }
 
     public function testZeroCouponBondValue() : void
@@ -109,7 +109,7 @@ class StockBondsTest extends \PHPUnit\Framework\TestCase
         $r = 0.06;
         $t = 5;
 
-        self::assertEquals(74.73, StockBonds::getZeroCouponBondValue($f, $r, $t), '', 0.01);
+        self::assertEqualsWithDelta(74.73, StockBonds::getZeroCouponBondValue($f, $r, $t), 0.01);
     }
 
     public function testZeroCouponBondEffectiveYield() : void
@@ -118,6 +118,6 @@ class StockBondsTest extends \PHPUnit\Framework\TestCase
         $pv = 90;
         $n  = 5;
 
-        self::assertEquals(0.01517, StockBonds::getZeroCouponBondEffectiveYield($f, $pv, $n), '', 0.01);
+        self::assertEqualsWithDelta(0.01517, StockBonds::getZeroCouponBondEffectiveYield($f, $pv, $n), 0.01);
     }
 }

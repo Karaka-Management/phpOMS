@@ -22,7 +22,7 @@ class GeometricDistributionTest extends \PHPUnit\Framework\TestCase
         $p = 0.2;
         $k = 4;
 
-        self::assertEquals(0.1024, GeometricDistribution::getPmf($p, $k), '', 0.01);
+        self::assertEqualsWithDelta(0.1024, GeometricDistribution::getPmf($p, $k), 0.01);
     }
 
     public function testCdf() : void
@@ -31,7 +31,7 @@ class GeometricDistributionTest extends \PHPUnit\Framework\TestCase
         $k = 6;
 
         // P(X > 6) = P(X <= 6) => 1 - CDF
-        self::assertEquals(0.262, 1 - GeometricDistribution::getCdf($p, $k), '', 0.01);
+        self::assertEqualsWithDelta(0.262, 1 - GeometricDistribution::getCdf($p, $k), 0.01);
     }
 
     public function testMode() : void

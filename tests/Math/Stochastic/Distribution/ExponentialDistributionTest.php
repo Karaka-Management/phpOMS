@@ -22,7 +22,7 @@ class ExponentialDistributionTest extends \PHPUnit\Framework\TestCase
         $lambda = 0.1;
         $x      = 7;
 
-        self::assertEquals(0.049659, ExponentialDistribution::getPdf($x, $lambda), '', 0.01);
+        self::assertEqualsWithDelta(0.049659, ExponentialDistribution::getPdf($x, $lambda), 0.01);
     }
 
     public function testCdf() : void
@@ -30,7 +30,7 @@ class ExponentialDistributionTest extends \PHPUnit\Framework\TestCase
         $lambda = 0.1;
         $x      = 7;
 
-        self::assertEquals(0.5034, ExponentialDistribution::getCdf($x, $lambda), '', 0.01);
+        self::assertEqualsWithDelta(0.5034, ExponentialDistribution::getCdf($x, $lambda), 0.01);
     }
 
     public function testMean() : void

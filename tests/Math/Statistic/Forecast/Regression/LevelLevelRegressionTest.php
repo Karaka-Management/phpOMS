@@ -30,7 +30,7 @@ class LevelLevelRegressionTest extends \PHPUnit\Framework\TestCase
 
     public function testRegression() : void
     {
-        self::assertEquals(['b0' => 3, 'b1' => 4], $this->reg, '', 0.2);
+        self::assertEqualsWithDelta(['b0' => 3, 'b1' => 4], $this->reg, 0.2);
     }
 
     public function testSlope() : void
@@ -40,7 +40,7 @@ class LevelLevelRegressionTest extends \PHPUnit\Framework\TestCase
 
     public function testElasticity() : void
     {
-        self::assertEquals(0.7273, LevelLevelRegression::getElasticity($this->reg['b1'], 11, 2), '', 0.01);
+        self::assertEqualsWithDelta(0.7273, LevelLevelRegression::getElasticity($this->reg['b1'], 11, 2), 0.01);
     }
 
     public function testInvalidDimension() : void

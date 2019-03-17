@@ -73,7 +73,7 @@ class PolygonTest extends \PHPUnit\Framework\TestCase
             ['x' => 4, 'y' => 0],
             ['x' => 3, 'y' => 0],
         ]);
-        self::assertEquals(9.6568, $polygon->getPerimeter(), '', 0.1);
+        self::assertEqualsWithDelta(9.6568, $polygon->getPerimeter(), 0.1);
     }
 
     public function testArea() : void
@@ -103,6 +103,6 @@ class PolygonTest extends \PHPUnit\Framework\TestCase
             ['x' => 4, 'y' => 0],
             ['x' => 3, 'y' => 0],
         ]);
-        self::assertEquals(['x' => 3.5, 'y' => 1.5], $polygon->getBarycenter(), '', 0.5);
+        self::assertEqualsWithDelta(['x' => 3.5, 'y' => 1.5], $polygon->getBarycenter(), 0.5);
     }
 }

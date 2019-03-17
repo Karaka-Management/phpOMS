@@ -37,8 +37,8 @@ class CorrelationTest extends \PHPUnit\Framework\TestCase
             51, 20, 65, 45, 87, 68, 36, 31, 79, 7, 95, 37
         ];
 
-        self::assertEquals(0.022, Correlation::autocorrelationCoefficient($data, 1), '', 0.01);
-        self::assertEquals(0.098, Correlation::autocorrelationCoefficient($data, 2), '', 0.01);
+        self::assertEqualsWithDelta(0.022, Correlation::autocorrelationCoefficient($data, 1), 0.01);
+        self::assertEqualsWithDelta(0.098, Correlation::autocorrelationCoefficient($data, 2), 0.01);
     }
 
     public function testPortmanteauTest() : void
@@ -55,7 +55,7 @@ class CorrelationTest extends \PHPUnit\Framework\TestCase
             $correlations[] = Correlation::autocorrelationCoefficient($data, $i + 1);
         }
 
-        self::assertEquals(16.46, Correlation::boxPierceTest($correlations, 24, 48), '', 0.01);
-        self::assertEquals(24.92, Correlation::ljungBoxTest($correlations, 24, 48), '', 0.01);
+        self::assertEqualsWithDelta(16.46, Correlation::boxPierceTest($correlations, 24, 48), 0.01);
+        self::assertEqualsWithDelta(24.92, Correlation::ljungBoxTest($correlations, 24, 48), 0.01);
     }
 }

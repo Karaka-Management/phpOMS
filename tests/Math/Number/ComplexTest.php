@@ -95,7 +95,7 @@ class ComplexTest extends \PHPUnit\Framework\TestCase
     {
         $cpl = new Complex(4, 3);
 
-        self::assertEquals(5, $cpl->abs(), '', 0.01);
+        self::assertEqualsWithDelta(5, $cpl->abs(), 0.01);
     }
 
     public function testSqrt() : void

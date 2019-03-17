@@ -24,16 +24,16 @@ class AverageTest extends \PHPUnit\Framework\TestCase
 
     public function testAngleMean() : void
     {
-        self::assertEquals(-90, Average::angleMean([90.0, 180.0, 270.0, 360.0]), '', 0.01);
-        self::assertEquals(9.999999999999977, Average::angleMean([370.0]), '', 0.01);
+        self::assertEqualsWithDelta(-90, Average::angleMean([90.0, 180.0, 270.0, 360.0]), 0.01);
+        self::assertEqualsWithDelta(9.999999999999977, Average::angleMean([370.0]), 0.01);
 
-        self::assertEquals(270, Average::angleMean2([90.0, 180.0, 270.0, 360.0]), '', 0.01);
-        self::assertEquals(9.999999999999977, Average::angleMean2([370.0]), '', 0.01);
+        self::assertEqualsWithDelta(270, Average::angleMean2([90.0, 180.0, 270.0, 360.0]), 0.01);
+        self::assertEqualsWithDelta(9.999999999999977, Average::angleMean2([370.0]), 0.01);
     }
 
     public function testArithmeticMean() : void
     {
-        self::assertEquals(4, Average::arithmeticMean([1, 2, 3, 4, 5, 6, 7]), '', 0.01);
+        self::assertEqualsWithDelta(4, Average::arithmeticMean([1, 2, 3, 4, 5, 6, 7]), 0.01);
     }
 
     public function testWeightedAverage() : void
@@ -46,12 +46,12 @@ class AverageTest extends \PHPUnit\Framework\TestCase
 
     public function testGeometricMean() : void
     {
-        self::assertEquals(3.3800151591413, Average::geometricMean([1, 2, 3, 4, 5, 6, 7]), '', 0.01);
+        self::assertEqualsWithDelta(3.3800151591413, Average::geometricMean([1, 2, 3, 4, 5, 6, 7]), 0.01);
     }
 
     public function testHarmonicMean() : void
     {
-        self::assertEquals(2.6997245179063, Average::harmonicMean([1, 2, 3, 4, 5, 6, 7]), '', 0.01);
+        self::assertEqualsWithDelta(2.6997245179063, Average::harmonicMean([1, 2, 3, 4, 5, 6, 7]), 0.01);
     }
 
     public function testMovingAverage() : void
@@ -63,7 +63,7 @@ class AverageTest extends \PHPUnit\Framework\TestCase
 
         $average = [66.39, 66.03, 65.79, 65.6, 65.24, 64.8, 64.46, 63.94, 63.3, 62.87, 62.4];
 
-        self::assertEquals($average, Average::totalMovingAverage($data, 10), '', 0.1);
+        self::assertEqualsWithDelta($average, Average::totalMovingAverage($data, 10), 0.1);
     }
 
     public function testInvalidWeightedAverageDimension() : void
@@ -96,12 +96,12 @@ class AverageTest extends \PHPUnit\Framework\TestCase
 
     public function testMode() : void
     {
-        self::assertEquals(2, Average::mode([1, 2, 2, 3, 4, 4, 2]), '', 0.01);
+        self::assertEqualsWithDelta(2, Average::mode([1, 2, 2, 3, 4, 4, 2]), 0.01);
     }
 
     public function testMedia() : void
     {
-        self::assertEquals(4, Average::median([1, 2, 3, 4, 5, 6, 7]), '', 0.01);
-        self::assertEquals(3.5, Average::median([1, 2, 3, 4, 5, 6]), '', 0.01);
+        self::assertEqualsWithDelta(4, Average::median([1, 2, 3, 4, 5, 6, 7]), 0.01);
+        self::assertEqualsWithDelta(3.5, Average::median([1, 2, 3, 4, 5, 6]), 0.01);
     }
 }

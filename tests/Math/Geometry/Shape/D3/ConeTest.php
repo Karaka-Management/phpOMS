@@ -19,9 +19,9 @@ class ConeTest extends \PHPUnit\Framework\TestCase
 {
     public function testCone() : void
     {
-        self::assertEquals(12.57, Cone::getVolume(2, 3), '', 0.01);
-        self::assertEquals(35.22, Cone::getSurface(2, 3), '', 0.01);
-        self::assertEquals(3.61, Cone::getSlantHeight(2, 3), '', 0.01);
-        self::assertEquals(3, Cone::getHeightFromVolume(12.57, 2), '', 0.01);
+        self::assertEqualsWithDelta(12.57, Cone::getVolume(2, 3), 0.01);
+        self::assertEqualsWithDelta(35.22, Cone::getSurface(2, 3), 0.01);
+        self::assertEqualsWithDelta(3.61, Cone::getSlantHeight(2, 3), 0.01);
+        self::assertEqualsWithDelta(3, Cone::getHeightFromVolume(12.57, 2), 0.01);
     }
 }

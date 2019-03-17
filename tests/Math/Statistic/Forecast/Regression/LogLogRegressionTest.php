@@ -30,19 +30,19 @@ class LogLogRegressionTest extends \PHPUnit\Framework\TestCase
 
     public function testRegression() : void
     {
-        self::assertEquals(['b0' => 2, 'b1' => 3], $this->reg, '', 0.2);
+        self::assertEqualsWithDelta(['b0' => 2, 'b1' => 3], $this->reg, 0.2);
     }
 
     public function testSlope() : void
     {
         $y = 3;
         $x = 2;
-        self::assertEquals($this->reg['b1'] * $y / $x, LogLogRegression::getSlope($this->reg['b1'], $y, $x), '', 0.2);
+        self::assertEqualsWithDelta($this->reg['b1'] * $y / $x, LogLogRegression::getSlope($this->reg['b1'], $y, $x), 0.2);
     }
 
     public function testElasticity() : void
     {
-        self::assertEquals($this->reg['b1'], LogLogRegression::getElasticity($this->reg['b1'], 0, 0), '', 0.2);
+        self::assertEqualsWithDelta($this->reg['b1'], LogLogRegression::getElasticity($this->reg['b1'], 0, 0), 0.2);
     }
 
     public function testInvalidDimension() : void

@@ -19,8 +19,8 @@ class RectangleTest extends \PHPUnit\Framework\TestCase
 {
     public function testRectanle() : void
     {
-        self::assertEquals(10, Rectangle::getSurface(5, 2), '', 0.001);
-        self::assertEquals(10, Rectangle::getPerimeter(2, 3), '', 0.001);
-        self::assertEquals(32.7, Rectangle::getDiagonal(30, 13), '', 0.01);
+        self::assertEqualsWithDelta(10, Rectangle::getSurface(5, 2), 0.001);
+        self::assertEqualsWithDelta(10, Rectangle::getPerimeter(2, 3), 0.001);
+        self::assertEqualsWithDelta(32.7, Rectangle::getDiagonal(30, 13), 0.01);
     }
 }

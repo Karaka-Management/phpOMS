@@ -45,7 +45,7 @@ class LUDecompositionTest extends \PHPUnit\Framework\TestCase
         $vec = new Vector();
         $vec->setMatrix([[40], [49], [28]]);
         self::assertTrue($lu->isNonSingular());
-        self::assertEquals([[1], [2], [3]], $lu->solve($vec)->toArray(), '', 0.2);
+        self::assertEqualsWithDelta([[1], [2], [3]], $lu->solve($vec)->toArray(), 0.2);
         self::assertEquals([0, 1, 2], $lu->getPivot());
     }
 

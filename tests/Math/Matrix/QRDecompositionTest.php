@@ -78,6 +78,6 @@ class QRDecompositionTest extends \PHPUnit\Framework\TestCase
 
         $vec = new Vector();
         $vec->setMatrix([[40], [49], [28]]);
-        self::assertEquals([[1], [2], [3]], $QR->solve($vec)->toArray(), '', 0.2);
+        self::assertEqualsWithDelta([[1], [2], [3]], $QR->solve($vec)->toArray(), 0.2);
     }
 }

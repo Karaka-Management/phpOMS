@@ -29,7 +29,7 @@ class CauchyDistributionTest extends \PHPUnit\Framework\TestCase
         $x0    = 0.5;
         $gamma = 2;
 
-        self::assertEquals(0.14979, CauchyDistribution::getPdf($x, $x0, $gamma), '', 0.01);
+        self::assertEqualsWithDelta(0.14979, CauchyDistribution::getPdf($x, $x0, $gamma), 0.01);
     }
 
     public function testCdf() : void
@@ -38,13 +38,13 @@ class CauchyDistributionTest extends \PHPUnit\Framework\TestCase
         $x0    = 0.5;
         $gamma = 2;
 
-        self::assertEquals(0.57798, CauchyDistribution::getCdf($x, $x0, $gamma), '', 0.01);
+        self::assertEqualsWithDelta(0.57798, CauchyDistribution::getCdf($x, $x0, $gamma), 0.01);
     }
 
     public function testEntropy() : void
     {
         $gamma = 1.5;
 
-        self::assertEquals(\log(4 * M_PI * $gamma), CauchyDistribution::getEntropy($gamma), '', 0.01);
+        self::assertEqualsWithDelta(\log(4 * M_PI * $gamma), CauchyDistribution::getEntropy($gamma), 0.01);
     }
 }

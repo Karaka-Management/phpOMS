@@ -23,7 +23,7 @@ class NormalDistributionTest extends \PHPUnit\Framework\TestCase
         $sig  = 1;
         $x    = 3;
 
-        self::assertEquals(0.24197, NormalDistribution::getPdf($x, $mean, $sig), '', 0.01);
+        self::assertEqualsWithDelta(0.24197, NormalDistribution::getPdf($x, $mean, $sig), 0.01);
     }
 
     public function testCdf() : void
@@ -32,7 +32,7 @@ class NormalDistributionTest extends \PHPUnit\Framework\TestCase
         $sig  = 1;
         $x    = 3;
 
-        self::assertEquals(0.84134, NormalDistribution::getCdf($x, $mean, $sig), '', 0.01);
+        self::assertEqualsWithDelta(0.84134, NormalDistribution::getCdf($x, $mean, $sig), 0.01);
     }
 
     public function testMean() : void

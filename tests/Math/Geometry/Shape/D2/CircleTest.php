@@ -19,9 +19,9 @@ class CircleTest extends \PHPUnit\Framework\TestCase
 {
     public function testCircle() : void
     {
-        self::assertEquals(12.57, Circle::getSurface(2), '', 0.01);
-        self::assertEquals(12.57, Circle::getPerimeter(2), '', 0.01);
-        self::assertEquals(2.0, Circle::getRadiusBySurface(Circle::getSurface(2)), '', 0.001);
-        self::assertEquals(2.0, Circle::getRadiusByPerimeter(Circle::getPerimeter(2)), '', 0.001);
+        self::assertEqualsWithDelta(12.57, Circle::getSurface(2), 0.01);
+        self::assertEqualsWithDelta(12.57, Circle::getPerimeter(2), 0.01);
+        self::assertEqualsWithDelta(2.0, Circle::getRadiusBySurface(Circle::getSurface(2)), 0.001);
+        self::assertEqualsWithDelta(2.0, Circle::getRadiusByPerimeter(Circle::getPerimeter(2)), 0.001);
     }
 }

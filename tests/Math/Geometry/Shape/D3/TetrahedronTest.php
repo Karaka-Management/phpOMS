@@ -19,8 +19,8 @@ class TetrahedronTest extends \PHPUnit\Framework\TestCase
 {
     public function testTetrahedron() : void
     {
-        self::assertEquals(3.18, Tetrahedron::getVolume(3), '', 0.01);
-        self::assertEquals(15.59, Tetrahedron::getSurface(3), '', 0.01);
-        self::assertEquals(3.9, Tetrahedron::getFaceArea(3), '', 0.01);
+        self::assertEqualsWithDelta(3.18, Tetrahedron::getVolume(3), 0.01);
+        self::assertEqualsWithDelta(15.59, Tetrahedron::getSurface(3), 0.01);
+        self::assertEqualsWithDelta(3.9, Tetrahedron::getFaceArea(3), 0.01);
     }
 }

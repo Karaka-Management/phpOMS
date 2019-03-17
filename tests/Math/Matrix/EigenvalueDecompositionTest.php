@@ -30,7 +30,7 @@ class EigenvalueDecompositionTest extends \PHPUnit\Framework\TestCase
         $eig = new EigenvalueDecomposition($A);
 
         self::assertTrue($eig->isSymmetric());
-        self::assertEquals([0, 2, 5], $eig->getRealEigenvalues()->toArray(), '', 0.2);
+        self::assertEqualsWithDelta([0, 2, 5], $eig->getRealEigenvalues()->toArray(), 0.2);
 
         self::assertEquals([
             [0, 2/sqrt(6), 1/sqrt(3)],
@@ -57,7 +57,7 @@ class EigenvalueDecompositionTest extends \PHPUnit\Framework\TestCase
         $eig = new EigenvalueDecomposition($A);
 
         self::assertFalse($eig->isSymmetric());
-        self::assertEquals([-5, 3, 6], $eig->getRealEigenvalues()->toArray(), '', 0.2);
+        self::assertEqualsWithDelta([-5, 3, 6], $eig->getRealEigenvalues()->toArray(), 0.2);
 
         self::assertEquals([
             [-sqrt(2/3), sqrt(2/7), -1/sqrt(293)],

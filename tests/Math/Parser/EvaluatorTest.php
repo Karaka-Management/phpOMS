@@ -19,8 +19,8 @@ class EvaluatorTest extends \PHPUnit\Framework\TestCase
 {
     public function testBasicEvaluation() : void
     {
-        self::assertEquals(4.5, Evaluator::evaluate('3 + 4 * 2 / ( 1 - 5 ) ^ 2 ^ 3 + 1.5'), '', 2);
-        self::assertEquals(4.5, Evaluator::evaluate('3+4*2/(1-5)^2^3+1.5'), '', 2);
+        self::assertEqualsWithDelta(4.5, Evaluator::evaluate('3 + 4 * 2 / ( 1 - 5 ) ^ 2 ^ 3 + 1.5'), 2);
+        self::assertEqualsWithDelta(4.5, Evaluator::evaluate('3+4*2/(1-5)^2^3+1.5'), 2);
         self::assertEquals(null, Evaluator::evaluate('invalid'));
         self::assertEquals(null, Evaluator::evaluate('3+4*2/(1-5^2^3+1.5'));
     }

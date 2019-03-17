@@ -28,7 +28,7 @@ class ChiSquaredDistributionTest extends \PHPUnit\Framework\TestCase
 
         $test = ChiSquaredDistribution::testHypothesis($observed, $expected, $a);
 
-        self::assertEquals(8.46, $test['Chi2'], '', 0.1);
+        self::assertEqualsWithDelta(8.46, $test['Chi2'], 0.1);
         self::assertNotEquals(0, $test['P']);
         self::assertFalse($test['H0']);
         self::assertEquals(2, $test['df']);

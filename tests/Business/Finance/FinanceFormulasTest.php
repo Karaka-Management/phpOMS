@@ -254,7 +254,7 @@ class FinanceFormulasTest extends \PHPUnit\Framework\TestCase
     {
         $r = 0.05;
 
-        self::assertEquals(13.863, FinanceFormulas::getDoublingTimeContinuousCompounding($r), '', 0.01);
+        self::assertEqualsWithDelta(13.863, FinanceFormulas::getDoublingTimeContinuousCompounding($r), 0.01);
     }
 
     public function testEquivalentAnnualAnnuity() : void
@@ -263,9 +263,9 @@ class FinanceFormulasTest extends \PHPUnit\Framework\TestCase
         $r   = 0.15;
         $n   = 7;
 
-        self::assertEquals(240.36, FinanceFormulas::getEquivalentAnnualAnnuity($npv, $r, $n), '', 0.01);
+        self::assertEqualsWithDelta(240.36, FinanceFormulas::getEquivalentAnnualAnnuity($npv, $r, $n), 0.01);
         self::assertEquals($n, FinanceFormulas::getPeriodsOfEAA(240.36, $npv, $r));
-        self::assertEquals($npv, FinanceFormulas::getNetPresentValueOfEAA(240.36, $r, $n), '', 0.01);
+        self::assertEqualsWithDelta($npv, FinanceFormulas::getNetPresentValueOfEAA(240.36, $r, $n), 0.01);
     }
 
     public function testFreeCashFlowToEquity() : void
@@ -276,7 +276,7 @@ class FinanceFormulasTest extends \PHPUnit\Framework\TestCase
         $wc        = 200;
         $borrowing = 500;
 
-        self::assertEquals(1200, FinanceFormulas::getFreeCashFlowToEquity($income, $depamo, $capital, $wc, $borrowing), '', 0.01);
+        self::assertEqualsWithDelta(1200, FinanceFormulas::getFreeCashFlowToEquity($income, $depamo, $capital, $wc, $borrowing), 0.01);
     }
 
     public function testFreeCashFlowToFirm() : void
@@ -287,7 +287,7 @@ class FinanceFormulasTest extends \PHPUnit\Framework\TestCase
         $capital = 400;
         $wc      = 200;
 
-        self::assertEquals(550, FinanceFormulas::getFreeCashFlowToFirm($ebit, $t, $depamo, $capital, $wc), '', 0.01);
+        self::assertEqualsWithDelta(550, FinanceFormulas::getFreeCashFlowToFirm($ebit, $t, $depamo, $capital, $wc), 0.01);
     }
 
     public function testFutureValue() : void
@@ -296,7 +296,7 @@ class FinanceFormulasTest extends \PHPUnit\Framework\TestCase
         $r = 0.15;
         $n = 7;
 
-        self::assertEquals(2660.02, FinanceFormulas::getFutureValue($c, $r, $n), '', 0.01);
+        self::assertEqualsWithDelta(2660.02, FinanceFormulas::getFutureValue($c, $r, $n), 0.01);
     }
 
     public function testFutureValueContinuousCompounding() : void
@@ -305,7 +305,7 @@ class FinanceFormulasTest extends \PHPUnit\Framework\TestCase
         $r  = 0.15;
         $t  = 7;
 
-        self::assertEquals(2857.65, FinanceFormulas::getFutureValueContinuousCompounding($pv, $r, $t), '', 0.01);
+        self::assertEqualsWithDelta(2857.65, FinanceFormulas::getFutureValueContinuousCompounding($pv, $r, $t), 0.01);
     }
 
     public function testValueFactor() : void
@@ -313,15 +313,15 @@ class FinanceFormulasTest extends \PHPUnit\Framework\TestCase
         $r = 0.15;
         $n = 7;
 
-        self::assertEquals(2.66, FinanceFormulas::getFutureValueFactor($r, $n), '', 0.01);
-        self::assertEquals(0.37594, FinanceFormulas::getPresentValueFactor($r, $n), '', 0.01);
+        self::assertEqualsWithDelta(2.66, FinanceFormulas::getFutureValueFactor($r, $n), 0.01);
+        self::assertEqualsWithDelta(0.37594, FinanceFormulas::getPresentValueFactor($r, $n), 0.01);
     }
 
     public function testGeometricMeanReturn() : void
     {
         $r = [0.01, 0.02, 0.03, 0.04, 0.05, 0.06, 0.07];
 
-        self::assertEquals(0.04123, FinanceFormulas::getGeometricMeanReturn($r), '', 0.01);
+        self::assertEqualsWithDelta(0.04123, FinanceFormulas::getGeometricMeanReturn($r), 0.01);
     }
 
     public function testGrowingAnnuityFV() : void
@@ -331,7 +331,7 @@ class FinanceFormulasTest extends \PHPUnit\Framework\TestCase
         $g = 0.1;
         $n = 7;
 
-        self::assertEquals(14226.06, FinanceFormulas::getGrowingAnnuityFV($p, $r, $g, $n), '', 0.01);
+        self::assertEqualsWithDelta(14226.06, FinanceFormulas::getGrowingAnnuityFV($p, $r, $g, $n), 0.01);
     }
 
     public function testGrowingAnnuityPaymentPV() : void
@@ -341,7 +341,7 @@ class FinanceFormulasTest extends \PHPUnit\Framework\TestCase
         $g = 0.1;
         $n = 7;
 
-        self::assertEquals(186.98, FinanceFormulas::getGrowingAnnuityPaymentPV($p, $r, $g, $n), '', 0.01);
+        self::assertEqualsWithDelta(186.98, FinanceFormulas::getGrowingAnnuityPaymentPV($p, $r, $g, $n), 0.01);
     }
 
     public function testGrowingAnnuityPaymentFV() : void
@@ -351,7 +351,7 @@ class FinanceFormulasTest extends \PHPUnit\Framework\TestCase
         $g  = 0.1;
         $n  = 7;
 
-        self::assertEquals(70.29, FinanceFormulas::getGrowingAnnuityPaymentFV($fv, $r, $g, $n), '', 0.01);
+        self::assertEqualsWithDelta(70.29, FinanceFormulas::getGrowingAnnuityPaymentFV($fv, $r, $g, $n), 0.01);
     }
 
     public function testGrowingAnnuityPV() : void
@@ -361,7 +361,7 @@ class FinanceFormulasTest extends \PHPUnit\Framework\TestCase
         $g = 0.1;
         $n = 7;
 
-        self::assertEquals(5348.1, FinanceFormulas::getGrowingAnnuityPV($p, $r, $g, $n), '', 0.01);
+        self::assertEqualsWithDelta(5348.1, FinanceFormulas::getGrowingAnnuityPV($p, $r, $g, $n), 0.01);
     }
 
     public function testGrowingPerpetuityPV() : void
@@ -370,7 +370,7 @@ class FinanceFormulasTest extends \PHPUnit\Framework\TestCase
         $r = 0.15;
         $g = 0.1;
 
-        self::assertEquals(20000, FinanceFormulas::getGrowingPerpetuityPV($d, $r, $g), '', 0.01);
+        self::assertEqualsWithDelta(20000, FinanceFormulas::getGrowingPerpetuityPV($d, $r, $g), 0.01);
     }
 
     public function testNetPresentValue() : void
@@ -378,7 +378,7 @@ class FinanceFormulasTest extends \PHPUnit\Framework\TestCase
         $c = [1000, 100, 200, 300, 400, 500, 600];
         $r = 0.15;
 
-        self::assertEquals(172.13, FinanceFormulas::getNetPresentValue($c, $r), '', 0.01);
+        self::assertEqualsWithDelta(172.13, FinanceFormulas::getNetPresentValue($c, $r), 0.01);
     }
 
     public function testInvalidNetPresentValue() : void
@@ -393,12 +393,12 @@ class FinanceFormulasTest extends \PHPUnit\Framework\TestCase
         $nominal   = 0.15;
         $inflation = 0.05;
 
-        self::assertEquals(0.09524, FinanceFormulas::getRealRateOfReturn($nominal, $inflation), '', 0.01);
+        self::assertEqualsWithDelta(0.09524, FinanceFormulas::getRealRateOfReturn($nominal, $inflation), 0.01);
     }
 
     public function testNetWorkingCapital() : void
     {
-        self::assertEquals(1000 - 600, FinanceFormulas::getNetWorkingCapital(1000, 600), '', 0.01);
+        self::assertEqualsWithDelta(1000 - 600, FinanceFormulas::getNetWorkingCapital(1000, 600), 0.01);
     }
 
     public function testNumberOfPeriodsPVFV() : void
@@ -407,7 +407,7 @@ class FinanceFormulasTest extends \PHPUnit\Framework\TestCase
         $pv = 1000;
         $r  = 0.03;
 
-        self::assertEquals(6.1681, FinanceFormulas::getNumberOfPeriodsPVFV($fv, $pv, $r), '', 0.01);
+        self::assertEqualsWithDelta(6.1681, FinanceFormulas::getNumberOfPeriodsPVFV($fv, $pv, $r), 0.01);
     }
 
     public function testPresentValue() : void
@@ -416,7 +416,7 @@ class FinanceFormulasTest extends \PHPUnit\Framework\TestCase
         $r = 0.15;
         $n = 7;
 
-        self::assertEquals(375.94, FinanceFormulas::getPresentValue($c, $r, $n), '', 0.01);
+        self::assertEqualsWithDelta(375.94, FinanceFormulas::getPresentValue($c, $r, $n), 0.01);
     }
 
     public function testPresentValueContinuousCompounding() : void
@@ -425,6 +425,6 @@ class FinanceFormulasTest extends \PHPUnit\Framework\TestCase
         $r = 0.15;
         $t = 7;
 
-        self::assertEquals(349.94, FinanceFormulas::getPresentValueContinuousCompounding($c, $r, $t), '', 0.01);
+        self::assertEqualsWithDelta(349.94, FinanceFormulas::getPresentValueContinuousCompounding($c, $r, $t), 0.01);
     }
 }

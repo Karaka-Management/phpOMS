@@ -23,7 +23,7 @@ class LaplaceDistributionTest extends \PHPUnit\Framework\TestCase
         $m = 1;
         $b = 0.7;
 
-        self::assertEquals(0.17118, LaplaceDistribution::getPdf($x, $m, $b), '', 0.01);
+        self::assertEqualsWithDelta(0.17118, LaplaceDistribution::getPdf($x, $m, $b), 0.01);
     }
 
     public function testCdf() : void
@@ -32,7 +32,7 @@ class LaplaceDistributionTest extends \PHPUnit\Framework\TestCase
         $m = 1;
         $b = 0.7;
 
-        self::assertEquals(0.88017, LaplaceDistribution::getCdf($x, $m, $b), '', 0.01);
+        self::assertEqualsWithDelta(0.88017, LaplaceDistribution::getCdf($x, $m, $b), 0.01);
     }
 
     public function testMode() : void

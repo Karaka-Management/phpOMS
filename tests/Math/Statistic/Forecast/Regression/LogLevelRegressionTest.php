@@ -30,19 +30,19 @@ class LogLevelRegressionTest extends \PHPUnit\Framework\TestCase
 
     public function testRegression() : void
     {
-        self::assertEquals(['b0' => -1, 'b1' => 2], $this->reg, '', 0.2);
+        self::assertEqualsWithDelta(['b0' => -1, 'b1' => 2], $this->reg, 0.2);
     }
 
     public function testSlope() : void
     {
         $y = 3;
-        self::assertEquals($this->reg['b1'] * $y, LogLevelRegression::getSlope($this->reg['b1'], $y, 0), '', 0.2);
+        self::assertEqualsWithDelta($this->reg['b1'] * $y, LogLevelRegression::getSlope($this->reg['b1'], $y, 0), 0.2);
     }
 
     public function testElasticity() : void
     {
         $x = 2;
-        self::assertEquals($this->reg['b1'] * $x, LogLevelRegression::getElasticity($this->reg['b1'], 0, $x), '', 0.2);
+        self::assertEqualsWithDelta($this->reg['b1'] * $x, LogLevelRegression::getElasticity($this->reg['b1'], 0, $x), 0.2);
     }
 
     public function testInvalidDimension() : void
