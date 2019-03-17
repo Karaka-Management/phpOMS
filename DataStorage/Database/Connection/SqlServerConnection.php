@@ -16,6 +16,7 @@ namespace phpOMS\DataStorage\Database\Connection;
 
 use phpOMS\DataStorage\Database\DatabaseStatus;
 use phpOMS\DataStorage\Database\DatabaseType;
+use phpOMS\DataStorage\Database\Exception\InvalidConnectionConfigException;
 use phpOMS\DataStorage\Database\Query\Grammar\MysqlGrammar;
 use phpOMS\DataStorage\Database\Schema\Grammar\MysqlGrammar as MysqlSchemaGrammar;
 
@@ -58,6 +59,13 @@ final class SqlServerConnection extends ConnectionAbstract
 
         $this->dbdata = isset($dbdata) ? $dbdata : $this->dbdata;
         $this->prefix = $dbdata['prefix'];
+
+        if (!isset($this->dbdata['db'], $this->dbdata['host'], $this->dbdata['port'], $this->dbdata['database'], $this->dbdata['login'], $this->dbdata['password'])
+            || !DatabaseType::isValidValue($this->dbdata['db'])
+        ) {
+            $this->status = DatabaseStatus::FAILURE;
+            throw new InvalidConnectionConfigException((string) \json_encode($this->dbdata));
+        }
 
         try {
             $this->con = new \PDO('sqlsrv:Server=' . $this->dbdata['host'] . ',' . $this->dbdata['port'] . ';Database=' . $this->dbdata['database'] . ';ConnectionPooling=0', $this->dbdata['login'], $this->dbdata['password']);
