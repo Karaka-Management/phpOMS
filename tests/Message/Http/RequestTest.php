@@ -74,6 +74,7 @@ class RequestTest extends \PHPUnit\Framework\TestCase
 
         $request->createRequestHashs(0);
         self::assertEquals([
+            'da39a3ee5e6b4b0d3255bfef95601890afd80709',
             'a94a8fe5ccb19ba61c4c0873d391e987982fbbd3',
             '328413d996ab9b79af9d4098af3a65b885c4ca64'
             ], $request->getHash());

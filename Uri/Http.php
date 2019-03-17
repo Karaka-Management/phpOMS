@@ -37,7 +37,7 @@ final class Http implements UriInterface
      * @var string
      * @since 1.0.0
      */
-    private $rootPath = '/';
+    private $rootPath = '';
 
     /**
      * Path offset.
@@ -168,7 +168,7 @@ final class Http implements UriInterface
         $this->port   = $url['port'] ?? 80;
         $this->user   = $url['user'] ?? '';
         $this->pass   = $url['pass'] ?? '';
-        $this->path   = \ltrim($url['path'] ?? '', '/');
+        $this->path   = $url['path'] ?? '';
 
         if (StringUtils::endsWith($this->path, '.php')) {
             $path = \substr($this->path, 0, -4);
@@ -180,7 +180,7 @@ final class Http implements UriInterface
             $this->path = $path;
         }
 
-        $this->pathElements = \explode('/', $this->path);
+        $this->pathElements = \explode('/', \ltrim($this->path, '/'));
         $this->queryString  = $url['query'] ?? '';
 
         if (!empty($this->queryString)) {
@@ -242,7 +242,7 @@ final class Http implements UriInterface
      */
     public function setRootPath(string $root) : void
     {
-        $this->rootPath = $root;
+        $this->rootPath = \rtrim($root, '/');
     }
 
     /**

@@ -203,7 +203,7 @@ final class Argument implements UriInterface
             $this->path = $path;
         }
 
-        $this->pathElements = \explode('/', $this->path);
+        $this->pathElements = \explode('/', \ltrim($this->path, '/'));
     }
 
     /**

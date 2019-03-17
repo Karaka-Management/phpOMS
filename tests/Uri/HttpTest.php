@@ -50,21 +50,21 @@ class HttpTest extends \PHPUnit\Framework\TestCase
     {
         $obj = new Http($uri = 'https://www.google.com/test/path.php?para1=abc&para2=2#frag');
 
-        self::assertEquals('/', $obj->getRootPath());
+        self::assertEquals('', $obj->getRootPath());
         self::assertEquals(0, $obj->getPathOffset());
         self::assertEquals('https', $obj->getScheme());
         self::assertEquals('www.google.com', $obj->getHost());
         self::assertEquals(80, $obj->getPort());
         self::assertEquals('', $obj->getPass());
         self::assertEquals('', $obj->getUser());
-        self::assertEquals('test/path', $obj->getPath());
-        self::assertEquals('test/path?para1=abc&para2=2', $obj->getRoute());
+        self::assertEquals('/test/path', $obj->getPath());
+        self::assertEquals('/test/path?para1=abc&para2=2', $obj->getRoute());
         self::assertEquals('test', $obj->getPathElement(0));
         self::assertEquals('para1=abc&para2=2', $obj->getQuery());
         self::assertEquals(['para1' => 'abc', 'para2' => '2'], $obj->getQueryArray());
         self::assertEquals('2', $obj->getQuery('para2'));
         self::assertEquals('frag', $obj->getFragment());
-        self::assertEquals('https://www.google.com/', $obj->getBase());
+        self::assertEquals('https://www.google.com', $obj->getBase());
         self::assertEquals($uri, $obj->__toString());
         self::assertEquals('www.google.com:80', $obj->getAuthority());
         self::assertEquals('', $obj->getUserInfo());
