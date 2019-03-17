@@ -70,7 +70,7 @@ final class Request extends RequestAbstract
     private function init() : void
     {
         $lang = \explode('_', $_SERVER['LANG'] ?? '');
-        $this->header->getL11n()->setLanguage($lang[0] ?? 'en');
+        $this->header->getL11n()->setLanguage($lang[0] === '' ? 'en' : $lang[0]);
     }
 
     /**
