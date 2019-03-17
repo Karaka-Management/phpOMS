@@ -40,6 +40,22 @@ final class Http implements UriInterface
     private $rootPath = '/';
 
     /**
+     * Path offset.
+     *
+     * @var int
+     * @since 1.0.0
+     */
+    private $pathOffset = 0;
+
+    /**
+     * Path elements.
+     *
+     * @var array
+     * @since 1.0.0
+     */
+    private $pathElements = [];
+
+    /**
      * Uri.
      *
      * @var string
@@ -152,7 +168,7 @@ final class Http implements UriInterface
         $this->port   = $url['port'] ?? 80;
         $this->user   = $url['user'] ?? '';
         $this->pass   = $url['pass'] ?? '';
-        $this->path   = $url['path'] ?? '';
+        $this->path   = \ltrim($url['path'] ?? '', '/');
 
         if (StringUtils::endsWith($this->path, '.php')) {
             $path = \substr($this->path, 0, -4);
@@ -164,8 +180,8 @@ final class Http implements UriInterface
             $this->path = $path;
         }
 
-        $this->path        = \strpos($this->path, $this->rootPath) === 0 ? \substr($this->path, \strlen($this->rootPath), \strlen($this->path)) : $this->path;
-        $this->queryString = $url['query'] ?? '';
+        $this->pathElements = \explode('/', $this->path);
+        $this->queryString  = $url['query'] ?? '';
 
         if (!empty($this->queryString)) {
             \parse_str($this->queryString, $this->query);
@@ -227,7 +243,14 @@ final class Http implements UriInterface
     public function setRootPath(string $root) : void
     {
         $this->rootPath = $root;
-        $this->set($this->uri);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function setPathOffset(int $offset) : void
+    {
+        $this->pathOffset = $offset;
     }
 
     /**
@@ -298,7 +321,7 @@ final class Http implements UriInterface
      */
     public function getPathOffset() : int
     {
-        return \substr_count($this->rootPath, '/') - 1;
+        return $this->pathOffset;
     }
 
     /**
@@ -327,9 +350,9 @@ final class Http implements UriInterface
     /**
      * {@inheritdoc}
      */
-    public function getPathElement(int $pos = null) : string
+    public function getPathElement(int $pos = 0) : string
     {
-        return \explode('/', $this->path)[$pos] ?? '';
+        return $this->pathElements[$pos + $this->pathOffset] ?? '';
     }
 
     /**
@@ -337,7 +360,7 @@ final class Http implements UriInterface
      */
     public function getPathElements() : array
     {
-        return \explode('/', $this->path);
+        return $this->pathElements;
     }
 
     /**

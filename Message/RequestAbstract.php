@@ -51,14 +51,6 @@ abstract class RequestAbstract implements MessageInterface
     protected $type = null;
 
     /**
-     * Root.
-     *
-     * @var string
-     * @since 1.0.0
-     */
-    protected $rootPath = null;
-
-    /**
      * Request data.
      *
      * @var array
