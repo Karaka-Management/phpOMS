@@ -27,27 +27,24 @@ class CurrencyTest extends \PHPUnit\Framework\TestCase
         self::assertGreaterThan(0, Currency::convertCurrency(1, ISO4217CharEnum::_USD, ISO4217CharEnum::_GBP));
     }
 
-    /**
-     * @expectedException \InvalidArgumentException
-     */
     public function testInvalidFromEur() : void
     {
+        self::expectedException(\InvalidArgumentException::class);
+
         Currency::fromEurTo(1, 'ERROR');
     }
 
-    /**
-     * @expectedException \InvalidArgumentException
-     */
     public function testInvalidToEur() : void
     {
+        self::expectedException(\InvalidArgumentException::class);
+
         Currency::fromToEur(1, 'ERROR');
     }
 
-    /**
-     * @expectedException \InvalidArgumentException
-     */
     public function testInvalidConvert() : void
     {
+        self::expectedException(\InvalidArgumentException::class);
+
         Currency::convertCurrency(1, 'ERROR', 'TEST');
     }
 }

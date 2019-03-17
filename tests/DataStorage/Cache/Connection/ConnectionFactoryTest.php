@@ -54,11 +54,10 @@ class ConnectionFactoryTest extends \PHPUnit\Framework\TestCase
         );
     }
 
-    /**
-     * @expectedException \InvalidArgumentException
-     */
     public function testInvalidCacheType() : void
     {
+        self::expectedException(\InvalidArgumentException::class);
+
         ConnectionFactory::create(['type' => 'invalid', 'path' => 'Cache']);
     }
 }

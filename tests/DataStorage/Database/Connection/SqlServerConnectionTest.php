@@ -14,6 +14,7 @@
 namespace phpOMS\tests\DataStorage\Database\Connection;
 
 use phpOMS\DataStorage\Database\Connection\SqlServerConnection;
+use phpOMS\DataStorage\Database\DatabaseStatus;
 
 class SqlServerConnectionTest extends \PHPUnit\Framework\TestCase
 {
@@ -36,81 +37,73 @@ class SqlServerConnectionTest extends \PHPUnit\Framework\TestCase
         self::assertInstanceOf('\phpOMS\DataStorage\Database\Query\Grammar\SqlServerGrammar', $psql->getGrammar());
     }
 
-    /**
-     * @expectedException \phpOMS\DataStorage\Database\Exception\InvalidConnectionConfigException
-     */
     public function testInvalidDatabaseType() : void
     {
+        self::expectedException(\phpOMS\DataStorage\Database\Exception\InvalidConnectionConfigException::class);
+
         $db = $GLOBALS['CONFIG']['db']['core']['mssql']['admin'];
         unset($db['db']);
         $psql = new SqlServerConnection($db);
     }
 
-    /**
-     * @expectedException \phpOMS\DataStorage\Database\Exception\InvalidConnectionConfigException
-     */
     public function testInvalidHost() : void
     {
+        self::expectedException(\phpOMS\DataStorage\Database\Exception\InvalidConnectionConfigException::class);
+
         $db = $GLOBALS['CONFIG']['db']['core']['mssql']['admin'];
         unset($db['host']);
         $psql = new SqlServerConnection($db);
     }
 
-    /**
-     * @expectedException \phpOMS\DataStorage\Database\Exception\InvalidConnectionConfigException
-     */
     public function testInvalidPort() : void
     {
+        self::expectedException(\phpOMS\DataStorage\Database\Exception\InvalidConnectionConfigException::class);
+
         $db = $GLOBALS['CONFIG']['db']['core']['mssql']['admin'];
         unset($db['port']);
         $psql = new SqlServerConnection($db);
     }
 
-    /**
-     * @expectedException \phpOMS\DataStorage\Database\Exception\InvalidConnectionConfigException
-     */
     public function testInvalidDatabase() : void
     {
+        self::expectedException(\phpOMS\DataStorage\Database\Exception\InvalidConnectionConfigException::class);
+
         $db = $GLOBALS['CONFIG']['db']['core']['mssql']['admin'];
         unset($db['database']);
         $psql = new SqlServerConnection($db);
     }
 
-    /**
-     * @expectedException \phpOMS\DataStorage\Database\Exception\InvalidConnectionConfigException
-     */
     public function testInvalidLogin() : void
     {
+        self::expectedException(\phpOMS\DataStorage\Database\Exception\InvalidConnectionConfigException::class);
+
         $db = $GLOBALS['CONFIG']['db']['core']['mssql']['admin'];
         unset($db['login']);
         $psql = new SqlServerConnection($db);
     }
 
-    /**
-     * @expectedException \phpOMS\DataStorage\Database\Exception\InvalidConnectionConfigException
-     */
     public function testInvalidPassword() : void
     {
+        self::expectedException(\phpOMS\DataStorage\Database\Exception\InvalidConnectionConfigException::class);
+
         $db = $GLOBALS['CONFIG']['db']['core']['mssql']['admin'];
         unset($db['password']);
         $psql = new SqlServerConnection($db);
     }
 
-    /**
-     * @expectedException \phpOMS\DataStorage\Database\Exception\InvalidConnectionConfigException
-     */
     public function testInvalidDatabaseTypeName() : void
     {
+        self::expectedException(\phpOMS\DataStorage\Database\Exception\InvalidConnectionConfigException::class);
+
         $db       = $GLOBALS['CONFIG']['db']['core']['mssql']['admin'];
         $db['db'] = 'invalid';
         $psql = new SqlServerConnection($db);
     }
 
-    /**
-     * @expectedException \phpOMS\DataStorage\Database\Exception\InvalidConnectionConfigException
-     */
     public function testInvalidDatabaseName() : void
     {
+        self::expectedException(\phpOMS\DataStorage\Database\Exception\InvalidConnectionConfigException::class);
+
         $db = $GLOBALS['CONFIG']['db']['core']['mssql']['admin'];
         $db['database'] = 'invalid';
 

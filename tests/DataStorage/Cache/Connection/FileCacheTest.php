@@ -195,11 +195,10 @@ class FileCacheTest extends \PHPUnit\Framework\TestCase
         }
     }
 
-    /**
-     * @expectedException \phpOMS\DataStorage\Cache\Exception\InvalidConnectionConfigException
-     */
     public function testInvalidCachePath() : void
     {
+        self::expectedException(\phpOMS\DataStorage\Cache\Exception\InvalidConnectionConfigException::class);
+
         $cache = new FileCache('/etc/invalidPathOrPermission^$:?><');
     }
 }

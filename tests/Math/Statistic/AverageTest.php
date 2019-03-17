@@ -66,35 +66,31 @@ class AverageTest extends \PHPUnit\Framework\TestCase
         self::assertEquals($average, Average::totalMovingAverage($data, 10), '', 0.1);
     }
 
-    /**
-     * @expectedException phpOMS\Math\Matrix\Exception\InvalidDimensionException
-     */
     public function testInvalidWeightedAverageDimension() : void
     {
+        self::expectedException(phpOMS\Math\Matrix\Exception\InvalidDimensionException::class);
+
         Average::weightedAverage([1, 2, 3, 4, 5, 6, 7], [0.1, 0.2, 0.3, 0.1, 0.2, 0.05]);
     }
 
-    /**
-     * @expectedException phpOMS\Math\Exception\ZeroDevisionException
-     */
     public function testInvalidArithmeticMeanZeroDevision() : void
     {
+        self::expectedException(phpOMS\Math\Exception\ZeroDevisionException::class);
+
         Average::arithmeticMean([]);
     }
 
-    /**
-     * @expectedException phpOMS\Math\Exception\ZeroDevisionException
-     */
     public function testInvalidGeometricMean() : void
     {
+        self::expectedException(phpOMS\Math\Exception\ZeroDevisionException::class);
+
         Average::geometricMean([]);
     }
 
-    /**
-     * @expectedException phpOMS\Math\Exception\ZeroDevisionException
-     */
     public function testInvalidHarmonicMean() : void
     {
+        self::expectedException(phpOMS\Math\Exception\ZeroDevisionException::class);
+
         Average::harmonicMean([1, 2, 3, 0, 5, 6, 7]);
     }
 

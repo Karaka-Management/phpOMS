@@ -93,11 +93,10 @@ class RequestTest extends \PHPUnit\Framework\TestCase
         self::assertEquals('get:some/test/path?test=var', $request->__toString());
     }
 
-    /**
-     * @expectedException \Exception
-     */
     public function testInvalidRouteVerb() : void
     {
+        self::expectedException(\Exception::class);
+
         $request = new Request(new Argument('get:some/test/path'));
         $request->setMethod('failure');
         $request->getRouteVerb();

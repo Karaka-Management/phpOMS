@@ -73,11 +73,10 @@ class C25Test extends \PHPUnit\Framework\TestCase
         self::assertFalse(C25::isValidString('1234567A890'));
     }
 
-    /**
-     * @expectedException \InvalidArgumentException
-     */
     public function testInvalidOrientation() : void
     {
+        self::expectedException(\InvalidArgumentException::class);
+
         $img = new C25('45f!a?12');
     }
 }

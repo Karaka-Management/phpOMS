@@ -17,48 +17,43 @@ use phpOMS\Utils\Encoding\Huffman\Dictionary;
 
 class DictionaryTest extends \PHPUnit\Framework\TestCase
 {
-    /**
-     * @expectedException \InvalidArgumentException
-     */
     public function testInvalidGetCharacter() : void
     {
+        self::expectedException(\InvalidArgumentException::class);
+
         $dict = new Dictionary();
         $dict->get('as');
     }
 
-    /**
-     * @expectedException \InvalidArgumentException
-     */
     public function testNotExistingGetCharacter() : void
     {
+        self::expectedException(\InvalidArgumentException::class);
+
         $dict = new Dictionary();
         $dict->get('a');
     }
 
-    /**
-     * @expectedException \InvalidArgumentException
-     */
     public function testInvalidSetCharacter() : void
     {
+        self::expectedException(\InvalidArgumentException::class);
+
         $dict = new Dictionary();
         $dict->set('as', 'test');
     }
 
-    /**
-     * @expectedException \InvalidArgumentException
-     */
     public function testInvalidSetDuplicateCharacter() : void
     {
+        self::expectedException(\InvalidArgumentException::class);
+
         $dict = new Dictionary();
         $dict->set('a', '1');
         $dict->set('a', '1');
     }
 
-    /**
-     * @expectedException \InvalidArgumentException
-     */
     public function testInvalidFormattedValue() : void
     {
+        self::expectedException(\InvalidArgumentException::class);
+
         $dict = new Dictionary();
         $dict->set('a', '1a');
     }

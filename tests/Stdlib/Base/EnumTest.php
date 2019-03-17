@@ -34,11 +34,10 @@ class EnumTest extends \PHPUnit\Framework\TestCase
         self::assertEquals('ENUM2', EnumDemo::getName(';l'));
     }
 
-    /**
-     * @expectedException \Exception
-     */
     public function testEmailException() : void
     {
+        self::expectedException(\Exception::class);
+
         EnumDemo::getByName('ENUM3');
     }
 }

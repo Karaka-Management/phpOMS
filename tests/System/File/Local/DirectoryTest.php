@@ -81,43 +81,38 @@ class DirectoryTest extends \PHPUnit\Framework\TestCase
         self::assertFalse(Directory::move(__DIR__ . '/invalid', __DIR__ . '/invalid2'));
     }
 
-    /**
-     * @expectedException \phpOMS\System\File\PathException
-     */
     public function testInvalidCreatedPath() : void
     {
+        self::expectedException(\phpOMS\System\File\PathException::class);
+
         Directory::created(__DIR__ . '/invalid');
     }
 
-    /**
-     * @expectedException \phpOMS\System\File\PathException
-     */
     public function testInvalidChangedPath() : void
     {
+        self::expectedException(\phpOMS\System\File\PathException::class);
+
         Directory::changed(__DIR__ . '/invalid');
     }
 
-    /**
-     * @expectedException \phpOMS\System\File\PathException
-     */
     public function testInvalidSizePath() : void
     {
+        self::expectedException(\phpOMS\System\File\PathException::class);
+
         Directory::size(__DIR__ . '/invalid');
     }
 
-    /**
-     * @expectedException \phpOMS\System\File\PathException
-     */
     public function testInvalidPermissionPath() : void
     {
+        self::expectedException(\phpOMS\System\File\PathException::class);
+
         Directory::permission(__DIR__ . '/invalid');
     }
 
-    /**
-     * @expectedException \phpOMS\System\File\PathException
-     */
     public function testInvalidOwnerPath() : void
     {
+        self::expectedException(\phpOMS\System\File\PathException::class);
+
         Directory::owner(__DIR__ . '/invalid');
     }
 }

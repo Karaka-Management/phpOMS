@@ -125,59 +125,52 @@ class LocalStorageTest extends \PHPUnit\Framework\TestCase
         self::assertEquals(6, \count(LocalStorage::list($dirTestPath)));
     }
 
-    /**
-     * @expectedException \phpOMS\System\File\PathException
-     */
     public function testInvalidPutPath() : void
     {
+        self::expectedException(\phpOMS\System\File\PathException::class);
+
         LocalStorage::put(__DIR__, 'Test');
     }
 
-    /**
-     * @expectedException \phpOMS\System\File\PathException
-     */
     public function testInvalidGetPath() : void
     {
+        self::expectedException(\phpOMS\System\File\PathException::class);
+
         LocalStorage::get(__DIR__);
     }
 
-    /**
-     * @expectedException \phpOMS\System\File\PathException
-     */
     public function testInvalidListPath() : void
     {
+        self::expectedException(\phpOMS\System\File\PathException::class);
+
         LocalStorage::list(__DIR__ . '/LocalStorageTest.php');
     }
 
-    /**
-     * @expectedException \phpOMS\System\File\PathException
-     */
     public function testInvalidSetPath() : void
     {
+        self::expectedException(\phpOMS\System\File\PathException::class);
+
         LocalStorage::set(__DIR__, 'Test');
     }
 
-    /**
-     * @expectedException \phpOMS\System\File\PathException
-     */
     public function testInvalidAppendPath() : void
     {
+        self::expectedException(\phpOMS\System\File\PathException::class);
+
         LocalStorage::append(__DIR__, 'Test');
     }
 
-    /**
-     * @expectedException \phpOMS\System\File\PathException
-     */
     public function testInvalidPrependPath() : void
     {
+        self::expectedException(\phpOMS\System\File\PathException::class);
+
         LocalStorage::prepend(__DIR__, 'Test');
     }
 
-    /**
-     * @expectedException \phpOMS\System\File\PathException
-     */
     public function testInvalidExtensionPath() : void
     {
+        self::expectedException(\phpOMS\System\File\PathException::class);
+
         LocalStorage::extension(__DIR__);
     }
 }

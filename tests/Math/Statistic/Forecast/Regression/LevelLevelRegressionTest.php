@@ -43,11 +43,10 @@ class LevelLevelRegressionTest extends \PHPUnit\Framework\TestCase
         self::assertEquals(0.7273, LevelLevelRegression::getElasticity($this->reg['b1'], 11, 2), '', 0.01);
     }
 
-    /**
-     * @expectedException \phpOMS\Math\Matrix\Exception\InvalidDimensionException
-     */
     public function testInvalidDimension() : void
     {
+        self::expectedException(\phpOMS\Math\Matrix\Exception\InvalidDimensionException::class);
+
         $x = [1,2, 3];
         $y = [1,2, 3, 4];
 

@@ -92,35 +92,31 @@ class ChiSquaredDistributionTest extends \PHPUnit\Framework\TestCase
         self::assertEquals((1 - 2 * $t) ** (-$df / 2), ChiSquaredDistribution::getMgf($df, $t));
     }
 
-    /**
-     * @expectedException \Exception
-     */
     public function testHypothesisSizeException() : void
     {
+        self::expectedException(\Exception::class);
+
         ChiSquaredDistribution::testHypothesis([1, 2], [2]);
     }
 
-    /**
-     * @expectedException \Exception
-     */
     public function testHypothesisDegreesOfFreedomException() : void
     {
+        self::expectedException(\Exception::class);
+
         ChiSquaredDistribution::testHypothesis([], []);
     }
 
-    /**
-     * @expectedException \OutOfBoundsException
-     */
     public function testPdfOutOfBoundsException() : void
     {
+        self::expectedException(\OutOfBoundsException::class);
+
         ChiSquaredDistribution::getPdf(-1, 0);
     }
 
-    /**
-     * @expectedException \OutOfBoundsException
-     */
     public function testMgfOutOfBoundsException() : void
     {
+        self::expectedException(\OutOfBoundsException::class);
+
         ChiSquaredDistribution::getMgf(1, 0.6);
     }
 }

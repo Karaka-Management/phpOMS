@@ -43,11 +43,10 @@ class CookieJarTest extends \PHPUnit\Framework\TestCase
         self::assertFalse($jar->remove('test2'));
     }
 
-    /**
-     * @expectedException \phpOMS\DataStorage\LockException
-     */
     public function testDeleteLocked() : void
     {
+        self::expectedException(\phpOMS\DataStorage\LockException::class);
+
         $jar = new CookieJar();
         self::assertTrue($jar->set('test', 'value'));
 
@@ -55,11 +54,10 @@ class CookieJarTest extends \PHPUnit\Framework\TestCase
         $jar->delete('test');
     }
 
-    /**
-     * @expectedException \phpOMS\DataStorage\LockException
-     */
     public function testSaveLocked() : void
     {
+        self::expectedException(\phpOMS\DataStorage\LockException::class);
+
         CookieJar::lock();
 
         $jar = new CookieJar();

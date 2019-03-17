@@ -94,11 +94,10 @@ class FileTest extends \PHPUnit\Framework\TestCase
         \unlink($testFile);
     }
 
-    /**
-     * @expectedException \phpOMS\System\File\PathException
-     */
     public function testInvalidGetPath() : void
     {
+        self::expectedException(\phpOMS\System\File\PathException::class);
+
         self::assertNotFalse($this->con);
 
         File::get($this->con, __DIR__ . '/invalid.txt');
@@ -116,51 +115,46 @@ class FileTest extends \PHPUnit\Framework\TestCase
         self::assertFalse(File::move($this->con, __DIR__ . '/invalid.txt', __DIR__ . '/invalid2.txt'));
     }
 
-    /**
-     * @expectedException \phpOMS\System\File\PathException
-     */
     public function testInvalidCreatedPath() : void
     {
+        self::expectedException(\phpOMS\System\File\PathException::class);
+
         self::assertNotFalse($this->con);
 
         File::created($this->con, __DIR__ . '/invalid.txt');
     }
 
-    /**
-     * @expectedException \phpOMS\System\File\PathException
-     */
     public function testInvalidChangedPath() : void
     {
+        self::expectedException(\phpOMS\System\File\PathException::class);
+
         self::assertNotFalse($this->con);
 
         File::changed($this->con, __DIR__ . '/invalid.txt');
     }
 
-    /**
-     * @expectedException \phpOMS\System\File\PathException
-     */
     public function testInvalidSizePath() : void
     {
+        self::expectedException(\phpOMS\System\File\PathException::class);
+
         self::assertNotFalse($this->con);
 
         File::size($this->con, __DIR__ . '/invalid.txt');
     }
 
-    /**
-     * @expectedException \phpOMS\System\File\PathException
-     */
     public function testInvalidPermissionPath() : void
     {
+        self::expectedException(\phpOMS\System\File\PathException::class);
+
         self::assertNotFalse($this->con);
 
         File::permission($this->con, __DIR__ . '/invalid.txt');
     }
 
-    /**
-     * @expectedException \phpOMS\System\File\PathException
-     */
     public function testInvalidOwnerPath() : void
     {
+        self::expectedException(\phpOMS\System\File\PathException::class);
+
         self::assertNotFalse($this->con);
 
         File::owner($this->con, __DIR__ . '/invalid.txt');

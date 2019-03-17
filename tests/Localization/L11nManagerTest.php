@@ -35,11 +35,10 @@ class L11nManagerTest extends \PHPUnit\Framework\TestCase
         self::assertEquals('ERROR', $l11nManager->getText('en', 'Admin', 'Backend', 'Test2'));
     }
 
-    /**
-     * @expectedException \Exception
-     */
     public function testInvalidModule() : void
     {
+        self::expectedException(\Exception::class);
+
         $expected = [
             'en' => [
                 'Admin' => [

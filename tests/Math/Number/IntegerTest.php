@@ -38,11 +38,10 @@ class IntegerTest extends \PHPUnit\Framework\TestCase
         self::assertEquals([59, 101], Integer::fermatFactor(5959));
     }
 
-    /**
-     * @expectedException \Exception
-     */
     public function testInvalidFermatParameter() : void
     {
+        self::expectedException(\Exception::class);
+
         Integer::fermatFactor(8);
     }
 

@@ -36,71 +36,64 @@ class PostgresConnectionTest extends \PHPUnit\Framework\TestCase
         self::assertInstanceOf('\phpOMS\DataStorage\Database\Query\Grammar\PostgresGrammar', $psql->getGrammar());
     }
 
-    /**
-     * @expectedException \phpOMS\DataStorage\Database\Exception\InvalidConnectionConfigException
-     */
     public function testInvalidDatabaseType() : void
     {
+        self::expectedException(\phpOMS\DataStorage\Database\Exception\InvalidConnectionConfigException::class);
+
         $db = $GLOBALS['CONFIG']['db']['core']['postgresql']['admin'];
         unset($db['db']);
         $psql = new PostgresConnection($db);
     }
 
-    /**
-     * @expectedException \phpOMS\DataStorage\Database\Exception\InvalidConnectionConfigException
-     */
     public function testInvalidHost() : void
     {
+        self::expectedException(\phpOMS\DataStorage\Database\Exception\InvalidConnectionConfigException::class);
+
         $db = $GLOBALS['CONFIG']['db']['core']['postgresql']['admin'];
         unset($db['host']);
         $psql = new PostgresConnection($db);
     }
 
-    /**
-     * @expectedException \phpOMS\DataStorage\Database\Exception\InvalidConnectionConfigException
-     */
     public function testInvalidPort() : void
     {
+        self::expectedException(\phpOMS\DataStorage\Database\Exception\InvalidConnectionConfigException::class);
+
         $db = $GLOBALS['CONFIG']['db']['core']['postgresql']['admin'];
         unset($db['port']);
         $psql = new PostgresConnection($db);
     }
 
-    /**
-     * @expectedException \phpOMS\DataStorage\Database\Exception\InvalidConnectionConfigException
-     */
     public function testInvalidDatabase() : void
     {
+        self::expectedException(\phpOMS\DataStorage\Database\Exception\InvalidConnectionConfigException::class);
+
         $db = $GLOBALS['CONFIG']['db']['core']['postgresql']['admin'];
         unset($db['database']);
         $psql = new PostgresConnection($db);
     }
 
-    /**
-     * @expectedException \phpOMS\DataStorage\Database\Exception\InvalidConnectionConfigException
-     */
     public function testInvalidLogin() : void
     {
+        self::expectedException(\phpOMS\DataStorage\Database\Exception\InvalidConnectionConfigException::class);
+
         $db = $GLOBALS['CONFIG']['db']['core']['postgresql']['admin'];
         unset($db['login']);
         $psql = new PostgresConnection($db);
     }
 
-    /**
-     * @expectedException \phpOMS\DataStorage\Database\Exception\InvalidConnectionConfigException
-     */
     public function testInvalidPassword() : void
     {
+        self::expectedException(\phpOMS\DataStorage\Database\Exception\InvalidConnectionConfigException::class);
+
         $db = $GLOBALS['CONFIG']['db']['core']['postgresql']['admin'];
         unset($db['password']);
         $psql = new PostgresConnection($db);
     }
 
-    /**
-     * @expectedException \phpOMS\DataStorage\Database\Exception\InvalidConnectionConfigException
-     */
     public function testInvalidDatabaseTypeName() : void
     {
+        self::expectedException(\phpOMS\DataStorage\Database\Exception\InvalidConnectionConfigException::class);
+
         $db       = $GLOBALS['CONFIG']['db']['core']['postgresql']['admin'];
         $db['db'] = 'invalid';
         $psql = new PostgresConnection($db);

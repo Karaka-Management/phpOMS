@@ -64,38 +64,34 @@ class LocalizationTest extends \PHPUnit\Framework\TestCase
         self::assertEquals([], $localization->getVolume());
     }
 
-    /**
-     * @expectedException \phpOMS\Stdlib\Base\Exception\InvalidEnumValue
-     */
     public function testInvalidLanguage() : void
     {
+        self::expectedException(\phpOMS\Stdlib\Base\Exception\InvalidEnumValue::class);
+
         $localization = new Localization();
         $localization->setLanguage('abc');
     }
 
-    /**
-     * @expectedException \phpOMS\Stdlib\Base\Exception\InvalidEnumValue
-     */
     public function testInvalidCountry() : void
     {
+        self::expectedException(\phpOMS\Stdlib\Base\Exception\InvalidEnumValue::class);
+
         $localization = new Localization();
         $localization->setCountry('abc');
     }
 
-    /**
-     * @expectedException \phpOMS\Stdlib\Base\Exception\InvalidEnumValue
-     */
     public function testInvalidTimezone() : void
     {
+        self::expectedException(\phpOMS\Stdlib\Base\Exception\InvalidEnumValue::class);
+
         $localization = new Localization();
         $localization->setTimezone('abc');
     }
 
-    /**
-     * @expectedException \phpOMS\Stdlib\Base\Exception\InvalidEnumValue
-     */
     public function testInvalidCurrency() : void
     {
+        self::expectedException(\phpOMS\Stdlib\Base\Exception\InvalidEnumValue::class);
+
         $localization = new Localization();
         $localization->setCurrency('abc');
     }
@@ -153,11 +149,10 @@ class LocalizationTest extends \PHPUnit\Framework\TestCase
         self::assertEquals(ISO4217CharEnum::_USD, $localization->getCurrency());
     }
 
-    /**
-     * @expectedException \phpOMS\Stdlib\Base\Exception\InvalidEnumValue
-     */
     public function testInvalidLocalizationLoading() : void
     {
+        self::expectedException(\phpOMS\Stdlib\Base\Exception\InvalidEnumValue::class);
+
         $localization = new Localization();
         $localization->loadFromLanguage('INVALID');
     }

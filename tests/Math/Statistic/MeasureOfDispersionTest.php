@@ -62,43 +62,38 @@ class MeasureOfDispersionTest extends \PHPUnit\Framework\TestCase
         self::assertEquals(88, MeasureOfDispersion::getIQR($x));
     }
 
-    /**
-     * @expectedException phpOMS\Math\Exception\ZeroDevisionException
-     */
     public function testInvalidEmpiricalVariationCoefficient() : void
     {
+        self::expectedException(phpOMS\Math\Exception\ZeroDevisionException::class);
+
         MeasureOfDispersion::empiricalVariationCoefficient([1, 2, 3, 4, 5, 6, 7], 0);
     }
 
-    /**
-     * @expectedException phpOMS\Math\Exception\ZeroDevisionException
-     */
     public function testInvalidEmpiricalCovariance() : void
     {
+        self::expectedException(phpOMS\Math\Exception\ZeroDevisionException::class);
+
         MeasureOfDispersion::empiricalCovariance([], []);
     }
 
-    /**
-     * @expectedException phpOMS\Math\Matrix\Exception\InvalidDimensionException
-     */
     public function testInvalidEmpiricalCovarianceDimension() : void
     {
+        self::expectedException(phpOMS\Math\Matrix\Exception\InvalidDimensionException::class);
+
         MeasureOfDispersion::empiricalCovariance([1, 2, 3, 4], [1, 2, 3]);
     }
 
-    /**
-     * @expectedException phpOMS\Math\Exception\ZeroDevisionException
-     */
     public function testInvalidSampleVariance() : void
     {
+        self::expectedException(phpOMS\Math\Exception\ZeroDevisionException::class);
+
         MeasureOfDispersion::sampleVariance([]);
     }
 
-    /**
-     * @expectedException phpOMS\Math\Exception\ZeroDevisionException
-     */
     public function testInvalidEmpiricalVariance() : void
     {
+        self::expectedException(phpOMS\Math\Exception\ZeroDevisionException::class);
+
         MeasureOfDispersion::empiricalVariance([]);
     }
 }

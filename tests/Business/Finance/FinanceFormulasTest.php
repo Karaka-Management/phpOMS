@@ -381,11 +381,10 @@ class FinanceFormulasTest extends \PHPUnit\Framework\TestCase
         self::assertEquals(172.13, FinanceFormulas::getNetPresentValue($c, $r), '', 0.01);
     }
 
-    /**
-     * @expectedException \UnexpectedValueException
-     */
     public function testInvalidNetPresentValue() : void
     {
+        self::expectedException(\UnexpectedValueException::class);
+
         FinanceFormulas::getNetPresentValue([], 0.1);
     }
 

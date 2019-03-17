@@ -59,11 +59,10 @@ class ArrayParserTest extends \PHPUnit\Framework\TestCase
         self::assertEquals($expected, eval('return '. ArrayParser::serializeArray($array) . ';'));
     }
 
-    /**
-     * @expectedException \UnexpectedValueException
-     */
     public function testInvalidValueType() : void
     {
+        self::expectedException(\UnexpectedValueException::class);
+
         ArrayParser::parseVariable(new class {});
     }
 }

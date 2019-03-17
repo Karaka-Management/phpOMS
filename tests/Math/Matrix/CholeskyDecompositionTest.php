@@ -75,11 +75,10 @@ class CholeskyDecompositionTest extends \PHPUnit\Framework\TestCase
         self::assertEquals([[1], [2], [3]], $cholesky->solve($vec)->toArray(), '', 0.2);
     }
 
-    /**
-     * @expectedException \phpOMS\Math\Matrix\Exception\InvalidDimensionException
-     */
     public function testInvalidDimension() : void
     {
+        self::expectedException(\phpOMS\Math\Matrix\Exception\InvalidDimensionException::class);
+
         $A = new Matrix();
         $A->setMatrix([
             [25, 15, -5],

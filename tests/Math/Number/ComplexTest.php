@@ -107,47 +107,42 @@ class ComplexTest extends \PHPUnit\Framework\TestCase
         self::assertEquals('1.04 + 1.44i', $cpl2->sqrt()->render());
     }
 
-    /**
-     * @expectedException \InvalidArgumentException
-     */
     public function testInvalidAdd() : void
     {
+        self::expectedException(\InvalidArgumentException::class);
+
         $cpl = new Complex(4, 3);
         $cpl->add(true);
     }
 
-    /**
-     * @expectedException \InvalidArgumentException
-     */
     public function testInvalidSub() : void
     {
+        self::expectedException(\InvalidArgumentException::class);
+
         $cpl = new Complex(4, 3);
         $cpl->sub(true);
     }
 
-    /**
-     * @expectedException \InvalidArgumentException
-     */
     public function testInvalidMult() : void
     {
+        self::expectedException(\InvalidArgumentException::class);
+
         $cpl = new Complex(4, 3);
         $cpl->mult(true);
     }
 
-    /**
-     * @expectedException \InvalidArgumentException
-     */
     public function testInvalidDiv() : void
     {
+        self::expectedException(\InvalidArgumentException::class);
+
         $cpl = new Complex(4, 3);
         $cpl->div(true);
     }
 
-    /**
-     * @expectedException \InvalidArgumentException
-     */
     public function testInvalidPow() : void
     {
+        self::expectedException(\InvalidArgumentException::class);
+
         $cpl = new Complex(4, 3);
         $cpl->pow(true);
     }

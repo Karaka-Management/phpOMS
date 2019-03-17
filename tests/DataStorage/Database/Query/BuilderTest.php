@@ -304,83 +304,74 @@ class BuilderTest extends \PHPUnit\Framework\TestCase
         self::assertEquals('SELECT test.val FROM test;', $query->raw('SELECT test.val FROM test;')->toSql());
     }
 
-    /**
-     * @expectedException \Exception
-     */
     public function testReadOnlyRaw() : void
     {
+        self::expectedException(\Exception::class);
+
         $query = new Builder($this->con, true);
         $query->raw('DROP DATABASE oms;');
     }
 
-    /**
-     * @expectedException \Exception
-     */
     public function testReadOnlyInsert() : void
     {
+        self::expectedException(\Exception::class);
+
         $query = new Builder($this->con, true);
         $query->insert('test');
     }
 
-    /**
-     * @expectedException \Exception
-     */
     public function testReadOnlyUpdate() : void
     {
+        self::expectedException(\Exception::class);
+
         $query = new Builder($this->con, true);
         $query->update();
     }
 
-    /**
-     * @expectedException \Exception
-     */
     public function testReadOnlyDelete() : void
     {
+        self::expectedException(\Exception::class);
+
         $query = new Builder($this->con, true);
         $query->delete();
     }
 
-    /**
-     * @expectedException \InvalidArgumentException
-     */
     public function testInvalidWhereOperator() : void
     {
+        self::expectedException(\InvalidArgumentException::class);
+
         $query = new Builder($this->con, true);
         $query->where('a', 'invalid', 'b');
     }
 
-    /**
-     * @expectedException \InvalidArgumentException
-     */
     public function testInvalidJoinTable() : void
     {
+        self::expectedException(\InvalidArgumentException::class);
+
         $query = new Builder($this->con, true);
         $query->join(null);
     }
 
-    /**
-     * @expectedException \InvalidArgumentException
-     */
     public function testInvalidJoinOperator() : void
     {
+        self::expectedException(\InvalidArgumentException::class);
+
         $query = new Builder($this->con, true);
         $query->join('b')->on('a', 'invalid', 'b');
     }
 
-    /**
-     * @expectedException \InvalidArgumentException
-     */
     public function testInvalidOrOrderType() : void
     {
+        self::expectedException(\InvalidArgumentException::class);
+
         $query = new Builder($this->con, true);
         $query->orderBy('a', 1);
     }
 
-    /**
-     * @expectedException \InvalidArgumentException
-     */
     public function testInvalidOrColumnType() : void
     {
+        self::expectedException(\InvalidArgumentException::class);
+
         $query = new Builder($this->con, true);
         $query->orderBy(null, 'DESC');
     }

@@ -117,22 +117,20 @@ class ViewTest extends \PHPUnit\Framework\TestCase
         self::assertEquals('<strong>Test</strong>', $view->render());
     }
 
-    /**
-     * @expectedException \phpOMS\System\File\PathException
-     */
     public function testRenderException() : void
     {
+        self::expectedException(\phpOMS\System\File\PathException::class);
+
         $view = new View($this->app, new Request(new Http('')), new Response());
         $view->setTemplate('something.txt');
 
         $view->render();
     }
 
-    /**
-     * @expectedException \phpOMS\System\File\PathException
-     */
     public function testSerializeException() : void
     {
+        self::expectedException(\phpOMS\System\File\PathException::class);
+
         $view = new View($this->app, new Request(new Http('')), new Response());
         $view->setTemplate('something.txt');
 

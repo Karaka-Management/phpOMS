@@ -34,21 +34,19 @@ class SQLiteConnectionTest extends \PHPUnit\Framework\TestCase
         self::assertInstanceOf('\phpOMS\DataStorage\Database\Query\Grammar\SQLiteGrammar', $sqlite->getGrammar());
     }
 
-    /**
-     * @expectedException \phpOMS\DataStorage\Database\Exception\InvalidConnectionConfigException
-     */
     public function testInvalidDatabaseType() : void
     {
+        self::expectedException(\phpOMS\DataStorage\Database\Exception\InvalidConnectionConfigException::class);
+
         $db = $GLOBALS['CONFIG']['db']['core']['sqlite']['admin'];
         unset($db['db']);
         $sqlite = new SQLiteConnection($db);
     }
 
-    /**
-     * @expectedException \phpOMS\DataStorage\Database\Exception\InvalidConnectionConfigException
-     */
     public function testInvalidDatabase() : void
     {
+        self::expectedException(\phpOMS\DataStorage\Database\Exception\InvalidConnectionConfigException::class);
+
         $db = $GLOBALS['CONFIG']['db']['core']['sqlite']['admin'];
         unset($db['database']);
         $sqlite = new SQLiteConnection($db);

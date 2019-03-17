@@ -45,11 +45,10 @@ class LogLevelRegressionTest extends \PHPUnit\Framework\TestCase
         self::assertEquals($this->reg['b1'] * $x, LogLevelRegression::getElasticity($this->reg['b1'], 0, $x), '', 0.2);
     }
 
-    /**
-     * @expectedException \phpOMS\Math\Matrix\Exception\InvalidDimensionException
-     */
     public function testInvalidDimension() : void
     {
+        self::expectedException(\phpOMS\Math\Matrix\Exception\InvalidDimensionException::class);
+
         $x = [1,2, 3];
         $y = [1,2, 3, 4];
 

@@ -38,88 +38,80 @@ class MysqlConnectionTest extends \PHPUnit\Framework\TestCase
         self::assertInstanceOf('\phpOMS\DataStorage\Database\Query\Grammar\MysqlGrammar', $mysql->getGrammar());
     }
 
-    /**
-     * @expectedException \phpOMS\DataStorage\Database\Exception\InvalidConnectionConfigException
-     */
     public function testInvalidDatabaseType() : void
     {
+        self::expectedException(\phpOMS\DataStorage\Database\Exception\InvalidConnectionConfigException::class);
+
         $db = $GLOBALS['CONFIG']['db']['core']['masters']['admin'];
         unset($db['db']);
 
         $mysql = new MysqlConnection($db);
     }
 
-    /**
-     * @expectedException \phpOMS\DataStorage\Database\Exception\InvalidConnectionConfigException
-     */
     public function testInvalidHost() : void
     {
+        self::expectedException(\phpOMS\DataStorage\Database\Exception\InvalidConnectionConfigException::class);
+
         $db = $GLOBALS['CONFIG']['db']['core']['masters']['admin'];
         unset($db['host']);
 
         $mysql = new MysqlConnection($db);
     }
 
-    /**
-     * @expectedException \phpOMS\DataStorage\Database\Exception\InvalidConnectionConfigException
-     */
     public function testInvalidPort() : void
     {
+        self::expectedException(\phpOMS\DataStorage\Database\Exception\InvalidConnectionConfigException::class);
+
         $db = $GLOBALS['CONFIG']['db']['core']['masters']['admin'];
         unset($db['port']);
 
         $mysql = new MysqlConnection($db);
     }
 
-    /**
-     * @expectedException \phpOMS\DataStorage\Database\Exception\InvalidConnectionConfigException
-     */
     public function testInvalidDatabase() : void
     {
+        self::expectedException(\phpOMS\DataStorage\Database\Exception\InvalidConnectionConfigException::class);
+
         $db = $GLOBALS['CONFIG']['db']['core']['masters']['admin'];
         unset($db['database']);
 
         $mysql = new MysqlConnection($db);
     }
 
-    /**
-     * @expectedException \phpOMS\DataStorage\Database\Exception\InvalidConnectionConfigException
-     */
     public function testInvalidLogin() : void
     {
+        self::expectedException(\phpOMS\DataStorage\Database\Exception\InvalidConnectionConfigException::class);
+
         $db = $GLOBALS['CONFIG']['db']['core']['masters']['admin'];
         unset($db['login']);
 
         $mysql = new MysqlConnection($db);
     }
 
-    /**
-     * @expectedException \phpOMS\DataStorage\Database\Exception\InvalidConnectionConfigException
-     */
     public function testInvalidPassword() : void
     {
+        self::expectedException(\phpOMS\DataStorage\Database\Exception\InvalidConnectionConfigException::class);
+
         $db = $GLOBALS['CONFIG']['db']['core']['masters']['admin'];
         unset($db['password']);
 
         $mysql = new MysqlConnection($db);
     }
 
-    /**
-     * @expectedException \phpOMS\DataStorage\Database\Exception\InvalidConnectionConfigException
-     */
     public function testInvalidDatabaseTypeName() : void
     {
+        self::expectedException(\phpOMS\DataStorage\Database\Exception\InvalidConnectionConfigException::class);
+
         $db       = $GLOBALS['CONFIG']['db']['core']['masters']['admin'];
         $db['db'] = 'invalid';
 
         $mysql = new MysqlConnection($db);
     }
 
-    /**
-     * @expectedException \phpOMS\DataStorage\Database\Exception\InvalidConnectionConfigException
-     */
     public function testInvalidDatabaseName() : void
     {
+        self::expectedException(\phpOMS\DataStorage\Database\Exception\InvalidConnectionConfigException::class);
+
         $db = $GLOBALS['CONFIG']['db']['core']['masters']['admin'];
         $db['database'] = 'invalid';
 

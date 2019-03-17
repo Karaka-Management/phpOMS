@@ -31,11 +31,10 @@ class EnumArrayTest extends \PHPUnit\Framework\TestCase
         self::assertFalse(EnumArrayDemo::isValidValue('e3'));
     }
 
-    /**
-     * @expectedException \OutOfBoundsException
-     */
     public function testInvalidConstantException() : void
     {
+        self::expectedException(\OutOfBoundsException::class);
+
         EnumArrayDemo::get('enum2');
     }
 }

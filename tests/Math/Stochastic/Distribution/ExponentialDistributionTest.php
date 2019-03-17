@@ -71,11 +71,10 @@ class ExponentialDistributionTest extends \PHPUnit\Framework\TestCase
         self::assertEquals(2, ExponentialDistribution::getSkewness());
     }
 
-    /**
-     * @expectedException \OutOfBoundsException
-     */
     public function testMgfException() : void
     {
+        self::expectedException(\OutOfBoundsException::class);
+
         ExponentialDistribution::getMgf(3, 3);
     }
 }

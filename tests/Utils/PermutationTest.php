@@ -47,19 +47,17 @@ class PermutationTest extends \PHPUnit\Framework\TestCase
         self::assertEquals(['c', 'b', 'a'], Permutation::permutate(['a', 'b', 'c'], [2, 1, 1]));
     }
 
-    /**
-     * @expectedException \InvalidArgumentException
-     */
     public function testWrongPermuteParameterType() : void
     {
+        self::expectedException(\InvalidArgumentException::class);
+
         Permutation::permutate(4, [2, 1, 1]);
     }
 
-    /**
-     * @expectedException \OutOfBoundsException
-     */
     public function testWrongPermuteKeyLength() : void
     {
+        self::expectedException(\OutOfBoundsException::class);
+
         Permutation::permutate('abc', [2, 1, 1, 6]);
     }
 }

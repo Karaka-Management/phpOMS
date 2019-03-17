@@ -63,11 +63,10 @@ class LUDecompositionTest extends \PHPUnit\Framework\TestCase
         self::assertFalse($lu->isNonSingular());
     }
 
-    /**
-     * @expectedException \Exception
-     */
     public function testSolveOfSingularMatrix() : void
     {
+        self::expectedException(\Exception::class);
+
         $B = new Matrix();
         $B->setMatrix([
             [25, 15, -5],
@@ -103,11 +102,10 @@ class LUDecompositionTest extends \PHPUnit\Framework\TestCase
         );
     }
 
-    /**
-     * @expectedException \phpOMS\Math\Matrix\Exception\InvalidDimensionException
-     */
     public function testInvalidDimension() : void
     {
+        self::expectedException(\phpOMS\Math\Matrix\Exception\InvalidDimensionException::class);
+
         $B = new Matrix();
         $B->setMatrix([
             [25, 15, -5],

@@ -49,27 +49,24 @@ class IbanTest extends \PHPUnit\Framework\TestCase
         self::assertEquals(22, $iban->getLength());
     }
 
-    /**
-     * @expectedException \InvalidArgumentException
-     */
     public function testInvalidIbanCountry() : void
     {
+        self::expectedException(\InvalidArgumentException::class);
+
         $iban = new Iban('ZZ22 6008 0000 0960 0280 00');
     }
 
-    /**
-     * @expectedException \InvalidArgumentException
-     */
     public function testInvalidIbanLength() : void
     {
+        self::expectedException(\InvalidArgumentException::class);
+
         $iban = new Iban('DE22 6008 0000 0960 0280 0');
     }
 
-    /**
-     * @expectedException \InvalidArgumentException
-     */
     public function testInvalidIbanChecksum() : void
     {
+        self::expectedException(\InvalidArgumentException::class);
+
         $iban = new Iban('DEA9 6008 0000 0960 0280 00');
     }
 }

@@ -76,11 +76,10 @@ class LaplaceDistributionTest extends \PHPUnit\Framework\TestCase
         self::assertEquals(\exp($m * $t) / (1 - $b ** 2 * $t ** 2), LaplaceDistribution::getMgf($t, $m, $b));
     }
 
-    /**
-     * @expectedException \OutOfBoundsException
-     */
     public function testMgfException() : void
     {
+        self::expectedException(\OutOfBoundsException::class);
+
         LaplaceDistribution::getMgf(3, 2, 4);
     }
 }

@@ -119,20 +119,18 @@ class RequestTest extends \PHPUnit\Framework\TestCase
         );
     }
 
-    /**
-     * @expectedException \OutOfRangeException
-     */
     public function testInvalidHttpsPort() : void
     {
+        self::expectedException(\OutOfRangeException::class);
+
         $request = new Request(new Http('http://www.google.com/test/path'));
         $request->isHttps(-1);
     }
 
-    /**
-     * @expectedException \Exception
-     */
     public function testInvalidRouteVerb() : void
     {
+        self::expectedException(\Exception::class);
+
         $request = new Request(new Http('http://www.google.com/test/path'));
         $request->setMethod('failure');
         $request->getRouteVerb();

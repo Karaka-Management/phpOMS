@@ -125,22 +125,20 @@ class MemCachedTest extends \PHPUnit\Framework\TestCase
         self::assertEquals([], $cache->stats());
     }
 
-    /**
-     * @expectedException \phpOMS\DataStorage\Cache\Exception\InvalidConnectionConfigException
-     */
     public function testInvalidCacheHost() : void
     {
+        self::expectedException(\phpOMS\DataStorage\Cache\Exception\InvalidConnectionConfigException::class);
+
         $db = $GLOBALS['CONFIG']['cache']['memcached'];
         unset($db['host']);
 
         $cache = new MemCached($db);
     }
 
-    /**
-     * @expectedException \phpOMS\DataStorage\Cache\Exception\InvalidConnectionConfigException
-     */
     public function testInvalidCachePort() : void
     {
+        self::expectedException(\phpOMS\DataStorage\Cache\Exception\InvalidConnectionConfigException::class);
+
         $db = $GLOBALS['CONFIG']['cache']['memcached'];
         unset($db['port']);
 
