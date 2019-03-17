@@ -39,7 +39,7 @@ class SqlServerConnectionTest extends \PHPUnit\Framework\TestCase
 
     public function testInvalidDatabaseType() : void
     {
-        self::expectedException(\phpOMS\DataStorage\Database\Exception\InvalidConnectionConfigException::class);
+        self::expectException(\phpOMS\DataStorage\Database\Exception\InvalidConnectionConfigException::class);
 
         $db = $GLOBALS['CONFIG']['db']['core']['mssql']['admin'];
         unset($db['db']);
@@ -48,7 +48,7 @@ class SqlServerConnectionTest extends \PHPUnit\Framework\TestCase
 
     public function testInvalidHost() : void
     {
-        self::expectedException(\phpOMS\DataStorage\Database\Exception\InvalidConnectionConfigException::class);
+        self::expectException(\phpOMS\DataStorage\Database\Exception\InvalidConnectionConfigException::class);
 
         $db = $GLOBALS['CONFIG']['db']['core']['mssql']['admin'];
         unset($db['host']);
@@ -57,7 +57,7 @@ class SqlServerConnectionTest extends \PHPUnit\Framework\TestCase
 
     public function testInvalidPort() : void
     {
-        self::expectedException(\phpOMS\DataStorage\Database\Exception\InvalidConnectionConfigException::class);
+        self::expectException(\phpOMS\DataStorage\Database\Exception\InvalidConnectionConfigException::class);
 
         $db = $GLOBALS['CONFIG']['db']['core']['mssql']['admin'];
         unset($db['port']);
@@ -66,7 +66,7 @@ class SqlServerConnectionTest extends \PHPUnit\Framework\TestCase
 
     public function testInvalidDatabase() : void
     {
-        self::expectedException(\phpOMS\DataStorage\Database\Exception\InvalidConnectionConfigException::class);
+        self::expectException(\phpOMS\DataStorage\Database\Exception\InvalidConnectionConfigException::class);
 
         $db = $GLOBALS['CONFIG']['db']['core']['mssql']['admin'];
         unset($db['database']);
@@ -75,7 +75,7 @@ class SqlServerConnectionTest extends \PHPUnit\Framework\TestCase
 
     public function testInvalidLogin() : void
     {
-        self::expectedException(\phpOMS\DataStorage\Database\Exception\InvalidConnectionConfigException::class);
+        self::expectException(\phpOMS\DataStorage\Database\Exception\InvalidConnectionConfigException::class);
 
         $db = $GLOBALS['CONFIG']['db']['core']['mssql']['admin'];
         unset($db['login']);
@@ -84,7 +84,7 @@ class SqlServerConnectionTest extends \PHPUnit\Framework\TestCase
 
     public function testInvalidPassword() : void
     {
-        self::expectedException(\phpOMS\DataStorage\Database\Exception\InvalidConnectionConfigException::class);
+        self::expectException(\phpOMS\DataStorage\Database\Exception\InvalidConnectionConfigException::class);
 
         $db = $GLOBALS['CONFIG']['db']['core']['mssql']['admin'];
         unset($db['password']);
@@ -93,7 +93,7 @@ class SqlServerConnectionTest extends \PHPUnit\Framework\TestCase
 
     public function testInvalidDatabaseTypeName() : void
     {
-        self::expectedException(\phpOMS\DataStorage\Database\Exception\InvalidConnectionConfigException::class);
+        self::expectException(\phpOMS\DataStorage\Database\Exception\InvalidConnectionConfigException::class);
 
         $db       = $GLOBALS['CONFIG']['db']['core']['mssql']['admin'];
         $db['db'] = 'invalid';
@@ -102,7 +102,7 @@ class SqlServerConnectionTest extends \PHPUnit\Framework\TestCase
 
     public function testInvalidDatabaseName() : void
     {
-        self::expectedException(\phpOMS\DataStorage\Database\Exception\InvalidConnectionConfigException::class);
+        self::expectException(\phpOMS\DataStorage\Database\Exception\InvalidConnectionConfigException::class);
 
         $db = $GLOBALS['CONFIG']['db']['core']['mssql']['admin'];
         $db['database'] = 'invalid';

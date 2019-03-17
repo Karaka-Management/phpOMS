@@ -39,7 +39,7 @@ class CurrencyMapperTest extends \PHPUnit\Framework\TestCase
         self::assertEquals('EUR', $obj->getCode());
         self::assertEquals(978, $obj->getNumber());
         self::assertEquals(2, $obj->getDecimals());
-        self::assertContains('Germany', $obj->getCountries());
+        self::assertStringContainsString('Germany', $obj->getCountries());
     }
 
     public static function tearDownAfterClass() : void

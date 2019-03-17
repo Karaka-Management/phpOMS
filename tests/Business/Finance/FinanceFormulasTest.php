@@ -383,7 +383,7 @@ class FinanceFormulasTest extends \PHPUnit\Framework\TestCase
 
     public function testInvalidNetPresentValue() : void
     {
-        self::expectedException(\UnexpectedValueException::class);
+        self::expectException(\UnexpectedValueException::class);
 
         FinanceFormulas::getNetPresentValue([], 0.1);
     }

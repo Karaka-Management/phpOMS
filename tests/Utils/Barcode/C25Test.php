@@ -75,7 +75,7 @@ class C25Test extends \PHPUnit\Framework\TestCase
 
     public function testInvalidOrientation() : void
     {
-        self::expectedException(\InvalidArgumentException::class);
+        self::expectException(\InvalidArgumentException::class);
 
         $img = new C25('45f!a?12');
     }

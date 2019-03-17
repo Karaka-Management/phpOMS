@@ -30,12 +30,12 @@ class CholeskyDecompositionTest extends \PHPUnit\Framework\TestCase
 
         $cholesky = new CholeskyDecomposition($A);
 
-        self::assertEquals(
+        self::assertEqualsWithDelta(
             $A->toArray(),
             $cholesky->getL()
                 ->mult($cholesky->getL()->transpose())
                 ->toArray(),
-            '', 0.2
+            0.2
         );
     }
 
@@ -50,11 +50,11 @@ class CholeskyDecompositionTest extends \PHPUnit\Framework\TestCase
 
         $cholesky = new CholeskyDecomposition($A);
 
-        self::assertEquals([
+        self::assertEqualsWithDelta([
             [5, 0, 0],
             [3, 3, 0],
             [-1, 1, 3],
-        ], $cholesky->getL()->toArray(), '', 0.2);
+        ], $cholesky->getL()->toArray(), 0.2);
 
         self::assertTrue($cholesky->isSpd());
     }
@@ -77,7 +77,7 @@ class CholeskyDecompositionTest extends \PHPUnit\Framework\TestCase
 
     public function testInvalidDimension() : void
     {
-        self::expectedException(\phpOMS\Math\Matrix\Exception\InvalidDimensionException::class);
+        self::expectException(\phpOMS\Math\Matrix\Exception\InvalidDimensionException::class);
 
         $A = new Matrix();
         $A->setMatrix([

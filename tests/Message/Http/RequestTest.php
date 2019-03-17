@@ -110,7 +110,7 @@ class RequestTest extends \PHPUnit\Framework\TestCase
 
     public function testRestRequest() : void
     {
-        $request = new Request(new Http('http://orange-management.de/phpOMS/LICENSE.txt'));
+        $request = new Request(new Http('https://raw.githubusercontent.com/Orange-Management/Orange-Management/develop/LICENSE.txt'));
         $request->setMethod(RequestMethod::GET);
 
         self::assertEquals(
@@ -121,7 +121,7 @@ class RequestTest extends \PHPUnit\Framework\TestCase
 
     public function testInvalidHttpsPort() : void
     {
-        self::expectedException(\OutOfRangeException::class);
+        self::expectException(\OutOfRangeException::class);
 
         $request = new Request(new Http('http://www.google.com/test/path'));
         $request->isHttps(-1);
@@ -129,7 +129,7 @@ class RequestTest extends \PHPUnit\Framework\TestCase
 
     public function testInvalidRouteVerb() : void
     {
-        self::expectedException(\Exception::class);
+        self::expectException(\Exception::class);
 
         $request = new Request(new Http('http://www.google.com/test/path'));
         $request->setMethod('failure');

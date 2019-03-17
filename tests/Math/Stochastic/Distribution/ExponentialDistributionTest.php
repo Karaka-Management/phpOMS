@@ -73,7 +73,7 @@ class ExponentialDistributionTest extends \PHPUnit\Framework\TestCase
 
     public function testMgfException() : void
     {
-        self::expectedException(\OutOfBoundsException::class);
+        self::expectException(\OutOfBoundsException::class);
 
         ExponentialDistribution::getMgf(3, 3);
     }

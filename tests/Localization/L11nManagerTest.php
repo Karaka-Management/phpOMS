@@ -37,7 +37,7 @@ class L11nManagerTest extends \PHPUnit\Framework\TestCase
 
     public function testInvalidModule() : void
     {
-        self::expectedException(\Exception::class);
+        self::expectException(\Exception::class);
 
         $expected = [
             'en' => [

@@ -29,21 +29,21 @@ class CurrencyTest extends \PHPUnit\Framework\TestCase
 
     public function testInvalidFromEur() : void
     {
-        self::expectedException(\InvalidArgumentException::class);
+        self::expectException(\InvalidArgumentException::class);
 
         Currency::fromEurTo(1, 'ERROR');
     }
 
     public function testInvalidToEur() : void
     {
-        self::expectedException(\InvalidArgumentException::class);
+        self::expectException(\InvalidArgumentException::class);
 
         Currency::fromToEur(1, 'ERROR');
     }
 
     public function testInvalidConvert() : void
     {
-        self::expectedException(\InvalidArgumentException::class);
+        self::expectException(\InvalidArgumentException::class);
 
         Currency::convertCurrency(1, 'ERROR', 'TEST');
     }

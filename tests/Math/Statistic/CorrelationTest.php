@@ -19,12 +19,12 @@ class CorrelationTest extends \PHPUnit\Framework\TestCase
 {
     public function testBravisPersonCorrelationCoefficient() : void
     {
-        self::assertEquals(
+        self::assertEqualsWithDelta(
             0.8854,
             Correlation::bravaisPersonCorrelationCoefficient(
                 [1, 2, 3, 4, 5, 6, 7],
                 [3, 4, 5, 9, 7, 8, 9]
-            ), '', 0.01
+            ), 0.01
         );
     }
 

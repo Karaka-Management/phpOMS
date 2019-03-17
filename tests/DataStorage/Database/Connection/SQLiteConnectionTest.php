@@ -36,7 +36,7 @@ class SQLiteConnectionTest extends \PHPUnit\Framework\TestCase
 
     public function testInvalidDatabaseType() : void
     {
-        self::expectedException(\phpOMS\DataStorage\Database\Exception\InvalidConnectionConfigException::class);
+        self::expectException(\phpOMS\DataStorage\Database\Exception\InvalidConnectionConfigException::class);
 
         $db = $GLOBALS['CONFIG']['db']['core']['sqlite']['admin'];
         unset($db['db']);
@@ -45,7 +45,7 @@ class SQLiteConnectionTest extends \PHPUnit\Framework\TestCase
 
     public function testInvalidDatabase() : void
     {
-        self::expectedException(\phpOMS\DataStorage\Database\Exception\InvalidConnectionConfigException::class);
+        self::expectException(\phpOMS\DataStorage\Database\Exception\InvalidConnectionConfigException::class);
 
         $db = $GLOBALS['CONFIG']['db']['core']['sqlite']['admin'];
         unset($db['database']);

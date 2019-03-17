@@ -29,12 +29,12 @@ class MeasureOfDispersionTest extends \PHPUnit\Framework\TestCase
 
     public function testEmpiricalCovariance() : void
     {
-        self::assertEquals(
+        self::assertEqualsWithDelta(
             4.667,
             MeasureOfDispersion::empiricalCovariance(
                 [1, 2, 3, 4, 5, 6, 7],
                 [3, 4, 5, 9, 7, 8, 9]
-            ), '', 0.01
+            ), 0.01
         );
     }
 
@@ -64,35 +64,35 @@ class MeasureOfDispersionTest extends \PHPUnit\Framework\TestCase
 
     public function testInvalidEmpiricalVariationCoefficient() : void
     {
-        self::expectedException(phpOMS\Math\Exception\ZeroDevisionException::class);
+        self::expectException(\phpOMS\Math\Exception\ZeroDevisionException::class);
 
         MeasureOfDispersion::empiricalVariationCoefficient([1, 2, 3, 4, 5, 6, 7], 0);
     }
 
     public function testInvalidEmpiricalCovariance() : void
     {
-        self::expectedException(phpOMS\Math\Exception\ZeroDevisionException::class);
+        self::expectException(\phpOMS\Math\Exception\ZeroDevisionException::class);
 
         MeasureOfDispersion::empiricalCovariance([], []);
     }
 
     public function testInvalidEmpiricalCovarianceDimension() : void
     {
-        self::expectedException(phpOMS\Math\Matrix\Exception\InvalidDimensionException::class);
+        self::expectException(\phpOMS\Math\Matrix\Exception\InvalidDimensionException::class);
 
         MeasureOfDispersion::empiricalCovariance([1, 2, 3, 4], [1, 2, 3]);
     }
 
     public function testInvalidSampleVariance() : void
     {
-        self::expectedException(phpOMS\Math\Exception\ZeroDevisionException::class);
+        self::expectException(\phpOMS\Math\Exception\ZeroDevisionException::class);
 
         MeasureOfDispersion::sampleVariance([]);
     }
 
     public function testInvalidEmpiricalVariance() : void
     {
-        self::expectedException(phpOMS\Math\Exception\ZeroDevisionException::class);
+        self::expectException(\phpOMS\Math\Exception\ZeroDevisionException::class);
 
         MeasureOfDispersion::empiricalVariance([]);
     }

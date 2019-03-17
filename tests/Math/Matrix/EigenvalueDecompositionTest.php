@@ -32,17 +32,17 @@ class EigenvalueDecompositionTest extends \PHPUnit\Framework\TestCase
         self::assertTrue($eig->isSymmetric());
         self::assertEqualsWithDelta([0, 2, 5], $eig->getRealEigenvalues()->toArray(), 0.2);
 
-        self::assertEquals([
+        self::assertEqualsWithDelta([
             [0, 2/sqrt(6), 1/sqrt(3)],
             [1/sqrt(2), -1/sqrt(6), 1/sqrt(3)],
             [-1/sqrt(2), -1/sqrt(6), 1/sqrt(3)],
-        ], $eig->getV()->toArray(), '', 0.2);
+        ], $eig->getV()->toArray(), 0.2);
 
-        self::assertEquals([
+        self::assertEqualsWithDelta([
             [0, 0, 0],
             [0, 2, 0],
             [0, 0, 5],
-        ], $eig->getD()->toArray(), '', 0.2);
+        ], $eig->getD()->toArray(), 0.2);
     }
 
     public function testNonSymmetricMatrix() : void
@@ -59,17 +59,17 @@ class EigenvalueDecompositionTest extends \PHPUnit\Framework\TestCase
         self::assertFalse($eig->isSymmetric());
         self::assertEqualsWithDelta([-5, 3, 6], $eig->getRealEigenvalues()->toArray(), 0.2);
 
-        self::assertEquals([
+        self::assertEqualsWithDelta([
             [-sqrt(2/3), sqrt(2/7), -1/sqrt(293)],
             [-1/sqrt(6), -3/sqrt(14), -6/sqrt(293)],
             [1/sqrt(6), -1/sqrt(14), -16/sqrt(293)],
-        ], $eig->getV()->toArray(), '', 0.2);
+        ], $eig->getV()->toArray(), 0.2);
 
-        self::assertEquals([
+        self::assertEqualsWithDelta([
             [-5, 0, 0],
             [0, 3, 0],
             [0, 0, 6],
-        ], $eig->getD()->toArray(), '', 0.2);
+        ], $eig->getD()->toArray(), 0.2);
     }
 
     public function testCompositeSymmetric() : void
@@ -83,13 +83,13 @@ class EigenvalueDecompositionTest extends \PHPUnit\Framework\TestCase
 
         $eig = new EigenvalueDecomposition($A);
 
-        self::assertEquals(
+        self::assertEqualsWithDelta(
             $A->toArray(),
             $eig->getV()
                 ->mult($eig->getD())
                 ->mult($eig->getV()->transpose())
                 ->toArray()
-        , '', 0.2);
+        , 0.2);
     }
 
     public function testCompositeNonSymmetric() : void
@@ -103,13 +103,13 @@ class EigenvalueDecompositionTest extends \PHPUnit\Framework\TestCase
 
         $eig = new EigenvalueDecomposition($A);
 
-        self::assertEquals(
+        self::assertEqualsWithDelta(
             $A->toArray(),
             $eig->getV()
                 ->mult($eig->getD())
                 ->mult($eig->getV()->inverse())
                 ->toArray(),
-            '', 0.2
+            0.2
         );
     }
 }

@@ -95,7 +95,7 @@ class RequestTest extends \PHPUnit\Framework\TestCase
 
     public function testInvalidRouteVerb() : void
     {
-        self::expectedException(\Exception::class);
+        self::expectException(\Exception::class);
 
         $request = new Request(new Argument('get:some/test/path'));
         $request->setMethod('failure');

@@ -119,7 +119,7 @@ class ViewTest extends \PHPUnit\Framework\TestCase
 
     public function testRenderException() : void
     {
-        self::expectedException(\phpOMS\System\File\PathException::class);
+        self::expectException(\phpOMS\System\File\PathException::class);
 
         $view = new View($this->app, new Request(new Http('')), new Response());
         $view->setTemplate('something.txt');
@@ -129,7 +129,7 @@ class ViewTest extends \PHPUnit\Framework\TestCase
 
     public function testSerializeException() : void
     {
-        self::expectedException(\phpOMS\System\File\PathException::class);
+        self::expectException(\phpOMS\System\File\PathException::class);
 
         $view = new View($this->app, new Request(new Http('')), new Response());
         $view->setTemplate('something.txt');

@@ -38,7 +38,7 @@ class PostgresConnectionTest extends \PHPUnit\Framework\TestCase
 
     public function testInvalidDatabaseType() : void
     {
-        self::expectedException(\phpOMS\DataStorage\Database\Exception\InvalidConnectionConfigException::class);
+        self::expectException(\phpOMS\DataStorage\Database\Exception\InvalidConnectionConfigException::class);
 
         $db = $GLOBALS['CONFIG']['db']['core']['postgresql']['admin'];
         unset($db['db']);
@@ -47,7 +47,7 @@ class PostgresConnectionTest extends \PHPUnit\Framework\TestCase
 
     public function testInvalidHost() : void
     {
-        self::expectedException(\phpOMS\DataStorage\Database\Exception\InvalidConnectionConfigException::class);
+        self::expectException(\phpOMS\DataStorage\Database\Exception\InvalidConnectionConfigException::class);
 
         $db = $GLOBALS['CONFIG']['db']['core']['postgresql']['admin'];
         unset($db['host']);
@@ -56,7 +56,7 @@ class PostgresConnectionTest extends \PHPUnit\Framework\TestCase
 
     public function testInvalidPort() : void
     {
-        self::expectedException(\phpOMS\DataStorage\Database\Exception\InvalidConnectionConfigException::class);
+        self::expectException(\phpOMS\DataStorage\Database\Exception\InvalidConnectionConfigException::class);
 
         $db = $GLOBALS['CONFIG']['db']['core']['postgresql']['admin'];
         unset($db['port']);
@@ -65,7 +65,7 @@ class PostgresConnectionTest extends \PHPUnit\Framework\TestCase
 
     public function testInvalidDatabase() : void
     {
-        self::expectedException(\phpOMS\DataStorage\Database\Exception\InvalidConnectionConfigException::class);
+        self::expectException(\phpOMS\DataStorage\Database\Exception\InvalidConnectionConfigException::class);
 
         $db = $GLOBALS['CONFIG']['db']['core']['postgresql']['admin'];
         unset($db['database']);
@@ -74,7 +74,7 @@ class PostgresConnectionTest extends \PHPUnit\Framework\TestCase
 
     public function testInvalidLogin() : void
     {
-        self::expectedException(\phpOMS\DataStorage\Database\Exception\InvalidConnectionConfigException::class);
+        self::expectException(\phpOMS\DataStorage\Database\Exception\InvalidConnectionConfigException::class);
 
         $db = $GLOBALS['CONFIG']['db']['core']['postgresql']['admin'];
         unset($db['login']);
@@ -83,7 +83,7 @@ class PostgresConnectionTest extends \PHPUnit\Framework\TestCase
 
     public function testInvalidPassword() : void
     {
-        self::expectedException(\phpOMS\DataStorage\Database\Exception\InvalidConnectionConfigException::class);
+        self::expectException(\phpOMS\DataStorage\Database\Exception\InvalidConnectionConfigException::class);
 
         $db = $GLOBALS['CONFIG']['db']['core']['postgresql']['admin'];
         unset($db['password']);
@@ -92,7 +92,7 @@ class PostgresConnectionTest extends \PHPUnit\Framework\TestCase
 
     public function testInvalidDatabaseTypeName() : void
     {
-        self::expectedException(\phpOMS\DataStorage\Database\Exception\InvalidConnectionConfigException::class);
+        self::expectException(\phpOMS\DataStorage\Database\Exception\InvalidConnectionConfigException::class);
 
         $db       = $GLOBALS['CONFIG']['db']['core']['postgresql']['admin'];
         $db['db'] = 'invalid';

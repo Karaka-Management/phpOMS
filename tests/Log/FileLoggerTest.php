@@ -149,7 +149,7 @@ class FileLoggerTest extends \PHPUnit\Framework\TestCase
 
     public function testLogException() : void
     {
-        self::expectedException(phpOMS\Stdlib\Base\Exception\InvalidEnumValue::class);
+        self::expectException(\phpOMS\Stdlib\Base\Exception\InvalidEnumValue::class);
 
         $log = new FileLogger(__DIR__ . '/test.log');
         $log->log('testException', FileLogger::MSG_FULL, [

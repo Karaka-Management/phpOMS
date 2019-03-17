@@ -306,7 +306,7 @@ class BuilderTest extends \PHPUnit\Framework\TestCase
 
     public function testReadOnlyRaw() : void
     {
-        self::expectedException(\Exception::class);
+        self::expectException(\Exception::class);
 
         $query = new Builder($this->con, true);
         $query->raw('DROP DATABASE oms;');
@@ -314,7 +314,7 @@ class BuilderTest extends \PHPUnit\Framework\TestCase
 
     public function testReadOnlyInsert() : void
     {
-        self::expectedException(\Exception::class);
+        self::expectException(\Exception::class);
 
         $query = new Builder($this->con, true);
         $query->insert('test');
@@ -322,7 +322,7 @@ class BuilderTest extends \PHPUnit\Framework\TestCase
 
     public function testReadOnlyUpdate() : void
     {
-        self::expectedException(\Exception::class);
+        self::expectException(\Exception::class);
 
         $query = new Builder($this->con, true);
         $query->update();
@@ -330,7 +330,7 @@ class BuilderTest extends \PHPUnit\Framework\TestCase
 
     public function testReadOnlyDelete() : void
     {
-        self::expectedException(\Exception::class);
+        self::expectException(\Exception::class);
 
         $query = new Builder($this->con, true);
         $query->delete();
@@ -338,7 +338,7 @@ class BuilderTest extends \PHPUnit\Framework\TestCase
 
     public function testInvalidWhereOperator() : void
     {
-        self::expectedException(\InvalidArgumentException::class);
+        self::expectException(\InvalidArgumentException::class);
 
         $query = new Builder($this->con, true);
         $query->where('a', 'invalid', 'b');
@@ -346,7 +346,7 @@ class BuilderTest extends \PHPUnit\Framework\TestCase
 
     public function testInvalidJoinTable() : void
     {
-        self::expectedException(\InvalidArgumentException::class);
+        self::expectException(\InvalidArgumentException::class);
 
         $query = new Builder($this->con, true);
         $query->join(null);
@@ -354,7 +354,7 @@ class BuilderTest extends \PHPUnit\Framework\TestCase
 
     public function testInvalidJoinOperator() : void
     {
-        self::expectedException(\InvalidArgumentException::class);
+        self::expectException(\InvalidArgumentException::class);
 
         $query = new Builder($this->con, true);
         $query->join('b')->on('a', 'invalid', 'b');
@@ -362,7 +362,7 @@ class BuilderTest extends \PHPUnit\Framework\TestCase
 
     public function testInvalidOrOrderType() : void
     {
-        self::expectedException(\InvalidArgumentException::class);
+        self::expectException(\InvalidArgumentException::class);
 
         $query = new Builder($this->con, true);
         $query->orderBy('a', 1);
@@ -370,7 +370,7 @@ class BuilderTest extends \PHPUnit\Framework\TestCase
 
     public function testInvalidOrColumnType() : void
     {
-        self::expectedException(\InvalidArgumentException::class);
+        self::expectException(\InvalidArgumentException::class);
 
         $query = new Builder($this->con, true);
         $query->orderBy(null, 'DESC');

@@ -49,14 +49,14 @@ class PermutationTest extends \PHPUnit\Framework\TestCase
 
     public function testWrongPermuteParameterType() : void
     {
-        self::expectedException(\InvalidArgumentException::class);
+        self::expectException(\InvalidArgumentException::class);
 
         Permutation::permutate(4, [2, 1, 1]);
     }
 
     public function testWrongPermuteKeyLength() : void
     {
-        self::expectedException(\OutOfBoundsException::class);
+        self::expectException(\OutOfBoundsException::class);
 
         Permutation::permutate('abc', [2, 1, 1, 6]);
     }

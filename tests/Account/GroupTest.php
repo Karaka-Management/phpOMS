@@ -75,7 +75,7 @@ class GroupTest extends \PHPUnit\Framework\TestCase
 
     public function testStatusException() : void
     {
-        self::expectedException(\phpOMS\Stdlib\Base\Exception\InvalidEnumValue::class);
+        self::expectException(\phpOMS\Stdlib\Base\Exception\InvalidEnumValue::class);
 
         $account = new Group();
         $account->setStatus(99);

@@ -66,7 +66,7 @@ class LocalizationTest extends \PHPUnit\Framework\TestCase
 
     public function testInvalidLanguage() : void
     {
-        self::expectedException(\phpOMS\Stdlib\Base\Exception\InvalidEnumValue::class);
+        self::expectException(\phpOMS\Stdlib\Base\Exception\InvalidEnumValue::class);
 
         $localization = new Localization();
         $localization->setLanguage('abc');
@@ -74,7 +74,7 @@ class LocalizationTest extends \PHPUnit\Framework\TestCase
 
     public function testInvalidCountry() : void
     {
-        self::expectedException(\phpOMS\Stdlib\Base\Exception\InvalidEnumValue::class);
+        self::expectException(\phpOMS\Stdlib\Base\Exception\InvalidEnumValue::class);
 
         $localization = new Localization();
         $localization->setCountry('abc');
@@ -82,7 +82,7 @@ class LocalizationTest extends \PHPUnit\Framework\TestCase
 
     public function testInvalidTimezone() : void
     {
-        self::expectedException(\phpOMS\Stdlib\Base\Exception\InvalidEnumValue::class);
+        self::expectException(\phpOMS\Stdlib\Base\Exception\InvalidEnumValue::class);
 
         $localization = new Localization();
         $localization->setTimezone('abc');
@@ -90,7 +90,7 @@ class LocalizationTest extends \PHPUnit\Framework\TestCase
 
     public function testInvalidCurrency() : void
     {
-        self::expectedException(\phpOMS\Stdlib\Base\Exception\InvalidEnumValue::class);
+        self::expectException(\phpOMS\Stdlib\Base\Exception\InvalidEnumValue::class);
 
         $localization = new Localization();
         $localization->setCurrency('abc');
@@ -151,7 +151,7 @@ class LocalizationTest extends \PHPUnit\Framework\TestCase
 
     public function testInvalidLocalizationLoading() : void
     {
-        self::expectedException(\phpOMS\Stdlib\Base\Exception\InvalidEnumValue::class);
+        self::expectException(\phpOMS\Stdlib\Base\Exception\InvalidEnumValue::class);
 
         $localization = new Localization();
         $localization->loadFromLanguage('INVALID');

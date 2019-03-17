@@ -81,7 +81,7 @@ class FileTest extends \PHPUnit\Framework\TestCase
 
     public function testInvalidGetPath() : void
     {
-        self::expectedException(\phpOMS\System\File\PathException::class);
+        self::expectException(\phpOMS\System\File\PathException::class);
 
         File::get(__DIR__ . '/invalid.txt');
     }
@@ -98,35 +98,35 @@ class FileTest extends \PHPUnit\Framework\TestCase
 
     public function testInvalidCreatedPath() : void
     {
-        self::expectedException(\phpOMS\System\File\PathException::class);
+        self::expectException(\phpOMS\System\File\PathException::class);
 
         File::created(__DIR__ . '/invalid.txt');
     }
 
     public function testInvalidChangedPath() : void
     {
-        self::expectedException(\phpOMS\System\File\PathException::class);
+        self::expectException(\phpOMS\System\File\PathException::class);
 
         File::changed(__DIR__ . '/invalid.txt');
     }
 
     public function testInvalidSizePath() : void
     {
-        self::expectedException(\phpOMS\System\File\PathException::class);
+        self::expectException(\phpOMS\System\File\PathException::class);
 
         File::size(__DIR__ . '/invalid.txt');
     }
 
     public function testInvalidPermissionPath() : void
     {
-        self::expectedException(\phpOMS\System\File\PathException::class);
+        self::expectException(\phpOMS\System\File\PathException::class);
 
         File::permission(__DIR__ . '/invalid.txt');
     }
 
     public function testInvalidOwnerPath() : void
     {
-        self::expectedException(\phpOMS\System\File\PathException::class);
+        self::expectException(\phpOMS\System\File\PathException::class);
 
         File::owner(__DIR__ . '/invalid.txt');
     }

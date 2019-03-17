@@ -32,17 +32,17 @@ class QRDecompositionTest extends \PHPUnit\Framework\TestCase
 
         self::assertTrue($QR->isFullRank());
 
-        self::assertEquals([
+        self::assertEqualsWithDelta([
             [-6 / 7, 69 / 175, -58 / 175],
             [-3 / 7, -158 / 175, -6 / 175],
             [2 / 7, -6 / 35, -33 / 35],
-        ], $QR->getQ()->toArray(), '', 0.2);
+        ], $QR->getQ()->toArray(), 0.2);
 
-        self::assertEquals([
+        self::assertEqualsWithDelta([
             [-14, -21, 14],
             [0, -175, 70],
             [0, 0, 35],
-        ], $QR->getR()->toArray(), '', 0.2);
+        ], $QR->getR()->toArray(), 0.2);
     }
 
     public function testComposition() : void
@@ -56,12 +56,12 @@ class QRDecompositionTest extends \PHPUnit\Framework\TestCase
 
         $QR = new QRDecomposition($A);
 
-        self::assertEquals(
+        self::assertEqualsWithDelta(
             $A->toArray(),
             $QR->getQ()
                 ->mult($QR->getR())
                 ->toArray(),
-            '', 0.2
+            0.2
         );
     }
 

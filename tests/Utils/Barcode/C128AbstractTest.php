@@ -32,21 +32,21 @@ class C128AbstractTest extends \PHPUnit\Framework\TestCase
 
     public function testInvalidDimensionWidth() : void
     {
-        self::expectedException(\OutOfBoundsException::class);
+        self::expectException(\OutOfBoundsException::class);
 
         $this->obj->setDimension(-2, 1);
     }
 
     public function testInvalidDimensionHeight() : void
     {
-        self::expectedException(\OutOfBoundsException::class);
+        self::expectException(\OutOfBoundsException::class);
 
         $this->obj->setDimension(1, -2);
     }
 
     public function testInvalidOrientation() : void
     {
-        self::expectedException(\phpOMS\Stdlib\Base\Exception\InvalidEnumValue::class);
+        self::expectException(\phpOMS\Stdlib\Base\Exception\InvalidEnumValue::class);
 
         $this->obj->setOrientation(99);
     }

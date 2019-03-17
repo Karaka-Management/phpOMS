@@ -19,7 +19,7 @@ class DictionaryTest extends \PHPUnit\Framework\TestCase
 {
     public function testInvalidGetCharacter() : void
     {
-        self::expectedException(\InvalidArgumentException::class);
+        self::expectException(\InvalidArgumentException::class);
 
         $dict = new Dictionary();
         $dict->get('as');
@@ -27,7 +27,7 @@ class DictionaryTest extends \PHPUnit\Framework\TestCase
 
     public function testNotExistingGetCharacter() : void
     {
-        self::expectedException(\InvalidArgumentException::class);
+        self::expectException(\InvalidArgumentException::class);
 
         $dict = new Dictionary();
         $dict->get('a');
@@ -35,7 +35,7 @@ class DictionaryTest extends \PHPUnit\Framework\TestCase
 
     public function testInvalidSetCharacter() : void
     {
-        self::expectedException(\InvalidArgumentException::class);
+        self::expectException(\InvalidArgumentException::class);
 
         $dict = new Dictionary();
         $dict->set('as', 'test');
@@ -43,7 +43,7 @@ class DictionaryTest extends \PHPUnit\Framework\TestCase
 
     public function testInvalidSetDuplicateCharacter() : void
     {
-        self::expectedException(\InvalidArgumentException::class);
+        self::expectException(\InvalidArgumentException::class);
 
         $dict = new Dictionary();
         $dict->set('a', '1');
@@ -52,7 +52,7 @@ class DictionaryTest extends \PHPUnit\Framework\TestCase
 
     public function testInvalidFormattedValue() : void
     {
-        self::expectedException(\InvalidArgumentException::class);
+        self::expectException(\InvalidArgumentException::class);
 
         $dict = new Dictionary();
         $dict->set('a', '1a');

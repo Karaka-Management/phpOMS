@@ -30,17 +30,17 @@ class LUDecompositionTest extends \PHPUnit\Framework\TestCase
 
         $lu = new LUDecomposition($B);
 
-        self::assertEquals([
+        self::assertEqualsWithDelta([
             [1, 0, 0],
             [0.6, 1, 0],
             [-0.2, 0.375, 1],
-        ], $lu->getL()->toArray(), '', 0.2);
+        ], $lu->getL()->toArray(), 0.2);
 
-        self::assertEquals([
+        self::assertEqualsWithDelta([
             [25, 15, -5],
             [0, 8, 3],
             [0, 0, 8.875],
-        ], $lu->getU()->toArray(), '', 0.2);
+        ], $lu->getU()->toArray(), 0.2);
 
         $vec = new Vector();
         $vec->setMatrix([[40], [49], [28]]);
@@ -65,7 +65,7 @@ class LUDecompositionTest extends \PHPUnit\Framework\TestCase
 
     public function testSolveOfSingularMatrix() : void
     {
-        self::expectedException(\Exception::class);
+        self::expectException(\Exception::class);
 
         $B = new Matrix();
         $B->setMatrix([
@@ -93,18 +93,18 @@ class LUDecompositionTest extends \PHPUnit\Framework\TestCase
 
         $lu = new LUDecomposition($A);
 
-        self::assertEquals(
+        self::assertEqualsWithDelta(
             $A->toArray(),
             $lu->getL()
                 ->mult($lu->getU())
                 ->toArray(),
-            '', 0.2
+            0.2
         );
     }
 
     public function testInvalidDimension() : void
     {
-        self::expectedException(\phpOMS\Math\Matrix\Exception\InvalidDimensionException::class);
+        self::expectException(\phpOMS\Math\Matrix\Exception\InvalidDimensionException::class);
 
         $B = new Matrix();
         $B->setMatrix([

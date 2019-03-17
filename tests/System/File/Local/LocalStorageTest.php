@@ -127,49 +127,49 @@ class LocalStorageTest extends \PHPUnit\Framework\TestCase
 
     public function testInvalidPutPath() : void
     {
-        self::expectedException(\phpOMS\System\File\PathException::class);
+        self::expectException(\phpOMS\System\File\PathException::class);
 
         LocalStorage::put(__DIR__, 'Test');
     }
 
     public function testInvalidGetPath() : void
     {
-        self::expectedException(\phpOMS\System\File\PathException::class);
+        self::expectException(\phpOMS\System\File\PathException::class);
 
         LocalStorage::get(__DIR__);
     }
 
     public function testInvalidListPath() : void
     {
-        self::expectedException(\phpOMS\System\File\PathException::class);
+        self::expectException(\phpOMS\System\File\PathException::class);
 
         LocalStorage::list(__DIR__ . '/LocalStorageTest.php');
     }
 
     public function testInvalidSetPath() : void
     {
-        self::expectedException(\phpOMS\System\File\PathException::class);
+        self::expectException(\phpOMS\System\File\PathException::class);
 
         LocalStorage::set(__DIR__, 'Test');
     }
 
     public function testInvalidAppendPath() : void
     {
-        self::expectedException(\phpOMS\System\File\PathException::class);
+        self::expectException(\phpOMS\System\File\PathException::class);
 
         LocalStorage::append(__DIR__, 'Test');
     }
 
     public function testInvalidPrependPath() : void
     {
-        self::expectedException(\phpOMS\System\File\PathException::class);
+        self::expectException(\phpOMS\System\File\PathException::class);
 
         LocalStorage::prepend(__DIR__, 'Test');
     }
 
     public function testInvalidExtensionPath() : void
     {
-        self::expectedException(\phpOMS\System\File\PathException::class);
+        self::expectException(\phpOMS\System\File\PathException::class);
 
         LocalStorage::extension(__DIR__);
     }

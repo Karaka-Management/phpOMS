@@ -52,7 +52,7 @@ class InfoManagerTest extends \PHPUnit\Framework\TestCase
 
     public function testInvalidPathLoad() : void
     {
-        self::expectedException(\phpOMS\System\File\PathException::class);
+        self::expectException(\phpOMS\System\File\PathException::class);
 
         $info = new InfoManager(__DIR__ . '/invalid.json');
         $info->load();
@@ -60,7 +60,7 @@ class InfoManagerTest extends \PHPUnit\Framework\TestCase
 
     public function testInvalidPathUpdate() : void
     {
-        self::expectedException(\phpOMS\System\File\PathException::class);
+        self::expectException(\phpOMS\System\File\PathException::class);
 
         $info = new InfoManager(__DIR__ . '/invalid.json');
         $info->update();
@@ -68,7 +68,7 @@ class InfoManagerTest extends \PHPUnit\Framework\TestCase
 
     public function testInvalidDataSet() : void
     {
-        self::expectedException(\InvalidArgumentException::class);
+        self::expectException(\InvalidArgumentException::class);
 
         $info = new InfoManager(__DIR__ . '/info-test.json');
         $info->load();

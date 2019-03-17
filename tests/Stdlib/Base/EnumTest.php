@@ -36,7 +36,7 @@ class EnumTest extends \PHPUnit\Framework\TestCase
 
     public function testEmailException() : void
     {
-        self::expectedException(\Exception::class);
+        self::expectException(\Exception::class);
 
         EnumDemo::getByName('ENUM3');
     }

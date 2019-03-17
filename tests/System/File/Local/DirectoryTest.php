@@ -83,35 +83,35 @@ class DirectoryTest extends \PHPUnit\Framework\TestCase
 
     public function testInvalidCreatedPath() : void
     {
-        self::expectedException(\phpOMS\System\File\PathException::class);
+        self::expectException(\phpOMS\System\File\PathException::class);
 
         Directory::created(__DIR__ . '/invalid');
     }
 
     public function testInvalidChangedPath() : void
     {
-        self::expectedException(\phpOMS\System\File\PathException::class);
+        self::expectException(\phpOMS\System\File\PathException::class);
 
         Directory::changed(__DIR__ . '/invalid');
     }
 
     public function testInvalidSizePath() : void
     {
-        self::expectedException(\phpOMS\System\File\PathException::class);
+        self::expectException(\phpOMS\System\File\PathException::class);
 
         Directory::size(__DIR__ . '/invalid');
     }
 
     public function testInvalidPermissionPath() : void
     {
-        self::expectedException(\phpOMS\System\File\PathException::class);
+        self::expectException(\phpOMS\System\File\PathException::class);
 
         Directory::permission(__DIR__ . '/invalid');
     }
 
     public function testInvalidOwnerPath() : void
     {
-        self::expectedException(\phpOMS\System\File\PathException::class);
+        self::expectException(\phpOMS\System\File\PathException::class);
 
         Directory::owner(__DIR__ . '/invalid');
     }

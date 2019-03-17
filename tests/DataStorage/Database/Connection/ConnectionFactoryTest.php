@@ -87,7 +87,7 @@ class ConnectionFactoryTest extends \PHPUnit\Framework\TestCase
 
     public function testInvalidDatabaseType() : void
     {
-        self::expectedException(\InvalidArgumentException::class);
+        self::expectException(\InvalidArgumentException::class);
 
         ConnectionFactory::create(['db' => 'invalid']);
     }

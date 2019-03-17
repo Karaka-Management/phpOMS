@@ -162,154 +162,154 @@ class MeasurementTest extends \PHPUnit\Framework\TestCase
 
     public function testInvalidTemperatureFrom() : void
     {
-        self::expectedException(\InvalidArgumentException::class);
+        self::expectException(\InvalidArgumentException::class);
 
         Measurement::convertTemperature(1.1, 'invalid', TemperatureType::CELSIUS);
     }
 
     public function testInvalidTemperatureTo() : void
     {
-        self::expectedException(\InvalidArgumentException::class);
+        self::expectException(\InvalidArgumentException::class);
 
         Measurement::convertTemperature(1.1, TemperatureType::CELSIUS, 'invalid');
     }
 
     public function testInvalidWeightFrom() : void
     {
-        self::expectedException(\InvalidArgumentException::class);
+        self::expectException(\InvalidArgumentException::class);
 
         Measurement::convertWeight(1.1, 'invalid', WeightType::KILOGRAM);
     }
 
     public function testInvalidWeightTo() : void
     {
-        self::expectedException(\InvalidArgumentException::class);
+        self::expectException(\InvalidArgumentException::class);
 
         Measurement::convertWeight(1.1, WeightType::KILOGRAM, 'invalid');
     }
 
     public function testInvalidLengthFrom() : void
     {
-        self::expectedException(\InvalidArgumentException::class);
+        self::expectException(\InvalidArgumentException::class);
 
         Measurement::convertLength(1.1, 'invalid', LengthType::METERS);
     }
 
     public function testInvalidLengthTo() : void
     {
-        self::expectedException(\InvalidArgumentException::class);
+        self::expectException(\InvalidArgumentException::class);
 
         Measurement::convertLength(1.1, LengthType::METERS, 'invalid');
     }
 
     public function testInvalidAreaFrom() : void
     {
-        self::expectedException(\InvalidArgumentException::class);
+        self::expectException(\InvalidArgumentException::class);
 
         Measurement::convertArea(1.1, 'invalid', AreaType::SQUARE_METERS);
     }
 
     public function testInvalidAreaTo() : void
     {
-        self::expectedException(\InvalidArgumentException::class);
+        self::expectException(\InvalidArgumentException::class);
 
         Measurement::convertArea(1.1, AreaType::SQUARE_METERS, 'invalid');
     }
 
     public function testInvalidVolumeFrom() : void
     {
-        self::expectedException(\InvalidArgumentException::class);
+        self::expectException(\InvalidArgumentException::class);
 
         Measurement::convertVolume(1.1, 'invalid', VolumeType::LITER);
     }
 
     public function testInvalidVolumeTo() : void
     {
-        self::expectedException(\InvalidArgumentException::class);
+        self::expectException(\InvalidArgumentException::class);
 
         Measurement::convertVolume(1.1, VolumeType::LITER, 'invalid');
     }
 
     public function testInvalidSpeedFrom() : void
     {
-        self::expectedException(\InvalidArgumentException::class);
+        self::expectException(\InvalidArgumentException::class);
 
         Measurement::convertSpeed(1.1, 'invalid', SpeedType::KILOMETERS_PER_HOUR);
     }
 
     public function testInvalidSpeedTo() : void
     {
-        self::expectedException(\InvalidArgumentException::class);
+        self::expectException(\InvalidArgumentException::class);
 
         Measurement::convertSpeed(1.1, SpeedType::KILOMETERS_PER_HOUR, 'invalid');
     }
 
     public function testInvalidTimeFrom() : void
     {
-        self::expectedException(\InvalidArgumentException::class);
+        self::expectException(\InvalidArgumentException::class);
 
         Measurement::convertTime(1.1, 'invalid', TimeType::HOURS);
     }
 
     public function testInvalidTimeTo() : void
     {
-        self::expectedException(\InvalidArgumentException::class);
+        self::expectException(\InvalidArgumentException::class);
 
         Measurement::convertTime(1.1, TimeType::HOURS, 'invalid');
     }
 
     public function testInvalidAngleFrom() : void
     {
-        self::expectedException(\InvalidArgumentException::class);
+        self::expectException(\InvalidArgumentException::class);
 
         Measurement::convertAngle(1.1, 'invalid', AngleType::RADIAN);
     }
 
     public function testInvalidAngleTo() : void
     {
-        self::expectedException(\InvalidArgumentException::class);
+        self::expectException(\InvalidArgumentException::class);
 
         Measurement::convertAngle(1.1, AngleType::RADIAN, 'invalid');
     }
 
     public function testInvalidPressureFrom() : void
     {
-        self::expectedException(\InvalidArgumentException::class);
+        self::expectException(\InvalidArgumentException::class);
 
         Measurement::convertPressure(1.1, 'invalid', PressureType::BAR);
     }
 
     public function testInvalidPressureTo() : void
     {
-        self::expectedException(\InvalidArgumentException::class);
+        self::expectException(\InvalidArgumentException::class);
 
         Measurement::convertPressure(1.1, PressureType::BAR, 'invalid');
     }
 
     public function testInvalidEnergyPowerFrom() : void
     {
-        self::expectedException(\InvalidArgumentException::class);
+        self::expectException(\InvalidArgumentException::class);
 
         Measurement::convertEnergy(1.1, 'invalid', EnergyPowerType::JOULS);
     }
 
     public function testInvalidEnergyPowerTo() : void
     {
-        self::expectedException(\InvalidArgumentException::class);
+        self::expectException(\InvalidArgumentException::class);
 
         Measurement::convertEnergy(1.1, EnergyPowerType::JOULS, 'invalid');
     }
 
     public function testInvalidFileSizeFrom() : void
     {
-        self::expectedException(\InvalidArgumentException::class);
+        self::expectException(\InvalidArgumentException::class);
 
         Measurement::convertFileSize(1.1, 'invalid', FileSizeType::KILOBYTE);
     }
 
     public function testInvalidFileSizeTo() : void
     {
-        self::expectedException(\InvalidArgumentException::class);
+        self::expectException(\InvalidArgumentException::class);
 
         Measurement::convertFileSize(1.1, FileSizeType::KILOBYTE, 'invalid');
     }

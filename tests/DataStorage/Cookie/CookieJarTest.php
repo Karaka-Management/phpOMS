@@ -45,7 +45,7 @@ class CookieJarTest extends \PHPUnit\Framework\TestCase
 
     public function testDeleteLocked() : void
     {
-        self::expectedException(\phpOMS\DataStorage\LockException::class);
+        self::expectException(\phpOMS\DataStorage\LockException::class);
 
         $jar = new CookieJar();
         self::assertTrue($jar->set('test', 'value'));
@@ -56,7 +56,7 @@ class CookieJarTest extends \PHPUnit\Framework\TestCase
 
     public function testSaveLocked() : void
     {
-        self::expectedException(\phpOMS\DataStorage\LockException::class);
+        self::expectException(\phpOMS\DataStorage\LockException::class);
 
         CookieJar::lock();
 

@@ -74,14 +74,14 @@ class UniformDistributionDiscreteTest extends \PHPUnit\Framework\TestCase
 
     public function testCdfExceptionUpper() : void
     {
-        self::expectedException(\OutOfBoundsException::class);
+        self::expectException(\OutOfBoundsException::class);
 
         UniformDistributionDiscrete::getCdf(5, 2, 4);
     }
 
     public function testCdfExceptionLower() : void
     {
-        self::expectedException(\OutOfBoundsException::class);
+        self::expectException(\OutOfBoundsException::class);
 
         UniformDistributionDiscrete::getCdf(1, 2, 4);
     }

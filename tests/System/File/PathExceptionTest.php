@@ -20,7 +20,7 @@ class PathExceptionTest extends \PHPUnit\Framework\TestCase
     public function testConstructor() : void
     {
         $e = new PathException('test.file');
-        self::assertContains('test.file', $e->getMessage());
+        self::assertStringContainsString('test.file', $e->getMessage());
         self::assertEquals(0, $e->getCode());
         $this->isInstanceOf('\UnexpectedValueException');
     }

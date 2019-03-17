@@ -33,7 +33,7 @@ class EnumArrayTest extends \PHPUnit\Framework\TestCase
 
     public function testInvalidConstantException() : void
     {
-        self::expectedException(\OutOfBoundsException::class);
+        self::expectException(\OutOfBoundsException::class);
 
         EnumArrayDemo::get('enum2');
     }

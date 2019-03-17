@@ -38,10 +38,10 @@ class AverageTest extends \PHPUnit\Framework\TestCase
 
     public function testWeightedAverage() : void
     {
-        self::assertEquals(69 / 20, Average::weightedAverage(
+        self::assertEqualsWithDelta(69 / 20, Average::weightedAverage(
             [1, 2, 3, 4, 5, 6, 7],
             [0.1, 0.2, 0.3, 0.1, 0.2, 0.05, 0.05]
-        ), '', 0.01);
+        ), 0.01);
     }
 
     public function testGeometricMean() : void
@@ -68,28 +68,28 @@ class AverageTest extends \PHPUnit\Framework\TestCase
 
     public function testInvalidWeightedAverageDimension() : void
     {
-        self::expectedException(phpOMS\Math\Matrix\Exception\InvalidDimensionException::class);
+        self::expectException(\phpOMS\Math\Matrix\Exception\InvalidDimensionException::class);
 
         Average::weightedAverage([1, 2, 3, 4, 5, 6, 7], [0.1, 0.2, 0.3, 0.1, 0.2, 0.05]);
     }
 
     public function testInvalidArithmeticMeanZeroDevision() : void
     {
-        self::expectedException(phpOMS\Math\Exception\ZeroDevisionException::class);
+        self::expectException(\phpOMS\Math\Exception\ZeroDevisionException::class);
 
         Average::arithmeticMean([]);
     }
 
     public function testInvalidGeometricMean() : void
     {
-        self::expectedException(phpOMS\Math\Exception\ZeroDevisionException::class);
+        self::expectException(\phpOMS\Math\Exception\ZeroDevisionException::class);
 
         Average::geometricMean([]);
     }
 
     public function testInvalidHarmonicMean() : void
     {
-        self::expectedException(phpOMS\Math\Exception\ZeroDevisionException::class);
+        self::expectException(\phpOMS\Math\Exception\ZeroDevisionException::class);
 
         Average::harmonicMean([1, 2, 3, 0, 5, 6, 7]);
     }
