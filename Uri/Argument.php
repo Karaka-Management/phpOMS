@@ -40,6 +40,22 @@ final class Argument implements UriInterface
     private $rootPath = '/';
 
     /**
+     * Path offset.
+     *
+     * @var int
+     * @since 1.0.0
+     */
+    private $pathOffset = 0;
+
+    /**
+     * Path elements.
+     *
+     * @var array
+     * @since 1.0.0
+     */
+    private $pathElements = [];
+
+    /**
      * Uri.
      *
      * @var string
@@ -186,6 +202,8 @@ final class Argument implements UriInterface
 
             $this->path = $path;
         }
+
+        $this->pathElements = \explode('/', $this->path);
     }
 
     /**
@@ -253,7 +271,14 @@ final class Argument implements UriInterface
     public function setRootPath(string $root) : void
     {
         $this->rootPath = $root;
-        $this->set($this->uri);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function setPathOffset(int $offset = 0) : void
+    {
+        $this->pathOffset = $offset;
     }
 
     /**
@@ -334,9 +359,9 @@ final class Argument implements UriInterface
     /**
      * {@inheritdoc}
      */
-    public function getPathElement(int $pos = null) : string
+    public function getPathElement(int $pos = 0) : string
     {
-        return \explode('/', $this->path)[$pos] ?? '';
+        return $this->pathElements[$pos + $this->pathOffset] ?? '';
     }
 
     /**
@@ -344,7 +369,7 @@ final class Argument implements UriInterface
      */
     public function getPathElements() : array
     {
-        return \explode('/', $this->path);
+        return $this->pathElements;
     }
 
     /**
