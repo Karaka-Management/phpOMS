@@ -78,7 +78,7 @@ class PriorityQueue implements \Countable, \Serializable
      *
      * @since  1.0.0
      */
-    public function insert($data, $priority = 1) : int
+    public function insert($data, float $priority = 1.0) : int
     {
         do {
             $key = \mt_rand();
@@ -104,9 +104,11 @@ class PriorityQueue implements \Countable, \Serializable
      *
      * @return int
      *
+     * @throws InvalidEnumValue
+     *
      * @since  1.0.0
      */
-    private function getInsertPosition($priority) : int
+    private function getInsertPosition(float $priority) : int
     {
         switch($this->type) {
             case PriorityMode::FIFO:
@@ -131,7 +133,7 @@ class PriorityQueue implements \Countable, \Serializable
      *
      * @since  1.0.0
      */
-    private function getInsertFIFO($priority) : int
+    private function getInsertFIFO(float $priority) : int
     {
         return 0;
     }
@@ -145,7 +147,7 @@ class PriorityQueue implements \Countable, \Serializable
      *
      * @since  1.0.0
      */
-    private function getInsertLIFO($priority) : int
+    private function getInsertLIFO(float $priority) : int
     {
         return \count($this->queue);
     }
@@ -159,7 +161,7 @@ class PriorityQueue implements \Countable, \Serializable
      *
      * @since  1.0.0
      */
-    private function getInsertHighest($priority) : int
+    private function getInsertHighest(float $priority) : int
     {
         $pos = 0;
         foreach ($this->queue as $ele) {
@@ -182,7 +184,7 @@ class PriorityQueue implements \Countable, \Serializable
      *
      * @since  1.0.0
      */
-    private function getInsertLowest($priority) : int
+    private function getInsertLowest(float $priority) : int
     {
         $pos = 0;
         foreach ($this->queue as $ele) {
@@ -205,7 +207,7 @@ class PriorityQueue implements \Countable, \Serializable
      *
      * @since  1.0.0
      */
-    public function increaseAll($increase = 1) : void
+    public function increaseAll(float $increase = 1.0) : void
     {
         foreach ($this->queue as $key => &$ele) {
             $ele['priority'] += $increase;
@@ -248,13 +250,13 @@ class PriorityQueue implements \Countable, \Serializable
      * Set element priority.
      *
      * @param mixed $id       Element ID
-     * @param mixed $priority Element priority
+     * @param float $priority Element priority
      *
      * @return void
      *
      * @since  1.0.0
      */
-    public function setPriority($id, $priority) : void
+    public function setPriority($id, float $priority) : void
     {
         if ($this->type === PriorityMode::FIFO || $this->type === PriorityMode::LIFO) {
             $this->queue[$id]['priority'] = $priority;

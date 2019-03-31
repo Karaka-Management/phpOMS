@@ -115,7 +115,7 @@ class File extends FileAbstract implements FileInterface
      */
     public static function put($con, string $path, string $content, int $mode = ContentPutMode::REPLACE | ContentPutMode::CREATE) : bool
     {
-        $exists  = self::exists($con, $path);
+        $exists = self::exists($con, $path);
 
         if ((ContentPutMode::hasFlag($mode, ContentPutMode::APPEND) && $exists)
             || (ContentPutMode::hasFlag($mode, ContentPutMode::PREPEND) && $exists)

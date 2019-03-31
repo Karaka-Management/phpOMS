@@ -93,7 +93,7 @@ final class Permutation
      */
     public static function isPalindrome(string $a, string $filter = 'a-zA-Z0-9') : bool
     {
-        $a = \strtolower(\preg_replace('/[^' . $filter . ']/', '', $a));
+        $a = \strtolower(\preg_replace('/[^' . $filter . ']/', '', $a) ?? '');
 
         return $a === \strrev($a);
     }

@@ -163,6 +163,10 @@ final class Http implements UriInterface
         $this->uri = $uri;
         $url       = \parse_url($this->uri);
 
+        if ($url === false) {
+            return;
+        }
+
         $this->scheme = $url['scheme'] ?? '';
         $this->host   = $url['host'] ?? '';
         $this->port   = $url['port'] ?? 80;

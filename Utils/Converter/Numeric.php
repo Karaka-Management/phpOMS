@@ -60,7 +60,7 @@ class Numeric
      */
     public static function convertBase(string $numberInput, string $fromBaseInput, string $toBaseInput) : string
     {
-        if ($fromBaseInput == $toBaseInput) {
+        if ($fromBaseInput === $toBaseInput) {
             return $numberInput;
         }
 

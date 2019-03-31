@@ -268,7 +268,7 @@ final class StringUtils
         } else {
             $charlist = \str_replace('/', '\/', \preg_quote($charlist));
 
-            return \preg_replace('/(^[' . $charlist . ']+)|([ ' . $charlist . ']+$)/us', '', $string);
+            return \preg_replace('/(^[' . $charlist . ']+)|([ ' . $charlist . ']+$)/us', '', $string) ?? '';
         }
     }
 
@@ -289,7 +289,7 @@ final class StringUtils
         } else {
             $charlist = \str_replace('/', '\/', \preg_quote($charlist));
 
-            return \preg_replace('/([' . $charlist . ']+$)/us', '', $string);
+            return \preg_replace('/([' . $charlist . ']+$)/us', '', $string) ?? '';
         }
     }
 
@@ -310,7 +310,7 @@ final class StringUtils
         } else {
             $charlist = \str_replace('/', '\/', \preg_quote($charlist));
 
-            return \preg_replace('/(^[' . $charlist . ']+)/us', '', $string);
+            return \preg_replace('/(^[' . $charlist . ']+)/us', '', $string) ?? '';
         }
     }
 
@@ -472,7 +472,7 @@ final class StringUtils
                 }
 
                 switch ($mc) {
-                    case -1: 
+                    case -1:
                         $result .= '<del>';
                         break;
                     case 1:

@@ -241,6 +241,6 @@ final class UriFactory
             return $toMatch[$match] ?? self::$uri[$match] ?? $match;
         }, $uri);
 
-        return self::unique($parsed);
+        return self::unique($parsed ?? '');
     }
 }

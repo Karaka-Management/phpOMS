@@ -39,7 +39,7 @@ final class Loan
      *
      * @since  1.0.0
      */
-    public static function getPaymentsOnBalloonLoan(float $PV, float $r, int $n, float $balloon = 0) : float
+    public static function getPaymentsOnBalloonLoan(float $PV, float $r, int $n, float $balloon = 0.0) : float
     {
         return ($PV - $balloon / \pow(1 + $r, $n)) * $r / (1 - \pow(1 + $r, -$n));
     }

@@ -201,10 +201,10 @@ class Repository
         $status = \proc_close($resource);
 
         if ($status == -1) {
-            throw new \Exception($stderr);
+            throw new \Exception((string) $stderr);
         }
 
-        return $this->parseLines(\trim($stdout));
+        return $this->parseLines(\trim($stdout === false ? '' : $stdout));
     }
 
     /**

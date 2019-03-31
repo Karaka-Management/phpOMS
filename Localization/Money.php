@@ -217,7 +217,7 @@ final class Money implements \Serializable
      */
     public function add($value) : self
     {
-        if (\is_string($value) || is_float($value)) {
+        if (\is_string($value) || \is_float($value)) {
             $this->value += self::toInt((string) $value, $this->thousands, $this->decimal);
         } elseif (\is_int($value)) {
             $this->value += $value;
@@ -251,7 +251,7 @@ final class Money implements \Serializable
      */
     public function sub($value) : self
     {
-        if (\is_string($value) || is_float($value)) {
+        if (\is_string($value) || \is_float($value)) {
             $this->value -= self::toInt((string) $value, $this->thousands, $this->decimal);
         } elseif (\is_int($value)) {
             $this->value -= $value;

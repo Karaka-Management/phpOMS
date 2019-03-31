@@ -403,7 +403,7 @@ final class Directory extends FileAbstract implements LocalContainerInterface, D
      */
     public static function sanitize(string $path, string $replace = '', string $invalid = '/[^\w\s\d\.\-_~,;:\[\]\(\]\/]/') : string
     {
-        return \preg_replace($invalid, $replace, $path);
+        return \preg_replace($invalid, $replace, $path) ?? '';
     }
 
     /**

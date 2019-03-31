@@ -164,10 +164,10 @@ abstract class SchedulerAbstract
         $status = \proc_close($resource);
 
         if ($status === -1) {
-            throw new \Exception($stderr);
+            throw new \Exception((string) $stderr);
         }
 
-        return \trim($stdout);
+        return $stdout === false ? '' : \trim($stdout);
     }
 
     /**

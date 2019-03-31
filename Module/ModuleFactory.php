@@ -80,10 +80,10 @@ final class ModuleFactory
                     self::registerRequesting($obj);
                     self::registerProvided($obj);
                 } catch (\Throwable $e) {
-                    self::$loaded[$module] = new NullModule($app);
+                    self::$loaded[$module] = new NullModule();
                 }
             } else {
-                self::$loaded[$module] = new NullModule($app);
+                self::$loaded[$module] = new NullModule();
             }
         }
 

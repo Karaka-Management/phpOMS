@@ -176,7 +176,7 @@ class Directory extends FileAbstract implements FtpContainerInterface, Directory
 
             if ($filename['type'] === 'dir' && $recursive) {
                 $countSize += self::size($con, $key, $recursive);
-            } elseif ($filename['type'] === 'file' ) {
+            } elseif ($filename['type'] === 'file') {
                 $countSize += \ftp_size($con, $key);
             }
         }
@@ -308,7 +308,7 @@ class Directory extends FileAbstract implements FtpContainerInterface, Directory
                 $e['month'],
                 $e['day'],
                 $e['time']
-            ) = $chunks;
+            )       = $chunks;
 
             $e['permission'] = FileUtils::permissionToOctal(\substr($e['permission'], 1));
             $e['type']       = $chunks[0]{0} === 'd' ? 'dir' : 'file';
