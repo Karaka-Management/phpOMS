@@ -147,9 +147,9 @@ class Head implements RenderableInterface
      *
      * @since  1.0.0
      */
-    public function addAsset(int $type, string $uri) : void
+    public function addAsset(int $type, string $uri, array $attributes = []) : void
     {
-        $this->assets[$uri] = $type;
+        $this->assets[$uri] = ['type' => $type, 'attributes' => $attributes];
     }
 
     /**
@@ -299,16 +299,22 @@ class Head implements RenderableInterface
      */
     public function renderAssets() : string
     {
-        $asset = '';
-        foreach ($this->assets as $uri => $type) {
-            if ($type === AssetType::CSS) {
-                $asset .= '<link rel="stylesheet" type="text/css" href="' . $uri . '">';
-            } elseif ($type === AssetType::JS) {
-                $asset .= '<script src="' . $uri . '"></script>';
+        $rendered = '';
+        foreach ($this->assets as $uri => $asset) {
+            if ($asset['type'] === AssetType::CSS) {
+                $rendered .= '<link rel="stylesheet" type="text/css" href="' . $uri . '">';
+            } elseif ($asset['type'] === AssetType::JS) {
+                $rendered .= '<script src="' . $uri . '"';
+
+                foreach ($asset['attributes'] as $key => $attribute) {
+                    $rendered .= ' ' . $key . '="' . $attribute . '"';
+                }
+
+                $rendered .='></script>';
             }
         }
 
-        return $asset;
+        return $rendered;
     }
 
     /**
@@ -320,13 +326,19 @@ class Head implements RenderableInterface
      */
     public function renderAssetsLate() : string
     {
-        $asset = '';
-        foreach ($this->assets as $uri => $type) {
-            if ($type === AssetType::JSLATE) {
-                $asset .= '<script src="' . $uri . '"></script>';
+        $rendered = '';
+        foreach ($this->assets as $uri => $asset) {
+            if ($asset['type']=== AssetType::JSLATE) {
+                $rendered .= '<script src="' . $uri . '"';
+
+                foreach ($asset['attributes'] as $key => $attribute) {
+                    $rendered .= ' ' . $key . '="' . $attribute . '"';
+                }
+
+                $rendered .='></script>';
             }
         }
 
-        return $asset;
+        return $rendered;
     }
 }
