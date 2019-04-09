@@ -1,5 +1,3 @@
-[![Build Status](https://travis-ci.org/Orange-Management/phpOMS.svg?branch=develop)](https://travis-ci.org/Orange-Management/phpOMS)
-
 # General
 
 The **phpOMS** framework provides many features to manage and create a web application and its backend. Additionally to the framework features it also includes many utils and api integrations that provides additional functionality.
