@@ -14,6 +14,7 @@
 namespace phpOMS\tests\Utils;
 
 use phpOMS\Utils\StringUtils;
+use phpOMS\Contract\RenderableInterface;
 
 require_once __DIR__ . '/../Autoloader.php';
 
@@ -118,5 +119,60 @@ class StringUtilsTest extends \PHPUnit\Framework\TestCase
                 return 'abc';
             }
         }));
+
+        self::assertEquals('abc', StringUtils::stringify(new class implements RenderableInterface {
+            public function render() : string
+            {
+                return 'abc';
+            }
+        }));
+    }
+
+    public function testStringDiffHtml() : void
+    {
+        $original = 'This is a test string.';
+        $new      = 'This is a new string.';
+
+        self::assertEquals(
+            'This is a <del>t</del><ins>n</ins>e<del>st</del><ins>w</ins> string.',
+            StringUtils::createDiffMarkup($original, $new)
+        );
+
+        self::assertEquals(
+            'This is a <del>test</del><ins>new</ins> string.',
+            StringUtils::createDiffMarkup($original, $new, ' ')
+        );
+
+        $original = '';
+        $new      = 'This is a new string.';
+
+        self::assertEquals(
+            '<ins>' . $new . '</ins>',
+            StringUtils::createDiffMarkup($original, $new)
+        );
+
+        $original = 'This is a new string.';
+        $new      = '';
+
+        self::assertEquals(
+            '<del>' . $original . '</del>',
+            StringUtils::createDiffMarkup($original, $new)
+        );
+
+        $original = 'This is a new string';
+        $new      = 'This is a new string!';
+
+        self::assertEquals(
+            $original . '<ins>!</ins>',
+            StringUtils::createDiffMarkup($original, $new)
+        );
+
+        $original = 'This is a new string.';
+        $new      = 'This is a new string';
+
+        self::assertEquals(
+            $new . '<del>.</del>',
+            StringUtils::createDiffMarkup($original, $new)
+        );
     }
 }

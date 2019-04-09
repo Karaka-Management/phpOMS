@@ -430,23 +430,30 @@ final class StringUtils
     /**
      * Create string difference markup
      *
-     * @param string $old Old strings
-     * @param string $new New strings
+     * @param string $old   Old strings
+     * @param string $new   New strings
+     * @param string $delim Delim (e.g '' = compare by character, ' ' = compare by words)
      *
      * @return string Markup using <del> and <ins> tags
      *
      * @since  1.0.0
      */
-    public static function createDiffMarkup(string $old, string $new) : string
+    public static function createDiffMarkup(string $old, string $new, string $delim = '') : string
     {
-        $splitOld = \str_split($old);
-        $splitNew = \str_split($new);
+        $splitOld = !empty($delim) ? \explode($delim, $old) : \str_split($old);
+        $splitNew = !empty($delim) ? \explode($delim, $new) : \str_split($new);
 
-        if ($splitOld === false) {
+        if ($splitOld === false
+            || (empty($old) && !empty($new))
+            || (!empty($delim) && \count($splitOld) === 1 && $splitOld[0] === '')
+        ) {
             return '<ins>' . $new . '</ins>';
         }
 
-        if ($splitNew === false) {
+        if ($splitNew === false
+            || (!empty($old) && empty($new))
+            || (!empty($delim) && \count($splitNew) === 1 && $splitNew[0] === '')
+        ) {
             return '<del>' . $old . '</del>';
         }
 
@@ -461,29 +468,31 @@ final class StringUtils
         for ($i = 0; $i < $n; ++$i) {
             $mc = $diffmask[$i];
 
-            if ($mc != $pmc) {
+            if ($mc !== $pmc) {
                 switch ($pmc) {
                     case -1:
-                        $result .= '</del>';
+                        $result = (!empty($delim) ? \rtrim($result, $delim) : $result) . '</del>' . $delim;
                         break;
                     case 1:
-                        $result .= '</ins>';
+                        $result = (!empty($delim) ? \rtrim($result, $delim) : $result) . '</ins>' . $delim;
                         break;
                 }
 
                 switch ($mc) {
                     case -1:
-                        $result .= '<del>';
+                        $result = (!empty($delim) && ($pmc === 1 || $pmc === -1) ? \rtrim($result, $delim) : $result) . '<del>';
                         break;
                     case 1:
-                        $result .= '<ins>';
+                        $result = (!empty($delim) && ($pmc === 1 || $pmc === -1) ? \rtrim($result, $delim) : $result) . '<ins>';
                         break;
                 }
             }
 
-            $result .= $diffval[$i];
+            $result .= $diffval[$i] . (!empty($delim) ? $delim : '');
             $pmc     = $mc;
         }
+
+        $result = (!empty($delim) ? \rtrim($result, $delim) : $result);
 
         switch ($pmc) {
             case -1:

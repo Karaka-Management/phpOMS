@@ -104,7 +104,7 @@ final class Router
      *
      * @since  1.0.0
      */
-    public function route(string $request, int $verb = RouteVerb::GET, string $app = '', int $orgId = 1, $account = null) : array
+    public function route(string $request, int $verb = RouteVerb::GET, string $app = null, int $orgId = null, $account = null) : array
     {
         $bound = [];
         foreach ($this->routes as $route => $destination) {

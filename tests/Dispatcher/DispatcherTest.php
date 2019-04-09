@@ -52,6 +52,14 @@ class DispatcherTest extends \PHPUnit\Framework\TestCase
                 )
             )
         );
+
+        self::assertTrue(
+            !empty(
+                $this->app->dispatcher->dispatch(
+                    function($req) { return true; }
+                )
+            )
+        );
     }
 
     public function testPathMethod() : void
@@ -79,6 +87,14 @@ class DispatcherTest extends \PHPUnit\Framework\TestCase
                     ['dest' => 'phpOMS\tests\Dispatcher\TestController:testFunction'],
                     new Request(new Http(''), $localization),
                     new Response($localization)
+                )
+            )
+        );
+
+        self::assertTrue(
+            !empty(
+                $this->app->dispatcher->dispatch(
+                    ['dest' => 'phpOMS\tests\Dispatcher\TestController:testFunctionNoPara']
                 )
             )
         );

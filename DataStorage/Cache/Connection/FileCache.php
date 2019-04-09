@@ -200,7 +200,7 @@ class FileCache extends ConnectionAbstract
      * @param mixed $value Data to cache
      *
      * @return int Returns the cache type for a value
-     * 
+     *
      * @throws \InvalidArgumentException This exception is thrown if an unsupported datatype is used
      *
      * @since  1.0.0
@@ -225,7 +225,7 @@ class FileCache extends ConnectionAbstract
             return CacheValueType::_JSONSERIALIZABLE;
         }
 
-        throw new \InvalidArgumentException('Invalid value');
+        throw new \InvalidArgumentException('Invalid value type.');
     }
 
     /**

@@ -131,10 +131,10 @@ final class Dispatcher
                 throw new \Exception();
             }
 
-            $views[$controller] = $function(...$data);
+            $views[$controller] = $data === null ? $function() : $function(...$data);
         } elseif ($c === 2) {
             $this->getController($dispatch[0]);
-            $views[$controller] = $this->controllers[$dispatch[0]]->{$dispatch[1]}(...$data);
+            $views[$controller] = $data === null ? $this->controllers[$dispatch[0]]->{$dispatch[1]}() : $this->controllers[$dispatch[0]]->{$dispatch[1]}(...$data);
         } else {
             throw new \UnexpectedValueException('Unexpected function.');
         }
@@ -156,11 +156,7 @@ final class Dispatcher
     {
         $views = [];
         foreach ($controller as $controllerSingle) {
-            if ($data === null) {
-                $views += $this->dispatch($controllerSingle);
-            } else {
-                $views += $this->dispatch($controllerSingle, ...$data);
-            }
+            $views += $data === null ? $this->dispatch($controllerSingle) : $this->dispatch($controllerSingle, ...$data);
         }
 
         return $views;
@@ -178,7 +174,7 @@ final class Dispatcher
      */
     private function dispatchClosure(\Closure $controller, array $data = null)
     {
-        return $controller($this->app, ...$data);
+        return $data === null ? $controller($this->app) : $controller($this->app, ...$data);
     }
 
     /**

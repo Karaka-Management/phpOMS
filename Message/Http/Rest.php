@@ -32,6 +32,8 @@ final class Rest
      *
      * @return string Returns the request result
      *
+     * @throws \Exception This exception is thrown if an internal curl_init error occurs.
+     *
      * @since  1.0.0
      */
     public static function request(Request $request) : string
@@ -39,7 +41,7 @@ final class Rest
         $curl = \curl_init();
 
         if ($curl === false) {
-            throw new \Exception();
+            throw new \Exception('Internal curl_init error.');
         }
 
         \curl_setopt($curl, CURLOPT_NOBODY, true);

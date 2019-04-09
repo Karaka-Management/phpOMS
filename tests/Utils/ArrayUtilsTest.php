@@ -133,4 +133,11 @@ class ArrayUtilsTest extends \PHPUnit\Framework\TestCase
             self::assertTrue(\stripos(ArrayUtils::getArg('--configuration', $_SERVER['argv']), '.xml') !== false);
         }
     }
+
+    public function testInvalidArrayStringify() : void
+    {
+        self::expectException(\InvalidArgumentException::class);
+
+        ArrayUtils::stringify([new class {}]);
+    }
 }

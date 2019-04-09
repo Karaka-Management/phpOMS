@@ -45,6 +45,8 @@ class RequestTest extends \PHPUnit\Framework\TestCase
         self::assertEquals('http://', $request->__toString());
         self::assertFalse($request->hasData('key'));
         self::assertEquals(null, $request->getData('key'));
+        self::assertEquals('en', $request->getRequestLanguage());
+        self::assertEquals('en_US', $request->getLocale());
     }
 
     public function testSetGet() : void
@@ -90,6 +92,48 @@ class RequestTest extends \PHPUnit\Framework\TestCase
         $request->createRequestHashs(0);
 
         self::assertEquals('http://www.google.com/test/path2', $request->__toString());
+    }
+
+    public function testDataJson() : void
+    {
+        $request = new Request(new Http(''));
+
+        $data = [
+            1, 2, 3,
+            'a' => 'b',
+            'b' => [4, 5],
+        ];
+
+        $request->setData('abc', \json_encode($data));
+        self::assertEquals($data, $request->getDataJson('abc'));
+        self::assertEquals([], $request->getDataJson('def'));
+    }
+
+    public function testDataList() : void
+    {
+        $request = new Request(new Http(''));
+
+        $data = [
+            1, 2, 3,
+            'a', 'b',
+        ];
+
+        $request->setData('abc', \implode(',', $data));
+        self::assertEquals($data, $request->getDataList('abc'));
+        self::assertEquals([], $request->getDataList('def'));
+    }
+
+    public function testDataLike() : void
+    {
+        $request = new Request(new Http(''));
+
+        $data = 'this is a test';
+
+        $request->setData('abcde', $data);
+        self::assertEquals(['abcde' => $data], $request->getLike('.*'));
+        self::assertEquals(['abcde' => $data], $request->getLike('[a-z]*'));
+        self::assertEquals([], $request->getLike('[a-z]*\d'));
+        self::assertEquals([], $request->getLike('abcdef'));
     }
 
     public function testToString() : void

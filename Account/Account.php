@@ -561,7 +561,7 @@ class Account implements ArrayableInterface, \JsonSerializable
      *
      * @return void
      *
-     * @throws \Exception
+     * @throws \Exception Throws this exception if the password_hash function fails
      *
      * @since  1.0.0
      */
@@ -570,7 +570,7 @@ class Account implements ArrayableInterface, \JsonSerializable
         $temp = \password_hash($password, \PASSWORD_DEFAULT);
 
         if ($temp === false) {
-            throw new \Exception();
+            throw new \Exception('Internal password_hash error.');
         }
 
         $this->password = $temp;

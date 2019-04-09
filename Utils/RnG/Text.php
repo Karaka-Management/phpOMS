@@ -75,6 +75,20 @@ class Text
     private $sentences = 0;
 
     /**
+     * Constructor
+     *
+     * @param bool $hasFormatting Text should have formatting
+     * @param bool $hasParagraphs Text should have paragraphs
+     *
+     * @since  1.0.0
+     */
+    public function __construct(bool $hasFormatting = false, bool $hasParagraphs = false)
+    {
+        $this->setFormatting($hasFormatting);
+        $this->setParagraphs($hasParagraphs);
+    }
+
+    /**
      * Set if the text should have formatting.
      *
      * @param bool $hasFormatting Text has formatting.
@@ -169,7 +183,7 @@ class Text
                 $newSentence = true;
             }
 
-            $word = $words[rand(0, $wordCount - 1)] ?? '';
+            $word = $words[\mt_rand(0, $wordCount - 1)] ?? '';
 
             if ($newSentence) {
                 $word = \ucfirst($word);
@@ -226,24 +240,24 @@ class Text
         $punctuation = [];
 
         for ($i = 0; $i < $length;) {
-            $sentenceLength = \rand($minSentences, $maxSentences);
+            $sentenceLength = \mt_rand($minSentences, $maxSentences);
 
             if ($i + $sentenceLength > $length || $length - ($i + $sentenceLength) < $minSentences) {
                 $sentenceLength = $length - $i;
             }
 
             /* Handle comma */
-            $commaHere = (\rand(0, 100) <= $probComma * 100 && $sentenceLength >= 2 * $minCommaSpacing ? true : false);
+            $commaHere = (\mt_rand(0, 100) <= $probComma * 100 && $sentenceLength >= 2 * $minCommaSpacing ? true : false);
             $posComma  = [];
 
             if ($commaHere) {
-                $posComma[]    = \rand($minCommaSpacing, $sentenceLength - $minCommaSpacing);
+                $posComma[]    = \mt_rand($minCommaSpacing, $sentenceLength - $minCommaSpacing);
                 $punctuation[] = [$i + $posComma[0], ','];
 
-                $commaHere = (\rand(0, 100) <= $probComma * 100 && $posComma[0] + $minCommaSpacing * 2 < $sentenceLength ? true : false);
+                $commaHere = (\mt_rand(0, 100) <= $probComma * 100 && $posComma[0] + $minCommaSpacing * 2 < $sentenceLength ? true : false);
 
                 if ($commaHere) {
-                    $posComma[]    = \rand($posComma[0] + $minCommaSpacing, $sentenceLength - $minCommaSpacing);
+                    $posComma[]    = \mt_rand($posComma[0] + $minCommaSpacing, $sentenceLength - $minCommaSpacing);
                     $punctuation[] = [$i + $posComma[1], ','];
                 }
             }
@@ -251,14 +265,14 @@ class Text
             $i += $sentenceLength;
 
             /* Handle sentence ending */
-            $isDot = (\rand(0, 100) <= $probDot * 100 ? true : false);
+            $isDot = (\mt_rand(0, 100) <= $probDot * 100 ? true : false);
 
             if ($isDot) {
                 $punctuation[] = [$i, '.'];
                 continue;
             }
 
-            $isEx = (\rand(0, 100) <= $probExc * 100 ? true : false);
+            $isEx = (\mt_rand(0, 100) <= $probExc * 100 ? true : false);
 
             if ($isEx) {
                 $punctuation[] = [$i, '!'];
@@ -288,7 +302,7 @@ class Text
         $paragraph = [];
 
         for ($i = 0; $i < $length;) {
-            $paragraphLength = \rand($minSentence, $maxSentence);
+            $paragraphLength = \mt_rand($minSentence, $maxSentence);
 
             if ($i + $paragraphLength > $length || $length - ($i + $paragraphLength) < $minSentence) {
                 $paragraphLength = $length - $i;
@@ -319,9 +333,9 @@ class Text
         $formatting = [];
 
         for ($i = 0; $i < $length; ++$i) {
-            $isCursive = (\rand(0, 1000) <= 1000 * $probCursive ? true : false);
-            $isBold    = (\rand(0, 1000) <= 1000 * $probBold ? true : false);
-            $isUline   = (\rand(0, 1000) <= 1000 * $probUline ? true : false);
+            $isCursive = (\mt_rand(0, 1000) <= 1000 * $probCursive ? true : false);
+            $isBold    = (\mt_rand(0, 1000) <= 1000 * $probBold ? true : false);
+            $isUline   = (\mt_rand(0, 1000) <= 1000 * $probUline ? true : false);
 
             if ($isUline) {
                 $formatting[$i] = 'u';

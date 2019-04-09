@@ -22,8 +22,8 @@ class CookieJarTest extends \PHPUnit\Framework\TestCase
         $jar = new CookieJar();
 
         self::assertFalse(CookieJar::isLocked());
+        self::assertEquals(null, $jar->get('asd'));
         self::assertFalse($jar->delete('abc'));
-        self::assertFalse($jar->delete('asd'));
     }
 
     public function testCookie() : void

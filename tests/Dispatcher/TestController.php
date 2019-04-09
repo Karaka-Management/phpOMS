@@ -19,6 +19,11 @@ class TestController
         return true;
     }
 
+    public function testFunctionNoPara()
+    {
+        return true;
+    }
+
     public static function testFunctionStatic($req, $resp, $data = null)
     {
         return true;

@@ -599,15 +599,11 @@ final class ModuleManager
      */
     public function get(string $module) : ModuleAbstract
     {
-        try {
-            if (!isset($this->running[$module])) {
-                $this->initModule($module);
-            }
-
-            return $this->running[$module] ?? new NullModule();
-        } catch (\Exception $e) {
-            throw $e;
+        if (!isset($this->running[$module])) {
+            $this->initModule($module);
         }
+
+        return $this->running[$module] ?? new NullModule();
     }
 
     /**
@@ -626,11 +622,7 @@ final class ModuleManager
         $modules = (array) $modules;
 
         foreach ($modules as $module) {
-            try {
-                $this->initModuleController($module);
-            } catch (\InvalidArgumentException $e) {
-                throw $e;
-            }
+            $this->initModuleController($module);
         }
     }
 
@@ -649,12 +641,8 @@ final class ModuleManager
      */
     private function initModuleController(string $module) : void
     {
-        try {
-            $this->running[$module] = ModuleFactory::getInstance($module, $this->app);
-            $this->app->dispatcher->set($this->running[$module], '\Modules\\Controller\\' . $module . '\\' . $this->app->appName . 'Controller');
-        } catch (\Exception $e) {
-            throw $e;
-        }
+        $this->running[$module] = ModuleFactory::getInstance($module, $this->app);
+        $this->app->dispatcher->set($this->running[$module], '\Modules\\Controller\\' . $module . '\\' . $this->app->appName . 'Controller');
     }
 
     /**

@@ -225,7 +225,7 @@ final class ArrayUtils
      *
      * @return string
      *
-     * @throws \Exception
+     * @throws \InvalidArgumentException
      *
      * @since  1.0.0
      */
@@ -257,7 +257,7 @@ final class ArrayUtils
                     $str .= $key . ' => null, ';
                     break;
                 default:
-                    throw new \Exception('Unknown default type');
+                    throw new \InvalidArgumentException('Unknown default type');
             }
         }
 

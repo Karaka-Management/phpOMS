@@ -102,7 +102,7 @@ final class Money implements \Serializable
      *
      * @return int
      *
-     * @throws \Exception
+     * @throws \Exception This exception is thrown if an internal explode or substr error occurs.
      *
      * @since  1.0.0
      */
@@ -111,7 +111,7 @@ final class Money implements \Serializable
         $split = \explode($decimal, $value);
 
         if ($split === false) {
-            throw new \Exception();
+            throw new \Exception('Internal explode error.');
         }
 
         $left  = $split[0];
@@ -124,7 +124,7 @@ final class Money implements \Serializable
 
         $right = \substr($right, 0, self::MAX_DECIMALS);
         if ($right === false) {
-            throw new \Exception();
+            throw new \Exception('Internal substr error.');
         }
 
         return ((int) $left) * 10 ** self::MAX_DECIMALS + (int) \str_pad($right, self::MAX_DECIMALS, '0');
@@ -189,7 +189,7 @@ final class Money implements \Serializable
      *
      * @return string
      *
-     * @throws \Exception
+     * @throws \Exception This exception is thrown if an internal substr error occurs.
      *
      * @since  1.0.0
      */

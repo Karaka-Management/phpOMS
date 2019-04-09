@@ -167,9 +167,9 @@ final class Response extends ResponseAbstract implements RenderableInterface
         try {
             foreach ($this->response as $key => $response) {
                 if ($response instanceof View) {
-                    $result += $response->toArray();
+                    $result[] = $response->toArray();
                 } elseif (\is_array($response)) {
-                    $result += $response;
+                    $result[] = $response;
                 } elseif (\is_scalar($response)) {
                     $result[] = $response;
                 } elseif ($response instanceof \JsonSerializable) {

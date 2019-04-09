@@ -197,7 +197,7 @@ class View extends ViewAbstract
 
         $module = $module ?? $this->module;
         $theme  = $theme ?? $this->theme;
-        
+
         /** @var string $module */
         /** @var string $theme */
         return $this->app->l11nManager->getText($this->l11n->getLanguage(), $module, $theme, $translation);
@@ -219,7 +219,7 @@ class View extends ViewAbstract
         $match = '/Modules/';
 
         if (($start = \strripos($this->template, $match)) === false) {
-            throw new InvalidModuleException('');
+            throw new InvalidModuleException($this->template);
         }
 
         $start        = $start + \strlen($match);
@@ -247,7 +247,7 @@ class View extends ViewAbstract
         $match = '/Theme/';
 
         if (($start = \strripos($this->template, $match)) === false) {
-            throw new InvalidThemeException('');
+            throw new InvalidThemeException($this->template);
         }
 
         $start       = $start + \strlen($match);

@@ -201,4 +201,12 @@ class FileCacheTest extends \PHPUnit\Framework\TestCase
 
         $cache = new FileCache('/etc/invalidPathOrPermission^$:?><');
     }
+
+    public function testInvalidDataType() : void
+    {
+        self::expectException(\InvalidArgumentException::class);
+
+        $cache = new FileCache(__DIR__ . '/Cache');
+        $cache->add('invalid', $cache);
+    }
 }

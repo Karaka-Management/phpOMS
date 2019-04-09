@@ -260,9 +260,11 @@ class MultiMap implements \Countable
                     return true;
                 }
             }
-        } else {
-            return $this->set(\implode(':', $key), $value);
+
+            return false;
         }
+
+        return $this->set(\implode(':', $key), $value);
     }
 
     /**

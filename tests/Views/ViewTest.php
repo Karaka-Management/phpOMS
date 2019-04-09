@@ -111,17 +111,45 @@ class ViewTest extends \PHPUnit\Framework\TestCase
 
     public function testRender() : void
     {
-        $view = new View($this->app, new Request(), new Response());
+        $view = new View();
 
         $view->setTemplate('/phpOMS/tests/Views/testTemplate');
         self::assertEquals('<strong>Test</strong>', $view->render());
+    }
+
+    public function testSerialize() : void
+    {
+        $view = new View();
+        self::assertEquals('[]', $view->serialize());
+
+        $view->setTemplate('/phpOMS/tests/Views/testTemplate');
+        self::assertEquals('<strong>Test</strong>', $view->serialize());
+    }
+
+    public function testArray() : void
+    {
+        $view = new View();
+        self::assertEquals([], $view->toArray());
+
+        $view->setTemplate('/phpOMS/tests/Views/testTemplate');
+
+        $view2 = new View();
+        $view2->setTemplate('/phpOMS/tests/Views/testTemplate');
+
+        $view->addView('sub', $view2, 1);
+        self::assertEquals([
+                0 => '<strong>Test</strong>',
+                'sub' => ['<strong>Test</strong>'],
+            ],
+            $view->toArray()
+        );
     }
 
     public function testRenderException() : void
     {
         self::expectException(\phpOMS\System\File\PathException::class);
 
-        $view = new View($this->app, new Request(new Http('')), new Response());
+        $view = new View($this->app);
         $view->setTemplate('something.txt');
 
         $view->render();
@@ -131,7 +159,7 @@ class ViewTest extends \PHPUnit\Framework\TestCase
     {
         self::expectException(\phpOMS\System\File\PathException::class);
 
-        $view = new View($this->app, new Request(new Http('')), new Response());
+        $view = new View($this->app);
         $view->setTemplate('something.txt');
 
         $view->serialize();

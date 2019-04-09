@@ -13,11 +13,21 @@
 
 namespace phpOMS\tests\Utils\RnG;
 
+use phpOMS\Utils\RnG\Text;
 
 class TextTest extends \PHPUnit\Framework\TestCase
 {
-    public function testPlaceholder() : void
+    public function testRnG() : void
     {
-        self::markTestIncomplete();
+        $text = new Text(true, true);
+
+        self::assertEquals('', $text->generateText(0));
+
+        self::assertNotEquals(
+            $text->generateText(300),
+            $text->generateText(300)
+        );
+
+        self::assertGreaterThan(0, $text->getSentences());
     }
 }

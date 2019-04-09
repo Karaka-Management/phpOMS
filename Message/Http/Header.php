@@ -168,7 +168,17 @@ final class Header extends HeaderAbstract
         foreach ($_SERVER as $name => $value) {
             $part = \substr($name, 5);
             if ($part === 'HTTP_') {
-                $headers[\str_replace(' ', '-', \ucwords(\strtolower(\str_replace('_', ' ', $part))))] = $value;
+                $headers[
+                    \str_replace(
+                        ' ',
+                        '-',
+                        \ucwords(
+                            \strtolower(
+                                \str_replace('_', ' ', $part)
+                            )
+                        )
+                    )
+                ] = $value;
             }
         }
 

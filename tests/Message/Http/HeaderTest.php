@@ -62,6 +62,8 @@ class HeaderTest extends \PHPUnit\Framework\TestCase
 
         $header->setAccount(2);
         self::AssertEquals(2, $header->getAccount(2));
+
+        $header->setDownloadable('testname', 'mp3');
     }
 
     public function testLockedHeaderSet() : void

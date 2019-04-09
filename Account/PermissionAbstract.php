@@ -99,6 +99,26 @@ class PermissionAbstract implements \JsonSerializable
      */
     protected $permission = PermissionType::NONE;
 
+    public function __construct(
+        int $unit = null,
+        string $app = null,
+        string $module = null,
+        int $from = 0,
+        int $type = null,
+        int $element = null,
+        int $component = null,
+        int $permission = PermissionType::NONE
+    ) {
+        $this->unit       = $unit;
+        $this->app        = $app;
+        $this->module     = $module;
+        $this->from       = $from;
+        $this->type       = $type;
+        $this->element    = $element;
+        $this->component  = $component;
+        $this->permission = $permission;
+    }
+
     /**
      * Get permission id.
      *
