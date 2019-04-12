@@ -100,16 +100,21 @@ final class Router
      *
      * @return array[]
      *
-     * @throws \InvalidArgumentException
-     *
      * @since  1.0.0
      */
     public function route(string $request, int $verb = RouteVerb::GET, string $app = null, int $orgId = null, $account = null) : array
     {
         $bound = [];
         foreach ($this->routes as $route => $destination) {
+            if (!((bool) \preg_match('~^' . $route . '$~', $request))) {
+                continue;
+            }
+
             foreach ($destination as $d) {
-                if ($this->match($route, $d['verb'], $request, $verb)) {
+                if ($d['verb'] === RouteVerb::ANY
+                    || $verb === RouteVerb::ANY
+                    || ($verb & $d['verb']) === $verb
+                ) {
                     // if csrf is required but not set
                     if (isset($d['csrf']) && !$d['csrf']) {
                         \array_merge($bound, $this->route('/' . $app . '/e403', $verb));
@@ -133,22 +138,5 @@ final class Router
         }
 
         return $bound;
-    }
-
-    /**
-     * Match route and uri.
-     *
-     * @param string $route      Route
-     * @param int    $routeVerb  GET,POST for this route
-     * @param string $uri        Uri
-     * @param int    $remoteVerb Verb this request is using
-     *
-     * @return bool
-     *
-     * @since  1.0.0
-     */
-    private function match(string $route, int $routeVerb, string $uri, int $remoteVerb = RouteVerb::GET) : bool
-    {
-        return (bool) \preg_match('~^' . $route . '$~', $uri) && ($routeVerb === RouteVerb::ANY || $remoteVerb === RouteVerb::ANY || ($remoteVerb & $routeVerb) === $remoteVerb);
     }
 }
