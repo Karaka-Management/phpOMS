@@ -38,7 +38,6 @@ class RouterTest extends \PHPUnit\Framework\TestCase
     {
         $router = new Router();
         self::assertEmpty($router->route(new Request(new Http('http://test.com'))));
-        self::assertEmpty($router->route('http://test.com'));
     }
 
     public function testGetSet() : void
@@ -49,33 +48,33 @@ class RouterTest extends \PHPUnit\Framework\TestCase
 
         self::assertEquals(
             [['dest' => '\Modules\Admin\Controller:viewSettingsGeneral']],
-            $router->route('http://test.com/backend/admin/settings/general/something?test')
+            $router->route(new Request(new Http('http://test.com/backend/admin/settings/general/something?test')))
         );
 
         self::assertNotEquals(
             [['dest' => '\Modules\Admin\Controller:viewSettingsGeneral']],
-            $router->route('http://test.com/backend/admin/settings/general/something?test', RouteVerb::PUT)
+            $router->route(new Request(new Http('http://test.com/backend/admin/settings/general/something?test')), RouteVerb::PUT)
         );
 
         self::assertNotEquals(
             [['dest' => '\Modules\Admin\Controller:viewSettingsGeneral']],
-            $router->route('http://test.com/backends/admin/settings/general/something?test')
+            $router->route(new Request(new Http('http://test.com/backends/admin/settings/general/something?test')))
         );
 
         $router->add('^.*/backends/admin/settings/general.*$', 'Controller:test', RouteVerb::GET | RouteVerb::SET);
         self::assertEquals(
             [['dest' => 'Controller:test']],
-            $router->route('http://test.com/backends/admin/settings/general/something?test', RouteVerb::ANY)
+            $router->route(new Request(new Http('http://test.com/backends/admin/settings/general/something?test')), RouteVerb::ANY)
         );
 
         self::assertEquals(
             [['dest' => 'Controller:test']],
-            $router->route('http://test.com/backends/admin/settings/general/something?test', RouteVerb::SET)
+            $router->route(new Request(new Http('http://test.com/backends/admin/settings/general/something?test')), RouteVerb::SET)
         );
 
         self::assertEquals(
             [['dest' => 'Controller:test']],
-            $router->route('http://test.com/backends/admin/settings/general/something?test', RouteVerb::GET)
+            $router->route(new Request(new Http('http://test.com/backends/admin/settings/general/something?test')), RouteVerb::GET)
         );
     }
 
@@ -101,7 +100,7 @@ class RouterTest extends \PHPUnit\Framework\TestCase
         self::assertEquals(
             [['dest' => '\Modules\Admin\Controller:viewSettingsGeneral']],
             $router->route(
-                'http://test.com/backend/admin/settings/general/something?test',
+                new Request(new Http('http://test.com/backend/admin/settings/general/something?test')),
                 RouteVerb::GET,
                 null,
                 null,
@@ -150,7 +149,7 @@ class RouterTest extends \PHPUnit\Framework\TestCase
         self::assertNotEquals(
             [['dest' => '\Modules\Admin\Controller:viewSettingsGeneral']],
             $router->route(
-                'http://test.com/backend/admin/settings/general/something?test',
+                new Request(new Http('http://test.com/backend/admin/settings/general/something?test')),
                 RouteVerb::GET,
                 null,
                 null,
