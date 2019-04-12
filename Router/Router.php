@@ -124,6 +124,7 @@ final class Router
                 ) {
                     // if csrf is required but not set
                     if (isset($d['csrf']) && $csrf === null) {
+                        // todo: replace http request and http uri with general request and http
                         \array_merge($bound, $this->route(new Request(new Http('/' . $app . '/e403')), $verb));
 
                         continue;
@@ -134,6 +135,7 @@ final class Router
                         || (isset($d['permission'])
                             && !$account->hasPermission($d['permission']['type'], $orgId, $app, $d['permission']['module'], $d['permission']['state']))
                     ) {
+                        // todo: replace http request and http uri with general request and http
                         \array_merge($bound, $this->route(new Request(new Http('/' . $app . '/e403')), $verb));
 
                         continue;
