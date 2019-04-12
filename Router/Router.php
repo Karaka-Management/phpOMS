@@ -110,13 +110,24 @@ final class Router
         foreach ($this->routes as $route => $destination) {
             foreach ($destination as $d) {
                 if ($this->match($route, $d['verb'], $request, $verb)) {
-                    if (!isset($d['permission'], $account)
-                        || $account->hasPermission($d['permission']['type'], $orgId, $app, $d['permission']['module'], $d['permission']['state'])
-                    ) {
-                        $bound[] = ['dest' => $d['dest']];
-                    } else {
+                    // if csrf is required but not set
+                    if (isset($d['csrf']) && !$d['csrf']) {
                         \array_merge($bound, $this->route('/' . $app . '/e403', $verb));
+
+                        continue;
                     }
+
+                    // if permission check is invalid
+                    if ((isset($d['permission']) && $account === null)
+                        || (isset($d['permission'])
+                            && !$account->hasPermission($d['permission']['type'], $orgId, $app, $d['permission']['module'], $d['permission']['state']))
+                    ) {
+                        \array_merge($bound, $this->route('/' . $app . '/e403', $verb));
+
+                        continue;
+                    }
+
+                    $bound[] = ['dest' => $d['dest']];
                 }
             }
         }
