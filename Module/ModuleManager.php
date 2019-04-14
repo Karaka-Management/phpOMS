@@ -198,9 +198,8 @@ final class ModuleManager
 
                 $content = \file_get_contents($path);
                 $json    = \json_decode($content === false ? '[]' : $content, true);
-                $name    = $this->generateModuleName($json['name']['internal']);
 
-                $this->active[$name] = $json === false ? [] : $json;
+                $this->active[$json['name']['internal']] = $json === false ? [] : $json;
             }
 
         }
@@ -219,7 +218,23 @@ final class ModuleManager
      */
     public function isActive(string $module) : bool
     {
-        return isset($this->getActiveModules(false)[$this->generateModuleName($module)]);
+        return isset($this->getActiveModules(false)[$module]);
+    }
+
+    /**
+     * Is module active
+     *
+     * @param string $module Module name
+     *
+     * @return bool
+     *
+     * @since  1.0.0
+     */
+    public function isRunning(string $module) : bool
+    {
+        $name = $this->generateModuleName($module);
+
+        return isset($this->running[$name]);
     }
 
     /**
@@ -246,9 +261,8 @@ final class ModuleManager
 
                 $content = \file_get_contents($path);
                 $json    = \json_decode($content === false ? '[]' : $content, true);
-                $name    = $this->generateModuleName($json['name']['internal']);
 
-                $this->all[$name] = $json === false ? [] : $json;
+                $this->all[$json['name']['internal']] = $json === false ? [] : $json;
             }
         }
 
@@ -297,9 +311,8 @@ final class ModuleManager
 
                 $content = \file_get_contents($path);
                 $json    = \json_decode($content === false ? '[]' : $content, true);
-                $name    = $this->generateModuleName($json['name']['internal']);
 
-                $this->installed[$name] = $json === false ? [] : $json;
+                $this->installed[$json['name']['internal']] = $json === false ? [] : $json;
             }
         }
 
@@ -341,9 +354,8 @@ final class ModuleManager
     public function deactivate(string $module) : bool
     {
         $installed = $this->getInstalledModules(false);
-        $name      = $this->generateModuleName($module);
 
-        if (!isset($installed[$name])) {
+        if (!isset($installed[$module])) {
             return false;
         }
 
@@ -393,9 +405,8 @@ final class ModuleManager
     public function activate(string $module) : bool
     {
         $installed = $this->getInstalledModules(false);
-        $name      = $this->generateModuleName($module);
 
-        if (!isset($installed[$name])) {
+        if (!isset($installed[$module])) {
             return false;
         }
 
@@ -617,11 +628,12 @@ final class ModuleManager
      */
     public function get(string $module) : ModuleAbstract
     {
-        if (!isset($this->running[$module])) {
+        $name = $this->generateModuleName($module);
+        if (!isset($this->running[$name])) {
             $this->initModule($module);
         }
 
-        return $this->running[$module] ?? new NullModule();
+        return $this->running[$name] ?? new NullModule();
     }
 
     /**
@@ -659,10 +671,21 @@ final class ModuleManager
      */
     private function initModuleController(string $module) : void
     {
-        $this->running[$module] = $this->getModuleInstance($module);
-        $this->app->dispatcher->set($this->running[$module], '\Modules\\Controller\\' . $module . '\\' . $this->app->appName . 'Controller');
+        $name                 = $this->generateModuleName($module);
+        $this->running[$name] = $this->getModuleInstance($module);
+
+        $this->app->dispatcher->set($this->running[$name], '\Modules\\Controller\\' . $module . '\\' . $this->app->appName . 'Controller');
     }
 
+    /**
+     * Generate internal module name for caching
+     *
+     * @param string $module Module
+     *
+     * @return string Application and module name dependant name
+     *
+     * @since  1.0.0
+     */
     private function generateModuleName(string $module) : string
     {
         return '\\Modules\\' . $module . '\\Controller\\' . $this->app->appName . 'Controller';
