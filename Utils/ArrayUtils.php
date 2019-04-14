@@ -54,7 +54,7 @@ final class ArrayUtils
         $node   = null;
 
         if ($nodes === false) {
-            throw new \Exception();
+            throw new \Exception(); // @codeCoverageIgnore
         }
 
         foreach ($nodes as $node) {
@@ -93,7 +93,7 @@ final class ArrayUtils
         $current   = &$data;
 
         if ($pathParts === false) {
-            throw new \Exception();
+            throw new \Exception(); // @codeCoverageIgnore
         }
 
         foreach ($pathParts as $key) {
@@ -132,7 +132,7 @@ final class ArrayUtils
         $current   = $data;
 
         if ($pathParts === false) {
-            throw new \Exception();
+            throw new \Exception(); // @codeCoverageIgnore
         }
 
         foreach ($pathParts as $key) {
@@ -281,7 +281,7 @@ final class ArrayUtils
         $outstream = \fopen('php://memory', 'r+');
 
         if ($outstream === false) {
-            throw new \Exception();
+            throw new \Exception(); // @codeCoverageIgnore
         }
 
         /** @noinspection PhpMethodParametersCountMismatchInspection */

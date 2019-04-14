@@ -41,7 +41,7 @@ final class Rest
         $curl = \curl_init();
 
         if ($curl === false) {
-            throw new \Exception('Internal curl_init error.');
+            throw new \Exception('Internal curl_init error.'); // @codeCoverageIgnore
         }
 
         \curl_setopt($curl, CURLOPT_NOBODY, true);

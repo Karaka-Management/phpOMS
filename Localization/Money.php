@@ -111,7 +111,7 @@ final class Money implements \Serializable
         $split = \explode($decimal, $value);
 
         if ($split === false) {
-            throw new \Exception('Internal explode error.');
+            throw new \Exception('Internal explode error.'); // @codeCoverageIgnore
         }
 
         $left  = $split[0];
@@ -124,7 +124,7 @@ final class Money implements \Serializable
 
         $right = \substr($right, 0, self::MAX_DECIMALS);
         if ($right === false) {
-            throw new \Exception('Internal substr error.');
+            throw new \Exception('Internal substr error.'); // @codeCoverageIgnore
         }
 
         return ((int) $left) * 10 ** self::MAX_DECIMALS + (int) \str_pad($right, self::MAX_DECIMALS, '0');

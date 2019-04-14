@@ -72,7 +72,7 @@ final class Numbers
         $split = \str_split($n);
 
         if ($split === false) {
-            return false;
+            return false; // @codeCoverageIgnore
         }
 
         foreach ($split as $place => $value) {

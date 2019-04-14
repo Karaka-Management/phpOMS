@@ -130,12 +130,12 @@ final class Huffman
                 $pos = \strpos($decbin, '1');
 
                 if ($pos === false) {
-                    throw new \Exception();
+                    throw new \Exception(); // @codeCoverageIgnore
                 }
 
                 $decbin = \substr($decbin, $pos + 1);
                 if ($decbin === false) {
-                    throw new \Exception();
+                    throw new \Exception(); // @codeCoverageIgnore
                 }
             }
 
@@ -143,12 +143,12 @@ final class Huffman
                 $pos = \strrpos($decbin, '1');
 
                 if ($pos === false) {
-                    throw new \Exception();
+                    throw new \Exception(); // @codeCoverageIgnore
                 }
 
                 $decbin = \substr($decbin, 0, $pos);
                 if ($decbin === false) {
-                    throw new \Exception();
+                    throw new \Exception(); // @codeCoverageIgnore
                 }
             }
 

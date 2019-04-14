@@ -526,7 +526,7 @@ final class StringUtils
         $n2 = \count($to);
 
         if ($n1 < 1 || $n2 < 1) {
-            throw new \Exception();
+            throw new \Exception(); // @codeCoverageIgnore
         }
 
         for ($j = -1; $j < $n2; ++$j) {

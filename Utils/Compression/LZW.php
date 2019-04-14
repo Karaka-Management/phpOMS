@@ -70,7 +70,7 @@ class LZW implements CompressionInterface
         $entry      = '';
         $dictSize   = 256;
 
-        if (empty($compressed)) {
+        if (empty($compressed) || $compressed === false) {
             return '';
         }
 
@@ -90,7 +90,7 @@ class LZW implements CompressionInterface
             } elseif ($k === $dictSize) {
                 $entry = $w . $w[0];
             } else {
-                throw new \Exception('Wrong dictionary size!' . $k . '.' . $dictSize);
+                throw new \Exception('Wrong dictionary size!' . $k . '.' . $dictSize); // @codeCoverageIgnore
             }
 
             $result                 .= $entry;

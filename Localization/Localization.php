@@ -172,7 +172,7 @@ class Localization
             $fileContent = \file_get_contents($file);
 
             if ($fileContent === false) {
-                break;
+                break; // @codeCoverageIgnore
             }
 
             $this->importLocale(\json_decode($fileContent, true));
@@ -183,7 +183,7 @@ class Localization
         $fileContent = \file_get_contents(__DIR__ . '/../Localization/Defaults/Definitions/en_US.json');
 
         if ($fileContent === false) {
-            return;
+            return; // @codeCoverageIgnore
         }
 
         $this->importLocale(\json_decode($fileContent, true));

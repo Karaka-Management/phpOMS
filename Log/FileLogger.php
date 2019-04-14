@@ -272,7 +272,7 @@ final class FileLogger implements LoggerInterface
 
         $this->createFile();
         if (!\is_writable($this->path)) {
-            return;
+            return; // @codeCoverageIgnore
         }
 
         $this->fp = \fopen($this->path, 'a');
@@ -389,7 +389,7 @@ final class FileLogger implements LoggerInterface
         $this->fp = \fopen($this->path, 'r');
 
         if ($this->fp === false) {
-            return $levels;
+            return $levels; // @codeCoverageIgnore
         }
 
         \fseek($this->fp, 0);
@@ -397,7 +397,7 @@ final class FileLogger implements LoggerInterface
 
         while ($line !== false && $line !== null) {
             if (\count($line) < 2) {
-                continue;
+                continue; // @codeCoverageIgnore
             }
 
             $line[1] = \trim($line[1]);
@@ -436,7 +436,7 @@ final class FileLogger implements LoggerInterface
         $this->fp = \fopen($this->path, 'r');
 
         if ($this->fp === false) {
-            return $connection;
+            return $connection; // @codeCoverageIgnore
         }
 
         \fseek($this->fp, 0);
@@ -444,7 +444,7 @@ final class FileLogger implements LoggerInterface
 
         while ($line !== false && $line !== null) {
             if (\count($line) < 3) {
-                continue;
+                continue; // @codeCoverageIgnore
             }
 
             $line[2] = \trim($line[2]);
@@ -486,7 +486,7 @@ final class FileLogger implements LoggerInterface
         $this->fp = \fopen($this->path, 'r');
 
         if ($this->fp === false) {
-            return $logs;
+            return $logs; // @codeCoverageIgnore
         }
 
         \fseek($this->fp, 0);
@@ -542,7 +542,7 @@ final class FileLogger implements LoggerInterface
         $this->fp = \fopen($this->path, 'r');
 
         if ($this->fp === false) {
-            return $log;
+            return $log; // @codeCoverageIgnore
         }
 
         \fseek($this->fp, 0);

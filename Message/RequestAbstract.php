@@ -214,7 +214,7 @@ abstract class RequestAbstract implements MessageInterface
         $list = \explode($delim, $this->data[$key]);
 
         if ($list === false) {
-            return [];
+            return []; // @codeCoverageIgnore
         }
 
         foreach ($list as $i => $e) {

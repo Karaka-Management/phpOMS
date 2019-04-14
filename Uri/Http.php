@@ -178,7 +178,7 @@ final class Http implements UriInterface
             $path = \substr($this->path, 0, -4);
 
             if ($path === false) {
-                throw new \Exception();
+                throw new \Exception(); // @codeCoverageIgnore
             }
 
             $this->path = $path;

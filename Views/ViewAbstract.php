@@ -260,7 +260,7 @@ abstract class ViewAbstract implements RenderableInterface
                 return (string) \json_encode($includeData);
             }
         } catch (\Throwable $e) {
-            $ob = '';
+            $ob = ''; // @codeCoverageIgnore
         } finally {
             return $ob;
         }
