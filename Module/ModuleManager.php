@@ -44,6 +44,16 @@ final class ModuleManager
     private $running = [];
 
     /**
+     * All modules another module is providing for.
+     *
+     * This is important to inform other moduels what kind of information they can receive from other modules.
+     *
+     * @var \phpOMS\Module\ModuleAbstract[]
+     * @since 1.0.0
+     */
+    private $providing = [];
+
+    /**
      * Application instance.
      *
      * @var ApplicationAbstract
@@ -186,9 +196,11 @@ final class ModuleManager
                     // throw new PathException($path);
                 }
 
-                $content                                 = \file_get_contents($path);
-                $json                                    = \json_decode($content === false ? '[]' : $content, true);
-                $this->active[$json['name']['internal']] = $json === false ? [] : $json;
+                $content = \file_get_contents($path);
+                $json    = \json_decode($content === false ? '[]' : $content, true);
+                $name    = $this->generateModuleName($json['name']['internal']);
+
+                $this->active[$name] = $json === false ? [] : $json;
             }
 
         }
@@ -207,7 +219,7 @@ final class ModuleManager
      */
     public function isActive(string $module) : bool
     {
-        return isset($this->getActiveModules(false)[$module]);
+        return isset($this->getActiveModules(false)[$this->generateModuleName($module)]);
     }
 
     /**
@@ -232,9 +244,11 @@ final class ModuleManager
                     // throw new PathException($path);
                 }
 
-                $content                              = \file_get_contents($path);
-                $json                                 = \json_decode($content === false ? '[]' : $content, true);
-                $this->all[$json['name']['internal']] = $json === false ? [] : $json;
+                $content = \file_get_contents($path);
+                $json    = \json_decode($content === false ? '[]' : $content, true);
+                $name    = $this->generateModuleName($json['name']['internal']);
+
+                $this->all[$name] = $json === false ? [] : $json;
             }
         }
 
@@ -281,9 +295,11 @@ final class ModuleManager
                     // throw new PathException($path);
                 }
 
-                $content                                    = \file_get_contents($path);
-                $json                                       = \json_decode($content === false ? '[]' : $content, true);
-                $this->installed[$json['name']['internal']] = $json === false ? [] : $json;
+                $content = \file_get_contents($path);
+                $json    = \json_decode($content === false ? '[]' : $content, true);
+                $name    = $this->generateModuleName($json['name']['internal']);
+
+                $this->installed[$name] = $json === false ? [] : $json;
             }
         }
 
@@ -325,8 +341,9 @@ final class ModuleManager
     public function deactivate(string $module) : bool
     {
         $installed = $this->getInstalledModules(false);
+        $name      = $this->generateModuleName($module);
 
-        if (!isset($installed[$module])) {
+        if (!isset($installed[$name])) {
             return false;
         }
 
@@ -376,8 +393,9 @@ final class ModuleManager
     public function activate(string $module) : bool
     {
         $installed = $this->getInstalledModules(false);
+        $name      = $this->generateModuleName($module);
 
-        if (!isset($installed[$module])) {
+        if (!isset($installed[$name])) {
             return false;
         }
 
@@ -641,8 +659,89 @@ final class ModuleManager
      */
     private function initModuleController(string $module) : void
     {
-        $this->running[$module] = ModuleFactory::getInstance($module, $this->app);
+        $this->running[$module] = $this->getModuleInstance($module);
         $this->app->dispatcher->set($this->running[$module], '\Modules\\Controller\\' . $module . '\\' . $this->app->appName . 'Controller');
+    }
+
+    private function generateModuleName(string $module) : string
+    {
+        return '\\Modules\\' . $module . '\\Controller\\' . $this->app->appName . 'Controller';
+    }
+
+    /**
+     * Gets and initializes modules.
+     *
+     * @param string $module Module ID
+     *
+     * @return ModuleAbstract
+     *
+     * @since  1.0.0
+     */
+    public function getModuleInstance(string $module) : ModuleAbstract
+    {
+        $class = '\\Modules\\' . $module . '\\Controller\\' . $this->app->appName . 'Controller';
+        $name  = $this->generateModuleName($module);
+
+        if (!isset($this->running[$class])) {
+            if (Autoloader::exists($class) !== false) {
+                try {
+                    $obj                  = new $class($this->app);
+                    $this->running[$name] = $obj;
+                    self::registerRequesting($obj);
+                    self::registerProvided($obj);
+                } catch (\Throwable $e) {
+                    $this->running[$name] = new NullModule();
+                }
+            } else {
+                $this->running[$name] = new NullModule();
+            }
+        }
+
+        return $this->running[$name];
+    }
+
+    /**
+     * Load modules this module is requesting from
+     *
+     * @param ModuleAbstract $obj Current module
+     *
+     * @return void
+     *
+     * @since  1.0.0
+     */
+    private function registerRequesting(ModuleAbstract $obj) : void
+    {
+        $providings = $obj->getProviding();
+        $name       = '';
+
+        foreach ($providings as $providing) {
+            $name = $this->generateModuleName($providing);
+
+            if (isset($this->running[$name])) {
+                $this->running[$name]->addReceiving($obj->getName());
+            } else {
+                $this->providing[$name][] = $obj->getName();
+            }
+        }
+    }
+
+    /**
+     * Register modules this module is receiving from
+     *
+     * @param ModuleAbstract $obj Current module
+     *
+     * @return void
+     *
+     * @since  1.0.0
+     */
+    private function registerProvided(ModuleAbstract $obj) : void
+    {
+        $name = $this->generateModuleName($obj->getName());
+        if (isset($this->providing[$name])) {
+            foreach ($this->providing[$name] as $providing) {
+                $obj->addReceiving($providing);
+            }
+        }
     }
 
     /**
