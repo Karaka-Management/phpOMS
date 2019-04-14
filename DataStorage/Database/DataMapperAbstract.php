@@ -670,7 +670,9 @@ class DataMapperAbstract implements DataMapperInterface
                  */
                 /** @var string $table */
                 /** @var array $columns */
-                if (static::$hasMany[$propertyName]['table'] === static::$hasMany[$propertyName]['mapper']::$table) {
+                if (static::$hasMany[$propertyName]['table'] === static::$hasMany[$propertyName]['mapper']::$table
+                    && isset($mapper::$columns[static::$hasMany[$propertyName]['dst']])
+                ) {
                     $relProperty = $relReflectionClass->getProperty($mapper::$columns[static::$hasMany[$propertyName]['dst']]['internal']);
 
                     if (!$isPublic) {
@@ -736,7 +738,9 @@ class DataMapperAbstract implements DataMapperInterface
                 // Setting relation value (id) for relation (since the relation is not stored in an extra relation table)
                 /** @var string $table */
                 /** @var array $columns */
-                if (static::$hasMany[$propertyName]['table'] === static::$hasMany[$propertyName]['mapper']::$table) {
+                if (static::$hasMany[$propertyName]['table'] === static::$hasMany[$propertyName]['mapper']::$table
+                    && isset($mapper::$columns[static::$hasMany[$propertyName]['dst']])
+                ) {
                     $value[$mapper::$columns[static::$hasMany[$propertyName]['dst']]['internal']] = $objId;
                 }
 
@@ -999,7 +1003,9 @@ class DataMapperAbstract implements DataMapperInterface
                 // create if not existing
                 /** @var string $table */
                 /** @var array $columns */
-                if (static::$hasMany[$propertyName]['table'] === static::$hasMany[$propertyName]['mapper']::$table) {
+                if (static::$hasMany[$propertyName]['table'] === static::$hasMany[$propertyName]['mapper']::$table
+                    && isset($mapper::$columns[static::$hasMany[$propertyName]['dst']])
+                ) {
                     $relProperty = $relReflectionClass->getProperty($mapper::$columns[static::$hasMany[$propertyName]['dst']]['internal']);
 
                     if (!$isPublic) {
@@ -1072,7 +1078,9 @@ class DataMapperAbstract implements DataMapperInterface
                 // create if not existing
                 /** @var string $table */
                 /** @var array $columns */
-                if (static::$hasMany[$propertyName]['table'] === static::$hasMany[$propertyName]['mapper']::$table) {
+                if (static::$hasMany[$propertyName]['table'] === static::$hasMany[$propertyName]['mapper']::$table
+                    && isset($mapper::$columns[static::$hasMany[$propertyName]['dst']])
+                ) {
                     $value[$mapper::$columns[static::$hasMany[$propertyName]['dst']]['internal']] = $objId;
                 }
 
