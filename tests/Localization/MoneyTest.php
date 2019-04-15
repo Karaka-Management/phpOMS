@@ -24,7 +24,7 @@ use phpOMS\Localization\Money;
 class MoneyTest extends \PHPUnit\Framework\TestCase
 {
     /**
-     * @testdox The datatype has the expected member variables and default values.
+     * @testdox The datatype has the expected member variables and default values
      */
     public function testDefaultMemberVariables() : void
     {
