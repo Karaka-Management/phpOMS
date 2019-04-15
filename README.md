@@ -33,6 +33,8 @@ Some of the following requirements are only necessary for developers and not for
 * Make sure that url rewriting is active
 * Download the Orange-Management project or clone the Orange-Management repository (incl. submodules).
 
+Please note if you are only interested in using the framework without the web application you only have to configure your autoloading correctly for the **phpOMS** framework or use the autoloader provided by the framework in `phpOMS/Autoloader.php` and install the required php extensions mentioned above.
+
 ### Setup
 
 After installing the requirements and configuring the webserver for the correct path navigate to https://your_url.com/Install and follow the installation process. Afterwards you will be redirected to the installed backend.
