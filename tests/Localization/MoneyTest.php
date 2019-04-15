@@ -111,7 +111,6 @@ class MoneyTest extends \PHPUnit\Framework\TestCase
     public function testMoneyAddSub() : void
     {
         $money = new Money(10000);
-
         self::assertEquals('1.0001', $money->add('0.0001')->getAmount(4));
         self::assertEquals('1.0000', $money->sub('0.0001')->getAmount(4));
 
@@ -131,7 +130,6 @@ class MoneyTest extends \PHPUnit\Framework\TestCase
     public function testMoneyMultDiv() : void
     {
         $money = new Money(19100);
-
         self::assertEquals('3.8200', $money->mult(2.0)->getAmount(4));
         self::assertEquals('1.9100', $money->div(2.0)->getAmount(4));
     }
