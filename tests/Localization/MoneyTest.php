@@ -126,7 +126,7 @@ class MoneyTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @testdox The datatype correctly multiplies and devides the money with numerics
+     * @testdox The datatype correctly multiplies and divides the money with numerics
      */
     public function testMoneyMultDiv() : void
     {
@@ -146,7 +146,7 @@ class MoneyTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @testdox The datatype correctly handles the power opperator
+     * @testdox The datatype correctly handles the power operator
      */
     public function testMoneyPower() : void
     {
