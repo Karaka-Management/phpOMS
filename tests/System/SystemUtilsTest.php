@@ -17,12 +17,17 @@ use phpOMS\System\SystemUtils;
 
 require_once __DIR__ . '/../Autoloader.php';
 
+/**
+ * @testdox phpOMS\System\SystemUtils: System information
+ */
 class SystemUtilsTest extends \PHPUnit\Framework\TestCase
 {
-    public function testSystem() : void
+    /**
+     * @testdox Test if it is possible to get information about the available RAM and usage (on Windows)
+     */
+    public function testRAM() : void
     {
         self::assertGreaterThan(0, SystemUtils::getRAM());
-        self::assertGreaterThan(0, SystemUtils::getCpuUsage());
 
         if (\stristr(PHP_OS, 'WIN')) {
             self::assertEquals(0, SystemUtils::getRAMUsage());
@@ -31,5 +36,13 @@ class SystemUtilsTest extends \PHPUnit\Framework\TestCase
         if (!stristr(PHP_OS, 'WIN')) {
             self::assertGreaterThan(0, SystemUtils::getRAMUsage());
         }
+    }
+
+    /**
+     * @testdox Test if it is possible to get information about the CPU usage
+     */
+    public function testCPUUsage() : void
+    {
+        self::assertGreaterThan(0, SystemUtils::getCpuUsage());
     }
 }

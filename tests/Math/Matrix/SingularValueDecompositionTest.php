@@ -16,9 +16,15 @@ namespace phpOMS\tests\Math\Matrix;
 use phpOMS\Math\Matrix\Matrix;
 use phpOMS\Math\Matrix\SingularValueDecomposition;
 
+/**
+ * @testdox phpOMS\tests\Math\Matrix\SingularValueDecompositionTest: Singular Value Decomposition
+ */
 class SingularValueDecompositionTest extends \PHPUnit\Framework\TestCase
 {
-    public function testDecomposition() : void
+    /**
+     * @testdox Test the correct rank calculation
+     */
+    public function testRankCalculation() : void
     {
         $A = new Matrix();
         $A->setMatrix([
@@ -29,6 +35,20 @@ class SingularValueDecompositionTest extends \PHPUnit\Framework\TestCase
         $svd = new SingularValueDecomposition($A);
 
         self::assertEquals(2, $svd->rank());
+    }
+
+    /**
+     * @testdox Test the correct calculation of U, S and V
+     */
+    public function testSUVCalculation() : void
+    {
+        $A = new Matrix();
+        $A->setMatrix([
+            [2, -2, 1],
+            [5, 1, 4],
+        ]);
+
+        $svd = new SingularValueDecomposition($A);
 
         self::assertEquals([
             [-0.3092, -0.9510],
@@ -48,6 +68,9 @@ class SingularValueDecompositionTest extends \PHPUnit\Framework\TestCase
         ], $svd->getV()->toArray(), '', 0.2);
     }
 
+    /**
+     * @testdox Test A = S * U * V'
+     */
     public function testComposition() : void
     {
         $A = new Matrix();
