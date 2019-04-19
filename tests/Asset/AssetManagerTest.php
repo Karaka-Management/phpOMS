@@ -17,60 +17,103 @@ use phpOMS\Asset\AssetManager;
 
 require_once __DIR__ . '/../Autoloader.php';
 
+/**
+ * @testdox phpOMS\tests\Asset\AssetManagerTest: Asset manager to handle/access assets
+ */
 class AssetManagerTest extends \PHPUnit\Framework\TestCase
 {
+    protected $manager = null;
+
+    protected function setUp() : void
+    {
+        $this->manager = new AssetManager();
+    }
+
+    /**
+     * @testdox The manager has the expected member variables
+     */
     public function testAttributes() : void
     {
-        $manager = new AssetManager();
-        self::assertInstanceOf('\phpOMS\Asset\AssetManager', $manager);
+        self::assertInstanceOf('\phpOMS\Asset\AssetManager', $this->manager);
 
         /* Testing members */
-        self::assertObjectHasAttribute('assets', $manager);
+        self::assertObjectHasAttribute('assets', $this->manager);
     }
 
+    /**
+     * @testdox The manager has the expected default values after initialization
+     */
     public function testDefault() : void
     {
-        $manager = new AssetManager();
-
-        /* Testing default values */
-        self::assertNull($manager->get('myAsset'));
-        self::assertEquals(0, $manager->count());
+        self::assertNull($this->manager->get('myAsset'));
+        self::assertEquals(0, $this->manager->count());
     }
 
-    public function testSetGet() : void
+    /**
+     * @testdox An asset can be added to the manager
+     */
+    public function testAddAsset() : void
     {
-        $manager = new AssetManager();
+        $this->manager->set('first', 'FirstUri');
 
-        /* Test set/get/count */
-        $manager->set('first', 'FirstUri');
-        $set = $manager->set('myAsset', 'AssetUri');
+        $set = $this->manager->set('myAsset', 'AssetUri');
         self::assertTrue($set);
-        self::assertEquals('AssetUri', $manager->get('myAsset'));
-        self::assertEquals(2, $manager->count());
+        self::assertEquals(2, $this->manager->count());
+    }
 
-        $set = $manager->set('myAsset', 'AssetUri2', false);
+    /**
+     * @testdox An asset can be retrieved from the manager
+     */
+    public function testRetrieveAsset() : void
+    {
+        $this->manager->set('myAsset', 'AssetUri');
+        self::assertEquals('AssetUri', $this->manager->get('myAsset'));
+    }
+
+    /**
+     * @testdox An asset can only be added once to the manager (no duplication unless overwritten)
+     */
+    public function testInvalidAssetReplacement() : void
+    {
+        $this->manager->set('myAsset', 'AssetUri');
+
+        $set = $this->manager->set('myAsset', 'AssetUri2', false);
         self::assertFalse($set);
-        self::assertEquals('AssetUri', $manager->get('myAsset'));
-        self::assertEquals(2, $manager->count());
+        self::assertEquals('AssetUri', $this->manager->get('myAsset'));
+        self::assertEquals(1, $this->manager->count());
+    }
 
-        $set = $manager->set('myAsset', 'AssetUri2');
+    /**
+     * @testdox An asset can be replaced upon request
+     */
+    public function testAssetReplacement() : void
+    {
+        $this->manager->set('myAsset', 'AssetUri');
+
+        $set = $this->manager->set('myAsset', 'AssetUri2');
         self::assertTrue($set);
-        self::assertEquals('AssetUri2', $manager->get('myAsset'));
-        self::assertEquals(2, $manager->count());
+        self::assertEquals('AssetUri2', $this->manager->get('myAsset'));
+        self::assertEquals(1, $this->manager->count());
 
-        $set = $manager->set('myAsset', 'AssetUri3', true);
+        $set = $this->manager->set('myAsset', 'AssetUri3', true);
         self::assertTrue($set);
-        self::assertEquals('AssetUri3', $manager->get('myAsset'));
-        self::assertEquals(2, $manager->count());
+        self::assertEquals('AssetUri3', $this->manager->get('myAsset'));
+        self::assertEquals(1, $this->manager->count());
+    }
 
-        /* Test remove */
-        self::assertTrue($manager->remove('myAsset'));
-        self::assertEquals(1, $manager->count());
+    /**
+     * @testdox An asset can be removed from the manager
+     */
+    public function testAssetRemove() : void
+    {
+        $this->manager->set('myAsset', 'AssetUri');
+        self::assertEquals(1, $this->manager->count());
 
-        self::assertNull($manager->get('myAsset'));
+        self::assertTrue($this->manager->remove('myAsset'));
+        self::assertEquals(0, $this->manager->count());
+        self::assertNull($this->manager->get('myAsset'));
 
-        self::assertFalse($manager->remove('myAsset'));
-        self::assertEquals(1, $manager->count());
-
+        self::assertFalse($this->manager->remove('myAsset'));
+        self::assertEquals(0, $this->manager->count());
     }
 }

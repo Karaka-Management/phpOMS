@@ -17,9 +17,15 @@ use phpOMS\Auth\Auth;
 
 require_once __DIR__ . '/../Autoloader.php';
 
+/**
+ * @testdox phpOMS\tests\Auth\AuthTest: Account and session authentication
+ */
 class AuthTest extends \PHPUnit\Framework\TestCase
 {
-    public function testWithHttpSession() : void
+    /**
+     * @testdox The default http session doesn't authenticate an account
+     */
+    public function testAuthWithEmptyHttpSession() : void
     {
         self::assertEquals(0, Auth::authenticate($GLOBALS['httpSession']));
 
