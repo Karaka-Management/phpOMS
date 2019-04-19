@@ -24,6 +24,9 @@ use phpOMS\Localization\Localization;
 
 require_once __DIR__ . '/../Autoloader.php';
 
+/**
+ * @testdox phpOMS\tests\Account\Account: Base account/user representation
+ */
 class AccountTest extends \PHPUnit\Framework\TestCase
 {
     protected $l11nManager = null;
@@ -33,6 +36,9 @@ class AccountTest extends \PHPUnit\Framework\TestCase
         $this->l11nManager = new L11nManager('Api');
     }
 
+    /**
+     * @testdox The account has the expected member variables
+     */
     public function testAttributes() : void
     {
         $account = new Account();
@@ -55,6 +61,9 @@ class AccountTest extends \PHPUnit\Framework\TestCase
         self::assertObjectHasAttribute('l11n', $account);
     }
 
+    /**
+     * @testdox The account has the expected default values after initialization
+     */
     public function testDefault() : void
     {
         $account = new Account();
@@ -99,15 +108,13 @@ class AccountTest extends \PHPUnit\Framework\TestCase
         self::assertEquals($array, $account->jsonSerialize());
     }
 
-    public function testSetGet() : void
+    /**
+     * @testdox The account names can be set and retrieved correctly
+     */
+    public function testSetAndGetAccountNames() : void
     {
         $account = new Account();
-
-        /* Just test if no error happens */
         $account->generatePassword('abcd');
-
-        $account->addGroup(new Group());
-        self::assertEquals(1, \count($account->getGroups()));
 
         $account->setName('Login');
         self::assertEquals('Login', $account->getName());
@@ -121,17 +128,65 @@ class AccountTest extends \PHPUnit\Framework\TestCase
         $account->setName3('Duck');
         self::assertEquals('Duck', $account->getName3());
 
-        $account->setEmail('d.duck@duckburg.com');
-        self::assertEquals('d.duck@duckburg.com', $account->getEmail());
-
         $account->setName('Login');
         self::assertEquals('Login', $account->getName());
+    }
+
+    /**
+     * @testdox Groups can be added to an account
+     */
+    public function testAddAndGetGroup() : void
+    {
+        $account = new Account();
+        $account->generatePassword('abcd');
+
+        $account->addGroup(new Group());
+        self::assertEquals(1, \count($account->getGroups()));
+    }
+
+    /**
+     * @testdox An account can have a valid email address
+     */
+    public function testSetAndGetAccountEmail() : void
+    {
+        $account = new Account();
+        $account->generatePassword('abcd');
+
+        $account->setEmail('d.duck@duckburg.com');
+        self::assertEquals('d.duck@duckburg.com', $account->getEmail());
+    }
+
+    /**
+     * @testdox The default status of the account can be changed to a different valid status
+     */
+    public function testChangeStatus() : void
+    {
+        $account = new Account();
+        $account->generatePassword('abcd');
 
         $account->setStatus(AccountStatus::ACTIVE);
         self::assertEquals(AccountStatus::ACTIVE, $account->getStatus());
+    }
+
+    /**
+     * @testdox The default type of the account can be changed to a different valid type
+     */
+    public function testChangeType() : void
+    {
+        $account = new Account();
+        $account->generatePassword('abcd');
 
         $account->setType(AccountType::GROUP);
         self::assertEquals(AccountType::GROUP, $account->getType());
+    }
+
+    /**
+     * @testdox Account permissions can be added and checked for existence
+     */
+    public function testPermissionHandling() : void
+    {
+        $account = new Account();
+        $account->generatePassword('abcd');
 
         $account->addPermission(new class extends PermissionAbstract {});
         self::assertEquals(1, \count($account->getPermissions()));
@@ -156,15 +211,36 @@ class AccountTest extends \PHPUnit\Framework\TestCase
 
         self::assertFalse($account->hasPermission(PermissionType::READ, 1, 'a', 'a', 1, 1, 1));
         self::assertTrue($account->hasPermission(PermissionType::NONE));
+    }
+
+    /**
+     * @testdox An account can have it's own localization
+     */
+    public function testLocalization() : void
+    {
+        $account = new Account();
+        $account->generatePassword('abcd');
 
         $account->setL11n(new Localization());
         self::assertInstanceOf('\phpOMS\Localization\Localization', $account->getL11n());
+    }
+
+    /**
+     * @testdox An account 'last activity' timestamp can be updated and retrieved
+     */
+    public function testLastChange() : void
+    {
+        $account = new Account();
+        $account->generatePassword('abcd');
 
         $datetime = new \DateTime('now');
         $account->updateLastActive();
         self::assertEquals($datetime->format('Y-m-d h:i:s'), $account->getLastActive()->format('Y-m-d h:i:s'));
     }
 
+    /**
+     * @testdox An account can only have a valid email
+     */
     public function testEmailException() : void
     {
         self::expectException(\InvalidArgumentException::class);
@@ -173,19 +249,37 @@ class AccountTest extends \PHPUnit\Framework\TestCase
         $account->setEmail('d.duck!@#%@duckburg');
     }
 
+    /**
+     * @testdox An account can only have valid account status
+     */
     public function testStatusException() : void
     {
         self::expectException(\phpOMS\Stdlib\Base\Exception\InvalidEnumValue::class);
 
         $account = new Account();
-        $account->setStatus(99);
+
+        $rand = 0;
+        do {
+            $rand = \mt_rand(PHP_INT_MIN, PHP_INT_MAX);
+        } while (AccountStatus::isValidValue($rand));
+
+        $account->setStatus($rand);
     }
 
+    /**
+     * @testdox An account can only have valid account types
+     */
     public function testTypeException() : void
     {
         self::expectException(\phpOMS\Stdlib\Base\Exception\InvalidEnumValue::class);
 
         $account = new Account();
-        $account->setType(99);
+
+        $rand = 0;
+        do {
+            $rand = \mt_rand(PHP_INT_MIN, PHP_INT_MAX);
+        } while (AccountType::isValidValue($rand));
+
+        $account->setType($rand);
     }
 }

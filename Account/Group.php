@@ -29,7 +29,7 @@ class Group implements ArrayableInterface, \JsonSerializable
 {
 
     /**
-     * Account id.
+     * Group id.
      *
      * @var int
      * @since 1.0.0
@@ -37,7 +37,7 @@ class Group implements ArrayableInterface, \JsonSerializable
     protected $id = 0;
 
     /**
-     * Account name.
+     * Group name.
      *
      * @var string
      * @since 1.0.0
@@ -45,7 +45,7 @@ class Group implements ArrayableInterface, \JsonSerializable
     protected $name = '';
 
     /**
-     * Account name.
+     * Group name.
      *
      * @var string
      * @since 1.0.0
@@ -53,7 +53,7 @@ class Group implements ArrayableInterface, \JsonSerializable
     protected $description = '';
 
     /**
-     * Account name.
+     * Group members.
      *
      * @var array
      * @since 1.0.0
@@ -76,13 +76,7 @@ class Group implements ArrayableInterface, \JsonSerializable
      */
     protected $status = GroupStatus::INACTIVE;
 
-    /**
-     * Permissions.
-     *
-     * @var int[]
-     * @since 1.0.0
-     */
-    protected $permissions = [];
+    use PermissionHandlingTrait;
 
     /**
      * Get group id.

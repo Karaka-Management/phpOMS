@@ -15,11 +15,19 @@ namespace phpOMS\tests\Account;
 
 use phpOMS\Account\Group;
 use phpOMS\Account\GroupStatus;
+use phpOMS\Account\PermissionAbstract;
+use phpOMS\Account\PermissionType;
 
 require_once __DIR__ . '/../Autoloader.php';
 
+/**
+ * @testdox phpOMS\tests\Account\Group: Base group representation
+ */
 class GroupTest extends \PHPUnit\Framework\TestCase
 {
+    /**
+     * @testdox The group has the expected member variables
+     */
     public function testAttributes() : void
     {
         $group = new Group();
@@ -35,6 +43,9 @@ class GroupTest extends \PHPUnit\Framework\TestCase
         self::assertObjectHasAttribute('status', $group);
     }
 
+    /**
+     * @testdox The group has the expected default values after initialization
+     */
     public function testDefault() : void
     {
         $group = new Group();
@@ -59,7 +70,10 @@ class GroupTest extends \PHPUnit\Framework\TestCase
         self::assertEquals($array, $group->jsonSerialize());
     }
 
-    public function testSetGet() : void
+    /**
+     * @testdox The group name and description can be set and retrieved correctly
+     */
+    public function testSetAndGetGroupNameDescription() : void
     {
         $group = new Group();
 
@@ -68,16 +82,64 @@ class GroupTest extends \PHPUnit\Framework\TestCase
 
         $group->setDescription('Animal');
         self::assertEquals('Animal', $group->getDescription());
+    }
+
+    /**
+     * @testdox Group permissions can be added and checked for existence
+     */
+    public function testPermissionHandling() : void
+    {
+        $group = new Group();
+        $group->addPermission(new class extends PermissionAbstract {});
+        self::assertEquals(1, \count($group->getPermissions()));
+
+        $group->setPermissions([
+            new class extends PermissionAbstract {},
+            new class extends PermissionAbstract {},
+        ]);
+        self::assertEquals(2, \count($group->getPermissions()));
+
+        $group->addPermissions([
+            new class extends PermissionAbstract {},
+            new class extends PermissionAbstract {},
+        ]);
+        self::assertEquals(4, \count($group->getPermissions()));
+
+        $group->addPermissions([[
+            new class extends PermissionAbstract {},
+            new class extends PermissionAbstract {},
+        ]]);
+        self::assertEquals(6, \count($group->getPermissions()));
+
+        self::assertFalse($group->hasPermission(PermissionType::READ, 1, 'a', 'a', 1, 1, 1));
+        self::assertTrue($group->hasPermission(PermissionType::NONE));
+    }
+
+    /**
+     * @testdox The default status of the group can be changed to a different valid status
+     */
+    public function testChangeStatus() : void
+    {
+        $group = new Group();
 
         $group->setStatus(GroupStatus::ACTIVE);
         self::assertEquals(GroupStatus::ACTIVE, $group->getStatus());
     }
 
+    /**
+     * @testdox A group can only have valid group status
+     */
     public function testStatusException() : void
     {
         self::expectException(\phpOMS\Stdlib\Base\Exception\InvalidEnumValue::class);
 
-        $account = new Group();
-        $account->setStatus(99);
+        $group = new Group();
+
+        $rand = 0;
+        do {
+            $rand = \mt_rand(PHP_INT_MIN, PHP_INT_MAX);
+        } while (GroupStatus::isValidValue($rand));
+
+        $group->setStatus($rand);
     }
 }
