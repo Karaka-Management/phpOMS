@@ -2751,7 +2751,7 @@ class DataMapperAbstract implements DataMapperInterface
      */
     public static function getCreatedAt() : string
     {
-        return static::$createdAt;
+        return !empty(static::$createdAt) ? static::$createdAt : static::$primaryField;
     }
 
     /**
