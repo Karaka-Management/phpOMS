@@ -397,15 +397,16 @@ final class StringUtils
      * Turn value into string
      *
      * @param mixed $element Value to stringify.
+     * @param mixed $option  Stringify option
      *
      * @return null|string
      *
      * @since  1.0.0
      */
-    public static function stringify($element) : ?string
+    public static function stringify($element, $option = null) : ?string
     {
         if ($element instanceof \JsonSerializable || \is_array($element)) {
-            $encoded = \json_encode($element);
+            $encoded = \json_encode($element, $option !== null ? $option : 0);
 
             return $encoded ? $encoded : null;
         } elseif ($element instanceof \Serializable) {
