@@ -24,7 +24,7 @@ namespace phpOMS\System\File;
  */
 final class FileUtils
 {
-    public const CODE_EXTENSION         = ['cpp', 'c', 'h', 'hpp', 'cs', 'css', 'htm', 'html', 'php', 'rb'];
+    public const CODE_EXTENSION         = ['cpp', 'c', 'h', 'hpp', 'cs', 'css', 'scss', 'htm', 'html', 'js', 'php', 'rb', 'rs', 'ts'];
     public const TEXT_EXTENSION         = ['doc', 'docx', 'txt', 'md', 'csv'];
     public const PRESENTATION_EXTENSION = ['ppt', 'pptx'];
     public const PDF_EXTENSION          = ['pdf'];
@@ -32,7 +32,7 @@ final class FileUtils
     public const AUDIO_EXTENSION        = ['mp3', 'wav'];
     public const VIDEO_EXTENSION        = ['mp4'];
     public const SPREADSHEET_EXTENSION  = ['xls', 'xlsm'];
-    public const IMAGE_EXTENSION        = ['png', 'gif', 'jpg', 'jpeg', 'tiff', 'bmp'];
+    public const IMAGE_EXTENSION        = ['png', 'gif', 'jpg', 'jpeg', 'tiff', 'bmp', 'svg'];
 
     /**
      * Constructor.
