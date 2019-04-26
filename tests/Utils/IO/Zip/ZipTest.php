@@ -19,7 +19,7 @@ class ZipTest extends \PHPUnit\Framework\TestCase
 {
     protected function setUp() : void
     {
-        if (!extension_loaded('zip')) {
+        if (!\extension_loaded('zip')) {
             $this->markTestSkipped(
               'The ZIP extension is not available.'
             );

@@ -20,7 +20,7 @@ class BrowserTypeTest extends \PHPUnit\Framework\TestCase
     public function testEnums() : void
     {
         self::assertEquals(12, BrowserType::count());
-        self::assertEquals(BrowserType::getConstants(), array_unique(BrowserType::getConstants()));
+        self::assertEquals(BrowserType::getConstants(), \array_unique(BrowserType::getConstants()));
 
         self::assertEquals('msie', BrowserType::IE);
         self::assertEquals('edge', BrowserType::EDGE);

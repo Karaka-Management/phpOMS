@@ -91,7 +91,7 @@ class GeometricDistribution
      */
     public static function getMedian(float $p) : float
     {
-        return ceil(-1 / (\log(1 - $p, 2)));
+        return \ceil(-1 / (\log(1 - $p, 2)));
     }
 
     /**

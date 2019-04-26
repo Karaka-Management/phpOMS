@@ -89,7 +89,7 @@ class Server extends SocketAbstract
      */
     public static function hasInternet() : bool
     {
-        $connected = @fsockopen("www.google.com", 80);
+        $connected = @\fsockopen("www.google.com", 80);
 
         if ($connected) {
             \fclose($connected);
@@ -108,7 +108,7 @@ class Server extends SocketAbstract
         $this->app->logger->info('Creating socket...');
         parent::create($ip, $port);
         $this->app->logger->info('Binding socket...');
-        socket_bind($this->sock, $this->ip, $this->port);
+        \socket_bind($this->sock, $this->ip, $this->port);
     }
 
     /**
@@ -155,13 +155,13 @@ class Server extends SocketAbstract
             }
 
             $acceptKey = $key . '258EAFA5-E914-47DA-95CA-C5AB0DC85B11';
-            $acceptKey = base64_encode(sha1($acceptKey, true));
+            $acceptKey = \base64_encode(\sha1($acceptKey, true));
             $upgrade   = "HTTP/1.1 101 Switching Protocols\r\n" .
                 "Upgrade: websocket\r\n" .
                 "Connection: Upgrade\r\n" .
                 "Sec-WebSocket-Accept: $acceptKey" .
                 "\r\n\r\n";
-            socket_write($client->getSocket(), $upgrade);
+            \socket_write($client->getSocket(), $upgrade);
             $client->setHandshake(true);
 
             return true;
@@ -176,8 +176,8 @@ class Server extends SocketAbstract
     public function run() : void
     {
         $this->app->logger->info('Start listening...');
-        socket_listen($this->sock);
-        socket_set_nonblock($this->sock);
+        \socket_listen($this->sock);
+        \socket_set_nonblock($this->sock);
         $this->conn[] = $this->sock;
 
         $this->app->logger->info('Start running...');
@@ -187,7 +187,7 @@ class Server extends SocketAbstract
             $write  = null;
             $except = null;
 
-            if (socket_select($read, $write, $except, 0) < 1) {
+            if (\socket_select($read, $write, $except, 0) < 1) {
                 // error
                 // socket_last_error();
                 // socket_strerror(socket_last_error());
@@ -196,11 +196,11 @@ class Server extends SocketAbstract
 
             foreach ($read as $key => $socket) {
                 if ($this->sock === $socket) {
-                    $newc = socket_accept($this->sock);
+                    $newc = \socket_accept($this->sock);
                     $this->connectClient($newc);
                 } else {
                     $client = $this->clientManager->getBySocket($socket);
-                    $data   = socket_read($socket, 1024);
+                    $data   = \socket_read($socket, 1024);
 
                     if (!$client->getHandshake()) {
                         $this->app->logger->debug('Doing handshake...');
@@ -233,8 +233,8 @@ class Server extends SocketAbstract
         $this->app->logger->debug('Disconnecting client...');
         $client->setConnected(false);
         $client->setHandshake(false);
-        socket_shutdown($client->getSocket(), 2);
-        socket_close($client->getSocket());
+        \socket_shutdown($client->getSocket(), 2);
+        \socket_close($client->getSocket());
 
         if (isset($this->conn[$client->getId()])) {
             unset($this->conn[$client->getId()]);

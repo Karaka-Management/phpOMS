@@ -94,7 +94,7 @@ final class Prime
         }
 
         for ($i = 0; $i < $k; ++$i) {
-            $a = mt_rand(2, $n - 1);
+            $a = \mt_rand(2, $n - 1);
 
             $x = \bcpowmod((string) $a, (string) $d, (string) $n);
 
@@ -133,7 +133,7 @@ final class Prime
     {
         $number = 2;
         $range  = \range(2, $n);
-        $primes = array_combine($range, $range);
+        $primes = \array_combine($range, $range);
 
         while ($number * $number < $n) {
             for ($i = $number; $i <= $n; $i += $number) {
@@ -147,7 +147,7 @@ final class Prime
             $number = \next($primes);
         }
 
-        return array_values($primes);
+        return \array_values($primes);
     }
 
     /**

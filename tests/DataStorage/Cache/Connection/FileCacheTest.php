@@ -142,26 +142,26 @@ class FileCacheTest extends \PHPUnit\Framework\TestCase
 
         $cache->set('key2', 'testVal2', 1);
         self::assertEquals('testVal2', $cache->get('key2', 1));
-        sleep(3);
+        \sleep(3);
         self::assertEquals(null, $cache->get('key2', 1));
 
         $cache->set('key3', 'testVal3', 1);
         self::assertEquals('testVal3', $cache->get('key3', 1));
-        sleep(3);
+        \sleep(3);
         self::assertEquals(null, $cache->get('key3', 1));
 
         $cache->set('key4', 'testVal4', 1);
         self::assertFalse($cache->delete('key4', 0));
-        sleep(3);
+        \sleep(3);
         self::assertTrue($cache->delete('key4', 1));
 
         $cache->set('key5', 'testVal5', 10000);
-        sleep(3);
+        \sleep(3);
         self::assertFalse($cache->delete('key5', 1000000));
         self::assertTrue($cache->delete('key5', 1));
 
         $cache->set('key6', 'testVal6', 1);
-        sleep(2);
+        \sleep(2);
 
         $cache->flush(0);
 

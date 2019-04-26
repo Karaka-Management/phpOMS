@@ -14,7 +14,7 @@ declare(strict_types=1);
 
 namespace Tests\PHPUnit;
 
-spl_autoload_register('\Tests\PHPUnit\Autoloader::defaultAutoloader');
+\spl_autoload_register('\Tests\PHPUnit\Autoloader::defaultAutoloader');
 
 /**
  * Autoloader class.

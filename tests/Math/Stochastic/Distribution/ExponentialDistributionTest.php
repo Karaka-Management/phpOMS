@@ -45,7 +45,7 @@ class ExponentialDistributionTest extends \PHPUnit\Framework\TestCase
 
     public function testMedian() : void
     {
-        self::assertEquals(1/3 * log(2), ExponentialDistribution::getMedian(3));
+        self::assertEquals(1/3 * \log(2), ExponentialDistribution::getMedian(3));
     }
 
     public function testMgf() : void

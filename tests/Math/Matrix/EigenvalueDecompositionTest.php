@@ -33,9 +33,9 @@ class EigenvalueDecompositionTest extends \PHPUnit\Framework\TestCase
         self::assertEqualsWithDelta([0, 2, 5], $eig->getRealEigenvalues()->toArray(), 0.2);
 
         self::assertEqualsWithDelta([
-            [0, 2/sqrt(6), 1/sqrt(3)],
-            [1/sqrt(2), -1/sqrt(6), 1/sqrt(3)],
-            [-1/sqrt(2), -1/sqrt(6), 1/sqrt(3)],
+            [0, 2/\sqrt(6), 1/\sqrt(3)],
+            [1/\sqrt(2), -1/\sqrt(6), 1/\sqrt(3)],
+            [-1/\sqrt(2), -1/\sqrt(6), 1/\sqrt(3)],
         ], $eig->getV()->toArray(), 0.2);
 
         self::assertEqualsWithDelta([
@@ -60,9 +60,9 @@ class EigenvalueDecompositionTest extends \PHPUnit\Framework\TestCase
         self::assertEqualsWithDelta([-5, 3, 6], $eig->getRealEigenvalues()->toArray(), 0.2);
 
         self::assertEqualsWithDelta([
-            [-sqrt(2/3), sqrt(2/7), -1/sqrt(293)],
-            [-1/sqrt(6), -3/sqrt(14), -6/sqrt(293)],
-            [1/sqrt(6), -1/sqrt(14), -16/sqrt(293)],
+            [-\sqrt(2/3), \sqrt(2/7), -1/\sqrt(293)],
+            [-1/\sqrt(6), -3/\sqrt(14), -6/\sqrt(293)],
+            [1/\sqrt(6), -1/\sqrt(14), -16/\sqrt(293)],
         ], $eig->getV()->toArray(), 0.2);
 
         self::assertEqualsWithDelta([

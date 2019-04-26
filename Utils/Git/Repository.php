@@ -443,7 +443,7 @@ class Repository
             $path       = $this->getDirectoryPath();
             $path       = \str_replace('\\', '/', $path);
             $path       = \explode('/', $path);
-            $this->name = $path[count($path) - ($this->bare ? 1 : 2)];
+            $this->name = $path[\count($path) - ($this->bare ? 1 : 2)];
         }
 
         return $this->name;
@@ -670,7 +670,7 @@ class Repository
                 return 0;
             }
 
-            while (!feof($fh)) {
+            while (!\feof($fh)) {
                 \fgets($fh);
                 $loc++;
             }

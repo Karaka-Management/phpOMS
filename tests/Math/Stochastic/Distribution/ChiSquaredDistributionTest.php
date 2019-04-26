@@ -46,7 +46,7 @@ class ChiSquaredDistributionTest extends \PHPUnit\Framework\TestCase
 
     public function testMode() : void
     {
-        self::assertEquals(max(5 - 2, 0), ChiSquaredDistribution::getMode(5));
+        self::assertEquals(\max(5 - 2, 0), ChiSquaredDistribution::getMode(5));
     }
 
     public function testMean() : void
@@ -74,7 +74,7 @@ class ChiSquaredDistributionTest extends \PHPUnit\Framework\TestCase
     {
         $df = 5;
 
-        self::assertEquals(sqrt(8 / $df), ChiSquaredDistribution::getSkewness($df));
+        self::assertEquals(\sqrt(8 / $df), ChiSquaredDistribution::getSkewness($df));
     }
 
     public function testExKurtosis() : void

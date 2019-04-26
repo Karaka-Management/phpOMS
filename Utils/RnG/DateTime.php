@@ -39,6 +39,6 @@ class DateTime
     {
         $rng = new \DateTime();
 
-        return $rng->setTimestamp(mt_rand($start->getTimestamp(), $end->getTimestamp()));
+        return $rng->setTimestamp(\mt_rand($start->getTimestamp(), $end->getTimestamp()));
     }
 }

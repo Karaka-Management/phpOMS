@@ -256,7 +256,7 @@ class DataMapperAbstract implements DataMapperInterface
         self::$collection['ownsOne'][]      = $class::$ownsOne;
         self::$collection['table'][]        = $class::$table;
 
-        if (($parent = get_parent_class($class)) !== false && !$class::$overwrite) {
+        if (($parent = \get_parent_class($class)) !== false && !$class::$overwrite) {
             self::extend($parent);
         }
     }

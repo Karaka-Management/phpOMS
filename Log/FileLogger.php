@@ -502,7 +502,7 @@ final class FileLogger implements LoggerInterface
 
             if ($limit <= 0) {
                 \reset($logs);
-                unset($logs[key($logs)]);
+                unset($logs[\key($logs)]);
             }
 
             foreach ($line as &$value) {

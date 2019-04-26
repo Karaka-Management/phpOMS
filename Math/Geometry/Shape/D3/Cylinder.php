@@ -37,7 +37,7 @@ final class Cylinder implements D3ShapeInterface
      */
     public static function getVolume(float $r, float $h) : float
     {
-        return pi() * $r ** 2 * $h;
+        return \pi() * $r ** 2 * $h;
     }
 
     /**
@@ -52,7 +52,7 @@ final class Cylinder implements D3ShapeInterface
      */
     public static function getSurface(float $r, float $h) : float
     {
-        return 2 * pi() * ($r * $h + $r ** 2);
+        return 2 * \pi() * ($r * $h + $r ** 2);
     }
 
     /**
@@ -67,6 +67,6 @@ final class Cylinder implements D3ShapeInterface
      */
     public static function getLateralSurface(float $r, float $h) : float
     {
-        return 2 * pi() * $r * $h;
+        return 2 * \pi() * $r * $h;
     }
 }

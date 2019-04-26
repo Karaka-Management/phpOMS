@@ -20,7 +20,7 @@ class AreaTypeTest extends \PHPUnit\Framework\TestCase
     public function testEnums() : void
     {
         self::assertEquals(13, \count(AreaType::getConstants()));
-        self::assertEquals(AreaType::getConstants(), array_unique(AreaType::getConstants()));
+        self::assertEquals(AreaType::getConstants(), \array_unique(AreaType::getConstants()));
 
         self::assertEquals('ft', AreaType::SQUARE_FEET);
         self::assertEquals('m', AreaType::SQUARE_METERS);

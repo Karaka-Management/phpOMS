@@ -144,7 +144,7 @@ final class CookieJar
             }
 
             if (!\headers_sent()) {
-                \setcookie($id, '', time() - 3600);
+                \setcookie($id, '', \time() - 3600);
 
                 return true;
             }

@@ -36,7 +36,7 @@ class LZW implements CompressionInterface
         $dictSize   = 256;
 
         for ($i = 0; $i < 256; $i += 1) {
-            $dictionary[chr($i)] = $i;
+            $dictionary[\chr($i)] = $i;
         }
 
         $length = \strlen($source);

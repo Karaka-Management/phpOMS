@@ -20,7 +20,7 @@ class EnergyPowerTypeTest extends \PHPUnit\Framework\TestCase
     public function testEnums() : void
     {
         self::assertEquals(9, \count(EnergyPowerType::getConstants()));
-        self::assertEquals(EnergyPowerType::getConstants(), array_unique(EnergyPowerType::getConstants()));
+        self::assertEquals(EnergyPowerType::getConstants(), \array_unique(EnergyPowerType::getConstants()));
 
         self::assertEquals('kWh', EnergyPowerType::KILOWATT_HOUERS);
         self::assertEquals('MWh', EnergyPowerType::MEGAWATT_HOUERS);

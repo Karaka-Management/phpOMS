@@ -20,7 +20,7 @@ class SqlServerConnectionTest extends \PHPUnit\Framework\TestCase
 {
     protected function setUp() : void
     {
-        if (!extension_loaded('pdo_sqlsrv')) {
+        if (!\extension_loaded('pdo_sqlsrv')) {
             $this->markTestSkipped(
               'The Sqlsrv extension is not available.'
             );

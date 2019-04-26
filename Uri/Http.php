@@ -282,7 +282,7 @@ final class Http implements UriInterface
      */
     public function getSubdomain() : string
     {
-        $host   = explode('.', $this->host);
+        $host   = \explode('.', $this->host);
         $length = \count($host) - 2;
 
         if ($length < 1) {

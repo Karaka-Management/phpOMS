@@ -37,7 +37,7 @@ class CauchyDistribution
      */
     public static function getPdf(float $x, float $x0, float $gamma) : float
     {
-        return 1 / (pi() * $gamma * (1 + (($x - $x0) / $gamma) ** 2));
+        return 1 / (\pi() * $gamma * (1 + (($x - $x0) / $gamma) ** 2));
     }
 
     /**
@@ -53,7 +53,7 @@ class CauchyDistribution
      */
     public static function getCdf(float $x, float $x0, float $gamma) : float
     {
-        return 1 / pi() * atan(($x - $x0) / $gamma) + 0.5;
+        return 1 / \pi() * \atan(($x - $x0) / $gamma) + 0.5;
     }
 
     /**

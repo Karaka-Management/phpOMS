@@ -22,7 +22,7 @@ class RedisCacheTest extends \PHPUnit\Framework\TestCase
 {
     protected function setUp() : void
     {
-        if (!extension_loaded('redis')) {
+        if (!\extension_loaded('redis')) {
             $this->markTestSkipped(
               'The Redis extension is not available.'
             );
@@ -77,7 +77,7 @@ class RedisCacheTest extends \PHPUnit\Framework\TestCase
         self::assertEquals(5.12, $cache->get('key5'));
 
         $cache->set('key6', ['asdf', 1, true, 2.3]); // 7
-        self::assertEquals(json_encode(['asdf', 1, true, 2.3]), $cache->get('key6'));
+        self::assertEquals(\json_encode(['asdf', 1, true, 2.3]), $cache->get('key6'));
 
         self::assertTrue($cache->replace('key4', 5));
         self::assertFalse($cache->replace('keyInvalid', 5));

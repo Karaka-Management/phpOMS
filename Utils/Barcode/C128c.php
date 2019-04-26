@@ -84,8 +84,8 @@ class C128c extends C128Abstract
      */
     protected function generateCodeString() : string
     {
-        $keys       = array_keys(self::$CODEARRAY);
-        $values     = array_flip($keys);
+        $keys       = \array_keys(self::$CODEARRAY);
+        $values     = \array_flip($keys);
         $codeString = '';
         $length     = \strlen($this->content);
         $checksum   = self::$CHECKSUM;

@@ -20,6 +20,6 @@ class OSTypeTest extends \PHPUnit\Framework\TestCase
     public function testEnums() : void
     {
         self::assertEquals(24, \count(OSType::getConstants()));
-        self::assertEquals(OSType::getConstants(), array_unique(OSType::getConstants()));
+        self::assertEquals(OSType::getConstants(), \array_unique(OSType::getConstants()));
     }
 }

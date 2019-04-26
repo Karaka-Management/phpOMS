@@ -406,11 +406,11 @@ final class Complex
      */
     public function render(int $precision = 2) : string
     {
-        return ($this->re !== 0 ? number_format($this->re, $precision) : '')
+        return ($this->re !== 0 ? \number_format($this->re, $precision) : '')
         . ($this->im > 0 && $this->re !== 0 ? ' +' : '')
         . ($this->im < 0 && $this->re !== 0 ? ' -' : '')
         . ($this->im !== 0 ? (
-            ($this->re !== 0 ? ' ' : '') . number_format(
+            ($this->re !== 0 ? ' ' : '') . \number_format(
                 ($this->im < 0 && $this->re === 0 ? $this->im : \abs($this->im)), $precision
                 ) . 'i'
             ) : '');

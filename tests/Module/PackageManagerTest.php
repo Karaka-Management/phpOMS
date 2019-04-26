@@ -24,7 +24,7 @@ class PackageManagerTest extends \PHPUnit\Framework\TestCase
     public static function setUpBeforeClass() : void
     {
         if (\file_exists(__DIR__ . '/testPackage.zip')) {
-            unlink(__DIR__ . '/testPackage.zip');
+            \unlink(__DIR__ . '/testPackage.zip');
         }
 
         if (\file_exists(__DIR__ . '/testPackageExtracted')) {
@@ -34,7 +34,7 @@ class PackageManagerTest extends \PHPUnit\Framework\TestCase
         }
 
         if (\file_exists(__DIR__ . '/public.key')) {
-            unlink(__DIR__ . '/public.key');
+            \unlink(__DIR__ . '/public.key');
         }
 
         // create keys
@@ -61,7 +61,7 @@ class PackageManagerTest extends \PHPUnit\Framework\TestCase
         }
 
         $hash      = \sodium_crypto_generichash_final($state);
-        $signature = sodium_crypto_sign_detached($hash, $alice_sign_secretkey);
+        $signature = \sodium_crypto_sign_detached($hash, $alice_sign_secretkey);
 
         \file_put_contents(__DIR__ . '/testPackage/package.cert', $signature);
         \file_put_contents(__DIR__ . '/public.key', $alice_sign_publickey);
@@ -133,7 +133,7 @@ class PackageManagerTest extends \PHPUnit\Framework\TestCase
     public static function tearDownAfterClass() : void
     {
         if (\file_exists(__DIR__ . '/testPackage.zip')) {
-            unlink(__DIR__ . '/testPackage.zip');
+            \unlink(__DIR__ . '/testPackage.zip');
         }
 
         if (\file_exists(__DIR__ . '/testPackageExtracted')) {
@@ -144,9 +144,9 @@ class PackageManagerTest extends \PHPUnit\Framework\TestCase
         }
 
         if (\file_exists(__DIR__ . '/public.key')) {
-            unlink(__DIR__ . '/public.key');
+            \unlink(__DIR__ . '/public.key');
         }
 
-        file_put_contents(__DIR__ . '/testPackage/package.cert', '');
+        \file_put_contents(__DIR__ . '/testPackage/package.cert', '');
     }
 }

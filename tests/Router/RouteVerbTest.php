@@ -31,6 +31,6 @@ class RouteVerbTest extends \PHPUnit\Framework\TestCase
     public function testEnumUnique() : void
     {
         $values = RouteVerb::getConstants();
-        self::assertEquals(\count($values), array_sum(array_count_values($values)));
+        self::assertEquals(\count($values), \array_sum(\array_count_values($values)));
     }
 }

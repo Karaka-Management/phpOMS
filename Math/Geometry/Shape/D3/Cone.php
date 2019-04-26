@@ -37,7 +37,7 @@ final class Cone implements D3ShapeInterface
      */
     public static function getVolume(float $r, float $h) : float
     {
-        return pi() * $r ** 2 * $h / 3;
+        return \pi() * $r ** 2 * $h / 3;
     }
 
     /**
@@ -52,7 +52,7 @@ final class Cone implements D3ShapeInterface
      */
     public static function getSurface(float $r, float $h) : float
     {
-        return pi() * $r * ($r + \sqrt($h ** 2 + $r ** 2));
+        return \pi() * $r * ($r + \sqrt($h ** 2 + $r ** 2));
     }
 
     /**
@@ -85,6 +85,6 @@ final class Cone implements D3ShapeInterface
      */
     public static function getHeightFromVolume(float $V, float $r) : float
     {
-        return 3 * $V / (pi() * $r ** 2);
+        return 3 * $V / (\pi() * $r ** 2);
     }
 }

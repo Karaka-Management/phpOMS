@@ -95,7 +95,7 @@ final class Request extends RequestAbstract
                 $paths[] = $pathArray[$i];
             }
 
-            $this->hash[] = sha1(\implode('', $paths));
+            $this->hash[] = \sha1(\implode('', $paths));
         }
     }
 

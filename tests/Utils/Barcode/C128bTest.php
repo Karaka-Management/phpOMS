@@ -20,7 +20,7 @@ class C128bTest extends \PHPUnit\Framework\TestCase
 {
     protected function setUp() : void
     {
-        if (!extension_loaded('gd')) {
+        if (!\extension_loaded('gd')) {
             $this->markTestSkipped(
               'The GD extension is not available.'
             );

@@ -103,7 +103,7 @@ class ChiSquaredDistribution
             $df = self::getDegreesOfFreedom($dataset);
         }
 
-        if (!defined('self::TABLE') || !\array_key_exists($df, self::TABLE)) {
+        if (!\defined('self::TABLE') || !\array_key_exists($df, self::TABLE)) {
             throw new \Exception('Degrees of freedom not supported');
         }
 

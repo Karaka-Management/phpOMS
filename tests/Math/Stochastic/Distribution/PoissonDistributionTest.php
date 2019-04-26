@@ -58,7 +58,7 @@ class PoissonDistributionTest extends \PHPUnit\Framework\TestCase
     {
         $l = 4.6;
 
-        self::assertEquals(1 / sqrt($l), PoissonDistribution::getSkewness($l));
+        self::assertEquals(1 / \sqrt($l), PoissonDistribution::getSkewness($l));
     }
 
     public function testExKurtosis() : void
@@ -87,6 +87,6 @@ class PoissonDistributionTest extends \PHPUnit\Framework\TestCase
         $l = 4.6;
         $t = 3;
 
-        self::assertEquals(exp($l * (\exp($t) - 1)), PoissonDistribution::getMgf($l, $t));
+        self::assertEquals(\exp($l * (\exp($t) - 1)), PoissonDistribution::getMgf($l, $t));
     }
 }

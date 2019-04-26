@@ -56,7 +56,7 @@ class GeometricDistributionTest extends \PHPUnit\Framework\TestCase
     {
         $p = 0.3;
 
-        self::assertEquals((2 - $p) / sqrt(1 - $p), GeometricDistribution::getSkewness($p));
+        self::assertEquals((2 - $p) / \sqrt(1 - $p), GeometricDistribution::getSkewness($p));
     }
 
     public function testExKurtosis() : void
@@ -70,6 +70,6 @@ class GeometricDistributionTest extends \PHPUnit\Framework\TestCase
     {
         $p = 0.3;
 
-        self::assertEquals(ceil(-1 / log(1 - $p, 2)), GeometricDistribution::getMedian($p));
+        self::assertEquals(\ceil(-1 / \log(1 - $p, 2)), GeometricDistribution::getMedian($p));
     }
 }

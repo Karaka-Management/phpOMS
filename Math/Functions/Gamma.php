@@ -98,7 +98,7 @@ final class Gamma
     public static function spougeApproximation($z) : float
     {
         $k1_fact = 1.0;
-        $c       = [sqrt(2.0 * M_PI)];
+        $c       = [\sqrt(2.0 * M_PI)];
 
         for ($k = 1; $k < 12; ++$k) {
             $c[$k]    = \exp(12 - $k) * \pow(12 - $k, $k - 0.5) / $k1_fact;

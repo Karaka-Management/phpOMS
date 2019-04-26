@@ -14,7 +14,7 @@ declare(strict_types=1);
 
 namespace phpOMS;
 
-spl_autoload_register('\phpOMS\Autoloader::defaultAutoloader');
+\spl_autoload_register('\phpOMS\Autoloader::defaultAutoloader');
 
 /**
  * Autoloader class.

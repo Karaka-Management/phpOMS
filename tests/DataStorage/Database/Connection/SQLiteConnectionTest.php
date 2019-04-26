@@ -19,7 +19,7 @@ class SQLiteConnectionTest extends \PHPUnit\Framework\TestCase
 {
     protected function setUp() : void
     {
-        if (!extension_loaded('pdo_sqlite')) {
+        if (!\extension_loaded('pdo_sqlite')) {
             $this->markTestSkipped(
               'The SQLite extension is not available.'
             );

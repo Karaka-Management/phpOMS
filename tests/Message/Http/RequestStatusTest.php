@@ -20,7 +20,7 @@ class RequestStatusTest extends \PHPUnit\Framework\TestCase
     public function testEnums() : void
     {
         self::assertEquals(55, \count(RequestStatus::getConstants()));
-        self::assertEquals(RequestStatus::getConstants(), array_unique(RequestStatus::getConstants()));
+        self::assertEquals(RequestStatus::getConstants(), \array_unique(RequestStatus::getConstants()));
 
         self::assertEquals('Continue', RequestStatus::R_100);
         self::assertEquals('Switching Protocols', RequestStatus::R_101);

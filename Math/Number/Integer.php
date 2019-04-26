@@ -46,7 +46,7 @@ final class Integer
      */
     public static function isInteger($value) : bool
     {
-        return is_int($value);
+        return \is_int($value);
     }
 
     /**
@@ -159,7 +159,7 @@ final class Integer
             throw new \Exception('Only odd integers are allowed');
         }
 
-        $a  = (int) ceil(\sqrt($value));
+        $a  = (int) \ceil(\sqrt($value));
         $b2 = ($a * $a - $value);
         $i  = 1;
 

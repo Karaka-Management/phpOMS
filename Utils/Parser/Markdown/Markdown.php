@@ -253,7 +253,7 @@ class Markdown
         $currentBlock = null;
 
         foreach ($lines as $line) {
-            if (chop($line) === '') {
+            if (\chop($line) === '') {
                 if (isset($currentBlock)) {
                     $currentBlock['interrupted'] = true;
                 }
@@ -268,9 +268,9 @@ class Markdown
                 unset($parts[0]);
 
                 foreach ($parts as $part) {
-                    $shortage = 4 - mb_strlen($line, 'utf-8') % 4;
+                    $shortage = 4 - \mb_strlen($line, 'utf-8') % 4;
 
-                    $line .= str_repeat(' ', $shortage);
+                    $line .= \str_repeat(' ', $shortage);
                     $line .= $part;
                 }
             }
@@ -746,7 +746,7 @@ class Markdown
             return null;
         }
 
-        if (chop($lineArray['text'], $lineArray['text'][0]) !== '') {
+        if (\chop($lineArray['text'], $lineArray['text'][0]) !== '') {
             return null;
         }
 
@@ -796,7 +796,7 @@ class Markdown
             return null;
         }
 
-        if (\strpos($block['element']['text'], '|') !== false && chop($lineArray['text'], ' -:|') === '') {
+        if (\strpos($block['element']['text'], '|') !== false && \chop($lineArray['text'], ' -:|') === '') {
             $alignments   = [];
             $divider      = $lineArray['text'];
             $divider      = \trim($divider);
@@ -899,7 +899,7 @@ class Markdown
             $row      = \trim($row);
             $row      = \trim($row, '|');
 
-            preg_match_all('/(?:(\\\\[|])|[^|`]|`[^`]+`|`)+/', $row, $matches);
+            \preg_match_all('/(?:(\\\\[|])|[^|`]|`[^`]+`|`)+/', $row, $matches);
 
             foreach ($matches[0] as $index => $cell) {
                 $element = [

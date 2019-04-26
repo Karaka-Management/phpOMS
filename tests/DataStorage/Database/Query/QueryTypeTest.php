@@ -20,7 +20,7 @@ class QueryTypeTest extends \PHPUnit\Framework\TestCase
     public function testEnums() : void
     {
         self::assertEquals(7, \count(QueryType::getConstants()));
-        self::assertEquals(QueryType::getConstants(), array_unique(QueryType::getConstants()));
+        self::assertEquals(QueryType::getConstants(), \array_unique(QueryType::getConstants()));
 
         self::assertEquals(0, QueryType::SELECT);
         self::assertEquals(1, QueryType::INSERT);

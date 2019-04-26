@@ -69,14 +69,14 @@ class Client extends SocketAbstract
      */
     public function run() : void
     {
-        socket_connect($this->sock, $this->ip, $this->port);
+        \socket_connect($this->sock, $this->ip, $this->port);
         $i = 0;
 
         while ($this->run) {
             try {
                 $i++;
                 $msg = 'disconnect';
-                socket_write($this->sock, $msg, \strlen($msg));
+                \socket_write($this->sock, $msg, \strlen($msg));
 
                 $read = [$this->sock];
 
@@ -87,7 +87,7 @@ class Client extends SocketAbstract
                 //}
 
                 if (\count($read) > 0) {
-                    $data = socket_read($this->sock, 1024);
+                    $data = \socket_read($this->sock, 1024);
 
                     /* Server no data */
                     if ($data === false) {

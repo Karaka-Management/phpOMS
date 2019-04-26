@@ -40,12 +40,12 @@ class StringUtils
         string $charset = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'
     ) : string
     {
-        $length           = mt_rand($min, $max);
+        $length           = \mt_rand($min, $max);
         $charactersLength = \strlen($charset);
         $randomString     = '';
 
         for ($i = 0; $i < $length; ++$i) {
-            $randomString .= $charset[mt_rand(0, $charactersLength - 1)];
+            $randomString .= $charset[\mt_rand(0, $charactersLength - 1)];
         }
 
         return $randomString;

@@ -37,7 +37,7 @@ class LaplaceDistribution
      */
     public static function getPdf(float $x, float $mu, float $b) : float
     {
-        return 1 / (2 * $b) * \exp(-abs($x - $mu) / $b);
+        return 1 / (2 * $b) * \exp(-\abs($x - $mu) / $b);
     }
 
     /**

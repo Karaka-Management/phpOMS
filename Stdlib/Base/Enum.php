@@ -54,7 +54,7 @@ abstract class Enum
      */
     public static function getConstants() : array
     {
-        $reflect = new \ReflectionClass(get_called_class());
+        $reflect = new \ReflectionClass(\get_called_class());
 
         return $reflect->getConstants();
     }
@@ -69,9 +69,9 @@ abstract class Enum
     public static function getRandom()
     {
         $constants = self::getConstants();
-        $keys      = array_keys($constants);
+        $keys      = \array_keys($constants);
 
-        return $constants[$keys[mt_rand(0, \count($constants) - 1)]];
+        return $constants[$keys[\mt_rand(0, \count($constants) - 1)]];
     }
 
     /**
@@ -91,7 +91,7 @@ abstract class Enum
             throw new \UnexpectedValueException($name);
         }
 
-        return constant('static::' . $name);
+        return \constant('static::' . $name);
     }
 
     /**
@@ -107,7 +107,7 @@ abstract class Enum
     {
         $arr = self::getConstants();
 
-        return array_search($value, $arr);
+        return \array_search($value, $arr);
     }
 
     /**
@@ -123,7 +123,7 @@ abstract class Enum
      */
     public static function isValidName(string $name) : bool
     {
-        return defined('static::' . $name);
+        return \defined('static::' . $name);
     }
 
     /**

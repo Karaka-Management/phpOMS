@@ -20,7 +20,7 @@ class OrientationTypeTest extends \PHPUnit\Framework\TestCase
     public function testEnums() : void
     {
         self::assertEquals(2, \count(OrientationType::getConstants()));
-        self::assertEquals(OrientationType::getConstants(), array_unique(OrientationType::getConstants()));
+        self::assertEquals(OrientationType::getConstants(), \array_unique(OrientationType::getConstants()));
 
         self::assertEquals(0, OrientationType::HORIZONTAL);
         self::assertEquals(1, OrientationType::VERTICAL);

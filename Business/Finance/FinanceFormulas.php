@@ -192,7 +192,7 @@ final class FinanceFormulas
      */
     public static function getNumberOfAPPV(float $p, float $pv, float $r) : int
     {
-        return (int) \round(-log(-($r * $pv / $p - 1)) / \log(1 + $r));
+        return (int) \round(-\log(-($r * $pv / $p - 1)) / \log(1 + $r));
     }
 
     /**
@@ -286,7 +286,7 @@ final class FinanceFormulas
      */
     public static function getNumberOfAPFPV(float $p, float $r) : int
     {
-        return (int) \round(-log(-($r / $p - 1)) / \log(1 + $r));
+        return (int) \round(-\log(-($r / $p - 1)) / \log(1 + $r));
     }
 
     /**
@@ -318,7 +318,7 @@ final class FinanceFormulas
      */
     public static function getNumberOfPeriodsOfPVA(float $pva, float $P, float $r) : int
     {
-        return (int) \round(-log(-($pva / $P * $r - 1)) / \log(1 + $r));
+        return (int) \round(-\log(-($pva / $P * $r - 1)) / \log(1 + $r));
     }
 
     /**
@@ -364,7 +364,7 @@ final class FinanceFormulas
      */
     public static function getPeriodsOfPVAF(float $p, float $r) : int
     {
-        return (int) \round(-log(-($p * $r - 1)) / \log(1 + $r));
+        return (int) \round(-\log(-($p * $r - 1)) / \log(1 + $r));
     }
 
     /**
@@ -813,7 +813,7 @@ final class FinanceFormulas
      */
     public static function getPeriodsOfEAA(float $C, float $NPV, float $r) : int
     {
-        return (int) \round(-log(1 - $r * $NPV / $C) / \log(1 + $r));
+        return (int) \round(-\log(1 - $r * $NPV / $C) / \log(1 + $r));
     }
 
     /**

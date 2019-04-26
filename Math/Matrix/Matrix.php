@@ -402,7 +402,7 @@ class Matrix implements \ArrayAccess, \Iterator
     {
         if ($value instanceof self) {
             return $this->add($value->mult(-1));
-        } elseif (!\is_string($value) && is_numeric($value)) {
+        } elseif (!\is_string($value) && \is_numeric($value)) {
             return $this->add(-$value);
         }
 
@@ -424,7 +424,7 @@ class Matrix implements \ArrayAccess, \Iterator
     {
         if ($value instanceof self) {
             return $this->addMatrix($value);
-        } elseif (!\is_string($value) && is_numeric($value)) {
+        } elseif (!\is_string($value) && \is_numeric($value)) {
             return $this->addScalar($value);
         }
 
@@ -529,7 +529,7 @@ class Matrix implements \ArrayAccess, \Iterator
     {
         if ($value instanceof self) {
             return $this->multMatrix($value);
-        } elseif (!\is_string($value) && is_numeric($value)) {
+        } elseif (!\is_string($value) && \is_numeric($value)) {
             return $this->multScalar($value);
         }
 

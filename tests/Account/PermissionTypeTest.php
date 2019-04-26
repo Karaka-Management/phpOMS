@@ -22,7 +22,7 @@ class PermissionTypeTest extends \PHPUnit\Framework\TestCase
     public function testEnums() : void
     {
         self::assertEquals(6, \count(PermissionType::getConstants()));
-        self::assertEquals(PermissionType::getConstants(), array_unique(PermissionType::getConstants()));
+        self::assertEquals(PermissionType::getConstants(), \array_unique(PermissionType::getConstants()));
 
         self::assertEquals(1, PermissionType::NONE);
         self::assertEquals(2, PermissionType::READ);

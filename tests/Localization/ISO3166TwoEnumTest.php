@@ -33,6 +33,6 @@ class ISO3166TwoEnumTest extends \PHPUnit\Framework\TestCase
         }
 
         self::assertTrue($ok);
-        self::assertEquals(\count($countryCodes), \count(array_unique($countryCodes)));
+        self::assertEquals(\count($countryCodes), \count(\array_unique($countryCodes)));
     }
 }

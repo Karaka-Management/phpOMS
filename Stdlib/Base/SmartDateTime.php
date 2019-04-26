@@ -92,7 +92,7 @@ class SmartDateTime extends \DateTime
      */
     public function smartModify(int $y, int $m = 0, int $d = 0, int $calendar = CAL_GREGORIAN) : self
     {
-        $yearChange  = (int) floor(((int) $this->format('m') - 1 + $m) / 12);
+        $yearChange  = (int) \floor(((int) $this->format('m') - 1 + $m) / 12);
         $yearChange  = ((int) $this->format('m') - 1 + $m) < 0 && ((int) $this->format('m') - 1 + $m) % 12 === 0 ? $yearChange - 1 : $yearChange;
         $yearNew     = (int) $this->format('Y') + $y + $yearChange;
         $monthNew    = ((int) $this->format('m') + $m) % 12;
@@ -163,7 +163,7 @@ class SmartDateTime extends \DateTime
      */
     public function getFirstDayOfMonth() : int
     {
-        return getdate(\mktime(0, 0, 0, (int) $this->format('m'), 1, (int) $this->format('Y')))['wday'];
+        return \getdate(\mktime(0, 0, 0, (int) $this->format('m'), 1, (int) $this->format('Y')))['wday'];
     }
 
     /**
@@ -225,7 +225,7 @@ class SmartDateTime extends \DateTime
             return -1;
         }
 
-        return (int) date('w', $time);
+        return (int) \date('w', $time);
     }
 
     /**

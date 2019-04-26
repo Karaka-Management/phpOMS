@@ -46,6 +46,6 @@ final class Natural
      */
     public static function isNatural($value) : bool
     {
-        return is_int($value) && $value >= 0;
+        return \is_int($value) && $value >= 0;
     }
 }

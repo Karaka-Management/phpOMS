@@ -21,6 +21,6 @@ class TimeZoneEnumArrayTest extends \PHPUnit\Framework\TestCase
 {
     public function testEnums() : void
     {
-        self::assertEquals(\count(TimeZoneEnumArray::getConstants()), \count(array_unique(TimeZoneEnumArray::getConstants())));
+        self::assertEquals(\count(TimeZoneEnumArray::getConstants()), \count(\array_unique(TimeZoneEnumArray::getConstants())));
     }
 }

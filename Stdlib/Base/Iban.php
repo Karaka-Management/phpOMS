@@ -268,7 +268,7 @@ class Iban implements \Serializable
      */
     public function prettyPrint() : string
     {
-        return wordwrap($this->iban, 4, ' ', true);
+        return \wordwrap($this->iban, 4, ' ', true);
     }
 
     /**

@@ -26,7 +26,7 @@ class GrayTest extends \PHPUnit\Framework\TestCase
     public function testVolume() : void
     {
         for ($i = 0; $i < 100; ++$i) {
-            $raw = mt_rand(0, 2040140512);
+            $raw = \mt_rand(0, 2040140512);
 
             self::assertEquals($raw, Gray::decode(Gray::encode($raw)));
         }

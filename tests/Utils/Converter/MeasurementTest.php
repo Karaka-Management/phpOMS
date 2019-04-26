@@ -34,7 +34,7 @@ class MeasurementTest extends \PHPUnit\Framework\TestCase
 
         foreach ($temps as $from) {
             foreach ($temps as $to) {
-                $rand = mt_rand(0, 100);
+                $rand = \mt_rand(0, 100);
                 self::assertTrue(($rand - Measurement::convertTemperature(Measurement::convertTemperature($rand, $from, $to), $to, $from)) < 1);
             }
         }
@@ -46,7 +46,7 @@ class MeasurementTest extends \PHPUnit\Framework\TestCase
 
         foreach ($weights as $from) {
             foreach ($weights as $to) {
-                $rand = mt_rand(0, 100);
+                $rand = \mt_rand(0, 100);
                 self::assertTrue(($rand - Measurement::convertWeight(Measurement::convertWeight($rand, $from, $to), $to, $from)) < 1);
             }
         }
@@ -58,7 +58,7 @@ class MeasurementTest extends \PHPUnit\Framework\TestCase
 
         foreach ($lengths as $from) {
             foreach ($lengths as $to) {
-                $rand = mt_rand(0, 100);
+                $rand = \mt_rand(0, 100);
                 self::assertTrue(($rand - Measurement::convertLength(Measurement::convertLength($rand, $from, $to), $to, $from)) < 1);
             }
         }
@@ -70,7 +70,7 @@ class MeasurementTest extends \PHPUnit\Framework\TestCase
 
         foreach ($areas as $from) {
             foreach ($areas as $to) {
-                $rand = mt_rand(0, 100);
+                $rand = \mt_rand(0, 100);
                 self::assertTrue(($rand - Measurement::convertArea(Measurement::convertArea($rand, $from, $to), $to, $from)) < 1);
             }
         }
@@ -82,7 +82,7 @@ class MeasurementTest extends \PHPUnit\Framework\TestCase
 
         foreach ($volumes as $from) {
             foreach ($volumes as $to) {
-                $rand = mt_rand(0, 100);
+                $rand = \mt_rand(0, 100);
                 self::assertTrue(($rand - Measurement::convertVolume(Measurement::convertVolume($rand, $from, $to), $to, $from)) < 1);
             }
         }
@@ -94,7 +94,7 @@ class MeasurementTest extends \PHPUnit\Framework\TestCase
 
         foreach ($speeds as $from) {
             foreach ($speeds as $to) {
-                $rand = mt_rand(0, 100);
+                $rand = \mt_rand(0, 100);
                 self::assertTrue(($rand - Measurement::convertSpeed(Measurement::convertSpeed($rand, $from, $to), $to, $from)) < 1);
             }
         }
@@ -106,7 +106,7 @@ class MeasurementTest extends \PHPUnit\Framework\TestCase
 
         foreach ($times as $from) {
             foreach ($times as $to) {
-                $rand = mt_rand(0, 100);
+                $rand = \mt_rand(0, 100);
                 self::assertTrue(($rand - Measurement::convertTime(Measurement::convertTime($rand, $from, $to), $to, $from)) < 1);
             }
         }
@@ -118,7 +118,7 @@ class MeasurementTest extends \PHPUnit\Framework\TestCase
 
         foreach ($angles as $from) {
             foreach ($angles as $to) {
-                $rand = mt_rand(0, 100);
+                $rand = \mt_rand(0, 100);
                 self::assertTrue(($rand - Measurement::convertAngle(Measurement::convertAngle($rand, $from, $to), $to, $from)) < 1);
             }
         }
@@ -130,7 +130,7 @@ class MeasurementTest extends \PHPUnit\Framework\TestCase
 
         foreach ($pressures as $from) {
             foreach ($pressures as $to) {
-                $rand = mt_rand(0, 100);
+                $rand = \mt_rand(0, 100);
                 self::assertTrue(($rand - Measurement::convertPressure(Measurement::convertPressure($rand, $from, $to), $to, $from)) < 1);
             }
         }
@@ -142,7 +142,7 @@ class MeasurementTest extends \PHPUnit\Framework\TestCase
 
         foreach ($energies as $from) {
             foreach ($energies as $to) {
-                $rand = mt_rand(0, 100);
+                $rand = \mt_rand(0, 100);
                 self::assertTrue(($rand - Measurement::convertEnergy(Measurement::convertEnergy($rand, $from, $to), $to, $from)) < 1);
             }
         }
@@ -154,7 +154,7 @@ class MeasurementTest extends \PHPUnit\Framework\TestCase
 
         foreach ($fileSizes as $from) {
             foreach ($fileSizes as $to) {
-                $rand = mt_rand(0, 100);
+                $rand = \mt_rand(0, 100);
                 self::assertTrue(($rand - Measurement::convertFileSize(Measurement::convertFileSize($rand, $from, $to), $to, $from)) < 1);
             }
         }

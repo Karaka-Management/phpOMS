@@ -41,7 +41,7 @@ class BinomialDistribution
      */
     public static function getMode(int $n, float $p) : float
     {
-        return floor(($n + 1) * $p);
+        return \floor(($n + 1) * $p);
     }
 
     /**
@@ -157,7 +157,7 @@ class BinomialDistribution
      */
     public static function getMedian(int $n, float $p) : float
     {
-        return floor($n * $p);
+        return \floor($n * $p);
     }
 
     /**

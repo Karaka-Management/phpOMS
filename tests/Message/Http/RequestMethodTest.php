@@ -20,7 +20,7 @@ class RequestMethodTest extends \PHPUnit\Framework\TestCase
     public function testEnums() : void
     {
         self::assertEquals(6, \count(RequestMethod::getConstants()));
-        self::assertEquals(RequestMethod::getConstants(), array_unique(RequestMethod::getConstants()));
+        self::assertEquals(RequestMethod::getConstants(), \array_unique(RequestMethod::getConstants()));
 
         self::assertEquals('GET', RequestMethod::GET);
         self::assertEquals('POST', RequestMethod::POST);

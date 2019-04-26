@@ -20,7 +20,7 @@ class LengthTypeTest extends \PHPUnit\Framework\TestCase
     public function testEnums() : void
     {
         self::assertEquals(21, \count(LengthType::getConstants()));
-        self::assertEquals(LengthType::getConstants(), array_unique(LengthType::getConstants()));
+        self::assertEquals(LengthType::getConstants(), \array_unique(LengthType::getConstants()));
 
         self::assertEquals('mi', LengthType::MILES);
         self::assertEquals('m', LengthType::METERS);

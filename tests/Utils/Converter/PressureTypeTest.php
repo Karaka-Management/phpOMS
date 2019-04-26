@@ -20,7 +20,7 @@ class PressureTypeTest extends \PHPUnit\Framework\TestCase
     public function testEnums() : void
     {
         self::assertEquals(13, \count(PressureType::getConstants()));
-        self::assertEquals(PressureType::getConstants(), array_unique(PressureType::getConstants()));
+        self::assertEquals(PressureType::getConstants(), \array_unique(PressureType::getConstants()));
 
         self::assertEquals('Pa', PressureType::PASCALS);
         self::assertEquals('bar', PressureType::BAR);

@@ -19,7 +19,7 @@ class TarGzTest extends \PHPUnit\Framework\TestCase
 {
     protected function setUp() : void
     {
-        if (!extension_loaded('phar')) {
+        if (!\extension_loaded('phar')) {
             $this->markTestSkipped(
               'The Phar extension is not available.'
             );

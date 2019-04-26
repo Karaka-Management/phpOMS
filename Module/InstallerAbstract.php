@@ -61,7 +61,7 @@ abstract class InstallerAbstract
         foreach ($load as $val) {
             foreach ($val['pid'] as $pid) {
                 $queryLoad->values(
-                    sha1(\str_replace('/', '', $pid)),
+                    \sha1(\str_replace('/', '', $pid)),
                     (int) $val['type'],
                     $val['from'],
                     $val['for'],

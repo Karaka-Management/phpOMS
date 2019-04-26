@@ -23,7 +23,7 @@ class ConnectionFactoryTest extends \PHPUnit\Framework\TestCase
 {
     public function testCreateMysql() : void
     {
-        if (!extension_loaded('pdo_mysql')) {
+        if (!\extension_loaded('pdo_mysql')) {
             $this->markTestSkipped(
               'The Mysql extension is not available.'
             );
@@ -39,7 +39,7 @@ class ConnectionFactoryTest extends \PHPUnit\Framework\TestCase
 
     public function testCreatePostgres() : void
     {
-        if (!extension_loaded('pdo_pgsql')) {
+        if (!\extension_loaded('pdo_pgsql')) {
             $this->markTestSkipped(
               'The Postresql extension is not available.'
             );
@@ -55,7 +55,7 @@ class ConnectionFactoryTest extends \PHPUnit\Framework\TestCase
 
     public function testCreateSqlsrv() : void
     {
-        if (!extension_loaded('pdo_sqlsrv')) {
+        if (!\extension_loaded('pdo_sqlsrv')) {
             $this->markTestSkipped(
               'The Sqlsrv extension is not available.'
             );
@@ -71,7 +71,7 @@ class ConnectionFactoryTest extends \PHPUnit\Framework\TestCase
 
     public function testCreateSqlite() : void
     {
-        if (!extension_loaded('pdo_sqlite')) {
+        if (!\extension_loaded('pdo_sqlite')) {
             $this->markTestSkipped(
               'The SQLite extension is not available.'
             );

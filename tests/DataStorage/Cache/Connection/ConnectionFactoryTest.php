@@ -28,7 +28,7 @@ class ConnectionFactoryTest extends \PHPUnit\Framework\TestCase
 
     public function testCreateMemCached() : void
     {
-        if (!extension_loaded('memcached')) {
+        if (!\extension_loaded('memcached')) {
             $this->markTestSkipped(
               'The Memcached extension is not available.'
             );
@@ -42,7 +42,7 @@ class ConnectionFactoryTest extends \PHPUnit\Framework\TestCase
 
     public function testCreateRedisCache() : void
     {
-        if (!extension_loaded('redis')) {
+        if (!\extension_loaded('redis')) {
             $this->markTestSkipped(
               'The Redis extension is not available.'
             );

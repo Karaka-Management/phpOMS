@@ -78,7 +78,7 @@ final class Functions
         $min = \min([$k, $n - $k]);
 
         $fact  = 1;
-        $range = array_reverse(\range(1, $min));
+        $range = \array_reverse(\range(1, $min));
 
         for ($i = $max + 1; $i < $n + 1; ++$i) {
             $div = 1;

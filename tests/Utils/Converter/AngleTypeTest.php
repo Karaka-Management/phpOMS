@@ -20,7 +20,7 @@ class AngleTypeTest extends \PHPUnit\Framework\TestCase
     public function testEnums() : void
     {
         self::assertEquals(10, \count(AngleType::getConstants()));
-        self::assertEquals(AngleType::getConstants(), array_unique(AngleType::getConstants()));
+        self::assertEquals(AngleType::getConstants(), \array_unique(AngleType::getConstants()));
 
         self::assertEquals('deg', AngleType::DEGREE);
         self::assertEquals('rad', AngleType::RADIAN);

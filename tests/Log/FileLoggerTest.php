@@ -26,15 +26,15 @@ class FileLoggerTest extends \PHPUnit\Framework\TestCase
         self::assertObjectHasAttribute('fp', $log);
         self::assertObjectHasAttribute('path', $log);
 
-        if (\file_exists(__DIR__ . '/' . date('Y-m-d') . '.log')) {
-            \unlink(__DIR__ . '/' . date('Y-m-d') . '.log');
+        if (\file_exists(__DIR__ . '/' . \date('Y-m-d') . '.log')) {
+            \unlink(__DIR__ . '/' . \date('Y-m-d') . '.log');
         }
     }
 
     public function testDefault() : void
     {
-        if (\file_exists(__DIR__ . '/' . date('Y-m-d') . '.log')) {
-            \unlink(__DIR__ . '/' . date('Y-m-d') . '.log');
+        if (\file_exists(__DIR__ . '/' . \date('Y-m-d') . '.log')) {
+            \unlink(__DIR__ . '/' . \date('Y-m-d') . '.log');
         }
 
         $log = FileLogger::getInstance(__DIR__);
@@ -43,8 +43,8 @@ class FileLoggerTest extends \PHPUnit\Framework\TestCase
         self::assertEquals([], $log->get());
         self::assertEquals([], $log->getByLine());
 
-        if (\file_exists(__DIR__ . '/' . date('Y-m-d') . '.log')) {
-            \unlink(__DIR__ . '/' . date('Y-m-d') . '.log');
+        if (\file_exists(__DIR__ . '/' . \date('Y-m-d') . '.log')) {
+            \unlink(__DIR__ . '/' . \date('Y-m-d') . '.log');
         }
     }
 
@@ -120,7 +120,7 @@ class FileLoggerTest extends \PHPUnit\Framework\TestCase
         self::assertEquals(2, $log->countLogs()['debug'] ?? 0);
 
         self::assertEquals(['0.0.0.0' => 9], $log->getHighestPerpetrator());
-        self::assertEquals([6, 7, 8, 9, 10], array_keys($log->get(5, 1)));
+        self::assertEquals([6, 7, 8, 9, 10], \array_keys($log->get(5, 1)));
         self::assertEquals('alert', $log->getByLine(2)['level']);
 
         \ob_start();
@@ -129,7 +129,7 @@ class FileLoggerTest extends \PHPUnit\Framework\TestCase
             'line'    => 11,
             'file'    => self::class,
         ]);
-        $ob = ob_get_clean();
+        $ob = \ob_get_clean();
 
         // test without output
         $log->console(FileLogger::MSG_FULL, false, [
@@ -142,13 +142,13 @@ class FileLoggerTest extends \PHPUnit\Framework\TestCase
 
         \ob_start();
         $log->console('test', true);
-        $ob = ob_get_clean();
+        $ob = \ob_get_clean();
         self::assertEquals(\date('[Y-m-d H:i:s] ') . "test\r\n", $ob);
 
         \unlink(__DIR__ . '/test.log');
 
-        if (\file_exists(__DIR__ . '/' . date('Y-m-d') . '.log')) {
-            \unlink(__DIR__ . '/' . date('Y-m-d') . '.log');
+        if (\file_exists(__DIR__ . '/' . \date('Y-m-d') . '.log')) {
+            \unlink(__DIR__ . '/' . \date('Y-m-d') . '.log');
         }
 
         \ob_clean();
@@ -179,8 +179,8 @@ class FileLoggerTest extends \PHPUnit\Framework\TestCase
             \unlink(__DIR__ . '/test.log');
         }
 
-        if (\file_exists(__DIR__ . '/' . date('Y-m-d') . '.log')) {
-            \unlink(__DIR__ . '/' . date('Y-m-d') . '.log');
+        if (\file_exists(__DIR__ . '/' . \date('Y-m-d') . '.log')) {
+            \unlink(__DIR__ . '/' . \date('Y-m-d') . '.log');
         }
     }
 }

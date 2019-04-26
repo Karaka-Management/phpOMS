@@ -19,7 +19,7 @@ class PostgresConnectionTest extends \PHPUnit\Framework\TestCase
 {
     protected function setUp() : void
     {
-        if (!extension_loaded('pdo_pgsql')) {
+        if (!\extension_loaded('pdo_pgsql')) {
             $this->markTestSkipped(
               'The Postresql extension is not available.'
             );

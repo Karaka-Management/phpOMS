@@ -203,7 +203,7 @@ final class Money implements \Serializable
             throw new \Exception();
         }
 
-        return ($decimals > 0) ? number_format((float) $left, 0, $this->decimal, $this->thousands) . $this->decimal . \substr($right, 0, $decimals) : $left;
+        return ($decimals > 0) ? \number_format((float) $left, 0, $this->decimal, $this->thousands) . $this->decimal . \substr($right, 0, $decimals) : $left;
     }
 
     /**

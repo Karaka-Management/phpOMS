@@ -20,7 +20,7 @@ class MysqlConnectionTest extends \PHPUnit\Framework\TestCase
 {
     protected function setUp() : void
     {
-        if (!extension_loaded('pdo_mysql')) {
+        if (!\extension_loaded('pdo_mysql')) {
             $this->markTestSkipped(
               'The Mysql extension is not available.'
             );

@@ -147,7 +147,7 @@ final class StringUtils
         }
 
         foreach ($needles as $needle) {
-            if ($needle === '' || strrpos($haystack, $needle, -strlen($haystack)) !== false) {
+            if ($needle === '' || \strrpos($haystack, $needle, -\strlen($haystack)) !== false) {
                 return true;
             }
         }
@@ -207,7 +207,7 @@ final class StringUtils
         }
 
         foreach ($needles as $needle) {
-            if ($needle === '' || (($temp = \mb_strlen($haystack) - \mb_strlen($needle)) >= 0 && mb_strpos($haystack, $needle, $temp) !== false)) {
+            if ($needle === '' || (($temp = \mb_strlen($haystack) - \mb_strlen($needle)) >= 0 && \mb_strpos($haystack, $needle, $temp) !== false)) {
                 return true;
             }
         }
@@ -230,7 +230,7 @@ final class StringUtils
         $firstChar = \mb_substr($string, 0, 1);
         $then      = \mb_substr($string, 1, $strlen - 1);
 
-        return mb_strtoupper($firstChar) . $then;
+        return \mb_strtoupper($firstChar) . $then;
     }
 
     /**
@@ -248,7 +248,7 @@ final class StringUtils
         $firstChar = \mb_substr($string, 0, 1);
         $then      = \mb_substr($string, 1, $strlen - 1);
 
-        return mb_strtolower($firstChar) . $then;
+        return \mb_strtolower($firstChar) . $then;
     }
 
     /**

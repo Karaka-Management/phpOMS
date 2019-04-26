@@ -29,15 +29,15 @@ class NetPromoterScoreTest extends \PHPUnit\Framework\TestCase
         $nps = new NetPromoterScore();
 
         for ($i = 0; $i < 10; ++$i) {
-            $nps->add(mt_rand(0, 6));
+            $nps->add(\mt_rand(0, 6));
         }
 
         for ($i = 0; $i < 30; ++$i) {
-            $nps->add(mt_rand(7, 8));
+            $nps->add(\mt_rand(7, 8));
         }
 
         for ($i = 0; $i < 60; ++$i) {
-            $nps->add(mt_rand(9, 10));
+            $nps->add(\mt_rand(9, 10));
         }
 
         self::assertEquals(50, $nps->getScore());

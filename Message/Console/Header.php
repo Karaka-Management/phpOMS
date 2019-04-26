@@ -142,7 +142,7 @@ final class Header extends HeaderAbstract
      */
     public function get(string $key) : array
     {
-        return $this->header[strtolower($key)] ?? [];
+        return $this->header[\strtolower($key)] ?? [];
     }
 
     /**

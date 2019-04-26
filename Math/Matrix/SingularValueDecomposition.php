@@ -359,7 +359,7 @@ final class SingularValueDecomposition
                     $shift = 0.0;
 
                     if ($b != 0 || $c != 0) {
-                        $shift = sqrt($b * $b + $c);
+                        $shift = \sqrt($b * $b + $c);
                         if ($b < 0.0) {
                             $shift = -$shift;
                         }

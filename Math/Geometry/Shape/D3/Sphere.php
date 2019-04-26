@@ -59,10 +59,10 @@ final class Sphere implements D3ShapeInterface
      */
     public static function distance2PointsOnSphere(float $latStart, float $longStart, float $latEnd, float $longEnd, float $radius = 6371000.0) : float
     {
-        $latFrom = deg2rad($latStart);
-        $lonFrom = deg2rad($longStart);
-        $latTo   = deg2rad($latEnd);
-        $lonTo   = deg2rad($longEnd);
+        $latFrom = \deg2rad($latStart);
+        $lonFrom = \deg2rad($longStart);
+        $latTo   = \deg2rad($latEnd);
+        $lonTo   = \deg2rad($longEnd);
 
         //$latDelta = $latTo - $latFrom;
         $lonDelta = $lonTo - $lonFrom;
@@ -70,7 +70,7 @@ final class Sphere implements D3ShapeInterface
         $a = \pow(\cos($latTo) * \sin($lonDelta), 2) + \pow(\cos($latFrom) * \sin($latTo) - \sin($latFrom) * \cos($latTo) * \cos($lonDelta), 2);
         $b = \sin($latFrom) * \sin($latTo) + \cos($latFrom) * \cos($latTo) * \cos($lonDelta);
 
-        $angle = atan2(\sqrt($a), $b);
+        $angle = \atan2(\sqrt($a), $b);
         // Approximation (very good for short distances)
         // $angle = 2 * asin(\sqrt(\pow(\sin($latDelta / 2), 2) + \cos($latFrom) * \cos($latTo) * \pow(\sin($lonDelta / 2), 2)));
 
@@ -116,7 +116,7 @@ final class Sphere implements D3ShapeInterface
      */
     public static function getRadiusByVolume(float $v) : float
     {
-        return \pow($v * 3 / (4 * pi()), 1 / 3);
+        return \pow($v * 3 / (4 * \pi()), 1 / 3);
     }
 
     /**
@@ -147,7 +147,7 @@ final class Sphere implements D3ShapeInterface
      */
     public static function getRadiusBySurface(float $S) : float
     {
-        return \sqrt($S / (4 * pi()));
+        return \sqrt($S / (4 * \pi()));
     }
 
     /**
@@ -173,7 +173,7 @@ final class Sphere implements D3ShapeInterface
      */
     public static function getVolumeByRadius(float $r) : float
     {
-        return 4 / 3 * pi() * $r ** 3;
+        return 4 / 3 * \pi() * $r ** 3;
     }
 
     /**
@@ -211,6 +211,6 @@ final class Sphere implements D3ShapeInterface
      */
     public static function getSurfaceByRadius(float $r) : float
     {
-        return 4 * pi() * $r ** 2;
+        return 4 * \pi() * $r ** 2;
     }
 }

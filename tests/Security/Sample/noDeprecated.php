@@ -2,5 +2,5 @@
 
 function noDeprecated()
 {
-    return is_string('');
+    return \is_string('');
 }

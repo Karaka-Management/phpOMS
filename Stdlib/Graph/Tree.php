@@ -172,7 +172,7 @@ class Tree extends Graph
         }
 
         foreach ($neighbors as $neighbor) {
-            array_merge($nodes, $this->getLevelNodes($level, $neighbor));
+            \array_merge($nodes, $this->getLevelNodes($level, $neighbor));
         }
 
         return $nodes;
