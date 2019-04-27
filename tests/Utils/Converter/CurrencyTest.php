@@ -10,12 +10,16 @@
  * @version    1.0.0
  * @link       http://website.orange-management.de
  */
+ declare(strict_types=1);
 
 namespace phpOMS\tests\Utils\Converter;
 
 use phpOMS\Localization\ISO4217CharEnum;
 use phpOMS\Utils\Converter\Currency;
 
+/**
+ * @internal
+ */
 class CurrencyTest extends \PHPUnit\Framework\TestCase
 {
     public function testCurrency() : void

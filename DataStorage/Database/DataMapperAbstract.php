@@ -2851,7 +2851,7 @@ class DataMapperAbstract implements DataMapperInterface
      */
     private static function isInitialized(string $mapper, $id) : bool
     {
-        return isset(self::$initObjects[$mapper]) && isset(self::$initObjects[$mapper][$id]);
+        return isset(self::$initObjects[$mapper], self::$initObjects[$mapper][$id]);
     }
 
     /**
@@ -2866,7 +2866,7 @@ class DataMapperAbstract implements DataMapperInterface
      */
     private static function isInitializedArray(string $mapper, $id) : bool
     {
-        return isset(self::$initArrays[$mapper]) && isset(self::$initArrays[$mapper][$id]);
+        return isset(self::$initArrays[$mapper], self::$initArrays[$mapper][$id]);
     }
 
     /**

@@ -10,16 +10,20 @@
  * @version    1.0.0
  * @link       http://website.orange-management.de
  */
+ declare(strict_types=1);
 
 namespace phpOMS\tests\Utils\RnG;
 
 use phpOMS\Utils\RnG\DistributionType;
 
+/**
+ * @internal
+ */
 class DistributionTypeTest extends \PHPUnit\Framework\TestCase
 {
     public function testEnums() : void
     {
-        self::assertEquals(2, \count(DistributionType::getConstants()));
+        self::assertCount(2, DistributionType::getConstants());
         self::assertEquals(DistributionType::getConstants(), \array_unique(DistributionType::getConstants()));
 
         self::assertEquals(0, DistributionType::UNIFORM);

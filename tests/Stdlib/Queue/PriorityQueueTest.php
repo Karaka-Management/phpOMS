@@ -10,12 +10,16 @@
  * @version    1.0.0
  * @link       http://website.orange-management.de
  */
+ declare(strict_types=1);
 
 namespace phpOMS\tests\Stdlib\Queue;
 
 use phpOMS\Stdlib\Queue\PriorityMode;
 use phpOMS\Stdlib\Queue\PriorityQueue;
 
+/**
+ * @internal
+ */
 class PriorityQueueTest extends \PHPUnit\Framework\TestCase
 {
     public function testDefault() : void

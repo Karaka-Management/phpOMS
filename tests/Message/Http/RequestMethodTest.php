@@ -10,16 +10,20 @@
  * @version    1.0.0
  * @link       http://website.orange-management.de
  */
+ declare(strict_types=1);
 
 namespace phpOMS\tests\Message\Http;
 
 use phpOMS\Message\Http\RequestMethod;
 
+/**
+ * @internal
+ */
 class RequestMethodTest extends \PHPUnit\Framework\TestCase
 {
     public function testEnums() : void
     {
-        self::assertEquals(6, \count(RequestMethod::getConstants()));
+        self::assertCount(6, RequestMethod::getConstants());
         self::assertEquals(RequestMethod::getConstants(), \array_unique(RequestMethod::getConstants()));
 
         self::assertEquals('GET', RequestMethod::GET);

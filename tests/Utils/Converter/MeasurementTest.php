@@ -10,6 +10,7 @@
  * @version    1.0.0
  * @link       http://website.orange-management.de
  */
+ declare(strict_types=1);
 
 namespace phpOMS\tests\Utils\Converter;
 
@@ -26,6 +27,9 @@ use phpOMS\Utils\Converter\TimeType;
 use phpOMS\Utils\Converter\VolumeType;
 use phpOMS\Utils\Converter\WeightType;
 
+/**
+ * @internal
+ */
 class MeasurementTest extends \PHPUnit\Framework\TestCase
 {
     public function testTemperature() : void

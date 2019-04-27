@@ -74,7 +74,7 @@ class Client extends SocketAbstract
 
         while ($this->run) {
             try {
-                $i++;
+                ++$i;
                 $msg = 'disconnect';
                 \socket_write($this->sock, $msg, \strlen($msg));
 

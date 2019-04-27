@@ -10,16 +10,20 @@
  * @version    1.0.0
  * @link       http://website.orange-management.de
  */
+ declare(strict_types=1);
 
 namespace phpOMS\tests\Utils\Converter;
 
 use phpOMS\Utils\Converter\TimeType;
 
+/**
+ * @internal
+ */
 class TimeTypeTest extends \PHPUnit\Framework\TestCase
 {
     public function testEnums() : void
     {
-        self::assertEquals(9, \count(TimeType::getConstants()));
+        self::assertCount(9, TimeType::getConstants());
         self::assertEquals(TimeType::getConstants(), \array_unique(TimeType::getConstants()));
 
         self::assertEquals('ms', TimeType::MILLISECONDS);

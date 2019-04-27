@@ -136,7 +136,7 @@ final class Directory extends FileAbstract implements LocalContainerInterface, D
     {
         parent::index();
 
-        foreach (\glob($this->path . DIRECTORY_SEPARATOR . $this->filter) as $filename) {
+        foreach (\glob($this->path . \DIRECTORY_SEPARATOR . $this->filter) as $filename) {
             if (!StringUtils::endsWith(\trim($filename), '.')) {
                 $file = \is_dir($filename) ? new self($filename) : new File($filename);
 

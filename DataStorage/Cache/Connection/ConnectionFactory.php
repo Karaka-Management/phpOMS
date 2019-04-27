@@ -44,7 +44,7 @@ class ConnectionFactory
      *
      * @return ConnectionInterface
      *
-     * @throws \InvalidArgumentException Throws this exception if the cache is not supported.
+     * @throws \InvalidArgumentException throws this exception if the cache is not supported
      *
      * @since  1.0.0
      */

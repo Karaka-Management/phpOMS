@@ -120,7 +120,7 @@ class ChiSquaredDistribution
             'Chi2' => $sum,
             'P'   => $p,
             'H0'  => ($p > $significance),
-            'df'  => $df
+            'df'  => $df,
         ];
     }
 

@@ -10,6 +10,7 @@
  * @version    1.0.0
  * @link       http://website.orange-management.de
  */
+ declare(strict_types=1);
 
 namespace phpOMS\tests\Message;
 
@@ -17,13 +18,16 @@ require_once __DIR__ . '/../Autoloader.php';
 
 use phpOMS\Message\HeaderAbstract;
 
+/**
+ * @internal
+ */
 class HeaderAbstractTest extends \PHPUnit\Framework\TestCase
 {
     protected $header = null;
 
     protected function setUp() : void
     {
-        $this->header = new class extends HeaderAbstract
+        $this->header = new class() extends HeaderAbstract
         {
             public function generate(int $statusCode) : void
             {

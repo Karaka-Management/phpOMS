@@ -97,7 +97,7 @@ final class Iban extends ValidatorAbstract
                 return false;
             }
 
-            $lastPos += 1;
+            ++$lastPos;
         }
 
         return true;
@@ -125,7 +125,7 @@ final class Iban extends ValidatorAbstract
                 return false;
             }
 
-            $lastPos += 1;
+            ++$lastPos;
         }
 
         return true;

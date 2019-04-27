@@ -10,6 +10,7 @@
  * @version    1.0.0
  * @link       http://website.orange-management.de
  */
+ declare(strict_types=1);
 
 namespace phpOMS\tests\Log;
 
@@ -17,11 +18,14 @@ require_once __DIR__ . '/../Autoloader.php';
 
 use phpOMS\Log\LogLevel;
 
+/**
+ * @internal
+ */
 class LogLevelTest extends \PHPUnit\Framework\TestCase
 {
     public function testEnums() : void
     {
-        self::assertEquals(8, \count(LogLevel::getConstants()));
+        self::assertCount(8, LogLevel::getConstants());
         self::assertEquals('emergency', LogLevel::EMERGENCY);
         self::assertEquals('alert', LogLevel::ALERT);
         self::assertEquals('critical', LogLevel::CRITICAL);

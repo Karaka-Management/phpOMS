@@ -10,6 +10,7 @@
  * @version    1.0.0
  * @link       http://website.orange-management.de
  */
+ declare(strict_types=1);
 
 namespace phpOMS\tests\Dispatcher;
 
@@ -23,13 +24,16 @@ use phpOMS\Uri\Http;
 
 require_once __DIR__ . '/../Autoloader.php';
 
+/**
+ * @internal
+ */
 class DispatcherTest extends \PHPUnit\Framework\TestCase
 {
     protected $app = null;
 
     protected function setUp() : void
     {
-        $this->app             = new class extends ApplicationAbstract { protected $appName = 'Api'; };
+        $this->app             = new class() extends ApplicationAbstract { protected $appName = 'Api'; };
         $this->app->router     = new Router();
         $this->app->dispatcher = new Dispatcher($this->app);
     }

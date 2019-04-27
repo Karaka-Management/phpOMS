@@ -81,7 +81,7 @@ abstract class GrammarAbstract
      * @since 1.0.0
      */
     protected $specialKeywords = [
-        'COUNT('
+        'COUNT(',
     ];
 
     /**

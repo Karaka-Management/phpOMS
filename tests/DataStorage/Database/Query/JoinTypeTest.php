@@ -10,16 +10,20 @@
  * @version    1.0.0
  * @link       http://website.orange-management.de
  */
+ declare(strict_types=1);
 
 namespace phpOMS\tests\DataStorage\Database\Query;
 
 use phpOMS\DataStorage\Database\Query\JoinType;
 
+/**
+ * @internal
+ */
 class JoinTypeTest extends \PHPUnit\Framework\TestCase
 {
     public function testEnums() : void
     {
-        self::assertEquals(12, \count(JoinType::getConstants()));
+        self::assertCount(12, JoinType::getConstants());
         self::assertEquals(JoinType::getConstants(), \array_unique(JoinType::getConstants()));
 
         self::assertEquals('JOIN', JoinType::JOIN);

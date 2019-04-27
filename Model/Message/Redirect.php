@@ -165,7 +165,7 @@ class Redirect implements \Serializable, ArrayableInterface, \JsonSerializable
             'type' => self::TYPE,
             'time' => $this->delay,
             'uri'  => $this->uri,
-            'new'  => $this->new
+            'new'  => $this->new,
         ];
     }
 }

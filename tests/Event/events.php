@@ -1,4 +1,5 @@
-<?php return [
+<?php declare(strict_types=1);
+return [
     'SomeName1' => [
         'callback' => [
             0 => function($v1, $v2, $v3) : void {},

@@ -10,16 +10,20 @@
  * @version    1.0.0
  * @link       http://website.orange-management.de
  */
+ declare(strict_types=1);
 
 namespace phpOMS\tests\Validation\Finance;
 
 use phpOMS\Validation\Finance\IbanErrorType;
 
+/**
+ * @internal
+ */
 class IbanErrorTypeTest extends \PHPUnit\Framework\TestCase
 {
     public function testEnums() : void
     {
-        self::assertEquals(5, \count(IbanErrorType::getConstants()));
+        self::assertCount(5, IbanErrorType::getConstants());
         self::assertEquals(1, IbanErrorType::INVALID_COUNTRY);
         self::assertEquals(2, IbanErrorType::INVALID_LENGTH);
         self::assertEquals(4, IbanErrorType::INVALID_CHECKSUM);

@@ -159,7 +159,7 @@ class Server extends SocketAbstract
             $upgrade   = "HTTP/1.1 101 Switching Protocols\r\n" .
                 "Upgrade: websocket\r\n" .
                 "Connection: Upgrade\r\n" .
-                "Sec-WebSocket-Accept: $acceptKey" .
+                "Sec-WebSocket-Accept: ${acceptKey}" .
                 "\r\n\r\n";
             \socket_write($client->getSocket(), $upgrade);
             $client->setHandshake(true);

@@ -10,6 +10,7 @@
  * @version    1.0.0
  * @link       http://website.orange-management.de
  */
+ declare(strict_types=1);
 
 namespace phpOMS\tests\Views;
 
@@ -25,19 +26,22 @@ use phpOMS\Uri\Http;
 use phpOMS\Views\View;
 use phpOMS\Views\ViewAbstract;
 
+/**
+ * @internal
+ */
 class ViewTest extends \PHPUnit\Framework\TestCase
 {
     protected $dbPool = null;
 
     protected $app = null;
 
-    public function setUp() : void
+    protected function setUp() : void
     {
         $this->dbPool = new DatabasePool();
         /** @var array $CONFIG */
         $this->dbPool->create('core', $GLOBALS['CONFIG']['db']['core']['masters']['admin']);
 
-        $this->app = new class extends ApplicationAbstract
+        $this->app = new class() extends ApplicationAbstract
         {
             protected $appName = 'Api';
         };
@@ -52,11 +56,11 @@ class ViewTest extends \PHPUnit\Framework\TestCase
 
         self::assertEmpty($view->getTemplate());
         self::assertEmpty($view->getViews());
-        self::assertTrue(\is_array($view->getViews()));
-        self::assertFalse($view->getView(0));
-        self::assertFalse($view->removeView(0));
-        self::assertNull($view->getData(0));
-        self::assertFalse($view->removeData(0));
+        self::assertIsArray($view->getViews());
+        self::assertFalse($view->getView('0'));
+        self::assertFalse($view->removeView('0'));
+        self::assertNull($view->getData('0'));
+        self::assertFalse($view->removeData('0'));
         self::assertEmpty($view->toArray());
     }
 
@@ -68,9 +72,9 @@ class ViewTest extends \PHPUnit\Framework\TestCase
         $expected = [
             'en' => [
                 'Admin' => [
-                    'Test' => '<a href="test">Test</a>'
-                ]
-            ]
+                    'Test' => '<a href="test">Test</a>',
+                ],
+            ],
         ];
 
         $this->app->l11nManager = new L11nManager('Api');
@@ -103,7 +107,7 @@ class ViewTest extends \PHPUnit\Framework\TestCase
         $tView = new View($this->app, $request, $response);
         self::assertTrue($view->addView('test', $tView));
         self::assertEquals($tView, $view->getView('test'));
-        self::assertEquals(1, \count($view->getViews()));
+        self::assertCount(1, $view->getViews());
         self::assertTrue($view->removeView('test'));
         self::assertFalse($view->removeView('test'));
         self::assertFalse($view->getView('test'));

@@ -10,16 +10,20 @@
  * @version    1.0.0
  * @link       http://website.orange-management.de
  */
+ declare(strict_types=1);
 
 namespace phpOMS\tests\DataStorage\Database;
 
 use phpOMS\DataStorage\Database\RelationType;
 
+/**
+ * @internal
+ */
 class RelationTypeTest extends \PHPUnit\Framework\TestCase
 {
     public function testEnums() : void
     {
-        self::assertEquals(7, \count(RelationType::getConstants()));
+        self::assertCount(7, RelationType::getConstants());
         self::assertEquals(1, RelationType::NONE);
         self::assertEquals(2, RelationType::NEWEST);
         self::assertEquals(4, RelationType::BELONGS_TO);

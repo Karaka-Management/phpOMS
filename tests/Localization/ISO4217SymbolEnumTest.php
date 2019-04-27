@@ -10,6 +10,7 @@
  * @version    1.0.0
  * @link       http://website.orange-management.de
  */
+ declare(strict_types=1);
 
 namespace phpOMS\tests\Localization;
 
@@ -17,11 +18,14 @@ require_once __DIR__ . '/../Autoloader.php';
 
 use phpOMS\Localization\ISO4217SymbolEnum;
 
+/**
+ * @internal
+ */
 class ISO4217SymbolEnumTest extends \PHPUnit\Framework\TestCase
 {
     public function testEnum() : void
     {
         $enum = ISO4217SymbolEnum::getConstants();
-        self::assertEquals(109, \count($enum));
+        self::assertCount(109, $enum);
     }
 }

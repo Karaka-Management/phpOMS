@@ -10,6 +10,7 @@
  * @version    1.0.0
  * @link       http://website.orange-management.de
  */
+ declare(strict_types=1);
 
 namespace phpOMS\tests\Localization;
 
@@ -25,6 +26,9 @@ use phpOMS\Utils\Converter\TemperatureType;
 
 require_once __DIR__ . '/../Autoloader.php';
 
+/**
+ * @internal
+ */
 class LocalizationTest extends \PHPUnit\Framework\TestCase
 {
     protected $l11nManager = null;

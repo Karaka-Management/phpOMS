@@ -53,7 +53,7 @@ class Phone
 
             $numberString = \str_replace(
                 '$1',
-                $countries[\array_keys($countries)[\rand(0, \count($countries) - 1)]],
+                $countries[\array_keys($countries)[\mt_rand(0, \count($countries) - 1)]],
                 $numberString
             );
         }

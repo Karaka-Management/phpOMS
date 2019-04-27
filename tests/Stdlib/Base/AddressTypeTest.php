@@ -10,16 +10,20 @@
  * @version    1.0.0
  * @link       http://website.orange-management.de
  */
+ declare(strict_types=1);
 
 namespace phpOMS\tests\Stdlib\Base;
 
 use phpOMS\Stdlib\Base\AddressType;
 
+/**
+ * @internal
+ */
 class AddressTypeTest extends \PHPUnit\Framework\TestCase
 {
     public function testEnums() : void
     {
-        self::assertEquals(7, \count(AddressType::getconstants()));
+        self::assertCount(7, AddressType::getconstants());
         self::assertEquals(1, AddressType::HOME);
         self::assertEquals(2, AddressType::BUSINESS);
         self::assertEquals(3, AddressType::SHIPPING);

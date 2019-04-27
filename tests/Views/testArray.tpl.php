@@ -1,1 +1,2 @@
-<?php return [1, 2, 3];
+<?php declare(strict_types=1);
+return [1, 2, 3];

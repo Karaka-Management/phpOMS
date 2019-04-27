@@ -10,6 +10,7 @@
  * @version    1.0.0
  * @link       http://website.orange-management.de
  */
+ declare(strict_types=1);
 
 namespace phpOMS\tests\Utils\TaskSchedule;
 
@@ -17,6 +18,9 @@ use phpOMS\Utils\TaskSchedule\CronJob;
 use phpOMS\Utils\TaskSchedule\Schedule;
 use phpOMS\Utils\TaskSchedule\TaskFactory;
 
+/**
+ * @internal
+ */
 class TaskFactoryTest extends \PHPUnit\Framework\TestCase
 {
     public function testFactory() : void

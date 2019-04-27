@@ -10,16 +10,20 @@
  * @version    1.0.0
  * @link       http://website.orange-management.de
  */
+ declare(strict_types=1);
 
 namespace phpOMS\tests\DataStorage\Database;
 
 use phpOMS\DataStorage\Database\DatabaseStatus;
 
+/**
+ * @internal
+ */
 class DatabaseStatusTest extends \PHPUnit\Framework\TestCase
 {
     public function testEnums() : void
     {
-        self::assertEquals(6, \count(DatabaseStatus::getConstants()));
+        self::assertCount(6, DatabaseStatus::getConstants());
         self::assertEquals(0, DatabaseStatus::OK);
         self::assertEquals(1, DatabaseStatus::MISSING_DATABASE);
         self::assertEquals(2, DatabaseStatus::MISSING_TABLE);

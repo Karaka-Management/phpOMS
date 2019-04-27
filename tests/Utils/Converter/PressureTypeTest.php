@@ -10,16 +10,20 @@
  * @version    1.0.0
  * @link       http://website.orange-management.de
  */
+ declare(strict_types=1);
 
 namespace phpOMS\tests\Utils\Converter;
 
 use phpOMS\Utils\Converter\PressureType;
 
+/**
+ * @internal
+ */
 class PressureTypeTest extends \PHPUnit\Framework\TestCase
 {
     public function testEnums() : void
     {
-        self::assertEquals(13, \count(PressureType::getConstants()));
+        self::assertCount(13, PressureType::getConstants());
         self::assertEquals(PressureType::getConstants(), \array_unique(PressureType::getConstants()));
 
         self::assertEquals('Pa', PressureType::PASCALS);

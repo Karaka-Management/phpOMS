@@ -210,7 +210,7 @@ class View extends ViewAbstract
      *
      * @return void
      *
-     * @throws InvalidModuleException Throws this exception if no data for the defined module could be found.
+     * @throws InvalidModuleException throws this exception if no data for the defined module could be found
      *
      * @since  1.0.0
      */
@@ -238,7 +238,7 @@ class View extends ViewAbstract
      *
      * @return void
      *
-     * @throws InvalidThemeException  Throws this exception if no data for the defined theme could be found.
+     * @throws InvalidThemeException throws this exception if no data for the defined theme could be found
      *
      * @since  1.0.0
      */

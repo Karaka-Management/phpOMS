@@ -10,17 +10,21 @@
  * @version    1.0.0
  * @link       http://website.orange-management.de
  */
+ declare(strict_types=1);
 
 namespace phpOMS\tests\Stdlib\Graph;
 
 use phpOMS\Stdlib\Graph\Node;
 
+/**
+ * @internal
+ */
 class NodeTest extends \PHPUnit\Framework\TestCase
 {
     public function testDefault() : void
     {
         $node = new Node();
-        self::assertEquals(null, $node->getData());
+        self::assertNull($node->getData());
     }
 
     public function testGetSet() : void
@@ -29,6 +33,6 @@ class NodeTest extends \PHPUnit\Framework\TestCase
         self::assertEquals(1, $node->getData());
 
         $node->setData(false);
-        self::assertEquals(false, $node->getData());
+        self::assertFalse($node->getData());
     }
 }

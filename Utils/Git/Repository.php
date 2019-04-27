@@ -168,7 +168,7 @@ class Repository
      */
     private function run(string $cmd) : array
     {
-        if (\strtolower((string) \substr(PHP_OS, 0, 3)) == 'win') {
+        if (\strtolower((string) \substr(\PHP_OS, 0, 3)) == 'win') {
             $cmd = 'cd ' . \escapeshellarg(\dirname(Git::getBin()))
                 . ' && ' . \basename(Git::getBin())
                 . ' -C ' . \escapeshellarg($this->path) . ' '
@@ -672,7 +672,7 @@ class Repository
 
             while (!\feof($fh)) {
                 \fgets($fh);
-                $loc++;
+                ++$loc;
             }
 
             \fclose($fh);

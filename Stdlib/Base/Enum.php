@@ -81,7 +81,7 @@ abstract class Enum
      *
      * @return mixed
      *
-     * @throws \UnexpectedValueException Throws this exception if the constant is not defined in the enum class.
+     * @throws \UnexpectedValueException throws this exception if the constant is not defined in the enum class
      *
      * @since  1.0.0
      */

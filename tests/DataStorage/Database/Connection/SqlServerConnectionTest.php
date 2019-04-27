@@ -10,12 +10,16 @@
  * @version    1.0.0
  * @link       http://website.orange-management.de
  */
+ declare(strict_types=1);
 
 namespace phpOMS\tests\DataStorage\Database\Connection;
 
 use phpOMS\DataStorage\Database\Connection\SqlServerConnection;
 use phpOMS\DataStorage\Database\DatabaseStatus;
 
+/**
+ * @internal
+ */
 class SqlServerConnectionTest extends \PHPUnit\Framework\TestCase
 {
     protected function setUp() : void

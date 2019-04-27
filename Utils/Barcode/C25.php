@@ -69,7 +69,7 @@ class C25 extends C128Abstract
      *
      * @return void
      *
-     * @throws \InvalidArgumentException This exception is thrown if the content string is not supported.
+     * @throws \InvalidArgumentException this exception is thrown if the content string is not supported
      *
      * @since  1.0.0
      */

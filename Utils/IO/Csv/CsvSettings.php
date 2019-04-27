@@ -56,7 +56,7 @@ class CsvSettings
 
                 if (\count($fields) > 1) {
                     if (!empty($results[$delimiter])) {
-                        $results[$delimiter]++;
+                        ++$results[$delimiter];
                     } else {
                         $results[$delimiter] = 1;
                     }

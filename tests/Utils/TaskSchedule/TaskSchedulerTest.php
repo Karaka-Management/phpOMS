@@ -10,12 +10,16 @@
  * @version    1.0.0
  * @link       http://website.orange-management.de
  */
+ declare(strict_types=1);
 
 namespace phpOMS\tests\Utils\TaskSchedule;
 
 use phpOMS\Utils\TaskSchedule\Schedule;
 use phpOMS\Utils\TaskSchedule\TaskScheduler;
 
+/**
+ * @internal
+ */
 class TaskSchedulerTest extends \PHPUnit\Framework\TestCase
 {
     public function testDefault() : void
@@ -25,7 +29,7 @@ class TaskSchedulerTest extends \PHPUnit\Framework\TestCase
 
     public function testCRUD() : void
     {
-        if (\stristr(PHP_OS, 'WIN')) {
+        if (\stristr(\PHP_OS, 'WIN')) {
             self::assertTrue(TaskScheduler::guessBin());
             $cron = new TaskScheduler();
 

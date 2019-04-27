@@ -10,21 +10,25 @@
  * @version    1.0.0
  * @link       http://website.orange-management.de
  */
+ declare(strict_types=1);
 
 namespace phpOMS\tests\Utils\Parser\Php;
 
 use phpOMS\Utils\Parser\Php\ArrayParser;
 
+/**
+ * @internal
+ */
 class ArrayParserTest extends \PHPUnit\Framework\TestCase
 {
     public function testParser() : void
     {
-        $serializable = new class implements \Serializable {
+        $serializable = new class() implements \Serializable {
             public function serialize() { return 2; }
             public function unserialize($raw) : void {}
         };
 
-        $jsonSerialize = new class implements \JsonSerializable {
+        $jsonSerialize = new class() implements \JsonSerializable {
             public function jsonSerialize() { return [6, 7]; }
         };
 
@@ -63,6 +67,6 @@ class ArrayParserTest extends \PHPUnit\Framework\TestCase
     {
         self::expectException(\UnexpectedValueException::class);
 
-        ArrayParser::parseVariable(new class {});
+        ArrayParser::parseVariable(new class() {});
     }
 }

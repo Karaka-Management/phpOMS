@@ -108,9 +108,9 @@ final class Dispatcher
      *
      * @return array
      *
-     * @throws PathException             This exception is thrown if the function cannot be autoloaded.
-     * @throws \Exception                This exception is thrown if the function is not callable.
-     * @throws \UnexpectedValueException This exception is thrown if the controller string is malformed.
+     * @throws PathException             this exception is thrown if the function cannot be autoloaded
+     * @throws \Exception                this exception is thrown if the function is not callable
+     * @throws \UnexpectedValueException this exception is thrown if the controller string is malformed
      *
      * @since  1.0.0
      */
@@ -184,7 +184,7 @@ final class Dispatcher
      *
      * @return object
      *
-     * @throws PathException This exception is thrown in case the controller couldn't be found.
+     * @throws PathException this exception is thrown in case the controller couldn't be found
      *
      * @since  1.0.0
      */

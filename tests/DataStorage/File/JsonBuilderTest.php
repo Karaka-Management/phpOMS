@@ -10,11 +10,15 @@
  * @version    1.0.0
  * @link       http://website.orange-management.de
  */
+ declare(strict_types=1);
 
 namespace phpOMS\tests\DataStorage\File;
 
 use phpOMS\DataStorage\File\JsonBuilder;
 
+/**
+ * @internal
+ */
 class JsonBuilderTest extends \PHPUnit\Framework\TestCase
 {
     private $table1 = [];

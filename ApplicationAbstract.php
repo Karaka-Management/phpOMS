@@ -178,11 +178,11 @@ class ApplicationAbstract
      */
     public function __set($name, $value) : void
     {
-        if (!empty($this->$name)) {
+        if (!empty($this->{$name})) {
             return;
         }
 
-        $this->$name = $value;
+        $this->{$name} = $value;
     }
 
     /**
@@ -198,6 +198,6 @@ class ApplicationAbstract
      */
     public function __get($name)
     {
-        return $this->$name;
+        return $this->{$name};
     }
 }

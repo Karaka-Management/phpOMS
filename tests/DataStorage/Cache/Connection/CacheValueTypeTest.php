@@ -10,16 +10,20 @@
  * @version    1.0.0
  * @link       http://website.orange-management.de
  */
+ declare(strict_types=1);
 
 namespace phpOMS\tests\DataStorage\Cache\Connection;
 
 use phpOMS\DataStorage\Cache\Connection\CacheValueType;
 
+/**
+ * @internal
+ */
 class CacheValueTypeTest extends \PHPUnit\Framework\TestCase
 {
     public function testEnums() : void
     {
-        self::assertEquals(8, \count(CacheValueType::getConstants()));
+        self::assertCount(8, CacheValueType::getConstants());
         self::assertEquals(0, CacheValueType::_INT);
         self::assertEquals(1, CacheValueType::_STRING);
         self::assertEquals(2, CacheValueType::_ARRAY);

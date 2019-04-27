@@ -10,16 +10,20 @@
  * @version    1.0.0
  * @link       http://website.orange-management.de
  */
+ declare(strict_types=1);
 
 namespace phpOMS\tests\Utils\Barcode;
 
 use phpOMS\Utils\Barcode\OrientationType;
 
+/**
+ * @internal
+ */
 class OrientationTypeTest extends \PHPUnit\Framework\TestCase
 {
     public function testEnums() : void
     {
-        self::assertEquals(2, \count(OrientationType::getConstants()));
+        self::assertCount(2, OrientationType::getConstants());
         self::assertEquals(OrientationType::getConstants(), \array_unique(OrientationType::getConstants()));
 
         self::assertEquals(0, OrientationType::HORIZONTAL);

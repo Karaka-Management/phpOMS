@@ -10,11 +10,15 @@
  * @version    1.0.0
  * @link       http://website.orange-management.de
  */
+ declare(strict_types=1);
 
 namespace phpOMS\tests\Utils\IO\TarGz;
 
 use phpOMS\Utils\IO\Zip\TarGz;
 
+/**
+ * @internal
+ */
 class TarGzTest extends \PHPUnit\Framework\TestCase
 {
     protected function setUp() : void
@@ -37,7 +41,7 @@ class TarGzTest extends \PHPUnit\Framework\TestCase
             __DIR__ . '/test.tar.gz'
         ));
 
-        self::assertTrue(\file_exists(__DIR__ . '/test.tar.gz'));
+        self::assertFileExists(__DIR__ . '/test.tar.gz');
 
         self::assertFalse(TarGz::pack(
             [
@@ -62,23 +66,23 @@ class TarGzTest extends \PHPUnit\Framework\TestCase
         \rmdir(__DIR__ . '/test/sub');
         \rmdir(__DIR__ . '/test');
 
-        self::assertFalse(\file_exists(__DIR__ . '/test a.txt'));
-        self::assertFalse(\file_exists(__DIR__ . '/test b.md'));
-        self::assertFalse(\file_exists(__DIR__ . '/test/test c.txt'));
-        self::assertFalse(\file_exists(__DIR__ . '/test/test d.txt'));
-        self::assertFalse(\file_exists(__DIR__ . '/test/sub/test e.txt'));
-        self::assertFalse(\file_exists(__DIR__ . '/test/sub'));
-        self::assertFalse(\file_exists(__DIR__ . '/test'));
+        self::assertFileNotExists(__DIR__ . '/test a.txt');
+        self::assertFileNotExists(__DIR__ . '/test b.md');
+        self::assertFileNotExists(__DIR__ . '/test/test c.txt');
+        self::assertFileNotExists(__DIR__ . '/test/test d.txt');
+        self::assertFileNotExists(__DIR__ . '/test/sub/test e.txt');
+        self::assertFileNotExists(__DIR__ . '/test/sub');
+        self::assertFileNotExists(__DIR__ . '/test');
 
         self::assertTrue(TarGz::unpack(__DIR__ . '/test.tar.gz', __DIR__));
 
-        self::assertTrue(\file_exists(__DIR__ . '/test a.txt'));
-        self::assertTrue(\file_exists(__DIR__ . '/test b.md'));
-        self::assertTrue(\file_exists(__DIR__ . '/test/test c.txt'));
-        self::assertTrue(\file_exists(__DIR__ . '/test/test d.txt'));
-        self::assertTrue(\file_exists(__DIR__ . '/test/sub/test e.txt'));
-        self::assertTrue(\file_exists(__DIR__ . '/test/sub'));
-        self::assertTrue(\file_exists(__DIR__ . '/test'));
+        self::assertFileExists(__DIR__ . '/test a.txt');
+        self::assertFileExists(__DIR__ . '/test b.md');
+        self::assertFileExists(__DIR__ . '/test/test c.txt');
+        self::assertFileExists(__DIR__ . '/test/test d.txt');
+        self::assertFileExists(__DIR__ . '/test/sub/test e.txt');
+        self::assertFileExists(__DIR__ . '/test/sub');
+        self::assertFileExists(__DIR__ . '/test');
 
         self::assertEquals($a, \file_get_contents(__DIR__ . '/test a.txt'));
         self::assertEquals($b, \file_get_contents(__DIR__ . '/test b.md'));
@@ -87,7 +91,7 @@ class TarGzTest extends \PHPUnit\Framework\TestCase
         self::assertEquals($e, \file_get_contents(__DIR__ . '/test/sub/test e.txt'));
 
         \unlink(__DIR__ . '/test.tar.gz');
-        self::assertFalse(\file_exists(__DIR__ . '/test.tar.gz'));
+        self::assertFileNotExists(__DIR__ . '/test.tar.gz');
         self::assertFalse(TarGz::unpack(__DIR__ . '/test.tar.gz', __DIR__));
     }
 }

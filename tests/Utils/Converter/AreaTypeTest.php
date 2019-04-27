@@ -10,16 +10,20 @@
  * @version    1.0.0
  * @link       http://website.orange-management.de
  */
+ declare(strict_types=1);
 
 namespace phpOMS\tests\Utils\Converter;
 
 use phpOMS\Utils\Converter\AreaType;
 
+/**
+ * @internal
+ */
 class AreaTypeTest extends \PHPUnit\Framework\TestCase
 {
     public function testEnums() : void
     {
-        self::assertEquals(13, \count(AreaType::getConstants()));
+        self::assertCount(13, AreaType::getConstants());
         self::assertEquals(AreaType::getConstants(), \array_unique(AreaType::getConstants()));
 
         self::assertEquals('ft', AreaType::SQUARE_FEET);

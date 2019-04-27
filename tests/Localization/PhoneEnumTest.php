@@ -10,6 +10,7 @@
  * @version    1.0.0
  * @link       http://website.orange-management.de
  */
+ declare(strict_types=1);
 
 namespace phpOMS\tests\Localization;
 
@@ -17,6 +18,9 @@ require_once __DIR__ . '/../Autoloader.php';
 
 use phpOMS\Localization\PhoneEnum;
 
+/**
+ * @internal
+ */
 class PhoneEnumTest extends \PHPUnit\Framework\TestCase
 {
     public function testEnums() : void
@@ -26,7 +30,7 @@ class PhoneEnumTest extends \PHPUnit\Framework\TestCase
         $countryCodes = PhoneEnum::getConstants();
 
         foreach ($countryCodes as $code) {
-            if (\strlen($code) < 0 || $code > 9999) {
+            if ($code < 0 || $code > 9999) {
                 $ok = false;
                 break;
             }

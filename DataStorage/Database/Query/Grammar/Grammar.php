@@ -282,9 +282,9 @@ class Grammar extends GrammarAbstract
      * @param mixed   $value  Value
      * @param string  $prefix Prefix in case value is a table
      *
-     * @return string Returns a string representation of the value.
+     * @return string returns a string representation of the value
      *
-     * @throws \InvalidArgumentException Throws this exception if the value to compile is not supported by this function.
+     * @throws \InvalidArgumentException throws this exception if the value to compile is not supported by this function
      *
      * @since  1.0.0
      */

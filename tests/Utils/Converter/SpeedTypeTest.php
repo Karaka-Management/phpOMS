@@ -10,16 +10,20 @@
  * @version    1.0.0
  * @link       http://website.orange-management.de
  */
+ declare(strict_types=1);
 
 namespace phpOMS\tests\Utils\Converter;
 
 use phpOMS\Utils\Converter\SpeedType;
 
+/**
+ * @internal
+ */
 class SpeedTypeTest extends \PHPUnit\Framework\TestCase
 {
     public function testEnums() : void
     {
-        self::assertEquals(34, \count(SpeedType::getConstants()));
+        self::assertCount(34, SpeedType::getConstants());
         self::assertEquals(SpeedType::getConstants(), \array_unique(SpeedType::getConstants()));
 
         self::assertEquals('mpd', SpeedType::MILES_PER_DAY);

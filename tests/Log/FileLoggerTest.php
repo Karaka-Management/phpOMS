@@ -10,6 +10,7 @@
  * @version    1.0.0
  * @link       http://website.orange-management.de
  */
+ declare(strict_types=1);
 
 namespace phpOMS\tests\Log;
 
@@ -18,6 +19,9 @@ use phpOMS\Log\LogLevel;
 
 require_once __DIR__ . '/../Autoloader.php';
 
+/**
+ * @internal
+ */
 class FileLoggerTest extends \PHPUnit\Framework\TestCase
 {
     public function testAttributes() : void

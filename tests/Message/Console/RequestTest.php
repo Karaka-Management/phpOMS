@@ -10,6 +10,7 @@
  * @version    1.0.0
  * @link       http://website.orange-management.de
  */
+ declare(strict_types=1);
 
 namespace phpOMS\tests\Message\Console;
 
@@ -20,6 +21,9 @@ use phpOMS\Message\Http\RequestMethod;
 use phpOMS\Router\RouteVerb;
 use phpOMS\Uri\Argument;
 
+/**
+ * @internal
+ */
 class RequestTest extends \PHPUnit\Framework\TestCase
 {
     public function testDefault() : void
@@ -36,7 +40,7 @@ class RequestTest extends \PHPUnit\Framework\TestCase
         self::assertInstanceOf('\phpOMS\Message\Console\Header', $request->getHeader());
         self::assertEquals('', $request->__toString());
         self::assertFalse($request->hasData('key'));
-        self::assertEquals(null, $request->getData('key'));
+        self::assertNull($request->getData('key'));
     }
 
     public function testSetGet() : void

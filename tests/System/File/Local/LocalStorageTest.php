@@ -10,12 +10,16 @@
  * @version    1.0.0
  * @link       http://website.orange-management.de
  */
+ declare(strict_types=1);
 
 namespace phpOMS\tests\System\File\Local;
 
 use phpOMS\System\File\ContentPutMode;
 use phpOMS\System\File\Local\LocalStorage;
 
+/**
+ * @internal
+ */
 class LocalStorageTest extends \PHPUnit\Framework\TestCase
 {
     public function testFile() : void
@@ -111,18 +115,18 @@ class LocalStorageTest extends \PHPUnit\Framework\TestCase
     {
         $dirTestPath = __DIR__ . '/dirtest';
         self::assertTrue(LocalStorage::copy($dirTestPath, __DIR__ . '/newdirtest'));
-        self::assertTrue(\file_exists(__DIR__ . '/newdirtest/sub/path/test3.txt'));
+        self::assertFileExists(__DIR__ . '/newdirtest/sub/path/test3.txt');
 
         self::assertTrue(LocalStorage::delete($dirTestPath));
         self::assertFalse(LocalStorage::exists($dirTestPath));
 
         self::assertTrue(LocalStorage::move(__DIR__ . '/newdirtest', $dirTestPath));
-        self::assertTrue(\file_exists($dirTestPath . '/sub/path/test3.txt'));
+        self::assertFileExists($dirTestPath . '/sub/path/test3.txt');
 
         self::assertEquals(4, LocalStorage::count($dirTestPath));
         self::assertEquals(1, LocalStorage::count($dirTestPath, false));
 
-        self::assertEquals(6, \count(LocalStorage::list($dirTestPath)));
+        self::assertCount(6, LocalStorage::list($dirTestPath));
     }
 
     public function testInvalidPutPath() : void

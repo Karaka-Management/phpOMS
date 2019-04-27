@@ -478,7 +478,7 @@ class Name
                 'Yıldırım', 'Öztürk', 'Aydın', 'Özdemir', 'Arslan', 'Doğan', 'Kılıç', 'Aslan', 'Çetin', 'Kara',
                 'Koç', 'Kurt', 'Özkan', 'Şimşek',
             ],
-        ]
+        ],
     ];
 
     /**

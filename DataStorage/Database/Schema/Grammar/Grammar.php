@@ -57,7 +57,7 @@ class Grammar extends QueryGrammar
     protected $createTablesComponents = [
         'createTable',
         'createFields',
-        'createTableSettings'
+        'createTableSettings',
     ];
 
     /**
@@ -134,7 +134,7 @@ class Grammar extends QueryGrammar
     /**
      * Compile drop query.
      *
-     * @param BuilderAbstract $query  Query
+     * @param BuilderAbstract $query Query
      * @param string          $table Tables to drop
      *
      * @return string
@@ -155,7 +155,7 @@ class Grammar extends QueryGrammar
     /**
      * Compile drop query.
      *
-     * @param BuilderAbstract $query  Query
+     * @param BuilderAbstract $query Query
      * @param string          $table Tables to drop
      *
      * @return string

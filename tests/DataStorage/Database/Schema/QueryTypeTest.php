@@ -10,16 +10,20 @@
  * @version    1.0.0
  * @link       http://website.orange-management.de
  */
+ declare(strict_types=1);
 
 namespace phpOMS\tests\DataStorage\Database\Schema;
 
 use phpOMS\DataStorage\Database\Schema\QueryType;
 
+/**
+ * @internal
+ */
 class QueryTypeTest extends \PHPUnit\Framework\TestCase
 {
     public function testEnums() : void
     {
-        self::assertEquals(13, \count(QueryType::getConstants()));
+        self::assertCount(13, QueryType::getConstants());
         self::assertEquals(QueryType::getConstants(), \array_unique(QueryType::getConstants()));
 
         self::assertEquals(128, QueryType::DROP_DATABASE);

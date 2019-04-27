@@ -46,7 +46,7 @@ final class ConnectionFactory
      *
      * @return ConnectionAbstract
      *
-     * @throws \InvalidArgumentException Throws this exception if the database is not supported.
+     * @throws \InvalidArgumentException throws this exception if the database is not supported
      *
      * @since  1.0.0
      */

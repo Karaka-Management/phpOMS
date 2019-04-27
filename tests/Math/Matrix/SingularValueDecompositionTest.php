@@ -10,6 +10,7 @@
  * @version    1.0.0
  * @link       http://website.orange-management.de
  */
+ declare(strict_types=1);
 
 namespace phpOMS\tests\Math\Matrix;
 
@@ -18,6 +19,8 @@ use phpOMS\Math\Matrix\SingularValueDecomposition;
 
 /**
  * @testdox phpOMS\tests\Math\Matrix\SingularValueDecompositionTest: Singular Value Decomposition
+ *
+ * @internal
  */
 class SingularValueDecompositionTest extends \PHPUnit\Framework\TestCase
 {

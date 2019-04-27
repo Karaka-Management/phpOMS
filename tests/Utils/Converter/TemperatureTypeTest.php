@@ -10,16 +10,20 @@
  * @version    1.0.0
  * @link       http://website.orange-management.de
  */
+ declare(strict_types=1);
 
 namespace phpOMS\tests\Utils\Converter;
 
 use phpOMS\Utils\Converter\TemperatureType;
 
+/**
+ * @internal
+ */
 class TemperatureTypeTest extends \PHPUnit\Framework\TestCase
 {
     public function testEnums() : void
     {
-        self::assertEquals(8, \count(TemperatureType::getConstants()));
+        self::assertCount(8, TemperatureType::getConstants());
         self::assertEquals(TemperatureType::getConstants(), \array_unique(TemperatureType::getConstants()));
 
         self::assertEquals('celsius', TemperatureType::CELSIUS);

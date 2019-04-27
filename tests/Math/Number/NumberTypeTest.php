@@ -10,16 +10,20 @@
  * @version    1.0.0
  * @link       http://website.orange-management.de
  */
+ declare(strict_types=1);
 
 namespace phpOMS\tests\Math\Number;
 
 use phpOMS\Math\Number\NumberType;
 
+/**
+ * @internal
+ */
 class NumberTypeTest extends \PHPUnit\Framework\TestCase
 {
     public function testEnums() : void
     {
-        self::assertEquals(9, \count(NumberType::getConstants()));
+        self::assertCount(9, NumberType::getConstants());
         self::assertEquals(NumberType::getConstants(), \array_unique(NumberType::getConstants()));
 
         self::assertEquals(0, NumberType::N_INTEGER);

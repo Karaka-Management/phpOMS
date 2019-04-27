@@ -10,15 +10,18 @@
  * @version    1.0.0
  * @link       http://website.orange-management.de
  */
+ declare(strict_types=1);
 
 namespace phpOMS\tests\System\File\Ftp;
 
 use phpOMS\System\File\ContentPutMode;
 use phpOMS\System\File\Ftp\Directory;
 use phpOMS\System\File\Ftp\File;
-use phpOMS\System\File\PathException;
 use phpOMS\Uri\Http;
 
+/**
+ * @internal
+ */
 class FileTest extends \PHPUnit\Framework\TestCase
 {
     const BASE = 'ftp://test:123456@127.0.0.1:20';

@@ -37,7 +37,7 @@ abstract class StorageAbstract
     /**
      * Get instance.
      *
-     * @return StorageAbstract Storage instance.
+     * @return StorageAbstract storage instance
      *
      * @since  1.0.0
      */
@@ -57,7 +57,7 @@ abstract class StorageAbstract
     /**
      * Get storage type.
      *
-     * @return int Storage type.
+     * @return int storage type
      *
      * @since  1.0.0
      */

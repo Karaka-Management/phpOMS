@@ -10,12 +10,16 @@
  * @version    1.0.0
  * @link       http://website.orange-management.de
  */
+ declare(strict_types=1);
 
 namespace phpOMS\tests\Stdlib\Base;
 
 use phpOMS\Stdlib\Base\Address;
 use phpOMS\Stdlib\Base\Location;
 
+/**
+ * @internal
+ */
 class AddressTest extends \PHPUnit\Framework\TestCase
 {
     public function testAttributes() : void
@@ -39,9 +43,9 @@ class AddressTest extends \PHPUnit\Framework\TestCase
                 'state' => '',
                 'geo' => [
                     'lat' => 0,
-                    'long' => 0
+                    'long' => 0,
                 ],
-            ]
+            ],
         ];
 
         $address = new Address();
@@ -65,9 +69,9 @@ class AddressTest extends \PHPUnit\Framework\TestCase
                 'state' => '',
                 'geo' => [
                     'lat' => 0,
-                    'long' => 0
+                    'long' => 0,
                 ],
-            ]
+            ],
         ];
 
         $address = new Address();

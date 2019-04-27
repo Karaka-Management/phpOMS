@@ -10,11 +10,15 @@
  * @version    1.0.0
  * @link       http://website.orange-management.de
  */
+ declare(strict_types=1);
 
 namespace phpOMS\tests\DataStorage\Database\Query\Grammar;
 
 use phpOMS\DataStorage\Database\Query\Grammar\PostgresGrammar;
 
+/**
+ * @internal
+ */
 class PostgresGrammarTest extends \PHPUnit\Framework\TestCase
 {
     public function testDefault() : void

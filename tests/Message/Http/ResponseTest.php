@@ -10,13 +10,16 @@
  * @version    1.0.0
  * @link       http://website.orange-management.de
  */
+ declare(strict_types=1);
 
 namespace phpOMS\tests\Message\Http;
 
-use phpOMS\Localization\Localization;
 use phpOMS\Message\Http\Response;
 use phpOMS\System\MimeType;
 
+/**
+ * @internal
+ */
 class ResponseTest extends \PHPUnit\Framework\TestCase
 {
     public function testDefault() : void
@@ -49,10 +52,10 @@ class ResponseTest extends \PHPUnit\Framework\TestCase
             6,
             false,
             1.13,
-            'json_string'
+            'json_string',
         ];
 
-        $response->set('view', new class extends \phpOMS\Views\View {
+        $response->set('view', new class() extends \phpOMS\Views\View {
             public function toArray() : array
             {
                 return ['view_string'];
@@ -63,7 +66,7 @@ class ResponseTest extends \PHPUnit\Framework\TestCase
         $response->set('int', $data[3]);
         $response->set('bool', $data[4]);
         $response->set('float', $data[5]);
-        $response->set('jsonSerializable', new class implements \JsonSerializable {
+        $response->set('jsonSerializable', new class() implements \JsonSerializable {
             public function jsonSerialize()
             {
                 return 'json_string';
@@ -80,7 +83,7 @@ class ResponseTest extends \PHPUnit\Framework\TestCase
     public function testInvalidResponseData() : void
     {
         $response = new Response();
-        $response->set('invalid', new class {});
+        $response->set('invalid', new class() {});
         self::assertEquals([], $response->toArray());
     }
 }

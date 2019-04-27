@@ -10,12 +10,16 @@
  * @version    1.0.0
  * @link       http://website.orange-management.de
  */
+ declare(strict_types=1);
 
 namespace phpOMS\tests\DataStorage\Database\Schema;
 
 use phpOMS\DataStorage\Database\Connection\MysqlConnection;
 use phpOMS\DataStorage\Database\Schema\Builder;
 
+/**
+ * @internal
+ */
 class BuilderTest extends \PHPUnit\Framework\TestCase
 {
     protected $con = null;

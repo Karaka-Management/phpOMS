@@ -10,6 +10,7 @@
  * @version    1.0.0
  * @link       http://website.orange-management.de
  */
+ declare(strict_types=1);
 
 namespace phpOMS\tests\Utils\Git;
 
@@ -19,6 +20,9 @@ use phpOMS\Utils\Git\Commit;
 use phpOMS\Utils\Git\Repository;
 use phpOMS\Utils\Git\Tag;
 
+/**
+ * @internal
+ */
 class CommitTest extends \PHPUnit\Framework\TestCase
 {
     public function testDefault() : void
@@ -43,13 +47,13 @@ class CommitTest extends \PHPUnit\Framework\TestCase
         self::assertTrue($commit->addFile('/some/file/path2'));
         self::assertEquals([
             '/some/file/path' => [],
-            '/some/file/path2' => []
+            '/some/file/path2' => [],
         ], $commit->getFiles());
 
         self::assertFalse($commit->removeFile('/some/file/path3'));
         self::assertTrue($commit->removeFile('/some/file/path'));
         self::assertEquals([
-            '/some/file/path2' => []
+            '/some/file/path2' => [],
         ], $commit->getFiles());
     }
 
@@ -63,9 +67,9 @@ class CommitTest extends \PHPUnit\Framework\TestCase
                 __DIR__ . '/CommitTest.php' => [
                     1 => [
                         'old' => '<?php',
-                        'new' => 'test'
-                    ]
-                ]
+                        'new' => 'test',
+                    ],
+                ],
             ], $commit->getFiles());
     }
 

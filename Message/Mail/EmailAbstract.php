@@ -89,10 +89,10 @@ class EmailAbstract
         $this->timeout = $timeout;
         $this->ssl     = $ssl;
 
-        \imap_timeout(IMAP_OPENTIMEOUT, $timeout);
-        \imap_timeout(IMAP_READTIMEOUT, $timeout);
-        \imap_timeout(IMAP_WRITETIMEOUT, $timeout);
-        \imap_timeout(IMAP_CLOSETIMEOUT, $timeout);
+        \imap_timeout(\IMAP_OPENTIMEOUT, $timeout);
+        \imap_timeout(\IMAP_READTIMEOUT, $timeout);
+        \imap_timeout(\IMAP_WRITETIMEOUT, $timeout);
+        \imap_timeout(\IMAP_CLOSETIMEOUT, $timeout);
     }
 
     /**
@@ -259,7 +259,7 @@ class EmailAbstract
      */
     public function getInboxOverview(string $option = 'ALL') : array
     {
-        $ids = \imap_search($this->con, $option, SE_FREE, 'UTF-8');
+        $ids = \imap_search($this->con, $option, \SE_FREE, 'UTF-8');
 
         return \is_array($ids) ? \imap_fetch_overview($this->con, \implode(',', $ids)) : [];
     }

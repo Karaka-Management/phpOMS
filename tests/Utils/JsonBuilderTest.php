@@ -10,6 +10,7 @@
  * @version    1.0.0
  * @link       http://website.orange-management.de
  */
+ declare(strict_types=1);
 
 namespace phpOMS\tests\Utils;
 
@@ -17,6 +18,9 @@ use phpOMS\Utils\JsonBuilder;
 
 require_once __DIR__ . '/../Autoloader.php';
 
+/**
+ * @internal
+ */
 class JsonBuilderTest extends \PHPUnit\Framework\TestCase
 {
     public function testDefault() : void

@@ -10,11 +10,15 @@
  * @version    1.0.0
  * @link       http://website.orange-management.de
  */
+ declare(strict_types=1);
 
 namespace phpOMS\tests\Utils\Converter;
 
 use phpOMS\Utils\Converter\File;
 
+/**
+ * @internal
+ */
 class FileTest extends \PHPUnit\Framework\TestCase
 {
     public function testByteSizeToString() : void

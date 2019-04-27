@@ -35,7 +35,7 @@ final class Validator extends ValidatorAbstract
      *
      * @return bool
      *
-     * @throws \BadFunctionCallException This exception is thrown if the callback is not callable.
+     * @throws \BadFunctionCallException this exception is thrown if the callback is not callable
      *
      * @since  1.0.0
      */
@@ -99,7 +99,7 @@ final class Validator extends ValidatorAbstract
      *
      * @since  1.0.0
      */
-    public static function hasLength(string $var, int $min = 0, int $max = PHP_INT_MAX) : bool
+    public static function hasLength(string $var, int $min = 0, int $max = \PHP_INT_MAX) : bool
     {
         $length = \strlen($var);
 
@@ -151,7 +151,7 @@ final class Validator extends ValidatorAbstract
      *
      * @since  1.0.0
      */
-    public static function hasLimit($var, $min = 0, $max = PHP_INT_MAX) : bool
+    public static function hasLimit($var, $min = 0, $max = \PHP_INT_MAX) : bool
     {
         if ($var <= $max && $var >= $min) {
             return true;

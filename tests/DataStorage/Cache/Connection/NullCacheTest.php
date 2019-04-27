@@ -10,12 +10,16 @@
  * @version    1.0.0
  * @link       http://website.orange-management.de
  */
+ declare(strict_types=1);
 
 namespace phpOMS\tests\DataStorage\Cache\Connection;
 
 use phpOMS\DataStorage\Cache\CacheType;
 use phpOMS\DataStorage\Cache\Connection\NullCache;
 
+/**
+ * @internal
+ */
 class NullCacheTest extends \PHPUnit\Framework\TestCase
 {
     public function testCache() : void
@@ -28,7 +32,7 @@ class NullCacheTest extends \PHPUnit\Framework\TestCase
         self::assertTrue($cache->add(1, 1));
 
         $cache->set(1, 1);
-        self::assertEquals(null, $cache->get(1));
+        self::assertNull($cache->get(1));
 
         self::assertTrue($cache->delete(1));
         self::assertTrue($cache->flush(1));

@@ -138,7 +138,7 @@ abstract class ViewAbstract implements RenderableInterface
      *
      * @since  1.0.0
      */
-    public function getView($id)
+    public function getView(string $id)
     {
         if (!isset($this->views[$id])) {
             return false;

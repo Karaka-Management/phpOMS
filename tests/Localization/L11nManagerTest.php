@@ -10,6 +10,7 @@
  * @version    1.0.0
  * @link       http://website.orange-management.de
  */
+ declare(strict_types=1);
 
 namespace phpOMS\tests\Localization;
 
@@ -17,6 +18,9 @@ use phpOMS\Localization\L11nManager;
 
 require_once __DIR__ . '/../Autoloader.php';
 
+/**
+ * @internal
+ */
 class L11nManagerTest extends \PHPUnit\Framework\TestCase
 {
     public function testAttributes() : void
@@ -42,9 +46,9 @@ class L11nManagerTest extends \PHPUnit\Framework\TestCase
         $expected = [
             'en' => [
                 'Admin' => [
-                    'Test' => 'Test string'
-                ]
-            ]
+                    'Test' => 'Test string',
+                ],
+            ],
         ];
 
         $localization = new L11nManager('Api');
@@ -56,17 +60,17 @@ class L11nManagerTest extends \PHPUnit\Framework\TestCase
         $expected = [
             'en' => [
                 'Admin' => [
-                    'Test' => 'Test string'
-                ]
-            ]
+                    'Test' => 'Test string',
+                ],
+            ],
         ];
 
         $expected2 = [
             'en' => [
                 'Admin' => [
-                    'Test2' => 'Test strin&g2'
-                ]
-            ]
+                    'Test2' => 'Test strin&g2',
+                ],
+            ],
         ];
 
         $l11nManager = new L11nManager('Api');

@@ -38,7 +38,7 @@ class NormalDistribution
      */
     public static function getPdf(float $x, float $mu, float $sig) : float
     {
-        return 1 / ($sig * \sqrt(2 * \pi())) * \exp(-($x - $mu) ** 2 / (2 * $sig ** 2));
+        return 1 / ($sig * \sqrt(2 * \M_PI)) * \exp(-($x - $mu) ** 2 / (2 * $sig ** 2));
     }
 
     /**
@@ -72,9 +72,9 @@ class NormalDistribution
             return -self::erf(-$x);
         }
 
-        $a = 8 * (\pi() - 3) / (3 * \pi() * (4 - \pi()));
+        $a = 8 * (\M_PI - 3) / (3 * \M_PI * (4 - \M_PI));
 
-        return \sqrt(1 - \exp(-($x ** 2) * (4 / \pi() + $a * $x ** 2) / (1 + $a * $x ** 2)));
+        return \sqrt(1 - \exp(-($x ** 2) * (4 / \M_PI + $a * $x ** 2) / (1 + $a * $x ** 2)));
     }
 
     /**

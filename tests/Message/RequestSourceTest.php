@@ -10,6 +10,7 @@
  * @version    1.0.0
  * @link       http://website.orange-management.de
  */
+ declare(strict_types=1);
 
 namespace phpOMS\tests\Message;
 
@@ -17,11 +18,14 @@ require_once __DIR__ . '/../Autoloader.php';
 
 use phpOMS\Message\RequestSource;
 
+/**
+ * @internal
+ */
 class RequestSourceTest extends \PHPUnit\Framework\TestCase
 {
     public function testEnums() : void
     {
-        self::assertEquals(4, \count(RequestSource::getConstants()));
+        self::assertCount(4, RequestSource::getConstants());
         self::assertEquals(0, RequestSource::WEB);
         self::assertEquals(1, RequestSource::CONSOLE);
         self::assertEquals(2, RequestSource::SOCKET);

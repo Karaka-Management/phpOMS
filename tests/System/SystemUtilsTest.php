@@ -10,6 +10,7 @@
  * @version    1.0.0
  * @link       http://website.orange-management.de
  */
+ declare(strict_types=1);
 
 namespace phpOMS\tests\System;
 
@@ -19,6 +20,8 @@ require_once __DIR__ . '/../Autoloader.php';
 
 /**
  * @testdox phpOMS\System\SystemUtils: System information
+ *
+ * @internal
  */
 class SystemUtilsTest extends \PHPUnit\Framework\TestCase
 {
@@ -29,11 +32,11 @@ class SystemUtilsTest extends \PHPUnit\Framework\TestCase
     {
         self::assertGreaterThan(0, SystemUtils::getRAM());
 
-        if (\stristr(PHP_OS, 'WIN')) {
+        if (\stristr(\PHP_OS, 'WIN')) {
             self::assertEquals(0, SystemUtils::getRAMUsage());
         }
 
-        if (!\stristr(PHP_OS, 'WIN')) {
+        if (!\stristr(\PHP_OS, 'WIN')) {
             self::assertGreaterThan(0, SystemUtils::getRAMUsage());
         }
     }

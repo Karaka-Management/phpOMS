@@ -10,6 +10,7 @@
  * @version    1.0.0
  * @link       http://website.orange-management.de
  */
+ declare(strict_types=1);
 
 namespace phpOMS\tests\Message\Http;
 
@@ -17,6 +18,9 @@ use phpOMS\Localization\Localization;
 use phpOMS\Message\Http\Header;
 use phpOMS\Message\Http\RequestStatusCode;
 
+/**
+ * @internal
+ */
 class HeaderTest extends \PHPUnit\Framework\TestCase
 {
     public function testDefaults() : void

@@ -10,11 +10,15 @@
  * @version    1.0.0
  * @link       http://website.orange-management.de
  */
+ declare(strict_types=1);
 
 namespace phpOMS\tests\Utils\Encoding\Huffman;
 
 use phpOMS\Utils\Encoding\Huffman\Huffman;
 
+/**
+ * @internal
+ */
 class HuffmanTest extends \PHPUnit\Framework\TestCase
 {
     public function testHuffman() : void

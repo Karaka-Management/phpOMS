@@ -64,7 +64,7 @@ class CommandManager implements \Countable
     public function attach(string $cmd, $callback, $source) : void
     {
         $this->commands[$cmd] = [$callback, $source];
-        $this->count++;
+        ++$this->count;
     }
 
     /**
@@ -81,7 +81,7 @@ class CommandManager implements \Countable
     {
         if (\array_key_exists($cmd, $this->commands)) {
             unset($this->commands[$cmd]);
-            $this->count--;
+            --$this->count;
         }
     }
 

@@ -37,7 +37,7 @@ class Evaluator
      */
     public static function evaluate(string $equation) : ?float
     {
-        if (\preg_match('#[^0-9\+\-\*\/\(\)\ \^\.]#', $equation)) {
+        if (\substr_count($equation, '(') !== \substr_count($equation, ')') || \preg_match('#[^0-9\+\-\*\/\(\)\ \^\.]#', $equation)) {
             return null;
         }
 
@@ -106,7 +106,7 @@ class Evaluator
         $output    = [];
 
         $equation = \str_replace(' ', '', $equation);
-        $equation = \preg_split('/([\+\-\*\/\^\(\)])/', $equation, -1, PREG_SPLIT_NO_EMPTY | PREG_SPLIT_DELIM_CAPTURE);
+        $equation = \preg_split('/([\+\-\*\/\^\(\)])/', $equation, -1, \PREG_SPLIT_NO_EMPTY | \PREG_SPLIT_DELIM_CAPTURE);
 
         if ($equation === false) {
             return [];

@@ -10,11 +10,15 @@
  * @version    1.0.0
  * @link       http://website.orange-management.de
  */
+ declare(strict_types=1);
 
 namespace phpOMS\tests\System\File\Local;
 
 use phpOMS\System\File\Local\Directory;
 
+/**
+ * @internal
+ */
 class DirectoryTest extends \PHPUnit\Framework\TestCase
 {
     public function testStatic() : void
@@ -51,19 +55,19 @@ class DirectoryTest extends \PHPUnit\Framework\TestCase
     {
         $dirTestPath = __DIR__ . '/dirtest';
         self::assertTrue(Directory::copy($dirTestPath, __DIR__ . '/newdirtest'));
-        self::assertTrue(\file_exists(__DIR__ . '/newdirtest/sub/path/test3.txt'));
+        self::assertFileExists(__DIR__ . '/newdirtest/sub/path/test3.txt');
 
         self::assertTrue(Directory::delete($dirTestPath));
         self::assertFalse(Directory::exists($dirTestPath));
 
         self::assertTrue(Directory::move(__DIR__ . '/newdirtest', $dirTestPath));
-        self::assertTrue(\file_exists($dirTestPath . '/sub/path/test3.txt'));
+        self::assertFileExists($dirTestPath . '/sub/path/test3.txt');
 
         self::assertEquals(4, Directory::count($dirTestPath));
         self::assertEquals(1, Directory::count($dirTestPath, false));
 
-        self::assertEquals(6, \count(Directory::list($dirTestPath)));
-        self::assertEquals(3, \count(Directory::listByExtension($dirTestPath, 'txt')));
+        self::assertCount(6, Directory::list($dirTestPath));
+        self::assertCount(3, Directory::listByExtension($dirTestPath, 'txt'));
     }
 
     public function testInvalidListPath() : void

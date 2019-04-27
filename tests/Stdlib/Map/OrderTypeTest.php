@@ -10,16 +10,20 @@
  * @version    1.0.0
  * @link       http://website.orange-management.de
  */
+ declare(strict_types=1);
 
 namespace phpOMS\tests\Stdlib\Map;
 
 use phpOMS\Stdlib\Map\OrderType;
 
+/**
+ * @internal
+ */
 class OrderTypeTest extends \PHPUnit\Framework\TestCase
 {
     public function testEnums() : void
     {
-        self::assertEquals(2, \count(OrderType::getConstants()));
+        self::assertCount(2, OrderType::getConstants());
         self::assertEquals(0, OrderType::LOOSE);
         self::assertEquals(1, OrderType::STRICT);
     }

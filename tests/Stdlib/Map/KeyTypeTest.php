@@ -10,16 +10,20 @@
  * @version    1.0.0
  * @link       http://website.orange-management.de
  */
+ declare(strict_types=1);
 
 namespace phpOMS\tests\Stdlib\Map;
 
 use phpOMS\Stdlib\Map\KeyType;
 
+/**
+ * @internal
+ */
 class KeyTypeTest extends \PHPUnit\Framework\TestCase
 {
     public function testEnums() : void
     {
-        self::assertEquals(2, \count(KeyType::getConstants()));
+        self::assertCount(2, KeyType::getConstants());
         self::assertEquals(0, KeyType::SINGLE);
         self::assertEquals(1, KeyType::MULTIPLE);
     }

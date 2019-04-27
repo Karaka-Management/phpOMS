@@ -10,6 +10,7 @@
  * @version    1.0.0
  * @link       http://website.orange-management.de
  */
+ declare(strict_types=1);
 
 namespace phpOMS\tests\Utils;
 
@@ -17,6 +18,9 @@ use phpOMS\Utils\ArrayUtils;
 
 require_once __DIR__ . '/../Autoloader.php';
 
+/**
+ * @internal
+ */
 class ArrayUtilsTest extends \PHPUnit\Framework\TestCase
 {
     public function testArrayGetSet() : void
@@ -82,7 +86,7 @@ class ArrayUtilsTest extends \PHPUnit\Framework\TestCase
             ],
             2 => '2a',
             3 => false,
-            'c' => null
+            'c' => null,
         ];
 
         $expected_str = "['a' => ['aa' => 1, 'ab' => [0 => 'aba', 1 => 'ab0', ], ], 2 => '2a', 3 => false, 'c' => null, ]";
@@ -125,8 +129,8 @@ class ArrayUtilsTest extends \PHPUnit\Framework\TestCase
 
     public function testArg() : void
     {
-        self::assertEquals(null, ArrayUtils::hasArg('--testNull', $_SERVER['argv']));
-        self::assertEquals(null, ArrayUtils::getArg('--testNull', $_SERVER['argv']));
+        self::assertNull(ArrayUtils::hasArg('--testNull', $_SERVER['argv']));
+        self::assertNull(ArrayUtils::getArg('--testNull', $_SERVER['argv']));
 
         if (ArrayUtils::getArg('--configuration', $_SERVER['argv']) !== null) {
             self::assertGreaterThan(0, ArrayUtils::hasArg('--configuration', $_SERVER['argv']));
@@ -138,6 +142,6 @@ class ArrayUtilsTest extends \PHPUnit\Framework\TestCase
     {
         self::expectException(\InvalidArgumentException::class);
 
-        ArrayUtils::stringify([new class {}]);
+        ArrayUtils::stringify([new class() {}]);
     }
 }

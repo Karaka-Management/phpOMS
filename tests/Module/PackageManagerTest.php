@@ -10,6 +10,7 @@
  * @version    1.0.0
  * @link       http://website.orange-management.de
  */
+ declare(strict_types=1);
 
 namespace phpOMS\tests\Module;
 
@@ -19,6 +20,9 @@ use phpOMS\Module\PackageManager;
 use phpOMS\System\File\Local\Directory;
 use phpOMS\Utils\IO\Zip\Zip;
 
+/**
+ * @internal
+ */
 class PackageManagerTest extends \PHPUnit\Framework\TestCase
 {
     public static function setUpBeforeClass() : void
@@ -110,7 +114,7 @@ class PackageManagerTest extends \PHPUnit\Framework\TestCase
         );
 
         $package->extract(__DIR__ . '/testPackageExtracted');
-        \file_put_contents(__DIR__ . '/testPackageExtracted/info.json', ' ', FILE_APPEND);
+        \file_put_contents(__DIR__ . '/testPackageExtracted/info.json', ' ', \FILE_APPEND);
 
         self::assertFalse($package->isValid());
     }
@@ -126,8 +130,8 @@ class PackageManagerTest extends \PHPUnit\Framework\TestCase
         $package->extract(__DIR__ . '/testPackageExtracted');
         $package->cleanup();
 
-        self::assertFalse(\file_exists(__DIR__ . '/testPackage.zip'));
-        self::assertFalse(\file_exists(__DIR__ . '/testPackageExtracted'));
+        self::assertFileNotExists(__DIR__ . '/testPackage.zip');
+        self::assertFileNotExists(__DIR__ . '/testPackageExtracted');
     }
 
     public static function tearDownAfterClass() : void

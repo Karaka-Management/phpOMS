@@ -10,6 +10,7 @@
  * @version    1.0.0
  * @link       http://website.orange-management.de
  */
+ declare(strict_types=1);
 
 namespace phpOMS\tests\DataStorage\Cache\Connection;
 
@@ -18,6 +19,9 @@ use phpOMS\DataStorage\Cache\CacheType;
 use phpOMS\DataStorage\Cache\Connection\MemCached;
 use phpOMS\Utils\TestUtils;
 
+/**
+ * @internal
+ */
 class MemCachedTest extends \PHPUnit\Framework\TestCase
 {
     protected function setUp() : void
@@ -37,7 +41,7 @@ class MemCachedTest extends \PHPUnit\Framework\TestCase
         self::assertEquals(CacheType::MEMCACHED, $cache->getType());
         self::assertTrue($cache->flushAll());
         self::assertEquals(0, $cache->getThreshold());
-        self::assertEquals(null, $cache->get('test'));
+        self::assertNull($cache->get('test'));
     }
 
     public function testConnect() : void
@@ -63,10 +67,10 @@ class MemCachedTest extends \PHPUnit\Framework\TestCase
         self::assertEquals('testValAdd', $cache->get('addKey'));
 
         $cache->set('key2', false); // 3
-        self::assertEquals(false, $cache->get('key2'));
+        self::assertFalse($cache->get('key2'));
 
         $cache->set('key3', null); // 4
-        self::assertEquals(null, $cache->get('key3'));
+        self::assertNull($cache->get('key3'));
 
         $cache->set('key4', 4); // 5
         self::assertEquals(4, $cache->get('key4'));
@@ -83,7 +87,7 @@ class MemCachedTest extends \PHPUnit\Framework\TestCase
 
         self::assertTrue($cache->delete('key4')); // 6
         self::assertFalse($cache->delete('keyInvalid'));
-        self::assertEquals(null, $cache->get('key4'));
+        self::assertNull($cache->get('key4'));
 
         self::assertArraySubset(
             [
@@ -95,7 +99,7 @@ class MemCachedTest extends \PHPUnit\Framework\TestCase
 
         self::assertTrue($cache->flushAll());
         self::assertTrue($cache->flush());
-        self::assertEquals(null, $cache->get('key5')); // This reduces the stat count by one see stat comment. Stupid memcached!
+        self::assertNull($cache->get('key5')); // This reduces the stat count by one see stat comment. Stupid memcached!
 
         $cache->flushAll();
 
@@ -117,7 +121,7 @@ class MemCachedTest extends \PHPUnit\Framework\TestCase
 
         $cache->set('key1', 'testVal');
         self::assertFalse($cache->add('key2', 'testVal2'));
-        self::assertEquals(null, $cache->get('key1'));
+        self::assertNull($cache->get('key1'));
         self::assertFalse($cache->replace('key1', 5));
         self::assertFalse($cache->delete('key1'));
         self::assertFalse($cache->flushAll());

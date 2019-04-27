@@ -60,8 +60,8 @@ class File
             $source = self::$extensions;
         }
 
-        $key = \rand(0, \count($source) - 1);
+        $key = \mt_rand(0, \count($source) - 1);
 
-        return $source[$key][\rand(0, \count($source[$key]) - 1)];
+        return $source[$key][\mt_rand(0, \count($source[$key]) - 1)];
     }
 }

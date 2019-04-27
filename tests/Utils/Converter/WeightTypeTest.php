@@ -10,16 +10,20 @@
  * @version    1.0.0
  * @link       http://website.orange-management.de
  */
+ declare(strict_types=1);
 
 namespace phpOMS\tests\Utils\Converter;
 
 use phpOMS\Utils\Converter\WeightType;
 
+/**
+ * @internal
+ */
 class WeightTypeTest extends \PHPUnit\Framework\TestCase
 {
     public function testEnums() : void
     {
-        self::assertEquals(14, \count(WeightType::getConstants()));
+        self::assertCount(14, WeightType::getConstants());
         self::assertEquals(WeightType::getConstants(), \array_unique(WeightType::getConstants()));
 
         self::assertEquals('mg', WeightType::MICROGRAM);

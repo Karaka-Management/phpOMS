@@ -10,16 +10,20 @@
  * @version    1.0.0
  * @link       http://website.orange-management.de
  */
+ declare(strict_types=1);
 
 namespace phpOMS\tests\System\File;
 
 use phpOMS\System\File\ContentPutMode;
 
+/**
+ * @internal
+ */
 class ContentPutModeTest extends \PHPUnit\Framework\TestCase
 {
     public function testEnums() : void
     {
-        self::assertEquals(4, \count(ContentPutMode::getConstants()));
+        self::assertCount(4, ContentPutMode::getConstants());
         self::assertEquals(ContentPutMode::getConstants(), \array_unique(ContentPutMode::getConstants()));
 
         self::assertEquals(1, ContentPutMode::APPEND);

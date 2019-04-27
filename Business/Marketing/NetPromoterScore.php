@@ -69,11 +69,11 @@ final class NetPromoterScore
 
         foreach ($this->scores as $score) {
             if ($score > 8) {
-                $promoters++;
+                ++$promoters;
             } elseif ($score > 6) {
-                $passives++;
+                ++$passives;
             } else {
-                $detractors++;
+                ++$detractors;
             }
         }
 

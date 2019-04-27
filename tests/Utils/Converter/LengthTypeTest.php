@@ -10,16 +10,20 @@
  * @version    1.0.0
  * @link       http://website.orange-management.de
  */
+ declare(strict_types=1);
 
 namespace phpOMS\tests\Utils\Converter;
 
 use phpOMS\Utils\Converter\LengthType;
 
+/**
+ * @internal
+ */
 class LengthTypeTest extends \PHPUnit\Framework\TestCase
 {
     public function testEnums() : void
     {
-        self::assertEquals(21, \count(LengthType::getConstants()));
+        self::assertCount(21, LengthType::getConstants());
         self::assertEquals(LengthType::getConstants(), \array_unique(LengthType::getConstants()));
 
         self::assertEquals('mi', LengthType::MILES);

@@ -115,7 +115,7 @@ class FormValidation implements \Serializable, ArrayableInterface, \JsonSerializ
     {
         return [
             'type'       => self::TYPE,
-            'validation' => $this->validation
+            'validation' => $this->validation,
         ];
     }
 }

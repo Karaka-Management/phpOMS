@@ -10,16 +10,20 @@
  * @version    1.0.0
  * @link       http://website.orange-management.de
  */
+ declare(strict_types=1);
 
 namespace phpOMS\tests\DataStorage\Cache;
 
 use phpOMS\DataStorage\Cache\CacheStatus;
 
+/**
+ * @internal
+ */
 class CacheStatusTest extends \PHPUnit\Framework\TestCase
 {
     public function testEnums() : void
     {
-        self::assertEquals(4, \count(CacheStatus::getConstants()));
+        self::assertCount(4, CacheStatus::getConstants());
         self::assertEquals(0, CacheStatus::OK);
         self::assertEquals(1, CacheStatus::FAILURE);
         self::assertEquals(2, CacheStatus::READONLY);

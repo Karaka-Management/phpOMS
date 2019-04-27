@@ -55,7 +55,7 @@ final class MonotoneChain
             // Lower hull
             for ($i = 0; $i < $n; ++$i) {
                 while ($k >= 2 && self::cross($result[$k - 2], $result[$k - 1], $points[$i]) <= 0) {
-                    $k--;
+                    --$k;
                 }
 
                 $result[$k++] = $points[$i];
@@ -64,7 +64,7 @@ final class MonotoneChain
             // Upper hull
             for ($i = $n - 2, $t = $k + 1; $i >= 0; --$i) {
                 while ($k >= $t && self::cross($result[$k - 2], $result[$k - 1], $points[$i]) <= 0) {
-                    $k--;
+                    --$k;
                 }
 
                 $result[$k++] = $points[$i];

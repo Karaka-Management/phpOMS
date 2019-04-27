@@ -109,7 +109,7 @@ final class Request extends RequestAbstract
     public function getOS() : string
     {
         if ($this->os === null) {
-            $this->os = \strtolower(PHP_OS);
+            $this->os = \strtolower(\PHP_OS);
         }
 
         return $this->os;

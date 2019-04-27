@@ -38,7 +38,7 @@ abstract class RegressionAbstract
      *
      * @return array [b0 => ?, b1 => ?]
      *
-     * @throws InvalidDimensionException Throws this exception if the dimension of both arrays is not equal.
+     * @throws InvalidDimensionException throws this exception if the dimension of both arrays is not equal
      *
      * @since  1.0.0
      */

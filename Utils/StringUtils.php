@@ -53,7 +53,7 @@ final class StringUtils
      *
      * @example StringUtils::contains('This string', ['This', 'test']); // true
      *
-     * @return bool The function returns true if any of the needles is part of the haystack, false otherwise.
+     * @return bool the function returns true if any of the needles is part of the haystack, false otherwise
      *
      * @since  1.0.0
      */
@@ -78,7 +78,7 @@ final class StringUtils
      *
      * @example StringUtils::mb_contains('This string', ['This', 'test']); // true
      *
-     * @return bool The function returns true if any of the needles is part of the haystack, false otherwise.
+     * @return bool the function returns true if any of the needles is part of the haystack, false otherwise
      *
      * @since  1.0.0
      */
@@ -100,11 +100,11 @@ final class StringUtils
      * In case of an array the function will test if any of the needles is at the end of the haystack string.
      *
      * @param string       $haystack Haystack
-     * @param array|string $needles  Needles to check if they are at the end of the haystack.
+     * @param array|string $needles  needles to check if they are at the end of the haystack
      *
      * @example StringUtils::endsWith('Test string', ['test1', 'string']); // true
      *
-     * @return bool The function returns true if any of the needles is at the end of the haystack, false otherwise.
+     * @return bool the function returns true if any of the needles is at the end of the haystack, false otherwise
      *
      * @since  1.0.0
      */
@@ -130,13 +130,13 @@ final class StringUtils
      * In case of an array the function will test if any of the needles is at the beginning of the haystack string.
      *
      * @param string       $haystack Haystack
-     * @param array|string $needles  Needles to check if they are at the beginning of the haystack.
+     * @param array|string $needles  needles to check if they are at the beginning of the haystack
      *
      * @example StringUtils::startsWith('Test string', ['Test', 'something']); // true
      * @example StringUtils::startsWith('Test string', 'string'); // false
      * @example StringUtils::startsWith('Test string', 'Test'); // true
      *
-     * @return bool The function returns true if any of the needles is at the beginning of the haystack, false otherwise.
+     * @return bool the function returns true if any of the needles is at the beginning of the haystack, false otherwise
      *
      * @since  1.0.0
      */
@@ -162,9 +162,9 @@ final class StringUtils
      * In case of an array the function will test if any of the needles is at the beginning of the haystack string.
      *
      * @param string       $haystack Haystack
-     * @param array|string $needles  Needles to check if they are at the beginning of the haystack.
+     * @param array|string $needles  needles to check if they are at the beginning of the haystack
      *
-     * @return bool The function returns true if any of the needles is at the beginning of the haystack, false otherwise.
+     * @return bool the function returns true if any of the needles is at the beginning of the haystack, false otherwise
      *
      * @since  1.0.0
      */
@@ -190,13 +190,13 @@ final class StringUtils
      * In case of an array the function will test if any of the needles is at the end of the haystack string.
      *
      * @param string       $haystack Haystack
-     * @param array|string $needles  Needles to check if they are at the end of the haystack.
+     * @param array|string $needles  needles to check if they are at the end of the haystack
      *
      * @example StringUtils::endsWith('Test string', ['test1', 'string']); // true
      * @example StringUtils::endsWith('Test string', 'string'); // true
      * @example StringUtils::endsWith('Test string', String); // false
      *
-     * @return bool The function returns true if any of the needles is at the end of the haystack, false otherwise.
+     * @return bool the function returns true if any of the needles is at the end of the haystack, false otherwise
      *
      * @since  1.0.0
      */
@@ -218,9 +218,9 @@ final class StringUtils
     /**
      * Makes first letter of a multi byte string upper case.
      *
-     * @param string $string String to upper case first letter.
+     * @param string $string string to upper case first letter
      *
-     * @return string Multi byte string with first character as upper case.
+     * @return string multi byte string with first character as upper case
      *
      * @since  1.0.0
      */
@@ -236,9 +236,9 @@ final class StringUtils
     /**
      * Makes first letter of a multi byte string lower case.
      *
-     * @param string $string String to lower case first letter.
+     * @param string $string string to lower case first letter
      *
-     * @return string Multi byte string with first character as lower case.
+     * @return string multi byte string with first character as lower case
      *
      * @since  1.0.0
      */
@@ -254,10 +254,10 @@ final class StringUtils
     /**
      * Trim multi byte characters from a multi byte string.
      *
-     * @param string $string   Multi byte string to trim multi byte characters from.
+     * @param string $string   multi byte string to trim multi byte characters from
      * @param string $charlist Multi byte character list used for trimming
      *
-     * @return string Trimmed multi byte string.
+     * @return string trimmed multi byte string
      *
      * @since  1.0.0
      */
@@ -275,10 +275,10 @@ final class StringUtils
     /**
      * Trim multi byte characters from the right of a multi byte string.
      *
-     * @param string $string   Multi byte string to trim multi byte characters from.
+     * @param string $string   multi byte string to trim multi byte characters from
      * @param string $charlist Multi byte character list used for trimming
      *
-     * @return string Trimmed multi byte string.
+     * @return string trimmed multi byte string
      *
      * @since  1.0.0
      */
@@ -296,10 +296,10 @@ final class StringUtils
     /**
      * Trim multi byte characters from the left of a multi byte string.
      *
-     * @param string $string   Multi byte string to trim multi byte characters from.
+     * @param string $string   multi byte string to trim multi byte characters from
      * @param string $charlist Multi byte character list used for trimming
      *
-     * @return string Trimmed multi byte string.
+     * @return string trimmed multi byte string
      *
      * @since  1.0.0
      */
@@ -317,13 +317,13 @@ final class StringUtils
     /**
      * Count occurences of character at the beginning of a string.
      *
-     * @param string $string    String to analyze.
-     * @param string $character Character to count at the beginning of the string.
+     * @param string $string    string to analyze
+     * @param string $character character to count at the beginning of the string
      *
      * @example StringUtils::countCharacterFromStart('    Test string', ' '); // 4
      * @example StringUtils::countCharacterFromStart('    Test string', 's'); // 0
      *
-     * @return int The amount of repeating occurences at the beginning of the string.
+     * @return int the amount of repeating occurences at the beginning of the string
      *
      * @since  1.0.0
      */
@@ -346,7 +346,7 @@ final class StringUtils
     /**
      * Calculate string entropy
      *
-     * @param string $value String to analyze.
+     * @param string $value string to analyze
      *
      * @return float
      *
@@ -369,7 +369,7 @@ final class StringUtils
     /**
      * Count chars of utf-8 string.
      *
-     * @param string $input String to count chars.
+     * @param string $input string to count chars
      *
      * @return array<string, int>
      *
@@ -387,7 +387,7 @@ final class StringUtils
                 $unique[$char] = 0;
             }
 
-            $unique[$char]++;
+            ++$unique[$char];
         }
 
         return $unique;
@@ -396,7 +396,7 @@ final class StringUtils
     /**
      * Turn value into string
      *
-     * @param mixed $element Value to stringify.
+     * @param mixed $element value to stringify
      * @param mixed $option  Stringify option
      *
      * @return null|string

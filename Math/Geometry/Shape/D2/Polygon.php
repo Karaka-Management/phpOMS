@@ -126,7 +126,7 @@ final class Polygon implements D2ShapeInterface
                 }
 
                 if (\abs($vertex1['x'] - $vertex2['x']) < self::EPSILON || $point['x'] < $xinters) {
-                    $countIntersect++;
+                    ++$countIntersect;
                 }
             }
         }

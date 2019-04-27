@@ -143,7 +143,7 @@ interface FtpContainerInterface
     /**
      * Check existence of resource.
      *
-     * @param resource $con FTP connection
+     * @param resource $con  FTP connection
      * @param string   $path Path of the resource
      *
      * @return bool

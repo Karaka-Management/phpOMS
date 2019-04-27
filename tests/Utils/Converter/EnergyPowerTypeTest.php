@@ -10,16 +10,20 @@
  * @version    1.0.0
  * @link       http://website.orange-management.de
  */
+ declare(strict_types=1);
 
 namespace phpOMS\tests\Utils\Converter;
 
 use phpOMS\Utils\Converter\EnergyPowerType;
 
+/**
+ * @internal
+ */
 class EnergyPowerTypeTest extends \PHPUnit\Framework\TestCase
 {
     public function testEnums() : void
     {
-        self::assertEquals(9, \count(EnergyPowerType::getConstants()));
+        self::assertCount(9, EnergyPowerType::getConstants());
         self::assertEquals(EnergyPowerType::getConstants(), \array_unique(EnergyPowerType::getConstants()));
 
         self::assertEquals('kWh', EnergyPowerType::KILOWATT_HOUERS);

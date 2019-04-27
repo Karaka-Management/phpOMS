@@ -10,12 +10,16 @@
  * @version    1.0.0
  * @link       http://website.orange-management.de
  */
+ declare(strict_types=1);
 
 namespace phpOMS\tests\Utils\Barcode;
 
 use phpOMS\Utils\Barcode\C25;
 use phpOMS\Utils\Barcode\OrientationType;
 
+/**
+ * @internal
+ */
 class C25Test extends \PHPUnit\Framework\TestCase
 {
     protected function setUp() : void
@@ -37,7 +41,7 @@ class C25Test extends \PHPUnit\Framework\TestCase
         $img = new C25('1234567890', 150, 50);
         $img->saveToPngFile($path);
 
-        self::assertTrue(\file_exists($path));
+        self::assertFileExists($path);
     }
 
     public function testImageJpg() : void
@@ -50,7 +54,7 @@ class C25Test extends \PHPUnit\Framework\TestCase
         $img = new C25('1234567890', 150, 50);
         $img->saveToJpgFile($path);
 
-        self::assertTrue(\file_exists($path));
+        self::assertFileExists($path);
     }
 
     public function testOrientationAndMargin() : void
@@ -64,7 +68,7 @@ class C25Test extends \PHPUnit\Framework\TestCase
         $img->setMargin(2);
         $img->saveToPngFile($path);
 
-        self::assertTrue(\file_exists($path));
+        self::assertFileExists($path);
     }
 
     public function testValidString() : void

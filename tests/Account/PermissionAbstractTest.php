@@ -10,6 +10,7 @@
  * @version    1.0.0
  * @link       http://website.orange-management.de
  */
+ declare(strict_types=1);
 
 namespace phpOMS\tests\Account;
 
@@ -18,20 +19,23 @@ require_once __DIR__ . '/../Autoloader.php';
 use phpOMS\Account\PermissionAbstract;
 use phpOMS\Account\PermissionType;
 
+/**
+ * @internal
+ */
 class PermissionAbstractTest extends \PHPUnit\Framework\TestCase
 {
     public function testAbstractDefault() : void
     {
-        $perm = new class extends PermissionAbstract {};
+        $perm = new class() extends PermissionAbstract {};
 
         self::assertEquals(0, $perm->getId());
-        self::assertEquals(null, $perm->getUnit());
-        self::assertEquals(null, $perm->getApp());
-        self::assertEquals(null, $perm->getModule());
+        self::assertNull($perm->getUnit());
+        self::assertNull($perm->getApp());
+        self::assertNull($perm->getModule());
         self::assertEquals(0, $perm->getFrom());
-        self::assertEquals(null, $perm->getType());
-        self::assertEquals(null, $perm->getElement());
-        self::assertEquals(null, $perm->getComponent());
+        self::assertNull($perm->getType());
+        self::assertNull($perm->getElement());
+        self::assertNull($perm->getComponent());
         self::assertEquals(PermissionType::NONE, $perm->getPermission());
 
         self::assertEquals(
@@ -52,7 +56,7 @@ class PermissionAbstractTest extends \PHPUnit\Framework\TestCase
 
     public function testAbstractGetSet() : void
     {
-        $perm = new class extends PermissionAbstract {};
+        $perm = new class() extends PermissionAbstract {};
 
         $perm->setUnit(1);
         self::assertEquals(1, $perm->getUnit());
@@ -60,8 +64,8 @@ class PermissionAbstractTest extends \PHPUnit\Framework\TestCase
         $perm->setApp('Test');
         self::assertEquals('Test', $perm->getApp());
 
-        $perm->setModule(2);
-        self::assertEquals(2, $perm->getModule());
+        $perm->setModule('2');
+        self::assertEquals('2', $perm->getModule());
 
         $perm->setFrom(3);
         self::assertEquals(3, $perm->getFrom());

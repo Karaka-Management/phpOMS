@@ -10,16 +10,20 @@
  * @version    1.0.0
  * @link       http://website.orange-management.de
  */
+ declare(strict_types=1);
 
 namespace phpOMS\tests\DataStorage\Cache;
 
 use phpOMS\DataStorage\Cache\CacheType;
 
+/**
+ * @internal
+ */
 class CacheTypeTest extends \PHPUnit\Framework\TestCase
 {
     public function testEnums() : void
     {
-        self::assertEquals(4, \count(CacheType::getConstants()));
+        self::assertCount(4, CacheType::getConstants());
         self::assertEquals('file', CacheType::FILE);
         self::assertEquals('mem', CacheType::MEMCACHED);
         self::assertEquals('redis', CacheType::REDIS);

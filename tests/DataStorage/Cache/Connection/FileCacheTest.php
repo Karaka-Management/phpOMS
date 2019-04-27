@@ -10,6 +10,7 @@
  * @version    1.0.0
  * @link       http://website.orange-management.de
  */
+ declare(strict_types=1);
 
 namespace phpOMS\tests\DataStorage\Cache\Connection;
 
@@ -18,6 +19,9 @@ use phpOMS\DataStorage\Cache\CacheType;
 use phpOMS\DataStorage\Cache\Connection\FileCache;
 use phpOMS\Utils\TestUtils;
 
+/**
+ * @internal
+ */
 class FileCacheTest extends \PHPUnit\Framework\TestCase
 {
     public function testDefault() : void
@@ -33,7 +37,7 @@ class FileCacheTest extends \PHPUnit\Framework\TestCase
         self::assertTrue(\is_dir(__DIR__ . '/Cache'));
         self::assertTrue($cache->flushAll());
         self::assertEquals(50, $cache->getThreshold());
-        self::assertEquals(null, $cache->get('test'));
+        self::assertNull($cache->get('test'));
 
         if (\file_exists(__DIR__ . '/Cache')) {
             \rmdir(__DIR__ . '/Cache');
@@ -73,10 +77,10 @@ class FileCacheTest extends \PHPUnit\Framework\TestCase
         self::assertEquals('testValAdd', $cache->get('addKey'));
 
         $cache->set('key2', false); // 3
-        self::assertEquals(false, $cache->get('key2'));
+        self::assertFalse($cache->get('key2'));
 
         $cache->set('key3', null); // 4
-        self::assertEquals(null, $cache->get('key3'));
+        self::assertNull($cache->get('key3'));
 
         $cache->set('key4', 4); // 5
         self::assertEquals(4, $cache->get('key4'));
@@ -99,7 +103,7 @@ class FileCacheTest extends \PHPUnit\Framework\TestCase
 
         self::assertTrue($cache->delete('key4')); // 8
         self::assertTrue($cache->delete('keyInvalid'));
-        self::assertEquals(null, $cache->get('key4'));
+        self::assertNull($cache->get('key4'));
 
         self::assertEquals(
             [
@@ -111,7 +115,7 @@ class FileCacheTest extends \PHPUnit\Framework\TestCase
         );
 
         self::assertTrue($cache->flushAll());
-        self::assertEquals(null, $cache->get('key5'));
+        self::assertNull($cache->get('key5'));
 
         self::assertEquals(
             [
@@ -143,12 +147,12 @@ class FileCacheTest extends \PHPUnit\Framework\TestCase
         $cache->set('key2', 'testVal2', 1);
         self::assertEquals('testVal2', $cache->get('key2', 1));
         \sleep(3);
-        self::assertEquals(null, $cache->get('key2', 1));
+        self::assertNull($cache->get('key2', 1));
 
         $cache->set('key3', 'testVal3', 1);
         self::assertEquals('testVal3', $cache->get('key3', 1));
         \sleep(3);
-        self::assertEquals(null, $cache->get('key3', 1));
+        self::assertNull($cache->get('key3', 1));
 
         $cache->set('key4', 'testVal4', 1);
         self::assertFalse($cache->delete('key4', 0));
@@ -183,7 +187,7 @@ class FileCacheTest extends \PHPUnit\Framework\TestCase
 
         $cache->set('key1', 'testVal');
         self::assertFalse($cache->add('key2', 'testVal2'));
-        self::assertEquals(null, $cache->get('key1'));
+        self::assertNull($cache->get('key1'));
         self::assertFalse($cache->replace('key1', 5));
         self::assertFalse($cache->delete('key1'));
         self::assertFalse($cache->flushAll());

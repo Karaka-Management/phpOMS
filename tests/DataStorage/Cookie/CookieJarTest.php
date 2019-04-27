@@ -10,11 +10,15 @@
  * @version    1.0.0
  * @link       http://website.orange-management.de
  */
+ declare(strict_types=1);
 
 namespace phpOMS\tests\DataStorage\Cookie;
 
 use phpOMS\DataStorage\Cookie\CookieJar;
 
+/**
+ * @internal
+ */
 class CookieJarTest extends \PHPUnit\Framework\TestCase
 {
     public function testDefault() : void
@@ -22,7 +26,7 @@ class CookieJarTest extends \PHPUnit\Framework\TestCase
         $jar = new CookieJar();
 
         self::assertFalse(CookieJar::isLocked());
-        self::assertEquals(null, $jar->get('asd'));
+        self::assertNull($jar->get('asd'));
         self::assertFalse($jar->delete('abc'));
     }
 

@@ -10,12 +10,16 @@
  * @version    1.0.0
  * @link       http://website.orange-management.de
  */
+ declare(strict_types=1);
 namespace phpOMS\tests\DataStorage\Database;
 
 use phpOMS\tests\DataStorage\Database\TestModel\BaseModel;
 use phpOMS\tests\DataStorage\Database\TestModel\BaseModelMapper;
 use phpOMS\tests\DataStorage\Database\TestModel\ManyToManyDirectModelMapper;
 
+/**
+ * @internal
+ */
 class DataMapperAbstractTest extends \PHPUnit\Framework\TestCase
 {
     protected $model      = null;
@@ -32,7 +36,7 @@ class DataMapperAbstractTest extends \PHPUnit\Framework\TestCase
             'null' => null,
             'float' => 1.3,
             'json' => [1, 2, 3],
-            'jsonSerializable' => new class implements \JsonSerializable {
+            'jsonSerializable' => new class() implements \JsonSerializable {
                 public function jsonSerialize()
                 {
                     return [1, 2, 3];
@@ -57,7 +61,7 @@ class DataMapperAbstractTest extends \PHPUnit\Framework\TestCase
                     'id' => 0,
                     'string' => 'ManyToManyDirect',
                     'to' => 0,
-                ]
+                ],
             ],
             'hasManyRelations' => [
                 [
@@ -67,7 +71,7 @@ class DataMapperAbstractTest extends \PHPUnit\Framework\TestCase
                 [
                     'id' => 0,
                     'string' => 'ManyToManyRel',
-                ]
+                ],
             ],
         ];
 
@@ -178,8 +182,8 @@ class DataMapperAbstractTest extends \PHPUnit\Framework\TestCase
         //self::assertEquals($this->model->json, $modelR->json);
         //self::assertEquals([1, 2, 3], $modelR->jsonSerializable);
 
-        self::assertEquals(2, \count($modelR->hasManyDirect));
-        self::assertEquals(2, \count($modelR->hasManyRelations));
+        self::assertCount(2, $modelR->hasManyDirect);
+        self::assertCount(2, $modelR->hasManyRelations);
         self::assertEquals(\reset($this->model->hasManyDirect)->string, \reset($modelR->hasManyDirect)->string);
         self::assertEquals(\reset($this->model->hasManyRelations)->string, \reset($modelR->hasManyRelations)->string);
         self::assertEquals($this->model->ownsOneSelf->string, $modelR->ownsOneSelf->string);
@@ -188,7 +192,7 @@ class DataMapperAbstractTest extends \PHPUnit\Framework\TestCase
         $for = ManyToManyDirectModelMapper::getFor($id, 'to');
         self::assertEquals(\reset($this->model->hasManyDirect)->string, \reset($for)->string);
 
-        self::assertEquals(1, \count(BaseModelMapper::getAll()));
+        self::assertCount(1, BaseModelMapper::getAll());
     }
 
     public function testReadArray() : void
@@ -204,8 +208,8 @@ class DataMapperAbstractTest extends \PHPUnit\Framework\TestCase
         self::assertEquals($this->modelArray['null'], $modelR['null']);
         self::assertEquals($this->modelArray['datetime']->format('Y-m-d'), $modelR['datetime']->format('Y-m-d'));
 
-        self::assertEquals(2, \count($modelR['hasManyDirect']));
-        self::assertEquals(2, \count($modelR['hasManyRelations']));
+        self::assertCount(2, $modelR['hasManyDirect']);
+        self::assertCount(2, $modelR['hasManyRelations']);
         self::assertEquals(\reset($this->modelArray['hasManyDirect'])['string'], \reset($modelR['hasManyDirect'])['string']);
         self::assertEquals(\reset($this->modelArray['hasManyRelations'])['string'], \reset($modelR['hasManyRelations'])['string']);
         self::assertEquals($this->modelArray['ownsOneSelf']['string'], $modelR['ownsOneSelf']['string']);
@@ -214,7 +218,7 @@ class DataMapperAbstractTest extends \PHPUnit\Framework\TestCase
         $for = ManyToManyDirectModelMapper::getForArray($id, 'to');
         self::assertEquals(\reset($this->modelArray['hasManyDirect'])['string'], \reset($for)['string']);
 
-        self::assertEquals(1, \count(BaseModelMapper::getAllArray()));
+        self::assertCount(1, BaseModelMapper::getAllArray());
     }
 
     public function testUpdate() : void

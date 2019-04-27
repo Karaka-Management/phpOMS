@@ -10,12 +10,16 @@
  * @version    1.0.0
  * @link       http://website.orange-management.de
  */
+ declare(strict_types=1);
 
 namespace phpOMS\tests\Utils\Encoding;
 
 use phpOMS\Utils\Encoding\Caesar;
 use phpOMS\Utils\RnG\StringUtils;
 
+/**
+ * @internal
+ */
 class CaesarTest extends \PHPUnit\Framework\TestCase
 {
     public function testVolume() : void

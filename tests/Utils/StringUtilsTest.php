@@ -10,14 +10,18 @@
  * @version    1.0.0
  * @link       http://website.orange-management.de
  */
+ declare(strict_types=1);
 
 namespace phpOMS\tests\Utils;
 
-use phpOMS\Utils\StringUtils;
 use phpOMS\Contract\RenderableInterface;
+use phpOMS\Utils\StringUtils;
 
 require_once __DIR__ . '/../Autoloader.php';
 
+/**
+ * @internal
+ */
 class StringUtilsTest extends \PHPUnit\Framework\TestCase
 {
     public function testEvaluation() : void
@@ -83,7 +87,7 @@ class StringUtilsTest extends \PHPUnit\Framework\TestCase
 
     public function testStringify() : void
     {
-        self::assertEquals('"abc"', StringUtils::stringify(new class implements \JsonSerializable {
+        self::assertEquals('"abc"', StringUtils::stringify(new class() implements \JsonSerializable {
             public function jsonSerialize()
             {
                 return 'abc';
@@ -92,7 +96,7 @@ class StringUtilsTest extends \PHPUnit\Framework\TestCase
 
         self::assertEquals('["abc"]', StringUtils::stringify(['abc']));
 
-        self::assertEquals('abc', StringUtils::stringify(new class implements \Serializable {
+        self::assertEquals('abc', StringUtils::stringify(new class() implements \Serializable {
             public function serialize()
             {
                 return 'abc';
@@ -108,19 +112,19 @@ class StringUtilsTest extends \PHPUnit\Framework\TestCase
         self::assertEquals('1.1', StringUtils::stringify(1.1));
         self::assertEquals('1', StringUtils::stringify(true));
         self::assertEquals('0', StringUtils::stringify(false));
-        self::assertEquals(null, StringUtils::stringify(null));
+        self::assertNull(StringUtils::stringify(null));
 
         $date = new \DateTime('now');
         self::assertEquals($date->format('Y-m-d H:i:s'), StringUtils::stringify($date));
 
-        self::assertEquals('abc', StringUtils::stringify(new class {
+        self::assertEquals('abc', StringUtils::stringify(new class() {
             public function __toString()
             {
                 return 'abc';
             }
         }));
 
-        self::assertEquals('abc', StringUtils::stringify(new class implements RenderableInterface {
+        self::assertEquals('abc', StringUtils::stringify(new class() implements RenderableInterface {
             public function render() : string
             {
                 return 'abc';

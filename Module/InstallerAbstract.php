@@ -218,7 +218,7 @@ abstract class InstallerAbstract
 
         $appRoutes = \array_merge_recursive($appRoutes, $moduleRoutes);
 
-        \file_put_contents($destRoutePath, '<?php return ' . ArrayParser::serializeArray($appRoutes) . ';', LOCK_EX);
+        \file_put_contents($destRoutePath, '<?php return ' . ArrayParser::serializeArray($appRoutes) . ';', \LOCK_EX);
     }
 
     /**
@@ -284,6 +284,6 @@ abstract class InstallerAbstract
 
         $appHooks = \array_merge_recursive($appHooks, $moduleHooks);
 
-        \file_put_contents($destHookPath, '<?php return ' . ArrayParser::serializeArray($appHooks) . ';', LOCK_EX);
+        \file_put_contents($destHookPath, '<?php return ' . ArrayParser::serializeArray($appHooks) . ';', \LOCK_EX);
     }
 }

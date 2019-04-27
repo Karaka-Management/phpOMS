@@ -10,6 +10,7 @@
  * @version    1.0.0
  * @link       http://website.orange-management.de
  */
+ declare(strict_types=1);
 
 namespace phpOMS\tests\Account;
 
@@ -20,6 +21,8 @@ require_once __DIR__ . '/../Autoloader.php';
 
 /**
  * @testdox phpOMS\tests\Account\AccountManager: Account/user manager to handle/access loaded accounts
+ *
+ * @internal
  */
 class AccountManagerTest extends \PHPUnit\Framework\TestCase
 {

@@ -65,9 +65,9 @@ final class CreditCard extends ValidatorAbstract
     /**
      * Luhn algorithm or mod 10 algorithm is used to verify credit cards.
      *
-     * @param string $num Credit card number.
+     * @param string $num credit card number
      *
-     * @return bool Returns true if the number is a valid credit card and false if it isn't.
+     * @return bool returns true if the number is a valid credit card and false if it isn't
      *
      * @since  1.0.0
      */

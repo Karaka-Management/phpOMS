@@ -10,12 +10,16 @@
  * @version    1.0.0
  * @link       http://website.orange-management.de
  */
+ declare(strict_types=1);
 
 namespace phpOMS\tests\Stdlib\Graph;
 
 use phpOMS\Stdlib\Graph\Edge;
 use phpOMS\Stdlib\Graph\Node;
 
+/**
+ * @internal
+ */
 class EdgeTest extends \PHPUnit\Framework\TestCase
 {
     public function testDefault() : void

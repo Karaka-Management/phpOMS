@@ -10,21 +10,25 @@
  * @version    1.0.0
  * @link       http://website.orange-management.de
  */
+ declare(strict_types=1);
 
 namespace phpOMS\tests\Router;
 
-use phpOMS\Message\Http\Request;
-use phpOMS\Router\Router;
-use phpOMS\Account\Account;
 use Modules\Admin\Controller\BackendController;
 use Modules\Admin\Models\PermissionState;
-use phpOMS\Account\PermissionType;
+use phpOMS\Account\Account;
 use phpOMS\Account\PermissionAbstract;
+use phpOMS\Account\PermissionType;
+use phpOMS\Message\Http\Request;
+use phpOMS\Router\Router;
 use phpOMS\Router\RouteVerb;
 use phpOMS\Uri\Http;
 
 require_once __DIR__ . '/../Autoloader.php';
 
+/**
+ * @internal
+ */
 class RouterTest extends \PHPUnit\Framework\TestCase
 {
     public function testAttributes() : void

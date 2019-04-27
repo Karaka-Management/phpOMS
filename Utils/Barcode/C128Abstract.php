@@ -307,7 +307,7 @@ abstract class C128Abstract
             $checksum   += $values[$activeKey] * $pos;
         }
 
-        $codeString .= static::$CODEARRAY[$keys[($checksum - (\intval($checksum / 103) * 103))]];
+        $codeString .= static::$CODEARRAY[$keys[($checksum - ((int) ($checksum / 103) * 103))]];
 
         return $codeString;
     }

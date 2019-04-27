@@ -10,10 +10,13 @@
  * @version    1.0.0
  * @link       http://website.orange-management.de
  */
+ declare(strict_types=1);
 
 namespace phpOMS\tests\Stdlib\Base;
 
-
+/**
+ * @internal
+ */
 class EnumTest extends \PHPUnit\Framework\TestCase
 {
     public function testGetSet() : void
@@ -21,7 +24,7 @@ class EnumTest extends \PHPUnit\Framework\TestCase
         self::assertTrue(EnumDemo::isValidName('ENUM1'));
         self::assertFalse(EnumDemo::isValidName('enum1'));
 
-        self::assertEquals(['ENUM1' => 1, 'ENUM2' => ';l'], EnumDemo::getConstants(), true);
+        self::assertEquals(['ENUM1' => 1, 'ENUM2' => ';l'], EnumDemo::getConstants());
 
         self::assertTrue(EnumDemo::isValidValue(1));
         self::assertTrue(EnumDemo::isValidValue(';l'));

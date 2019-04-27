@@ -10,11 +10,15 @@
  * @version    1.0.0
  * @link       http://website.orange-management.de
  */
+ declare(strict_types=1);
 
 namespace phpOMS\tests\Stdlib\Base;
 
 use phpOMS\Stdlib\Base\SmartDateTime;
 
+/**
+ * @internal
+ */
 class SmartDateTimeTest extends \PHPUnit\Framework\TestCase
 {
     public function testAttributes() : void
@@ -57,7 +61,7 @@ class SmartDateTimeTest extends \PHPUnit\Framework\TestCase
         self::assertEquals(\date('w', $expected->getTimestamp()), SmartDateTime::getDayOfWeek((int) $expected->format('Y'), (int) $expected->format('m'), (int) $expected->format('d')));
         self::assertEquals(\date('w', $expected->getTimestamp()), $obj->getFirstDayOfWeek());
 
-        self::assertEquals(42, \count($obj->getMonthCalendar()));
-        self::assertEquals(42, \count($obj->getMonthCalendar(1)));
+        self::assertCount(42, $obj->getMonthCalendar());
+        self::assertCount(42, $obj->getMonthCalendar(1));
     }
 }

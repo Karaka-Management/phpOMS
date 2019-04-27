@@ -10,16 +10,20 @@
  * @version    1.0.0
  * @link       http://website.orange-management.de
  */
+ declare(strict_types=1);
 
 namespace phpOMS\tests\Message\Http;
 
 use phpOMS\Message\Http\RequestStatus;
 
+/**
+ * @internal
+ */
 class RequestStatusTest extends \PHPUnit\Framework\TestCase
 {
     public function testEnums() : void
     {
-        self::assertEquals(55, \count(RequestStatus::getConstants()));
+        self::assertCount(55, RequestStatus::getConstants());
         self::assertEquals(RequestStatus::getConstants(), \array_unique(RequestStatus::getConstants()));
 
         self::assertEquals('Continue', RequestStatus::R_100);

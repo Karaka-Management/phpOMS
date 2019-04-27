@@ -161,7 +161,7 @@ final class FileUtils
             } elseif ($permission[$i] === 'w') {
                 $tempPermission += 2;
             } elseif ($permission[$i] === 'x') {
-                $tempPermission += 1;
+                ++$tempPermission;
             }
 
             if (($i + 1) % 3 === 0) {

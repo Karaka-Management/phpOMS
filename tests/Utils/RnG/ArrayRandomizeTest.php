@@ -10,11 +10,15 @@
  * @version    1.0.0
  * @link       http://website.orange-management.de
  */
+ declare(strict_types=1);
 
 namespace phpOMS\tests\Utils\RnG;
 
 use phpOMS\Utils\RnG\ArrayRandomize;
 
+/**
+ * @internal
+ */
 class ArrayRandomizeTest extends \PHPUnit\Framework\TestCase
 {
     public function testRandomize() : void

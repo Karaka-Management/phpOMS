@@ -10,6 +10,7 @@
  * @version    1.0.0
  * @link       http://website.orange-management.de
  */
+ declare(strict_types=1);
 
 namespace phpOMS\tests\Module;
 
@@ -20,13 +21,16 @@ use phpOMS\Router\Router;
 
 require_once __DIR__ . '/../Autoloader.php';
 
+/**
+ * @internal
+ */
 class ModuleManagerTest extends \PHPUnit\Framework\TestCase
 {
     protected $app = null;
 
     protected function setUp() : void
     {
-        $this->app             = new class extends ApplicationAbstract { protected $appName = 'Api'; };
+        $this->app             = new class() extends ApplicationAbstract { protected $appName = 'Api'; };
         $this->app->appName    = 'Api';
         $this->app->dbPool     = $GLOBALS['dbpool'];
         $this->app->dispatcher = new Dispatcher($this->app);

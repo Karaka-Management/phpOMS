@@ -248,8 +248,8 @@ final class FileLogger implements LoggerInterface
         $replace['{level}']     = \sprintf('%--12s', $level);
         $replace['{path}']      = $_SERVER['REQUEST_URI'] ?? 'REQUEST_URI';
         $replace['{ip}']        = \sprintf('%--15s', $_SERVER['REMOTE_ADDR'] ?? '0.0.0.0');
-        $replace['{version}']   = \sprintf('%--15s', PHP_VERSION);
-        $replace['{os}']        = \sprintf('%--15s', PHP_OS);
+        $replace['{version}']   = \sprintf('%--15s', \PHP_VERSION);
+        $replace['{os}']        = \sprintf('%--15s', \PHP_OS);
         $replace['{line}']      = \sprintf('%--15s', $context['line'] ?? '?');
 
         return \strtr($message, $replace);
@@ -277,10 +277,10 @@ final class FileLogger implements LoggerInterface
 
         $this->fp = \fopen($this->path, 'a');
 
-        if ($this->fp !== false && \flock($this->fp, LOCK_EX)) {
+        if ($this->fp !== false && \flock($this->fp, \LOCK_EX)) {
             \fwrite($this->fp, $message . "\n");
             \fflush($this->fp);
-            \flock($this->fp, LOCK_UN);
+            \flock($this->fp, \LOCK_UN);
             \fclose($this->fp);
             $this->fp = false;
         }
@@ -406,11 +406,11 @@ final class FileLogger implements LoggerInterface
                 $levels[$line[1]] = 0;
             }
 
-            $levels[$line[1]]++;
+            ++$levels[$line[1]];
             $line = \fgetcsv($this->fp, 0, ';');
         }
 
-        \fseek($this->fp, 0, SEEK_END);
+        \fseek($this->fp, 0, \SEEK_END);
         \fclose($this->fp);
 
         return $levels;
@@ -453,11 +453,11 @@ final class FileLogger implements LoggerInterface
                 $connection[$line[2]] = 0;
             }
 
-            $connection[$line[2]]++;
+            ++$connection[$line[2]];
             $line = \fgetcsv($this->fp, 0, ';');
         }
 
-        \fseek($this->fp, 0, SEEK_END);
+        \fseek($this->fp, 0, \SEEK_END);
         \fclose($this->fp);
         \asort($connection);
 
@@ -493,10 +493,10 @@ final class FileLogger implements LoggerInterface
 
         $line = \fgetcsv($this->fp, 0, ';');
         while ($line !== false && $line !== null) {
-            $id++;
+            ++$id;
 
             if ($offset > 0) {
-                $offset--;
+                --$offset;
                 continue;
             }
 
@@ -510,12 +510,12 @@ final class FileLogger implements LoggerInterface
             }
 
             $logs[$id] = $line;
-            $limit--;
+            --$limit;
             \ksort($logs);
             $line = \fgetcsv($this->fp, 0, ';');
         }
 
-        \fseek($this->fp, 0, SEEK_END);
+        \fseek($this->fp, 0, \SEEK_END);
         \fclose($this->fp);
 
         return $logs;
@@ -548,7 +548,7 @@ final class FileLogger implements LoggerInterface
         \fseek($this->fp, 0);
 
         while (($line = \fgetcsv($this->fp, 0, ';')) !== false && $current <= $id) {
-            $current++;
+            ++$current;
 
             if ($current < $id) {
                 continue;
@@ -567,7 +567,7 @@ final class FileLogger implements LoggerInterface
             break;
         }
 
-        \fseek($this->fp, 0, SEEK_END);
+        \fseek($this->fp, 0, \SEEK_END);
         \fclose($this->fp);
 
         return $log;

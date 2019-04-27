@@ -19,8 +19,6 @@ declare(strict_types=1);
 
 namespace phpOMS\DataStorage\File;
 
-use phpOMS\DataStorage\File\QueryType;
-
 /**
  * Json query JsonGrammar.
  *

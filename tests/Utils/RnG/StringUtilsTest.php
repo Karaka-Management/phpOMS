@@ -10,11 +10,15 @@
  * @version    1.0.0
  * @link       http://website.orange-management.de
  */
+ declare(strict_types=1);
 
 namespace phpOMS\tests\Utils\RnG;
 
 use phpOMS\Utils\RnG\StringUtils;
 
+/**
+ * @internal
+ */
 class StringUtilsTest extends \PHPUnit\Framework\TestCase
 {
     /**
@@ -34,7 +38,7 @@ class StringUtilsTest extends \PHPUnit\Framework\TestCase
             }
 
             if (\in_array($random, $haystack)) {
-                $randomness++;
+                ++$randomness;
             }
 
             $haystack[] = $random;

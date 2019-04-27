@@ -10,6 +10,7 @@
  * @version    1.0.0
  * @link       http://website.orange-management.de
  */
+ declare(strict_types=1);
 
 namespace phpOMS\tests\Account;
 
@@ -22,6 +23,8 @@ require_once __DIR__ . '/../Autoloader.php';
 
 /**
  * @testdox phpOMS\tests\Account\Group: Base group representation
+ *
+ * @internal
  */
 class GroupTest extends \PHPUnit\Framework\TestCase
 {
@@ -51,20 +54,20 @@ class GroupTest extends \PHPUnit\Framework\TestCase
         $group = new Group();
 
         /* Testing default values */
-        self::assertTrue(\is_int($group->getId()));
+        self::assertIsInt($group->getId());
         self::assertEquals(0, $group->getId());
 
-        self::assertTrue(\is_string($group->getName()));
+        self::assertIsString($group->getName());
         self::assertEquals('', $group->getName());
 
-        self::assertTrue(\is_int($group->getStatus()));
+        self::assertIsInt($group->getStatus());
         self::assertEquals(GroupStatus::INACTIVE, $group->getStatus());
 
-        self::assertTrue(\is_string($group->getDescription()));
+        self::assertIsString($group->getDescription());
         self::assertEquals('', $group->getDescription());
 
         $array = $group->toArray();
-        self::assertTrue(\is_array($array));
+        self::assertIsArray($array);
         self::assertGreaterThan(0, \count($array));
         self::assertEquals(\json_encode($array), $group->__toString());
         self::assertEquals($array, $group->jsonSerialize());
@@ -90,26 +93,26 @@ class GroupTest extends \PHPUnit\Framework\TestCase
     public function testPermissionHandling() : void
     {
         $group = new Group();
-        $group->addPermission(new class extends PermissionAbstract {});
-        self::assertEquals(1, \count($group->getPermissions()));
+        $group->addPermission(new class() extends PermissionAbstract {});
+        self::assertCount(1, $group->getPermissions());
 
         $group->setPermissions([
-            new class extends PermissionAbstract {},
-            new class extends PermissionAbstract {},
+            new class() extends PermissionAbstract {},
+            new class() extends PermissionAbstract {},
         ]);
-        self::assertEquals(2, \count($group->getPermissions()));
+        self::assertCount(2, $group->getPermissions());
 
         $group->addPermissions([
-            new class extends PermissionAbstract {},
-            new class extends PermissionAbstract {},
+            new class() extends PermissionAbstract {},
+            new class() extends PermissionAbstract {},
         ]);
-        self::assertEquals(4, \count($group->getPermissions()));
+        self::assertCount(4, $group->getPermissions());
 
         $group->addPermissions([[
-            new class extends PermissionAbstract {},
-            new class extends PermissionAbstract {},
+            new class() extends PermissionAbstract {},
+            new class() extends PermissionAbstract {},
         ]]);
-        self::assertEquals(6, \count($group->getPermissions()));
+        self::assertCount(6, $group->getPermissions());
 
         self::assertFalse($group->hasPermission(PermissionType::READ, 1, 'a', 'a', 1, 1, 1));
         self::assertTrue($group->hasPermission(PermissionType::NONE));
@@ -137,7 +140,7 @@ class GroupTest extends \PHPUnit\Framework\TestCase
 
         $rand = 0;
         do {
-            $rand = \mt_rand(PHP_INT_MIN, PHP_INT_MAX);
+            $rand = \mt_rand(\PHP_INT_MIN, \PHP_INT_MAX);
         } while (GroupStatus::isValidValue($rand));
 
         $group->setStatus($rand);

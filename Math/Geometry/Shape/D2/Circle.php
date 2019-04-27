@@ -36,7 +36,7 @@ final class Circle implements D2ShapeInterface
      */
     public static function getSurface(float $r) : float
     {
-        return \pi() * $r ** 2;
+        return \M_PI * $r ** 2;
     }
 
     /**
@@ -50,7 +50,7 @@ final class Circle implements D2ShapeInterface
      */
     public static function getPerimeter(float $r) : float
     {
-        return 2 * \pi() * $r;
+        return 2 * \M_PI * $r;
     }
 
     /**
@@ -64,7 +64,7 @@ final class Circle implements D2ShapeInterface
      */
     public static function getRadiusBySurface(float $surface) : float
     {
-        return \sqrt($surface / \pi());
+        return \sqrt($surface / \M_PI);
     }
 
     /**
@@ -81,6 +81,6 @@ final class Circle implements D2ShapeInterface
      */
     public static function getRadiusByPerimeter(float $C) : float
     {
-        return $C / (2 * \pi());
+        return $C / (2 * \M_PI);
     }
 }

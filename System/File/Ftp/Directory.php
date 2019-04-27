@@ -18,7 +18,6 @@ use phpOMS\System\File\ContainerInterface;
 use phpOMS\System\File\DirectoryInterface;
 use phpOMS\System\File\FileUtils;
 use phpOMS\System\File\Local\Directory as LocalDirectory;
-use phpOMS\System\File\Local\File as LocalFile;
 use phpOMS\System\File\PathException;
 use phpOMS\Uri\Http;
 
@@ -362,9 +361,9 @@ class Directory extends FileAbstract implements FtpContainerInterface, Directory
     /**
      * Download file.
      *
-     * @param resource $con       FTP connection
-     * @param string   $from      Path of the resource to copy
-     * @param string   $to        Path of the resource to copy to
+     * @param resource $con  FTP connection
+     * @param string   $from Path of the resource to copy
+     * @param string   $to   Path of the resource to copy to
      *
      * @return bool True on success and false on failure
      *
@@ -395,9 +394,9 @@ class Directory extends FileAbstract implements FtpContainerInterface, Directory
     /**
      * Upload file.
      *
-     * @param resource $con       FTP connection
-     * @param string   $from      Path of the resource to copy
-     * @param string   $to        Path of the resource to copy to
+     * @param resource $con  FTP connection
+     * @param string   $from Path of the resource to copy
+     * @param string   $to   Path of the resource to copy to
      *
      * @return bool True on success and false on failure
      *
@@ -638,7 +637,7 @@ class Directory extends FileAbstract implements FtpContainerInterface, Directory
      * @param  mixed $offset <p>
      *                       The offset to retrieve.
      *                       </p>
-     * @return mixed Can return all value types.
+     * @return mixed can return all value types
      * @since 5.0.0
      */
     public function offsetGet($offset)

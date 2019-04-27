@@ -10,10 +10,13 @@
  * @version    1.0.0
  * @link       http://website.orange-management.de
  */
+ declare(strict_types=1);
 
 namespace phpOMS\tests\Stdlib\Base;
 
-
+/**
+ * @internal
+ */
 class EnumArrayTest extends \PHPUnit\Framework\TestCase
 {
     public function testGetSet() : void
@@ -24,7 +27,7 @@ class EnumArrayTest extends \PHPUnit\Framework\TestCase
         self::assertTrue(EnumArrayDemo::isValidName('ENUM1'));
         self::assertFalse(EnumArrayDemo::isValidName('enum1'));
 
-        self::assertEquals(['ENUM1' => 1, 'ENUM2' => 'abc'], EnumArrayDemo::getConstants(), true);
+        self::assertEquals(['ENUM1' => 1, 'ENUM2' => 'abc'], EnumArrayDemo::getConstants());
 
         self::assertTrue(EnumArrayDemo::isValidValue(1));
         self::assertTrue(EnumArrayDemo::isValidValue('abc'));

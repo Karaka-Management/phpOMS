@@ -43,7 +43,7 @@ final class Gamma
      */
     private const LANCZOSAPPROXIMATION = [
         0.99999999999980993, 676.5203681218851, -1259.1392167224028, 771.32342877765313, -176.61502916214059,
-        12.507343278686905, -0.13857109526572012, 9.9843695780195716e-6, 1.5056327351493116e-7
+        12.507343278686905, -0.13857109526572012, 9.9843695780195716e-6, 1.5056327351493116e-7,
     ];
 
     /**
@@ -58,18 +58,18 @@ final class Gamma
     public static function lanczosApproximationReal($z) : float
     {
         if ($z < 0.5) {
-            return M_PI / (\sin(M_PI * $z) * self::lanczosApproximationReal(1 - $z));
+            return \M_PI / (\sin(\M_PI * $z) * self::lanczosApproximationReal(1 - $z));
         }
 
-        $z -= 1;
-        $a  = self::LANCZOSAPPROXIMATION[0];
-        $t  = $z + 7.5;
+        --$z;
+        $a = self::LANCZOSAPPROXIMATION[0];
+        $t = $z + 7.5;
 
         for ($i = 1; $i < 9; ++$i) {
             $a += self::LANCZOSAPPROXIMATION[$i] / ($z + $i);
         }
 
-        return \sqrt(2 * M_PI) * \pow($t, $z + 0.5) * \exp(-$t) * $a;
+        return \sqrt(2 * \M_PI) * \pow($t, $z + 0.5) * \exp(-$t) * $a;
     }
 
     /**
@@ -83,7 +83,7 @@ final class Gamma
      */
     public static function stirlingApproximation($x) : float
     {
-        return \sqrt(2.0 * M_PI / $x) * \pow($x / M_E, $x);
+        return \sqrt(2.0 * \M_PI / $x) * \pow($x / \M_E, $x);
     }
 
     /**
@@ -98,7 +98,7 @@ final class Gamma
     public static function spougeApproximation($z) : float
     {
         $k1_fact = 1.0;
-        $c       = [\sqrt(2.0 * M_PI)];
+        $c       = [\sqrt(2.0 * \M_PI)];
 
         for ($k = 1; $k < 12; ++$k) {
             $c[$k]    = \exp(12 - $k) * \pow(12 - $k, $k - 0.5) / $k1_fact;

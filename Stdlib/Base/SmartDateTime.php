@@ -70,7 +70,7 @@ class SmartDateTime extends \DateTime
      *
      * @since  1.0.0
      */
-    public function createModify(int $y, int $m = 0, int $d = 0, int $calendar = CAL_GREGORIAN) : self
+    public function createModify(int $y, int $m = 0, int $d = 0, int $calendar = \CAL_GREGORIAN) : self
     {
         $dt = clone $this;
         $dt->smartModify($y, $m, $d, $calendar);
@@ -90,7 +90,7 @@ class SmartDateTime extends \DateTime
      *
      * @since  1.0.0
      */
-    public function smartModify(int $y, int $m = 0, int $d = 0, int $calendar = CAL_GREGORIAN) : self
+    public function smartModify(int $y, int $m = 0, int $d = 0, int $calendar = \CAL_GREGORIAN) : self
     {
         $yearChange  = (int) \floor(((int) $this->format('m') - 1 + $m) / 12);
         $yearChange  = ((int) $this->format('m') - 1 + $m) < 0 && ((int) $this->format('m') - 1 + $m) % 12 === 0 ? $yearChange - 1 : $yearChange;

@@ -10,16 +10,20 @@
  * @version    1.0.0
  * @link       http://website.orange-management.de
  */
+ declare(strict_types=1);
 
 namespace phpOMS\tests\DataStorage\Database;
 
 use phpOMS\DataStorage\Database\DatabaseType;
 
+/**
+ * @internal
+ */
 class DatabaseTypeTest extends \PHPUnit\Framework\TestCase
 {
     public function testEnums() : void
     {
-        self::assertEquals(5, \count(DatabaseType::getConstants()));
+        self::assertCount(5, DatabaseType::getConstants());
         self::assertEquals('mysql', DatabaseType::MYSQL);
         self::assertEquals('pgsql', DatabaseType::PGSQL);
         self::assertEquals('sqlite', DatabaseType::SQLITE);

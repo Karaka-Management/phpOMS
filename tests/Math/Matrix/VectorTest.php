@@ -10,11 +10,15 @@
  * @version    1.0.0
  * @link       http://website.orange-management.de
  */
+ declare(strict_types=1);
 
 namespace phpOMS\tests\Math\Matrix;
 
 use phpOMS\Math\Matrix\Vector;
 
+/**
+ * @internal
+ */
 class VectorTest extends \PHPUnit\Framework\TestCase
 {
     public function testDefault() : void
@@ -22,6 +26,6 @@ class VectorTest extends \PHPUnit\Framework\TestCase
         self::assertInstanceOf('\phpOMS\Math\Matrix\Vector', new Vector());
 
         $vec = new Vector(5);
-        self::assertEquals(5, \count($vec->toArray()));
+        self::assertCount(5, $vec->toArray());
     }
 }

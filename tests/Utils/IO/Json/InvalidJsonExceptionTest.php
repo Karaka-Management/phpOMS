@@ -10,11 +10,15 @@
  * @version    1.0.0
  * @link       http://website.orange-management.de
  */
+ declare(strict_types=1);
 
 namespace phpOMS\tests\Utils\IO\Json;
 
 use phpOMS\Utils\IO\Json\InvalidJsonException;
 
+/**
+ * @internal
+ */
 class InvalidJsonExceptionTest extends \PHPUnit\Framework\TestCase
 {
     public function testException() : void

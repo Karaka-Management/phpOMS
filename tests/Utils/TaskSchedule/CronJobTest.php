@@ -10,11 +10,15 @@
  * @version    1.0.0
  * @link       http://website.orange-management.de
  */
+ declare(strict_types=1);
 
 namespace phpOMS\tests\Utils\TaskSchedule;
 
 use phpOMS\Utils\TaskSchedule\CronJob;
 
+/**
+ * @internal
+ */
 class CronJobTest extends \PHPUnit\Framework\TestCase
 {
     public function testDefault() : void

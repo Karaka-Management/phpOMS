@@ -42,7 +42,7 @@ abstract class Email extends ValidatorAbstract
      */
     public static function isValid($value, array $constraints = null) : bool
     {
-        if (\filter_var($value, FILTER_VALIDATE_EMAIL) === false) {
+        if (\filter_var($value, \FILTER_VALIDATE_EMAIL) === false) {
             self::$msg   = 'Invalid Email by filter_var standards';
             self::$error = 1;
 

@@ -10,11 +10,15 @@
  * @version    1.0.0
  * @link       http://website.orange-management.de
  */
+ declare(strict_types=1);
 
 namespace phpOMS\tests\Math\Stochastic\Distribution;
 
 use phpOMS\Math\Stochastic\Distribution\ZTest;
 
+/**
+ * @internal
+ */
 class ZTestTest extends \PHPUnit\Framework\TestCase
 {
     // http://sphweb.bumc.bu.edu/otlt/MPH-Modules/BS/BS704_HypothesisTesting-ChiSquare/BS704_HypothesisTesting-ChiSquare_print.html

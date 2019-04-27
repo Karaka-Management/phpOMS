@@ -10,6 +10,7 @@
  * @version    1.0.0
  * @link       http://website.orange-management.de
  */
+ declare(strict_types=1);
 
 namespace phpOMS\tests\Config;
 
@@ -17,12 +18,15 @@ use phpOMS\Config\OptionsTrait;
 
 require_once __DIR__ . '/../Autoloader.php';
 
+/**
+ * @internal
+ */
 class OptionsTraitTest extends \PHPUnit\Framework\TestCase
 {
 
     public function testOptionTrait() : void
     {
-        $class = new class {
+        $class = new class() {
             use OptionsTrait;
         };
 
@@ -32,7 +36,7 @@ class OptionsTraitTest extends \PHPUnit\Framework\TestCase
 
     public function testDefault() : void
     {
-        $class = new class {
+        $class = new class() {
             use OptionsTrait;
         };
 
@@ -42,7 +46,7 @@ class OptionsTraitTest extends \PHPUnit\Framework\TestCase
 
     public function testSetGet() : void
     {
-        $class = new class {
+        $class = new class() {
             use OptionsTrait;
         };
 

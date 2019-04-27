@@ -135,7 +135,7 @@ class File extends FileAbstract implements FileInterface
                 \file_put_contents($tmpFile, $content);
             }
 
-            \ftp_put($con, $path, $tmpFile, FTP_BINARY);
+            \ftp_put($con, $path, $tmpFile, \FTP_BINARY);
             \ftp_chmod($con, 0755, $path);
             \unlink($tmpFile);
 
@@ -157,7 +157,7 @@ class File extends FileAbstract implements FileInterface
         $temp    = \fopen('php://temp', 'r+');
         $content = '';
 
-        if (\ftp_fget($con, $temp, $path, FTP_BINARY, 0)) {
+        if (\ftp_fget($con, $temp, $path, \FTP_BINARY, 0)) {
             \rewind($temp);
             $content = \stream_get_contents($temp);
         }
@@ -276,9 +276,9 @@ class File extends FileAbstract implements FileInterface
     /**
      * Gets the directory name of a file.
      *
-     * @param string $path Path of the file to get the directory name for.
+     * @param string $path path of the file to get the directory name for
      *
-     * @return string Returns the directory name of the file.
+     * @return string returns the directory name of the file
      *
      * @since 1.0.0
      */
@@ -290,9 +290,9 @@ class File extends FileAbstract implements FileInterface
     /**
      * Gets the directory path of a file.
      *
-     * @param string $path Path of the file to get the directory name for.
+     * @param string $path path of the file to get the directory name for
      *
-     * @return string Returns the directory name of the file.
+     * @return string returns the directory name of the file
      *
      * @since 1.0.0
      */

@@ -10,12 +10,16 @@
  * @version    1.0.0
  * @link       http://website.orange-management.de
  */
+ declare(strict_types=1);
 
 namespace phpOMS\tests\System\File;
 
 use phpOMS\System\File\ExtensionType;
 use phpOMS\System\File\FileUtils;
 
+/**
+ * @internal
+ */
 class FileUtilsTest extends \PHPUnit\Framework\TestCase
 {
     public function testExtension() : void

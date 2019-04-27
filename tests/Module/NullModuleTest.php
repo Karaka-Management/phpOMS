@@ -10,6 +10,7 @@
  * @version    1.0.0
  * @link       http://website.orange-management.de
  */
+ declare(strict_types=1);
 
 namespace phpOMS\tests\Module;
 
@@ -18,11 +19,14 @@ require_once __DIR__ . '/../Autoloader.php';
 use phpOMS\ApplicationAbstract;
 use phpOMS\Module\NullModule;
 
+/**
+ * @internal
+ */
 class NullModuleTest extends \PHPUnit\Framework\TestCase
 {
     public function testModule() : void
     {
-        $app = new class extends ApplicationAbstract
+        $app = new class() extends ApplicationAbstract
         {
         };
 

@@ -10,11 +10,15 @@
  * @version    1.0.0
  * @link       http://website.orange-management.de
  */
+ declare(strict_types=1);
 
 namespace phpOMS\tests\Math\Statistic\Forecast;
 
 use phpOMS\Math\Statistic\Forecast\Error;
 
+/**
+ * @internal
+ */
 class ErrorTest extends \PHPUnit\Framework\TestCase
 {
     public function testForecastError() : void
@@ -25,7 +29,7 @@ class ErrorTest extends \PHPUnit\Framework\TestCase
                 400 - 300,
                 600 - 700,
                 200 - 200,
-                500 - -300
+                500 - -300,
             ],
             Error::getForecastErrorArray(
                 [400, 600, 200, 500],
@@ -44,7 +48,7 @@ class ErrorTest extends \PHPUnit\Framework\TestCase
                 (400 - 300) / 400,
                 (600 - 700) / 600,
                 (200 - 200) / 200,
-                (500 - -300) / 500
+                (500 - -300) / 500,
             ],
             Error::getPercentageErrorArray(
                 Error::getForecastErrorArray(
@@ -62,7 +66,7 @@ class ErrorTest extends \PHPUnit\Framework\TestCase
             400 - 300,
             600 - 700,
             200 - 200,
-            500 - -300
+            500 - -300,
         ];
 
         self::assertEqualsWithDelta(300, Error::getMeanAbsoulteError($errors), 0.01);
@@ -74,12 +78,12 @@ class ErrorTest extends \PHPUnit\Framework\TestCase
     {
         $observed = [
             -2.9, -2.83, -0.95, -0.88, 1.21, -1.67, 0.83, -0.27, 1.36,
-            -0.34, 0.48, -2.83, -0.95, -0.88, 1.21, -1.67, -2.99, 1.24, 0.64
+            -0.34, 0.48, -2.83, -0.95, -0.88, 1.21, -1.67, -2.99, 1.24, 0.64,
         ];
 
         $forecast = [
             -2.95, -2.7, -1.00, -0.68, 1.50, -1.00, 0.90, -0.37, 1.26,
-            -0.54, 0.58, -2.13, -0.75, -0.89, 1.25, -1.65, -3.20, 1.29, 0.60
+            -0.54, 0.58, -2.13, -0.75, -0.89, 1.25, -1.65, -3.20, 1.29, 0.60,
         ];
 
         $errors       = Error::getForecastErrorArray($observed, $forecast);

@@ -120,7 +120,7 @@ final class Response extends ResponseAbstract implements RenderableInterface
      *
      * @return string
      *
-     * @throws \Exception This exception is thrown if the response cannot be rendered.
+     * @throws \Exception this exception is thrown if the response cannot be rendered
      *
      * @since  1.0.0
      */
@@ -129,7 +129,7 @@ final class Response extends ResponseAbstract implements RenderableInterface
         $render = '';
 
         foreach ($this->response as $key => $response) {
-            if ($response instanceOf \Serializable) {
+            if ($response instanceof \Serializable) {
                 $render .= $response->serialize();
             } elseif (\is_string($response) || \is_numeric($response)) {
                 $render .= $response;

@@ -10,6 +10,7 @@
  * @version    1.0.0
  * @link       http://website.orange-management.de
  */
+ declare(strict_types=1);
 
 namespace phpOMS\tests\Account;
 
@@ -26,6 +27,8 @@ require_once __DIR__ . '/../Autoloader.php';
 
 /**
  * @testdox phpOMS\tests\Account\Account: Base account/user representation
+ *
+ * @internal
  */
 class AccountTest extends \PHPUnit\Framework\TestCase
 {
@@ -69,31 +72,31 @@ class AccountTest extends \PHPUnit\Framework\TestCase
         $account = new Account();
 
         /* Testing default values */
-        self::assertTrue(\is_int($account->getId()));
+        self::assertIsInt($account->getId());
         self::assertEquals(0, $account->getId());
 
         self::assertInstanceOf('\phpOMS\Localization\Localization', $account->getL11n());
 
         self::assertEquals([], $account->getGroups());
 
-        self::assertEquals(null, $account->getName());
+        self::assertNull($account->getName());
 
-        self::assertTrue(\is_string($account->getName1()));
+        self::assertIsString($account->getName1());
         self::assertEquals('', $account->getName1());
 
-        self::assertTrue(\is_string($account->getName2()));
+        self::assertIsString($account->getName2());
         self::assertEquals('', $account->getName2());
 
-        self::assertTrue(\is_string($account->getName3()));
+        self::assertIsString($account->getName3());
         self::assertEquals('', $account->getName3());
 
-        self::assertTrue(\is_string($account->getEmail()));
+        self::assertIsString($account->getEmail());
         self::assertEquals('', $account->getEmail());
 
-        self::assertTrue(\is_int($account->getStatus()));
+        self::assertIsInt($account->getStatus());
         self::assertEquals(AccountStatus::INACTIVE, $account->getStatus());
 
-        self::assertTrue(\is_int($account->getType()));
+        self::assertIsInt($account->getType());
         self::assertEquals(AccountType::USER, $account->getType());
 
         self::assertEquals([], $account->getPermissions());
@@ -102,7 +105,7 @@ class AccountTest extends \PHPUnit\Framework\TestCase
         self::assertInstanceOf('\DateTime', $account->getCreatedAt());
 
         $array = $account->toArray();
-        self::assertTrue(\is_array($array));
+        self::assertIsArray($array);
         self::assertGreaterThan(0, \count($array));
         self::assertEquals(\json_encode($array), $account->__toString());
         self::assertEquals($array, $account->jsonSerialize());
@@ -141,7 +144,7 @@ class AccountTest extends \PHPUnit\Framework\TestCase
         $account->generatePassword('abcd');
 
         $account->addGroup(new Group());
-        self::assertEquals(1, \count($account->getGroups()));
+        self::assertCount(1, $account->getGroups());
     }
 
     /**
@@ -188,26 +191,26 @@ class AccountTest extends \PHPUnit\Framework\TestCase
         $account = new Account();
         $account->generatePassword('abcd');
 
-        $account->addPermission(new class extends PermissionAbstract {});
-        self::assertEquals(1, \count($account->getPermissions()));
+        $account->addPermission(new class() extends PermissionAbstract {});
+        self::assertCount(1, $account->getPermissions());
 
         $account->setPermissions([
-            new class extends PermissionAbstract {},
-            new class extends PermissionAbstract {},
+            new class() extends PermissionAbstract {},
+            new class() extends PermissionAbstract {},
         ]);
-        self::assertEquals(2, \count($account->getPermissions()));
+        self::assertCount(2, $account->getPermissions());
 
         $account->addPermissions([
-            new class extends PermissionAbstract {},
-            new class extends PermissionAbstract {},
+            new class() extends PermissionAbstract {},
+            new class() extends PermissionAbstract {},
         ]);
-        self::assertEquals(4, \count($account->getPermissions()));
+        self::assertCount(4, $account->getPermissions());
 
         $account->addPermissions([[
-            new class extends PermissionAbstract {},
-            new class extends PermissionAbstract {},
+            new class() extends PermissionAbstract {},
+            new class() extends PermissionAbstract {},
         ]]);
-        self::assertEquals(6, \count($account->getPermissions()));
+        self::assertCount(6, $account->getPermissions());
 
         self::assertFalse($account->hasPermission(PermissionType::READ, 1, 'a', 'a', 1, 1, 1));
         self::assertTrue($account->hasPermission(PermissionType::NONE));
@@ -260,7 +263,7 @@ class AccountTest extends \PHPUnit\Framework\TestCase
 
         $rand = 0;
         do {
-            $rand = \mt_rand(PHP_INT_MIN, PHP_INT_MAX);
+            $rand = \mt_rand(\PHP_INT_MIN, \PHP_INT_MAX);
         } while (AccountStatus::isValidValue($rand));
 
         $account->setStatus($rand);
@@ -277,7 +280,7 @@ class AccountTest extends \PHPUnit\Framework\TestCase
 
         $rand = 0;
         do {
-            $rand = \mt_rand(PHP_INT_MIN, PHP_INT_MAX);
+            $rand = \mt_rand(\PHP_INT_MIN, \PHP_INT_MAX);
         } while (AccountType::isValidValue($rand));
 
         $account->setType($rand);

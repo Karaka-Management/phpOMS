@@ -10,11 +10,15 @@
  * @version    1.0.0
  * @link       http://website.orange-management.de
  */
+ declare(strict_types=1);
 
 namespace phpOMS\tests\Math\Statistic;
 
 use phpOMS\Math\Statistic\Average;
 
+/**
+ * @internal
+ */
 class AverageTest extends \PHPUnit\Framework\TestCase
 {
     public function testAverage() : void

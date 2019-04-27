@@ -91,7 +91,7 @@ class Text
     /**
      * Set if the text should have formatting.
      *
-     * @param bool $hasFormatting Text has formatting.
+     * @param bool $hasFormatting text has formatting
      *
      * @return void
      *
@@ -187,11 +187,11 @@ class Text
 
             if ($newSentence) {
                 $word = \ucfirst($word);
-                $sentenceCount++;
+                ++$sentenceCount;
 
                 /** @noinspection PhpUndefinedVariableInspection */
                 if ($this->hasParagraphs) {
-                    $paid++;
+                    ++$paid;
 
                     $text .= '</p><p>';
                 }
@@ -206,7 +206,7 @@ class Text
 
             if ($punctuation[$puid][0] === $i) {
                 $text .= $punctuation[$puid][1];
-                $puid++;
+                ++$puid;
             }
         }
 

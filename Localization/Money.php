@@ -102,7 +102,7 @@ final class Money implements \Serializable
      *
      * @return int
      *
-     * @throws \Exception This exception is thrown if an internal explode or substr error occurs.
+     * @throws \Exception this exception is thrown if an internal explode or substr error occurs
      *
      * @since  1.0.0
      */
@@ -189,7 +189,7 @@ final class Money implements \Serializable
      *
      * @return string
      *
-     * @throws \Exception This exception is thrown if an internal substr error occurs.
+     * @throws \Exception this exception is thrown if an internal substr error occurs
      *
      * @since  1.0.0
      */

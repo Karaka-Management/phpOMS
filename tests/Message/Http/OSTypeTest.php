@@ -10,16 +10,20 @@
  * @version    1.0.0
  * @link       http://website.orange-management.de
  */
+ declare(strict_types=1);
 
 namespace phpOMS\tests\Message\Http;
 
 use phpOMS\Message\Http\OSType;
 
+/**
+ * @internal
+ */
 class OSTypeTest extends \PHPUnit\Framework\TestCase
 {
     public function testEnums() : void
     {
-        self::assertEquals(24, \count(OSType::getConstants()));
+        self::assertCount(24, OSType::getConstants());
         self::assertEquals(OSType::getConstants(), \array_unique(OSType::getConstants()));
     }
 }

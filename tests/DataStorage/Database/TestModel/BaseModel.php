@@ -10,6 +10,7 @@
  * @version    1.0.0
  * @link       http://website.orange-management.de
  */
+ declare(strict_types=1);
 
 namespace phpOMS\tests\DataStorage\Database\TestModel;
 
@@ -60,7 +61,7 @@ class BaseModel
         $this->ownsOneSelf  = new OwnsOneModel();
         $this->belongsToOne = new BelongsToModel();
 
-        $this->serializable = new class implements \Serializable {
+        $this->serializable = new class() implements \Serializable {
             public function serialize()
             {
                 return '123';
@@ -72,7 +73,7 @@ class BaseModel
             }
         };
 
-        $this->jsonSerializable = new class implements \JsonSerializable {
+        $this->jsonSerializable = new class() implements \JsonSerializable {
             public function jsonSerialize()
             {
                 return [1, 2, 3];

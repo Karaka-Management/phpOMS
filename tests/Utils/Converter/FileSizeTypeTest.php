@@ -10,16 +10,20 @@
  * @version    1.0.0
  * @link       http://website.orange-management.de
  */
+ declare(strict_types=1);
 
 namespace phpOMS\tests\Utils\Converter;
 
 use phpOMS\Utils\Converter\FileSizeType;
 
+/**
+ * @internal
+ */
 class FileSizeTypeTest extends \PHPUnit\Framework\TestCase
 {
     public function testEnums() : void
     {
-        self::assertEquals(10, \count(FileSizeType::getConstants()));
+        self::assertCount(10, FileSizeType::getConstants());
         self::assertEquals('TB', FileSizeType::TERRABYTE);
         self::assertEquals('GB', FileSizeType::GIGABYTE);
         self::assertEquals('MB', FileSizeType::MEGABYTE);

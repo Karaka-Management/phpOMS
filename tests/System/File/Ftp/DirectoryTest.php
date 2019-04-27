@@ -10,13 +10,16 @@
  * @version    1.0.0
  * @link       http://website.orange-management.de
  */
+ declare(strict_types=1);
 
 namespace phpOMS\tests\System\File\Ftp;
 
 use phpOMS\System\File\Ftp\Directory;
-use phpOMS\System\File\PathException;
 use phpOMS\Uri\Http;
 
+/**
+ * @internal
+ */
 class DirectoryTest extends \PHPUnit\Framework\TestCase
 {
     const BASE = 'ftp://test:123456@127.0.0.1:20';
@@ -68,18 +71,18 @@ class DirectoryTest extends \PHPUnit\Framework\TestCase
 
         $dirTestPath = __DIR__ . '/dirtest';
         self::assertTrue(Directory::copy($this->con, $dirTestPath, __DIR__ . '/newdirtest'));
-        self::assertTrue(\file_exists(__DIR__ . '/newdirtest/sub/path/test3.txt'));
+        self::assertFileExists(__DIR__ . '/newdirtest/sub/path/test3.txt');
 
         self::assertTrue(Directory::delete($this->con, $dirTestPath));
         self::assertFalse(Directory::exists($this->con, $dirTestPath));
 
         self::assertTrue(Directory::move($this->con, __DIR__ . '/newdirtest', $dirTestPath));
-        self::assertTrue(\file_exists($dirTestPath . '/sub/path/test3.txt'));
+        self::assertFileExists($dirTestPath . '/sub/path/test3.txt');
 
         self::assertEquals(4, Directory::count($this->con, $dirTestPath));
         self::assertEquals(1, Directory::count($this->con, $dirTestPath, false));
 
-        self::assertEquals(6, \count(Directory::list($this->con, $dirTestPath)));
+        self::assertCount(6, Directory::list($this->con, $dirTestPath));
     }
 
     public function testInvalidListPath() : void

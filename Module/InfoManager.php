@@ -75,7 +75,7 @@ final class InfoManager
      *
      * @return void
      *
-     * @throws PathException This exception is thrown in case the info file path doesn't exist.
+     * @throws PathException this exception is thrown in case the info file path doesn't exist
      *
      * @since  1.0.0
      */
@@ -103,7 +103,7 @@ final class InfoManager
             throw new PathException($this->path);
         }
 
-        \file_put_contents($this->path, \json_encode($this->info, JSON_PRETTY_PRINT));
+        \file_put_contents($this->path, \json_encode($this->info, \JSON_PRETTY_PRINT));
     }
 
     /**

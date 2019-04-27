@@ -10,6 +10,7 @@
  * @version    1.0.0
  * @link       http://website.orange-management.de
  */
+ declare(strict_types=1);
 
 namespace phpOMS\tests\Math\Matrix;
 
@@ -17,6 +18,9 @@ use phpOMS\Math\Matrix\LUDecomposition;
 use phpOMS\Math\Matrix\Matrix;
 use phpOMS\Math\Matrix\Vector;
 
+/**
+ * @internal
+ */
 class LUDecompositionTest extends \PHPUnit\Framework\TestCase
 {
     public function testDecomposition() : void

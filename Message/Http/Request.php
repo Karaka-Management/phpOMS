@@ -96,7 +96,7 @@ final class Request extends RequestAbstract
             $this->setupUriBuilder();
         }
 
-        $this->data = \array_change_key_case($this->data, CASE_LOWER);
+        $this->data = \array_change_key_case($this->data, \CASE_LOWER);
     }
 
     /**
@@ -479,7 +479,7 @@ final class Request extends RequestAbstract
     {
         if ($this->getMethod() === RequestMethod::GET && !empty($this->data)) {
             return $this->uri->__toString()
-                . (\parse_url($this->uri->__toString(), PHP_URL_QUERY) ? '&' : '?')
+                . (\parse_url($this->uri->__toString(), \PHP_URL_QUERY) ? '&' : '?')
                 . \http_build_query($this->data);
         }
 

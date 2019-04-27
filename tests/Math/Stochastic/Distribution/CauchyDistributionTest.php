@@ -10,11 +10,15 @@
  * @version    1.0.0
  * @link       http://website.orange-management.de
  */
+ declare(strict_types=1);
 
 namespace phpOMS\tests\Math\Stochastic\Distribution;
 
 use phpOMS\Math\Stochastic\Distribution\CauchyDistribution;
 
+/**
+ * @internal
+ */
 class CauchyDistributionTest extends \PHPUnit\Framework\TestCase
 {
     public function testMedianMode() : void
@@ -45,6 +49,6 @@ class CauchyDistributionTest extends \PHPUnit\Framework\TestCase
     {
         $gamma = 1.5;
 
-        self::assertEqualsWithDelta(\log(4 * M_PI * $gamma), CauchyDistribution::getEntropy($gamma), 0.01);
+        self::assertEqualsWithDelta(\log(4 * \M_PI * $gamma), CauchyDistribution::getEntropy($gamma), 0.01);
     }
 }

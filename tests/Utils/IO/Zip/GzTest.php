@@ -10,11 +10,15 @@
  * @version    1.0.0
  * @link       http://website.orange-management.de
  */
+ declare(strict_types=1);
 
 namespace phpOMS\tests\Utils\IO\Gz;
 
 use phpOMS\Utils\IO\Zip\Gz;
 
+/**
+ * @internal
+ */
 class GzTest extends \PHPUnit\Framework\TestCase
 {
     public function testGz() : void
@@ -24,19 +28,19 @@ class GzTest extends \PHPUnit\Framework\TestCase
             __DIR__ . '/test.gz'
         ));
 
-        self::assertTrue(\file_exists(__DIR__ . '/test.gz'));
+        self::assertFileExists(__DIR__ . '/test.gz');
 
         $a = \file_get_contents(__DIR__ . '/test a.txt');
 
         \unlink(__DIR__ . '/test a.txt');
 
-        self::assertFalse(\file_exists(__DIR__ . '/test a.txt'));
+        self::assertFileNotExists(__DIR__ . '/test a.txt');
         self::assertTrue(Gz::unpack(__DIR__ . '/test.gz', __DIR__ . '/test a.txt'));
-        self::assertTrue(\file_exists(__DIR__ . '/test a.txt'));
+        self::assertFileExists(__DIR__ . '/test a.txt');
         self::assertEquals($a, \file_get_contents(__DIR__ . '/test a.txt'));
 
         \unlink(__DIR__ . '/test.gz');
-        self::assertFalse(\file_exists(__DIR__ . '/test.gz'));
+        self::assertFileNotExists(__DIR__ . '/test.gz');
         self::assertFalse(Gz::unpack(__DIR__ . '/test.gz', __DIR__ . '/test a.txt'));
     }
 }

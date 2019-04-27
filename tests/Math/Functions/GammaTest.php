@@ -10,12 +10,16 @@
  * @version    1.0.0
  * @link       http://website.orange-management.de
  */
+ declare(strict_types=1);
 
 namespace phpOMS\tests\Math\Functions;
 
 use phpOMS\Math\Functions\Functions;
 use phpOMS\Math\Functions\Gamma;
 
+/**
+ * @internal
+ */
 class GammaTest extends \PHPUnit\Framework\TestCase
 {
     public function testFactorial() : void
@@ -37,7 +41,7 @@ class GammaTest extends \PHPUnit\Framework\TestCase
             2.67893853, 1.35411794, 1.00000000, 0.89297951, 0.90274529, 1.00000000, 1.19063935, 1.50457549, 2.00000000, 2.77815848,
         ];
 
-        for ($i = 1; $i <= 10; $i++) {
+        for ($i = 1; $i <= 10; ++$i) {
             self::assertEqualsWithDelta($stirling[$i - 1], Gamma::stirlingApproximation($i / 3), 0.01);
             self::assertEqualsWithDelta($spouge[$i - 1], Gamma::spougeApproximation($i / 3), 0.01);
             self::assertEqualsWithDelta($gsl[$i - 1], Gamma::lanczosApproximationReal($i / 3), 0.01);

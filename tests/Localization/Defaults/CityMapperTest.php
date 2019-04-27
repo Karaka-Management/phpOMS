@@ -10,6 +10,7 @@
  * @version    1.0.0
  * @link       http://website.orange-management.de
  */
+ declare(strict_types=1);
 
 namespace phpOMS\tests\Localization\Defaults;
 
@@ -19,6 +20,9 @@ use phpOMS\DataStorage\Database\Connection\SQLiteConnection;
 use phpOMS\DataStorage\Database\DataMapperAbstract;
 use phpOMS\Localization\Defaults\CityMapper;
 
+/**
+ * @internal
+ */
 class CityMapperTest extends \PHPUnit\Framework\TestCase
 {
     public static function setUpBeforeClass() : void

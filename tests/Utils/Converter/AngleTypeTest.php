@@ -10,16 +10,20 @@
  * @version    1.0.0
  * @link       http://website.orange-management.de
  */
+ declare(strict_types=1);
 
 namespace phpOMS\tests\Utils\Converter;
 
 use phpOMS\Utils\Converter\AngleType;
 
+/**
+ * @internal
+ */
 class AngleTypeTest extends \PHPUnit\Framework\TestCase
 {
     public function testEnums() : void
     {
-        self::assertEquals(10, \count(AngleType::getConstants()));
+        self::assertCount(10, AngleType::getConstants());
         self::assertEquals(AngleType::getConstants(), \array_unique(AngleType::getConstants()));
 
         self::assertEquals('deg', AngleType::DEGREE);

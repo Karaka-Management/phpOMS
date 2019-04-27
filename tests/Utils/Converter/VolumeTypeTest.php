@@ -10,16 +10,20 @@
  * @version    1.0.0
  * @link       http://website.orange-management.de
  */
+ declare(strict_types=1);
 
 namespace phpOMS\tests\Utils\Converter;
 
 use phpOMS\Utils\Converter\VolumeType;
 
+/**
+ * @internal
+ */
 class VolumeTypeTest extends \PHPUnit\Framework\TestCase
 {
     public function testEnums() : void
     {
-        self::assertEquals(38, \count(VolumeType::getConstants()));
+        self::assertCount(38, VolumeType::getConstants());
         self::assertEquals(VolumeType::getConstants(), \array_unique(VolumeType::getConstants()));
 
         self::assertEquals('UK gal', VolumeType::UK_GALLON);

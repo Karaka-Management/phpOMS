@@ -10,11 +10,15 @@
  * @version    1.0.0
  * @link       http://website.orange-management.de
  */
+ declare(strict_types=1);
 
 namespace phpOMS\tests\Math\Geometry\Shape\D2;
 
 use phpOMS\Math\Geometry\Shape\D2\Circle;
 
+/**
+ * @internal
+ */
 class CircleTest extends \PHPUnit\Framework\TestCase
 {
     public function testCircle() : void

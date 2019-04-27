@@ -10,6 +10,7 @@
  * @version    1.0.0
  * @link       http://website.orange-management.de
  */
+ declare(strict_types=1);
 
 namespace phpOMS\tests\Account;
 
@@ -17,11 +18,14 @@ require_once __DIR__ . '/../Autoloader.php';
 
 use phpOMS\Account\PermissionType;
 
+/**
+ * @internal
+ */
 class PermissionTypeTest extends \PHPUnit\Framework\TestCase
 {
     public function testEnums() : void
     {
-        self::assertEquals(6, \count(PermissionType::getConstants()));
+        self::assertCount(6, PermissionType::getConstants());
         self::assertEquals(PermissionType::getConstants(), \array_unique(PermissionType::getConstants()));
 
         self::assertEquals(1, PermissionType::NONE);

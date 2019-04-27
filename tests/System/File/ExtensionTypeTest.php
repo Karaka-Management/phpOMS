@@ -10,16 +10,20 @@
  * @version    1.0.0
  * @link       http://website.orange-management.de
  */
+ declare(strict_types=1);
 
 namespace phpOMS\tests\System\File;
 
 use phpOMS\System\File\ExtensionType;
 
+/**
+ * @internal
+ */
 class ExtensionTypeTest extends \PHPUnit\Framework\TestCase
 {
     public function testEnums() : void
     {
-        self::assertEquals(11, \count(ExtensionType::getConstants()));
+        self::assertCount(11, ExtensionType::getConstants());
         self::assertEquals(ExtensionType::getConstants(), \array_unique(ExtensionType::getConstants()));
 
         self::assertEquals(1, ExtensionType::UNKNOWN);

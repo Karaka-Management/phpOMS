@@ -10,16 +10,20 @@
  * @version    1.0.0
  * @link       http://website.orange-management.de
  */
+ declare(strict_types=1);
 
 namespace phpOMS\tests\Stdlib\Queue;
 
 use phpOMS\Stdlib\Queue\PriorityMode;
 
+/**
+ * @internal
+ */
 class PriorityModeTest extends \PHPUnit\Framework\TestCase
 {
     public function testEnums() : void
     {
-        self::assertEquals(4, \count(PriorityMode::getConstants()));
+        self::assertCount(4, PriorityMode::getConstants());
         self::assertEquals(1, PriorityMode::FIFO);
         self::assertEquals(2, PriorityMode::LIFO);
         self::assertEquals(4, PriorityMode::HIGHEST);

@@ -10,11 +10,15 @@
  * @version    1.0.0
  * @link       http://website.orange-management.de
  */
+ declare(strict_types=1);
 
 namespace phpOMS\tests\Business\Finance;
 
 use phpOMS\Business\Finance\FinanceFormulas;
 
+/**
+ * @internal
+ */
 class FinanceFormulasTest extends \PHPUnit\Framework\TestCase
 {
     public function testAnnualPercentageYield() : void

@@ -114,7 +114,7 @@ class Reload implements \Serializable, ArrayableInterface, \JsonSerializable
     {
         return [
             'type' => self::TYPE,
-            'time' => $this->delay
+            'time' => $this->delay,
         ];
     }
 

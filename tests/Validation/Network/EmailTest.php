@@ -10,11 +10,15 @@
  * @version    1.0.0
  * @link       http://website.orange-management.de
  */
+ declare(strict_types=1);
 
 namespace phpOMS\tests\Validation\Network;
 
 use phpOMS\Validation\Network\Email;
 
+/**
+ * @internal
+ */
 class EmailTest extends \PHPUnit\Framework\TestCase
 {
     public function testValidation() : void

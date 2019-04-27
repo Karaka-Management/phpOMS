@@ -183,7 +183,7 @@ class Markdown
      * @since 1.0.0
      */
     private static $continuable = [
-        'Code', 'FencedCode', 'List', 'Quote', 'Table'
+        'Code', 'FencedCode', 'List', 'Quote', 'Table',
     ];
 
     /**
@@ -193,7 +193,7 @@ class Markdown
      * @since 1.0.0
      */
     private static $completable = [
-        'Code', 'FencedCode'
+        'Code', 'FencedCode',
     ];
 
     /**
@@ -253,7 +253,7 @@ class Markdown
         $currentBlock = null;
 
         foreach ($lines as $line) {
-            if (\chop($line) === '') {
+            if (\rtrim($line) === '') {
                 if (isset($currentBlock)) {
                     $currentBlock['interrupted'] = true;
                 }
@@ -277,7 +277,7 @@ class Markdown
 
             $indent = 0;
             while (isset($line[$indent]) && $line[$indent] === ' ') {
-                $indent ++;
+                ++$indent;
             }
 
             $text      = $indent > 0 ? \substr($line, $indent) : $line;
@@ -463,7 +463,7 @@ class Markdown
                 'name' => 'pre',
                 'handler' => 'element',
                 'text' => $elementArray,
-            ]
+            ],
         ];
     }
 
@@ -532,7 +532,7 @@ class Markdown
 
         $level = 1;
         while (isset($lineArray['text'][$level]) && $lineArray['text'][$level] === '#') {
-            $level ++;
+            ++$level;
         }
 
         if ($level > 6) {
@@ -725,7 +725,7 @@ class Markdown
 
         return [
             'element' => [
-                'name' => 'hr'
+                'name' => 'hr',
             ],
         ];
     }
@@ -746,7 +746,7 @@ class Markdown
             return null;
         }
 
-        if (\chop($lineArray['text'], $lineArray['text'][0]) !== '') {
+        if (\rtrim($lineArray['text'], $lineArray['text'][0]) !== '') {
             return null;
         }
 
@@ -796,7 +796,7 @@ class Markdown
             return null;
         }
 
-        if (\strpos($block['element']['text'], '|') !== false && \chop($lineArray['text'], ' -:|') === '') {
+        if (\strpos($block['element']['text'], '|') !== false && \rtrim($lineArray['text'], ' -:|') === '') {
             $alignments   = [];
             $divider      = $lineArray['text'];
             $divider      = \trim($divider);
@@ -1293,7 +1293,7 @@ class Markdown
             return null;
         }
 
-        if (!\preg_match('/\bhttps?:[\/]{2}[^\s<]+\b\/*/ui', $excerpt['context'], $matches, PREG_OFFSET_CAPTURE)) {
+        if (!\preg_match('/\bhttps?:[\/]{2}[^\s<]+\b\/*/ui', $excerpt['context'], $matches, \PREG_OFFSET_CAPTURE)) {
             return null;
         }
 
@@ -1503,7 +1503,7 @@ class Markdown
      */
     protected static function escape(string $text, bool $allowQuotes = false) : string
     {
-        return \htmlspecialchars($text, $allowQuotes ? ENT_NOQUOTES : ENT_QUOTES, 'UTF-8');
+        return \htmlspecialchars($text, $allowQuotes ? \ENT_NOQUOTES : \ENT_QUOTES, 'UTF-8');
     }
 
     /**

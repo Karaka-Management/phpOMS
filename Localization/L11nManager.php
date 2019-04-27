@@ -80,7 +80,7 @@ final class L11nManager
      *
      * @return void
      *
-     * @throws \UnexpectedValueException This exception is thrown when no language definitions for the defined source `$from` exist.
+     * @throws \UnexpectedValueException this exception is thrown when no language definitions for the defined source `$from` exist
      *
      * @since  1.0.0
      */

@@ -10,11 +10,15 @@
  * @version    1.0.0
  * @link       http://website.orange-management.de
  */
+ declare(strict_types=1);
 
 namespace phpOMS\tests\Math\Matrix\Exception;
 
 use phpOMS\Math\Matrix\Exception\InvalidDimensionException;
 
+/**
+ * @internal
+ */
 class InvalidDimensionExceptionTest extends \PHPUnit\Framework\TestCase
 {
     public function testException() : void

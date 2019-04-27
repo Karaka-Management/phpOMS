@@ -100,10 +100,10 @@ class C128c extends C128Abstract
 
             $codeString .= self::$CODEARRAY[$activeKey];
             $checksum   += $values[$activeKey] * $checkPos;
-            $checkPos++;
+            ++$checkPos;
         }
 
-        $codeString .= self::$CODEARRAY[$keys[($checksum - (\intval($checksum / 103) * 103))]];
+        $codeString .= self::$CODEARRAY[$keys[($checksum - ((int) ($checksum / 103) * 103))]];
 
         return $codeString;
     }

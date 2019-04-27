@@ -10,11 +10,15 @@
  * @version    1.0.0
  * @link       http://website.orange-management.de
  */
+ declare(strict_types=1);
 
 namespace phpOMS\tests\Utils\RnG;
 
 use phpOMS\Utils\RnG\DateTime;
 
+/**
+ * @internal
+ */
 class DateTimeTest extends \PHPUnit\Framework\TestCase
 {
     public function testRnG() : void
@@ -23,8 +27,8 @@ class DateTimeTest extends \PHPUnit\Framework\TestCase
             $dateMin = new \DateTime();
             $dateMax = new \DateTime();
 
-            $min = \mt_rand(0, PHP_INT_MAX - 2);
-            $max = \mt_rand($min + 1, PHP_INT_MAX);
+            $min = \mt_rand(0, \PHP_INT_MAX - 2);
+            $max = \mt_rand($min + 1, \PHP_INT_MAX);
 
             $dateMin->setTimestamp($min);
             $dateMax->setTimestamp($max);

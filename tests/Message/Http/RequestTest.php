@@ -10,6 +10,7 @@
  * @version    1.0.0
  * @link       http://website.orange-management.de
  */
+ declare(strict_types=1);
 
 namespace phpOMS\tests\Message\Http;
 
@@ -21,6 +22,9 @@ use phpOMS\Message\Http\RequestMethod;
 use phpOMS\Router\RouteVerb;
 use phpOMS\Uri\Http;
 
+/**
+ * @internal
+ */
 class RequestTest extends \PHPUnit\Framework\TestCase
 {
     public function testDefault() : void
@@ -44,7 +48,7 @@ class RequestTest extends \PHPUnit\Framework\TestCase
         self::assertInstanceOf('\phpOMS\Message\Http\Request', Request::createFromSuperglobals());
         self::assertEquals('http://', $request->__toString());
         self::assertFalse($request->hasData('key'));
-        self::assertEquals(null, $request->getData('key'));
+        self::assertNull($request->getData('key'));
         self::assertEquals('en', $request->getRequestLanguage());
         self::assertEquals('en_US', $request->getLocale());
     }
@@ -78,7 +82,7 @@ class RequestTest extends \PHPUnit\Framework\TestCase
         self::assertEquals([
             'da39a3ee5e6b4b0d3255bfef95601890afd80709',
             'a94a8fe5ccb19ba61c4c0873d391e987982fbbd3',
-            '328413d996ab9b79af9d4098af3a65b885c4ca64'
+            '328413d996ab9b79af9d4098af3a65b885c4ca64',
             ], $request->getHash());
         self::assertEquals($l11n, $request->getHeader()->getL11n());
 

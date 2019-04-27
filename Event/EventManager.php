@@ -65,7 +65,7 @@ final class EventManager implements \Countable
      */
     public function __construct(Dispatcher $dispatcher = null)
     {
-        $this->dispatcher = $dispatcher ?? new class {
+        $this->dispatcher = $dispatcher ?? new class() {
             public function dispatch($func, ...$data) : void
             {
                 $func(...$data);
@@ -140,7 +140,7 @@ final class EventManager implements \Countable
      * @param string $id    Sub-requirement for event
      * @param mixed  $data  Data to pass to the callback
      *
-     * @return bool Returns true on sucessfully triggering the event, false if the event couldn't be triggered which also includes sub-requirements missing.
+     * @return bool returns true on sucessfully triggering the event, false if the event couldn't be triggered which also includes sub-requirements missing
      *
      * @since  1.0.0
      */
@@ -169,7 +169,7 @@ final class EventManager implements \Countable
      * @param string $id    Sub-requirement for event
      * @param mixed  $data  Data to pass to the callback
      *
-     * @return bool Returns true on sucessfully triggering the event, false if the event couldn't be triggered which also includes sub-requirements missing.
+     * @return bool returns true on sucessfully triggering the event, false if the event couldn't be triggered which also includes sub-requirements missing
      *
      * @since  1.0.0
      */

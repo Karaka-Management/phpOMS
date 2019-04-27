@@ -31,7 +31,7 @@ class Cron extends SchedulerAbstract
     public function create(TaskAbstract $task) : void
     {
         $this->run('-l > ' . __DIR__ . '/tmpcron.tmp');
-        \file_put_contents(__DIR__ . '/tmpcron.tmp', $task->__toString() . "\n", FILE_APPEND);
+        \file_put_contents(__DIR__ . '/tmpcron.tmp', $task->__toString() . "\n", \FILE_APPEND);
         $this->run(__DIR__ . '/tmpcron.tmp');
         \unlink(__DIR__ . '/tmpcron.tmp');
     }

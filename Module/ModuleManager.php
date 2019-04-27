@@ -248,7 +248,7 @@ final class ModuleManager
     {
         if (empty($this->all)) {
             \chdir($this->modulePath);
-            $files = \glob('*', GLOB_ONLYDIR);
+            $files = \glob('*', \GLOB_ONLYDIR);
             $c     = \count($files);
 
             for ($i = 0; $i < $c; ++$i) {

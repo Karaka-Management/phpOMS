@@ -10,12 +10,16 @@
  * @version    1.0.0
  * @link       http://website.orange-management.de
  */
+ declare(strict_types=1);
 
 namespace phpOMS\tests\Math\Matrix;
 
 use phpOMS\Math\Matrix\EigenvalueDecomposition;
 use phpOMS\Math\Matrix\Matrix;
 
+/**
+ * @internal
+ */
 class EigenvalueDecompositionTest extends \PHPUnit\Framework\TestCase
 {
     public function testSymmetricMatrix() : void

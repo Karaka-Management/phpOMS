@@ -10,12 +10,16 @@
  * @version    1.0.0
  * @link       http://website.orange-management.de
  */
+ declare(strict_types=1);
 
 namespace phpOMS\tests\DataStorage\Cache\Connection;
 
 use phpOMS\DataStorage\Cache\CacheType;
 use phpOMS\DataStorage\Cache\Connection\ConnectionFactory;
 
+/**
+ * @internal
+ */
 class ConnectionFactoryTest extends \PHPUnit\Framework\TestCase
 {
     public function testCreateFileCache() : void

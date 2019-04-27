@@ -24,7 +24,7 @@ namespace phpOMS\Views;
  */
 class TableView extends View
 {
-    public function renderHeaderColumn(string $inner, bool $sortable = true, bool $filterable = true)
+    public function renderHeaderColumn(string $inner, bool $sortable = true, bool $filterable = true): void
     {
 
     }

@@ -10,6 +10,7 @@
  * @version    1.0.0
  * @link       http://website.orange-management.de
  */
+ declare(strict_types=1);
 
 namespace phpOMS\tests\Module;
 
@@ -17,6 +18,9 @@ require_once __DIR__ . '/../Autoloader.php';
 
 use phpOMS\Module\InfoManager;
 
+/**
+ * @internal
+ */
 class InfoManagerTest extends \PHPUnit\Framework\TestCase
 {
     public function testInfoManager() : void
@@ -73,7 +77,7 @@ class InfoManagerTest extends \PHPUnit\Framework\TestCase
         $info = new InfoManager(__DIR__ . '/info-test.json');
         $info->load();
 
-        $testObj = new class {
+        $testObj = new class() {
             public $test = 1;
 
             public function test() : void

@@ -71,7 +71,7 @@ final class StringCompare
      */
     public function matchDictionary(string $match) : string
     {
-        $bestScore = PHP_INT_MAX;
+        $bestScore = \PHP_INT_MAX;
         $bestMatch = '';
 
         foreach ($this->dictionary as $word) {
@@ -103,7 +103,7 @@ final class StringCompare
         $total  = 0;
 
         if ($words1 === false || $words2 === false) {
-            return PHP_INT_MAX;
+            return \PHP_INT_MAX;
         }
 
         foreach ($words1 as $word1) {

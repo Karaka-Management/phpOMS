@@ -10,6 +10,7 @@
  * @version    1.0.0
  * @link       http://website.orange-management.de
  */
+ declare(strict_types=1);
 
 namespace phpOMS\tests\Stdlib\Map;
 
@@ -17,6 +18,9 @@ use phpOMS\Stdlib\Map\KeyType;
 use phpOMS\Stdlib\Map\MultiMap;
 use phpOMS\Stdlib\Map\OrderType;
 
+/**
+ * @internal
+ */
 class MultiMapTest extends \PHPUnit\Framework\TestCase
 {
     public function testAttributes() : void
@@ -154,11 +158,11 @@ class MultiMapTest extends \PHPUnit\Framework\TestCase
         $set = $map->set('d', 'val4');
         $set = $map->set('b', 'val4');
 
-        self::assertEquals(3, \count($map->keys()));
-        self::assertEquals(2, \count($map->values()));
+        self::assertCount(3, $map->keys());
+        self::assertCount(2, $map->values());
 
-        self::assertTrue(\is_array($map->keys()));
-        self::assertTrue(\is_array($map->values()));
+        self::assertIsArray($map->keys());
+        self::assertIsArray($map->values());
     }
 
     public function testSiblingsAny() : void
@@ -172,10 +176,10 @@ class MultiMapTest extends \PHPUnit\Framework\TestCase
 
         $siblings = $map->getSiblings('d');
         self::assertEmpty($siblings);
-        self::assertEquals(0, \count($siblings));
+        self::assertCount(0, $siblings);
 
         $siblings = $map->getSiblings('b');
-        self::assertEquals(1, \count($siblings));
+        self::assertCount(1, $siblings);
         self::assertEquals(['a'], $siblings);
     }
 
@@ -194,16 +198,16 @@ class MultiMapTest extends \PHPUnit\Framework\TestCase
 
         $removed = $map->remove('c');
         self::assertTrue($removed);
-        self::assertEquals(2, \count($map->keys()));
-        self::assertEquals(1, \count($map->values()));
+        self::assertCount(2, $map->keys());
+        self::assertCount(1, $map->values());
 
         $removed = $map->removeKey('d');
         self::assertFalse($removed);
 
         $removed = $map->removeKey('a');
         self::assertTrue($removed);
-        self::assertEquals(1, \count($map->keys()));
-        self::assertEquals(1, \count($map->values()));
+        self::assertCount(1, $map->keys());
+        self::assertCount(1, $map->values());
     }
 
     public function testBasicAddExact() : void
@@ -225,7 +229,7 @@ class MultiMapTest extends \PHPUnit\Framework\TestCase
         self::assertEquals(1, $map->count());
         self::assertTrue($inserted);
         self::assertEquals('val1', $map->get(['a', 'b']));
-        self::assertEquals(null, $map->get(['b', 'a']));
+        self::assertNull($map->get(['b', 'a']));
     }
 
     public function testOverwriteExact() : void
@@ -336,16 +340,16 @@ class MultiMapTest extends \PHPUnit\Framework\TestCase
         $inserted = $map->add(['a', 'b'], 'val2');
         $inserted = $map->add(['a', 'c'], 'val3', false);
 
-        self::assertEquals(2, \count($map->keys()));
-        self::assertEquals(2, \count($map->values()));
+        self::assertCount(2, $map->keys());
+        self::assertCount(2, $map->values());
 
         $removed = $map->remove('d');
         self::assertFalse($removed);
 
         $removed = $map->remove(['a', 'b']);
         self::assertTrue($removed);
-        self::assertEquals(1, \count($map->keys()));
-        self::assertEquals(1, \count($map->values()));
+        self::assertCount(1, $map->keys());
+        self::assertCount(1, $map->values());
 
         self::assertFalse($map->removeKey(['a', 'b']));
     }
@@ -357,16 +361,16 @@ class MultiMapTest extends \PHPUnit\Framework\TestCase
         $inserted = $map->add(['a', 'b'], 'val2');
         $inserted = $map->add(['a', 'c'], 'val3', false);
 
-        self::assertEquals(2, \count($map->keys()));
-        self::assertEquals(2, \count($map->values()));
+        self::assertCount(2, $map->keys());
+        self::assertCount(2, $map->values());
 
         $removed = $map->remove(['b', 'a']);
         self::assertFalse($removed);
 
         $removed = $map->remove(['a', 'b']);
         self::assertTrue($removed);
-        self::assertEquals(1, \count($map->keys()));
-        self::assertEquals(1, \count($map->values()));
+        self::assertCount(1, $map->keys());
+        self::assertCount(1, $map->values());
 
         self::assertFalse($map->removeKey(['a', 'b']));
     }

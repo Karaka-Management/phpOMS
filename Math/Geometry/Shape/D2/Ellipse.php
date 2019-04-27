@@ -42,7 +42,7 @@ final class Ellipse implements D2ShapeInterface
      */
     public static function getSurface(float $a, float $b) : float
     {
-        return \pi() * $a * $b;
+        return \M_PI * $a * $b;
     }
 
     /**
@@ -62,6 +62,6 @@ final class Ellipse implements D2ShapeInterface
      */
     public static function getPerimeter(float $a, float $b) : float
     {
-        return \pi() * ($a + $b) * (3 * ($a - $b) ** 2 / (($a + $b) ** 2 * (\sqrt(-3 * ($a - $b) ** 2 / (($a + $b) ** 2) + 4) + 10)) + 1);
+        return \M_PI * ($a + $b) * (3 * ($a - $b) ** 2 / (($a + $b) ** 2 * (\sqrt(-3 * ($a - $b) ** 2 / (($a + $b) ** 2) + 4) + 10)) + 1);
     }
 }
