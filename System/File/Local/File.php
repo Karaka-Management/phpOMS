@@ -74,24 +74,28 @@ final class File extends FileAbstract implements LocalContainerInterface, FileIn
     {
         $exists = \file_exists($path);
 
-        if ((ContentPutMode::hasFlag($mode, ContentPutMode::APPEND) && $exists)
-            || (ContentPutMode::hasFlag($mode, ContentPutMode::PREPEND) && $exists)
-            || (ContentPutMode::hasFlag($mode, ContentPutMode::REPLACE) && $exists)
-            || (!$exists && ContentPutMode::hasFlag($mode, ContentPutMode::CREATE))
-        ) {
-            if (ContentPutMode::hasFlag($mode, ContentPutMode::APPEND) && $exists) {
-                \file_put_contents($path, \file_get_contents($path) . $content);
-            } elseif (ContentPutMode::hasFlag($mode, ContentPutMode::PREPEND) && $exists) {
-                \file_put_contents($path, $content . \file_get_contents($path));
-            } else {
-                if (!Directory::exists(\dirname($path))) {
-                    Directory::create(\dirname($path), 0755, true);
+        try {
+            if (($exists && ContentPutMode::hasFlag($mode, ContentPutMode::APPEND))
+                || ($exists && ContentPutMode::hasFlag($mode, ContentPutMode::PREPEND))
+                || ($exists && ContentPutMode::hasFlag($mode, ContentPutMode::REPLACE))
+                || (!$exists && ContentPutMode::hasFlag($mode, ContentPutMode::CREATE))
+            ) {
+                if ($exists && ContentPutMode::hasFlag($mode, ContentPutMode::APPEND)) {
+                    \file_put_contents($path, \file_get_contents($path) . $content);
+                } elseif ($exists && ContentPutMode::hasFlag($mode, ContentPutMode::PREPEND)) {
+                    \file_put_contents($path, $content . \file_get_contents($path));
+                } else {
+                    if (!Directory::exists(\dirname($path))) {
+                        Directory::create(\dirname($path), 0755, true);
+                    }
+
+                    \file_put_contents($path, $content);
                 }
 
-                \file_put_contents($path, $content);
+                return true;
             }
-
-            return true;
+        } catch (\Throwable $e) {
+            return false;
         }
 
         return false;
@@ -251,7 +255,7 @@ final class File extends FileAbstract implements LocalContainerInterface, FileIn
     public static function size(string $path, bool $recursive = true) : int
     {
         if (!\file_exists($path)) {
-            throw new PathException($path);
+            return 0;
         }
 
         return (int) \filesize($path);

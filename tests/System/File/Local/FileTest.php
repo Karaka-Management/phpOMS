@@ -116,9 +116,7 @@ class FileTest extends \PHPUnit\Framework\TestCase
 
     public function testInvalidSizePath() : void
     {
-        self::expectException(\phpOMS\System\File\PathException::class);
-
-        File::size(__DIR__ . '/invalid.txt');
+        self::assertEquals(0, File::size(__DIR__ . '/invalid.txt'));
     }
 
     public function testInvalidPermissionPath() : void
