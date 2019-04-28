@@ -17,10 +17,15 @@ namespace phpOMS\tests\Business\Finance;
 use phpOMS\Business\Finance\FinanceFormulas;
 
 /**
+ * @testdox phpOMS\Business\Finance\FinanceFormulas: Finance formulas
+ *
  * @internal
  */
 class FinanceFormulasTest extends \PHPUnit\Framework\TestCase
 {
+    /**
+     * @testdox The annual percentage yield (APY) and reverse value calculations are correct
+     */
     public function testAnnualPercentageYield() : void
     {
         $expected = 0.06168;
@@ -33,6 +38,9 @@ class FinanceFormulasTest extends \PHPUnit\Framework\TestCase
         self::assertEquals(\round($r, 2), FinanceFormulas::getStateAnnualInterestRateOfAPY($apy, $n));
     }
 
+    /**
+     * @testdox The future value of annuity (FVA) and reverse value calculations are correct
+     */
     public function testFutureValueOfAnnuity() : void
     {
         $expected = 5204.04;
@@ -47,6 +55,9 @@ class FinanceFormulasTest extends \PHPUnit\Framework\TestCase
         self::assertEquals(\round($P, 2), \round(FinanceFormulas::getPeriodicPaymentOfFVA($fva, $r, $n), 2));
     }
 
+    /**
+     * @testdox The future value of annuity continuous compounding (FVACC) and reverse value calculations are correct
+     */
     public function testFutureValueOfAnnuityContinuousCompounding() : void
     {
         $expected = 12336.42;
@@ -61,6 +72,9 @@ class FinanceFormulasTest extends \PHPUnit\Framework\TestCase
         self::assertEquals($t, FinanceFormulas::getTimeOfFVACC($fvacc, $cf, $r));
     }
 
+    /**
+     * @testdox The annuity payment from the present value (PV) and reverse value calculations are correct
+     */
     public function testAnnuityPaymentPV() : void
     {
         $expected = 212.16;
@@ -75,6 +89,9 @@ class FinanceFormulasTest extends \PHPUnit\Framework\TestCase
         self::assertEquals(\round($pv, 2), \round(FinanceFormulas::getPresentValueOfAPPV($p, $r, $n), 2));
     }
 
+    /**
+     * @testdox The annuity payment from the future value (FV) and reverse value calculations are correct
+     */
     public function testAnnuityPaymentFV() : void
     {
         $expected = 192.16;

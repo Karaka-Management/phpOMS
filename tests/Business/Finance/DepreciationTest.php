@@ -17,10 +17,15 @@ namespace phpOMS\tests\Business\Finance;
 use phpOMS\Business\Finance\Depreciation;
 
 /**
+ * @testdox phpOMS\Business\Finance\DepreciationTest: Depreciation calculations
+ *
  * @internal
  */
 class DepreciationTest extends \PHPUnit\Framework\TestCase
 {
+    /**
+     * @testdox The straight line deprecition and reverse value calculations are correct
+     */
     public function testStraightLine() : void
     {
         $start    = 23280;
@@ -31,6 +36,9 @@ class DepreciationTest extends \PHPUnit\Framework\TestCase
         self::assertEqualsWithDelta(23280 - 3880 * $t, Depreciation::getStraightLineResidualInT($start, $duration, $t), 5);
     }
 
+    /**
+     * @testdox The arithmetic degressiv deprecition and reverse value calculations are correct
+     */
     public function testArithmeticDegressivDepreciation() : void
     {
         $start    = 150000;
@@ -43,6 +51,9 @@ class DepreciationTest extends \PHPUnit\Framework\TestCase
         self::assertEqualsWithDelta(70800, Depreciation::getArithmeticDegressivDepreciationResidualInT($start, $residual, $duration, $t), 5);
     }
 
+    /**
+     * @testdox The arithmetic progressiv deprecition and reverse value calculations are correct
+     */
     public function testArithmeticProgressivDepreciation() : void
     {
         $start    = 40000;
@@ -55,7 +66,10 @@ class DepreciationTest extends \PHPUnit\Framework\TestCase
         self::assertEqualsWithDelta(29410, Depreciation::getArithmeticProgressivDepreciationResidualInT($start, $residual, $duration, $t), 5);
     }
 
-    public function testGeometicProgressivDepreciation() : void
+    /**
+     * @testdox The geometric progressiv deprecition and reverse value calculations are correct
+     */
+    public function testGeometricProgressivDepreciation() : void
     {
         $start    = 150000;
         $residual = 18000;
@@ -67,7 +81,10 @@ class DepreciationTest extends \PHPUnit\Framework\TestCase
         self::assertEqualsWithDelta(125965, Depreciation::getGeometicProgressivDepreciationResidualInT($start, $residual, $duration, $t), 5);
     }
 
-    public function testGeometicDegressivDepreciation() : void
+    /**
+     * @testdox The geometric degressiv deprecition and reverse value calculations are correct
+     */
+    public function testGeometricDegressivDepreciation() : void
     {
         $start    = 150000;
         $residual = 18000;
