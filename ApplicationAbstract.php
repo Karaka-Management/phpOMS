@@ -58,7 +58,15 @@ class ApplicationAbstract
      * @var int
      * @since 1.0.0
      */
-    protected $orgId = 1;
+    protected $orgId = 0;
+
+    /**
+     * App theme.
+     *
+     * @var string
+     * @since 1.0.0
+     */
+    protected $theme = '';
 
     /**
      * Database object.

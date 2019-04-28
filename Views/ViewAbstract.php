@@ -256,6 +256,7 @@ abstract class ViewAbstract implements RenderableInterface
             $includeData = include $path;
             $ob          = (string) \ob_get_clean();
 
+            // todo: is this correct? finally is still called.
             if (\is_array($includeData)) {
                 return (string) \json_encode($includeData);
             }
