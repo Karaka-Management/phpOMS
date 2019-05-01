@@ -30,7 +30,7 @@ final class Rest
      *
      * @param Request $request Request
      *
-     * @return string Returns the request result
+     * @return Request Returns the request result
      *
      * @throws \Exception this exception is thrown if an internal curl_init error occurs
      *
@@ -51,7 +51,7 @@ final class Rest
             $headers[$key] = $key . ': ' . \implode('', $header);
         }
 
-        curl_setopt($curl, \CURLOPT_HTTPHEADER, $headers);
+        \curl_setopt($curl, \CURLOPT_HTTPHEADER, $headers);
         \curl_setopt($curl, \CURLOPT_HEADER, true);
 
         switch ($request->getMethod()) {
@@ -82,7 +82,7 @@ final class Rest
         $cHeaderString = '';
         $response      = new Response();
 
-        curl_setopt($curl, \CURLOPT_HEADERFUNCTION,
+        \curl_setopt($curl, \CURLOPT_HEADERFUNCTION,
             function($curl, $header) use ($response, &$cHeaderString) {
                 $cHeaderString .= $header;
 
