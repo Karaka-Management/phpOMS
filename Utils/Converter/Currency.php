@@ -102,11 +102,10 @@ class Currency
             $request = new Request(new Http('https://www.ecb.europa.eu/stats/eurofxref/eurofxref-daily.xml'));
             $request->setMethod(RequestMethod::GET);
 
-            $xml = new \SimpleXMLElement(Rest::request($request));
+            $xml = new \SimpleXMLElement(Rest::request($request)->getBody());
 
             if (!isset($xml->Cube)) {
                 throw new \Exception('Invalid xml path');
-
             }
 
             $node                = $xml->Cube->Cube->Cube;

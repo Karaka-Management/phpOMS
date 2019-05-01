@@ -96,6 +96,14 @@ final class Response extends ResponseAbstract implements RenderableInterface
     }
 
     /**
+     * {@inheritdoc}
+     */
+    public function getJson() : array
+    {
+        return \json_decode($this->render(), true);
+    }
+
+    /**
      * Generate response based on header.
      *
      * @return string

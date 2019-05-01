@@ -463,11 +463,11 @@ final class Request extends RequestAbstract
     /**
      * Perform rest request
      *
-     * @return string
+     * @return Response
      *
      * @since  1.0.0
      */
-    public function rest() : string
+    public function rest() : Response
     {
         return Rest::request($this);
     }
