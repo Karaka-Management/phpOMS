@@ -113,7 +113,7 @@ class Grammar extends QueryGrammar
      */
     protected function compileCreateTable(BuilderAbstract $query, string $table) : string
     {
-        return 'CREATE TABLE ' . $this->expressionizeTable([$table], $query->getPrefix());
+        return 'CREATE TABLE ' . $this->expressionizeTableColumn([$table], $query->getPrefix());
     }
 
     /**

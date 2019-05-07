@@ -106,9 +106,11 @@ abstract class ResponseAbstract implements MessageInterface, \JsonSerializable
     /**
      * Get response body.
      *
+     * @param bool $optimize Optimize response / minify
+     *
      * @return string
      *
      * @since  1.0.0
      */
-    abstract public function getBody() : string;
+    abstract public function getBody(bool $optimize = false) : string;
 }

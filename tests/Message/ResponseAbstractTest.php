@@ -34,7 +34,7 @@ class ResponseAbstractTest extends \PHPUnit\Framework\TestCase
                 return [1];
             }
 
-            public function getBody() : string
+            public function getBody(bool $optimize = false) : string
             {
                 return '';
             }

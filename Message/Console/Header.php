@@ -134,14 +134,18 @@ final class Header extends HeaderAbstract
     /**
      * Get header by name.
      *
-     * @param string $key Header key
+     * @param null|string $key Header key
      *
      * @return array
      *
      * @since  1.0.0
      */
-    public function get(string $key) : array
+    public function get(string $key = null) : array
     {
+        if ($key === null) {
+            return $this->header;
+        }
+
         return $this->header[\strtolower($key)] ?? [];
     }
 

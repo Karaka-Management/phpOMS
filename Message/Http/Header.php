@@ -45,7 +45,6 @@ final class Header extends HeaderAbstract
      */
     public function __construct()
     {
-        $this->set('Content-Type', 'text/html; charset=utf-8');
         parent::__construct();
     }
 

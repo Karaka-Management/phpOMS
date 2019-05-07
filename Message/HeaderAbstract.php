@@ -207,7 +207,7 @@ abstract class HeaderAbstract
     /**
      * Get header by key.
      *
-     * @param string $key Header key
+     * @param null|string $key Header key
      *
      * @return array
      *

@@ -130,7 +130,7 @@ class Grammar extends GrammarAbstract
      */
     protected function compileSelects(Builder $query, array $columns) : string
     {
-        $expression = $this->expressionizeTableColumn($columns, $query->getPrefix());
+        $expression = $this->expressionizeTableColumn($columns, $query->getPrefix(), false);
 
         if ($expression === '') {
             $expression = '*';
@@ -151,7 +151,7 @@ class Grammar extends GrammarAbstract
      */
     protected function compileUpdates(Builder $query, array $table) : string
     {
-        $expression = $this->expressionizeTable($table, $query->getPrefix());
+        $expression = $this->expressionizeTableColumn($table, $query->getPrefix());
 
         if ($expression === '') {
             return '';
@@ -187,7 +187,7 @@ class Grammar extends GrammarAbstract
      */
     protected function compileFrom(Builder $query, array $table) : string
     {
-        $expression = $this->expressionizeTable($table, $query->getPrefix());
+        $expression = $this->expressionizeTableColumn($table, $query->getPrefix());
 
         if ($expression === '') {
             return '';
@@ -245,12 +245,10 @@ class Grammar extends GrammarAbstract
         }
 
         if (\is_string($element['column'])) {
-            // handle bug when no table is specified in the where column
-            if (\count($query->from) === 1 && \stripos($element['column'], '.') === false) {
-                $element['column'] = $query->from[0] . '.' . $element['column'];
-            }
+            // No prefix if it is ONLY a field
+            $prefix = \stripos($element['column'], '.') === false ? '' : $query->getPrefix();
 
-            $expression .= $this->compileSystem($element['column'], $query->getPrefix());
+            $expression .= $this->compileSystem($element['column'], $prefix);
         } elseif ($element['column'] instanceof \Closure) {
             $expression .= $element['column']();
         } elseif ($element['column'] instanceof Builder) {
@@ -318,6 +316,12 @@ class Grammar extends GrammarAbstract
             return $this->compileSystem($value->getColumn(), $prefix);
         } elseif ($value instanceof Builder) {
             return '(' . \rtrim($value->toSql(), ';') . ')';
+        } elseif ($value  instanceof \JsonSerializable) {
+            $encoded = \json_encode($value);
+
+            return $encoded ? $encoded : null;
+        } elseif ($value  instanceof \Serializable) {
+            return $element->serialize();
         } else {
             throw new \InvalidArgumentException(\gettype($value));
         }
@@ -591,8 +595,7 @@ class Grammar extends GrammarAbstract
         $vals = '';
 
         foreach ($values as $column => $value) {
-            // todo change expressionizeTableColumn to accept single column and create additionl for Columns
-            $expression = $this->expressionizeTableColumn([$column], $query->getPrefix());
+            $expression = $this->expressionizeTableColumn([$column], $query->getPrefix(), false);
 
             $vals .= $expression . ' = ' . $this->compileValue($query, $value) . ', ';
         }

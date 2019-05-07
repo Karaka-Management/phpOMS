@@ -194,48 +194,19 @@ abstract class GrammarAbstract
      *
      * @param array  $elements Elements
      * @param string $prefix   Prefix for table
+     * @param string $column   Is always column?
      *
      * @return string
      *
      * @since  1.0.0
      */
-    protected function expressionizeTableColumn(array $elements, string $prefix = '') : string
+    protected function expressionizeTableColumn(array $elements, string $prefix = '', bool $column = true) : string
     {
         $expression = '';
 
         foreach ($elements as $key => $element) {
             if (\is_string($element) && $element !== '*') {
-                $expression .= $this->compileSystem($element, $prefix) . ', ';
-            } elseif (\is_string($element) && $element === '*') {
-                $expression .= '*, ';
-            } elseif ($element instanceof \Closure) {
-                $expression .= $element() . ', ';
-            } elseif ($element instanceof BuilderAbstract) {
-                $expression .= $element->toSql() . ', ';
-            } else {
-                throw new \InvalidArgumentException();
-            }
-        }
-
-        return \rtrim($expression, ', ');
-    }
-
-    /**
-     * Expressionize elements.
-     *
-     * @param array  $elements Elements
-     * @param string $prefix   Prefix for table
-     *
-     * @return string
-     *
-     * @since  1.0.0
-     */
-    protected function expressionizeTable(array $elements, string $prefix = '') : string
-    {
-        $expression = '';
-
-        foreach ($elements as $key => $element) {
-            if (\is_string($element) && $element !== '*') {
+                $prefix      = \stripos($element, '.') !== false || $column ? $prefix : '';
                 $expression .= $this->compileSystem($element, $prefix) . ', ';
             } elseif (\is_string($element) && $element === '*') {
                 $expression .= '*, ';

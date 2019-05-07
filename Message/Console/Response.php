@@ -90,19 +90,21 @@ final class Response extends ResponseAbstract implements RenderableInterface
     /**
      * {@inheritdoc}
      */
-    public function getBody() : string
+    public function getBody(bool $optimize = false) : string
     {
-        return $this->render();
+        return $this->render($optimize);
     }
 
     /**
      * Generate response based on header.
      *
+     * @param bool $optimize Optimize response / minify
+     *
      * @return string
      *
      * @since  1.0.0
      */
-    public function render() : string
+    public function render(bool $optimize = false) : string
     {
         $types = $this->header->get('Content-Type');
 
@@ -112,11 +114,13 @@ final class Response extends ResponseAbstract implements RenderableInterface
             }
         }
 
-        return $this->getRaw();
+        return $this->getRaw($optimize);
     }
 
     /**
      * Generate raw response.
+     *
+     * @param bool $optimize Optimize response / minify
      *
      * @return string
      *
@@ -124,7 +128,7 @@ final class Response extends ResponseAbstract implements RenderableInterface
      *
      * @since  1.0.0
      */
-    private function getRaw() : string
+    private function getRaw(bool $optimize = false) : string
     {
         $render = '';
 

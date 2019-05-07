@@ -39,14 +39,14 @@ class BuilderTest extends \PHPUnit\Framework\TestCase
     public function testMysqlShowTables() : void
     {
         $query = new Builder($this->con);
-        $sql   = 'SELECT `table_name` FROM `information_schema`.`tables` WHERE `information_schema`.`tables`.`table_schema` = \'' . $GLOBALS['CONFIG']['db']['core']['masters']['admin']['database']. '\';';
+        $sql   = 'SELECT `table_name` FROM `information_schema`.`tables` WHERE `table_schema` = \'' . $GLOBALS['CONFIG']['db']['core']['masters']['admin']['database']. '\';';
         self::assertEquals($sql, $query->selectTables()->toSql());
     }
 
     public function testMysqlShowFields() : void
     {
         $query = new Builder($this->con);
-        $sql   = 'SELECT * FROM `information_schema`.`columns` WHERE `information_schema`.`columns`.`table_schema` = \'' . $GLOBALS['CONFIG']['db']['core']['masters']['admin']['database']. '\' AND `information_schema`.`columns`.`table_name` = \'test\';';
+        $sql   = 'SELECT * FROM `information_schema`.`columns` WHERE `table_schema` = \'' . $GLOBALS['CONFIG']['db']['core']['masters']['admin']['database']. '\' AND `table_name` = \'test\';';
         self::assertEquals($sql, $query->selectFields('test')->toSql());
     }
 
