@@ -140,7 +140,7 @@ final class Request extends RequestAbstract
                     throw new \Exception('Is not valid json ' . $input);
                 }
 
-                $this->data += $json;
+                $this->data = $json + $this->data;
             } elseif (\stripos($_SERVER['CONTENT_TYPE'], 'application/x-www-form-urlencoded') !== false) {
                 $content = \file_get_contents('php://input');
 
