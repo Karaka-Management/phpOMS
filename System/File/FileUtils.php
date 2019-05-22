@@ -33,6 +33,7 @@ final class FileUtils
     public const VIDEO_EXTENSION        = ['mp4'];
     public const SPREADSHEET_EXTENSION  = ['xls', 'xlsm'];
     public const IMAGE_EXTENSION        = ['png', 'gif', 'jpg', 'jpeg', 'tiff', 'bmp', 'svg'];
+    public const DIRECTORY              = ['collection'];
 
     /**
      * Constructor.
@@ -76,6 +77,8 @@ final class FileUtils
             return ExtensionType::IMAGE;
         } elseif (\in_array($extension, self::SPREADSHEET_EXTENSION)) {
             return ExtensionType::SPREADSHEET;
+        } elseif (\in_array($extension, self::DIRECTORY)) {
+            return ExtensionType::DIRECTORY;
         }
 
         return ExtensionType::UNKNOWN;

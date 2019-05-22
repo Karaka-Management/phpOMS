@@ -39,4 +39,5 @@ abstract class ExtensionType extends Enum
     public const PRESENTATION = 256;
     public const IMAGE        = 512;
     public const EXECUTABLE   = 1024;
+    public const DIRECTORY    = 2048;
 }
