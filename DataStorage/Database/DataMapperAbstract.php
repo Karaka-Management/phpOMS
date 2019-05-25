@@ -2239,7 +2239,7 @@ class DataMapperAbstract implements DataMapperInterface
                 $toLoad = self::getPrimaryKeysBy($value, self::getColumnByMember($ref));
             }
 
-            $obj[$value] = self::get($toLoad, $relations, $fill, --$depth);
+            $obj[$value] = self::get($toLoad, $relations, $fill, $depth);
         }
 
         $countResulsts = \count($obj);
