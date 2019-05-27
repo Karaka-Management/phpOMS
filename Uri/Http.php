@@ -247,6 +247,7 @@ final class Http implements UriInterface
     public function setRootPath(string $root) : void
     {
         $this->rootPath = \rtrim($root, '/');
+        $this->base     = $this->scheme . '://' . $this->host . ($this->port !== 80 ? ':' . $this->port : '') . $this->rootPath;
     }
 
     /**
