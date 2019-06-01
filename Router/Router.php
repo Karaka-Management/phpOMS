@@ -99,19 +99,27 @@ final class Router
     /**
      * Route request.
      *
-     * @param RequestAbstract $request Request to route
-     * @param int             $verb    Route verb
+     * @param string $uri     Route
+     * @param string $csrf    CSRF token
+     * @param int    $verb    Route verb
+     * @param string $app     Application name
+     * @param int    $orgId   Organization id
+     * @param mixed  $account Account
      *
      * @return array[]
      *
      * @since  1.0.0
      */
-    public function route(RequestAbstract $request, int $verb = RouteVerb::GET, string $app = null, int $orgId = null, $account = null) : array
+    public function route(
+        string $uri,
+        string $csrf = null,
+        int $verb = RouteVerb::GET,
+        string $app = null,
+        int $orgId = null,
+        $account = null
+    ) : array
     {
         $bound = [];
-        $uri   = $request->getUri()->getRoute();
-        $csrf  = $request->getData('CSRF');
-
         foreach ($this->routes as $route => $destination) {
             if (!((bool) \preg_match('~^' . $route . '$~', $uri))) {
                 continue;
@@ -125,7 +133,7 @@ final class Router
                     // if csrf is required but not set
                     if (isset($d['csrf']) && $csrf === null) {
                         // todo: replace http request and http uri with general request and http
-                        \array_merge($bound, $this->route(new Request(new Http('/' . $app . '/e403')), $verb));
+                        \array_merge($bound, $this->route('/' . $app . '/e403', $csrf, $verb));
 
                         continue;
                     }
@@ -136,7 +144,10 @@ final class Router
                             && !$account->hasPermission($d['permission']['type'], $orgId, $app, $d['permission']['module'], $d['permission']['state']))
                     ) {
                         // todo: replace http request and http uri with general request and http
-                        \array_merge($bound, $this->route(new Request(new Http('/' . $app . '/e403')), $verb));
+                        \array_merge(
+                            $bound,
+                            $this->route('/' . $app . '/e403', $csrf, $verb)
+                        );
 
                         continue;
                     }

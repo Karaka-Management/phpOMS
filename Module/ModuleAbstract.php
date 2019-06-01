@@ -14,6 +14,7 @@ declare(strict_types=1);
 
 namespace phpOMS\Module;
 
+use phpOMS\ApplicationAbstract;
 use phpOMS\Message\RequestAbstract;
 use phpOMS\Message\ResponseAbstract;
 use phpOMS\System\MimeType;
@@ -103,11 +104,11 @@ abstract class ModuleAbstract
     /**
      * Constructor.
      *
-     * @param \phpOMS\ApplicationAbstract $app Application instance
+     * @param ApplicationAbstract $app Application instance
      *
      * @since  1.0.0
      */
-    public function __construct($app)
+    public function __construct(ApplicationAbstract $app)
     {
         $this->app = $app;
     }

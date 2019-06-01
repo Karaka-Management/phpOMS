@@ -30,4 +30,5 @@ abstract class NotificationLevel extends Enum
     public const INFO    = 'info';
     public const WARNING = 'warning';
     public const ERROR   = 'error';
+    public const HIDDEN  = 'hidden';
 }
