@@ -43,8 +43,9 @@ final class Router
      * Files need to return a php array of the following structure:
      * return [
      *      '{REGEX_PATH}' => [
-     *          'dest' => '{DESTINATION_NAMESPACE:method}', // can also be static by using :: between namespace and functio name
+     *          'dest' => '{DESTINATION_NAMESPACE:method}', // can also be static by using :: between namespace and function name
      *          'verb' => RouteVerb::{VERB},
+     *          'csrf' => true,
      *          'permission' => [ // optional
      *              'module' => '{MODULE_NAME}',
      *              'type' => PermissionType::{TYPE},
@@ -131,7 +132,7 @@ final class Router
                     || ($verb & $d['verb']) === $verb
                 ) {
                     // if csrf is required but not set
-                    if (isset($d['csrf']) && $csrf === null) {
+                    if (isset($d['csrf']) && $d['csrf'] && $csrf === null) {
                         \array_merge($bound, $this->route('/' . $app . '/e403', $csrf, $verb));
 
                         continue;
