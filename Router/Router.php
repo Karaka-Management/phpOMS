@@ -141,8 +141,9 @@ final class Router
                     if ((isset($d['permission']) && $account === null)
                         || (isset($d['permission'])
                             && !$account->hasPermission(
-                                $d['permission']['type'], $orgId, $app, $d['permission']['module'], $d['permission']['state'])
+                                $d['permission']['type'], $orgId, $app, $d['permission']['module'], $d['permission']['state']
                             )
+                        )
                     ) {
                         \array_merge($bound, $this->route('/' . $app . '/e403', $csrf, $verb));
 
