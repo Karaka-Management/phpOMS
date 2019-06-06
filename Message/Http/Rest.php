@@ -30,7 +30,7 @@ final class Rest
      *
      * @param Request $request Request
      *
-     * @return Request Returns the request result
+     * @return Response Returns the request result
      *
      * @throws \Exception this exception is thrown if an internal curl_init error occurs
      *
@@ -104,10 +104,11 @@ final class Rest
         \curl_setopt($curl, \CURLOPT_RETURNTRANSFER, 1);
 
         $result = \curl_exec($curl);
+        $len    = \strlen($cHeaderString);
 
         \curl_close($curl);
 
-        $response->set('', \substr($result, \strlen($cHeaderString)));
+        $response->set('', \substr(\is_bool($result) ? '' : $result, $len === false ? 0 : $len));
 
         return $response;
     }

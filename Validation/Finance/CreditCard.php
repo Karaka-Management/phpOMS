@@ -45,7 +45,7 @@ final class CreditCard extends ValidatorAbstract
         // Loop through each digit and do the maths
         $total = 0;
         for ($i = 0; $i < $numberLength; ++$i) {
-            $digit = $value[$i];
+            $digit = (int) $value[$i];
             // Multiply alternate digits by two
             if ($i % 2 == $parity) {
                 $digit *= 2;

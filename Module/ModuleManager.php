@@ -48,7 +48,7 @@ final class ModuleManager
      *
      * This is important to inform other moduels what kind of information they can receive from other modules.
      *
-     * @var \phpOMS\Module\ModuleAbstract[]
+     * @var array<string, array<int, string>>
      * @since 1.0.0
      */
     private $providing = [];

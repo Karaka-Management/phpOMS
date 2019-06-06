@@ -83,16 +83,9 @@ class DataMapperAbstract implements DataMapperInterface
     protected static $columns = [];
 
     /**
-     * Relations.
-     *
-     * Relation is defined in a relation table
-     *
-     * @var string[]
-     * @since 1.0.0
-     */    /**
      * Has many relation.
      *
-     * @var array<string, array<string, null|string>>
+     * @var array<string, array>
      * @since 1.0.0
      */
     protected static $hasMany = [];
@@ -102,7 +95,7 @@ class DataMapperAbstract implements DataMapperInterface
      *
      * Relation is defined in current mapper
      *
-     * @var string[]
+     * @var array<string, array>
      * @since 1.0.0
      */
     protected static $ownsOne = [];

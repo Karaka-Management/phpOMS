@@ -62,7 +62,7 @@ final class Prime
      */
     public static function mersenne(int $p) : int
     {
-        return 2 ** $p - 1;
+        return (int) (2 ** $p) - 1;
     }
 
     /**
@@ -134,6 +134,10 @@ final class Prime
         $number = 2;
         $range  = \range(2, $n);
         $primes = \array_combine($range, $range);
+
+        if ($primes === false) {
+            return [];
+        }
 
         while ($number * $number < $n) {
             for ($i = $number; $i <= $n; $i += $number) {
