@@ -126,6 +126,11 @@ final class UriFactory
         self::setQuery(':user', $uri->getUser());
         self::setQuery(':pass', $uri->getPass());
 
+        $data = $uri->getPathElements();
+        foreach ($data as $key => $value) {
+            self::setQuery('/' . $key, $value);
+        }
+
         $data = $uri->getQueryArray();
         foreach ($data as $key => $value) {
             self::setQuery('?' . $key, $value);
