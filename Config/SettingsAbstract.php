@@ -86,14 +86,19 @@ abstract class SettingsAbstract implements OptionsInterface
     {
         try {
             if (!\is_array($columns)) {
-                $columns = [$columns];
+                $keys = [$columns];
+            } else {
+                $keys = [];
+                foreach ($columns as $key) {
+                    $keys[] = \is_string($key) ? (int) \preg_replace('/[^0-9.]/', '', $key) : $key;
+                }
             }
 
             $options = [];
             $query   = new Builder($this->connection);
             $sql     = $query->select(...static::$columns)
                 ->from($this->connection->prefix . static::$table)
-                ->where(static::$columns[0], 'in', $columns)
+                ->where(static::$columns[0], 'in', $keys)
                 ->toSql();
 
             $sth = $this->connection->con->prepare($sql);
