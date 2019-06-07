@@ -80,12 +80,13 @@ final class Router
      * @param string $route       Route regex
      * @param mixed  $destination Destination e.g. Module:function string or callback
      * @param int    $verb        Request verb
+     * @param bool   $csrf        Is CSRF token required
      *
      * @return void
      *
      * @since  1.0.0
      */
-    public function add(string $route, $destination, int $verb = RouteVerb::GET) : void
+    public function add(string $route, $destination, int $verb = RouteVerb::GET, bool $csrf = false) : void
     {
         if (!isset($this->routes[$route])) {
             $this->routes[$route] = [];
@@ -94,6 +95,7 @@ final class Router
         $this->routes[$route][] = [
             'dest' => $destination,
             'verb' => $verb,
+            'csrf' => $csrf,
         ];
     }
 

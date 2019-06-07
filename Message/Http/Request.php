@@ -230,7 +230,7 @@ final class Request extends RequestAbstract
     }
 
     /**
-     * Create request from super globals.
+     * Create request from superglobals.
      *
      * @return Request
      *
