@@ -68,4 +68,15 @@ class HeadTest extends \PHPUnit\Framework\TestCase
 
         self::assertEquals('<script src="/path/late.js"></script>', $head->renderAssetsLate());
     }
+
+    public function testAssetWithAttribute() : void
+    {
+        $head = new Head();
+
+        $head->addAsset(AssetType::JSLATE, '/path/late.js', ['testkey' => 'testvalue']);
+        self::assertEquals('<script src="/path/late.js" testkey="testvalue"></script>', $head->renderAssetsLate());
+
+        $head->addAsset(AssetType::JS, '/path/late.js', ['testkey' => 'testvalue']);
+        self::assertEquals('<script src="/path/late.js" testkey="testvalue"></script>', $head->renderAssets());
+    }
 }

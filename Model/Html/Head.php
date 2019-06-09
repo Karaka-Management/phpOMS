@@ -310,7 +310,7 @@ class Head implements RenderableInterface
                     $rendered .= ' ' . $key . '="' . $attribute . '"';
                 }
 
-                $rendered .='></script>';
+                $rendered .= '></script>';
             }
         }
 
@@ -328,14 +328,14 @@ class Head implements RenderableInterface
     {
         $rendered = '';
         foreach ($this->assets as $uri => $asset) {
-            if ($asset['type']=== AssetType::JSLATE) {
+            if ($asset['type'] === AssetType::JSLATE) {
                 $rendered .= '<script src="' . $uri . '"';
 
                 foreach ($asset['attributes'] as $key => $attribute) {
                     $rendered .= ' ' . $key . '="' . $attribute . '"';
                 }
 
-                $rendered .='></script>';
+                $rendered .= '></script>';
             }
         }
 

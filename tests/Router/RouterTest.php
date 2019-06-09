@@ -105,6 +105,31 @@ class RouterTest extends \PHPUnit\Framework\TestCase
         );
     }
 
+    public function testWithCSRF() : void
+    {
+        $router = new Router();
+        self::assertTrue($router->importFromFile(__Dir__ . '/routeTestCsrf.php'));
+
+        self::assertEquals(
+            [['dest' => '\Modules\Admin\Controller:viewCsrf']],
+            $router->route(
+                (new Request(
+                    new Http('http://test.com/backend/admin/settings/csrf/something?test')
+                ))->getUri()->getRoute(),
+                'csrf_string'
+            )
+        );
+
+        self::assertEquals(
+            [],
+            $router->route(
+                (new Request(
+                    new Http('http://test.com/backend/admin/settings/csrf/something?test')
+                ))->getUri()->getRoute(),
+            )
+        );
+    }
+
     public function testWithPermissions() : void
     {
         $router = new Router();

@@ -113,6 +113,16 @@ class ViewTest extends \PHPUnit\Framework\TestCase
         self::assertFalse($view->getView('test'));
     }
 
+    public function testOverwritingView() : void
+    {
+        $view  = new View();
+        $tView = new View();
+
+        self::assertTrue($view->addView('test', $tView));
+        self::assertTrue($view->addView('test', $tView, 0, true));
+        self::assertFalse($view->addView('test', $tView));
+    }
+
     public function testRender() : void
     {
         $view = new View();
