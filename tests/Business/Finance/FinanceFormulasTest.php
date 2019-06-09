@@ -17,7 +17,7 @@ namespace phpOMS\tests\Business\Finance;
 use phpOMS\Business\Finance\FinanceFormulas;
 
 /**
- * @testdox phpOMS\Business\Finance\FinanceFormulas: Finance formulas
+ * @testdox phpOMS\Business\Finance\FinanceFormulasTest: Finance formulas
  *
  * @internal
  */
@@ -106,6 +106,9 @@ class FinanceFormulasTest extends \PHPUnit\Framework\TestCase
         self::assertEquals(\round($fv, 2), \round(FinanceFormulas::getFutureValueOfAPFV($p, $r, $n), 2));
     }
 
+    /**
+     * @testdox The annuity payment from the present value (PV) and reverse value calculations are correct
+     */
     public function testAnnutiyPaymentFactorPV() : void
     {
         $expected = 0.21216;
@@ -118,6 +121,9 @@ class FinanceFormulasTest extends \PHPUnit\Framework\TestCase
         self::assertEquals($n, FinanceFormulas::getNumberOfAPFPV($p, $r));
     }
 
+    /**
+     * @testdox The present value of the annuity is correct
+     */
     public function testPresentValueOfAnnuity() : void
     {
         $expected = 4713.46;
@@ -132,6 +138,9 @@ class FinanceFormulasTest extends \PHPUnit\Framework\TestCase
         self::assertEquals(\round($P, 2), \round(FinanceFormulas::getPeriodicPaymentOfPVA($pva, $r, $n), 2));
     }
 
+    /**
+     * @testdox The present value annuity factor of the annuity is correct
+     */
     public function testPresentValueAnnuityFactor() : void
     {
         $expected = 4.7135;
@@ -144,6 +153,9 @@ class FinanceFormulasTest extends \PHPUnit\Framework\TestCase
         self::assertEquals($n, FinanceFormulas::getPeriodsOfPVAF($p, $r));
     }
 
+    /**
+     * @testdox The due present value the annuity is correct
+     */
     public function testPresentValueOfAnnuityDue() : void
     {
         $expected = 454.60;
@@ -159,6 +171,9 @@ class FinanceFormulasTest extends \PHPUnit\Framework\TestCase
         self::assertEquals($n, FinanceFormulas::getPeriodsOfPVAD($PV, $P, $r));
     }
 
+    /**
+     * @testdox The due future value the annuity is correct
+     */
     public function testFutureValueOfAnnuityDue() : void
     {
         $expected = 580.19;
@@ -174,24 +189,48 @@ class FinanceFormulasTest extends \PHPUnit\Framework\TestCase
         self::assertEquals($n, FinanceFormulas::getPeriodsOfFVAD($FV, $P, $r));
     }
 
-    public function testRatios() : void
+    /**
+     * @testdox The relative market share calculations by shares and ales are correct
+     */
+    public function testRelativeMarketShare() : void
     {
         self::assertEquals(300 / 400, FinanceFormulas::getRelativeMarketShareByShare(300, 400));
         self::assertEquals(300 / 400, FinanceFormulas::getRelativeMarketShareBySales(300, 400));
+    }
 
+    /**
+     * @testdox The asset ratio calculations are correct
+     */
+    public function testAssetRatios() : void
+    {
         self::assertEquals(3 / 2, FinanceFormulas::getAssetToSalesRatio(3, 2));
         self::assertEquals(2 / 3, FinanceFormulas::getAssetTurnoverRatio(3, 2));
+    }
 
+    /**
+     * @testdox Balance ratio calculations for DII, Receivables/Turnover, and more are correct
+     */
+    public function testBalanceRatios() : void
+    {
         self::assertEquals(365 / 1000, FinanceFormulas::getDaysInInventory(1000));
         self::assertEquals(365 / 1000, FinanceFormulas::getAverageCollectionPeriod(1000));
         self::assertEquals(500 / 1000, FinanceFormulas::getReceivablesTurnover(500, 1000));
         self::assertEquals(500 / 1000, FinanceFormulas::getCurrentRatio(500, 1000));
+    }
 
+    /**
+     * @testdox Dept ratios for dept coverage, dept to equity and dept to income are correct
+     */
+    public function testDeptRatios() : void
+    {
         self::assertEquals(500 / 1000, FinanceFormulas::getDebtCoverageRatio(500, 1000));
         self::assertEquals(500 / 1000, FinanceFormulas::getDebtRatio(500, 1000));
         self::assertEquals(500 / 1000, FinanceFormulas::getDebtToEquityRatio(500, 1000));
         self::assertEquals(500 / 1000, FinanceFormulas::getDebtToIncomeRatio(500, 1000));
+    }
 
+    public function testRatios() : void
+    {
         self::assertEquals(500 / 1000, FinanceFormulas::getInterestCoverageRatio(500, 1000));
         self::assertEquals(500 / 1000, FinanceFormulas::getInventoryTurnoverRatio(500, 1000));
         self::assertEquals(500 / 1000, FinanceFormulas::getNetProfitMargin(500, 1000));
@@ -209,6 +248,9 @@ class FinanceFormulasTest extends \PHPUnit\Framework\TestCase
         self::assertEquals(100 / 0.15, FinanceFormulas::getPresentValueOfPerpetuity(100, 0.15));
     }
 
+    /**
+     * @testdox Compound calculations for interest, principal and periods are correct
+     */
     public function testCompound() : void
     {
         $expected = 15.76;
@@ -224,6 +266,9 @@ class FinanceFormulasTest extends \PHPUnit\Framework\TestCase
         self::assertEquals($t, (int) \round(FinanceFormulas::getPeriodsOfCompundInterest($P, $C, $r), 0));
     }
 
+    /**
+     * @testdox Continuous compound calculations for interest, principal and periods are correct
+     */
     public function testContinuousCompounding() : void
     {
         $expected = 116.18;
@@ -240,6 +285,9 @@ class FinanceFormulasTest extends \PHPUnit\Framework\TestCase
         self::assertTrue(\abs($r - FinanceFormulas::getRateOfContinuousCompounding($P, $C, $t)) < 0.01);
     }
 
+    /**
+     * @testdox Calculations for interest, principal and periods are correct
+     */
     public function testSimpleInterest() : void
     {
         $P = 100.00;
@@ -254,6 +302,9 @@ class FinanceFormulasTest extends \PHPUnit\Framework\TestCase
         self::assertEquals($t, FinanceFormulas::getSimpleInterestTime($I, $P, $r));
     }
 
+    /**
+     * @testdox The descounted payback period is correct
+     */
     public function testDiscountedPaybackPeriod() : void
     {
         $O1 = 5000;
@@ -263,6 +314,9 @@ class FinanceFormulasTest extends \PHPUnit\Framework\TestCase
         self::assertTrue(\abs(5.896 - FinanceFormulas::getDiscountedPaybackPeriod($CF, $O1, $r)) < 0.01);
     }
 
+    /**
+     * @testdox Test the correct calculation of the growth rate in order to double and vice versa
+     */
     public function testDoublingTime() : void
     {
         $r = 0.05;
@@ -271,11 +325,15 @@ class FinanceFormulasTest extends \PHPUnit\Framework\TestCase
         self::assertTrue(\abs($r - FinanceFormulas::getDoublingRate(14.207)) < 0.01);
     }
 
+    /**
+     * @testdox Test the correct calculation of the growth rate in order to double and vice versa with continuous compounding
+     */
     public function testDoublingTimeContinuousCompounding() : void
     {
         $r = 0.05;
 
         self::assertEqualsWithDelta(13.863, FinanceFormulas::getDoublingTimeContinuousCompounding($r), 0.01);
+        self::assertEqualsWithDelta(\abs($r - FinanceFormulas::getDoublingTimeContinuousCompounding(13.863)) < 0.01);
     }
 
     public function testEquivalentAnnualAnnuity() : void

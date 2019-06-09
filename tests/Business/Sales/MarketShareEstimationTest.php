@@ -16,10 +16,14 @@ namespace phpOMS\tests\Business\Sales;
 use phpOMS\Business\Sales\MarketShareEstimation;
 
 /**
+ * @testdox phpOMS\tests\Business\Sales\MarketShareEstimationTest: Market share calculations
  * @internal
  */
 class MarketShareEstimationTest extends \PHPUnit\Framework\TestCase
 {
+    /**
+     * @testdox The rank calculated with Zipf is correct
+     */
     public function testZipfRank() : void
     {
         self::assertEquals(13, MarketShareEstimation::getRankFromMarketShare(1000, 0.01));
@@ -27,6 +31,9 @@ class MarketShareEstimationTest extends \PHPUnit\Framework\TestCase
         self::assertEquals(8, MarketShareEstimation::getRankFromMarketShare(100000, 0.01));
     }
 
+    /**
+     * @testdox The market share by rank calculated with Zipf is correct
+     */
     public function testZipfShare() : void
     {
         self::assertTrue(\abs(0.01 - MarketShareEstimation::getMarketShareFromRank(1000, 13)) < 0.01);

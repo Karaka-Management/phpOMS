@@ -17,10 +17,15 @@ namespace phpOMS\tests\Business\Marketing;
 use phpOMS\Business\Marketing\NetPromoterScore;
 
 /**
+ * @testdox phpOMS\tests\Business\Marketing\NetPromoterScoreTest: Net promoter
+ *
  * @internal
  */
 class NetPromoterScoreTest extends \PHPUnit\Framework\TestCase
 {
+    /**
+     * @testdox The default net promoter score is 0
+     */
     public function testDefault() : void
     {
         $nps = new NetPromoterScore();
@@ -28,7 +33,10 @@ class NetPromoterScoreTest extends \PHPUnit\Framework\TestCase
         self::assertEquals(0, $nps->getScore());
     }
 
-    public function testGetSet() : void
+    /**
+     * @testdox The net promotor score, detractors, passives and promotors are correct
+     */
+    public function testScoreDetractorPassivePromotor() : void
     {
         $nps = new NetPromoterScore();
 

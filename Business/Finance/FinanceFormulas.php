@@ -785,6 +785,20 @@ final class FinanceFormulas
     }
 
     /**
+     * Get rate to double - Continuous Compounding
+     *
+     * @param float $t Time in which to double investment
+     *
+     * @return float
+     *
+     * @since  1.0.0
+     */
+    public static function getDoublingContinuousCompoundingRate(float $t) : float
+    {
+        return \log(2) / $t;
+    }
+
+    /**
      * Equivalent Annual Annuity
      *
      * @param float $NPV Net present value

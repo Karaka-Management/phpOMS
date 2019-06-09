@@ -17,11 +17,16 @@ namespace phpOMS\tests\Business\Marketing;
 use phpOMS\Business\Marketing\Metrics;
 
 /**
+ * @testdox phpOMS\tests\Business\Marketing\MetricsTest: General marketing metrics
+ *
  * @internal
  */
 class MetricsTest extends \PHPUnit\Framework\TestCase
 {
-    public function testMetrics() : void
+    /**
+     * @testdox Test the correctnes of the customer retention calculation
+     */
+    public function testCustomerRetention() : void
     {
         self::assertTrue(0.85 - Metrics::getCustomerRetention(105, 20, 100) < 0.01);
     }
