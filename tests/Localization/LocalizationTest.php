@@ -151,6 +151,9 @@ class LocalizationTest extends \PHPUnit\Framework\TestCase
 
         $localization->loadFromLanguage(ISO639x1Enum::_AA);
         self::assertEquals(ISO4217CharEnum::_USD, $localization->getCurrency());
+
+        $localization->loadFromLanguage(ISO639x1Enum::_AA, 'ABC');
+        self::assertEquals(ISO4217CharEnum::_USD, $localization->getCurrency());
     }
 
     public function testInvalidLocalizationLoading() : void
