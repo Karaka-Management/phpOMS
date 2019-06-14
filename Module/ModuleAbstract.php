@@ -96,7 +96,7 @@ abstract class ModuleAbstract
     /**
      * Application instance.
      *
-     * @var \phpOMS\ApplicationAbstract
+     * @var null|\phpOMS\ApplicationAbstract
      * @since 1.0.0
      */
     protected $app = null;
@@ -104,11 +104,11 @@ abstract class ModuleAbstract
     /**
      * Constructor.
      *
-     * @param ApplicationAbstract $app Application instance
+     * @param null|ApplicationAbstract $app Application instance
      *
      * @since  1.0.0
      */
-    public function __construct(ApplicationAbstract $app)
+    public function __construct(ApplicationAbstract $app = null)
     {
         $this->app = $app;
     }

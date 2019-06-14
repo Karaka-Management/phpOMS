@@ -262,7 +262,7 @@ class FinanceFormulasTest extends \PHPUnit\Framework\TestCase
         $C = \round(FinanceFormulas::getCompoundInterest($P, $r, $t), 2);
 
         self::assertEquals(\round($expected, 2), $C);
-        self::assertTrue(\abs($P - FinanceFormulas::getPrincipalOfCompundInterest($C, $r, $t)) < 0.1);
+        self::assertEqualsWithDelta($P, FinanceFormulas::getPrincipalOfCompundInterest($C, $r, $t), 0.1);
         self::assertEquals($t, (int) \round(FinanceFormulas::getPeriodsOfCompundInterest($P, $C, $r), 0));
     }
 
@@ -281,8 +281,8 @@ class FinanceFormulasTest extends \PHPUnit\Framework\TestCase
 
         self::assertEquals(\round($expected, 2), $C);
         self::assertEquals(\round($P, 2), \round(FinanceFormulas::getPrincipalOfContinuousCompounding($C, $r, $t), 2));
-        self::assertTrue(\abs($t - FinanceFormulas::getPeriodsOfContinuousCompounding($P, $C, $r)) < 0.01);
-        self::assertTrue(\abs($r - FinanceFormulas::getRateOfContinuousCompounding($P, $C, $t)) < 0.01);
+        self::assertEqualsWithDelta($t, FinanceFormulas::getPeriodsOfContinuousCompounding($P, $C, $r), 0.01);
+        self::assertEqualsWithDelta($r, FinanceFormulas::getRateOfContinuousCompounding($P, $C, $t), 0.01);
     }
 
     /**
@@ -296,9 +296,9 @@ class FinanceFormulasTest extends \PHPUnit\Framework\TestCase
 
         $I = $P * $r * $t;
 
-        self::assertTrue(\abs($I - FinanceFormulas::getSimpleInterest($P, $r, $t)) < 0.01);
-        self::assertTrue(\abs($P - FinanceFormulas::getSimpleInterestPrincipal($I, $r, $t)) < 0.01);
-        self::assertTrue(\abs($r - FinanceFormulas::getSimpleInterestRate($I, $P, $t)) < 0.01);
+        self::assertEqualsWithDelta($I, FinanceFormulas::getSimpleInterest($P, $r, $t), 0.01);
+        self::assertEqualsWithDelta($P, FinanceFormulas::getSimpleInterestPrincipal($I, $r, $t), 0.01);
+        self::assertEqualsWithDelta($r, FinanceFormulas::getSimpleInterestRate($I, $P, $t), 0.01);
         self::assertEquals($t, FinanceFormulas::getSimpleInterestTime($I, $P, $r));
     }
 
@@ -311,7 +311,7 @@ class FinanceFormulasTest extends \PHPUnit\Framework\TestCase
         $r  = 0.05;
         $CF = 1000;
 
-        self::assertTrue(\abs(5.896 - FinanceFormulas::getDiscountedPaybackPeriod($CF, $O1, $r)) < 0.01);
+        self::assertEqualsWithDelta(5.896, FinanceFormulas::getDiscountedPaybackPeriod($CF, $O1, $r), 0.01);
     }
 
     /**
@@ -321,8 +321,8 @@ class FinanceFormulasTest extends \PHPUnit\Framework\TestCase
     {
         $r = 0.05;
 
-        self::assertTrue(\abs(14.207 - FinanceFormulas::getDoublingTime($r)) < 0.01);
-        self::assertTrue(\abs($r - FinanceFormulas::getDoublingRate(14.207)) < 0.01);
+        self::assertEqualsWithDelta(14.207, FinanceFormulas::getDoublingTime($r), 0.01);
+        self::assertEqualsWithDelta($r, FinanceFormulas::getDoublingRate(14.207), 0.01);
     }
 
     /**
@@ -333,7 +333,7 @@ class FinanceFormulasTest extends \PHPUnit\Framework\TestCase
         $r = 0.05;
 
         self::assertEqualsWithDelta(13.863, FinanceFormulas::getDoublingTimeContinuousCompounding($r), 0.01);
-        self::assertEqualsWithDelta(\abs($r - FinanceFormulas::getDoublingTimeContinuousCompounding(13.863)) < 0.01);
+        self::assertEqualsWithDelta($r, FinanceFormulas::getDoublingTimeContinuousCompounding(13.863), 0.01);
     }
 
     public function testEquivalentAnnualAnnuity() : void

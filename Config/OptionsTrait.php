@@ -71,11 +71,11 @@ trait OptionsTrait
     public function setOptions(array $pair, bool $overwrite = true) : bool
     {
         if ($overwrite) {
+            $this->options = $pair + $this->options;
+        } else {
             $this->options += $pair;
-
-            return true;
         }
 
-        return false;
+        return true;
     }
 }

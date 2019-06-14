@@ -121,6 +121,7 @@ class ViewTest extends \PHPUnit\Framework\TestCase
         self::assertTrue($view->addView('test', $tView));
         self::assertTrue($view->addView('test', $tView, 0, true));
         self::assertFalse($view->addView('test', $tView));
+        self::assertFalse($view->addView('test', $tView, 0, false));
     }
 
     public function testRender() : void

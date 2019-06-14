@@ -86,13 +86,13 @@ class HttpTest extends \PHPUnit\Framework\TestCase
     public function testSubdmonain() : void
     {
         $obj = new Http('https://www.google.com/test/path.php?para1=abc&para2=2#frag');
-        self::assertEquals('www', $obj->getSubmdomain());
+        self::assertEquals('www', $obj->getSubdomain());
 
         $obj = new Http('https://google.com/test/path.php?para1=abc&para2=2#frag');
-        self::assertEquals('', $obj->getSubmdomain());
+        self::assertEquals('', $obj->getSubdomain());
 
         $obj = new Http('https://test.www.google.com/test/path.php?para1=abc&para2=2#frag');
-        self::assertEquals('test.www', $obj->getSubmdomain());
+        self::assertEquals('test.www', $obj->getSubdomain());
     }
 
     public function testQueryData() : void

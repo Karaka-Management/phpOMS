@@ -179,7 +179,7 @@ abstract class ViewAbstract implements RenderableInterface
      *
      * @since  1.0.0
      */
-    public function addView(string $id, View $view, int $order = 0, bool $overwrite = true) : bool
+    public function addView(string $id, View $view, int $order = 0, bool $overwrite = false) : bool
     {
         if ($overwrite || !isset($this->views[$id])) {
             $this->views[$id] = $view;

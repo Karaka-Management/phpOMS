@@ -67,7 +67,7 @@ class OptionsTraitTest extends \PHPUnit\Framework\TestCase
         self::assertEquals('value3', $class->getOption('a'));
 
         self::assertTrue($class->setOptions(['b' => 2, 'c' => '3'], true));
-        self::assertFalse($class->setOptions(['b' => 4, 'c' => '5'], false));
+        self::assertTrue($class->setOptions(['b' => 4, 'c' => '5'], false)); // always returns true
         self::assertTrue($class->exists('a'));
         self::assertTrue($class->exists('b'));
         self::assertTrue($class->exists('c'));
