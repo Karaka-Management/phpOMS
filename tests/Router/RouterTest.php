@@ -125,7 +125,7 @@ class RouterTest extends \PHPUnit\Framework\TestCase
             $router->route(
                 (new Request(
                     new Http('http://test.com/backend/admin/settings/csrf/something?test')
-                ))->getUri()->getRoute(),
+                ))->getUri()->getRoute()
             )
         );
     }
