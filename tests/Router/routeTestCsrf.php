@@ -4,7 +4,7 @@ return [
         0 => [
             'dest' => '\Modules\Admin\Controller:viewCsrf',
             'verb' => 1,
-            'csrf' => true
+            'csrf' => true,
         ],
     ],
 ];

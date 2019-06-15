@@ -15,7 +15,6 @@ declare(strict_types=1);
 namespace phpOMS\Router;
 
 use phpOMS\Message\Http\Request;
-use phpOMS\Message\RequestAbstract;
 use phpOMS\Uri\Http;
 
 /**
