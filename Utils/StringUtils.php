@@ -515,6 +515,8 @@ final class StringUtils
      *
      * @return array
      *
+     * @throws \Exception This exception is thrown if one of the parameters is empty
+     *
      * @since  1.0.0
      */
     private static function computeLCSDiff(array $from, array $to) : array

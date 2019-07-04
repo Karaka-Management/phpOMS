@@ -146,6 +146,17 @@ final class Complex
         return $this->multComplex($this);
     }
 
+    /**
+     * Pow opperator
+     *
+     * @param mixed $value Value to pow
+     *
+     * @return Complex
+     *
+     * @throws \InvalidArgumentException This exception is thrown if the argument has an invalid type
+     *
+     * @since  1.0.0
+     */
     public function pow($value) : self
     {
         if (\is_int($value)) {
@@ -196,7 +207,7 @@ final class Complex
      *
      * @return Complex
      *
-     * @throws \InvalidArgumentException
+     * @throws \InvalidArgumentException This exception is thrown if the argument has an invalid type
      *
      * @since  1.0.0
      */
@@ -246,7 +257,7 @@ final class Complex
      *
      * @return Complex
      *
-     * @throws \InvalidArgumentException
+     * @throws \InvalidArgumentException This exception is thrown if the argument has an invalid type
      *
      * @since  1.0.0
      */
@@ -296,7 +307,7 @@ final class Complex
      *
      * @return Complex
      *
-     * @throws \InvalidArgumentException
+     * @throws \InvalidArgumentException This exception is thrown if the argument has an invalid type
      *
      * @since  1.0.0
      */
@@ -349,7 +360,7 @@ final class Complex
      *
      * @return Complex
      *
-     * @throws \InvalidArgumentException
+     * @throws \InvalidArgumentException This exception is thrown if the argument has an invalid type
      *
      * @since  1.0.0
      */

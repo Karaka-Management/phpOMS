@@ -85,6 +85,8 @@ final class ArrayUtils
      *
      * @return array
      *
+     * @throws \Exception This exception is thrown if the path is corrupted
+     *
      * @since  1.0.0
      */
     public static function setArray(string $path, array $data, $value, string $delim = '/', bool $overwrite = false) : array
@@ -123,6 +125,8 @@ final class ArrayUtils
      * @param string $delim Delimiter for path
      *
      * @return mixed
+     *
+     * @throws \Exception This exception is thrown if the path is corrupted
      *
      * @since  1.0.0
      */

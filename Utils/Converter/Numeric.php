@@ -56,6 +56,8 @@ class Numeric
      *
      * @return string
      *
+     * @throws \Exception This exception is thrown if one of the bases or the number is invalid
+     *
      * @since  1.0.0
      */
     public static function convertBase(string $numberInput, string $fromBaseInput, string $toBaseInput) : string

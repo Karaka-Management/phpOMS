@@ -255,7 +255,8 @@ abstract class InstallerAbstract
      *
      * @return void
      *
-     * @throws PermissionException
+     * @throws PathException       This exception is thrown if the hook file doesn't exist
+     * @throws PermissionException This exception is thrown if the hook file couldn't be updated (no write permission)
      *
      * @since  1.0.0
      */

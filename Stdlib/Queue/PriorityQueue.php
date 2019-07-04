@@ -45,6 +45,8 @@ class PriorityQueue implements \Countable, \Serializable
     /**
      * Constructor.
      *
+     * @throws InvalidEnumValue This exception is thrown if the priority mode is invalid
+     *
      * @since  1.0.0
      */
     public function __construct(int $type = PriorityMode::FIFO)
