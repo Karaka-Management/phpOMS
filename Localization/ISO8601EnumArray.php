@@ -8,7 +8,7 @@
  * @copyright  Dennis Eichhorn
  * @license    OMS License 1.0
  * @version    1.0.0
- * @link       http://website.orange-management.de
+ * @link       https://orange-management.org
  */
 declare(strict_types=1);
 
@@ -24,7 +24,7 @@ use phpOMS\Stdlib\Base\EnumArray;
  *
  * @package    phpOMS\Localization
  * @license    OMS License 1.0
- * @link       http://website.orange-management.de
+ * @link       https://orange-management.org
  * @since      1.0.0
  */
 class ISO8601EnumArray extends EnumArray
