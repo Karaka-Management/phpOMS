@@ -239,21 +239,21 @@ abstract class ModuleAbstract
     /**
      * Create a model
      *
-     * @param RequestAbstract $request Request
-     * @param mixed           $obj     Response object
-     * @param string          $mapper  Object mapper
-     * @param string          $trigger Trigger for the event manager
+     * @param int    $account Account id
+     * @param mixed  $obj     Response object
+     * @param string $mapper  Object mapper
+     * @param string $trigger Trigger for the event manager
      *
      * @return void
      *
      * @since  1.0.0
      */
-    protected function createModel(RequestAbstract $request, $obj, string $mapper, string $trigger) : void
+    protected function createModel(int $account, $obj, string $mapper, string $trigger) : void
     {
         $this->app->eventManager->trigger('PRE:Module:' . static::MODULE_NAME . '-' . $trigger . '-create', '', $obj);
         $mapper::create($obj);
         $this->app->eventManager->trigger('POST:Module:' . static::MODULE_NAME . '-' . $trigger . '-create', '', [
-            $request->getHEader()->getAccount(),
+            $account,
             null, $obj,
             0, 0,
             static::MODULE_NAME,
