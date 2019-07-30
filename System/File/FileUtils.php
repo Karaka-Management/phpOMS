@@ -24,16 +24,18 @@ namespace phpOMS\System\File;
  */
 final class FileUtils
 {
-    public const CODE_EXTENSION         = ['cpp', 'c', 'h', 'hpp', 'cs', 'css', 'scss', 'htm', 'html', 'js', 'php', 'rb', 'rs', 'ts'];
-    public const TEXT_EXTENSION         = ['doc', 'docx', 'txt', 'md', 'csv'];
-    public const PRESENTATION_EXTENSION = ['ppt', 'pptx'];
+    public const CODE_EXTENSION         = ['cpp', 'c', 'h', 'hpp', 'cs', 'css', 'scss', 'htm', 'html', 'js', 'java', 'sh', 'vb', 'php', 'rb', 'rs', 'ts', 'swift', 'class', 'htaccess', 'sql', 'py', 'bat', 'xml'];
+    public const TEXT_EXTENSION         = ['log', 'txt', 'md', 'csv', 'tex', 'latex', 'cfg', 'config', 'conf', 'ini'];
+    public const WORD_EXTENSION         = ['doc', 'docx', 'rtf', 'odt'];
+    public const PRESENTATION_EXTENSION = ['ppt', 'pptx', 'pps', 'odp', 'key'];
     public const PDF_EXTENSION          = ['pdf'];
-    public const ARCHIVE_EXTENSION      = ['zip', '7z', 'rar'];
-    public const AUDIO_EXTENSION        = ['mp3', 'wav'];
-    public const VIDEO_EXTENSION        = ['mp4'];
-    public const SPREADSHEET_EXTENSION  = ['xls', 'xlsm'];
-    public const IMAGE_EXTENSION        = ['png', 'gif', 'jpg', 'jpeg', 'tiff', 'bmp', 'svg'];
+    public const ARCHIVE_EXTENSION      = ['zip', '7z', 'rar', 'tar', 'gz', 'z', 'deb', 'rpm', 'pkg'];
+    public const AUDIO_EXTENSION        = ['mp3', 'wav', 'wma', 'ogg'];
+    public const VIDEO_EXTENSION        = ['mp4', 'flv', 'vob', 'wmv', 'swf', 'mpg', 'mpeg', 'mov', 'mkv', 'h264', 'avi'];
+    public const SPREADSHEET_EXTENSION  = ['xls', 'xlsm', 'xlr', 'ods'];
+    public const IMAGE_EXTENSION        = ['png', 'gif', 'jpg', 'jpeg', 'tif', 'tiff', 'bmp', 'svg', 'ico'];
     public const DIRECTORY              = ['collection'];
+    public const SYSTEM_EXTENSION       = ['bak', 'dll', 'sys', 'tmp', 'msi', 'so', 'exe', 'bin', 'iso'];
 
     /**
      * Constructor.
@@ -63,6 +65,8 @@ final class FileUtils
             return ExtensionType::CODE;
         } elseif (\in_array($extension, self::TEXT_EXTENSION)) {
             return ExtensionType::TEXT;
+        } elseif (\in_array($extension, self::WORD_EXTENSION)) {
+            return ExtensionType::WORD;
         } elseif (\in_array($extension, self::PRESENTATION_EXTENSION)) {
             return ExtensionType::PRESENTATION;
         } elseif (\in_array($extension, self::PDF_EXTENSION)) {
