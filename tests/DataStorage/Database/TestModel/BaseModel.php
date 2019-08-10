@@ -30,6 +30,8 @@ class BaseModel
 
     public $datetime = null;
 
+    public $datetime_null = null;
+
     public $hasManyDirect = [];
 
     public $hasManyRelations = [];

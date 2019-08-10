@@ -34,6 +34,7 @@ class BaseModelMapper extends DataMapperAbstract
         'test_base_json'              => ['name' => 'test_base_json', 'type' => 'Json', 'internal' => 'json'],
         'test_base_json_serializable' => ['name' => 'test_base_json_serializable', 'type' => 'Json', 'internal' => 'jsonSerializable'],
         'test_base_datetime'          => ['name' => 'test_base_datetime', 'type' => 'DateTime', 'internal' => 'datetime'],
+        'test_base_datetime_null'          => ['name' => 'test_base_datetime_null', 'type' => 'DateTime', 'internal' => 'datetime_null'],
         'test_base_owns_one_self'     => ['name' => 'test_base_owns_one_self', 'type' => 'int', 'internal' => 'ownsOneSelf'],
         'test_base_belongs_to_one'    => ['name' => 'test_base_belongs_to_one', 'type' => 'int', 'internal' => 'belongsToOne'],
     ];

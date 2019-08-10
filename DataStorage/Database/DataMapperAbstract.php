@@ -915,7 +915,7 @@ class DataMapperAbstract implements DataMapperInterface
         } elseif ($type === 'bool') {
             return (bool) $value;
         } elseif ($type === 'DateTime') {
-            return $value->format('Y-m-d H:i:s');
+            return $value === null ? null : $value->format('Y-m-d H:i:s');
         } elseif ($type === 'Json' || $type === 'jsonSerializable') {
             return (string) \json_encode($value);
         } elseif ($type === 'Serializable') {
@@ -2003,7 +2003,7 @@ class DataMapperAbstract implements DataMapperInterface
 
                 $refProp->setValue($obj, $value);
             } elseif (static::$columns[$column]['type'] === 'DateTime') {
-                $value = new \DateTime($value ?? '');
+                $value = $value === null ? null : new \DateTime($value);
                 if ($hasPath) {
                     $value = ArrayUtils::setArray($arrayPath, $aValue, $value, '/', true);
                 }
@@ -2055,7 +2055,7 @@ class DataMapperAbstract implements DataMapperInterface
                 if (\in_array(static::$columns[$column]['type'], ['string', 'int', 'float', 'bool'])) {
                     \settype($value, static::$columns[$column]['type']);
                 } elseif (static::$columns[$column]['type'] === 'DateTime') {
-                    $value = new \DateTime($value ?? '');
+                    $value = $value === null ? null : new \DateTime($value);
                 } elseif (static::$columns[$column]['type'] === 'Json') {
                     $value = \json_decode($value, true);
                 }

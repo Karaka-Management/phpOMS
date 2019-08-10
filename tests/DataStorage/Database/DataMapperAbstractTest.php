@@ -43,6 +43,7 @@ class DataMapperAbstractTest extends \PHPUnit\Framework\TestCase
                 }
             },
             'datetime' => new \DateTime('2005-10-11'),
+            'datetime_null' => null,
             'ownsOneSelf' => [
                 'id' => 0,
                 'string' => 'OwnsOne',
@@ -88,6 +89,7 @@ class DataMapperAbstractTest extends \PHPUnit\Framework\TestCase
                 `test_base_json` varchar(254) DEFAULT NULL,
                 `test_base_json_serializable` varchar(254) DEFAULT NULL,
                 `test_base_datetime` datetime DEFAULT NULL,
+                `test_base_datetime_null` datetime DEFAULT NULL, /* There was a bug where it returned the current date because new \DateTime(null) === current date which is wrong, we want null as value! */
                 PRIMARY KEY (`test_base_id`)
             )ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1;'
         )->execute();
@@ -176,6 +178,7 @@ class DataMapperAbstractTest extends \PHPUnit\Framework\TestCase
         self::assertEquals($this->model->float, $modelR->float);
         self::assertEquals($this->model->null, $modelR->null);
         self::assertEquals($this->model->datetime->format('Y-m-d'), $modelR->datetime->format('Y-m-d'));
+        self::assertEquals(null, $modelR->datetime_null);
 
         // todo implement these
         //self::assertEquals('123', $modelR->serializable);
@@ -207,6 +210,7 @@ class DataMapperAbstractTest extends \PHPUnit\Framework\TestCase
         self::assertEquals($this->modelArray['float'], $modelR['float']);
         self::assertEquals($this->modelArray['null'], $modelR['null']);
         self::assertEquals($this->modelArray['datetime']->format('Y-m-d'), $modelR['datetime']->format('Y-m-d'));
+        self::assertEquals(null, $modelR['datetime_null']);
 
         self::assertCount(2, $modelR['hasManyDirect']);
         self::assertCount(2, $modelR['hasManyRelations']);
@@ -232,6 +236,7 @@ class DataMapperAbstractTest extends \PHPUnit\Framework\TestCase
         $modelR->float    = 3.15;
         $modelR->null     = null;
         $modelR->datetime = new \DateTime('now');
+        $modelR->datetime_null = null;
 
         $id2     = BaseModelMapper::update($modelR);
         $modelR2 = BaseModelMapper::get($id2);
@@ -242,6 +247,7 @@ class DataMapperAbstractTest extends \PHPUnit\Framework\TestCase
         self::assertEquals($modelR->float, $modelR2->float);
         self::assertEquals($modelR->null, $modelR2->null);
         self::assertEquals($modelR->datetime->format('Y-m-d'), $modelR2->datetime->format('Y-m-d'));
+        self::assertEquals(null, $modelR2->datetime_null);
 
         // todo test update relations
     }
@@ -257,6 +263,7 @@ class DataMapperAbstractTest extends \PHPUnit\Framework\TestCase
         $modelR['float']    = 3.15;
         $modelR['null']     = null;
         $modelR['datetime'] = new \DateTime('now');
+        $modelR['datetime_null'] = null;
 
         $id2     = BaseModelMapper::updateArray($modelR);
         $modelR2 = BaseModelMapper::getArray($id2);
@@ -267,6 +274,7 @@ class DataMapperAbstractTest extends \PHPUnit\Framework\TestCase
         self::assertEquals($modelR['float'], $modelR2['float']);
         self::assertEquals($modelR['null'], $modelR2['null']);
         self::assertEquals($modelR['datetime']->format('Y-m-d'), $modelR2['datetime']->format('Y-m-d'));
+        self::assertEquals(null, $modelR2['datetime_null']);
 
         // todo test update relations
     }
