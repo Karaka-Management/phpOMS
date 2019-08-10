@@ -23,7 +23,7 @@ class NumericElement implements SortableInterface
 {
     public $value = 0;
 
-    public function __construct($value) 
+    public function __construct($value)
     {
         $this->value = $value;
     }

@@ -27,7 +27,7 @@ class SelectionSort implements SortInterface
     public static function sort(array $list, int $order = SortOrder::ASC) : array
     {
         $n = \count($list);
-        
+
         for ($i = 0; $i < $n - 1; ++$i) {
             $min = $i;
 

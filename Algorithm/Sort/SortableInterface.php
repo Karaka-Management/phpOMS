@@ -24,5 +24,5 @@ namespace phpOMS\Algorithm\Sort;
  */
 interface SortableInterface
 {
-    public function compare(SortableInterface $obj, int $order = SortOrder::ASC) : bool;
+    public function compare(self $obj, int $order = SortOrder::ASC) : bool;
 }

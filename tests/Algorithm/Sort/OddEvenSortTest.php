@@ -15,7 +15,6 @@
 namespace phpOMS\tests\Algorithm\Sort;
 
 use phpOMS\Algorithm\Sort\OddEvenSort;
-use phpOMS\Algorithm\Sort\SortableInterface;
 use phpOMS\Algorithm\Sort\SortOrder;
 
 require_once __DIR__ . '/../../Autoloader.php';
