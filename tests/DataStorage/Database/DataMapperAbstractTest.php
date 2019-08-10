@@ -178,7 +178,7 @@ class DataMapperAbstractTest extends \PHPUnit\Framework\TestCase
         self::assertEquals($this->model->float, $modelR->float);
         self::assertEquals($this->model->null, $modelR->null);
         self::assertEquals($this->model->datetime->format('Y-m-d'), $modelR->datetime->format('Y-m-d'));
-        self::assertEquals(null, $modelR->datetime_null);
+        self::assertNull($modelR->datetime_null);
 
         // todo implement these
         //self::assertEquals('123', $modelR->serializable);
@@ -210,7 +210,7 @@ class DataMapperAbstractTest extends \PHPUnit\Framework\TestCase
         self::assertEquals($this->modelArray['float'], $modelR['float']);
         self::assertEquals($this->modelArray['null'], $modelR['null']);
         self::assertEquals($this->modelArray['datetime']->format('Y-m-d'), $modelR['datetime']->format('Y-m-d'));
-        self::assertEquals(null, $modelR['datetime_null']);
+        self::assertNull($modelR['datetime_null']);
 
         self::assertCount(2, $modelR['hasManyDirect']);
         self::assertCount(2, $modelR['hasManyRelations']);
@@ -247,7 +247,7 @@ class DataMapperAbstractTest extends \PHPUnit\Framework\TestCase
         self::assertEquals($modelR->float, $modelR2->float);
         self::assertEquals($modelR->null, $modelR2->null);
         self::assertEquals($modelR->datetime->format('Y-m-d'), $modelR2->datetime->format('Y-m-d'));
-        self::assertEquals(null, $modelR2->datetime_null);
+        self::assertNull($modelR2->datetime_null);
 
         // todo test update relations
     }
@@ -274,7 +274,7 @@ class DataMapperAbstractTest extends \PHPUnit\Framework\TestCase
         self::assertEquals($modelR['float'], $modelR2['float']);
         self::assertEquals($modelR['null'], $modelR2['null']);
         self::assertEquals($modelR['datetime']->format('Y-m-d'), $modelR2['datetime']->format('Y-m-d'));
-        self::assertEquals(null, $modelR2['datetime_null']);
+        self::assertNull($modelR2['datetime_null']);
 
         // todo test update relations
     }
