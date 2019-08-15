@@ -2,7 +2,7 @@
 /**
  * Orange Management
  *
- * PHP Version 7.2
+ * PHP Version 7.4
  *
  * @package    phpOMS\DataStorage\Database\Connection
  * @copyright  Dennis Eichhorn

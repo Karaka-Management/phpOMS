@@ -2,7 +2,7 @@
 /**
  * Orange Management
  *
- * PHP Version 7.2
+ * PHP Version 7.4
  *
  * @package    phpOMS\Math\Geometry\Shape\D3
  * @copyright  Dennis Eichhorn

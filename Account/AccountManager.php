@@ -2,7 +2,7 @@
 /**
  * Orange Management
  *
- * PHP Version 7.2
+ * PHP Version 7.4
  *
  * @package    phpOMS\Account
  * @copyright  Dennis Eichhorn
@@ -36,15 +36,15 @@ final class AccountManager implements \Countable
      * @var Account[]
      * @since 1.0.0
      */
-    private $accounts = [];
+    private array $accounts = [];
 
     /**
      * Session.
      *
-     * @var SessionInterface
+     * @var null|SessionInterface
      * @since 1.0.0
      */
-    private $session = null;
+    private ?SessionInterface $session = null;
 
     /**
      * Constructor.

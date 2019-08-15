@@ -2,7 +2,7 @@
 /**
  * Orange Management
  *
- * PHP Version 7.2
+ * PHP Version 7.4
  *
  * @package    phpOMS\Account
  * @copyright  Dennis Eichhorn
@@ -39,7 +39,7 @@ class Account implements ArrayableInterface, \JsonSerializable
      * @var int
      * @since 1.0.0
      */
-    protected $id = 0;
+    protected int $id = 0;
 
     /**
      * Names.
@@ -47,7 +47,7 @@ class Account implements ArrayableInterface, \JsonSerializable
      * @var string
      * @since 1.0.0
      */
-    protected $name1 = '';
+    protected string $name1 = '';
 
     /**
      * Names.
@@ -55,7 +55,7 @@ class Account implements ArrayableInterface, \JsonSerializable
      * @var string
      * @since 1.0.0
      */
-    protected $name2 = '';
+    protected string $name2 = '';
 
     /**
      * Names.
@@ -63,7 +63,7 @@ class Account implements ArrayableInterface, \JsonSerializable
      * @var string
      * @since 1.0.0
      */
-    protected $name3 = '';
+    protected string $name3 = '';
 
     /**
      * Email.
@@ -71,7 +71,7 @@ class Account implements ArrayableInterface, \JsonSerializable
      * @var string
      * @since 1.0.0
      */
-    protected $email = '';
+    protected string $email = '';
 
     /**
      * Ip.
@@ -81,7 +81,7 @@ class Account implements ArrayableInterface, \JsonSerializable
      * @var string
      * @since 1.0.0
      */
-    protected $origin = '';
+    protected string $origin = '';
 
     /**
      * Login.
@@ -89,7 +89,7 @@ class Account implements ArrayableInterface, \JsonSerializable
      * @var null|string
      * @since 1.0.0
      */
-    protected $login = null;
+    protected ?string $login = null;
 
     /**
      * Last activity.
@@ -97,7 +97,7 @@ class Account implements ArrayableInterface, \JsonSerializable
      * @var \DateTime
      * @since 1.0.0
      */
-    protected $lastActive = null;
+    protected ?\DateTime $lastActive = null;
 
     /**
      * Last activity.
@@ -105,7 +105,7 @@ class Account implements ArrayableInterface, \JsonSerializable
      * @var \DateTime
      * @since 1.0.0
      */
-    protected $createdAt = null;
+    protected ?\DateTime $createdAt = null;
 
     /**
      * Groups.
@@ -113,7 +113,7 @@ class Account implements ArrayableInterface, \JsonSerializable
      * @var int[]
      * @since 1.0.0
      */
-    protected $groups = [];
+    protected array $groups = [];
 
     /**
      * Password.
@@ -121,7 +121,7 @@ class Account implements ArrayableInterface, \JsonSerializable
      * @var string
      * @since 1.0.0
      */
-    protected $password = '';
+    protected string $password = '';
 
     /**
      * Account type.
@@ -129,7 +129,7 @@ class Account implements ArrayableInterface, \JsonSerializable
      * @var int
      * @since 1.0.0
      */
-    protected $type = AccountType::USER;
+    protected int $type = AccountType::USER;
 
     /**
      * Account status.
@@ -137,7 +137,7 @@ class Account implements ArrayableInterface, \JsonSerializable
      * @var int
      * @since 1.0.0
      */
-    protected $status = AccountStatus::INACTIVE;
+    protected int $status = AccountStatus::INACTIVE;
 
     /**
      * Localization.
@@ -145,7 +145,7 @@ class Account implements ArrayableInterface, \JsonSerializable
      * @var Localization
      * @since 1.0.0
      */
-    protected $l11n = null;
+    protected ?Localization $l11n = null;
 
     use PermissionHandlingTrait;
 

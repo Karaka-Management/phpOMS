@@ -2,7 +2,7 @@
 /**
  * Orange Management
  *
- * PHP Version 7.2
+ * PHP Version 7.4
  *
  * @package    phpOMS\Account
  * @copyright  Dennis Eichhorn
@@ -34,7 +34,7 @@ class Group implements ArrayableInterface, \JsonSerializable
      * @var int
      * @since 1.0.0
      */
-    protected $id = 0;
+    protected int $id = 0;
 
     /**
      * Group name.
@@ -42,7 +42,7 @@ class Group implements ArrayableInterface, \JsonSerializable
      * @var string
      * @since 1.0.0
      */
-    protected $name = '';
+    protected string $name = '';
 
     /**
      * Group name.
@@ -50,7 +50,7 @@ class Group implements ArrayableInterface, \JsonSerializable
      * @var string
      * @since 1.0.0
      */
-    protected $description = '';
+    protected string $description = '';
 
     /**
      * Group members.
@@ -58,7 +58,7 @@ class Group implements ArrayableInterface, \JsonSerializable
      * @var array
      * @since 1.0.0
      */
-    protected $members = [];
+    protected array $members = [];
 
     /**
      * Parents.
@@ -66,7 +66,7 @@ class Group implements ArrayableInterface, \JsonSerializable
      * @var int[]
      * @since 1.0.0
      */
-    protected $parents = [];
+    protected array $parents = [];
 
     /**
      * Group status.
@@ -74,7 +74,7 @@ class Group implements ArrayableInterface, \JsonSerializable
      * @var int
      * @since 1.0.0
      */
-    protected $status = GroupStatus::INACTIVE;
+    protected int $status = GroupStatus::INACTIVE;
 
     use PermissionHandlingTrait;
 

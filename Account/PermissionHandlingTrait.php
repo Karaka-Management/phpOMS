@@ -2,7 +2,7 @@
 /**
  * Orange Management
  *
- * PHP Version 7.2
+ * PHP Version 7.4
  *
  * @package    phpOMS\Account
  * @copyright  Dennis Eichhorn
@@ -30,7 +30,7 @@ trait PermissionHandlingTrait
      * @var PermissionAbstract[]
      * @since 1.0.0
      */
-    protected $permissions = [];
+    protected array $permissions = [];
 
     /**
      * Set permissions.

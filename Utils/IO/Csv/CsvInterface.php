@@ -2,7 +2,7 @@
 /**
  * Orange Management
  *
- * PHP Version 7.2
+ * PHP Version 7.4
  *
  * @package    TBD
  * @copyright  Dennis Eichhorn
@@ -17,7 +17,7 @@ namespace phpOMS\Utils\IO\Csv {
     /**
      * Cvs interface.
      *
-     * PHP Version 7.2
+     * PHP Version 7.4
      *
      * @package    Framework
          * @copyright  Dennis Eichhorn

@@ -2,7 +2,7 @@
 /**
  * Orange Management
  *
- * PHP Version 7.2
+ * PHP Version 7.4
  *
  * @package    phpOMS\Account
  * @copyright  Dennis Eichhorn
@@ -33,7 +33,7 @@ class PermissionAbstract implements \JsonSerializable
      * @var int
      * @since 1.0.0
      */
-    protected $id = 0;
+    protected int $id = 0;
 
     /**
      * Unit id.
@@ -41,7 +41,7 @@ class PermissionAbstract implements \JsonSerializable
      * @var null|int
      * @since 1.0.0
      */
-    protected $unit = null;
+    protected ?int $unit = null;
 
     /**
      * App name.
@@ -49,7 +49,7 @@ class PermissionAbstract implements \JsonSerializable
      * @var null|string
      * @since 1.0.0
      */
-    protected $app = null;
+    protected ?string $app = null;
 
     /**
      * Module id.
@@ -57,7 +57,7 @@ class PermissionAbstract implements \JsonSerializable
      * @var null|string
      * @since 1.0.0
      */
-    protected $module = null;
+    protected ?string $module = null;
 
     /**
      * Providing module id.
@@ -65,7 +65,7 @@ class PermissionAbstract implements \JsonSerializable
      * @var int
      * @since 1.0.0
      */
-    protected $from = 0;
+    protected int $from = 0;
 
     /**
      * Type.
@@ -73,7 +73,7 @@ class PermissionAbstract implements \JsonSerializable
      * @var null|int
      * @since 1.0.0
      */
-    protected $type = null;
+    protected ?int $type = null;
 
     /**
      * Element id.
@@ -81,7 +81,7 @@ class PermissionAbstract implements \JsonSerializable
      * @var null|int
      * @since 1.0.0
      */
-    protected $element = null;
+    protected ?int $element = null;
 
     /**
      * Component id.
@@ -89,7 +89,7 @@ class PermissionAbstract implements \JsonSerializable
      * @var null|int
      * @since 1.0.0
      */
-    protected $component = null;
+    protected ?int $component = null;
 
     /**
      * Permission.
@@ -97,8 +97,21 @@ class PermissionAbstract implements \JsonSerializable
      * @var int
      * @since 1.0.0
      */
-    protected $permission = PermissionType::NONE;
+    protected int $permission = PermissionType::NONE;
 
+    /**
+     * Constructor.
+     *
+     * @param null|int    $unit       Unit Unit to check (null if all are acceptable)
+     * @param null|string $app        App App to check  (null if all are acceptable)
+     * @param null|string $module     Module Module to check  (null if all are acceptable)
+     * @param null|int    $type       Type (e.g. customer) (null if all are acceptable)
+     * @param null|int    $element    (e.g. customer id) (null if all are acceptable)
+     * @param null|int    $component  (e.g. address) (null if all are acceptable)
+     * @param int         $permission Permission to check
+     *
+     * @since  1.0.0
+     */
     public function __construct(
         int $unit = null,
         string $app = null,
