@@ -14,6 +14,19 @@ declare(strict_types=1);
 
 namespace phpOMS;
 
+use phpOMS\DataStorage\Database\DatabasePool;
+use phpOMS\Localization\L11nManager;
+use phpOMS\Router\Router;
+use phpOMS\DataStorage\Session\SessionInterface;
+use phpOMS\DataStorage\Cookie\CookieJar;
+use phpOMS\Module\ModuleManager;
+use phpOMS\Dispatcher\Dispatcher;
+use phpOMS\DataStorage\Cache\CachePool;
+use Model\CoreSettings;
+use phpOMS\Event\EventManager;
+use phpOMS\Account\AccountManager;
+use phpOMS\Log\FileLogger;
+
 /**
  * Application class.
  *
@@ -50,7 +63,7 @@ class ApplicationAbstract
      * @var string
      * @since 1.0.0
      */
-    protected $appName = '';
+    protected string $appName = '';
 
     /**
      * Organization id.
@@ -58,7 +71,7 @@ class ApplicationAbstract
      * @var int
      * @since 1.0.0
      */
-    protected $orgId = 0;
+    protected int $orgId = 0;
 
     /**
      * App theme.
@@ -66,111 +79,111 @@ class ApplicationAbstract
      * @var string
      * @since 1.0.0
      */
-    protected $theme = '';
+    protected string $theme = '';
 
     /**
      * Database object.
      *
-     * @var \phpOMS\DataStorage\Database\DatabasePool
+     * @var null|DatabasePool
      * @since 1.0.0
      */
-    protected $dbPool = null;
+    protected ?DatabasePool $dbPool = null;
 
     /**
      * Application settings object.
      *
-     * @var \Model\CoreSettings
+     * @var null|CoreSettings
      * @since 1.0.0
      */
-    protected $appSettings = null;
+    protected ?CoreSettings $appSettings = null;
 
     /**
      * Account manager instance.
      *
-     * @var \phpOMS\Account\AccountManager
+     * @var null|AccountManager
      * @since 1.0.0
      */
-    protected $accountManager = null;
+    protected ?AccountManager $accountManager = null;
 
     /**
      * Cache instance.
      *
-     * @var \phpOMS\DataStorage\Cache\CachePool
+     * @var null|CachePool
      * @since 1.0.0
      */
-    protected $cachePool = null;
+    protected ?CachePool $cachePool = null;
 
     /**
      * ModuleManager instance.
      *
-     * @var \phpOMS\Module\ModuleManager
+     * @var null|ModuleManager
      * @since 1.0.0
      */
-    protected $moduleManager = null;
+    protected ?ModuleManager $moduleManager = null;
 
     /**
      * Router instance.
      *
-     * @var \phpOMS\Router\Router
+     * @var null|Router
      * @since 1.0.0
      */
-    protected $router = null;
+    protected ?Router $router = null;
 
     /**
      * Dispatcher instance.
      *
-     * @var \phpOMS\Dispatcher\Dispatcher
+     * @var null|Dispatcher
      * @since 1.0.0
      */
-    protected $dispatcher = null;
+    protected ?Dispatcher $dispatcher = null;
 
     /**
      * Session instance.
      *
-     * @var \phpOMS\DataStorage\Session\SessionInterface
+     * @var null|SessionInterface
      * @since 1.0.0
      */
-    protected $sessionManager = null;
+    protected ?SessionInterface $sessionManager = null;
 
     /**
      * Cookie instance.
      *
-     * @var \phpOMS\DataStorage\Cookie\CookieJar
+     * @var null|CookieJar
      * @since 1.0.0
      */
-    protected $cookieJar = null;
+    protected ?CookieJar $cookieJar = null;
 
     /**
      * Server localization.
      *
-     * @var \phpOMS\Localization\Localization
+     * @var null|Localization
      * @since 1.0.0
      */
-    protected $l11nServer = null;
+    protected ?Localization $l11nServer = null;
 
     /**
      * Server localization.
      *
-     * @var \phpOMS\Log\FileLogger
+     * @var null|FileLogger
      * @since 1.0.0
      */
-    protected $logger = null;
+    protected ?FileLogger $logger = null;
 
     /**
      * L11n manager.
      *
-     * @var \phpOMS\Localization\L11nManager
+     * @var null|L11nManager
      * @since 1.0.0
      */
-    protected $l11nManager = null;
+    protected ?L11nManager $l11nManager = null;
 
     /**
      * Event manager.
      *
-     * @var \phpOMS\Event\EventManager
+     * @var null|EventManager
      * @since 1.0.0
      */
-    protected $eventManager = null;
+    protected ?EventManager $eventManager = null;
 
     /**
      * Set values
