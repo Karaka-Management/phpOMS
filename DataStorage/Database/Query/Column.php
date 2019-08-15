@@ -31,7 +31,7 @@ class Column
      * @var string
      * @since 1.0.0
      */
-    private $column = '';
+    private string $column = '';
 
     /**
      * Constructor.

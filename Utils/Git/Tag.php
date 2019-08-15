@@ -30,7 +30,7 @@ class Tag
      * @var string
      * @since 1.0.0
      */
-    private $name = '';
+    private string $name = '';
 
     /**
      * Message.
@@ -38,7 +38,7 @@ class Tag
      * @var string
      * @since 1.0.0
      */
-    private $message = '';
+    private string $message = '';
 
     /**
      * Constructor

@@ -32,7 +32,7 @@ final class SingularValueDecomposition
      * @var array[]
      * @since 1.0.0
      */
-    private $U = [];
+    private array $U = [];
 
     /**
      * V matrix.
@@ -40,7 +40,7 @@ final class SingularValueDecomposition
      * @var array[]
      * @since 1.0.0
      */
-    private $V = [];
+    private array $V = [];
 
     /**
      * Singular values.
@@ -48,7 +48,7 @@ final class SingularValueDecomposition
      * @var array
      * @since 1.0.0
      */
-    private $S = [];
+    private array $S = [];
 
     /**
      * Dimension m
@@ -56,7 +56,7 @@ final class SingularValueDecomposition
      * @var int
      * @since 1.0.0
      */
-    private $m = 0;
+    private int $m = 0;
 
     /**
      * Dimension n
@@ -64,7 +64,7 @@ final class SingularValueDecomposition
      * @var int
      * @since 1.0.0
      */
-    private $n = 0;
+    private int $n = 0;
 
     /**
      * Constructor.

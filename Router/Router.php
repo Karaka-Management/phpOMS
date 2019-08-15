@@ -34,7 +34,7 @@ final class Router
      * @var array
      * @since 1.0.0
      */
-    private $routes = [];
+    private array $routes = [];
 
     /**
      * Add routes from file.

@@ -32,7 +32,7 @@ class Iban implements \Serializable
      * @var string
      * @since 1.0.0
      */
-    private $iban = '';
+    private string $iban = '';
 
     /**
      * Constructor.

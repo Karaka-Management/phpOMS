@@ -32,7 +32,7 @@ abstract class EnumArray
      * @var array
      * @since 1.0.0
      */
-    protected static $constants = [];
+    protected static array $constants = [];
 
     /**
      * Checking enum name.

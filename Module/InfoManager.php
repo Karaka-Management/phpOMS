@@ -36,7 +36,7 @@ final class InfoManager
      * @var string
      * @since 1.0.0
      */
-    private $path = '';
+    private string $path = '';
 
     /**
      * Info data.
@@ -44,7 +44,7 @@ final class InfoManager
      * @var array
      * @since 1.0.0
      */
-    private $info = [];
+    private array $info = [];
 
     /**
      * Object constructor.

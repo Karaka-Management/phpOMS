@@ -49,15 +49,15 @@ abstract class ConnectionAbstract implements ConnectionInterface
      * @var string
      * @since 1.0.0
      */
-    public $prefix = '';
+    public string string $prefix = '';
 
     /**
      * Database data.
      *
-     * @var string[]
+     * @var null|string[]
      * @since 1.0.0
      */
-    protected $dbdata = null;
+    protected ?array $dbdata = null;
 
     /**
      * Database type.
@@ -65,7 +65,7 @@ abstract class ConnectionAbstract implements ConnectionInterface
      * @var string
      * @since 1.0.0
      */
-    protected $type = CacheType::UNDEFINED;
+    protected string $type = CacheType::UNDEFINED;
 
     /**
      * Database status.
@@ -73,7 +73,7 @@ abstract class ConnectionAbstract implements ConnectionInterface
      * @var int
      * @since 1.0.0
      */
-    protected $status = CacheStatus::CLOSED;
+    protected int $status = CacheStatus::CLOSED;
 
     /**
      * {@inheritdoc}

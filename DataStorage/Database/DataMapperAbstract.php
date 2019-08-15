@@ -37,10 +37,10 @@ class DataMapperAbstract implements DataMapperInterface
     /**
      * Database connection.
      *
-     * @var ConnectionAbstract
+     * @var null|ConnectionAbstract
      * @since 1.0.0
      */
-    protected static $db = null;
+    protected static ?ConnectionAbstract $db = null;
 
     /**
      * Overwriting extended values.
@@ -48,7 +48,7 @@ class DataMapperAbstract implements DataMapperInterface
      * @var bool
      * @since 1.0.0
      */
-    protected static $overwrite = true;
+    protected static bool $overwrite = true;
 
     /**
      * Primary field name.
@@ -56,7 +56,7 @@ class DataMapperAbstract implements DataMapperInterface
      * @var string
      * @since 1.0.0
      */
-    protected static $primaryField = '';
+    protected static string $primaryField = '';
 
     /**
      * Primary field name.
@@ -64,7 +64,7 @@ class DataMapperAbstract implements DataMapperInterface
      * @var string
      * @since 1.0.0
      */
-    protected static $createdAt = '';
+    protected static string $createdAt = '';
 
     /**
      * Language
@@ -72,7 +72,7 @@ class DataMapperAbstract implements DataMapperInterface
      * @var string
      * @since 1.0.0
      */
-    protected static $languageField = '';
+    protected static string $languageField = '';
 
     /**
      * Columns.
@@ -80,7 +80,7 @@ class DataMapperAbstract implements DataMapperInterface
      * @var array<string, array<string, string>>
      * @since 1.0.0
      */
-    protected static $columns = [];
+    protected static array $columns = [];
 
     /**
      * Has many relation.
@@ -88,7 +88,7 @@ class DataMapperAbstract implements DataMapperInterface
      * @var array<string, array>
      * @since 1.0.0
      */
-    protected static $hasMany = [];
+    protected static array $hasMany = [];
 
     /**
      * Relations.
@@ -98,7 +98,7 @@ class DataMapperAbstract implements DataMapperInterface
      * @var array<string, array>
      * @since 1.0.0
      */
-    protected static $ownsOne = [];
+    protected static array $ownsOne = [];
 
     /**
      * Relations.
@@ -113,7 +113,7 @@ class DataMapperAbstract implements DataMapperInterface
      * @var array<string, array<string, string>>
      * @since 1.0.0
      */
-    protected static $belongsTo = [];
+    protected static array $belongsTo = [];
 
     /**
      * Table.
@@ -121,7 +121,7 @@ class DataMapperAbstract implements DataMapperInterface
      * @var string
      * @since 1.0.0
      */
-    protected static $table = '';
+    protected static string $table = '';
 
     /**
      * Fields to load.
@@ -129,7 +129,7 @@ class DataMapperAbstract implements DataMapperInterface
      * @var array[]
      * @since 1.0.0
      */
-    protected static $fields = [];
+    protected static array $fields = [];
 
     /**
      * Initialized objects for cross reference to reduce initialization costs
@@ -137,7 +137,7 @@ class DataMapperAbstract implements DataMapperInterface
      * @var array[]
      * @since 1.0.0
      */
-    protected static $initObjects = [];
+    protected static array $initObjects = [];
 
     /**
      * Initialized arrays for cross reference to reduce initialization costs
@@ -145,7 +145,7 @@ class DataMapperAbstract implements DataMapperInterface
      * @var array[]
      * @since 1.0.0
      */
-    protected static $initArrays = [];
+    protected static array $initArrays = [];
 
     /**
      * Highest mapper to know when to clear initialized objects
@@ -153,7 +153,7 @@ class DataMapperAbstract implements DataMapperInterface
      * @var null|string
      * @since 1.0.0
      */
-    protected static $parentMapper = null;
+    protected static ?string $parentMapper = null;
 
     /**
      * Extended value collection.
@@ -161,7 +161,7 @@ class DataMapperAbstract implements DataMapperInterface
      * @var array
      * @since 1.0.0
      */
-    protected static $collection = [
+    protected static array $collection = [
         'primaryField' => [],
         'createdAt'    => [],
         'columns'      => [],

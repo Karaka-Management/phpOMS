@@ -29,26 +29,26 @@ abstract class RequestAbstract implements MessageInterface
     /**
      * Uri.
      *
-     * @var UriInterface
+     * @var null|UriInterface
      * @since 1.0.0
      */
-    protected $uri = null;
+    protected ?UriInterface $uri = null;
 
     /**
      * Request method.
      *
-     * @var string
+     * @var null|string
      * @since 1.0.0
      */
-    protected $method = null;
+    protected ?string $method = null;
 
     /**
      * Request type.
      *
-     * @var string
+     * @var null|string
      * @since 1.0.0
      */
-    protected $type = null;
+    protected ?string $type = null;
 
     /**
      * Request data.
@@ -56,7 +56,7 @@ abstract class RequestAbstract implements MessageInterface
      * @var array
      * @since 1.0.0
      */
-    protected $data = [];
+    protected array $data = [];
 
     /**
      * Request hash.
@@ -64,7 +64,7 @@ abstract class RequestAbstract implements MessageInterface
      * @var array
      * @since 1.0.0
      */
-    protected $hash = [];
+    protected array $hash = [];
 
     /**
      * Uploaded files.
@@ -72,7 +72,7 @@ abstract class RequestAbstract implements MessageInterface
      * @var array
      * @since 1.0.0
      */
-    protected $files = [];
+    protected array $files = [];
 
     /**
      * Request lock.
@@ -80,15 +80,15 @@ abstract class RequestAbstract implements MessageInterface
      * @var bool
      * @since 1.0.0
      */
-    protected $lock = false;
+    protected bool $lock = false;
 
     /**
      * Request header.
      *
-     * @var HeaderAbstract
+     * @var null|HeaderAbstract
      * @since 1.0.0
      */
-    protected $header = null;
+    protected ?HeaderAbstract $header = null;
 
     /**
      * Get request uri.

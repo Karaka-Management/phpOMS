@@ -37,7 +37,7 @@ final class CachePool implements DataStoragePoolInterface
      * @var DataStorageConnectionInterface[]
      * @since 1.0.0
      */
-    private $pool = null;
+    private ?array $pool = null;
 
     /**
      * Add database.

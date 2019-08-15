@@ -34,7 +34,7 @@ abstract class SchedulerAbstract
      * @var string
      * @since 1.0.0
      */
-    private static $bin = '';
+    private static string $bin = '';
 
     /**
      * Get git binary.

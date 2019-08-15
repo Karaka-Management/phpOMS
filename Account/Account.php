@@ -94,7 +94,7 @@ class Account implements ArrayableInterface, \JsonSerializable
     /**
      * Last activity.
      *
-     * @var \DateTime
+     * @var null|\DateTime
      * @since 1.0.0
      */
     protected ?\DateTime $lastActive = null;
@@ -102,7 +102,7 @@ class Account implements ArrayableInterface, \JsonSerializable
     /**
      * Last activity.
      *
-     * @var \DateTime
+     * @var null|\DateTime
      * @since 1.0.0
      */
     protected ?\DateTime $createdAt = null;

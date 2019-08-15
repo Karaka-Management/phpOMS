@@ -36,10 +36,10 @@ final class Request extends RequestAbstract
     /**
      * OS type.
      *
-     * @var string
+     * @var null|string
      * @since 1.0.0
      */
-    private $os = null;
+    private ?string $os = null;
 
     /**
      * Constructor.

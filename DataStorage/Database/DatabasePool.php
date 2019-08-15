@@ -36,7 +36,7 @@ final class DatabasePool implements DataStoragePoolInterface
      * @var DataStorageConnectionInterface[]
      * @since 1.0.0
      */
-    private $pool = [];
+    private array $pool = [];
 
     /**
      * Constructor.

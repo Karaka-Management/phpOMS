@@ -39,7 +39,7 @@ final class PackageManager
      * @var string
      * @since 1.0.0
      */
-    private $path = '';
+    private string $path = '';
 
     /**
      * Base path.
@@ -47,7 +47,7 @@ final class PackageManager
      * @var string
      * @since 1.0.0
      */
-    private $basePath = '';
+    private string $basePath = '';
 
     /**
      * Extract path.
@@ -55,7 +55,7 @@ final class PackageManager
      * @var string
      * @since 1.0.0
      */
-    private $extractPath = '';
+    private string $extractPath = '';
 
     /**
      * Public key.
@@ -63,7 +63,7 @@ final class PackageManager
      * @var string
      * @since 1.0.0
      */
-    private $publicKey = '';
+    private string $publicKey = '';
 
     /**
      * Info data.
@@ -71,7 +71,7 @@ final class PackageManager
      * @var array
      * @since 1.0.0
      */
-    private $info = [];
+    private array $info = [];
 
     /**
      * Constructor.

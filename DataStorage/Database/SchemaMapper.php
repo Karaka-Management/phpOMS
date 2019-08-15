@@ -30,10 +30,10 @@ class SchemaMapper
     /**
      * Database connection.
      *
-     * @var ConnectionAbstract
+     * @var null|ConnectionAbstract
      * @since 1.0.0
      */
-    protected $db = null;
+    protected ?ConnectionAbstract $db = null;
 
     public function __construct(ConnectionAbstract $db)
     {

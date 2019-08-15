@@ -33,7 +33,7 @@ class CurrencyMapper extends DataMapperAbstract
      * @var array<string, array<string, bool|string>>
      * @since 1.0.0
      */
-    protected static $columns = [
+    protected static array $columns = [
         'currency_id'        => ['name' => 'currency_id', 'type' => 'int', 'internal' => 'id'],
         'currency_name'      => ['name' => 'currency_name', 'type' => 'string', 'internal' => 'name'],
         'currency_code'      => ['name' => 'currency_code', 'type' => 'string', 'internal' => 'code'],
@@ -48,7 +48,7 @@ class CurrencyMapper extends DataMapperAbstract
      * @var string
      * @since 1.0.0
      */
-    protected static $table = 'currency';
+    protected static string $table = 'currency';
 
     /**
      * Primary field name.
@@ -56,5 +56,5 @@ class CurrencyMapper extends DataMapperAbstract
      * @var string
      * @since 1.0.0
      */
-    protected static $primaryField = 'currency_id';
+    protected static string $primaryField = 'currency_id';
 }

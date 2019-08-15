@@ -36,7 +36,7 @@ final class Dispatcher
      * @var null|ApplicationAbstract
      * @since 1.0.0
      */
-    private $app = null;
+    private ?ApplicationAbstract $app = null;
 
     /**
      * Controller.
@@ -46,7 +46,7 @@ final class Dispatcher
      * @var array
      * @since 1.0.0
      */
-    private $controllers = [];
+    private array $controllers = [];
 
     /**
      * Constructor.

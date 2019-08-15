@@ -37,15 +37,15 @@ class View extends ViewAbstract
      * @var array
      * @since 1.0.0
      */
-    protected $data = [];
+    protected array $data = [];
 
     /**
      * View Localization.
      *
-     * @var Localization
+     * @var null|Localization
      * @since 1.0.0
      */
-    protected $l11n = null;
+    protected ?Localization $l11n = null;
 
     /**
      * Application.
@@ -53,7 +53,7 @@ class View extends ViewAbstract
      * @var null|ApplicationAbstract
      * @since 1.0.0
      */
-    protected $app = null;
+    protected ?ApplicationAbstract $app = null;
 
     /**
      * Request.
@@ -61,7 +61,7 @@ class View extends ViewAbstract
      * @var null|RequestAbstract
      * @since 1.0.0
      */
-    protected $request = null;
+    protected ?RequestAbstract $request = null;
 
     /**
      * Request.
@@ -69,7 +69,7 @@ class View extends ViewAbstract
      * @var null|ResponseAbstract
      * @since 1.0.0
      */
-    protected $response = null;
+    protected ?ResponseAbstract $response = null;
 
     /**
      * Theme name.
@@ -77,7 +77,7 @@ class View extends ViewAbstract
      * @var null|string
      * @since 1.0.0
      */
-    protected $theme = null;
+    protected ?string $theme = null;
 
     /**
      * Module name.
@@ -85,7 +85,7 @@ class View extends ViewAbstract
      * @var null|string
      * @since 1.0.0
      */
-    protected $module = null;
+    protected ?string $module = null;
 
     /**
      * Constructor.

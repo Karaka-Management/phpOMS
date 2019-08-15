@@ -41,7 +41,7 @@ class Reload implements \Serializable, ArrayableInterface, \JsonSerializable
      * @var int
      * @since 1.0.0
      */
-    private $delay = 0;
+    private int $delay = 0;
 
     /**
      * Constructor.

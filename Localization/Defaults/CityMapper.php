@@ -33,7 +33,7 @@ class CityMapper extends DataMapperAbstract
      * @var array<string, array<string, bool|string>>
      * @since 1.0.0
      */
-    protected static $columns = [
+    protected static array $columns = [
         'city_id'      => ['name' => 'city_id', 'type' => 'int', 'internal' => 'id'],
         'city_city'    => ['name' => 'city_city', 'type' => 'string', 'internal' => 'name'],
         'city_country' => ['name' => 'city_country', 'type' => 'string', 'internal' => 'countryCode'],
@@ -49,7 +49,7 @@ class CityMapper extends DataMapperAbstract
      * @var string
      * @since 1.0.0
      */
-    protected static $table = 'city';
+    protected static string $table = 'city';
 
     /**
      * Primary field name.
@@ -57,5 +57,5 @@ class CityMapper extends DataMapperAbstract
      * @var string
      * @since 1.0.0
      */
-    protected static $primaryField = 'city_id';
+    protected static string $primaryField = 'city_id';
 }

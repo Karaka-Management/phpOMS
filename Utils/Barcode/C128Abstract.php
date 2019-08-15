@@ -35,7 +35,7 @@ abstract class C128Abstract
      * @var int
      * @since 1.0.0
      */
-    protected static $CHECKSUM = 0;
+    protected static int $CHECKSUM = 0;
 
     /**
      * Char weighted array.
@@ -43,7 +43,7 @@ abstract class C128Abstract
      * @var string[]
      * @since 1.0.0
      */
-    protected static $CODEARRAY = [];
+    protected static array $CODEARRAY = [];
 
     /**
      * Code start.
@@ -51,7 +51,7 @@ abstract class C128Abstract
      * @var string
      * @since 1.0.0
      */
-    protected static $CODE_START = '';
+    protected static string $CODE_START = '';
 
     /**
      * Code end.
@@ -59,7 +59,7 @@ abstract class C128Abstract
      * @var string
      * @since 1.0.0
      */
-    protected static $CODE_END = '';
+    protected static string $CODE_END = '';
 
     /**
      * Orientation.
@@ -67,7 +67,7 @@ abstract class C128Abstract
      * @var int
      * @since 1.0.0
      */
-    protected $orientation = 0;
+    protected int $orientation = 0;
 
     /**
      * Barcode dimension.
@@ -75,7 +75,7 @@ abstract class C128Abstract
      * @var int[]
      * @since 1.0.0
      */
-    protected $dimension = ['width' => 0, 'height' => 0];
+    protected array $dimension = ['width' => 0, 'height' => 0];
 
     /**
      * Barcode dimension.
@@ -83,7 +83,7 @@ abstract class C128Abstract
      * @var int
      * @since 1.0.0
      */
-    protected $margin = 10;
+    protected int $margin = 10;
 
     /**
      * Content to encrypt.
@@ -91,7 +91,7 @@ abstract class C128Abstract
      * @var string
      * @since 1.0.0
      */
-    protected $content = '';
+    protected string $content = '';
 
     /**
      * Show text below barcode.
@@ -99,7 +99,7 @@ abstract class C128Abstract
      * @var bool
      * @since 1.0.0
      */
-    protected $showText = true;
+    protected bool $showText = true;
 
     /**
      * Background color.
@@ -107,7 +107,7 @@ abstract class C128Abstract
      * @var int[]
      * @since 1.0.0
      */
-    protected $background = ['r' => 0, 'g' => 0, 'b' => 0, 'a' => 0];
+    protected array $background = ['r' => 0, 'g' => 0, 'b' => 0, 'a' => 0];
 
     /**
      * Front color.
@@ -115,7 +115,7 @@ abstract class C128Abstract
      * @var int[]
      * @since 1.0.0
      */
-    protected $front = ['r' => 0, 'g' => 0, 'b' => 0, 'a' => 0];
+    protected array $front = ['r' => 0, 'g' => 0, 'b' => 0, 'a' => 0];
 
     /**
      * Constructor

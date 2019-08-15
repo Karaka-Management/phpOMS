@@ -33,7 +33,7 @@ class LanguageMapper extends DataMapperAbstract
      * @var array<string, array<string, bool|string>>
      * @since 1.0.0
      */
-    protected static $columns = [
+    protected static array $columns = [
         'language_id'     => ['name' => 'language_id', 'type' => 'int', 'internal' => 'id'],
         'language_native' => ['name' => 'language_native', 'type' => 'string', 'internal' => 'name'],
         'language_639_1'  => ['name' => 'language_639_1', 'type' => 'string', 'internal' => 'native'],
@@ -48,7 +48,7 @@ class LanguageMapper extends DataMapperAbstract
      * @var string
      * @since 1.0.0
      */
-    protected static $table = 'language';
+    protected static string $table = 'language';
 
     /**
      * Primary field name.
@@ -56,5 +56,5 @@ class LanguageMapper extends DataMapperAbstract
      * @var string
      * @since 1.0.0
      */
-    protected static $primaryField = 'language_id';
+    protected static string $primaryField = 'language_id';
 }

@@ -32,7 +32,7 @@ abstract class GrammarAbstract
      * @var string
      * @since 1.0.0
      */
-    protected $comment = '--';
+    protected string $comment = '--';
 
     /**
      * String quotes style.
@@ -40,7 +40,7 @@ abstract class GrammarAbstract
      * @var string
      * @since 1.0.0
      */
-    protected $valueQuotes = '\'';
+    protected string $valueQuotes = '\'';
 
     /**
      * System identifier.
@@ -48,7 +48,7 @@ abstract class GrammarAbstract
      * @var string
      * @since 1.0.0
      */
-    protected $systemIdentifier = '"';
+    protected string $systemIdentifier = '"';
 
     /**
      * And operator.
@@ -56,7 +56,7 @@ abstract class GrammarAbstract
      * @var string
      * @since 1.0.0
      */
-    protected $and = 'AND';
+    protected string $and = 'AND';
 
     /**
      * Or operator.
@@ -64,7 +64,7 @@ abstract class GrammarAbstract
      * @var string
      * @since 1.0.0
      */
-    protected $or = 'OR';
+    protected string $or = 'OR';
 
     /**
      * Table prefix.
@@ -72,7 +72,7 @@ abstract class GrammarAbstract
      * @var string
      * @since 1.0.0
      */
-    protected $tablePrefix = '';
+    protected string $tablePrefix = '';
 
     /**
      * Special keywords.
@@ -80,7 +80,7 @@ abstract class GrammarAbstract
      * @var array
      * @since 1.0.0
      */
-    protected $specialKeywords = [
+    protected array $specialKeywords = [
         'COUNT(',
     ];
 

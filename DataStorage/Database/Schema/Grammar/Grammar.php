@@ -34,7 +34,7 @@ class Grammar extends QueryGrammar
      * @var string[]
      * @since 1.0.0
      */
-    protected $dropDatabaseComponents = [
+    protected array $dropDatabaseComponents = [
         'dropDatabase',
     ];
 
@@ -44,7 +44,7 @@ class Grammar extends QueryGrammar
      * @var string[]
      * @since 1.0.0
      */
-    protected $dropTableComponents = [
+    protected array $dropTableComponents = [
         'dropTable',
     ];
 
@@ -54,7 +54,7 @@ class Grammar extends QueryGrammar
      * @var string[]
      * @since 1.0.0
      */
-    protected $createTablesComponents = [
+    protected array $createTablesComponents = [
         'createTable',
         'createFields',
         'createTableSettings',
@@ -66,7 +66,7 @@ class Grammar extends QueryGrammar
      * @var string[]
      * @since 1.0.0
      */
-    protected $tablesComponents = [
+    protected array $tablesComponents = [
         'selectTables',
     ];
 
@@ -76,7 +76,7 @@ class Grammar extends QueryGrammar
      * @var string[]
      * @since 1.0.0
      */
-    protected $fieldsComponents = [
+    protected array $fieldsComponents = [
         'selectFields',
     ];
 

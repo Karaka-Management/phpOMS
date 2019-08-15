@@ -32,7 +32,7 @@ final class StringCompare
      * @var array
      * @since 1.0.0
      */
-    private $dictionary = [];
+    private array $dictionary = [];
 
     /**
      * Constructor.

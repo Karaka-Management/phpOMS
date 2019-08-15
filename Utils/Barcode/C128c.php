@@ -41,7 +41,7 @@ class C128c extends C128Abstract
      * @var string[]
      * @since 1.0.0
      */
-    protected static $CODEARRAY = [
+    protected static array $CODEARRAY = [
         '00'     => '212222', '01' => '222122', '02' => '222221', '03' => '121223', '04' => '121322', '05' => '131222',
         '06'     => '122213', '07' => '122312', '08' => '132212', '09' => '221213', '10' => '221312', '11' => '231212',
         '12'     => '112232', '13' => '122132', '14' => '122231', '15' => '113222', '16' => '123122', '17' => '123221',
@@ -69,7 +69,7 @@ class C128c extends C128Abstract
      * @var string
      * @since 1.0.0
      */
-    protected static $CODE_START = '211232';
+    protected static string $CODE_START = '211232';
 
     /**
      * Code end.
@@ -77,7 +77,7 @@ class C128c extends C128Abstract
      * @var string
      * @since 1.0.0
      */
-    protected static $CODE_END = '2331112';
+    protected static string $CODE_END = '2331112';
 
     /**
      * {@inheritdoc}

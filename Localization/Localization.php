@@ -35,7 +35,7 @@ class Localization
      * @var string
      * @since 1.0.0
      */
-    private $country = ISO3166TwoEnum::_USA;
+    private string $country = ISO3166TwoEnum::_USA;
 
     /**
      * Timezone.
@@ -43,7 +43,7 @@ class Localization
      * @var string
      * @since 1.0.0
      */
-    private $timezone = 'America/New_York';
+    private string $timezone = 'America/New_York';
 
     /**
      * Language ISO code.
@@ -51,7 +51,7 @@ class Localization
      * @var string
      * @since 1.0.0
      */
-    private $language = ISO639x1Enum::_EN;
+    private string $language = ISO639x1Enum::_EN;
 
     /**
      * Currency.
@@ -59,7 +59,7 @@ class Localization
      * @var string
      * @since 1.0.0
      */
-    private $currency = ISO4217Enum::_USD;
+    private string $currency = ISO4217Enum::_USD;
 
     /**
      * Number format.
@@ -67,7 +67,7 @@ class Localization
      * @var string
      * @since 1.0.0
      */
-    private $decimal = '.';
+    private string $decimal = '.';
 
     /**
      * Number format.
@@ -75,7 +75,7 @@ class Localization
      * @var string
      * @since 1.0.0
      */
-    private $thousands = ',';
+    private string $thousands = ',';
 
     /**
      * Angle type.
@@ -83,7 +83,7 @@ class Localization
      * @var string
      * @since 1.0.0
      */
-    private $angle = AngleType::DEGREE;
+    private string $angle = AngleType::DEGREE;
 
     /**
      * Temperature type.
@@ -91,7 +91,7 @@ class Localization
      * @var string
      * @since 1.0.0
      */
-    private $temperature = TemperatureType::CELSIUS;
+    private string $temperature = TemperatureType::CELSIUS;
 
     /**
      * Time format.
@@ -99,7 +99,7 @@ class Localization
      * @var array
      * @since 1.0.0
      */
-    private $datetime = [];
+    private array $datetime = [];
 
     /**
      * Weight.
@@ -107,7 +107,7 @@ class Localization
      * @var array
      * @since 1.0.0
      */
-    private $weight = [];
+    private array $weight = [];
 
     /**
      * Speed.
@@ -115,7 +115,7 @@ class Localization
      * @var array
      * @since 1.0.0
      */
-    private $speed = [];
+    private array $speed = [];
 
     /**
      * Length.
@@ -123,7 +123,7 @@ class Localization
      * @var array
      * @since 1.0.0
      */
-    private $length = [];
+    private array $length = [];
 
     /**
      * Area.
@@ -131,7 +131,7 @@ class Localization
      * @var array
      * @since 1.0.0
      */
-    private $area = [];
+    private array $area = [];
 
     /**
      * Volume.
@@ -139,7 +139,7 @@ class Localization
      * @var array
      * @since 1.0.0
      */
-    private $volume = [];
+    private array $volume = [];
 
     /**
      * Load localization from language code

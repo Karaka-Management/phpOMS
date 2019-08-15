@@ -33,7 +33,7 @@ trait OptionsTrait
      * @var array
      * @since 1.0.0
      */
-    private $options = [];
+    private array $options = [];
 
     /**
      * {@inheritdoc}

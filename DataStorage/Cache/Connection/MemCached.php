@@ -31,7 +31,7 @@ class MemCached extends ConnectionAbstract
     /**
      * {@inheritdoc}
      */
-    protected $type = CacheType::MEMCACHED;
+    protected string $type = CacheType::MEMCACHED;
 
     /**
      * Only cache if data is larger than threshold (0-100).
@@ -39,7 +39,7 @@ class MemCached extends ConnectionAbstract
      * @var int
      * @since 1.0.0
      */
-    private $threshold = 0;
+    private int $threshold = 0;
 
     /**
      * Constructor.

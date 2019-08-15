@@ -33,7 +33,7 @@ final class UriFactory
      * @var string[]
      * @since 1.0.0
      */
-    private static $uri = [];
+    private static array $uri = [];
 
     /**
      * Constructor.

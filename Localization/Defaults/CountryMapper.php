@@ -33,7 +33,7 @@ class CountryMapper extends DataMapperAbstract
      * @var array<string, array<string, bool|string>>
      * @since 1.0.0
      */
-    protected static $columns = [
+    protected static array $columns = [
         'country_id'          => ['name' => 'country_id', 'type' => 'int', 'internal' => 'id'],
         'country_name'        => ['name' => 'country_name', 'type' => 'string', 'internal' => 'name'],
         'country_code2'       => ['name' => 'country_code2', 'type' => 'string', 'internal' => 'code2'],
@@ -48,7 +48,7 @@ class CountryMapper extends DataMapperAbstract
      * @var string
      * @since 1.0.0
      */
-    protected static $table = 'country';
+    protected static string $table = 'country';
 
     /**
      * Primary field name.
@@ -56,5 +56,5 @@ class CountryMapper extends DataMapperAbstract
      * @var string
      * @since 1.0.0
      */
-    protected static $primaryField = 'country_id';
+    protected static string $primaryField = 'country_id';
 }

@@ -34,7 +34,7 @@ final class L11nManager
      * @var array
      * @since 1.0.0
      */
-    private $language = [];
+    private array $language = [];
 
     /**
      * App Name.
@@ -42,7 +42,7 @@ final class L11nManager
      * @var string
      * @since 1.0.0
      */
-    private $appName = '';
+    private string $appName = '';
 
     /**
      * Construct.

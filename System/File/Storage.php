@@ -32,7 +32,7 @@ final class Storage
      * @var array
      * @since 1.0.0
      */
-    private static $registered = [];
+    private static array $registered = [];
 
     /**
      * Constructor.

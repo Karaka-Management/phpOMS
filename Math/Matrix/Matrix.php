@@ -32,7 +32,7 @@ class Matrix implements \ArrayAccess, \Iterator
      * @var array
      * @since 1.0.0
      */
-    protected $matrix = [];
+    protected array $matrix = [];
 
     /**
      * Columns.
@@ -40,7 +40,7 @@ class Matrix implements \ArrayAccess, \Iterator
      * @var int
      * @since 1.0.0
      */
-    protected $n = 0;
+    protected int $n = 0;
 
     /**
      * Rows.
@@ -48,7 +48,7 @@ class Matrix implements \ArrayAccess, \Iterator
      * @var int
      * @since 1.0.0
      */
-    protected $m = 0;
+    protected int $m = 0;
 
     /**
      * Iterator position.
@@ -56,7 +56,7 @@ class Matrix implements \ArrayAccess, \Iterator
      * @var int
      * @since 1.0.0
      */
-    protected $position = 0;
+    protected int $position = 0;
 
     /**
      * Constructor.

@@ -33,7 +33,7 @@ class Codebar extends C128Abstract
      * @var string[]
      * @since 1.0.0
      */
-    protected static $CODEARRAY = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0', '-', '$', ':', '/', '.', '+', 'A', 'B', 'C', 'D'];
+    protected static array $CODEARRAY = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0', '-', '$', ':', '/', '.', '+', 'A', 'B', 'C', 'D'];
 
     /**
      * Char weighted array.
@@ -41,7 +41,7 @@ class Codebar extends C128Abstract
      * @var string[]
      * @since 1.0.0
      */
-    protected static $CODEARRAY2 = [
+    protected static array $CODEARRAY2 = [
         '1111221', '1112112', '2211111', '1121121', '2111121', '1211112', '1211211', '1221111', '2112111', '1111122',
         '1112211', '1122111', '2111212', '2121112', '2121211', '1121212', '1122121', '1212112', '1112122', '1112221',
     ];
@@ -52,7 +52,7 @@ class Codebar extends C128Abstract
      * @var string
      * @since 1.0.0
      */
-    protected static $CODE_START = '11221211';
+    protected static string $CODE_START = '11221211';
 
     /**
      * Code end.
@@ -60,7 +60,7 @@ class Codebar extends C128Abstract
      * @var string
      * @since 1.0.0
      */
-    protected static $CODE_END = '1122121';
+    protected static string $CODE_END = '1122121';
 
     /**
      * {@inheritdoc}

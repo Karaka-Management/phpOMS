@@ -35,7 +35,7 @@ class LocalStorage extends StorageAbstract
      * @var LocalStorage
      * @since 1.0.0
      */
-    private static $instance = null;
+    private static ?self $instance = null;
 
     /**
      * Get instance.

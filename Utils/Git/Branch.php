@@ -30,7 +30,7 @@ class Branch
      * @var string
      * @since 1.0.0
      */
-    private $name = '';
+    private string $name = '';
 
     /**
      * Constructor

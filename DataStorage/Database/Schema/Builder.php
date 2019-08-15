@@ -27,19 +27,19 @@ use phpOMS\DataStorage\Database\Query\Builder as QueryBuilder;
  */
 class Builder extends QueryBuilder
 {
-    public $createTable = '';
+    public string $createTable = '';
 
-    public $createFields = [];
+    public array $createFields = [];
 
-    public $dropDatabase = '';
+    public string $dropDatabase = '';
 
-    public $dropTable = '';
+    public string $dropTable = '';
 
-    public $selectTables = ['*'];
+    public array $selectTables = ['*'];
 
-    public $selectFields = '';
+    public string $selectFields = '';
 
-    public $createTableSettings = true;
+    public bool $createTableSettings = true;
 
     /**
      * Constructor.

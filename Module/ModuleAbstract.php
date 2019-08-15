@@ -71,35 +71,39 @@ abstract class ModuleAbstract
      * @var string[]
      * @since 1.0.0
      */
-    protected static $providing = [];
+    protected static array $providing = [];
+
     /**
      * Localization files.
      *
      * @var array
      * @since 1.0.0
      */
-    protected static $localization = [];
+    protected static array $localization = [];
+
     /**
      * Dependencies.
      *
      * @var string[]
      * @since 1.0.0
      */
-    protected static $dependencies = [];
+    protected static array $dependencies = [];
+
     /**
      * Receiving modules from?
      *
      * @var string[]
      * @since 1.0.0
      */
-    protected $receiving = [];
+    protected array $receiving = [];
+
     /**
      * Application instance.
      *
-     * @var null|\phpOMS\ApplicationAbstract
+     * @var null|ApplicationAbstract
      * @since 1.0.0
      */
-    protected $app = null;
+    protected ?ApplicationAbstract $app = null;
 
     /**
      * Constructor.

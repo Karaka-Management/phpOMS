@@ -30,7 +30,7 @@ use phpOMS\System\File\StorageAbstract;
  */
 class FtpStorage extends StorageAbstract
 {
-    private static $instance = null;
+    private static ?self $instance = null;
 
     public function __construct()
     {

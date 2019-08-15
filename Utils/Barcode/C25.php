@@ -33,7 +33,7 @@ class C25 extends C128Abstract
      * @var string[]
      * @since 1.0.0
      */
-    protected static $CODEARRAY = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0'];
+    protected static array $CODEARRAY = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0'];
 
     /**
      * Char weighted array.
@@ -41,7 +41,7 @@ class C25 extends C128Abstract
      * @var string[]
      * @since 1.0.0
      */
-    protected static $CODEARRAY2 = [
+    protected static array $CODEARRAY2 = [
         '3-1-1-1-3', '1-3-1-1-3', '3-3-1-1-1', '1-1-3-1-3', '3-1-3-1-1',
         '1-3-3-1-1', '1-1-1-3-3', '3-1-1-3-1', '1-3-1-3-1', '1-1-3-3-1',
     ];
@@ -52,7 +52,7 @@ class C25 extends C128Abstract
      * @var string
      * @since 1.0.0
      */
-    protected static $CODE_START = '1111';
+    protected static string $CODE_START = '1111';
 
     /**
      * Code end.
@@ -60,7 +60,7 @@ class C25 extends C128Abstract
      * @var string
      * @since 1.0.0
      */
-    protected static $CODE_END = '311';
+    protected static string $CODE_END = '311';
 
     /**
      * Set content to encrypt

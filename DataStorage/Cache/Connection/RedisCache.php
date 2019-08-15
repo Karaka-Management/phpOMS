@@ -31,7 +31,7 @@ class RedisCache extends ConnectionAbstract
     /**
      * {@inheritdoc}
      */
-    protected $type = CacheType::REDIS;
+    protected string $type = CacheType::REDIS;
 
     /**
      * Constructor

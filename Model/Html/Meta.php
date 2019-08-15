@@ -34,7 +34,7 @@ class Meta implements RenderableInterface
      * @var string[]
      * @since 1.0.0
      */
-    private $keywords = [];
+    private array $keywords = [];
 
     /**
      * Author.
@@ -42,7 +42,7 @@ class Meta implements RenderableInterface
      * @var string
      * @since 1.0.0
      */
-    private $author = '';
+    private string $author = '';
 
     /**
      * Charset.
@@ -50,7 +50,7 @@ class Meta implements RenderableInterface
      * @var string
      * @since 1.0.0
      */
-    private $charset = '';
+    private string $charset = '';
 
     /**
      * Description.
@@ -58,7 +58,7 @@ class Meta implements RenderableInterface
      * @var string
      * @since 1.0.0
      */
-    private $description = '';
+    private string $description = '';
 
     /**
      * Itemprop.
@@ -66,7 +66,7 @@ class Meta implements RenderableInterface
      * @var array
      * @since 1.0.0
      */
-    private $itemprops = [];
+    private array $itemprops = [];
 
     /**
      * Property.
@@ -74,7 +74,7 @@ class Meta implements RenderableInterface
      * @var array
      * @since 1.0.0
      */
-    private $properties = [];
+    private array $properties = [];
 
     /**
      * Name.
@@ -82,7 +82,7 @@ class Meta implements RenderableInterface
      * @var array
      * @since 1.0.0
      */
-    private $names = [];
+    private array $names = [];
 
     /**
      * Add keyword.

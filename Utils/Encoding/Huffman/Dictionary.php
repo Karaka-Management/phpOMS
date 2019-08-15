@@ -30,7 +30,7 @@ final class Dictionary
      * @var array
      * @since 1.0.0
      */
-    private $dictionary = [];
+    private array $dictionary = [];
 
     /**
      * Minimum length.
@@ -38,7 +38,7 @@ final class Dictionary
      * @var int
      * @since 1.0.0
      */
-    private $min = -1;
+    private int $min = -1;
 
     /**
      * Maximum length.
@@ -46,7 +46,7 @@ final class Dictionary
      * @var int
      * @since 1.0.0
      */
-    private $max = -1;
+    private int $max = -1;
 
     /**
      * Constructor.

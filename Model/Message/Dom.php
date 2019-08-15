@@ -41,7 +41,7 @@ class Dom implements \Serializable, ArrayableInterface
      * @var string
      * @since 1.0.0
      */
-    private $selector = '';
+    private string $selector = '';
 
     /**
      * Dom content.
@@ -49,7 +49,7 @@ class Dom implements \Serializable, ArrayableInterface
      * @var string
      * @since 1.0.0
      */
-    private $content = '';
+    private string $content = '';
 
     /**
      * Dom action.
@@ -57,7 +57,7 @@ class Dom implements \Serializable, ArrayableInterface
      * @var int
      * @since 1.0.0
      */
-    private $action = DomAction::MODIFY;
+    private int $action = DomAction::MODIFY;
 
     /**
      * Delay in ms.
@@ -65,7 +65,7 @@ class Dom implements \Serializable, ArrayableInterface
      * @var int
      * @since 1.0.0
      */
-    private $delay = 0;
+    private int $delay = 0;
 
     /**
      * Set DOM content

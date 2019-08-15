@@ -33,7 +33,7 @@ class MultiMap implements \Countable
      * @var array
      * @since 1.0.0
      */
-    private $values = [];
+    private array $values = [];
 
     /**
      * Associated keys for values.
@@ -41,7 +41,7 @@ class MultiMap implements \Countable
      * @var array
      * @since 1.0.0
      */
-    private $keys = [];
+    private array $keys = [];
 
     /**
      * Key type.
@@ -49,7 +49,7 @@ class MultiMap implements \Countable
      * @var int
      * @since 1.0.0
      */
-    private $keyType = KeyType::SINGLE;
+    private int $keyType = KeyType::SINGLE;
 
     /**
      * Order type.
@@ -57,7 +57,7 @@ class MultiMap implements \Countable
      * @var int
      * @since 1.0.0
      */
-    private $orderType = OrderType::LOOSE;
+    private int $orderType = OrderType::LOOSE;
 
     /**
      * Constructor.

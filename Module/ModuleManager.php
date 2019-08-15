@@ -41,7 +41,7 @@ final class ModuleManager
      * @var \phpOMS\Module\ModuleAbstract[]
      * @since 1.0.0
      */
-    private $running = [];
+    private array $running = [];
 
     /**
      * All modules another module is providing for.
@@ -51,15 +51,15 @@ final class ModuleManager
      * @var array<string, array<int, string>>
      * @since 1.0.0
      */
-    private $providing = [];
+    private array $providing = [];
 
     /**
      * Application instance.
      *
-     * @var ApplicationAbstract
+     * @var null|ApplicationAbstract
      * @since 1.0.0
      */
-    private $app = null;
+    private ?ApplicationAbstract $app = null;
 
     /**
      * Installed modules.
@@ -67,7 +67,7 @@ final class ModuleManager
      * @var array
      * @since 1.0.0
      */
-    private $installed = [];
+    private array $installed = [];
 
     /**
      * All active modules (on all pages not just the ones that are running now).
@@ -75,7 +75,7 @@ final class ModuleManager
      * @var array
      * @since 1.0.0
      */
-    private $active = [];
+    private array $active = [];
 
     /**
      * Module path.
@@ -83,7 +83,7 @@ final class ModuleManager
      * @var string
      * @since 1.0.0
      */
-    private $modulePath = __DIR__ . '/../../Modules';
+    private string $modulePath = __DIR__ . '/../../Modules';
 
     /**
      * All modules in the module directory.
@@ -91,7 +91,7 @@ final class ModuleManager
      * @var array
      * @since 1.0.0
      */
-    private $all = [];
+    private array $all = [];
 
     /**
      * To load based on request uri.
@@ -99,7 +99,7 @@ final class ModuleManager
      * @var array
      * @since 1.0.0
      */
-    private $uriLoad = null;
+    private array $uriLoad = [];
 
     /**
      * Constructor.
@@ -149,7 +149,7 @@ final class ModuleManager
      */
     public function getUriLoad(RequestAbstract $request) : array
     {
-        if ($this->uriLoad === null) {
+        if (empty($this->uriLoad)) {
             $uriHash = $request->getHash();
 
             $query = new Builder($this->app->dbPool->get('select'));

@@ -41,7 +41,7 @@ class FormValidation implements \Serializable, ArrayableInterface, \JsonSerializ
      * @var array
      * @since 1.0.0
      */
-    private $validation = [];
+    private array $validation = [];
 
     /**
      * Constructor.

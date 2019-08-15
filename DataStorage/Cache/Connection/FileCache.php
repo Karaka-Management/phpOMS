@@ -69,7 +69,7 @@ class FileCache extends ConnectionAbstract
      * @var int
      * @since 1.0.0
      */
-    private $threshold = 50;
+    private int $threshold = 50;
 
     /**
      * Constructor

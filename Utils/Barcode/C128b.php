@@ -41,7 +41,7 @@ class C128b extends C128Abstract
      * @var string[]
      * @since 1.0.0
      */
-    protected static $CODEARRAY = [
+    protected static array $CODEARRAY = [
         ' '       => '212222', '!' => '222122', '"' => '222221', '#' => '121223', '$' => '121322', '%' => '131222',
         '&'       => '122213', '\'' => '122312', '(' => '132212', ')' => '221213', '*' => '221312', '+' => '231212',
         ','       => '112232', '-' => '122132', '.' => '122231', '/' => '113222', '0' => '123122', '1' => '123221',
@@ -69,7 +69,7 @@ class C128b extends C128Abstract
      * @var string
      * @since 1.0.0
      */
-    protected static $CODE_START = '211214';
+    protected static string $CODE_START = '211214';
 
     /**
      * Code end.
@@ -77,5 +77,5 @@ class C128b extends C128Abstract
      * @var string
      * @since 1.0.0
      */
-    protected static $CODE_END = '2331112';
+    protected static string $CODE_END = '2331112';
 }

@@ -42,15 +42,15 @@ final class FileLogger implements LoggerInterface
      * @var array
      * @since 1.0.0
      */
-    private static $timings = [];
+    private static array $timings = [];
 
     /**
      * Instance.
      *
-     * @var FileLogger
+     * @var null|FileLogger
      * @since 1.0.0
      */
-    protected static $instance = null;
+    protected static ?FileLogger $instance = null;
 
     /**
      * Verbose.
@@ -58,7 +58,7 @@ final class FileLogger implements LoggerInterface
      * @var bool
      * @since 1.0.0
      */
-    protected $verbose = false;
+    protected bool $verbose = false;
 
     /**
      * The file pointer for the logging.
@@ -76,7 +76,7 @@ final class FileLogger implements LoggerInterface
      * @var string
      * @since 1.0.0
      */
-    private $path = '';
+    private string $path = '';
 
     /**
      * Is the logging file created
@@ -84,7 +84,7 @@ final class FileLogger implements LoggerInterface
      * @var bool
      * @since 1.0.0
      */
-    private $created = false;
+    private bool $created = false;
 
     /**
      * Object constructor.

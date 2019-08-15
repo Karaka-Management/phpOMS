@@ -31,7 +31,7 @@ class Address implements \JsonSerializable
      * @var string
      * @since 1.0.0
      */
-    private $recipient = '';
+    private string $recipient = '';
 
     /**
      * Sub of the address.
@@ -39,7 +39,7 @@ class Address implements \JsonSerializable
      * @var string
      * @since 1.0.0
      */
-    private $fao = '';
+    private string $fao = '';
 
     /**
      * Location.
@@ -47,7 +47,7 @@ class Address implements \JsonSerializable
      * @var Location
      * @since 1.0.0
      */
-    private $location = null;
+    private Location $location = null;
 
     /**
      * Constructor.

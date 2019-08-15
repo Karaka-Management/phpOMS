@@ -27,10 +27,10 @@ final class Huffman
     /**
      * Huffman dictionary.
      *
-     * @var Dictionary
+     * @var null|Dictionary
      * @since 1.0.0
      */
-    private $dictionary = null;
+    private ?Dictionary $dictionary = null;
 
     /**
      * Get dictionary

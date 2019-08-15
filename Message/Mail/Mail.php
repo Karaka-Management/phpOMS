@@ -163,7 +163,7 @@ class Mail
     /**
      * Mail from.
      *
-     * @var \DateTime
+     * @var null|\DateTime
      * @since 1.0.0
      */
     protected $messageDate = null;

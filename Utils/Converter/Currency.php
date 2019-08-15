@@ -37,7 +37,7 @@ class Currency
      * @var null|array
      * @since 1.0.0
      */
-    private static $ecbCurrencies = null;
+    private static ?array $ecbCurrencies = null;
 
     /**
      * Constructor.

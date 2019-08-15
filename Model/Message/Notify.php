@@ -41,7 +41,7 @@ class Notify implements \Serializable, ArrayableInterface, \JsonSerializable
      * @var string
      * @since 1.0.0
      */
-    private $title = '';
+    private string $title = '';
 
     /**
      * Message.
@@ -49,7 +49,7 @@ class Notify implements \Serializable, ArrayableInterface, \JsonSerializable
      * @var string
      * @since 1.0.0
      */
-    private $message = '';
+    private string $message = '';
 
     /**
      * Delay in ms.
@@ -57,7 +57,7 @@ class Notify implements \Serializable, ArrayableInterface, \JsonSerializable
      * @var int
      * @since 1.0.0
      */
-    private $delay = 0;
+    private int $delay = 0;
 
     /**
      * Stay in ms.
@@ -65,7 +65,7 @@ class Notify implements \Serializable, ArrayableInterface, \JsonSerializable
      * @var int
      * @since 1.0.0
      */
-    private $stay = 0;
+    private int $stay = 0;
 
     /**
      * Level or type.
@@ -73,7 +73,7 @@ class Notify implements \Serializable, ArrayableInterface, \JsonSerializable
      * @var int
      * @since 1.0.0
      */
-    private $level = NotifyType::INFO;
+    private int $level = NotifyType::INFO;
 
     /**
      * Constructor.

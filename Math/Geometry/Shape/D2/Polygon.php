@@ -40,7 +40,7 @@ final class Polygon implements D2ShapeInterface
      * @var array[]
      * @since 1.0.0
      */
-    private $coord = [];
+    private array $coord = [];
 
     /**
      * Constructor.

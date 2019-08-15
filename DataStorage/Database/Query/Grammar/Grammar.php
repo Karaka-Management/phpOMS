@@ -36,7 +36,7 @@ class Grammar extends GrammarAbstract
      * @var string[]
      * @since 1.0.0
      */
-    protected $selectComponents = [
+    protected array $selectComponents = [
         'aggregate',
         'selects',
         'from',
@@ -57,7 +57,7 @@ class Grammar extends GrammarAbstract
      * @var string[]
      * @since 1.0.0
      */
-    protected $insertComponents = [
+    protected array $insertComponents = [
         'into',
         'inserts',
         'values',
@@ -69,7 +69,7 @@ class Grammar extends GrammarAbstract
      * @var string[]
      * @since 1.0.0
      */
-    protected $updateComponents = [
+    protected array $updateComponents = [
         'updates',
         'sets',
         'wheres',
@@ -81,7 +81,7 @@ class Grammar extends GrammarAbstract
      * @var string[]
      * @since 1.0.0
      */
-    protected $deleteComponents = [
+    protected array $deleteComponents = [
         'deletes',
         'from',
         'wheres',
@@ -93,7 +93,7 @@ class Grammar extends GrammarAbstract
      * @var string[]
      * @since 1.0.0
      */
-    protected $randomComponents = [
+    protected array $randomComponents = [
         'random',
     ];
 

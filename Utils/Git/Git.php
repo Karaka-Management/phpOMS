@@ -33,7 +33,7 @@ class Git
      * @var string
      * @since 1.0.0
      */
-    protected static $bin = '/usr/bin/git';
+    protected static string $bin = '/usr/bin/git';
 
     /**
      * Test git.

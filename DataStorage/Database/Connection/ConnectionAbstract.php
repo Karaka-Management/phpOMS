@@ -41,7 +41,7 @@ abstract class ConnectionAbstract implements ConnectionInterface
      * @var null|\PDO
      * @since 1.0.0
      */
-    public $con = null;
+    public ?\PDO $con = null;
 
     /**
      * Database prefix.
@@ -51,15 +51,15 @@ abstract class ConnectionAbstract implements ConnectionInterface
      * @var string
      * @since 1.0.0
      */
-    public $prefix = '';
+    public string $prefix = '';
 
     /**
      * Database data.
      *
-     * @var string[]
+     * @var null|string[]
      * @since 1.0.0
      */
-    protected $dbdata = null;
+    protected ?array $dbdata = null;
 
     /**
      * Database type.
@@ -67,7 +67,7 @@ abstract class ConnectionAbstract implements ConnectionInterface
      * @var string
      * @since 1.0.0
      */
-    protected $type = DatabaseType::UNDEFINED;
+    protected string $type = DatabaseType::UNDEFINED;
 
     /**
      * Database status.
@@ -75,23 +75,23 @@ abstract class ConnectionAbstract implements ConnectionInterface
      * @var int
      * @since 1.0.0
      */
-    protected $status = DatabaseStatus::CLOSED;
+    protected int $status = DatabaseStatus::CLOSED;
 
     /**
      * Database grammar.
      *
-     * @var Grammar
+     * @var null|Grammar
      * @since 1.0.0
      */
-    protected $grammar = null;
+    protected ?Grammar $grammar = null;
 
     /**
      * Database grammar.
      *
-     * @var SchemaGrammar
+     * @var null|SchemaGrammar
      * @since 1.0.0
      */
-    protected $schemaGrammar = null;
+    protected ?SchemaGrammar $schemaGrammar = null;
 
     /**
      * {@inheritdoc}

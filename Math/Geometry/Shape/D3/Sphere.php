@@ -30,7 +30,7 @@ final class Sphere implements D3ShapeInterface
      * @var float
      * @since 1.0.0
      */
-    private $radius = 0.0;
+    private float $radius = 0.0;
 
     /**
      * Constructor.

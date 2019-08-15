@@ -37,7 +37,7 @@ final class Directory extends FileAbstract implements LocalContainerInterface, D
      * @var string
      * @since 1.0.0
      */
-    private $filter = '*';
+    private string $filter = '*';
 
     /**
      * Directory nodes (files and directories).
@@ -45,7 +45,7 @@ final class Directory extends FileAbstract implements LocalContainerInterface, D
      * @var FileAbstract[]
      * @since 1.0.0
      */
-    private $nodes = [];
+    private array $nodes = [];
 
     /**
      * Constructor.

@@ -29,7 +29,7 @@ class ModuleAbstractTest extends \PHPUnit\Framework\TestCase
             const MODULE_VERSION           = '1.2.3';
             const MODULE_NAME              = 'Test';
             const MODULE_ID                = 2;
-            protected static $dependencies = [1, 2];
+            protected static array $dependencies = [1, 2];
         };
 
         self::assertEquals([1, 2], $moduleClass->getDependencies());

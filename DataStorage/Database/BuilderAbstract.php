@@ -30,18 +30,18 @@ abstract class BuilderAbstract
     /**
      * Grammar.
      *
-     * @var GrammarAbstract
+     * @var null|GrammarAbstract
      * @since 1.0.0
      */
-    protected $grammar = null;
+    protected ?GrammarAbstract $grammar = null;
 
     /**
      * Database connection.
      *
-     * @var DataStorageConnectionInterface
+     * @var null|DataStorageConnectionInterface
      * @since 1.0.0
      */
-    protected $connection = null;
+    protected ?DataStorageConnectionInterface $connection = null;
 
     /**
      * Query type.
@@ -49,7 +49,7 @@ abstract class BuilderAbstract
      * @var int
      * @since 1.0.0
      */
-    protected $type = QueryType::NONE;
+    protected int $type = QueryType::NONE;
 
     /**
      * Prefix.
@@ -57,7 +57,7 @@ abstract class BuilderAbstract
      * @var string
      * @since 1.0.0
      */
-    protected $prefix = '';
+    protected string $prefix = '';
 
     /**
      * Raw.
@@ -65,7 +65,7 @@ abstract class BuilderAbstract
      * @var string
      * @since 1.0.0
      */
-    public $raw = '';
+    public string $raw = '';
 
     /**
      * Get connection

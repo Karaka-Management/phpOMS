@@ -34,7 +34,7 @@ abstract class ViewAbstract implements RenderableInterface
      * @var string
      * @since 1.0.0
      */
-    protected $template = '';
+    protected string $template = '';
 
     /**
      * Views.
@@ -42,7 +42,7 @@ abstract class ViewAbstract implements RenderableInterface
      * @var \phpOMS\Views\View[]
      * @since 1.0.0
      */
-    protected $views = [];
+    protected array $views = [];
 
     /**
      * Sort views by order.

@@ -37,7 +37,7 @@ class Head implements RenderableInterface
      * @var string
      * @since 1.0.0
      */
-    private $language = ISO639x1Enum::_EN;
+    private string $language = ISO639x1Enum::_EN;
 
     /**
      * Page title.
@@ -45,7 +45,7 @@ class Head implements RenderableInterface
      * @var string
      * @since 1.0.0
      */
-    private $title = '';
+    private string $title = '';
 
     /**
      * Assets bound to this page instance.
@@ -53,7 +53,7 @@ class Head implements RenderableInterface
      * @var array
      * @since 1.0.0
      */
-    private $assets = [];
+    private array $assets = [];
 
     /**
      * Is the header set?
@@ -61,15 +61,15 @@ class Head implements RenderableInterface
      * @var bool
      * @since 1.0.0
      */
-    private $hasContent = false;
+    private bool $hasContent = false;
 
     /**
      * Page meta.
      *
-     * @var Meta
+     * @var null|Meta
      * @since 1.0.0
      */
-    private $meta = null;
+    private ?Meta $meta = null;
 
     /**
      * html style.
@@ -79,7 +79,7 @@ class Head implements RenderableInterface
      * @var mixed[]
      * @since 1.0.0
      */
-    private $style = [];
+    private array $style = [];
 
     /**
      * html script.
@@ -87,7 +87,7 @@ class Head implements RenderableInterface
      * @var mixed[]
      * @since 1.0.0
      */
-    private $script = [];
+    private array $script = [];
 
     /**
      * Constructor.

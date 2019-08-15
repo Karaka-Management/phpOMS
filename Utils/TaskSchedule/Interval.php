@@ -28,7 +28,7 @@ class Interval implements \Serializable
     /**
      * Start.
      *
-     * @var \DateTime
+     * @var null|\DateTime
      * @since 1.0.0
      */
     private $start = null;
@@ -36,7 +36,7 @@ class Interval implements \Serializable
     /**
      * End.
      *
-     * @var \DateTime
+     * @var null|\DateTime
      * @since 1.0.0
      */
     private $end = null;

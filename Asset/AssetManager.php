@@ -31,7 +31,7 @@ final class AssetManager implements \Countable
      * @var array
      * @since 1.0.0
      */
-    private $assets = [];
+    private array $assets = [];
 
     /**
      * Add asset.

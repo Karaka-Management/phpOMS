@@ -36,7 +36,7 @@ final class Header extends HeaderAbstract
      * @var string[][]
      * @since 1.0.0
      */
-    private $header = [];
+    private array $header = [];
 
     /**
      * Constructor.

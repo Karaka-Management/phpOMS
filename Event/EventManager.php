@@ -38,7 +38,7 @@ final class EventManager implements \Countable
      * @var array
      * @since 1.0.0
      */
-    private $groups = [];
+    private array $groups = [];
 
     /**
      * Callbacks.
@@ -46,7 +46,7 @@ final class EventManager implements \Countable
      * @var array
      * @since 1.0.0
      */
-    private $callbacks = [];
+    private array $callbacks = [];
 
     /**
      * Dispatcher.
@@ -54,7 +54,7 @@ final class EventManager implements \Countable
      * @var Dispatcher|Object<dispatch>
      * @since 1.0.0
      */
-    private $dispatcher = null;
+    private ?Dispatcher $dispatcher = null;
 
     /**
      * Constructor.

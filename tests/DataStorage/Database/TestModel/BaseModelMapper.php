@@ -24,7 +24,7 @@ class BaseModelMapper extends DataMapperAbstract
      * @var array<string, array<string, bool|string>>
      * @since 1.0.0
      */
-    protected static $columns = [
+    protected static array $columns = [
         'test_base_id'                => ['name' => 'test_base_id', 'type' => 'int', 'internal' => 'id'],
         'test_base_string'            => ['name' => 'test_base_string', 'type' => 'string', 'internal' => 'string'],
         'test_base_int'               => ['name' => 'test_base_int', 'type' => 'int', 'internal' => 'int'],
@@ -45,14 +45,14 @@ class BaseModelMapper extends DataMapperAbstract
      * @var array<string, array<string, string>>
      * @since 1.0.0
      */
-    protected static $belongsTo = [
+    protected static array $belongsTo = [
         'belongsToOne' => [
             'mapper'         => BelongsToModelMapper::class,
             'dest'            => 'test_base_belongs_to_one',
         ],
     ];
 
-    protected static $ownsOne = [
+    protected static array $ownsOne = [
         'ownsOneSelf' => [
             'mapper'         => OwnsOneModelMapper::class,
             'dest'            => 'test_base_owns_one_self',
@@ -63,7 +63,7 @@ class BaseModelMapper extends DataMapperAbstract
      * @var array<string, array<string, null|string>>
      * @since 1.0.0
      */
-    protected static $hasMany = [
+    protected static array $hasMany = [
         'hasManyDirect' => [
             'mapper'         => ManyToManyDirectModelMapper::class,
             'table'          => 'test_has_many_direct',
@@ -78,9 +78,9 @@ class BaseModelMapper extends DataMapperAbstract
         ],
     ];
 
-    protected static $table = 'test_base';
+    protected static string $table = 'test_base';
 
-    protected static $createdAt = 'test_base_datetime';
+    protected static string $createdAt = 'test_base_datetime';
 
-    protected static $primaryField = 'test_base_id';
+    protected static string $primaryField = 'test_base_id';
 }

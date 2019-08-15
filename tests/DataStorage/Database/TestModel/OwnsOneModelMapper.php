@@ -24,12 +24,12 @@ class OwnsOneModelMapper extends DataMapperAbstract
      * @var array<string, array<string, bool|string>>
      * @since 1.0.0
      */
-    protected static $columns = [
+    protected static array $columns = [
         'test_owns_one_id'          => ['name' => 'test_owns_one_id', 'type' => 'int', 'internal' => 'id'],
         'test_owns_one_string'        => ['name' => 'test_owns_one_string', 'type' => 'string', 'internal' => 'string'],
     ];
 
-    protected static $table = 'test_owns_one';
+    protected static string $table = 'test_owns_one';
 
-    protected static $primaryField = 'test_owns_one_id';
+    protected static string $primaryField = 'test_owns_one_id';
 }

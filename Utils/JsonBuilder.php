@@ -31,7 +31,7 @@ final class JsonBuilder implements \Serializable, \JsonSerializable
      * @var array
      * @since 1.0.0
      */
-    private $json = [];
+    private array $json = [];
 
     /**
      * Get json data.

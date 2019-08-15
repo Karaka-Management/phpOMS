@@ -33,7 +33,7 @@ class C39 extends C128Abstract
      * @var string[]
      * @since 1.0.0
      */
-    protected static $CODEARRAY = [
+    protected static array $CODEARRAY = [
         '0' => '111221211', '1' => '211211112', '2' => '112211112', '3' => '212211111', '4' => '111221112',
         '5' => '211221111', '6' => '112221111', '7' => '111211212', '8' => '211211211', '9' => '112211211',
         'A' => '211112112', 'B' => '112112112', 'C' => '212112111', 'D' => '111122112', 'E' => '211122111',
@@ -51,7 +51,7 @@ class C39 extends C128Abstract
      * @var string
      * @since 1.0.0
      */
-    protected static $CODE_START = '1211212111';
+    protected static string $CODE_START = '1211212111';
 
     /**
      * Code end.
@@ -59,7 +59,7 @@ class C39 extends C128Abstract
      * @var string
      * @since 1.0.0
      */
-    protected static $CODE_END = '121121211';
+    protected static string $CODE_END = '121121211';
 
     /**
      * {@inheritdoc}

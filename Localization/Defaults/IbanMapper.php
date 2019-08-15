@@ -33,7 +33,7 @@ class IbanMapper extends DataMapperAbstract
      * @var array<string, array<string, bool|string>>
      * @since 1.0.0
      */
-    protected static $columns = [
+    protected static array $columns = [
         'iban_id'      => ['name' => 'iban_id', 'type' => 'int', 'internal' => 'id'],
         'iban_country' => ['name' => 'iban_country', 'type' => 'string', 'internal' => 'country'],
         'iban_chars'   => ['name' => 'iban_chars', 'type' => 'int', 'internal' => 'chars'],
@@ -47,7 +47,7 @@ class IbanMapper extends DataMapperAbstract
      * @var string
      * @since 1.0.0
      */
-    protected static $table = 'iban';
+    protected static string $table = 'iban';
 
     /**
      * Primary field name.
@@ -55,5 +55,5 @@ class IbanMapper extends DataMapperAbstract
      * @var string
      * @since 1.0.0
      */
-    protected static $primaryField = 'iban_id';
+    protected static string $primaryField = 'iban_id';
 }

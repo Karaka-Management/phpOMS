@@ -41,7 +41,7 @@ class Redirect implements \Serializable, ArrayableInterface, \JsonSerializable
      * @var string
      * @since 1.0.0
      */
-    private $uri = '';
+    private string $uri = '';
 
     /**
      * Delay.
@@ -49,7 +49,7 @@ class Redirect implements \Serializable, ArrayableInterface, \JsonSerializable
      * @var int
      * @since 1.0.0
      */
-    private $delay = 0;
+    private int $delay = 0;
 
     /**
      * Window.
@@ -57,7 +57,7 @@ class Redirect implements \Serializable, ArrayableInterface, \JsonSerializable
      * @var bool
      * @since 1.0.0
      */
-    private $new = false;
+    private bool $new = false;
 
     /**
      * Constructor.

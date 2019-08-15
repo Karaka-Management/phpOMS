@@ -33,7 +33,7 @@ class SQLiteGrammar extends Grammar
      * @var string
      * @since 1.0.0
      */
-    public $systemIdentifier = '`';
+    public string $systemIdentifier = '`';
 
     /**
      * Compile random.

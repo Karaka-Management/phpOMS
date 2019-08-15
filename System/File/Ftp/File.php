@@ -47,10 +47,10 @@ class File extends FileAbstract implements FileInterface
     /**
      * Ftp connection uri.
      *
-     * @var Http
+     * @var null|Http
      * @since 1.0.0
      */
-    private $uri = null;
+    private ?Http $uri = null;
 
     public function __construct(string $path)
     {

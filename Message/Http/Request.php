@@ -37,26 +37,26 @@ final class Request extends RequestAbstract
     /**
      * Browser type.
      *
-     * @var string
+     * @var null|string
      * @since 1.0.0
      */
-    private $browser = null;
+    private ?string $browser = null;
 
     /**
      * OS type.
      *
-     * @var string
+     * @var null|string
      * @since 1.0.0
      */
-    private $os = null;
+    private ?string $os = null;
 
     /**
      * Request information.
      *
-     * @var string[]
+     * @var null|string[]
      * @since 1.0.0
      */
-    private $info = null;
+    private ?array $info = null;
 
     /**
      * Constructor.

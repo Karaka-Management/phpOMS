@@ -16,6 +16,8 @@ namespace phpOMS\Config;
 
 use phpOMS\DataStorage\Database\DatabaseExceptionFactory;
 use phpOMS\DataStorage\Database\Query\Builder;
+use phpOMS\DataStorage\Cache\CachePool;
+use phpOMS\DataStorage\Database\Connection\ConnectionAbstract;
 
 /**
  * Settings class.
@@ -34,26 +36,26 @@ abstract class SettingsAbstract implements OptionsInterface
     /**
      * Cache manager (pool).
      *
-     * @var \phpOMS\DataStorage\Cache\CachePool
+     * @var null|CachePool
      * @since 1.0.0
      */
-    protected $cache = null;
+    protected ?CachePool $cache = null;
 
     /**
      * Database connection instance.
      *
-     * @var \phpOMS\DataStorage\Database\Connection\ConnectionAbstract
+     * @var null|ConnectionAbstract
      * @since 1.0.0
      */
-    protected $connection = null;
+    protected ?ConnectionAbstract $connection = null;
 
     /**
      * Settings table.
      *
-     * @var string
+     * @var null|string
      * @since 1.0.0
      */
-    protected static $table = null;
+    protected static ?string $table = null;
 
     /**
      * Columns to identify the value.
@@ -61,7 +63,7 @@ abstract class SettingsAbstract implements OptionsInterface
      * @var string[]
      * @since 1.0.0
      */
-    protected static $columns = [
+    protected static array $columns = [
         'id',
     ];
 
@@ -71,7 +73,7 @@ abstract class SettingsAbstract implements OptionsInterface
      * @var string
      * @since 1.0.0
      */
-    protected $valueField = 'option';
+    protected string $valueField = 'option';
 
     /**
      * Get option by key.

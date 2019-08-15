@@ -39,7 +39,7 @@ final class Money implements \Serializable
      * @var string
      * @since 1.0.0
      */
-    private $thousands = ',';
+    private string $thousands = ',';
 
     /**
      * Decimal separator.
@@ -47,7 +47,7 @@ final class Money implements \Serializable
      * @var string
      * @since 1.0.0
      */
-    private $decimal = '.';
+    private string $decimal = '.';
 
     /**
      * Currency symbol position
@@ -55,7 +55,7 @@ final class Money implements \Serializable
      * @var int
      * @since 1.0.0
      */
-    private $position = 1;
+    private int $position = 1;
 
     /**
      * Currency symbol.
@@ -63,7 +63,7 @@ final class Money implements \Serializable
      * @var string
      * @since 1.0.0
      */
-    private $symbol = ISO4217SymbolEnum::_USD;
+    private string $symbol = ISO4217SymbolEnum::_USD;
 
     /**
      * Value.
@@ -71,7 +71,7 @@ final class Money implements \Serializable
      * @var int
      * @since 1.0.0
      */
-    private $value = 0;
+    private int $value = 0;
 
     /**
      * Constructor.

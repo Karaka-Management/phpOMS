@@ -33,7 +33,7 @@ final class NetPromoterScore
      * @var int[]
      * @since 1.0.0
      */
-    private $scores = [];
+    private array $scores = [];
 
     /**
      * Add score.

@@ -39,7 +39,7 @@ class Directory extends FileAbstract implements FtpContainerInterface, Directory
      * @var FileAbstract[]
      * @since 1.0.0
      */
-    private $nodes = [];
+    private array $nodes = [];
 
     /**
      * Create ftp connection.

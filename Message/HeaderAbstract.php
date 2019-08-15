@@ -32,15 +32,15 @@ abstract class HeaderAbstract
      * @var bool
      * @since 1.0.0
      */
-    protected $isLocked = false;
+    protected bool $isLocked = false;
 
     /**
      * Localization.
      *
-     * @var Localization
+     * @var null|Localization
      * @since 1.0.0
      */
-    protected $l11n = null;
+    protected ?Localization $l11n = null;
 
     /**
      * Account.
@@ -48,7 +48,7 @@ abstract class HeaderAbstract
      * @var int
      * @since 1.0.0
      */
-    protected $account = 0;
+    protected int $account = 0;
 
     /**
      * Response status.
@@ -56,7 +56,7 @@ abstract class HeaderAbstract
      * @var int
      * @since 1.0.0
      */
-    protected $status = 0;
+    protected int $status = 0;
 
     /**
      * Constructor.
