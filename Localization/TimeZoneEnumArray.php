@@ -26,7 +26,7 @@ use phpOMS\Stdlib\Base\EnumArray;
  */
 class TimeZoneEnumArray extends EnumArray
 {
-    protected static $constants = [
+    protected static array $constants = [
         0   => 'Africa/Abidjan',
         1   => 'Africa/Accra',
         2   => 'Africa/Addis_Ababa',

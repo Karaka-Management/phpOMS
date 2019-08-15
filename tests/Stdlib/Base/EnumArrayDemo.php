@@ -18,7 +18,7 @@ use phpOMS\Stdlib\Base\EnumArray;
 
 final class EnumArrayDemo extends EnumArray
 {
-    protected static $constants = [
+    protected static array $constants = [
         'ENUM1' => 1,
         'ENUM2' => 'abc',
     ];

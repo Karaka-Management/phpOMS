@@ -29,7 +29,7 @@ use phpOMS\Stdlib\Base\EnumArray;
  */
 class ISO8601EnumArray extends EnumArray
 {
-    protected static $constants = [
+    protected static array $constants = [
         1 => 'YYYY-MM-DD hh:mm:ss', // ietf: rfc3339
         2 => 'YYYY.MM.DD hh:mm:ss',
         3 => 'DD-MM-YYYY hh:mm:ss',
