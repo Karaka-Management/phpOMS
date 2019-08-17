@@ -32,4 +32,29 @@ class NumericElement implements SortableInterface
     {
         return $order === SortOrder::ASC ? $this->value > $obj->value : $this->value < $obj->value;
     }
+
+    public function getValue()
+    {
+        return $this->value;
+    }
+
+    public static function max(array $list)
+    {
+        $values = [];
+        foreach ($list as $element) {
+            $values[] = $element->value;
+        }
+
+        return \max($values);
+    }
+
+    public static function min(array $list)
+    {
+        $values = [];
+        foreach ($list as $element) {
+            $values[] = $element->value;
+        }
+
+        return \min($values);
+    }
 }

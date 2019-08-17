@@ -28,6 +28,10 @@ class BubbleSort implements SortInterface
     {
         $n = \count($list);
 
+        if ($n < 2) {
+            return $list;
+        }
+
         do {
             $newN = 0;
 

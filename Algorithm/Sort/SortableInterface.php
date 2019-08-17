@@ -25,4 +25,10 @@ namespace phpOMS\Algorithm\Sort;
 interface SortableInterface
 {
     public function compare(self $obj, int $order = SortOrder::ASC) : bool;
+
+    public function getValue();
+
+    public static function max(array $list);
+
+    public static function min(array $list);
 }

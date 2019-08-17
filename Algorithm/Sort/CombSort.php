@@ -31,6 +31,10 @@ class CombSort implements SortInterface
         $gap    = $n;
         $shrink = 1.3;
 
+        if ($n < 2) {
+            return $list;
+        }
+
         while (!$sorted) {
             $gap = (int) \floor($gap / $shrink);
 

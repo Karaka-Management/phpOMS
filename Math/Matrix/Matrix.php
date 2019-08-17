@@ -307,8 +307,9 @@ class Matrix implements \ArrayAccess, \Iterator
         for ($i = 0; $i < $nDim; ++$i) {
             $j;
             for ($j = 0; $j < $mDim; ++$j) {
-                if (!$selected[$j] && \abs($matrix[$j][$i]) > 0.0001)
+                if (!$selected[$j] && \abs($matrix[$j][$i]) > 0.0001) {
                     break;
+                }
             }
 
             if ($j === $mDim) {
@@ -321,8 +322,9 @@ class Matrix implements \ArrayAccess, \Iterator
 
                 for ($k = 0; $k < $mDim; ++$k) {
                     if ($k !== $j && \abs($matrix[$k][$i]) > 0.0001) {
-                        for ($p = $i + 1; $p < $nDim; ++$p)
+                        for ($p = $i + 1; $p < $nDim; ++$p) {
                             $matrix[$k][$p] -= $matrix[$j][$p] * $matrix[$k][$i];
+                        }
                     }
                 }
             }

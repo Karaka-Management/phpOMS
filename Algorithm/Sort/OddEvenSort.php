@@ -29,6 +29,10 @@ class OddEvenSort implements SortInterface
         $sorted = false;
         $n      = \count($list);
 
+        if ($n < 2) {
+            return $list;
+        }
+
         while (!$sorted) {
             $sorted = true;
 

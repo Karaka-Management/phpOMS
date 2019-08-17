@@ -28,6 +28,10 @@ class SelectionSort implements SortInterface
     {
         $n = \count($list);
 
+        if ($n < 2) {
+            return $list;
+        }
+
         for ($i = 0; $i < $n - 1; ++$i) {
             $min = $i;
 

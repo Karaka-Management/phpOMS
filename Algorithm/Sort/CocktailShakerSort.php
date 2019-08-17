@@ -29,6 +29,10 @@ class CocktailShakerSort implements SortInterface
         $start = 0;
         $end   = \count($list) - 1;
 
+        if ($end < 1) {
+            return $list;
+        }
+
         while ($start <= $end) {
             $newStart = $end;
             $newEnd   = $start;

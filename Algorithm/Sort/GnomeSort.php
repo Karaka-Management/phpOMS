@@ -28,6 +28,10 @@ class GnomeSort implements SortInterface
     {
         $n = \count($list);
 
+        if ($n < 2) {
+            return $list;
+        }
+
         for ($i = 1; $i < $n; ++$i) {
             $j = $i;
 
