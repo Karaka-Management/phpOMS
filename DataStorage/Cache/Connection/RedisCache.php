@@ -74,7 +74,9 @@ class RedisCache extends ConnectionAbstract
         $this->status = CacheStatus::OK;
     }
 
-
+    /**
+     * {@inheritdoc}
+     */
     public function close() : void
     {
         if ($this->con !== null) {

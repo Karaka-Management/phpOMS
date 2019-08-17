@@ -43,7 +43,7 @@ class ViewTest extends \PHPUnit\Framework\TestCase
 
         $this->app = new class() extends ApplicationAbstract
         {
-            protected $appName = 'Api';
+            protected string $appName = 'Api';
         };
 
         $this->app->l11nManager = new L11nManager($this->app->appName);

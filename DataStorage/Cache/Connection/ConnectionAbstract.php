@@ -49,7 +49,7 @@ abstract class ConnectionAbstract implements ConnectionInterface
      * @var string
      * @since 1.0.0
      */
-    public string string $prefix = '';
+    public string $prefix = '';
 
     /**
      * Database data.

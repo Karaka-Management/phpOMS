@@ -310,7 +310,7 @@ class Directory extends FileAbstract implements FtpContainerInterface, Directory
             )       = $chunks;
 
             $e['permission'] = FileUtils::permissionToOctal(\substr($e['permission'], 1));
-            $e['type']       = $chunks[0]{0} === 'd' ? 'dir' : 'file';
+            $e['type']       = $chunks[0][0] === 'd' ? 'dir' : 'file';
 
             $data[$names[$key]] = $e;
         }

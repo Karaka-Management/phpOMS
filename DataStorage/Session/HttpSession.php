@@ -95,7 +95,7 @@ class HttpSession implements SessionInterface
             $this->destroy();
         }
 
-        $this->sessionData                 = $_SESSION;
+        $this->sessionData                 = $_SESSION ?? [];
         $_SESSION                          = null;
         $this->sessionData['lastActivity'] = \time();
         $this->sid                         = \session_id();

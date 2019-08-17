@@ -29,16 +29,52 @@ class Builder extends QueryBuilder
 {
     public string $createTable = '';
 
+    /**
+     * Fields.
+     *
+     * @var array
+     * @since 1.0.0
+     */
     public array $createFields = [];
 
+    /**
+     * Database to drop.
+     *
+     * @var string
+     * @since 1.0.0
+     */
     public string $dropDatabase = '';
 
+    /**
+     * Table to drop.
+     *
+     * @var string
+     * @since 1.0.0
+     */
     public string $dropTable = '';
 
+    /**
+     * Tables.
+     *
+     * @var array
+     * @since 1.0.0
+     */
     public array $selectTables = ['*'];
 
+    /**
+     * Select fields.
+     *
+     * @var string
+     * @since 1.0.0
+     */
     public string $selectFields = '';
 
+    /**
+     * @todo: ?????.
+     *
+     * @var bool
+     * @since 1.0.0
+     */
     public bool $createTableSettings = true;
 
     /**

@@ -52,7 +52,7 @@ class PackageManagerTest extends \PHPUnit\Framework\TestCase
         $state = \sodium_crypto_generichash_init();
 
         foreach ($files as $file) {
-            if ($file === 'package.cert') {
+            if ($file === 'package.cert' || \is_dir(__DIR__ . '/testPackage' . '/' . $file)) {
                 continue;
             }
 

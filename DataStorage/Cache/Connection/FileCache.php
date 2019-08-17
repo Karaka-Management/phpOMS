@@ -45,7 +45,7 @@ class FileCache extends ConnectionAbstract
     /**
      * {@inheritdoc}
      */
-    protected $type = CacheType::FILE;
+    protected string $type = CacheType::FILE;
 
     /**
      * Delimiter for cache meta data

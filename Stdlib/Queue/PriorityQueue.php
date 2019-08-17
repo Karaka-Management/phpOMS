@@ -329,6 +329,6 @@ class PriorityQueue implements \Countable, \Serializable
      */
     public function unserialize($data) : void
     {
-        $this->queue = \json_decode($data);
+        $this->queue = \json_decode($data, true);
     }
 }

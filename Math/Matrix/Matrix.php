@@ -301,44 +301,29 @@ class Matrix implements \ArrayAccess, \Iterator
         $mDim   = $this->m;
         $nDim   = $this->n;
 
-        if ($this->m > $this->n) {
-            $mDim   = $this->n;
-            $nDim   = $this->m;
-            $matrix = \array_map(null, ...$matrix);
-        }
+        $rank     = \max($mDim, $nDim);
+        $selected = \array_fill(0, $mDim, false);
 
-        $rank = $mDim;
+        for ($i = 0; $i < $nDim; ++$i) {
+            $j;
+            for ($j = 0; $j < $mDim; ++$j) {
+                if (!$selected[$j] && \abs($matrix[$j][$i]) > 0.0001)
+                    break;
+            }
 
-        for ($row = 0; $row < $rank; ++$row) {
-            if (isset($matrix[$row][$row]) && $matrix[$row][$row] !== 0) {
-                for ($col = 0; $col < $mDim; ++$col) {
-                    if ($col !== $row) {
-                        $mult = $matrix[$col][$row] / $matrix[$row][$row];
-
-                        for ($i = 0; $i < $rank; ++$i) {
-                            $matrix[$col][$i] -= $mult * $matrix[$row][$i];
-                        }
-                    }
-                }
+            if ($j === $mDim) {
+                --$rank;
             } else {
-                $reduce = true;
-
-                for ($i = $row + 1; $i < $mDim; ++$i) {
-                    if (isset($matrix[$i][$row]) && $matrix[$i][$row] !== 0) {
-                        $this->swapRow($matrix, $row, $i, $rank);
-                        $reduce = false;
-                        break;
-                    }
+                $selected[$j] = true;
+                for ($p = $i + 1; $p < $nDim; ++$p) {
+                    $matrix[$j][$p] /= $matrix[$j][$i];
                 }
 
-                if ($reduce) {
-                    --$rank;
-
-                    for ($i = 0; $i < $mDim; ++$i) {
-                        $matrix[$i][$row] = $matrix[$i][$rank];
+                for ($k = 0; $k < $mDim; ++$k) {
+                    if ($k !== $j && \abs($matrix[$k][$i]) > 0.0001) {
+                        for ($p = $i + 1; $p < $nDim; ++$p)
+                            $matrix[$k][$p] -= $matrix[$j][$p] * $matrix[$k][$i];
                     }
-
-                    --$row;
                 }
             }
         }
@@ -361,9 +346,9 @@ class Matrix implements \ArrayAccess, \Iterator
     private function swapRow(array &$matrix, int $row1, int $row2, int $col) : void
     {
         for ($i = 0; $i < $col; ++$i) {
-            $temp          = $matrix[$row1][$i];
-            $matrix[$row1] = $matrix[$row2][$i];
-            $matrix[$row2] = $temp;
+            $temp              = $matrix[$row1][$i];
+            $matrix[$row1][$i] = $matrix[$row2][$i];
+            $matrix[$row2][$i] = $temp;
         }
     }
 

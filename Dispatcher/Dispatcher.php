@@ -27,7 +27,7 @@ use phpOMS\System\File\PathException;
  * @link       https://orange-management.org
  * @since      1.0.0
  */
-final class Dispatcher
+final class Dispatcher implements DispatcherInterface
 {
 
     /**
@@ -61,16 +61,7 @@ final class Dispatcher
     }
 
     /**
-     * Dispatch controller.
-     *
-     * @param array|\Closure|string $controller Controller
-     * @param null|array|mixed      ...$data    Data
-     *
-     * @return array Returns array of all dispatched results
-     *
-     * @throws \UnexpectedValueException This exception is thrown for unsupported controller representations
-     *
-     * @since  1.0.0
+     * {@inheritdoc}
      */
     public function dispatch($controller, ...$data) : array
     {

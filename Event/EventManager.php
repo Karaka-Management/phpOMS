@@ -15,6 +15,7 @@ declare(strict_types=1);
 namespace phpOMS\Event;
 
 use phpOMS\Dispatcher\Dispatcher;
+use phpOMS\Dispatcher\DispatcherInterface;
 
 /**
  * EventManager class.
@@ -51,10 +52,10 @@ final class EventManager implements \Countable
     /**
      * Dispatcher.
      *
-     * @var Dispatcher|Object<dispatch>
+     * @var DispatcherInterface|Object<dispatch>
      * @since 1.0.0
      */
-    private ?Dispatcher $dispatcher = null;
+    private ?DispatcherInterface $dispatcher = null;
 
     /**
      * Constructor.
@@ -65,10 +66,12 @@ final class EventManager implements \Countable
      */
     public function __construct(Dispatcher $dispatcher = null)
     {
-        $this->dispatcher = $dispatcher ?? new class() {
-            public function dispatch($func, ...$data) : void
+        $this->dispatcher = $dispatcher ?? new class() implements DispatcherInterface {
+            public function dispatch($func, ...$data) : array
             {
                 $func(...$data);
+
+                return [];
             }
         };
     }

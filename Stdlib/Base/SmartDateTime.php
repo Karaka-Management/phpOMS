@@ -96,7 +96,7 @@ class SmartDateTime extends \DateTime
         $yearChange  = ((int) $this->format('m') - 1 + $m) < 0 && ((int) $this->format('m') - 1 + $m) % 12 === 0 ? $yearChange - 1 : $yearChange;
         $yearNew     = (int) $this->format('Y') + $y + $yearChange;
         $monthNew    = ((int) $this->format('m') + $m) % 12;
-        $monthNew    = $monthNew === 0 ? 12 : $monthNew < 0 ? 12 + $monthNew : $monthNew;
+        $monthNew    = $monthNew === 0 ? 12 : ($monthNew < 0 ? 12 + $monthNew : $monthNew);
         $dayMonthOld = \cal_days_in_month($calendar, (int) $this->format('m'), (int) $this->format('Y'));
         $dayMonthNew = \cal_days_in_month($calendar, $monthNew, $yearNew);
         $dayOld      = (int) $this->format('d');

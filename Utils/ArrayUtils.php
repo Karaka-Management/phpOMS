@@ -255,7 +255,7 @@ final class ArrayUtils
                     $str .= $key . ' => \'' . $value . '\', ';
                     break;
                 case 'boolean':
-                    $str .= $key . ' => ' . ($value['default'] ? 'true' : 'false') . ', ';
+                    $str .= $key . ' => ' . ($value ? 'true' : 'false') . ', ';
                     break;
                 case 'NULL':
                     $str .= $key . ' => null, ';

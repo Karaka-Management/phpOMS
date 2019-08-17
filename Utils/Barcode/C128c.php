@@ -33,7 +33,7 @@ class C128c extends C128Abstract
      * @var int
      * @since 1.0.0
      */
-    protected static $CHECKSUM = 105;
+    protected static int $CHECKSUM = 105;
 
     /**
      * Char weighted array.

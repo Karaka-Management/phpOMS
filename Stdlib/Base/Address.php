@@ -44,10 +44,10 @@ class Address implements \JsonSerializable
     /**
      * Location.
      *
-     * @var Location
+     * @var null|Location
      * @since 1.0.0
      */
-    private Location $location = null;
+    private ?Location $location = null;
 
     /**
      * Constructor.
