@@ -46,4 +46,14 @@ class Node
     {
         return $this->weight;
     }
+    
+    public function getX() : int
+    {
+        return $this->x;
+    }
+    
+    public function getY() : int
+    {
+        return $this->y;
+    }
 }
