@@ -4,7 +4,7 @@
  *
  * PHP Version 7.4
  *
- * @package    phpOMS\Account
+ * @package    phpOMS\Algorithm\PathFinding
  * @copyright  Dennis Eichhorn
  * @license    OMS License 1.0
  * @version    1.0.0
@@ -19,7 +19,7 @@ use phpOMS\Stdlib\Base\Enum;
 /**
  * Heuristic type enum.
  *
- * @package    phpOMS\Account
+ * @package    phpOMS\Algorithm\PathFinding
  * @license    OMS License 1.0
  * @link       https://orange-management.org
  * @since      1.0.0
