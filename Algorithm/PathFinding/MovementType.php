@@ -17,7 +17,7 @@ namespace phpOMS\Algorithm\PathFinding;
 use phpOMS\Stdlib\Base\Enum;
 
 /**
- * Heuristic type enum.
+ * Movement type enum.
  *
  * @package    phpOMS\Algorithm\PathFinding
  * @license    OMS License 1.0
