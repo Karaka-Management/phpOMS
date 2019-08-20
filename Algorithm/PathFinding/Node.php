@@ -17,7 +17,7 @@ namespace phpOMS\Algorithm\PathFinding;
 use phpOMS\Stdlib\Base\Enum;
 
 /**
- * Node on map.
+ * Node on grid.
  *
  * @package    phpOMS\Algorithm\PathFinding
  * @license    OMS License 1.0
