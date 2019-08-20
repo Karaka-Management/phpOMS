@@ -51,7 +51,7 @@ class Grid
         $x = $node->getX();
         $y = $node->getY();
         
-        $neighbours = [];
+        $neighbors = [];
         $s0 = false;
         $s1 = false;
         $s2 = false;
@@ -61,30 +61,28 @@ class Grid
         $d2 = false;
         $d3 = false;
         
-        $nodes = $this->nodes;
-        
         if ($this->getNode($x, $y - 1)->isWalkable()) {
-            $neighbours[$x][$y - 1];
+            $neighbors[$x][$y - 1];
             $s0 = true;
         }
         
         if ($this->getNode($x + 1, $y)->isWalkable()) {
-            $neighbours[$x + 1][$y];
+            $neighbors[$x + 1][$y];
             $s1 = true;
         }
         
         if ($this->getNode($x, $y + 1)->isWalkable()) {
-            $neighbours[$x][$y + 1];
+            $neighbors[$x][$y + 1];
             $s2 = true;
         }
         
         if ($this->getNode($x - 1, $y)->isWalkable()) {
-            $neighbours[$x - 1][$y];
+            $neighbors[$x - 1][$y];
             $s3 = true;
         }
         
         if ($movement === MovementType::STRAIGHT) {
-            return $neighbours;
+            return $neighbors;
         }
         
         if ($movement === MovementType::DIAGONAL_NO_OBSTACLE) {
@@ -97,11 +95,29 @@ class Grid
             $d1 = $s0 || $s1;
             $d2 = $s1 || $s2;
             $d3 = $s2 || $s3;
-        } else if ($movement === MovementType::DIAGONAL) {
+        } elseif ($movement === MovementType::DIAGONAL) {
             $d0 = true;
             $d1 = true;
             $d2 = true;
             $d3 = true;
         }
+        
+        if ($d0 && $this->getNode($x - 1, $y - 1)->isWalkable()) {
+            $neighbors[] = $this->getNode($x - 1, $y - 1]);
+        }
+        
+        if ($d1 && $this->getNode($x + 1, $y - 1)->isWalkable()) {
+            $neighbors[] = $this->getNode($x + 1, $y - 1);
+        }
+        
+        if ($d2 && $this->getNode($x + 1, $y + 1)->isWalkable()) {
+            $neighbors[] = $this->getNode($x + 1, $y + 1);
+        }
+        
+        if ($d3 && $this->getNode($x - 1, $y + 1)->isWalkable()) {
+            $neighbors[] = $this->getNode($x - 1, $y + 1);
+        }
+        
+        return $neighbors;
     }
 }
