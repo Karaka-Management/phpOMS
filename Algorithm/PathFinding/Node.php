@@ -28,7 +28,8 @@ class Node
     private int $y = 0;
     private float $weight = 1.0;
     private bool $isWalkable = true;
-    
+    private ?Node $parent = null;
+
     public function __construct(int $x, int $y, float $weight = 1.0, bool $isWalkable = true)
     {
         $this->x          = $x;
@@ -36,24 +37,39 @@ class Node
         $this->weight     = $weight;
         $this->isWalkable = $isWalkable;
     }
-    
+
     public function isWalkable() : bool
     {
         return $this->isWalkable;
     }
-    
+
     public function getWeight() : float
     {
         return $this->weight;
     }
-    
+
     public function getX() : int
     {
         return $this->x;
     }
-    
+
     public function getY() : int
     {
         return $this->y;
+    }
+
+    public function setParent(?Node $node) : void
+    {
+        $this->parent = $node;
+    }
+
+    public function getParent() : ?Node
+    {
+        return $this->parent;
+    }
+
+    public function isEqual(Node $node) : bool
+    {
+        return $this->x === $node->getX() && $this->y === $node->getY();
     }
 }

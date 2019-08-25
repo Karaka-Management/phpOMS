@@ -25,32 +25,45 @@ namespace phpOMS\Algorithm\PathFinding;
 class Grid
 {
     private array $nodes = [[]];
-    private ?Node $nullNode = null;
-    
-    public function __construct(Node $nullNode)
+
+    public static function createGridFromArray(array $gridArray, string $node) : self
     {
-        $this->nullNode = $nullNode;
-    }
-    
-    public function getNullNode() : Node
-    {
-        return $this->nullNode;
-    }
-    
-    public function getNode(int $x, int $y) : Node
-    {
-        if (!isset($this->nodes[$x]) || $this->nodes[$x][$y]) {
-            return $this->nullNode;
+        $grid = new self();
+        foreach ($gridArray as $y => $yRow) {
+            foreach ($yRow as $x => $xElement) {
+                if ($xElement === 0 || $xElement === 1 || $xElement === 2) {
+                    $empty = new $node($x, $y, 1.0, true);
+                    $grid->setNode($x, $y, $empty);
+                } elseif ($xElement === 9) {
+                    $wall = new $node($x, $y, 1.0, false);
+                    $grid->setNode($x, $y, $wall);
+                }
+            }
         }
-        
-        return $this->nodes[$x][$y];
+
+        return $grid;
     }
-    
+
+    public function setNode(int $x, int $y, Node $node) : void
+    {
+        $this->nodes[$y][$x] = $node;
+    }
+
+    public function getNode(int $x, int $y) : ?Node
+    {
+        if (!isset($this->nodes[$y]) || $this->nodes[$y][$x]) {
+            // todo: add null node to grid because we need to modify some properties later on and remember them!
+            return null;
+        }
+
+        return $this->nodes[$y][$x];
+    }
+
     public function getNeighbors(Node $node, int $movement) : array
     {
         $x = $node->getX();
         $y = $node->getY();
-        
+
         $neighbors = [];
         $s0 = false;
         $s1 = false;
@@ -60,31 +73,32 @@ class Grid
         $d1 = false;
         $d2 = false;
         $d3 = false;
-        
+
+        // todo: check $x and $y because original implementation is flipped!!!
         if ($this->getNode($x, $y - 1)->isWalkable()) {
-            $neighbors[$x][$y - 1];
+            $neighbors[] = $this->getNode($x, $y - 1);
             $s0 = true;
         }
-        
+
         if ($this->getNode($x + 1, $y)->isWalkable()) {
-            $neighbors[$x + 1][$y];
+            $neighbors[] = $this->getNode($x + 1, $y);
             $s1 = true;
         }
-        
+
         if ($this->getNode($x, $y + 1)->isWalkable()) {
-            $neighbors[$x][$y + 1];
+            $neighbors[] = $this->getNode($x, $y + 1);
             $s2 = true;
         }
-        
+
         if ($this->getNode($x - 1, $y)->isWalkable()) {
-            $neighbors[$x - 1][$y];
+            $neighbors[] = $this->getNode($x - 1, $y);
             $s3 = true;
         }
-        
+
         if ($movement === MovementType::STRAIGHT) {
             return $neighbors;
         }
-        
+
         if ($movement === MovementType::DIAGONAL_NO_OBSTACLE) {
             $d0 = $s3 && $s0;
             $d1 = $s0 && $s1;
@@ -101,23 +115,23 @@ class Grid
             $d2 = true;
             $d3 = true;
         }
-        
+
         if ($d0 && $this->getNode($x - 1, $y - 1)->isWalkable()) {
-            $neighbors[] = $this->getNode($x - 1, $y - 1]);
+            $neighbors[] = $this->getNode($x - 1, $y - 1);
         }
-        
+
         if ($d1 && $this->getNode($x + 1, $y - 1)->isWalkable()) {
             $neighbors[] = $this->getNode($x + 1, $y - 1);
         }
-        
+
         if ($d2 && $this->getNode($x + 1, $y + 1)->isWalkable()) {
             $neighbors[] = $this->getNode($x + 1, $y + 1);
         }
-        
+
         if ($d3 && $this->getNode($x - 1, $y + 1)->isWalkable()) {
             $neighbors[] = $this->getNode($x - 1, $y + 1);
         }
-        
+
         return $neighbors;
     }
 }
