@@ -89,7 +89,7 @@ final class Request extends RequestAbstract
      */
     private function init() : void
     {
-        if ($this->uri === null) {
+        if (!isset($this->uri)) {
             $this->initCurrentRequest();
             $this->lock();
             $this->cleanupGlobals();

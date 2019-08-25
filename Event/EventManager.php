@@ -52,10 +52,10 @@ final class EventManager implements \Countable
     /**
      * Dispatcher.
      *
-     * @var DispatcherInterface|Object<dispatch>
+     * @var DispatcherInterface
      * @since 1.0.0
      */
-    private ?DispatcherInterface $dispatcher = null;
+    private DispatcherInterface $dispatcher;
 
     /**
      * Constructor.

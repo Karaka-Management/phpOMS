@@ -77,6 +77,6 @@ class CycleSort implements SortInterface
             }
         }
 
-        return $order === SortOrder::ASC ? $list : \array_reverse($list, false);;
+        return $order === SortOrder::ASC ? $list : \array_reverse($list, false);
     }
 }

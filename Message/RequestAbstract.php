@@ -29,10 +29,10 @@ abstract class RequestAbstract implements MessageInterface
     /**
      * Uri.
      *
-     * @var null|UriInterface
+     * @var UriInterface
      * @since 1.0.0
      */
-    protected ?UriInterface $uri = null;
+    protected UriInterface $uri;
 
     /**
      * Request method.
@@ -85,10 +85,10 @@ abstract class RequestAbstract implements MessageInterface
     /**
      * Request header.
      *
-     * @var null|HeaderAbstract
+     * @var HeaderAbstract
      * @since 1.0.0
      */
-    protected ?HeaderAbstract $header = null;
+    protected HeaderAbstract $header;
 
     /**
      * Get request uri.

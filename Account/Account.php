@@ -94,18 +94,18 @@ class Account implements ArrayableInterface, \JsonSerializable
     /**
      * Last activity.
      *
-     * @var null|\DateTime
+     * @var \DateTime
      * @since 1.0.0
      */
-    protected ?\DateTime $lastActive = null;
+    protected \DateTime $lastActive;
 
     /**
      * Last activity.
      *
-     * @var null|\DateTime
+     * @var \DateTime
      * @since 1.0.0
      */
-    protected ?\DateTime $createdAt = null;
+    protected \DateTime $createdAt;
 
     /**
      * Groups.
@@ -145,7 +145,7 @@ class Account implements ArrayableInterface, \JsonSerializable
      * @var Localization
      * @since 1.0.0
      */
-    protected ?Localization $l11n = null;
+    protected Localization $l11n;
 
     use PermissionHandlingTrait;
 

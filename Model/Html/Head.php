@@ -66,10 +66,10 @@ class Head implements RenderableInterface
     /**
      * Page meta.
      *
-     * @var null|Meta
+     * @var Meta
      * @since 1.0.0
      */
-    private ?Meta $meta = null;
+    private Meta $meta;
 
     /**
      * html style.

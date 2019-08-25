@@ -35,10 +35,10 @@ abstract class ResponseAbstract implements MessageInterface, \JsonSerializable
     /**
      * Header.
      *
-     * @var null|HeaderAbstract
+     * @var HeaderAbstract
      * @since 1.0.0
      */
-    protected ?HeaderAbstract $header = null;
+    protected HeaderAbstract $header;
 
     /**
      * Get response by ID.

@@ -14,18 +14,19 @@ declare(strict_types=1);
 
 namespace phpOMS;
 
-use phpOMS\DataStorage\Database\DatabasePool;
-use phpOMS\Localization\L11nManager;
+use Model\CoreSettings;
 use phpOMS\Router\Router;
-use phpOMS\DataStorage\Session\SessionInterface;
-use phpOMS\DataStorage\Cookie\CookieJar;
+use phpOMS\Log\FileLogger;
+use phpOMS\Event\EventManager;
 use phpOMS\Module\ModuleManager;
 use phpOMS\Dispatcher\Dispatcher;
-use phpOMS\DataStorage\Cache\CachePool;
-use Model\CoreSettings;
-use phpOMS\Event\EventManager;
 use phpOMS\Account\AccountManager;
-use phpOMS\Log\FileLogger;
+use phpOMS\Localization\L11nManager;
+use phpOMS\Localization\Localization;
+use phpOMS\DataStorage\Cache\CachePool;
+use phpOMS\DataStorage\Cookie\CookieJar;
+use phpOMS\DataStorage\Database\DatabasePool;
+use phpOMS\DataStorage\Session\SessionInterface;
 
 /**
  * Application class.

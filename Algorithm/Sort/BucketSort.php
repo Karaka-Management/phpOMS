@@ -29,6 +29,10 @@ class BucketSort
         $buckets = [];
         $M       = $list[0]::max($list);
 
+        if ($bucketCount < 1) {
+            return [];
+        }
+
         foreach ($list as $element) {
             $buckets[(int) \floor(($bucketCount - 1) * $element->getValue() / $M)][] = $element;
         }
