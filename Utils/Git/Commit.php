@@ -35,26 +35,26 @@ class Commit
     /**
      * Author.
      *
-     * @var null|Author
+     * @var Author
      * @since 1.0.0
      */
-    private ?Author $author = null;
+    private Author $author;
 
     /**
      * Branch.
      *
-     * @var null|Branch
+     * @var Branch
      * @since 1.0.0
      */
-    private ?Branch $branch = null;
+    private Branch $branch;
 
     /**
      * Tag.
      *
-     * @var null|Tag
+     * @var Tag
      * @since 1.0.0
      */
-    private ?Tag $tag = null;
+    private Tag $tag;
 
     /**
      * Commit date.
@@ -67,10 +67,10 @@ class Commit
     /**
      * Repository.
      *
-     * @var null|Repository
+     * @var Repository
      * @since 1.0.0
      */
-    private ?Repository $repository = null;
+    private Repository $repository;
 
     /**
      * Commit message.

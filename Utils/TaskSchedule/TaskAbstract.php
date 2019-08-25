@@ -59,18 +59,18 @@ abstract class TaskAbstract
     /**
      * Next runtime
      *
-     * @var null|\DateTime
+     * @var \DateTime
      * @since 1.0.0
      */
-    protected ?\DateTime $nextRunTime = null;
+    protected \DateTime $nextRunTime;
 
     /**
      * Last runtime
      *
-     * @var null|\DateTime
+     * @var \DateTime
      * @since 1.0.0
      */
-    protected ?\DateTime $lastRunTime = null;
+    protected \DateTime $lastRunTime;
 
     /**
      * Comment
@@ -203,7 +203,7 @@ abstract class TaskAbstract
      *
      * @since  1.0.0
      */
-    public function getNextRunTime()
+    public function getNextRunTime() : \DateTime
     {
         return $this->nextRunTime;
     }
@@ -229,7 +229,7 @@ abstract class TaskAbstract
      *
      * @since  1.0.0
      */
-    public function getLastRuntime()
+    public function getLastRuntime() : \DateTime
     {
         return $this->lastRunTime;
     }

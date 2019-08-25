@@ -28,10 +28,10 @@ class Interval implements \Serializable
     /**
      * Start.
      *
-     * @var null|\DateTime
+     * @var \DateTime
      * @since 1.0.0
      */
-    private $start = null;
+    private $start;
 
     /**
      * End.
@@ -243,7 +243,7 @@ class Interval implements \Serializable
      *
      * @since  1.0.0
      */
-    public function getEnd()
+    public function getEnd() : ?\DateTime
     {
         return $this->end;
     }

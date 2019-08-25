@@ -39,7 +39,7 @@ final class Huffman
      *
      * @since  1.0.0
      */
-    public function getDictionary() /* : ?Dictionary */
+    public function getDictionary() : ?Dictionary
     {
         return $this->dictionary;
     }
@@ -111,7 +111,7 @@ final class Huffman
      */
     public function decode(string $raw) : string
     {
-        if (empty($raw)) {
+        if (empty($raw) || $this->dictionary === null) {
             return '';
         }
 

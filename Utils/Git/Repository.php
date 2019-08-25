@@ -55,10 +55,10 @@ class Repository
     /**
      * Current branch.
      *
-     * @var null|Branch
+     * @var Branch
      * @since 1.0.0
      */
-    private ?Branch $branch = null;
+    private Branch $branch;
 
     /**
      * Constructor
@@ -72,6 +72,8 @@ class Repository
         if (\is_dir($path)) {
             $this->setPath($path);
         }
+
+        $this->branch = new Branch();
     }
 
     /**
