@@ -44,10 +44,10 @@ class Address implements \JsonSerializable
     /**
      * Location.
      *
-     * @var null|Location
+     * @var Location
      * @since 1.0.0
      */
-    private ?Location $location = null;
+    private Location $location;
 
     /**
      * Constructor.
@@ -150,6 +150,10 @@ class Address implements \JsonSerializable
      */
     public function toArray() : array
     {
-        return ['recipient' => $this->recipient, 'fao' => $this->fao, 'location' => $this->location->toArray()];
+        return [
+            'recipient' => $this->recipient,
+            'fao'       => $this->fao,
+            'location'  => $this->location->toArray()
+        ];
     }
 }
