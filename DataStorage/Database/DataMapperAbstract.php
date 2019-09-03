@@ -31,6 +31,7 @@ use phpOMS\Utils\ArrayUtils;
  * @license    OMS License 1.0
  * @link       https://orange-management.org
  * @since      1.0.0
+ * @todo: currently hasmany, owns one etc. are not using joins. In some cases this could improve the performance instead of separately querying the database 
  */
 class DataMapperAbstract implements DataMapperInterface
 {
@@ -1326,6 +1327,47 @@ class DataMapperAbstract implements DataMapperInterface
         self::$db->con->prepare($query->toSql())->execute();
     }
 
+    private static function updateConditionals(object $obj, $objId, \ReflectionClass $refClass = null, int $relations = RelationType::ALL, int $depth = 1) : void
+    {
+        foreach (static::$conditionals as $table => $contidional) {
+    		$query = new Builder(self::$db);
+	        $query->prefix(self::$db->getPrefix())
+	            ->update($table)
+	            ->where($table . '.' . $conditional['dst'], '=', $objId);
+
+	        foreach ($conditional['columns'] as $key => $column) {
+	            $propertyName = \stripos($column['internal'], '/') !== false ? \explode('/', $column['internal'])[0] : $column['internal'];
+
+	            $refClass = $refClass ?? new \ReflectionClass($obj);
+	            $property = $refClass->getProperty($propertyName);
+
+	            if (!($isPublic = $property->isPublic())) {
+	                $property->setAccessible(true);
+	            }
+
+	            if ($column['name'] !== $conditional['dst']) {
+	                $tValue = $property->getValue($obj);
+	                if (\stripos($column['internal'], '/') !== false) {
+	                    $path = \explode('/', $column['internal']);
+
+	                    \array_shift($path);
+	                    $path   = \implode('/', $path);
+	                    $tValue = ArrayUtils::getArray($path, $tValue, '/');
+	                }
+	                $value = self::parseValue($column['type'], $tValue);
+
+	                $query->set([$table . '.' . $column['name'] => $value]);
+	            }
+
+	            if (!$isPublic) {
+	                $property->setAccessible(false);
+	            }
+	        }
+
+        	self::$db->con->prepare($query->toSql())->execute();
+        }
+    }
+
     /**
      * Update object in db.
      *
@@ -1380,6 +1422,48 @@ class DataMapperAbstract implements DataMapperInterface
         }
 
         self::$db->con->prepare($query->toSql())->execute();
+    }
+
+    /**
+     * Update object in db.
+     *
+     * @param array $obj       Model to update
+     * @param mixed $objId     Model id
+     * @param int   $relations Create all relations as well
+     * @param int   $depth     Depth of relations to update (default = 1 = none)
+     *
+     * @return void
+     *
+     * @since  1.0.0
+     */
+    private static function updateConditionalsArray(array $obj, $objId, int $relations = RelationType::ALL, int $depth = 1) : void
+    {
+    	foreach (static::$conditionals as $table => $contidional) {
+    		$query = new Builder(self::$db);
+	        $query->prefix(self::$db->getPrefix())
+	            ->update($table)
+	            ->where($table . '.' . $conditional['dst'], '=', $objId);
+
+	        foreach ($conditional['columns'] as $key => $column) {
+	            $path = $column['internal'];
+	            if (\stripos($column['internal'], '/') !== false) {
+	                $path = \explode('/', $column['internal']);
+
+	                \array_shift($path); // todo: why am I doing this?
+	                $path = \implode('/', $path);
+	            }
+
+	            $property = ArrayUtils::getArray($path, $obj, '/');
+
+	            if ($column['name'] !== $conditional['dst']) {
+	                $value = self::parseValue($column['type'], $property);
+
+	                $query->set([$table . '.' . $column['name'] => $value]);
+	            }
+	        }
+
+	        self::$db->con->prepare($query->toSql())->execute();
+    	}
     }
 
     /**
@@ -1590,6 +1674,25 @@ class DataMapperAbstract implements DataMapperInterface
         return $obj;
     }
 
+    private static function deleteConditionals($key) : void
+    {
+    	foreach (static::$conditionals as $table => $conditional) {
+	        $query = new Builder(self::$db);
+		    $query->prefix(self::$db->getPrefix())
+		        ->delete()
+		        ->from($table)
+		        ->where(static::$conditionals[$table]['dst'], '=', $key);
+
+		    foreach (static::$conditionals[$table]['filter'] as $column => $filter) {
+		        if ($filter !== null) {
+		        	$query->where($column, '=', $filter);
+		        }
+		    }
+
+	        self::$db->con->prepare($query->toSql())->execute();
+	    }
+    }
+
     /**
      * Delete object in db.
      *
@@ -1676,7 +1779,7 @@ class DataMapperAbstract implements DataMapperInterface
 
         if ($relations !== RelationType::NONE) {
             self::deleteHasMany($refClass, $obj, $objId, $relations);
-            self::deleteConditionals($refClass, $obj, $objId);
+            self::deleteConditionals($objId);
         }
 
         self::deleteModel($obj, $objId, $relations, $refClass);
@@ -1684,7 +1787,7 @@ class DataMapperAbstract implements DataMapperInterface
         return $objId;
     }
 
-    // @todo: implement todo delete 
+    // @todo: implement array delete 
 
     /**
      * Populate data.
@@ -1885,9 +1988,9 @@ class DataMapperAbstract implements DataMapperInterface
     {
         $query = new Builder(self::$db);
 	    $query->prefix(self::$db->getPrefix())
-	        ->select(...static::$conditionals[$table]['values'])
+	        ->select(...static::$conditionals[$table]['columns'])
 	        ->from($table)
-	        ->where(static::$conditionals[$table]['dest'], '=', $key);
+	        ->where(static::$conditionals[$table]['dst'], '=', $key);
 
 	    foreach (static::$conditionals[$table]['filter'] as $column => $filter) {
 	        if ($filter !== null) {
@@ -2566,7 +2669,7 @@ class DataMapperAbstract implements DataMapperInterface
 
             if ($hasConditionals) {
 	        	foreach (static::$conditionals as $table => $conditional) {
-	            	$obj[$key] = self::populateAbstract(self::getConditionals($key, $table), $obj[$key], $conditional['values']);
+	            	$obj[$key] = self::populateAbstract(self::getConditionals($key, $table), $obj[$key], $conditional['columns']);
 	        	}
 	        }
         }
@@ -2622,7 +2725,7 @@ class DataMapperAbstract implements DataMapperInterface
 
             if ($hasConditionals) {
 	        	foreach (static::$conditionals as $table => $conditional) {
-	            	$obj[$key] = self::populateAbstractArray(self::getConditionals($key, $table), $obj[$key], $conditional['values']);
+	            	$obj[$key] = self::populateAbstractArray(self::getConditionals($key, $table), $obj[$key], $conditional['columns']);
 	        	}
 	        }
         }
