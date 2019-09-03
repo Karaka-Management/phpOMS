@@ -81,6 +81,16 @@ class DataMapperAbstract implements DataMapperInterface
      * @since 1.0.0
      */
     protected static array $columns = [];
+    
+    /**
+     * Conditional.
+     *
+     * Most often used for localizations
+     *
+     * @var array<string, array<string, string>>
+     * @since 1.0.0
+     */
+    protected static array $conditionals = [];
 
     /**
      * Has many relation.
@@ -361,6 +371,7 @@ class DataMapperAbstract implements DataMapperInterface
 
         if ($relations === RelationType::ALL) {
             self::createHasMany($refClass, $obj, $objId);
+            self::createConditionals($refClass, $obj, $objId);
         }
 
         return $objId;
@@ -390,6 +401,7 @@ class DataMapperAbstract implements DataMapperInterface
 
         if ($relations === RelationType::ALL) {
             self::createHasManyArray($obj, $objId);
+            self::createConditionalsArray($refClass, $obj, $objId);
         }
 
         return $objId;
@@ -1401,6 +1413,7 @@ class DataMapperAbstract implements DataMapperInterface
 
         if ($relations === RelationType::ALL) {
             self::updateHasMany($refClass, $obj, $objId, --$depth);
+            self::updateConditionals($refClass, $obj, $objId);
         }
 
         if (empty($objId)) {
@@ -1447,6 +1460,7 @@ class DataMapperAbstract implements DataMapperInterface
 
         if ($relations === RelationType::ALL) {
             self::updateHasManyArray($obj, $objId, --$depth);
+            self::updateConditionalsArray($refClass, $obj, $objId);
         }
 
         if ($update) {
@@ -1662,12 +1676,15 @@ class DataMapperAbstract implements DataMapperInterface
 
         if ($relations !== RelationType::NONE) {
             self::deleteHasMany($refClass, $obj, $objId, $relations);
+            self::deleteConditionals($refClass, $obj, $objId);
         }
 
         self::deleteModel($obj, $objId, $relations, $refClass);
 
         return $objId;
     }
+
+    // @todo: implement todo delete 
 
     /**
      * Populate data.
@@ -1708,9 +1725,9 @@ class DataMapperAbstract implements DataMapperInterface
 
         foreach ($result as $element) {
             if (isset($element[static::$primaryField])) {
-                $row[$element[static::$primaryField]] = self::populateAbstractArray($element);
+                $row[$element[static::$primaryField]] = self::populateAbstractArray($element, [], static::$columns);
             } else {
-                $row[] = self::populateAbstractArray($element);
+                $row[] = self::populateAbstractArray($element, [], static::$columns);
             }
         }
 
@@ -1745,7 +1762,7 @@ class DataMapperAbstract implements DataMapperInterface
             $obj = new $class();
         }
 
-        return self::populateAbstract($result, $obj);
+        return self::populateAbstract($result, $obj, static::$columns);
     }
 
     /**
@@ -1856,6 +1873,39 @@ class DataMapperAbstract implements DataMapperInterface
     /**
      * Populate data.
      *
+     * @param mixed $obj   Object to add the relations to
+     *
+     * @return void
+     *
+     * @todo   accept reflection class as parameter
+     *
+     * @since  1.0.0
+     */
+    public static function getConditionals($key, string $table) : array
+    {
+        $query = new Builder(self::$db);
+	    $query->prefix(self::$db->getPrefix())
+	        ->select(...static::$conditionals[$table]['values'])
+	        ->from($table)
+	        ->where(static::$conditionals[$table]['dest'], '=', $key);
+
+	    foreach (static::$conditionals[$table]['filter'] as $column => $filter) {
+	        if ($filter !== null) {
+	        	$query->where($column, '=', $filter);
+	        }
+	    }
+
+        $sth = self::$db->con->prepare($query->toSql());
+        $sth->execute();
+
+        $results = $sth->fetch(\PDO::FETCH_ASSOC);
+
+        return $results === false ? [] : $results;
+    }
+
+    /**
+     * Populate data.
+     *
      * @param array $obj   Object to add the relations to
      * @param int   $depth Relation depth
      *
@@ -1958,12 +2008,12 @@ class DataMapperAbstract implements DataMapperInterface
      *
      * @since  1.0.0
      */
-    public static function populateAbstract(array $result, $obj)
+    public static function populateAbstract(array $result, $obj, array $columns)
     {
         $refClass = new \ReflectionClass($obj);
 
         foreach ($result as $column => $value) {
-            if (!isset(static::$columns[$column]['internal']) /* && $refClass->hasProperty(static::$columns[$column]['internal']) */) {
+            if (!isset($columns[$column]['internal']) /* && $refClass->hasProperty($columns[$column]['internal']) */) {
                 continue;
             }
 
@@ -1971,9 +2021,9 @@ class DataMapperAbstract implements DataMapperInterface
             $aValue    = [];
             $arrayPath = '';
 
-            if (\stripos(static::$columns[$column]['internal'], '/') !== false) {
+            if (\stripos($columns[$column]['internal'], '/') !== false) {
                 $hasPath = true;
-                $path    = \explode('/', static::$columns[$column]['internal']);
+                $path    = \explode('/', $columns[$column]['internal']);
                 $refProp = $refClass->getProperty($path[0]);
 
                 if (!($accessible = $refProp->isPublic())) {
@@ -1984,17 +2034,17 @@ class DataMapperAbstract implements DataMapperInterface
                 $arrayPath = \implode('/', $path);
                 $aValue    = $refProp->getValue($obj);
             } else {
-                $refProp = $refClass->getProperty(static::$columns[$column]['internal']);
+                $refProp = $refClass->getProperty($columns[$column]['internal']);
 
                 if (!($accessible = $refProp->isPublic())) {
                     $refProp->setAccessible(true);
                 }
             }
 
-            if (\in_array(static::$columns[$column]['type'], ['string', 'int', 'float', 'bool'])) {
+            if (\in_array($columns[$column]['type'], ['string', 'int', 'float', 'bool'])) {
                 // todo: what is this or condition for? seems to be wrong if obj null then it doesn't work anyways
                 if ($value !== null || $refProp->getValue($obj) !== null) {
-                    \settype($value, static::$columns[$column]['type']);
+                    \settype($value, $columns[$column]['type']);
                 }
 
                 if ($hasPath) {
@@ -2002,24 +2052,24 @@ class DataMapperAbstract implements DataMapperInterface
                 }
 
                 $refProp->setValue($obj, $value);
-            } elseif (static::$columns[$column]['type'] === 'DateTime') {
+            } elseif ($columns[$column]['type'] === 'DateTime') {
                 $value = $value === null ? null : new \DateTime($value);
                 if ($hasPath) {
                     $value = ArrayUtils::setArray($arrayPath, $aValue, $value, '/', true);
                 }
 
                 $refProp->setValue($obj, $value);
-            } elseif (static::$columns[$column]['type'] === 'Json') {
+            } elseif ($columns[$column]['type'] === 'Json') {
                 if ($hasPath) {
                     $value = ArrayUtils::setArray($arrayPath, $aValue, $value, '/', true);
                 }
 
                 $refProp->setValue($obj, \json_decode($value, true));
-            } elseif (static::$columns[$column]['type'] === 'Serializable') {
+            } elseif ($columns[$column]['type'] === 'Serializable') {
                 $member = $refProp->getValue($obj);
                 $member->unserialize($value);
             } else {
-                throw new \UnexpectedValueException('Value "' . static::$columns[$column]['type'] . '" is not supported.');
+                throw new \UnexpectedValueException('Value "' . $columns[$column]['type'] . '" is not supported.');
             }
 
             if (!$accessible) {
@@ -2039,12 +2089,11 @@ class DataMapperAbstract implements DataMapperInterface
      *
      * @since  1.0.0
      */
-    public static function populateAbstractArray(array $result) : array
+    public static function populateAbstractArray(array $result, array $obj, array $columns) : array
     {
-        $obj = [];
         foreach ($result as $column => $value) {
-            if (isset(static::$columns[$column]['internal'])) {
-                $path = static::$columns[$column]['internal'];
+            if (isset($columns[$column]['internal'])) {
+                $path = $columns[$column]['internal'];
                 if (\stripos($path, '/') !== false) {
                     $path = \explode('/', $path);
 
@@ -2052,11 +2101,11 @@ class DataMapperAbstract implements DataMapperInterface
                     $path = \implode('/', $path);
                 }
 
-                if (\in_array(static::$columns[$column]['type'], ['string', 'int', 'float', 'bool'])) {
-                    \settype($value, static::$columns[$column]['type']);
-                } elseif (static::$columns[$column]['type'] === 'DateTime') {
+                if (\in_array($columns[$column]['type'], ['string', 'int', 'float', 'bool'])) {
+                    \settype($value, $columns[$column]['type']);
+                } elseif ($columns[$column]['type'] === 'DateTime') {
                     $value = $value === null ? null : new \DateTime($value);
-                } elseif (static::$columns[$column]['type'] === 'Json') {
+                } elseif ($columns[$column]['type'] === 'Json') {
                     $value = \json_decode($value, true);
                 }
 
@@ -2184,7 +2233,7 @@ class DataMapperAbstract implements DataMapperInterface
                 continue;
             }
 
-            $obj[$value] = self::populateAbstractArray(self::getRaw($value));
+            $obj[$value] = self::populateAbstractArray(self::getRaw($value), [], static::$columns);
 
             self::addInitializedArray(static::class, $value, $obj[$value]);
         }
@@ -2492,11 +2541,12 @@ class DataMapperAbstract implements DataMapperInterface
             return;
         }
 
-        $hasMany   = !empty(static::$hasMany);
-        $ownsOne   = !empty(static::$ownsOne);
-        $belongsTo = !empty(static::$belongsTo);
+        $hasMany         = !empty(static::$hasMany);
+        $ownsOne         = !empty(static::$ownsOne);
+        $belongsTo       = !empty(static::$belongsTo);
+        $hasConditionals = !empty(static::$conditionals);
 
-        if (!($hasMany || $ownsOne || $belongsTo)) {
+        if (!($hasMany || $ownsOne || $belongsTo || $hasConditionals)) {
             return;
         }
 
@@ -2513,6 +2563,12 @@ class DataMapperAbstract implements DataMapperInterface
             if ($belongsTo) {
                 self::populateBelongsTo($obj[$key], $depth);
             }
+
+            if ($hasConditionals) {
+	        	foreach (static::$conditionals as $table => $conditional) {
+	            	$obj[$key] = self::populateAbstract(self::getConditionals($key, $table), $obj[$key], $conditional['values']);
+	        	}
+	        }
         }
     }
 
@@ -2537,12 +2593,17 @@ class DataMapperAbstract implements DataMapperInterface
             return;
         }
 
-        $hasMany   = !empty(static::$hasMany);
-        $ownsOne   = !empty(static::$ownsOne);
-        $belongsTo = !empty(static::$belongsTo);
+        $hasMany         = !empty(static::$hasMany);
+        $ownsOne         = !empty(static::$ownsOne);
+        $belongsTo       = !empty(static::$belongsTo);
+        $hasConditionals = !empty(static::$conditionals);
 
-        if (!($hasMany || $ownsOne || $belongsTo)) {
+        if (!($hasMany || $ownsOne || $belongsTo || $hasConditionals)) {
             return;
+        }
+
+        if ($conditionals) {
+            self::populateConditionalsArray();
         }
 
         foreach ($obj as $key => $value) {
@@ -2558,6 +2619,12 @@ class DataMapperAbstract implements DataMapperInterface
             if ($belongsTo) {
                 self::populateBelongsToArray($obj[$key], $depth);
             }
+
+            if ($hasConditionals) {
+	        	foreach (static::$conditionals as $table => $conditional) {
+	            	$obj[$key] = self::populateAbstractArray(self::getConditionals($key, $table), $obj[$key], $conditional['values']);
+	        	}
+	        }
         }
     }
 
