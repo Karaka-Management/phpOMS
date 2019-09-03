@@ -162,7 +162,7 @@ class Heap
         return \array_slice(\array_reverse($nodes), 0, $n);
     }
 
-    private function siftDown(int $start, int $pos) : void;
+    private function siftDown(int $start, int $pos) : void
     {
         $item = $this->nodes[$pos];
         while ($pos > $start) {
