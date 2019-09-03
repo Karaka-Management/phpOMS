@@ -57,7 +57,9 @@ class BaseModelMapper extends DataMapperAbstract
             'mapper'         => OwnsOneModelMapper::class,
             'dest'            => 'test_base_owns_one_self',
         ],
-    ];    /**
+    ];
+
+    /**
      * Has many relation.
      *
      * @var array<string, array<string, null|string>>
