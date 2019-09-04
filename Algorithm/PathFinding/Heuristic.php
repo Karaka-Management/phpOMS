@@ -14,6 +14,8 @@ declare(strict_types=1);
 
 namespace phpOMS\Algorithm\PathFinding;
 
+use phpOMS\Math\Topology\Metrics2D;
+
 /**
  * Node on grid.
  *
@@ -24,45 +26,22 @@ namespace phpOMS\Algorithm\PathFinding;
  */
 class Heuristic
 {
-    public static function heuristic(Node $node1, Node $node2, int $heuristic) : float
+    public static function heuristic(array $node1, array $node2, int $heuristic) : float
     {
         if ($heuristic === HeuristicType::MANHATTAN) {
-            return self::manhattan($node1, $node2);
+            return Metrics2D::manhattan($node1, $node2);
         } elseif ($heuristic === HeuristicType::EUCLIDEAN) {
-            return self::euclidean($node1, $node2);
+            return Metrics2D::euclidean($node1, $node2);
         } elseif ($heuristic === HeuristicType::OCTILE) {
-            return self::octile($node1, $node2);
+            return Metrics2D::octile($node1, $node2);
+        } elseif ($heuristic === HeuristicType::MINKOWSKI) {
+            return Metrics2D::minkowski($node1, $node2, 1);
+        } elseif ($heuristic === HeuristicType::CANBERRA) {
+            return Metrics2D::canberra($node1, $node2);
+        } elseif ($heuristic === HeuristicType::BRAY_CURTIS) {
+            return Metrics2D::brayCurtis($node1, $node2);
         }
 
-        return self::chebyshev($node1, $node2);
-    }
-
-    public static function manhattan(Node $node1, Node $node2) : float
-    {
-        return \abs($node1->getX() - $node2->getX()) + \abs($node1->getY() - $node2->getY());
-    }
-
-    public static function euclidean(Node $node1, Node $node2) : float
-    {
-        $dx = \abs($node1->getX() - $node2->getX());
-        $dy = \abs($node1->getY() - $node2->getY());
-
-        return \sqrt($dx * $dx + $dy * $dy);
-    }
-
-    public static function octile(Node $node1, Node $node2) : float
-    {
-        $dx = \abs($node1->getX() - $node2->getX());
-        $dy = \abs($node1->getY() - $node2->getY());
-
-        return $dx < $dy ? (\sqrt(2) - 1) * $dx + $dy : (\sqrt(2) - 1) * $dy + $dx;
-    }
-
-    public static function chebyshev(Node $node1, Node $node2) : float
-    {
-        return \max(
-            \abs($node1->getX() - $node2->getX()),
-            \abs($node1->getY() - $node2->getY())
-        );
+        return Metrics2D::chebyshev($node1, $node2);
     }
 }

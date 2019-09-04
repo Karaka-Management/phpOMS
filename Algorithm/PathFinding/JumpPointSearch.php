@@ -79,12 +79,12 @@ class JumpPointSearch implements PathFinderInterface
                 continue;
             }
 
-            $d  = Heuristic::octile($node, $jumpPoint);
+            $d  = Heuristic::heuristic($node->getCoordinates(), $jumpPoint->getCoordinates(), HeuristicType::OCTILE);
             $ng = $node->getG() + $d;
 
             if (!$jumpPoint->isOpened() || $ng < $jumpPoint->getG()) {
                 $jumpPoint->setG($ng);
-                $jumpPoint->setH($jumpPoint->getH() ?? Heuristic::heuristic($jumpPoint, $endNode, $heuristic));
+                $jumpPoint->setH($jumpPoint->getH() ?? Heuristic::heuristic($jumpPoint->getCoordinates(), $endNode->getCoordinates(), $heuristic));
                 $jumpPoint->setF($jumpPoint->getG() + $jumpPoint->getH());
                 $jumpPoint->setParent($node);
 

@@ -66,7 +66,7 @@ class JumpPointSearch implements PathFinderInterface
 
                 if (!$neighbor->isOpened() || $ng < $neighbor->getG()) {
                     $neighbor->setG($ng);
-                    $neighbor->setH($neighbor->getG() ?? $neighbor->getWeight() * Heuristic::heuristic($neighbor, $endNode, $heuristic));
+                    $neighbor->setH($neighbor->getG() ?? $neighbor->getWeight() * Heuristic::heuristic($neighbor->getCoordinates(), $endNode->getCoordinates(), $heuristic));
                     $neighbor->setF($neighbor->getG() + $neighbor->getH());
                     $neighbor->setParent($node);
 

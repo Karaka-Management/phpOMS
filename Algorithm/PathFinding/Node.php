@@ -72,4 +72,9 @@ class Node
     {
         return $this->x === $node->getX() && $this->y === $node->getY();
     }
+
+    public function getCoordinates() : array
+    {
+        return ['x' => $this->x, 'y' => $this->y];
+    }
 }
