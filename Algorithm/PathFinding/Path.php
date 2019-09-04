@@ -27,7 +27,7 @@ class Path
     public array $nodes = [];
     private float $weight = 0.0;
     private float $distance = 0.0;
-    private ?Grid $grid = null;
+    private Grid $grid;
 
     public function __construct(Grid $grid)
     {
@@ -42,7 +42,7 @@ class Path
     public function expandPath() : array
     {
         $reverse = \array_reverse($this->nodes);
-        $length  = count($reverse);
+        $length  = \count($reverse);
 
         if ($length < 2) {
             return $reverse;
@@ -54,7 +54,7 @@ class Path
             $coord1 = $reverse[$i + 1];
 
             $interpolated = $this->interpolate($coord0, $coord1);
-            $iLength      = count($interpolated);
+            $iLength      = \count($interpolated);
 
             $expanded = \array_merge($expanded, \array_slice($interpolated, 0, $iLength - 1));
         }

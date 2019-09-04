@@ -41,7 +41,7 @@ class JumpPointSearch implements PathFinderInterface
         $startNode->setF(0.0);
         $startNode->setOpened(true);
 
-        $openList = new Heap(function($node1, $node2) { return $node1->getF() - $nodeB->getF(); });
+        $openList = new Heap(function($node1, $node2) { return $node1->getF() - $node2->getF(); });
         $openList->push($startNode);
         $node = null;
 
@@ -72,7 +72,7 @@ class JumpPointSearch implements PathFinderInterface
 
                     if (!$neighbor->isOpened()) {
                         $openList->push($neighbor);
-                        $jumpPoint->setOpened(true);
+                        $neighbor->setOpened(true);
                     } else {
                         $openList->update($neighbor);
                     }
