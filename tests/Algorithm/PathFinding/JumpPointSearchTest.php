@@ -12,7 +12,7 @@
  */
  declare(strict_types=1);
 
-namespace phpOMS\tests\Algorithm\Sort;
+namespace phpOMS\tests\Algorithm\PathFinding;
 
 use phpOMS\Algorithm\PathFinding\Grid;
 use phpOMS\Algorithm\PathFinding\MovementType;

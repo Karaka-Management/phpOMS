@@ -41,10 +41,10 @@ final class AccountManager implements \Countable
     /**
      * Session.
      *
-     * @var null|SessionInterface
+     * @var SessionInterface
      * @since 1.0.0
      */
-    private ?SessionInterface $session = null;
+    private SessionInterface $session;
 
     /**
      * Constructor.
