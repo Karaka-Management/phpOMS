@@ -375,9 +375,44 @@ class PermissionAbstract implements \JsonSerializable
      *
      * @since  1.0.0
      */
-    public function hasPermission(int $permission) : bool
+    public function hasPermissionFlags(int $permission) : bool
     {
         return ($this->permission | $permission) === $this->permission;
+    }
+
+    /**
+     * Has permissions.
+     *
+     * Checks if the permission is defined
+     *
+     * @param int         $permission Permission to check
+     * @param null|int    $unit       Unit Unit to check (null if all are acceptable)
+     * @param null|string $app        App App to check  (null if all are acceptable)
+     * @param null|string $module     Module Module to check  (null if all are acceptable)
+     * @param null|int    $type       Type (e.g. customer) (null if all are acceptable)
+     * @param null|int    $element    (e.g. customer id) (null if all are acceptable)
+     * @param null|int    $component  (e.g. address) (null if all are acceptable)
+     *
+     * @return bool Returns true if the permission is set, false otherwise
+     *
+     * @since  1.0.0
+     */
+    public function hasPermission(
+        int $permission,
+        int $unit = null,
+        string $app = null,
+        string $module = null,
+        int $type = null,
+        int $element = null,
+        int $component = null
+    ) {
+        return ($unit === null || $this->unit === null || $this->unit === $unit)
+            && ($app === null || $this->app === null || $this->app === $app)
+            && ($module === null || $this->module === null || $this->module === $module)
+            && ($type === null || $this->type === null || $this->type === $type)
+            && ($element === null || $this->element === null || $this->element === $element)
+            && ($component === null || $this->component === null || $this->component === $component)
+            && ($this->permission | $permission) === $this->permission;
     }
 
     /**

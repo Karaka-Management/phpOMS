@@ -33,6 +33,14 @@ trait PermissionHandlingTrait
     protected array $permissions = [];
 
     /**
+     * Amount of permissions.
+     *
+     * @var int
+     * @since 1.0.0
+     */
+    private int $pLength = 0;
+
+    /**
      * Set permissions.
      *
      * The method accepts an array of permissions. All existing permissions are replaced.
@@ -46,6 +54,7 @@ trait PermissionHandlingTrait
     public function setPermissions(array $permissions) : void
     {
         $this->permissions = $permissions;
+        $this->pLength     = \count($this->permissions);
     }
 
     /**
@@ -68,6 +77,8 @@ trait PermissionHandlingTrait
                 $this->permissions[] = $permission;
             }
         }
+
+        $this->pLength = \count($this->permissions);
     }
 
     /**
@@ -84,6 +95,7 @@ trait PermissionHandlingTrait
     public function addPermission(PermissionAbstract $permission) : void
     {
         $this->permissions[] = $permission;
+        ++$this->permission;
     }
 
     /**
@@ -124,17 +136,10 @@ trait PermissionHandlingTrait
         int $element = null,
         int $component = null
     ) : bool {
-        $app = $app !== null ? \strtolower($app) : $app;
+        $app = $app !== null ? \strtolower($app) : $app; // @todo: maybe don't do this because this function get's called so often.
 
-        foreach ($this->permissions as $p) {
-            if (($unit === null || $p->getUnit() === $unit || $p->getUnit() === null)
-                && ($app === null || $p->getApp() === $app || $p->getApp() === null)
-                && ($module === null || $p->getModule() === $module || $p->getModule() === null)
-                && ($type === null || $p->getType() === $type || $p->getType() === null)
-                && ($element === null || $p->getElement() === $element || $p->getElement() === null)
-                && ($component === null || $p->getComponent() === $component || $p->getComponent() === null)
-                && ($p->getPermission() | $permission) === $p->getPermission()
-            ) {
+        for ($i = 0; $i < $this->pLength; ++$i) {
+            if ($this->permissions[$i]->hasPermission($permission, $unit, $app, $module, $type, $element, $component)) {
                 return true;
             }
         }

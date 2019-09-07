@@ -195,25 +195,21 @@ final class UriFactory
     {
         $parts = \explode('&', \str_replace('?', '&', $url));
 
-        if (\count($parts) >= 2) {
+        if (\count($parts) > 1) {
             $pars   = \array_slice($parts, 1);
-            $comps  = [];
             $length = \count($pars);
+            $url    = $parts[0];
+            $first  = true;
 
             for ($i = 0; $i < $length; ++$i) {
                 $spl = \explode('=', $pars[$i]);
 
                 if (isset($spl[1])) {
-                    $comps[$spl[0]] = $spl[1];
+                    $url .= $first ? '?' : '&';
+                    $url .= $spl[0] . '=' . $spl[1];
+                    $first = false;
                 }
             }
-
-            $pars = [];
-            foreach ($comps as $key => $value) {
-                $pars[] = $key . '=' . $value;
-            }
-
-            $url = $parts[0] . (empty($pars) ? '' : '?' . \implode('&', $pars));
         }
 
         return $url;
