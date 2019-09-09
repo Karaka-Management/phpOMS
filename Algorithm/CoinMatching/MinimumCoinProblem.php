@@ -61,7 +61,6 @@ class MinimumCoinProblem
                     ) {
                         $table[$i]     = $subRes + 1;
                         $usedCoins[$i] = $coins[$j] === null ? ($usedCoins[$i] ?? []) : \array_merge($usedCoins[$i - $coins[$j]] ?? [], [$coins[$j]]);
-						$coins[$j]     = null;
                     }
                 }
             }
