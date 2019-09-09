@@ -95,7 +95,7 @@ trait PermissionHandlingTrait
     public function addPermission(PermissionAbstract $permission) : void
     {
         $this->permissions[] = $permission;
-        ++$this->permission;
+        ++$this->pLength;
     }
 
     /**

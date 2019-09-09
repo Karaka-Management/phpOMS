@@ -28,13 +28,8 @@ class MinimumCoinProblemTest extends \PHPUnit\Framework\TestCase
     public function testMinimumCoins() : void
     {
         self::assertEquals(
-            [9, 6, 5, 1],
-            MinimumCoinProblem::getMinimumCoinsForValueI([6, 6, 5], 17)
-        );
-
-        self::assertEquals(
-            [9, 6, 5, 6, 1],
-            MinimumCoinProblem::getMinimumCoinsForValueI([6, 6, 5], 17)
+            [6, 6, 5],
+            MinimumCoinProblem::getMinimumCoinsForValueI([9, 6, 5, 6, 1], 17)
         );
     }
 }

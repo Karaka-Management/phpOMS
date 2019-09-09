@@ -24,7 +24,7 @@ namespace phpOMS\Stdlib\Base;
  */
 class Heap
 {
-    private \Closure $compare = null;
+    private \Closure $compare;
 
     private array $nodes = [];
 
@@ -39,7 +39,7 @@ class Heap
 
         while ($lo < $hi) {
             $mid = (int) \floor(($lo + $hi) / 2);
-            if ($this->compare($x, $this->node[$mid]) < 0) {
+            if (($this->compare)($x, $this->node[$mid]) < 0) {
                 $hi = $mid;
             } else {
                 $lo = $mid + 1;
@@ -102,7 +102,7 @@ class Heap
 
     public function pushpop($item)
     {
-        if (!empty($this->nodes) && $this->compare($this->nodes[0], $item) < 0) {
+        if (!empty($this->nodes) && ($this->compare)($this->nodes[0], $item) < 0) {
             $temp = $item;
             $item = $this->nodes[0];
             $this->nodes[0] = $temp;
@@ -149,17 +149,17 @@ class Heap
     public function getNLargest(int $n) : array
     {
         $nodes = $this->nodes;
-        \uasort($nodes, [$this, 'compare']);
+        \uasort($nodes, $this->compare);
 
-        return \array_slice($nodes, 0, $n);
+        return \array_slice(\array_reverse($nodes), 0, $n);
     }
 
     public function getNSmallest(int $n): array
     {
         $nodes = $this->nodes;
-        \uasort($nodes, [$this, 'compare']);
+        \uasort($nodes, $this->compare);
 
-        return \array_slice(\array_reverse($nodes), 0, $n);
+        return \array_slice($nodes, 0, $n);
     }
 
     private function siftDown(int $start, int $pos) : void
@@ -169,7 +169,7 @@ class Heap
             $pPos = ($pos - 1) >> 1;
             $parent = $this->nodes[$pPos];
 
-            if ($this->compare($item, $parent) < 0) {
+            if (($this->compare)($item, $parent) < 0) {
                 $this->nodes[$pos] = $parent;
                 $pos = $pPos;
 
@@ -192,7 +192,7 @@ class Heap
         while ($cPos < $ePos) {
             $rPos = $cPos + 1;
 
-            if ($rPos < $ePos && $this->compare($this->nodes[$cPos], $this->nodes[$rPos]) > -1) {
+            if ($rPos < $ePos && ($this->compare)($this->nodes[$cPos], $this->nodes[$rPos]) > -1) {
                 $cPos = $rPos;
             }
 

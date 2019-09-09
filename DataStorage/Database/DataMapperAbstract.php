@@ -31,7 +31,7 @@ use phpOMS\Utils\ArrayUtils;
  * @license    OMS License 1.0
  * @link       https://orange-management.org
  * @since      1.0.0
- * @todo: currently hasmany, owns one etc. are not using joins. In some cases this could improve the performance instead of separately querying the database 
+ * @todo: currently hasmany, owns one etc. are not using joins. In some cases this could improve the performance instead of separately querying the database
  */
 class DataMapperAbstract implements DataMapperInterface
 {
@@ -82,7 +82,7 @@ class DataMapperAbstract implements DataMapperInterface
      * @since 1.0.0
      */
     protected static array $columns = [];
-    
+
     /**
      * Conditional.
      *
@@ -379,6 +379,21 @@ class DataMapperAbstract implements DataMapperInterface
     }
 
     /**
+     * Create conditionals
+     *
+     * @param \ReflectionClass $refClass Reflection class
+     * @param object           $obj      Object to create
+     * @param mixed            $objId    Id to set
+     *
+     * @return void
+     *
+     * @since  1.0.0
+     */
+    private static function createConditionals(\ReflectionClass $refClass, object $obj, $objId): void
+    {
+    }
+
+    /**
      * Create object in db.
      *
      * @param array $obj       Object reference (gets filled with insert id)
@@ -402,7 +417,7 @@ class DataMapperAbstract implements DataMapperInterface
 
         if ($relations === RelationType::ALL) {
             self::createHasManyArray($obj, $objId);
-            self::createConditionalsArray($refClass, $obj, $objId);
+            self::createConditionalsArray($obj, $objId);
         }
 
         return $objId;
@@ -473,6 +488,20 @@ class DataMapperAbstract implements DataMapperInterface
         self::$db->con->prepare($query->toSql())->execute();
 
         return self::$db->con->lastInsertId();
+    }
+
+    /**
+     * Create conditionals
+     *
+     * @param array $obj   Object to create
+     * @param mixed $objId Id to set
+     *
+     * @return void
+     *
+     * @since  1.0.0
+     */
+    private static function createConditionalsArray(array &$obj, $objId): void
+    {
     }
 
     /**
@@ -1329,7 +1358,7 @@ class DataMapperAbstract implements DataMapperInterface
 
     private static function updateConditionals(object $obj, $objId, \ReflectionClass $refClass = null, int $relations = RelationType::ALL, int $depth = 1) : void
     {
-        foreach (static::$conditionals as $table => $contidional) {
+        foreach (static::$conditionals as $table => $conditional) {
     		$query = new Builder(self::$db);
 	        $query->prefix(self::$db->getPrefix())
 	            ->update($table)
@@ -1438,7 +1467,7 @@ class DataMapperAbstract implements DataMapperInterface
      */
     private static function updateConditionalsArray(array $obj, $objId, int $relations = RelationType::ALL, int $depth = 1) : void
     {
-    	foreach (static::$conditionals as $table => $contidional) {
+    	foreach (static::$conditionals as $table => $conditional) {
     		$query = new Builder(self::$db);
 	        $query->prefix(self::$db->getPrefix())
 	            ->update($table)
@@ -1497,7 +1526,7 @@ class DataMapperAbstract implements DataMapperInterface
 
         if ($relations === RelationType::ALL) {
             self::updateHasMany($refClass, $obj, $objId, --$depth);
-            self::updateConditionals($refClass, $obj, $objId);
+            self::updateConditionals($obj, $objId, $refClass);
         }
 
         if (empty($objId)) {
@@ -1544,7 +1573,7 @@ class DataMapperAbstract implements DataMapperInterface
 
         if ($relations === RelationType::ALL) {
             self::updateHasManyArray($obj, $objId, --$depth);
-            self::updateConditionalsArray($refClass, $obj, $objId);
+            self::updateConditionalsArray($obj, $objId);
         }
 
         if ($update) {
@@ -1787,7 +1816,7 @@ class DataMapperAbstract implements DataMapperInterface
         return $objId;
     }
 
-    // @todo: implement array delete 
+    // @todo: implement array delete
 
     /**
      * Populate data.
@@ -1981,6 +2010,7 @@ class DataMapperAbstract implements DataMapperInterface
      * @return void
      *
      * @todo   accept reflection class as parameter
+     * @todo   do this in the getRaw() part as a join. check if has conditionals and then join the data an then everything can be done in the getModel function.
      *
      * @since  1.0.0
      */
@@ -2705,7 +2735,7 @@ class DataMapperAbstract implements DataMapperInterface
             return;
         }
 
-        if ($conditionals) {
+        if ($hasConditionals) {
             self::populateConditionalsArray();
         }
 

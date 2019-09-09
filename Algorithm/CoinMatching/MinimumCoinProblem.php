@@ -54,23 +54,19 @@ class MinimumCoinProblem
         for ($i = 1; $i <= $value; ++$i) {
             for ($j = 0; $j < $m; ++$j) {
                 if ($coins[$j] <= $i) {
-					if ($coins[$j] === null) {
-						continue;
-					}
-
                     $subRes = $table[$i - $coins[$j]];
 
                     if ($subRes !== \PHP_INT_MAX
                         && $subRes + 1 < $table[$i]
                     ) {
-                        $table[$i]      = $subRes + 1;
-						$usedCoins[$i]  = \array_merge($usedCoins[$i - $coins[$j]], [$coins[$j]]);
-						$coins[$j]      = null;
+                        $table[$i]     = $subRes + 1;
+                        $usedCoins[$i] = $coins[$j] === null ? ($usedCoins[$i] ?? []) : \array_merge($usedCoins[$i - $coins[$j]] ?? [], [$coins[$j]]);
+						$coins[$j]     = null;
                     }
                 }
             }
         }
 
-        return $usedCoins[$value];
+        return $usedCoins[$value] ?? [];
 	}
 }

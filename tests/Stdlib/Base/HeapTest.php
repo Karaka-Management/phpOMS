@@ -76,7 +76,10 @@ class HeapTest extends \PHPUnit\Framework\TestCase
         }
 
         self::assertEquals(1, $heap->pushpop(6));
-        self::assertEquals([2, 3, 4, 5, 6], $heap->toArray());
+
+        $heapArray = $heap->toArray();
+        \sort($heapArray);
+        self::assertEquals([2, 3, 4, 5, 6], $heapArray);
     }
 
     public function testContains(): void
@@ -100,13 +103,13 @@ class HeapTest extends \PHPUnit\Framework\TestCase
         $heap = new Heap();
 
         $heap->push(1);
-        self::assertEqals(1, $heap->peek());
+        self::assertEquals(1, $heap->peek());
 
         $heap->push(2);
-        self::assertEqals(1, $heap->peek());
+        self::assertEquals(1, $heap->peek());
 
         $heap->pop();
-        self::assertEqals(2, $heap->peek());
+        self::assertEquals(2, $heap->peek());
     }
 
     public function testNSmallest() : void

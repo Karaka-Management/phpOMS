@@ -162,8 +162,8 @@ final class Metrics2D
      */
     public static function brayCurtis(array $a, array $b) : float
     {
-        return \abs($a['x'] - $b['x']) / ($a['x'] + $b['x'])
-            + \abs($a['y'] - $b['y']) / ($a['y'] + $b['y']);
+        return (\abs($a['x'] - $b['x']) + \abs($a['y'] - $b['y'])) / (($a['x'] + $b['x'])
+            + ($a['y'] + $b['y']));
     }
 
     /**
@@ -180,7 +180,7 @@ final class Metrics2D
      */
     public static function angularSeparation(array $a, array $b) : float
     {
-        return ($a['x'] * $b['x'] + $a['y'] * $b['y']) / (($a['x']**2 + $a['y']**2) * ($b['x'] ** 2 + $b['y'] ** 2));
+        return ($a['x'] * $b['x'] + $a['y'] * $b['y']) / pow(($a['x']**2 + $a['y']**2) * ($b['x'] ** 2 + $b['y'] ** 2), 1 / 2);
     }
 
     /**
@@ -191,13 +191,24 @@ final class Metrics2D
      * @param array $a 2-D array with x and y coordinate
      * @param array $b 2-D array with x and y coordinate
      *
-     * @return float
+     * @return int
      *
      * @since  1.0.0
      */
-    public static function hamming(array $a, array $b) : float
+    public static function hamming(array $a, array $b) : int
     {
-        return \abs($a['x'] - $b['x']) + \abs($a['y'] - $b['y']);
+        if (($size = \count($a)) !== \count($b)) {
+            throw new \Exception();
+        }
+
+        $dist = 0;
+        for ($i = 0; $i < $size; ++$i) {
+            if ($a[$i] !== $b[$i]) {
+                ++$dist;
+            }
+        }
+
+        return $dist;
     }
 
     /**
