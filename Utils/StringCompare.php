@@ -4,11 +4,11 @@
  *
  * PHP Version 7.4
  *
- * @package    phpOMS\Utils
- * @copyright  Dennis Eichhorn
- * @license    OMS License 1.0
- * @version    1.0.0
- * @link       https://orange-management.org
+ * @package   phpOMS\Utils
+ * @copyright Dennis Eichhorn
+ * @license   OMS License 1.0
+ * @version   1.0.0
+ * @link      https://orange-management.org
  */
 declare(strict_types=1);
 
@@ -19,17 +19,17 @@ namespace phpOMS\Utils;
  *
  * This class helps to compare two strings
  *
- * @package    phpOMS\Utils
- * @license    OMS License 1.0
- * @link       https://orange-management.org
- * @since      1.0.0
+ * @package phpOMS\Utils
+ * @license OMS License 1.0
+ * @link    https://orange-management.org
+ * @since   1.0.0
  */
 final class StringCompare
 {
     /**
      * Dictionary.
      *
-     * @var array
+     * @var   array
      * @since 1.0.0
      */
     private array $dictionary = [];
@@ -39,7 +39,7 @@ final class StringCompare
      *
      * @param array $dictionary Dictionary
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function __construct(array $dictionary)
     {
@@ -53,7 +53,7 @@ final class StringCompare
      *
      * @return void
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function add(string $word) : void
     {
@@ -67,7 +67,7 @@ final class StringCompare
      *
      * @return string Best match
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function matchDictionary(string $match) : string
     {
@@ -94,7 +94,7 @@ final class StringCompare
      *
      * @return int
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function valueWords(string $s1, string $s2) : int
     {
@@ -135,7 +135,7 @@ final class StringCompare
      *
      * @return int
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function valuePhrase(string $s1, string $s2) : int
     {
@@ -150,7 +150,7 @@ final class StringCompare
      *
      * @return int
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function valueLength(string $s1, string $s2) : int
     {
@@ -170,7 +170,7 @@ final class StringCompare
      *
      * @return float
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function fuzzyMatch(
         string $s1, string $s2,

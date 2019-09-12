@@ -4,11 +4,11 @@
  *
  * PHP Version 7.4
  *
- * @package    phpOMS\Config
- * @copyright  Dennis Eichhorn
- * @license    OMS License 1.0
- * @version    1.0.0
- * @link       https://orange-management.org
+ * @package   phpOMS\Config
+ * @copyright Dennis Eichhorn
+ * @license   OMS License 1.0
+ * @version   1.0.0
+ * @link      https://orange-management.org
  */
 declare(strict_types=1);
 
@@ -17,10 +17,10 @@ namespace phpOMS\Config;
 /**
  * Options class.
  *
- * @package    phpOMS\Config
- * @license    OMS License 1.0
- * @link       https://orange-management.org
- * @since      1.0.0
+ * @package phpOMS\Config
+ * @license OMS License 1.0
+ * @link    https://orange-management.org
+ * @since   1.0.0
  */
 interface OptionsInterface
 {
@@ -32,7 +32,7 @@ interface OptionsInterface
      *
      * @return bool
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function exists($key) : bool;
 
@@ -45,7 +45,7 @@ interface OptionsInterface
      *
      * @return bool
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function setOption($key, $value, bool $overwrite = true) : bool;
 
@@ -57,7 +57,7 @@ interface OptionsInterface
      *
      * @return bool
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function setOptions(array $pair, bool $overwrite = true) : bool;
 
@@ -68,7 +68,7 @@ interface OptionsInterface
      *
      * @return mixed Option value
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function getOption($key);
 }

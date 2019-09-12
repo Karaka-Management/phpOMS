@@ -4,11 +4,11 @@
  *
  * PHP Version 7.4
  *
- * @package    phpOMS\DataStorage\File
- * @copyright  Dennis Eichhorn
- * @license    OMS License 1.0
- * @version    1.0.0
- * @link       https://orange-management.org
+ * @package   phpOMS\DataStorage\File
+ * @copyright Dennis Eichhorn
+ * @license   OMS License 1.0
+ * @version   1.0.0
+ * @link      https://orange-management.org
  */
 declare(strict_types=1);
 
@@ -19,17 +19,17 @@ use phpOMS\DataStorage\Database\Query\JoinType;
 /**
  * Json query Jsonbuilder.
  *
- * @package    phpOMS\DataStorage\File
- * @license    OMS License 1.0
- * @link       https://orange-management.org
- * @since      1.0.0
+ * @package phpOMS\DataStorage\File
+ * @license OMS License 1.0
+ * @link    https://orange-management.org
+ * @since   1.0.0
  */
 final class JsonBuilder
 {
     /**
      * Is read only.
      *
-     * @var bool
+     * @var   bool
      * @since 1.0.0
      */
     private $isReadOnly = false;
@@ -37,7 +37,7 @@ final class JsonBuilder
     /**
      * Columns.
      *
-     * @var array
+     * @var   array
      * @since 1.0.0
      */
     private $selects = [];
@@ -45,7 +45,7 @@ final class JsonBuilder
     /**
      * Columns.
      *
-     * @var array
+     * @var   array
      * @since 1.0.0
      */
     private $updates = [];
@@ -53,7 +53,7 @@ final class JsonBuilder
     /**
      * Stupid work around because value needs to be not null for it to work in Grammar.
      *
-     * @var array
+     * @var   array
      * @since 1.0.0
      */
     private $deletes = [1];
@@ -61,7 +61,7 @@ final class JsonBuilder
     /**
      * Into.
      *
-     * @var \Closure|string
+     * @var   \Closure|string
      * @since 1.0.0
      */
     private $into = null;
@@ -69,7 +69,7 @@ final class JsonBuilder
     /**
      * Into columns.
      *
-     * @var array
+     * @var   array
      * @since 1.0.0
      */
     private $inserts = [];
@@ -77,7 +77,7 @@ final class JsonBuilder
     /**
      * Into columns.
      *
-     * @var array
+     * @var   array
      * @since 1.0.0
      */
     private $values = [];
@@ -85,7 +85,7 @@ final class JsonBuilder
     /**
      * Into columns.
      *
-     * @var array
+     * @var   array
      * @since 1.0.0
      */
     private $sets = [];
@@ -93,7 +93,7 @@ final class JsonBuilder
     /**
      * Distinct.
      *
-     * @var bool
+     * @var   bool
      * @since 1.0.0
      */
     private $distinct = false;
@@ -101,7 +101,7 @@ final class JsonBuilder
     /**
      * From.
      *
-     * @var array
+     * @var   array
      * @since 1.0.0
      */
     private $from = [];
@@ -109,7 +109,7 @@ final class JsonBuilder
     /**
      * Joins.
      *
-     * @var array
+     * @var   array
      * @since 1.0.0
      */
     private $joins = [];
@@ -117,7 +117,7 @@ final class JsonBuilder
     /**
      * Ons of joins.
      *
-     * @var array
+     * @var   array
      * @since 1.0.0
      */
     private $ons = [];
@@ -125,7 +125,7 @@ final class JsonBuilder
     /**
      * Where.
      *
-     * @var array
+     * @var   array
      * @since 1.0.0
      */
     private $wheres = [];
@@ -133,7 +133,7 @@ final class JsonBuilder
     /**
      * Group.
      *
-     * @var array
+     * @var   array
      * @since 1.0.0
      */
     private $groups = [];
@@ -141,7 +141,7 @@ final class JsonBuilder
     /**
      * Order.
      *
-     * @var array
+     * @var   array
      * @since 1.0.0
      */
     private $orders = [];
@@ -149,7 +149,7 @@ final class JsonBuilder
     /**
      * Limit.
      *
-     * @var int
+     * @var   int
      * @since 1.0.0
      */
     private $limit = null;
@@ -157,7 +157,7 @@ final class JsonBuilder
     /**
      * Offset.
      *
-     * @var int
+     * @var   int
      * @since 1.0.0
      */
     private $offset = null;
@@ -165,7 +165,7 @@ final class JsonBuilder
     /**
      * Binds.
      *
-     * @var array
+     * @var   array
      * @since 1.0.0
      */
     private $binds = [];
@@ -173,7 +173,7 @@ final class JsonBuilder
     /**
      * Union.
      *
-     * @var array
+     * @var   array
      * @since 1.0.0
      */
     private $unions = [];
@@ -181,7 +181,7 @@ final class JsonBuilder
     /**
      * Lock.
      *
-     * @var bool
+     * @var   bool
      * @since 1.0.0
      */
     private $lock = false;
@@ -189,7 +189,7 @@ final class JsonBuilder
     /**
      * Comparison OPERATORS.
      *
-     * @var string[]
+     * @var   string[]
      * @since 1.0.0
      */
     private const OPERATORS = [
@@ -225,7 +225,7 @@ final class JsonBuilder
     /**
      * Json grammar.
      *
-     * @var JsonGrammar
+     * @var   JsonGrammar
      * @since 1.0.0
      */
     private $grammar = null;
@@ -235,7 +235,7 @@ final class JsonBuilder
      *
      * @param bool $readOnly Query is read only
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function __construct(bool $readOnly = false)
     {
@@ -252,7 +252,7 @@ final class JsonBuilder
      *
      * @todo   Closure is not working this way, needs to be evaluated befor assigning
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function select(...$columns) : self
     {
@@ -278,7 +278,7 @@ final class JsonBuilder
      *
      * @todo   Closure is not working this way, needs to be evaluated befor assigning
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function random(...$columns) : self
     {
@@ -296,7 +296,7 @@ final class JsonBuilder
      *
      * @return JsonBuilder
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function bind($binds) : self
     {
@@ -316,7 +316,7 @@ final class JsonBuilder
      *
      * @return JsonBuilder
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function newQuery() : self
     {
@@ -328,7 +328,7 @@ final class JsonBuilder
      *
      * @return JsonBuilder
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function distinct() : self
     {
@@ -344,7 +344,7 @@ final class JsonBuilder
      *
      * @return JsonBuilder
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function from(...$tables) : self
     {
@@ -371,7 +371,7 @@ final class JsonBuilder
      *
      * @throws \InvalidArgumentException
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function where($columns, $operator = null, $values = null, $boolean = 'and') : self
     {
@@ -411,7 +411,7 @@ final class JsonBuilder
      *
      * @return null|array
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function getWhereByColumn($column) : ?array
     {
@@ -427,7 +427,7 @@ final class JsonBuilder
      *
      * @return JsonBuilder
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function andWhere($where, $operator = null, $values = null) : self
     {
@@ -443,7 +443,7 @@ final class JsonBuilder
      *
      * @return JsonBuilder
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function orWhere($where, $operator = null, $values = null) : self
     {
@@ -459,7 +459,7 @@ final class JsonBuilder
      *
      * @return JsonBuilder
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function whereIn($column, $values = null, string $boolean = 'and') : self
     {
@@ -476,7 +476,7 @@ final class JsonBuilder
      *
      * @return JsonBuilder
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function whereNull($column, string $boolean = 'and') : self
     {
@@ -493,7 +493,7 @@ final class JsonBuilder
      *
      * @return JsonBuilder
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function whereNotNull($column, string $boolean = 'and') : self
     {
@@ -509,7 +509,7 @@ final class JsonBuilder
      *
      * @return JsonBuilder
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function groupBy(...$columns) : self
     {
@@ -531,7 +531,7 @@ final class JsonBuilder
      *
      * @return JsonBuilder
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function newest($column) : self
     {
@@ -547,7 +547,7 @@ final class JsonBuilder
      *
      * @return JsonBuilder
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function oldest($column) : self
     {
@@ -564,7 +564,7 @@ final class JsonBuilder
      *
      * @return JsonBuilder
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function orderBy($columns, $order = 'DESC') : self
     {
@@ -596,7 +596,7 @@ final class JsonBuilder
      *
      * @return JsonBuilder
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function offset(int $offset) : self
     {
@@ -612,7 +612,7 @@ final class JsonBuilder
      *
      * @return JsonBuilder
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function limit(int $limit) : self
     {
@@ -628,7 +628,7 @@ final class JsonBuilder
      *
      * @return JsonBuilder
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function union($query) : self
     {
@@ -646,7 +646,7 @@ final class JsonBuilder
      *
      * @return void
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function lock() : void
     {
@@ -657,7 +657,7 @@ final class JsonBuilder
      *
      * @return void
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function lockUpdate() : void
     {
@@ -668,7 +668,7 @@ final class JsonBuilder
      *
      * @return void
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function find() : void
     {
@@ -681,7 +681,7 @@ final class JsonBuilder
      *
      * @return JsonBuilder
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function count(string $table = '*') : self
     {
@@ -694,7 +694,7 @@ final class JsonBuilder
      *
      * @return void
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function min() : void
     {
@@ -705,7 +705,7 @@ final class JsonBuilder
      *
      * @return void
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function max() : void
     {
@@ -716,7 +716,7 @@ final class JsonBuilder
      *
      * @return void
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function sum() : void
     {
@@ -727,7 +727,7 @@ final class JsonBuilder
      *
      * @return void
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function avg() : void
     {
@@ -742,7 +742,7 @@ final class JsonBuilder
      *
      * @throws \Exception
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function insert(...$columns) : self
     {
@@ -766,7 +766,7 @@ final class JsonBuilder
      *
      * @return JsonBuilder
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function into($table) : self
     {
@@ -782,7 +782,7 @@ final class JsonBuilder
      *
      * @return JsonBuilder
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function values(...$values) : self
     {
@@ -796,7 +796,7 @@ final class JsonBuilder
      *
      * @return array
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function getValues() : array
     {
@@ -810,7 +810,7 @@ final class JsonBuilder
      *
      * @return JsonBuilder
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function value($value) : self
     {
@@ -835,7 +835,7 @@ final class JsonBuilder
      *
      * @return JsonBuilder
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function sets(...$sets) : self
     {
@@ -851,7 +851,7 @@ final class JsonBuilder
      *
      * @return JsonBuilder
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function set($set) : self
     {
@@ -869,7 +869,7 @@ final class JsonBuilder
      *
      * @throws \Exception
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function update(...$tables) : self
     {
@@ -895,7 +895,7 @@ final class JsonBuilder
      *
      * @return JsonBuilder
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function delete() : self
     {
@@ -913,7 +913,7 @@ final class JsonBuilder
      *
      * @return void
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function increment() : void
     {
@@ -924,7 +924,7 @@ final class JsonBuilder
      *
      * @return void
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function decrement() : void
     {
@@ -935,7 +935,7 @@ final class JsonBuilder
      *
      * @return JsonBuilder
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function join($table, string $type = JoinType::JOIN) : self
     {
@@ -953,7 +953,7 @@ final class JsonBuilder
      *
      * @return JsonBuilder
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function leftJoin($column) : self
     {
@@ -965,7 +965,7 @@ final class JsonBuilder
      *
      * @return JsonBuilder
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function leftOuterJoin($column) : self
     {
@@ -977,7 +977,7 @@ final class JsonBuilder
      *
      * @return JsonBuilder
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function leftInnerJoin($column) : self
     {
@@ -989,7 +989,7 @@ final class JsonBuilder
      *
      * @return JsonBuilder
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function rightJoin($column) : self
     {
@@ -1001,7 +1001,7 @@ final class JsonBuilder
      *
      * @return JsonBuilder
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function rightOuterJoin($column) : self
     {
@@ -1013,7 +1013,7 @@ final class JsonBuilder
      *
      * @return JsonBuilder
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function rightInnerJoin($column) : self
     {
@@ -1025,7 +1025,7 @@ final class JsonBuilder
      *
      * @return JsonBuilder
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function outerJoin($column) : self
     {
@@ -1037,7 +1037,7 @@ final class JsonBuilder
      *
      * @return JsonBuilder
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function innerJoin($column) : self
     {
@@ -1049,7 +1049,7 @@ final class JsonBuilder
      *
      * @return JsonBuilder
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function crossJoin($column) : self
     {
@@ -1061,7 +1061,7 @@ final class JsonBuilder
      *
      * @return JsonBuilder
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function fullJoin($column) : self
     {
@@ -1073,7 +1073,7 @@ final class JsonBuilder
      *
      * @return JsonBuilder
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function fullOuterJoin($column) : self
     {
@@ -1085,7 +1085,7 @@ final class JsonBuilder
      *
      * @return JsonBuilder
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function on($columns, $operator = null, $values = null, $boolean = 'and') : self
     {
@@ -1126,7 +1126,7 @@ final class JsonBuilder
      *
      * @return JsonBuilder
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function orOn($columns, $operator = null, $values = null) : self
     {
@@ -1138,7 +1138,7 @@ final class JsonBuilder
      *
      * @return JsonBuilder
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function andOn($columns, $operator = null, $values = null) : self
     {
@@ -1150,7 +1150,7 @@ final class JsonBuilder
      *
      * @return mixed
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function execute()
     {

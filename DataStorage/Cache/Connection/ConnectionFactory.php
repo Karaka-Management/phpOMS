@@ -4,11 +4,11 @@
  *
  * PHP Version 7.4
  *
- * @package    phpOMS\DataStorage\Cache\Connection
- * @copyright  Dennis Eichhorn
- * @license    OMS License 1.0
- * @version    1.0.0
- * @link       https://orange-management.org
+ * @package   phpOMS\DataStorage\Cache\Connection
+ * @copyright Dennis Eichhorn
+ * @license   OMS License 1.0
+ * @version   1.0.0
+ * @link      https://orange-management.org
  */
 declare(strict_types=1);
 
@@ -19,10 +19,10 @@ use phpOMS\DataStorage\Cache\CacheType;
 /**
  * Cache connection factory.
  *
- * @package    phpOMS\DataStorage\Cache\Connection
- * @license    OMS License 1.0
- * @link       https://orange-management.org
- * @since      1.0.0
+ * @package phpOMS\DataStorage\Cache\Connection
+ * @license OMS License 1.0
+ * @link    https://orange-management.org
+ * @since   1.0.0
  */
 class ConnectionFactory
 {
@@ -30,7 +30,7 @@ class ConnectionFactory
     /**
      * Constructor.
      *
-     * @since  1.0.0
+     * @since 1.0.0
      * @codeCoverageIgnore
      */
     private function __construct()
@@ -46,7 +46,7 @@ class ConnectionFactory
      *
      * @throws \InvalidArgumentException throws this exception if the cache is not supported
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function create(array $cacheData) : ConnectionInterface
     {

@@ -4,11 +4,11 @@
  *
  * PHP Version 7.4
  *
- * @package    phpOMS\Math\Statistic
- * @copyright  Dennis Eichhorn
- * @license    OMS License 1.0
- * @version    1.0.0
- * @link       https://orange-management.org
+ * @package   phpOMS\Math\Statistic
+ * @copyright Dennis Eichhorn
+ * @license   OMS License 1.0
+ * @version   1.0.0
+ * @link      https://orange-management.org
  */
 declare(strict_types=1);
 
@@ -20,17 +20,17 @@ use phpOMS\Math\Matrix\Exception\InvalidDimensionException;
 /**
  * Measure of dispersion.
  *
- * @package    phpOMS\Math\Statistic
- * @license    OMS License 1.0
- * @link       https://orange-management.org
- * @since      1.0.0
+ * @package phpOMS\Math\Statistic
+ * @license OMS License 1.0
+ * @link    https://orange-management.org
+ * @since   1.0.0
  */
 final class MeasureOfDispersion
 {
     /**
      * Constructor.
      *
-     * @since  1.0.0
+     * @since 1.0.0
      * @codeCoverageIgnore
      */
     private function __construct()
@@ -47,7 +47,7 @@ final class MeasureOfDispersion
      *
      * @return float
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function range(array $values) : float
     {
@@ -70,7 +70,7 @@ final class MeasureOfDispersion
      *
      * @throws ZeroDevisionException This exception is thrown if the mean is 0
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function empiricalVariationCoefficient(array $values, float $mean = null) : float
     {
@@ -95,7 +95,7 @@ final class MeasureOfDispersion
      *
      * @return float
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function standardDeviation(array $values, float $mean = null) : float
     {
@@ -125,7 +125,7 @@ final class MeasureOfDispersion
      *
      * @throws ZeroDevisionException This exception is thrown if the size of the values array is less than 2
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function sampleVariance(array $values, float $mean = null) : float
     {
@@ -155,7 +155,7 @@ final class MeasureOfDispersion
      *
      * @throws ZeroDevisionException This exception is thrown if the values array is empty
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function empiricalVariance(array $values, array $probabilities = [], float $mean = null) : float
     {
@@ -193,7 +193,7 @@ final class MeasureOfDispersion
      * @throws ZeroDevisionException     This exception is thrown if the size of the x array is less than 2
      * @throws InvalidDimensionException This exception is thrown if x and y have different dimensions
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function empiricalCovariance(array $x, array $y, float $meanX = null, float $meanY = null) : float
     {
@@ -226,7 +226,7 @@ final class MeasureOfDispersion
      *
      * @return float
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function getIQR(array $x) : float
     {
@@ -256,7 +256,7 @@ final class MeasureOfDispersion
      *
      * @return float
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function meanDeviation(array $x, float $mean = null) : float
     {
@@ -278,7 +278,7 @@ final class MeasureOfDispersion
      *
      * @return float
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function meanAbsoluteDeviation(array $x, float $mean = null) : float
     {
@@ -300,7 +300,7 @@ final class MeasureOfDispersion
      *
      * @return float
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function squaredMeanDeviation(array $x, float $mean = null) : float
     {

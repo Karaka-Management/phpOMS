@@ -4,11 +4,11 @@
  *
  * PHP Version 7.4
  *
- * @package    phpOMS\DataStorage\Database\Query
- * @copyright  Dennis Eichhorn
- * @license    OMS License 1.0
- * @version    1.0.0
- * @link       https://orange-management.org
+ * @package   phpOMS\DataStorage\Database\Query
+ * @copyright Dennis Eichhorn
+ * @license   OMS License 1.0
+ * @version   1.0.0
+ * @link      https://orange-management.org
  */
 declare(strict_types=1);
 
@@ -17,10 +17,10 @@ namespace phpOMS\DataStorage\Database\Query;
 /**
  * Database query builder.
  *
- * @package    phpOMS\DataStorage\Database\Query
- * @license    OMS License 1.0
- * @link       https://orange-management.org
- * @since      1.0.0
+ * @package phpOMS\DataStorage\Database\Query
+ * @license OMS License 1.0
+ * @link    https://orange-management.org
+ * @since   1.0.0
  */
 class Column
 {
@@ -28,7 +28,7 @@ class Column
     /**
      * Column name.
      *
-     * @var string
+     * @var   string
      * @since 1.0.0
      */
     private string $column = '';
@@ -38,7 +38,7 @@ class Column
      *
      * @param string $column Column
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function __construct(string $column)
     {
@@ -50,7 +50,7 @@ class Column
      *
      * @return string
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function getColumn() : string
     {

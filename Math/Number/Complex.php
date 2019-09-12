@@ -4,11 +4,11 @@
  *
  * PHP Version 7.4
  *
- * @package    phpOMS\Math\Number
- * @copyright  Dennis Eichhorn
- * @license    OMS License 1.0
- * @version    1.0.0
- * @link       https://orange-management.org
+ * @package   phpOMS\Math\Number
+ * @copyright Dennis Eichhorn
+ * @license   OMS License 1.0
+ * @version   1.0.0
+ * @link      https://orange-management.org
  */
 declare(strict_types=1);
 
@@ -17,17 +17,17 @@ namespace phpOMS\Math\Number;
 /**
  * Complex number class.
  *
- * @package    phpOMS\Math\Number
- * @license    OMS License 1.0
- * @link       https://orange-management.org
- * @since      1.0.0
+ * @package phpOMS\Math\Number
+ * @license OMS License 1.0
+ * @link    https://orange-management.org
+ * @since   1.0.0
  */
 final class Complex
 {
     /**
      * Real part.
      *
-     * @var mixed
+     * @var   mixed
      * @since 1.0.0
      */
     private $re = null;
@@ -35,7 +35,7 @@ final class Complex
     /**
      * Imaginary part.
      *
-     * @var mixed
+     * @var   mixed
      * @since 1.0.0
      */
     private $im = null;
@@ -46,7 +46,7 @@ final class Complex
      * @param mixed $re Real part
      * @param mixed $im Imaginary part
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function __construct($re = 0, $im = 0)
     {
@@ -59,7 +59,7 @@ final class Complex
      *
      * @return mixed
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function re()
     {
@@ -71,7 +71,7 @@ final class Complex
      *
      * @return mixed
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function im()
     {
@@ -85,7 +85,7 @@ final class Complex
      *
      * @return Complex
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function conjugate() : self
     {
@@ -97,7 +97,7 @@ final class Complex
      *
      * @return Complex
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function reciprocal() : self
     {
@@ -112,7 +112,7 @@ final class Complex
      *
      * @return Complex
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function sqrt() : self
     {
@@ -127,7 +127,7 @@ final class Complex
      *
      * @return mixed
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function abs()
     {
@@ -139,7 +139,7 @@ final class Complex
      *
      * @return Complex
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function square() : self
     {
@@ -155,7 +155,7 @@ final class Complex
      *
      * @throws \InvalidArgumentException This exception is thrown if the argument has an invalid type
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function pow($value) : self
     {
@@ -182,7 +182,7 @@ final class Complex
      *
      * @return Complex
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function powInteger(int $value) : self
     {
@@ -209,7 +209,7 @@ final class Complex
      *
      * @throws \InvalidArgumentException This exception is thrown if the argument has an invalid type
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function add($value) : self
     {
@@ -229,7 +229,7 @@ final class Complex
      *
      * @return Complex
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     private function addComplex(self $cpl) : self
     {
@@ -243,7 +243,7 @@ final class Complex
      *
      * @return Complex
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     private function addScalar($val) : self
     {
@@ -259,7 +259,7 @@ final class Complex
      *
      * @throws \InvalidArgumentException This exception is thrown if the argument has an invalid type
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function sub($value) : self
     {
@@ -279,7 +279,7 @@ final class Complex
      *
      * @return Complex
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     private function subComplex(self $cpl) : self
     {
@@ -293,7 +293,7 @@ final class Complex
      *
      * @return Complex
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     private function subScalar($val) : self
     {
@@ -309,7 +309,7 @@ final class Complex
      *
      * @throws \InvalidArgumentException This exception is thrown if the argument has an invalid type
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function mult($value) : self
     {
@@ -329,7 +329,7 @@ final class Complex
      *
      * @return Complex
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     private function multComplex(self $cpl) : self
     {
@@ -346,7 +346,7 @@ final class Complex
      *
      * @return Complex
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     private function multScalar($val) : self
     {
@@ -362,7 +362,7 @@ final class Complex
      *
      * @throws \InvalidArgumentException This exception is thrown if the argument has an invalid type
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function div($value) : self
     {
@@ -382,7 +382,7 @@ final class Complex
      *
      * @return Complex
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     private function divComplex(self $cpl) : self
     {
@@ -399,7 +399,7 @@ final class Complex
      *
      * @return Complex
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     private function divScalar($val) : self
     {
@@ -413,7 +413,7 @@ final class Complex
      *
      * @return string
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function render(int $precision = 2) : string
     {

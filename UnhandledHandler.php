@@ -4,11 +4,11 @@
  *
  * PHP Version 7.4
  *
- * @package    phpOMS
- * @copyright  Dennis Eichhorn
- * @license    OMS License 1.0
- * @version    1.0.0
- * @link       https://orange-management.org
+ * @package   phpOMS
+ * @copyright Dennis Eichhorn
+ * @license   OMS License 1.0
+ * @version   1.0.0
+ * @link      https://orange-management.org
  */
 declare(strict_types=1);
 
@@ -32,7 +32,7 @@ final class UnhandledHandler
      *
      * @return void
      *
-     * @since  1.0.0
+     * @since 1.0.0
      * @codeCoverageIgnore
      */
     public static function exceptionHandler(\Throwable $e) : void
@@ -55,7 +55,7 @@ final class UnhandledHandler
      *
      * @return bool Returns true if the error could be logged otherwise false is returned
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function errorHandler(int $errno, string $errstr, string $errfile, int $errline) : bool
     {
@@ -83,7 +83,7 @@ final class UnhandledHandler
      *
      * @return void
      *
-     * @since  1.0.0
+     * @since 1.0.0
      * @codeCoverageIgnore
      */
     public static function shutdownHandler() : void

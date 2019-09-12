@@ -4,11 +4,11 @@
  *
  * PHP Version 7.4
  *
- * @package    phpOMS\Config
- * @copyright  Dennis Eichhorn
- * @license    OMS License 1.0
- * @version    1.0.0
- * @link       https://orange-management.org
+ * @package   phpOMS\Config
+ * @copyright Dennis Eichhorn
+ * @license   OMS License 1.0
+ * @version   1.0.0
+ * @link      https://orange-management.org
  */
 declare(strict_types=1);
 
@@ -24,10 +24,10 @@ use phpOMS\DataStorage\Database\Connection\ConnectionAbstract;
  *
  * Responsible for providing a database/cache bound settings manger
  *
- * @package    phpOMS\Config
- * @license    OMS License 1.0
- * @link       https://orange-management.org
- * @since      1.0.0
+ * @package phpOMS\Config
+ * @license OMS License 1.0
+ * @link    https://orange-management.org
+ * @since   1.0.0
  */
 abstract class SettingsAbstract implements OptionsInterface
 {
@@ -36,7 +36,7 @@ abstract class SettingsAbstract implements OptionsInterface
     /**
      * Cache manager (pool).
      *
-     * @var null|CachePool
+     * @var   null|CachePool
      * @since 1.0.0
      */
     protected ?CachePool $cache = null;
@@ -44,7 +44,7 @@ abstract class SettingsAbstract implements OptionsInterface
     /**
      * Database connection instance.
      *
-     * @var null|ConnectionAbstract
+     * @var   null|ConnectionAbstract
      * @since 1.0.0
      */
     protected ?ConnectionAbstract $connection = null;
@@ -52,7 +52,7 @@ abstract class SettingsAbstract implements OptionsInterface
     /**
      * Settings table.
      *
-     * @var null|string
+     * @var   null|string
      * @since 1.0.0
      */
     protected static ?string $table = null;
@@ -60,7 +60,7 @@ abstract class SettingsAbstract implements OptionsInterface
     /**
      * Columns to identify the value.
      *
-     * @var string[]
+     * @var   string[]
      * @since 1.0.0
      */
     protected static array $columns = [
@@ -70,7 +70,7 @@ abstract class SettingsAbstract implements OptionsInterface
     /**
      * Field where the actual value is stored.
      *
-     * @var string
+     * @var   string
      * @since 1.0.0
      */
     protected string $valueField = 'option';
@@ -82,7 +82,7 @@ abstract class SettingsAbstract implements OptionsInterface
      *
      * @return mixed Option value
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function get($columns)
     {
@@ -133,7 +133,7 @@ abstract class SettingsAbstract implements OptionsInterface
      *
      * @return void
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function set(array $options, bool $store = false) : void
     {

@@ -4,11 +4,11 @@
  *
  * PHP Version 7.4
  *
- * @package    phpOMS\DataStorage\Database
- * @copyright  Dennis Eichhorn
- * @license    OMS License 1.0
- * @version    1.0.0
- * @link       https://orange-management.org
+ * @package   phpOMS\DataStorage\Database
+ * @copyright Dennis Eichhorn
+ * @license   OMS License 1.0
+ * @version   1.0.0
+ * @link      https://orange-management.org
  */
 declare(strict_types=1);
 
@@ -19,17 +19,17 @@ use phpOMS\DataStorage\Database\Query\QueryType;
 /**
  * Grammar.
  *
- * @package    phpOMS\DataStorage\Database
- * @license    OMS License 1.0
- * @link       https://orange-management.org
- * @since      1.0.0
+ * @package phpOMS\DataStorage\Database
+ * @license OMS License 1.0
+ * @link    https://orange-management.org
+ * @since   1.0.0
  */
 abstract class GrammarAbstract
 {
     /**
      * Comment style.
      *
-     * @var string
+     * @var   string
      * @since 1.0.0
      */
     protected string $comment = '--';
@@ -37,7 +37,7 @@ abstract class GrammarAbstract
     /**
      * String quotes style.
      *
-     * @var string
+     * @var   string
      * @since 1.0.0
      */
     protected string $valueQuotes = '\'';
@@ -45,7 +45,7 @@ abstract class GrammarAbstract
     /**
      * System identifier.
      *
-     * @var string
+     * @var   string
      * @since 1.0.0
      */
     protected string $systemIdentifier = '"';
@@ -53,7 +53,7 @@ abstract class GrammarAbstract
     /**
      * And operator.
      *
-     * @var string
+     * @var   string
      * @since 1.0.0
      */
     protected string $and = 'AND';
@@ -61,7 +61,7 @@ abstract class GrammarAbstract
     /**
      * Or operator.
      *
-     * @var string
+     * @var   string
      * @since 1.0.0
      */
     protected string $or = 'OR';
@@ -69,7 +69,7 @@ abstract class GrammarAbstract
     /**
      * Table prefix.
      *
-     * @var string
+     * @var   string
      * @since 1.0.0
      */
     protected string $tablePrefix = '';
@@ -77,7 +77,7 @@ abstract class GrammarAbstract
     /**
      * Special keywords.
      *
-     * @var array
+     * @var   array
      * @since 1.0.0
      */
     protected array $specialKeywords = [
@@ -91,7 +91,7 @@ abstract class GrammarAbstract
      *
      * @return string
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function compileQuery(BuilderAbstract $query) : string
     {
@@ -116,7 +116,7 @@ abstract class GrammarAbstract
      *
      * @throws \InvalidArgumentException
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     protected function compileComponents(BuilderAbstract $query) : array
     {
@@ -147,7 +147,7 @@ abstract class GrammarAbstract
      *
      * @throws \InvalidArgumentException Throws this exception if the query type is undefined
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     abstract protected function getComponents(int $type) : array;
 
@@ -156,7 +156,7 @@ abstract class GrammarAbstract
      *
      * @return string
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function getDateFormat() : string
     {
@@ -168,7 +168,7 @@ abstract class GrammarAbstract
      *
      * @return string
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function getTablePrefix() : string
     {
@@ -182,7 +182,7 @@ abstract class GrammarAbstract
      *
      * @return void
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function setTablePrefix(string $prefix) : void
     {
@@ -198,7 +198,7 @@ abstract class GrammarAbstract
      *
      * @return string
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     protected function expressionizeTableColumn(array $elements, string $prefix = '', bool $column = true) : string
     {
@@ -232,7 +232,7 @@ abstract class GrammarAbstract
      *
      * @return string
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     protected function compileSystem(string $system, string $prefix = '') : string
     {

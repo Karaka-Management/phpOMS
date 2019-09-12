@@ -4,11 +4,11 @@
  *
  * PHP Version 7.4
  *
- * @package    phpOMS\Module
- * @copyright  Dennis Eichhorn
- * @license    OMS License 1.0
- * @version    1.0.0
- * @link       https://orange-management.org
+ * @package   phpOMS\Module
+ * @copyright Dennis Eichhorn
+ * @license   OMS License 1.0
+ * @version   1.0.0
+ * @link      https://orange-management.org
  */
 declare(strict_types=1);
 
@@ -22,10 +22,10 @@ use phpOMS\System\MimeType;
 /**
  * Module abstraction class.
  *
- * @package    phpOMS\Module
- * @license    OMS License 1.0
- * @link       https://orange-management.org
- * @since      1.0.0
+ * @package phpOMS\Module
+ * @license OMS License 1.0
+ * @link    https://orange-management.org
+ * @since   1.0.0
  *
  * @todo: maybe move to Modules because this is very project specific and not general enough for a framework
  * @todo: maybe move all of the Module\classes parts to the Modules\?
@@ -36,7 +36,7 @@ abstract class ModuleAbstract
     /**
      * Module name.
      *
-     * @var string
+     * @var   string
      * @since 1.0.0
      */
     public const MODULE_NAME = '';
@@ -44,7 +44,7 @@ abstract class ModuleAbstract
     /**
      * Module path.
      *
-     * @var string
+     * @var   string
      * @since 1.0.0
      */
     public const MODULE_PATH = __DIR__ . '/../../Modules';
@@ -52,7 +52,7 @@ abstract class ModuleAbstract
     /**
      * Module version.
      *
-     * @var string
+     * @var   string
      * @since 1.0.0
      */
     public const MODULE_VERSION = '1.0.0';
@@ -60,7 +60,7 @@ abstract class ModuleAbstract
     /**
      * Module id.
      *
-     * @var string
+     * @var   string
      * @since 1.0.0
      */
     public const MODULE_ID = 0;
@@ -68,7 +68,7 @@ abstract class ModuleAbstract
     /**
      * Receiving modules from?
      *
-     * @var string[]
+     * @var   string[]
      * @since 1.0.0
      */
     protected static array $providing = [];
@@ -76,7 +76,7 @@ abstract class ModuleAbstract
     /**
      * Localization files.
      *
-     * @var array
+     * @var   array
      * @since 1.0.0
      */
     protected static array $localization = [];
@@ -84,7 +84,7 @@ abstract class ModuleAbstract
     /**
      * Dependencies.
      *
-     * @var string[]
+     * @var   string[]
      * @since 1.0.0
      */
     protected static array $dependencies = [];
@@ -92,7 +92,7 @@ abstract class ModuleAbstract
     /**
      * Receiving modules from?
      *
-     * @var string[]
+     * @var   string[]
      * @since 1.0.0
      */
     protected array $receiving = [];
@@ -100,7 +100,7 @@ abstract class ModuleAbstract
     /**
      * Application instance.
      *
-     * @var null|ApplicationAbstract
+     * @var   null|ApplicationAbstract
      * @since 1.0.0
      */
     protected ?ApplicationAbstract $app = null;
@@ -110,7 +110,7 @@ abstract class ModuleAbstract
      *
      * @param null|ApplicationAbstract $app Application instance
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function __construct(ApplicationAbstract $app = null)
     {
@@ -125,7 +125,7 @@ abstract class ModuleAbstract
      *
      * @return array<string, array<string, string>>
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function getLocalization(string $language, string $destination) : array
     {
@@ -145,7 +145,7 @@ abstract class ModuleAbstract
      *
      * @return void
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function addReceiving(string $module) : void
     {
@@ -157,7 +157,7 @@ abstract class ModuleAbstract
      *
      * @return array<int, string>
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function getProviding() : array
     {
@@ -170,7 +170,7 @@ abstract class ModuleAbstract
      *
      * @return string
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function getName() : string
     {
@@ -183,7 +183,7 @@ abstract class ModuleAbstract
      *
      * @return array
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function getDependencies() : array
     {
@@ -203,7 +203,7 @@ abstract class ModuleAbstract
      *
      * @return void
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     protected function fillJsonResponse(
         RequestAbstract $request,
@@ -232,7 +232,7 @@ abstract class ModuleAbstract
      *
      * @return void
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     protected function fillJsonRawResponse(RequestAbstract $request, ResponseAbstract $response, $obj) : void
     {
@@ -250,7 +250,7 @@ abstract class ModuleAbstract
      *
      * @return void
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     protected function createModel(int $account, $obj, string $mapper, string $trigger) : void
     {
@@ -275,7 +275,7 @@ abstract class ModuleAbstract
      *
      * @return void
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     protected function updateModel(RequestAbstract $request, $old, $new, $mapper, string $trigger) : void
     {
@@ -303,7 +303,7 @@ abstract class ModuleAbstract
      *
      * @return void
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     protected function deleteModel(RequestAbstract $request, $obj, string $mapper, string $trigger) : void
     {
@@ -329,7 +329,7 @@ abstract class ModuleAbstract
      *
      * @return void
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     protected function createModelRelation(RequestAbstract $request, $rel1, $rel2, string $mapper, string $field, string $trigger) : void
     {

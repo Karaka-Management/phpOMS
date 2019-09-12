@@ -4,11 +4,11 @@
  *
  * PHP Version 7.4
  *
- * @package    phpOMS\DataStorage\Cache\Connection
- * @copyright  Dennis Eichhorn
- * @license    OMS License 1.0
- * @version    1.0.0
- * @link       https://orange-management.org
+ * @package   phpOMS\DataStorage\Cache\Connection
+ * @copyright Dennis Eichhorn
+ * @license   OMS License 1.0
+ * @version   1.0.0
+ * @link      https://orange-management.org
  */
 declare(strict_types=1);
 
@@ -35,10 +35,10 @@ use phpOMS\System\File\Local\File;
  *      delimiter (1 byte)
  *      data (n bytes)
  *
- * @package    phpOMS\DataStorage\Cache\Connection
- * @license    OMS License 1.0
- * @link       https://orange-management.org
- * @since      1.0.0
+ * @package phpOMS\DataStorage\Cache\Connection
+ * @license OMS License 1.0
+ * @link    https://orange-management.org
+ * @since   1.0.0
  */
 class FileCache extends ConnectionAbstract
 {
@@ -50,7 +50,7 @@ class FileCache extends ConnectionAbstract
     /**
      * Delimiter for cache meta data
      *
-     * @var string
+     * @var   string
      * @since 1.0.0
      */
     private const DELIM = '$';
@@ -58,7 +58,7 @@ class FileCache extends ConnectionAbstract
     /**
      * File path sanitizer
      *
-     * @var string
+     * @var   string
      * @since 1.0.0
      */
     private const SANITIZE = '~';
@@ -66,7 +66,7 @@ class FileCache extends ConnectionAbstract
     /**
      * Only cache if data is larger than threshold (0-100).
      *
-     * @var int
+     * @var   int
      * @since 1.0.0
      */
     private int $threshold = 50;
@@ -76,7 +76,7 @@ class FileCache extends ConnectionAbstract
      *
      * @param string $path Cache path
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function __construct(string $path)
     {
@@ -184,7 +184,7 @@ class FileCache extends ConnectionAbstract
      *
      * @return string
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     private function build($value, int $expire) : string
     {
@@ -203,7 +203,7 @@ class FileCache extends ConnectionAbstract
      *
      * @throws \InvalidArgumentException This exception is thrown if an unsupported datatype is used
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     private function dataType($value) : int
     {
@@ -238,7 +238,7 @@ class FileCache extends ConnectionAbstract
      *
      * @throws InvalidEnumValue This exception is thrown if an unsupported cache value type is used
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     private function stringify($value, int $type) : string
     {
@@ -266,7 +266,7 @@ class FileCache extends ConnectionAbstract
      *
      * @return int
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     private function getExpire(string $raw) : int
     {
@@ -331,7 +331,7 @@ class FileCache extends ConnectionAbstract
      *
      * @return mixed
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     private function reverseValue(int $type, string $raw, int $expireEnd)
     {
@@ -465,7 +465,7 @@ class FileCache extends ConnectionAbstract
      *
      * @return string Path to cache file
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     private function getPath($key) : string
     {

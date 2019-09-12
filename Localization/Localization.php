@@ -4,11 +4,11 @@
  *
  * PHP Version 7.4
  *
- * @package    phpOMS\Localization
- * @copyright  Dennis Eichhorn
- * @license    OMS License 1.0
- * @version    1.0.0
- * @link       https://orange-management.org
+ * @package   phpOMS\Localization
+ * @copyright Dennis Eichhorn
+ * @license   OMS License 1.0
+ * @version   1.0.0
+ * @link      https://orange-management.org
  */
 declare(strict_types=1);
 
@@ -21,10 +21,10 @@ use phpOMS\Utils\Converter\TemperatureType;
 /**
  * Localization class.
  *
- * @package    phpOMS\Localization
- * @license    OMS License 1.0
- * @link       https://orange-management.org
- * @since      1.0.0
+ * @package phpOMS\Localization
+ * @license OMS License 1.0
+ * @link    https://orange-management.org
+ * @since   1.0.0
  */
 class Localization
 {
@@ -32,7 +32,7 @@ class Localization
     /**
      * Country ID.
      *
-     * @var string
+     * @var   string
      * @since 1.0.0
      */
     private string $country = ISO3166TwoEnum::_USA;
@@ -40,7 +40,7 @@ class Localization
     /**
      * Timezone.
      *
-     * @var string
+     * @var   string
      * @since 1.0.0
      */
     private string $timezone = 'America/New_York';
@@ -48,7 +48,7 @@ class Localization
     /**
      * Language ISO code.
      *
-     * @var string
+     * @var   string
      * @since 1.0.0
      */
     private string $language = ISO639x1Enum::_EN;
@@ -56,7 +56,7 @@ class Localization
     /**
      * Currency.
      *
-     * @var string
+     * @var   string
      * @since 1.0.0
      */
     private string $currency = ISO4217Enum::_USD;
@@ -64,7 +64,7 @@ class Localization
     /**
      * Number format.
      *
-     * @var string
+     * @var   string
      * @since 1.0.0
      */
     private string $decimal = '.';
@@ -72,7 +72,7 @@ class Localization
     /**
      * Number format.
      *
-     * @var string
+     * @var   string
      * @since 1.0.0
      */
     private string $thousands = ',';
@@ -80,7 +80,7 @@ class Localization
     /**
      * Angle type.
      *
-     * @var string
+     * @var   string
      * @since 1.0.0
      */
     private string $angle = AngleType::DEGREE;
@@ -88,7 +88,7 @@ class Localization
     /**
      * Temperature type.
      *
-     * @var string
+     * @var   string
      * @since 1.0.0
      */
     private string $temperature = TemperatureType::CELSIUS;
@@ -96,7 +96,7 @@ class Localization
     /**
      * Time format.
      *
-     * @var array
+     * @var   array
      * @since 1.0.0
      */
     private array $datetime = [];
@@ -104,7 +104,7 @@ class Localization
     /**
      * Weight.
      *
-     * @var array
+     * @var   array
      * @since 1.0.0
      */
     private array $weight = [];
@@ -112,7 +112,7 @@ class Localization
     /**
      * Speed.
      *
-     * @var array
+     * @var   array
      * @since 1.0.0
      */
     private array $speed = [];
@@ -120,7 +120,7 @@ class Localization
     /**
      * Length.
      *
-     * @var array
+     * @var   array
      * @since 1.0.0
      */
     private array $length = [];
@@ -128,7 +128,7 @@ class Localization
     /**
      * Area.
      *
-     * @var array
+     * @var   array
      * @since 1.0.0
      */
     private array $area = [];
@@ -136,7 +136,7 @@ class Localization
     /**
      * Volume.
      *
-     * @var array
+     * @var   array
      * @since 1.0.0
      */
     private array $volume = [];
@@ -151,7 +151,7 @@ class Localization
      *
      * @throws InvalidEnumValue This exception is thrown if the language is invalid
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function loadFromLanguage(string $langCode, string $countryCode = '*') : void
     {
@@ -198,7 +198,7 @@ class Localization
      *
      * @return void
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function importLocale(array $locale) : void
     {
@@ -222,7 +222,7 @@ class Localization
      *
      * @return string
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function getCountry() : string
     {
@@ -238,7 +238,7 @@ class Localization
      *
      * @throws InvalidEnumValue This exception is thrown if the country is invalid
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function setCountry(string $country) : void
     {
@@ -254,7 +254,7 @@ class Localization
      *
      * @return string
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function getTimezone() : string
     {
@@ -270,7 +270,7 @@ class Localization
      *
      * @throws InvalidEnumValue This exception is thrown if the timezone is invalid
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function setTimezone(string $timezone) : void
     {
@@ -286,7 +286,7 @@ class Localization
      *
      * @return string
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function getLanguage() : string
     {
@@ -302,7 +302,7 @@ class Localization
      *
      * @throws InvalidEnumValue This exception is thrown if the language is invalid
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function setLanguage(string $language) : void
     {
@@ -320,7 +320,7 @@ class Localization
      *
      * @return string
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function getCurrency() : string
     {
@@ -336,7 +336,7 @@ class Localization
      *
      * @throws InvalidEnumValue This exception is thrown if the currency is invalid
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function setCurrency(string $currency) : void
     {
@@ -352,7 +352,7 @@ class Localization
      *
      * @return array
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function getDatetime() : array
     {
@@ -366,7 +366,7 @@ class Localization
      *
      * @return void
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function setDatetime(array $datetime) : void
     {
@@ -378,7 +378,7 @@ class Localization
      *
      * @return string
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function getDecimal() : string
     {
@@ -392,7 +392,7 @@ class Localization
      *
      * @return void
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function setDecimal(string $decimal) : void
     {
@@ -404,7 +404,7 @@ class Localization
      *
      * @return string
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function getThousands() : string
     {
@@ -418,7 +418,7 @@ class Localization
      *
      * @return void
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function setThousands(string $thousands) : void
     {
@@ -430,7 +430,7 @@ class Localization
      *
      * @return string
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function getAngle() : string
     {
@@ -444,7 +444,7 @@ class Localization
      *
      * @return void
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function setAngle(string $angle) : void
     {
@@ -456,7 +456,7 @@ class Localization
      *
      * @return string
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function getTemperature() : string
     {
@@ -470,7 +470,7 @@ class Localization
      *
      * @return void
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function setTemperature(string $temperature) : void
     {
@@ -482,7 +482,7 @@ class Localization
      *
      * @return array<string, string>
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function getSpeed() : array
     {
@@ -496,7 +496,7 @@ class Localization
      *
      * @return void
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function setSpeed(array $speed) : void
     {
@@ -508,7 +508,7 @@ class Localization
      *
      * @return array<string, string>
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function getWeight() : array
     {
@@ -522,7 +522,7 @@ class Localization
      *
      * @return void
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function setWeight(array $weight) : void
     {
@@ -534,7 +534,7 @@ class Localization
      *
      * @return array<string, string>
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function getLength() : array
     {
@@ -548,7 +548,7 @@ class Localization
      *
      * @return void
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function setLength(array $length) : void
     {
@@ -560,7 +560,7 @@ class Localization
      *
      * @return array<string, string>
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function getArea() : array
     {
@@ -574,7 +574,7 @@ class Localization
      *
      * @return void
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function setArea(array $area) : void
     {
@@ -586,7 +586,7 @@ class Localization
      *
      * @return array<string, string>
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function getVolume() : array
     {
@@ -600,7 +600,7 @@ class Localization
      *
      * @return void
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function setVolume(array $volume) : void
     {

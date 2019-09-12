@@ -4,11 +4,11 @@
  *
  * PHP Version 7.4
  *
- * @package    phpOMS\Utils\Encoding\Huffman
- * @copyright  Dennis Eichhorn
- * @license    OMS License 1.0
- * @version    1.0.0
- * @link       https://orange-management.org
+ * @package   phpOMS\Utils\Encoding\Huffman
+ * @copyright Dennis Eichhorn
+ * @license   OMS License 1.0
+ * @version   1.0.0
+ * @link      https://orange-management.org
  */
 declare(strict_types=1);
 
@@ -17,17 +17,17 @@ namespace phpOMS\Utils\Encoding\Huffman;
 /**
  * Gray encoding class
  *
- * @package    phpOMS\Utils\Encoding\Huffman
- * @license    OMS License 1.0
- * @link       https://orange-management.org
- * @since      1.0.0
+ * @package phpOMS\Utils\Encoding\Huffman
+ * @license OMS License 1.0
+ * @link    https://orange-management.org
+ * @since   1.0.0
  */
 final class Dictionary
 {
     /**
      * Huffman dictionary.
      *
-     * @var array
+     * @var   array
      * @since 1.0.0
      */
     private array $dictionary = [];
@@ -35,7 +35,7 @@ final class Dictionary
     /**
      * Minimum length.
      *
-     * @var int
+     * @var   int
      * @since 1.0.0
      */
     private int $min = -1;
@@ -43,7 +43,7 @@ final class Dictionary
     /**
      * Maximum length.
      *
-     * @var int
+     * @var   int
      * @since 1.0.0
      */
     private int $max = -1;
@@ -53,7 +53,7 @@ final class Dictionary
      *
      * @param string $source Source to create the dictionary from
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function __construct(string $source = '')
     {
@@ -69,7 +69,7 @@ final class Dictionary
      *
      * @return void
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function generate(string $source) : void
     {
@@ -103,7 +103,7 @@ final class Dictionary
      *
      * @return void
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     private function fill(array $entry, string $value = '') : void
     {
@@ -132,7 +132,7 @@ final class Dictionary
      *
      * @throws \Exception
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function set(string $entry, string $value) : void
     {
@@ -170,7 +170,7 @@ final class Dictionary
      *
      * @throws \Exception
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function get(string $entry) : string
     {
@@ -192,7 +192,7 @@ final class Dictionary
      *
      * @return null|string
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function getEntry(&$value) : ?string
     {

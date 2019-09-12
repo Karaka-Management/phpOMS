@@ -4,11 +4,11 @@
  *
  * PHP Version 7.4
  *
- * @package    phpOMS\Log
- * @copyright  Dennis Eichhorn
- * @license    OMS License 1.0
- * @version    1.0.0
- * @link       https://orange-management.org
+ * @package   phpOMS\Log
+ * @copyright Dennis Eichhorn
+ * @license   OMS License 1.0
+ * @version   1.0.0
+ * @link      https://orange-management.org
  */
 declare(strict_types=1);
 
@@ -20,10 +20,10 @@ use phpOMS\System\File\Local\File;
 /**
  * Logging class.
  *
- * @package    phpOMS\Log
- * @license    OMS License 1.0
- * @link       https://orange-management.org
- * @since      1.0.0
+ * @package phpOMS\Log
+ * @license OMS License 1.0
+ * @link    https://orange-management.org
+ * @since   1.0.0
  *
  * @SuppressWarnings(PHPMD.Superglobals)
  */
@@ -39,7 +39,7 @@ final class FileLogger implements LoggerInterface
      * Potential values are null or an array filled with log timings.
      * This is used in order to profile code sections by ID.
      *
-     * @var array
+     * @var   array
      * @since 1.0.0
      */
     private static array $timings = [];
@@ -47,7 +47,7 @@ final class FileLogger implements LoggerInterface
     /**
      * Instance.
      *
-     * @var null|FileLogger
+     * @var   null|FileLogger
      * @since 1.0.0
      */
     protected static ?FileLogger $instance = null;
@@ -55,7 +55,7 @@ final class FileLogger implements LoggerInterface
     /**
      * Verbose.
      *
-     * @var bool
+     * @var   bool
      * @since 1.0.0
      */
     protected bool $verbose = false;
@@ -65,7 +65,7 @@ final class FileLogger implements LoggerInterface
      *
      * Potential values are null or a valid file pointer
      *
-     * @var false|resource
+     * @var   false|resource
      * @since 1.0.0
      */
     private $fp = false;
@@ -73,7 +73,7 @@ final class FileLogger implements LoggerInterface
     /**
      * Logging path
      *
-     * @var string
+     * @var   string
      * @since 1.0.0
      */
     private string $path = '';
@@ -81,7 +81,7 @@ final class FileLogger implements LoggerInterface
     /**
      * Is the logging file created
      *
-     * @var bool
+     * @var   bool
      * @since 1.0.0
      */
     private bool $created = false;
@@ -94,7 +94,7 @@ final class FileLogger implements LoggerInterface
      * @param string $lpath   Path for logging
      * @param bool   $verbose Verbose logging
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function __construct(string $lpath, bool $verbose = false)
     {
@@ -115,7 +115,7 @@ final class FileLogger implements LoggerInterface
      *
      * @return void
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     private function createFile() : void
     {
@@ -133,7 +133,7 @@ final class FileLogger implements LoggerInterface
      *
      * @return FileLogger
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function getInstance(string $path = '', bool $verbose = false) : self
     {
@@ -149,7 +149,7 @@ final class FileLogger implements LoggerInterface
      *
      * Closes the logging file
      *
-     * @since  1.0.0
+     * @since 1.0.0
      * @codeCoverageIgnore
      */
     public function __destruct()
@@ -164,7 +164,7 @@ final class FileLogger implements LoggerInterface
      *
      * @return void
      *
-     * @since  1.0.0
+     * @since 1.0.0
      * @codeCoverageIgnore
      */
     private function __clone()
@@ -178,7 +178,7 @@ final class FileLogger implements LoggerInterface
      *
      * @return bool
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function startTimeLog($id = '')  : bool
     {
@@ -201,7 +201,7 @@ final class FileLogger implements LoggerInterface
      *
      * @return float The time measurement in ms
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function endTimeLog($id = '') : float
     {
@@ -223,7 +223,7 @@ final class FileLogger implements LoggerInterface
      *
      * @return string
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     private function interpolate(string $message, array $context = [], string $level = LogLevel::DEBUG) : string
     {
@@ -262,7 +262,7 @@ final class FileLogger implements LoggerInterface
      *
      * @return void
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     private function write(string $message) : void
     {
@@ -376,7 +376,7 @@ final class FileLogger implements LoggerInterface
      *
      * @return array
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function countLogs()
     {
@@ -423,7 +423,7 @@ final class FileLogger implements LoggerInterface
      *
      * @return array
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function getHighestPerpetrator(int $limit = 10) : array
     {
@@ -472,7 +472,7 @@ final class FileLogger implements LoggerInterface
      *
      * @return array
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function get(int $limit = 25, int $offset = 0) : array
     {
@@ -528,7 +528,7 @@ final class FileLogger implements LoggerInterface
      *
      * @return array
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function getByLine(int $id = 1) : array
     {
@@ -582,7 +582,7 @@ final class FileLogger implements LoggerInterface
      *
      * @return void
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function console(string $message, bool $verbose = true, array $context = []) : void
     {

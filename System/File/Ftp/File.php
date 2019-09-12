@@ -4,11 +4,11 @@
  *
  * PHP Version 7.4
  *
- * @package    phpOMS\System\File\Ftp
- * @copyright  Dennis Eichhorn
- * @license    OMS License 1.0
- * @version    1.0.0
- * @link       https://orange-management.org
+ * @package   phpOMS\System\File\Ftp
+ * @copyright Dennis Eichhorn
+ * @license   OMS License 1.0
+ * @version   1.0.0
+ * @link      https://orange-management.org
  */
 declare(strict_types=1);
 
@@ -29,17 +29,17 @@ use phpOMS\Uri\Http;
  *
  * All static implementations require a path/uri in the following form: ftp://user:pass@domain.com/path/subpath...
  *
- * @package    phpOMS\System\File\Ftp
- * @license    OMS License 1.0
- * @link       https://orange-management.org
- * @since      1.0.0
+ * @package phpOMS\System\File\Ftp
+ * @license OMS License 1.0
+ * @link    https://orange-management.org
+ * @since   1.0.0
  */
 class File extends FileAbstract implements FileInterface
 {
     /**
      * Ftp connection
      *
-     * @var resource
+     * @var   resource
      * @since 1.0.0
      */
     private $con = null;
@@ -47,7 +47,7 @@ class File extends FileAbstract implements FileInterface
     /**
      * Ftp connection uri.
      *
-     * @var null|Http
+     * @var   null|Http
      * @since 1.0.0
      */
     private ?Http $uri = null;
@@ -65,7 +65,7 @@ class File extends FileAbstract implements FileInterface
      *
      * @return mixed
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function ftpConnect(Http $http)
     {
@@ -396,7 +396,7 @@ class File extends FileAbstract implements FileInterface
      *
      * @return ContainerInterface
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function getParent() : ContainerInterface
     {
@@ -408,7 +408,7 @@ class File extends FileAbstract implements FileInterface
      *
      * @return bool True on success and false on failure
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function createNode() : bool
     {
@@ -423,7 +423,7 @@ class File extends FileAbstract implements FileInterface
      *
      * @return bool True on success and false on failure
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function copyNode(string $to, bool $overwrite = false) : bool
     {
@@ -438,7 +438,7 @@ class File extends FileAbstract implements FileInterface
      *
      * @return bool True on success and false on failure
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function moveNode(string $to, bool $overwrite = false) : bool
     {
@@ -450,7 +450,7 @@ class File extends FileAbstract implements FileInterface
      *
      * @return bool True on success and false on failure
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function deleteNode() : bool
     {
@@ -465,7 +465,7 @@ class File extends FileAbstract implements FileInterface
      *
      * @return bool
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function putContent(string $content, int $mode = ContentPutMode::APPEND | ContentPutMode::CREATE) : bool
     {
@@ -481,7 +481,7 @@ class File extends FileAbstract implements FileInterface
      *
      * @return bool
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function setContent(string $content) : bool
     {
@@ -497,7 +497,7 @@ class File extends FileAbstract implements FileInterface
      *
      * @return bool
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function appendContent(string $content) : bool
     {
@@ -513,7 +513,7 @@ class File extends FileAbstract implements FileInterface
      *
      * @return bool
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function prependContent(string $content) : bool
     {
@@ -525,7 +525,7 @@ class File extends FileAbstract implements FileInterface
      *
      * @return string Content of file
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function getContent() : string
     {
@@ -537,7 +537,7 @@ class File extends FileAbstract implements FileInterface
      *
      * @return string
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function getExtension() : string
     {

@@ -4,11 +4,11 @@
  *
  * PHP Version 7.4
  *
- * @package    phpOMS\Account
- * @copyright  Dennis Eichhorn
- * @license    OMS License 1.0
- * @version    1.0.0
- * @link       https://orange-management.org
+ * @package   phpOMS\Account
+ * @copyright Dennis Eichhorn
+ * @license   OMS License 1.0
+ * @version   1.0.0
+ * @link      https://orange-management.org
  */
 declare(strict_types=1);
 
@@ -25,10 +25,10 @@ use phpOMS\Validation\Network\Email;
  * The account class is the base model for accounts. This model contains the most common account
  * information. This model is not comparable to a profile which contains much more information.
  *
- * @package    phpOMS\Account
- * @license    OMS License 1.0
- * @link       https://orange-management.org
- * @since      1.0.0
+ * @package phpOMS\Account
+ * @license OMS License 1.0
+ * @link    https://orange-management.org
+ * @since   1.0.0
  */
 class Account implements ArrayableInterface, \JsonSerializable
 {
@@ -36,7 +36,7 @@ class Account implements ArrayableInterface, \JsonSerializable
     /**
      * Id.
      *
-     * @var int
+     * @var   int
      * @since 1.0.0
      */
     protected int $id = 0;
@@ -44,7 +44,7 @@ class Account implements ArrayableInterface, \JsonSerializable
     /**
      * Names.
      *
-     * @var string
+     * @var   string
      * @since 1.0.0
      */
     protected string $name1 = '';
@@ -52,7 +52,7 @@ class Account implements ArrayableInterface, \JsonSerializable
     /**
      * Names.
      *
-     * @var string
+     * @var   string
      * @since 1.0.0
      */
     protected string $name2 = '';
@@ -60,7 +60,7 @@ class Account implements ArrayableInterface, \JsonSerializable
     /**
      * Names.
      *
-     * @var string
+     * @var   string
      * @since 1.0.0
      */
     protected string $name3 = '';
@@ -68,7 +68,7 @@ class Account implements ArrayableInterface, \JsonSerializable
     /**
      * Email.
      *
-     * @var string
+     * @var   string
      * @since 1.0.0
      */
     protected string $email = '';
@@ -78,7 +78,7 @@ class Account implements ArrayableInterface, \JsonSerializable
      *
      * Used in order to make sure ips don't change
      *
-     * @var string
+     * @var   string
      * @since 1.0.0
      */
     protected string $origin = '';
@@ -86,7 +86,7 @@ class Account implements ArrayableInterface, \JsonSerializable
     /**
      * Login.
      *
-     * @var null|string
+     * @var   null|string
      * @since 1.0.0
      */
     protected ?string $login = null;
@@ -94,7 +94,7 @@ class Account implements ArrayableInterface, \JsonSerializable
     /**
      * Last activity.
      *
-     * @var \DateTime
+     * @var   \DateTime
      * @since 1.0.0
      */
     protected \DateTime $lastActive;
@@ -102,7 +102,7 @@ class Account implements ArrayableInterface, \JsonSerializable
     /**
      * Last activity.
      *
-     * @var \DateTime
+     * @var   \DateTime
      * @since 1.0.0
      */
     protected \DateTime $createdAt;
@@ -110,7 +110,7 @@ class Account implements ArrayableInterface, \JsonSerializable
     /**
      * Groups.
      *
-     * @var int[]
+     * @var   int[]
      * @since 1.0.0
      */
     protected array $groups = [];
@@ -118,7 +118,7 @@ class Account implements ArrayableInterface, \JsonSerializable
     /**
      * Password.
      *
-     * @var string
+     * @var   string
      * @since 1.0.0
      */
     protected string $password = '';
@@ -126,7 +126,7 @@ class Account implements ArrayableInterface, \JsonSerializable
     /**
      * Account type.
      *
-     * @var int
+     * @var   int
      * @since 1.0.0
      */
     protected int $type = AccountType::USER;
@@ -134,7 +134,7 @@ class Account implements ArrayableInterface, \JsonSerializable
     /**
      * Account status.
      *
-     * @var int
+     * @var   int
      * @since 1.0.0
      */
     protected int $status = AccountStatus::INACTIVE;
@@ -142,7 +142,7 @@ class Account implements ArrayableInterface, \JsonSerializable
     /**
      * Localization.
      *
-     * @var Localization
+     * @var   Localization
      * @since 1.0.0
      */
     protected Localization $l11n;
@@ -156,7 +156,7 @@ class Account implements ArrayableInterface, \JsonSerializable
      *
      * @param int $id Account id
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function __construct(int $id = 0)
     {
@@ -171,7 +171,7 @@ class Account implements ArrayableInterface, \JsonSerializable
      *
      * @return int Account id
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function getId() : int
     {
@@ -185,7 +185,7 @@ class Account implements ArrayableInterface, \JsonSerializable
      *
      * @return Localization
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function getL11n() : Localization
     {
@@ -200,7 +200,7 @@ class Account implements ArrayableInterface, \JsonSerializable
      *
      * @return array Returns array of all groups
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function getGroups() : array
     {
@@ -214,7 +214,7 @@ class Account implements ArrayableInterface, \JsonSerializable
      *
      * @return void
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function addGroup($group) : void
     {
@@ -228,7 +228,7 @@ class Account implements ArrayableInterface, \JsonSerializable
      *
      * @return void
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function setL11n(Localization $l11n) : void
     {
@@ -240,7 +240,7 @@ class Account implements ArrayableInterface, \JsonSerializable
      *
      * @return string Returns the login name or null
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function getName() : ?string
     {
@@ -252,7 +252,7 @@ class Account implements ArrayableInterface, \JsonSerializable
      *
      * @return string Returns the name1
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function getName1() : string
     {
@@ -266,7 +266,7 @@ class Account implements ArrayableInterface, \JsonSerializable
      *
      * @return void
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function setName1(string $name) : void
     {
@@ -278,7 +278,7 @@ class Account implements ArrayableInterface, \JsonSerializable
      *
      * @return string Returns name 2
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function getName2() : string
     {
@@ -292,7 +292,7 @@ class Account implements ArrayableInterface, \JsonSerializable
      *
      * @return void
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function setName2(string $name) : void
     {
@@ -304,7 +304,7 @@ class Account implements ArrayableInterface, \JsonSerializable
      *
      * @return string Returns name 3
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function getName3() : string
     {
@@ -318,7 +318,7 @@ class Account implements ArrayableInterface, \JsonSerializable
      *
      * @return void
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function setName3(string $name) : void
     {
@@ -330,7 +330,7 @@ class Account implements ArrayableInterface, \JsonSerializable
      *
      * @return string Returns the email address
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function getEmail() : string
     {
@@ -346,7 +346,7 @@ class Account implements ArrayableInterface, \JsonSerializable
      *
      * @throws \InvalidArgumentException Exception is thrown if the provided string is not a valid email
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function setEmail(string $email) : void
     {
@@ -362,7 +362,7 @@ class Account implements ArrayableInterface, \JsonSerializable
      *
      * @return int Returns the status (AccountStatus)
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function getStatus() : int
     {
@@ -378,7 +378,7 @@ class Account implements ArrayableInterface, \JsonSerializable
      *
      * @throws InvalidEnumValue This exception is thrown if a invalid status is used
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function setStatus(int $status) : void
     {
@@ -394,7 +394,7 @@ class Account implements ArrayableInterface, \JsonSerializable
      *
      * @return int Returns the type (AccountType)
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function getType() : int
     {
@@ -410,7 +410,7 @@ class Account implements ArrayableInterface, \JsonSerializable
      *
      * @throws InvalidEnumValue This exception is thrown if an invalid type is used
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function setType(int $type) : void
     {
@@ -426,7 +426,7 @@ class Account implements ArrayableInterface, \JsonSerializable
      *
      * @return \DateTime
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function getLastActive() : \DateTime
     {
@@ -438,7 +438,7 @@ class Account implements ArrayableInterface, \JsonSerializable
      *
      * @return \DateTime
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function getCreatedAt() : \DateTime
     {
@@ -454,7 +454,7 @@ class Account implements ArrayableInterface, \JsonSerializable
      *
      * @throws \Exception Throws this exception if the password_hash function fails
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function generatePassword(string $password) : void
     {
@@ -474,7 +474,7 @@ class Account implements ArrayableInterface, \JsonSerializable
      *
      * @return void
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function setName(string $name) : void
     {
@@ -486,7 +486,7 @@ class Account implements ArrayableInterface, \JsonSerializable
      *
      * @return void
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function updateLastActive() : void
     {
@@ -498,7 +498,7 @@ class Account implements ArrayableInterface, \JsonSerializable
      *
      * @return string Returns the json_encode of this object
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function __toString() : string
     {

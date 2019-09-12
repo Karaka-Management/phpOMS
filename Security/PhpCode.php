@@ -4,11 +4,11 @@
  *
  * PHP Version 7.4
  *
- * @package    phpOMS\Security
- * @copyright  Dennis Eichhorn
- * @license    OMS License 1.0
- * @version    1.0.0
- * @link       https://orange-management.org
+ * @package   phpOMS\Security
+ * @copyright Dennis Eichhorn
+ * @license   OMS License 1.0
+ * @version   1.0.0
+ * @link      https://orange-management.org
  */
 declare(strict_types=1);
 
@@ -20,17 +20,17 @@ namespace phpOMS\Security;
  * This can be used to ensure php code doesn't contain malicious functions and or characters.
  * Additionally this can also be used in order verify that the source code is not altered compared to some expected source code.
  *
- * @package    phpOMS\Security
- * @license    OMS License 1.0
- * @link       https://orange-management.org
- * @since      1.0.0
+ * @package phpOMS\Security
+ * @license OMS License 1.0
+ * @link    https://orange-management.org
+ * @since   1.0.0
  */
 final class PhpCode
 {
     /**
      * Disabled functions
      *
-     * @var array
+     * @var   array
      * @since 1.0.0
      */
     public static array $disabledFunctions = [
@@ -45,7 +45,7 @@ final class PhpCode
     /**
      * Deprecated functions
      *
-     * @var array
+     * @var   array
      * @since 1.0.0
      */
     public static array $deprecatedFunctions = [
@@ -60,7 +60,7 @@ final class PhpCode
     /**
      * Constructor.
      *
-     * @since  1.0.0
+     * @since 1.0.0
      * @codeCoverageIgnore
      */
     private function __construct()
@@ -75,7 +75,7 @@ final class PhpCode
      *
      * @return string Normalized source code
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function normalizeSource(string $source) : string
     {
@@ -89,7 +89,7 @@ final class PhpCode
      *
      * @return bool Returns true if the code has unicode characters otherwise false is returned
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function hasUnicode(string $source) : bool
     {
@@ -103,7 +103,7 @@ final class PhpCode
      *
      * @return bool Returns true if code has disabled function calls otherwise false is returned
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function isDisabled(array $functions) : bool
     {
@@ -132,7 +132,7 @@ final class PhpCode
      *
      * @return bool Returns true if code contains deprecated functions otherwise false is returned
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function hasDeprecatedFunction(string $source) : bool
     {
@@ -153,7 +153,7 @@ final class PhpCode
      *
      * @return bool Returns true if filee matches expected signature otherwise false is returned
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function validateFileIntegrity(string $source, string $hash) : bool
     {
@@ -168,7 +168,7 @@ final class PhpCode
      *
      * @return bool Returns true if source code is the same as the expected code otherwise false is returned
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function validateStringIntegrity(string $source, string $remote) : bool
     {

@@ -4,11 +4,11 @@
  *
  * PHP Version 7.4
  *
- * @package    phpOMS\Validation\Base
- * @copyright  Dennis Eichhorn
- * @license    OMS License 1.0
- * @version    1.0.0
- * @link       https://orange-management.org
+ * @package   phpOMS\Validation\Base
+ * @copyright Dennis Eichhorn
+ * @license   OMS License 1.0
+ * @version   1.0.0
+ * @link      https://orange-management.org
  */
 declare(strict_types=1);
 
@@ -20,10 +20,10 @@ use phpOMS\Validation\ValidatorAbstract;
 /**
  * Validate json.
  *
- * @package    phpOMS\Validation\Base
- * @license    OMS License 1.0
- * @link       https://orange-management.org
- * @since      1.0.0
+ * @package phpOMS\Validation\Base
+ * @license OMS License 1.0
+ * @link    https://orange-management.org
+ * @since   1.0.0
  */
 abstract class Json extends ValidatorAbstract
 {
@@ -45,7 +45,7 @@ abstract class Json extends ValidatorAbstract
      *
      * @return bool Returns true if the template validates the source otherwise false
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function validateTemplate(array $template, array $source, bool $perfect = false) : bool
     {
@@ -80,7 +80,7 @@ abstract class Json extends ValidatorAbstract
      *
      * @return array
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     private static function createAllViablePaths(array $arr, string $path = '') : array
     {
@@ -106,7 +106,7 @@ abstract class Json extends ValidatorAbstract
      *
      * @return bool Returns false in case of undefined elements
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     private static function hasTemplateDefinition(array $template, array $source) : bool
     {
@@ -144,7 +144,7 @@ abstract class Json extends ValidatorAbstract
      *
      * @return bool Returns true if the source implements all required elements otherwise false is returned
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     private static function isCompleteSource(array $template, array $source) : bool
     {
@@ -183,7 +183,7 @@ abstract class Json extends ValidatorAbstract
      *
      * @return bool Returns true if the source is correct in relation to the template otherwise false is returned
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     private static function isValidSource(array $template, array $source) : bool
     {

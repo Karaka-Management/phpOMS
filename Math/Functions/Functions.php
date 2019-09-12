@@ -4,11 +4,11 @@
  *
  * PHP Version 7.4
  *
- * @package    phpOMS\Math\Functions
- * @copyright  Dennis Eichhorn
- * @license    OMS License 1.0
- * @version    1.0.0
- * @link       https://orange-management.org
+ * @package   phpOMS\Math\Functions
+ * @copyright Dennis Eichhorn
+ * @license   OMS License 1.0
+ * @version   1.0.0
+ * @link      https://orange-management.org
  */
 declare(strict_types=1);
 
@@ -17,17 +17,17 @@ namespace phpOMS\Math\Functions;
 /**
  * Well known functions and helpers class.
  *
- * @package    phpOMS\Math\Functions
- * @license    OMS License 1.0
- * @link       https://orange-management.org
- * @since      1.0.0
+ * @package phpOMS\Math\Functions
+ * @license OMS License 1.0
+ * @link    https://orange-management.org
+ * @since   1.0.0
  */
 final class Functions
 {
     /**
      * Constructor.
      *
-     * @since  1.0.0
+     * @since 1.0.0
      * @codeCoverageIgnore
      */
     private function __construct()
@@ -45,7 +45,7 @@ final class Functions
      *
      * @return int
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function fact(int $n, int $start = 1) : int
     {
@@ -70,7 +70,7 @@ final class Functions
      *
      * @return int
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function binomialCoefficient(int $n, int $k) : int
     {
@@ -111,7 +111,7 @@ final class Functions
      *
      * @return int
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function ackermann(int $m, int $n) : int
     {
@@ -131,7 +131,7 @@ final class Functions
      *
      * @return array<float|int>
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function abs(array $values) : array
     {
@@ -152,7 +152,7 @@ final class Functions
      *
      * @return int
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function invMod(int $a, int $n) : int
     {
@@ -198,7 +198,7 @@ final class Functions
      *
      * @return int
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function mod($a, $b) : int
     {
@@ -216,7 +216,7 @@ final class Functions
      *
      * @return bool
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function isOdd($a) : bool
     {
@@ -230,7 +230,7 @@ final class Functions
      *
      * @return bool
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function isEven($a) : bool
     {
@@ -245,7 +245,7 @@ final class Functions
      *
      * @return array<float>
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function powerFloat(array $values, float $exp = 2.0) : array
     {
@@ -266,7 +266,7 @@ final class Functions
      *
      * @return array<float|int>
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function powerInt(array $values, int $exp = 2) : array
     {
@@ -286,7 +286,7 @@ final class Functions
      *
      * @return array<float|int>
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function sqrt(array $values) : array
     {
@@ -311,7 +311,7 @@ final class Functions
      *
      * @return int Lowest value is 0 and highest value is length - 1
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function getRelativeDegree(int $value, int $length, int $start = 0) : int
     {

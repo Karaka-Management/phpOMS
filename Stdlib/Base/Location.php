@@ -4,11 +4,11 @@
  *
  * PHP Version 7.4
  *
- * @package    phpOMS\Stdlib\Base
- * @copyright  Dennis Eichhorn
- * @license    OMS License 1.0
- * @version    1.0.0
- * @link       https://orange-management.org
+ * @package   phpOMS\Stdlib\Base
+ * @copyright Dennis Eichhorn
+ * @license   OMS License 1.0
+ * @version   1.0.0
+ * @link      https://orange-management.org
  */
 declare(strict_types=1);
 
@@ -17,10 +17,10 @@ namespace phpOMS\Stdlib\Base;
 /**
  * Location class.
  *
- * @package    phpOMS\Stdlib\Base
- * @license    OMS License 1.0
- * @link       https://orange-management.org
- * @since      1.0.0
+ * @package phpOMS\Stdlib\Base
+ * @license OMS License 1.0
+ * @link    https://orange-management.org
+ * @since   1.0.0
  */
 class Location implements \JsonSerializable, \Serializable
 {
@@ -28,7 +28,7 @@ class Location implements \JsonSerializable, \Serializable
     /**
      * Location id
      *
-     * @var int
+     * @var   int
      * @since 1.0.0
      */
     private int $id = 0;
@@ -36,7 +36,7 @@ class Location implements \JsonSerializable, \Serializable
     /**
      * Zip or postal.
      *
-     * @var string
+     * @var   string
      * @since 1.0.0
      */
     private string $postal = '';
@@ -44,7 +44,7 @@ class Location implements \JsonSerializable, \Serializable
     /**
      * Name of city.
      *
-     * @var string
+     * @var   string
      * @since 1.0.0
      */
     private string $city = '';
@@ -52,7 +52,7 @@ class Location implements \JsonSerializable, \Serializable
     /**
      * Name of the country.
      *
-     * @var string
+     * @var   string
      * @since 1.0.0
      */
     private string $country = '';
@@ -60,7 +60,7 @@ class Location implements \JsonSerializable, \Serializable
     /**
      * Street & district.
      *
-     * @var string
+     * @var   string
      * @since 1.0.0
      */
     private string $address = '';
@@ -68,7 +68,7 @@ class Location implements \JsonSerializable, \Serializable
     /**
      * Address type
      *
-     * @var int
+     * @var   int
      * @since 1.0.0
      */
     private int $type = AddressType::HOME;
@@ -76,7 +76,7 @@ class Location implements \JsonSerializable, \Serializable
     /**
      * State.
      *
-     * @var string
+     * @var   string
      * @since 1.0.0
      */
     private string $state = '';
@@ -84,7 +84,7 @@ class Location implements \JsonSerializable, \Serializable
     /**
      * Geo coordinates.
      *
-     * @var float[]
+     * @var   float[]
      * @since 1.0.0
      */
     private array $geo = ['lat' => 0, 'long' => 0];
@@ -92,7 +92,7 @@ class Location implements \JsonSerializable, \Serializable
     /**
      * Constructor.
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function __construct()
     {
@@ -103,7 +103,7 @@ class Location implements \JsonSerializable, \Serializable
      *
      * @return int
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function getId() : int
     {
@@ -115,7 +115,7 @@ class Location implements \JsonSerializable, \Serializable
      *
      * @return int
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function getType() : int
     {
@@ -129,7 +129,7 @@ class Location implements \JsonSerializable, \Serializable
      *
      * @return void
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function setType(int $type) : void
     {
@@ -141,7 +141,7 @@ class Location implements \JsonSerializable, \Serializable
      *
      * @return string
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function getPostal() : string
     {
@@ -155,7 +155,7 @@ class Location implements \JsonSerializable, \Serializable
      *
      * @return void
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function setPostal(string $postal) : void
     {
@@ -167,7 +167,7 @@ class Location implements \JsonSerializable, \Serializable
      *
      * @return string
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function getCity() : string
     {
@@ -181,7 +181,7 @@ class Location implements \JsonSerializable, \Serializable
      *
      * @return void
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function setCity(string $city) : void
     {
@@ -193,7 +193,7 @@ class Location implements \JsonSerializable, \Serializable
      *
      * @return string
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function getCountry() : string
     {
@@ -207,7 +207,7 @@ class Location implements \JsonSerializable, \Serializable
      *
      * @return void
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function setCountry(string $country) : void
     {
@@ -219,7 +219,7 @@ class Location implements \JsonSerializable, \Serializable
      *
      * @return string
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function getAddress() : string
     {
@@ -233,7 +233,7 @@ class Location implements \JsonSerializable, \Serializable
      *
      * @return void
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function setAddress(string $address) : void
     {
@@ -245,7 +245,7 @@ class Location implements \JsonSerializable, \Serializable
      *
      * @return string
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function getState() : string
     {
@@ -259,7 +259,7 @@ class Location implements \JsonSerializable, \Serializable
      *
      * @return void
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function setState(string $state) : void
     {
@@ -271,7 +271,7 @@ class Location implements \JsonSerializable, \Serializable
      *
      * @return float[]
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function getGeo() : array
     {
@@ -285,7 +285,7 @@ class Location implements \JsonSerializable, \Serializable
      *
      * @return void
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function setGeo(array $geo) : void
     {

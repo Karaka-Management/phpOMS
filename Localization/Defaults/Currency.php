@@ -4,11 +4,11 @@
  *
  * PHP Version 7.4
  *
- * @package    phpOMS\Localization\Defaults
- * @copyright  Dennis Eichhorn
- * @license    OMS License 1.0
- * @version    1.0.0
- * @link       https://orange-management.org
+ * @package   phpOMS\Localization\Defaults
+ * @copyright Dennis Eichhorn
+ * @license   OMS License 1.0
+ * @version   1.0.0
+ * @link      https://orange-management.org
  */
 declare(strict_types=1);
 
@@ -17,17 +17,17 @@ namespace phpOMS\Localization\Defaults;
 /**
  * Currency class.
  *
- * @package    phpOMS\Localization\Defaults
- * @license    OMS License 1.0
- * @link       https://orange-management.org
- * @since      1.0.0
+ * @package phpOMS\Localization\Defaults
+ * @license OMS License 1.0
+ * @link    https://orange-management.org
+ * @since   1.0.0
  */
 final class Currency
 {
     /**
      * Currency id.
      *
-     * @var int
+     * @var   int
      * @since 1.0.0
      */
     private $id = 0;
@@ -35,7 +35,7 @@ final class Currency
     /**
      * Currency name.
      *
-     * @var string
+     * @var   string
      * @since 1.0.0
      */
     private $name = '';
@@ -43,7 +43,7 @@ final class Currency
     /**
      * Currency code.
      *
-     * @var string
+     * @var   string
      * @since 1.0.0
      */
     private $code = '';
@@ -51,7 +51,7 @@ final class Currency
     /**
      * Currency code.
      *
-     * @var int
+     * @var   int
      * @since 1.0.0
      */
     private $number = 0;
@@ -59,7 +59,7 @@ final class Currency
     /**
      * Currency decimals.
      *
-     * @var int
+     * @var   int
      * @since 1.0.0
      */
     private $decimals = 0;
@@ -67,7 +67,7 @@ final class Currency
     /**
      * Currency countries.
      *
-     * @var string
+     * @var   string
      * @since 1.0.0
      */
     private $countries = '';
@@ -77,7 +77,7 @@ final class Currency
      *
      * @return string
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function getName() : string
     {
@@ -89,7 +89,7 @@ final class Currency
      *
      * @return string
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function getCode() : string
     {
@@ -101,7 +101,7 @@ final class Currency
      *
      * @return int
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function getNumber() : int
     {
@@ -113,7 +113,7 @@ final class Currency
      *
      * @return int
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function getDecimals() : int
     {
@@ -125,7 +125,7 @@ final class Currency
      *
      * @return string
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function getCountries() : string
     {

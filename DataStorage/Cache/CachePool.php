@@ -4,11 +4,11 @@
  *
  * PHP Version 7.4
  *
- * @package    phpOMS\DataStorage\Cache
- * @copyright  Dennis Eichhorn
- * @license    OMS License 1.0
- * @version    1.0.0
- * @link       https://orange-management.org
+ * @package   phpOMS\DataStorage\Cache
+ * @copyright Dennis Eichhorn
+ * @license   OMS License 1.0
+ * @version   1.0.0
+ * @link      https://orange-management.org
  */
 declare(strict_types=1);
 
@@ -24,17 +24,17 @@ use phpOMS\DataStorage\DataStoragePoolInterface;
  *
  * Responsible for storing cache implementation.
  *
- * @package    phpOMS\DataStorage\Cache
- * @license    OMS License 1.0
- * @link       https://orange-management.org
- * @since      1.0.0
+ * @package phpOMS\DataStorage\Cache
+ * @license OMS License 1.0
+ * @link    https://orange-management.org
+ * @since   1.0.0
  */
 final class CachePool implements DataStoragePoolInterface
 {
     /**
      * MemCache instance.
      *
-     * @var DataStorageConnectionInterface[]
+     * @var   DataStorageConnectionInterface[]
      * @since 1.0.0
      */
     private ?array $pool = null;
@@ -47,7 +47,7 @@ final class CachePool implements DataStoragePoolInterface
      *
      * @return bool
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function add(string $key, DataStorageConnectionInterface $cache) : bool
     {
@@ -67,7 +67,7 @@ final class CachePool implements DataStoragePoolInterface
      *
      * @return bool
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function remove(string $key) : bool
     {
@@ -87,7 +87,7 @@ final class CachePool implements DataStoragePoolInterface
      *
      * @return DataStorageConnectionInterface
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function get(string $key = '') : DataStorageConnectionInterface
     {
@@ -110,7 +110,7 @@ final class CachePool implements DataStoragePoolInterface
      *
      * @return bool
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function create(string $key, array $config) : bool
     {

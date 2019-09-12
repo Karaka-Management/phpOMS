@@ -4,11 +4,11 @@
  *
  * PHP Version 7.4
  *
- * @package    phpOMS\Utils\IO\Csv
- * @copyright  Dennis Eichhorn
- * @license    OMS License 1.0
- * @version    1.0.0
- * @link       https://orange-management.org
+ * @package   phpOMS\Utils\IO\Csv
+ * @copyright Dennis Eichhorn
+ * @license   OMS License 1.0
+ * @version   1.0.0
+ * @link      https://orange-management.org
  */
 declare(strict_types=1);
 
@@ -31,7 +31,7 @@ class CsvSettings
      *
      * @return string
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function getFileDelimiter($file, int $checkLines = 2, array $delimiters = [',', '\t', ';', '|', ':']) : string
     {

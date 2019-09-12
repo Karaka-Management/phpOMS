@@ -4,21 +4,21 @@
  *
  * PHP Version 7.4
  *
- * @package    phpOMS\Views
- * @copyright  Dennis Eichhorn
- * @license    OMS License 1.0
- * @version    1.0.0
- * @link       https://orange-management.org
+ * @package   phpOMS\Views
+ * @copyright Dennis Eichhorn
+ * @license   OMS License 1.0
+ * @version   1.0.0
+ * @link      https://orange-management.org
  */
 namespace phpOMS\Views;
 
 /**
  * Pagination view.
  *
- * @package    phpOMS\Views
- * @license    OMS License 1.0
- * @link       https://orange-management.org
- * @since      1.0.0
+ * @package phpOMS\Views
+ * @license OMS License 1.0
+ * @link    https://orange-management.org
+ * @since   1.0.0
  */
 class PaginationView extends View
 {
@@ -26,7 +26,7 @@ class PaginationView extends View
     /**
      * Maximum amount of pages.
      *
-     * @var int
+     * @var   int
      * @since 1.0.0
      */
     protected int $maxPages = 7;
@@ -34,7 +34,7 @@ class PaginationView extends View
     /**
      * Current page id.
      *
-     * @var int
+     * @var   int
      * @since 1.0.0
      */
     protected int $page = 1;
@@ -42,7 +42,7 @@ class PaginationView extends View
     /**
      * How many pages exists?
      *
-     * @var int
+     * @var   int
      * @since 1.0.0
      */
     protected int $pages = 1;
@@ -50,7 +50,7 @@ class PaginationView extends View
     /**
      * How many results exists?
      *
-     * @var int
+     * @var   int
      * @since 1.0.0
      */
     protected int $results = 0;
@@ -58,7 +58,7 @@ class PaginationView extends View
     /**
      * @return int
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function getMaxPages() : int
     {
@@ -70,7 +70,7 @@ class PaginationView extends View
      *
      * @return void
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function setMaxPages(int $maxPages) : void
     {
@@ -80,7 +80,7 @@ class PaginationView extends View
     /**
      * @return int
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function getPages() : int
     {
@@ -92,7 +92,7 @@ class PaginationView extends View
      *
      * @return void
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function setPages(int $pages) : void
     {
@@ -102,7 +102,7 @@ class PaginationView extends View
     /**
      * @return int
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function getPage() : int
     {
@@ -114,7 +114,7 @@ class PaginationView extends View
      *
      * @return void
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function setPage(int $page = 1) : void
     {
@@ -124,7 +124,7 @@ class PaginationView extends View
     /**
      * @return int
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function getResults() : int
     {
@@ -136,7 +136,7 @@ class PaginationView extends View
      *
      * @return void
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function setResults(int $results = 0) : void
     {

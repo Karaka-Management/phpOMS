@@ -4,11 +4,11 @@
  *
  * PHP Version 7.4
  *
- * @package    phpOMS\DataStorage\Database\Query\Grammar
- * @copyright  Dennis Eichhorn
- * @license    OMS License 1.0
- * @version    1.0.0
- * @link       https://orange-management.org
+ * @package   phpOMS\DataStorage\Database\Query\Grammar
+ * @copyright Dennis Eichhorn
+ * @license   OMS License 1.0
+ * @version   1.0.0
+ * @link      https://orange-management.org
  */
 declare(strict_types=1);
 
@@ -23,17 +23,17 @@ use phpOMS\DataStorage\Database\Query\Where;
 /**
  * Database query grammar.
  *
- * @package    phpOMS\DataStorage\Database\Query\Grammar
- * @license    OMS License 1.0
- * @link       https://orange-management.org
- * @since      1.0.0
+ * @package phpOMS\DataStorage\Database\Query\Grammar
+ * @license OMS License 1.0
+ * @link    https://orange-management.org
+ * @since   1.0.0
  */
 class Grammar extends GrammarAbstract
 {
     /**
      * Select components.
      *
-     * @var string[]
+     * @var   string[]
      * @since 1.0.0
      */
     protected array $selectComponents = [
@@ -54,7 +54,7 @@ class Grammar extends GrammarAbstract
     /**
      * Insert components.
      *
-     * @var string[]
+     * @var   string[]
      * @since 1.0.0
      */
     protected array $insertComponents = [
@@ -66,7 +66,7 @@ class Grammar extends GrammarAbstract
     /**
      * Update components.
      *
-     * @var string[]
+     * @var   string[]
      * @since 1.0.0
      */
     protected array $updateComponents = [
@@ -78,7 +78,7 @@ class Grammar extends GrammarAbstract
     /**
      * Update components.
      *
-     * @var string[]
+     * @var   string[]
      * @since 1.0.0
      */
     protected array $deleteComponents = [
@@ -90,7 +90,7 @@ class Grammar extends GrammarAbstract
     /**
      * Random components.
      *
-     * @var string[]
+     * @var   string[]
      * @since 1.0.0
      */
     protected array $randomComponents = [
@@ -126,7 +126,7 @@ class Grammar extends GrammarAbstract
      *
      * @return string
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     protected function compileSelects(Builder $query, array $columns) : string
     {
@@ -147,7 +147,7 @@ class Grammar extends GrammarAbstract
      *
      * @return string
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     protected function compileUpdates(Builder $query, array $table) : string
     {
@@ -168,7 +168,7 @@ class Grammar extends GrammarAbstract
      *
      * @return string
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     protected function compileDeletes(Builder $query, array $columns) : string
     {
@@ -183,7 +183,7 @@ class Grammar extends GrammarAbstract
      *
      * @return string
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     protected function compileFrom(Builder $query, array $table) : string
     {
@@ -205,7 +205,7 @@ class Grammar extends GrammarAbstract
      *
      * @return string
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     protected function compileWheres(Builder $query, array $wheres, bool $first = true) : string
     {
@@ -234,7 +234,7 @@ class Grammar extends GrammarAbstract
      *
      * @return string
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     protected function compileWhereElement(array $element, Builder $query, bool $first = true) : string
     {
@@ -284,7 +284,7 @@ class Grammar extends GrammarAbstract
      *
      * @throws \InvalidArgumentException throws this exception if the value to compile is not supported by this function
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     protected function compileValue(Builder $query, $value, string $prefix = '') : string
     {
@@ -335,7 +335,7 @@ class Grammar extends GrammarAbstract
      *
      * @return string
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     protected function compileLimit(Builder $query, int $limit) : string
     {
@@ -350,7 +350,7 @@ class Grammar extends GrammarAbstract
      *
      * @return string
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     protected function compileOffset(Builder $query, $offset) : string
     {
@@ -365,7 +365,7 @@ class Grammar extends GrammarAbstract
      *
      * @return string
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     protected function compileJoins(Builder $query, array $joins) : string
     {
@@ -391,7 +391,7 @@ class Grammar extends GrammarAbstract
      *
      * @return string
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     protected function compileOn(Builder $query, array $ons, bool $first = true) : string
     {
@@ -418,7 +418,7 @@ class Grammar extends GrammarAbstract
      *
      * @return string
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     protected function compileOnElement(array $element, Builder $query, bool $first = true) : string
     {
@@ -458,7 +458,7 @@ class Grammar extends GrammarAbstract
      *
      * @return string
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     protected function compileGroups(Builder $query, array $groups)
     {
@@ -481,7 +481,7 @@ class Grammar extends GrammarAbstract
      *
      * @return string
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     protected function compileOrders(Builder $query, array $orders) : string
     {
@@ -523,7 +523,7 @@ class Grammar extends GrammarAbstract
      *
      * @return string
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     protected function compileInto(Builder $query, $table) : string
     {
@@ -538,7 +538,7 @@ class Grammar extends GrammarAbstract
      *
      * @return string
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     protected function compileInserts(Builder $query, array $columns) : string
     {
@@ -563,7 +563,7 @@ class Grammar extends GrammarAbstract
      *
      * @return string
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     protected function compileValues(Builder $query, array $values) : string
     {
@@ -588,7 +588,7 @@ class Grammar extends GrammarAbstract
      *
      * @return string
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     protected function compileSets(Builder $query, array $values) : string
     {

@@ -4,11 +4,11 @@
  *
  * PHP Version 7.4
  *
- * @package    phpOMS\Math\Stochastic\Distribution
- * @copyright  Dennis Eichhorn
- * @license    OMS License 1.0
- * @version    1.0.0
- * @link       https://orange-management.org
+ * @package   phpOMS\Math\Stochastic\Distribution
+ * @copyright Dennis Eichhorn
+ * @license   OMS License 1.0
+ * @version   1.0.0
+ * @link      https://orange-management.org
  */
 declare(strict_types=1);
 
@@ -17,10 +17,10 @@ namespace phpOMS\Math\Stochastic\Distribution;
 /**
  * Bernulli distribution.
  *
- * @package    phpOMS\Math\Stochastic\Distribution
- * @license    OMS License 1.0
- * @link       https://orange-management.org
- * @since      1.0.0
+ * @package phpOMS\Math\Stochastic\Distribution
+ * @license OMS License 1.0
+ * @link    https://orange-management.org
+ * @since   1.0.0
  */
 class BernoulliDistribution
 {
@@ -34,7 +34,7 @@ class BernoulliDistribution
      *
      * @throws \Exception
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function getPmf(float $p, int $k) : float
     {
@@ -55,7 +55,7 @@ class BernoulliDistribution
      *
      * @return float
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function getCdf(float $p, float $k) : float
     {
@@ -75,7 +75,7 @@ class BernoulliDistribution
      *
      * @return int
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function getMode(float $p) : int
     {
@@ -95,7 +95,7 @@ class BernoulliDistribution
      *
      * @return float
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function getMean(float $p) : float
     {
@@ -109,7 +109,7 @@ class BernoulliDistribution
      *
      * @return float
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function getMedian(float $p) : float
     {
@@ -129,7 +129,7 @@ class BernoulliDistribution
      *
      * @return float
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function getVariance(float $p) : float
     {
@@ -144,7 +144,7 @@ class BernoulliDistribution
      *
      * @return float
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function getMgf(float $p, float $t) : float
     {
@@ -158,7 +158,7 @@ class BernoulliDistribution
      *
      * @return float
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function getSkewness(float $p) : float
     {
@@ -172,7 +172,7 @@ class BernoulliDistribution
      *
      * @return float
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function getEntropy(float $p) : float
     {
@@ -186,7 +186,7 @@ class BernoulliDistribution
      *
      * @return float
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function getFisherInformation(float $p) : float
     {
@@ -200,7 +200,7 @@ class BernoulliDistribution
      *
      * @return float
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function getExKurtosis(float $p) : float
     {

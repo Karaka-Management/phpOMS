@@ -4,11 +4,11 @@
  *
  * PHP Version 7.4
  *
- * @package    phpOMS\System\File
- * @copyright  Dennis Eichhorn
- * @license    OMS License 1.0
- * @version    1.0.0
- * @link       https://orange-management.org
+ * @package   phpOMS\System\File
+ * @copyright Dennis Eichhorn
+ * @license   OMS License 1.0
+ * @version   1.0.0
+ * @link      https://orange-management.org
  */
 declare(strict_types=1);
 
@@ -19,10 +19,10 @@ namespace phpOMS\System\File;
  *
  * Performing operations on the file system
  *
- * @package    phpOMS\System\File
- * @license    OMS License 1.0
- * @link       https://orange-management.org
- * @since      1.0.0
+ * @package phpOMS\System\File
+ * @license OMS License 1.0
+ * @link    https://orange-management.org
+ * @since   1.0.0
  */
 interface ContainerInterface
 {
@@ -35,7 +35,7 @@ interface ContainerInterface
      *
      * @return int
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function getCount(bool $recursive = false) : int;
 
@@ -46,7 +46,7 @@ interface ContainerInterface
      *
      * @return int
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function getSize(bool $recursive = false) : int;
 
@@ -55,7 +55,7 @@ interface ContainerInterface
      *
      * @return string
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function getName() : string;
 
@@ -64,7 +64,7 @@ interface ContainerInterface
      *
      * @return string
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function getPath() : string;
 
@@ -75,7 +75,7 @@ interface ContainerInterface
      *
      * @return ContainerInterface
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function getParent() : self;
 
@@ -84,7 +84,7 @@ interface ContainerInterface
      *
      * @return bool True on success and false on failure
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function createNode() : bool;
 
@@ -96,7 +96,7 @@ interface ContainerInterface
      *
      * @return bool True on success and false on failure
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function copyNode(string $to, bool $overwrite = false) : bool;
 
@@ -108,7 +108,7 @@ interface ContainerInterface
      *
      * @return bool True on success and false on failure
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function moveNode(string $to, bool $overwrite = false) : bool;
 
@@ -117,7 +117,7 @@ interface ContainerInterface
      *
      * @return bool True on success and false on failure
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function deleteNode() : bool;
 
@@ -126,7 +126,7 @@ interface ContainerInterface
      *
      * @return \DateTime
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function getCreatedAt() : \DateTime;
 
@@ -135,7 +135,7 @@ interface ContainerInterface
      *
      * @return \DateTime
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function getChangedAt() : \DateTime;
 
@@ -144,7 +144,7 @@ interface ContainerInterface
      *
      * @return int
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function getOwner() : int;
 
@@ -153,7 +153,7 @@ interface ContainerInterface
      *
      * @return int Permissions (e.g. 0755);
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function getPermission() : int;
 
@@ -165,7 +165,7 @@ interface ContainerInterface
      *
      * @return void
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function index() : void;
 }

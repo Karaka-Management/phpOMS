@@ -4,11 +4,11 @@
  *
  * PHP Version 7.4
  *
- * @package    phpOMS\Utils
- * @copyright  Dennis Eichhorn
- * @license    OMS License 1.0
- * @version    1.0.0
- * @link       https://orange-management.org
+ * @package   phpOMS\Utils
+ * @copyright Dennis Eichhorn
+ * @license   OMS License 1.0
+ * @version   1.0.0
+ * @link      https://orange-management.org
  */
 declare(strict_types=1);
 
@@ -17,10 +17,10 @@ namespace phpOMS\Utils;
 /**
  * Array utils.
  *
- * @package    phpOMS\Utils
- * @license    OMS License 1.0
- * @link       https://orange-management.org
- * @since      1.0.0
+ * @package phpOMS\Utils
+ * @license OMS License 1.0
+ * @link    https://orange-management.org
+ * @since   1.0.0
  */
 final class ArrayUtils
 {
@@ -28,7 +28,7 @@ final class ArrayUtils
     /**
      * Constructor.
      *
-     * @since  1.0.0
+     * @since 1.0.0
      * @codeCoverageIgnore
      */
     private function __construct()
@@ -44,7 +44,7 @@ final class ArrayUtils
      *
      * @return array
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function unsetArray(string $path, array $data, string $delim = '/') : array
     {
@@ -87,7 +87,7 @@ final class ArrayUtils
      *
      * @throws \Exception This exception is thrown if the path is corrupted
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function setArray(string $path, array $data, $value, string $delim = '/', bool $overwrite = false) : array
     {
@@ -128,7 +128,7 @@ final class ArrayUtils
      *
      * @throws \Exception This exception is thrown if the path is corrupted
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function getArray(string $path, array $data, string $delim = '/')
     {
@@ -159,7 +159,7 @@ final class ArrayUtils
      *
      * @return bool
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function inArrayRecursive($needle, array $haystack, $key = null) : bool
     {
@@ -188,7 +188,7 @@ final class ArrayUtils
      *
      * @return bool
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function anyInArray(array $needles, array $haystack) : bool
     {
@@ -209,7 +209,7 @@ final class ArrayUtils
      *
      * @return bool
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function allInArray(array $needles, array $haystack) : bool
     {
@@ -231,7 +231,7 @@ final class ArrayUtils
      *
      * @throws \InvalidArgumentException
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function stringify(array $array) : string
     {
@@ -278,7 +278,7 @@ final class ArrayUtils
      *
      * @return string
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function arrayToCsv(array $data, string $delimiter = ';', string $enclosure = '"', string $escape = '\\') : string
     {
@@ -307,7 +307,7 @@ final class ArrayUtils
      *
      * @return string
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function getArg(string $id, array $args) : ?string
     {
@@ -326,7 +326,7 @@ final class ArrayUtils
      *
      * @return int
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function hasArg(string $id, array $args) : ?int
     {
@@ -346,7 +346,7 @@ final class ArrayUtils
      *
      * @return array
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function arrayFlatten(array $array) : array
     {
@@ -376,7 +376,7 @@ final class ArrayUtils
      *
      * @return float|int
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function arraySum(array $array, int $start = 0, int $count = 0)
     {
@@ -398,7 +398,7 @@ final class ArrayUtils
      *
      * @return mixed
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function arraySumRecursive(array $array)
     {

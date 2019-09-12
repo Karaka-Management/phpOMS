@@ -4,11 +4,11 @@
  *
  * PHP Version 7.4
  *
- * @package    phpOMS\Math\Number
- * @copyright  Dennis Eichhorn
- * @license    OMS License 1.0
- * @version    1.0.0
- * @link       https://orange-management.org
+ * @package   phpOMS\Math\Number
+ * @copyright Dennis Eichhorn
+ * @license   OMS License 1.0
+ * @version   1.0.0
+ * @link      https://orange-management.org
  */
 declare(strict_types=1);
 
@@ -17,17 +17,17 @@ namespace phpOMS\Math\Number;
 /**
  * Numbers class.
  *
- * @package    phpOMS\Math\Number
- * @license    OMS License 1.0
- * @link       https://orange-management.org
- * @since      1.0.0
+ * @package phpOMS\Math\Number
+ * @license OMS License 1.0
+ * @link    https://orange-management.org
+ * @since   1.0.0
  */
 final class Numbers
 {
     /**
      * Constructor.
      *
-     * @since  1.0.0
+     * @since 1.0.0
      * @codeCoverageIgnore
      */
     private function __construct()
@@ -42,7 +42,7 @@ final class Numbers
      *
      * @return bool
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function isPerfect(int $n) : bool
     {
@@ -64,7 +64,7 @@ final class Numbers
      *
      * @return bool
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function isSelfdescribing(int $n) : bool
     {
@@ -91,7 +91,7 @@ final class Numbers
      *
      * @return bool
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function isSquare(int $n) : bool
     {
@@ -105,7 +105,7 @@ final class Numbers
      *
      * @return int
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function countTrailingZeros(int $n) : int
     {

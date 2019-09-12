@@ -4,11 +4,11 @@
  *
  * PHP Version 7.4
  *
- * @package    phpOMS\Utils
- * @copyright  Dennis Eichhorn
- * @license    OMS License 1.0
- * @version    1.0.0
- * @link       https://orange-management.org
+ * @package   phpOMS\Utils
+ * @copyright Dennis Eichhorn
+ * @license   OMS License 1.0
+ * @version   1.0.0
+ * @link      https://orange-management.org
  */
 declare(strict_types=1);
 
@@ -21,10 +21,10 @@ use phpOMS\Contract\RenderableInterface;
  *
  * This class provides static helper functionalities for strings.
  *
- * @package    phpOMS\Utils
- * @license    OMS License 1.0
- * @link       https://orange-management.org
- * @since      1.0.0
+ * @package phpOMS\Utils
+ * @license OMS License 1.0
+ * @link    https://orange-management.org
+ * @since   1.0.0
  *
  * @SuppressWarnings(PHPMD.CamelCaseMethodName)
  */
@@ -36,7 +36,7 @@ final class StringUtils
      *
      * This class is purely static and is preventing any initialization
      *
-     * @since  1.0.0
+     * @since 1.0.0
      * @codeCoverageIgnore
      */
     private function __construct()
@@ -55,7 +55,7 @@ final class StringUtils
      *
      * @return bool the function returns true if any of the needles is part of the haystack, false otherwise
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function contains(string $haystack, array $needles) : bool
     {
@@ -80,7 +80,7 @@ final class StringUtils
      *
      * @return bool the function returns true if any of the needles is part of the haystack, false otherwise
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function mb_contains(string $haystack, array $needles) : bool
     {
@@ -106,7 +106,7 @@ final class StringUtils
      *
      * @return bool the function returns true if any of the needles is at the end of the haystack, false otherwise
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function endsWith(string $haystack, $needles) : bool
     {
@@ -138,7 +138,7 @@ final class StringUtils
      *
      * @return bool the function returns true if any of the needles is at the beginning of the haystack, false otherwise
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function startsWith(string $haystack, $needles) : bool
     {
@@ -166,7 +166,7 @@ final class StringUtils
      *
      * @return bool the function returns true if any of the needles is at the beginning of the haystack, false otherwise
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function mb_startsWith(string $haystack, $needles) : bool
     {
@@ -198,7 +198,7 @@ final class StringUtils
      *
      * @return bool the function returns true if any of the needles is at the end of the haystack, false otherwise
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function mb_endsWith(string $haystack, $needles) : bool
     {
@@ -222,7 +222,7 @@ final class StringUtils
      *
      * @return string multi byte string with first character as upper case
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function mb_ucfirst(string $string) : string
     {
@@ -240,7 +240,7 @@ final class StringUtils
      *
      * @return string multi byte string with first character as lower case
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function mb_lcfirst(string $string) : string
     {
@@ -259,7 +259,7 @@ final class StringUtils
      *
      * @return string trimmed multi byte string
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function mb_trim(string $string, string $charlist = ' ') : string
     {
@@ -280,7 +280,7 @@ final class StringUtils
      *
      * @return string trimmed multi byte string
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function mb_rtrim(string $string, string $charlist = ' ') : string
     {
@@ -301,7 +301,7 @@ final class StringUtils
      *
      * @return string trimmed multi byte string
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function mb_ltrim(string $string, string $charlist = ' ') : string
     {
@@ -325,7 +325,7 @@ final class StringUtils
      *
      * @return int the amount of repeating occurences at the beginning of the string
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function countCharacterFromStart(string $string, string $character) : int
     {
@@ -350,7 +350,7 @@ final class StringUtils
      *
      * @return float
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function getEntropy(string $value) : float
     {
@@ -373,7 +373,7 @@ final class StringUtils
      *
      * @return array<string, int>
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function mb_count_chars(string $input) : array
     {
@@ -401,7 +401,7 @@ final class StringUtils
      *
      * @return null|string
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function stringify($element, $option = null) : ?string
     {
@@ -437,7 +437,7 @@ final class StringUtils
      *
      * @return string Markup using <del> and <ins> tags
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function createDiffMarkup(string $old, string $new, string $delim = '') : string
     {
@@ -517,7 +517,7 @@ final class StringUtils
      *
      * @throws \Exception This exception is thrown if one of the parameters is empty
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     private static function computeLCSDiff(array $from, array $to) : array
     {

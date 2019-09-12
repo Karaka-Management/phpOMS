@@ -4,11 +4,11 @@
  *
  * PHP Version 7.4
  *
- * @package    phpOMS\Math\Number
- * @copyright  Dennis Eichhorn
- * @license    OMS License 1.0
- * @version    1.0.0
- * @link       https://orange-management.org
+ * @package   phpOMS\Math\Number
+ * @copyright Dennis Eichhorn
+ * @license   OMS License 1.0
+ * @version   1.0.0
+ * @link      https://orange-management.org
  */
 declare(strict_types=1);
 
@@ -17,10 +17,10 @@ namespace phpOMS\Math\Number;
 /**
  * Basic operation interface.
  *
- * @package    phpOMS\Math\Number
- * @license    OMS License 1.0
- * @link       https://orange-management.org
- * @since      1.0.0
+ * @package phpOMS\Math\Number
+ * @license OMS License 1.0
+ * @link    https://orange-management.org
+ * @since   1.0.0
  */
 interface OperationInterface
 {
@@ -31,7 +31,7 @@ interface OperationInterface
      *
      * @return mixed
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function add($x);
 
@@ -42,7 +42,7 @@ interface OperationInterface
      *
      * @return mixed
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function sub($x);
 
@@ -53,7 +53,7 @@ interface OperationInterface
      *
      * @return mixed
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function mult($x);
 
@@ -64,7 +64,7 @@ interface OperationInterface
      *
      * @return mixed
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function div($x);
 
@@ -75,7 +75,7 @@ interface OperationInterface
      *
      * @return mixed
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function pow($p);
 
@@ -84,7 +84,7 @@ interface OperationInterface
      *
      * @return mixed
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function abs();
 }

@@ -4,11 +4,11 @@
  *
  * PHP Version 7.4
  *
- * @package    phpOMS\DataStorage\Cache\Connection
- * @copyright  Dennis Eichhorn
- * @license    OMS License 1.0
- * @version    1.0.0
- * @link       https://orange-management.org
+ * @package   phpOMS\DataStorage\Cache\Connection
+ * @copyright Dennis Eichhorn
+ * @license   OMS License 1.0
+ * @version   1.0.0
+ * @link      https://orange-management.org
  */
 declare(strict_types=1);
 
@@ -21,10 +21,10 @@ use phpOMS\DataStorage\Cache\Exception\InvalidConnectionConfigException;
 /**
  * RedisCache class.
  *
- * @package    phpOMS\DataStorage\Cache\Connection
- * @license    OMS License 1.0
- * @link       https://orange-management.org
- * @since      1.0.0
+ * @package phpOMS\DataStorage\Cache\Connection
+ * @license OMS License 1.0
+ * @link    https://orange-management.org
+ * @since   1.0.0
  */
 class RedisCache extends ConnectionAbstract
 {
@@ -38,7 +38,7 @@ class RedisCache extends ConnectionAbstract
      *
      * @param array $data Cache data
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function __construct(array $data)
     {
@@ -222,7 +222,7 @@ class RedisCache extends ConnectionAbstract
     /**
      * Destructor.
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function __destruct()
     {

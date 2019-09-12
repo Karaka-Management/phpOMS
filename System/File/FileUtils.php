@@ -4,11 +4,11 @@
  *
  * PHP Version 7.4
  *
- * @package    phpOMS\System\File
- * @copyright  Dennis Eichhorn
- * @license    OMS License 1.0
- * @version    1.0.0
- * @link       https://orange-management.org
+ * @package   phpOMS\System\File
+ * @copyright Dennis Eichhorn
+ * @license   OMS License 1.0
+ * @version   1.0.0
+ * @link      https://orange-management.org
  */
 declare(strict_types=1);
 
@@ -17,10 +17,10 @@ namespace phpOMS\System\File;
 /**
  * Path exception class.
  *
- * @package    phpOMS\System\File
- * @license    OMS License 1.0
- * @link       https://orange-management.org
- * @since      1.0.0
+ * @package phpOMS\System\File
+ * @license OMS License 1.0
+ * @link    https://orange-management.org
+ * @since   1.0.0
  */
 final class FileUtils
 {
@@ -40,7 +40,7 @@ final class FileUtils
     /**
      * Constructor.
      *
-     * @since  1.0.0
+     * @since 1.0.0
      * @codeCoverageIgnore
      */
     private function __construct()
@@ -55,7 +55,7 @@ final class FileUtils
      *
      * @return int Extension type
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function getExtensionType(string $extension) : int
     {
@@ -95,7 +95,7 @@ final class FileUtils
      *
      * @return string
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function absolute(string $origPath) : string
     {
@@ -133,7 +133,7 @@ final class FileUtils
      *
      * @return void
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function changeFileEncoding(string $file, string $encoding) : void
     {
@@ -154,7 +154,7 @@ final class FileUtils
      *
      * @return int
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function permissionToOctal(string $permission) : int
     {

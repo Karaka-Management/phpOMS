@@ -4,11 +4,11 @@
  *
  * PHP Version 7.4
  *
- * @package    phpOMS\DataStorage\Session
- * @copyright  Dennis Eichhorn
- * @license    OMS License 1.0
- * @version    1.0.0
- * @link       https://orange-management.org
+ * @package   phpOMS\DataStorage\Session
+ * @copyright Dennis Eichhorn
+ * @license   OMS License 1.0
+ * @version   1.0.0
+ * @link      https://orange-management.org
  */
 declare(strict_types=1);
 
@@ -21,10 +21,10 @@ use phpOMS\Utils\RnG\StringUtils;
 /**
  * Http session class.
  *
- * @package    phpOMS\DataStorage\Session
- * @license    OMS License 1.0
- * @link       https://orange-management.org
- * @since      1.0.0
+ * @package phpOMS\DataStorage\Session
+ * @license OMS License 1.0
+ * @link    https://orange-management.org
+ * @since   1.0.0
  *
  * @SuppressWarnings(PHPMD.Superglobals)
  */
@@ -34,7 +34,7 @@ class HttpSession implements SessionInterface
     /**
      * Is session locked/already set.
      *
-     * @var bool
+     * @var   bool
      * @since 1.0.0
      */
     private bool $isLocked = false;
@@ -42,7 +42,7 @@ class HttpSession implements SessionInterface
     /**
      * Raw session data.
      *
-     * @var array
+     * @var   array
      * @since 1.0.0
      */
     private array $sessionData = [];
@@ -50,7 +50,7 @@ class HttpSession implements SessionInterface
     /**
      * Session ID.
      *
-     * @var null|int|string
+     * @var   null|int|string
      * @since 1.0.0
      */
     private $sid = null;
@@ -58,7 +58,7 @@ class HttpSession implements SessionInterface
     /**
      * Inactivity Interval.
      *
-     * @var int
+     * @var   int
      * @since 1.0.0
      */
     private int $inactivityInterval = 0;
@@ -72,7 +72,7 @@ class HttpSession implements SessionInterface
      *
      * @throws LockException throws this exception if the session is alrady locked for further interaction
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function __construct(int $liftetime = 3600, $sid = false, int $inactivityInterval = 0)
     {
@@ -108,7 +108,7 @@ class HttpSession implements SessionInterface
      *
      * @return void
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     private function setCsrfProtection() : void
     {
@@ -157,7 +157,7 @@ class HttpSession implements SessionInterface
      *
      * @return bool Lock status
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function isLocked() : bool
     {
@@ -210,7 +210,7 @@ class HttpSession implements SessionInterface
      *
      * @return void
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     private function destroy() : void
     {
@@ -222,7 +222,7 @@ class HttpSession implements SessionInterface
     /**
      * Destruct session.
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function __destruct()
     {

@@ -4,11 +4,11 @@
  *
  * PHP Version 7.4
  *
- * @package    phpOMS\Utils\Git
- * @copyright  Dennis Eichhorn
- * @license    OMS License 1.0
- * @version    1.0.0
- * @link       https://orange-management.org
+ * @package   phpOMS\Utils\Git
+ * @copyright Dennis Eichhorn
+ * @license   OMS License 1.0
+ * @version   1.0.0
+ * @link      https://orange-management.org
  */
 declare(strict_types=1);
 
@@ -17,17 +17,17 @@ namespace phpOMS\Utils\Git;
 /**
  * Gray encoding class
  *
- * @package    phpOMS\Utils\Git
- * @license    OMS License 1.0
- * @link       https://orange-management.org
- * @since      1.0.0
+ * @package phpOMS\Utils\Git
+ * @license OMS License 1.0
+ * @link    https://orange-management.org
+ * @since   1.0.0
  */
 class Tag
 {
     /**
      * Name.
      *
-     * @var string
+     * @var   string
      * @since 1.0.0
      */
     private string $name = '';
@@ -35,7 +35,7 @@ class Tag
     /**
      * Message.
      *
-     * @var string
+     * @var   string
      * @since 1.0.0
      */
     private string $message = '';
@@ -45,7 +45,7 @@ class Tag
      *
      * @param string $name Tag name/version
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function __construct(string $name = '')
     {
@@ -57,7 +57,7 @@ class Tag
      *
      * @return string
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function getMessage() : string
     {
@@ -71,7 +71,7 @@ class Tag
      *
      * @return void
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function setMessage(string $message) : void
     {
@@ -83,7 +83,7 @@ class Tag
      *
      * @return string
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function getName() : string
     {

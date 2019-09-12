@@ -4,11 +4,11 @@
  *
  * PHP Version 7.4
  *
- * @package    phpOMS\Math\Stochastic\Distribution
- * @copyright  Dennis Eichhorn
- * @license    OMS License 1.0
- * @version    1.0.0
- * @link       https://orange-management.org
+ * @package   phpOMS\Math\Stochastic\Distribution
+ * @copyright Dennis Eichhorn
+ * @license   OMS License 1.0
+ * @version   1.0.0
+ * @link      https://orange-management.org
  */
 declare(strict_types=1);
 
@@ -17,10 +17,10 @@ namespace phpOMS\Math\Stochastic\Distribution;
 /**
  * Normal distribution.
  *
- * @package    phpOMS\Math\Stochastic\Distribution
- * @license    OMS License 1.0
- * @link       https://orange-management.org
- * @since      1.0.0
+ * @package phpOMS\Math\Stochastic\Distribution
+ * @license OMS License 1.0
+ * @link    https://orange-management.org
+ * @since   1.0.0
  */
 class NormalDistribution
 {
@@ -34,7 +34,7 @@ class NormalDistribution
      *
      * @return float
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function getPdf(float $x, float $mu, float $sig) : float
     {
@@ -50,7 +50,7 @@ class NormalDistribution
      *
      * @return float
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function getCdf(float $x, float $mu, float $sig) : float
     {
@@ -64,7 +64,7 @@ class NormalDistribution
      *
      * @return float
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     private static function erf(float $x) : float
     {
@@ -84,7 +84,7 @@ class NormalDistribution
      *
      * @return float
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function getMode(float $mu) : float
     {
@@ -98,7 +98,7 @@ class NormalDistribution
      *
      * @return float
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function getMean(float $mu) : float
     {
@@ -112,7 +112,7 @@ class NormalDistribution
      *
      * @return float
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function getMedian(float $mu) : float
     {
@@ -126,7 +126,7 @@ class NormalDistribution
      *
      * @return float
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function getVariance(float $sig) : float
     {
@@ -142,7 +142,7 @@ class NormalDistribution
      *
      * @return float
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function getMgf(float $t, float $mu, float $sig) : float
     {
@@ -154,7 +154,7 @@ class NormalDistribution
      *
      * @return float
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function getSkewness() : float
     {
@@ -168,7 +168,7 @@ class NormalDistribution
      *
      * @return array
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function getFisherInformation(float $sig) : array
     {
@@ -180,7 +180,7 @@ class NormalDistribution
      *
      * @return float
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function getExKurtosis() : float
     {

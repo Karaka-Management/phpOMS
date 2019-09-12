@@ -4,11 +4,11 @@
  *
  * PHP Version 7.4
  *
- * @package    phpOMS\System\File
- * @copyright  Dennis Eichhorn
- * @license    OMS License 1.0
- * @version    1.0.0
- * @link       https://orange-management.org
+ * @package   phpOMS\System\File
+ * @copyright Dennis Eichhorn
+ * @license   OMS License 1.0
+ * @version   1.0.0
+ * @link      https://orange-management.org
  */
 declare(strict_types=1);
 
@@ -19,10 +19,10 @@ namespace phpOMS\System\File\Ftp;
  *
  * Performing operations on the file system
  *
- * @package    phpOMS\System\File
- * @license    OMS License 1.0
- * @link       https://orange-management.org
- * @since      1.0.0
+ * @package phpOMS\System\File
+ * @license OMS License 1.0
+ * @link    https://orange-management.org
+ * @since   1.0.0
  */
 interface FtpContainerInterface
 {
@@ -34,7 +34,7 @@ interface FtpContainerInterface
      *
      * @return \DateTime
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function created($con, string $path) : \DateTime;
 
@@ -46,7 +46,7 @@ interface FtpContainerInterface
      *
      * @return \DateTime
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function changed($con, string $path) : \DateTime;
 
@@ -58,7 +58,7 @@ interface FtpContainerInterface
      *
      * @return string
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function owner($con, string $path) : string;
 
@@ -70,7 +70,7 @@ interface FtpContainerInterface
      *
      * @return int Permissions (e.g. 0755);
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function permission($con, string $path) : int;
 
@@ -83,7 +83,7 @@ interface FtpContainerInterface
      *
      * @return string
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function parent(string $path) : string;
 
@@ -95,7 +95,7 @@ interface FtpContainerInterface
      *
      * @return bool True on success and false on failure
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function delete($con, string $path) : bool;
 
@@ -109,7 +109,7 @@ interface FtpContainerInterface
      *
      * @return bool True on success and false on failure
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function copy($con, string $from, string $to, bool $overwrite = false) : bool;
 
@@ -123,7 +123,7 @@ interface FtpContainerInterface
      *
      * @return bool True on success and false on failure
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function move($con, string $from, string $to, bool $overwrite = false) : bool;
 
@@ -136,7 +136,7 @@ interface FtpContainerInterface
      *
      * @return int
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function size($con, string $path, bool $recursive = true) : int;
 
@@ -148,7 +148,7 @@ interface FtpContainerInterface
      *
      * @return bool
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function exists($con, string $path) : bool;
 
@@ -159,7 +159,7 @@ interface FtpContainerInterface
      *
      * @return string
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function name(string $path) : string;
 
@@ -170,7 +170,7 @@ interface FtpContainerInterface
      *
      * @return string
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function basename(string $path) : string;
 
@@ -181,7 +181,7 @@ interface FtpContainerInterface
      *
      * @return string
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function dirname(string $path) : string;
 
@@ -192,7 +192,7 @@ interface FtpContainerInterface
      *
      * @return string
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function dirpath(string $path) : string;
 
@@ -206,7 +206,7 @@ interface FtpContainerInterface
      *
      * @return int
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function count($con, string $path, bool $recursive = true, array $ignore = []) : int;
 
@@ -219,7 +219,7 @@ interface FtpContainerInterface
      *
      * @return string
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function sanitize(string $path, string $replace = '', string $invalid = '/[^\w\s\d\.\-_~,;\/\[\]\(\]]/') : string;
 }

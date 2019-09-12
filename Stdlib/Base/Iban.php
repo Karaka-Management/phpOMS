@@ -4,11 +4,11 @@
  *
  * PHP Version 7.4
  *
- * @package    phpOMS\Stdlib\Base
- * @copyright  Dennis Eichhorn
- * @license    OMS License 1.0
- * @version    1.0.0
- * @link       https://orange-management.org
+ * @package   phpOMS\Stdlib\Base
+ * @copyright Dennis Eichhorn
+ * @license   OMS License 1.0
+ * @version   1.0.0
+ * @link      https://orange-management.org
  */
 declare(strict_types=1);
 
@@ -19,17 +19,17 @@ use phpOMS\Validation\Finance\IbanEnum;
 /**
  * Iban class.
  *
- * @package    phpOMS\Stdlib\Base
- * @license    OMS License 1.0
- * @link       https://orange-management.org
- * @since      1.0.0
+ * @package phpOMS\Stdlib\Base
+ * @license OMS License 1.0
+ * @link    https://orange-management.org
+ * @since   1.0.0
  */
 class Iban implements \Serializable
 {
     /**
      * Iban.
      *
-     * @var string
+     * @var   string
      * @since 1.0.0
      */
     private string $iban = '';
@@ -39,7 +39,7 @@ class Iban implements \Serializable
      *
      * @param string $iban Iban
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function __construct(string $iban)
     {
@@ -53,7 +53,7 @@ class Iban implements \Serializable
      *
      * @return void
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     private function parse(string $iban) : void
     {
@@ -71,7 +71,7 @@ class Iban implements \Serializable
      *
      * @return string
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function normalize(string $iban) : string
     {
@@ -83,7 +83,7 @@ class Iban implements \Serializable
      *
      * @return int
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function getLength() : int
     {
@@ -95,7 +95,7 @@ class Iban implements \Serializable
      *
      * @return string
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function getChecksum() : string
     {
@@ -109,7 +109,7 @@ class Iban implements \Serializable
      *
      * @return string
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     private function getSequence(string $sequence) : string
     {
@@ -132,7 +132,7 @@ class Iban implements \Serializable
      *
      * @return string
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function getCountry() : string
     {
@@ -146,7 +146,7 @@ class Iban implements \Serializable
      *
      * @return string
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function getNationalChecksum() : string
     {
@@ -158,7 +158,7 @@ class Iban implements \Serializable
      *
      * @return string
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function getBranchCode() : string
     {
@@ -170,7 +170,7 @@ class Iban implements \Serializable
      *
      * @return string
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function getAccountType() : string
     {
@@ -182,7 +182,7 @@ class Iban implements \Serializable
      *
      * @return string
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function getCurrency() : string
     {
@@ -194,7 +194,7 @@ class Iban implements \Serializable
      *
      * @return string
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function getBankCode() : string
     {
@@ -206,7 +206,7 @@ class Iban implements \Serializable
      *
      * @return string
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function getAccount() : string
     {
@@ -218,7 +218,7 @@ class Iban implements \Serializable
      *
      * @return string
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function getHoldersKennital() : string
     {
@@ -230,7 +230,7 @@ class Iban implements \Serializable
      *
      * @return string
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function getOwnerAccountNumber() : string
     {
@@ -244,7 +244,7 @@ class Iban implements \Serializable
      *
      * @return string
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function getBicCode() : string
     {
@@ -264,7 +264,7 @@ class Iban implements \Serializable
      *
      * @return string
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function prettyPrint() : string
     {

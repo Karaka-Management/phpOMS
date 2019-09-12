@@ -4,11 +4,11 @@
  *
  * PHP Version 7.4
  *
- * @package    phpOMS\Socket\Server
- * @copyright  Dennis Eichhorn
- * @license    OMS License 1.0
- * @version    1.0.0
- * @link       https://orange-management.org
+ * @package   phpOMS\Socket\Server
+ * @copyright Dennis Eichhorn
+ * @license   OMS License 1.0
+ * @version   1.0.0
+ * @link      https://orange-management.org
  */
 declare(strict_types=1);
 
@@ -22,10 +22,10 @@ use phpOMS\Socket\SocketAbstract;
 /**
  * Server class.
  *
- * @package    phpOMS\Socket\Server
- * @license    OMS License 1.0
- * @link       https://orange-management.org
- * @since      1.0.0
+ * @package phpOMS\Socket\Server
+ * @license OMS License 1.0
+ * @link    https://orange-management.org
+ * @since   1.0.0
  */
 class Server extends SocketAbstract
 {
@@ -33,7 +33,7 @@ class Server extends SocketAbstract
     /**
      * Socket connection limit.
      *
-     * @var int
+     * @var   int
      * @since 1.0.0
      */
     private $limit = 10;
@@ -41,7 +41,7 @@ class Server extends SocketAbstract
     /**
      * Client connections.
      *
-     * @var array
+     * @var   array
      * @since 1.0.0
      */
     private $conn = [];
@@ -49,7 +49,7 @@ class Server extends SocketAbstract
     /**
      * Packet manager.
      *
-     * @var PacketManager
+     * @var   PacketManager
      * @since 1.0.0
      */
     private $packetManager = null;
@@ -61,7 +61,7 @@ class Server extends SocketAbstract
     /**
      * Socket application.
      *
-     * @var \Socket\SocketApplication
+     * @var   \Socket\SocketApplication
      * @since 1.0.0
      */
     private $app = null;
@@ -71,7 +71,7 @@ class Server extends SocketAbstract
      *
      * @param \Socket\SocketApplication $app socketApplication
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function __construct($app)
     {
@@ -85,7 +85,7 @@ class Server extends SocketAbstract
      *
      * @return bool
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function hasInternet() : bool
     {
@@ -118,7 +118,7 @@ class Server extends SocketAbstract
      *
      * @return void
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function setLimit(int $limit) : void
     {

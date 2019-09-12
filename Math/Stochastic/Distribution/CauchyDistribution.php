@@ -4,11 +4,11 @@
  *
  * PHP Version 7.4
  *
- * @package    phpOMS\Math\Stochastic\Distribution
- * @copyright  Dennis Eichhorn
- * @license    OMS License 1.0
- * @version    1.0.0
- * @link       https://orange-management.org
+ * @package   phpOMS\Math\Stochastic\Distribution
+ * @copyright Dennis Eichhorn
+ * @license   OMS License 1.0
+ * @version   1.0.0
+ * @link      https://orange-management.org
  */
 declare(strict_types=1);
 
@@ -17,10 +17,10 @@ namespace phpOMS\Math\Stochastic\Distribution;
 /**
  * Cauchy distribution.
  *
- * @package    phpOMS\Math\Stochastic\Distribution
- * @license    OMS License 1.0
- * @link       https://orange-management.org
- * @since      1.0.0
+ * @package phpOMS\Math\Stochastic\Distribution
+ * @license OMS License 1.0
+ * @link    https://orange-management.org
+ * @since   1.0.0
  */
 class CauchyDistribution
 {
@@ -33,7 +33,7 @@ class CauchyDistribution
      *
      * @return float
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function getPdf(float $x, float $x0, float $gamma) : float
     {
@@ -49,7 +49,7 @@ class CauchyDistribution
      *
      * @return float
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function getCdf(float $x, float $x0, float $gamma) : float
     {
@@ -63,7 +63,7 @@ class CauchyDistribution
      *
      * @return float
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function getMode($x0) : float
     {
@@ -77,7 +77,7 @@ class CauchyDistribution
      *
      * @return float
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function getMedian(float $x0) : float
     {
@@ -91,7 +91,7 @@ class CauchyDistribution
      *
      * @return float
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function getEntropy(float $gamma) : float
     {

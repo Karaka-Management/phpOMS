@@ -4,11 +4,11 @@
  *
  * PHP Version 7.4
  *
- * @package    phpOMS\Business\Sales
- * @copyright  Dennis Eichhorn
- * @license    OMS License 1.0
- * @version    1.0.0
- * @link       https://orange-management.org
+ * @package   phpOMS\Business\Sales
+ * @copyright Dennis Eichhorn
+ * @license   OMS License 1.0
+ * @version   1.0.0
+ * @link      https://orange-management.org
  */
 declare(strict_types=1);
 
@@ -20,10 +20,10 @@ namespace phpOMS\Business\Sales;
  * This class can be used to calculate the market share based on a rank or vice versa
  * the rank based on a marketshare in a Zipf distributed market.
  *
- * @package    phpOMS\Business\Sales
- * @license    OMS License 1.0
- * @link       https://orange-management.org
- * @since      1.0.0
+ * @package phpOMS\Business\Sales
+ * @license OMS License 1.0
+ * @link    https://orange-management.org
+ * @since   1.0.0
  */
 final class MarketShareEstimation
 {
@@ -38,7 +38,7 @@ final class MarketShareEstimation
      *
      * @return int Returns the rank
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function getRankFromMarketShare(int $participants, float $marketShare, float $modifier = 1.0) : int
     {
@@ -61,7 +61,7 @@ final class MarketShareEstimation
      *
      * @return float Returns the Market share
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function getMarketShareFromRank(int $participants, int $rank, float $modifier = 1.0) : float
     {

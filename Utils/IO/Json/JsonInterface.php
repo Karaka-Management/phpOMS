@@ -4,11 +4,11 @@
  *
  * PHP Version 7.4
  *
- * @package    phpOMS\Utils\IO\Json
- * @copyright  Dennis Eichhorn
- * @license    OMS License 1.0
- * @version    1.0.0
- * @link       https://orange-management.org
+ * @package   phpOMS\Utils\IO\Json
+ * @copyright Dennis Eichhorn
+ * @license   OMS License 1.0
+ * @version   1.0.0
+ * @link      https://orange-management.org
  */
 declare(strict_types=1);
 
@@ -17,10 +17,10 @@ namespace phpOMS\Utils\IO\Json;
 /**
  * Cvs interface.
  *
- * @package    phpOMS\Utils\IO\Json
- * @license    OMS License 1.0
- * @link       https://orange-management.org
- * @since      1.0.0
+ * @package phpOMS\Utils\IO\Json
+ * @license OMS License 1.0
+ * @link    https://orange-management.org
+ * @since   1.0.0
  */
 interface JsonInterface
 {
@@ -32,7 +32,7 @@ interface JsonInterface
      *
      * @return void
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function exportJson($path) : void;
 
@@ -43,7 +43,7 @@ interface JsonInterface
      *
      * @return void
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function importJson($path) : void;
 }

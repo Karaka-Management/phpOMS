@@ -4,11 +4,11 @@
  *
  * PHP Version 7.4
  *
- * @package    phpOMS\Business\Finance
- * @copyright  Dennis Eichhorn
- * @license    OMS License 1.0
- * @version    1.0.0
- * @link       https://orange-management.org
+ * @package   phpOMS\Business\Finance
+ * @copyright Dennis Eichhorn
+ * @license   OMS License 1.0
+ * @version   1.0.0
+ * @link      https://orange-management.org
  */
 declare(strict_types=1);
 
@@ -17,10 +17,10 @@ namespace phpOMS\Business\Finance;
 /**
  * Finance class.
  *
- * @package    phpOMS\Business\Finance
- * @license    OMS License 1.0
- * @link       https://orange-management.org
- * @since      1.0.0
+ * @package phpOMS\Business\Finance
+ * @license OMS License 1.0
+ * @link    https://orange-management.org
+ * @since   1.0.0
  *
  * @SuppressWarnings(PHPMD.CamelCaseParameterName)
  * @SuppressWarnings(PHPMD.CamelCaseVariableName)
@@ -36,7 +36,7 @@ final class StockBonds
      *
      * @return float
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function getBondEquivalentYield(float $fv, float $price, int $days) : float
     {
@@ -51,7 +51,7 @@ final class StockBonds
      *
      * @return float
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function getBookValuePerShare(float $total, int $common) : float
     {
@@ -67,7 +67,7 @@ final class StockBonds
      *
      * @return float
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function getExpectedReturnCAPM(float $rf, float $beta, float $r) : float
     {
@@ -82,7 +82,7 @@ final class StockBonds
      *
      * @return float
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function getCapitalGainsYield(float $P0, float $P1) : float
     {
@@ -97,7 +97,7 @@ final class StockBonds
      *
      * @return float
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function getCurrentYield(float $coupons, float $price) : float
     {
@@ -113,7 +113,7 @@ final class StockBonds
      *
      * @return float
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function getDilutedEarningsPerShare(float $income, float $avg, float $other) : float
     {
@@ -128,7 +128,7 @@ final class StockBonds
      *
      * @return float
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function getDividendPayoutRatio(float $dividends, float $income) : float
     {
@@ -143,7 +143,7 @@ final class StockBonds
      *
      * @return float
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function getDividendYield(float $dividends, float $price) : float
     {
@@ -158,7 +158,7 @@ final class StockBonds
      *
      * @return float
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function getDividendsPerShare(float $dividends, int $shares) : float
     {
@@ -173,7 +173,7 @@ final class StockBonds
      *
      * @return float
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function getEarningsPerShare(float $income, float $shares) : float
     {
@@ -188,7 +188,7 @@ final class StockBonds
      *
      * @return float
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function getEquityMultiplier(float $assets, float $equity) : float
     {
@@ -202,7 +202,7 @@ final class StockBonds
      *
      * @return float
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function getHoldingPeriodReturn(array $r) : float
     {
@@ -224,7 +224,7 @@ final class StockBonds
      *
      * @return float
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function getNetAssetValue(float $assets, float $liabilities, int $shares) : float
     {
@@ -239,7 +239,7 @@ final class StockBonds
      *
      * @return float
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function getPriceToBookValue(float $market, float $book) : float
     {
@@ -254,7 +254,7 @@ final class StockBonds
      *
      * @return float
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function getPriceEarningsRatio(float $price, float $earnings) : float
     {
@@ -269,7 +269,7 @@ final class StockBonds
      *
      * @return float
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function getPriceToSalesRatio(float $price, float $sales) : float
     {
@@ -285,7 +285,7 @@ final class StockBonds
      *
      * @return float
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function getPresentValueOfStockConstantGrowth(float $dividend, float $r, float $g = 0.0) : float
     {
@@ -300,7 +300,7 @@ final class StockBonds
      *
      * @return float
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function getTaxEquivalentYield(float $free, float $tax) : float
     {
@@ -316,7 +316,7 @@ final class StockBonds
      *
      * @return float
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function getTotalStockReturn(float $P0, float $P1, float $D) : float
     {
@@ -333,7 +333,7 @@ final class StockBonds
      *
      * @return float
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function getYieldToMaturity(float $C, float $F, float $P, int $n) : float
     {
@@ -349,7 +349,7 @@ final class StockBonds
      *
      * @return float
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function getZeroCouponBondValue(float $F, float $r, int $t) : float
     {
@@ -365,7 +365,7 @@ final class StockBonds
      *
      * @return float
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function getZeroCouponBondEffectiveYield(float $F, float $PV, int $n) : float
     {

@@ -4,11 +4,11 @@
  *
  * PHP Version 7.4
  *
- * @package    phpOMS\Utils\Git
- * @copyright  Dennis Eichhorn
- * @license    OMS License 1.0
- * @version    1.0.0
- * @link       https://orange-management.org
+ * @package   phpOMS\Utils\Git
+ * @copyright Dennis Eichhorn
+ * @license   OMS License 1.0
+ * @version   1.0.0
+ * @link      https://orange-management.org
  */
 declare(strict_types=1);
 
@@ -19,10 +19,10 @@ use phpOMS\System\File\PathException;
 /**
  * Gray encoding class
  *
- * @package    phpOMS\Utils\Git
- * @license    OMS License 1.0
- * @link       https://orange-management.org
- * @since      1.0.0
+ * @package phpOMS\Utils\Git
+ * @license OMS License 1.0
+ * @link    https://orange-management.org
+ * @since   1.0.0
  * @codeCoverageIgnore
  */
 class Git
@@ -30,7 +30,7 @@ class Git
     /**
      * Git path.
      *
-     * @var string
+     * @var   string
      * @since 1.0.0
      */
     protected static string $bin = '/usr/bin/git';
@@ -40,7 +40,7 @@ class Git
      *
      * @return bool
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function test() : bool
     {
@@ -62,7 +62,7 @@ class Git
      *
      * @return string
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function getBin() : string
     {
@@ -78,7 +78,7 @@ class Git
      *
      * @throws PathException This exception is thrown if the binary path doesn't exist
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function setBin(string $path) : void
     {

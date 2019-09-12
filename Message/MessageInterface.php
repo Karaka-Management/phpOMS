@@ -4,11 +4,11 @@
  *
  * PHP Version 7.4
  *
- * @package    phpOMS\Message
- * @copyright  Dennis Eichhorn
- * @license    OMS License 1.0
- * @version    1.0.0
- * @link       https://orange-management.org
+ * @package   phpOMS\Message
+ * @copyright Dennis Eichhorn
+ * @license   OMS License 1.0
+ * @version   1.0.0
+ * @link      https://orange-management.org
  */
 declare(strict_types=1);
 
@@ -17,10 +17,10 @@ namespace phpOMS\Message;
 /**
  * Message interface.
  *
- * @package    phpOMS\Message
- * @license    OMS License 1.0
- * @link       https://orange-management.org
- * @since      1.0.0
+ * @package phpOMS\Message
+ * @license OMS License 1.0
+ * @link    https://orange-management.org
+ * @since   1.0.0
  */
 interface MessageInterface
 {
@@ -29,7 +29,7 @@ interface MessageInterface
      *
      * @return null|HeaderAbstract
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function getHeader() : ?HeaderAbstract;
 
@@ -38,7 +38,7 @@ interface MessageInterface
      *
      * @return string
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function getBody() : string;
 }

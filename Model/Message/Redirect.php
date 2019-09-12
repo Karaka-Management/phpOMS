@@ -4,11 +4,11 @@
  *
  * PHP Version 7.4
  *
- * @package    phpOMS\Model\Message
- * @copyright  Dennis Eichhorn
- * @license    OMS License 1.0
- * @version    1.0.0
- * @link       https://orange-management.org
+ * @package   phpOMS\Model\Message
+ * @copyright Dennis Eichhorn
+ * @license   OMS License 1.0
+ * @version   1.0.0
+ * @link      https://orange-management.org
  */
 declare(strict_types=1);
 
@@ -19,10 +19,10 @@ use phpOMS\Contract\ArrayableInterface;
 /**
  * Redirect class.
  *
- * @package    phpOMS\Model\Message
- * @license    OMS License 1.0
- * @link       https://orange-management.org
- * @since      1.0.0
+ * @package phpOMS\Model\Message
+ * @license OMS License 1.0
+ * @link    https://orange-management.org
+ * @since   1.0.0
  */
 class Redirect implements \Serializable, ArrayableInterface, \JsonSerializable
 {
@@ -30,7 +30,7 @@ class Redirect implements \Serializable, ArrayableInterface, \JsonSerializable
     /**
      * Message type.
      *
-     * @var string
+     * @var   string
      * @since 1.0.0
      */
     public const TYPE = 'redirect';
@@ -38,7 +38,7 @@ class Redirect implements \Serializable, ArrayableInterface, \JsonSerializable
     /**
      * Redirect uri.
      *
-     * @var string
+     * @var   string
      * @since 1.0.0
      */
     private string $uri = '';
@@ -46,7 +46,7 @@ class Redirect implements \Serializable, ArrayableInterface, \JsonSerializable
     /**
      * Delay.
      *
-     * @var int
+     * @var   int
      * @since 1.0.0
      */
     private int $delay = 0;
@@ -54,7 +54,7 @@ class Redirect implements \Serializable, ArrayableInterface, \JsonSerializable
     /**
      * Window.
      *
-     * @var bool
+     * @var   bool
      * @since 1.0.0
      */
     private bool $new = false;
@@ -65,7 +65,7 @@ class Redirect implements \Serializable, ArrayableInterface, \JsonSerializable
      * @param string $url   Url
      * @param bool   $blank New window
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function __construct(string $url = '', bool $blank = false)
     {
@@ -80,7 +80,7 @@ class Redirect implements \Serializable, ArrayableInterface, \JsonSerializable
      *
      * @return void
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function setDelay(int $delay) : void
     {
@@ -94,7 +94,7 @@ class Redirect implements \Serializable, ArrayableInterface, \JsonSerializable
      *
      * @return void
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function setUri(string $uri) : void
     {
@@ -106,7 +106,7 @@ class Redirect implements \Serializable, ArrayableInterface, \JsonSerializable
      *
      * @return string
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function serialize() : string
     {
@@ -118,7 +118,7 @@ class Redirect implements \Serializable, ArrayableInterface, \JsonSerializable
      *
      * @return array<string, mixed>
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     /**
      * {@inheritdoc}
@@ -145,7 +145,7 @@ class Redirect implements \Serializable, ArrayableInterface, \JsonSerializable
      *
      * @return string
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function __toString()
     {
@@ -157,7 +157,7 @@ class Redirect implements \Serializable, ArrayableInterface, \JsonSerializable
      *
      * @return array<string, mixed>
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function toArray() : array
     {

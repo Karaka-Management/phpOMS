@@ -4,11 +4,11 @@
  *
  * PHP Version 7.4
  *
- * @package    phpOMS\Utils\RnG
- * @copyright  Dennis Eichhorn
- * @license    OMS License 1.0
- * @version    1.0.0
- * @link       https://orange-management.org
+ * @package   phpOMS\Utils\RnG
+ * @copyright Dennis Eichhorn
+ * @license   OMS License 1.0
+ * @version   1.0.0
+ * @link      https://orange-management.org
  */
 declare(strict_types=1);
 
@@ -17,10 +17,10 @@ namespace phpOMS\Utils\RnG;
 /**
  * Text generator.
  *
- * @package    phpOMS\Utils\RnG
- * @license    OMS License 1.0
- * @link       https://orange-management.org
- * @since      1.0.0
+ * @package phpOMS\Utils\RnG
+ * @license OMS License 1.0
+ * @link    https://orange-management.org
+ * @since   1.0.0
  */
 class Text
 {
@@ -28,7 +28,7 @@ class Text
     /**
      * Vocabulary.
      *
-     * @var string[]
+     * @var   string[]
      * @since 1.0.0
      */
     private static $wordsWest = [
@@ -53,7 +53,7 @@ class Text
     /**
      * Text has random formatting.
      *
-     * @var bool
+     * @var   bool
      * @since 1.0.0
      */
     private $hasFormatting = false;
@@ -61,7 +61,7 @@ class Text
     /**
      * Text has paragraphs.
      *
-     * @var bool
+     * @var   bool
      * @since 1.0.0
      */
     private $hasParagraphs = false;
@@ -69,7 +69,7 @@ class Text
     /**
      * Amount of sentences of the last generated text.
      *
-     * @var int
+     * @var   int
      * @since 1.0.0
      */
     private $sentences = 0;
@@ -80,7 +80,7 @@ class Text
      * @param bool $hasFormatting Text should have formatting
      * @param bool $hasParagraphs Text should have paragraphs
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function __construct(bool $hasFormatting = false, bool $hasParagraphs = false)
     {
@@ -95,7 +95,7 @@ class Text
      *
      * @return void
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function setFormatting(bool $hasFormatting) : void
     {
@@ -109,7 +109,7 @@ class Text
      *
      * @return void
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function setParagraphs(bool $hasParagraphs) : void
     {
@@ -121,7 +121,7 @@ class Text
      *
      * @return int
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function getSentences() : int
     {
@@ -136,7 +136,7 @@ class Text
      *
      * @return string
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function generateText(int $length, array $words = null) : string
     {
@@ -226,7 +226,7 @@ class Text
      *
      * @return array
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     private function generatePunctuation(int $length) : array
     {
@@ -292,7 +292,7 @@ class Text
      *
      * @return array
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     private function generateParagraph(int $length) : array
     {
@@ -322,7 +322,7 @@ class Text
      *
      * @return string[]
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     private function generateFormatting(int $length) : array
     {

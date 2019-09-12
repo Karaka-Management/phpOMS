@@ -4,11 +4,11 @@
  *
  * PHP Version 7.4
  *
- * @package    phpOMS\Router
- * @copyright  Dennis Eichhorn
- * @license    OMS License 1.0
- * @version    1.0.0
- * @link       https://orange-management.org
+ * @package   phpOMS\Router
+ * @copyright Dennis Eichhorn
+ * @license   OMS License 1.0
+ * @version   1.0.0
+ * @link      https://orange-management.org
  */
 declare(strict_types=1);
 
@@ -20,10 +20,10 @@ use phpOMS\Uri\Http;
 /**
  * Router class.
  *
- * @package    phpOMS\Router
- * @license    OMS License 1.0
- * @link       https://orange-management.org
- * @since      1.0.0
+ * @package phpOMS\Router
+ * @license OMS License 1.0
+ * @link    https://orange-management.org
+ * @since   1.0.0
  */
 final class Router
 {
@@ -31,7 +31,7 @@ final class Router
     /**
      * Routes.
      *
-     * @var array
+     * @var   array
      * @since 1.0.0
      */
     private array $routes = [];
@@ -59,7 +59,7 @@ final class Router
      *
      * @return bool
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function importFromFile(string $path) : bool
     {
@@ -83,7 +83,7 @@ final class Router
      *
      * @return void
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function add(string $route, $destination, int $verb = RouteVerb::GET, bool $csrf = false) : void
     {
@@ -110,7 +110,7 @@ final class Router
      *
      * @return array[]
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function route(
         string $uri,

@@ -4,11 +4,11 @@
  *
  * PHP Version 7.4
  *
- * @package    phpOMS\Views
- * @copyright  Dennis Eichhorn
- * @license    OMS License 1.0
- * @version    1.0.0
- * @link       https://orange-management.org
+ * @package   phpOMS\Views
+ * @copyright Dennis Eichhorn
+ * @license   OMS License 1.0
+ * @version   1.0.0
+ * @link      https://orange-management.org
  */
 declare(strict_types=1);
 
@@ -20,10 +20,10 @@ use phpOMS\System\File\PathException;
 /**
  * View Abstract.
  *
- * @package    phpOMS\Views
- * @license    OMS License 1.0
- * @link       https://orange-management.org
- * @since      1.0.0
+ * @package phpOMS\Views
+ * @license OMS License 1.0
+ * @link    https://orange-management.org
+ * @since   1.0.0
  */
 abstract class ViewAbstract implements RenderableInterface
 {
@@ -31,7 +31,7 @@ abstract class ViewAbstract implements RenderableInterface
     /**
      * Template.
      *
-     * @var string
+     * @var   string
      * @since 1.0.0
      */
     protected string $template = '';
@@ -39,7 +39,7 @@ abstract class ViewAbstract implements RenderableInterface
     /**
      * Views.
      *
-     * @var \phpOMS\Views\View[]
+     * @var   \phpOMS\Views\View[]
      * @since 1.0.0
      */
     protected array $views = [];
@@ -52,7 +52,7 @@ abstract class ViewAbstract implements RenderableInterface
      *
      * @return int
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     private static function viewSort(array $a, array $b) : int
     {
@@ -68,7 +68,7 @@ abstract class ViewAbstract implements RenderableInterface
      *
      * @return string
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function getTemplate() : string
     {
@@ -82,7 +82,7 @@ abstract class ViewAbstract implements RenderableInterface
      *
      * @return void
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function setTemplate(string $template) : void
     {
@@ -96,7 +96,7 @@ abstract class ViewAbstract implements RenderableInterface
      *
      * @return string
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function printHtml($text) : string
     {
@@ -110,7 +110,7 @@ abstract class ViewAbstract implements RenderableInterface
      *
      * @return string
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function html($text) : string
     {
@@ -122,7 +122,7 @@ abstract class ViewAbstract implements RenderableInterface
      *
      * @return View[]
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function getViews() : array
     {
@@ -136,7 +136,7 @@ abstract class ViewAbstract implements RenderableInterface
      *
      * @return false|View
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function getView(string $id)
     {
@@ -154,7 +154,7 @@ abstract class ViewAbstract implements RenderableInterface
      *
      * @return bool
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function removeView(string $id) : bool
     {
@@ -177,7 +177,7 @@ abstract class ViewAbstract implements RenderableInterface
      *
      * @return bool
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function addView(string $id, View $view, int $order = 0, bool $overwrite = false) : bool
     {
@@ -199,7 +199,7 @@ abstract class ViewAbstract implements RenderableInterface
      *
      * @return string
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function serialize() : string
     {
@@ -215,7 +215,7 @@ abstract class ViewAbstract implements RenderableInterface
      *
      * @return array
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function toArray() : array
     {
@@ -239,7 +239,7 @@ abstract class ViewAbstract implements RenderableInterface
      *
      * @return string
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function render(...$data) : string
     {
@@ -274,7 +274,7 @@ abstract class ViewAbstract implements RenderableInterface
      *
      * @return void
      *
-     * @since  1.0.0
+     * @since 1.0.0
      * @codeCoverageIgnore
      */
     public function unserialize($raw) : void

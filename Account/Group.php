@@ -4,11 +4,11 @@
  *
  * PHP Version 7.4
  *
- * @package    phpOMS\Account
- * @copyright  Dennis Eichhorn
- * @license    OMS License 1.0
- * @version    1.0.0
- * @link       https://orange-management.org
+ * @package   phpOMS\Account
+ * @copyright Dennis Eichhorn
+ * @license   OMS License 1.0
+ * @version   1.0.0
+ * @link      https://orange-management.org
  */
 declare(strict_types=1);
 
@@ -20,10 +20,10 @@ use phpOMS\Stdlib\Base\Exception\InvalidEnumValue;
 /**
  * Account group class.
  *
- * @package    phpOMS\Account
- * @license    OMS License 1.0
- * @link       https://orange-management.org
- * @since      1.0.0
+ * @package phpOMS\Account
+ * @license OMS License 1.0
+ * @link    https://orange-management.org
+ * @since   1.0.0
  */
 class Group implements ArrayableInterface, \JsonSerializable
 {
@@ -31,7 +31,7 @@ class Group implements ArrayableInterface, \JsonSerializable
     /**
      * Group id.
      *
-     * @var int
+     * @var   int
      * @since 1.0.0
      */
     protected int $id = 0;
@@ -39,7 +39,7 @@ class Group implements ArrayableInterface, \JsonSerializable
     /**
      * Group name.
      *
-     * @var string
+     * @var   string
      * @since 1.0.0
      */
     protected string $name = '';
@@ -47,7 +47,7 @@ class Group implements ArrayableInterface, \JsonSerializable
     /**
      * Group name.
      *
-     * @var string
+     * @var   string
      * @since 1.0.0
      */
     protected string $description = '';
@@ -55,7 +55,7 @@ class Group implements ArrayableInterface, \JsonSerializable
     /**
      * Group members.
      *
-     * @var array
+     * @var   array
      * @since 1.0.0
      */
     protected array $members = [];
@@ -63,7 +63,7 @@ class Group implements ArrayableInterface, \JsonSerializable
     /**
      * Parents.
      *
-     * @var int[]
+     * @var   int[]
      * @since 1.0.0
      */
     protected array $parents = [];
@@ -71,7 +71,7 @@ class Group implements ArrayableInterface, \JsonSerializable
     /**
      * Group status.
      *
-     * @var int
+     * @var   int
      * @since 1.0.0
      */
     protected int $status = GroupStatus::INACTIVE;
@@ -83,7 +83,7 @@ class Group implements ArrayableInterface, \JsonSerializable
      *
      * @return int Returns the id of the group
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function getId() : int
     {
@@ -95,7 +95,7 @@ class Group implements ArrayableInterface, \JsonSerializable
      *
      * @return string Returns the name of the group
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function getName() : string
     {
@@ -109,7 +109,7 @@ class Group implements ArrayableInterface, \JsonSerializable
      *
      * @return void
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function setName(string $name) : void
     {
@@ -121,7 +121,7 @@ class Group implements ArrayableInterface, \JsonSerializable
      *
      * @return string Returns the description of the group
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function getDescription() : string
     {
@@ -135,7 +135,7 @@ class Group implements ArrayableInterface, \JsonSerializable
      *
      * @return void
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function setDescription(string $description) : void
     {
@@ -147,7 +147,7 @@ class Group implements ArrayableInterface, \JsonSerializable
      *
      * @return int Group status
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function getStatus() : int
     {
@@ -163,7 +163,7 @@ class Group implements ArrayableInterface, \JsonSerializable
      *
      * @throws InvalidEnumValue This exception is thrown if an invalid status is used
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function setStatus(int $status) : void
     {
@@ -179,7 +179,7 @@ class Group implements ArrayableInterface, \JsonSerializable
      *
      * @return string Returns the json_encode of this object
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function __toString() : string
     {
@@ -205,7 +205,7 @@ class Group implements ArrayableInterface, \JsonSerializable
      *
      * @return array<string, mixed>
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     /**
      * {@inheritdoc}

@@ -4,11 +4,11 @@
  *
  * PHP Version 7.4
  *
- * @package    phpOMS\Math\Functions
- * @copyright  Dennis Eichhorn
- * @license    OMS License 1.0
- * @version    1.0.0
- * @link       https://orange-management.org
+ * @package   phpOMS\Math\Functions
+ * @copyright Dennis Eichhorn
+ * @license   OMS License 1.0
+ * @version   1.0.0
+ * @link      https://orange-management.org
  */
 declare(strict_types=1);
 
@@ -19,17 +19,17 @@ use phpOMS\Math\Number\Numbers;
 /**
  * Well known functions class.
  *
- * @package    phpOMS\Math\Functions
- * @license    OMS License 1.0
- * @link       https://orange-management.org
- * @since      1.0.0
+ * @package phpOMS\Math\Functions
+ * @license OMS License 1.0
+ * @link    https://orange-management.org
+ * @since   1.0.0
  */
 final class Fibunacci
 {
     /**
      * Constructor.
      *
-     * @since  1.0.0
+     * @since 1.0.0
      * @codeCoverageIgnore
      */
     private function __construct()
@@ -44,7 +44,7 @@ final class Fibunacci
      *
      * @return bool
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function isFibunacci(int $n) : bool
     {
@@ -59,7 +59,7 @@ final class Fibunacci
      *
      * @return int
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function fib(int $n, int $start = 1) : int
     {
@@ -87,7 +87,7 @@ final class Fibunacci
      *
      * @return int
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function binet(int $n) : int
     {

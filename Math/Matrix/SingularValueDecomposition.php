@@ -4,11 +4,11 @@
  *
  * PHP Version 7.4
  *
- * @package    phpOMS\Math\Matrix
- * @copyright  Dennis Eichhorn
- * @license    OMS License 1.0
- * @version    1.0.0
- * @link       https://orange-management.org
+ * @package   phpOMS\Math\Matrix
+ * @copyright Dennis Eichhorn
+ * @license   OMS License 1.0
+ * @version   1.0.0
+ * @link      https://orange-management.org
  */
 declare(strict_types=1);
 
@@ -19,17 +19,17 @@ use phpOMS\Math\Geometry\Shape\D2\Triangle;
 /**
  * Singular value decomposition
  *
- * @package    phpOMS\Math\Matrix
- * @license    OMS License 1.0
- * @link       https://orange-management.org
- * @since      1.0.0
+ * @package phpOMS\Math\Matrix
+ * @license OMS License 1.0
+ * @link    https://orange-management.org
+ * @since   1.0.0
  */
 final class SingularValueDecomposition
 {
     /**
      * U matrix.
      *
-     * @var array[]
+     * @var   array[]
      * @since 1.0.0
      */
     private array $U = [];
@@ -37,7 +37,7 @@ final class SingularValueDecomposition
     /**
      * V matrix.
      *
-     * @var array[]
+     * @var   array[]
      * @since 1.0.0
      */
     private array $V = [];
@@ -45,7 +45,7 @@ final class SingularValueDecomposition
     /**
      * Singular values.
      *
-     * @var array
+     * @var   array
      * @since 1.0.0
      */
     private array $S = [];
@@ -53,7 +53,7 @@ final class SingularValueDecomposition
     /**
      * Dimension m
      *
-     * @var int
+     * @var   int
      * @since 1.0.0
      */
     private int $m = 0;
@@ -61,7 +61,7 @@ final class SingularValueDecomposition
     /**
      * Dimension n
      *
-     * @var int
+     * @var   int
      * @since 1.0.0
      */
     private int $n = 0;
@@ -71,7 +71,7 @@ final class SingularValueDecomposition
      *
      * @param Matrix $M Matrix
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function __construct(Matrix $M)
     {
@@ -459,7 +459,7 @@ final class SingularValueDecomposition
      *
      * @return Matrix
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function getU() : Matrix
     {
@@ -474,7 +474,7 @@ final class SingularValueDecomposition
      *
      * @return Matrix
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function getV() : Matrix
     {
@@ -489,7 +489,7 @@ final class SingularValueDecomposition
      *
      * @return Matrix
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function getS() : Matrix
     {
@@ -513,7 +513,7 @@ final class SingularValueDecomposition
      *
      * @return Vector
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function getSingularValues() : Vector
     {
@@ -528,7 +528,7 @@ final class SingularValueDecomposition
      *
      * @return float
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function norm2() : float
     {
@@ -540,7 +540,7 @@ final class SingularValueDecomposition
      *
      * @return float
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function cond() : float
     {
@@ -552,7 +552,7 @@ final class SingularValueDecomposition
      *
      * @return int
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function rank() : int
     {

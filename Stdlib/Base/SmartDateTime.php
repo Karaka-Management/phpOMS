@@ -4,11 +4,11 @@
  *
  * PHP Version 7.4
  *
- * @package    phpOMS\Stdlib\Base
- * @copyright  Dennis Eichhorn
- * @license    OMS License 1.0
- * @version    1.0.0
- * @link       https://orange-management.org
+ * @package   phpOMS\Stdlib\Base
+ * @copyright Dennis Eichhorn
+ * @license   OMS License 1.0
+ * @version   1.0.0
+ * @link      https://orange-management.org
  */
 declare(strict_types=1);
 
@@ -21,17 +21,17 @@ use phpOMS\Math\Functions\Functions;
  *
  * Providing smarter datetimes
  *
- * @package    phpOMS\Stdlib\Base
- * @license    OMS License 1.0
- * @link       https://orange-management.org
- * @since      1.0.0
+ * @package phpOMS\Stdlib\Base
+ * @license OMS License 1.0
+ * @link    https://orange-management.org
+ * @since   1.0.0
  */
 class SmartDateTime extends \DateTime
 {
     /**
      * Default format
      *
-     * @var string
+     * @var   string
      * @since 1.0.0
      */
     public const FORMAT = 'Y-m-d hh:mm:ss';
@@ -39,7 +39,7 @@ class SmartDateTime extends \DateTime
     /**
      * Default timezone
      *
-     * @var string
+     * @var   string
      * @since 1.0.0
      */
     public const TIMEZONE = 'UTC';
@@ -51,7 +51,7 @@ class SmartDateTime extends \DateTime
      *
      * @return SmartDateTime
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function createFromDateTime(\DateTime $date) : self
     {
@@ -68,7 +68,7 @@ class SmartDateTime extends \DateTime
      *
      * @return SmartDateTime
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function createModify(int $y, int $m = 0, int $d = 0, int $calendar = \CAL_GREGORIAN) : self
     {
@@ -88,7 +88,7 @@ class SmartDateTime extends \DateTime
      *
      * @return SmartDateTime
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function smartModify(int $y, int $m = 0, int $d = 0, int $calendar = \CAL_GREGORIAN) : self
     {
@@ -123,7 +123,7 @@ class SmartDateTime extends \DateTime
      *
      * @return SmartDateTime
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function getEndOfMonth() : self
     {
@@ -135,7 +135,7 @@ class SmartDateTime extends \DateTime
      *
      * @return SmartDateTime
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function getStartOfMonth() : self
     {
@@ -147,7 +147,7 @@ class SmartDateTime extends \DateTime
      *
      * @return int
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function getDaysOfMonth() : int
     {
@@ -159,7 +159,7 @@ class SmartDateTime extends \DateTime
      *
      * @return int
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function getFirstDayOfMonth() : int
     {
@@ -171,7 +171,7 @@ class SmartDateTime extends \DateTime
      *
      * @return bool
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function isLeapYear() : bool
     {
@@ -185,7 +185,7 @@ class SmartDateTime extends \DateTime
      *
      * @return bool
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function leapYear(int $year) : bool
     {
@@ -215,7 +215,7 @@ class SmartDateTime extends \DateTime
      *
      * @return int
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function getDayOfWeek(int $y, int $m, int $d) : int
     {
@@ -233,7 +233,7 @@ class SmartDateTime extends \DateTime
      *
      * @return int
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function getFirstDayOfWeek() : int
     {
@@ -247,7 +247,7 @@ class SmartDateTime extends \DateTime
      *
      * @return \DateTime[]
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function getMonthCalendar(int $weekStartsWith = 0) : array
     {

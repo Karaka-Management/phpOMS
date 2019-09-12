@@ -4,11 +4,11 @@
  *
  * PHP Version 7.4
  *
- * @package    phpOMS\Account
- * @copyright  Dennis Eichhorn
- * @license    OMS License 1.0
- * @version    1.0.0
- * @link       https://orange-management.org
+ * @package   phpOMS\Account
+ * @copyright Dennis Eichhorn
+ * @license   OMS License 1.0
+ * @version   1.0.0
+ * @link      https://orange-management.org
  */
 declare(strict_types=1);
 
@@ -20,17 +20,17 @@ namespace phpOMS\Account;
  * This permission abstract is the basis for all permissions. Contrary to it's name it is not an
  * abstract class and can be used directly if needed.
  *
- * @package    phpOMS\Account
- * @license    OMS License 1.0
- * @link       https://orange-management.org
- * @since      1.0.0
+ * @package phpOMS\Account
+ * @license OMS License 1.0
+ * @link    https://orange-management.org
+ * @since   1.0.0
  */
 class PermissionAbstract implements \JsonSerializable
 {
     /**
      * Permission id.
      *
-     * @var int
+     * @var   int
      * @since 1.0.0
      */
     protected int $id = 0;
@@ -38,7 +38,7 @@ class PermissionAbstract implements \JsonSerializable
     /**
      * Unit id.
      *
-     * @var null|int
+     * @var   null|int
      * @since 1.0.0
      */
     protected ?int $unit = null;
@@ -46,7 +46,7 @@ class PermissionAbstract implements \JsonSerializable
     /**
      * App name.
      *
-     * @var null|string
+     * @var   null|string
      * @since 1.0.0
      */
     protected ?string $app = null;
@@ -54,7 +54,7 @@ class PermissionAbstract implements \JsonSerializable
     /**
      * Module id.
      *
-     * @var null|string
+     * @var   null|string
      * @since 1.0.0
      */
     protected ?string $module = null;
@@ -62,7 +62,7 @@ class PermissionAbstract implements \JsonSerializable
     /**
      * Providing module id.
      *
-     * @var int
+     * @var   int
      * @since 1.0.0
      */
     protected int $from = 0;
@@ -70,7 +70,7 @@ class PermissionAbstract implements \JsonSerializable
     /**
      * Type.
      *
-     * @var null|int
+     * @var   null|int
      * @since 1.0.0
      */
     protected ?int $type = null;
@@ -78,7 +78,7 @@ class PermissionAbstract implements \JsonSerializable
     /**
      * Element id.
      *
-     * @var null|int
+     * @var   null|int
      * @since 1.0.0
      */
     protected ?int $element = null;
@@ -86,7 +86,7 @@ class PermissionAbstract implements \JsonSerializable
     /**
      * Component id.
      *
-     * @var null|int
+     * @var   null|int
      * @since 1.0.0
      */
     protected ?int $component = null;
@@ -94,7 +94,7 @@ class PermissionAbstract implements \JsonSerializable
     /**
      * Permission.
      *
-     * @var int
+     * @var   int
      * @since 1.0.0
      */
     protected int $permission = PermissionType::NONE;
@@ -110,7 +110,7 @@ class PermissionAbstract implements \JsonSerializable
      * @param null|int    $component  (e.g. address) (null if all are acceptable)
      * @param int         $permission Permission to check
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function __construct(
         int $unit = null,
@@ -137,7 +137,7 @@ class PermissionAbstract implements \JsonSerializable
      *
      * @return int Retunrs the id of the permission
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function getId() : int
     {
@@ -149,7 +149,7 @@ class PermissionAbstract implements \JsonSerializable
      *
      * @return null|int
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function getUnit() : ?int
     {
@@ -163,7 +163,7 @@ class PermissionAbstract implements \JsonSerializable
      *
      * @return void
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function setUnit(int $unit = null) : void
     {
@@ -175,7 +175,7 @@ class PermissionAbstract implements \JsonSerializable
      *
      * @return null|string
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function getApp() : ?string
     {
@@ -189,7 +189,7 @@ class PermissionAbstract implements \JsonSerializable
      *
      * @return void
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function setApp(string $app = null) : void
     {
@@ -201,7 +201,7 @@ class PermissionAbstract implements \JsonSerializable
      *
      * @return null|string
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function getModule() : ?string
     {
@@ -215,7 +215,7 @@ class PermissionAbstract implements \JsonSerializable
      *
      * @return void
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function setModule(string $module = null) : void
     {
@@ -227,7 +227,7 @@ class PermissionAbstract implements \JsonSerializable
      *
      * @return int Returns the module responsible for setting this permission
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function getFrom() : int
     {
@@ -241,7 +241,7 @@ class PermissionAbstract implements \JsonSerializable
      *
      * @return void
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function setFrom(int $from = 0) : void
     {
@@ -253,7 +253,7 @@ class PermissionAbstract implements \JsonSerializable
      *
      * @return null|int
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function getType() : ?int
     {
@@ -267,7 +267,7 @@ class PermissionAbstract implements \JsonSerializable
      *
      * @return void
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function setType(int $type = null) : void
     {
@@ -279,7 +279,7 @@ class PermissionAbstract implements \JsonSerializable
      *
      * @return null|int
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function getElement() : ?int
     {
@@ -293,7 +293,7 @@ class PermissionAbstract implements \JsonSerializable
      *
      * @return void
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function setElement(int $element = null) : void
     {
@@ -305,7 +305,7 @@ class PermissionAbstract implements \JsonSerializable
      *
      * @return null|int
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function getComponent() : ?int
     {
@@ -319,7 +319,7 @@ class PermissionAbstract implements \JsonSerializable
      *
      * @return void
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function setComponent(int $component = null) : void
     {
@@ -331,7 +331,7 @@ class PermissionAbstract implements \JsonSerializable
      *
      * @return int Returns the permission (PermissionType)
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function getPermission() : int
     {
@@ -345,7 +345,7 @@ class PermissionAbstract implements \JsonSerializable
      *
      * @return void
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function setPermission(int $permission = 0) : void
     {
@@ -359,7 +359,7 @@ class PermissionAbstract implements \JsonSerializable
      *
      * @return void
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function addPermission(int $permission = 0) : void
     {
@@ -373,7 +373,7 @@ class PermissionAbstract implements \JsonSerializable
      *
      * @return bool Returns true if the permission is set otherwise returns false
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function hasPermissionFlags(int $permission) : bool
     {
@@ -395,7 +395,7 @@ class PermissionAbstract implements \JsonSerializable
      *
      * @return bool Returns true if the permission is set, false otherwise
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function hasPermission(
         int $permission,

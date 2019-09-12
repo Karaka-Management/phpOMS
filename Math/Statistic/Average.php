@@ -4,11 +4,11 @@
  *
  * PHP Version 7.4
  *
- * @package    phpOMS\Math\Statistic
- * @copyright  Dennis Eichhorn
- * @license    OMS License 1.0
- * @version    1.0.0
- * @link       https://orange-management.org
+ * @package   phpOMS\Math\Statistic
+ * @copyright Dennis Eichhorn
+ * @license   OMS License 1.0
+ * @version   1.0.0
+ * @link      https://orange-management.org
  */
 declare(strict_types=1);
 
@@ -20,10 +20,10 @@ use phpOMS\Math\Matrix\Exception\InvalidDimensionException;
 /**
  * Average class.
  *
- * @package    phpOMS\Math\Statistic
- * @license    OMS License 1.0
- * @link       https://orange-management.org
- * @since      1.0.0
+ * @package phpOMS\Math\Statistic
+ * @license OMS License 1.0
+ * @link    https://orange-management.org
+ * @since   1.0.0
  */
 final class Average
 {
@@ -43,7 +43,7 @@ final class Average
     /**
      * Constructor.
      *
-     * @since  1.0.0
+     * @since 1.0.0
      * @codeCoverageIgnore
      */
     private function __construct()
@@ -59,7 +59,7 @@ final class Average
      *
      * @return float
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function averageDatasetChange(array $x, int $h = 1) : float
     {
@@ -80,7 +80,7 @@ final class Average
      *
      * @throws \Exception
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function totalMovingAverage(array $x, int $order, array $weight = null, bool $symmetric = false) : array
     {
@@ -108,7 +108,7 @@ final class Average
      *
      * @throws \Exception
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function movingAverage(array $x, int $t, int $order, array $weight = null, bool $symmetric = false) : float
     {
@@ -142,7 +142,7 @@ final class Average
      *
      * @throws InvalidDimensionException This exception is thrown in case both parameters have different array length
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function weightedAverage(array $values, array $weight) : float
     {
@@ -170,7 +170,7 @@ final class Average
      *
      * @throws ZeroDevisionException This exception is thrown if the values array is empty
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function arithmeticMean(array $values) : float
     {
@@ -192,7 +192,7 @@ final class Average
      *
      * @return float
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function mode(array $values) : float
     {
@@ -211,7 +211,7 @@ final class Average
      *
      * @return float
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function median(array $values) : float
     {
@@ -242,7 +242,7 @@ final class Average
      *
      * @throws ZeroDevisionException This exception is thrown if the values array is empty
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function geometricMean(array $values, int $offset = 0) : float
     {
@@ -267,7 +267,7 @@ final class Average
      *
      * @throws ZeroDevisionException This exception is thrown if a value in the values array is 0 or if the values array is empty
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function harmonicMean(array $values, int $offset = 0) : float
     {
@@ -305,7 +305,7 @@ final class Average
      *
      * @return float
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function angleMean($angles, int $offset = 0) : float
     {
@@ -334,7 +334,7 @@ final class Average
      *
      * @return float
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function angleMean2(array $angles, int $offset = 0) : float
     {

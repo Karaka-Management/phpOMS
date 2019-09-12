@@ -4,11 +4,11 @@
  *
  * PHP Version 7.4
  *
- * @package    phpOMS\DataStorage\Cookie
- * @copyright  Dennis Eichhorn
- * @license    OMS License 1.0
- * @version    1.0.0
- * @link       https://orange-management.org
+ * @package   phpOMS\DataStorage\Cookie
+ * @copyright Dennis Eichhorn
+ * @license   OMS License 1.0
+ * @version   1.0.0
+ * @link      https://orange-management.org
  */
 declare(strict_types=1);
 
@@ -19,24 +19,24 @@ use phpOMS\DataStorage\LockException;
 /**
  * CookieJar class
  *
- * @package    phpOMS\DataStorage\Cookie
- * @license    OMS License 1.0
- * @link       https://orange-management.org
- * @since      1.0.0
+ * @package phpOMS\DataStorage\Cookie
+ * @license OMS License 1.0
+ * @link    https://orange-management.org
+ * @since   1.0.0
  */
 final class CookieJar
 {
     /**
      * Locked.
      *
-     * @var bool
+     * @var   bool
      * @since 1.0.0
      */
     private static bool $isLocked = false;
     /**
      * Cookie values.
      *
-     * @var array
+     * @var   array
      * @since 1.0.0
      */
     private array $cookies = [];
@@ -58,7 +58,7 @@ final class CookieJar
      *
      * @return void
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function lock() : void
     {
@@ -70,7 +70,7 @@ final class CookieJar
      *
      * @return bool
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function isLocked() : bool
     {
@@ -91,7 +91,7 @@ final class CookieJar
      *
      * @return bool
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function set(string $id, $value, int $expire = 86400, string $path = '/', string $domain = null, bool $secure = false, bool $httpOnly = true, bool $overwrite = true) : bool
     {
@@ -118,7 +118,7 @@ final class CookieJar
      *
      * @return mixed
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function get(string $id)
     {
@@ -134,7 +134,7 @@ final class CookieJar
      *
      * @throws LockException Throws this exception if the cookie is already sent
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function delete(string $id) : bool
     {
@@ -162,7 +162,7 @@ final class CookieJar
      *
      * @return bool
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function remove(string $id) : bool
     {
@@ -182,7 +182,7 @@ final class CookieJar
      *
      * @throws LockException Throws this exception if the cookie is already sent
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function save() : void
     {

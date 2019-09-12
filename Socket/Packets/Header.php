@@ -4,11 +4,11 @@
  *
  * PHP Version 7.4
  *
- * @package    phpOMS\Socket\Packets
- * @copyright  Dennis Eichhorn
- * @license    OMS License 1.0
- * @version    1.0.0
- * @link       https://orange-management.org
+ * @package   phpOMS\Socket\Packets
+ * @copyright Dennis Eichhorn
+ * @license   OMS License 1.0
+ * @version   1.0.0
+ * @link      https://orange-management.org
  */
 declare(strict_types=1);
 
@@ -19,10 +19,10 @@ namespace phpOMS\Socket\Packets;
  *
  * Parsing/serializing arrays to and from php file
  *
- * @package    phpOMS\Socket\Packets
- * @license    OMS License 1.0
- * @link       https://orange-management.org
- * @since      1.0.0
+ * @package phpOMS\Socket\Packets
+ * @license OMS License 1.0
+ * @link    https://orange-management.org
+ * @since   1.0.0
  */
 class Header implements \Serializable
 {
@@ -33,7 +33,7 @@ class Header implements \Serializable
     /**
      * Packet size.
      *
-     * @var int
+     * @var   int
      * @since 1.0.0
      */
     private $length = 0;
@@ -41,7 +41,7 @@ class Header implements \Serializable
     /**
      * Packet type.
      *
-     * @var int
+     * @var   int
      * @since 1.0.0
      */
     private $type = 0;
@@ -49,7 +49,7 @@ class Header implements \Serializable
     /**
      * Packet subtype.
      *
-     * @var int
+     * @var   int
      * @since 1.0.0
      */
     private $subtype = 0;
@@ -77,7 +77,7 @@ class Header implements \Serializable
     /**
      * @return int
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function getLength()
     {
@@ -89,7 +89,7 @@ class Header implements \Serializable
      *
      * @return void
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function setLength($length) : void
     {
@@ -99,7 +99,7 @@ class Header implements \Serializable
     /**
      * @return int
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function getType() : int
     {
@@ -111,7 +111,7 @@ class Header implements \Serializable
      *
      * @return void
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function setType(int $type) : void
     {
@@ -121,7 +121,7 @@ class Header implements \Serializable
     /**
      * @return int
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function getSubtype() : int
     {
@@ -133,7 +133,7 @@ class Header implements \Serializable
      *
      * @return void
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function setSubtype($subtype) : void
     {
@@ -145,7 +145,7 @@ class Header implements \Serializable
      *
      * @return string Json serialization
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function serialize() : string
     {
@@ -157,7 +157,7 @@ class Header implements \Serializable
      *
      * @return string Json serialization
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function __toString()
     {
@@ -171,7 +171,7 @@ class Header implements \Serializable
      *
      * @return void
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function unserialize($string) : void
     {

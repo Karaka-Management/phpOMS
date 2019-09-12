@@ -4,11 +4,11 @@
  *
  * PHP Version 7.4
  *
- * @package    phpOMS\DataStorage\Database
- * @copyright  Dennis Eichhorn
- * @license    OMS License 1.0
- * @version    1.0.0
- * @link       https://orange-management.org
+ * @package   phpOMS\DataStorage\Database
+ * @copyright Dennis Eichhorn
+ * @license   OMS License 1.0
+ * @version   1.0.0
+ * @link      https://orange-management.org
  */
 declare(strict_types=1);
 
@@ -20,17 +20,17 @@ use phpOMS\DataStorage\DataStorageConnectionInterface;
 /**
  * Database query builder.
  *
- * @package    phpOMS\DataStorage\Database
- * @license    OMS License 1.0
- * @link       https://orange-management.org
- * @since      1.0.0
+ * @package phpOMS\DataStorage\Database
+ * @license OMS License 1.0
+ * @link    https://orange-management.org
+ * @since   1.0.0
  */
 abstract class BuilderAbstract
 {
     /**
      * Grammar.
      *
-     * @var null|GrammarAbstract
+     * @var   null|GrammarAbstract
      * @since 1.0.0
      */
     protected ?GrammarAbstract $grammar = null;
@@ -38,7 +38,7 @@ abstract class BuilderAbstract
     /**
      * Database connection.
      *
-     * @var null|DataStorageConnectionInterface
+     * @var   null|DataStorageConnectionInterface
      * @since 1.0.0
      */
     protected ?DataStorageConnectionInterface $connection = null;
@@ -46,7 +46,7 @@ abstract class BuilderAbstract
     /**
      * Query type.
      *
-     * @var int
+     * @var   int
      * @since 1.0.0
      */
     protected int $type = QueryType::NONE;
@@ -54,7 +54,7 @@ abstract class BuilderAbstract
     /**
      * Prefix.
      *
-     * @var string
+     * @var   string
      * @since 1.0.0
      */
     protected string $prefix = '';
@@ -62,7 +62,7 @@ abstract class BuilderAbstract
     /**
      * Raw.
      *
-     * @var string
+     * @var   string
      * @since 1.0.0
      */
     public string $raw = '';
@@ -72,7 +72,7 @@ abstract class BuilderAbstract
      *
      * @return DataStorageConnectionInterface
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function getConnection() : DataStorageConnectionInterface
     {
@@ -86,7 +86,7 @@ abstract class BuilderAbstract
      *
      * @return self
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function prefix(string $prefix) : self
     {
@@ -102,7 +102,7 @@ abstract class BuilderAbstract
      *
      * @return string
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function quote(string $value) : string
     {
@@ -114,7 +114,7 @@ abstract class BuilderAbstract
      *
      * @return string
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function getPrefix() : string
     {
@@ -126,7 +126,7 @@ abstract class BuilderAbstract
      *
      * @return int
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function getType() : int
     {
@@ -138,7 +138,7 @@ abstract class BuilderAbstract
      *
      * @return string
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     abstract public function toSql() : string;
 }

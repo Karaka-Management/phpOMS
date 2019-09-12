@@ -4,11 +4,11 @@
  *
  * PHP Version 7.4
  *
- * @package    phpOMS\Math\Number
- * @copyright  Dennis Eichhorn
- * @license    OMS License 1.0
- * @version    1.0.0
- * @link       https://orange-management.org
+ * @package   phpOMS\Math\Number
+ * @copyright Dennis Eichhorn
+ * @license   OMS License 1.0
+ * @version   1.0.0
+ * @link      https://orange-management.org
  */
 declare(strict_types=1);
 
@@ -17,17 +17,17 @@ namespace phpOMS\Math\Number;
 /**
  * Well known functions class.
  *
- * @package    phpOMS\Math\Number
- * @license    OMS License 1.0
- * @link       https://orange-management.org
- * @since      1.0.0
+ * @package phpOMS\Math\Number
+ * @license OMS License 1.0
+ * @link    https://orange-management.org
+ * @since   1.0.0
  */
 final class Prime
 {
     /**
      * Constructor.
      *
-     * @since  1.0.0
+     * @since 1.0.0
      * @codeCoverageIgnore
      */
     private function __construct()
@@ -42,7 +42,7 @@ final class Prime
      *
      * @return bool
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function isMersenne(int $n) : bool
     {
@@ -58,7 +58,7 @@ final class Prime
      *
      * @return int
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function mersenne(int $p) : int
     {
@@ -73,7 +73,7 @@ final class Prime
      *
      * @return bool
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function rabinTest(int $n, int $k = 10000) : bool
     {
@@ -127,7 +127,7 @@ final class Prime
      *
      * @return int[]
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function sieveOfEratosthenes(int $n) : array
     {
@@ -161,7 +161,7 @@ final class Prime
      *
      * @return bool
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function isPrime(int $n) : bool
     {

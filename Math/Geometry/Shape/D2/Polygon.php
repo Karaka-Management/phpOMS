@@ -4,11 +4,11 @@
  *
  * PHP Version 7.4
  *
- * @package    phpOMS\Math\Geometry\Shape\D2
- * @copyright  Dennis Eichhorn
- * @license    OMS License 1.0
- * @version    1.0.0
- * @link       https://orange-management.org
+ * @package   phpOMS\Math\Geometry\Shape\D2
+ * @copyright Dennis Eichhorn
+ * @license   OMS License 1.0
+ * @version   1.0.0
+ * @link      https://orange-management.org
  */
 declare(strict_types=1);
 
@@ -17,17 +17,17 @@ namespace phpOMS\Math\Geometry\Shape\D2;
 /**
  * Polygon class.
  *
- * @package    phpOMS\Math\Geometry\Shape\D2
- * @license    OMS License 1.0
- * @link       https://orange-management.org
- * @since      1.0.0
+ * @package phpOMS\Math\Geometry\Shape\D2
+ * @license OMS License 1.0
+ * @link    https://orange-management.org
+ * @since   1.0.0
  */
 final class Polygon implements D2ShapeInterface
 {
     /**
      * Epsilon for float comparison.
      *
-     * @var float
+     * @var   float
      * @since 1.0.0
      */
     public const EPSILON = 0.00001;
@@ -37,7 +37,7 @@ final class Polygon implements D2ShapeInterface
      *
      * These coordinates define the polygon
      *
-     * @var array[]
+     * @var   array[]
      * @since 1.0.0
      */
     private array $coord = [];
@@ -49,7 +49,7 @@ final class Polygon implements D2ShapeInterface
      *
      * @example Polygon([['x' => 1, 'y' => 2], ['x' => ...], ...])
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function __construct(array $coord)
     {
@@ -63,7 +63,7 @@ final class Polygon implements D2ShapeInterface
      *
      * @return int
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function pointInPolygon(array $point) : int
     {
@@ -146,7 +146,7 @@ final class Polygon implements D2ShapeInterface
      *
      * @return bool
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     private static function isOnVertex(array $point, array $polygon) : bool
     {
@@ -164,7 +164,7 @@ final class Polygon implements D2ShapeInterface
      *
      * @return int
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function getInteriorAngleSum() : int
     {
@@ -176,7 +176,7 @@ final class Polygon implements D2ShapeInterface
      *
      * @return int
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function getExteriorAngleSum() : int
     {
@@ -188,7 +188,7 @@ final class Polygon implements D2ShapeInterface
      *
      * @return float
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function getSurface() : float
     {
@@ -200,7 +200,7 @@ final class Polygon implements D2ShapeInterface
      *
      * @return float
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     private function getSignedSurface() : float
     {
@@ -222,7 +222,7 @@ final class Polygon implements D2ShapeInterface
      *
      * @return float
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function getPerimeter() : float
     {
@@ -241,7 +241,7 @@ final class Polygon implements D2ShapeInterface
      *
      * @return array<string, float|int>
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function getBarycenter() : array
     {

@@ -4,11 +4,11 @@
  *
  * PHP Version 7.4
  *
- * @package    phpOMS\Business\Programming
- * @copyright  Dennis Eichhorn
- * @license    OMS License 1.0
- * @version    1.0.0
- * @link       https://orange-management.org
+ * @package   phpOMS\Business\Programming
+ * @copyright Dennis Eichhorn
+ * @license   OMS License 1.0
+ * @version   1.0.0
+ * @link      https://orange-management.org
  */
 declare(strict_types=1);
 
@@ -19,10 +19,10 @@ namespace phpOMS\Business\Programming;
  *
  * This class provides basic programming metric calculations.
  *
- * @package    phpOMS\Business\Programming
- * @license    OMS License 1.0
- * @link       https://orange-management.org
- * @since      1.0.0
+ * @package phpOMS\Business\Programming
+ * @license OMS License 1.0
+ * @link    https://orange-management.org
+ * @since   1.0.0
  */
 final class Metrics
 {
@@ -37,7 +37,7 @@ final class Metrics
      *
      * @return int ABC metric score
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function abcScore(int $a, int $b, int $c) : int
     {

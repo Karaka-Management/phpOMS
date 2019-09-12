@@ -4,11 +4,11 @@
  *
  * PHP Version 7.4
  *
- * @package    phpOMS\Utils
- * @copyright  Dennis Eichhorn
- * @license    OMS License 1.0
- * @version    1.0.0
- * @link       https://orange-management.org
+ * @package   phpOMS\Utils
+ * @copyright Dennis Eichhorn
+ * @license   OMS License 1.0
+ * @version   1.0.0
+ * @link      https://orange-management.org
  */
 declare(strict_types=1);
 
@@ -17,10 +17,10 @@ namespace phpOMS\Utils;
 /**
  * Json builder class.
  *
- * @package    phpOMS\Utils
- * @license    OMS License 1.0
- * @link       https://orange-management.org
- * @since      1.0.0
+ * @package phpOMS\Utils
+ * @license OMS License 1.0
+ * @link    https://orange-management.org
+ * @since   1.0.0
  */
 final class JsonBuilder implements \Serializable, \JsonSerializable
 {
@@ -28,7 +28,7 @@ final class JsonBuilder implements \Serializable, \JsonSerializable
     /**
      * Json data.
      *
-     * @var array
+     * @var   array
      * @since 1.0.0
      */
     private array $json = [];
@@ -38,7 +38,7 @@ final class JsonBuilder implements \Serializable, \JsonSerializable
      *
      * @return array
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function getJson() : array
     {
@@ -54,7 +54,7 @@ final class JsonBuilder implements \Serializable, \JsonSerializable
      *
      * @return void
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function add(string $path, $value, bool $overwrite = true) : void
     {
@@ -68,7 +68,7 @@ final class JsonBuilder implements \Serializable, \JsonSerializable
      *
      * @return void
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function remove(string $path) : void
     {

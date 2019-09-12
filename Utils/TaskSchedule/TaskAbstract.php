@@ -4,11 +4,11 @@
  *
  * PHP Version 7.4
  *
- * @package    phpOMS\Utils\TaskSchedule
- * @copyright  Dennis Eichhorn
- * @license    OMS License 1.0
- * @version    1.0.0
- * @link       https://orange-management.org
+ * @package   phpOMS\Utils\TaskSchedule
+ * @copyright Dennis Eichhorn
+ * @license   OMS License 1.0
+ * @version   1.0.0
+ * @link      https://orange-management.org
  */
 declare(strict_types=1);
 
@@ -17,17 +17,17 @@ namespace phpOMS\Utils\TaskSchedule;
 /**
  * Abstract task class.
  *
- * @package    phpOMS\Utils\TaskSchedule
- * @license    OMS License 1.0
- * @link       https://orange-management.org
- * @since      1.0.0
+ * @package phpOMS\Utils\TaskSchedule
+ * @license OMS License 1.0
+ * @link    https://orange-management.org
+ * @since   1.0.0
  */
 abstract class TaskAbstract
 {
     /**
      * Id.
      *
-     * @var string
+     * @var   string
      * @since 1.0.0
      */
     protected string $id = '';
@@ -35,7 +35,7 @@ abstract class TaskAbstract
     /**
      * Command used for creating the task
      *
-     * @var string
+     * @var   string
      * @since 1.0.0
      */
     protected string $command = '';
@@ -43,7 +43,7 @@ abstract class TaskAbstract
     /**
      * Run interval
      *
-     * @var string
+     * @var   string
      * @since 1.0.0
      */
     protected string $interval = '';
@@ -51,7 +51,7 @@ abstract class TaskAbstract
     /**
      * Status of the task
      *
-     * @var string
+     * @var   string
      * @since 1.0.0
      */
     protected string $status = '';
@@ -59,7 +59,7 @@ abstract class TaskAbstract
     /**
      * Next runtime
      *
-     * @var \DateTime
+     * @var   \DateTime
      * @since 1.0.0
      */
     protected \DateTime $nextRunTime;
@@ -67,7 +67,7 @@ abstract class TaskAbstract
     /**
      * Last runtime
      *
-     * @var \DateTime
+     * @var   \DateTime
      * @since 1.0.0
      */
     protected \DateTime $lastRunTime;
@@ -75,7 +75,7 @@ abstract class TaskAbstract
     /**
      * Comment
      *
-     * @var string
+     * @var   string
      * @since 1.0.0
      */
     protected string $comment = '';
@@ -86,7 +86,7 @@ abstract class TaskAbstract
      * @param string $name Id/name of the task (on linux the same as the executable script)
      * @param string $cmd  Command to create the task
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function __construct(string $name, string $cmd = '', string $interval = '')
     {
@@ -102,7 +102,7 @@ abstract class TaskAbstract
      *
      * @return string
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function getId() : string
     {
@@ -114,7 +114,7 @@ abstract class TaskAbstract
      *
      * @return string
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     abstract public function __toString() : string;
 
@@ -123,7 +123,7 @@ abstract class TaskAbstract
      *
      * @return string
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function getCommand() : string
     {
@@ -137,7 +137,7 @@ abstract class TaskAbstract
      *
      * @return void
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function setCommand(string $command) : void
     {
@@ -149,7 +149,7 @@ abstract class TaskAbstract
      *
      * @return string
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function getInterval() : string
     {
@@ -163,7 +163,7 @@ abstract class TaskAbstract
      *
      * @return void
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function setInterval(string $interval) : void
     {
@@ -175,7 +175,7 @@ abstract class TaskAbstract
      *
      * @return string
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function getStatus() : string
     {
@@ -189,7 +189,7 @@ abstract class TaskAbstract
      *
      * @return void
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function setStatus(string $status) : void
     {
@@ -201,7 +201,7 @@ abstract class TaskAbstract
      *
      * @return \DateTime
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function getNextRunTime() : \DateTime
     {
@@ -215,7 +215,7 @@ abstract class TaskAbstract
      *
      * @return void
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function setNextRunTime(\DateTime $nextRunTime) : void
     {
@@ -227,7 +227,7 @@ abstract class TaskAbstract
      *
      * @return \DateTime
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function getLastRuntime() : \DateTime
     {
@@ -241,7 +241,7 @@ abstract class TaskAbstract
      *
      * @return void
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function setLastRuntime(\DateTime $lastRunTime) : void
     {
@@ -253,7 +253,7 @@ abstract class TaskAbstract
      *
      * @return string
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function getComment() : string
     {
@@ -267,7 +267,7 @@ abstract class TaskAbstract
      *
      * @return void
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function setComment(string $comment) : void
     {

@@ -5,11 +5,11 @@
  *
  * PHP Version 7.4
  *
- * @package    phpOMS\Math\Topology
- * @copyright  Dennis Eichhorn
- * @license    OMS License 1.0
- * @version    1.0.0
- * @link       https://orange-management.org
+ * @package   phpOMS\Math\Topology
+ * @copyright Dennis Eichhorn
+ * @license   OMS License 1.0
+ * @version   1.0.0
+ * @link      https://orange-management.org
  */
 
 declare(strict_types=1);
@@ -19,10 +19,10 @@ namespace phpOMS\Math\Topology;
 /**
  * Metrics.
  *
- * @package    phpOMS\Math\Topology
- * @license    OMS License 1.0
- * @link       https://orange-management.org
- * @since      1.0.0
+ * @package phpOMS\Math\Topology
+ * @license OMS License 1.0
+ * @link    https://orange-management.org
+ * @since   1.0.0
  */
 final class Metrics2D
 {
@@ -41,7 +41,7 @@ final class Metrics2D
      *
      * @return float
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function manhattan(array $a, array $b) : float
     {
@@ -58,7 +58,7 @@ final class Metrics2D
      *
      * @return float
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function euclidean(array $a, array $b) : float
     {
@@ -78,7 +78,7 @@ final class Metrics2D
      *
      * @return float
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function octile(array $a, array $b) : float
     {
@@ -98,7 +98,7 @@ final class Metrics2D
      *
      * @return float
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function chebyshev(array $a, array $b) : float
     {
@@ -119,7 +119,7 @@ final class Metrics2D
      *
      * @return float
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function minkowski(array $a, array $b, int $lambda) : float
     {
@@ -140,7 +140,7 @@ final class Metrics2D
      *
      * @return float
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function canberra(array $a, array $b) : float
     {
@@ -158,7 +158,7 @@ final class Metrics2D
      *
      * @return float
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function brayCurtis(array $a, array $b) : float
     {
@@ -176,7 +176,7 @@ final class Metrics2D
      *
      * @return float
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function angularSeparation(array $a, array $b) : float
     {
@@ -193,7 +193,7 @@ final class Metrics2D
      *
      * @return int
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function hamming(array $a, array $b) : int
     {
@@ -223,7 +223,7 @@ final class Metrics2D
      *
      * @return int
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function ulam(array $a, array $b) : int
     {

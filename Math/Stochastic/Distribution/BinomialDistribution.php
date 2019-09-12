@@ -4,11 +4,11 @@
  *
  * PHP Version 7.4
  *
- * @package    phpOMS\Math\Stochastic\Distribution
- * @copyright  Dennis Eichhorn
- * @license    OMS License 1.0
- * @version    1.0.0
- * @link       https://orange-management.org
+ * @package   phpOMS\Math\Stochastic\Distribution
+ * @copyright Dennis Eichhorn
+ * @license   OMS License 1.0
+ * @version   1.0.0
+ * @link      https://orange-management.org
  */
 declare(strict_types=1);
 
@@ -19,10 +19,10 @@ use phpOMS\Math\Functions\Functions;
 /**
  * Binomial distribution.
  *
- * @package    phpOMS\Math\Stochastic\Distribution
- * @license    OMS License 1.0
- * @link       https://orange-management.org
- * @since      1.0.0
+ * @package phpOMS\Math\Stochastic\Distribution
+ * @license OMS License 1.0
+ * @link    https://orange-management.org
+ * @since   1.0.0
  */
 class BinomialDistribution
 {
@@ -37,7 +37,7 @@ class BinomialDistribution
      *
      * @throws \Exception
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function getMode(int $n, float $p) : float
     {
@@ -53,7 +53,7 @@ class BinomialDistribution
      *
      * @return float
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function getMgf(int $n, float $t, float $p) : float
     {
@@ -68,7 +68,7 @@ class BinomialDistribution
      *
      * @return float
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function getSkewness(int $n, float $p) : float
     {
@@ -83,7 +83,7 @@ class BinomialDistribution
      *
      * @return float
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function getFisherInformation(int $n, float $p) : float
     {
@@ -98,7 +98,7 @@ class BinomialDistribution
      *
      * @return float
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function getExKurtosis(int $n, float $p) : float
     {
@@ -114,7 +114,7 @@ class BinomialDistribution
      *
      * @return float
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function getCdf(int $n, int $x, float $p) : float
     {
@@ -138,7 +138,7 @@ class BinomialDistribution
      *
      * @return float
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function getPmf(int $n, int $k, float $p) : float
     {
@@ -153,7 +153,7 @@ class BinomialDistribution
      *
      * @return float
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function getMedian(int $n, float $p) : float
     {
@@ -168,7 +168,7 @@ class BinomialDistribution
      *
      * @return float
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function getMean(int $n, float $p) : float
     {
@@ -183,7 +183,7 @@ class BinomialDistribution
      *
      * @return float
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function getVariance(int $n, float $p) : float
     {

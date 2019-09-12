@@ -4,11 +4,11 @@
  *
  * PHP Version 7.4
  *
- * @package    phpOMS\Message
- * @copyright  Dennis Eichhorn
- * @license    OMS License 1.0
- * @version    1.0.0
- * @link       https://orange-management.org
+ * @package   phpOMS\Message
+ * @copyright Dennis Eichhorn
+ * @license   OMS License 1.0
+ * @version   1.0.0
+ * @link      https://orange-management.org
  */
 declare(strict_types=1);
 
@@ -19,17 +19,17 @@ use phpOMS\Localization\Localization;
 /**
  * Response class.
  *
- * @package    phpOMS\Message
- * @license    OMS License 1.0
- * @link       https://orange-management.org
- * @since      1.0.0
+ * @package phpOMS\Message
+ * @license OMS License 1.0
+ * @link    https://orange-management.org
+ * @since   1.0.0
  */
 abstract class HeaderAbstract
 {
     /**
      * Responses.
      *
-     * @var bool
+     * @var   bool
      * @since 1.0.0
      */
     protected bool $isLocked = false;
@@ -37,7 +37,7 @@ abstract class HeaderAbstract
     /**
      * Localization.
      *
-     * @var null|Localization
+     * @var   null|Localization
      * @since 1.0.0
      */
     protected ?Localization $l11n = null;
@@ -45,7 +45,7 @@ abstract class HeaderAbstract
     /**
      * Account.
      *
-     * @var int
+     * @var   int
      * @since 1.0.0
      */
     protected int $account = 0;
@@ -53,7 +53,7 @@ abstract class HeaderAbstract
     /**
      * Response status.
      *
-     * @var int
+     * @var   int
      * @since 1.0.0
      */
     protected int $status = 0;
@@ -61,7 +61,7 @@ abstract class HeaderAbstract
     /**
      * Constructor.
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function __construct()
     {
@@ -73,7 +73,7 @@ abstract class HeaderAbstract
      *
      * @return void
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function lock() : void
     {
@@ -85,7 +85,7 @@ abstract class HeaderAbstract
      *
      * @return bool
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function isLocked() : bool
     {
@@ -97,7 +97,7 @@ abstract class HeaderAbstract
      *
      * @return Localization
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function getL11n() : Localization
     {
@@ -111,7 +111,7 @@ abstract class HeaderAbstract
      *
      * @return void
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function setL11n(Localization $l11n) : void
     {
@@ -123,7 +123,7 @@ abstract class HeaderAbstract
      *
      * @return int
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function getAccount() : int
     {
@@ -137,7 +137,7 @@ abstract class HeaderAbstract
      *
      * @return void
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function setAccount(int $account) : void
     {
@@ -151,7 +151,7 @@ abstract class HeaderAbstract
      *
      * @return void
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function setStatusCode(int $status) : void
     {
@@ -166,7 +166,7 @@ abstract class HeaderAbstract
      *
      * @return void
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     abstract public function generate(int $statusCode) : void;
 
@@ -175,7 +175,7 @@ abstract class HeaderAbstract
      *
      * @return int
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function getStatusCode() : int
     {
@@ -187,7 +187,7 @@ abstract class HeaderAbstract
      *
      * @return string
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     abstract public function getProtocolVersion() : string;
 
@@ -200,7 +200,7 @@ abstract class HeaderAbstract
      *
      * @return bool
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     abstract public function set(string $key, string $value, bool $overwrite = false) : bool;
 
@@ -211,7 +211,7 @@ abstract class HeaderAbstract
      *
      * @return array
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     abstract public function get(string $key = null) : array;
 
@@ -222,7 +222,7 @@ abstract class HeaderAbstract
      *
      * @return bool
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     abstract public function has(string $key) : bool;
 }

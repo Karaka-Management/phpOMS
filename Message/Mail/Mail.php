@@ -4,11 +4,11 @@
  *
  * PHP Version 7.4
  *
- * @package    phpOMS\Message\Mail
- * @copyright  Dennis Eichhorn
- * @license    OMS License 1.0
- * @version    1.0.0
- * @link       https://orange-management.org
+ * @package   phpOMS\Message\Mail
+ * @copyright Dennis Eichhorn
+ * @license   OMS License 1.0
+ * @version   1.0.0
+ * @link      https://orange-management.org
  */
 declare(strict_types=1);
 
@@ -17,17 +17,17 @@ namespace phpOMS\Message\Mail;
 /**
  * Mail class.
  *
- * @package    phpOMS\Message\Mail
- * @license    OMS License 1.0
- * @link       https://orange-management.org
- * @since      1.0.0
+ * @package phpOMS\Message\Mail
+ * @license OMS License 1.0
+ * @link    https://orange-management.org
+ * @since   1.0.0
  */
 class Mail
 {
     /**
      * Mail from.
      *
-     * @var string
+     * @var   string
      * @since 1.0.0
      */
     protected $from = '';
@@ -35,7 +35,7 @@ class Mail
     /**
      * Mail to.
      *
-     * @var array
+     * @var   array
      * @since 1.0.0
      */
     protected $to = [];
@@ -43,7 +43,7 @@ class Mail
     /**
      * Mail subject.
      *
-     * @var string
+     * @var   string
      * @since 1.0.0
      */
     protected $subject = '';
@@ -51,7 +51,7 @@ class Mail
     /**
      * Mail cc.
      *
-     * @var array
+     * @var   array
      * @since 1.0.0
      */
     protected $cc = [];
@@ -59,7 +59,7 @@ class Mail
     /**
      * Mail reply to.
      *
-     * @var array
+     * @var   array
      * @since 1.0.0
      */
     protected $replyTo = [];
@@ -67,7 +67,7 @@ class Mail
     /**
      * Mail bcc.
      *
-     * @var array
+     * @var   array
      * @since 1.0.0
      */
     protected $bcc = [];
@@ -75,7 +75,7 @@ class Mail
     /**
      * Mail attachments.
      *
-     * @var array
+     * @var   array
      * @since 1.0.0
      */
     protected $attachment = [];
@@ -83,7 +83,7 @@ class Mail
     /**
      * Mail body.
      *
-     * @var string
+     * @var   string
      * @since 1.0.0
      */
     protected $body = '';
@@ -91,7 +91,7 @@ class Mail
     /**
      * Mail overview.
      *
-     * @var string
+     * @var   string
      * @since 1.0.0
      */
     protected $overview = '';
@@ -99,7 +99,7 @@ class Mail
     /**
      * Mail alt.
      *
-     * @var string
+     * @var   string
      * @since 1.0.0
      */
     protected $bodyAlt = '';
@@ -107,7 +107,7 @@ class Mail
     /**
      * Mail mime.
      *
-     * @var string
+     * @var   string
      * @since 1.0.0
      */
     protected $bodyMime = '';
@@ -115,7 +115,7 @@ class Mail
     /**
      * Mail header.
      *
-     * @var string
+     * @var   string
      * @since 1.0.0
      */
     protected $headerMail = '';
@@ -123,7 +123,7 @@ class Mail
     /**
      * Word wrap.
      *
-     * @var int
+     * @var   int
      * @since 1.0.0
      */
     protected $wordWrap = 78;
@@ -131,7 +131,7 @@ class Mail
     /**
      * Encoding.
      *
-     * @var int
+     * @var   int
      * @since 1.0.0
      */
     protected $encoding = 0;
@@ -139,7 +139,7 @@ class Mail
     /**
      * Mail host name.
      *
-     * @var string
+     * @var   string
      * @since 1.0.0
      */
     protected $hostname = '';
@@ -147,7 +147,7 @@ class Mail
     /**
      * Mail id.
      *
-     * @var string
+     * @var   string
      * @since 1.0.0
      */
     protected $messageId = '';
@@ -155,7 +155,7 @@ class Mail
     /**
      * Mail message type.
      *
-     * @var string
+     * @var   string
      * @since 1.0.0
      */
     protected $messageType = '';
@@ -163,7 +163,7 @@ class Mail
     /**
      * Mail from.
      *
-     * @var null|\DateTime
+     * @var   null|\DateTime
      * @since 1.0.0
      */
     protected $messageDate = null;
@@ -173,7 +173,7 @@ class Mail
      *
      * @param mixed $id Id
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function __construct($id)
     {
@@ -187,7 +187,7 @@ class Mail
      *
      * @return void
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function setBody(string $body) : void
     {
@@ -201,7 +201,7 @@ class Mail
      *
      * @return void
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function setOverview(array $overview) : void
     {
@@ -215,7 +215,7 @@ class Mail
      *
      * @return void
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function setEncoding(int $encoding) : void
     {

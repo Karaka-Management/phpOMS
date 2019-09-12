@@ -4,11 +4,11 @@
  *
  * PHP Version 7.4
  *
- * @package    phpOMS\Math\Stochastic\Distribution
- * @copyright  Dennis Eichhorn
- * @license    OMS License 1.0
- * @version    1.0.0
- * @link       https://orange-management.org
+ * @package   phpOMS\Math\Stochastic\Distribution
+ * @copyright Dennis Eichhorn
+ * @license   OMS License 1.0
+ * @version   1.0.0
+ * @link      https://orange-management.org
  */
 declare(strict_types=1);
 
@@ -17,10 +17,10 @@ namespace phpOMS\Math\Stochastic\Distribution;
 /**
  * Uniform (discrete) distribution.
  *
- * @package    phpOMS\Math\Stochastic\Distribution
- * @license    OMS License 1.0
- * @link       https://orange-management.org
- * @since      1.0.0
+ * @package phpOMS\Math\Stochastic\Distribution
+ * @license OMS License 1.0
+ * @link    https://orange-management.org
+ * @since   1.0.0
  */
 class UniformDistributionDiscrete
 {
@@ -33,7 +33,7 @@ class UniformDistributionDiscrete
      *
      * @return float
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function getPmf(float $a, float $b) : float
     {
@@ -51,7 +51,7 @@ class UniformDistributionDiscrete
      *
      * @throws \OutOfBoundsException
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function getCdf(float $k, float $a, float $b) : float
     {
@@ -71,7 +71,7 @@ class UniformDistributionDiscrete
      *
      * @return float
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function getMgf(int $t, float $a, float $b) : float
     {
@@ -83,7 +83,7 @@ class UniformDistributionDiscrete
      *
      * @return float
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function getSkewness() : float
     {
@@ -98,7 +98,7 @@ class UniformDistributionDiscrete
      *
      * @return float
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function getExKurtosis(float $a, float $b) : float
     {
@@ -115,7 +115,7 @@ class UniformDistributionDiscrete
      *
      * @return float
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function getMedian(float $a, float $b) : float
     {
@@ -130,7 +130,7 @@ class UniformDistributionDiscrete
      *
      * @return float
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function getMean(float $a, float $b) : float
     {
@@ -145,7 +145,7 @@ class UniformDistributionDiscrete
      *
      * @return float
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function getVariance(float $a, float $b) : float
     {

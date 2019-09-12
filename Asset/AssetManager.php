@@ -4,11 +4,11 @@
  *
  * PHP Version 7.4
  *
- * @package    phpOMS\Asset
- * @copyright  Dennis Eichhorn
- * @license    OMS License 1.0
- * @version    1.0.0
- * @link       https://orange-management.org
+ * @package   phpOMS\Asset
+ * @copyright Dennis Eichhorn
+ * @license   OMS License 1.0
+ * @version   1.0.0
+ * @link      https://orange-management.org
  */
 declare(strict_types=1);
 
@@ -17,10 +17,10 @@ namespace phpOMS\Asset;
 /**
  * Asset manager class.
  *
- * @package    phpOMS\Asset
- * @license    OMS License 1.0
- * @link       https://orange-management.org
- * @since      1.0.0
+ * @package phpOMS\Asset
+ * @license OMS License 1.0
+ * @link    https://orange-management.org
+ * @since   1.0.0
  */
 final class AssetManager implements \Countable
 {
@@ -28,7 +28,7 @@ final class AssetManager implements \Countable
     /**
      * Assets.
      *
-     * @var array
+     * @var   array
      * @since 1.0.0
      */
     private array $assets = [];
@@ -42,7 +42,7 @@ final class AssetManager implements \Countable
      *
      * @return bool Returns true if the asset could be set otherwise false
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function set(string $id, string $asset, bool $overwrite = true) : bool
     {
@@ -62,7 +62,7 @@ final class AssetManager implements \Countable
      *
      * @return bool Returns true if the asset could be removed otherwise false
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function remove(string $id) : bool
     {
@@ -82,7 +82,7 @@ final class AssetManager implements \Countable
      *
      * @return null|string
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function get(string $id) : ?string
     {
@@ -98,7 +98,7 @@ final class AssetManager implements \Countable
      *
      * @return int Returns the amount of assets (>= 0)
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function count() : int
     {

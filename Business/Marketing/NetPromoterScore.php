@@ -4,11 +4,11 @@
  *
  * PHP Version 7.4
  *
- * @package    phpOMS\Business\Marketing
- * @copyright  Dennis Eichhorn
- * @license    OMS License 1.0
- * @version    1.0.0
- * @link       https://orange-management.org
+ * @package   phpOMS\Business\Marketing
+ * @copyright Dennis Eichhorn
+ * @license   OMS License 1.0
+ * @version   1.0.0
+ * @link      https://orange-management.org
  */
 declare(strict_types=1);
 
@@ -20,17 +20,17 @@ namespace phpOMS\Business\Marketing;
  * The net promoter score is a basic evaluation of the happiness of customers.
  * Instead of customers the NPS can also be transferred to non-customers.
  *
- * @package    phpOMS\Business\Marketing
- * @license    OMS License 1.0
- * @link       https://orange-management.org
- * @since      1.0.0
+ * @package phpOMS\Business\Marketing
+ * @license OMS License 1.0
+ * @link    https://orange-management.org
+ * @since   1.0.0
  */
 final class NetPromoterScore
 {
     /**
      * Score values
      *
-     * @var int[]
+     * @var   int[]
      * @since 1.0.0
      */
     private array $scores = [];
@@ -42,7 +42,7 @@ final class NetPromoterScore
      *
      * @return void
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function add(int $score) : void
     {
@@ -59,7 +59,7 @@ final class NetPromoterScore
      *
      * @return int Retunrs the NPS
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function getScore() : int
     {
@@ -89,7 +89,7 @@ final class NetPromoterScore
      *
      * @return int Returns the amount of detractors (>= 0)
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function countDetractors() : int
     {
@@ -110,7 +110,7 @@ final class NetPromoterScore
      *
      * @return int Returns the amount of passives (>= 0)
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function countPassives() : int
     {
@@ -131,7 +131,7 @@ final class NetPromoterScore
      *
      * @return int Returns the amount of promoters (>= 0)
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function countPromoters() : int
     {

@@ -4,11 +4,11 @@
  *
  * PHP Version 7.4
  *
- * @package    phpOMS\System\File\Local
- * @copyright  Dennis Eichhorn
- * @license    OMS License 1.0
- * @version    1.0.0
- * @link       https://orange-management.org
+ * @package   phpOMS\System\File\Local
+ * @copyright Dennis Eichhorn
+ * @license   OMS License 1.0
+ * @version   1.0.0
+ * @link      https://orange-management.org
  */
 declare(strict_types=1);
 
@@ -24,10 +24,10 @@ use phpOMS\System\File\PathException;
  *
  * Performing operations on the file system
  *
- * @package    phpOMS\System\File\Local
- * @license    OMS License 1.0
- * @link       https://orange-management.org
- * @since      1.0.0
+ * @package phpOMS\System\File\Local
+ * @license OMS License 1.0
+ * @link    https://orange-management.org
+ * @since   1.0.0
  */
 final class File extends FileAbstract implements LocalContainerInterface, FileInterface
 {
@@ -37,7 +37,7 @@ final class File extends FileAbstract implements LocalContainerInterface, FileIn
      *
      * @param string $path Path
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function __construct(string $path)
     {
@@ -68,7 +68,7 @@ final class File extends FileAbstract implements LocalContainerInterface, FileIn
      *
      * @return bool
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function put(string $path, string $content, int $mode = ContentPutMode::REPLACE | ContentPutMode::CREATE) : bool
     {
@@ -108,7 +108,7 @@ final class File extends FileAbstract implements LocalContainerInterface, FileIn
      *
      * @return string Content of file
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function get(string $path) : string
     {
@@ -139,7 +139,7 @@ final class File extends FileAbstract implements LocalContainerInterface, FileIn
      *
      * @return bool
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function set(string $path, string $content) : bool
     {
@@ -156,7 +156,7 @@ final class File extends FileAbstract implements LocalContainerInterface, FileIn
      *
      * @return bool
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function append(string $path, string $content) : bool
     {
@@ -173,7 +173,7 @@ final class File extends FileAbstract implements LocalContainerInterface, FileIn
      *
      * @return bool
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function prepend(string $path, string $content) : bool
     {
@@ -239,7 +239,7 @@ final class File extends FileAbstract implements LocalContainerInterface, FileIn
      *
      * @return \DateTime
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     private static function createFileTime(int $time) : \DateTime
     {
@@ -536,7 +536,7 @@ final class File extends FileAbstract implements LocalContainerInterface, FileIn
      *
      * @return string
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function extension(string $path) : string
     {

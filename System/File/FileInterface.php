@@ -4,11 +4,11 @@
  *
  * PHP Version 7.4
  *
- * @package    phpOMS\System\File
- * @copyright  Dennis Eichhorn
- * @license    OMS License 1.0
- * @version    1.0.0
- * @link       https://orange-management.org
+ * @package   phpOMS\System\File
+ * @copyright Dennis Eichhorn
+ * @license   OMS License 1.0
+ * @version   1.0.0
+ * @link      https://orange-management.org
  */
 declare(strict_types=1);
 
@@ -19,10 +19,10 @@ namespace phpOMS\System\File;
  *
  * Performing operations on the file system
  *
- * @package    phpOMS\System\File
- * @license    OMS License 1.0
- * @link       https://orange-management.org
- * @since      1.0.0
+ * @package phpOMS\System\File
+ * @license OMS License 1.0
+ * @link    https://orange-management.org
+ * @since   1.0.0
  */
 interface FileInterface extends ContainerInterface
 {
@@ -35,7 +35,7 @@ interface FileInterface extends ContainerInterface
      *
      * @return bool
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function putContent(string $content, int $mode = ContentPutMode::APPEND | ContentPutMode::CREATE) : bool;
 
@@ -48,7 +48,7 @@ interface FileInterface extends ContainerInterface
      *
      * @return bool
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function setContent(string $content) : bool;
 
@@ -61,7 +61,7 @@ interface FileInterface extends ContainerInterface
      *
      * @return bool
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function appendContent(string $content) : bool;
 
@@ -74,7 +74,7 @@ interface FileInterface extends ContainerInterface
      *
      * @return bool
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function prependContent(string $content) : bool;
 
@@ -83,7 +83,7 @@ interface FileInterface extends ContainerInterface
      *
      * @return string Content of file
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function getContent() : string;
 
@@ -92,7 +92,7 @@ interface FileInterface extends ContainerInterface
      *
      * @return string
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function getExtension() : string;
 }

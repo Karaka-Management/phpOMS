@@ -4,11 +4,11 @@
  *
  * PHP Version 7.4
  *
- * @package    phpOMS\Model\Message
- * @copyright  Dennis Eichhorn
- * @license    OMS License 1.0
- * @version    1.0.0
- * @link       https://orange-management.org
+ * @package   phpOMS\Model\Message
+ * @copyright Dennis Eichhorn
+ * @license   OMS License 1.0
+ * @version   1.0.0
+ * @link      https://orange-management.org
  */
 declare(strict_types=1);
 
@@ -19,10 +19,10 @@ use phpOMS\Contract\ArrayableInterface;
 /**
  * Dom class.
  *
- * @package    phpOMS\Model\Message
- * @license    OMS License 1.0
- * @link       https://orange-management.org
- * @since      1.0.0
+ * @package phpOMS\Model\Message
+ * @license OMS License 1.0
+ * @link    https://orange-management.org
+ * @since   1.0.0
  */
 class Dom implements \Serializable, ArrayableInterface
 {
@@ -30,7 +30,7 @@ class Dom implements \Serializable, ArrayableInterface
     /**
      * Message type.
      *
-     * @var string
+     * @var   string
      * @since 1.0.0
      */
     public const TYPE = 'dom';
@@ -38,7 +38,7 @@ class Dom implements \Serializable, ArrayableInterface
     /**
      * Selector string.
      *
-     * @var string
+     * @var   string
      * @since 1.0.0
      */
     private string $selector = '';
@@ -46,7 +46,7 @@ class Dom implements \Serializable, ArrayableInterface
     /**
      * Dom content.
      *
-     * @var string
+     * @var   string
      * @since 1.0.0
      */
     private string $content = '';
@@ -54,7 +54,7 @@ class Dom implements \Serializable, ArrayableInterface
     /**
      * Dom action.
      *
-     * @var int
+     * @var   int
      * @since 1.0.0
      */
     private int $action = DomAction::MODIFY;
@@ -62,7 +62,7 @@ class Dom implements \Serializable, ArrayableInterface
     /**
      * Delay in ms.
      *
-     * @var int
+     * @var   int
      * @since 1.0.0
      */
     private int $delay = 0;
@@ -88,7 +88,7 @@ class Dom implements \Serializable, ArrayableInterface
      *
      * @return void
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function setSelector(string $selector) : void
     {
@@ -102,7 +102,7 @@ class Dom implements \Serializable, ArrayableInterface
      *
      * @return void
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function setAction(int $action) : void
     {
@@ -116,7 +116,7 @@ class Dom implements \Serializable, ArrayableInterface
      *
      * @return void
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function setDelay(int $delay) : void
     {
@@ -128,7 +128,7 @@ class Dom implements \Serializable, ArrayableInterface
      *
      * @return string
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function serialize() : string
     {
@@ -161,7 +161,7 @@ class Dom implements \Serializable, ArrayableInterface
      *
      * @return string
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function __toString()
     {
@@ -173,7 +173,7 @@ class Dom implements \Serializable, ArrayableInterface
      *
      * @return array<string, mixed>
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function toArray() : array
     {

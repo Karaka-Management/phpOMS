@@ -4,11 +4,11 @@
  *
  * PHP Version 7.4
  *
- * @package    phpOMS\Math\Geometry\Shape\D3
- * @copyright  Dennis Eichhorn
- * @license    OMS License 1.0
- * @version    1.0.0
- * @link       https://orange-management.org
+ * @package   phpOMS\Math\Geometry\Shape\D3
+ * @copyright Dennis Eichhorn
+ * @license   OMS License 1.0
+ * @version   1.0.0
+ * @link      https://orange-management.org
  */
 declare(strict_types=1);
 
@@ -17,17 +17,17 @@ namespace phpOMS\Math\Geometry\Shape\D3;
 /**
  * Sphere shape.
  *
- * @package    phpOMS\Math\Geometry\Shape\D3
- * @license    OMS License 1.0
- * @link       https://orange-management.org
- * @since      1.0.0
+ * @package phpOMS\Math\Geometry\Shape\D3
+ * @license OMS License 1.0
+ * @link    https://orange-management.org
+ * @since   1.0.0
  */
 final class Sphere implements D3ShapeInterface
 {
     /**
      * Radius.
      *
-     * @var float
+     * @var   float
      * @since 1.0.0
      */
     private float $radius = 0.0;
@@ -37,7 +37,7 @@ final class Sphere implements D3ShapeInterface
      *
      * @param float $radius Sphere radius
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function __construct(float $radius)
     {
@@ -55,7 +55,7 @@ final class Sphere implements D3ShapeInterface
      *
      * @return float Distance between points in meter
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function distance2PointsOnSphere(float $latStart, float $longStart, float $latEnd, float $longEnd, float $radius = 6371000.0) : float
     {
@@ -84,7 +84,7 @@ final class Sphere implements D3ShapeInterface
      *
      * @return Sphere
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function byRadius(float $r) : self
     {
@@ -98,7 +98,7 @@ final class Sphere implements D3ShapeInterface
      *
      * @return Sphere
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function byVolume(float $v) : self
     {
@@ -112,7 +112,7 @@ final class Sphere implements D3ShapeInterface
      *
      * @return float
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function getRadiusByVolume(float $v) : float
     {
@@ -126,7 +126,7 @@ final class Sphere implements D3ShapeInterface
      *
      * @return Sphere
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function bySurface(float $s) : self
     {
@@ -155,7 +155,7 @@ final class Sphere implements D3ShapeInterface
      *
      * @return float Sphere volume
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function getVolume() : float
     {
@@ -169,7 +169,7 @@ final class Sphere implements D3ShapeInterface
      *
      * @return float
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function getVolumeByRadius(float $r) : float
     {
@@ -181,7 +181,7 @@ final class Sphere implements D3ShapeInterface
      *
      * @return float Sphere radius
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function getRadius() : float
     {
@@ -193,7 +193,7 @@ final class Sphere implements D3ShapeInterface
      *
      * @return float Sphere surface
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function getSurface() : float
     {
@@ -207,7 +207,7 @@ final class Sphere implements D3ShapeInterface
      *
      * @return float
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function getSurfaceByRadius(float $r) : float
     {

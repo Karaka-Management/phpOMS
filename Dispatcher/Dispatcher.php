@@ -4,11 +4,11 @@
  *
  * PHP Version 7.4
  *
- * @package    phpOMS\Dispatcher
- * @copyright  Dennis Eichhorn
- * @license    OMS License 1.0
- * @version    1.0.0
- * @link       https://orange-management.org
+ * @package   phpOMS\Dispatcher
+ * @copyright Dennis Eichhorn
+ * @license   OMS License 1.0
+ * @version   1.0.0
+ * @link      https://orange-management.org
  */
 declare(strict_types=1);
 
@@ -22,10 +22,10 @@ use phpOMS\System\File\PathException;
 /**
  * Dispatcher class.
  *
- * @package    phpOMS\Dispatcher
- * @license    OMS License 1.0
- * @link       https://orange-management.org
- * @since      1.0.0
+ * @package phpOMS\Dispatcher
+ * @license OMS License 1.0
+ * @link    https://orange-management.org
+ * @since   1.0.0
  */
 final class Dispatcher implements DispatcherInterface
 {
@@ -33,7 +33,7 @@ final class Dispatcher implements DispatcherInterface
     /**
      * Application.
      *
-     * @var null|ApplicationAbstract
+     * @var   null|ApplicationAbstract
      * @since 1.0.0
      */
     private ?ApplicationAbstract $app = null;
@@ -43,7 +43,7 @@ final class Dispatcher implements DispatcherInterface
      *
      * Set in the module manager on module initialization.
      *
-     * @var array
+     * @var   array
      * @since 1.0.0
      */
     private array $controllers = [];
@@ -53,7 +53,7 @@ final class Dispatcher implements DispatcherInterface
      *
      * @param ApplicationAbstract $app Appliaction
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function __construct(ApplicationAbstract $app = null)
     {
@@ -103,7 +103,7 @@ final class Dispatcher implements DispatcherInterface
      * @throws \Exception                this exception is thrown if the function is not callable
      * @throws \UnexpectedValueException this exception is thrown if the controller string is malformed
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     private function dispatchString(string $controller, array $data = null) : array
     {
@@ -141,7 +141,7 @@ final class Dispatcher implements DispatcherInterface
      *
      * @return array
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     private function dispatchArray(array $controller, array $data = null) : array
     {
@@ -161,7 +161,7 @@ final class Dispatcher implements DispatcherInterface
      *
      * @return mixed
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     private function dispatchClosure(\Closure $controller, array $data = null)
     {
@@ -177,7 +177,7 @@ final class Dispatcher implements DispatcherInterface
      *
      * @throws PathException this exception is thrown in case the controller couldn't be found
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     private function getController(string $controller) : object
     {
@@ -196,7 +196,7 @@ final class Dispatcher implements DispatcherInterface
      *
      * @return void
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function set(ModuleAbstract $controller, string $name) : void
     {

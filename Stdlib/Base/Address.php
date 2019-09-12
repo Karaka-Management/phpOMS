@@ -4,11 +4,11 @@
  *
  * PHP Version 7.4
  *
- * @package    phpOMS\Stdlib\Base
- * @copyright  Dennis Eichhorn
- * @license    OMS License 1.0
- * @version    1.0.0
- * @link       https://orange-management.org
+ * @package   phpOMS\Stdlib\Base
+ * @copyright Dennis Eichhorn
+ * @license   OMS License 1.0
+ * @version   1.0.0
+ * @link      https://orange-management.org
  */
 declare(strict_types=1);
 
@@ -17,10 +17,10 @@ namespace phpOMS\Stdlib\Base;
 /**
  * Address class.
  *
- * @package    phpOMS\Stdlib\Base
- * @license    OMS License 1.0
- * @link       https://orange-management.org
- * @since      1.0.0
+ * @package phpOMS\Stdlib\Base
+ * @license OMS License 1.0
+ * @link    https://orange-management.org
+ * @since   1.0.0
  */
 class Address implements \JsonSerializable
 {
@@ -28,7 +28,7 @@ class Address implements \JsonSerializable
     /**
      * Name of the receiver.
      *
-     * @var string
+     * @var   string
      * @since 1.0.0
      */
     private string $recipient = '';
@@ -36,7 +36,7 @@ class Address implements \JsonSerializable
     /**
      * Sub of the address.
      *
-     * @var string
+     * @var   string
      * @since 1.0.0
      */
     private string $fao = '';
@@ -44,7 +44,7 @@ class Address implements \JsonSerializable
     /**
      * Location.
      *
-     * @var Location
+     * @var   Location
      * @since 1.0.0
      */
     private Location $location;
@@ -52,7 +52,7 @@ class Address implements \JsonSerializable
     /**
      * Constructor.
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function __construct()
     {
@@ -64,7 +64,7 @@ class Address implements \JsonSerializable
      *
      * @return string
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function getRecipient() : string
     {
@@ -78,7 +78,7 @@ class Address implements \JsonSerializable
      *
      * @return void
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function setRecipient(string $recipient) : void
     {
@@ -90,7 +90,7 @@ class Address implements \JsonSerializable
      *
      * @return string
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function getFAO() : string
     {
@@ -104,7 +104,7 @@ class Address implements \JsonSerializable
      *
      * @return void
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function setFAO(string $fao) : void
     {
@@ -116,7 +116,7 @@ class Address implements \JsonSerializable
      *
      * @return Location
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function getLocation() : Location
     {
@@ -130,7 +130,7 @@ class Address implements \JsonSerializable
      *
      * @return void
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function setLocation(Location $location) : void
     {

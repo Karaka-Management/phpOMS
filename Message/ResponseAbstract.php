@@ -4,11 +4,11 @@
  *
  * PHP Version 7.4
  *
- * @package    phpOMS\Message
- * @copyright  Dennis Eichhorn
- * @license    OMS License 1.0
- * @version    1.0.0
- * @link       https://orange-management.org
+ * @package   phpOMS\Message
+ * @copyright Dennis Eichhorn
+ * @license   OMS License 1.0
+ * @version   1.0.0
+ * @link      https://orange-management.org
  */
 declare(strict_types=1);
 
@@ -17,17 +17,17 @@ namespace phpOMS\Message;
 /**
  * Response abstract class.
  *
- * @package    phpOMS\Message
- * @license    OMS License 1.0
- * @link       https://orange-management.org
- * @since      1.0.0
+ * @package phpOMS\Message
+ * @license OMS License 1.0
+ * @link    https://orange-management.org
+ * @since   1.0.0
  */
 abstract class ResponseAbstract implements MessageInterface, \JsonSerializable
 {
     /**
      * Responses.
      *
-     * @var array
+     * @var   array
      * @since 1.0.0
      */
     protected array $response = [];
@@ -35,7 +35,7 @@ abstract class ResponseAbstract implements MessageInterface, \JsonSerializable
     /**
      * Header.
      *
-     * @var HeaderAbstract
+     * @var   HeaderAbstract
      * @since 1.0.0
      */
     protected HeaderAbstract $header;
@@ -47,7 +47,7 @@ abstract class ResponseAbstract implements MessageInterface, \JsonSerializable
      *
      * @return mixed
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function get($id)
     {
@@ -63,7 +63,7 @@ abstract class ResponseAbstract implements MessageInterface, \JsonSerializable
      *
      * @return void
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function set($key, $response, bool $overwrite = true) : void
     {
@@ -87,7 +87,7 @@ abstract class ResponseAbstract implements MessageInterface, \JsonSerializable
      *
      * @throws \Exception
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     abstract public function toArray() : array;
 
@@ -96,7 +96,7 @@ abstract class ResponseAbstract implements MessageInterface, \JsonSerializable
      *
      * @return HeaderAbstract
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function getHeader() : HeaderAbstract
     {
@@ -110,7 +110,7 @@ abstract class ResponseAbstract implements MessageInterface, \JsonSerializable
      *
      * @return string
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     abstract public function getBody(bool $optimize = false) : string;
 }

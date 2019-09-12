@@ -4,11 +4,11 @@
  *
  * PHP Version 7.4
  *
- * @package    phpOMS\Stdlib\Base
- * @copyright  Dennis Eichhorn
- * @license    OMS License 1.0
- * @version    1.0.0
- * @link       https://orange-management.org
+ * @package   phpOMS\Stdlib\Base
+ * @copyright Dennis Eichhorn
+ * @license   OMS License 1.0
+ * @version   1.0.0
+ * @link      https://orange-management.org
  */
 declare(strict_types=1);
 
@@ -19,17 +19,17 @@ namespace phpOMS\Stdlib\Base;
  *
  * Replacing the SplEnum class and providing basic enum.
  *
- * @package    phpOMS\Stdlib\Base
- * @license    OMS License 1.0
- * @link       https://orange-management.org
- * @since      1.0.0
+ * @package phpOMS\Stdlib\Base
+ * @license OMS License 1.0
+ * @link    https://orange-management.org
+ * @since   1.0.0
  */
 abstract class EnumArray
 {
     /**
      * Constants.
      *
-     * @var array
+     * @var   array
      * @since 1.0.0
      */
     protected static array $constants = [];
@@ -43,7 +43,7 @@ abstract class EnumArray
      *
      * @return bool
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function isValidName(string $name) : bool
     {
@@ -57,7 +57,7 @@ abstract class EnumArray
      *
      * @return array
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function getConstants() : array
     {
@@ -74,7 +74,7 @@ abstract class EnumArray
      *
      * @return bool
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function isValidValue($value) : bool
     {
@@ -92,7 +92,7 @@ abstract class EnumArray
      *
      * @throws \Exception
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function get($key)
     {

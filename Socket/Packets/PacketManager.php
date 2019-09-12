@@ -4,11 +4,11 @@
  *
  * PHP Version 7.4
  *
- * @package    phpOMS\Socket\Packets
- * @copyright  Dennis Eichhorn
- * @license    OMS License 1.0
- * @version    1.0.0
- * @link       https://orange-management.org
+ * @package   phpOMS\Socket\Packets
+ * @copyright Dennis Eichhorn
+ * @license   OMS License 1.0
+ * @version   1.0.0
+ * @link      https://orange-management.org
  */
 declare(strict_types=1);
 
@@ -22,10 +22,10 @@ use phpOMS\Socket\Server\ClientManager;
  *
  * Parsing/serializing arrays to and from php file
  *
- * @package    phpOMS\Socket\Packets
- * @license    OMS License 1.0
- * @link       https://orange-management.org
- * @since      1.0.0
+ * @package phpOMS\Socket\Packets
+ * @license OMS License 1.0
+ * @link    https://orange-management.org
+ * @since   1.0.0
  */
 class PacketManager
 {
@@ -33,7 +33,7 @@ class PacketManager
     /**
      * Command Manager.
      *
-     * @var CommandManager
+     * @var   CommandManager
      * @since 1.0.0
      */
     private $commandManager = null;
@@ -41,7 +41,7 @@ class PacketManager
     /**
      * Client Manager.
      *
-     * @var ClientManager
+     * @var   ClientManager
      * @since 1.0.0
      */
     private $clientManager = null;
@@ -52,7 +52,7 @@ class PacketManager
      * @param CommandManager $cmd  Command Manager
      * @param ClientManager  $user Client Manager
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function __construct(CommandManager $cmd, ClientManager $user)
     {
@@ -67,7 +67,7 @@ class PacketManager
      *
      * @return void
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function handle(string $data, $client) : void
     {

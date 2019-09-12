@@ -4,11 +4,11 @@
  *
  * PHP Version 7.4
  *
- * @package    phpOMS\Model\Message
- * @copyright  Dennis Eichhorn
- * @license    OMS License 1.0
- * @version    1.0.0
- * @link       https://orange-management.org
+ * @package   phpOMS\Model\Message
+ * @copyright Dennis Eichhorn
+ * @license   OMS License 1.0
+ * @version   1.0.0
+ * @link      https://orange-management.org
  */
 declare(strict_types=1);
 
@@ -19,10 +19,10 @@ use phpOMS\Contract\ArrayableInterface;
 /**
  * Notify class.
  *
- * @package    phpOMS\Model\Message
- * @license    OMS License 1.0
- * @link       https://orange-management.org
- * @since      1.0.0
+ * @package phpOMS\Model\Message
+ * @license OMS License 1.0
+ * @link    https://orange-management.org
+ * @since   1.0.0
  */
 class Notify implements \Serializable, ArrayableInterface, \JsonSerializable
 {
@@ -30,7 +30,7 @@ class Notify implements \Serializable, ArrayableInterface, \JsonSerializable
     /**
      * Message type.
      *
-     * @var string
+     * @var   string
      * @since 1.0.0
      */
     public const TYPE = 'notify';
@@ -38,7 +38,7 @@ class Notify implements \Serializable, ArrayableInterface, \JsonSerializable
     /**
      * Notification title.
      *
-     * @var string
+     * @var   string
      * @since 1.0.0
      */
     private string $title = '';
@@ -46,7 +46,7 @@ class Notify implements \Serializable, ArrayableInterface, \JsonSerializable
     /**
      * Message.
      *
-     * @var string
+     * @var   string
      * @since 1.0.0
      */
     private string $message = '';
@@ -54,7 +54,7 @@ class Notify implements \Serializable, ArrayableInterface, \JsonSerializable
     /**
      * Delay in ms.
      *
-     * @var int
+     * @var   int
      * @since 1.0.0
      */
     private int $delay = 0;
@@ -62,7 +62,7 @@ class Notify implements \Serializable, ArrayableInterface, \JsonSerializable
     /**
      * Stay in ms.
      *
-     * @var int
+     * @var   int
      * @since 1.0.0
      */
     private int $stay = 0;
@@ -70,7 +70,7 @@ class Notify implements \Serializable, ArrayableInterface, \JsonSerializable
     /**
      * Level or type.
      *
-     * @var int
+     * @var   int
      * @since 1.0.0
      */
     private int $level = NotifyType::INFO;
@@ -81,7 +81,7 @@ class Notify implements \Serializable, ArrayableInterface, \JsonSerializable
      * @param string $msg   Message
      * @param int    $level Message level
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function __construct(string $msg = '', int $level = NotifyType::INFO)
     {
@@ -96,7 +96,7 @@ class Notify implements \Serializable, ArrayableInterface, \JsonSerializable
      *
      * @return void
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function setDelay(int $delay) : void
     {
@@ -110,7 +110,7 @@ class Notify implements \Serializable, ArrayableInterface, \JsonSerializable
      *
      * @return void
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function setStay(int $stay) : void
     {
@@ -124,7 +124,7 @@ class Notify implements \Serializable, ArrayableInterface, \JsonSerializable
      *
      * @return void
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function setTitle(string $title) : void
     {
@@ -138,7 +138,7 @@ class Notify implements \Serializable, ArrayableInterface, \JsonSerializable
      *
      * @return void
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function setMessage(string $message) : void
     {
@@ -152,7 +152,7 @@ class Notify implements \Serializable, ArrayableInterface, \JsonSerializable
      *
      * @return void
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function setLevel(int $level) : void
     {
@@ -164,7 +164,7 @@ class Notify implements \Serializable, ArrayableInterface, \JsonSerializable
      *
      * @return string
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function serialize() : string
     {
@@ -176,7 +176,7 @@ class Notify implements \Serializable, ArrayableInterface, \JsonSerializable
      *
      * @return array<string, mixed>
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     /**
      * {@inheritdoc}
@@ -205,7 +205,7 @@ class Notify implements \Serializable, ArrayableInterface, \JsonSerializable
      *
      * @return string
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function __toString()
     {
@@ -217,7 +217,7 @@ class Notify implements \Serializable, ArrayableInterface, \JsonSerializable
      *
      * @return array<string, mixed>
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function toArray() : array
     {

@@ -4,11 +4,11 @@
  *
  * PHP Version 7.4
  *
- * @package    phpOMS\System\File
- * @copyright  Dennis Eichhorn
- * @license    OMS License 1.0
- * @version    1.0.0
- * @link       https://orange-management.org
+ * @package   phpOMS\System\File
+ * @copyright Dennis Eichhorn
+ * @license   OMS License 1.0
+ * @version   1.0.0
+ * @link      https://orange-management.org
  */
 declare(strict_types=1);
 
@@ -19,17 +19,17 @@ namespace phpOMS\System\File;
  *
  * Performing operations on the file system
  *
- * @package    phpOMS\System\File
- * @license    OMS License 1.0
- * @link       https://orange-management.org
- * @since      1.0.0
+ * @package phpOMS\System\File
+ * @license OMS License 1.0
+ * @link    https://orange-management.org
+ * @since   1.0.0
  */
 abstract class StorageAbstract
 {
     /**
      * Storage type.
      *
-     * @var int
+     * @var   int
      * @since 1.0.0
      */
     protected int $type = 0;
@@ -39,7 +39,7 @@ abstract class StorageAbstract
      *
      * @return StorageAbstract storage instance
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     abstract public static function getInstance() : self;
 
@@ -50,7 +50,7 @@ abstract class StorageAbstract
      *
      * @return string Class namespace
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     abstract protected static function getClassType(string $path) : string;
 
@@ -59,7 +59,7 @@ abstract class StorageAbstract
      *
      * @return int storage type
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function getType() : int
     {
@@ -73,7 +73,7 @@ abstract class StorageAbstract
      *
      * @return \DateTime
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function created(string $path) : \DateTime
     {
@@ -87,7 +87,7 @@ abstract class StorageAbstract
      *
      * @return \DateTime
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function changed(string $path) : \DateTime
     {
@@ -101,7 +101,7 @@ abstract class StorageAbstract
      *
      * @return int
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function owner(string $path) : int
     {
@@ -115,7 +115,7 @@ abstract class StorageAbstract
      *
      * @return int Permissions (e.g. 0755);
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function permission(string $path) : int
     {
@@ -131,7 +131,7 @@ abstract class StorageAbstract
      *
      * @return string
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function parent(string $path) : string
     {
@@ -145,7 +145,7 @@ abstract class StorageAbstract
      *
      * @return bool True on success and false on failure
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function delete(string $path) : bool
     {
@@ -161,7 +161,7 @@ abstract class StorageAbstract
      *
      * @return bool True on success and false on failure
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function copy(string $from, string $to, bool $overwrite = false) : bool
     {
@@ -177,7 +177,7 @@ abstract class StorageAbstract
      *
      * @return bool True on success and false on failure
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function move(string $from, string $to, bool $overwrite = false) : bool
     {
@@ -192,7 +192,7 @@ abstract class StorageAbstract
      *
      * @return int
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function size(string $path, bool $recursive = true) : int
     {
@@ -206,7 +206,7 @@ abstract class StorageAbstract
      *
      * @return bool
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function exists(string $path) : bool
     {
@@ -220,7 +220,7 @@ abstract class StorageAbstract
      *
      * @return string
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function name(string $path) : string
     {
@@ -234,7 +234,7 @@ abstract class StorageAbstract
      *
      * @return string
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function basename(string $path) : string
     {
@@ -248,7 +248,7 @@ abstract class StorageAbstract
      *
      * @return string
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function dirname(string $path) : string
     {
@@ -262,7 +262,7 @@ abstract class StorageAbstract
      *
      * @return string
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function dirpath(string $path) : string
     {
@@ -278,7 +278,7 @@ abstract class StorageAbstract
      *
      * @return int
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function count(string $path, bool $recursive = true, array $ignore = []) : int
     {
@@ -294,7 +294,7 @@ abstract class StorageAbstract
      *
      * @return string
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function sanitize(string $path, string $replace = '', string $invalid = '/[^\w\s\d\.\-_~,;\/\[\]\(\]]/') : string
     {

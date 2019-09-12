@@ -4,11 +4,11 @@
  *
  * PHP Version 7.4
  *
- * @package    phpOMS\Math\Matrix
- * @copyright  Dennis Eichhorn
- * @license    OMS License 1.0
- * @version    1.0.0
- * @link       https://orange-management.org
+ * @package   phpOMS\Math\Matrix
+ * @copyright Dennis Eichhorn
+ * @license   OMS License 1.0
+ * @version   1.0.0
+ * @link      https://orange-management.org
  */
 declare(strict_types=1);
 
@@ -22,17 +22,17 @@ use phpOMS\Math\Matrix\Exception\InvalidDimensionException;
  *
  * For every matrix A = Q*R
  *
- * @package    phpOMS\Math\Matrix
- * @license    OMS License 1.0
- * @link       https://orange-management.org
- * @since      1.0.0
+ * @package phpOMS\Math\Matrix
+ * @license OMS License 1.0
+ * @link    https://orange-management.org
+ * @since   1.0.0
  */
 final class QRDecomposition
 {
     /**
      * QR matrix.
      *
-     * @var array[]
+     * @var   array[]
      * @since 1.0.0
      */
     private array $QR = [];
@@ -40,7 +40,7 @@ final class QRDecomposition
     /**
      * Dimension m
      *
-     * @var int
+     * @var   int
      * @since 1.0.0
      */
     private int $m = 0;
@@ -48,7 +48,7 @@ final class QRDecomposition
     /**
      * Dimension n
      *
-     * @var int
+     * @var   int
      * @since 1.0.0
      */
     private int $n = 0;
@@ -56,7 +56,7 @@ final class QRDecomposition
     /**
      * R diagonal
      *
-     * @var array
+     * @var   array
      * @since 1.0.0
      */
     private array $Rdiag = [];
@@ -66,7 +66,7 @@ final class QRDecomposition
      *
      * @param Matrix $M Matrix
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function __construct(Matrix $M)
     {
@@ -118,7 +118,7 @@ final class QRDecomposition
      *
      * @return bool
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function isFullRank() : bool
     {
@@ -136,7 +136,7 @@ final class QRDecomposition
      *
      * @return Matrix
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function getH() : Matrix
     {
@@ -163,7 +163,7 @@ final class QRDecomposition
      *
      * @return Matrix
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function getR() : Matrix
     {
@@ -192,7 +192,7 @@ final class QRDecomposition
      *
      * @return Matrix
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function getQ() : Matrix
     {
@@ -232,7 +232,7 @@ final class QRDecomposition
      *
      * @return Matrix
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function solve(Matrix $B) : Matrix
     {

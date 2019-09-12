@@ -4,11 +4,11 @@
  *
  * PHP Version 7.4
  *
- * @package    phpOMS\Module
- * @copyright  Dennis Eichhorn
- * @license    OMS License 1.0
- * @version    1.0.0
- * @link       https://orange-management.org
+ * @package   phpOMS\Module
+ * @copyright Dennis Eichhorn
+ * @license   OMS License 1.0
+ * @version   1.0.0
+ * @link      https://orange-management.org
  */
 declare(strict_types=1);
 
@@ -22,10 +22,10 @@ use phpOMS\Utils\ArrayUtils;
  *
  * Handling the info files for modules
  *
- * @package    phpOMS\Module
- * @license    OMS License 1.0
- * @link       https://orange-management.org
- * @since      1.0.0
+ * @package phpOMS\Module
+ * @license OMS License 1.0
+ * @link    https://orange-management.org
+ * @since   1.0.0
  */
 final class InfoManager
 {
@@ -33,7 +33,7 @@ final class InfoManager
     /**
      * File path.
      *
-     * @var string
+     * @var   string
      * @since 1.0.0
      */
     private string $path = '';
@@ -41,7 +41,7 @@ final class InfoManager
     /**
      * Info data.
      *
-     * @var array
+     * @var   array
      * @since 1.0.0
      */
     private array $info = [];
@@ -51,7 +51,7 @@ final class InfoManager
      *
      * @param string $path Info file path
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function __construct(string $path)
     {
@@ -63,7 +63,7 @@ final class InfoManager
      *
      * @return string
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function getPath() : string
     {
@@ -77,7 +77,7 @@ final class InfoManager
      *
      * @throws PathException this exception is thrown in case the info file path doesn't exist
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function load() : void
     {
@@ -95,7 +95,7 @@ final class InfoManager
      *
      * @return void
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function update() : void
     {
@@ -115,7 +115,7 @@ final class InfoManager
      *
      * @return void
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function set(string $path, $data, string $delim = '/') : void
     {
@@ -131,7 +131,7 @@ final class InfoManager
      *
      * @return array<string, array>
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function get() : array
     {
@@ -143,7 +143,7 @@ final class InfoManager
      *
      * @return int
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function getId() : int
     {
@@ -155,7 +155,7 @@ final class InfoManager
      *
      * @return string
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function getInternalName() : string
     {
@@ -167,7 +167,7 @@ final class InfoManager
      *
      * @return string
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function getExternalName() : string
     {
@@ -179,7 +179,7 @@ final class InfoManager
      *
      * @return array<string, string>
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function getDependencies() : array
     {
@@ -191,7 +191,7 @@ final class InfoManager
      *
      * @return array<string, string>
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function getProviding() : array
     {
@@ -203,7 +203,7 @@ final class InfoManager
      *
      * @return string
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function getDirectory() : string
     {
@@ -215,7 +215,7 @@ final class InfoManager
      *
      * @return string
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function getCategory() : string
     {
@@ -227,7 +227,7 @@ final class InfoManager
      *
      * @return string
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function getVersion() : string
     {
@@ -239,7 +239,7 @@ final class InfoManager
      *
      * @return array<array>
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function getLoad() : array
     {

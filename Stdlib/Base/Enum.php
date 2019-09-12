@@ -4,11 +4,11 @@
  *
  * PHP Version 7.4
  *
- * @package    phpOMS\Stdlib\Base
- * @copyright  Dennis Eichhorn
- * @license    OMS License 1.0
- * @version    1.0.0
- * @link       https://orange-management.org
+ * @package   phpOMS\Stdlib\Base
+ * @copyright Dennis Eichhorn
+ * @license   OMS License 1.0
+ * @version   1.0.0
+ * @link      https://orange-management.org
  */
 declare(strict_types=1);
 
@@ -19,10 +19,10 @@ namespace phpOMS\Stdlib\Base;
  *
  * Replacing the SplEnum class and providing basic enum.
  *
- * @package    phpOMS\Stdlib\Base
- * @license    OMS License 1.0
- * @link       https://orange-management.org
- * @since      1.0.0
+ * @package phpOMS\Stdlib\Base
+ * @license OMS License 1.0
+ * @link    https://orange-management.org
+ * @since   1.0.0
  */
 abstract class Enum
 {
@@ -36,7 +36,7 @@ abstract class Enum
      *
      * @return bool
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function isValidValue($value) : bool
     {
@@ -50,7 +50,7 @@ abstract class Enum
      *
      * @return array
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function getConstants() : array
     {
@@ -64,7 +64,7 @@ abstract class Enum
      *
      * @return mixed
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function getRandom()
     {
@@ -83,7 +83,7 @@ abstract class Enum
      *
      * @throws \UnexpectedValueException throws this exception if the constant is not defined in the enum class
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function getByName(string $name)
     {
@@ -101,7 +101,7 @@ abstract class Enum
      *
      * @return mixed
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function getName(string $value)
     {
@@ -119,7 +119,7 @@ abstract class Enum
      *
      * @return bool
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function isValidName(string $name) : bool
     {
@@ -131,7 +131,7 @@ abstract class Enum
      *
      * @return int
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function count() : int
     {
@@ -148,7 +148,7 @@ abstract class Enum
      *
      * @return bool
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function hasFlag(int $flags, int $checkForFlag) : bool
     {

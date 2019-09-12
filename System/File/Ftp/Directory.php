@@ -4,11 +4,11 @@
  *
  * PHP Version 7.4
  *
- * @package    phpOMS\System\File\Ftp
- * @copyright  Dennis Eichhorn
- * @license    OMS License 1.0
- * @version    1.0.0
- * @link       https://orange-management.org
+ * @package   phpOMS\System\File\Ftp
+ * @copyright Dennis Eichhorn
+ * @license   OMS License 1.0
+ * @version   1.0.0
+ * @link      https://orange-management.org
  */
 declare(strict_types=1);
 
@@ -26,17 +26,17 @@ use phpOMS\Uri\Http;
  *
  * Performing operations on the file system
  *
- * @package    phpOMS\System\File\Ftp
- * @license    OMS License 1.0
- * @link       https://orange-management.org
- * @since      1.0.0
+ * @package phpOMS\System\File\Ftp
+ * @license OMS License 1.0
+ * @link    https://orange-management.org
+ * @since   1.0.0
  */
 class Directory extends FileAbstract implements FtpContainerInterface, DirectoryInterface
 {
     /**
      * Directory nodes (files and directories).
      *
-     * @var FileAbstract[]
+     * @var   FileAbstract[]
      * @since 1.0.0
      */
     private array $nodes = [];
@@ -48,7 +48,7 @@ class Directory extends FileAbstract implements FtpContainerInterface, Directory
      *
      * @return mixed
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function ftpConnect(Http $http)
     {
@@ -76,7 +76,7 @@ class Directory extends FileAbstract implements FtpContainerInterface, Directory
      *
      * @return array<int, string>
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function list($con, string $path, string $filter = '*') : array
     {
@@ -118,7 +118,7 @@ class Directory extends FileAbstract implements FtpContainerInterface, Directory
      *
      * @return bool
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function create($con, string $path, int $permission = 0755, bool $recursive = false) : bool
     {
@@ -288,7 +288,7 @@ class Directory extends FileAbstract implements FtpContainerInterface, Directory
      *
      * @return array
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function parseRawList($con, string $path) : array
     {
@@ -367,7 +367,7 @@ class Directory extends FileAbstract implements FtpContainerInterface, Directory
      *
      * @return bool True on success and false on failure
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function get($con, string $from, string $to) : bool
     {
@@ -400,7 +400,7 @@ class Directory extends FileAbstract implements FtpContainerInterface, Directory
      *
      * @return bool True on success and false on failure
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function put($con, string $from, string $to) : bool
     {
@@ -440,7 +440,7 @@ class Directory extends FileAbstract implements FtpContainerInterface, Directory
      *
      * @return bool True on success and false on failure
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function move($con, string $from, string $to, bool $overwrite = false) : bool
     {

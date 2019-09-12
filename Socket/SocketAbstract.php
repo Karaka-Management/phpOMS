@@ -4,11 +4,11 @@
  *
  * PHP Version 7.4
  *
- * @package    phpOMS\Socket
- * @copyright  Dennis Eichhorn
- * @license    OMS License 1.0
- * @version    1.0.0
- * @link       https://orange-management.org
+ * @package   phpOMS\Socket
+ * @copyright Dennis Eichhorn
+ * @license   OMS License 1.0
+ * @version   1.0.0
+ * @link      https://orange-management.org
  */
 declare(strict_types=1);
 
@@ -17,10 +17,10 @@ namespace phpOMS\Socket;
 /**
  * Socket class.
  *
- * @package    phpOMS\Socket
- * @license    OMS License 1.0
- * @link       https://orange-management.org
- * @since      1.0.0
+ * @package phpOMS\Socket
+ * @license OMS License 1.0
+ * @link    https://orange-management.org
+ * @since   1.0.0
  */
 abstract class SocketAbstract implements SocketInterface
 {
@@ -28,7 +28,7 @@ abstract class SocketAbstract implements SocketInterface
     /**
      * Socket ip.
      *
-     * @var string
+     * @var   string
      * @since 1.0.0
      */
     protected $ip = null;
@@ -36,7 +36,7 @@ abstract class SocketAbstract implements SocketInterface
     /**
      * Socket port.
      *
-     * @var int
+     * @var   int
      * @since 1.0.0
      */
     protected $port = null;
@@ -44,7 +44,7 @@ abstract class SocketAbstract implements SocketInterface
     /**
      * Socket running?
      *
-     * @var bool
+     * @var   bool
      * @since 1.0.0
      */
     protected $run = true;
@@ -52,7 +52,7 @@ abstract class SocketAbstract implements SocketInterface
     /**
      * Socket.
      *
-     * @var resource
+     * @var   resource
      * @since 1.0.0
      */
     protected $sock = null;
@@ -72,7 +72,7 @@ abstract class SocketAbstract implements SocketInterface
     /**
      * Destructor.
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function __destruct()
     {

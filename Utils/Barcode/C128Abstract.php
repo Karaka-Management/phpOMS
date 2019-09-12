@@ -4,11 +4,11 @@
  *
  * PHP Version 7.4
  *
- * @package    phpOMS\Utils\Barcode
- * @copyright  Dennis Eichhorn
- * @license    OMS License 1.0
- * @version    1.0.0
- * @link       https://orange-management.org
+ * @package   phpOMS\Utils\Barcode
+ * @copyright Dennis Eichhorn
+ * @license   OMS License 1.0
+ * @version   1.0.0
+ * @link      https://orange-management.org
  */
 declare(strict_types=1);
 
@@ -19,10 +19,10 @@ use phpOMS\Stdlib\Base\Exception\InvalidEnumValue;
 /**
  * Code 128 abstract class.
  *
- * @package    phpOMS\Utils\Barcode
- * @license    OMS License 1.0
- * @link       https://orange-management.org
- * @since      1.0.0
+ * @package phpOMS\Utils\Barcode
+ * @license OMS License 1.0
+ * @link    https://orange-management.org
+ * @since   1.0.0
  *
  * @SuppressWarnings(PHPMD.CamelCasePropertyName)
  * @SuppressWarnings(PHPMD.CamelCaseVariableName)
@@ -32,7 +32,7 @@ abstract class C128Abstract
     /**
      * Checksum.
      *
-     * @var int
+     * @var   int
      * @since 1.0.0
      */
     protected static int $CHECKSUM = 0;
@@ -40,7 +40,7 @@ abstract class C128Abstract
     /**
      * Char weighted array.
      *
-     * @var string[]
+     * @var   string[]
      * @since 1.0.0
      */
     protected static array $CODEARRAY = [];
@@ -48,7 +48,7 @@ abstract class C128Abstract
     /**
      * Code start.
      *
-     * @var string
+     * @var   string
      * @since 1.0.0
      */
     protected static string $CODE_START = '';
@@ -56,7 +56,7 @@ abstract class C128Abstract
     /**
      * Code end.
      *
-     * @var string
+     * @var   string
      * @since 1.0.0
      */
     protected static string $CODE_END = '';
@@ -64,7 +64,7 @@ abstract class C128Abstract
     /**
      * Orientation.
      *
-     * @var int
+     * @var   int
      * @since 1.0.0
      */
     protected int $orientation = 0;
@@ -72,7 +72,7 @@ abstract class C128Abstract
     /**
      * Barcode dimension.
      *
-     * @var int[]
+     * @var   int[]
      * @since 1.0.0
      */
     protected array $dimension = ['width' => 0, 'height' => 0];
@@ -80,7 +80,7 @@ abstract class C128Abstract
     /**
      * Barcode dimension.
      *
-     * @var int
+     * @var   int
      * @since 1.0.0
      */
     protected int $margin = 10;
@@ -88,7 +88,7 @@ abstract class C128Abstract
     /**
      * Content to encrypt.
      *
-     * @var string
+     * @var   string
      * @since 1.0.0
      */
     protected string $content = '';
@@ -96,7 +96,7 @@ abstract class C128Abstract
     /**
      * Show text below barcode.
      *
-     * @var bool
+     * @var   bool
      * @since 1.0.0
      */
     protected bool $showText = true;
@@ -104,7 +104,7 @@ abstract class C128Abstract
     /**
      * Background color.
      *
-     * @var int[]
+     * @var   int[]
      * @since 1.0.0
      */
     protected array $background = ['r' => 0, 'g' => 0, 'b' => 0, 'a' => 0];
@@ -112,7 +112,7 @@ abstract class C128Abstract
     /**
      * Front color.
      *
-     * @var int[]
+     * @var   int[]
      * @since 1.0.0
      */
     protected array $front = ['r' => 0, 'g' => 0, 'b' => 0, 'a' => 0];
@@ -125,7 +125,7 @@ abstract class C128Abstract
      * @param int    $height      Barcode height
      * @param int    $orientation Orientation of the barcode
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function __construct(string $content = '', int $width = 100, int $height = 20, int $orientation = OrientationType::HORIZONTAL)
     {
@@ -142,7 +142,7 @@ abstract class C128Abstract
      *
      * @return void
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function setDimension(int $width, int $height) : void
     {
@@ -165,7 +165,7 @@ abstract class C128Abstract
      *
      * @return void
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function setMargin(int $margin) : void
     {
@@ -179,7 +179,7 @@ abstract class C128Abstract
      *
      * @return void
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function setOrientation(int $orientation) : void
     {
@@ -195,7 +195,7 @@ abstract class C128Abstract
      *
      * @return string Returns the string representation of the code
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function getContent() : string
     {
@@ -209,7 +209,7 @@ abstract class C128Abstract
      *
      * @return void
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function setContent(string $content) : void
     {
@@ -221,7 +221,7 @@ abstract class C128Abstract
      *
      * @return mixed
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function get()
     {
@@ -237,7 +237,7 @@ abstract class C128Abstract
      *
      * @return void
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function saveToPngFile(string $file) : void
     {
@@ -254,7 +254,7 @@ abstract class C128Abstract
      *
      * @return void
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function saveToJpgFile(string $file) : void
     {
@@ -271,7 +271,7 @@ abstract class C128Abstract
      *
      * @return bool Returns true if the string is valid for the specific code implementetion otherwise false is returned
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function isValidString(string $barcode) : bool
     {
@@ -291,7 +291,7 @@ abstract class C128Abstract
      *
      * @return string Returns the code string generated from the human readable content
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     protected function generateCodeString() : string
     {
@@ -319,7 +319,7 @@ abstract class C128Abstract
      *
      * @return mixed
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     protected function createImage(string $codeString)
     {
@@ -372,7 +372,7 @@ abstract class C128Abstract
      *
      * @return int Length of the code
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     private function calculateCodeLength(string $codeString) : int
     {
@@ -393,7 +393,7 @@ abstract class C128Abstract
      *
      * @return array<string, int>
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     private function calculateDimensions(string $codeString) : array
     {

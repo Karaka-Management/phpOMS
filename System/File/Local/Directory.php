@@ -4,11 +4,11 @@
  *
  * PHP Version 7.4
  *
- * @package    phpOMS\System\File\Local
- * @copyright  Dennis Eichhorn
- * @license    OMS License 1.0
- * @version    1.0.0
- * @link       https://orange-management.org
+ * @package   phpOMS\System\File\Local
+ * @copyright Dennis Eichhorn
+ * @license   OMS License 1.0
+ * @version   1.0.0
+ * @link      https://orange-management.org
  */
 declare(strict_types=1);
 
@@ -24,17 +24,17 @@ use phpOMS\Utils\StringUtils;
  *
  * Performing operations on the file system
  *
- * @package    phpOMS\System\File\Local
- * @license    OMS License 1.0
- * @link       https://orange-management.org
- * @since      1.0.0
+ * @package phpOMS\System\File\Local
+ * @license OMS License 1.0
+ * @link    https://orange-management.org
+ * @since   1.0.0
  */
 final class Directory extends FileAbstract implements LocalContainerInterface, DirectoryInterface
 {
     /**
      * Directory list filter.
      *
-     * @var string
+     * @var   string
      * @since 1.0.0
      */
     private string $filter = '*';
@@ -42,7 +42,7 @@ final class Directory extends FileAbstract implements LocalContainerInterface, D
     /**
      * Directory nodes (files and directories).
      *
-     * @var FileAbstract[]
+     * @var   FileAbstract[]
      * @since 1.0.0
      */
     private array $nodes = [];
@@ -53,7 +53,7 @@ final class Directory extends FileAbstract implements LocalContainerInterface, D
      * @param string $path   Path
      * @param string $filter Filter
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function __construct(string $path, string $filter = '*')
     {
@@ -73,7 +73,7 @@ final class Directory extends FileAbstract implements LocalContainerInterface, D
      *
      * @return array<int, string>
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function list(string $path, string $filter = '*') : array
     {
@@ -108,7 +108,7 @@ final class Directory extends FileAbstract implements LocalContainerInterface, D
      *
      * @return array<array|string>
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function listByExtension(string $path, string $extension = '', string $exclude = '') : array
     {
@@ -200,7 +200,7 @@ final class Directory extends FileAbstract implements LocalContainerInterface, D
      *
      * @return int
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function count(string $path, bool $recursive = true, array $ignore = []) : int
     {
@@ -433,7 +433,7 @@ final class Directory extends FileAbstract implements LocalContainerInterface, D
      *
      * @return bool
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function create(string $path, int $permission = 0755, bool $recursive = false) : bool
     {

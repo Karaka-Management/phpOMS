@@ -4,11 +4,11 @@
  *
  * PHP Version 7.4
  *
- * @package    phpOMS\Math\Matrix
- * @copyright  Dennis Eichhorn
- * @license    OMS License 1.0
- * @version    1.0.0
- * @link       https://orange-management.org
+ * @package   phpOMS\Math\Matrix
+ * @copyright Dennis Eichhorn
+ * @license   OMS License 1.0
+ * @version   1.0.0
+ * @link      https://orange-management.org
  */
 declare(strict_types=1);
 
@@ -21,17 +21,17 @@ use phpOMS\Math\Matrix\Exception\InvalidDimensionException;
  *
  * A(piv,:) = L*U
  *
- * @package    phpOMS\Math\Matrix
- * @license    OMS License 1.0
- * @link       https://orange-management.org
- * @since      1.0.0
+ * @package phpOMS\Math\Matrix
+ * @license OMS License 1.0
+ * @link    https://orange-management.org
+ * @since   1.0.0
  */
 final class LUDecomposition
 {
     /**
      * LU matrix.
      *
-     * @var array
+     * @var   array
      * @since 1.0.0
      */
     private array $LU = [];
@@ -39,7 +39,7 @@ final class LUDecomposition
     /**
      * Dimension m
      *
-     * @var int
+     * @var   int
      * @since 1.0.0
      */
     private int $m = 0;
@@ -47,7 +47,7 @@ final class LUDecomposition
     /**
      * Dimension n
      *
-     * @var int
+     * @var   int
      * @since 1.0.0
      */
     private int $n = 0;
@@ -55,7 +55,7 @@ final class LUDecomposition
     /**
      * Pivot sign
      *
-     * @var int
+     * @var   int
      * @since 1.0.0
      */
     private int $pivSign = 1;
@@ -63,7 +63,7 @@ final class LUDecomposition
     /**
      * Pivot
      *
-     * @var array
+     * @var   array
      * @since 1.0.0
      */
     private array $piv = [];
@@ -73,7 +73,7 @@ final class LUDecomposition
      *
      * @param Matrix $M Matrix
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function __construct(Matrix $M)
     {
@@ -137,7 +137,7 @@ final class LUDecomposition
      *
      * @return Matrix
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function getL() : Matrix
     {
@@ -166,7 +166,7 @@ final class LUDecomposition
      *
      * @return Matrix
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function getU() : Matrix
     {
@@ -193,7 +193,7 @@ final class LUDecomposition
      *
      * @return array
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function getPivot() : array
     {
@@ -205,7 +205,7 @@ final class LUDecomposition
      *
      * @return bool
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function isNonsingular() : bool
     {
@@ -223,7 +223,7 @@ final class LUDecomposition
      *
      * @return float
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function det() : float
     {
@@ -242,7 +242,7 @@ final class LUDecomposition
      *
      * @return Matrix
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function solve(Matrix $B) : Matrix
     {

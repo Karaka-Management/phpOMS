@@ -4,11 +4,11 @@
  *
  * PHP Version 7.4
  *
- * @package    phpOMS\Module
- * @copyright  Dennis Eichhorn
- * @license    OMS License 1.0
- * @version    1.0.0
- * @link       https://orange-management.org
+ * @package   phpOMS\Module
+ * @copyright Dennis Eichhorn
+ * @license   OMS License 1.0
+ * @version   1.0.0
+ * @link      https://orange-management.org
  */
 declare(strict_types=1);
 
@@ -26,10 +26,10 @@ use phpOMS\Utils\Parser\Php\ArrayParser;
 /**
  * Installer abstract class.
  *
- * @package    phpOMS\Module
- * @license    OMS License 1.0
- * @link       https://orange-management.org
- * @since      1.0.0
+ * @package phpOMS\Module
+ * @license OMS License 1.0
+ * @link    https://orange-management.org
+ * @since   1.0.0
  */
 abstract class InstallerAbstract
 {
@@ -41,7 +41,7 @@ abstract class InstallerAbstract
      *
      * @return void
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function registerInDatabase(DatabasePool $dbPool, InfoManager $info) : void
     {
@@ -83,7 +83,7 @@ abstract class InstallerAbstract
      *
      * @return void
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function install(DatabasePool $dbPool, InfoManager $info) : void
     {
@@ -102,7 +102,7 @@ abstract class InstallerAbstract
      *
      * @return void
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     private static function createTables(DatabasePool $dbPool, InfoManager $info) : void
     {
@@ -131,7 +131,7 @@ abstract class InstallerAbstract
      *
      * @return void
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     private static function activate(DatabasePool $dbPool, InfoManager $info) : void
     {
@@ -147,7 +147,7 @@ abstract class InstallerAbstract
      *
      * @return void
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function reInit(InfoManager $info) : void
     {
@@ -164,7 +164,7 @@ abstract class InstallerAbstract
      *
      * @throws PermissionException
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     private static function initRoutes(InfoManager $info) : void
     {
@@ -191,7 +191,7 @@ abstract class InstallerAbstract
      *
      * @throws PermissionException
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     private static function installRoutes(string $destRoutePath, string $srcRoutePath) : void
     {
@@ -230,7 +230,7 @@ abstract class InstallerAbstract
      *
      * @throws PermissionException
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     private static function initHooks(InfoManager $info) : void
     {
@@ -258,7 +258,7 @@ abstract class InstallerAbstract
      * @throws PathException       This exception is thrown if the hook file doesn't exist
      * @throws PermissionException This exception is thrown if the hook file couldn't be updated (no write permission)
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     private static function installHooks(string $destHookPath, string $srcHookPath) : void
     {

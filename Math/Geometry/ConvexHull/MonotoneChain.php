@@ -4,11 +4,11 @@
  *
  * PHP Version 7.4
  *
- * @package    phpOMS\Math\Geometry\ConvexHull
- * @copyright  Dennis Eichhorn
- * @license    OMS License 1.0
- * @version    1.0.0
- * @link       https://orange-management.org
+ * @package   phpOMS\Math\Geometry\ConvexHull
+ * @copyright Dennis Eichhorn
+ * @license   OMS License 1.0
+ * @version   1.0.0
+ * @link      https://orange-management.org
  */
 declare(strict_types=1);
 
@@ -17,17 +17,17 @@ namespace phpOMS\Math\Geometry\ConvexHull;
 /**
  * Andrew's monotone chain convex hull algorithm class.
  *
- * @package    phpOMS\Math\Geometry\ConvexHull
- * @license    OMS License 1.0
- * @link       https://orange-management.org
- * @since      1.0.0
+ * @package phpOMS\Math\Geometry\ConvexHull
+ * @license OMS License 1.0
+ * @link    https://orange-management.org
+ * @since   1.0.0
  */
 final class MonotoneChain
 {
     /**
      * Constructor.
      *
-     * @since  1.0.0
+     * @since 1.0.0
      * @codeCoverageIgnore
      */
     private function __construct()
@@ -42,7 +42,7 @@ final class MonotoneChain
      *
      * @return array<int, array<string, float|int>>
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function createConvexHull(array $points) : array
     {
@@ -87,7 +87,7 @@ final class MonotoneChain
      *
      * @return float
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     private static function cross(array $a, array $b, array $c) : float
     {
@@ -102,7 +102,7 @@ final class MonotoneChain
      *
      * @return float
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     private static function sort(array $a, array $b) : float
     {

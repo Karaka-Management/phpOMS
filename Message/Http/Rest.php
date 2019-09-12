@@ -4,11 +4,11 @@
  *
  * PHP Version 7.4
  *
- * @package    phpOMS\Message\Http
- * @copyright  Dennis Eichhorn
- * @license    OMS License 1.0
- * @version    1.0.0
- * @link       https://orange-management.org
+ * @package   phpOMS\Message\Http
+ * @copyright Dennis Eichhorn
+ * @license   OMS License 1.0
+ * @version   1.0.0
+ * @link      https://orange-management.org
  */
 declare(strict_types=1);
 
@@ -17,10 +17,10 @@ namespace phpOMS\Message\Http;
 /**
  * Rest request class.
  *
- * @package    phpOMS\Message\Http
- * @license    OMS License 1.0
- * @link       https://orange-management.org
- * @since      1.0.0
+ * @package phpOMS\Message\Http
+ * @license OMS License 1.0
+ * @link    https://orange-management.org
+ * @since   1.0.0
  */
 final class Rest
 {
@@ -34,7 +34,7 @@ final class Rest
      *
      * @throws \Exception this exception is thrown if an internal curl_init error occurs
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function request(Request $request) : Response
     {

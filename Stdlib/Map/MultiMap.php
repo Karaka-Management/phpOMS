@@ -4,11 +4,11 @@
  *
  * PHP Version 7.4
  *
- * @package    phpOMS\Stdlib\Map
- * @copyright  Dennis Eichhorn
- * @license    OMS License 1.0
- * @version    1.0.0
- * @link       https://orange-management.org
+ * @package   phpOMS\Stdlib\Map
+ * @copyright Dennis Eichhorn
+ * @license   OMS License 1.0
+ * @version   1.0.0
+ * @link      https://orange-management.org
  */
 declare(strict_types=1);
 
@@ -19,10 +19,10 @@ use phpOMS\Utils\Permutation;
 /**
  * Multimap utils.
  *
- * @package    phpOMS\Stdlib\Map
- * @license    OMS License 1.0
- * @link       https://orange-management.org
- * @since      1.0.0
+ * @package phpOMS\Stdlib\Map
+ * @license OMS License 1.0
+ * @link    https://orange-management.org
+ * @since   1.0.0
  */
 class MultiMap implements \Countable
 {
@@ -30,7 +30,7 @@ class MultiMap implements \Countable
     /**
      * Stored values.
      *
-     * @var array
+     * @var   array
      * @since 1.0.0
      */
     private array $values = [];
@@ -38,7 +38,7 @@ class MultiMap implements \Countable
     /**
      * Associated keys for values.
      *
-     * @var array
+     * @var   array
      * @since 1.0.0
      */
     private array $keys = [];
@@ -46,7 +46,7 @@ class MultiMap implements \Countable
     /**
      * Key type.
      *
-     * @var int
+     * @var   int
      * @since 1.0.0
      */
     private int $keyType = KeyType::SINGLE;
@@ -54,7 +54,7 @@ class MultiMap implements \Countable
     /**
      * Order type.
      *
-     * @var int
+     * @var   int
      * @since 1.0.0
      */
     private int $orderType = OrderType::LOOSE;
@@ -65,7 +65,7 @@ class MultiMap implements \Countable
      * @param int $key   Key type (all keys need to match or just one)
      * @param int $order Order of the keys is important (only required for multiple keys)
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function __construct(int $key = KeyType::SINGLE, int $order = OrderType::LOOSE)
     {
@@ -82,7 +82,7 @@ class MultiMap implements \Countable
      *
      * @return bool
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function add(array $keys, $value, bool $overwrite = true) : bool
     {
@@ -117,7 +117,7 @@ class MultiMap implements \Countable
      *
      * @return void
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     private function garbageCollect() : void
     {
@@ -130,7 +130,7 @@ class MultiMap implements \Countable
      *
      * @return void
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     private function garbageCollectKeys() : void
     {
@@ -146,7 +146,7 @@ class MultiMap implements \Countable
      *
      * @return void
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     private function garbageCollectValues() : void
     {
@@ -164,7 +164,7 @@ class MultiMap implements \Countable
      *
      * @return mixed
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function get($key)
     {
@@ -182,7 +182,7 @@ class MultiMap implements \Countable
      *
      * @return mixed
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     private function getSingle($key)
     {
@@ -196,7 +196,7 @@ class MultiMap implements \Countable
      *
      * @return mixed
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     private function getMultiple($key)
     {
@@ -228,7 +228,7 @@ class MultiMap implements \Countable
      *
      * @return bool
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function set($key, $value) : bool
     {
@@ -247,7 +247,7 @@ class MultiMap implements \Countable
      *
      * @return bool
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     private function setMultiple($key, $value) : bool
     {
@@ -275,7 +275,7 @@ class MultiMap implements \Countable
      *
      * @return bool
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     private function setSingle($key, $value) : bool
     {
@@ -295,7 +295,7 @@ class MultiMap implements \Countable
      *
      * @return bool
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function remove($key) : bool
     {
@@ -313,7 +313,7 @@ class MultiMap implements \Countable
      *
      * @return bool
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     private function removeMultiple($key) : bool
     {
@@ -343,7 +343,7 @@ class MultiMap implements \Countable
      *
      * @return bool
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     private function removeSingle($key) : bool
     {
@@ -370,7 +370,7 @@ class MultiMap implements \Countable
      *
      * @return bool
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function remap($old, $new) : bool
     {
@@ -398,7 +398,7 @@ class MultiMap implements \Countable
      *
      * @return bool
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function removeKey($key) : bool
     {
@@ -418,7 +418,7 @@ class MultiMap implements \Countable
      *
      * @return bool
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     private function removeKeySingle($key) : bool
     {
@@ -440,7 +440,7 @@ class MultiMap implements \Countable
      *
      * @return array
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function getSiblings($key) : array
     {
@@ -459,7 +459,7 @@ class MultiMap implements \Countable
      *
      * @return array
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function getSiblingsMultiple($key) : array
     {
@@ -479,7 +479,7 @@ class MultiMap implements \Countable
      *
      * @return array
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     private function getSiblingsSingle($key) : array
     {
@@ -503,7 +503,7 @@ class MultiMap implements \Countable
      *
      * @return array
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function keys() : array
     {
@@ -515,7 +515,7 @@ class MultiMap implements \Countable
      *
      * @return array
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function values() : array
     {
@@ -527,7 +527,7 @@ class MultiMap implements \Countable
      *
      * @return int
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function count() : int
     {

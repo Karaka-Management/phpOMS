@@ -4,11 +4,11 @@
  *
  * PHP Version 7.4
  *
- * @package    phpOMS\Utils
- * @copyright  Dennis Eichhorn
- * @license    OMS License 1.0
- * @version    1.0.0
- * @link       https://orange-management.org
+ * @package   phpOMS\Utils
+ * @copyright Dennis Eichhorn
+ * @license   OMS License 1.0
+ * @version   1.0.0
+ * @link      https://orange-management.org
  */
 declare(strict_types=1);
 
@@ -19,17 +19,17 @@ namespace phpOMS\Utils;
  *
  * Only for testing purposes. MUST NOT be used for other purposes.
  *
- * @package    phpOMS\Utils
- * @license    OMS License 1.0
- * @link       https://orange-management.org
- * @since      1.0.0
+ * @package phpOMS\Utils
+ * @license OMS License 1.0
+ * @link    https://orange-management.org
+ * @since   1.0.0
  */
 final class TestUtils
 {
     /**
      * Constructor.
      *
-     * @since  1.0.0
+     * @since 1.0.0
      * @codeCoverageIgnore
      */
     private function __construct()
@@ -46,7 +46,7 @@ final class TestUtils
      *
      * @return bool The function returns true after setting the member
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function setMember(object $obj, string $name, $value) : bool
     {
@@ -79,7 +79,7 @@ final class TestUtils
      *
      * @return mixed Returns the member variable value
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function getMember(object $obj, string $name)
     {

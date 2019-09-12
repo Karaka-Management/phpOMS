@@ -4,11 +4,11 @@
  *
  * PHP Version 7.4
  *
- * @package    phpOMS\System\File
- * @copyright  Dennis Eichhorn
- * @license    OMS License 1.0
- * @version    1.0.0
- * @link       https://orange-management.org
+ * @package   phpOMS\System\File
+ * @copyright Dennis Eichhorn
+ * @license   OMS License 1.0
+ * @version   1.0.0
+ * @link      https://orange-management.org
  */
 declare(strict_types=1);
 
@@ -19,10 +19,10 @@ namespace phpOMS\System\File\Local;
  *
  * Performing operations on the file system
  *
- * @package    phpOMS\System\File
- * @license    OMS License 1.0
- * @link       https://orange-management.org
- * @since      1.0.0
+ * @package phpOMS\System\File
+ * @license OMS License 1.0
+ * @link    https://orange-management.org
+ * @since   1.0.0
  */
 interface LocalContainerInterface
 {
@@ -33,7 +33,7 @@ interface LocalContainerInterface
      *
      * @return \DateTime
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function created(string $path) : \DateTime;
 
@@ -44,7 +44,7 @@ interface LocalContainerInterface
      *
      * @return \DateTime
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function changed(string $path) : \DateTime;
 
@@ -55,7 +55,7 @@ interface LocalContainerInterface
      *
      * @return int
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function owner(string $path) : int;
 
@@ -66,7 +66,7 @@ interface LocalContainerInterface
      *
      * @return int Permissions (e.g. 0755);
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function permission(string $path) : int;
 
@@ -79,7 +79,7 @@ interface LocalContainerInterface
      *
      * @return string
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function parent(string $path) : string;
 
@@ -90,7 +90,7 @@ interface LocalContainerInterface
      *
      * @return bool True on success and false on failure
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function delete(string $path) : bool;
 
@@ -103,7 +103,7 @@ interface LocalContainerInterface
      *
      * @return bool True on success and false on failure
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function copy(string $from, string $to, bool $overwrite = false) : bool;
 
@@ -116,7 +116,7 @@ interface LocalContainerInterface
      *
      * @return bool True on success and false on failure
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function move(string $from, string $to, bool $overwrite = false) : bool;
 
@@ -128,7 +128,7 @@ interface LocalContainerInterface
      *
      * @return int
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function size(string $path, bool $recursive = true) : int;
 
@@ -139,7 +139,7 @@ interface LocalContainerInterface
      *
      * @return bool
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function exists(string $path) : bool;
 
@@ -150,7 +150,7 @@ interface LocalContainerInterface
      *
      * @return string
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function name(string $path) : string;
 
@@ -161,7 +161,7 @@ interface LocalContainerInterface
      *
      * @return string
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function basename(string $path) : string;
 
@@ -172,7 +172,7 @@ interface LocalContainerInterface
      *
      * @return string
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function dirname(string $path) : string;
 
@@ -183,7 +183,7 @@ interface LocalContainerInterface
      *
      * @return string
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function dirpath(string $path) : string;
 
@@ -196,7 +196,7 @@ interface LocalContainerInterface
      *
      * @return int
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function count(string $path, bool $recursive = true, array $ignore = []) : int;
 
@@ -209,7 +209,7 @@ interface LocalContainerInterface
      *
      * @return string
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function sanitize(string $path, string $replace = '', string $invalid = '/[^\w\s\d\.\-_~,;\/\[\]\(\]]/') : string;
 }

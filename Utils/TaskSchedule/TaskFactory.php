@@ -4,11 +4,11 @@
  *
  * PHP Version 7.4
  *
- * @package    phpOMS\Utils\TaskSchedule
- * @copyright  Dennis Eichhorn
- * @license    OMS License 1.0
- * @version    1.0.0
- * @link       https://orange-management.org
+ * @package   phpOMS\Utils\TaskSchedule
+ * @copyright Dennis Eichhorn
+ * @license   OMS License 1.0
+ * @version   1.0.0
+ * @link      https://orange-management.org
  */
 declare(strict_types=1);
 
@@ -20,10 +20,10 @@ use phpOMS\System\SystemType;
 /**
  * Task factory.
  *
- * @package    phpOMS\Utils\TaskSchedule
- * @license    OMS License 1.0
- * @link       https://orange-management.org
- * @since      1.0.0
+ * @package phpOMS\Utils\TaskSchedule
+ * @license OMS License 1.0
+ * @link    https://orange-management.org
+ * @since   1.0.0
  */
 final class TaskFactory
 {
@@ -37,7 +37,7 @@ final class TaskFactory
      *
      * @throws \Exception This exception is thrown if the operating system is not supported
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function create(string $id = '', string $cmd = '') : TaskAbstract
     {

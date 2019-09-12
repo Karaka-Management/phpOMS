@@ -4,11 +4,11 @@
  *
  * PHP Version 7.4
  *
- * @package    phpOMS\DataStorage\Database\Connection
- * @copyright  Dennis Eichhorn
- * @license    OMS License 1.0
- * @version    1.0.0
- * @link       https://orange-management.org
+ * @package   phpOMS\DataStorage\Database\Connection
+ * @copyright Dennis Eichhorn
+ * @license   OMS License 1.0
+ * @version   1.0.0
+ * @link      https://orange-management.org
  */
 declare(strict_types=1);
 
@@ -25,10 +25,10 @@ use phpOMS\DataStorage\Database\Schema\Grammar\Grammar as SchemaGrammar;
  * Handles the database connection.
  * Implementing wrapper functions for multiple databases is planned (far away).
  *
- * @package    phpOMS\DataStorage\Database\Connection
- * @license    OMS License 1.0
- * @link       https://orange-management.org
- * @since      1.0.0
+ * @package phpOMS\DataStorage\Database\Connection
+ * @license OMS License 1.0
+ * @link    https://orange-management.org
+ * @since   1.0.0
  */
 abstract class ConnectionAbstract implements ConnectionInterface
 {
@@ -38,7 +38,7 @@ abstract class ConnectionAbstract implements ConnectionInterface
      *
      * This can be used externally to define queries and execute them.
      *
-     * @var null|\PDO
+     * @var   null|\PDO
      * @since 1.0.0
      */
     public ?\PDO $con = null;
@@ -48,7 +48,7 @@ abstract class ConnectionAbstract implements ConnectionInterface
      *
      * The database prefix name for unique table names
      *
-     * @var string
+     * @var   string
      * @since 1.0.0
      */
     public string $prefix = '';
@@ -56,7 +56,7 @@ abstract class ConnectionAbstract implements ConnectionInterface
     /**
      * Database data.
      *
-     * @var null|string[]
+     * @var   null|string[]
      * @since 1.0.0
      */
     protected ?array $dbdata = null;
@@ -64,7 +64,7 @@ abstract class ConnectionAbstract implements ConnectionInterface
     /**
      * Database type.
      *
-     * @var string
+     * @var   string
      * @since 1.0.0
      */
     protected string $type = DatabaseType::UNDEFINED;
@@ -72,7 +72,7 @@ abstract class ConnectionAbstract implements ConnectionInterface
     /**
      * Database status.
      *
-     * @var int
+     * @var   int
      * @since 1.0.0
      */
     protected int $status = DatabaseStatus::CLOSED;
@@ -80,7 +80,7 @@ abstract class ConnectionAbstract implements ConnectionInterface
     /**
      * Database grammar.
      *
-     * @var null|Grammar
+     * @var   null|Grammar
      * @since 1.0.0
      */
     protected ?Grammar $grammar = null;
@@ -88,7 +88,7 @@ abstract class ConnectionAbstract implements ConnectionInterface
     /**
      * Database grammar.
      *
-     * @var null|SchemaGrammar
+     * @var   null|SchemaGrammar
      * @since 1.0.0
      */
     protected ?SchemaGrammar $schemaGrammar = null;
@@ -114,7 +114,7 @@ abstract class ConnectionAbstract implements ConnectionInterface
      *
      * @return string
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function getDatabase() : string
     {
@@ -126,7 +126,7 @@ abstract class ConnectionAbstract implements ConnectionInterface
      *
      * @return string
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function getHost() : string
     {
@@ -138,7 +138,7 @@ abstract class ConnectionAbstract implements ConnectionInterface
      *
      * @return int
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function getPort() : int
     {
@@ -150,7 +150,7 @@ abstract class ConnectionAbstract implements ConnectionInterface
      *
      * @return string
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function getPrefix() : string
     {
@@ -178,7 +178,7 @@ abstract class ConnectionAbstract implements ConnectionInterface
      *
      * Sets the database connection to null
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function __destruct()
     {

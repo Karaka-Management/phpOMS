@@ -4,11 +4,11 @@
  *
  * PHP Version 7.4
  *
- * @package    phpOMS\DataStorage\Database\Schema\Grammar
- * @copyright  Dennis Eichhorn
- * @license    OMS License 1.0
- * @version    1.0.0
- * @link       https://orange-management.org
+ * @package   phpOMS\DataStorage\Database\Schema\Grammar
+ * @copyright Dennis Eichhorn
+ * @license   OMS License 1.0
+ * @version   1.0.0
+ * @link      https://orange-management.org
  */
 declare(strict_types=1);
 
@@ -21,17 +21,17 @@ use phpOMS\DataStorage\Database\Schema\QueryType;
 /**
  * Database query grammar.
  *
- * @package    phpOMS\DataStorage\Database\Schema\Grammar
- * @license    OMS License 1.0
- * @link       https://orange-management.org
- * @since      1.0.0
+ * @package phpOMS\DataStorage\Database\Schema\Grammar
+ * @license OMS License 1.0
+ * @link    https://orange-management.org
+ * @since   1.0.0
  */
 class Grammar extends QueryGrammar
 {
     /**
      * Drop components.
      *
-     * @var string[]
+     * @var   string[]
      * @since 1.0.0
      */
     protected array $dropDatabaseComponents = [
@@ -41,7 +41,7 @@ class Grammar extends QueryGrammar
     /**
      * Drop components.
      *
-     * @var string[]
+     * @var   string[]
      * @since 1.0.0
      */
     protected array $dropTableComponents = [
@@ -51,7 +51,7 @@ class Grammar extends QueryGrammar
     /**
      * Select tables components.
      *
-     * @var string[]
+     * @var   string[]
      * @since 1.0.0
      */
     protected array $createTablesComponents = [
@@ -63,7 +63,7 @@ class Grammar extends QueryGrammar
     /**
      * Select tables components.
      *
-     * @var string[]
+     * @var   string[]
      * @since 1.0.0
      */
     protected array $tablesComponents = [
@@ -73,7 +73,7 @@ class Grammar extends QueryGrammar
     /**
      * Select field components.
      *
-     * @var string[]
+     * @var   string[]
      * @since 1.0.0
      */
     protected array $fieldsComponents = [
@@ -109,7 +109,7 @@ class Grammar extends QueryGrammar
      *
      * @return string
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     protected function compileCreateTable(BuilderAbstract $query, string $table) : string
     {
@@ -124,7 +124,7 @@ class Grammar extends QueryGrammar
      *
      * @return string
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     protected function compileCreateTableSettings(BuilderAbstract $query, bool $settings) : string
     {
@@ -139,7 +139,7 @@ class Grammar extends QueryGrammar
      *
      * @return string
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     protected function compileDropDatabase(BuilderAbstract $query, string $table) : string
     {
@@ -160,7 +160,7 @@ class Grammar extends QueryGrammar
      *
      * @return string
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     protected function compileDropTable(BuilderAbstract $query, string $table) : string
     {

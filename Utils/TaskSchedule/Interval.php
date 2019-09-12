@@ -4,11 +4,11 @@
  *
  * PHP Version 7.4
  *
- * @package    phpOMS\Utils\TaskSchedule
- * @copyright  Dennis Eichhorn
- * @license    OMS License 1.0
- * @version    1.0.0
- * @link       https://orange-management.org
+ * @package   phpOMS\Utils\TaskSchedule
+ * @copyright Dennis Eichhorn
+ * @license   OMS License 1.0
+ * @version   1.0.0
+ * @link      https://orange-management.org
  */
 declare(strict_types=1);
 
@@ -17,10 +17,10 @@ namespace phpOMS\Utils\TaskSchedule;
 /**
  * Interval class for tasks.
  *
- * @package    phpOMS\Utils\TaskSchedule
- * @license    OMS License 1.0
- * @link       https://orange-management.org
- * @since      1.0.0
+ * @package phpOMS\Utils\TaskSchedule
+ * @license OMS License 1.0
+ * @link    https://orange-management.org
+ * @since   1.0.0
  */
 class Interval implements \Serializable
 {
@@ -28,7 +28,7 @@ class Interval implements \Serializable
     /**
      * Start.
      *
-     * @var \DateTime
+     * @var   \DateTime
      * @since 1.0.0
      */
     private $start;
@@ -36,7 +36,7 @@ class Interval implements \Serializable
     /**
      * End.
      *
-     * @var null|\DateTime
+     * @var   null|\DateTime
      * @since 1.0.0
      */
     private $end = null;
@@ -44,7 +44,7 @@ class Interval implements \Serializable
     /**
      * Minute.
      *
-     * @var array
+     * @var   array
      * @since 1.0.0
      */
     private $minute = [];
@@ -52,7 +52,7 @@ class Interval implements \Serializable
     /**
      * Hour.
      *
-     * @var array
+     * @var   array
      * @since 1.0.0
      */
     private $hour = [];
@@ -60,7 +60,7 @@ class Interval implements \Serializable
     /**
      * Day of month.
      *
-     * @var array
+     * @var   array
      * @since 1.0.0
      */
     private $dayOfMonth = [];
@@ -68,7 +68,7 @@ class Interval implements \Serializable
     /**
      * Month.
      *
-     * @var array
+     * @var   array
      * @since 1.0.0
      */
     private $month = [];
@@ -76,7 +76,7 @@ class Interval implements \Serializable
     /**
      * Day of week.
      *
-     * @var array
+     * @var   array
      * @since 1.0.0
      */
     private $dayOfWeek = [];
@@ -84,7 +84,7 @@ class Interval implements \Serializable
     /**
      * Year.
      *
-     * @var array
+     * @var   array
      * @since 1.0.0
      */
     private $year = [];
@@ -94,7 +94,7 @@ class Interval implements \Serializable
      *
      * @param string $interval Interval to parse
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function __construct(string $interval = null)
     {
@@ -112,7 +112,7 @@ class Interval implements \Serializable
      *
      * @return void
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function unserialize($serialized) : void
     {
@@ -133,7 +133,7 @@ class Interval implements \Serializable
      *
      * @return array
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     private function parseMinute(string $minute) : array
     {
@@ -147,7 +147,7 @@ class Interval implements \Serializable
      *
      * @return array
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     private function parseHour(string $hour) : array
     {
@@ -161,7 +161,7 @@ class Interval implements \Serializable
      *
      * @return array
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     private function parseDayOfMonth(string $dayOfMonth) : array
     {
@@ -175,7 +175,7 @@ class Interval implements \Serializable
      *
      * @return array
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     private function parseMonth(string $month) : array
     {
@@ -189,7 +189,7 @@ class Interval implements \Serializable
      *
      * @return array
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     private function parseDayOfWeek(string $dayOfWeek) : array
     {
@@ -203,7 +203,7 @@ class Interval implements \Serializable
      *
      * @return array
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     private function parseYear(string $year) : array
     {
@@ -215,7 +215,7 @@ class Interval implements \Serializable
      *
      * @return \DateTime
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function getStart() : \DateTime
     {
@@ -229,7 +229,7 @@ class Interval implements \Serializable
      *
      * @return void
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function setStart(\DateTime $start) : void
     {
@@ -241,7 +241,7 @@ class Interval implements \Serializable
      *
      * @return \DateTime
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function getEnd() : ?\DateTime
     {
@@ -255,7 +255,7 @@ class Interval implements \Serializable
      *
      * @return void
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function setEnd(\DateTime $end) : void
     {
@@ -267,7 +267,7 @@ class Interval implements \Serializable
      *
      * @return array
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function getMinute() : array
     {
@@ -285,7 +285,7 @@ class Interval implements \Serializable
      *
      * @throws \Exception
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function setMinute(array $minute, int $step = 0, bool $any = false) : void
     {
@@ -310,7 +310,7 @@ class Interval implements \Serializable
      *
      * @return bool
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     private function validateTime(array $times, int $step, int $lowest, int $highest) : bool
     {
@@ -332,7 +332,7 @@ class Interval implements \Serializable
      *
      * @return array
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function getHour() : array
     {
@@ -350,7 +350,7 @@ class Interval implements \Serializable
      *
      * @throws \Exception
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function setHour(array $hour, int $step = 0, bool $any = false) : void
     {
@@ -370,7 +370,7 @@ class Interval implements \Serializable
      *
      * @return array
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function getDayOfMonth() : array
     {
@@ -390,7 +390,7 @@ class Interval implements \Serializable
      *
      * @throws \Exception
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function setDayOfMonth(array $dayOfMonth, int $step = 0, bool $any = false, bool $last = false, int $nearest = 0) : void
     {
@@ -415,7 +415,7 @@ class Interval implements \Serializable
      *
      * @return bool
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     private function validateDayOfMonth(array $array) : bool
     {
@@ -440,7 +440,7 @@ class Interval implements \Serializable
      *
      * @return array
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function getDayOfWeek() : array
     {
@@ -459,7 +459,7 @@ class Interval implements \Serializable
      *
      * @throws \Exception
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function setDayOfWeek(array $dayOfWeek, int $step = 0, bool $any = false, bool $last = false) : void
     {
@@ -483,7 +483,7 @@ class Interval implements \Serializable
      *
      * @return bool
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     private function validateDayOfWeek(array $array) : bool
     {
@@ -505,7 +505,7 @@ class Interval implements \Serializable
      *
      * @return array
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function getMonth() : array
     {
@@ -523,7 +523,7 @@ class Interval implements \Serializable
      *
      * @throws \Exception
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function setMonth(array $month, int $step = 0, bool $any = false) : void
     {
@@ -543,7 +543,7 @@ class Interval implements \Serializable
      *
      * @return array
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function getYear() : array
     {
@@ -561,7 +561,7 @@ class Interval implements \Serializable
      *
      * @throws \Exception
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function setYear(array $year, int $step = 0, bool $any = false) : void
     {
@@ -584,7 +584,7 @@ class Interval implements \Serializable
      *
      * @return bool
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     private function validateYear(array $array) : bool
     {
@@ -596,7 +596,7 @@ class Interval implements \Serializable
      *
      * @return string
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function serialize() : string
     {
@@ -618,7 +618,7 @@ class Interval implements \Serializable
      *
      * @return string
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function serializeTime($time, $step) : string
     {
@@ -641,7 +641,7 @@ class Interval implements \Serializable
      *
      * @return string
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function serializeDayOfMonth() : string
     {
@@ -668,7 +668,7 @@ class Interval implements \Serializable
      *
      * @return string
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function serializeDayOfWeek() : string
     {

@@ -4,11 +4,11 @@
  *
  * PHP Version 7.4
  *
- * @package    phpOMS\Math\Geometry\Shape\D2
- * @copyright  Dennis Eichhorn
- * @license    OMS License 1.0
- * @version    1.0.0
- * @link       https://orange-management.org
+ * @package   phpOMS\Math\Geometry\Shape\D2
+ * @copyright Dennis Eichhorn
+ * @license   OMS License 1.0
+ * @version   1.0.0
+ * @link      https://orange-management.org
  */
 declare(strict_types=1);
 
@@ -17,10 +17,10 @@ namespace phpOMS\Math\Geometry\Shape\D2;
 /**
  * Ellipse shape.
  *
- * @package    phpOMS\Math\Geometry\Shape\D2
- * @license    OMS License 1.0
- * @link       https://orange-management.org
- * @since      1.0.0
+ * @package phpOMS\Math\Geometry\Shape\D2
+ * @license OMS License 1.0
+ * @link    https://orange-management.org
+ * @since   1.0.0
  */
 final class Ellipse implements D2ShapeInterface
 {
@@ -38,7 +38,7 @@ final class Ellipse implements D2ShapeInterface
      *
      * @return float Distance between points in meter
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function getSurface(float $a, float $b) : float
     {
@@ -58,7 +58,7 @@ final class Ellipse implements D2ShapeInterface
      *
      * @return float Distance between points in meter
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function getPerimeter(float $a, float $b) : float
     {

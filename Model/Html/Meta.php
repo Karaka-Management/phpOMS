@@ -4,11 +4,11 @@
  *
  * PHP Version 7.4
  *
- * @package    phpOMS\Model\Html
- * @copyright  Dennis Eichhorn
- * @license    OMS License 1.0
- * @version    1.0.0
- * @link       https://orange-management.org
+ * @package   phpOMS\Model\Html
+ * @copyright Dennis Eichhorn
+ * @license   OMS License 1.0
+ * @version   1.0.0
+ * @link      https://orange-management.org
  */
 declare(strict_types=1);
 
@@ -20,10 +20,10 @@ use phpOMS\Views\ViewAbstract;
 /**
  * Meta class.
  *
- * @package    phpOMS\Model\Html
- * @license    OMS License 1.0
- * @link       https://orange-management.org
- * @since      1.0.0
+ * @package phpOMS\Model\Html
+ * @license OMS License 1.0
+ * @link    https://orange-management.org
+ * @since   1.0.0
  */
 class Meta implements RenderableInterface
 {
@@ -31,7 +31,7 @@ class Meta implements RenderableInterface
     /**
      * Keywords.
      *
-     * @var string[]
+     * @var   string[]
      * @since 1.0.0
      */
     private array $keywords = [];
@@ -39,7 +39,7 @@ class Meta implements RenderableInterface
     /**
      * Author.
      *
-     * @var string
+     * @var   string
      * @since 1.0.0
      */
     private string $author = '';
@@ -47,7 +47,7 @@ class Meta implements RenderableInterface
     /**
      * Charset.
      *
-     * @var string
+     * @var   string
      * @since 1.0.0
      */
     private string $charset = '';
@@ -55,7 +55,7 @@ class Meta implements RenderableInterface
     /**
      * Description.
      *
-     * @var string
+     * @var   string
      * @since 1.0.0
      */
     private string $description = '';
@@ -63,7 +63,7 @@ class Meta implements RenderableInterface
     /**
      * Itemprop.
      *
-     * @var array
+     * @var   array
      * @since 1.0.0
      */
     private array $itemprops = [];
@@ -71,7 +71,7 @@ class Meta implements RenderableInterface
     /**
      * Property.
      *
-     * @var array
+     * @var   array
      * @since 1.0.0
      */
     private array $properties = [];
@@ -79,7 +79,7 @@ class Meta implements RenderableInterface
     /**
      * Name.
      *
-     * @var array
+     * @var   array
      * @since 1.0.0
      */
     private array $names = [];
@@ -91,7 +91,7 @@ class Meta implements RenderableInterface
      *
      * @return void
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function addKeyword(string $keyword) : void
     {
@@ -105,7 +105,7 @@ class Meta implements RenderableInterface
      *
      * @return string[] Keywords
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function getKeywords() : array
     {
@@ -117,7 +117,7 @@ class Meta implements RenderableInterface
      *
      * @return string Author
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function getAuthor() : string
     {
@@ -131,7 +131,7 @@ class Meta implements RenderableInterface
      *
      * @return void
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function setAuthor(string $author) : void
     {
@@ -143,7 +143,7 @@ class Meta implements RenderableInterface
      *
      * @return string Charset
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function getCharset() : string
     {
@@ -157,7 +157,7 @@ class Meta implements RenderableInterface
      *
      * @return void
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function setCharset(string $charset) : void
     {
@@ -169,7 +169,7 @@ class Meta implements RenderableInterface
      *
      * @return string Descritpion
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function getDescription() : string
     {
@@ -183,7 +183,7 @@ class Meta implements RenderableInterface
      *
      * @return void
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function setDescription(string $description) : void
     {
@@ -198,7 +198,7 @@ class Meta implements RenderableInterface
      *
      * @return void
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function setProperty(string $property, string $content) : void
     {
@@ -213,7 +213,7 @@ class Meta implements RenderableInterface
      *
      * @return void
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function setItemprop(string $itemprop, string $content) : void
     {
@@ -228,7 +228,7 @@ class Meta implements RenderableInterface
      *
      * @return void
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function setName(string $name, string $content) : void
     {
@@ -255,7 +255,7 @@ class Meta implements RenderableInterface
      *
      * @return string
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     private function renderProperty() : string
     {
@@ -272,7 +272,7 @@ class Meta implements RenderableInterface
      *
      * @return string
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     private function renderItemprop() : string
     {
@@ -289,7 +289,7 @@ class Meta implements RenderableInterface
      *
      * @return string
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     private function renderName() : string
     {

@@ -4,11 +4,11 @@
  *
  * PHP Version 7.4
  *
- * @package    phpOMS\Event
- * @copyright  Dennis Eichhorn
- * @license    OMS License 1.0
- * @version    1.0.0
- * @link       https://orange-management.org
+ * @package   phpOMS\Event
+ * @copyright Dennis Eichhorn
+ * @license   OMS License 1.0
+ * @version   1.0.0
+ * @link      https://orange-management.org
  */
 declare(strict_types=1);
 
@@ -26,17 +26,17 @@ use phpOMS\Dispatcher\DispatcherInterface;
  *
  * What happens after triggering an event (removing the callback, resetting the sub-conditions etc.) depends on the setup.
  *
- * @package    phpOMS\Event
- * @license    OMS License 1.0
- * @link       https://orange-management.org
- * @since      1.0.0
+ * @package phpOMS\Event
+ * @license OMS License 1.0
+ * @link    https://orange-management.org
+ * @since   1.0.0
  */
 final class EventManager implements \Countable
 {
     /**
      * Events.
      *
-     * @var array
+     * @var   array
      * @since 1.0.0
      */
     private array $groups = [];
@@ -44,7 +44,7 @@ final class EventManager implements \Countable
     /**
      * Callbacks.
      *
-     * @var array
+     * @var   array
      * @since 1.0.0
      */
     private array $callbacks = [];
@@ -52,7 +52,7 @@ final class EventManager implements \Countable
     /**
      * Dispatcher.
      *
-     * @var DispatcherInterface
+     * @var   DispatcherInterface
      * @since 1.0.0
      */
     private DispatcherInterface $dispatcher;
@@ -62,7 +62,7 @@ final class EventManager implements \Countable
      *
      * @param Dispatcher $dispatcher Dispatcher. If no dispatcher is provided a simple general purpose dispatcher is used.
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function __construct(Dispatcher $dispatcher = null)
     {
@@ -93,7 +93,7 @@ final class EventManager implements \Countable
      *
      * @return bool
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function importFromFile(string $path) : bool
     {
@@ -123,7 +123,7 @@ final class EventManager implements \Countable
      *
      * @return bool
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function attach(string $group, $callback, bool $remove = false, bool $reset = false) : bool
     {
@@ -145,7 +145,7 @@ final class EventManager implements \Countable
      *
      * @return bool returns true on sucessfully triggering the event, false if the event couldn't be triggered which also includes sub-requirements missing
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function trigger(string $group, string $id = '', $data = null) : bool
     {
@@ -174,7 +174,7 @@ final class EventManager implements \Countable
      *
      * @return bool returns true on sucessfully triggering the event, false if the event couldn't be triggered which also includes sub-requirements missing
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     private function triggerSingleEvent(string $group, string $id = '', $data = null) : bool
     {
@@ -210,7 +210,7 @@ final class EventManager implements \Countable
      *
      * @return void
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     private function reset(string $group) : void
     {
@@ -230,7 +230,7 @@ final class EventManager implements \Countable
      *
      * @return bool
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     private function hasOutstanding(string $group) : bool
     {
@@ -254,7 +254,7 @@ final class EventManager implements \Countable
      *
      * @return bool
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function detach(string $group) : bool
     {
@@ -271,7 +271,7 @@ final class EventManager implements \Countable
      *
      * @return bool
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     private function detachCallback(string $group) : bool
     {
@@ -290,7 +290,7 @@ final class EventManager implements \Countable
      *
      * @return bool
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     private function detachGroup(string $group) : bool
     {
@@ -310,7 +310,7 @@ final class EventManager implements \Countable
      *
      * @return void
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function addGroup(string $group, string $id) : void
     {

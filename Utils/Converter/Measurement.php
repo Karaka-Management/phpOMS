@@ -4,11 +4,11 @@
  *
  * PHP Version 7.4
  *
- * @package    phpOMS\Utils\Converter
- * @copyright  Dennis Eichhorn
- * @license    OMS License 1.0
- * @version    1.0.0
- * @link       https://orange-management.org
+ * @package   phpOMS\Utils\Converter
+ * @copyright Dennis Eichhorn
+ * @license   OMS License 1.0
+ * @version   1.0.0
+ * @link      https://orange-management.org
  */
 declare(strict_types=1);
 
@@ -17,17 +17,17 @@ namespace phpOMS\Utils\Converter;
 /**
  * Measurement converter.
  *
- * @package    phpOMS\Utils\Converter
- * @license    OMS License 1.0
- * @link       https://orange-management.org
- * @since      1.0.0
+ * @package phpOMS\Utils\Converter
+ * @license OMS License 1.0
+ * @link    https://orange-management.org
+ * @since   1.0.0
  */
 class Measurement
 {
     /**
      * Constructor.
      *
-     * @since  1.0.0
+     * @since 1.0.0
      * @codeCoverageIgnore
      */
     private function __construct()
@@ -43,7 +43,7 @@ class Measurement
      *
      * @return float
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function convertTemperature(float $value, string $from = TemperatureType::FAHRENHEIT, string $to = TemperatureType::CELSIUS) : float
     {
@@ -89,7 +89,7 @@ class Measurement
      *
      * @return float
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     private static function normalizeTemperature(float $value, string $from) : float
     {
@@ -133,7 +133,7 @@ class Measurement
      *
      * @return float
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function convertWeight(float $value, string $from = WeightType::GRAM, string $to = WeightType::KILOGRAM) : float
     {
@@ -197,7 +197,7 @@ class Measurement
      *
      * @return float
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     private static function normalizeWeight(float $value, string $from) : float
     {
@@ -259,7 +259,7 @@ class Measurement
      *
      * @return float
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function convertLength(float $value, string $from = LengthType::METERS, string $to = LengthType::KILOMETERS) : float
     {
@@ -344,7 +344,7 @@ class Measurement
      *
      * @return float
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     private static function normalizeLength(float $value, string $from) : float
     {
@@ -427,7 +427,7 @@ class Measurement
      *
      * @return float
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function convertArea(float $value, string $from = AreaType::SQUARE_METERS, string $to = AreaType::SQUARE_KILOMETERS) : float
     {
@@ -488,7 +488,7 @@ class Measurement
      *
      * @return float
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     private static function normalizeArea(float $value, string $from) : float
     {
@@ -547,7 +547,7 @@ class Measurement
      *
      * @return float
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function convertVolume(float $value, string $from = VolumeType::LITER, string $to = VolumeType::LITER) : float
     {
@@ -683,7 +683,7 @@ class Measurement
      *
      * @return float
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     private static function normalizeVolume(float $value, string $from) : float
     {
@@ -817,7 +817,7 @@ class Measurement
      *
      * @return float
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function convertSpeed(float $value, string $from = SpeedType::KILOMETERS_PER_HOUR, string $to = SpeedType::KILOMETERS_PER_HOUR) : float
     {
@@ -941,7 +941,7 @@ class Measurement
      *
      * @return float
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     private static function normalizeSpeed(float $value, string $from) : float
     {
@@ -1063,7 +1063,7 @@ class Measurement
      *
      * @return float
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function convertTime(float $value, string $from = TimeType::SECONDS, string $to = TimeType::HOURS) : float
     {
@@ -1112,7 +1112,7 @@ class Measurement
      *
      * @return float
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     private static function normalizeTime(float $value, string $from) : float
     {
@@ -1159,7 +1159,7 @@ class Measurement
      *
      * @return float
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function convertAngle(float $value, string $from = AngleType::DEGREE, string $to = AngleType::DEGREE) : float
     {
@@ -1211,7 +1211,7 @@ class Measurement
      *
      * @return float
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     private static function normalizeAngle(float $value, string $from) : float
     {
@@ -1261,7 +1261,7 @@ class Measurement
      *
      * @return float
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function convertPressure(float $value, string $from = PressureType::PASCALS, string $to = PressureType::BAR) : float
     {
@@ -1321,7 +1321,7 @@ class Measurement
      *
      * @return float
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     private static function normalizePressure(float $value, string $from) : float
     {
@@ -1379,7 +1379,7 @@ class Measurement
      *
      * @return float
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function convertEnergy(float $value, string $from = EnergyPowerType::JOULS, string $to = EnergyPowerType::KILOWATT_HOUERS) : float
     {
@@ -1426,7 +1426,7 @@ class Measurement
      *
      * @return float
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     private static function normalizeEnergy(float $value, string $from) : float
     {
@@ -1472,7 +1472,7 @@ class Measurement
      *
      * @return float
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function convertFileSize(float $value, string $from = FileSizeType::BYTE, string $to = FileSizeType::MEGABYTE) : float
     {
@@ -1524,7 +1524,7 @@ class Measurement
      *
      * @return float
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     private static function normalizeFileSize(float $value, string $from) : float
     {

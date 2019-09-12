@@ -4,11 +4,11 @@
  *
  * PHP Version 7.4
  *
- * @package    phpOMS\Math\Matrix
- * @copyright  Dennis Eichhorn
- * @license    OMS License 1.0
- * @version    1.0.0
- * @link       https://orange-management.org
+ * @package   phpOMS\Math\Matrix
+ * @copyright Dennis Eichhorn
+ * @license   OMS License 1.0
+ * @version   1.0.0
+ * @link      https://orange-management.org
  */
 declare(strict_types=1);
 
@@ -21,17 +21,17 @@ use phpOMS\Math\Matrix\Exception\InvalidDimensionException;
  *
  * A is syymetric, positive definite then A = L*L'
  *
- * @package    phpOMS\Math\Matrix
- * @license    OMS License 1.0
- * @link       https://orange-management.org
- * @since      1.0.0
+ * @package phpOMS\Math\Matrix
+ * @license OMS License 1.0
+ * @link    https://orange-management.org
+ * @since   1.0.0
  */
 final class CholeskyDecomposition
 {
     /**
      * L matrix.
      *
-     * @var array
+     * @var   array
      * @since 1.0.0
      */
     private array $L = [];
@@ -39,7 +39,7 @@ final class CholeskyDecomposition
     /**
      * Dimension of L
      *
-     * @var int
+     * @var   int
      * @since 1.0.0
      */
     private int $m = 0;
@@ -47,7 +47,7 @@ final class CholeskyDecomposition
     /**
      * Is symmetric positiv definite
      *
-     * @var bool
+     * @var   bool
      * @since 1.0.0
      */
     private bool $isSpd = true;
@@ -57,7 +57,7 @@ final class CholeskyDecomposition
      *
      * @param Matrix $M Matrix
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function __construct(Matrix $M)
     {
@@ -94,7 +94,7 @@ final class CholeskyDecomposition
      *
      * @return bool
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function isSpd() : bool
     {
@@ -106,7 +106,7 @@ final class CholeskyDecomposition
      *
      * @return Matrix
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function getL() : Matrix
     {
@@ -123,7 +123,7 @@ final class CholeskyDecomposition
      *
      * @return Matrix
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function solve(Matrix $B) : Matrix
     {

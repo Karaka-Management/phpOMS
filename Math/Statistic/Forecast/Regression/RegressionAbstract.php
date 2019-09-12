@@ -4,11 +4,11 @@
  *
  * PHP Version 7.4
  *
- * @package    phpOMS\Math\Statistic\Forecast\Regression
- * @copyright  Dennis Eichhorn
- * @license    OMS License 1.0
- * @version    1.0.0
- * @link       https://orange-management.org
+ * @package   phpOMS\Math\Statistic\Forecast\Regression
+ * @copyright Dennis Eichhorn
+ * @license   OMS License 1.0
+ * @version   1.0.0
+ * @link      https://orange-management.org
  */
 declare(strict_types=1);
 namespace phpOMS\Math\Statistic\Forecast\Regression;
@@ -21,10 +21,10 @@ use phpOMS\Math\Statistic\MeasureOfDispersion;
 /**
  * Regression abstract class.
  *
- * @package    phpOMS\Math\Statistic\Forecast\Regression
- * @license    OMS License 1.0
- * @link       https://orange-management.org
- * @since      1.0.0
+ * @package phpOMS\Math\Statistic\Forecast\Regression
+ * @license OMS License 1.0
+ * @link    https://orange-management.org
+ * @since   1.0.0
  */
 abstract class RegressionAbstract
 {
@@ -40,7 +40,7 @@ abstract class RegressionAbstract
      *
      * @throws InvalidDimensionException throws this exception if the dimension of both arrays is not equal
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function getRegression(array $x, array $y) : array
     {
@@ -64,7 +64,7 @@ abstract class RegressionAbstract
      *
      * @return float
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function getStandardErrorOfRegression(array $errors) : float
     {
@@ -89,7 +89,7 @@ abstract class RegressionAbstract
      *
      * @return array<float|int>
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function getPredictionInterval(float $forecasted, array $x, array $errors, float $multiplier = ForecastIntervalMultiplier::P_95) : array
     {
@@ -116,7 +116,7 @@ abstract class RegressionAbstract
      *
      * @return float
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     private static function getBeta1(array $x, array $y) : float
     {
@@ -146,7 +146,7 @@ abstract class RegressionAbstract
      *
      * @return float
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     private static function getBeta0(array $x, array $y, float $b1) : float
     {
@@ -162,7 +162,7 @@ abstract class RegressionAbstract
      *
      * @return float
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     abstract public static function getSlope(float $b1, float $x, float $y) : float;
 
@@ -175,7 +175,7 @@ abstract class RegressionAbstract
      *
      * @return float
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     abstract public static function getElasticity(float $b1, float $x, float $y): float;
 }

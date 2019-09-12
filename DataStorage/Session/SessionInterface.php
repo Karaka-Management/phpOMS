@@ -4,11 +4,11 @@
  *
  * PHP Version 7.4
  *
- * @package    phpOMS\DataStorage\Session
- * @copyright  Dennis Eichhorn
- * @license    OMS License 1.0
- * @version    1.0.0
- * @link       https://orange-management.org
+ * @package   phpOMS\DataStorage\Session
+ * @copyright Dennis Eichhorn
+ * @license   OMS License 1.0
+ * @version   1.0.0
+ * @link      https://orange-management.org
  */
 declare(strict_types=1);
 
@@ -19,10 +19,10 @@ namespace phpOMS\DataStorage\Session;
  *
  * Sessions can be used by http requests, console interaction and socket connections
  *
- * @package    phpOMS\DataStorage\Session
- * @license    OMS License 1.0
- * @link       https://orange-management.org
- * @since      1.0.0
+ * @package phpOMS\DataStorage\Session
+ * @license OMS License 1.0
+ * @link    https://orange-management.org
+ * @since   1.0.0
  */
 interface SessionInterface
 {
@@ -34,7 +34,7 @@ interface SessionInterface
      *
      * @return mixed
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function get($key);
 
@@ -47,7 +47,7 @@ interface SessionInterface
      *
      * @return bool
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function set($key, $value, bool $overwrite = true) : bool;
 
@@ -58,7 +58,7 @@ interface SessionInterface
      *
      * @return bool
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function remove($key) : bool;
 
@@ -67,14 +67,14 @@ interface SessionInterface
      *
      * @return void
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function save() : void;
 
     /**
      * @return null|int|string
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function getSID();
 
@@ -83,7 +83,7 @@ interface SessionInterface
      *
      * @return void
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function setSID($sid) : void;
 
@@ -92,7 +92,7 @@ interface SessionInterface
      *
      * @return void
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function lock() : void;
 }

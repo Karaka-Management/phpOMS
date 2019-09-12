@@ -4,11 +4,11 @@
  *
  * PHP Version 7.4
  *
- * @package    phpOMS\Utils\TaskSchedule
- * @copyright  Dennis Eichhorn
- * @license    OMS License 1.0
- * @version    1.0.0
- * @link       https://orange-management.org
+ * @package   phpOMS\Utils\TaskSchedule
+ * @copyright Dennis Eichhorn
+ * @license   OMS License 1.0
+ * @version   1.0.0
+ * @link      https://orange-management.org
  */
 declare(strict_types=1);
 
@@ -19,10 +19,10 @@ use phpOMS\System\File\PathException;
 /**
  * Scheduler abstract.
  *
- * @package    phpOMS\Utils\TaskSchedule
- * @license    OMS License 1.0
- * @link       https://orange-management.org
- * @since      1.0.0
+ * @package phpOMS\Utils\TaskSchedule
+ * @license OMS License 1.0
+ * @link    https://orange-management.org
+ * @since   1.0.0
  * @codeCoverageIgnore
  */
 abstract class SchedulerAbstract
@@ -31,7 +31,7 @@ abstract class SchedulerAbstract
     /**
      * Bin path.
      *
-     * @var string
+     * @var   string
      * @since 1.0.0
      */
     private static string $bin = '';
@@ -41,7 +41,7 @@ abstract class SchedulerAbstract
      *
      * @return string
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function getBin() : string
     {
@@ -57,7 +57,7 @@ abstract class SchedulerAbstract
      *
      * @throws PathException
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function setBin(string $path) : void
     {
@@ -73,7 +73,7 @@ abstract class SchedulerAbstract
      *
      * @return bool
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function guessBin() : bool
     {
@@ -106,7 +106,7 @@ abstract class SchedulerAbstract
      *
      * @return bool
      *
-     * @since  1.0.0
+     * @since 1.0.0
      * @codeCoverageIgnore
      */
     public static function test() : bool
@@ -137,7 +137,7 @@ abstract class SchedulerAbstract
      *
      * @throws \Exception
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     protected function run(string $cmd) : string
     {
@@ -177,7 +177,7 @@ abstract class SchedulerAbstract
      *
      * @return void
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     abstract public function create(TaskAbstract $task) : void;
 
@@ -188,7 +188,7 @@ abstract class SchedulerAbstract
      *
      * @return void
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     abstract public function update(TaskAbstract $task) : void;
 
@@ -199,7 +199,7 @@ abstract class SchedulerAbstract
      *
      * @return void
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     abstract public function deleteByName(string $name) : void;
 
@@ -210,7 +210,7 @@ abstract class SchedulerAbstract
      *
      * @return void
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     abstract public function delete(TaskAbstract $task) : void;
 
@@ -221,7 +221,7 @@ abstract class SchedulerAbstract
      *
      * @return string Normalized string for parsing
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     protected function normalize(string $raw) : string
     {
@@ -236,7 +236,7 @@ abstract class SchedulerAbstract
      *
      * @return array
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     abstract public function getAllByName(string $name, bool $exact = true) : array;
 }

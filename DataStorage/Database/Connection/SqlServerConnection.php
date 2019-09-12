@@ -4,11 +4,11 @@
  *
  * PHP Version 7.4
  *
- * @package    phpOMS\DataStorage\Database\Connection
- * @copyright  Dennis Eichhorn
- * @license    OMS License 1.0
- * @version    1.0.0
- * @link       https://orange-management.org
+ * @package   phpOMS\DataStorage\Database\Connection
+ * @copyright Dennis Eichhorn
+ * @license   OMS License 1.0
+ * @version   1.0.0
+ * @link      https://orange-management.org
  */
 declare(strict_types=1);
 
@@ -26,10 +26,10 @@ use phpOMS\DataStorage\Database\Schema\Grammar\MysqlGrammar as MysqlSchemaGramma
  * Handles the database connection.
  * Implementing wrapper functions for multiple databases is planned (far away).
  *
- * @package    phpOMS\DataStorage\Database\Connection
- * @license    OMS License 1.0
- * @link       https://orange-management.org
- * @since      1.0.0
+ * @package phpOMS\DataStorage\Database\Connection
+ * @license OMS License 1.0
+ * @link    https://orange-management.org
+ * @since   1.0.0
  */
 final class SqlServerConnection extends ConnectionAbstract
 {
@@ -40,7 +40,7 @@ final class SqlServerConnection extends ConnectionAbstract
      *
      * @param string[] $dbdata the basic database information for establishing a connection
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function __construct(array $dbdata)
     {

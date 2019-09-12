@@ -4,11 +4,11 @@
  *
  * PHP Version 7.4
  *
- * @package    phpOMS
- * @copyright  Dennis Eichhorn
- * @license    OMS License 1.0
- * @version    1.0.0
- * @link       https://orange-management.org
+ * @package   phpOMS
+ * @copyright Dennis Eichhorn
+ * @license   OMS License 1.0
+ * @version   1.0.0
+ * @link      https://orange-management.org
  */
 declare(strict_types=1);
 
@@ -50,10 +50,10 @@ use phpOMS\DataStorage\Session\SessionInterface;
  * @property \phpOMS\Account\AccountManager $accountManager
  * @property \phpOMS\Log\FileLogger $logger
  *
- * @package    phpOMS
- * @license    OMS License 1.0
- * @link       https://orange-management.org
- * @since      1.0.0
+ * @package phpOMS
+ * @license OMS License 1.0
+ * @link    https://orange-management.org
+ * @since   1.0.0
  */
 class ApplicationAbstract
 {
@@ -61,7 +61,7 @@ class ApplicationAbstract
     /**
      * App name.
      *
-     * @var string
+     * @var   string
      * @since 1.0.0
      */
     protected string $appName = '';
@@ -69,7 +69,7 @@ class ApplicationAbstract
     /**
      * Organization id.
      *
-     * @var int
+     * @var   int
      * @since 1.0.0
      */
     protected int $orgId = 0;
@@ -77,7 +77,7 @@ class ApplicationAbstract
     /**
      * App theme.
      *
-     * @var string
+     * @var   string
      * @since 1.0.0
      */
     protected string $theme = '';
@@ -85,7 +85,7 @@ class ApplicationAbstract
     /**
      * Database object.
      *
-     * @var null|DatabasePool
+     * @var   null|DatabasePool
      * @since 1.0.0
      */
     protected ?DatabasePool $dbPool = null;
@@ -93,7 +93,7 @@ class ApplicationAbstract
     /**
      * Application settings object.
      *
-     * @var null|CoreSettings
+     * @var   null|CoreSettings
      * @since 1.0.0
      */
     protected ?CoreSettings $appSettings = null;
@@ -101,7 +101,7 @@ class ApplicationAbstract
     /**
      * Account manager instance.
      *
-     * @var null|AccountManager
+     * @var   null|AccountManager
      * @since 1.0.0
      */
     protected ?AccountManager $accountManager = null;
@@ -109,7 +109,7 @@ class ApplicationAbstract
     /**
      * Cache instance.
      *
-     * @var null|CachePool
+     * @var   null|CachePool
      * @since 1.0.0
      */
     protected ?CachePool $cachePool = null;
@@ -117,7 +117,7 @@ class ApplicationAbstract
     /**
      * ModuleManager instance.
      *
-     * @var null|ModuleManager
+     * @var   null|ModuleManager
      * @since 1.0.0
      */
     protected ?ModuleManager $moduleManager = null;
@@ -125,7 +125,7 @@ class ApplicationAbstract
     /**
      * Router instance.
      *
-     * @var null|Router
+     * @var   null|Router
      * @since 1.0.0
      */
     protected ?Router $router = null;
@@ -133,7 +133,7 @@ class ApplicationAbstract
     /**
      * Dispatcher instance.
      *
-     * @var null|Dispatcher
+     * @var   null|Dispatcher
      * @since 1.0.0
      */
     protected ?Dispatcher $dispatcher = null;
@@ -141,7 +141,7 @@ class ApplicationAbstract
     /**
      * Session instance.
      *
-     * @var null|SessionInterface
+     * @var   null|SessionInterface
      * @since 1.0.0
      */
     protected ?SessionInterface $sessionManager = null;
@@ -149,7 +149,7 @@ class ApplicationAbstract
     /**
      * Cookie instance.
      *
-     * @var null|CookieJar
+     * @var   null|CookieJar
      * @since 1.0.0
      */
     protected ?CookieJar $cookieJar = null;
@@ -157,7 +157,7 @@ class ApplicationAbstract
     /**
      * Server localization.
      *
-     * @var null|Localization
+     * @var   null|Localization
      * @since 1.0.0
      */
     protected ?Localization $l11nServer = null;
@@ -165,7 +165,7 @@ class ApplicationAbstract
     /**
      * Server localization.
      *
-     * @var null|FileLogger
+     * @var   null|FileLogger
      * @since 1.0.0
      */
     protected ?FileLogger $logger = null;
@@ -173,7 +173,7 @@ class ApplicationAbstract
     /**
      * L11n manager.
      *
-     * @var null|L11nManager
+     * @var   null|L11nManager
      * @since 1.0.0
      */
     protected ?L11nManager $l11nManager = null;
@@ -181,7 +181,7 @@ class ApplicationAbstract
     /**
      * Event manager.
      *
-     * @var null|EventManager
+     * @var   null|EventManager
      * @since 1.0.0
      */
     protected ?EventManager $eventManager = null;
@@ -196,7 +196,7 @@ class ApplicationAbstract
      *
      * @todo replace with proper setter (faster)
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function __set($name, $value) : void
     {
@@ -216,7 +216,7 @@ class ApplicationAbstract
      *
      * @todo replace with proper getter (faster)
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function __get($name)
     {

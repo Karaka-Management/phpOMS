@@ -4,11 +4,11 @@
  *
  * PHP Version 7.4
  *
- * @package    phpOMS\DataStorage\Database\Schema
- * @copyright  Dennis Eichhorn
- * @license    OMS License 1.0
- * @version    1.0.0
- * @link       https://orange-management.org
+ * @package   phpOMS\DataStorage\Database\Schema
+ * @copyright Dennis Eichhorn
+ * @license   OMS License 1.0
+ * @version   1.0.0
+ * @link      https://orange-management.org
  */
 declare(strict_types=1);
 
@@ -20,10 +20,10 @@ use phpOMS\DataStorage\Database\Query\Builder as QueryBuilder;
 /**
  * Database query builder.
  *
- * @package    phpOMS\DataStorage\Database\Schema
- * @license    OMS License 1.0
- * @link       https://orange-management.org
- * @since      1.0.0
+ * @package phpOMS\DataStorage\Database\Schema
+ * @license OMS License 1.0
+ * @link    https://orange-management.org
+ * @since   1.0.0
  */
 class Builder extends QueryBuilder
 {
@@ -32,7 +32,7 @@ class Builder extends QueryBuilder
     /**
      * Fields.
      *
-     * @var array
+     * @var   array
      * @since 1.0.0
      */
     public array $createFields = [];
@@ -40,7 +40,7 @@ class Builder extends QueryBuilder
     /**
      * Database to drop.
      *
-     * @var string
+     * @var   string
      * @since 1.0.0
      */
     public string $dropDatabase = '';
@@ -48,7 +48,7 @@ class Builder extends QueryBuilder
     /**
      * Table to drop.
      *
-     * @var string
+     * @var   string
      * @since 1.0.0
      */
     public string $dropTable = '';
@@ -56,7 +56,7 @@ class Builder extends QueryBuilder
     /**
      * Tables.
      *
-     * @var array
+     * @var   array
      * @since 1.0.0
      */
     public array $selectTables = ['*'];
@@ -64,7 +64,7 @@ class Builder extends QueryBuilder
     /**
      * Select fields.
      *
-     * @var string
+     * @var   string
      * @since 1.0.0
      */
     public string $selectFields = '';
@@ -72,7 +72,7 @@ class Builder extends QueryBuilder
     /**
      * @todo: ?????.
      *
-     * @var bool
+     * @var   bool
      * @since 1.0.0
      */
     public bool $createTableSettings = true;
@@ -83,7 +83,7 @@ class Builder extends QueryBuilder
      * @param ConnectionAbstract $connection Database connection
      * @param bool               $readOnly   Query is read only
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function __construct(ConnectionAbstract $connection, bool $readOnly = false)
     {
@@ -98,7 +98,7 @@ class Builder extends QueryBuilder
      *
      * @return void
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function setConnection(ConnectionAbstract $connection) : void
     {
@@ -114,7 +114,7 @@ class Builder extends QueryBuilder
      *
      * @return self
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function createFromSchema(array $definition, ConnectionAbstract $connection) : self
     {
@@ -201,7 +201,7 @@ class Builder extends QueryBuilder
      *
      * @return string
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function toSql() : string
     {

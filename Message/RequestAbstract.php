@@ -4,11 +4,11 @@
  *
  * PHP Version 7.4
  *
- * @package    phpOMS\Message
- * @copyright  Dennis Eichhorn
- * @license    OMS License 1.0
- * @version    1.0.0
- * @link       https://orange-management.org
+ * @package   phpOMS\Message
+ * @copyright Dennis Eichhorn
+ * @license   OMS License 1.0
+ * @version   1.0.0
+ * @link      https://orange-management.org
  */
 declare(strict_types=1);
 
@@ -19,17 +19,17 @@ use phpOMS\Uri\UriInterface;
 /**
  * Request class.
  *
- * @package    phpOMS\Message
- * @license    OMS License 1.0
- * @link       https://orange-management.org
- * @since      1.0.0
+ * @package phpOMS\Message
+ * @license OMS License 1.0
+ * @link    https://orange-management.org
+ * @since   1.0.0
  */
 abstract class RequestAbstract implements MessageInterface
 {
     /**
      * Uri.
      *
-     * @var UriInterface
+     * @var   UriInterface
      * @since 1.0.0
      */
     protected UriInterface $uri;
@@ -37,7 +37,7 @@ abstract class RequestAbstract implements MessageInterface
     /**
      * Request method.
      *
-     * @var null|string
+     * @var   null|string
      * @since 1.0.0
      */
     protected ?string $method = null;
@@ -45,7 +45,7 @@ abstract class RequestAbstract implements MessageInterface
     /**
      * Request type.
      *
-     * @var null|string
+     * @var   null|string
      * @since 1.0.0
      */
     protected ?string $type = null;
@@ -53,7 +53,7 @@ abstract class RequestAbstract implements MessageInterface
     /**
      * Request data.
      *
-     * @var array
+     * @var   array
      * @since 1.0.0
      */
     protected array $data = [];
@@ -61,7 +61,7 @@ abstract class RequestAbstract implements MessageInterface
     /**
      * Request hash.
      *
-     * @var array
+     * @var   array
      * @since 1.0.0
      */
     protected array $hash = [];
@@ -69,7 +69,7 @@ abstract class RequestAbstract implements MessageInterface
     /**
      * Uploaded files.
      *
-     * @var array
+     * @var   array
      * @since 1.0.0
      */
     protected array $files = [];
@@ -77,7 +77,7 @@ abstract class RequestAbstract implements MessageInterface
     /**
      * Request lock.
      *
-     * @var bool
+     * @var   bool
      * @since 1.0.0
      */
     protected bool $lock = false;
@@ -85,7 +85,7 @@ abstract class RequestAbstract implements MessageInterface
     /**
      * Request header.
      *
-     * @var HeaderAbstract
+     * @var   HeaderAbstract
      * @since 1.0.0
      */
     protected HeaderAbstract $header;
@@ -95,7 +95,7 @@ abstract class RequestAbstract implements MessageInterface
      *
      * @return UriInterface
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function getUri() : UriInterface
     {
@@ -109,7 +109,7 @@ abstract class RequestAbstract implements MessageInterface
      *
      * @return void
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function setUri(UriInterface $uri) : void
     {
@@ -121,7 +121,7 @@ abstract class RequestAbstract implements MessageInterface
      *
      * @return array
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function getHash() : array
     {
@@ -133,7 +133,7 @@ abstract class RequestAbstract implements MessageInterface
      *
      * @return string
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     abstract public function getMethod() : string;
 
@@ -144,7 +144,7 @@ abstract class RequestAbstract implements MessageInterface
      *
      * @return void
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function setMethod(string $method) : void
     {
@@ -158,7 +158,7 @@ abstract class RequestAbstract implements MessageInterface
      *
      * @return mixed
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function getData($key = null)
     {
@@ -178,7 +178,7 @@ abstract class RequestAbstract implements MessageInterface
      *
      * @return array
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function getDataJson($key) : array
     {
@@ -201,7 +201,7 @@ abstract class RequestAbstract implements MessageInterface
      *
      * @return array
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function getDataList($key, string $delim = ',') : array
     {
@@ -231,7 +231,7 @@ abstract class RequestAbstract implements MessageInterface
      *
      * @return array
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function getLike(string $regex) : array
     {
@@ -252,7 +252,7 @@ abstract class RequestAbstract implements MessageInterface
      *
      * @return bool
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function hasData($key) : bool
     {
@@ -268,7 +268,7 @@ abstract class RequestAbstract implements MessageInterface
      *
      * @return bool
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function setData($key, $value, bool $overwrite = true) : bool
     {
@@ -289,7 +289,7 @@ abstract class RequestAbstract implements MessageInterface
      *
      * @return void
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function lock() : void
     {
@@ -301,7 +301,7 @@ abstract class RequestAbstract implements MessageInterface
      *
      * @return HeaderAbstract
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function getHeader() : HeaderAbstract
     {
@@ -326,7 +326,7 @@ abstract class RequestAbstract implements MessageInterface
      *
      * @return int
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     abstract public function getRouteVerb() : int;
 
@@ -335,7 +335,7 @@ abstract class RequestAbstract implements MessageInterface
      *
      * @return array
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function getFiles() : array
     {

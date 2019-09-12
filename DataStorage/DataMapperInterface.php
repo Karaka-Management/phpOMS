@@ -4,11 +4,11 @@
  *
  * PHP Version 7.4
  *
- * @package    phpOMS\DataStorage
- * @copyright  Dennis Eichhorn
- * @license    OMS License 1.0
- * @version    1.0.0
- * @link       https://orange-management.org
+ * @package   phpOMS\DataStorage
+ * @copyright Dennis Eichhorn
+ * @license   OMS License 1.0
+ * @version   1.0.0
+ * @link      https://orange-management.org
  */
 declare(strict_types=1);
 
@@ -21,10 +21,10 @@ use phpOMS\DataStorage\Database\Query\Builder;
  *
  * This interface is used for DB, Cache & Session implementations
  *
- * @package    phpOMS\DataStorage
- * @license    OMS License 1.0
- * @link       https://orange-management.org
- * @since      1.0.0
+ * @package phpOMS\DataStorage
+ * @license OMS License 1.0
+ * @link    https://orange-management.org
+ * @since   1.0.0
  */
 interface DataMapperInterface
 {
@@ -36,7 +36,7 @@ interface DataMapperInterface
      *
      * @return mixed
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function create($obj);
 
@@ -47,7 +47,7 @@ interface DataMapperInterface
      *
      * @return mixed
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function update($obj);
 
@@ -58,7 +58,7 @@ interface DataMapperInterface
      *
      * @return int Status
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function delete($obj);
 
@@ -69,7 +69,7 @@ interface DataMapperInterface
      *
      * @return array
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function find(string $search) : array;
 
@@ -80,7 +80,7 @@ interface DataMapperInterface
      *
      * @return mixed
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function listResults(Builder $query);
 
@@ -91,7 +91,7 @@ interface DataMapperInterface
      *
      * @return mixed
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function populate(array $result);
 
@@ -102,7 +102,7 @@ interface DataMapperInterface
      *
      * @return array
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function populateIterable(array $result) : array;
 
@@ -113,7 +113,7 @@ interface DataMapperInterface
      *
      * @return $this
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function with(...$objects);
 
@@ -124,7 +124,7 @@ interface DataMapperInterface
      *
      * @return self
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function get($primaryKey);
 }

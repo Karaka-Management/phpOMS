@@ -4,11 +4,11 @@
  *
  * PHP Version 7.4
  *
- * @package    phpOMS\Math\Parser
- * @copyright  Dennis Eichhorn
- * @license    OMS License 1.0
- * @version    1.0.0
- * @link       https://orange-management.org
+ * @package   phpOMS\Math\Parser
+ * @copyright Dennis Eichhorn
+ * @license   OMS License 1.0
+ * @version   1.0.0
+ * @link      https://orange-management.org
  */
 declare(strict_types=1);
 
@@ -17,10 +17,10 @@ namespace phpOMS\Math\Parser;
 /**
  * Basic math function evaluation.
  *
- * @package    phpOMS\Math\Parser
- * @license    OMS License 1.0
- * @link       https://orange-management.org
- * @since      1.0.0
+ * @package phpOMS\Math\Parser
+ * @license OMS License 1.0
+ * @link    https://orange-management.org
+ * @since   1.0.0
  */
 class Evaluator
 {
@@ -33,7 +33,7 @@ class Evaluator
      *
      * @throws \Exception
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function evaluate(string $equation) : ?float
     {
@@ -77,7 +77,7 @@ class Evaluator
      *
      * @return mixed
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     private static function parseValue($value)
     {
@@ -91,7 +91,7 @@ class Evaluator
      *
      * @return array<int, string>
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     private static function shuntingYard(string $equation) : array
     {

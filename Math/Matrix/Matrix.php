@@ -4,11 +4,11 @@
  *
  * PHP Version 7.4
  *
- * @package    phpOMS\Math\Matrix
- * @copyright  Dennis Eichhorn
- * @license    OMS License 1.0
- * @version    1.0.0
- * @link       https://orange-management.org
+ * @package   phpOMS\Math\Matrix
+ * @copyright Dennis Eichhorn
+ * @license   OMS License 1.0
+ * @version   1.0.0
+ * @link      https://orange-management.org
  */
 declare(strict_types=1);
 
@@ -19,17 +19,17 @@ use phpOMS\Math\Matrix\Exception\InvalidDimensionException;
 /**
  * Matrix class
  *
- * @package    phpOMS\Math\Matrix
- * @license    OMS License 1.0
- * @link       https://orange-management.org
- * @since      1.0.0
+ * @package phpOMS\Math\Matrix
+ * @license OMS License 1.0
+ * @link    https://orange-management.org
+ * @since   1.0.0
  */
 class Matrix implements \ArrayAccess, \Iterator
 {
     /**
      * Matrix.
      *
-     * @var array
+     * @var   array
      * @since 1.0.0
      */
     protected array $matrix = [];
@@ -37,7 +37,7 @@ class Matrix implements \ArrayAccess, \Iterator
     /**
      * Columns.
      *
-     * @var int
+     * @var   int
      * @since 1.0.0
      */
     protected int $n = 0;
@@ -45,7 +45,7 @@ class Matrix implements \ArrayAccess, \Iterator
     /**
      * Rows.
      *
-     * @var int
+     * @var   int
      * @since 1.0.0
      */
     protected int $m = 0;
@@ -53,7 +53,7 @@ class Matrix implements \ArrayAccess, \Iterator
     /**
      * Iterator position.
      *
-     * @var int
+     * @var   int
      * @since 1.0.0
      */
     protected int $position = 0;
@@ -64,7 +64,7 @@ class Matrix implements \ArrayAccess, \Iterator
      * @param int $m Rows
      * @param int $n Columns
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function __construct(int $m = 1, int $n = 1)
     {
@@ -87,7 +87,7 @@ class Matrix implements \ArrayAccess, \Iterator
      *
      * @throws InvalidDimensionException
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function set(int $m, int $n, $value) : void
     {
@@ -108,7 +108,7 @@ class Matrix implements \ArrayAccess, \Iterator
      *
      * @throws InvalidDimensionException
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function get(int $m, int $n)
     {
@@ -124,7 +124,7 @@ class Matrix implements \ArrayAccess, \Iterator
      *
      * @return Matrix
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function transpose() : self
     {
@@ -139,7 +139,7 @@ class Matrix implements \ArrayAccess, \Iterator
      *
      * @return array<int, array<int, mixed>>
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function getMatrix() : array
     {
@@ -156,7 +156,7 @@ class Matrix implements \ArrayAccess, \Iterator
      *
      * @return Matrix
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function getSubMatrix(int $iRow, int $lRow, int $iCol, int $lCol) : self
     {
@@ -181,7 +181,7 @@ class Matrix implements \ArrayAccess, \Iterator
      *
      * @return Matrix
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function getSubMatrixByColumnsRows(array $rows, array $cols) : self
     {
@@ -210,7 +210,7 @@ class Matrix implements \ArrayAccess, \Iterator
      *
      * @return Matrix
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function getSubMatrixByColumns(int $iRow, int $lRow, array $cols) : self
     {
@@ -238,7 +238,7 @@ class Matrix implements \ArrayAccess, \Iterator
      *
      * @return Matrix
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function getSubMatrixByRows(array $rows, int $iCol, int $lCol) : self
     {
@@ -262,7 +262,7 @@ class Matrix implements \ArrayAccess, \Iterator
      *
      * @return array<int, array<int, mixed>>
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function toArray() : array
     {
@@ -274,7 +274,7 @@ class Matrix implements \ArrayAccess, \Iterator
      *
      * @return bool
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function isSymmetric() : bool
     {
@@ -293,7 +293,7 @@ class Matrix implements \ArrayAccess, \Iterator
      *
      * @return int
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function rank() : int
     {
@@ -343,7 +343,7 @@ class Matrix implements \ArrayAccess, \Iterator
      *
      * @return void
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     private function swapRow(array &$matrix, int $row1, int $row2, int $col) : void
     {
@@ -363,7 +363,7 @@ class Matrix implements \ArrayAccess, \Iterator
      *
      * @throws \Exception
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function setMatrix(array $matrix) : self
     {
@@ -383,7 +383,7 @@ class Matrix implements \ArrayAccess, \Iterator
      *
      * @throws \InvalidArgumentException
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function sub($value) : self
     {
@@ -405,7 +405,7 @@ class Matrix implements \ArrayAccess, \Iterator
      *
      * @throws \InvalidArgumentException
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function add($value) : self
     {
@@ -427,7 +427,7 @@ class Matrix implements \ArrayAccess, \Iterator
      *
      * @throws \Exception
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     private function addMatrix(self $matrix) : self
     {
@@ -455,7 +455,7 @@ class Matrix implements \ArrayAccess, \Iterator
      *
      * @return int
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function getM() : int
     {
@@ -467,7 +467,7 @@ class Matrix implements \ArrayAccess, \Iterator
      *
      * @return int
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function getN() : int
     {
@@ -483,7 +483,7 @@ class Matrix implements \ArrayAccess, \Iterator
      *
      * @throws \Exception
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     private function addScalar($scalar) : self
     {
@@ -510,7 +510,7 @@ class Matrix implements \ArrayAccess, \Iterator
      *
      * @throws \InvalidArgumentException
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function mult($value) : self
     {
@@ -532,7 +532,7 @@ class Matrix implements \ArrayAccess, \Iterator
      *
      * @throws \Exception
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     private function multMatrix(self $matrix) : self
     {
@@ -569,7 +569,7 @@ class Matrix implements \ArrayAccess, \Iterator
      *
      * @throws \Exception
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     private function multScalar($scalar) : self
     {
@@ -592,7 +592,7 @@ class Matrix implements \ArrayAccess, \Iterator
      *
      * @return Matrix
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function upperTriangular() : self
     {
@@ -612,7 +612,7 @@ class Matrix implements \ArrayAccess, \Iterator
      *
      * @return int Det sign
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     private function upperTrianglize(array &$arr) : int
     {
@@ -662,7 +662,7 @@ class Matrix implements \ArrayAccess, \Iterator
      *
      * @throws InvalidDimensionException
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function inverse() : self
     {
@@ -676,7 +676,7 @@ class Matrix implements \ArrayAccess, \Iterator
      *
      * @return Matrix
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function solve(self $B) : self
     {
@@ -690,7 +690,7 @@ class Matrix implements \ArrayAccess, \Iterator
      *
      * @return float
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function det() : float
     {

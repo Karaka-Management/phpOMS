@@ -4,11 +4,11 @@
  *
  * PHP Version 7.4
  *
- * @package    phpOMS\Utils\Barcode
- * @copyright  Dennis Eichhorn
- * @license    OMS License 1.0
- * @version    1.0.0
- * @link       https://orange-management.org
+ * @package   phpOMS\Utils\Barcode
+ * @copyright Dennis Eichhorn
+ * @license   OMS License 1.0
+ * @version   1.0.0
+ * @link      https://orange-management.org
  */
 declare(strict_types=1);
 
@@ -17,10 +17,10 @@ namespace phpOMS\Utils\Barcode;
 /**
  * Code 39 class.
  *
- * @package    phpOMS\Utils\Barcode
- * @license    OMS License 1.0
- * @link       https://orange-management.org
- * @since      1.0.0
+ * @package phpOMS\Utils\Barcode
+ * @license OMS License 1.0
+ * @link    https://orange-management.org
+ * @since   1.0.0
  *
  * @SuppressWarnings(PHPMD.CamelCasePropertyName)
  * @SuppressWarnings(PHPMD.CamelCaseVariableName)
@@ -30,7 +30,7 @@ class C39 extends C128Abstract
     /**
      * Char weighted array.
      *
-     * @var string[]
+     * @var   string[]
      * @since 1.0.0
      */
     protected static array $CODEARRAY = [
@@ -48,7 +48,7 @@ class C39 extends C128Abstract
     /**
      * Code start.
      *
-     * @var string
+     * @var   string
      * @since 1.0.0
      */
     protected static string $CODE_START = '1211212111';
@@ -56,7 +56,7 @@ class C39 extends C128Abstract
     /**
      * Code end.
      *
-     * @var string
+     * @var   string
      * @since 1.0.0
      */
     protected static string $CODE_END = '121121211';

@@ -4,11 +4,11 @@
  *
  * PHP Version 7.4
  *
- * @package    phpOMS\DataStorage\Cache\Connection
- * @copyright  Dennis Eichhorn
- * @license    OMS License 1.0
- * @version    1.0.0
- * @link       https://orange-management.org
+ * @package   phpOMS\DataStorage\Cache\Connection
+ * @copyright Dennis Eichhorn
+ * @license   OMS License 1.0
+ * @version   1.0.0
+ * @link      https://orange-management.org
  */
 declare(strict_types=1);
 
@@ -21,10 +21,10 @@ use phpOMS\DataStorage\Cache\Exception\InvalidConnectionConfigException;
 /**
  * Memcache class.
  *
- * @package    phpOMS\DataStorage\Cache\Connection
- * @license    OMS License 1.0
- * @link       https://orange-management.org
- * @since      1.0.0
+ * @package phpOMS\DataStorage\Cache\Connection
+ * @license OMS License 1.0
+ * @link    https://orange-management.org
+ * @since   1.0.0
  */
 class MemCached extends ConnectionAbstract
 {
@@ -36,7 +36,7 @@ class MemCached extends ConnectionAbstract
     /**
      * Only cache if data is larger than threshold (0-100).
      *
-     * @var int
+     * @var   int
      * @since 1.0.0
      */
     private int $threshold = 0;
@@ -46,7 +46,7 @@ class MemCached extends ConnectionAbstract
      *
      * @param array $data Cache data
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function __construct(array $data)
     {
@@ -194,7 +194,7 @@ class MemCached extends ConnectionAbstract
     /**
      * Destructor.
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function __destruct()
     {
@@ -206,7 +206,7 @@ class MemCached extends ConnectionAbstract
      *
      * @return void
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function close() : void
     {

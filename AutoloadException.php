@@ -4,11 +4,11 @@
  *
  * PHP Version 7.4
  *
- * @package    phpOMS
- * @copyright  Dennis Eichhorn
- * @license    OMS License 1.0
- * @version    1.0.0
- * @link       https://orange-management.org
+ * @package   phpOMS
+ * @copyright Dennis Eichhorn
+ * @license   OMS License 1.0
+ * @version   1.0.0
+ * @link      https://orange-management.org
  */
 declare(strict_types=1);
 
@@ -19,10 +19,10 @@ namespace phpOMS;
  *
  * This exception is thrown if a file couldn't be autoloaded
  *
- * @package    phpOMS
- * @license    OMS License 1.0
- * @link       https://orange-management.org
- * @since      1.0.0
+ * @package phpOMS
+ * @license OMS License 1.0
+ * @link    https://orange-management.org
+ * @since   1.0.0
  */
 final class AutoloadException extends \RuntimeException
 {
@@ -33,7 +33,7 @@ final class AutoloadException extends \RuntimeException
      * @param int        $code     Exception code
      * @param \Exception $previous Previous exception
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function __construct(string $message, int $code = 0, \Exception $previous = null)
     {

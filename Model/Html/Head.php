@@ -4,11 +4,11 @@
  *
  * PHP Version 7.4
  *
- * @package    phpOMS\Model\Html
- * @copyright  Dennis Eichhorn
- * @license    OMS License 1.0
- * @version    1.0.0
- * @link       https://orange-management.org
+ * @package   phpOMS\Model\Html
+ * @copyright Dennis Eichhorn
+ * @license   OMS License 1.0
+ * @version   1.0.0
+ * @link      https://orange-management.org
  */
 declare(strict_types=1);
 
@@ -23,10 +23,10 @@ use phpOMS\Localization\ISO639x1Enum;
  *
  * Responsible for handling everything that's going on in the <head>
  *
- * @package    phpOMS\Model\Html
- * @license    OMS License 1.0
- * @link       https://orange-management.org
- * @since      1.0.0
+ * @package phpOMS\Model\Html
+ * @license OMS License 1.0
+ * @link    https://orange-management.org
+ * @since   1.0.0
  */
 class Head implements RenderableInterface
 {
@@ -34,7 +34,7 @@ class Head implements RenderableInterface
     /**
      * Page language.
      *
-     * @var string
+     * @var   string
      * @since 1.0.0
      */
     private string $language = ISO639x1Enum::_EN;
@@ -42,7 +42,7 @@ class Head implements RenderableInterface
     /**
      * Page title.
      *
-     * @var string
+     * @var   string
      * @since 1.0.0
      */
     private string $title = '';
@@ -50,7 +50,7 @@ class Head implements RenderableInterface
     /**
      * Assets bound to this page instance.
      *
-     * @var array
+     * @var   array
      * @since 1.0.0
      */
     private array $assets = [];
@@ -58,7 +58,7 @@ class Head implements RenderableInterface
     /**
      * Is the header set?
      *
-     * @var bool
+     * @var   bool
      * @since 1.0.0
      */
     private bool $hasContent = false;
@@ -66,7 +66,7 @@ class Head implements RenderableInterface
     /**
      * Page meta.
      *
-     * @var Meta
+     * @var   Meta
      * @since 1.0.0
      */
     private Meta $meta;
@@ -76,7 +76,7 @@ class Head implements RenderableInterface
      *
      * Inline style
      *
-     * @var mixed[]
+     * @var   mixed[]
      * @since 1.0.0
      */
     private array $style = [];
@@ -84,7 +84,7 @@ class Head implements RenderableInterface
     /**
      * html script.
      *
-     * @var mixed[]
+     * @var   mixed[]
      * @since 1.0.0
      */
     private array $script = [];
@@ -92,7 +92,7 @@ class Head implements RenderableInterface
     /**
      * Constructor.
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function __construct()
     {
@@ -104,7 +104,7 @@ class Head implements RenderableInterface
      *
      * @return Meta
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function getMeta() : Meta
     {
@@ -116,7 +116,7 @@ class Head implements RenderableInterface
      *
      * @return string
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function getTitle() : string
     {
@@ -130,7 +130,7 @@ class Head implements RenderableInterface
      *
      * @return void
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function setTitle(string $title) : void
     {
@@ -145,7 +145,7 @@ class Head implements RenderableInterface
      *
      * @return void
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function addAsset(int $type, string $uri, array $attributes = []) : void
     {
@@ -159,7 +159,7 @@ class Head implements RenderableInterface
      *
      * @return void
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function setLanguage(string $language) : void
     {
@@ -171,7 +171,7 @@ class Head implements RenderableInterface
      *
      * @return string
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function getLanguage() : string
     {
@@ -183,7 +183,7 @@ class Head implements RenderableInterface
      *
      * @return string
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function render() : string
     {
@@ -201,7 +201,7 @@ class Head implements RenderableInterface
      *
      * @return string
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function renderStyle() : string
     {
@@ -218,7 +218,7 @@ class Head implements RenderableInterface
      *
      * @return string
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function renderScript() : string
     {
@@ -239,7 +239,7 @@ class Head implements RenderableInterface
      *
      * @return void
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function setStyle(string $key, string $style, bool $overwrite = true) : void
     {
@@ -257,7 +257,7 @@ class Head implements RenderableInterface
      *
      * @return void
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function setScript(string $key, string $script, bool $overwrite = true) : void
     {
@@ -271,7 +271,7 @@ class Head implements RenderableInterface
      *
      * @return array
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function getStyleAll() : array
     {
@@ -283,7 +283,7 @@ class Head implements RenderableInterface
      *
      * @return array
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function getScriptAll() : array
     {
@@ -295,7 +295,7 @@ class Head implements RenderableInterface
      *
      * @return string
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function renderAssets() : string
     {
@@ -322,7 +322,7 @@ class Head implements RenderableInterface
      *
      * @return string
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function renderAssetsLate() : string
     {

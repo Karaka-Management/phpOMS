@@ -4,11 +4,11 @@
  *
  * PHP Version 7.4
  *
- * @package    phpOMS\Math\Statistic\Forecast
- * @copyright  Dennis Eichhorn
- * @license    OMS License 1.0
- * @version    1.0.0
- * @link       https://orange-management.org
+ * @package   phpOMS\Math\Statistic\Forecast
+ * @copyright Dennis Eichhorn
+ * @license   OMS License 1.0
+ * @version   1.0.0
+ * @link      https://orange-management.org
  */
 declare(strict_types=1);
 
@@ -21,10 +21,10 @@ use phpOMS\Math\Statistic\MeasureOfDispersion;
 /**
  * Basic forecast functions.
  *
- * @package    phpOMS\Math\Statistic\Forecast
- * @license    OMS License 1.0
- * @link       https://orange-management.org
- * @since      1.0.0
+ * @package phpOMS\Math\Statistic\Forecast
+ * @license OMS License 1.0
+ * @link    https://orange-management.org
+ * @since   1.0.0
  */
 class Error
 {
@@ -36,7 +36,7 @@ class Error
      *
      * @return float
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function getForecastError(float $observed, float $forecasted) : float
     {
@@ -51,7 +51,7 @@ class Error
      *
      * @return array
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function getForecastErrorArray(array $observed, array $forecasted) : array
     {
@@ -72,7 +72,7 @@ class Error
      *
      * @return float
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function getPercentageError(float $error, float $observed) : float
     {
@@ -87,7 +87,7 @@ class Error
      *
      * @return array
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function getPercentageErrorArray(array $errors, array $observed) : array
     {
@@ -107,7 +107,7 @@ class Error
      *
      * @return float
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function getMeanAbsoulteError(array $errors) : float
     {
@@ -121,7 +121,7 @@ class Error
      *
      * @return float
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function getMeanSquaredError(array $errors) : float
     {
@@ -135,7 +135,7 @@ class Error
      *
      * @return float
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function getRootMeanSquaredError(array $errors) : float
     {
@@ -154,7 +154,7 @@ class Error
      *
      * @return float
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function getCoefficientOfDetermination(array $observed, array $forecasted) : float
     {
@@ -182,7 +182,7 @@ class Error
      *
      * @return float
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function getSumSquaredError(array $errors) : float
     {
@@ -204,7 +204,7 @@ class Error
      *
      * @return float
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function getRBarSquared(float $R, int $observations, int $predictors) : float
     {
@@ -220,7 +220,7 @@ class Error
      *
      * @return float
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function getAkaikeInformationCriterion(float $sse, int $observations, int $predictors) : float
     {
@@ -238,7 +238,7 @@ class Error
      *
      * @return float
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function getCorrectedAkaikeInformationCriterion(float $aic, int $observations, int $predictors) : float
     {
@@ -254,7 +254,7 @@ class Error
      *
      * @return float
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function getSchwarzBayesianInformationCriterion(float $sse, int $observations, int $predictors) : float
     {
@@ -269,7 +269,7 @@ class Error
      *
      * @return float
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function getMeanAbsolutePercentageError(array $observed, array $forecasted) : float
     {
@@ -284,7 +284,7 @@ class Error
      *
      * @return float
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function getSymmetricMeanAbsolutePercentageError(array $observed, array $forecasted) : float
     {
@@ -305,7 +305,7 @@ class Error
      *
      * @return array
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function getCrossSectionalScaledErrorArray(array $errors, array $observed) : array
     {
@@ -327,7 +327,7 @@ class Error
      *
      * @return float
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function getCrossSectionalScaledError(float $error, array $observed) : float
     {
@@ -348,7 +348,7 @@ class Error
      *
      * @return float
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function getMeanAbsoluteScaledError(array $scaledErrors) : float
     {
@@ -362,7 +362,7 @@ class Error
      *
      * @return float
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function getMeanSquaredScaledError(array $scaledErrors) : float
     {
@@ -378,7 +378,7 @@ class Error
      *
      * @return array
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function getScaledErrorArray(array $errors, array $observed, int $m = 1) : array
     {
@@ -401,7 +401,7 @@ class Error
      *
      * @return float
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function getScaledError(float $error, array $observed, int $m = 1) : float
     {
@@ -416,7 +416,7 @@ class Error
      *
      * @return float
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     private static function getNaiveForecast(array $observed, int $m = 1) : float
     {

@@ -4,11 +4,11 @@
  *
  * PHP Version 7.4
  *
- * @package    phpOMS\Socket\Packets
- * @copyright  Dennis Eichhorn
- * @license    OMS License 1.0
- * @version    1.0.0
- * @link       https://orange-management.org
+ * @package   phpOMS\Socket\Packets
+ * @copyright Dennis Eichhorn
+ * @license   OMS License 1.0
+ * @version   1.0.0
+ * @link      https://orange-management.org
  */
 declare(strict_types=1);
 
@@ -19,10 +19,10 @@ namespace phpOMS\Socket\Packets;
  *
  * Parsing/serializing arrays to and from php file
  *
- * @package    phpOMS\Socket\Packets
- * @license    OMS License 1.0
- * @link       https://orange-management.org
- * @since      1.0.0
+ * @package phpOMS\Socket\Packets
+ * @license OMS License 1.0
+ * @link    https://orange-management.org
+ * @since   1.0.0
  */
 abstract class PacketAbstract implements \Serializable
 {
@@ -30,7 +30,7 @@ abstract class PacketAbstract implements \Serializable
     /**
      * Packet header.
      *
-     * @var Header
+     * @var   Header
      * @since 1.0.0
      */
     private $header = null;

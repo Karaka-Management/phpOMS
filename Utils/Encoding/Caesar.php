@@ -4,11 +4,11 @@
  *
  * PHP Version 7.4
  *
- * @package    phpOMS\Utils\Encoding
- * @copyright  Dennis Eichhorn
- * @license    OMS License 1.0
- * @version    1.0.0
- * @link       https://orange-management.org
+ * @package   phpOMS\Utils\Encoding
+ * @copyright Dennis Eichhorn
+ * @license   OMS License 1.0
+ * @version   1.0.0
+ * @link      https://orange-management.org
  */
 declare(strict_types=1);
 
@@ -17,17 +17,17 @@ namespace phpOMS\Utils\Encoding;
 /**
  * Gray encoding class
  *
- * @package    phpOMS\Utils\Encoding
- * @license    OMS License 1.0
- * @link       https://orange-management.org
- * @since      1.0.0
+ * @package phpOMS\Utils\Encoding
+ * @license OMS License 1.0
+ * @link    https://orange-management.org
+ * @since   1.0.0
  */
 class Caesar
 {
     /**
      * ASCII lower char limit.
      *
-     * @var int
+     * @var   int
      * @since 1.0.0
      */
     public const LIMIT_LOWER = 0;
@@ -35,7 +35,7 @@ class Caesar
     /**
      * ASCII upper char limit.
      *
-     * @var int
+     * @var   int
      * @since 1.0.0
      */
     public const LIMIT_UPPER = 127;
@@ -48,7 +48,7 @@ class Caesar
      *
      * @return string
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function encode(string $source, string $key) : string
     {
@@ -81,7 +81,7 @@ class Caesar
      *
      * @return string
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function decode(string $raw, string $key) : string
     {

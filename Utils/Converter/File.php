@@ -4,11 +4,11 @@
  *
  * PHP Version 7.4
  *
- * @package    phpOMS\Utils\Converter
- * @copyright  Dennis Eichhorn
- * @license    OMS License 1.0
- * @version    1.0.0
- * @link       https://orange-management.org
+ * @package   phpOMS\Utils\Converter
+ * @copyright Dennis Eichhorn
+ * @license   OMS License 1.0
+ * @version   1.0.0
+ * @link      https://orange-management.org
  */
 declare(strict_types=1);
 
@@ -17,10 +17,10 @@ namespace phpOMS\Utils\Converter;
 /**
  * File converter.
  *
- * @package    phpOMS\Utils\Converter
- * @license    OMS License 1.0
- * @link       https://orange-management.org
- * @since      1.0.0
+ * @package phpOMS\Utils\Converter
+ * @license OMS License 1.0
+ * @link    https://orange-management.org
+ * @since   1.0.0
  */
 class File
 {
@@ -28,7 +28,7 @@ class File
     /**
      * Constructor.
      *
-     * @since  1.0.0
+     * @since 1.0.0
      * @codeCoverageIgnore
      */
     private function __construct()
@@ -44,7 +44,7 @@ class File
      *
      * @return string
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function byteSizeToString(int $bytes, string $decimal = '.', string $thousands = ',') : string
     {
@@ -68,7 +68,7 @@ class File
      *
      * @return string
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function kilobyteSizeToString(int $kilobytes, string $decimal = '.', string $thousands = ',') : string
     {

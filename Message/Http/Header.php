@@ -4,11 +4,11 @@
  *
  * PHP Version 7.4
  *
- * @package    phpOMS\Message\Http
- * @copyright  Dennis Eichhorn
- * @license    OMS License 1.0
- * @version    1.0.0
- * @link       https://orange-management.org
+ * @package   phpOMS\Message\Http
+ * @copyright Dennis Eichhorn
+ * @license   OMS License 1.0
+ * @version   1.0.0
+ * @link      https://orange-management.org
  */
 declare(strict_types=1);
 
@@ -20,10 +20,10 @@ use phpOMS\System\MimeType;
 /**
  * Response class.
  *
- * @package    phpOMS\Message\Http
- * @license    OMS License 1.0
- * @link       https://orange-management.org
- * @since      1.0.0
+ * @package phpOMS\Message\Http
+ * @license OMS License 1.0
+ * @link    https://orange-management.org
+ * @since   1.0.0
  *
  * @SuppressWarnings(PHPMD.Superglobals)
  */
@@ -33,7 +33,7 @@ final class Header extends HeaderAbstract
     /**
      * Header.
      *
-     * @var string[][]
+     * @var   string[][]
      * @since 1.0.0
      */
     private array $header = [];
@@ -41,7 +41,7 @@ final class Header extends HeaderAbstract
     /**
      * Constructor.
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function __construct()
     {
@@ -57,7 +57,7 @@ final class Header extends HeaderAbstract
      *
      * @return bool
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function set(string $key, string $header, bool $overwrite = false) : bool
     {
@@ -94,7 +94,7 @@ final class Header extends HeaderAbstract
      *
      * @return void
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function setDownloadable(string $name, string $type) : void
     {
@@ -112,7 +112,7 @@ final class Header extends HeaderAbstract
      *
      * @return bool
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function isSecurityHeader(string $key) : bool
     {
@@ -137,7 +137,7 @@ final class Header extends HeaderAbstract
      *
      * @return int
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function getStatusCode() : int
     {
@@ -153,7 +153,7 @@ final class Header extends HeaderAbstract
      *
      * @return array
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function getAllHeaders() : array
     {
@@ -191,7 +191,7 @@ final class Header extends HeaderAbstract
      *
      * @return bool
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function remove($key) : bool
     {
@@ -225,7 +225,7 @@ final class Header extends HeaderAbstract
      *
      * @return array
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function get(string $key = null) : array
     {
@@ -239,7 +239,7 @@ final class Header extends HeaderAbstract
      *
      * @return bool
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function has(string $key) : bool
     {
@@ -251,7 +251,7 @@ final class Header extends HeaderAbstract
      *
      * @return void
      *
-     * @since  1.0.0
+     * @since 1.0.0
      * @codeCoverageIgnore
      */
     public function push() : void
@@ -302,7 +302,7 @@ final class Header extends HeaderAbstract
      *
      * @return void
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     private function generate403() : void
     {
@@ -316,7 +316,7 @@ final class Header extends HeaderAbstract
      *
      * @return void
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     private function generate404() : void
     {
@@ -330,7 +330,7 @@ final class Header extends HeaderAbstract
      *
      * @return void
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     private function generate406() : void
     {
@@ -344,7 +344,7 @@ final class Header extends HeaderAbstract
      *
      * @return void
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     private function generate407() : void
     {
@@ -356,7 +356,7 @@ final class Header extends HeaderAbstract
      *
      * @return void
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     private function generate503() : void
     {
@@ -371,7 +371,7 @@ final class Header extends HeaderAbstract
      *
      * @return void
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     private function generate500() : void
     {

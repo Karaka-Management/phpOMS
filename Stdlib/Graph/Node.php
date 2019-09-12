@@ -4,11 +4,11 @@
  *
  * PHP Version 7.4
  *
- * @package    phpOMS\Stdlib\Graph
- * @copyright  Dennis Eichhorn
- * @license    OMS License 1.0
- * @version    1.0.0
- * @link       https://orange-management.org
+ * @package   phpOMS\Stdlib\Graph
+ * @copyright Dennis Eichhorn
+ * @license   OMS License 1.0
+ * @version   1.0.0
+ * @link      https://orange-management.org
  */
 declare(strict_types=1);
 
@@ -17,10 +17,10 @@ namespace phpOMS\Stdlib\Graph;
 /**
  * Node class.
  *
- * @package    phpOMS\Stdlib\Graph
- * @license    OMS License 1.0
- * @link       https://orange-management.org
- * @since      1.0.0
+ * @package phpOMS\Stdlib\Graph
+ * @license OMS License 1.0
+ * @link    https://orange-management.org
+ * @since   1.0.0
  *
  * @todo       : there is a bug with Hungary ibans since they have two k (checksums) in their definition
  */
@@ -29,7 +29,7 @@ class Node
     /**
      * Node data.
      *
-     * @var mixed
+     * @var   mixed
      * @since 1.0.0
      */
     private $data = null;
@@ -39,7 +39,7 @@ class Node
      *
      * @param mixed $data Node data
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function __construct($data = null)
     {
@@ -51,7 +51,7 @@ class Node
      *
      * @return mixed
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function getData()
     {
@@ -63,7 +63,7 @@ class Node
      *
      * @param mixed $data Node data
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function setData($data) : void
     {

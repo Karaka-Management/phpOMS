@@ -4,11 +4,11 @@
  *
  * PHP Version 7.4
  *
- * @package    phpOMS\Account
- * @copyright  Dennis Eichhorn
- * @license    OMS License 1.0
- * @version    1.0.0
- * @link       https://orange-management.org
+ * @package   phpOMS\Account
+ * @copyright Dennis Eichhorn
+ * @license   OMS License 1.0
+ * @version   1.0.0
+ * @link      https://orange-management.org
  */
 declare(strict_types=1);
 
@@ -17,17 +17,17 @@ namespace phpOMS\Account;
 /**
  * Permission handling trait.
  *
- * @package    phpOMS\Account
- * @license    OMS License 1.0
- * @link       https://orange-management.org
- * @since      1.0.0
+ * @package phpOMS\Account
+ * @license OMS License 1.0
+ * @link    https://orange-management.org
+ * @since   1.0.0
  */
 trait PermissionHandlingTrait
 {
     /**
      * Permissions.
      *
-     * @var PermissionAbstract[]
+     * @var   PermissionAbstract[]
      * @since 1.0.0
      */
     protected array $permissions = [];
@@ -35,7 +35,7 @@ trait PermissionHandlingTrait
     /**
      * Amount of permissions.
      *
-     * @var int
+     * @var   int
      * @since 1.0.0
      */
     private int $pLength = 0;
@@ -49,7 +49,7 @@ trait PermissionHandlingTrait
      *
      * @return void
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function setPermissions(array $permissions) : void
     {
@@ -66,7 +66,7 @@ trait PermissionHandlingTrait
      *
      * @return void
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function addPermissions(array $permissions) : void
     {
@@ -90,7 +90,7 @@ trait PermissionHandlingTrait
      *
      * @return void
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function addPermission(PermissionAbstract $permission) : void
     {
@@ -103,7 +103,7 @@ trait PermissionHandlingTrait
      *
      * @return PermissionAbstract[]
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function getPermissions() : array
     {
@@ -125,7 +125,7 @@ trait PermissionHandlingTrait
      *
      * @return bool Returns true if the permission is set, false otherwise
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function hasPermission(
         int $permission,

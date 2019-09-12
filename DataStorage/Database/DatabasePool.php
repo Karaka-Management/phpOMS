@@ -4,11 +4,11 @@
  *
  * PHP Version 7.4
  *
- * @package    phpOMS\DataStorage\Database
- * @copyright  Dennis Eichhorn
- * @license    OMS License 1.0
- * @version    1.0.0
- * @link       https://orange-management.org
+ * @package   phpOMS\DataStorage\Database
+ * @copyright Dennis Eichhorn
+ * @license   OMS License 1.0
+ * @version   1.0.0
+ * @link      https://orange-management.org
  */
 declare(strict_types=1);
 
@@ -22,10 +22,10 @@ use phpOMS\DataStorage\DataStoragePoolInterface;
 /**
  * Database pool handler.
  *
- * @package    phpOMS\DataStorage\Database
- * @license    OMS License 1.0
- * @link       https://orange-management.org
- * @since      1.0.0
+ * @package phpOMS\DataStorage\Database
+ * @license OMS License 1.0
+ * @link    https://orange-management.org
+ * @since   1.0.0
  */
 final class DatabasePool implements DataStoragePoolInterface
 {
@@ -33,7 +33,7 @@ final class DatabasePool implements DataStoragePoolInterface
     /**
      * Databases.
      *
-     * @var DataStorageConnectionInterface[]
+     * @var   DataStorageConnectionInterface[]
      * @since 1.0.0
      */
     private array $pool = [];
@@ -41,7 +41,7 @@ final class DatabasePool implements DataStoragePoolInterface
     /**
      * Constructor.
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function __construct()
     {
@@ -55,7 +55,7 @@ final class DatabasePool implements DataStoragePoolInterface
      *
      * @return bool
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function add(string $key, DataStorageConnectionInterface $db) : bool
     {
@@ -75,7 +75,7 @@ final class DatabasePool implements DataStoragePoolInterface
      *
      * @return DataStorageConnectionInterface
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function get(string $key = '') : DataStorageConnectionInterface
     {
@@ -97,7 +97,7 @@ final class DatabasePool implements DataStoragePoolInterface
      *
      * @return bool
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function remove(string $key) : bool
     {
@@ -118,7 +118,7 @@ final class DatabasePool implements DataStoragePoolInterface
      *
      * @return bool
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function create(string $key, array $config) : bool
     {

@@ -4,11 +4,11 @@
  *
  * PHP Version 7.4
  *
- * @package    phpOMS\Localization\Defaults
- * @copyright  Dennis Eichhorn
- * @license    OMS License 1.0
- * @version    1.0.0
- * @link       https://orange-management.org
+ * @package   phpOMS\Localization\Defaults
+ * @copyright Dennis Eichhorn
+ * @license   OMS License 1.0
+ * @version   1.0.0
+ * @link      https://orange-management.org
  */
 declare(strict_types=1);
 
@@ -17,17 +17,17 @@ namespace phpOMS\Localization\Defaults;
 /**
  * City class.
  *
- * @package    phpOMS\Localization\Defaults
- * @license    OMS License 1.0
- * @link       https://orange-management.org
- * @since      1.0.0
+ * @package phpOMS\Localization\Defaults
+ * @license OMS License 1.0
+ * @link    https://orange-management.org
+ * @since   1.0.0
  */
 final class City
 {
     /**
      * City id.
      *
-     * @var int
+     * @var   int
      * @since 1.0.0
      */
     private $id = 0;
@@ -35,7 +35,7 @@ final class City
     /**
      * Country code.
      *
-     * @var string
+     * @var   string
      * @since 1.0.0
      */
     private $countryCode = '';
@@ -43,7 +43,7 @@ final class City
     /**
      * State code.
      *
-     * @var string
+     * @var   string
      * @since 1.0.0
      */
     private $state = '';
@@ -51,7 +51,7 @@ final class City
     /**
      * City name.
      *
-     * @var string
+     * @var   string
      * @since 1.0.0
      */
     private $name = '';
@@ -59,7 +59,7 @@ final class City
     /**
      * Postal code.
      *
-     * @var int
+     * @var   int
      * @since 1.0.0
      */
     private $postal = 0;
@@ -67,7 +67,7 @@ final class City
     /**
      * Latitude.
      *
-     * @var float
+     * @var   float
      * @since 1.0.0
      */
     private $lat = 0.0;
@@ -75,7 +75,7 @@ final class City
     /**
      * Longitude.
      *
-     * @var float
+     * @var   float
      * @since 1.0.0
      */
     private $long = 0.0;
@@ -85,7 +85,7 @@ final class City
      *
      * @return string
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function getName() : string
     {
@@ -97,7 +97,7 @@ final class City
      *
      * @return string
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function getCountryCode() : string
     {
@@ -109,7 +109,7 @@ final class City
      *
      * @return string
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function getState() : string
     {
@@ -121,7 +121,7 @@ final class City
      *
      * @return int
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function getPostal() : int
     {
@@ -133,7 +133,7 @@ final class City
      *
      * @return float
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function getLat() : float
     {
@@ -145,7 +145,7 @@ final class City
      *
      * @return float
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function getLong() : float
     {

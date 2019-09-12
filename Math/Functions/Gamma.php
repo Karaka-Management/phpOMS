@@ -4,11 +4,11 @@
  *
  * PHP Version 7.4
  *
- * @package    phpOMS\Math\Functions
- * @copyright  Dennis Eichhorn
- * @license    OMS License 1.0
- * @version    1.0.0
- * @link       https://orange-management.org
+ * @package   phpOMS\Math\Functions
+ * @copyright Dennis Eichhorn
+ * @license   OMS License 1.0
+ * @version   1.0.0
+ * @link      https://orange-management.org
  */
 declare(strict_types=1);
 
@@ -17,17 +17,17 @@ namespace phpOMS\Math\Functions;
 /**
  * Gamma function
  *
- * @package    phpOMS\Math\Functions
- * @license    OMS License 1.0
- * @link       https://orange-management.org
- * @since      1.0.0
+ * @package phpOMS\Math\Functions
+ * @license OMS License 1.0
+ * @link    https://orange-management.org
+ * @since   1.0.0
  */
 final class Gamma
 {
     /**
      * Constructor.
      *
-     * @since  1.0.0
+     * @since 1.0.0
      * @codeCoverageIgnore
      */
     private function __construct()
@@ -38,7 +38,7 @@ final class Gamma
     /**
      * approximation values.
      *
-     * @var float[]
+     * @var   float[]
      * @since 1.0.0
      */
     private const LANCZOSAPPROXIMATION = [
@@ -53,7 +53,7 @@ final class Gamma
      *
      * @return float
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function lanczosApproximationReal($z) : float
     {
@@ -79,7 +79,7 @@ final class Gamma
      *
      * @return float
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function stirlingApproximation($x) : float
     {
@@ -93,7 +93,7 @@ final class Gamma
      *
      * @return float
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function spougeApproximation($z) : float
     {
@@ -124,7 +124,7 @@ final class Gamma
      *
      * @return int
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function getGammaInteger(int $k) : int
     {

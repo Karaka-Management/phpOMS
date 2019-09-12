@@ -4,11 +4,11 @@
  *
  * PHP Version 7.4
  *
- * @package    phpOMS\Stdlib\Graph
- * @copyright  Dennis Eichhorn
- * @license    OMS License 1.0
- * @version    1.0.0
- * @link       https://orange-management.org
+ * @package   phpOMS\Stdlib\Graph
+ * @copyright Dennis Eichhorn
+ * @license   OMS License 1.0
+ * @version   1.0.0
+ * @link      https://orange-management.org
  */
 declare(strict_types=1);
 
@@ -17,17 +17,17 @@ namespace phpOMS\Stdlib\Graph;
 /**
  * Tree class.
  *
- * @package    phpOMS\Stdlib\Graph
- * @license    OMS License 1.0
- * @link       https://orange-management.org
- * @since      1.0.0
+ * @package phpOMS\Stdlib\Graph
+ * @license OMS License 1.0
+ * @link    https://orange-management.org
+ * @since   1.0.0
  */
 class Graph
 {
     /**
      * Nodes.
      *
-     * @var array
+     * @var   array
      * @since 1.0.0
      */
     protected $nodes = [];
@@ -35,7 +35,7 @@ class Graph
     /**
      * Edges.
      *
-     * @var array
+     * @var   array
      * @since 1.0.0
      */
     protected $edges = [];
@@ -47,7 +47,7 @@ class Graph
      *
      * @return Graph
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function addNode(Node $node) : self
     {
@@ -64,7 +64,7 @@ class Graph
      *
      * @return Graph
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function addNodeRelative(Node $relative, Node $node) : self
     {
@@ -81,7 +81,7 @@ class Graph
      *
      * @return Graph
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function setNode($key, Node $node) : self
     {
@@ -97,7 +97,7 @@ class Graph
      *
      * @return Graph
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function addEdge(Edge $edge) : self
     {
@@ -114,7 +114,7 @@ class Graph
      *
      * @return Graph
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function setEdge($key, Edge $edge)  /* : void */
     {
@@ -130,7 +130,7 @@ class Graph
      *
      * @return null|Node
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function getNode($key) : ?Node
     {
@@ -142,7 +142,7 @@ class Graph
      *
      * @return Node[]
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function getNodes() : array
     {
@@ -156,7 +156,7 @@ class Graph
      *
      * @return null|Edge
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function getEdge($key) : ?Edge
     {
@@ -168,7 +168,7 @@ class Graph
      *
      * @return Node[]
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function getEdges() : array
     {
@@ -182,7 +182,7 @@ class Graph
      *
      * @return Edge[]
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function getEdgesOfNode($node) : array
     {
@@ -209,7 +209,7 @@ class Graph
      *
      * @return Node[]
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function getNeighbors($node) : array
     {
@@ -238,7 +238,7 @@ class Graph
      *
      * @return int
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function getDimension() : int
     {
@@ -251,7 +251,7 @@ class Graph
      *
      * @return Edge[]
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function getBridges() : array
     {
@@ -264,7 +264,7 @@ class Graph
      *
      * @return Tree
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function getKruskalMinimalSpanningTree() : Tree
     {
@@ -277,7 +277,7 @@ class Graph
      *
      * @return Tree
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function getPrimMinimalSpanningTree() : Tree
     {
@@ -290,7 +290,7 @@ class Graph
      *
      * @return array
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function getCircle() : array
     {
@@ -302,7 +302,7 @@ class Graph
      *
      * @return array
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function getFloydWarshallShortestPath() : array
     {
@@ -314,7 +314,7 @@ class Graph
      *
      * @return array
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function getDijkstraShortestPath() : array
     {
@@ -326,7 +326,7 @@ class Graph
      *
      * @return array
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function depthFirstTraversal() : array
     {
@@ -338,7 +338,7 @@ class Graph
      *
      * @return array
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function breadthFirstTraversal() : array
     {
@@ -350,7 +350,7 @@ class Graph
      *
      * @return Node[]
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function longestPath() : array
     {
@@ -365,7 +365,7 @@ class Graph
      *
      * @return Node[]
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function longestPathBetweenNodes($node1, $node2) : array
     {
@@ -387,7 +387,7 @@ class Graph
      *
      * @return int
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function getOrder() : int
     {
@@ -401,7 +401,7 @@ class Graph
      *
      * @return int
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function getSize() : int
     {
@@ -415,7 +415,7 @@ class Graph
      *
      * @return int
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function getDiameter() : int
     {

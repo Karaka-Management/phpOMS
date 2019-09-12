@@ -4,11 +4,11 @@
  *
  * PHP Version 7.4
  *
- * @package    Tests\PHPUnit
- * @copyright  Dennis Eichhorn
- * @license    OMS License 1.0
- * @version    1.0.0
- * @link       https://orange-management.org
+ * @package   Tests\PHPUnit
+ * @copyright Dennis Eichhorn
+ * @license   OMS License 1.0
+ * @version   1.0.0
+ * @link      https://orange-management.org
  */
 declare(strict_types=1);
 
@@ -19,10 +19,10 @@ namespace Tests\PHPUnit;
 /**
  * Autoloader class.
  *
- * @package    Tests\PHPUnit
- * @license    OMS License 1.0
- * @link       https://orange-management.org
- * @since      1.0.0
+ * @package Tests\PHPUnit
+ * @license OMS License 1.0
+ * @link    https://orange-management.org
+ * @since   1.0.0
  */
 class Autoloader
 {
@@ -36,7 +36,7 @@ class Autoloader
      *
      * @return void
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function defaultAutoloader(string $class) : void
     {
@@ -60,7 +60,7 @@ class Autoloader
      *
      * @return bool
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function exists(string $class) : bool
     {

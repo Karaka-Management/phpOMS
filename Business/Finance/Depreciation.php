@@ -4,11 +4,11 @@
  *
  * PHP Version 7.4
  *
- * @package    phpOMS\Business\Finance
- * @copyright  Dennis Eichhorn
- * @license    OMS License 1.0
- * @version    1.0.0
- * @link       https://orange-management.org
+ * @package   phpOMS\Business\Finance
+ * @copyright Dennis Eichhorn
+ * @license   OMS License 1.0
+ * @version   1.0.0
+ * @link      https://orange-management.org
  */
 declare(strict_types=1);
 
@@ -17,10 +17,10 @@ namespace phpOMS\Business\Finance;
 /**
  * Depreciation class.
  *
- * @package    phpOMS\Business\Finance
- * @license    OMS License 1.0
- * @link       https://orange-management.org
- * @since      1.0.0
+ * @package phpOMS\Business\Finance
+ * @license OMS License 1.0
+ * @link    https://orange-management.org
+ * @since   1.0.0
  */
 final class Depreciation
 {
@@ -32,7 +32,7 @@ final class Depreciation
      *
      * @return float Returns the straight line depreciation
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function getStraightLineDepreciation(float $start, int $duration) : float
     {
@@ -48,7 +48,7 @@ final class Depreciation
      *
      * @return float
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function getStraightLineResidualInT(float $start, int $duration, int $t) : float
     {
@@ -66,7 +66,7 @@ final class Depreciation
      *
      * @return float
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function getArithmeticDegressivDepreciationFactor(float $start, float $residual, int $duration) : float
     {
@@ -83,7 +83,7 @@ final class Depreciation
      *
      * @return float
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function getArithmeticDegressivDepreciationInT(float $start, float $residual, int $duration, int $t) : float
     {
@@ -100,7 +100,7 @@ final class Depreciation
      *
      * @return float
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function getArithmeticDegressivDepreciationResidualInT(float $start, float $residual, int $duration, int $t) : float
     {
@@ -122,7 +122,7 @@ final class Depreciation
      *
      * @return float
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function getArithmeticProgressivDepreciationFactor(float $start, float $residual, int $duration) : float
     {
@@ -139,7 +139,7 @@ final class Depreciation
      *
      * @return float
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function getArithmeticProgressivDepreciationInT(float $start, float $residual, int $duration, int $t) : float
     {
@@ -156,7 +156,7 @@ final class Depreciation
      *
      * @return float
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function getArithmeticProgressivDepreciationResidualInT(float $start, float $residual, int $duration, int $t) : float
     {
@@ -172,7 +172,7 @@ final class Depreciation
      *
      * @return float
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function getGeometicProgressivDepreciationRate(float $start, float $residual, int $duration) : float
     {
@@ -189,7 +189,7 @@ final class Depreciation
      *
      * @return float
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function getGeometicProgressivDepreciationInT(float $start, float $residual, int $duration, int $t) : float
     {
@@ -208,7 +208,7 @@ final class Depreciation
      *
      * @return float
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function getGeometicProgressivDepreciationResidualInT(float $start, float $residual, int $duration, int $t) : float
     {
@@ -230,7 +230,7 @@ final class Depreciation
      *
      * @return float
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function getGeometicDegressivDepreciationRate(float $start, float $residual, int $duration) : float
     {
@@ -247,7 +247,7 @@ final class Depreciation
      *
      * @return float
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function getGeometicDegressivDepreciationInT(float $start, float $residual, int $duration, int $t) : float
     {
@@ -265,7 +265,7 @@ final class Depreciation
      *
      * @return float
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function getGeometicDegressivDepreciationResidualInT(float $start, float $residual, int $duration, int $t) : float
     {

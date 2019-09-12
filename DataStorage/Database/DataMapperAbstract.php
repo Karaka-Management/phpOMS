@@ -4,11 +4,11 @@
  *
  * PHP Version 7.4
  *
- * @package    phpOMS\DataStorage\Database
- * @copyright  Dennis Eichhorn
- * @license    OMS License 1.0
- * @version    1.0.0
- * @link       https://orange-management.org
+ * @package   phpOMS\DataStorage\Database
+ * @copyright Dennis Eichhorn
+ * @license   OMS License 1.0
+ * @version   1.0.0
+ * @link      https://orange-management.org
  */
 declare(strict_types=1);
 
@@ -27,10 +27,10 @@ use phpOMS\Utils\ArrayUtils;
  *
  * DB, Cache, Session
  *
- * @package    phpOMS\DataStorage\Database
- * @license    OMS License 1.0
- * @link       https://orange-management.org
- * @since      1.0.0
+ * @package phpOMS\DataStorage\Database
+ * @license OMS License 1.0
+ * @link    https://orange-management.org
+ * @since   1.0.0
  * @todo: currently hasmany, owns one etc. are not using joins. In some cases this could improve the performance instead of separately querying the database
  */
 class DataMapperAbstract implements DataMapperInterface
@@ -38,7 +38,7 @@ class DataMapperAbstract implements DataMapperInterface
     /**
      * Database connection.
      *
-     * @var null|ConnectionAbstract
+     * @var   null|ConnectionAbstract
      * @since 1.0.0
      */
     protected static ?ConnectionAbstract $db = null;
@@ -46,7 +46,7 @@ class DataMapperAbstract implements DataMapperInterface
     /**
      * Overwriting extended values.
      *
-     * @var bool
+     * @var   bool
      * @since 1.0.0
      */
     protected static bool $overwrite = true;
@@ -54,7 +54,7 @@ class DataMapperAbstract implements DataMapperInterface
     /**
      * Primary field name.
      *
-     * @var string
+     * @var   string
      * @since 1.0.0
      */
     protected static string $primaryField = '';
@@ -62,7 +62,7 @@ class DataMapperAbstract implements DataMapperInterface
     /**
      * Primary field name.
      *
-     * @var string
+     * @var   string
      * @since 1.0.0
      */
     protected static string $createdAt = '';
@@ -70,7 +70,7 @@ class DataMapperAbstract implements DataMapperInterface
     /**
      * Language
      *
-     * @var string
+     * @var   string
      * @since 1.0.0
      */
     protected static string $languageField = '';
@@ -78,7 +78,7 @@ class DataMapperAbstract implements DataMapperInterface
     /**
      * Columns.
      *
-     * @var array<string, array<string, string>>
+     * @var   array<string, array<string, string>>
      * @since 1.0.0
      */
     protected static array $columns = [];
@@ -88,7 +88,7 @@ class DataMapperAbstract implements DataMapperInterface
      *
      * Most often used for localizations
      *
-     * @var array<string, array<string, string>>
+     * @var   array<string, array<string, string>>
      * @since 1.0.0
      */
     protected static array $conditionals = [];
@@ -96,7 +96,7 @@ class DataMapperAbstract implements DataMapperInterface
     /**
      * Has many relation.
      *
-     * @var array<string, array>
+     * @var   array<string, array>
      * @since 1.0.0
      */
     protected static array $hasMany = [];
@@ -106,7 +106,7 @@ class DataMapperAbstract implements DataMapperInterface
      *
      * Relation is defined in current mapper
      *
-     * @var array<string, array>
+     * @var   array<string, array>
      * @since 1.0.0
      */
     protected static array $ownsOne = [];
@@ -116,12 +116,12 @@ class DataMapperAbstract implements DataMapperInterface
      *
      * Relation is defined in current mapper
      *
-     * @var string[]
+     * @var   string[]
      * @since 1.0.0
      */    /**
      * Belongs to.
      *
-     * @var array<string, array<string, string>>
+     * @var   array<string, array<string, string>>
      * @since 1.0.0
      */
     protected static array $belongsTo = [];
@@ -129,7 +129,7 @@ class DataMapperAbstract implements DataMapperInterface
     /**
      * Table.
      *
-     * @var string
+     * @var   string
      * @since 1.0.0
      */
     protected static string $table = '';
@@ -137,7 +137,7 @@ class DataMapperAbstract implements DataMapperInterface
     /**
      * Fields to load.
      *
-     * @var array[]
+     * @var   array[]
      * @since 1.0.0
      */
     protected static array $fields = [];
@@ -145,7 +145,7 @@ class DataMapperAbstract implements DataMapperInterface
     /**
      * Initialized objects for cross reference to reduce initialization costs
      *
-     * @var array[]
+     * @var   array[]
      * @since 1.0.0
      */
     protected static array $initObjects = [];
@@ -153,7 +153,7 @@ class DataMapperAbstract implements DataMapperInterface
     /**
      * Initialized arrays for cross reference to reduce initialization costs
      *
-     * @var array[]
+     * @var   array[]
      * @since 1.0.0
      */
     protected static array $initArrays = [];
@@ -161,7 +161,7 @@ class DataMapperAbstract implements DataMapperInterface
     /**
      * Highest mapper to know when to clear initialized objects
      *
-     * @var null|string
+     * @var   null|string
      * @since 1.0.0
      */
     protected static ?string $parentMapper = null;
@@ -169,7 +169,7 @@ class DataMapperAbstract implements DataMapperInterface
     /**
      * Extended value collection.
      *
-     * @var array
+     * @var   array
      * @since 1.0.0
      */
     protected static array $collection = [
@@ -184,7 +184,7 @@ class DataMapperAbstract implements DataMapperInterface
     /**
      * Constructor.
      *
-     * @since  1.0.0
+     * @since 1.0.0
      * @codeCoverageIgnore
      */
     private function __construct()
@@ -196,7 +196,7 @@ class DataMapperAbstract implements DataMapperInterface
      *
      * @return void
      *
-     * @since  1.0.0
+     * @since 1.0.0
      * @codeCoverageIgnore
      */
     private function __clone()
@@ -210,7 +210,7 @@ class DataMapperAbstract implements DataMapperInterface
      *
      * @return void
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function setConnection(ConnectionAbstract $con) : void
     {
@@ -222,7 +222,7 @@ class DataMapperAbstract implements DataMapperInterface
      *
      * @return string
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function getPrimaryField() : string
     {
@@ -234,7 +234,7 @@ class DataMapperAbstract implements DataMapperInterface
      *
      * @return string
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function getTable() : string
     {
@@ -248,7 +248,7 @@ class DataMapperAbstract implements DataMapperInterface
      *
      * @return void
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     private static function extend($class) : void
     {
@@ -272,7 +272,7 @@ class DataMapperAbstract implements DataMapperInterface
      *
      * @return void
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function with(...$objects) : void
     {
@@ -288,7 +288,7 @@ class DataMapperAbstract implements DataMapperInterface
      *
      * @return void
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function clear() : void
     {
@@ -324,7 +324,7 @@ class DataMapperAbstract implements DataMapperInterface
      *
      * @return array
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function find(string $search) : array
     {
@@ -350,7 +350,7 @@ class DataMapperAbstract implements DataMapperInterface
      *
      * @return mixed
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function create($obj, int $relations = RelationType::ALL, bool $force = false)
     {
@@ -387,7 +387,7 @@ class DataMapperAbstract implements DataMapperInterface
      *
      * @return void
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     private static function createConditionals(\ReflectionClass $refClass, object $obj, $objId): void
     {
@@ -401,7 +401,7 @@ class DataMapperAbstract implements DataMapperInterface
      *
      * @return mixed
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function createArray(array &$obj, int $relations = RelationType::ALL)
     {
@@ -431,7 +431,7 @@ class DataMapperAbstract implements DataMapperInterface
      *
      * @return mixed
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     private static function createModel(object $obj, \ReflectionClass $refClass)
     {
@@ -498,7 +498,7 @@ class DataMapperAbstract implements DataMapperInterface
      *
      * @return void
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     private static function createConditionalsArray(array &$obj, $objId): void
     {
@@ -511,7 +511,7 @@ class DataMapperAbstract implements DataMapperInterface
      *
      * @return mixed
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     private static function createModelArray(array &$obj)
     {
@@ -568,7 +568,7 @@ class DataMapperAbstract implements DataMapperInterface
      *
      * @return mixed
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     private static function getObjectId(object $obj, \ReflectionClass $refClass = null)
     {
@@ -597,7 +597,7 @@ class DataMapperAbstract implements DataMapperInterface
      *
      * @return void
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     private static function setObjectId(\ReflectionClass $refClass, object $obj, $objId) : void
     {
@@ -626,7 +626,7 @@ class DataMapperAbstract implements DataMapperInterface
      *
      * @return bool
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function createRelation(string $member, $id1, $id2) : bool
     {
@@ -650,7 +650,7 @@ class DataMapperAbstract implements DataMapperInterface
      *
      * @throws InvalidMapperException Throws this exception if the mapper in the has many relation is invalid
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     private static function createHasMany(\ReflectionClass $refClass, object $obj, $objId) : void
     {
@@ -738,7 +738,7 @@ class DataMapperAbstract implements DataMapperInterface
      *
      * @throws InvalidMapperException Throws this exception if the mapper in the has many relation is invalid
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     private static function createHasManyArray(array &$obj, $objId) : void
     {
@@ -796,7 +796,7 @@ class DataMapperAbstract implements DataMapperInterface
      *
      * @return mixed
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     private static function createOwnsOne(string $propertyName, $obj)
     {
@@ -824,7 +824,7 @@ class DataMapperAbstract implements DataMapperInterface
      *
      * @return mixed
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     private static function createOwnsOneArray(string $propertyName, array &$obj)
     {
@@ -852,7 +852,7 @@ class DataMapperAbstract implements DataMapperInterface
      *
      * @return mixed
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     private static function createBelongsTo(string $propertyName, $obj)
     {
@@ -881,7 +881,7 @@ class DataMapperAbstract implements DataMapperInterface
      *
      * @return mixed
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     private static function createBelongsToArray(string $propertyName, array $obj)
     {
@@ -911,7 +911,7 @@ class DataMapperAbstract implements DataMapperInterface
      *
      * @return void
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     private static function createRelationTable(string $propertyName, array $objsIds, $objId) : void
     {
@@ -942,7 +942,7 @@ class DataMapperAbstract implements DataMapperInterface
      *
      * @return mixed
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     private static function parseValue(string $type, $value = null)
     {
@@ -984,7 +984,7 @@ class DataMapperAbstract implements DataMapperInterface
      *
      * @throws InvalidMapperException Throws this exception if the mapper in the has many relation is invalid
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     private static function updateHasMany(\ReflectionClass $refClass, object $obj, $objId, int $relations = RelationType::ALL, $depth = 1) : void
     {
@@ -1073,7 +1073,7 @@ class DataMapperAbstract implements DataMapperInterface
      *
      * @throws InvalidMapperException Throws this exception if the mapper in the has many relation is invalid
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     private static function updateHasManyArray(array &$obj, $objId, int $relations = RelationType::ALL, $depth = 1) : void
     {
@@ -1136,7 +1136,7 @@ class DataMapperAbstract implements DataMapperInterface
      *
      * @return mixed
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     private static function updateRelationTable(array $objsIds, $objId)
     {
@@ -1165,7 +1165,7 @@ class DataMapperAbstract implements DataMapperInterface
      *
      * @return mixed
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     private static function deleteRelationTable(string $propertyName, array $objsIds, $objId)
     {
@@ -1199,7 +1199,7 @@ class DataMapperAbstract implements DataMapperInterface
      *
      * @return mixed
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     private static function updateOwnsOne(string $propertyName, object $obj, int $relations = RelationType::ALL, int $depth = 1)
     {
@@ -1223,7 +1223,7 @@ class DataMapperAbstract implements DataMapperInterface
      *
      * @return mixed
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     private static function updateOwnsOneArray(string $propertyName, array $obj, int $relations = RelationType::ALL, int $depth = 1)
     {
@@ -1247,7 +1247,7 @@ class DataMapperAbstract implements DataMapperInterface
      *
      * @return mixed
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     private static function updateBelongsTo(string $propertyName, $obj, int $relations = RelationType::ALL, int $depth = 1)
     {
@@ -1273,7 +1273,7 @@ class DataMapperAbstract implements DataMapperInterface
      *
      * @return mixed
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     private static function updateBelongsToArray(string $propertyName, $obj, int $relations = RelationType::ALL, int $depth = 1)
     {
@@ -1298,7 +1298,7 @@ class DataMapperAbstract implements DataMapperInterface
      *
      * @return void
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     private static function updateModel(object $obj, $objId, \ReflectionClass $refClass = null, int $relations = RelationType::ALL, int $depth = 1) : void
     {
@@ -1407,7 +1407,7 @@ class DataMapperAbstract implements DataMapperInterface
      *
      * @return void
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     private static function updateModelArray(array $obj, $objId, int $relations = RelationType::ALL, int $depth = 1) : void
     {
@@ -1463,7 +1463,7 @@ class DataMapperAbstract implements DataMapperInterface
      *
      * @return void
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     private static function updateConditionalsArray(array $obj, $objId, int $relations = RelationType::ALL, int $depth = 1) : void
     {
@@ -1504,7 +1504,7 @@ class DataMapperAbstract implements DataMapperInterface
      *
      * @return mixed
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function update($obj, int $relations = RelationType::ALL, int $depth = 1)
     {
@@ -1547,7 +1547,7 @@ class DataMapperAbstract implements DataMapperInterface
      *
      * @return mixed
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function updateArray(array &$obj, int $relations = RelationType::ALL, int $depth = 1)
     {
@@ -1595,7 +1595,7 @@ class DataMapperAbstract implements DataMapperInterface
      *
      * @throws InvalidMapperException Throws this exception if the mapper in the has many relation is invalid
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     private static function deleteHasMany(\ReflectionClass $refClass, object $obj, $objId, int $relations) : void
     {
@@ -1664,7 +1664,7 @@ class DataMapperAbstract implements DataMapperInterface
      *
      * @return mixed
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     private static function deleteOwnsOne(string $propertyName, $obj)
     {
@@ -1689,7 +1689,7 @@ class DataMapperAbstract implements DataMapperInterface
      *
      * @return mixed
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     private static function deleteBelongsTo(string $propertyName, $obj)
     {
@@ -1732,7 +1732,7 @@ class DataMapperAbstract implements DataMapperInterface
      *
      * @return void
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     private static function deleteModel(object $obj, $objId, int $relations = RelationType::REFERENCE, \ReflectionClass $refClass = null) : void
     {
@@ -1787,7 +1787,7 @@ class DataMapperAbstract implements DataMapperInterface
      *
      * @return mixed
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function delete($obj, int $relations = RelationType::REFERENCE)
     {
@@ -1825,7 +1825,7 @@ class DataMapperAbstract implements DataMapperInterface
      *
      * @return array
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function populateIterable(array $result) : array
     {
@@ -1849,7 +1849,7 @@ class DataMapperAbstract implements DataMapperInterface
      *
      * @return array
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function populateIterableArray(array $result) : array
     {
@@ -1874,7 +1874,7 @@ class DataMapperAbstract implements DataMapperInterface
      *
      * @return mixed
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function populate(array $result, $obj = null)
     {
@@ -1906,7 +1906,7 @@ class DataMapperAbstract implements DataMapperInterface
      *
      * @return void
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function populateManyToMany(array $result, &$obj, int $depth = 3) : void
     {
@@ -1942,7 +1942,7 @@ class DataMapperAbstract implements DataMapperInterface
      *
      * @return void
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function populateManyToManyArray(array $result, array &$obj, int $depth = 3) : void
     {
@@ -1967,7 +1967,7 @@ class DataMapperAbstract implements DataMapperInterface
      *
      * @todo   accept reflection class as parameter
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function populateOwnsOne(&$obj, int $depth = 3) : void
     {
@@ -2012,7 +2012,7 @@ class DataMapperAbstract implements DataMapperInterface
      * @todo   accept reflection class as parameter
      * @todo   do this in the getRaw() part as a join. check if has conditionals and then join the data an then everything can be done in the getModel function.
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function getConditionals($key, string $table) : array
     {
@@ -2046,7 +2046,7 @@ class DataMapperAbstract implements DataMapperInterface
      *
      * @todo   accept reflection class as parameter
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function populateOwnsOneArray(array &$obj, int $depth = 3) : void
     {
@@ -2070,7 +2070,7 @@ class DataMapperAbstract implements DataMapperInterface
      *
      * @todo   accept reflection class as parameter
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function populateBelongsTo(&$obj, int $depth = 3) : void
     {
@@ -2115,7 +2115,7 @@ class DataMapperAbstract implements DataMapperInterface
      *
      * @todo   accept reflection class as parameter
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function populateBelongsToArray(array &$obj, int $depth = 3) : void
     {
@@ -2139,7 +2139,7 @@ class DataMapperAbstract implements DataMapperInterface
      *
      * @throws \UnexpectedValueException
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function populateAbstract(array $result, $obj, array $columns)
     {
@@ -2220,7 +2220,7 @@ class DataMapperAbstract implements DataMapperInterface
      *
      * @return array
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function populateAbstractArray(array $result, array $obj, array $columns) : array
     {
@@ -2261,7 +2261,7 @@ class DataMapperAbstract implements DataMapperInterface
      *
      * @todo: implement language
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function get($primaryKey, int $relations = RelationType::ALL, $fill = null, int $depth = 3)
     {
@@ -2320,7 +2320,7 @@ class DataMapperAbstract implements DataMapperInterface
      *
      * @return mixed
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     private static function getNullModelObj()
     {
@@ -2343,7 +2343,7 @@ class DataMapperAbstract implements DataMapperInterface
      *
      * @return array
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function getArray($primaryKey, int $relations = RelationType::ALL, int $depth = 3) : array
     {
@@ -2388,7 +2388,7 @@ class DataMapperAbstract implements DataMapperInterface
      *
      * @return mixed
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function getFor($refKey, string $ref, int $relations = RelationType::ALL, $fill = null, int $depth = 3)
     {
@@ -2438,7 +2438,7 @@ class DataMapperAbstract implements DataMapperInterface
      *
      * @return mixed
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function getForArray($refKey, string $ref, int $relations = RelationType::ALL, int $depth = 3)
     {
@@ -2475,7 +2475,7 @@ class DataMapperAbstract implements DataMapperInterface
      *
      * @return array
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function getAll(int $relations = RelationType::ALL, int $depth = 3, string $lang = '') : array
     {
@@ -2503,7 +2503,7 @@ class DataMapperAbstract implements DataMapperInterface
      *
      * @return array
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function getAllArray(int $relations = RelationType::ALL, int $depth = 3, string $lang = '') : array
     {
@@ -2529,7 +2529,7 @@ class DataMapperAbstract implements DataMapperInterface
      *
      * @return array
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function listResults(Builder $query) : array
     {
@@ -2558,7 +2558,7 @@ class DataMapperAbstract implements DataMapperInterface
      *
      * @return array
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function getNewest(int $limit = 1, Builder $query = null, int $relations = RelationType::ALL, int $depth = 3, string $lang = '') : array
     {
@@ -2603,7 +2603,7 @@ class DataMapperAbstract implements DataMapperInterface
      *
      * @return array
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function getAllByQuery(Builder $query, int $relations = RelationType::ALL, int $depth = 3) : array
     {
@@ -2633,7 +2633,7 @@ class DataMapperAbstract implements DataMapperInterface
      *
      * @return mixed
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function getRandom(int $amount = 1, int $relations = RelationType::ALL, int $depth = 3)
     {
@@ -2662,7 +2662,7 @@ class DataMapperAbstract implements DataMapperInterface
      *
      * @return void
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function fillRelations(array &$obj, int $relations = RelationType::ALL, int $depth = 3) : void
     {
@@ -2714,7 +2714,7 @@ class DataMapperAbstract implements DataMapperInterface
      *
      * @return void
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function fillRelationsArray(array &$obj, int $relations = RelationType::ALL, int $depth = 3) : void
     {
@@ -2768,7 +2768,7 @@ class DataMapperAbstract implements DataMapperInterface
      *
      * @return array
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function getRaw($primaryKey) : array
     {
@@ -2791,7 +2791,7 @@ class DataMapperAbstract implements DataMapperInterface
      *
      * @return array
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function getPrimaryKeysBy($refKey, string $ref) : array
     {
@@ -2820,7 +2820,7 @@ class DataMapperAbstract implements DataMapperInterface
      *
      * @return array
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function getHasManyPrimaryKeys($refKey, string $ref) : array
     {
@@ -2848,7 +2848,7 @@ class DataMapperAbstract implements DataMapperInterface
      *
      * @return array
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function getAllRaw(string $lang = '') : array
     {
@@ -2874,7 +2874,7 @@ class DataMapperAbstract implements DataMapperInterface
      *
      * @return array
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function getHasManyRaw($primaryKey, int $relations = RelationType::ALL) : array
     {
@@ -2923,7 +2923,7 @@ class DataMapperAbstract implements DataMapperInterface
      *
      * @return Builder
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function getQuery(Builder $query = null) : Builder
     {
@@ -2940,7 +2940,7 @@ class DataMapperAbstract implements DataMapperInterface
      *
      * @return string
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function getCreatedAt() : string
     {
@@ -2956,7 +2956,7 @@ class DataMapperAbstract implements DataMapperInterface
      *
      * @return mixed
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function getByRequest(RequestAbstract $request)
     {
@@ -3001,7 +3001,7 @@ class DataMapperAbstract implements DataMapperInterface
      *
      * @return void
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     private static function addInitialized(string $mapper, $id, object $obj = null) : void
     {
@@ -3021,7 +3021,7 @@ class DataMapperAbstract implements DataMapperInterface
      *
      * @return void
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     private static function addInitializedArray(string $mapper, $id, array $obj = null) : void
     {
@@ -3040,7 +3040,7 @@ class DataMapperAbstract implements DataMapperInterface
      *
      * @return bool
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     private static function isInitialized(string $mapper, $id) : bool
     {
@@ -3055,7 +3055,7 @@ class DataMapperAbstract implements DataMapperInterface
      *
      * @return bool
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     private static function isInitializedArray(string $mapper, $id) : bool
     {
@@ -3070,7 +3070,7 @@ class DataMapperAbstract implements DataMapperInterface
      *
      * @return mixed
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     private static function getInitialized(string $mapper, $id)
     {
@@ -3085,7 +3085,7 @@ class DataMapperAbstract implements DataMapperInterface
      *
      * @return mixed
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     private static function getInitializedArray(string $mapper, $id)
     {
@@ -3100,7 +3100,7 @@ class DataMapperAbstract implements DataMapperInterface
      *
      * @return mixed
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     private static function removeInitialized(string $mapper, $id)
     {
@@ -3122,7 +3122,7 @@ class DataMapperAbstract implements DataMapperInterface
      *
      * @throws \Exception Throws this exception if the member couldn't be found
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     private static function getColumnByMember(string $name) : string
     {
@@ -3142,7 +3142,7 @@ class DataMapperAbstract implements DataMapperInterface
      *
      * @return bool
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     private static function isNullObject($obj) : bool
     {

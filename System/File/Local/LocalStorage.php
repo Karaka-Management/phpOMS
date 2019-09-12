@@ -4,11 +4,11 @@
  *
  * PHP Version 7.4
  *
- * @package    phpOMS\System\File\Local
- * @copyright  Dennis Eichhorn
- * @license    OMS License 1.0
- * @version    1.0.0
- * @link       https://orange-management.org
+ * @package   phpOMS\System\File\Local
+ * @copyright Dennis Eichhorn
+ * @license   OMS License 1.0
+ * @version   1.0.0
+ * @link      https://orange-management.org
  */
 declare(strict_types=1);
 
@@ -22,17 +22,17 @@ use phpOMS\System\File\StorageAbstract;
  *
  * Performing operations on the file system
  *
- * @package    phpOMS\System\File\Local
- * @license    OMS License 1.0
- * @link       https://orange-management.org
- * @since      1.0.0
+ * @package phpOMS\System\File\Local
+ * @license OMS License 1.0
+ * @link    https://orange-management.org
+ * @since   1.0.0
  */
 class LocalStorage extends StorageAbstract
 {
     /**
      * Storage instance.
      *
-     * @var LocalStorage
+     * @var   LocalStorage
      * @since 1.0.0
      */
     private static ?self $instance = null;
@@ -42,7 +42,7 @@ class LocalStorage extends StorageAbstract
      *
      * @return StorageAbstract
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function getInstance() : StorageAbstract
     {

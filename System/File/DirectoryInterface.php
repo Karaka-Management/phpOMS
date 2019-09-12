@@ -4,11 +4,11 @@
  *
  * PHP Version 7.4
  *
- * @package    phpOMS\System\File
- * @copyright  Dennis Eichhorn
- * @license    OMS License 1.0
- * @version    1.0.0
- * @link       https://orange-management.org
+ * @package   phpOMS\System\File
+ * @copyright Dennis Eichhorn
+ * @license   OMS License 1.0
+ * @version   1.0.0
+ * @link      https://orange-management.org
  */
 declare(strict_types=1);
 
@@ -19,10 +19,10 @@ namespace phpOMS\System\File;
  *
  * Performing operations on the file system
  *
- * @package    phpOMS\System\File
- * @license    OMS License 1.0
- * @link       https://orange-management.org
- * @since      1.0.0
+ * @package phpOMS\System\File
+ * @license OMS License 1.0
+ * @link    https://orange-management.org
+ * @since   1.0.0
  */
 interface DirectoryInterface extends ContainerInterface, \Iterator, \ArrayAccess
 {
@@ -33,7 +33,7 @@ interface DirectoryInterface extends ContainerInterface, \Iterator, \ArrayAccess
      *
      * @return null|ContainerInterface
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function getNode(string $name) : ?ContainerInterface;
 
@@ -44,7 +44,7 @@ interface DirectoryInterface extends ContainerInterface, \Iterator, \ArrayAccess
      *
      * @return bool
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function addNode($file) : bool;
 }

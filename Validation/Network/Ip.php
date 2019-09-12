@@ -4,11 +4,11 @@
  *
  * PHP Version 7.4
  *
- * @package    phpOMS\Validation\Network
- * @copyright  Dennis Eichhorn
- * @license    OMS License 1.0
- * @version    1.0.0
- * @link       https://orange-management.org
+ * @package   phpOMS\Validation\Network
+ * @copyright Dennis Eichhorn
+ * @license   OMS License 1.0
+ * @version   1.0.0
+ * @link      https://orange-management.org
  */
 declare(strict_types=1);
 
@@ -19,10 +19,10 @@ use phpOMS\Validation\ValidatorAbstract;
 /**
  * Validate IP.
  *
- * @package    phpOMS\Validation\Network
- * @license    OMS License 1.0
- * @link       https://orange-management.org
- * @since      1.0.0
+ * @package phpOMS\Validation\Network
+ * @license OMS License 1.0
+ * @link    https://orange-management.org
+ * @since   1.0.0
  */
 abstract class Ip extends ValidatorAbstract
 {
@@ -30,7 +30,7 @@ abstract class Ip extends ValidatorAbstract
     /**
      * Constructor.
      *
-     * @since  1.0.0
+     * @since 1.0.0
      * @codeCoverageIgnore
      */
     private function __construct()
@@ -52,7 +52,7 @@ abstract class Ip extends ValidatorAbstract
      *
      * @return bool Returns true if value is valid ip6 otherwise false
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function isValidIpv6($value) : bool
     {
@@ -66,7 +66,7 @@ abstract class Ip extends ValidatorAbstract
      *
      * @return bool eturns true if value is valid ip4 otherwise false
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function isValidIpv4($value) : bool
     {

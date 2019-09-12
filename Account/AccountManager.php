@@ -4,11 +4,11 @@
  *
  * PHP Version 7.4
  *
- * @package    phpOMS\Account
- * @copyright  Dennis Eichhorn
- * @license    OMS License 1.0
- * @version    1.0.0
- * @link       https://orange-management.org
+ * @package   phpOMS\Account
+ * @copyright Dennis Eichhorn
+ * @license   OMS License 1.0
+ * @version   1.0.0
+ * @link      https://orange-management.org
  */
 declare(strict_types=1);
 
@@ -22,10 +22,10 @@ use phpOMS\DataStorage\Session\SessionInterface;
  *
  * The account manager is used to manage accounts.
  *
- * @package    phpOMS\Account
- * @license    OMS License 1.0
- * @link       https://orange-management.org
- * @since      1.0.0
+ * @package phpOMS\Account
+ * @license OMS License 1.0
+ * @link    https://orange-management.org
+ * @since   1.0.0
  */
 final class AccountManager implements \Countable
 {
@@ -33,7 +33,7 @@ final class AccountManager implements \Countable
     /**
      * Accounts.
      *
-     * @var Account[]
+     * @var   Account[]
      * @since 1.0.0
      */
     private array $accounts = [];
@@ -41,7 +41,7 @@ final class AccountManager implements \Countable
     /**
      * Session.
      *
-     * @var SessionInterface
+     * @var   SessionInterface
      * @since 1.0.0
      */
     private SessionInterface $session;
@@ -51,7 +51,7 @@ final class AccountManager implements \Countable
      *
      * @param SessionInterface $session Session
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function __construct(SessionInterface $session)
     {
@@ -65,7 +65,7 @@ final class AccountManager implements \Countable
      *
      * @return Account
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function get(int $id = 0) : Account
     {
@@ -89,7 +89,7 @@ final class AccountManager implements \Countable
      *
      * @return bool Returns true if the account could be added otherwise false is returned
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function add(Account $account) : bool
     {
@@ -109,7 +109,7 @@ final class AccountManager implements \Countable
      *
      * @return bool Returns true if the account could be removed otherwise false
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function remove(int $id) : bool
     {
@@ -127,7 +127,7 @@ final class AccountManager implements \Countable
      *
      * @return int Returns the amount of accounts in the manager (>= 0)
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function count() : int
     {

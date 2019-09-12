@@ -4,11 +4,11 @@
  *
  * PHP Version 7.4
  *
- * @package    phpOMS\DataStorage
- * @copyright  Dennis Eichhorn
- * @license    OMS License 1.0
- * @version    1.0.0
- * @link       https://orange-management.org
+ * @package   phpOMS\DataStorage
+ * @copyright Dennis Eichhorn
+ * @license   OMS License 1.0
+ * @version   1.0.0
+ * @link      https://orange-management.org
  */
 declare(strict_types=1);
 
@@ -19,10 +19,10 @@ namespace phpOMS\DataStorage;
  *
  * DB, Cache, Session
  *
- * @package    phpOMS\DataStorage
- * @license    OMS License 1.0
- * @link       https://orange-management.org
- * @since      1.0.0
+ * @package phpOMS\DataStorage
+ * @license OMS License 1.0
+ * @link    https://orange-management.org
+ * @since   1.0.0
  */
 interface DataStoragePoolInterface
 {
@@ -35,7 +35,7 @@ interface DataStoragePoolInterface
      *
      * @return bool
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function add(string $key, DataStorageConnectionInterface $db) : bool;
 
@@ -46,7 +46,7 @@ interface DataStoragePoolInterface
      *
      * @return DataStorageConnectionInterface
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function get(string $key = '') : DataStorageConnectionInterface;
 
@@ -57,7 +57,7 @@ interface DataStoragePoolInterface
      *
      * @return bool
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function remove(string $key) : bool;
 
@@ -69,7 +69,7 @@ interface DataStoragePoolInterface
      *
      * @return bool
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function create(string $key, array $config) : bool;
 }

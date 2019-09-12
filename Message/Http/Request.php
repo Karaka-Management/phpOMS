@@ -4,11 +4,11 @@
  *
  * PHP Version 7.4
  *
- * @package    phpOMS\Message\Http
- * @copyright  Dennis Eichhorn
- * @license    OMS License 1.0
- * @version    1.0.0
- * @link       https://orange-management.org
+ * @package   phpOMS\Message\Http
+ * @copyright Dennis Eichhorn
+ * @license   OMS License 1.0
+ * @version   1.0.0
+ * @link      https://orange-management.org
  */
 declare(strict_types=1);
 
@@ -24,10 +24,10 @@ use phpOMS\Uri\UriInterface;
 /**
  * Request class.
  *
- * @package    phpOMS\Message\Http
- * @license    OMS License 1.0
- * @link       https://orange-management.org
- * @since      1.0.0
+ * @package phpOMS\Message\Http
+ * @license OMS License 1.0
+ * @link    https://orange-management.org
+ * @since   1.0.0
  *
  * @SuppressWarnings(PHPMD.Superglobals)
  */
@@ -37,7 +37,7 @@ final class Request extends RequestAbstract
     /**
      * Browser type.
      *
-     * @var null|string
+     * @var   null|string
      * @since 1.0.0
      */
     private ?string $browser = null;
@@ -45,7 +45,7 @@ final class Request extends RequestAbstract
     /**
      * OS type.
      *
-     * @var null|string
+     * @var   null|string
      * @since 1.0.0
      */
     private ?string $os = null;
@@ -53,7 +53,7 @@ final class Request extends RequestAbstract
     /**
      * Request information.
      *
-     * @var null|string[]
+     * @var   null|string[]
      * @since 1.0.0
      */
     private ?array $info = null;
@@ -64,7 +64,7 @@ final class Request extends RequestAbstract
      * @param UriInterface $uri  Uri
      * @param Localization $l11n Localization
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function __construct(UriInterface $uri = null, Localization $l11n = null)
     {
@@ -85,7 +85,7 @@ final class Request extends RequestAbstract
      *
      * @return void
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     private function init() : void
     {
@@ -104,7 +104,7 @@ final class Request extends RequestAbstract
      *
      * @return void
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     private function initCurrentRequest() : void
     {
@@ -123,7 +123,7 @@ final class Request extends RequestAbstract
      *
      * @throws \Exception
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     private function initNonGetData() : void
     {
@@ -159,7 +159,7 @@ final class Request extends RequestAbstract
      *
      * @return string
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function getRequestLanguage() : string
     {
@@ -179,7 +179,7 @@ final class Request extends RequestAbstract
      *
      * @return string
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function getLocale() : string
     {
@@ -198,7 +198,7 @@ final class Request extends RequestAbstract
      *
      * @return void
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     private function cleanupGlobals() : void
     {
@@ -213,7 +213,7 @@ final class Request extends RequestAbstract
      *
      * @return void
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     private function setupUriBuilder() : void
     {
@@ -234,7 +234,7 @@ final class Request extends RequestAbstract
      *
      * @return Request
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function createFromSuperglobals() : self
     {
@@ -259,7 +259,7 @@ final class Request extends RequestAbstract
      *
      * @return void
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function createRequestHashs(int $start = 0) : void
     {
@@ -281,7 +281,7 @@ final class Request extends RequestAbstract
      *
      * @return bool
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function isMobile() : bool
     {
@@ -312,7 +312,7 @@ final class Request extends RequestAbstract
      *
      * @return string
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function getBrowser() : string
     {
@@ -341,7 +341,7 @@ final class Request extends RequestAbstract
      *
      * @return void
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function setBrowser(string $browser) : void
     {
@@ -353,7 +353,7 @@ final class Request extends RequestAbstract
      *
      * @return string
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function getOS() : string
     {
@@ -382,7 +382,7 @@ final class Request extends RequestAbstract
      *
      * @return void
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function setOS(string $os) : void
     {
@@ -406,7 +406,7 @@ final class Request extends RequestAbstract
      *
      * @throws \OutOfRangeException This exception is thrown if the port is out of range
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function isHttps(int $port = 443) : bool
     {
@@ -465,7 +465,7 @@ final class Request extends RequestAbstract
      *
      * @return Response
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function rest() : Response
     {

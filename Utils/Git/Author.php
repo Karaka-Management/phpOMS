@@ -4,11 +4,11 @@
  *
  * PHP Version 7.4
  *
- * @package    phpOMS\Utils\Git
- * @copyright  Dennis Eichhorn
- * @license    OMS License 1.0
- * @version    1.0.0
- * @link       https://orange-management.org
+ * @package   phpOMS\Utils\Git
+ * @copyright Dennis Eichhorn
+ * @license   OMS License 1.0
+ * @version   1.0.0
+ * @link      https://orange-management.org
  */
 declare(strict_types=1);
 
@@ -17,17 +17,17 @@ namespace phpOMS\Utils\Git;
 /**
  * Gray encoding class
  *
- * @package    phpOMS\Utils\Git
- * @license    OMS License 1.0
- * @link       https://orange-management.org
- * @since      1.0.0
+ * @package phpOMS\Utils\Git
+ * @license OMS License 1.0
+ * @link    https://orange-management.org
+ * @since   1.0.0
  */
 class Author
 {
     /**
      * Name.
      *
-     * @var string
+     * @var   string
      * @since 1.0.0
      */
     private string $name = '';
@@ -35,7 +35,7 @@ class Author
     /**
      * Email.
      *
-     * @var string
+     * @var   string
      * @since 1.0.0
      */
     private string $email = '';
@@ -43,7 +43,7 @@ class Author
     /**
      * Commit count.
      *
-     * @var int
+     * @var   int
      * @since 1.0.0
      */
     private int $commitCount = 0;
@@ -51,7 +51,7 @@ class Author
     /**
      * Additions count.
      *
-     * @var int
+     * @var   int
      * @since 1.0.0
      */
     private int $additionsCount = 0;
@@ -59,7 +59,7 @@ class Author
     /**
      * Removals count.
      *
-     * @var int
+     * @var   int
      * @since 1.0.0
      */
     private int $removalsCount = 0;
@@ -70,7 +70,7 @@ class Author
      * @param string $name  Author name
      * @param string $email Author email
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function __construct(string $name = '', string $email = '')
     {
@@ -83,7 +83,7 @@ class Author
      *
      * @return string
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function getName() : string
     {
@@ -95,7 +95,7 @@ class Author
      *
      * @return string
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function getEmail() : string
     {
@@ -107,7 +107,7 @@ class Author
      *
      * @return int
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function getCommitCount() : int
     {
@@ -121,7 +121,7 @@ class Author
      *
      * @return void
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function setCommitCount(int $count) : void
     {
@@ -135,7 +135,7 @@ class Author
      *
      * @return void
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function setAdditionCount(int $count) : void
     {
@@ -147,7 +147,7 @@ class Author
      *
      * @return int
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function getAdditionCount() : int
     {
@@ -161,7 +161,7 @@ class Author
      *
      * @return void
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function setRemovalCount(int $count) : void
     {
@@ -173,7 +173,7 @@ class Author
      *
      * @return int
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function getRemovalCount() : int
     {

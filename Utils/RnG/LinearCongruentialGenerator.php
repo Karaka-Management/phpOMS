@@ -4,11 +4,11 @@
  *
  * PHP Version 7.4
  *
- * @package    phpOMS\Utils\RnG
- * @copyright  Dennis Eichhorn
- * @license    OMS License 1.0
- * @version    1.0.0
- * @link       https://orange-management.org
+ * @package   phpOMS\Utils\RnG
+ * @copyright Dennis Eichhorn
+ * @license   OMS License 1.0
+ * @version   1.0.0
+ * @link      https://orange-management.org
  */
 declare(strict_types=1);
 
@@ -17,17 +17,17 @@ namespace phpOMS\Utils\RnG;
 /**
  * Linear congruential generator class
  *
- * @package    phpOMS\Utils\RnG
- * @license    OMS License 1.0
- * @link       https://orange-management.org
- * @since      1.0.0
+ * @package phpOMS\Utils\RnG
+ * @license OMS License 1.0
+ * @link    https://orange-management.org
+ * @since   1.0.0
  */
 class LinearCongruentialGenerator
 {
     /**
      * BSD seed value.
      *
-     * @var int
+     * @var   int
      * @since 1.0.0
      */
     private static $bsdSeed = 0;
@@ -35,7 +35,7 @@ class LinearCongruentialGenerator
     /**
      * MSVCRT seed value.
      *
-     * @var int
+     * @var   int
      * @since 1.0.0
      */
     private static $msvcrtSeed = 0;
@@ -47,7 +47,7 @@ class LinearCongruentialGenerator
      *
      * @return int
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function bsd(int $seed = 0) : int
     {
@@ -65,7 +65,7 @@ class LinearCongruentialGenerator
      *
      * @return int
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function msvcrt(int $seed = 0) : int
     {

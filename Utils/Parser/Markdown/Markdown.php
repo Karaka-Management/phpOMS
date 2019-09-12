@@ -31,7 +31,7 @@ class Markdown
     /**
      * Blocktypes.
      *
-     * @var string[][]
+     * @var   string[][]
      * @since 1.0.0
      */
     protected static $blockTypes = [
@@ -62,7 +62,7 @@ class Markdown
     /**
      * Blocktypes.
      *
-     * @var string[]
+     * @var   string[]
      * @since 1.0.0
      */
     protected static $unmarkedBlockTypes = [
@@ -72,7 +72,7 @@ class Markdown
     /**
      * Special reserved characters.
      *
-     * @var string[]
+     * @var   string[]
      * @since 1.0.0
      */
     protected static $specialCharacters = [
@@ -82,7 +82,7 @@ class Markdown
     /**
      * Regex for strong.
      *
-     * @var string[]
+     * @var   string[]
      * @since 1.0.0
      */
     protected static $strongRegex = [
@@ -92,7 +92,7 @@ class Markdown
     /**
      * Regex for underline.
      *
-     * @var string[]
+     * @var   string[]
      * @since 1.0.0
      */
     protected static $underlineRegex = [
@@ -103,7 +103,7 @@ class Markdown
     /**
      * Regex for em.
      *
-     * @var string[]
+     * @var   string[]
      * @since 1.0.0
      */
     protected static $emRegex = [
@@ -114,7 +114,7 @@ class Markdown
     /**
      * Regex for identifying html attributes.
      *
-     * @var string
+     * @var   string
      * @since 1.0.0
      */
     protected static $regexHtmlAttribute = '[a-zA-Z_:][\w:.-]*(?:\s*=\s*(?:[^"\'=<>`\s]+|"[^"]*"|\'[^\']*\'))?';
@@ -122,7 +122,7 @@ class Markdown
     /**
      * Void elements.
      *
-     * @var string[]
+     * @var   string[]
      * @since 1.0.0
      */
     protected static $voidElements = [
@@ -132,7 +132,7 @@ class Markdown
     /**
      * Text elements.
      *
-     * @var string[]
+     * @var   string[]
      * @since 1.0.0
      */
     protected static $textLevelElements = [
@@ -150,7 +150,7 @@ class Markdown
     /**
      * Inline identifiers.
      *
-     * @var string[][]
+     * @var   string[][]
      * @since 1.0.0
      */
     protected static $inlineTypes = [
@@ -171,7 +171,7 @@ class Markdown
     /**
      * List of inline start markers.
      *
-     * @var string
+     * @var   string
      * @since 1.0.0
      */
     protected static $inlineMarkerList = '!"*_&[:<>`~\\';
@@ -179,7 +179,7 @@ class Markdown
     /**
      * Continuable elements.
      *
-     * @var string[]
+     * @var   string[]
      * @since 1.0.0
      */
     private static $continuable = [
@@ -189,7 +189,7 @@ class Markdown
     /**
      * Completable elments.
      *
-     * @var string[]
+     * @var   string[]
      * @since 1.0.0
      */
     private static $completable = [
@@ -199,7 +199,7 @@ class Markdown
     /**
      * Safe link types whitelist.
      *
-     * @var string[]
+     * @var   string[]
      * @since 1.0.0
      */
     protected static $safeLinksWhitelist = [
@@ -213,7 +213,7 @@ class Markdown
      *
      * @todo: figure out what it is for
      *
-     * @var string[]
+     * @var   string[]
      * @since 1.0.0
      */
     private static $definitionData = [];
@@ -225,7 +225,7 @@ class Markdown
      *
      * @return string
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function parse(string $text) : string
     {
@@ -246,7 +246,7 @@ class Markdown
      *
      * @return string
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     protected static function lines(array $lines) : string
     {
@@ -365,7 +365,7 @@ class Markdown
      *
      * @return null|array
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     protected static function blockCode(array $lineArray, array $block = null) : ?array
     {
@@ -397,7 +397,7 @@ class Markdown
      *
      * @return null|array
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     protected static function blockCodeContinue(array $lineArray, array $block) : ?array
     {
@@ -424,7 +424,7 @@ class Markdown
      *
      * @return null|array
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     protected static function blockCodeComplete(?array $block) : ?array
     {
@@ -438,7 +438,7 @@ class Markdown
      *
      * @return null|array
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     protected static function blockFencedCode(array $lineArray) : ?array
     {
@@ -475,7 +475,7 @@ class Markdown
      *
      * @return null|array
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     protected static function blockFencedCodeContinue(array $lineArray, array $block) : ?array
     {
@@ -508,7 +508,7 @@ class Markdown
      *
      * @return null|array
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     protected static function blockFencedCodeComplete(?array $block) : ?array
     {
@@ -522,7 +522,7 @@ class Markdown
      *
      * @return null|array
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     protected static function blockHeader(array $lineArray) : ?array
     {
@@ -555,7 +555,7 @@ class Markdown
      *
      * @return null|array
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     protected static function blockList(array $lineArray) : ?array
     {
@@ -603,7 +603,7 @@ class Markdown
      *
      * @return null|array
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     protected static function blockListContinue(array $lineArray, array $block) : ?array
     {
@@ -658,7 +658,7 @@ class Markdown
      *
      * @return null|array
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     protected static function blockQuote(array $lineArray) : ?array
     {
@@ -683,7 +683,7 @@ class Markdown
      *
      * @return null|array
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     protected static function blockQuoteContinue(array $lineArray, array $block) : ?array
     {
@@ -715,7 +715,7 @@ class Markdown
      *
      * @return null|array
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     protected static function blockRule(array $lineArray) : ?array
     {
@@ -738,7 +738,7 @@ class Markdown
      *
      * @return null|array
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     protected static function blockSetextHeader(array $lineArray, array $block = null) : ?array
     {
@@ -762,7 +762,7 @@ class Markdown
      *
      * @return null|array
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     protected static function blockReference(array $lineArray) : ?array
     {
@@ -788,7 +788,7 @@ class Markdown
      *
      * @return null|array
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     protected static function blockTable($lineArray, array $block = null) : ?array
     {
@@ -885,7 +885,7 @@ class Markdown
      *
      * @return null|array
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     protected static function blockTableContinue(array $lineArray, array $block) : ?array
     {
@@ -934,7 +934,7 @@ class Markdown
      *
      * @return array
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     protected static function paragraph(array $lineArray) : array
     {
@@ -954,7 +954,7 @@ class Markdown
      *
      * @return string
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     protected static function line(string $text) : string
     {
@@ -1005,7 +1005,7 @@ class Markdown
      *
      * @return null|array
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     protected static function inlineCode(array $excerpt) : ?array
     {
@@ -1031,7 +1031,7 @@ class Markdown
      *
      * @return null|array
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     protected static function inlineEmailTag(array $excerpt) : ?array
     {
@@ -1064,7 +1064,7 @@ class Markdown
      *
      * @return null|array
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     protected static function inlineEmphasis(array $excerpt) : ?array
     {
@@ -1101,7 +1101,7 @@ class Markdown
      *
      * @return null|array
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     protected static function inlineEscapeSequence(array $excerpt) : ?array
     {
@@ -1122,7 +1122,7 @@ class Markdown
      *
      * @return null|array
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     protected static function inlineImage(array $excerpt) : ?array
     {
@@ -1162,7 +1162,7 @@ class Markdown
      *
      * @return null|array
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     protected static function inlineLink(array $excerpt) : ?array
     {
@@ -1228,7 +1228,7 @@ class Markdown
      *
      * @return null|array
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     protected static function inlineSpecialCharacter(array $excerpt) : ?array
     {
@@ -1256,7 +1256,7 @@ class Markdown
      *
      * @return null|array
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     protected static function inlineStrikethrough(array $excerpt) : ?array
     {
@@ -1285,7 +1285,7 @@ class Markdown
      *
      * @return null|array
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     protected static function inlineUrl(array $excerpt) : ?array
     {
@@ -1317,7 +1317,7 @@ class Markdown
      *
      * @return null|array
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     protected static function inlineUrlTag(array $excerpt) : ?array
     {
@@ -1344,7 +1344,7 @@ class Markdown
      *
      * @return string
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     protected static function unmarkedText(string $text) : string
     {
@@ -1361,7 +1361,7 @@ class Markdown
      *
      * @return string
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     protected static function element(array $element) : string
     {
@@ -1396,7 +1396,7 @@ class Markdown
      *
      * @return string
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     protected static function elements(array $elements) : string
     {
@@ -1418,7 +1418,7 @@ class Markdown
      *
      * @return string
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     protected static function li(array $lines) : string
     {
@@ -1442,7 +1442,7 @@ class Markdown
      *
      * @return array
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     protected static function sanitizeAndBuildElement(array $element) : array
     {
@@ -1476,7 +1476,7 @@ class Markdown
      *
      * @return array
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     protected static function filterUnsafeUrlInAttribute(array $element, string $attribute) : array
     {
@@ -1499,7 +1499,7 @@ class Markdown
      *
      * @return string
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     protected static function escape(string $text, bool $allowQuotes = false) : string
     {
@@ -1514,7 +1514,7 @@ class Markdown
      *
      * @return bool
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     protected static function striAtStart(string $string, string $needle) : bool
     {

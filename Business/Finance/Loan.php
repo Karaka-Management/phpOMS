@@ -4,11 +4,11 @@
  *
  * PHP Version 7.4
  *
- * @package    phpOMS\Business\Finance
- * @copyright  Dennis Eichhorn
- * @license    OMS License 1.0
- * @version    1.0.0
- * @link       https://orange-management.org
+ * @package   phpOMS\Business\Finance
+ * @copyright Dennis Eichhorn
+ * @license   OMS License 1.0
+ * @version   1.0.0
+ * @link      https://orange-management.org
  */
 declare(strict_types=1);
 
@@ -17,10 +17,10 @@ namespace phpOMS\Business\Finance;
 /**
  * Finance class.
  *
- * @package    phpOMS\Business\Finance
- * @license    OMS License 1.0
- * @link       https://orange-management.org
- * @since      1.0.0
+ * @package phpOMS\Business\Finance
+ * @license OMS License 1.0
+ * @link    https://orange-management.org
+ * @since   1.0.0
  *
  * @SuppressWarnings(PHPMD.CamelCaseParameterName)
  * @SuppressWarnings(PHPMD.CamelCaseVariableName)
@@ -37,7 +37,7 @@ final class Loan
      *
      * @return float
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function getPaymentsOnBalloonLoan(float $PV, float $r, int $n, float $balloon = 0.0) : float
     {
@@ -54,7 +54,7 @@ final class Loan
      *
      * @return float
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function getBalloonBalanceOfLoan(float $PV, float $P, float $r, int $n) : float
     {
@@ -70,7 +70,7 @@ final class Loan
      *
      * @return float
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function getLoanPayment(float $PV, float $r, int $n) : float
     {
@@ -87,7 +87,7 @@ final class Loan
      *
      * @return float
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function getRemainingBalanceLoan(float $PV, float $P, float $r, int $n) : float
     {
@@ -102,7 +102,7 @@ final class Loan
      *
      * @return float
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function getLoanToDepositRatio(float $loans, float $deposits) : float
     {
@@ -117,7 +117,7 @@ final class Loan
      *
      * @return float
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function getLoanToValueRatio(float $loan, float $collateral) : float
     {

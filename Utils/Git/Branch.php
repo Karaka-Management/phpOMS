@@ -4,11 +4,11 @@
  *
  * PHP Version 7.4
  *
- * @package    phpOMS\Utils\Git
- * @copyright  Dennis Eichhorn
- * @license    OMS License 1.0
- * @version    1.0.0
- * @link       https://orange-management.org
+ * @package   phpOMS\Utils\Git
+ * @copyright Dennis Eichhorn
+ * @license   OMS License 1.0
+ * @version   1.0.0
+ * @link      https://orange-management.org
  */
 declare(strict_types=1);
 
@@ -17,17 +17,17 @@ namespace phpOMS\Utils\Git;
 /**
  * Gray encoding class
  *
- * @package    phpOMS\Utils\Git
- * @license    OMS License 1.0
- * @link       https://orange-management.org
- * @since      1.0.0
+ * @package phpOMS\Utils\Git
+ * @license OMS License 1.0
+ * @link    https://orange-management.org
+ * @since   1.0.0
  */
 class Branch
 {
     /**
      * Name.
      *
-     * @var string
+     * @var   string
      * @since 1.0.0
      */
     private string $name = '';
@@ -37,7 +37,7 @@ class Branch
      *
      * @param string $name Branch name
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function __construct(string $name = '')
     {
@@ -49,7 +49,7 @@ class Branch
      *
      * @return string
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function getName() : string
     {
@@ -63,7 +63,7 @@ class Branch
      *
      * @return void
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function setName(string $name) : void
     {

@@ -4,11 +4,11 @@
  *
  * PHP Version 7.4
  *
- * @package    phpOMS\Views
- * @copyright  Dennis Eichhorn
- * @license    OMS License 1.0
- * @version    1.0.0
- * @link       https://orange-management.org
+ * @package   phpOMS\Views
+ * @copyright Dennis Eichhorn
+ * @license   OMS License 1.0
+ * @version   1.0.0
+ * @link      https://orange-management.org
  */
 declare(strict_types=1);
 
@@ -24,17 +24,17 @@ use phpOMS\Module\Exception\InvalidThemeException;
 /**
  * Basic view which can be used as basis for specific implementations.
  *
- * @package    phpOMS\Views
- * @license    OMS License 1.0
- * @link       https://orange-management.org
- * @since      1.0.0
+ * @package phpOMS\Views
+ * @license OMS License 1.0
+ * @link    https://orange-management.org
+ * @since   1.0.0
  */
 class View extends ViewAbstract
 {
     /**
      * View data.
      *
-     * @var array
+     * @var   array
      * @since 1.0.0
      */
     protected array $data = [];
@@ -42,7 +42,7 @@ class View extends ViewAbstract
     /**
      * View Localization.
      *
-     * @var null|Localization
+     * @var   null|Localization
      * @since 1.0.0
      */
     protected ?Localization $l11n = null;
@@ -50,7 +50,7 @@ class View extends ViewAbstract
     /**
      * Application.
      *
-     * @var null|ApplicationAbstract
+     * @var   null|ApplicationAbstract
      * @since 1.0.0
      */
     protected ?ApplicationAbstract $app = null;
@@ -58,7 +58,7 @@ class View extends ViewAbstract
     /**
      * Request.
      *
-     * @var null|RequestAbstract
+     * @var   null|RequestAbstract
      * @since 1.0.0
      */
     protected ?RequestAbstract $request = null;
@@ -66,7 +66,7 @@ class View extends ViewAbstract
     /**
      * Request.
      *
-     * @var null|ResponseAbstract
+     * @var   null|ResponseAbstract
      * @since 1.0.0
      */
     protected ?ResponseAbstract $response = null;
@@ -74,7 +74,7 @@ class View extends ViewAbstract
     /**
      * Theme name.
      *
-     * @var null|string
+     * @var   null|string
      * @since 1.0.0
      */
     protected ?string $theme = null;
@@ -82,7 +82,7 @@ class View extends ViewAbstract
     /**
      * Module name.
      *
-     * @var null|string
+     * @var   null|string
      * @since 1.0.0
      */
     protected ?string $module = null;
@@ -94,7 +94,7 @@ class View extends ViewAbstract
      * @param RequestAbstract     $request  Request
      * @param ResponseAbstract    $response Request
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function __construct(ApplicationAbstract $app = null, RequestAbstract $request = null, ResponseAbstract $response = null)
     {
@@ -111,7 +111,7 @@ class View extends ViewAbstract
      *
      * @return mixed
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function getData(string $id)
     {
@@ -126,7 +126,7 @@ class View extends ViewAbstract
      *
      * @return void
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function setData(string $id, $data) : void
     {
@@ -140,7 +140,7 @@ class View extends ViewAbstract
      *
      * @return bool
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function removeData(string $id) : bool
     {
@@ -161,7 +161,7 @@ class View extends ViewAbstract
      *
      * @return bool
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function addData(string $id, $data) : bool
     {
@@ -183,7 +183,7 @@ class View extends ViewAbstract
      *
      * @return string
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function getText($translation, string $module = null, string $theme = null) : string
     {
@@ -212,7 +212,7 @@ class View extends ViewAbstract
      *
      * @throws InvalidModuleException throws this exception if no data for the defined module could be found
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     private function setModuleDynamically() : void
     {
@@ -240,7 +240,7 @@ class View extends ViewAbstract
      *
      * @throws InvalidThemeException throws this exception if no data for the defined theme could be found
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     private function setThemeDynamically() : void
     {
@@ -268,7 +268,7 @@ class View extends ViewAbstract
      *
      * @return string
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function getHtml($translation, string $module = null, string $theme = null) : string
     {
@@ -280,7 +280,7 @@ class View extends ViewAbstract
      *
      * @return null|RequestAbstract
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function getRequest() : ?RequestAbstract
     {
@@ -292,7 +292,7 @@ class View extends ViewAbstract
      *
      * @return null|ResponseAbstract
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function getResponse() : ?ResponseAbstract
     {

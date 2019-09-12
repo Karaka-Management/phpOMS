@@ -4,11 +4,11 @@
  *
  * PHP Version 7.4
  *
- * @package    phpOMS\Utils
- * @copyright  Dennis Eichhorn
- * @license    OMS License 1.0
- * @version    1.0.0
- * @link       https://orange-management.org
+ * @package   phpOMS\Utils
+ * @copyright Dennis Eichhorn
+ * @license   OMS License 1.0
+ * @version   1.0.0
+ * @link      https://orange-management.org
  */
 declare(strict_types=1);
 
@@ -17,17 +17,17 @@ namespace phpOMS\Utils;
 /**
  * String utils.
  *
- * @package    phpOMS\Utils
- * @license    OMS License 1.0
- * @link       https://orange-management.org
- * @since      1.0.0
+ * @package phpOMS\Utils
+ * @license OMS License 1.0
+ * @link    https://orange-management.org
+ * @since   1.0.0
  */
 final class Permutation
 {
     /**
      * Constructor.
      *
-     * @since  1.0.0
+     * @since 1.0.0
      * @codeCoverageIgnore
      */
     private function __construct()
@@ -43,7 +43,7 @@ final class Permutation
      *
      * @return array<array|string>
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function permut(array $toPermute, array $result = [], bool $concat = true) : array
     {
@@ -74,7 +74,7 @@ final class Permutation
      *
      * @return bool
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function isPermutation(string $a, string $b) : bool
     {
@@ -89,7 +89,7 @@ final class Permutation
      *
      * @return bool
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function isPalindrome(string $a, string $filter = 'a-zA-Z0-9') : bool
     {
@@ -109,7 +109,7 @@ final class Permutation
      * @throws \InvalidArgumentException This exception is thrown if the $toPermute argument is neither array or string
      * @throws \OutOfBoundsException     This exception is thrown if the permutation key is larger than the data to permute
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function permutate($toPermute, array $key)
     {

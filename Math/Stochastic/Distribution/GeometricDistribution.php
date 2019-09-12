@@ -4,11 +4,11 @@
  *
  * PHP Version 7.4
  *
- * @package    phpOMS\Math\Stochastic\Distribution
- * @copyright  Dennis Eichhorn
- * @license    OMS License 1.0
- * @version    1.0.0
- * @link       https://orange-management.org
+ * @package   phpOMS\Math\Stochastic\Distribution
+ * @copyright Dennis Eichhorn
+ * @license   OMS License 1.0
+ * @version   1.0.0
+ * @link      https://orange-management.org
  */
 declare(strict_types=1);
 
@@ -17,10 +17,10 @@ namespace phpOMS\Math\Stochastic\Distribution;
 /**
  * Geometric distribution.
  *
- * @package    phpOMS\Math\Stochastic\Distribution
- * @license    OMS License 1.0
- * @link       https://orange-management.org
- * @since      1.0.0
+ * @package phpOMS\Math\Stochastic\Distribution
+ * @license OMS License 1.0
+ * @link    https://orange-management.org
+ * @since   1.0.0
  */
 class GeometricDistribution
 {
@@ -32,7 +32,7 @@ class GeometricDistribution
      *
      * @return float
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function getPmf(float $p, int $k) : float
     {
@@ -47,7 +47,7 @@ class GeometricDistribution
      *
      * @return float
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function getCdf(float $p, int $k) : float
     {
@@ -59,7 +59,7 @@ class GeometricDistribution
      *
      * @return int
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function getMode() : int
     {
@@ -73,7 +73,7 @@ class GeometricDistribution
      *
      * @return float
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function getMean(float $p) : float
     {
@@ -87,7 +87,7 @@ class GeometricDistribution
      *
      * @return float
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function getMedian(float $p) : float
     {
@@ -101,7 +101,7 @@ class GeometricDistribution
      *
      * @return float
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function getVariance(float $p) : float
     {
@@ -116,7 +116,7 @@ class GeometricDistribution
      *
      * @return float
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function getMgf(float $p, float $t) : float
     {
@@ -130,7 +130,7 @@ class GeometricDistribution
      *
      * @return float
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function getSkewness(float $lambda) : float
     {
@@ -144,7 +144,7 @@ class GeometricDistribution
      *
      * @return float
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function getExKurtosis(float $lambda) : float
     {

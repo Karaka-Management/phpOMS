@@ -4,11 +4,11 @@
  *
  * PHP Version 7.4
  *
- * @package    phpOMS\Utils\Converter
- * @copyright  Dennis Eichhorn
- * @license    OMS License 1.0
- * @version    1.0.0
- * @link       https://orange-management.org
+ * @package   phpOMS\Utils\Converter
+ * @copyright Dennis Eichhorn
+ * @license   OMS License 1.0
+ * @version   1.0.0
+ * @link      https://orange-management.org
  */
 declare(strict_types=1);
 
@@ -17,10 +17,10 @@ namespace phpOMS\Utils\Converter;
 /**
  * Numeric converter.
  *
- * @package    phpOMS\Utils\Converter
- * @license    OMS License 1.0
- * @link       https://orange-management.org
- * @since      1.0.0
+ * @package phpOMS\Utils\Converter
+ * @license OMS License 1.0
+ * @link    https://orange-management.org
+ * @since   1.0.0
  */
 class Numeric
 {
@@ -28,7 +28,7 @@ class Numeric
     /**
      * Romans association.
      *
-     * @var array
+     * @var   array
      * @since 1.0.0
      */
     public const ROMANS = [
@@ -40,7 +40,7 @@ class Numeric
     /**
      * Constructor.
      *
-     * @since  1.0.0
+     * @since 1.0.0
      * @codeCoverageIgnore
      */
     private function __construct()
@@ -58,7 +58,7 @@ class Numeric
      *
      * @throws \Exception This exception is thrown if one of the bases or the number is invalid
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function convertBase(string $numberInput, string $fromBaseInput, string $toBaseInput) : string
     {
@@ -117,7 +117,7 @@ class Numeric
      *
      * @return string
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function arabicToRoman(int $arabic) : string
     {
@@ -143,7 +143,7 @@ class Numeric
      *
      * @return int
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function romanToArabic(string $roman) : int
     {
@@ -172,7 +172,7 @@ class Numeric
      *
      * @return string
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function numericToAlpha(int $number) : string
     {
@@ -193,7 +193,7 @@ class Numeric
      *
      * @return int
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function alphaToNumeric(string $alpha) : int
     {

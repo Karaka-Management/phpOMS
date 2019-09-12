@@ -4,11 +4,11 @@
  *
  * PHP Version 7.4
  *
- * @package    phpOMS\Math\Stochastic\Distribution
- * @copyright  Dennis Eichhorn
- * @license    OMS License 1.0
- * @version    1.0.0
- * @link       https://orange-management.org
+ * @package   phpOMS\Math\Stochastic\Distribution
+ * @copyright Dennis Eichhorn
+ * @license   OMS License 1.0
+ * @version   1.0.0
+ * @link      https://orange-management.org
  */
 declare(strict_types=1);
 
@@ -17,10 +17,10 @@ namespace phpOMS\Math\Stochastic\Distribution;
 /**
  * Chi squared distribution.
  *
- * @package    phpOMS\Math\Stochastic\Distribution
- * @license    OMS License 1.0
- * @link       https://orange-management.org
- * @since      1.0.0
+ * @package phpOMS\Math\Stochastic\Distribution
+ * @license OMS License 1.0
+ * @link    https://orange-management.org
+ * @since   1.0.0
  */
 class ChiSquaredDistribution
 {
@@ -28,7 +28,7 @@ class ChiSquaredDistribution
     /**
      * Chi square table.
      *
-     * @var array<int, array<string, float>>
+     * @var   array<int, array<string, float>>
      * @since 1.0.0
      */
     public const TABLE = [
@@ -83,7 +83,7 @@ class ChiSquaredDistribution
      *
      * @throws \Exception
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function testHypothesis(array $dataset, array $expected, float $significance = 0.05, int $df = 0) : array
     {
@@ -131,7 +131,7 @@ class ChiSquaredDistribution
      *
      * @return int
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function getDegreesOfFreedom(array $values) : int
     {
@@ -152,7 +152,7 @@ class ChiSquaredDistribution
      *
      * @throws \OutOfBoundsException
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function getPdf(float $x, int $df) : float
     {
@@ -170,7 +170,7 @@ class ChiSquaredDistribution
      *
      * @return int
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function getMode(int $df) : int
     {
@@ -184,7 +184,7 @@ class ChiSquaredDistribution
      *
      * @return float
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function getMean(int $df) : float
     {
@@ -198,7 +198,7 @@ class ChiSquaredDistribution
      *
      * @return float
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function getMedian(int $df) : float
     {
@@ -212,7 +212,7 @@ class ChiSquaredDistribution
      *
      * @return float
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function getVariance(int $df) : float
     {
@@ -229,7 +229,7 @@ class ChiSquaredDistribution
      *
      * @throws \OutOfBoundsException
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function getMgf(int $df, float $t) : float
     {
@@ -247,7 +247,7 @@ class ChiSquaredDistribution
      *
      * @return float
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function getSkewness(int $df) : float
     {
@@ -261,7 +261,7 @@ class ChiSquaredDistribution
      *
      * @return float
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function getExKurtosis(int $df) : float
     {

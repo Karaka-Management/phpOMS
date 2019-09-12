@@ -4,11 +4,11 @@
  *
  * PHP Version 7.4
  *
- * @package    phpOMS\DataStorage\Database\Schema\Exception
- * @copyright  Dennis Eichhorn
- * @license    OMS License 1.0
- * @version    1.0.0
- * @link       https://orange-management.org
+ * @package   phpOMS\DataStorage\Database\Schema\Exception
+ * @copyright Dennis Eichhorn
+ * @license   OMS License 1.0
+ * @version   1.0.0
+ * @link      https://orange-management.org
  */
 declare(strict_types=1);
 
@@ -17,10 +17,10 @@ namespace phpOMS\DataStorage\Database\Schema\Exception;
 /**
  * Path exception class.
  *
- * @package    phpOMS\DataStorage\Database\Schema\Exception
- * @license    OMS License 1.0
- * @link       https://orange-management.org
- * @since      1.0.0
+ * @package phpOMS\DataStorage\Database\Schema\Exception
+ * @license OMS License 1.0
+ * @link    https://orange-management.org
+ * @since   1.0.0
  */
 class TableException extends \PDOException
 {
@@ -31,7 +31,7 @@ class TableException extends \PDOException
      * @param int        $code     Exception code
      * @param \Exception $previous Previous exception
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function __construct(string $message, int $code = 0, \Exception $previous = null)
     {
@@ -45,7 +45,7 @@ class TableException extends \PDOException
      *
      * @return string
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function findTable(string $message) : string
     {

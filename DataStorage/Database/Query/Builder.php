@@ -4,11 +4,11 @@
  *
  * PHP Version 7.4
  *
- * @package    phpOMS\DataStorage\Database\Query
- * @copyright  Dennis Eichhorn
- * @license    OMS License 1.0
- * @version    1.0.0
- * @link       https://orange-management.org
+ * @package   phpOMS\DataStorage\Database\Query
+ * @copyright Dennis Eichhorn
+ * @license   OMS License 1.0
+ * @version   1.0.0
+ * @link      https://orange-management.org
  */
 declare(strict_types=1);
 
@@ -20,17 +20,17 @@ use phpOMS\DataStorage\Database\Connection\ConnectionAbstract;
 /**
  * Database query builder.
  *
- * @package    phpOMS\DataStorage\Database\Query
- * @license    OMS License 1.0
- * @link       https://orange-management.org
- * @since      1.0.0
+ * @package phpOMS\DataStorage\Database\Query
+ * @license OMS License 1.0
+ * @link    https://orange-management.org
+ * @since   1.0.0
  */
 class Builder extends BuilderAbstract
 {
     /**
      * Is read only.
      *
-     * @var bool
+     * @var   bool
      * @since 1.0.0
      */
     protected bool $isReadOnly = false;
@@ -38,7 +38,7 @@ class Builder extends BuilderAbstract
     /**
      * Columns.
      *
-     * @var array
+     * @var   array
      * @since 1.0.0
      */
     public array $selects = [];
@@ -46,7 +46,7 @@ class Builder extends BuilderAbstract
     /**
      * Columns.
      *
-     * @var array
+     * @var   array
      * @since 1.0.0
      */
     public array $updates = [];
@@ -54,7 +54,7 @@ class Builder extends BuilderAbstract
     /**
      * Stupid work around because value needs to be not null for it to work in Grammar.
      *
-     * @var array
+     * @var   array
      * @since 1.0.0
      */
     public array $deletes = [1];
@@ -62,7 +62,7 @@ class Builder extends BuilderAbstract
     /**
      * Into.
      *
-     * @var \Closure|string
+     * @var   \Closure|string
      * @since 1.0.0
      */
     public $into = null;
@@ -70,7 +70,7 @@ class Builder extends BuilderAbstract
     /**
      * Into columns.
      *
-     * @var array
+     * @var   array
      * @since 1.0.0
      */
     public array $inserts = [];
@@ -78,7 +78,7 @@ class Builder extends BuilderAbstract
     /**
      * Into columns.
      *
-     * @var array
+     * @var   array
      * @since 1.0.0
      */
     public array $values = [];
@@ -86,7 +86,7 @@ class Builder extends BuilderAbstract
     /**
      * Into columns.
      *
-     * @var array
+     * @var   array
      * @since 1.0.0
      */
     public array $sets = [];
@@ -94,7 +94,7 @@ class Builder extends BuilderAbstract
     /**
      * Distinct.
      *
-     * @var bool
+     * @var   bool
      * @since 1.0.0
      */
     public bool $distinct = false;
@@ -102,7 +102,7 @@ class Builder extends BuilderAbstract
     /**
      * From.
      *
-     * @var array
+     * @var   array
      * @since 1.0.0
      */
     public array $from = [];
@@ -110,7 +110,7 @@ class Builder extends BuilderAbstract
     /**
      * Joins.
      *
-     * @var array
+     * @var   array
      * @since 1.0.0
      */
     public array $joins = [];
@@ -118,7 +118,7 @@ class Builder extends BuilderAbstract
     /**
      * Ons of joins.
      *
-     * @var array
+     * @var   array
      * @since 1.0.0
      */
     public array $ons = [];
@@ -126,7 +126,7 @@ class Builder extends BuilderAbstract
     /**
      * Where.
      *
-     * @var array
+     * @var   array
      * @since 1.0.0
      */
     public array $wheres = [];
@@ -134,7 +134,7 @@ class Builder extends BuilderAbstract
     /**
      * Group.
      *
-     * @var array
+     * @var   array
      * @since 1.0.0
      */
     public array $groups = [];
@@ -142,7 +142,7 @@ class Builder extends BuilderAbstract
     /**
      * Order.
      *
-     * @var array
+     * @var   array
      * @since 1.0.0
      */
     public array $orders = [];
@@ -150,7 +150,7 @@ class Builder extends BuilderAbstract
     /**
      * Limit.
      *
-     * @var null|int
+     * @var   null|int
      * @since 1.0.0
      */
     public ?int $limit = null;
@@ -158,7 +158,7 @@ class Builder extends BuilderAbstract
     /**
      * Offset.
      *
-     * @var null|int
+     * @var   null|int
      * @since 1.0.0
      */
     public ?int $offset = null;
@@ -166,7 +166,7 @@ class Builder extends BuilderAbstract
     /**
      * Binds.
      *
-     * @var array
+     * @var   array
      * @since 1.0.0
      */
     private array $binds = [];
@@ -174,7 +174,7 @@ class Builder extends BuilderAbstract
     /**
      * Union.
      *
-     * @var array
+     * @var   array
      * @since 1.0.0
      */
     public array $unions = [];
@@ -182,7 +182,7 @@ class Builder extends BuilderAbstract
     /**
      * Lock.
      *
-     * @var bool
+     * @var   bool
      * @since 1.0.0
      */
     public bool $lock = false;
@@ -190,7 +190,7 @@ class Builder extends BuilderAbstract
     /**
      * Comparison OPERATORS.
      *
-     * @var string[]
+     * @var   string[]
      * @since 1.0.0
      */
     public const OPERATORS = [
@@ -229,7 +229,7 @@ class Builder extends BuilderAbstract
      * @param ConnectionAbstract $connection Database connection
      * @param bool               $readOnly   Query is read only
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function __construct(ConnectionAbstract $connection, bool $readOnly = false)
     {
@@ -244,7 +244,7 @@ class Builder extends BuilderAbstract
      *
      * @return void
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function setConnection(ConnectionAbstract $connection) : void
     {
@@ -261,7 +261,7 @@ class Builder extends BuilderAbstract
      *
      * @todo   Closure is not working this way, needs to be evaluated befor assigning
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function select(...$columns) : self
     {
@@ -287,7 +287,7 @@ class Builder extends BuilderAbstract
      *
      * @todo   Closure is not working this way, needs to be evaluated befor assigning
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function random(...$columns) : self
     {
@@ -305,7 +305,7 @@ class Builder extends BuilderAbstract
      *
      * @return Builder
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function bind($binds) : self
     {
@@ -325,7 +325,7 @@ class Builder extends BuilderAbstract
      *
      * @return Builder
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function newQuery() : self
     {
@@ -337,7 +337,7 @@ class Builder extends BuilderAbstract
      *
      * @return string
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function toSql() : string
     {
@@ -353,7 +353,7 @@ class Builder extends BuilderAbstract
      *
      * @throws \Exception
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function raw(string $raw) : self
     {
@@ -375,7 +375,7 @@ class Builder extends BuilderAbstract
      *
      * @return bool
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     private function isValidReadOnly($raw) : bool
     {
@@ -403,7 +403,7 @@ class Builder extends BuilderAbstract
      *
      * @return Builder
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function selectRaw($expression) : self
     {
@@ -417,7 +417,7 @@ class Builder extends BuilderAbstract
      *
      * @return Builder
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function distinct() : self
     {
@@ -433,7 +433,7 @@ class Builder extends BuilderAbstract
      *
      * @return Builder
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function from(...$tables) : self
     {
@@ -455,7 +455,7 @@ class Builder extends BuilderAbstract
      *
      * @return Builder
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function fromRaw($expression) : self
     {
@@ -476,7 +476,7 @@ class Builder extends BuilderAbstract
      *
      * @throws \InvalidArgumentException
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function where($columns, $operator = null, $values = null, $boolean = 'and') : self
     {
@@ -516,7 +516,7 @@ class Builder extends BuilderAbstract
      *
      * @return null|array
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function getWhereByColumn($column) : ?array
     {
@@ -532,7 +532,7 @@ class Builder extends BuilderAbstract
      *
      * @return Builder
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function andWhere($where, $operator = null, $values = null) : self
     {
@@ -548,7 +548,7 @@ class Builder extends BuilderAbstract
      *
      * @return Builder
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function orWhere($where, $operator = null, $values = null) : self
     {
@@ -564,7 +564,7 @@ class Builder extends BuilderAbstract
      *
      * @return Builder
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function whereIn($column, $values = null, string $boolean = 'and') : self
     {
@@ -581,7 +581,7 @@ class Builder extends BuilderAbstract
      *
      * @return Builder
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function whereNull($column, string $boolean = 'and') : self
     {
@@ -598,7 +598,7 @@ class Builder extends BuilderAbstract
      *
      * @return Builder
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function whereNotNull($column, string $boolean = 'and') : self
     {
@@ -614,7 +614,7 @@ class Builder extends BuilderAbstract
      *
      * @return Builder
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function groupBy(...$columns) : self
     {
@@ -636,7 +636,7 @@ class Builder extends BuilderAbstract
      *
      * @return Builder
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function newest($column) : self
     {
@@ -652,7 +652,7 @@ class Builder extends BuilderAbstract
      *
      * @return Builder
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function oldest($column) : self
     {
@@ -669,7 +669,7 @@ class Builder extends BuilderAbstract
      *
      * @return Builder
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function orderBy($columns, $order = 'DESC') : self
     {
@@ -701,7 +701,7 @@ class Builder extends BuilderAbstract
      *
      * @return Builder
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function offset(int $offset) : self
     {
@@ -717,7 +717,7 @@ class Builder extends BuilderAbstract
      *
      * @return Builder
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function limit(int $limit) : self
     {
@@ -733,7 +733,7 @@ class Builder extends BuilderAbstract
      *
      * @return Builder
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function union($query) : self
     {
@@ -751,7 +751,7 @@ class Builder extends BuilderAbstract
      *
      * @return void
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function lock() : void
     {
@@ -762,7 +762,7 @@ class Builder extends BuilderAbstract
      *
      * @return void
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function lockUpdate() : void
     {
@@ -773,7 +773,7 @@ class Builder extends BuilderAbstract
      *
      * @return string
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function __toString()
     {
@@ -785,7 +785,7 @@ class Builder extends BuilderAbstract
      *
      * @return void
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function find() : void
     {
@@ -798,7 +798,7 @@ class Builder extends BuilderAbstract
      *
      * @return Builder
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function count(string $table = '*') : self
     {
@@ -811,7 +811,7 @@ class Builder extends BuilderAbstract
      *
      * @return void
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function min() : void
     {
@@ -822,7 +822,7 @@ class Builder extends BuilderAbstract
      *
      * @return void
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function max() : void
     {
@@ -833,7 +833,7 @@ class Builder extends BuilderAbstract
      *
      * @return void
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function sum() : void
     {
@@ -844,7 +844,7 @@ class Builder extends BuilderAbstract
      *
      * @return void
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function avg() : void
     {
@@ -859,7 +859,7 @@ class Builder extends BuilderAbstract
      *
      * @throws \Exception
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function insert(...$columns) : self
     {
@@ -883,7 +883,7 @@ class Builder extends BuilderAbstract
      *
      * @return Builder
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function into($table) : self
     {
@@ -899,7 +899,7 @@ class Builder extends BuilderAbstract
      *
      * @return Builder
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function values(...$values) : self
     {
@@ -913,7 +913,7 @@ class Builder extends BuilderAbstract
      *
      * @return array
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function getValues() : array
     {
@@ -927,7 +927,7 @@ class Builder extends BuilderAbstract
      *
      * @return Builder
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function value($value) : self
     {
@@ -952,7 +952,7 @@ class Builder extends BuilderAbstract
      *
      * @return Builder
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function sets(...$sets) : self
     {
@@ -968,7 +968,7 @@ class Builder extends BuilderAbstract
      *
      * @return Builder
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function set($set) : self
     {
@@ -986,7 +986,7 @@ class Builder extends BuilderAbstract
      *
      * @throws \Exception
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function update(...$tables) : self
     {
@@ -1012,7 +1012,7 @@ class Builder extends BuilderAbstract
      *
      * @return Builder
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function delete() : self
     {
@@ -1030,7 +1030,7 @@ class Builder extends BuilderAbstract
      *
      * @return void
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function increment() : void
     {
@@ -1041,7 +1041,7 @@ class Builder extends BuilderAbstract
      *
      * @return void
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function decrement() : void
     {
@@ -1052,7 +1052,7 @@ class Builder extends BuilderAbstract
      *
      * @return Builder
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function join($table, string $type = JoinType::JOIN) : self
     {
@@ -1070,7 +1070,7 @@ class Builder extends BuilderAbstract
      *
      * @return Builder
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function leftJoin($column) : self
     {
@@ -1082,7 +1082,7 @@ class Builder extends BuilderAbstract
      *
      * @return Builder
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function leftOuterJoin($column) : self
     {
@@ -1094,7 +1094,7 @@ class Builder extends BuilderAbstract
      *
      * @return Builder
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function leftInnerJoin($column) : self
     {
@@ -1106,7 +1106,7 @@ class Builder extends BuilderAbstract
      *
      * @return Builder
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function rightJoin($column) : self
     {
@@ -1118,7 +1118,7 @@ class Builder extends BuilderAbstract
      *
      * @return Builder
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function rightOuterJoin($column) : self
     {
@@ -1130,7 +1130,7 @@ class Builder extends BuilderAbstract
      *
      * @return Builder
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function rightInnerJoin($column) : self
     {
@@ -1142,7 +1142,7 @@ class Builder extends BuilderAbstract
      *
      * @return Builder
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function outerJoin($column) : self
     {
@@ -1154,7 +1154,7 @@ class Builder extends BuilderAbstract
      *
      * @return Builder
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function innerJoin($column) : self
     {
@@ -1166,7 +1166,7 @@ class Builder extends BuilderAbstract
      *
      * @return Builder
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function crossJoin($column) : self
     {
@@ -1178,7 +1178,7 @@ class Builder extends BuilderAbstract
      *
      * @return Builder
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function fullJoin($column) : self
     {
@@ -1190,7 +1190,7 @@ class Builder extends BuilderAbstract
      *
      * @return Builder
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function fullOuterJoin($column) : self
     {
@@ -1202,7 +1202,7 @@ class Builder extends BuilderAbstract
      *
      * @return Builder
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function rollback() : self
     {
@@ -1214,7 +1214,7 @@ class Builder extends BuilderAbstract
      *
      * @return Builder
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function on($columns, $operator = null, $values = null, $boolean = 'and') : self
     {
@@ -1255,7 +1255,7 @@ class Builder extends BuilderAbstract
      *
      * @return Builder
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function orOn($columns, $operator = null, $values = null) : self
     {
@@ -1267,7 +1267,7 @@ class Builder extends BuilderAbstract
      *
      * @return Builder
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function andOn($columns, $operator = null, $values = null) : self
     {
@@ -1283,7 +1283,7 @@ class Builder extends BuilderAbstract
      *
      * @return Builder
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function merge(self $query) : self
     {
@@ -1295,7 +1295,7 @@ class Builder extends BuilderAbstract
      *
      * @return mixed
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function execute()
     {
@@ -1321,7 +1321,7 @@ class Builder extends BuilderAbstract
      *
      * @throws \Exception
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function getBindParamType($value) : int
     {
@@ -1343,7 +1343,7 @@ class Builder extends BuilderAbstract
      *
      * @throws \Exception
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function getPublicColumnName($column) : string
     {

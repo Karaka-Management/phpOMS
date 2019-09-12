@@ -4,11 +4,11 @@
  *
  * PHP Version 7.4
  *
- * @package    phpOMS\Message\Mail
- * @copyright  Dennis Eichhorn
- * @license    OMS License 1.0
- * @version    1.0.0
- * @link       https://orange-management.org
+ * @package   phpOMS\Message\Mail
+ * @copyright Dennis Eichhorn
+ * @license   OMS License 1.0
+ * @version   1.0.0
+ * @link      https://orange-management.org
  */
 declare(strict_types=1);
 
@@ -17,10 +17,10 @@ namespace phpOMS\Message\Mail;
 /**
  * Imap mail class.
  *
- * @package    phpOMS\Message\Mail
- * @license    OMS License 1.0
- * @link       https://orange-management.org
- * @since      1.0.0
+ * @package phpOMS\Message\Mail
+ * @license OMS License 1.0
+ * @link    https://orange-management.org
+ * @since   1.0.0
  */
 class Imap extends EmailAbstract
 {
@@ -32,7 +32,7 @@ class Imap extends EmailAbstract
      * @param int    $timeout Timeout
      * @param bool   $ssl     Use ssl
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function __construct(string $host = 'localhost', int $port = 143, int $timeout = 30, bool $ssl = false)
     {
@@ -47,7 +47,7 @@ class Imap extends EmailAbstract
      *
      * @return bool
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function connect(string $user = '', string $pass = '') : bool
     {

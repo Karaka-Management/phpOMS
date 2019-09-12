@@ -4,11 +4,11 @@
  *
  * PHP Version 7.4
  *
- * @package    phpOMS\Model\Message
- * @copyright  Dennis Eichhorn
- * @license    OMS License 1.0
- * @version    1.0.0
- * @link       https://orange-management.org
+ * @package   phpOMS\Model\Message
+ * @copyright Dennis Eichhorn
+ * @license   OMS License 1.0
+ * @version   1.0.0
+ * @link      https://orange-management.org
  */
 declare(strict_types=1);
 
@@ -19,10 +19,10 @@ use phpOMS\Contract\ArrayableInterface;
 /**
  * Reload class.
  *
- * @package    phpOMS\Model\Message
- * @license    OMS License 1.0
- * @link       https://orange-management.org
- * @since      1.0.0
+ * @package phpOMS\Model\Message
+ * @license OMS License 1.0
+ * @link    https://orange-management.org
+ * @since   1.0.0
  */
 class Reload implements \Serializable, ArrayableInterface, \JsonSerializable
 {
@@ -30,7 +30,7 @@ class Reload implements \Serializable, ArrayableInterface, \JsonSerializable
     /**
      * Message type.
      *
-     * @var string
+     * @var   string
      * @since 1.0.0
      */
     public const TYPE = 'reload';
@@ -38,7 +38,7 @@ class Reload implements \Serializable, ArrayableInterface, \JsonSerializable
     /**
      * Delay in ms.
      *
-     * @var int
+     * @var   int
      * @since 1.0.0
      */
     private int $delay = 0;
@@ -48,7 +48,7 @@ class Reload implements \Serializable, ArrayableInterface, \JsonSerializable
      *
      * @param int $delay Delay in ms
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function __construct(int $delay = 0)
     {
@@ -62,7 +62,7 @@ class Reload implements \Serializable, ArrayableInterface, \JsonSerializable
      *
      * @return void
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function setDelay(int $delay) : void
     {
@@ -74,7 +74,7 @@ class Reload implements \Serializable, ArrayableInterface, \JsonSerializable
      *
      * @return string
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function serialize() : string
     {
@@ -96,7 +96,7 @@ class Reload implements \Serializable, ArrayableInterface, \JsonSerializable
      *
      * @return string
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function __toString()
     {
@@ -108,7 +108,7 @@ class Reload implements \Serializable, ArrayableInterface, \JsonSerializable
      *
      * @return array<string, mixed>
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function toArray() : array
     {
@@ -123,7 +123,7 @@ class Reload implements \Serializable, ArrayableInterface, \JsonSerializable
      *
      * @return array<string, mixed>
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     /**
      * {@inheritdoc}

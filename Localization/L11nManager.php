@@ -4,11 +4,11 @@
  *
  * PHP Version 7.4
  *
- * @package    phpOMS\Localization
- * @copyright  Dennis Eichhorn
- * @license    OMS License 1.0
- * @version    1.0.0
- * @link       https://orange-management.org
+ * @package   phpOMS\Localization
+ * @copyright Dennis Eichhorn
+ * @license   OMS License 1.0
+ * @version   1.0.0
+ * @link      https://orange-management.org
  */
 declare(strict_types=1);
 
@@ -20,10 +20,10 @@ use phpOMS\Module\ModuleAbstract;
 /**
  * Localization class.
  *
- * @package    phpOMS\Localization
- * @license    OMS License 1.0
- * @link       https://orange-management.org
- * @since      1.0.0
+ * @package phpOMS\Localization
+ * @license OMS License 1.0
+ * @link    https://orange-management.org
+ * @since   1.0.0
  */
 final class L11nManager
 {
@@ -31,7 +31,7 @@ final class L11nManager
     /**
      * Language.
      *
-     * @var array
+     * @var   array
      * @since 1.0.0
      */
     private array $language = [];
@@ -39,7 +39,7 @@ final class L11nManager
     /**
      * App Name.
      *
-     * @var string
+     * @var   string
      * @since 1.0.0
      */
     private string $appName = '';
@@ -47,7 +47,7 @@ final class L11nManager
     /**
      * Construct.
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function __construct(string $appName)
     {
@@ -61,7 +61,7 @@ final class L11nManager
      *
      * @return bool
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function isLanguageLoaded(string $language) : bool
     {
@@ -82,7 +82,7 @@ final class L11nManager
      *
      * @throws \UnexpectedValueException this exception is thrown when no language definitions for the defined source `$from` exist
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function loadLanguage(string $language, string $from, array $translation) : void
     {
@@ -110,7 +110,7 @@ final class L11nManager
      *
      * @return void
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function loadLanguageFromFile(string $language, string $from, string $file) : void
     {
@@ -131,7 +131,7 @@ final class L11nManager
      *
      * @return array
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function getModuleLanguage(string $language, string $module = null) : array
     {
@@ -154,7 +154,7 @@ final class L11nManager
      *
      * @return string In case the language element couldn't be found 'ERROR' will be returned
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function getText(string $code, string $module, string $theme, $translation) : string
     {
@@ -191,7 +191,7 @@ final class L11nManager
      *
      * @return string In case the language element couldn't be found 'ERROR' will be returned
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function getHtml(string $code, string $module, string $theme, $translation) : string
     {

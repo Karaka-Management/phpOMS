@@ -4,11 +4,11 @@
  *
  * PHP Version 7.4
  *
- * @package    phpOMS\Uri
- * @copyright  Dennis Eichhorn
- * @license    OMS License 1.0
- * @version    1.0.0
- * @link       https://orange-management.org
+ * @package   phpOMS\Uri
+ * @copyright Dennis Eichhorn
+ * @license   OMS License 1.0
+ * @version   1.0.0
+ * @link      https://orange-management.org
  */
 declare(strict_types=1);
 
@@ -21,10 +21,10 @@ use phpOMS\Utils\StringUtils;
  *
  * Considers arguments used in ca CLI as uri
  *
- * @package    phpOMS\Uri
- * @license    OMS License 1.0
- * @link       https://orange-management.org
- * @since      1.0.0
+ * @package phpOMS\Uri
+ * @license OMS License 1.0
+ * @link    https://orange-management.org
+ * @since   1.0.0
  *
  * @SuppressWarnings(PHPMD.Superglobals)
  */
@@ -34,7 +34,7 @@ final class Argument implements UriInterface
     /**
      * Root path.
      *
-     * @var string
+     * @var   string
      * @since 1.0.0
      */
     private string $rootPath = '/';
@@ -42,7 +42,7 @@ final class Argument implements UriInterface
     /**
      * Path offset.
      *
-     * @var int
+     * @var   int
      * @since 1.0.0
      */
     private int $pathOffset = 0;
@@ -50,7 +50,7 @@ final class Argument implements UriInterface
     /**
      * Path elements.
      *
-     * @var array
+     * @var   array
      * @since 1.0.0
      */
     private array $pathElements = [];
@@ -58,7 +58,7 @@ final class Argument implements UriInterface
     /**
      * Uri.
      *
-     * @var string
+     * @var   string
      * @since 1.0.0
      */
     private string $uri = '';
@@ -66,7 +66,7 @@ final class Argument implements UriInterface
     /**
      * Uri scheme.
      *
-     * @var string
+     * @var   string
      * @since 1.0.0
      */
     private string $scheme = '';
@@ -74,7 +74,7 @@ final class Argument implements UriInterface
     /**
      * Uri host.
      *
-     * @var string
+     * @var   string
      * @since 1.0.0
      */
     private string $host = '';
@@ -82,7 +82,7 @@ final class Argument implements UriInterface
     /**
      * Uri port.
      *
-     * @var int
+     * @var   int
      * @since 1.0.0
      */
     private int $port = 0;
@@ -90,7 +90,7 @@ final class Argument implements UriInterface
     /**
      * Uri user.
      *
-     * @var string
+     * @var   string
      * @since 1.0.0
      */
     private string $user = '';
@@ -98,7 +98,7 @@ final class Argument implements UriInterface
     /**
      * Uri password.
      *
-     * @var string
+     * @var   string
      * @since 1.0.0
      */
     private string $pass = '';
@@ -106,7 +106,7 @@ final class Argument implements UriInterface
     /**
      * Uri path.
      *
-     * @var string
+     * @var   string
      * @since 1.0.0
      */
     private string $path = '';
@@ -114,7 +114,7 @@ final class Argument implements UriInterface
     /**
      * Uri query.
      *
-     * @var array
+     * @var   array
      * @since 1.0.0
      */
     private array $query = [];
@@ -122,7 +122,7 @@ final class Argument implements UriInterface
     /**
      * Uri query.
      *
-     * @var string
+     * @var   string
      * @since 1.0.0
      */
     private string $queryString = '';
@@ -130,7 +130,7 @@ final class Argument implements UriInterface
     /**
      * Uri fragment.
      *
-     * @var string
+     * @var   string
      * @since 1.0.0
      */
     private string $fragment = '';
@@ -138,7 +138,7 @@ final class Argument implements UriInterface
     /**
      * Uri base.
      *
-     * @var string
+     * @var   string
      * @since 1.0.0
      */
     private string $base = '';
@@ -148,7 +148,7 @@ final class Argument implements UriInterface
      *
      * @param string $uri Uri
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function __construct(string $uri = '')
     {
@@ -174,7 +174,7 @@ final class Argument implements UriInterface
      *
      * @return void
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     private function setPath(string $uri) : void
     {
@@ -213,7 +213,7 @@ final class Argument implements UriInterface
      *
      * @return void
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     private function setQuery(string $uri) : void
     {
@@ -238,7 +238,7 @@ final class Argument implements UriInterface
      *
      * @return void
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     private function setFragment(string $uri) : void
     {
@@ -326,7 +326,7 @@ final class Argument implements UriInterface
      *
      * @return int
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function getPathOffset() : int
     {

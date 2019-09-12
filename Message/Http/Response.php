@@ -4,11 +4,11 @@
  *
  * PHP Version 7.4
  *
- * @package    phpOMS\Message\Http
- * @copyright  Dennis Eichhorn
- * @license    OMS License 1.0
- * @version    1.0.0
- * @link       https://orange-management.org
+ * @package   phpOMS\Message\Http
+ * @copyright Dennis Eichhorn
+ * @license   OMS License 1.0
+ * @version   1.0.0
+ * @link      https://orange-management.org
  */
 declare(strict_types=1);
 
@@ -25,17 +25,17 @@ use phpOMS\Views\View;
 /**
  * Response class.
  *
- * @package    phpOMS\Message\Http
- * @license    OMS License 1.0
- * @link       https://orange-management.org
- * @since      1.0.0
+ * @package phpOMS\Message\Http
+ * @license OMS License 1.0
+ * @link    https://orange-management.org
+ * @since   1.0.0
  */
 final class Response extends ResponseAbstract implements RenderableInterface
 {
     /**
      * Response status.
      *
-     * @var int
+     * @var   int
      * @since 1.0.0
      */
     protected int $status = RequestStatusCode::R_200;
@@ -45,7 +45,7 @@ final class Response extends ResponseAbstract implements RenderableInterface
      *
      * @param Localization $l11n Localization
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function __construct(Localization $l11n = null)
     {
@@ -60,7 +60,7 @@ final class Response extends ResponseAbstract implements RenderableInterface
      *
      * @return void
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function setResponse(array $response) : void
     {
@@ -74,7 +74,7 @@ final class Response extends ResponseAbstract implements RenderableInterface
      *
      * @return bool
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function remove($id) : bool
     {
@@ -110,7 +110,7 @@ final class Response extends ResponseAbstract implements RenderableInterface
      *
      * @return string
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function render(bool $optimize = false) : string
     {
@@ -134,7 +134,7 @@ final class Response extends ResponseAbstract implements RenderableInterface
      *
      * @throws \Exception
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     private function getRaw(bool $optimize = false) : string
     {
@@ -158,7 +158,7 @@ final class Response extends ResponseAbstract implements RenderableInterface
      *
      * @return string
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     private function removeWhitespaceAndLineBreak(string $render) : string
     {

@@ -4,11 +4,11 @@
  *
  * PHP Version 7.4
  *
- * @package    phpOMS\Utils\Encoding\Huffman
- * @copyright  Dennis Eichhorn
- * @license    OMS License 1.0
- * @version    1.0.0
- * @link       https://orange-management.org
+ * @package   phpOMS\Utils\Encoding\Huffman
+ * @copyright Dennis Eichhorn
+ * @license   OMS License 1.0
+ * @version   1.0.0
+ * @link      https://orange-management.org
  */
 declare(strict_types=1);
 
@@ -17,17 +17,17 @@ namespace phpOMS\Utils\Encoding\Huffman;
 /**
  * Gray encoding class
  *
- * @package    phpOMS\Utils\Encoding\Huffman
- * @license    OMS License 1.0
- * @link       https://orange-management.org
- * @since      1.0.0
+ * @package phpOMS\Utils\Encoding\Huffman
+ * @license OMS License 1.0
+ * @link    https://orange-management.org
+ * @since   1.0.0
  */
 final class Huffman
 {
     /**
      * Huffman dictionary.
      *
-     * @var null|Dictionary
+     * @var   null|Dictionary
      * @since 1.0.0
      */
     private ?Dictionary $dictionary = null;
@@ -37,7 +37,7 @@ final class Huffman
      *
      * @return Dictionary
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function getDictionary() : ?Dictionary
     {
@@ -51,7 +51,7 @@ final class Huffman
      *
      * @return void
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function setDictionary(Dictionary $dictionary) : void
     {
@@ -65,7 +65,7 @@ final class Huffman
      *
      * @return string
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function encode(string $source) : string
     {
@@ -107,7 +107,7 @@ final class Huffman
      *
      * @return string
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function decode(string $raw) : string
     {

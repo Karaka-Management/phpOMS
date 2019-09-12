@@ -4,11 +4,11 @@
  *
  * PHP Version 7.4
  *
- * @package    phpOMS\Utils
- * @copyright  Dennis Eichhorn
- * @license    OMS License 1.0
- * @version    1.0.0
- * @link       https://orange-management.org
+ * @package   phpOMS\Utils
+ * @copyright Dennis Eichhorn
+ * @license   OMS License 1.0
+ * @version   1.0.0
+ * @link      https://orange-management.org
  */
 declare(strict_types=1);
 
@@ -17,17 +17,17 @@ namespace phpOMS\Utils;
 /**
  * Color class for color operations.
  *
- * @package    phpOMS\Utils
- * @license    OMS License 1.0
- * @link       https://orange-management.org
- * @since      1.0.0
+ * @package phpOMS\Utils
+ * @license OMS License 1.0
+ * @link    https://orange-management.org
+ * @since   1.0.0
  */
 final class ColorUtils
 {
     /**
      * Constructor.
      *
-     * @since  1.0.0
+     * @since 1.0.0
      * @codeCoverageIgnore
      */
     private function __construct()
@@ -42,7 +42,7 @@ final class ColorUtils
      *
      * @return array<string, int>
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function intToRgb(int $rgbInt) : array
     {
@@ -62,7 +62,7 @@ final class ColorUtils
      *
      * @return int
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function rgbToInt(array $rgb) : int
     {

@@ -4,11 +4,11 @@
  *
  * PHP Version 7.4
  *
- * @package    phpOMS\Socket
- * @copyright  Dennis Eichhorn
- * @license    OMS License 1.0
- * @version    1.0.0
- * @link       https://orange-management.org
+ * @package   phpOMS\Socket
+ * @copyright Dennis Eichhorn
+ * @license   OMS License 1.0
+ * @version   1.0.0
+ * @link      https://orange-management.org
  */
 declare(strict_types=1);
 
@@ -28,7 +28,7 @@ class CommandManager implements \Countable
     /**
      * Commands.
      *
-     * @var mixed[]
+     * @var   mixed[]
      * @since 1.0.0
      */
     private $commands = [];
@@ -36,7 +36,7 @@ class CommandManager implements \Countable
     /**
      * Commands.
      *
-     * @var int
+     * @var   int
      * @since 1.0.0
      */
     private $count = 0;
@@ -44,7 +44,7 @@ class CommandManager implements \Countable
     /**
      * Constructor.
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function __construct()
     {
@@ -59,7 +59,7 @@ class CommandManager implements \Countable
      *
      * @return void
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function attach(string $cmd, $callback, $source) : void
     {
@@ -75,7 +75,7 @@ class CommandManager implements \Countable
      *
      * @return void
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function detach(string $cmd, $source) : void
     {
@@ -94,7 +94,7 @@ class CommandManager implements \Countable
      *
      * @return bool|mixed
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function trigger(string $cmd, $conn, $para)
     {
@@ -110,7 +110,7 @@ class CommandManager implements \Countable
      *
      * @return int
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function count() : int
     {

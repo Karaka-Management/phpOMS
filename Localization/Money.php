@@ -4,11 +4,11 @@
  *
  * PHP Version 7.4
  *
- * @package    phpOMS\Localization
- * @copyright  Dennis Eichhorn
- * @license    OMS License 1.0
- * @version    1.0.0
- * @link       https://orange-management.org
+ * @package   phpOMS\Localization
+ * @copyright Dennis Eichhorn
+ * @license   OMS License 1.0
+ * @version   1.0.0
+ * @link      https://orange-management.org
  */
 declare(strict_types=1);
 
@@ -17,10 +17,10 @@ namespace phpOMS\Localization;
 /**
  * Money class.
  *
- * @package    phpOMS\Localization
- * @license    OMS License 1.0
- * @link       https://orange-management.org
- * @since      1.0.0
+ * @package phpOMS\Localization
+ * @license OMS License 1.0
+ * @link    https://orange-management.org
+ * @since   1.0.0
  */
 final class Money implements \Serializable
 {
@@ -28,7 +28,7 @@ final class Money implements \Serializable
     /**
      * Max amount of decimals.
      *
-     * @var int
+     * @var   int
      * @since 1.0.0
      */
     public const MAX_DECIMALS = 4;
@@ -36,7 +36,7 @@ final class Money implements \Serializable
     /**
      * Thousands separator.
      *
-     * @var string
+     * @var   string
      * @since 1.0.0
      */
     private string $thousands = ',';
@@ -44,7 +44,7 @@ final class Money implements \Serializable
     /**
      * Decimal separator.
      *
-     * @var string
+     * @var   string
      * @since 1.0.0
      */
     private string $decimal = '.';
@@ -52,7 +52,7 @@ final class Money implements \Serializable
     /**
      * Currency symbol position
      *
-     * @var int
+     * @var   int
      * @since 1.0.0
      */
     private int $position = 1;
@@ -60,7 +60,7 @@ final class Money implements \Serializable
     /**
      * Currency symbol.
      *
-     * @var string
+     * @var   string
      * @since 1.0.0
      */
     private string $symbol = ISO4217SymbolEnum::_USD;
@@ -68,7 +68,7 @@ final class Money implements \Serializable
     /**
      * Value.
      *
-     * @var int
+     * @var   int
      * @since 1.0.0
      */
     private int $value = 0;
@@ -82,7 +82,7 @@ final class Money implements \Serializable
      * @param string           $symbol    Currency symbol
      * @param int              $position  Symbol position
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function __construct($value = 0, string $thousands = ',', string $decimal = '.', string $symbol = '', int $position = 0)
     {
@@ -104,7 +104,7 @@ final class Money implements \Serializable
      *
      * @throws \Exception this exception is thrown if an internal explode or substr error occurs
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function toInt(string $value, string $thousands = ',', string $decimal = '.')  : int
     {
@@ -140,7 +140,7 @@ final class Money implements \Serializable
      *
      * @return Money
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function setLocalization(string $thousands = ',', string $decimal = '.', string $symbol = '', int $position = 0) : self
     {
@@ -159,7 +159,7 @@ final class Money implements \Serializable
      *
      * @return Money
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function setString(string $value) : self
     {
@@ -175,7 +175,7 @@ final class Money implements \Serializable
      *
      * @return string
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function getCurrency(int $decimals = 2) : string
     {
@@ -191,7 +191,7 @@ final class Money implements \Serializable
      *
      * @throws \Exception this exception is thrown if an internal substr error occurs
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function getAmount(int $decimals = 2) : string
     {
@@ -213,7 +213,7 @@ final class Money implements \Serializable
      *
      * @return Money
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function add($value) : self
     {
@@ -233,7 +233,7 @@ final class Money implements \Serializable
      *
      * @return int
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function getInt() : int
     {
@@ -247,7 +247,7 @@ final class Money implements \Serializable
      *
      * @return Money
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function sub($value) : self
     {
@@ -269,7 +269,7 @@ final class Money implements \Serializable
      *
      * @return Money
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function mult($value) : self
     {
@@ -287,7 +287,7 @@ final class Money implements \Serializable
      *
      * @return Money
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function div($value) : self
     {
@@ -303,7 +303,7 @@ final class Money implements \Serializable
      *
      * @return Money
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function abs() : self
     {
@@ -319,7 +319,7 @@ final class Money implements \Serializable
      *
      * @return Money
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function pow($value) : self
     {
@@ -335,7 +335,7 @@ final class Money implements \Serializable
      *
      * @return string
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function serialize() : string
     {
@@ -349,7 +349,7 @@ final class Money implements \Serializable
      *
      * @return void
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function unserialize($value) : void
     {
@@ -363,7 +363,7 @@ final class Money implements \Serializable
      *
      * @return Money
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function setInt(int $value) : self
     {

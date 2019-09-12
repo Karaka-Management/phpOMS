@@ -4,11 +4,11 @@
  *
  * PHP Version 7.4
  *
- * @package    phpOMS\Version
- * @copyright  Dennis Eichhorn
- * @license    OMS License 1.0
- * @version    1.0.0
- * @link       https://orange-management.org
+ * @package   phpOMS\Version
+ * @copyright Dennis Eichhorn
+ * @license   OMS License 1.0
+ * @version   1.0.0
+ * @link      https://orange-management.org
  */
 declare(strict_types=1);
 
@@ -19,10 +19,10 @@ namespace phpOMS\Version;
  *
  * Responsible for handling versions
  *
- * @package    phpOMS\Version
- * @license    OMS License 1.0
- * @link       https://orange-management.org
- * @since      1.0.0
+ * @package phpOMS\Version
+ * @license OMS License 1.0
+ * @link    https://orange-management.org
+ * @since   1.0.0
  */
 final class Version
 {
@@ -30,7 +30,7 @@ final class Version
     /**
      * Constructor.
      *
-     * @since  1.0.0
+     * @since 1.0.0
      * @codeCoverageIgnore
      */
     private function __construct()
@@ -45,7 +45,7 @@ final class Version
      *
      * @return int Returns the version comparison (0 = equals; -1 = lower; 1 = higher)
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function compare(string $ver1, string $ver2) : int
     {

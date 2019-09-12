@@ -4,11 +4,11 @@
  *
  * PHP Version 7.4
  *
- * @package    phpOMS\Message\Mail
- * @copyright  Dennis Eichhorn
- * @license    OMS License 1.0
- * @version    1.0.0
- * @link       https://orange-management.org
+ * @package   phpOMS\Message\Mail
+ * @copyright Dennis Eichhorn
+ * @license   OMS License 1.0
+ * @version   1.0.0
+ * @link      https://orange-management.org
  */
 declare(strict_types=1);
 
@@ -17,17 +17,17 @@ namespace phpOMS\Message\Mail;
 /**
  * Mail class.
  *
- * @package    phpOMS\Message\Mail
- * @license    OMS License 1.0
- * @link       https://orange-management.org
- * @since      1.0.0
+ * @package phpOMS\Message\Mail
+ * @license OMS License 1.0
+ * @link    https://orange-management.org
+ * @since   1.0.0
  */
 class EmailAbstract
 {
     /**
      * Host.
      *
-     * @var string
+     * @var   string
      * @since 1.0.0
      */
     protected $host = '';
@@ -35,7 +35,7 @@ class EmailAbstract
     /**
      * Port.
      *
-     * @var int
+     * @var   int
      * @since 1.0.0
      */
     protected $port = 25;
@@ -43,7 +43,7 @@ class EmailAbstract
     /**
      * Use ssl.
      *
-     * @var bool
+     * @var   bool
      * @since 1.0.0
      */
     protected $ssl = false;
@@ -51,7 +51,7 @@ class EmailAbstract
     /**
      * Mailbox base.
      *
-     * @var string
+     * @var   string
      * @since 1.0.0
      */
     protected $mailbox = '';
@@ -59,7 +59,7 @@ class EmailAbstract
     /**
      * Timeout.
      *
-     * @var int
+     * @var   int
      * @since 1.0.0
      */
     protected $timeout = 30;
@@ -67,7 +67,7 @@ class EmailAbstract
     /**
      * Connection.
      *
-     * @var mixed
+     * @var   mixed
      * @since 1.0.0
      */
     protected $con = null;
@@ -80,7 +80,7 @@ class EmailAbstract
      * @param int    $timeout Timeout
      * @param bool   $ssl     Use ssl
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function __construct(string $host = 'localhost', int $port = 25, int $timeout = 30, bool $ssl = false)
     {
@@ -103,7 +103,7 @@ class EmailAbstract
      *
      * @return string
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function decode(string $content, int $encoding)
     {
@@ -119,7 +119,7 @@ class EmailAbstract
     /**
      * Descrutor
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function __destruct()
     {
@@ -131,7 +131,7 @@ class EmailAbstract
      *
      * @return void
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function disconnect() : void
     {
@@ -149,7 +149,7 @@ class EmailAbstract
      *
      * @return bool
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function connect(string $user = '', string $pass = '') : bool
     {
@@ -171,7 +171,7 @@ class EmailAbstract
      *
      * @return bool
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function isConnected() : bool
     {
@@ -185,7 +185,7 @@ class EmailAbstract
      *
      * @return array
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function getBoxes(string $pattern = '*') : array
     {
@@ -199,7 +199,7 @@ class EmailAbstract
      *
      * @return array
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function getQuota() : array
     {
@@ -219,7 +219,7 @@ class EmailAbstract
      *
      * @return Mail
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function getEmail(string $id) : Mail
     {
@@ -241,7 +241,7 @@ class EmailAbstract
      *
      * @return array
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function getInboxAll() : array
     {
@@ -255,7 +255,7 @@ class EmailAbstract
      *
      * @return array
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function getInboxOverview(string $option = 'ALL') : array
     {
@@ -269,7 +269,7 @@ class EmailAbstract
      *
      * @return array
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function getInboxNew() : array
     {
@@ -283,7 +283,7 @@ class EmailAbstract
      *
      * @return array
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function getInboxFrom(string $from) : array
     {
@@ -297,7 +297,7 @@ class EmailAbstract
      *
      * @return array
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function getInboxTo(string $to) : array
     {
@@ -311,7 +311,7 @@ class EmailAbstract
      *
      * @return array
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function getInboxCc(string $cc) : array
     {
@@ -325,7 +325,7 @@ class EmailAbstract
      *
      * @return array
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function getInboxBcc(string $bcc) : array
     {
@@ -337,7 +337,7 @@ class EmailAbstract
      *
      * @return array
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function getInboxAnswered() : array
     {
@@ -351,7 +351,7 @@ class EmailAbstract
      *
      * @return array
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function getInboxSubject(string $subject) : array
     {
@@ -365,7 +365,7 @@ class EmailAbstract
      *
      * @return array
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function getInboxSince(\DateTime $since) : array
     {
@@ -377,7 +377,7 @@ class EmailAbstract
      *
      * @return array
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function getInboxUnseen() : array
     {
@@ -389,7 +389,7 @@ class EmailAbstract
      *
      * @return array
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function getInboxSeen() : array
     {
@@ -401,7 +401,7 @@ class EmailAbstract
      *
      * @return array
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function getInboxDeleted() : array
     {
@@ -415,7 +415,7 @@ class EmailAbstract
      *
      * @return array
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function getInboxText(string $text) : array
     {
@@ -429,7 +429,7 @@ class EmailAbstract
      *
      * @return bool
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function createMailbox(string $mailbox) : bool
     {
@@ -444,7 +444,7 @@ class EmailAbstract
      *
      * @return bool
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function renameMailbox(string $old, string $new) : bool
     {
@@ -458,7 +458,7 @@ class EmailAbstract
      *
      * @return bool
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function deleteMailbox(string $mailbox) : bool
     {
@@ -472,7 +472,7 @@ class EmailAbstract
      *
      * @return bool
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function deleteMessage(int $id) : bool
     {
@@ -484,7 +484,7 @@ class EmailAbstract
      *
      * @return bool
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function deleteMarkedMessages() : bool
     {
@@ -499,7 +499,7 @@ class EmailAbstract
      *
      * @return array
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function getMessageOverview(int $length = 0, int $start = 1) : array
     {
@@ -516,7 +516,7 @@ class EmailAbstract
      *
      * @return int
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function countMessages() : int
     {
@@ -530,7 +530,7 @@ class EmailAbstract
      *
      * @return string
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function getMessageHeader(int $id) : string
     {

@@ -4,11 +4,11 @@
  *
  * PHP Version 7.4
  *
- * @package    phpOMS\Math\Statistic\Forecast
- * @copyright  Dennis Eichhorn
- * @license    OMS License 1.0
- * @version    1.0.0
- * @link       https://orange-management.org
+ * @package   phpOMS\Math\Statistic\Forecast
+ * @copyright Dennis Eichhorn
+ * @license   OMS License 1.0
+ * @version   1.0.0
+ * @link      https://orange-management.org
  */
 declare(strict_types=1);
 
@@ -17,10 +17,10 @@ namespace phpOMS\Math\Statistic\Forecast;
 /**
  * General forecasts helper class.
  *
- * @package    phpOMS\Math\Statistic\Forecast
- * @license    OMS License 1.0
- * @link       https://orange-management.org
- * @since      1.0.0
+ * @package phpOMS\Math\Statistic\Forecast
+ * @license OMS License 1.0
+ * @link    https://orange-management.org
+ * @since   1.0.0
  */
 class Forecasts
 {
@@ -33,7 +33,7 @@ class Forecasts
      *
      * @return array<float|int>
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function getForecastInteval(float $forecast, float $standardDeviation, float $interval = ForecastIntervalMultiplier::P_95) : array
     {

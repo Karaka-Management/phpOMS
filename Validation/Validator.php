@@ -4,11 +4,11 @@
  *
  * PHP Version 7.4
  *
- * @package    phpOMS\Validation
- * @copyright  Dennis Eichhorn
- * @license    OMS License 1.0
- * @version    1.0.0
- * @link       https://orange-management.org
+ * @package   phpOMS\Validation
+ * @copyright Dennis Eichhorn
+ * @license   OMS License 1.0
+ * @version   1.0.0
+ * @link      https://orange-management.org
  */
 declare(strict_types=1);
 
@@ -19,10 +19,10 @@ use phpOMS\Utils\StringUtils;
 /**
  * Validator class.
  *
- * @package    phpOMS\Validation
- * @license    OMS License 1.0
- * @link       https://orange-management.org
- * @since      1.0.0
+ * @package phpOMS\Validation
+ * @license OMS License 1.0
+ * @link    https://orange-management.org
+ * @since   1.0.0
  */
 final class Validator extends ValidatorAbstract
 {
@@ -37,7 +37,7 @@ final class Validator extends ValidatorAbstract
      *
      * @throws \BadFunctionCallException this exception is thrown if the callback is not callable
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function isValid($var, array $constraints = null) : bool
     {
@@ -71,7 +71,7 @@ final class Validator extends ValidatorAbstract
      *
      * @return bool
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function isType($var, $constraint) : bool
     {
@@ -97,7 +97,7 @@ final class Validator extends ValidatorAbstract
      *
      * @return bool
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function hasLength(string $var, int $min = 0, int $max = \PHP_INT_MAX) : bool
     {
@@ -118,7 +118,7 @@ final class Validator extends ValidatorAbstract
      *
      * @return bool
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function contains(string $var, $substr) : bool
     {
@@ -133,7 +133,7 @@ final class Validator extends ValidatorAbstract
      *
      * @return bool
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function matches(string $var, string $pattern) : bool
     {
@@ -149,7 +149,7 @@ final class Validator extends ValidatorAbstract
      *
      * @return bool
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function hasLimit($var, $min = 0, $max = \PHP_INT_MAX) : bool
     {

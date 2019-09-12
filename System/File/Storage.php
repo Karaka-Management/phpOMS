@@ -4,11 +4,11 @@
  *
  * PHP Version 7.4
  *
- * @package    phpOMS\System\File
- * @copyright  Dennis Eichhorn
- * @license    OMS License 1.0
- * @version    1.0.0
- * @link       https://orange-management.org
+ * @package   phpOMS\System\File
+ * @copyright Dennis Eichhorn
+ * @license   OMS License 1.0
+ * @version   1.0.0
+ * @link      https://orange-management.org
  */
 declare(strict_types=1);
 
@@ -19,17 +19,17 @@ namespace phpOMS\System\File;
  *
  * Performing operations on the file system
  *
- * @package    phpOMS\System\File
- * @license    OMS License 1.0
- * @link       https://orange-management.org
- * @since      1.0.0
+ * @package phpOMS\System\File
+ * @license OMS License 1.0
+ * @link    https://orange-management.org
+ * @since   1.0.0
  */
 final class Storage
 {
     /**
      * Registered storage.
      *
-     * @var array
+     * @var   array
      * @since 1.0.0
      */
     private static array $registered = [];
@@ -37,7 +37,7 @@ final class Storage
     /**
      * Constructor.
      *
-     * @since  1.0.0
+     * @since 1.0.0
      * @codeCoverageIgnore
      */
     private function __construct()
@@ -54,7 +54,7 @@ final class Storage
      *
      * @throws \Exception Throws exception in case of invalid storage
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function env(string $env = 'local') : StorageAbstract
     {
@@ -92,7 +92,7 @@ final class Storage
      *
      * @return bool
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function register(string $name, $class) : bool
     {

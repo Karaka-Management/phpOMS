@@ -4,11 +4,11 @@
  *
  * PHP Version 7.4
  *
- * @package    phpOMS\Localization\Defaults
- * @copyright  Dennis Eichhorn
- * @license    OMS License 1.0
- * @version    1.0.0
- * @link       https://orange-management.org
+ * @package   phpOMS\Localization\Defaults
+ * @copyright Dennis Eichhorn
+ * @license   OMS License 1.0
+ * @version   1.0.0
+ * @link      https://orange-management.org
  */
 declare(strict_types=1);
 
@@ -17,17 +17,17 @@ namespace phpOMS\Localization\Defaults;
 /**
  * iban class.
  *
- * @package    phpOMS\Localization\Defaults
- * @license    OMS License 1.0
- * @link       https://orange-management.org
- * @since      1.0.0
+ * @package phpOMS\Localization\Defaults
+ * @license OMS License 1.0
+ * @link    https://orange-management.org
+ * @since   1.0.0
  */
 final class Iban
 {
     /**
      * Iban id.
      *
-     * @var int
+     * @var   int
      * @since 1.0.0
      */
     private $id = 0;
@@ -35,7 +35,7 @@ final class Iban
     /**
      * Iban country.
      *
-     * @var string
+     * @var   string
      * @since 1.0.0
      */
     private $country = '';
@@ -43,7 +43,7 @@ final class Iban
     /**
      * Iban chars.
      *
-     * @var int
+     * @var   int
      * @since 1.0.0
      */
     private $chars = 2;
@@ -51,7 +51,7 @@ final class Iban
     /**
      * Iban bban.
      *
-     * @var string
+     * @var   string
      * @since 1.0.0
      */
     private $bban = '';
@@ -59,7 +59,7 @@ final class Iban
     /**
      * Iban fields.
      *
-     * @var string
+     * @var   string
      * @since 1.0.0
      */
     private $fields = '';
@@ -69,7 +69,7 @@ final class Iban
      *
      * @return string
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function getCountry() : string
     {
@@ -81,7 +81,7 @@ final class Iban
      *
      * @return int
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function getChars() : int
     {
@@ -93,7 +93,7 @@ final class Iban
      *
      * @return string
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function getBban() : string
     {
@@ -105,7 +105,7 @@ final class Iban
      *
      * @return string
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function getFields() : string
     {

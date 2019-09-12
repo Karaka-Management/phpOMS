@@ -4,11 +4,11 @@
  *
  * PHP Version 7.4
  *
- * @package    phpOMS\Uri
- * @copyright  Dennis Eichhorn
- * @license    OMS License 1.0
- * @version    1.0.0
- * @link       https://orange-management.org
+ * @package   phpOMS\Uri
+ * @copyright Dennis Eichhorn
+ * @license   OMS License 1.0
+ * @version   1.0.0
+ * @link      https://orange-management.org
  */
 declare(strict_types=1);
 
@@ -17,10 +17,10 @@ namespace phpOMS\Uri;
 /**
  * Uri interface.
  *
- * @package    phpOMS\Uri
- * @license    OMS License 1.0
- * @link       https://orange-management.org
- * @since      1.0.0
+ * @package phpOMS\Uri
+ * @license OMS License 1.0
+ * @link    https://orange-management.org
+ * @since   1.0.0
  */
 interface UriInterface
 {
@@ -32,7 +32,7 @@ interface UriInterface
      *
      * @return bool
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function isValid(string $uri) : bool;
 
@@ -41,7 +41,7 @@ interface UriInterface
      *
      * @return string
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function getScheme() : string;
 
@@ -50,7 +50,7 @@ interface UriInterface
      *
      * @return string
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function getAuthority() : string;
 
@@ -59,7 +59,7 @@ interface UriInterface
      *
      * @return string
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function getUserInfo() : string;
 
@@ -68,7 +68,7 @@ interface UriInterface
      *
      * @return string
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function getHost() : string;
 
@@ -77,7 +77,7 @@ interface UriInterface
      *
      * @return int
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function getPort() : int;
 
@@ -86,7 +86,7 @@ interface UriInterface
      *
      * @return string
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function getPath() : string;
 
@@ -95,7 +95,7 @@ interface UriInterface
      *
      * @return string
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function getUser() : string;
 
@@ -104,7 +104,7 @@ interface UriInterface
      *
      * @return string
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function getPass() : string;
 
@@ -113,7 +113,7 @@ interface UriInterface
      *
      * @return string
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function getRootPath() : string;
 
@@ -124,7 +124,7 @@ interface UriInterface
      *
      * @return void
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function setRootPath(string $root) : void;
 
@@ -137,7 +137,7 @@ interface UriInterface
      *
      * @return void
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function setPathOffset(int $offset = 0) : void;
 
@@ -148,7 +148,7 @@ interface UriInterface
      *
      * @return string
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function getPathElement(int $pos) : string;
 
@@ -157,7 +157,7 @@ interface UriInterface
      *
      * @return array
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function getPathElements() : array;
 
@@ -168,7 +168,7 @@ interface UriInterface
      *
      * @return string
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function getQuery(string $key = null) : string;
 
@@ -177,7 +177,7 @@ interface UriInterface
      *
      * @return array
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function getQueryArray() : array;
 
@@ -186,7 +186,7 @@ interface UriInterface
      *
      * @return string
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function getFragment() : string;
 
@@ -195,7 +195,7 @@ interface UriInterface
      *
      * @return string
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function __toString();
 
@@ -204,7 +204,7 @@ interface UriInterface
      *
      * @return string
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function getBase() : string;
 
@@ -213,7 +213,7 @@ interface UriInterface
      *
      * @return string
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function getRoute() : string;
 
@@ -224,7 +224,7 @@ interface UriInterface
      *
      * @return void
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function set(string $uri) : void;
 }

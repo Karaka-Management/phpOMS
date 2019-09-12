@@ -4,11 +4,11 @@
  *
  * PHP Version 7.4
  *
- * @package    phpOMS\Module
- * @copyright  Dennis Eichhorn
- * @license    OMS License 1.0
- * @version    1.0.0
- * @link       https://orange-management.org
+ * @package   phpOMS\Module
+ * @copyright Dennis Eichhorn
+ * @license   OMS License 1.0
+ * @version   1.0.0
+ * @link      https://orange-management.org
  */
 declare(strict_types=1);
 
@@ -27,10 +27,10 @@ use phpOMS\System\File\PathException;
  *
  * General module functionality such as listings and initialization.
  *
- * @package    phpOMS\Module
- * @license    OMS License 1.0
- * @link       https://orange-management.org
- * @since      1.0.0
+ * @package phpOMS\Module
+ * @license OMS License 1.0
+ * @link    https://orange-management.org
+ * @since   1.0.0
  */
 final class ModuleManager
 {
@@ -38,7 +38,7 @@ final class ModuleManager
     /**
      * All modules that are running on this uri.
      *
-     * @var \phpOMS\Module\ModuleAbstract[]
+     * @var   \phpOMS\Module\ModuleAbstract[]
      * @since 1.0.0
      */
     private array $running = [];
@@ -48,7 +48,7 @@ final class ModuleManager
      *
      * This is important to inform other moduels what kind of information they can receive from other modules.
      *
-     * @var array<string, array<int, string>>
+     * @var   array<string, array<int, string>>
      * @since 1.0.0
      */
     private array $providing = [];
@@ -56,7 +56,7 @@ final class ModuleManager
     /**
      * Application instance.
      *
-     * @var null|ApplicationAbstract
+     * @var   null|ApplicationAbstract
      * @since 1.0.0
      */
     private ?ApplicationAbstract $app = null;
@@ -64,7 +64,7 @@ final class ModuleManager
     /**
      * Installed modules.
      *
-     * @var array
+     * @var   array
      * @since 1.0.0
      */
     private array $installed = [];
@@ -72,7 +72,7 @@ final class ModuleManager
     /**
      * All active modules (on all pages not just the ones that are running now).
      *
-     * @var array
+     * @var   array
      * @since 1.0.0
      */
     private array $active = [];
@@ -80,7 +80,7 @@ final class ModuleManager
     /**
      * Module path.
      *
-     * @var string
+     * @var   string
      * @since 1.0.0
      */
     private string $modulePath = __DIR__ . '/../../Modules';
@@ -88,7 +88,7 @@ final class ModuleManager
     /**
      * All modules in the module directory.
      *
-     * @var array
+     * @var   array
      * @since 1.0.0
      */
     private array $all = [];
@@ -96,7 +96,7 @@ final class ModuleManager
     /**
      * To load based on request uri.
      *
-     * @var array
+     * @var   array
      * @since 1.0.0
      */
     private array $uriLoad = [];
@@ -107,7 +107,7 @@ final class ModuleManager
      * @param ApplicationAbstract $app        Application
      * @param string              $modulePath Path to modules
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function __construct(ApplicationAbstract $app, string $modulePath = '')
     {
@@ -122,7 +122,7 @@ final class ModuleManager
      *
      * @return array<string>
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function getLanguageFiles(RequestAbstract $request) : array
     {
@@ -145,7 +145,7 @@ final class ModuleManager
      *
      * @return array<int|string, array>
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function getUriLoad(RequestAbstract $request) : array
     {
@@ -174,7 +174,7 @@ final class ModuleManager
      *
      * @return array<string, array>
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function getActiveModules(bool $useCache = true) : array
     {
@@ -214,7 +214,7 @@ final class ModuleManager
      *
      * @return bool
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function isActive(string $module) : bool
     {
@@ -228,7 +228,7 @@ final class ModuleManager
      *
      * @return bool
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function isRunning(string $module) : bool
     {
@@ -242,7 +242,7 @@ final class ModuleManager
      *
      * @return array<string, array>
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function getAllModules() : array
     {
@@ -274,7 +274,7 @@ final class ModuleManager
      *
      * @return array
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function getAvailableModules() : array
     {
@@ -288,7 +288,7 @@ final class ModuleManager
      *
      * @return array<string, array>
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function getInstalledModules(bool $useCache = true) : array
     {
@@ -326,7 +326,7 @@ final class ModuleManager
      *
      * @return InfoManager
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     private function loadInfo(string $module) : InfoManager
     {
@@ -349,7 +349,7 @@ final class ModuleManager
      *
      * @return bool
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function deactivate(string $module) : bool
     {
@@ -379,7 +379,7 @@ final class ModuleManager
      *
      * @throws InvalidModuleException Throws this exception in case the deactiviation doesn't exist
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     private function deactivateModule(InfoManager $info) : void
     {
@@ -400,7 +400,7 @@ final class ModuleManager
      *
      * @return bool
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function activate(string $module) : bool
     {
@@ -430,7 +430,7 @@ final class ModuleManager
      *
      * @throws InvalidModuleException Throws this exception in case the activation doesn't exist
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     private function activateModule(InfoManager $info) : void
     {
@@ -453,7 +453,7 @@ final class ModuleManager
      *
      * @throws InvalidModuleException Throws this exception in case the installer doesn't exist
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function reInit(string $module) : void
     {
@@ -475,7 +475,7 @@ final class ModuleManager
      *
      * @return bool
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function install(string $module) : bool
     {
@@ -525,7 +525,7 @@ final class ModuleManager
      *
      * @return bool
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function uninstall(string $module) : bool
     {
@@ -563,7 +563,7 @@ final class ModuleManager
      *
      * @return void
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     private function installDependencies(array $dependencies) : void
     {
@@ -581,7 +581,7 @@ final class ModuleManager
      *
      * @throws InvalidModuleException Throws this exception in case the installer doesn't exist
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     private function installModule(InfoManager $info) : void
     {
@@ -605,7 +605,7 @@ final class ModuleManager
      *
      * @return void
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function installProviding(string $from, string $for) : void
     {
@@ -624,7 +624,7 @@ final class ModuleManager
      *
      * @throws \Exception
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function get(string $module) : ModuleAbstract
     {
@@ -645,7 +645,7 @@ final class ModuleManager
      *
      * @throws \InvalidArgumentException
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function initModule($modules) : void
     {
@@ -667,7 +667,7 @@ final class ModuleManager
      *
      * @throws \Exception
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     private function initModuleController(string $module) : void
     {
@@ -684,7 +684,7 @@ final class ModuleManager
      *
      * @return string Application and module name dependant name
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     private function generateModuleName(string $module) : string
     {
@@ -698,7 +698,7 @@ final class ModuleManager
      *
      * @return ModuleAbstract
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function getModuleInstance(string $module) : ModuleAbstract
     {
@@ -730,7 +730,7 @@ final class ModuleManager
      *
      * @return void
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     private function registerRequesting(ModuleAbstract $obj) : void
     {
@@ -755,7 +755,7 @@ final class ModuleManager
      *
      * @return void
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     private function registerProvided(ModuleAbstract $obj) : void
     {
@@ -774,7 +774,7 @@ final class ModuleManager
      *
      * @return void
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function initRequestModules(Request $request) : void
     {
@@ -792,7 +792,7 @@ final class ModuleManager
      *
      * @return array<string>
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function getRoutedModules(Request $request) : array
     {

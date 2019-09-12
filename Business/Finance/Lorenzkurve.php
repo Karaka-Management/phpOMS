@@ -4,11 +4,11 @@
  *
  * PHP Version 7.4
  *
- * @package    phpOMS\Business\Finance
- * @copyright  Dennis Eichhorn
- * @license    OMS License 1.0
- * @version    1.0.0
- * @link       https://orange-management.org
+ * @package   phpOMS\Business\Finance
+ * @copyright Dennis Eichhorn
+ * @license   OMS License 1.0
+ * @version   1.0.0
+ * @link      https://orange-management.org
  */
 declare(strict_types=1);
 
@@ -17,10 +17,10 @@ namespace phpOMS\Business\Finance;
 /**
  * Finance class.
  *
- * @package    phpOMS\Business\Finance
- * @license    OMS License 1.0
- * @link       https://orange-management.org
- * @since      1.0.0
+ * @package phpOMS\Business\Finance
+ * @license OMS License 1.0
+ * @link    https://orange-management.org
+ * @since   1.0.0
  */
 final class Lorenzkurve
 {
@@ -31,7 +31,7 @@ final class Lorenzkurve
      *
      * @return float Returns the gini coefficient
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function getGiniCoefficient(array $data) : float
     {

@@ -4,11 +4,11 @@
  *
  * PHP Version 7.4
  *
- * @package    phpOMS\Utils\Git
- * @copyright  Dennis Eichhorn
- * @license    OMS License 1.0
- * @version    1.0.0
- * @link       https://orange-management.org
+ * @package   phpOMS\Utils\Git
+ * @copyright Dennis Eichhorn
+ * @license   OMS License 1.0
+ * @version   1.0.0
+ * @link      https://orange-management.org
  */
 declare(strict_types=1);
 
@@ -17,17 +17,17 @@ namespace phpOMS\Utils\Git;
 /**
  * Gray encoding class
  *
- * @package    phpOMS\Utils\Git
- * @license    OMS License 1.0
- * @link       https://orange-management.org
- * @since      1.0.0
+ * @package phpOMS\Utils\Git
+ * @license OMS License 1.0
+ * @link    https://orange-management.org
+ * @since   1.0.0
  */
 class Commit
 {
     /**
      * Hash.
      *
-     * @var string
+     * @var   string
      * @since 1.0.0
      */
     private string $id = '';
@@ -35,7 +35,7 @@ class Commit
     /**
      * Author.
      *
-     * @var Author
+     * @var   Author
      * @since 1.0.0
      */
     private Author $author;
@@ -43,7 +43,7 @@ class Commit
     /**
      * Branch.
      *
-     * @var Branch
+     * @var   Branch
      * @since 1.0.0
      */
     private Branch $branch;
@@ -51,7 +51,7 @@ class Commit
     /**
      * Tag.
      *
-     * @var Tag
+     * @var   Tag
      * @since 1.0.0
      */
     private Tag $tag;
@@ -59,7 +59,7 @@ class Commit
     /**
      * Commit date.
      *
-     * @var null|\DateTime
+     * @var   null|\DateTime
      * @since 1.0.0
      */
     private ?\DateTime $date = null;
@@ -67,7 +67,7 @@ class Commit
     /**
      * Repository.
      *
-     * @var Repository
+     * @var   Repository
      * @since 1.0.0
      */
     private Repository $repository;
@@ -75,7 +75,7 @@ class Commit
     /**
      * Commit message.
      *
-     * @var string
+     * @var   string
      * @since 1.0.0
      */
     private string $message = '';
@@ -83,7 +83,7 @@ class Commit
     /**
      * Files.
      *
-     * @var array
+     * @var   array
      * @since 1.0.0
      */
     private array $files = [];
@@ -93,7 +93,7 @@ class Commit
      *
      * @param string $id Commit hash
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function __construct(string $id = '')
     {
@@ -109,7 +109,7 @@ class Commit
      *
      * @return string
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function getId() : string
     {
@@ -123,7 +123,7 @@ class Commit
      *
      * @return bool
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function addFile(string $path) : bool
     {
@@ -141,7 +141,7 @@ class Commit
      *
      * @return string
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function getMessage() : string
     {
@@ -155,7 +155,7 @@ class Commit
      *
      * @return void
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function setMessage(string $message) : void
     {
@@ -167,7 +167,7 @@ class Commit
      *
      * @return string[]
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function getFiles() : array
     {
@@ -181,7 +181,7 @@ class Commit
      *
      * @return bool
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function removeFile(string $path) : bool
     {
@@ -199,7 +199,7 @@ class Commit
      *
      * @return Author
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function getAuthor() : Author
     {
@@ -213,7 +213,7 @@ class Commit
      *
      * @return void
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function setAuthor(Author $author) : void
     {
@@ -225,7 +225,7 @@ class Commit
      *
      * @return Branch
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function getBranch() : Branch
     {
@@ -239,7 +239,7 @@ class Commit
      *
      * @return void
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function setBranch(Branch $branch) : void
     {
@@ -251,7 +251,7 @@ class Commit
      *
      * @return Tag
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function getTag() : Tag
     {
@@ -265,7 +265,7 @@ class Commit
      *
      * @return void
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function setTag(Tag $tag) : void
     {
@@ -277,7 +277,7 @@ class Commit
      *
      * @return \DateTime
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function getDate() : \DateTime
     {
@@ -291,7 +291,7 @@ class Commit
      *
      * @return void
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function setDate(\DateTime $date) : void
     {
@@ -303,7 +303,7 @@ class Commit
      *
      * @return Repository
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function getRepository() : Repository
     {
@@ -317,7 +317,7 @@ class Commit
      *
      * @return void
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function setRepository(Repository $repository) : void
     {
@@ -336,7 +336,7 @@ class Commit
      *
      * @throws \Exception
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function addChanges(string $path, int $line, string $old, string $new) : void
     {

@@ -4,11 +4,11 @@
  *
  * PHP Version 7.4
  *
- * @package    phpOMS\DataStorage
- * @copyright  Dennis Eichhorn
- * @license    OMS License 1.0
- * @version    1.0.0
- * @link       https://orange-management.org
+ * @package   phpOMS\DataStorage
+ * @copyright Dennis Eichhorn
+ * @license   OMS License 1.0
+ * @version   1.0.0
+ * @link      https://orange-management.org
  */
 declare(strict_types=1);
 
@@ -17,10 +17,10 @@ namespace phpOMS\DataStorage;
 /**
  * Database connection interface.
  *
- * @package    phpOMS\DataStorage
- * @license    OMS License 1.0
- * @link       https://orange-management.org
- * @since      1.0.0
+ * @package phpOMS\DataStorage
+ * @license OMS License 1.0
+ * @link    https://orange-management.org
+ * @since   1.0.0
  */
 interface DataStorageConnectionInterface
 {
@@ -30,7 +30,7 @@ interface DataStorageConnectionInterface
      *
      * @return string
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function getPrefix() : string;
 
@@ -45,7 +45,7 @@ interface DataStorageConnectionInterface
      *
      * @todo make private, reason was that not everyone wants to connect during initialization?!
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function connect(array $data) : void;
 
@@ -54,7 +54,7 @@ interface DataStorageConnectionInterface
      *
      * @return string
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function getType() : string;
 
@@ -63,7 +63,7 @@ interface DataStorageConnectionInterface
      *
      * @return int
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function getStatus() : int;
 
@@ -72,7 +72,7 @@ interface DataStorageConnectionInterface
      *
      * @return void
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function close() : void;
 }

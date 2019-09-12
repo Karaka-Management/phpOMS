@@ -4,11 +4,11 @@
  *
  * PHP Version 7.4
  *
- * @package    phpOMS\Utils\Converter
- * @copyright  Dennis Eichhorn
- * @license    OMS License 1.0
- * @version    1.0.0
- * @link       https://orange-management.org
+ * @package   phpOMS\Utils\Converter
+ * @copyright Dennis Eichhorn
+ * @license   OMS License 1.0
+ * @version   1.0.0
+ * @link      https://orange-management.org
  */
 declare(strict_types=1);
 
@@ -23,10 +23,10 @@ use phpOMS\Uri\Http;
 /**
  * Currency converter.
  *
- * @package    phpOMS\Utils\Converter
- * @license    OMS License 1.0
- * @link       https://orange-management.org
- * @since      1.0.0
+ * @package phpOMS\Utils\Converter
+ * @license OMS License 1.0
+ * @link    https://orange-management.org
+ * @since   1.0.0
  */
 class Currency
 {
@@ -34,7 +34,7 @@ class Currency
     /**
      * ECB currency rates.
      *
-     * @var null|array
+     * @var   null|array
      * @since 1.0.0
      */
     private static ?array $ecbCurrencies = null;
@@ -42,7 +42,7 @@ class Currency
     /**
      * Constructor.
      *
-     * @since  1.0.0
+     * @since 1.0.0
      * @codeCoverageIgnore
      */
     private function __construct()
@@ -56,7 +56,7 @@ class Currency
      *
      * @return void
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function resetCurrencies() : void
     {
@@ -73,7 +73,7 @@ class Currency
      *
      * @throws \InvalidArgumentException This exception is thrown if the currency to convert to doesn't exist
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function fromEurTo(float $value, string $to) : float
     {
@@ -94,7 +94,7 @@ class Currency
      *
      * @throws \Exception This exception is thrown if the XML is malformed
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function getEcbEuroRates() : array
     {
@@ -129,7 +129,7 @@ class Currency
      *
      * @throws \InvalidArgumentException This exception is thrown if the currency to convert from doesn't exist
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function fromToEur(float $value, string $from) : float
     {
@@ -154,7 +154,7 @@ class Currency
      *
      * @throws \InvalidArgumentException This exception is thrown if either the from or to currency doesn't exist
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function convertCurrency(float $value, string $from, string $to) : float
     {

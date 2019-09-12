@@ -4,11 +4,11 @@
  *
  * PHP Version 7.4
  *
- * @package    phpOMS\Math\Number
- * @copyright  Dennis Eichhorn
- * @license    OMS License 1.0
- * @version    1.0.0
- * @link       https://orange-management.org
+ * @package   phpOMS\Math\Number
+ * @copyright Dennis Eichhorn
+ * @license   OMS License 1.0
+ * @version   1.0.0
+ * @link      https://orange-management.org
  */
 declare(strict_types=1);
 
@@ -17,17 +17,17 @@ namespace phpOMS\Math\Number;
 /**
  * Integer class
  *
- * @package    phpOMS\Math\Number
- * @license    OMS License 1.0
- * @link       https://orange-management.org
- * @since      1.0.0
+ * @package phpOMS\Math\Number
+ * @license OMS License 1.0
+ * @link    https://orange-management.org
+ * @since   1.0.0
  */
 final class Integer
 {
     /**
      * Constructor.
      *
-     * @since  1.0.0
+     * @since 1.0.0
      * @codeCoverageIgnore
      */
     private function __construct()
@@ -42,7 +42,7 @@ final class Integer
      *
      * @return bool
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function isInteger($value) : bool
     {
@@ -56,7 +56,7 @@ final class Integer
      *
      * @return array<float|int>
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function trialFactorization(int $value) : array
     {
@@ -98,7 +98,7 @@ final class Integer
      *
      * @return int
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function pollardsRho(int $n, int $x = 2, int $factor = 1, int $cycleSize = 2, int $y = 2) : int
     {
@@ -123,7 +123,7 @@ final class Integer
      *
      * @return int
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function greatestCommonDivisor(int $n, int $m) : int
     {
@@ -151,7 +151,7 @@ final class Integer
      *
      * @throws \Exception This exception is thrown if the value is not odd
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function fermatFactor(int $value, int $limit = 1000000) : array
     {

@@ -4,11 +4,11 @@
  *
  * PHP Version 7.4
  *
- * @package    phpOMS\Utils\Git
- * @copyright  Dennis Eichhorn
- * @license    OMS License 1.0
- * @version    1.0.0
- * @link       https://orange-management.org
+ * @package   phpOMS\Utils\Git
+ * @copyright Dennis Eichhorn
+ * @license   OMS License 1.0
+ * @version   1.0.0
+ * @link      https://orange-management.org
  */
 declare(strict_types=1);
 
@@ -20,10 +20,10 @@ use phpOMS\Utils\StringUtils;
 /**
  * Repository class
  *
- * @package    phpOMS\Utils\Git
- * @license    OMS License 1.0
- * @link       https://orange-management.org
- * @since      1.0.0
+ * @package phpOMS\Utils\Git
+ * @license OMS License 1.0
+ * @link    https://orange-management.org
+ * @since   1.0.0
  * @codeCoverageIgnore
  */
 class Repository
@@ -31,7 +31,7 @@ class Repository
     /**
      * Repository path.
      *
-     * @var string
+     * @var   string
      * @since 1.0.0
      */
     private string $path = '';
@@ -39,7 +39,7 @@ class Repository
     /**
      * Repository name.
      *
-     * @var string
+     * @var   string
      * @since 1.0.0
      */
     private string $name = '';
@@ -47,7 +47,7 @@ class Repository
     /**
      * Bare repository.
      *
-     * @var bool
+     * @var   bool
      * @since 1.0.0
      */
     private bool $bare = false;
@@ -55,7 +55,7 @@ class Repository
     /**
      * Current branch.
      *
-     * @var Branch
+     * @var   Branch
      * @since 1.0.0
      */
     private Branch $branch;
@@ -65,7 +65,7 @@ class Repository
      *
      * @param string $path Repository path
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function __construct(string $path = '')
     {
@@ -85,7 +85,7 @@ class Repository
      *
      * @throws PathException
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     private function setPath(string $path) : void
     {
@@ -111,7 +111,7 @@ class Repository
      *
      * @return string
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function getPath() : string
     {
@@ -123,7 +123,7 @@ class Repository
      *
      * @return Branch
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function getActiveBranch() : Branch
     {
@@ -139,7 +139,7 @@ class Repository
      *
      * @return array<string>
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function getBranches() : array
     {
@@ -166,7 +166,7 @@ class Repository
      *
      * @throws \Exception
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     private function run(string $cmd) : array
     {
@@ -216,7 +216,7 @@ class Repository
      *
      * @return array<string>
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     private function parseLines(string $lines) : array
     {
@@ -247,7 +247,7 @@ class Repository
      *
      * @throws \Exception
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function create(string $source = null) : void
     {
@@ -269,7 +269,7 @@ class Repository
      *
      * @return string
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function status() : string
     {
@@ -285,7 +285,7 @@ class Repository
      *
      * @throws \Exception
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function add($files = '*') : string
     {
@@ -302,7 +302,7 @@ class Repository
      *
      * @return string
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function rm($files = '*', bool $cached = false) : string
     {
@@ -320,7 +320,7 @@ class Repository
      *
      * @throws \InvalidArgumentException
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     private function parseFileList($files) : string
     {
@@ -341,7 +341,7 @@ class Repository
      *
      * @return string
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function commit(Commit $commit, $all = true) : string
     {
@@ -357,7 +357,7 @@ class Repository
      *
      * @throws PathException in case the target is not a valid directory
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function cloneTo(string $target) : string
     {
@@ -377,7 +377,7 @@ class Repository
      *
      * @throws PathException in case the source repository is not valid
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function cloneFrom(string $source) : string
     {
@@ -395,7 +395,7 @@ class Repository
      *
      * @return string
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function cloneRemote(string $source) : string
     {
@@ -410,7 +410,7 @@ class Repository
      *
      * @return string
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function clean(bool $dirs = false, bool $force = false) : string
     {
@@ -425,7 +425,7 @@ class Repository
      *
      * @return string
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function createBranch(Branch $branch, bool $force = false) : string
     {
@@ -437,7 +437,7 @@ class Repository
      *
      * @return string
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function getName() : string
     {
@@ -456,7 +456,7 @@ class Repository
      *
      * @return string
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function getDirectoryPath() : string
     {
@@ -468,7 +468,7 @@ class Repository
      *
      * @return array<string>
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function getBranchesRemote() : array
     {
@@ -493,7 +493,7 @@ class Repository
      *
      * @return string
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function checkout(Branch $branch) : string
     {
@@ -510,7 +510,7 @@ class Repository
      *
      * @return string
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function merge(Branch $branch) : string
     {
@@ -522,7 +522,7 @@ class Repository
      *
      * @return string
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function fetch() : string
     {
@@ -536,7 +536,7 @@ class Repository
      *
      * @return string
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function createTag(Tag $tag) : string
     {
@@ -550,7 +550,7 @@ class Repository
      *
      * @return Tag[]
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function getTags(string $pattern = '') : array
     {
@@ -573,7 +573,7 @@ class Repository
      *
      * @return string
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function push(string $remote, Branch $branch) : string
     {
@@ -590,7 +590,7 @@ class Repository
      *
      * @return string
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function pull(string $remote, Branch $branch) : string
     {
@@ -606,7 +606,7 @@ class Repository
      *
      * @return void
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function setDescription(string $description) : void
     {
@@ -618,7 +618,7 @@ class Repository
      *
      * @return string
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function getDescription() : string
     {
@@ -632,7 +632,7 @@ class Repository
      *
      * @throws \Exception
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function countFiles() : int
     {
@@ -650,7 +650,7 @@ class Repository
      *
      * @throws \Exception
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function getLoc(array $extensions = ['*']) : int
     {
@@ -691,7 +691,7 @@ class Repository
      *
      * @return array<Author>
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function getContributors(\DateTime $start = null, \DateTime $end = null) : array
     {
@@ -731,7 +731,7 @@ class Repository
      *
      * @return array<string, int>
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function getCommitsCount(\DateTime $start = null, \DateTime $end = null) : array
     {
@@ -767,7 +767,7 @@ class Repository
      *
      * @return array ['added' => ?, 'removed'=> ?]
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function getAdditionsRemovalsByContributor(Author $author, \DateTime $start = null, \DateTime $end = null) : array
     {
@@ -802,7 +802,7 @@ class Repository
      *
      * @return string
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function getRemote() : string
     {
@@ -818,7 +818,7 @@ class Repository
      *
      * @return Commit[]
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function getCommitsBy(\DateTime $start = null, \DateTime $end = null, Author $author = null) : array
     {
@@ -865,7 +865,7 @@ class Repository
      *
      * @throws \Exception
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function getCommit(string $commit) : Commit
     {
@@ -922,7 +922,7 @@ class Repository
      *
      * @throws \Exception
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function getNewest(int $limit = 1) : Commit
     {

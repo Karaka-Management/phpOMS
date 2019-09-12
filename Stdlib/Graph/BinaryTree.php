@@ -4,11 +4,11 @@
  *
  * PHP Version 7.4
  *
- * @package    phpOMS\Stdlib\Graph
- * @copyright  Dennis Eichhorn
- * @license    OMS License 1.0
- * @version    1.0.0
- * @link       https://orange-management.org
+ * @package   phpOMS\Stdlib\Graph
+ * @copyright Dennis Eichhorn
+ * @license   OMS License 1.0
+ * @version   1.0.0
+ * @link      https://orange-management.org
  */
 declare(strict_types=1);
 
@@ -17,10 +17,10 @@ namespace phpOMS\Stdlib\Graph;
 /**
  * Tree class.
  *
- * @package    phpOMS\Stdlib\Graph
- * @license    OMS License 1.0
- * @link       https://orange-management.org
- * @since      1.0.0
+ * @package phpOMS\Stdlib\Graph
+ * @license OMS License 1.0
+ * @link    https://orange-management.org
+ * @since   1.0.0
  *
  * @todo       : there is a bug with Hungary ibans since they have two k (checksums) in their definition
  */
@@ -46,7 +46,7 @@ class BinaryTree extends Tree
      *
      * @return Node Left node
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function getLeft(Node $base)
     {
@@ -63,7 +63,7 @@ class BinaryTree extends Tree
      *
      * @return Node Right node
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function getRight(Node $base)
     {
@@ -81,7 +81,7 @@ class BinaryTree extends Tree
      *
      * @return BinaryTree
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function setLeft(Node $base, Node $left) : self
     {
@@ -104,7 +104,7 @@ class BinaryTree extends Tree
      *
      * @return BinaryTree
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function setRight(Node $base, Node $right)  /* : void */
     {
@@ -125,7 +125,7 @@ class BinaryTree extends Tree
      *
      * @return void
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function inOrder(Node $node, \Closure $callback) : void
     {
@@ -143,7 +143,7 @@ class BinaryTree extends Tree
      *
      * @return void
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     private function getVerticalOrder(Node $node, int $horizontalDistance = 0, array &$order) : void
     {
@@ -172,7 +172,7 @@ class BinaryTree extends Tree
      *
      * @return void
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function verticalOrder(Node $node, \Closure $callback) : void
     {
@@ -194,7 +194,7 @@ class BinaryTree extends Tree
      *
      * @return bool True if tree is symmetric, false if tree is not symmetric
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function isSymmetric(Node $node1 = null, Node $node2 = null) : bool
     {

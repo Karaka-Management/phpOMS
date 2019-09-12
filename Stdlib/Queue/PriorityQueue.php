@@ -4,11 +4,11 @@
  *
  * PHP Version 7.4
  *
- * @package    phpOMS\Stdlib\Queue
- * @copyright  Dennis Eichhorn
- * @license    OMS License 1.0
- * @version    1.0.0
- * @link       https://orange-management.org
+ * @package   phpOMS\Stdlib\Queue
+ * @copyright Dennis Eichhorn
+ * @license   OMS License 1.0
+ * @version   1.0.0
+ * @link      https://orange-management.org
  */
 declare(strict_types=1);
 
@@ -19,17 +19,17 @@ use phpOMS\Stdlib\Base\Exception\InvalidEnumValue;
 /**
  * Priority queue class.
  *
- * @package    phpOMS\Stdlib\Queue
- * @license    OMS License 1.0
- * @link       https://orange-management.org
- * @since      1.0.0
+ * @package phpOMS\Stdlib\Queue
+ * @license OMS License 1.0
+ * @link    https://orange-management.org
+ * @since   1.0.0
  */
 class PriorityQueue implements \Countable, \Serializable
 {
     /**
      * Queue type.
      *
-     * @var int
+     * @var   int
      * @since 1.0.0
      */
     private int $type = PriorityMode::FIFO;
@@ -37,7 +37,7 @@ class PriorityQueue implements \Countable, \Serializable
     /**
      * Queue.
      *
-     * @var array
+     * @var   array
      * @since 1.0.0
      */
     private array $queue = [];
@@ -47,7 +47,7 @@ class PriorityQueue implements \Countable, \Serializable
      *
      * @throws InvalidEnumValue This exception is thrown if the priority mode is invalid
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function __construct(int $type = PriorityMode::FIFO)
     {
@@ -63,7 +63,7 @@ class PriorityQueue implements \Countable, \Serializable
      *
      * @return int
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function getType() : int
     {
@@ -78,7 +78,7 @@ class PriorityQueue implements \Countable, \Serializable
      *
      * @return int
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function insert($data, float $priority = 1.0) : int
     {
@@ -108,7 +108,7 @@ class PriorityQueue implements \Countable, \Serializable
      *
      * @throws InvalidEnumValue
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     private function getInsertPosition(float $priority) : int
     {
@@ -133,7 +133,7 @@ class PriorityQueue implements \Countable, \Serializable
      *
      * @return int
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     private function getInsertFIFO(float $priority) : int
     {
@@ -147,7 +147,7 @@ class PriorityQueue implements \Countable, \Serializable
      *
      * @return int
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     private function getInsertLIFO(float $priority) : int
     {
@@ -161,7 +161,7 @@ class PriorityQueue implements \Countable, \Serializable
      *
      * @return int
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     private function getInsertHighest(float $priority) : int
     {
@@ -184,7 +184,7 @@ class PriorityQueue implements \Countable, \Serializable
      *
      * @return int
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     private function getInsertLowest(float $priority) : int
     {
@@ -207,7 +207,7 @@ class PriorityQueue implements \Countable, \Serializable
      *
      * @return void
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function increaseAll(float $increase = 1.0) : void
     {
@@ -221,7 +221,7 @@ class PriorityQueue implements \Countable, \Serializable
      *
      * @return array
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function pop() : array
     {
@@ -235,7 +235,7 @@ class PriorityQueue implements \Countable, \Serializable
      *
      * @return bool
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function delete($id) : bool
     {
@@ -256,7 +256,7 @@ class PriorityQueue implements \Countable, \Serializable
      *
      * @return void
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function setPriority($id, float $priority) : void
     {
@@ -283,7 +283,7 @@ class PriorityQueue implements \Countable, \Serializable
      *
      * @return array
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function get($id) : array
     {
@@ -295,7 +295,7 @@ class PriorityQueue implements \Countable, \Serializable
      *
      * @return array<array>
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function getAll() : array
     {
@@ -325,7 +325,7 @@ class PriorityQueue implements \Countable, \Serializable
      *
      * @return void
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function unserialize($data) : void
     {

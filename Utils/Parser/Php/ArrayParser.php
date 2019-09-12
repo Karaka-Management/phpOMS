@@ -4,11 +4,11 @@
  *
  * PHP Version 7.4
  *
- * @package    phpOMS\Utils\Parser\Php
- * @copyright  Dennis Eichhorn
- * @license    OMS License 1.0
- * @version    1.0.0
- * @link       https://orange-management.org
+ * @package   phpOMS\Utils\Parser\Php
+ * @copyright Dennis Eichhorn
+ * @license   OMS License 1.0
+ * @version   1.0.0
+ * @link      https://orange-management.org
  */
 declare(strict_types=1);
 
@@ -19,10 +19,10 @@ namespace phpOMS\Utils\Parser\Php;
  *
  * Parsing/serializing arrays to and from php file
  *
- * @package    phpOMS\Utils\Parser\Php
- * @license    OMS License 1.0
- * @link       https://orange-management.org
- * @since      1.0.0
+ * @package phpOMS\Utils\Parser\Php
+ * @license OMS License 1.0
+ * @link    https://orange-management.org
+ * @since   1.0.0
  */
 class ArrayParser
 {
@@ -34,7 +34,7 @@ class ArrayParser
      *
      * @return string
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function serializeArray(array $arr, int $depth = 1) : string
     {
@@ -61,7 +61,7 @@ class ArrayParser
      *
      * @throws \UnexpectedValueException Throws this exception if the value cannot be parsed (invalid data type)
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function parseVariable($value, int $depth = 1) : string
     {

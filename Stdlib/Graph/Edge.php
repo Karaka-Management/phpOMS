@@ -4,11 +4,11 @@
  *
  * PHP Version 7.4
  *
- * @package    phpOMS\Stdlib\Graph
- * @copyright  Dennis Eichhorn
- * @license    OMS License 1.0
- * @version    1.0.0
- * @link       https://orange-management.org
+ * @package   phpOMS\Stdlib\Graph
+ * @copyright Dennis Eichhorn
+ * @license   OMS License 1.0
+ * @version   1.0.0
+ * @link      https://orange-management.org
  */
 declare(strict_types=1);
 
@@ -17,10 +17,10 @@ namespace phpOMS\Stdlib\Graph;
 /**
  * Edge class.
  *
- * @package    phpOMS\Stdlib\Graph
- * @license    OMS License 1.0
- * @link       https://orange-management.org
- * @since      1.0.0
+ * @package phpOMS\Stdlib\Graph
+ * @license OMS License 1.0
+ * @link    https://orange-management.org
+ * @since   1.0.0
  */
 class Edge
 {
@@ -29,7 +29,7 @@ class Edge
      *
      * In case of directed edges this is the from node/starting node.
      *
-     * @var Node
+     * @var   Node
      * @since 1.0.0
      */
     private $node1 = null;
@@ -39,7 +39,7 @@ class Edge
      *
      * In case of directed edges this is the to node/end node.
      *
-     * @var Node
+     * @var   Node
      * @since 1.0.0
      */
     private $node2 = null;
@@ -47,7 +47,7 @@ class Edge
     /**
      * Is graph/edge directed
      *
-     * @var bool
+     * @var   bool
      * @since 1.0.0
      */
     private $isDirected = false;
@@ -55,7 +55,7 @@ class Edge
     /**
      * Edge weight
      *
-     * @var float
+     * @var   float
      * @since 1.0.0
      */
     private $weight = 0.0;
@@ -69,7 +69,7 @@ class Edge
      *
      * @return Graph
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function __construct(Node $node1, Node $node2, float $weight = 0.0, bool $isDirected = false)
     {
@@ -84,7 +84,7 @@ class Edge
      *
      * @return Node[]
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function getNodes() : array
     {
@@ -96,7 +96,7 @@ class Edge
      *
      * @return Node
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function getNode1() : Node
     {
@@ -108,7 +108,7 @@ class Edge
      *
      * @return Node
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function getNode2() : Node
     {
@@ -120,7 +120,7 @@ class Edge
      *
      * @return float
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function getWeight() : float
     {
@@ -133,7 +133,7 @@ class Edge
      *
      * @return bool
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function isDirected() : bool
     {

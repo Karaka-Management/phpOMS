@@ -4,11 +4,11 @@
  *
  * PHP Version 7.4
  *
- * @package    phpOMS\Module
- * @copyright  Dennis Eichhorn
- * @license    OMS License 1.0
- * @version    1.0.0
- * @link       https://orange-management.org
+ * @package   phpOMS\Module
+ * @copyright Dennis Eichhorn
+ * @license   OMS License 1.0
+ * @version   1.0.0
+ * @link      https://orange-management.org
  */
 declare(strict_types=1);
 
@@ -26,17 +26,17 @@ use phpOMS\Utils\StringUtils;
  *
  * The package manager is responsible for handling installation and update packages for modules, frameworks and resources.
  *
- * @package    phpOMS\Module
- * @license    OMS License 1.0
- * @link       https://orange-management.org
- * @since      1.0.0
+ * @package phpOMS\Module
+ * @license OMS License 1.0
+ * @link    https://orange-management.org
+ * @since   1.0.0
  */
 final class PackageManager
 {
     /**
      * File path.
      *
-     * @var string
+     * @var   string
      * @since 1.0.0
      */
     private string $path = '';
@@ -44,7 +44,7 @@ final class PackageManager
     /**
      * Base path.
      *
-     * @var string
+     * @var   string
      * @since 1.0.0
      */
     private string $basePath = '';
@@ -52,7 +52,7 @@ final class PackageManager
     /**
      * Extract path.
      *
-     * @var string
+     * @var   string
      * @since 1.0.0
      */
     private string $extractPath = '';
@@ -60,7 +60,7 @@ final class PackageManager
     /**
      * Public key.
      *
-     * @var string
+     * @var   string
      * @since 1.0.0
      */
     private string $publicKey = '';
@@ -68,7 +68,7 @@ final class PackageManager
     /**
      * Info data.
      *
-     * @var array
+     * @var   array
      * @since 1.0.0
      */
     private array $info = [];
@@ -80,7 +80,7 @@ final class PackageManager
      * @param string $basePath  Path of the application
      * @param string $publicKey Public key
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function __construct(string $path, string $basePath, string $publicKey)
     {
@@ -96,7 +96,7 @@ final class PackageManager
      *
      * @return void
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function extract(string $path) : void
     {
@@ -111,7 +111,7 @@ final class PackageManager
      *
      * @throws PathException this exception is thrown in case the info file path doesn't exist
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function load() : void
     {
@@ -129,7 +129,7 @@ final class PackageManager
      *
      * @return bool Returns true if the package is authentic, false otherwise
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function isValid() : bool
     {
@@ -142,7 +142,7 @@ final class PackageManager
      *
      * @return string Hash value of files
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     private function hashFiles() : string
     {
@@ -172,7 +172,7 @@ final class PackageManager
      *
      * @throws \Exception
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function install() : void
     {
@@ -194,7 +194,7 @@ final class PackageManager
      *
      * @return void
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     private function move($components) : void
     {
@@ -210,7 +210,7 @@ final class PackageManager
      *
      * @return void
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     private function copy($components) : void
     {
@@ -230,7 +230,7 @@ final class PackageManager
      *
      * @return void
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     private function delete($components) : void
     {
@@ -246,7 +246,7 @@ final class PackageManager
      *
      * @return void
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     private function execute($components) : void
     {
@@ -260,7 +260,7 @@ final class PackageManager
      *
      * @return void
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function cleanup() : void
     {
@@ -276,7 +276,7 @@ final class PackageManager
      *
      * @return bool
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     private function authenticate(string $signedHash, string $rawHash) : bool
     {

@@ -4,11 +4,11 @@
  *
  * PHP Version 7.4
  *
- * @package    phpOMS\Utils\RnG
- * @copyright  Dennis Eichhorn
- * @license    OMS License 1.0
- * @version    1.0.0
- * @link       https://orange-management.org
+ * @package   phpOMS\Utils\RnG
+ * @copyright Dennis Eichhorn
+ * @license   OMS License 1.0
+ * @version   1.0.0
+ * @link      https://orange-management.org
  */
 declare(strict_types=1);
 
@@ -17,10 +17,10 @@ namespace phpOMS\Utils\RnG;
 /**
  * File generator.
  *
- * @package    phpOMS\Utils\RnG
- * @license    OMS License 1.0
- * @link       https://orange-management.org
- * @since      1.0.0
+ * @package phpOMS\Utils\RnG
+ * @license OMS License 1.0
+ * @link    https://orange-management.org
+ * @since   1.0.0
  */
 class File
 {
@@ -28,7 +28,7 @@ class File
     /**
      * Extensions.
      *
-     * @var array[]
+     * @var   array[]
      * @since 1.0.0
      */
     private static $extensions = [
@@ -52,7 +52,7 @@ class File
      *
      * @return string
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public static function generateExtension(array $source = null) : string
     {
