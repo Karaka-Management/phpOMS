@@ -15,7 +15,7 @@ declare(strict_types=1);
 namespace phpOMS\Math\Numerics\Interpolation;
 
 /**
- * Web module interface.
+ * Cubic spline interpolation.
  *
  * @package phpOMS\Math\Numerics\Interpolation
  * @license OMS License 1.0
