@@ -16,7 +16,6 @@ namespace phpOMS\tests\Socket;
 
 require_once __DIR__ . '/../Autoloader.php';
 
-
 /**
  * @internal
  */

@@ -127,7 +127,6 @@ class Edge
         return $this->weight;
     }
 
-
     /**
      * Is directed edge
      *

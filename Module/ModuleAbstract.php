@@ -265,6 +265,32 @@ abstract class ModuleAbstract
     }
 
     /**
+     * Create a model
+     *
+     * @param int    $account Account id
+     * @param array  $objs    Response object
+     * @param string $mapper  Object mapper
+     * @param string $trigger Trigger for the event manager
+     *
+     * @return void
+     *
+     * @since 1.0.0
+     */
+    protected function createModels(int $account, array $objs, string $mapper, string $trigger) : void
+    {
+        foreach ($objs as $obj) {
+            $this->app->eventManager->trigger('PRE:Module:' . static::MODULE_NAME . '-' . $trigger . '-create', '', $obj);
+            $mapper::create($obj);
+            $this->app->eventManager->trigger('POST:Module:' . static::MODULE_NAME . '-' . $trigger . '-create', '', [
+                $account,
+                null, $obj,
+                0, 0,
+                static::MODULE_NAME,
+            ]);
+        }
+    }
+
+    /**
      * Update a model
      *
      * @param RequestAbstract $request Request

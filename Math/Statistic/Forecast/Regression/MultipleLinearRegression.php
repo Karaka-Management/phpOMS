@@ -30,22 +30,18 @@ class MultipleLinearRegression
         return $XT->mult($X)->inverse()->mult($XT)->mult($Y)->getMatrix();
     }
 
-
     public static function getVariance() : float
     {
     }
-
 
     public static function getPredictionInterval() : array
     {
     }
 
-
     public static function getSlope(float $b1, float $y, float $x) : float
     {
         return 0.0;
     }
-
 
     public static function getElasticity(float $b1, float $y, float $x): float
     {
