@@ -25,8 +25,8 @@ class OwnsOneModelMapper extends DataMapperAbstract
      * @since 1.0.0
      */
     protected static array $columns = [
-        'test_owns_one_id'          => ['name' => 'test_owns_one_id', 'type' => 'int', 'internal' => 'id'],
-        'test_owns_one_string'        => ['name' => 'test_owns_one_string', 'type' => 'string', 'internal' => 'string'],
+        'test_owns_one_id'     => ['name' => 'test_owns_one_id',     'type' => 'int',    'internal' => 'id'],
+        'test_owns_one_string' => ['name' => 'test_owns_one_string', 'type' => 'string', 'internal' => 'string'],
     ];
 
     protected static string $table = 'test_owns_one';

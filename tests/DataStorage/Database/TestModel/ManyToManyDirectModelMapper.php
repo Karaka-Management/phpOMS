@@ -25,9 +25,9 @@ class ManyToManyDirectModelMapper extends DataMapperAbstract
      * @since 1.0.0
      */
     protected static array $columns = [
-        'test_has_many_direct_id'          => ['name' => 'test_has_many_direct_id', 'type' => 'int', 'internal' => 'id'],
-        'test_has_many_direct_string'        => ['name' => 'test_has_many_direct_string', 'type' => 'string', 'internal' => 'string'],
-        'test_has_many_direct_to'        => ['name' => 'test_has_many_direct_to', 'type' => 'int', 'internal' => 'to'],
+        'test_has_many_direct_id'     => ['name' => 'test_has_many_direct_id',     'type' => 'int',    'internal' => 'id'],
+        'test_has_many_direct_string' => ['name' => 'test_has_many_direct_string', 'type' => 'string', 'internal' => 'string'],
+        'test_has_many_direct_to'     => ['name' => 'test_has_many_direct_to',     'type' => 'int',    'internal' => 'to'],
     ];
 
     protected static string $table = 'test_has_many_direct';

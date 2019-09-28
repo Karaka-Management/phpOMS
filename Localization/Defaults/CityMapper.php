@@ -34,13 +34,13 @@ class CityMapper extends DataMapperAbstract
      * @since 1.0.0
      */
     protected static array $columns = [
-        'city_id'      => ['name' => 'city_id', 'type' => 'int', 'internal' => 'id'],
-        'city_city'    => ['name' => 'city_city', 'type' => 'string', 'internal' => 'name'],
+        'city_id'      => ['name' => 'city_id',      'type' => 'int',    'internal' => 'id'],
+        'city_city'    => ['name' => 'city_city',    'type' => 'string', 'internal' => 'name'],
         'city_country' => ['name' => 'city_country', 'type' => 'string', 'internal' => 'countryCode'],
-        'city_state'   => ['name' => 'city_state', 'type' => 'string', 'internal' => 'state'],
-        'city_postal'  => ['name' => 'city_postal', 'type' => 'int', 'internal' => 'postal'],
-        'city_lat'     => ['name' => 'city_lat', 'type' => 'float', 'internal' => 'lat'],
-        'city_long'    => ['name' => 'city_long', 'type' => 'float', 'internal' => 'long'],
+        'city_state'   => ['name' => 'city_state',   'type' => 'string', 'internal' => 'state'],
+        'city_postal'  => ['name' => 'city_postal',  'type' => 'int',    'internal' => 'postal'],
+        'city_lat'     => ['name' => 'city_lat',     'type' => 'float',  'internal' => 'lat'],
+        'city_long'    => ['name' => 'city_long',    'type' => 'float',  'internal' => 'long'],
     ];
 
     /**

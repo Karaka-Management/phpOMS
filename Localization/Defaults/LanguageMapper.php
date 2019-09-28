@@ -34,12 +34,12 @@ class LanguageMapper extends DataMapperAbstract
      * @since 1.0.0
      */
     protected static array $columns = [
-        'language_id'     => ['name' => 'language_id', 'type' => 'int', 'internal' => 'id'],
+        'language_id'     => ['name' => 'language_id',     'type' => 'int',    'internal' => 'id'],
         'language_native' => ['name' => 'language_native', 'type' => 'string', 'internal' => 'name'],
-        'language_639_1'  => ['name' => 'language_639_1', 'type' => 'string', 'internal' => 'native'],
+        'language_639_1'  => ['name' => 'language_639_1',  'type' => 'string', 'internal' => 'native'],
         'language_639_2T' => ['name' => 'language_639_2T', 'type' => 'string', 'internal' => 'code2'],
         'language_639_2B' => ['name' => 'language_639_2B', 'type' => 'string', 'internal' => 'code3Native'],
-        'language_639_3'  => ['name' => 'language_639_3', 'type' => 'string', 'internal' => 'code3'],
+        'language_639_3'  => ['name' => 'language_639_3',  'type' => 'string', 'internal' => 'code3'],
     ];
 
     /**

@@ -25,8 +25,8 @@ class ManyToManyRelModelMapper extends DataMapperAbstract
      * @since 1.0.0
      */
     protected static array $columns = [
-        'test_has_many_rel_id'          => ['name' => 'test_has_many_rel_id', 'type' => 'int', 'internal' => 'id'],
-        'test_has_many_rel_string'        => ['name' => 'test_has_many_rel_string', 'type' => 'string', 'internal' => 'string'],
+        'test_has_many_rel_id'     => ['name' => 'test_has_many_rel_id',     'type' => 'int',    'internal' => 'id'],
+        'test_has_many_rel_string' => ['name' => 'test_has_many_rel_string', 'type' => 'string', 'internal' => 'string'],
     ];
 
     protected static string $table = 'test_has_many_rel';
