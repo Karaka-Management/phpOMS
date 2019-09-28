@@ -24,5 +24,10 @@ namespace phpOMS\Module;
  */
 final class NullModule extends ModuleAbstract
 {
+    /**
+     * Constructor.
+     *
+     * @since 1.0.0
+     */
     public function __construct() {}
 }

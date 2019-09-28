@@ -14,8 +14,8 @@ declare(strict_types=1);
 
 namespace phpOMS\Dispatcher;
 
-interface DispatcherInterface {
-
+interface DispatcherInterface
+{
     /**
      * Dispatch controller.
      *

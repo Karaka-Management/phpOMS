@@ -39,16 +39,6 @@ final class Header extends HeaderAbstract
     private array $header = [];
 
     /**
-     * Constructor.
-     *
-     * @since 1.0.0
-     */
-    public function __construct()
-    {
-        parent::__construct();
-    }
-
-    /**
      * Set header.
      *
      * @param string $key       Header key (case insensitive)

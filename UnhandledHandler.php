@@ -19,8 +19,10 @@ use phpOMS\Log\FileLogger;
 /**
  * Default exception and error handler.
  *
- * @package    phpOMS
- * @since      1.0.0
+ * @package phpOMS
+ * @license OMS License 1.0
+ * @link    https://orange-management.org
+ * @since   1.0.0
  */
 final class UnhandledHandler
 {

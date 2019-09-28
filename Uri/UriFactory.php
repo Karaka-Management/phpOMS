@@ -205,8 +205,8 @@ final class UriFactory
                 $spl = \explode('=', $pars[$i]);
 
                 if (isset($spl[1])) {
-                    $url .= $first ? '?' : '&';
-                    $url .= $spl[0] . '=' . $spl[1];
+                    $url  .= $first ? '?' : '&';
+                    $url  .= $spl[0] . '=' . $spl[1];
                     $first = false;
                 }
             }

@@ -67,7 +67,13 @@ final class EventManager implements \Countable
     public function __construct(Dispatcher $dispatcher = null)
     {
         $this->dispatcher = $dispatcher ?? new class() implements DispatcherInterface {
-            public function dispatch($func, ...$data) : array
+            /**
+             * Dispatches a function
+             *
+             * @param \Closure $func    Function
+             * @param mixed    ...$data Date passed to function
+             */
+            public function dispatch(\Closure $func, ...$data) : array
             {
                 $func(...$data);
 
