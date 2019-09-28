@@ -170,6 +170,10 @@ class Localization
 
         $files = \glob(__DIR__ . '/../Localization/Defaults/Definitions/' . $langCode . '_' . $countryCode);
 
+        if ($files === false) {
+            $files = [];
+        }
+
         foreach ($files as $file) {
             $fileContent = \file_get_contents($file);
 

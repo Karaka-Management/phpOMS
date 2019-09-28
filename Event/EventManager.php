@@ -68,13 +68,14 @@ final class EventManager implements \Countable
     {
         $this->dispatcher = $dispatcher ?? new class() implements DispatcherInterface {
             /**
-             * Dispatches a function
-             *
-             * @param \Closure $func    Function
-             * @param mixed    ...$data Date passed to function
+             * {@inheritdoc}
              */
-            public function dispatch(\Closure $func, ...$data) : array
+            public function dispatch($func, ...$data) : array
             {
+                if (!($func instanceof \Closure)) {
+                    return [];
+                }
+
                 $func(...$data);
 
                 return [];

@@ -37,10 +37,10 @@ abstract class HeaderAbstract
     /**
      * Localization.
      *
-     * @var   null|Localization
+     * @var   Localization
      * @since 1.0.0
      */
-    protected ?Localization $l11n = null;
+    protected Localization $l11n;
 
     /**
      * Account.
