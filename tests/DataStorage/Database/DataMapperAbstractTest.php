@@ -91,7 +91,7 @@ class DataMapperAbstractTest extends \PHPUnit\Framework\TestCase
                 `test_base_datetime` datetime DEFAULT NULL,
                 `test_base_datetime_null` datetime DEFAULT NULL, /* There was a bug where it returned the current date because new \DateTime(null) === current date which is wrong, we want null as value! */
                 PRIMARY KEY (`test_base_id`)
-            )ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1;'
+            )ENGINE=InnoDB  DEFAULT CHARSET=utf8mb4 AUTO_INCREMENT=1;'
         )->execute();
 
         $GLOBALS['dbpool']->get()->con->prepare(
@@ -99,7 +99,7 @@ class DataMapperAbstractTest extends \PHPUnit\Framework\TestCase
                 `test_belongs_to_one_id` int(11) NOT NULL AUTO_INCREMENT,
                 `test_belongs_to_one_string` varchar(254) NOT NULL,
                 PRIMARY KEY (`test_belongs_to_one_id`)
-            )ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1;'
+            )ENGINE=InnoDB  DEFAULT CHARSET=utf8mb4 AUTO_INCREMENT=1;'
         )->execute();
 
         $GLOBALS['dbpool']->get()->con->prepare(
@@ -107,7 +107,7 @@ class DataMapperAbstractTest extends \PHPUnit\Framework\TestCase
                 `test_owns_one_id` int(11) NOT NULL AUTO_INCREMENT,
                 `test_owns_one_string` varchar(254) NOT NULL,
                 PRIMARY KEY (`test_owns_one_id`)
-            )ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1;'
+            )ENGINE=InnoDB  DEFAULT CHARSET=utf8mb4 AUTO_INCREMENT=1;'
         )->execute();
 
         $GLOBALS['dbpool']->get()->con->prepare(
@@ -116,7 +116,7 @@ class DataMapperAbstractTest extends \PHPUnit\Framework\TestCase
                 `test_has_many_direct_string` varchar(254) NOT NULL,
                 `test_has_many_direct_to` int(11) NOT NULL,
                 PRIMARY KEY (`test_has_many_direct_id`)
-            )ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1;'
+            )ENGINE=InnoDB  DEFAULT CHARSET=utf8mb4 AUTO_INCREMENT=1;'
         )->execute();
 
         $GLOBALS['dbpool']->get()->con->prepare(
@@ -124,7 +124,7 @@ class DataMapperAbstractTest extends \PHPUnit\Framework\TestCase
                 `test_has_many_rel_id` int(11) NOT NULL AUTO_INCREMENT,
                 `test_has_many_rel_string` varchar(254) NOT NULL,
                 PRIMARY KEY (`test_has_many_rel_id`)
-            )ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1;'
+            )ENGINE=InnoDB  DEFAULT CHARSET=utf8mb4 AUTO_INCREMENT=1;'
         )->execute();
 
         $GLOBALS['dbpool']->get()->con->prepare(
@@ -133,7 +133,7 @@ class DataMapperAbstractTest extends \PHPUnit\Framework\TestCase
                 `test_has_many_rel_relations_src` int(11) NOT NULL,
                 `test_has_many_rel_relations_dest` int(11) NOT NULL,
                 PRIMARY KEY (`test_has_many_rel_relations_id`)
-            )ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1;'
+            )ENGINE=InnoDB  DEFAULT CHARSET=utf8mb4 AUTO_INCREMENT=1;'
         )->execute();
     }
 

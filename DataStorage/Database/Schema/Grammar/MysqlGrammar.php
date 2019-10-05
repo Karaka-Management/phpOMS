@@ -136,6 +136,6 @@ class MysqlGrammar extends Grammar
      */
     protected function compileCreateTableSettings(BuilderAbstract $query, bool $settings) : string
     {
-        return 'ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1';
+        return 'ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 AUTO_INCREMENT=1';
     }
 }

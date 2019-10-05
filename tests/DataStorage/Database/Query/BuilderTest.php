@@ -22,7 +22,7 @@ use phpOMS\DataStorage\Database\Query\Builder;
  */
 class BuilderTest extends \PHPUnit\Framework\TestCase
 {
-    protected $con = null;
+    protected $con;
 
     protected function setUp() : void
     {
