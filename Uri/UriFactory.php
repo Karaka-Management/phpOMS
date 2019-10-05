@@ -212,7 +212,7 @@ final class UriFactory
             }
         }
 
-        return $url . ((!empty($query) && $query[0] !== '&') ? '?' . \rtrim($query, '&') : '');
+        return $url . (!empty($query) ? '?' . \rtrim($query, '&') : '');
     }
 
     /**
