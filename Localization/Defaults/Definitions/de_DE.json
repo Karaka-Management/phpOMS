@@ -1,12 +1,12 @@
 {
-    "language": "en",
-    "country": "US",
+    "language": "de",
+    "country": "DE",
     "currency": {
-        "code": "USD",
+        "code": "EUR",
         "position": 0
     },
-    "thousand": ",",
-    "decimal": ".",
+    "thousand": ".",
+    "decimal": ",",
     "angle": "Degree",
     "temperature": "celsius",
     "weight": {
@@ -54,8 +54,8 @@
         "delim_time": ":",
         "very_short": "d.m",
         "short": "m.y",
-        "medium": "Y.m.d",
-        "long": "Y.m.d h:i",
-        "very_long": "Y.m.d h:i:s"
+        "medium": "d.m.Y",
+        "long": "d.m.Y h:i",
+        "very_long": "d.m.Y h:i:s"
     }
 }
