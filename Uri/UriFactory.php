@@ -194,25 +194,25 @@ final class UriFactory
     private static function unique(string $url) : string
     {
         $parts = \explode('&', \str_replace('?', '&', $url));
+        $query = '';
 
         if (\count($parts) > 1) {
             $pars   = \array_slice($parts, 1);
             $length = \count($pars);
             $url    = $parts[0];
-            $first  = true;
+            $keys   = [];
 
-            for ($i = 0; $i < $length; ++$i) {
+            for ($i = $length - 1; $i > -1; --$i) {
                 $spl = \explode('=', $pars[$i]);
 
-                if (isset($spl[1])) {
-                    $url  .= $first ? '?' : '&';
-                    $url  .= $spl[0] . '=' . $spl[1];
-                    $first = false;
+                if (isset($spl[1]) && !\in_array($spl[0], $keys)) {
+                    $keys[] = $spl[0];
+                    $query  = $spl[0] . '=' . $spl[1] . '&' . $query;
                 }
             }
         }
 
-        return $url;
+        return $url . ((!empty($query) && $query[0] !== '&') ? '?' . \rtrim($query, '&') : '');
     }
 
     /**
