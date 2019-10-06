@@ -28,6 +28,15 @@ namespace phpOMS\Business\Sales;
 final class MarketShareEstimation
 {
     /**
+     * Constructure
+     *
+     * @since 1.0.0
+     */
+	private function __construct()
+	{
+    }
+
+    /**
      * Calculate rank (r) based on market share (m)
      *
      * @latex  r = \sqrt[s]{\frac{1}{m \times \sum_{n=1}^N{\frac{1}{n^{s}}}}}

@@ -14,6 +14,14 @@ declare(strict_types=1);
 
 namespace phpOMS\Dispatcher;
 
+/**
+ * Dispatcher interface
+ *
+ * @package phpOMS\Dispatcher
+ * @license OMS License 1.0
+ * @link    https://orange-management.org
+ * @since   1.0.0
+ */
 interface DispatcherInterface
 {
     /**

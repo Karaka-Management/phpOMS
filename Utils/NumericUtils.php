@@ -35,6 +35,16 @@ final class NumericUtils
     {
     }
 
+    /**
+     * Unsigned right shift
+     *
+     * @param int $a Value to shift
+     * @param int $b Shift by
+     *
+     * @return int unsigned int
+     *
+     * @since 1.0.0
+     */
     public static function uRightShift(int $a, int $b) : int
     {
         if ($b === 0) {

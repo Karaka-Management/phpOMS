@@ -27,6 +27,15 @@ namespace phpOMS\Business\Programming;
 final class Metrics
 {
     /**
+     * Constructure
+     *
+     * @since 1.0.0
+     */
+	private function __construct()
+	{
+    }
+
+    /**
      * Calculate ABC metric score
      *
      * @latex  r = \sqrt{a^{2} + b^{2} + c^{2}}

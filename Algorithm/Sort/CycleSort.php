@@ -24,6 +24,9 @@ namespace phpOMS\Algorithm\Sort;
  */
 class CycleSort implements SortInterface
 {
+    /**
+     * {@inheritdoc}
+     */
     public static function sort(array $list, int $order = SortOrder::ASC) : array
     {
         $writes = 0;

@@ -24,6 +24,9 @@ namespace phpOMS\Algorithm\Sort;
  */
 class QuickSort implements SortInterface
 {
+    /**
+     * {@inheritdoc}
+     */
     public static function sort(array $list, int $order = SortOrder::ASC) : array
     {
         $copy = $list;

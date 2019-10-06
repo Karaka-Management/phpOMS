@@ -27,6 +27,15 @@ namespace phpOMS\Business\Marketing;
 final class Metrics
 {
     /**
+     * Constructure
+     *
+     * @since 1.0.0
+     */
+	private function __construct()
+	{
+    }
+
+    /**
      * Calculate customer retention
      *
      * @latex  r = \frac{ce - cn}{cs}

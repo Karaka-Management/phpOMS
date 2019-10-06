@@ -22,28 +22,32 @@ namespace phpOMS\Algorithm\CoinMatching;
  * @link    https://orange-management.org
  * @since   1.0.0
  */
-class MinimumCoinProblem
+final class MinimumCoinProblem
 {
-	private function __construct()
-	{
+    /**
+     * Constructure
+     *
+     * @since 1.0.0
+     */
+    private function __construct()
+    {
+    }
 
-	}
-
-	/**
-	 * Find the minimum amount of coins that are required to match a value
-	 *
-	 * @param array $coins Types of coins available (every coin has infinite availablity)
-	 * @param int   $value Value to match with the coins
-	 *
-	 * @return array
-	 *
-	 * @since  1.0.0
-	 */
+    /**
+     * Find the minimum amount of coins that are required to match a value
+     *
+     * @param array $coins Types of coins available (every coin has infinite availablity)
+     * @param int   $value Value to match with the coins
+     *
+     * @return array
+     *
+     * @since  1.0.0
+     */
     public static function getMinimumCoinsForValueI(array $coins, int $value) : array
     {
         // amount of required coins for different values
-        $table      = [0];
-        $usedCoins  = [];
+        $table     = [0];
+        $usedCoins = [];
 
         for ($i = 1; $i <= $value; ++$i) {
             $table[$i] = \PHP_INT_MAX;
@@ -67,5 +71,5 @@ class MinimumCoinProblem
         }
 
         return $usedCoins[$value] ?? [];
-	}
+    }
 }

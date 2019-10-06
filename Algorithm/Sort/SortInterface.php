@@ -24,5 +24,15 @@ namespace phpOMS\Algorithm\Sort;
  */
 interface SortInterface
 {
+    /**
+     * Sort array
+     *
+     * @param array $list  List of sortable elements
+     * @param int   $order Sort order
+     *
+     * @return array Sorted array
+     *
+     * @since 1.0.0
+     */
     public static function sort(array $list, int $order = SortOrder::ASC) : array;
 }

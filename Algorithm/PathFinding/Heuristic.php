@@ -26,7 +26,7 @@ use phpOMS\Math\Topology\Metrics2D;
  */
 class Heuristic
 {
-    public static function heuristic(array $node1, array $node2, int $heuristic) : float
+    public static function metric(array $node1, array $node2, int $heuristic) : float
     {
         if ($heuristic === HeuristicType::MANHATTAN) {
             return Metrics2D::manhattan($node1, $node2);

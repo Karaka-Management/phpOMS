@@ -24,6 +24,9 @@ namespace phpOMS\Algorithm\Sort;
  */
 class BitonicSort implements SortInterface
 {
+    /**
+     * {@inheritdoc}
+     */
     public static function sort(array $list, int $order = SortOrder::ASC) : array
     {
         $n = \count($list);
@@ -38,7 +41,7 @@ class BitonicSort implements SortInterface
         return self::merge(\array_merge($first, $second), $order);
     }
 
-    public static function merge(array $list, int $order) : array
+    private static function merge(array $list, int $order) : array
     {
         $n = \count($list);
 

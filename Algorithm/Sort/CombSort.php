@@ -24,6 +24,9 @@ namespace phpOMS\Algorithm\Sort;
  */
 class CombSort implements SortInterface
 {
+    /**
+     * {@inheritdoc}
+     */
     public static function sort(array $list, int $order = SortOrder::ASC) : array
     {
         $sorted = false;

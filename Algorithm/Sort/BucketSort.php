@@ -24,6 +24,18 @@ namespace phpOMS\Algorithm\Sort;
  */
 class BucketSort
 {
+    /**
+     * Sort array
+     *
+     * @param array  $list        List of sortable elements
+     * @param int    $bucketCount Buckets to divide the list into
+     * @param string $algo        Algorithm to use for sort
+     * @param int    $order       Sort order
+     *
+     * @return array Sorted array
+     *
+     * @since 1.0.0
+     */
     public static function sort(array $list, int $bucketCount, string $algo = InsertionSort::class, int $order = SortOrder::ASC) : array
     {
         $buckets = [];

@@ -24,11 +24,46 @@ namespace phpOMS\Algorithm\Sort;
  */
 interface SortableInterface
 {
+    /**
+     * Compare current object with other object
+     *
+     * @param SortableInterface $obj   Object to compare with
+     * @param int               $order Sort order
+     *
+     * @return bool
+     *
+     * @since 1.0.0
+     */
     public function compare(self $obj, int $order = SortOrder::ASC) : bool;
 
+    /**
+     * Get element value
+     *
+     * @return mixed
+     *
+     * @since 1.0.0
+     */
     public function getValue();
 
+    /**
+     * Get maximum element
+     *
+     * @param SortableInterface[] $list List to order
+     *
+     * @return mixed
+     *
+     * @since 1.0.0
+     */
     public static function max(array $list);
 
+    /**
+     * Get minimum element
+     *
+     * @param SortableInterface[] $list List to order
+     *
+     * @return mixed
+     *
+     * @since 1.0.0
+     */
     public static function min(array $list);
 }
