@@ -28,6 +28,16 @@ namespace phpOMS\Business\Finance;
 final class StockBonds
 {
     /**
+     * Constructure
+     *
+     * @since 1.0.0
+     * @codeCoverageIgnore
+     */
+	private function __construct()
+	{
+    }
+
+    /**
      * Bond Equivalent Yield
      *
      * @param float $fv    Face value

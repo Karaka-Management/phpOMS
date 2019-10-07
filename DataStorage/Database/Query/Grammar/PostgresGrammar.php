@@ -44,6 +44,6 @@ class PostgresGrammar extends Grammar
             $expression = '*';
         }
 
-        return 'SELECT ' . $expression . ' ' . $this->compileFrom($query, $query->from) . ' ORDER BY RANDOM() ' . $this->compileLimit($query, $query->limit);
+        return 'SELECT ' . $expression . ' ' . $this->compileFrom($query, $query->from) . ' ORDER BY RANDOM() ' . $this->compileLimit($query, $query->limit ?? 1);
     }
 }

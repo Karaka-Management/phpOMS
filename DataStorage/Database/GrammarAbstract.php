@@ -194,7 +194,7 @@ abstract class GrammarAbstract
      *
      * @param array  $elements Elements
      * @param string $prefix   Prefix for table
-     * @param string $column   Is always column?
+     * @param bool   $column   Is column?
      *
      * @return string
      *

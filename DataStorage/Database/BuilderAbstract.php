@@ -15,7 +15,7 @@ declare(strict_types=1);
 namespace phpOMS\DataStorage\Database;
 
 use phpOMS\DataStorage\Database\Query\QueryType;
-use phpOMS\DataStorage\DataStorageConnectionInterface;
+use phpOMS\DataStorage\Database\Connection\ConnectionAbstract;
 
 /**
  * Database query builder.
@@ -30,18 +30,18 @@ abstract class BuilderAbstract
     /**
      * Grammar.
      *
-     * @var   null|GrammarAbstract
+     * @var   GrammarAbstract
      * @since 1.0.0
      */
-    protected ?GrammarAbstract $grammar = null;
+    protected GrammarAbstract $grammar;
 
     /**
      * Database connection.
      *
-     * @var   null|DataStorageConnectionInterface
+     * @var   ConnectionAbstract
      * @since 1.0.0
      */
-    protected ?DataStorageConnectionInterface $connection = null;
+    protected ConnectionAbstract $connection;
 
     /**
      * Query type.
@@ -70,11 +70,11 @@ abstract class BuilderAbstract
     /**
      * Get connection
      *
-     * @return DataStorageConnectionInterface
+     * @return ConnectionAbstract
      *
      * @since 1.0.0
      */
-    public function getConnection() : DataStorageConnectionInterface
+    public function getConnection() : ConnectionAbstract
     {
         return $this->connection;
     }

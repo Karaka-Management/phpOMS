@@ -28,6 +28,16 @@ namespace phpOMS\Business\Finance;
 final class Loan
 {
     /**
+     * Constructure
+     *
+     * @since 1.0.0
+     * @codeCoverageIgnore
+     */
+	private function __construct()
+	{
+    }
+
+    /**
      * Balloon Loan - Payments
      *
      * @param float $PV      Present value

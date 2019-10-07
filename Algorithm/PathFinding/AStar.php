@@ -14,6 +14,8 @@ declare(strict_types=1);
 
 namespace phpOMS\Algorithm\PathFinding;
 
+use phpOMS\Stdlib\Base\Heap;
+
 /**
  * Perform path finding.
  *
@@ -24,14 +26,19 @@ namespace phpOMS\Algorithm\PathFinding;
  */
 class JumpPointSearch implements PathFinderInterface
 {
+    /**
+     * {@inheritdoc}
+     */
     public static function findPath(
         int $startX, int $startY,
         int $endX, int $endY,
         Grid $grid,
         int $heuristic, int $movement
     ) : Path {
+        /** @var null|AStarNode $startNode */
         $startNode = $grid->getNode($startX, $startY);
-        $endNode   = $grid->getNode($endX, $endY);
+        /** @var null|AStarNode $endNode */
+        $endNode = $grid->getNode($endX, $endY);
 
         if ($startNode === null || $endNode === null) {
             return new Path($grid);
@@ -41,8 +48,9 @@ class JumpPointSearch implements PathFinderInterface
         $startNode->setF(0.0);
         $startNode->setOpened(true);
 
-        $openList = new Heap(function($node1, $node2) { return $node1->getF() - $node2->getF(); });
+        $openList = new Heap(function(AStarNode $node1, AStarNode $node2) { return $node1->getF() - $node2->getF(); });
         $openList->push($startNode);
+
         $node = null;
 
         while (!$openList->isEmpty()) {

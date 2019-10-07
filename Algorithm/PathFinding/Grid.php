@@ -51,12 +51,21 @@ class Grid
 
     public function getNode(int $x, int $y) : ?Node
     {
-        if (!isset($this->nodes[$y]) || $this->nodes[$y][$x]) {
+        if (!isset($this->nodes[$y]) || !isset($this->nodes[$y][$x])) {
             // todo: add null node to grid because we need to modify some properties later on and remember them!
             return null;
         }
 
         return $this->nodes[$y][$x];
+    }
+
+    public function isWalkable(int $x, int $y) : bool
+    {
+        if (!isset($this->nodes[$y]) || !isset($this->nodes[$y][$x]) || !$this->nodes[$y][$x]->isWalkable()) {
+            return false;
+        }
+
+        return true;
     }
 
     public function getNeighbors(Node $node, int $movement) : array
@@ -75,22 +84,22 @@ class Grid
         $d3 = false;
 
         // todo: check $x and $y because original implementation is flipped!!!
-        if ($this->getNode($x, $y - 1)->isWalkable()) {
+        if ($this->isWalkable($x, $y - 1)) {
             $neighbors[] = $this->getNode($x, $y - 1);
             $s0 = true;
         }
 
-        if ($this->getNode($x + 1, $y)->isWalkable()) {
+        if ($this->isWalkable($x + 1, $y)) {
             $neighbors[] = $this->getNode($x + 1, $y);
             $s1 = true;
         }
 
-        if ($this->getNode($x, $y + 1)->isWalkable()) {
+        if ($this->isWalkable($x, $y + 1)) {
             $neighbors[] = $this->getNode($x, $y + 1);
             $s2 = true;
         }
 
-        if ($this->getNode($x - 1, $y)->isWalkable()) {
+        if ($this->isWalkable($x - 1, $y)) {
             $neighbors[] = $this->getNode($x - 1, $y);
             $s3 = true;
         }
@@ -116,19 +125,19 @@ class Grid
             $d3 = true;
         }
 
-        if ($d0 && $this->getNode($x - 1, $y - 1)->isWalkable()) {
+        if ($d0 && $this->isWalkable($x - 1, $y - 1)) {
             $neighbors[] = $this->getNode($x - 1, $y - 1);
         }
 
-        if ($d1 && $this->getNode($x + 1, $y - 1)->isWalkable()) {
+        if ($d1 && $this->isWalkable($x + 1, $y - 1)) {
             $neighbors[] = $this->getNode($x + 1, $y - 1);
         }
 
-        if ($d2 && $this->getNode($x + 1, $y + 1)->isWalkable()) {
+        if ($d2 && $this->isWalkable($x + 1, $y + 1)) {
             $neighbors[] = $this->getNode($x + 1, $y + 1);
         }
 
-        if ($d3 && $this->getNode($x - 1, $y + 1)->isWalkable()) {
+        if ($d3 && $this->isWalkable($x - 1, $y + 1)) {
             $neighbors[] = $this->getNode($x - 1, $y + 1);
         }
 

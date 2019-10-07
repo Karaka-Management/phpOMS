@@ -16,6 +16,8 @@ namespace phpOMS\DataStorage\Database;
 
 use phpOMS\DataStorage\Database\Connection\ConnectionAbstract;
 use phpOMS\DataStorage\Database\Schema\Builder;
+use phpOMS\DataStorage\Database\Schema\Field;
+use phpOMS\DataStorage\Database\Schema\Table;
 
 /**
  * Database schema mapper.
@@ -30,10 +32,10 @@ class SchemaMapper
     /**
      * Database connection.
      *
-     * @var   null|ConnectionAbstract
+     * @var   ConnectionAbstract
      * @since 1.0.0
      */
-    protected ?ConnectionAbstract $db = null;
+    protected ConnectionAbstract $db;
 
     /**
      * Constructor.
@@ -95,11 +97,11 @@ class SchemaMapper
     public function getFields(string $table) : array
     {
         $builder = new Builder($this->db);
-        $tNames  = $builder->selectFields()->execute();
+        $tNames  = $builder->selectFields($table)->execute();
 
         $fields = [];
         foreach ($tNames as $name) {
-            $fields[] = $this->getField($name);
+            $fields[] = $this->getField($table, $name);
         }
 
         return $fields;

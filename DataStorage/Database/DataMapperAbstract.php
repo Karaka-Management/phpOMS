@@ -38,10 +38,10 @@ class DataMapperAbstract implements DataMapperInterface
     /**
      * Database connection.
      *
-     * @var   null|ConnectionAbstract
+     * @var   ConnectionAbstract
      * @since 1.0.0
      */
-    protected static ?ConnectionAbstract $db = null;
+    protected static ConnectionAbstract $db;
 
     /**
      * Overwriting extended values.
@@ -2003,9 +2003,6 @@ class DataMapperAbstract implements DataMapperInterface
     }
 
     /**
-     * Populate data.
-     *
-     * @param mixed $obj   Object to add the relations to
      *
      * @return void
      *

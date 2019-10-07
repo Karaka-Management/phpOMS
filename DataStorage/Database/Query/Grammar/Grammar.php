@@ -316,12 +316,12 @@ class Grammar extends GrammarAbstract
             return $this->compileSystem($value->getColumn(), $prefix);
         } elseif ($value instanceof Builder) {
             return '(' . \rtrim($value->toSql(), ';') . ')';
-        } elseif ($value  instanceof \JsonSerializable) {
+        } elseif ($value instanceof \JsonSerializable) {
             $encoded = \json_encode($value);
 
-            return $encoded ? $encoded : null;
-        } elseif ($value  instanceof \Serializable) {
-            return $element->serialize();
+            return $encoded ? $encoded : 'NULL';
+        } elseif ($value instanceof \Serializable) {
+            return $value->serialize();
         } else {
             throw new \InvalidArgumentException(\gettype($value));
         }

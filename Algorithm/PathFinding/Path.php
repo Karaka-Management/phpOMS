@@ -98,6 +98,10 @@ class Path
             }
 
             $node = $this->grid->getNode($x0, $y0);
+
+            if ($node === null) {
+                break;
+            }
         }
 
         return $line;

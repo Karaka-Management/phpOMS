@@ -26,6 +26,12 @@ class Heap
 {
     private \Closure $compare;
 
+    /**
+     * Heap elements
+     *
+     * @var   array<int, mixed>
+     * @since 1.0.0
+     */
     private array $nodes = [];
 
     public function __construct(\Closure $compare = null)
@@ -39,7 +45,7 @@ class Heap
 
         while ($lo < $hi) {
             $mid = (int) \floor(($lo + $hi) / 2);
-            if (($this->compare)($x, $this->node[$mid]) < 0) {
+            if (($this->compare)($x, $this->nodes[$mid]) < 0) {
                 $hi = $mid;
             } else {
                 $lo = $mid + 1;
@@ -210,7 +216,7 @@ class Heap
         $this->nodes = [];
     }
 
-    public function empty() : bool
+    public function isEmpty() : bool
     {
         return empty($this->nodes);
     }

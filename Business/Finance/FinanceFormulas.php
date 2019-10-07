@@ -29,6 +29,15 @@ use phpOMS\Math\Statistic\Average;
  */
 final class FinanceFormulas
 {
+    /**
+     * Constructure
+     *
+     * @since 1.0.0
+     * @codeCoverageIgnore
+     */
+	private function __construct()
+	{
+    }
 
     /**
      * Annual Percentage Yield

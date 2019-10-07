@@ -46,6 +46,6 @@ class OracleGrammar extends Grammar
 
         $query->limit = $query->limit ?? 1;
 
-        return 'SELECT ' . $expression . ' FROM (SELECT ' . $expression . ' ' . $this->compileFrom($query, $query->from) . ' ORDER BY dbms_random.value) WHERE rownum >= 1 AND rownum <= ' . $query->limit;
+        return 'SELECT ' . $expression . ' FROM (SELECT ' . $expression . ' ' . $this->compileFrom($query, $query->from) . ' ORDER BY dbms_random.value) WHERE rownum >= 1 AND rownum <= ' . ($query->limit ?? 1);
     }
 }

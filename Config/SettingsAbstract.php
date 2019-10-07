@@ -44,10 +44,10 @@ abstract class SettingsAbstract implements OptionsInterface
     /**
      * Database connection instance.
      *
-     * @var   null|ConnectionAbstract
+     * @var   ConnectionAbstract
      * @since 1.0.0
      */
-    protected ?ConnectionAbstract $connection = null;
+    protected ConnectionAbstract $connection;
 
     /**
      * Settings table.

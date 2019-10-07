@@ -56,10 +56,10 @@ final class ModuleManager
     /**
      * Application instance.
      *
-     * @var   null|ApplicationAbstract
+     * @var   ApplicationAbstract
      * @since 1.0.0
      */
-    private ?ApplicationAbstract $app = null;
+    private ApplicationAbstract $app;
 
     /**
      * Installed modules.
@@ -249,7 +249,7 @@ final class ModuleManager
         if (empty($this->all)) {
             \chdir($this->modulePath);
             $files = \glob('*', \GLOB_ONLYDIR);
-            $c     = \count($files);
+            $c     = $files === false ? 0 : \count($files);
 
             for ($i = 0; $i < $c; ++$i) {
                 $path = $this->modulePath . '/' . $files[$i] . '/info.json';

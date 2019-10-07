@@ -23,6 +23,21 @@ namespace phpOMS\Algorithm\PathFinding;
  * @since   1.0.0
  */
 interface PathFinderInterface {
+    /**
+     * Find path from one point to another
+     *
+     * @param int  $startX    Start point X-Coordinate
+     * @param int  $startY    Start point Y-Coordinate
+     * @param int  $endX      End point X-Coordinate
+     * @param int  $endY      End point Y-Coordinate
+     * @param Grid $grid      Grid with the walkable points
+     * @param int  $heuristic Heuristic algorithm to use in order to calculate the distance for a good path
+     * @param int  $movement  Allowed movement (e.g. straight, diagonal, ...)
+     *
+     * @return Path
+     *
+     * @since 1.0.0
+     */
     public static function findPath(
         int $startX, int $startY,
         int $endX, int $endY,

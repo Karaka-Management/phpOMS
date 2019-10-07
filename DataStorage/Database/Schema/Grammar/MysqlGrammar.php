@@ -59,7 +59,7 @@ class MysqlGrammar extends Grammar
      * Compile from.
      *
      * @param Builder $query Builder
-     * @param array   $table Tables
+     * @param string  $table Tables
      *
      * @return string
      *

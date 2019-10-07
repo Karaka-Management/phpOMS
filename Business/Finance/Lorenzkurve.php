@@ -25,6 +25,16 @@ namespace phpOMS\Business\Finance;
 final class Lorenzkurve
 {
     /**
+     * Constructure
+     *
+     * @since 1.0.0
+     * @codeCoverageIgnore
+     */
+	private function __construct()
+	{
+    }
+
+    /**
      * Calculate Gini coefficient
      *
      * @param array<float|int> $data Datapoints (can be unsorted)

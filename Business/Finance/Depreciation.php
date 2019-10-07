@@ -25,6 +25,16 @@ namespace phpOMS\Business\Finance;
 final class Depreciation
 {
     /**
+     * Constructure
+     *
+     * @since 1.0.0
+     * @codeCoverageIgnore
+     */
+	private function __construct()
+	{
+    }
+
+    /**
      * Calculate linear depretiation rate
      *
      * @param float $start    Value to depreciate
