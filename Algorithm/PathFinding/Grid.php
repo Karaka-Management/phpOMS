@@ -74,6 +74,7 @@ class Grid
         $y = $node->getY();
 
         $neighbors = [];
+
         $s0 = false;
         $s1 = false;
         $s2 = false;

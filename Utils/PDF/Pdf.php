@@ -18,13 +18,14 @@ namespace phpOMS\Utils\PDF;
 include __DIR__ . '/../../../Resources/tcpdf/tcpdf.php';
 
 /**
- * Pdf class.
+ * PDF class.
  *
- * @package    phpOMS\Utils\PDF
- * @since      1.0.0
+ * @package phpOMS\Utils\PDF
+ * @license OMS License 1.0
+ * @link    https://orange-management.org
+ * @since   1.0.0
+ * @noinspection PhpUndefinedClassInspection
  */
-
-/** @noinspection PhpUndefinedClassInspection */
 class Pdf extends \TCPDF
 {
 }

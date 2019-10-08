@@ -15,7 +15,7 @@ declare(strict_types=1);
 namespace phpOMS\Algorithm\PathFinding;
 
 /**
- * Node on grid.
+ * Null node.
  *
  * @package phpOMS\Algorithm\PathFinding
  * @license OMS License 1.0

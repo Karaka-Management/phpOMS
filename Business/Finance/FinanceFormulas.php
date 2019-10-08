@@ -35,7 +35,7 @@ final class FinanceFormulas
      * @since 1.0.0
      * @codeCoverageIgnore
      */
-	private function __construct()
+    private function __construct()
 	{
     }
 

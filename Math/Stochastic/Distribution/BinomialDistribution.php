@@ -35,8 +35,6 @@ class BinomialDistribution
      *
      * @return float
      *
-     * @throws \Exception
-     *
      * @since 1.0.0
      */
     public static function getMode(int $n, float $p) : float

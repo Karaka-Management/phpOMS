@@ -26,6 +26,17 @@ use phpOMS\Math\Topology\Metrics2D;
  */
 class Heuristic
 {
+    /**
+     * Calculate metric/distance between two nodes.
+     *
+     * @param array $node1     Array with 'x' and 'y' coordinate
+     * @param array $node2     Array with 'x' and 'y' coordinate
+     * @param int   $heuristic Heuristic to use for calculation
+     *
+     * @return float
+     *
+     * @since 1.0.0
+     */
     public static function metric(array $node1, array $node2, int $heuristic) : float
     {
         if ($heuristic === HeuristicType::MANHATTAN) {

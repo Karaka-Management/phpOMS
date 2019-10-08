@@ -20,11 +20,12 @@ require_once \realpath(__DIR__ . '/../../../Resources/phpexcel/Classes/PHPExcel.
 /**
  * Excel class.
  *
- * @package    phpOMS\Utils\Excel
- * @since      1.0.0
+ * @package phpOMS\Utils\Excel
+ * @license OMS License 1.0
+ * @link    https://orange-management.org
+ * @since   1.0.0
+ * @noinspection PhpUndefinedClassInspection
  */
-
-/** @noinspection PhpUndefinedClassInspection */
 class Excel extends \PHPExcel
 {
 }

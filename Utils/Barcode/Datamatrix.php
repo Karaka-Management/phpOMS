@@ -15,7 +15,7 @@ declare(strict_types=1);
 namespace phpOMS\Utils\Barcode;
 
 /**
- * Aztec class.
+ * Datamatrix class.
  *
  * @package phpOMS\Utils\Barcode
  * @license OMS License 1.0

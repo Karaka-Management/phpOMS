@@ -26,9 +26,14 @@ namespace phpOMS\Math\Topology;
  */
 final class Metrics2D
 {
+    /**
+     * Constructure
+     *
+     * @since 1.0.0
+     * @codeCoverageIgnore
+     */
     private function __construct()
     {
-
     }
 
     /**
@@ -113,9 +118,9 @@ final class Metrics2D
      *
      * @latex d(p, q) = \sqrt[\lambda]{\sum_{n=1}^N{|p_i - q_i|^\lambda}}
      *
-     * @param array $a 2-D array with x and y coordinate
-     * @param array $b 2-D array with x and y coordinate
-     * @param int   $lambda
+     * @param array $a      2-D array with x and y coordinate
+     * @param array $b      2-D array with x and y coordinate
+     * @param int   $lambda Lambda
      *
      * @return float
      *
@@ -162,8 +167,10 @@ final class Metrics2D
      */
     public static function brayCurtis(array $a, array $b) : float
     {
-        return (\abs($a['x'] - $b['x']) + \abs($a['y'] - $b['y'])) / (($a['x'] + $b['x'])
-            + ($a['y'] + $b['y']));
+        return (\abs($a['x'] - $b['x'])
+                + \abs($a['y'] - $b['y']))
+            / (($a['x'] + $b['x'])
+                + ($a['y'] + $b['y']));
     }
 
     /**
@@ -180,7 +187,7 @@ final class Metrics2D
      */
     public static function angularSeparation(array $a, array $b) : float
     {
-        return ($a['x'] * $b['x'] + $a['y'] * $b['y']) / pow(($a['x']**2 + $a['y']**2) * ($b['x'] ** 2 + $b['y'] ** 2), 1 / 2);
+        return ($a['x'] * $b['x'] + $a['y'] * $b['y']) / pow(($a['x'] ** 2 + $a['y'] ** 2) * ($b['x'] ** 2 + $b['y'] ** 2), 1 / 2);
     }
 
     /**
@@ -245,7 +252,9 @@ final class Metrics2D
             $bPos[$i] = [$b[$i], $i];
         }
 
-        \usort($bPos, function ($e1, $e2) { return $e1[0] <=> $e2[0]; });
+        \usort($bPos, function ($e1, $e2) {
+            return $e1[0] <=> $e2[0];
+        });
 
         $vis = \array_fill(0, $size, false);
         $ans = 0;
@@ -256,11 +265,12 @@ final class Metrics2D
             }
 
             $cycleSize = 0;
-            $j = $i;
+            $j         = $i;
 
             while (!$vis[$j]) {
                 $vis[$j] = true;
-                $j = $bPos[$j][1];
+                $j       = $bPos[$j][1];
+
                 ++$cycleSize;
             }
 
