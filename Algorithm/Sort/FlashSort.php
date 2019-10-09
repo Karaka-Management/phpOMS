@@ -39,12 +39,12 @@ class FlashSort implements SortInterface
             $m = 262143;
         }
 
-        $l = \array_fill(0, $n, 0);
+        $l     = \array_fill(0, $n, 0);
         $anmin = $list[0];
         $anmax = $anmin;
-        $nmax = 0;
+        $nmax  = 0;
         $nmove = 0;
-        $lk = 0;
+        $lk    = 0;
 
         $kmin  = null;
         $kmax  = null;
@@ -97,14 +97,14 @@ class FlashSort implements SortInterface
             $lk = ($l[$k] += $lk);
         }
 
-        $hold = $anmax;
+        $hold        = $anmax;
         $list[$nmax] = $list[0];
-        $list[0] = $hold;
+        $list[0]     = $hold;
 
         $flash = null;
-        $j = 0;
-        $k = ($m - 1);
-        $i = ($n - 1);
+        $j     = 0;
+        $k     = ($m - 1);
+        $i     = ($n - 1);
 
         while (($nmove - $i) >>> 31) {
             while ($j !== $lk) {
@@ -112,7 +112,7 @@ class FlashSort implements SortInterface
             }
 
             $flash = $a[$j];
-            $lk = $l[$k];
+            $lk    = $l[$k];
 
             while ($j !== $lk)
         }

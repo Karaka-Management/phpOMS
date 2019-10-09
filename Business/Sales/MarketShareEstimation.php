@@ -34,7 +34,7 @@ final class MarketShareEstimation
      * @codeCoverageIgnore
      */
     private function __construct()
-	{
+    {
     }
 
     /**

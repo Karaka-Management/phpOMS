@@ -27,6 +27,12 @@ use phpOMS\DataStorage\Database\Query\Builder as QueryBuilder;
  */
 class Builder extends QueryBuilder
 {
+    /**
+     * Table to create.
+     *
+     * @var   string
+     * @since 1.0.0
+     */
     public string $createTable = '';
 
     /**
@@ -133,6 +139,15 @@ class Builder extends QueryBuilder
         return $builder;
     }
 
+    /**
+     * Drop database
+     *
+     * @param string $database Database to drop
+     *
+     * @return self
+     *
+     * @since 1.0.0
+     */
     public function dropDatabase(string $database) : self
     {
         $this->type         = QueryType::DROP_DATABASE;
@@ -141,6 +156,15 @@ class Builder extends QueryBuilder
         return $this;
     }
 
+    /**
+     * Drop table
+     *
+     * @param string $table Table to drop
+     *
+     * @return self
+     *
+     * @since 1.0.0
+     */
     public function dropTable(string $table) : self
     {
         $this->type      = QueryType::DROP_TABLE;
@@ -149,6 +173,13 @@ class Builder extends QueryBuilder
         return $this;
     }
 
+    /**
+     * Select all tables
+     *
+     * @return self
+     *
+     * @since 1.0.0
+     */
     public function selectTables() : self
     {
         $this->type = QueryType::TABLES;
@@ -156,6 +187,15 @@ class Builder extends QueryBuilder
         return $this;
     }
 
+    /**
+     * Select all fields of table
+     *
+     * @param string $table Table to select fields from
+     *
+     * @return self
+     *
+     * @since 1.0.0
+     */
     public function selectFields(string $table) : self
     {
         $this->type         = QueryType::FIELDS;
@@ -164,6 +204,15 @@ class Builder extends QueryBuilder
         return $this;
     }
 
+    /**
+     * Create table
+     *
+     * @param string $name Table to create
+     *
+     * @return self
+     *
+     * @since 1.0.0
+     */
     public function createTable(string $name) : self
     {
         $this->type        = QueryType::CREATE_TABLE;
@@ -172,7 +221,22 @@ class Builder extends QueryBuilder
         return $this;
     }
 
-    // todo: consider to work with flags instead of all these booleans
+    /**
+     * Define field for create
+     *
+     * @param string $name          Field name
+     * @param string $type          Field type
+     * @param mixed  $default       Default value
+     * @param bool   $isNullable    Can be null
+     * @param bool   $isPrimary     Is a primary field
+     * @param bool   $autoincrement Autoincrements
+     * @param string $foreignTable  Foreign table (in case of foreign key)
+     * @param string $foreignKey    Foreign key
+     *
+     * @return self
+     *
+     * @since 1.0.0
+     */
     public function field(
         string $name, string $type, $default = null,
         bool $isNullable = true, bool $isPrimary = false, bool $autoincrement = false,

@@ -22,43 +22,6 @@ namespace phpOMS\DataStorage\Database\Query;
  * @link    https://orange-management.org
  * @since   1.0.0
  */
-class Column
+class Column extends Builder
 {
-
-    /**
-     * Column name.
-     *
-     * @var   string
-     * @since 1.0.0
-     */
-    private string $column = '';
-
-    /**
-     * Constructor.
-     *
-     * @param string $column Column
-     *
-     * @since 1.0.0
-     */
-    public function __construct(string $column)
-    {
-        $this->column = $column;
-    }
-
-    /**
-     * Get column string.
-     *
-     * @return string
-     *
-     * @since 1.0.0
-     */
-    public function getColumn() : string
-    {
-        return $this->column;
-    }
-
-    public function setColumn(string $column) : void
-    {
-        $this->column = $column;
-    }
 }

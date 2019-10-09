@@ -31,7 +31,7 @@ final class Lorenzkurve
      * @codeCoverageIgnore
      */
     private function __construct()
-	{
+    {
     }
 
     /**

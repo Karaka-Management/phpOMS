@@ -94,7 +94,7 @@ class PoissonDistribution
     }
 
     /**
-     * Get expected value.
+     * Get median.
      *
      * @param float $lambda Lambda
      *

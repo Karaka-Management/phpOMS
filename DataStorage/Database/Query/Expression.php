@@ -15,7 +15,15 @@ declare(strict_types=1);
 
 namespace phpOMS\DataStorage\Database\Query;
 
-class Expression
+/**
+ * Database query builder.
+ *
+ * @package phpOMS\DataStorage\Database\Query
+ * @license OMS License 1.0
+ * @link    https://orange-management.org
+ * @since   1.0.0
+ */
+class Expression extends Builder
 {
 
 }

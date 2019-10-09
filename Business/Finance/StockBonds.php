@@ -34,7 +34,7 @@ final class StockBonds
      * @codeCoverageIgnore
      */
     private function __construct()
-	{
+    {
     }
 
     /**

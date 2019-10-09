@@ -81,7 +81,7 @@ class ExponentialDistribution
     }
 
     /**
-     * Get expected value.
+     * Get median.
      *
      * @param float $lambda Lambda
      *

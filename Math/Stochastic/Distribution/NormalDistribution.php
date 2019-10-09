@@ -106,7 +106,7 @@ class NormalDistribution
     }
 
     /**
-     * Get expected value.
+     * Get median.
      *
      * @param float $mu Value mu
      *

@@ -41,6 +41,16 @@ class BitonicSort implements SortInterface
         return self::merge(\array_merge($first, $second), $order);
     }
 
+    /**
+     * Splitting, merging and sorting list
+     *
+     * @param array $list  List to sort
+     * @param int   $order Sort order
+     *
+     * @return array
+     *
+     * @since 1.0.0
+     */
     private static function merge(array $list, int $order) : array
     {
         $n = \count($list);

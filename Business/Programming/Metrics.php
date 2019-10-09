@@ -33,7 +33,7 @@ final class Metrics
      * @codeCoverageIgnore
      */
     private function __construct()
-	{
+    {
     }
 
     /**

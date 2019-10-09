@@ -103,7 +103,7 @@ class BernoulliDistribution
     }
 
     /**
-     * Get expected value.
+     * Get median.
      *
      * @param float $p Value p
      *
@@ -119,7 +119,7 @@ class BernoulliDistribution
             return 1;
         }
 
-        return 0;
+        return 0.0;
     }
 
     /**

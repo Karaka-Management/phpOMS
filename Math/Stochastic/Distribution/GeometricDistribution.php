@@ -81,7 +81,7 @@ class GeometricDistribution
     }
 
     /**
-     * Get expected value.
+     * Get median.
      *
      * @param float $p Value p
      *

@@ -254,7 +254,7 @@ class Grammar extends GrammarAbstract
         } elseif ($element['column'] instanceof Builder) {
             $expression .= '(' . $element['column']->toSql() . ')';
         } elseif ($element['column'] instanceof Where) {
-            $expression .= '(' . $this->compileWhere($element['column'], $query->getPrefix()) . ')';
+            $expression .= '(' . \rtrim($this->compileWhereQuery($element['column']), ';') . ')';
         }
 
         if (isset($element['value'])) {
@@ -267,10 +267,46 @@ class Grammar extends GrammarAbstract
         return $expression;
     }
 
-    protected function compileWhere(Where $where, string $prefix = '', bool $first = true) : string
+    /**
+     * Compile where query.
+     *
+     * @param Where $where Where query
+     *
+     * @return string
+     *
+     * @since 1.0.0
+     */
+    protected function compileWhereQuery(Where $where) : string
     {
+        return $where->toSql();
+    }
 
-        return '';
+    /**
+     * Compile from query.
+     *
+     * @param From $from Where query
+     *
+     * @return string
+     *
+     * @since 1.0.0
+     */
+    protected function compileFromQuery(From $from) : string
+    {
+        return $from->toSql();
+    }
+
+    /**
+     * Compile column query.
+     *
+     * @param column $column Where query
+     *
+     * @return string
+     *
+     * @since 1.0.0
+     */
+    protected function compileColumnQuery(column $column) : string
+    {
+        return $column->toSql();
     }
 
     /**
@@ -313,7 +349,7 @@ class Grammar extends GrammarAbstract
         } elseif (\is_float($value)) {
             return \rtrim(\rtrim(\number_format($value, 5, '.', ''), '0'), '.');
         } elseif ($value instanceof Column) {
-            return $this->compileSystem($value->getColumn(), $prefix);
+            return '(' . \rtrim($this->compileColumnQuery($value), ';') . ')';
         } elseif ($value instanceof Builder) {
             return '(' . \rtrim($value->toSql(), ';') . ')';
         } elseif ($value instanceof \JsonSerializable) {
@@ -440,7 +476,7 @@ class Grammar extends GrammarAbstract
         } elseif ($element['column'] instanceof Builder) {
             $expression .= '(' . $element['column']->toSql() . ')';
         } elseif ($element['column'] instanceof Where) {
-            $expression .= '(' . $this->compileWhere($element['column'], $query->getPrefix()) . ')';
+            $expression .= '(' . \rtrim($this->compileWhereQuery($element['column']), ';') . ')';
         }
 
         if (isset($element['value'])) {

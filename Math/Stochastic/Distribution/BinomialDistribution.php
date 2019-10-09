@@ -144,7 +144,7 @@ class BinomialDistribution
     }
 
     /**
-     * Get expected value.
+     * Get median.
      *
      * @param int   $n Value n
      * @param float $p Value p

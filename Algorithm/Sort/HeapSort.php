@@ -1,0 +1,84 @@
+<?php
+/**
+ * Orange Management
+ *
+ * PHP Version 7.4
+ *
+ * @package   phpOMS\Algorithm\Sort;
+ * @copyright Dennis Eichhorn
+ * @license   OMS License 1.0
+ * @version   1.0.0
+ * @link      https://orange-management.org
+ */
+declare(strict_types=1);
+
+namespace phpOMS\Algorithm\Sort;
+
+/**
+ * HeapSort class.
+ *
+ * @package phpOMS\Algorithm\Sort;
+ * @license OMS License 1.0
+ * @link    https://orange-management.org
+ * @since   1.0.0
+ */
+class HeapSort implements SortInterface
+{
+    /**
+     * {@inheritdoc}
+     */
+    public static function sort(array $list, int $order = SortOrder::ASC) : array
+    {
+        $n    = \count($list);
+        $copy = $list;
+
+        for ($p = ($n - 1) / 2; $p >= 0; --$p) {
+            self::heapify($copy, $n, $p, $order);
+        }
+
+        for ($i = $n - 1; $i > 0; --$i) {
+            $temp     = $copy[$i];
+            $copy[$i] = $copy[0];
+            $copy[0]  = $temp;
+
+            --$n;
+            self::heapify($copy, $n, 0, $order);
+        }
+
+        return $copy;
+    }
+
+    /**
+     * Convert into heap data structure
+     *
+     * @param array $list  Data to sort
+     * @param int   $size  Heap size
+     * @param int   $index Index element
+     * @param itn   $order Sort order
+     *
+     * @return void
+     *
+     * @since 1.0.0
+     */
+    private static function heapify(array &$list, int $size, int $index, int $order) : void
+    {
+        $left  = ($index + 1) * 2 - 1;
+        $right = ($index + 1) * 2;
+        $pivot = 0;
+
+        // todo: also check $left > $size if test failes for desc!
+        $pivot = $left < $size && $list[$left]->compare($list[$index], $order) ? $left : $index;
+
+        if ($right < $size && $list[$right]->compare($list[$pivot], $order)) {
+            $pivot = $right;
+        }
+
+        if ($pivot !== $index) {
+            $temp         = $list[$index];
+            $list[$index] = $list[$pivot];
+            $list[$pivot] = $temp;
+
+            self::heapify($list, $size, $pivot, $order);
+        }
+    }
+}

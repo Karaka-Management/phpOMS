@@ -192,7 +192,7 @@ class ChiSquaredDistribution
     }
 
     /**
-     * Get expected value.
+     * Get median.
      *
      * @param int $df Degrees of freedom
      *

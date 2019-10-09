@@ -31,7 +31,7 @@ final class Depreciation
      * @codeCoverageIgnore
      */
     private function __construct()
-	{
+    {
     }
 
     /**

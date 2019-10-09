@@ -34,7 +34,7 @@ final class Loan
      * @codeCoverageIgnore
      */
     private function __construct()
-	{
+    {
     }
 
     /**

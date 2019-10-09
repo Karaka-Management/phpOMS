@@ -35,6 +35,18 @@ class QuickSort implements SortInterface
         return $copy;
     }
 
+    /**
+     * Recursive quick sort
+     *
+     * @param array $list  Data to sort
+     * @param int   $lo    Low or left point to sort
+     * @param int   $hi    High or right point to sort
+     * @param int   $order Sort order
+     *
+     * @return void
+     *
+     * @since 1.0.0
+     */
     private static function qsort(array &$list, int $lo, int $hi, int $order) : void
     {
         if ($lo < $hi) {
@@ -44,6 +56,18 @@ class QuickSort implements SortInterface
         }
     }
 
+    /**
+     * Partition data and count the partitions
+     *
+     * @param array $list  Data to sort
+     * @param int   $lo    Low or left point to sort
+     * @param int   $hi    High or right point to sort
+     * @param int   $order Sort order
+     *
+     * @return int
+     *
+     * @since 1.0.0
+     */
     private static function partition(array &$list, int $lo, int $hi, int $order) : int
     {
         $pivot = $list[$lo + ((int) (($hi - $lo) / 2))];

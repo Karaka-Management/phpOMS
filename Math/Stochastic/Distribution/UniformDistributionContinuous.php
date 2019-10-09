@@ -119,7 +119,7 @@ class UniformDistributionContinuous
     }
 
     /**
-     * Get expected value.
+     * Get median.
      *
      * @param float $a Value a
      * @param float $b Value b

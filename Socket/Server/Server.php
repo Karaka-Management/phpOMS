@@ -128,46 +128,46 @@ class Server extends SocketAbstract
     public function handshake($client, $headers) : bool
     {
         // todo: different handshake for normal tcp connection
+        //return true;
+
+        if (\preg_match("/Sec-WebSocket-Version: (.*)\r\n/", $headers, $match) === false) {
+            return false;
+        }
+
+        $version = (int) $match[1];
+
+        if ($version !== 13) {
+            return false;
+        }
+
+        if (\preg_match("/GET (.*) HTTP/", $headers, $match)) {
+            $root = $match[1];
+        }
+
+        if (\preg_match("/Host: (.*)\r\n/", $headers, $match)) {
+            $host = $match[1];
+        }
+
+        if (\preg_match("/Origin: (.*)\r\n/", $headers, $match)) {
+            $origin = $match[1];
+        }
+
+        $key = '';
+        if (\preg_match("/Sec-WebSocket-Key: (.*)\r\n/", $headers, $match)) {
+            $key = $match[1];
+        }
+
+        $acceptKey = $key . '258EAFA5-E914-47DA-95CA-C5AB0DC85B11';
+        $acceptKey = \base64_encode(\sha1($acceptKey, true));
+        $upgrade   = "HTTP/1.1 101 Switching Protocols\r\n" .
+            "Upgrade: websocket\r\n" .
+            "Connection: Upgrade\r\n" .
+            "Sec-WebSocket-Accept: ${acceptKey}" .
+            "\r\n\r\n";
+        \socket_write($client->getSocket(), $upgrade);
+        $client->setHandshake(true);
+
         return true;
-
-        if (\preg_match("/Sec-WebSocket-Version: (.*)\r\n/", $headers, $match)) {
-            $version = $match[1];
-        } else {
-            return false;
-        }
-
-        if ($version == 13) {
-            if (\preg_match("/GET (.*) HTTP/", $headers, $match)) {
-                $root = $match[1];
-            }
-
-            if (\preg_match("/Host: (.*)\r\n/", $headers, $match)) {
-                $host = $match[1];
-            }
-
-            if (\preg_match("/Origin: (.*)\r\n/", $headers, $match)) {
-                $origin = $match[1];
-            }
-
-            $key = '';
-            if (\preg_match("/Sec-WebSocket-Key: (.*)\r\n/", $headers, $match)) {
-                $key = $match[1];
-            }
-
-            $acceptKey = $key . '258EAFA5-E914-47DA-95CA-C5AB0DC85B11';
-            $acceptKey = \base64_encode(\sha1($acceptKey, true));
-            $upgrade   = "HTTP/1.1 101 Switching Protocols\r\n" .
-                "Upgrade: websocket\r\n" .
-                "Connection: Upgrade\r\n" .
-                "Sec-WebSocket-Accept: ${acceptKey}" .
-                "\r\n\r\n";
-            \socket_write($client->getSocket(), $upgrade);
-            $client->setHandshake(true);
-
-            return true;
-        } else {
-            return false;
-        }
     }
 
     /**

@@ -63,11 +63,10 @@ class Edge
     /**
      * Constructor.
      *
-     * @param Node $node1      Graph node (start node in case of directed edge)
-     * @param Node $node2      Graph node (end node in case of directed edge)
-     * @param bool $isDirected Is directed edge
-     *
-     * @return Graph
+     * @param Node  $node1      Graph node (start node in case of directed edge)
+     * @param Node  $node2      Graph node (end node in case of directed edge)
+     * @param float $weight     Weight/cost of the edge.
+     * @param bool  $isDirected Is directed edge
      *
      * @since 1.0.0
      */

@@ -22,6 +22,6 @@ namespace phpOMS\DataStorage\Database\Query;
  * @link    https://orange-management.org
  * @since   1.0.0
  */
-class Where
+class Where extends Builder
 {
 }

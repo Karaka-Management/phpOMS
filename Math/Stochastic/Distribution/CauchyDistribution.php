@@ -71,7 +71,7 @@ class CauchyDistribution
     }
 
     /**
-     * Get expected value.
+     * Get median.
      *
      * @param float $x0 Value x0
      *
