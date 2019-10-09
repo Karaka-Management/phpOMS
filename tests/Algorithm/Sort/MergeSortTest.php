@@ -14,17 +14,17 @@
 
 namespace phpOMS\tests\Algorithm\Sort;
 
-use phpOMS\Algorithm\Sort\HeapSort;
+use phpOMS\Algorithm\Sort\MergeSort;
 use phpOMS\Algorithm\Sort\SortOrder;
 
 require_once __DIR__ . '/../../Autoloader.php';
 
 /**
- * @testdox phpOMS\tests\Algorithm\Sort: Heap sort test
+ * @testdox phpOMS\tests\Algorithm\Sort: Merge sort test
  *
  * @internal
  */
-class HeapSortTest extends \PHPUnit\Framework\TestCase
+class MergeSortTest extends \PHPUnit\Framework\TestCase
 {
     protected $list = [];
 
@@ -41,7 +41,7 @@ class HeapSortTest extends \PHPUnit\Framework\TestCase
 
     public function testSortASC() : void
     {
-        $newList = HeapSort::sort($this->list);
+        $newList = MergeSort::sort($this->list);
         self::assertEquals(
             [1, 2, 4, 5, 8], [$newList[0]->value, $newList[1]->value, $newList[2]->value, $newList[3]->value, $newList[4]->value,]
         );
@@ -53,7 +53,7 @@ class HeapSortTest extends \PHPUnit\Framework\TestCase
 
     public function testSortDESC() : void
     {
-        $newList = HeapSort::sort($this->list, SortOrder::DESC);
+        $newList = MergeSort::sort($this->list, SortOrder::DESC);
         self::assertEquals(
             [8, 5, 4, 2, 1], [$newList[0]->value, $newList[1]->value, $newList[2]->value, $newList[3]->value, $newList[4]->value,]
         );

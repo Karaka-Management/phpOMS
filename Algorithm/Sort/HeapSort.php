@@ -54,7 +54,7 @@ class HeapSort implements SortInterface
      * @param array $list  Data to sort
      * @param int   $size  Heap size
      * @param int   $index Index element
-     * @param itn   $order Sort order
+     * @param int   $order Sort order
      *
      * @return void
      *

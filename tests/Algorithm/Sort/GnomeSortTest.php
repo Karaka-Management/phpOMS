@@ -45,6 +45,10 @@ class GnomeSortTest extends \PHPUnit\Framework\TestCase
         self::assertEquals(
             [1, 2, 4, 5, 8], [$newList[0]->value, $newList[1]->value, $newList[2]->value, $newList[3]->value, $newList[4]->value,]
         );
+
+        self::assertEquals(
+            [5, 1, 4, 2, 8], [$this->list[0]->value, $this->list[1]->value, $this->list[2]->value, $this->list[3]->value, $this->list[4]->value,]
+        );
     }
 
     public function testSortDESC() : void
@@ -52,6 +56,10 @@ class GnomeSortTest extends \PHPUnit\Framework\TestCase
         $newList = GnomeSort::sort($this->list, SortOrder::DESC);
         self::assertEquals(
             [8, 5, 4, 2, 1], [$newList[0]->value, $newList[1]->value, $newList[2]->value, $newList[3]->value, $newList[4]->value,]
+        );
+
+        self::assertEquals(
+            [5, 1, 4, 2, 8], [$this->list[0]->value, $this->list[1]->value, $this->list[2]->value, $this->list[3]->value, $this->list[4]->value,]
         );
     }
 }
