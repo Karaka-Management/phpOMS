@@ -14,6 +14,8 @@ declare(strict_types=1);
 
 namespace phpOMS\Algorithm\Sort;
 
+use phpOMS\Utils\NumericUtils;
+
 /**
  * FlashSort class.
  *
@@ -51,32 +53,32 @@ class FlashSort implements SortInterface
 
         // todo: replace >>> with Numeric::uRightShift
 
-        for ($i = 0; (($i += 2) - $n) >>> 31;) {
-            if ((($kmax = $list[$i - 1])->getValue() - ($kmin = $list[$i])->getValue()) >>> 31) {
-                if (($kmax->getValue() - $anmin->getValue()) >>> 31) {
+        for ($i = 0; NumericUtils::uRightShift(($i += 2) - $n, 31);) {
+            if (NumericUtils::uRightShift(($kmax = $list[$i - 1])->getValue() - ($kmin = $list[$i])->getValue(), 31)) {
+                if (NumericUtils::uRightShift($kmax->getValue() - $anmin->getValue(), 31)) {
                     $anmin = $list[$i - 1];
                 }
 
-                if (($anmax->getValue() - $kmin->getValue()) >>> 31) {
+                if (NumericUtils::uRightShift($anmax->getValue() - $kmin->getValue(), 31)) {
                     $anmax = $list[$i];
                     $nmax  = $i;
                 }
             } else {
-                if (($kmin->getValue() - $anmin->getValue()) >>> 31) {
+                if (NumericUtils::uRightShift($kmin->getValue() - $anmin->getValue(), 31)) {
                     $anmin = $list[$i];
                 }
 
-                if (($anmax->getValue() - $kmin->getValue()) >>> 31) {
+                if (NumericUtils::uRightShift($anmax->getValue() - $kmin->getValue(), 31)) {
                     $anmax = $list[$i - 1];
                     $nmax  = $i - 1;
                 }
             }
         }
 
-        if ((--$i - $n) >>> 31) {
-            if ((($k = $list[$i])->getValue() - $anmin->getValue()) >>> 31) {
+        if (NumericUtils::uRightShift(--$i - $n, 31)) {
+            if (NumericUtils::uRightShift(($k = $list[$i])->getValue() - $anmin->getValue(), 31)) {
                 $anmin = $list[$i];
-            } elseif (($anmax->getValue() - $k->getValue()) >>> 31) {
+            } elseif (NumericUtils::uRightShift($anmax->getValue() - $k->getValue(), 31)) {
                 $anmax = $list[$i];
                 $nmax  = $i;
             }
@@ -88,12 +90,12 @@ class FlashSort implements SortInterface
 
         $c1 = (($m - 1) << 13) / ($anmax->getValue() - $anmin->getValue());
 
-        for ($i = -1; (++$i - $n) >>> 31;) {
+        for ($i = -1; NumericUtils::uRightShift(++$i - $n, 31);) {
             ++$l[($c1 * ($list[$i]->getValue() - $anmin->getValue())) >> 13];
         }
 
         $lk = $l[0];
-        for ($k = 0; (++$k - $m) >>> 31;) {
+        for ($k = 0; NumericUtils::uRightShift(++$k - $m, 31);) {
             $lk = ($l[$k] += $lk);
         }
 
@@ -106,7 +108,7 @@ class FlashSort implements SortInterface
         $k     = ($m - 1);
         $i     = ($n - 1);
 
-        while (($nmove - $i) >>> 31) {
+        while (NumericUtils::uRightShift($nmove - $i, 31)) {
             while ($j !== $lk) {
                 $k = ($c1 * ($list[(++$j)]->getValue() - $anmin->getValue())) >> 13;
             }
@@ -114,7 +116,9 @@ class FlashSort implements SortInterface
             $flash = $a[$j];
             $lk    = $l[$k];
 
-            while ($j !== $lk)
+            while ($j !== $lk) {
+
+            }
         }
     }
 }

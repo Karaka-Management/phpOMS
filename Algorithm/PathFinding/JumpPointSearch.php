@@ -48,7 +48,10 @@ class JumpPointSearch implements PathFinderInterface
         $startNode->setF(0.0);
         $startNode->setOpened(true);
 
-        $openList = new Heap(function($node1, $node2) { return $node1->getF() - $node2->getF(); });
+        $openList = new Heap(function($node1, $node2) {
+            return $node1->getF() - $node2->getF();
+        });
+
         $openList->push($startNode);
         $node = null;
 
@@ -73,6 +76,20 @@ class JumpPointSearch implements PathFinderInterface
         return $path;
     }
 
+    /**
+     * Find possible successor jump points
+     *
+     * @param JumpPointNode $node      Node to find successor for
+     * @param Grid          $grid      Grid of the nodes
+     * @param int           $heuristic Heuristic/metrics type for the distance calculation
+     * @param int           $movement  Movement type
+     * @param JumpPointNode $endNode   End node to find path to
+     * @param Heap          $openList  Heap of open nodes
+     *
+     * @return Heap
+     *
+     * @since 1.0.0
+     */
     public static function identifySuccessors(JumpPointNode $node, Grid $grid, int $heuristic, int $movement, JumpPointNode $endNode, Heap $openList) : Heap
     {
         $neighbors       = self::findNeighbors($node, $movement, $grid);
@@ -107,6 +124,17 @@ class JumpPointSearch implements PathFinderInterface
         return $openList;
     }
 
+    /**
+     * Find neighbor of node
+     *
+     * @param JumpPointNode $node     Node to find successor for
+     * @param int           $movement Movement type
+     * @param Grid          $grid     Grid of the nodes
+     *
+     * @return array Neighbors of node
+     *
+     * @since 1.0.0
+     */
     private static function findNeighbors(JumpPointNode $node, int $movement, Grid $grid) : array
     {
         if ($movement === MovementType::STRAIGHT) {
@@ -120,6 +148,16 @@ class JumpPointSearch implements PathFinderInterface
         return self::findNeighborsDiagonalNoObstacle($node, $grid);
     }
 
+    /**
+     * Find neighbor of node
+     *
+     * @param JumpPointNode $node Node to find successor for
+     * @param Grid          $grid Grid of the nodes
+     *
+     * @return array Neighbors of node
+     *
+     * @since 1.0.0
+     */
     private static function findNeighborsStraight(JumpPointNode $node, Grid $grid) : array
     {
         if ($node->getParent() === null) {
@@ -167,6 +205,16 @@ class JumpPointSearch implements PathFinderInterface
         return $neighbors;
     }
 
+    /**
+     * Find neighbor of node
+     *
+     * @param JumpPointNode $node Node to find successor for
+     * @param Grid          $grid Grid of the nodes
+     *
+     * @return array Neighbors of node
+     *
+     * @since 1.0.0
+     */
     private static function findNeighborsDiagonal(JumpPointNode $node, Grid $grid) : array
     {
         if ($node->getParent() === null) {
@@ -234,6 +282,16 @@ class JumpPointSearch implements PathFinderInterface
         return $neighbors;
     }
 
+    /**
+     * Find neighbor of node
+     *
+     * @param JumpPointNode $node Node to find successor for
+     * @param Grid          $grid Grid of the nodes
+     *
+     * @return array Neighbors of node
+     *
+     * @since 1.0.0
+     */
     private static function findNeighborsDiagonalOneObstacle(JumpPointNode $node, Grid $grid) : array
     {
         if ($node->getParent() === null) {
@@ -297,6 +355,16 @@ class JumpPointSearch implements PathFinderInterface
         return $neighbors;
     }
 
+    /**
+     * Find neighbor of node
+     *
+     * @param JumpPointNode $node Node to find successor for
+     * @param Grid          $grid Grid of the nodes
+     *
+     * @return array Neighbors of node
+     *
+     * @since 1.0.0
+     */
     private static function findNeighborsDiagonalNoObstacle(JumpPointNode $node, Grid $grid) : array
     {
         if ($node->getParent() === null) {
@@ -378,6 +446,18 @@ class JumpPointSearch implements PathFinderInterface
         return $neighbors;
     }
 
+    /**
+     * Find next jump point
+     *
+     * @param JumpPointNode $node     Node to find jump point from
+     * @param JumpPointNode $endNode  End node to find path to
+     * @param int           $movement Movement type
+     * @param Grid          $grid     Grid of the nodes
+     *
+     * @return null|JumpPointNode
+     *
+     * @since 1.0.0
+     */
     private static function jump(JumpPointNode $node, JumpPointNode $endNode, int $movement, Grid $grid) : ?JumpPointNode
     {
         if ($movement === MovementType::STRAIGHT) {
@@ -391,6 +471,17 @@ class JumpPointSearch implements PathFinderInterface
         return self::jumpDiagonalNoObstacle($node, $endNode, $grid);
     }
 
+    /**
+     * Find next jump point
+     *
+     * @param JumpPointNode $node    Node to find jump point from
+     * @param JumpPointNode $endNode End node to find path to
+     * @param Grid          $grid    Grid of the nodes
+     *
+     * @return null|JumpPointNode
+     *
+     * @since 1.0.0
+     */
     private static function jumpStraight(JumpPointNode $node, JumpPointNode $endNode, Grid $grid) : ?JumpPointNode
     {
         $x = $node->getX();
@@ -435,6 +526,17 @@ class JumpPointSearch implements PathFinderInterface
         return self::jumpStraight($grid->getNode($x + $dx, $y + $dy), $node, $grid);
     }
 
+    /**
+     * Find next jump point
+     *
+     * @param JumpPointNode $node    Node to find jump point from
+     * @param JumpPointNode $endNode End node to find path to
+     * @param Grid          $grid    Grid of the nodes
+     *
+     * @return null|JumpPointNode
+     *
+     * @since 1.0.0
+     */
     private static function jumpDiagonal(JumpPointNode $node, JumpPointNode $endNode, Grid $grid) : ?JumpPointNode
     {
         $x = $node->getX();
@@ -483,6 +585,17 @@ class JumpPointSearch implements PathFinderInterface
         return self::jumpDiagonal($grid->getNode($x + $dx, $y + $dy), $node, $grid);
     }
 
+    /**
+     * Find next jump point
+     *
+     * @param JumpPointNode $node    Node to find jump point from
+     * @param JumpPointNode $endNode End node to find path to
+     * @param Grid          $grid    Grid of the nodes
+     *
+     * @return null|JumpPointNode
+     *
+     * @since 1.0.0
+     */
     private static function jumpDiagonalOneObstacle(JumpPointNode $node, JumpPointNode $endNode, Grid $grid) : ?JumpPointNode
     {
         $x = $node->getX();
@@ -535,6 +648,17 @@ class JumpPointSearch implements PathFinderInterface
         return null;
     }
 
+    /**
+     * Find next jump point
+     *
+     * @param JumpPointNode $node    Node to find jump point from
+     * @param JumpPointNode $endNode End node to find path to
+     * @param Grid          $grid    Grid of the nodes
+     *
+     * @return null|JumpPointNode
+     *
+     * @since 1.0.0
+     */
     private static function jumpDiagonalNoObstacle(JumpPointNode $node, JumpPointNode $endNode, Grid $grid) : ?JumpPointNode
     {
         $x = $node->getX();

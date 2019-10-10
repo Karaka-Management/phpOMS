@@ -265,4 +265,34 @@ final class Polygon implements D2ShapeInterface
 
         return $barycenter;
     }
+
+    /**
+     * Get area by side length
+     *
+     * @param float $length Side length
+     * @param int   $sides  Number of sides
+     *
+     * @return float
+     *
+     * @since 1.0.0
+     */
+    public static function getRegularAreaByLength(float $length, int $sides) : float
+    {
+        return $length ** 2 * $sides / (4 * \tan(180 / $sides));
+    }
+
+    /**
+     * Get area by radius
+     *
+     * @param float $r     Radius
+     * @param int   $sides Number of sides
+     *
+     * @return float
+     *
+     * @since 1.0.0
+     */
+    public static function getRegularAreaByRadius(float $r, int $sides) : float
+    {
+        return $r ** 2 * $sides * \sin(360 / $sides) / 2;
+    }
 }

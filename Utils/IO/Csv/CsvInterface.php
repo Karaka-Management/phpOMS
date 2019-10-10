@@ -4,7 +4,7 @@
  *
  * PHP Version 7.4
  *
- * @package   TBD
+ * @package   phpOMS\Utils\IO\Csv
  * @copyright Dennis Eichhorn
  * @license   OMS License 1.0
  * @version   1.0.0
@@ -12,42 +12,37 @@
  */
 declare(strict_types=1);
 
-namespace phpOMS\Utils\IO\Csv {
+namespace phpOMS\Utils\IO\Csv;
+
+/**
+ * Cvs interface.
+ *
+ * @package    phpOMS\Utils\IO\Csv
+ * @license OMS License 1.0
+ * @link    https://orange-management.org
+ * @since   1.0.0
+ */
+interface CsvInterface
+{
+    /**
+     * Export Csv.
+     *
+     * @param string $path Path to export
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
+     */
+    public function exportCsv($path);
 
     /**
-     * Cvs interface.
+     * Import Csv.
      *
-     * PHP Version 7.4
+     * @param string $path Path to import
      *
-     * @package    Framework
-         * @copyright  Dennis Eichhorn
-     * @license    OMS License 1.0
-     * @version    1.0.0
-     * @link       https://orange-management.org
-     * @since      1.0.0
+     * @return void
+     *
+     * @since  1.0.0
+     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    interface CsvInterface
-    {
-        /**
-         * Export Csv.
-         *
-         * @param string $path Path to export
-         *
-         * @since  1.0.0
-         * @author Dennis Eichhorn <d.eichhorn@oms.com>
-         */
-        public function exportCsv($path);
-
-        /**
-         * Import Csv.
-         *
-         * @param string $path Path to import
-         *
-         * @return void
-         *
-         * @since  1.0.0
-         * @author Dennis Eichhorn <d.eichhorn@oms.com>
-         */
-        public function importCsv($path) : void;
-    }
+    public function importCsv($path) : void;
 }

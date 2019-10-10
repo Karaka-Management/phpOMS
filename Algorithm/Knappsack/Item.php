@@ -15,7 +15,7 @@ declare(strict_types=1);
 namespace phpOMS\Algorithm\Knappsack;
 
 /**
- * Matching a value with a set of coins
+ * Item in the knappsack
  *
  * @package phpOMS\Algorithm\Knappsack
  * @license OMS License 1.0
@@ -24,16 +24,56 @@ namespace phpOMS\Algorithm\Knappsack;
  */
 class Item
 {
+    /**
+     * Value of the item
+     *
+     * @var   float
+     * @since 1.0.0
+     */
     private $value = 0.0;
 
+    /**
+     * Cost of the item
+     *
+     * @var   float
+     * @since 1.0.0
+     */
     private $cost = 0.0;
 
-    public function getValue()
+    /**
+     * Cosntructor.
+     *
+     * @param float $value Value of the item
+     * @param float $cost  Cost of the item
+     *
+     * @since 1.0.0
+     */
+    public function __construct(float $value, float $cost)
+    {
+        $this->value = $value;
+        $this->cost  = $cost;
+    }
+
+    /**
+     * Get value of the item
+     *
+     * @return float
+     *
+     * @since 1.0.0
+     */
+    public function getValue() : float
     {
         return $this->value;
     }
 
-    public function getCost()
+    /**
+     * Get value of the item
+     *
+     * @return float
+     *
+     * @since 1.0.0
+     */
+    public function getCost() : float
     {
         return $this->cost;
     }

@@ -436,32 +436,74 @@ class Graph
         return $diameter;
     }
 
+    /**
+     * Get the graph girth
+     *
+     * @return int
+     *
+     * @since 1.0.0
+     */
     public function getGirth() : int
     {
         return 0;
     }
 
+    /**
+     * Get the graph circuit rank
+     *
+     * @return int
+     *
+     * @since 1.0.0
+     */
     public function getCircuitRank() : int
     {
         return 0;
     }
 
+    /**
+     * Get the graph node connectivity
+     *
+     * @return int
+     *
+     * @since 1.0.0
+     */
     public function getNodeConnectivity() : int
     {
         return 0;
     }
 
+    /**
+     * Get the graph edge connectivity
+     *
+     * @return int
+     *
+     * @since 1.0.0
+     */
     public function getEdgeConnectivity() : int
     {
         return 0;
     }
 
+    /**
+     * Is the graph connected?
+     *
+     * @return bool
+     *
+     * @since 1.0.0
+     */
     public function isConnected() : bool
     {
         // todo: implement
         return true;
     }
 
+    /**
+     * Get unconnected sub graphs
+     *
+     * @return Graph[]
+     *
+     * @since 1.0.0
+     */
     public function getUnconnected() : array
     {
         // todo: implement
@@ -470,18 +512,39 @@ class Graph
         return [];
     }
 
+    /**
+     * Is the graph bipartite?
+     *
+     * @return bool
+     *
+     * @since 1.0.0
+     */
     public function isBipartite() : bool
     {
         // todo: implement
         return true;
     }
 
+    /**
+     * Is the graph triangle?
+     *
+     * @return bool
+     *
+     * @since 1.0.0
+     */
     public function isTriangleFree() : bool
     {
         // todo: implement
         return true;
     }
 
+    /**
+     * Is the graph circle free?
+     *
+     * @return bool
+     *
+     * @since 1.0.0
+     */
     public function isCircleFree() : bool
     {
         // todo: implement

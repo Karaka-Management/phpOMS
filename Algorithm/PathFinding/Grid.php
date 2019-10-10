@@ -24,8 +24,19 @@ namespace phpOMS\Algorithm\PathFinding;
  */
 class Grid
 {
+    /**
+     * Grid system containing all nodes
+     *
+     * @var  array
+     * @since 1.0.0
+     */
     private array $nodes = [[]];
 
+    /**
+     * Create a grid from an array
+     *
+     * @param array $gridArray Grid defined in an array (0 = empty, 1 = start, 2 = end, 9 = not walkable)
+     */
     public static function createGridFromArray(array $gridArray, string $node) : self
     {
         $grid = new self();
@@ -44,11 +55,32 @@ class Grid
         return $grid;
     }
 
+    /**
+     * Set node at position
+     *
+     * @param int  $x    X-Coordinate
+     * @param int  $y    Y-Coordinate
+     * @param Node $node Node to set
+     *
+     * @return void
+     *
+     * @since 1.0.0
+     */
     public function setNode(int $x, int $y, Node $node) : void
     {
         $this->nodes[$y][$x] = $node;
     }
 
+    /**
+     * Get node at position
+     *
+     * @param int $x X-Coordinate
+     * @param int $y Y-Coordinate
+     *
+     * @return null|Node
+     *
+     * @since 1.0.0
+     */
     public function getNode(int $x, int $y) : ?Node
     {
         if (!isset($this->nodes[$y]) || !isset($this->nodes[$y][$x])) {
@@ -59,6 +91,16 @@ class Grid
         return $this->nodes[$y][$x];
     }
 
+    /**
+     * Is node walkable"
+     *
+     * @param int $x X-Coordinate
+     * @param int $y Y-Coordinate
+     *
+     * @return bool
+     *
+     * @since 1.0.0
+     */
     public function isWalkable(int $x, int $y) : bool
     {
         if (!isset($this->nodes[$y]) || !isset($this->nodes[$y][$x]) || !$this->nodes[$y][$x]->isWalkable()) {
@@ -68,6 +110,16 @@ class Grid
         return true;
     }
 
+    /**
+     * Get neighbors of node
+     *
+     * @param Node $node     Node to get neighbors from
+     * @param int  $movement Allowed movements
+     *
+     * @return array
+     *
+     * @since 1.0.0
+     */
     public function getNeighbors(Node $node, int $movement) : array
     {
         $x = $node->getX();
@@ -87,22 +139,22 @@ class Grid
         // todo: check $x and $y because original implementation is flipped!!!
         if ($this->isWalkable($x, $y - 1)) {
             $neighbors[] = $this->getNode($x, $y - 1);
-            $s0 = true;
+            $s0          = true;
         }
 
         if ($this->isWalkable($x + 1, $y)) {
             $neighbors[] = $this->getNode($x + 1, $y);
-            $s1 = true;
+            $s1          = true;
         }
 
         if ($this->isWalkable($x, $y + 1)) {
             $neighbors[] = $this->getNode($x, $y + 1);
-            $s2 = true;
+            $s2          = true;
         }
 
         if ($this->isWalkable($x - 1, $y)) {
             $neighbors[] = $this->getNode($x - 1, $y);
-            $s3 = true;
+            $s3          = true;
         }
 
         if ($movement === MovementType::STRAIGHT) {

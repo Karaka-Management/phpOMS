@@ -68,7 +68,7 @@ class PaginationView extends View
     }
 
     /**
-     * @param int $maxPages
+     * @param int $maxPages Maximum amount of pages to be shown
      *
      * @return void
      *
@@ -90,7 +90,7 @@ class PaginationView extends View
     }
 
     /**
-     * @param int $pages
+     * @param int $pages Number of pages
      *
      * @return void
      *
@@ -112,7 +112,7 @@ class PaginationView extends View
     }
 
     /**
-     * @param int $page
+     * @param int $page Current page index
      *
      * @return void
      *
@@ -134,7 +134,7 @@ class PaginationView extends View
     }
 
     /**
-     * @param int $results
+     * @param int $results Amount of results
      *
      * @return void
      *

@@ -24,27 +24,52 @@ namespace phpOMS\Stdlib\Base;
  */
 class Heap
 {
+    /**
+     * Comparison function
+     *
+     * @var  \Closure
+     * @since 1.0.0
+     */
     private \Closure $compare;
 
     /**
-     * Heap elements
+     * Heap items
      *
      * @var   array<int, mixed>
      * @since 1.0.0
      */
     private array $nodes = [];
 
+    /**
+     * Constructor.
+     *
+     * @param null|\Closure $compare Compare function
+     *
+     * @since 1.0.0
+     */
     public function __construct(\Closure $compare = null)
     {
-        $this->compare = $compare ?? function($a, $b) { return $a <=> $b; };
+        $this->compare = $compare ?? function($a, $b) {
+            return $a <=> $b;
+        };
     }
 
-    public function insort($x, $lo = 0) : void
+    /**
+     * Insert item into sorted heap at correct position
+     *
+     * @param mixed $x  Element to insert
+     * @param int   $lo Lower bound
+     *
+     * @return void
+     *
+     * @since 1.0.0
+     */
+    public function insort($x, int $lo = 0) : void
     {
         $hi = \count($this->nodes);
 
         while ($lo < $hi) {
-            $mid = (int) \floor(($lo + $hi) / 2);
+            $mid = (int) (($lo + $hi) / 2);
             if (($this->compare)($x, $this->nodes[$mid]) < 0) {
                 $hi = $mid;
             } else {
@@ -55,12 +80,28 @@ class Heap
         $this->nodes = \array_splice($this->nodes, $lo, 0, $x);
     }
 
+    /**
+     * Push item onto the heap
+     *
+     * @param mixed $item Item to add to the heap
+     *
+     * @return void;
+     *
+     * @since 1.0.0
+     */
     public function push($item) : void
     {
         $this->nodes[] = $item;
         $this->siftDown(0, \count($this->nodes) - 1);
     }
 
+    /**
+     * Pop the smallest item off the heap
+     *
+     * @return mixed
+     *
+     * @since 1.0.0
+     */
     public function pop()
     {
         $last = \array_pop($this->nodes);
@@ -68,18 +109,34 @@ class Heap
             return $last;
         }
 
-        $item = $this->nodes[0];
+        $item           = $this->nodes[0];
         $this->nodes[0] = $last;
         $this->siftUp(0);
 
         return $item;
     }
 
+    /**
+     * Get first item without popping
+     *
+     * @return mixed
+     *
+     * @since 1.0.0
+     */
     public function peek()
     {
         return $this->nodes[0];
     }
 
+    /**
+     * Contains item?
+     *
+     * @param mixed $item Item to check
+     *
+     * @return bool
+     *
+     * @since 1.0.0
+     */
     public function contains($item) : bool
     {
         foreach ($this->nodes as $key => $node) {
@@ -97,20 +154,38 @@ class Heap
         return false;
     }
 
+    /**
+     * Pop a item and push a new one (replace with a new one)
+     *
+     * @param mixed $new New item
+     *
+     * @return mixed popped item
+     *
+     * @since 1.0.0
+     */
     public function replace($new)
     {
-        $old = $this->nodes[0];
+        $old            = $this->nodes[0];
         $this->nodes[0] = $new;
         $this->siftUp(0);
 
         return $old;
     }
 
+    /**
+     * Push item and pop one
+     *
+     * @param mixed $item New item
+     *
+     * @return mixed popped item
+     *
+     * @since 1.0.0
+     */
     public function pushpop($item)
     {
         if (!empty($this->nodes) && ($this->compare)($this->nodes[0], $item) < 0) {
-            $temp = $item;
-            $item = $this->nodes[0];
+            $temp           = $item;
+            $item           = $this->nodes[0];
             $this->nodes[0] = $temp;
             $this->siftUp(0);
         }
@@ -118,13 +193,35 @@ class Heap
         return $item;
     }
 
-    public function heapify() : void
+    /**
+     * Turn list into heap
+     *
+     * @param array $list Item list
+     *
+     * @return void
+     *
+     * @since 1.0.0
+     */
+    public function heapify(array $list) : void
     {
-        for ($i = (int) \floor(\count($this->nodes) / 2); $i > -1; --$i) {
+        $this->nodes = $list;
+
+        for ($i = (int) (\count($this->nodes) / 2); $i > -1; --$i) {
             $this->siftUp($i);
         }
     }
 
+    /**
+     * Update the position of a item
+     *
+     * This is called after changing an item
+     *
+     * @param mixed $item Item to update
+     *
+     * @return bool
+     *
+     * @since 1.0.0
+     */
     public function update($item) : bool
     {
         $pos = null;
@@ -152,32 +249,56 @@ class Heap
         return true;
     }
 
+    /**
+     * Get n largest items
+     *
+     * @param int $n Number of items
+     *
+     * @return array
+     *
+     * @since 1.0.0
+     */
     public function getNLargest(int $n) : array
     {
         $nodes = $this->nodes;
-        \uasort($nodes, $this->compare);
-
         return \array_slice(\array_reverse($nodes), 0, $n);
     }
 
+    /**
+     * Get n smalles items
+     *
+     * @param int $n Number of items
+     *
+     * @return array
+     *
+     * @since 1.0.0
+     */
     public function getNSmallest(int $n): array
     {
         $nodes = $this->nodes;
-        \uasort($nodes, $this->compare);
-
         return \array_slice($nodes, 0, $n);
     }
 
+    /**
+     * Down shift
+     *
+     * @param int $start Start index
+     * @param int $pos   Pos of the pivot item
+     *
+     * @return void
+     *
+     * @since 1.0.0
+     */
     private function siftDown(int $start, int $pos) : void
     {
         $item = $this->nodes[$pos];
         while ($pos > $start) {
-            $pPos = ($pos - 1) >> 1;
+            $pPos   = ($pos - 1) >> 1;
             $parent = $this->nodes[$pPos];
 
             if (($this->compare)($item, $parent) < 0) {
                 $this->nodes[$pos] = $parent;
-                $pos = $pPos;
+                $pos               = $pPos;
 
                 continue;
             }
@@ -188,6 +309,15 @@ class Heap
         $this->nodes[$pos] = $item;
     }
 
+    /**
+     * Up shift
+     *
+     * @param int $pos Pos of the pivot item
+     *
+     * @return void
+     *
+     * @since 1.0.0
+     */
     private function siftUp(int $pos) : void
     {
         $ePos = \count($this->nodes);
@@ -203,30 +333,58 @@ class Heap
             }
 
             $this->nodes[$pos] = $this->nodes[$cPos];
-            $pos = $cPos;
-            $cPos = 2 * $pos + 1;
+            $pos               = $cPos;
+            $cPos              = 2 * $pos + 1;
         }
 
         $this->nodes[$pos] = $item;
         $this->siftDown($sPos, $pos);
     }
 
+    /**
+     * Clear heap
+     *
+     * @return void
+     *
+     * @since 1.0.0
+     */
     public function clear() : void
     {
         $this->nodes = [];
     }
 
+    /**
+     * Is heap empty?
+     *
+     * @return bool
+     *
+     * @since 1.0.0
+     */
     public function isEmpty() : bool
     {
         return empty($this->nodes);
     }
 
+    /**
+     * Get heap size
+     *
+     * @return int
+     *
+     * @since 1.0.0
+     */
     public function size() : int
     {
         return \count($this->nodes);
     }
 
-    public function toArray()
+    /**
+     * Get heap array
+     *
+     * @return array
+     *
+     * @since 1.0.0
+     */
+    public function toArray() : array
     {
         return $this->nodes;
     }

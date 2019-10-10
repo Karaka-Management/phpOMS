@@ -15,15 +15,17 @@ declare(strict_types=1);
 namespace phpOMS\Utils\IO\Csv;
 
 /**
- * Options trait.
+ * Csv settings.
  *
- * @package    phpOMS\Utils\IO\Csv
- * @since      1.0.0
+ * @package phpOMS\Utils\IO\Csv
+ * @license OMS License 1.0
+ * @link    https://orange-management.org
+ * @since   1.0.0
  */
 class CsvSettings
 {
     /**
-     * Get csv file delimiter.
+     * Get csv file delimiter based on file content.
      *
      * @param mixed    $file       File resource
      * @param int      $checkLines Lines to check for evaluation

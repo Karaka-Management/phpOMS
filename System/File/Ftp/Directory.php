@@ -518,6 +518,9 @@ class Directory extends FileAbstract implements FtpContainerInterface, Directory
         // todo: add node
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function addNode($file) : bool
     {
         $this->count                  += $file->getCount();

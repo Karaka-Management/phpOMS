@@ -24,21 +24,74 @@ namespace phpOMS\Algorithm\PathFinding;
  */
 class Path
 {
+    /**
+     * Nodes in the path
+     *
+     * @var   Nodes[]
+     * @since 1.0.0
+     */
     public array $nodes = [];
+
+    /**
+     * Weight/cost of the total path
+     *
+     * @var   float
+     * @since 1.0.0
+     */
     private float $weight = 0.0;
+
+    /**
+     * Distance of the total path
+     *
+     * @var   float
+     * @since 1.0.0
+     */
     private float $distance = 0.0;
+
+    /**
+     * Grid this path belongs to
+     *
+     * @var   Grid
+     * @since 1.0.0
+     */
     private Grid $grid;
 
+    /**
+     * Cosntructor.
+     *
+     * @param Grid $grid Grid this path belongs to
+     *
+     * @since 1.0.0
+     */
     public function __construct(Grid $grid)
     {
         $this->grid = $grid;
     }
 
+    /**
+     * Add node to the path
+     *
+     * @param Node $node Node
+     *
+     * @return void
+     *
+     * @since 1.0.0
+     */
     public function addNode(Node $node) : void
     {
         $this->nodes[] = $node;
     }
 
+    /**
+     * Fill all nodes in bettween
+     *
+     * The path may only contain the jump points or pivot points.
+     * In order to get every node it needs to be expanded.
+     *
+     * @return array
+     *
+     * @since 1.0.0
+     */
     public function expandPath() : array
     {
         $reverse = \array_reverse($this->nodes);
@@ -64,6 +117,19 @@ class Path
         return $expanded;
     }
 
+    /**
+     * Find nodes in bettween two nodes.
+     *
+     * The path may only contain the jump points or pivot points.
+     * In order to get every node it needs to be expanded.
+     *
+     * @param Node $node1 Node
+     * @param Node $node2 Node
+     *
+     * @return array
+     *
+     * @since 1.0.0
+     */
     private function interpolate(Node $node1, Node $node2) : array
     {
         $dx = \abs($node2->getX() - $node1->getX());
@@ -88,13 +154,13 @@ class Path
 
             if ($e2 > -$dy) {
                 $err -= $dy;
-                $x0 = $node->getX() + $sx;
+                $x0   = $node->getX() + $sx;
             }
 
             $y0 = 0;
             if ($e2 < $dx) {
                 $err += $dx;
-                $y0 = $node->getY() + $sy;
+                $y0   = $node->getY() + $sy;
             }
 
             $node = $this->grid->getNode($x0, $y0);

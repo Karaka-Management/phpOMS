@@ -22,7 +22,8 @@ namespace phpOMS\Algorithm\PathFinding;
  * @link    https://orange-management.org
  * @since   1.0.0
  */
-interface PathFinderInterface {
+interface PathFinderInterface
+{
     /**
      * Find path from one point to another
      *

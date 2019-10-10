@@ -24,7 +24,7 @@ use phpOMS\Stdlib\Base\Heap;
  * @link    https://orange-management.org
  * @since   1.0.0
  */
-class JumpPointSearch implements PathFinderInterface
+class AStar implements PathFinderInterface
 {
     /**
      * {@inheritdoc}
@@ -48,9 +48,11 @@ class JumpPointSearch implements PathFinderInterface
         $startNode->setF(0.0);
         $startNode->setOpened(true);
 
-        $openList = new Heap(function(AStarNode $node1, AStarNode $node2) { return $node1->getF() - $node2->getF(); });
-        $openList->push($startNode);
+        $openList = new Heap(function(AStarNode $node1, AStarNode $node2) {
+            return $node1->getF() - $node2->getF();
+        });
 
+        $openList->push($startNode);
         $node = null;
 
         while (!$openList->isEmpty()) {

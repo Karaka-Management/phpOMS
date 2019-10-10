@@ -859,11 +859,25 @@ final class EigenvalueDecomposition
         }
     }
 
+    /**
+     * Is matrix symmetric?
+     *
+     * @return bool
+     *
+     * @since 1.0.0
+     */
     public function isSymmetric() : bool
     {
         return $this->isSymmetric;
     }
 
+    /**
+     * Get V matrix
+     *
+     * @return Matrix
+     *
+     * @since 1.0.0
+     */
     public function getV() : Matrix
     {
         $matrix = new Matrix();
@@ -872,6 +886,13 @@ final class EigenvalueDecomposition
         return $matrix;
     }
 
+    /**
+     * Get real eigenvalues
+     *
+     * @return Vector
+     *
+     * @since 1.0.0
+     */
     public function getRealEigenvalues() : Vector
     {
         $vector = new Vector();
@@ -880,6 +901,13 @@ final class EigenvalueDecomposition
         return $vector;
     }
 
+    /**
+     * Get imaginary eigenvalues
+     *
+     * @return Vector
+     *
+     * @since 1.0.0
+     */
     public function getImagEigenvalues() : Vector
     {
         $vector = new Vector();
@@ -888,6 +916,13 @@ final class EigenvalueDecomposition
         return $vector;
     }
 
+    /**
+     * Get D matrix
+     *
+     * @return Matrix
+     *
+     * @since 1.0.0
+     */
     public function getD() : Matrix
     {
         $matrix = new Matrix();

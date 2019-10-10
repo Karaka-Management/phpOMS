@@ -24,69 +24,171 @@ namespace phpOMS\Algorithm\PathFinding;
  */
 class AStarNode extends Node
 {
+    /**
+     * The g score is cost of the path
+     *
+     * @var   float
+     * @since 1.0.0
+     */
     private float $g = 0.0;
+
+    /**
+     * The heuristic distance is the cost to the end node
+     *
+     * @var   float
+     * @since 1.0.0
+     */
     private ?float $h = null;
+
+    /**
+     * The f score is defined as f(n) = g(n) + h(n)
+     *
+     * @var   float
+     * @since 1.0.0
+     */
     private float $f = 0.0;
 
+    /**
+     * Define as checked node
+     *
+     * @var   bool
+     * @since 1.0.0
+     */
     private bool $isClosed = false;
-    private bool $isOpened = false;
-    private bool $isTested = false;
 
+    /**
+     * Define as potential candidate
+     *
+     * @var   bool
+     * @since 1.0.0
+     */
+    private bool $isOpened = false;
+
+    /**
+     * Is checked?
+     *
+     * @return bool
+     *
+     * @since 1.0.0
+     */
     public function isClosed() : bool
     {
         return $this->isClosed;
     }
 
+    /**
+     * Is potential candidate
+     *
+     * @return bool
+     *
+     * @since 1.0.0
+     */
     public function isOpened() : bool
     {
         return $this->isOpened;
     }
 
-    public function isTested() : bool
-    {
-        return $this->isTested;
-    }
-
+    /**
+     * Set check status
+     *
+     * @param bool $isClosed Is closed
+     *
+     * @return void
+     *
+     * @since 1.0.0
+     */
     public function setClosed(bool $isClosed) : void
     {
         $this->isClosed = $isClosed;
     }
 
+    /**
+     * Set potential candidate
+     *
+     * @param bool $isOpened Is potential candidate
+     *
+     * @return void
+     *
+     * @since 1.0.0
+     */
     public function setOpened(bool $isOpened) : void
     {
         $this->isOpened = $isOpened;
     }
 
-    public function setTested(bool $isTested) : void
-    {
-        $this->isTested = $isTested;
-    }
-
+    /**
+     * Set the g score
+     *
+     * @param float $g G score
+     *
+     * @return void
+     *
+     * @since 1.0.0
+     */
     public function setG(float $g) : void
     {
         $this->g = $g;
     }
 
+    /**
+     * Set the heuristic distance
+     *
+     * @param float $h H distance
+     *
+     * @return void
+     *
+     * @since 1.0.0
+     */
     public function setH(?float $h) : void
     {
         $this->h = $h;
     }
 
+    /**
+     * Set the f score
+     *
+     * @param float $f F score
+     *
+     * @return void
+     *
+     * @since 1.0.0
+     */
     public function setF(float $f) : void
     {
         $this->f = $f;
     }
 
+    /**
+     * Get the g score
+     *
+     * @return float
+     *
+     * @since 1.0.0
+     */
     public function getG() : float
     {
         return $this->g;
     }
 
+    /**
+     * Get the heuristic distance
+     *
+     * @return float
+     *
+     * @since 1.0.0
+     */
     public function getH() : ?float
     {
         return $this->h;
     }
 
+    /**
+     * Get the f score
+     *
+     * @return float
+     *
+     * @since 1.0.0
+     */
     public function getF() : float
     {
         return $this->f;

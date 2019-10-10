@@ -52,6 +52,13 @@ class File extends FileAbstract implements FileInterface
      */
     private ?Http $uri = null;
 
+    /**
+     * Create ftp connection
+     *
+     * @param string $path Ftp path including username and password
+     *
+     * @since 1.0.0
+     */
     public function __construct(string $path)
     {
         $this->uri = new Http($path);
