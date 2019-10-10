@@ -22,23 +22,23 @@ use phpOMS\Math\Stochastic\NaiveBayesFilter;
 class NaiveBayesFilterTest extends \PHPUnit\Framework\TestCase
 {
     const PLAY = [
-        ['weather' => 'Overcast'],
-        ['weather' => 'Rainy'],
-        ['weather' => 'Sunny'],
-        ['weather' => 'Sunny'],
-        ['weather' => 'Overcast'],
-        ['weather' => 'Sunny'],
-        ['weather' => 'Rainy'],
-        ['weather' => 'Overcast'],
-        ['weather' => 'Overcast'],
+        ['weather' => ['Overcast']],
+        ['weather' => ['Rainy']],
+        ['weather' => ['Sunny']],
+        ['weather' => ['Sunny']],
+        ['weather' => ['Overcast']],
+        ['weather' => ['Sunny']],
+        ['weather' => ['Rainy']],
+        ['weather' => ['Overcast']],
+        ['weather' => ['Overcast']],
     ];
 
     const NO_PLAY = [
-        ['weather' => 'Sunny'],
-        ['weather' => 'Rainy'],
-        ['weather' => 'Rainy'],
-        ['weather' => 'Sunny'],
-        ['weather' => 'Rainy'],
+        ['weather' => ['Sunny']],
+        ['weather' => ['Rainy']],
+        ['weather' => ['Rainy']],
+        ['weather' => ['Sunny']],
+        ['weather' => ['Rainy']],
     ];
 
     const MALE = [

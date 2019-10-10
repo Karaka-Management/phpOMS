@@ -484,15 +484,15 @@ class JumpPointSearch implements PathFinderInterface
      */
     private static function jumpStraight(JumpPointNode $node, JumpPointNode $endNode, Grid $grid) : ?JumpPointNode
     {
+        if (!$node->isWalkable()) {
+            return null;
+        }
+
         $x = $node->getX();
         $y = $node->getY();
 
         $dx = $x - $endNode->getX();
         $dy = $y - $endNode->getY();
-
-        if (!$node->isWalkable()) {
-            return null;
-        }
 
         // not always necessary but might be important for the future
         $node->setTested(true);
@@ -539,15 +539,15 @@ class JumpPointSearch implements PathFinderInterface
      */
     private static function jumpDiagonal(JumpPointNode $node, JumpPointNode $endNode, Grid $grid) : ?JumpPointNode
     {
+        if (!$node->isWalkable()) {
+            return null;
+        }
+
         $x = $node->getX();
         $y = $node->getY();
 
         $dx = $x - $endNode->getX();
         $dy = $y - $endNode->getY();
-
-        if (!$node->isWalkable()) {
-            return null;
-        }
 
         // not always necessary but might be important for the future
         $node->setTested(true);
@@ -598,15 +598,15 @@ class JumpPointSearch implements PathFinderInterface
      */
     private static function jumpDiagonalOneObstacle(JumpPointNode $node, JumpPointNode $endNode, Grid $grid) : ?JumpPointNode
     {
+        if (!$node->isWalkable()) {
+            return null;
+        }
+
         $x = $node->getX();
         $y = $node->getY();
 
         $dx = $x - $endNode->getX();
         $dy = $y - $endNode->getY();
-
-        if (!$node->isWalkable()) {
-            return null;
-        }
 
         // not always necessary but might be important for the future
         $node->setTested(true);
@@ -661,15 +661,15 @@ class JumpPointSearch implements PathFinderInterface
      */
     private static function jumpDiagonalNoObstacle(JumpPointNode $node, JumpPointNode $endNode, Grid $grid) : ?JumpPointNode
     {
+        if (!$node->isWalkable()) {
+            return null;
+        }
+
         $x = $node->getX();
         $y = $node->getY();
 
         $dx = $x - $endNode->getX();
         $dy = $y - $endNode->getY();
-
-        if (!$node->isWalkable()) {
-            return null;
-        }
 
         // not always necessary but might be important for the future
         $node->setTested(true);

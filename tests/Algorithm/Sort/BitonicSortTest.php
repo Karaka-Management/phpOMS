@@ -46,7 +46,7 @@ class BitonicSortTest extends \PHPUnit\Framework\TestCase
         );
 
         self::assertEquals(
-            [5, 1, 4, 2], [$this->list[0]->value, $this->list[1]->value, $this->list[2]->value, $this->list[3]->value, $this->list[4]->value,]
+            [5, 1, 4, 2], [$this->list[0]->value, $this->list[1]->value, $this->list[2]->value, $this->list[3]->value]
         );
     }
 
@@ -58,7 +58,7 @@ class BitonicSortTest extends \PHPUnit\Framework\TestCase
         );
 
         self::assertEquals(
-            [5, 1, 4, 2], [$this->list[0]->value, $this->list[1]->value, $this->list[2]->value, $this->list[3]->value, $this->list[4]->value,]
+            [5, 1, 4, 2], [$this->list[0]->value, $this->list[1]->value, $this->list[2]->value, $this->list[3]->value]
         );
     }
 }

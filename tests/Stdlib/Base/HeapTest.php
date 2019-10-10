@@ -29,7 +29,7 @@ class HeapTest extends \PHPUnit\Framework\TestCase
         }
 
         $sorted = [];
-        while (!$heap->empty()) {
+        while (!$heap->isEmpty()) {
             $sorted[] = $heap->pop();
         }
 
@@ -47,7 +47,7 @@ class HeapTest extends \PHPUnit\Framework\TestCase
         }
 
         $sorted = [];
-        while (!$heap->empty()) {
+        while (!$heap->isEmpty()) {
             $sorted[] = $heap->pop();
         }
 
@@ -159,12 +159,12 @@ class HeapTest extends \PHPUnit\Framework\TestCase
     public function testEmpty(): void
     {
         $heap = new Heap();
-        self::assertTrue($heap->empty());
+        self::assertTrue($heap->isEmpty());
 
         for ($i = 1; $i < 6; ++$i) {
             $heap->push($i);
         }
 
-        self::assertFalse($heap->empty());
+        self::assertFalse($heap->isEmpty());
     }
 }

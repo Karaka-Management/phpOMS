@@ -32,14 +32,15 @@ class InsertionSort implements SortInterface
         $n = \count($list);
 
         for ($i = 1; $i < $n; ++$i) {
-            $j = $i;
+            $pivot = $list[$i];
+            $j     = $i - 1;
 
-            while ($j > 0 && $list[$j - 1]->compare($list[$j], $order)) {
+            while ($j >= 0 && $list[$j]->compare($pivot, $order)) {
                 $list[$j + 1] = $list[$j];
                 --$j;
             }
 
-            $list[$j + 1] = $list[$i];
+            $list[$j + 1] = $pivot;
         }
 
         return $list;

@@ -48,7 +48,11 @@ class NaiveBayesFilter
      * @var   array
      * @since 1.0.0
      */
-    private array $probabilities = [];
+    private array $probabilities = [
+        'count'    => 0,
+        'criteria' => [],
+        'attr'     => [],
+    ];
 
     /**
      * Train matches.
@@ -62,24 +66,56 @@ class NaiveBayesFilter
      */
     public function train(string $criteria, array $matched) : void
     {
+        if (!isset($this->probabilities['criteria'][$criteria])) {
+            $this->probabilities['criteria'][$criteria] = [
+                'count' => 0,
+                'attr'  => [],
+            ];
+        }
+
         foreach ($matched as $dataset) {
             foreach ($dataset as $attr => $value) {
                 if (!isset($this->dict[$criteria][$attr])) {
-                    $this->dict[$criteria][$attr] = [];
+                    $this->dict[$criteria][$attr] = [
+                        'type'  => \is_array($value) ? 1 : 2,
+                        'data'  => [],
+                    ];
                 }
 
-                if (\is_string($value) && !isset($this->dict[$criteria][$attr][$value])) {
-                    $this->dict[$criteria][$attr][$value] = 0;
-                } elseif (!\is_string($value) && !isset($this->dict[$criteria][$attr])) {
-                    $this->dict[$criteria][$attr] = [];
+                if (!isset($this->probabilities['attr'][$attr])) {
+                    $this->probabilities['attr'][$attr] = [
+                        'count'    => 0,
+                        'evidence' => 0.0,
+                    ];
                 }
 
-                if (\is_string($value)) {
-                    ++$this->dict[$criteria][$attr][$value];
+                if (!isset($this->probabilities['criteria'][$criteria]['attr'][$attr])) {
+                    $this->probabilities['criteria'][$criteria]['attr'][$attr] = [
+                        'count'    => 0,
+                        'mean'     => 0,
+                        'variance' => 0,
+                    ];
+                }
+
+                if (\is_array($value)) {
+                    foreach ($value as $word) {
+                        if(!isset($this->dict[$criteria][$attr]['data'][$word])) {
+                            $this->dict[$criteria][$attr]['data'][$word] = 0;
+                        }
+
+                        ++$this->dict[$criteria][$attr]['data'][$word];
+                        ++$this->probabilities['attr'][$attr]['count'];
+                    }
                 } else {
-                    $this->dict[$criteria][$attr][] = $value;
+                    $this->dict[$criteria][$attr]['data'][] = $value;
+
+                    ++$this->probabilities['attr'][$attr]['count'];
+                    ++$this->probabilities['criteria'][$criteria]['attr'][$attr]['count'];
                 }
             }
+
+            ++$this->probabilities['criteria'][$criteria]['count'];
+            ++$this->probabilities['count'];
         }
 
         $this->changed = true;
@@ -102,59 +138,33 @@ class NaiveBayesFilter
             $this->cache();
         }
 
-        $pTotalAttribute = 1;
-
-        $evidence = 0;
-        foreach ($this->probability as $criteriaKey => $data) {
-            $temp = 1;
-            foreach ($data as $attr => $value) {
-                $temp *= 1 / \sqrt(2 * M_PI * $this->probability[$criteriaKey][$attr]['variance'])
-                    * \exp(-($value - $this->probability[$criteriaKey][$attr]['mean']) ** 2 / (2 * $this->probability[$criteriaKey][$attr]['variance'] ** 2));
-            }
-
-            $evidence += ($this->probability[$criteria] / $this->probability['criteria_all']) * $temp;
-        }
+        $this->changed = false;
 
         $n = 0.0;
         foreach ($toMatch as $attr => $value) {
-            if (!isset($this->dict[$criteria], $this->dict[$criteria][$attr])
-                || (\is_string($value) && !isset($this->dict[$criteria][$attr][$value]))
-            ) {
+            if (!isset($this->dict[$criteria], $this->dict[$criteria][$attr])) {
                 continue;
             }
 
             if (\is_array($value)) {
                 /** @var string[] $value */
                 foreach ($value as $word) {
-                    if (isset($this->dict[$criteria][$attr][$word])
-                        && $this->dict[$criteria][$attr][$word] >= $minimum
+                    if (isset($this->dict[$criteria][$attr]['data'][$word])
+                        && $this->dict[$criteria][$attr]['data'][$word] >= $minimum
                     ) {
-                        $n += \log(1 - $this->dict[$criteria][$attr][$word]
-                            / $this->probability['criteria_all'][$attr]
-                        )
-                        - \log($this->dict[$criteria][$attr][$word]
-                            / $this->probability['criteria_all'][$attr]
-                        );
+                        $p  = $this->dict[$criteria][$attr]['data'][$word] / \array_sum($this->dict[$criteria][$attr]['data'])
+                            / $this->probabilities['attr'][$attr]['evidence'];
+
+                        $n += \log(1 - $p) - \log($p);
                     }
                 }
             } else {
-                $p = 1 / \sqrt(2 * M_PI * $this->probability[$criteria][$attr]['variance'])
-                    * \exp(-($value - $this->probability[$criteria][$attr]['mean']) ** 2 / (2 * $this->probability[$criteria][$attr]['variance'] ** 2));
-
-                $pTotalAttribute *= $p;
+                $p = 1 / \sqrt(2 * \M_PI * $this->probabilities['criteria'][$criteria]['attr'][$attr]['variance'])
+                    * \exp(-($value - $this->probabilities['criteria'][$criteria]['attr'][$attr]['mean']) ** 2 / (2 * $this->probabilities['criteria'][$criteria]['attr'][$attr]['variance'] ** 2));
 
                 $n += \log(1 - $p) - \log($p);
             }
         }
-
-        $pCriteria = $pTotalAttribute / $evidence;
-
-        var_dump($pCriteria);
-        var_dump($pTotalAttribute);
-        var_dump(1 / (1 + \exp($n)));
-        var_dump($n);
-        var_dump($evidence);
-        var_dump($this->probability);
 
         return 1 / (1 + \exp($n));
     }
@@ -169,32 +179,20 @@ class NaiveBayesFilter
     private function cache() : void
     {
         foreach ($this->dict as $criteria => $subDict) {
-            if (!isset($this->probability[$criteria]['count'])) {
-                $this->probability[$criteria]['count'] = 0;
-            }
-
-            ++$this->probability[$criteria]['count'];
-
-            if (!isset($this->probability['criteria_all']['count'])) {
-                $this->probability['criteria_all']['count'] = 0;
-            }
-
-            ++$this->probability['criteria_all']['count'];
-
             foreach ($subDict as $attr => $valueArray) {
-                if (\is_string(\array_key_first($valueArray))) {
-                    if (!isset($this->probability['criteria_all'][$attr])) {
-                        $this->probability['criteria_all'][$attr] = 0;
-                    }
-
-                    foreach ($valueArray as $value => $data) {
-                        $this->probability['criteria_all'][$attr] += $data;
-                    }
+                if ($valueArray['type'] === 2) {
+                    $this->probabilities['criteria'][$criteria]['attr'][$attr]['mean']     = Average::arithmeticMean($this->dict[$criteria][$attr]['data']);
+                    $this->probabilities['criteria'][$criteria]['attr'][$attr]['variance'] = MeasureOfDispersion::empiricalVariance($this->dict[$criteria][$attr]['data']);
                 } else {
-                    $this->probability[$criteria][$attr] = [
-                        'mean'     => Average::arithmeticMean($this->dict[$criteria][$attr]),
-                        'variance' => MeasureOfDispersion::empiricalVariance($this->dict[$criteria][$attr]),
-                    ];
+                    $this->probabilities['attr'][$attr]['evidence'] = 0.0;
+
+                    foreach ($valueArray['data'] as $word => $count) {
+                        if (!isset($this->dict[$criteria][$attr]['data'][$word])) {
+                            continue;
+                        }
+
+                        $this->probabilities['attr'][$attr]['evidence'] += $this->dict[$criteria][$attr]['data'][$word] / \array_sum($this->dict[$criteria][$attr]['data']);
+                    }
                 }
             }
         }
