@@ -31,7 +31,7 @@ class Location implements \JsonSerializable, \Serializable
      * @var   int
      * @since 1.0.0
      */
-    private int $id = 0;
+    protected int $id = 0;
 
     /**
      * Zip or postal.
@@ -39,7 +39,7 @@ class Location implements \JsonSerializable, \Serializable
      * @var   string
      * @since 1.0.0
      */
-    private string $postal = '';
+    protected string $postal = '';
 
     /**
      * Name of city.
@@ -47,7 +47,7 @@ class Location implements \JsonSerializable, \Serializable
      * @var   string
      * @since 1.0.0
      */
-    private string $city = '';
+    protected string $city = '';
 
     /**
      * Name of the country.
@@ -55,7 +55,7 @@ class Location implements \JsonSerializable, \Serializable
      * @var   string
      * @since 1.0.0
      */
-    private string $country = '';
+    protected string $country = '';
 
     /**
      * Street & district.
@@ -63,7 +63,7 @@ class Location implements \JsonSerializable, \Serializable
      * @var   string
      * @since 1.0.0
      */
-    private string $address = '';
+    protected string $address = '';
 
     /**
      * Address type
@@ -71,7 +71,7 @@ class Location implements \JsonSerializable, \Serializable
      * @var   int
      * @since 1.0.0
      */
-    private int $type = AddressType::HOME;
+    protected int $type = AddressType::HOME;
 
     /**
      * State.
@@ -79,7 +79,7 @@ class Location implements \JsonSerializable, \Serializable
      * @var   string
      * @since 1.0.0
      */
-    private string $state = '';
+    protected string $state = '';
 
     /**
      * Geo coordinates.
@@ -87,7 +87,7 @@ class Location implements \JsonSerializable, \Serializable
      * @var   float[]
      * @since 1.0.0
      */
-    private array $geo = ['lat' => 0, 'long' => 0];
+    protected array $geo = ['lat' => 0, 'long' => 0];
 
     /**
      * Get location id

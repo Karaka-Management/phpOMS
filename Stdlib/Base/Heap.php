@@ -261,6 +261,8 @@ class Heap
     public function getNLargest(int $n) : array
     {
         $nodes = $this->nodes;
+        \uasort($nodes, $this->compare);
+
         return \array_slice(\array_reverse($nodes), 0, $n);
     }
 
@@ -276,6 +278,8 @@ class Heap
     public function getNSmallest(int $n): array
     {
         $nodes = $this->nodes;
+        \uasort($nodes, $this->compare);
+
         return \array_slice($nodes, 0, $n);
     }
 

@@ -140,8 +140,11 @@ class Integration
         $sum1 = 0.0;
         $sum2 = 0.0;
 
-        for ($i = 1; $i < $n; ++$i) {
+        for ($i = 0; $i < $n; ++$i) {
             $sum1 += $func($from + $h * $i + $h / 2.0);
+        }
+
+        for ($i = 1; $i < $n; ++$i) {
             $sum2 += $func($from + $h * $i);
         }
 
