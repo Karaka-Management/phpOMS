@@ -39,6 +39,14 @@ class BucketSortTest extends \PHPUnit\Framework\TestCase
         ];
     }
 
+    public function testSmallList() : void
+    {
+        $smallList = [new NumericElement(3)];
+        $newList   = BucketSort::sort($smallList, 2);
+
+        self::assertEquals($smallList, $newList);
+    }
+
     public function testSortASC() : void
     {
         $newList = BucketSort::sort($this->list, 2, \phpOMS\Algorithm\Sort\SelectionSort::class);

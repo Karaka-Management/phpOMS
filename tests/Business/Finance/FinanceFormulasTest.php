@@ -333,7 +333,7 @@ class FinanceFormulasTest extends \PHPUnit\Framework\TestCase
         $r = 0.05;
 
         self::assertEqualsWithDelta(13.863, FinanceFormulas::getDoublingTimeContinuousCompounding($r), 0.01);
-        self::assertEqualsWithDelta($r, FinanceFormulas::getDoublingTimeContinuousCompounding(13.863), 0.01);
+        self::assertEqualsWithDelta($r, FinanceFormulas::getDoublingContinuousCompoundingRate(13.863), 0.01);
     }
 
     public function testEquivalentAnnualAnnuity() : void

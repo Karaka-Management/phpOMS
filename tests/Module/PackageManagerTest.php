@@ -79,7 +79,7 @@ class PackageManagerTest extends \PHPUnit\Framework\TestCase
         );
     }
 
-    public function testPackageValid() : void
+    public function testPackageValidInstall() : void
     {
         $package = new PackageManager(
             __DIR__ . '/testPackage.zip',
@@ -90,6 +90,21 @@ class PackageManagerTest extends \PHPUnit\Framework\TestCase
         $package->extract(__DIR__ . '/testPackageExtracted');
 
         self::assertTrue($package->isValid());
+
+        $package->load();
+    }
+
+    public function testNotExtractedLoad() : void
+    {
+        self::expectException(\phpOMS\System\File\PathException::class);
+
+        $package = new PackageManager(
+            __DIR__ . '/testPackage.zip',
+            '/invalid',
+            \file_get_contents(__DIR__ . '/public.key')
+        );
+
+        $package->load();
     }
 
     public function testPackageInvalidKey() : void

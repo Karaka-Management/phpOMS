@@ -31,6 +31,10 @@ class InsertionSort implements SortInterface
     {
         $n = \count($list);
 
+        if ($n < 2) {
+            return $list;
+        }
+
         for ($i = 1; $i < $n; ++$i) {
             $pivot = $list[$i];
             $j     = $i - 1;

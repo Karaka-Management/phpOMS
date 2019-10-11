@@ -34,6 +34,10 @@ class FileUtilsTest extends \PHPUnit\Framework\TestCase
         self::assertEquals(ExtensionType::VIDEO, FileUtils::getExtensionType('mp4'));
         self::assertEquals(ExtensionType::SPREADSHEET, FileUtils::getExtensionType('xls'));
         self::assertEquals(ExtensionType::IMAGE, FileUtils::getExtensionType('png'));
+        self::assertEquals(ExtensionType::WORD, FileUtils::getExtensionType('doc'));
+        self::assertEquals(ExtensionType::WORD, FileUtils::getExtensionType('docx'));
+        self::assertEquals(ExtensionType::DIRECTORY, FileUtils::getExtensionType('collection'));
+        self::assertEquals(ExtensionType::DIRECTORY, FileUtils::getExtensionType('/'));
     }
 
     public function testAbsolute() : void

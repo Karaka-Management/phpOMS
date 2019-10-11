@@ -29,6 +29,8 @@ class StorageTest extends \PHPUnit\Framework\TestCase
 
         self::assertTrue(Storage::register('ftp', '\phpOMS\System\File\Ftp\FtpStorage'));
         self::assertTrue(Storage::register('test', LocalStorage::getInstance()));
+        self::assertFalse(Storage::register('test', LocalStorage::getInstance()));
+
         self::assertInstanceOf('\phpOMS\System\File\Ftp\FtpStorage', Storage::env('ftp'));
         self::assertInstanceOf('\phpOMS\System\File\Local\LocalStorage', Storage::env('test'));
     }

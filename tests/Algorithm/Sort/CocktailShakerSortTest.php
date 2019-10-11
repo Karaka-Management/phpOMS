@@ -39,6 +39,14 @@ class CocktailShakerSortTest extends \PHPUnit\Framework\TestCase
         ];
     }
 
+    public function testSmallList() : void
+    {
+        $smallList = [new NumericElement(3)];
+        $newList   = CocktailShakerSort::sort($smallList);
+
+        self::assertEquals($smallList, $newList);
+    }
+
     public function testSortASC() : void
     {
         $newList = CocktailShakerSort::sort($this->list);

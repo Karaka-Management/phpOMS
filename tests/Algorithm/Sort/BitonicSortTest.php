@@ -38,6 +38,14 @@ class BitonicSortTest extends \PHPUnit\Framework\TestCase
         ];
     }
 
+    public function testSmallList() : void
+    {
+        $smallList = [new NumericElement(3)];
+        $newList   = BitonicSort::sort($smallList);
+
+        self::assertEquals($smallList, $newList);
+    }
+
     public function testSortASC() : void
     {
         $newList = BitonicSort::sort($this->list);

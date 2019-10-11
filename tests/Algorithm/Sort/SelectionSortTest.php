@@ -39,6 +39,14 @@ class SelectionSortTest extends \PHPUnit\Framework\TestCase
         ];
     }
 
+    public function testSmallList() : void
+    {
+        $smallList = [new NumericElement(3)];
+        $newList   = SelectionSort::sort($smallList);
+
+        self::assertEquals($smallList, $newList);
+    }
+
     public function testSortASC() : void
     {
         $newList = SelectionSort::sort($this->list);

@@ -33,6 +33,11 @@ class NumericElement implements SortableInterface
         return $order === SortOrder::ASC ? $this->value > $obj->value : $this->value < $obj->value;
     }
 
+    public function equals(SortableInterface $obj) : bool
+    {
+        return $this->value === $obj->getValue();
+    }
+
     public function getValue()
     {
         return $this->value;

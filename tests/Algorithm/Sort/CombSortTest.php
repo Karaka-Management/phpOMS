@@ -39,6 +39,14 @@ class CombSortTest extends \PHPUnit\Framework\TestCase
         ];
     }
 
+    public function testSmallList() : void
+    {
+        $smallList = [new NumericElement(3)];
+        $newList   = CombSort::sort($smallList);
+
+        self::assertEquals($smallList, $newList);
+    }
+
     public function testSortASC() : void
     {
         $newList = CombSort::sort($this->list);

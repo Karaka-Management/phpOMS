@@ -23,6 +23,12 @@ class JsonTest extends \PHPUnit\Framework\TestCase
 {
     public function testJson() : void
     {
+        self::assertTrue(Json::isValid('{}'));
+        self::assertFalse(Json::isValid('{'));
+    }
+
+    public function testJsonTemplate() : void
+    {
         $template = \json_decode(\file_get_contents(__DIR__ . '/json/template.json'), true);
 
         $valid = \json_decode(\file_get_contents(__DIR__ . '/json/valid.json'), true);

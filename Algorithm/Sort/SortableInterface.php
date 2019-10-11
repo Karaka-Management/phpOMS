@@ -46,6 +46,17 @@ interface SortableInterface
     public function getValue();
 
     /**
+     * Is value the same
+     *
+     * @param SortableInterface $obj Object to compare with
+     *
+     * @return bool
+     *
+     * @since 1.0.0
+     */
+    public function equals(self $obj) : bool;
+
+    /**
      * Get maximum element
      *
      * @param SortableInterface[] $list List to order

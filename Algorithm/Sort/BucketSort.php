@@ -45,6 +45,10 @@ class BucketSort
             return [];
         }
 
+        if (\count($list) < 2) {
+            return $list;
+        }
+
         foreach ($list as $element) {
             $buckets[(int) \floor(($bucketCount - 1) * $element->getValue() / $M)][] = $element;
         }

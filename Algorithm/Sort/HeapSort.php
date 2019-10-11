@@ -29,7 +29,12 @@ class HeapSort implements SortInterface
      */
     public static function sort(array $list, int $order = SortOrder::ASC) : array
     {
-        $n    = \count($list);
+        $n = \count($list);
+
+        if ($n < 2) {
+            return $list;
+        }
+
         $copy = $list;
 
         for ($p = ($n - 1) / 2; $p >= 0; --$p) {

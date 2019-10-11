@@ -42,7 +42,7 @@ class CycleSort implements SortInterface
             $pos     = $start;
             $length0 = \count($list);
             for ($i = $start + 1; $i < $length0; ++$i) {
-                if ($list[$i]->getValue() < $item->getValue()) {
+                if (!$list[$i]->compare($item, $order)) {
                     ++$pos;
                 }
             }
@@ -51,7 +51,7 @@ class CycleSort implements SortInterface
                 continue;
             }
 
-            while ($item->getValue() === $list[$pos]->getValue()) {
+            while ($item->equals($list[$pos])) {
                 ++$pos;
             }
 
@@ -64,12 +64,12 @@ class CycleSort implements SortInterface
                 $pos     = $start;
                 $length1 = \count($list);
                 for ($i = $start + 1; $i < $length1; ++$i) {
-                    if ($list[$i]->getValue() < $item->getValue()) {
+                    if (!$list[$i]->compare($item, $order)) {
                         ++$pos;
                     }
                 }
 
-                while ($item->getValue() === $list[$pos]->getValue()) {
+                while ($item->equals($list[$pos])) {
                     ++$pos;
                 }
 
@@ -80,6 +80,6 @@ class CycleSort implements SortInterface
             }
         }
 
-        return $order === SortOrder::ASC ? $list : \array_reverse($list, false);
+        return $list;
     }
 }

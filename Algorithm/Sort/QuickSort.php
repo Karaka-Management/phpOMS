@@ -29,8 +29,14 @@ class QuickSort implements SortInterface
      */
     public static function sort(array $list, int $order = SortOrder::ASC) : array
     {
+        $n = \count($list);
+
+        if ($n < 2) {
+            return $list;
+        }
+
         $copy = $list;
-        self::qsort($copy, 0, \count($list) - 1, $order);
+        self::qsort($copy, 0, $n - 1, $order);
 
         return $copy;
     }

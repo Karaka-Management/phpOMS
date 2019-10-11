@@ -99,7 +99,7 @@ class NaiveBayesFilter
 
                 if (\is_array($value)) {
                     foreach ($value as $word) {
-                        if(!isset($this->dict[$criteria][$attr]['data'][$word])) {
+                        if (!isset($this->dict[$criteria][$attr]['data'][$word])) {
                             $this->dict[$criteria][$attr]['data'][$word] = 0;
                         }
 
@@ -152,7 +152,7 @@ class NaiveBayesFilter
                     if (isset($this->dict[$criteria][$attr]['data'][$word])
                         && $this->dict[$criteria][$attr]['data'][$word] >= $minimum
                     ) {
-                        $p  = $this->dict[$criteria][$attr]['data'][$word] / \array_sum($this->dict[$criteria][$attr]['data'])
+                        $p = $this->dict[$criteria][$attr]['data'][$word] / \array_sum($this->dict[$criteria][$attr]['data'])
                             / $this->probabilities['attr'][$attr]['evidence'];
 
                         $n += \log(1 - $p) - \log($p);

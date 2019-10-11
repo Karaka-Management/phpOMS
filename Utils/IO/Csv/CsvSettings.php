@@ -64,6 +64,8 @@ class CsvSettings
                     }
                 }
             }
+
+            $line = \fgets($file);
         }
 
         $results = \array_keys($results, \max($results));

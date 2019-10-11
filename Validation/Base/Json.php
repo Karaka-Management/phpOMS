@@ -33,7 +33,9 @@ abstract class Json extends ValidatorAbstract
      */
     public static function isValid($value, array $constraints = null) : bool
     {
-        return true;
+        \json_decode($value);
+
+        return \json_last_error() == \JSON_ERROR_NONE;
     }
 
     /**

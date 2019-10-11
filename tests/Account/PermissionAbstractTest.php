@@ -37,6 +37,10 @@ class PermissionAbstractTest extends \PHPUnit\Framework\TestCase
         self::assertNull($perm->getElement());
         self::assertNull($perm->getComponent());
         self::assertEquals(PermissionType::NONE, $perm->getPermission());
+        self::assertTrue($perm->hasPermission(PermissionType::NONE));
+        self::assertTrue($perm->hasPermissionFlags(PermissionType::NONE));
+        self::assertFalse($perm->hasPermission(2));
+        self::assertFalse($perm->hasPermissionFlags(2));
 
         self::assertEquals(
             [
@@ -86,5 +90,9 @@ class PermissionAbstractTest extends \PHPUnit\Framework\TestCase
         self::assertTrue($perm->hasPermission(PermissionType::CREATE));
         self::assertTrue($perm->hasPermission(PermissionType::READ));
         self::assertFalse($perm->hasPermission(PermissionType::MODIFY));
+
+        self::assertTrue($perm->hasPermissionFlags(PermissionType::READ));
+        self::assertTrue($perm->hasPermissionFlags(PermissionType::READ & PermissionType::CREATE));
+        self::assertFalse($perm->hasPermissionFlags(PermissionType::MODIFY));
     }
 }

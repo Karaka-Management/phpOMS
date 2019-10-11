@@ -14,13 +14,18 @@
 
 namespace phpOMS\tests\Utils\IO\Csv;
 
+use phpOMS\Utils\IO\Csv\CsvSettings;
+
 /**
  * @internal
  */
 class CsvSettingsTest extends \PHPUnit\Framework\TestCase
 {
-    public function testPlaceholder() : void
+    public function testDelimiter() : void
     {
-        self::markTestIncomplete();
+        self::assertEquals(':', CsvSettings::getFileDelimiter(\fopen(__DIR__ . '/colon.csv', 'r')));
+        self::assertEquals(',', CsvSettings::getFileDelimiter(\fopen(__DIR__ . '/comma.csv', 'r')));
+        self::assertEquals('|', CsvSettings::getFileDelimiter(\fopen(__DIR__ . '/pipe.csv', 'r')));
+        self::assertEquals(';', CsvSettings::getFileDelimiter(\fopen(__DIR__ . '/semicolon.csv', 'r')));
     }
 }

@@ -27,14 +27,6 @@ namespace phpOMS\System\File;
 abstract class StorageAbstract
 {
     /**
-     * Storage type.
-     *
-     * @var   int
-     * @since 1.0.0
-     */
-    protected int $type = 0;
-
-    /**
      * Get instance.
      *
      * @return StorageAbstract storage instance
@@ -53,18 +45,6 @@ abstract class StorageAbstract
      * @since 1.0.0
      */
     abstract protected static function getClassType(string $path) : string;
-
-    /**
-     * Get storage type.
-     *
-     * @return int storage type
-     *
-     * @since 1.0.0
-     */
-    public function getType() : int
-    {
-        return $this->type;
-    }
 
     /**
      * Get the datetime when the resource got created.

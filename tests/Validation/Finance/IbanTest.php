@@ -24,6 +24,7 @@ class IbanTest extends \PHPUnit\Framework\TestCase
     public function testValid() : void
     {
         self::assertTrue(Iban::isValid('DE22 6008 0000 0960 0280 00'));
+        self::assertFalse(Iban::isValid('DE22 6X08 0000 0960 0280 00'));
         self::assertFalse(Iban::isValid('DE22 6008 0000 0960 0280 0'));
         self::assertFalse(Iban::isValid('QQ22 6008 0000 0960 0280 00'));
         self::assertFalse(Iban::isValid('MU22 6118 1111 1961 1281 1281 0111 23'));

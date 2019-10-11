@@ -29,8 +29,14 @@ class MergeSort implements SortInterface
      */
     public static function sort(array $list, int $order = SortOrder::ASC) : array
     {
+        $n = \count($list);
+
+        if ($n < 2) {
+            return $list;
+        }
+
         $clone = $list;
-        self::sortHalve($clone, 0, \count($list) - 1, $order);
+        self::sortHalve($clone, 0, $n - 1, $order);
 
         return $clone;
     }
