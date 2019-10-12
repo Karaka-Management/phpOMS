@@ -164,7 +164,7 @@ class NaiveBayesClassifier
                 $p = 1 / \sqrt(2 * \M_PI * $this->probabilities['criteria'][$criteria]['attr'][$attr]['variance'])
                     * \exp(-($value - $this->probabilities['criteria'][$criteria]['attr'][$attr]['mean']) / (2 * $this->probabilities['criteria'][$criteria]['attr'][$attr]['variance']));
 
-                var_dump($p);
+                //var_dump($p);
 
                 $n += \log(1 - $p) - \log($p);
             }
