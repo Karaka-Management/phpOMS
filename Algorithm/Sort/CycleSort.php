@@ -29,14 +29,13 @@ class CycleSort implements SortInterface
      */
     public static function sort(array $list, int $order = SortOrder::ASC) : array
     {
-        $writes = 0;
-        $n      = \count($list);
+        $n = \count($list);
 
         if ($n < 2) {
             return $list;
         }
 
-        for ($start = 0; $start < \count($list) - 1; ++$start) {
+        for ($start = 0; $start < $n - 1; ++$start) {
             $item = $list[$start];
 
             $pos     = $start;
@@ -58,7 +57,6 @@ class CycleSort implements SortInterface
             $old        = $list[$pos];
             $list[$pos] = $item;
             $item       = $old;
-            ++$writes;
 
             while ($pos !== $start) {
                 $pos     = $start;
@@ -76,7 +74,6 @@ class CycleSort implements SortInterface
                 $old        = $list[$pos];
                 $list[$pos] = $item;
                 $item       = $old;
-                ++$writes;
             }
         }
 

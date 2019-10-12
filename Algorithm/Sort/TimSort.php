@@ -50,8 +50,7 @@ class TimSort implements SortInterface
                 $temp = $list[$j];
                 $c    = $j - 1;
 
-                while ($c >= $lo && $list[$c]->compare($temp, $order))
-                {
+                while ($c >= $lo && $list[$c]->compare($temp, $order)) {
                     $list[$c + 1] = $list[$c];
                     --$c;
                 }

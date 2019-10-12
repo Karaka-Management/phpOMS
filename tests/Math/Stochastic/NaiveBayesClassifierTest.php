@@ -14,12 +14,12 @@
 
 namespace phpOMS\tests\Math\Stochastic;
 
-use phpOMS\Math\Stochastic\NaiveBayesFilter;
+use phpOMS\Math\Stochastic\NaiveBayesClassifier;
 
 /**
  * @internal
  */
-class NaiveBayesFilterTest extends \PHPUnit\Framework\TestCase
+class NaiveBayesClassifierTest extends \PHPUnit\Framework\TestCase
 {
     const PLAY = [
         ['weather' => ['Overcast']],
@@ -55,28 +55,28 @@ class NaiveBayesFilterTest extends \PHPUnit\Framework\TestCase
         ['height' => 5.75, 'weight' => 150, 'foot' => 9],
     ];
 
-    public function testTextFilter() : void
+    public function testTextClassifier() : void
     {
-        $filter = new NaiveBayesFilter();
+        $filter = new NaiveBayesClassifier();
         $filter->train('play', self::PLAY);
         $filter->train('noplay', self::NO_PLAY);
 
         self::assertEqualsWithDelta(
-            0.64,
+            0.6,
             $filter->match('play', ['weather' => ['Sunny']], 1),
             0.01
         );
     }
 
-    public function testNumericFilter() : void
+    public function testNumericClassifier() : void
     {
-        $filter = new NaiveBayesFilter();
+        $filter = new NaiveBayesClassifier();
         $filter->train('male', self::MALE);
         $filter->train('female', self::FEMALE);
 
         self::assertEqualsWithDelta(
             0.64,
-            $filter->match('play', ['height' => 6, 'weight' => 130, 'foot' => 8]),
+            $filter->match('female', ['height' => 6, 'weight' => 130, 'foot' => 8]),
             0.01
         );
     }

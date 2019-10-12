@@ -36,7 +36,7 @@ class StoogeSort implements SortInterface
         }
 
         $copy = $list;
-        self::stoogeSort($copy, 0, $n - 1, $order);
+        self::stooge($copy, 0, $n - 1, $order);
 
         return $copy;
     }
@@ -53,7 +53,7 @@ class StoogeSort implements SortInterface
      *
      * @since 1.0.0
      */
-    private static function stoogeSort(array &$list, int $lo, int $hi, int $order) : void
+    private static function stooge(array &$list, int $lo, int $hi, int $order) : void
     {
         if ($lo >= $hi) {
             return;
@@ -68,9 +68,9 @@ class StoogeSort implements SortInterface
         if ($hi - $lo + 1 > 2) {
             $t = (int) (($hi - $lo + 1) / 3);
 
-            self::stoogeSort($list, $lo, $hi - $t, $order);
-            self::stoogeSort($list, $lo + $t, $hi, $order);
-            self::stoogeSort($list, $lo, $hi - $t, $order);
+            self::stooge($list, $lo, $hi - $t, $order);
+            self::stooge($list, $lo + $t, $hi, $order);
+            self::stooge($list, $lo, $hi - $t, $order);
         }
     }
 }
