@@ -676,7 +676,7 @@ class DataMapperAbstract implements DataMapperInterface
             $objsIds            = [];
             $relReflectionClass = null;
 
-            foreach ($values as $key => &$value) {
+            foreach ($values as $key => $value) {
                 if (!\is_object($value)) {
                     // Is scalar => already in database
                     $objsIds[$key] = $value;

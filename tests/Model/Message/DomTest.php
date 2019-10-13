@@ -12,7 +12,6 @@
  */
 declare(strict_types=1);
 
-
 namespace phpOMS\tests\phpOMS\Model\Message;
 
 use phpOMS\Model\Message\Dom;

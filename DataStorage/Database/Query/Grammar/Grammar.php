@@ -252,7 +252,7 @@ class Grammar extends GrammarAbstract
         } elseif ($element['column'] instanceof \Closure) {
             $expression .= $element['column']();
         } elseif ($element['column'] instanceof Builder) {
-            $expression .= '(' . $element['column']->toSql() . ')';
+            $expression .= '(' . \rtrim($element['column']->toSql(), ';') . ')';
         } elseif ($element['column'] instanceof Where) {
             $expression .= '(' . \rtrim($this->compileWhereQuery($element['column']), ';') . ')';
         }
@@ -409,7 +409,15 @@ class Grammar extends GrammarAbstract
 
         foreach ($joins as $key => $join) {
             $expression .= $join['type'] . ' ';
-            $expression .= $this->compileSystem($join['table'], $query->getPrefix());
+
+            if (\is_string($join['table'])) {
+                $expression .= $this->compileSystem($join['table'], $query->getPrefix()) . (\is_string($key) ? ' as ' . $query->getPrefix() . $key : '');
+            } elseif ($join['table'] instanceof \Closure) {
+                $expression .= $join['table']() . (\is_string($key) ? ' as ' . $query->getPrefix() . $key : '');
+            } elseif ($join['table'] instanceof Builder) {
+                $expression .= '(' . \rtrim($join['table']->toSql(), ';') . ')' . (\is_string($key) ? ' as ' . $query->getPrefix() . $key : '');
+            }
+
             $expression .= $this->compileOn($query, $query->ons[$key]);
         }
 

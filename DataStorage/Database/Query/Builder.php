@@ -279,6 +279,24 @@ class Builder extends BuilderAbstract
     }
 
     /**
+     * Select with alias.
+     *
+     * @param mixed  $column Column query
+     * @param string $alias  Alias
+     *
+     * @return Builder
+     *
+     * @since 1.0.0
+     */
+    public function selectAs($column, string $alias) : self
+    {
+        $this->type            = QueryType::SELECT;
+        $this->selects[$alias] = $column;
+
+        return $this;
+    }
+
+    /**
      * Select.
      *
      * @param array ...$columns Columns
@@ -444,6 +462,23 @@ class Builder extends BuilderAbstract
                 throw new \InvalidArgumentException();
             }
         }
+
+        return $this;
+    }
+
+    /**
+     * From with alias.
+     *
+     * @param mixed  $column Column query
+     * @param string $alias  Alias
+     *
+     * @return Builder
+     *
+     * @since 1.0.0
+     */
+    public function fromAs($column, string $alias) : self
+    {
+        $this->from[$alias] = $column;
 
         return $this;
     }
@@ -1050,16 +1085,24 @@ class Builder extends BuilderAbstract
     /**
      * Join.
      *
+     * @param mixed       $table Join query
+     * @param string      $type  Join type
+     * @param null|string $alias Alias name (empty = none)
+     *
      * @return Builder
      *
      * @since 1.0.0
      */
-    public function join($table, string $type = JoinType::JOIN) : self
+    public function join($table, string $type = JoinType::JOIN, string $alias = null) : self
     {
-        if (\is_string($table) || $table instanceof \Closure) {
+        if (!\is_string($table)&& !($table instanceof self) && !($table instanceof \Closure)) {
+            throw new \InvalidArgumentException();
+        }
+
+        if ($alias === null) {
             $this->joins[] = ['type' => $type, 'table' => $table];
         } else {
-            throw new \InvalidArgumentException();
+            $this->joins[$alias] = ['type' => $type, 'table' => $table];
         }
 
         return $this;
@@ -1068,133 +1111,166 @@ class Builder extends BuilderAbstract
     /**
      * Join.
      *
+     * @param mixed       $column Join query
+     * @param null|string $alias  Alias name (empty = none)
+     *
      * @return Builder
      *
      * @since 1.0.0
      */
-    public function leftJoin($column) : self
+    public function leftJoin($column, string $alias = null) : self
     {
-        return $this->join($column, JoinType::LEFT_JOIN);
+        return $this->join($column, JoinType::LEFT_JOIN, $alias);
     }
 
     /**
      * Join.
      *
+     * @param mixed       $column Join query
+     * @param null|string $alias  Alias name (empty = none)
+     *
      * @return Builder
      *
      * @since 1.0.0
      */
-    public function leftOuterJoin($column) : self
+    public function leftOuterJoin($column, string $alias = null) : self
     {
-        return $this->join($column, JoinType::LEFT_OUTER_JOIN);
+        return $this->join($column, JoinType::LEFT_OUTER_JOIN, $alias);
     }
 
     /**
      * Join.
      *
+     * @param mixed       $column Join query
+     * @param null|string $alias  Alias name (empty = none)
+     *
      * @return Builder
      *
      * @since 1.0.0
      */
-    public function leftInnerJoin($column) : self
+    public function leftInnerJoin($column, string $alias = null) : self
     {
-        return $this->join($column, JoinType::LEFT_INNER_JOIN);
+        return $this->join($column, JoinType::LEFT_INNER_JOIN, $alias);
     }
 
     /**
      * Join.
      *
+     * @param mixed       $column Join query
+     * @param null|string $alias  Alias name (empty = none)
+     *
      * @return Builder
      *
      * @since 1.0.0
      */
-    public function rightJoin($column) : self
+    public function rightJoin($column, string $alias = null) : self
     {
-        return $this->join($column, JoinType::RIGHT_JOIN);
+        return $this->join($column, JoinType::RIGHT_JOIN, $alias);
     }
 
     /**
      * Join.
      *
+     * @param mixed       $column Join query
+     * @param null|string $alias  Alias name (empty = none)
+     *
      * @return Builder
      *
      * @since 1.0.0
      */
-    public function rightOuterJoin($column) : self
+    public function rightOuterJoin($column, string $alias = null) : self
     {
-        return $this->join($column, JoinType::RIGHT_OUTER_JOIN);
+        return $this->join($column, JoinType::RIGHT_OUTER_JOIN, $alias);
     }
 
     /**
      * Join.
      *
+     * @param mixed       $column Join query
+     * @param null|string $alias  Alias name (empty = none)
+     *
      * @return Builder
      *
      * @since 1.0.0
      */
-    public function rightInnerJoin($column) : self
+    public function rightInnerJoin($column, string $alias = null) : self
     {
-        return $this->join($column, JoinType::RIGHT_INNER_JOIN);
+        return $this->join($column, JoinType::RIGHT_INNER_JOIN, $alias);
     }
 
     /**
      * Join.
      *
+     * @param mixed       $column Join query
+     * @param null|string $alias  Alias name (empty = none)
+     *
      * @return Builder
      *
      * @since 1.0.0
      */
-    public function outerJoin($column) : self
+    public function outerJoin($column, string $alias = null) : self
     {
-        return $this->join($column, JoinType::OUTER_JOIN);
+        return $this->join($column, JoinType::OUTER_JOIN, $alias);
     }
 
     /**
      * Join.
      *
+     * @param mixed       $column Join query
+     * @param null|string $alias  Alias name (empty = none)
+     *
      * @return Builder
      *
      * @since 1.0.0
      */
-    public function innerJoin($column) : self
+    public function innerJoin($column, string $alias = null) : self
     {
-        return $this->join($column, JoinType::INNER_JOIN);
+        return $this->join($column, JoinType::INNER_JOIN, $alias);
     }
 
     /**
      * Join.
      *
+     * @param mixed       $column Join query
+     * @param null|string $alias  Alias name (empty = none)
+     *
      * @return Builder
      *
      * @since 1.0.0
      */
-    public function crossJoin($column) : self
+    public function crossJoin($column, string $alias = null) : self
     {
-        return $this->join($column, JoinType::CROSS_JOIN);
+        return $this->join($column, JoinType::CROSS_JOIN, $alias);
     }
 
     /**
      * Join.
      *
+     * @param mixed       $column Join query
+     * @param null|string $alias  Alias name (empty = none)
+     *
      * @return Builder
      *
      * @since 1.0.0
      */
-    public function fullJoin($column) : self
+    public function fullJoin($column, string $alias = null) : self
     {
-        return $this->join($column, JoinType::FULL_JOIN);
+        return $this->join($column, JoinType::FULL_JOIN, $alias);
     }
 
     /**
      * Join.
      *
+     * @param mixed       $column Join query
+     * @param null|string $alias  Alias name (empty = none)
+     *
      * @return Builder
      *
      * @since 1.0.0
      */
-    public function fullOuterJoin($column) : self
+    public function fullOuterJoin($column, string $alias = null) : self
     {
-        return $this->join($column, JoinType::FULL_OUTER_JOIN);
+        return $this->join($column, JoinType::FULL_OUTER_JOIN, $alias);
     }
 
     /**
@@ -1237,7 +1313,8 @@ class Builder extends BuilderAbstract
                 throw new \InvalidArgumentException('Unknown operator.');
             }
 
-            $this->ons[$joinCount][] = [
+            // @todo: this is bad! ons needs to have the same key as the join for the grammar to work. since alias are possible this is nec3essary.
+            $this->ons[\array_keys($this->joins)[$joinCount]][] = [
                 'column'   => $column,
                 'operator' => $operator[$i],
                 'value'    => $values[$i],

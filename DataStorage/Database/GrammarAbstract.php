@@ -82,6 +82,8 @@ abstract class GrammarAbstract
      */
     protected array $specialKeywords = [
         'COUNT(',
+        'MAX(',
+        'MIN(',
     ];
 
     /**
@@ -207,13 +209,13 @@ abstract class GrammarAbstract
         foreach ($elements as $key => $element) {
             if (\is_string($element) && $element !== '*') {
                 $prefix      = \stripos($element, '.') !== false || $column ? $prefix : '';
-                $expression .= $this->compileSystem($element, $prefix) . ', ';
+                $expression .= $this->compileSystem($element, $prefix) . (\is_string($key) ? ' as ' . $prefix . $key : '') . ', ';
             } elseif (\is_string($element) && $element === '*') {
                 $expression .= '*, ';
             } elseif ($element instanceof \Closure) {
-                $expression .= $element() . ', ';
+                $expression .= $element() . (\is_string($key) ? ' as ' . $prefix . $key : '') . ', ';
             } elseif ($element instanceof BuilderAbstract) {
-                $expression .= $element->toSql() . ', ';
+                $expression .= $element->toSql() . (\is_string($key) ? ' as ' . $prefix . $key : '') . ', ';
             } else {
                 throw new \InvalidArgumentException();
             }
