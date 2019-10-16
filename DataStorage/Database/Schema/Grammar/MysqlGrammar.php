@@ -112,6 +112,10 @@ class MysqlGrammar extends Grammar
                 $keys .= ' PRIMARY KEY (' .  $this->expressionizeTableColumn([$name], '') . '),';
             }
 
+            if (isset($field['unique']) && $field['unique']) {
+                $keys .= ' UNIQUE KEY (' .  $this->expressionizeTableColumn([$name], '') . '),';
+            }
+
             if (isset($field['foreignTable'], $field['foreignKey'])
                 && !empty($field['foreignTable']) && !empty($field['foreignKey'])
             ) {

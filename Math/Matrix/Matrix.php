@@ -110,7 +110,7 @@ class Matrix implements \ArrayAccess, \Iterator
      *
      * @since 1.0.0
      */
-    public function get(int $m, int $n)
+    public function get(int $m, int $n = 0)
     {
         if (!isset($this->matrix[$m], $this->matrix[$m][$n])) {
             throw new InvalidDimensionException($m . 'x' . $n);
@@ -301,11 +301,10 @@ class Matrix implements \ArrayAccess, \Iterator
         $mDim   = $this->m;
         $nDim   = $this->n;
 
-        $rank     = \max($mDim, $nDim);
+        $rank     = 0;
         $selected = \array_fill(0, $mDim, false);
 
         for ($i = 0; $i < $nDim; ++$i) {
-            $j;
             for ($j = 0; $j < $mDim; ++$j) {
                 if (!$selected[$j] && \abs($matrix[$j][$i]) > 0.0001) {
                     break;
@@ -313,18 +312,19 @@ class Matrix implements \ArrayAccess, \Iterator
             }
 
             if ($j === $mDim) {
-                --$rank;
-            } else {
-                $selected[$j] = true;
-                for ($p = $i + 1; $p < $nDim; ++$p) {
-                    $matrix[$j][$p] /= $matrix[$j][$i];
-                }
+                continue;
+            }
 
-                for ($k = 0; $k < $mDim; ++$k) {
-                    if ($k !== $j && \abs($matrix[$k][$i]) > 0.0001) {
-                        for ($p = $i + 1; $p < $nDim; ++$p) {
-                            $matrix[$k][$p] -= $matrix[$j][$p] * $matrix[$k][$i];
-                        }
+            ++$rank;
+            $selected[$j] = true;
+            for ($p = $i + 1; $p < $nDim; ++$p) {
+                $matrix[$j][$p] /= $matrix[$j][$i];
+            }
+
+            for ($k = 0; $k < $mDim; ++$k) {
+                if ($k !== $j && \abs($matrix[$k][$i]) > 0.0001) {
+                    for ($p = $i + 1; $p < $nDim; ++$p) {
+                        $matrix[$k][$p] -= $matrix[$j][$p] * $matrix[$k][$i];
                     }
                 }
             }
@@ -674,7 +674,7 @@ class Matrix implements \ArrayAccess, \Iterator
      *
      * @param Matrix $B Matrix/Vector b
      *
-     * @return Matrix
+     * @return Matrix|Vector
      *
      * @since 1.0.0
      */

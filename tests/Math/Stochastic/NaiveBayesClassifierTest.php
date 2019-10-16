@@ -10,7 +10,7 @@
  * @version   1.0.0
  * @link      https://orange-management.org
  */
- declare(strict_types=1);
+declare(strict_types=1);
 
 namespace phpOMS\tests\Math\Stochastic;
 
@@ -75,7 +75,7 @@ class NaiveBayesClassifierTest extends \PHPUnit\Framework\TestCase
         $filter->train('female', self::FEMALE);
 
         self::assertEqualsWithDelta(
-            0.64,
+            0.999988,
             $filter->match('female', ['height' => 6, 'weight' => 130, 'foot' => 8]),
             0.01
         );

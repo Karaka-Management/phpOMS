@@ -10,7 +10,7 @@
  * @version   1.0.0
  * @link      https://orange-management.org
  */
- declare(strict_types=1);
+declare(strict_types=1);
 
 namespace phpOMS\tests\DataStorage\Cache\Connection;
 
@@ -91,13 +91,19 @@ class RedisCacheTest extends \PHPUnit\Framework\TestCase
         self::assertFalse($cache->delete('keyInvalid'));
         self::assertNull($cache->get('key4'));
 
-        self::assertArraySubset(
-            [
-                'status'  => CacheStatus::OK,
-                'count'   => 6,
-            ],
-            $cache->stats()
-        );
+        $arr      = [
+            'status'  => CacheStatus::OK,
+            'count'   => 6,
+        ];
+        $isSubset = true;
+        $parent   = $cache->stats();
+        foreach ($arr as $key => $value) {
+            if (!isset($parent[$key]) || $parent[$key] !== $value) {
+                $isSubset = false;
+                break;
+            }
+        }
+        self::assertTrue($isSubset);
 
         self::assertTrue($cache->flushAll());
         self::assertTrue($cache->flush());
@@ -105,13 +111,19 @@ class RedisCacheTest extends \PHPUnit\Framework\TestCase
 
         $cache->flushAll();
 
-        self::assertArraySubset(
-            [
-                'status'  => CacheStatus::OK,
-                'count'   => 0,
-            ],
-            $cache->stats()
-        );
+        $arr      = [
+            'status'  => CacheStatus::OK,
+            'count'   => 0,
+        ];
+        $isSubset = true;
+        $parent   = $cache->stats();
+        foreach ($arr as $key => $value) {
+            if (!isset($parent[$key]) || $parent[$key] !== $value) {
+                $isSubset = false;
+                break;
+            }
+        }
+        self::assertTrue($isSubset);
     }
 
     public function testBadCacheStatus() : void

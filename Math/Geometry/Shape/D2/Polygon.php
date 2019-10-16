@@ -278,7 +278,7 @@ final class Polygon implements D2ShapeInterface
      */
     public static function getRegularAreaByLength(float $length, int $sides) : float
     {
-        return $length ** 2 * $sides / (4 * \tan(180 / $sides));
+        return $length ** 2 * $sides / (4 * \tan(\M_PI / $sides));
     }
 
     /**
@@ -293,6 +293,6 @@ final class Polygon implements D2ShapeInterface
      */
     public static function getRegularAreaByRadius(float $r, int $sides) : float
     {
-        return $r ** 2 * $sides * \sin(360 / $sides) / 2;
+        return $r ** 2 * $sides * \tan(\M_PI / $sides);
     }
 }

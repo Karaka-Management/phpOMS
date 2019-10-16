@@ -24,4 +24,62 @@ namespace phpOMS\Math\Matrix;
  */
 final class Vector extends Matrix
 {
+    /**
+     * Create vector
+     *
+     * @param int $m Vector length
+     *
+     * @since 1.0.0
+     */
+    public function __cosntruct(int $m = 1)
+    {
+        parent::__construct($m, 1);
+    }
+
+    /**
+     * Set vector value
+     *
+     * @param int   $m     Position to set
+     * @param mixed $value Value to set
+     *
+     * @return void
+     *
+     * @since 1.0.0
+     */
+    public function setV(int $m, $value) : void
+    {
+        parent::set($m , 0, $value);
+    }
+
+    /**
+     * Get vector value
+     *
+     * @param int $m Position to get
+     *
+     * @return mixed
+     *
+     * @since 1.0.0
+     */
+    public function getV(int $m)
+    {
+        return parent::get($m, 0);
+    }
+
+    /**
+     * Set matrix
+     *
+     * @param array $vector 1-Dimensional array
+     *
+     * @return Vector
+     *
+     * @since 1.0.0
+     */
+    public function setMatrixV(array $vector) : self
+    {
+        foreach ($vector as $key => $value) {
+            $this->setV($key, $value);
+        }
+
+        return $this;
+    }
 }

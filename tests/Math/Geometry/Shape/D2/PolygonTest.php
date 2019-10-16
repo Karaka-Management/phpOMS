@@ -10,7 +10,7 @@
  * @version   1.0.0
  * @link      https://orange-management.org
  */
- declare(strict_types=1);
+declare(strict_types=1);
 
 namespace phpOMS\tests\Math\Geometry\Shape\D2;
 
@@ -108,5 +108,11 @@ class PolygonTest extends \PHPUnit\Framework\TestCase
             ['x' => 3, 'y' => 0],
         ]);
         self::assertEqualsWithDelta(['x' => 3.5, 'y' => 1.5], $polygon->getBarycenter(), 0.5);
+    }
+
+    public function testRegularArea()
+    {
+        self::assertEqualsWithDelta(3 * 3, Polygon::getRegularAreaByLength(3.0, 4), 0.01);
+        self::assertEqualsWithDelta(3 * 3 , Polygon::getRegularAreaByRadius(1.5, 4), 0.01);
     }
 }

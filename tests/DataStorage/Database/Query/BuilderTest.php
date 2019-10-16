@@ -10,7 +10,7 @@
  * @version   1.0.0
  * @link      https://orange-management.org
  */
- declare(strict_types=1);
+declare(strict_types=1);
 
 namespace phpOMS\tests\DataStorage\Database\Query;
 
@@ -34,6 +34,10 @@ class BuilderTest extends \PHPUnit\Framework\TestCase
         $query = new Builder($this->con);
         $sql   = 'SELECT `a`.`test` FROM `a` WHERE `a`.`test` = 1;';
         self::assertEquals($sql, $query->select('a.test')->from('a')->where('a.test', '=', 1)->toSql());
+
+        $query = new Builder($this->con);
+        $sql   = 'SELECT `a`.`test` as t FROM `a` as b WHERE `a`.`test` = 1;';
+        self::assertEquals($sql, $query->selectAs('a.test', 't')->fromAs('a', 'b')->where('a.test', '=', 1)->toSql());
 
         $query = new Builder($this->con);
         $sql   = 'SELECT DISTINCT `a`.`test` FROM `a` WHERE `a`.`test` = 1;';
@@ -76,6 +80,8 @@ class BuilderTest extends \PHPUnit\Framework\TestCase
                 ->orderBy(['a.test', 'b.test', ], ['ASC', 'DESC', ])
                 ->toSql()
         );
+
+        self::assertEquals($query->toSql(), $query->__toString());
     }
 
     public function testMysqlOrder() : void
@@ -338,6 +344,30 @@ class BuilderTest extends \PHPUnit\Framework\TestCase
 
         $query = new Builder($this->con, true);
         $query->delete();
+    }
+
+    public function testInvalidSelectParameter() : void
+    {
+        self::expectException(\InvalidArgumentException::class);
+
+        $query = new Builder($this->con, true);
+        $query->select(false);
+    }
+
+    public function testInvalidFromParameter() : void
+    {
+        self::expectException(\InvalidArgumentException::class);
+
+        $query = new Builder($this->con, true);
+        $query->from(false);
+    }
+
+    public function testInvalidGroupByParameter() : void
+    {
+        self::expectException(\InvalidArgumentException::class);
+
+        $query = new Builder($this->con, true);
+        $query->groupBy(false);
     }
 
     public function testInvalidWhereOperator() : void

@@ -268,7 +268,7 @@ class Builder extends BuilderAbstract
         $this->type = QueryType::SELECT;
 
         foreach ($columns as $key => $column) {
-            if (\is_string($column) || $column instanceof \Closure) {
+            if (\is_string($column) || $column instanceof self || $column instanceof \Closure) {
                 $this->selects[] = $column;
             } else {
                 throw new \InvalidArgumentException();
@@ -395,11 +395,13 @@ class Builder extends BuilderAbstract
      *
      * @since 1.0.0
      */
-    private function isValidReadOnly($raw) : bool
+    private function isValidReadOnly(string $raw) : bool
     {
         if (!$this->isReadOnly) {
             return true;
         }
+
+        $raw = \strtolower($raw);
 
         if (\stripos($raw, 'insert') !== false
             || \stripos($raw, 'update') !== false
@@ -412,22 +414,6 @@ class Builder extends BuilderAbstract
         }
 
         return true;
-    }
-
-    /**
-     * Make raw column selection.
-     *
-     * @param \Closure|string $expression Raw expression
-     *
-     * @return Builder
-     *
-     * @since 1.0.0
-     */
-    public function selectRaw($expression) : self
-    {
-        $this->selects[null][] = $expression;
-
-        return $this;
     }
 
     /**
@@ -456,7 +442,7 @@ class Builder extends BuilderAbstract
     public function from(...$tables) : self
     {
         foreach ($tables as $key => $table) {
-            if (\is_string($table) || $table instanceof \Closure) {
+            if (\is_string($table) || $table instanceof self || $table instanceof \Closure) {
                 $this->from[] = $table;
             } else {
                 throw new \InvalidArgumentException();
@@ -479,22 +465,6 @@ class Builder extends BuilderAbstract
     public function fromAs($column, string $alias) : self
     {
         $this->from[$alias] = $column;
-
-        return $this;
-    }
-
-    /**
-     * Make raw from.
-     *
-     * @param array|\Closure|string $expression Expression
-     *
-     * @return Builder
-     *
-     * @since 1.0.0
-     */
-    public function fromRaw($expression) : self
-    {
-        $this->from[null][] = $expression;
 
         return $this;
     }
@@ -654,7 +624,7 @@ class Builder extends BuilderAbstract
     public function groupBy(...$columns) : self
     {
         foreach ($columns as $key => $column) {
-            if (\is_string($column) || $column instanceof \Closure) {
+            if (\is_string($column) || $column instanceof self || $column instanceof \Closure) {
                 $this->groups[] = $column;
             } else {
                 throw new \InvalidArgumentException();
@@ -1032,7 +1002,7 @@ class Builder extends BuilderAbstract
         $this->type = QueryType::UPDATE;
 
         foreach ($tables as $key => $table) {
-            if (\is_string($table) || $table instanceof \Closure) {
+            if (\is_string($table) || $table instanceof self || $table instanceof \Closure) {
                 $this->updates[] = $table;
             } else {
                 throw new \InvalidArgumentException();

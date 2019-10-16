@@ -134,9 +134,7 @@ final class Router
                 ) {
                     // if csrf is required but not set
                     if (isset($d['csrf']) && $d['csrf'] && $csrf === null) {
-                        \array_merge($bound, $this->route('/' . $app . '/e403', $csrf, $verb));
-
-                        continue;
+                        return $app !== null ? $this->route('/' . \strtolower($app) . '/e403', $csrf, $verb) : $this->route('/e403', $csrf, $verb);
                     }
 
                     // if permission check is invalid
@@ -147,9 +145,7 @@ final class Router
                             )
                         )
                     ) {
-                        \array_merge($bound, $this->route('/' . $app . '/e403', $csrf, $verb));
-
-                        continue;
+                        return $app !== null ? $this->route('/' . \strtolower($app) . '/e403', $csrf, $verb) : $this->route('/e403', $csrf, $verb);
                     }
 
                     $bound[] = ['dest' => $d['dest']];

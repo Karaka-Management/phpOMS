@@ -89,7 +89,7 @@ final class SingularValueDecomposition
 
         for ($k = 0; $k < $maxNctNrt; ++$k) {
             if ($k < $nct) {
-                $this->S[$k] = 0;
+                $this->S[$k] = 0.0;
                 for ($i = $k; $i < $this->m; ++$i) {
                     $this->S[$k] = Triangle::getHypot($this->S[$k], $A[$i][$k]);
                 }
@@ -273,7 +273,7 @@ final class SingularValueDecomposition
                         break;
                     }
 
-                    $t = ($ks !== $p ? \abs($e[$ks]) : 0) + ($ks !== $k + 1 ? \abs($e[$ks - 1]) : 0);
+                    $t = ($ks !== $p ? \abs($e[$ks]) : 0.0) + ($ks !== $k + 1 ? \abs($e[$ks - 1]) : 0.0);
 
                     if (\abs($this->S[$ks]) <= $eps * $t) {
                         $this->S[$ks] = 0.0;
@@ -304,8 +304,8 @@ final class SingularValueDecomposition
                         $this->S[$j] = $t;
 
                         if ($j !== $k) {
-                            $f         = -$sn * $e[$j - 1];
-                            $e[$j - 1] = $cs * $e[$j - 1];
+                            $f          = -$sn * $e[$j - 1];
+                            $e[$j - 1] *= $cs;
                         }
 
                         for ($i = 0; $i < $this->n; ++$i) {
@@ -325,7 +325,7 @@ final class SingularValueDecomposition
                         $sn          = $f / $t;
                         $this->S[$j] = $t;
                         $f           = -$sn * $e[$j];
-                        $e[$j]       = $cs * $e[$j];
+                        $e[$j]      *= $cs;
 
                         for ($i = 0; $i < $this->m; ++$i) {
                             $t                   = $cs * $this->U[$i][$j] + $sn * $this->U[$i][$k - 1];
@@ -397,7 +397,7 @@ final class SingularValueDecomposition
                         $f               = $cs * $e[$j] + $sn * $this->S[$j + 1];
                         $this->S[$j + 1] = -$sn * $e[$j] + $cs * $this->S[$j + 1];
                         $g               = $sn * $e[$j + 1];
-                        $e[$j + 1]       = $cs * $e[$j + 1];
+                        $e[$j + 1]      *= $cs;
 
                         if ($j < $this->m - 1) {
                             for ($i = 0; $i < $this->m; ++$i) {
@@ -413,7 +413,7 @@ final class SingularValueDecomposition
                     break;
                 case 4:
                     if ($this->S[$k] <= 0.0) {
-                        $this->S[$k] = ($this->S[$k] < 0.0 ? -$this->S[$k] : 0.0);
+                        $this->S[$k] = $this->S[$k] < 0.0 ? -$this->S[$k] : 0.0;
 
                         for ($i = 0; $i <= $pp; ++$i) {
                             $this->V[$i][$k] = -$this->V[$i][$k];

@@ -117,8 +117,6 @@ class NaiveBayesClassifier
             ++$this->probabilities['criteria'][$criteria]['count'];
             ++$this->probabilities['count'];
         }
-
-        $this->changed = true;
     }
 
     /**
@@ -134,11 +132,7 @@ class NaiveBayesClassifier
      */
     public function match(string $criteria, array $toMatch, int $minimum = 3) : float
     {
-        if ($this->changed) {
-            $this->cache();
-        }
-
-        $this->changed = false;
+        $this->preCalculateProbabilities($toMatch);
 
         $n = 0.0;
         foreach ($toMatch as $attr => $value) {
@@ -161,10 +155,10 @@ class NaiveBayesClassifier
                 }
             } else {
                 // todo: add probability of criteria / total?
-                $p = 1 / \sqrt(2 * \M_PI * $this->probabilities['criteria'][$criteria]['attr'][$attr]['variance'])
-                    * \exp(-($value - $this->probabilities['criteria'][$criteria]['attr'][$attr]['mean']) / (2 * $this->probabilities['criteria'][$criteria]['attr'][$attr]['variance']));
-
-                //var_dump($p);
+                $p = (1 / \sqrt(2 * \M_PI * $this->probabilities['criteria'][$criteria]['attr'][$attr]['variance'])
+                        * \exp(-($value - $this->probabilities['criteria'][$criteria]['attr'][$attr]['mean']) ** 2 / (2 * $this->probabilities['criteria'][$criteria]['attr'][$attr]['variance'])))
+                    * ($this->probabilities['criteria'][$criteria]['count'] / $this->probabilities['count'])
+                    / $this->probabilities['attr'][$attr]['data'];
 
                 $n += \log(1 - $p) - \log($p);
             }
@@ -174,13 +168,15 @@ class NaiveBayesClassifier
     }
 
     /**
-     * Cache probabilities for matching function.
+     * Pre-calculate some probabilities used for the matching process
+     *
+     * @param array $toMatch Data to match. Some probabilities depend on the passed values.
      *
      * @return void
      *
      * @since 1.0.0
      */
-    private function cache() : void
+    private function preCalculateProbabilities(array $toMatch) : void
     {
         $this->probabilities['attr'] = [];
 
@@ -188,15 +184,18 @@ class NaiveBayesClassifier
             foreach ($subDict as $attr => $valueArray) {
                 if ($valueArray['type'] === 2) {
                     $this->probabilities['criteria'][$criteria]['attr'][$attr]['mean']     = Average::arithmeticMean($this->dict[$criteria][$attr]['data']);
-                    $this->probabilities['criteria'][$criteria]['attr'][$attr]['variance'] = MeasureOfDispersion::empiricalVariance($this->dict[$criteria][$attr]['data'], [], $this->probabilities['criteria'][$criteria]['attr'][$attr]['mean']);
+                    $this->probabilities['criteria'][$criteria]['attr'][$attr]['variance'] = MeasureOfDispersion::sampleVariance($this->dict[$criteria][$attr]['data'], $this->probabilities['criteria'][$criteria]['attr'][$attr]['mean']);
 
-                    // \var_dump($criteria);
-                    // \var_dump($attr);
-                    // \var_dump($this->probabilities['criteria'][$criteria]['attr'][$attr]['mean']); // good
-                    // \var_dump($this->probabilities['criteria'][$criteria]['attr'][$attr]['variance']); // bad
+                    if (!isset($this->probabilities['attr'][$attr])) {
+                        $this->probabilities['attr'][$attr] = ['data' => 0.0];
+                    }
+
+                    $this->probabilities['attr'][$attr]['data'] += (1 / \sqrt(2 * \M_PI * $this->probabilities['criteria'][$criteria]['attr'][$attr]['variance'])
+                            * \exp(-($toMatch[$attr] - $this->probabilities['criteria'][$criteria]['attr'][$attr]['mean']) ** 2 / (2 * $this->probabilities['criteria'][$criteria]['attr'][$attr]['variance'])))
+                        * ($this->probabilities['criteria'][$criteria]['count'] / $this->probabilities['count']);
                 } else {
                     if (!isset( $this->probabilities['attr'][$attr])) {
-                        $this->probabilities['attr'] = [$attr => ['data' => []]];
+                        $this->probabilities['attr'][$attr] = ['data' => []];
                     }
 
                     foreach ($valueArray['data'] as $word => $count) {

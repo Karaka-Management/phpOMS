@@ -10,7 +10,7 @@
  * @version   1.0.0
  * @link      https://orange-management.org
  */
- declare(strict_types=1);
+declare(strict_types=1);
 
 namespace phpOMS\tests\Math\Number;
 
@@ -30,8 +30,28 @@ class IntegerTest extends \PHPUnit\Framework\TestCase
 
     public function testFactorization() : void
     {
-        self::assertArraySubset([2, 2, 5, 5], Integer::trialFactorization(100));
-        self::assertArraySubset([2], Integer::trialFactorization(2));
+        $arr      = [2, 2, 5, 5];
+        $isSubset = true;
+        $parent   = Integer::trialFactorization(100);
+        foreach ($arr as $key => $value) {
+            if (!isset($parent[$key]) || $parent[$key] !== $value) {
+                $isSubset = false;
+                break;
+            }
+        }
+        self::assertTrue($isSubset);
+
+        $arr      = [2];
+        $isSubset = true;
+        $parent   = Integer::trialFactorization(2);
+        foreach ($arr as $key => $value) {
+            if (!isset($parent[$key]) || $parent[$key] !== $value) {
+                $isSubset = false;
+                break;
+            }
+        }
+        self::assertTrue($isSubset);
+
         self::assertEquals([], Integer::trialFactorization(1));
     }
 

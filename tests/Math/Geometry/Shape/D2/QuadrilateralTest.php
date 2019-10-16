@@ -10,17 +10,19 @@
  * @version   1.0.0
  * @link      https://orange-management.org
  */
- declare(strict_types=1);
+declare(strict_types=1);
 
 namespace phpOMS\tests\Math\Geometry\Shape\D2;
+
+use phpOMS\Math\Geometry\Shape\D2\Quadrilateral;
 
 /**
  * @internal
  */
 class QuadrilateralTest extends \PHPUnit\Framework\TestCase
 {
-    public function testPlaceholder() : void
+    public function testArea() : void
     {
-        self::markTestIncomplete();
+        self::assertEqualsWithDelta(10.78, Quadrilateral::getSurfaceFromSidesAndAngle(4.0, 2.0, 4.0, 3.5, 106.56), 0.01);
     }
 }

@@ -15,13 +15,23 @@ declare(strict_types=1);
 namespace phpOMS\Math\Numerics\Interpolation;
 
 /**
- * Polynomial spline interpolation.
+ * Interpolation interface.
  *
  * @package phpOMS\Math\Numerics\Interpolation
  * @license OMS License 1.0
  * @link    https://orange-management.org
  * @since   1.0.0
  */
-class PolynomialInterpolation
+interface InterpolationInterface
 {
+    /**
+     * Interpolation at a given point
+     *
+     * @param float|int $x X-Coordinate to interpolate at
+     *
+     * @return float
+     *
+     * @since 1.0.0
+     */
+    public function interpolate($x) : float;
 }

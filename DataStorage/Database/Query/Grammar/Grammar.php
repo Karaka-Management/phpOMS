@@ -260,7 +260,7 @@ class Grammar extends GrammarAbstract
         if (isset($element['value'])) {
             $expression .= ' ' . \strtoupper($element['operator']) . ' ' . $this->compileValue($query, $element['value'], $query->getPrefix());
         } else {
-            $operator    = \strtoupper($element['operator']) === '=' ? 'IS' : 'IS NOT';
+            $operator    = $element['operator'] === '=' ? 'IS' : 'IS NOT';
             $expression .= ' ' . $operator . ' ' . $this->compileValue($query, $element['value'], $query->getPrefix());
         }
 

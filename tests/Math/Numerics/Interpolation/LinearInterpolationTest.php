@@ -10,17 +10,27 @@
  * @version   1.0.0
  * @link      https://orange-management.org
  */
- declare(strict_types=1);
+declare(strict_types=1);
 
 namespace phpOMS\tests\Math\Numerics\Interpolation;
+
+use phpOMS\Math\Numerics\Interpolation\LinearInterpolation;
 
 /**
  * @internal
  */
 class LinearInterpolationTest extends \PHPUnit\Framework\TestCase
 {
-    public function testPlaceholder() : void
+    public function testInterpolation() : void
     {
-        self::markTestIncomplete();
+        $interpolation = new LinearInterpolation([
+            ['x' => 10.0, 'y' => 0.5],
+            ['x' => 20.0, 'y' => 1.0],
+            ['x' => 30.0, 'y' => 3.0],
+            ['x' => 40.0, 'y' => 5.0],
+            ['x' => 50.0, 'y' => 7.0],
+        ]);
+
+        self::assertEqualsWithDelta(4.4, $interpolation->interpolate(37.0), 0.1);
     }
 }
