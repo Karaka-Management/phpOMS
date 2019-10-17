@@ -37,14 +37,14 @@ final class Weighted
     /**
      * Sort jobs by end date.
      *
-     * @param Jobs $j1 Job 1
-     * @param Jobs $j2 Job 2
+     * @param JobInterface $j1 Job 1
+     * @param JobInterface $j2 Job 2
      *
      * @return int
      *
      * @since 1.0.0
      */
-    private static function sortByEnd(Job $j1, Job $j2) : int
+    private static function sortByEnd(JobInterface $j1, JobInterface $j2) : int
     {
         if ($j1->getEnd() === null && $j2->getEnd() !== null) {
             return 1;
@@ -64,8 +64,8 @@ final class Weighted
     /**
      * Search for a none-conflicting job that comes befor a defined job
      *
-     * @param Job[] $jobs  List of jobs
-     * @param int   $pivot Job to find the previous job to
+     * @param JobInterface[] $jobs  List of jobs
+     * @param int            $pivot Job to find the previous job to
      *
      * @return int
      *
@@ -100,9 +100,9 @@ final class Weighted
     /**
      * Maximize the value of the job execution without overlapping jobs
      *
-     * @param Job[] $jobs Jobs to filter
+     * @param JobInterface[] $jobs Jobs to filter
      *
-     * @return Job[]
+     * @return JobInterface[]
      *
      * @since 1.0.0
      */

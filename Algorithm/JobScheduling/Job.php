@@ -22,7 +22,7 @@ namespace phpOMS\Algorithm\JobScheduling;
  * @link    https://orange-management.org
  * @since   1.0.0
  */
-class Job
+class Job implements JobInterface
 {
     /**
      * Value of the job
@@ -74,11 +74,7 @@ class Job
     }
 
     /**
-     * Get value of the job
-     *
-     * @return float
-     *
-     * @since 1.0.0
+     * {@inheritdoc}
      */
     public function getValue() : float
     {
@@ -86,11 +82,7 @@ class Job
     }
 
     /**
-     * Get start time of the job
-     *
-     * @return \DateTime
-     *
-     * @since 1.0.0
+     * {@inheritdoc}
      */
     public function getStart() : \DateTime
     {
@@ -98,11 +90,7 @@ class Job
     }
 
     /**
-     * Get end time of the job
-     *
-     * @return \DateTime
-     *
-     * @since 1.0.0
+     * {@inheritdoc}
      */
     public function getEnd() : ?\DateTime
     {
@@ -110,11 +98,7 @@ class Job
     }
 
     /**
-     * Get the name of the job
-     *
-     * @return string
-     *
-     * @since 1.0.0
+     * {@inheritdoc}
      */
     public function getName() : string
     {

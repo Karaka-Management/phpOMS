@@ -22,7 +22,7 @@ namespace phpOMS\Algorithm\Knapsack;
  * @link    https://orange-management.org
  * @since   1.0.0
  */
-class Item
+class Item implements ItemInterface
 {
     /**
      * Value of the item
@@ -64,11 +64,7 @@ class Item
     }
 
     /**
-     * Get value of the item
-     *
-     * @return float
-     *
-     * @since 1.0.0
+     * {@inheritdoc}
      */
     public function getValue() : float
     {
@@ -76,11 +72,7 @@ class Item
     }
 
     /**
-     * Get value of the item
-     *
-     * @return float
-     *
-     * @since 1.0.0
+     * {@inheritdoc}
      */
     public function getCost() : float
     {
@@ -88,11 +80,7 @@ class Item
     }
 
     /**
-     * Get the name of the item
-     *
-     * @return string
-     *
-     * @since 1.0.0
+     * {@inheritdoc}
      */
     public function getName() : string
     {

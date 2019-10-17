@@ -23,7 +23,7 @@ namespace phpOMS\Algorithm\Knapsack;
  * @link    https://orange-management.org
  * @since   1.0.0
  */
-class Backpack
+class Backpack implements BackpackInterface
 {
     /**
      * Maximum amount of cost this backpack can hold
@@ -52,7 +52,7 @@ class Backpack
     /**
      * Items inside the backpack
      *
-     * @var   Item[]
+     * @var   ItemInterface[]
      * @since 1.0.0
      */
     private array $items = [];
@@ -70,11 +70,7 @@ class Backpack
     }
 
     /**
-     * Get the value of the stored items
-     *
-     * @return float
-     *
-     * @since 1.0.0
+     * {@inheritdoc}
      */
     public function getValue() : float
     {
@@ -82,11 +78,7 @@ class Backpack
     }
 
     /**
-     * Get the cost of the stored items
-     *
-     * @return float
-     *
-     * @since 1.0.0
+     * {@inheritdoc}
      */
     public function getCost() : float
     {
@@ -94,11 +86,7 @@ class Backpack
     }
 
     /**
-     * Get the max allowed costs for the items
-     *
-     * @return float
-     *
-     * @since 1.0.0
+     * {@inheritdoc}
      */
     public function getMaxCost() : float
     {
@@ -106,11 +94,7 @@ class Backpack
     }
 
     /**
-     * Get items
-     *
-     * @return array
-     *
-     * @since 1.0.0
+     * {@inheritdoc}
      */
     public function getItems() : array
     {
@@ -118,16 +102,9 @@ class Backpack
     }
 
     /**
-     * Add item to backpack
-     *
-     * @param Item  $item     Item
-     * @param mixed $quantity Quantity of the item
-     *
-     * @return void
-     *
-     * @since 1.0.0
+     * {@inheritdoc}
      */
-    public function addItem(Item $item, $quantity = 1) : void
+    public function addItem(ItemInterface $item, $quantity = 1) : void
     {
         $this->items[] = ['item' => $item, 'quantity' => $quantity];
         $this->value  += $item->getValue() * $quantity;

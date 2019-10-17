@@ -38,14 +38,14 @@ final class Continuous
     /**
      * Fill the backpack with items
      *
-     * @param array    $items    Items to fill the backpack with ['item' => Item, 'quantity' => ?]
-     * @param Backpack $backpack Backpack to fill
+     * @param array             $items    Items to fill the backpack with ['item' => Item, 'quantity' => ?]
+     * @param BackpackInterface $backpack Backpack to fill
      *
-     * @return Backpack
+     * @return BackpackInterface
      *
      * @since 1.0.0
      */
-    public static function solve(array $items, Backpack $backpack) : Backpack
+    public static function solve(array $items, BackpackInterface $backpack) : BackpackInterface
     {
         usort($items, function($a, $b) {
             return $a['item']->getValue() / $a['item']->getCost() < $b['item']->getValue() / $b['item']->getCost();

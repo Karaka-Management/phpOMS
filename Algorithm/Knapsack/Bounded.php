@@ -42,14 +42,14 @@ final class Bounded
      *
      * This algorithm only works for integer cost, values and quantities!
      *
-     * @param array    $items    Items to fill the backpack with ['item' => Item, 'quantity' => ?]
-     * @param Backpack $backpack Backpack to fill
+     * @param array             $items    Items to fill the backpack with ['item' => Item, 'quantity' => ?]
+     * @param BackpackInterface $backpack Backpack to fill
      *
-     * @return Backpack
+     * @return BackpackInterface
      *
      * @since 1.0.0
      */
-    public static function solve(array $items, Backpack $backpack) : Backpack
+    public static function solve(array $items, BackpackInterface $backpack) : BackpackInterface
     {
         $n       = \count($items);
         $maxCost = (int) $backpack->getMaxCost();
