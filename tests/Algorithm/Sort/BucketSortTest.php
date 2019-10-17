@@ -70,4 +70,10 @@ class BucketSortTest extends \PHPUnit\Framework\TestCase
             [5, 1, 4, 2, 8], [$this->list[0]->value, $this->list[1]->value, $this->list[2]->value, $this->list[3]->value, $this->list[4]->value,]
         );
     }
+
+    public function testNoBuckets() : void
+    {
+        $newList = BucketSort::sort($this->list, 0, \phpOMS\Algorithm\Sort\SelectionSort::class);
+        self::assertEquals([], $newList);
+    }
 }
