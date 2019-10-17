@@ -25,7 +25,7 @@ namespace phpOMS\Business\Finance;
 final class Depreciation
 {
     /**
-     * Constructure
+     * Constructor
      *
      * @since 1.0.0
      * @codeCoverageIgnore

@@ -26,7 +26,7 @@ namespace phpOMS\Math\Topology;
 final class Metrics2D
 {
     /**
-     * Constructure
+     * Constructor
      *
      * @since 1.0.0
      * @codeCoverageIgnore

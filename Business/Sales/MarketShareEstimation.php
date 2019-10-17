@@ -28,7 +28,7 @@ namespace phpOMS\Business\Sales;
 final class MarketShareEstimation
 {
     /**
-     * Constructure
+     * Constructor
      *
      * @since 1.0.0
      * @codeCoverageIgnore

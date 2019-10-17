@@ -28,7 +28,7 @@ namespace phpOMS\Business\Finance;
 final class StockBonds
 {
     /**
-     * Constructure
+     * Constructor
      *
      * @since 1.0.0
      * @codeCoverageIgnore

@@ -27,7 +27,7 @@ namespace phpOMS\Business\Programming;
 final class Metrics
 {
     /**
-     * Constructure
+     * Constructor
      *
      * @since 1.0.0
      * @codeCoverageIgnore

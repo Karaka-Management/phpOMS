@@ -30,7 +30,7 @@ use phpOMS\Math\Statistic\Average;
 final class FinanceFormulas
 {
     /**
-     * Constructure
+     * Constructor
      *
      * @since 1.0.0
      * @codeCoverageIgnore
