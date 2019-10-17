@@ -49,4 +49,15 @@ class WeightedTest extends \PHPUnit\Framework\TestCase
             && \in_array('D', $names)
         );
     }
+
+    public function testSmallList() : void
+    {
+        $jobs = [
+            new Job(20, new \DateTime('2003-01-01'), new \DateTime('2010-01-01'), 'A')
+        ];
+
+        $filtered = WeighteD::solve($jobs);
+
+        self::assertEquals($jobs, $filtered);
+    }
 }
