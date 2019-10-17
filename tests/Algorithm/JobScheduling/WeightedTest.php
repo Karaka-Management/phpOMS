@@ -1,0 +1,52 @@
+<?php
+/**
+ * Orange Management
+ *
+ * PHP Version 7.4
+ *
+ * @package   tests
+ * @copyright Dennis Eichhorn
+ * @license   OMS License 1.0
+ * @version   1.0.0
+ * @link      https://orange-management.org
+ */
+declare(strict_types=1);
+
+namespace phpOMS\Algorithm\JobScheduling;
+
+use phpOMS\Algorithm\JobScheduling\Weighted;
+
+/**
+ * @testdox phpOMS\Algorithm\JobScheduling\Weighted: Test the job for the JobScheduling implementations
+ *
+ * @internal
+ */
+class WeightedTest extends \PHPUnit\Framework\TestCase
+{
+    public function testDefault() : void
+    {
+        $jobs = [
+            new Job(20, new \DateTime('2003-01-01'), new \DateTime('2010-01-01'), 'A'),
+            new Job(50, new \DateTime('2001-01-01'), new \DateTime('2002-01-01'), 'B'),
+            new Job(100, new \DateTime('2006-01-01'), new \DateTime('2019-01-01'), 'C'),
+            new Job(200, new \DateTime('2002-01-01'), new \DateTime('2100-01-01'), 'D'),
+        ];
+
+        $filtered = WeighteD::solve($jobs);
+
+        $value = 0;
+        $names = [];
+
+        foreach ($filtered as $job) {
+            $value  += $job->getValue();
+            $names[] = $job->getName();
+        }
+
+        self::assertEqualsWithDelta(250, $value, 0.01);
+
+        self::assertTrue(
+            \in_array('B', $names)
+            && \in_array('D', $names)
+        );
+    }
+}
