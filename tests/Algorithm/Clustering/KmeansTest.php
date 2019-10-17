@@ -41,13 +41,13 @@ class KmeansTest extends \PHPUnit\Framework\TestCase
 
             $kmeans = new Kmeans($points, 2);
 
-            if (0 === $kmeans->cluster($points[0])->getGroup()
-                && 0 === $kmeans->cluster($points[1])->getGroup()
-                && 1 === $kmeans->cluster($points[2])->getGroup()
-                && 1 === $kmeans->cluster($points[3])->getGroup()
-                && 1 === $kmeans->cluster($points[4])->getGroup()
-                && 1 === $kmeans->cluster($points[5])->getGroup()
-                && 1 === $kmeans->cluster($points[6])->getGroup()
+            if ($kmeans->cluster($points[0])->getGroup() === 0
+                && $kmeans->cluster($points[1])->getGroup() === 0
+                && $kmeans->cluster($points[2])->getGroup() === 1
+                && $kmeans->cluster($points[3])->getGroup() === 1
+                && $kmeans->cluster($points[4])->getGroup() === 1
+                && $kmeans->cluster($points[5])->getGroup() === 1
+                && $kmeans->cluster($points[6])->getGroup() === 1
             ) {
                 $result = true;
 
