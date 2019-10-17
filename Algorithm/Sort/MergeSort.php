@@ -25,6 +25,16 @@ namespace phpOMS\Algorithm\Sort;
 final class MergeSort implements SortInterface
 {
     /**
+     * Constructor
+     *
+     * @since 1.0.0
+     * @codeCoverageIgnore
+     */
+    private function __construct()
+    {
+    }
+
+    /**
      * {@inheritdoc}
      */
     public static function sort(array $list, int $order = SortOrder::ASC) : array

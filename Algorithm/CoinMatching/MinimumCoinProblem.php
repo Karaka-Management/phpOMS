@@ -25,7 +25,7 @@ namespace phpOMS\Algorithm\CoinMatching;
 final class MinimumCoinProblem
 {
     /**
-     * Constructure
+     * Constructor
      *
      * @since 1.0.0
      * @codeCoverageIgnore

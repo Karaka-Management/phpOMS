@@ -28,6 +28,16 @@ namespace phpOMS\Algorithm\Knapsack;
 final class Bounded
 {
     /**
+     * Constructor
+     *
+     * @since 1.0.0
+     * @codeCoverageIgnore
+     */
+    private function __construct()
+    {
+    }
+
+    /**
      * Fill the backpack with items
      *
      * This algorithm only works for integer cost, values and quantities!

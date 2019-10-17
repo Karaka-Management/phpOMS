@@ -25,6 +25,16 @@ namespace phpOMS\Algorithm\JobScheduling;
 final class Weighted
 {
     /**
+     * Constructor
+     *
+     * @since 1.0.0
+     * @codeCoverageIgnore
+     */
+    private function __construct()
+    {
+    }
+
+    /**
      * Sort jobs by end date.
      *
      * @param Jobs $j1 Job 1

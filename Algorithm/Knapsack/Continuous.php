@@ -26,6 +26,16 @@ namespace phpOMS\Algorithm\Knapsack;
 final class Continuous
 {
     /**
+     * Constructor
+     *
+     * @since 1.0.0
+     * @codeCoverageIgnore
+     */
+    private function __construct()
+    {
+    }
+
+    /**
      * Fill the backpack with items
      *
      * @param array    $items    Items to fill the backpack with ['item' => Item, 'quantity' => ?]
