@@ -4,7 +4,7 @@
  *
  * PHP Version 7.4
  *
- * @package   phpOMS\Algorithm\Knappsack
+ * @package   phpOMS\Algorithm\Knapsack
  * @copyright Dennis Eichhorn
  * @license   OMS License 1.0
  * @version   1.0.0
@@ -12,12 +12,12 @@
  */
 declare(strict_types=1);
 
-namespace phpOMS\Algorithm\Knappsack;
+namespace phpOMS\Algorithm\Knapsack;
 
 /**
- * Item in the knappsack
+ * Item in the Knapsack
  *
- * @package phpOMS\Algorithm\Knappsack
+ * @package phpOMS\Algorithm\Knapsack
  * @license OMS License 1.0
  * @link    https://orange-management.org
  * @since   1.0.0
@@ -30,7 +30,7 @@ class Item
      * @var   float
      * @since 1.0.0
      */
-    private $value = 0.0;
+    private float $value = 0.0;
 
     /**
      * Cost of the item
@@ -38,7 +38,15 @@ class Item
      * @var   float
      * @since 1.0.0
      */
-    private $cost = 0.0;
+    private float $cost = 0.0;
+
+    /**
+     * Name of the item
+     *
+     * @var   string
+     * @since 1.0.0
+     */
+    private string $name = '';
 
     /**
      * Cosntructor.
@@ -48,10 +56,11 @@ class Item
      *
      * @since 1.0.0
      */
-    public function __construct(float $value, float $cost)
+    public function __construct(float $value, float $cost, string $name = '')
     {
         $this->value = $value;
         $this->cost  = $cost;
+        $this->name  = $name;
     }
 
     /**
@@ -76,5 +85,17 @@ class Item
     public function getCost() : float
     {
         return $this->cost;
+    }
+
+    /**
+     * Get the name of the item
+     *
+     * @return string
+     *
+     * @since 1.0.0
+     */
+    public function getName() : string
+    {
+        return $this->name;
     }
 }

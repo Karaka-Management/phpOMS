@@ -4,7 +4,7 @@
  *
  * PHP Version 7.4
  *
- * @package   phpOMS\Algorithm\Knappsack
+ * @package   phpOMS\Algorithm\Knapsack
  * @copyright Dennis Eichhorn
  * @license   OMS License 1.0
  * @version   1.0.0
@@ -13,12 +13,12 @@
 
 declare(strict_types=1);
 
-namespace phpOMS\Algorithm\Knappsack;
+namespace phpOMS\Algorithm\Knapsack;
 
 /**
- * Backpack for the Knappsack problem
+ * Backpack for the Knapsack problem
  *
- * @package phpOMS\Algorithm\Knappsack
+ * @package phpOMS\Algorithm\Knapsack
  * @license OMS License 1.0
  * @link    https://orange-management.org
  * @since   1.0.0
@@ -94,6 +94,18 @@ class Backpack
     }
 
     /**
+     * Get the max allowed costs for the items
+     *
+     * @return float
+     *
+     * @since 1.0.0
+     */
+    public function getMaxCost() : float
+    {
+        return $this->maxCost;
+    }
+
+    /**
      * Get items
      *
      * @return array
@@ -108,16 +120,17 @@ class Backpack
     /**
      * Add item to backpack
      *
-     * @param Item $item Item
+     * @param Item  $item     Item
+     * @param mixed $quantity Quantity of the item
      *
      * @return void
      *
      * @since 1.0.0
      */
-    public function addItem(Item $item) : void
+    public function addItem(Item $item, $quantity = 1) : void
     {
-        $this->items[] = $item;
-        $this->value  += $item->getValue();
-        $this->cost   += $item->getCost();
+        $this->items[] = ['item' => $item, 'quantity' => $quantity];
+        $this->value  += $item->getValue() * $quantity;
+        $this->cost   += $item->getCost() * $quantity;
     }
 }
