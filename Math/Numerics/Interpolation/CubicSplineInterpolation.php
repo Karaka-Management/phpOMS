@@ -25,7 +25,7 @@ use phpOMS\Math\Matrix\Vector;
  * @link    https://orange-management.org
  * @since   1.0.0
  */
-class CubicSplineInterpolation implements InterpolationInterface
+final class CubicSplineInterpolation implements InterpolationInterface
 {
     /**
      * Points for spline interpolation

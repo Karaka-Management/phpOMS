@@ -24,7 +24,7 @@ use phpOMS\Math\Matrix\Vector;
  * @link    https://orange-management.org
  * @since   1.0.0
  */
-class LinearInterpolation implements InterpolationInterface
+final class LinearInterpolation implements InterpolationInterface
 {
         /**
      * Points for spline interpolation

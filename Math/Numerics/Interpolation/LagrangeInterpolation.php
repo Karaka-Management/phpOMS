@@ -22,7 +22,7 @@ namespace phpOMS\Math\Numerics\Interpolation;
  * @link    https://orange-management.org
  * @since   1.0.0
  */
-class LagrangeInterpolation implements InterpolationInterface
+final class LagrangeInterpolation implements InterpolationInterface
 {
     /**
      * Points for spline interpolation
