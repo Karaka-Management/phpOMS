@@ -22,7 +22,7 @@ namespace phpOMS\Algorithm\Sort;
  * @link    https://orange-management.org
  * @since   1.0.0
  */
-class InsertionSort implements SortInterface
+final class InsertionSort implements SortInterface
 {
     /**
      * {@inheritdoc}

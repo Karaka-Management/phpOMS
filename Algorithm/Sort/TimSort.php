@@ -22,7 +22,7 @@ namespace phpOMS\Algorithm\Sort;
  * @link    https://orange-management.org
  * @since   1.0.0
  */
-class TimSort implements SortInterface
+final class TimSort implements SortInterface
 {
     /**
      * Blocks the sorting is devided into

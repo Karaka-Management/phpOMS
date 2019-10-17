@@ -22,7 +22,7 @@ namespace phpOMS\Algorithm\Sort;
  * @link    https://orange-management.org
  * @since   1.0.0
  */
-class BubbleSort implements SortInterface
+final class BubbleSort implements SortInterface
 {
     /**
      * {@inheritdoc}

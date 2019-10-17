@@ -22,7 +22,7 @@ namespace phpOMS\Algorithm\Sort;
  * @link    https://orange-management.org
  * @since   1.0.0
  */
-class HeapSort implements SortInterface
+final class HeapSort implements SortInterface
 {
     /**
      * {@inheritdoc}

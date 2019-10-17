@@ -22,7 +22,7 @@ namespace phpOMS\Algorithm\Sort;
  * @link    https://orange-management.org
  * @since   1.0.0
  */
-class PancakeSort implements SortInterface
+final class PancakeSort implements SortInterface
 {
     /**
      * {@inheritdoc}

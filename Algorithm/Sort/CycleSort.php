@@ -22,7 +22,7 @@ namespace phpOMS\Algorithm\Sort;
  * @link    https://orange-management.org
  * @since   1.0.0
  */
-class CycleSort implements SortInterface
+final class CycleSort implements SortInterface
 {
     /**
      * {@inheritdoc}

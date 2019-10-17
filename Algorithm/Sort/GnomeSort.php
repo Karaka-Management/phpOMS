@@ -22,7 +22,7 @@ namespace phpOMS\Algorithm\Sort;
  * @link    https://orange-management.org
  * @since   1.0.0
  */
-class GnomeSort implements SortInterface
+final class GnomeSort implements SortInterface
 {
     /**
      * {@inheritdoc}

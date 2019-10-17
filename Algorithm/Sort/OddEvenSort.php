@@ -22,7 +22,7 @@ namespace phpOMS\Algorithm\Sort;
  * @link    https://orange-management.org
  * @since   1.0.0
  */
-class OddEvenSort implements SortInterface
+final class OddEvenSort implements SortInterface
 {
     /**
      * {@inheritdoc}

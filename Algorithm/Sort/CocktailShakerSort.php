@@ -22,7 +22,7 @@ namespace phpOMS\Algorithm\Sort;
  * @link    https://orange-management.org
  * @since   1.0.0
  */
-class CocktailShakerSort implements SortInterface
+final class CocktailShakerSort implements SortInterface
 {
     /**
      * {@inheritdoc}
