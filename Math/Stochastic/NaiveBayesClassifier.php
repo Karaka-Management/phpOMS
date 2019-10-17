@@ -24,7 +24,7 @@ use phpOMS\Math\Statistic\MeasureOfDispersion;
  * @link    https://orange-management.org
  * @since   1.0.0
  */
-class NaiveBayesClassifier
+final class NaiveBayesClassifier
 {
     /**
      * Dictionary of different criterias.
