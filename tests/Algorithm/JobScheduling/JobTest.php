@@ -12,17 +12,20 @@
  */
 declare(strict_types=1);
 
-namespace phpOMS\Algorithm\JobScheduling;
+namespace phpOMS\tests\Algorithm\JobScheduling;
 
 use phpOMS\Algorithm\JobScheduling\Job;
 
 /**
- * @testdox phpOMS\Algorithm\JobScheduling\Job: Test the job for the JobScheduling implementations
+ * @testdox phpOMS\tests\Algorithm\JobScheduling\JobTest: Default job for the job scheduling
  *
  * @internal
  */
 class JobTest extends \PHPUnit\Framework\TestCase
 {
+    /**
+     * @testdox The job has the expected values after initialization
+     */
     public function testDefault() : void
     {
         $item = new Job(3.0, new \DateTime('now'), null, 'abc');

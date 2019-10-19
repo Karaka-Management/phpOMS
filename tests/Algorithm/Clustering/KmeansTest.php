@@ -12,17 +12,21 @@
  */
 declare(strict_types=1);
 
-namespace phpOMS\Algorithm\Clustering;
+namespace phpOMS\tests\Algorithm\Clustering;
 
 use phpOMS\Algorithm\Clustering\Kmeans;
+use phpOMS\Algorithm\Clustering\Point;
 
 /**
- * @testdox phpOMS\Algorithm\Clustering\Kmeans: Test the kmeans clustering implementation
+ * @testdox phpOMS\tests\Algorithm\Clustering\KmeansTest: Clustering points/elements with the K-means algorithm
  *
  * @internal
  */
 class KmeansTest extends \PHPUnit\Framework\TestCase
 {
+    /**
+     * @testdox The clustering of points and dynamic check of new points works as expected
+     */
     public function testKmeans() : void
     {
         $result = false;

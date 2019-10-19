@@ -17,14 +17,19 @@ namespace phpOMS\tests\Business\Finance;
 use phpOMS\Business\Finance\Lorenzkurve;
 
 /**
+ * @testdox phpOMS\tests\Business\Finance\LorenzkurveTest: Lorenz kurve
+ *
  * @internal
  */
 class LorenzkurveTest extends \PHPUnit\Framework\TestCase
 {
-    public function testLorenz() : void
+    /**
+     * @testdox The gini coefficient calculation is correct
+     */
+    public function testGiniCoefficient() : void
     {
         $arr = [1, 1, 1, 1, 1, 1, 1, 10, 33, 50];
 
-        self::assertTrue(\abs(0.71 - LorenzKurve::getGiniCoefficient($arr)) < 0.01);
+        self::assertEqualsWithDelta(0.71, LorenzKurve::getGiniCoefficient($arr), 0.01);
     }
 }

@@ -17,6 +17,7 @@ use phpOMS\Business\Sales\MarketShareEstimation;
 
 /**
  * @testdox phpOMS\tests\Business\Sales\MarketShareEstimationTest: Market share calculations
+ *
  * @internal
  */
 class MarketShareEstimationTest extends \PHPUnit\Framework\TestCase

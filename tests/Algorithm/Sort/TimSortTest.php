@@ -20,7 +20,7 @@ use phpOMS\Algorithm\Sort\SortOrder;
 require_once __DIR__ . '/../../Autoloader.php';
 
 /**
- * @testdox phpOMS\tests\Algorithm\Sort: Tim sort test
+ * @testdox phpOMS\tests\Algorithm\Sort\TimSortTest: Tim sort
  *
  * @internal
  */
@@ -39,6 +39,9 @@ class TimSortTest extends \PHPUnit\Framework\TestCase
         ];
     }
 
+    /**
+     * @testdox A list with one element returns the list with the element itself
+     */
     public function testSmallList() : void
     {
         $smallList = [new NumericElement(3)];
@@ -47,6 +50,9 @@ class TimSortTest extends \PHPUnit\Framework\TestCase
         self::assertEquals($smallList, $newList);
     }
 
+    /**
+     * @testdox A list ot elements can be sorted in ASC order
+     */
     public function testSortASC() : void
     {
         $newList = TimSort::sort($this->list);
@@ -59,6 +65,9 @@ class TimSortTest extends \PHPUnit\Framework\TestCase
         );
     }
 
+    /**
+     * @testdox A list ot elements can be sorted in DESC order
+     */
     public function testSortDESC() : void
     {
         $newList = TimSort::sort($this->list, SortOrder::DESC);

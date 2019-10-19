@@ -24,7 +24,7 @@ use phpOMS\Business\Marketing\NetPromoterScore;
 class NetPromoterScoreTest extends \PHPUnit\Framework\TestCase
 {
     /**
-     * @testdox The default net promoter score is 0
+     * @testdox The net promoter has the expected default values after initialization
      */
     public function testDefault() : void
     {

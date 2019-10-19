@@ -12,17 +12,22 @@
  */
 declare(strict_types=1);
 
-namespace phpOMS\Algorithm\Knapsack;
+namespace phpOMS\tests\Algorithm\Knapsack;
 
 use phpOMS\Algorithm\Knapsack\Continuous;
+use phpOMS\Algorithm\Knapsack\Backpack;
+use phpOMS\Algorithm\Knapsack\Item;
 
 /**
- * @testdox phpOMS\Algorithm\Knapsack\Continuous: Test the continuous Knapsack implementations
+ * @testdox phpOMS\tests\Algorithm\Knapsack\ContinuousTest: A Knapsack implementation for continuous quantities, values and costs
  *
  * @internal
  */
 class ContinuousTest extends \PHPUnit\Framework\TestCase
 {
+    /**
+     * @testdox The optimal item selection in a backpack is calculated in order to optimize the value/profit while considering the available capacity/cost limit [discrete quantities]
+     */
     public function testBackpacking() : void
     {
         $items = [
@@ -60,6 +65,9 @@ class ContinuousTest extends \PHPUnit\Framework\TestCase
         );
     }
 
+    /**
+     * @testdox The optimal item selection in a backpack is calculated in order to optimize the value/profit while considering the available capacity/cost limit [continuous quantities]
+     */
     public function testBackpackingAlternative() : void
     {
         $items = [

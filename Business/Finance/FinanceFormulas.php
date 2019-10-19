@@ -856,7 +856,7 @@ final class FinanceFormulas
     }
 
     /**
-     * Free Cash Flow to Equity (FCFE)
+     * Free Cash Flow to Equity (FCFE = FCFF - dept payments)
      *
      * @param float $income    Net income
      * @param float $depamo    Depreciation & amortisation
@@ -948,7 +948,9 @@ final class FinanceFormulas
     }
 
     /**
-     * Future Value Factor
+     * Geometric mean of return values
+     *
+     * Also known as compounded annual growth rate.
      *
      * @param array<float|int> $r Rate of return
      *
@@ -1252,7 +1254,7 @@ final class FinanceFormulas
      *
      * @since 1.0.0
      */
-    public static function getRateOfOnflation(float $newCPI, float $oldCPI) : float
+    public static function getRateOfInflation(float $newCPI, float $oldCPI) : float
     {
         return $newCPI / $oldCPI - 1;
     }

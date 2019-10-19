@@ -23,7 +23,7 @@ use phpOMS\Algorithm\PathFinding\JumpPointSearch;
 require_once __DIR__ . '/../../Autoloader.php';
 
 /**
- * @testdox phpOMS\tests\Algorithm\PathFinding: jump point search test
+ * @testdox phpOMS\tests\Algorithm\PathFinding\JumpPointSearchTest: JumpPoint path finding
  *
  * @internal
  */
@@ -67,6 +67,9 @@ class JumpPointSearchTest extends \PHPUnit\Framework\TestCase
         }
     }
 
+    /**
+     * @testdox The correct path is found for diagonal movement
+     */
     public function testPathFindingDiagonal() : void
     {
         $grid = Grid::createGridFromArray($this->gridArray, JumpPointNode::class);
@@ -106,6 +109,9 @@ class JumpPointSearchTest extends \PHPUnit\Framework\TestCase
         ], $this->gridArray);
     }
 
+    /**
+     * @testdox The correct path is found for straight movement
+     */
     public function testPathFindingStraight() : void
     {
         $grid = Grid::createGridFromArray($this->gridArray, JumpPointNode::class);
@@ -145,6 +151,9 @@ class JumpPointSearchTest extends \PHPUnit\Framework\TestCase
         ], $this->gridArray);
     }
 
+    /**
+     * @testdox The correct path is found for diagonal movement [one obstacle]
+     */
     public function testPathFindingDiagonalOneObstacle() : void
     {
         $grid = Grid::createGridFromArray($this->gridArray, JumpPointNode::class);
@@ -184,6 +193,9 @@ class JumpPointSearchTest extends \PHPUnit\Framework\TestCase
         ], $this->gridArray);
     }
 
+    /**
+     * @testdox The correct path is found for diagonal movement [no obstacle]
+     */
     public function testPathFindingDiagonalNoObstacle() : void
     {
         $grid = Grid::createGridFromArray($this->gridArray, JumpPointNode::class);

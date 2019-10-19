@@ -17,7 +17,7 @@ namespace phpOMS\tests\Business\Finance;
 use phpOMS\Business\Finance\Depreciation;
 
 /**
- * @testdox phpOMS\Business\Finance\DepreciationTest: Depreciation calculations
+ * @testdox phpOMS\tests\Business\Finance\DepreciationTest: Depreciation calculations
  *
  * @internal
  */

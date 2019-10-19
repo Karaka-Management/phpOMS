@@ -20,7 +20,7 @@ use phpOMS\Algorithm\Sort\SortOrder;
 require_once __DIR__ . '/../../Autoloader.php';
 
 /**
- * @testdox phpOMS\tests\Algorithm\Sort: Bitonic sort test
+ * @testdox phpOMS\tests\Algorithm\Sort\BitonicSortTest: Bitonic sort
  *
  * @internal
  */
@@ -38,6 +38,9 @@ class BitonicSortTest extends \PHPUnit\Framework\TestCase
         ];
     }
 
+    /**
+     * @testdox A list with one element returns the list with the element itself
+     */
     public function testSmallList() : void
     {
         $smallList = [new NumericElement(3)];
@@ -46,6 +49,9 @@ class BitonicSortTest extends \PHPUnit\Framework\TestCase
         self::assertEquals($smallList, $newList);
     }
 
+    /**
+     * @testdox A list ot elements can be sorted in ASC order
+     */
     public function testSortASC() : void
     {
         $newList = BitonicSort::sort($this->list);
@@ -58,6 +64,9 @@ class BitonicSortTest extends \PHPUnit\Framework\TestCase
         );
     }
 
+    /**
+     * @testdox A list ot elements can be sorted in DESC order
+     */
     public function testSortDESC() : void
     {
         $newList = BitonicSort::sort($this->list, SortOrder::DESC);

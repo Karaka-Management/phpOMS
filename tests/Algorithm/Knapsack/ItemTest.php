@@ -12,17 +12,20 @@
  */
 declare(strict_types=1);
 
-namespace phpOMS\Algorithm\Knapsack;
+namespace phpOMS\tests\Algorithm\Knapsack;
 
 use phpOMS\Algorithm\Knapsack\Item;
 
 /**
- * @testdox phpOMS\Algorithm\Knapsack\Item: Test the item for the Knapsack implementations
+ * @testdox phpOMS\tests\Algorithm\Knapsack\ItemTest: The default item to be added to the backpack or basket
  *
  * @internal
  */
 class ItemTest extends \PHPUnit\Framework\TestCase
 {
+    /**
+     * @testdox The item has the expected values after initialization
+     */
     public function testDefault() : void
     {
         $item = new Item(3.0, 2.0, 'abc');

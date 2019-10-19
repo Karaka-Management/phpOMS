@@ -12,17 +12,20 @@
  */
 declare(strict_types=1);
 
-namespace phpOMS\Algorithm\Clustering;
+namespace phpOMS\tests\Algorithm\Clustering;
 
 use phpOMS\Algorithm\Clustering\Point;
 
 /**
- * @testdox phpOMS\Algorithm\Clustering\Point: Test the point for the clustering implementation
+ * @testdox phpOMS\tests\Algorithm\Clustering\PointTest: Default point in a cluster
  *
  * @internal
  */
 class PointTest extends \PHPUnit\Framework\TestCase
 {
+    /**
+     * @testdox The point has the expected default values after initialization
+     */
     public function testDefault() : void
     {
         $point = new Point([3.0, 2.0], 'abc');
@@ -34,7 +37,10 @@ class PointTest extends \PHPUnit\Framework\TestCase
         self::assertEquals('abc', $point->getName());
     }
 
-    public function testSetGet() : void
+    /**
+     * @testdox Coordinates of a point can be changed
+     */
+    public function testChangeCoordinates() : void
     {
         $point = new Point([3.0, 2.0], 'abc');
 
@@ -44,6 +50,14 @@ class PointTest extends \PHPUnit\Framework\TestCase
         self::assertEquals([4.0, 1.0], $point->getCoordinates());
         self::assertEquals(4.0, $point->getCoordinate(0));
         self::assertEquals(1.0, $point->getCoordinate(1));
+    }
+
+    /**
+     * @testdox The group/cluster of a point can be changed
+     */
+    public function testChangeGroup() : void
+    {
+        $point = new Point([3.0, 2.0], 'abc');
 
         $point->setGroup(2);
         self::assertEquals(2, $point->getGroup());

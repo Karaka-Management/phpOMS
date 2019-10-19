@@ -12,18 +12,22 @@
  */
 declare(strict_types=1);
 
-namespace phpOMS\Algorithm\JobScheduling;
+namespace phpOMS\tests\Algorithm\JobScheduling;
 
 use phpOMS\Algorithm\JobScheduling\Weighted;
+use phpOMS\Algorithm\JobScheduling\Job;
 
 /**
- * @testdox phpOMS\Algorithm\JobScheduling\Weighted: Test the job for the JobScheduling implementations
+ * @testdox phpOMS\tests\Algorithm\JobScheduling\WeightedTest: Job scheduling based on values/profit
  *
  * @internal
  */
 class WeightedTest extends \PHPUnit\Framework\TestCase
 {
-    public function testDefault() : void
+    /**
+     * @testdox The optimal job combination is selected to maximize the value/profit without overlapping jobs
+     */
+    public function testNoOverlappingScheduling() : void
     {
         $jobs = [
             new Job(20, new \DateTime('2003-01-01'), new \DateTime('2010-01-01'), 'A'),
@@ -50,6 +54,9 @@ class WeightedTest extends \PHPUnit\Framework\TestCase
         );
     }
 
+    /**
+     * @testdox A job list with only one job simply returns one job
+     */
     public function testSmallList() : void
     {
         $jobs = [

@@ -17,7 +17,7 @@ namespace phpOMS\tests\Business\Finance;
 use phpOMS\Business\Finance\FinanceFormulas;
 
 /**
- * @testdox phpOMS\Business\Finance\FinanceFormulasTest: Finance formulas
+ * @testdox phpOMS\tests\Business\Finance\FinanceFormulasTest: Finance formulas
  *
  * @internal
  */
@@ -229,20 +229,33 @@ class FinanceFormulasTest extends \PHPUnit\Framework\TestCase
         self::assertEquals(500 / 1000, FinanceFormulas::getDebtToIncomeRatio(500, 1000));
     }
 
+    /**
+     * @testdox Return on balance statement positions are correct (e.g. return on assets, on equity)
+     */
+    public function testReturnOnBalancePositions() : void
+    {
+        self::assertEquals(500 / 1000, FinanceFormulas::getReturnOnAssets(500, 1000));
+        self::assertEquals(500 / 1000, FinanceFormulas::getReturnOnEquity(500, 1000));
+        self::assertEquals(500 / 1000 - 1, FinanceFormulas::getReturnOnInvestment(500, 1000));
+    }
+
+    /**
+     * @testdox Balance / P&L ratios are correct (e.g. inventory turnover, net profit margin)
+     */
+    public function testBalancePLRatios() : void
+    {
+        self::assertEquals(500 / 1000, FinanceFormulas::getInventoryTurnoverRatio(500, 1000));
+        self::assertEquals(500 / 1000, FinanceFormulas::getNetProfitMargin(500, 1000));
+        self::assertEquals(500 / 1000, FinanceFormulas::getReceivablesTurnoverRatio(500, 1000));
+    }
+
     public function testRatios() : void
     {
         self::assertEquals(500 / 1000, FinanceFormulas::getInterestCoverageRatio(500, 1000));
-        self::assertEquals(500 / 1000, FinanceFormulas::getInventoryTurnoverRatio(500, 1000));
-        self::assertEquals(500 / 1000, FinanceFormulas::getNetProfitMargin(500, 1000));
-
-        self::assertEquals(500 / 1000, FinanceFormulas::getReturnOnAssets(500, 1000));
-        self::assertEquals(500 / 1000, FinanceFormulas::getReturnOnEquity(500, 1000));
-        self::assertEquals(500 / 1000, FinanceFormulas::getReceivablesTurnoverRatio(500, 1000));
         self::assertEquals(500 / 1000, FinanceFormulas::getQuickRatio(500, 1000));
 
-        self::assertEquals(500 / 1000 - 1, FinanceFormulas::getReturnOnInvestment(500, 1000));
         self::assertEquals((500 - 300) / 500, FinanceFormulas::getRetentionRatio(500, 300));
-        self::assertEquals(500 / 1000 - 1, FinanceFormulas::getRateOfOnflation(500, 1000));
+        self::assertEquals(500 / 1000 - 1, FinanceFormulas::getRateOfInflation(500, 1000));
 
         self::assertEquals(1000 / 500, FinanceFormulas::getPaybackPeriod(1000, 500));
         self::assertEquals(100 / 0.15, FinanceFormulas::getPresentValueOfPerpetuity(100, 0.15));
@@ -336,6 +349,9 @@ class FinanceFormulasTest extends \PHPUnit\Framework\TestCase
         self::assertEqualsWithDelta($r, FinanceFormulas::getDoublingContinuousCompoundingRate(13.863), 0.01);
     }
 
+    /**
+     * @testdox Calculations for equivalent annual annuity are correct
+     */
     public function testEquivalentAnnualAnnuity() : void
     {
         $npv = 1000;
@@ -347,6 +363,9 @@ class FinanceFormulasTest extends \PHPUnit\Framework\TestCase
         self::assertEqualsWithDelta($npv, FinanceFormulas::getNetPresentValueOfEAA(240.36, $r, $n), 0.01);
     }
 
+    /**
+     * @testdox The free cash flow to equity calculation is correct (how much cash is available after expenses and dept payments)
+     */
     public function testFreeCashFlowToEquity() : void
     {
         $income    = 1000;
@@ -358,6 +377,9 @@ class FinanceFormulasTest extends \PHPUnit\Framework\TestCase
         self::assertEqualsWithDelta(1200, FinanceFormulas::getFreeCashFlowToEquity($income, $depamo, $capital, $wc, $borrowing), 0.01);
     }
 
+    /**
+     * @testdox The free cash flow to firm calculation is correct (how much cash is available after expenses)
+     */
     public function testFreeCashFlowToFirm() : void
     {
         $ebit    = 1000;
@@ -369,6 +391,9 @@ class FinanceFormulasTest extends \PHPUnit\Framework\TestCase
         self::assertEqualsWithDelta(550, FinanceFormulas::getFreeCashFlowToFirm($ebit, $t, $depamo, $capital, $wc), 0.01);
     }
 
+    /**
+     * @testdox The future value calculation is correct
+     */
     public function testFutureValue() : void
     {
         $c = 1000;
@@ -378,6 +403,9 @@ class FinanceFormulasTest extends \PHPUnit\Framework\TestCase
         self::assertEqualsWithDelta(2660.02, FinanceFormulas::getFutureValue($c, $r, $n), 0.01);
     }
 
+    /**
+     * @testdox The future value calculation including continuous compounding is correct
+     */
     public function testFutureValueContinuousCompounding() : void
     {
         $pv = 1000;
@@ -387,6 +415,9 @@ class FinanceFormulasTest extends \PHPUnit\Framework\TestCase
         self::assertEqualsWithDelta(2857.65, FinanceFormulas::getFutureValueContinuousCompounding($pv, $r, $t), 0.01);
     }
 
+    /**
+     * @testdox The future value factor calculation is correct
+     */
     public function testValueFactor() : void
     {
         $r = 0.15;
@@ -396,6 +427,9 @@ class FinanceFormulasTest extends \PHPUnit\Framework\TestCase
         self::assertEqualsWithDelta(0.37594, FinanceFormulas::getPresentValueFactor($r, $n), 0.01);
     }
 
+    /**
+     * @testdox The calculation of the geometric mean of multiple return rates is correct
+     */
     public function testGeometricMeanReturn() : void
     {
         $r = [0.01, 0.02, 0.03, 0.04, 0.05, 0.06, 0.07];

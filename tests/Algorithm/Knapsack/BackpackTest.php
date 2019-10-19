@@ -12,17 +12,21 @@
  */
 declare(strict_types=1);
 
-namespace phpOMS\Algorithm\Knapsack;
+namespace phpOMS\tests\Algorithm\Knapsack;
 
 use phpOMS\Algorithm\Knapsack\Backpack;
+use phpOMS\Algorithm\Knapsack\Item;
 
 /**
- * @testdox phpOMS\Algorithm\Knapsack\Backpack: Test the backpack for the Knapsack implementations
+ * @testdox phpOMS\tests\Algorithm\Knapsack\BackpackTest: The default backpack or basket which holds all items for the Knapsack algorithm
  *
  * @internal
  */
 class BackpackTest extends \PHPUnit\Framework\TestCase
 {
+    /**
+     * @testdox The backpack has the expected values after initialization
+     */
     public function testDefault() : void
     {
         $backpack = new Backpack(3.0);
@@ -33,7 +37,10 @@ class BackpackTest extends \PHPUnit\Framework\TestCase
         self::assertEquals([], $backpack->getItems());
     }
 
-    public function testGetSet() : void
+    /**
+     * @testdox Items can be added to the backpack and automatically change the value and cost the backpack contains
+     */
+    public function testAddItems() : void
     {
         $backpack = new Backpack(3.0);
         $backpack->addItem(new Item(2, 1), 2);

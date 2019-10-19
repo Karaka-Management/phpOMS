@@ -20,10 +20,15 @@ use phpOMS\DataStorage\Cache\Connection\FileCache;
 use phpOMS\Utils\TestUtils;
 
 /**
+ * @testdox phpOMS\tests\DataStorage\Cache\Connection\FileCacheTest: File cache connection
+ *
  * @internal
  */
 class FileCacheTest extends \PHPUnit\Framework\TestCase
 {
+    /**
+     * @testdox The file cache connection has the expected default values after initialization
+     */
     public function testDefault() : void
     {
         if (\file_exists(__DIR__ . '/Cache')) {
@@ -44,6 +49,9 @@ class FileCacheTest extends \PHPUnit\Framework\TestCase
         }
     }
 
+    /**
+     * @testdox The connection to a dedicated cache directory can be established (none-exising directories get created)
+     */
     public function testConnect() : void
     {
         if (\file_exists(__DIR__ . '/Cache')) {

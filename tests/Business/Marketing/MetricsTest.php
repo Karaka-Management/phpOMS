@@ -28,6 +28,6 @@ class MetricsTest extends \PHPUnit\Framework\TestCase
      */
     public function testCustomerRetention() : void
     {
-        self::assertTrue(0.85 - Metrics::getCustomerRetention(105, 20, 100) < 0.01);
+        self::assertEqualsWithDelta(0.85, Metrics::getCustomerRetention(105, 20, 100), 0.01);
     }
 }

@@ -19,12 +19,17 @@ use phpOMS\Config\OptionsTrait;
 require_once __DIR__ . '/../Autoloader.php';
 
 /**
+ * @testdox phpOMS\tests\Config\OptionsTrait: Helper for managing otpions
+ *
  * @internal
  */
 class OptionsTraitTest extends \PHPUnit\Framework\TestCase
 {
 
-    public function testOptionTrait() : void
+    /**
+     * @testdox The option helper has the expected attributes
+     */
+    public function testOptionTraitMembers() : void
     {
         $class = new class() {
             use OptionsTrait;
@@ -34,6 +39,9 @@ class OptionsTraitTest extends \PHPUnit\Framework\TestCase
         self::assertObjectHasAttribute('options', $class);
     }
 
+    /**
+     * @testdox The option helper has the expected default values after initialization
+     */
     public function testDefault() : void
     {
         $class = new class() {
@@ -44,7 +52,24 @@ class OptionsTraitTest extends \PHPUnit\Framework\TestCase
         self::assertNull($class->getOption('someKey'));
     }
 
-    public function testSetGet() : void
+    /**
+     * @testdox Options can be added to the helper
+     */
+    public function testAdd() : void
+    {
+        $class = new class() {
+            use OptionsTrait;
+        };
+
+        self::assertTrue($class->setOption('a', 'value1'));
+        self::assertTrue($class->exists('a'));
+        self::assertEquals('value1', $class->getOption('a'));
+    }
+
+    /**
+     * @testdox Options can be overwritten/changed
+     */
+    public function testOverwrite() : void
     {
         $class = new class() {
             use OptionsTrait;
@@ -65,12 +90,27 @@ class OptionsTraitTest extends \PHPUnit\Framework\TestCase
         self::assertFalse($class->setOption('a', 'value4', false));
         self::assertTrue($class->exists('a'));
         self::assertEquals('value3', $class->getOption('a'));
+    }
+
+    /**
+     * @testdox Multiple options can be added to the helper in one go
+     */
+    public function testAddMultiple() : void
+    {
+        $class = new class() {
+            use OptionsTrait;
+        };
+
+        self::assertTrue($class->setOption('a', 'value3', true));
+        self::assertTrue($class->exists('a'));
+        self::assertEquals('value3', $class->getOption('a'));
 
         self::assertTrue($class->setOptions(['b' => 2, 'c' => '3'], true));
         self::assertTrue($class->setOptions(['b' => 4, 'c' => '5'], false)); // always returns true
         self::assertTrue($class->exists('a'));
         self::assertTrue($class->exists('b'));
         self::assertTrue($class->exists('c'));
+
         self::assertEquals('value3', $class->getOption('a'));
         self::assertEquals(2, $class->getOption('b'));
         self::assertEquals(3, $class->getOption('c'));

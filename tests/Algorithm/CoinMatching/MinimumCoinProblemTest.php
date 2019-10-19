@@ -12,19 +12,22 @@
  */
 declare(strict_types=1);
 
-namespace phpOMS\Algorithm\CoinMatching;
+namespace phpOMS\tests\Algorithm\CoinMatching;
 
 use phpOMS\Algorithm\CoinMatching\MinimumCoinProblem;
 
 require_once __DIR__ . '/../../Autoloader.php';
 
 /**
- * @testdox phpOMS\Algorithm\CoinMatching\MinimumCoinProblem: Test coin matching a value problem
+ * @testdox phpOMS\tests\Algorithm\CoinMatching\MinimumCoinProblemTest: Match a value by using the minimum quantity of available sub values (Minimum Coin Problem)
  *
  * @internal
  */
 class MinimumCoinProblemTest extends \PHPUnit\Framework\TestCase
 {
+    /**
+     * @testdox A value is matched with the minimum quantity of avialable coins.
+     */
     public function testMinimumCoins() : void
     {
         self::assertEquals(

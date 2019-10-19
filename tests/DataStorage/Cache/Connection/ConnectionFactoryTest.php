@@ -18,10 +18,15 @@ use phpOMS\DataStorage\Cache\CacheType;
 use phpOMS\DataStorage\Cache\Connection\ConnectionFactory;
 
 /**
+ * @testdox phpOMS\tests\DataStorage\Cache\Connection\ConnectionFactoryTest: Factory for generating cache connections
+ *
  * @internal
  */
 class ConnectionFactoryTest extends \PHPUnit\Framework\TestCase
 {
+    /**
+     * @testdox The file cache can be created
+     */
     public function testCreateFileCache() : void
     {
         self::assertInstanceOf(
@@ -30,6 +35,9 @@ class ConnectionFactoryTest extends \PHPUnit\Framework\TestCase
         );
     }
 
+    /**
+     * @testdox The memcached cache can be created
+     */
     public function testCreateMemCached() : void
     {
         if (!\extension_loaded('memcached')) {
@@ -44,6 +52,9 @@ class ConnectionFactoryTest extends \PHPUnit\Framework\TestCase
         );
     }
 
+    /**
+     * @testdox The redis cache can be created
+     */
     public function testCreateRedisCache() : void
     {
         if (!\extension_loaded('redis')) {
@@ -58,6 +69,9 @@ class ConnectionFactoryTest extends \PHPUnit\Framework\TestCase
         );
     }
 
+    /**
+     * @testdox An invalid cache type results in an exception
+     */
     public function testInvalidCacheType() : void
     {
         self::expectException(\InvalidArgumentException::class);
