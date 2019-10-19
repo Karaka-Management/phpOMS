@@ -46,11 +46,6 @@ class FunctionsTest extends \PHPUnit\Framework\TestCase
         self::assertEquals(5, Functions::invMod(-10, 17));
     }
 
-    public function testAbs() : void
-    {
-        self::assertEquals([1, 3, 4], Functions::abs([-1, 3, -4]));
-    }
-
     public function testProperties() : void
     {
         self::assertTrue(Functions::isOdd(3));
@@ -69,14 +64,5 @@ class FunctionsTest extends \PHPUnit\Framework\TestCase
         self::assertEquals(0, Functions::getRelativeDegree(7, 12, 7));
         self::assertEquals(5, Functions::getRelativeDegree(12, 12, 7));
         self::assertEquals(11, Functions::getRelativeDegree(6, 12, 7));
-    }
-
-    public function testPower() : void
-    {
-        self::assertEquals([4, 9, 16], Functions::powerInt([2, 3, 4], 2));
-        self::assertEquals([8, 27, 64], Functions::powerInt([2, 3, 4], 3));
-
-        self::assertEqualsWithDelta([2.0, 3.0, 4.0], Functions::powerFloat([4, 9, 16], 1 / 2), 0.0);
-        self::assertEqualsWithDelta([2.0, 3.0, 4.0], Functions::powerFloat([8, 27, 64], 1 / 3), 0.0);
     }
 }

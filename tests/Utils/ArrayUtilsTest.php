@@ -144,4 +144,23 @@ class ArrayUtilsTest extends \PHPUnit\Framework\TestCase
 
         ArrayUtils::stringify([new class() {}]);
     }
+
+    public function testPower() : void
+    {
+        self::assertEquals([4, 9, 16], ArrayUtils::powerInt([2, 3, 4], 2));
+        self::assertEquals([8, 27, 64], ArrayUtils::powerInt([2, 3, 4], 3));
+
+        self::assertEqualsWithDelta([2.0, 3.0, 4.0], ArrayUtils::powerFloat([4, 9, 16], 1 / 2), 0.0);
+        self::assertEqualsWithDelta([2.0, 3.0, 4.0], ArrayUtils::powerFloat([8, 27, 64], 1 / 3), 0.0);
+    }
+
+    public function testSqrt() : void
+    {
+        self::assertEqualsWithDelta([2, 3, 4], ArrayUtils::sqrt([4, 9, 16]), 0.01);
+    }
+
+    public function testAbs() : void
+    {
+        self::assertEquals([1, 3, 4], ArrayUtils::abs([-1, 3, -4]));
+    }
 }

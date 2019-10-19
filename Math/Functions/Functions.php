@@ -125,26 +125,6 @@ final class Functions
     }
 
     /**
-     * Applying abs to every array value
-     *
-     * @param array<float|int> $values Numeric values
-     *
-     * @return array<float|int>
-     *
-     * @since 1.0.0
-     */
-    public static function abs(array $values) : array
-    {
-        $abs = [];
-
-        foreach ($values as $value) {
-            $abs[] = \abs($value);
-        }
-
-        return $abs;
-    }
-
-    /**
      * Calculate inverse modular.
      *
      * @param int $a a
@@ -235,68 +215,6 @@ final class Functions
     public static function isEven($a) : bool
     {
         return !((bool) ($a & 1));
-    }
-
-    /**
-     * Power all values in array.
-     *
-     * @param array<float|int> $values Values to square
-     * @param float            $exp    Exponent
-     *
-     * @return array<float>
-     *
-     * @since 1.0.0
-     */
-    public static function powerFloat(array $values, float $exp = 2.0) : array
-    {
-        $squared = [];
-
-        foreach ($values as $value) {
-            $squared[] = $value ** $exp;
-        }
-
-        return $squared;
-    }
-
-    /**
-     * Power all values in array.
-     *
-     * @param array<float|int> $values Values to square
-     * @param int              $exp    Exponent
-     *
-     * @return array<float|int>
-     *
-     * @since 1.0.0
-     */
-    public static function powerInt(array $values, int $exp = 2) : array
-    {
-        $squared = [];
-
-        foreach ($values as $value) {
-            $squared[] = $value ** $exp;
-        }
-
-        return $squared;
-    }
-
-    /**
-     * Sqrt all values in array.
-     *
-     * @param array<float|int> $values Values to sqrt
-     *
-     * @return array<float|int>
-     *
-     * @since 1.0.0
-     */
-    public static function sqrt(array $values) : array
-    {
-        $squared = [];
-
-        foreach ($values as $value) {
-            $squared[] = \sqrt($value);
-        }
-
-        return $squared;
     }
 
     /**
