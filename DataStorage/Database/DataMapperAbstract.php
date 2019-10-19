@@ -21,6 +21,7 @@ use phpOMS\DataStorage\Database\Query\QueryType;
 use phpOMS\DataStorage\DataMapperInterface;
 use phpOMS\Message\RequestAbstract;
 use phpOMS\Utils\ArrayUtils;
+use Throwable;
 
 /**
  * Datamapper for databases.
@@ -485,7 +486,14 @@ class DataMapperAbstract implements DataMapperInterface
             $query->insert(static::$primaryField)->value(0);
         }
 
+        try {
         self::$db->con->prepare($query->toSql())->execute();
+        } catch (Throwable $t) {
+            // @todo: remove after debugging
+            // @fix: really remove it
+            // @critical: after we found the bug we MUST remove it!
+            var_dump($query->toSql());
+        }
 
         return self::$db->con->lastInsertId();
     }
