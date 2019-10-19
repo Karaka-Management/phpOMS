@@ -31,6 +31,8 @@ class LinearInterpolationTest extends \PHPUnit\Framework\TestCase
             ['x' => 50.0, 'y' => 7.0],
         ]);
 
+        self::assertEqualsWithDelta(0.45, $interpolation->interpolate(9.0), 0.1);
         self::assertEqualsWithDelta(4.4, $interpolation->interpolate(37.0), 0.1);
+        self::assertEqualsWithDelta(10, $interpolation->interpolate(55.0), 0.1);
     }
 }

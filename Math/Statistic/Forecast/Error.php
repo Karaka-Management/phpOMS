@@ -14,9 +14,9 @@ declare(strict_types=1);
 
 namespace phpOMS\Math\Statistic\Forecast;
 
-use phpOMS\Math\Functions\Functions;
 use phpOMS\Math\Statistic\Average;
 use phpOMS\Math\Statistic\MeasureOfDispersion;
+use phpOMS\Utils\ArrayUtils;
 
 /**
  * Basic forecast functions.
@@ -139,7 +139,7 @@ class Error
      */
     public static function getRootMeanSquaredError(array $errors) : float
     {
-        return \sqrt(Average::arithmeticMean(Functions::powerInt($errors, 2)));
+        return \sqrt(Average::arithmeticMean(ArrayUtils::powerInt($errors, 2)));
     }
 
     /**
@@ -273,7 +273,7 @@ class Error
      */
     public static function getMeanAbsolutePercentageError(array $observed, array $forecasted) : float
     {
-        return Average::arithmeticMean(Functions::abs(self::getPercentageErrorArray(self::getForecastErrorArray($observed, $forecasted), $observed)));
+        return Average::arithmeticMean(ArrayUtils::abs(self::getPercentageErrorArray(self::getForecastErrorArray($observed, $forecasted), $observed)));
     }
 
     /**
@@ -352,7 +352,7 @@ class Error
      */
     public static function getMeanAbsoluteScaledError(array $scaledErrors) : float
     {
-        return Average::arithmeticMean(Functions::abs($scaledErrors));
+        return Average::arithmeticMean(ArrayUtils::abs($scaledErrors));
     }
 
     /**
@@ -366,7 +366,7 @@ class Error
      */
     public static function getMeanSquaredScaledError(array $scaledErrors) : float
     {
-        return Average::arithmeticMean(Functions::powerInt($scaledErrors, 2));
+        return Average::arithmeticMean(ArrayUtils::powerInt($scaledErrors, 2));
     }
 
     /**

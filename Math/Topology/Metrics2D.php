@@ -15,6 +15,8 @@ declare(strict_types=1);
 
 namespace phpOMS\Math\Topology;
 
+use phpOMS\Math\Matrix\Exception\InvalidDimensionException;
+
 /**
  * Metrics.
  *
@@ -204,7 +206,7 @@ final class Metrics2D
     public static function hamming(array $a, array $b) : int
     {
         if (($size = \count($a)) !== \count($b)) {
-            throw new \Exception();
+            throw new InvalidDimensionException(\count($a) . 'x' . \count($b));
         }
 
         $dist = 0;
@@ -234,7 +236,7 @@ final class Metrics2D
     public static function ulam(array $a, array $b) : int
     {
         if (($size = \count($a)) !== \count($b)) {
-            throw new \Exception('Invalid dimensions');
+            throw new InvalidDimensionException(\count($a) . 'x' . \count($b));
         }
 
         $mp = [];

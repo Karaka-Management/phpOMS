@@ -84,6 +84,20 @@ class AverageTest extends \PHPUnit\Framework\TestCase
         Average::arithmeticMean([]);
     }
 
+    public function testInvalidMovingAverageZeroDevision() : void
+    {
+        self::expectException(\Exception::class);
+
+        Average::movingAverage([], 4, 2);
+    }
+
+    public function testInvalidHarmonicMeanZeroDevision() : void
+    {
+        self::expectException(\phpOMS\Math\Exception\ZeroDevisionException::class);
+
+        Average::harmonicMean([]);
+    }
+
     public function testInvalidGeometricMean() : void
     {
         self::expectException(\phpOMS\Math\Exception\ZeroDevisionException::class);

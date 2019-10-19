@@ -97,4 +97,18 @@ class Metrics2DTest extends \PHPUnit\Framework\TestCase
             Metrics2D::ulam([3, 6, 4, 8], [4, 6, 8, 3])
         );
     }
+
+    public function testInvalidHammingDimension() : void
+    {
+        self::expectException(\phpOMS\Math\Matrix\Exception\InvalidDimensionException::class);
+
+        Metrics2D::hamming([1, 1, 1, 1], [0, 1, 0]);
+    }
+
+    public function testInvalidUlamDimension() : void
+    {
+        self::expectException(\phpOMS\Math\Matrix\Exception\InvalidDimensionException::class);
+
+        Metrics2D::ulam([3, 6, 4], [4, 6, 8, 3]);
+    }
 }
