@@ -79,12 +79,11 @@ final class CubicSplineInterpolation implements InterpolationInterface
     ) {
         $this->points = $points;
 
-        $n = \count($this->points);
-
-        $b = [];
+        $n      = \count($this->points);
+        $b      = [];
         $matrix = new Matrix($n, $n);
 
-        for($i = 1; $i < $n - 1; ++$i) {
+        for ($i = 1; $i < $n - 1; ++$i) {
             $matrix->set($i, $i - 1, 1.0 / 3.0 * ($this->points[$i]['x'] - $this->points[$i - 1]['x']));
             $matrix->set($i, $i, 2.0 / 3.0 * ($this->points[$i + 1]['x'] - $this->points[$i - 1]['x']));
             $matrix->set($i, $i + 1, 1.0 / 3.0 * ($this->points[$i + 1]['x'] - $this->points[$i]['x']));

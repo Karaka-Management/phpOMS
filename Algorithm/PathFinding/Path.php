@@ -144,11 +144,10 @@ class Path
                 $coord1 = $reverse[$i + 1];
 
                 $interpolated = $this->interpolate($coord0, $coord1);
-
-                $expanded = \array_merge($expanded, $interpolated);
+                $expanded     = \array_merge($expanded, $interpolated);
             }
 
-            $expanded[] = $reverse[$length - 1];
+            $expanded[]          = $reverse[$length - 1];
             $this->expandedNodes = $expanded;
         }
 
