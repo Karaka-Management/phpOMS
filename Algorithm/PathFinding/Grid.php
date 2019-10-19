@@ -103,11 +103,7 @@ class Grid
      */
     public function isWalkable(int $x, int $y) : bool
     {
-        if (!isset($this->nodes[$y]) || !isset($this->nodes[$y][$x]) || !$this->nodes[$y][$x]->isWalkable()) {
-            return false;
-        }
-
-        return true;
+        return isset($this->nodes[$y]) && isset($this->nodes[$y][$x]) && $this->nodes[$y][$x]->isWalkable();
     }
 
     /**
@@ -136,7 +132,6 @@ class Grid
         $d2 = false;
         $d3 = false;
 
-        // todo: check $x and $y because original implementation is flipped!!!
         if ($this->isWalkable($x, $y - 1)) {
             $neighbors[] = $this->getNode($x, $y - 1);
             $s0          = true;

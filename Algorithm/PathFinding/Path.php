@@ -33,28 +33,28 @@ class Path
     public array $nodes = [];
 
     /**
-     * Weight/cost of the total path
-     *
-     * @var   float
-     * @since 1.0.0
-     */
-    private float $weight = 0.0;
-
-    /**
-     * Distance of the total path
-     *
-     * @var   float
-     * @since 1.0.0
-     */
-    private float $distance = 0.0;
-
-    /**
      * Grid this path belongs to
      *
      * @var   Grid
      * @since 1.0.0
      */
     private Grid $grid;
+
+    /**
+     * Nodes in the path
+     *
+     * @var   Nodes[]
+     * @since 1.0.0
+     */
+    private array $expandedNodes = [];
+
+    /**
+     * Path length
+     *
+     * @var   float
+     * @since 1.0.0
+     */
+    private float $length = 0.0;
 
     /**
      * Cosntructor.
@@ -83,38 +83,76 @@ class Path
     }
 
     /**
-     * Fill all nodes in bettween
+     * Get the path length
+     *
+     * @return float
+     *
+     * @since 1.0.0
+     */
+    public function getLength() : float
+    {
+        $n = \count($this->nodes);
+
+        $dist = 0.0;
+
+        for ($i = 1; $i < $n; ++$i) {
+            $dx = $this->nodes[$i - 1]->getX() - $this->nodes[$i]->getX();
+            $dy = $this->nodes[$i - 1]->getY() - $this->nodes[$i]->getY();
+
+            $dist += \sqrt($dx * $dx + $dy * $dy);
+        }
+
+        return $dist;
+    }
+
+    /**
+     * Get the incomplete node path
+     *
+     * @return Node[]
+     *
+     * @since 1.0.0
+     */
+    public function getPath() : array
+    {
+        return $this->nodes;
+    }
+
+    /**
+     * Get the complete node path
      *
      * The path may only contain the jump points or pivot points.
      * In order to get every node it needs to be expanded.
      *
-     * @return array
+     * @return Node[]
      *
      * @since 1.0.0
      */
     public function expandPath() : array
     {
-        $reverse = \array_reverse($this->nodes);
-        $length  = \count($reverse);
+        if (empty($this->expandedNodes)) {
+            //$reverse = \array_reverse($this->nodes);
+            $reverse = $this->nodes;
+            $length  = \count($reverse);
 
-        if ($length < 2) {
-            return $reverse;
+            if ($length < 2) {
+                return $reverse;
+            }
+
+            $expanded = [];
+            for ($i = 0; $i < $length - 1; ++$i) {
+                $coord0 = $reverse[$i];
+                $coord1 = $reverse[$i + 1];
+
+                $interpolated = $this->interpolate($coord0, $coord1);
+
+                $expanded = \array_merge($expanded, $interpolated);
+            }
+
+            $expanded[] = $reverse[$length - 1];
+            $this->expandedNodes = $expanded;
         }
 
-        $expanded = [];
-        for ($i = 0; $i < $length - 1; ++$i) {
-            $coord0 = $reverse[$i];
-            $coord1 = $reverse[$i + 1];
-
-            $interpolated = $this->interpolate($coord0, $coord1);
-            $iLength      = \count($interpolated);
-
-            $expanded = \array_merge($expanded, \array_slice($interpolated, 0, $iLength - 1));
-        }
-
-        $expanded[] = $reverse[$length - 1];
-
-        return $expanded;
+        return $this->expandedNodes;
     }
 
     /**
@@ -141,6 +179,9 @@ class Path
         $node = $node1;
         $err  = $dx - $dy;
 
+        $x0 = $node->getX();
+        $y0 = $node->getY();
+
         $line = [];
         while (true) {
             $line[] = $node;
@@ -150,17 +191,15 @@ class Path
             }
 
             $e2 = 2 * $err;
-            $x0 = 0;
 
             if ($e2 > -$dy) {
                 $err -= $dy;
-                $x0   = $node->getX() + $sx;
+                $x0   = $x0 + $sx;
             }
 
-            $y0 = 0;
             if ($e2 < $dx) {
                 $err += $dx;
-                $y0   = $node->getY() + $sy;
+                $y0   = $y0 + $sy;
             }
 
             $node = $this->grid->getNode($x0, $y0);
