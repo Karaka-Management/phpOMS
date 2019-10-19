@@ -334,27 +334,6 @@ class Matrix implements \ArrayAccess, \Iterator
     }
 
     /**
-     * Swap values in rows
-     *
-     * @param array<array> $matrix Matrix reference to modify
-     * @param int          $row1   Row to swap
-     * @param int          $row2   Row to swap
-     * @param int          $col    Max col to swap to
-     *
-     * @return void
-     *
-     * @since 1.0.0
-     */
-    private function swapRow(array &$matrix, int $row1, int $row2, int $col) : void
-    {
-        for ($i = 0; $i < $col; ++$i) {
-            $temp              = $matrix[$row1][$i];
-            $matrix[$row1][$i] = $matrix[$row2][$i];
-            $matrix[$row2][$i] = $temp;
-        }
-    }
-
-    /**
      * Set matrix array.
      *
      * @param array<int, array<float|int>> $matrix Matrix
