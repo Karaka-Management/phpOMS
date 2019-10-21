@@ -59,6 +59,8 @@ class SmartDateTimeTest extends \PHPUnit\Framework\TestCase
         self::assertTrue(SmartDateTime::leapYear(2104));
 
         self::assertEquals(\date('w', $expected->getTimestamp()), SmartDateTime::getDayOfWeek((int) $expected->format('Y'), (int) $expected->format('m'), (int) $expected->format('d')));
+
+        // todo: i think this assertion is wrong! or the function getFirstDay... doesn't do what is supposed to do
         self::assertEquals(\date('w', $expected->getTimestamp()), $obj->getFirstDayOfWeek());
 
         self::assertCount(42, $obj->getMonthCalendar());

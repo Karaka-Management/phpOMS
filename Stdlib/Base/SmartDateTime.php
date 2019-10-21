@@ -143,6 +143,20 @@ class SmartDateTime extends \DateTime
     }
 
     /**
+     * Get start of the week
+     *
+     * @return SmartDateTime
+     *
+     * @since 1.0.0
+     */
+    public function getStartOfWeek() : self
+    {
+        $w = \strtotime('-' . \date('w', $this->getTimestamp()) .' days', $this->getTimestamp());
+
+        return new self(\date('Y-m-d', $w));
+    }
+
+    /**
      * Get days of current month
      *
      * @return int

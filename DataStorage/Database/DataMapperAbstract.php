@@ -495,7 +495,10 @@ class DataMapperAbstract implements DataMapperInterface
             var_dump($query->toSql());
         }
 
-        return self::$db->con->lastInsertId();
+        $objId = self::$db->con->lastInsertId();
+        \settype($objId, static::$columns[static::$primaryField]['type']);
+
+        return $objId;
     }
 
     /**

@@ -27,7 +27,7 @@ class Heap
     /**
      * Comparison function
      *
-     * @var  \Closure
+     * @var   \Closure
      * @since 1.0.0
      */
     private \Closure $compare;

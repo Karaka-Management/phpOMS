@@ -418,7 +418,7 @@ class Grammar extends GrammarAbstract
                 $expression .= '(' . \rtrim($join['table']->toSql(), ';') . ')' . (\is_string($key) ? ' as ' . $query->getPrefix() . $key : '');
             }
 
-            $expression .= $this->compileOn($query, $query->ons[$key]);
+            $expression .= $this->compileOn($query, $query->ons[$key]) . ' ';
         }
 
         $expression = \rtrim($expression, ', ');
