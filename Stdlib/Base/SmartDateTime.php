@@ -127,7 +127,7 @@ class SmartDateTime extends \DateTime
      */
     public function getEndOfMonth() : self
     {
-        return new self($this->format('Y') . '-' . $this->format('m') . '-' . $this->getDaysOfMonth());
+        return new self($this->format('Y-m') . '-' . $this->getDaysOfMonth() . ' 23:59:59');
     }
 
     /**
