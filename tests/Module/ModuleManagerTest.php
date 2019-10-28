@@ -17,7 +17,7 @@ namespace phpOMS\tests\Module;
 use phpOMS\ApplicationAbstract;
 use phpOMS\Dispatcher\Dispatcher;
 use phpOMS\Module\ModuleManager;
-use phpOMS\Router\Router;
+use phpOMS\Router\WebRouter;
 
 require_once __DIR__ . '/../Autoloader.php';
 
@@ -71,7 +71,7 @@ class ModuleManagerTest extends \PHPUnit\Framework\TestCase
 
     public function testGetSet() : void
     {
-        $this->app->router     = new Router();
+        $this->app->router     = new WebRouter();
         $this->app->dispatcher = new Dispatcher($this->app);
 
         $moduleManager = new ModuleManager($this->app, __DIR__ . '/../../../Modules');

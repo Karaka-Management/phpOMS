@@ -19,7 +19,7 @@ use phpOMS\Dispatcher\Dispatcher;
 use phpOMS\Localization\Localization;
 use phpOMS\Message\Http\Request;
 use phpOMS\Message\Http\Response;
-use phpOMS\Router\Router;
+use phpOMS\Router\WebRouter;
 use phpOMS\Uri\Http;
 
 require_once __DIR__ . '/../Autoloader.php';
@@ -34,7 +34,7 @@ class DispatcherTest extends \PHPUnit\Framework\TestCase
     protected function setUp() : void
     {
         $this->app             = new class() extends ApplicationAbstract { protected string $appName = 'Api'; };
-        $this->app->router     = new Router();
+        $this->app->router     = new WebRouter();
         $this->app->dispatcher = new Dispatcher($this->app);
     }
 
