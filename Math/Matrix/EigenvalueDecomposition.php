@@ -262,7 +262,7 @@ final class EigenvalueDecomposition
     }
 
     /**
-     * Symmetric tridiagonal QL
+     * Symmetric tridiagonal QL algorithm
      *
      * @return void
      *
@@ -374,6 +374,13 @@ final class EigenvalueDecomposition
         }
     }
 
+    /**
+     * Create the orthogonal eigenvectors
+     *
+     * @return void
+     *
+     * @since 1.0.0
+     */
     private function orthes() : void
     {
         $low  = 0;
@@ -453,6 +460,18 @@ final class EigenvalueDecomposition
         }
     }
 
+    /**
+     * Perform complex division
+     *
+     * @param float $xr Real value
+     * @param float $xi Imaginary value
+     * @param float $yr Real value
+     * @param float $yi Imaginary value
+     *
+     * @return void
+     *
+     * @since 1.0.0
+     */
     private function cdiv(float $xr, float $xi, float $yr, float $yi) : void
     {
         $r = 0.0;
@@ -473,6 +492,13 @@ final class EigenvalueDecomposition
         }
     }
 
+    /**
+     * QR algorithm
+     *
+     * @return void
+     *
+     * @since 1.0.0
+     */
     private function hqr2() : void
     {
         $nn      = $this->m;
