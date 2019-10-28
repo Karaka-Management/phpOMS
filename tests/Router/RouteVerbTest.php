@@ -12,7 +12,7 @@
  */
 declare(strict_types=1);
 
-namespace phpOMS\tests\Router;
+namespace phpOMS\tests\WebRouter;
 
 require_once __DIR__ . '/../Autoloader.php';
 

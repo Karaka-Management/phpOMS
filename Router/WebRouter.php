@@ -14,18 +14,17 @@ declare(strict_types=1);
 
 namespace phpOMS\Router;
 
-use phpOMS\Message\Http\Request;
-use phpOMS\Uri\Http;
+use phpOMS\DataStorage\Database\Schema\Grammar\RouterInterface;
 
 /**
- * Router class.
+ * Router class for web routes.
  *
  * @package phpOMS\Router
  * @license OMS License 1.0
  * @link    https://orange-management.org
  * @since   1.0.0
  */
-final class Router
+final class WebRouter implements RouterInterface
 {
 
     /**

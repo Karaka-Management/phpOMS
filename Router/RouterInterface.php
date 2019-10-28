@@ -4,7 +4,7 @@
  *
  * PHP Version 7.4
  *
- * @package   phpOMS\Router
+ * @package   phpOMS\DataStorage\Database\Schema
  * @copyright Dennis Eichhorn
  * @license   OMS License 1.0
  * @version   1.0.0
@@ -12,23 +12,26 @@
  */
 declare(strict_types=1);
 
-namespace phpOMS\WebRouter;
-
-use phpOMS\Stdlib\Base\Enum;
+namespace phpOMS\Router;
 
 /**
- * Route verb enum.
+ * Router interface.
  *
  * @package phpOMS\Router
  * @license OMS License 1.0
  * @link    https://orange-management.org
  * @since   1.0.0
  */
-abstract class RouteVerb extends Enum
+interface RouterInterface
 {
-    public const GET    = 1;
-    public const PUT    = 2;
-    public const SET    = 4;
-    public const DELETE = 8;
-    public const ANY    = 16;
+    /**
+     * Add routes from file.
+     *
+     * @param string $path Route file path
+     *
+     * @return bool
+     *
+     * @since 1.0.0
+     */
+    public function importFromFile(string $path) : bool;
 }

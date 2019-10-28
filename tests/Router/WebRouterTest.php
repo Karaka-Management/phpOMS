@@ -20,7 +20,7 @@ use phpOMS\Account\Account;
 use phpOMS\Account\PermissionAbstract;
 use phpOMS\Account\PermissionType;
 use phpOMS\Message\Http\Request;
-use phpOMS\Router\Router;
+use phpOMS\Router\WebRouter;
 use phpOMS\Router\RouteVerb;
 use phpOMS\Uri\Http;
 
@@ -29,18 +29,18 @@ require_once __DIR__ . '/../Autoloader.php';
 /**
  * @internal
  */
-class RouterTest extends \PHPUnit\Framework\TestCase
+class WebRouterTest extends \PHPUnit\Framework\TestCase
 {
     public function testAttributes() : void
     {
-        $router = new Router();
-        self::assertInstanceOf('\phpOMS\Router\Router', $router);
+        $router = new WebRouter();
+        self::assertInstanceOf('\phpOMS\Router\WebRouter', $router);
         self::assertObjectHasAttribute('routes', $router);
     }
 
     public function testDefault() : void
     {
-        $router = new Router();
+        $router = new WebRouter();
         self::assertEmpty(
             $router->route(
                 (new Request(new Http('')))->getUri()->getRoute()
@@ -48,11 +48,22 @@ class RouterTest extends \PHPUnit\Framework\TestCase
         );
     }
 
-    public function testGetSet() : void
+    public function testInvalidRoutingFile() : void
     {
-        $router = new Router();
+        $router = new WebRouter();
         self::assertFalse($router->importFromFile(__Dir__ . '/invalidFile.php'));
-        self::assertTrue($router->importFromFile(__Dir__ . '/routerTestFile.php'));
+    }
+
+    public function testLoadingRoutesFromFile() : void
+    {
+        $router = new WebRouter();
+        self::assertTrue($router->importFromFile(__Dir__ . '/webRouterTestFile.php'));
+    }
+
+    public function testRouteMatching() : void
+    {
+        $router = new WebRouter();
+        self::assertTrue($router->importFromFile(__Dir__ . '/webRouterTestFile.php'));
 
         self::assertEquals(
             [['dest' => '\Modules\Admin\Controller:viewSettingsGeneral']],
@@ -70,6 +81,25 @@ class RouterTest extends \PHPUnit\Framework\TestCase
                     new Http('http://test.com/backend/admin/settings/general/something?test')
                 ))->getUri()->getRoute(), null, RouteVerb::PUT)
         );
+    }
+
+    public function testRouteMissMatchingForInvalidVerbs() : void
+    {
+        $router = new WebRouter();
+        self::assertTrue($router->importFromFile(__Dir__ . '/webRouterTestFile.php'));
+
+        self::assertNotEquals(
+            [['dest' => '\Modules\Admin\Controller:viewSettingsGeneral']],
+            $router->route(
+                (new Request(
+                    new Http('http://test.com/backend/admin/settings/general/something?test')
+                ))->getUri()->getRoute(), null, RouteVerb::PUT)
+        );
+    }
+
+    public function testDynamicRouteAdding() : void
+    {
+        $router = new WebRouter();
 
         self::assertNotEquals(
             [['dest' => '\Modules\Admin\Controller:viewSettingsGeneral']],
@@ -107,8 +137,8 @@ class RouterTest extends \PHPUnit\Framework\TestCase
 
     public function testWithCSRF() : void
     {
-        $router = new Router();
-        self::assertTrue($router->importFromFile(__Dir__ . '/routeTestCsrf.php'));
+        $router = new WebRouter();
+        self::assertTrue($router->importFromFile(__Dir__ . '/webRouteTestCsrf.php'));
 
         self::assertEquals(
             [['dest' => '\Modules\Admin\Controller:viewCsrf']],
@@ -130,10 +160,10 @@ class RouterTest extends \PHPUnit\Framework\TestCase
         );
     }
 
-    public function testWithPermissions() : void
+    public function testWithValidPermissions() : void
     {
-        $router = new Router();
-        self::assertTrue($router->importFromFile(__Dir__ . '/routerTestFilePermission.php'));
+        $router = new WebRouter();
+        self::assertTrue($router->importFromFile(__Dir__ . '/webRouterTestFilePermission.php'));
 
         $perm = new class(
             null,
@@ -160,6 +190,12 @@ class RouterTest extends \PHPUnit\Framework\TestCase
                 $account
             )
         );
+    }
+
+    public function testWithInvalidPermissions() : void
+    {
+        $router = new WebRouter();
+        self::assertTrue($router->importFromFile(__Dir__ . '/webRouterTestFilePermission.php'));
 
         $perm2 = new class(
             null,
