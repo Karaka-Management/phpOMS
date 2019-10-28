@@ -72,6 +72,8 @@ class Client extends SocketAbstract
         \socket_connect($this->sock, $this->ip, $this->port);
         $i = 0;
 
+        $errorCounter = 0;
+
         while ($this->run) {
             try {
                 ++$i;
@@ -79,6 +81,12 @@ class Client extends SocketAbstract
                 \socket_write($this->sock, $msg, \strlen($msg));
 
                 $read = [$this->sock];
+
+                if (\socket_last_error() !== 0) {
+                    ++$errorCounter;
+                }
+
+                // todo: create reset condition for errorCounter. Probably if a successfull read happened
 
                 //if (socket_select($read, $write = null, $except = null, 0) < 1) {
                 // error
@@ -102,7 +110,11 @@ class Client extends SocketAbstract
                         $this->commands->trigger($data[0], 0, $data);
                     }
                 }
-            } catch (\Error $e) {
+
+                if ($errorCounter > 10) {
+                    $this->run = false;
+                }
+            } catch (\Throwable $e) {
                 $this->run = false;
             }
         }

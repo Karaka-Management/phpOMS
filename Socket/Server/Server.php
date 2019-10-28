@@ -128,13 +128,13 @@ class Server extends SocketAbstract
     public function handshake($client, $headers) : bool
     {
         // todo: different handshake for normal tcp connection
-        //return true;
+        return true;
 
         if (\preg_match("/Sec-WebSocket-Version: (.*)\r\n/", $headers, $match) === false) {
             return false;
         }
 
-        $version = (int) $match[1];
+        $version = (int) ($match[1] ?? -1);
 
         if ($version !== 13) {
             return false;
@@ -176,8 +176,8 @@ class Server extends SocketAbstract
     public function run() : void
     {
         $this->app->logger->info('Start listening...');
-        \socket_listen($this->sock);
-        \socket_set_nonblock($this->sock);
+        @\socket_listen($this->sock);
+        @\socket_set_nonblock($this->sock);
         $this->conn[] = $this->sock;
 
         $this->app->logger->info('Start running...');
@@ -196,11 +196,12 @@ class Server extends SocketAbstract
 
             foreach ($read as $key => $socket) {
                 if ($this->sock === $socket) {
-                    $newc = \socket_accept($this->sock);
+                    $newc = @\socket_accept($this->sock);
                     $this->connectClient($newc);
                 } else {
                     $client = $this->clientManager->getBySocket($socket);
-                    $data   = \socket_read($socket, 1024);
+                    $data   = @\socket_read($socket, 1024, \PHP_NORMAL_READ);
+                    var_dump($data);
 
                     if (!$client->getHandshake()) {
                         $this->app->logger->debug('Doing handshake...');
@@ -211,6 +212,7 @@ class Server extends SocketAbstract
                             $this->disconnectClient($client);
                         }
                     } else {
+                        // todo: maybe implement shutdown and help for testing?
                         $this->packetManager->handle($this->unmask($data), $client);
                     }
                 }
