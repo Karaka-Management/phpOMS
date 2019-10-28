@@ -15,7 +15,7 @@ declare(strict_types=1);
 namespace phpOMS;
 
 use Model\CoreSettings;
-use phpOMS\Router\Router;
+use phpOMS\Router\RouterInterface;
 use phpOMS\Log\FileLogger;
 use phpOMS\Event\EventManager;
 use phpOMS\Module\ModuleManager;
@@ -39,7 +39,7 @@ use phpOMS\DataStorage\Session\SessionInterface;
  * @property int $orgId
  * @property \phpOMS\DataStorage\Database\DatabasePool $dbPool
  * @property \phpOMS\Localization\L11nManager $l11nManager
- * @property \phpOMS\Router\Router $router
+ * @property \phpOMS\Router\WebRouter $router
  * @property \phpOMS\DataStorage\Session\SessionInterface $sessionManager
  * @property \phpOMS\DataStorage\Cookie\CookieJar $cookieJar
  * @property \phpOMS\Module\ModuleManager $moduleManager
@@ -125,10 +125,10 @@ class ApplicationAbstract
     /**
      * Router instance.
      *
-     * @var   null|Router
+     * @var   null|RouterInterface
      * @since 1.0.0
      */
-    protected ?Router $router = null;
+    protected ?RouterInterface $router = null;
 
     /**
      * Dispatcher instance.
