@@ -91,11 +91,11 @@ final class Kmeans
      *
      * @param PointInterface $point Point to find the cluster for
      *
-     * @return PointInterface
+     * @return null|PointInterface
      *
      * @since 1.0.0
      */
-    public function cluster(PointInterface $point) : PointInterface
+    public function cluster(PointInterface $point) : ?PointInterface
     {
         $bestCluster  = null;
         $bestDistance = \PHP_FLOAT_MAX;
@@ -132,7 +132,7 @@ final class Kmeans
                     $center->setCoordinate($i, 0);
                 }
 
-                $center->setGroup(0);
+                //$center->setGroup(0); done because of bug below?!
             }
 
             foreach ($points as $point) {
@@ -149,6 +149,7 @@ final class Kmeans
 
             foreach ($clusterCenters as $center) {
                 for ($i = 0; $i < $coordinates; ++$i) {
+                    // todo: here is a bug sometimes center->getGroup() is 0
                     $center->setCoordinate($i, $center->getCoordinate($i) / $center->getGroup());
                 }
             }
