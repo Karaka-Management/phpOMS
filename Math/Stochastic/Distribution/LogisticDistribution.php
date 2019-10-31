@@ -113,6 +113,20 @@ class LogisticDistribution
     }
 
     /**
+     * Get standard deviation.
+     *
+     * @param float $s s scale
+     *
+     * @return float
+     *
+     * @since 1.0.0
+     */
+    public static function getStandardDeviation(float $s) : float
+    {
+        return \sqrt(self::getVariance($s));
+    }
+
+    /**
      * Get skewness.
      *
      * @return float

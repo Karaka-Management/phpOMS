@@ -56,6 +56,21 @@ class ParetoDistribution
     }
 
     /**
+     * Get expected value.
+     *
+     * @param float $xm    Lower bound
+     * @param float $alpha Alpha shape
+     *
+     * @return float
+     *
+     * @since 1.0.0
+     */
+    public static function getMean(float $xm, float $alpha) : float
+    {
+        return $alpha > 1 ? $alpha * $xm / ($alpha - 1) : \PHP_FLOAT_MAX;
+    }
+
+    /**
      * Get median
      *
      * @param float $xm    Lower bound
@@ -96,11 +111,22 @@ class ParetoDistribution
      */
     public static function getVariance(float $xm, float $alpha) : float
     {
-        if ($alpha < 2) {
-            return \PHP_FLOAT_MAX;
-        }
+        return $alpha < 3 ? \PHP_FLOAT_MAX : $xm ** 2 * $alpha / (($alpha - 1) ** 2 * ($alpha - 2));
+    }
 
-        return $xm ** 2 * $alpha / (($alpha - 1) ** 2 * ($alpha - 2));
+    /**
+     * Get standard deviation
+     *
+     * @param float $xm    Lower bound
+     * @param float $alpha Alpha shape
+     *
+     * @return float
+     *
+     * @since 1.0.0
+     */
+    public static function getStandardDeviation(float $xm, float $alpha) : float
+    {
+        return \sqrt(self::getVariance($xm, $alpha));
     }
 
     /**
@@ -114,11 +140,7 @@ class ParetoDistribution
      */
     public static function getSkewness(float $alpha) : float
     {
-        if ($alpha < 4) {
-            return 0.0;
-        }
-
-        return 2 * (1 + $alpha) / ($alpha - 3) * \sqrt(($alpha - 2) / $alpha);
+        return $alpha < 4 ? 0.0 : 2 * (1 + $alpha) / ($alpha - 3) * \sqrt(($alpha - 2) / $alpha);
     }
 
     /**

@@ -58,6 +58,13 @@ class PoissonDistributionTest extends \PHPUnit\Framework\TestCase
         self::assertEquals($l, PoissonDistribution::getVariance($l));
     }
 
+    public function testStandardDeviation() : void
+    {
+        $l = 4.6;
+
+        self::assertEquals(\sqrt($l), PoissonDistribution::getStandardDeviation($l));
+    }
+
     public function testSkewness() : void
     {
         $l = 4.6;

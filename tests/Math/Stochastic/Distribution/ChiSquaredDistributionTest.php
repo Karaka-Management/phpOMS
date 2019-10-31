@@ -67,6 +67,13 @@ class ChiSquaredDistributionTest extends \PHPUnit\Framework\TestCase
         self::assertEquals(2 * $df, ChiSquaredDistribution::getVariance($df));
     }
 
+    public function testStandardDeviation() : void
+    {
+        $df = 5;
+
+        self::assertEquals(\sqrt(2 * $df), ChiSquaredDistribution::getStandardDeviation($df));
+    }
+
     public function testMedian() : void
     {
         $df = 5;

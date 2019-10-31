@@ -14,13 +14,15 @@ declare(strict_types=1);
 
 namespace phpOMS\tests\DataStorage\Database\Query;
 
+use phpOMS\DataStorage\Database\Query\Expression;
+
 /**
  * @internal
  */
 class ExpressionTest extends \PHPUnit\Framework\TestCase
 {
-    public function testPlaceholder() : void
+    public function testDefault() : void
     {
-        self::markTestIncomplete();
+        self::assertInstanceOf('\phpOMS\DataStorage\Database\Query\Builder', new Expression($GLOBALS['dbpool']->get()));
     }
 }

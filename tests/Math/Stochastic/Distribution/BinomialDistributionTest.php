@@ -71,6 +71,14 @@ class BinomialDistributionTest extends \PHPUnit\Framework\TestCase
         self::assertEqualsWithDelta($n * $p * (1 - $p), BinomialDistribution::getVariance($n, $p), 0.01);
     }
 
+    public function testStandardDeviation() : void
+    {
+        $n = 20;
+        $p = 0.4;
+
+        self::assertEqualsWithDelta(\sqrt($n * $p * (1 - $p)), BinomialDistribution::getStandardDeviation($n, $p), 0.01);
+    }
+
     public function testSkewness() : void
     {
         $n = 20;

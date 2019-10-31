@@ -14,13 +14,15 @@ declare(strict_types=1);
 
 namespace phpOMS\tests\Stdlib\Base;
 
+use phpOMS\Stdlib\Base\NullLocation;
+
 /**
  * @internal
  */
 class NullLocationTest extends \PHPUnit\Framework\TestCase
 {
-    public function testPlaceholder() : void
+    public function testNullLocation() : void
     {
-        self::markTestIncomplete();
+        self::assertInstanceOf('\phpOMS\Stdlib\Base\Location', new NullLocation());
     }
 }

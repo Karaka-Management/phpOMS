@@ -27,7 +27,7 @@ class TDistribution
     /**
      * Get expected value.
      *
-     * @return float
+     * @return int
      *
      * @since 1.0.0
      */
@@ -83,10 +83,34 @@ class TDistribution
      */
     public static function getVariance(int $nu) : float
     {
-        if ($nu < 2) {
-            return \PHP_FLOAT_MAX;
-        }
+        return $nu < 3 ? \PHP_FLOAT_MAX : $nu / ($nu - 2);
+    }
 
-        return $nu / ($nu - 2);
+    /**
+     * Get standard deviation.
+     *
+     * @param int $nu Degrees of freedom
+     *
+     * @return float
+     *
+     * @since 1.0.0
+     */
+    public static function getStandardDeviation(int $nu) : float
+    {
+        return $nu < 3 ? \PHP_FLOAT_MAX : \sqrt(self::getVariance($nu));
+    }
+
+    /**
+     * Get Ex. kurtosis.
+     *
+     * @param float $nu Degrees of freedom
+     *
+     * @return float
+     *
+     * @since 1.0.0
+     */
+    public static function getExKurtosis(float $nu) : float
+    {
+        return $nu < 5 && $nu > 2 ? \PHP_FLOAT_MAX : 6 / ($nu - 4);
     }
 }

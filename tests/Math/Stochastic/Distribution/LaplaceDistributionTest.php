@@ -71,6 +71,13 @@ class LaplaceDistributionTest extends \PHPUnit\Framework\TestCase
         self::assertEquals(2 * $b ** 2, LaplaceDistribution::getVariance($b));
     }
 
+    public function testStandardDeviation() : void
+    {
+        $b = 3;
+
+        self::assertEquals(\sqrt(2 * $b ** 2), LaplaceDistribution::getStandardDeviation($b));
+    }
+
     public function testMgf() : void
     {
         $t = 2;

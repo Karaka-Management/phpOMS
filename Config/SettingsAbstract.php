@@ -14,7 +14,6 @@ declare(strict_types=1);
 
 namespace phpOMS\Config;
 
-use phpOMS\DataStorage\Database\DatabaseExceptionFactory;
 use phpOMS\DataStorage\Database\Query\Builder;
 use phpOMS\DataStorage\Cache\CachePool;
 use phpOMS\DataStorage\Database\Connection\ConnectionAbstract;
@@ -117,10 +116,7 @@ abstract class SettingsAbstract implements OptionsInterface
             return \count($options) > 1 ? $options : \reset($options);
         } catch (\PDOException $e) {
             // @codeCoverageIgnoreStart
-            $exception = DatabaseExceptionFactory::createException($e);
-            $message   = DatabaseExceptionFactory::createExceptionMessage($e);
-
-            throw new $exception($message);
+            echo $e->getMessage();
             // @codeCoverageIgnoreEnd
         }
     }

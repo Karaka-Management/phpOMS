@@ -56,6 +56,13 @@ class GeometricDistributionTest extends \PHPUnit\Framework\TestCase
         self::assertEquals((1 - $p) / $p ** 2, GeometricDistribution::getVariance($p));
     }
 
+    public function testgetStandardDeviation() : void
+    {
+        $p = 0.3;
+
+        self::assertEquals(\sqrt((1 - $p) / $p ** 2), GeometricDistribution::getStandardDeviation($p));
+    }
+
     public function testSkewness() : void
     {
         $p = 0.3;

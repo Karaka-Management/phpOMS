@@ -134,6 +134,20 @@ class NormalDistribution
     }
 
     /**
+     * Get standard deviation.
+     *
+     * @param float $sig Sigma
+     *
+     * @return float
+     *
+     * @since 1.0.0
+     */
+    public static function getStandardDeviation(float $sig) : float
+    {
+        return $sig;
+    }
+
+    /**
      * Get moment generating function.
      *
      * @param float $t   Value t

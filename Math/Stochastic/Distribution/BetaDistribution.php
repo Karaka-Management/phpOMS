@@ -79,6 +79,21 @@ class BetaDistribution
     }
 
     /**
+     * Get standard deviation.
+     *
+     * @param float $alpha Alpha
+     * @param float $beta  Beta
+     *
+     * @return float
+     *
+     * @since 1.0.0
+     */
+    public static function getStandardDeviation(float $alpha, float $beta) : float
+    {
+        return \sqrt(self::getVariance($alpha, $beta));
+    }
+
+    /**
      * Get skewness.
      *
      * @param float $alpha Alpha
@@ -123,7 +138,7 @@ class BetaDistribution
     public static function getMgf(float $t, float $alpha, float $beta) : float
     {
         $sum = 0;
-        for ($k = 1; $k < 100000; ++$k) {
+        for ($k = 1; $k < 20; ++$k) {
             $product = 1;
             for ($r = 0; $r < $k - 1; ++$r) {
                 $product *= ($alpha + $r) / ($alpha + $beta + $r);

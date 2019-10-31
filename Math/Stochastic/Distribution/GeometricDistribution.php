@@ -109,6 +109,20 @@ class GeometricDistribution
     }
 
     /**
+     * Get standard deviation.
+     *
+     * @param float $p Value p
+     *
+     * @return float
+     *
+     * @since 1.0.0
+     */
+    public static function getStandardDeviation(float $p) : float
+    {
+        return \sqrt(self::getVariance($p));
+    }
+
+    /**
      * Get moment generating function.
      *
      * @param float $p Value p

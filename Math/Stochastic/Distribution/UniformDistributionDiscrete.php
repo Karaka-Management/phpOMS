@@ -151,4 +151,19 @@ class UniformDistributionDiscrete
     {
         return (($b - $a + 1) ** 2 - 1) / 12;
     }
+
+    /**
+     * Get standard deviation.
+     *
+     * @param float $a Value a
+     * @param float $b Value b
+     *
+     * @return float
+     *
+     * @since 1.0.0
+     */
+    public static function getStandardDeviation(float $a, float $b) : float
+    {
+        return \sqrt(self::getVariance($a, $b));
+    }
 }

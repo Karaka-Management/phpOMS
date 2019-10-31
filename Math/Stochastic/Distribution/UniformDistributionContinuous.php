@@ -162,4 +162,19 @@ class UniformDistributionContinuous
     {
         return 1 / 12 * ($b - $a) ** 2;
     }
+
+    /**
+     * Get standard deviation.
+     *
+     * @param float $a Value a
+     * @param float $b Value b
+     *
+     * @return float
+     *
+     * @since 1.0.0
+     */
+    public static function getStandardDeviation(float $a, float $b) : float
+    {
+        return \sqrt(self::getVariance($a, $b));
+    }
 }

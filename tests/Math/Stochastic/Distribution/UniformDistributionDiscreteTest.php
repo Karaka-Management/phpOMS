@@ -67,6 +67,14 @@ class UniformDistributionDiscreteTest extends \PHPUnit\Framework\TestCase
         self::assertEquals((($b - $a + 1) ** 2 - 1) / 12, UniformDistributionDiscrete::getVariance($a, $b));
     }
 
+    public function testStandardDeviation() : void
+    {
+        $a = 1;
+        $b = 4;
+
+        self::assertEquals(\sqrt((($b - $a + 1) ** 2 - 1) / 12), UniformDistributionDiscrete::getStandardDeviation($a, $b));
+    }
+
     public function testExKurtosis() : void
     {
         $a = 1;

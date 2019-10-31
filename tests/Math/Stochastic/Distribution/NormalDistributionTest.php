@@ -76,4 +76,11 @@ class NormalDistributionTest extends \PHPUnit\Framework\TestCase
 
         self::assertEquals($sig ** 2, NormalDistribution::getVariance($sig));
     }
+
+    public function testStandardDeviation() : void
+    {
+        $sig = 0.8;
+
+        self::assertEquals($sig, NormalDistribution::getStandardDeviation($sig));
+    }
 }

@@ -187,4 +187,19 @@ class BinomialDistribution
     {
         return $n * $p * (1 - $p);
     }
+
+    /**
+     * Get standard deviation.
+     *
+     * @param int   $n Value n
+     * @param float $p Value p
+     *
+     * @return float
+     *
+     * @since 1.0.0
+     */
+    public static function getStandardDeviation(int $n, float $p) : float
+    {
+        return \sqrt(self::getVariance($n, $p));
+    }
 }

@@ -87,7 +87,7 @@ class HypergeometricDistribution
      * @param int $N Population size
      * @param int $n Number of draws
      *
-     * @return int
+     * @return float
      *
      * @todo: this can be heavily optimized
      *
@@ -99,13 +99,31 @@ class HypergeometricDistribution
     }
 
     /**
+     * Get standard deviation.
+     *
+     * @param int $K Successful states in the population
+     * @param int $N Population size
+     * @param int $n Number of draws
+     *
+     * @return float
+     *
+     * @todo: this can be heavily optimized
+     *
+     * @since 1.0.0
+     */
+    public static function getStandardDeviation(int $K, int $N, int $n) : float
+    {
+        return \sqrt(self::getVariance($K, $N, $n));
+    }
+
+    /**
      * Get skewness.
      *
      * @param int $K Successful states in the population
      * @param int $N Population size
      * @param int $n Number of draws
      *
-     * @return int
+     * @return float
      *
      * @todo: this can be heavily optimized
      *
@@ -124,7 +142,7 @@ class HypergeometricDistribution
      * @param int $N Population size
      * @param int $n Number of draws
      *
-     * @return int
+     * @return float
      *
      * @todo: this can be heavily optimized
      *
@@ -132,7 +150,7 @@ class HypergeometricDistribution
      */
     public static function getExKurtosis(int $K, int $N, int $n) : float
     {
-        return 1 / ($n * $K * ($N - $K) * ($N - $n) * ($N - 2) * ($N - 3))
-            * (($N - 1) * $N ** 2 * ($N * ($N + 1) - 6 * $K * ($N - $K) - 6 * $n * ($N - $n)) + 6 * $n * $K * ($N - $K) * ($N - $n) * (5 * $N - 6));
+        return (($N - 1) * $N ** 2 * ($N * ($N + 1) - 6 * $K * ($N - $K) - 6 * $n * ($N - $n)) + 6 * $n * $K * ($N - $K) * ($N - $n) * (5 * $N - 6))
+            / ($n * $K * ($N - $K) * ($N - $n) * ($N - 2) * ($N - 3));
     }
 }

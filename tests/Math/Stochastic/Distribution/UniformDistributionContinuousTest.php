@@ -80,6 +80,14 @@ class UniformDistributionContinuousTest extends \PHPUnit\Framework\TestCase
         self::assertEquals(1 / 12 * ($b - $a) ** 2, UniformDistributionContinuous::getVariance($a, $b));
     }
 
+    public function testStandardDeviation() : void
+    {
+        $a = 1;
+        $b = 4;
+
+        self::assertEquals(\sqrt(1 / 12 * ($b - $a) ** 2), UniformDistributionContinuous::getStandardDeviation($a, $b));
+    }
+
     public function testSkewness() : void
     {
         self::assertEquals(0, UniformDistributionContinuous::getSkewness());

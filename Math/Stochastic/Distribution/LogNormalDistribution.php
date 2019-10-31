@@ -44,7 +44,7 @@ class LogNormalDistribution
      * Get expected value.
      *
      * @param float $mu    Mu
-     * @param float $sigma Sigma
+     * @param float $sigma Sigma = standard deviation
      *
      * @return float
      *
@@ -97,6 +97,21 @@ class LogNormalDistribution
     public static function getVariance(float $mu, float $sigma) : float
     {
         return (\exp($sigma ** 2) - 1) * \exp(2 * $mu + $sigma ** 2);
+    }
+
+    /**
+     * Get standard deviation.
+     *
+     * @param float $mu    Mu
+     * @param float $sigma Sigma
+     *
+     * @return float
+     *
+     * @since 1.0.0
+     */
+    public static function getStandardDeviation(float $mu, float $sigma) : float
+    {
+        return \sqrt(self::getVariance($mu, $sigma));
     }
 
     /**

@@ -77,6 +77,21 @@ class FDistribution
     }
 
     /**
+     * Get standard deviation.
+     *
+     * @param int $d1 Degree of freedom
+     * @param int $d2 Degree of freedom
+     *
+     * @return float
+     *
+     * @since 1.0.0
+     */
+    public static function getStandardDeviation(int $d1, int $d2) : float
+    {
+        return \sqrt(self::getVariance($d1, $d2));
+    }
+
+    /**
      * Get skewness.
      *
      * @param int $d1 Degree of freedom

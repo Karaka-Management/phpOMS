@@ -113,6 +113,20 @@ class LaplaceDistribution
     }
 
     /**
+     * Get standard deviation.
+     *
+     * @param float $b Value b
+     *
+     * @return float
+     *
+     * @since 1.0.0
+     */
+    public static function getStandardDeviation(float $b) : float
+    {
+        return \sqrt(self::getVariance($b));
+    }
+
+    /**
      * Get moment generating function.
      *
      * @param float $t  Valute t

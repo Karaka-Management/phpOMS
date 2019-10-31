@@ -220,6 +220,20 @@ class ChiSquaredDistribution
     }
 
     /**
+     * Get standard deviation.
+     *
+     * @param int $df Degrees of freedom
+     *
+     * @return float
+     *
+     * @since 1.0.0
+     */
+    public static function getStandardDeviation(int $df) : float
+    {
+        return \sqrt(self::getVariance($df));
+    }
+
+    /**
      * Get moment generating function.
      *
      * @param int   $df Degrees of freedom

@@ -65,6 +65,11 @@ class ExponentialDistributionTest extends \PHPUnit\Framework\TestCase
         self::assertEquals(1/(3 ** 2), ExponentialDistribution::getVariance(3));
     }
 
+    public function testStandardDeviation() : void
+    {
+        self::assertEquals(\sqrt(1/(3 ** 2)), ExponentialDistribution::getStandardDeviation(3));
+    }
+
     public function testExKurtosis() : void
     {
         self::assertEquals(6, ExponentialDistribution::getExKurtosis());

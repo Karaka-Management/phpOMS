@@ -161,6 +161,21 @@ class GammaDistribution
     }
 
     /**
+     * Get standard deviation.
+     *
+     * @param float $k     k shape
+     * @param float $theta Theta scale
+     *
+     * @return float
+     *
+     * @since 1.0.0
+     */
+    public static function getStandardDeviationK(float $k, float $theta) : float
+    {
+        return \sqrt(self::getVarianceK($k, $theta));
+    }
+
+    /**
      * Get variance.
      *
      * @param float $alpha Alpha shape
@@ -173,6 +188,21 @@ class GammaDistribution
     public static function getVarianceAlphaBeta(float $alpha, float $beta) : float
     {
         return $alpha / ($beta ** 2);
+    }
+
+    /**
+     * Get standard deviation.
+     *
+     * @param float $alpha Alpha shape
+     * @param float $beta  Beta scale
+     *
+     * @return float
+     *
+     * @since 1.0.0
+     */
+    public static function getStandardDeviationAlphaBeta(float $alpha, float $beta) : float
+    {
+        return \sqrt(self::getVarianceAlphaBeta($alpha, $beta));
     }
 
     /**

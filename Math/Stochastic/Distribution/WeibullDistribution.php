@@ -36,11 +36,7 @@ class WeibullDistribution
      */
     public static function getPdf(float $x, float $lambda, float $k) : float
     {
-        if ($x < 0) {
-            return 0.0;
-        }
-
-        return $k / $lambda * \pow($x / $lambda, $k - 1) * \exp(-($x / $lambda) ** $k);
+        return $x < 0.0 ? 0.0 : $k / $lambda * \pow($x / $lambda, $k - 1) * \exp(-($x / $lambda) ** $k);
     }
 
     /**
@@ -56,11 +52,7 @@ class WeibullDistribution
      */
     public static function getCdf(float $x, float $lambda, float $k) : float
     {
-        if ($x < 0) {
-            return 0.0;
-        }
-
-        return 1 - \exp(-($x / $lambda) ** $k);
+        return $x < 0.0 ? 0.0 : 1 - \exp(-($x / $lambda) ** $k);
     }
 
     /**

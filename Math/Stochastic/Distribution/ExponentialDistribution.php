@@ -109,6 +109,20 @@ class ExponentialDistribution
     }
 
     /**
+     * Get standard deviation.
+     *
+     * @param float $lambda Lambda
+     *
+     * @return float
+     *
+     * @since 1.0.0
+     */
+    public static function getStandardDeviation(float $lambda) : float
+    {
+        return \sqrt(self::getVariance($lambda));
+    }
+
+    /**
      * Get moment generating function.
      *
      * @param float $t      Value t

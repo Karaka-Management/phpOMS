@@ -61,6 +61,14 @@ class BernoulliDistributionTest extends \PHPUnit\Framework\TestCase
         self::assertEqualsWithDelta($p * $q, BernoulliDistribution::getVariance($p), 0.01);
     }
 
+    public function testStandardDeviation() : void
+    {
+        $p = 0.3;
+        $q = 1 - $p;
+
+        self::assertEqualsWithDelta(\sqrt($p * $q), BernoulliDistribution::getStandardDeviation($p), 0.01);
+    }
+
     public function testSkewness() : void
     {
         $p = 0.3;

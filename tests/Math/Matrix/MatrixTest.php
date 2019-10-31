@@ -184,6 +184,7 @@ class MatrixTest extends \PHPUnit\Framework\TestCase
     public function testReduce() : void
     {
         self::assertEquals([[-6, -7], [0, -5]], $this->C->upperTriangular()->getMatrix());
+        self::markTestIncomplete();
         //self::assertEquals([], $this->C->lowerTriangular()->getMatrix());
         //self::assertEquals([], $this->C->diagonalize()->getMatrix());
     }
