@@ -24,32 +24,34 @@ require_once __DIR__ . '/../Autoloader.php';
  */
 class FileLoggerTest extends \PHPUnit\Framework\TestCase
 {
-    public function testAttributes() : void
+    protected function setUp(): void
     {
-        $log = FileLogger::getInstance(__DIR__);
-        self::assertObjectHasAttribute('fp', $log);
-        self::assertObjectHasAttribute('path', $log);
-
         if (\file_exists(__DIR__ . '/' . \date('Y-m-d') . '.log')) {
             \unlink(__DIR__ . '/' . \date('Y-m-d') . '.log');
         }
     }
 
-    public function testDefault() : void
+    protected function tearDown() : void
     {
         if (\file_exists(__DIR__ . '/' . \date('Y-m-d') . '.log')) {
             \unlink(__DIR__ . '/' . \date('Y-m-d') . '.log');
         }
+    }
 
-        $log = FileLogger::getInstance(__DIR__);
+    public function testAttributes() : void
+    {
+        $log = new FileLogger(__DIR__);
+        self::assertObjectHasAttribute('fp', $log);
+        self::assertObjectHasAttribute('path', $log);
+    }
+
+    public function testDefault() : void
+    {
+        $log = new FileLogger(__DIR__);
         self::assertEquals([], $log->countLogs());
         self::assertEquals([], $log->getHighestPerpetrator());
         self::assertEquals([], $log->get());
         self::assertEquals([], $log->getByLine());
-
-        if (\file_exists(__DIR__ . '/' . \date('Y-m-d') . '.log')) {
-            \unlink(__DIR__ . '/' . \date('Y-m-d') . '.log');
-        }
     }
 
     public function testGetSet() : void
@@ -151,11 +153,19 @@ class FileLoggerTest extends \PHPUnit\Framework\TestCase
 
         \unlink(__DIR__ . '/test.log');
 
-        if (\file_exists(__DIR__ . '/' . \date('Y-m-d') . '.log')) {
-            \unlink(__DIR__ . '/' . \date('Y-m-d') . '.log');
-        }
-
         \ob_clean();
+    }
+
+    public function testVerbose() : void
+    {
+        $log = new FileLogger(__DIR__, true);
+
+        \ob_start();
+        $log->info('my log message');
+        $ob = \ob_get_clean();
+        \ob_clean();
+
+        self::assertEquals('my log message' . "\n", $ob);
     }
 
     public function testLogException() : void
@@ -175,16 +185,5 @@ class FileLoggerTest extends \PHPUnit\Framework\TestCase
         self::assertTrue(FileLogger::startTimeLog('test'));
         self::assertFalse(FileLogger::startTimeLog('test'));
         self::assertGreaterThan(0.0, FileLogger::endTimeLog('test'));
-    }
-
-    public static function tearDownAfterClass() : void
-    {
-        if (\file_exists(__DIR__ . '/test.log')) {
-            \unlink(__DIR__ . '/test.log');
-        }
-
-        if (\file_exists(__DIR__ . '/' . \date('Y-m-d') . '.log')) {
-            \unlink(__DIR__ . '/' . \date('Y-m-d') . '.log');
-        }
     }
 }
