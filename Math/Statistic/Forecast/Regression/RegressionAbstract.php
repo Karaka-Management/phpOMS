@@ -11,12 +11,11 @@
  * @link      https://orange-management.org
  */
 declare(strict_types=1);
+
 namespace phpOMS\Math\Statistic\Forecast\Regression;
 
 use phpOMS\Math\Matrix\Exception\InvalidDimensionException;
 use phpOMS\Math\Statistic\Average;
-use phpOMS\Math\Statistic\Forecast\ForecastIntervalMultiplier;
-use phpOMS\Math\Statistic\MeasureOfDispersion;
 
 /**
  * Regression abstract class.
@@ -54,7 +53,7 @@ abstract class RegressionAbstract
     }
 
     /**
-     * Standard error of the regression.
+     * Standard error of the regression for a population
      *
      * Used in order to evaluate the performance of the linear regression
      *
@@ -66,7 +65,7 @@ abstract class RegressionAbstract
      *
      * @since 1.0.0
      */
-    public static function getStandardErrorOfRegression(array $errors) : float
+    public static function getStandardErrorOfRegressionPopulation(array $errors) : float
     {
         $count = \count($errors);
         $sum   = 0.0;
@@ -76,22 +75,51 @@ abstract class RegressionAbstract
         }
 
         // todo: could this be - 1 depending on the different definitions?!
-        return \sqrt(1 / ($count - 2) * $sum);
+        return \sqrt($sum / $count);
+    }
+
+    /**
+     * Standard error of the regression for a sample
+     *
+     * Used in order to evaluate the performance of the linear regression
+     *
+     * @latex s_{e} = \sqrt{\frac{1}{N - 2}\sum_{i = 1}^{N} e_{i}^{2}}
+     *
+     * @param array<float|int> $errors Errors (e = y - y_forecasted)
+     *
+     * @return float
+     *
+     * @since 1.0.0
+     */
+    public static function getStandardErrorOfRegressionSample(array $errors) : float
+    {
+        $count = \count($errors);
+        $sum   = 0.0;
+
+        for ($i = 0; $i < $count; ++$i) {
+            $sum += $errors[$i] ** 2;
+        }
+
+        // todo: could this be - 1 depending on the different definitions?!
+        return \sqrt($sum / ($count - 2));
     }
 
     /**
      * Get predictional interval for linear regression.
      *
-     * @param float            $forecasted Forecasted y value
+     * @latex
+     *
+     * @param float            $fX         Forecasted at x value
+     * @param float            $fY         Forecasted y value
      * @param array<float|int> $x          observex x values
-     * @param array<float|int> $errors     Errors for y values (y - y_forecasted)
+     * @param float            $mse        Errors for y values (y - y_forecasted)
      * @param float            $multiplier Multiplier for interval
      *
      * @return array<float|int>
      *
      * @since 1.0.0
      */
-    public static function getPredictionInterval(float $forecasted, array $x, array $errors, float $multiplier = ForecastIntervalMultiplier::P_95) : array
+    public static function getPredictionIntervalMSE(float $fX, float $fY, array $x, float $mse, float $multiplier = 1.96) : array
     {
         $count = \count($x);
         $meanX = Average::arithmeticMean($x);
@@ -101,9 +129,9 @@ abstract class RegressionAbstract
             $sum += ($x[$i] - $meanX) ** 2;
         }
 
-        $interval = $multiplier * self::getStandardErrorOfRegression($errors) * \sqrt(1 + 1 / $count + $sum / (($count - 1) * MeasureOfDispersion::standardDeviation($x) ** 2));
+        $interval = $multiplier * \sqrt($mse + $mse / $count + $mse * ($fX - $meanX) ** 2 / $sum);
 
-        return [$forecasted - $interval, $forecasted + $interval];
+        return [$fY - $interval, $fY + $interval];
     }
 
     /**

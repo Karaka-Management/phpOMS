@@ -15,6 +15,7 @@ declare(strict_types=1);
 namespace phpOMS\Math\Statistic\Forecast;
 
 use phpOMS\Math\Statistic\Average;
+use phpOMS\Math\Statistic\Correlation;
 use phpOMS\Math\Statistic\MeasureOfDispersion;
 use phpOMS\Utils\ArrayUtils;
 
@@ -26,8 +27,19 @@ use phpOMS\Utils\ArrayUtils;
  * @link    https://orange-management.org
  * @since   1.0.0
  */
-class Error
+final class Error
 {
+    /**
+     * Constructor.
+     *
+     * @since 1.0.0
+     * @codeCoverageIgnore
+     */
+    private function __construct()
+    {
+
+    }
+
     /**
      * Get the error of a forecast.
      *
@@ -118,14 +130,15 @@ class Error
      * Get mean squared error (MSE).
      *
      * @param array $errors Errors
+     * @param int   $offset Population/Size offset
      *
      * @return float
      *
      * @since 1.0.0
      */
-    public static function getMeanSquaredError(array $errors) : float
+    public static function getMeanSquaredError(array $errors, int $offset = 0) : float
     {
-        return MeasureOfDispersion::squaredMeanDeviation($errors);
+        return MeasureOfDispersion::squaredMeanDeviation($errors, null, $offset);
     }
 
     /**
@@ -143,7 +156,7 @@ class Error
     }
 
     /**
-     * Goodness of fit.
+     * Goodness of fit (R-squared)
      *
      * Evaluating how well the observed data fit the linear regression model.
      *
@@ -158,21 +171,7 @@ class Error
      */
     public static function getCoefficientOfDetermination(array $observed, array $forecasted) : float
     {
-        $countO = \count($observed);
-        $countF = \count($forecasted);
-        $sum1   = 0;
-        $sum2   = 0;
-        $meanY  = Average::arithmeticMean($observed);
-
-        for ($i = 0; $i < $countF; ++$i) {
-            $sum1 += ($forecasted[$i] - $meanY) ** 2;
-        }
-
-        for ($i = 0; $i < $countO; ++$i) {
-            $sum2 += ($observed[$i] - $meanY) ** 2;
-        }
-
-        return $sum1 / $sum2;
+        return Correlation::bravaisPersonCorrelationCoefficient($observed, $forecasted) ** 2;
     }
 
     /**
@@ -196,7 +195,7 @@ class Error
     }
 
     /**
-     * Get R Bar Squared
+     * Get Adjusted coefficient of determination (R Bar Squared)
      *
      * @param float $R            R
      * @param int   $observations Amount of observations
@@ -206,9 +205,9 @@ class Error
      *
      * @since 1.0.0
      */
-    public static function getRBarSquared(float $R, int $observations, int $predictors) : float
+    public static function getAdjustedCoefficientOfDetermination(float $R, int $observations, int $predictors) : float
     {
-        return 1 - (1 - $R * ($observations - 1) / ($observations - $predictors - 1));
+        return 1 - (1 - $R) * ($observations - 1) / ($observations - $predictors - 1);
     }
 
     /**

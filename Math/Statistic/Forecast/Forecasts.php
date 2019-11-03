@@ -35,7 +35,7 @@ class Forecasts
      *
      * @since 1.0.0
      */
-    public static function getForecastInteval(float $forecast, float $standardDeviation, float $interval = ForecastIntervalMultiplier::P_95) : array
+    public static function getForecastInteval(float $forecast, float $standardDeviation, float $interval = 1.96) : array
     {
         return [$forecast - $interval * $standardDeviation, $forecast + $interval * $standardDeviation];
     }

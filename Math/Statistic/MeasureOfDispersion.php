@@ -250,14 +250,15 @@ final class MeasureOfDispersion
     /**
      * Get mean deviation.
      *
-     * @param array<int, float|int> $x    Values
-     * @param float                 $mean Mean
+     * @param array<int, float|int> $x      Values
+     * @param float                 $mean   Mean
+     * @param int                   $offset Population/Size offset
      *
      * @return float
      *
      * @since 1.0.0
      */
-    public static function meanDeviation(array $x, float $mean = null) : float
+    public static function meanDeviation(array $x, float $mean = null, $offset = 0) : float
     {
         $mean = $mean !== null ? $mean : Average::arithmeticMean($x);
         $sum  = 0.0;
@@ -266,20 +267,41 @@ final class MeasureOfDispersion
             $sum += ($xi - $mean);
         }
 
-        return $sum / \count($x);
+        return $sum / (\count($x) - $offset);
+    }
+
+    /**
+     * Get the deviation to the mean
+     *
+     * @param array<int, float|int> $x Values
+     *
+     * @return array
+     *
+     * @since 1.0.0
+     */
+    public static function meanDeviationArray(array $x, float $mean = null) : array
+    {
+        $mean = $mean !== null ? $mean : Average::arithmeticMean($x);
+
+        foreach ($x as $key => $value) {
+            $x[$key] = $value - $mean;
+        }
+
+        return $x;
     }
 
     /**
      * Get mean absolute deviation.
      *
-     * @param array<int, float|int> $x    Values
-     * @param float                 $mean Mean
+     * @param array<int, float|int> $x      Values
+     * @param float                 $mean   Mean
+     * @param int                   $offset Population/Size offset
      *
      * @return float
      *
      * @since 1.0.0
      */
-    public static function meanAbsoluteDeviation(array $x, float $mean = null) : float
+    public static function meanAbsoluteDeviation(array $x, float $mean = null, $offset = 0) : float
     {
         $mean = $mean !== null ? $mean : Average::arithmeticMean($x);
         $sum  = 0.0;
@@ -288,20 +310,41 @@ final class MeasureOfDispersion
             $sum += \abs($xi - $mean);
         }
 
-        return $sum / \count($x);
+        return $sum / (\count($x) - $offset);
+    }
+
+    /**
+     * Get the deviation to the mean
+     *
+     * @param array<int, float|int> $x Values
+     *
+     * @return array
+     *
+     * @since 1.0.0
+     */
+    public static function meanAbsoluteDeviationArray(array $x, float $mean = null) : array
+    {
+        $mean = $mean !== null ? $mean : Average::arithmeticMean($x);
+
+        foreach ($x as $key => $value) {
+            $x[$key] = \abs($value - $mean);
+        }
+
+        return $x;
     }
 
     /**
      * Get squared mean deviation.
      *
-     * @param array<int, float|int> $x    Values
-     * @param float                 $mean Mean
+     * @param array<int, float|int> $x      Values
+     * @param float                 $mean   Mean
+     * @param int                   $offset Population/Size offset
      *
      * @return float
      *
      * @since 1.0.0
      */
-    public static function squaredMeanDeviation(array $x, float $mean = null) : float
+    public static function squaredMeanDeviation(array $x, float $mean = null, int $offset = 0) : float
     {
         $mean = $mean !== null ? $mean : Average::arithmeticMean($x);
         $sum  = 0.0;
@@ -310,6 +353,26 @@ final class MeasureOfDispersion
             $sum += ($xi - $mean) ** 2;
         }
 
-        return $sum / \count($x);
+        return $sum / (\count($x) - $offset);
+    }
+
+    /**
+     * Get the deviation to the mean squared
+     *
+     * @param array<int, float|int> $x Values
+     *
+     * @return array
+     *
+     * @since 1.0.0
+     */
+    public static function squaredMeanDeviationArray(array $x, float $mean = null) : array
+    {
+        $mean = $mean !== null ? $mean : Average::arithmeticMean($x);
+
+        foreach ($x as $key => $value) {
+            $x[$key] = ($value - $mean) ** 2;
+        }
+
+        return $x;
     }
 }

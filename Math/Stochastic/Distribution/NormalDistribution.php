@@ -24,6 +24,16 @@ namespace phpOMS\Math\Stochastic\Distribution;
  */
 class NormalDistribution
 {
+    /**
+     * Chi square table.
+     *
+     * @var   array<int, array<string, float>>
+     * @since 1.0.0
+     */
+    public const TABLE = [
+        '0.50' => 0.67, '0.55' => 0.76, '0.60' => 0.84, '0.65' => 0.93, '0.70' => 1.04, '0.75' => 1.15, '0.80' => 1.28,
+        '0.85' => 1.44, '0.90' => 1.64, '0.95' => 1.96, '0.96' => 2.05, '0.97' => 2.17, '0.98' => 2.33, '0.99' => 2.58,
+    ];
 
     /**
      * Get probability density function.
