@@ -33,7 +33,7 @@ final class CreditCard extends ValidatorAbstract
     public static function isValid($value, array $constraints = null) : bool
     {
         if (!\is_string($value)) {
-            throw new \InvalidArgumentException();
+            return false;
         }
 
         $value = \preg_replace('/\D/', '', $value) ?? '';
