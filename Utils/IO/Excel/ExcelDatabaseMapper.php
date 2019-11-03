@@ -48,28 +48,14 @@ class ExcelDatabaseMapper implements IODatabaseMapper
     /**
      * Constructor.
      *
-     * @param ConnectionAbstract $con Database connection
+     * @param ConnectionAbstract $con  Database connection
+     * @param string             $path File path
      *
      * @since 1.0.0
      */
-    public function __construct(ConnectionAbstract $con)
+    public function __construct(ConnectionAbstract $con, string $path)
     {
-        $this->con = $con;
-    }
-
-    /**
-     * Add path
-     *
-     * This is the path of the source data in case of inserting/updating data or the destination file for selecting data.
-     *
-     * @param string $path File path
-     *
-     * @return void
-     *
-     * @since 1.0.0
-     */
-    public function setPath(string $path) : void
-    {
+        $this->con  = $con;
         $this->path = $path;
     }
 
@@ -82,9 +68,9 @@ class ExcelDatabaseMapper implements IODatabaseMapper
         if (StringUtils::endsWith($this->path, '.xlsx')) {
             $reader = new \PhpOffice\PhpSpreadsheet\Reader\Xlsx();
         } elseif (StringUtils::endsWith($this->path, '.ods')) {
-            $sheet = new \PhpOffice\PhpSpreadsheet\Reader\Ods();
+            $reader = new \PhpOffice\PhpSpreadsheet\Reader\Ods();
         } else {
-            $sheet = new \PhpOffice\PhpSpreadsheet\Reader\Xls();
+            $reader = new \PhpOffice\PhpSpreadsheet\Reader\Xls();
         }
 
         $reader->setReadDataOnly(true);
@@ -100,8 +86,9 @@ class ExcelDatabaseMapper implements IODatabaseMapper
 
             // get column titles
             $column = 1;
-            while (!empty($value = $workSheet->getCellByColmnAndRow($column, 1)->getValue())) {
+            while (!empty($value = $workSheet->getCellByColumnAndRow($column, 1)->getCalculatedValue())) {
                 $titles[] = $value;
+                ++$column;
             }
 
             $columns = \count($titles);
@@ -111,11 +98,13 @@ class ExcelDatabaseMapper implements IODatabaseMapper
             $query->insert(...$titles)->into($table);
 
             $line = 2;
-            while (!empty($row = $workSheet->getCellByColumnAndRow(1, $line)->getValue())) {
+            while (!empty($row = $workSheet->getCellByColumnAndRow(1, $line)->getCalculatedValue())) {
                 $cells = [];
                 for ($j = 1; $j <= $columns; ++$j) {
-                    $cells[] = $workSheet->getCellByColumnAndRow(j, $line)->getValue();
+                    $cells[] = $workSheet->getCellByColumnAndRow($j, $line)->getCalculatedValue();
                 }
+
+                ++$line;
 
                 $query->values(...$cells);
             }
@@ -129,7 +118,7 @@ class ExcelDatabaseMapper implements IODatabaseMapper
      */
     public function select(array $queries) : void
     {
-        $sheet = new Spreadsheet();
+        $sheet = new \PhpOffice\PhpSpreadsheet\Spreadsheet();
         $sheet->getProperties()
             ->setCreator('Orange-Management')
             ->setLastModifiedBy('Orange-Management')
@@ -158,23 +147,28 @@ class ExcelDatabaseMapper implements IODatabaseMapper
 
             // set column titles
             for ($i = 1; $i <= $colCount; ++$i) {
-                $workSheet->setCellValueByColumnAndRow($i, 1, $columns[0][$i - 1]);
+                $workSheet->setCellValueByColumnAndRow($i, 1, $columns[$i - 1]);
             }
 
             // set data
-            foreach ($results as $key => $result) {
-                for ($i = 1; $i <= $colCount; ++$i) {
-                    $workSheet->setCellValueByColumnAndRow($i, $key + 1, $result[$i - 1]);
+            $row = 2;
+            foreach ($results as $result) {
+                $col = 1;
+                foreach ($result as $value) {
+                    $workSheet->setCellValueByColumnAndRow($col, $row, $value);
+                    ++$col;
                 }
+
+                ++$row;
             }
         }
 
         if (StringUtils::endsWith($this->path, '.xlsx')) {
-            (new \PhpOffice\PhpSpreadsheet\Writer\Xlsx())->save($this->path);
+            (new \PhpOffice\PhpSpreadsheet\Writer\Xlsx($sheet))->save($this->path);
         } elseif (StringUtils::endsWith($this->path, '.ods')) {
-            (new \PhpOffice\PhpSpreadsheet\Writer\Ods())->save($this->path);
+            (new \PhpOffice\PhpSpreadsheet\Writer\Ods($sheet))->save($this->path);
         } else {
-            (new \PhpOffice\PhpSpreadsheet\Writer\Xls())->save($this->path);
+            (new \PhpOffice\PhpSpreadsheet\Writer\Xls($sheet))->save($this->path);
         }
     }
 
@@ -187,9 +181,9 @@ class ExcelDatabaseMapper implements IODatabaseMapper
         if (StringUtils::endsWith($this->path, '.xlsx')) {
             $reader = new \PhpOffice\PhpSpreadsheet\Reader\Xlsx();
         } elseif (StringUtils::endsWith($this->path, '.ods')) {
-            $sheet = new \PhpOffice\PhpSpreadsheet\Reader\Ods();
+            $reader = new \PhpOffice\PhpSpreadsheet\Reader\Ods();
         } else {
-            $sheet = new \PhpOffice\PhpSpreadsheet\Reader\Xls();
+            $reader = new \PhpOffice\PhpSpreadsheet\Reader\Xls();
         }
 
         $reader->setReadDataOnly(true);
@@ -205,25 +199,27 @@ class ExcelDatabaseMapper implements IODatabaseMapper
 
             // get column titles
             $column = 1;
-            while (!empty($value = $workSheet->getCellByColmnAndRow($column, 1)->getValue())) {
+            while (!empty($value = $workSheet->getCellByColumnAndRow($column, 1)->getCalculatedValue())) {
                 $titles[] = $value;
+                ++$column;
             }
 
             $columns = \count($titles);
 
-            // insert data
+            // update data
             $line = 2;
-            while (!empty($row = $workSheet->getCellByColumnAndRow(1, $line)->getValue())) {
+            while (!empty($row = $workSheet->getCellByColumnAndRow(1, $line)->getCalculatedValue())) {
                 $query = new Builder($this->con);
-                $query->update(...$titles)->into($table);
+                $query->update($table)->into($table);
 
-                $cells = [];
-                for ($j = 1; $j <= $columns; ++$j) {
-                    $cells[] = $workSheet->getCellByColumnAndRow(j, $line)->getValue();
+                for ($j = 2; $j <= $columns; ++$j) {
+                    $query->sets($titles[$j - 1], $workSheet->getCellByColumnAndRow($j, $line)->getCalculatedValue());
                 }
 
-                $query->values(...$cells)->where($titles[0], '=', $cells[0]);
+                $query->where($titles[0], '=', $workSheet->getCellByColumnAndRow(1, $line)->getCalculatedValue());
                 $query->execute();
+
+                ++$line;
             }
         }
     }
