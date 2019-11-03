@@ -47,7 +47,7 @@ final class HeapSort implements SortInterface
 
         $copy = $list;
 
-        for ($p = ($n - 1) / 2; $p >= 0; --$p) {
+        for ($p = (int) ($n / 2 - 1); $p >= 0; --$p) {
             self::heapify($copy, $n, $p, $order);
         }
 

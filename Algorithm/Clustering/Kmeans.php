@@ -149,8 +149,8 @@ final class Kmeans
 
             foreach ($clusterCenters as $center) {
                 for ($i = 0; $i < $coordinates; ++$i) {
-                    // todo: here is a bug sometimes center->getGroup() is 0
-                    $center->setCoordinate($i, $center->getCoordinate($i) / $center->getGroup());
+                    // todo: here is a bug sometimes center->getGroup() is 0. this fix below is stupid
+                    $center->setCoordinate($i, $center->getCoordinate($i) / ($center->getGroup() === 0 ? 1 : $center->getGroup()));
                 }
             }
 

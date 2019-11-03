@@ -63,6 +63,35 @@ class TimSortTest extends \PHPUnit\Framework\TestCase
         self::assertEquals(
             [5, 1, 4, 2, 8], [$this->list[0]->value, $this->list[1]->value, $this->list[2]->value, $this->list[3]->value, $this->list[4]->value,]
         );
+
+        $list = [
+            new NumericElement(25), new NumericElement(94), new NumericElement(45), new NumericElement(77), new NumericElement(11), new NumericElement(4), new NumericElement(100),
+            new NumericElement(25), new NumericElement(45), new NumericElement(55), new NumericElement(5), new NumericElement(80), new NumericElement(55), new NumericElement(66),
+            new NumericElement(6), new NumericElement(4), new NumericElement(45), new NumericElement(94), new NumericElement(100), new NumericElement(6), new NumericElement(94),
+            new NumericElement(77), new NumericElement(30), new NumericElement(55), new NumericElement(4), new NumericElement(80), new NumericElement(9), new NumericElement(77),
+            new NumericElement(22), new NumericElement(11), new NumericElement(66), new NumericElement(22), new NumericElement(94), new NumericElement(4), new NumericElement(77),
+            new NumericElement(0), new NumericElement(77), new NumericElement(10), new NumericElement(94), new NumericElement(0), new NumericElement(6), new NumericElement(77),
+            new NumericElement(0), new NumericElement(0), new NumericElement(11), new NumericElement(94), new NumericElement(4), new NumericElement(66), new NumericElement(10),
+            new NumericElement(4), new NumericElement(11), new NumericElement(4), new NumericElement(80), new NumericElement(25), new NumericElement(30), new NumericElement(66),
+            new NumericElement(94), new NumericElement(66), new NumericElement(94), new NumericElement(6), new NumericElement(94), new NumericElement(6), new NumericElement(94),
+            new NumericElement(45), new NumericElement(4), new NumericElement(25), new NumericElement(55), new NumericElement(35), new NumericElement(4), new NumericElement(10),
+            new NumericElement(4), new NumericElement(80), new NumericElement(10), new NumericElement(35), new NumericElement(11), new NumericElement(25), new NumericElement(11),
+            new NumericElement(35), new NumericElement(11), new NumericElement(35), new NumericElement(4), new NumericElement(25), new NumericElement(11), new NumericElement(80),
+            new NumericElement(22), new NumericElement(94), new NumericElement(4), new NumericElement(30), new NumericElement(6), new NumericElement(66), new NumericElement(11),
+            new NumericElement(4), new NumericElement(80), new NumericElement(2), new NumericElement(80), new NumericElement(25), new NumericElement(0), new NumericElement(45),
+            new NumericElement(55), new NumericElement(25)
+        ];
+
+        $newList = TimSort::sort($list);
+        $result = [];
+        foreach ($newList as $element) {
+            $result[] = $element->value;
+        }
+
+        self::assertEquals(
+            [0, 0, 0, 0, 0, 2, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 5, 6, 6, 6, 6, 6, 6, 9, 10, 10, 10, 10, 11, 11, 11, 11, 11, 11, 11, 11, 11, 22, 22, 22, 25, 25, 25, 25, 25, 25, 25, 25, 30, 30, 30, 35, 35, 35, 35, 45, 45, 45, 45, 45, 55, 55, 55, 55, 55, 66, 66, 66, 66, 66, 66, 77, 77, 77, 77, 77, 77, 80, 80, 80, 80, 80, 80, 80, 94, 94, 94, 94, 94, 94, 94, 94, 94, 94, 94, 100, 100],
+            $result
+        );
     }
 
     /**
