@@ -2956,51 +2956,6 @@ class DataMapperAbstract implements DataMapperInterface
     }
 
     /**
-     * Get model based on request object
-     *
-     * @todo: change to graphql
-     *
-     * @param RequestAbstract $request Request object
-     *
-     * @return mixed
-     *
-     * @since 1.0.0
-     */
-    public static function getByRequest(RequestAbstract $request)
-    {
-        if ($request->getData('id') !== null) {
-            $result = static::get((int) $request->getData('id'));
-        } elseif (($filter = ((string) $request->getData('filter'))) !== null) {
-            $filter = \strtolower($filter);
-
-            if ($filter === 'all') {
-                $result = static::getAll();
-            } elseif ($filter === 'list') {
-                $list   = $request->getData('list');
-                $result = static::get(\json_decode($list, true));
-            } else {
-                $limit = (int) ($request->getData('limit') ?? 1);
-                $from  = $request->getData('from') === null ? null : new \DateTime((string) $request->getData('from'));
-                $to    = $request->getData('to') === null ? null : new \DateTime((string) $request->getData('to'));
-
-                $query = static::getQuery();
-                $query->limit($limit);
-
-                if (isset($from, $to) && !empty(static::getCreatedAt())) {
-                    $query->where(static::getCreatedAt(), '>=', $from);
-                    $query->where(static::getCreatedAt(), '<=', $to);
-                }
-
-                $result = static::getAllByQuery($query);
-            }
-        } else {
-            return self::getNullModelObj();
-        }
-
-        return $result;
-    }
-
-    /**
      * Add initialized object to local cache
      *
      * @param string $mapper Mapper name
