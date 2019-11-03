@@ -80,6 +80,21 @@ class ResponseTest extends \PHPUnit\Framework\TestCase
         self::assertEquals(\json_encode($data), $response->render());
     }
 
+    public function testMinimizedRender() : void
+    {
+        $response = new Response();
+
+        $response->set('view', new class() extends \phpOMS\Views\View {
+            public function render(...$data) : string
+            {
+                return " view_string  with <div> text</div>  that has \n whitespaces and \n\nnew lines\n ";
+            }
+        });
+
+        $response->getHeader()->set('Content-Type', MimeType::M_HTML . '; charset=utf-8', true);
+        self::assertEquals('view_string with <div> text</div> that has whitespaces and new lines', $response->render(true));
+    }
+
     public function testInvalidResponseData() : void
     {
         $response = new Response();

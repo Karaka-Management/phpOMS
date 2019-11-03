@@ -27,52 +27,12 @@ use phpOMS\Uri\UriInterface;
 abstract class RequestAbstract implements MessageInterface
 {
     /**
-     * Uri.
-     *
-     * @var   UriInterface
-     * @since 1.0.0
-     */
-    protected UriInterface $uri;
-
-    /**
-     * Request method.
-     *
-     * @var   null|string
-     * @since 1.0.0
-     */
-    protected ?string $method = null;
-
-    /**
-     * Request type.
-     *
-     * @var   null|string
-     * @since 1.0.0
-     */
-    protected ?string $type = null;
-
-    /**
      * Request data.
      *
      * @var   array
      * @since 1.0.0
      */
     protected array $data = [];
-
-    /**
-     * Request hash.
-     *
-     * @var   array
-     * @since 1.0.0
-     */
-    protected array $hash = [];
-
-    /**
-     * Uploaded files.
-     *
-     * @var   array
-     * @since 1.0.0
-     */
-    protected array $files = [];
 
     /**
      * Request lock.
@@ -89,67 +49,6 @@ abstract class RequestAbstract implements MessageInterface
      * @since 1.0.0
      */
     protected HeaderAbstract $header;
-
-    /**
-     * Get request uri.
-     *
-     * @return UriInterface
-     *
-     * @since 1.0.0
-     */
-    public function getUri() : UriInterface
-    {
-        return $this->uri;
-    }
-
-    /**
-     * Set request uri.
-     *
-     * @param UriInterface $uri Uri
-     *
-     * @return void
-     *
-     * @since 1.0.0
-     */
-    public function setUri(UriInterface $uri) : void
-    {
-        $this->uri = $uri;
-    }
-
-    /**
-     * Get request hash.
-     *
-     * @return array
-     *
-     * @since 1.0.0
-     */
-    public function getHash() : array
-    {
-        return $this->hash;
-    }
-
-    /**
-     * Get request method.
-     *
-     * @return string
-     *
-     * @since 1.0.0
-     */
-    abstract public function getMethod() : string;
-
-    /**
-     * Set request method.
-     *
-     * @param string $method Request method
-     *
-     * @return void
-     *
-     * @since 1.0.0
-     */
-    public function setMethod(string $method) : void
-    {
-        $this->method = $method;
-    }
 
     /**
      * Get data.
@@ -309,7 +208,9 @@ abstract class RequestAbstract implements MessageInterface
     }
 
     /**
-     * {@inheritdoc}
+     * Get the origin request source (IPv4/IPv6)
+     *
+     * @return string
      */
     abstract public function getOrigin() : string;
 
@@ -320,15 +221,6 @@ abstract class RequestAbstract implements MessageInterface
     {
         return $this->uri->__toString();
     }
-
-    /**
-     * Get route verb.
-     *
-     * @return int
-     *
-     * @since 1.0.0
-     */
-    abstract public function getRouteVerb() : int;
 
     /**
      * Get files.

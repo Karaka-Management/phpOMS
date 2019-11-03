@@ -39,15 +39,7 @@ final class Header extends HeaderAbstract
     private array $header = [];
 
     /**
-     * Set header.
-     *
-     * @param string $key       Header key (case insensitive)
-     * @param string $header    Header value
-     * @param bool   $overwrite Overwrite if already existing
-     *
-     * @return bool
-     *
-     * @since 1.0.0
+     * {@inheritdoc}
      */
     public function set(string $key, string $header, bool $overwrite = false) : bool
     {
@@ -209,13 +201,7 @@ final class Header extends HeaderAbstract
     }
 
     /**
-     * Get header by name.
-     *
-     * @param string $key Header key
-     *
-     * @return array
-     *
-     * @since 1.0.0
+     * {@inheritdoc}
      */
     public function get(string $key = null) : array
     {
@@ -223,13 +209,7 @@ final class Header extends HeaderAbstract
     }
 
     /**
-     * Check if header is defined.
-     *
-     * @param string $key Header key
-     *
-     * @return bool
-     *
-     * @since 1.0.0
+     * {@inheritdoc}
      */
     public function has(string $key) : bool
     {

@@ -33,6 +33,29 @@ use phpOMS\Uri\UriInterface;
  */
 final class Request extends RequestAbstract
 {
+    /**
+     * Uri.
+     *
+     * @var   UriInterface
+     * @since 1.0.0
+     */
+    protected UriInterface $uri;
+
+    /**
+     * Request method.
+     *
+     * @var   null|string
+     * @since 1.0.0
+     */
+    protected ?string $method = null;
+
+    /**
+     * Request type.
+     *
+     * @var   null|string
+     * @since 1.0.0
+     */
+    protected ?string $type = null;
 
     /**
      * Browser type.
@@ -57,6 +80,22 @@ final class Request extends RequestAbstract
      * @since 1.0.0
      */
     private ?array $info = null;
+
+    /**
+     * Request hash.
+     *
+     * @var   array
+     * @since 1.0.0
+     */
+    protected array $hash = [];
+
+    /**
+     * Uploaded files.
+     *
+     * @var   array
+     * @since 1.0.0
+     */
+    protected array $files = [];
 
     /**
      * Constructor.
@@ -155,6 +194,45 @@ final class Request extends RequestAbstract
     }
 
     /**
+     * Get request uri.
+     *
+     * @return UriInterface
+     *
+     * @since 1.0.0
+     */
+    public function getUri() : UriInterface
+    {
+        return $this->uri;
+    }
+
+
+    /**
+     * Get request hash.
+     *
+     * @return array
+     *
+     * @since 1.0.0
+     */
+    public function getHash() : array
+    {
+        return $this->hash;
+    }
+
+    /**
+     * Set request method.
+     *
+     * @param string $method Request method
+     *
+     * @return void
+     *
+     * @since 1.0.0
+     */
+    public function setMethod(string $method) : void
+    {
+        $this->method = $method;
+    }
+
+    /**
      * Get request language
      *
      * @return string
@@ -197,6 +275,8 @@ final class Request extends RequestAbstract
      * Clean up globals that musn't be used any longer
      *
      * @return void
+     *
+     * @todo: consider making this function static.
      *
      * @since 1.0.0
      */
@@ -242,11 +322,17 @@ final class Request extends RequestAbstract
     }
 
     /**
-     * {@inheritdoc}
+     * Set request uri.
+     *
+     * @param UriInterface $uri Uri
+     *
+     * @return void
+     *
+     * @since 1.0.0
      */
     public function setUri(UriInterface $uri) : void
     {
-        parent::setUri($uri);
+        $this->uri   = $uri;
         $this->data += $uri->getQueryArray();
     }
 
@@ -406,6 +492,8 @@ final class Request extends RequestAbstract
      *
      * @throws \OutOfRangeException This exception is thrown if the port is out of range
      *
+     * @todo: consider making this static
+     *
      * @since 1.0.0
      */
     public function isHttps(int $port = 443) : bool
@@ -430,7 +518,11 @@ final class Request extends RequestAbstract
     }
 
     /**
-     * {@inheritdoc}
+     * Get route verb.
+     *
+     * @return int
+     *
+     * @since 1.0.0
      */
     public function getRouteVerb() : int
     {
@@ -449,7 +541,11 @@ final class Request extends RequestAbstract
     }
 
     /**
-     * {@inheritdoc}
+     * Get request method.
+     *
+     * @return string
+     *
+     * @since 1.0.0
      */
     public function getMethod() : string
     {
