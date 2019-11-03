@@ -48,6 +48,18 @@ class EventManagerTest extends \PHPUnit\Framework\TestCase
         self::assertEquals(1, $event->count());
     }
 
+    public function testDefaultDispatchOfPath() : void
+    {
+        $event = new EventManager();
+
+        self::assertTrue($event->attach('group', 'path_to_execute', false, true));
+        $event->addGroup('group', 'id1');
+        $event->addGroup('group', 'id2');
+
+        $event->trigger('group', 'id1');
+        self::assertTrue($event->trigger('group', 'id2'));
+    }
+
     public function testReset() : void
     {
         $event = new EventManager();
