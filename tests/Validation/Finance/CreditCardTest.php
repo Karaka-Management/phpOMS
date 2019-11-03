@@ -30,4 +30,9 @@ class CreditCardTest extends \PHPUnit\Framework\TestCase
         self::assertFalse(CreditCard::luhnTest('49927398717'));
         self::assertFalse(CreditCard::luhnTest('4242424242424241'));
     }
+
+    public function testInvalidCreditCardType() : void
+    {
+        self::assertFalse(CreditCard::isValid(12347));
+    }
 }
