@@ -14,7 +14,9 @@ declare(strict_types=1);
 
 namespace phpOMS\tests\Math\Statistic\Forecast;
 
+use phpOMS\Math\Statistic\Correlation;
 use phpOMS\Math\Statistic\Forecast\Error;
+use phpOMS\Math\Statistic\MeasureOfDispersion;
 
 /**
  * @internal
@@ -60,7 +62,7 @@ class ErrorTest extends \PHPUnit\Framework\TestCase
         );
     }
 
-    public function testMeanError() : void
+    public function testMeanErrors() : void
     {
         $errors = [
             400 - 300,
@@ -98,5 +100,22 @@ class ErrorTest extends \PHPUnit\Framework\TestCase
             [Error::getScaledError(Error::getForecastError(1000, 700), [1000, 800])],
             Error::getScaledErrorArray([Error::getForecastError(1000, 700)], [1000, 800])
         );
+    }
+
+    public function testSSE() : void
+    {
+        $errors = MeasureOfDispersion::meanDeviationArray([99.0, 98.6, 98.5, 101.1, 98.3, 98.6, 97.9, 98.4, 99.2, 99.1]);
+
+        self::assertEqualsWithDelta(6.921, Error::getSumSquaredError($errors), 0.001);
+    }
+
+    public function testCoefficientOfDetermination() : void
+    {
+        self::assertEqualsWithDelta(0.9729, Error::getCoefficientOfDetermination(
+            [3, 8, 10, 17, 24, 27],
+            [2, 8, 10, 13, 18, 20]
+        ), 0.001);
+
+        self::assertEqualsWithDelta(0.922085138, Error::getAdjustedCoefficientOfDetermination(0.944346527, 8, 2), 0.001);
     }
 }

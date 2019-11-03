@@ -55,6 +55,27 @@ class MeasureOfDispersionTest extends \PHPUnit\Framework\TestCase
         self::assertEqualsWithDelta((12.96 + 2.56 + 0.36 + 5.76 + 11.56) / 5, MeasureOfDispersion::squaredMeanDeviation([1, 3, 4, 7, 8]), 0.01);
     }
 
+    public function testDeviationArray() : void
+    {
+        self::assertEqualsWithDelta(
+            [0.13, -0.27, -0.37, 2.23, -0.57, -0.27, -0.97, -0.47, 0.33, 0.23],
+            MeasureOfDispersion::meanDeviationArray([99.0, 98.6, 98.5, 101.1, 98.3, 98.6, 97.9, 98.4, 99.2, 99.1]),
+            0.01
+        );
+
+        self::assertEqualsWithDelta(
+            [0.13, 0.27, 0.37, 2.23, 0.57, 0.27, 0.97, 0.47, 0.33, 0.23],
+            MeasureOfDispersion::meanAbsoluteDeviationArray([99.0, 98.6, 98.5, 101.1, 98.3, 98.6, 97.9, 98.4, 99.2, 99.1]),
+            0.01
+        );
+
+        self::assertEqualsWithDelta(
+            [0.0169, 0.0729, 0.1369, 4.9729, 0.3249, 0.0729, 0.9409, 0.2209, 0.1089, 0.0529],
+            MeasureOfDispersion::squaredMeanDeviationArray([99.0, 98.6, 98.5, 101.1, 98.3, 98.6, 97.9, 98.4, 99.2, 99.1]),
+            0.01
+        );
+    }
+
     public function testEmpiricalVariationCoefficient() : void
     {
         self::assertEqualsWithDelta(0.5400, MeasureOfDispersion::empiricalVariationCoefficient([1, 2, 3, 4, 5, 6, 7]), 0.01);
