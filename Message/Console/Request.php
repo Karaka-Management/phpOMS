@@ -34,6 +34,46 @@ use phpOMS\Uri\UriInterface;
 final class Request extends RequestAbstract
 {
     /**
+     * Uri.
+     *
+     * @var   UriInterface
+     * @since 1.0.0
+     */
+    protected UriInterface $uri;
+
+    /**
+     * Request method.
+     *
+     * @var   null|string
+     * @since 1.0.0
+     */
+    protected ?string $method = null;
+
+    /**
+     * Request type.
+     *
+     * @var   null|string
+     * @since 1.0.0
+     */
+    protected ?string $type = null;
+
+    /**
+     * Request hash.
+     *
+     * @var   array
+     * @since 1.0.0
+     */
+    protected array $hash = [];
+
+    /**
+     * Uploaded files.
+     *
+     * @var   array
+     * @since 1.0.0
+     */
+    protected array $files = [];
+
+    /**
      * OS type.
      *
      * @var   null|string
@@ -97,6 +137,45 @@ final class Request extends RequestAbstract
 
             $this->hash[] = \sha1(\implode('', $paths));
         }
+    }
+
+    /**
+     * Get request uri.
+     *
+     * @return UriInterface
+     *
+     * @since 1.0.0
+     */
+    public function getUri() : UriInterface
+    {
+        return $this->uri;
+    }
+
+
+    /**
+     * Get request hash.
+     *
+     * @return array
+     *
+     * @since 1.0.0
+     */
+    public function getHash() : array
+    {
+        return $this->hash;
+    }
+
+    /**
+     * Set request method.
+     *
+     * @param string $method Request method
+     *
+     * @return void
+     *
+     * @since 1.0.0
+     */
+    public function setMethod(string $method) : void
+    {
+        $this->method = $method;
     }
 
     /**
