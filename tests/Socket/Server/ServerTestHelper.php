@@ -36,12 +36,13 @@ try {
     handleSocketError($sock);
 
     $msgs = [
+        'handshake' . "\r", // this needs to happen first (of course the submitted handshake data needs to be implemented correctl. just sending this is of course bad!)
         'help' . "\r",
         'shutdown' . "\r",
     ];
 
     foreach ($msgs as $msg) {
-        var_dump($msg);
+        \file_put_contents(__DIR__ . '/client.log', 'Sending: ' . $msg . "\n", \FILE_APPEND);
         @\socket_write($sock, $msg, \strlen($msg));
         handleSocketError($sock);
 
@@ -56,7 +57,7 @@ try {
         /* Normalize */
         $data = \trim($data);
 
-        \file_put_contents(__DIR__ . '/client.log', $data, \FILE_APPEND);
+        \file_put_contents(__DIR__ . '/client.log', 'Receiving' . $data . "\n", \FILE_APPEND);
     }
 
     handleSocketError($sock);

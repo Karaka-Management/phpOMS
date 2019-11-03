@@ -4,7 +4,7 @@
  *
  * PHP Version 7.4
  *
- * @package   phpOMS\Socket\Packets
+ * @package   phpOMS\Message\Socket
  * @copyright Dennis Eichhorn
  * @license   OMS License 1.0
  * @version   1.0.0
@@ -12,19 +12,21 @@
  */
 declare(strict_types=1);
 
-namespace phpOMS\Socket\Packets;
+namespace phpOMS\Message\Socket;
+
+use phpOMS\Message\HeaderAbstract;
 
 /**
  * Server class.
  *
  * Parsing/serializing arrays to and from php file
  *
- * @package phpOMS\Socket\Packets
+ * @package phpOMS\Message\Socket
  * @license OMS License 1.0
  * @link    https://orange-management.org
  * @since   1.0.0
  */
-class Header implements \Serializable
+class Header extends HeaderAbstract implements \Serializable
 {
     private $sendFrom = null;
 
@@ -53,6 +55,14 @@ class Header implements \Serializable
      * @since 1.0.0
      */
     private $subtype = 0;
+
+    /**
+     * Header.
+     *
+     * @var   string[][]
+     * @since 1.0.0
+     */
+    private array $header = [];
 
     public function getSendFrom()
     {
@@ -174,6 +184,45 @@ class Header implements \Serializable
      * @since 1.0.0
      */
     public function unserialize($string) : void
+    {
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getProtocolVersion() : string
+    {
+        return 'Socket/1.1';
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function set(string $key, string $header, bool $overwrite = false) : bool
+    {
+        return true;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function get(string $key = null) : array
+    {
+        return $key === null ? $this->header : ($this->header[\strtolower($key)] ?? []);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function has(string $key) : bool
+    {
+        return isset($this->header[$key]);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function generate(int $code) : void
     {
     }
 }

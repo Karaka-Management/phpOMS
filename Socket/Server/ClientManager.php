@@ -28,7 +28,7 @@ class ClientManager
 
     public function get($id)
     {
-        return $this->clients[$id] ?? new NullClientConnection(\uniqid(), null);
+        return $this->clients[$id] ?? new NullClientConnection($id, null);
     }
 
     public function getBySocket($socket)
@@ -39,7 +39,7 @@ class ClientManager
             }
         }
 
-        return new NullClientConnection(\uniqid(), null);
+        return new NullClientConnection($id, null);
     }
 
     public function remove($id)

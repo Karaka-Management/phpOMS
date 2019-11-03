@@ -14,6 +14,8 @@ declare(strict_types=1);
 
 namespace phpOMS\Socket\Client;
 
+use phpOMS\Account\Account;
+
 /**
  * Client socket class.
  *
@@ -29,16 +31,23 @@ class ClientConnection
     private $handshake = false;
     private $pid       = null;
     private $connected = true;
+    private Account $account;
 
-    public function __construct($id, $socket)
+    public function __construct(Account $account, $socket)
     {
-        $this->id     = $id;
+        $this->id     = $account->getId();
+        $this->account = $account;
         $this->socket = $socket;
     }
 
     public function getId()
     {
         return $this->id;
+    }
+
+    public function getAccount() : Account
+    {
+        return $this->account;
     }
 
     public function getSocket()

@@ -12,12 +12,12 @@
  */
 declare(strict_types=1);
 
-namespace phpOMS\tests\Socket\Packets;
+namespace phpOMS\tests\Message\Socket;
 
 /**
  * @internal
  */
-class HeaderTest extends \PHPUnit\Framework\TestCase
+class PacketManagerTest extends \PHPUnit\Framework\TestCase
 {
     public function testPlaceholder() : void
     {

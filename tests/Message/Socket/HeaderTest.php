@@ -12,14 +12,12 @@
  */
 declare(strict_types=1);
 
-namespace phpOMS\tests\Socket;
-
-require_once __DIR__ . '/../Autoloader.php';
+namespace phpOMS\tests\Message\Socket;
 
 /**
  * @internal
  */
-class CommandManagerTest extends \PHPUnit\Framework\TestCase
+class HeaderTest extends \PHPUnit\Framework\TestCase
 {
     public function testPlaceholder() : void
     {

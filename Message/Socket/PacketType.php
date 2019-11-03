@@ -4,7 +4,7 @@
  *
  * PHP Version 7.4
  *
- * @package   phpOMS\Socket\Packets
+ * @package   phpOMS\Message\Socket
  * @copyright Dennis Eichhorn
  * @license   OMS License 1.0
  * @version   1.0.0
@@ -12,14 +12,14 @@
  */
 declare(strict_types=1);
 
-namespace phpOMS\Socket\Packets;
+namespace phpOMS\Message\Socket;
 
 use phpOMS\Stdlib\Base\Enum;
 
 /**
  * Packet type enum.
  *
- * @package phpOMS\Socket\Packets
+ * @package phpOMS\Message\Socket
  * @license OMS License 1.0
  * @link    https://orange-management.org
  * @since   1.0.0
@@ -36,5 +36,5 @@ abstract class PacketType extends Enum
     public const LOGIN      = 7; /* Login (server/sender) */
     public const LOGOUT     = 8; /* Logout (server/sender) */
     public const CMD        = 9; /* Other command */
-    public const MODULE     = 999999999; /* Module packet ??? */
+    public const DOWNLOAD   = 10; /* Download */
 }

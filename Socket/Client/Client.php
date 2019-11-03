@@ -14,8 +14,10 @@ declare(strict_types=1);
 
 namespace phpOMS\Socket\Client;
 
-use phpOMS\Socket\CommandManager;
 use phpOMS\Socket\SocketAbstract;
+use phpOMS\ApplicationAbstract;
+use phpOMS\Socket\Server\ClientManager;
+use phpOMS\Message\Socket\PacketManager;
 
 /**
  * Client socket class.
@@ -27,21 +29,36 @@ use phpOMS\Socket\SocketAbstract;
  */
 class Client extends SocketAbstract
 {
-    private $commands;
+    /**
+     * Packet manager.
+     *
+     * @var   PacketManager
+     * @since 1.0.0
+     */
+    private $packetManager = null;
+
+    /**
+     * Socket application.
+     *
+     * @var   SocketApplication
+     * @since 1.0.0
+     */
+    private $app = null;
+
+    private $clientManager = null;
+
+    private array $packets = [];
 
     /**
      * Constructor.
      *
      * @since 1.0.0
      */
-    public function __construct()
+    public function __construct(ApplicationAbstract $app)
     {
-        $this->commands = new CommandManager();
-
-        /** @noinspection PhpUnusedParameterInspection */
-        $this->commands->attach('disconnect', function ($conn, $para) : void {
-            $this->disconnect();
-        }, $this);
+        $this->app           = $app;
+        $this->clientManager = new ClientManager();
+        $this->packetManager = new PacketManager($this->app->router, $this->app->dispatcher);
     }
 
     /**
@@ -70,15 +87,16 @@ class Client extends SocketAbstract
     public function run() : void
     {
         \socket_connect($this->sock, $this->ip, $this->port);
-        $i = 0;
 
         $errorCounter = 0;
 
         while ($this->run) {
             try {
-                ++$i;
-                $msg = 'disconnect';
-                \socket_write($this->sock, $msg, \strlen($msg));
+                if (!empty($this->packets)) {
+                    $msg = \array_shift($this->packets);
+
+                    \socket_write($this->sock, $msg, \strlen($msg));
+                }
 
                 $read = [$this->sock];
 
@@ -96,6 +114,8 @@ class Client extends SocketAbstract
 
                 if (\count($read) > 0) {
                     $data = \socket_read($this->sock, 1024);
+
+                    var_dump($data);
 
                     /* Server no data */
                     if ($data === false) {
@@ -120,6 +140,16 @@ class Client extends SocketAbstract
         }
 
         $this->close();
+    }
+
+    public function shutdown() : void
+    {
+        $this->run = false;
+    }
+
+    public function addPacket($packet) : void
+    {
+        $this->packets[] = $packet;
     }
 
     /**

@@ -14,10 +14,12 @@ declare(strict_types=1);
 
 namespace phpOMS\Socket\Server;
 
+use phpOMS\Account\Account;
 use phpOMS\Socket\Client\ClientConnection;
-use phpOMS\Socket\CommandManager;
-use phpOMS\Socket\Packets\PacketManager;
 use phpOMS\Socket\SocketAbstract;
+use phpOMS\Message\Socket\PacketManager;
+use Socket\SocketApplication;
+use phpOMS\ApplicationAbstract;
 
 /**
  * Server class.
@@ -61,7 +63,7 @@ class Server extends SocketAbstract
     /**
      * Socket application.
      *
-     * @var   \Socket\SocketApplication
+     * @var   SocketApplication
      * @since 1.0.0
      */
     private $app = null;
@@ -69,15 +71,15 @@ class Server extends SocketAbstract
     /**
      * Constructor.
      *
-     * @param \Socket\SocketApplication $app socketApplication
+     * @param SocketApplication $app socketApplication
      *
      * @since 1.0.0
      */
-    public function __construct($app)
+    public function __construct(ApplicationAbstract $app)
     {
         $this->app           = $app;
         $this->clientManager = new ClientManager();
-        $this->packetManager = new PacketManager(new CommandManager(), new ClientManager());
+        $this->packetManager = new PacketManager($this->app->router, $this->app->dispatcher);
     }
 
     /**
@@ -180,7 +182,7 @@ class Server extends SocketAbstract
         @\socket_set_nonblock($this->sock);
         $this->conn[] = $this->sock;
 
-        $this->app->logger->info('Start running...');
+        $this->app->logger->info('Is running...');
         while ($this->run) {
             $read = $this->conn;
 
@@ -201,31 +203,46 @@ class Server extends SocketAbstract
                 } else {
                     $client = $this->clientManager->getBySocket($socket);
                     $data   = @\socket_read($socket, 1024, \PHP_NORMAL_READ);
-                    var_dump($data);
+
+                    if ($data === false) {
+                        \socket_close($socket);
+                    }
+
+                    $data = \is_string($data) ? \trim($data) : '';
 
                     if (!$client->getHandshake()) {
                         $this->app->logger->debug('Doing handshake...');
                         if ($this->handshake($client, $data)) {
+                            $client->setHandshake(true);
                             $this->app->logger->debug('Handshake succeeded.');
                         } else {
                             $this->app->logger->debug('Handshake failed.');
                             $this->disconnectClient($client);
                         }
                     } else {
-                        // todo: maybe implement shutdown and help for testing?
-                        $this->packetManager->handle($this->unmask($data), $client);
+                        $this->packetManager->handle($data, $client);
                     }
                 }
             }
         }
+        $this->app->logger->info('Is shutdown...');
 
         $this->close();
+    }
+
+    public function shutdown($request) : void
+    {
+        $msg = 'shutdown' . "\n";
+        \socket_write($this->clientManager->get($request->getHeader()->getAccount())->getSocket(), $msg, \strlen($msg));
+
+        $this->run = false;
     }
 
     public function connectClient($socket) : void
     {
         $this->app->logger->debug('Connecting client...');
-        $this->clientManager->add($client = new ClientConnection(\uniqid(), $socket));
+        $this->app->accountManager->add(new Account(1));
+        $this->clientManager->add($client = new ClientConnection(new Account(1), $socket));
         $this->conn[$client->getId()]     = $socket;
         $this->app->logger->debug('Connected client.');
     }
