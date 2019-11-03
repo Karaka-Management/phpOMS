@@ -33,12 +33,12 @@ class SqlServerConnectionTest extends \PHPUnit\Framework\TestCase
 
     public function testConnect() : void
     {
-        $psql = new SqlServerConnection($GLOBALS['CONFIG']['db']['core']['mssql']['admin']);
-        self::assertEquals(DatabaseStatus::OK, $psql->getStatus());
-        self::assertEquals($GLOBALS['CONFIG']['db']['core']['mssql']['admin']['database'], $psql->getDatabase());
-        self::assertEquals($GLOBALS['CONFIG']['db']['core']['mssql']['admin']['host'], $psql->getHost());
-        self::assertEquals((int) $GLOBALS['CONFIG']['db']['core']['mssql']['admin']['port'], $psql->getPort());
-        self::assertInstanceOf('\phpOMS\DataStorage\Database\Query\Grammar\SqlServerGrammar', $psql->getGrammar());
+        $ssql = new SqlServerConnection($GLOBALS['CONFIG']['db']['core']['mssql']['admin']);
+        self::assertEquals(DatabaseStatus::OK, $ssql->getStatus());
+        self::assertEquals($GLOBALS['CONFIG']['db']['core']['mssql']['admin']['database'], $ssql->getDatabase());
+        self::assertEquals($GLOBALS['CONFIG']['db']['core']['mssql']['admin']['host'], $ssql->getHost());
+        self::assertEquals((int) $GLOBALS['CONFIG']['db']['core']['mssql']['admin']['port'], $ssql->getPort());
+        self::assertInstanceOf('\phpOMS\DataStorage\Database\Query\Grammar\SqlServerGrammar', $ssql->getGrammar());
     }
 
     public function testInvalidDatabaseType() : void
@@ -47,7 +47,7 @@ class SqlServerConnectionTest extends \PHPUnit\Framework\TestCase
 
         $db = $GLOBALS['CONFIG']['db']['core']['mssql']['admin'];
         unset($db['db']);
-        $psql = new SqlServerConnection($db);
+        $ssql = new SqlServerConnection($db);
     }
 
     public function testInvalidHost() : void
@@ -56,7 +56,7 @@ class SqlServerConnectionTest extends \PHPUnit\Framework\TestCase
 
         $db = $GLOBALS['CONFIG']['db']['core']['mssql']['admin'];
         unset($db['host']);
-        $psql = new SqlServerConnection($db);
+        $ssql = new SqlServerConnection($db);
     }
 
     public function testInvalidPort() : void
@@ -65,7 +65,7 @@ class SqlServerConnectionTest extends \PHPUnit\Framework\TestCase
 
         $db = $GLOBALS['CONFIG']['db']['core']['mssql']['admin'];
         unset($db['port']);
-        $psql = new SqlServerConnection($db);
+        $ssql = new SqlServerConnection($db);
     }
 
     public function testInvalidDatabase() : void
@@ -74,7 +74,7 @@ class SqlServerConnectionTest extends \PHPUnit\Framework\TestCase
 
         $db = $GLOBALS['CONFIG']['db']['core']['mssql']['admin'];
         unset($db['database']);
-        $psql = new SqlServerConnection($db);
+        $ssql = new SqlServerConnection($db);
     }
 
     public function testInvalidLogin() : void
@@ -83,7 +83,7 @@ class SqlServerConnectionTest extends \PHPUnit\Framework\TestCase
 
         $db = $GLOBALS['CONFIG']['db']['core']['mssql']['admin'];
         unset($db['login']);
-        $psql = new SqlServerConnection($db);
+        $ssql = new SqlServerConnection($db);
     }
 
     public function testInvalidPassword() : void
@@ -92,7 +92,7 @@ class SqlServerConnectionTest extends \PHPUnit\Framework\TestCase
 
         $db = $GLOBALS['CONFIG']['db']['core']['mssql']['admin'];
         unset($db['password']);
-        $psql = new SqlServerConnection($db);
+        $ssql = new SqlServerConnection($db);
     }
 
     public function testInvalidDatabaseTypeName() : void
@@ -101,7 +101,7 @@ class SqlServerConnectionTest extends \PHPUnit\Framework\TestCase
 
         $db       = $GLOBALS['CONFIG']['db']['core']['mssql']['admin'];
         $db['db'] = 'invalid';
-        $psql = new SqlServerConnection($db);
+        $ssql = new SqlServerConnection($db);
     }
 
     public function testInvalidDatabaseName() : void
@@ -111,6 +111,6 @@ class SqlServerConnectionTest extends \PHPUnit\Framework\TestCase
         $db = $GLOBALS['CONFIG']['db']['core']['mssql']['admin'];
         $db['database'] = 'invalid';
 
-        $mysql = new SqlServerConnection($db);
+        $ssql = new SqlServerConnection($db);
     }
 }
