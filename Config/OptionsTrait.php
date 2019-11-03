@@ -54,6 +54,22 @@ trait OptionsTrait
     /**
      * {@inheritdoc}
      */
+    public function getOptions(array $key)
+    {
+        $options = [];
+
+        foreach ($key as $value) {
+            if (isset($this->options[$value])) {
+                $options[$value] = $this->options[$value];
+            }
+        }
+
+        return $options;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
     public function setOption($key, $value, bool $overwrite = true) : bool
     {
         if ($overwrite || !isset($this->options[$key])) {

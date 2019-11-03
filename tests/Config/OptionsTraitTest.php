@@ -115,4 +115,19 @@ class OptionsTraitTest extends \PHPUnit\Framework\TestCase
         self::assertEquals(2, $class->getOption('b'));
         self::assertEquals(3, $class->getOption('c'));
     }
+
+    /**
+     * @testdox Multiple options can be retrieved
+     */
+    public function testGetMultiple() : void
+    {
+        $class = new class() {
+            use OptionsTrait;
+        };
+
+        self::assertTrue($class->setOption('a', 'value1'));
+        self::assertTrue($class->setOption('b', 'value2'));
+        self::assertTrue($class->setOption('c', 'value3'));
+        self::assertEquals(['a' => 'value1', 'c' => 'value3'], $class->getOptions(['a', 'c']));
+    }
 }

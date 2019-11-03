@@ -85,19 +85,27 @@ abstract class SettingsAbstract implements OptionsInterface
      */
     public function get($columns)
     {
-        try {
-            if (!\is_array($columns)) {
-                $keys = [$columns];
-            } else {
-                $keys = [];
-                foreach ($columns as $key) {
-                    $keys[] = \is_string($key) ? (int) \preg_replace('/[^0-9.]/', '', $key) : $key;
-                }
+        $options = [];
+        if (!\is_array($columns)) {
+            $keys = [$columns];
+        } else {
+            $keys = [];
+            foreach ($columns as $key) {
+                $keys[] = \is_string($key) ? (int) \preg_replace('/[^0-9.]/', '', $key) : $key;
             }
+        }
 
-            $options = [];
-            $query   = new Builder($this->connection);
-            $sql     = $query->select(...static::$columns)
+        foreach ($keys as $key) {
+            if ($this->exists($key)) {
+                $options[$key] = $this->getOption($key);
+                unset($keys[$key]);
+            }
+        }
+
+        try {
+            $dbOptions = [];
+            $query     = new Builder($this->connection);
+            $sql       = $query->select(...static::$columns)
                 ->from($this->connection->prefix . static::$table)
                 ->where(static::$columns[0], 'in', $keys)
                 ->toSql();
@@ -105,20 +113,19 @@ abstract class SettingsAbstract implements OptionsInterface
             $sth = $this->connection->con->prepare($sql);
             $sth->execute();
 
-            $options = $sth->fetchAll(\PDO::FETCH_KEY_PAIR);
+            $dbOptions = $sth->fetchAll(\PDO::FETCH_KEY_PAIR);
+            $options  += $dbOptions;
 
-            if ($options === false) {
-                return []; // @codeCoverageIgnore
+            if ($dbOptions === false) {
+                return \count($options) > 1 ? $options : \reset($options); // @codeCoverageIgnore
             }
 
-            $this->setOptions($options);
-
-            return \count($options) > 1 ? $options : \reset($options);
-        } catch (\PDOException $e) {
-            // @codeCoverageIgnoreStart
-            echo $e->getMessage();
-            // @codeCoverageIgnoreEnd
+            $this->setOptions($dbOptions);
+        } catch (\Throwable $e) {
+            throw $e;
         }
+
+        return \count($options) > 1 ? $options : \reset($options);
     }
 
     /**
@@ -138,7 +145,7 @@ abstract class SettingsAbstract implements OptionsInterface
         if ($store) {
             $this->connection->con->beginTransaction();
 
-            foreach ($this->options as $key => $option) {
+            foreach ($options as $key => $option) {
                 if (\is_string($key)) {
                     $key = (int) \preg_replace('/[^0-9.]/', '', $key);
                 }
@@ -155,5 +162,34 @@ abstract class SettingsAbstract implements OptionsInterface
 
             $this->connection->con->commit();
         }
+    }
+
+    /**
+     * Save options.
+     *
+     * @return void
+     *
+     * @since 1.0.0
+     */
+    public function save() : void
+    {
+        $this->connection->con->beginTransaction();
+
+        foreach ($this->options as $key => $option) {
+            if (\is_string($key)) {
+                $key = (int) \preg_replace('/[^0-9.]/', '', $key);
+            }
+
+            $query = new Builder($this->connection);
+            $sql   = $query->update($this->connection->prefix . static::$table)
+                ->set([static::$columns[1] => $option])
+                ->where(static::$columns[0], '=', $key)
+                ->toSql();
+
+            $sth = $this->connection->con->prepare($sql);
+            $sth->execute();
+        }
+
+        $this->connection->con->commit();
     }
 }
