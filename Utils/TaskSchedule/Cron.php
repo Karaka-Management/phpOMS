@@ -52,7 +52,7 @@ class Cron extends SchedulerAbstract
                 if ($line[0] !== '#' && \stripos($line, 'name="' . $task->getId()) !== false) {
                     $new .= $task->__toString() . "\n";
                 } else {
-                    $new .= $line . "\n";
+                    $new .= $line;
                 }
 
                 $line = \fgets($fp);
@@ -92,7 +92,7 @@ class Cron extends SchedulerAbstract
                     continue;
                 }
 
-                $new .= $line . "\n";
+                $new .= $line;
                 $line = \fgets($fp);
             }
 

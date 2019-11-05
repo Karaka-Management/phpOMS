@@ -26,20 +26,32 @@ class Interval implements \Serializable
 {
 
     /**
-     * Start.
+     * Start of the task.
      *
      * @var   \DateTime
      * @since 1.0.0
      */
-    private $start;
+    private \DateTime $start;
 
     /**
-     * End.
+     * End of the task.
      *
      * @var   null|\DateTime
      * @since 1.0.0
      */
-    private $end = null;
+    private ?\DateTime $end = null;
+
+    /**
+     * Max runtime duration
+     *
+     * After this duration in seconds the task/job is stopped.
+     *
+     * 0 = infinite
+     *
+     * @var   int
+     * @since 1.0.0
+     */
+    private int $maxDuration = 0;
 
     /**
      * Minute.
@@ -92,122 +104,18 @@ class Interval implements \Serializable
     /**
      * Constructor.
      *
-     * @param string $interval Interval to parse
+     * @param null|\DateTime $start    Start of the job/task
+     * @param null|string    $interval Interval to unserialize (internal serialization not a cronjob string etc.)
      *
      * @since 1.0.0
      */
-    public function __construct(string $interval = null)
+    public function __construct(\DateTime $start = null, string $interval = null)
     {
-        $this->start = new \DateTime('now');
+        $this->start = $start ?? new \DateTime('now');
 
         if ($interval !== null) {
             $this->unserialize($interval);
         }
-    }
-
-    /**
-     * Unserialize.
-     *
-     * @param string $serialized String to unserialize
-     *
-     * @return void
-     *
-     * @since 1.0.0
-     */
-    public function unserialize($serialized) : void
-    {
-        $elements = \explode(' ', \trim($serialized));
-
-        $this->minute     = $this->parseMinute($elements[0]);
-        $this->hour       = $this->parseHour($elements[1]);
-        $this->dayOfMonth = $this->parseDayOfMonth($elements[2]);
-        $this->month      = $this->parseMonth($elements[3]);
-        $this->dayOfWeek  = $this->parseDayOfWeek($elements[4]);
-        $this->year       = $this->parseYear($elements[5]);
-    }
-
-    /**
-     * Parse element.
-     *
-     * @param string $minute Minute
-     *
-     * @return array
-     *
-     * @since 1.0.0
-     */
-    private function parseMinute(string $minute) : array
-    {
-        return [$minute];
-    }
-
-    /**
-     * Parse element.
-     *
-     * @param string $hour Hour
-     *
-     * @return array
-     *
-     * @since 1.0.0
-     */
-    private function parseHour(string $hour) : array
-    {
-        return [$hour];
-    }
-
-    /**
-     * Parse element.
-     *
-     * @param string $dayOfMonth Day of month
-     *
-     * @return array
-     *
-     * @since 1.0.0
-     */
-    private function parseDayOfMonth(string $dayOfMonth) : array
-    {
-        return [$dayOfMonth];
-    }
-
-    /**
-     * Parse element.
-     *
-     * @param string $month Month
-     *
-     * @return array
-     *
-     * @since 1.0.0
-     */
-    private function parseMonth(string $month) : array
-    {
-        return [$month];
-    }
-
-    /**
-     * Parse element.
-     *
-     * @param string $dayOfWeek Day of week
-     *
-     * @return array
-     *
-     * @since 1.0.0
-     */
-    private function parseDayOfWeek(string $dayOfWeek) : array
-    {
-        return [$dayOfWeek];
-    }
-
-    /**
-     * Parse element.
-     *
-     * @param string $year Year
-     *
-     * @return array
-     *
-     * @since 1.0.0
-     */
-    private function parseYear(string $year) : array
-    {
-        return [$year];
     }
 
     /**
@@ -263,6 +171,36 @@ class Interval implements \Serializable
     }
 
     /**
+     * Get max runtime duration
+     *
+     * After this duration a task/job is cancelled
+     *
+     * @return int
+     *
+     * @since 1.0.0
+     */
+    public function getMaxDuration() : int
+    {
+        return $this->maxDuration;
+    }
+
+    /**
+     * Set max runtime duration
+     *
+     * After this duration a task/job is cancelled
+     *
+     * @param int $duration Max duration in seconds
+     *
+     * @return void
+     *
+     * @since 1.0.0
+     */
+    public function setMaxDuration(int $duration) : void
+    {
+        $this->maxDuration = $duration;
+    }
+
+    /**
      * Get minute.
      *
      * @return array
@@ -275,56 +213,44 @@ class Interval implements \Serializable
     }
 
     /**
-     * Set mintue.
+     * Set minute.
      *
-     * @param array $minute Minute
-     * @param int   $step   Step
-     * @param bool  $any    Any
+     * @param int $index Index of the value to change
+     * @param int $start Start
+     * @param int $end   End
+     * @param int $step  Step
      *
      * @return void
      *
-     * @throws \Exception
-     *
      * @since 1.0.0
      */
-    public function setMinute(array $minute, int $step = 0, bool $any = false) : void
+    public function setMinute(int $index, int $start = null, int $end = null, int $step = null) : void
     {
-        if ($this->validateTime($minute, $step, 0, 59)) {
-            $this->hour = [
-                'minutes' => $minute,
-                'step'    => $step,
-                'any'     => $any,
-            ];
-        } else {
-            throw new \Exception('Invalid format.');
-        }
+        $this->minute[$index] = [
+            'start' => $start,
+            'end'   => $end,
+            'step'  => $step,
+        ];
     }
 
     /**
-     * Validate time.
+     * Add minute.
      *
-     * @param array $times   Times
-     * @param int   $step    Step
-     * @param int   $lowest  Lowest limet
-     * @param int   $highest Highest limet
+     * @param int $start Start
+     * @param int $end   End
+     * @param int $step  Step
      *
-     * @return bool
+     * @return void
      *
      * @since 1.0.0
      */
-    private function validateTime(array $times, int $step, int $lowest, int $highest) : bool
+    public function addMinute(int $start = null, int $end = null, int $step = null) : void
     {
-        foreach ($times as $minute) {
-            if ($minute > $highest || $minute < $lowest) {
-                return false;
-            }
-        }
-
-        if ($step > $highest || $step < $lowest) {
-            return false;
-        }
-
-        return true;
+        $this->minute[] = [
+            'start' => $start,
+            'end'   => $end,
+            'step'  => $step,
+        ];
     }
 
     /**
@@ -342,27 +268,42 @@ class Interval implements \Serializable
     /**
      * Set hour.
      *
-     * @param array $hour Hour
-     * @param int   $step Step
-     * @param bool  $any  Any
+     * @param int $index Index of the value to change
+     * @param int $start Start
+     * @param int $end   End
+     * @param int $step  Step
      *
      * @return void
      *
-     * @throws \Exception
+     * @since 1.0.0
+     */
+    public function setHour(int $index, int $start = null, int $end = null, int $step = null) : void
+    {
+        $this->hour[$index] = [
+            'start' => $start,
+            'end'   => $end,
+            'step'  => $step,
+        ];
+    }
+
+    /**
+     * Add hour.
+     *
+     * @param int $start Start
+     * @param int $end   End
+     * @param int $step  Step
+     *
+     * @return void
      *
      * @since 1.0.0
      */
-    public function setHour(array $hour, int $step = 0, bool $any = false) : void
+    public function addHour(int $start = null, int $end = null, int $step = null) : void
     {
-        if ($this->validateTime($hour, $step, 0, 23)) {
-            $this->hour = [
-                'hours' => $hour,
-                'step'  => $step,
-                'any'   => $any,
-            ];
-        } else {
-            throw new \Exception('Invalid format.');
-        }
+        $this->hour[] = [
+            'start' => $start,
+            'end'   => $end,
+            'step'  => $step,
+        ];
     }
 
     /**
@@ -378,61 +319,44 @@ class Interval implements \Serializable
     }
 
     /**
-     * Set day of month.
+     * Set day of the month.
      *
-     * @param array $dayOfMonth Day of month
-     * @param int   $step       Step
-     * @param bool  $any        Any
-     * @param bool  $last       Last
-     * @param int   $nearest    Nearest day
+     * @param int $index Index of the value to change
+     * @param int $start Start
+     * @param int $end   End
+     * @param int $step  Step
      *
      * @return void
      *
-     * @throws \Exception
-     *
      * @since 1.0.0
      */
-    public function setDayOfMonth(array $dayOfMonth, int $step = 0, bool $any = false, bool $last = false, int $nearest = 0) : void
+    public function setDayOfMonth(int $index, int $start = null, int $end = null, int $step = null) : void
     {
-        if ($this->validateDayOfMonth($arr = [
-            'dayOfMonth' => $dayOfMonth,
-            'step'       => $step,
-            'any'        => $any,
-            'last'       => $last,
-            'nearest'    => $nearest,
-        ])
-        ) {
-            $this->hour = $arr;
-        } else {
-            throw new \Exception('Invalid format.');
-        }
+        $this->dayOfMonth[$index] = [
+            'start' => $start,
+            'end'   => $end,
+            'step'  => $step,
+        ];
     }
 
     /**
-     * Validate day of month.
+     * Add day of the month.
      *
-     * @param array $array Element to validate
+     * @param int $start Start
+     * @param int $end   End
+     * @param int $step  Step
      *
-     * @return bool
+     * @return void
      *
      * @since 1.0.0
      */
-    private function validateDayOfMonth(array $array) : bool
+    public function addDayOfMonth(int $start = null, int $end = null, int $step = null) : void
     {
-        foreach ($array['dayOfMonth'] as $dayOfMonth) {
-            if ($dayOfMonth > 31 || $dayOfMonth < 1) {
-                return false;
-            }
-        }
-
-        if ($array['step'] > 31 || $array['step'] < 1) {
-            return false;
-        }
-        if ($array['nearest'] > 31 || $array['nearest'] < 1) {
-            return false;
-        }
-
-        return true;
+        $this->dayOfMonth[] = [
+            'start' => $start,
+            'end'   => $end,
+            'step'  => $step,
+        ];
     }
 
     /**
@@ -448,56 +372,44 @@ class Interval implements \Serializable
     }
 
     /**
-     * Set day of week.
+     * Set day of the week.
      *
-     * @param array $dayOfWeek Day of week
-     * @param int   $step      Step
-     * @param bool  $any       Any
-     * @param bool  $last      Last
+     * @param int $index Index of the value to change
+     * @param int $start Start
+     * @param int $end   End
+     * @param int $step  Step
      *
      * @return void
      *
-     * @throws \Exception
-     *
      * @since 1.0.0
      */
-    public function setDayOfWeek(array $dayOfWeek, int $step = 0, bool $any = false, bool $last = false) : void
+    public function setDayOfWeek(int $index, int $start = null, int $end = null, int $step = null) : void
     {
-        if ($this->validateDayOfWeek($arr = [
-            'dayOfWeek' => $dayOfWeek,
-            'step'      => $step,
-            'any'       => $any,
-            'last'      => $last,
-        ])
-        ) {
-            $this->hour = $arr;
-        } else {
-            throw new \Exception('Invalid format.');
-        }
+        $this->dayOfWeek[$index] = [
+            'start' => $start,
+            'end'   => $end,
+            'step'  => $step,
+        ];
     }
 
     /**
-     * Validate day of week.
+     * Add day of the week.
      *
-     * @param array $array Element to validate
+     * @param int $start Start
+     * @param int $end   End
+     * @param int $step  Step
      *
-     * @return bool
+     * @return void
      *
      * @since 1.0.0
      */
-    private function validateDayOfWeek(array $array) : bool
+    public function addDayOfWeek(int $start = null, int $end = null, int $step = null) : void
     {
-        foreach ($array['dayOfWeek'] as $dayOfWeek) {
-            if ($dayOfWeek > 7 || $dayOfWeek < 1) {
-                return false;
-            }
-        }
-
-        if ($array['step'] > 5 || $array['step'] < 1) {
-            return false;
-        }
-
-        return true;
+        $this->dayOfWeek[] = [
+            'start' => $start,
+            'end'   => $end,
+            'step'  => $step,
+        ];
     }
 
     /**
@@ -515,27 +427,42 @@ class Interval implements \Serializable
     /**
      * Set month.
      *
-     * @param array $month Month
-     * @param int   $step  Step
-     * @param bool  $any   Any
+     * @param int $index Index of the value to change
+     * @param int $start Start
+     * @param int $end   End
+     * @param int $step  Step
      *
      * @return void
      *
-     * @throws \Exception
+     * @since 1.0.0
+     */
+    public function setMonth(int $index, int $start = null, int $end = null, int $step = null) : void
+    {
+        $this->month[$index] = [
+            'start' => $start,
+            'end'   => $end,
+            'step'  => $step,
+        ];
+    }
+
+    /**
+     * Add month.
+     *
+     * @param int $start Start
+     * @param int $end   End
+     * @param int $step  Step
+     *
+     * @return void
      *
      * @since 1.0.0
      */
-    public function setMonth(array $month, int $step = 0, bool $any = false) : void
+    public function addMonth(int $start = null, int $end = null, int $step = null) : void
     {
-        if ($this->validateTime($month, $step, 1, 12)) {
-            $this->month = [
-                'month' => $month,
-                'step'  => $step,
-                'any'   => $any,
-            ];
-        } else {
-            throw new \Exception('Invalid format.');
-        }
+        $this->month[] = [
+            'start' => $start,
+            'end'   => $end,
+            'step'  => $step,
+        ];
     }
 
     /**
@@ -551,44 +478,44 @@ class Interval implements \Serializable
     }
 
     /**
-     * Set yaer.
+     * Set year.
      *
-     * @param array $year Year
-     * @param int   $step Step
-     * @param bool  $any  Any
+     * @param int $index Index of the value to change
+     * @param int $start Start
+     * @param int $end   End
+     * @param int $step  Step
      *
      * @return void
      *
-     * @throws \Exception
-     *
      * @since 1.0.0
      */
-    public function setYear(array $year, int $step = 0, bool $any = false) : void
+    public function setYear(int $index, int $start = null, int $end = null, int $step = null) : void
     {
-        if ($this->validateYear($arr = [
-            'year' => $year,
-            'step' => $step,
-            'any'  => $any,
-        ])
-        ) {
-            $this->hour = $arr;
-        } else {
-            throw new \Exception('Invalid format.');
-        }
+        $this->year[$index] = [
+            'start' => $start,
+            'end'   => $end,
+            'step'  => $step,
+        ];
     }
 
     /**
-     * Validate year.
+     * Add year.
      *
-     * @param array $array Element to validate
+     * @param int $start Start
+     * @param int $end   End
+     * @param int $step  Step
      *
-     * @return bool
+     * @return void
      *
      * @since 1.0.0
      */
-    private function validateYear(array $array) : bool
+    public function addYear(int $start = null, int $end = null, int $step = null) : void
     {
-        return true;
+        $this->year[] = [
+            'start' => $start,
+            'end'   => $end,
+            'step'  => $step,
+        ];
     }
 
     /**
@@ -600,93 +527,38 @@ class Interval implements \Serializable
      */
     public function serialize() : string
     {
-        $minute     = $this->serializeTime($this->minute['minutes'], $this->minute['step']);
-        $hour       = $this->serializeTime($this->hour['hours'], $this->hour['step']);
-        $dayOfMonth = $this->serializeDayOfMonth();
-        $month      = $this->serializeTime($this->month['month'], $this->month['step']);
-        $dayOfWeek  = $this->serializeDayOfWeek();
-        $year       = $this->serializeTime($this->year['year'], $this->year['step']);
-
-        return $minute . ' ' . $hour . ' ' . $dayOfMonth . ' ' . $month . ' ' . $dayOfWeek . ' ' . $year;
+        return \json_encode([
+            'start'       => $this->start->format('Y-m-d H:i:s'),
+            'end'         => $this->end === null ? null : $this->end->format('Y-m-d H:i:s'),
+            'maxDuration' => $this->maxDuration,
+            'minute'      => $this->minute,
+            'hour'        => $this->hour,
+            'dayOfMonth'  => $this->dayOfMonth,
+            'dayOfWeek'   => $this->dayOfWeek,
+            'year'        => $this->year
+        ]);
     }
 
     /**
-     * Create string representation.
+     * Unserialize.
      *
-     * @param array $time Time
-     * @param int   $step Step for repetition
+     * @param string $serialized String to unserialize
      *
-     * @return string
-     *
-     * @since 1.0.0
-     */
-    public function serializeTime($time, $step) : string
-    {
-        if (($count = \count($time)) > 0) {
-            $serialize = \implode(',', $time);
-        } else {
-            $serialize = '*';
-            $count     = 1;
-        }
-
-        if ($count === 0 && $step !== 0) {
-            $serialize .= '/' . $step;
-        }
-
-        return $serialize;
-    }
-
-    /**
-     * Create string representation.
-     *
-     * @return string
+     * @return void
      *
      * @since 1.0.0
      */
-    public function serializeDayOfMonth() : string
+    public function unserialize($serialized)
     {
-        if (($count = \count($this->dayOfMonth['dayOfMonth'])) > 0) {
-            $serialize = \implode(',', $this->dayOfMonth['dayOfMonth']);
-        } else {
-            $serialize = '*';
-            $count     = 1;
-        }
+        $data = \json_decode($serialized, true);
 
-        if ($count === 0 && $this->dayOfMonth['step'] !== 0) {
-            $serialize .= '/' . $this->dayOfMonth['step'];
-        }
-
-        if ($this->dayOfMonth['last']) {
-            $serialize .= 'L';
-        }
-
-        return $serialize;
-    }
-
-    /**
-     * Create string representation.
-     *
-     * @return string
-     *
-     * @since 1.0.0
-     */
-    public function serializeDayOfWeek() : string
-    {
-        if (($count = \count($this->dayOfWeek['dayOfWeek'])) > 0) {
-            $serialize = \implode(',', $this->dayOfWeek['dayOfWeek']);
-        } else {
-            $serialize = '*';
-            $count     = 1;
-        }
-
-        if ($count === 0 && $this->dayOfWeek['step'] !== 0) {
-            $serialize .= '#' . $this->dayOfWeek['step'];
-        }
-
-        if ($this->dayOfWeek['last']) {
-            $serialize .= 'L';
-        }
-
-        return $serialize;
+        $this->start       = new \DateTime($data['start']);
+        $this->end         = $data['end'] === null ? null : new \DateTime($data['end']);
+        $this->maxDuration = $data['maxDuration'];
+        $this->minute      = $data['minute'];
+        $this->hour        = $data['hour'];
+        $this->dayOfMonth  = $data['dayOfMonth'];
+        $this->dayOfWeek   = $data['dayOfWeek'];
+        $this->year        = $data['year'];
     }
 }

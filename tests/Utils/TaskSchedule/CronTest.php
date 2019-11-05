@@ -22,6 +22,7 @@ use phpOMS\Utils\TaskSchedule\CronJob;
  */
 class CronTest extends \PHPUnit\Framework\TestCase
 {
+    // * * * * * echo "test" > __DIR__ . '/cronjob.log' // evaluate dir
     public function testDefault() : void
     {
         self::assertInstanceOf('\phpOMS\Utils\TaskSchedule\SchedulerAbstract', new Cron());
@@ -29,30 +30,35 @@ class CronTest extends \PHPUnit\Framework\TestCase
 
     public function testCRUD() : void
     {
-        if (\stripos(\PHP_OS, 'LINUX') !== false && \stripos(__DIR__, '/travis/') === false) {
-            self::assertTrue(Cron::guessBin());
-            $cron = new Cron();
-
-            self::assertEquals([], $cron->getAllByName('testCronJob', false));
-
-            $job = new CronJob('testCronJob', 'testFile', '0 0 1 1 *');
-            $cron->create($job);
-
-            self::assertTrue(!empty($cron->getAllByName('testCronJob', false)));
-            if (!empty($cron->getAllByName('testCronJob', false))) {
-                self::assertEquals('testFile', $cron->getAllByName('testCronJob', false)[0]->getCommand());
-            }
-
-            $job->setCommand('testFile2');
-            $cron->update($job);
-
-            self::assertTrue(!empty($cron->getAllByName('testCronJob', false)));
-            if (!empty($cron->getAllByName('testCronJob', false))) {
-                self::assertEquals('testFile2', $cron->getAllByName('testCronJob', false)[0]->getCommand());
-            }
-
-            $cron->delete($job);
-            self::assertEquals([], $cron->getAllByName('testCronJob', false));
+        if (\stripos(\PHP_OS, 'LINUX') === false) {
+            $this->markTestSkipped(
+              'The OS is not linux.'
+            );
         }
+
+
+        self::assertTrue(Cron::guessBin());
+        $cron = new Cron();
+
+        self::assertEquals([], $cron->getAllByName('testCronJob', false));
+
+        $job = new CronJob('testCronJob', 'testFile', '0 0 1 1 *');
+        $cron->create($job);
+
+        self::assertTrue(!empty($cron->getAllByName('testCronJob', false)));
+        if (!empty($cron->getAllByName('testCronJob', false))) {
+            self::assertEquals('testFile', $cron->getAllByName('testCronJob', false)[0]->getCommand());
+        }
+
+        $job->setCommand('testFile2');
+        $cron->update($job);
+
+        self::assertTrue(!empty($cron->getAllByName('testCronJob', false)));
+        if (!empty($cron->getAllByName('testCronJob', false))) {
+            self::assertEquals('testFile2', $cron->getAllByName('testCronJob', false)[0]->getCommand());
+        }
+
+        $cron->delete($job);
+        self::assertEquals([], $cron->getAllByName('testCronJob', false));
     }
 }
