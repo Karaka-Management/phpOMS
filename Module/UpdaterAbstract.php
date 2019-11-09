@@ -36,6 +36,7 @@ abstract class UpdaterAbstract
      * @return void
      *
      * @since 1.0.0
+     * @codeCoverageIgnore
      */
     public static function update(DatabasePool $dbPool, InfoManager $info) : void
     {

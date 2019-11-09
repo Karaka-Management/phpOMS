@@ -17,6 +17,7 @@ namespace phpOMS\tests\Module;
 require_once __DIR__ . '/../Autoloader.php';
 
 use phpOMS\Module\PackageManager;
+use phpOMS\System\File\Ftp\File;
 use phpOMS\System\File\Local\Directory;
 use phpOMS\Utils\IO\Zip\Zip;
 
@@ -81,6 +82,12 @@ class PackageManagerTest extends \PHPUnit\Framework\TestCase
 
     public function testPackageValidInstall() : void
     {
+        if (\file_exists(__DIR__ . '/dummyModule')) {
+            Directory::delete(__DIR__ . '/dummyModule');
+        }
+
+        Directory::copy(__DIR__ . '/testModule', __DIR__ . '/dummyModule');
+
         $package = new PackageManager(
             __DIR__ . '/testPackage.zip',
             __DIR__ . 'dummyModule/',
@@ -93,6 +100,10 @@ class PackageManagerTest extends \PHPUnit\Framework\TestCase
 
         $package->load();
         $package->install();
+
+        if (\file_exists(__DIR__ . '/dummyModule')) {
+            Directory::delete(__DIR__ . '/dummyModule');
+        }
     }
 
     public function testNotExtractedLoad() : void
