@@ -18,6 +18,8 @@ use phpOMS\System\File\Local\Directory;
 use phpOMS\System\File\Local\File;
 use phpOMS\System\File\Local\LocalStorage;
 use phpOMS\System\File\PathException;
+use phpOMS\System\OperatingSystem;
+use phpOMS\System\SystemType;
 use phpOMS\Utils\IO\Zip\Zip;
 use phpOMS\Utils\StringUtils;
 
@@ -85,7 +87,7 @@ final class PackageManager
     public function __construct(string $path, string $basePath, string $publicKey)
     {
         $this->path      = $path;
-        $this->basePath  = $basePath; // todo: maybe remove from here because stupid
+        $this->basePath  = \rtrim($basePath, '\\/');
         $this->publicKey = $publicKey;
     }
 
@@ -180,45 +182,78 @@ final class PackageManager
             throw new \Exception();
         }
 
-        foreach ($this->info as $key => $components) {
-            if (\function_exists($this->{$key})) {
-                $this->{$key}($components);
+        foreach ($this->info['update'] as $steps) {
+            foreach ($steps as $key => $components) {
+                if (\function_exists($this->{$key})) {
+                    $this->{$key}($components);
+                }
             }
+        }
+    }
+
+    /**
+     * Download files
+     *
+     * @param array $components Component data
+     *
+     * @return void
+     *
+     * @since 1.0.0
+     */
+    private function download(array $components) : void
+    {
+        foreach ($components as $from => $to) {
+            $fp = \fopen($this->basePath . '/' . $to, 'w+');
+            $ch = \curl_init(\str_replace(' ','%20', $from));
+
+            \curl_setopt($ch, \CURLOPT_TIMEOUT, 50);
+            \curl_setopt($ch, \CURLOPT_FILE, $fp);
+            \curl_setopt($ch, \CURLOPT_FOLLOWLOCATION, true);
+
+            \curl_exec($ch);
+
+            \curl_close($ch);
+            \fclose($fp);
         }
     }
 
     /**
      * Move files
      *
-     * @param mixed $components Component data
+     * @param array $components Component data
      *
      * @return void
      *
      * @since 1.0.0
      */
-    private function move($components) : void
+    private function move(array $components) : void
     {
-        foreach ($components as $component) {
-            LocalStorage::move($this->basePath . '/' . $component['from'], $this->basePath . '/' . $component['to'], true);
+        foreach ($components as $from => $to) {
+            $fromPath = StringUtils::startsWith($from, '/Package/') ? $this->extractPath : $this->basePath;
+            $toPath   = StringUtils::startsWith($to, '/Package/') ? $this->extractPath : $this->basePath;
+
+            LocalStorage::move($fromPath . '/' . $from, $toPath . '/' . $to, true);
         }
     }
 
     /**
      * Copy files
      *
-     * @param mixed $components Component data
+     * @param array $components Component data
      *
      * @return void
      *
      * @since 1.0.0
      */
-    private function copy($components) : void
+    private function copy(array $components) : void
     {
-        foreach ($components as $component) {
-            if (StringUtils::startsWith($component['from'], 'Package/')) {
-                LocalStorage::copy($this->path . '/' . $component['from'], $this->basePath . '/' . $component['to'], true);
-            } else {
-                LocalStorage::copy($this->basePath . '/' . $component['from'], $this->basePath . '/' . $component['to'], true);
+        foreach ($components as $from => $tos) {
+            $fromPath = StringUtils::startsWith($from, '/Package/') ? $this->extractPath : $this->basePath;
+
+            foreach ($tos as $to) {
+                $toPath = StringUtils::startsWith($to, '/Package/') ? $this->extractPath : $this->basePath;
+
+                LocalStorage::copy($fromPath . '/' . $from, $toPath . '/' . $to, true);
             }
         }
     }
@@ -226,32 +261,46 @@ final class PackageManager
     /**
      * Delete files
      *
-     * @param mixed $components Component data
+     * @param array $components Component data
      *
      * @return void
      *
      * @since 1.0.0
      */
-    private function delete($components) : void
+    private function delete(array $components) : void
     {
         foreach ($components as $component) {
-            LocalStorage::delete($this->basePath . '/' . $component);
+            $path  = StringUtils::startsWith($component, '/Package/') ? $this->extractPath : $this->basePath;
+            LocalStorage::delete($path . '/' . $component);
         }
     }
 
     /**
      * Execute commands
      *
-     * @param mixed $components Component data
+     * @param array $components Component data
      *
      * @return void
      *
      * @since 1.0.0
      */
-    private function execute($components) : void
+    private function cmd(array $components) : void
     {
         foreach ($components as $component) {
-            include $this->basePath . '/' . $component;
+            $pipes = [];
+            $cmd   = '';
+            $path  = StringUtils::startsWith($component, '/Package/') ? $this->extractPath : $this->basePath;
+            if (StringUtils::endsWith($component, '.php')) {
+                $cmd = 'php ' . $path . '/' . $component;
+            } elseif (StringUtils::endsWith($component, '.sh') && OperatingSystem::getSystem() === SystemType::LINUX) {
+                $cmd = '.' . $path . '/' . $component;
+            } elseif (StringUtils::endsWith($component, '.batch') && OperatingSystem::getSystem() === SystemType::WIN) {
+                $cmd = '.' . $path . '/' . $component;
+            }
+
+            if ($cmd !== '') {
+                \proc_open($cmd, [1 => ['pipe', 'w'], 2 => ['pipe', 'w']], $pipes, __DIR__);
+            }
         }
     }
 

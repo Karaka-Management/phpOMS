@@ -83,7 +83,7 @@ class PackageManagerTest extends \PHPUnit\Framework\TestCase
     {
         $package = new PackageManager(
             __DIR__ . '/testPackage.zip',
-            '/invalid',
+            __DIR__ . 'dummyModule/',
             \file_get_contents(__DIR__ . '/public.key')
         );
 
@@ -92,6 +92,7 @@ class PackageManagerTest extends \PHPUnit\Framework\TestCase
         self::assertTrue($package->isValid());
 
         $package->load();
+        $package->install();
     }
 
     public function testNotExtractedLoad() : void

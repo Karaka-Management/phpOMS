@@ -2,24 +2,27 @@
     "name": "",
     "type": "Modules",
     "version": "1.0.1",
-    "update": {
-        "add": {
-            "https://....": "..."
-        },
-        "replace": {
-            "https://....": ""
-        },
-        "move": {
-            "https://....": ""
-        },
-        "remove": [
-            "...."
-        ],
-        "run": [
-            "...."
-        ],
-        "cmd": [
-            "...."
-        ]
-    }
+    "update": [
+        {
+            "download": {
+                "https://raw.githubusercontent.com/Orange-Management/Orange-Management/develop/README.md": "README.md"
+            },
+            "move": {
+                "toMove": "moveHere"
+            },
+            "copy": {
+                "toCopy": [
+                    "copyHere"
+                ]
+            },
+            "delete": [
+                "Remove"
+            ],
+            "cmd": [
+                "/Package/run.php",
+                "/Package/run.sh",
+                "/Package/run.batch"
+            ]
+        }
+    ]
 }
