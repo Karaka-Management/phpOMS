@@ -103,5 +103,11 @@ class ServerTest extends \PHPUnit\Framework\TestCase
         self::assertStringContainsString('Sending: handshake', $client);
         self::assertStringContainsString('Sending: help', $client);
         self::assertStringContainsString('Sending: shutdown', $client);
+
+        foreach ($pipes as $pipe) {
+            \fclose($pipe);
+        }
+
+        \proc_close($process);
     }
 }

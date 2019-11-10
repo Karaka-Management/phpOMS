@@ -21,6 +21,9 @@ use phpOMS\Utils\Converter\PressureType;
  */
 class PressureTypeTest extends \PHPUnit\Framework\TestCase
 {
+    /**
+     * @coversNothing
+     */
     public function testEnums() : void
     {
         self::assertCount(13, PressureType::getConstants());

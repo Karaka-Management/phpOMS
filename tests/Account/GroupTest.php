@@ -30,6 +30,7 @@ class GroupTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @testdox The group has the expected member variables
+     * @covers phpOMS\Account\Group<extended>
      */
     public function testAttributes() : void
     {
@@ -48,6 +49,7 @@ class GroupTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The group has the expected default values after initialization
+     * @covers phpOMS\Account\Group<extended>
      */
     public function testDefault() : void
     {
@@ -75,6 +77,7 @@ class GroupTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The group name and description can be set and retrieved correctly
+     * @covers phpOMS\Account\Group<extended>
      */
     public function testSetAndGetGroupNameDescription() : void
     {
@@ -89,6 +92,7 @@ class GroupTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox Group permissions can be added and checked for existence
+     * @covers phpOMS\Account\Group<extended>
      */
     public function testPermissionHandling() : void
     {
@@ -120,6 +124,7 @@ class GroupTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The default status of the group can be changed to a different valid status
+     * @covers phpOMS\Account\Group<extended>
      */
     public function testChangeStatus() : void
     {
@@ -131,6 +136,7 @@ class GroupTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox A group can only have valid group status
+     * @covers phpOMS\Account\Group<extended>
      */
     public function testStatusException() : void
     {

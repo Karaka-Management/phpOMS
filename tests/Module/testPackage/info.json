@@ -13,15 +13,19 @@
             "copy": {
                 "toCopy": [
                     "copyHere"
+                ],
+                "/Package/testSubPackage/externalCopy.md": [
+                    "externalCopy.md",
+                    "Replace.md"
                 ]
             },
             "delete": [
                 "Remove"
             ],
             "cmd": [
-                "/Package/run.php",
-                "/Package/run.sh",
-                "/Package/run.batch"
+                "/Package/testSubPackage/run.php",
+                "/Package/testSubPackage/run.sh",
+                "/Package/testSubPackage/run.batch"
             ]
         }
     ]

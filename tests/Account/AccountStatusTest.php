@@ -23,6 +23,9 @@ use phpOMS\Account\AccountStatus;
  */
 class AccountStatusTest extends \PHPUnit\Framework\TestCase
 {
+    /**
+     * @coversNothing
+     */
     public function testEnums() : void
     {
         self::assertCount(4, AccountStatus::getConstants());

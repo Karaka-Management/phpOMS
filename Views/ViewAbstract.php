@@ -45,25 +45,6 @@ abstract class ViewAbstract implements RenderableInterface
     protected array $views = [];
 
     /**
-     * Sort views by order.
-     *
-     * @param array $a Array 1
-     * @param array $b Array 2
-     *
-     * @return int
-     *
-     * @since 1.0.0
-     */
-    private static function viewSort(array $a, array $b) : int
-    {
-        if ($a['order'] === $b['order']) {
-            return 0;
-        }
-
-        return ($a['order'] < $b['order']) ? -1 : 1;
-    }
-
-    /**
      * Get the template.
      *
      * @return string
@@ -172,21 +153,16 @@ abstract class ViewAbstract implements RenderableInterface
      *
      * @param string $id        View ID
      * @param View   $view      View to add
-     * @param int    $order     Order of view
      * @param bool   $overwrite Overwrite existing view
      *
      * @return bool
      *
      * @since 1.0.0
      */
-    public function addView(string $id, View $view, int $order = 0, bool $overwrite = false) : bool
+    public function addView(string $id, View $view, bool $overwrite = false) : bool
     {
         if ($overwrite || !isset($this->views[$id])) {
             $this->views[$id] = $view;
-
-            if ($order !== 0) {
-                \uasort($this->views, ['\phpOMS\Views\View', 'viewSort']);
-            }
 
             return true;
         }

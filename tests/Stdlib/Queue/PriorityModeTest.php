@@ -21,6 +21,9 @@ use phpOMS\Stdlib\Queue\PriorityMode;
  */
 class PriorityModeTest extends \PHPUnit\Framework\TestCase
 {
+    /**
+     * @coversNothing
+     */
     public function testEnums() : void
     {
         self::assertCount(4, PriorityMode::getConstants());

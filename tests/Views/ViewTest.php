@@ -119,9 +119,9 @@ class ViewTest extends \PHPUnit\Framework\TestCase
         $tView = new View();
 
         self::assertTrue($view->addView('test', $tView));
-        self::assertTrue($view->addView('test', $tView, 0, true));
+        self::assertTrue($view->addView('test', $tView, true));
         self::assertFalse($view->addView('test', $tView));
-        self::assertFalse($view->addView('test', $tView, 0, false));
+        self::assertFalse($view->addView('test', $tView, false));
     }
 
     public function testRender() : void
@@ -151,7 +151,7 @@ class ViewTest extends \PHPUnit\Framework\TestCase
         $view2 = new View();
         $view2->setTemplate('/phpOMS/tests/Views/testTemplate');
 
-        $view->addView('sub', $view2, 1);
+        $view->addView('sub', $view2);
         self::assertEquals([
                 0 => '<strong>Test</strong>',
                 'sub' => ['<strong>Test</strong>'],

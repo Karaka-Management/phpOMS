@@ -23,6 +23,9 @@ use phpOMS\Localization\PhoneEnum;
  */
 class PhoneEnumTest extends \PHPUnit\Framework\TestCase
 {
+    /**
+     * @coversNothing
+     */
     public function testEnums() : void
     {
         $ok = true;

@@ -23,6 +23,9 @@ use phpOMS\Account\PermissionType;
  */
 class PermissionTypeTest extends \PHPUnit\Framework\TestCase
 {
+    /**
+     * @coversNothing
+     */
     public function testEnums() : void
     {
         self::assertCount(6, PermissionType::getConstants());

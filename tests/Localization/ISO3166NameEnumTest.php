@@ -23,6 +23,9 @@ use phpOMS\Localization\ISO3166NameEnum;
  */
 class ISO3166NameEnumTest extends \PHPUnit\Framework\TestCase
 {
+    /**
+     * @coversNothing
+     */
     public function testEnums() : void
     {
         $enum = ISO3166NameEnum::getConstants();

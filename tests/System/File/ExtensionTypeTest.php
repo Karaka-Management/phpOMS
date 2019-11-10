@@ -21,6 +21,9 @@ use phpOMS\System\File\ExtensionType;
  */
 class ExtensionTypeTest extends \PHPUnit\Framework\TestCase
 {
+    /**
+     * @coversNothing
+     */
     public function testEnums() : void
     {
         self::assertCount(13, ExtensionType::getConstants());

@@ -21,6 +21,9 @@ use phpOMS\Stdlib\Base\PhoneType;
  */
 class PhoneTypeTest extends \PHPUnit\Framework\TestCase
 {
+    /**
+     * @coversNothing
+     */
     public function testEnums() : void
     {
         self::assertCount(4, PhoneType::getConstants());

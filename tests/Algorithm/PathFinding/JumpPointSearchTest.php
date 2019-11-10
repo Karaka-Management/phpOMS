@@ -69,6 +69,7 @@ class JumpPointSearchTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The correct path is found for diagonal movement
+     * @covers phpOMS\Algorithm\PathFinding\JumpPointSearch
      */
     public function testPathFindingDiagonal() : void
     {
@@ -111,6 +112,7 @@ class JumpPointSearchTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The correct path is found for straight movement
+     * @covers phpOMS\Algorithm\PathFinding\JumpPointSearch
      */
     public function testPathFindingStraight() : void
     {
@@ -153,6 +155,7 @@ class JumpPointSearchTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The correct path is found for diagonal movement [one obstacle]
+     * @covers phpOMS\Algorithm\PathFinding\JumpPointSearch
      */
     public function testPathFindingDiagonalOneObstacle() : void
     {
@@ -195,6 +198,7 @@ class JumpPointSearchTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The correct path is found for diagonal movement [no obstacle]
+     * @covers phpOMS\Algorithm\PathFinding\JumpPointSearch
      */
     public function testPathFindingDiagonalNoObstacle() : void
     {

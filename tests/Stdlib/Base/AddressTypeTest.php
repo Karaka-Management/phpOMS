@@ -21,6 +21,9 @@ use phpOMS\Stdlib\Base\AddressType;
  */
 class AddressTypeTest extends \PHPUnit\Framework\TestCase
 {
+    /**
+     * @coversNothing
+     */
     public function testEnums() : void
     {
         self::assertCount(7, AddressType::getconstants());

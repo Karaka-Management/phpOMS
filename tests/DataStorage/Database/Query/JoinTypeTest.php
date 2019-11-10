@@ -21,6 +21,9 @@ use phpOMS\DataStorage\Database\Query\JoinType;
  */
 class JoinTypeTest extends \PHPUnit\Framework\TestCase
 {
+    /**
+     * @coversNothing
+     */
     public function testEnums() : void
     {
         self::assertCount(12, JoinType::getConstants());

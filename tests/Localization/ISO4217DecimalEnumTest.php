@@ -23,6 +23,9 @@ use phpOMS\Localization\ISO4217DecimalEnum;
  */
 class ISO4217DecimalEnumTest extends \PHPUnit\Framework\TestCase
 {
+    /**
+     * @coversNothing
+     */
     public function testEnums() : void
     {
         $ok = true;

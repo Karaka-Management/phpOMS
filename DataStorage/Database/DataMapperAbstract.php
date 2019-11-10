@@ -492,6 +492,7 @@ class DataMapperAbstract implements DataMapperInterface
             // @todo: remove after debugging
             // @fix: really remove it
             // @critical: after we found the bug we MUST remove it!
+            var_dump($t->getMessage());
             var_dump($query->toSql());
         }
 
@@ -941,7 +942,12 @@ class DataMapperAbstract implements DataMapperInterface
                 $relQuery->values($src, $objId);
             }
 
-            self::$db->con->prepare($relQuery->toSql())->execute();
+            try {
+                self::$db->con->prepare($relQuery->toSql())->execute();
+            } catch (\Throwable $e) {
+                var_dump($e->getMessage());
+                var_dump($relQuery->toSql());
+            }
         }
     }
 

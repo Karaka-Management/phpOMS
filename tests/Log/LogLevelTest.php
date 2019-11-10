@@ -23,6 +23,9 @@ use phpOMS\Log\LogLevel;
  */
 class LogLevelTest extends \PHPUnit\Framework\TestCase
 {
+    /**
+     * @coversNothing
+     */
     public function testEnums() : void
     {
         self::assertCount(8, LogLevel::getConstants());

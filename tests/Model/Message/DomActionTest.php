@@ -21,6 +21,9 @@ use phpOMS\Model\Message\DomAction;
  */
 class DomActionTest extends \PHPUnit\Framework\TestCase
 {
+    /**
+     * @coversNothing
+     */
     public function testEnums() : void
     {
         self::assertCount(9, DomAction::getConstants());

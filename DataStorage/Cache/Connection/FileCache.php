@@ -313,7 +313,7 @@ class FileCache extends ConnectionAbstract
         $cacheExpire = \substr($raw, $expireStart + 1, $expireEnd - ($expireStart + 1));
         $cacheExpire = ($cacheExpire === -1) ? $created : (int) $cacheExpire;
 
-        if ($cacheExpire >= 0 && $created + $cacheExpire < $now) {
+        if ($cacheExpire >= 0 && $created + $cacheExpire + ($expire > 0 ? $expire : 0) < $now) {
             $this->delete($key);
 
             return null;

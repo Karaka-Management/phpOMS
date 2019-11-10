@@ -39,6 +39,7 @@ class AccountManagerTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The manager has the expected member variables
+     * @covers phpOMS\Account\AccountManager<extended>
      */
     public function testAttributes() : void
     {
@@ -50,6 +51,7 @@ class AccountManagerTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The manager has the expected default values after initialization
+     * @covers phpOMS\Account\AccountManager<extended>
      */
     public function testDefault() : void
     {
@@ -60,6 +62,7 @@ class AccountManagerTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox An account can be added to the manager
+     * @covers phpOMS\Account\AccountManager<extended>
      */
     public function testAddAccount() : void
     {
@@ -70,6 +73,7 @@ class AccountManagerTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox An account can be retrieved from the manager
+     * @covers phpOMS\Account\AccountManager<extended>
      */
     public function testRetrieveAccount() : void
     {
@@ -79,6 +83,7 @@ class AccountManagerTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox An account can only be added once to the account manager (no duplication)
+     * @covers phpOMS\Account\AccountManager<extended>
      */
     public function testNoAccountDuplication() : void
     {
@@ -93,6 +98,7 @@ class AccountManagerTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox An account can be removed from the account manager
+     * @covers phpOMS\Account\AccountManager<extended>
      */
     public function testRemoveAccount() : void
     {
@@ -104,6 +110,7 @@ class AccountManagerTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox Only a valid account can be removed from the manager
+     * @covers phpOMS\Account\AccountManager<extended>
      */
     public function testRemoveOnlyValidAccount() : void
     {

@@ -53,6 +53,9 @@ class ExcelDatabaseMapperTest extends \PHPUnit\Framework\TestCase
         }
     }
 
+    /**
+     * @covers phpOMS\Utils\IO\Excel\ExcelDatabaseMapper
+     */
     public function testInsertOds() : void
     {
         Autoloader::addPath(__DIR__ . '/../../../../../Resources/');
@@ -84,6 +87,9 @@ class ExcelDatabaseMapperTest extends \PHPUnit\Framework\TestCase
         );
     }
 
+    /**
+     * @covers phpOMS\Utils\IO\Excel\ExcelDatabaseMapper::insert
+     */
     public function testInsertXls() : void
     {
         $mapper = new ExcelDatabaseMapper($this->sqlite, __DIR__ . '/insert.xls');
@@ -114,6 +120,9 @@ class ExcelDatabaseMapperTest extends \PHPUnit\Framework\TestCase
         );
     }
 
+    /**
+     * @covers phpOMS\Utils\IO\Excel\ExcelDatabaseMapper::insert
+     */
     public function testInsertXlsx() : void
     {
         $mapper = new ExcelDatabaseMapper($this->sqlite, __DIR__ . '/insert.xlsx');
@@ -144,6 +153,9 @@ class ExcelDatabaseMapperTest extends \PHPUnit\Framework\TestCase
         );
     }
 
+    /**
+     * @covers phpOMS\Utils\IO\Excel\ExcelDatabaseMapper::update
+     */
     public function testUpdateOds() : void
     {
         $mapper = new ExcelDatabaseMapper($this->sqlite, __DIR__ . '/insert.ods');
@@ -201,6 +213,9 @@ class ExcelDatabaseMapperTest extends \PHPUnit\Framework\TestCase
         );
     }
 
+    /**
+     * @covers phpOMS\Utils\IO\Excel\ExcelDatabaseMapper::update
+     */
     public function testUpdateXls() : void
     {
         $mapper = new ExcelDatabaseMapper($this->sqlite, __DIR__ . '/insert.xls');
@@ -258,6 +273,9 @@ class ExcelDatabaseMapperTest extends \PHPUnit\Framework\TestCase
         );
     }
 
+    /**
+     * @covers phpOMS\Utils\IO\Excel\ExcelDatabaseMapper::update
+     */
     public function testUpdateXlsx() : void
     {
         $mapper = new ExcelDatabaseMapper($this->sqlite, __DIR__ . '/insert.xlsx');
@@ -315,6 +333,9 @@ class ExcelDatabaseMapperTest extends \PHPUnit\Framework\TestCase
         );
     }
 
+    /**
+     * @covers phpOMS\Utils\IO\Excel\ExcelDatabaseMapper::select
+     */
     public function testSelectOds() : void
     {
         if (\file_exists(__DIR__ . '/select.ods')) {
@@ -362,6 +383,9 @@ class ExcelDatabaseMapperTest extends \PHPUnit\Framework\TestCase
         }
     }
 
+    /**
+     * @covers phpOMS\Utils\IO\Excel\ExcelDatabaseMapper::select
+     */
     public function testSelectXls() : void
     {
         if (\file_exists(__DIR__ . '/select.xls')) {
@@ -409,6 +433,9 @@ class ExcelDatabaseMapperTest extends \PHPUnit\Framework\TestCase
         }
     }
 
+    /**
+     * @covers phpOMS\Utils\IO\Excel\ExcelDatabaseMapper::select
+     */
     public function testSelectXlsx() : void
     {
         if (\file_exists(__DIR__ . '/select.xlsx')) {
@@ -456,6 +483,9 @@ class ExcelDatabaseMapperTest extends \PHPUnit\Framework\TestCase
         }
     }
 
+    /**
+     * @coversNothing
+     */
     private function compareSelectInsertSheet(string $pathSelect, string $pathInsert) : bool
     {
         $reader1 = null;

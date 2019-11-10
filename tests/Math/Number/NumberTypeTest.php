@@ -21,6 +21,9 @@ use phpOMS\Math\Number\NumberType;
  */
 class NumberTypeTest extends \PHPUnit\Framework\TestCase
 {
+    /**
+     * @coversNothing
+     */
     public function testEnums() : void
     {
         self::assertCount(9, NumberType::getConstants());

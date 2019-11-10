@@ -22,6 +22,9 @@ use phpOMS\Utils\RnG\StringUtils;
  */
 class CaesarTest extends \PHPUnit\Framework\TestCase
 {
+    /**
+     * @covers phpOMS\Utils\Encoding\Caesar
+     */
     public function testVolume() : void
     {
         for ($i = 0; $i < 100; ++$i) {

@@ -25,6 +25,7 @@ class ItemTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @testdox The item has the expected values after initialization
+     * @covers phpOMS\Algorithm\Knapsack\Item
      */
     public function testDefault() : void
     {

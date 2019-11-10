@@ -21,6 +21,9 @@ use phpOMS\DataStorage\Cache\CacheStatus;
  */
 class CacheStatusTest extends \PHPUnit\Framework\TestCase
 {
+    /**
+     * @coversNothing
+     */
     public function testEnums() : void
     {
         self::assertCount(4, CacheStatus::getConstants());

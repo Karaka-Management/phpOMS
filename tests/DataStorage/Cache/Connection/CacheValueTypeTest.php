@@ -21,6 +21,9 @@ use phpOMS\DataStorage\Cache\Connection\CacheValueType;
  */
 class CacheValueTypeTest extends \PHPUnit\Framework\TestCase
 {
+    /**
+     * @coversNothing
+     */
     public function testEnums() : void
     {
         self::assertCount(8, CacheValueType::getConstants());

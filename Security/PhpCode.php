@@ -110,7 +110,7 @@ final class PhpCode
         $disabled = \ini_get('disable_functions');
 
         if ($disabled === false) {
-            return true;
+            return true; // @codeCoverageIgnore
         }
 
         $disabled = \str_replace(' ', '', $disabled);
@@ -122,7 +122,7 @@ final class PhpCode
             }
         }
 
-        return true;
+        return true; // @codeCoverageIgnore
     }
 
     /**

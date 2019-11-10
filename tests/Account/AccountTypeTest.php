@@ -23,6 +23,9 @@ use phpOMS\Account\AccountType;
  */
 class AccountTypeTest extends \PHPUnit\Framework\TestCase
 {
+    /**
+     * @coversNothing
+     */
     public function testEnums() : void
     {
         self::assertCount(2, AccountType::getConstants());

@@ -21,6 +21,9 @@ use phpOMS\Utils\Converter\FileSizeType;
  */
 class FileSizeTypeTest extends \PHPUnit\Framework\TestCase
 {
+    /**
+     * @coversNothing
+     */
     public function testEnums() : void
     {
         self::assertCount(10, FileSizeType::getConstants());

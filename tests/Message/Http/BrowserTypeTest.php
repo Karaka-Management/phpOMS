@@ -21,6 +21,9 @@ use phpOMS\Message\Http\BrowserType;
  */
 class BrowserTypeTest extends \PHPUnit\Framework\TestCase
 {
+    /**
+     * @coversNothing
+     */
     public function testEnums() : void
     {
         self::assertEquals(12, BrowserType::count());

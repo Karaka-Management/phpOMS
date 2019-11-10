@@ -20,10 +20,16 @@ use phpOMS\Account\PermissionAbstract;
 use phpOMS\Account\PermissionType;
 
 /**
+ * @testdox phpOMS\tests\Account\PermissionAbstract: Base permission representation
+ *
  * @internal
  */
 class PermissionAbstractTest extends \PHPUnit\Framework\TestCase
 {
+    /**
+     * @testdox The permission has the expected default values after initialization
+     * @covers phpOMS\Account\PermissionAbstract
+     */
     public function testAbstractDefault() : void
     {
         $perm = new class() extends PermissionAbstract {};
@@ -58,41 +64,153 @@ class PermissionAbstractTest extends \PHPUnit\Framework\TestCase
         );
     }
 
-    public function testAbstractGetSet() : void
+    /**
+     * @testdox The unit can be set and returned correctly
+     * @covers phpOMS\Account\PermissionAbstract
+     */
+    public function testUnitInputOutput() : void
     {
         $perm = new class() extends PermissionAbstract {};
 
         $perm->setUnit(1);
         self::assertEquals(1, $perm->getUnit());
+    }
+
+    /**
+     * @testdox The app can be set and returned correctly
+     * @covers phpOMS\Account\PermissionAbstract
+     */
+    public function testAppInputOutput() : void
+    {
+        $perm = new class() extends PermissionAbstract {};
 
         $perm->setApp('Test');
         self::assertEquals('Test', $perm->getApp());
+    }
+
+    /**
+     * @testdox The module can be set and returned correctly
+     * @covers phpOMS\Account\PermissionAbstract
+     */
+    public function testModuleInputOutput() : void
+    {
+        $perm = new class() extends PermissionAbstract {};
 
         $perm->setModule('2');
         self::assertEquals('2', $perm->getModule());
+    }
+
+    /**
+     * @testdox The from can be set and returned correctly
+     * @covers phpOMS\Account\PermissionAbstract
+     */
+    public function testFromInputOutput() : void
+    {
+        $perm = new class() extends PermissionAbstract {};
 
         $perm->setFrom(3);
         self::assertEquals(3, $perm->getFrom());
+    }
+
+    /**
+     * @testdox The type can be set and returned correctly
+     * @covers phpOMS\Account\PermissionAbstract
+     */
+    public function testTypeInputOutput() : void
+    {
+        $perm = new class() extends PermissionAbstract {};
 
         $perm->setType(4);
         self::assertEquals(4, $perm->getType());
+    }
+
+    /**
+     * @testdox The element can be set and returned correctly
+     * @covers phpOMS\Account\PermissionAbstract
+     */
+    public function testElementInputOutput() : void
+    {
+        $perm = new class() extends PermissionAbstract {};
 
         $perm->setElement(5);
         self::assertEquals(5, $perm->getElement());
+    }
+
+    /**
+     * @testdox The component can be set and returned correctly
+     * @covers phpOMS\Account\PermissionAbstract
+     */
+    public function testComponentInputOutput() : void
+    {
+        $perm = new class() extends PermissionAbstract {};
 
         $perm->setComponent(6);
         self::assertEquals(6, $perm->getComponent());
+    }
+
+    /**
+     * @testdox The permission can be set and returned correctly
+     * @covers phpOMS\Account\PermissionAbstract
+     */
+    public function testPermissionInputOutput() : void
+    {
+        $perm = new class() extends PermissionAbstract {};
 
         $perm->setPermission(PermissionType::READ);
         self::assertEquals(PermissionType::READ, $perm->getPermission());
+    }
 
+    /**
+     * @testdox Correct permissions are validated
+     * @covers phpOMS\Account\PermissionAbstract
+     */
+    public function testValidPermission() : void
+    {
+        $perm = new class() extends PermissionAbstract {};
+
+        $perm->setPermission(PermissionType::READ);
         $perm->addPermission(PermissionType::CREATE);
         self::assertTrue($perm->hasPermission(PermissionType::CREATE));
         self::assertTrue($perm->hasPermission(PermissionType::READ));
-        self::assertFalse($perm->hasPermission(PermissionType::MODIFY));
+    }
 
+    /**
+     * @testdox Invalid permissions are not validted
+     * @covers phpOMS\Account\PermissionAbstract
+     */
+    public function testInvalidPermission() : void
+    {
+        $perm = new class() extends PermissionAbstract {};
+
+        $perm->setPermission(PermissionType::READ);
+        $perm->addPermission(PermissionType::CREATE);
+        self::assertFalse($perm->hasPermission(PermissionType::MODIFY));
+    }
+
+    /**
+     * @testdox Correct permission flags are validated
+     * @covers phpOMS\Account\PermissionAbstract
+     */
+    public function testValidPermissionFlag() : void
+    {
+        $perm = new class() extends PermissionAbstract {};
+
+        $perm->setPermission(PermissionType::READ);
+        $perm->addPermission(PermissionType::CREATE);
         self::assertTrue($perm->hasPermissionFlags(PermissionType::READ));
         self::assertTrue($perm->hasPermissionFlags(PermissionType::READ & PermissionType::CREATE));
+    }
+
+    /**
+     * @testdox Invalid permission flags are not validated
+     * @covers phpOMS\Account\PermissionAbstract
+     */
+    public function testInvalidPermissionFlag() : void
+    {
+        $perm = new class() extends PermissionAbstract {};
+
+        $perm->setPermission(PermissionType::READ);
+        $perm->addPermission(PermissionType::CREATE);
         self::assertFalse($perm->hasPermissionFlags(PermissionType::MODIFY));
     }
 }

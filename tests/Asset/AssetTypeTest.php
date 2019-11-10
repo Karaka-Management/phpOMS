@@ -23,6 +23,9 @@ use phpOMS\Asset\AssetType;
  */
 class AssetTypeTest extends \PHPUnit\Framework\TestCase
 {
+    /**
+     * @coversNothing
+     */
     public function testEnums() : void
     {
         self::assertCount(3, AssetType::getConstants());

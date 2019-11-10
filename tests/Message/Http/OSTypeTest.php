@@ -21,6 +21,9 @@ use phpOMS\Message\Http\OSType;
  */
 class OSTypeTest extends \PHPUnit\Framework\TestCase
 {
+    /**
+     * @coversNothing
+     */
     public function testEnums() : void
     {
         self::assertCount(24, OSType::getConstants());

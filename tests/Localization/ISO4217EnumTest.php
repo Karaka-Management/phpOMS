@@ -23,6 +23,9 @@ use phpOMS\Localization\ISO4217Enum;
  */
 class ISO4217EnumTest extends \PHPUnit\Framework\TestCase
 {
+    /**
+     * @coversNothing
+     */
     public function testEnums() : void
     {
         $enum = ISO4217Enum::getConstants();

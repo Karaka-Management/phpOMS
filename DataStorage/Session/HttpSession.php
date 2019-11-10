@@ -77,7 +77,7 @@ class HttpSession implements SessionInterface
     public function __construct(int $liftetime = 3600, $sid = false, int $inactivityInterval = 0)
     {
         if (\session_id()) {
-            \session_write_close();
+            \session_write_close(); // @codeCoverageIgnore
         }
 
         if (!\is_bool($sid)) {
@@ -87,12 +87,12 @@ class HttpSession implements SessionInterface
         $this->inactivityInterval = $inactivityInterval;
 
         if (\session_status() !== \PHP_SESSION_ACTIVE && !\headers_sent()) {
-            \session_set_cookie_params($liftetime, '/', '', false, true);
-            \session_start();
+            \session_set_cookie_params($liftetime, '/', '', false, true); // @codeCoverageIgnore
+            \session_start(); // @codeCoverageIgnore
         }
 
         if ($this->inactivityInterval > 0 && ($this->inactivityInterval + ($_SESSION['lastActivity'] ?? 0) < \time())) {
-            $this->destroy();
+            $this->destroy(); // @codeCoverageIgnore
         }
 
         $this->sessionData                 = $_SESSION ?? [];
@@ -211,6 +211,7 @@ class HttpSession implements SessionInterface
      * @return void
      *
      * @since 1.0.0
+     * @codeCoverageIgnore
      */
     private function destroy() : void
     {

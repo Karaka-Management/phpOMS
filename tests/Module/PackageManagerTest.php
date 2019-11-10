@@ -90,7 +90,7 @@ class PackageManagerTest extends \PHPUnit\Framework\TestCase
 
         $package = new PackageManager(
             __DIR__ . '/testPackage.zip',
-            __DIR__ . 'dummyModule/',
+            __DIR__ . '/dummyModule/',
             \file_get_contents(__DIR__ . '/public.key')
         );
 
@@ -100,6 +100,33 @@ class PackageManagerTest extends \PHPUnit\Framework\TestCase
 
         $package->load();
         $package->install();
+
+        self::assertGreaterThan(100, \filesize(__DIR__ . '/dummyModule/README.md'));
+        self::assertEquals('To copy!', \file_get_contents(__DIR__ . '/dummyModule/Replace.md'));
+
+        self::assertFalse(\file_exists(__DIR__ . '/dummyModule/toMove'));
+        self::assertTrue(\file_exists(__DIR__ . '/dummyModule/moveHere'));
+        self::assertTrue(\file_exists(__DIR__ . '/dummyModule/moveHere/a.md'));
+        self::assertTrue(\file_exists(__DIR__ . '/dummyModule/moveHere/sub/b.txt'));
+
+        self::assertTrue(\file_exists(__DIR__ . '/dummyModule/externalCopy.md'));
+
+        self::assertTrue(\file_exists(__DIR__ . '/dummyModule/toCopy'));
+        self::assertTrue(\file_exists(__DIR__ . '/dummyModule/copyHere'));
+        self::assertTrue(\file_exists(__DIR__ . '/dummyModule/copyHere/a.md'));
+        self::assertTrue(\file_exists(__DIR__ . '/dummyModule/copyHere/sub/b.txt'));
+
+        self::assertFalse(\file_exists(__DIR__ . '/dummyModule/Remove'));
+
+        \sleep(1);
+
+        self::assertEquals('php script', \file_get_contents(__DIR__ . '/dummyModule/phpscript.md'));
+
+        if (\is_executable(__DIR__ . '/testPackageExtracted/testSubPackage/run.sh')
+            && \is_executable(__DIR__ . '/testPackageExtracted/testSubPackage/run.batch')
+        ) {
+            self::assertEquals('cmd script', \file_get_contents(__DIR__ . '/dummyModule/cmdscript.md'));
+        }
 
         if (\file_exists(__DIR__ . '/dummyModule')) {
             Directory::delete(__DIR__ . '/dummyModule');
@@ -117,6 +144,19 @@ class PackageManagerTest extends \PHPUnit\Framework\TestCase
         );
 
         $package->load();
+    }
+
+    public function testInvalidInstall() : void
+    {
+        self::expectException(\Exception::class);
+
+        $package = new PackageManager(
+            __DIR__ . '/testPackage.zip',
+            '/invalid',
+            \file_get_contents(__DIR__ . '/public.key') . ' '
+        );
+
+        $package->install();
     }
 
     public function testPackageInvalidKey() : void

@@ -21,6 +21,9 @@ use phpOMS\Utils\Barcode\OrientationType;
  */
 class OrientationTypeTest extends \PHPUnit\Framework\TestCase
 {
+    /**
+     * @coversNothing
+     */
     public function testEnums() : void
     {
         self::assertCount(2, OrientationType::getConstants());

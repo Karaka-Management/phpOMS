@@ -83,7 +83,7 @@ class Path
     }
 
     /**
-     * Get the path length
+     * Get the path length (euclidean)
      *
      * @return float
      *
@@ -183,11 +183,11 @@ class Path
 
         $line = [];
         while (true) {
-            $line[] = $node;
-
             if ($node->getX() === $node2->getX() && $node->getY() === $node2->getY()) {
                 break;
             }
+
+            $line[] = $node;
 
             $e2 = 2 * $err;
 

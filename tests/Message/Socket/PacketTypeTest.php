@@ -21,6 +21,9 @@ use phpOMS\Message\Socket\PacketType;
  */
 class PacketTypeTest extends \PHPUnit\Framework\TestCase
 {
+    /**
+     * @coversNothing
+     */
     public function testEnums() : void
     {
         self::assertCount(11, PacketType::getConstants());

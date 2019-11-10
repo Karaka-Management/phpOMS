@@ -21,6 +21,9 @@ use phpOMS\Utils\Converter\SpeedType;
  */
 class SpeedTypeTest extends \PHPUnit\Framework\TestCase
 {
+    /**
+     * @coversNothing
+     */
     public function testEnums() : void
     {
         self::assertCount(34, SpeedType::getConstants());

@@ -437,6 +437,9 @@ class FinanceFormulasTest extends \PHPUnit\Framework\TestCase
         self::assertEqualsWithDelta(0.04123, FinanceFormulas::getGeometricMeanReturn($r), 0.01);
     }
 
+    /**
+     * @testdox The calculation of the future value of the growing annuity is correct
+     */
     public function testGrowingAnnuityFV() : void
     {
         $p = 1000;
@@ -447,6 +450,9 @@ class FinanceFormulasTest extends \PHPUnit\Framework\TestCase
         self::assertEqualsWithDelta(14226.06, FinanceFormulas::getGrowingAnnuityFV($p, $r, $g, $n), 0.01);
     }
 
+    /**
+     * @testdox The calculation of the payment based on the present value of the growing annuity is correct
+     */
     public function testGrowingAnnuityPaymentPV() : void
     {
         $p = 1000;
@@ -457,6 +463,9 @@ class FinanceFormulasTest extends \PHPUnit\Framework\TestCase
         self::assertEqualsWithDelta(186.98, FinanceFormulas::getGrowingAnnuityPaymentPV($p, $r, $g, $n), 0.01);
     }
 
+    /**
+     * @testdox The calculation of the payment based on the future value of the growing annuity is correct
+     */
     public function testGrowingAnnuityPaymentFV() : void
     {
         $fv = 1000;
@@ -467,6 +476,9 @@ class FinanceFormulasTest extends \PHPUnit\Framework\TestCase
         self::assertEqualsWithDelta(70.29, FinanceFormulas::getGrowingAnnuityPaymentFV($fv, $r, $g, $n), 0.01);
     }
 
+    /**
+     * @testdox The calculation of the present value of the growing annuity is correct
+     */
     public function testGrowingAnnuityPV() : void
     {
         $p = 1000;
@@ -477,6 +489,9 @@ class FinanceFormulasTest extends \PHPUnit\Framework\TestCase
         self::assertEqualsWithDelta(5348.1, FinanceFormulas::getGrowingAnnuityPV($p, $r, $g, $n), 0.01);
     }
 
+    /**
+     * @testdox The calculation of the present value of the growing perpetuity is correct
+     */
     public function testGrowingPerpetuityPV() : void
     {
         $d = 1000;
@@ -486,6 +501,9 @@ class FinanceFormulasTest extends \PHPUnit\Framework\TestCase
         self::assertEqualsWithDelta(20000, FinanceFormulas::getGrowingPerpetuityPV($d, $r, $g), 0.01);
     }
 
+    /**
+     * @testdox The calculation of the net present value is correct
+     */
     public function testNetPresentValue() : void
     {
         $c = [1000, 100, 200, 300, 400, 500, 600];
@@ -494,13 +512,17 @@ class FinanceFormulasTest extends \PHPUnit\Framework\TestCase
         self::assertEqualsWithDelta(172.13, FinanceFormulas::getNetPresentValue($c, $r), 0.01);
     }
 
-    public function testInvalidNetPresentValue() : void
+    /**
+     * @testdox No cash flows in the net prsent value calculation result in 0
+     */
+    public function testEmptyNetPresentValue() : void
     {
-        self::expectException(\UnexpectedValueException::class);
-
-        FinanceFormulas::getNetPresentValue([], 0.1);
+        self::assertEquals(0.0, FinanceFormulas::getNetPresentValue([], 0.1));
     }
 
+    /**
+     * @testdox The calculation of the real rate of return is correct
+     */
     public function testRealRateOfReturn() : void
     {
         $nominal   = 0.15;
@@ -509,11 +531,17 @@ class FinanceFormulasTest extends \PHPUnit\Framework\TestCase
         self::assertEqualsWithDelta(0.09524, FinanceFormulas::getRealRateOfReturn($nominal, $inflation), 0.01);
     }
 
+    /**
+     * @testdox The calculation of the net working capital is correct
+     */
     public function testNetWorkingCapital() : void
     {
         self::assertEqualsWithDelta(1000 - 600, FinanceFormulas::getNetWorkingCapital(1000, 600), 0.01);
     }
 
+    /**
+     * @testdox The periods to reach a future value based on the present value is calculated correctly
+     */
     public function testNumberOfPeriodsPVFV() : void
     {
         $fv = 1200;
@@ -523,6 +551,9 @@ class FinanceFormulasTest extends \PHPUnit\Framework\TestCase
         self::assertEqualsWithDelta(6.1681, FinanceFormulas::getNumberOfPeriodsPVFV($fv, $pv, $r), 0.01);
     }
 
+    /**
+     * @testdox The calculation of the present value is correct
+     */
     public function testPresentValue() : void
     {
         $c = 1000;
@@ -532,6 +563,9 @@ class FinanceFormulasTest extends \PHPUnit\Framework\TestCase
         self::assertEqualsWithDelta(375.94, FinanceFormulas::getPresentValue($c, $r, $n), 0.01);
     }
 
+    /**
+     * @testdox The calculation of the present value using continuous compounding is correct
+     */
     public function testPresentValueContinuousCompounding() : void
     {
         $c = 1000;

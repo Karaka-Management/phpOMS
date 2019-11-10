@@ -21,6 +21,9 @@ use phpOMS\Stdlib\Map\KeyType;
  */
 class KeyTypeTest extends \PHPUnit\Framework\TestCase
 {
+    /**
+     * @coversNothing
+     */
     public function testEnums() : void
     {
         self::assertCount(2, KeyType::getConstants());

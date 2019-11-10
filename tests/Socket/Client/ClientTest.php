@@ -103,5 +103,11 @@ class ClientTest extends \PHPUnit\Framework\TestCase
             . 'Is shutdown...' . "\n",
             \file_get_contents(__DIR__ . '/server.log')
         );
+
+        foreach ($pipes as $pipe) {
+            \fclose($pipe);
+        }
+
+        \proc_close($process);
     }
 }

@@ -23,6 +23,9 @@ use phpOMS\Localization\ISO3166CharEnum;
  */
 class ISO3166CharEnumTest extends \PHPUnit\Framework\TestCase
 {
+    /**
+     * @coversNothing
+     */
     public function testEnums() : void
     {
         $ok = true;

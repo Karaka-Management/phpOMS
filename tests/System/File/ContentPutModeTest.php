@@ -21,6 +21,9 @@ use phpOMS\System\File\ContentPutMode;
  */
 class ContentPutModeTest extends \PHPUnit\Framework\TestCase
 {
+    /**
+     * @coversNothing
+     */
     public function testEnums() : void
     {
         self::assertCount(4, ContentPutMode::getConstants());

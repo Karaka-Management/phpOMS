@@ -147,6 +147,9 @@ class DataMapperAbstractTest extends \PHPUnit\Framework\TestCase
         $GLOBALS['dbpool']->get()->con->prepare('DROP TABLE oms_test_has_many_rel_relations')->execute();
     }
 
+    /**
+     * @covers phpOMS\DataStorage\Database\DataMapperAbstract
+     */
     public function testDefault() : void
     {
         self::assertEquals('test_base_id', BaseModelMapper::getPrimaryField());
@@ -154,18 +157,27 @@ class DataMapperAbstractTest extends \PHPUnit\Framework\TestCase
         self::assertEquals('test_base_datetime', BaseModelMapper::getCreatedAt());
     }
 
+    /**
+     * @covers phpOMS\DataStorage\Database\DataMapperAbstract
+     */
     public function testCreate() : void
     {
         self::assertGreaterThan(0, BaseModelMapper::create($this->model));
         self::assertGreaterThan(0, $this->model->id);
     }
 
+    /**
+     * @covers phpOMS\DataStorage\Database\DataMapperAbstract
+     */
     public function testCreateArray() : void
     {
         self::assertGreaterThan(0, BaseModelMapper::createArray($this->modelArray));
         self::assertGreaterThan(0, $this->modelArray['id']);
     }
 
+    /**
+     * @covers phpOMS\DataStorage\Database\DataMapperAbstract
+     */
     public function testRead() : void
     {
         $id     = BaseModelMapper::create($this->model);
@@ -198,6 +210,9 @@ class DataMapperAbstractTest extends \PHPUnit\Framework\TestCase
         self::assertCount(1, BaseModelMapper::getAll());
     }
 
+    /**
+     * @covers phpOMS\DataStorage\Database\DataMapperAbstract
+     */
     public function testReadArray() : void
     {
         $id     = BaseModelMapper::createArray($this->modelArray);
@@ -225,6 +240,9 @@ class DataMapperAbstractTest extends \PHPUnit\Framework\TestCase
         self::assertCount(1, BaseModelMapper::getAllArray());
     }
 
+    /**
+     * @covers phpOMS\DataStorage\Database\DataMapperAbstract
+     */
     public function testUpdate() : void
     {
         $id     = BaseModelMapper::create($this->model);
@@ -252,6 +270,9 @@ class DataMapperAbstractTest extends \PHPUnit\Framework\TestCase
         // todo test update relations
     }
 
+    /**
+     * @covers phpOMS\DataStorage\Database\DataMapperAbstract
+     */
     public function testUpdateArray() : void
     {
         $id     = BaseModelMapper::createArray($this->modelArray);
@@ -279,6 +300,9 @@ class DataMapperAbstractTest extends \PHPUnit\Framework\TestCase
         // todo test update relations
     }
 
+    /**
+     * @covers phpOMS\DataStorage\Database\DataMapperAbstract
+     */
     public function testDelete() : void
     {
         $id = BaseModelMapper::create($this->model);

@@ -21,6 +21,9 @@ use phpOMS\Validation\Finance\IbanErrorType;
  */
 class IbanErrorTypeTest extends \PHPUnit\Framework\TestCase
 {
+    /**
+     * @coversNothing
+     */
     public function testEnums() : void
     {
         self::assertCount(5, IbanErrorType::getConstants());

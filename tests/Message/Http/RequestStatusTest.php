@@ -21,6 +21,9 @@ use phpOMS\Message\Http\RequestStatus;
  */
 class RequestStatusTest extends \PHPUnit\Framework\TestCase
 {
+    /**
+     * @coversNothing
+     */
     public function testEnums() : void
     {
         self::assertCount(55, RequestStatus::getConstants());

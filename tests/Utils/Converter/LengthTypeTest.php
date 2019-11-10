@@ -21,6 +21,9 @@ use phpOMS\Utils\Converter\LengthType;
  */
 class LengthTypeTest extends \PHPUnit\Framework\TestCase
 {
+    /**
+     * @coversNothing
+     */
     public function testEnums() : void
     {
         self::assertCount(21, LengthType::getConstants());

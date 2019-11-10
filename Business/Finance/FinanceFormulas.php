@@ -1094,7 +1094,7 @@ final class FinanceFormulas
         $count = \count($C);
 
         if ($count === 0) {
-            throw new \UnexpectedValueException((string) $count);
+            return 0.0;
         }
 
         $npv = -$C[0];

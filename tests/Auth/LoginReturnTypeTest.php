@@ -23,6 +23,9 @@ use phpOMS\Auth\LoginReturnType;
  */
 class LoginReturnTypeTest extends \PHPUnit\Framework\TestCase
 {
+    /**
+     * @coversNothing
+     */
     public function testEnums() : void
     {
         self::assertCount(11, LoginReturnType::getConstants());

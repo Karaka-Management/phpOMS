@@ -21,6 +21,9 @@ use phpOMS\Utils\Converter\EnergyPowerType;
  */
 class EnergyPowerTypeTest extends \PHPUnit\Framework\TestCase
 {
+    /**
+     * @coversNothing
+     */
     public function testEnums() : void
     {
         self::assertCount(9, EnergyPowerType::getConstants());

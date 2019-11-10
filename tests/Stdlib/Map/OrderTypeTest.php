@@ -21,6 +21,9 @@ use phpOMS\Stdlib\Map\OrderType;
  */
 class OrderTypeTest extends \PHPUnit\Framework\TestCase
 {
+    /**
+     * @coversNothing
+     */
     public function testEnums() : void
     {
         self::assertCount(2, OrderType::getConstants());

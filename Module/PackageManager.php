@@ -102,7 +102,7 @@ final class PackageManager
      */
     public function extract(string $path) : void
     {
-        $this->extractPath = $path;
+        $this->extractPath = \rtrim($path, '\\/');
         Zip::unpack($this->path, $this->extractPath);
     }
 
@@ -135,6 +135,10 @@ final class PackageManager
      */
     public function isValid() : bool
     {
+        if (!\file_exists($this->extractPath . '/package.cert')) {
+            return false;
+        }
+
         $contents = \file_get_contents($this->extractPath . '/package.cert');
         return $this->authenticate($contents === false ? '' : $contents, $this->hashFiles());
     }
@@ -184,7 +188,7 @@ final class PackageManager
 
         foreach ($this->info['update'] as $steps) {
             foreach ($steps as $key => $components) {
-                if (\function_exists($this->{$key})) {
+                if (\method_exists($this, $key)) {
                     $this->{$key}($components);
                 }
             }
@@ -206,8 +210,8 @@ final class PackageManager
             $fp = \fopen($this->basePath . '/' . $to, 'w+');
             $ch = \curl_init(\str_replace(' ','%20', $from));
 
-            if ($ch === false) {
-                continue;
+            if ($ch === false || $fp === false) {
+                continue; // @codeCoverageIgnore
             }
 
             \curl_setopt($ch, \CURLOPT_TIMEOUT, 50);
@@ -233,10 +237,10 @@ final class PackageManager
     private function move(array $components) : void
     {
         foreach ($components as $from => $to) {
-            $fromPath = StringUtils::startsWith($from, '/Package/') ? $this->extractPath : $this->basePath;
-            $toPath   = StringUtils::startsWith($to, '/Package/') ? $this->extractPath : $this->basePath;
+            $fromPath = StringUtils::startsWith($from, '/Package/') ? $this->extractPath . '/' . \substr($from, 9) : $this->basePath . '/' . $from;
+            $toPath   = StringUtils::startsWith($to, '/Package/') ? $this->extractPath . '/' . \substr($to, 9) : $this->basePath . '/' . $to;
 
-            LocalStorage::move($fromPath . '/' . $from, $toPath . '/' . $to, true);
+            LocalStorage::move($fromPath, $toPath, true);
         }
     }
 
@@ -252,12 +256,12 @@ final class PackageManager
     private function copy(array $components) : void
     {
         foreach ($components as $from => $tos) {
-            $fromPath = StringUtils::startsWith($from, '/Package/') ? $this->extractPath : $this->basePath;
+            $fromPath = StringUtils::startsWith($from, '/Package/') ? $this->extractPath . '/' . \substr($from, 9) : $this->basePath . '/' . $from;
 
             foreach ($tos as $to) {
-                $toPath = StringUtils::startsWith($to, '/Package/') ? $this->extractPath : $this->basePath;
+                $toPath = StringUtils::startsWith($to, '/Package/') ? $this->extractPath . '/' . \substr($to, 9) : $this->basePath . '/' . $to;
 
-                LocalStorage::copy($fromPath . '/' . $from, $toPath . '/' . $to, true);
+                LocalStorage::copy($fromPath, $toPath, true);
             }
         }
     }
@@ -274,8 +278,8 @@ final class PackageManager
     private function delete(array $components) : void
     {
         foreach ($components as $component) {
-            $path  = StringUtils::startsWith($component, '/Package/') ? $this->extractPath : $this->basePath;
-            LocalStorage::delete($path . '/' . $component);
+            $path  = StringUtils::startsWith($component, '/Package/') ? $this->extractPath . '/' . \substr($component, 9) : $this->basePath . '/' . $component;
+            LocalStorage::delete($path);
         }
     }
 
@@ -291,19 +295,27 @@ final class PackageManager
     private function cmd(array $components) : void
     {
         foreach ($components as $component) {
-            $pipes = [];
             $cmd   = '';
-            $path  = StringUtils::startsWith($component, '/Package/') ? $this->extractPath : $this->basePath;
+            $path  = StringUtils::startsWith($component, '/Package/') ? $this->extractPath . '/' . \substr($component, 9) : $this->basePath . '/' . $component;
+
             if (StringUtils::endsWith($component, '.php')) {
-                $cmd = 'php ' . $path . '/' . $component;
-            } elseif (StringUtils::endsWith($component, '.sh') && OperatingSystem::getSystem() === SystemType::LINUX) {
-                $cmd = '.' . $path . '/' . $component;
-            } elseif (StringUtils::endsWith($component, '.batch') && OperatingSystem::getSystem() === SystemType::WIN) {
-                $cmd = '.' . $path . '/' . $component;
+                // todo: maybe add a guessing method to find php path if it isn't available in the environment see Repository.php for git api
+                $cmd = 'php ' . $path;
+            } elseif (StringUtils::endsWith($component, '.sh') && OperatingSystem::getSystem() === SystemType::LINUX && \is_executable($path)) {
+                $cmd = $path;
+            } elseif (StringUtils::endsWith($component, '.batch') && OperatingSystem::getSystem() === SystemType::WIN && \is_executable($path)) {
+                $cmd = $path;
             }
 
             if ($cmd !== '') {
-                \proc_open($cmd, [1 => ['pipe', 'w'], 2 => ['pipe', 'w']], $pipes, __DIR__);
+                $pipes = [];
+                $resource = \proc_open($cmd, [1 => ['pipe', 'w'], 2 => ['pipe', 'w']], $pipes, $this->extractPath);
+
+                foreach ($pipes as $pipe) {
+                    \fclose($pipe);
+                }
+
+                \proc_close($resource);
             }
         }
     }

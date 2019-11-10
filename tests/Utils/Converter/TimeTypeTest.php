@@ -21,6 +21,9 @@ use phpOMS\Utils\Converter\TimeType;
  */
 class TimeTypeTest extends \PHPUnit\Framework\TestCase
 {
+    /**
+     * @coversNothing
+     */
     public function testEnums() : void
     {
         self::assertCount(9, TimeType::getConstants());

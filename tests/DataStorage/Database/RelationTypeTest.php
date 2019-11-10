@@ -21,6 +21,9 @@ use phpOMS\DataStorage\Database\RelationType;
  */
 class RelationTypeTest extends \PHPUnit\Framework\TestCase
 {
+    /**
+     * @coversNothing
+     */
     public function testEnums() : void
     {
         self::assertCount(7, RelationType::getConstants());

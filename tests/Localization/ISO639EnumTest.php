@@ -23,6 +23,9 @@ use phpOMS\Localization\ISO639Enum;
  */
 class ISO639EnumTest extends \PHPUnit\Framework\TestCase
 {
+    /**
+     * @coversNothing
+     */
     public function testEnums() : void
     {
         $enum = ISO639Enum::getConstants();

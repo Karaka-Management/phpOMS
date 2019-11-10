@@ -41,6 +41,7 @@ class AccountTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The account has the expected member variables
+     * @covers phpOMS\Account\Account<extended>
      */
     public function testAttributes() : void
     {
@@ -66,6 +67,7 @@ class AccountTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The account has the expected default values after initialization
+     * @covers phpOMS\Account\Account<extended>
      */
     public function testDefault() : void
     {
@@ -113,6 +115,7 @@ class AccountTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The account names can be set and retrieved correctly
+     * @covers phpOMS\Account\Account<extended>
      */
     public function testSetAndGetAccountNames() : void
     {
@@ -137,6 +140,7 @@ class AccountTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox Groups can be added to an account
+     * @covers phpOMS\Account\Account<extended>
      */
     public function testAddAndGetGroup() : void
     {
@@ -149,6 +153,7 @@ class AccountTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox An account can have a valid email address
+     * @covers phpOMS\Account\Account<extended>
      */
     public function testSetAndGetAccountEmail() : void
     {
@@ -161,6 +166,7 @@ class AccountTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The default status of the account can be changed to a different valid status
+     * @covers phpOMS\Account\Account<extended>
      */
     public function testChangeStatus() : void
     {
@@ -173,6 +179,7 @@ class AccountTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The default type of the account can be changed to a different valid type
+     * @covers phpOMS\Account\Account<extended>
      */
     public function testChangeType() : void
     {
@@ -185,6 +192,7 @@ class AccountTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox Account permissions can be added and checked for existence
+     * @covers phpOMS\Account\Account<extended>
      */
     public function testPermissionHandling() : void
     {
@@ -218,6 +226,7 @@ class AccountTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox An account can have it's own localization
+     * @covers phpOMS\Account\Account<extended>
      */
     public function testLocalization() : void
     {

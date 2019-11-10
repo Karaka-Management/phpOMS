@@ -23,6 +23,9 @@ use phpOMS\Account\GroupStatus;
  */
 class GroupStatusTest extends \PHPUnit\Framework\TestCase
 {
+    /**
+     * @coversNothing
+     */
     public function testEnums() : void
     {
         self::assertCount(3, GroupStatus::getConstants());

@@ -23,6 +23,9 @@ use phpOMS\Localization\ISO4217NumEnum;
  */
 class ISO4217NumEnumTest extends \PHPUnit\Framework\TestCase
 {
+    /**
+     * @coversNothing
+     */
     public function testEnums() : void
     {
         $ok = true;

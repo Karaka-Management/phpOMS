@@ -143,6 +143,7 @@ final class CookieJar
                 throw new LockException('CookieJar');
             }
 
+            // @codeCoverageIgnoreStart
             if (!\headers_sent()) {
                 \setcookie($id, '', \time() - 3600);
 
@@ -150,6 +151,7 @@ final class CookieJar
             }
 
             return false;
+            // @codeCoverageIgnoreEnd
         }
 
         return false;
@@ -190,8 +192,10 @@ final class CookieJar
             throw new LockException('CookieJar');
         }
 
+        // @codeCoverageIgnoreStart
         foreach ($this->cookies as $key => $cookie) {
             \setcookie($key, $cookie['value'], $cookie['expiry'], $cookie['path'], $cookie['domain'], $cookie['secure'], $cookie['httponly']);
         }
+        // @codeCoverageIgnoreEnd
     }
 }

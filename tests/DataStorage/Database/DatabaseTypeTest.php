@@ -21,6 +21,9 @@ use phpOMS\DataStorage\Database\DatabaseType;
  */
 class DatabaseTypeTest extends \PHPUnit\Framework\TestCase
 {
+    /**
+     * @coversNothing
+     */
     public function testEnums() : void
     {
         self::assertCount(5, DatabaseType::getConstants());

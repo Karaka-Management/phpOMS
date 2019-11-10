@@ -25,6 +25,7 @@ class JobTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @testdox The job has the expected values after initialization
+     * @covers phpOMS\Algorithm\JobScheduling\Job
      */
     public function testDefault() : void
     {
