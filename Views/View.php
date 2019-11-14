@@ -42,10 +42,10 @@ class View extends ViewAbstract
     /**
      * View Localization.
      *
-     * @var   null|Localization
+     * @var   Localization
      * @since 1.0.0
      */
-    protected ?Localization $l11n = null;
+    protected Localization $l11n;
 
     /**
      * Application.
@@ -195,12 +195,12 @@ class View extends ViewAbstract
             $this->setThemeDynamically();
         }
 
+        /** @var string $module */
         $module = $module ?? $this->module;
+        /** @var string $theme */
         $theme  = $theme ?? $this->theme;
 
-        /** @var string $module */
-        /** @var string $theme */
-        return $this->app->l11nManager->getText($this->l11n->getLanguage(), $module, $theme, $translation);
+        return $this->app->l11nManager->getText($this->l11n->getLanguage() ?? 'en', $module, $theme, $translation);
     }
 
     /**
