@@ -18,6 +18,8 @@ use phpOMS\DataStorage\Database\Connection\MysqlConnection;
 use phpOMS\DataStorage\Database\Query\Builder;
 
 /**
+ * @testdox phpOMS\tests\DataStorage\Database\Query\BuilderTest: Query builder for sql queries
+ *
  * @internal
  */
 class BuilderTest extends \PHPUnit\Framework\TestCase
@@ -29,6 +31,9 @@ class BuilderTest extends \PHPUnit\Framework\TestCase
         $this->con = new MysqlConnection($GLOBALS['CONFIG']['db']['core']['masters']['admin']);
     }
 
+    /**
+     * @testdox Mysql selects form a valid query
+     */
     public function testMysqlSelect() : void
     {
         $query = new Builder($this->con);
@@ -84,6 +89,9 @@ class BuilderTest extends \PHPUnit\Framework\TestCase
         self::assertEquals($query->toSql(), $query->__toString());
     }
 
+    /**
+     * @testdox Mysql orders form a valid query
+     */
     public function testMysqlOrder() : void
     {
         $query = new Builder($this->con);
@@ -111,6 +119,9 @@ class BuilderTest extends \PHPUnit\Framework\TestCase
         self::assertEquals($sql, $query->select('a.test')->from('a')->where('a.test', '=', 1)->orderBy(['a.test', 'a.test2'], 'ASC')->toSql());
     }
 
+    /**
+     * @testdox Mysql offsets and limits form a valid query
+     */
     public function testMysqlOffsetLimit() : void
     {
         $query = new Builder($this->con);
@@ -122,6 +133,9 @@ class BuilderTest extends \PHPUnit\Framework\TestCase
         self::assertEquals($sql, $query->select('a.test')->from('a')->where('a.test', '=', 1)->offset(3)->toSql());
     }
 
+    /**
+     * @testdox Mysql groupings form a valid query
+     */
     public function testMysqlGroup() : void
     {
         $query = new Builder($this->con);
@@ -140,6 +154,9 @@ class BuilderTest extends \PHPUnit\Framework\TestCase
         self::assertEquals($sql, $query->select('a.test')->from('a')->where('a.test', '=', ':test')->groupBy('a', 'b')->toSql());
     }
 
+    /**
+     * @testdox Mysql wheres form a valid query
+     */
     public function testMysqlWheres() : void
     {
         $query = new Builder($this->con);
@@ -199,6 +216,9 @@ class BuilderTest extends \PHPUnit\Framework\TestCase
         self::assertEquals($sql, $query->select('a.test')->from('a')->where('a.test', '=', ':testWhere')->whereIn('a.test2', ['a', ':bValue', 'c'], 'or')->toSql());
     }
 
+    /**
+     * @testdox Mysql joins form a valid query
+     */
     public function testMysqlJoins() : void
     {
         $query = new Builder($this->con);
@@ -258,6 +278,9 @@ class BuilderTest extends \PHPUnit\Framework\TestCase
         self::assertEquals($sql, $query->select('a.test')->from('a')->fullOuterJoin('b')->on('a.id', '=', 'b.id')->where('a.test', '=', 1)->toSql());
     }
 
+    /**
+     * @testdox Mysql inserts form a valid query
+     */
     public function testMysqlInsert() : void
     {
         $query = new Builder($this->con);
@@ -282,6 +305,9 @@ class BuilderTest extends \PHPUnit\Framework\TestCase
         self::assertEquals($sql, $query->insert('test', 'test2')->into('a')->values(':test', ':test2')->toSql());
     }
 
+    /**
+     * @testdox Mysql deletes form a valid query
+     */
     public function testMysqlDelete() : void
     {
         $query = new Builder($this->con);
@@ -293,6 +319,9 @@ class BuilderTest extends \PHPUnit\Framework\TestCase
         self::assertEquals($sql, $query->delete()->from('a')->where('a.test', '=', ':testVal')->toSql());
     }
 
+    /**
+     * @testdox Mysql updates form a valid query
+     */
     public function testMysqlUpdate() : void
     {
         $query = new Builder($this->con);
@@ -308,12 +337,18 @@ class BuilderTest extends \PHPUnit\Framework\TestCase
         self::assertEquals($sql, $query->update('a')->set(['a.test' => 1])->set(['a.test2' => ':test2'])->where('a.test', '=', ':test3')->toSql());
     }
 
-    public function testRaw() : void
+    /**
+     * @testdox Raw queries get output as defined
+     */
+    public function testRawInputOutput() : void
     {
         $query = new Builder($this->con);
         self::assertEquals('SELECT test.val FROM test;', $query->raw('SELECT test.val FROM test;')->toSql());
     }
 
+    /**
+     * @testdox Read only queries don't allow drops
+     */
     public function testReadOnlyRaw() : void
     {
         self::expectException(\Exception::class);
@@ -322,6 +357,9 @@ class BuilderTest extends \PHPUnit\Framework\TestCase
         $query->raw('DROP DATABASE oms;');
     }
 
+    /**
+     * @testdox Read only queries don't allow inserts
+     */
     public function testReadOnlyInsert() : void
     {
         self::expectException(\Exception::class);
@@ -330,6 +368,9 @@ class BuilderTest extends \PHPUnit\Framework\TestCase
         $query->insert('test');
     }
 
+    /**
+     * @testdox Read only queries don't allow updates
+     */
     public function testReadOnlyUpdate() : void
     {
         self::expectException(\Exception::class);
@@ -338,6 +379,9 @@ class BuilderTest extends \PHPUnit\Framework\TestCase
         $query->update();
     }
 
+    /**
+     * @testdox Read only queries don't allow deletes
+     */
     public function testReadOnlyDelete() : void
     {
         self::expectException(\Exception::class);
@@ -346,6 +390,9 @@ class BuilderTest extends \PHPUnit\Framework\TestCase
         $query->delete();
     }
 
+    /**
+     * @testdox Invalid select types throw a InvalidArgumentException
+     */
     public function testInvalidSelectParameter() : void
     {
         self::expectException(\InvalidArgumentException::class);
@@ -354,6 +401,9 @@ class BuilderTest extends \PHPUnit\Framework\TestCase
         $query->select(false);
     }
 
+    /**
+     * @testdox Invalid from types throw a InvalidArgumentException
+     */
     public function testInvalidFromParameter() : void
     {
         self::expectException(\InvalidArgumentException::class);
@@ -362,6 +412,9 @@ class BuilderTest extends \PHPUnit\Framework\TestCase
         $query->from(false);
     }
 
+    /**
+     * @testdox Invalid group types throw a InvalidArgumentException
+     */
     public function testInvalidGroupByParameter() : void
     {
         self::expectException(\InvalidArgumentException::class);
@@ -370,6 +423,9 @@ class BuilderTest extends \PHPUnit\Framework\TestCase
         $query->groupBy(false);
     }
 
+    /**
+     * @testdox Invalid where operators throw a InvalidArgumentException
+     */
     public function testInvalidWhereOperator() : void
     {
         self::expectException(\InvalidArgumentException::class);
@@ -378,6 +434,9 @@ class BuilderTest extends \PHPUnit\Framework\TestCase
         $query->where('a', 'invalid', 'b');
     }
 
+    /**
+     * @testdox Invalid join types throw a InvalidArgumentException
+     */
     public function testInvalidJoinTable() : void
     {
         self::expectException(\InvalidArgumentException::class);
@@ -386,6 +445,9 @@ class BuilderTest extends \PHPUnit\Framework\TestCase
         $query->join(null);
     }
 
+    /**
+     * @testdox Invalid join operators throw a InvalidArgumentException
+     */
     public function testInvalidJoinOperator() : void
     {
         self::expectException(\InvalidArgumentException::class);
@@ -394,7 +456,10 @@ class BuilderTest extends \PHPUnit\Framework\TestCase
         $query->join('b')->on('a', 'invalid', 'b');
     }
 
-    public function testInvalidOrOrderType() : void
+    /**
+     * @testdox Invalid order types throw a InvalidArgumentException
+     */
+    public function testInvalidOrderType() : void
     {
         self::expectException(\InvalidArgumentException::class);
 
@@ -402,7 +467,10 @@ class BuilderTest extends \PHPUnit\Framework\TestCase
         $query->orderBy('a', 1);
     }
 
-    public function testInvalidOrColumnType() : void
+    /**
+     * @testdox Invalid order column types throw a InvalidArgumentException
+     */
+    public function testInvalidOrderColumnType() : void
     {
         self::expectException(\InvalidArgumentException::class);
 

@@ -17,54 +17,99 @@ namespace phpOMS\tests\DataStorage\Cookie;
 use phpOMS\DataStorage\Cookie\CookieJar;
 
 /**
+ * @testdox phpOMS\tests\DataStorage\Cookie\CookieJar: CookieJar to handle http cookies
+ *
  * @internal
  */
 class CookieJarTest extends \PHPUnit\Framework\TestCase
 {
+    protected CookieJar $jar;
+
+    protected function setUp() : void
+    {
+        $this->jar = new CookieJar();
+    }
+
+    /**
+     * @testdox The cookie jar has the expected default values and functionality after initialization
+     */
     public function testDefault() : void
     {
-        $jar = new CookieJar();
-
         self::assertFalse(CookieJar::isLocked());
-        self::assertNull($jar->get('asd'));
-        self::assertFalse($jar->delete('abc'));
+        self::assertNull($this->jar->get('asd'));
+        self::assertFalse($this->jar->delete('abc'));
     }
 
-    public function testCookie() : void
+    /**
+     * @testdox Cookie values can be set and returned
+     */
+    public function testCookieInputOutput() : void
     {
-        $jar = new CookieJar();
+        self::assertTrue($this->jar->set('test', 'value'));
+        self::assertEquals('value', $this->jar->get('test')['value']);
 
-        self::assertTrue($jar->set('test', 'value'));
-        self::assertFalse($jar->set('test', 'value', 86400, '/', null, false, true, false));
-        self::assertTrue($jar->set('test2', 'value2', 86400, '/', null, false, true, false));
-        self::assertTrue($jar->set('test3', 'value3', 86400, '/', null, false, true, false));
-
-        // header already set
-        //self::assertTrue($jar->delete('test2'));
-        //self::assertFalse($jar->delete('test2'));
-
-        self::assertTrue($jar->remove('test2'));
-        self::assertFalse($jar->remove('test2'));
+        self::assertTrue($this->jar->set('test2', 'value2', 86400, '/', null, false, true, false));
+        self::assertEquals('value2', $this->jar->get('test2')['value']);
     }
 
+    /**
+     * @testdox Cookie values cannot be overwritten
+     */
+    public function testInvalidOverwrite() : void
+    {
+        self::assertTrue($this->jar->set('test', 'value'));
+        self::assertFalse($this->jar->set('test', 'value', 86400, '/', null, false, true, false));
+    }
+
+    /**
+     * @testdox Cookie values can be forced to overwrite
+     */
+    public function testOverwrite() : void
+    {
+        self::assertTrue($this->jar->set('test', 'value'));
+        self::assertTrue($this->jar->set('test', 'value2', 86400, '/', null, false, true, true));
+    }
+
+    /**
+     * @testdox Cookie values can be removed
+     */
+    public function testRemove() : void
+    {
+        self::assertTrue($this->jar->set('test', 'value'));
+        self::assertTrue($this->jar->remove('test'));
+    }
+
+    /**
+     * @testdox None-existing cookie values cannot be removed
+     */
+    public function testInvalidRemove() : void
+    {
+        self::assertTrue($this->jar->set('test', 'value'));
+        self::assertTrue($this->jar->remove('test'));
+        self::assertFalse($this->jar->remove('test'));
+    }
+
+    /**
+     * @testdox Values cannot be removed from a locked cookie and throws a LockException
+     */
     public function testDeleteLocked() : void
     {
         self::expectException(\phpOMS\DataStorage\LockException::class);
 
-        $jar = new CookieJar();
-        self::assertTrue($jar->set('test', 'value'));
+        self::assertTrue($this->jar->set('test', 'value'));
 
         CookieJar::lock();
-        $jar->delete('test');
+        $this->jar->delete('test');
     }
 
+    /**
+     * @testdox A locked coockie cannot be saved and throws a LockException
+     */
     public function testSaveLocked() : void
     {
         self::expectException(\phpOMS\DataStorage\LockException::class);
 
         CookieJar::lock();
-
-        $jar = new CookieJar();
-        $jar->save();
+        $this->jar->save();
     }
 }

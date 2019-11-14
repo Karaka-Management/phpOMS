@@ -17,6 +17,8 @@ use phpOMS\DataStorage\Database\Connection\SQLiteConnection;
 use phpOMS\DataStorage\Database\DatabaseStatus;
 
 /**
+ * @testdox phpOMS\tests\DataStorage\Database\Connection\SQLiteConnectionTest: SQLite connection
+ *
  * @internal
  */
 class SQLiteConnectionTest extends \PHPUnit\Framework\TestCase
@@ -30,6 +32,10 @@ class SQLiteConnectionTest extends \PHPUnit\Framework\TestCase
         }
     }
 
+    /**
+     * @testdox Valid sqlite connection data result in a valid database connection
+     * @covers phpOMS\DataStorage\Database\Connection\SQLiteConnection
+     */
     public function testConnect() : void
     {
         $sqlite = new SQLiteConnection($GLOBALS['CONFIG']['db']['core']['sqlite']['admin']);
@@ -38,6 +44,10 @@ class SQLiteConnectionTest extends \PHPUnit\Framework\TestCase
         self::assertInstanceOf('\phpOMS\DataStorage\Database\Query\Grammar\SQLiteGrammar', $sqlite->getGrammar());
     }
 
+    /**
+     * @testdox A missing database type throws a InvalidConnectionConfigException
+     * @covers phpOMS\DataStorage\Database\Connection\SQLiteConnection
+     */
     public function testInvalidDatabaseType() : void
     {
         self::expectException(\phpOMS\DataStorage\Database\Exception\InvalidConnectionConfigException::class);
@@ -47,6 +57,10 @@ class SQLiteConnectionTest extends \PHPUnit\Framework\TestCase
         $sqlite = new SQLiteConnection($db);
     }
 
+    /**
+     * @testdox A missing database throws a InvalidConnectionConfigException
+     * @covers phpOMS\DataStorage\Database\Connection\SQLiteConnection
+     */
     public function testInvalidDatabase() : void
     {
         self::expectException(\phpOMS\DataStorage\Database\Exception\InvalidConnectionConfigException::class);

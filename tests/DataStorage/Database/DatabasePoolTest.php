@@ -19,37 +19,86 @@ use phpOMS\DataStorage\Database\DatabasePool;
 use phpOMS\DataStorage\Database\DatabaseStatus;
 
 /**
+ * @testdox phpOMS\tests\DataStorage\Database\DatabasePool: Pool for database connections
+ *
  * @internal
  */
 class DatabasePoolTest extends \PHPUnit\Framework\TestCase
 {
-    public function testBasicConnection() : void
-    {
-        $dbPool = new DatabasePool();
-        /** @var array $CONFIG */
-        $dbPool->create('core', $GLOBALS['CONFIG']['db']['core']['masters']['admin']);
+    protected DatabasePool $dbPool;
 
-        self::assertEquals($dbPool->get()->getStatus(), DatabaseStatus::OK);
+    protected function setUp() : void
+    {
+        $this->dbPool = new DatabasePool();
     }
 
-    public function testGetSet() : void
+    /**
+     * @testdox The pool has the expected default values after initialization
+     */
+    public function testDefault() : void
     {
-        $dbPool = new DatabasePool();
+        self::assertInstanceOf('\phpOMS\DataStorage\Database\Connection\NullConnection', $this->dbPool->get());
+    }
+
+    /**
+     * @testdox A database connection can be created by the pool
+     */
+    public function testCreateConnection() : void
+    {
         /** @var array $CONFIG */
+        self::assertTrue($this->dbPool->create('core', $GLOBALS['CONFIG']['db']['core']['masters']['admin']));
+        self::assertEquals($this->dbPool->get()->getStatus(), DatabaseStatus::OK);
+    }
 
-        self::assertTrue($dbPool->create('core', $GLOBALS['CONFIG']['db']['core']['masters']['admin']));
-        self::assertFalse($dbPool->create('core', $GLOBALS['CONFIG']['db']['core']['masters']['admin']));
+    /**
+     * @testdox Database connections cannot be overwritten
+     */
+    public function testInvalidOverwrite() : void
+    {
+        /** @var array $CONFIG */
+        self::assertTrue($this->dbPool->create('core', $GLOBALS['CONFIG']['db']['core']['masters']['admin']));
+        self::assertFalse($this->dbPool->create('core', $GLOBALS['CONFIG']['db']['core']['masters']['admin']));
+        self::assertFalse($this->dbPool->add('core', new MysqlConnection($GLOBALS['CONFIG']['db']['core']['masters']['admin'])));
+    }
 
-        self::assertInstanceOf('\phpOMS\DataStorage\Database\Connection\ConnectionAbstract', $dbPool->get());
-        self::assertInstanceOf('\phpOMS\DataStorage\Database\Connection\NullConnection', $dbPool->get('doesNotExist'));
-        self::assertEquals($dbPool->get('core'), $dbPool->get());
+    /**
+     * @testdox Existing database connections can be added to the pool
+     */
+    public function testAddConnections() : void
+    {
+        /** @var array $CONFIG */
+        self::assertTrue($this->dbPool->add('core', new MysqlConnection($GLOBALS['CONFIG']['db']['core']['masters']['admin'])));
+        self::assertInstanceOf('\phpOMS\DataStorage\Database\Connection\ConnectionAbstract', $this->dbPool->get());
+    }
 
-        self::assertFalse($dbPool->remove('cores'));
-        self::assertTrue($dbPool->remove('core'));
+    /**
+     * @testdox Database connections can be removed from the pool
+     */
+    public function testRemoveConnections() : void
+    {
+        /** @var array $CONFIG */
+        self::assertTrue($this->dbPool->add('core', new MysqlConnection($GLOBALS['CONFIG']['db']['core']['masters']['admin'])));
+        self::assertTrue($this->dbPool->remove('core'));
+        self::assertInstanceOf('\phpOMS\DataStorage\Database\Connection\NullConnection', $this->dbPool->get());
+    }
 
-        self::assertInstanceOf('\phpOMS\DataStorage\Database\Connection\NullConnection', $dbPool->get());
+    /**
+     * @testdox Invalid database connections cannot be removed
+     */
+    public function testInvalidRemove() : void
+    {
+        /** @var array $CONFIG */
+        self::assertTrue($this->dbPool->add('core', new MysqlConnection($GLOBALS['CONFIG']['db']['core']['masters']['admin'])));
+        self::assertFalse($this->dbPool->remove('cores'));
+    }
 
-        self::assertTrue($dbPool->add('core', new MysqlConnection($GLOBALS['CONFIG']['db']['core']['masters']['admin'])));
-        self::assertFalse($dbPool->add('core', new MysqlConnection($GLOBALS['CONFIG']['db']['core']['masters']['admin'])));
+    /**
+     * @testdox The first connection added to the pool is the default connection
+     */
+    public function testDefaultConnection() : void
+    {
+        /** @var array $CONFIG */
+        self::assertTrue($this->dbPool->add('abc', new MysqlConnection($GLOBALS['CONFIG']['db']['core']['masters']['admin'])));
+        self::assertEquals($this->dbPool->get('abc'), $this->dbPool->get());
     }
 }

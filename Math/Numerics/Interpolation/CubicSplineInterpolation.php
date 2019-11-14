@@ -135,8 +135,6 @@ final class CubicSplineInterpolation implements InterpolationInterface
         $this->solveA->setV($n - 1, 0.0);
         $this->solveC->setV($n - 1, 3.0 * $this->solveA->getV($n - 2) * $h ** 2 + 2.0 * $this->solveB->get($n - 2) * $h + $this->solveC->getV($n - 2));
 
-        $a = 2;
-
         /**
          * @todo: consider linear extrapolation at start and end point
          *

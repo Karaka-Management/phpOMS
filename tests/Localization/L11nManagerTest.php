@@ -19,26 +19,45 @@ use phpOMS\Localization\L11nManager;
 require_once __DIR__ . '/../Autoloader.php';
 
 /**
+ * @testdox phpOMS\tests\Localization\L11nManagerTest: Localization manager for view templates
+ *
  * @internal
  */
 class L11nManagerTest extends \PHPUnit\Framework\TestCase
 {
+    protected L11nManager $l11nManager;
+
+    protected function setUp() : void
+    {
+        $this->l11nManager = new L11nManager('Api');
+    }
+
+    /**
+     * @testdox The localization manager has the expected member variables
+     * @covers phpOMS\Localization\L11nManager
+     */
     public function testAttributes() : void
     {
-        $l11nManager = new L11nManager('Api');
-        self::assertObjectHasAttribute('language', $l11nManager);
+        self::assertObjectHasAttribute('language', $this->l11nManager);
     }
 
+    /**
+     * @testdox The localization manager has the expected default values after initialization
+     * @covers phpOMS\Localization\L11nManager
+     */
     public function testDefault() : void
     {
-        $l11nManager = new L11nManager('Api');
-        self::assertFalse($l11nManager->isLanguageLoaded('en'));
-        self::assertEquals([], $l11nManager->getModuleLanguage('en'));
-        self::assertEquals([], $l11nManager->getModuleLanguage('en', 'Admin'));
-        self::assertEquals('ERROR', $l11nManager->getHtml('en', 'Admin', 'Backend', 'Test2'));
-        self::assertEquals('ERROR', $l11nManager->getText('en', 'Admin', 'Backend', 'Test2'));
+        self::assertFalse($this->l11nManager->isLanguageLoaded('en'));
+        self::assertEquals([], $this->l11nManager->getModuleLanguage('en'));
+        self::assertEquals([], $this->l11nManager->getModuleLanguage('en', 'Admin'));
+        self::assertEquals('ERROR', $this->l11nManager->getHtml('en', 'Admin', 'Backend', 'Test2'));
+        self::assertEquals('ERROR', $this->l11nManager->getText('en', 'Admin', 'Backend', 'Test2'));
     }
 
+    /**
+     * @testdox Loading language for an invalid module throws Exception
+     * @covers phpOMS\Localization\L11nManager
+     */
     public function testInvalidModule() : void
     {
         self::expectException(\Exception::class);
@@ -51,11 +70,14 @@ class L11nManagerTest extends \PHPUnit\Framework\TestCase
             ],
         ];
 
-        $localization = new L11nManager('Api');
-        $localization->loadLanguage('en', 'doesNotExist', $expected);
+        $this->l11nManager->loadLanguage('en', 'doesNotExist', $expected);
     }
 
-    public function testGetSet() : void
+    /**
+     * @testdox Language data can be loaded and output as plain text or html
+     * @covers phpOMS\Localization\L11nManager
+     */
+    public function testLanguageInputOutput() : void
     {
         $expected = [
             'en' => [
@@ -73,22 +95,25 @@ class L11nManagerTest extends \PHPUnit\Framework\TestCase
             ],
         ];
 
-        $l11nManager = new L11nManager('Api');
-        $l11nManager->loadLanguage('en', 'Admin', $expected['en']);
-        $l11nManager->loadLanguage('en', 'Admin', $expected2['en']);
-        self::assertTrue($l11nManager->isLanguageLoaded('en'));
+        $this->l11nManager->loadLanguage('en', 'Admin', $expected['en']);
+        $this->l11nManager->loadLanguage('en', 'Admin', $expected2['en']);
+        self::assertTrue($this->l11nManager->isLanguageLoaded('en'));
 
-        self::assertEquals('Test strin&g2', $l11nManager->getText('en', 'Admin', 'RandomThemeDoesNotMatterAlreadyLoaded', 'Test2'));
-        self::assertEquals('Test strin&amp;g2', $l11nManager->getHtml('en', 'Admin', 'RandomThemeDoesNotMatterAlreadyLoaded', 'Test2'));
+        self::assertEquals('Test strin&g2', $this->l11nManager->getText('en', 'Admin', 'RandomThemeDoesNotMatterAlreadyLoaded', 'Test2'));
+        self::assertEquals('Test strin&amp;g2', $this->l11nManager->getHtml('en', 'Admin', 'RandomThemeDoesNotMatterAlreadyLoaded', 'Test2'));
     }
 
-    public function testGetSetFromFile() : void
+    /**
+     * @testdox Language data can be loaded from a file
+     * @covers phpOMS\Localization\L11nManager
+     */
+    public function testLanguageFile() : void
     {
-        $l11nManager2 = new L11nManager('Api');
-        $l11nManager2->loadLanguageFromFile('en', 'Test', __DIR__ . '/langTestFile.php');
-        self::assertEquals('value', $l11nManager2->getHtml('en', 'Test', 'RandomThemeDoesNotMatterAlreadyLoaded', 'key'));
+        $this->l11nManager2 = new L11nManager('Api');
+        $this->l11nManager2->loadLanguageFromFile('en', 'Test', __DIR__ . '/langTestFile.php');
+        self::assertEquals('value', $this->l11nManager2->getHtml('en', 'Test', 'RandomThemeDoesNotMatterAlreadyLoaded', 'key'));
 
-        self::assertEquals(['Test' => ['key' => 'value']], $l11nManager2->getModuleLanguage('en'));
-        self::assertEquals(['key' => 'value'], $l11nManager2->getModuleLanguage('en', 'Test'));
+        self::assertEquals(['Test' => ['key' => 'value']], $this->l11nManager2->getModuleLanguage('en'));
+        self::assertEquals(['key' => 'value'], $this->l11nManager2->getModuleLanguage('en', 'Test'));
     }
 }

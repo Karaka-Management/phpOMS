@@ -25,6 +25,8 @@ use phpOMS\Uri\Http;
 require_once __DIR__ . '/../Autoloader.php';
 
 /**
+ * @testdox phpOMS\tests\Dispatcher\DispatcherTest: Dispatcher for executing request endpoints
+ *
  * @internal
  */
 class DispatcherTest extends \PHPUnit\Framework\TestCase
@@ -38,11 +40,19 @@ class DispatcherTest extends \PHPUnit\Framework\TestCase
         $this->app->dispatcher = new Dispatcher($this->app);
     }
 
+    /**
+     * @testdox The dispatcher has the expected member variables
+     * @covers phpOMS\Dispatcher\Dispatcher
+     */
     public function testAttributes() : void
     {
         self::assertObjectHasAttribute('controllers', $this->app->dispatcher);
     }
 
+    /**
+     * @testdox The disptacher can dispatch a function/closure
+     * @covers phpOMS\Dispatcher\Dispatcher
+     */
     public function testClosure() : void
     {
         $localization = new Localization();
@@ -66,6 +76,10 @@ class DispatcherTest extends \PHPUnit\Framework\TestCase
         );
     }
 
+    /**
+     * @testdox The disptacher can dispatch a method as string representation of a controller
+     * @covers phpOMS\Dispatcher\Dispatcher
+     */
     public function testPathMethod() : void
     {
         $localization = new Localization();
@@ -81,6 +95,10 @@ class DispatcherTest extends \PHPUnit\Framework\TestCase
         );
     }
 
+    /**
+     * @testdox The disptacher can dispatch a method as array representation of a controller
+     * @covers phpOMS\Dispatcher\Dispatcher
+     */
     public function testPathMethodInArray() : void
     {
         $localization = new Localization();
@@ -104,6 +122,10 @@ class DispatcherTest extends \PHPUnit\Framework\TestCase
         );
     }
 
+    /**
+     * @testdox The disptacher can dispatch a static method as string representation
+     * @covers phpOMS\Dispatcher\Dispatcher
+     */
     public function testPathStatic() : void
     {
         $localization = new Localization();
@@ -119,6 +141,10 @@ class DispatcherTest extends \PHPUnit\Framework\TestCase
         );
     }
 
+    /**
+     * @testdox The disptacher can dispatch multiple destinations after another
+     * @covers phpOMS\Dispatcher\Dispatcher
+     */
     public function testArray() : void
     {
         $localization = new Localization();
@@ -138,6 +164,10 @@ class DispatcherTest extends \PHPUnit\Framework\TestCase
         );
     }
 
+    /**
+     * @testdox A invalid destination type throws UnexpectedValueException
+     * @covers phpOMS\Dispatcher\Dispatcher
+     */
     public function testInvalidDestination() : void
     {
         self::expectException(\UnexpectedValueException::class);
@@ -145,6 +175,10 @@ class DispatcherTest extends \PHPUnit\Framework\TestCase
         $this->app->dispatcher->dispatch(true);
     }
 
+    /**
+     * @testdox A invalid controller path thorws a PathException
+     * @covers phpOMS\Dispatcher\Dispatcher
+     */
     public function testInvalidControllerPath() : void
     {
         self::expectException(\phpOMS\System\File\PathException::class);
@@ -152,6 +186,10 @@ class DispatcherTest extends \PHPUnit\Framework\TestCase
         $this->app->dispatcher->dispatch('phpOMS\tests\Dispatcher\TestControllers::testFunctionStatic');
     }
 
+    /**
+     * @testdox A invalid function path thorws a Exception
+     * @covers phpOMS\Dispatcher\Dispatcher
+     */
     public function testInvalidControllerFunction() : void
     {
         self::expectException(\Exception::class);
@@ -159,6 +197,10 @@ class DispatcherTest extends \PHPUnit\Framework\TestCase
         $this->app->dispatcher->dispatch('phpOMS\tests\Dispatcher\TestController::testFunctionStaticINVALID');
     }
 
+    /**
+     * @testdox A malformed dispatch path thorws UnexpectedValueException
+     * @covers phpOMS\Dispatcher\Dispatcher
+     */
     public function testInvalidControllerString() : void
     {
         self::expectException(\UnexpectedValueException::class);

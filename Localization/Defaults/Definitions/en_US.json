@@ -7,7 +7,7 @@
     },
     "thousand": ",",
     "decimal": ".",
-    "angle": "Degree",
+    "angle": "deg",
     "temperature": "celsius",
     "weight": {
         "very_light": "mg",

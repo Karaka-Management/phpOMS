@@ -18,6 +18,8 @@ use phpOMS\DataStorage\Database\Connection\SqlServerConnection;
 use phpOMS\DataStorage\Database\DatabaseStatus;
 
 /**
+ * @testdox phpOMS\tests\DataStorage\Database\Connection\SqlServerConnectionTest: Sqlserver connection
+ *
  * @internal
  */
 class SqlServerConnectionTest extends \PHPUnit\Framework\TestCase
@@ -31,6 +33,10 @@ class SqlServerConnectionTest extends \PHPUnit\Framework\TestCase
         }
     }
 
+    /**
+     * @testdox Valid sqlserver connection data result in a valid database connection
+     * @covers phpOMS\DataStorage\Database\Connection\SqlServerConnection
+     */
     public function testConnect() : void
     {
         $ssql = new SqlServerConnection($GLOBALS['CONFIG']['db']['core']['mssql']['admin']);
@@ -41,6 +47,10 @@ class SqlServerConnectionTest extends \PHPUnit\Framework\TestCase
         self::assertInstanceOf('\phpOMS\DataStorage\Database\Query\Grammar\SqlServerGrammar', $ssql->getGrammar());
     }
 
+    /**
+     * @testdox A missing database type throws a InvalidConnectionConfigException
+     * @covers phpOMS\DataStorage\Database\Connection\SqlServerConnection
+     */
     public function testInvalidDatabaseType() : void
     {
         self::expectException(\phpOMS\DataStorage\Database\Exception\InvalidConnectionConfigException::class);
@@ -50,6 +60,10 @@ class SqlServerConnectionTest extends \PHPUnit\Framework\TestCase
         $ssql = new SqlServerConnection($db);
     }
 
+    /**
+     * @testdox A missing database host throws a InvalidConnectionConfigException
+     * @covers phpOMS\DataStorage\Database\Connection\SqlServerConnection
+     */
     public function testInvalidHost() : void
     {
         self::expectException(\phpOMS\DataStorage\Database\Exception\InvalidConnectionConfigException::class);
@@ -59,6 +73,10 @@ class SqlServerConnectionTest extends \PHPUnit\Framework\TestCase
         $ssql = new SqlServerConnection($db);
     }
 
+    /**
+     * @testdox A missing database port throws a InvalidConnectionConfigException
+     * @covers phpOMS\DataStorage\Database\Connection\SqlServerConnection
+     */
     public function testInvalidPort() : void
     {
         self::expectException(\phpOMS\DataStorage\Database\Exception\InvalidConnectionConfigException::class);
@@ -68,6 +86,10 @@ class SqlServerConnectionTest extends \PHPUnit\Framework\TestCase
         $ssql = new SqlServerConnection($db);
     }
 
+    /**
+     * @testdox A missing database throws a InvalidConnectionConfigException
+     * @covers phpOMS\DataStorage\Database\Connection\SqlServerConnection
+     */
     public function testInvalidDatabase() : void
     {
         self::expectException(\phpOMS\DataStorage\Database\Exception\InvalidConnectionConfigException::class);
@@ -77,6 +99,10 @@ class SqlServerConnectionTest extends \PHPUnit\Framework\TestCase
         $ssql = new SqlServerConnection($db);
     }
 
+    /**
+     * @testdox A missing database login throws a InvalidConnectionConfigException
+     * @covers phpOMS\DataStorage\Database\Connection\SqlServerConnection
+     */
     public function testInvalidLogin() : void
     {
         self::expectException(\phpOMS\DataStorage\Database\Exception\InvalidConnectionConfigException::class);
@@ -86,6 +112,10 @@ class SqlServerConnectionTest extends \PHPUnit\Framework\TestCase
         $ssql = new SqlServerConnection($db);
     }
 
+    /**
+     * @testdox A missing database password throws a InvalidConnectionConfigException
+     * @covers phpOMS\DataStorage\Database\Connection\SqlServerConnection
+     */
     public function testInvalidPassword() : void
     {
         self::expectException(\phpOMS\DataStorage\Database\Exception\InvalidConnectionConfigException::class);
@@ -95,6 +125,10 @@ class SqlServerConnectionTest extends \PHPUnit\Framework\TestCase
         $ssql = new SqlServerConnection($db);
     }
 
+    /**
+     * @testdox A invalid database type throws a InvalidConnectionConfigException
+     * @covers phpOMS\DataStorage\Database\Connection\SqlServerConnection
+     */
     public function testInvalidDatabaseTypeName() : void
     {
         self::expectException(\phpOMS\DataStorage\Database\Exception\InvalidConnectionConfigException::class);
@@ -104,6 +138,10 @@ class SqlServerConnectionTest extends \PHPUnit\Framework\TestCase
         $ssql = new SqlServerConnection($db);
     }
 
+    /**
+     * @testdox A invalid database throws a InvalidConnectionConfigException
+     * @covers phpOMS\DataStorage\Database\Connection\SqlServerConnection
+     */
     public function testInvalidDatabaseName() : void
     {
         self::expectException(\phpOMS\DataStorage\Database\Exception\InvalidConnectionConfigException::class);

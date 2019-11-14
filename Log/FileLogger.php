@@ -467,7 +467,7 @@ final class FileLogger implements LoggerInterface
     /**
      * Get logging messages from file.
      *
-     * @param int $limit  Amout of perpetrators
+     * @param int $limit  Amout of logs
      * @param int $offset Offset
      *
      * @return array
@@ -493,16 +493,17 @@ final class FileLogger implements LoggerInterface
 
         $line = \fgetcsv($this->fp, 0, ';');
         while ($line !== false && $line !== null) {
+            if ($limit < 1) {
+                break;
+            }
+
             ++$id;
 
             if ($offset > 0) {
+                $line = \fgetcsv($this->fp, 0, ';');
+
                 --$offset;
                 continue;
-            }
-
-            if ($limit <= 0) {
-                \reset($logs);
-                unset($logs[\key($logs)]);
             }
 
             foreach ($line as &$value) {
@@ -510,8 +511,9 @@ final class FileLogger implements LoggerInterface
             }
 
             $logs[$id] = $line;
+
             --$limit;
-            \ksort($logs);
+
             $line = \fgetcsv($this->fp, 0, ';');
         }
 
@@ -554,16 +556,10 @@ final class FileLogger implements LoggerInterface
                 continue;
             }
 
-            $log['datetime']  = \trim($line[0] ?? '');
-            $log['level']     = \trim($line[1] ?? '');
-            $log['ip']        = \trim($line[2] ?? '');
-            $log['line']      = \trim($line[3] ?? '');
-            $log['version']   = \trim($line[4] ?? '');
-            $log['os']        = \trim($line[5] ?? '');
-            $log['path']      = \trim($line[6] ?? '');
-            $log['message']   = \trim($line[7] ?? '');
-            $log['file']      = \trim($line[8] ?? '');
-            $log['backtrace'] = \trim($line[9] ?? '');
+            foreach ($line as $value) {
+                $log[] = \trim($value);
+            }
+
             break;
         }
 

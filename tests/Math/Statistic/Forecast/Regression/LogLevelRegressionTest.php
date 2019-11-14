@@ -17,6 +17,8 @@ namespace phpOMS\tests\Math\Statistic\Forecast\Regression;
 use phpOMS\Math\Statistic\Forecast\Regression\LogLevelRegression;
 
 /**
+ * @testdox phpOMS\tests\Math\Statistic\Forecast\Regression\LogLevelRegressionTest: Log level regression
+ *
  * @internal
  */
 class LogLevelRegressionTest extends \PHPUnit\Framework\TestCase
@@ -32,23 +34,35 @@ class LogLevelRegressionTest extends \PHPUnit\Framework\TestCase
         $this->reg = LogLevelRegression::getRegression($x, $y);
     }
 
+    /**
+     * @testdox The regression parameters are calcualated correctly
+     */
     public function testRegression() : void
     {
         self::assertEqualsWithDelta(['b0' => -1, 'b1' => 2], $this->reg, 0.2);
     }
 
+    /**
+     * @testdox The slope is calculated correctly
+     */
     public function testSlope() : void
     {
         $y = 3;
         self::assertEqualsWithDelta($this->reg['b1'] * $y, LogLevelRegression::getSlope($this->reg['b1'], $y, 0), 0.2);
     }
 
+    /**
+     * @testdox The elasticity is calculated correctly
+     */
     public function testElasticity() : void
     {
         $x = 2;
         self::assertEqualsWithDelta($this->reg['b1'] * $x, LogLevelRegression::getElasticity($this->reg['b1'], 0, $x), 0.2);
     }
 
+    /**
+     * @testdox Different dimension sizes for x and y coordinates throw a InvalidDimensionException
+     */
     public function testInvalidDimension() : void
     {
         self::expectException(\phpOMS\Math\Matrix\Exception\InvalidDimensionException::class);

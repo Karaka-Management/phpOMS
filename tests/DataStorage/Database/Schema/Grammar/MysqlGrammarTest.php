@@ -21,24 +21,34 @@ use phpOMS\Utils\ArrayUtils;
 use phpOMS\Utils\TestUtils;
 
 /**
+ * @testdox phpOMS\tests\DataStorage\Database\Schema\Grammar\MysqlGrammarTest: Mysql sql schema grammar
+ *
  * @internal
  */
 class MysqlGrammarTest extends \PHPUnit\Framework\TestCase
 {
-    protected $con = null;
+    protected MysqlConnection $con;
 
     protected function setUp() : void
     {
         $this->con = new MysqlConnection($GLOBALS['CONFIG']['db']['core']['masters']['admin']);
     }
 
+    /**
+     * @testdox The grammar has the expected default values after initialization
+     * @covers phpOMS\DataStorage\Database\Schema\Grammar\MysqlGrammar<extended>
+     */
     public function testDefault() : void
     {
         self::assertInstanceOf('\phpOMS\DataStorage\Database\Schema\Grammar\Grammar', new MysqlGrammar());
         self::assertEquals('`', TestUtils::getMember(new MysqlGrammar(), 'systemIdentifier'));
     }
 
-    public function testSchemaCreateReadDelete() : void
+    /**
+     * @testdox The the grammar correctly creates and returns a database table
+     * @covers phpOMS\DataStorage\Database\Schema\Grammar\MysqlGrammar<extended>
+     */
+    public function testSchemaInputOutput() : void
     {
         $definitions = \json_decode(\file_get_contents(__DIR__ . '/testSchema.json'), true);
         foreach ($definitions as $definition) {
@@ -59,6 +69,16 @@ class MysqlGrammarTest extends \PHPUnit\Framework\TestCase
                 'Couldn\'t find "' . $key . '" in array'
             );
         }
+    }
+
+    /**
+     * @testdox The grammar correctly deletes a table
+     * @covers phpOMS\DataStorage\Database\Schema\Grammar\MysqlGrammar<extended>
+     */
+    public function testDelete() : void
+    {
+        $table  = new SchemaBuilder($this->con);
+        $tables = $table->prefix($this->con->prefix)->selectTables()->execute()->fetchAll(\PDO::FETCH_COLUMN);
 
         $delete  = new SchemaBuilder($this->con);
         $delete->prefix($this->con->prefix)->dropTable('test')->execute();

@@ -23,7 +23,10 @@ use phpOMS\Router\RouteVerb;
  */
 class RouteVerbTest extends \PHPUnit\Framework\TestCase
 {
-    public function testEnum() : void
+    /**
+     * @coversNothing
+     */
+    public function testEnums() : void
     {
         self::assertTrue(\defined('phpOMS\Router\RouteVerb::GET'));
         self::assertTrue(\defined('phpOMS\Router\RouteVerb::PUT'));

@@ -40,15 +40,6 @@ final class DatabasePool implements DataStoragePoolInterface
     private array $pool = [];
 
     /**
-     * Constructor.
-     *
-     * @since 1.0.0
-     */
-    public function __construct()
-    {
-    }
-
-    /**
      * Add database.
      *
      * @param string                         $key Database key

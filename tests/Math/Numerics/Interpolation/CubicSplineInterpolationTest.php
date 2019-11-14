@@ -18,10 +18,16 @@ use phpOMS\Math\Numerics\Interpolation\CubicSplineInterpolation;
 use phpOMS\Math\Numerics\Interpolation\DerivativeType;
 
 /**
+ * @testdox phpOMS\tests\Math\Numerics\Interpolation\CubicSplineInterpolationTest: Cubic spline interpolation
+ *
  * @internal
  */
 class CubicSplineInterpolationTest extends \PHPUnit\Framework\TestCase
 {
+    /**
+     * @testdox The spline interpolation using the first derivative is correct
+     * @covers phpOMS\tests\Math\Numerics\Interpolation\CubicSplineInterpolation
+     */
     public function testInterpolationFirstDerivative() : void
     {
         $interpolation = new CubicSplineInterpolation([
@@ -38,6 +44,10 @@ class CubicSplineInterpolationTest extends \PHPUnit\Framework\TestCase
         self::assertEqualsWithDelta(0.947888, $interpolation->interpolate(1.5), 0.1);
     }
 
+    /**
+     * @testdox The spline interpolation using the second derivative is correct
+     * @covers phpOMS\tests\Math\Numerics\Interpolation\CubicSplineInterpolation
+     */
     public function testInterpolationSecondDerivative() : void
     {
         $interpolation = new CubicSplineInterpolation([

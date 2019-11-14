@@ -18,6 +18,8 @@ use phpOMS\tests\DataStorage\Database\TestModel\BaseModelMapper;
 use phpOMS\tests\DataStorage\Database\TestModel\ManyToManyDirectModelMapper;
 
 /**
+ * @testdox phpOMS\tests\DataStorage\Database\DataMapperAbstract: Datamapper for database models
+ *
  * @internal
  */
 class DataMapperAbstractTest extends \PHPUnit\Framework\TestCase
@@ -148,6 +150,7 @@ class DataMapperAbstractTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
+     * @testdox The datamapper has the expected default values after initialization
      * @covers phpOMS\DataStorage\Database\DataMapperAbstract
      */
     public function testDefault() : void
@@ -158,6 +161,7 @@ class DataMapperAbstractTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
+     * @testdox The datamapper sucessfully creates a database entry of a model
      * @covers phpOMS\DataStorage\Database\DataMapperAbstract
      */
     public function testCreate() : void
@@ -167,6 +171,7 @@ class DataMapperAbstractTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
+     * @testdox The datamapper sucessfully creates a database entry of array data
      * @covers phpOMS\DataStorage\Database\DataMapperAbstract
      */
     public function testCreateArray() : void
@@ -176,6 +181,7 @@ class DataMapperAbstractTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
+     * @testdox The datamapper sucessfully returns a database entry as model
      * @covers phpOMS\DataStorage\Database\DataMapperAbstract
      */
     public function testRead() : void
@@ -211,6 +217,7 @@ class DataMapperAbstractTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
+     * @testdox The datamapper sucessfully returns a database entry as array
      * @covers phpOMS\DataStorage\Database\DataMapperAbstract
      */
     public function testReadArray() : void
@@ -241,6 +248,7 @@ class DataMapperAbstractTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
+     * @testdox The datamapper sucessfully updates a database entry from a model
      * @covers phpOMS\DataStorage\Database\DataMapperAbstract
      */
     public function testUpdate() : void
@@ -271,6 +279,7 @@ class DataMapperAbstractTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
+     * @testdox The datamapper sucessfully updates a database entry from an array
      * @covers phpOMS\DataStorage\Database\DataMapperAbstract
      */
     public function testUpdateArray() : void
@@ -301,6 +310,7 @@ class DataMapperAbstractTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
+     * @testdox The datamapper sucessfully deletes a database entry from a model
      * @covers phpOMS\DataStorage\Database\DataMapperAbstract
      */
     public function testDelete() : void

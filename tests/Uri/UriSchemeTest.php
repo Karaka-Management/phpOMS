@@ -23,7 +23,10 @@ use phpOMS\Uri\UriScheme;
  */
 class UriSchemeTest extends \PHPUnit\Framework\TestCase
 {
-    public function testEnum() : void
+    /**
+     * @coversNothing
+     */
+    public function testEnums() : void
     {
         self::assertTrue(\defined('phpOMS\Uri\UriScheme::HTTP'));
         self::assertTrue(\defined('phpOMS\Uri\UriScheme::FILE'));

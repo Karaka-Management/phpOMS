@@ -19,96 +19,188 @@ require_once __DIR__ . '/../Autoloader.php';
 use phpOMS\Event\EventManager;
 
 /**
+ * @testdox phpOMS\tests\Event\EventManager: Event manager for managing and executing events
+ *
  * @internal
  */
 class EventManagerTest extends \PHPUnit\Framework\TestCase
 {
+    protected EventManager $event;
+
+    protected function setUp() : void
+    {
+        $this->event = new EventManager();
+    }
+
+    /**
+     * @testdox The event manager has the expected member variables
+     * @covers phpOMS\Event\EventManager
+     */
     public function testAttributes() : void
     {
-        $event = new EventManager();
-
-        self::assertObjectHasAttribute('groups', $event);
-        self::assertObjectHasAttribute('callbacks', $event);
+        self::assertObjectHasAttribute('groups', $this->event);
+        self::assertObjectHasAttribute('callbacks', $this->event);
     }
 
+    /**
+     * @testdox The event manager has the expected default values after initialization
+     * @covers phpOMS\Event\EventManager
+     */
     public function testDefault() : void
     {
-        $event = new EventManager();
-
-        self::assertEquals(0, $event->count());
-        self::assertFalse($event->trigger('invalid'));
+        self::assertEquals(0, $this->event->count());
     }
 
-    public function testBase() : void
+    /**
+     * @testdox New events can be added
+     * @covers phpOMS\Event\EventManager
+     */
+    public function testAdd() : void
     {
-        $event = new EventManager();
-
-        self::assertTrue($event->attach('group', function() { return true; }, false, false));
-        self::assertTrue($event->attach('group', function() { return true; }, false, false));
-        self::assertEquals(1, $event->count());
+        self::assertTrue($this->event->attach('group', function() { return true; }, false, false));
+        self::assertEquals(1, $this->event->count());
     }
 
-    public function testDefaultDispatchOfPath() : void
+    /**
+     * @testdox Multiple callbacks can be added to an event
+     * @covers phpOMS\Event\EventManager
+     */
+    public function testAddMultiple() : void
     {
-        $event = new EventManager();
-
-        self::assertTrue($event->attach('group', 'path_to_execute', false, true));
-        $event->addGroup('group', 'id1');
-        $event->addGroup('group', 'id2');
-
-        $event->trigger('group', 'id1');
-        self::assertTrue($event->trigger('group', 'id2'));
+        self::assertTrue($this->event->attach('group', function() { return true; }, false, false));
+        self::assertTrue($this->event->attach('group', function() { return true; }, false, false));
+        self::assertEquals(1, $this->event->count());
     }
 
+    /**
+     * @testdox An event gets executed if all conditions and sub conditions are met
+     * @covers phpOMS\Event\EventManager
+     */
+    public function testDispatchAfterAllConditions() : void
+    {
+        $this->event->attach('group', 'path_to_execute', false, true);
+        $this->event->addGroup('group', 'id1');
+        $this->event->addGroup('group', 'id2');
+
+        $this->event->trigger('group', 'id1');
+        self::assertTrue($this->event->trigger('group', 'id2'));
+    }
+
+    /**
+     * @testdox An event doesn't get executed if not all conditions and sub conditions are met
+     * @covers phpOMS\Event\EventManager
+     */
+    public function testDispatchAfterSomeConditionsInvalid() : void
+    {
+        $this->event->attach('group', 'path_to_execute', false, true);
+        $this->event->addGroup('group', 'id1');
+        $this->event->addGroup('group', 'id2');
+
+        self::assertFalse($this->event->trigger('group', 'id1'));
+    }
+
+    /**
+     * @testdox None-existing events cannot be executed/triggered
+     * @covers phpOMS\Event\EventManager
+     */
+    public function testInvalidEventTrigger() : void
+    {
+        self::assertFalse($this->event->trigger('invalid'));
+    }
+
+    /**
+     * @testdox An event can be defined to reset after all conditions and subconditions are met. Then all conditions and sub conditions must be met again before it gets triggered again.
+     * @covers phpOMS\Event\EventManager
+     */
     public function testReset() : void
     {
-        $event = new EventManager();
+        self::assertTrue($this->event->attach('group', function() { return true; }, false, true));
+        $this->event->addGroup('group', 'id1');
+        $this->event->addGroup('group', 'id2');
 
-        self::assertTrue($event->attach('group', function() { return true; }, false, true));
-        $event->addGroup('group', 'id1');
-        $event->addGroup('group', 'id2');
-
-        self::assertFalse($event->trigger('group', 'id1'));
-        self::assertTrue($event->trigger('group', 'id2'));
-        self::assertFalse($event->trigger('group', 'id2'));
-        self::assertEquals(1, $event->count());
+        self::assertFalse($this->event->trigger('group', 'id1'));
+        self::assertTrue($this->event->trigger('group', 'id2'));
+        self::assertFalse($this->event->trigger('group', 'id2'));
     }
 
+    /**
+     * @testdox An event can be defined to not reset after all conditions and subconditions are met. Then an event can be triggered any time.
+     * @covers phpOMS\Event\EventManager
+     */
+    public function testNoeReset() : void
+    {
+        self::assertTrue($this->event->attach('group', function() { return true; }, false, false));
+        $this->event->addGroup('group', 'id1');
+        $this->event->addGroup('group', 'id2');
+
+        self::assertFalse($this->event->trigger('group', 'id1'));
+        self::assertTrue($this->event->trigger('group', 'id2'));
+        self::assertTrue($this->event->trigger('group', 'id2'));
+    }
+
+    /**
+     * @testdox An event can be manually removed/detatched
+     * @covers phpOMS\Event\EventManager
+     */
     public function testDetach() : void
     {
-        $event = new EventManager();
+        $this->event->attach('group', function() { return true; }, false, true);
+        $this->event->addGroup('group', 'id1');
+        $this->event->addGroup('group', 'id2');
 
-        self::assertTrue($event->attach('group', function() { return true; }, false, true));
-        $event->addGroup('group', 'id1');
-        $event->addGroup('group', 'id2');
-
-        self::assertEquals(1, $event->count());
-        self::assertTrue($event->detach('group'));
-        self::assertEquals(0, $event->count());
-        self::assertFalse($event->trigger('group'));
-
-        self::assertFalse($event->detach('group'));
+        self::assertEquals(1, $this->event->count());
+        self::assertTrue($this->event->detach('group'));
+        self::assertEquals(0, $this->event->count());
+        self::assertFalse($this->event->trigger('group'));
     }
 
+    /**
+     * @testdox None-existing events cannot be manually removed/detatched
+     * @covers phpOMS\Event\EventManager
+     */
+    public function testInvalidDetach() : void
+    {
+        $this->event->attach('group', function() { return true; }, false, true);
+        $this->event->addGroup('group', 'id1');
+        $this->event->addGroup('group', 'id2');
+
+        $this->event->detach('group');
+        self::assertFalse($this->event->detach('group'));
+    }
+
+    /**
+     * @testdox An event can be defined to automatically remove itself after all conditions and subconditions are met and it is executed
+     * @covers phpOMS\Event\EventManager
+     */
     public function testRemove() : void
     {
-        $event = new EventManager();
+        self::assertTrue($this->event->attach('group1', function() { return true; }, true, false));
+        self::assertTrue($this->event->attach('group2', function() { return true; }, true, false));
 
-        self::assertTrue($event->attach('group1', function() { return true; }, true, false));
-        self::assertTrue($event->attach('group2', function() { return true; }, true, false));
-        self::assertEquals(2, $event->count());
-        $event->trigger('group1');
-        self::assertEquals(1, $event->count());
+        self::assertEquals(2, $this->event->count());
+        $this->event->trigger('group1');
+        self::assertEquals(1, $this->event->count());
     }
 
+    /**
+     * @testdox Events can be imported from a file
+     * @covers phpOMS\Event\EventManager
+     */
     public function testImportEvents() : void
     {
-        $event = new EventManager();
-        self::assertFalse($event->importFromFile(__DIR__ . '/invalid.php'));
-        self::assertTrue($event->importFromFile(__DIR__ . '/events.php'));
+        self::assertTrue($this->event->importFromFile(__DIR__ . '/events.php'));
 
-        self::assertEquals(2, $event->count());
-        self::assertTrue($event->trigger('SomeName1', '', [1, 2, 3]));
-        self::assertTrue($event->trigger('SomeName2', '', 4));
+        self::assertEquals(2, $this->event->count());
+        self::assertTrue($this->event->trigger('SomeName1', '', [1, 2, 3]));
+        self::assertTrue($this->event->trigger('SomeName2', '', 4));
+    }
+
+    /**
+     * @testdox Invalid event files cannot be imported and return a failure
+     * @covers phpOMS\Event\EventManager
+     */
+    public function testInvalidImportEvents() : void
+    {
+        self::assertFalse($this->event->importFromFile(__DIR__ . '/invalid.php'));
     }
 }

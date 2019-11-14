@@ -18,17 +18,22 @@ use phpOMS\DataStorage\Database\Connection\MysqlConnection;
 use phpOMS\DataStorage\Database\Schema\Builder;
 
 /**
+ * @testdox phpOMS\tests\DataStorage\Database\Schema\BuilderTest: Query builder for sql schemas
+ *
  * @internal
  */
 class BuilderTest extends \PHPUnit\Framework\TestCase
 {
-    protected $con = null;
+    protected MysqlConnection $con;
 
     protected function setUp() : void
     {
         $this->con = new MysqlConnection($GLOBALS['CONFIG']['db']['core']['masters']['admin']);
     }
 
+    /**
+     * @testdox Mysql drops form a valid query
+     */
     public function testMysqlDrop() : void
     {
         $query = new Builder($this->con);
@@ -36,6 +41,9 @@ class BuilderTest extends \PHPUnit\Framework\TestCase
         self::assertEquals($sql, $query->dropDatabase('test')->toSql());
     }
 
+    /**
+     * @testdox Mysql show tables form a valid query
+     */
     public function testMysqlShowTables() : void
     {
         $query = new Builder($this->con);
@@ -43,6 +51,9 @@ class BuilderTest extends \PHPUnit\Framework\TestCase
         self::assertEquals($sql, $query->selectTables()->toSql());
     }
 
+    /**
+     * @testdox Mysql show fields form a valid query
+     */
     public function testMysqlShowFields() : void
     {
         $query = new Builder($this->con);
@@ -50,6 +61,9 @@ class BuilderTest extends \PHPUnit\Framework\TestCase
         self::assertEquals($sql, $query->selectFields('test')->toSql());
     }
 
+    /**
+     * @testdox Mysql create tables form a valid query
+     */
     public function testMysqlCreateTable() : void
     {
         $query = new Builder($this->con);

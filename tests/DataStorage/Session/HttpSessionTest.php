@@ -17,10 +17,15 @@ namespace phpOMS\tests\DataStorage\Session;
 use phpOMS\DataStorage\Session\HttpSession;
 
 /**
+ * @testdox phpOMS\tests\DataStorage\Session\HttpSessionTest: Session data handler for http sessions
+ *
  * @internal
  */
 class HttpSessionTest extends \PHPUnit\Framework\TestCase
 {
+    /**
+     * @testdox The session has the expected default values after initialization
+     */
     public function testDefault() : void
     {
         $session = new HttpSession();
@@ -28,25 +33,101 @@ class HttpSessionTest extends \PHPUnit\Framework\TestCase
         self::assertFalse($session->isLocked());
     }
 
-    public function testGetSet() : void
+    /**
+     * @testdox Session data can be set and returned
+     */
+    public function testInputOutput() : void
     {
         $session = new HttpSession(1, false, 1);
         self::assertTrue($session->set('test', 'value'));
         self::assertEquals('value', $session->get('test'));
+    }
 
-        self::assertFalse($session->set('test', 'value2', false));
+    /**
+     * @testdox Session data cannot be overwritten
+     */
+    public function testInvalidOverwrite() : void
+    {
+        $session = new HttpSession(1, false, 1);
+        $session->set('test', 'value');
+        self::assertFalse($session->set('test', 'value2'));
         self::assertEquals('value', $session->get('test'));
+    }
 
-        self::assertTrue($session->set('test', 'value3'));
-        self::assertEquals('value3', $session->get('test'));
+    /**
+     * @testdox Session data can be forced to overwrite
+     */
+    public function testOverwrite() : void
+    {
+        $session = new HttpSession(1, false, 1);
+        $session->set('test', 'value');
+        self::assertTrue($session->set('test', 'value2', true));
+        self::assertEquals('value2', $session->get('test'));
+    }
 
+    /**
+     * @testdox Session data can be removed
+     */
+    public function testRemove() : void
+    {
+        $session = new HttpSession(1, false, 1);
+        $session->set('test', 'value');
         self::assertTrue($session->remove('test'));
-        self::assertFalse($session->remove('test'));
+    }
 
+    /**
+     * @testdox None-existing session data cannot be removed
+     */
+    public function testInvalidRemove() : void
+    {
+        $session = new HttpSession(1, false, 1);
+        $session->set('test', 'value');
+        $session->remove('test');
+
+        self::assertFalse($session->remove('test'));
+    }
+
+    /**
+     * @testdox A session id can be set and returned
+     */
+    public function testSessionIdInputOutput() : void
+    {
+        $session = new HttpSession(1, false, 1);
         $session->setSID('abc');
         self::assertEquals('abc', $session->getSID());
+    }
+
+    /**
+     * @testdox A session can be locked
+     */
+    public function testLockInputOutput() : void
+    {
+        $session = new HttpSession(1, false, 1);
 
         $session->lock();
         self::assertTrue($session->isLocked());
+    }
+
+    /**
+     * @testdox A locked session cannot add or change data
+     */
+    public function testLockInvalidSet() : void
+    {
+        $session = new HttpSession(1, false, 1);
+
+        $session->lock();
+        self::assertFalse($session->set('test', 'value'));
+    }
+
+    /**
+     * @testdox A locked session cannot remove data
+     */
+    public function testLockInvalidRemove() : void
+    {
+        $session = new HttpSession(1, false, 1);
+
+        self::assertTrue($session->set('test', 'value'));
+        $session->lock();
+        self::assertFalse($session->remove('test'));
     }
 }

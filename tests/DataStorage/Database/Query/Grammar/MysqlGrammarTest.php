@@ -18,10 +18,16 @@ use phpOMS\DataStorage\Database\Query\Grammar\MysqlGrammar;
 use phpOMS\Utils\TestUtils;
 
 /**
+ * @testdox phpOMS\tests\DataStorage\Database\Query\MysqlGrammarTest: Mysql sql query grammar
+ *
  * @internal
  */
 class MysqlGrammarTest extends \PHPUnit\Framework\TestCase
 {
+
+    /**
+     * @testdox The grammar has the expected default values after initialization
+     */
     public function testDefault() : void
     {
         self::assertInstanceOf('\phpOMS\DataStorage\Database\Query\Grammar\Grammar', new MysqlGrammar());

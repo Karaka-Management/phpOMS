@@ -448,10 +448,16 @@ class Localization
      *
      * @return void
      *
+     * @throws InvalidEnumValue This exception is thrown if the angle is invalid
+     *
      * @since 1.0.0
      */
     public function setAngle(string $angle) : void
     {
+        if (!AngleType::isValidValue($angle)) {
+            throw new InvalidEnumValue($angle);
+        }
+
         $this->angle = $angle;
     }
 
@@ -478,6 +484,10 @@ class Localization
      */
     public function setTemperature(string $temperature) : void
     {
+        if (!TemperatureType::isValidValue($temperature)) {
+            throw new InvalidEnumValue($temperature);
+        }
+
         $this->temperature = $temperature;
     }
 

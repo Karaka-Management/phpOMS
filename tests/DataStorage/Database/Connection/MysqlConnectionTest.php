@@ -18,6 +18,8 @@ use phpOMS\DataStorage\Database\Connection\MysqlConnection;
 use phpOMS\DataStorage\Database\DatabaseStatus;
 
 /**
+ * @testdox phpOMS\tests\DataStorage\Database\Connection\MysqlConnectionTest: Mysql connection
+ *
  * @internal
  */
 class MysqlConnectionTest extends \PHPUnit\Framework\TestCase
@@ -31,6 +33,10 @@ class MysqlConnectionTest extends \PHPUnit\Framework\TestCase
         }
     }
 
+    /**
+     * @testdox Valid mysql connection data result in a valid database connection
+     * @covers phpOMS\DataStorage\Database\Connection\MysqlConnection
+     */
     public function testConnect() : void
     {
         $mysql = new MysqlConnection($GLOBALS['CONFIG']['db']['core']['masters']['admin']);
@@ -42,6 +48,10 @@ class MysqlConnectionTest extends \PHPUnit\Framework\TestCase
         self::assertInstanceOf('\phpOMS\DataStorage\Database\Query\Grammar\MysqlGrammar', $mysql->getGrammar());
     }
 
+    /**
+     * @testdox A missing database type throws a InvalidConnectionConfigException
+     * @covers phpOMS\DataStorage\Database\Connection\MysqlConnection
+     */
     public function testInvalidDatabaseType() : void
     {
         self::expectException(\phpOMS\DataStorage\Database\Exception\InvalidConnectionConfigException::class);
@@ -52,6 +62,10 @@ class MysqlConnectionTest extends \PHPUnit\Framework\TestCase
         $mysql = new MysqlConnection($db);
     }
 
+    /**
+     * @testdox A missing database host throws a InvalidConnectionConfigException
+     * @covers phpOMS\DataStorage\Database\Connection\MysqlConnection
+     */
     public function testInvalidHost() : void
     {
         self::expectException(\phpOMS\DataStorage\Database\Exception\InvalidConnectionConfigException::class);
@@ -62,6 +76,10 @@ class MysqlConnectionTest extends \PHPUnit\Framework\TestCase
         $mysql = new MysqlConnection($db);
     }
 
+    /**
+     * @testdox A missing database port throws a InvalidConnectionConfigException
+     * @covers phpOMS\DataStorage\Database\Connection\MysqlConnection
+     */
     public function testInvalidPort() : void
     {
         self::expectException(\phpOMS\DataStorage\Database\Exception\InvalidConnectionConfigException::class);
@@ -72,6 +90,10 @@ class MysqlConnectionTest extends \PHPUnit\Framework\TestCase
         $mysql = new MysqlConnection($db);
     }
 
+    /**
+     * @testdox A missing database throws a InvalidConnectionConfigException
+     * @covers phpOMS\DataStorage\Database\Connection\MysqlConnection
+     */
     public function testInvalidDatabase() : void
     {
         self::expectException(\phpOMS\DataStorage\Database\Exception\InvalidConnectionConfigException::class);
@@ -82,6 +104,10 @@ class MysqlConnectionTest extends \PHPUnit\Framework\TestCase
         $mysql = new MysqlConnection($db);
     }
 
+    /**
+     * @testdox A missing database login throws a InvalidConnectionConfigException
+     * @covers phpOMS\DataStorage\Database\Connection\MysqlConnection
+     */
     public function testInvalidLogin() : void
     {
         self::expectException(\phpOMS\DataStorage\Database\Exception\InvalidConnectionConfigException::class);
@@ -92,6 +118,10 @@ class MysqlConnectionTest extends \PHPUnit\Framework\TestCase
         $mysql = new MysqlConnection($db);
     }
 
+    /**
+     * @testdox A missing database password throws a InvalidConnectionConfigException
+     * @covers phpOMS\DataStorage\Database\Connection\MysqlConnection
+     */
     public function testInvalidPassword() : void
     {
         self::expectException(\phpOMS\DataStorage\Database\Exception\InvalidConnectionConfigException::class);
@@ -102,6 +132,10 @@ class MysqlConnectionTest extends \PHPUnit\Framework\TestCase
         $mysql = new MysqlConnection($db);
     }
 
+    /**
+     * @testdox A invalid database type throws a InvalidConnectionConfigException
+     * @covers phpOMS\DataStorage\Database\Connection\MysqlConnection
+     */
     public function testInvalidDatabaseTypeName() : void
     {
         self::expectException(\phpOMS\DataStorage\Database\Exception\InvalidConnectionConfigException::class);
@@ -112,6 +146,10 @@ class MysqlConnectionTest extends \PHPUnit\Framework\TestCase
         $mysql = new MysqlConnection($db);
     }
 
+    /**
+     * @testdox A invalid database throws a InvalidConnectionConfigException
+     * @covers phpOMS\DataStorage\Database\Connection\MysqlConnection
+     */
     public function testInvalidDatabaseName() : void
     {
         self::expectException(\phpOMS\DataStorage\Database\Exception\InvalidConnectionConfigException::class);

@@ -21,10 +21,16 @@ use phpOMS\DataStorage\Database\Connection\SQLiteConnection;
 use phpOMS\DataStorage\Database\Connection\SqlServerConnection;
 
 /**
+ * @testdox phpOMS\tests\DataStorage\Database\Connection\ConnectionFactory: Database connection factory
+ *
  * @internal
  */
 class ConnectionFactoryTest extends \PHPUnit\Framework\TestCase
 {
+    /**
+     * @testdox The mysql connection can be successfully created
+     * @covers phpOMS\DataStorage\Database\Connection\ConnectionFactory
+     */
     public function testCreateMysql() : void
     {
         if (!\extension_loaded('pdo_mysql')) {
@@ -41,6 +47,10 @@ class ConnectionFactoryTest extends \PHPUnit\Framework\TestCase
         );
     }
 
+    /**
+     * @testdox The postgresql connection can be successfully created
+     * @covers phpOMS\DataStorage\Database\Connection\ConnectionFactory
+     */
     public function testCreatePostgres() : void
     {
         if (!\extension_loaded('pdo_pgsql')) {
@@ -57,6 +67,10 @@ class ConnectionFactoryTest extends \PHPUnit\Framework\TestCase
         );
     }
 
+    /**
+     * @testdox The sqlserver connection can be successfully created
+     * @covers phpOMS\DataStorage\Database\Connection\ConnectionFactory
+     */
     public function testCreateSqlsrv() : void
     {
         if (!\extension_loaded('pdo_sqlsrv')) {
@@ -73,6 +87,10 @@ class ConnectionFactoryTest extends \PHPUnit\Framework\TestCase
         );
     }
 
+    /**
+     * @testdox The sqlite connection can be successfully created
+     * @covers phpOMS\DataStorage\Database\Connection\ConnectionFactory
+     */
     public function testCreateSqlite() : void
     {
         if (!\extension_loaded('pdo_sqlite')) {
@@ -89,6 +107,10 @@ class ConnectionFactoryTest extends \PHPUnit\Framework\TestCase
         );
     }
 
+    /**
+     * @testdox A invalid database type throws a InvalidArgumentException
+     * @covers phpOMS\DataStorage\Database\Connection\ConnectionFactory
+     */
     public function testInvalidDatabaseType() : void
     {
         self::expectException(\InvalidArgumentException::class);

@@ -19,12 +19,18 @@ namespace phpOMS\tests\Math\Numerics;
 use phpOMS\Math\Numerics\Integration;
 
 /**
+ * @testdox phpOMS\tests\Math\Numerics\IntegrationTest: Numeric integration
+ *
  * @internal
  *
- * Commented out assertions which take a loong time with xdebug. without xdebug these are fine!
+ * Commented out assertions which take a long time with xdebug. without xdebug these are fine!
  */
 class IntegrationTest extends \PHPUnit\Framework\TestCase
 {
+    /**
+     * @testdox Integration by summing up rectangle areas from the left side
+     * @covers phpOMS\tests\Math\Numerics\IntegrationTest
+     */
     public function testLRect(): void
     {
         self::assertEqualsWithDelta(0.235322, Integration::intLeftRect(0.0, 1.0, 100.0, function($x) { return $x**3; }), 0.001);
@@ -33,6 +39,10 @@ class IntegrationTest extends \PHPUnit\Framework\TestCase
         //self::assertEqualsWithDelta(17999991.001392, Integration::intLeftRect(0.0, 6000.0, 6000000.0, function($x) { return $x; }), 0.001);
     }
 
+    /**
+     * @testdox Integration by summing up rectangle areas from the right side
+     * @covers phpOMS\tests\Math\Numerics\IntegrationTest
+     */
     public function testRRect(): void
     {
         self::assertEqualsWithDelta(0.245025, Integration::intRightRect(0.0, 1.0, 100.0, function($x) { return $x**3; }), 0.001);
@@ -41,6 +51,10 @@ class IntegrationTest extends \PHPUnit\Framework\TestCase
         //self::assertEqualsWithDelta(17999997.001390, Integration::intRightRect(0.0, 6000.0, 6000000.0, function($x) { return $x; }), 0.001);
     }
 
+    /**
+     * @testdox Integration by summing up rectangle areas from the middle
+     * @covers phpOMS\tests\Math\Numerics\IntegrationTest
+     */
     public function testMRect(): void
     {
         self::assertEqualsWithDelta(0.240137, Integration::intMiddleRect(0.0, 1.0, 100.0, function($x) { return $x**3; }), 0.001);
@@ -49,6 +63,10 @@ class IntegrationTest extends \PHPUnit\Framework\TestCase
         //self::assertEqualsWithDelta(17999994.001391, Integration::intMiddleRect(0.0, 6000.0, 6000000.0, function($x) { return $x; }), 0.001);
     }
 
+    /**
+     * @testdox Integration by summing up trapezoid areas
+     * @covers phpOMS\tests\Math\Numerics\IntegrationTest
+     */
     public function testTrapeze(): void
     {
         self::assertEqualsWithDelta(0.250025, Integration::intTrapezium(0.0, 1.0, 100.0, function($x) { return $x**3; }), 0.001);
@@ -57,6 +75,10 @@ class IntegrationTest extends \PHPUnit\Framework\TestCase
         //self::assertEqualsWithDelta(18000000.0, Integration::intTrapezium(0.0, 6000.0, 6000000.0, function($x) { return $x; }), 0.001);
     }
 
+    /**
+     * @testdox Integration by using the simpson formula
+     * @covers phpOMS\tests\Math\Numerics\IntegrationTest
+     */
     public function testSimpson(): void
     {
         self::assertEqualsWithDelta(0.25, Integration::intSimpson(0.0, 1.0, 100.0, function ($x) { return $x ** 3; }), 0.001);

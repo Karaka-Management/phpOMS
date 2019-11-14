@@ -49,7 +49,7 @@ interface SessionInterface
      *
      * @since 1.0.0
      */
-    public function set($key, $value, bool $overwrite = true) : bool;
+    public function set($key, $value, bool $overwrite = false) : bool;
 
     /**
      * Remove value from session by key.

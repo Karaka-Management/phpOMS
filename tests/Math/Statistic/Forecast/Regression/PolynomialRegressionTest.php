@@ -17,6 +17,8 @@ namespace phpOMS\tests\Math\Statistic\Forecast\Regression;
 use phpOMS\Math\Statistic\Forecast\Regression\PolynomialRegression;
 
 /**
+ * @testdox phpOMS\tests\Math\Statistic\Forecast\Regression\PolynomialRegressionTest: Polynomial regression
+ *
  * @internal
  */
 class PolynomialRegressionTest extends \PHPUnit\Framework\TestCase
@@ -32,11 +34,17 @@ class PolynomialRegressionTest extends \PHPUnit\Framework\TestCase
         $this->reg = PolynomialRegression::getRegression($x, $y);
     }
 
+    /**
+     * @testdox The regression parameters are calcualated correctly
+     */
     public function testRegression() : void
     {
         self::assertEqualsWithDelta(['a' => 1, 'b' => 2, 'c' => 3], $this->reg, 0.2);
     }
 
+    /**
+     * @testdox Different dimension sizes for x and y coordinates throw a InvalidDimensionException
+     */
     public function testInvalidDimension() : void
     {
         self::expectException(\phpOMS\Math\Matrix\Exception\InvalidDimensionException::class);

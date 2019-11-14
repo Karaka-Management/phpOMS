@@ -17,10 +17,16 @@ namespace phpOMS\tests\Math\Numerics\Interpolation;
 use phpOMS\Math\Numerics\Interpolation\LinearInterpolation;
 
 /**
+ * @testdox phpOMS\tests\Math\Numerics\Interpolation\LinearInterpolationTest: Linear interpolation
+ *
  * @internal
  */
 class LinearInterpolationTest extends \PHPUnit\Framework\TestCase
 {
+    /**
+     * @testdox The linear interpolation is correct
+     * @covers phpOMS\tests\Math\Numerics\LinearInterpolation
+     */
     public function testInterpolation() : void
     {
         $interpolation = new LinearInterpolation([

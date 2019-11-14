@@ -19,6 +19,8 @@ use phpOMS\Math\Statistic\Forecast\Error;
 use phpOMS\Math\Stochastic\Distribution\TDistribution;
 
 /**
+ * @testdox phpOMS\tests\Math\Statistic\Forecast\Regression\LevelLevelRegressionTest: Level level regression
+ *
  * @internal
  */
 class LevelLevelRegressionTest extends \PHPUnit\Framework\TestCase
@@ -34,21 +36,33 @@ class LevelLevelRegressionTest extends \PHPUnit\Framework\TestCase
         $this->reg = LevelLevelRegression::getRegression($x, $y);
     }
 
+    /**
+     * @testdox The regression parameters are calcualated correctly
+     */
     public function testRegression() : void
     {
         self::assertEqualsWithDelta(['b0' => 3, 'b1' => 4], $this->reg, 0.2);
     }
 
+    /**
+     * @testdox The slope is calculated correctly
+     */
     public function testSlope() : void
     {
         self::assertEquals(4, LevelLevelRegression::getSlope($this->reg['b1'], 0, 0));
     }
 
+    /**
+     * @testdox The elasticity is calculated correctly
+     */
     public function testElasticity() : void
     {
         self::assertEqualsWithDelta(0.7273, LevelLevelRegression::getElasticity($this->reg['b1'], 11, 2), 0.01);
     }
 
+    /**
+     * @testdox The standard error of the population is calculated correctly
+     */
     public function testStandardErrorOfRegressionPopulation() : void
     {
         $x   = [1, 2, 3, 4, 5];
@@ -64,6 +78,9 @@ class LevelLevelRegressionTest extends \PHPUnit\Framework\TestCase
         self::assertEqualsWithDelta(0.747, LevelLevelRegression::getStandardErrorOfRegressionPopulation($errors), 0.001);
     }
 
+    /**
+     * @testdox The standard error of the sample is calculated correctly
+     */
     public function testStandardErrorOfRegressionSample() : void
     {
         $x   = [1, 2, 3, 4, 5];
@@ -79,6 +96,9 @@ class LevelLevelRegressionTest extends \PHPUnit\Framework\TestCase
         self::assertEqualsWithDelta(0.964, LevelLevelRegression::getStandardErrorOfRegressionSample($errors), 0.001);
     }
 
+    /**
+     * @testdox The prediction interval is calculated correctly
+     */
     public function testPredictionInterval() : void
     {
         $x   = [1, 2, 3, 4, 5];
@@ -99,6 +119,9 @@ class LevelLevelRegressionTest extends \PHPUnit\Framework\TestCase
         );
     }
 
+    /**
+     * @testdox Different dimension sizes for x and y coordinates throw a InvalidDimensionException
+     */
     public function testInvalidDimension() : void
     {
         self::expectException(\phpOMS\Math\Matrix\Exception\InvalidDimensionException::class);

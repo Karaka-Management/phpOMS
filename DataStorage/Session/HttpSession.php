@@ -125,9 +125,9 @@ class HttpSession implements SessionInterface
     /**
      * {@inheritdoc}
      */
-    public function set($key, $value, bool $overwrite = true) : bool
+    public function set($key, $value, bool $overwrite = false) : bool
     {
-        if ($overwrite || !isset($this->sessionData[$key])) {
+        if (!$this->isLocked && ($overwrite || !isset($this->sessionData[$key]))) {
             $this->sessionData[$key] = $value;
 
             return true;
@@ -180,7 +180,7 @@ class HttpSession implements SessionInterface
      */
     public function remove($key) : bool
     {
-        if (isset($this->sessionData[$key])) {
+        if (!$this->isLocked && isset($this->sessionData[$key])) {
             unset($this->sessionData[$key]);
 
             return true;
@@ -215,9 +215,12 @@ class HttpSession implements SessionInterface
      */
     private function destroy() : void
     {
-        \session_destroy();
-        $this->sessionData = [];
-        \session_start();
+
+        if (\session_status() !== \PHP_SESSION_NONE) {
+            \session_destroy();
+            $this->sessionData = [];
+            \session_start();
+        }
     }
 
     /**

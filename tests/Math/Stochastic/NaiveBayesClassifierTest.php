@@ -17,6 +17,8 @@ namespace phpOMS\tests\Math\Stochastic;
 use phpOMS\Math\Stochastic\NaiveBayesClassifier;
 
 /**
+ * @testdox phpOMS\tests\Math\Stochastic\NaiveBayesClassifierTest: Naive bayes classifier for numeric values and strings/attributes
+ *
  * @internal
  */
 class NaiveBayesClassifierTest extends \PHPUnit\Framework\TestCase
@@ -55,6 +57,9 @@ class NaiveBayesClassifierTest extends \PHPUnit\Framework\TestCase
         ['height' => 5.75, 'weight' => 150, 'foot' => 9],
     ];
 
+    /**
+     * @testdox The classification of strings/attributes is correct
+     */
     public function testTextClassifier() : void
     {
         $filter = new NaiveBayesClassifier();
@@ -68,6 +73,9 @@ class NaiveBayesClassifierTest extends \PHPUnit\Framework\TestCase
         );
     }
 
+    /**
+     * @testdox The classification of nimeric values is correct
+     */
     public function testNumericClassifier() : void
     {
         $filter = new NaiveBayesClassifier();

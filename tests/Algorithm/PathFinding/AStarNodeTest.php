@@ -40,7 +40,6 @@ class AStarNodeTest extends \PHPUnit\Framework\TestCase
     {
         self::assertFalse($this->node->isClosed());
         self::assertFalse($this->node->isOpened());
-        self::assertFalse($this->node->isTested());
         self::assertEquals(0.0, $this->node->getG());
         self::assertEquals(null, $this->node->getH());
         self::assertEquals(0.0, $this->node->getF());
@@ -64,16 +63,6 @@ class AStarNodeTest extends \PHPUnit\Framework\TestCase
     {
         $this->node->setOpened(true);
         self::assertTrue($this->node->isOpened());
-    }
-
-    /**
-     * @testdox The node can be set tested and checked
-     * @covers phpOMS\Algorithm\PathFinding\AStarNode
-     */
-    public function testTestedInputOutput() : void
-    {
-        $this->node->setTested(true);
-        self::assertTrue($this->node->isTested());
     }
 
     /**

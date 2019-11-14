@@ -18,7 +18,6 @@ use phpOMS\Localization\ISO3166TwoEnum;
 use phpOMS\Localization\ISO4217CharEnum;
 use phpOMS\Localization\ISO4217Enum;
 use phpOMS\Localization\ISO639x1Enum;
-use phpOMS\Localization\L11nManager;
 use phpOMS\Localization\Localization;
 use phpOMS\Localization\TimeZoneEnumArray;
 use phpOMS\Utils\Converter\AngleType;
@@ -27,140 +26,299 @@ use phpOMS\Utils\Converter\TemperatureType;
 require_once __DIR__ . '/../Autoloader.php';
 
 /**
+ * @testdox phpOMS\tests\Localization\LocalizationTest: Localization for information such as language, currency, location, language specific formatting etc.
+ *
  * @internal
  */
 class LocalizationTest extends \PHPUnit\Framework\TestCase
 {
-    protected $l11nManager = null;
+    protected Localization $localization;
 
     protected function setUp() : void
     {
-        $this->l11nManager = new L11nManager('Api');
+        $this->localization = new Localization();
     }
 
+    /**
+     * @testdox The localization has the expected member variables
+     * @covers phpOMS\Localization\Localization
+     */
     public function testAttributes() : void
     {
-        $localization = new Localization();
-        self::assertObjectHasAttribute('country', $localization);
-        self::assertObjectHasAttribute('timezone', $localization);
-        self::assertObjectHasAttribute('language', $localization);
-        self::assertObjectHasAttribute('currency', $localization);
-        self::assertObjectHasAttribute('decimal', $localization);
-        self::assertObjectHasAttribute('thousands', $localization);
-        self::assertObjectHasAttribute('datetime', $localization);
+        self::assertObjectHasAttribute('country', $this->localization);
+        self::assertObjectHasAttribute('timezone', $this->localization);
+        self::assertObjectHasAttribute('language', $this->localization);
+        self::assertObjectHasAttribute('currency', $this->localization);
+        self::assertObjectHasAttribute('decimal', $this->localization);
+        self::assertObjectHasAttribute('thousands', $this->localization);
+        self::assertObjectHasAttribute('datetime', $this->localization);
     }
 
+    /**
+     * @testdox The localization has the expected default values after initialization
+     * @covers phpOMS\Localization\Localization
+     */
     public function testDefault() : void
     {
-        $localization = new Localization();
-        self::assertTrue(ISO3166TwoEnum::isValidValue($localization->getCountry()));
-        self::assertTrue(TimeZoneEnumArray::isValidValue($localization->getTimezone()));
-        self::assertTrue(ISO639x1Enum::isValidValue($localization->getLanguage()));
-        self::assertTrue(ISO4217Enum::isValidValue($localization->getCurrency()));
-        self::assertEquals('.', $localization->getDecimal());
-        self::assertEquals(',', $localization->getThousands());
-        self::assertEquals([], $localization->getDatetime());
+        self::assertTrue(ISO3166TwoEnum::isValidValue($this->localization->getCountry()));
+        self::assertTrue(TimeZoneEnumArray::isValidValue($this->localization->getTimezone()));
+        self::assertTrue(ISO639x1Enum::isValidValue($this->localization->getLanguage()));
+        self::assertTrue(ISO4217Enum::isValidValue($this->localization->getCurrency()));
+        self::assertEquals('.', $this->localization->getDecimal());
+        self::assertEquals(',', $this->localization->getThousands());
+        self::assertEquals([], $this->localization->getDatetime());
 
-        self::assertEquals([], $localization->getSpeed());
-        self::assertEquals([], $localization->getWeight());
-        self::assertEquals([], $localization->getLength());
-        self::assertEquals([], $localization->getArea());
-        self::assertEquals([], $localization->getVolume());
+        self::assertEquals([], $this->localization->getSpeed());
+        self::assertEquals([], $this->localization->getWeight());
+        self::assertEquals([], $this->localization->getLength());
+        self::assertEquals([], $this->localization->getArea());
+        self::assertEquals([], $this->localization->getVolume());
     }
 
+    /**
+     * @testdox Setting a invalid language code throws InvalidEnumValue
+     * @covers phpOMS\Localization\Localization
+     */
     public function testInvalidLanguage() : void
     {
         self::expectException(\phpOMS\Stdlib\Base\Exception\InvalidEnumValue::class);
 
-        $localization = new Localization();
-        $localization->setLanguage('abc');
+        $this->localization->setLanguage('abc');
     }
 
+    /**
+     * @testdox Setting a invalid country code throws InvalidEnumValue
+     * @covers phpOMS\Localization\Localization
+     */
     public function testInvalidCountry() : void
     {
         self::expectException(\phpOMS\Stdlib\Base\Exception\InvalidEnumValue::class);
 
-        $localization = new Localization();
-        $localization->setCountry('abc');
+        $this->localization->setCountry('abc');
     }
 
+    /**
+     * @testdox Setting a invalid timezone code throws InvalidEnumValue
+     * @covers phpOMS\Localization\Localization
+     */
     public function testInvalidTimezone() : void
     {
         self::expectException(\phpOMS\Stdlib\Base\Exception\InvalidEnumValue::class);
 
-        $localization = new Localization();
-        $localization->setTimezone('abc');
+        $this->localization->setTimezone('abc');
     }
 
+    /**
+     * @testdox Setting a invalid currency code throws InvalidEnumValue
+     * @covers phpOMS\Localization\Localization
+     */
     public function testInvalidCurrency() : void
     {
         self::expectException(\phpOMS\Stdlib\Base\Exception\InvalidEnumValue::class);
 
-        $localization = new Localization();
-        $localization->setCurrency('abc');
+        $this->localization->setCurrency('abc');
     }
 
-    public function testGetSet() : void
+    /**
+     * @testdox Setting a invalid angle throws InvalidEnumValue
+     * @covers phpOMS\Localization\Localization
+     */
+    public function testInvalidAngle() : void
     {
-        $localization = new Localization();
+        self::expectException(\phpOMS\Stdlib\Base\Exception\InvalidEnumValue::class);
 
-        $localization->setCountry(ISO3166TwoEnum::_USA);
-        self::assertEquals(ISO3166TwoEnum::_USA, $localization->getCountry());
-
-        $localization->setTimezone(TimeZoneEnumArray::get(315));
-        self::assertEquals(TimeZoneEnumArray::get(315), $localization->getTimezone());
-
-        $localization->setLanguage(ISO639x1Enum::_DE);
-        self::assertEquals(ISO639x1Enum::_DE, $localization->getLanguage());
-
-        $localization->setCurrency(ISO4217CharEnum::_EUR);
-        self::assertEquals(ISO4217CharEnum::_EUR, $localization->getCurrency());
-
-        $localization->setDatetime(['Y-m-d H:i:s']);
-        self::assertEquals(['Y-m-d H:i:s'], $localization->getDatetime());
-
-        $localization->setDecimal(',');
-        self::assertEquals(',', $localization->getDecimal());
-
-        $localization->setThousands('.');
-        self::assertEquals('.', $localization->getThousands());
-
-        $localization->setAngle(AngleType::CENTRAD);
-        self::assertEquals(AngleType::CENTRAD, $localization->getAngle());
-
-        $localization->setTemperature(TemperatureType::FAHRENHEIT);
-        self::assertEquals(TemperatureType::FAHRENHEIT, $localization->getTemperature());
-
-        $localization->setWeight([1]);
-        $localization->setLength([1]);
-        $localization->setArea([1]);
-        $localization->setVolume([1]);
-        $localization->setSpeed([1]);
-        self::assertEquals([1], $localization->getWeight());
-        self::assertEquals([1], $localization->getLength());
-        self::assertEquals([1], $localization->getArea());
-        self::assertEquals([1], $localization->getVolume());
-        self::assertEquals([1], $localization->getSpeed());
+        $this->localization->setAngle('abc');
     }
 
+    /**
+     * @testdox Setting a invalid temperature throws InvalidEnumValue
+     * @covers phpOMS\Localization\Localization
+     */
+    public function testInvalidTemperature() : void
+    {
+        self::expectException(\phpOMS\Stdlib\Base\Exception\InvalidEnumValue::class);
+
+        $this->localization->setTemperature('abc');
+    }
+
+    /**
+     * @testdox The country can be set and returned
+     * @covers phpOMS\Localization\Localization
+     */
+    public function testCountryInputOutput() : void
+    {
+        $this->localization->setCountry(ISO3166TwoEnum::_USA);
+        self::assertEquals(ISO3166TwoEnum::_USA, $this->localization->getCountry());
+    }
+
+    /**
+     * @testdox The timezone can be set and returned
+     * @covers phpOMS\Localization\Localization
+     */
+    public function testTimezoneInputOutput() : void
+    {
+        $this->localization->setTimezone(TimeZoneEnumArray::get(315));
+        self::assertEquals(TimeZoneEnumArray::get(315), $this->localization->getTimezone());
+    }
+
+    /**
+     * @testdox The language can be set and returned
+     * @covers phpOMS\Localization\Localization
+     */
+    public function testLanguageInputOutput() : void
+    {
+        $this->localization->setLanguage(ISO639x1Enum::_DE);
+        self::assertEquals(ISO639x1Enum::_DE, $this->localization->getLanguage());
+    }
+
+    /**
+     * @testdox The currency can be set and returned
+     * @covers phpOMS\Localization\Localization
+     */
+    public function testCurrencyInputOutput() : void
+    {
+        $this->localization->setCurrency(ISO4217CharEnum::_EUR);
+        self::assertEquals(ISO4217CharEnum::_EUR, $this->localization->getCurrency());
+    }
+
+    /**
+     * @testdox The datetime can be set and returned
+     * @covers phpOMS\Localization\Localization
+     */
+    public function testDatetimeInputOutput() : void
+    {
+        $this->localization->setDatetime(['Y-m-d H:i:s']);
+        self::assertEquals(['Y-m-d H:i:s'], $this->localization->getDatetime());
+    }
+
+    /**
+     * @testdox The decimal can be set and returned
+     * @covers phpOMS\Localization\Localization
+     */
+    public function testDecimalInputOutput() : void
+    {
+        $this->localization->setDecimal(',');
+        self::assertEquals(',', $this->localization->getDecimal());
+    }
+
+    /**
+     * @testdox The thousands can be set and returned
+     * @covers phpOMS\Localization\Localization
+     */
+    public function testThousandsInputOutput() : void
+    {
+        $this->localization->setThousands('.');
+        self::assertEquals('.', $this->localization->getThousands());
+    }
+
+    /**
+     * @testdox The angle can be set and returned
+     * @covers phpOMS\Localization\Localization
+     */
+    public function testAngleInputOutput() : void
+    {
+        $this->localization->setAngle(AngleType::CENTRAD);
+        self::assertEquals(AngleType::CENTRAD, $this->localization->getAngle());
+    }
+
+    /**
+     * @testdox The temperature can be set and returned
+     * @covers phpOMS\Localization\Localization
+     */
+    public function testTemperatureInputOutput() : void
+    {
+        $this->localization->setTemperature(TemperatureType::FAHRENHEIT);
+        self::assertEquals(TemperatureType::FAHRENHEIT, $this->localization->getTemperature());
+    }
+
+    /**
+     * @testdox The weight can be set and returned
+     * @covers phpOMS\Localization\Localization
+     */
+    public function testWeightInputOutput() : void
+    {
+        $this->localization->setWeight([1]);
+        self::assertEquals([1], $this->localization->getWeight());
+    }
+
+    /**
+     * @testdox The length can be set and returned
+     * @covers phpOMS\Localization\Localization
+     */
+    public function testLengthInputOutput() : void
+    {
+        $this->localization->setLength([1]);
+        self::assertEquals([1], $this->localization->getLength());
+    }
+
+    /**
+     * @testdox The area can be set and returned
+     * @covers phpOMS\Localization\Localization
+     */
+    public function testAreaInputOutput() : void
+    {
+        $this->localization->setArea([1]);
+        self::assertEquals([1], $this->localization->getArea());
+    }
+
+    /**
+     * @testdox The volume can be set and returned
+     * @covers phpOMS\Localization\Localization
+     */
+    public function testVolumeInputOutput() : void
+    {
+        $this->localization->setVolume([1]);
+        self::assertEquals([1], $this->localization->getVolume());
+    }
+
+    /**
+     * @testdox The speed can be set and returned
+     * @covers phpOMS\Localization\Localization
+     */
+    public function testSpeedInputOutput() : void
+    {
+        $this->localization->setSpeed([1]);
+        self::assertEquals([1], $this->localization->getSpeed());
+    }
+
+    /**
+     * @testdox Localization data can be loaded from a locale file
+     * @covers phpOMS\Localization\Localization
+     */
     public function testLocalizationLoading() : void
     {
-        $localization = new Localization();
-        $localization->loadFromLanguage(ISO639x1Enum::_EN);
-        self::assertEquals(ISO4217CharEnum::_USD, $localization->getCurrency());
-
-        $localization->loadFromLanguage(ISO639x1Enum::_AA);
-        self::assertEquals(ISO4217CharEnum::_USD, $localization->getCurrency());
-
-        $localization->loadFromLanguage(ISO639x1Enum::_AA, 'ABC');
-        self::assertEquals(ISO4217CharEnum::_USD, $localization->getCurrency());
+        $this->localization->loadFromLanguage(ISO639x1Enum::_EN);
+        self::assertEquals(ISO4217CharEnum::_USD, $this->localization->getCurrency());
     }
 
+    /**
+     * @testdox If no locale file for a specified country exists or a wild card country is used the first match of a locale file based on the defined language is loaded
+     * @covers phpOMS\Localization\Localization
+     */
+    public function testInvalidCountryLocalizationLoading() : void
+    {
+        $this->localization->loadFromLanguage(ISO639x1Enum::_EN, 'ABC');
+        self::assertEquals(ISO4217CharEnum::_USD, $this->localization->getCurrency());
+    }
+
+    /**
+     * @testdox By default the english locale file will be loaded if no other locale file can be found
+     * @covers phpOMS\Localization\Localization
+     */
+    public function testMissingLocalizationLoading() : void
+    {
+        $this->localization->loadFromLanguage(ISO639x1Enum::_AA);
+        self::assertEquals(ISO4217CharEnum::_USD, $this->localization->getCurrency());
+    }
+
+    /**
+     * @testdox Loading localization data from a file with invalid language throws InvalidEnumValue
+     * @covers phpOMS\Localization\Localization
+     */
     public function testInvalidLocalizationLoading() : void
     {
         self::expectException(\phpOMS\Stdlib\Base\Exception\InvalidEnumValue::class);
 
-        $localization = new Localization();
-        $localization->loadFromLanguage('INVALID');
+        $this->localization->loadFromLanguage('INVALID');
     }
 }

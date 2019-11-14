@@ -237,7 +237,7 @@ class FileCacheTest extends \PHPUnit\Framework\TestCase
      */
     public function testInvalidDeleteUnexpired() : void
     {
-        $this->cache->set('key4', 'testVal4', 1);
+        $this->cache->set('key4', 'testVal4', 60);
         self::assertFalse($this->cache->delete('key4', 0));
     }
 

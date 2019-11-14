@@ -17,6 +17,8 @@ use phpOMS\DataStorage\Database\Connection\PostgresConnection;
 use phpOMS\DataStorage\Database\DatabaseStatus;
 
 /**
+ * @testdox phpOMS\tests\DataStorage\Database\Connection\PostgresConnection: Postgresql connection
+ *
  * @internal
  */
 class PostgresConnectionTest extends \PHPUnit\Framework\TestCase
@@ -30,6 +32,10 @@ class PostgresConnectionTest extends \PHPUnit\Framework\TestCase
         }
     }
 
+    /**
+     * @testdox Valid postgresql connection data result in a valid database connection
+     * @covers phpOMS\DataStorage\Database\Connection\PostgresConnection
+     */
     public function testConnect() : void
     {
         $psql = new PostgresConnection($GLOBALS['CONFIG']['db']['core']['postgresql']['admin']);
@@ -40,6 +46,10 @@ class PostgresConnectionTest extends \PHPUnit\Framework\TestCase
         self::assertInstanceOf('\phpOMS\DataStorage\Database\Query\Grammar\PostgresGrammar', $psql->getGrammar());
     }
 
+    /**
+     * @testdox A missing database type throws a InvalidConnectionConfigException
+     * @covers phpOMS\DataStorage\Database\Connection\PostgresConnection
+     */
     public function testInvalidDatabaseType() : void
     {
         self::expectException(\phpOMS\DataStorage\Database\Exception\InvalidConnectionConfigException::class);
@@ -49,6 +59,10 @@ class PostgresConnectionTest extends \PHPUnit\Framework\TestCase
         $psql = new PostgresConnection($db);
     }
 
+    /**
+     * @testdox A missing database host throws a InvalidConnectionConfigException
+     * @covers phpOMS\DataStorage\Database\Connection\PostgresConnection
+     */
     public function testInvalidHost() : void
     {
         self::expectException(\phpOMS\DataStorage\Database\Exception\InvalidConnectionConfigException::class);
@@ -58,6 +72,10 @@ class PostgresConnectionTest extends \PHPUnit\Framework\TestCase
         $psql = new PostgresConnection($db);
     }
 
+    /**
+     * @testdox A missing database port throws a InvalidConnectionConfigException
+     * @covers phpOMS\DataStorage\Database\Connection\PostgresConnection
+     */
     public function testInvalidPort() : void
     {
         self::expectException(\phpOMS\DataStorage\Database\Exception\InvalidConnectionConfigException::class);
@@ -67,6 +85,10 @@ class PostgresConnectionTest extends \PHPUnit\Framework\TestCase
         $psql = new PostgresConnection($db);
     }
 
+    /**
+     * @testdox A missing database throws a InvalidConnectionConfigException
+     * @covers phpOMS\DataStorage\Database\Connection\PostgresConnection
+     */
     public function testInvalidDatabase() : void
     {
         self::expectException(\phpOMS\DataStorage\Database\Exception\InvalidConnectionConfigException::class);
@@ -76,6 +98,10 @@ class PostgresConnectionTest extends \PHPUnit\Framework\TestCase
         $psql = new PostgresConnection($db);
     }
 
+    /**
+     * @testdox A missing database login throws a InvalidConnectionConfigException
+     * @covers phpOMS\DataStorage\Database\Connection\PostgresConnection
+     */
     public function testInvalidLogin() : void
     {
         self::expectException(\phpOMS\DataStorage\Database\Exception\InvalidConnectionConfigException::class);
@@ -85,6 +111,10 @@ class PostgresConnectionTest extends \PHPUnit\Framework\TestCase
         $psql = new PostgresConnection($db);
     }
 
+    /**
+     * @testdox A missing database password throws a InvalidConnectionConfigException
+     * @covers phpOMS\DataStorage\Database\Connection\PostgresConnection
+     */
     public function testInvalidPassword() : void
     {
         self::expectException(\phpOMS\DataStorage\Database\Exception\InvalidConnectionConfigException::class);
@@ -94,6 +124,10 @@ class PostgresConnectionTest extends \PHPUnit\Framework\TestCase
         $psql = new PostgresConnection($db);
     }
 
+    /**
+     * @testdox A invalid database type throws a InvalidConnectionConfigException
+     * @covers phpOMS\DataStorage\Database\Connection\PostgresConnection
+     */
     public function testInvalidDatabaseTypeName() : void
     {
         self::expectException(\phpOMS\DataStorage\Database\Exception\InvalidConnectionConfigException::class);
