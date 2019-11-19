@@ -31,6 +31,12 @@ class DirectoryTest extends \PHPUnit\Framework\TestCase
         if ($this->con === null) {
             $this->con = Directory::ftpConnect(new Http(self::BASE));
         }
+        
+        if ($this->con === false) {
+            $this->markTestSkipped(
+              'The ftp connection is not available.'
+            );
+        }
     }
 
     public function testStatic() : void
