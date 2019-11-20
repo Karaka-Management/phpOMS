@@ -74,14 +74,6 @@ abstract class ModuleAbstract
     protected static array $providing = [];
 
     /**
-     * Localization files.
-     *
-     * @var   array
-     * @since 1.0.0
-     */
-    protected static array $localization = [];
-
-    /**
      * Dependencies.
      *
      * @var   string[]

@@ -17,11 +17,12 @@ namespace phpOMS\tests\Module;
 require_once __DIR__ . '/../Autoloader.php';
 
 use phpOMS\Module\PackageManager;
-use phpOMS\System\File\Ftp\File;
 use phpOMS\System\File\Local\Directory;
 use phpOMS\Utils\IO\Zip\Zip;
 
 /**
+ * @testdox phpOMS\tests\Module\PackageManagerTest: Manager for install/update packages
+ *
  * @internal
  */
 class PackageManagerTest extends \PHPUnit\Framework\TestCase
@@ -80,6 +81,10 @@ class PackageManagerTest extends \PHPUnit\Framework\TestCase
         );
     }
 
+    /**
+     * @testdox A package can be installed
+     * @covers phpOMS\Module\PackageManager
+     */
     public function testPackageValidInstall() : void
     {
         if (\file_exists(__DIR__ . '/dummyModule')) {
@@ -133,6 +138,10 @@ class PackageManagerTest extends \PHPUnit\Framework\TestCase
         }
     }
 
+    /**
+     * @testdox A package which didn't get extracted cannot be loaded and throws a PathException
+     * @covers phpOMS\Module\PackageManager
+     */
     public function testNotExtractedLoad() : void
     {
         self::expectException(\phpOMS\System\File\PathException::class);
@@ -146,6 +155,10 @@ class PackageManagerTest extends \PHPUnit\Framework\TestCase
         $package->load();
     }
 
+    /**
+     * @testdox A invalid package cannot be installed and throws a Exception
+     * @covers phpOMS\Module\PackageManager
+     */
     public function testInvalidInstall() : void
     {
         self::expectException(\Exception::class);
@@ -159,6 +172,10 @@ class PackageManagerTest extends \PHPUnit\Framework\TestCase
         $package->install();
     }
 
+    /**
+     * @testdox A invalid package key doesn't validate the package
+     * @covers phpOMS\Module\PackageManager
+     */
     public function testPackageInvalidKey() : void
     {
         $package = new PackageManager(
@@ -172,6 +189,10 @@ class PackageManagerTest extends \PHPUnit\Framework\TestCase
         self::assertFalse($package->isValid());
     }
 
+    /**
+     * @testdox A invalid package content doesn't validate the package
+     * @covers phpOMS\Module\PackageManager
+     */
     public function testPackageInvalidContent() : void
     {
         $package = new PackageManager(
@@ -186,6 +207,10 @@ class PackageManagerTest extends \PHPUnit\Framework\TestCase
         self::assertFalse($package->isValid());
     }
 
+    /**
+     * @testdox The temporarily extracted package can be cleaned up
+     * @covers phpOMS\Module\PackageManager
+     */
     public function testCleanup() : void
     {
         $package = new PackageManager(

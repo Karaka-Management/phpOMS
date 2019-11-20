@@ -64,21 +64,53 @@ class Header extends HeaderAbstract implements \Serializable
      */
     private array $header = [];
 
+    /**
+     * Get the sender
+     *
+     * @return mixed
+     *
+     * @since 1.0.0
+     */
     public function getSendFrom()
     {
         return $this->sendFrom;
     }
 
+    /**
+     * Set sender
+     *
+     * @param mixed $sendFrom Sender
+     *
+     * @return void
+     *
+     * @since 1.0.0
+     */
     public function setSendFrom($sendFrom) : void
     {
         $this->sendFrom = $sendFrom;
     }
 
+    /**
+     * Get receiver
+     *
+     * @return mixed
+     *
+     * @since 1.0.0
+     */
     public function getSendTo()
     {
         return $this->sendTo;
     }
 
+    /**
+     * Set receiver
+     *
+     * @param mixed $sendTo Receiver
+     *
+     * @return void
+     *
+     * @since 1.0.0
+     */
     public function setSendTo($sendTo) : void
     {
         $this->sendTo = $sendTo;
@@ -95,7 +127,9 @@ class Header extends HeaderAbstract implements \Serializable
     }
 
     /**
-     * @param int $length
+     * Set header length
+     *
+     * @param int $length Header length
      *
      * @return void
      *
@@ -107,6 +141,8 @@ class Header extends HeaderAbstract implements \Serializable
     }
 
     /**
+     * Get package type
+     *
      * @return int
      *
      * @since 1.0.0
@@ -117,7 +153,9 @@ class Header extends HeaderAbstract implements \Serializable
     }
 
     /**
-     * @param int $type
+     * Set package type
+     *
+     * @param int $type Type
      *
      * @return void
      *
@@ -129,6 +167,8 @@ class Header extends HeaderAbstract implements \Serializable
     }
 
     /**
+     * Get subtype
+     *
      * @return int
      *
      * @since 1.0.0
@@ -139,7 +179,9 @@ class Header extends HeaderAbstract implements \Serializable
     }
 
     /**
-     * @param int $subtype
+     * Set subtype
+     *
+     * @param int $subtype Subtype
      *
      * @return void
      *

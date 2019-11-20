@@ -518,6 +518,10 @@ class Matrix implements \ArrayAccess, \Iterator
         $nDim = $matrix->getN();
         $mDim = $matrix->getM();
 
+        if ($mDim !== $this->n) {
+            throw new InvalidDimensionException($mDim . 'x' . $nDim);
+        }
+
         $matrixArr    = $matrix->getMatrix();
         $newMatrix    = new self($this->m, $nDim);
         $newMatrixArr = $newMatrix->getMatrix();

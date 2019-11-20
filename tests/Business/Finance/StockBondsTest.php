@@ -17,7 +17,7 @@ namespace phpOMS\tests\Business\Finance;
 use phpOMS\Business\Finance\StockBonds;
 
 /**
- * @testdox phpOMS\tests\Business\Finance\FinanceFormulasTest: Stock & bond related  formulas
+ * @testdox phpOMS\tests\Business\Finance\StockBondsTest: Stock & bond related  formulas
  *
  * @internal
  */

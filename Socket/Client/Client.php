@@ -76,14 +76,6 @@ class Client extends SocketAbstract
     /**
      * {@inheritdoc}
      */
-    public function create(string $ip, int $port) : void
-    {
-        parent::create($ip, $port);
-    }
-
-    /**
-     * {@inheritdoc}
-     */
     public function run() : void
     {
         \socket_connect($this->sock, $this->ip, $this->port);
@@ -142,29 +134,29 @@ class Client extends SocketAbstract
         $this->close();
     }
 
+    /**
+     * Stop the socket connection to the server
+     *
+     * @return void
+     *
+     * @since 1.0.0
+     */
     public function shutdown() : void
     {
         $this->run = false;
     }
 
+    /**
+     * Add packet to be handeld
+     *
+     * @param mixed $packet Packet to handle
+     *
+     * @return void
+     *
+     * @since 1.0.0
+     */
     public function addPacket($packet) : void
     {
         $this->packets[] = $packet;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function close() : void
-    {
-        parent::close();
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function __destruct()
-    {
-        parent::__destruct();
     }
 }

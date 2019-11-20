@@ -161,7 +161,7 @@ final class Complex
     {
         if (\is_int($value)) {
             return $this->powInteger($value);
-        } elseif (\is_numeric($value)) {
+        } elseif (\is_float($value)) {
             return $this->powScalar($value);
         } elseif ($value instanceof self) {
             return $this->powComplex($value);
@@ -170,6 +170,15 @@ final class Complex
         throw new \InvalidArgumentException();
     }
 
+    /**
+     * Power with complex number
+     *
+     * @param Complex $value Power
+     *
+     * @return Complex
+     *
+     * @since 1.0.0
+     */
     public function powComplex(self $value) : self
     {
 
@@ -195,6 +204,15 @@ final class Complex
         return $this->multComplex($this->powInteger(--$value));
     }
 
+    /**
+     * Power with scalar
+     *
+     * @param int|float $value Power
+     *
+     * @return Complex
+     *
+     * @since 1.0.0
+     */
     public function powScalar($value) : self
     {
 

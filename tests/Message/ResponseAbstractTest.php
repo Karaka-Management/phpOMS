@@ -19,6 +19,8 @@ require_once __DIR__ . '/../Autoloader.php';
 use phpOMS\Message\ResponseAbstract;
 
 /**
+ * @testdox phpOMS\tests\Message\ResponseAbstractTest: Abstract response
+ *
  * @internal
  */
 class ResponseAbstractTest extends \PHPUnit\Framework\TestCase
@@ -41,16 +43,31 @@ class ResponseAbstractTest extends \PHPUnit\Framework\TestCase
         };
     }
 
+    /**
+     * @testdox The response has the expected default values after initialization
+     * @covers phpOMS\Message\ResponseAbstract
+     */
     public function testDefault() : void
     {
         self::assertNull($this->response->get('asdf'));
         self::assertEquals('', $this->response->getBody());
     }
 
-    public function testSetGet() : void
+    /**
+     * @testdox The response can be json serialized
+     * @covers phpOMS\Message\ResponseAbstract
+     */
+    public function testJsonSerialize() : void
     {
         self::assertEquals([1], $this->response->jsonSerialize());
+    }
 
+    /**
+     * @testdox Data can be set and returned for the response
+     * @covers phpOMS\Message\ResponseAbstract
+     */
+    public function testDataInputOutput() : void
+    {
         $this->response->set('asdf', false);
         self::assertFalse($this->response->get('asdf'));
     }

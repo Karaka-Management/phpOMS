@@ -549,12 +549,26 @@ class Grammar extends GrammarAbstract
         return 'ORDER BY ' . $expression;
     }
 
-    protected function compileUnions()
+    /**
+     * Compile unions.
+     *
+     * @return string
+     *
+     * @since 1.0.0
+     */
+    protected function compileUnions() : string
     {
         return '';
     }
 
-    protected function compileLock()
+    /**
+     * Compile lock.
+     *
+     * @return string
+     *
+     * @since 1.0.0
+     */
+    protected function compileLock() : string
     {
         return '';
     }

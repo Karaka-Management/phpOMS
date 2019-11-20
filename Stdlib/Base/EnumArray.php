@@ -47,9 +47,7 @@ abstract class EnumArray
      */
     public static function isValidName(string $name) : bool
     {
-        $constants = self::getConstants();
-
-        return isset($constants[$name]);
+        return isset(static::$constants[$name]);
     }
 
     /**
@@ -61,8 +59,7 @@ abstract class EnumArray
      */
     public static function getConstants() : array
     {
-        /** @var array $constants */
-        return (new static())::$constants;
+        return static::$constants;
     }
 
     /**
@@ -78,9 +75,7 @@ abstract class EnumArray
      */
     public static function isValidValue($value) : bool
     {
-        $constants = self::getConstants();
-
-        return \in_array($value, $constants, true);
+        return \in_array($value, static::$constants, true);
     }
 
     /**
@@ -96,12 +91,36 @@ abstract class EnumArray
      */
     public static function get($key)
     {
-        $constants = self::getConstants();
-
-        if (!isset($constants[$key])) {
+        if (!isset(static::$constants[$key])) {
             throw new \OutOfBoundsException('Key "' . $key . '" is not valid.');
         }
 
-        return $constants[$key];
+        return static::$constants[$key];
+    }
+
+    /**
+     * Count enum variables
+     *
+     * @return int
+     *
+     * @since 1.0.0
+     */
+    public static function count() : int
+    {
+        return \count(static::$constants);
+    }
+
+    /**
+     * Get random enum value.
+     *
+     * @return mixed
+     *
+     * @since 1.0.0
+     */
+    public static function getRandom()
+    {
+        $keys = \array_keys(static::$constants);
+
+        return static::$constants[$keys[\mt_rand(0, \count(static::$constants) - 1)]];
     }
 }

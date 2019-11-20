@@ -17,10 +17,16 @@ namespace phpOMS\tests\Math\Matrix;
 use phpOMS\Math\Matrix\Vector;
 
 /**
+ * @testdox phpOMS\tests\Math\VectorTest: Vector operations
+ *
  * @internal
  */
 class VectorTest extends \PHPUnit\Framework\TestCase
 {
+    /**
+     * @testdox The vector has the expected default values after initialization
+     * @covers phpOMS\Math\Matrix\Vector
+     */
     public function testDefault() : void
     {
         self::assertInstanceOf('\phpOMS\Math\Matrix\Vector', new Vector());
@@ -30,15 +36,30 @@ class VectorTest extends \PHPUnit\Framework\TestCase
         self::assertCount(5, $vec->toArray());
     }
 
-    public function testGetSet() : void
+    /**
+     * @testdox The vector values can be set and returned
+     * @covers phpOMS\Math\Matrix\Vector
+     */
+    public function testValueInputOutput() : void
+    {
+        $vec = new Vector(5);
+        $vec->setMatrixV([1, 2, 3, 4, 5]);
+
+        self::assertEquals(2, $vec->getV(1));
+
+        $vec->setV(3, 9);
+        self::assertEquals(9, $vec->getV(3));
+    }
+
+    /**
+     * @testdox The vector dimension can be returned
+     * @covers phpOMS\Math\Matrix\Vector
+     */
+    public function testDim() : void
     {
         $vec = new Vector(5);
         $vec->setMatrixV([1, 2, 3, 4, 5]);
 
         self::assertEquals(5, $vec->getM());
-        self::assertEquals(2, $vec->getV(1));
-
-        $vec->setV(3, 9);
-        self::assertEquals(9, $vec->getV(3));
     }
 }

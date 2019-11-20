@@ -423,9 +423,11 @@ final class StringUtils
             return $element->format('Y-m-d H:i:s');
         } elseif ($element instanceof RenderableInterface) {
             return $element->render();
-        } else {
+        } elseif (\method_exists($element, '__toString')) {
             return $element->__toString();
         }
+
+        return null;
     }
 
     /**

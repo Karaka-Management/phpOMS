@@ -19,6 +19,8 @@ require_once __DIR__ . '/../Autoloader.php';
 use phpOMS\Message\HeaderAbstract;
 
 /**
+ * @testdox phpOMS\tests\Message\HeaderAbstractTest: Abstract header for requests/responses
+ *
  * @internal
  */
 class HeaderAbstractTest extends \PHPUnit\Framework\TestCase
@@ -55,7 +57,11 @@ class HeaderAbstractTest extends \PHPUnit\Framework\TestCase
         };
     }
 
-    public function testSetGet() : void
+    /**
+     * @testdox The the status code can be set and returned
+     * @covers phpOMS\Message\HeaderAbstract
+     */
+    public function testStatusCodeInputOutput() : void
     {
         $this->header->setStatusCode(2);
         self::assertEquals(2, $this->header->getStatusCode());

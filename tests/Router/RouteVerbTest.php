@@ -35,6 +35,9 @@ class RouteVerbTest extends \PHPUnit\Framework\TestCase
         self::assertTrue(\defined('phpOMS\Router\RouteVerb::ANY'));
     }
 
+    /**
+     * @coversNothing
+     */
     public function testEnumUnique() : void
     {
         $values = RouteVerb::getConstants();

@@ -24,65 +24,85 @@ use phpOMS\Router\SocketRouter;
 require_once __DIR__ . '/../Autoloader.php';
 
 /**
+ * @testdox phpOMS\tests\Router\SocketRouterTest: Router for socket requests
+ *
  * @internal
  */
 class SocketRouterTest extends \PHPUnit\Framework\TestCase
 {
-    public function testAttributes() : void
+    protected SocketRouter $router;
+
+    protected function setUp() : void
     {
-        $router = new SocketRouter();
-        self::assertInstanceOf('\phpOMS\Router\SocketRouter', $router);
-        self::assertObjectHasAttribute('routes', $router);
+        $this->router = new SocketRouter();
     }
 
+    /**
+     * @testdox The route result for an empty request is empty
+     * @covers phpOMS\Router\SocketRouter
+     */
     public function testDefault() : void
     {
-        $router = new SocketRouter();
-        self::assertEmpty($router->route('some_test route'));
+        self::assertEmpty($this->router->route('some_test route'));
     }
 
+    /**
+     * @testdox A none-existing routing file cannot be imported
+     * @covers phpOMS\Router\SocketRouter
+     */
     public function testInvalidRoutingFile() : void
     {
-        $router = new SocketRouter();
-        self::assertFalse($router->importFromFile(__Dir__ . '/invalidFile.php'));
+        self::assertFalse($this->router->importFromFile(__Dir__ . '/invalidFile.php'));
     }
 
+    /**
+     * @testdox A existing routing file can be imported
+     * @covers phpOMS\Router\SocketRouter
+     */
     public function testLoadingRoutesFromFile() : void
     {
-        $router = new SocketRouter();
-        self::assertTrue($router->importFromFile(__Dir__ . '/socketRouterTestFile.php'));
+        self::assertTrue($this->router->importFromFile(__Dir__ . '/socketRouterTestFile.php'));
     }
 
+    /**
+     * @testdox A matching route returns the destinations
+     * @covers phpOMS\Router\SocketRouter
+     */
     public function testRouteMatching() : void
     {
-        $router = new SocketRouter();
-        self::assertTrue($router->importFromFile(__Dir__ . '/socketRouterTestFile.php'));
+        self::assertTrue($this->router->importFromFile(__Dir__ . '/socketRouterTestFile.php'));
 
         self::assertEquals(
             [['dest' => '\Modules\Admin\Controller:viewSettingsGeneral']],
-            $router->route('backend_admin -settings=general -t 123')
+            $this->router->route('backend_admin -settings=general -t 123')
         );
     }
 
+    /**
+     * @testdox Routes can be added dynamically
+     * @covers phpOMS\Router\SocketRouter
+     */
     public function testDynamicRouteAdding() : void
     {
-        $router = new SocketRouter();
         self::assertNotEquals(
             [['dest' => '\Modules\Admin\Controller:viewSettingsGeneral']],
-            $router->route('backends_admin -settings=general -t 123')
+            $this->router->route('backends_admin -settings=general -t 123')
         );
 
-        $router->add('^.*backends_admin -settings=general.*$', 'Controller:test');
+        $this->router->add('^.*backends_admin -settings=general.*$', 'Controller:test');
         self::assertEquals(
             [['dest' => 'Controller:test']],
-            $router->route('backends_admin -settings=general -t 123')
+            $this->router->route('backends_admin -settings=general -t 123')
         );
     }
 
+    /**
+     * @testdox Routes only match if the permissions match
+     * @covers phpOMS\Router\SocketRouter
+     */
     public function testWithValidPermissions() : void
     {
-        $router = new SocketRouter();
-        self::assertTrue($router->importFromFile(__Dir__ . '/socketRouterTestFilePermission.php'));
+        self::assertTrue($this->router->importFromFile(__Dir__ . '/socketRouterTestFilePermission.php'));
 
         $perm = new class(
             null,
@@ -100,7 +120,7 @@ class SocketRouterTest extends \PHPUnit\Framework\TestCase
 
         self::assertEquals(
             [['dest' => '\Modules\Admin\Controller:viewSettingsGeneral']],
-            $router->route('backend_admin -settings=general -t 123',
+            $this->router->route('backend_admin -settings=general -t 123',
                 null,
                 null,
                 $account
@@ -108,10 +128,13 @@ class SocketRouterTest extends \PHPUnit\Framework\TestCase
         );
     }
 
+    /**
+     * @testdox Routes don't match if the permissions don't match
+     * @covers phpOMS\Router\SocketRouter
+     */
     public function testWithInvalidPermissions() : void
     {
-        $router = new SocketRouter();
-        self::assertTrue($router->importFromFile(__Dir__ . '/socketRouterTestFilePermission.php'));
+        self::assertTrue($this->router->importFromFile(__Dir__ . '/socketRouterTestFilePermission.php'));
 
         $perm2 = new class(
             null,
@@ -153,7 +176,7 @@ class SocketRouterTest extends \PHPUnit\Framework\TestCase
 
         self::assertNotEquals(
             [['dest' => '\Modules\Admin\Controller:viewSettingsGeneral']],
-            $router->route('backend_admin -settings=general -t 123',
+            $this->router->route('backend_admin -settings=general -t 123',
                 null,
                 null,
                 $account2

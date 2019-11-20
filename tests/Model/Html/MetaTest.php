@@ -17,39 +17,118 @@ namespace phpOMS\tests\Model\Html;
 use phpOMS\Model\Html\Meta;
 
 /**
+ * @testdox phpOMS\tests\Model\Html\MetaTest: Html meta data
+ *
  * @internal
  */
 class MetaTest extends \PHPUnit\Framework\TestCase
 {
-    public function testDefault() : void
+    protected Meta $meta;
+
+    protected function setUp() : void
     {
-        $meta = new Meta();
-        self::assertEquals('', $meta->getDescription());
-        self::assertEquals('', $meta->getCharset());
-        self::assertEquals('', $meta->getAuthor());
-        self::assertEquals([], $meta->getKeywords());
-        self::assertEquals('<meta name="generator" content="Orange Management">', $meta->render());
+        $this->meta = new Meta();
     }
 
-    public function testGetSet() : void
+    /**
+     * @testdox The meta data has the expected default values after initialization
+     * @covers phpOMS\Model\Html\Meta
+     */
+    public function testDefault() : void
     {
-        $meta = new Meta();
+        self::assertEquals('', $this->meta->getDescription());
+        self::assertEquals('', $this->meta->getCharset());
+        self::assertEquals('', $this->meta->getAuthor());
+        self::assertEquals('', $this->meta->getName(''));
+        self::assertEquals('', $this->meta->getProperty(''));
+        self::assertEquals('', $this->meta->getItemprop(''));
+        self::assertEquals([], $this->meta->getKeywords());
+        self::assertEquals('<meta name="generator" content="Orange Management">', $this->meta->render());
+    }
 
-        $meta->addKeyword('orange');
-        self::assertEquals(['orange'], $meta->getKeywords());
+    /**
+     * @testdox A keyword can be added and returned
+     * @covers phpOMS\Model\Html\Meta
+     */
+    public function testKeywordInputOutput() : void
+    {
+        $this->meta->addKeyword('orange');
+        self::assertEquals(['orange'], $this->meta->getKeywords());
+    }
 
-        $meta->setAuthor('oms');
-        self::assertEquals('oms', $meta->getAuthor());
+    /**
+     * @testdox The author can be set and returned
+     * @covers phpOMS\Model\Html\Meta
+     */
+    public function testAuthorInputOutput() : void
+    {
+        $this->meta->setAuthor('oms');
+        self::assertEquals('oms', $this->meta->getAuthor());
+    }
 
-        $meta->setCharset('utf-8');
-        self::assertEquals('utf-8', $meta->getCharset());
+    /**
+     * @testdox The charset can be set and returned
+     * @covers phpOMS\Model\Html\Meta
+     */
+    public function testCharsetInputOutput() : void
+    {
+        $this->meta->setCharset('utf-8');
+        self::assertEquals('utf-8', $this->meta->getCharset());
+    }
 
-        $meta->setDescription('some description');
-        self::assertEquals('some description', $meta->getDescription());
+    /**
+     * @testdox The description can be set and returned
+     * @covers phpOMS\Model\Html\Meta
+     */
+    public function testDescriptionInputOutput() : void
+    {
+        $this->meta->setDescription('some description');
+        self::assertEquals('some description', $this->meta->getDescription());
+    }
 
-        $meta->setProperty('og:title', 'TestProperty');
-        $meta->setItemprop('title', 'TestItemprop');
-        $meta->setName('title', 'TestName');
+    /**
+     * @testdox A property can be set and returned
+     * @covers phpOMS\Model\Html\Meta
+     */
+    public function testPropertyInputOutput() : void
+    {
+        $this->meta->setProperty('property', 'test property');
+        self::assertEquals('test property', $this->meta->getProperty('property'));
+    }
+
+    /**
+     * @testdox A itemprop can be set and returned
+     * @covers phpOMS\Model\Html\Meta
+     */
+    public function testItempropInputOutput() : void
+    {
+        $this->meta->setItemprop('itemprop', 'test itemprop');
+        self::assertEquals('test itemprop', $this->meta->getItemprop('itemprop'));
+    }
+
+    /**
+     * @testdox A name can be set and returned
+     * @covers phpOMS\Model\Html\Meta
+     */
+    public function testNameInputOutput() : void
+    {
+        $this->meta->setName('title', 'test title');
+        self::assertEquals('test title', $this->meta->getName('title'));
+    }
+
+    /**
+     * @testdox The meta data can be rendered
+     * @covers phpOMS\Model\Html\Meta
+     */
+    public function testRender() : void
+    {
+        $this->meta->addKeyword('orange');
+        $this->meta->setAuthor('oms');
+        $this->meta->setCharset('utf-8');
+        $this->meta->setDescription('some description');
+        $this->meta->setProperty('og:title', 'TestProperty');
+        $this->meta->setItemprop('title', 'TestItemprop');
+        $this->meta->setName('title', 'TestName');
 
         self::assertEquals(
             '<meta name="keywords" content="orange">'
@@ -60,7 +139,7 @@ class MetaTest extends \PHPUnit\Framework\TestCase
             . '<meta property="og:title" content="TestProperty">'
             . '<meta itemprop="title" content="TestItemprop">'
             . '<meta name="title" content="TestName">',
-            $meta->render()
+            $this->meta->render()
         );
     }
 }

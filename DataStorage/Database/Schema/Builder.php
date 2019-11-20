@@ -256,6 +256,15 @@ class Builder extends QueryBuilder
         return $this;
     }
 
+    /**
+     * Alter a field.
+     *
+     * @param array $column Column data
+     *
+     * @return void
+     *
+     * @since 1.0.0
+     */
     public function alter(array $column) : void
     {
     }

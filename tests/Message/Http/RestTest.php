@@ -20,10 +20,16 @@ use phpOMS\Message\Http\Rest;
 use phpOMS\Uri\Http;
 
 /**
+ * @testdox phpOMS\tests\Message\Http\RestTest: Rest request wrapper
+ *
  * @internal
  */
 class RestTest extends \PHPUnit\Framework\TestCase
 {
+    /**
+     * @testdox A get request successfully returns the expected result
+     * @covers phpOMS\Message\Http\Rest
+     */
     public function testRequest() : void
     {
         $request = new Request(new Http('https://raw.githubusercontent.com/Orange-Management/Orange-Management/develop/LICENSE.txt'));
@@ -35,6 +41,10 @@ class RestTest extends \PHPUnit\Framework\TestCase
         );
     }
 
+    /**
+     * @testdox A post request with data successfully returns the expected result
+     * @covers phpOMS\Message\Http\Rest
+     */
     public function testPost() : void
     {
         $request = new Request(new Http('http://httpbin.org/post'));
@@ -43,6 +53,10 @@ class RestTest extends \PHPUnit\Framework\TestCase
         self::assertEquals('abc', REST::request($request)->getJsonData()['form']['pdata']);
     }
 
+    /**
+     * @testdox A put request with data successfully returns the expected result
+     * @covers phpOMS\Message\Http\Rest
+     */
     public function testPut() : void
     {
         $request = new Request(new Http('http://httpbin.org/put'));
@@ -51,6 +65,10 @@ class RestTest extends \PHPUnit\Framework\TestCase
         self::assertEquals('abc', REST::request($request)->getJsonData()['form']['pdata']);
     }
 
+    /**
+     * @testdox A delete request with data successfully returns the expected result
+     * @covers phpOMS\Message\Http\Rest
+     */
     public function testDelete() : void
     {
         $request = new Request(new Http('http://httpbin.org/delete'));
@@ -59,6 +77,10 @@ class RestTest extends \PHPUnit\Framework\TestCase
         self::assertEquals('abc', REST::request($request)->getJsonData()['form']['ddata']);
     }
 
+    /**
+     * @testdox A get request with data successfully returns the expected result
+     * @covers phpOMS\Message\Http\Rest
+     */
     public function testGet() : void
     {
         $request = new Request(new Http('http://httpbin.org/get'));

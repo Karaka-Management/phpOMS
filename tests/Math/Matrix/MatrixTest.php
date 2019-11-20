@@ -18,6 +18,8 @@ use phpOMS\Math\Matrix\Matrix;
 use phpOMS\Math\Matrix\Vector;
 
 /**
+ * @testdox phpOMS\tests\Math\MatrixTest: Matrix operations
+ *
  * @internal
  */
 class MatrixTest extends \PHPUnit\Framework\TestCase
@@ -44,34 +46,92 @@ class MatrixTest extends \PHPUnit\Framework\TestCase
         $this->C = $this->A->mult($this->B);
     }
 
+    /**
+     * @testdox A matrix can return the dimension
+     * @covers phpOMS\Math\Matrix\Matrix
+     */
     public function testBase() : void
     {
         self::assertEquals(2, $this->A->getM());
         self::assertEquals(3, $this->A->getN());
-        // LU decomposition
     }
 
-    public function testMult() : void
+    /**
+     * @testdox A matrix can be right-hand multiplicated with a matrix
+     * @covers phpOMS\Math\Matrix\Matrix
+     */
+    public function testMultMatrix() : void
     {
         self::assertEquals([[0, -5], [-6, -7]], $this->C->getMatrix());
+    }
+
+    /**
+     * @testdox A matrix can be right-hand multiplicated with a scalar
+     * @covers phpOMS\Math\Matrix\Matrix
+     */
+    public function testMultMatrixScalar() : void
+    {
         self::assertEquals([[0, -10], [-12, -14]], $this->C->mult(2)->getMatrix());
     }
 
-    public function testAddSub() : void
+    /**
+     * @testdox A scalar can be added to every matrix element
+     * @covers phpOMS\Math\Matrix\Matrix
+     */
+    public function testAddScalar() : void
+    {
+        $A = new Matrix();
+        $A->setMatrix([[1, 2], [3, 4]]);
+
+        self::assertEquals([[1 + 2, 2 + 2], [3 + 2, 4 + 2]], $A->add(2)->toArray());
+    }
+
+    /**
+     * @testdox A scalar can be subtracted from every matrix element
+     * @covers phpOMS\Math\Matrix\Matrix
+     */
+    public function testSubScalar() : void
     {
         $A = new Matrix();
         $A->setMatrix([[1, 2], [3, 4]]);
 
         self::assertEquals([[1 - 2, 2 - 2], [3 - 2, 4 - 2]], $A->sub(2)->toArray());
-        self::assertEquals([[1 + 2, 2 + 2], [3 + 2, 4 + 2]], $A->add(2)->toArray());
+    }
+
+    /**
+     * @testdox Two matrices can be added to each other
+     * @covers phpOMS\Math\Matrix\Matrix
+     */
+    public function testAddMatrix() : void
+    {
+        $A = new Matrix();
+        $A->setMatrix([[1, 2], [3, 4]]);
+
+        $B = new Matrix();
+        $B->setMatrix([[1, 2], [3, 4]]);
+
+        self::assertEquals([[1 + 1, 2 + 2], [3 + 3, 4 + 4]], $A->add($B)->toArray());
+    }
+
+    /**
+     * @testdox Two matrices can be subtracted from each other
+     * @covers phpOMS\Math\Matrix\Matrix
+     */
+    public function testSubMatrix() : void
+    {
+        $A = new Matrix();
+        $A->setMatrix([[1, 2], [3, 4]]);
 
         $B = new Matrix();
         $B->setMatrix([[1, 2], [3, 4]]);
 
         self::assertEquals([[1 - 1, 2 - 2], [3 - 3, 4 - 4]], $A->sub($B)->toArray());
-        self::assertEquals([[1 + 1, 2 + 2], [3 + 3, 4 + 4]], $A->add($B)->toArray());
     }
 
+    /**
+     * @testdox The determinant of a matrix can be calculated
+     * @covers phpOMS\Math\Matrix\Matrix
+     */
     public function testDet() : void
     {
         $B = new Matrix();
@@ -84,6 +144,10 @@ class MatrixTest extends \PHPUnit\Framework\TestCase
         self::assertEquals(-306, $B->det());
     }
 
+    /**
+     * @testdox A symmetric matrix can be validated for symmetry
+     * @covers phpOMS\Math\Matrix\Matrix
+     */
     public function testSymmetry() : void
     {
         $B = new Matrix();
@@ -94,7 +158,14 @@ class MatrixTest extends \PHPUnit\Framework\TestCase
         ]);
 
         self::assertTrue($B->isSymmetric());
+    }
 
+    /**
+     * @testdox A none-symmetric matrix cannot be validated for symmetry
+     * @covers phpOMS\Math\Matrix\Matrix
+     */
+    public function testInvalidSymmetry() : void
+    {
         $C = new Matrix();
         $C->setMatrix([
             [1, 7, 4],
@@ -105,6 +176,10 @@ class MatrixTest extends \PHPUnit\Framework\TestCase
         self::assertFalse($C->isSymmetric());
     }
 
+    /**
+     * @testdox A matrix can be transposed
+     * @covers phpOMS\Math\Matrix\Matrix
+     */
     public function testTranspose() : void
     {
         $B = new Matrix();
@@ -116,6 +191,10 @@ class MatrixTest extends \PHPUnit\Framework\TestCase
         self::assertEquals([[6, 4], [1, -2], [1, 5],], $B->transpose()->toArray());
     }
 
+    /**
+     * @testdox A matrix equation Ax = b can be solved for x
+     * @covers phpOMS\Math\Matrix\Matrix
+     */
     public function testSolve() : void
     {
         $A = new Matrix();
@@ -131,6 +210,10 @@ class MatrixTest extends \PHPUnit\Framework\TestCase
         self::assertEqualsWithDelta([[1], [2], [3]], $A->solve($vec)->toArray(), 0.2);
     }
 
+    /**
+     * @testdox The rank of a matrix can be calculated
+     * @covers phpOMS\Math\Matrix\Matrix
+     */
     public function testRank() : void
     {
         $B = new Matrix();
@@ -189,7 +272,11 @@ class MatrixTest extends \PHPUnit\Framework\TestCase
         //self::assertEquals([], $this->C->diagonalize()->getMatrix());
     }
 
-    public function testGetSet() : void
+    /**
+     * @testdox The matrix elements can be set and returned
+     * @covers phpOMS\Math\Matrix\Matrix
+     */
+    public function testMatrixInputOutput() : void
     {
         $id = new Matrix();
         $id->setMatrix([
@@ -217,6 +304,10 @@ class MatrixTest extends \PHPUnit\Framework\TestCase
         );
     }
 
+    /**
+     * @testdox A matrix can be accessed like a 1-dimensional array
+     * @covers phpOMS\Math\Matrix\Matrix
+     */
     public function testArrayAccess() : void
     {
         $A = new Matrix();
@@ -243,7 +334,11 @@ class MatrixTest extends \PHPUnit\Framework\TestCase
         self::assertFalse(isset($A[6]));
     }
 
-    public function testSubMatrix() : void
+    /**
+     * @testdox Sub matrices can be extracted from a matrix
+     * @covers phpOMS\Math\Matrix\Matrix
+     */
+    public function testMatrixExtract() : void
     {
         $A = new Matrix();
         $A->setMatrix([
@@ -274,6 +369,10 @@ class MatrixTest extends \PHPUnit\Framework\TestCase
         );
     }
 
+    /**
+     * @testdox Setting a matrix element outside of the dimensions throws a InvalidDimensionException
+     * @covers phpOMS\Math\Matrix\Matrix
+     */
     public function testInvalidSetIndexException() : void
     {
         self::expectException(\phpOMS\Math\Matrix\Exception\InvalidDimensionException::class);
@@ -286,6 +385,10 @@ class MatrixTest extends \PHPUnit\Framework\TestCase
         $id->set(99, 99, 99);
     }
 
+    /**
+     * @testdox Returning a matrix element outside of the dimensions throws a InvalidDimensionException
+     * @covers phpOMS\Math\Matrix\Matrix
+     */
     public function testInvalidGetIndexException() : void
     {
         self::expectException(\phpOMS\Math\Matrix\Exception\InvalidDimensionException::class);
@@ -298,6 +401,10 @@ class MatrixTest extends \PHPUnit\Framework\TestCase
         $id->get(99, 99);
     }
 
+    /**
+     * @testdox Subtracting a invalid data type from a matrix throws a InvalidArgumentException
+     * @covers phpOMS\Math\Matrix\Matrix
+     */
     public function testInvalidSub() : void
     {
         self::expectException(\InvalidArgumentException::class);
@@ -311,6 +418,10 @@ class MatrixTest extends \PHPUnit\Framework\TestCase
         $id->sub(true);
     }
 
+    /**
+     * @testdox Adding a invalid data type from a matrix throws a InvalidArgumentException
+     * @covers phpOMS\Math\Matrix\Matrix
+     */
     public function testInvalidAdd() : void
     {
         self::expectException(\InvalidArgumentException::class);
@@ -324,6 +435,10 @@ class MatrixTest extends \PHPUnit\Framework\TestCase
         $id->add(true);
     }
 
+    /**
+     * @testdox Multiplicating a invalid data type from a matrix throws a InvalidArgumentException
+     * @covers phpOMS\Math\Matrix\Matrix
+     */
     public function testInvalidMult() : void
     {
         self::expectException(\InvalidArgumentException::class);
@@ -337,6 +452,10 @@ class MatrixTest extends \PHPUnit\Framework\TestCase
         $id->mult(true);
     }
 
+    /**
+     * @testdox Adding a matrix with a different dimension to a matrix throws a InvalidDimensionException
+     * @covers phpOMS\Math\Matrix\Matrix
+     */
     public function testInvalidDimensionAdd() : void
     {
         self::expectException(\phpOMS\Math\Matrix\Exception\InvalidDimensionException::class);
@@ -350,6 +469,10 @@ class MatrixTest extends \PHPUnit\Framework\TestCase
         $A->add($B);
     }
 
+    /**
+     * @testdox Subtracting a matrix from a different dimension to a matrix throws a InvalidDimensionException
+     * @covers phpOMS\Math\Matrix\Matrix
+     */
     public function testInvalidDimensionSub() : void
     {
         self::expectException(\phpOMS\Math\Matrix\Exception\InvalidDimensionException::class);
@@ -361,5 +484,22 @@ class MatrixTest extends \PHPUnit\Framework\TestCase
         $B->setMatrix([[1, 2, 1], [3, 4, 1], [5, 6, 1]]);
 
         $A->sub($B);
+    }
+
+    /**
+     * @testdox Multiplicating a matrix with a different n x m dimension to a matrix throws a InvalidDimensionException
+     * @covers phpOMS\Math\Matrix\Matrix
+     */
+    public function testInvalidDimensionMult() : void
+    {
+        self::expectException(\phpOMS\Math\Matrix\Exception\InvalidDimensionException::class);
+
+        $A = new Matrix();
+        $A->setMatrix([[1, 2], [3, 4]]);
+
+        $B = new Matrix();
+        $B->setMatrix([[1, 2, 1], [3, 4, 1], [5, 6, 1]]);
+
+        $A->mult($B);
     }
 }

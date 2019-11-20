@@ -82,7 +82,9 @@ final class Bounded
             $s = 0;
             $v = $m[$i][$j];
 
-            for ($k = 0; $v !== $m[$i - 1][$j] + $k * ((int) $items[$i - 1]['item']->getValue()); ++$k) {
+            $value = (int) $items[$i - 1]['item']->getValue();
+
+            for ($k = 0; $v !== $m[$i - 1][$j] + $k * $value; ++$k) {
                 $s++;
                 $j -= (int) $items[$i - 1]['item']->getCost();
             }

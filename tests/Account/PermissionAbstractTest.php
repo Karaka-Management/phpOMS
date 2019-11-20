@@ -20,7 +20,7 @@ use phpOMS\Account\PermissionAbstract;
 use phpOMS\Account\PermissionType;
 
 /**
- * @testdox phpOMS\tests\Account\PermissionAbstract: Base permission representation
+ * @testdox phpOMS\tests\Account\PermissionAbstractTest: Base permission representation
  *
  * @internal
  */

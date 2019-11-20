@@ -15,29 +15,94 @@ declare(strict_types=1);
 namespace phpOMS\tests\Stdlib\Base;
 
 /**
+ * @testdox phpOMS\tests\Stdlib\Base\EnumArrayTest: Enum array type
+ *
  * @internal
  */
 class EnumArrayTest extends \PHPUnit\Framework\TestCase
 {
-    public function testGetSet() : void
+    /**
+     * @testdox A valid enum name returns the enum value
+     * @covers phpOMS\Stdlib\Base\EnumArray<extended>
+     */
+    public function testValueOutput() : void
     {
         self::assertEquals(1, EnumArrayDemo::get('ENUM1'));
         self::assertEquals('abc', EnumArrayDemo::get('ENUM2'));
+    }
 
+    /**
+     * @testdox A valid enum name can be validated
+     * @covers phpOMS\Stdlib\Base\EnumArray<extended>
+     */
+    public function testValidateEnumName() : void
+    {
         self::assertTrue(EnumArrayDemo::isValidName('ENUM1'));
+    }
+
+    /**
+     * @testdox A invalid enum name doesn't validate
+     * @covers phpOMS\Stdlib\Base\EnumArray<extended>
+     */
+    public function testInvalidEnumNameValidation() : void
+    {
         self::assertFalse(EnumArrayDemo::isValidName('enum1'));
+    }
 
+    /**
+     * @testdox All enum name/value pairs can be returned
+     * @covers phpOMS\Stdlib\Base\EnumArray<extended>
+     */
+    public function testOutputValues() : void
+    {
         self::assertEquals(['ENUM1' => 1, 'ENUM2' => 'abc'], EnumArrayDemo::getConstants());
+    }
 
+    /**
+     * @testdox A valid enum value can be checked for existance
+     * @covers phpOMS\Stdlib\Base\EnumArray<extended>
+     */
+    public function testValidateEnumValue() : void
+    {
         self::assertTrue(EnumArrayDemo::isValidValue(1));
         self::assertTrue(EnumArrayDemo::isValidValue('abc'));
+    }
+
+    /**
+     * @testdox A invalid enum value doesn't validate
+     * @covers phpOMS\Stdlib\Base\EnumArray<extended>
+     */
+    public function testInvalidEnumValueValidation() : void
+    {
         self::assertFalse(EnumArrayDemo::isValidValue('e3'));
     }
 
+    /**
+     * @testdox A invalid enum name throws a OutOfBoundsException
+     * @covers phpOMS\Stdlib\Base\EnumArray<extended>
+     */
     public function testInvalidConstantException() : void
     {
         self::expectException(\OutOfBoundsException::class);
 
         EnumArrayDemo::get('enum2');
+    }
+
+    /**
+     * @testdox The amount of enum values can be returned
+     * @covers phpOMS\Stdlib\Base\EnumArray<extended>
+     */
+    public function testCount() : void
+    {
+        self::assertEquals(2, EnumArrayDemo::count());
+    }
+
+    /**
+     * @testdox A random enum value can be returned
+     * @covers phpOMS\Stdlib\Base\EnumArray<extended>
+     */
+    public function testRandomValue() : void
+    {
+        self::assertTrue(EnumDemo::isValidValue(EnumDemo::getRandom()));
     }
 }

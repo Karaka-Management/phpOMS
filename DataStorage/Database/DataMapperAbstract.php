@@ -1373,6 +1373,19 @@ class DataMapperAbstract implements DataMapperInterface
         self::$db->con->prepare($query->toSql())->execute();
     }
 
+    /**
+     * Update conditional values
+     *
+     * @param object           $obj       Object to update
+     * @param mixed            $objId     Object id
+     * @param \ReflectionClass $refClass  Reflection of the object
+     * @param int              $relations Relations to update
+     * @param int              $depth     Depths to update
+     *
+     * @return void
+     *
+     * @since 1.0.0
+     */
     private static function updateConditionals(object $obj, $objId, \ReflectionClass $refClass = null, int $relations = RelationType::ALL, int $depth = 1) : void
     {
         foreach (static::$conditionals as $table => $conditional) {
@@ -1720,6 +1733,13 @@ class DataMapperAbstract implements DataMapperInterface
         return $obj;
     }
 
+    /**
+     * Delete conditional values
+     *
+     * @param mixed $key Key to delete
+     *
+     * @since 1.0.0
+     */
     private static function deleteConditionals($key) : void
     {
         foreach (static::$conditionals as $table => $conditional) {

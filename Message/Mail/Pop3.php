@@ -25,21 +25,6 @@ namespace phpOMS\Message\Mail;
 class Pop3 extends EmailAbstract
 {
     /**
-     * Construct
-     *
-     * @param string $host    Host
-     * @param int    $port    Host port
-     * @param int    $timeout Timeout
-     * @param bool   $ssl     Use ssl
-     *
-     * @since 1.0.0
-     */
-    public function __construct(string $host = 'localhost', int $port = 25, int $timeout = 30, bool $ssl = false)
-    {
-        parent::__construct($host, $port, $timeout, $ssl);
-    }
-
-    /**
      * Connect to server
      *
      * @param string $user Username

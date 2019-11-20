@@ -26,6 +26,13 @@ namespace phpOMS\Stdlib\Graph;
  */
 class BinaryTree extends Tree
 {
+    /**
+     * Invert the tree
+     *
+     * @return BinaryTree
+     *
+     * @since 1.0.0
+     */
     public static function invert($list) : self
     {
         if (empty($list->getNodes())) {
@@ -91,6 +98,7 @@ class BinaryTree extends Tree
             // todo: maybe need to add numerics to edges?
         } else {
             // todo: replace node
+            $a = 2;
         }
 
         return $this;
@@ -106,7 +114,7 @@ class BinaryTree extends Tree
      *
      * @since 1.0.0
      */
-    public function setRight(Node $base, Node $right)  /* : void */
+    public function setRight(Node $base, Node $right)  : self
     {
         if ($this->getRight($base) === null) {
             $this->addNodeRelative($base, $right);
@@ -114,7 +122,10 @@ class BinaryTree extends Tree
             // todo: maybe need to add numerics to edges?
         } else {
             // todo: replace node
+            $a = 2;
         }
+
+        return $this;
     }
 
     /**
@@ -145,7 +156,7 @@ class BinaryTree extends Tree
      *
      * @since 1.0.0
      */
-    private function getVerticalOrder(Node $node, int $horizontalDistance = 0, array &$order) : void
+    private function getVerticalOrder(Node $node, int $horizontalDistance, array &$order) : void
     {
         if (!isset($order[$horizontalDistance])) {
             $order[$horizontalDistance] = [];

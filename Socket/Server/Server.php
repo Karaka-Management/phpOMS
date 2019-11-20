@@ -127,10 +127,22 @@ class Server extends SocketAbstract
         $this->limit = $limit;
     }
 
+    /**
+     * Perform client-server handshake during login
+     *
+     * @param mixed $client  Client
+     * @param mixed $headers Header
+     *
+     * @return bool
+     *
+     * @since 1.0.0
+     */
     public function handshake($client, $headers) : bool
     {
         // todo: different handshake for normal tcp connection
-        return true;
+        if ($client !== null) {
+            return true;
+        }
 
         if (\preg_match("/Sec-WebSocket-Version: (.*)\r\n/", $headers, $match) === false) {
             return false;
@@ -194,6 +206,7 @@ class Server extends SocketAbstract
                 // socket_last_error();
                 // socket_strerror(socket_last_error());
                 // socket_clear_error();
+                $a = 2;
             }
 
             foreach ($read as $key => $socket) {
@@ -230,6 +243,15 @@ class Server extends SocketAbstract
         $this->close();
     }
 
+    /**
+     * Perform server shutdown
+     *
+     * @param mixed $request Request
+     *
+     * @return void
+     *
+     * @since 1.0.0
+     */
     public function shutdown($request) : void
     {
         $msg = 'shutdown' . "\n";
@@ -238,15 +260,33 @@ class Server extends SocketAbstract
         $this->run = false;
     }
 
+    /**
+     * Connect a client
+     *
+     * @param mixed $socket Socket
+     *
+     * @return void
+     *
+     * @since 1.0.0
+     */
     public function connectClient($socket) : void
     {
         $this->app->logger->debug('Connecting client...');
         $this->app->accountManager->add(new Account(1));
         $this->clientManager->add($client = new ClientConnection(new Account(1), $socket));
-        $this->conn[$client->getId()]     = $socket;
+        $this->conn[$client->getId()] = $socket;
         $this->app->logger->debug('Connected client.');
     }
 
+    /**
+     * Disconnect a client
+     *
+     * @param mixed $client Client
+     *
+     * @return void
+     *
+     * @since 1.0.0
+     */
     public function disconnectClient($client) : void
     {
         $this->app->logger->debug('Disconnecting client...');
@@ -264,21 +304,14 @@ class Server extends SocketAbstract
     }
 
     /**
-     * {@inheritdoc}
+     * Unmask payload
+     *
+     * @param mixed $payload Payload
+     *
+     * @return string
+     *
+     * @since 1.0.0
      */
-    public function close() : void
-    {
-        parent::close();
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function __destruct()
-    {
-        parent::__destruct();
-    }
-
     private function unmask($payload) : string
     {
         $length = \ord($payload[1]) & 127;
@@ -292,8 +325,9 @@ class Server extends SocketAbstract
             $masks = \substr($payload, 2, 4);
             $data  = \substr($payload, 6);
         }
-        $text = '';
-        for ($i = 0; $i < \strlen($data); ++$i) {
+        $text       = '';
+        $dataLength = \strlen($data);
+        for ($i = 0; $i < $dataLength; ++$i) {
             $text .= $data[$i] ^ $masks[$i % 4];
         }
 

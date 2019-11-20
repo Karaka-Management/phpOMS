@@ -89,7 +89,7 @@ abstract class RequestAbstract implements MessageInterface
 
         $json = \json_decode($this->data[$key], true);
 
-        return $json === false ? [] : $json;
+        return $json === false ? [] : $json ?? [];
     }
 
     /**
@@ -169,7 +169,7 @@ abstract class RequestAbstract implements MessageInterface
      *
      * @since 1.0.0
      */
-    public function setData($key, $value, bool $overwrite = true) : bool
+    public function setData($key, $value, bool $overwrite = false) : bool
     {
         if (!$this->lock) {
             $key = \mb_strtolower($key);

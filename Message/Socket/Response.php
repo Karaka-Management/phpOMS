@@ -17,6 +17,14 @@ namespace phpOMS\Message\Socket;
 use phpOMS\Message\ResponseAbstract;
 use phpOMS\Contract\RenderableInterface;
 
+/**
+ * Response class.
+ *
+ * @package phpOMS\Message\Socket
+ * @license OMS License 1.0
+ * @link    https://orange-management.org
+ * @since   1.0.0
+ */
 final class Response extends ResponseAbstract implements RenderableInterface
 {
    /**

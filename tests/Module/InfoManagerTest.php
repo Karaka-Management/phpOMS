@@ -19,11 +19,17 @@ require_once __DIR__ . '/../Autoloader.php';
 use phpOMS\Module\InfoManager;
 
 /**
+ * @testdox phpOMS\tests\Module\InfoManagerTest: Module info file manager
+ *
  * @internal
  */
 class InfoManagerTest extends \PHPUnit\Framework\TestCase
 {
-    public function testInfoManager() : void
+    /**
+     * @testdox A info file can be correctly loaded
+     * @covers phpOMS\Module\InfoManager
+     */
+    public function testLoad() : void
     {
         $info = new InfoManager(__DIR__ . '/info-test.json');
         $info->load();
@@ -41,6 +47,18 @@ class InfoManagerTest extends \PHPUnit\Framework\TestCase
         self::assertEquals($jarray['version'], $info->getVersion());
         self::assertEquals($jarray['load'], $info->getLoad());
         self::assertEquals(__DIR__ . '/info-test.json', $info->getPath());
+    }
+
+    /**
+     * @testdox A info file can be modified
+     * @covers phpOMS\Module\InfoManager
+     */
+    public function testChange() : void
+    {
+        $jarray = \json_decode(\file_get_contents(__DIR__ . '/info-test.json'), true);
+
+        $info = new InfoManager(__DIR__ . '/info-test.json');
+        $info->load();
 
         $info->set('/name/internal', 'ABC');
         self::assertEquals('ABC', $info->getInternalName());
@@ -54,6 +72,10 @@ class InfoManagerTest extends \PHPUnit\Framework\TestCase
         $info->update();
     }
 
+    /**
+     * @testdox A invalid info file path load throws a PathException
+     * @covers phpOMS\Module\InfoManager
+     */
     public function testInvalidPathLoad() : void
     {
         self::expectException(\phpOMS\System\File\PathException::class);
@@ -62,6 +84,10 @@ class InfoManagerTest extends \PHPUnit\Framework\TestCase
         $info->load();
     }
 
+    /**
+     * @testdox A invalid info file path update throws a PathException
+     * @covers phpOMS\Module\InfoManager
+     */
     public function testInvalidPathUpdate() : void
     {
         self::expectException(\phpOMS\System\File\PathException::class);
@@ -70,6 +96,10 @@ class InfoManagerTest extends \PHPUnit\Framework\TestCase
         $info->update();
     }
 
+    /**
+     * @testdox A invalid change data throws a InvalidArgumentException
+     * @covers phpOMS\Module\InfoManager
+     */
     public function testInvalidDataSet() : void
     {
         self::expectException(\InvalidArgumentException::class);

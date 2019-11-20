@@ -206,6 +206,20 @@ class Meta implements RenderableInterface
     }
 
     /**
+     * Get property.
+     *
+     * @param string $property Property
+     *
+     * @return string
+     *
+     * @since 1.0.0
+     */
+    public function getProperty(string $property) : string
+    {
+        return $this->properties[$property] ?? '';
+    }
+
+    /**
      * Set itemprop.
      *
      * @param string $itemprop Property
@@ -221,9 +235,23 @@ class Meta implements RenderableInterface
     }
 
     /**
+     * Get itemprop.
+     *
+     * @param string $itemprop Itemprop
+     *
+     * @return string
+     *
+     * @since 1.0.0
+     */
+    public function getItemprop(string $itemprop) : string
+    {
+        return $this->itemprops[$itemprop] ?? '';
+    }
+
+    /**
      * Set name.
      *
-     * @param string $name    Property
+     * @param string $name    Name
      * @param string $content Content
      *
      * @return void
@@ -233,6 +261,20 @@ class Meta implements RenderableInterface
     public function setName(string $name, string $content) : void
     {
         $this->names[$name] = $content;
+    }
+
+    /**
+     * Get name.
+     *
+     * @param string $name Name
+     *
+     * @return string
+     *
+     * @since 1.0.0
+     */
+    public function getName(string $name) : string
+    {
+        return $this->names[$name] ?? '';
     }
 
     /**

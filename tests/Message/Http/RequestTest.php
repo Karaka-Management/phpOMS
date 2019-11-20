@@ -23,10 +23,16 @@ use phpOMS\Router\RouteVerb;
 use phpOMS\Uri\Http;
 
 /**
+ * @testdox phpOMS\tests\Message\Http\RequestTest: Request wrapper for http requests
+ *
  * @internal
  */
 class RequestTest extends \PHPUnit\Framework\TestCase
 {
+    /**
+     * @testdox The request has the expected default values after initialization
+     * @covers phpOMS\Message\Http\Request<extended>
+     */
     public function testDefault() : void
     {
         $request = new Request();
@@ -53,7 +59,23 @@ class RequestTest extends \PHPUnit\Framework\TestCase
         self::assertEquals('en_US', $request->getLocale());
     }
 
-    public function testSetGet() : void
+    /**
+     * @testdox The OS can be set and returned
+     * @covers phpOMS\Message\Http\Request<extended>
+     */
+    public function testOSInputOutput() : void
+    {
+        $request = new Request(new Http('http://www.google.com/test/path'), $l11n = new Localization());
+
+        $request->setOS(OSType::WINDOWS_XP);
+        self::assertEquals(OSType::WINDOWS_XP, $request->getOS());
+    }
+
+    /**
+     * @testdox The browser can be set and returned
+     * @covers phpOMS\Message\Http\Request<extended>
+     */
+    public function testBrowserTypeInputOutput() : void
     {
         $request = new Request(new Http('http://www.google.com/test/path'), $l11n = new Localization());
 
@@ -63,20 +85,57 @@ class RequestTest extends \PHPUnit\Framework\TestCase
         $request->setBrowser(BrowserType::EDGE);
         self::assertEquals(BrowserType::EDGE, $request->getBrowser());
         self::assertEquals(['browser' => BrowserType::EDGE, 'os' => OSType::WINDOWS_XP], $request->getRequestInfo());
+    }
+
+    /**
+     * @testdox The request method can be set and returned
+     * @covers phpOMS\Message\Http\Request<extended>
+     */
+    public function testRequestMethodInputOutput() : void
+    {
+        $request = new Request(new Http('http://www.google.com/test/path'), $l11n = new Localization());
 
         $request->setMethod(RequestMethod::PUT);
         self::assertEquals(RequestMethod::PUT, $request->getMethod());
         self::assertEquals(RouteVerb::PUT, $request->getRouteVerb());
+    }
+
+    /**
+     * @testdox The route verb gets correctly infered from the request method
+     * @covers phpOMS\Message\Http\Request<extended>
+     */
+    public function testRequestMethodToRouteVerb() : void
+    {
+        $request = new Request(new Http('http://www.google.com/test/path'), $l11n = new Localization());
+
+        $request->setMethod(RequestMethod::PUT);
+        self::assertEquals(RouteVerb::PUT, $request->getRouteVerb());
 
         $request->setMethod(RequestMethod::DELETE);
-        self::assertEquals(RequestMethod::DELETE, $request->getMethod());
         self::assertEquals(RouteVerb::DELETE, $request->getRouteVerb());
 
         $request->setMethod(RequestMethod::POST);
-        self::assertEquals(RequestMethod::POST, $request->getMethod());
         self::assertEquals(RouteVerb::SET, $request->getRouteVerb());
+    }
 
-        self::assertEquals('http://www.google.com/test/path', $request->getUri()->__toString());
+    /**
+     * @testdox The request is correctly constracted
+     * @covers phpOMS\Message\Http\Request<extended>
+     */
+    public function testConstructInputOutput() : void
+    {
+        $request = new Request(new Http('http://www.google.com/test/path'), $l11n = new Localization());
+
+        self::assertEquals('http://www.google.com/test/path', $request->__toString());
+    }
+
+    /**
+     * @testdox The url hashes for the different paths get correctly generated
+     * @covers phpOMS\Message\Http\Request<extended>
+     */
+    public function testHashingInputOutput() : void
+    {
+        $request = new Request(new Http('http://www.google.com/test/path'), $l11n = new Localization());
 
         $request->createRequestHashs(0);
         self::assertEquals([
@@ -85,20 +144,65 @@ class RequestTest extends \PHPUnit\Framework\TestCase
             '328413d996ab9b79af9d4098af3a65b885c4ca64',
             ], $request->getHash());
         self::assertEquals($l11n, $request->getHeader()->getL11n());
+    }
+
+    /**
+     * @testdox Request data can be set and returned
+     * @covers phpOMS\Message\Http\Request<extended>
+     */
+    public function testDataInputOutput() : void
+    {
+        $request = new Request(new Http('http://www.google.com/test/path'), $l11n = new Localization());
 
         self::assertTrue($request->setData('key', 'value'));
-        self::assertFalse($request->setData('key', 'value2', false));
         self::assertEquals('value', $request->getData('key'));
         self::assertTrue($request->hasData('key'));
         self::assertEquals(['key' => 'value'], $request->getData());
+    }
+
+    /**
+     * @testdox Request data can be forcefully overwritten
+     * @covers phpOMS\Message\Http\Request<extended>
+     */
+    public function testOverwrite() : void
+    {
+        $request = new Request(new Http('http://www.google.com/test/path'), $l11n = new Localization());
+
+        self::assertTrue($request->setData('key', 'value'));
+        self::assertTrue($request->setData('key', 'value2', true));
+        self::assertEquals('value2', $request->getData('key'));
+    }
+
+    /**
+     * @testdox Request data is not overwritten by default
+     * @covers phpOMS\Message\Http\Request<extended>
+     */
+    public function testInvalidOverwrite() : void
+    {
+        $request = new Request(new Http('http://www.google.com/test/path'), $l11n = new Localization());
+
+        self::assertTrue($request->setData('key', 'value'));
+        self::assertFalse($request->setData('key', 'value2'));
+        self::assertEquals('value', $request->getData('key'));
+    }
+
+    /**
+     * @testdox The uri can be changed and returned
+     * @covers phpOMS\Message\Http\Request<extended>
+     */
+    public function testUriInputOutput() : void
+    {
+        $request = new Request(new Http('http://www.google.com/test/path'), $l11n = new Localization());
 
         $request->setUri(new Http('http://www.google.com/test/path2'));
-        $request->createRequestHashs(0);
-
         self::assertEquals('http://www.google.com/test/path2', $request->__toString());
     }
 
-    public function testDataJson() : void
+    /**
+     * @testdox Json data can be read from the request
+     * @covers phpOMS\Message\Http\Request<extended>
+     */
+    public function testDataJsonRead() : void
     {
         $request = new Request(new Http(''));
 
@@ -110,9 +214,41 @@ class RequestTest extends \PHPUnit\Framework\TestCase
 
         $request->setData('abc', \json_encode($data));
         self::assertEquals($data, $request->getDataJson('abc'));
+    }
+
+    /**
+     * @testdox None-existing json data reads return empty data
+     * @covers phpOMS\Message\Http\Request<extended>
+     */
+    public function testEmptyDataJsonRead() : void
+    {
+        $request = new Request(new Http(''));
+
         self::assertEquals([], $request->getDataJson('def'));
     }
 
+    /**
+     * @testdox Invalid json data returns empty data
+     * @covers phpOMS\Message\Http\Request<extended>
+     */
+    public function testInvalidDataJsonRead() : void
+    {
+        $request = new Request(new Http(''));
+
+        $data = [
+            1, 2, 3,
+            'a' => 'b',
+            'b' => [4, 5],
+        ];
+
+        $request->setData('abc', \json_encode($data) . ',');
+        self::assertEquals([], $request->getDataJson('abc'));
+    }
+
+    /**
+     * @testdox List data can be read from the request
+     * @covers phpOMS\Message\Http\Request<extended>
+     */
     public function testDataList() : void
     {
         $request = new Request(new Http(''));
@@ -124,9 +260,23 @@ class RequestTest extends \PHPUnit\Framework\TestCase
 
         $request->setData('abc', \implode(',', $data));
         self::assertEquals($data, $request->getDataList('abc'));
+    }
+
+    /**
+     * @testdox None-existing list data reads return empty data
+     * @covers phpOMS\Message\Http\Request<extended>
+     */
+    public function testEmptyDataList() : void
+    {
+        $request = new Request(new Http(''));
+
         self::assertEquals([], $request->getDataList('def'));
     }
 
+    /**
+     * @testdox Request data can be read with pattern matching
+     * @covers phpOMS\Message\Http\Request<extended>
+     */
     public function testDataLike() : void
     {
         $request = new Request(new Http(''));
@@ -136,19 +286,52 @@ class RequestTest extends \PHPUnit\Framework\TestCase
         $request->setData('abcde', $data);
         self::assertEquals(['abcde' => $data], $request->getLike('.*'));
         self::assertEquals(['abcde' => $data], $request->getLike('[a-z]*'));
+    }
+
+    /**
+     * @testdox In case of no pattern matches empty data is returned
+     * @covers phpOMS\Message\Http\Request<extended>
+     */
+    public function testInvalidDataLikeMatch() : void
+    {
+        $request = new Request(new Http(''));
+
+        $data = 'this is a test';
+
+        $request->setData('abcde', $data);
         self::assertEquals([], $request->getLike('[a-z]*\d'));
         self::assertEquals([], $request->getLike('abcdef'));
     }
 
+    /**
+     * @testdox A request with a path can be correctly casted to a string
+     * @covers phpOMS\Message\Http\Request<extended>
+     */
     public function testToString() : void
     {
         $request = new Request(new Http('http://www.google.com/test/path'));
         self::assertEquals('http://www.google.com/test/path', $request->__toString());
+    }
+
+    /**
+     * @testdox A request with a path and manually added data can be correctly casted to a string
+     * @covers phpOMS\Message\Http\Request<extended>
+     */
+    public function testToStringData() : void
+    {
+        $request = new Request(new Http('http://www.google.com/test/path'));
 
         $request->setData('test', 'data');
         $request->setData('test2', 3);
         self::assertEquals('http://www.google.com/test/path?test=data&test2=3', $request->__toString());
+    }
 
+    /**
+     * @testdox A request with a path, query parameters and manually added data can be correctly casted to a string
+     * @covers phpOMS\Message\Http\Request<extended>
+     */
+    public function testToStringGetData() : void
+    {
         $request = new Request(new Http('http://www.google.com/test/path?test=var'));
         self::assertEquals('http://www.google.com/test/path?test=var', $request->__toString());
 
@@ -157,6 +340,10 @@ class RequestTest extends \PHPUnit\Framework\TestCase
         self::assertEquals('http://www.google.com/test/path?test=var&test=data&test2=3', $request->__toString());
     }
 
+    /**
+     * @testdox A rest request can be made from a request and the result can be read
+     * @covers phpOMS\Message\Http\Request<extended>
+     */
     public function testRestRequest() : void
     {
         $request = new Request(new Http('https://raw.githubusercontent.com/Orange-Management/Orange-Management/develop/LICENSE.txt'));
@@ -168,6 +355,10 @@ class RequestTest extends \PHPUnit\Framework\TestCase
         );
     }
 
+    /**
+     * @testdox A invalid https port throws a OutOfRangeException
+     * @covers phpOMS\Message\Http\Request<extended>
+     */
     public function testInvalidHttpsPort() : void
     {
         self::expectException(\OutOfRangeException::class);
@@ -176,6 +367,10 @@ class RequestTest extends \PHPUnit\Framework\TestCase
         $request->isHttps(-1);
     }
 
+    /**
+     * @testdox A Invalid route verb throws a Exception
+     * @covers phpOMS\Message\Http\Request<extended>
+     */
     public function testInvalidRouteVerb() : void
     {
         self::expectException(\Exception::class);

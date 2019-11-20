@@ -27,93 +27,104 @@ use phpOMS\Uri\Http;
 require_once __DIR__ . '/../Autoloader.php';
 
 /**
+ * @testdox phpOMS\tests\Router\WebRouterTest: Router for web requests
+ *
  * @internal
  */
 class WebRouterTest extends \PHPUnit\Framework\TestCase
 {
-    public function testAttributes() : void
+    protected WebRouter $router;
+
+    protected function setUp() : void
     {
-        $router = new WebRouter();
-        self::assertInstanceOf('\phpOMS\Router\WebRouter', $router);
-        self::assertObjectHasAttribute('routes', $router);
+        $this->router = new WebRouter();
     }
 
+    /**
+     * @testdox The route result for an empty request is empty
+     * @covers phpOMS\Router\WebRouter
+     */
     public function testDefault() : void
     {
-        $router = new WebRouter();
         self::assertEmpty(
-            $router->route(
+            $this->router->route(
                 (new Request(new Http('')))->getUri()->getRoute()
             )
         );
     }
 
+    /**
+     * @testdox A none-existing routing file cannot be imported
+     * @covers phpOMS\Router\WebRouter
+     */
     public function testInvalidRoutingFile() : void
     {
-        $router = new WebRouter();
-        self::assertFalse($router->importFromFile(__Dir__ . '/invalidFile.php'));
+        self::assertFalse($this->router->importFromFile(__Dir__ . '/invalidFile.php'));
     }
 
+    /**
+     * @testdox A existing routing file can be imported
+     * @covers phpOMS\Router\WebRouter
+     */
     public function testLoadingRoutesFromFile() : void
     {
-        $router = new WebRouter();
-        self::assertTrue($router->importFromFile(__Dir__ . '/webRouterTestFile.php'));
+        self::assertTrue($this->router->importFromFile(__Dir__ . '/webRouterTestFile.php'));
     }
 
+    /**
+     * @testdox A matching route returns the destinations
+     * @covers phpOMS\Router\WebRouter
+     */
     public function testRouteMatching() : void
     {
-        $router = new WebRouter();
-        self::assertTrue($router->importFromFile(__Dir__ . '/webRouterTestFile.php'));
+        self::assertTrue($this->router->importFromFile(__Dir__ . '/webRouterTestFile.php'));
 
         self::assertEquals(
             [['dest' => '\Modules\Admin\Controller:viewSettingsGeneral']],
-            $router->route(
+            $this->router->route(
                 (new Request(
                     new Http('http://test.com/backend/admin/settings/general/something?test')
                 ))->getUri()->getRoute()
             )
         );
-
-        self::assertNotEquals(
-            [['dest' => '\Modules\Admin\Controller:viewSettingsGeneral']],
-            $router->route(
-                (new Request(
-                    new Http('http://test.com/backend/admin/settings/general/something?test')
-                ))->getUri()->getRoute(), null, RouteVerb::PUT)
-        );
     }
 
+    /**
+     * @testdox Invalid routing verbs don't match even if the route matches
+     * @covers phpOMS\Router\WebRouter
+     */
     public function testRouteMissMatchingForInvalidVerbs() : void
     {
-        $router = new WebRouter();
-        self::assertTrue($router->importFromFile(__Dir__ . '/webRouterTestFile.php'));
+        self::assertTrue($this->router->importFromFile(__Dir__ . '/webRouterTestFile.php'));
 
         self::assertNotEquals(
             [['dest' => '\Modules\Admin\Controller:viewSettingsGeneral']],
-            $router->route(
+            $this->router->route(
                 (new Request(
                     new Http('http://test.com/backend/admin/settings/general/something?test')
                 ))->getUri()->getRoute(), null, RouteVerb::PUT)
         );
     }
 
+    /**
+     * @testdox Routes can be added dynamically
+     * @covers phpOMS\Router\WebRouter
+     */
     public function testDynamicRouteAdding() : void
     {
-        $router = new WebRouter();
-
         self::assertNotEquals(
             [['dest' => '\Modules\Admin\Controller:viewSettingsGeneral']],
-            $router->route(
+            $this->router->route(
                 (new Request(
                     new Http('http://test.com/backends/admin/settings/general/something?test')
                 ))->getUri()->getRoute()
             )
         );
 
-        $router->add('^.*/backends/admin/settings/general.*$', 'Controller:test', RouteVerb::GET | RouteVerb::SET);
+        $this->router->add('^.*/backends/admin/settings/general.*$', 'Controller:test', RouteVerb::GET | RouteVerb::SET);
         self::assertEquals(
             [['dest' => 'Controller:test']],
-            $router->route(
+            $this->router->route(
                 (new Request(
                     new Http('http://test.com/backends/admin/settings/general/something?test')
                 ))->getUri()->getRoute(), null, RouteVerb::ANY)
@@ -121,7 +132,7 @@ class WebRouterTest extends \PHPUnit\Framework\TestCase
 
         self::assertEquals(
             [['dest' => 'Controller:test']],
-            $router->route(
+            $this->router->route(
                 (new Request(
                     new Http('http://test.com/backends/admin/settings/general/something?test')
                 ))->getUri()->getRoute(), null, RouteVerb::SET)
@@ -129,30 +140,42 @@ class WebRouterTest extends \PHPUnit\Framework\TestCase
 
         self::assertEquals(
             [['dest' => 'Controller:test']],
-            $router->route(
+            $this->router->route(
                 (new Request(
                     new Http('http://test.com/backends/admin/settings/general/something?test')))->getUri()->getRoute(), null, RouteVerb::GET)
         );
     }
 
+    /**
+     * @testdox Routes which require a CSRF token can only match with a CSRF token
+     * @covers phpOMS\Router\WebRouter
+     */
     public function testWithCSRF() : void
     {
-        $router = new WebRouter();
-        self::assertTrue($router->importFromFile(__Dir__ . '/webRouteTestCsrf.php'));
+        self::assertTrue($this->router->importFromFile(__Dir__ . '/webRouteTestCsrf.php'));
 
         self::assertEquals(
             [['dest' => '\Modules\Admin\Controller:viewCsrf']],
-            $router->route(
+            $this->router->route(
                 (new Request(
                     new Http('http://test.com/backend/admin/settings/csrf/something?test')
                 ))->getUri()->getRoute(),
                 'csrf_string'
             )
         );
+    }
+
+    /**
+     * @testdox Routes which require a CSRF token don't match without a CSRF token
+     * @covers phpOMS\Router\WebRouter
+     */
+    public function testWithoutCSRF() : void
+    {
+        self::assertTrue($this->router->importFromFile(__Dir__ . '/webRouteTestCsrf.php'));
 
         self::assertEquals(
             [],
-            $router->route(
+            $this->router->route(
                 (new Request(
                     new Http('http://test.com/backend/admin/settings/csrf/something?test')
                 ))->getUri()->getRoute()
@@ -160,10 +183,13 @@ class WebRouterTest extends \PHPUnit\Framework\TestCase
         );
     }
 
+    /**
+     * @testdox Routes only match if the permissions match
+     * @covers phpOMS\Router\WebRouter
+     */
     public function testWithValidPermissions() : void
     {
-        $router = new WebRouter();
-        self::assertTrue($router->importFromFile(__Dir__ . '/webRouterTestFilePermission.php'));
+        self::assertTrue($this->router->importFromFile(__Dir__ . '/webRouterTestFilePermission.php'));
 
         $perm = new class(
             null,
@@ -181,7 +207,7 @@ class WebRouterTest extends \PHPUnit\Framework\TestCase
 
         self::assertEquals(
             [['dest' => '\Modules\Admin\Controller:viewSettingsGeneral']],
-            $router->route(
+            $this->router->route(
                 (new Request(new Http('http://test.com/backend/admin/settings/general/something?test')))->getUri()->getRoute(),
                 null,
                 RouteVerb::GET,
@@ -192,10 +218,13 @@ class WebRouterTest extends \PHPUnit\Framework\TestCase
         );
     }
 
+    /**
+     * @testdox Routes don't match if the permissions don't match
+     * @covers phpOMS\Router\WebRouter
+     */
     public function testWithInvalidPermissions() : void
     {
-        $router = new WebRouter();
-        self::assertTrue($router->importFromFile(__Dir__ . '/webRouterTestFilePermission.php'));
+        self::assertTrue($this->router->importFromFile(__Dir__ . '/webRouterTestFilePermission.php'));
 
         $perm2 = new class(
             null,
@@ -237,7 +266,7 @@ class WebRouterTest extends \PHPUnit\Framework\TestCase
 
         self::assertNotEquals(
             [['dest' => '\Modules\Admin\Controller:viewSettingsGeneral']],
-            $router->route(
+            $this->router->route(
                 (new Request(new Http('http://test.com/backend/admin/settings/general/something?test')))->getUri()->getRoute(),
                 null,
                 RouteVerb::GET,

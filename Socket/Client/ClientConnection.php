@@ -33,58 +33,118 @@ class ClientConnection
     private $connected = true;
     private Account $account;
 
+    /**
+     * Constructor.
+     *
+     * @param Account $account Account
+     * @param mixed   $socket  Socket connection
+     *
+     * @since 1.0.0
+     */
     public function __construct(Account $account, $socket)
     {
-        $this->id     = $account->getId();
+        $this->id      = $account->getId();
         $this->account = $account;
-        $this->socket = $socket;
+        $this->socket  = $socket;
     }
 
-    public function getId()
+    /**
+     * Get client id.
+     *
+     * @return int
+     *
+     * @since 1.0.0
+     */
+    public function getId() : int
     {
         return $this->id;
     }
 
+    /**
+     * Get account
+     *
+     * @return Account
+     *
+     * @since 1.0.0
+     */
     public function getAccount() : Account
     {
         return $this->account;
     }
 
+    /**
+     * Get socket
+     *
+     * @return mixed
+     *
+     * @since 1.0.0
+     */
     public function getSocket()
     {
         return $this->socket;
     }
 
+    /**
+     * Set socket
+     *
+     * @param mixed $socket Socket connection
+     *
+     * @return void
+     *
+     * @since 1.0.0
+     */
     public function setSocket($socket) : void
     {
         $this->socket = $socket;
     }
 
+    /**
+     * Get handshake data
+     *
+     * @return mixed
+     *
+     * @sicne 1.0.0
+     */
     public function getHandshake()
     {
         return $this->handshake;
     }
 
+    /**
+     * Set handshake data
+     *
+     * @param mixed $handshake Handshake
+     *
+     * @return void
+     *
+     * @since 1.0.0
+     */
     public function setHandshake($handshake) : void
     {
         $this->handshake = $handshake;
     }
 
-    public function getPid()
-    {
-        return $this->pid;
-    }
-
-    public function setPid($pid) : void
-    {
-        $this->pid = $pid;
-    }
-
-    public function isConnected()
+    /**
+     * Is connected?
+     *
+     * @return bool
+     *
+     * @since 1.0.0
+     */
+    public function isConnected() : bool
     {
         return $this->connected;
     }
 
+    /**
+     * Set connected
+     *
+     * @param bool $connected Is connected?
+     *
+     * @return void
+     *
+     * @since 1.0.0
+     */
     public function setConnected(bool $connected) : void
     {
         $this->connected = $connected;

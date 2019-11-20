@@ -278,7 +278,7 @@ final class PackageManager
     private function delete(array $components) : void
     {
         foreach ($components as $component) {
-            $path  = StringUtils::startsWith($component, '/Package/') ? $this->extractPath . '/' . \substr($component, 9) : $this->basePath . '/' . $component;
+            $path = StringUtils::startsWith($component, '/Package/') ? $this->extractPath . '/' . \substr($component, 9) : $this->basePath . '/' . $component;
             LocalStorage::delete($path);
         }
     }
@@ -295,8 +295,8 @@ final class PackageManager
     private function cmd(array $components) : void
     {
         foreach ($components as $component) {
-            $cmd   = '';
-            $path  = StringUtils::startsWith($component, '/Package/') ? $this->extractPath . '/' . \substr($component, 9) : $this->basePath . '/' . $component;
+            $cmd  = '';
+            $path = StringUtils::startsWith($component, '/Package/') ? $this->extractPath . '/' . \substr($component, 9) : $this->basePath . '/' . $component;
 
             if (StringUtils::endsWith($component, '.php')) {
                 // todo: maybe add a guessing method to find php path if it isn't available in the environment see Repository.php for git api
@@ -308,7 +308,7 @@ final class PackageManager
             }
 
             if ($cmd !== '') {
-                $pipes = [];
+                $pipes    = [];
                 $resource = \proc_open($cmd, [1 => ['pipe', 'w'], 2 => ['pipe', 'w']], $pipes, $this->extractPath);
 
                 foreach ($pipes as $pipe) {

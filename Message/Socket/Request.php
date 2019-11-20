@@ -16,8 +16,21 @@ namespace phpOMS\Message\Socket;
 
 use phpOMS\Message\RequestAbstract;
 
+/**
+ * Request class.
+ *
+ * @package phpOMS\Message\Socket
+ * @license OMS License 1.0
+ * @link    https://orange-management.org
+ * @since   1.0.0
+ */
 final class Request extends RequestAbstract
 {
+    /**
+     * Constructor
+     *
+     * @since 1.0.0
+     */
     public function __construct()
     {
         $this->header = new Header();

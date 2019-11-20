@@ -22,6 +22,8 @@ use phpOMS\Module\ModuleAbstract;
 use phpOMS\Uri\Http;
 
 /**
+ * @testdox phpOMS\tests\Module\ModuleAbstractTest: Abstract module
+ *
  * @internal
  */
 class ModuleAbstractTest extends \PHPUnit\Framework\TestCase
@@ -48,14 +50,38 @@ class ModuleAbstractTest extends \PHPUnit\Framework\TestCase
         };
     }
 
-    public function testModuleAbstract() : void
+    /**
+     * @testdox The constant values of the abstract module are overwritten by the extension
+     * @covers phpOMS\Module\ModuleManager
+     */
+    public function testConstants() : void
     {
-        self::assertEquals([1, 2], $this->module->getDependencies());
         self::assertEquals(2, $this->module::MODULE_ID);
         self::assertEquals('1.2.3', $this->module::MODULE_VERSION);
+    }
+
+    /**
+     * @testdox The dependencies of the module can be returned
+     * @covers phpOMS\Module\ModuleManager
+     */
+    public function testDependencies() : void
+    {
+        self::assertEquals([1, 2], $this->module->getDependencies());
+    }
+
+    /**
+     * @testdox A invalid language or theme returns in an empty localization/language dataset
+     * @covers phpOMS\Module\ModuleManager
+     */
+    public function testInvalidLocalization() : void
+    {
         self::assertEquals([], $this->module::getLocalization('invalid', 'invalid'));
     }
 
+    /**
+     * @testdox The module can automatically generate a json response based on provided data for the frontend
+     * @covers phpOMS\Module\ModuleManager
+     */
     public function testFillJson() : void
     {
         $request  = new Request(new Http(''));
@@ -74,6 +100,10 @@ class ModuleAbstractTest extends \PHPUnit\Framework\TestCase
         );
     }
 
+    /**
+     * @testdox The module can automatically generate a json response based on provided data
+     * @covers phpOMS\Module\ModuleManager
+     */
     public function testFillJsonRaw() : void
     {
         $request  = new Request(new Http(''));

@@ -45,6 +45,9 @@ class UriSchemeTest extends \PHPUnit\Framework\TestCase
         self::assertTrue(\defined('phpOMS\Uri\UriScheme::ITMS'));
     }
 
+    /**
+     * @coversNothing
+     */
     public function testEnumUnique() : void
     {
         $values = UriScheme::getConstants();

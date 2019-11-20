@@ -22,69 +22,111 @@ use phpOMS\Router\WebRouter;
 require_once __DIR__ . '/../Autoloader.php';
 
 /**
+ * @testdox phpOMS\tests\Module\ModuleManagerTest: Manager for the module system
+ *
  * @internal
  */
 class ModuleManagerTest extends \PHPUnit\Framework\TestCase
 {
-    protected $app = null;
+    protected ApplicationAbstract $app;
+    protected ModuleManager $moduleManager;
 
     protected function setUp() : void
     {
         $this->app             = new class() extends ApplicationAbstract { protected string $appName = 'Api'; };
         $this->app->appName    = 'Api';
         $this->app->dbPool     = $GLOBALS['dbpool'];
-        $this->app->dispatcher = new Dispatcher($this->app);
-    }
-
-    public function testAttributes() : void
-    {
-        $moduleManager = new ModuleManager($this->app, __DIR__ . '/../../../Modules');
-        self::assertInstanceOf('\phpOMS\Module\ModuleManager', $moduleManager);
-
-        self::assertObjectHasAttribute('running', $moduleManager);
-        self::assertObjectHasAttribute('installed', $moduleManager);
-        self::assertObjectHasAttribute('active', $moduleManager);
-        self::assertObjectHasAttribute('all', $moduleManager);
-        self::assertObjectHasAttribute('uriLoad', $moduleManager);
-    }
-
-    public function testUnknownModuleInit() : void
-    {
-        $moduleManager = new ModuleManager($this->app, __DIR__ . '/../../../Modules');
-        $moduleManager->initModule('doesNotExist');
-        self::assertInstanceOf('\phpOMS\Module\NullModule', $moduleManager->get('doesNotExist'));
-    }
-
-    public function testUnknownModuleGet() : void
-    {
-        $moduleManager = new ModuleManager($this->app, __DIR__ . '/../../../Modules');
-        self::assertInstanceOf('\phpOMS\Module\NullModule', $moduleManager->get('doesNotExist2'));
-    }
-
-    public function testUnknwonModuleModification() : void
-    {
-        $moduleManager = new ModuleManager($this->app, __DIR__ . '/../../../Modules');
-
-        self::assertFalse($moduleManager->activate('randomErrorTest1'));
-        self::assertFalse($moduleManager->deactivate('randomErrorTest1'));
-    }
-
-    public function testGetSet() : void
-    {
         $this->app->router     = new WebRouter();
         $this->app->dispatcher = new Dispatcher($this->app);
 
-        $moduleManager = new ModuleManager($this->app, __DIR__ . '/../../../Modules');
+        $this->moduleManager = new ModuleManager($this->app, __DIR__ . '/../../../Modules');
+    }
 
-        $active    = $moduleManager->getActiveModules();
-        $all       = $moduleManager->getAllModules();
-        $installed = $moduleManager->getInstalledModules();
+    /**
+     * @testdox The module manager has the expected attributes
+     * @covers phpOMS\Module\ModuleManager
+     */
+    public function testAttributes() : void
+    {
+        self::assertInstanceOf('\phpOMS\Module\ModuleManager', $this->moduleManager);
+
+        self::assertObjectHasAttribute('running', $this->moduleManager);
+        self::assertObjectHasAttribute('installed', $this->moduleManager);
+        self::assertObjectHasAttribute('active', $this->moduleManager);
+        self::assertObjectHasAttribute('all', $this->moduleManager);
+        self::assertObjectHasAttribute('uriLoad', $this->moduleManager);
+    }
+
+    /**
+     * @testdox Invalid module initializations returns a null module
+     * @covers phpOMS\Module\ModuleManager
+     */
+    public function testUnknownModuleInit() : void
+    {
+        $this->moduleManager->initModule('doesNotExist');
+        self::assertInstanceOf('\phpOMS\Module\NullModule', $this->moduleManager->get('doesNotExist'));
+    }
+
+    /**
+     * @testdox Unknown modules return a null module
+     * @covers phpOMS\Module\ModuleManager
+     */
+    public function testUnknownModuleGet() : void
+    {
+        self::assertInstanceOf('\phpOMS\Module\NullModule', $this->moduleManager->get('doesNotExist2'));
+    }
+
+    /**
+     * @testdox Unknown modules cannot get activested, deactivated
+     * @covers phpOMS\Module\ModuleManager
+     */
+    public function testUnknwonModuleStatusChange() : void
+    {
+        self::assertFalse($this->moduleManager->activate('randomErrorTest1'));
+        self::assertFalse($this->moduleManager->deactivate('randomErrorTest1'));
+    }
+
+    /**
+     * @testdox Active modules can be returned
+     * @covers phpOMS\Module\ModuleManager
+     */
+    public function testActiveModules() : void
+    {
+        $active = $this->moduleManager->getActiveModules();
 
         self::assertNotEmpty($active);
-        self::assertNotEmpty($all);
-        self::assertNotEmpty($installed);
-
-        self::assertInstanceOf('\phpOMS\Module\ModuleAbstract', $moduleManager->get('Admin'));
-        self::assertInstanceOf('\Modules\Admin\Controller\ApiController', $moduleManager->get('Admin'));
     }
+
+    /**
+     * @testdox All available modules can be returned
+     * @covers phpOMS\Module\ModuleManager
+     */
+    public function testAllModules() : void
+    {
+        $all = $this->moduleManager->getAllModules();
+
+        self::assertNotEmpty($all);
+    }
+
+    /**
+     * @testdox Installed modules can be returned
+     * @covers phpOMS\Module\ModuleManager
+     */
+    public function testInstalledModules() : void
+    {
+        $installed = $this->moduleManager->getInstalledModules();
+
+        self::assertNotEmpty($installed);
+    }
+
+    /**
+     * @testdox The valid module can be returned
+     * @covers phpOMS\Module\ModuleManager
+     */
+    public function testAdminModule() : void
+    {
+        self::assertInstanceOf('\phpOMS\Module\ModuleAbstract', $this->moduleManager->get('Admin'));
+        self::assertInstanceOf('\Modules\Admin\Controller\ApiController', $this->moduleManager->get('Admin'));
+    }
+
 }

@@ -18,44 +18,88 @@ use phpOMS\Asset\AssetType;
 use phpOMS\Model\Html\Head;
 
 /**
+ * @testdox phpOMS\tests\Model\Html\HeadTest: Html head
+ *
  * @internal
  */
 class HeadTest extends \PHPUnit\Framework\TestCase
 {
-    public function testDefault() : void
+    protected Head $head;
+
+    protected function setUp() : void
     {
-        $head = new Head();
-        self::assertInstanceOf('\phpOMS\Model\Html\Meta', $head->getMeta());
-        self::assertEquals('', $head->getTitle());
-        self::assertEquals('en', $head->getLanguage());
-        self::assertEquals([], $head->getStyleAll());
-        self::assertEquals([], $head->getScriptAll());
-        self::assertEquals('', $head->renderStyle());
-        self::assertEquals('', $head->renderScript());
-        self::assertEquals('', $head->renderAssets());
-        self::assertEquals('', $head->renderAssetsLate());
-        self::assertEquals('<meta name="generator" content="Orange Management">', $head->render());
+        $this->head = new Head();
     }
 
-    public function testSetGet() : void
+    /**
+     * @testdox The head has the expected default values after initialization
+     * @covers phpOMS\Model\Html\Head
+     */
+    public function testDefault() : void
     {
-        $head = new Head();
+        self::assertInstanceOf('\phpOMS\Model\Html\Meta', $this->head->getMeta());
+        self::assertEquals('', $this->head->getTitle());
+        self::assertEquals('en', $this->head->getLanguage());
+        self::assertEquals([], $this->head->getStyleAll());
+        self::assertEquals([], $this->head->getScriptAll());
+        self::assertEquals('', $this->head->renderStyle());
+        self::assertEquals('', $this->head->renderScript());
+        self::assertEquals('', $this->head->renderAssets());
+        self::assertEquals('', $this->head->renderAssetsLate());
+        self::assertEquals('<meta name="generator" content="Orange Management">', $this->head->render());
+    }
 
-        $head->setTitle('my title');
-        self::assertEquals('my title', $head->getTitle());
+    /**
+     * @testdox The title can be set and returned
+     * @covers phpOMS\Model\Html\Head
+     */
+    public function testTitleInputOutput() : void
+    {
+        $this->head->setTitle('my title');
+        self::assertEquals('my title', $this->head->getTitle());
+    }
 
-        $head->addAsset(AssetType::CSS, '/path/styles.css');
-        $head->addAsset(AssetType::JS, '/path/logic.js');
-        $head->addAsset(AssetType::JSLATE, '/path/late.js');
+    /**
+     * @testdox The style can be set and returned
+     * @covers phpOMS\Model\Html\Head
+     */
+    public function testStyleInputOutput() : void
+    {
+        $this->head->setStyle('base', '#test .class { color: #000; }');
+        self::assertEquals(['base' => '#test .class { color: #000; }'], $this->head->getStyleAll());
+    }
 
-        $head->setStyle('base', '#test .class { color: #000; }');
-        self::assertEquals(['base' => '#test .class { color: #000; }'], $head->getStyleAll());
+    /**
+     * @testdox The script can be set and returned
+     * @covers phpOMS\Model\Html\Head
+     */
+    public function testScriptInputOutput() : void
+    {
+        $this->head->setScript('key', 'console.log("msg");');
+        self::assertEquals(['key' => 'console.log("msg");'], $this->head->getScriptAll());
+    }
 
-        $head->setScript('key', 'console.log("msg");');
-        self::assertEquals(['key' => 'console.log("msg");'], $head->getScriptAll());
+    /**
+     * @testdox The language can be set and returned
+     * @covers phpOMS\Model\Html\Head
+     */
+    public function testLanguageInputOutput() : void
+    {
+        $this->head->setLanguage('en');
+        self::assertEquals('en', $this->head->getLanguage());
+    }
 
-        $head->setLanguage('en');
-        self::assertEquals('en', $head->getLanguage());
+    /**
+     * @testdox The assets can be set and rendered
+     * @covers phpOMS\Model\Html\Head
+     */
+    public function testAssetRender() : void
+    {
+        $this->head->addAsset(AssetType::CSS, '/path/styles.css');
+        $this->head->addAsset(AssetType::JS, '/path/logic.js');
+
+        $this->head->setStyle('base', '#test .class { color: #000; }');
+        $this->head->setScript('key', 'console.log("msg");');
 
         self::assertEquals(
             '<meta name="generator" content="Orange Management">'
@@ -63,20 +107,37 @@ class HeadTest extends \PHPUnit\Framework\TestCase
             . '<script src="/path/logic.js"></script>'
             . '<style>#test .class { color: #000; }</style>'
             . '<script>console.log("msg");</script>',
-            $head->render()
+            $this->head->render()
         );
-
-        self::assertEquals('<script src="/path/late.js"></script>', $head->renderAssetsLate());
     }
 
-    public function testAssetWithAttribute() : void
+    /**
+     * @testdox The assets can be set and rendered at the end of the document
+     * @covers phpOMS\Model\Html\Head
+     */
+    public function testAssetLateRender() : void
     {
-        $head = new Head();
+        $this->head->addAsset(AssetType::JSLATE, '/path/late.js');
+        self::assertEquals('<script src="/path/late.js"></script>', $this->head->renderAssetsLate());
+    }
 
-        $head->addAsset(AssetType::JSLATE, '/path/late.js', ['testkey' => 'testvalue']);
-        self::assertEquals('<script src="/path/late.js" testkey="testvalue"></script>', $head->renderAssetsLate());
+    /**
+     * @testdox The assets can be set and rendered with attributes
+     * @covers phpOMS\Model\Html\Head
+     */
+    public function testAssetRenderWithAttribute() : void
+    {
+        $this->head->addAsset(AssetType::JS, '/path/late.js', ['testkey' => 'testvalue']);
+        self::assertEquals('<script src="/path/late.js" testkey="testvalue"></script>', $this->head->renderAssets());
+    }
 
-        $head->addAsset(AssetType::JS, '/path/late.js', ['testkey' => 'testvalue']);
-        self::assertEquals('<script src="/path/late.js" testkey="testvalue"></script>', $head->renderAssets());
+    /**
+     * @testdox The assets can be set and rendered at the end of the document with attributes
+     * @covers phpOMS\Model\Html\Head
+     */
+    public function testAssetLateRenderWithAttribute() : void
+    {
+        $this->head->addAsset(AssetType::JSLATE, '/path/late.js', ['testkey' => 'testvalue']);
+        self::assertEquals('<script src="/path/late.js" testkey="testvalue"></script>', $this->head->renderAssetsLate());
     }
 }
