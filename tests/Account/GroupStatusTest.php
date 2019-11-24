@@ -26,9 +26,16 @@ class GroupStatusTest extends \PHPUnit\Framework\TestCase
     /**
      * @coversNothing
      */
-    public function testEnums() : void
+    public function testEnumCount() : void
     {
         self::assertCount(3, GroupStatus::getConstants());
+    }
+
+    /**
+     * @coversNothing
+     */
+    public function testEnums() : void
+    {
         self::assertEquals(1, GroupStatus::ACTIVE);
         self::assertEquals(2, GroupStatus::INACTIVE);
         self::assertEquals(4, GroupStatus::HIDDEN);

@@ -24,9 +24,16 @@ class RelationTypeTest extends \PHPUnit\Framework\TestCase
     /**
      * @coversNothing
      */
-    public function testEnums() : void
+    public function testEnumCount() : void
     {
         self::assertCount(7, RelationType::getConstants());
+    }
+
+    /**
+     * @coversNothing
+     */
+    public function testEnums() : void
+    {
         self::assertEquals(1, RelationType::NONE);
         self::assertEquals(2, RelationType::NEWEST);
         self::assertEquals(4, RelationType::BELONGS_TO);

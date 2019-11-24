@@ -24,11 +24,24 @@ class NotifyTypeTest extends \PHPUnit\Framework\TestCase
     /**
      * @coversNothing
      */
-    public function testEnums() : void
+    public function testEnumCount() : void
     {
         self::assertCount(5, NotifyType::getConstants());
-        self::assertEquals(NotifyType::getConstants(), \array_unique(NotifyType::getConstants()));
+    }
 
+    /**
+     * @coversNothing
+     */
+    public function testUnique() : void
+    {
+        self::assertEquals(NotifyType::getConstants(), \array_unique(NotifyType::getConstants()));
+    }
+
+    /**
+     * @coversNothing
+     */
+    public function testEnums() : void
+    {
         self::assertEquals(0, NotifyType::BINARY);
         self::assertEquals(1, NotifyType::INFO);
         self::assertEquals(2, NotifyType::WARNING);

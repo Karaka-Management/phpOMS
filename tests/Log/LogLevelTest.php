@@ -26,9 +26,16 @@ class LogLevelTest extends \PHPUnit\Framework\TestCase
     /**
      * @coversNothing
      */
-    public function testEnums() : void
+    public function testEnumCount() : void
     {
         self::assertCount(8, LogLevel::getConstants());
+    }
+
+    /**
+     * @coversNothing
+     */
+    public function testEnums() : void
+    {
         self::assertEquals('emergency', LogLevel::EMERGENCY);
         self::assertEquals('alert', LogLevel::ALERT);
         self::assertEquals('critical', LogLevel::CRITICAL);

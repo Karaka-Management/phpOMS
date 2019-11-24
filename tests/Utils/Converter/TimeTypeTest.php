@@ -24,11 +24,24 @@ class TimeTypeTest extends \PHPUnit\Framework\TestCase
     /**
      * @coversNothing
      */
-    public function testEnums() : void
+    public function testEnumCount() : void
     {
         self::assertCount(9, TimeType::getConstants());
-        self::assertEquals(TimeType::getConstants(), \array_unique(TimeType::getConstants()));
+    }
 
+    /**
+     * @coversNothing
+     */
+    public function testUnique() : void
+    {
+        self::assertEquals(TimeType::getConstants(), \array_unique(TimeType::getConstants()));
+    }
+
+    /**
+     * @coversNothing
+     */
+    public function testEnums() : void
+    {
         self::assertEquals('ms', TimeType::MILLISECONDS);
         self::assertEquals('s', TimeType::SECONDS);
         self::assertEquals('i', TimeType::MINUTES);

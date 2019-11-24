@@ -231,7 +231,7 @@ class SmartDateTime extends \DateTime
      *
      * @since 1.0.0
      */
-    public static function getDayOfWeek(int $y, int $m, int $d) : int
+    public static function dayOfWeek(int $y, int $m, int $d) : int
     {
         $time = \strtotime($d . '-' . $m . '-' . $y);
 
@@ -249,9 +249,9 @@ class SmartDateTime extends \DateTime
      *
      * @since 1.0.0
      */
-    public function getFirstDayOfWeek() : int
+    public function getDayOfWeek() : int
     {
-        return self::getDayOfWeek((int) $this->format('Y'), (int) $this->format('m'), (int) $this->format('d'));
+        return self::dayOfWeek((int) $this->format('Y'), (int) $this->format('m'), (int) $this->format('d'));
     }
 
     /**

@@ -24,11 +24,24 @@ class DomActionTest extends \PHPUnit\Framework\TestCase
     /**
      * @coversNothing
      */
-    public function testEnums() : void
+    public function testEnumCount() : void
     {
         self::assertCount(9, DomAction::getConstants());
-        self::assertEquals(DomAction::getConstants(), \array_unique(DomAction::getConstants()));
+    }
 
+    /**
+     * @coversNothing
+     */
+    public function testUnique() : void
+    {
+        self::assertEquals(DomAction::getConstants(), \array_unique(DomAction::getConstants()));
+    }
+
+    /**
+     * @coversNothing
+     */
+    public function testEnums() : void
+    {
         self::assertEquals(0, DomAction::CREATE_BEFORE);
         self::assertEquals(1, DomAction::CREATE_AFTER);
         self::assertEquals(2, DomAction::DELETE);

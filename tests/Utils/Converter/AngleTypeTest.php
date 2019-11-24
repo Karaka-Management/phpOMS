@@ -24,11 +24,24 @@ class AngleTypeTest extends \PHPUnit\Framework\TestCase
     /**
      * @coversNothing
      */
-    public function testEnums() : void
+    public function testEnumCount() : void
     {
         self::assertCount(10, AngleType::getConstants());
-        self::assertEquals(AngleType::getConstants(), \array_unique(AngleType::getConstants()));
+    }
 
+    /**
+     * @coversNothing
+     */
+    public function testUnique() : void
+    {
+        self::assertEquals(AngleType::getConstants(), \array_unique(AngleType::getConstants()));
+    }
+
+    /**
+     * @coversNothing
+     */
+    public function testEnums() : void
+    {
         self::assertEquals('deg', AngleType::DEGREE);
         self::assertEquals('rad', AngleType::RADIAN);
         self::assertEquals('arcsec', AngleType::SECOND);

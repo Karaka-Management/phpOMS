@@ -24,11 +24,24 @@ class LengthTypeTest extends \PHPUnit\Framework\TestCase
     /**
      * @coversNothing
      */
-    public function testEnums() : void
+    public function testEnumCount() : void
     {
         self::assertCount(21, LengthType::getConstants());
-        self::assertEquals(LengthType::getConstants(), \array_unique(LengthType::getConstants()));
+    }
 
+    /**
+     * @coversNothing
+     */
+    public function testUnique() : void
+    {
+        self::assertEquals(LengthType::getConstants(), \array_unique(LengthType::getConstants()));
+    }
+
+    /**
+     * @coversNothing
+     */
+    public function testEnums() : void
+    {
         self::assertEquals('mi', LengthType::MILES);
         self::assertEquals('m', LengthType::METERS);
         self::assertEquals('micron', LengthType::MICROMETER);

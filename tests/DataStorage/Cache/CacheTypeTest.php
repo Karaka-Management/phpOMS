@@ -24,9 +24,16 @@ class CacheTypeTest extends \PHPUnit\Framework\TestCase
     /**
      * @coversNothing
      */
-    public function testEnums() : void
+    public function testEnumCount() : void
     {
         self::assertCount(4, CacheType::getConstants());
+    }
+
+    /**
+     * @coversNothing
+     */
+    public function testEnums() : void
+    {
         self::assertEquals('file', CacheType::FILE);
         self::assertEquals('mem', CacheType::MEMCACHED);
         self::assertEquals('redis', CacheType::REDIS);

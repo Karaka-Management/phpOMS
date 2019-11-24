@@ -24,11 +24,24 @@ class AreaTypeTest extends \PHPUnit\Framework\TestCase
     /**
      * @coversNothing
      */
-    public function testEnums() : void
+    public function testEnumCount() : void
     {
         self::assertCount(13, AreaType::getConstants());
-        self::assertEquals(AreaType::getConstants(), \array_unique(AreaType::getConstants()));
+    }
 
+    /**
+     * @coversNothing
+     */
+    public function testUnique() : void
+    {
+        self::assertEquals(AreaType::getConstants(), \array_unique(AreaType::getConstants()));
+    }
+
+    /**
+     * @coversNothing
+     */
+    public function testEnums() : void
+    {
         self::assertEquals('ft', AreaType::SQUARE_FEET);
         self::assertEquals('m', AreaType::SQUARE_METERS);
         self::assertEquals('km', AreaType::SQUARE_KILOMETERS);

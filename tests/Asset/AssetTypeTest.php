@@ -26,9 +26,16 @@ class AssetTypeTest extends \PHPUnit\Framework\TestCase
     /**
      * @coversNothing
      */
-    public function testEnums() : void
+    public function testEnumCount() : void
     {
         self::assertCount(3, AssetType::getConstants());
+    }
+
+    /**
+     * @coversNothing
+     */
+    public function testEnums() : void
+    {
         self::assertEquals(0, AssetType::CSS);
         self::assertEquals(1, AssetType::JS);
         self::assertEquals(2, AssetType::JSLATE);

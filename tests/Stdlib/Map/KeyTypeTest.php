@@ -24,9 +24,16 @@ class KeyTypeTest extends \PHPUnit\Framework\TestCase
     /**
      * @coversNothing
      */
-    public function testEnums() : void
+    public function testEnumCount() : void
     {
         self::assertCount(2, KeyType::getConstants());
+    }
+
+    /**
+     * @coversNothing
+     */
+    public function testEnums() : void
+    {
         self::assertEquals(0, KeyType::SINGLE);
         self::assertEquals(1, KeyType::MULTIPLE);
     }

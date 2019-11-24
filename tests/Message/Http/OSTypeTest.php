@@ -24,9 +24,17 @@ class OSTypeTest extends \PHPUnit\Framework\TestCase
     /**
      * @coversNothing
      */
-    public function testEnums() : void
+    public function testEnumCount() : void
     {
         self::assertCount(24, OSType::getConstants());
+    }
+
+    /**
+     * @coversNothing
+     */
+    public function testUnique() : void
+    {
         self::assertEquals(OSType::getConstants(), \array_unique(OSType::getConstants()));
     }
+
 }

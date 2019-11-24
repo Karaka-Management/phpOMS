@@ -26,9 +26,16 @@ class AccountTypeTest extends \PHPUnit\Framework\TestCase
     /**
      * @coversNothing
      */
-    public function testEnums() : void
+    public function testEnumCount() : void
     {
         self::assertCount(2, AccountType::getConstants());
+    }
+
+    /**
+     * @coversNothing
+     */
+    public function testEnums() : void
+    {
         self::assertEquals(0, AccountType::USER);
         self::assertEquals(1, AccountType::GROUP);
     }

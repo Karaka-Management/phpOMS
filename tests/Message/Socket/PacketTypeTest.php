@@ -24,10 +24,24 @@ class PacketTypeTest extends \PHPUnit\Framework\TestCase
     /**
      * @coversNothing
      */
-    public function testEnums() : void
+    public function testEnumCount() : void
     {
         self::assertCount(11, PacketType::getConstants());
+    }
+
+    /**
+     * @coversNothing
+     */
+    public function testUnique() : void
+    {
         self::assertEquals(PacketType::getConstants(), \array_unique(PacketType::getConstants()));
+    }
+
+    /**
+     * @coversNothing
+     */
+    public function testEnums() : void
+    {
         self::assertEquals(0, PacketType::CONNECT);
         self::assertEquals(1, PacketType::DISCONNECT);
         self::assertEquals(2, PacketType::KICK);

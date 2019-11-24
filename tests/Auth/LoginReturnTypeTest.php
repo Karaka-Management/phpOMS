@@ -26,9 +26,16 @@ class LoginReturnTypeTest extends \PHPUnit\Framework\TestCase
     /**
      * @coversNothing
      */
-    public function testEnums() : void
+    public function testEnumCount() : void
     {
         self::assertCount(11, LoginReturnType::getConstants());
+    }
+
+    /**
+     * @coversNothing
+     */
+    public function testEnums() : void
+    {
         self::assertEquals(0, LoginReturnType::OK);
         self::assertEquals(-1, LoginReturnType::FAILURE);
         self::assertEquals(-2, LoginReturnType::WRONG_PASSWORD);

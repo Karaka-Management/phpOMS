@@ -24,11 +24,24 @@ class JoinTypeTest extends \PHPUnit\Framework\TestCase
     /**
      * @coversNothing
      */
-    public function testEnums() : void
+    public function testEnumCount() : void
     {
         self::assertCount(12, JoinType::getConstants());
-        self::assertEquals(JoinType::getConstants(), \array_unique(JoinType::getConstants()));
+    }
 
+    /**
+     * @coversNothing
+     */
+    public function testUnique() : void
+    {
+        self::assertEquals(JoinType::getConstants(), \array_unique(JoinType::getConstants()));
+    }
+
+    /**
+     * @coversNothing
+     */
+    public function testEnums() : void
+    {
         self::assertEquals('JOIN', JoinType::JOIN);
         self::assertEquals('LEFT JOIN', JoinType::LEFT_JOIN);
         self::assertEquals('LEFT OUTER JOIN', JoinType::LEFT_OUTER_JOIN);

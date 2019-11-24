@@ -84,16 +84,36 @@ class MultiMap implements \Countable
      *
      * @since 1.0.0
      */
-    public function add(array $keys, $value, bool $overwrite = true) : bool
+    public function add(array $keys, $value, bool $overwrite = false) : bool
     {
-        $id       = \count($this->values);
-        $inserted = false;
+        $id        = \count($this->values);
+        $inserted  = false;
+        $keysBuild = $keys;
 
         if ($this->keyType !== KeyType::SINGLE) {
-            $keys = [\implode(':', $keys)];
+            $keysBuild = [\implode(':', $keysBuild)];
+
+            // prevent adding elements if keys are just ordered differently
+            if ($this->orderType === OrderType::LOOSE) {
+                /** @var array<array<string>> $keysToTest */
+                $keysToTest = Permutation::permut($keys, [], false);
+
+                foreach ($keysToTest as $test) {
+                    $key = \implode(':', $test);
+
+                    if (isset($this->keys[$key])) {
+                        if (!$overwrite) {
+                            return false;
+                        }
+
+                        $keysBuild = [$key];
+                        break;
+                    }
+                }
+            }
         }
 
-        foreach ($keys as $key) {
+        foreach ($keysBuild as $key) {
             if ($overwrite || !isset($this->keys[$key])) {
                 $id               = $this->keys[$key] ?? $id;
                 $this->keys[$key] = $id;

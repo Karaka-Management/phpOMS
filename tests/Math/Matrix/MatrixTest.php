@@ -47,7 +47,7 @@ class MatrixTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @testdox A matrix can return the dimension
+     * @testdox A matrix can return its dimension
      * @covers phpOMS\Math\Matrix\Matrix
      */
     public function testBase() : void

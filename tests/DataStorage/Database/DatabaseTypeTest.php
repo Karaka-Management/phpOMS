@@ -24,9 +24,16 @@ class DatabaseTypeTest extends \PHPUnit\Framework\TestCase
     /**
      * @coversNothing
      */
-    public function testEnums() : void
+    public function testEnumCount() : void
     {
         self::assertCount(5, DatabaseType::getConstants());
+    }
+
+    /**
+     * @coversNothing
+     */
+    public function testEnums() : void
+    {
         self::assertEquals('mysql', DatabaseType::MYSQL);
         self::assertEquals('pgsql', DatabaseType::PGSQL);
         self::assertEquals('sqlite', DatabaseType::SQLITE);

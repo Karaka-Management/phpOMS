@@ -24,11 +24,24 @@ class VolumeTypeTest extends \PHPUnit\Framework\TestCase
     /**
      * @coversNothing
      */
-    public function testEnums() : void
+    public function testEnumCount() : void
     {
         self::assertCount(38, VolumeType::getConstants());
-        self::assertEquals(VolumeType::getConstants(), \array_unique(VolumeType::getConstants()));
+    }
 
+    /**
+     * @coversNothing
+     */
+    public function testUnique() : void
+    {
+        self::assertEquals(VolumeType::getConstants(), \array_unique(VolumeType::getConstants()));
+    }
+
+    /**
+     * @coversNothing
+     */
+    public function testEnums() : void
+    {
         self::assertEquals('UK gal', VolumeType::UK_GALLON);
         self::assertEquals('US gal lqd', VolumeType::US_GALLON_LIQUID);
         self::assertEquals('US gal dry', VolumeType::US_GALLON_DRY);

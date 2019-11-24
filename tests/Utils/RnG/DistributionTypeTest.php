@@ -24,11 +24,24 @@ class DistributionTypeTest extends \PHPUnit\Framework\TestCase
     /**
      * @coversNothing
      */
-    public function testEnums() : void
+    public function testEnumCount() : void
     {
         self::assertCount(2, DistributionType::getConstants());
-        self::assertEquals(DistributionType::getConstants(), \array_unique(DistributionType::getConstants()));
+    }
 
+    /**
+     * @coversNothing
+     */
+    public function testUnique() : void
+    {
+        self::assertEquals(DistributionType::getConstants(), \array_unique(DistributionType::getConstants()));
+    }
+
+    /**
+     * @coversNothing
+     */
+    public function testEnums() : void
+    {
         self::assertEquals(0, DistributionType::UNIFORM);
         self::assertEquals(1, DistributionType::NORMAL);
     }

@@ -24,11 +24,24 @@ class EnergyPowerTypeTest extends \PHPUnit\Framework\TestCase
     /**
      * @coversNothing
      */
-    public function testEnums() : void
+    public function testEnumCount() : void
     {
         self::assertCount(9, EnergyPowerType::getConstants());
-        self::assertEquals(EnergyPowerType::getConstants(), \array_unique(EnergyPowerType::getConstants()));
+    }
 
+    /**
+     * @coversNothing
+     */
+    public function testUnique() : void
+    {
+        self::assertEquals(EnergyPowerType::getConstants(), \array_unique(EnergyPowerType::getConstants()));
+    }
+
+    /**
+     * @coversNothing
+     */
+    public function testEnums() : void
+    {
         self::assertEquals('kWh', EnergyPowerType::KILOWATT_HOUERS);
         self::assertEquals('MWh', EnergyPowerType::MEGAWATT_HOUERS);
         self::assertEquals('kt', EnergyPowerType::KILOTONS);

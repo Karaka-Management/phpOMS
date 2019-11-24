@@ -24,11 +24,24 @@ class QueryTypeTest extends \PHPUnit\Framework\TestCase
     /**
      * @coversNothing
      */
-    public function testEnums() : void
+    public function testEnumCount() : void
     {
         self::assertCount(7, QueryType::getConstants());
-        self::assertEquals(QueryType::getConstants(), \array_unique(QueryType::getConstants()));
+    }
 
+    /**
+     * @coversNothing
+     */
+    public function testUnique() : void
+    {
+        self::assertEquals(QueryType::getConstants(), \array_unique(QueryType::getConstants()));
+    }
+
+    /**
+     * @coversNothing
+     */
+    public function testEnums() : void
+    {
         self::assertEquals(0, QueryType::SELECT);
         self::assertEquals(1, QueryType::INSERT);
         self::assertEquals(2, QueryType::UPDATE);

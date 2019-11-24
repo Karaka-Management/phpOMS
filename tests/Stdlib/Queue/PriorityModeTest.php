@@ -24,9 +24,16 @@ class PriorityModeTest extends \PHPUnit\Framework\TestCase
     /**
      * @coversNothing
      */
-    public function testEnums() : void
+    public function testEnumCount() : void
     {
         self::assertCount(4, PriorityMode::getConstants());
+    }
+
+    /**
+     * @coversNothing
+     */
+    public function testEnums() : void
+    {
         self::assertEquals(1, PriorityMode::FIFO);
         self::assertEquals(2, PriorityMode::LIFO);
         self::assertEquals(4, PriorityMode::HIGHEST);

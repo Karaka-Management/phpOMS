@@ -24,9 +24,16 @@ class CacheStatusTest extends \PHPUnit\Framework\TestCase
     /**
      * @coversNothing
      */
-    public function testEnums() : void
+    public function testEnumCount() : void
     {
         self::assertCount(4, CacheStatus::getConstants());
+    }
+
+    /**
+     * @coversNothing
+     */
+    public function testEnums() : void
+    {
         self::assertEquals(0, CacheStatus::OK);
         self::assertEquals(1, CacheStatus::FAILURE);
         self::assertEquals(2, CacheStatus::READONLY);

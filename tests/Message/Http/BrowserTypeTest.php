@@ -24,11 +24,24 @@ class BrowserTypeTest extends \PHPUnit\Framework\TestCase
     /**
      * @coversNothing
      */
+    public function testEnumCount() : void
+    {
+        self::assertCount(12, BrowserType::getConstants());
+    }
+
+    /**
+     * @coversNothing
+     */
+    public function testUnique() : void
+    {
+        self::assertEquals(BrowserType::getConstants(), \array_unique(BrowserType::getConstants()));
+    }
+
+    /**
+     * @coversNothing
+     */
     public function testEnums() : void
     {
-        self::assertEquals(12, BrowserType::count());
-        self::assertEquals(BrowserType::getConstants(), \array_unique(BrowserType::getConstants()));
-
         self::assertEquals('msie', BrowserType::IE);
         self::assertEquals('edge', BrowserType::EDGE);
         self::assertEquals('firefox', BrowserType::FIREFOX);

@@ -18,17 +18,17 @@ use phpOMS\Localization\ISO3166TwoEnum;
 use phpOMS\Stdlib\Base\Iban;
 
 /**
+ * @testdox phpOMS\tests\Stdlib\Base\IbanTest: Iban type
+ *
  * @internal
  */
 class IbanTest extends \PHPUnit\Framework\TestCase
 {
-    public function testAttributes() : void
-    {
-        $iban = new Iban('DE22 6008 0000 0960 0280 00');
-        self::assertObjectHasAttribute('iban', $iban);
-    }
-
-    public function testMethods() : void
+    /**
+     * @testdox A iban can be correctly parsed into its different components
+     * @covers phpOMS\Stdlib\Base\Iban
+     */
+    public function testInputOutput() : void
     {
         $strRepresentation = 'DE22 6008 0000 0960 0280 00';
         $iban              = new Iban($strRepresentation);
@@ -37,11 +37,6 @@ class IbanTest extends \PHPUnit\Framework\TestCase
         self::assertEquals('22', $iban->getChecksum());
         self::assertEquals('60080000', $iban->getBankCode());
         self::assertEquals('0960028000', $iban->getAccount());
-        self::assertEquals($strRepresentation, $iban->prettyPrint());
-        self::assertEquals($strRepresentation, $iban->serialize());
-
-        $iban->unserialize('dE226008000009600280 00');
-        self::assertEquals('DE22 6008 0000 0960 0280 00', $iban->serialize());
 
         self::assertEquals('', $iban->getAccountType());
         self::assertEquals('', $iban->getBicCode());
@@ -53,6 +48,26 @@ class IbanTest extends \PHPUnit\Framework\TestCase
         self::assertEquals(22, $iban->getLength());
     }
 
+    /**
+     * @testdox A iban can be serialized and unserialized
+     * @covers phpOMS\Stdlib\Base\Iban
+     */
+    public function testSearialization() : void
+    {
+        $strRepresentation = 'DE22 6008 0000 0960 0280 00';
+        $iban              = new Iban($strRepresentation);
+
+        self::assertEquals($strRepresentation, $iban->prettyPrint());
+        self::assertEquals($strRepresentation, $iban->serialize());
+
+        $iban->unserialize('dE226008000009600280 00');
+        self::assertEquals('DE22 6008 0000 0960 0280 00', $iban->serialize());
+    }
+
+    /**
+     * @testdox A invalid iban country code throws a InvalidArgumentException
+     * @covers phpOMS\Stdlib\Base\Iban
+     */
     public function testInvalidIbanCountry() : void
     {
         self::expectException(\InvalidArgumentException::class);
@@ -60,6 +75,10 @@ class IbanTest extends \PHPUnit\Framework\TestCase
         $iban = new Iban('ZZ22 6008 0000 0960 0280 00');
     }
 
+    /**
+     * @testdox A invalid iban length throws a InvalidArgumentException
+     * @covers phpOMS\Stdlib\Base\Iban
+     */
     public function testInvalidIbanLength() : void
     {
         self::expectException(\InvalidArgumentException::class);
@@ -67,6 +86,10 @@ class IbanTest extends \PHPUnit\Framework\TestCase
         $iban = new Iban('DE22 6008 0000 0960 0280 0');
     }
 
+    /**
+     * @testdox A invalid iban checksum throws a InvalidArgumentException
+     * @covers phpOMS\Stdlib\Base\Iban
+     */
     public function testInvalidIbanChecksum() : void
     {
         self::expectException(\InvalidArgumentException::class);

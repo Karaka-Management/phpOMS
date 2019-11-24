@@ -24,11 +24,24 @@ class ExtensionTypeTest extends \PHPUnit\Framework\TestCase
     /**
      * @coversNothing
      */
-    public function testEnums() : void
+    public function testEnumCount() : void
     {
         self::assertCount(13, ExtensionType::getConstants());
-        self::assertEquals(ExtensionType::getConstants(), \array_unique(ExtensionType::getConstants()));
+    }
 
+    /**
+     * @coversNothing
+     */
+    public function testUnique() : void
+    {
+        self::assertEquals(ExtensionType::getConstants(), \array_unique(ExtensionType::getConstants()));
+    }
+
+    /**
+     * @coversNothing
+     */
+    public function testEnums() : void
+    {
         self::assertEquals(1, ExtensionType::UNKNOWN);
         self::assertEquals(2, ExtensionType::CODE);
         self::assertEquals(4, ExtensionType::AUDIO);

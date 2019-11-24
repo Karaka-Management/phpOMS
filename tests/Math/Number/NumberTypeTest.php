@@ -24,11 +24,24 @@ class NumberTypeTest extends \PHPUnit\Framework\TestCase
     /**
      * @coversNothing
      */
-    public function testEnums() : void
+    public function testEnumCount() : void
     {
         self::assertCount(9, NumberType::getConstants());
-        self::assertEquals(NumberType::getConstants(), \array_unique(NumberType::getConstants()));
+    }
 
+    /**
+     * @coversNothing
+     */
+    public function testUnique() : void
+    {
+        self::assertEquals(NumberType::getConstants(), \array_unique(NumberType::getConstants()));
+    }
+
+    /**
+     * @coversNothing
+     */
+    public function testEnums() : void
+    {
         self::assertEquals(0, NumberType::N_INTEGER);
         self::assertEquals(1, NumberType::N_NATURAL);
         self::assertEquals(2, NumberType::N_EVEN);

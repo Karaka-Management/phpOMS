@@ -24,11 +24,24 @@ class TemperatureTypeTest extends \PHPUnit\Framework\TestCase
     /**
      * @coversNothing
      */
-    public function testEnums() : void
+    public function testEnumCount() : void
     {
         self::assertCount(8, TemperatureType::getConstants());
-        self::assertEquals(TemperatureType::getConstants(), \array_unique(TemperatureType::getConstants()));
+    }
 
+    /**
+     * @coversNothing
+     */
+    public function testUnique() : void
+    {
+        self::assertEquals(TemperatureType::getConstants(), \array_unique(TemperatureType::getConstants()));
+    }
+
+    /**
+     * @coversNothing
+     */
+    public function testEnums() : void
+    {
         self::assertEquals('celsius', TemperatureType::CELSIUS);
         self::assertEquals('fahrenheit', TemperatureType::FAHRENHEIT);
         self::assertEquals('kelvin', TemperatureType::KELVIN);

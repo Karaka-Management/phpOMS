@@ -24,11 +24,24 @@ class ContentPutModeTest extends \PHPUnit\Framework\TestCase
     /**
      * @coversNothing
      */
-    public function testEnums() : void
+    public function testEnumCount() : void
     {
         self::assertCount(4, ContentPutMode::getConstants());
-        self::assertEquals(ContentPutMode::getConstants(), \array_unique(ContentPutMode::getConstants()));
+    }
 
+    /**
+     * @coversNothing
+     */
+    public function testUnique() : void
+    {
+        self::assertEquals(ContentPutMode::getConstants(), \array_unique(ContentPutMode::getConstants()));
+    }
+
+    /**
+     * @coversNothing
+     */
+    public function testEnums() : void
+    {
         self::assertEquals(1, ContentPutMode::APPEND);
         self::assertEquals(2, ContentPutMode::PREPEND);
         self::assertEquals(4, ContentPutMode::REPLACE);

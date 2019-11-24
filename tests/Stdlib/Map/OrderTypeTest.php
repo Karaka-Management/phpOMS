@@ -24,9 +24,16 @@ class OrderTypeTest extends \PHPUnit\Framework\TestCase
     /**
      * @coversNothing
      */
-    public function testEnums() : void
+    public function testEnumCount() : void
     {
         self::assertCount(2, OrderType::getConstants());
+    }
+
+    /**
+     * @coversNothing
+     */
+    public function testEnums() : void
+    {
         self::assertEquals(0, OrderType::LOOSE);
         self::assertEquals(1, OrderType::STRICT);
     }
