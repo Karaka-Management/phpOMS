@@ -17,10 +17,16 @@ namespace phpOMS\tests\Utils\IO\Gz;
 use phpOMS\Utils\IO\Zip\Gz;
 
 /**
+ * @testdox phpOMS\tests\Utils\IO\Zip\GzTest: Gz archive
+ *
  * @internal
  */
 class GzTest extends \PHPUnit\Framework\TestCase
 {
+    /**
+     * @testdox Data can be gz packed and unpacked
+     * @covers phpOMS\Utils\IO\Zip\Gz
+     */
     public function testGz() : void
     {
         self::assertTrue(Gz::pack(
@@ -33,14 +39,56 @@ class GzTest extends \PHPUnit\Framework\TestCase
         $a = \file_get_contents(__DIR__ . '/test a.txt');
 
         \unlink(__DIR__ . '/test a.txt');
-
         self::assertFileNotExists(__DIR__ . '/test a.txt');
+
         self::assertTrue(Gz::unpack(__DIR__ . '/test.gz', __DIR__ . '/test a.txt'));
         self::assertFileExists(__DIR__ . '/test a.txt');
         self::assertEquals($a, \file_get_contents(__DIR__ . '/test a.txt'));
 
         \unlink(__DIR__ . '/test.gz');
-        self::assertFileNotExists(__DIR__ . '/test.gz');
+    }
+
+    /**
+     * @testdox A gz archive cannot be overwritten by default
+     * @covers phpOMS\Utils\IO\Zip\Gz
+     */
+    public function testInvalidGz() : void
+    {
+        Gz::pack(
+            __DIR__ . '/test a.txt',
+            __DIR__ . '/test.gz'
+        );
+
+        self::assertFalse(Gz::pack(
+            __DIR__ . '/test a.txt',
+            __DIR__ . '/test.gz'
+        ));
+
+        \unlink(__DIR__ . '/test.gz');
+    }
+
+    /**
+     * @testdox A none-existing source cannot be unpacked
+     * @covers phpOMS\Utils\IO\Zip\Gz
+     */
+    public function testInvalidUnpackSource() : void
+    {
+        self::assertFalse(Gz::unpack(__DIR__ . '/test.gz', __DIR__ . '/test c.txt'));
+    }
+
+    /**
+     * @testdox A destination cannot be overwritten
+     * @covers phpOMS\Utils\IO\Zip\Gz
+     */
+    public function testInvalidUnpackDestination() : void
+    {
+        self::assertTrue(Gz::pack(
+            __DIR__ . '/test a.txt',
+            __DIR__ . '/test.gz'
+        ));
+
         self::assertFalse(Gz::unpack(__DIR__ . '/test.gz', __DIR__ . '/test a.txt'));
+
+        \unlink(__DIR__ . '/test.gz');
     }
 }

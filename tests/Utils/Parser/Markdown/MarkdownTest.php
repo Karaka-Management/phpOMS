@@ -29,13 +29,13 @@ class MarkdownTest extends \PHPUnit\Framework\TestCase
         foreach ($files as $file) {
             $data = \explode('.', $file);
 
-            if ($data[1] === 'md') {
-                self::assertEquals(
-                    \file_get_contents(__DIR__ . '/data/' . $data[0] . '.html'),
-                    Markdown::parse(\file_get_contents(__DIR__ . '/data/' . $data[0] . '.md')),
-                    $file
-                );
+            if ($data[1] === 'md'
+                && (\file_get_contents(__DIR__ . '/data/' . $data[0] . '.html') !== Markdown::parse(\file_get_contents(__DIR__ . '/data/' . $data[0] . '.md')))
+            ) {
+                self::asserTrue(false, $file);
             }
         }
+
+        self::assertTrue(true);
     }
 }

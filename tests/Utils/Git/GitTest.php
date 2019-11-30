@@ -17,11 +17,17 @@ namespace phpOMS\tests\Utils\Git;
 use phpOMS\Utils\Git\Git;
 
 /**
+ * @testdox phpOMS\tests\Utils\Git\GitTest: Git utilities
+ *
  * @internal
  */
 class GitTest extends \PHPUnit\Framework\TestCase
 {
-    public function testDefault() : void
+    /**
+     * @testdox The git path can be returned
+     * @covers phpOMS\Utils\Git\Git
+     */
+    public function testBinary() : void
     {
         self::assertEquals('/usr/bin/git', Git::getBin());
     }

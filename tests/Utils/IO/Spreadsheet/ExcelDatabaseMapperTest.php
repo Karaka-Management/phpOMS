@@ -12,18 +12,20 @@
  */
 declare(strict_types=1);
 
-namespace phpOMS\tests\Utils\IO\Excel;
+namespace phpOMS\tests\Utils\IO\Spreadsheet;
 
 use phpOMS\DataStorage\Database\Connection\SQLiteConnection;
 use phpOMS\DataStorage\Database\Query\Builder;
-use phpOMS\Utils\IO\Excel\ExcelDatabaseMapper;
+use phpOMS\Utils\IO\Spreadsheet\SpreadsheetDatabaseMapper;
 use tests\Autoloader;
 use phpOMS\Utils\StringUtils;
 
 /**
+ * @testdox phpOMS\tests\Utils\IO\Spreadsheet\SpreadsheetDatabaseMapperTest: Spreadsheet database mapper
+ *
  * @internal
  */
-class ExcelDatabaseMapperTest extends \PHPUnit\Framework\TestCase
+class SpreadsheetDatabaseMapperTest extends \PHPUnit\Framework\TestCase
 {
     protected $sqlite;
 
@@ -54,12 +56,13 @@ class ExcelDatabaseMapperTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers phpOMS\Utils\IO\Excel\ExcelDatabaseMapper
+     * @testdox Data can be inserted into a database from an ods files
+     * @covers phpOMS\Utils\IO\Spreadsheet\SpreadsheetDatabaseMapper
      */
     public function testInsertOds() : void
     {
         Autoloader::addPath(__DIR__ . '/../../../../../Resources/');
-        $mapper = new ExcelDatabaseMapper($this->sqlite, __DIR__ . '/insert.ods');
+        $mapper = new SpreadsheetDatabaseMapper($this->sqlite, __DIR__ . '/insert.ods');
         $mapper->insert();
 
         $builder = new Builder($this->sqlite, true);
@@ -88,11 +91,12 @@ class ExcelDatabaseMapperTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers phpOMS\Utils\IO\Excel\ExcelDatabaseMapper::insert
+     * @testdox Data can be inserted into a database from a xls files
+     * @covers phpOMS\Utils\IO\Spreadsheet\SpreadsheetDatabaseMapper::insert
      */
     public function testInsertXls() : void
     {
-        $mapper = new ExcelDatabaseMapper($this->sqlite, __DIR__ . '/insert.xls');
+        $mapper = new SpreadsheetDatabaseMapper($this->sqlite, __DIR__ . '/insert.xls');
         $mapper->insert();
 
         $builder = new Builder($this->sqlite, true);
@@ -121,11 +125,12 @@ class ExcelDatabaseMapperTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers phpOMS\Utils\IO\Excel\ExcelDatabaseMapper::insert
+     * @testdox Data can be inserted into a database from a xlsx files
+     * @covers phpOMS\Utils\IO\Spreadsheet\SpreadsheetDatabaseMapper::insert
      */
     public function testInsertXlsx() : void
     {
-        $mapper = new ExcelDatabaseMapper($this->sqlite, __DIR__ . '/insert.xlsx');
+        $mapper = new SpreadsheetDatabaseMapper($this->sqlite, __DIR__ . '/insert.xlsx');
         $mapper->insert();
 
         $builder = new Builder($this->sqlite, true);
@@ -154,11 +159,12 @@ class ExcelDatabaseMapperTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers phpOMS\Utils\IO\Excel\ExcelDatabaseMapper::update
+     * @testdox Data can be updated in a database from an ods files
+     * @covers phpOMS\Utils\IO\Spreadsheet\SpreadsheetDatabaseMapper::update
      */
     public function testUpdateOds() : void
     {
-        $mapper = new ExcelDatabaseMapper($this->sqlite, __DIR__ . '/insert.ods');
+        $mapper = new SpreadsheetDatabaseMapper($this->sqlite, __DIR__ . '/insert.ods');
         $mapper->insert();
 
         $builder = new Builder($this->sqlite, true);
@@ -185,7 +191,7 @@ class ExcelDatabaseMapperTest extends \PHPUnit\Framework\TestCase
             $data
         );
 
-        $mapper = new ExcelDatabaseMapper($this->sqlite, __DIR__ . '/update.ods');
+        $mapper = new SpreadsheetDatabaseMapper($this->sqlite, __DIR__ . '/update.ods');
         $mapper->update();
 
         $builder = new Builder($this->sqlite, true);
@@ -214,11 +220,12 @@ class ExcelDatabaseMapperTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers phpOMS\Utils\IO\Excel\ExcelDatabaseMapper::update
+     * @testdox Data can be updated in a database from a xls files
+     * @covers phpOMS\Utils\IO\Spreadsheet\SpreadsheetDatabaseMapper::update
      */
     public function testUpdateXls() : void
     {
-        $mapper = new ExcelDatabaseMapper($this->sqlite, __DIR__ . '/insert.xls');
+        $mapper = new SpreadsheetDatabaseMapper($this->sqlite, __DIR__ . '/insert.xls');
         $mapper->insert();
 
         $builder = new Builder($this->sqlite, true);
@@ -245,7 +252,7 @@ class ExcelDatabaseMapperTest extends \PHPUnit\Framework\TestCase
             $data
         );
 
-        $mapper = new ExcelDatabaseMapper($this->sqlite, __DIR__ . '/update.xls');
+        $mapper = new SpreadsheetDatabaseMapper($this->sqlite, __DIR__ . '/update.xls');
         $mapper->update();
 
         $builder = new Builder($this->sqlite, true);
@@ -274,11 +281,12 @@ class ExcelDatabaseMapperTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers phpOMS\Utils\IO\Excel\ExcelDatabaseMapper::update
+     * @testdox Data can be updated in a database from a xlsx files
+     * @covers phpOMS\Utils\IO\Spreadsheet\SpreadsheetDatabaseMapper::update
      */
     public function testUpdateXlsx() : void
     {
-        $mapper = new ExcelDatabaseMapper($this->sqlite, __DIR__ . '/insert.xlsx');
+        $mapper = new SpreadsheetDatabaseMapper($this->sqlite, __DIR__ . '/insert.xlsx');
         $mapper->insert();
 
         $builder = new Builder($this->sqlite, true);
@@ -305,7 +313,7 @@ class ExcelDatabaseMapperTest extends \PHPUnit\Framework\TestCase
             $data
         );
 
-        $mapper = new ExcelDatabaseMapper($this->sqlite, __DIR__ . '/update.xlsx');
+        $mapper = new SpreadsheetDatabaseMapper($this->sqlite, __DIR__ . '/update.xlsx');
         $mapper->update();
 
         $builder = new Builder($this->sqlite, true);
@@ -334,7 +342,8 @@ class ExcelDatabaseMapperTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers phpOMS\Utils\IO\Excel\ExcelDatabaseMapper::select
+     * @testdox Data can be inserted into an ods files from a database
+     * @covers phpOMS\Utils\IO\Spreadsheet\SpreadsheetDatabaseMapper::select
      */
     public function testSelectOds() : void
     {
@@ -342,7 +351,7 @@ class ExcelDatabaseMapperTest extends \PHPUnit\Framework\TestCase
             \unlink(__DIR__ . '/select.ods');
         }
 
-        $mapper = new ExcelDatabaseMapper($this->sqlite, __DIR__ . '/insert.ods');
+        $mapper = new SpreadsheetDatabaseMapper($this->sqlite, __DIR__ . '/insert.ods');
         $mapper->insert();
 
         $builder = new Builder($this->sqlite, true);
@@ -369,7 +378,7 @@ class ExcelDatabaseMapperTest extends \PHPUnit\Framework\TestCase
             $data
         );
 
-        $mapper = new ExcelDatabaseMapper($this->sqlite, __DIR__ . '/select.ods');
+        $mapper = new SpreadsheetDatabaseMapper($this->sqlite, __DIR__ . '/select.ods');
 
         $builder = new Builder($this->sqlite, true);
         $data = $builder->select('int', 'decimal', 'bool', 'varchar', 'datetime')->from('insert_1');
@@ -384,7 +393,8 @@ class ExcelDatabaseMapperTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers phpOMS\Utils\IO\Excel\ExcelDatabaseMapper::select
+     * @testdox Data can be inserted into a xls files from a database
+     * @covers phpOMS\Utils\IO\Spreadsheet\SpreadsheetDatabaseMapper::select
      */
     public function testSelectXls() : void
     {
@@ -392,7 +402,7 @@ class ExcelDatabaseMapperTest extends \PHPUnit\Framework\TestCase
             \unlink(__DIR__ . '/select.xls');
         }
 
-        $mapper = new ExcelDatabaseMapper($this->sqlite, __DIR__ . '/insert.xls');
+        $mapper = new SpreadsheetDatabaseMapper($this->sqlite, __DIR__ . '/insert.xls');
         $mapper->insert();
 
         $builder = new Builder($this->sqlite, true);
@@ -419,7 +429,7 @@ class ExcelDatabaseMapperTest extends \PHPUnit\Framework\TestCase
             $data
         );
 
-        $mapper = new ExcelDatabaseMapper($this->sqlite, __DIR__ . '/select.xls');
+        $mapper = new SpreadsheetDatabaseMapper($this->sqlite, __DIR__ . '/select.xls');
 
         $builder = new Builder($this->sqlite, true);
         $data = $builder->select('int', 'decimal', 'bool', 'varchar', 'datetime')->from('insert_1');
@@ -434,7 +444,8 @@ class ExcelDatabaseMapperTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers phpOMS\Utils\IO\Excel\ExcelDatabaseMapper::select
+     * @testdox Data can be inserted into a xlsx files from a database
+     * @covers phpOMS\Utils\IO\Spreadsheet\SpreadsheetDatabaseMapper::select
      */
     public function testSelectXlsx() : void
     {
@@ -442,7 +453,7 @@ class ExcelDatabaseMapperTest extends \PHPUnit\Framework\TestCase
             \unlink(__DIR__ . '/select.xlsx');
         }
 
-        $mapper = new ExcelDatabaseMapper($this->sqlite, __DIR__ . '/insert.xlsx');
+        $mapper = new SpreadsheetDatabaseMapper($this->sqlite, __DIR__ . '/insert.xlsx');
         $mapper->insert();
 
         $builder = new Builder($this->sqlite, true);
@@ -469,7 +480,7 @@ class ExcelDatabaseMapperTest extends \PHPUnit\Framework\TestCase
             $data
         );
 
-        $mapper = new ExcelDatabaseMapper($this->sqlite, __DIR__ . '/select.xlsx');
+        $mapper = new SpreadsheetDatabaseMapper($this->sqlite, __DIR__ . '/select.xlsx');
 
         $builder = new Builder($this->sqlite, true);
         $data = $builder->select('int', 'decimal', 'bool', 'varchar', 'datetime')->from('insert_1');

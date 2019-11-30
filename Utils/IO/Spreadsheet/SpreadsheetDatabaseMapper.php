@@ -4,7 +4,7 @@
  *
  * PHP Version 7.4
  *
- * @package   phpOMS\Utils\IO\Excel
+ * @package   phpOMS\Utils\IO\Spreadsheet
  * @copyright Dennis Eichhorn
  * @license   OMS License 1.0
  * @version   1.0.0
@@ -12,7 +12,7 @@
  */
 declare(strict_types=1);
 
-namespace phpOMS\Utils\IO\Excel;
+namespace phpOMS\Utils\IO\Spreadsheet;
 
 use phpOMS\DataStorage\Database\Connection\ConnectionAbstract;
 use phpOMS\DataStorage\Database\Query\Builder;
@@ -20,14 +20,14 @@ use phpOMS\Utils\IO\IODatabaseMapper;
 use phpOMS\Utils\StringUtils;
 
 /**
- * Excel database mapper.
+ * Spreadsheet database mapper.
  *
- * @package phpOMS\Utils\IO\Excel
+ * @package phpOMS\Utils\IO\Spreadsheet
  * @license OMS License 1.0
  * @link    https://orange-management.org
  * @since   1.0.0
  */
-class ExcelDatabaseMapper implements IODatabaseMapper
+class SpreadsheetDatabaseMapper implements IODatabaseMapper
 {
     /**
      * Database connection

@@ -4,7 +4,7 @@
  *
  * PHP Version 7.4
  *
- * @package   phpOMS\Utils\IO\Excel
+ * @package   phpOMS\Utils\IO\Spreadsheet
  * @copyright Dennis Eichhorn
  * @license   OMS License 1.0
  * @version   1.0.0
@@ -12,21 +12,21 @@
  */
 declare(strict_types=1);
 
-namespace phpOMS\Utils\IO\Excel;
+namespace phpOMS\Utils\IO\Spreadsheet;
 
 /**
- * Excel interface.
+ * Spreadsheet interface.
  *
- * @package phpOMS\Utils\IO\Excel
+ * @package phpOMS\Utils\IO\Spreadsheet
  * @license OMS License 1.0
  * @link    https://orange-management.org
  * @since   1.0.0
  */
-interface ExcelInterface
+interface SpreadsheetInterface
 {
 
     /**
-     * Export Excel.
+     * Export Spreadsheet.
      *
      * @param string $path Path to export
      *
@@ -34,10 +34,10 @@ interface ExcelInterface
      *
      * @since 1.0.0
      */
-    public function exportExcel($path) : void;
+    public function exportSpreadsheet($path) : void;
 
     /**
-     * Import Excel.
+     * Import Spreadsheet.
      *
      * @param string $path Path to import
      *
@@ -45,5 +45,5 @@ interface ExcelInterface
      *
      * @since 1.0.0
      */
-    public function importExcel($path) : void;
+    public function importSpreadsheet($path) : void;
 }

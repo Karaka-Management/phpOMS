@@ -19,30 +19,17 @@ require_once __DIR__ . '/../Autoloader.php';
 use phpOMS\Uri\Http;
 
 /**
+ * @testdox phpOMS\tests\Uri\HttpTest: Http uri / url
+ *
  * @internal
  */
 class HttpTest extends \PHPUnit\Framework\TestCase
 {
-    public function testAttributes() : void
-    {
-        $obj = new Http('');
-
-        /* Testing members */
-        self::assertObjectHasAttribute('rootPath', $obj);
-        self::assertObjectHasAttribute('uri', $obj);
-        self::assertObjectHasAttribute('scheme', $obj);
-        self::assertObjectHasAttribute('host', $obj);
-        self::assertObjectHasAttribute('port', $obj);
-        self::assertObjectHasAttribute('user', $obj);
-        self::assertObjectHasAttribute('pass', $obj);
-        self::assertObjectHasAttribute('path', $obj);
-        self::assertObjectHasAttribute('query', $obj);
-        self::assertObjectHasAttribute('queryString', $obj);
-        self::assertObjectHasAttribute('fragment', $obj);
-        self::assertObjectHasAttribute('base', $obj);
-    }
-
-    public function testHelper() : void
+    /**
+     * @testdox A url can be validated
+     * @covers phpOMS\Uri\Http
+     */
+    public function testValidator() : void
     {
         self::assertTrue(Http::isValid('http://www.google.de'));
         self::assertTrue(Http::isValid('http://google.de'));
@@ -50,39 +37,138 @@ class HttpTest extends \PHPUnit\Framework\TestCase
         self::assertFalse(Http::isValid('https:/google.de'));
     }
 
-    public function testGeneralUriComponents() : void
+    /**
+     * @testdox The http url has the expected default values after initialization
+     * @covers phpOMS\Uri\Http
+     */
+    public function testDefault() : void
+    {
+        $obj = new Http('https://www.google.com/test/path.php?para1=abc&para2=2#frag');
+
+        self::assertEquals('', $obj->getPass());
+        self::assertEquals('', $obj->getUser());
+        self::assertEquals(80, $obj->getPort());
+        self::assertEquals('', $obj->getUserInfo());
+        self::assertEquals('', $obj->getRootPath());
+        self::assertEquals(0, $obj->getPathOffset());
+    }
+
+    /**
+     * @testdox The url schema can be parsed correctly from a url
+     * @covers phpOMS\Uri\Http
+     */
+    public function testSchemaInputOutput() : void
+    {
+        $obj = new Http('https://www.google.com/test/path.php?para1=abc&para2=2#frag');
+
+        self::assertEquals('https', $obj->getScheme());
+    }
+
+    /**
+     * @testdox The host can be parsed correctly from a url
+     * @covers phpOMS\Uri\Http
+     */
+    public function testHostInputOutput() : void
+    {
+        $obj = new Http('https://www.google.com/test/path.php?para1=abc&para2=2#frag');
+
+        self::assertEquals('www.google.com', $obj->getHost());
+    }
+
+    /**
+     * @testdox The username can be parsed correctly from a url
+     * @covers phpOMS\Uri\Http
+     */
+    public function testUsernameInputOutput() : void
+    {
+        $obj = new Http('https://username:password@google.com/test/path.php?para1=abc&para2=2#frag');
+
+        self::assertEquals('username', $obj->getUser());
+    }
+
+    /**
+     * @testdox The password can be parsed correctly from a url
+     * @covers phpOMS\Uri\Http
+     */
+    public function testPasswordInputOutput() : void
+    {
+        $obj = new Http('https://username:password@google.com/test/path.php?para1=abc&para2=2#frag');
+
+        self::assertEquals('password', $obj->getPass());
+    }
+
+    /**
+     * @testdox The base can be parsed correctly from a url
+     * @covers phpOMS\Uri\Http
+     */
+    public function testBaseInputOutput() : void
+    {
+        $obj = new Http('https://www.google.com/test/path.php?para1=abc&para2=2#frag');
+
+        self::assertEquals('https://www.google.com', $obj->getBase());
+    }
+
+    /**
+     * @testdox The url can be turned into a string
+     * @covers phpOMS\Uri\Http
+     */
+    public function testStringify() : void
     {
         $obj = new Http($uri = 'https://www.google.com/test/path.php?para1=abc&para2=2#frag');
 
-        self::assertEquals('https', $obj->getScheme());
-        self::assertEquals('www.google.com', $obj->getHost());
-        self::assertEquals(80, $obj->getPort());
-        self::assertEquals('', $obj->getPass());
-        self::assertEquals('', $obj->getUser());
-        self::assertEquals('https://www.google.com', $obj->getBase());
         self::assertEquals($uri, $obj->__toString());
-        self::assertEquals('www.google.com:80', $obj->getAuthority());
-        self::assertEquals('', $obj->getUserInfo());
     }
 
-    public function testRootPath() : void
+    /**
+     * @testdox The authority can be parsed correctly from a url
+     * @covers phpOMS\Uri\Http
+     */
+    public function testAuthorityInputOutput() : void
     {
         $obj = new Http('https://www.google.com/test/path.php?para1=abc&para2=2#frag');
-        self::assertEquals('', $obj->getRootPath());
+
+        self::assertEquals('www.google.com:80', $obj->getAuthority());
+    }
+
+    /**
+     * @testdox The user info can be parsed correctly from a url
+     * @covers phpOMS\Uri\Http
+     */
+    public function testUserinfoInputOutput() : void
+    {
+        $obj = new Http('https://username:password@google.com/test/path.php?para1=abc&para2=2#frag');
+
+        self::assertEquals('username:password', $obj->getUserInfo());
+    }
+
+    /**
+     * @testdox The root path can be set and returned
+     * @covers phpOMS\Uri\Http
+     */
+    public function testRootPathInputOutput() : void
+    {
+        $obj = new Http('https://www.google.com/test/path.php?para1=abc&para2=2#frag');
 
         $obj->setRootPath('a');
         self::assertEquals('a', $obj->getRootPath());
     }
 
-    public function testPathOffset() : void
+    /**
+     * @testdox The path offset can be set and returned
+     * @covers phpOMS\Uri\Http
+     */
+    public function testPathOffsetInputOutput() : void
     {
         $obj = new Http('https://www.google.com/test/path.php?para1=abc&para2=2#frag');
-        self::assertEquals(0, $obj->getPathOffset());
 
         $obj->setPathOffset(2);
         self::assertEquals(2, $obj->getPathOffset());
     }
 
+    /**
+     * @testdox The subdomain can be parsed correctly from a url
+     * @covers phpOMS\Uri\Http
+     */
     public function testSubdmonain() : void
     {
         $obj = new Http('https://www.google.com/test/path.php?para1=abc&para2=2#frag');
@@ -95,20 +181,47 @@ class HttpTest extends \PHPUnit\Framework\TestCase
         self::assertEquals('test.www', $obj->getSubdomain());
     }
 
+    /**
+     * @testdox The query data can be parsed correctly from a url
+     * @covers phpOMS\Uri\Http
+     */
     public function testQueryData() : void
     {
         $obj = new Http('https://www.google.com/test/path.php?para1=abc&para2=2#frag');
         self::assertEquals('para1=abc&para2=2', $obj->getQuery());
         self::assertEquals(['para1' => 'abc', 'para2' => '2'], $obj->getQueryArray());
         self::assertEquals('2', $obj->getQuery('para2'));
+    }
+
+    /**
+     * @testdox The fragment data can be parsed correctly from a url
+     * @covers phpOMS\Uri\Http
+     */
+    public function testFragment() : void
+    {
+        $obj = new Http('https://www.google.com/test/path.php?para1=abc&para2=2#frag');
         self::assertEquals('frag', $obj->getFragment());
     }
 
+    /**
+     * @testdox The path data can be parsed correctly from a url
+     * @covers phpOMS\Uri\Http
+     */
     public function testPathData() : void
     {
         $obj = new Http('https://www.google.com/test/path.php?para1=abc&para2=2#frag');
         self::assertEquals('/test/path', $obj->getPath());
         self::assertEquals('/test/path?para1=abc&para2=2', $obj->getRoute());
         self::assertEquals('test', $obj->getPathElement(0));
+    }
+
+    /**
+     * @testdox The route can be parsed correctly from a url
+     * @covers phpOMS\Uri\Http
+     */
+    public function testRouteInputOutput() : void
+    {
+        $obj = new Http('https://www.google.com/test/path.php?para1=abc&para2=2#frag');
+        self::assertEquals('/test/path?para1=abc&para2=2', $obj->getRoute());
     }
 }

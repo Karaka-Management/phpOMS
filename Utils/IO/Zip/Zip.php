@@ -32,7 +32,7 @@ class Zip implements ArchiveInterface
     /**
      * {@inheritdoc}
      */
-    public static function pack($sources, string $destination, bool $overwrite = true) : bool
+    public static function pack($sources, string $destination, bool $overwrite = false) : bool
     {
         $destination = FileUtils::absolute(\str_replace('\\', '/', $destination));
 

@@ -17,10 +17,16 @@ namespace phpOMS\tests\Utils\Converter;
 use phpOMS\Utils\Converter\File;
 
 /**
+ * @testdox phpOMS\tests\Utils\Converter\FileTest: File size converter
+ *
  * @internal
  */
 class FileTest extends \PHPUnit\Framework\TestCase
 {
+    /**
+     * @testdox A byte number can be converted to a string representation
+     * @covers phpOMS\Utils\Converter\File
+     */
     public function testByteSizeToString() : void
     {
         self::assertEquals('400b', File::byteSizeToString(400));
@@ -29,6 +35,10 @@ class FileTest extends \PHPUnit\Framework\TestCase
         self::assertEquals('1.5gb', File::byteSizeToString(1500000000));
     }
 
+    /**
+     * @testdox A kilobyte number can be converted to a string representation
+     * @covers phpOMS\Utils\Converter\File
+     */
     public function testKilobyteSizeToString() : void
     {
         self::assertEquals('500kb', File::kilobyteSizeToString(500));

@@ -31,7 +31,7 @@ class TarGz implements ArchiveInterface
     /**
      * {@inheritdoc}
      */
-    public static function pack($source, string $destination, bool $overwrite = true) : bool
+    public static function pack($source, string $destination, bool $overwrite = false) : bool
     {
         if (!$overwrite && \file_exists($destination)) {
             return false;

@@ -115,6 +115,10 @@ final class Directory extends FileAbstract implements LocalContainerInterface, D
         $list = [];
         $path = \rtrim($path, '\\/');
 
+        if (!\file_exists($path)) {
+            return $list;
+        }
+
         foreach ($iterator = new \RecursiveIteratorIterator(
             new \RecursiveDirectoryIterator($path, \RecursiveDirectoryIterator::SKIP_DOTS),
             \RecursiveIteratorIterator::SELF_FIRST) as $item
@@ -163,7 +167,7 @@ final class Directory extends FileAbstract implements LocalContainerInterface, D
     public static function size(string $dir, bool $recursive = true) : int
     {
         if (!\file_exists($dir) || !\is_readable($dir)) {
-            throw new PathException($dir);
+            return -1;
         }
 
         $countSize   = 0;
@@ -205,7 +209,7 @@ final class Directory extends FileAbstract implements LocalContainerInterface, D
     public static function count(string $path, bool $recursive = true, array $ignore = []) : int
     {
         if (!\file_exists($path)) {
-            throw new PathException($path);
+            return -1;
         }
 
         $size     = 0;
@@ -238,7 +242,7 @@ final class Directory extends FileAbstract implements LocalContainerInterface, D
      */
     public static function delete(string $path) : bool
     {
-        if (empty($path)) {
+        if (empty($path) || !\file_exists($path)) {
             return false;
         }
 
@@ -329,7 +333,7 @@ final class Directory extends FileAbstract implements LocalContainerInterface, D
     public static function permission(string $path) : int
     {
         if (!\file_exists($path)) {
-            throw new PathException($path);
+            return -1;
         }
 
         return (int) \fileperms($path);

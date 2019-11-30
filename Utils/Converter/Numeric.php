@@ -94,7 +94,7 @@ class Numeric
             return $newOutput;
         }
 
-        $base10 = (int) ($fromBaseInput != '0123456789' ? self::convertBase($numberInput, $fromBaseInput, '0123456789') : $numberInput);
+        $base10 = (int) ($fromBaseInput !== '0123456789' ? self::convertBase($numberInput, $fromBaseInput, '0123456789') : $numberInput);
 
         if ($base10 < \strlen($toBaseInput)) {
             return $toBase[$base10];

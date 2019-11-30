@@ -17,10 +17,16 @@ namespace phpOMS\tests\Utils\Compression;
 use phpOMS\Utils\Compression\LZW;
 
 /**
+ * @testdox phpOMS\tests\Utils\Compression\LZWTest: LZW compression
+ *
  * @internal
  */
 class LZWTest extends \PHPUnit\Framework\TestCase
 {
+    /**
+     * @testdox A string can be LZW compressed and uncompressed
+     * @covers phpOMS\Utils\Compression\LZW
+     */
     public function testLZW() : void
     {
         $expected    = 'This is a test';

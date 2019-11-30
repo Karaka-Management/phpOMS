@@ -18,10 +18,16 @@ use phpOMS\System\File\ExtensionType;
 use phpOMS\System\File\FileUtils;
 
 /**
+ * @testdox phpOMS\tests\System\File\FileUtilsTest: File utilities
+ *
  * @internal
  */
 class FileUtilsTest extends \PHPUnit\Framework\TestCase
 {
+    /**
+     * @testdox File extensions can be categorized
+     * @covers phpOMS\System\File\FileUtils
+     */
     public function testExtension() : void
     {
         self::assertEquals(ExtensionType::UNKNOWN, FileUtils::getExtensionType('test'));
@@ -40,11 +46,19 @@ class FileUtilsTest extends \PHPUnit\Framework\TestCase
         self::assertEquals(ExtensionType::DIRECTORY, FileUtils::getExtensionType('/'));
     }
 
+    /**
+     * @testdox A relative path can be turned into an absolute path
+     * @covers phpOMS\System\File\FileUtils
+     */
     public function testAbsolute() : void
     {
         self::assertEquals('/test/ative', FileUtils::absolute('/test/path/for/../rel/../../ative'));
     }
 
+    /**
+     * @testdox Permissions can be turned into ocal values
+     * @covers phpOMS\System\File\FileUtils
+     */
     public function testPermissionToOctal() : void
     {
         self::assertEquals(0742, FileUtils::permissionToOctal('rwxr---w-'));

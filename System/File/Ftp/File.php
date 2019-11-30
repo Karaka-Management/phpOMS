@@ -209,7 +209,7 @@ class File extends FileAbstract implements FileInterface
      */
     public static function parent(string $path) : string
     {
-        return Directory::parent($path);
+        return Directory::parent(\dirname($path));
     }
 
     /**
@@ -251,7 +251,7 @@ class File extends FileAbstract implements FileInterface
     public static function size($con, string $path, bool $recursive = true) : int
     {
         if (!self::exists($con, $path)) {
-            throw new PathException($path);
+            return -1;
         }
 
         return \ftp_size($con, $path);
@@ -266,7 +266,7 @@ class File extends FileAbstract implements FileInterface
             throw new PathException($path);
         }
 
-        return Directory::parseRawList($con, self::parent($path))[$path]['user'];
+        return Directory::parseRawList($con, self::dirpath($path))[$path]['user'];
     }
     /**
      * {@inheritdoc}
@@ -274,10 +274,10 @@ class File extends FileAbstract implements FileInterface
     public static function permission($con, string $path) : int
     {
         if (!self::exists($con, $path)) {
-            throw new PathException($path);
+            return -1;
         }
 
-        return Directory::parseRawList($con, self::parent($path))[$path]['permission'];
+        return Directory::parseRawList($con, self::dirpath($path))[$path]['permission'];
     }
 
     /**

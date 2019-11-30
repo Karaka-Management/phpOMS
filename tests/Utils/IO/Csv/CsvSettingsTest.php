@@ -17,10 +17,17 @@ namespace phpOMS\tests\Utils\IO\Csv;
 use phpOMS\Utils\IO\Csv\CsvSettings;
 
 /**
+ * @testdox phpOMS\tests\Utils\IO\Csv\CsvSettingsTest: Csv file settings
+ *
  * @internal
  */
 class CsvSettingsTest extends \PHPUnit\Framework\TestCase
 {
+
+    /**
+     * @testdox The delimitar in a csv file can be guessed
+     * @covers phpOMS\Utils\IO\Csv\CsvSettings
+     */
     public function testDelimiter() : void
     {
         self::assertEquals(':', CsvSettings::getFileDelimiter(\fopen(__DIR__ . '/colon.csv', 'r')));

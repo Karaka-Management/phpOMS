@@ -15,7 +15,7 @@ declare(strict_types=1);
 namespace phpOMS\Utils\IO;
 
 use phpOMS\Utils\IO\Csv\CsvInterface;
-use phpOMS\Utils\IO\Excel\ExcelInterface;
+use phpOMS\Utils\IO\Spreadsheet\SpreadsheetInterface;
 use phpOMS\Utils\IO\Json\JsonInterface;
 use phpOMS\Utils\IO\Pdf\PdfInterface;
 
@@ -27,6 +27,6 @@ use phpOMS\Utils\IO\Pdf\PdfInterface;
  * @link    https://orange-management.org
  * @since   1.0.0
  */
-interface ExchangeInterface extends CsvInterface, JsonInterface, ExcelInterface, PdfInterface
+interface ExchangeInterface extends CsvInterface, JsonInterface, SpreadsheetInterface, PdfInterface
 {
 }

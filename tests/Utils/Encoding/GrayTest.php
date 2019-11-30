@@ -17,28 +17,19 @@ namespace phpOMS\tests\Utils\Encoding;
 use phpOMS\Utils\Encoding\Gray;
 
 /**
+ * @testdox phpOMS\tests\Utils\Encoding\GrayTest: Gray text encoding/decoding
+ *
  * @internal
  */
 class GrayTest extends \PHPUnit\Framework\TestCase
 {
     /**
+     * @testdox Text can be encoded and decoded with the gray encoding
      * @covers phpOMS\Utils\Encoding\Gray
      */
     public function testEncoding() : void
     {
         self::assertEquals(55, Gray::encode(37));
         self::assertEquals(37, Gray::decode(55));
-    }
-
-    /**
-     * @covers phpOMS\Utils\Encoding\Gray
-     */
-    public function testVolume() : void
-    {
-        for ($i = 0; $i < 100; ++$i) {
-            $raw = \mt_rand(0, 2040140512);
-
-            self::assertEquals($raw, Gray::decode(Gray::encode($raw)));
-        }
     }
 }

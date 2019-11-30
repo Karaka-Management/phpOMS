@@ -158,7 +158,7 @@ class Directory extends FileAbstract implements FtpContainerInterface, Directory
     public static function size($con, string $dir, bool $recursive = true) : int
     {
         if (!self::exists($con, $dir)) {
-            throw new PathException($dir);
+            return -1;
         }
 
         $countSize   = 0;
@@ -189,7 +189,7 @@ class Directory extends FileAbstract implements FtpContainerInterface, Directory
     public static function count($con, string $path, bool $recursive = true, array $ignore = []) : int
     {
         if (!self::exists($con, $path)) {
-            throw new PathException($path);
+            return -1;
         }
 
         $size     = 0;
@@ -222,6 +222,12 @@ class Directory extends FileAbstract implements FtpContainerInterface, Directory
      */
     public static function delete($con, string $path) : bool
     {
+        $path = \rtrim($path, '\\/');
+
+        if (!self::exists($con, $path)) {
+            return false;
+        }
+
         $list = self::parseRawList($con, $path);
 
         foreach ($list as $key => $item) {
@@ -324,7 +330,7 @@ class Directory extends FileAbstract implements FtpContainerInterface, Directory
     public static function permission($con, string $path) : int
     {
         if (!self::exists($con, $path)) {
-            throw new PathException($path);
+            return -1;
         }
 
         return self::parseRawList($con, self::parent($path))[$path]['permission'];

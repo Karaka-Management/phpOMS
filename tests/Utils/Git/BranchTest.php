@@ -17,17 +17,27 @@ namespace phpOMS\tests\Utils\Git;
 use phpOMS\Utils\Git\Branch;
 
 /**
+ * @testdox phpOMS\tests\Utils\Git\BranchTest: Git branch
+ *
  * @internal
  */
 class BranchTest extends \PHPUnit\Framework\TestCase
 {
+    /**
+     * @testdox The branch has the expected default values after initialization
+     * @covers phpOMS\Utils\Git\Branch
+     */
     public function testDefault() : void
     {
         $branch = new Branch();
         self::assertEquals('', $branch->getName());
     }
 
-    public function testGetSet() : void
+    /**
+     * @testdox The branch name can be set during initialization and returned
+     * @covers phpOMS\Utils\Git\Branch
+     */
+    public function testConstructInputOutput() : void
     {
         $branch = new Branch('test');
         self::assertEquals('test', $branch->getName());

@@ -28,10 +28,16 @@ use phpOMS\Utils\Converter\VolumeType;
 use phpOMS\Utils\Converter\WeightType;
 
 /**
+ * @testdox phpOMS\tests\Utils\Converter\MeasurementTest: Measurement converter
+ *
  * @internal
  */
 class MeasurementTest extends \PHPUnit\Framework\TestCase
 {
+    /**
+     * @testdox Temperatures can be converted
+     * @covers phpOMS\Utils\Converter\Measurement
+     */
     public function testTemperature() : void
     {
         $temps = TemperatureType::getConstants();
@@ -39,11 +45,19 @@ class MeasurementTest extends \PHPUnit\Framework\TestCase
         foreach ($temps as $from) {
             foreach ($temps as $to) {
                 $rand = \mt_rand(0, 100);
-                self::assertTrue(($rand - Measurement::convertTemperature(Measurement::convertTemperature($rand, $from, $to), $to, $from)) < 1);
+                if ($rand - Measurement::convertTemperature(Measurement::convertTemperature($rand, $from, $to), $to, $from) >= 1) {
+                    self::assertTrue(false);
+                }
             }
         }
+
+        self::assertTrue(true);
     }
 
+    /**
+     * @testdox Weights can be converted
+     * @covers phpOMS\Utils\Converter\Measurement
+     */
     public function testWeight() : void
     {
         $weights = WeightType::getConstants();
@@ -51,11 +65,19 @@ class MeasurementTest extends \PHPUnit\Framework\TestCase
         foreach ($weights as $from) {
             foreach ($weights as $to) {
                 $rand = \mt_rand(0, 100);
-                self::assertTrue(($rand - Measurement::convertWeight(Measurement::convertWeight($rand, $from, $to), $to, $from)) < 1);
+                if ($rand - Measurement::convertWeight(Measurement::convertWeight($rand, $from, $to), $to, $from) >= 1) {
+                    self::assertTrue(false);
+                }
             }
         }
+
+        self::assertTrue(true);
     }
 
+    /**
+     * @testdox Lengths can be converted
+     * @covers phpOMS\Utils\Converter\Measurement
+     */
     public function testLength() : void
     {
         $lengths = LengthType::getConstants();
@@ -63,11 +85,19 @@ class MeasurementTest extends \PHPUnit\Framework\TestCase
         foreach ($lengths as $from) {
             foreach ($lengths as $to) {
                 $rand = \mt_rand(0, 100);
-                self::assertTrue(($rand - Measurement::convertLength(Measurement::convertLength($rand, $from, $to), $to, $from)) < 1);
+                if ($rand - Measurement::convertLength(Measurement::convertLength($rand, $from, $to), $to, $from) >= 1) {
+                    self::assertTrue(false);
+                }
             }
         }
+
+        self::assertTrue(true);
     }
 
+    /**
+     * @testdox Areas can be converted
+     * @covers phpOMS\Utils\Converter\Measurement
+     */
     public function testArea() : void
     {
         $areas = AreaType::getConstants();
@@ -75,11 +105,19 @@ class MeasurementTest extends \PHPUnit\Framework\TestCase
         foreach ($areas as $from) {
             foreach ($areas as $to) {
                 $rand = \mt_rand(0, 100);
-                self::assertTrue(($rand - Measurement::convertArea(Measurement::convertArea($rand, $from, $to), $to, $from)) < 1);
+                if ($rand - Measurement::convertArea(Measurement::convertArea($rand, $from, $to), $to, $from) >= 1) {
+                    self::assertTrue(false);
+                }
             }
         }
+
+        self::assertTrue(true);
     }
 
+    /**
+     * @testdox Volumes can be converted
+     * @covers phpOMS\Utils\Converter\Measurement
+     */
     public function testVolume() : void
     {
         $volumes = VolumeType::getConstants();
@@ -87,11 +125,19 @@ class MeasurementTest extends \PHPUnit\Framework\TestCase
         foreach ($volumes as $from) {
             foreach ($volumes as $to) {
                 $rand = \mt_rand(0, 100);
-                self::assertTrue(($rand - Measurement::convertVolume(Measurement::convertVolume($rand, $from, $to), $to, $from)) < 1);
+                if ($rand - Measurement::convertVolume(Measurement::convertVolume($rand, $from, $to), $to, $from) >= 1) {
+                    self::assertTrue(false);
+                }
             }
         }
+
+        self::assertTrue(true);
     }
 
+    /**
+     * @testdox Speeds can be converted
+     * @covers phpOMS\Utils\Converter\Measurement
+     */
     public function testSpeed() : void
     {
         $speeds = SpeedType::getConstants();
@@ -99,11 +145,19 @@ class MeasurementTest extends \PHPUnit\Framework\TestCase
         foreach ($speeds as $from) {
             foreach ($speeds as $to) {
                 $rand = \mt_rand(0, 100);
-                self::assertTrue(($rand - Measurement::convertSpeed(Measurement::convertSpeed($rand, $from, $to), $to, $from)) < 1);
+                if ($rand - Measurement::convertSpeed(Measurement::convertSpeed($rand, $from, $to), $to, $from) >= 1) {
+                    self::assertTrue(false);
+                }
             }
         }
+
+        self::assertTrue(true);
     }
 
+    /**
+     * @testdox Times can be converted
+     * @covers phpOMS\Utils\Converter\Measurement
+     */
     public function testTime() : void
     {
         $times = TimeType::getConstants();
@@ -111,11 +165,19 @@ class MeasurementTest extends \PHPUnit\Framework\TestCase
         foreach ($times as $from) {
             foreach ($times as $to) {
                 $rand = \mt_rand(0, 100);
-                self::assertTrue(($rand - Measurement::convertTime(Measurement::convertTime($rand, $from, $to), $to, $from)) < 1);
+                if ($rand - Measurement::convertTime(Measurement::convertTime($rand, $from, $to), $to, $from) >= 1) {
+                    self::assertTrue(false);
+                }
             }
         }
+
+        self::assertTrue(true);
     }
 
+    /**
+     * @testdox Angles can be converted
+     * @covers phpOMS\Utils\Converter\Measurement
+     */
     public function testAngle() : void
     {
         $angles = AngleType::getConstants();
@@ -123,11 +185,19 @@ class MeasurementTest extends \PHPUnit\Framework\TestCase
         foreach ($angles as $from) {
             foreach ($angles as $to) {
                 $rand = \mt_rand(0, 100);
-                self::assertTrue(($rand - Measurement::convertAngle(Measurement::convertAngle($rand, $from, $to), $to, $from)) < 1);
+                if ($rand - Measurement::convertAngle(Measurement::convertAngle($rand, $from, $to), $to, $from) >= 1) {
+                    self::assertTrue(false);
+                }
             }
         }
+
+        self::assertTrue(true);
     }
 
+    /**
+     * @testdox Pressures can be converted
+     * @covers phpOMS\Utils\Converter\Measurement
+     */
     public function testPressure() : void
     {
         $pressures = PressureType::getConstants();
@@ -135,11 +205,19 @@ class MeasurementTest extends \PHPUnit\Framework\TestCase
         foreach ($pressures as $from) {
             foreach ($pressures as $to) {
                 $rand = \mt_rand(0, 100);
-                self::assertTrue(($rand - Measurement::convertPressure(Measurement::convertPressure($rand, $from, $to), $to, $from)) < 1);
+                if ($rand - Measurement::convertPressure(Measurement::convertPressure($rand, $from, $to), $to, $from) >= 1) {
+                    self::assertTrue(false);
+                }
             }
         }
+
+        self::assertTrue(true);
     }
 
+    /**
+     * @testdox Energies can be converted
+     * @covers phpOMS\Utils\Converter\Measurement
+     */
     public function testEnergy() : void
     {
         $energies = EnergyPowerType::getConstants();
@@ -147,11 +225,19 @@ class MeasurementTest extends \PHPUnit\Framework\TestCase
         foreach ($energies as $from) {
             foreach ($energies as $to) {
                 $rand = \mt_rand(0, 100);
-                self::assertTrue(($rand - Measurement::convertEnergy(Measurement::convertEnergy($rand, $from, $to), $to, $from)) < 1);
+                if ($rand - Measurement::convertEnergy(Measurement::convertEnergy($rand, $from, $to), $to, $from) >= 1) {
+                    self::assertTrue(false);
+                }
             }
         }
+
+        self::assertTrue(true);
     }
 
+    /**
+     * @testdox Filesizes can be converted
+     * @covers phpOMS\Utils\Converter\Measurement
+     */
     public function testFileSize() : void
     {
         $fileSizes = FileSizeType::getConstants();
@@ -159,11 +245,19 @@ class MeasurementTest extends \PHPUnit\Framework\TestCase
         foreach ($fileSizes as $from) {
             foreach ($fileSizes as $to) {
                 $rand = \mt_rand(0, 100);
-                self::assertTrue(($rand - Measurement::convertFileSize(Measurement::convertFileSize($rand, $from, $to), $to, $from)) < 1);
+                if ($rand - Measurement::convertFileSize(Measurement::convertFileSize($rand, $from, $to), $to, $from) >= 1) {
+                    self::assertTrue(false);
+                }
             }
         }
+
+        self::assertTrue(true);
     }
 
+    /**
+     * @testdox Invalid convertion from unknown temperature throws a InvalidArgumentException
+     * @covers phpOMS\Utils\Converter\Measurement
+     */
     public function testInvalidTemperatureFrom() : void
     {
         self::expectException(\InvalidArgumentException::class);
@@ -171,6 +265,10 @@ class MeasurementTest extends \PHPUnit\Framework\TestCase
         Measurement::convertTemperature(1.1, 'invalid', TemperatureType::CELSIUS);
     }
 
+    /**
+     * @testdox Invalid convertion to unknown temperature throws a InvalidArgumentException
+     * @covers phpOMS\Utils\Converter\Measurement
+     */
     public function testInvalidTemperatureTo() : void
     {
         self::expectException(\InvalidArgumentException::class);
@@ -178,6 +276,10 @@ class MeasurementTest extends \PHPUnit\Framework\TestCase
         Measurement::convertTemperature(1.1, TemperatureType::CELSIUS, 'invalid');
     }
 
+    /**
+     * @testdox Invalid convertion from unknown weight throws a InvalidArgumentException
+     * @covers phpOMS\Utils\Converter\Measurement
+     */
     public function testInvalidWeightFrom() : void
     {
         self::expectException(\InvalidArgumentException::class);
@@ -185,6 +287,10 @@ class MeasurementTest extends \PHPUnit\Framework\TestCase
         Measurement::convertWeight(1.1, 'invalid', WeightType::KILOGRAM);
     }
 
+    /**
+     * @testdox Invalid convertion to unknown weight throws a InvalidArgumentException
+     * @covers phpOMS\Utils\Converter\Measurement
+     */
     public function testInvalidWeightTo() : void
     {
         self::expectException(\InvalidArgumentException::class);
@@ -192,6 +298,10 @@ class MeasurementTest extends \PHPUnit\Framework\TestCase
         Measurement::convertWeight(1.1, WeightType::KILOGRAM, 'invalid');
     }
 
+    /**
+     * @testdox Invalid convertion from unknown length throws a InvalidArgumentException
+     * @covers phpOMS\Utils\Converter\Measurement
+     */
     public function testInvalidLengthFrom() : void
     {
         self::expectException(\InvalidArgumentException::class);
@@ -199,6 +309,10 @@ class MeasurementTest extends \PHPUnit\Framework\TestCase
         Measurement::convertLength(1.1, 'invalid', LengthType::METERS);
     }
 
+    /**
+     * @testdox Invalid convertion to unknown length throws a InvalidArgumentException
+     * @covers phpOMS\Utils\Converter\Measurement
+     */
     public function testInvalidLengthTo() : void
     {
         self::expectException(\InvalidArgumentException::class);
@@ -206,6 +320,10 @@ class MeasurementTest extends \PHPUnit\Framework\TestCase
         Measurement::convertLength(1.1, LengthType::METERS, 'invalid');
     }
 
+    /**
+     * @testdox Invalid convertion from unknown area throws a InvalidArgumentException
+     * @covers phpOMS\Utils\Converter\Measurement
+     */
     public function testInvalidAreaFrom() : void
     {
         self::expectException(\InvalidArgumentException::class);
@@ -213,6 +331,10 @@ class MeasurementTest extends \PHPUnit\Framework\TestCase
         Measurement::convertArea(1.1, 'invalid', AreaType::SQUARE_METERS);
     }
 
+    /**
+     * @testdox Invalid convertion to unknown area throws a InvalidArgumentException
+     * @covers phpOMS\Utils\Converter\Measurement
+     */
     public function testInvalidAreaTo() : void
     {
         self::expectException(\InvalidArgumentException::class);
@@ -220,6 +342,10 @@ class MeasurementTest extends \PHPUnit\Framework\TestCase
         Measurement::convertArea(1.1, AreaType::SQUARE_METERS, 'invalid');
     }
 
+    /**
+     * @testdox Invalid convertion from unknown volume throws a InvalidArgumentException
+     * @covers phpOMS\Utils\Converter\Measurement
+     */
     public function testInvalidVolumeFrom() : void
     {
         self::expectException(\InvalidArgumentException::class);
@@ -227,6 +353,10 @@ class MeasurementTest extends \PHPUnit\Framework\TestCase
         Measurement::convertVolume(1.1, 'invalid', VolumeType::LITER);
     }
 
+    /**
+     * @testdox Invalid convertion to unknown volume throws a InvalidArgumentException
+     * @covers phpOMS\Utils\Converter\Measurement
+     */
     public function testInvalidVolumeTo() : void
     {
         self::expectException(\InvalidArgumentException::class);
@@ -234,6 +364,10 @@ class MeasurementTest extends \PHPUnit\Framework\TestCase
         Measurement::convertVolume(1.1, VolumeType::LITER, 'invalid');
     }
 
+    /**
+     * @testdox Invalid convertion from unknown speed throws a InvalidArgumentException
+     * @covers phpOMS\Utils\Converter\Measurement
+     */
     public function testInvalidSpeedFrom() : void
     {
         self::expectException(\InvalidArgumentException::class);
@@ -241,6 +375,10 @@ class MeasurementTest extends \PHPUnit\Framework\TestCase
         Measurement::convertSpeed(1.1, 'invalid', SpeedType::KILOMETERS_PER_HOUR);
     }
 
+    /**
+     * @testdox Invalid convertion to unknown speed throws a InvalidArgumentException
+     * @covers phpOMS\Utils\Converter\Measurement
+     */
     public function testInvalidSpeedTo() : void
     {
         self::expectException(\InvalidArgumentException::class);
@@ -248,6 +386,10 @@ class MeasurementTest extends \PHPUnit\Framework\TestCase
         Measurement::convertSpeed(1.1, SpeedType::KILOMETERS_PER_HOUR, 'invalid');
     }
 
+    /**
+     * @testdox Invalid convertion from unknown time throws a InvalidArgumentException
+     * @covers phpOMS\Utils\Converter\Measurement
+     */
     public function testInvalidTimeFrom() : void
     {
         self::expectException(\InvalidArgumentException::class);
@@ -255,6 +397,10 @@ class MeasurementTest extends \PHPUnit\Framework\TestCase
         Measurement::convertTime(1.1, 'invalid', TimeType::HOURS);
     }
 
+    /**
+     * @testdox Invalid convertion to unknown time throws a InvalidArgumentException
+     * @covers phpOMS\Utils\Converter\Measurement
+     */
     public function testInvalidTimeTo() : void
     {
         self::expectException(\InvalidArgumentException::class);
@@ -262,6 +408,10 @@ class MeasurementTest extends \PHPUnit\Framework\TestCase
         Measurement::convertTime(1.1, TimeType::HOURS, 'invalid');
     }
 
+    /**
+     * @testdox Invalid convertion from unknown angle throws a InvalidArgumentException
+     * @covers phpOMS\Utils\Converter\Measurement
+     */
     public function testInvalidAngleFrom() : void
     {
         self::expectException(\InvalidArgumentException::class);
@@ -269,6 +419,10 @@ class MeasurementTest extends \PHPUnit\Framework\TestCase
         Measurement::convertAngle(1.1, 'invalid', AngleType::RADIAN);
     }
 
+    /**
+     * @testdox Invalid convertion to unknown angle throws a InvalidArgumentException
+     * @covers phpOMS\Utils\Converter\Measurement
+     */
     public function testInvalidAngleTo() : void
     {
         self::expectException(\InvalidArgumentException::class);
@@ -276,6 +430,10 @@ class MeasurementTest extends \PHPUnit\Framework\TestCase
         Measurement::convertAngle(1.1, AngleType::RADIAN, 'invalid');
     }
 
+    /**
+     * @testdox Invalid convertion from unknown pressure throws a InvalidArgumentException
+     * @covers phpOMS\Utils\Converter\Measurement
+     */
     public function testInvalidPressureFrom() : void
     {
         self::expectException(\InvalidArgumentException::class);
@@ -283,6 +441,10 @@ class MeasurementTest extends \PHPUnit\Framework\TestCase
         Measurement::convertPressure(1.1, 'invalid', PressureType::BAR);
     }
 
+    /**
+     * @testdox Invalid convertion to unknown pressure throws a InvalidArgumentException
+     * @covers phpOMS\Utils\Converter\Measurement
+     */
     public function testInvalidPressureTo() : void
     {
         self::expectException(\InvalidArgumentException::class);
@@ -290,6 +452,10 @@ class MeasurementTest extends \PHPUnit\Framework\TestCase
         Measurement::convertPressure(1.1, PressureType::BAR, 'invalid');
     }
 
+    /**
+     * @testdox Invalid convertion from unknown energy throws a InvalidArgumentException
+     * @covers phpOMS\Utils\Converter\Measurement
+     */
     public function testInvalidEnergyPowerFrom() : void
     {
         self::expectException(\InvalidArgumentException::class);
@@ -297,6 +463,10 @@ class MeasurementTest extends \PHPUnit\Framework\TestCase
         Measurement::convertEnergy(1.1, 'invalid', EnergyPowerType::JOULS);
     }
 
+    /**
+     * @testdox Invalid convertion to unknown energy throws a InvalidArgumentException
+     * @covers phpOMS\Utils\Converter\Measurement
+     */
     public function testInvalidEnergyPowerTo() : void
     {
         self::expectException(\InvalidArgumentException::class);
@@ -304,6 +474,10 @@ class MeasurementTest extends \PHPUnit\Framework\TestCase
         Measurement::convertEnergy(1.1, EnergyPowerType::JOULS, 'invalid');
     }
 
+    /**
+     * @testdox Invalid convertion from unknown filesize throws a InvalidArgumentException
+     * @covers phpOMS\Utils\Converter\Measurement
+     */
     public function testInvalidFileSizeFrom() : void
     {
         self::expectException(\InvalidArgumentException::class);
@@ -311,6 +485,10 @@ class MeasurementTest extends \PHPUnit\Framework\TestCase
         Measurement::convertFileSize(1.1, 'invalid', FileSizeType::KILOBYTE);
     }
 
+    /**
+     * @testdox Invalid convertion to unknown filesize throws a InvalidArgumentException
+     * @covers phpOMS\Utils\Converter\Measurement
+     */
     public function testInvalidFileSizeTo() : void
     {
         self::expectException(\InvalidArgumentException::class);

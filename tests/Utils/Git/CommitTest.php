@@ -21,10 +21,16 @@ use phpOMS\Utils\Git\Repository;
 use phpOMS\Utils\Git\Tag;
 
 /**
+ * @testdox phpOMS\tests\Utils\Git\CommitTest: Git commit
+ *
  * @internal
  */
 class CommitTest extends \PHPUnit\Framework\TestCase
 {
+    /**
+     * @testdox The commit has the expected default values after initialization
+     * @covers phpOMS\Utils\Git\Commit
+     */
     public function testDefault() : void
     {
         $commit = new Commit();
@@ -38,26 +44,67 @@ class CommitTest extends \PHPUnit\Framework\TestCase
         self::assertInstanceOf('\DateTime', $commit->getDate());
     }
 
-    public function testAddRemoveFile() : void
+    /**
+     * @testdox A file can be added and returned
+     * @covers phpOMS\Utils\Git\Commit
+     */
+    public function testFileInputOutput() : void
     {
         $commit = new Commit();
 
         self::assertTrue($commit->addFile('/some/file/path'));
-        self::assertFalse($commit->addFile('/some/file/path'));
         self::assertTrue($commit->addFile('/some/file/path2'));
         self::assertEquals([
             '/some/file/path' => [],
             '/some/file/path2' => [],
         ], $commit->getFiles());
+    }
 
-        self::assertFalse($commit->removeFile('/some/file/path3'));
+    /**
+     * @testdox A file can only be added one time
+     * @covers phpOMS\Utils\Git\Commit
+     */
+    public function testInvalidOverwrite() : void
+    {
+        $commit = new Commit();
+
+        self::assertTrue($commit->addFile('/some/file/path'));
+        self::assertFalse($commit->addFile('/some/file/path'));
+    }
+
+    /**
+     * @testdox A file can be removed
+     * @covers phpOMS\Utils\Git\Commit
+     */
+    public function testRemoveFile() : void
+    {
+        $commit = new Commit();
+
+        self::assertTrue($commit->addFile('/some/file/path'));
+        self::assertTrue($commit->addFile('/some/file/path2'));
+
         self::assertTrue($commit->removeFile('/some/file/path'));
         self::assertEquals([
             '/some/file/path2' => [],
         ], $commit->getFiles());
     }
 
-    public function testChanges() : void
+    /**
+     * @testdox A none-existing file cannot be removed
+     * @covers phpOMS\Utils\Git\Commit
+     */
+    public function testInvalidRemoveFile() : void
+    {
+        $commit = new Commit();
+
+        self::assertFalse($commit->removeFile('/some/file/path3'));
+    }
+
+    /**
+     * @testdox A change can be added and returned
+     * @covers phpOMS\Utils\Git\Commit
+     */
+    public function testChangeInputOutput() : void
     {
         $commit = new Commit();
 
@@ -73,6 +120,10 @@ class CommitTest extends \PHPUnit\Framework\TestCase
             ], $commit->getFiles());
     }
 
+    /**
+     * @testdox Adding the same change throws a Exception
+     * @covers phpOMS\Utils\Git\Commit
+     */
     public function testDuplicateLineChange() : void
     {
         self::expectException(\Exception::class);
@@ -82,7 +133,11 @@ class CommitTest extends \PHPUnit\Framework\TestCase
         $commit->addChanges(__DIR__ . '/CommitTest.php', 1, '<?php', 'test');
     }
 
-    public function testMessage() : void
+    /**
+     * @testdox A commit message can be set and returned
+     * @covers phpOMS\Utils\Git\Commit
+     */
+    public function testMessageInputOutput() : void
     {
         $commit = new Commit();
 
@@ -90,7 +145,11 @@ class CommitTest extends \PHPUnit\Framework\TestCase
         self::assertEquals('My Message', $commit->getMessage());
     }
 
-    public function testAuthor() : void
+    /**
+     * @testdox The author can be set and returned
+     * @covers phpOMS\Utils\Git\Commit
+     */
+    public function testAuthorInputOutput() : void
     {
         $commit = new Commit();
 
@@ -98,7 +157,11 @@ class CommitTest extends \PHPUnit\Framework\TestCase
         self::assertEquals('Orange', $commit->getAuthor()->getName());
     }
 
-    public function testBranch() : void
+    /**
+     * @testdox The branch can be set and returned
+     * @covers phpOMS\Utils\Git\Commit
+     */
+    public function testBranchInputOutput() : void
     {
         $commit = new Commit();
 
@@ -106,7 +169,11 @@ class CommitTest extends \PHPUnit\Framework\TestCase
         self::assertEquals('develop', $commit->getBranch()->getName());
     }
 
-    public function testTag() : void
+    /**
+     * @testdox The tag can be set and returned
+     * @covers phpOMS\Utils\Git\Commit
+     */
+    public function testTagInputOutput() : void
     {
         $commit = new Commit();
 
@@ -114,7 +181,11 @@ class CommitTest extends \PHPUnit\Framework\TestCase
         self::assertEquals('1.0.0', $commit->getTag()->getName());
     }
 
-    public function testDate() : void
+    /**
+     * @testdox The date can be set and returned
+     * @covers phpOMS\Utils\Git\Commit
+     */
+    public function testDateInputOutput() : void
     {
         $commit = new Commit();
 
@@ -122,7 +193,11 @@ class CommitTest extends \PHPUnit\Framework\TestCase
         self::assertEquals($date->format('Y-m-d'), $commit->getDate()->format('Y-m-d'));
     }
 
-    public function testRepository() : void
+    /**
+     * @testdox The repository can be set and returned
+     * @covers phpOMS\Utils\Git\Commit
+     */
+    public function testRepositoryInputOutput() : void
     {
         $commit = new Commit();
 

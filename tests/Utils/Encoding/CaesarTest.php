@@ -18,21 +18,21 @@ use phpOMS\Utils\Encoding\Caesar;
 use phpOMS\Utils\RnG\StringUtils;
 
 /**
+ * @testdox phpOMS\tests\Utils\Encoding\CaesarTest: Caesar text encoding/decoding
  * @internal
  */
 class CaesarTest extends \PHPUnit\Framework\TestCase
 {
     /**
+     * @testdox Text can be encoded and decoded with the ceasar encoding
      * @covers phpOMS\Utils\Encoding\Caesar
      */
-    public function testVolume() : void
+    public function testEncoding() : void
     {
-        for ($i = 0; $i < 100; ++$i) {
-            $raw = StringUtils::generateString(1, 100);
-            $key = StringUtils::generateString(1, 100);
+        $raw = StringUtils::generateString(1, 100);
+        $key = StringUtils::generateString(1, 100);
 
-            self::assertNotEquals($raw, Caesar::encode($raw, $key));
-            self::assertEquals($raw, Caesar::decode(Caesar::encode($raw, $key), $key));
-        }
+        self::assertNotEquals($raw, Caesar::encode($raw, $key));
+        self::assertEquals($raw, Caesar::decode(Caesar::encode($raw, $key), $key));
     }
 }

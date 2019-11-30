@@ -19,14 +19,15 @@ use phpOMS\System\SystemUtils;
 require_once __DIR__ . '/../Autoloader.php';
 
 /**
- * @testdox phpOMS\System\SystemUtils: System information
+ * @testdox phpOMS\tests\System\SystemUtilsTest: System information
  *
  * @internal
  */
 class SystemUtilsTest extends \PHPUnit\Framework\TestCase
 {
     /**
-     * @testdox Test if it is possible to get information about the available RAM and usage (on Windows)
+     * @testdox Test if it is possible to get information about the available RAM and usage
+     * @covers phpOMS\System\SystemUtils
      */
     public function testRAM() : void
     {
@@ -43,6 +44,7 @@ class SystemUtilsTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox Test if it is possible to get information about the CPU usage
+     * @covers phpOMS\System\SystemUtils
      */
     public function testCPUUsage() : void
     {

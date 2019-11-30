@@ -215,7 +215,6 @@ class HttpSession implements SessionInterface
      */
     private function destroy() : void
     {
-
         if (\session_status() !== \PHP_SESSION_NONE) {
             \session_destroy();
             $this->sessionData = [];

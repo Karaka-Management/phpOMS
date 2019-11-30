@@ -19,30 +19,18 @@ require_once __DIR__ . '/../Autoloader.php';
 use phpOMS\Uri\Argument;
 
 /**
+ * @testdox phpOMS\tests\Uri\ArgumentTest: Argument uri / uri
+ *
  * @internal
  */
 class ArgumentTest extends \PHPUnit\Framework\TestCase
 {
-    public function testAttributes() : void
-    {
-        $obj = new Argument('');
 
-        /* Testing members */
-        self::assertObjectHasAttribute('rootPath', $obj);
-        self::assertObjectHasAttribute('uri', $obj);
-        self::assertObjectHasAttribute('scheme', $obj);
-        self::assertObjectHasAttribute('host', $obj);
-        self::assertObjectHasAttribute('port', $obj);
-        self::assertObjectHasAttribute('user', $obj);
-        self::assertObjectHasAttribute('pass', $obj);
-        self::assertObjectHasAttribute('path', $obj);
-        self::assertObjectHasAttribute('query', $obj);
-        self::assertObjectHasAttribute('queryString', $obj);
-        self::assertObjectHasAttribute('fragment', $obj);
-        self::assertObjectHasAttribute('base', $obj);
-    }
-
-    public function testHelper() : void
+    /**
+     * @testdox A uri can be validated
+     * @covers phpOMS\Uri\Argument
+     */
+    public function testValidator() : void
     {
         self::assertTrue(Argument::isValid('http://www.google.de'));
         self::assertTrue(Argument::isValid('http://google.de'));
@@ -51,9 +39,13 @@ class ArgumentTest extends \PHPUnit\Framework\TestCase
         self::assertTrue(Argument::isValid('https:/google.de'));
     }
 
-    public function testSetGet() : void
+    /**
+     * @testdox The argument uri has the expected default values after initialization
+     * @covers phpOMS\Uri\Argument
+     */
+    public function testDefault() : void
     {
-        $obj = new Argument($uri = ':modules/admin/test/path.php ?para1=abc ?para2=2 #frag');
+        $obj = new Argument(':modules/admin/test/path.php ?para1=abc ?para2=2 #frag');
 
         self::assertEquals('/', $obj->getRootPath());
         self::assertEquals(0, $obj->getPathOffset());
@@ -62,17 +54,77 @@ class ArgumentTest extends \PHPUnit\Framework\TestCase
         self::assertEquals(0, $obj->getPort());
         self::assertEquals('', $obj->getPass());
         self::assertEquals('', $obj->getUser());
+        self::assertEquals('', $obj->getAuthority());
+        self::assertEquals('', $obj->getUserInfo());
+        self::assertEquals('', $obj->getBase());
+    }
+
+    /**
+     * @testdox The path can be parsed correctly from a uri
+     * @covers phpOMS\Uri\Argument
+     */
+    public function testPathInputOutput() : void
+    {
+        $obj = new Argument(':modules/admin/test/path.php ?para1=abc ?para2=2 #frag');
+
         self::assertEquals('modules/admin/test/path', $obj->getPath());
-        self::assertEquals('modules/admin/test/path ?para1=abc ?para2=2', $obj->getRoute());
         self::assertEquals('modules', $obj->getPathElement(0));
+    }
+
+    /**
+     * @testdox The route can be parsed correctly from a uri
+     * @covers phpOMS\Uri\Argument
+     */
+    public function testRouteInputOutput() : void
+    {
+        $obj = new Argument(':modules/admin/test/path.php ?para1=abc ?para2=2 #frag');
+
+        self::assertEquals('modules/admin/test/path ?para1=abc ?para2=2', $obj->getRoute());
+    }
+
+    /**
+     * @testdox The query data can be parsed correctly from a uri
+     * @covers phpOMS\Uri\Argument
+     */
+    public function testQueryInputOutput() : void
+    {
+        $obj = new Argument(':modules/admin/test/path.php ?para1=abc ?para2=2 #frag');
+
         self::assertEquals('?para1=abc ?para2=2', $obj->getQuery());
         self::assertEquals(['para1' => 'abc', 'para2' => '2'], $obj->getQueryArray());
         self::assertEquals('2', $obj->getQuery('para2'));
+
+    }
+
+    /**
+     * @testdox The fragment can be parsed correctly from a uri
+     * @covers phpOMS\Uri\Argument
+     */
+    public function testFragmentInputOutput() : void
+    {
+        $obj = new Argument(':modules/admin/test/path.php ?para1=abc ?para2=2 #frag');
+
         self::assertEquals('frag', $obj->getFragment());
-        self::assertEquals('', $obj->getBase());
+    }
+
+    /**
+     * @testdox The uri can be turned into a string
+     * @covers phpOMS\Uri\Argument
+     */
+    public function testStringify() : void
+    {
+        $obj = new Argument($uri = ':modules/admin/test/path.php ?para1=abc ?para2=2 #frag');
+
         self::assertEquals($uri, $obj->__toString());
-        self::assertEquals('', $obj->getAuthority());
-        self::assertEquals('', $obj->getUserInfo());
+    }
+
+    /**
+     * @testdox The root path can be set and returned
+     * @covers phpOMS\Uri\Argument
+     */
+    public function testRootPathInputOutput() : void
+    {
+        $obj = new Argument(':modules/admin/test/path.php ?para1=abc ?para2=2 #frag');
 
         $obj->setRootPath('a');
         self::assertEquals('a', $obj->getRootPath());

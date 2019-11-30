@@ -17,71 +17,120 @@ namespace phpOMS\tests\System\File\Local;
 use phpOMS\System\File\Local\Directory;
 
 /**
+ * @testdox phpOMS\tests\System\File\Local\DirectoryTest: Directory handler for local file system
+ *
  * @internal
  */
 class DirectoryTest extends \PHPUnit\Framework\TestCase
 {
+    /**
+     * @testdox A directory can be created
+     * @covers phpOMS\System\File\Local\Directory
+     */
     public function testStaticCreate() : void
     {
         $dirPath = __DIR__ . '/test';
         self::assertTrue(Directory::create($dirPath));
-        self::assertTrue(Directory::exists($dirPath));
         self::assertTrue(\is_dir($dirPath));
 
-        \unlink($dirPath);
+        \rmdir($dirPath);
     }
 
+    /**
+     * @testdox A directory can be checked for existence
+     * @covers phpOMS\System\File\Local\Directory
+     */
     public function testStaticExists() : void
     {
-        $dirPath = __DIR__;
-        self::assertTrue(Directory::exists($dirPath));
+        self::assertTrue(Directory::exists(__DIR__));
+        self::assertFalse(Directory::exists(__DIR__ . '/invalid/path/here'));
     }
 
-    public function testInvalidStaticExists() : void
-    {
-        $dirPath = __DIR__ . '/invalid/path/here';
-        self::assertFalse(Directory::exists($dirPath));
-    }
-
+    /**
+     * @testdox An existing directory cannot be overwritten
+     * @covers phpOMS\System\File\Local\Directory
+     */
     public function testInvalidStaticOverwrite() : void
     {
         $dirPath = __DIR__ . '/test';
         self::assertTrue(Directory::create($dirPath));
         self::assertFalse(Directory::create($dirPath));
 
-        \unlink($dirPath);
+        \rmdir($dirPath);
     }
 
+    /**
+     * @testdox A directory can be forced to be created recursively
+     * @covers phpOMS\System\File\Local\Directory
+     */
     public function testStaticSubdir() : void
     {
         $dirPath = __DIR__ . '/test/sub/path';
         self::assertTrue(Directory::create($dirPath, 0755, true));
         self::assertTrue(Directory::exists($dirPath));
 
-        \unlink($dirPath);
+        \rmdir(__DIR__ . '/test/sub/path');
+        \rmdir(__DIR__ . '/test/sub');
+        \rmdir(__DIR__ . '/test');
     }
 
+    /**
+     * @testdox By default a directory is not created recursively
+     * @covers phpOMS\System\File\Local\Directory
+     */
     public function testInvalidStaticSubdir() : void
     {
-        self::assertFalse(Directory::create(__DIR__ . '/test/sub/path'));
+        self::assertFalse(Directory::create(__DIR__ . '/invalid/path/here'));
     }
 
-    public function testStaticNames() : void
+    /**
+     * @testdox The name of a directory is just its name without its path
+     * @covers phpOMS\System\File\Local\Directory
+     */
+    public function testStaticName() : void
     {
         $dirPath = __DIR__ . '/test';
 
         self::assertEquals('test', Directory::name($dirPath));
+    }
+
+    /**
+     * @testdox The basename is the same as the name of the directory
+     * @covers phpOMS\System\File\Local\Directory
+     */
+    public function testStaticBasename() : void
+    {
+        $dirPath = __DIR__ . '/test';
+
         self::assertEquals('test', Directory::basename($dirPath));
+    }
+
+    /**
+     * @testdox The dirname is the same as the name of the directory
+     * @covers phpOMS\System\File\Local\Directory
+     */
+    public function testStaticDirname() : void
+    {
+        $dirPath = __DIR__ . '/test';
+
         self::assertEquals('test', Directory::dirname($dirPath));
     }
 
+    /**
+     * @testdox The parent of a directory can be returned
+     * @covers phpOMS\System\File\Local\Directory
+     */
     public function testStaticParent() : void
     {
         $dirPath = __DIR__ . '/test';
 
-        self::assertEquals(\str_replace('\\', '/', \realpath($dirPath . '/../')), Directory::parent($dirPath));
+        self::assertEquals(\str_replace('\\', '/', \realpath(__DIR__)), Directory::parent($dirPath));
     }
 
+    /**
+     * @testdox The full absolute path of a directory can be returned
+     * @covers phpOMS\System\File\Local\Directory
+     */
     public function testStaticDirectoryPath() : void
     {
         $dirPath = __DIR__ . '/test';
@@ -89,6 +138,10 @@ class DirectoryTest extends \PHPUnit\Framework\TestCase
         self::assertEquals($dirPath, Directory::dirpath($dirPath));
     }
 
+    /**
+     * @testdox The directories creation date can be returned
+     * @covers phpOMS\System\File\Local\Directory
+     */
     public function testStaticCreatedAt() : void
     {
         $dirPath = __DIR__ . '/test';
@@ -98,9 +151,13 @@ class DirectoryTest extends \PHPUnit\Framework\TestCase
         $now = new \DateTime('now');
         self::assertEquals($now->format('Y-m-d'), Directory::created($dirPath)->format('Y-m-d'));
 
-        \unlink($dirPath);
+        \rmdir($dirPath);
     }
 
+    /**
+     * @testdox The directories last change date can be returned
+     * @covers phpOMS\System\File\Local\Directory
+     */
     public function testStaticChangedAt() : void
     {
         $dirPath = __DIR__ . '/test';
@@ -110,9 +167,13 @@ class DirectoryTest extends \PHPUnit\Framework\TestCase
         $now = new \DateTime('now');
         self::assertEquals($now->format('Y-m-d'), Directory::changed($dirPath)->format('Y-m-d'));
 
-        \unlink($dirPath);
+        \rmdir($dirPath);
     }
 
+    /**
+     * @testdox A directory can be deleted
+     * @covers phpOMS\System\File\Local\Directory
+     */
     public function testStaticDelete() : void
     {
         $dirPath = __DIR__ . '/test';
@@ -122,36 +183,71 @@ class DirectoryTest extends \PHPUnit\Framework\TestCase
         self::assertFalse(Directory::exists($dirPath));
     }
 
+    /**
+     * @testdox A none-existing directory cannot be deleted
+     * @covers phpOMS\System\File\Local\Directory
+     */
+    public function testInvalidStaticDelete() : void
+    {
+        $dirPath = __DIR__ . '/test';
+
+        self::assertFalse(Directory::delete($dirPath));
+    }
+
+    /**
+     * @testdox The size of a directory can be returned
+     * @covers phpOMS\System\File\Local\Directory
+     */
     public function testStaticSizeRecursive() : void
     {
         $dirTestPath = __DIR__ . '/dirtest';
         self::assertGreaterThan(0, Directory::size($dirTestPath));
     }
 
+    /**
+     * @testdox The size of a none-existing directory is negative
+     * @covers phpOMS\System\File\Local\Directory
+     */
     public function testInvalidStaticSizeRecursive() : void
     {
         $dirTestPath = __DIR__ . '/invalid/test/here';
-        self::assertEquals(0, Directory::size($dirTestPath));
+        self::assertEquals(-1, Directory::size($dirTestPath));
     }
 
+    /**
+     * @testdox The recursive size of a directory is equals or greater than the size of the same directory none-recursive
+     * @covers phpOMS\System\File\Local\Directory
+     */
     public function testStaticSize() : void
     {
         $dirTestPath = __DIR__ . '/dirtest';
         self::assertGreaterThan(Directory::size($dirTestPath, false), Directory::size($dirTestPath));
     }
 
+    /**
+     * @testdox The permission of a directory can be returned
+     * @covers phpOMS\System\File\Local\Directory
+     */
     public function testStaticPermission() : void
     {
         $dirTestPath = __DIR__ . '/dirtest';
         self::assertGreaterThan(0, Directory::permission($dirTestPath));
     }
 
+    /**
+     * @testdox The permission of a none-existing directory is negative
+     * @covers phpOMS\System\File\Local\Directory
+     */
     public function testInvalidStaticPermission() : void
     {
         $dirTestPath = __DIR__ . '/invalid/test/here';
-        self::assertEquals(0, Directory::permission($dirTestPath));
+        self::assertEquals(-1, Directory::permission($dirTestPath));
     }
 
+    /**
+     * @testdox A directory can be copied recursively
+     * @covers phpOMS\System\File\Local\Directory
+     */
     public function testStaticCopy() : void
     {
         $dirTestPath = __DIR__ . '/dirtest';
@@ -161,6 +257,10 @@ class DirectoryTest extends \PHPUnit\Framework\TestCase
         Directory::delete(__DIR__ . '/newdirtest');
     }
 
+    /**
+     * @testdox A directory can be moved/renamed to a different path
+     * @covers phpOMS\System\File\Local\Directory
+     */
     public function testStaticMove() : void
     {
         $dirTestPath = __DIR__ . '/dirtest';
@@ -171,51 +271,96 @@ class DirectoryTest extends \PHPUnit\Framework\TestCase
         Directory::move(__DIR__ . '/newdirtest', $dirTestPath);
     }
 
+    /**
+     * @testdox The amount of files in a directory can be returned recursively
+     * @covers phpOMS\System\File\Local\Directory
+     */
     public function testStaticCountRecursive() : void
     {
         $dirTestPath = __DIR__ . '/dirtest';
         self::assertEquals(4, Directory::count($dirTestPath));
     }
 
+    /**
+     * @testdox The amount of files in a directory can be returned none-recursively
+     * @covers phpOMS\System\File\Local\Directory
+     */
     public function testStaticCount() : void
     {
         $dirTestPath = __DIR__ . '/dirtest';
         self::assertEquals(1, Directory::count($dirTestPath, false));
     }
 
+    /**
+     * @testdox The amount of files of a none-existing directory is negative
+     * @covers phpOMS\System\File\Local\Directory
+     */
     public function testInvalidStaticCount() : void
     {
         $dirTestPath = __DIR__ . '/invalid/path/here';
-        self::assertEquals(0, Directory::count($dirTestPath, false));
+        self::assertEquals(-1, Directory::count($dirTestPath, false));
     }
 
+    /**
+     * @testdox All files and sub-directories of a directory can be listed
+     * @covers phpOMS\System\File\Local\Directory
+     */
     public function testStaticListFiles() : void
     {
         $dirTestPath = __DIR__ . '/dirtest';
         self::assertCount(6, Directory::list($dirTestPath));
     }
 
+    /**
+     * @testdox All files of a directory can be listed by file extension
+     * @covers phpOMS\System\File\Local\Directory
+     */
     public function testStaticListFilesByExtension() : void
     {
         $dirTestPath = __DIR__ . '/dirtest';
         self::assertCount(3, Directory::listByExtension($dirTestPath, 'txt'));
     }
 
+    /**
+     * @testdox A none-existing directory returns a empty list of files and sub-directories
+     * @covers phpOMS\System\File\Local\Directory
+     */
     public function testInvalidListPath() : void
     {
-        self::assertEquals([], Directory::list(__DIR__ . '/invalid.txt'));
+        self::assertEquals([], Directory::list(__DIR__ . '/invalid/path/here'));
     }
 
+    /**
+     * @testdox A none-existing directory returns a empty list of files for the extension
+     * @covers phpOMS\System\File\Local\Directory
+     */
+    public function testInvalidListFilesByExtension() : void
+    {
+        self::assertEquals([], Directory::listByExtension(__DIR__ . '/invalid/path/here', 'txt'));
+    }
+
+    /**
+     * @testdox A invalid directory cannot be copied to a new destination
+     * @covers phpOMS\System\File\Local\Directory
+     */
     public function testInvalidCopyPath() : void
     {
         self::assertFalse(Directory::copy(__DIR__ . '/invalid', __DIR__ . '/invalid2'));
     }
 
+    /**
+     * @testdox A invalid directory cannot be moved to a new destination
+     * @covers phpOMS\System\File\Local\Directory
+     */
     public function testInvalidMovePath() : void
     {
         self::assertFalse(Directory::move(__DIR__ . '/invalid', __DIR__ . '/invalid2'));
     }
 
+    /**
+     * @testdox Reading the creation date of a none-existing directory throws a PathException
+     * @covers phpOMS\System\File\Local\Directory
+     */
     public function testInvalidCreatedPath() : void
     {
         self::expectException(\phpOMS\System\File\PathException::class);
@@ -223,6 +368,10 @@ class DirectoryTest extends \PHPUnit\Framework\TestCase
         Directory::created(__DIR__ . '/invalid');
     }
 
+    /**
+     * @testdox Reading the last change date of a none-existing directory throws a PathException
+     * @covers phpOMS\System\File\Local\Directory
+     */
     public function testInvalidChangedPath() : void
     {
         self::expectException(\phpOMS\System\File\PathException::class);
@@ -230,20 +379,10 @@ class DirectoryTest extends \PHPUnit\Framework\TestCase
         Directory::changed(__DIR__ . '/invalid');
     }
 
-    public function testInvalidSizePath() : void
-    {
-        self::expectException(\phpOMS\System\File\PathException::class);
-
-        Directory::size(__DIR__ . '/invalid');
-    }
-
-    public function testInvalidPermissionPath() : void
-    {
-        self::expectException(\phpOMS\System\File\PathException::class);
-
-        Directory::permission(__DIR__ . '/invalid');
-    }
-
+    /**
+     * @testdox Reading the owner of a none-existing directory throws a PathException
+     * @covers phpOMS\System\File\Local\Directory
+     */
     public function testInvalidOwnerPath() : void
     {
         self::expectException(\phpOMS\System\File\PathException::class);

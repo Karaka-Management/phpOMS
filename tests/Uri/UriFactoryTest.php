@@ -20,54 +20,134 @@ use phpOMS\Uri\UriFactory;
 require_once __DIR__ . '/../Autoloader.php';
 
 /**
+ * @testdox phpOMS\tests\Uri\UriFactoryTest: Http uri / url factory
+ *
  * @internal
  */
 class UriFactoryTest extends \PHPUnit\Framework\TestCase
 {
-
+    /**
+     * @testdox The http url factory has the expected default values after initialization
+     * @covers phpOMS\Uri\UriFactory
+     */
     public function testDefault() : void
     {
         self::assertNull(UriFactory::getQuery('Invalid'));
+        self::assertFalse(UriFactory::clear('Valid5'));
     }
 
-    public function testSetGet() : void
+    /**
+     * @testdox Data can be set to the factory and returned
+     * @covers phpOMS\Uri\UriFactory
+     */
+    public function testQueryInputOutput() : void
     {
         self::assertTrue(UriFactory::setQuery('Valid', 'query1'));
         self::assertEquals('query1', UriFactory::getQuery('Valid'));
-
-        self::assertTrue(UriFactory::setQuery('Valid', 'query2', true));
-        self::assertEquals('query2', UriFactory::getQuery('Valid'));
-
-        self::assertFalse(UriFactory::setQuery('Valid', 'query3', false));
-        self::assertEquals('query2', UriFactory::getQuery('Valid'));
-
-        self::assertTrue(UriFactory::setQuery('/valid2', 'query4'));
-        self::assertEquals('query4', UriFactory::getQuery('/valid2'));
     }
 
+    /**
+     * @testdox Data can be forcefully overwritten
+     * @covers phpOMS\Uri\UriFactory
+     */
+    public function testOverwrite() : void
+    {
+        UriFactory::setQuery('Valid2', 'query1');
+        self::assertTrue(UriFactory::setQuery('Valid2', 'query2', true));
+        self::assertEquals('query2', UriFactory::getQuery('Valid2'));
+    }
+
+    /**
+     * @testdox By default data is not overwritten in the factory
+     * @covers phpOMS\Uri\UriFactory
+     */
+    public function testInvalidOverwrite() : void
+    {
+        UriFactory::setQuery('Valid3', 'query1');
+        self::assertFalse(UriFactory::setQuery('Valid3', 'query3'));
+        self::assertEquals('query1', UriFactory::getQuery('Valid3'));
+    }
+
+    /**
+     * @testdox Data can be removed/cleared from the factory
+     * @covers phpOMS\Uri\UriFactory
+     */
     public function testClearing() : void
     {
-        self::assertTrue(UriFactory::clear('Valid'));
-        self::assertFalse(UriFactory::clear('Valid'));
-        self::assertNull(UriFactory::getQuery('Valid'));
-        self::assertEquals('query4', UriFactory::getQuery('/valid2'));
+        UriFactory::setQuery('Valid4', 'query1');
+        self::assertTrue(UriFactory::clear('Valid4'));
+        self::assertNull(UriFactory::getQuery('Valid4'));
+    }
 
+    /**
+     * @testdox None-existing data cannot be cleared from the factory
+     * @covers phpOMS\Uri\UriFactory
+     */
+    public function testInvalidClearing() : void
+    {
+        UriFactory::setQuery('Valid5', 'query1');
+        self::assertTrue(UriFactory::clear('Valid5'));
+        self::assertFalse(UriFactory::clear('Valid5'));
+    }
+
+    /**
+     * @testdox Data can be removed from the factory by category
+     * @covers phpOMS\Uri\UriFactory
+     */
+    public function testClean() : void
+    {
+        UriFactory::setQuery('\Valid6', 'query1');
+        UriFactory::setQuery('\Valid7', 'query2');
+        UriFactory::clean('\\');
+        self::assertNull(UriFactory::getQuery('\Valid6'));
+        self::assertNull(UriFactory::getQuery('\Valid7'));
+    }
+
+    /**
+     * @testdox All data can be removed from the factory with a wildcard
+     * @covers phpOMS\Uri\UriFactory
+     */
+    public function testCleanWildcard() : void
+    {
+        UriFactory::setQuery('\Valid8', 'query1');
+        UriFactory::setQuery('.Valid9', 'query2');
         UriFactory::clean('*');
-        self::assertNull(UriFactory::getQuery('/valid2'));
+        self::assertNull(UriFactory::getQuery('\Valid8'));
+        self::assertNull(UriFactory::getQuery('.Valid9'));
+    }
 
-        self::assertTrue(UriFactory::setQuery('/abc', 'query1'));
-        self::assertTrue(UriFactory::setQuery('/valid2', 'query2'));
-        self::assertTrue(UriFactory::setQuery('/valid3', 'query3'));
-        self::assertFalse(UriFactory::clearLike('\d+'));
-        self::assertTrue(UriFactory::clearLike('\/[a-z]*\d'));
+    /**
+     * @testdox Data can be removed from the factory with regular expression matches
+     * @covers phpOMS\Uri\UriFactory
+     */
+    public function testClearingLike() : void
+    {
+        UriFactory::setQuery('/abc', 'query1');
+        UriFactory::setQuery('/Valid10', 'query2');
+        UriFactory::setQuery('/Valid11', 'query3');
+        self::assertTrue(UriFactory::clearLike('\/[a-zA-Z]*\d+'));
+
         self::assertNull(UriFactory::getQuery('/valid2'));
         self::assertNull(UriFactory::getQuery('/valid3'));
         self::assertEquals('query1', UriFactory::getQuery('/abc'));
-
-        UriFactory::clean('/');
-        self::assertNull(UriFactory::getQuery('/abc'));
     }
 
+    /**
+     * @testdox Data whitch doesn't match the regular expression is not removed
+     * @covers phpOMS\Uri\UriFactory
+     */
+    public function testInvalidClearingLike() : void
+    {
+        UriFactory::setQuery('/def', 'query1');
+        UriFactory::setQuery('/ghi3', 'query2');
+        UriFactory::setQuery('/jkl4', 'query3');
+        self::assertFalse(UriFactory::clearLike('\d+'));
+    }
+
+    /**
+     * @testdox A url can be build with the defined factory data and/or build specific data
+     * @covers phpOMS\Uri\UriFactory
+     */
     public function testBuilder() : void
     {
         $uri = 'www.test-uri.com?id={@ID}&test={.mTest}&two={/path}&hash={#hash}&none=#none&found={/not}?v={/valid2}';
@@ -86,7 +166,11 @@ class UriFactoryTest extends \PHPUnit\Framework\TestCase
         self::assertEquals($expected, UriFactory::build($uri, $vars));
     }
 
-    public function testSetup() : void
+    /**
+     * @testdox The uri factory can be set up with default values from a url and build with these default values
+     * @covers phpOMS\Uri\UriFactory
+     */
+    public function testSetupBuild() : void
     {
         $uri = 'http://www.test-uri.com/path/here?id=123&ab=c#fragi';
 

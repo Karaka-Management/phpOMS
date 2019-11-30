@@ -17,10 +17,16 @@ namespace phpOMS\tests\Utils\Git;
 use phpOMS\Utils\Git\Tag;
 
 /**
+ * @testdox phpOMS\tests\Utils\Git\TagTest: Git tag
+ *
  * @internal
  */
 class TagTest extends \PHPUnit\Framework\TestCase
 {
+    /**
+     * @testdox The tag has the expected default values after initialization
+     * @covers phpOMS\Utils\Git\Repository
+     */
     public function testDefault() : void
     {
         $tag = new Tag();
@@ -28,10 +34,23 @@ class TagTest extends \PHPUnit\Framework\TestCase
         self::assertEquals('', $tag->getName());
     }
 
-    public function testGetSet() : void
+    /**
+     * @testdox The tag name can be set during initialization and returned
+     * @covers phpOMS\Utils\Git\Repository
+     */
+    public function testConstructorInputOutput() : void
     {
         $tag = new Tag('test');
         self::assertEquals('test', $tag->getName());
+    }
+
+    /**
+     * @testdox The message can be set and returned
+     * @covers phpOMS\Utils\Git\Repository
+     */
+    public function testMessageInputOutput() : void
+    {
+        $tag = new Tag('test');
 
         $tag->setMessage('msg');
         self::assertEquals('msg', $tag->getMessage());

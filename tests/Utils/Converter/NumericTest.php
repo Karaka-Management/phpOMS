@@ -17,11 +17,17 @@ namespace phpOMS\tests\Utils\Converter;
 use phpOMS\Utils\Converter\Numeric;
 
 /**
+ * @testdox phpOMS\tests\Utils\Converter\NumericTest: Numeric converter
+ *
  * @internal
  */
 class NumericTest extends \PHPUnit\Framework\TestCase
 {
-    public function testArabicRoman() : void
+    /**
+     * @testdox Arabic numbers can be converted to roman numbers
+     * @covers phpOMS\Utils\Converter\Numeric
+     */
+    public function testArabicToRoman() : void
     {
         $rand = \mt_rand(1, 9999);
         self::assertEquals($rand, Numeric::romanToArabic(Numeric::arabicToRoman($rand)));
@@ -32,17 +38,44 @@ class NumericTest extends \PHPUnit\Framework\TestCase
         self::assertEquals('XI', Numeric::arabicToRoman(11));
     }
 
-    public function testAlphaNumeric() : void
+    /**
+     * @testdox Roman numbers can be converted to arabic numbers
+     * @covers phpOMS\Utils\Converter\Numeric
+     */
+    public function testRomanToArabic() : void
+    {
+        self::assertEquals(8, Numeric::romanToArabic('VIII'));
+        self::assertEquals(9, Numeric::romanToArabic('IX'));
+        self::assertEquals(10, Numeric::romanToArabic('X'));
+        self::assertEquals(11, Numeric::romanToArabic('XI'));
+    }
+
+    /**
+     * @testdox Letters can be converted to numbers
+     * @covers phpOMS\Utils\Converter\Numeric
+     */
+    public function testAlphaToNumeric() : void
     {
         self::assertEquals(0, Numeric::alphaToNumeric('A'));
         self::assertEquals(1, Numeric::alphaToNumeric('B'));
         self::assertEquals(53, Numeric::alphaToNumeric('BB'));
+    }
 
+    /**
+     * @testdox Numbers can be converted to letters
+     * @covers phpOMS\Utils\Converter\Numeric
+     */
+    public function testNumericToAlpha() : void
+    {
         self::assertEquals('A', Numeric::numericToAlpha(0));
         self::assertEquals('B', Numeric::numericToAlpha(1));
         self::assertEquals('BB', Numeric::numericToAlpha(53));
     }
 
+    /**
+     * @testdox Numbers can be converted between bases
+     * @covers phpOMS\Utils\Converter\Numeric
+     */
     public function testBase() : void
     {
         self::assertEquals('443', Numeric::convertBase('123', '0123456789', '01234'));

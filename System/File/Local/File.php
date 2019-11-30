@@ -255,7 +255,7 @@ final class File extends FileAbstract implements LocalContainerInterface, FileIn
     public static function size(string $path, bool $recursive = true) : int
     {
         if (!\file_exists($path)) {
-            return 0;
+            return -1;
         }
 
         return (int) \filesize($path);
@@ -279,7 +279,7 @@ final class File extends FileAbstract implements LocalContainerInterface, FileIn
     public static function permission(string $path) : int
     {
         if (!\file_exists($path)) {
-            throw new PathException($path);
+            return -1;
         }
 
         return (int) \fileperms($path);

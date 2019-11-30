@@ -35,7 +35,11 @@ class DateTimeTest extends \PHPUnit\Framework\TestCase
 
             $rng = DateTime::generateDateTime($dateMin, $dateMax);
 
-            self::assertTrue($rng->getTimestamp() >= $min && $rng->getTimestamp() <= $max);
+            if (!($rng->getTimestamp() >= $min && $rng->getTimestamp() <= $max)) {
+                self::assertTrue(false);
+            }
         }
+
+        self::assertTrue(true);
     }
 }

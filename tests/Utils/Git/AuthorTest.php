@@ -17,10 +17,16 @@ namespace phpOMS\tests\Utils\Git;
 use phpOMS\Utils\Git\Author;
 
 /**
+ * @testdox phpOMS\tests\Utils\Git\AuthorTest: Git author
+ *
  * @internal
  */
 class AuthorTest extends \PHPUnit\Framework\TestCase
 {
+    /**
+     * @testdox The author has the expected default values after initialization
+     * @covers phpOMS\Utils\Git\Author
+     */
     public function testDefault() : void
     {
         $author = new Author();
@@ -31,17 +37,48 @@ class AuthorTest extends \PHPUnit\Framework\TestCase
         self::assertEquals(0, $author->getRemovalCount());
     }
 
-    public function testGetSet() : void
+    /**
+     * @testdox The author name and email can be set during initialization and returned
+     * @covers phpOMS\Utils\Git\Author
+     */
+    public function testConstructInputOutput() : void
     {
         $author = new Author('test', 'email');
         self::assertEquals('test', $author->getName());
         self::assertEquals('email', $author->getEmail());
+    }
+
+    /**
+     * @testdox The commit count can be set and returned
+     * @covers phpOMS\Utils\Git\Author
+     */
+    public function testCommitCountInputOutput() : void
+    {
+        $author = new Author('test', 'email');
 
         $author->setCommitCount(1);
         self::assertEquals(1, $author->getCommitCount());
+    }
+
+    /**
+     * @testdox The addition count can be set and returned
+     * @covers phpOMS\Utils\Git\Author
+     */
+    public function testAdditionCountInputOutput() : void
+    {
+        $author = new Author('test', 'email');
 
         $author->setAdditionCount(2);
         self::assertEquals(2, $author->getAdditionCount());
+    }
+
+    /**
+     * @testdox The removal count can be set and returned
+     * @covers phpOMS\Utils\Git\Author
+     */
+    public function testRemovalCountInputOutput() : void
+    {
+        $author = new Author('test', 'email');
 
         $author->setRemovalCount(3);
         self::assertEquals(3, $author->getRemovalCount());

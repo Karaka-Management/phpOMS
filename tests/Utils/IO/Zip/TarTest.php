@@ -17,6 +17,8 @@ namespace phpOMS\tests\Utils\IO\Tar;
 use phpOMS\Utils\IO\Zip\Tar;
 
 /**
+ * @testdox phpOMS\tests\Utils\IO\Zip\TarTest: Tar archive
+ *
  * @internal
  */
 class TarTest extends \PHPUnit\Framework\TestCase
@@ -30,6 +32,10 @@ class TarTest extends \PHPUnit\Framework\TestCase
         }
     }
 
+    /**
+     * @testdox Data can be tar packed and unpacked
+     * @covers phpOMS\Utils\IO\Zip\Tar
+     */
     public function testTar() : void
     {
         self::assertTrue(Tar::pack(
@@ -42,15 +48,6 @@ class TarTest extends \PHPUnit\Framework\TestCase
         ));
 
         self::assertFileExists(__DIR__ . '/test.tar');
-
-        self::assertFalse(Tar::pack(
-            [
-                __DIR__ . '/test a.txt' => 'test a.txt',
-                __DIR__ . '/test b.txt' => 'test b.txt',
-            ],
-            __DIR__ . '/test.tar',
-            false
-        ));
 
         $a = \file_get_contents(__DIR__ . '/test a.txt');
         $b = \file_get_contents(__DIR__ . '/test b.md');
@@ -65,14 +62,6 @@ class TarTest extends \PHPUnit\Framework\TestCase
         \unlink(__DIR__ . '/test/sub/test e.txt');
         \rmdir(__DIR__ . '/test/sub');
         \rmdir(__DIR__ . '/test');
-
-        self::assertFileNotExists(__DIR__ . '/test a.txt');
-        self::assertFileNotExists(__DIR__ . '/test b.md');
-        self::assertFileNotExists(__DIR__ . '/test/test c.txt');
-        self::assertFileNotExists(__DIR__ . '/test/test d.txt');
-        self::assertFileNotExists(__DIR__ . '/test/sub/test e.txt');
-        self::assertFileNotExists(__DIR__ . '/test/sub');
-        self::assertFileNotExists(__DIR__ . '/test');
 
         self::assertTrue(Tar::unpack(__DIR__ . '/test.tar', __DIR__));
 
@@ -91,7 +80,62 @@ class TarTest extends \PHPUnit\Framework\TestCase
         self::assertEquals($e, \file_get_contents(__DIR__ . '/test/sub/test e.txt'));
 
         \unlink(__DIR__ . '/test.tar');
-        self::assertFileNotExists(__DIR__ . '/test.tar');
+    }
+
+    /**
+     * @testdox A tar archive cannot be overwritten by default
+     * @covers phpOMS\Utils\IO\Zip\Tar
+     */
+    public function testInvalidTar() : void
+    {
+        Tar::pack(
+            [
+                __DIR__ . '/test a.txt' => 'test a.txt',
+                __DIR__ . '/test b.md' => 'test b.md',
+                __DIR__ . '/test' => 'test',
+            ],
+            __DIR__ . '/test2.tar'
+        );
+
+        self::assertFalse(Tar::pack(
+            [
+                __DIR__ . '/test a.txt' => 'test a.txt',
+                __DIR__ . '/test b.md' => 'test b.md',
+                __DIR__ . '/test' => 'test',
+            ],
+            __DIR__ . '/test2.tar'
+        ));
+
+        \unlink(__DIR__ . '/test2.tar');
+    }
+
+    /**
+     * @testdox A none-existing source cannot be unpacked
+     * @covers phpOMS\Utils\IO\Zip\Tar
+     */
+    public function testInvalidUnpackSource() : void
+    {
         self::assertFalse(Tar::unpack(__DIR__ . '/test.tar', __DIR__));
+    }
+
+    /**
+     * @testdox A destination cannot be overwritten
+     * @covers phpOMS\Utils\IO\Zip\Tar
+     */
+    public function testInvalidUnpackDestination() : void
+    {
+        self::assertTrue(Tar::pack(
+            [
+                __DIR__ . '/test a.txt' => 'test a.txt',
+                __DIR__ . '/test b.md' => 'test b.md',
+                __DIR__ . '/test' => 'test',
+            ],
+            __DIR__ . '/test3.tar'
+        ));
+
+        Tar::unpack(__DIR__ . '/abc/test3.tar', __DIR__);
+        self::assertFalse(Tar::unpack(__DIR__ . '/abc/test3.tar', __DIR__));
+
+        \unlink(__DIR__ . '/test3.tar');
     }
 }

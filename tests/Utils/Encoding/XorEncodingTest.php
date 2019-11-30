@@ -18,24 +18,20 @@ use phpOMS\Utils\Encoding\XorEncoding;
 use phpOMS\Utils\RnG\StringUtils;
 
 /**
+ * @testdox phpOMS\tests\Utils\Encoding\XorEncodingTest: XOR text encoding/decoding
+ *
  * @internal
  */
 class XorEncodingTest extends \PHPUnit\Framework\TestCase
 {
+    /**
+     * @testdox Text can be encoded and decoded with the xor encoding
+     * @covers phpOMS\Utils\Encoding\XorEncoding
+     */
     public function testEncoding() : void
     {
         $test = XorEncoding::encode('This is a test.', 'abcd');
         self::assertEquals(\hex2bin('350a0a17410b10440042170112164d'), XorEncoding::encode('This is a test.', 'abcd'));
         self::assertEquals('This is a test.', XorEncoding::decode(\hex2bin('350a0a17410b10440042170112164d'), 'abcd'));
-    }
-
-    public function testVolume() : void
-    {
-        for ($i = 0; $i < 100; ++$i) {
-            $raw = StringUtils::generateString(1, 100);
-            $key = StringUtils::generateString(1, 100);
-
-            self::assertEquals($raw, XorEncoding::decode(XorEncoding::encode($raw, $key), $key));
-        }
     }
 }

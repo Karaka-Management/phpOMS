@@ -92,7 +92,7 @@ final class UriFactory
      *
      * @since 1.0.0
      */
-    public static function setQuery(string $key, string $value, bool $overwrite = true) : bool
+    public static function setQuery(string $key, string $value, bool $overwrite = false) : bool
     {
         if ($overwrite || !isset(self::$uri[$key])) {
             self::$uri[$key] = $value;
