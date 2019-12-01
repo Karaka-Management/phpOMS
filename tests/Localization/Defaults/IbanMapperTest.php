@@ -21,6 +21,8 @@ use phpOMS\DataStorage\Database\DataMapperAbstract;
 use phpOMS\Localization\Defaults\IbanMapper;
 
 /**
+ * @testdox phpOMS\tests\Localization\Defaults\IbanMapperTest: Iban database mapper
+ *
  * @internal
  */
 class IbanMapperTest extends \PHPUnit\Framework\TestCase
@@ -36,6 +38,9 @@ class IbanMapperTest extends \PHPUnit\Framework\TestCase
         DataMapperAbstract::setConnection($con);
     }
 
+    /**
+     * @testdox The model can be read from the database
+     */
     public function testR() : void
     {
         $obj = IbanMapper::get(22);

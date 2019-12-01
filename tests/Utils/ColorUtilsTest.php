@@ -19,13 +19,27 @@ require_once __DIR__ . '/../Autoloader.php';
 use phpOMS\Utils\ColorUtils;
 
 /**
+ * @testdox phpOMS\tests\Utils\ColorUtilsTest: Color utilities
+ *
  * @internal
  */
 class ColorUtilsTest extends \PHPUnit\Framework\TestCase
 {
-    public function testColor() : void
+    /**
+     * @testdox A integer can be converted to rgb
+     * @covers phpOMS\Utils\ColorUtils
+     */
+    public function testIntToRgb() : void
     {
         self::assertEquals(['r' => 0xbc, 'g' => 0x39, 'b' => 0x6c], ColorUtils::intToRgb(12335468));
+    }
+
+    /**
+     * @testdox Rgb can be converted to a integer
+     * @covers phpOMS\Utils\ColorUtils
+     */
+    public function testRgbToInt() : void
+    {
         self::assertEquals(12335468, ColorUtils::rgbToInt(['r' => 0xbc, 'g' => 0x39, 'b' => 0x6c]));
     }
 }

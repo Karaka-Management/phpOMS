@@ -17,10 +17,16 @@ namespace phpOMS\tests\Utils\Parser\Php;
 use phpOMS\Utils\Parser\Php\ArrayParser;
 
 /**
+ * @testdox phpOMS\tests\Utils\Parser\Php\ArrayParserTest: Array data serializer as code
+ *
  * @internal
  */
 class ArrayParserTest extends \PHPUnit\Framework\TestCase
 {
+    /**
+     * @testdox An array can be encoded and decoded as php code
+     * @covers phpOMS\Utils\Parser\Php\ArrayParser
+     */
     public function testParser() : void
     {
         $serializable = new class() implements \Serializable {
@@ -63,6 +69,10 @@ class ArrayParserTest extends \PHPUnit\Framework\TestCase
         self::assertEquals($expected, eval('return '. ArrayParser::serializeArray($array) . ';'));
     }
 
+    /**
+     * @testdox A value can be encoded and decoded into php code
+     * @covers phpOMS\Utils\Parser\Php\ArrayParser
+     */
     public function testInvalidValueType() : void
     {
         self::expectException(\UnexpectedValueException::class);

@@ -17,10 +17,16 @@ namespace phpOMS\tests\Validation\Finance;
 use phpOMS\Validation\Finance\Iban;
 
 /**
+ * @testdox phpOMS\tests\Validation\Finance\IbanTest: Iban validator
+ *
  * @internal
  */
 class IbanTest extends \PHPUnit\Framework\TestCase
 {
+    /**
+     * @testdox A iban can be validated
+     * @covers phpOMS\Validation\Finance\Iban
+     */
     public function testValid() : void
     {
         self::assertTrue(Iban::isValid('DE22 6008 0000 0960 0280 00'));

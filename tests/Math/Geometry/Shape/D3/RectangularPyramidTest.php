@@ -21,10 +21,18 @@ use phpOMS\Math\Geometry\Shape\D3\RectangularPyramid;
  */
 class RectangularPyramidTest extends \PHPUnit\Framework\TestCase
 {
-    public function testCylinder() : void
+    public function testVolume() : void
     {
         self::assertEqualsWithDelta(8, RectangularPyramid::getVolume(2, 3, 4), 0.01);
+    }
+
+    public function testSurface() : void
+    {
         self::assertEqualsWithDelta(26.91, RectangularPyramid::getSurface(2, 3, 4), 0.01);
+    }
+
+    public function testLateralSurface() : void
+    {
         self::assertEqualsWithDelta(20.91, RectangularPyramid::getLateralSurface(2, 3, 4), 0.01);
     }
 }

@@ -31,7 +31,7 @@ class Schedule extends TaskAbstract
      */
     public function __toString() : string
     {
-        return '/tn ' . $this->id . ' ' . $this->interval .  ' ' . $this->command;
+        return $this->interval === '' ? '' : '/tn ' . $this->id . ' ' . $this->interval .  ' ' . $this->command;
     }
 
     /**
@@ -39,7 +39,8 @@ class Schedule extends TaskAbstract
      */
     public static function createWith(array $jobData) : TaskAbstract
     {
-        $job = new self($jobData[1], $jobData[8]);
+        // todo: fix interval this is just a dummy|!!!
+        $job = new self($jobData[1], $jobData[8], 'asdf');
 
         $job->setStatus($jobData[3]);
 
@@ -51,7 +52,7 @@ class Schedule extends TaskAbstract
             $job->setLastRuntime(new \DateTime($jobData[5]));
         }
 
-        $job->setComment($jobData[10]);
+        $job->setComment($jobData[10] ?? '');
 
         return $job;
     }

@@ -102,33 +102,6 @@ abstract class SchedulerAbstract
     }
 
     /**
-     * Test git.
-     *
-     * @return bool
-     *
-     * @since 1.0.0
-     * @codeCoverageIgnore
-     */
-    public static function test() : bool
-    {
-        $pipes    = [];
-        $resource = \proc_open(\escapeshellarg(self::$bin), [1 => ['pipe', 'w'], 2 => ['pipe', 'w']], $pipes);
-
-        if ($resource === false) {
-            return false;
-        }
-
-        $stdout = \stream_get_contents($pipes[1]);
-        $stderr = \stream_get_contents($pipes[2]);
-
-        foreach ($pipes as $pipe) {
-            \fclose($pipe);
-        }
-
-        return \proc_close($resource) !== 127;
-    }
-
-    /**
      * Run command
      *
      * @param string $cmd Command to run

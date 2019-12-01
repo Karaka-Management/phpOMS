@@ -34,6 +34,14 @@ class SystemTypeTest extends \PHPUnit\Framework\TestCase
     /**
      * @coversNothing
      */
+    public function testUnique() : void
+    {
+        self::assertEquals(SystemType::getConstants(), \array_unique(SystemType::getConstants()));
+    }
+
+    /**
+     * @coversNothing
+     */
     public function testEnums() : void
     {
         self::assertEquals(1, SystemType::UNKNOWN);

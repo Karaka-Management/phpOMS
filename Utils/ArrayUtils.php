@@ -223,52 +223,6 @@ final class ArrayUtils
     }
 
     /**
-     * Stringify array.
-     *
-     * @param array $array Array to stringify
-     *
-     * @return string
-     *
-     * @throws \InvalidArgumentException
-     *
-     * @since 1.0.0
-     */
-    public static function stringify(array $array) : string
-    {
-        $str = '[';
-
-        foreach ($array as $key => $value) {
-            if (\is_string($key)) {
-                $key = '\'' . $key . '\'';
-            }
-
-            switch (\gettype($value)) {
-                case 'array':
-                    $str .= $key . ' => ' . self::stringify($value) . ', ';
-                    break;
-                case 'integer':
-                case 'double':
-                case 'float':
-                    $str .= $key . ' => ' . $value . ', ';
-                    break;
-                case 'string':
-                    $str .= $key . ' => \'' . $value . '\', ';
-                    break;
-                case 'boolean':
-                    $str .= $key . ' => ' . ($value ? 'true' : 'false') . ', ';
-                    break;
-                case 'NULL':
-                    $str .= $key . ' => null, ';
-                    break;
-                default:
-                    throw new \InvalidArgumentException('Unknown default type');
-            }
-        }
-
-        return $str . ']';
-    }
-
-    /**
      * Convert array to csv string.
      *
      * @param array  $data      Data to convert
@@ -328,10 +282,10 @@ final class ArrayUtils
      *
      * @since 1.0.0
      */
-    public static function hasArg(string $id, array $args) : ?int
+    public static function hasArg(string $id, array $args) : int
     {
         if (($key = \array_search($id, $args)) === false) {
-            return null;
+            return -1;
         }
 
         return (int) $key;

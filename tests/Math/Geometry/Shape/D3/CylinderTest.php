@@ -21,10 +21,18 @@ use phpOMS\Math\Geometry\Shape\D3\Cylinder;
  */
 class CylinderTest extends \PHPUnit\Framework\TestCase
 {
-    public function testCylinder() : void
+    public function testVolume() : void
     {
         self::assertEqualsWithDelta(37.7, Cylinder::getVolume(2, 3), 0.01);
+    }
+
+    public function testSurface() : void
+    {
         self::assertEqualsWithDelta(62.83, Cylinder::getSurface(2, 3), 0.01);
+    }
+
+    public function testLateralSurface() : void
+    {
         self::assertEqualsWithDelta(37.7, Cylinder::getLateralSurface(2, 3), 0.01);
     }
 }

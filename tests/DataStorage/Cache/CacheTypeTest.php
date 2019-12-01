@@ -32,6 +32,14 @@ class CacheTypeTest extends \PHPUnit\Framework\TestCase
     /**
      * @coversNothing
      */
+    public function testUnique() : void
+    {
+        self::assertEquals(CacheType::getConstants(), \array_unique(CacheType::getConstants()));
+    }
+
+    /**
+     * @coversNothing
+     */
     public function testEnums() : void
     {
         self::assertEquals('file', CacheType::FILE);

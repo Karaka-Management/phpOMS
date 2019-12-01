@@ -32,6 +32,14 @@ class FileSizeTypeTest extends \PHPUnit\Framework\TestCase
     /**
      * @coversNothing
      */
+    public function testUnique() : void
+    {
+        self::assertEquals(FileSizeType::getConstants(), \array_unique(FileSizeType::getConstants()));
+    }
+
+    /**
+     * @coversNothing
+     */
     public function testEnums() : void
     {
         self::assertEquals('TB', FileSizeType::TERRABYTE);

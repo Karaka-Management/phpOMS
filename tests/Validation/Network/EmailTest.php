@@ -17,10 +17,16 @@ namespace phpOMS\tests\Validation\Network;
 use phpOMS\Validation\Network\Email;
 
 /**
+ * @testdox phpOMS\tests\Validation\Network\EmailTest: Email validator
+ *
  * @internal
  */
 class EmailTest extends \PHPUnit\Framework\TestCase
 {
+    /**
+     * @testdox A email can be validated
+     * @covers phpOMS\Validation\Network\Email
+     */
     public function testValidation() : void
     {
         self::assertTrue(Email::isValid('test.string@email.com'));

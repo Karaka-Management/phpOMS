@@ -17,10 +17,16 @@ namespace phpOMS\tests\Utils\RnG;
 use phpOMS\Utils\RnG\DateTime;
 
 /**
+ * @testdox phpOMS\tests\Utils\RnG\DateTimeTest: Date time randomizer
+ *
  * @internal
  */
 class DateTimeTest extends \PHPUnit\Framework\TestCase
 {
+    /**
+     * @testdox A random date time can be generated
+     * @covers phpOMS\Utils\RnG\ArrayRandomize
+     */
     public function testRnG() : void
     {
         for ($i = 0; $i < 100; ++$i) {

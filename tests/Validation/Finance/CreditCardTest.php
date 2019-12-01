@@ -17,10 +17,16 @@ namespace phpOMS\tests\Validation\Finance;
 use phpOMS\Validation\Finance\CreditCard;
 
 /**
+ * @testdox phpOMS\tests\Validation\Finance\CreditCardTest: Credit card validator
+ *
  * @internal
  */
 class CreditCardTest extends \PHPUnit\Framework\TestCase
 {
+    /**
+     * @testdox A credit card can be validated
+     * @covers phpOMS\Validation\Finance\CreditCard
+     */
     public function testCreditCard() : void
     {
         self::assertTrue(CreditCard::isValid('4242424242424242'));
@@ -31,6 +37,10 @@ class CreditCardTest extends \PHPUnit\Framework\TestCase
         self::assertFalse(CreditCard::luhnTest('4242424242424241'));
     }
 
+    /**
+     * @testdox A invalid type cannot be validated
+     * @covers phpOMS\Validation\Finance\CreditCard
+     */
     public function testInvalidCreditCardType() : void
     {
         self::assertFalse(CreditCard::isValid(12347));

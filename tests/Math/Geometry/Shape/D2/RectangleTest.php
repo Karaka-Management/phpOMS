@@ -21,10 +21,18 @@ use phpOMS\Math\Geometry\Shape\D2\Rectangle;
  */
 class RectangleTest extends \PHPUnit\Framework\TestCase
 {
-    public function testRectanle() : void
+    public function testSurface() : void
     {
         self::assertEqualsWithDelta(10, Rectangle::getSurface(5, 2), 0.001);
+    }
+
+    public function testPerimeter() : void
+    {
         self::assertEqualsWithDelta(10, Rectangle::getPerimeter(2, 3), 0.001);
+    }
+
+    public function testDiagonal() : void
+    {
         self::assertEqualsWithDelta(32.7, Rectangle::getDiagonal(30, 13), 0.01);
     }
 }

@@ -42,7 +42,7 @@ class PolygonTest extends \PHPUnit\Framework\TestCase
         self::assertEquals(-1, Polygon::isPointInPolygon(['x' => 1.8, 'y' => 1.1], $polyArray));
     }
 
-    public function testAngle() : void
+    public function testInteriorAngle() : void
     {
         $polygon = new Polygon([[1, 2], [2, 3], [3, 4]]);
         self::assertEquals(180, $polygon->getInteriorAngleSum());
@@ -61,7 +61,11 @@ class PolygonTest extends \PHPUnit\Framework\TestCase
 
         $polygon = new Polygon([[1, 2], [2, 3], [3, 4], [4, 5], [5, 6], [6, 7], [7, 8], [8, 9]]);
         self::assertEquals(1080, $polygon->getInteriorAngleSum());
+    }
 
+    public function testExteriorAngle() : void
+    {
+        $polygon = new Polygon([[1, 2], [2, 3], [3, 4]]);
         self::assertEquals(360, $polygon->getExteriorAngleSum());
     }
 
@@ -110,9 +114,13 @@ class PolygonTest extends \PHPUnit\Framework\TestCase
         self::assertEqualsWithDelta(['x' => 3.5, 'y' => 1.5], $polygon->getBarycenter(), 0.5);
     }
 
-    public function testRegularArea()
+    public function testRegularAreaByLength()
     {
         self::assertEqualsWithDelta(3 * 3, Polygon::getRegularAreaByLength(3.0, 4), 0.01);
+    }
+
+    public function testRegularAreaByRadius()
+    {
         self::assertEqualsWithDelta(3 * 3 , Polygon::getRegularAreaByRadius(1.5, 4), 0.01);
     }
 }

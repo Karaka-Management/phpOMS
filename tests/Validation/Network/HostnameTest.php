@@ -17,10 +17,16 @@ namespace phpOMS\tests\Validation\Network;
 use phpOMS\Validation\Network\Hostname;
 
 /**
+ * @testdox phpOMS\tests\Validation\Network\HostnameTest: Hostname validator
+ *
  * @internal
  */
 class HostnameTest extends \PHPUnit\Framework\TestCase
 {
+    /**
+     * @testdox A hostname can be validated
+     * @covers phpOMS\Validation\Network\Hostname
+     */
     public function testHostname() : void
     {
         self::assertTrue(Hostname::isValid('test.com'));

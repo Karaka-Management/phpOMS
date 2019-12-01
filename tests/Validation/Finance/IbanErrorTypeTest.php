@@ -32,6 +32,14 @@ class IbanErrorTypeTest extends \PHPUnit\Framework\TestCase
     /**
      * @coversNothing
      */
+    public function testUnique() : void
+    {
+        self::assertEquals(IbanErrorType::getConstants(), \array_unique(IbanErrorType::getConstants()));
+    }
+
+    /**
+     * @coversNothing
+     */
     public function testEnums() : void
     {
         self::assertEquals(1, IbanErrorType::INVALID_COUNTRY);

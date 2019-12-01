@@ -17,11 +17,15 @@ namespace phpOMS\tests\Utils\RnG;
 use phpOMS\Utils\RnG\StringUtils;
 
 /**
+ * @testdox phpOMS\tests\Utils\RnG\StringUtilsTest: Random string generator
+ *
  * @internal
  */
 class StringUtilsTest extends \PHPUnit\Framework\TestCase
 {
     /**
+     * @testdox Random strings can be generated
+     * @covers phpOMS\Utils\RnG\StringUtils
      * @slowThreshold 1500
      */
     public function testStrings() : void

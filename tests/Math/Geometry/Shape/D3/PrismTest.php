@@ -21,9 +21,13 @@ use phpOMS\Math\Geometry\Shape\D3\Prism;
  */
 class PrismTest extends \PHPUnit\Framework\TestCase
 {
-    public function testVolume() : void
+    public function testVolumeByLength() : void
     {
         self::assertEqualsWithDelta(3 * 3 * 12, Prism::getVolumeRegularLength(3, 4, 12), 0.01);
+    }
+
+    public function testVolumeByRadius() : void
+    {
         self::assertEqualsWithDelta(3 * 3 * 12, Prism::getVolumeRegularRadius(1.5, 4, 12), 0.01);
     }
 

@@ -25,7 +25,10 @@ class FunctionsTest extends \PHPUnit\Framework\TestCase
     {
         self::assertEquals(120, Functions::fact(5));
         self::assertEquals(39916800, Functions::fact(11));
+    }
 
+    public function testBinomialCoefficient() : void
+    {
         self::assertEquals(21, Functions::binomialCoefficient(7, 2));
         self::assertEquals(6, Functions::binomialCoefficient(4, 2));
         self::assertEquals(13983816, Functions::binomialCoefficient(49, 6));
@@ -46,13 +49,16 @@ class FunctionsTest extends \PHPUnit\Framework\TestCase
         self::assertEquals(5, Functions::invMod(-10, 17));
     }
 
-    public function testProperties() : void
+    public function testOdd() : void
     {
         self::assertTrue(Functions::isOdd(3));
         self::assertTrue(Functions::isOdd(-3));
         self::assertFalse(Functions::isOdd(4));
         self::assertFalse(Functions::isOdd(-4));
+    }
 
+    public function testEven() : void
+    {
         self::assertTrue(Functions::isEven(4));
         self::assertTrue(Functions::isEven(-4));
         self::assertFalse(Functions::isEven(3));

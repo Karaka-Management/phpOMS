@@ -19,10 +19,15 @@ require_once __DIR__ . '/../../Autoloader.php';
 use phpOMS\Localization\Defaults\City;
 
 /**
+ * @testdox phpOMS\tests\Localization\Defaults\CityTest: City database model
+ *
  * @internal
  */
 class CityTest extends \PHPUnit\Framework\TestCase
 {
+    /**
+     * @testdox The model has the expected member variables and default values
+     */
     public function testDefaults() : void
     {
         $obj = new City();

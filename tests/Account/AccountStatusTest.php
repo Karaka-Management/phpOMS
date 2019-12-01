@@ -34,6 +34,14 @@ class AccountStatusTest extends \PHPUnit\Framework\TestCase
     /**
      * @coversNothing
      */
+    public function testUnique() : void
+    {
+        self::assertEquals(AccountStatus::getConstants(), \array_unique(AccountStatus::getConstants()));
+    }
+
+    /**
+     * @coversNothing
+     */
     public function testEnums() : void
     {
         self::assertEquals(1, AccountStatus::ACTIVE);

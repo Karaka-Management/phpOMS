@@ -19,10 +19,16 @@ use phpOMS\Version\Version;
 require_once __DIR__ . '/../Autoloader.php';
 
 /**
+ * @testdox phpOMS\tests\Version\VersionTest: Version handler
+ *
  * @internal
  */
 class VersionTest extends \PHPUnit\Framework\TestCase
 {
+    /**
+     * @testdox Versions can be compared with each other
+     * @covers phpOMS\Version\Version
+     */
     public function testVersionCompare() : void
     {
         $version1 = '1.23.456';

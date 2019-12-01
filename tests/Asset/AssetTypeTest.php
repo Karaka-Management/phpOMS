@@ -34,6 +34,14 @@ class AssetTypeTest extends \PHPUnit\Framework\TestCase
     /**
      * @coversNothing
      */
+    public function testUnique() : void
+    {
+        self::assertEquals(AssetType::getConstants(), \array_unique(AssetType::getConstants()));
+    }
+
+    /**
+     * @coversNothing
+     */
     public function testEnums() : void
     {
         self::assertEquals(0, AssetType::CSS);

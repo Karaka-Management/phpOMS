@@ -17,10 +17,16 @@ namespace phpOMS\tests\Utils\TaskSchedule;
 use phpOMS\Utils\TaskSchedule\Interval;
 
 /**
+ * @testdox phpOMS\tests\Utils\TaskSchedule\IntervalTest: Cron interval
+ *
  * @internal
  */
 class IntervalTest extends \PHPUnit\Framework\TestCase
 {
+    /**
+     * @testdox The interval has the expected default values after initialization
+     * @covers phpOMS\Utils\TaskSchedule\Interval
+     */
     public function testDefault() : void
     {
         $dt = new \DateTime('now');
@@ -48,20 +54,59 @@ class IntervalTest extends \PHPUnit\Framework\TestCase
         );
     }
 
-    public function testSetGet() : void
+    /**
+     * @testdox The start date can be set during initialization and returned
+     * @covers phpOMS\Utils\TaskSchedule\Interval
+     */
+    public function testConstructorInputOutput() : void
+    {
+        $interval = new Interval(new \DateTime('2001-11-25'));
+        self::assertEquals('2001-11-25', $interval->getStart()->format('Y-m-d'));
+    }
+
+    /**
+     * @testdox The start date can set and returned
+     * @covers phpOMS\Utils\TaskSchedule\Interval
+     */
+    public function testStartInputOutput() : void
     {
         $interval = new Interval(new \DateTime('2001-11-25'));
 
-        self::assertEquals('2001-11-25', $interval->getStart()->format('Y-m-d'));
-
         $interval->setStart(new \DateTime('2015-08-14'));
         self::assertEquals('2015-08-14', $interval->getStart()->format('Y-m-d'));
+    }
+
+    /**
+     * @testdox The end date can set and returned
+     * @covers phpOMS\Utils\TaskSchedule\Interval
+     */
+    public function testEndInputOutput() : void
+    {
+        $interval = new Interval(new \DateTime('2001-11-25'));
 
         $interval->setEnd(new \DateTime('2018-10-30'));
         self::assertEquals('2018-10-30', $interval->getEnd()->format('Y-m-d'));
+    }
+
+    /**
+     * @testdox The maximum execution duration can set and returned
+     * @covers phpOMS\Utils\TaskSchedule\Interval
+     */
+    public function testMaxExecutionInputOutput() : void
+    {
+        $interval = new Interval(new \DateTime('2001-11-25'));
 
         $interval->setMaxDuration(30);
         self::assertEquals(30, $interval->getMaxDuration());
+    }
+
+    /**
+     * @testdox An execution minute can be added and returned
+     * @covers phpOMS\Utils\TaskSchedule\Interval
+     */
+    public function testMinuteInputOutput() : void
+    {
+        $interval = new Interval(new \DateTime('2001-11-25'));
 
         $interval->addMinute(1, 3, 2);
         self::assertEquals([[
@@ -69,12 +114,32 @@ class IntervalTest extends \PHPUnit\Framework\TestCase
             'end'   => 3,
             'step'  => 2,
         ]], $interval->getMinute());
+    }
+
+    /**
+     * @testdox An execution minute can be overwritten
+     * @covers phpOMS\Utils\TaskSchedule\Interval
+     */
+    public function testMinuteOverwriteInputOutput() : void
+    {
+        $interval = new Interval(new \DateTime('2001-11-25'));
+
+        $interval->addMinute(1, 3, 2);
         $interval->setMinute(0, 4, 5, 6);
         self::assertEquals([[
             'start' => 4,
             'end'   => 5,
             'step'  => 6,
         ]], $interval->getMinute());
+    }
+
+    /**
+     * @testdox An execution hour can be added and returned
+     * @covers phpOMS\Utils\TaskSchedule\Interval
+     */
+    public function testHourInputOutput() : void
+    {
+        $interval = new Interval(new \DateTime('2001-11-25'));
 
         $interval->addHour(1, 3, 2);
         self::assertEquals([[
@@ -82,12 +147,32 @@ class IntervalTest extends \PHPUnit\Framework\TestCase
             'end'   => 3,
             'step'  => 2,
         ]], $interval->getHour());
+    }
+
+    /**
+     * @testdox An execution hour can be overwritten
+     * @covers phpOMS\Utils\TaskSchedule\Interval
+     */
+    public function testHourOverwriteInputOutput() : void
+    {
+        $interval = new Interval(new \DateTime('2001-11-25'));
+
+        $interval->addHour(1, 3, 2);
         $interval->setHour(0, 4, 5, 6);
         self::assertEquals([[
             'start' => 4,
             'end'   => 5,
             'step'  => 6,
         ]], $interval->getHour());
+    }
+
+    /**
+     * @testdox An execution year can be added and returned
+     * @covers phpOMS\Utils\TaskSchedule\Interval
+     */
+    public function testYearInputOutput() : void
+    {
+        $interval = new Interval(new \DateTime('2001-11-25'));
 
         $interval->addYear(1, 3, 2);
         self::assertEquals([[
@@ -95,12 +180,32 @@ class IntervalTest extends \PHPUnit\Framework\TestCase
             'end'   => 3,
             'step'  => 2,
         ]], $interval->getYear());
+    }
+
+    /**
+     * @testdox An execution year can be overwritten
+     * @covers phpOMS\Utils\TaskSchedule\Interval
+     */
+    public function testYearOverwriteInputOutput() : void
+    {
+        $interval = new Interval(new \DateTime('2001-11-25'));
+
+        $interval->addYear(1, 3, 2);
         $interval->setYear(0, 4, 5, 6);
         self::assertEquals([[
             'start' => 4,
             'end'   => 5,
             'step'  => 6,
         ]], $interval->getYear());
+    }
+
+    /**
+     * @testdox An execution day of month can be added and returned
+     * @covers phpOMS\Utils\TaskSchedule\Interval
+     */
+    public function testDayOfMonthInputOutput() : void
+    {
+        $interval = new Interval(new \DateTime('2001-11-25'));
 
         $interval->addDayOfMonth(1, 3, 2);
         self::assertEquals([[
@@ -108,12 +213,32 @@ class IntervalTest extends \PHPUnit\Framework\TestCase
             'end'   => 3,
             'step'  => 2,
         ]], $interval->getDayOfMonth());
+    }
+
+    /**
+     * @testdox An execution day of month can be overwritten
+     * @covers phpOMS\Utils\TaskSchedule\Interval
+     */
+    public function testDayOfMonthOverwriteInputOutput() : void
+    {
+        $interval = new Interval(new \DateTime('2001-11-25'));
+
+        $interval->addDayOfMonth(1, 3, 2);
         $interval->setDayOfMonth(0, 4, 5, 6);
         self::assertEquals([[
             'start' => 4,
             'end'   => 5,
             'step'  => 6,
         ]], $interval->getDayOfMonth());
+    }
+
+    /**
+     * @testdox An execution day of week can be added and returned
+     * @covers phpOMS\Utils\TaskSchedule\Interval
+     */
+    public function testDayOfWeekInputOutput() : void
+    {
+        $interval = new Interval(new \DateTime('2001-11-25'));
 
         $interval->addDayOfWeek(1, 3, 2);
         self::assertEquals([[
@@ -121,6 +246,17 @@ class IntervalTest extends \PHPUnit\Framework\TestCase
             'end'   => 3,
             'step'  => 2,
         ]], $interval->getDayOfWeek());
+    }
+
+    /**
+     * @testdox An execution day of week can be overwritten
+     * @covers phpOMS\Utils\TaskSchedule\Interval
+     */
+    public function testDayOfWeekOverwriteInputOutput() : void
+    {
+        $interval = new Interval(new \DateTime('2001-11-25'));
+
+        $interval->addDayOfWeek(1, 3, 2);
         $interval->setDayOfWeek(0, 4, 5, 6);
         self::assertEquals([[
             'start' => 4,
@@ -129,6 +265,10 @@ class IntervalTest extends \PHPUnit\Framework\TestCase
         ]], $interval->getDayOfWeek());
     }
 
+    /**
+     * @testdox A interval can be serialized
+     * @covers phpOMS\Utils\TaskSchedule\Interval
+     */
     public function testSerialize() : void
     {
         $interval = new Interval(new \DateTime('2001-11-25'));
@@ -154,6 +294,10 @@ class IntervalTest extends \PHPUnit\Framework\TestCase
         ]), $interval->serialize());
     }
 
+    /**
+     * @testdox A serialized interval can be unserialized
+     * @covers phpOMS\Utils\TaskSchedule\Interval
+     */
     public function testUnserialize() : void
     {
         $interval = new Interval();

@@ -17,12 +17,27 @@ namespace phpOMS\tests\Utils\TaskSchedule;
 use phpOMS\Utils\TaskSchedule\SchedulerAbstract;
 
 /**
+ * @testdox phpOMS\tests\Utils\TaskSchedule\SchedulerAbstractTest: Scheduler abstraction
+ *
  * @internal
  */
 class SchedulerAbstractTest extends \PHPUnit\Framework\TestCase
 {
+    /**
+     * @testdox The scheduler has the expected default values after initialization
+     * @covers phpOMS\Utils\TaskSchedule\SchedulerAbstract
+     */
     public function testDefault() : void
     {
         self::assertTrue(SchedulerAbstract::getBin() === '' || \file_exists(SchedulerAbstract::getBin()));
+    }
+
+    /**
+     * @testdox The scheduler brinary location path can be guessed
+     * @covers phpOMS\Utils\TaskSchedule\SchedulerAbstract
+     */
+    public function testGuessBinary() : void
+    {
+        self::assertTrue(SchedulerAbstract::guessBin());
     }
 }

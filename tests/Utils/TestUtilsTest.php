@@ -19,10 +19,16 @@ require_once __DIR__ . '/../Autoloader.php';
 use phpOMS\Utils\TestUtils;
 
 /**
+ * @testdox phpOMS\tests\Utils\TestUtilsTest: Test utilities
+ *
  * @internal
  */
 class TestUtilsTest extends \PHPUnit\Framework\TestCase
 {
+    /**
+     * @testdox A member value can be returned
+     * @covers phpOMS\Utils\TestUtils
+     */
     public function testGet() : void
     {
         $class = new TestUtilsClass();
@@ -31,11 +37,24 @@ class TestUtilsTest extends \PHPUnit\Framework\TestCase
         self::assertEquals(2, TestUtils::getMember($class, 'b'));
         self::assertEquals(3, TestUtils::getMember($class, 'c'));
         self::assertEquals('4', TestUtils::getMember($class, 'd'));
+    }
+
+    /**
+     * @testdox Invalid member variable returns null
+     * @covers phpOMS\Utils\TestUtils
+     */
+    public function testInvalidGet() : void
+    {
+        $class = new TestUtilsClass();
 
         self::assertNull(TestUtils::getMember($class, 'e'));
     }
 
-    public function testSet() : void
+    /**
+     * @testdox A member value can be set and returned
+     * @covers phpOMS\Utils\TestUtils
+     */
+    public function testInputOutput() : void
     {
         $class = new TestUtilsClass();
 
@@ -48,6 +67,15 @@ class TestUtilsTest extends \PHPUnit\Framework\TestCase
         self::assertEquals(5, TestUtils::getMember($class, 'b'));
         self::assertEquals(6, TestUtils::getMember($class, 'c'));
         self::assertEquals('7', TestUtils::getMember($class, 'd'));
+    }
+
+    /**
+     * @testdox A none-existing member variable cannot be set
+     * @covers phpOMS\Utils\TestUtils
+     */
+    public function testInputInputOutput() : void
+    {
+        $class = new TestUtilsClass();
 
         self::assertFalse(TestUtils::setMember($class, 'e', 8));
     }

@@ -21,6 +21,8 @@ use phpOMS\DataStorage\Database\DataMapperAbstract;
 use phpOMS\Localization\Defaults\CurrencyMapper;
 
 /**
+ * @testdox phpOMS\tests\Localization\Defaults\CurrencyMapperTest: Currency database mapper
+ *
  * @internal
  */
 class CurrencyMapperTest extends \PHPUnit\Framework\TestCase
@@ -36,6 +38,9 @@ class CurrencyMapperTest extends \PHPUnit\Framework\TestCase
         DataMapperAbstract::setConnection($con);
     }
 
+    /**
+     * @testdox The model can be read from the database
+     */
     public function testR() : void
     {
         $obj = CurrencyMapper::get(50);

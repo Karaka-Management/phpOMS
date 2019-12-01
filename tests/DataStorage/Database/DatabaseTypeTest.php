@@ -32,6 +32,14 @@ class DatabaseTypeTest extends \PHPUnit\Framework\TestCase
     /**
      * @coversNothing
      */
+    public function testUnique() : void
+    {
+        self::assertEquals(DatabaseType::getConstants(), \array_unique(DatabaseType::getConstants()));
+    }
+
+    /**
+     * @coversNothing
+     */
     public function testEnums() : void
     {
         self::assertEquals('mysql', DatabaseType::MYSQL);

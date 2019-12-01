@@ -17,10 +17,16 @@ namespace phpOMS\tests\Utils\RnG;
 use phpOMS\Utils\RnG\Phone;
 
 /**
+ * @testdox phpOMS\tests\Utils\RnG\PhoneTest: Random phone number generator
+ *
  * @internal
  */
 class PhoneTest extends \PHPUnit\Framework\TestCase
 {
+    /**
+     * @testdox Random phone numbers can be generated
+     * @covers phpOMS\Utils\RnG\Phone
+     */
     public function testRnG() : void
     {
         self::assertRegExp('/^\+\d{1,2} \(\d{3,4}\) \d{3,5}\-\d{3,8}$/', Phone::generatePhone());

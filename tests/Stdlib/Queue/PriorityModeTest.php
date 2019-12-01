@@ -32,6 +32,14 @@ class PriorityModeTest extends \PHPUnit\Framework\TestCase
     /**
      * @coversNothing
      */
+    public function testUnique() : void
+    {
+        self::assertEquals(PriorityMode::getConstants(), \array_unique(PriorityMode::getConstants()));
+    }
+
+    /**
+     * @coversNothing
+     */
     public function testEnums() : void
     {
         self::assertEquals(1, PriorityMode::FIFO);

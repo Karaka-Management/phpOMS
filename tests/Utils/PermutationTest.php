@@ -19,10 +19,16 @@ use phpOMS\Utils\Permutation;
 require_once __DIR__ . '/../Autoloader.php';
 
 /**
+ * @testdox phpOMS\tests\Utils\PermutationTest: Permutation utilities
+ *
  * @internal
  */
 class PermutationTest extends \PHPUnit\Framework\TestCase
 {
+    /**
+     * @testdox An array can be permuted
+     * @covers phpOMS\Utils\Permutation
+     */
     public function testPermute() : void
     {
         $arr           = ['a', 'b', 'c'];
@@ -33,12 +39,20 @@ class PermutationTest extends \PHPUnit\Framework\TestCase
         self::assertEquals($permutations2, Permutation::permut($arr, [], false));
     }
 
+    /**
+     * @testdox Two string can be checked if they are a permutation of each other
+     * @covers phpOMS\Utils\Permutation
+     */
     public function testIsPermutation() : void
     {
         self::assertTrue(Permutation::isPermutation('abc', 'bca'));
         self::assertFalse(Permutation::isPermutation('abc', 'bda'));
     }
 
+    /**
+     * @testdox A string can be checked if it is a palindrome
+     * @covers phpOMS\Utils\Permutation
+     */
     public function testIsPalindrome() : void
     {
         self::assertTrue(Permutation::isPalindrome('abba'));
@@ -46,11 +60,19 @@ class PermutationTest extends \PHPUnit\Framework\TestCase
         self::assertFalse(Permutation::isPalindrome('abb1a'));
     }
 
+    /**
+     * @testdox An array can be permutated with a permutation key
+     * @covers phpOMS\Utils\Permutation
+     */
     public function testPermutate() : void
     {
         self::assertEquals(['c', 'b', 'a'], Permutation::permutate(['a', 'b', 'c'], [2, 1, 1]));
     }
 
+    /**
+     * @testdox A invalid permutation type throws a InvalidArgumentException
+     * @covers phpOMS\Utils\Permutation
+     */
     public function testWrongPermuteParameterType() : void
     {
         self::expectException(\InvalidArgumentException::class);
@@ -58,6 +80,10 @@ class PermutationTest extends \PHPUnit\Framework\TestCase
         Permutation::permutate(4, [2, 1, 1]);
     }
 
+    /**
+     * @testdox A none-existing permutation keye throws a OutOfBoundsException
+     * @covers phpOMS\Utils\Permutation
+     */
     public function testWrongPermuteKeyLength() : void
     {
         self::expectException(\OutOfBoundsException::class);

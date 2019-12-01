@@ -21,12 +21,23 @@ use phpOMS\Math\Geometry\Shape\D2\Trapezoid;
  */
 class TrapezoidTest extends \PHPUnit\Framework\TestCase
 {
-    public function testTrapezoid() : void
+    public function testSurface() : void
     {
         self::assertEqualsWithDelta(10, Trapezoid::getSurface(2, 3, 4), 0.001);
-        self::assertEqualsWithDelta(14, Trapezoid::getPerimeter(2, 3, 4, 5), 0.001);
-        self::assertEqualsWithDelta(4, Trapezoid::getHeight(10, 2, 3), 0.001);
+    }
 
+    public function testPerimeter() : void
+    {
+        self::assertEqualsWithDelta(14, Trapezoid::getPerimeter(2, 3, 4, 5), 0.001);
+    }
+
+    public function testHeight() : void
+    {
+        self::assertEqualsWithDelta(4, Trapezoid::getHeight(10, 2, 3), 0.001);
+    }
+
+    public function testSideLength() : void
+    {
         self::assertEqualsWithDelta(2, Trapezoid::getA(10, 4, 3), 0.001);
         self::assertEqualsWithDelta(3, Trapezoid::getB(10, 4, 2), 0.001);
         self::assertEqualsWithDelta(4, Trapezoid::getC(14, 2, 3, 5), 0.001);

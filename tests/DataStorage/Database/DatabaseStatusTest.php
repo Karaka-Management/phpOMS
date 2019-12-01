@@ -32,6 +32,14 @@ class DatabaseStatusTest extends \PHPUnit\Framework\TestCase
     /**
      * @coversNothing
      */
+    public function testUnique() : void
+    {
+        self::assertEquals(DatabaseStatus::getConstants(), \array_unique(DatabaseStatus::getConstants()));
+    }
+
+    /**
+     * @coversNothing
+     */
     public function testEnums() : void
     {
         self::assertEquals(0, DatabaseStatus::OK);

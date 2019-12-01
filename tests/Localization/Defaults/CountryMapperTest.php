@@ -21,6 +21,8 @@ use phpOMS\DataStorage\Database\DataMapperAbstract;
 use phpOMS\Localization\Defaults\CountryMapper;
 
 /**
+ * @testdox phpOMS\tests\Localization\Defaults\CountryMapperTest: Country database mapper
+ *
  * @internal
  */
 class CountryMapperTest extends \PHPUnit\Framework\TestCase
@@ -36,6 +38,9 @@ class CountryMapperTest extends \PHPUnit\Framework\TestCase
         DataMapperAbstract::setConnection($con);
     }
 
+    /**
+     * @testdox The model can be read from the database
+     */
     public function testR() : void
     {
         $obj = CountryMapper::get(83);

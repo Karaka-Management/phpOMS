@@ -31,7 +31,7 @@ require_once __DIR__ . '/../Autoloader.php';
  */
 class DispatcherTest extends \PHPUnit\Framework\TestCase
 {
-    protected $app = null;
+    protected ApplicationAbstract $app;
 
     protected function setUp() : void
     {

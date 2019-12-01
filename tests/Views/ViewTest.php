@@ -27,13 +27,15 @@ use phpOMS\Views\View;
 use phpOMS\Views\ViewAbstract;
 
 /**
+ * @testdox phpOMS\tests\Views\ViewTest: View for response rendering
+ *
  * @internal
  */
 class ViewTest extends \PHPUnit\Framework\TestCase
 {
-    protected $dbPool = null;
+    protected DatabasePool $dbPool;
 
-    protected $app = null;
+    protected ApplicationAbstract $app;
 
     protected function setUp() : void
     {
@@ -50,6 +52,10 @@ class ViewTest extends \PHPUnit\Framework\TestCase
         $this->app->dbPool      = $this->dbPool;
     }
 
+    /**
+     * @testdox The view has the expected default values after initialization
+     * @covers phpOMS\Views\View<extended>
+     */
     public function testDefault() : void
     {
         $view = new View($this->app, new Request(new Http('')), new Response(new Localization()));
@@ -64,6 +70,10 @@ class ViewTest extends \PHPUnit\Framework\TestCase
         self::assertEmpty($view->toArray());
     }
 
+    /**
+     * @testdox The view can output text from the localization manager
+     * @covers phpOMS\Views\View<extended>
+     */
     public function testGetText() : void
     {
         $view = new View($this->app, $request = new Request(new Http('')), $response = new Response());
@@ -81,49 +91,205 @@ class ViewTest extends \PHPUnit\Framework\TestCase
         $this->app->l11nManager->loadLanguage('en', 'Admin', $expected['en']);
 
         self::assertEquals('<a href="test">Test</a>', $view->getText('Test'));
+    }
+
+    /**
+     * @testdox The view can output html escaped text from the localization manager
+     * @covers phpOMS\Views\View<extended>
+     */
+    public function testGetHtml() : void
+    {
+        $view = new View($this->app, $request = new Request(new Http('')), $response = new Response());
+        $view->setTemplate('/Modules/Admin/Theme/Backend/accounts-list');
+
+        $expected = [
+            'en' => [
+                'Admin' => [
+                    'Test' => '<a href="test">Test</a>',
+                ],
+            ],
+        ];
+
+        $this->app->l11nManager = new L11nManager('Api');
+        $this->app->l11nManager->loadLanguage('en', 'Admin', $expected['en']);
+
         self::assertEquals('&lt;a href=&quot;test&quot;&gt;Test&lt;/a&gt;', $view->getHtml('Test'));
     }
 
-    public function testGetSet() : void
+    /**
+     * @testdox View data can be set and returned
+     * @covers phpOMS\Views\View<extended>
+     */
+    public function testDataInputOutput() : void
     {
         $view = new View($this->app, $request = new Request(new Http('')), $response = new Response());
 
         $view->setData('key', 'value');
         self::assertEquals('value', $view->getData('key'));
+    }
+
+    /**
+     * @testdox View data can be added and returned
+     * @covers phpOMS\Views\View<extended>
+     */
+    public function testDataAdd() : void
+    {
+        $view = new View($this->app, $request = new Request(new Http('')), $response = new Response());
 
         self::assertTrue($view->addData('key2', 'valu2'));
+        self::assertEquals('valu2', $view->getData('key2'));
+    }
+
+    /**
+     * @testdox View data cannot be added if it already exists
+     * @covers phpOMS\Views\View<extended>
+     */
+    public function testInvalidDataOverwrite() : void
+    {
+        $view = new View($this->app, $request = new Request(new Http('')), $response = new Response());
+
+        $view->addData('key2', 'valu2');
         self::assertFalse($view->addData('key2', 'valu3'));
         self::assertEquals('valu2', $view->getData('key2'));
+    }
 
+    /**
+     * @testdox View data can be removed
+     * @covers phpOMS\Views\View<extended>
+     */
+    public function testRemove() : void
+    {
+        $view = new View($this->app, $request = new Request(new Http('')), $response = new Response());
+
+        $view->addData('key2', 'valu2');
         self::assertTrue($view->removeData('key2'));
+    }
+
+    /**
+     * @testdox None-existing view data cannot be removed
+     * @covers phpOMS\Views\View<extended>
+     */
+    public function testInvalidDataRemove() : void
+    {
+        $view = new View($this->app, $request = new Request(new Http('')), $response = new Response());
+
         self::assertFalse($view->removeData('key3'));
+    }
+
+    /**
+     * @testdox The request can be returned
+     * @covers phpOMS\Views\View<extended>
+     */
+    public function testGetRequest() : void
+    {
+        $view = new View($this->app, $request = new Request(new Http('')), $response = new Response());
 
         self::assertEquals($request, $view->getRequest());
         self::assertEquals($response, $view->getResponse());
+    }
+
+    /**
+     * @testdox The response can be returned
+     * @covers phpOMS\Views\View<extended>
+     */
+    public function testGetResponse() : void
+    {
+        $view = new View($this->app, $request = new Request(new Http('')), $response = new Response());
+
+        self::assertEquals($response, $view->getResponse());
+    }
+
+    /**
+     * @testdox Text can be html escaped
+     * @covers phpOMS\Views\View<extended>
+     */
+    public function testPrintHtml() : void
+    {
+        $view = new View($this->app, $request = new Request(new Http('')), $response = new Response());
 
         self::assertEquals('&lt;a href=&quot;test&quot;&gt;Test&lt;/a&gt;', $view->printHtml('<a href="test">Test</a>'));
         self::assertEquals('&lt;a href=&quot;test&quot;&gt;Test&lt;/a&gt;', ViewAbstract::html('<a href="test">Test</a>'));
+    }
+
+    /**
+     * @testdox Views can be added and returned from a view
+     * @covers phpOMS\Views\View<extended>
+     */
+    public function testViewInputOutput() : void
+    {
+        $view = new View($this->app, $request = new Request(new Http('')), $response = new Response());
 
         $tView = new View($this->app, $request, $response);
         self::assertTrue($view->addView('test', $tView));
         self::assertEquals($tView, $view->getView('test'));
         self::assertCount(1, $view->getViews());
-        self::assertTrue($view->removeView('test'));
-        self::assertFalse($view->removeView('test'));
-        self::assertFalse($view->getView('test'));
     }
 
+    /**
+     * @testdox None-existing views cannot be returned
+     * @covers phpOMS\Views\View<extended>
+     */
+    public function testInvalidViewGet() : void
+    {
+        $view = new View($this->app, $request = new Request(new Http('')), $response = new Response());
+
+        self::assertEquals(false, $view->getView('test'));
+    }
+
+    /**
+     * @testdox Views can be removed
+     * @covers phpOMS\Views\View<extended>
+     */
+    public function testViewRemove() : void
+    {
+        $view = new View($this->app, $request = new Request(new Http('')), $response = new Response());
+
+        $tView = new View($this->app, $request, $response);
+        $view->addView('test', $tView);
+        self::assertTrue($view->removeView('test'));
+    }
+
+    /**
+     * @testdox None-existing views cannot be removed
+     * @covers phpOMS\Views\View<extended>
+     */
+    public function testInvalidViewRemove() : void
+    {
+        $view = new View($this->app, $request = new Request(new Http('')), $response = new Response());
+
+        self::assertFalse($view->removeView('test'));
+    }
+
+    /**
+     * @testdox A view can be forcefully overwritten
+     * @covers phpOMS\Views\View<extended>
+     */
     public function testOverwritingView() : void
     {
         $view  = new View();
         $tView = new View();
 
-        self::assertTrue($view->addView('test', $tView));
+        $view->addView('test', $tView);
         self::assertTrue($view->addView('test', $tView, true));
-        self::assertFalse($view->addView('test', $tView));
-        self::assertFalse($view->addView('test', $tView, false));
     }
 
+    /**
+     * @testdox By default a view is not overwritten
+     * @covers phpOMS\Views\View<extended>
+     */
+    public function testInvalidOverwritingView() : void
+    {
+        $view  = new View();
+        $tView = new View();
+
+        $view->addView('test', $tView);
+        self::assertFalse($view->addView('test', $tView));
+    }
+
+    /**
+     * @testdox A view template can be rendered
+     * @covers phpOMS\Views\View<extended>
+     */
     public function testRender() : void
     {
         $view = new View();
@@ -132,6 +298,10 @@ class ViewTest extends \PHPUnit\Framework\TestCase
         self::assertEquals('<strong>Test</strong>', $view->render());
     }
 
+    /**
+     * @testdox A view template can be serialized
+     * @covers phpOMS\Views\View<extended>
+     */
     public function testSerialize() : void
     {
         $view = new View();
@@ -141,6 +311,10 @@ class ViewTest extends \PHPUnit\Framework\TestCase
         self::assertEquals('<strong>Test</strong>', $view->serialize());
     }
 
+    /**
+     * @testdox A view can be turned into an array containing the rendered templates
+     * @covers phpOMS\Views\View<extended>
+     */
     public function testArray() : void
     {
         $view = new View();
@@ -160,6 +334,10 @@ class ViewTest extends \PHPUnit\Framework\TestCase
         );
     }
 
+    /**
+     * @testdox Rendering a invalid template throws a PathException
+     * @covers phpOMS\Views\View<extended>
+     */
     public function testRenderException() : void
     {
         self::expectException(\phpOMS\System\File\PathException::class);
@@ -170,6 +348,10 @@ class ViewTest extends \PHPUnit\Framework\TestCase
         $view->render();
     }
 
+    /**
+     * @testdox Serializing a invalid template throws a PathException
+     * @covers phpOMS\Views\View<extended>
+     */
     public function testSerializeException() : void
     {
         self::expectException(\phpOMS\System\File\PathException::class);

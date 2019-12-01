@@ -21,6 +21,8 @@ use phpOMS\DataStorage\Database\DataMapperAbstract;
 use phpOMS\Localization\Defaults\LanguageMapper;
 
 /**
+ * @testdox phpOMS\tests\Localization\Defaults\LanguageMapperTest: Language database mapper
+ *
  * @internal
  */
 class LanguageMapperTest extends \PHPUnit\Framework\TestCase
@@ -36,6 +38,9 @@ class LanguageMapperTest extends \PHPUnit\Framework\TestCase
         DataMapperAbstract::setConnection($con);
     }
 
+    /**
+     * @testdox The model can be read from the database
+     */
     public function testR() : void
     {
         $obj = LanguageMapper::get(53);

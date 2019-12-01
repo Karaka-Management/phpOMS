@@ -19,12 +19,18 @@ use phpOMS\Utils\TaskSchedule\Schedule;
 use phpOMS\Utils\TaskSchedule\TaskFactory;
 
 /**
+ * @testdox phpOMS\tests\Utils\TaskSchedule\TaskFactoryTest: Task factory for creating cron jobs/tasks
+ *
  * @internal
  */
 class TaskFactoryTest extends \PHPUnit\Framework\TestCase
 {
+    /**
+     * @testdox The correct task is crated depending on the operating system
+     * @covers phpOMS\Utils\TaskSchedule\TaskFactory
+     */
     public function testFactory() : void
     {
-        self::assertTrue((TaskFactory::create('') instanceof CronJob) || (TaskFactory::create('') instanceof Schedule));
+        self::assertTrue((TaskFactory::create() instanceof CronJob) || (TaskFactory::create() instanceof Schedule));
     }
 }

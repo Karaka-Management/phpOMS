@@ -21,6 +21,8 @@ use phpOMS\DataStorage\Database\DataMapperAbstract;
 use phpOMS\Localization\Defaults\CityMapper;
 
 /**
+ * @testdox phpOMS\tests\Localization\Defaults\CityMapperTest: City database mapper
+ *
  * @internal
  */
 class CityMapperTest extends \PHPUnit\Framework\TestCase
@@ -36,6 +38,9 @@ class CityMapperTest extends \PHPUnit\Framework\TestCase
         DataMapperAbstract::setConnection($con);
     }
 
+    /**
+     * @testdox The model can be read from the database
+     */
     public function testR() : void
     {
         $obj = CityMapper::get(101079);

@@ -32,6 +32,14 @@ class RelationTypeTest extends \PHPUnit\Framework\TestCase
     /**
      * @coversNothing
      */
+    public function testUnique() : void
+    {
+        self::assertEquals(RelationType::getConstants(), \array_unique(RelationType::getConstants()));
+    }
+
+    /**
+     * @coversNothing
+     */
     public function testEnums() : void
     {
         self::assertEquals(1, RelationType::NONE);

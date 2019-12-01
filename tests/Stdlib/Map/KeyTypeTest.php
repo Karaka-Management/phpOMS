@@ -32,6 +32,14 @@ class KeyTypeTest extends \PHPUnit\Framework\TestCase
     /**
      * @coversNothing
      */
+    public function testUnique() : void
+    {
+        self::assertEquals(KeyType::getConstants(), \array_unique(KeyType::getConstants()));
+    }
+
+    /**
+     * @coversNothing
+     */
     public function testEnums() : void
     {
         self::assertEquals(0, KeyType::SINGLE);

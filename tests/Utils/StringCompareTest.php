@@ -19,13 +19,17 @@ require_once __DIR__ . '/../Autoloader.php';
 use phpOMS\Utils\StringCompare;
 
 /**
+ * @testdox phpOMS\tests\Utils\StringCompareTest: String comparison / dictionary
+ *
  * @internal
  */
 class StringCompareTest extends \PHPUnit\Framework\TestCase
 {
-    public function testDictionary() : void
+    private StringCompare $dict;
+
+    protected function setUp() : void
     {
-        $dict = new StringCompare(
+        $this->dict = new StringCompare(
             [
                 'Table Airplane Snowflake',
                 'Football Pancake Doghouse Bathtub',
@@ -43,14 +47,34 @@ class StringCompareTest extends \PHPUnit\Framework\TestCase
                 'Zebra Apple Magnet Sidewal',
             ]
         );
+    }
 
-        self::assertEquals('Cartoon', $dict->matchDictionary('Cartoon'));
-        self::assertEquals('Bathtub Sidewalk Table', $dict->matchDictionary('Sidewalk Table'));
+    /**
+     * @testdox A string can be matched with a dictionary entry
+     * @covers phpOMS\Utils\StringCompare
+     */
+    public function testDictionaryMatch() : void
+    {
+        self::assertEquals('Cartoon', $this->dict->matchDictionary('Carton'));
+        self::assertEquals('Bathtub Sidewalk Table', $this->dict->matchDictionary('Sidewalk Table'));
+    }
 
-        // too far apart
-        self::assertNotEquals('Snowflake Bathtub Snowflake Toothbrush Sidewalk', $dict->matchDictionary('Toothbrush'));
+    /**
+     * @testdox A string doesn't match a dictionary entry if it is very different
+     * @covers phpOMS\Utils\StringCompare
+     */
+    public function testInvalidDictionary() : void
+    {
+        self::assertNotEquals('Snowflake Bathtub Snowflake Toothbrush Sidewalk', $this->dict->matchDictionary('Toothbrush'));
+    }
 
-        $dict->add('Carton');
-        self::assertEquals('Carton', $dict->matchDictionary('carton'));
+    /**
+     * @testdox A new dictionary entry can be created and returned
+     * @covers phpOMS\Utils\StringCompare
+     */
+    public function testDictionaryAdd() : void
+    {
+        $this->dict->add('Carton');
+        self::assertEquals('Carton', $this->dict->matchDictionary('carton'));
     }
 }

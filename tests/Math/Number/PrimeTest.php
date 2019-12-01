@@ -50,4 +50,11 @@ class PrimeTest extends \PHPUnit\Framework\TestCase
         self::assertTrue(Prime::isMersenne(Prime::mersenne(4)));
         self::assertFalse(Prime::isMersenne(2046));
     }
+
+    public function testIsMersenne() : void
+    {
+        self::assertTrue(Prime::isMersenne(Prime::mersenne(2)));
+        self::assertTrue(Prime::isMersenne(Prime::mersenne(4)));
+        self::assertFalse(Prime::isMersenne(2046));
+    }
 }

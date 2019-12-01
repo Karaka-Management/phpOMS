@@ -21,10 +21,18 @@ use phpOMS\Math\Geometry\Shape\D3\Tetrahedron;
  */
 class TetrahedronTest extends \PHPUnit\Framework\TestCase
 {
-    public function testTetrahedron() : void
+    public function testVolume() : void
     {
         self::assertEqualsWithDelta(3.18, Tetrahedron::getVolume(3), 0.01);
+    }
+
+    public function testSurface() : void
+    {
         self::assertEqualsWithDelta(15.59, Tetrahedron::getSurface(3), 0.01);
+    }
+
+    public function testFaceArea() : void
+    {
         self::assertEqualsWithDelta(3.9, Tetrahedron::getFaceArea(3), 0.01);
     }
 }

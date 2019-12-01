@@ -34,6 +34,14 @@ class GroupStatusTest extends \PHPUnit\Framework\TestCase
     /**
      * @coversNothing
      */
+    public function testUnique() : void
+    {
+        self::assertEquals(GroupStatus::getConstants(), \array_unique(GroupStatus::getConstants()));
+    }
+
+    /**
+     * @coversNothing
+     */
     public function testEnums() : void
     {
         self::assertEquals(1, GroupStatus::ACTIVE);

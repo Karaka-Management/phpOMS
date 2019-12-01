@@ -19,11 +19,17 @@ use phpOMS\Utils\ArrayUtils;
 require_once __DIR__ . '/../Autoloader.php';
 
 /**
+ * @testdox phpOMS\tests\Utils\ArrayUtilsTest: Array utilities
+ *
  * @internal
  */
 class ArrayUtilsTest extends \PHPUnit\Framework\TestCase
 {
-    public function testArrayGetSet() : void
+    /**
+     * @testdox Array values can be set and returned with a path
+     * @covers phpOMS\Utils\ArrayUtils
+     */
+    public function testArrayInputOutput() : void
     {
         $expected = [
             'a' => [
@@ -54,6 +60,10 @@ class ArrayUtilsTest extends \PHPUnit\Framework\TestCase
         self::assertEquals('ab0', ArrayUtils::getArray('a/ab/1', $expected));
     }
 
+    /**
+     * @testdox Test recursively if a value is in an array
+     * @covers phpOMS\Utils\ArrayUtils
+     */
     public function testArrayInRecursive() : void
     {
         $expected = [
@@ -71,10 +81,13 @@ class ArrayUtilsTest extends \PHPUnit\Framework\TestCase
         self::assertTrue(ArrayUtils::inArrayRecursive('2a', $expected));
         self::assertTrue(ArrayUtils::inArrayRecursive('2a', $expected, 2));
         self::assertFalse(ArrayUtils::inArrayRecursive('2a', $expected, 3));
-        self::assertFalse(ArrayUtils::inArrayRecursive('aba', ArrayUtils::unsetArray('a/ab', $expected, '/')));
     }
 
-    public function testArrayConversion() : void
+    /**
+     * @testdox An array element can be removed by its path
+     * @covers phpOMS\Utils\ArrayUtils
+     */
+    public function testArrayDelete() : void
     {
         $expected = [
             'a' => [
@@ -85,24 +98,36 @@ class ArrayUtilsTest extends \PHPUnit\Framework\TestCase
                 ],
             ],
             2 => '2a',
-            3 => false,
-            'c' => null,
         ];
 
-        $expected_str = "['a' => ['aa' => 1, 'ab' => [0 => 'aba', 1 => 'ab0', ], ], 2 => '2a', 3 => false, 'c' => null, ]";
-
-        self::assertEquals($expected_str, ArrayUtils::stringify($expected));
-        self::assertEquals('2;3;1;"""Text;"' . "\n", ArrayUtils::arrayToCsv(['a' => 2, 3, 1, '"Text;'], ';', '"', '\\'));
+        self::assertFalse(ArrayUtils::inArrayRecursive('aba', ArrayUtils::unsetArray('a/ab', $expected, '/')));
     }
 
-    public function testArrayRecursiveManipulation() : void
+    /**
+     * @testdox The recursive sum of all values in an array can be calculated
+     * @covers phpOMS\Utils\ArrayUtils
+     */
+    public function testArrayRecursiveSum() : void
+    {
+        $numArrRec = [1, [2, [3, 4]]];
+        self::assertEquals(10, ArrayUtils::arraySumRecursive($numArrRec));
+    }
+
+    /**
+     * @testdox A multi-dimensional array can be flatten to a one-dimensional array
+     * @covers phpOMS\Utils\ArrayUtils
+     */
+    public function testArrayFlatten() : void
     {
         $numArr    = [1, 2, 3, 4];
         $numArrRec = [1, [2, [3, 4]]];
-        self::assertEquals(10, ArrayUtils::arraySumRecursive($numArrRec));
         self::assertEquals($numArr, ArrayUtils::arrayFlatten($numArrRec));
     }
 
+    /**
+     * @testdox The sum of an array can be calculated
+     * @covers phpOMS\Utils\ArrayUtils
+     */
     public function testArraySum() : void
     {
         $numArr = [1, 2, 3, 4];
@@ -111,6 +136,10 @@ class ArrayUtilsTest extends \PHPUnit\Framework\TestCase
         self::assertEquals(5, ArrayUtils::arraySum($numArr, 1, 2));
     }
 
+    /**
+     * @testdox An array can be checked if it contains multiple defined elements
+     * @covers phpOMS\Utils\ArrayUtils
+     */
     public function testArrayAllIn() : void
     {
         $numArr = [1, 2, 3, 4];
@@ -120,6 +149,10 @@ class ArrayUtilsTest extends \PHPUnit\Framework\TestCase
         self::assertFalse(ArrayUtils::allInArray([1, 5, 3], $numArr));
     }
 
+    /**
+     * @testdox An array can be checked if it contains any of the defined elements
+     * @covers phpOMS\Utils\ArrayUtils
+     */
     public function testArrayAnyIn() : void
     {
         $numArr = [1, 2, 3, 4];
@@ -127,38 +160,81 @@ class ArrayUtilsTest extends \PHPUnit\Framework\TestCase
         self::assertFalse(ArrayUtils::anyInArray($numArr, [10, 22]));
     }
 
-    public function testArg() : void
+    /**
+     * @testdox An array can be checked if it has an element and returns its index
+     * @covers phpOMS\Utils\ArrayUtils
+     */
+    public function testArgHas() : void
     {
-        self::assertNull(ArrayUtils::hasArg('--testNull', $_SERVER['argv']));
-        self::assertNull(ArrayUtils::getArg('--testNull', $_SERVER['argv']));
-
         if (ArrayUtils::getArg('--configuration', $_SERVER['argv']) !== null) {
             self::assertGreaterThan(0, ArrayUtils::hasArg('--configuration', $_SERVER['argv']));
+        }
+    }
+
+    /**
+     * @testdox A none-existing argument in an array returns a negative value
+     * @covers phpOMS\Utils\ArrayUtils
+     */
+    public function testInvalidArgHas() : void
+    {
+        self::assertEquals(-1, ArrayUtils::hasArg('--testNull', $_SERVER['argv']));
+    }
+
+    /**
+     * @testdox The argument value in an array can be returned
+     * @covers phpOMS\Utils\ArrayUtils
+     */
+    public function testArgGet() : void
+    {
+        if (ArrayUtils::getArg('--configuration', $_SERVER['argv']) !== null) {
             self::assertTrue(\stripos(ArrayUtils::getArg('--configuration', $_SERVER['argv']), '.xml') !== false);
         }
     }
 
-    public function testInvalidArrayStringify() : void
+    /**
+     * @testdox A none-existing argument in an array returns null
+     * @covers phpOMS\Utils\ArrayUtils
+     */
+    public function testInvalidArgGet() : void
     {
-        self::expectException(\InvalidArgumentException::class);
-
-        ArrayUtils::stringify([new class() {}]);
+        self::assertNull(ArrayUtils::getArg('--testNull', $_SERVER['argv']));
     }
 
-    public function testPower() : void
+    /**
+     * @testdox All array values in an array can be exponentiated by an integer
+     * @covers phpOMS\Utils\ArrayUtils
+     */
+    public function testPowerInt() : void
     {
         self::assertEquals([4, 9, 16], ArrayUtils::powerInt([2, 3, 4], 2));
         self::assertEquals([8, 27, 64], ArrayUtils::powerInt([2, 3, 4], 3));
+    }
 
+    /**
+     * @testdox All array values in an array can be exponentiated by a float
+     * @covers phpOMS\Utils\ArrayUtils
+     *
+     * @todo combine with int as soon as union types exist
+     */
+    public function testPowerFloat() : void
+    {
         self::assertEqualsWithDelta([2.0, 3.0, 4.0], ArrayUtils::powerFloat([4, 9, 16], 1 / 2), 0.0);
         self::assertEqualsWithDelta([2.0, 3.0, 4.0], ArrayUtils::powerFloat([8, 27, 64], 1 / 3), 0.0);
     }
 
+    /**
+     * @testdox All array values in an array can be square rooted
+     * @covers phpOMS\Utils\ArrayUtils
+     */
     public function testSqrt() : void
     {
         self::assertEqualsWithDelta([2, 3, 4], ArrayUtils::sqrt([4, 9, 16]), 0.01);
     }
 
+    /**
+     * @testdox All array values in an array can be turned into their absolute value
+     * @covers phpOMS\Utils\ArrayUtils
+     */
     public function testAbs() : void
     {
         self::assertEquals([1, 3, 4], ArrayUtils::abs([-1, 3, -4]));

@@ -17,10 +17,16 @@ namespace phpOMS\tests\Utils\RnG;
 use phpOMS\Utils\RnG\File;
 
 /**
+ * @testdox phpOMS\tests\Utils\RnG\FileTest: File extension randomizer
+ *
  * @internal
  */
 class FileTest extends \PHPUnit\Framework\TestCase
 {
+    /**
+     * @testdox A random file extension can be generated
+     * @covers phpOMS\Utils\RnG\File
+     */
     public function testRnGExtension() : void
     {
         self::assertRegExp('/^[a-z0-9]{1,5}$/', File::generateExtension());

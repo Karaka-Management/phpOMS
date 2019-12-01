@@ -32,6 +32,14 @@ class PhoneTypeTest extends \PHPUnit\Framework\TestCase
     /**
      * @coversNothing
      */
+    public function testUnique() : void
+    {
+        self::assertEquals(PhoneType::getConstants(), \array_unique(PhoneType::getConstants()));
+    }
+
+    /**
+     * @coversNothing
+     */
     public function testEnums() : void
     {
         self::assertEquals(1, PhoneType::HOME);

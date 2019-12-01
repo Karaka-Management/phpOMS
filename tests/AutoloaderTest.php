@@ -17,10 +17,16 @@ namespace phpOMS\tests;
 use phpOMS\Autoloader;
 
 /**
+ * @testdox phpOMS\tests\AutoloaderTest: Class autoloader
+ *
  * @internal
  */
 class AutoloaderTest extends \PHPUnit\Framework\TestCase
 {
+    /**
+     * @testdox Classes can be checked for existence
+     * @covers phpOMS\Autoloader
+     */
     public function testAutoloader() : void
     {
         self::assertTrue(Autoloader::exists('\phpOMS\Autoloader'));

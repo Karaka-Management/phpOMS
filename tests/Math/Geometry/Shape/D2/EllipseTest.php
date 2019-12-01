@@ -21,9 +21,13 @@ use phpOMS\Math\Geometry\Shape\D2\Ellipse;
  */
 class EllipseTest extends \PHPUnit\Framework\TestCase
 {
-    public function testEllipse() : void
+    public function testSurface() : void
     {
         self::assertEqualsWithDelta(6.28, Ellipse::getSurface(2, 1), 0.01);
+    }
+
+    public function testPerimeter() : void
+    {
         self::assertEqualsWithDelta(9.69, Ellipse::getPerimeter(2, 1), 0.01);
     }
 }

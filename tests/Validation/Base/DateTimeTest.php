@@ -14,13 +14,21 @@ declare(strict_types=1);
 
 namespace phpOMS\tests\Validation\Base;
 
+require_once __DIR__ . '/../../Autoloader.php';
+
 use phpOMS\Validation\Base\DateTime;
 
 /**
+ * @testdox phpOMS\tests\Validation\Base\DateTimeTest: Datetime validator
+ *
  * @internal
  */
 class DateTimeTest extends \PHPUnit\Framework\TestCase
 {
+    /**
+     * @testdox A date time string can be validated
+     * @covers phpOMS\Validation\Base\DateTime
+     */
     public function testDateTime() : void
     {
         self::assertTrue(DateTime::isValid('now'));

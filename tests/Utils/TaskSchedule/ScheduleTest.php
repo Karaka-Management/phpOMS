@@ -17,12 +17,31 @@ namespace phpOMS\tests\Utils\TaskSchedule;
 use phpOMS\Utils\TaskSchedule\Schedule;
 
 /**
+ * @testdox phpOMS\tests\Utils\TaskSchedule\ScheduleTest: Schedule/task
+ *
  * @internal
  */
 class ScheduleTest extends \PHPUnit\Framework\TestCase
 {
+    /**
+     * @testdox The task has the expected default values after initialization
+     * @covers phpOMS\Utils\TaskSchedule\Schedule
+     */
     public function testDefault() : void
     {
-        self::assertInstanceOf('\phpOMS\Utils\TaskSchedule\TaskAbstract', new Schedule(''));
+        $job = new Schedule('');
+        self::assertEquals('', $job->__toString());
+        self::assertInstanceOf('\phpOMS\Utils\TaskSchedule\TaskAbstract', $job);
+    }
+
+    /**
+     * @testdox A task can be created from an array and rendered
+     * @covers phpOMS\Utils\TaskSchedule\Schedule
+     * @todo the interval has to be implemented!
+     */
+    public function testCreateJobWithData() : void
+    {
+        $job = Schedule::createWith(['hostname', 'testname', '2018-06-02', 'Ready', 'Background', 'N/A', '1', '', 'testcmd', '/var/usr', 'comment']);
+        self::assertEquals('/tn testname asdf testcmd', $job->__toString());
     }
 }

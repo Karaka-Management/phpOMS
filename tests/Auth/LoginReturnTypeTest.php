@@ -34,6 +34,14 @@ class LoginReturnTypeTest extends \PHPUnit\Framework\TestCase
     /**
      * @coversNothing
      */
+    public function testUnique() : void
+    {
+        self::assertEquals(LoginReturnType::getConstants(), \array_unique(LoginReturnType::getConstants()));
+    }
+
+    /**
+     * @coversNothing
+     */
     public function testEnums() : void
     {
         self::assertEquals(0, LoginReturnType::OK);

@@ -18,10 +18,16 @@ use phpOMS\DataStorage\Cache\CacheType;
 use phpOMS\DataStorage\Cache\Connection\NullCache;
 
 /**
+ * @testdox phpOMS\tests\DataStorage\Cache\Connection\NullCacheTest: Null cache connection if no cache is available
+ *
  * @internal
  */
 class NullCacheTest extends \PHPUnit\Framework\TestCase
 {
+    /**
+     * @testdox The default cache has the expected default values after initialization
+     * @covers phpOMS\DataStorage\Cache\Connection\RedisCache
+     */
     public function testCache() : void
     {
         $cache = new NullCache();

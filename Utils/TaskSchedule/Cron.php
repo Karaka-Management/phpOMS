@@ -158,7 +158,7 @@ class Cron extends SchedulerAbstract
                 if ($line[0] !== '#' && \stripos($line, '# name="' . $name) !== false) {
                     $elements   = [];
                     $elements[] = $name;
-                    $elements  += \explode(' ', $line);
+                    $elements   = \array_merge($elements, \explode(' ', $line));
                     $jobs[]     = CronJob::createWith($elements);
                 }
 

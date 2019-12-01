@@ -17,12 +17,30 @@ namespace phpOMS\tests\Utils\TaskSchedule;
 use phpOMS\Utils\TaskSchedule\CronJob;
 
 /**
+ * @testdox phpOMS\tests\Utils\TaskSchedule\CronJobTest: Cron job
+ *
  * @internal
  */
 class CronJobTest extends \PHPUnit\Framework\TestCase
 {
+    /**
+     * @testdox The cron job has the expected default values after initialization
+     * @covers phpOMS\Utils\TaskSchedule\CronJob
+     */
     public function testDefault() : void
     {
-        self::assertInstanceOf('\phpOMS\Utils\TaskSchedule\TaskAbstract', new CronJob(''));
+        $job = new CronJob('');
+        self::assertEquals('', $job->__toString());
+        self::assertInstanceOf('\phpOMS\Utils\TaskSchedule\TaskAbstract', $job);
+    }
+
+    /**
+     * @testdox A cron job can be created from an array and rendered
+     * @covers phpOMS\Utils\TaskSchedule\CronJob
+     */
+    public function testCreateJobWithData() : void
+    {
+        $job = CronJob::createWith(['testname', '*', '*', '*', '*', '*', 'testcmd']);
+        self::assertEquals('* * * * * testcmd # name="testname" ', $job->__toString());
     }
 }

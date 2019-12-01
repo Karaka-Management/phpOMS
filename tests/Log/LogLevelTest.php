@@ -34,6 +34,14 @@ class LogLevelTest extends \PHPUnit\Framework\TestCase
     /**
      * @coversNothing
      */
+    public function testUnique() : void
+    {
+        self::assertEquals(LogLevel::getConstants(), \array_unique(LogLevel::getConstants()));
+    }
+
+    /**
+     * @coversNothing
+     */
     public function testEnums() : void
     {
         self::assertEquals('emergency', LogLevel::EMERGENCY);

@@ -17,6 +17,8 @@ namespace phpOMS\tests\Utils\TaskSchedule;
 use phpOMS\Utils\TaskSchedule\TaskAbstract;
 
 /**
+ * @testdox phpOMS\tests\Utils\TaskSchedule\TaskAbstractTest: Job/task abstraction
+ *
  * @internal
  */
 class TaskAbstractTest extends \PHPUnit\Framework\TestCase
@@ -38,6 +40,10 @@ class TaskAbstractTest extends \PHPUnit\Framework\TestCase
         };
     }
 
+    /**
+     * @testdox The task abstraction has the expected default values after initialization
+     * @covers phpOMS\Utils\TaskSchedule\TaskAbstract
+     */
     public function testDefault() : void
     {
         self::assertEquals('', $this->class->getId());
@@ -49,21 +55,54 @@ class TaskAbstractTest extends \PHPUnit\Framework\TestCase
         self::assertEquals('', $this->class->getInterval());
     }
 
-    public function testGetSet() : void
+    /**
+     * @testdox The command can be set and returned
+     * @covers phpOMS\Utils\TaskSchedule\TaskAbstract
+     */
+    public function testCommandInputOutput() : void
     {
         $this->class->setCommand('Command');
         self::assertEquals('Command', $this->class->getCommand());
+    }
 
+    /**
+     * @testdox The status can be set and returned
+     * @covers phpOMS\Utils\TaskSchedule\TaskAbstract
+     */
+    public function testStatusInputOutput() : void
+    {
         $this->class->setStatus('Status');
         self::assertEquals('Status', $this->class->getStatus());
+    }
 
+    /**
+     * @testdox The comment can be set and returned
+     * @covers phpOMS\Utils\TaskSchedule\TaskAbstract
+     */
+    public function testCommentInputOutput() : void
+    {
         $this->class->setComment('Comment');
         self::assertEquals('Comment', $this->class->getComment());
+    }
 
+    /**
+     * @testdox The last runtime can be set and returned
+     * @covers phpOMS\Utils\TaskSchedule\TaskAbstract
+     */
+    public function testLastRuntimeInputOutput() : void
+    {
         $date = new \DateTime('now');
         $this->class->setLastRuntime($date);
         self::assertEquals($date->format('Y-m-d'), $this->class->getLastRuntime()->format('Y-m-d'));
+    }
 
+    /**
+     * @testdox The next runtime can be set and returned
+     * @covers phpOMS\Utils\TaskSchedule\TaskAbstract
+     */
+    public function testNextRuntimeInputOutput() : void
+    {
+        $date = new \DateTime('now');
         $this->class->setNextRuntime($date);
         self::assertEquals($date->format('Y-m-d'), $this->class->getNextRuntime()->format('Y-m-d'));
     }

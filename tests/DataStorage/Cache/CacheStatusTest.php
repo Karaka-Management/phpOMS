@@ -32,6 +32,14 @@ class CacheStatusTest extends \PHPUnit\Framework\TestCase
     /**
      * @coversNothing
      */
+    public function testUnique() : void
+    {
+        self::assertEquals(CacheStatus::getConstants(), \array_unique(CacheStatus::getConstants()));
+    }
+
+    /**
+     * @coversNothing
+     */
     public function testEnums() : void
     {
         self::assertEquals(0, CacheStatus::OK);

@@ -21,11 +21,23 @@ use phpOMS\Math\Geometry\Shape\D3\Cone;
  */
 class ConeTest extends \PHPUnit\Framework\TestCase
 {
-    public function testCone() : void
+    public function testVolume() : void
     {
         self::assertEqualsWithDelta(12.57, Cone::getVolume(2, 3), 0.01);
+    }
+
+    public function testSurface() : void
+    {
         self::assertEqualsWithDelta(35.22, Cone::getSurface(2, 3), 0.01);
+    }
+
+    public function testSlantHeight() : void
+    {
         self::assertEqualsWithDelta(3.61, Cone::getSlantHeight(2, 3), 0.01);
+    }
+
+    public function testHeightFromVolume() : void
+    {
         self::assertEqualsWithDelta(3, Cone::getHeightFromVolume(12.57, 2), 0.01);
     }
 }

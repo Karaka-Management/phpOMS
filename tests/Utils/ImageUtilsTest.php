@@ -19,10 +19,16 @@ require_once __DIR__ . '/../Autoloader.php';
 use phpOMS\Utils\ImageUtils;
 
 /**
+ * @testdox phpOMS\tests\Utils\ImageUtilsTest: Image utilities
+ *
  * @internal
  */
 class ImageUtilsTest extends \PHPUnit\Framework\TestCase
 {
+    /**
+     * @testdox Base64 image data can be decoded to an image
+     * @covers phpOMS\Utils\ImageUtils
+     */
     public function testImage() : void
     {
         self::assertEquals(

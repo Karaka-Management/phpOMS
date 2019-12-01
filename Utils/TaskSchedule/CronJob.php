@@ -29,7 +29,7 @@ class CronJob extends TaskAbstract
      */
     public function __toString() : string
     {
-        return $this->interval . ' ' . $this->command . ' # name="' . $this->id . '" ' . $this->comment;
+        return $this->interval === '' ? '' : $this->interval . ' ' . $this->command . ' # name="' . $this->id . '" ' . $this->comment;
     }
 
     /**
@@ -37,7 +37,7 @@ class CronJob extends TaskAbstract
      */
     public static function createWith(array $jobData) : TaskAbstract
     {
-        $interval = \array_splice($jobData, 1, 4);
+        $interval = \array_splice($jobData, 1, 5);
         $job      = new self($jobData[0], $jobData[1], \implode(' ', $interval));
 
         return $job;
