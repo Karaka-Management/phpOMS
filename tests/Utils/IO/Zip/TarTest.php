@@ -12,7 +12,7 @@
  */
 declare(strict_types=1);
 
-namespace phpOMS\tests\Utils\IO\Tar;
+namespace phpOMS\tests\Utils\IO\Zip;
 
 use phpOMS\Utils\IO\Zip\Tar;
 

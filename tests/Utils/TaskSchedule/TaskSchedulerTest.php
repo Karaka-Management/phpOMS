@@ -77,7 +77,7 @@ class TaskSchedulerTest extends \PHPUnit\Framework\TestCase
      * @covers phpOMS\Utils\TaskSchedule\TaskScheduler<extended>
      * @group framework
      */
-    public function testInvalidCronJobName() : void
+    public function testInvalidTaskScheduleName() : void
     {
         $task = new TaskScheduler();
         self::assertEquals([], $task->getAllByName('testTaskSchedule', false));

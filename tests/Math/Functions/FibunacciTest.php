@@ -17,7 +17,7 @@ namespace phpOMS\tests\Math\Functions;
 use phpOMS\Math\Functions\Fibunacci;
 
 /**
- * @testdox phpOMS\tests\Math\Function\FibunacciTest: Fibunacci functions
+ * @testdox phpOMS\tests\Math\Functions\FibunacciTest: Fibunacci functions
  *
  * @internal
  */
@@ -25,7 +25,7 @@ class FibunacciTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @testdox A number can be checked if it is a fibunacci number
-     * @covers phpOMS\Math\Function\Fibunacci
+     * @covers phpOMS\Math\Functions\Fibunacci
      * @group framework
      */
     public function testFibunacci() : void
@@ -39,7 +39,7 @@ class FibunacciTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox A fibunacci number can be returned by index
-     * @covers phpOMS\Math\Function\Fibunacci
+     * @covers phpOMS\Math\Functions\Fibunacci
      * @group framework
      */
     public function testFibunacciByKey() : void
@@ -49,7 +49,7 @@ class FibunacciTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The binet formula returns fibunacci numbers
-     * @covers phpOMS\Math\Function\Fibunacci
+     * @covers phpOMS\Math\Functions\Fibunacci
      * @group framework
      */
     public function testBinet() : void
@@ -60,7 +60,7 @@ class FibunacciTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The binet formula and the fibunacci formula return the same results
-     * @covers phpOMS\Math\Function\Fibunacci
+     * @covers phpOMS\Math\Functions\Fibunacci
      * @group framework
      */
     public function testBinetFib() : void
