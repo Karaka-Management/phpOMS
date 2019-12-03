@@ -26,6 +26,7 @@ class SchedulerAbstractTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox The scheduler has the expected default values after initialization
      * @covers phpOMS\Utils\TaskSchedule\SchedulerAbstract
+     * @group framework
      */
     public function testDefault() : void
     {
@@ -35,6 +36,7 @@ class SchedulerAbstractTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox The scheduler brinary location path can be guessed
      * @covers phpOMS\Utils\TaskSchedule\SchedulerAbstract
+     * @group framework
      */
     public function testGuessBinary() : void
     {

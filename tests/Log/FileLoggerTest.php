@@ -55,6 +55,7 @@ class FileLoggerTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox The logger has the expected member variables
      * @covers phpOMS\Log\FileLogger
+     * @group framework
      */
     public function testAttributes() : void
     {
@@ -65,6 +66,7 @@ class FileLoggerTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox The logger has the expected default values after initialization
      * @covers phpOMS\Log\FileLogger
+     * @group framework
      */
     public function testDefault() : void
     {
@@ -77,6 +79,7 @@ class FileLoggerTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox A log file for the output can be specified for the file logger
      * @covers phpOMS\Log\FileLogger
+     * @group framework
      */
     public function testNamedLogFile() : void
     {
@@ -97,6 +100,7 @@ class FileLoggerTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox If no log file name is specified a log file per date is created
      * @covers phpOMS\Log\FileLogger
+     * @group framework
      */
     public function testUnnamedLogFile() : void
     {
@@ -109,6 +113,7 @@ class FileLoggerTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox If no logs are performed no log file will be created
      * @covers phpOMS\Log\FileLogger
+     * @group framework
      */
     public function testNoFileIfNoLog() : void
     {
@@ -120,6 +125,7 @@ class FileLoggerTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox Logs with different levels get correctly stored in the log file
      * @covers phpOMS\Log\FileLogger
+     * @group framework
      */
     public function testLogInputOutput() : void
     {
@@ -209,6 +215,7 @@ class FileLoggerTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox Log files can be analyzed for the highest perpetrator (IP address)
      * @covers phpOMS\Log\FileLogger
+     * @group framework
      */
     public function testPerpetrator() : void
     {
@@ -224,6 +231,7 @@ class FileLoggerTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox Logs can be read from the log file
      * @covers phpOMS\Log\FileLogger
+     * @group framework
      */
     public function testReadLogs() : void
     {
@@ -261,6 +269,7 @@ class FileLoggerTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox Invalid log reads return empty log data
      * @covers phpOMS\Log\FileLogger
+     * @group framework
      */
     public function testInvalidReadLogs() : void
     {
@@ -278,6 +287,7 @@ class FileLoggerTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox A line can be read from a log file
      * @covers phpOMS\Log\FileLogger
+     * @group framework
      */
     public function testReadLine() : void
     {
@@ -293,6 +303,7 @@ class FileLoggerTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox None-existing lines return on read empty log data
      * @covers phpOMS\Log\FileLogger
+     * @group framework
      */
     public function testInvalidReadLine() : void
     {
@@ -308,6 +319,7 @@ class FileLoggerTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox A verbose file logger automatically outputs log data
      * @covers phpOMS\Log\FileLogger
+     * @group framework
      */
     public function testVerboseLogger() : void
     {
@@ -324,6 +336,7 @@ class FileLoggerTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox A verbose console log outputs log data
      * @covers phpOMS\Log\FileLogger
+     * @group framework
      */
     public function testVerboseLog() : void
     {
@@ -340,6 +353,7 @@ class FileLoggerTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox A invalid log type throws a InvalidEnumValue
      * @covers phpOMS\Log\FileLogger
+     * @group framework
      */
     public function testLogException() : void
     {
@@ -356,6 +370,7 @@ class FileLoggerTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox The logger can perform timings for internal duration logging
      * @covers phpOMS\Log\FileLogger
+     * @group framework
      */
     public function testTiming() : void
     {

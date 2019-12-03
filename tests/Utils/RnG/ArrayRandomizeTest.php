@@ -26,6 +26,7 @@ class ArrayRandomizeTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox An array can be randomized using the yates algorithm
      * @covers phpOMS\Utils\RnG\ArrayRandomize
+     * @group framework
      */
     public function testYates() : void
     {
@@ -44,6 +45,7 @@ class ArrayRandomizeTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox An array can be randomized using the knuth algorithm
      * @covers phpOMS\Utils\RnG\ArrayRandomize
+     * @group framework
      */
     public function testKnuth() : void
     {

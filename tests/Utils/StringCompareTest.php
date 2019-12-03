@@ -52,6 +52,7 @@ class StringCompareTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox A string can be matched with a dictionary entry
      * @covers phpOMS\Utils\StringCompare
+     * @group framework
      */
     public function testDictionaryMatch() : void
     {
@@ -62,6 +63,7 @@ class StringCompareTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox A string doesn't match a dictionary entry if it is very different
      * @covers phpOMS\Utils\StringCompare
+     * @group framework
      */
     public function testInvalidDictionary() : void
     {
@@ -71,6 +73,7 @@ class StringCompareTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox A new dictionary entry can be created and returned
      * @covers phpOMS\Utils\StringCompare
+     * @group framework
      */
     public function testDictionaryAdd() : void
     {

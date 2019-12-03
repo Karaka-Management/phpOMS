@@ -29,6 +29,7 @@ class StringUtilsTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox The entropy of a string can be calculated
      * @covers phpOMS\Utils\StringUtils
+     * @group framework
      */
     public function testEntropy() : void
     {
@@ -38,6 +39,7 @@ class StringUtilsTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox A string can be checked if it starts with a defined string
      * @covers phpOMS\Utils\StringUtils
+     * @group framework
      */
     public function testStarts() : void
     {
@@ -49,6 +51,7 @@ class StringUtilsTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox A string can be checked if it ends with a defined string
      * @covers phpOMS\Utils\StringUtils
+     * @group framework
      */
     public function testEnds() : void
     {
@@ -60,6 +63,7 @@ class StringUtilsTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox A multi-byte string can be checked if it starts with a defined string
      * @covers phpOMS\Utils\StringUtils
+     * @group framework
      */
     public function testStartsMb() : void
     {
@@ -71,6 +75,7 @@ class StringUtilsTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox A multi-byte string can be checked if it ends with a defined string
      * @covers phpOMS\Utils\StringUtils
+     * @group framework
      */
     public function testEndsMb() : void
     {
@@ -82,6 +87,7 @@ class StringUtilsTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox The first character of a multi-byte string can be turned into upper case
      * @covers phpOMS\Utils\StringUtils
+     * @group framework
      */
     public function testTransformUpperCase() : void
     {
@@ -92,6 +98,7 @@ class StringUtilsTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox The first character of a multi-byte string can be turned into lower case
      * @covers phpOMS\Utils\StringUtils
+     * @group framework
      */
     public function testTransformLowerCase() : void
     {
@@ -102,6 +109,7 @@ class StringUtilsTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox A multi-byte string can be trimmed
      * @covers phpOMS\Utils\StringUtils
+     * @group framework
      */
     public function testTrim() : void
     {
@@ -116,6 +124,7 @@ class StringUtilsTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox A multi-byte string can be right-trimmed
      * @covers phpOMS\Utils\StringUtils
+     * @group framework
      */
     public function testRTrim() : void
     {
@@ -126,6 +135,7 @@ class StringUtilsTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox A multi-byte string can be left-trimmed
      * @covers phpOMS\Utils\StringUtils
+     * @group framework
      */
     public function testLTrim() : void
     {
@@ -136,6 +146,7 @@ class StringUtilsTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox A string can be checked if it contains at least one defined string element
      * @covers phpOMS\Utils\StringUtils
+     * @group framework
      */
     public function testContains() : void
     {
@@ -148,6 +159,7 @@ class StringUtilsTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox A multi-byte string can be checked if it contains at least one defined string element
      * @covers phpOMS\Utils\StringUtils
+     * @group framework
      */
     public function testContainsMb() : void
     {
@@ -160,6 +172,7 @@ class StringUtilsTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox The characters of a multi-byte string can be counted
      * @covers phpOMS\Utils\StringUtils
+     * @group framework
      */
     public function testCountMb() : void
     {
@@ -169,6 +182,7 @@ class StringUtilsTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox The amount of a defined characters in the beginning of a string can be counted
      * @covers phpOMS\Utils\StringUtils
+     * @group framework
      */
     public function testCountBeginning() : void
     {
@@ -179,6 +193,7 @@ class StringUtilsTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox Various data types can be stringified
      * @covers phpOMS\Utils\StringUtils
+     * @group framework
      */
     public function testStringify() : void
     {
@@ -230,6 +245,7 @@ class StringUtilsTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox The difference between two strings can be evaluated
      * @covers phpOMS\Utils\StringUtils
+     * @group framework
      */
     public function testStringDiffHtml() : void
     {

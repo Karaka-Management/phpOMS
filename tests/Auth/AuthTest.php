@@ -27,6 +27,7 @@ class AuthTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @testdox The default http session doesn't authenticate an account
+     * @group framework
      */
     public function testAuthWithEmptyHttpSession() : void
     {

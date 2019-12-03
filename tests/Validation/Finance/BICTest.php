@@ -26,6 +26,7 @@ class BICTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox A BIC can be validated
      * @covers phpOMS\Validation\Finance\BIC
+     * @group framework
      */
     public function testBic() : void
     {

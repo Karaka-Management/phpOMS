@@ -26,6 +26,7 @@ class TextTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox Random text can be generated
      * @covers phpOMS\Utils\RnG\Text
+     * @group framework
      */
     public function testRnG() : void
     {

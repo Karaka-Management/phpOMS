@@ -25,6 +25,7 @@ class NetPromoterScoreTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @testdox The net promoter has the expected default values after initialization
+     * @group framework
      */
     public function testDefault() : void
     {
@@ -35,6 +36,7 @@ class NetPromoterScoreTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The net promotor score, detractors, passives and promotors are correct
+     * @group framework
      */
     public function testScoreDetractorPassivePromotor() : void
     {

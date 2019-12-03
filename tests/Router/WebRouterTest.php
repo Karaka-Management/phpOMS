@@ -43,6 +43,7 @@ class WebRouterTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox The route result for an empty request is empty
      * @covers phpOMS\Router\WebRouter
+     * @group framework
      */
     public function testDefault() : void
     {
@@ -56,6 +57,7 @@ class WebRouterTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox A none-existing routing file cannot be imported
      * @covers phpOMS\Router\WebRouter
+     * @group framework
      */
     public function testInvalidRoutingFile() : void
     {
@@ -65,6 +67,7 @@ class WebRouterTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox A existing routing file can be imported
      * @covers phpOMS\Router\WebRouter
+     * @group framework
      */
     public function testLoadingRoutesFromFile() : void
     {
@@ -74,6 +77,7 @@ class WebRouterTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox A matching route returns the destinations
      * @covers phpOMS\Router\WebRouter
+     * @group framework
      */
     public function testRouteMatching() : void
     {
@@ -92,6 +96,7 @@ class WebRouterTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox Invalid routing verbs don't match even if the route matches
      * @covers phpOMS\Router\WebRouter
+     * @group framework
      */
     public function testRouteMissMatchingForInvalidVerbs() : void
     {
@@ -109,6 +114,7 @@ class WebRouterTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox Routes can be added dynamically
      * @covers phpOMS\Router\WebRouter
+     * @group framework
      */
     public function testDynamicRouteAdding() : void
     {
@@ -149,6 +155,7 @@ class WebRouterTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox Routes which require a CSRF token can only match with a CSRF token
      * @covers phpOMS\Router\WebRouter
+     * @group framework
      */
     public function testWithCSRF() : void
     {
@@ -168,6 +175,7 @@ class WebRouterTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox Routes which require a CSRF token don't match without a CSRF token
      * @covers phpOMS\Router\WebRouter
+     * @group framework
      */
     public function testWithoutCSRF() : void
     {
@@ -186,6 +194,7 @@ class WebRouterTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox Routes only match if the permissions match
      * @covers phpOMS\Router\WebRouter
+     * @group framework
      */
     public function testWithValidPermissions() : void
     {
@@ -221,6 +230,7 @@ class WebRouterTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox Routes don't match if the permissions don't match
      * @covers phpOMS\Router\WebRouter
+     * @group framework
      */
     public function testWithInvalidPermissions() : void
     {

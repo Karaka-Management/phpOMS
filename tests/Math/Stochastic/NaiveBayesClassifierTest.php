@@ -59,6 +59,7 @@ class NaiveBayesClassifierTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The classification of strings/attributes is correct
+     * @group framework
      */
     public function testTextClassifier() : void
     {
@@ -75,6 +76,7 @@ class NaiveBayesClassifierTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The classification of nimeric values is correct
+     * @group framework
      */
     public function testNumericClassifier() : void
     {

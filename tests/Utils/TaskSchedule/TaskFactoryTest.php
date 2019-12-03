@@ -28,6 +28,7 @@ class TaskFactoryTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox The correct task is crated depending on the operating system
      * @covers phpOMS\Utils\TaskSchedule\TaskFactory
+     * @group framework
      */
     public function testFactory() : void
     {

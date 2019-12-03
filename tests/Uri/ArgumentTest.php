@@ -29,6 +29,7 @@ class ArgumentTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox A uri can be validated
      * @covers phpOMS\Uri\Argument
+     * @group framework
      */
     public function testValidator() : void
     {
@@ -42,6 +43,7 @@ class ArgumentTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox The argument uri has the expected default values after initialization
      * @covers phpOMS\Uri\Argument
+     * @group framework
      */
     public function testDefault() : void
     {
@@ -62,6 +64,7 @@ class ArgumentTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox The path can be parsed correctly from a uri
      * @covers phpOMS\Uri\Argument
+     * @group framework
      */
     public function testPathInputOutput() : void
     {
@@ -74,6 +77,7 @@ class ArgumentTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox The route can be parsed correctly from a uri
      * @covers phpOMS\Uri\Argument
+     * @group framework
      */
     public function testRouteInputOutput() : void
     {
@@ -85,6 +89,7 @@ class ArgumentTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox The query data can be parsed correctly from a uri
      * @covers phpOMS\Uri\Argument
+     * @group framework
      */
     public function testQueryInputOutput() : void
     {
@@ -99,6 +104,7 @@ class ArgumentTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox The fragment can be parsed correctly from a uri
      * @covers phpOMS\Uri\Argument
+     * @group framework
      */
     public function testFragmentInputOutput() : void
     {
@@ -110,6 +116,7 @@ class ArgumentTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox The uri can be turned into a string
      * @covers phpOMS\Uri\Argument
+     * @group framework
      */
     public function testStringify() : void
     {
@@ -121,6 +128,7 @@ class ArgumentTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox The root path can be set and returned
      * @covers phpOMS\Uri\Argument
+     * @group framework
      */
     public function testRootPathInputOutput() : void
     {

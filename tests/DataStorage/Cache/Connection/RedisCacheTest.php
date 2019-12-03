@@ -42,6 +42,7 @@ class RedisCacheTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox The redis cache connection has the expected default values after initialization
      * @covers phpOMS\DataStorage\Cache\Connection\RedisCache
+     * @group framework
      */
     public function testDefault() : void
     {
@@ -64,6 +65,7 @@ class RedisCacheTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox The connection to a cache can be established (none-exising directories get created)
      * @covers phpOMS\DataStorage\Cache\Connection\RedisCache
+     * @group framework
      */
     public function testConnect() : void
     {
@@ -78,6 +80,7 @@ class RedisCacheTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox Different cache data (types) can be set and returned
      * @covers phpOMS\DataStorage\Cache\Connection\RedisCache
+     * @group framework
      */
     public function testSetInputOutput() : void
     {
@@ -109,6 +112,7 @@ class RedisCacheTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox Cache data can bet added and returned
      * @covers phpOMS\DataStorage\Cache\Connection\RedisCache
+     * @group framework
      */
     public function testAddInputOutput() : void
     {
@@ -119,6 +123,7 @@ class RedisCacheTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox Cache data cannot be added if it already exists
      * @covers phpOMS\DataStorage\Cache\Connection\RedisCache
+     * @group framework
      */
     public function testInvalidOverwrite() : void
     {
@@ -130,6 +135,7 @@ class RedisCacheTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox Existing cache data can be replaced
      * @covers phpOMS\DataStorage\Cache\Connection\RedisCache
+     * @group framework
      */
     public function testReplace() : void
     {
@@ -143,6 +149,7 @@ class RedisCacheTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox None-existing cache data cannot be replaced
      * @covers phpOMS\DataStorage\Cache\Connection\RedisCache
+     * @group framework
      */
     public function testInvalidReplace() : void
     {
@@ -152,6 +159,7 @@ class RedisCacheTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox Existing cache data can be deleted
      * @covers phpOMS\DataStorage\Cache\Connection\RedisCache
+     * @group framework
      */
     public function testDelete() : void
     {
@@ -165,6 +173,7 @@ class RedisCacheTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox The cache correctly handles general cache information
      * @covers phpOMS\DataStorage\Cache\Connection\RedisCache
+     * @group framework
      */
     public function testStats() : void
     {
@@ -187,6 +196,7 @@ class RedisCacheTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox The cache can be flushed
      * @covers phpOMS\DataStorage\Cache\Connection\RedisCache
+     * @group framework
      */
     public function testFlush() : void
     {
@@ -212,6 +222,7 @@ class RedisCacheTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox Cache data can be set and returned with expiration limits
      * @covers phpOMS\DataStorage\Cache\Connection\RedisCache
+     * @group framework
      */
     public function testUnexpiredInputOutput() : void
     {
@@ -222,6 +233,7 @@ class RedisCacheTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox Expired cache data cannot be returned
      * @covers phpOMS\DataStorage\Cache\Connection\RedisCache
+     * @group framework
      */
     public function testExpiredInputOutput() : void
     {
@@ -235,6 +247,7 @@ class RedisCacheTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox Expired cache data can be forced to return
      * @covers phpOMS\DataStorage\Cache\Connection\RedisCache
+     * @group framework
      */
     public function testForceExpiredInputOutput() : void
     {
@@ -246,6 +259,7 @@ class RedisCacheTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox Unexpired cache data connot be delete if lower expiration is defined
      * @covers phpOMS\DataStorage\Cache\Connection\RedisCache
+     * @group framework
      */
     public function testInvalidDeleteUnexpired() : void
     {
@@ -256,6 +270,7 @@ class RedisCacheTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox Expired cache data can be deleted if equal expiration is defined
      * @covers phpOMS\DataStorage\Cache\Connection\RedisCache
+     * @group framework
      */
     public function testDeleteExpired() : void
     {
@@ -267,6 +282,7 @@ class RedisCacheTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox Unexpired data can be force deleted with lower expiration date
      * @covers phpOMS\DataStorage\Cache\Connection\RedisCache
+     * @group framework
      */
     public function testForceDeleteUnexpired() : void
     {
@@ -279,6 +295,7 @@ class RedisCacheTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox Cach data can be flushed by expiration date
      * @covers phpOMS\DataStorage\Cache\Connection\RedisCache
+     * @group framework
      */
     public function testFlushExpired() : void
     {
@@ -292,6 +309,7 @@ class RedisCacheTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox A bad cache status will prevent all cache actions
      * @covers phpOMS\DataStorage\Cache\Connection\RedisCache
+     * @group framework
      */
     public function testBadCacheStatus() : void
     {
@@ -311,6 +329,7 @@ class RedisCacheTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox A invalid host throws a InvalidConnectionConfigException
      * @covers phpOMS\DataStorage\Cache\Connection\RedisCache
+     * @group framework
      */
     public function testInvalidCacheHost() : void
     {
@@ -325,6 +344,7 @@ class RedisCacheTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox A invalid port throws a InvalidConnectionConfigException
      * @covers phpOMS\DataStorage\Cache\Connection\RedisCache
+     * @group framework
      */
     public function testInvalidCachePort() : void
     {
@@ -339,6 +359,7 @@ class RedisCacheTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox A invalid database throws a InvalidConnectionConfigException
      * @covers phpOMS\DataStorage\Cache\Connection\RedisCache
+     * @group framework
      */
     public function testInvalidCacheDatabase() : void
     {

@@ -35,6 +35,7 @@ class ZipTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox Data can be zip packed and unpacked
      * @covers phpOMS\Utils\IO\Zip\Zip
+     * @group framework
      */
     public function testZip() : void
     {
@@ -85,6 +86,7 @@ class ZipTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox A zip archive cannot be overwritten by default
      * @covers phpOMS\Utils\IO\Zip\Zip
+     * @group framework
      */
     public function testInvalidZip() : void
     {
@@ -112,6 +114,7 @@ class ZipTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox A none-existing source cannot be unpacked
      * @covers phpOMS\Utils\IO\Zip\Zip
+     * @group framework
      */
     public function testInvalidUnpackSource() : void
     {
@@ -121,6 +124,7 @@ class ZipTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox A destination cannot be overwritten
      * @covers phpOMS\Utils\IO\Zip\Zip
+     * @group framework
      */
     public function testInvalidUnpackDestination() : void
     {

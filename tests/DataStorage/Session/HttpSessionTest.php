@@ -25,6 +25,7 @@ class HttpSessionTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @testdox The session has the expected default values after initialization
+     * @group framework
      */
     public function testDefault() : void
     {
@@ -35,6 +36,7 @@ class HttpSessionTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox Session data can be set and returned
+     * @group framework
      */
     public function testInputOutput() : void
     {
@@ -45,6 +47,7 @@ class HttpSessionTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox Session data cannot be overwritten
+     * @group framework
      */
     public function testInvalidOverwrite() : void
     {
@@ -56,6 +59,7 @@ class HttpSessionTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox Session data can be forced to overwrite
+     * @group framework
      */
     public function testOverwrite() : void
     {
@@ -67,6 +71,7 @@ class HttpSessionTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox Session data can be removed
+     * @group framework
      */
     public function testRemove() : void
     {
@@ -77,6 +82,7 @@ class HttpSessionTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox None-existing session data cannot be removed
+     * @group framework
      */
     public function testInvalidRemove() : void
     {
@@ -89,6 +95,7 @@ class HttpSessionTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox A session id can be set and returned
+     * @group framework
      */
     public function testSessionIdInputOutput() : void
     {
@@ -99,6 +106,7 @@ class HttpSessionTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox A session can be locked
+     * @group framework
      */
     public function testLockInputOutput() : void
     {
@@ -110,6 +118,7 @@ class HttpSessionTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox A locked session cannot add or change data
+     * @group framework
      */
     public function testLockInvalidSet() : void
     {
@@ -121,6 +130,7 @@ class HttpSessionTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox A locked session cannot remove data
+     * @group framework
      */
     public function testLockInvalidRemove() : void
     {

@@ -27,6 +27,7 @@ class StorageTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox By default the local storage handler is returned
      * @covers phpOMS\System\File\Storage
+     * @group framework
      */
     public function testStorageDefault() : void
     {
@@ -36,6 +37,7 @@ class StorageTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox The pre-defined storage handlers can be returned by their name
      * @covers phpOMS\System\File\Storage
+     * @group framework
      */
     public function testStoragePreDefined() : void
     {
@@ -46,6 +48,7 @@ class StorageTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox Storages can be registered and returned
      * @covers phpOMS\System\File\Storage
+     * @group framework
      */
     public function testInputOutput() : void
     {
@@ -58,6 +61,7 @@ class StorageTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox Registered storage handlers cannot be overwritten
      * @covers phpOMS\System\File\Storage
+     * @group framework
      */
     public function testInvalidRegister() : void
     {
@@ -68,6 +72,7 @@ class StorageTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox A invalid or none-existing storage throws a Exception
      * @covers phpOMS\System\File\Storage
+     * @group framework
      */
     public function testInvalidStorage() : void
     {

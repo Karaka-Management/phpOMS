@@ -28,6 +28,7 @@ class PaginationViewTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox The pagination view has the expected default values after initialization
      * @covers phpOMS\Views\PaginationView
+     * @group framework
      */
     public function testDefault() : void
     {
@@ -41,6 +42,7 @@ class PaginationViewTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox The max pages can be set and returned
      * @covers phpOMS\Views\PaginationView
+     * @group framework
      */
     public function testMaxPagesInputOutput() : void
     {
@@ -53,6 +55,7 @@ class PaginationViewTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox The pages can be set and returned
      * @covers phpOMS\Views\PaginationView
+     * @group framework
      */
     public function testPagesInputOutput() : void
     {
@@ -65,6 +68,7 @@ class PaginationViewTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox The page can be set and returned
      * @covers phpOMS\Views\PaginationView
+     * @group framework
      */
     public function testPageInputOutput() : void
     {
@@ -77,6 +81,7 @@ class PaginationViewTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox The results can be set and returned
      * @covers phpOMS\Views\PaginationView
+     * @group framework
      */
     public function testResultsInputOutput() : void
     {

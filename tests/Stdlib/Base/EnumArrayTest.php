@@ -24,6 +24,7 @@ class EnumArrayTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox A valid enum name returns the enum value
      * @covers phpOMS\Stdlib\Base\EnumArray<extended>
+     * @group framework
      */
     public function testValueOutput() : void
     {
@@ -34,6 +35,7 @@ class EnumArrayTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox A valid enum name can be validated
      * @covers phpOMS\Stdlib\Base\EnumArray<extended>
+     * @group framework
      */
     public function testValidateEnumName() : void
     {
@@ -43,6 +45,7 @@ class EnumArrayTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox A invalid enum name doesn't validate
      * @covers phpOMS\Stdlib\Base\EnumArray<extended>
+     * @group framework
      */
     public function testInvalidEnumNameValidation() : void
     {
@@ -52,6 +55,7 @@ class EnumArrayTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox All enum name/value pairs can be returned
      * @covers phpOMS\Stdlib\Base\EnumArray<extended>
+     * @group framework
      */
     public function testOutputValues() : void
     {
@@ -61,6 +65,7 @@ class EnumArrayTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox A valid enum value can be checked for existance
      * @covers phpOMS\Stdlib\Base\EnumArray<extended>
+     * @group framework
      */
     public function testValidateEnumValue() : void
     {
@@ -71,6 +76,7 @@ class EnumArrayTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox A invalid enum value doesn't validate
      * @covers phpOMS\Stdlib\Base\EnumArray<extended>
+     * @group framework
      */
     public function testInvalidEnumValueValidation() : void
     {
@@ -80,6 +86,7 @@ class EnumArrayTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox A invalid enum name throws a OutOfBoundsException
      * @covers phpOMS\Stdlib\Base\EnumArray<extended>
+     * @group framework
      */
     public function testInvalidConstantException() : void
     {
@@ -91,6 +98,7 @@ class EnumArrayTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox The amount of enum values can be returned
      * @covers phpOMS\Stdlib\Base\EnumArray<extended>
+     * @group framework
      */
     public function testCount() : void
     {
@@ -100,6 +108,7 @@ class EnumArrayTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox A random enum value can be returned
      * @covers phpOMS\Stdlib\Base\EnumArray<extended>
+     * @group framework
      */
     public function testRandomValue() : void
     {

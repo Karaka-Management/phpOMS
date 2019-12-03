@@ -45,6 +45,7 @@ class ModuleManagerTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox The module manager has the expected attributes
      * @covers phpOMS\Module\ModuleManager
+     * @group framework
      */
     public function testAttributes() : void
     {
@@ -60,6 +61,7 @@ class ModuleManagerTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox Invalid module initializations returns a null module
      * @covers phpOMS\Module\ModuleManager
+     * @group framework
      */
     public function testUnknownModuleInit() : void
     {
@@ -70,6 +72,7 @@ class ModuleManagerTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox Unknown modules return a null module
      * @covers phpOMS\Module\ModuleManager
+     * @group framework
      */
     public function testUnknownModuleGet() : void
     {
@@ -79,6 +82,7 @@ class ModuleManagerTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox Unknown modules cannot get activested, deactivated
      * @covers phpOMS\Module\ModuleManager
+     * @group framework
      */
     public function testUnknwonModuleStatusChange() : void
     {
@@ -89,6 +93,7 @@ class ModuleManagerTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox Active modules can be returned
      * @covers phpOMS\Module\ModuleManager
+     * @group framework
      */
     public function testActiveModules() : void
     {
@@ -100,6 +105,7 @@ class ModuleManagerTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox All available modules can be returned
      * @covers phpOMS\Module\ModuleManager
+     * @group framework
      */
     public function testAllModules() : void
     {
@@ -111,6 +117,7 @@ class ModuleManagerTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox Installed modules can be returned
      * @covers phpOMS\Module\ModuleManager
+     * @group framework
      */
     public function testInstalledModules() : void
     {
@@ -122,6 +129,7 @@ class ModuleManagerTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox The valid module can be returned
      * @covers phpOMS\Module\ModuleManager
+     * @group framework
      */
     public function testAdminModule() : void
     {

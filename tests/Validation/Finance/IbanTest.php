@@ -26,6 +26,7 @@ class IbanTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox A iban can be validated
      * @covers phpOMS\Validation\Finance\Iban
+     * @group framework
      */
     public function testValid() : void
     {

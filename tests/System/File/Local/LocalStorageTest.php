@@ -27,6 +27,7 @@ class LocalStorageTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox A directory can be created
      * @covers phpOMS\System\File\Local\LocalStorage
+     * @group framework
      */
     public function testStaticCreateDirectory() : void
     {
@@ -40,6 +41,7 @@ class LocalStorageTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox A directory can be checked for existence
      * @covers phpOMS\System\File\Local\LocalStorage
+     * @group framework
      */
     public function testStaticExistsDirectory() : void
     {
@@ -50,6 +52,7 @@ class LocalStorageTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox An existing directory cannot be overwritten
      * @covers phpOMS\System\File\Local\LocalStorage
+     * @group framework
      */
     public function testInvalidStaticOverwriteDirectory() : void
     {
@@ -63,6 +66,7 @@ class LocalStorageTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox A directory can be forced to be created recursively
      * @covers phpOMS\System\File\Local\LocalStorage
+     * @group framework
      */
     public function testStaticSubdirDirectory() : void
     {
@@ -78,6 +82,7 @@ class LocalStorageTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox The name of a directory is just its name without its path
      * @covers phpOMS\System\File\Local\LocalStorage
+     * @group framework
      */
     public function testStaticNameDirectory() : void
     {
@@ -89,6 +94,7 @@ class LocalStorageTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox The basename is the same as the name of the directory
      * @covers phpOMS\System\File\Local\LocalStorage
+     * @group framework
      */
     public function testStaticBasenameDirectory() : void
     {
@@ -100,6 +106,7 @@ class LocalStorageTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox The dirname is the same as the name of the directory
      * @covers phpOMS\System\File\Local\LocalStorage
+     * @group framework
      */
     public function testStaticDirnameDirectory() : void
     {
@@ -111,6 +118,7 @@ class LocalStorageTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox The parent of a directory can be returned
      * @covers phpOMS\System\File\Local\LocalStorage
+     * @group framework
      */
     public function testStaticParentDirectory() : void
     {
@@ -122,6 +130,7 @@ class LocalStorageTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox The full absolute path of a directory can be returned
      * @covers phpOMS\System\File\Local\LocalStorage
+     * @group framework
      */
     public function testStaticDirectoryPathDirectory() : void
     {
@@ -133,6 +142,7 @@ class LocalStorageTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox The directories creation date can be returned
      * @covers phpOMS\System\File\Local\LocalStorage
+     * @group framework
      */
     public function testStaticCreatedAtDirectory() : void
     {
@@ -149,6 +159,7 @@ class LocalStorageTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox The directories last change date can be returned
      * @covers phpOMS\System\File\Local\LocalStorage
+     * @group framework
      */
     public function testStaticChangedAtDirectory() : void
     {
@@ -165,6 +176,7 @@ class LocalStorageTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox A directory can be deleted
      * @covers phpOMS\System\File\Local\LocalStorage
+     * @group framework
      */
     public function testStaticDeleteDirectory() : void
     {
@@ -178,6 +190,7 @@ class LocalStorageTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox A none-existing directory cannot be deleted
      * @covers phpOMS\System\File\Local\LocalStorage
+     * @group framework
      */
     public function testInvalidStaticDeleteDirectory() : void
     {
@@ -189,6 +202,7 @@ class LocalStorageTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox The size of a directory can be returned
      * @covers phpOMS\System\File\Local\LocalStorage
+     * @group framework
      */
     public function testStaticSizeRecursiveDirectory() : void
     {
@@ -199,6 +213,7 @@ class LocalStorageTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox The size of a none-existing directory is negative
      * @covers phpOMS\System\File\Local\LocalStorage
+     * @group framework
      */
     public function testInvalidStaticSizeRecursiveDirectory() : void
     {
@@ -209,6 +224,7 @@ class LocalStorageTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox The recursive size of a directory is equals or greater than the size of the same directory none-recursive
      * @covers phpOMS\System\File\Local\LocalStorage
+     * @group framework
      */
     public function testStaticSizeDirectory() : void
     {
@@ -219,6 +235,7 @@ class LocalStorageTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox The permission of a directory can be returned
      * @covers phpOMS\System\File\Local\LocalStorage
+     * @group framework
      */
     public function testStaticPermissionDirectory() : void
     {
@@ -229,6 +246,7 @@ class LocalStorageTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox The permission of a none-existing directory is negative
      * @covers phpOMS\System\File\Local\LocalStorage
+     * @group framework
      */
     public function testInvalidStaticPermissionDirectory() : void
     {
@@ -239,6 +257,7 @@ class LocalStorageTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox A directory can be copied recursively
      * @covers phpOMS\System\File\Local\LocalStorage
+     * @group framework
      */
     public function testStaticCopyDirectory() : void
     {
@@ -252,6 +271,7 @@ class LocalStorageTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox A directory can be moved/renamed to a different path
      * @covers phpOMS\System\File\Local\LocalStorage
+     * @group framework
      */
     public function testStaticMoveDirectory() : void
     {
@@ -266,6 +286,7 @@ class LocalStorageTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox The amount of files in a directory can be returned recursively
      * @covers phpOMS\System\File\Local\LocalStorage
+     * @group framework
      */
     public function testStaticCountRecursiveDirectory() : void
     {
@@ -276,6 +297,7 @@ class LocalStorageTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox The amount of files in a directory can be returned none-recursively
      * @covers phpOMS\System\File\Local\LocalStorage
+     * @group framework
      */
     public function testStaticCountDirectory() : void
     {
@@ -286,6 +308,7 @@ class LocalStorageTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox The amount of files of a none-existing directory is negative
      * @covers phpOMS\System\File\Local\LocalStorage
+     * @group framework
      */
     public function testInvalidStaticCountDirectory() : void
     {
@@ -296,6 +319,7 @@ class LocalStorageTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox All files and sub-directories of a directory can be listed
      * @covers phpOMS\System\File\Local\LocalStorage
+     * @group framework
      */
     public function testStaticListFilesDirectory() : void
     {
@@ -306,6 +330,7 @@ class LocalStorageTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox A none-existing directory returns a empty list of files and sub-directories
      * @covers phpOMS\System\File\Local\LocalStorage
+     * @group framework
      */
     public function testInvalidListPathDirectory() : void
     {
@@ -315,6 +340,7 @@ class LocalStorageTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox A invalid directory cannot be copied to a new destination
      * @covers phpOMS\System\File\Local\LocalStorage
+     * @group framework
      */
     public function testInvalidCopyPathDirectory() : void
     {
@@ -324,6 +350,7 @@ class LocalStorageTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox A invalid directory cannot be moved to a new destination
      * @covers phpOMS\System\File\Local\LocalStorage
+     * @group framework
      */
     public function testInvalidMovePathDirectory() : void
     {
@@ -333,6 +360,7 @@ class LocalStorageTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox Reading the creation date of a none-existing directory throws a PathException
      * @covers phpOMS\System\File\Local\LocalStorage
+     * @group framework
      */
     public function testInvalidCreatedPathDirectory() : void
     {
@@ -344,6 +372,7 @@ class LocalStorageTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox Reading the last change date of a none-existing directory throws a PathException
      * @covers phpOMS\System\File\Local\LocalStorage
+     * @group framework
      */
     public function testInvalidChangedPathDirectory() : void
     {
@@ -355,6 +384,7 @@ class LocalStorageTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox Reading the owner of a none-existing directory throws a PathException
      * @covers phpOMS\System\File\Local\LocalStorage
+     * @group framework
      */
     public function testInvalidOwnerPathDirectory() : void
     {
@@ -366,6 +396,7 @@ class LocalStorageTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox A file without content can be created
      * @covers phpOMS\System\File\Local\LocalStorage
+     * @group framework
      */
     public function testStaticCreateFile() : void
     {
@@ -380,6 +411,7 @@ class LocalStorageTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox A file cannot be created if it already exists
      * @covers phpOMS\System\File\Local\LocalStorage
+     * @group framework
      */
     public function testInvalidStaticCreateFile() : void
     {
@@ -394,6 +426,7 @@ class LocalStorageTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox A file with content can be created
      * @covers phpOMS\System\File\Local\LocalStorage
+     * @group framework
      */
     public function testStaticPutFile() : void
     {
@@ -408,6 +441,7 @@ class LocalStorageTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox A file cannot be replaced if it doesn't exists
      * @covers phpOMS\System\File\Local\LocalStorage
+     * @group framework
      */
     public function testInvalidStaticCreateReplaceFile() : void
     {
@@ -419,6 +453,7 @@ class LocalStorageTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox A file cannot be appended if it doesn't exists
      * @covers phpOMS\System\File\Local\LocalStorage
+     * @group framework
      */
     public function testInvalidStaticCreateAppendFile() : void
     {
@@ -430,6 +465,7 @@ class LocalStorageTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox A file cannot be prepended if it doesn't exists
      * @covers phpOMS\System\File\Local\LocalStorage
+     * @group framework
      */
     public function testInvalidStaticCreatePrependFile() : void
     {
@@ -441,6 +477,7 @@ class LocalStorageTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox A file can be checked for existence
      * @covers phpOMS\System\File\Local\LocalStorage
+     * @group framework
      */
     public function testStaticExistsFile() : void
     {
@@ -451,6 +488,7 @@ class LocalStorageTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox A file can be replaced with a new one
      * @covers phpOMS\System\File\Local\LocalStorage
+     * @group framework
      */
     public function testStaticReplaceFile() : void
     {
@@ -466,6 +504,7 @@ class LocalStorageTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox The set alias works like the replace flag
      * @covers phpOMS\System\File\Local\LocalStorage
+     * @group framework
      */
     public function testStaticSetAliasFile() : void
     {
@@ -482,6 +521,7 @@ class LocalStorageTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox A file can be appended with additional content
      * @covers phpOMS\System\File\Local\LocalStorage
+     * @group framework
      */
     public function testStaticAppendFile() : void
     {
@@ -497,6 +537,7 @@ class LocalStorageTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox The append alias works like the append flag
      * @covers phpOMS\System\File\Local\LocalStorage
+     * @group framework
      */
     public function testStaticAppendAliasFile() : void
     {
@@ -512,6 +553,7 @@ class LocalStorageTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox A file can be prepended with additional content
      * @covers phpOMS\System\File\Local\LocalStorage
+     * @group framework
      */
     public function testStaticPrependFile() : void
     {
@@ -527,6 +569,7 @@ class LocalStorageTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox The prepend alias works like the prepend flag
      * @covers phpOMS\System\File\Local\LocalStorage
+     * @group framework
      */
     public function testStaticPrependAliasFile() : void
     {
@@ -542,6 +585,7 @@ class LocalStorageTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox The content of a file can be read
      * @covers phpOMS\System\File\Local\LocalStorage
+     * @group framework
      */
     public function testStaticGetFile() : void
     {
@@ -555,6 +599,7 @@ class LocalStorageTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox The parent directory of a file can be returned
      * @covers phpOMS\System\File\Local\LocalStorage
+     * @group framework
      */
     public function testStaticParentFile() : void
     {
@@ -566,6 +611,7 @@ class LocalStorageTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox The extension of a file can be returned
      * @covers phpOMS\System\File\Local\LocalStorage
+     * @group framework
      */
     public function testStaticExtensionFile() : void
     {
@@ -577,6 +623,7 @@ class LocalStorageTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox The name of a file can be returned
      * @covers phpOMS\System\File\Local\LocalStorage
+     * @group framework
      */
     public function testStaticNameFile() : void
     {
@@ -588,6 +635,7 @@ class LocalStorageTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox The basename of a file can be returned
      * @covers phpOMS\System\File\Local\LocalStorage
+     * @group framework
      */
     public function testStaticBaseNameFile() : void
     {
@@ -599,6 +647,7 @@ class LocalStorageTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox The file name of a file can be returned
      * @covers phpOMS\System\File\Local\LocalStorage
+     * @group framework
      */
     public function testStaticDirnameFile() : void
     {
@@ -610,6 +659,7 @@ class LocalStorageTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox The file path of a file can be returned
      * @covers phpOMS\System\File\Local\LocalStorage
+     * @group framework
      */
     public function testStaticDirectoryPathFile() : void
     {
@@ -621,6 +671,7 @@ class LocalStorageTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox The count of a file is always 1
      * @covers phpOMS\System\File\Local\LocalStorage
+     * @group framework
      */
     public function testStaticCountFile() : void
     {
@@ -632,6 +683,7 @@ class LocalStorageTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox The directories creation date can be returned
      * @covers phpOMS\System\File\Local\LocalStorage
+     * @group framework
      */
     public function testStaticCreatedAtFile() : void
     {
@@ -647,6 +699,7 @@ class LocalStorageTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox The directories last change date can be returned
      * @covers phpOMS\System\File\Local\LocalStorage
+     * @group framework
      */
     public function testStaticChangedAtFile() : void
     {
@@ -662,6 +715,7 @@ class LocalStorageTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox A file can be deleted
      * @covers phpOMS\System\File\Local\LocalStorage
+     * @group framework
      */
     public function testStaticDeleteFile() : void
     {
@@ -675,6 +729,7 @@ class LocalStorageTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox A none-existing file cannot be deleted
      * @covers phpOMS\System\File\Local\LocalStorage
+     * @group framework
      */
     public function testInvalidStaticDeleteFile() : void
     {
@@ -686,6 +741,7 @@ class LocalStorageTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox The size of a file can be returned
      * @covers phpOMS\System\File\Local\LocalStorage
+     * @group framework
      */
     public function testStaticSizeFile() : void
     {
@@ -700,6 +756,7 @@ class LocalStorageTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox The permission of a file can be returned
      * @covers phpOMS\System\File\Local\LocalStorage
+     * @group framework
      */
     public function testStaticPermissionFile() : void
     {
@@ -714,6 +771,7 @@ class LocalStorageTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox The permission of a none-existing file is negative
      * @covers phpOMS\System\File\Local\LocalStorage
+     * @group framework
      */
     public function testInvalidStaticPermissionFile() : void
     {
@@ -724,6 +782,7 @@ class LocalStorageTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox A file can be copied to a different location
      * @covers phpOMS\System\File\Local\LocalStorage
+     * @group framework
      */
     public function testStaticCopyFile() : void
     {
@@ -746,6 +805,7 @@ class LocalStorageTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox A file cannot be copied to a different location if the destination already exists
      * @covers phpOMS\System\File\Local\LocalStorage
+     * @group framework
      */
     public function testInvalidStaticCopyFile() : void
     {
@@ -765,6 +825,7 @@ class LocalStorageTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox A file can be forced to be copied to a different location even if the destination already exists
      * @covers phpOMS\System\File\Local\LocalStorage
+     * @group framework
      */
     public function testStaticCopyOverwriteFile() : void
     {
@@ -784,6 +845,7 @@ class LocalStorageTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox A file can be moved to a different location
      * @covers phpOMS\System\File\Local\LocalStorage
+     * @group framework
      */
     public function testStaticMoveFile() : void
     {
@@ -805,6 +867,7 @@ class LocalStorageTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox A file cannot be moved to a different location if the destination already exists
      * @covers phpOMS\System\File\Local\LocalStorage
+     * @group framework
      */
     public function testInvalidStaticMoveFile() : void
     {
@@ -825,6 +888,7 @@ class LocalStorageTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox A file can be forced to be moved to a different location even if the destination already exists
      * @covers phpOMS\System\File\Local\LocalStorage
+     * @group framework
      */
     public function testStaticMoveOverwriteFile() : void
     {
@@ -844,6 +908,7 @@ class LocalStorageTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox The size of a none-existing file is negative
      * @covers phpOMS\System\File\Local\LocalStorage
+     * @group framework
      */
     public function testInvalidSizePathFile() : void
     {
@@ -853,6 +918,7 @@ class LocalStorageTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox A none-existing file cannot be copied
      * @covers phpOMS\System\File\Local\LocalStorage
+     * @group framework
      */
     public function testInvalidCopyPathFile() : void
     {
@@ -862,6 +928,7 @@ class LocalStorageTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox A none-existing file cannot be moved
      * @covers phpOMS\System\File\Local\LocalStorage
+     * @group framework
      */
     public function testInvalidMovePathFile() : void
     {
@@ -871,6 +938,7 @@ class LocalStorageTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox Reading the content of a none-existing file throws a PathException
      * @covers phpOMS\System\File\Local\LocalStorage
+     * @group framework
      */
     public function testInvalidGetPathFile() : void
     {
@@ -882,6 +950,7 @@ class LocalStorageTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox Reading the created date of a none-existing file throws a PathException
      * @covers phpOMS\System\File\Local\LocalStorage
+     * @group framework
      */
     public function testInvalidCreatedPathFile() : void
     {
@@ -893,6 +962,7 @@ class LocalStorageTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox Reading the last change date of a none-existing file throws a PathException
      * @covers phpOMS\System\File\Local\LocalStorage
+     * @group framework
      */
     public function testInvalidChangedPathFile() : void
     {
@@ -904,6 +974,7 @@ class LocalStorageTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox Reading the owner of a none-existing file throws a PathException
      * @covers phpOMS\System\File\Local\LocalStorage
+     * @group framework
      */
     public function testInvalidOwnerPathFile() : void
     {
@@ -915,6 +986,7 @@ class LocalStorageTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox Writing data to a destination which looks like a directory throws a PathException
      * @covers phpOMS\System\File\Local\LocalStorage
+     * @group framework
      */
     public function testInvalidPutPath() : void
     {
@@ -926,6 +998,7 @@ class LocalStorageTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox Reading data from a directory throws a PathException
      * @covers phpOMS\System\File\Local\LocalStorage
+     * @group framework
      */
     public function testInvalidGetPath() : void
     {
@@ -937,6 +1010,7 @@ class LocalStorageTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox Trying to run list on a file throws a PathException
      * @covers phpOMS\System\File\Local\LocalStorage
+     * @group framework
      */
     public function testInvalidListPath() : void
     {
@@ -948,6 +1022,7 @@ class LocalStorageTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox Setting data to a destination which looks like a directory throws a PathException
      * @covers phpOMS\System\File\Local\LocalStorage
+     * @group framework
      */
     public function testInvalidSetPath() : void
     {
@@ -959,6 +1034,7 @@ class LocalStorageTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox Appending data to a destination which looks like a directory throws a PathException
      * @covers phpOMS\System\File\Local\LocalStorage
+     * @group framework
      */
     public function testInvalidAppendPath() : void
     {
@@ -970,6 +1046,7 @@ class LocalStorageTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox Prepending data to a destination which looks like a directory throws a PathException
      * @covers phpOMS\System\File\Local\LocalStorage
+     * @group framework
      */
     public function testInvalidPrependPath() : void
     {
@@ -981,6 +1058,7 @@ class LocalStorageTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox Reading the extension of a destination which looks like a directory throws a PathException
      * @covers phpOMS\System\File\Local\LocalStorage
+     * @group framework
      */
     public function testInvalidExtensionPath() : void
     {

@@ -40,6 +40,7 @@ class BitonicSortTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox A list with one element returns the list with the element itself
+     * @group framework
      */
     public function testSmallList() : void
     {
@@ -51,6 +52,7 @@ class BitonicSortTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox A list ot elements can be sorted in ASC order
+     * @group framework
      */
     public function testSortASC() : void
     {
@@ -66,6 +68,7 @@ class BitonicSortTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox A list ot elements can be sorted in DESC order
+     * @group framework
      */
     public function testSortDESC() : void
     {

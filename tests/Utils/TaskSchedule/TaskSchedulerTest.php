@@ -36,6 +36,7 @@ class TaskSchedulerTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox The task handler has the expected default values after initialization
      * @covers phpOMS\Utils\TaskSchedule\TaskScheduler<extended>
+     * @group framework
      */
     public function testDefault() : void
     {
@@ -45,6 +46,7 @@ class TaskSchedulerTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox The task brinary location path can be guessed
      * @covers phpOMS\Utils\TaskSchedule\TaskScheduler<extended>
+     * @group framework
      */
     public function testGuessBinary() : void
     {
@@ -54,6 +56,7 @@ class TaskSchedulerTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox A task can be created and returned
      * @covers phpOMS\Utils\TaskSchedule\TaskScheduler<extended>
+     * @group framework
      */
     public function testTaskScheduleInputOutput() : void
     {
@@ -72,6 +75,7 @@ class TaskSchedulerTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox A none-existing task name cannot be returned
      * @covers phpOMS\Utils\TaskSchedule\TaskScheduler<extended>
+     * @group framework
      */
     public function testInvalidCronJobName() : void
     {
@@ -82,6 +86,7 @@ class TaskSchedulerTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox A task can be updated
      * @covers phpOMS\Utils\TaskSchedule\TaskScheduler<extended>
+     * @group framework
      */
     public function testTaskScheduleUpdate() : void
     {
@@ -103,6 +108,7 @@ class TaskSchedulerTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox A task can be deleted
      * @covers phpOMS\Utils\TaskSchedule\TaskScheduler<extended>
+     * @group framework
      */
     public function testDelete() : void
     {

@@ -28,6 +28,7 @@ class MultiMapTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox The map has the expected default values and functionality after initialization
      * @covers phpOMS\Stdlib\Map\MultiMap
+     * @group framework
      */
     public function testDefault() : void
     {
@@ -48,6 +49,7 @@ class MultiMapTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox Elements with multiple optional keys can be added
      * @covers phpOMS\Stdlib\Map\MultiMap
+     * @group framework
      */
     public function testBasicAddAny() : void
     {
@@ -61,6 +63,7 @@ class MultiMapTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox Elements with multiple optional keys can be returned if any of the keys matches
      * @covers phpOMS\Stdlib\Map\MultiMap
+     * @group framework
      */
     public function testBasicGetAny() : void
     {
@@ -74,6 +77,7 @@ class MultiMapTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox Elements can be forcefully overwritten
      * @covers phpOMS\Stdlib\Map\MultiMap
+     * @group framework
      */
     public function testOverwriteAny() : void
     {
@@ -91,6 +95,7 @@ class MultiMapTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox By default elements are not overwritten
      * @covers phpOMS\Stdlib\Map\MultiMap
+     * @group framework
      */
     public function testInvalidOverwriteSubkeyAny() : void
     {
@@ -108,6 +113,7 @@ class MultiMapTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox If a element with partially matching keys is already in the map it will be only added for the new key
      * @covers phpOMS\Stdlib\Map\MultiMap
+     * @group framework
      */
     public function testOverwriteCreateAny() : void
     {
@@ -126,6 +132,7 @@ class MultiMapTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox If all keys exist in the map no new element will be created
      * @covers phpOMS\Stdlib\Map\MultiMap
+     * @group framework
      */
     public function testInvalidOverwriteAny() : void
     {
@@ -144,6 +151,7 @@ class MultiMapTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox Values can be set/replaced by key
      * @covers phpOMS\Stdlib\Map\MultiMap
+     * @group framework
      */
     public function testSetByKeyAny() : void
     {
@@ -163,6 +171,7 @@ class MultiMapTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox Values cannot be set/replaced if the key doesn't exist
      * @covers phpOMS\Stdlib\Map\MultiMap
+     * @group framework
      */
     public function testInvalidSetByKeyAny() : void
     {
@@ -179,6 +188,7 @@ class MultiMapTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox A key cannot be remapped to a none-existing key
      * @covers phpOMS\Stdlib\Map\MultiMap
+     * @group framework
      */
     public function testInvalidRemapNewAny() : void
     {
@@ -195,6 +205,7 @@ class MultiMapTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox A key can be remapped to the value of an existing key
      * @covers phpOMS\Stdlib\Map\MultiMap
+     * @group framework
      */
     public function testRemapAny() : void
     {
@@ -214,6 +225,7 @@ class MultiMapTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox If no more keys are associated with a value after a remap the value is removed from the map
      * @covers phpOMS\Stdlib\Map\MultiMap
+     * @group framework
      */
     public function testRemapUnmapAny() : void
     {
@@ -233,6 +245,7 @@ class MultiMapTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox All keys of the map can be returned
      * @covers phpOMS\Stdlib\Map\MultiMap
+     * @group framework
      */
     public function testMapKeysAny() : void
     {
@@ -251,6 +264,7 @@ class MultiMapTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox All values of the map can be returned
      * @covers phpOMS\Stdlib\Map\MultiMap
+     * @group framework
      */
     public function testMapValuesAny() : void
     {
@@ -269,6 +283,7 @@ class MultiMapTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox Sibling keys can be found
      * @covers phpOMS\Stdlib\Map\MultiMap
+     * @group framework
      */
     public function testSiblingsAny() : void
     {
@@ -283,6 +298,7 @@ class MultiMapTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox If a key doesn't exist or has no siblings no siblings are returned
      * @covers phpOMS\Stdlib\Map\MultiMap
+     * @group framework
      */
     public function testInvalidSiblingsAny() : void
     {
@@ -297,6 +313,7 @@ class MultiMapTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox A key for a value can be removed
      * @covers phpOMS\Stdlib\Map\MultiMap
+     * @group framework
      */
     public function testRemoveAny() : void
     {
@@ -314,6 +331,7 @@ class MultiMapTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox If the last key of a value is removed the value is also removed from the map
      * @covers phpOMS\Stdlib\Map\MultiMap
+     * @group framework
      */
     public function testRemoveLastAny() : void
     {
@@ -333,6 +351,7 @@ class MultiMapTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox If a key doesn't exist it cannot be removed
      * @covers phpOMS\Stdlib\Map\MultiMap
+     * @group framework
      */
     public function testInvalidRemoveAny() : void
     {
@@ -348,6 +367,7 @@ class MultiMapTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox Elements with multiple required keys can be added
      * @covers phpOMS\Stdlib\Map\MultiMap
+     * @group framework
      */
     public function testBasicAddExact() : void
     {
@@ -361,6 +381,7 @@ class MultiMapTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox Elements with multiple required keys can be returned if all match
      * @covers phpOMS\Stdlib\Map\MultiMap
+     * @group framework
      */
     public function testBasicGetExact() : void
     {
@@ -374,6 +395,7 @@ class MultiMapTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox Elements with multiple required keys cannot be returned if they don't match exactly
      * @covers phpOMS\Stdlib\Map\MultiMap
+     * @group framework
      */
     public function testBasicInvalidGetExact() : void
     {
@@ -386,6 +408,7 @@ class MultiMapTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox Elements with multiple required and ordered keys can be added
      * @covers phpOMS\Stdlib\Map\MultiMap
+     * @group framework
      */
     public function testBasicAddExactOrdered() : void
     {
@@ -399,6 +422,7 @@ class MultiMapTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox Elements with multiple required ordered keys can be if all match in the correct order
      * @covers phpOMS\Stdlib\Map\MultiMap
+     * @group framework
      */
     public function testBasicGetExactOrdered() : void
     {
@@ -411,6 +435,7 @@ class MultiMapTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox Elements with multiple required keys cannot be returned if they don't match exactly in the correct order
      * @covers phpOMS\Stdlib\Map\MultiMap
+     * @group framework
      */
     public function testBasicInvalidOrderedGetExact() : void
     {
@@ -423,6 +448,7 @@ class MultiMapTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox Elements with multiple required keys can be forcefully overwritten
      * @covers phpOMS\Stdlib\Map\MultiMap
+     * @group framework
      */
     public function testOverwriteExact() : void
     {
@@ -438,6 +464,7 @@ class MultiMapTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox Elements with multiple required ordered keys can be forcefully overwritten
      * @covers phpOMS\Stdlib\Map\MultiMap
+     * @group framework
      */
     public function testOverwriteExactOrdered() : void
     {
@@ -453,6 +480,7 @@ class MultiMapTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox An element cannot be added to for multiple required keys if the keys already exist in a different order
      * @covers phpOMS\Stdlib\Map\MultiMap
+     * @group framework
      */
     public function testInvalidAddDifferentOrderExact() : void
     {
@@ -469,6 +497,7 @@ class MultiMapTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox If a element with partially matching multiple keys is already in the map it will be only added for the new key
      * @covers phpOMS\Stdlib\Map\MultiMap
+     * @group framework
      */
     public function testOverwriteCreateExact() : void
     {
@@ -487,6 +516,7 @@ class MultiMapTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox Adding differently ordered keys for multiple required keys will create a new entry in the map
      * @covers phpOMS\Stdlib\Map\MultiMap
+     * @group framework
      */
     public function testAddDifferentlyOrderedKeys() : void
     {
@@ -503,6 +533,7 @@ class MultiMapTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox If all keys for multiple required keys exist in the map no new element will be created
      * @covers phpOMS\Stdlib\Map\MultiMap
+     * @group framework
      */
     public function testInvalidOverwriteExact() : void
     {
@@ -520,6 +551,7 @@ class MultiMapTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox If all keys for multiple required ordered keys exist in the map no new element will be created
      * @covers phpOMS\Stdlib\Map\MultiMap
+     * @group framework
      */
     public function testInvalidOverwriteExactOrdered() : void
     {
@@ -537,6 +569,7 @@ class MultiMapTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox Values can be set/replaced by multiple required keys
      * @covers phpOMS\Stdlib\Map\MultiMap
+     * @group framework
      */
     public function testSetByKeyExact() : void
     {
@@ -556,6 +589,7 @@ class MultiMapTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox Values cannot be set/replaced if the multiple required keys don't match or exist
      * @covers phpOMS\Stdlib\Map\MultiMap
+     * @group framework
      */
     public function testInvalidSetByKeyExact() : void
     {
@@ -575,6 +609,7 @@ class MultiMapTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox Values can be set/replaced by multiple required ordered keys if the order is correct
      * @covers phpOMS\Stdlib\Map\MultiMap
+     * @group framework
      */
     public function testSetByKeyExactOrdered() : void
     {
@@ -592,6 +627,7 @@ class MultiMapTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox Values cannot be set/replaced if the multiple required ordered keys don't match or exist in the correct order
      * @covers phpOMS\Stdlib\Map\MultiMap
+     * @group framework
      */
     public function testInvalidSetByKeyExactOrdered() : void
     {
@@ -608,6 +644,7 @@ class MultiMapTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox Multiple keys cannot be remapped
      * @covers phpOMS\Stdlib\Map\MultiMap
+     * @group framework
      */
     public function testInvalidRemapExact() : void
     {
@@ -622,6 +659,7 @@ class MultiMapTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox All sibling key combinations can be found for multiple required keys
      * @covers phpOMS\Stdlib\Map\MultiMap
+     * @group framework
      */
     public function testSiblingsExact() : void
     {
@@ -634,6 +672,7 @@ class MultiMapTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox For multiple required ordered keys don't exist any siblings
      * @covers phpOMS\Stdlib\Map\MultiMap
+     * @group framework
      */
     public function testSiblingsExactOrdered() : void
     {
@@ -646,6 +685,7 @@ class MultiMapTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox A multiple required key combination for a value can be removed
      * @covers phpOMS\Stdlib\Map\MultiMap
+     * @group framework
      */
     public function testRemoveExact() : void
     {
@@ -663,6 +703,7 @@ class MultiMapTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox If a multiple required key combination doesn't exist it cannot be removed
      * @covers phpOMS\Stdlib\Map\MultiMap
+     * @group framework
      */
     public function testInvalidRemoveExact() : void
     {
@@ -681,6 +722,7 @@ class MultiMapTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox A multiple required ordered key combination for a value can be removed
      * @covers phpOMS\Stdlib\Map\MultiMap
+     * @group framework
      */
     public function testRemoveExactOrdered() : void
     {
@@ -698,6 +740,7 @@ class MultiMapTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox If a multiple required ordered key combination doesn't exist it cannot be removed
      * @covers phpOMS\Stdlib\Map\MultiMap
+     * @group framework
      */
     public function testInvalidRemoveExactOrdered() : void
     {

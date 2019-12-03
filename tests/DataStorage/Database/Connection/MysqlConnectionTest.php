@@ -36,6 +36,7 @@ class MysqlConnectionTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox Valid mysql connection data result in a valid database connection
      * @covers phpOMS\DataStorage\Database\Connection\MysqlConnection
+     * @group framework
      */
     public function testConnect() : void
     {
@@ -51,6 +52,7 @@ class MysqlConnectionTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox A missing database type throws a InvalidConnectionConfigException
      * @covers phpOMS\DataStorage\Database\Connection\MysqlConnection
+     * @group framework
      */
     public function testInvalidDatabaseType() : void
     {
@@ -65,6 +67,7 @@ class MysqlConnectionTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox A missing database host throws a InvalidConnectionConfigException
      * @covers phpOMS\DataStorage\Database\Connection\MysqlConnection
+     * @group framework
      */
     public function testInvalidHost() : void
     {
@@ -79,6 +82,7 @@ class MysqlConnectionTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox A missing database port throws a InvalidConnectionConfigException
      * @covers phpOMS\DataStorage\Database\Connection\MysqlConnection
+     * @group framework
      */
     public function testInvalidPort() : void
     {
@@ -93,6 +97,7 @@ class MysqlConnectionTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox A missing database throws a InvalidConnectionConfigException
      * @covers phpOMS\DataStorage\Database\Connection\MysqlConnection
+     * @group framework
      */
     public function testInvalidDatabase() : void
     {
@@ -107,6 +112,7 @@ class MysqlConnectionTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox A missing database login throws a InvalidConnectionConfigException
      * @covers phpOMS\DataStorage\Database\Connection\MysqlConnection
+     * @group framework
      */
     public function testInvalidLogin() : void
     {
@@ -121,6 +127,7 @@ class MysqlConnectionTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox A missing database password throws a InvalidConnectionConfigException
      * @covers phpOMS\DataStorage\Database\Connection\MysqlConnection
+     * @group framework
      */
     public function testInvalidPassword() : void
     {
@@ -135,6 +142,7 @@ class MysqlConnectionTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox A invalid database type throws a InvalidConnectionConfigException
      * @covers phpOMS\DataStorage\Database\Connection\MysqlConnection
+     * @group framework
      */
     public function testInvalidDatabaseTypeName() : void
     {
@@ -149,6 +157,7 @@ class MysqlConnectionTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox A invalid database throws a InvalidConnectionConfigException
      * @covers phpOMS\DataStorage\Database\Connection\MysqlConnection
+     * @group framework
      */
     public function testInvalidDatabaseName() : void
     {

@@ -26,6 +26,7 @@ class FileTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox A random file extension can be generated
      * @covers phpOMS\Utils\RnG\File
+     * @group framework
      */
     public function testRnGExtension() : void
     {

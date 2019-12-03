@@ -26,6 +26,7 @@ class GitTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox The git path can be returned
      * @covers phpOMS\Utils\Git\Git
+     * @group framework
      */
     public function testBinary() : void
     {

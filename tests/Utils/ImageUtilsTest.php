@@ -28,6 +28,7 @@ class ImageUtilsTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox Base64 image data can be decoded to an image
      * @covers phpOMS\Utils\ImageUtils
+     * @group framework
      */
     public function testImage() : void
     {

@@ -26,6 +26,7 @@ class ConnectionFactoryTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @testdox The file cache can be created
+     * @group framework
      */
     public function testCreateFileCache() : void
     {
@@ -37,6 +38,7 @@ class ConnectionFactoryTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The memcached cache can be created
+     * @group framework
      */
     public function testCreateMemCached() : void
     {
@@ -54,6 +56,7 @@ class ConnectionFactoryTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The redis cache can be created
+     * @group framework
      */
     public function testCreateRedisCache() : void
     {
@@ -71,6 +74,7 @@ class ConnectionFactoryTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox An invalid cache type results in an exception
+     * @group framework
      */
     public function testInvalidCacheType() : void
     {

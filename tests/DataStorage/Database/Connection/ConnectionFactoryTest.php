@@ -30,6 +30,7 @@ class ConnectionFactoryTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox The mysql connection can be successfully created
      * @covers phpOMS\DataStorage\Database\Connection\ConnectionFactory
+     * @group framework
      */
     public function testCreateMysql() : void
     {
@@ -50,6 +51,7 @@ class ConnectionFactoryTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox The postgresql connection can be successfully created
      * @covers phpOMS\DataStorage\Database\Connection\ConnectionFactory
+     * @group framework
      */
     public function testCreatePostgres() : void
     {
@@ -70,6 +72,7 @@ class ConnectionFactoryTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox The sqlserver connection can be successfully created
      * @covers phpOMS\DataStorage\Database\Connection\ConnectionFactory
+     * @group framework
      */
     public function testCreateSqlsrv() : void
     {
@@ -90,6 +93,7 @@ class ConnectionFactoryTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox The sqlite connection can be successfully created
      * @covers phpOMS\DataStorage\Database\Connection\ConnectionFactory
+     * @group framework
      */
     public function testCreateSqlite() : void
     {
@@ -110,6 +114,7 @@ class ConnectionFactoryTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox A invalid database type throws a InvalidArgumentException
      * @covers phpOMS\DataStorage\Database\Connection\ConnectionFactory
+     * @group framework
      */
     public function testInvalidDatabaseType() : void
     {

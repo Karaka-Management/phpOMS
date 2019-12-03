@@ -24,6 +24,7 @@ use phpOMS\Localization\ISO8601EnumArray;
 class ISO8601EnumArrayTest extends \PHPUnit\Framework\TestCase
 {
     /**
+     * @group framework
      * @coversNothing
      */
     public function testEnumCount() : void

@@ -26,6 +26,7 @@ class HostnameTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox A hostname can be validated
      * @covers phpOMS\Validation\Network\Hostname
+     * @group framework
      */
     public function testHostname() : void
     {

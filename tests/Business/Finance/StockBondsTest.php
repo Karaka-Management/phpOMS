@@ -25,6 +25,7 @@ class StockBondsTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @testdox The calculation of various stock/bond related ratios/yields is correct
+     * @group framework
      */
     public function testRatios() : void
     {
@@ -42,6 +43,7 @@ class StockBondsTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The calculation of the bond yield based on face value and price is correct
+     * @group framework
      */
     public function testBondEquivalentYield() : void
     {
@@ -50,6 +52,7 @@ class StockBondsTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The calculation of the return of the capital asset pricing model is correct
+     * @group framework
      */
     public function testExpectedReturnCAPM() : void
     {
@@ -58,6 +61,7 @@ class StockBondsTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The capital gains yield calculation is correct
+     * @group framework
      */
     public function testCapitalGainsYield() : void
     {
@@ -66,6 +70,7 @@ class StockBondsTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The diluted earnings per share calculation is correct
+     * @group framework
      */
     public function testDilutedEarningsPerShare() : void
     {
@@ -74,6 +79,7 @@ class StockBondsTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The calculation of the absolute return for multiple holding periods is correct
+     * @group framework
      */
     public function testHoldingPeriodReturn() : void
     {
@@ -84,6 +90,7 @@ class StockBondsTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The tax equivalent yield is calculated correctly
+     * @group framework
      */
     public function testTaxEquivalentYield() : void
     {
@@ -95,6 +102,7 @@ class StockBondsTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The net asset value is calculated correctly
+     * @group framework
      */
     public function testNetAssetValue() : void
     {
@@ -107,6 +115,7 @@ class StockBondsTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The calculation of the present value of a stock with constant growth rate is correct
+     * @group framework
      */
     public function testPresentValueOfStockConstantGrowth() : void
     {
@@ -119,6 +128,7 @@ class StockBondsTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The total stock return including dividends and sales price is correct
+     * @group framework
      */
     public function testTotalStockReturn() : void
     {
@@ -131,6 +141,7 @@ class StockBondsTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The calculation of the yield of a bond is correct
+     * @group framework
      */
     public function testYieldToMaturity() : void
     {
@@ -144,6 +155,7 @@ class StockBondsTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The calculation of value of the zero coupon bond is correct
+     * @group framework
      */
     public function testZeroCouponBondValue() : void
     {
@@ -156,6 +168,7 @@ class StockBondsTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The calculation of the yield of a zero coupon bond is correct
+     * @group framework
      */
     public function testZeroCouponBondEffectiveYield() : void
     {

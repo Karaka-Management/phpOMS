@@ -32,6 +32,7 @@ class RequestTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox The request has the expected default values after initialization
      * @covers phpOMS\Message\Http\Request<extended>
+     * @group framework
      */
     public function testDefault() : void
     {
@@ -62,6 +63,7 @@ class RequestTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox The OS can be set and returned
      * @covers phpOMS\Message\Http\Request<extended>
+     * @group framework
      */
     public function testOSInputOutput() : void
     {
@@ -74,6 +76,7 @@ class RequestTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox The browser can be set and returned
      * @covers phpOMS\Message\Http\Request<extended>
+     * @group framework
      */
     public function testBrowserTypeInputOutput() : void
     {
@@ -90,6 +93,7 @@ class RequestTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox The request method can be set and returned
      * @covers phpOMS\Message\Http\Request<extended>
+     * @group framework
      */
     public function testRequestMethodInputOutput() : void
     {
@@ -103,6 +107,7 @@ class RequestTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox The route verb gets correctly infered from the request method
      * @covers phpOMS\Message\Http\Request<extended>
+     * @group framework
      */
     public function testRequestMethodToRouteVerb() : void
     {
@@ -121,6 +126,7 @@ class RequestTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox The request is correctly constracted
      * @covers phpOMS\Message\Http\Request<extended>
+     * @group framework
      */
     public function testConstructInputOutput() : void
     {
@@ -132,6 +138,7 @@ class RequestTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox The url hashes for the different paths get correctly generated
      * @covers phpOMS\Message\Http\Request<extended>
+     * @group framework
      */
     public function testHashingInputOutput() : void
     {
@@ -149,6 +156,7 @@ class RequestTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox Request data can be set and returned
      * @covers phpOMS\Message\Http\Request<extended>
+     * @group framework
      */
     public function testDataInputOutput() : void
     {
@@ -163,6 +171,7 @@ class RequestTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox Request data can be forcefully overwritten
      * @covers phpOMS\Message\Http\Request<extended>
+     * @group framework
      */
     public function testOverwrite() : void
     {
@@ -176,6 +185,7 @@ class RequestTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox Request data is not overwritten by default
      * @covers phpOMS\Message\Http\Request<extended>
+     * @group framework
      */
     public function testInvalidOverwrite() : void
     {
@@ -189,6 +199,7 @@ class RequestTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox The uri can be changed and returned
      * @covers phpOMS\Message\Http\Request<extended>
+     * @group framework
      */
     public function testUriInputOutput() : void
     {
@@ -201,6 +212,7 @@ class RequestTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox Json data can be read from the request
      * @covers phpOMS\Message\Http\Request<extended>
+     * @group framework
      */
     public function testDataJsonRead() : void
     {
@@ -219,6 +231,7 @@ class RequestTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox None-existing json data reads return empty data
      * @covers phpOMS\Message\Http\Request<extended>
+     * @group framework
      */
     public function testEmptyDataJsonRead() : void
     {
@@ -230,6 +243,7 @@ class RequestTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox Invalid json data returns empty data
      * @covers phpOMS\Message\Http\Request<extended>
+     * @group framework
      */
     public function testInvalidDataJsonRead() : void
     {
@@ -248,6 +262,7 @@ class RequestTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox List data can be read from the request
      * @covers phpOMS\Message\Http\Request<extended>
+     * @group framework
      */
     public function testDataList() : void
     {
@@ -265,6 +280,7 @@ class RequestTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox None-existing list data reads return empty data
      * @covers phpOMS\Message\Http\Request<extended>
+     * @group framework
      */
     public function testEmptyDataList() : void
     {
@@ -276,6 +292,7 @@ class RequestTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox Request data can be read with pattern matching
      * @covers phpOMS\Message\Http\Request<extended>
+     * @group framework
      */
     public function testDataLike() : void
     {
@@ -291,6 +308,7 @@ class RequestTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox In case of no pattern matches empty data is returned
      * @covers phpOMS\Message\Http\Request<extended>
+     * @group framework
      */
     public function testInvalidDataLikeMatch() : void
     {
@@ -306,6 +324,7 @@ class RequestTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox A request with a path can be correctly casted to a string
      * @covers phpOMS\Message\Http\Request<extended>
+     * @group framework
      */
     public function testToString() : void
     {
@@ -316,6 +335,7 @@ class RequestTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox A request with a path and manually added data can be correctly casted to a string
      * @covers phpOMS\Message\Http\Request<extended>
+     * @group framework
      */
     public function testToStringData() : void
     {
@@ -329,6 +349,7 @@ class RequestTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox A request with a path, query parameters and manually added data can be correctly casted to a string
      * @covers phpOMS\Message\Http\Request<extended>
+     * @group framework
      */
     public function testToStringGetData() : void
     {
@@ -343,6 +364,7 @@ class RequestTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox A rest request can be made from a request and the result can be read
      * @covers phpOMS\Message\Http\Request<extended>
+     * @group framework
      */
     public function testRestRequest() : void
     {
@@ -358,6 +380,7 @@ class RequestTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox A invalid https port throws a OutOfRangeException
      * @covers phpOMS\Message\Http\Request<extended>
+     * @group framework
      */
     public function testInvalidHttpsPort() : void
     {
@@ -370,6 +393,7 @@ class RequestTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox A Invalid route verb throws a Exception
      * @covers phpOMS\Message\Http\Request<extended>
+     * @group framework
      */
     public function testInvalidRouteVerb() : void
     {

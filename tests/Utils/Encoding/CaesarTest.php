@@ -26,6 +26,7 @@ class CaesarTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox Text can be encoded and decoded with the ceasar encoding
      * @covers phpOMS\Utils\Encoding\Caesar
+     * @group framework
      */
     public function testEncoding() : void
     {

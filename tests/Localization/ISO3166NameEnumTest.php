@@ -24,6 +24,7 @@ use phpOMS\Localization\ISO3166NameEnum;
 class ISO3166NameEnumTest extends \PHPUnit\Framework\TestCase
 {
     /**
+     * @group framework
      * @coversNothing
      */
     public function testEnums() : void

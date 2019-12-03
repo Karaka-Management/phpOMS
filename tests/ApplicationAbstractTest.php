@@ -26,6 +26,7 @@ class ApplicationAbstractTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox Application values can be set and returned
      * @covers phpOMS\ApplicationAbstract
+     * @group framework
      */
     public function testInputOutput() : void
     {
@@ -38,6 +39,7 @@ class ApplicationAbstractTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox Application values cannot be overwritten
      * @covers phpOMS\ApplicationAbstract
+     * @group framework
      */
     public function testInvalidInputOutput() : void
     {

@@ -43,6 +43,7 @@ class DispatcherTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox The dispatcher has the expected member variables
      * @covers phpOMS\Dispatcher\Dispatcher
+     * @group framework
      */
     public function testAttributes() : void
     {
@@ -52,6 +53,7 @@ class DispatcherTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox The disptacher can dispatch a function/closure
      * @covers phpOMS\Dispatcher\Dispatcher
+     * @group framework
      */
     public function testClosure() : void
     {
@@ -79,6 +81,7 @@ class DispatcherTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox The disptacher can dispatch a method as string representation of a controller
      * @covers phpOMS\Dispatcher\Dispatcher
+     * @group framework
      */
     public function testPathMethod() : void
     {
@@ -98,6 +101,7 @@ class DispatcherTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox The disptacher can dispatch a method as array representation of a controller
      * @covers phpOMS\Dispatcher\Dispatcher
+     * @group framework
      */
     public function testPathMethodInArray() : void
     {
@@ -125,6 +129,7 @@ class DispatcherTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox The disptacher can dispatch a static method as string representation
      * @covers phpOMS\Dispatcher\Dispatcher
+     * @group framework
      */
     public function testPathStatic() : void
     {
@@ -144,6 +149,7 @@ class DispatcherTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox The disptacher can dispatch multiple destinations after another
      * @covers phpOMS\Dispatcher\Dispatcher
+     * @group framework
      */
     public function testArray() : void
     {
@@ -167,6 +173,7 @@ class DispatcherTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox A invalid destination type throws UnexpectedValueException
      * @covers phpOMS\Dispatcher\Dispatcher
+     * @group framework
      */
     public function testInvalidDestination() : void
     {
@@ -178,6 +185,7 @@ class DispatcherTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox A invalid controller path thorws a PathException
      * @covers phpOMS\Dispatcher\Dispatcher
+     * @group framework
      */
     public function testInvalidControllerPath() : void
     {
@@ -189,6 +197,7 @@ class DispatcherTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox A invalid function path thorws a Exception
      * @covers phpOMS\Dispatcher\Dispatcher
+     * @group framework
      */
     public function testInvalidControllerFunction() : void
     {
@@ -200,6 +209,7 @@ class DispatcherTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox A malformed dispatch path thorws UnexpectedValueException
      * @covers phpOMS\Dispatcher\Dispatcher
+     * @group framework
      */
     public function testInvalidControllerString() : void
     {

@@ -26,6 +26,7 @@ class TagTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox The tag has the expected default values after initialization
      * @covers phpOMS\Utils\Git\Repository
+     * @group framework
      */
     public function testDefault() : void
     {
@@ -37,6 +38,7 @@ class TagTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox The tag name can be set during initialization and returned
      * @covers phpOMS\Utils\Git\Repository
+     * @group framework
      */
     public function testConstructorInputOutput() : void
     {
@@ -47,6 +49,7 @@ class TagTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox The message can be set and returned
      * @covers phpOMS\Utils\Git\Repository
+     * @group framework
      */
     public function testMessageInputOutput() : void
     {

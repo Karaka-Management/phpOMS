@@ -43,6 +43,7 @@ class TaskAbstractTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox The task abstraction has the expected default values after initialization
      * @covers phpOMS\Utils\TaskSchedule\TaskAbstract
+     * @group framework
      */
     public function testDefault() : void
     {
@@ -58,6 +59,7 @@ class TaskAbstractTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox The command can be set and returned
      * @covers phpOMS\Utils\TaskSchedule\TaskAbstract
+     * @group framework
      */
     public function testCommandInputOutput() : void
     {
@@ -68,6 +70,7 @@ class TaskAbstractTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox The status can be set and returned
      * @covers phpOMS\Utils\TaskSchedule\TaskAbstract
+     * @group framework
      */
     public function testStatusInputOutput() : void
     {
@@ -78,6 +81,7 @@ class TaskAbstractTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox The comment can be set and returned
      * @covers phpOMS\Utils\TaskSchedule\TaskAbstract
+     * @group framework
      */
     public function testCommentInputOutput() : void
     {
@@ -88,6 +92,7 @@ class TaskAbstractTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox The last runtime can be set and returned
      * @covers phpOMS\Utils\TaskSchedule\TaskAbstract
+     * @group framework
      */
     public function testLastRuntimeInputOutput() : void
     {
@@ -99,6 +104,7 @@ class TaskAbstractTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox The next runtime can be set and returned
      * @covers phpOMS\Utils\TaskSchedule\TaskAbstract
+     * @group framework
      */
     public function testNextRuntimeInputOutput() : void
     {

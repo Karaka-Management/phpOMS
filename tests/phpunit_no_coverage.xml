@@ -32,8 +32,4 @@
             </exclude>
         </whitelist>
     </filter>
-    <logging>
-        <log type="testdox-text" target="../Build/test/testdox_phpOMS.txt"/>
-        <log type="coverage-clover" target="../Build/test/clover_phpOMS.xml"/>
-    </logging>
 </phpunit>

@@ -29,6 +29,7 @@ class PermissionAbstractTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox The permission has the expected default values after initialization
      * @covers phpOMS\Account\PermissionAbstract
+     * @group framework
      */
     public function testAbstractDefault() : void
     {
@@ -67,6 +68,7 @@ class PermissionAbstractTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox The unit can be set and returned correctly
      * @covers phpOMS\Account\PermissionAbstract
+     * @group framework
      */
     public function testUnitInputOutput() : void
     {
@@ -79,6 +81,7 @@ class PermissionAbstractTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox The app can be set and returned correctly
      * @covers phpOMS\Account\PermissionAbstract
+     * @group framework
      */
     public function testAppInputOutput() : void
     {
@@ -91,6 +94,7 @@ class PermissionAbstractTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox The module can be set and returned correctly
      * @covers phpOMS\Account\PermissionAbstract
+     * @group framework
      */
     public function testModuleInputOutput() : void
     {
@@ -103,6 +107,7 @@ class PermissionAbstractTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox The from can be set and returned correctly
      * @covers phpOMS\Account\PermissionAbstract
+     * @group framework
      */
     public function testFromInputOutput() : void
     {
@@ -115,6 +120,7 @@ class PermissionAbstractTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox The type can be set and returned correctly
      * @covers phpOMS\Account\PermissionAbstract
+     * @group framework
      */
     public function testTypeInputOutput() : void
     {
@@ -127,6 +133,7 @@ class PermissionAbstractTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox The element can be set and returned correctly
      * @covers phpOMS\Account\PermissionAbstract
+     * @group framework
      */
     public function testElementInputOutput() : void
     {
@@ -139,6 +146,7 @@ class PermissionAbstractTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox The component can be set and returned correctly
      * @covers phpOMS\Account\PermissionAbstract
+     * @group framework
      */
     public function testComponentInputOutput() : void
     {
@@ -151,6 +159,7 @@ class PermissionAbstractTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox The permission can be set and returned correctly
      * @covers phpOMS\Account\PermissionAbstract
+     * @group framework
      */
     public function testPermissionInputOutput() : void
     {
@@ -163,6 +172,7 @@ class PermissionAbstractTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox Correct permissions are validated
      * @covers phpOMS\Account\PermissionAbstract
+     * @group framework
      */
     public function testValidPermission() : void
     {
@@ -177,6 +187,7 @@ class PermissionAbstractTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox Invalid permissions are not validted
      * @covers phpOMS\Account\PermissionAbstract
+     * @group framework
      */
     public function testInvalidPermission() : void
     {
@@ -190,6 +201,7 @@ class PermissionAbstractTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox Correct permission flags are validated
      * @covers phpOMS\Account\PermissionAbstract
+     * @group framework
      */
     public function testValidPermissionFlag() : void
     {
@@ -204,6 +216,7 @@ class PermissionAbstractTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox Invalid permission flags are not validated
      * @covers phpOMS\Account\PermissionAbstract
+     * @group framework
      */
     public function testInvalidPermissionFlag() : void
     {

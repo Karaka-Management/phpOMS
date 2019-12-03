@@ -27,6 +27,7 @@ class BackpackTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox The backpack has the expected values after initialization
      * @covers phpOMS\Algorithm\Knapsack\Backpack
+     * @group framework
      */
     public function testDefault() : void
     {
@@ -41,6 +42,7 @@ class BackpackTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox Items can be added to the backpack and automatically change the value and cost the backpack contains
      * @covers phpOMS\Algorithm\Knapsack\Backpack
+     * @group framework
      */
     public function testAddItems() : void
     {

@@ -28,6 +28,7 @@ class PermutationTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox An array can be permuted
      * @covers phpOMS\Utils\Permutation
+     * @group framework
      */
     public function testPermute() : void
     {
@@ -42,6 +43,7 @@ class PermutationTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox Two string can be checked if they are a permutation of each other
      * @covers phpOMS\Utils\Permutation
+     * @group framework
      */
     public function testIsPermutation() : void
     {
@@ -52,6 +54,7 @@ class PermutationTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox A string can be checked if it is a palindrome
      * @covers phpOMS\Utils\Permutation
+     * @group framework
      */
     public function testIsPalindrome() : void
     {
@@ -63,6 +66,7 @@ class PermutationTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox An array can be permutated with a permutation key
      * @covers phpOMS\Utils\Permutation
+     * @group framework
      */
     public function testPermutate() : void
     {
@@ -72,6 +76,7 @@ class PermutationTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox A invalid permutation type throws a InvalidArgumentException
      * @covers phpOMS\Utils\Permutation
+     * @group framework
      */
     public function testWrongPermuteParameterType() : void
     {
@@ -83,6 +88,7 @@ class PermutationTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox A none-existing permutation keye throws a OutOfBoundsException
      * @covers phpOMS\Utils\Permutation
+     * @group framework
      */
     public function testWrongPermuteKeyLength() : void
     {

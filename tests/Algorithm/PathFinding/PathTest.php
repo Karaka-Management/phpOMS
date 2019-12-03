@@ -31,6 +31,7 @@ class PathTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox The path has the expected values after initialization
      * @covers phpOMS\Algorithm\PathFinding\Path
+     * @group framework
      */
     public function testDefault() : void
     {
@@ -43,6 +44,7 @@ class PathTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox The diagonal euclidean path length is calculated correctly
      * @covers phpOMS\Algorithm\PathFinding\Path
+     * @group framework
      */
     public function testDiagonalPathLength() : void
     {
@@ -66,6 +68,7 @@ class PathTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox The straight euclidean path length is calculated correctly
      * @covers phpOMS\Algorithm\PathFinding\Path
+     * @group framework
      */
     public function testStraightPathLength() : void
     {
@@ -89,6 +92,7 @@ class PathTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox The path is correctly expanded in case only jump points are defined
      * @covers phpOMS\Algorithm\PathFinding\Path
+     * @group framework
      */
     public function testPathExpansion() : void
     {

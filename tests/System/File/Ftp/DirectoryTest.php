@@ -44,6 +44,7 @@ class DirectoryTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox A directory can be created
      * @covers phpOMS\System\File\Local\Directory
+     * @group framework
      */
     public function testStaticCreate() : void
     {
@@ -57,6 +58,7 @@ class DirectoryTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox A directory can be checked for existence
      * @covers phpOMS\System\File\Ftp\Directory
+     * @group framework
      */
     public function testStaticExists() : void
     {
@@ -67,6 +69,7 @@ class DirectoryTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox An existing directory cannot be overwritten
      * @covers phpOMS\System\File\Ftp\Directory
+     * @group framework
      */
     public function testInvalidStaticOverwrite() : void
     {
@@ -80,6 +83,7 @@ class DirectoryTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox A directory can be forced to be created recursively
      * @covers phpOMS\System\File\Ftp\Directory
+     * @group framework
      */
     public function testStaticSubdir() : void
     {
@@ -95,6 +99,7 @@ class DirectoryTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox By default a directory is not created recursively
      * @covers phpOMS\System\File\Ftp\Directory
+     * @group framework
      */
     public function testInvalidStaticSubdir() : void
     {
@@ -104,6 +109,7 @@ class DirectoryTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox The name of a directory is just its name without its path
      * @covers phpOMS\System\File\Ftp\Directory
+     * @group framework
      */
     public function testStaticName() : void
     {
@@ -115,6 +121,7 @@ class DirectoryTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox The basename is the same as the name of the directory
      * @covers phpOMS\System\File\Ftp\Directory
+     * @group framework
      */
     public function testStaticBasename() : void
     {
@@ -126,6 +133,7 @@ class DirectoryTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox The dirname is the same as the name of the directory
      * @covers phpOMS\System\File\Ftp\Directory
+     * @group framework
      */
     public function testStaticDirname() : void
     {
@@ -137,6 +145,7 @@ class DirectoryTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox The parent of a directory can be returned
      * @covers phpOMS\System\File\Ftp\Directory
+     * @group framework
      */
     public function testStaticParent() : void
     {
@@ -148,6 +157,7 @@ class DirectoryTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox The full absolute path of a directory can be returned
      * @covers phpOMS\System\File\Ftp\Directory
+     * @group framework
      */
     public function testStaticDirectoryPath() : void
     {
@@ -159,6 +169,7 @@ class DirectoryTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox The directories creation date can be returned
      * @covers phpOMS\System\File\Ftp\Directory
+     * @group framework
      */
     public function testStaticCreatedAt() : void
     {
@@ -176,6 +187,7 @@ class DirectoryTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox The directories last change date can be returned
      * @covers phpOMS\System\File\Ftp\Directory
+     * @group framework
      */
     public function testStaticChangedAt() : void
     {
@@ -194,6 +206,7 @@ class DirectoryTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox A directory can be deleted
      * @covers phpOMS\System\File\Ftp\Directory
+     * @group framework
      */
     public function testStaticDelete() : void
     {
@@ -207,6 +220,7 @@ class DirectoryTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox A none-existing directory cannot be deleted
      * @covers phpOMS\System\File\Ftp\Directory
+     * @group framework
      */
     public function testInvalidStaticDelete() : void
     {
@@ -218,6 +232,7 @@ class DirectoryTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox The size of a directory can be returned
      * @covers phpOMS\System\File\Ftp\Directory
+     * @group framework
      */
     public function testStaticSizeRecursive() : void
     {
@@ -228,6 +243,7 @@ class DirectoryTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox The size of a none-existing directory is negative
      * @covers phpOMS\System\File\Ftp\Directory
+     * @group framework
      */
     public function testInvalidStaticSizeRecursive() : void
     {
@@ -238,6 +254,7 @@ class DirectoryTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox The recursive size of a directory is equals or greater than the size of the same directory none-recursive
      * @covers phpOMS\System\File\Ftp\Directory
+     * @group framework
      */
     public function testStaticSize() : void
     {
@@ -248,6 +265,7 @@ class DirectoryTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox The permission of a directory can be returned
      * @covers phpOMS\System\File\Ftp\Directory
+     * @group framework
      */
     public function testStaticPermission() : void
     {
@@ -258,6 +276,7 @@ class DirectoryTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox The permission of a none-existing directory is negative
      * @covers phpOMS\System\File\Ftp\Directory
+     * @group framework
      */
     public function testInvalidStaticPermission() : void
     {
@@ -268,6 +287,7 @@ class DirectoryTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox A directory can be copied recursively
      * @covers phpOMS\System\File\Ftp\Directory
+     * @group framework
      */
     public function testStaticCopy() : void
     {
@@ -281,6 +301,7 @@ class DirectoryTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox A directory can be moved/renamed to a different path
      * @covers phpOMS\System\File\Ftp\Directory
+     * @group framework
      */
     public function testStaticMove() : void
     {
@@ -295,6 +316,7 @@ class DirectoryTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox The amount of files in a directory can be returned recursively
      * @covers phpOMS\System\File\Ftp\Directory
+     * @group framework
      */
     public function testStaticCountRecursive() : void
     {
@@ -305,6 +327,7 @@ class DirectoryTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox The amount of files in a directory can be returned none-recursively
      * @covers phpOMS\System\File\Ftp\Directory
+     * @group framework
      */
     public function testStaticCount() : void
     {
@@ -315,6 +338,7 @@ class DirectoryTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox The amount of files of a none-existing directory is negative
      * @covers phpOMS\System\File\Ftp\Directory
+     * @group framework
      */
     public function testInvalidStaticCount() : void
     {
@@ -325,6 +349,7 @@ class DirectoryTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox All files and sub-directories of a directory can be listed
      * @covers phpOMS\System\File\Ftp\Directory
+     * @group framework
      */
     public function testStaticListFiles() : void
     {
@@ -335,6 +360,7 @@ class DirectoryTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox A none-existing directory returns a empty list of files and sub-directories
      * @covers phpOMS\System\File\Ftp\Directory
+     * @group framework
      */
     public function testInvalidListPath() : void
     {
@@ -344,6 +370,7 @@ class DirectoryTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox A invalid directory cannot be copied to a new destination
      * @covers phpOMS\System\File\Ftp\Directory
+     * @group framework
      */
     public function testInvalidCopyPath() : void
     {
@@ -353,6 +380,7 @@ class DirectoryTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox A invalid directory cannot be moved to a new destination
      * @covers phpOMS\System\File\Ftp\Directory
+     * @group framework
      */
     public function testInvalidMovePath() : void
     {
@@ -362,6 +390,7 @@ class DirectoryTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox Reading the creation date of a none-existing directory throws a PathException
      * @covers phpOMS\System\File\Ftp\Directory
+     * @group framework
      */
     public function testInvalidCreatedPath() : void
     {
@@ -373,6 +402,7 @@ class DirectoryTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox Reading the last change date of a none-existing directory throws a PathException
      * @covers phpOMS\System\File\Ftp\Directory
+     * @group framework
      */
     public function testInvalidChangedPath() : void
     {
@@ -384,6 +414,7 @@ class DirectoryTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox Reading the owner of a none-existing directory throws a PathException
      * @covers phpOMS\System\File\Ftp\Directory
+     * @group framework
      */
     public function testInvalidOwnerPath() : void
     {

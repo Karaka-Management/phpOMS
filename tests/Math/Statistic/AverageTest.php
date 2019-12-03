@@ -25,6 +25,7 @@ class AverageTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @testdox The average change of a dataset is correctly calculated
+     * @group framework
      */
     public function testAverage() : void
     {
@@ -33,6 +34,7 @@ class AverageTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The average mean of angles is calculated correctly
+     * @group framework
      */
     public function testAngleMean() : void
     {
@@ -45,6 +47,7 @@ class AverageTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The arithmetic mean is correctly calculated
+     * @group framework
      */
     public function testArithmeticMean() : void
     {
@@ -53,6 +56,7 @@ class AverageTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The weighted mean is correctly calculated
+     * @group framework
      */
     public function testWeightedAverage() : void
     {
@@ -64,6 +68,7 @@ class AverageTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The geometric mean is correctly calculated
+     * @group framework
      */
     public function testGeometricMean() : void
     {
@@ -72,6 +77,7 @@ class AverageTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The harmonic mean is correctly calculated
+     * @group framework
      */
     public function testHarmonicMean() : void
     {
@@ -80,6 +86,7 @@ class AverageTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The moving average is correctly calculated
+     * @group framework
      */
     public function testMovingAverage() : void
     {
@@ -95,6 +102,7 @@ class AverageTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox Different weight and dataset dimensions throw a InvalidDimensionException
+     * @group framework
      */
     public function testInvalidWeightedAverageDimension() : void
     {
@@ -105,6 +113,7 @@ class AverageTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox An empty dataset for the arithmetic mean throws a ZeroDevisionException
+     * @group framework
      */
     public function testInvalidArithmeticMeanZeroDevision() : void
     {
@@ -115,6 +124,7 @@ class AverageTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox An empty dataset for the moving average throws a Exception
+     * @group framework
      */
     public function testInvalidMovingAverageZeroDevision() : void
     {
@@ -125,6 +135,7 @@ class AverageTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox An empty dataset for the harmonic mean throws a ZeroDevisionException
+     * @group framework
      */
     public function testInvalidHarmonicMeanZeroDevision() : void
     {
@@ -135,6 +146,7 @@ class AverageTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox An empty dataset for the geometric mean throws a ZeroDevisionException
+     * @group framework
      */
     public function testInvalidGeometricMean() : void
     {
@@ -145,6 +157,7 @@ class AverageTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox A dataset with a 0 element throws a ZeroDevisionException
+     * @group framework
      */
     public function testInvalidHarmonicMean() : void
     {
@@ -155,6 +168,7 @@ class AverageTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The mode is correctly calculated
+     * @group framework
      */
     public function testMode() : void
     {
@@ -163,6 +177,7 @@ class AverageTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The median is correctly calculated
+     * @group framework
      */
     public function testMedian() : void
     {

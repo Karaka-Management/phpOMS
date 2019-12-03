@@ -34,6 +34,7 @@ class DatabasePoolTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The pool has the expected default values after initialization
+     * @group framework
      */
     public function testDefault() : void
     {
@@ -42,6 +43,7 @@ class DatabasePoolTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox A database connection can be created by the pool
+     * @group framework
      */
     public function testCreateConnection() : void
     {
@@ -52,6 +54,7 @@ class DatabasePoolTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox Database connections cannot be overwritten
+     * @group framework
      */
     public function testInvalidOverwrite() : void
     {
@@ -63,6 +66,7 @@ class DatabasePoolTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox Existing database connections can be added to the pool
+     * @group framework
      */
     public function testAddConnections() : void
     {
@@ -73,6 +77,7 @@ class DatabasePoolTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox Database connections can be removed from the pool
+     * @group framework
      */
     public function testRemoveConnections() : void
     {
@@ -84,6 +89,7 @@ class DatabasePoolTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox Invalid database connections cannot be removed
+     * @group framework
      */
     public function testInvalidRemove() : void
     {
@@ -94,6 +100,7 @@ class DatabasePoolTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The first connection added to the pool is the default connection
+     * @group framework
      */
     public function testDefaultConnection() : void
     {

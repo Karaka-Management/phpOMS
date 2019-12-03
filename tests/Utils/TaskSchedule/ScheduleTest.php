@@ -26,6 +26,7 @@ class ScheduleTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox The task has the expected default values after initialization
      * @covers phpOMS\Utils\TaskSchedule\Schedule
+     * @group framework
      */
     public function testDefault() : void
     {
@@ -38,6 +39,7 @@ class ScheduleTest extends \PHPUnit\Framework\TestCase
      * @testdox A task can be created from an array and rendered
      * @covers phpOMS\Utils\TaskSchedule\Schedule
      * @todo the interval has to be implemented!
+     * @group framework
      */
     public function testCreateJobWithData() : void
     {

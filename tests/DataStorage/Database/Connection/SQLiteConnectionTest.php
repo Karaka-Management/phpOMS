@@ -35,6 +35,7 @@ class SQLiteConnectionTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox Valid sqlite connection data result in a valid database connection
      * @covers phpOMS\DataStorage\Database\Connection\SQLiteConnection
+     * @group framework
      */
     public function testConnect() : void
     {
@@ -47,6 +48,7 @@ class SQLiteConnectionTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox A missing database type throws a InvalidConnectionConfigException
      * @covers phpOMS\DataStorage\Database\Connection\SQLiteConnection
+     * @group framework
      */
     public function testInvalidDatabaseType() : void
     {
@@ -60,6 +62,7 @@ class SQLiteConnectionTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox A missing database throws a InvalidConnectionConfigException
      * @covers phpOMS\DataStorage\Database\Connection\SQLiteConnection
+     * @group framework
      */
     public function testInvalidDatabase() : void
     {

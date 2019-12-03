@@ -37,6 +37,7 @@ class CronTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox The cron handler has the expected default values after initialization
      * @covers phpOMS\Utils\TaskSchedule\Cron<extended>
+     * @group framework
      */
     public function testDefault() : void
     {
@@ -46,6 +47,7 @@ class CronTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox The cron brinary location path can be guessed
      * @covers phpOMS\Utils\TaskSchedule\Cron<extended>
+     * @group framework
      */
     public function testGuessBinary() : void
     {
@@ -55,6 +57,7 @@ class CronTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox A cron job can be created and returned
      * @covers phpOMS\Utils\TaskSchedule\Cron<extended>
+     * @group framework
      */
     public function testCronJobInputOutput() : void
     {
@@ -73,6 +76,7 @@ class CronTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox A none-existing cron name cannot be returned
      * @covers phpOMS\Utils\TaskSchedule\Cron<extended>
+     * @group framework
      */
     public function testInvalidCronJobName() : void
     {
@@ -83,6 +87,7 @@ class CronTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox A cron job can be updated
      * @covers phpOMS\Utils\TaskSchedule\Cron<extended>
+     * @group framework
      */
     public function testCronJobUpdate() : void
     {
@@ -104,6 +109,7 @@ class CronTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox A cron job can be deleted
      * @covers phpOMS\Utils\TaskSchedule\Cron<extended>
+     * @group framework
      */
     public function testDelete() : void
     {

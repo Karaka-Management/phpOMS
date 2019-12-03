@@ -24,6 +24,7 @@ use phpOMS\Localization\ISO639Enum;
 class ISO639EnumTest extends \PHPUnit\Framework\TestCase
 {
     /**
+     * @group framework
      * @coversNothing
      */
     public function testEnums() : void

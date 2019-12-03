@@ -28,6 +28,7 @@ class ArrayUtilsTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox Array values can be set and returned with a path
      * @covers phpOMS\Utils\ArrayUtils
+     * @group framework
      */
     public function testArrayInputOutput() : void
     {
@@ -63,6 +64,7 @@ class ArrayUtilsTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox Test recursively if a value is in an array
      * @covers phpOMS\Utils\ArrayUtils
+     * @group framework
      */
     public function testArrayInRecursive() : void
     {
@@ -86,6 +88,7 @@ class ArrayUtilsTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox An array element can be removed by its path
      * @covers phpOMS\Utils\ArrayUtils
+     * @group framework
      */
     public function testArrayDelete() : void
     {
@@ -106,6 +109,7 @@ class ArrayUtilsTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox The recursive sum of all values in an array can be calculated
      * @covers phpOMS\Utils\ArrayUtils
+     * @group framework
      */
     public function testArrayRecursiveSum() : void
     {
@@ -116,6 +120,7 @@ class ArrayUtilsTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox A multi-dimensional array can be flatten to a one-dimensional array
      * @covers phpOMS\Utils\ArrayUtils
+     * @group framework
      */
     public function testArrayFlatten() : void
     {
@@ -127,6 +132,7 @@ class ArrayUtilsTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox The sum of an array can be calculated
      * @covers phpOMS\Utils\ArrayUtils
+     * @group framework
      */
     public function testArraySum() : void
     {
@@ -139,6 +145,7 @@ class ArrayUtilsTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox An array can be checked if it contains multiple defined elements
      * @covers phpOMS\Utils\ArrayUtils
+     * @group framework
      */
     public function testArrayAllIn() : void
     {
@@ -152,6 +159,7 @@ class ArrayUtilsTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox An array can be checked if it contains any of the defined elements
      * @covers phpOMS\Utils\ArrayUtils
+     * @group framework
      */
     public function testArrayAnyIn() : void
     {
@@ -163,6 +171,7 @@ class ArrayUtilsTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox An array can be checked if it has an element and returns its index
      * @covers phpOMS\Utils\ArrayUtils
+     * @group framework
      */
     public function testArgHas() : void
     {
@@ -174,6 +183,7 @@ class ArrayUtilsTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox A none-existing argument in an array returns a negative value
      * @covers phpOMS\Utils\ArrayUtils
+     * @group framework
      */
     public function testInvalidArgHas() : void
     {
@@ -183,6 +193,7 @@ class ArrayUtilsTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox The argument value in an array can be returned
      * @covers phpOMS\Utils\ArrayUtils
+     * @group framework
      */
     public function testArgGet() : void
     {
@@ -194,6 +205,7 @@ class ArrayUtilsTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox A none-existing argument in an array returns null
      * @covers phpOMS\Utils\ArrayUtils
+     * @group framework
      */
     public function testInvalidArgGet() : void
     {
@@ -203,6 +215,7 @@ class ArrayUtilsTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox All array values in an array can be exponentiated by an integer
      * @covers phpOMS\Utils\ArrayUtils
+     * @group framework
      */
     public function testPowerInt() : void
     {
@@ -215,6 +228,7 @@ class ArrayUtilsTest extends \PHPUnit\Framework\TestCase
      * @covers phpOMS\Utils\ArrayUtils
      *
      * @todo combine with int as soon as union types exist
+     * @group framework
      */
     public function testPowerFloat() : void
     {
@@ -225,6 +239,7 @@ class ArrayUtilsTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox All array values in an array can be square rooted
      * @covers phpOMS\Utils\ArrayUtils
+     * @group framework
      */
     public function testSqrt() : void
     {
@@ -234,6 +249,7 @@ class ArrayUtilsTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox All array values in an array can be turned into their absolute value
      * @covers phpOMS\Utils\ArrayUtils
+     * @group framework
      */
     public function testAbs() : void
     {

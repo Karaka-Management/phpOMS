@@ -38,6 +38,7 @@ class LevelLevelRegressionTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The regression parameters are calcualated correctly
+     * @group framework
      */
     public function testRegression() : void
     {
@@ -46,6 +47,7 @@ class LevelLevelRegressionTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The slope is calculated correctly
+     * @group framework
      */
     public function testSlope() : void
     {
@@ -54,6 +56,7 @@ class LevelLevelRegressionTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The elasticity is calculated correctly
+     * @group framework
      */
     public function testElasticity() : void
     {
@@ -62,6 +65,7 @@ class LevelLevelRegressionTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The standard error of the population is calculated correctly
+     * @group framework
      */
     public function testStandardErrorOfRegressionPopulation() : void
     {
@@ -80,6 +84,7 @@ class LevelLevelRegressionTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The standard error of the sample is calculated correctly
+     * @group framework
      */
     public function testStandardErrorOfRegressionSample() : void
     {
@@ -98,6 +103,7 @@ class LevelLevelRegressionTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The prediction interval is calculated correctly
+     * @group framework
      */
     public function testPredictionInterval() : void
     {
@@ -121,6 +127,7 @@ class LevelLevelRegressionTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox Different dimension sizes for x and y coordinates throw a InvalidDimensionException
+     * @group framework
      */
     public function testInvalidDimension() : void
     {

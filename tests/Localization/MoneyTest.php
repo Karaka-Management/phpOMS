@@ -28,6 +28,7 @@ class MoneyTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @testdox The datatype has the expected member variables and default values
+     * @group framework
      */
     public function testDefaultMemberVariables() : void
     {
@@ -43,6 +44,7 @@ class MoneyTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The datatype returns the correct default string representation (#,###.##)
+     * @group framework
      */
     public function testMoneyDefaultStringRepresentation() : void
     {
@@ -52,6 +54,7 @@ class MoneyTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The datatype returns up to 4 decimal places if requested (#,###.####)
+     * @group framework
      */
     public function testMoneyDecimalPlaces() : void
     {
@@ -62,6 +65,7 @@ class MoneyTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The datatype returns the correct integer representation of a string with up to 4 decimal places also considering differences in decimal and thousands characters if requested for different localizations
+     * @group framework
      */
     public function testMoneyStringToIntConversion() : void
     {
@@ -72,6 +76,7 @@ class MoneyTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The datatype allows to modify the value by overwriting it with new string characters or integers correctly
+     * @group framework
      */
     public function testCorrectValueChange() : void
     {
@@ -82,6 +87,7 @@ class MoneyTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The datatype can print out money with different thousands, decimals and currency symbols as per definition by the user
+     * @group framework
      */
     public function testMoneyLocalization() : void
     {
@@ -91,6 +97,7 @@ class MoneyTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The string character input is correctly serialized to the numeric representation
+     * @group framework
      */
     public function testMoneySerialization() : void
     {
@@ -100,6 +107,7 @@ class MoneyTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The string character input is correctly unserialized from a numeric representation
+     * @group framework
      */
     public function testMoneyUnserialization() : void
     {
@@ -110,6 +118,7 @@ class MoneyTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The datatype correctly adds and subtracts the different money representations in string, numeric or Money type
+     * @group framework
      */
     public function testMoneyAddSub() : void
     {
@@ -129,6 +138,7 @@ class MoneyTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The datatype correctly multiplies and divides the money with numerics
+     * @group framework
      */
     public function testMoneyMultDiv() : void
     {
@@ -139,6 +149,7 @@ class MoneyTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The datatype correctly handles the absolute value
+     * @group framework
      */
     public function testMoneyAbsoluteValue() : void
     {
@@ -148,6 +159,7 @@ class MoneyTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The datatype correctly handles the power operator
+     * @group framework
      */
     public function testMoneyPower() : void
     {

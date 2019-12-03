@@ -27,6 +27,7 @@ class MysqlGrammarTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The grammar has the expected default values after initialization
+     * @group framework
      */
     public function testDefault() : void
     {

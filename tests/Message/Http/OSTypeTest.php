@@ -22,6 +22,7 @@ use phpOMS\Message\Http\OSType;
 class OSTypeTest extends \PHPUnit\Framework\TestCase
 {
     /**
+     * @group framework
      * @coversNothing
      */
     public function testEnumCount() : void
@@ -30,6 +31,7 @@ class OSTypeTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
+     * @group framework
      * @coversNothing
      */
     public function testUnique() : void

@@ -22,6 +22,7 @@ use phpOMS\Utils\Converter\EnergyPowerType;
 class EnergyPowerTypeTest extends \PHPUnit\Framework\TestCase
 {
     /**
+     * @group framework
      * @coversNothing
      */
     public function testEnumCount() : void
@@ -30,6 +31,7 @@ class EnergyPowerTypeTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
+     * @group framework
      * @coversNothing
      */
     public function testUnique() : void
@@ -38,6 +40,7 @@ class EnergyPowerTypeTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
+     * @group framework
      * @coversNothing
      */
     public function testEnums() : void

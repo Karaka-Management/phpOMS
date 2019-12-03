@@ -25,6 +25,7 @@ class LoanTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @testdox The loan to deposit ratio is correct
+     * @group framework
      */
     public function testLoanToDepositRatio() : void
     {
@@ -33,6 +34,7 @@ class LoanTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The loan to value ratio is correct
+     * @group framework
      */
     public function testLoanToValueRatio() : void
     {
@@ -41,6 +43,7 @@ class LoanTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The balloon loan payments are correct for a given balloon
+     * @group framework
      */
     public function testPaymentsOnBalloonLoan() : void
     {
@@ -54,6 +57,7 @@ class LoanTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The balloon loan residual value (balloon) is correct for given payments
+     * @group framework
      */
     public function testBalloonBalanceOfLoan() : void
     {
@@ -67,6 +71,7 @@ class LoanTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The loan payments are correct for a given interest rate and period [continuous compounding]
+     * @group framework
      */
     public function testLoanPayment() : void
     {
@@ -79,6 +84,7 @@ class LoanTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The residual value is correct for a given payment amount, interest rate and period [continuous compounding]
+     * @group framework
      */
     public function testRemainingBalanceLoan() : void
     {

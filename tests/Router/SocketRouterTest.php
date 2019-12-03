@@ -40,6 +40,7 @@ class SocketRouterTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox The route result for an empty request is empty
      * @covers phpOMS\Router\SocketRouter
+     * @group framework
      */
     public function testDefault() : void
     {
@@ -49,6 +50,7 @@ class SocketRouterTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox A none-existing routing file cannot be imported
      * @covers phpOMS\Router\SocketRouter
+     * @group framework
      */
     public function testInvalidRoutingFile() : void
     {
@@ -58,6 +60,7 @@ class SocketRouterTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox A existing routing file can be imported
      * @covers phpOMS\Router\SocketRouter
+     * @group framework
      */
     public function testLoadingRoutesFromFile() : void
     {
@@ -67,6 +70,7 @@ class SocketRouterTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox A matching route returns the destinations
      * @covers phpOMS\Router\SocketRouter
+     * @group framework
      */
     public function testRouteMatching() : void
     {
@@ -81,6 +85,7 @@ class SocketRouterTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox Routes can be added dynamically
      * @covers phpOMS\Router\SocketRouter
+     * @group framework
      */
     public function testDynamicRouteAdding() : void
     {
@@ -99,6 +104,7 @@ class SocketRouterTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox Routes only match if the permissions match
      * @covers phpOMS\Router\SocketRouter
+     * @group framework
      */
     public function testWithValidPermissions() : void
     {
@@ -131,6 +137,7 @@ class SocketRouterTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox Routes don't match if the permissions don't match
      * @covers phpOMS\Router\SocketRouter
+     * @group framework
      */
     public function testWithInvalidPermissions() : void
     {

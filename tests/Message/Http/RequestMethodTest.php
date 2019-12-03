@@ -22,6 +22,7 @@ use phpOMS\Message\Http\RequestMethod;
 class RequestMethodTest extends \PHPUnit\Framework\TestCase
 {
     /**
+     * @group framework
      * @coversNothing
      */
     public function testEnumCount() : void
@@ -30,6 +31,7 @@ class RequestMethodTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
+     * @group framework
      * @coversNothing
      */
     public function testUnique() : void
@@ -38,6 +40,7 @@ class RequestMethodTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
+     * @group framework
      * @coversNothing
      */
     public function testEnums() : void

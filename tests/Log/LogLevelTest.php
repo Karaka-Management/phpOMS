@@ -24,6 +24,7 @@ use phpOMS\Log\LogLevel;
 class LogLevelTest extends \PHPUnit\Framework\TestCase
 {
     /**
+     * @group framework
      * @coversNothing
      */
     public function testEnumCount() : void
@@ -32,6 +33,7 @@ class LogLevelTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
+     * @group framework
      * @coversNothing
      */
     public function testUnique() : void
@@ -40,6 +42,7 @@ class LogLevelTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
+     * @group framework
      * @coversNothing
      */
     public function testEnums() : void

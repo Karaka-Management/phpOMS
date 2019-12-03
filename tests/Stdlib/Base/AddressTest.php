@@ -34,6 +34,7 @@ class AddressTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox The address has the expected attributes
      * @covers phpOMS\Stdlib\Base\Address
+     * @group framework
      */
     public function testAttributes() : void
     {
@@ -45,6 +46,7 @@ class AddressTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox The address has the expected default values after initialization
      * @covers phpOMS\Stdlib\Base\Address
+     * @group framework
      */
     public function testDefault() : void
     {
@@ -74,6 +76,7 @@ class AddressTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox The fao can be set and returned
      * @covers phpOMS\Stdlib\Base\Address
+     * @group framework
      */
     public function testFAOInputOutput() : void
     {
@@ -84,6 +87,7 @@ class AddressTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox The recepient can be set and returned
      * @covers phpOMS\Stdlib\Base\Address
+     * @group framework
      */
     public function testRecipientInputOutput() : void
     {
@@ -94,6 +98,7 @@ class AddressTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox The location can be set and returned
      * @covers phpOMS\Stdlib\Base\Address
+     * @group framework
      */
     public function testLocationInputOutput() : void
     {
@@ -106,6 +111,7 @@ class AddressTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox The address can be turned into array data
      * @covers phpOMS\Stdlib\Base\Address
+     * @group framework
      */
     public function testArray() : void
     {
@@ -135,6 +141,7 @@ class AddressTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox The address can be json serialized
      * @covers phpOMS\Stdlib\Base\Address
+     * @group framework
      */
     public function testJsonSerialize() : void
     {

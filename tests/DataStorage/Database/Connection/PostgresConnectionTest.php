@@ -35,6 +35,7 @@ class PostgresConnectionTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox Valid postgresql connection data result in a valid database connection
      * @covers phpOMS\DataStorage\Database\Connection\PostgresConnection
+     * @group framework
      */
     public function testConnect() : void
     {
@@ -49,6 +50,7 @@ class PostgresConnectionTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox A missing database type throws a InvalidConnectionConfigException
      * @covers phpOMS\DataStorage\Database\Connection\PostgresConnection
+     * @group framework
      */
     public function testInvalidDatabaseType() : void
     {
@@ -62,6 +64,7 @@ class PostgresConnectionTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox A missing database host throws a InvalidConnectionConfigException
      * @covers phpOMS\DataStorage\Database\Connection\PostgresConnection
+     * @group framework
      */
     public function testInvalidHost() : void
     {
@@ -75,6 +78,7 @@ class PostgresConnectionTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox A missing database port throws a InvalidConnectionConfigException
      * @covers phpOMS\DataStorage\Database\Connection\PostgresConnection
+     * @group framework
      */
     public function testInvalidPort() : void
     {
@@ -88,6 +92,7 @@ class PostgresConnectionTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox A missing database throws a InvalidConnectionConfigException
      * @covers phpOMS\DataStorage\Database\Connection\PostgresConnection
+     * @group framework
      */
     public function testInvalidDatabase() : void
     {
@@ -101,6 +106,7 @@ class PostgresConnectionTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox A missing database login throws a InvalidConnectionConfigException
      * @covers phpOMS\DataStorage\Database\Connection\PostgresConnection
+     * @group framework
      */
     public function testInvalidLogin() : void
     {
@@ -114,6 +120,7 @@ class PostgresConnectionTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox A missing database password throws a InvalidConnectionConfigException
      * @covers phpOMS\DataStorage\Database\Connection\PostgresConnection
+     * @group framework
      */
     public function testInvalidPassword() : void
     {
@@ -127,6 +134,7 @@ class PostgresConnectionTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox A invalid database type throws a InvalidConnectionConfigException
      * @covers phpOMS\DataStorage\Database\Connection\PostgresConnection
+     * @group framework
      */
     public function testInvalidDatabaseTypeName() : void
     {
@@ -139,6 +147,7 @@ class PostgresConnectionTest extends \PHPUnit\Framework\TestCase
 
     /**
      * todo: apparently this doesn't throw an exception in postgresql?!
+     * @group framework
      */
     public function testInvalidDatabaseName() : void
     {

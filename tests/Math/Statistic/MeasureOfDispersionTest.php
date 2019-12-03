@@ -25,6 +25,7 @@ class MeasureOfDispersionTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @testdox The range of a dataset is correctly calculated
+     * @group framework
      */
     public function testRange() : void
     {
@@ -33,6 +34,7 @@ class MeasureOfDispersionTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The standard deviation is correctly calculated
+     * @group framework
      */
     public function testStandardDeviation() : void
     {
@@ -41,6 +43,7 @@ class MeasureOfDispersionTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The empirical covariance is correctly calculated
+     * @group framework
      */
     public function testEmpiricalCovariance() : void
     {
@@ -55,6 +58,7 @@ class MeasureOfDispersionTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The sample variance is correctly calculated
+     * @group framework
      */
     public function testVarianceSample() : void
     {
@@ -63,6 +67,7 @@ class MeasureOfDispersionTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The population/empirical variance is correctly calculated
+     * @group framework
      */
     public function testVariancePopulation() : void
     {
@@ -71,6 +76,7 @@ class MeasureOfDispersionTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The mean deviations are correctly calculated
+     * @group framework
      */
     public function testDeviation() : void
     {
@@ -81,6 +87,7 @@ class MeasureOfDispersionTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The mean deviations for every dataset element is correctly calculated
+     * @group framework
      */
     public function testDeviationArray() : void
     {
@@ -105,6 +112,7 @@ class MeasureOfDispersionTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The empirical variation coefficient is correctly calculated
+     * @group framework
      */
     public function testEmpiricalVariationCoefficient() : void
     {
@@ -113,6 +121,7 @@ class MeasureOfDispersionTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The interquartile range is correctly calculated
+     * @group framework
      */
     public function testIQR() : void
     {
@@ -122,6 +131,7 @@ class MeasureOfDispersionTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The empirical varation coefficient with a mean of 0 throws a ZeroDevisionException
+     * @group framework
      */
     public function testInvalidEmpiricalVariationCoefficient() : void
     {
@@ -132,6 +142,7 @@ class MeasureOfDispersionTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox An empty dataset in the empirical covariance throws a ZeroDevisionException
+     * @group framework
      */
     public function testInvalidEmpiricalCovariance() : void
     {
@@ -142,6 +153,7 @@ class MeasureOfDispersionTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox Different dataset saces in the empirical covariance throw a InvalidDimensionException
+     * @group framework
      */
     public function testInvalidEmpiricalCovarianceDimension() : void
     {
@@ -152,6 +164,7 @@ class MeasureOfDispersionTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox An empty dataset in the sample variance throws a ZeroDevisionException
+     * @group framework
      */
     public function testInvalidSampleVariance() : void
     {
@@ -162,6 +175,7 @@ class MeasureOfDispersionTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox An empty dataset in the empirical/population variance throws a ZeroDevisionException
+     * @group framework
      */
     public function testInvalidEmpiricalVariance() : void
     {

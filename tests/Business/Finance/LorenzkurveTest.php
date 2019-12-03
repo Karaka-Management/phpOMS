@@ -25,6 +25,7 @@ class LorenzkurveTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @testdox The gini coefficient calculation is correct
+     * @group framework
      */
     public function testGiniCoefficient() : void
     {

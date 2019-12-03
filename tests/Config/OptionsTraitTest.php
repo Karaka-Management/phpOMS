@@ -28,6 +28,7 @@ class OptionsTraitTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The option helper has the expected attributes
+     * @group framework
      */
     public function testOptionTraitMembers() : void
     {
@@ -41,6 +42,7 @@ class OptionsTraitTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The option helper has the expected default values after initialization
+     * @group framework
      */
     public function testDefault() : void
     {
@@ -54,6 +56,7 @@ class OptionsTraitTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox Options can be added to the helper
+     * @group framework
      */
     public function testAdd() : void
     {
@@ -68,6 +71,7 @@ class OptionsTraitTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox Options can be overwritten/changed
+     * @group framework
      */
     public function testOverwrite() : void
     {
@@ -94,6 +98,7 @@ class OptionsTraitTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox Multiple options can be added to the helper in one go
+     * @group framework
      */
     public function testAddMultiple() : void
     {
@@ -118,6 +123,7 @@ class OptionsTraitTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox Multiple options can be retrieved
+     * @group framework
      */
     public function testGetMultiple() : void
     {

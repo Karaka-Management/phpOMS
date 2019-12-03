@@ -29,6 +29,7 @@ class ValidatorTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox A string can be checked if it contains a substring
      * @covers phpOMS\Validation\Validator
+     * @group framework
      */
     public function testValidationContains() : void
     {
@@ -39,6 +40,7 @@ class ValidatorTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox A string can be checked if it has a certain length
      * @covers phpOMS\Validation\Validator
+     * @group framework
      */
     public function testValidationLength() : void
     {
@@ -50,6 +52,7 @@ class ValidatorTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox A value can be checked if it is in range
      * @covers phpOMS\Validation\Validator
+     * @group framework
      */
     public function testValidationLimit() : void
     {
@@ -61,6 +64,7 @@ class ValidatorTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox A value can be checked to be of a defined type
      * @covers phpOMS\Validation\Validator
+     * @group framework
      */
     public function testValidationType() : void
     {
@@ -71,6 +75,7 @@ class ValidatorTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox The error message and error code have the expected default values
      * @covers phpOMS\Validation\Validator
+     * @group framework
      */
     public function testValidationError() : void
     {
@@ -82,6 +87,7 @@ class ValidatorTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox Custom validators can be specified in order to validate a value
      * @covers phpOMS\Validation\Validator
+     * @group framework
      */
     public function testValidators() : void
     {
@@ -94,6 +100,7 @@ class ValidatorTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox A value can be checked to match a regular expression
      * @covers phpOMS\Validation\Validator
+     * @group framework
      */
     public function testMatching() : void
     {

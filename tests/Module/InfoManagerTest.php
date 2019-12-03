@@ -28,6 +28,7 @@ class InfoManagerTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox A info file can be correctly loaded
      * @covers phpOMS\Module\InfoManager
+     * @group framework
      */
     public function testLoad() : void
     {
@@ -52,6 +53,7 @@ class InfoManagerTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox A info file can be modified
      * @covers phpOMS\Module\InfoManager
+     * @group framework
      */
     public function testChange() : void
     {
@@ -75,6 +77,7 @@ class InfoManagerTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox A invalid info file path load throws a PathException
      * @covers phpOMS\Module\InfoManager
+     * @group framework
      */
     public function testInvalidPathLoad() : void
     {
@@ -87,6 +90,7 @@ class InfoManagerTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox A invalid info file path update throws a PathException
      * @covers phpOMS\Module\InfoManager
+     * @group framework
      */
     public function testInvalidPathUpdate() : void
     {
@@ -99,6 +103,7 @@ class InfoManagerTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox A invalid change data throws a InvalidArgumentException
      * @covers phpOMS\Module\InfoManager
+     * @group framework
      */
     public function testInvalidDataSet() : void
     {

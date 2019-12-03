@@ -28,6 +28,7 @@ class ColorUtilsTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox A integer can be converted to rgb
      * @covers phpOMS\Utils\ColorUtils
+     * @group framework
      */
     public function testIntToRgb() : void
     {
@@ -37,6 +38,7 @@ class ColorUtilsTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox Rgb can be converted to a integer
      * @covers phpOMS\Utils\ColorUtils
+     * @group framework
      */
     public function testRgbToInt() : void
     {

@@ -32,6 +32,7 @@ class CookieJarTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The cookie jar has the expected default values and functionality after initialization
+     * @group framework
      */
     public function testDefault() : void
     {
@@ -42,6 +43,7 @@ class CookieJarTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox Cookie values can be set and returned
+     * @group framework
      */
     public function testCookieInputOutput() : void
     {
@@ -54,6 +56,7 @@ class CookieJarTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox Cookie values cannot be overwritten
+     * @group framework
      */
     public function testInvalidOverwrite() : void
     {
@@ -63,6 +66,7 @@ class CookieJarTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox Cookie values can be forced to overwrite
+     * @group framework
      */
     public function testOverwrite() : void
     {
@@ -72,6 +76,7 @@ class CookieJarTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox Cookie values can be removed
+     * @group framework
      */
     public function testRemove() : void
     {
@@ -81,6 +86,7 @@ class CookieJarTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox None-existing cookie values cannot be removed
+     * @group framework
      */
     public function testInvalidRemove() : void
     {
@@ -91,6 +97,7 @@ class CookieJarTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox Values cannot be removed from a locked cookie and throws a LockException
+     * @group framework
      */
     public function testDeleteLocked() : void
     {
@@ -104,6 +111,7 @@ class CookieJarTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox A locked coockie cannot be saved and throws a LockException
+     * @group framework
      */
     public function testSaveLocked() : void
     {

@@ -24,6 +24,7 @@ use phpOMS\Uri\UriScheme;
 class UriSchemeTest extends \PHPUnit\Framework\TestCase
 {
     /**
+     * @group framework
      * @coversNothing
      */
     public function testEnums() : void
@@ -46,6 +47,7 @@ class UriSchemeTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
+     * @group framework
      * @coversNothing
      */
     public function testEnumUnique() : void

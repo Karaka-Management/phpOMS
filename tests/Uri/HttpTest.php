@@ -28,6 +28,7 @@ class HttpTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox A url can be validated
      * @covers phpOMS\Uri\Http
+     * @group framework
      */
     public function testValidator() : void
     {
@@ -40,6 +41,7 @@ class HttpTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox The http url has the expected default values after initialization
      * @covers phpOMS\Uri\Http
+     * @group framework
      */
     public function testDefault() : void
     {
@@ -56,6 +58,7 @@ class HttpTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox The url schema can be parsed correctly from a url
      * @covers phpOMS\Uri\Http
+     * @group framework
      */
     public function testSchemaInputOutput() : void
     {
@@ -67,6 +70,7 @@ class HttpTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox The host can be parsed correctly from a url
      * @covers phpOMS\Uri\Http
+     * @group framework
      */
     public function testHostInputOutput() : void
     {
@@ -78,6 +82,7 @@ class HttpTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox The username can be parsed correctly from a url
      * @covers phpOMS\Uri\Http
+     * @group framework
      */
     public function testUsernameInputOutput() : void
     {
@@ -89,6 +94,7 @@ class HttpTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox The password can be parsed correctly from a url
      * @covers phpOMS\Uri\Http
+     * @group framework
      */
     public function testPasswordInputOutput() : void
     {
@@ -100,6 +106,7 @@ class HttpTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox The base can be parsed correctly from a url
      * @covers phpOMS\Uri\Http
+     * @group framework
      */
     public function testBaseInputOutput() : void
     {
@@ -111,6 +118,7 @@ class HttpTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox The url can be turned into a string
      * @covers phpOMS\Uri\Http
+     * @group framework
      */
     public function testStringify() : void
     {
@@ -122,6 +130,7 @@ class HttpTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox The authority can be parsed correctly from a url
      * @covers phpOMS\Uri\Http
+     * @group framework
      */
     public function testAuthorityInputOutput() : void
     {
@@ -133,6 +142,7 @@ class HttpTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox The user info can be parsed correctly from a url
      * @covers phpOMS\Uri\Http
+     * @group framework
      */
     public function testUserinfoInputOutput() : void
     {
@@ -144,6 +154,7 @@ class HttpTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox The root path can be set and returned
      * @covers phpOMS\Uri\Http
+     * @group framework
      */
     public function testRootPathInputOutput() : void
     {
@@ -156,6 +167,7 @@ class HttpTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox The path offset can be set and returned
      * @covers phpOMS\Uri\Http
+     * @group framework
      */
     public function testPathOffsetInputOutput() : void
     {
@@ -168,6 +180,7 @@ class HttpTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox The subdomain can be parsed correctly from a url
      * @covers phpOMS\Uri\Http
+     * @group framework
      */
     public function testSubdmonain() : void
     {
@@ -184,6 +197,7 @@ class HttpTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox The query data can be parsed correctly from a url
      * @covers phpOMS\Uri\Http
+     * @group framework
      */
     public function testQueryData() : void
     {
@@ -196,6 +210,7 @@ class HttpTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox The fragment data can be parsed correctly from a url
      * @covers phpOMS\Uri\Http
+     * @group framework
      */
     public function testFragment() : void
     {
@@ -206,6 +221,7 @@ class HttpTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox The path data can be parsed correctly from a url
      * @covers phpOMS\Uri\Http
+     * @group framework
      */
     public function testPathData() : void
     {
@@ -218,6 +234,7 @@ class HttpTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox The route can be parsed correctly from a url
      * @covers phpOMS\Uri\Http
+     * @group framework
      */
     public function testRouteInputOutput() : void
     {

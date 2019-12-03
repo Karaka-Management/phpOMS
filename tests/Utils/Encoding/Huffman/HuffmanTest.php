@@ -26,6 +26,7 @@ class HuffmanTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox Encoding and decoding empty data results in an empty output
+     * @group framework
      */
     public function testEmpty() : void
     {
@@ -36,6 +37,7 @@ class HuffmanTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox Data can be huffman encoded and decoded
+     * @group framework
      */
     public function testHuffman() : void
     {

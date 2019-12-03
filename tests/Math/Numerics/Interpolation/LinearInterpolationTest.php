@@ -26,6 +26,7 @@ class LinearInterpolationTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox The linear interpolation is correct
      * @covers phpOMS\Math\Numerics\Interpolation\LinearInterpolation
+     * @group framework
      */
     public function testInterpolation() : void
     {

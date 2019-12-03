@@ -26,6 +26,7 @@ class IntervalTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox The interval has the expected default values after initialization
      * @covers phpOMS\Utils\TaskSchedule\Interval
+     * @group framework
      */
     public function testDefault() : void
     {
@@ -57,6 +58,7 @@ class IntervalTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox The start date can be set during initialization and returned
      * @covers phpOMS\Utils\TaskSchedule\Interval
+     * @group framework
      */
     public function testConstructorInputOutput() : void
     {
@@ -67,6 +69,7 @@ class IntervalTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox The start date can set and returned
      * @covers phpOMS\Utils\TaskSchedule\Interval
+     * @group framework
      */
     public function testStartInputOutput() : void
     {
@@ -79,6 +82,7 @@ class IntervalTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox The end date can set and returned
      * @covers phpOMS\Utils\TaskSchedule\Interval
+     * @group framework
      */
     public function testEndInputOutput() : void
     {
@@ -91,6 +95,7 @@ class IntervalTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox The maximum execution duration can set and returned
      * @covers phpOMS\Utils\TaskSchedule\Interval
+     * @group framework
      */
     public function testMaxExecutionInputOutput() : void
     {
@@ -103,6 +108,7 @@ class IntervalTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox An execution minute can be added and returned
      * @covers phpOMS\Utils\TaskSchedule\Interval
+     * @group framework
      */
     public function testMinuteInputOutput() : void
     {
@@ -119,6 +125,7 @@ class IntervalTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox An execution minute can be overwritten
      * @covers phpOMS\Utils\TaskSchedule\Interval
+     * @group framework
      */
     public function testMinuteOverwriteInputOutput() : void
     {
@@ -136,6 +143,7 @@ class IntervalTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox An execution hour can be added and returned
      * @covers phpOMS\Utils\TaskSchedule\Interval
+     * @group framework
      */
     public function testHourInputOutput() : void
     {
@@ -152,6 +160,7 @@ class IntervalTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox An execution hour can be overwritten
      * @covers phpOMS\Utils\TaskSchedule\Interval
+     * @group framework
      */
     public function testHourOverwriteInputOutput() : void
     {
@@ -169,6 +178,7 @@ class IntervalTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox An execution year can be added and returned
      * @covers phpOMS\Utils\TaskSchedule\Interval
+     * @group framework
      */
     public function testYearInputOutput() : void
     {
@@ -185,6 +195,7 @@ class IntervalTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox An execution year can be overwritten
      * @covers phpOMS\Utils\TaskSchedule\Interval
+     * @group framework
      */
     public function testYearOverwriteInputOutput() : void
     {
@@ -202,6 +213,7 @@ class IntervalTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox An execution day of month can be added and returned
      * @covers phpOMS\Utils\TaskSchedule\Interval
+     * @group framework
      */
     public function testDayOfMonthInputOutput() : void
     {
@@ -218,6 +230,7 @@ class IntervalTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox An execution day of month can be overwritten
      * @covers phpOMS\Utils\TaskSchedule\Interval
+     * @group framework
      */
     public function testDayOfMonthOverwriteInputOutput() : void
     {
@@ -235,6 +248,7 @@ class IntervalTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox An execution day of week can be added and returned
      * @covers phpOMS\Utils\TaskSchedule\Interval
+     * @group framework
      */
     public function testDayOfWeekInputOutput() : void
     {
@@ -251,6 +265,7 @@ class IntervalTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox An execution day of week can be overwritten
      * @covers phpOMS\Utils\TaskSchedule\Interval
+     * @group framework
      */
     public function testDayOfWeekOverwriteInputOutput() : void
     {
@@ -268,6 +283,7 @@ class IntervalTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox A interval can be serialized
      * @covers phpOMS\Utils\TaskSchedule\Interval
+     * @group framework
      */
     public function testSerialize() : void
     {
@@ -297,6 +313,7 @@ class IntervalTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox A serialized interval can be unserialized
      * @covers phpOMS\Utils\TaskSchedule\Interval
+     * @group framework
      */
     public function testUnserialize() : void
     {

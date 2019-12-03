@@ -34,6 +34,7 @@ class AssetManagerTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The manager has the expected member variables
+     * @group framework
      */
     public function testAttributes() : void
     {
@@ -45,6 +46,7 @@ class AssetManagerTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The manager has the expected default values after initialization
+     * @group framework
      */
     public function testDefault() : void
     {
@@ -54,6 +56,7 @@ class AssetManagerTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox An asset can be added to the manager
+     * @group framework
      */
     public function testAddAsset() : void
     {
@@ -66,6 +69,7 @@ class AssetManagerTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox An asset can be retrieved from the manager
+     * @group framework
      */
     public function testRetrieveAsset() : void
     {
@@ -75,6 +79,7 @@ class AssetManagerTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox An asset can only be added once to the manager (no duplication unless overwritten)
+     * @group framework
      */
     public function testInvalidAssetReplacement() : void
     {
@@ -88,6 +93,7 @@ class AssetManagerTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox An asset can be replaced upon request
+     * @group framework
      */
     public function testAssetReplacement() : void
     {
@@ -106,6 +112,7 @@ class AssetManagerTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox An asset can be removed from the manager
+     * @group framework
      */
     public function testAssetRemove() : void
     {

@@ -27,6 +27,7 @@ class CubicSplineInterpolationTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox The spline interpolation using the first derivative is correct
      * @covers phpOMS\Math\Numerics\Interpolation\CubicSplineInterpolation
+     * @group framework
      */
     public function testInterpolationFirstDerivative() : void
     {
@@ -47,6 +48,7 @@ class CubicSplineInterpolationTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox The spline interpolation using the second derivative is correct
      * @covers phpOMS\Math\Numerics\Interpolation\CubicSplineInterpolation
+     * @group framework
      */
     public function testInterpolationSecondDerivative() : void
     {

@@ -27,6 +27,7 @@ class WeightedTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox The optimal job combination is selected to maximize the value/profit without overlapping jobs
      * @covers phpOMS\Algorithm\JobScheduling\Weighted
+     * @group framework
      */
     public function testNoOverlappingScheduling() : void
     {
@@ -58,6 +59,7 @@ class WeightedTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox A job list with only one job simply returns one job
      * @covers phpOMS\Algorithm\JobScheduling\Weighted
+     * @group framework
      */
     public function testSmallList() : void
     {

@@ -37,6 +37,7 @@ class MysqlGrammarTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox The grammar has the expected default values after initialization
      * @covers phpOMS\DataStorage\Database\Schema\Grammar\MysqlGrammar<extended>
+     * @group framework
      */
     public function testDefault() : void
     {
@@ -47,6 +48,7 @@ class MysqlGrammarTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox The the grammar correctly creates and returns a database table
      * @covers phpOMS\DataStorage\Database\Schema\Grammar\MysqlGrammar<extended>
+     * @group framework
      */
     public function testSchemaInputOutput() : void
     {
@@ -74,6 +76,7 @@ class MysqlGrammarTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox The grammar correctly deletes a table
      * @covers phpOMS\DataStorage\Database\Schema\Grammar\MysqlGrammar<extended>
+     * @group framework
      */
     public function testDelete() : void
     {

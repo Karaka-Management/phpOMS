@@ -22,6 +22,7 @@ use phpOMS\Validation\Finance\IbanEnum;
 class IbanEnumTest extends \PHPUnit\Framework\TestCase
 {
     /**
+     * @group framework
      * @coversNothing
      */
     public function testEnums() : void

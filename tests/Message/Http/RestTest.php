@@ -29,6 +29,7 @@ class RestTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox A get request successfully returns the expected result
      * @covers phpOMS\Message\Http\Rest
+     * @group framework
      */
     public function testRequest() : void
     {
@@ -44,6 +45,7 @@ class RestTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox A post request with data successfully returns the expected result
      * @covers phpOMS\Message\Http\Rest
+     * @group framework
      */
     public function testPost() : void
     {
@@ -56,6 +58,7 @@ class RestTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox A put request with data successfully returns the expected result
      * @covers phpOMS\Message\Http\Rest
+     * @group framework
      */
     public function testPut() : void
     {
@@ -68,6 +71,7 @@ class RestTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox A delete request with data successfully returns the expected result
      * @covers phpOMS\Message\Http\Rest
+     * @group framework
      */
     public function testDelete() : void
     {
@@ -80,6 +84,7 @@ class RestTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox A get request with data successfully returns the expected result
      * @covers phpOMS\Message\Http\Rest
+     * @group framework
      */
     public function testGet() : void
     {

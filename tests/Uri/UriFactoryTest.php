@@ -29,6 +29,7 @@ class UriFactoryTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox The http url factory has the expected default values after initialization
      * @covers phpOMS\Uri\UriFactory
+     * @group framework
      */
     public function testDefault() : void
     {
@@ -39,6 +40,7 @@ class UriFactoryTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox Data can be set to the factory and returned
      * @covers phpOMS\Uri\UriFactory
+     * @group framework
      */
     public function testQueryInputOutput() : void
     {
@@ -49,6 +51,7 @@ class UriFactoryTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox Data can be forcefully overwritten
      * @covers phpOMS\Uri\UriFactory
+     * @group framework
      */
     public function testOverwrite() : void
     {
@@ -60,6 +63,7 @@ class UriFactoryTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox By default data is not overwritten in the factory
      * @covers phpOMS\Uri\UriFactory
+     * @group framework
      */
     public function testInvalidOverwrite() : void
     {
@@ -71,6 +75,7 @@ class UriFactoryTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox Data can be removed/cleared from the factory
      * @covers phpOMS\Uri\UriFactory
+     * @group framework
      */
     public function testClearing() : void
     {
@@ -82,6 +87,7 @@ class UriFactoryTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox None-existing data cannot be cleared from the factory
      * @covers phpOMS\Uri\UriFactory
+     * @group framework
      */
     public function testInvalidClearing() : void
     {
@@ -93,6 +99,7 @@ class UriFactoryTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox Data can be removed from the factory by category
      * @covers phpOMS\Uri\UriFactory
+     * @group framework
      */
     public function testClean() : void
     {
@@ -106,6 +113,7 @@ class UriFactoryTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox All data can be removed from the factory with a wildcard
      * @covers phpOMS\Uri\UriFactory
+     * @group framework
      */
     public function testCleanWildcard() : void
     {
@@ -119,6 +127,7 @@ class UriFactoryTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox Data can be removed from the factory with regular expression matches
      * @covers phpOMS\Uri\UriFactory
+     * @group framework
      */
     public function testClearingLike() : void
     {
@@ -135,6 +144,7 @@ class UriFactoryTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox Data whitch doesn't match the regular expression is not removed
      * @covers phpOMS\Uri\UriFactory
+     * @group framework
      */
     public function testInvalidClearingLike() : void
     {
@@ -147,6 +157,7 @@ class UriFactoryTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox A url can be build with the defined factory data and/or build specific data
      * @covers phpOMS\Uri\UriFactory
+     * @group framework
      */
     public function testBuilder() : void
     {
@@ -169,6 +180,7 @@ class UriFactoryTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox The uri factory can be set up with default values from a url and build with these default values
      * @covers phpOMS\Uri\UriFactory
+     * @group framework
      */
     public function testSetupBuild() : void
     {

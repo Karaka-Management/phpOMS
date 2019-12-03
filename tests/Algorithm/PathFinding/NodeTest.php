@@ -29,6 +29,7 @@ class NodeTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox The node has the expected values after initialization
      * @covers phpOMS\Algorithm\PathFinding\Node
+     * @group framework
      */
     public function testDefault() : void
     {
@@ -45,6 +46,7 @@ class NodeTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox Nodes with equal coordinates are equal
      * @covers phpOMS\Algorithm\PathFinding\Node
+     * @group framework
      */
     public function testNodesWithEqualCoordinatesAreEqual() : void
     {
@@ -57,6 +59,7 @@ class NodeTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox Nodes with different coordinates are not equal
      * @covers phpOMS\Algorithm\PathFinding\Node
+     * @group framework
      */
     public function testNodesWithDifferentCoordinatesAreNotEqual() : void
     {
@@ -69,6 +72,7 @@ class NodeTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox A parent node can be set and returned
      * @covers phpOMS\Algorithm\PathFinding\Node
+     * @group framework
      */
     public function testParentInputOutput() : void
     {

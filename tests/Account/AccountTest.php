@@ -42,6 +42,7 @@ class AccountTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox The account has the expected member variables
      * @covers phpOMS\Account\Account<extended>
+     * @group framework
      */
     public function testAttributes() : void
     {
@@ -68,6 +69,7 @@ class AccountTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox The account has the expected default values after initialization
      * @covers phpOMS\Account\Account<extended>
+     * @group framework
      */
     public function testDefault() : void
     {
@@ -116,6 +118,7 @@ class AccountTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox The account names can be set and retrieved correctly
      * @covers phpOMS\Account\Account<extended>
+     * @group framework
      */
     public function testSetAndGetAccountNames() : void
     {
@@ -141,6 +144,7 @@ class AccountTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox Groups can be added to an account
      * @covers phpOMS\Account\Account<extended>
+     * @group framework
      */
     public function testAddAndGetGroup() : void
     {
@@ -154,6 +158,7 @@ class AccountTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox An account can have a valid email address
      * @covers phpOMS\Account\Account<extended>
+     * @group framework
      */
     public function testSetAndGetAccountEmail() : void
     {
@@ -167,6 +172,7 @@ class AccountTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox The default status of the account can be changed to a different valid status
      * @covers phpOMS\Account\Account<extended>
+     * @group framework
      */
     public function testChangeStatus() : void
     {
@@ -180,6 +186,7 @@ class AccountTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox The default type of the account can be changed to a different valid type
      * @covers phpOMS\Account\Account<extended>
+     * @group framework
      */
     public function testChangeType() : void
     {
@@ -193,6 +200,7 @@ class AccountTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox Account permissions can be added and checked for existence
      * @covers phpOMS\Account\Account<extended>
+     * @group framework
      */
     public function testPermissionHandling() : void
     {
@@ -227,6 +235,7 @@ class AccountTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox An account can have it's own localization
      * @covers phpOMS\Account\Account<extended>
+     * @group framework
      */
     public function testLocalization() : void
     {
@@ -239,6 +248,7 @@ class AccountTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox An account 'last activity' timestamp can be updated and retrieved
+     * @group framework
      */
     public function testLastChange() : void
     {
@@ -252,6 +262,7 @@ class AccountTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox An account can only have a valid email
+     * @group framework
      */
     public function testEmailException() : void
     {
@@ -263,6 +274,7 @@ class AccountTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox An account can only have valid account status
+     * @group framework
      */
     public function testStatusException() : void
     {
@@ -280,6 +292,7 @@ class AccountTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox An account can only have valid account types
+     * @group framework
      */
     public function testTypeException() : void
     {

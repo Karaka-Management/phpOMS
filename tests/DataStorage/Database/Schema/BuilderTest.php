@@ -33,6 +33,7 @@ class BuilderTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox Mysql drops form a valid query
+     * @group framework
      */
     public function testMysqlDrop() : void
     {
@@ -43,6 +44,7 @@ class BuilderTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox Mysql show tables form a valid query
+     * @group framework
      */
     public function testMysqlShowTables() : void
     {
@@ -53,6 +55,7 @@ class BuilderTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox Mysql show fields form a valid query
+     * @group framework
      */
     public function testMysqlShowFields() : void
     {
@@ -63,6 +66,7 @@ class BuilderTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox Mysql create tables form a valid query
+     * @group framework
      */
     public function testMysqlCreateTable() : void
     {

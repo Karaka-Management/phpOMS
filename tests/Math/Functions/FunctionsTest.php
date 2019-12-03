@@ -17,16 +17,28 @@ namespace phpOMS\tests\Math\Functions;
 use phpOMS\Math\Functions\Functions;
 
 /**
+ * @testdox phpOMS\tests\Math\Function\FunctionsTest: Various math functions
+ *
  * @internal
  */
 class FunctionsTest extends \PHPUnit\Framework\TestCase
 {
+    /**
+     * @testdox The factorial of a number can be calculated
+     * @covers phpOMS\Math\Function\Functions
+     * @group framework
+     */
     public function testFactorial() : void
     {
         self::assertEquals(120, Functions::fact(5));
         self::assertEquals(39916800, Functions::fact(11));
     }
 
+    /**
+     * @testdox The binomial coefficient can be calculated
+     * @covers phpOMS\Math\Function\Functions
+     * @group framework
+     */
     public function testBinomialCoefficient() : void
     {
         self::assertEquals(21, Functions::binomialCoefficient(7, 2));
@@ -34,6 +46,11 @@ class FunctionsTest extends \PHPUnit\Framework\TestCase
         self::assertEquals(13983816, Functions::binomialCoefficient(49, 6));
     }
 
+    /**
+     * @testdox The ackerman function can be calculated
+     * @covers phpOMS\Math\Function\Functions
+     * @group framework
+     */
     public function testAckermann() : void
     {
         self::assertEquals(5, Functions::ackermann(2, 1));
@@ -42,6 +59,11 @@ class FunctionsTest extends \PHPUnit\Framework\TestCase
         self::assertEquals(13, Functions::ackermann(4, 0));
     }
 
+    /**
+     * @testdox The multiplicative inverse module can be calculated
+     * @covers phpOMS\Math\Function\Functions
+     * @group framework
+     */
     public function testMultiplicativeInverseModulo() : void
     {
         self::assertEquals(4, Functions::invMod(3, -11));
@@ -49,6 +71,11 @@ class FunctionsTest extends \PHPUnit\Framework\TestCase
         self::assertEquals(5, Functions::invMod(-10, 17));
     }
 
+    /**
+     * @testdox A number can be checked if it is odd
+     * @covers phpOMS\Math\Function\Functions
+     * @group framework
+     */
     public function testOdd() : void
     {
         self::assertTrue(Functions::isOdd(3));
@@ -57,6 +84,11 @@ class FunctionsTest extends \PHPUnit\Framework\TestCase
         self::assertFalse(Functions::isOdd(-4));
     }
 
+    /**
+     * @testdox A number can be checked if it is even
+     * @covers phpOMS\Math\Function\Functions
+     * @group framework
+     */
     public function testEven() : void
     {
         self::assertTrue(Functions::isEven(4));
@@ -65,6 +97,11 @@ class FunctionsTest extends \PHPUnit\Framework\TestCase
         self::assertFalse(Functions::isEven(-3));
     }
 
+    /**
+     * @testdox The relative number can be calculated on a circular number system (e.g. month in a diverging business year)
+     * @covers phpOMS\Math\Function\Functions
+     * @group framework
+     */
     public function testCircularPosition() : void
     {
         self::assertEquals(0, Functions::getRelativeDegree(7, 12, 7));

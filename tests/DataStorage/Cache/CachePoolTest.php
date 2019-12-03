@@ -26,6 +26,7 @@ class CachePoolTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @testdox The pool has the expected default values after initialization
+     * @group framework
      */
     public function testDefault() : void
     {
@@ -37,6 +38,7 @@ class CachePoolTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox New cache connections can be added to the pool
+     * @group framework
      */
     public function testAdd() : void
     {
@@ -47,6 +49,7 @@ class CachePoolTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox Cache connections cannot be overwritten with a different cache connection
+     * @group framework
      */
     public function testOverwrite() : void
     {
@@ -58,6 +61,7 @@ class CachePoolTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox Cache connections can be accessed with an identifier
+     * @group framework
      */
     public function testGet() : void
     {
@@ -70,6 +74,7 @@ class CachePoolTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox By default a null cache is returned if no cache connection exists for the identifier
+     * @group framework
      */
     public function testGetDefault() : void
     {
@@ -80,6 +85,7 @@ class CachePoolTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox Cache connections can created by the pool and automatically get added but not overwritten
+     * @group framework
      */
     public function testCreate() : void
     {
@@ -92,6 +98,7 @@ class CachePoolTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox Cache connections can be removed from the pool
+     * @group framework
      */
     public function testRemove() : void
     {
@@ -106,6 +113,7 @@ class CachePoolTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox Removing a cache with an invalid identifier will result in no actions
+     * @group framework
      */
     public function testRemoveInvalid() : void
     {

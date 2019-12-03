@@ -24,6 +24,7 @@ use phpOMS\Router\RouteVerb;
 class RouteVerbTest extends \PHPUnit\Framework\TestCase
 {
     /**
+     * @group framework
      * @coversNothing
      */
     public function testEnums() : void
@@ -36,6 +37,7 @@ class RouteVerbTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
+     * @group framework
      * @coversNothing
      */
     public function testEnumUnique() : void

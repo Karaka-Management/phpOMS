@@ -36,6 +36,7 @@ class LogLevelRegressionTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The regression parameters are calcualated correctly
+     * @group framework
      */
     public function testRegression() : void
     {
@@ -44,6 +45,7 @@ class LogLevelRegressionTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The slope is calculated correctly
+     * @group framework
      */
     public function testSlope() : void
     {
@@ -53,6 +55,7 @@ class LogLevelRegressionTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The elasticity is calculated correctly
+     * @group framework
      */
     public function testElasticity() : void
     {
@@ -62,6 +65,7 @@ class LogLevelRegressionTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox Different dimension sizes for x and y coordinates throw a InvalidDimensionException
+     * @group framework
      */
     public function testInvalidDimension() : void
     {

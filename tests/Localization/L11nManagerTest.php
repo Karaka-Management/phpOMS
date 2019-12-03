@@ -35,6 +35,7 @@ class L11nManagerTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox The localization manager has the expected member variables
      * @covers phpOMS\Localization\L11nManager
+     * @group framework
      */
     public function testAttributes() : void
     {
@@ -44,6 +45,7 @@ class L11nManagerTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox The localization manager has the expected default values after initialization
      * @covers phpOMS\Localization\L11nManager
+     * @group framework
      */
     public function testDefault() : void
     {
@@ -57,6 +59,7 @@ class L11nManagerTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox Loading language for an invalid module throws Exception
      * @covers phpOMS\Localization\L11nManager
+     * @group framework
      */
     public function testInvalidModule() : void
     {
@@ -76,6 +79,7 @@ class L11nManagerTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox Language data can be loaded and output as plain text or html
      * @covers phpOMS\Localization\L11nManager
+     * @group framework
      */
     public function testLanguageInputOutput() : void
     {
@@ -106,6 +110,7 @@ class L11nManagerTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox Language data can be loaded from a file
      * @covers phpOMS\Localization\L11nManager
+     * @group framework
      */
     public function testLanguageFile() : void
     {

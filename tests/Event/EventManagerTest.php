@@ -35,6 +35,7 @@ class EventManagerTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox The event manager has the expected member variables
      * @covers phpOMS\Event\EventManager
+     * @group framework
      */
     public function testAttributes() : void
     {
@@ -45,6 +46,7 @@ class EventManagerTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox The event manager has the expected default values after initialization
      * @covers phpOMS\Event\EventManager
+     * @group framework
      */
     public function testDefault() : void
     {
@@ -54,6 +56,7 @@ class EventManagerTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox New events can be added
      * @covers phpOMS\Event\EventManager
+     * @group framework
      */
     public function testAdd() : void
     {
@@ -64,6 +67,7 @@ class EventManagerTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox Multiple callbacks can be added to an event
      * @covers phpOMS\Event\EventManager
+     * @group framework
      */
     public function testAddMultiple() : void
     {
@@ -75,6 +79,7 @@ class EventManagerTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox An event gets executed if all conditions and sub conditions are met
      * @covers phpOMS\Event\EventManager
+     * @group framework
      */
     public function testDispatchAfterAllConditions() : void
     {
@@ -89,6 +94,7 @@ class EventManagerTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox An event doesn't get executed if not all conditions and sub conditions are met
      * @covers phpOMS\Event\EventManager
+     * @group framework
      */
     public function testDispatchAfterSomeConditionsInvalid() : void
     {
@@ -102,6 +108,7 @@ class EventManagerTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox None-existing events cannot be executed/triggered
      * @covers phpOMS\Event\EventManager
+     * @group framework
      */
     public function testInvalidEventTrigger() : void
     {
@@ -111,6 +118,7 @@ class EventManagerTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox An event can be defined to reset after all conditions and subconditions are met. Then all conditions and sub conditions must be met again before it gets triggered again.
      * @covers phpOMS\Event\EventManager
+     * @group framework
      */
     public function testReset() : void
     {
@@ -126,6 +134,7 @@ class EventManagerTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox An event can be defined to not reset after all conditions and subconditions are met. Then an event can be triggered any time.
      * @covers phpOMS\Event\EventManager
+     * @group framework
      */
     public function testNoeReset() : void
     {
@@ -141,6 +150,7 @@ class EventManagerTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox An event can be manually removed/detatched
      * @covers phpOMS\Event\EventManager
+     * @group framework
      */
     public function testDetach() : void
     {
@@ -157,6 +167,7 @@ class EventManagerTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox None-existing events cannot be manually removed/detatched
      * @covers phpOMS\Event\EventManager
+     * @group framework
      */
     public function testInvalidDetach() : void
     {
@@ -171,6 +182,7 @@ class EventManagerTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox An event can be defined to automatically remove itself after all conditions and subconditions are met and it is executed
      * @covers phpOMS\Event\EventManager
+     * @group framework
      */
     public function testRemove() : void
     {
@@ -185,6 +197,7 @@ class EventManagerTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox Events can be imported from a file
      * @covers phpOMS\Event\EventManager
+     * @group framework
      */
     public function testImportEvents() : void
     {
@@ -198,6 +211,7 @@ class EventManagerTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox Invalid event files cannot be imported and return a failure
      * @covers phpOMS\Event\EventManager
+     * @group framework
      */
     public function testInvalidImportEvents() : void
     {

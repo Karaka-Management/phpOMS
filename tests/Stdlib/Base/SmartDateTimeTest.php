@@ -26,6 +26,7 @@ class SmartDateTimeTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox The smart datetime extends the datetime
      * @covers phpOMS\Stdlib\Base\SmartDateTime
+     * @group framework
      */
     public function testAttributes() : void
     {
@@ -36,6 +37,7 @@ class SmartDateTimeTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox The smart datetime can be formatted like the datetime
      * @covers phpOMS\Stdlib\Base\SmartDateTime
+     * @group framework
      */
     public function testFormat() : void
     {
@@ -46,6 +48,7 @@ class SmartDateTimeTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox The smart datetime can be modified an creates a new smart datetime
      * @covers phpOMS\Stdlib\Base\SmartDateTime
+     * @group framework
      */
     public function testCreateModify() : void
     {
@@ -68,6 +71,7 @@ class SmartDateTimeTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox The days of the month can be returned
      * @covers phpOMS\Stdlib\Base\SmartDateTime
+     * @group framework
      */
     public function testDaysOfMonth() : void
     {
@@ -78,6 +82,7 @@ class SmartDateTimeTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox The week day index of the first day of the month can be returned
      * @covers phpOMS\Stdlib\Base\SmartDateTime
+     * @group framework
      */
     public function testFirstDayOfMonth() : void
     {
@@ -88,6 +93,7 @@ class SmartDateTimeTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox A smart datetime can be created from a datetime
      * @covers phpOMS\Stdlib\Base\SmartDateTime
+     * @group framework
      */
     public function testCreateFromDateTime() : void
     {
@@ -99,6 +105,7 @@ class SmartDateTimeTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox A smart datetime can be returned of the last day of the month
      * @covers phpOMS\Stdlib\Base\SmartDateTime
+     * @group framework
      */
     public function testEndOfMonth() : void
     {
@@ -111,6 +118,7 @@ class SmartDateTimeTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox A smart datetime can be returned of the fist day of the month
      * @covers phpOMS\Stdlib\Base\SmartDateTime
+     * @group framework
      */
     public function testStartOfMonth() : void
     {
@@ -123,6 +131,7 @@ class SmartDateTimeTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox A date or year can be checked if it is a leap year
      * @covers phpOMS\Stdlib\Base\SmartDateTime
+     * @group framework
      */
     public function testLeapYear() : void
     {
@@ -135,6 +144,7 @@ class SmartDateTimeTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox The day of the week index can be retruned from a date
      * @covers phpOMS\Stdlib\Base\SmartDateTime
+     * @group framework
      */
     public function testDayOfWeek() : void
     {
@@ -148,6 +158,7 @@ class SmartDateTimeTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox A calendar sheet is retunred containing all days of the month and some days of the previous and next month
      * @covers phpOMS\Stdlib\Base\SmartDateTime
+     * @group framework
      */
     public function testCalendarSheet() : void
     {

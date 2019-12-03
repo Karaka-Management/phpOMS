@@ -28,6 +28,7 @@ class VersionTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox Versions can be compared with each other
      * @covers phpOMS\Version\Version
+     * @group framework
      */
     public function testVersionCompare() : void
     {

@@ -33,6 +33,7 @@ class BuilderTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox Mysql selects form a valid query
+     * @group framework
      */
     public function testMysqlSelect() : void
     {
@@ -91,6 +92,7 @@ class BuilderTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox Mysql orders form a valid query
+     * @group framework
      */
     public function testMysqlOrder() : void
     {
@@ -121,6 +123,7 @@ class BuilderTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox Mysql offsets and limits form a valid query
+     * @group framework
      */
     public function testMysqlOffsetLimit() : void
     {
@@ -135,6 +138,7 @@ class BuilderTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox Mysql groupings form a valid query
+     * @group framework
      */
     public function testMysqlGroup() : void
     {
@@ -156,6 +160,7 @@ class BuilderTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox Mysql wheres form a valid query
+     * @group framework
      */
     public function testMysqlWheres() : void
     {
@@ -218,6 +223,7 @@ class BuilderTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox Mysql joins form a valid query
+     * @group framework
      */
     public function testMysqlJoins() : void
     {
@@ -280,6 +286,7 @@ class BuilderTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox Mysql inserts form a valid query
+     * @group framework
      */
     public function testMysqlInsert() : void
     {
@@ -307,6 +314,7 @@ class BuilderTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox Mysql deletes form a valid query
+     * @group framework
      */
     public function testMysqlDelete() : void
     {
@@ -321,6 +329,7 @@ class BuilderTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox Mysql updates form a valid query
+     * @group framework
      */
     public function testMysqlUpdate() : void
     {
@@ -339,6 +348,7 @@ class BuilderTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox Raw queries get output as defined
+     * @group framework
      */
     public function testRawInputOutput() : void
     {
@@ -348,6 +358,7 @@ class BuilderTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox Read only queries don't allow drops
+     * @group framework
      */
     public function testReadOnlyRaw() : void
     {
@@ -359,6 +370,7 @@ class BuilderTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox Read only queries don't allow inserts
+     * @group framework
      */
     public function testReadOnlyInsert() : void
     {
@@ -370,6 +382,7 @@ class BuilderTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox Read only queries don't allow updates
+     * @group framework
      */
     public function testReadOnlyUpdate() : void
     {
@@ -381,6 +394,7 @@ class BuilderTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox Read only queries don't allow deletes
+     * @group framework
      */
     public function testReadOnlyDelete() : void
     {
@@ -392,6 +406,7 @@ class BuilderTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox Invalid select types throw a InvalidArgumentException
+     * @group framework
      */
     public function testInvalidSelectParameter() : void
     {
@@ -403,6 +418,7 @@ class BuilderTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox Invalid from types throw a InvalidArgumentException
+     * @group framework
      */
     public function testInvalidFromParameter() : void
     {
@@ -414,6 +430,7 @@ class BuilderTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox Invalid group types throw a InvalidArgumentException
+     * @group framework
      */
     public function testInvalidGroupByParameter() : void
     {
@@ -425,6 +442,7 @@ class BuilderTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox Invalid where operators throw a InvalidArgumentException
+     * @group framework
      */
     public function testInvalidWhereOperator() : void
     {
@@ -436,6 +454,7 @@ class BuilderTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox Invalid join types throw a InvalidArgumentException
+     * @group framework
      */
     public function testInvalidJoinTable() : void
     {
@@ -447,6 +466,7 @@ class BuilderTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox Invalid join operators throw a InvalidArgumentException
+     * @group framework
      */
     public function testInvalidJoinOperator() : void
     {
@@ -458,6 +478,7 @@ class BuilderTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox Invalid order types throw a InvalidArgumentException
+     * @group framework
      */
     public function testInvalidOrderType() : void
     {
@@ -469,6 +490,7 @@ class BuilderTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox Invalid order column types throw a InvalidArgumentException
+     * @group framework
      */
     public function testInvalidOrderColumnType() : void
     {

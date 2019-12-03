@@ -34,6 +34,7 @@ class ResponseTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox The response has the expected default values after initialization
      * @covers phpOMS\Message\Http\Response<extended>
+     * @group framework
      */
     public function testDefault() : void
     {
@@ -47,6 +48,7 @@ class ResponseTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox Response data can be set and retruned
      * @covers phpOMS\Message\Http\Response<extended>
+     * @group framework
      */
     public function testResponseInputOutput() : void
     {
@@ -57,6 +59,7 @@ class ResponseTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox Response data can be removed
      * @covers phpOMS\Message\Http\Response<extended>
+     * @group framework
      */
     public function testRemove() : void
     {
@@ -67,6 +70,7 @@ class ResponseTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox None-existing response data cannot be removed
      * @covers phpOMS\Message\Http\Response<extended>
+     * @group framework
      */
     public function testInvalidRemove() : void
     {
@@ -79,6 +83,7 @@ class ResponseTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox Response data can be turned into an array
      * @covers phpOMS\Message\Http\Response<extended>
+     * @group framework
      */
     public function testToArray() : void
     {
@@ -117,6 +122,7 @@ class ResponseTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox A response with json as content-type is automatically rendered as json data
      * @covers phpOMS\Message\Http\Response<extended>
+     * @group framework
      */
     public function testJsonRender() : void
     {
@@ -156,6 +162,7 @@ class ResponseTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox A response can be forced to minimize the content by removing newlines and whitespaces
      * @covers phpOMS\Message\Http\Response<extended>
+     * @group framework
      */
     public function testMinimizedRender() : void
     {
@@ -174,6 +181,7 @@ class ResponseTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox Invalid response data results in an empty array
      * @covers phpOMS\Message\Http\Response<extended>
+     * @group framework
      */
     public function testInvalidResponseDataToArray() : void
     {
@@ -184,6 +192,7 @@ class ResponseTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox Invalid response data results in an empty render
      * @covers phpOMS\Message\Http\Response<extended>
+     * @group framework
      */
     public function testInvalidResponseDataRender() : void
     {

@@ -58,6 +58,7 @@ class SpreadsheetDatabaseMapperTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox Data can be inserted into a database from an ods files
      * @covers phpOMS\Utils\IO\Spreadsheet\SpreadsheetDatabaseMapper
+     * @group framework
      */
     public function testInsertOds() : void
     {
@@ -93,6 +94,7 @@ class SpreadsheetDatabaseMapperTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox Data can be inserted into a database from a xls files
      * @covers phpOMS\Utils\IO\Spreadsheet\SpreadsheetDatabaseMapper::insert
+     * @group framework
      */
     public function testInsertXls() : void
     {
@@ -127,6 +129,7 @@ class SpreadsheetDatabaseMapperTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox Data can be inserted into a database from a xlsx files
      * @covers phpOMS\Utils\IO\Spreadsheet\SpreadsheetDatabaseMapper::insert
+     * @group framework
      */
     public function testInsertXlsx() : void
     {
@@ -161,6 +164,7 @@ class SpreadsheetDatabaseMapperTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox Data can be updated in a database from an ods files
      * @covers phpOMS\Utils\IO\Spreadsheet\SpreadsheetDatabaseMapper::update
+     * @group framework
      */
     public function testUpdateOds() : void
     {
@@ -222,6 +226,7 @@ class SpreadsheetDatabaseMapperTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox Data can be updated in a database from a xls files
      * @covers phpOMS\Utils\IO\Spreadsheet\SpreadsheetDatabaseMapper::update
+     * @group framework
      */
     public function testUpdateXls() : void
     {
@@ -283,6 +288,7 @@ class SpreadsheetDatabaseMapperTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox Data can be updated in a database from a xlsx files
      * @covers phpOMS\Utils\IO\Spreadsheet\SpreadsheetDatabaseMapper::update
+     * @group framework
      */
     public function testUpdateXlsx() : void
     {
@@ -344,6 +350,7 @@ class SpreadsheetDatabaseMapperTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox Data can be inserted into an ods files from a database
      * @covers phpOMS\Utils\IO\Spreadsheet\SpreadsheetDatabaseMapper::select
+     * @group framework
      */
     public function testSelectOds() : void
     {
@@ -395,6 +402,7 @@ class SpreadsheetDatabaseMapperTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox Data can be inserted into a xls files from a database
      * @covers phpOMS\Utils\IO\Spreadsheet\SpreadsheetDatabaseMapper::select
+     * @group framework
      */
     public function testSelectXls() : void
     {
@@ -446,6 +454,7 @@ class SpreadsheetDatabaseMapperTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox Data can be inserted into a xlsx files from a database
      * @covers phpOMS\Utils\IO\Spreadsheet\SpreadsheetDatabaseMapper::select
+     * @group framework
      */
     public function testSelectXlsx() : void
     {

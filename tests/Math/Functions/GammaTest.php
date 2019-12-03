@@ -18,15 +18,27 @@ use phpOMS\Math\Functions\Functions;
 use phpOMS\Math\Functions\Gamma;
 
 /**
+ * @testdox phpOMS\tests\Math\Function\GammaTest: Gamma function
+ *
  * @internal
  */
 class GammaTest extends \PHPUnit\Framework\TestCase
 {
+    /**
+     * @testdox The gamma function can be calculated for integers
+     * @covers phpOMS\Math\Function\Gamma
+     * @group framework
+     */
     public function testFactorial() : void
     {
         self::assertEquals(Functions::fact(4), Gamma::getGammaInteger(5));
     }
 
+    /**
+     * @testdox The gamma function can be approximated with the spouge formula
+     * @covers phpOMS\Math\Function\Gamma
+     * @group framework
+     */
     public function testApproximationSpouge() : void
     {
         $spouge = [
@@ -42,6 +54,11 @@ class GammaTest extends \PHPUnit\Framework\TestCase
         self::assertTrue(true);
     }
 
+    /**
+     * @testdox The gamma function can be approximated with the stirling formula
+     * @covers phpOMS\Math\Function\Gamma
+     * @group framework
+     */
     public function testApproximationStirling() : void
     {
         $stirling = [
@@ -57,6 +74,11 @@ class GammaTest extends \PHPUnit\Framework\TestCase
         self::assertTrue(true);
     }
 
+    /**
+     * @testdox The gamma function can be approximated with the lanzos formula
+     * @covers phpOMS\Math\Function\Gamma
+     * @group framework
+     */
     public function testApproximationLanzos() : void
     {
         $gsl = [

@@ -24,6 +24,7 @@ use phpOMS\Localization\TimeZoneEnumArray;
 class TimeZoneEnumArrayTest extends \PHPUnit\Framework\TestCase
 {
     /**
+     * @group framework
      * @coversNothing
      */
     public function testEnums() : void

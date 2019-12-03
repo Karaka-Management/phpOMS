@@ -24,6 +24,7 @@ use phpOMS\System\MimeType;
 class MimeTypeTest extends \PHPUnit\Framework\TestCase
 {
     /**
+     * @group framework
      * @coversNothing
      */
     public function testEnums() : void

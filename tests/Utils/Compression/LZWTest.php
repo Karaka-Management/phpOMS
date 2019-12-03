@@ -26,6 +26,7 @@ class LZWTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox A string can be LZW compressed and uncompressed
      * @covers phpOMS\Utils\Compression\LZW
+     * @group framework
      */
     public function testLZW() : void
     {

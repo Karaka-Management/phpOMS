@@ -28,6 +28,7 @@ class PhpCodeTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox A file with unicode characters gets correctly identified
      * @covers phpOMS\Security\PhpCode
+     * @group framework
      */
     public function testHasUnicode() : void
     {
@@ -43,6 +44,7 @@ class PhpCodeTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox A file with no unicode characters gets correctly identified
      * @covers phpOMS\Security\PhpCode
+     * @group framework
      */
     public function testHasNoUnicode() : void
     {
@@ -58,6 +60,7 @@ class PhpCodeTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox A file with no disabled functions gets correctly identified
      * @covers phpOMS\Security\PhpCode
+     * @group framework
      */
     public function testDisabledFunctions() : void
     {
@@ -68,6 +71,7 @@ class PhpCodeTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox A file with deprecated functions gets correctly identified
      * @covers phpOMS\Security\PhpCode
+     * @group framework
      */
     public function testHasDeprecatedFunction() : void
     {
@@ -83,6 +87,7 @@ class PhpCodeTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox A file with no deprecated functions gets correctly identified
      * @covers phpOMS\Security\PhpCode
+     * @group framework
      */
     public function testHasNoDeprecatedFunction() : void
     {
@@ -98,6 +103,7 @@ class PhpCodeTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox A file hash comparison is successfull if the file generates the same hash
      * @covers phpOMS\Security\PhpCode
+     * @group framework
      */
     public function testFileIntegrity() : void
     {
@@ -107,6 +113,7 @@ class PhpCodeTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox A file hash comparison is unsuccessfull if the file generates a different hash
      * @covers phpOMS\Security\PhpCode
+     * @group framework
      */
     public function testFileInvalidIntegrity() : void
     {
@@ -116,6 +123,7 @@ class PhpCodeTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox Two equal strings validate as the same
      * @covers phpOMS\Security\PhpCode
+     * @group framework
      */
     public function testStringIntegrity() : void
     {
@@ -125,6 +133,7 @@ class PhpCodeTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox Two different strings don't validate as the same
      * @covers phpOMS\Security\PhpCode
+     * @group framework
      */
     public function testStringInvalidIntegrity() : void
     {

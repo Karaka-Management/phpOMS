@@ -28,6 +28,7 @@ class TestUtilsTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox A member value can be returned
      * @covers phpOMS\Utils\TestUtils
+     * @group framework
      */
     public function testGet() : void
     {
@@ -42,6 +43,7 @@ class TestUtilsTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox Invalid member variable returns null
      * @covers phpOMS\Utils\TestUtils
+     * @group framework
      */
     public function testInvalidGet() : void
     {
@@ -53,6 +55,7 @@ class TestUtilsTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox A member value can be set and returned
      * @covers phpOMS\Utils\TestUtils
+     * @group framework
      */
     public function testInputOutput() : void
     {
@@ -72,6 +75,7 @@ class TestUtilsTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox A none-existing member variable cannot be set
      * @covers phpOMS\Utils\TestUtils
+     * @group framework
      */
     public function testInputInputOutput() : void
     {

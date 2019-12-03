@@ -25,6 +25,7 @@ class CorrelationTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @testdox The correlation coefficient (Bravis Person) is calculated correctly
+     * @group framework
      */
     public function testBravisPersonCorrelationCoefficient() : void
     {
@@ -39,6 +40,7 @@ class CorrelationTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The autocorrelation coefficient is calculated correctly
+     * @group framework
      */
     public function testAutocorrelationCoefficient() : void
     {
@@ -55,6 +57,7 @@ class CorrelationTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The portmanteau test (Box Pierce) is correct
+     * @group framework
      */
     public function testPortmanteauTestBoxPierce() : void
     {
@@ -75,6 +78,7 @@ class CorrelationTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The portmanteau test (Ljung Box) is correct
+     * @group framework
      */
     public function testPortmanteauTestLjungBox() : void
     {

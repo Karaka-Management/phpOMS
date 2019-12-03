@@ -26,6 +26,7 @@ class BranchTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox The branch has the expected default values after initialization
      * @covers phpOMS\Utils\Git\Branch
+     * @group framework
      */
     public function testDefault() : void
     {
@@ -36,6 +37,7 @@ class BranchTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox The branch name can be set during initialization and returned
      * @covers phpOMS\Utils\Git\Branch
+     * @group framework
      */
     public function testConstructInputOutput() : void
     {

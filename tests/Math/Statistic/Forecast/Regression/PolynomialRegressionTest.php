@@ -36,6 +36,7 @@ class PolynomialRegressionTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The regression parameters are calcualated correctly
+     * @group framework
      */
     public function testRegression() : void
     {
@@ -44,6 +45,7 @@ class PolynomialRegressionTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox Different dimension sizes for x and y coordinates throw a InvalidDimensionException
+     * @group framework
      */
     public function testInvalidDimension() : void
     {

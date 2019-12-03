@@ -25,6 +25,7 @@ class MetricsTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @testdox Test correctness of the ABC calculation
+     * @group framework
      */
     public function testABCMetric() : void
     {
@@ -33,6 +34,7 @@ class MetricsTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox Test correctness of CRAP score
+     * @group framework
      */
     public function testCRAPMetric() : void
     {

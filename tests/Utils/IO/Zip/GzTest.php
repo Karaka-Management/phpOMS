@@ -26,6 +26,7 @@ class GzTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox Data can be gz packed and unpacked
      * @covers phpOMS\Utils\IO\Zip\Gz
+     * @group framework
      */
     public function testGz() : void
     {
@@ -51,6 +52,7 @@ class GzTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox A gz archive cannot be overwritten by default
      * @covers phpOMS\Utils\IO\Zip\Gz
+     * @group framework
      */
     public function testInvalidGz() : void
     {
@@ -70,6 +72,7 @@ class GzTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox A none-existing source cannot be unpacked
      * @covers phpOMS\Utils\IO\Zip\Gz
+     * @group framework
      */
     public function testInvalidUnpackSource() : void
     {
@@ -79,6 +82,7 @@ class GzTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox A destination cannot be overwritten
      * @covers phpOMS\Utils\IO\Zip\Gz
+     * @group framework
      */
     public function testInvalidUnpackDestination() : void
     {

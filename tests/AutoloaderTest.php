@@ -26,6 +26,7 @@ class AutoloaderTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox Classes can be checked for existence
      * @covers phpOMS\Autoloader
+     * @group framework
      */
     public function testAutoloader() : void
     {

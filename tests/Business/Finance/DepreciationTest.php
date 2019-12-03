@@ -25,6 +25,7 @@ class DepreciationTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @testdox The straight line deprecition and reverse value calculations are correct
+     * @group framework
      */
     public function testStraightLine() : void
     {
@@ -38,6 +39,7 @@ class DepreciationTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The arithmetic degressiv deprecition and reverse value calculations are correct
+     * @group framework
      */
     public function testArithmeticDegressivDepreciation() : void
     {
@@ -53,6 +55,7 @@ class DepreciationTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The arithmetic progressiv deprecition and reverse value calculations are correct
+     * @group framework
      */
     public function testArithmeticProgressivDepreciation() : void
     {
@@ -68,6 +71,7 @@ class DepreciationTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The geometric progressiv deprecition and reverse value calculations are correct
+     * @group framework
      */
     public function testGeometricProgressivDepreciation() : void
     {
@@ -83,6 +87,7 @@ class DepreciationTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The geometric degressiv deprecition and reverse value calculations are correct
+     * @group framework
      */
     public function testGeometricDegressivDepreciation() : void
     {

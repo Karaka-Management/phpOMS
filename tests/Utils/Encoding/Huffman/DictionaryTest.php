@@ -26,6 +26,7 @@ class DictionaryTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox Only single characters can be returned from the dictionary. Multiple characters throw a InvalidArgumentException
      * @covers phpOMS\Utils\Encoding\Huffman\Dictionary
+     * @group framework
      */
     public function testInvalidGetCharacter() : void
     {
@@ -38,6 +39,7 @@ class DictionaryTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox A none-existing character throws a InvalidArgumentException
      * @covers phpOMS\Utils\Encoding\Huffman\Dictionary
+     * @group framework
      */
     public function testNotExistingGetCharacter() : void
     {
@@ -50,6 +52,7 @@ class DictionaryTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox Only single chracters can be set in the dictionary. Multiple characters throw a InvalidArgumentException
      * @covers phpOMS\Utils\Encoding\Huffman\Dictionary
+     * @group framework
      */
     public function testInvalidSetCharacter() : void
     {
@@ -62,6 +65,7 @@ class DictionaryTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox Dictionary elements cannot be overwritten and throw a InvalidArgumentException
      * @covers phpOMS\Utils\Encoding\Huffman\Dictionary
+     * @group framework
      */
     public function testInvalidSetDuplicateCharacter() : void
     {
@@ -75,6 +79,7 @@ class DictionaryTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox Invalid dictionary values throw a InvalidArgumentException
      * @covers phpOMS\Utils\Encoding\Huffman\Dictionary
+     * @group framework
      */
     public function testInvalidFormattedValue() : void
     {

@@ -24,6 +24,7 @@ class MarketShareEstimationTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @testdox The rank calculated with Zipf is correct
+     * @group framework
      */
     public function testZipfRank() : void
     {
@@ -34,6 +35,7 @@ class MarketShareEstimationTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The market share by rank calculated with Zipf is correct
+     * @group framework
      */
     public function testZipfShare() : void
     {

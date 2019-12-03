@@ -26,6 +26,7 @@ class AuthorTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox The author has the expected default values after initialization
      * @covers phpOMS\Utils\Git\Author
+     * @group framework
      */
     public function testDefault() : void
     {
@@ -40,6 +41,7 @@ class AuthorTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox The author name and email can be set during initialization and returned
      * @covers phpOMS\Utils\Git\Author
+     * @group framework
      */
     public function testConstructInputOutput() : void
     {
@@ -51,6 +53,7 @@ class AuthorTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox The commit count can be set and returned
      * @covers phpOMS\Utils\Git\Author
+     * @group framework
      */
     public function testCommitCountInputOutput() : void
     {
@@ -63,6 +66,7 @@ class AuthorTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox The addition count can be set and returned
      * @covers phpOMS\Utils\Git\Author
+     * @group framework
      */
     public function testAdditionCountInputOutput() : void
     {
@@ -75,6 +79,7 @@ class AuthorTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox The removal count can be set and returned
      * @covers phpOMS\Utils\Git\Author
+     * @group framework
      */
     public function testRemovalCountInputOutput() : void
     {
