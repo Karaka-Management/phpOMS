@@ -215,8 +215,8 @@ class MemCachedTest extends \PHPUnit\Framework\TestCase
         self::assertEquals(
             [
                 'status'  => CacheStatus::OK,
-                'count'   => 0,
-                'size'    => 0,
+                'count'   => 2, // Carefull memcached is dumb and keeps expired elements which were not acessed after flushing in stat
+                'size'    => 137,
             ],
             $this->cache->stats()
         );
