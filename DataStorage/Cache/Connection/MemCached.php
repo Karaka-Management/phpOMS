@@ -76,8 +76,6 @@ class MemCached extends ConnectionAbstract
      */
     public function set($key, $value, int $expire = -1) : void
     {
-        $value = $this->parseValue($value);
-
         $this->con->set($key, $value, \max($expire, 0));
     }
 

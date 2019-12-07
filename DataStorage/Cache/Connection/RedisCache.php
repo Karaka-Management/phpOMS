@@ -91,8 +91,6 @@ class RedisCache extends ConnectionAbstract
      */
     public function set($key, $value, int $expire = -1) : void
     {
-        $value = $this->parseValue($value);
-
         if ($expire > 0) {
             $this->con->set($key, $value, $expire);
         }
