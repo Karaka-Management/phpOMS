@@ -16,6 +16,7 @@ namespace phpOMS\DataStorage\Cache\Connection;
 
 use phpOMS\DataStorage\Cache\CacheStatus;
 use phpOMS\DataStorage\Cache\CacheType;
+use phpOMS\DataStorage\Cache\Connection\CacheValueType;
 
 /**
  * Cache handler.
@@ -163,20 +164,36 @@ abstract class ConnectionAbstract implements ConnectionInterface
     }
 
     /**
-     * Parse values for cache storage
+     * Analyze caching data type.
      *
-     * @param mixed $value Value to parse
+     * @param mixed $value Data to cache
      *
-     * @return mixed
+     * @return int Returns the cache type for a value
+     *
+     * @throws \InvalidArgumentException This exception is thrown if an unsupported datatype is used
      *
      * @since 1.0.0
      */
-    protected function parseValue($value)
+    protected function dataType($value) : int
     {
-        if (\is_array($value)) {
-            return \json_encode($value);
+        if (\is_int($value)) {
+            return CacheValueType::_INT;
+        } elseif (\is_float($value)) {
+            return CacheValueType::_FLOAT;
+        } elseif (\is_string($value)) {
+            return CacheValueType::_STRING;
+        } elseif (\is_bool($value)) {
+            return CacheValueType::_BOOL;
+        } elseif (\is_array($value)) {
+            return CacheValueType::_ARRAY;
+        } elseif ($value === null) {
+            return CacheValueType::_NULL;
+        } elseif ($value instanceof \Serializable) {
+            return CacheValueType::_SERIALIZABLE;
+        } elseif ($value instanceof \JsonSerializable) {
+            return CacheValueType::_JSONSERIALIZABLE;
         }
 
-        return $value;
+        throw new \InvalidArgumentException('Invalid value type.');
     }
 }

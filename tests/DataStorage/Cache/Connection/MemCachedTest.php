@@ -109,7 +109,7 @@ class MemCachedTest extends \PHPUnit\Framework\TestCase
         self::assertEquals('abc', $this->cache->get('key7')->val);
 
         $this->cache->set('key8', new FileCacheJsonSerializable());
-        self::assertEquals('asdf', $this->cache->get('key8')->val); // @todo: different from file cache fix!
+        self::assertEquals('asdf', $this->cache->get('key8')->val);
     }
 
     /**

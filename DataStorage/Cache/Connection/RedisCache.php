@@ -17,6 +17,8 @@ namespace phpOMS\DataStorage\Cache\Connection;
 use phpOMS\DataStorage\Cache\CacheStatus;
 use phpOMS\DataStorage\Cache\CacheType;
 use phpOMS\DataStorage\Cache\Exception\InvalidConnectionConfigException;
+use phpOMS\Stdlib\Base\Exception\InvalidEnumValue;
+use phpOMS\DataStorage\Cache\Connection\CacheValueType;
 
 /**
  * RedisCache class.
@@ -32,6 +34,14 @@ class RedisCache extends ConnectionAbstract
      * {@inheritdoc}
      */
     protected string $type = CacheType::REDIS;
+
+    /**
+     * Delimiter for cache meta data
+     *
+     * @var   string
+     * @since 1.0.0
+     */
+    private const DELIM = '$';
 
     /**
      * Constructor
@@ -95,21 +105,11 @@ class RedisCache extends ConnectionAbstract
             return;
         }
 
-        if (!(\is_scalar($value) || $value === null || \is_array($value) || $value instanceof \JsonSerializable || $value instanceof \Serializable)) {
-            throw new \InvalidArgumentException();
-        }
-
-        if (\is_bool($value)) {
-            $value = $value ? 'true' : 'false';
-        } elseif ($value === null) {
-            $value = 'null';
-        }
-
         if ($expire > 0) {
-            $this->con->set($key, $value, $expire);
+            $this->con->set($key, $this->build($value), $expire);
         }
 
-        $this->con->set($key, $value);
+        $this->con->set($key, $this->build($value));
     }
 
     /**
@@ -121,23 +121,11 @@ class RedisCache extends ConnectionAbstract
             return false;
         }
 
-        // todo: pull out
-        if (!(\is_scalar($value) || $value === null || \is_array($value) || $value instanceof \JsonSerializable || $value instanceof \Serializable)) {
-            throw new \InvalidArgumentException();
-        }
-
-        // todo: pull out
-        if (\is_bool($value)) {
-            $value = $value ? 'true' : 'false';
-        } elseif ($value === null) {
-            $value = 'null';
-        }
-
         if ($expire > 0) {
-            return $this->con->setNx($key, $value, $expire);
+            return $this->con->setNx($key, $this->build($value), $expire);
         }
 
-        return $this->con->setNx($key, $value);
+        return $this->con->setNx($key, $this->build($value));
     }
 
     /**
@@ -151,12 +139,10 @@ class RedisCache extends ConnectionAbstract
 
         $result = $this->con->get($key);
 
-        if ($result === 'true') {
-            $result = true;
-        } elseif ($result === 'false') {
-            $result = false;
-        } elseif ($result === 'null') {
-            $result = null;
+        if (\is_string($result)) {
+            $type   = (int) $result[0];
+            $start  = (int) \strpos($result, self::DELIM);
+            $result = $this->reverseValue($type, $result, $start);
         }
 
         return $result;
@@ -211,10 +197,10 @@ class RedisCache extends ConnectionAbstract
             return false;
         }
 
-        $value = $this->parseValue($value);
+        // todo: parse value
 
         if ($this->con->exists($key) > 0) {
-            $this->set($key, $value, $expire);
+            $this->set($key, $this->build($value), $expire);
 
             return true;
         }
@@ -257,5 +243,98 @@ class RedisCache extends ConnectionAbstract
     public function __destruct()
     {
         $this->close();
+    }
+
+    /**
+     * Removing all cache elements larger or equal to the expiration date. Call flushAll for removing persistent cache elements (expiration is negative) as well.
+     *
+     * @param mixed $value Data to cache
+     *
+     * @return mixed
+     *
+     * @since 1.0.0
+     */
+    private function build($value)
+    {
+        $type = $this->dataType($value);
+        $raw  = $this->cachify($value, $type);
+
+        return \is_string($raw) ? $type . self::DELIM . $raw : $raw;
+    }
+
+    /**
+     * Create string representation of data for storage
+     *
+     * @param mixed $value Value of the data
+     * @param int   $type  Type of the cache data
+     *
+     * @return mixed
+     *
+     * @throws InvalidEnumValue This exception is thrown if an unsupported cache value type is used
+     *
+     * @since 1.0.0
+     */
+    private function cachify($value, int $type)
+    {
+        if (\is_float($value) || \is_int($value)) {
+            return $value;
+        } elseif ($type === CacheValueType::_BOOL) {
+            return (string) ((int) $value);
+        } elseif ($type === CacheValueType::_ARRAY) {
+            return (string) \json_encode($value);
+        } elseif ($type === CacheValueType::_SERIALIZABLE) {
+            return \get_class($value) . self::DELIM . $value->serialize();
+        } elseif ($type === CacheValueType::_JSONSERIALIZABLE) {
+            return \get_class($value) . self::DELIM . ((string) \json_encode($value->jsonSerialize()));
+        } elseif ($type === CacheValueType::_NULL) {
+            return '';
+        }
+
+        throw new InvalidEnumValue($type);
+    }
+
+    /**
+     * Parse cached value
+     *
+     * @param int   $type  Cached value type
+     * @param mixed $raw   Cached value
+     * @param int   $start Value start position
+     *
+     * @return mixed
+     *
+     * @since 1.0.0
+     */
+    private function reverseValue(int $type, $raw, int $start)
+    {
+        switch ($type) {
+            case \is_int($raw):
+            case \is_float($raw):
+                return $raw;
+            case CacheValueType::_BOOL:
+                return (bool) \substr($raw, $start + 1);
+            case CacheValueType::_STRING:
+                return \substr($raw, $start + 1);
+            case CacheValueType::_ARRAY:
+                $array = \substr($raw, $start + 1);
+                return \json_decode($array === false ? '[]' : $array, true);
+            case CacheValueType::_NULL:
+                return null;
+            case CacheValueType::_JSONSERIALIZABLE:
+            case CacheValueType::_SERIALIZABLE:
+                $namespaceStart = (int) \strpos($raw, self::DELIM, $start);
+                $namespaceEnd   = (int) \strpos($raw, self::DELIM, $namespaceStart + 1);
+                $namespace      = \substr($raw, $namespaceStart + 1, $namespaceEnd - $namespaceStart - 1);
+
+                if ($namespace === false) {
+                    return null;
+                }
+
+                $obj = new $namespace();
+                $obj->unserialize(\substr($raw, $namespaceEnd + 1));
+
+                return $obj;
+            default:
+                return null;
+        }
     }
 }
