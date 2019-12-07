@@ -91,6 +91,14 @@ class RedisCache extends ConnectionAbstract
      */
     public function set($key, $value, int $expire = -1) : void
     {
+        if ($this->status !== CacheStatus::OK) {
+            return;
+        }
+
+        if (!(\is_scalar($value) || $value instanceof \JsonSerializable || $value instanceof \Serializable)) {
+            throw new \InvalidArgumentException();
+        }
+
         if ($expire > 0) {
             $this->con->set($key, $value, $expire);
         }
@@ -105,6 +113,10 @@ class RedisCache extends ConnectionAbstract
     {
         if ($this->status !== CacheStatus::OK) {
             return false;
+        }
+
+        if (!(\is_scalar($value) || $value instanceof \JsonSerializable || $value instanceof \Serializable)) {
+            throw new \InvalidArgumentException();
         }
 
         if ($expire > 0) {

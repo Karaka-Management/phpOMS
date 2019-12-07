@@ -265,15 +265,27 @@ class MemCachedTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @testdox A invalid data type will throw an InvalidArgumentException
+     * @testdox Adding a invalid data type will throw an InvalidArgumentException
      * @covers phpOMS\DataStorage\Cache\Connection\MemCached<extended>
      * @group framework
      */
-    public function testInvalidDataType() : void
+    public function testInvalidDataTypeAdd() : void
     {
         self::expectException(\InvalidArgumentException::class);
 
         $this->cache->add('invalid', $this->cache);
+    }
+
+    /**
+     * @testdox Setting a invalid data type will throw an InvalidArgumentException
+     * @covers phpOMS\DataStorage\Cache\Connection\MemCached<extended>
+     * @group framework
+     */
+    public function testInvalidDataTypeSet() : void
+    {
+        self::expectException(\InvalidArgumentException::class);
+
+        $this->cache->set('invalid', $this->cache);
     }
 
     /**

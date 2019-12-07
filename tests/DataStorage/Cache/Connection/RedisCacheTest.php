@@ -329,6 +329,29 @@ class RedisCacheTest extends \PHPUnit\Framework\TestCase
         self::assertEquals([], $this->cache->stats());
     }
 
+    /**
+     * @testdox Adding a invalid data type will throw an InvalidArgumentException
+     * @covers phpOMS\DataStorage\Cache\Connection\MemCached<extended>
+     * @group framework
+     */
+    public function testInvalidDataTypeAdd() : void
+    {
+        self::expectException(\InvalidArgumentException::class);
+
+        $this->cache->add('invalid', $this->cache);
+    }
+
+    /**
+     * @testdox Setting a invalid data type will throw an InvalidArgumentException
+     * @covers phpOMS\DataStorage\Cache\Connection\MemCached<extended>
+     * @group framework
+     */
+    public function testInvalidDataTypeSet() : void
+    {
+        self::expectException(\InvalidArgumentException::class);
+
+        $this->cache->set('invalid', $this->cache);
+    }
 
     /**
      * @testdox A invalid host throws a InvalidConnectionConfigException

@@ -76,6 +76,14 @@ class MemCached extends ConnectionAbstract
      */
     public function set($key, $value, int $expire = -1) : void
     {
+        if ($this->status !== CacheStatus::OK) {
+            return;
+        }
+
+        if (!(\is_scalar($value) || $value instanceof \JsonSerializable || $value instanceof \Serializable)) {
+            throw new \InvalidArgumentException();
+        }
+
         $this->con->set($key, $value, \max($expire, 0));
     }
 
@@ -86,6 +94,10 @@ class MemCached extends ConnectionAbstract
     {
         if ($this->status !== CacheStatus::OK) {
             return false;
+        }
+
+        if (!(\is_scalar($value) || $value instanceof \JsonSerializable || $value instanceof \Serializable)) {
+            throw new \InvalidArgumentException();
         }
 
         return $this->con->add($key, $value, \max($expire, 0));
