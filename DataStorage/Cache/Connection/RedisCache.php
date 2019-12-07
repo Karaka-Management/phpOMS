@@ -129,7 +129,7 @@ class RedisCache extends ConnectionAbstract
 
         $result = $this->con->get($key);
 
-        return $result === false ? null : $result;
+        return $result;
     }
 
     /**
