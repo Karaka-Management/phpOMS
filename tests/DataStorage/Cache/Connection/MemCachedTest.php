@@ -39,6 +39,11 @@ class MemCachedTest extends \PHPUnit\Framework\TestCase
         $this->cache = new MemCached($GLOBALS['CONFIG']['cache']['memcached']);
     }
 
+    protected function tearDown(): void
+    {
+        $this->cache->flushAll();
+    }
+
     /**
      * @testdox The memcached connection has the expected default values after initialization
      * @covers phpOMS\DataStorage\Cache\Connection\MemCached<extended>
