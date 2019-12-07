@@ -95,7 +95,7 @@ class RedisCache extends ConnectionAbstract
             return;
         }
 
-        if (!(\is_scalar($value) || $value === null || $value instanceof \JsonSerializable || $value instanceof \Serializable)) {
+        if (!(\is_scalar($value) || $value === null || \is_array($value) || $value instanceof \JsonSerializable || $value instanceof \Serializable)) {
             throw new \InvalidArgumentException();
         }
 
@@ -115,7 +115,7 @@ class RedisCache extends ConnectionAbstract
             return false;
         }
 
-        if (!(\is_scalar($value) || $value === null || $value instanceof \JsonSerializable || $value instanceof \Serializable)) {
+        if (!(\is_scalar($value) || $value === null || \is_array($value) || $value instanceof \JsonSerializable || $value instanceof \Serializable)) {
             throw new \InvalidArgumentException();
         }
 
