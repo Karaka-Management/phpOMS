@@ -107,8 +107,6 @@ class RedisCache extends ConnectionAbstract
             return false;
         }
 
-        $value = $this->parseValue($value);
-
         if ($expire > 0) {
             return $this->con->setNx($key, $value, $expire);
         }

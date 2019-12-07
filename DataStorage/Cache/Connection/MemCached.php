@@ -88,8 +88,6 @@ class MemCached extends ConnectionAbstract
             return false;
         }
 
-        $value = $this->parseValue($value);
-
         return $this->con->add($key, $value, \max($expire, 0));
     }
 
