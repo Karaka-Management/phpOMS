@@ -88,7 +88,7 @@ class ModuleAbstractTest extends \PHPUnit\Framework\TestCase
      */
     public function testProviding() : void
     {
-        self::assertEquals([1, 2], $this->module->getProviding());
+        self::assertEquals([], $this->module->getProviding());
     }
 
     /**
