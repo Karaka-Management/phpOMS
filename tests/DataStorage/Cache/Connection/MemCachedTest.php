@@ -243,69 +243,6 @@ class MemCachedTest extends \PHPUnit\Framework\TestCase
         self::assertEquals('testVal2', $this->cache->get('key2', 1));
         \sleep(2);
         self::assertNull($this->cache->get('key2', 1));
-        self::assertNull($this->cache->get('key2')); // this causes a side effect of deleting the outdated cache element!!!
-    }
-
-    /**
-     * @testdox Expired cache data can be forced to return
-     * @covers phpOMS\DataStorage\Cache\Connection\MemCached<extended>
-     * @group framework
-     */
-    public function testForceExpiredInputOutput() : void
-    {
-        $this->cache->set('key2', 'testVal2', 1);
-        \sleep(2);
-        self::assertEquals('testVal2', $this->cache->get('key2', 10));
-    }
-
-    /**
-     * @testdox Unexpired cache data connot be delete if lower expiration is defined
-     * @covers phpOMS\DataStorage\Cache\Connection\MemCached<extended>
-     * @group framework
-     */
-    public function testInvalidDeleteUnexpired() : void
-    {
-        $this->cache->set('key4', 'testVal4', 60);
-        self::assertFalse($this->cache->delete('key4', 0));
-    }
-
-    /**
-     * @testdox Expired cache data can be deleted if equal expiration is defined
-     * @covers phpOMS\DataStorage\Cache\Connection\MemCached<extended>
-     * @group framework
-     */
-    public function testDeleteExpired() : void
-    {
-        $this->cache->set('key4', 'testVal4', 1);
-        \sleep(2);
-        self::assertTrue($this->cache->delete('key4', 1));
-    }
-
-    /**
-     * @testdox Unexpired data can be force deleted with lower expiration date
-     * @covers phpOMS\DataStorage\Cache\Connection\MemCached<extended>
-     * @group framework
-     */
-    public function testForceDeleteUnexpired() : void
-    {
-        $this->cache->set('key5', 'testVal5', 10000);
-        \sleep(2);
-        self::assertFalse($this->cache->delete('key5', 1000000));
-        self::assertTrue($this->cache->delete('key5', 1));
-    }
-
-    /**
-     * @testdox Cach data can be flushed by expiration date
-     * @covers phpOMS\DataStorage\Cache\Connection\MemCached<extended>
-     * @group framework
-     */
-    public function testFlushExpired() : void
-    {
-        $this->cache->set('key6', 'testVal6', 1);
-        \sleep(2);
-
-        $this->cache->flush(0);
-        self::assertNull($this->cache->get('key6', 0));
     }
 
     /**
