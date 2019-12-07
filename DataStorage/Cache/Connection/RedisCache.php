@@ -99,6 +99,10 @@ class RedisCache extends ConnectionAbstract
             throw new \InvalidArgumentException();
         }
 
+        if (\is_bool($value)) {
+            $value = $value ? 'true' : 'false';
+        }
+
         if ($expire > 0) {
             $this->con->set($key, $value, $expire);
         }
@@ -115,8 +119,14 @@ class RedisCache extends ConnectionAbstract
             return false;
         }
 
+        // todo: pull out
         if (!(\is_scalar($value) || $value === null || \is_array($value) || $value instanceof \JsonSerializable || $value instanceof \Serializable)) {
             throw new \InvalidArgumentException();
+        }
+
+        // todo: pull out
+        if (\is_bool($value)) {
+            $value = $value ? 'true' : 'false';
         }
 
         if ($expire > 0) {
@@ -136,6 +146,12 @@ class RedisCache extends ConnectionAbstract
         }
 
         $result = $this->con->get($key);
+
+        if ($result === 'true') {
+            $result = true;
+        } elseif ($result === 'false') {
+            $result = false;
+        }
 
         return $result;
     }
