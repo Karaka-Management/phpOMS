@@ -323,6 +323,7 @@ $GLOBALS['dbpool']->create('admin', $CONFIG['db']['core']['masters']['admin']);
 $GLOBALS['dbpool']->create('select', $CONFIG['db']['core']['masters']['select']);
 $GLOBALS['dbpool']->create('insert', $CONFIG['db']['core']['masters']['insert']);
 $GLOBALS['dbpool']->create('update', $CONFIG['db']['core']['masters']['update']);
+$GLOBALS['dbpool']->create('delete', $CONFIG['db']['core']['masters']['delete']);
 $GLOBALS['dbpool']->create('schema', $CONFIG['db']['core']['masters']['schema']);
 
 DataMapperAbstract::setConnection($GLOBALS['dbpool']->get());

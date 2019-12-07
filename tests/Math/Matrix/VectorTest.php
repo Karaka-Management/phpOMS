@@ -17,7 +17,7 @@ namespace phpOMS\tests\Math\Matrix;
 use phpOMS\Math\Matrix\Vector;
 
 /**
- * @testdox phpOMS\tests\Math\VectorTest: Vector operations
+ * @testdox phpOMS\tests\Math\Matrix\VectorTest: Vector operations
  *
  * @internal
  */

@@ -19,11 +19,18 @@ use phpOMS\Math\Matrix\Matrix;
 use phpOMS\Math\Matrix\Vector;
 
 /**
+ * @testdox phpOMS\tests\Math\Matrix\CholeskyDecompositionTest: Cholesky decomposition
+ *
  * @internal
  */
 class CholeskyDecompositionTest extends \PHPUnit\Framework\TestCase
 {
-    public function testComposition() : void
+    /**
+     * @testdox The decomposition can be created and the original matrix can be computed
+     * @covers phpOMS\Math\Matrix\CholeskyDecomposition
+     * @group framework
+     */
+    public function testDecomposition() : void
     {
         $A = new Matrix();
         $A->setMatrix([
@@ -43,7 +50,12 @@ class CholeskyDecompositionTest extends \PHPUnit\Framework\TestCase
         );
     }
 
-    public function testDecomposition() : void
+    /**
+     * @testdox The decomposition matrix has the expected values
+     * @covers phpOMS\Math\Matrix\CholeskyDecomposition
+     * @group framework
+     */
+    public function testL() : void
     {
         $A = new Matrix();
         $A->setMatrix([
@@ -59,10 +71,43 @@ class CholeskyDecompositionTest extends \PHPUnit\Framework\TestCase
             [3, 3, 0],
             [-1, 1, 3],
         ], $cholesky->getL()->toArray(), 0.2);
-
-        self::assertTrue($cholesky->isSpd());
     }
 
+    /**
+     * @testdox A matrix can be checked for symmetric positivity
+     * @covers phpOMS\Math\Matrix\CholeskyDecomposition
+     * @group framework
+     */
+    public function testSymmetricPositive() : void
+    {
+        $A = new Matrix();
+        $A->setMatrix([
+            [25, 15, -5],
+            [15, 17, 0],
+            [-5, 0, 11],
+        ]);
+
+        $cholesky = new CholeskyDecomposition($A);
+
+        self::assertTrue($cholesky->isSpd());
+
+        $B = new Matrix();
+        $B->setMatrix([
+            [25, 15, 5],
+            [15, 17, 0],
+            [-5, 0, 11],
+        ]);
+
+        $choleskyB = new CholeskyDecomposition($B);
+
+        self::assertTrue($choleskyB->isSpd());
+    }
+
+    /**
+     * @testdox The equation Ax = b can be solved
+     * @covers phpOMS\Math\Matrix\CholeskyDecomposition
+     * @group framework
+     */
     public function testSolve() : void
     {
         $A = new Matrix();
@@ -79,6 +124,11 @@ class CholeskyDecompositionTest extends \PHPUnit\Framework\TestCase
         self::assertEqualsWithDelta([[1], [2], [3]], $cholesky->solve($vec)->toArray(), 0.2);
     }
 
+    /**
+     * @testdox A invalid vector throws a InvalidDimensionException
+     * @covers phpOMS\Math\Matrix\CholeskyDecomposition
+     * @group framework
+     */
     public function testInvalidDimension() : void
     {
         self::expectException(\phpOMS\Math\Matrix\Exception\InvalidDimensionException::class);

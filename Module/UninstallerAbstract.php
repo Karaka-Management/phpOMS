@@ -16,6 +16,7 @@ namespace phpOMS\Module;
 
 use phpOMS\DataStorage\Database\DatabasePool;
 use phpOMS\DataStorage\Database\Schema\Builder as SchemaBuilder;
+use phpOMS\DataStorage\Database\Query\Builder;
 
 /**
  * Uninstaller abstract class.
@@ -40,7 +41,9 @@ abstract class UninstallerAbstract
      */
     public static function uninstall(DatabasePool $dbPool, InfoManager $info) : void
     {
+        // todo: remove routes
         self::dropTables($dbPool, $info);
+        self::unregisterFromDatabase($dbPool, $info);
     }
 
     /**
@@ -76,5 +79,32 @@ abstract class UninstallerAbstract
         }
 
         $builder->execute();
+    }
+
+    /**
+     * Unregister module from database.
+     *
+     * @param DatabasePool $dbPool Database instance
+     * @param InfoManager  $info   Module info
+     *
+     * @return void
+     *
+     * @since 1.0.0
+     */
+    public static function unregisterFromDatabase(DatabasePool $dbPool, InfoManager $info) : void
+    {
+        $queryLoad = new Builder($dbPool->get('delete'));
+        $queryLoad->prefix($dbPool->get('delete')->prefix);
+        $queryLoad->delete()
+            ->from('module_load')
+            ->where('module_load_from', '=', $info->getInternalName())
+            ->execute();
+
+        $queryModule = new Builder($dbPool->get('delete'));
+        $queryModule->prefix($dbPool->get('delete')->prefix);
+        $queryModule->delete()
+            ->from('module')
+            ->where('module_id', '=', $info->getInternalName())
+            ->execute();
     }
 }

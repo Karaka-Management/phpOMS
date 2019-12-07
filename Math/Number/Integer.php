@@ -156,7 +156,7 @@ final class Integer
     public static function fermatFactor(int $value, int $limit = 1000000) : array
     {
         if (($value % 2) === 0) {
-            throw new \Exception('Only odd integers are allowed');
+            throw new \InvalidArgumentException('Only odd integers are allowed');
         }
 
         $a  = (int) \ceil(\sqrt($value));

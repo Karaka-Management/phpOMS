@@ -52,7 +52,7 @@ class ModuleAbstractTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The constant values of the abstract module are overwritten by the extension
-     * @covers phpOMS\Module\ModuleManager
+     * @covers phpOMS\Module\ModuleAbstract<extended>
      * @group framework
      */
     public function testConstants() : void
@@ -63,7 +63,7 @@ class ModuleAbstractTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The dependencies of the module can be returned
-     * @covers phpOMS\Module\ModuleManager
+     * @covers phpOMS\Module\ModuleAbstract<extended>
      * @group framework
      */
     public function testDependencies() : void
@@ -73,7 +73,7 @@ class ModuleAbstractTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox A invalid language or theme returns in an empty localization/language dataset
-     * @covers phpOMS\Module\ModuleManager
+     * @covers phpOMS\Module\ModuleAbstract<extended>
      * @group framework
      */
     public function testInvalidLocalization() : void
@@ -83,7 +83,7 @@ class ModuleAbstractTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The module can automatically generate a json response based on provided data for the frontend
-     * @covers phpOMS\Module\ModuleManager
+     * @covers phpOMS\Module\ModuleAbstract<extended>
      * @group framework
      */
     public function testFillJson() : void
@@ -106,7 +106,7 @@ class ModuleAbstractTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The module can automatically generate a json response based on provided data
-     * @covers phpOMS\Module\ModuleManager
+     * @covers phpOMS\Module\ModuleAbstract<extended>
      * @group framework
      */
     public function testFillJsonRaw() : void

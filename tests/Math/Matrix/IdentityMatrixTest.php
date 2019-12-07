@@ -17,10 +17,17 @@ namespace phpOMS\tests\Math\Matrix;
 use phpOMS\Math\Matrix\IdentityMatrix;
 
 /**
+ * @testdox phpOMS\tests\Math\Matrix\IdentityMatrixTest: Identity matrix
+ *
  * @internal
  */
 class IdentityMatrixTest extends \PHPUnit\Framework\TestCase
 {
+    /**
+     * @testdox The identity matrix is the identity
+     * @covers phpOMS\Math\Matrix\IdentityMatrix
+     * @group framework
+     */
     public function testIdentity() : void
     {
         $id = new IdentityMatrix(5);

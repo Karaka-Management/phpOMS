@@ -17,10 +17,17 @@ namespace phpOMS\tests\Math\Number;
 use phpOMS\Math\Topology\Metrics2D;
 
 /**
+ * @testdox phpOMS\tests\Math\Topology\Metrics2DTest: Metric/distance calculations
+ *
  * @internal
  */
 class Metrics2DTest extends \PHPUnit\Framework\TestCase
 {
+    /**
+     * @testdox The manhattan distance can be calculated
+     * @covers phpOMS\Math\Topology\Metrics2D
+     * @group framework
+     */
     public function testManhattan() : void
     {
         self::assertEquals(
@@ -29,6 +36,11 @@ class Metrics2DTest extends \PHPUnit\Framework\TestCase
         );
     }
 
+    /**
+     * @testdox The euclidean distance can be calculated
+     * @covers phpOMS\Math\Topology\Metrics2D
+     * @group framework
+     */
     public function testEuclidean() : void
     {
         self::assertEqualsWithDelta(
@@ -38,6 +50,11 @@ class Metrics2DTest extends \PHPUnit\Framework\TestCase
         );
     }
 
+    /**
+     * @testdox The chebyshev distance can be calculated
+     * @covers phpOMS\Math\Topology\Metrics2D
+     * @group framework
+     */
     public function testChebyshev() : void
     {
         self::assertEquals(
@@ -46,6 +63,11 @@ class Metrics2DTest extends \PHPUnit\Framework\TestCase
         );
     }
 
+    /**
+     * @testdox The minkowski distance can be calculated
+     * @covers phpOMS\Math\Topology\Metrics2D
+     * @group framework
+     */
     public function testMinkowski() : void
     {
         self::assertEqualsWithDelta(
@@ -55,6 +77,11 @@ class Metrics2DTest extends \PHPUnit\Framework\TestCase
         );
     }
 
+    /**
+     * @testdox The canberra distance can be calculated
+     * @covers phpOMS\Math\Topology\Metrics2D
+     * @group framework
+     */
     public function testCanberra() : void
     {
         self::assertEqualsWithDelta(
@@ -64,6 +91,11 @@ class Metrics2DTest extends \PHPUnit\Framework\TestCase
         );
     }
 
+    /**
+     * @testdox The bray-curtis distance can be calculated
+     * @covers phpOMS\Math\Topology\Metrics2D
+     * @group framework
+     */
     public function testBrayCurtis() : void
     {
         self::assertEqualsWithDelta(
@@ -73,6 +105,11 @@ class Metrics2DTest extends \PHPUnit\Framework\TestCase
         );
     }
 
+    /**
+     * @testdox The angular distance can be calculated
+     * @covers phpOMS\Math\Topology\Metrics2D
+     * @group framework
+     */
     public function testAngularSeparation() : void
     {
         self::assertEqualsWithDelta(
@@ -82,6 +119,11 @@ class Metrics2DTest extends \PHPUnit\Framework\TestCase
         );
     }
 
+    /**
+     * @testdox The hamming distance can be calculated
+     * @covers phpOMS\Math\Topology\Metrics2D
+     * @group framework
+     */
     public function testHammingDistance() : void
     {
         self::assertEquals(
@@ -90,6 +132,11 @@ class Metrics2DTest extends \PHPUnit\Framework\TestCase
         );
     }
 
+    /**
+     * @testdox The ulam distance can be calculated
+     * @covers phpOMS\Math\Topology\Metrics2D
+     * @group framework
+     */
     public function testUlam(): void
     {
         self::assertEquals(
@@ -98,6 +145,11 @@ class Metrics2DTest extends \PHPUnit\Framework\TestCase
         );
     }
 
+    /**
+     * @testdox Different dimension sizes for the coordinates in the hamming metric throw a InvalidDimensionException
+     * @covers phpOMS\Math\Topology\Metrics2D
+     * @group framework
+     */
     public function testInvalidHammingDimension() : void
     {
         self::expectException(\phpOMS\Math\Matrix\Exception\InvalidDimensionException::class);
@@ -105,6 +157,11 @@ class Metrics2DTest extends \PHPUnit\Framework\TestCase
         Metrics2D::hamming([1, 1, 1, 1], [0, 1, 0]);
     }
 
+    /**
+     * @testdox Different dimension sizes for the coordinates in the ulam metric throw a InvalidDimensionException
+     * @covers phpOMS\Math\Topology\Metrics2D
+     * @group framework
+     */
     public function testInvalidUlamDimension() : void
     {
         self::expectException(\phpOMS\Math\Matrix\Exception\InvalidDimensionException::class);

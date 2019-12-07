@@ -548,6 +548,27 @@ final class ModuleManager
             // uninstall receiving from? no?
             // uninstall module
 
+            $class = '\\Modules\\' . $info->getDirectory() . '\\Admin\\Uninstaller';
+
+            if (!Autoloader::exists($class)) {
+                throw new InvalidModuleException($info->getDirectory());
+            }
+
+            /** @var $class UninstallerAbstract */
+            $class::uninstall($this->app->dbPool, $info);
+
+            if (isset($this->installed[$module])) {
+                unset($this->installed[$module]);
+            }
+
+            if (isset($this->running[$module])) {
+                unset($this->running[$module]);
+            }
+
+            if (isset($this->active[$module])) {
+                unset($this->active[$module]);
+            }
+
             return true;
         } catch (PathException $e) {
             return false;

@@ -18,7 +18,7 @@ use phpOMS\Math\Matrix\Matrix;
 use phpOMS\Math\Matrix\Vector;
 
 /**
- * @testdox phpOMS\tests\Math\MatrixTest: Matrix operations
+ * @testdox phpOMS\tests\Math\Matrix\MatrixTest: Matrix operations
  *
  * @internal
  */

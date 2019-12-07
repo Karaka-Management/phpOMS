@@ -18,6 +18,8 @@ use phpOMS\ApplicationAbstract;
 use phpOMS\Dispatcher\Dispatcher;
 use phpOMS\Module\ModuleManager;
 use phpOMS\Router\WebRouter;
+use phpOMS\Message\Http\Request;
+use phpOMS\Uri\Http;
 
 require_once __DIR__ . '/../Autoloader.php';
 
@@ -38,8 +40,7 @@ class ModuleManagerTest extends \PHPUnit\Framework\TestCase
         $this->app->dbPool     = $GLOBALS['dbpool'];
         $this->app->router     = new WebRouter();
         $this->app->dispatcher = new Dispatcher($this->app);
-
-        $this->moduleManager = new ModuleManager($this->app, __DIR__ . '/../../../Modules');
+        $this->moduleManager   = new ModuleManager($this->app, __DIR__ . '/../../../Modules');
     }
 
     /**
@@ -95,11 +96,39 @@ class ModuleManagerTest extends \PHPUnit\Framework\TestCase
      * @covers phpOMS\Module\ModuleManager
      * @group framework
      */
-    public function testActiveModules() : void
+    public function testAllActiveModules() : void
     {
         $active = $this->moduleManager->getActiveModules();
 
         self::assertNotEmpty($active);
+    }
+
+    /**
+     * @testdox Modules can be checked to be active
+     * @covers phpOMS\Module\ModuleManager
+     * @group framework
+     */
+    public function testActiveModule() : void
+    {
+        $active = $this->moduleManager->getActiveModules();
+
+        /** @var string $last */
+        $last = \end($active);
+
+        self::assertTrue($this->moduleManager->isActive($last['name']['internal']));
+        self::assertFalse($this->moduleManager->isActive('Invalid'));
+    }
+
+    /**
+     * @testdox Modules can be checked to be running
+     * @covers phpOMS\Module\ModuleManager
+     * @group framework
+     */
+    public function testRunningModule() : void
+    {
+        $module = $this->moduleManager->get('TestModule');
+        self::assertTrue($this->moduleManager->isRunning('TestModule'));
+        self::assertFalse($this->moduleManager->isRunning('Invalid'));
     }
 
     /**
@@ -112,6 +141,62 @@ class ModuleManagerTest extends \PHPUnit\Framework\TestCase
         $all = $this->moduleManager->getAllModules();
 
         self::assertNotEmpty($all);
+    }
+
+    /**
+     * @testdox A module can be installed and its status can be changed
+     * @covers phpOMS\Module\ModuleManager
+     * @group framework
+     */
+    public function testStatus() : void
+    {
+        $this->moduleManager->install('TestModule');
+
+        self::assertTrue($this->moduleManager->deactivate('TestModule'));
+        self::assertFalse($this->moduleManager->isActive('TestModule'));
+
+        self::assertTrue($this->moduleManager->activate('TestModule'));
+        self::assertTrue($this->moduleManager->isActive('TestModule'));
+    }
+
+    /**
+     * @testdox A module can be re-initialized
+     * @covers phpOMS\Module\ModuleManager
+     * @group framework
+     */
+    public function testReInit() : void
+    {
+        $this->moduleManager->reInit('TestModule');
+        self::assertTrue($this->moduleManager->isActive('TestModule'));
+    }
+
+    /**
+     * @testdox A module is automatically loaded for its URIs
+     * @covers phpOMS\Module\ModuleManager
+     * @group framework
+     */
+    public function testRequestLoad() : void
+    {
+        $request = new Request(new Http('http://127.0.0.1/en/backend/testmodule'));
+        $request->createRequestHashs(2);
+
+        $loaded = $this->moduleManager->getUriLoad($request);
+
+        $found = false;
+        foreach ($loaded[4] as $module) {
+            if ($module['module_load_file'] === 'TestModule') {
+                $found = true;
+                break;
+            }
+        }
+
+        self::assertTrue($found);
+
+        self::assertGreaterThan(0, \count($this->moduleManager->getLanguageFiles($request)));
+        self::assertTrue(\in_array('TestModule', $this->moduleManager->getRoutedModules($request)));
+
+        $this->moduleManager->initRequestModules($request);
+        self::assertTrue($this->moduleManager->isRunning('TestModule'));
     }
 
     /**
@@ -137,4 +222,17 @@ class ModuleManagerTest extends \PHPUnit\Framework\TestCase
         self::assertInstanceOf('\Modules\Admin\Controller\ApiController', $this->moduleManager->get('Admin'));
     }
 
+    /**
+     * @testdox A module can be uninstalled
+     * @covers phpOMS\Module\ModuleManager
+     * @group framework
+     */
+    public function testUninstall() : void
+    {
+        $this->moduleManager->uninstall('TestModule');
+
+        self::assertFalse($this->moduleManager->uninstall('TestModule'));
+        self::assertFalse($this->moduleManager->isActive('TestModule'));
+        self::assertFalse($this->moduleManager->isRunning('TestModule'));
+    }
 }
