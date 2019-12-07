@@ -151,7 +151,7 @@ class SmartDateTime extends \DateTime
      */
     public function getStartOfWeek() : self
     {
-        $w = \strtotime('-' . \date('w', $this->getTimestamp()) .' days', $this->getTimestamp());
+        $w = (int) \strtotime('-' . \date('w', $this->getTimestamp()) .' days', $this->getTimestamp());
 
         return new self(\date('Y-m-d', $w));
     }
@@ -165,7 +165,7 @@ class SmartDateTime extends \DateTime
      */
     public function getEndOfWeek() : self
     {
-        $w = \strtotime('+' . (6 - \date('w', $this->getTimestamp())) .' days', $this->getTimestamp());
+        $w = (int) \strtotime('+' . (6 - (int) \date('w', $this->getTimestamp())) .' days', $this->getTimestamp());
 
         return new self(\date('Y-m-d', $w));
     }

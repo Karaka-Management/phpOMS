@@ -62,6 +62,16 @@ class ModuleAbstractTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
+     * @testdox The name of the module can be returned
+     * @covers phpOMS\Module\ModuleAbstract<extended>
+     * @group framework
+     */
+    public function testName() : void
+    {
+        self::assertEquals('Test', $this->module->getName());
+    }
+
+    /**
      * @testdox The dependencies of the module can be returned
      * @covers phpOMS\Module\ModuleAbstract<extended>
      * @group framework
@@ -69,6 +79,27 @@ class ModuleAbstractTest extends \PHPUnit\Framework\TestCase
     public function testDependencies() : void
     {
         self::assertEquals([1, 2], $this->module->getDependencies());
+    }
+
+    /**
+     * @testdox The providings of the module can be returned
+     * @covers phpOMS\Module\ModuleAbstract<extended>
+     * @group framework
+     */
+    public function testProviding() : void
+    {
+        self::assertEquals([1, 2], $this->module->getProviding());
+    }
+
+    /**
+     * @testdox A module can receive information and functionality from another module
+     * @covers phpOMS\Module\ModuleAbstract<extended>
+     * @group framework
+     */
+    public function testReceiving() : void
+    {
+        $this->module->addReceiving('Test2');
+        self::assertTrue(\in_array('Test2', $this->module->getReceiving()));
     }
 
     /**

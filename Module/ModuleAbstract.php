@@ -145,6 +145,19 @@ abstract class ModuleAbstract
     }
 
     /**
+     * Get modules this module is receiving from
+     *
+     * @return array<int, string>
+     *
+     * @since 1.0.0
+     */
+    public function getReceiving() : array
+    {
+        /** @noinspection PhpUndefinedFieldInspection */
+        return $this->receiving;
+    }
+
+    /**
      * Get modules this module is providing for
      *
      * @return array<int, string>
@@ -304,7 +317,7 @@ abstract class ModuleAbstract
             $mapper();
         }
         $this->app->eventManager->trigger('POST:Module:' . static::MODULE_NAME . '-' . $trigger . '-update', '', [
-            $request->getHEader()->getAccount(),
+            $request->getHeader()->getAccount(),
             $old, $new,
             0, 0,
             static::MODULE_NAME,
@@ -328,7 +341,7 @@ abstract class ModuleAbstract
         $this->app->eventManager->trigger('PRE:Module:' . static::MODULE_NAME . '-' . $trigger . '-delete', '', $obj);
         $mapper::delete($obj);
         $this->app->eventManager->trigger('POST:Module:' . static::MODULE_NAME . '-' . $trigger . '-delete', '', [
-            $request->getHEader()->getAccount(),
+            $request->getHeader()->getAccount(),
             $obj,  null,
             0, 0,
             static::MODULE_NAME,
@@ -354,7 +367,7 @@ abstract class ModuleAbstract
         $this->app->eventManager->trigger('PRE:Module:' . static::MODULE_NAME . '-' . $trigger . '-relation', '', $rel1);
         $mapper::createRelation($field, $rel1, $rel2);
         $this->app->eventManager->trigger('POST:Module:' . static::MODULE_NAME . '-' . $trigger . '-relation', '', [
-            $request->getHEader()->getAccount(),
+            $request->getHeader()->getAccount(),
             $rel1, $rel2,
             0, 0,
             static::MODULE_NAME,
