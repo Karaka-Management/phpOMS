@@ -123,7 +123,7 @@ class RedisCache extends ConnectionAbstract
      */
     public function get($key, int $expire = -1)
     {
-        if ($this->status !== CacheStatus::OK) {
+        if ($this->status !== CacheStatus::OK || !$this->con->exists($key)) {
             return null;
         }
 

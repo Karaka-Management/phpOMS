@@ -106,6 +106,10 @@ class MemCached extends ConnectionAbstract
 
         $result = $this->con->get($key);
 
+        if ($this->con->getResultCode() !== \Memcached::RES_SUCCESS) {
+            return null;
+        }
+
         return $result;
     }
 
