@@ -144,10 +144,8 @@ class Heap
                 if ($node === $item) {
                     return true;
                 }
-            } else {
-                if ($item->isEqual($node)) {
-                    return true;
-                }
+            } elseif ($item->isEqual($node)) {
+                return true;
             }
         }
 
@@ -231,11 +229,9 @@ class Heap
                     $pos = $key;
                     break;
                 }
-            } else {
-                if ($item->isEqual($node)) {
-                    $pos = $key;
-                    break;
-                }
+            } elseif ($item->isEqual($node)) {
+                $pos = $key;
+                break;
             }
         }
 

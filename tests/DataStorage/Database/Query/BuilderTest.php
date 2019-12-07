@@ -88,6 +88,10 @@ class BuilderTest extends \PHPUnit\Framework\TestCase
         );
 
         self::assertEquals($query->toSql(), $query->__toString());
+
+        $query = new Builder($this->con);
+        $sql   = 'SELECT `a`.`test` FROM `a` as b WHERE `a`.`test` = 1 ORDER BY \rand() LIMIT 1;';
+        self::assertEquals($sql, $query->random('a.test')->fromAs('a', 'b')->where('a.test', '=', 1)->toSql());
     }
 
     /**

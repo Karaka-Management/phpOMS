@@ -53,7 +53,7 @@ class StorageTest extends \PHPUnit\Framework\TestCase
     public function testInputOutput() : void
     {
         self::assertTrue(Storage::register('ftps', '\phpOMS\System\File\Ftp\FtpStorage'));
-        self::assertTrue(Storage::register('test', LocalStorage::getInstance()));
+        self::assertTrue(Storage::register('test', new LocalStorage()));
         self::assertInstanceOf('\phpOMS\System\File\Ftp\FtpStorage', Storage::env('ftps'));
         self::assertInstanceOf('\phpOMS\System\File\Local\LocalStorage', Storage::env('test'));
     }
@@ -65,8 +65,8 @@ class StorageTest extends \PHPUnit\Framework\TestCase
      */
     public function testInvalidRegister() : void
     {
-        self::assertTrue(Storage::register('test2', LocalStorage::getInstance()));
-        self::assertFalse(Storage::register('test2', LocalStorage::getInstance()));
+        self::assertTrue(Storage::register('test2', new LocalStorage()));
+        self::assertFalse(Storage::register('test2', new LocalStorage()));
     }
 
     /**

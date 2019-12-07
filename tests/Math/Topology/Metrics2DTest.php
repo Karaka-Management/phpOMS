@@ -64,6 +64,20 @@ class Metrics2DTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
+     * @testdox The octile distance can be calculated
+     * @covers phpOMS\Math\Topology\Metrics2D
+     * @group framework
+     */
+    public function testOctile() : void
+    {
+        self::assertEqualsWithDelta(
+            8.24264,
+            Metrics2D::octile(['x' => 0, 'y' => 3], ['x' => 7, 'y' => 6]),
+            0.1
+        );
+    }
+
+    /**
      * @testdox The minkowski distance can be calculated
      * @covers phpOMS\Math\Topology\Metrics2D
      * @group framework

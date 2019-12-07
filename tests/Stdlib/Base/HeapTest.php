@@ -24,11 +24,29 @@ use phpOMS\Stdlib\Base\Heap;
 class HeapTest extends \PHPUnit\Framework\TestCase
 {
     /**
+     * @testdox A list of elements can be turned into a heap
+     * @covers phpOMS\Stdlib\Base\Heap
+     * @group framework
+     */
+    public function testHeapify() : void
+    {
+        $heap = new Heap();
+        $heap->heapify([3, 2, 6, 1, 5, 4]);
+
+        self::assertEquals(1, $heap->pop());
+        self::assertEquals(2, $heap->pop());
+        self::assertEquals(3, $heap->pop());
+        self::assertEquals(4, $heap->pop());
+        self::assertEquals(5, $heap->pop());
+        self::assertEquals(6, $heap->pop());
+    }
+
+    /**
      * @testdox Elements get correctly pushed to the heap
      * @covers phpOMS\Stdlib\Base\Heap
      * @group framework
      */
-    public function testSize(): void
+    public function testSize() : void
     {
         $heap = new Heap();
         for ($i = 1; $i < 6; ++$i) {

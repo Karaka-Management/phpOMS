@@ -21,6 +21,9 @@ use phpOMS\UnhandledHandler;
  */
 class UnhandledHandlerTest extends \PHPUnit\Framework\TestCase
 {
+    /**
+     * @covers phpOMS\UnhandledHandler
+     */
     public function testErrorHandling() : void
     {
         \set_exception_handler(['\phpOMS\UnhandledHandler', 'exceptionHandler']);

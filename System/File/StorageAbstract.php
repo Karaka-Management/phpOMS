@@ -27,15 +27,6 @@ namespace phpOMS\System\File;
 abstract class StorageAbstract
 {
     /**
-     * Get instance.
-     *
-     * @return StorageAbstract storage instance
-     *
-     * @since 1.0.0
-     */
-    abstract public static function getInstance() : self;
-
-    /**
      * Get the internal class type (directory or file) based on path.
      *
      * @param string $path Path to the directory or file

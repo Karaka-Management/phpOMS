@@ -132,33 +132,6 @@ final class QRDecomposition
     }
 
     /**
-     * Get H matrix
-     *
-     * @return Matrix
-     *
-     * @since 1.0.0
-     */
-    public function getH() : Matrix
-    {
-        $H = [[]];
-
-        for ($i = 0; $i < $this->m; ++$i) {
-            for ($j = 0; $j < $this->n; ++$j) {
-                if ($i >= $j) {
-                    $H[$i][$j] = $this->QR[$i][$j];
-                } else {
-                    $H[$i][$j] = 0.0;
-                }
-            }
-        }
-
-        $matrix = new Matrix();
-        $matrix->setMatrix($H);
-
-        return $matrix;
-    }
-
-    /**
      * Get R matrix
      *
      * @return Matrix

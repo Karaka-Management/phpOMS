@@ -241,4 +241,21 @@ class HttpTest extends \PHPUnit\Framework\TestCase
         $obj = new Http('https://www.google.com/test/path.php?para1=abc&para2=2#frag');
         self::assertEquals('/test/path?para1=abc&para2=2', $obj->getRoute());
     }
+
+    /**
+     * @testdox A invalid uri cannot get parsed
+     * @covers phpOMS\Uri\Http
+     * @group framework
+     */
+    public function testInvalidUri() : void
+    {
+        $obj = new Http('http:///03*l.2/test?abc=d');
+
+        self::assertEquals('', $obj->getPath());
+        self::assertEquals('', $obj->getPass());
+        self::assertEquals('', $obj->getUser());
+        self::assertEquals(80, $obj->getPort());
+        self::assertEquals('', $obj->getUserInfo());
+        self::assertEquals('', $obj->getRootPath());
+    }
 }

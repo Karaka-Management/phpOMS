@@ -277,9 +277,18 @@ class MatrixTest extends \PHPUnit\Framework\TestCase
         ], $A->inverse()->toArray(), '', 0.2);*/
     }
 
-    public function testReduce() : void
+    /**
+     * @testdox The upper triangular matrix can be calculated
+     * @covers phpOMS\Math\Matrix\Matrix
+     * @group framework
+     */
+    public function testUpperTriangular() : void
     {
         self::assertEquals([[-6, -7], [0, -5]], $this->C->upperTriangular()->getMatrix());
+    }
+
+    public function testLowerTriangular() : void
+    {
         self::markTestIncomplete();
         //self::assertEquals([], $this->C->lowerTriangular()->getMatrix());
         //self::assertEquals([], $this->C->diagonalize()->getMatrix());

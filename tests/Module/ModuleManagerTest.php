@@ -146,6 +146,8 @@ class ModuleManagerTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox A module can be installed and its status can be changed
      * @covers phpOMS\Module\ModuleManager
+     * @covers phpOMS\Module\StatusAbstract
+     * @covers phpOMS\Module\InstallerAbstract
      * @group framework
      */
     public function testStatus() : void
@@ -225,6 +227,7 @@ class ModuleManagerTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox A module can be uninstalled
      * @covers phpOMS\Module\ModuleManager
+     * @covers phpOMS\Module\UninstallerAbstract
      * @group framework
      */
     public function testUninstall() : void

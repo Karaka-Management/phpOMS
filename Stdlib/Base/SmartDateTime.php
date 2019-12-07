@@ -157,6 +157,20 @@ class SmartDateTime extends \DateTime
     }
 
     /**
+     * Get end of the week
+     *
+     * @return SmartDateTime
+     *
+     * @since 1.0.0
+     */
+    public function getEndOfWeek() : self
+    {
+        $w = \strtotime('+' . (6 - \date('w', $this->getTimestamp())) .' days', $this->getTimestamp());
+
+        return new self(\date('Y-m-d', $w));
+    }
+
+    /**
      * Get days of current month
      *
      * @return int
@@ -205,15 +219,15 @@ class SmartDateTime extends \DateTime
     {
         $isLeap = false;
 
-        if ($year % 4 == 0) {
+        if ($year % 4 === 0) {
             $isLeap = true;
         }
 
-        if ($year % 100 == 0) {
+        if ($year % 100 === 0) {
             $isLeap = false;
         }
 
-        if ($year % 400 == 0) {
+        if ($year % 400 === 0) {
             $isLeap = true;
         }
 

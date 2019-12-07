@@ -25,18 +25,6 @@ namespace phpOMS\Math\Matrix;
 final class Vector extends Matrix
 {
     /**
-     * Create vector
-     *
-     * @param int $m Vector length
-     *
-     * @since 1.0.0
-     */
-    public function __cosntruct(int $m = 1)
-    {
-        parent::__construct($m, 1);
-    }
-
-    /**
      * Set vector value
      *
      * @param int   $m     Position to set

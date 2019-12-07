@@ -129,6 +129,32 @@ class SmartDateTimeTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
+     * @testdox A smart datetime can be returned of the last day of the week
+     * @covers phpOMS\Stdlib\Base\SmartDateTime
+     * @group framework
+     */
+    public function testEndOfWeek() : void
+    {
+        $expected = new \DateTime('2019-11-23');
+        $obj      = new SmartDateTime('2019-11-21');
+
+        self::assertEquals($expected->format('Y-m-d'), $obj->getEndOfWeek()->format('Y-m-d'));
+    }
+
+    /**
+     * @testdox A smart datetime can be returned of the fist day of the week
+     * @covers phpOMS\Stdlib\Base\SmartDateTime
+     * @group framework
+     */
+    public function testStartOfWeek() : void
+    {
+        $expected = new \DateTime('2019-11-17');
+        $obj      = new SmartDateTime('2019-11-21');
+
+        self::assertEquals($expected->format('Y-m-d'), $obj->getStartOfWeek()->format('Y-m-d'));
+    }
+
+    /**
      * @testdox A date or year can be checked if it is a leap year
      * @covers phpOMS\Stdlib\Base\SmartDateTime
      * @group framework
@@ -139,6 +165,8 @@ class SmartDateTimeTest extends \PHPUnit\Framework\TestCase
         self::assertTrue((new SmartDateTime('2104-07-20'))->isLeapYear());
         self::assertFalse(SmartDateTime::leapYear(2103));
         self::assertTrue(SmartDateTime::leapYear(2104));
+        self::assertFalse(SmartDateTime::leapYear(1900));
+        self::assertTrue(SmartDateTime::leapYear(1600));
     }
 
     /**
@@ -153,6 +181,16 @@ class SmartDateTimeTest extends \PHPUnit\Framework\TestCase
 
         self::assertEquals(\date('w', $expected->getTimestamp()), SmartDateTime::dayOfWeek((int) $expected->format('Y'), (int) $expected->format('m'), (int) $expected->format('d')));
         self::assertEquals(\date('w', $expected->getTimestamp()), $obj->getDayOfWeek());
+    }
+
+    /**
+     * @testdox A invalid day of the week returns a negative week index
+     * @covers phpOMS\Stdlib\Base\SmartDateTime
+     * @group framework
+     */
+    public function testInvalidDayOfWeek() : void
+    {
+        self::assertEquals(-1, SmartDateTime::dayOfWeek(-2, 0, 99));
     }
 
     /**

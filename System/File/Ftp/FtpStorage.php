@@ -31,30 +31,6 @@ use phpOMS\System\File\StorageAbstract;
 class FtpStorage extends StorageAbstract
 {
     /**
-     * Storage instance.
-     *
-     * @var   FtpStorage
-     * @since 1.0.0
-     */
-    private static ?self $instance = null;
-
-    /**
-     * Get instance.
-     *
-     * @return FtpStorage
-     *
-     * @since 1.0.0
-     */
-    public static function getInstance() : StorageAbstract
-    {
-        if (self::$instance === null) {
-            self::$instance = new self();
-        }
-
-        return self::$instance;
-    }
-
-    /**
      * {@inheritdoc}
      */
     protected static function getClassType(string $path) : string

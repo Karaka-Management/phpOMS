@@ -59,11 +59,13 @@ class SchemaMapper
     public function getTables() : array
     {
         $builder = new Builder($this->db);
-        $tNames  = $builder->selectTables()->execute();
+
+        /** @var array<int, string[]> $tNames */
+        $tNames = $builder->selectTables()->execute()->fetchAll(\PDO::FETCH_ASSOC);
 
         $tables = [];
         foreach ($tNames as $name) {
-            $tables[] = $this->getTable($name);
+            $tables[] = \array_values($name)[0];
         }
 
         return $tables;
@@ -97,11 +99,11 @@ class SchemaMapper
     public function getFields(string $table) : array
     {
         $builder = new Builder($this->db);
-        $tNames  = $builder->selectFields($table)->execute();
+        $tNames  = $builder->selectFields($table)->execute()->fetchAll(\PDO::FETCH_ASSOC);
 
         $fields = [];
         foreach ($tNames as $name) {
-            $fields[] = $this->getField($table, $name);
+            $fields[] = \array_values($name);
         }
 
         return $fields;

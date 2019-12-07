@@ -112,6 +112,6 @@ class EnumArrayTest extends \PHPUnit\Framework\TestCase
      */
     public function testRandomValue() : void
     {
-        self::assertTrue(EnumDemo::isValidValue(EnumDemo::getRandom()));
+        self::assertTrue(EnumArrayDemo::isValidValue(EnumArrayDemo::getRandom()));
     }
 }

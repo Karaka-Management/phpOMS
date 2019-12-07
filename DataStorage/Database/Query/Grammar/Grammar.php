@@ -112,7 +112,7 @@ class Grammar extends GrammarAbstract
             case QueryType::DELETE:
                 return $this->deleteComponents;
             case QueryType::RANDOM:
-                return $this->selectComponents;
+                return $this->randomComponents;
             default:
                 throw new \InvalidArgumentException('Unknown query type.');
         }

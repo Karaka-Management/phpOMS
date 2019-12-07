@@ -49,6 +49,14 @@ class Builder extends BuilderAbstract
      * @var   array
      * @since 1.0.0
      */
+    public array $random;
+
+    /**
+     * Columns.
+     *
+     * @var   array
+     * @since 1.0.0
+     */
     public array $updates = [];
 
     /**
@@ -311,7 +319,8 @@ class Builder extends BuilderAbstract
     {
         $this->select(...$columns);
 
-        $this->type = QueryType::RANDOM;
+        $this->type   = QueryType::RANDOM;
+        $this->random = &$this->selects;
 
         return $this;
     }

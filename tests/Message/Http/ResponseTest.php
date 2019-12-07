@@ -160,13 +160,25 @@ class ResponseTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @testdox A response can be forced to minimize the content by removing newlines and whitespaces
+     * @testdox Json data can be decoded from the response data
+     * @covers phpOMS\Message\Http\Response<extended>
+     * @group framework
+     */
+    public function testJsonDataDecode() : void
+    {
+        $array = [1, 'abc' => 'def'];
+        $this->response->set('json', \json_encode($array));
+
+        self::assertEquals($array, $this->response->getJsonData());
+    }
+
+    /**
+     * @testdox A html response can be forced to minimize the content by removing newlines and whitespaces
      * @covers phpOMS\Message\Http\Response<extended>
      * @group framework
      */
     public function testMinimizedRender() : void
     {
-
         $this->response->set('view', new class() extends \phpOMS\Views\View {
             public function render(...$data) : string
             {
@@ -176,6 +188,24 @@ class ResponseTest extends \PHPUnit\Framework\TestCase
 
         $this->response->getHeader()->set('Content-Type', MimeType::M_HTML . '; charset=utf-8', true);
         self::assertEquals('view_string with <div> text</div> that has whitespaces and new lines', $this->response->render(true));
+    }
+
+    /**
+     * @testdox None-html responses cannot be forced to minimize the content by removing newlines and whitespaces
+     * @covers phpOMS\Message\Http\Response<extended>
+     * @group framework
+     */
+    public function testInvalidMinimizedRender() : void
+    {
+        $this->response->set('view', new class() extends \phpOMS\Views\View {
+            public function render(...$data) : string
+            {
+                return " view_string  with <div> text</div>  that has \n whitespaces and \n\nnew lines\n ";
+            }
+        });
+
+        $this->response->getHeader()->set('Content-Type', MimeType::M_TEXT . '; charset=utf-8', true);
+        self::assertEquals(" view_string  with <div> text</div>  that has \n whitespaces and \n\nnew lines\n ", $this->response->render(true));
     }
 
     /**
