@@ -34,6 +34,14 @@ class MemCached extends ConnectionAbstract
     protected string $type = CacheType::MEMCACHED;
 
     /**
+     * Only cache if data is larger than threshold (0-100).
+     *
+     * @var   int
+     * @since 1.0.0
+     */
+    private int $threshold = 0;
+
+    /**
      * Constructor.
      *
      * @param array $data Cache data
@@ -173,6 +181,14 @@ class MemCached extends ConnectionAbstract
         $stats['size']   = $temp['bytes'];
 
         return $stats;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getThreshold() : int
+    {
+        return $this->threshold;
     }
 
     /**
