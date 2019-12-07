@@ -101,6 +101,8 @@ class RedisCache extends ConnectionAbstract
 
         if (\is_bool($value)) {
             $value = $value ? 'true' : 'false';
+        } elseif ($value === null) {
+            $value = 'null';
         }
 
         if ($expire > 0) {
@@ -127,6 +129,8 @@ class RedisCache extends ConnectionAbstract
         // todo: pull out
         if (\is_bool($value)) {
             $value = $value ? 'true' : 'false';
+        } elseif ($value === null) {
+            $value = 'null';
         }
 
         if ($expire > 0) {
@@ -151,6 +155,8 @@ class RedisCache extends ConnectionAbstract
             $result = true;
         } elseif ($result === 'false') {
             $result = false;
+        } elseif ($result === 'null') {
+            $result = null;
         }
 
         return $result;
