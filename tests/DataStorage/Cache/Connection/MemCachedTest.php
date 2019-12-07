@@ -49,7 +49,6 @@ class MemCachedTest extends \PHPUnit\Framework\TestCase
         self::assertEquals('', $this->cache->getPrefix());
         self::assertEquals(CacheType::MEMCACHED, $this->cache->getType());
         self::assertTrue($this->cache->flushAll());
-        self::assertEquals(50, $this->cache->getThreshold());
         self::assertNull($this->cache->get('test'));
         self::assertEquals(
             [
