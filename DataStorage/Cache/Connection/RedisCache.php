@@ -278,6 +278,8 @@ class RedisCache extends ConnectionAbstract
     {
         if ($type === CacheValueType::_INT || $type === CacheValueType::_STRING || $type === CacheValueType::_BOOL) {
             return (string) $value;
+        } elseif ($type === CacheValueType::_FLOAT) {
+            return \rtrim(\rtrim(\number_format($value, 5, '.', ''), '0'), '.');
         } elseif ($type === CacheValueType::_ARRAY) {
             return (string) \json_encode($value);
         } elseif ($type === CacheValueType::_SERIALIZABLE) {
