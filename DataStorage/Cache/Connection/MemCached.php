@@ -130,7 +130,7 @@ class MemCached extends ConnectionAbstract
             return false;
         }
 
-        return $this->con->del($key);
+        return $this->con->delete($key);
     }
 
     /**

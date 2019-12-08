@@ -157,7 +157,7 @@ class RedisCache extends ConnectionAbstract
             return false;
         }
 
-        return $this->con->delete($key) > 0;
+        return $this->con->del($key) > 0;
     }
 
     /**
