@@ -306,10 +306,11 @@ class RedisCache extends ConnectionAbstract
      */
     private function reverseValue(int $type, $raw, int $start)
     {
+        if ($type === \is_int($raw) || $type === \is_float($raw)) {
+            return $raw;
+        }
+
         switch ($type) {
-            case \is_int($raw):
-            case \is_float($raw):
-                return $raw;
             case CacheValueType::_BOOL:
                 return (bool) \substr($raw, $start + 1);
             case CacheValueType::_STRING:
