@@ -321,6 +321,15 @@ class RedisCache extends ConnectionAbstract
             case CacheValueType::_NULL:
                 return null;
             case CacheValueType::_JSONSERIALIZABLE:
+                $namespaceStart = (int) \strpos($raw, self::DELIM, $start);
+                $namespaceEnd   = (int) \strpos($raw, self::DELIM, $namespaceStart + 1);
+                $namespace      = \substr($raw, $namespaceStart + 1, $namespaceEnd - $namespaceStart - 1);
+
+                if ($namespace === false) {
+                    return null;
+                }
+
+                return new $namespace();
             case CacheValueType::_SERIALIZABLE:
                 $namespaceStart = (int) \strpos($raw, self::DELIM, $start);
                 $namespaceEnd   = (int) \strpos($raw, self::DELIM, $namespaceStart + 1);
