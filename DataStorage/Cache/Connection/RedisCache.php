@@ -306,9 +306,9 @@ class RedisCache extends ConnectionAbstract
     {
         switch ($type) {
             case CacheValueType::_INT:
-                return (int) \substr($raw, $expireEnd + 1);
+                return (int) \substr($raw, $start + 1);
             case CacheValueType::_FLOAT:
-                return (float) \substr($raw, $expireEnd + 1);
+                return (float) \substr($raw, $start + 1);
             case CacheValueType::_BOOL:
                 return (bool) \substr($raw, $start + 1);
             case CacheValueType::_STRING:
