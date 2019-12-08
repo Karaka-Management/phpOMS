@@ -276,7 +276,7 @@ class RedisCache extends ConnectionAbstract
      */
     private function cachify($value, int $type)
     {
-        if (\is_float($value) || \is_int($value)) {
+        if (\is_float($value) || \is_int($value) || \is_string($value)) {
             return $value;
         } elseif ($type === CacheValueType::_BOOL) {
             return (string) ((int) $value);
