@@ -133,7 +133,7 @@ class RedisCache extends ConnectionAbstract
      */
     public function get($key, int $expire = -1)
     {
-        if ($this->status !== CacheStatus::OK || !$this->con->exists($key)) {
+        if ($this->status !== CacheStatus::OK || $this->con->exists($key) < 1) {
             return null;
         }
 
@@ -196,8 +196,6 @@ class RedisCache extends ConnectionAbstract
         if ($this->status !== CacheStatus::OK) {
             return false;
         }
-
-        // todo: parse value
 
         if ($this->con->exists($key) > 0) {
             $this->set($key, $this->build($value), $expire);
@@ -306,6 +304,7 @@ class RedisCache extends ConnectionAbstract
      */
     private function reverseValue(int $type, $raw, int $start)
     {
+        var_dump($raw);
         switch ($type) {
             case CacheValueType::_INT:
                 return (int) \substr($raw, $start + 1);
