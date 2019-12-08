@@ -198,7 +198,7 @@ class RedisCache extends ConnectionAbstract
         }
 
         if ($this->con->exists($key) > 0) {
-            $this->set($key, $this->build($value), $expire);
+            $this->set($key, $value, $expire);
 
             return true;
         }
@@ -304,7 +304,6 @@ class RedisCache extends ConnectionAbstract
      */
     private function reverseValue(int $type, $raw, int $start)
     {
-        var_dump($raw);
         switch ($type) {
             case CacheValueType::_INT:
                 return (int) \substr($raw, $start + 1);
