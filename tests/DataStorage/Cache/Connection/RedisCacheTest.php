@@ -232,18 +232,6 @@ class RedisCacheTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @testdox Expired cache data can be deleted if equal expiration is defined
-     * @covers phpOMS\DataStorage\Cache\Connection\RedisCache<extended>
-     * @group framework
-     */
-    public function testDeleteExpired() : void
-    {
-        $this->cache->set('key4', 'testVal4', 1);
-        \sleep(2);
-        self::assertTrue($this->cache->delete('key4', 1));
-    }
-
-    /**
      * @testdox A bad cache status will prevent all cache actions
      * @covers phpOMS\DataStorage\Cache\Connection\RedisCache<extended>
      * @group framework
