@@ -276,10 +276,8 @@ class RedisCache extends ConnectionAbstract
      */
     private function cachify($value, int $type)
     {
-        if (\is_float($value) || \is_int($value) || \is_string($value)) {
-            return $value;
-        } elseif ($type === CacheValueType::_BOOL) {
-            return (string) ((int) $value);
+        if ($type === CacheValueType::_INT || $type === CacheValueType::_STRING || $type === CacheValueType::_BOOL) {
+            return (string) $value;
         } elseif ($type === CacheValueType::_ARRAY) {
             return (string) \json_encode($value);
         } elseif ($type === CacheValueType::_SERIALIZABLE) {
@@ -306,11 +304,11 @@ class RedisCache extends ConnectionAbstract
      */
     private function reverseValue(int $type, $raw, int $start)
     {
-        if ($type === \is_int($raw) || $type === \is_float($raw)) {
-            return $raw;
-        }
-
         switch ($type) {
+            case CacheValueType::_INT:
+                return (int) \substr($raw, $expireEnd + 1);
+            case CacheValueType::_FLOAT:
+                return (float) \substr($raw, $expireEnd + 1);
             case CacheValueType::_BOOL:
                 return (bool) \substr($raw, $start + 1);
             case CacheValueType::_STRING:
