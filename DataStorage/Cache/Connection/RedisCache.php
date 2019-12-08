@@ -106,7 +106,7 @@ class RedisCache extends ConnectionAbstract
         }
 
         if ($expire > 0) {
-            $this->con->set($key, $this->build($value), $expire);
+            $this->con->setEx($key, $expire, $this->build($value));
         }
 
         $this->con->set($key, $this->build($value));
