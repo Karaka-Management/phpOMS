@@ -22,7 +22,7 @@ namespace phpOMS\DataStorage\Cache\Connection;
  * @link    https://orange-management.org
  * @since   1.0.0
  */
-class NullCache extends ConnectionAbstract
+final class NullCache extends ConnectionAbstract
 {
 
     /**

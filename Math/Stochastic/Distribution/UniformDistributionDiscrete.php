@@ -22,7 +22,7 @@ namespace phpOMS\Math\Stochastic\Distribution;
  * @link    https://orange-management.org
  * @since   1.0.0
  */
-class UniformDistributionDiscrete
+final class UniformDistributionDiscrete
 {
 
     /**

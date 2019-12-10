@@ -23,7 +23,7 @@ use phpOMS\Math\Functions\Functions;
  * @link    https://orange-management.org
  * @since   1.0.0
  */
-class HypergeometricDistribution
+final class HypergeometricDistribution
 {
     /**
      * Get probability mass function.

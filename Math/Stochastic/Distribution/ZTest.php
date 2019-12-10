@@ -22,7 +22,7 @@ namespace phpOMS\Math\Stochastic\Distribution;
  * @link    https://orange-management.org
  * @since   1.0.0
  */
-class ZTest
+final class ZTest
 {
     public const TABLE = [
         '2.58' => 0.99,

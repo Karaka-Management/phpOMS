@@ -21,7 +21,7 @@ namespace phpOMS\Math\Stochastic\Distribution;
  * @link    https://orange-management.org
  * @since   1.0.0
  */
-class FDistribution
+final class FDistribution
 {
     /**
      * Get expected value.

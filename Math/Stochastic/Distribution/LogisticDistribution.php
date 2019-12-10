@@ -21,7 +21,7 @@ namespace phpOMS\Math\Stochastic\Distribution;
  * @link    https://orange-management.org
  * @since   1.0.0
  */
-class LogisticDistribution
+final class LogisticDistribution
 {
     /**
      * Get probability density function.

@@ -28,7 +28,7 @@ use phpOMS\DataStorage\Cache\Connection\CacheValueType;
  * @link    https://orange-management.org
  * @since   1.0.0
  */
-class RedisCache extends ConnectionAbstract
+final class RedisCache extends ConnectionAbstract
 {
     /**
      * {@inheritdoc}

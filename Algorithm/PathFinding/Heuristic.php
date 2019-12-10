@@ -24,7 +24,7 @@ use phpOMS\Math\Topology\Metrics2D;
  * @link    https://orange-management.org
  * @since   1.0.0
  */
-class Heuristic
+final class Heuristic
 {
     /**
      * Calculate metric/distance between two nodes.

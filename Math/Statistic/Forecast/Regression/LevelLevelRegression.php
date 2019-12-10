@@ -22,7 +22,7 @@ namespace phpOMS\Math\Statistic\Forecast\Regression;
  * @link    https://orange-management.org
  * @since   1.0.0
  */
-class LevelLevelRegression extends RegressionAbstract
+final class LevelLevelRegression extends RegressionAbstract
 {
     /**
      * {@inheritdoc}

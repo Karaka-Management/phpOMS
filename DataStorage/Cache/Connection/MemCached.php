@@ -26,7 +26,7 @@ use phpOMS\DataStorage\Cache\Exception\InvalidConnectionConfigException;
  * @link    https://orange-management.org
  * @since   1.0.0
  */
-class MemCached extends ConnectionAbstract
+final class MemCached extends ConnectionAbstract
 {
     /**
      * {@inheritdoc}

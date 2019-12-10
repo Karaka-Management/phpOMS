@@ -40,7 +40,7 @@ use phpOMS\System\File\Local\File;
  * @link    https://orange-management.org
  * @since   1.0.0
  */
-class FileCache extends ConnectionAbstract
+final class FileCache extends ConnectionAbstract
 {
     /**
      * {@inheritdoc}

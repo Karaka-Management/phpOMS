@@ -23,7 +23,7 @@ namespace phpOMS\Math\Numerics;
  * @link    https://orange-management.org
  * @since   1.0.0
  */
-class Integration
+final class Integration
 {
     /**
      * Integrate function by using rectangles from the left side

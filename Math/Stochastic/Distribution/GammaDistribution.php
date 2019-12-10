@@ -23,7 +23,7 @@ use phpOMS\Math\Functions\Gamma;
  * @link    https://orange-management.org
  * @since   1.0.0
  */
-class GammaDistribution
+final class GammaDistribution
 {
     /**
      * Get probability density function.

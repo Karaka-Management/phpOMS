@@ -22,7 +22,7 @@ namespace phpOMS\Math\Parser;
  * @link    https://orange-management.org
  * @since   1.0.0
  */
-class Evaluator
+final class Evaluator
 {
     /**
      * Evaluate function.

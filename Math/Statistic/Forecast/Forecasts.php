@@ -22,7 +22,7 @@ namespace phpOMS\Math\Statistic\Forecast;
  * @link    https://orange-management.org
  * @since   1.0.0
  */
-class Forecasts
+final class Forecasts
 {
     /**
      * Get forecast/prediction interval.

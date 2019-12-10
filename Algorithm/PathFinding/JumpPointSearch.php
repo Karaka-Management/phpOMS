@@ -24,7 +24,7 @@ use phpOMS\Stdlib\Base\Heap;
  * @link    https://orange-management.org
  * @since   1.0.0
  */
-class JumpPointSearch implements PathFinderInterface
+final class JumpPointSearch implements PathFinderInterface
 {
     /**
      * {@inheritdoc}

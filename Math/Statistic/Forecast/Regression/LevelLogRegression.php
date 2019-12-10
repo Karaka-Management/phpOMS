@@ -24,7 +24,7 @@ use phpOMS\Math\Matrix\Exception\InvalidDimensionException;
  * @link    https://orange-management.org
  * @since   1.0.0
  */
-class LevelLogRegression extends RegressionAbstract
+final class LevelLogRegression extends RegressionAbstract
 {
     /**
      * {@inheritdoc}

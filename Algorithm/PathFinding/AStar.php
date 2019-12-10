@@ -24,7 +24,7 @@ use phpOMS\Stdlib\Base\Heap;
  * @link    https://orange-management.org
  * @since   1.0.0
  */
-class AStar implements PathFinderInterface
+final class AStar implements PathFinderInterface
 {
     /**
      * {@inheritdoc}

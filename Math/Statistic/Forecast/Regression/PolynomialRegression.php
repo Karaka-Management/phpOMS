@@ -25,7 +25,7 @@ use phpOMS\Math\Matrix\Exception\InvalidDimensionException;
  * @link    https://orange-management.org
  * @since   1.0.0
  */
-class PolynomialRegression
+final class PolynomialRegression
 {
     /**
      * Get linear regression based on scatter plot.

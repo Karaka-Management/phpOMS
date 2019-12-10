@@ -23,7 +23,7 @@ use phpOMS\Math\Matrix\Matrix;
  * @link    https://orange-management.org
  * @since   1.0.0
  */
-class MultipleLinearRegression extends RegressionAbstract
+final class MultipleLinearRegression extends RegressionAbstract
 {
     /**
      * Get linear regression based on scatter plot.

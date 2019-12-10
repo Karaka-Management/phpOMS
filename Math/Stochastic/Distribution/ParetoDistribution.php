@@ -21,7 +21,7 @@ namespace phpOMS\Math\Stochastic\Distribution;
  * @link    https://orange-management.org
  * @since   1.0.0
  */
-class ParetoDistribution
+final class ParetoDistribution
 {
     /**
      * Get probability density function.
