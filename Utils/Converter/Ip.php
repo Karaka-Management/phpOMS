@@ -22,7 +22,7 @@ namespace phpOMS\Utils\Converter;
  * @link    https://orange-management.org
  * @since   1.0.0
  */
-class Ip
+final class Ip
 {
     public const IP_TABLE_ITERATIONS = 100;
 

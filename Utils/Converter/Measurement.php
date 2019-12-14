@@ -22,7 +22,7 @@ namespace phpOMS\Utils\Converter;
  * @link    https://orange-management.org
  * @since   1.0.0
  */
-class Measurement
+final class Measurement
 {
     /**
      * Constructor.

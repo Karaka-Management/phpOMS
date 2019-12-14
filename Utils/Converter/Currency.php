@@ -28,7 +28,7 @@ use phpOMS\Uri\Http;
  * @link    https://orange-management.org
  * @since   1.0.0
  */
-class Currency
+final class Currency
 {
 
     /**
@@ -98,21 +98,25 @@ class Currency
      */
     public static function getEcbEuroRates() : array
     {
-        if (!isset(self::$ecbCurrencies)) {
+        if (!empty(self::$ecbCurrencies)) {
             $request = new Request(new Http('https://www.ecb.europa.eu/stats/eurofxref/eurofxref-daily.xml'));
             $request->setMethod(RequestMethod::GET);
 
-            $xml = new \SimpleXMLElement(Rest::request($request)->getBody());
+            try {
+                $xml = new \SimpleXMLElement(Rest::request($request)->getBody());
 
-            if (!isset($xml->Cube)) {
-                throw new \Exception('Invalid xml path');
-            }
+                if (!isset($xml->Cube)) {
+                    throw new \Exception('Invalid xml path');
+                }
 
-            $node                = $xml->Cube->Cube->Cube;
-            self::$ecbCurrencies = [];
+                $node                = $xml->Cube->Cube->Cube;
+                self::$ecbCurrencies = [];
 
-            foreach ($node as $key => $value) {
-                self::$ecbCurrencies[\strtoupper((string) $value->attributes()['currency'])] = (float) $value->attributes()['rate'];
+                foreach ($node as $key => $value) {
+                    self::$ecbCurrencies[\strtoupper((string) $value->attributes()['currency'])] = (float) $value->attributes()['rate'];
+                }
+            } catch (\Throwable $t) {
+                self::$ecbCurrencies = [];
             }
         }
 
