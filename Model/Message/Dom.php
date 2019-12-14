@@ -24,7 +24,7 @@ use phpOMS\Contract\ArrayableInterface;
  * @link    https://orange-management.org
  * @since   1.0.0
  */
-class Dom implements \Serializable, ArrayableInterface
+final class Dom implements \Serializable, ArrayableInterface
 {
 
     /**

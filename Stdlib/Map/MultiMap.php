@@ -24,7 +24,7 @@ use phpOMS\Utils\Permutation;
  * @link    https://orange-management.org
  * @since   1.0.0
  */
-class MultiMap implements \Countable
+final class MultiMap implements \Countable
 {
 
     /**

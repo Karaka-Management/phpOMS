@@ -25,7 +25,7 @@ use phpOMS\Views\ViewAbstract;
  * @link    https://orange-management.org
  * @since   1.0.0
  */
-class Meta implements RenderableInterface
+final class Meta implements RenderableInterface
 {
 
     /**

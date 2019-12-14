@@ -28,7 +28,7 @@ use phpOMS\Localization\ISO639x1Enum;
  * @link    https://orange-management.org
  * @since   1.0.0
  */
-class Head implements RenderableInterface
+final class Head implements RenderableInterface
 {
 
     /**
