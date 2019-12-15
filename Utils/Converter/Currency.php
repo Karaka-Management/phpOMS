@@ -97,7 +97,7 @@ final class Currency
      */
     public static function getEcbEuroRates() : array
     {
-        if (!empty(self::$ecbCurrencies)) {
+        if (empty(self::$ecbCurrencies)) {
             $request = new Request(new Http('https://www.ecb.europa.eu/stats/eurofxref/eurofxref-daily.xml'));
             $request->setMethod(RequestMethod::GET);
 
