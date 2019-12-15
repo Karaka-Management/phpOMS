@@ -26,7 +26,6 @@ use phpOMS\Validation\ValidatorAbstract;
  */
 final class CreditCard extends ValidatorAbstract
 {
-
     /**
      * {@inheritdoc}
      */

@@ -27,7 +27,6 @@ use phpOMS\Stdlib\Base\Exception\InvalidEnumValue;
  */
 class Group implements ArrayableInterface, \JsonSerializable
 {
-
     /**
      * Group id.
      *

@@ -28,7 +28,6 @@ use phpOMS\DataStorage\Database\Query\Builder;
  */
 abstract class UninstallerAbstract
 {
-
     /**
      * Install module.
      *

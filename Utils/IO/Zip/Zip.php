@@ -28,7 +28,6 @@ use phpOMS\System\File\FileUtils;
  */
 class Zip implements ArchiveInterface
 {
-
     /**
      * {@inheritdoc}
      */

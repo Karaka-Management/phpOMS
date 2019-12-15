@@ -32,7 +32,6 @@ use phpOMS\Message\Socket\Response;
  */
 class PacketManager
 {
-
     /**
      * Socket router.
      *

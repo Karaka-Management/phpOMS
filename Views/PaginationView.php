@@ -24,7 +24,6 @@ namespace phpOMS\Views;
  */
 class PaginationView extends View
 {
-
     /**
      * Maximum amount of pages.
      *

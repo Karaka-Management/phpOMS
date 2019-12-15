@@ -26,7 +26,6 @@ namespace Tests\PHPUnit;
  */
 class Autoloader
 {
-
     /**
      * Loading classes by namespace + class name.
      *

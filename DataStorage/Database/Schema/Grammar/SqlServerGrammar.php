@@ -24,5 +24,4 @@ namespace phpOMS\DataStorage\Database\Schema\Grammar;
  */
 class SqlServerGrammar extends Grammar
 {
-
 }

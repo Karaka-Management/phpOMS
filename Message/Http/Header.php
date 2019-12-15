@@ -29,7 +29,6 @@ use phpOMS\System\MimeType;
  */
 final class Header extends HeaderAbstract
 {
-
     /**
      * Header.
      *

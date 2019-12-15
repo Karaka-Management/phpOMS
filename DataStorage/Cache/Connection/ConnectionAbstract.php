@@ -31,7 +31,6 @@ use phpOMS\DataStorage\Cache\Connection\CacheValueType;
  */
 abstract class ConnectionAbstract implements ConnectionInterface
 {
-
     /**
      * Connection object.
      *

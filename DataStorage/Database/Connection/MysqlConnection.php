@@ -33,7 +33,6 @@ use phpOMS\DataStorage\Database\Schema\Grammar\MysqlGrammar as MysqlSchemaGramma
  */
 final class MysqlConnection extends ConnectionAbstract
 {
-
     /**
      * Object constructor.
      *

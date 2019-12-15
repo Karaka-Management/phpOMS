@@ -26,7 +26,6 @@ use phpOMS\Contract\ArrayableInterface;
  */
 final class Reload implements \Serializable, ArrayableInterface, \JsonSerializable
 {
-
     /**
      * Message type.
      *

@@ -30,7 +30,6 @@ use phpOMS\Utils\RnG\StringUtils;
  */
 class HttpSession implements SessionInterface
 {
-
     /**
      * Is session locked/already set.
      *

@@ -26,7 +26,6 @@ use phpOMS\Utils\Permutation;
  */
 final class MultiMap implements \Countable
 {
-
     /**
      * Stored values.
      *

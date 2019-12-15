@@ -26,7 +26,6 @@ use phpOMS\DataStorage\Cache\CacheType;
  */
 class ConnectionFactory
 {
-
     /**
      * Constructor.
      *

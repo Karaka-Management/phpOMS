@@ -32,7 +32,6 @@ use phpOMS\Validation\Network\Email;
  */
 class Account implements ArrayableInterface, \JsonSerializable
 {
-
     /**
      * Id.
      *

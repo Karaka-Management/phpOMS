@@ -30,7 +30,6 @@ use phpOMS\Contract\RenderableInterface;
  */
 final class StringUtils
 {
-
     /**
      * Constructor.
      *

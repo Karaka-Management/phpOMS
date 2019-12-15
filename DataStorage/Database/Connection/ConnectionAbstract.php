@@ -32,7 +32,6 @@ use phpOMS\DataStorage\Database\Schema\Grammar\Grammar as SchemaGrammar;
  */
 abstract class ConnectionAbstract implements ConnectionInterface
 {
-
     /**
      * Connection object.
      *

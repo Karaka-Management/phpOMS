@@ -27,7 +27,6 @@ use phpOMS\Views\ViewAbstract;
  */
 final class Meta implements RenderableInterface
 {
-
     /**
      * Keywords.
      *

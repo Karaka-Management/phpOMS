@@ -26,7 +26,6 @@ use phpOMS\Math\Functions\Functions;
  */
 final class BinomialDistribution
 {
-
     /**
      * Get mode.
      *

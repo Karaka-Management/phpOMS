@@ -26,7 +26,6 @@ namespace phpOMS\Version;
  */
 final class Version
 {
-
     /**
      * Constructor.
      *

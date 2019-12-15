@@ -34,7 +34,6 @@ use phpOMS\System\File\PathException;
  */
 final class ModuleManager
 {
-
     /**
      * All modules that are running on this uri.
      *

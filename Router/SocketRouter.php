@@ -24,7 +24,6 @@ namespace phpOMS\Router;
  */
 final class SocketRouter implements RouterInterface
 {
-
     /**
      * Routes.
      *

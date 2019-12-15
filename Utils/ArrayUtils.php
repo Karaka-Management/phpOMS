@@ -24,7 +24,6 @@ namespace phpOMS\Utils;
  */
 final class ArrayUtils
 {
-
     /**
      * Constructor.
      *

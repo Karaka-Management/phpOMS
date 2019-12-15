@@ -26,7 +26,6 @@ use phpOMS\Validation\ValidatorAbstract;
  */
 abstract class Hostname extends ValidatorAbstract
 {
-
     /**
      * Constructor.
      *

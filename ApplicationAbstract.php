@@ -57,7 +57,6 @@ use phpOMS\DataStorage\Session\SessionInterface;
  */
 class ApplicationAbstract
 {
-
     /**
      * App name.
      *

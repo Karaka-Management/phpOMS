@@ -24,5 +24,4 @@ namespace phpOMS\Localization;
  */
 final class NullLocalization extends Localization
 {
-
 }

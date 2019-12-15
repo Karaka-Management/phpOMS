@@ -27,7 +27,6 @@ use phpOMS\System\File\PathException;
  */
 abstract class ViewAbstract implements RenderableInterface
 {
-
     /**
      * Template.
      *

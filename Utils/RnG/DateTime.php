@@ -24,7 +24,6 @@ namespace phpOMS\Utils\RnG;
  */
 class DateTime
 {
-
     /**
      * Get a random \DateTime.
      *

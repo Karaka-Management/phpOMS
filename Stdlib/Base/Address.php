@@ -24,7 +24,6 @@ namespace phpOMS\Stdlib\Base;
  */
 class Address implements \JsonSerializable
 {
-
     /**
      * Name of the receiver.
      *

@@ -24,5 +24,4 @@ namespace phpOMS\DataStorage\Database\Query;
  */
 class Expression extends Builder
 {
-
 }

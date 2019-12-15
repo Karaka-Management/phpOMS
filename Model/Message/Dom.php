@@ -26,7 +26,6 @@ use phpOMS\Contract\ArrayableInterface;
  */
 final class Dom implements \Serializable, ArrayableInterface
 {
-
     /**
      * Message type.
      *

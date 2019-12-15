@@ -28,7 +28,6 @@ use phpOMS\Utils\Converter\TemperatureType;
  */
 class Localization
 {
-
     /**
      * Country ID.
      *

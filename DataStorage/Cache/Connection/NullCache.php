@@ -24,7 +24,6 @@ namespace phpOMS\DataStorage\Cache\Connection;
  */
 final class NullCache extends ConnectionAbstract
 {
-
     /**
      * {@inheritdoc}
      */

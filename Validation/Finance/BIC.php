@@ -26,7 +26,6 @@ use phpOMS\Validation\ValidatorAbstract;
  */
 final class BIC extends ValidatorAbstract
 {
-
     /**
      * {@inheritdoc}
      */

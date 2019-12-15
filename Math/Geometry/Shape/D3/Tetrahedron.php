@@ -24,7 +24,6 @@ namespace phpOMS\Math\Geometry\Shape\D3;
  */
 final class Tetrahedron implements D3ShapeInterface
 {
-
     /**
      * Volume
      *

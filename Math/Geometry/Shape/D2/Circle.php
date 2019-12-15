@@ -24,7 +24,6 @@ namespace phpOMS\Math\Geometry\Shape\D2;
  */
 final class Circle implements D2ShapeInterface
 {
-
     /**
      * Area
      *

@@ -24,7 +24,6 @@ namespace phpOMS\Utils\Encoding;
  */
 final class XorEncoding
 {
-
     /**
      * Decode text
      *

@@ -24,7 +24,6 @@ namespace phpOMS\DataStorage\Database\Connection;
  */
 final class NullConnection extends ConnectionAbstract
 {
-
     /**
      * {@inheritdoc}
      */

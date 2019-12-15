@@ -27,7 +27,6 @@ use phpOMS\Module\ModuleAbstract;
  */
 final class L11nManager
 {
-
     /**
      * Language.
      *

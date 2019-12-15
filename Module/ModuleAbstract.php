@@ -32,7 +32,6 @@ use phpOMS\System\MimeType;
  */
 abstract class ModuleAbstract
 {
-
     /**
      * Module name.
      *

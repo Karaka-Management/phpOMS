@@ -24,7 +24,6 @@ namespace phpOMS\Stdlib\Base;
  */
 class Location implements \JsonSerializable, \Serializable
 {
-
     /**
      * Location id
      *

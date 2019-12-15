@@ -26,7 +26,6 @@ use phpOMS\DataStorage\Database\DatabasePool;
  */
 abstract class UpdaterAbstract
 {
-
     /**
      * Install module.
      *

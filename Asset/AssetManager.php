@@ -24,7 +24,6 @@ namespace phpOMS\Asset;
  */
 final class AssetManager implements \Countable
 {
-
     /**
      * Assets.
      *

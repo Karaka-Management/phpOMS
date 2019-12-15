@@ -31,7 +31,6 @@ use phpOMS\ApplicationAbstract;
  */
 class Server extends SocketAbstract
 {
-
     /**
      * Socket connection limit.
      *

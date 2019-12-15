@@ -27,7 +27,6 @@ use phpOMS\Validation\ValidatorAbstract;
  */
 abstract class Json extends ValidatorAbstract
 {
-
     /**
      * {@inheritdoc}
      */

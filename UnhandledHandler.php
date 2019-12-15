@@ -26,7 +26,6 @@ use phpOMS\Log\FileLogger;
  */
 final class UnhandledHandler
 {
-
     /**
      * Exception handler.
      *

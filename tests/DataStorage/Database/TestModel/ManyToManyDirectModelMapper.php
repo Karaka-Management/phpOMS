@@ -17,7 +17,6 @@ use phpOMS\DataStorage\Database\DataMapperAbstract;
 
 class ManyToManyDirectModelMapper extends DataMapperAbstract
 {
-
     /**
      * Columns.
      *

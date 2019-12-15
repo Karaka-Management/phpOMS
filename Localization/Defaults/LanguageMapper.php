@@ -26,7 +26,6 @@ use phpOMS\DataStorage\Database\DataMapperAbstract;
  */
 class LanguageMapper extends DataMapperAbstract
 {
-
     /**
      * Columns.
      *

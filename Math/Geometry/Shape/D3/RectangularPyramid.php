@@ -24,7 +24,6 @@ namespace phpOMS\Math\Geometry\Shape\D3;
  */
 final class RectangularPyramid implements D3ShapeInterface
 {
-
     /**
      * Volume
      *

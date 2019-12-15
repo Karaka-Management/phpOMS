@@ -24,7 +24,6 @@ namespace phpOMS\Localization;
  */
 final class Money implements \Serializable
 {
-
     /**
      * Max amount of decimals.
      *

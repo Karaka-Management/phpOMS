@@ -30,7 +30,6 @@ use phpOMS\Uri\Http;
  */
 final class Currency
 {
-
     /**
      * ECB currency rates.
      *

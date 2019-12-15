@@ -26,7 +26,6 @@ use phpOMS\Utils\StringUtils;
  */
 final class Validator extends ValidatorAbstract
 {
-
     /**
      * Validate variable based on multiple factors.
      *

@@ -26,7 +26,6 @@ namespace phpOMS\Stdlib\Base\Exception;
  */
 class InvalidEnumValue extends \UnexpectedValueException
 {
-
     /**
      * Constructor.
      *

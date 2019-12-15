@@ -24,7 +24,6 @@ namespace phpOMS\Math\Geometry\Shape\D2;
  */
 final class Ellipse implements D2ShapeInterface
 {
-
     /**
      * Area
      *

@@ -26,7 +26,6 @@ namespace phpOMS\Stdlib\Base;
  */
 abstract class Enum
 {
-
     /**
      * Check enum value.
      *

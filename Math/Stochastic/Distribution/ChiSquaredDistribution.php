@@ -24,7 +24,6 @@ namespace phpOMS\Math\Stochastic\Distribution;
  */
 final class ChiSquaredDistribution
 {
-
     /**
      * Chi square table.
      *

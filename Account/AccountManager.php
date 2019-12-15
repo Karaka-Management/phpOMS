@@ -29,7 +29,6 @@ use phpOMS\DataStorage\Session\SessionInterface;
  */
 final class AccountManager implements \Countable
 {
-
     /**
      * Accounts.
      *

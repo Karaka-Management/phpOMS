@@ -33,7 +33,6 @@ use phpOMS\DataStorage\Database\Schema\Grammar\SQLiteGrammar as SQLiteSchemaGram
  */
 final class SQLiteConnection extends ConnectionAbstract
 {
-
     /**
      * Object constructor.
      *

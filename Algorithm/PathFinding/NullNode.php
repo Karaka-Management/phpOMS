@@ -24,5 +24,4 @@ namespace phpOMS\Algorithm\PathFinding;
  */
 class NullNode extends Node
 {
-
 }

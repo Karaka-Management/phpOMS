@@ -17,7 +17,6 @@ use phpOMS\DataStorage\Database\DataMapperAbstract;
 
 class BelongsToModelMapper extends DataMapperAbstract
 {
-
     /**
      * Columns.
      *

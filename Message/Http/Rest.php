@@ -24,7 +24,6 @@ namespace phpOMS\Message\Http;
  */
 final class Rest
 {
-
     /**
      * Make request.
      *

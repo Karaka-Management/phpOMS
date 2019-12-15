@@ -24,7 +24,6 @@ namespace phpOMS\Utils\RnG;
  */
 class Phone
 {
-
     /**
      * Get a random phone number.
      *

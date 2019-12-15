@@ -29,7 +29,6 @@ use phpOMS\DataStorage\Database\Query\Builder;
  */
 abstract class StatusAbstract
 {
-
     /**
      * Deactivate module.
      *

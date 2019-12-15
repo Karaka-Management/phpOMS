@@ -26,7 +26,6 @@ use phpOMS\DataStorage\Database\DataMapperAbstract;
  */
 class CityMapper extends DataMapperAbstract
 {
-
     /**
      * Columns.
      *

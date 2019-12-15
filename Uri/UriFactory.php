@@ -26,7 +26,6 @@ namespace phpOMS\Uri;
  */
 final class UriFactory
 {
-
     /**
      * Dynamic query elements.
      *

@@ -24,7 +24,6 @@ namespace phpOMS\Math\Geometry\Shape\D3;
  */
 final class Cone implements D3ShapeInterface
 {
-
     /**
      * Volume
      *

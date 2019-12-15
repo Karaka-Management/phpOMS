@@ -26,7 +26,6 @@ use phpOMS\Contract\ArrayableInterface;
  */
 final class Notify implements \Serializable, ArrayableInterface, \JsonSerializable
 {
-
     /**
      * Message type.
      *

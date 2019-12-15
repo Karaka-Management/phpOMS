@@ -31,7 +31,6 @@ use phpOMS\System\File\PathException;
  */
 final class File extends FileAbstract implements LocalContainerInterface, FileInterface
 {
-
     /**
      * Constructor.
      *

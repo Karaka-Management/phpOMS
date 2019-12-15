@@ -24,7 +24,6 @@ namespace phpOMS\Validation;
  */
 abstract class ValidatorAbstract implements ValidatorInterface
 {
-
     /**
      * Error code.
      *

@@ -24,7 +24,6 @@ namespace phpOMS\Utils\Converter;
  */
 final class Numeric
 {
-
     /**
      * Romans association.
      *

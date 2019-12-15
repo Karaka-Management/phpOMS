@@ -24,7 +24,6 @@ namespace phpOMS\Utils\TaskSchedule;
  */
 class Interval implements \Serializable
 {
-
     /**
      * Start of the task.
      *

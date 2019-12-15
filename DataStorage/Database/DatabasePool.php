@@ -30,7 +30,6 @@ use phpOMS\DataStorage\Database\Connection\ConnectionAbstract;
  */
 final class DatabasePool implements DataStoragePoolInterface
 {
-
     /**
      * Databases.
      *

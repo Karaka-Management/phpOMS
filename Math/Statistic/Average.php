@@ -27,7 +27,6 @@ use phpOMS\Math\Matrix\Exception\InvalidDimensionException;
  */
 final class Average
 {
-
     public const MA3    = [1 / 3, 1 / 3];
     public const MA5    = [0.2, 0.2, 0.2];
     public const MA2X12 = [5 / 6, 5 / 6, 5 / 6, 5 / 6, 5 / 6, 5 / 6, 0.42];

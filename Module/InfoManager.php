@@ -29,7 +29,6 @@ use phpOMS\Utils\ArrayUtils;
  */
 final class InfoManager
 {
-
     /**
      * File path.
      *

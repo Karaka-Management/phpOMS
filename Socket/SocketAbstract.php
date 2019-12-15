@@ -24,7 +24,6 @@ namespace phpOMS\Socket;
  */
 abstract class SocketAbstract implements SocketInterface
 {
-
     /**
      * Socket ip.
      *

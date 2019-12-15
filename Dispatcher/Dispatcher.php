@@ -29,7 +29,6 @@ use phpOMS\System\File\PathException;
  */
 final class Dispatcher implements DispatcherInterface
 {
-
     /**
      * Application.
      *

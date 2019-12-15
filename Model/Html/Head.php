@@ -30,7 +30,6 @@ use phpOMS\Localization\ISO639x1Enum;
  */
 final class Head implements RenderableInterface
 {
-
     /**
      * Page language.
      *

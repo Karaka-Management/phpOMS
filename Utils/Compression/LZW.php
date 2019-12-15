@@ -24,7 +24,6 @@ namespace phpOMS\Utils\Compression;
  */
 class LZW implements CompressionInterface
 {
-
     /**
      * {@inheritdoc}
      */

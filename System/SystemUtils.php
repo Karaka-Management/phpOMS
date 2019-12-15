@@ -24,7 +24,6 @@ namespace phpOMS\System;
  */
 final class SystemUtils
 {
-
     /**
      * Constructor.
      *

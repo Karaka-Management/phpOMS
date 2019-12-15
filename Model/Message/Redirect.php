@@ -26,7 +26,6 @@ use phpOMS\Contract\ArrayableInterface;
  */
 final class Redirect implements \Serializable, ArrayableInterface, \JsonSerializable
 {
-
     /**
      * Message type.
      *

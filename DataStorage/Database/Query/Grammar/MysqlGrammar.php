@@ -26,7 +26,6 @@ use phpOMS\DataStorage\Database\Query\Builder;
  */
 class MysqlGrammar extends Grammar
 {
-
     /**
      * System identifier.
      *
