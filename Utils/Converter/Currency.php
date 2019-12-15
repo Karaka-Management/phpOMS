@@ -33,10 +33,10 @@ final class Currency
     /**
      * ECB currency rates.
      *
-     * @var   null|array
+     * @var   array
      * @since 1.0.0
      */
-    private static ?array $ecbCurrencies = null;
+    private static array $ecbCurrencies = [];
 
     /**
      * Constructor.
@@ -59,7 +59,7 @@ final class Currency
      */
     public static function resetCurrencies() : void
     {
-        self::$ecbCurrencies = null;
+        self::$ecbCurrencies = [];
     }
 
     /**
