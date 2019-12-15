@@ -23,7 +23,6 @@ use phpOMS\Utils\IO\Csv\CsvSettings;
  */
 class CsvSettingsTest extends \PHPUnit\Framework\TestCase
 {
-
     /**
      * @testdox The delimitar in a csv file can be guessed
      * @covers phpOMS\Utils\IO\Csv\CsvSettings

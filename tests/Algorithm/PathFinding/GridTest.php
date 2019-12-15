@@ -27,7 +27,6 @@ require_once __DIR__ . '/../../Autoloader.php';
  */
 class GridTest extends \PHPUnit\Framework\TestCase
 {
-
     /**
      * @testdox By default a grid is empty
      * @covers phpOMS\Algorithm\PathFinding\Grid

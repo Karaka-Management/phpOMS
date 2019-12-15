@@ -21,7 +21,6 @@ use phpOMS\Model\Message\Reload;
  */
 class ReloadTest extends \PHPUnit\Framework\TestCase
 {
-
     public function testAttributes() : void
     {
         $obj = new Reload();

@@ -21,7 +21,6 @@ use phpOMS\Model\Message\Redirect;
  */
 class RedirectTest extends \PHPUnit\Framework\TestCase
 {
-
     public function testAttributes() : void
     {
         $obj = new Redirect('');

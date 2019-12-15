@@ -25,7 +25,6 @@ require_once __DIR__ . '/../../Autoloader.php';
  */
 class MazeGeneratorTest extends \PHPUnit\Framework\TestCase
 {
-
     /**
      * @testdox A random maze can be generated
      * @covers phpOMS\Algorithm\Maze\MazeGenerator

@@ -22,7 +22,6 @@ use phpOMS\Model\Message\DomAction;
  */
 class DomTest extends \PHPUnit\Framework\TestCase
 {
-
     public function testAttributes() : void
     {
         $obj = new Dom();

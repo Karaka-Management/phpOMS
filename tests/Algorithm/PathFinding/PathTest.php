@@ -27,7 +27,6 @@ require_once __DIR__ . '/../../Autoloader.php';
  */
 class PathTest extends \PHPUnit\Framework\TestCase
 {
-
     /**
      * @testdox The path has the expected values after initialization
      * @covers phpOMS\Algorithm\PathFinding\Path

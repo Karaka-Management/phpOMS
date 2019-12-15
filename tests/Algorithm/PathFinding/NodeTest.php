@@ -25,7 +25,6 @@ require_once __DIR__ . '/../../Autoloader.php';
  */
 class NodeTest extends \PHPUnit\Framework\TestCase
 {
-
     /**
      * @testdox The node has the expected values after initialization
      * @covers phpOMS\Algorithm\PathFinding\Node

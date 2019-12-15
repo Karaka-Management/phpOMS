@@ -22,7 +22,6 @@ use phpOMS\Model\Message\NotifyType;
  */
 class NotifyTest extends \PHPUnit\Framework\TestCase
 {
-
     public function testAttributes() : void
     {
         $obj = new Notify();

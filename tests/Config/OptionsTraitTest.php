@@ -25,7 +25,6 @@ require_once __DIR__ . '/../Autoloader.php';
  */
 class OptionsTraitTest extends \PHPUnit\Framework\TestCase
 {
-
     /**
      * @testdox The option helper has the expected attributes
      * @group framework

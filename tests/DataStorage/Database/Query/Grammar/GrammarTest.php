@@ -23,7 +23,6 @@ use phpOMS\DataStorage\Database\Query\Grammar\Grammar;
  */
 class GrammarTest extends \PHPUnit\Framework\TestCase
 {
-
     /**
      * @testdox The grammar has the expected default values after initialization
      * @group framework

@@ -25,7 +25,6 @@ use phpOMS\Uri\Argument;
  */
 class ArgumentTest extends \PHPUnit\Framework\TestCase
 {
-
     /**
      * @testdox A uri can be validated
      * @covers phpOMS\Uri\Argument
