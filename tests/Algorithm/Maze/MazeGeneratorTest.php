@@ -66,11 +66,7 @@ class MazeGeneratorTest extends \PHPUnit\Framework\TestCase
      */
     public function testMazeRender() : void
     {
-        \ob_start();
-        MazeGenerator::render(MazeGenerator::random(10, 7));
-        $ob = \ob_get_clean();
-        \ob_clean();
-
+        $ob   = MazeGenerator::render(MazeGenerator::random(10, 7));
         $maze = \explode("\n", $ob);
 
         // correct top

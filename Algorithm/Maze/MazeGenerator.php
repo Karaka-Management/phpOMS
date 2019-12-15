@@ -143,18 +143,21 @@ class MazeGenerator
      *
      * @param array $maze Maze to render
      *
-     * @return void
+     * @return string
      *
      * @since 1.0.0
      */
-    public static function render(array $maze) : void
+    public static function render(array $maze) : string
     {
+        $rendered = '';
         foreach ($maze as $y => $row) {
             foreach ($row as $x => $column) {
-                echo $column;
+                $rendered .= $column;
             }
 
-            echo "\n";
+            $rendered .= "\n";
         }
+
+        return $rendered;
     }
 }
