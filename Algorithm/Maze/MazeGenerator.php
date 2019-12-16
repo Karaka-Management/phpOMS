@@ -109,27 +109,27 @@ class MazeGenerator
             if ($i % 2 === 0) {
                 for ($j = 0; $j < $width * 4 + 1; ++$j) {
                     if ($j % 4 === 0) {
-                        $line[$j] = '+';
+                        $line[$j] = '+'; // 9
                     } else {
-                        $line[$j] = $i > 0 && ($vertical[$i / 2 - 1][(int) \floor($j / 4)] ?? false) ? ' ' : '-';
+                        $line[$j] = $i > 0 && ($vertical[$i / 2 - 1][(int) \floor($j / 4)] ?? false) ? ' ' : '-'; // 9
                     }
                 }
             } else {
-                for ($j = 0; $j < $width * 4 + 1; ++$j) {
+                for ($j = 0; $j < $width * 4 + 1; ++$j) { // 2
                     if ($j % 4 === 0) {
-                        $line[$j] = $j > 0 && ($horizontal[($i - 1) / 2][$j / 4 - 1] ?? false) ? ' ' : '|';
+                        $line[$j] = $j > 0 && ($horizontal[($i - 1) / 2][$j / 4 - 1] ?? false) ? ' ' : '|'; // 0 | 9
                     } else {
-                        $line[$j] = ' ';
+                        $line[$j] = ' '; // 0
                     }
                 }
             }
 
             if ($i === 0) {
-                $line[1] = $line[2] = $line[3] = ' ';
+                $line[1] = $line[2] = $line[3] = ' '; // 0
             }
 
             if ($height * 2 - 1 === $i) {
-                $line[4 * $width] = ' ';
+                $line[4 * $width] = ' '; // 2 - 0
             }
 
             $maze[] = $line;
