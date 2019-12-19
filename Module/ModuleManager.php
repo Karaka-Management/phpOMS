@@ -694,7 +694,9 @@ final class ModuleManager
         $name                 = $this->generateModuleName($module);
         $this->running[$name] = $this->getModuleInstance($module);
 
-        $this->app->dispatcher->set($this->running[$name], '\Modules\\Controller\\' . $module . '\\' . $this->app->appName . 'Controller');
+        if ($this->app->dispatcher !== null) {
+            $this->app->dispatcher->set($this->running[$name], '\Modules\\Controller\\' . $module . '\\' . $this->app->appName . 'Controller');
+        }
     }
 
     /**
