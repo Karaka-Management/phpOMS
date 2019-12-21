@@ -101,7 +101,11 @@ final class ConsoleSessionHandler implements \SessionHandlerInterface, \SessionI
      */
     public function read($id)
     {
-        return (string) @\file_get_contents($this->savePath . '/sess_' . $id);
+        if (!\file_exists($this->savePath . '/sess_' . $id)) {
+            return '';
+        }
+
+        return (string) \file_get_contents($this->savePath . '/sess_' . $id);
     }
 
     /**
