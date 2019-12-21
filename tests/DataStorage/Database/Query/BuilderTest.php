@@ -16,6 +16,7 @@ namespace phpOMS\tests\DataStorage\Database\Query;
 
 use phpOMS\DataStorage\Database\Connection\MysqlConnection;
 use phpOMS\DataStorage\Database\Query\Builder;
+use phpOMS\DataStorage\Database\Query\Parameter;
 
 /**
  * @testdox phpOMS\tests\DataStorage\Database\Query\BuilderTest: Query builder for sql queries
@@ -82,7 +83,7 @@ class BuilderTest extends \PHPUnit\Framework\TestCase
         self::assertEquals($sql,
             $query->select('a.test', 'b.test')
                 ->from('a', 'b')
-                ->where('a.test', '=', ':abcValue')
+                ->where('a.test', '=', new Parameter('abcValue'))
                 ->orderBy(['a.test', 'b.test', ], ['ASC', 'DESC', ])
                 ->toSql()
         );
@@ -159,7 +160,7 @@ class BuilderTest extends \PHPUnit\Framework\TestCase
 
         $query = new Builder($this->con);
         $sql   = 'SELECT `a`.`test` FROM `a` WHERE `a`.`test` = :test GROUP BY `a`, `b`;';
-        self::assertEquals($sql, $query->select('a.test')->from('a')->where('a.test', '=', ':test')->groupBy('a', 'b')->toSql());
+        self::assertEquals($sql, $query->select('a.test')->from('a')->where('a.test', '=', new Parameter('test'))->groupBy('a', 'b')->toSql());
     }
 
     /**
@@ -222,7 +223,7 @@ class BuilderTest extends \PHPUnit\Framework\TestCase
 
         $query = new Builder($this->con);
         $sql   = 'SELECT `a`.`test` FROM `a` WHERE `a`.`test` = :testWhere OR `a`.`test2` IN (\'a\', :bValue, \'c\');';
-        self::assertEquals($sql, $query->select('a.test')->from('a')->where('a.test', '=', ':testWhere')->whereIn('a.test2', ['a', ':bValue', 'c'], 'or')->toSql());
+        self::assertEquals($sql, $query->select('a.test')->from('a')->where('a.test', '=', new Parameter('testWhere'))->whereIn('a.test2', ['a', new Parameter('bValue'), 'c'], 'or')->toSql());
     }
 
     /**
@@ -313,7 +314,7 @@ class BuilderTest extends \PHPUnit\Framework\TestCase
 
         $query = new Builder($this->con);
         $sql   = 'INSERT INTO `a` (`test`, `test2`) VALUES (:test, :test2);';
-        self::assertEquals($sql, $query->insert('test', 'test2')->into('a')->values(':test', ':test2')->toSql());
+        self::assertEquals($sql, $query->insert('test', 'test2')->into('a')->values(new Parameter('test'), new Parameter('test2'))->toSql());
     }
 
     /**
@@ -328,7 +329,7 @@ class BuilderTest extends \PHPUnit\Framework\TestCase
 
         $query = new Builder($this->con);
         $sql   = 'DELETE FROM `a` WHERE `a`.`test` = :testVal;';
-        self::assertEquals($sql, $query->delete()->from('a')->where('a.test', '=', ':testVal')->toSql());
+        self::assertEquals($sql, $query->delete()->from('a')->where('a.test', '=', new Parameter('testVal'))->toSql());
     }
 
     /**
@@ -347,7 +348,7 @@ class BuilderTest extends \PHPUnit\Framework\TestCase
 
         $query = new Builder($this->con);
         $sql   = 'UPDATE `a` SET `a`.`test` = 1, `a`.`test2` = :test2 WHERE `a`.`test` = :test3;';
-        self::assertEquals($sql, $query->update('a')->set(['a.test' => 1])->set(['a.test2' => ':test2'])->where('a.test', '=', ':test3')->toSql());
+        self::assertEquals($sql, $query->update('a')->set(['a.test' => 1])->set(['a.test2' => new Parameter('test2')])->where('a.test', '=', new Parameter('test3'))->toSql());
     }
 
     /**

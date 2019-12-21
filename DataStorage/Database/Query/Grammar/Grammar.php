@@ -17,6 +17,7 @@ namespace phpOMS\DataStorage\Database\Query\Grammar;
 use phpOMS\DataStorage\Database\GrammarAbstract;
 use phpOMS\DataStorage\Database\Query\Builder;
 use phpOMS\DataStorage\Database\Query\Column;
+use phpOMS\DataStorage\Database\Query\Parameter;
 use phpOMS\DataStorage\Database\Query\QueryType;
 use phpOMS\DataStorage\Database\Query\Where;
 
@@ -325,10 +326,6 @@ class Grammar extends GrammarAbstract
     protected function compileValue(Builder $query, $value, string $prefix = '') : string
     {
         if (\is_string($value)) {
-            if (\strpos($value, ':') === 0) {
-                return $value;
-            }
-
             return $query->quote($value);
         } elseif (\is_int($value)) {
             return (string) $value;
@@ -358,6 +355,8 @@ class Grammar extends GrammarAbstract
             return $encoded ? $encoded : 'NULL';
         } elseif ($value instanceof \Serializable) {
             return $value->serialize();
+        } elseif ($value instanceof Parameter) {
+            return $value->_toString();
         } else {
             throw new \InvalidArgumentException(\gettype($value));
         }
