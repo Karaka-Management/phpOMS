@@ -27,6 +27,14 @@ use phpOMS\Uri\UriInterface;
 abstract class RequestAbstract implements MessageInterface
 {
     /**
+     * Uri.
+     *
+     * @var   UriInterface
+     * @since 1.0.0
+     */
+    protected UriInterface $uri;
+
+    /**
      * Request data.
      *
      * @var   array
@@ -232,5 +240,17 @@ abstract class RequestAbstract implements MessageInterface
     public function getFiles() : array
     {
         return $this->files;
+    }
+
+    /**
+     * Get request uri.
+     *
+     * @return UriInterface
+     *
+     * @since 1.0.0
+     */
+    public function getUri() : UriInterface
+    {
+        return $this->uri;
     }
 }

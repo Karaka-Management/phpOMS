@@ -91,10 +91,10 @@ abstract class ModuleAbstract
     /**
      * Application instance.
      *
-     * @var   null|ApplicationAbstract
+     * @var   ApplicationAbstract
      * @since 1.0.0
      */
-    protected ?ApplicationAbstract $app = null;
+    protected ApplicationAbstract $app;
 
     /**
      * Constructor.
@@ -105,7 +105,7 @@ abstract class ModuleAbstract
      */
     public function __construct(ApplicationAbstract $app = null)
     {
-        $this->app = $app;
+        $this->app = $app ?? new class extends ApplicationAbstract {};
     }
 
     /**

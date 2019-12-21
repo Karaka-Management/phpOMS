@@ -40,7 +40,7 @@ class HttpSessionTest extends \PHPUnit\Framework\TestCase
      */
     public function testInputOutput() : void
     {
-        $session = new HttpSession(1, false, 1);
+        $session = new HttpSession(1, '', 1);
         self::assertTrue($session->set('test', 'value'));
         self::assertEquals('value', $session->get('test'));
     }
@@ -51,7 +51,7 @@ class HttpSessionTest extends \PHPUnit\Framework\TestCase
      */
     public function testInvalidOverwrite() : void
     {
-        $session = new HttpSession(1, false, 1);
+        $session = new HttpSession(1, '', 1);
         $session->set('test', 'value');
         self::assertFalse($session->set('test', 'value2'));
         self::assertEquals('value', $session->get('test'));
@@ -63,7 +63,7 @@ class HttpSessionTest extends \PHPUnit\Framework\TestCase
      */
     public function testOverwrite() : void
     {
-        $session = new HttpSession(1, false, 1);
+        $session = new HttpSession(1, '', 1);
         $session->set('test', 'value');
         self::assertTrue($session->set('test', 'value2', true));
         self::assertEquals('value2', $session->get('test'));
@@ -75,7 +75,7 @@ class HttpSessionTest extends \PHPUnit\Framework\TestCase
      */
     public function testRemove() : void
     {
-        $session = new HttpSession(1, false, 1);
+        $session = new HttpSession(1, '', 1);
         $session->set('test', 'value');
         self::assertTrue($session->remove('test'));
     }
@@ -86,7 +86,7 @@ class HttpSessionTest extends \PHPUnit\Framework\TestCase
      */
     public function testInvalidRemove() : void
     {
-        $session = new HttpSession(1, false, 1);
+        $session = new HttpSession(1, '', 1);
         $session->set('test', 'value');
         $session->remove('test');
 
@@ -99,7 +99,7 @@ class HttpSessionTest extends \PHPUnit\Framework\TestCase
      */
     public function testSessionIdInputOutput() : void
     {
-        $session = new HttpSession(1, false, 1);
+        $session = new HttpSession(1, '', 1);
         $session->setSID('abc');
         self::assertEquals('abc', $session->getSID());
     }
@@ -110,7 +110,7 @@ class HttpSessionTest extends \PHPUnit\Framework\TestCase
      */
     public function testLockInputOutput() : void
     {
-        $session = new HttpSession(1, false, 1);
+        $session = new HttpSession(1, '', 1);
 
         $session->lock();
         self::assertTrue($session->isLocked());
@@ -122,7 +122,7 @@ class HttpSessionTest extends \PHPUnit\Framework\TestCase
      */
     public function testLockInvalidSet() : void
     {
-        $session = new HttpSession(1, false, 1);
+        $session = new HttpSession(1, '', 1);
 
         $session->lock();
         self::assertFalse($session->set('test', 'value'));
@@ -134,7 +134,7 @@ class HttpSessionTest extends \PHPUnit\Framework\TestCase
      */
     public function testLockInvalidRemove() : void
     {
-        $session = new HttpSession(1, false, 1);
+        $session = new HttpSession(1, '', 1);
 
         self::assertTrue($session->set('test', 'value'));
         $session->lock();

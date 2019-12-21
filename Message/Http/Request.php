@@ -34,14 +34,6 @@ use phpOMS\Uri\UriInterface;
 final class Request extends RequestAbstract
 {
     /**
-     * Uri.
-     *
-     * @var   UriInterface
-     * @since 1.0.0
-     */
-    protected UriInterface $uri;
-
-    /**
      * Request method.
      *
      * @var   null|string
@@ -192,19 +184,6 @@ final class Request extends RequestAbstract
             }
         }
     }
-
-    /**
-     * Get request uri.
-     *
-     * @return UriInterface
-     *
-     * @since 1.0.0
-     */
-    public function getUri() : UriInterface
-    {
-        return $this->uri;
-    }
-
 
     /**
      * Get request hash.

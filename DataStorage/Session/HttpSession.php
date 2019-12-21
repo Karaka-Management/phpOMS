@@ -28,7 +28,7 @@ use phpOMS\Utils\RnG\StringUtils;
  *
  * @SuppressWarnings(PHPMD.Superglobals)
  */
-class HttpSession implements SessionInterface
+final class HttpSession implements SessionInterface
 {
     /**
      * Is session locked/already set.
@@ -65,21 +65,21 @@ class HttpSession implements SessionInterface
     /**
      * Constructor.
      *
-     * @param int             $liftetime          Session life time
-     * @param bool|int|string $sid                Session id
-     * @param int             $inactivityInterval Interval for session activity
+     * @param int    $liftetime          Session life time
+     * @param string $sid                Session id
+     * @param int    $inactivityInterval Interval for session activity
      *
      * @throws LockException throws this exception if the session is alrady locked for further interaction
      *
      * @since 1.0.0
      */
-    public function __construct(int $liftetime = 3600, $sid = false, int $inactivityInterval = 0)
+    public function __construct(int $liftetime = 3600, $sid = '', int $inactivityInterval = 0)
     {
         if (\session_id()) {
             \session_write_close(); // @codeCoverageIgnore
         }
 
-        if (!\is_bool($sid)) {
+        if ($sid !== '') {
             \session_id((string) $sid);
         }
 

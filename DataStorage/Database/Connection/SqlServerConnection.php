@@ -74,8 +74,8 @@ final class SqlServerConnection extends ConnectionAbstract
 
             $this->status = DatabaseStatus::OK;
         } catch (\PDOException $e) {
+            unset($this->con);
             $this->status = DatabaseStatus::MISSING_DATABASE;
-            $this->con    = null;
         } finally {
             $this->dbdata['password'] = '****';
         }

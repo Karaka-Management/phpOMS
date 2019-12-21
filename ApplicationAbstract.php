@@ -84,106 +84,106 @@ class ApplicationAbstract
     /**
      * Database object.
      *
-     * @var   null|DatabasePool
+     * @var   DatabasePool
      * @since 1.0.0
      */
-    protected ?DatabasePool $dbPool = null;
+    protected DatabasePool $dbPool;
 
     /**
      * Application settings object.
      *
-     * @var   null|CoreSettings
+     * @var   CoreSettings
      * @since 1.0.0
      */
-    protected ?CoreSettings $appSettings = null;
+    protected CoreSettings $appSettings;
 
     /**
      * Account manager instance.
      *
-     * @var   null|AccountManager
+     * @var   AccountManager
      * @since 1.0.0
      */
-    protected ?AccountManager $accountManager = null;
+    protected AccountManager $accountManager;
 
     /**
      * Cache instance.
      *
-     * @var   null|CachePool
+     * @var   CachePool
      * @since 1.0.0
      */
-    protected ?CachePool $cachePool = null;
+    protected CachePool $cachePool;
 
     /**
      * ModuleManager instance.
      *
-     * @var   null|ModuleManager
+     * @var   ModuleManager
      * @since 1.0.0
      */
-    protected ?ModuleManager $moduleManager = null;
+    protected ModuleManager $moduleManager;
 
     /**
      * Router instance.
      *
-     * @var   null|RouterInterface
+     * @var   RouterInterface
      * @since 1.0.0
      */
-    protected ?RouterInterface $router = null;
+    protected RouterInterface $router;
 
     /**
      * Dispatcher instance.
      *
-     * @var   null|Dispatcher
+     * @var   Dispatcher
      * @since 1.0.0
      */
-    protected ?Dispatcher $dispatcher = null;
+    protected Dispatcher $dispatcher;
 
     /**
      * Session instance.
      *
-     * @var   null|SessionInterface
+     * @var   SessionInterface
      * @since 1.0.0
      */
-    protected ?SessionInterface $sessionManager = null;
+    protected SessionInterface $sessionManager;
 
     /**
      * Cookie instance.
      *
-     * @var   null|CookieJar
+     * @var   CookieJar
      * @since 1.0.0
      */
-    protected ?CookieJar $cookieJar = null;
+    protected CookieJar $cookieJar;
 
     /**
      * Server localization.
      *
-     * @var   null|Localization
+     * @var   Localization
      * @since 1.0.0
      */
-    protected ?Localization $l11nServer = null;
+    protected Localization $l11nServer;
 
     /**
      * Server localization.
      *
-     * @var   null|FileLogger
+     * @var   FileLogger
      * @since 1.0.0
      */
-    protected ?FileLogger $logger = null;
+    protected FileLogger $logger;
 
     /**
      * L11n manager.
      *
-     * @var   null|L11nManager
+     * @var   L11nManager
      * @since 1.0.0
      */
-    protected ?L11nManager $l11nManager = null;
+    protected L11nManager $l11nManager;
 
     /**
      * Event manager.
      *
-     * @var   null|EventManager
+     * @var   EventManager
      * @since 1.0.0
      */
-    protected ?EventManager $eventManager = null;
+    protected EventManager $eventManager;
 
     /**
      * Set values
@@ -219,6 +219,6 @@ class ApplicationAbstract
      */
     public function __get($name)
     {
-        return $this->{$name};
+        return isset($this->{$name}) ? $this->{$name} : null;
     }
 }

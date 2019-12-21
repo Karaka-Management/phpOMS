@@ -139,19 +139,6 @@ final class Request extends RequestAbstract
     }
 
     /**
-     * Get request uri.
-     *
-     * @return UriInterface
-     *
-     * @since 1.0.0
-     */
-    public function getUri() : UriInterface
-    {
-        return $this->uri;
-    }
-
-
-    /**
      * Get request hash.
      *
      * @return array
