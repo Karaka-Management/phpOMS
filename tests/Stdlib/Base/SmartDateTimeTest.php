@@ -155,6 +155,32 @@ class SmartDateTimeTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
+     * @testdox A smart datetime can be returned of the end of the day
+     * @covers phpOMS\Stdlib\Base\SmartDateTime
+     * @group framework
+     */
+    public function testEndOfDay() : void
+    {
+        $expected = new \DateTime('2019-11-17');
+        $obj      = new SmartDateTime('2019-11-21');
+
+        self::assertEquals($expected->format('Y-m-d')  . '23:59:59', $obj->getEndOfDay()->format('Y-m-d H:i:s'));
+    }
+
+    /**
+     * @testdox A smart datetime can be returned of the start of the day
+     * @covers phpOMS\Stdlib\Base\SmartDateTime
+     * @group framework
+     */
+    public function testStartOfDay() : void
+    {
+        $expected = new \DateTime('2019-11-17');
+        $obj      = new SmartDateTime('2019-11-21');
+
+        self::assertEquals($expected->format('Y-m-d')  . '00:00:00', $obj->getStartOfDay()->format('Y-m-d H:i:s'));
+    }
+
+    /**
      * @testdox A date or year can be checked if it is a leap year
      * @covers phpOMS\Stdlib\Base\SmartDateTime
      * @group framework

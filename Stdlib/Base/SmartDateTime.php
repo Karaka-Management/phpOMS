@@ -195,6 +195,30 @@ class SmartDateTime extends \DateTime
     }
 
     /**
+     * Get the end of the day
+     *
+     * @return SmartDateTime
+     *
+     * @since 1.0.0
+     */
+    public function getEndOfDay() : self
+    {
+        return new self(\date('Y-m-d', $this->getTimestamp()) . ' 23:59:59');
+    }
+
+    /**
+     * Get the start of the day
+     *
+     * @return SmartDateTime
+     *
+     * @since 1.0.0
+     */
+    public function getStartOfDay() : self
+    {
+        return new self(\date('Y-m-d', $this->getTimestamp()) . ' 00:00:00');
+    }
+
+    /**
      * Is leap year in gregorian calendar
      *
      * @return bool
