@@ -27,7 +27,7 @@ class Path
     /**
      * Nodes in the path
      *
-     * @var   Nodes[]
+     * @var   Node[]
      * @since 1.0.0
      */
     public array $nodes = [];
@@ -43,7 +43,7 @@ class Path
     /**
      * Nodes in the path
      *
-     * @var   Nodes[]
+     * @var   Node[]
      * @since 1.0.0
      */
     private array $expandedNodes = [];
