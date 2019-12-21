@@ -487,13 +487,14 @@ class DataMapperAbstract implements DataMapperInterface
         }
 
         try {
-        self::$db->con->prepare($query->toSql())->execute();
+            self::$db->con->prepare($query->toSql())->execute();
         } catch (Throwable $t) {
             // @todo: remove after debugging
             // @fix: really remove it
             // @critical: after we found the bug we MUST remove it!
             //var_dump($t->getMessage());
             //var_dump($query->toSql());
+            return -1;
         }
 
         $objId = self::$db->con->lastInsertId();
