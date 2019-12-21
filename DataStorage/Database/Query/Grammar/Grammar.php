@@ -356,7 +356,7 @@ class Grammar extends GrammarAbstract
         } elseif ($value instanceof \Serializable) {
             return $value->serialize();
         } elseif ($value instanceof Parameter) {
-            return $value->_toString();
+            return $value->__toString();
         } else {
             throw new \InvalidArgumentException(\gettype($value));
         }
