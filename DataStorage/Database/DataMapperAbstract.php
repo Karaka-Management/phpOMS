@@ -492,8 +492,8 @@ class DataMapperAbstract implements DataMapperInterface
             // @todo: remove after debugging
             // @fix: really remove it
             // @critical: after we found the bug we MUST remove it!
-            var_dump($t->getMessage());
-            var_dump($query->toSql());
+            //var_dump($t->getMessage());
+            //var_dump($query->toSql());
         }
 
         $objId = self::$db->con->lastInsertId();
