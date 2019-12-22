@@ -15,8 +15,6 @@ declare(strict_types=1);
 namespace phpOMS\DataStorage\Session;
 
 use phpOMS\DataStorage\LockException;
-use phpOMS\Uri\UriFactory;
-use phpOMS\Utils\RnG\StringUtils;
 
 /**
  * Console session class.
@@ -49,10 +47,10 @@ class ConsoleSession implements SessionInterface
     /**
      * Session ID.
      *
-     * @var   null|int|string
+     * @var   string
      * @since 1.0.0
      */
-    private $sid = null;
+    private string $sid;
 
     /**
      * Inactivity Interval.
@@ -103,7 +101,7 @@ class ConsoleSession implements SessionInterface
     /**
      * {@inheritdoc}
      */
-    public function set($key, $value, bool $overwrite = false) : bool
+    public function set(string $key, $value, bool $overwrite = false) : bool
     {
         if (!$this->isLocked && ($overwrite || !isset($this->sessionData[$key]))) {
             $this->sessionData[$key] = $value;
@@ -117,7 +115,7 @@ class ConsoleSession implements SessionInterface
     /**
      * {@inheritdoc}
      */
-    public function get($key)
+    public function get(string $key)
     {
         return $this->sessionData[$key] ?? null;
     }
@@ -156,7 +154,7 @@ class ConsoleSession implements SessionInterface
     /**
      * {@inheritdoc}
      */
-    public function remove($key) : bool
+    public function remove(string $key) : bool
     {
         if (!$this->isLocked && isset($this->sessionData[$key])) {
             unset($this->sessionData[$key]);
@@ -170,7 +168,7 @@ class ConsoleSession implements SessionInterface
     /**
      * {@inheritdoc}
      */
-    public function getSID()
+    public function getSID() : string
     {
         return $this->sid;
     }
@@ -178,7 +176,7 @@ class ConsoleSession implements SessionInterface
     /**
      * {@inheritdoc}
      */
-    public function setSID($sid) : void
+    public function setSID(string $sid) : void
     {
         $this->sid = $sid;
     }

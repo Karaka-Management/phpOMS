@@ -82,7 +82,7 @@ final class ModuleManager
      * @var   string
      * @since 1.0.0
      */
-    private string $modulePath = __DIR__ . '/../../Modules';
+    private string $modulePath;
 
     /**
      * All modules in the module directory.

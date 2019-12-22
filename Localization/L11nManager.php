@@ -41,7 +41,7 @@ final class L11nManager
      * @var   string
      * @since 1.0.0
      */
-    private string $appName = '';
+    private string $appName;
 
     /**
      * Construct.

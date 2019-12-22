@@ -35,7 +35,7 @@ final class Dispatcher implements DispatcherInterface
      * @var   null|ApplicationAbstract
      * @since 1.0.0
      */
-    private ?ApplicationAbstract $app = null;
+    private ?ApplicationAbstract $app;
 
     /**
      * Controller.

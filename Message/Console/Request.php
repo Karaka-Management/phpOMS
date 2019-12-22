@@ -44,18 +44,10 @@ final class Request extends RequestAbstract
     /**
      * Request method.
      *
-     * @var   null|string
+     * @var   string
      * @since 1.0.0
      */
-    protected ?string $method = null;
-
-    /**
-     * Request type.
-     *
-     * @var   null|string
-     * @since 1.0.0
-     */
-    protected ?string $type = null;
+    protected string $method;
 
     /**
      * Request hash.
@@ -66,20 +58,12 @@ final class Request extends RequestAbstract
     protected array $hash = [];
 
     /**
-     * Uploaded files.
-     *
-     * @var   array
-     * @since 1.0.0
-     */
-    protected array $files = [];
-
-    /**
      * OS type.
      *
-     * @var   null|string
+     * @var   string
      * @since 1.0.0
      */
-    private ?string $os = null;
+    private string $os;
 
     /**
      * Constructor.
@@ -173,7 +157,7 @@ final class Request extends RequestAbstract
      */
     public function getOS() : string
     {
-        if ($this->os === null) {
+        if (!isset($this->os)) {
             $this->os = \strtolower(\PHP_OS);
         }
 
@@ -207,7 +191,7 @@ final class Request extends RequestAbstract
      */
     public function getMethod() : string
     {
-        if ($this->method === null) {
+        if (!isset($this->method)) {
             $temp   = $this->uri->__toString();
             $found  = \stripos($temp, ':');
             $method = $found !== false && $found > 3 && $found < 8 ? \substr($temp, 0, $found) : RequestMethod::GET;

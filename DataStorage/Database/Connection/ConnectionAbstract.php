@@ -55,10 +55,10 @@ abstract class ConnectionAbstract implements ConnectionInterface
     /**
      * Database data.
      *
-     * @var   null|string[]
+     * @var   array
      * @since 1.0.0
      */
-    protected ?array $dbdata = null;
+    protected array $dbdata = [];
 
     /**
      * Database type.
@@ -79,18 +79,18 @@ abstract class ConnectionAbstract implements ConnectionInterface
     /**
      * Database grammar.
      *
-     * @var   null|Grammar
+     * @var   Grammar
      * @since 1.0.0
      */
-    protected ?Grammar $grammar = null;
+    protected Grammar $grammar;
 
     /**
      * Database grammar.
      *
-     * @var   null|SchemaGrammar
+     * @var   SchemaGrammar
      * @since 1.0.0
      */
-    protected ?SchemaGrammar $schemaGrammar = null;
+    protected SchemaGrammar $schemaGrammar;
 
     /**
      * {@inheritdoc}
@@ -161,7 +161,7 @@ abstract class ConnectionAbstract implements ConnectionInterface
      */
     public function getGrammar() : Grammar
     {
-        return $this->grammar ?? new Grammar();
+        return $this->grammar;
     }
 
     /**
@@ -169,7 +169,7 @@ abstract class ConnectionAbstract implements ConnectionInterface
      */
     public function getSchemaGrammar() : SchemaGrammar
     {
-        return $this->schemaGrammar ?? new SchemaGrammar();
+        return $this->schemaGrammar;
     }
 
     /**

@@ -19,7 +19,6 @@ use phpOMS\DataStorage\Database\Exception\InvalidMapperException;
 use phpOMS\DataStorage\Database\Query\Builder;
 use phpOMS\DataStorage\Database\Query\QueryType;
 use phpOMS\DataStorage\DataMapperInterface;
-use phpOMS\Message\RequestAbstract;
 use phpOMS\Utils\ArrayUtils;
 use Throwable;
 

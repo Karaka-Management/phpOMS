@@ -55,7 +55,7 @@ final class PostgresConnection extends ConnectionAbstract
      */
     public function connect(array $dbdata = null) : void
     {
-        $this->dbdata = isset($dbdata) ? $dbdata : $this->dbdata;
+        $this->dbdata = $dbdata ?? $this->dbdata;
 
         if (!isset($this->dbdata['db'], $this->dbdata['host'], $this->dbdata['port'], $this->dbdata['database'], $this->dbdata['login'], $this->dbdata['password'])
             || !DatabaseType::isValidValue($this->dbdata['db'])

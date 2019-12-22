@@ -47,10 +47,10 @@ final class FileLogger implements LoggerInterface
     /**
      * Instance.
      *
-     * @var   null|FileLogger
+     * @var   FileLogger
      * @since 1.0.0
      */
-    protected static ?FileLogger $instance = null;
+    protected static FileLogger $instance;
 
     /**
      * Verbose.
@@ -76,7 +76,7 @@ final class FileLogger implements LoggerInterface
      * @var   string
      * @since 1.0.0
      */
-    private string $path = '';
+    private string $path;
 
     /**
      * Is the logging file created
@@ -137,7 +137,7 @@ final class FileLogger implements LoggerInterface
      */
     public static function getInstance(string $path = '', bool $verbose = false) : self
     {
-        if (self::$instance === null) {
+        if (!isset(self::$instance)) {
             self::$instance = new self($path, $verbose);
         }
 

@@ -254,7 +254,11 @@ abstract class GrammarAbstract
         $fullSystem = '';
 
         foreach ($split as $key => $system) {
-            $fullSystem .= '.' . ($system !== '*' ? $identifier : '') . ($key === 0 && $system !== '*' ? $prefix : '') . $system . ($system !== '*' ? $identifier : '');
+            $fullSystem .= '.'
+                . ($system !== '*' ? $identifier : '')
+                . ($key === 0 && $system !== '*' ? $prefix : '')
+                . $system
+                . ($system !== '*' ? $identifier : '');
         }
 
         return \ltrim($fullSystem, '.');

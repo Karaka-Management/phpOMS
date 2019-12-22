@@ -36,42 +36,34 @@ final class Request extends RequestAbstract
     /**
      * Request method.
      *
-     * @var   null|string
+     * @var   string
      * @since 1.0.0
      */
-    protected ?string $method = null;
-
-    /**
-     * Request type.
-     *
-     * @var   null|string
-     * @since 1.0.0
-     */
-    protected ?string $type = null;
+    protected string $method;
 
     /**
      * Browser type.
      *
-     * @var   null|string
+     * @var   string
      * @since 1.0.0
      */
-    private ?string $browser = null;
+    private string $browser;
 
     /**
      * OS type.
      *
-     * @var   null|string
+     * @var   string
      * @since 1.0.0
      */
-    private ?string $os = null;
+    private string $os;
 
     /**
      * Request information.
      *
-     * @var   null|string[]
+     * @var   string[]
      * @since 1.0.0
      */
-    private ?array $info = null;
+    private array $info;
 
     /**
      * Request hash.
@@ -87,7 +79,7 @@ final class Request extends RequestAbstract
      * @var   array
      * @since 1.0.0
      */
-    protected array $files = [];
+    protected array $files;
 
     /**
      * Constructor.
@@ -364,7 +356,7 @@ final class Request extends RequestAbstract
      */
     public function getRequestInfo() : array
     {
-        if ($this->info === null) {
+        if (!isset($this->info)) {
             $this->info['browser'] = $this->getBrowser();
             $this->info['os']      = $this->getOS();
         }
@@ -381,7 +373,7 @@ final class Request extends RequestAbstract
      */
     public function getBrowser() : string
     {
-        if ($this->browser === null) {
+        if (!isset($this->browser)) {
             $arr           = BrowserType::getConstants();
             $httpUserAgent = \strtolower($_SERVER['HTTP_USER_AGENT']);
 
@@ -422,7 +414,7 @@ final class Request extends RequestAbstract
      */
     public function getOS() : string
     {
-        if ($this->os === null) {
+        if (!isset($this->os)) {
             $arr           = OSType::getConstants();
             $httpUserAgent = \strtolower($_SERVER['HTTP_USER_AGENT']);
 
@@ -528,7 +520,7 @@ final class Request extends RequestAbstract
      */
     public function getMethod() : string
     {
-        if ($this->method === null) {
+        if (!isset($this->method)) {
             $this->method = $_SERVER['REQUEST_METHOD'] ?? RequestMethod::GET;
         }
 

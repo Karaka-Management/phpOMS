@@ -57,7 +57,7 @@ final class SqlServerConnection extends ConnectionAbstract
     {
         $this->close();
 
-        $this->dbdata = isset($dbdata) ? $dbdata : $this->dbdata;
+        $this->dbdata = $dbdata ?? $this->dbdata;
         $this->prefix = $dbdata['prefix'];
 
         if (!isset($this->dbdata['db'], $this->dbdata['host'], $this->dbdata['port'], $this->dbdata['database'], $this->dbdata['login'], $this->dbdata['password'])

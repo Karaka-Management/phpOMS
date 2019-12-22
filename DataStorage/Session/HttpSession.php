@@ -16,7 +16,6 @@ namespace phpOMS\DataStorage\Session;
 
 use phpOMS\DataStorage\LockException;
 use phpOMS\Uri\UriFactory;
-use phpOMS\Utils\RnG\StringUtils;
 
 /**
  * Http session class.
@@ -49,10 +48,10 @@ final class HttpSession implements SessionInterface
     /**
      * Session ID.
      *
-     * @var   null|int|string
+     * @var   string
      * @since 1.0.0
      */
-    private $sid = null;
+    private string $sid;
 
     /**
      * Inactivity Interval.
@@ -114,7 +113,7 @@ final class HttpSession implements SessionInterface
         $this->set('UID', 0, false);
 
         if (($csrf = $this->get('CSRF')) === null) {
-            $csrf = StringUtils::generateString(10, 16);
+            $csrf = \bin2hex(\random_bytes(32));
             $this->set('CSRF', $csrf, false);
         }
 
@@ -124,7 +123,7 @@ final class HttpSession implements SessionInterface
     /**
      * {@inheritdoc}
      */
-    public function set($key, $value, bool $overwrite = false) : bool
+    public function set(string $key, $value, bool $overwrite = false) : bool
     {
         if (!$this->isLocked && ($overwrite || !isset($this->sessionData[$key]))) {
             $this->sessionData[$key] = $value;
@@ -138,7 +137,7 @@ final class HttpSession implements SessionInterface
     /**
      * {@inheritdoc}
      */
-    public function get($key)
+    public function get(string $key)
     {
         return $this->sessionData[$key] ?? null;
     }
@@ -177,7 +176,7 @@ final class HttpSession implements SessionInterface
     /**
      * {@inheritdoc}
      */
-    public function remove($key) : bool
+    public function remove(string $key) : bool
     {
         if (!$this->isLocked && isset($this->sessionData[$key])) {
             unset($this->sessionData[$key]);
@@ -191,7 +190,7 @@ final class HttpSession implements SessionInterface
     /**
      * {@inheritdoc}
      */
-    public function getSID()
+    public function getSID() : string
     {
         return $this->sid;
     }
@@ -199,7 +198,7 @@ final class HttpSession implements SessionInterface
     /**
      * {@inheritdoc}
      */
-    public function setSID($sid) : void
+    public function setSID(string $sid) : void
     {
         $this->sid = $sid;
     }
