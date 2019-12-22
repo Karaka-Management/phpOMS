@@ -72,7 +72,7 @@ final class ConsoleSessionHandler implements \SessionHandlerInterface, \SessionI
     {
         $this->savePath = $savePath;
         if (!\is_dir($this->savePath)) {
-            \mkdir($this->savePath, 0777);
+            \mkdir($this->savePath, 0755);
         }
 
         return true;
