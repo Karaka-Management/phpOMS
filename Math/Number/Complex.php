@@ -181,7 +181,7 @@ final class Complex
      */
     public function powComplex(self $value) : self
     {
-
+        return $this;
     }
 
     /**
@@ -215,7 +215,7 @@ final class Complex
      */
     public function powScalar($value) : self
     {
-
+        return $this;
     }
 
     /**
