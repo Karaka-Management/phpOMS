@@ -85,7 +85,7 @@ class AddressTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @testdox The recepient can be set and returned
+     * @testdox The recipient can be set and returned
      * @covers phpOMS\Stdlib\Base\Address
      * @group framework
      */

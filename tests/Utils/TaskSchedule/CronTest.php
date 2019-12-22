@@ -45,7 +45,7 @@ class CronTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @testdox The cron brinary location path can be guessed
+     * @testdox The cron binary location path can be guessed
      * @covers phpOMS\Utils\TaskSchedule\Cron<extended>
      * @group framework
      */

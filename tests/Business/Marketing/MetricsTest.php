@@ -24,7 +24,7 @@ use phpOMS\Business\Marketing\Metrics;
 class MetricsTest extends \PHPUnit\Framework\TestCase
 {
     /**
-     * @testdox Test the correctnes of the customer retention calculation
+     * @testdox Test the correctness of the customer retention calculation
      * @group framework
      */
     public function testCustomerRetention() : void

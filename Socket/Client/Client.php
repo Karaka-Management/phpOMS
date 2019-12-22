@@ -96,7 +96,7 @@ class Client extends SocketAbstract
                     ++$errorCounter;
                 }
 
-                // todo: create reset condition for errorCounter. Probably if a successfull read happened
+                // todo: create reset condition for errorCounter. Probably if a successful read happened
 
                 //if (socket_select($read, $write = null, $except = null, 0) < 1) {
                 // error

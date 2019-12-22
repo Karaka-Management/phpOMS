@@ -27,7 +27,7 @@ require_once __DIR__ . '/../../Autoloader.php';
 class HeuristicTest extends \PHPUnit\Framework\TestCase
 {
     /**
-     * @testdox The heuristics return the corret metric results
+     * @testdox The heuristics return the correct metric results
      * @covers phpOMS\Algorithm\PathFinding\Heuristic
      * @group framework
      */

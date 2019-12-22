@@ -58,7 +58,7 @@ class FileUtilsTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @testdox Permissions can be turned into ocal values
+     * @testdox Permissions can be turned into octal values
      * @covers phpOMS\System\File\FileUtils
      * @group framework
      */

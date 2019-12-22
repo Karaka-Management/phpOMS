@@ -17,7 +17,7 @@ namespace phpOMS\tests\Utils\Encoding\Huffman;
 use phpOMS\Utils\Encoding\Huffman\Huffman;
 
 /**
- * @testdox phpOMS\tests\Utils\Encoding\Huffman\HuffmanTest: Data can be ecoded with huffman
+ * @testdox phpOMS\tests\Utils\Encoding\Huffman\HuffmanTest: Data can be encoded with huffman
  *
  * @internal
  */

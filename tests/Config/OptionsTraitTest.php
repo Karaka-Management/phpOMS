@@ -19,7 +19,7 @@ use phpOMS\Config\OptionsTrait;
 require_once __DIR__ . '/../Autoloader.php';
 
 /**
- * @testdox phpOMS\tests\Config\OptionsTrait: Helper for managing otpions
+ * @testdox phpOMS\tests\Config\OptionsTrait: Helper for managing options
  *
  * @internal
  */

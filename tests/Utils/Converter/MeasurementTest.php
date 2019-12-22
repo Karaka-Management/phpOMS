@@ -266,7 +266,7 @@ class MeasurementTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @testdox Invalid convertion from unknown temperature throws a InvalidArgumentException
+     * @testdox Invalid conversion from unknown temperature throws a InvalidArgumentException
      * @covers phpOMS\Utils\Converter\Measurement
      * @group framework
      */
@@ -278,7 +278,7 @@ class MeasurementTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @testdox Invalid convertion to unknown temperature throws a InvalidArgumentException
+     * @testdox Invalid conversion to unknown temperature throws a InvalidArgumentException
      * @covers phpOMS\Utils\Converter\Measurement
      * @group framework
      */
@@ -290,7 +290,7 @@ class MeasurementTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @testdox Invalid convertion from unknown weight throws a InvalidArgumentException
+     * @testdox Invalid conversion from unknown weight throws a InvalidArgumentException
      * @covers phpOMS\Utils\Converter\Measurement
      * @group framework
      */
@@ -302,7 +302,7 @@ class MeasurementTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @testdox Invalid convertion to unknown weight throws a InvalidArgumentException
+     * @testdox Invalid conversion to unknown weight throws a InvalidArgumentException
      * @covers phpOMS\Utils\Converter\Measurement
      * @group framework
      */
@@ -314,7 +314,7 @@ class MeasurementTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @testdox Invalid convertion from unknown length throws a InvalidArgumentException
+     * @testdox Invalid conversion from unknown length throws a InvalidArgumentException
      * @covers phpOMS\Utils\Converter\Measurement
      * @group framework
      */
@@ -326,7 +326,7 @@ class MeasurementTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @testdox Invalid convertion to unknown length throws a InvalidArgumentException
+     * @testdox Invalid conversion to unknown length throws a InvalidArgumentException
      * @covers phpOMS\Utils\Converter\Measurement
      * @group framework
      */
@@ -338,7 +338,7 @@ class MeasurementTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @testdox Invalid convertion from unknown area throws a InvalidArgumentException
+     * @testdox Invalid conversion from unknown area throws a InvalidArgumentException
      * @covers phpOMS\Utils\Converter\Measurement
      * @group framework
      */
@@ -350,7 +350,7 @@ class MeasurementTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @testdox Invalid convertion to unknown area throws a InvalidArgumentException
+     * @testdox Invalid conversion to unknown area throws a InvalidArgumentException
      * @covers phpOMS\Utils\Converter\Measurement
      * @group framework
      */
@@ -362,7 +362,7 @@ class MeasurementTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @testdox Invalid convertion from unknown volume throws a InvalidArgumentException
+     * @testdox Invalid conversion from unknown volume throws a InvalidArgumentException
      * @covers phpOMS\Utils\Converter\Measurement
      * @group framework
      */
@@ -374,7 +374,7 @@ class MeasurementTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @testdox Invalid convertion to unknown volume throws a InvalidArgumentException
+     * @testdox Invalid conversion to unknown volume throws a InvalidArgumentException
      * @covers phpOMS\Utils\Converter\Measurement
      * @group framework
      */
@@ -386,7 +386,7 @@ class MeasurementTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @testdox Invalid convertion from unknown speed throws a InvalidArgumentException
+     * @testdox Invalid conversion from unknown speed throws a InvalidArgumentException
      * @covers phpOMS\Utils\Converter\Measurement
      * @group framework
      */
@@ -398,7 +398,7 @@ class MeasurementTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @testdox Invalid convertion to unknown speed throws a InvalidArgumentException
+     * @testdox Invalid conversion to unknown speed throws a InvalidArgumentException
      * @covers phpOMS\Utils\Converter\Measurement
      * @group framework
      */
@@ -410,7 +410,7 @@ class MeasurementTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @testdox Invalid convertion from unknown time throws a InvalidArgumentException
+     * @testdox Invalid conversion from unknown time throws a InvalidArgumentException
      * @covers phpOMS\Utils\Converter\Measurement
      * @group framework
      */
@@ -422,7 +422,7 @@ class MeasurementTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @testdox Invalid convertion to unknown time throws a InvalidArgumentException
+     * @testdox Invalid conversion to unknown time throws a InvalidArgumentException
      * @covers phpOMS\Utils\Converter\Measurement
      * @group framework
      */
@@ -434,7 +434,7 @@ class MeasurementTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @testdox Invalid convertion from unknown angle throws a InvalidArgumentException
+     * @testdox Invalid conversion from unknown angle throws a InvalidArgumentException
      * @covers phpOMS\Utils\Converter\Measurement
      * @group framework
      */
@@ -446,7 +446,7 @@ class MeasurementTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @testdox Invalid convertion to unknown angle throws a InvalidArgumentException
+     * @testdox Invalid conversion to unknown angle throws a InvalidArgumentException
      * @covers phpOMS\Utils\Converter\Measurement
      * @group framework
      */
@@ -458,7 +458,7 @@ class MeasurementTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @testdox Invalid convertion from unknown pressure throws a InvalidArgumentException
+     * @testdox Invalid conversion from unknown pressure throws a InvalidArgumentException
      * @covers phpOMS\Utils\Converter\Measurement
      * @group framework
      */
@@ -470,7 +470,7 @@ class MeasurementTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @testdox Invalid convertion to unknown pressure throws a InvalidArgumentException
+     * @testdox Invalid conversion to unknown pressure throws a InvalidArgumentException
      * @covers phpOMS\Utils\Converter\Measurement
      * @group framework
      */
@@ -482,7 +482,7 @@ class MeasurementTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @testdox Invalid convertion from unknown energy throws a InvalidArgumentException
+     * @testdox Invalid conversion from unknown energy throws a InvalidArgumentException
      * @covers phpOMS\Utils\Converter\Measurement
      * @group framework
      */
@@ -494,7 +494,7 @@ class MeasurementTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @testdox Invalid convertion to unknown energy throws a InvalidArgumentException
+     * @testdox Invalid conversion to unknown energy throws a InvalidArgumentException
      * @covers phpOMS\Utils\Converter\Measurement
      * @group framework
      */
@@ -506,7 +506,7 @@ class MeasurementTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @testdox Invalid convertion from unknown filesize throws a InvalidArgumentException
+     * @testdox Invalid conversion from unknown filesize throws a InvalidArgumentException
      * @covers phpOMS\Utils\Converter\Measurement
      * @group framework
      */
@@ -518,7 +518,7 @@ class MeasurementTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @testdox Invalid convertion to unknown filesize throws a InvalidArgumentException
+     * @testdox Invalid conversion to unknown filesize throws a InvalidArgumentException
      * @covers phpOMS\Utils\Converter\Measurement
      * @group framework
      */

@@ -102,7 +102,7 @@ class GridTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @testdox All hoirzontal neighbors can be found correctly
+     * @testdox All horizontal neighbors can be found correctly
      * @covers phpOMS\Algorithm\PathFinding\Grid::getNeighbors
      * @group framework
      */

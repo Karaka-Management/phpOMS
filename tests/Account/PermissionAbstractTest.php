@@ -185,7 +185,7 @@ class PermissionAbstractTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @testdox Invalid permissions are not validted
+     * @testdox Invalid permissions are not validated
      * @covers phpOMS\Account\PermissionAbstract
      * @group framework
      */

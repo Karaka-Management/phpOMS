@@ -44,7 +44,7 @@ class CircleTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @testdox The radius can be caluclated with the surface
+     * @testdox The radius can be calculated with the surface
      * @covers phpOMS\Math\Geometry\Shape\D2\Circle
      * @group framework
      */
@@ -54,7 +54,7 @@ class CircleTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @testdox The radius can be caluclated with the perimeter
+     * @testdox The radius can be calculated with the perimeter
      * @covers phpOMS\Math\Geometry\Shape\D2\Circle
      * @group framework
      */

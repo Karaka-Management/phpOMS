@@ -110,7 +110,7 @@ class CookieJarTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @testdox A locked coockie cannot be saved and throws a LockException
+     * @testdox A locked cookie cannot be saved and throws a LockException
      * @group framework
      */
     public function testSaveLocked() : void

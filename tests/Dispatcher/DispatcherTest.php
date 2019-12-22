@@ -51,7 +51,7 @@ class DispatcherTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @testdox The disptacher can dispatch a function/closure
+     * @testdox The dispatcher can dispatch a function/closure
      * @covers phpOMS\Dispatcher\Dispatcher
      * @group framework
      */
@@ -79,7 +79,7 @@ class DispatcherTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @testdox The disptacher can dispatch a method as string representation of a controller
+     * @testdox The dispatcher can dispatch a method as string representation of a controller
      * @covers phpOMS\Dispatcher\Dispatcher
      * @group framework
      */
@@ -99,7 +99,7 @@ class DispatcherTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @testdox The disptacher can dispatch a method as array representation of a controller
+     * @testdox The dispatcher can dispatch a method as array representation of a controller
      * @covers phpOMS\Dispatcher\Dispatcher
      * @group framework
      */
@@ -127,7 +127,7 @@ class DispatcherTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @testdox The disptacher can dispatch a static method as string representation
+     * @testdox The dispatcher can dispatch a static method as string representation
      * @covers phpOMS\Dispatcher\Dispatcher
      * @group framework
      */
@@ -147,7 +147,7 @@ class DispatcherTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @testdox The disptacher can dispatch multiple destinations after another
+     * @testdox The dispatcher can dispatch multiple destinations after another
      * @covers phpOMS\Dispatcher\Dispatcher
      * @group framework
      */
@@ -183,7 +183,7 @@ class DispatcherTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @testdox A invalid controller path thorws a PathException
+     * @testdox A invalid controller path throws a PathException
      * @covers phpOMS\Dispatcher\Dispatcher
      * @group framework
      */
@@ -195,7 +195,7 @@ class DispatcherTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @testdox A invalid function path thorws a Exception
+     * @testdox A invalid function path throws a Exception
      * @covers phpOMS\Dispatcher\Dispatcher
      * @group framework
      */
@@ -207,7 +207,7 @@ class DispatcherTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @testdox A malformed dispatch path thorws UnexpectedValueException
+     * @testdox A malformed dispatch path throws UnexpectedValueException
      * @covers phpOMS\Dispatcher\Dispatcher
      * @group framework
      */

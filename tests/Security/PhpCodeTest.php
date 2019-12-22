@@ -101,7 +101,7 @@ class PhpCodeTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @testdox A file hash comparison is successfull if the file generates the same hash
+     * @testdox A file hash comparison is successful if the file generates the same hash
      * @covers phpOMS\Security\PhpCode
      * @group framework
      */
@@ -111,7 +111,7 @@ class PhpCodeTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @testdox A file hash comparison is unsuccessfull if the file generates a different hash
+     * @testdox A file hash comparison is unsuccessful if the file generates a different hash
      * @covers phpOMS\Security\PhpCode
      * @group framework
      */

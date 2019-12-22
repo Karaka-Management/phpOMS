@@ -142,7 +142,7 @@ class UriFactoryTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @testdox Data whitch doesn't match the regular expression is not removed
+     * @testdox Data which doesn't match the regular expression is not removed
      * @covers phpOMS\Uri\UriFactory
      * @group framework
      */

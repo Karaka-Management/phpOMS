@@ -64,7 +64,7 @@ class PermutationTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @testdox An array can be permutated with a permutation key
+     * @testdox An array can be permuted with a permutation key
      * @covers phpOMS\Utils\Permutation
      * @group framework
      */
@@ -86,7 +86,7 @@ class PermutationTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @testdox A none-existing permutation keye throws a OutOfBoundsException
+     * @testdox A none-existing permutation key throws a OutOfBoundsException
      * @covers phpOMS\Utils\Permutation
      * @group framework
      */

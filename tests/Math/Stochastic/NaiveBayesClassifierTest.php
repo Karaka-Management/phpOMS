@@ -75,7 +75,7 @@ class NaiveBayesClassifierTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @testdox The classification of nimeric values is correct
+     * @testdox The classification of numeric values is correct
      * @group framework
      */
     public function testNumericClassifier() : void

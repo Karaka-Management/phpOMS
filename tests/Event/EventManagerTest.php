@@ -148,7 +148,7 @@ class EventManagerTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @testdox An event can be manually removed/detatched
+     * @testdox An event can be manually removed/detached
      * @covers phpOMS\Event\EventManager
      * @group framework
      */
@@ -165,7 +165,7 @@ class EventManagerTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @testdox None-existing events cannot be manually removed/detatched
+     * @testdox None-existing events cannot be manually removed/detached
      * @covers phpOMS\Event\EventManager
      * @group framework
      */

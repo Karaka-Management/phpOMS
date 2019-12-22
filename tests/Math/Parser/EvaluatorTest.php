@@ -24,7 +24,7 @@ use phpOMS\Math\Parser\Evaluator;
 class EvaluatorTest extends \PHPUnit\Framework\TestCase
 {
     /**
-     * @testdox Basic formulas using +, -, *, /, () and ^ can be avluated
+     * @testdox Basic formulas using +, -, *, /, () and ^ can be evaluated
      * @covers phpOMS\Math\Parser\Evaluator
      * @group framework
      */

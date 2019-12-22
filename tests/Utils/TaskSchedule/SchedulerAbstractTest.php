@@ -34,7 +34,7 @@ class SchedulerAbstractTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @testdox The scheduler brinary location path can be guessed
+     * @testdox The scheduler binary location path can be guessed
      * @covers phpOMS\Utils\TaskSchedule\SchedulerAbstract
      * @group framework
      */

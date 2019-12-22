@@ -35,7 +35,7 @@ class LogLogRegressionTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @testdox The regression parameters are calcualated correctly
+     * @testdox The regression parameters are calculated correctly
      * @group framework
      */
     public function testRegression() : void

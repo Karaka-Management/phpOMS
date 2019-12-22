@@ -196,7 +196,7 @@ class SmartDateTimeTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @testdox The day of the week index can be retruned from a date
+     * @testdox The day of the week index can be returned from a date
      * @covers phpOMS\Stdlib\Base\SmartDateTime
      * @group framework
      */
@@ -220,7 +220,7 @@ class SmartDateTimeTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @testdox A calendar sheet is retunred containing all days of the month and some days of the previous and next month
+     * @testdox A calendar sheet is returned containing all days of the month and some days of the previous and next month
      * @covers phpOMS\Stdlib\Base\SmartDateTime
      * @group framework
      */

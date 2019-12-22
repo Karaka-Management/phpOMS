@@ -52,7 +52,7 @@ class EnumTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @testdox A valid enum value can be checked for existance
+     * @testdox A valid enum value can be checked for existence
      * @covers phpOMS\Stdlib\Base\Enum<extended>
      * @group framework
      */

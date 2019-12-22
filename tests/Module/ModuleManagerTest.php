@@ -81,7 +81,7 @@ class ModuleManagerTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @testdox Unknown modules cannot get activested, deactivated
+     * @testdox Unknown modules cannot get activated, deactivated
      * @covers phpOMS\Module\ModuleManager
      * @group framework
      */

@@ -58,7 +58,7 @@ class MatrixTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @testdox A matrix can be right-hand multiplicated with a matrix
+     * @testdox A matrix can be right-hand multiplied with a matrix
      * @covers phpOMS\Math\Matrix\Matrix
      * @group framework
      */
@@ -68,7 +68,7 @@ class MatrixTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @testdox A matrix can be right-hand multiplicated with a scalar
+     * @testdox A matrix can be right-hand multiplied with a scalar
      * @covers phpOMS\Math\Matrix\Matrix
      * @group framework
      */
@@ -465,7 +465,7 @@ class MatrixTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @testdox Multiplicating a invalid data type from a matrix throws a InvalidArgumentException
+     * @testdox Multiplying a invalid data type from a matrix throws a InvalidArgumentException
      * @covers phpOMS\Math\Matrix\Matrix
      * @group framework
      */
@@ -519,7 +519,7 @@ class MatrixTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @testdox Multiplicating a matrix with a different n x m dimension to a matrix throws a InvalidDimensionException
+     * @testdox Multiplying a matrix with a different n x m dimension to a matrix throws a InvalidDimensionException
      * @covers phpOMS\Math\Matrix\Matrix
      * @group framework
      */

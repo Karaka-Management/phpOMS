@@ -14,7 +14,7 @@ declare(strict_types=1);
 
 namespace phpOMS\Math\Statistic;
 
-use phpOMS\Math\Exception\ZeroDevisionException;
+use phpOMS\Math\Exception\ZeroDivisionException;
 use phpOMS\Math\Matrix\Exception\InvalidDimensionException;
 
 /**
@@ -68,7 +68,7 @@ final class MeasureOfDispersion
      *
      * @return float
      *
-     * @throws ZeroDevisionException This exception is thrown if the mean is 0
+     * @throws ZeroDivisionException This exception is thrown if the mean is 0
      *
      * @since 1.0.0
      */
@@ -77,7 +77,7 @@ final class MeasureOfDispersion
         $mean = $mean !== null ? $mean : Average::arithmeticMean($values);
 
         if ($mean === 0.0) {
-            throw new ZeroDevisionException();
+            throw new ZeroDivisionException();
         }
 
         return self::standardDeviation($values) / $mean;
@@ -123,7 +123,7 @@ final class MeasureOfDispersion
      *
      * @return float
      *
-     * @throws ZeroDevisionException This exception is thrown if the size of the values array is less than 2
+     * @throws ZeroDivisionException This exception is thrown if the size of the values array is less than 2
      *
      * @since 1.0.0
      */
@@ -132,7 +132,7 @@ final class MeasureOfDispersion
         $count = \count($values);
 
         if ($count < 2) {
-            throw new ZeroDevisionException();
+            throw new ZeroDivisionException();
         }
 
         return self::empiricalVariance($values, [], $mean) * $count / ($count - 1);
@@ -153,7 +153,7 @@ final class MeasureOfDispersion
      *
      * @return float
      *
-     * @throws ZeroDevisionException This exception is thrown if the values array is empty
+     * @throws ZeroDivisionException This exception is thrown if the values array is empty
      *
      * @since 1.0.0
      */
@@ -163,7 +163,7 @@ final class MeasureOfDispersion
         $hasProbability = !empty($probabilities);
 
         if ($count === 0) {
-            throw new ZeroDevisionException();
+            throw new ZeroDivisionException();
         }
 
         $mean = $hasProbability ? Average::weightedAverage($values, $probabilities) : ($mean !== null ? $mean : Average::arithmeticMean($values));
@@ -190,7 +190,7 @@ final class MeasureOfDispersion
      *
      * @return float
      *
-     * @throws ZeroDevisionException     This exception is thrown if the size of the x array is less than 2
+     * @throws ZeroDivisionException     This exception is thrown if the size of the x array is less than 2
      * @throws InvalidDimensionException This exception is thrown if x and y have different dimensions
      *
      * @since 1.0.0
@@ -200,7 +200,7 @@ final class MeasureOfDispersion
         $count = \count($x);
 
         if ($count < 2) {
-            throw new ZeroDevisionException();
+            throw new ZeroDivisionException();
         }
 
         if ($count !== \count($y)) {

@@ -335,7 +335,7 @@ class FinanceFormulasTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @testdox The descounted payback period is correct
+     * @testdox The discounted payback period is correct
      * @group framework
      */
     public function testDiscountedPaybackPeriod() : void
@@ -548,7 +548,7 @@ class FinanceFormulasTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @testdox No cash flows in the net prsent value calculation result in 0
+     * @testdox No cash flows in the net present value calculation result in 0
      * @group framework
      */
     public function testEmptyNetPresentValue() : void

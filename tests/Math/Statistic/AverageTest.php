@@ -112,12 +112,12 @@ class AverageTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @testdox An empty dataset for the arithmetic mean throws a ZeroDevisionException
+     * @testdox An empty dataset for the arithmetic mean throws a ZeroDivisionException
      * @group framework
      */
-    public function testInvalidArithmeticMeanZeroDevision() : void
+    public function testInvalidArithmeticMeanZeroDivision() : void
     {
-        self::expectException(\phpOMS\Math\Exception\ZeroDevisionException::class);
+        self::expectException(\phpOMS\Math\Exception\ZeroDivisionException::class);
 
         Average::arithmeticMean([]);
     }
@@ -126,7 +126,7 @@ class AverageTest extends \PHPUnit\Framework\TestCase
      * @testdox An empty dataset for the moving average throws a Exception
      * @group framework
      */
-    public function testInvalidMovingAverageZeroDevision() : void
+    public function testInvalidMovingAverageZeroDivision() : void
     {
         self::expectException(\Exception::class);
 
@@ -134,34 +134,34 @@ class AverageTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @testdox An empty dataset for the harmonic mean throws a ZeroDevisionException
+     * @testdox An empty dataset for the harmonic mean throws a ZeroDivisionException
      * @group framework
      */
-    public function testInvalidHarmonicMeanZeroDevision() : void
+    public function testInvalidHarmonicMeanZeroDivision() : void
     {
-        self::expectException(\phpOMS\Math\Exception\ZeroDevisionException::class);
+        self::expectException(\phpOMS\Math\Exception\ZeroDivisionException::class);
 
         Average::harmonicMean([]);
     }
 
     /**
-     * @testdox An empty dataset for the geometric mean throws a ZeroDevisionException
+     * @testdox An empty dataset for the geometric mean throws a ZeroDivisionException
      * @group framework
      */
     public function testInvalidGeometricMean() : void
     {
-        self::expectException(\phpOMS\Math\Exception\ZeroDevisionException::class);
+        self::expectException(\phpOMS\Math\Exception\ZeroDivisionException::class);
 
         Average::geometricMean([]);
     }
 
     /**
-     * @testdox A dataset with a 0 element throws a ZeroDevisionException
+     * @testdox A dataset with a 0 element throws a ZeroDivisionException
      * @group framework
      */
     public function testInvalidHarmonicMean() : void
     {
-        self::expectException(\phpOMS\Math\Exception\ZeroDevisionException::class);
+        self::expectException(\phpOMS\Math\Exception\ZeroDivisionException::class);
 
         Average::harmonicMean([1, 2, 3, 0, 5, 6, 7]);
     }

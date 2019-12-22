@@ -24,7 +24,7 @@ use phpOMS\Math\Number\Integer;
 class IntegerTest extends \PHPUnit\Framework\TestCase
 {
     /**
-     * @testdox A value can be checked to be an intager
+     * @testdox A value can be checked to be an integer
      * @covers phpOMS\Math\Number\Integer
      * @group framework
      */

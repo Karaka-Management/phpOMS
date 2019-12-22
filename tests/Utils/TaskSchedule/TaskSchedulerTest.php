@@ -44,7 +44,7 @@ class TaskSchedulerTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @testdox The task brinary location path can be guessed
+     * @testdox The task binary location path can be guessed
      * @covers phpOMS\Utils\TaskSchedule\TaskScheduler<extended>
      * @group framework
      */

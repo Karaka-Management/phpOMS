@@ -24,7 +24,7 @@ use phpOMS\Math\Number\Numbers;
  * @link    https://orange-management.org
  * @since   1.0.0
  */
-final class Fibunacci
+final class Fibonacci
 {
     /**
      * Constructor.
@@ -38,7 +38,7 @@ final class Fibunacci
     }
 
     /**
-     * Is fibunacci number.
+     * Is Fibonacci number.
      *
      * @param int $n Integer
      *
@@ -46,13 +46,13 @@ final class Fibunacci
      *
      * @since 1.0.0
      */
-    public static function isFibunacci(int $n) : bool
+    public static function isFibonacci(int $n) : bool
     {
         return Numbers::isSquare(5 * $n ** 2 + 4) || Numbers::isSquare(5 * $n ** 2 - 4);
     }
 
     /**
-     * Get n-th fibunacci number.
+     * Get n-th Fibonacci number.
      *
      * @param int $n     n-th number
      * @param int $start Start value
@@ -81,7 +81,7 @@ final class Fibunacci
     }
 
     /**
-     * Calculate n-th fibunacci with binets formula.
+     * Calculate n-th Fibonacci with binets formula.
      *
      * @param int $n n-th number
      *

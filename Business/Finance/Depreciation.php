@@ -124,7 +124,7 @@ final class Depreciation
     }
 
     /**
-     * Calculate the progressiv factor
+     * Calculate the progressive factor
      *
      * @param float $start    Value to depreciate (reduced by residual value if required)
      * @param float $residual Residual value

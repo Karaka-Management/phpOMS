@@ -105,7 +105,7 @@ class RequestTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @testdox The route verb gets correctly infered from the request method
+     * @testdox The route verb gets correctly inferred from the request method
      * @covers phpOMS\Message\Http\Request<extended>
      * @group framework
      */
@@ -124,7 +124,7 @@ class RequestTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @testdox The request is correctly constracted
+     * @testdox The request is correctly constructed
      * @covers phpOMS\Message\Http\Request<extended>
      * @group framework
      */

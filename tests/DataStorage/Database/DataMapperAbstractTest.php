@@ -162,7 +162,7 @@ class DataMapperAbstractTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @testdox The datamapper sucessfully creates a database entry of a model
+     * @testdox The datamapper successfully creates a database entry of a model
      * @covers phpOMS\DataStorage\Database\DataMapperAbstract
      * @group framework
      */
@@ -173,7 +173,7 @@ class DataMapperAbstractTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @testdox The datamapper sucessfully creates a database entry of array data
+     * @testdox The datamapper successfully creates a database entry of array data
      * @covers phpOMS\DataStorage\Database\DataMapperAbstract
      * @group framework
      */
@@ -184,7 +184,7 @@ class DataMapperAbstractTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @testdox The datamapper sucessfully returns a database entry as model
+     * @testdox The datamapper successfully returns a database entry as model
      * @covers phpOMS\DataStorage\Database\DataMapperAbstract
      * @group framework
      */
@@ -221,7 +221,7 @@ class DataMapperAbstractTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @testdox The datamapper sucessfully returns a database entry as array
+     * @testdox The datamapper successfully returns a database entry as array
      * @covers phpOMS\DataStorage\Database\DataMapperAbstract
      * @group framework
      */
@@ -253,7 +253,7 @@ class DataMapperAbstractTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @testdox The datamapper sucessfully updates a database entry from a model
+     * @testdox The datamapper successfully updates a database entry from a model
      * @covers phpOMS\DataStorage\Database\DataMapperAbstract
      * @group framework
      */
@@ -285,7 +285,7 @@ class DataMapperAbstractTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @testdox The datamapper sucessfully updates a database entry from an array
+     * @testdox The datamapper successfully updates a database entry from an array
      * @covers phpOMS\DataStorage\Database\DataMapperAbstract
      * @group framework
      */
@@ -317,7 +317,7 @@ class DataMapperAbstractTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @testdox The datamapper sucessfully deletes a database entry from a model
+     * @testdox The datamapper successfully deletes a database entry from a model
      * @covers phpOMS\DataStorage\Database\DataMapperAbstract
      * @group framework
      */

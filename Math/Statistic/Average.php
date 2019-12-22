@@ -14,7 +14,7 @@ declare(strict_types=1);
 
 namespace phpOMS\Math\Statistic;
 
-use phpOMS\Math\Exception\ZeroDevisionException;
+use phpOMS\Math\Exception\ZeroDivisionException;
 use phpOMS\Math\Matrix\Exception\InvalidDimensionException;
 
 /**
@@ -167,7 +167,7 @@ final class Average
      *
      * @return float
      *
-     * @throws ZeroDevisionException This exception is thrown if the values array is empty
+     * @throws ZeroDivisionException This exception is thrown if the values array is empty
      *
      * @since 1.0.0
      */
@@ -176,7 +176,7 @@ final class Average
         $count = \count($values);
 
         if ($count === 0) {
-            throw new ZeroDevisionException();
+            throw new ZeroDivisionException();
         }
 
         return \array_sum($values) / $count;
@@ -239,7 +239,7 @@ final class Average
      *
      * @return float
      *
-     * @throws ZeroDevisionException This exception is thrown if the values array is empty
+     * @throws ZeroDivisionException This exception is thrown if the values array is empty
      *
      * @since 1.0.0
      */
@@ -248,7 +248,7 @@ final class Average
         $count = \count($values);
 
         if ($count === 0) {
-            throw new ZeroDevisionException();
+            throw new ZeroDivisionException();
         }
 
         return \pow(\array_product($values), 1 / $count);
@@ -264,7 +264,7 @@ final class Average
      *
      * @return float
      *
-     * @throws ZeroDevisionException This exception is thrown if a value in the values array is 0 or if the values array is empty
+     * @throws ZeroDivisionException This exception is thrown if a value in the values array is 0 or if the values array is empty
      *
      * @since 1.0.0
      */
@@ -280,12 +280,12 @@ final class Average
         $sum   = 0.0;
 
         if ($count === 0) {
-            throw new ZeroDevisionException();
+            throw new ZeroDivisionException();
         }
 
         foreach ($values as $value) {
             if ($value === 0) {
-                throw new ZeroDevisionException();
+                throw new ZeroDivisionException();
             }
 
             $sum += 1 / $value;

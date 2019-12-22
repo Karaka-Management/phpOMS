@@ -35,7 +35,7 @@ class NetPromoterScoreTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @testdox The net promotor score, detractors, passives and promotors are correct
+     * @testdox The net promoter score, detractors, passives and promoters are correct
      * @group framework
      */
     public function testScoreDetractorPassivePromotor() : void

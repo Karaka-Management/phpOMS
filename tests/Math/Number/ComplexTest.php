@@ -97,7 +97,7 @@ class ComplexTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @testdox A complex number can be multiplicated with a complex number
+     * @testdox A complex number can be multiplied with a complex number
      * @covers phpOMS\Math\Number\Complex
      * @group framework
      */
@@ -110,7 +110,7 @@ class ComplexTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @testdox A real number can be multiplicated with a complex number
+     * @testdox A real number can be multiplied with a complex number
      * @covers phpOMS\Math\Number\Complex
      * @group framework
      */
@@ -121,7 +121,7 @@ class ComplexTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @testdox A complex number can be devided by a complex number number
+     * @testdox A complex number can be divided by a complex number number
      * @covers phpOMS\Math\Number\Complex
      * @group framework
      */
@@ -134,7 +134,7 @@ class ComplexTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @testdox A complex number can be devided by a real number
+     * @testdox A complex number can be divided by a real number
      * @covers phpOMS\Math\Number\Complex
      * @group framework
      */
@@ -181,7 +181,7 @@ class ComplexTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @testdox The real power of a complex number can be caluclated
+     * @testdox The real power of a complex number can be calculated
      * @covers phpOMS\Math\Number\Complex
      * @group framework
      */

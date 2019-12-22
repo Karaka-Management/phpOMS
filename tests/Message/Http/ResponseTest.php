@@ -46,7 +46,7 @@ class ResponseTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @testdox Response data can be set and retruned
+     * @testdox Response data can be set and returned
      * @covers phpOMS\Message\Http\Response<extended>
      * @group framework
      */

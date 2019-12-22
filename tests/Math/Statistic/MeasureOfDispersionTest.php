@@ -130,29 +130,29 @@ class MeasureOfDispersionTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @testdox The empirical varation coefficient with a mean of 0 throws a ZeroDevisionException
+     * @testdox The empirical variation coefficient with a mean of 0 throws a ZeroDivisionException
      * @group framework
      */
     public function testInvalidEmpiricalVariationCoefficient() : void
     {
-        self::expectException(\phpOMS\Math\Exception\ZeroDevisionException::class);
+        self::expectException(\phpOMS\Math\Exception\ZeroDivisionException::class);
 
         MeasureOfDispersion::empiricalVariationCoefficient([1, 2, 3, 4, 5, 6, 7], 0);
     }
 
     /**
-     * @testdox An empty dataset in the empirical covariance throws a ZeroDevisionException
+     * @testdox An empty dataset in the empirical covariance throws a ZeroDivisionException
      * @group framework
      */
     public function testInvalidEmpiricalCovariance() : void
     {
-        self::expectException(\phpOMS\Math\Exception\ZeroDevisionException::class);
+        self::expectException(\phpOMS\Math\Exception\ZeroDivisionException::class);
 
         MeasureOfDispersion::empiricalCovariance([], []);
     }
 
     /**
-     * @testdox Different dataset saces in the empirical covariance throw a InvalidDimensionException
+     * @testdox Different dataset sizes in the empirical covariance throw a InvalidDimensionException
      * @group framework
      */
     public function testInvalidEmpiricalCovarianceDimension() : void
@@ -163,23 +163,23 @@ class MeasureOfDispersionTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @testdox An empty dataset in the sample variance throws a ZeroDevisionException
+     * @testdox An empty dataset in the sample variance throws a ZeroDivisionException
      * @group framework
      */
     public function testInvalidSampleVariance() : void
     {
-        self::expectException(\phpOMS\Math\Exception\ZeroDevisionException::class);
+        self::expectException(\phpOMS\Math\Exception\ZeroDivisionException::class);
 
         MeasureOfDispersion::sampleVariance([]);
     }
 
     /**
-     * @testdox An empty dataset in the empirical/population variance throws a ZeroDevisionException
+     * @testdox An empty dataset in the empirical/population variance throws a ZeroDivisionException
      * @group framework
      */
     public function testInvalidEmpiricalVariance() : void
     {
-        self::expectException(\phpOMS\Math\Exception\ZeroDevisionException::class);
+        self::expectException(\phpOMS\Math\Exception\ZeroDivisionException::class);
 
         MeasureOfDispersion::empiricalVariance([]);
     }

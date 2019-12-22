@@ -86,7 +86,7 @@ final class Dispatcher implements DispatcherInterface
     /**
      * Dispatch string.
      *
-     * The disptacher can dispatch static functions.
+     * The dispatcher can dispatch static functions.
      * String: `some/namespace/path::myStaticFunction`
      *
      * Additionally it's also possible to dispatch functions of modules.

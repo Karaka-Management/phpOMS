@@ -50,7 +50,7 @@ class DictionaryTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @testdox Only single chracters can be set in the dictionary. Multiple characters throw a InvalidArgumentException
+     * @testdox Only single characters can be set in the dictionary. Multiple characters throw a InvalidArgumentException
      * @covers phpOMS\Utils\Encoding\Huffman\Dictionary
      * @group framework
      */

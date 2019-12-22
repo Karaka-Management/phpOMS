@@ -25,7 +25,7 @@ namespace phpOMS\Algorithm\Sort;
 final class TimSort implements SortInterface
 {
     /**
-     * Blocks the sorting is devided into
+     * Blocks the sorting is divided into
      *
      * @var   int
      * @since 1.0.0

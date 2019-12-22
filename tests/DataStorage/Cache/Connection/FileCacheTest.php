@@ -70,7 +70,7 @@ class FileCacheTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @testdox The connection to a dedicated cache directory can be established (none-exising directories get created)
+     * @testdox The connection to a dedicated cache directory can be established (none-existing directories get created)
      * @covers phpOMS\DataStorage\Cache\Connection\FileCache<extended>
      * @group framework
      */
@@ -259,7 +259,7 @@ class FileCacheTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @testdox Unexpired cache data connot be delete if lower expiration is defined
+     * @testdox Unexpired cache data cannot be delete if lower expiration is defined
      * @covers phpOMS\DataStorage\Cache\Connection\FileCache<extended>
      * @group framework
      */
@@ -295,7 +295,7 @@ class FileCacheTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @testdox Cach data can be flushed by expiration date
+     * @testdox Cache data can be flushed by expiration date
      * @covers phpOMS\DataStorage\Cache\Connection\FileCache<extended>
      * @group framework
      */

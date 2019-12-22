@@ -36,7 +36,7 @@ class PrimeTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @testdox A prime number can be generat3ed with the sieve of erathosthenes
+     * @testdox A prime number can be generated with the sieve of erathosthenes
      * @covers phpOMS\Math\Number\Prime
      * @group framework
      */

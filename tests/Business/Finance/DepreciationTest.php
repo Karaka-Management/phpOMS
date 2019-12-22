@@ -24,7 +24,7 @@ use phpOMS\Business\Finance\Depreciation;
 class DepreciationTest extends \PHPUnit\Framework\TestCase
 {
     /**
-     * @testdox The straight line deprecition and reverse value calculations are correct
+     * @testdox The straight line depreciation and reverse value calculations are correct
      * @group framework
      */
     public function testStraightLine() : void
@@ -38,7 +38,7 @@ class DepreciationTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @testdox The arithmetic degressiv deprecition and reverse value calculations are correct
+     * @testdox The arithmetic degressive depreciation and reverse value calculations are correct
      * @group framework
      */
     public function testArithmeticDegressivDepreciation() : void
@@ -54,7 +54,7 @@ class DepreciationTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @testdox The arithmetic progressiv deprecition and reverse value calculations are correct
+     * @testdox The arithmetic progressive depreciation and reverse value calculations are correct
      * @group framework
      */
     public function testArithmeticProgressivDepreciation() : void
@@ -70,7 +70,7 @@ class DepreciationTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @testdox The geometric progressiv deprecition and reverse value calculations are correct
+     * @testdox The geometric progressive depreciation and reverse value calculations are correct
      * @group framework
      */
     public function testGeometricProgressivDepreciation() : void
@@ -86,7 +86,7 @@ class DepreciationTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @testdox The geometric degressiv deprecition and reverse value calculations are correct
+     * @testdox The geometric degressive depreciation and reverse value calculations are correct
      * @group framework
      */
     public function testGeometricDegressivDepreciation() : void

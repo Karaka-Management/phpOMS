@@ -213,7 +213,7 @@ class ArrayUtilsTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @testdox All array values in an array can be exponentiated by an integer
+     * @testdox All array values in an array can be potentiated by an integer
      * @covers phpOMS\Utils\ArrayUtils
      * @group framework
      */
@@ -224,7 +224,7 @@ class ArrayUtilsTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @testdox All array values in an array can be exponentiated by a float
+     * @testdox All array values in an array can be potentiated by a float
      * @covers phpOMS\Utils\ArrayUtils
      *
      * @todo combine with int as soon as union types exist

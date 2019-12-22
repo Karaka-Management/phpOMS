@@ -15,14 +15,14 @@ declare(strict_types=1);
 namespace phpOMS\Math\Exception;
 
 /**
- * Zero devision exception.
+ * Zero division exception.
  *
  * @package phpOMS\Math\Exception
  * @license OMS License 1.0
  * @link    https://orange-management.org
  * @since   1.0.0
  */
-final class ZeroDevisionException extends \UnexpectedValueException
+final class ZeroDivisionException extends \UnexpectedValueException
 {
     /**
      * Constructor.
@@ -34,6 +34,6 @@ final class ZeroDevisionException extends \UnexpectedValueException
      */
     public function __construct(int $code = 0, \Exception $previous = null)
     {
-        parent::__construct('Devision by zero is not defined.', $code, $previous);
+        parent::__construct('Division by zero is not defined.', $code, $previous);
     }
 }

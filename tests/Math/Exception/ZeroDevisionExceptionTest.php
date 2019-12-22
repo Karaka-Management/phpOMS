@@ -14,15 +14,15 @@ declare(strict_types=1);
 
 namespace phpOMS\tests\Math\Exception;
 
-use phpOMS\Math\Exception\ZeroDevisionException;
+use phpOMS\Math\Exception\ZeroDivisionException;
 
 /**
  * @internal
  */
-class ZeroDevisionExceptionTest extends \PHPUnit\Framework\TestCase
+class ZeroDivisionExceptionTest extends \PHPUnit\Framework\TestCase
 {
     public function testException() : void
     {
-        self::assertInstanceOf(\UnexpectedValueException::class, new ZeroDevisionException());
+        self::assertInstanceOf(\UnexpectedValueException::class, new ZeroDivisionException());
     }
 }

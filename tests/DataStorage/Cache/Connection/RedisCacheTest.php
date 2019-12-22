@@ -62,7 +62,7 @@ class RedisCacheTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @testdox The connection to a cache can be established (none-exising directories get created)
+     * @testdox The connection to a cache can be established (none-existing directories get created)
      * @covers phpOMS\DataStorage\Cache\Connection\RedisCache<extended>
      * @group framework
      */
