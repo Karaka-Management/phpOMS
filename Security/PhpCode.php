@@ -65,7 +65,6 @@ final class PhpCode
      */
     private function __construct()
     {
-
     }
 
     /**

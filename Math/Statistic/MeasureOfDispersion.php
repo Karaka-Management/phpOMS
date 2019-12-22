@@ -35,7 +35,6 @@ final class MeasureOfDispersion
      */
     private function __construct()
     {
-
     }
 
     /**

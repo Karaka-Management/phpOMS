@@ -32,7 +32,6 @@ final class Numbers
      */
     private function __construct()
     {
-
     }
 
     /**

@@ -32,7 +32,6 @@ final class Gamma
      */
     private function __construct()
     {
-
     }
 
     /**

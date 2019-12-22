@@ -32,7 +32,6 @@ final class Functions
      */
     private function __construct()
     {
-
     }
 
     /**

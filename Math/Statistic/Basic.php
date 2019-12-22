@@ -32,7 +32,6 @@ final class Basic
      */
     private function __construct()
     {
-
     }
 
     /**

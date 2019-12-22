@@ -47,7 +47,6 @@ final class Average
      */
     private function __construct()
     {
-
     }
 
     /**

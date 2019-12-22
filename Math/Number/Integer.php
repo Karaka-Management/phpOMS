@@ -32,7 +32,6 @@ final class Integer
      */
     private function __construct()
     {
-
     }
 
     /**

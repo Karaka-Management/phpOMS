@@ -32,7 +32,6 @@ final class Permutation
      */
     private function __construct()
     {
-
     }
 
     /**

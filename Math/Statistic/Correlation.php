@@ -32,7 +32,6 @@ final class Correlation
      */
     private function __construct()
     {
-
     }
 
     /**

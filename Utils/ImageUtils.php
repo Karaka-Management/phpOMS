@@ -34,7 +34,6 @@ final class ImageUtils
      */
     private function __construct()
     {
-
     }
 
     /**

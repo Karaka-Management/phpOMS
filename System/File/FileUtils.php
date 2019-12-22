@@ -45,7 +45,6 @@ final class FileUtils
      */
     private function __construct()
     {
-
     }
 
     /**

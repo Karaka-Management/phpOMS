@@ -34,7 +34,6 @@ final class Fibonacci
      */
     private function __construct()
     {
-
     }
 
     /**

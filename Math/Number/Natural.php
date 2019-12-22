@@ -32,7 +32,6 @@ final class Natural
      */
     private function __construct()
     {
-
     }
 
     /**

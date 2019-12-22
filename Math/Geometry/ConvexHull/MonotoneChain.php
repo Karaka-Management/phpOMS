@@ -32,7 +32,6 @@ final class MonotoneChain
      */
     private function __construct()
     {
-
     }
 
     /**

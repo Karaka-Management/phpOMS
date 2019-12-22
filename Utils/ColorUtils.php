@@ -32,7 +32,6 @@ final class ColorUtils
      */
     private function __construct()
     {
-
     }
 
     /**

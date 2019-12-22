@@ -34,7 +34,6 @@ final class TestUtils
      */
     private function __construct()
     {
-
     }
 
     /**

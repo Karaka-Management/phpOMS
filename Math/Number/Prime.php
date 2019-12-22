@@ -32,7 +32,6 @@ final class Prime
      */
     private function __construct()
     {
-
     }
 
     /**

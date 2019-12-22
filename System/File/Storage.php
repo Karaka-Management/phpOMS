@@ -42,7 +42,6 @@ final class Storage
      */
     private function __construct()
     {
-
     }
 
     /**

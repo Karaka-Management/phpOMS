@@ -37,7 +37,6 @@ final class Error
      */
     private function __construct()
     {
-
     }
 
     /**
