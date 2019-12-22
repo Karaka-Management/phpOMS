@@ -27,24 +27,24 @@ final class Complex
     /**
      * Real part.
      *
-     * @var   mixed
+     * @var   int|float
      * @since 1.0.0
      */
-    private $re = null;
+    private $re;
 
     /**
      * Imaginary part.
      *
-     * @var   mixed
+     * @var   int|float
      * @since 1.0.0
      */
-    private $im = null;
+    private $im;
 
     /**
      * Constructor.
      *
-     * @param mixed $re Real part
-     * @param mixed $im Imaginary part
+     * @param int|float $re Real part
+     * @param int|float $im Imaginary part
      *
      * @since 1.0.0
      */
@@ -57,7 +57,7 @@ final class Complex
     /**
      * Get real part
      *
-     * @return mixed
+     * @return int|float
      *
      * @since 1.0.0
      */
@@ -69,7 +69,7 @@ final class Complex
     /**
      * Get imaginary part
      *
-     * @return mixed
+     * @return int|float
      *
      * @since 1.0.0
      */
@@ -125,7 +125,7 @@ final class Complex
     /**
      * Absolute
      *
-     * @return mixed
+     * @return int|float
      *
      * @since 1.0.0
      */

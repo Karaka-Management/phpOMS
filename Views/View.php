@@ -53,7 +53,7 @@ class View extends ViewAbstract
      * @var   null|ApplicationAbstract
      * @since 1.0.0
      */
-    protected ?ApplicationAbstract $app = null;
+    protected ?ApplicationAbstract $app;
 
     /**
      * Request.
@@ -61,7 +61,7 @@ class View extends ViewAbstract
      * @var   null|RequestAbstract
      * @since 1.0.0
      */
-    protected ?RequestAbstract $request = null;
+    protected ?RequestAbstract $request;
 
     /**
      * Request.
@@ -69,7 +69,7 @@ class View extends ViewAbstract
      * @var   null|ResponseAbstract
      * @since 1.0.0
      */
-    protected ?ResponseAbstract $response = null;
+    protected ?ResponseAbstract $response;
 
     /**
      * Theme name.

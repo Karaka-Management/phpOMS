@@ -30,7 +30,7 @@ final class Language
      * @var   int
      * @since 1.0.0
      */
-    private $id = 0;
+    private int $id = 0;
 
     /**
      * Language name.
@@ -38,7 +38,7 @@ final class Language
      * @var   string
      * @since 1.0.0
      */
-    private $name = '';
+    private string $name = '';
 
     /**
      * Language native.
@@ -46,7 +46,7 @@ final class Language
      * @var   string
      * @since 1.0.0
      */
-    private $native = '';
+    private string $native = '';
 
     /**
      * Language code.
@@ -54,7 +54,7 @@ final class Language
      * @var   string
      * @since 1.0.0
      */
-    private $code2 = '';
+    private string $code2 = '';
 
     /**
      * Language code.
@@ -62,7 +62,7 @@ final class Language
      * @var   string
      * @since 1.0.0
      */
-    private $code3 = '';
+    private string $code3 = '';
 
     /**
      * Language code.
@@ -70,7 +70,7 @@ final class Language
      * @var   string
      * @since 1.0.0
      */
-    private $code3Native = '';
+    private string $code3Native = '';
 
     /**
      * Get id

@@ -54,7 +54,7 @@ class HIBCC
      * @var   string
      * @since 1.0.0
      */
-    private $dateFormat = 'Y-m-d';
+    private string $dateFormat = 'Y-m-d';
 
     /**
      * Date of the expiration.

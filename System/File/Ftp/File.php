@@ -42,15 +42,15 @@ class File extends FileAbstract implements FileInterface
      * @var   resource
      * @since 1.0.0
      */
-    private $con = null;
+    private $con;
 
     /**
      * Ftp connection uri.
      *
-     * @var   null|Http
+     * @var   Http
      * @since 1.0.0
      */
-    private ?Http $uri = null;
+    private Http $uri;
 
     /**
      * Create ftp connection
