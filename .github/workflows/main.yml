@@ -54,7 +54,7 @@ jobs:
       uses: actions/checkout@master
       with:
           fetch-depth: 1
-          ref: master
+          ref: develop
           repository: Orange-Management/Resources
           path: Resources
     - name: Setup PHP, with composer and extensions
