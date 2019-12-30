@@ -19,6 +19,7 @@ use Modules\Admin\Models\PermissionState;
 use phpOMS\Account\Account;
 use phpOMS\Account\PermissionAbstract;
 use phpOMS\Account\PermissionType;
+use phpOMS\Autoloader;
 use phpOMS\Router\SocketRouter;
 
 require_once __DIR__ . '/../Autoloader.php';
@@ -54,7 +55,7 @@ class SocketRouterTest extends \PHPUnit\Framework\TestCase
      */
     public function testInvalidRoutingFile() : void
     {
-        self::assertFalse($this->router->importFromFile(__Dir__ . '/invalidFile.php'));
+        self::assertFalse($this->router->importFromFile(__DIR__ . '/invalidFile.php'));
     }
 
     /**
@@ -64,7 +65,7 @@ class SocketRouterTest extends \PHPUnit\Framework\TestCase
      */
     public function testLoadingRoutesFromFile() : void
     {
-        self::assertTrue($this->router->importFromFile(__Dir__ . '/socketRouterTestFile.php'));
+        self::assertTrue($this->router->importFromFile(__DIR__ . '/socketRouterTestFile.php'));
     }
 
     /**
@@ -74,7 +75,7 @@ class SocketRouterTest extends \PHPUnit\Framework\TestCase
      */
     public function testRouteMatching() : void
     {
-        self::assertTrue($this->router->importFromFile(__Dir__ . '/socketRouterTestFile.php'));
+        self::assertTrue($this->router->importFromFile(__DIR__ . '/socketRouterTestFile.php'));
 
         self::assertEquals(
             [['dest' => '\Modules\Admin\Controller:viewSettingsGeneral']],
@@ -108,7 +109,11 @@ class SocketRouterTest extends \PHPUnit\Framework\TestCase
      */
     public function testWithValidPermissions() : void
     {
-        self::assertTrue($this->router->importFromFile(__Dir__ . '/socketRouterTestFilePermission.php'));
+        if (!Autoloader::exists('\Modules\Admin\Controller')) {
+            self::markTestSkipped();
+        }
+
+        self::assertTrue($this->router->importFromFile(__DIR__ . '/socketRouterTestFilePermission.php'));
 
         $perm = new class(
             null,
@@ -141,7 +146,11 @@ class SocketRouterTest extends \PHPUnit\Framework\TestCase
      */
     public function testWithInvalidPermissions() : void
     {
-        self::assertTrue($this->router->importFromFile(__Dir__ . '/socketRouterTestFilePermission.php'));
+        if (!Autoloader::exists('\Modules\Admin\Controller')) {
+            self::markTestSkipped();
+        }
+
+        self::assertTrue($this->router->importFromFile(__DIR__ . '/socketRouterTestFilePermission.php'));
 
         $perm2 = new class(
             null,
