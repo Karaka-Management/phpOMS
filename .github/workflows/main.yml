@@ -48,7 +48,7 @@ jobs:
       with:
           fetch-depth: 1
           repository: Orange-Management/Build
-          path: ../Build
+          path: Build
     - name: Setup PHP, with composer and extensions
       uses: shivammathur/setup-php@master
       with:
@@ -86,7 +86,7 @@ jobs:
       with:
           fetch-depth: 1
           repository: Orange-Management/Build
-          path: ../Build
+          path: Build
     - name: Setup PHP, with composer and extensions
       uses: shivammathur/setup-php@master
       with:
@@ -105,7 +105,7 @@ jobs:
     - name: Setup Composer
       run: composer install
     - name: phpstan
-      run: vendor/bin/phpstan analyse -a Autoloader.php --no-progress -l 7 -c ../Build/Config/phpstan.neon ./
+      run: vendor/bin/phpstan analyse -a Autoloader.php --no-progress -l 7 -c Build/Config/phpstan.neon ./
   codestyle-tests:
     runs-on: ubuntu-latest
     strategy:
@@ -123,7 +123,7 @@ jobs:
       with:
           fetch-depth: 1
           repository: Orange-Management/Build
-          path: ../Build
+          path: Build
     - name: Setup PHP, with composer and extensions
       uses: shivammathur/setup-php@master
       with:
@@ -142,7 +142,7 @@ jobs:
     - name: Setup Composer
       run: composer install
     - name: phpcs
-      run: vendor/bin/phpcs ./ --standard="../Build/Config/phpcs.xml" -s --report=full
+      run: vendor/bin/phpcs ./ --standard="Build/Config/phpcs.xml" -s --report=full
   custom:
     runs-on: ubuntu-latest
     strategy:
@@ -160,7 +160,7 @@ jobs:
       with:
           fetch-depth: 1
           repository: Orange-Management/Build
-          path: ../Build
+          path: Build
     - name: Setup PHP, with composer and extensions
       uses: shivammathur/setup-php@master
       with:
