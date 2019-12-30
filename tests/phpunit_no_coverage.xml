@@ -15,6 +15,7 @@
             <exclude>./tests</exclude>
             <exclude>./vendor</exclude>
             <exclude>./Build</exclude>
+            <exclude>./Resources</exclude>
         </testsuite>
     </testsuites>
     <filter>
@@ -26,6 +27,7 @@
                 <directory suffix="lang.php">../*</directory>
                 <directory suffix="Test.php">../*</directory>
                 <directory>./Build</directory>
+                <directory>./Resources</directory>
                 <directory>*vendor*</directory>
                 <directory>./vendor</directory>
                 <directory>../vendor</directory>
