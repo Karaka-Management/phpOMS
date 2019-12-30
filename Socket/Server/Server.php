@@ -62,7 +62,7 @@ class Server extends SocketAbstract
     /**
      * Socket application.
      *
-     * @var   SocketApplication
+     * @var   ApplicationAbstract
      * @since 1.0.0
      */
     private $app = null;
