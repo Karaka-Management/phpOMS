@@ -25,6 +25,7 @@ use phpOMS\Log\FileLogger;
 use phpOMS\Module\ModuleManager;
 use phpOMS\Router\SocketRouter;
 use phpOMS\Socket\Client\Client;
+use phpOMS\Autoloader;
 
 /**
  * @internal
@@ -46,6 +47,10 @@ class ClientTest extends \PHPUnit\Framework\TestCase
 
     protected function setUp() : void
     {
+        if (!Autoloader::exists('\Model\CoreSettings')) {
+            self::markTestSkipped();
+        }
+
         $this->app = new class() extends ApplicationAbstract
         {
             protected string $appName = 'Socket';
