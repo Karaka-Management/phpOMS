@@ -47,6 +47,7 @@ jobs:
       uses: actions/checkout@master
       with:
           fetch-depth: 1
+          ref: develop
           repository: Orange-Management/Build
           path: Build
     - name: Setup PHP, with composer and extensions
@@ -85,6 +86,7 @@ jobs:
       uses: actions/checkout@master
       with:
           fetch-depth: 1
+          ref: develop
           repository: Orange-Management/Build
           path: Build
     - name: Setup PHP, with composer and extensions
@@ -122,6 +124,7 @@ jobs:
       uses: actions/checkout@master
       with:
           fetch-depth: 1
+          ref: develop
           repository: Orange-Management/Build
           path: Build
     - name: Setup PHP, with composer and extensions
@@ -159,6 +162,7 @@ jobs:
       uses: actions/checkout@master
       with:
           fetch-depth: 1
+          ref: develop
           repository: Orange-Management/Build
           path: Build
     - name: Setup PHP, with composer and extensions
