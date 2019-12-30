@@ -14,7 +14,6 @@ declare(strict_types=1);
 
 namespace phpOMS;
 
-use Model\CoreSettings;
 use phpOMS\Router\RouterInterface;
 use phpOMS\Log\FileLogger;
 use phpOMS\Event\EventManager;
@@ -27,6 +26,7 @@ use phpOMS\DataStorage\Cache\CachePool;
 use phpOMS\DataStorage\Cookie\CookieJar;
 use phpOMS\DataStorage\Database\DatabasePool;
 use phpOMS\DataStorage\Session\SessionInterface;
+use phpOMS\Config\SettingsAbstract;
 
 /**
  * Application class.
@@ -45,7 +45,7 @@ use phpOMS\DataStorage\Session\SessionInterface;
  * @property \phpOMS\Module\ModuleManager $moduleManager
  * @property \phpOMS\Dispatcher\Dispatcher $dispatcher
  * @property \phpOMS\DataStorage\Cache\CachePool $cachePool
- * @property \Model\CoreSettings $appSettings
+ * @property \phpOMS\Config\SettingsAbstract $appSettings
  * @property \phpOMS\Event\EventManager $eventManager
  * @property \phpOMS\Account\AccountManager $accountManager
  * @property \phpOMS\Log\FileLogger $logger
@@ -92,10 +92,10 @@ class ApplicationAbstract
     /**
      * Application settings object.
      *
-     * @var   CoreSettings
+     * @var   SettingsAbstract
      * @since 1.0.0
      */
-    protected CoreSettings $appSettings;
+    protected SettingsAbstract $appSettings;
 
     /**
      * Account manager instance.
