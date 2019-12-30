@@ -17,8 +17,8 @@ namespace phpOMS\tests\Utils\IO\Spreadsheet;
 use phpOMS\DataStorage\Database\Connection\SQLiteConnection;
 use phpOMS\DataStorage\Database\Query\Builder;
 use phpOMS\Utils\IO\Spreadsheet\SpreadsheetDatabaseMapper;
-use tests\Autoloader;
 use phpOMS\Utils\StringUtils;
+use phpOMS\Autoloader;
 
 /**
  * @testdox phpOMS\tests\Utils\IO\Spreadsheet\SpreadsheetDatabaseMapperTest: Spreadsheet database mapper
