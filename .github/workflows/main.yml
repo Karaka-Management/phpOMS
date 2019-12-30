@@ -50,6 +50,13 @@ jobs:
           ref: develop
           repository: Orange-Management/Build
           path: Build
+    - name: Checkout Resource Repository
+      uses: actions/checkout@master
+      with:
+          fetch-depth: 1
+          ref: master
+          repository: Orange-Management/Resources
+          path: Resources
     - name: Setup PHP, with composer and extensions
       uses: shivammathur/setup-php@master
       with:
