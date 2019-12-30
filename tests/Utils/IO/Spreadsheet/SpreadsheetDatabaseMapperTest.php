@@ -29,6 +29,12 @@ class SpreadsheetDatabaseMapperTest extends \PHPUnit\Framework\TestCase
 {
     protected $sqlite;
 
+    public static function setUpBeforeClass() : void
+    {
+        Autoloader::addPath(__DIR__ . '/../../../../../Resources/');
+        Autoloader::addPath(__DIR__ . '/../../../../Resources/');
+    }
+
     protected function setUp() : void
     {
         if (!\extension_loaded('pdo_sqlite')) {
@@ -62,7 +68,6 @@ class SpreadsheetDatabaseMapperTest extends \PHPUnit\Framework\TestCase
      */
     public function testInsertOds() : void
     {
-        Autoloader::addPath(__DIR__ . '/../../../../../Resources/');
         $mapper = new SpreadsheetDatabaseMapper($this->sqlite, __DIR__ . '/insert.ods');
         $mapper->insert();
 
