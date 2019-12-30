@@ -27,8 +27,8 @@
                 <directory suffix="Test.php">../*</directory>
                 <directory>./Build</directory>
                 <directory>*vendor*</directory>
-                <exclude>./vendor</exclude>
-                <exclude>../vendor</exclude>
+                <directory>./vendor</directory>
+                <directory>../vendor</directory>
             </exclude>
         </whitelist>
     </filter>
