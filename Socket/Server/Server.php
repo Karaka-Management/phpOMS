@@ -70,7 +70,7 @@ class Server extends SocketAbstract
     /**
      * Constructor.
      *
-     * @param SocketApplication $app socketApplication
+     * @param ApplicationAbstract $app Socket application
      *
      * @since 1.0.0
      */
