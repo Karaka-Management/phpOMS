@@ -23,6 +23,7 @@ use phpOMS\Message\Http\Request;
 use phpOMS\Router\WebRouter;
 use phpOMS\Router\RouteVerb;
 use phpOMS\Uri\Http;
+use phpOMS\Autoloader;
 
 require_once __DIR__ . '/../Autoloader.php';
 
@@ -61,7 +62,7 @@ class WebRouterTest extends \PHPUnit\Framework\TestCase
      */
     public function testInvalidRoutingFile() : void
     {
-        self::assertFalse($this->router->importFromFile(__Dir__ . '/invalidFile.php'));
+        self::assertFalse($this->router->importFromFile(__DIR__ . '/invalidFile.php'));
     }
 
     /**
@@ -71,7 +72,7 @@ class WebRouterTest extends \PHPUnit\Framework\TestCase
      */
     public function testLoadingRoutesFromFile() : void
     {
-        self::assertTrue($this->router->importFromFile(__Dir__ . '/webRouterTestFile.php'));
+        self::assertTrue($this->router->importFromFile(__DIR__ . '/webRouterTestFile.php'));
     }
 
     /**
@@ -81,7 +82,7 @@ class WebRouterTest extends \PHPUnit\Framework\TestCase
      */
     public function testRouteMatching() : void
     {
-        self::assertTrue($this->router->importFromFile(__Dir__ . '/webRouterTestFile.php'));
+        self::assertTrue($this->router->importFromFile(__DIR__ . '/webRouterTestFile.php'));
 
         self::assertEquals(
             [['dest' => '\Modules\Admin\Controller:viewSettingsGeneral']],
@@ -100,7 +101,7 @@ class WebRouterTest extends \PHPUnit\Framework\TestCase
      */
     public function testRouteMissMatchingForInvalidVerbs() : void
     {
-        self::assertTrue($this->router->importFromFile(__Dir__ . '/webRouterTestFile.php'));
+        self::assertTrue($this->router->importFromFile(__DIR__ . '/webRouterTestFile.php'));
 
         self::assertNotEquals(
             [['dest' => '\Modules\Admin\Controller:viewSettingsGeneral']],
@@ -159,7 +160,7 @@ class WebRouterTest extends \PHPUnit\Framework\TestCase
      */
     public function testWithCSRF() : void
     {
-        self::assertTrue($this->router->importFromFile(__Dir__ . '/webRouteTestCsrf.php'));
+        self::assertTrue($this->router->importFromFile(__DIR__ . '/webRouteTestCsrf.php'));
 
         self::assertEquals(
             [['dest' => '\Modules\Admin\Controller:viewCsrf']],
@@ -179,7 +180,7 @@ class WebRouterTest extends \PHPUnit\Framework\TestCase
      */
     public function testWithoutCSRF() : void
     {
-        self::assertTrue($this->router->importFromFile(__Dir__ . '/webRouteTestCsrf.php'));
+        self::assertTrue($this->router->importFromFile(__DIR__ . '/webRouteTestCsrf.php'));
 
         self::assertEquals(
             [],
@@ -198,7 +199,11 @@ class WebRouterTest extends \PHPUnit\Framework\TestCase
      */
     public function testWithValidPermissions() : void
     {
-        self::assertTrue($this->router->importFromFile(__Dir__ . '/webRouterTestFilePermission.php'));
+        if (!Autoloader::exists('\Modules\Admin\Controller')) {
+            self::markTestSkipped();
+        }
+
+        self::assertTrue($this->router->importFromFile(__DIR__ . '/webRouterTestFilePermission.php'));
 
         $perm = new class(
             null,
@@ -234,7 +239,11 @@ class WebRouterTest extends \PHPUnit\Framework\TestCase
      */
     public function testWithInvalidPermissions() : void
     {
-        self::assertTrue($this->router->importFromFile(__Dir__ . '/webRouterTestFilePermission.php'));
+        if (!Autoloader::exists('\Modules\Admin\Controller')) {
+            self::markTestSkipped();
+        }
+
+        self::assertTrue($this->router->importFromFile(__DIR__ . '/webRouterTestFilePermission.php'));
 
         $perm2 = new class(
             null,
