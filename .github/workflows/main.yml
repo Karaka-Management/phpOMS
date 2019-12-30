@@ -106,6 +106,9 @@ jobs:
         restore-keys: ${{ runner.os }}-composer-
     - name: Setup Composer
       run: composer install
+    - name: Prepare phpstan
+      run: |
+        sed -i 's/path: phpOMS\//path: /g' Build/Config/phpstan-baseline.neon
     - name: phpstan
       run: vendor/bin/phpstan analyse -a Autoloader.php --no-progress -l 7 -c Build/Config/phpstan.neon ./
   codestyle-tests:
