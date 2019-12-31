@@ -75,7 +75,7 @@ final class Metrics2D
     }
 
     /**
-     * Euclidean metric.
+     * Octile metric.
      *
      * @latex d(p, q) = \begin{cases}(\sqrt{2} - 1) \times |p_i - q_i| + |p_{i+1} - q_{i+1}|,& \text{if } |p_i - q_i| < |p_{i+1} - q_{i+1}|\\(\sqrt{2} - 1) \times |p_{i+1} - q_{i+1}| + |p_i - q_i|,&\text{if } |p_i - q_i| \geq |p_{i+1} - q_{i+1}|\end{cases}
      *
@@ -188,7 +188,7 @@ final class Metrics2D
      */
     public static function angularSeparation(array $a, array $b) : float
     {
-        return ($a['x'] * $b['x'] + $a['y'] * $b['y']) / pow(($a['x'] ** 2 + $a['y'] ** 2) * ($b['x'] ** 2 + $b['y'] ** 2), 1 / 2);
+        return ($a['x'] * $b['x'] + $a['y'] * $b['y']) / \pow(($a['x'] ** 2 + $a['y'] ** 2) * ($b['x'] ** 2 + $b['y'] ** 2), 1 / 2);
     }
 
     /**
