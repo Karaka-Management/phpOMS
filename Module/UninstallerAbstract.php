@@ -36,11 +36,14 @@ abstract class UninstallerAbstract
      *
      * @return void
      *
+     * @todo Orange-Management/phpOMS#228
+     *  Remove/Add routes on module status change
+     *  If the status of a module changes it should also change the routing file.
+     *
      * @since 1.0.0
      */
     public static function uninstall(DatabasePool $dbPool, InfoManager $info) : void
     {
-        // todo: remove routes
         self::dropTables($dbPool, $info);
         self::unregisterFromDatabase($dbPool, $info);
     }

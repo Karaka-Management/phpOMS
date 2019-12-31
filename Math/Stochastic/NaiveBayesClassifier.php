@@ -154,7 +154,6 @@ final class NaiveBayesClassifier
                     }
                 }
             } else {
-                // todo: add probability of criteria / total?
                 $p = (1 / \sqrt(2 * \M_PI * $this->probabilities['criteria'][$criteria]['attr'][$attr]['variance'])
                         * \exp(-($value - $this->probabilities['criteria'][$criteria]['attr'][$attr]['mean']) ** 2 / (2 * $this->probabilities['criteria'][$criteria]['attr'][$attr]['variance'])))
                     * ($this->probabilities['criteria'][$criteria]['count'] / $this->probabilities['count'])

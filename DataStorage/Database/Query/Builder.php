@@ -530,7 +530,6 @@ class Builder extends BuilderAbstract
      * Get column of where condition
      *
      * One column can have multiple where conditions.
-     * TODO: maybe think about a case where there is a where condition but no column but some other identifier?
      *
      * @param mixed $column Column
      *

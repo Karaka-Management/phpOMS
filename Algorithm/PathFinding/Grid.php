@@ -84,7 +84,6 @@ class Grid
     public function getNode(int $x, int $y) : ?Node
     {
         if (!isset($this->nodes[$y]) || !isset($this->nodes[$y][$x])) {
-            // todo: add null node to grid because we need to modify some properties later on and remember them!
             return null;
         }
 

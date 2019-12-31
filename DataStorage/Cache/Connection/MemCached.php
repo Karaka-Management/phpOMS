@@ -170,8 +170,6 @@ final class MemCached extends ConnectionAbstract
             return false;
         }
 
-        // todo: handle parsing
-
         return $this->con->replace($key, $value, \max($expire, 0));
     }
 

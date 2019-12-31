@@ -81,7 +81,6 @@ final class HeapSort implements SortInterface
         $right = ($index + 1) * 2;
         $pivot = 0;
 
-        // todo: also check $left > $size if test failes for desc!
         $pivot = $left < $size && $list[$left]->compare($list[$index], $order) ? $left : $index;
 
         if ($right < $size && $list[$right]->compare($list[$pivot], $order)) {

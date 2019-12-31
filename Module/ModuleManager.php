@@ -48,7 +48,7 @@ final class ModuleManager
     /**
      * All modules another module is providing for.
      *
-     * This is important to inform other moduels what kind of information they can receive from other modules.
+     * This is important to inform other modules what kind of information they can receive from other modules.
      *
      * @var   array<string, array<int, string>>
      * @since 1.0.0
@@ -487,8 +487,11 @@ final class ModuleManager
             return false;
         }
 
+        /**
+         * @todo Orange-Management/Modules#193
+         *  Implement online database and downloading api for modules and updates
+         */
         if (!\file_exists($this->modulePath . '/' . $module . '/Admin/Installer.php')) {
-            // todo download;
             return false;
         }
 

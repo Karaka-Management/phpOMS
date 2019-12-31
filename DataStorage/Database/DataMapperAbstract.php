@@ -2282,7 +2282,6 @@ class DataMapperAbstract implements DataMapperInterface
             }
 
             if (\in_array($columns[$column]['type'], ['string', 'int', 'float', 'bool'])) {
-                // todo: what is this or condition for? seems to be wrong if obj null then it doesn't work anyways
                 if ($value !== null || $refProp->getValue($obj) !== null) {
                     \settype($value, $columns[$column]['type']);
                 }

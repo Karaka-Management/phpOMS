@@ -57,7 +57,7 @@ final class JumpPointSearch implements PathFinderInterface
 
         while (!$openList->isEmpty()) {
             $node = $openList->pop();
-            $node->setClosed(true); // todo: do i really want to modify the node? probably not? I should clone the grid and all it's nodes.
+            $node->setClosed(true);
 
             if ($node->isEqual($endNode)) {
                 break;

@@ -240,7 +240,7 @@ abstract class GrammarAbstract
     {
         $identifier = $this->systemIdentifier;
 
-        // todo: this is a bad way to handle select \count(*) which doesn't need a prefix. Maybe remove prefixes in total?
+        // don't prefix special keywords e.g. COUNT(*)
         foreach ($this->specialKeywords as $keyword) {
             if (\strrpos($system, $keyword, -\strlen($system)) !== false) {
                 $prefix     = '';

@@ -152,7 +152,7 @@ class PostgresConnectionTest extends \PHPUnit\Framework\TestCase
     public function testInvalidDatabaseName() : void
     {
         $db = $GLOBALS['CONFIG']['db']['core']['postgresql']['admin'];
-        $db['database'] = 'invalid';
+        $db['database'] = ';`$';
 
         $mysql = new PostgresConnection($db);
     }

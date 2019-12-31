@@ -299,7 +299,6 @@ final class PackageManager
             $path = StringUtils::startsWith($component, '/Package/') ? $this->extractPath . '/' . \substr($component, 9) : $this->basePath . '/' . $component;
 
             if (StringUtils::endsWith($component, '.php')) {
-                // todo: maybe add a guessing method to find php path if it isn't available in the environment see Repository.php for git api
                 $cmd = 'php ' . $path;
             } elseif (StringUtils::endsWith($component, '.sh') && OperatingSystem::getSystem() === SystemType::LINUX && \is_executable($path)) {
                 $cmd = $path;

@@ -74,7 +74,6 @@ abstract class RegressionAbstract
             $sum += $errors[$i] ** 2;
         }
 
-        // todo: could this be - 1 depending on the different definitions?!
         return \sqrt($sum / $count);
     }
 
@@ -100,7 +99,6 @@ abstract class RegressionAbstract
             $sum += $errors[$i] ** 2;
         }
 
-        // todo: could this be - 1 depending on the different definitions?!
         return \sqrt($sum / ($count - 2));
     }
 
