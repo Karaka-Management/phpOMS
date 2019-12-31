@@ -29,6 +29,11 @@ use phpOMS\DataStorage\Database\Schema\Grammar\Grammar as SchemaGrammar;
  * @license OMS License 1.0
  * @link    https://orange-management.org
  * @since   1.0.0
+ *
+ * @todo Orange-Management/Modules#100
+ *  Init only when used
+ *  The database connection should only get initialized when used.
+ *  Setup happens before but initialization should only happen on the first usage.
  */
 abstract class ConnectionAbstract implements ConnectionInterface
 {

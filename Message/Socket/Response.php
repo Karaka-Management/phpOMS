@@ -148,41 +148,32 @@ final class Response extends ResponseAbstract implements RenderableInterface
 
     /**
      * {@inheritdoc}
-     * @todo: this whole workflow with json got improved a little bit but this part looks bad. do i really need so much code or could i simplify it
      */
     public function toArray() : array
     {
         $result = [];
 
-        try {
-            foreach ($this->response as $key => $response) {
-                if ($response instanceof View) {
-                    $result[] = $response->toArray();
-                } elseif (\is_array($response)) {
-                    $result[] = $response;
-                } elseif (\is_scalar($response)) {
-                    $result[] = $response;
-                } elseif ($response instanceof \JsonSerializable) {
-                    $result[] = $response->jsonSerialize();
-                } elseif ($response === null) {
-                    continue;
-                } else {
-                    throw new \Exception('Wrong response type');
-                }
+        foreach ($this->response as $response) {
+            if ($response instanceof View) {
+                $result[] = $response->toArray();
+            } elseif (\is_array($response) || \is_scalar($response)) {
+                $result[] = $response;
+            } elseif ($response instanceof \JsonSerializable) {
+                $result[] = $response->jsonSerialize();
+            } elseif ($response === null) {
+                continue;
+            } else {
+                FileLogger::getInstance('', false)
+                    ->error(
+                        FileLogger::MSG_FULL, [
+                            'message' => 'Unknown type.',
+                            'line'    => __LINE__,
+                            'file'    => self::class,
+                        ]
+                    );
             }
-        } catch (\Exception $e) {
-            FileLogger::getInstance('', false)
-                ->error(
-                    FileLogger::MSG_FULL, [
-                        'message' => $e->getMessage(),
-                        'line'    => __LINE__,
-                        'file'    => self::class,
-                    ]
-                );
-
-            $result = [];
-        } finally {
-            return $result;
         }
+
+        return $result;
     }
 }

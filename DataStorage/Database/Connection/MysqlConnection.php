@@ -47,7 +47,14 @@ final class MysqlConnection extends ConnectionAbstract
         $this->type          = DatabaseType::MYSQL;
         $this->grammar       = new MysqlGrammar();
         $this->schemaGrammar = new MysqlSchemaGrammar();
-        $this->connect($dbdata); // todo: remove since this is a side effect that doesn't belong to constructor
+
+        /**
+         * @todo Orange-Management/phpOMS#219
+         *  Don't automatically connect to the database during initialization. This should be done in a separate step.
+         * This also requires to adjust some other framework code which currently expects the database connection to be established after initialization.
+         *  Sometimes DB connections may not be needed and should only be connected to once required.
+         */
+        $this->connect($dbdata);
     }
 
     /**

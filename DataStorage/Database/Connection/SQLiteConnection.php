@@ -47,6 +47,13 @@ final class SQLiteConnection extends ConnectionAbstract
         $this->type          = DatabaseType::SQLITE;
         $this->grammar       = new SQLiteGrammar();
         $this->schemaGrammar = new SQLiteSchemaGrammar();
+
+        /**
+         * @todo Orange-Management/phpOMS#219
+         *  Don't automatically connect to the database during initialization. This should be done in a separate step.
+         * This also requires to adjust some other framework code which currently expects the database connection to be established after initialization.
+         *  Sometimes DB connections may not be needed and should only be connected to once required.
+         */
         $this->connect($dbdata);
     }
 

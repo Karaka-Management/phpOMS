@@ -43,8 +43,6 @@ interface DataStorageConnectionInterface
      *
      * @return void
      *
-     * @todo make private, reason was that not everyone wants to connect during initialization?!
-     *
      * @since 1.0.0
      */
     public function connect(array $data) : void;

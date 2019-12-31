@@ -59,15 +59,6 @@ class BuilderTest extends \PHPUnit\Framework\TestCase
         $sql      = 'SELECT `a`.`test`, `b`.`test` FROM `a`, `b` WHERE `a`.`test` = \'' . $datetime->format('Y-m-d H:i:s') . '\';';
         self::assertEquals($sql, $query->select('a.test', 'b.test')->from('a', 'b')->where('a.test', '=', $datetime)->toSql());
 
-        $query            = new Builder($this->con);
-        $sql              = 'SELECT `a`.`test`, `b`.`test` FROM `a`, `b` WHERE `a`.`test` = \'abc\' AND `b`.`test` = 2;';
-        $systemIdentifier = '`';
-        self::assertEquals($sql, $query->select('a.test', function () {
-            return '`b`.`test`';
-        })->from('a', function () use ($systemIdentifier) {
-            return $systemIdentifier . 'b' . $systemIdentifier;
-        })->where(['a.test', 'b.test'], ['=', '='], ['abc', 2], ['and', 'and'])->toSql());
-
         $query = new Builder($this->con);
         $sql   = 'SELECT `a`.`test`, `b`.`test` FROM `a`, `b` WHERE `a`.`test` = \'abc\' ORDER BY `a`.`test` ASC, `b`.`test` DESC;';
         self::assertEquals($sql,

@@ -28,6 +28,10 @@ use phpOMS\DataStorage\Database\Query\Where;
  * @license OMS License 1.0
  * @link    https://orange-management.org
  * @since   1.0.0
+ *
+ * @todo Orange-Management/phpOMS#33
+ *  Implement missing grammar & builder functions
+ *  Missing elements are e.g. sum, merge etc.
  */
 class Grammar extends GrammarAbstract
 {

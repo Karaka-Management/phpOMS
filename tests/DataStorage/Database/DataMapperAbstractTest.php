@@ -202,7 +202,10 @@ class DataMapperAbstractTest extends \PHPUnit\Framework\TestCase
         self::assertEquals($this->model->datetime->format('Y-m-d'), $modelR->datetime->format('Y-m-d'));
         self::assertNull($modelR->datetime_null);
 
-        // todo implement these
+        /**
+         * @todo Orange-Management/phpOMS#227
+         *  Serializable and JsonSerializable data can be inserted and updated in the database but it's not possible to correctly populate a model with the data in its original format.
+         */
         //self::assertEquals('123', $modelR->serializable);
         //self::assertEquals($this->model->json, $modelR->json);
         //self::assertEquals([1, 2, 3], $modelR->jsonSerializable);
@@ -281,7 +284,10 @@ class DataMapperAbstractTest extends \PHPUnit\Framework\TestCase
         self::assertEquals($modelR->datetime->format('Y-m-d'), $modelR2->datetime->format('Y-m-d'));
         self::assertNull($modelR2->datetime_null);
 
-        // todo test update relations
+        /**
+         * @todo Orange-Management/phpOMS#226
+         *  Test the update of a model with relations (update relations).
+         */
     }
 
     /**
@@ -313,7 +319,10 @@ class DataMapperAbstractTest extends \PHPUnit\Framework\TestCase
         self::assertEquals($modelR['datetime']->format('Y-m-d'), $modelR2['datetime']->format('Y-m-d'));
         self::assertNull($modelR2['datetime_null']);
 
-        // todo test update relations
+        /**
+         * @todo Orange-Management/phpOMS#226
+         *  Test the update of a model with relations (update relations).
+         */
     }
 
     /**
@@ -329,6 +338,9 @@ class DataMapperAbstractTest extends \PHPUnit\Framework\TestCase
 
         self::assertInstanceOf('phpOMS\tests\DataStorage\Database\TestModel\NullBaseModel', $modelR);
 
-        // todo test if relations also deleted
+        /**
+         * @todo Orange-Management/phpOMS#225
+         *  Test the deletion of a model with relations (deleting relations).
+         */
     }
 }

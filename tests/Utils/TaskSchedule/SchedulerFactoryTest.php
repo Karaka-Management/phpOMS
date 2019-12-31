@@ -33,10 +33,5 @@ class SchedulerFactoryTest extends \PHPUnit\Framework\TestCase
     public function testCreate() : void
     {
         self::assertTrue((SchedulerFactory::create() instanceof Cron) || (SchedulerFactory::create() instanceof TaskScheduler));
-
-        // todo: make full test here by defining schtask or crontab path
-        // todo: create task
-        // todo: get task
-        // todo: remove task
     }
 }

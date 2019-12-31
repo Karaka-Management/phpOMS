@@ -27,8 +27,8 @@ use phpOMS\System\MimeType;
  * @link    https://orange-management.org
  * @since   1.0.0
  *
- * @todo: maybe move to Modules because this is very project specific and not general enough for a framework
- * @todo: maybe move all of the Module\classes parts to the Modules\?
+ * @todo Orange-Management/Modules#113
+ *  Don't use name but id for identification
  */
 abstract class ModuleAbstract
 {

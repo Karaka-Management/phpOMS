@@ -210,8 +210,6 @@ class Markdown
     /**
      * Some definition data for elements
      *
-     * @todo: figure out what it is for
-     *
      * @var   string[]
      * @since 1.0.0
      */

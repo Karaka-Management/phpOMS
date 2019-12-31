@@ -39,6 +39,14 @@ use phpOMS\System\File\Local\File;
  * @license OMS License 1.0
  * @link    https://orange-management.org
  * @since   1.0.0
+ *
+ * @todo Orange-Management/phpOMS#182
+ *  Create file locking
+ *  The file caching should implement a locking solution for the cache files.
+ *  Without it a different process may try to read it while the cache is still getting created.
+ *  A solution could be to create a directory or file called _lock which is getting checked
+ *      (if this file exists reading from cache, modifying or creating it is not allowed except the _lock file is 5 minutes or so old).
+ *  File and or directory creation should be atomic, right?
  */
 final class FileCache extends ConnectionAbstract
 {

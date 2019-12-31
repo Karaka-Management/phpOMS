@@ -21,6 +21,9 @@ namespace phpOMS\Message\Mail;
  * @license OMS License 1.0
  * @link    https://orange-management.org
  * @since   1.0.0
+ *
+ * @todo Orange-Management/phpOMS#34
+ *  Implement!!!
  */
 class EmailAbstract
 {

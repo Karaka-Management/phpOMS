@@ -21,8 +21,6 @@ namespace phpOMS\Stdlib\Graph;
  * @license OMS License 1.0
  * @link    https://orange-management.org
  * @since   1.0.0
- *
- * @todo       : there is a bug with Hungary ibans since they have two k (checksums) in their definition
  */
 class Node
 {

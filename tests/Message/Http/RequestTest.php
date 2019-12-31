@@ -45,7 +45,7 @@ class RequestTest extends \PHPUnit\Framework\TestCase
         self::assertEquals(BrowserType::UNKNOWN, $request->getBrowser());
         self::assertEquals(OSType::UNKNOWN, $request->getOS());
         self::assertEquals('127.0.0.1', $request->getOrigin());
-        self::assertFalse($request->isHttps());
+        self::assertFalse(Request::isHttps());
         self::assertEquals([], $request->getHash());
         self::assertEmpty($request->getBody());
         self::assertEmpty($request->getFiles());

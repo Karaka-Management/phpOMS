@@ -115,7 +115,7 @@ final class Request extends RequestAbstract
         if (!isset($this->uri)) {
             $this->initCurrentRequest();
             $this->lock();
-            $this->cleanupGlobals();
+            self::cleanupGlobals();
             $this->setupUriBuilder();
         }
 
@@ -247,11 +247,9 @@ final class Request extends RequestAbstract
      *
      * @return void
      *
-     * @todo: consider making this function static.
-     *
      * @since 1.0.0
      */
-    private function cleanupGlobals() : void
+    public static function cleanupGlobals() : void
     {
         unset($_FILES);
         unset($_GET);
@@ -463,11 +461,9 @@ final class Request extends RequestAbstract
      *
      * @throws \OutOfRangeException This exception is thrown if the port is out of range
      *
-     * @todo: consider making this static
-     *
      * @since 1.0.0
      */
-    public function isHttps(int $port = 443) : bool
+    public static function isHttps(int $port = 443) : bool
     {
         if ($port < 1 || $port > 65535) {
             throw new \OutOfRangeException('Value "' . $port . '" is out of range.');

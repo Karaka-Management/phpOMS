@@ -24,6 +24,16 @@ use phpOMS\DataStorage\Database\Connection\ConnectionAbstract;
  * @license OMS License 1.0
  * @link    https://orange-management.org
  * @since   1.0.0
+ *
+ * @todo Orange-Management/phpOMS#33
+ *  Implement missing grammar & builder functions
+ *  Missing elements are e.g. sum, merge etc.
+ *
+ * @todo Orange-Management/phpOMS#194
+ *  Automatically set prefix during construction
+ *  When constructing the QueryBuilder or SchemaBuilder the connection is passed.
+ *  The connection holds information about the table prefix, yet I force developers to pass a prefix after the builder initialization.
+ *  This should be done automatically!
  */
 class Builder extends BuilderAbstract
 {
@@ -70,10 +80,10 @@ class Builder extends BuilderAbstract
     /**
      * Into.
      *
-     * @var   \Closure|string
+     * @var   string
      * @since 1.0.0
      */
-    public $into = null;
+    public string $into = '';
 
     /**
      * Into columns.
@@ -267,8 +277,6 @@ class Builder extends BuilderAbstract
      *
      * @return Builder
      *
-     * @todo   Closure is not working this way, needs to be evaluated befor assigning
-     *
      * @since 1.0.0
      */
     public function select(...$columns) : self
@@ -276,7 +284,7 @@ class Builder extends BuilderAbstract
         $this->type = QueryType::SELECT;
 
         foreach ($columns as $key => $column) {
-            if (\is_string($column) || $column instanceof self || $column instanceof \Closure) {
+            if (\is_string($column) || $column instanceof self) {
                 $this->selects[] = $column;
             } else {
                 throw new \InvalidArgumentException();
@@ -311,8 +319,6 @@ class Builder extends BuilderAbstract
      *
      * @return Builder
      *
-     * @todo   Closure is not working this way, needs to be evaluated befor assigning
-     *
      * @since 1.0.0
      */
     public function random(...$columns) : self
@@ -338,7 +344,7 @@ class Builder extends BuilderAbstract
     {
         if (\is_array($binds)) {
             $this->binds += $binds;
-        } elseif (\is_string($binds) || $binds instanceof \Closure) {
+        } elseif (\is_string($binds)) {
             $this->binds[] = $binds;
         } else {
             throw new \InvalidArgumentException();
@@ -451,7 +457,7 @@ class Builder extends BuilderAbstract
     public function from(...$tables) : self
     {
         foreach ($tables as $key => $table) {
-            if (\is_string($table) || $table instanceof self || $table instanceof \Closure) {
+            if (\is_string($table) || $table instanceof self) {
                 $this->from[] = $table;
             } else {
                 throw new \InvalidArgumentException();
@@ -481,10 +487,10 @@ class Builder extends BuilderAbstract
     /**
      * Where.
      *
-     * @param array|\Closure|string|Where $columns  Columns
-     * @param array|string                $operator Operator
-     * @param mixed                       $values   Values
-     * @param array|string                $boolean  Boolean condition
+     * @param array|string|Where $columns  Columns
+     * @param array|string       $operator Operator
+     * @param mixed              $values   Values
+     * @param array|string       $boolean  Boolean condition
      *
      * @return Builder
      *
@@ -540,9 +546,9 @@ class Builder extends BuilderAbstract
     /**
      * Where and sub condition.
      *
-     * @param array|\Closure|string|Where $where    Where sub condition
-     * @param mixed                       $operator Operator
-     * @param mixed                       $values   Values
+     * @param array|string|Where $where    Where sub condition
+     * @param mixed              $operator Operator
+     * @param mixed              $values   Values
      *
      * @return Builder
      *
@@ -556,9 +562,9 @@ class Builder extends BuilderAbstract
     /**
      * Where or sub condition.
      *
-     * @param array|\Closure|string|Where $where    Where sub condition
-     * @param mixed                       $operator Operator
-     * @param mixed                       $values   Values
+     * @param array|string|Where $where    Where sub condition
+     * @param mixed              $operator Operator
+     * @param mixed              $values   Values
      *
      * @return Builder
      *
@@ -572,9 +578,9 @@ class Builder extends BuilderAbstract
     /**
      * Where in.
      *
-     * @param array|\Closure|string|Where $column  Column
-     * @param mixed                       $values  Values
-     * @param string                      $boolean Boolean condition
+     * @param array|string|Where $column  Column
+     * @param mixed              $values  Values
+     * @param string             $boolean Boolean condition
      *
      * @return Builder
      *
@@ -590,8 +596,8 @@ class Builder extends BuilderAbstract
     /**
      * Where null.
      *
-     * @param array|\Closure|string|Where $column  Column
-     * @param string                      $boolean Boolean condition
+     * @param array|string|Where $column  Column
+     * @param string             $boolean Boolean condition
      *
      * @return Builder
      *
@@ -607,8 +613,8 @@ class Builder extends BuilderAbstract
     /**
      * Where not null.
      *
-     * @param array|\Closure|string|Where $column  Column
-     * @param string                      $boolean Boolean condition
+     * @param array|string|Where $column  Column
+     * @param string             $boolean Boolean condition
      *
      * @return Builder
      *
@@ -624,7 +630,7 @@ class Builder extends BuilderAbstract
     /**
      * Group by.
      *
-     * @param array|\Closure|string ...$columns Grouping result
+     * @param array|string ...$columns Grouping result
      *
      * @return Builder
      *
@@ -633,7 +639,7 @@ class Builder extends BuilderAbstract
     public function groupBy(...$columns) : self
     {
         foreach ($columns as $key => $column) {
-            if (\is_string($column) || $column instanceof self || $column instanceof \Closure) {
+            if (\is_string($column) || $column instanceof self) {
                 $this->groups[] = $column;
             } else {
                 throw new \InvalidArgumentException();
@@ -646,13 +652,13 @@ class Builder extends BuilderAbstract
     /**
      * Order by newest.
      *
-     * @param \Closure|string $column Column
+     * @param string $column Column
      *
      * @return Builder
      *
      * @since 1.0.0
      */
-    public function newest($column) : self
+    public function newest(string $column) : self
     {
         $this->orderBy($column, 'DESC');
 
@@ -662,13 +668,13 @@ class Builder extends BuilderAbstract
     /**
      * Order by oldest.
      *
-     * @param \Closure|string $column Column
+     * @param string $column Column
      *
      * @return Builder
      *
      * @since 1.0.0
      */
-    public function oldest($column) : self
+    public function oldest(string $column) : self
     {
         $this->orderBy($column, 'ASC');
 
@@ -678,8 +684,8 @@ class Builder extends BuilderAbstract
     /**
      * Order by oldest.
      *
-     * @param array|\Closure|string $columns Columns
-     * @param string|string[]       $order   Orders
+     * @param array|string    $columns Columns
+     * @param string|string[] $order   Orders
      *
      * @return Builder
      *
@@ -687,7 +693,7 @@ class Builder extends BuilderAbstract
      */
     public function orderBy($columns, $order = 'DESC') : self
     {
-        if (\is_string($columns) || $columns instanceof \Closure) {
+        if (\is_string($columns)) {
             if (!\is_string($order)) {
                 throw new \InvalidArgumentException();
             }
@@ -893,13 +899,13 @@ class Builder extends BuilderAbstract
     /**
      * Table to insert into.
      *
-     * @param \Closure|string $table Table
+     * @param string $table Table
      *
      * @return Builder
      *
      * @since 1.0.0
      */
-    public function into($table) : self
+    public function into(string $table) : self
     {
         $this->into = $table;
 
@@ -1011,7 +1017,7 @@ class Builder extends BuilderAbstract
         $this->type = QueryType::UPDATE;
 
         foreach ($tables as $key => $table) {
-            if (\is_string($table) || $table instanceof self || $table instanceof \Closure) {
+            if (\is_string($table) || $table instanceof self) {
                 $this->updates[] = $table;
             } else {
                 throw new \InvalidArgumentException();
@@ -1074,7 +1080,7 @@ class Builder extends BuilderAbstract
      */
     public function join($table, string $type = JoinType::JOIN, string $alias = null) : self
     {
-        if (!\is_string($table)&& !($table instanceof self) && !($table instanceof \Closure)) {
+        if (!\is_string($table)&& !($table instanceof self)) {
             throw new \InvalidArgumentException();
         }
 
@@ -1292,7 +1298,8 @@ class Builder extends BuilderAbstract
                 throw new \InvalidArgumentException('Unknown operator.');
             }
 
-            // @todo: this is bad! ons needs to have the same key as the join for the grammar to work. since alias are possible this is nec3essary.
+            // ons needs to have the same key as the join for the grammar to work
+            // since alias are possible this is necessary
             $this->ons[\array_keys($this->joins)[$joinCount]][] = [
                 'column'   => $column,
                 'operator' => $operator[$i],
@@ -1407,8 +1414,6 @@ class Builder extends BuilderAbstract
             return $column;
         } elseif ($column instanceof Column) {
             return $column->getColumn();
-        } elseif ($column instanceof \Closure) {
-            return $column();
         } elseif ($column instanceof \Serializable) {
             return $column->serialize();
         }

@@ -31,6 +31,9 @@ use phpOMS\System\File\PathException;
  * @license OMS License 1.0
  * @link    https://orange-management.org
  * @since   1.0.0
+ *
+ * @todo Orange-Management/Modules#113
+ *  Don't use name but id for identification
  */
 final class ModuleManager
 {

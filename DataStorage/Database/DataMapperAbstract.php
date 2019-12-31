@@ -31,7 +31,106 @@ use Throwable;
  * @license OMS License 1.0
  * @link    https://orange-management.org
  * @since   1.0.0
- * @todo: currently hasmany, owns one etc. are not using joins. In some cases this could improve the performance instead of separately querying the database
+ *
+ * @todo Orange-Management/phpOMS#220
+ *  Use joins.
+ *  The datamapper is not using any joins currently which could significantly improve the performance of the queries.
+ *  Joins should be used for:
+ *      * composite models (models built from multiple tables)
+ *      * owns one
+ *      * has one
+ *      * belongs to one
+ *      * conditionals
+ *
+ * @todo Orange-Management/phpOMS#222
+ *  Implement conditionals.
+ *  Conditionals are hardcoded or dynamically passed parameters based on which a model is found.
+ *  The best example is the language of a model (e.g. news article), which is stored as foreign key in the model.
+ *  With conditionals it's possible to reference other tables and also return elements based on the value in these tables/columns.
+ *  Possible solution:
+ *      1. join tables/columns which have conditionals
+ *      2. perform the select based on the match
+ *  ```php
+ *  TestMapper::getByConditional(['l11n' => 'en']);
+ *  ```
+ *
+ * @todo Orange-Management/phpOMS#73
+ *  Implement extending
+ *  Allow a data mapper to extend another data mapper.
+ *  This way the object will be inserted first with one data mapper and the remaining fields will be filled by the extended data mapper.
+ *  How can wen solve a mapper extending a mapper ... extending a mapper?
+ *
+ * @todo Orange-Management/phpOMS#102
+ *  Solve N+1 problem
+ *  Currently the datamapper generates separate queries for objects that have relationships defined.
+ *  Most of these relationships could be defined MUCH smarter and reduce the amout of sub-queries e.g. selecting a task and all its comments.
+ *  The get method accepts an array of keys but doesn't select them in bulk but one at a time.
+ *
+ * @todo Orange-Management/phpOMS#122
+ *  Split/Refactor.
+ *  Child extends parent. Parent creates GetMapper, CreateMapper etc.
+ *  Example:
+ *  ```User::get(...)```
+ *  The get() function (defined in an abstract class) creates internally an instance of GetMapper.
+ *  The GetMapper receives all information such as primaryField, columns etc internally from the get().
+ *  This transfer of knowledge to the GetMapper could be done in the abstract class as a setup() function.
+ *  Now all mappers are split. The overhead is one additional function call and the setup() function.
+ *  Alternatively, think about using traits in the beginning.
+ *
+ * @todo Orange-Management/phpOMS#162
+ *  Relations by other than primary key
+ *  Currently relations are always defined by the primary key. It would be very helpful to also define relations by other values.
+ *
+ * @todo Orange-Management/phpOMS#189
+ *  Allow model creation with ids
+ *  The datamapper checks if the model has an non-empty id before it creates the mode.
+ *  Some models however can have custom primary keys.
+ *  In this case this check should not be done and therefore a $force flag got implemented in order to force the creation of the mode.
+ *  This should be changed by checking if the primary key is autoincrement or not.
+ *  If it isn't autoincrement the model should be created without an additional flag.
+ *  The problem that arises is that now you need to check if the model is already in the database.
+ *  This could be done based on the database response (error).
+ *
+ * @todo Orange-Management/phpOMS#212
+ *  Replace nested models which are represented as scalar/id with NullModel
+ *  Currently there is a default limit on dependency nesting when you request a model from the database.
+ *  This means a model may have a model as member and that model in return also has some model as member and so on.
+ *  In order to prevent very deep nesting either the default nesting level is used to limit the amount of nesting or the user can specify a nesting depth.
+ *  Once the lowest nesting level is reached the mapper only stores the id in the member variable and NOT the model.
+ *  As a result the member variable can be of type null, int (= primary key of the model), or the model type.
+ *  This results in many special cases which a coder may has to consider.
+ *  It might make sense to only store null and the model in the member variable.
+ *  In order to still restrict the nesting the mapper could create a null model and only populate the id.
+ *  This could reduce the complexity for the user and simplify the use cases.
+ *  Additionally, it would now be possible to type hint the return value of many getter functions ?NullModelName.
+ *  If this gets implemented we also need to adjust some setter functions.
+ *  Many setter functions allow to only specify a id of the model.
+ *  Either this needs to be prevented and a Null model needs to be provided (all null models must have a __construct(int $id = 0) function which allows to pass the id) or the setter function needs to create the null model based on the id.
+ *  Implementing the above mentioned things will take some time but could improve the simplicity and overall code quality by a lot (at least from my personal opinion).
+ *
+ * @todo Orange-Management/phpOMS#213 & Orange-Management/phpOMS#224
+ *  Implement composite models
+ *  All references such as ownsOne, hasMany etc. are based on the mappers for these objects. It should be possible to define single columns only.
+ *  One example where this could be useful is the Address/Localization model.
+ *  In here the country is stored by ID but you probably don't want to load an entire object and only the country name from the country table.
+ *
+ * @todo Orange-Management/phpOMS#214
+ *  Allow to define the model class
+ *  Currently the DataMapper uses the mapper name to find the correct model class.
+ *  This can remain but there should be a member variable or const which allows to define the model::class manually in case the model is different.
+ *  One example could be the Address/Location model in the Address module and phpOMS Localization directory.
+ *
+ * @todo Orange-Management/Modules#99
+ *  Use binds
+ *  Currently databinds are not used. Currently injections are possible.
+ *
+ * @todo Orange-Management/Modules#179
+ *  Replace int models with NullModels
+ *  In many cases int is allowed to represent another model if not the whole model is supposed to be loaded.
+ *  This means we have to check for null, int and model type.
+ *  Instead of using int the NullModel should be used which has a constructor that allows to define the int.
+ *  As a result the datamapper has to be rewritten for the select and insert/update.
+ *  The select needs to set the null model as value and the insert/update needs to extract the id from the null and ignore all other empty values from the null model which obviously are the default values.
  */
 class DataMapperAbstract implements DataMapperInterface
 {
@@ -488,9 +587,7 @@ class DataMapperAbstract implements DataMapperInterface
         try {
             self::$db->con->prepare($query->toSql())->execute();
         } catch (Throwable $t) {
-            // @todo: remove after debugging
-            // @fix: really remove it
-            // @critical: after we found the bug we MUST remove it!
+            // only for debugging
             //var_dump($t->getMessage());
             //var_dump($query->toSql());
             return -1;
@@ -710,16 +807,9 @@ class DataMapperAbstract implements DataMapperInterface
                 }
 
                 // Setting relation value (id) for relation (since the relation is not stored in an extra relation table)
-                /**
-                 * @todo: this if comparison is correct, trust me. however,
-                 * manybe it makes more sense to simply check if 'src' isset(static::$hasMany[$propertyName]['src'])
-                 * source shouldn't be set if the relation is stored in the object itself
-                 */
                 /** @var string $table */
                 /** @var array $columns */
-                if (static::$hasMany[$propertyName]['table'] === static::$hasMany[$propertyName]['mapper']::$table
-                    && isset($mapper::$columns[static::$hasMany[$propertyName]['dst']])
-                ) {
+                if (!isset(static::$hasMany[$propertyName]['src'])) {
                     $relProperty = $relReflectionClass->getProperty($mapper::$columns[static::$hasMany[$propertyName]['dst']]['internal']);
 
                     if (!$isPublic) {
@@ -927,12 +1017,8 @@ class DataMapperAbstract implements DataMapperInterface
      */
     private static function createRelationTable(string $propertyName, array $objsIds, $objId) : void
     {
-        /** @todo: see hasMany implementation, checking isset(src) might be enough. although second condition MUST remain. */
         /** @var string $table */
-        if (!empty($objsIds)
-            && static::$hasMany[$propertyName]['table'] !== static::$table
-            && static::$hasMany[$propertyName]['table'] !== static::$hasMany[$propertyName]['mapper']::$table
-        ) {
+        if (!empty($objsIds) && isset(static::$hasMany[$propertyName]['src'])) {
             $relQuery = new Builder(self::$db);
             $relQuery->prefix(self::$db->getPrefix())
                 ->into(static::$hasMany[$propertyName]['table'])
@@ -1853,7 +1939,10 @@ class DataMapperAbstract implements DataMapperInterface
         return $objId;
     }
 
-    // @todo: implement array delete
+    /**
+     * @todo Orange-Management/phpOMS#221
+     *  Create the delete functionality for arrays (deleteArray, deleteArrayModel).
+     */
 
     /**
      * Populate data.
@@ -1947,7 +2036,6 @@ class DataMapperAbstract implements DataMapperInterface
      */
     public static function populateManyToMany(array $result, &$obj, int $depth = 3) : void
     {
-        // todo: maybe pass reflectionClass as optional parameter for performance increase
         $refClass = new \ReflectionClass($obj);
 
         foreach ($result as $member => $values) {
@@ -2002,8 +2090,6 @@ class DataMapperAbstract implements DataMapperInterface
      *
      * @return void
      *
-     * @todo   accept reflection class as parameter
-     *
      * @since 1.0.0
      */
     public static function populateOwnsOne(&$obj, int $depth = 3) : void
@@ -2011,30 +2097,27 @@ class DataMapperAbstract implements DataMapperInterface
         $refClass = new \ReflectionClass($obj);
 
         foreach (static::$ownsOne as $member => $one) {
-            // todo: is that if necessary? performance is suffering for sure!
-            if ($refClass->hasProperty($member)) {
-                $refProp = $refClass->getProperty($member);
+            $refProp = $refClass->getProperty($member);
 
-                if (!($accessible = $refProp->isPublic())) {
-                    $refProp->setAccessible(true);
-                }
+            if (!($accessible = $refProp->isPublic())) {
+                $refProp->setAccessible(true);
+            }
 
-                /** @var string $mapper */
-                $mapper = static::$ownsOne[$member]['mapper'];
-                $id     = $refProp->getValue($obj);
+            /** @var string $mapper */
+            $mapper = static::$ownsOne[$member]['mapper'];
+            $id     = $refProp->getValue($obj);
 
-                if (self::isNullObject($id)) {
-                    continue;
-                }
+            if (self::isNullObject($id)) {
+                continue;
+            }
 
-                $id    = \is_object($id) ? self::getObjectId($id) : $id;
-                $value = self::getInitialized($mapper, $id) ?? $mapper::get($id, RelationType::ALL, null, $depth);
+            $id    = \is_object($id) ? self::getObjectId($id) : $id;
+            $value = self::getInitialized($mapper, $id) ?? $mapper::get($id, RelationType::ALL, null, $depth);
 
-                $refProp->setValue($obj, $value);
+            $refProp->setValue($obj, $value);
 
-                if (!$accessible) {
-                    $refProp->setAccessible(false);
-                }
+            if (!$accessible) {
+                $refProp->setAccessible(false);
             }
         }
     }
@@ -2043,7 +2126,6 @@ class DataMapperAbstract implements DataMapperInterface
      *
      * @return void
      *
-     * @todo   accept reflection class as parameter
      * @todo   do this in the getRaw() part as a join. check if has conditionals and then join the data an then everything can be done in the getModel function.
      *
      * @since 1.0.0
@@ -2078,8 +2160,6 @@ class DataMapperAbstract implements DataMapperInterface
      *
      * @return void
      *
-     * @todo   accept reflection class as parameter
-     *
      * @since 1.0.0
      */
     public static function populateOwnsOneArray(array &$obj, int $depth = 3) : void
@@ -2102,8 +2182,6 @@ class DataMapperAbstract implements DataMapperInterface
      *
      * @return void
      *
-     * @todo   accept reflection class as parameter
-     *
      * @since 1.0.0
      */
     public static function populateBelongsTo(&$obj, int $depth = 3) : void
@@ -2111,30 +2189,27 @@ class DataMapperAbstract implements DataMapperInterface
         $refClass = new \ReflectionClass($obj);
 
         foreach (static::$belongsTo as $member => $one) {
-            // todo: is that if necessary? performance is suffering for sure!
-            if ($refClass->hasProperty($member)) {
-                $refProp = $refClass->getProperty($member);
+            $refProp = $refClass->getProperty($member);
 
-                if (!($accessible = $refProp->isPublic())) {
-                    $refProp->setAccessible(true);
-                }
+            if (!($accessible = $refProp->isPublic())) {
+                $refProp->setAccessible(true);
+            }
 
-                /** @var string $mapper */
-                $mapper = static::$belongsTo[$member]['mapper'];
-                $id     = $refProp->getValue($obj);
+            /** @var string $mapper */
+            $mapper = static::$belongsTo[$member]['mapper'];
+            $id     = $refProp->getValue($obj);
 
-                if (self::isNullObject($id)) {
-                    continue;
-                }
+            if (self::isNullObject($id)) {
+                continue;
+            }
 
-                $id    = \is_object($id) ? self::getObjectId($id) : $id;
-                $value = self::getInitialized($mapper, $id) ?? $mapper::get($id, RelationType::ALL, null, $depth);
+            $id    = \is_object($id) ? self::getObjectId($id) : $id;
+            $value = self::getInitialized($mapper, $id) ?? $mapper::get($id, RelationType::ALL, null, $depth);
 
-                $refProp->setValue($obj, $value);
+            $refProp->setValue($obj, $value);
 
-                if (!$accessible) {
-                    $refProp->setAccessible(false);
-                }
+            if (!$accessible) {
+                $refProp->setAccessible(false);
             }
         }
     }
@@ -2146,8 +2221,6 @@ class DataMapperAbstract implements DataMapperInterface
      * @param int   $depth Relation depth
      *
      * @return void
-     *
-     * @todo   accept reflection class as parameter
      *
      * @since 1.0.0
      */
@@ -2180,7 +2253,7 @@ class DataMapperAbstract implements DataMapperInterface
         $refClass = new \ReflectionClass($obj);
 
         foreach ($result as $column => $value) {
-            if (!isset($columns[$column]['internal']) /* && $refClass->hasProperty($columns[$column]['internal']) */) {
+            if (!isset($columns[$column]['internal'])) {
                 continue;
             }
 
@@ -2293,7 +2366,10 @@ class DataMapperAbstract implements DataMapperInterface
      *
      * @return mixed
      *
-     * @todo: implement language
+     * @todo Orange-Management/phpOMS#161
+     *  Reconsider get*() parameter order
+     *  Check if the parameter order of all of the get functions makes sense or if another order would be better.
+     *  Especially the fill parameter probably should be swapped with the depth filter.
      *
      * @since 1.0.0
      */

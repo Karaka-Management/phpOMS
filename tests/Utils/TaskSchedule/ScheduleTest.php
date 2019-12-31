@@ -38,7 +38,9 @@ class ScheduleTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox A task can be created from an array and rendered
      * @covers phpOMS\Utils\TaskSchedule\Schedule
+     *
      * @todo the interval has to be implemented!
+     *
      * @group framework
      */
     public function testCreateJobWithData() : void

@@ -272,6 +272,10 @@ final class Average
         \sort($values);
 
         if ($offset > 0) {
+            /**
+             * @todo Orange-Management/phpOMS#175
+             *  Create unit test.
+             */
             $values = \array_slice($values, $offset, -$offset);
         }
 
@@ -339,6 +343,10 @@ final class Average
         \sort($angles);
 
         if ($offset > 0) {
+            /**
+             * @todo Orange-Management/phpOMS#176
+             *  Create unit test.
+             */
             $angles = \array_slice($angles, $offset, -$offset);
         }
 

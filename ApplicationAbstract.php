@@ -193,7 +193,8 @@ class ApplicationAbstract
      *
      * @return void
      *
-     * @todo replace with proper setter (faster)
+     * @todo Orange-Management/phpOMS#218
+     *  As soon as readonly member variables are possible the magic methods should be removed.
      *
      * @since 1.0.0
      */
@@ -213,7 +214,8 @@ class ApplicationAbstract
      *
      * @return mixed Returns the value of the application member
      *
-     * @todo replace with proper getter (faster)
+     * @todo Orange-Management/phpOMS#218
+     *  As soon as readonly member variables are possible the magic methods should be removed.
      *
      * @since 1.0.0
      */

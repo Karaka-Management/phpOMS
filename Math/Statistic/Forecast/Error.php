@@ -218,6 +218,9 @@ final class Error
      *
      * @return float
      *
+     * @todo Orange-Management/phpOMS#167
+     *  Create unit test.
+     *
      * @since 1.0.0
      */
     public static function getAkaikeInformationCriterion(float $sse, int $observations, int $predictors) : float
@@ -252,6 +255,9 @@ final class Error
      *
      * @return float
      *
+     * @todo Orange-Management/phpOMS#168
+     *  Create unit test.
+     *
      * @since 1.0.0
      */
     public static function getSchwarzBayesianInformationCriterion(float $sse, int $observations, int $predictors) : float
@@ -267,6 +273,9 @@ final class Error
      *
      * @return float
      *
+     * @todo Orange-Management/phpOMS#169
+     *  Create unit test.
+     *
      * @since 1.0.0
      */
     public static function getMeanAbsolutePercentageError(array $observed, array $forecasted) : float
@@ -281,6 +290,9 @@ final class Error
      * @param array $forecasted Forecasted
      *
      * @return float
+     *
+     * @todo Orange-Management/phpOMS#170
+     *  Create unit test.
      *
      * @since 1.0.0
      */
@@ -303,6 +315,9 @@ final class Error
      *
      * @return array
      *
+     * @todo Orange-Management/phpOMS#172
+     *  Create unit test.
+     *
      * @since 1.0.0
      */
     public static function getCrossSectionalScaledErrorArray(array $errors, array $observed) : array
@@ -324,6 +339,9 @@ final class Error
      * @param array $observed Dataset
      *
      * @return float
+     *
+     * @todo Orange-Management/phpOMS#171
+     *  Create unit test.
      *
      * @since 1.0.0
      */
@@ -359,6 +377,9 @@ final class Error
      * @param array $scaledErrors Scaled errors
      *
      * @return float
+     *
+     * @todo Orange-Management/phpOMS#173
+     *  Create unit test.
      *
      * @since 1.0.0
      */

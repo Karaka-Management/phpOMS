@@ -20,7 +20,6 @@ use phpOMS\Utils\Git\Repository;
  * @testdox phpOMS\tests\Utils\Git\RepositoryTest: Git repository
  *
  * @internal
- * @todo create tests for other functions
  */
 class RepositoryTest extends \PHPUnit\Framework\TestCase
 {

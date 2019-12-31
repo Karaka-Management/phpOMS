@@ -35,8 +35,6 @@ final class HypergeometricDistribution
      *
      * @return float
      *
-     * @todo: this can be heavily optimized
-     *
      * @since 1.0.0
      */
     public static function getPmf(int $K, int $N, int $k, int $n) : float
@@ -52,8 +50,6 @@ final class HypergeometricDistribution
      * @param int $n Number of draws
      *
      * @return float
-     *
-     * @todo: this can be heavily optimized
      *
      * @since 1.0.0
      */
@@ -71,8 +67,6 @@ final class HypergeometricDistribution
      *
      * @return int
      *
-     * @todo: this can be heavily optimized
-     *
      * @since 1.0.0
      */
     public static function getMode(int $K, int $N, int $n) : int
@@ -88,8 +82,6 @@ final class HypergeometricDistribution
      * @param int $n Number of draws
      *
      * @return float
-     *
-     * @todo: this can be heavily optimized
      *
      * @since 1.0.0
      */
@@ -107,13 +99,11 @@ final class HypergeometricDistribution
      *
      * @return float
      *
-     * @todo: this can be heavily optimized
-     *
      * @since 1.0.0
      */
     public static function getStandardDeviation(int $K, int $N, int $n) : float
     {
-        return \sqrt(self::getVariance($K, $N, $n));
+        return \sqrt($n * $K / $N * ($N - $K) / $N * ($N - $n) / ($N - 1));
     }
 
     /**
@@ -124,8 +114,6 @@ final class HypergeometricDistribution
      * @param int $n Number of draws
      *
      * @return float
-     *
-     * @todo: this can be heavily optimized
      *
      * @since 1.0.0
      */
@@ -143,8 +131,6 @@ final class HypergeometricDistribution
      * @param int $n Number of draws
      *
      * @return float
-     *
-     * @todo: this can be heavily optimized
      *
      * @since 1.0.0
      */

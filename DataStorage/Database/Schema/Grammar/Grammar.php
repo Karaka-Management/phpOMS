@@ -25,6 +25,10 @@ use phpOMS\DataStorage\Database\Schema\QueryType;
  * @license OMS License 1.0
  * @link    https://orange-management.org
  * @since   1.0.0
+ *
+ * @todo Orange-Management/phpOMS#32
+ *  Implement schema grammar
+ *  Basic create/drop schema grammar created. Next step is to be able to update existing schema and read existing schema.
  */
 class Grammar extends QueryGrammar
 {
