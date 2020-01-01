@@ -27,7 +27,7 @@ class Point implements PointInterface
     /**
      * Coordinates of the point
      *
-     * @var   array
+     * @var   array<int, int|float>
      * @sicne 1.0.0
      */
     private array $coordinates = [];
@@ -81,7 +81,7 @@ class Point implements PointInterface
     /**
      * {@inheritdoc}
      */
-    public function setCoordinate($index, $value)
+    public function setCoordinate($index, $value) : void
     {
         $this->coordinates[$index] = $value;
     }

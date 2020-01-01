@@ -39,7 +39,7 @@ interface PointInterface
      *
      * @param mixed $index Index of the coordinate (e.g. 0 = x);
      *
-     * @return array
+     * @return int|float
      *
      * @since 1.0.0
      */
@@ -51,11 +51,11 @@ interface PointInterface
      * @param mixed $index Index of the coordinate (e.g. 0 = x);
      * @param mixed $value Value of the coordinate
      *
-     * @return array
+     * @return void
      *
      * @since 1.0.0
      */
-    public function setCoordinate($index, $value);
+    public function setCoordinate($index, $value) : void;
 
     /**
      * Get group this point belongs to
