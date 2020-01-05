@@ -620,6 +620,6 @@ final class Directory extends FileAbstract implements LocalContainerInterface, D
      */
     public function offsetGet($offset) : void
     {
-        // TODO: Implement offsetGet() method.
+        // todo: Implement offsetGet() method.
     }
 }

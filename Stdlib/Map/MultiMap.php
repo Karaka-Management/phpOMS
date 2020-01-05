@@ -125,9 +125,6 @@ final class MultiMap implements \Countable
             $this->values[$id] = $value;
         }
 
-        // todo: is this really required???? - i don't think so!
-        //$this->garbageCollect();
-
         return $inserted;
     }
 

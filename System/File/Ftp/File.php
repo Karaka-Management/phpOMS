@@ -434,7 +434,7 @@ class File extends FileAbstract implements FileInterface
      */
     public function copyNode(string $to, bool $overwrite = false) : bool
     {
-        // TODO: Implement copyNode() method.
+        // todo: Implement copyNode() method.
     }
 
     /**
@@ -449,7 +449,7 @@ class File extends FileAbstract implements FileInterface
      */
     public function moveNode(string $to, bool $overwrite = false) : bool
     {
-        // TODO: Implement moveNode() method.
+        // todo: Implement moveNode() method.
     }
 
     /**
@@ -461,7 +461,7 @@ class File extends FileAbstract implements FileInterface
      */
     public function deleteNode() : bool
     {
-        // TODO: Implement deleteNode() method.
+        // todo: Implement deleteNode() method.
     }
 
     /**
@@ -476,7 +476,7 @@ class File extends FileAbstract implements FileInterface
      */
     public function putContent(string $content, int $mode = ContentPutMode::APPEND | ContentPutMode::CREATE) : bool
     {
-        // TODO: Implement putContent() method.
+        // todo: Implement putContent() method.
     }
 
     /**
@@ -492,7 +492,7 @@ class File extends FileAbstract implements FileInterface
      */
     public function setContent(string $content) : bool
     {
-        // TODO: Implement setContent() method.
+        // todo: Implement setContent() method.
     }
 
     /**
@@ -508,7 +508,7 @@ class File extends FileAbstract implements FileInterface
      */
     public function appendContent(string $content) : bool
     {
-        // TODO: Implement appendContent() method.
+        // todo: Implement appendContent() method.
     }
 
     /**
@@ -524,7 +524,7 @@ class File extends FileAbstract implements FileInterface
      */
     public function prependContent(string $content) : bool
     {
-        // TODO: Implement prependContent() method.
+        // todo: Implement prependContent() method.
     }
 
     /**
@@ -536,7 +536,7 @@ class File extends FileAbstract implements FileInterface
      */
     public function getContent() : string
     {
-        // TODO: Implement getContent() method.
+        // todo: Implement getContent() method.
     }
 
     /**
@@ -548,6 +548,6 @@ class File extends FileAbstract implements FileInterface
      */
     public function getExtension() : string
     {
-        // TODO: Implement getExtension() method.
+        // todo: Implement getExtension() method.
     }
 }

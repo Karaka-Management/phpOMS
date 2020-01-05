@@ -83,6 +83,7 @@ final class PostgresConnection extends ConnectionAbstract
         } catch (\PDOException $e) {
             unset($this->con);
             $this->status = DatabaseStatus::MISSING_DATABASE;
+            throw new InvalidConnectionConfigException((string) \json_encode($this->dbdata));
         } finally {
             $this->dbdata['password'] = '****';
         }

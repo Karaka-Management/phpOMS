@@ -144,16 +144,4 @@ class PostgresConnectionTest extends \PHPUnit\Framework\TestCase
         $db['db'] = 'invalid';
         $psql = new PostgresConnection($db);
     }
-
-    /**
-     * todo: apparently this doesn't throw an exception in postgresql?!
-     * @group framework
-     */
-    public function testInvalidDatabaseName() : void
-    {
-        $db = $GLOBALS['CONFIG']['db']['core']['postgresql']['admin'];
-        $db['database'] = ';`$';
-
-        $mysql = new PostgresConnection($db);
-    }
 }

@@ -541,7 +541,7 @@ class Directory extends FileAbstract implements FtpContainerInterface, Directory
      */
     public function getParent() : ContainerInterface
     {
-        // TODO: Implement getParent() method.
+        // todo: Implement getParent() method.
     }
 
     /**
@@ -549,7 +549,7 @@ class Directory extends FileAbstract implements FtpContainerInterface, Directory
      */
     public function copyNode(string $to, bool $overwrite = false) : bool
     {
-        // TODO: Implement copyNode() method.
+        // todo: Implement copyNode() method.
     }
 
     /**
@@ -557,7 +557,7 @@ class Directory extends FileAbstract implements FtpContainerInterface, Directory
      */
     public function moveNode(string $to, bool $overwrite = false) : bool
     {
-        // TODO: Implement moveNode() method.
+        // todo: Implement moveNode() method.
     }
 
     /**
@@ -565,7 +565,7 @@ class Directory extends FileAbstract implements FtpContainerInterface, Directory
      */
     public function deleteNode() : bool
     {
-        // TODO: Implement deleteNode() method.
+        // todo: Implement deleteNode() method.
     }
 
     /**
@@ -651,6 +651,6 @@ class Directory extends FileAbstract implements FtpContainerInterface, Directory
      */
     public function offsetGet($offset)
     {
-        // TODO: Implement offsetGet() method.
+        // todo: Implement offsetGet() method.
     }
 }
