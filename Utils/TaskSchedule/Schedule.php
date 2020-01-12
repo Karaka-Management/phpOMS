@@ -39,7 +39,10 @@ class Schedule extends TaskAbstract
      */
     public static function createWith(array $jobData) : TaskAbstract
     {
-        // todo: fix interval this is just a dummy|!!!
+        /**
+         * @todo Orange-Management/phpOMS#231
+         *  Use the interval for generating a schedule
+         */
         $job = new self($jobData[1], $jobData[8], 'asdf');
 
         $job->setStatus($jobData[3]);

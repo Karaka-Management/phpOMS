@@ -49,11 +49,11 @@ class BinaryTree extends Tree
      *
      * @param Node $base Tree node
      *
-     * @return Node Left node
+     * @return null|Node Left node
      *
      * @since 1.0.0
      */
-    public function getLeft(Node $base)
+    public function getLeft(Node $base) : ?Node
     {
         $neighbors = $base->getNeighbors($base);
 
@@ -66,11 +66,11 @@ class BinaryTree extends Tree
      *
      * @param Node $base Tree node
      *
-     * @return Node Right node
+     * @return null|Node Right node
      *
      * @since 1.0.0
      */
-    public function getRight(Node $base)
+    public function getRight(Node $base) : ?Node
     {
         $neighbors = $this->getNeighbors($base);
 
@@ -198,8 +198,8 @@ class BinaryTree extends Tree
     /**
      * Check if tree is symmetric.
      *
-     * @param Node $node1 Tree node1
-     * @param Node $node2 Tree node2 (optional, can be different tree)
+     * @param null|Node $node1 Tree node1
+     * @param null|Node $node2 Tree node2 (optional, can be different tree)
      *
      * @return bool True if tree is symmetric, false if tree is not symmetric
      *
@@ -207,21 +207,20 @@ class BinaryTree extends Tree
      */
     public function isSymmetric(Node $node1 = null, Node $node2 = null) : bool
     {
-        if ($node1 === null && $node2 === null) {
+        if (($node1 === null && $node2 === null)
+            || $node1->isEqual($node2)
+        ) {
             return true;
+        } elseif ($node1 === null || $node2 === null) {
+            return false;
         }
 
         $left1  = $this->getLeft($node1);
         $right1 = $this->getRight($node1);
 
-        $left2  = $node2 !== null ? $this->getLeft($node1) : $this->getLeft($node2);
-        $right2 = $node2 !== null ? $this->getRight($node1) : $this->getRight($node2);
+        $left2  = $node2 !== null ? $this->getLeft($node1) : null;
+        $right2 = $node2 !== null ? $this->getRight($node1) : null;
 
-        // todo: compare values? true symmetry requires the values to be the same
-        if ($node1 !== null && $node2 !== null) {
-            return $this->isSymmetric($left1, $right2) && $this->isSymmetric($right1, $left2);
-        }
-
-        return false;
+        return $this->isSymmetric($left1, $right2) && $this->isSymmetric($right1, $left2);
     }
 }

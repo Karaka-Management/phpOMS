@@ -67,4 +67,18 @@ class Node
     {
         $this->data = $data;
     }
+
+    /**
+     * Compare with other node.
+     *
+     * @param Node $node Node
+     *
+     * @return boll
+     *
+     * @since 1.0.0
+     */
+    public function isEqual(Node $node) : bool
+    {
+        return true;
+    }
 }

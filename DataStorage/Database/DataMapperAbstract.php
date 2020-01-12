@@ -410,8 +410,6 @@ class DataMapperAbstract implements DataMapperInterface
 
         // clear parent and objects
         if (static::class === self::$parentMapper) {
-            //self::$initObjects = []; // todo: now all objects are cached for the whole request
-            //self::$initArrays = []; // todo: now all objects are cached for the whole request
             self::$parentMapper = null;
         }
     }
@@ -461,7 +459,15 @@ class DataMapperAbstract implements DataMapperInterface
 
         $refClass = new \ReflectionClass($obj);
 
-        // todo: remove force and instead check if object is autoincrement. if not autoincrement then create even if id is set!!!
+        /**
+         * @todo Orange-Management/phpOMS#234
+         *  Add forced IDs to the mappers
+         *  Currently it is required to manually create a model with forced ids.
+         *  This should be defined in the mappers in the ID column definition.
+         *  ```
+         *      'force_id' => true,
+         *  ```
+         */
         if (!empty($id = self::getObjectId($obj, $refClass)) && !$force) {
             $objId = $id;
         } else {
@@ -561,12 +567,8 @@ class DataMapperAbstract implements DataMapperInterface
                 $query->insert($column['name'])->value($value);
             } elseif ($column['name'] !== static::$primaryField || !empty($property->getValue($obj))) {
                 $tValue = $property->getValue($obj);
-                if (\stripos($column['internal'], '/') !== false) {
-                    $path = \explode('/', $column['internal']);
-
-                    \array_shift($path);
-                    $path   = \implode('/', $path);
-                    $tValue = ArrayUtils::getArray($path, $tValue, '/');
+                if (\stripos($column['internal'], '/') === 0) {
+                    $tValue = ArrayUtils::getArray($column['internal'], $tValue, '/');
                 }
 
                 $value = self::parseValue($column['type'], $tValue);
@@ -633,14 +635,11 @@ class DataMapperAbstract implements DataMapperInterface
             }
 
             $path = $column['internal'];
-            if (\stripos($column['internal'], '/') !== false) {
-                $path = \explode('/', $column['internal']);
-
-                \array_shift($path); // todo: why am I doing this?
-                $path = \implode('/', $path);
+            if (\stripos($column['internal'], '/') === 0) {
+                $path = \ltrim($column['internal'], '/');
             }
 
-            $property = ArrayUtils::getArray($path, $obj, '/');
+            $property = ArrayUtils::getArray($column['internal'], $obj, '/');
 
             if (isset(static::$ownsOne[$path])) {
                 $id    = self::createOwnsOneArray($column['internal'], $property);
@@ -1194,7 +1193,6 @@ class DataMapperAbstract implements DataMapperInterface
             $objsIds[$propertyName] = [];
 
             foreach ($values as $key => &$value) {
-                // todo: carefull what if a value is an object or another array?
                 if (!\is_array($value)) {
                     // Is scalar => already in database
                     $objsIds[$propertyName][$key] = $value;
@@ -1308,8 +1306,6 @@ class DataMapperAbstract implements DataMapperInterface
     {
         /** @var string $mapper */
         $mapper = static::$ownsOne[$propertyName]['mapper'];
-
-        // todo: delete owned one object is not recommended since it can be owned by by something else? or does owns one mean that nothing else can have a relation to this one?
 
         return $mapper::update($obj, $relations, $depth);
     }
@@ -1429,23 +1425,30 @@ class DataMapperAbstract implements DataMapperInterface
                 $id    = self::updateOwnsOne($propertyName, $property->getValue($obj), $relations, $depth);
                 $value = self::parseValue($column['type'], $id);
 
-                // todo: should not be done if the id didn't change. but for now don't know if id changed
+                /**
+                 * @todo Orange-Management/phpOMS#232
+                 *  If a model gets updated all it's relations are also updated.
+                 *  This should be prevented if the relations didn't change.
+                 *  No solution yet.
+                 */
                 $query->set([static::$table . '.' . $column['name'] => $value]);
             } elseif (isset(static::$belongsTo[$propertyName])) {
                 $id    = self::updateBelongsTo($propertyName, $property->getValue($obj), $relations, $depth);
                 $value = self::parseValue($column['type'], $id);
 
-                // todo: should not be done if the id didn't change. but for now don't know if id changed
+                /**
+                 * @todo Orange-Management/phpOMS#232
+                 *  If a model gets updated all it's relations are also updated.
+                 *  This should be prevented if the relations didn't change.
+                 *  No solution yet.
+                 */
                 $query->set([static::$table . '.' . $column['name'] => $value]);
             } elseif ($column['name'] !== static::$primaryField) {
                 $tValue = $property->getValue($obj);
-                if (\stripos($column['internal'], '/') !== false) {
-                    $path = \explode('/', $column['internal']);
-
-                    \array_shift($path);
-                    $path   = \implode('/', $path);
-                    $tValue = ArrayUtils::getArray($path, $tValue, '/');
+                if (\stripos($column['internal'], '/') === 0) {
+                    $tValue = ArrayUtils::getArray($column['internal'], $tValue, '/');
                 }
+
                 $value = self::parseValue($column['type'], $tValue);
 
                 $query->set([static::$table . '.' . $column['name'] => $value]);
@@ -1492,13 +1495,10 @@ class DataMapperAbstract implements DataMapperInterface
 
                 if ($column['name'] !== $conditional['dst']) {
                     $tValue = $property->getValue($obj);
-                    if (\stripos($column['internal'], '/') !== false) {
-                        $path = \explode('/', $column['internal']);
-
-                        \array_shift($path);
-                        $path   = \implode('/', $path);
-                        $tValue = ArrayUtils::getArray($path, $tValue, '/');
+                    if (\stripos($column['internal'], '/') === 0) {
+                        $tValue = ArrayUtils::getArray($column['internal'], $tValue, '/');
                     }
+
                     $value = self::parseValue($column['type'], $tValue);
 
                     $query->set([$table . '.' . $column['name'] => $value]);
@@ -1538,26 +1538,33 @@ class DataMapperAbstract implements DataMapperInterface
             }
 
             $path = $column['internal'];
-            if (\stripos($column['internal'], '/') !== false) {
-                $path = \explode('/', $column['internal']);
-
-                \array_shift($path); // todo: why am I doing this?
-                $path = \implode('/', $path);
+            if (\stripos($column['internal'], '/') === 0) {
+                $path = \ltrim($column['internal'], '/');
             }
 
-            $property = ArrayUtils::getArray($path, $obj, '/');
+            $property = ArrayUtils::getArray($column['internal'], $obj, '/');
 
             if (isset(static::$ownsOne[$path])) {
                 $id    = self::updateOwnsOneArray($column['internal'], $property, $relations, $depth);
                 $value = self::parseValue($column['type'], $id);
 
-                // todo: should not be done if the id didn't change. but for now don't know if id changed
+                /**
+                 * @todo Orange-Management/phpOMS#232
+                 *  If a model gets updated all it's relations are also updated.
+                 *  This should be prevented if the relations didn't change.
+                 *  No solution yet.
+                 */
                 $query->set([static::$table . '.' . $column['name'] => $value]);
             } elseif (isset(static::$belongsTo[$path])) {
                 $id    = self::updateBelongsToArray($column['internal'], $property, $relations, $depth);
                 $value = self::parseValue($column['type'], $id);
 
-                // todo: should not be done if the id didn't change. but for now don't know if id changed
+                /**
+                 * @todo Orange-Management/phpOMS#232
+                 *  If a model gets updated all it's relations are also updated.
+                 *  This should be prevented if the relations didn't change.
+                 *  No solution yet.
+                 */
                 $query->set([static::$table . '.' . $column['name'] => $value]);
             } elseif ($column['name'] !== static::$primaryField) {
                 $value = self::parseValue($column['type'], $property);
@@ -1590,15 +1597,7 @@ class DataMapperAbstract implements DataMapperInterface
                 ->where($table . '.' . $conditional['dst'], '=', $objId);
 
             foreach ($conditional['columns'] as $key => $column) {
-                $path = $column['internal'];
-                if (\stripos($column['internal'], '/') !== false) {
-                    $path = \explode('/', $column['internal']);
-
-                    \array_shift($path); // todo: why am I doing this?
-                    $path = \implode('/', $path);
-                }
-
-                $property = ArrayUtils::getArray($path, $obj, '/');
+                $property = ArrayUtils::getArray($column['internal'], $obj, '/');
 
                 if ($column['name'] !== $conditional['dst']) {
                     $value = self::parseValue($column['type'], $property);
@@ -1762,8 +1761,11 @@ class DataMapperAbstract implements DataMapperInterface
                     continue;
                 }
 
-                // todo: could be a problem, relation needs to be removed first?!
-
+                /**
+                 * @todo Orange-Management/phpOMS#233
+                 *  On delete the relations and relation tables need to be deleted first
+                 *  The exception is of course the belongsTo relation.
+                 */
             }
 
             self::deleteRelationTable($propertyName, $objsIds, $objId);
@@ -1880,9 +1882,11 @@ class DataMapperAbstract implements DataMapperInterface
                     $property->setAccessible(true);
                 }
 
-                // todo: the order of deletion could be a problem. maybe looping through ownsOne and belongsTo first is better.
-                // todo: support other relation types as well (belongsto, ownsone) = for better control
-
+                /**
+                 * @todo Orange-Management/phpOMS#233
+                 *  On delete the relations and relation tables need to be deleted first
+                 *  The exception is of course the belongsTo relation.
+                 */
                 foreach (static::$columns as $key => $column) {
                     if ($relations === RelationType::ALL && isset(static::$ownsOne[$propertyName]) && $column['internal'] === $propertyName) {
                         self::deleteOwnsOne($propertyName, $property->getValue($obj));
@@ -2015,8 +2019,11 @@ class DataMapperAbstract implements DataMapperInterface
         }
 
         if (!isset($obj)) {
-            // todo: implement solution for classes with constructor arguments
-            // maybe implement a factory pattern for every datamapper model
+            /**
+             * @todo Orange-Management/phpOMS#67
+             *  Since some models require special initialization a model factory should be implemented.
+             *  This could be a simple initialize() function in the mapper where the default initialize() is the current defined empty initialization in the DataMapperAbstract.
+             */
             $obj = new $class();
         }
 
