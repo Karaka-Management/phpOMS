@@ -8,11 +8,18 @@ For the code style and best practices please have a look at the developer-guide 
 
 ### Suggestions
 
-If you have a good idea for improvement feel free to create a new issue with all the relevant information. 
+If you have a good idea for improvement feel free to create a new issue with all the relevant information.
 
 ### Issues
 
-Feel free to grab any open issue implement it and create a new pull request.
+Feel free to grab any open issue implement it and create a new pull request. Most issues can be found in the code and have the following structure:
+
+```php
+/**
+ * @todo Orange-Management/phpOMS#ISSUE_NUMBER
+ *  Description for the issue
+ */
+```
 
 ### Code Style
 
