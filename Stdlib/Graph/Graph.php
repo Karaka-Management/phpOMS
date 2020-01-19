@@ -15,7 +15,7 @@ declare(strict_types=1);
 namespace phpOMS\Stdlib\Graph;
 
 /**
- * Tree class.
+ * Graph class.
  *
  * @package phpOMS\Stdlib\Graph
  * @license OMS License 1.0
@@ -27,21 +27,13 @@ class Graph
     /**
      * Nodes.
      *
-     * @var   array
+     * @var   Node[]
      * @since 1.0.0
      */
     protected $nodes = [];
 
     /**
-     * Edges.
-     *
-     * @var   array
-     * @since 1.0.0
-     */
-    protected $edges = [];
-
-    /**
-     * Add node to graph.
+     * Set node to graph.
      *
      * @param Node $node Graph node
      *
@@ -49,76 +41,9 @@ class Graph
      *
      * @since 1.0.0
      */
-    public function addNode(Node $node) : self
+    public function setNode(Node $node) : self
     {
-        $this->nodes[] = $node;
-
-        return $this;
-    }
-
-    /**
-     * Add node to graph.
-     *
-     * @param Node $relative Relative graph node
-     * @param Node $node     Graph node
-     *
-     * @return Graph
-     *
-     * @since 1.0.0
-     */
-    public function addNodeRelative(Node $relative, Node $node) : self
-    {
-        $this->edges[] = new Edge($relative, $node);
-
-        return $this;
-    }
-
-    /**
-     * Set node in graph.
-     *
-     * @param mixed $key  Key of node
-     * @param Node  $node Graph node
-     *
-     * @return Graph
-     *
-     * @since 1.0.0
-     */
-    public function setNode($key, Node $node) : self
-    {
-        $this->nodes[$key] = $node;
-
-        return $this;
-    }
-
-    /**
-     * Add edge to graph.
-     *
-     * @param Edge $edge Graph edge
-     *
-     * @return Graph
-     *
-     * @since 1.0.0
-     */
-    public function addEdge(Edge $edge) : self
-    {
-        $this->edges[] = $edge;
-
-        return $this;
-    }
-
-    /**
-     * Set edge in graph.
-     *
-     * @param mixed $key  Edge key
-     * @param Edge  $edge Edge to set
-     *
-     * @return Graph
-     *
-     * @since 1.0.0
-     */
-    public function setEdge($key, Edge $edge)  /* : void */
-    {
-        $this->edges[$key] = $edge;
+        $this->nodes[$node->getId()] = $node;
 
         return $this;
     }
@@ -150,100 +75,29 @@ class Graph
     }
 
     /**
-     * Get graph edge.
-     *
-     * @param mixed $key Edge key
-     *
-     * @return null|Edge
-     *
-     * @since 1.0.0
-     */
-    public function getEdge($key) : ?Edge
-    {
-        return $this->edges[$key] ?? null;
-    }
-
-    /**
      * Get graph edges
-     *
-     * @return Node[]
-     *
-     * @since 1.0.0
-     */
-    public function getEdges() : array
-    {
-        return $this->edges;
-    }
-
-    /**
-     * Get all edges of a node
-     *
-     * @param mixed $node Node
      *
      * @return Edge[]
      *
      * @since 1.0.0
      */
-    public function getEdgesOfNode($node) : array
+    public function getEdges() : array
     {
-        if (!($node instanceof Node)) {
-            $node = $this->getNode($node);
-        }
-
         $edges = [];
-        foreach ($this->edges as $edge) {
-            $nodes = $edge->getNodes();
 
-            if ($nodes[0] === $node || $nodes[1] === $node) {
-                $edges[] = $edge;
+        foreach ($this->nodes as $node) {
+            $nodeEdges = $node->getEdges();
+
+            foreach ($nodeEdges as $edge) {
+                if (!isset($edges[$edge->getNode1()->getId() . ':' . $edge->getNode2()->getId()])
+                    && !isset($edges[$edge->getNode2()->getId() . ':' . $edge->getNode1()->getId()])
+                ) {
+                    $edges[$edge->getNode1()->getId() . ':' . $edge->getNode2()->getId()] = $edge;
+                }
             }
         }
 
         return $edges;
-    }
-
-    /**
-     * Get all node neighbors.
-     *
-     * @param mixed $node Graph node
-     *
-     * @return Node[]
-     *
-     * @since 1.0.0
-     */
-    public function getNeighbors($node) : array
-    {
-        if (!($node instanceof Node)) {
-            $node = $this->getNode($node);
-        }
-
-        $edges     = $this->getEdgesOfNode($node);
-        $neighbors = [];
-
-        foreach ($edges as $edge) {
-            $nodes = $edge->getNodes();
-
-            if ($nodes[0] !== $node && $nodes[0] !== null) {
-                $neighbors[] = $nodes[0];
-            } elseif ($nodes[1] !== $node && $nodes[0] !== null) {
-                $neighbors[] = $nodes[1];
-            }
-        }
-
-        return $neighbors;
-    }
-
-    /**
-     * Get graph dimension.
-     *
-     * @return int
-     *
-     * @since 1.0.0
-     */
-    public function getDimension() : int
-    {
-        // todo: implement
-        return 0;
     }
 
     /**
@@ -255,8 +109,72 @@ class Graph
      */
     public function getBridges() : array
     {
-        // todo: implement
-        return [];
+        $visited   = [];
+        $parent    = [];
+        $discovery = [];
+        $low       = [];
+        $index     = 0;
+        $bridges   = [];
+
+        foreach ($this->nodes as $i => $node) {
+            if (!isset($visited[$i]) || $visited[$i] === false) {
+                $this->bridgesDepthFirstSearch($node, $visited, $discovery, $low, $parent, $index, $bridges);
+            }
+        }
+
+        return $bridges;
+    }
+
+    /**
+     * Fill bridge array
+     *
+     * @param Node   $node      Node to check bridge for
+     * @param bool[] $visited   Visited nodes
+     * @param int[]  $discovery Discovered
+     * @param int[]  $low       Lowest preorder of any vertex connected to ?
+     * @param Node[] $parent    Parent node
+     * @param int    $index     Node index
+     * @param Edge[] $bridges   Edges which represent bridges
+     *
+     * @return void
+     *
+     * @since 1.0.0
+     */
+    private function bridgesDepthFirstSearch(
+        Node $node,
+        array &$visited,
+        array &$discovery,
+        array &$low,
+        array &$parent,
+        int &$index,
+        array &$bridges
+    ) : void {
+        $id           = $node->getId();
+        $visited[$id] = true;
+
+        ++$index;
+
+        $discovery[$id] = $index;
+        $low[$id]       = $index;
+
+        $edges = $this->nodes[$id]->getEdges();
+        foreach ($edges as $edge) {
+            $neighbor = !$edge->getNode1()->isEqual($node) ? $edge->getNode1() : $edge->getNode2();
+
+            if (!isset($visited[$neighbor->getId()]) || !$visited[$neighbor->getId()]) {
+                $parent[$neighbor->getId()] = $node;
+
+                $this->bridgesDepthFirstSearch($neighbor, $visited, $discovery, $low, $parent, $index, $bridges);
+
+                $low[$id] = \min($low[$id], $low[$neighbor->getId()]);
+
+                if ($low[$neighbor->getId()] > $discovery[$id]) {
+                    $bridges[] = $edge;
+                }
+            } elseif (isset($parent[$id]) && !$neighbor->isEqual($parent[$id])) {
+                $low[$id] = \min($low[$id], $discovery[$neighbor->getId()]);
+            }
+        }
     }
 
     /**
@@ -268,7 +186,6 @@ class Graph
      */
     public function getKruskalMinimalSpanningTree() : Tree
     {
-        // todo: implement
         return new Tree();
     }
 
@@ -281,7 +198,6 @@ class Graph
      */
     public function getPrimMinimalSpanningTree() : Tree
     {
-        // todo: implement
         return new Tree();
     }
 
@@ -405,7 +321,9 @@ class Graph
      */
     public function getSize() : int
     {
-        return \count($this->edges);
+        $edges = $this->getEdges();
+
+        return \count($edges);
     }
 
     /**

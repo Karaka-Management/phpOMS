@@ -25,6 +25,14 @@ namespace phpOMS\Stdlib\Graph;
 class Node
 {
     /**
+     * Node id.
+     *
+     * @var   string
+     * @since 1.0.0
+     */
+    private string $id;
+
+    /**
      * Node data.
      *
      * @var   mixed
@@ -33,15 +41,37 @@ class Node
     private $data = null;
 
     /**
+     * Edges.
+     *
+     * @var   Edge[]
+     * @since 1.0.0
+     */
+    protected array $edges = [];
+
+    /**
      * Constructor.
      *
-     * @param mixed $data Node data
+     * @param string $id   Node id
+     * @param mixed  $data Node data
      *
      * @since 1.0.0
      */
-    public function __construct($data = null)
+    public function __construct(string $id, $data = null)
     {
+        $this->id   = $id;
         $this->data = $data;
+    }
+
+    /**
+     * Get node id.
+     *
+     * @return string
+     *
+     * @since 1.0.0
+     */
+    public function getId() : string
+    {
+        return $this->id;
     }
 
     /**
@@ -61,6 +91,8 @@ class Node
      *
      * @param mixed $data Node data
      *
+     * @return void
+     *
      * @since 1.0.0
      */
     public function setData($data) : void
@@ -73,12 +105,105 @@ class Node
      *
      * @param Node $node Node
      *
-     * @return boll
+     * @return bool
      *
      * @since 1.0.0
      */
     public function isEqual(Node $node) : bool
     {
-        return true;
+        return $this->id === $node->getId() && $this->data === $node->getData();
+    }
+
+    /**
+     * Set a relative undirected node.
+     *
+     * @param Node $node Graph node
+     * @param int  $key  Index for absolute position
+     *
+     * @return Edge
+     *
+     * @since 1.0.0
+     */
+    public function setNodeRelative(Node $node, int $key = null) : Edge
+    {
+        $edge = new Edge($this, $node);
+        $this->setEdge($edge, $key);
+
+        if (!$edge->isDirected()) {
+            $node->setEdge($edge);
+        }
+
+        return $edge;
+    }
+
+    /**
+     * Add edge to node.
+     *
+     * @param Edge $edge Graph edge
+     * @param int  $key  Index for absolute position
+     *
+     * @return Node
+     *
+     * @since 1.0.0
+     */
+    public function setEdge(Edge $edge, int $key = null) : self
+    {
+        if ($key === null) {
+            $this->edges[] = $edge;
+        } else {
+            $this->edges[$key] = $edge;
+        }
+
+        return $this;
+    }
+
+    /**
+     * Get graph edge.
+     *
+     * @param int $key Edge key
+     *
+     * @return null|Edge
+     *
+     * @since 1.0.0
+     */
+    public function getEdge(int $key) : ?Edge
+    {
+        return $this->edges[$key] ?? null;
+    }
+
+    /**
+     * Get graph edges
+     *
+     * @return Edge[]
+     *
+     * @since 1.0.0
+     */
+    public function getEdges() : array
+    {
+        return $this->edges;
+    }
+
+    /**
+     * Get all node neighbors.
+     *
+     * @return Node[]
+     *
+     * @since 1.0.0
+     */
+    public function getNeighbors() : array
+    {
+        $neighbors = [];
+
+        foreach ($this->edges as $edge) {
+            $nodes = $edge->getNodes();
+
+            if ($nodes[0] !== null && !$this->isEqual($nodes[0])) {
+                $neighbors[] = $nodes[0];
+            } else {
+                $neighbors[] = $nodes[1];
+            }
+        }
+
+        return $neighbors;
     }
 }

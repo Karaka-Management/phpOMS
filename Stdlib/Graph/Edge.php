@@ -137,4 +137,19 @@ class Edge
     {
         return $this->isDirected;
     }
+
+    /**
+     * Compare edge weights
+     *
+     * @param Edge $e1 Edge 1
+     * @param Edge $e2 Edge 2
+     *
+     * @return int
+     *
+     * @since 1.0.0
+     */
+    public static function compare(Edge $e1, Edge $e2) : int
+    {
+        return $e1->getWeight() <=> $e2->getWeight();
+    }
 }
