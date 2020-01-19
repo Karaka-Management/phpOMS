@@ -353,7 +353,7 @@ class Localization
     /**
      * get datetime format
      *
-     * @return array
+     * @return array<string, string>
      *
      * @since 1.0.0
      */
@@ -365,7 +365,7 @@ class Localization
     /**
      * Set datetime format
      *
-     * @param array $datetime Datetime format
+     * @param array<string, string> $datetime Datetime format
      *
      * @return void
      *

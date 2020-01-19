@@ -260,8 +260,8 @@ final class ArrayUtils
      *
      * Useful for parsing command line parsing
      *
-     * @param string        $id   Id to find
-     * @param array<string> $args CLI command list
+     * @param string   $id   Id to find
+     * @param string[] $args CLI command list
      *
      * @return string
      *
@@ -279,8 +279,8 @@ final class ArrayUtils
     /**
      * Check if flag is set
      *
-     * @param string        $id   Id to find
-     * @param array<string> $args CLI command list
+     * @param string   $id   Id to find
+     * @param string[] $args CLI command list
      *
      * @return int
      *
@@ -389,7 +389,7 @@ final class ArrayUtils
      * @param array<float|int> $values Values to square
      * @param float            $exp    Exponent
      *
-     * @return array<float>
+     * @return float[]
      *
      * @todo Orange-Management/phpOMS#223
      *  In the ArrayUtils class the power* functions should be combined once union types become available.

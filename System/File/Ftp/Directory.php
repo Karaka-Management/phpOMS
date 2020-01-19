@@ -74,7 +74,7 @@ class Directory extends FileAbstract implements FtpContainerInterface, Directory
      * @param string   $path   Path
      * @param string   $filter Filter
      *
-     * @return array<int, string>
+     * @return string[]
      *
      * @since 1.0.0
      */
@@ -96,7 +96,7 @@ class Directory extends FileAbstract implements FtpContainerInterface, Directory
             }
         }
 
-        /** @var array<int, string> $list */
+        /** @var string[] $list */
         return $list;
     }
 

@@ -74,7 +74,7 @@ final class Average
      * @param array<int, float|int> $weight    Weight for moving average
      * @param bool                  $symmetric Cyclic moving average
      *
-     * @return array Moving average of data
+     * @return float[] Moving average of data
      *
      * @throws \Exception
      *

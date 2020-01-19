@@ -57,10 +57,10 @@ final class Error
     /**
      * Get array of errors of a forecast.
      *
-     * @param array $observed   Dataset
-     * @param array $forecasted Forecasted
+     * @param float[] $observed   Dataset
+     * @param float[] $forecasted Forecasted
      *
-     * @return array
+     * @return float[]
      *
      * @since 1.0.0
      */
@@ -93,10 +93,10 @@ final class Error
     /**
      * Get error percentages.
      *
-     * @param array $errors   Errors
-     * @param array $observed Dataset
+     * @param float[] $errors   Errors
+     * @param float[] $observed Dataset
      *
-     * @return array
+     * @return float[]
      *
      * @since 1.0.0
      */
@@ -114,7 +114,7 @@ final class Error
     /**
      * Get mean absolute error (MAE).
      *
-     * @param array $errors Errors
+     * @param array<int, int|float> $errors Errors
      *
      * @return float
      *
@@ -128,8 +128,8 @@ final class Error
     /**
      * Get mean squared error (MSE).
      *
-     * @param array $errors Errors
-     * @param int   $offset Population/Size offset
+     * @param array<int, int|float> $errors Errors
+     * @param int                   $offset Population/Size offset
      *
      * @return float
      *
@@ -143,7 +143,7 @@ final class Error
     /**
      * Get root mean squared error (RMSE).
      *
-     * @param array $errors Errors
+     * @param array<int, int|float> $errors Errors
      *
      * @return float
      *
@@ -161,8 +161,8 @@ final class Error
      *
      * @latex R^{2} = \frac{\sum \left(\hat{y}_{i} - \bar{y}\right)^2}{\sum \left(y_{i} - \bar{y}\right)^2}
      *
-     * @param array $observed   Obersved y values
-     * @param array $forecasted Forecasted y values
+     * @param float[] $observed   Obersved y values
+     * @param float[] $forecasted Forecasted y values
      *
      * @return float
      *
@@ -176,7 +176,7 @@ final class Error
     /**
      * Get sum squared error (SSE).
      *
-     * @param array $errors Errors
+     * @param array<int, int|float> $errors Errors
      *
      * @return float
      *
@@ -268,8 +268,8 @@ final class Error
     /**
      * Get mean absolute percentage error (MAPE).
      *
-     * @param array $observed   Dataset
-     * @param array $forecasted Forecasted
+     * @param float[] $observed   Dataset
+     * @param float[] $forecasted Forecasted
      *
      * @return float
      *
@@ -286,8 +286,8 @@ final class Error
     /**
      * Get mean absolute percentage error (sMAPE).
      *
-     * @param array $observed   Dataset
-     * @param array $forecasted Forecasted
+     * @param float[] $observed   Dataset
+     * @param float[] $forecasted Forecasted
      *
      * @return float
      *
@@ -310,10 +310,10 @@ final class Error
     /**
      * Get cross sectional scaled errors (CSSE)
      *
-     * @param array $errors   Errors
-     * @param array $observed Dataset
+     * @param array<int, int|float> $errors   Errors
+     * @param float[]               $observed Dataset
      *
-     * @return array
+     * @return float[]
      *
      * @todo Orange-Management/phpOMS#172
      *  Create unit test.
@@ -335,8 +335,8 @@ final class Error
     /**
      * Get cross sectional scaled errors (CSSE)
      *
-     * @param float $error    Errors
-     * @param array $observed Dataset
+     * @param float   $error    Errors
+     * @param float[] $observed Dataset
      *
      * @return float
      *
@@ -360,7 +360,7 @@ final class Error
     /**
      * Get mean absolute scaled error (MASE)
      *
-     * @param array $scaledErrors Scaled errors
+     * @param array<int, int|float> $scaledErrors Scaled errors
      *
      * @return float
      *
@@ -374,7 +374,7 @@ final class Error
     /**
      * Get mean absolute scaled error (MSSE)
      *
-     * @param array $scaledErrors Scaled errors
+     * @param array<int, int|float> $scaledErrors Scaled errors
      *
      * @return float
      *
@@ -391,9 +391,9 @@ final class Error
     /**
      * Get scaled error (SE)
      *
-     * @param array $errors   Errors
-     * @param array $observed Dataset
-     * @param int   $m        Shift
+     * @param array<int, int|float> $errors   Errors
+     * @param float[]               $observed Dataset
+     * @param int                   $m        Shift
      *
      * @return array
      *
@@ -414,9 +414,9 @@ final class Error
     /**
      * Get scaled error (SE)
      *
-     * @param float $error    Errors
-     * @param array $observed Dataset
-     * @param int   $m        Shift
+     * @param float   $error    Errors
+     * @param float[] $observed Dataset
+     * @param int     $m        Shift
      *
      * @return float
      *
@@ -430,8 +430,8 @@ final class Error
     /**
      * Get naive forecast
      *
-     * @param array $observed Dataset
-     * @param int   $m        Shift
+     * @param float[] $observed Dataset
+     * @param int     $m        Shift
      *
      * @return float
      *

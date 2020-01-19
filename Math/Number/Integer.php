@@ -146,7 +146,7 @@ final class Integer
      * @param int $value Integer to factorize
      * @param int $limit Max amount of iterations
      *
-     * @return array<int>
+     * @return int[]
      *
      * @throws \Exception This exception is thrown if the value is not odd
      *

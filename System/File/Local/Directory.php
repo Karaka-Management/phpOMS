@@ -71,7 +71,7 @@ final class Directory extends FileAbstract implements LocalContainerInterface, D
      * @param string $path   Path
      * @param string $filter Filter
      *
-     * @return array<int, string>
+     * @return string[]
      *
      * @since 1.0.0
      */
@@ -95,7 +95,7 @@ final class Directory extends FileAbstract implements LocalContainerInterface, D
             $list[] = \str_replace('\\', '/', $iterator->getSubPathname());
         }
 
-        /** @var array<int, string> $list */
+        /** @var string[] $list */
         return $list;
     }
 
@@ -198,9 +198,9 @@ final class Directory extends FileAbstract implements LocalContainerInterface, D
      *
      * A file will always return 1 as it doesn't have any sub-resources.
      *
-     * @param string        $path      Path of the resource
-     * @param bool          $recursive Should count also sub-sub-resources
-     * @param array<string> $ignore    Ignore files
+     * @param string   $path      Path of the resource
+     * @param bool     $recursive Should count also sub-sub-resources
+     * @param string[] $ignore    Ignore files
      *
      * @return int
      *

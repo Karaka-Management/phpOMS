@@ -146,7 +146,7 @@ abstract class ModuleAbstract
     /**
      * Get modules this module is receiving from
      *
-     * @return array<int, string>
+     * @return string[]
      *
      * @since 1.0.0
      */
@@ -159,7 +159,7 @@ abstract class ModuleAbstract
     /**
      * Get modules this module is providing for
      *
-     * @return array<int, string>
+     * @return string[]
      *
      * @since 1.0.0
      */

@@ -141,7 +141,7 @@ class MazeGenerator
     /**
      * Render a maze
      *
-     * @param array $maze Maze to render
+     * @param array<int, int[]> $maze Maze to render
      *
      * @return string
      *

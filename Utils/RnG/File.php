@@ -47,7 +47,7 @@ class File
     /**
      * Get a random file extension.
      *
-     * @param array<array<string>> $source Source array for possible extensions
+     * @param array<string[]> $source Source array for possible extensions
      *
      * @return string
      *

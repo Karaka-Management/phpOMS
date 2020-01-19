@@ -78,9 +78,9 @@ final class Correlation
     /**
      * Box Pierce test (portmanteau test).
      *
-     * @param array<float> $autocorrelations Autocorrelations
-     * @param int          $h                Maximum leg considered
-     * @param int          $n                Amount of observations
+     * @param float[] $autocorrelations Autocorrelations
+     * @param int     $h                Maximum leg considered
+     * @param int     $n                Amount of observations
      *
      * @return float
      *
@@ -99,9 +99,9 @@ final class Correlation
     /**
      * Ljung Box test (portmanteau test).
      *
-     * @param array<float> $autocorrelations Autocorrelations
-     * @param int          $h                Maximum leg considered
-     * @param int          $n                Amount of observations
+     * @param float[] $autocorrelations Autocorrelations
+     * @param int     $h                Maximum leg considered
+     * @param int     $n                Amount of observations
      *
      * @return float
      *

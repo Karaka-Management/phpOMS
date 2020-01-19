@@ -42,8 +42,8 @@ final class Metrics2D
      *
      * @latex d(p, q) = \sum_{n=1}^N{|p_i - q_i|}
      *
-     * @param array $a 2-D array with x and y coordinate
-     * @param array $b 2-D array with x and y coordinate
+     * @param array<string, int|float> $a 2-D array with x and y coordinate
+     * @param array<string, int|float> $b 2-D array with x and y coordinate
      *
      * @return float
      *
@@ -59,8 +59,8 @@ final class Metrics2D
      *
      * @latex d(p, q) = \sqrt{\sum_{n=1}^N{(p_i - q_i)^2}}
      *
-     * @param array $a 2-D array with x and y coordinate
-     * @param array $b 2-D array with x and y coordinate
+     * @param array<string, int|float> $a 2-D array with x and y coordinate
+     * @param array<string, int|float> $b 2-D array with x and y coordinate
      *
      * @return float
      *
@@ -79,8 +79,8 @@ final class Metrics2D
      *
      * @latex d(p, q) = \begin{cases}(\sqrt{2} - 1) \times |p_i - q_i| + |p_{i+1} - q_{i+1}|,& \text{if } |p_i - q_i| < |p_{i+1} - q_{i+1}|\\(\sqrt{2} - 1) \times |p_{i+1} - q_{i+1}| + |p_i - q_i|,&\text{if } |p_i - q_i| \geq |p_{i+1} - q_{i+1}|\end{cases}
      *
-     * @param array $a 2-D array with x and y coordinate
-     * @param array $b 2-D array with x and y coordinate
+     * @param array<string, int|float> $a 2-D array with x and y coordinate
+     * @param array<string, int|float> $b 2-D array with x and y coordinate
      *
      * @return float
      *
@@ -99,8 +99,8 @@ final class Metrics2D
      *
      * @latex d(p, q) = \max_i{(|p_i - q_i|)}
      *
-     * @param array $a 2-D array with x and y coordinate
-     * @param array $b 2-D array with x and y coordinate
+     * @param array<string, int|float> $a 2-D array with x and y coordinate
+     * @param array<string, int|float> $b 2-D array with x and y coordinate
      *
      * @return float
      *
@@ -119,8 +119,8 @@ final class Metrics2D
      *
      * @latex d(p, q) = \sqrt[\lambda]{\sum_{n=1}^N{|p_i - q_i|^\lambda}}
      *
-     * @param array $a      2-D array with x and y coordinate
-     * @param array $b      2-D array with x and y coordinate
+     * @param array<string, int|float> $a      2-D array with x and y coordinate
+     * @param array<string, int|float> $b      2-D array with x and y coordinate
      * @param int   $lambda Lambda
      *
      * @return float
@@ -141,8 +141,8 @@ final class Metrics2D
      *
      * @latex d(p, q) = \sum_{n=1}^N{\frac{|p_i - q_i|}{|p_i| + |q_i|}
      *
-     * @param array $a 2-D array with x and y coordinate
-     * @param array $b 2-D array with x and y coordinate
+     * @param array<string, int|float> $a 2-D array with x and y coordinate
+     * @param array<string, int|float> $b 2-D array with x and y coordinate
      *
      * @return float
      *
@@ -159,8 +159,8 @@ final class Metrics2D
      *
      * @latex d(p, q) = \frac{\sum_{n=1}^N{|p_i - q_i|}}{\sum_{n=1}^N{(p_i + q_i)}}
      *
-     * @param array $a 2-D array with x and y coordinate
-     * @param array $b 2-D array with x and y coordinate
+     * @param array<string, int|float> $a 2-D array with x and y coordinate
+     * @param array<string, int|float> $b 2-D array with x and y coordinate
      *
      * @return float
      *
@@ -179,8 +179,8 @@ final class Metrics2D
      *
      * @latex d(p, q) = \frac{\sum_{n=1}^N{p_i * q_i}}{\left(\sum_{n=1}^N{p_i^2} * \sum_{n=1}^N{q_i^2}\right)^\frac{1}{2}}
      *
-     * @param array $a 2-D array with x and y coordinate
-     * @param array $b 2-D array with x and y coordinate
+     * @param array<string, int|float> $a 2-D array with x and y coordinate
+     * @param array<string, int|float> $b 2-D array with x and y coordinate
      *
      * @return float
      *
@@ -196,8 +196,8 @@ final class Metrics2D
      *
      * @latex d(p, q) = \sum_{n=1}^N{|p_i - q_i|}
      *
-     * @param array $a 2-D array with x and y coordinate
-     * @param array $b 2-D array with x and y coordinate
+     * @param array<string, int|float> $a 2-D array with x and y coordinate
+     * @param array<string, int|float> $b 2-D array with x and y coordinate
      *
      * @return int
      *
@@ -226,8 +226,8 @@ final class Metrics2D
      *
      * In order to use this with objects the objects would have to implement some kind of value representation for comparison.
      *
-     * @param array $a Array with elements
-     * @param array $b Array with same elements but different order
+     * @param array<string, int|float> $a Array with elements
+     * @param array<string, int|float> $b Array with same elements but different order
      *
      * @return int
      *

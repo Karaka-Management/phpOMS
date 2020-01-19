@@ -50,7 +50,7 @@ final class ModuleManager
      *
      * This is important to inform other modules what kind of information they can receive from other modules.
      *
-     * @var   array<string, array<int, string>>
+     * @var   array<string, string[]>
      * @since 1.0.0
      */
     private array $providing = [];
@@ -122,7 +122,7 @@ final class ModuleManager
      *
      * @param RequestAbstract $request Request
      *
-     * @return array<string>
+     * @return string[]
      *
      * @since 1.0.0
      */
@@ -818,7 +818,7 @@ final class ModuleManager
      *
      * @param Request $request Request
      *
-     * @return array<string>
+     * @return string[]
      *
      * @since 1.0.0
      */

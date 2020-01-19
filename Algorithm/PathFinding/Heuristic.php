@@ -29,9 +29,9 @@ final class Heuristic
     /**
      * Calculate metric/distance between two nodes.
      *
-     * @param array $node1     Array with 'x' and 'y' coordinate
-     * @param array $node2     Array with 'x' and 'y' coordinate
-     * @param int   $heuristic Heuristic to use for calculation
+     * @param array<string, int|float> $node1     Array with 'x' and 'y' coordinate
+     * @param array<string, int|float> $node2     Array with 'x' and 'y' coordinate
+     * @param int                      $heuristic Heuristic to use for calculation
      *
      * @return float
      *

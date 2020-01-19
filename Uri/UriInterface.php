@@ -155,7 +155,7 @@ interface UriInterface
     /**
      * Get path elements.
      *
-     * @return array
+     * @return string[]
      *
      * @since 1.0.0
      */
@@ -175,7 +175,7 @@ interface UriInterface
     /**
      * Get query array.
      *
-     * @return array
+     * @return array<string, string>
      *
      * @since 1.0.0
      */

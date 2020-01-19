@@ -128,7 +128,7 @@ final class L11nManager
      * @param string $language Language iso code
      * @param string $module   Module name
      *
-     * @return array
+     * @return array<string, string>|array<string, array<string, string>>
      *
      * @since 1.0.0
      */

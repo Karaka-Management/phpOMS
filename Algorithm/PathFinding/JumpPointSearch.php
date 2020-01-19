@@ -136,7 +136,7 @@ final class JumpPointSearch implements PathFinderInterface
      * @param int           $movement Movement type
      * @param Grid          $grid     Grid of the nodes
      *
-     * @return array Neighbors of node
+     * @return Node[] Neighbors of node
      *
      * @since 1.0.0
      */
@@ -159,7 +159,7 @@ final class JumpPointSearch implements PathFinderInterface
      * @param JumpPointNode $node Node to find successor for
      * @param Grid          $grid Grid of the nodes
      *
-     * @return array Neighbors of node
+     * @return Node[] Neighbors of node
      *
      * @since 1.0.0
      */
@@ -216,7 +216,7 @@ final class JumpPointSearch implements PathFinderInterface
      * @param JumpPointNode $node Node to find successor for
      * @param Grid          $grid Grid of the nodes
      *
-     * @return array Neighbors of node
+     * @return Node[] Neighbors of node
      *
      * @since 1.0.0
      */
@@ -293,7 +293,7 @@ final class JumpPointSearch implements PathFinderInterface
      * @param JumpPointNode $node Node to find successor for
      * @param Grid          $grid Grid of the nodes
      *
-     * @return array Neighbors of node
+     * @return Node[] Neighbors of node
      *
      * @since 1.0.0
      */
@@ -366,7 +366,7 @@ final class JumpPointSearch implements PathFinderInterface
      * @param JumpPointNode $node Node to find successor for
      * @param Grid          $grid Grid of the nodes
      *
-     * @return array Neighbors of node
+     * @return Node[] Neighbors of node
      *
      * @since 1.0.0
      */

@@ -104,7 +104,7 @@ class Matrix implements \ArrayAccess, \Iterator
      * @param int $m Row
      * @param int $n Column
      *
-     * @return mixed
+     * @return int|float
      *
      * @throws InvalidDimensionException
      *
@@ -176,8 +176,8 @@ class Matrix implements \ArrayAccess, \Iterator
     /**
      * Get sub matrix array.
      *
-     * @param array<int> $rows Row indices
-     * @param array<int> $cols Row indices
+     * @param int[] $rows Row indices
+     * @param int[] $cols Row indices
      *
      * @return Matrix
      *
@@ -204,9 +204,9 @@ class Matrix implements \ArrayAccess, \Iterator
     /**
      * Get sub matrix array.
      *
-     * @param int        $iRow Start row
-     * @param int        $lRow End row
-     * @param array<int> $cols Row indices
+     * @param int   $iRow Start row
+     * @param int   $lRow End row
+     * @param int[] $cols Row indices
      *
      * @return Matrix
      *
@@ -232,9 +232,9 @@ class Matrix implements \ArrayAccess, \Iterator
     /**
      * Get sub matrix array.
      *
-     * @param array<int> $rows Row indices
-     * @param int        $iCol Start col
-     * @param int        $lCol End col
+     * @param int[] $rows Row indices
+     * @param int   $iCol Start col
+     * @param int   $lCol End col
      *
      * @return Matrix
      *

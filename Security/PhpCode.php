@@ -98,7 +98,7 @@ final class PhpCode
     /**
      * Check if function is disabled
      *
-     * @param array<string> $functions Functions to check
+     * @param string[] $functions Functions to check
      *
      * @return bool Returns true if code has disabled function calls otherwise false is returned
      *

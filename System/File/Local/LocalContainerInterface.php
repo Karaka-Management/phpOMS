@@ -190,9 +190,9 @@ interface LocalContainerInterface
     /**
      * Count subresources.
      *
-     * @param string        $path      Path of the resource
-     * @param bool          $recursive Consider subdirectories
-     * @param array<string> $ignore    Files/paths to ignore (no regex)
+     * @param string   $path      Path of the resource
+     * @param bool     $recursive Consider subdirectories
+     * @param string[] $ignore    Files/paths to ignore (no regex)
      *
      * @return int
      *

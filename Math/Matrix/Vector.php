@@ -44,7 +44,7 @@ final class Vector extends Matrix
      *
      * @param int $m Position to get
      *
-     * @return mixed
+     * @return int|float
      *
      * @since 1.0.0
      */
@@ -56,7 +56,7 @@ final class Vector extends Matrix
     /**
      * Set matrix
      *
-     * @param array $vector 1-Dimensional array
+     * @param array<int, int|float> $vector 1-Dimensional array
      *
      * @return Vector
      *

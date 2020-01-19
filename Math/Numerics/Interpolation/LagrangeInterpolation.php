@@ -35,7 +35,7 @@ final class LagrangeInterpolation implements InterpolationInterface
     /**
      * Constructor.
      *
-     * @param array $points Points to create the interpolation with
+     * @param array<int, array<string, int|float>> $points Points to create the interpolation with
      *
      * @since 1.0.0
      */

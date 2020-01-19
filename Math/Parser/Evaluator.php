@@ -89,7 +89,7 @@ final class Evaluator
      *
      * @param string $equation Equation to convert
      *
-     * @return array<int, string>
+     * @return string[]
      *
      * @since 1.0.0
      */
@@ -147,7 +147,7 @@ final class Evaluator
             $output[] = \array_pop($stack);
         }
 
-        /** @var array<int, string> $output */
+        /** @var string[] $output */
         return $output;
     }
 }

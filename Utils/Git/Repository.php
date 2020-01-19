@@ -137,7 +137,7 @@ class Repository
     /**
      * Get all branches.
      *
-     * @return array<string>
+     * @return string[]
      *
      * @since 1.0.0
      */
@@ -162,7 +162,7 @@ class Repository
      *
      * @param string $cmd Command to run
      *
-     * @return array<string>
+     * @return string[]
      *
      * @throws \Exception
      *
@@ -214,7 +214,7 @@ class Repository
      *
      * @param string $lines Result of git command
      *
-     * @return array<string>
+     * @return string[]
      *
      * @since 1.0.0
      */
@@ -466,7 +466,7 @@ class Repository
     /**
      * Get all remote branches.
      *
-     * @return array<string>
+     * @return string[]
      *
      * @since 1.0.0
      */
@@ -644,7 +644,7 @@ class Repository
     /**
      * Get LOC.
      *
-     * @param array<string> $extensions Extensions whitelist
+     * @param string[] $extensions Extensions whitelist
      *
      * @return int
      *

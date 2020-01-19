@@ -35,7 +35,30 @@ class Grid
     /**
      * Create a grid from an array
      *
-     * @param array $gridArray Grid defined in an array (0 = empty, 1 = start, 2 = end, 9 = not walkable)
+     * [
+     *      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,],
+     *      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 9, 0, 0, 0, 0,],
+     *      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,],
+     *      [0, 0, 9, 9, 9, 0, 0, 0, 0, 0, 9, 0, 0, 0, 0,],
+     *      [0, 0, 0, 0, 9, 9, 9, 9, 9, 0, 9, 0, 0, 0, 0,],
+     *      [0, 0, 1, 0, 9, 0, 0, 0, 0, 0, 9, 0, 9, 9, 9,],
+     *      [0, 0, 0, 0, 9, 0, 0, 9, 9, 9, 9, 0, 0, 0, 0,],
+     *      [0, 0, 9, 9, 9, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,],
+     *      [0, 0, 0, 9, 0, 0, 0, 9, 0, 0, 9, 9, 9, 9, 0,],
+     *      [0, 0, 0, 9, 0, 0, 0, 9, 0, 0, 0, 0, 0, 0, 0,],
+     *      [0, 0, 0, 9, 0, 0, 0, 9, 0, 0, 9, 9, 0, 0, 0,],
+     *      [0, 0, 0, 0, 0, 9, 9, 9, 0, 0, 9, 2, 0, 0, 0,],
+     *      [0, 0, 0, 0, 0, 9, 0, 0, 0, 0, 9, 9, 0, 0, 0,],
+     *      [0, 0, 0, 0, 0, 9, 0, 0, 0, 0, 0, 0, 0, 0, 0,],
+     *      [0, 0, 0, 0, 0, 9, 0, 0, 0, 0, 0, 0, 0, 0, 0,],
+     * ]
+     *
+     * @param array<int, int[]> $gridArray Grid defined in an array (0 = empty, 1 = start, 2 = end, 9 = not walkable)
+     * @param string            $node      Node type name
+     *
+     * @return Grid
+     *
+     * @since 1.0.0
      */
     public static function createGridFromArray(array $gridArray, string $node) : self
     {
@@ -111,7 +134,7 @@ class Grid
      * @param Node $node     Node to get neighbors from
      * @param int  $movement Allowed movements
      *
-     * @return array
+     * @return Node[]
      *
      * @since 1.0.0
      */

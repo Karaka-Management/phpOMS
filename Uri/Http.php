@@ -49,7 +49,7 @@ final class Http implements UriInterface
     /**
      * Path elements.
      *
-     * @var   array
+     * @var   string[]
      * @since 1.0.0
      */
     private array $pathElements;
@@ -113,7 +113,7 @@ final class Http implements UriInterface
     /**
      * Uri query.
      *
-     * @var   array
+     * @var   array<string, string>
      * @since 1.0.0
      */
     private array $query = [];

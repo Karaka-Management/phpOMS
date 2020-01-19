@@ -173,7 +173,7 @@ class Node
     /**
      * Get the coordinates of this node.
      *
-     * @return array ['x' => ?, 'y' => ?]
+     * @return array<string, int> ['x' => ?, 'y' => ?]
      *
      * @since 1.0.0
      */

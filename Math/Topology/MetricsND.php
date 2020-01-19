@@ -42,8 +42,8 @@ final class MetricsND
      *
      * @latex d(p, q) = \sum_{n=1}^N{|p_i - q_i|}
      *
-     * @param array $a n-D array
-     * @param array $b n-D array
+     * @param array<int|string, int|float> $a n-D array
+     * @param array<int|string, int|float> $b n-D array
      *
      * @return float
      *
@@ -68,8 +68,8 @@ final class MetricsND
      *
      * @latex d(p, q) = \sqrt{\sum_{n=1}^N{(p_i - q_i)^2}}
      *
-     * @param array $a n-D array
-     * @param array $b n-D array
+     * @param array<int|string, int|float> $a n-D array
+     * @param array<int|string, int|float> $b n-D array
      *
      * @return float
      *
@@ -94,8 +94,8 @@ final class MetricsND
      *
      * @latex d(p, q) = \max_i{(|p_i - q_i|)}
      *
-     * @param array $a n-D array
-     * @param array $b n-D array
+     * @param array<int|string, int|float> $a n-D array
+     * @param array<int|string, int|float> $b n-D array
      *
      * @return float
      *
@@ -120,8 +120,8 @@ final class MetricsND
      *
      * @latex d(p, q) = \sqrt[\lambda]{\sum_{n=1}^N{|p_i - q_i|^\lambda}}
      *
-     * @param array $a      n-D array
-     * @param array $b      n-D array
+     * @param array<int|string, int|float> $a      n-D array
+     * @param array<int|string, int|float> $b      n-D array
      * @param int   $lambda Lambda
      *
      * @return float
@@ -147,8 +147,8 @@ final class MetricsND
      *
      * @latex d(p, q) = \sum_{n=1}^N{\frac{|p_i - q_i|}{|p_i| + |q_i|}
      *
-     * @param array $a n-D array
-     * @param array $b n-D array
+     * @param array<int|string, int|float> $a n-D array
+     * @param array<int|string, int|float> $b n-D array
      *
      * @return float
      *
@@ -173,8 +173,8 @@ final class MetricsND
      *
      * @latex d(p, q) = \frac{\sum_{n=1}^N{|p_i - q_i|}}{\sum_{n=1}^N{(p_i + q_i)}}
      *
-     * @param array $a n-D array
-     * @param array $b n-D array
+     * @param array<int|string, int|float> $a n-D array
+     * @param array<int|string, int|float> $b n-D array
      *
      * @return float
      *
@@ -201,8 +201,8 @@ final class MetricsND
      *
      * @latex d(p, q) = \frac{\sum_{n=1}^N{p_i * q_i}}{\left(\sum_{n=1}^N{p_i^2} * \sum_{n=1}^N{q_i^2}\right)^\frac{1}{2}}
      *
-     * @param array $a n-D array
-     * @param array $b n-D array
+     * @param array<int|string, int|float> $a n-D array
+     * @param array<int|string, int|float> $b n-D array
      *
      * @return float
      *
@@ -231,8 +231,8 @@ final class MetricsND
      *
      * @latex d(p, q) = \sum_{n=1}^N{|p_i - q_i|}
      *
-     * @param array $a n-D array
-     * @param array $b n-D array
+     * @param array<int|string, int|float> $a n-D array
+     * @param array<int|string, int|float> $b n-D array
      *
      * @return int
      *

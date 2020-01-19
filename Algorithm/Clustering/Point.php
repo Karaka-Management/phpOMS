@@ -51,8 +51,8 @@ class Point implements PointInterface
     /**
      * Constructor.
      *
-     * @param array  $coordinates Coordinates of the point
-     * @param string $name        Name of the point
+     * @param array<int, int|float> $coordinates Coordinates of the point
+     * @param string                $name        Name of the point
      *
      * @since 1.0.0
      */
