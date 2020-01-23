@@ -83,4 +83,14 @@ class NormalDistributionTest extends \PHPUnit\Framework\TestCase
 
         self::assertEquals($sig, NormalDistribution::getStandardDeviation($sig));
     }
+
+    public function testSampleSizeCalculation() : void
+    {
+        self::assertEqualsWithDelta(277.54, NormalDistribution::getSampleSizeFromPopulation(NormalDistribution::TABLE['0.95'], 0.05, 1000, 0.5), 0.01);
+    }
+
+    public function testSampleSizeInfiniteCalculation() : void
+    {
+        self::assertEqualsWithDelta(384.16, NormalDistribution::getSampleSizeFromInfinitePopulation(NormalDistribution::TABLE['0.95'], 0.05, 0.5), 0.01);
+    }
 }

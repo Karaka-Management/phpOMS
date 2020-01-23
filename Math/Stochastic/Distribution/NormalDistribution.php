@@ -25,15 +25,50 @@ namespace phpOMS\Math\Stochastic\Distribution;
 final class NormalDistribution
 {
     /**
-     * Chi square table.
+     * Normal table.
      *
-     * @var   array<int, array<string, float>>
+     * Z-Score.
+     *
+     * @var   array<string, float>
      * @since 1.0.0
      */
     public const TABLE = [
         '0.50' => 0.67, '0.55' => 0.76, '0.60' => 0.84, '0.65' => 0.93, '0.70' => 1.04, '0.75' => 1.15, '0.80' => 1.28,
         '0.85' => 1.44, '0.90' => 1.64, '0.95' => 1.96, '0.96' => 2.05, '0.97' => 2.17, '0.98' => 2.33, '0.99' => 2.58,
     ];
+
+    /**
+     * Calculate the sample size
+     *
+     * @param float $zScore               Z-Score
+     * @param float $errorMargin          Error margin
+     * @param int   $populationSize       Population size
+     * @param float $populationProportion Proportion of the population (percentage)
+     *
+     * @return float
+     *
+     * @since 1.0.0
+     */
+    public static function getSampleSizeFromPopulation(float $zScore, float $errorMargin, int $populationSize, float $populationProportion) : float
+    {
+        return self::getSampleSizeFromInfinitePopulation($zScore, $errorMargin, $populationProportion) / (1 + $zScore ** 2 * $populationProportion * (1 - $populationProportion) / ($errorMargin ** 2 * $populationSize));
+    }
+
+    /**
+     * Calculate the sample size
+     *
+     * @param float $zScore               Z-Score
+     * @param float $errorMargin          Error margin
+     * @param float $populationProportion Proportion of the population (percentage)
+     *
+     * @return float
+     *
+     * @since 1.0.0
+     */
+    public static function getSampleSizeFromInfinitePopulation(float $zScore, float $errorMargin, float $populationProportion) : float
+    {
+        return ($zScore ** 2) * $populationProportion * (1 - $populationProportion) / ($errorMargin ** 2);
+    }
 
     /**
      * Get probability density function.
