@@ -29,7 +29,7 @@ final class Evaluator
      *
      * @param string $equation Formula to evaluate
      *
-     * @return float
+     * @return null|float
      *
      * @throws \Exception
      *

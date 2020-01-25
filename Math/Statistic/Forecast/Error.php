@@ -326,7 +326,7 @@ final class Error
         $deviation = MeasureOfDispersion::meanDeviation($observed);
 
         foreach ($errors as $error) {
-            $error[] = $error / $deviation;
+            $scaled[] = $error / $deviation;
         }
 
         return $scaled;

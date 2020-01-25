@@ -63,6 +63,7 @@ final class AStar implements PathFinderInterface
                 break;
             }
 
+            /** @var AStarNode[] $neighbors */
             $neighbors       = $grid->getNeighbors($node, $movement);
             $neighborsLength = \count($neighbors);
             for ($i = 0; $i < $neighborsLength; ++$i) {

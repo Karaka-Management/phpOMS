@@ -175,6 +175,7 @@ class Grid
         }
 
         if ($movement === MovementType::STRAIGHT) {
+            /** @var Node[] $neighbors */
             return $neighbors;
         }
 
@@ -211,6 +212,7 @@ class Grid
             $neighbors[] = $this->getNode($x - 1, $y + 1);
         }
 
+        /** @var Node[] $neighbors */
         return $neighbors;
     }
 }

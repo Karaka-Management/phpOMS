@@ -92,6 +92,7 @@ final class JumpPointSearch implements PathFinderInterface
      */
     public static function identifySuccessors(JumpPointNode $node, Grid $grid, int $heuristic, int $movement, JumpPointNode $endNode, Heap $openList) : Heap
     {
+        /** @var JumpPointNode[] $neighbors */
         $neighbors       = self::findNeighbors($node, $movement, $grid);
         $neighborsLength = \count($neighbors);
 
@@ -207,6 +208,7 @@ final class JumpPointSearch implements PathFinderInterface
             }
         }
 
+        /** @var JumpPointNode[] $neighbors */
         return $neighbors;
     }
 
@@ -284,6 +286,7 @@ final class JumpPointSearch implements PathFinderInterface
             }
         }
 
+        /** @var JumpPointNode[] $neighbors */
         return $neighbors;
     }
 
@@ -357,6 +360,7 @@ final class JumpPointSearch implements PathFinderInterface
             }
         }
 
+        /** @var JumpPointNode[] $neighbors */
         return $neighbors;
     }
 
@@ -448,6 +452,7 @@ final class JumpPointSearch implements PathFinderInterface
             }
         }
 
+        /** @var JumpPointNode[] $neighbors */
         return $neighbors;
     }
 

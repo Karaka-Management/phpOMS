@@ -196,8 +196,8 @@ final class Metrics2D
      *
      * @latex d(p, q) = \sum_{n=1}^N{|p_i - q_i|}
      *
-     * @param array<string, int|float> $a 2-D array with x and y coordinate
-     * @param array<string, int|float> $b 2-D array with x and y coordinate
+     * @param array<int, int|float> $a 2-D array with x and y coordinate
+     * @param array<int, int|float> $b 2-D array with x and y coordinate
      *
      * @return int
      *
@@ -226,8 +226,8 @@ final class Metrics2D
      *
      * In order to use this with objects the objects would have to implement some kind of value representation for comparison.
      *
-     * @param array<string, int|float> $a Array with elements
-     * @param array<string, int|float> $b Array with same elements but different order
+     * @param array<int, int|float> $a Array with elements
+     * @param array<int, int|float> $b Array with same elements but different order
      *
      * @return int
      *
