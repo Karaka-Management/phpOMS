@@ -14,7 +14,7 @@ declare(strict_types=1);
 
 require_once __DIR__ . '/Preloader.php';
 
-$preloader = new Preloader();
+$preloader = new \phpOMS\Preloader();
 
 $preloader->includePath(__DIR__ . '/Account')
     ->includePath(__DIR__ . '/Asset')
