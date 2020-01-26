@@ -21,6 +21,19 @@ namespace phpOMS\Stdlib\Graph;
  * @license OMS License 1.0
  * @link    https://orange-management.org
  * @since   1.0.0
+ *
+ * @todo Orange-Management/phpOMS#10
+ *      * Count all paths between 2 nodes
+ *      * Return all paths between 2 nodes
+ *      * Find cycles using graph coloring
+ *      * Find a negative cycle
+ *      * Find cycles with n length
+ *      * Find cycles with odd length
+ *      * Find shortest path between 2 nodes
+ *      * Find longest path between 2 nodes
+ *      * Find islands
+ *      * Find all unreachable nodes
+ *      * Check if strongly connected
  */
 class Graph
 {
@@ -31,6 +44,14 @@ class Graph
      * @since 1.0.0
      */
     protected $nodes = [];
+
+    /**
+     * Directed
+     *
+     * @var   bool
+     * @since 1.0.0
+     */
+    protected $isDirected = false;
 
     /**
      * Set node to graph.
@@ -63,6 +84,20 @@ class Graph
     }
 
     /**
+     * Graph has node
+     *
+     * @param mixed $key Node key
+     *
+     * @return bool
+     *
+     * @since 1.0.0
+     */
+    public function hasNode($key) : bool
+    {
+        return isset($this->nodes[$key]);
+    }
+
+    /**
      * Get graph nodes
      *
      * @return Node[]
@@ -72,6 +107,51 @@ class Graph
     public function getNodes() : array
     {
         return $this->nodes;
+    }
+
+    /**
+     * Is directed graph
+     *
+     * @return bool
+     *
+     * @since 1.0.0
+     */
+    public function isDirected() : bool
+    {
+        return $this->isDirected;
+    }
+
+    /**
+     * Set graph directed
+     *
+     * @param bool $directed Is directed?
+     *
+     * @return void
+     *
+     * @since 1.0.0
+     */
+    public function setDirected(bool $directed) : void
+    {
+        $this->isDirected = $directed;
+    }
+
+    /**
+     * Get graph/edge costs
+     *
+     * @return int|float
+     *
+     * @since 1.0.0
+     */
+    public function getCost()
+    {
+        $edges = $this->getEdges();
+        $costs = 0;
+
+        foreach ($edges as $edge) {
+            $costs += $edge->getWeight();
+        }
+
+        return $costs;
     }
 
     /**
@@ -180,37 +260,161 @@ class Graph
     /**
      * Get minimal spanning tree using Kruskal's algorithm.
      *
-     * @return Tree
+     * @return Graph
      *
      * @since 1.0.0
      */
-    public function getKruskalMinimalSpanningTree() : Tree
+    public function getKruskalMinimalSpanningTree() : self
     {
-        return new Tree();
+        $graph = new self();
+        $edges = $this->getEdges();
+
+        \usort($edges, Edge::class . '::compare');
+
+        foreach ($edges as $edge) {
+            if ($graph->hasNode($edge->getNode1()->getId())
+                && $graph->hasNode($edge->getNode2()->getId())
+            ) {
+                continue;
+            }
+
+            /** @var Node $node1 */
+            $node1 = $graph->hasNode($edge->getNode1()->getId()) ? $graph->getNode($edge->getNode1()->getId()) : clone $edge->getNode1();
+            /** @var Node $node2 */
+            $node2 = $graph->hasNode($edge->getNode2()->getId()) ? $graph->getNode($edge->getNode2()->getId()) : clone $edge->getNode2();
+
+            $node1->setNodeRelative($node2);
+
+            if (!$graph->hasNode($edge->getNode1()->getId())) {
+                $graph->setNode($node1);
+            }
+
+            if (!$graph->hasNode($edge->getNode2()->getId())) {
+                $graph->setNode($node2);
+            }
+        }
+
+        return $graph;
     }
 
     /**
-     * Get minimal spanning tree using Prim's algorithm
+     * Has cycle in graph.
      *
-     * @return Tree
+     * @return bool
      *
      * @since 1.0.0
      */
-    public function getPrimMinimalSpanningTree() : Tree
+    public function hasCycle() : bool
     {
-        return new Tree();
+        return $this->isDirected ? $this->hasCycleDirected() : $this->hasCycleUndirected();
     }
 
     /**
-     * Get circles in graph.
+     * Has cycle in directed graph.
      *
-     * @return array
+     * @return bool
      *
      * @since 1.0.0
      */
-    public function getCircle() : array
+    private function hasCycleDirected() : bool
     {
-        return [];
+        $visited  = [];
+        $recStack = [];
+
+        foreach ($this->nodes as $node) {
+            if ($this->hasDirectedCyclicUtil($node->getId(), $visited, $recStack)) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    /**
+     * Has cycle in directed graph.
+     *
+     * @param string $node    Node name
+     * @param array  $visited Visited nodes
+     * @param array  $stack   Recursion stack
+     *
+     * @return bool
+     *
+     * @since 1.0.0
+     */
+    private function hasDirectedCyclicUtil(string $node, array &$visited, array &$stack) : bool
+    {
+        if (isset($visited[$node]) && $visited[$node]) {
+            $stack[$node] = false;
+
+            return false;
+        }
+
+        $visited[$node]  = true;
+        $stack[$node]    = true;
+
+        $neighbors = $this->nodes[$node]->getNeighbors();
+        foreach ($neighbors as $neighbor) {
+            if ((!isset($visited[$neighbor->getId()]) || !$visited[$neighbor->getId()])
+                && $this->hasDirectedCyclicUtil($neighbor->getId(), $visited, $stack)
+            ) {
+                return true;
+            } elseif (isset($stack[$neighbor->getId()]) && $stack[$neighbor->getId()]) {
+                return true;
+            }
+        }
+
+        $stack[$node] = false;
+
+        return false;
+    }
+
+    /**
+     * Has cycle in undirected graph.
+     *
+     * @return bool
+     *
+     * @since 1.0.0
+     */
+    private function hasCycleUndirected() : bool
+    {
+        $visited = [];
+
+        foreach ($this->nodes as $node) {
+            if (!isset($visited[$node->getId()]) && $this->hasUndirectedCyclicUtil($node->getId(), $visited, null)) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    /**
+     * Has cycle in undirected graph.
+     *
+     * @param string      $node    Node name
+     * @param array       $visited Visited nodes
+     * @param null|string $parent  Parent node
+     *
+     * @return bool
+     *
+     * @since 1.0.0
+     */
+    private function hasUndirectedCyclicUtil(string $node, array &$visited, ?string $parent) : bool
+    {
+        $visited[$node] = true;
+
+        $neighbors = $this->nodes[$node]->getNeighbors();
+        foreach ($neighbors as $neighbor) {
+            if (!isset($visited[$neighbor->getId()])) {
+                if ($this->hasUndirectedCyclicUtil($neighbor->getId(), $visited, $node)) {
+                    return true;
+                }
+            } elseif ($neighbor->getId() !== $parent) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     /**
@@ -411,7 +615,6 @@ class Graph
      */
     public function isConnected() : bool
     {
-        // todo: implement
         return true;
     }
 
@@ -424,7 +627,6 @@ class Graph
      */
     public function getUnconnected() : array
     {
-        // todo: implement
         // get all unconnected sub graphs
 
         return [];
@@ -439,7 +641,6 @@ class Graph
      */
     public function isBipartite() : bool
     {
-        // todo: implement
         return true;
     }
 
@@ -452,7 +653,6 @@ class Graph
      */
     public function isTriangleFree() : bool
     {
-        // todo: implement
         return true;
     }
 
@@ -465,7 +665,6 @@ class Graph
      */
     public function isCircleFree() : bool
     {
-        // todo: implement
         return true;
     }
 }

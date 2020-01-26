@@ -50,7 +50,6 @@ class GraphTest extends \PHPUnit\Framework\TestCase
         self::assertTrue($graph->isCircleFree());
 
         self::assertEquals([], $graph->getBridges());
-        self::assertEquals([], $graph->getCircle());
         self::assertEquals([], $graph->getFloydWarshallShortestPath());
         self::assertEquals([], $graph->getDijkstraShortestPath());
         self::assertEquals([], $graph->depthFirstTraversal());
