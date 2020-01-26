@@ -10,7 +10,7 @@ jobs:
             max-parallel: 3
         steps:
             - name: Checkout Repository
-            uses: actions/checkout@master
+                uses: actions/checkout@master
             with:
                 fetch-depth: 1
             - name: Get Composer Cache Directory
