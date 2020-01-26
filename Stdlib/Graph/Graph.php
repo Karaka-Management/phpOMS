@@ -349,8 +349,8 @@ class Graph
             return false;
         }
 
-        $visited[$node]  = true;
-        $stack[$node]    = true;
+        $visited[$node] = true;
+        $stack[$node]   = true;
 
         $neighbors = $this->nodes[$node]->getNeighbors();
         foreach ($neighbors as $neighbor) {
