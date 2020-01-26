@@ -34,6 +34,16 @@ namespace phpOMS\Stdlib\Graph;
  *      * Find islands
  *      * Find all unreachable nodes
  *      * Check if strongly connected
+ *      * Find longest path between 2 nodes
+ *      * Find longest path
+ *      * Get the girth
+ *      * Get the circuit rank
+ *      * Get the node connectivity
+ *      * Get the edge connectivity
+ *      * Is the graph connected
+ *      * Get the unconnected nodes as their own graph
+ *      * Check if bipartite
+ *      * Check if triangle free
  */
 class Graph
 {
@@ -652,18 +662,6 @@ class Graph
      * @since 1.0.0
      */
     public function isTriangleFree() : bool
-    {
-        return true;
-    }
-
-    /**
-     * Is the graph circle free?
-     *
-     * @return bool
-     *
-     * @since 1.0.0
-     */
-    public function isCircleFree() : bool
     {
         return true;
     }
