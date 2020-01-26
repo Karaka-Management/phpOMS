@@ -44,7 +44,7 @@ class GraphTest extends \PHPUnit\Framework\TestCase
         self::assertEquals(0, $graph->getNodeConnectivity());
         self::assertEquals(0, $graph->getEdgeConnectivity());
 
-        self::assertTrue($graph->isConnected());
+        self::assertEquals(true, $graph->isConnected());
         self::assertTrue($graph->isBipartite());
         self::assertTrue($graph->isTriangleFree());
 
