@@ -84,7 +84,7 @@ abstract class BuilderAbstract
      *
      * @param string $prefix Table name prefix
      *
-     * @return self
+     * @return static
      *
      * @since 1.0.0
      */
